@@ -82,7 +82,7 @@ namespace YellowstonePathology.Business.Persistence
         {
             try
             {
-                this.m_DataTableReader.GetOrdinal(name);
+                int a = this.m_DataTableReader.GetOrdinal(name);
                 return true;
             }
             catch
@@ -140,7 +140,16 @@ namespace YellowstonePathology.Business.Persistence
 
         private void WriteBoolean(PropertyInfo property)
         {
-            bool sqlValue = Convert.ToBoolean(this.m_DataTableReader[property.Name].ToString());
+            bool sqlValue = false;
+            Type type = this.m_DataTableReader[property.Name].GetType();
+            if(type == typeof(Boolean))
+            {
+                sqlValue = (Boolean)this.m_DataTableReader[property.Name];
+            }
+            else if (type == typeof(UInt64))
+            {
+                sqlValue = Convert.ToBoolean((UInt64)this.m_DataTableReader[property.Name]);
+            }
             property.SetValue(this.m_ObjectToWriteTo, sqlValue, null);
         }
 
@@ -149,7 +158,15 @@ namespace YellowstonePathology.Business.Persistence
             Nullable<bool> sqlValue = null;
             if (this.m_DataTableReader[property.Name] != DBNull.Value)
             {
-                sqlValue = Convert.ToBoolean(this.m_DataTableReader[property.Name].ToString());
+                Type type = this.m_DataTableReader[property.Name].GetType();
+                if (type == typeof(Boolean))
+                {
+                    sqlValue = (Boolean)this.m_DataTableReader[property.Name];
+                }
+                else if (type == typeof(UInt64))
+                {
+                    sqlValue = Convert.ToBoolean((UInt64)this.m_DataTableReader[property.Name]);
+                }
             }
             property.SetValue(this.m_ObjectToWriteTo, sqlValue, null);
         }

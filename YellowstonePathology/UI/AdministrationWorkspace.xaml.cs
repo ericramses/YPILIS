@@ -1191,7 +1191,7 @@ namespace YellowstonePathology.UI
         private void ButtonWilliamTesting_Click(object sender, RoutedEventArgs e)
         {
             List<string> masterAccessionNos = new List<string>();
-            masterAccessionNos.Add("16-123");
+            /*masterAccessionNos.Add("16-123");
             masterAccessionNos.Add("16-17110");
             masterAccessionNos.Add("16-11839");
             masterAccessionNos.Add("16-18075");
@@ -1199,37 +1199,38 @@ namespace YellowstonePathology.UI
             masterAccessionNos.Add("16-19328");
             masterAccessionNos.Add("16-19220");
             masterAccessionNos.Add("16-9960");
-            masterAccessionNos.Add("16-12139");
+            masterAccessionNos.Add("16-12139");*/
+            masterAccessionNos.Add("13-30079");
             foreach (string masterAccessionNo in masterAccessionNos)
             {
                 SqlCommand cmd1 = new SqlCommand();
-                cmd1.CommandText = "gwGetAccessionByMasterAccessionNo_A8";
-                cmd1.CommandType = CommandType.StoredProcedure;
-                cmd1.Parameters.Add("@MasterAccessionNo", SqlDbType.VarChar).Value = masterAccessionNo;
+                cmd1.CommandText = "Select 'tblAccessionOrder' tablename, ao.* from tblAccessionOrder ao where MasterAccessionNo = '13-30079'"; //gwGetAccessionByMasterAccessionNo_A8";
+                cmd1.CommandType = CommandType.Text; //.StoredProcedure;
+                //cmd1.Parameters.Add("@MasterAccessionNo", SqlDbType.VarChar).Value = masterAccessionNo;
 
-                SqlCommand cmd2 = new SqlCommand();
-                cmd2.CommandText = "prcGetAccessionOrder";
-                cmd2.CommandType = CommandType.StoredProcedure;
-                cmd2.Parameters.Add("@MasterAccessionNo", SqlDbType.VarChar).Value = masterAccessionNo;
+                MySqlCommand cmd2 = new MySqlCommand();
+                cmd2.CommandText = "Select 'tblAccessionOrder' tablename, ao.* from tblAccessionOrder ao where MasterAccessionNo = '13-30079'"; //"prcGetAccessionOrder";
+                cmd2.CommandType = CommandType.Text; //.StoredProcedure;
+                //cmd2.Parameters.Add("@MasterAccessionNo", SqlDbType.VarChar).Value = masterAccessionNo;
 
                 Business.Test.AccessionOrder ao1 = new Business.Test.AccessionOrder();
                 Business.Test.AccessionOrder ao2 = new Business.Test.AccessionOrder();
 
-                Business.Gateway.AccessionOrderBuilder accessionOrderBuilder = new Business.Gateway.AccessionOrderBuilder();
+                Business.Gateway.AccessionOrderBuilderV2 accessionOrderBuilder = new Business.Gateway.AccessionOrderBuilderV2();
                 accessionOrderBuilder.Build(cmd1, ao1);
 
                 Business.Gateway.AccessionOrderBuilderV2 accessionOrderBuilderV2 = new Business.Gateway.AccessionOrderBuilderV2();
-                accessionOrderBuilderV2.Build(cmd2, ao2);
+                accessionOrderBuilderV2.BuildMySql(cmd2, ao2);
 
                 string resultString = ao1.MasterAccessionNo + ": ";
-                /*Business.Persistence.ObjectComparer objectComparer = new Business.Persistence.ObjectComparer(ao1, ao2);
+                Business.Persistence.ObjectComparer objectComparer = new Business.Persistence.ObjectComparer(ao1, ao2);
                 objectComparer.Compare();
                 if (objectComparer.Result != true)
                 {
                     resultString += "results are not the same.";
-                }*/
+                }
 
-                StringBuilder result1 = new StringBuilder();
+                /*StringBuilder result1 = new StringBuilder();
                 Business.Persistence.JSONObjectWriter.WriteV2(result1, ao1);
 
                 StringBuilder result2 = new StringBuilder();
@@ -1245,7 +1246,7 @@ namespace YellowstonePathology.UI
                         resultString += s1.Substring(idx - 50, 51);
                         break;
                     }
-                }
+                }*/
 
                 MessageBox.Show(resultString);
             }

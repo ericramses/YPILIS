@@ -20,8 +20,8 @@ namespace YellowstonePathology.Business.Test.LLP
 		private int m_DimCD45ModSSCount;
 		private int m_OtherCount;
 		private string m_OtherName;
-		private string m_LightScatter;
-		private int? m_LightScatterV2;
+		private int? m_LightScatter;
+		//private string m_LightScatterV2;
 		private double m_BCellPercent;
 		private double m_TCellPercent;
 		private double m_NKCellPercent;
@@ -219,7 +219,7 @@ namespace YellowstonePathology.Business.Test.LLP
 		}
 
         [PersistentProperty()]
-		public string LightScatter
+		public int? LightScatter
 		{
 			get { return this.m_LightScatter; }
 			set
@@ -232,8 +232,8 @@ namespace YellowstonePathology.Business.Test.LLP
 			}
 		}
 
-        [PersistentProperty()]
-		public int? LightScatterV2
+        /*[PersistentProperty()]
+		public string LightScatterV2
 		{
 			get { return this.m_LightScatterV2; }
 			set
@@ -244,7 +244,7 @@ namespace YellowstonePathology.Business.Test.LLP
 					this.NotifyPropertyChanged("LightScatterV2");
 				}
 			}
-		}
+		}*/
 
         [PersistentProperty()]
 		public double BCellPercent

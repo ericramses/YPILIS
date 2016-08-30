@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 
 namespace YellowstonePathology.Business.Gateway
 {
@@ -141,6 +142,126 @@ namespace YellowstonePathology.Business.Gateway
             if (dr.IsClosed == false)
             {
                 HandleDataSets(dr);
+            }
+        }
+
+        public void BuildMySql(MySqlCommand cmd, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
+        {
+            this.m_PanelSetOrderReportNumbers = new List<string>();
+            this.m_PanelOrderIds = new List<string>();
+            this.m_AccessionOrder = accessionOrder;
+
+            using (MySqlConnection cn = new MySqlConnection("Server = 10.1.2.26; Uid = sqldude; Pwd = 123Whatsup; Database = lis;"))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader(CommandBehavior.KeyInfo))
+                {
+                    HandleMySqlDataSets(dr);
+                }
+            }
+
+            this.m_AccessionOrder.AccessionLock.MasterAccessionNo = accessionOrder.MasterAccessionNo;
+            this.m_AccessionOrder.PanelSetOrderCollection.RemoveDeleted(this.m_PanelSetOrderReportNumbers);
+            this.RemoveDeletedPanelOrders();
+            if (this.m_TestOrderDataTable != null) this.HandleSlideOrderTestOrder(this.m_TestOrderDataTable);
+            if (this.m_AliquotOrderDataTable != null) this.HandleTestOrderAliquotOrder(this.m_AliquotOrderDataTable);
+            if (this.m_SlideOrderDataTable != null) this.HandleTestOrderSlideOrderCollection(this.m_SlideOrderDataTable);
+
+            if (this.m_AccessionOrder.PanelSetOrderCollection.HasSurgical() == true)
+            {
+                Test.Surgical.SurgicalTestOrder surgicalTestOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetSurgical();
+                this.SetSurgicalAuditAmendment(surgicalTestOrder);
+                this.SetSurgicalSpecimenSpecimenOrder(surgicalTestOrder);
+                this.SetSurgicalSpecimenAuditSpecimenOrder(surgicalTestOrder);
+                this.SetSurgicalSpecimenOrderItemCollection(surgicalTestOrder);
+            }
+        }
+
+        private void HandleMySqlDataSets(MySqlDataReader dr)
+        {
+            DataSet dataSet = new DataSet();
+            dataSet.EnforceConstraints = false;
+            DataTable dataTable = new DataTable();
+            dataSet.Tables.Add(dataTable);
+            dataTable.Load(dr, LoadOption.OverwriteChanges);
+            if (dataTable.Rows.Count > 0)
+            {
+                string tablename = dataTable.Rows[0][0].ToString();
+                switch (tablename)
+                {
+                    case "tblAccessionOrder":
+                        this.HandleAccessionOrder(dataTable);
+                        break;
+                    case "tblSpecimenOrder":
+                        this.HandleSpecimenOrder(dataTable);
+                        break;
+                    case "tblAliquotOrder":
+                        this.HandleAliquotOrder(dataTable);
+                        break;
+                    case "tblSlideOrder":
+                        this.HandleSlideOrder(dataTable);
+                        break;
+                    case "tblPanelSetOrder":
+                        this.HandlePanelSetOrder(dataTable);
+                        break;
+                    case "tblPanelOrder":
+                        this.HandlePanelOrder(dataTable);
+                        break;
+                    case "tblTestOrder":
+                        this.HandleTestOrder(dataTable);
+                        break;
+                    case "tblTaskOrder":
+                        this.HandleTaskOrder(dataTable);
+                        break;
+                    case "tblTaskOrderDetail":
+                        this.HandleTaskOrderDetail(dataTable);
+                        break;
+                    case "tblICD9BillingCode":
+                        this.HandleICD9BillingCode(dataTable);
+                        break;
+                    case "tblAmendment":
+                        this.HandleAmendment(dataTable);
+                        break;
+                    case "tblPanelSetOrderCPTCode":
+                        this.HandlePanelSetOrderCPTCode(dataTable);
+                        break;
+                    case "tblPanelSetOrderCPTCodeBill":
+                        this.HandlePanelSetOrderCPTCodeBill(dataTable);
+                        break;
+                    case "tblTestOrderReportDistribution":
+                        this.HandleTestOrderReportDistribution(dataTable);
+                        break;
+                    case "tblTestOrderReportDistributionLog":
+                        this.HandleTestOrderReportDistributionLog(dataTable);
+                        break;
+                    case "tblSurgicalSpecimen":
+                        this.HandleSurgicalSpecimen(dataTable);
+                        break;
+                    case "tblIcd9Code":
+                        this.HandleICD9Code(dataTable);
+                        break;
+                    case "tblIntraoperativeConsultationResult":
+                        this.HandleIntraoperativeConsultationResult(dataTable);
+                        break;
+                    case "tblStainResult":
+                        this.HandleStainResult(dataTable);
+                        break;
+                    case "tblSurgicalAudit":
+                        this.HandleSurgicalAudit(dataTable);
+                        break;
+                    case "tblSurgicalSpecimenAudit":
+                        this.HandleSurgicalSpecimenAudit(dataTable);
+                        break;
+                    case "tblFlowMarkers":
+                        this.HandleFlowMarker(dataTable);
+                        break;
+                }
+            }
+
+            if (dr.IsClosed == false)
+            {
+                HandleMySqlDataSets(dr);
             }
         }
 
