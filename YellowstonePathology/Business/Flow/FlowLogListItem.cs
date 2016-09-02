@@ -36,21 +36,21 @@ namespace YellowstonePathology.Business.Flow
 			}
 		}
 
-		[PersistentDocumentIdProperty]
+		[PersistentDocumentIdProperty(50)]
 		public string ObjectId
 		{
 			get { return this.m_ObjectId; }
 			set { this.m_ObjectId = value; }
 		}
 
-		[PersistentProperty]
+		[PersistentProperty()]
 		public string ReportNo
 		{
 			get { return this.m_ReportNo; }
 			set { this.m_ReportNo = value; }
 		}
 
-		[PersistentProperty]
+		[PersistentProperty()]
 		public string PLastName
 		{
 			get { return this.m_PLastName; }
@@ -64,7 +64,7 @@ namespace YellowstonePathology.Business.Flow
 			}
 		}
 
-		[PersistentProperty]
+		[PersistentProperty()]
 		public string PFirstName
 		{
 			get { return this.m_PFirstName; }
@@ -78,7 +78,7 @@ namespace YellowstonePathology.Business.Flow
 			}
 		}
 
-		[PersistentProperty]
+		[PersistentProperty()]
 		public Nullable<DateTime> AccessionDate
 		{
 			get { return this.m_AccessionDate; }
@@ -92,7 +92,7 @@ namespace YellowstonePathology.Business.Flow
 			}
 		}
 
-		[PersistentProperty]
+		[PersistentProperty()]
 		public Nullable<DateTime> FinalDate
 		{
 			get { return this.m_FinalDate; }
@@ -106,7 +106,7 @@ namespace YellowstonePathology.Business.Flow
 			}
 		}
 
-		[PersistentProperty]
+		[PersistentProperty()]
 		public string TestName
 		{
 			get { return this.m_TestName; }
@@ -120,7 +120,7 @@ namespace YellowstonePathology.Business.Flow
 			}
 		}
 
-		[PersistentProperty]
+		[PersistentProperty()]
 		public string MasterAccessionNo
 		{
 			get { return this.m_MasterAccessionNo; }

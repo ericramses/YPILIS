@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
@@ -32,28 +32,28 @@ namespace YellowstonePathology.Business.Client.Model
 			this.m_DistributionID = distributionID;
 		}
 
-		[PersistentDocumentIdProperty()]
+		[PersistentDocumentIdProperty(50)]
 		public string ObjectId
 		{
 			get { return this.m_ObjectId; }
 			set { this.m_ObjectId = value; }
 		}
 
-		[PersistentPrimaryKeyProperty(true)]
+		[PersistentPrimaryKeyProperty(true, 0)]
 		public int PhysicianClientDistributionID
 		{
 			get { return this.m_PhysicianClientDistributionID; }
 			set { this.m_PhysicianClientDistributionID = value; }
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(50)]
 		public string PhysicianClientID
 		{
 			get { return this.m_PhysicianClientID; }
 			set { this.m_PhysicianClientID = value; }
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(50)]
 		public string DistributionID
 		{
 			get { return this.m_DistributionID; }

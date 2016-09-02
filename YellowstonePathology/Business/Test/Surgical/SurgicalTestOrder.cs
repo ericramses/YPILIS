@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
@@ -230,7 +230,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}		
 
-		[PersistentProperty()]
+		[PersistentStringProperty(-1)]
 		public string GrossX
 		{
 			get { return this.m_GrossX; }
@@ -244,7 +244,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(-1)]
 		public string ImmediateX
 		{
 			get { return this.m_ImmediateX; }
@@ -258,7 +258,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(-1)]
 		public string MicroscopicX
 		{
 			get { return this.m_MicroscopicX; }
@@ -272,7 +272,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(-1)]
 		public string Comment
 		{
 			get { return this.m_Comment; }
@@ -286,7 +286,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(-1)]
 		public string CancerSummary
 		{
 			get { return this.m_CancerSummary; }
@@ -300,7 +300,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(10)]
 		public string Status
 		{
 			get { return this.m_Status; }
@@ -314,7 +314,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(1000)]
 		public string ImmunoComment
 		{
 			get { return this.m_ImmunoComment; }
@@ -328,7 +328,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(50)]
 		public string LocumPerformedForInitials
 		{
 			get { return this.m_LocumPerformedForInitials; }
@@ -342,7 +342,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string AJCCStage
 		{
 			get { return this.m_AJCCStage; }
@@ -356,7 +356,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(250)]
 		public string ImmediateCorrelationComment
 		{
 			get { return this.m_ImmediateCorrelationComment; }
@@ -370,7 +370,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string PapCorrelationComment
 		{
 			get { return this.m_PapCorrelationComment; }
@@ -384,7 +384,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(100)]
 		public string PapCorrelationAccessionNo
 		{
 			get { return this.m_PapCorrelationAccessionNo; }

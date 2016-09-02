@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,7 +28,7 @@ namespace YellowstonePathology.Business.Test.FLT3
 		{
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(50)]
 		public string Result
 		{
 			get { return this.m_Result; }
@@ -42,7 +42,7 @@ namespace YellowstonePathology.Business.Test.FLT3
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(50)]
 		public string ITDMutation
 		{
 			get { return this.m_ITDMutation; }
@@ -56,7 +56,7 @@ namespace YellowstonePathology.Business.Test.FLT3
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(50)]
 		public string ITDPercentage
 		{
 			get { return this.m_ITDPercentage; }
@@ -70,7 +70,7 @@ namespace YellowstonePathology.Business.Test.FLT3
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(50)]
 		public string TKDMutation
 		{
 			get { return this.m_TKDMutation; }
@@ -84,7 +84,7 @@ namespace YellowstonePathology.Business.Test.FLT3
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(1000)]
 		public string Interpretation
 		{
 			get { return this.m_Interpretation; }
@@ -98,7 +98,7 @@ namespace YellowstonePathology.Business.Test.FLT3
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(5000)]
 		public string Method
 		{
 			get { return this.m_Method; }

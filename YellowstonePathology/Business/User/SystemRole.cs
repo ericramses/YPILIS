@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,7 +22,7 @@ namespace YellowstonePathology.Business.User
 		{
 		}
 
-		[PersistentPrimaryKeyProperty(true)]
+		[PersistentPrimaryKeyProperty(true, 0)]
 		public int SystemRoleId
 		{
 			get { return this.m_SystemRoleId; }
@@ -36,7 +36,7 @@ namespace YellowstonePathology.Business.User
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(100)]
 		public string RoleName
 		{
 			get { return this.m_RoleName; }

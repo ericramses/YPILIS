@@ -7,9 +7,16 @@ namespace YellowstonePathology.Business.Persistence
 {
     public class PersistentDocumentIdProperty : PersistentProperty
     {
-        public PersistentDocumentIdProperty()
+        private int m_MaxLength;
+
+        public PersistentDocumentIdProperty(int maxLength)
         {
-     
+            this.m_MaxLength = maxLength;
+        }
+        
+        public int MaxLength
+        {
+            get { return this.m_MaxLength; }
         }        
     }
 }

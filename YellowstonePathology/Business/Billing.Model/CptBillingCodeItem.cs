@@ -64,7 +64,7 @@ namespace YellowstonePathology.Business.Billing.Model
             get { return this.m_ICD9BillingCodeCollection; }
         }
 
-		[PersistentDocumentIdProperty()]
+		[PersistentDocumentIdProperty(50)]
 		public string ObjectId
 		{
 			get { return this.m_ObjectId; }
@@ -78,7 +78,7 @@ namespace YellowstonePathology.Business.Billing.Model
 			}
 		}
 
-		[PersistentPrimaryKeyProperty(false)]
+		[PersistentPrimaryKeyProperty(false, 50)]
 		public string CptBillingId
 		{
 			get { return this.m_CptBillingId; }

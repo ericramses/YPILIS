@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
@@ -99,7 +99,7 @@ namespace YellowstonePathology.Business.Billing.Model
 			}
 		}
 
-		[PersistentDocumentIdProperty()]
+		[PersistentDocumentIdProperty(50)]
 		public string ObjectId
 		{
 			get { return this.m_ObjectId; }
@@ -113,7 +113,7 @@ namespace YellowstonePathology.Business.Billing.Model
 			}
 		}
 
-		[PersistentPrimaryKeyProperty(false)]
+		[PersistentPrimaryKeyProperty(false, 50)]
 		public string Icd9BillingId
 		{
 			get { return this.m_Icd9BillingId; }
@@ -127,7 +127,7 @@ namespace YellowstonePathology.Business.Billing.Model
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(100)]
 		public string SpecimenOrderId
 		{
 			get { return this.m_SpecimenOrderId; }
@@ -141,7 +141,7 @@ namespace YellowstonePathology.Business.Billing.Model
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(50)]
 		public string SurgicalSpecimenId
 		{
 			get { return this.m_SurgicalSpecimenId; }
@@ -225,7 +225,7 @@ namespace YellowstonePathology.Business.Billing.Model
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(50)]
 		public string ICD9Code
 		{
 			get { return this.m_ICD9Code; }
@@ -239,7 +239,7 @@ namespace YellowstonePathology.Business.Billing.Model
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentStringProperty(500)]
         public string ICD10Code
         {
             get { return this.m_ICD10Code; }
@@ -253,7 +253,7 @@ namespace YellowstonePathology.Business.Billing.Model
             }
         }
 
-		[PersistentProperty()]
+		[PersistentStringProperty(20)]
 		public string ReportNo
 		{
 			get { return this.m_ReportNo; }
@@ -281,7 +281,7 @@ namespace YellowstonePathology.Business.Billing.Model
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(50)]
 		public string MasterAccessionNo
 		{
 			get { return this.m_MasterAccessionNo; }
@@ -295,7 +295,7 @@ namespace YellowstonePathology.Business.Billing.Model
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(100)]
 		public string DesignatedFor
 		{
 			get { return this.m_DesignatedFor; }
@@ -309,7 +309,7 @@ namespace YellowstonePathology.Business.Billing.Model
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(100)]
 		public string Source
 		{
 			get { return this.m_Source; }

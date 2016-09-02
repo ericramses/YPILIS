@@ -35,11 +35,11 @@ namespace YellowstonePathology.MySQLMigration
             }
             else if (type == typeof(int))
             {
-                result = "INT";
+                result = "INT NOT NULL";
             }
             else if (type == typeof(double))
             {
-                result = "DOUBLE";
+                result = "DOUBLE NOT NULL";
             }
             else if (type == typeof(Nullable<int>))
             {
@@ -47,11 +47,11 @@ namespace YellowstonePathology.MySQLMigration
             }
             else if (type == typeof(DateTime))
             {
-                result = "DATETIME(3)";
+                result = "DATETIME(3) NOT NULL";
             }
             else if (type == typeof(bool))
             {
-                result = "BIT(1)";
+                result = "BIT(1) NOT NULL";
             }
             else if (type == typeof(Nullable<bool>))
             {
@@ -404,7 +404,7 @@ namespace YellowstonePathology.MySQLMigration
                             result = result + "'" + text + "', ";
                         }
                     }
-                    else if (dataType == "DATETIME(3)")
+                    else if (dataType == "DATETIME(3)" || dataType == "DATETIME(3) NOT NULL")
                     {
                         DateTime dt = (DateTime)dr[i];
                         result = result + "'" + dt.ToString("yyyy-MM-dd HH:mm:ss.ffffff") + "', ";
@@ -434,25 +434,30 @@ namespace YellowstonePathology.MySQLMigration
                 string createTimeStampColumn = this.GetAddColumnCommand(migrationSatus.TableName, "Timestamp", "Timestamp");
 
                 Business.Rules.MethodResult result = this.RunCommand(createTableCommand);
-                if(result.Success == false)
-                {
-                    methodResult.Success = false;
-                    methodResult.Message += result.Message;
-                }
-
-                result = this.RunCommand(createPrimaryKeyCommand);
                 if (result.Success == false)
                 {
                     methodResult.Success = false;
                     methodResult.Message += result.Message;
                 }
-
-                result = this.RunCommand(createTimeStampColumn);
-                if (result.Success == false)
+                else
                 {
-                    methodResult.Success = false;
-                    methodResult.Message += result.Message;
+                    result = this.RunCommand(createPrimaryKeyCommand);
+                    if (result.Success == false)
+                    {
+                        methodResult.Success = false;
+                        methodResult.Message += result.Message;
+                    }
+                    else
+                    {
+                        result = this.RunCommand(createTimeStampColumn);
+                        if (result.Success == false)
+                        {
+                            methodResult.Success = false;
+                            methodResult.Message += result.Message;
+                        }
+                    }
                 }
+
             }
 
             return methodResult;
@@ -676,9 +681,45 @@ namespace YellowstonePathology.MySQLMigration
         private string GetDataColumnDefinition(string tableName, PropertyInfo propertyInfo)
         {
             string result = propertyInfo.Name + " ";
+
             if (propertyInfo.PropertyType == typeof(string))
             {
-                SqlCommand cmd = new SqlCommand();
+                int dataLength = 0;
+                Attribute attribute = propertyInfo.GetCustomAttribute(typeof(YellowstonePathology.Business.Persistence.PersistentStringProperty));
+                if (attribute != null)
+                {
+                    YellowstonePathology.Business.Persistence.PersistentStringProperty persistentStringProperty = (Business.Persistence.PersistentStringProperty)attribute;
+                    dataLength = persistentStringProperty.MaxLength;
+                }
+                else
+                {
+                    attribute = propertyInfo.GetCustomAttribute(typeof(YellowstonePathology.Business.Persistence.PersistentPrimaryKeyProperty));
+                    if (attribute != null)
+                    {
+                        YellowstonePathology.Business.Persistence.PersistentPrimaryKeyProperty persistentPrimaryKeyProperty = (Business.Persistence.PersistentPrimaryKeyProperty)attribute;
+                        dataLength = persistentPrimaryKeyProperty.MaxLength;
+                    }
+                    else
+                    {
+                        attribute = propertyInfo.GetCustomAttribute(typeof(YellowstonePathology.Business.Persistence.PersistentDocumentIdProperty));
+                        if (attribute != null)
+                        {
+                            YellowstonePathology.Business.Persistence.PersistentDocumentIdProperty persistentDocumentIdProperty = (Business.Persistence.PersistentDocumentIdProperty)attribute;
+                            dataLength = persistentDocumentIdProperty.MaxLength;
+                        }
+                    }
+                }
+
+                if (dataLength > -1)
+                {
+                    result += "VARCHAR(" + dataLength.ToString() + ")";
+                }
+                else
+                {
+                    result += "TEXT";
+                }
+
+                /*SqlCommand cmd = new SqlCommand();
                 cmd.CommandText = "select data_type, character_maximum_length from INFORMATION_SCHEMA.COLUMNS where table_name = '" +
                     tableName + "' and Column_name = '" + propertyInfo.Name + "'";
                 cmd.CommandType = CommandType.Text;
@@ -726,23 +767,209 @@ namespace YellowstonePathology.MySQLMigration
                         result += "VARBINARY(" + dataLength.ToString() + ")";
                         break;
                 }
-                result += ", ";
+                result += ", ";*/
             }
-            else result += this.GetMySQLDataType(propertyInfo.PropertyType) + ", ";
+            else result += this.GetMySQLDataType(propertyInfo.PropertyType);
+
+            result += ", ";
 
             return result;
         }
 
-        public void Issues(MigrationStatus migrationStatus, StringBuilder result)
+        public void RevisePersistentAttribute(MigrationStatus migrationStatus, string[] lines)
         {
-            /*foreach(PropertyInfo property in migrationStatus.PersistentProperties)
+
+            foreach (PropertyInfo property in migrationStatus.PersistentProperties)
             {
-                if(this.IsReservedWord(property.Name))
+                if (property.PropertyType == typeof(string))
                 {
-                    result.AppendLine("update tblPanelSetOrder set ReportReferences = spso.[" + property.Name + "] from " + migrationStatus.TableName + " spso join tblPanelSetOrder pso on spso.ReportNo = pso.ReportNo");
-                    result.AppendLine("ALTER TABLE " + migrationStatus.TableName + " DROP COLUMN " + property.Name);
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.CommandText = "select data_type, character_maximum_length from INFORMATION_SCHEMA.COLUMNS where table_name = '" +
+                        migrationStatus.TableName + "' and Column_name = '" + property.Name + "'";
+                    cmd.CommandType = CommandType.Text;
+
+                    string dataType = string.Empty;
+                    int dataLength = 0;
+                    using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+                    {
+                        cn.Open();
+                        cmd.Connection = cn;
+                        using (SqlDataReader dr = cmd.ExecuteReader())
+                        {
+                            while (dr.Read())
+                            {
+                                dataType = dr[0].ToString();
+                                dataLength = (int)dr[1];
+                            }
+                        }
+                    }
+
+                    if (dataType == "ntext" || dataType == "text") dataLength = -1;
+
+                    string compareTo = "public string " + property.Name;
+                    for (int idx = 0; idx < lines.Length; idx++)
+                    {
+                        if (lines[idx].Contains(compareTo))
+                        {
+                            if (lines[idx - 1].Contains("PersistentProperty"))
+                            {
+                                lines[idx - 1] = lines[idx - 1].Replace("PersistentProperty", "PersistentStringProperty");
+                                int offset = lines[idx - 1].IndexOf(")");
+                                lines[idx - 1] = lines[idx - 1].Insert(offset, dataLength.ToString());
+                            }
+                            else if (lines[idx - 1].Contains("PersistentPrimaryKeyProperty"))
+                            {
+                                int offset = lines[idx - 1].IndexOf(", 0)");
+                                if (offset > -1)
+                                {
+                                    lines[idx - 1] = lines[idx - 1].Replace(", 0)", ", " + dataLength.ToString() + ")");
+                                }
+                            }
+                            else if (lines[idx - 1].Contains("PersistentDocumentIdProperty"))
+                            {
+                                int offset = lines[idx - 1].IndexOf(")");
+                                if (offset > -1)
+                                {
+                                    lines[idx - 1] = lines[idx - 1].Replace(", 0)", ", " + dataLength.ToString() + ")");
+                                }
+                            }
+                        }
+                    }
                 }
-            }*/
+            }
+        }
+
+        public bool ResizeMaxStrings(MigrationStatus migrationStatus, string[] lines)
+        {
+            bool result = false;
+            foreach(PropertyInfo property in migrationStatus.PersistentProperties)
+            {
+                if (property.PropertyType == typeof(string))
+                {
+                    Attribute attribute = property.GetCustomAttribute(typeof(YellowstonePathology.Business.Persistence.PersistentStringProperty));
+                    if(attribute != null)
+                    {
+                        YellowstonePathology.Business.Persistence.PersistentStringProperty persistentStringProperty = (Business.Persistence.PersistentStringProperty)attribute;
+                        if (persistentStringProperty.MaxLength == -1)
+                        {
+                            string dataType = this.GetDBDataType(property.Name, migrationStatus.TableName);
+
+                            if (dataType != "ntext" && dataType != "text")
+                            {
+                                int dataLength = this.GetMaxCurrentDataLength(property.Name, migrationStatus.TableName);
+
+                                if (dataLength > -1)
+                                {
+                                    string compareTo = "public string " + property.Name;
+                                    for (int idx = 0; idx < lines.Length; idx++)
+                                    {
+                                        if (lines[idx].Contains(compareTo))
+                                        {
+                                            lines[idx - 1] = lines[idx - 1].Replace("-1", dataLength.ToString());
+                                            result = true;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return result;
+        }
+
+        private string GetDBDataType(string propertyName, string tableName)
+        {
+            string dataType = string.Empty;
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "select data_type from INFORMATION_SCHEMA.COLUMNS where table_name = '" +
+                tableName + "' and Column_name = '" + propertyName + "'";
+            cmd.CommandType = CommandType.Text;
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        dataType = dr[0].ToString();
+                    }
+                }
+            }
+            return dataType;
+        }
+
+        private int GetMaxCurrentDataLength(string propertyName, string tableName)
+        {
+            int dataLength = 0;
+            SqlCommand cmd1 = new SqlCommand();
+            cmd1.CommandText = "select max(len(" + propertyName + ")) from " + tableName;
+            cmd1.CommandType = CommandType.Text;
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd1.Connection = cn;
+                using (SqlDataReader dr = cmd1.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        if (dr[0] != DBNull.Value)
+                        {
+                            string data = dr[0].ToString();
+                            dataLength = Convert.ToInt32(data);
+                            if (dataLength < 50) dataLength = 50;
+                            else if (dataLength < 100) dataLength = 100;
+                            else if (dataLength < 500) dataLength = 500;
+                            else if (dataLength < 1000) dataLength = 1000;
+                            else if (dataLength < 5000) dataLength = 5000;
+                            else if (dataLength < 8000) dataLength = 8000;
+                            else dataLength = -1;
+                        }
+                        else
+                        {
+                            dataLength = 50;
+                        }
+                    }
+                }
+            }
+            return dataLength;
+        }
+
+        public void GetDBDataTypes(string tableName, List<string> currentTypes)
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "select distinct data_type from INFORMATION_SCHEMA.COLUMNS where table_name = '" + tableName + "'";
+            cmd.CommandType = CommandType.Text;
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        string dataType = dr[0].ToString();
+                        bool found = false;
+                        foreach (string etype in currentTypes)
+                        {
+                            if (etype == dataType)
+                            {
+                                found = true;
+                                break;
+                            }
+                        }
+
+                        if (found == false)
+                        {
+                            currentTypes.Add(dataType);
+                        }
+                    }
+                }
+            }
         }
 
         public void MoveStoredProcedure(string name, string definition)

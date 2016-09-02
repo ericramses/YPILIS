@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Created by SharpDevelop.
  * User: william.copland
  * Date: 1/5/2016
@@ -51,7 +51,7 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
                 "4. Stewart CC, Stewart SJ. Immunological monitoring utilizing novel probes.Annual of the New York Annal of New York Academy of Science.  1993; 95: 816 - 823.";
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
 		public string Method
 		{
 			get { return this.m_Method; }
@@ -65,7 +65,7 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(1000)]
 		public string ASRComment
 		{
 			get { return this.m_ASRComment; }

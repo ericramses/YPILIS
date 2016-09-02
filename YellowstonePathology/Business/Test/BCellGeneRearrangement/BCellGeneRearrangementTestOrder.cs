@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,7 +26,7 @@ namespace YellowstonePathology.Business.Test.BCellGeneRearrangement
 		{
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string Result
 		{
 			get { return this.m_Result; }
@@ -40,7 +40,7 @@ namespace YellowstonePathology.Business.Test.BCellGeneRearrangement
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(1000)]
 		public string Interpretation
 		{
 			get { return this.m_Interpretation; }
@@ -54,7 +54,7 @@ namespace YellowstonePathology.Business.Test.BCellGeneRearrangement
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(1000)]
 		public string Method
 		{
 			get { return this.m_Method; }
@@ -68,7 +68,7 @@ namespace YellowstonePathology.Business.Test.BCellGeneRearrangement
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string ReportDisclaimer
 		{
 			get { return this.m_ReportDisclaimer; }

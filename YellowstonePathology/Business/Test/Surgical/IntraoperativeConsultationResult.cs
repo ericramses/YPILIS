@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
@@ -46,7 +46,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			this.m_ValidationErrors = new Dictionary<string, string>();
 		}
 
-		[PersistentDocumentIdProperty()]
+		[PersistentDocumentIdProperty(50)]
 		public string ObjectId
 		{
 			get { return this.m_ObjectId; }
@@ -60,7 +60,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}
 
-		[PersistentPrimaryKeyProperty(false)]
+		[PersistentPrimaryKeyProperty(false, 50)]
 		public string IntraoperativeConsultationResultId
 		{
 			get { return this.m_IntraoperativeConsultationResultId; }
@@ -74,7 +74,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(50)]
 		public string SurgicalSpecimenId
 		{
 			get { return this.m_SurgicalSpecimenId; }
@@ -116,7 +116,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(100)]
 		public string TestOrderId
 		{
 			get { return this.m_TestOrderId; }
@@ -144,7 +144,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(5000)]
 		public string Result
 		{
 			get { return this.m_Result; }
@@ -158,7 +158,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(50)]
 		public string Correlation
 		{
 			get { return this.m_Correlation; }
@@ -172,7 +172,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(50)]
 		public string CorrelationDiscrepancyType
 		{
 			get { return this.m_CorrelationDiscrepancyType; }
@@ -200,7 +200,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(50)]
 		public string CorrelationEffectOnPatientCare
 		{
 			get { return this.m_CorrelationEffectOnPatientCare; }
@@ -214,7 +214,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(250)]
 		public string CallbackContact
 		{
 			get { return this.m_CallbackContact; }
@@ -284,7 +284,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(100)]
 		public string FinaledBy
 		{
 			get { return this.m_FinaledBy; }

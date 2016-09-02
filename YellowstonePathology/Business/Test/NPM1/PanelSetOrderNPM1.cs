@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,7 +26,7 @@ namespace YellowstonePathology.Business.Test.NPM1
 		{
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(50)]
 		public string Result
 		{
 			get { return this.m_Result; }
@@ -40,7 +40,7 @@ namespace YellowstonePathology.Business.Test.NPM1
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(50)]
 		public string PercentageNPM1Mutation
 		{
 			get { return this.m_PercentageNPM1Mutation; }
@@ -54,7 +54,7 @@ namespace YellowstonePathology.Business.Test.NPM1
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string Interpretation
 		{
 			get { return this.m_Interpretation; }
@@ -68,7 +68,7 @@ namespace YellowstonePathology.Business.Test.NPM1
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(5000)]
 		public string Method
 		{
 			get { return this.m_Method; }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,7 +27,7 @@ namespace YellowstonePathology.Business.Test.MPNStandardReflex
 
 		}
 
-        [PersistentProperty]
+        [PersistentStringProperty(100)]
         public string Comment
         {
             get { return this.m_Comment; }
@@ -41,7 +41,7 @@ namespace YellowstonePathology.Business.Test.MPNStandardReflex
             }
         }
 
-        [PersistentProperty]
+        [PersistentStringProperty(5000)]
         public string Interpretation
         {
             get { return this.m_Interpretation; }
@@ -55,7 +55,7 @@ namespace YellowstonePathology.Business.Test.MPNStandardReflex
             }
         }
 
-        [PersistentProperty]
+        [PersistentStringProperty(5000)]
         public string Method
         {
             get { return this.m_Method; }

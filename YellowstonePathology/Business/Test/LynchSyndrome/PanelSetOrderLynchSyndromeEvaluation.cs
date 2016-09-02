@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -37,7 +37,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             accessionOrder.TakeATrip(orderTestOrderVisitor);            
 		}		
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
         public string LynchSyndromeEvaluationType
         {
             get { return this.m_LynchSyndromeEvaluationType; }
@@ -51,7 +51,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             }
         }
 
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string Interpretation
 		{
 			get { return this.m_Interpretation; }
@@ -65,7 +65,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string Comment
 		{
 			get { return this.m_Comment; }
@@ -79,7 +79,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentStringProperty(5000)]
         public string Method
         {
             get { return this.m_Method; }

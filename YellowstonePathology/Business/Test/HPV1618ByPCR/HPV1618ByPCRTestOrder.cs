@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -30,7 +30,7 @@ namespace YellowstonePathology.Business.Test.HPV1618ByPCR
             
         }
         
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
         public string Indication
         {
             get { return this.m_Indication; }
@@ -44,7 +44,7 @@ namespace YellowstonePathology.Business.Test.HPV1618ByPCR
             }
         }
 
-		[PersistentProperty()]
+		[PersistentStringProperty(100)]
 		public string HPV16Result
 		{
 			get { return this.m_HPV16Result; }
@@ -58,7 +58,7 @@ namespace YellowstonePathology.Business.Test.HPV1618ByPCR
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(100)]
 		public string HPV18Result
 		{
 			get { return this.m_HPV18Result; }
@@ -72,7 +72,7 @@ namespace YellowstonePathology.Business.Test.HPV1618ByPCR
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string Method
 		{
 			get { return this.m_Method; }
@@ -86,7 +86,7 @@ namespace YellowstonePathology.Business.Test.HPV1618ByPCR
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentStringProperty(5000)]
         public string Interpretation
         {
             get { return this.m_Interpretation; }
@@ -100,7 +100,7 @@ namespace YellowstonePathology.Business.Test.HPV1618ByPCR
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
         public string Comment
         {
             get { return this.m_Comment; }

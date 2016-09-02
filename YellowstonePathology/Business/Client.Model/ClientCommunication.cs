@@ -25,7 +25,7 @@ namespace YellowstonePathology.Business.Client.Model
 			this.m_ObjectId = objectId;
 		}
 
-        [PersistentDocumentIdProperty()]
+        [PersistentDocumentIdProperty(50)]
         public string ObjectId
         {
             get { return this.m_ObjectId; }
@@ -39,7 +39,7 @@ namespace YellowstonePathology.Business.Client.Model
             }
         }
 
-        [PersistentDocumentIdProperty()]
+        [PersistentDocumentIdProperty(50)]
         public string EmailAddress
         {
             get { return this.m_EmailAddress; }
@@ -53,7 +53,7 @@ namespace YellowstonePathology.Business.Client.Model
             }
         }
 
-        [PersistentDocumentIdProperty()]
+        [PersistentDocumentIdProperty(50)]
         public string Message
         {
             get { return this.m_Message; }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -101,7 +101,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 			}
 		}		
 
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string SpecimenAdequacy
 		{
 			get { return this.m_SpecimenAdequacy; }
@@ -115,7 +115,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(50)]
 		public string ScreeningType
 		{
 			get { return this.m_ScreeningType; }
@@ -129,7 +129,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(150)]
 		public string ScreenedByName
 		{
 			get { return this.m_ScreenedByName; }
@@ -143,7 +143,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string ScreeningImpression
 		{
 			get { return this.m_ScreeningImpression; }
@@ -157,7 +157,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string ScreeningImpressionComment
 		{
 			get { return this.m_ScreeningImpressionComment; }
@@ -171,7 +171,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string OtherConditions
 		{
 			get { return this.m_OtherConditions; }
@@ -185,7 +185,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(1000)]
 		public string ReportComment
 		{
 			get { return this.m_ReportComment; }
@@ -199,7 +199,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(1000)]
 		public string InternalComment
 		{
 			get { return this.m_InternalComment; }
@@ -213,7 +213,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(1000)]
 		public string ScreenerComment
 		{
 			get { return this.m_ScreenerComment; }
@@ -227,7 +227,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string OrderComment
 		{
 			get { return this.m_OrderComment; }

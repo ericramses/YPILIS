@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -34,7 +34,7 @@ namespace YellowstonePathology.Business.Test.Her2AmplificationByFish
 		{
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(100)]
 		public string Result
 		{
 			get { return this.m_Result; }
@@ -48,7 +48,7 @@ namespace YellowstonePathology.Business.Test.Her2AmplificationByFish
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(50)]
 		public string Indicator
 		{
 			get { return this.m_Indicator; }
@@ -62,7 +62,7 @@ namespace YellowstonePathology.Business.Test.Her2AmplificationByFish
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string ReferenceRanges
 		{
 			get { return this.m_ReferenceRanges; }
@@ -76,7 +76,7 @@ namespace YellowstonePathology.Business.Test.Her2AmplificationByFish
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(50)]
 		public string AverageHER2SignalsPerNucleus
 		{
 			get { return this.m_AverageHER2SignalsPerNucleus; }
@@ -90,7 +90,7 @@ namespace YellowstonePathology.Business.Test.Her2AmplificationByFish
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(50)]
 		public string AverageCEN17SignalsPerNucleus
 		{
 			get { return this.m_AverageCEN17SignalsPerNucleus; }
@@ -104,7 +104,7 @@ namespace YellowstonePathology.Business.Test.Her2AmplificationByFish
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(50)]
 		public string HER2CEN17SignalRatio
 		{
 			get { return this.m_HER2CEN17SignalRatio; }
@@ -118,7 +118,7 @@ namespace YellowstonePathology.Business.Test.Her2AmplificationByFish
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(5000)]
 		public string Interpretation
 		{
 			get { return this.m_Interpretation; }
@@ -132,7 +132,7 @@ namespace YellowstonePathology.Business.Test.Her2AmplificationByFish
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(1000)]
 		public string Comment
 		{
 			get { return this.m_Comment; }
@@ -146,7 +146,7 @@ namespace YellowstonePathology.Business.Test.Her2AmplificationByFish
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(50)]
 		public string NucleiScored
 		{
 			get { return this.m_NucleiScored; }
@@ -160,7 +160,7 @@ namespace YellowstonePathology.Business.Test.Her2AmplificationByFish
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(1000)]
 		public string Reference
 		{
 			get { return this.m_Reference; }

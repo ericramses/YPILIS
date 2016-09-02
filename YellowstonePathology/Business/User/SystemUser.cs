@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
@@ -42,7 +42,7 @@ namespace YellowstonePathology.Business.User
 			set { this.m_SystemUserRoleCollection = value; }
 		}
 
-		[PersistentPrimaryKeyProperty(true)]
+		[PersistentPrimaryKeyProperty(true, 0)]
 		public int UserId
 		{
 			get { return this.m_UserId; }
@@ -56,7 +56,7 @@ namespace YellowstonePathology.Business.User
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(50)]
 		public string FirstName
 		{
 			get { return this.m_FirstName; }
@@ -70,7 +70,7 @@ namespace YellowstonePathology.Business.User
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(50)]
 		public string LastName
 		{
 			get { return this.m_LastName; }
@@ -84,7 +84,7 @@ namespace YellowstonePathology.Business.User
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
         public string MiddleInitial
         {
             get { return this.m_MiddleInitial; }
@@ -98,7 +98,7 @@ namespace YellowstonePathology.Business.User
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(200)]
 		public string DisplayName
 		{
 			get { return this.m_DisplayName; }
@@ -112,7 +112,7 @@ namespace YellowstonePathology.Business.User
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(50)]
 		public string UserName
 		{
 			get { return this.m_UserName; }
@@ -140,7 +140,7 @@ namespace YellowstonePathology.Business.User
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(100)]
 		public string Signature
 		{
 			get { return this.m_Signature; }
@@ -154,7 +154,7 @@ namespace YellowstonePathology.Business.User
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(10)]
 		public string Initials
 		{
 			get { return this.m_Initials; }
@@ -168,7 +168,7 @@ namespace YellowstonePathology.Business.User
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(50)]
 		public string NationalProviderId
         {
             get { return this.m_NationalProviderId; }
@@ -182,7 +182,7 @@ namespace YellowstonePathology.Business.User
             }
         }
 
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string EmailAddress
         {
             get { return this.m_EmailAddress; }

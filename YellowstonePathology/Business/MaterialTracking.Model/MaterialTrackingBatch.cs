@@ -57,7 +57,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
             this.m_MasterAccessionNo = masterAccessionNo;
         }
 
-		[PersistentDocumentIdProperty()]
+		[PersistentDocumentIdProperty(50)]
 		public string ObjectId
 		{
 			get { return this.m_ObjectId; }
@@ -71,7 +71,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
 			}
 		}
 
-        [PersistentPrimaryKeyProperty(false)]
+        [PersistentPrimaryKeyProperty(false, 50)]
 		public string MaterialTrackingBatchId
 		{
 			get { return this.m_MaterialTrackingBatchId; }
@@ -99,7 +99,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(1000)]
 		public string Description
 		{
 			get { return this.m_Description; }
@@ -113,7 +113,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
         public string FromFacilityId
         {
             get { return this.m_FromFacilityId; }
@@ -128,7 +128,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
         }
 
 
-        [PersistentProperty()]
+        [PersistentStringProperty(500)]
         public string FromFacilityName
         {
             get { return this.m_FromFacilityName; }
@@ -142,7 +142,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
 		public string FromLocationId
 		{
 			get { return this.m_FromLocationId; }
@@ -156,7 +156,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentStringProperty(500)]
 		public string FromLocationName
 		{
 			get { return this.m_FromLocationName; }
@@ -170,7 +170,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
         public string ToFacilityId
         {
             get { return this.m_ToFacilityId; }
@@ -184,7 +184,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(500)]
         public string ToFacilityName
         {
             get { return this.m_ToFacilityName; }
@@ -198,7 +198,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
         public string ToLocationId
         {
             get { return this.m_ToLocationId; }
@@ -212,7 +212,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(500)]
         public string ToLocationName
         {
             get { return this.m_ToLocationName; }
@@ -268,7 +268,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentStringProperty(500)]
         public string TrackingInformation
         {
             get { return this.m_TrackingInformation; }
@@ -282,7 +282,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
         public string MasterAccessionNo
         {
             get { return this.m_MasterAccessionNo; }

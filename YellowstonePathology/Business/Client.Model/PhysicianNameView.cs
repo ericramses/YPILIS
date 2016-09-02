@@ -20,42 +20,42 @@ namespace YellowstonePathology.Business.Client.Model
 
 		}		
 
-		[PersistentProperty]
+		[PersistentProperty()]
 		public int PhysicianId
 		{
 			get { return this.m_PhysicianId; }
 			set { this.m_PhysicianId = value; }
 		}
 
-		[PersistentProperty]
+		[PersistentProperty()]
 		public string ProviderId
 		{
 			get { return this.m_ProviderId; }
 			set { this.m_ProviderId = value; }
 		}
 
-		[PersistentProperty]
+		[PersistentProperty()]
 		public string FirstName
 		{
 			get { return this.m_FirstName; }
 			set { this.m_FirstName = value; }
 		}
 
-		[PersistentProperty]
+		[PersistentProperty()]
 		public string LastName
 		{
 			get { return this.m_LastName; }
 			set { this.m_LastName = value; }
 		}
 
-        [PersistentProperty]
+        [PersistentProperty()]
         public string HomeBasePhone
         {
             get { return this.m_HomeBasePhone; }
             set { this.m_HomeBasePhone = value; }
         }
 
-        [PersistentProperty]
+        [PersistentProperty()]
         public string HomeBaseFax
         {
             get { return this.m_HomeBaseFax; }

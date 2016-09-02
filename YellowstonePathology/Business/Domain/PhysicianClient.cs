@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -34,7 +34,7 @@ namespace YellowstonePathology.Business.Domain
 			this.m_ClientId = clientId;
 		}
 
-		[PersistentDocumentIdProperty()]
+		[PersistentDocumentIdProperty(50)]
 		public String ObjectId
 		{
 			get { return this.m_ObjectId; }
@@ -48,7 +48,7 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
-        [PersistentPrimaryKeyProperty(false)]
+        [PersistentPrimaryKeyProperty(false, 50)]
         public string PhysicianClientId
         {
             get { return this.m_PhysicianClientId; }
@@ -90,7 +90,7 @@ namespace YellowstonePathology.Business.Domain
             }
         }
 
-		[PersistentProperty()]
+		[PersistentStringProperty(50)]
 		public string ProviderId
 		{
 			get { return this.m_ProviderId; }

@@ -1218,10 +1218,11 @@ namespace YellowstonePathology.UI
             
         }
 
+
         private void ButtonWilliamTesting_Click(object sender, RoutedEventArgs e)
         {
-            List<string> masterAccessionNos = new List<string>();
-            /*masterAccessionNos.Add("16-123");
+            /*List<string> masterAccessionNos = new List<string>();
+            masterAccessionNos.Add("16-123");
             masterAccessionNos.Add("16-17110");
             masterAccessionNos.Add("16-11839");
             masterAccessionNos.Add("16-18075");
@@ -1229,7 +1230,7 @@ namespace YellowstonePathology.UI
             masterAccessionNos.Add("16-19328");
             masterAccessionNos.Add("16-19220");
             masterAccessionNos.Add("16-9960");
-            masterAccessionNos.Add("16-12139");*/
+            masterAccessionNos.Add("16-12139");
             masterAccessionNos.Add("13-30079");
             foreach (string masterAccessionNo in masterAccessionNos)
             {
@@ -1258,28 +1259,75 @@ namespace YellowstonePathology.UI
                 if (objectComparer.Result != true)
                 {
                     resultString += "results are not the same.";
-                }
-
-                /*StringBuilder result1 = new StringBuilder();
-                Business.Persistence.JSONObjectWriter.WriteV2(result1, ao1);
-
-                StringBuilder result2 = new StringBuilder();
-                Business.Persistence.JSONObjectWriter.WriteV2(result2, ao2);
-
-                string s1 = result1.ToString();
-                string s2 = result2.ToString();
-
-                for (int idx = 0; idx < s1.Length; idx++)
-                {
-                    if (s1[idx] != s2[idx])
-                    {
-                        resultString += s1.Substring(idx - 50, 51);
-                        break;
-                    }
                 }*/
 
-                MessageBox.Show(resultString);
+            /*StringBuilder result1 = new StringBuilder();
+            Business.Persistence.JSONObjectWriter.WriteV2(result1, ao1);
+
+            StringBuilder result2 = new StringBuilder();
+            Business.Persistence.JSONObjectWriter.WriteV2(result2, ao2);
+
+            string s1 = result1.ToString();
+            string s2 = result2.ToString();
+
+            for (int idx = 0; idx < s1.Length; idx++)
+            {
+                if (s1[idx] != s2[idx])
+                {
+                    resultString += s1.Substring(idx - 50, 51);
+                    break;
+                }
+            }*/
+
+            /*string basePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase);
+            basePath = basePath.Remove(0, 6);
+            basePath = basePath.Replace(@"YellowstonePathology\bin\Debug", "");
+            MySQLMigration.MySQLDatabaseBuilder builder = new MySQLMigration.MySQLDatabaseBuilder();
+            MySQLMigration.MigrationStatusCollection migrationStatusCollection = MySQLMigration.MigrationStatusCollection.GetAll();
+            foreach (MySQLMigration.MigrationStatus migrationStatus in migrationStatusCollection)
+            {
+                string filePath = System.IO.Path.Combine(basePath, migrationStatus.FileName);
+                if (File.Exists(filePath))
+                {
+                    string[] lines = File.ReadAllLines(filePath);
+                    //builder.RevisePersistentAttribute(migrationStatus, lines);
+                    if (builder.ResizeMaxStrings(migrationStatus, lines) == true)
+                    {
+                        using (StreamWriter writer = new StreamWriter(filePath, false))
+                        {
+                            foreach (string line in lines)
+                            {
+                                writer.WriteLine(line);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    string s = filePath;
+                    using (StreamWriter writer = new StreamWriter(@"C:\TEMP\FilesNotFound.txt", true))
+                    {
+                        writer.WriteLine(migrationStatus.Name);
+                    }
+                }
+            }*/
+
+            MySQLMigration.MySQLDatabaseBuilder builder = new MySQLMigration.MySQLDatabaseBuilder();
+            List<string> dbTypes = new List<string>();
+            MySQLMigration.MigrationStatusCollection migrationStatusCollection = MySQLMigration.MigrationStatusCollection.GetAll();
+            foreach (MySQLMigration.MigrationStatus migrationStatus in migrationStatusCollection)
+            {
+                builder.GetDBDataTypes(migrationStatus.TableName, dbTypes);
             }
+            using (StreamWriter writer = new StreamWriter(@"C:\TEMP\DBTypesToUse.txt", true))
+            {
+                foreach (string ctype in dbTypes)
+                {
+                    writer.WriteLine(ctype);
+                }
+            }
+            string resultString = "done";
+            MessageBox.Show(resultString);
         }
     }
 }

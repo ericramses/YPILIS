@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -71,7 +71,7 @@ namespace YellowstonePathology.Business.Test.PNH
 			return result.ToString();
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string Result
 		{
 			get { return this.m_Result; }
@@ -85,7 +85,7 @@ namespace YellowstonePathology.Business.Test.PNH
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string Comment
 		{
 			get { return this.m_Comment; }
@@ -99,7 +99,7 @@ namespace YellowstonePathology.Business.Test.PNH
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(50)]
 		public string TypeIRedBloodCells
 		{
 			get { return this.m_TypeIRedBloodCells; }
@@ -113,7 +113,7 @@ namespace YellowstonePathology.Business.Test.PNH
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(50)]
 		public string TypeIIRedBloodCells
 		{
 			get { return this.m_TypeIIRedBloodCells; }
@@ -127,7 +127,7 @@ namespace YellowstonePathology.Business.Test.PNH
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(50)]
 		public string TypeIIIRedBloodCells
 		{
 			get { return this.m_TypeIIIRedBloodCells; }
@@ -141,7 +141,7 @@ namespace YellowstonePathology.Business.Test.PNH
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(50)]
 		public string TypeIIMonocytes
 		{
 			get { return this.m_TypeIIMonocytes; }
@@ -155,7 +155,7 @@ namespace YellowstonePathology.Business.Test.PNH
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(50)]
 		public string TypeIIIMonocytes
 		{
 			get { return this.m_TypeIIIMonocytes; }
@@ -169,7 +169,7 @@ namespace YellowstonePathology.Business.Test.PNH
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(50)]
 		public string TypeIIGranulocytes
 		{
 			get { return this.m_TypeIIGranulocytes; }
@@ -183,7 +183,7 @@ namespace YellowstonePathology.Business.Test.PNH
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(50)]
 		public string TypeIIIGranulocytes
 		{
 			get { return this.m_TypeIIIGranulocytes; }
@@ -197,7 +197,7 @@ namespace YellowstonePathology.Business.Test.PNH
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string Method
 		{
 			get { return this.m_Method; }
@@ -211,7 +211,7 @@ namespace YellowstonePathology.Business.Test.PNH
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(1000)]
 		public string ASRComment
 		{
 			get { return this.m_ASRComment; }

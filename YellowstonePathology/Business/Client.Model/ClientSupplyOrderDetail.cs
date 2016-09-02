@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -44,7 +44,7 @@ namespace YellowstonePathology.Business.Client.Model
             }
         }
 
-        [PersistentPrimaryKeyProperty(false)]
+        [PersistentPrimaryKeyProperty(false, 50)]
 		public string clientsupplyorderdetailid
 		{
 			get { return this.m_clientsupplyorderdetailid; }
@@ -58,7 +58,7 @@ namespace YellowstonePathology.Business.Client.Model
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
 		public string clientsupplyorderid
 		{
 			get { return this.m_clientsupplyorderid; }
@@ -86,7 +86,7 @@ namespace YellowstonePathology.Business.Client.Model
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentStringProperty(100)]
 		public string supplyname
 		{
 			get { return this.m_supplyname; }
@@ -100,7 +100,7 @@ namespace YellowstonePathology.Business.Client.Model
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentStringProperty(500)]
 		public string supplydescription
 		{
 			get { return this.m_supplydescription; }
@@ -114,7 +114,7 @@ namespace YellowstonePathology.Business.Client.Model
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentStringProperty(100)]
 		public string quantityordered
 		{
 			get { return this.m_quantityordered; }
@@ -142,7 +142,7 @@ namespace YellowstonePathology.Business.Client.Model
 			}
 		}
 
-        [PersistentDocumentIdProperty()]
+        [PersistentDocumentIdProperty(50)]
 		public string ObjectId
 		{
 			get { return this.m_ObjectId; }

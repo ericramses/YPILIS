@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,7 +23,7 @@ namespace YellowstonePathology.Business.Test.GrossOnly
 		{
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(-1)]
         public string GrossX
         {
             get { return this.m_GrossX; }

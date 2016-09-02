@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,7 +19,7 @@ namespace YellowstonePathology.Business.Facility.Model
 
         }
 
-		[PersistentDocumentIdProperty()]
+		[PersistentDocumentIdProperty(50)]
 		public string ObjectId
 		{
 			get { return this.m_ObjectId; }
@@ -32,21 +32,21 @@ namespace YellowstonePathology.Business.Facility.Model
 			}
 		}
 
-        [PersistentPrimaryKeyProperty(false)]
+        [PersistentPrimaryKeyProperty(false, 50)]
         public string HostName
         {
             get { return this.m_HostName; }
             set { this.m_HostName = value; }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
         public string FacilityId
         {
             get { return this.m_FacilityId; }
             set { this.m_FacilityId = value; }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
         public string LocationId
         {
             get { return this.m_LocationId; }

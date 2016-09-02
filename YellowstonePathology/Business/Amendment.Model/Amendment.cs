@@ -150,7 +150,7 @@ namespace YellowstonePathology.Business.Amendment.Model
             }
         }
 
-        [PersistentDocumentIdProperty()]
+        [PersistentDocumentIdProperty(50)]
         public string ObjectId
         {
             get { return this.m_ObjectId; }
@@ -164,7 +164,7 @@ namespace YellowstonePathology.Business.Amendment.Model
             }
         }
 
-        [PersistentPrimaryKeyProperty(false)]
+        [PersistentPrimaryKeyProperty(false, 50)]
         public string AmendmentId
         {
             get { return this.m_AmendmentId; }
@@ -346,7 +346,7 @@ namespace YellowstonePathology.Business.Amendment.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(20)]
         public string ReportNo
         {
             get { return this.m_ReportNo; }
@@ -360,7 +360,7 @@ namespace YellowstonePathology.Business.Amendment.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(5000)]
         public string Text
         {
             get { return this.m_Text; }
@@ -374,7 +374,7 @@ namespace YellowstonePathology.Business.Amendment.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(100)]
         public string AmendmentType
         {
             get { return this.m_AmendmentType; }
@@ -388,7 +388,7 @@ namespace YellowstonePathology.Business.Amendment.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(250)]
         public string PathologistSignature
         {
             get { return this.m_PathologistSignature; }
@@ -402,7 +402,7 @@ namespace YellowstonePathology.Business.Amendment.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(20)]
         public string ReferenceReportNo
         {
             get { return this.m_ReferenceReportNo; }
@@ -472,7 +472,7 @@ namespace YellowstonePathology.Business.Amendment.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(100)]
         public string AcceptedBy
         {
             get { return this.m_AcceptedBy; }

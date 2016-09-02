@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Created by SharpDevelop.
  * User: william.copland
  * Date: 1/5/2016
@@ -53,7 +53,7 @@ namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
                 "with peripheral blood, the analysis includes both peripheral blood lymphocytes and BAL lymphocytes.";
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(50)]
 		public string Method
 		{
 			get { return this.m_Method; }
@@ -67,7 +67,7 @@ namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(1000)]
 		public string ASRComment
 		{
 			get { return this.m_ASRComment; }
@@ -139,7 +139,7 @@ namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
         public string ReferenceRange
         {
             get { return this.m_ReferenceRange; }
@@ -153,7 +153,7 @@ namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(500)]
         public string Disclosure
         {
             get { return this.m_Disclosure; }
@@ -167,7 +167,7 @@ namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(100)]
         public string Interpretation
         {
             get { return this.m_Interpretation; }

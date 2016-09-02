@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -33,7 +33,7 @@ namespace YellowstonePathology.Business.Test.TestCancelled
 			this.m_NoCharge = true;
 		}       
 
-        [YellowstonePathology.Business.Persistence.PersistentProperty()]
+        [YellowstonePathology.Business.Persistence.PersistentStringProperty(1000)]
         public string Comment
         {
             get { return this.m_Comment; }
@@ -47,7 +47,7 @@ namespace YellowstonePathology.Business.Test.TestCancelled
             set { this.m_CancelledTestId = value; }
         }
 
-        [YellowstonePathology.Business.Persistence.PersistentProperty()]
+        [YellowstonePathology.Business.Persistence.PersistentStringProperty(50)]
         public string CancelledTestName
         {
             get { return this.m_CancelledTestName; }

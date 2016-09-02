@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -40,7 +40,7 @@ namespace YellowstonePathology.Business.Task.Model
             this.m_AssignedTo = task.AssignedTo;
 		}
 
-		[PersistentDocumentIdProperty()]
+		[PersistentDocumentIdProperty(50)]
 		public string ObjectId
 		{
 			get { return this.m_ObjectId; }
@@ -54,7 +54,7 @@ namespace YellowstonePathology.Business.Task.Model
 			}
 		}
 		
-		[PersistentPrimaryKeyProperty(false)]
+		[PersistentPrimaryKeyProperty(false, 50)]
 		public string TaskOrderDetailId
 		{
 			get { return this.m_TaskOrderDetailId; }
@@ -68,7 +68,7 @@ namespace YellowstonePathology.Business.Task.Model
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(50)]
 		public string TaskOrderId
 		{
 			get { return this.m_TaskOrderId; }
@@ -82,7 +82,7 @@ namespace YellowstonePathology.Business.Task.Model
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string TaskId
 		{
 			get { return this.m_TaskId; }
@@ -96,7 +96,7 @@ namespace YellowstonePathology.Business.Task.Model
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(5000)]
 		public string Description
 		{
 			get { return this.m_Description; }
@@ -110,7 +110,7 @@ namespace YellowstonePathology.Business.Task.Model
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string Comment
 		{
 			get { return this.m_Comment; }
@@ -124,7 +124,7 @@ namespace YellowstonePathology.Business.Task.Model
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentStringProperty(500)]
         public string AssignedTo
         {
             get { return this.m_AssignedTo; }
@@ -166,7 +166,7 @@ namespace YellowstonePathology.Business.Task.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
         public string AcknowledgedByInitials
         {
             get { return this.m_AcknowledgedByInitials; }

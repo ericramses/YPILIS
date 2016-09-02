@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -44,7 +44,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 			get { return this.m_OrderTypeCollection; }
 		}
 
-		[PersistentDocumentIdProperty()]
+		[PersistentDocumentIdProperty(50)]
 		public string ObjectId
 		{
 			get { return this.m_ObjectId; }
@@ -59,7 +59,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentPrimaryKeyProperty(false)]
+		[PersistentPrimaryKeyProperty(false, 50)]
 		public string OrderCategoryId
 		{
 			get { return this.m_OrderCategoryId; }
@@ -74,7 +74,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentProperty()]
+		[PersistentStringProperty(50)]
 		public string OrderCategoryName
 		{
 			get { return this.m_OrderCategoryName; }

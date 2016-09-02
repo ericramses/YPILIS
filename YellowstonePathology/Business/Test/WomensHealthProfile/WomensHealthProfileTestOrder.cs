@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -97,7 +97,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
         public string HPVReflexOrderCode
         {
             get { return this.m_HPVReflexOrderCode; }
@@ -111,7 +111,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
             }
         }        
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
         public string HPVStandingOrderCode
         {
             get { return this.m_HPVStandingOrderCode; }
@@ -125,7 +125,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
             }
         }        
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
         public string HPV1618ReflexOrderCode
         {
             get { return this.m_HPV1618ReflexOrderCode; }
@@ -140,7 +140,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
         }
                        
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
         public string HPV1618StandingOrderCode
         {
             get { return this.m_HPV1618StandingOrderCode; }
@@ -154,7 +154,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(1000)]
         public string Comment
         {
             get { return this.m_Comment; }

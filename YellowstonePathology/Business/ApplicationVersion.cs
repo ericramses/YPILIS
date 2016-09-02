@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,8 +20,8 @@ namespace YellowstonePathology.Business
 		{
 		}
 
-		[PersistentDocumentIdProperty()]
-		[PersistentPrimaryKeyProperty(false)]
+		[PersistentDocumentIdProperty(50)]
+		[PersistentPrimaryKeyProperty(false, 50)]
 		public string ObjectId
 		{
 			get { return this.m_ObjectId; }
@@ -35,7 +35,7 @@ namespace YellowstonePathology.Business
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(200)]
 		public string Version
 		{
 			get { return this.m_Version; }

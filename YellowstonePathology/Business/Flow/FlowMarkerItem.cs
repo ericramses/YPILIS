@@ -40,7 +40,7 @@ namespace YellowstonePathology.Business.Flow
 			this.m_MarkerUsed = true;
 		}
 
-		[PersistentDocumentIdProperty()]
+		[PersistentDocumentIdProperty(50)]
 		public string ObjectId
 		{
 			get { return this.m_ObjectId; }
@@ -54,7 +54,7 @@ namespace YellowstonePathology.Business.Flow
 			}
 		}
 
-		[PersistentPrimaryKeyProperty(false)]
+		[PersistentPrimaryKeyProperty(false, 50)]
 		public string FlowMarkerId
 		{
 			get { return this.m_FlowMarkerId; }
@@ -68,7 +68,7 @@ namespace YellowstonePathology.Business.Flow
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(20)]
 		public string ReportNo
 		{
 			get { return this.m_ReportNo; }
@@ -82,7 +82,7 @@ namespace YellowstonePathology.Business.Flow
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(50)]
 		public string Name
 		{
 			get { return this.m_Name; }
@@ -110,7 +110,7 @@ namespace YellowstonePathology.Business.Flow
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(50)]
 		public string Intensity
 		{
 			get { return this.m_Intensity; }
@@ -152,7 +152,7 @@ namespace YellowstonePathology.Business.Flow
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(20)]
 		public string MarkerType
 		{
 			get { return this.m_MarkerType; }
@@ -166,7 +166,7 @@ namespace YellowstonePathology.Business.Flow
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(50)]
 		public string Interpretation
 		{
 			get { return this.m_Interpretation; }
@@ -222,7 +222,7 @@ namespace YellowstonePathology.Business.Flow
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(50)]
 		public string Result
 		{
 			get { return this.m_Result; }

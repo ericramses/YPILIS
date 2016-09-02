@@ -80,7 +80,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
             this.m_MaterialLabel = materialTrackingScannedItemView.MaterialLabel;
         }
 
-		[PersistentDocumentIdProperty()]
+		[PersistentDocumentIdProperty(50)]
 		public string ObjectId
 		{
 			get { return this.m_ObjectId; }
@@ -94,7 +94,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
 			}
 		}
 
-        [PersistentPrimaryKeyProperty(false)]
+        [PersistentPrimaryKeyProperty(false, 50)]
 		public string MaterialTrackingLogId
 		{
 			get { return this.m_MaterialTrackingLogId; }
@@ -108,7 +108,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
 		public string MaterialTrackingBatchId
 		{
 			get { return this.m_MaterialTrackingBatchId; }
@@ -122,7 +122,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
 		public string MaterialId
 		{
 			get { return this.m_MaterialId; }
@@ -136,7 +136,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
         public string MaterialType
         {
             get { return this.m_MaterialType; }
@@ -150,7 +150,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(500)]
         public string MaterialLabel
         {
             get { return this.m_MaterialLabel; }
@@ -164,7 +164,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
         public string MasterAccessionNo
         {
             get { return this.m_MasterAccessionNo; }
@@ -178,7 +178,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
 		public string LocationId
 		{
 			get { return this.m_LocationId; }
@@ -192,7 +192,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentStringProperty(500)]
 		public string LocationName
 		{
 			get { return this.m_LocationName; }
@@ -206,7 +206,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
         public string FacilityId
         {
             get { return this.m_FacilityId; }
@@ -220,7 +220,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(500)]
         public string FacilityName
         {
             get { return this.m_FacilityName; }
@@ -262,7 +262,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentStringProperty(200)]
 		public string LoggedBy
 		{
 			get { return this.m_LoggedBy; }
@@ -276,7 +276,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentStringProperty(100)]
 		public string Description
 		{
 			get { return this.m_Description; }
@@ -290,7 +290,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentStringProperty(500)]
         public string Action
         {
             get { return this.m_Action; }

@@ -30,7 +30,7 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
-        [PersistentPrimaryKeyProperty(true)]
+        [PersistentPrimaryKeyProperty(true, 0)]
 		public int MaterialLocationId
 		{
 			get { return this.m_MaterialLocationId; }
@@ -44,7 +44,7 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
-        [PersistentProperty]
+        [PersistentProperty()]
 		public string Name
 		{
 			get { return this.m_Name; }
@@ -58,7 +58,7 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
-        [PersistentProperty]
+        [PersistentProperty()]
         public string Address
 		{
 			get { return this.m_Address; }
@@ -72,7 +72,7 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
-        [PersistentProperty]
+        [PersistentProperty()]
         public string City
 		{
 			get { return this.m_City; }
@@ -86,7 +86,7 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
-        [PersistentProperty]
+        [PersistentProperty()]
         public string State
 		{
 			get { return this.m_State; }
@@ -100,7 +100,7 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
-        [PersistentProperty]
+        [PersistentProperty()]
         public string Zip
 		{
 			get { return this.m_Zip; }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
@@ -30,7 +30,7 @@ namespace YellowstonePathology.Business.Test.HoldForFlow
             : base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute)
         { }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(500)]
         public string Comment
         {
             get { return this.m_Comment; }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -40,7 +40,7 @@ namespace YellowstonePathology.Business.Client.Model
 			}
 		}
 
-		[PersistentDocumentIdProperty()]
+		[PersistentDocumentIdProperty(50)]
 		public string ObjectId
 		{
 			get { return this.m_ObjectId; }
@@ -54,7 +54,7 @@ namespace YellowstonePathology.Business.Client.Model
 			}
 		}
 
-		[PersistentPrimaryKeyProperty(false)]
+		[PersistentPrimaryKeyProperty(false, 0)]
 		public int ClientLocationId
 		{
 			get { return this.m_ClientLocationId; }
@@ -82,7 +82,7 @@ namespace YellowstonePathology.Business.Client.Model
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string Location
 		{
 			get { return this.m_Location; }
@@ -96,7 +96,7 @@ namespace YellowstonePathology.Business.Client.Model
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(50)]
 		public string OrderType
 		{
 			get { return this.m_OrderType; }
@@ -110,7 +110,7 @@ namespace YellowstonePathology.Business.Client.Model
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(50)]
 		public string SpecimenTrackingInitiated
 		{
 			get { return this.m_SpecimenTrackingInitiated; }
@@ -166,7 +166,7 @@ namespace YellowstonePathology.Business.Client.Model
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(50)]
 		public string DefaultOrderDetailTypeCode
 		{
 			get { return this.m_DefaultOrderDetailTypeCode; }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -32,7 +32,7 @@ namespace YellowstonePathology.Business.Test.ChromosomeAnalysis
 		{
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(100)]
 		public string Result
 		{
 			get { return this.m_Result; }
@@ -46,7 +46,7 @@ namespace YellowstonePathology.Business.Test.ChromosomeAnalysis
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string Karyotype
 		{
 			get { return this.m_Karyotype; }
@@ -60,7 +60,7 @@ namespace YellowstonePathology.Business.Test.ChromosomeAnalysis
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(5000)]
 		public string Interpretation
 		{
 			get { return this.m_Interpretation; }
@@ -74,7 +74,7 @@ namespace YellowstonePathology.Business.Test.ChromosomeAnalysis
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(5000)]
 		public string Comment
 		{
 			get { return this.m_Comment; }
@@ -88,7 +88,7 @@ namespace YellowstonePathology.Business.Test.ChromosomeAnalysis
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string MetaphasesCounted
 		{
 			get { return this.m_MetaphasesCounted; }
@@ -102,7 +102,7 @@ namespace YellowstonePathology.Business.Test.ChromosomeAnalysis
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string MetaphasesAnalyzed
 		{
 			get { return this.m_MetaphasesAnalyzed; }
@@ -116,7 +116,7 @@ namespace YellowstonePathology.Business.Test.ChromosomeAnalysis
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string MetaphasesKaryotyped
 		{
 			get { return this.m_MetaphasesKaryotyped; }
@@ -130,7 +130,7 @@ namespace YellowstonePathology.Business.Test.ChromosomeAnalysis
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string CultureType
 		{
 			get { return this.m_CultureType; }
@@ -144,7 +144,7 @@ namespace YellowstonePathology.Business.Test.ChromosomeAnalysis
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string BandingTechnique
 		{
 			get { return this.m_BandingTechnique; }
@@ -158,7 +158,7 @@ namespace YellowstonePathology.Business.Test.ChromosomeAnalysis
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string BandingResolution
 		{
 			get { return this.m_BandingResolution; }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -74,7 +74,7 @@ namespace YellowstonePathology.Business.Test.NGCT
 			return result.ToString();
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(50)]
 		public string NeisseriaGonorrhoeaeResult
 		{
 			get { return this.m_NeisseriaGonorrhoeaeResult; }
@@ -88,7 +88,7 @@ namespace YellowstonePathology.Business.Test.NGCT
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(50)]
 		public string ChlamydiaTrachomatisResult
 		{
 			get { return this.m_ChlamydiaTrachomatisResult; }
@@ -102,7 +102,7 @@ namespace YellowstonePathology.Business.Test.NGCT
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(50)]
 		public string NGResultCode
 		{
 			get { return this.m_NGResultCode; }
@@ -116,7 +116,7 @@ namespace YellowstonePathology.Business.Test.NGCT
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(50)]
 		public string CTResultCode
 		{
 			get { return this.m_CTResultCode; }
@@ -130,7 +130,7 @@ namespace YellowstonePathology.Business.Test.NGCT
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(1000)]
 		public string Comment
 		{
 			get { return this.m_Comment; }
@@ -144,7 +144,7 @@ namespace YellowstonePathology.Business.Test.NGCT
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string Method
 		{
 			get { return this.m_Method; }
@@ -158,7 +158,7 @@ namespace YellowstonePathology.Business.Test.NGCT
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentStringProperty(5000)]
         public string TestInformation
         {
             get { return this.m_TestInformation; }

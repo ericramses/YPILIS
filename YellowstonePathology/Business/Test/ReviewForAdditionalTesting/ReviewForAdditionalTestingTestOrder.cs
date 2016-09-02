@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,7 +25,7 @@ namespace YellowstonePathology.Business.Test.ReviewForAdditionalTesting
 		{
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string Comment
 		{
             get { return this.m_Comment; }
@@ -39,7 +39,7 @@ namespace YellowstonePathology.Business.Test.ReviewForAdditionalTesting
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(100)]
 		public string Result
 		{
 			get { return this.m_Result; }

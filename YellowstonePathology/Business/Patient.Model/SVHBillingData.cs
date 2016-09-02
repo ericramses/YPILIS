@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -141,7 +141,7 @@ namespace YellowstonePathology.Business.Patient.Model
 			}
 		}
 
-		[PersistentDocumentIdProperty()]
+		[PersistentDocumentIdProperty(50)]
 		public string ObjectId
 		{
 			get { return this.m_ObjectId; }
@@ -154,7 +154,7 @@ namespace YellowstonePathology.Business.Patient.Model
 			}
 		}
 
-		[PersistentPrimaryKeyProperty(false)]
+		[PersistentPrimaryKeyProperty(false, 500)]
 		public string SVHBillingDataId
 		{
 			get { return this.m_SVHBillingDataId; }
@@ -176,7 +176,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(1)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string AccountId
 		{
 			get { return this.m_AccountId; }
@@ -184,7 +184,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(2)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string MRN
 		{
 			get { return this.m_MRN; }
@@ -192,7 +192,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(3)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string AdmitDate
 		{
 			get { return this.m_AdmitDate; }
@@ -200,7 +200,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(4)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string DischDate
 		{
 			get { return this.m_DischDate; }
@@ -208,7 +208,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(5)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string AcctBaseClass
 		{
 			get { return this.m_AcctBaseClass; }
@@ -216,7 +216,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(6)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string PatName
 		{
 			get { return this.m_PatName; }
@@ -224,7 +224,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(7)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string PatDOB
 		{
 			get { return this.m_PatDOB; }
@@ -232,7 +232,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(8)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string PatSex
 		{
 			get { return this.m_PatSex; }
@@ -240,7 +240,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(9)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string PatAdd1
 		{
 			get { return this.m_PatAdd1; }
@@ -248,7 +248,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(10)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string PatAdd2
 		{
 			get { return this.m_PatAdd2; }
@@ -256,7 +256,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(11)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string PatCity
 		{
 			get { return this.m_PatCity; }
@@ -264,7 +264,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(12)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string PatState
 		{
 			get { return this.m_PatState; }
@@ -272,7 +272,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(13)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string PatZIP
 		{
 			get { return this.m_PatZIP; }
@@ -280,7 +280,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(14)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string PatHomePhone
 		{
 			get { return this.m_PatHomePhone; }
@@ -288,7 +288,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(15)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string PatSSN
 		{
 			get { return this.m_PatSSN; }
@@ -296,7 +296,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(16)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string Guarantor
 		{
 			get { return this.m_Guarantor; }
@@ -304,7 +304,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(17)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string GuarAdd1
 		{
 			get { return this.m_GuarAdd1; }
@@ -312,7 +312,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(18)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string GuarAdd2
 		{
 			get { return this.m_GuarAdd2; }
@@ -320,7 +320,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(19)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string GuarCity
 		{
 			get { return this.m_GuarCity; }
@@ -328,7 +328,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(20)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string GuarState
 		{
 			get { return this.m_GuarState; }
@@ -336,7 +336,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(21)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string GuarZIP
 		{
 			get { return this.m_GuarZIP; }
@@ -344,7 +344,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(22)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string GuarHmPhone
 		{
 			get { return this.m_GuarHmPhone; }
@@ -352,7 +352,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(23)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string GuarSSN
 		{
 			get { return this.m_GuarSSN; }
@@ -360,7 +360,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(24)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string GuarDOB
 		{
 			get { return this.m_GuarDOB; }
@@ -368,7 +368,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(25)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string GuarEmp
 		{
 			get { return this.m_GuarEmp; }
@@ -376,7 +376,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(26)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string GuarEmpAdd1
 		{
 			get { return this.m_GuarEmpAdd1; }
@@ -384,7 +384,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(27)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string GuarEmpAdd2
 		{
 			get { return this.m_GuarEmpAdd2; }
@@ -392,7 +392,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(28)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string GuarEmpCity
 		{
 			get { return this.m_GuarEmpCity; }
@@ -400,7 +400,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(29)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string GuarEmpState
 		{
 			get { return this.m_GuarEmpState; }
@@ -408,7 +408,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(30)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string GuarEmpZip
 		{
 			get { return this.m_GuarEmpZip; }
@@ -416,7 +416,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(31)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string GuarEmpPhone
 		{
 			get { return this.m_GuarEmpPhone; }
@@ -424,7 +424,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(32)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string AttendingProv
 		{
 			get { return this.m_AttendingProv; }
@@ -432,7 +432,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(33)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string NPI
 		{
 			get { return this.m_NPI; }
@@ -440,7 +440,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(34)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string DX1
 		{
 			get { return this.m_DX1; }
@@ -448,7 +448,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(35)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string DX2
 		{
 			get { return this.m_DX2; }
@@ -456,7 +456,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(36)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string DX3
 		{
 			get { return this.m_DX3; }
@@ -464,7 +464,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(37)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string DX4
 		{
 			get { return this.m_DX4; }
@@ -472,7 +472,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(38)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string DX5
 		{
 			get { return this.m_DX5; }
@@ -480,7 +480,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(39)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string DX6
 		{
 			get { return this.m_DX6; }
@@ -488,7 +488,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(40)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string DX7
 		{
 			get { return this.m_DX7; }
@@ -496,7 +496,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(41)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string DX8
 		{
 			get { return this.m_DX8; }
@@ -504,7 +504,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(42)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string DX9
 		{
 			get { return this.m_DX9; }
@@ -512,7 +512,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(43)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string DX10
 		{
 			get { return this.m_DX10; }
@@ -520,7 +520,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(44)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string InsPlan1
 		{
 			get { return this.m_InsPlan1; }
@@ -528,7 +528,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(45)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string BenPlan1
 		{
 			get { return this.m_BenPlan1; }
@@ -536,7 +536,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(46)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string BenPlan1Add1
 		{
 			get { return this.m_BenPlan1Add1; }
@@ -544,7 +544,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(47)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string BenPlan1Add2
 		{
 			get { return this.m_BenPlan1Add2; }
@@ -552,7 +552,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(48)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string BenPlan1City
 		{
 			get { return this.m_BenPlan1City; }
@@ -560,7 +560,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(49)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string BenPlan1State
 		{
 			get { return this.m_BenPlan1State; }
@@ -568,7 +568,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(50)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string BenPlan1Zip
 		{
 			get { return this.m_BenPlan1Zip; }
@@ -576,7 +576,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(51)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string BenPlan1Phone1
 		{
 			get { return this.m_BenPlan1Phone; }
@@ -584,7 +584,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(52)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string Subs1Name1
 		{
 			get { return this.m_Subs1Name; }
@@ -592,7 +592,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(53)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string Subs1DOB
 		{
 			get { return this.m_Subs1DOB; }
@@ -600,7 +600,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(54)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string Subs1Sex
 		{
 			get { return this.m_Subs1Sex; }
@@ -608,7 +608,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(55)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string PatRelToSubs1
 		{
 			get { return this.m_PatRelToSubs1; }
@@ -616,7 +616,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(56)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string InsPlan2
 		{
 			get { return this.m_InsPlan2; }
@@ -624,7 +624,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(57)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string BenPlan2
 		{
 			get { return this.m_BenPlan2; }
@@ -632,7 +632,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(58)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string BenPlan2Add1
 		{
 			get { return this.m_BenPlan2Add1; }
@@ -640,7 +640,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(59)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string BenPlan2Add2
 		{
 			get { return this.m_BenPlan2Add2; }
@@ -648,7 +648,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(60)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string BenPlan2City
 		{
 			get { return this.m_BenPlan2City; }
@@ -656,7 +656,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(61)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string BenPlan2State
 		{
 			get { return this.m_BenPlan2State; }
@@ -664,7 +664,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(62)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string BenPlan2Zip
 		{
 			get { return this.m_BenPlan2Zip; }
@@ -672,7 +672,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(63)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string BenPlan2Phone
 		{
 			get { return this.m_BenPlan2Phone; }
@@ -680,7 +680,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(64)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string Subs2Name
 		{
 			get { return this.m_Subs2Name; }
@@ -688,7 +688,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(65)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string Subs2DOB
 		{
 			get { return this.m_Subs2DOB; }
@@ -696,7 +696,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(66)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string Subs2Sex
 		{
 			get { return this.m_Subs2Sex; }
@@ -704,7 +704,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(67)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string PatRelToSubs2
 		{
 			get { return this.m_PatRelToSubs2; }
@@ -712,7 +712,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(68)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string InsPlan3
 		{
 			get { return this.m_InsPlan3; }
@@ -720,7 +720,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(69)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string BenPlan3
 		{
 			get { return this.m_BenPlan3; }
@@ -728,7 +728,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(70)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string BenPlan3Add1
 		{
 			get { return this.m_BenPlan3Add1; }
@@ -736,7 +736,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(71)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string BenPlan3Add2
 		{
 			get { return this.m_BenPlan3Add2; }
@@ -744,7 +744,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(72)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string BenPlan3City
 		{
 			get { return this.m_BenPlan3City; }
@@ -752,7 +752,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(73)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string BenPlan3State
 		{
 			get { return this.m_BenPlan3State; }
@@ -760,7 +760,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(74)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string BenPlan3Zip
 		{
 			get { return this.m_BenPlan3Zip; }
@@ -768,7 +768,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(75)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string BenPlan3Phone
 		{
 			get { return this.m_BenPlan3Phone; }
@@ -776,7 +776,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(76)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string Subs3Name
 		{
 			get { return this.m_Subs3Name; }
@@ -784,7 +784,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(77)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string Subs3DOB
 		{
 			get { return this.m_Subs3DOB; }
@@ -792,7 +792,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(78)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string Subs3Sex
 		{
 			get { return this.m_Subs3Sex; }
@@ -800,7 +800,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(79)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string PatRelToSubs3
 		{
 			get { return this.m_PatRelToSubs3; }
@@ -808,7 +808,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(80)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string InsPolicyID1
 		{
 			get { return this.m_InsPolicyID1; }
@@ -816,7 +816,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(81)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string InsPolicyID2
 		{
 			get { return this.m_InsPolicyID2; }
@@ -824,7 +824,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(82)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string InsPolicyID3
 		{
 			get { return this.m_InsPolicyID3; }
@@ -832,7 +832,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(83)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string InsGroupID1
 		{
 			get { return this.m_InsGroupID1; }
@@ -840,7 +840,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(84)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string InsGroupID2
 		{
 			get { return this.m_InsGroupID2; }
@@ -848,7 +848,7 @@ namespace YellowstonePathology.Business.Patient.Model
 		}
 
 		[ImportIndex(85)]
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string InsGroupID3
 		{
 			get { return this.m_InsGroupID3; }

@@ -1888,7 +1888,7 @@
     <Compile Include="Business\Test\BCRABLByFish\BCRABLByFishPositiveResult.cs" />
     <Compile Include="Business\Test\BCRABLByFish\BCRABLByFishResultCollection.cs" />
     <Compile Include="Business\Test\BCRABLByFish\BCRABLByFishTest.cs" />
-    <Compile Include="Business\Test\BCRABLByFish\BCRABLByFishTestOrder .cs" />
+    <Compile Include="Business\Test\BCRABLByFish\BCRABLByFishTestOrder.cs" />
     <Compile Include="Business\Test\BCRABLByFish\BCRABLByFishWordDocument.cs" />
     <Compile Include="Business\Test\BCRABLByPCR\BCRABLByPCRDetectedResult.cs" />
     <Compile Include="Business\Test\BCRABLByPCR\BCRABLByPCREpicObxView.cs" />

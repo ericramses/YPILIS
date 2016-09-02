@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
@@ -206,7 +206,7 @@ namespace YellowstonePathology.Business.Test
 			}
 		}
 
-		[PersistentDocumentIdProperty()]
+		[PersistentDocumentIdProperty(50)]
 		public string ObjectId
 		{
 			get { return this.m_ObjectId; }
@@ -220,7 +220,7 @@ namespace YellowstonePathology.Business.Test
 			}
 		}
 		
-		[PersistentPrimaryKeyProperty(false)]
+		[PersistentPrimaryKeyProperty(false, 50)]
 		public string PanelOrderId
 		{
 			get { return this.m_PanelOrderId; }
@@ -234,7 +234,7 @@ namespace YellowstonePathology.Business.Test
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(20)]
 		public string ReportNo
 		{
 			get { return this.m_ReportNo; }
@@ -262,7 +262,7 @@ namespace YellowstonePathology.Business.Test
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(100)]
 		public string PanelName
 		{
 			get { return this.m_PanelName; }
@@ -276,7 +276,7 @@ namespace YellowstonePathology.Business.Test
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
         public string ResultCode
         {
             get { return this.m_ResultCode; }
@@ -458,7 +458,7 @@ namespace YellowstonePathology.Business.Test
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string Comment
 		{
 			get { return this.m_Comment; }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
@@ -93,7 +93,7 @@ namespace YellowstonePathology.Business.Test.Surgical
             set { this.m_Amendment = value; }
         }
 
-		[PersistentDocumentIdProperty()]
+		[PersistentDocumentIdProperty(50)]
 		public string ObjectId
 		{
 			get { return this.m_ObjectId; }
@@ -107,7 +107,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}
 
-		[PersistentPrimaryKeyProperty(false)]
+		[PersistentPrimaryKeyProperty(false, 50)]
 		public string SurgicalAuditId
 		{
 			get { return this.m_SurgicalAuditId; }
@@ -122,7 +122,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(20)]
 		public string ReportNo
 		{
 			get { return this.m_ReportNo; }
@@ -178,7 +178,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}		
 
-		[PersistentProperty()]
+		[PersistentStringProperty(50)]
 		public string AmendmentId
 		{
 			get { return this.m_AmendmentId; }
@@ -234,7 +234,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(-1)]
 		public string ClinicalInfo
 		{
 			get { return this.m_ClinicalInfo; }
@@ -248,7 +248,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(-1)]
 		public string GrossX
 		{
 			get { return this.m_GrossX; }
@@ -262,7 +262,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(-1)]
 		public string ImmediateX
 		{
 			get { return this.m_ImmediateX; }
@@ -276,7 +276,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(-1)]
 		public string MicroscopicX
 		{
 			get { return this.m_MicroscopicX; }
@@ -290,7 +290,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(-1)]
 		public string Comment
 		{
 			get { return this.m_Comment; }
@@ -304,7 +304,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(-1)]
 		public string CancerSummary
 		{
 			get { return this.m_CancerSummary; }
@@ -318,7 +318,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(10)]
 		public string Status
 		{
 			get { return this.m_Status; }
@@ -332,7 +332,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(20)]
 		public string CaseType
 		{
 			get { return this.m_CaseType; }
@@ -346,7 +346,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(1000)]
 		public string ImmunoComment
 		{
 			get { return this.m_ImmunoComment; }
@@ -360,7 +360,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string LocumPerformedForInitials
 		{
 			get { return this.m_LocumPerformedForInitials; }
@@ -374,7 +374,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string AJCCStage
 		{
 			get { return this.m_AJCCStage; }
@@ -388,7 +388,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(250)]
 		public string ImmediateCorrelationComment
 		{
 			get { return this.m_ImmediateCorrelationComment; }
@@ -402,7 +402,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string PapCorrelationComment
 		{
 			get { return this.m_PapCorrelationComment; }
@@ -416,7 +416,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string PapCorrelationAccessionNo
 		{
 			get { return this.m_PapCorrelationAccessionNo; }

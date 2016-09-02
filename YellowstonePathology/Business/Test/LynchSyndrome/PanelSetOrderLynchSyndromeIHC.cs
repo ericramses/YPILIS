@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,7 +28,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             
 		}        
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
         public string MLH1Result
         {
             get { return this.m_MLH1Result; }
@@ -42,7 +42,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
         public string MSH2Result
         {
             get { return this.m_MSH2Result; }
@@ -56,7 +56,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
         public string MSH6Result
         {
             get { return this.m_MSH6Result; }
@@ -70,7 +70,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
         public string PMS2Result
         {
             get { return this.m_PMS2Result; }

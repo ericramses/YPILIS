@@ -33,49 +33,49 @@ namespace YellowstonePathology.Business.Client.Model
             this.m_DistributionType = physicianClientDistribution.DistributionType;
         }
 
-        [PersistentProperty]
+        [PersistentProperty()]
 		public int PhysicianId
         {
             get { return this.m_PhysicianId; }
             set { this.m_PhysicianId = value; }
         }
 
-        [PersistentProperty]
+        [PersistentProperty()]
         public string PhysicianName
         {
             get { return this.m_PhysicianName; }
             set { this.m_PhysicianName = value; }
         }
 
-        [PersistentProperty]
+        [PersistentProperty()]
         public int ClientId
         {
             get { return this.m_ClientId; }
             set { this.m_ClientId = value; }
         }
 
-        [PersistentProperty]
+        [PersistentProperty()]
         public string ClientName
         {
             get { return this.m_ClientName; }
             set { this.m_ClientName = value; }
         }
 
-        [PersistentProperty]
+        [PersistentProperty()]
         public string DistributionType
         {
             get { return this.m_DistributionType; }
             set { this.m_DistributionType = value; }
         }
 
-        [PersistentProperty]
+        [PersistentProperty()]
         public string FaxNumber
         {
             get { return this.m_FaxNumber; }
             set { this.m_FaxNumber = value; }
         }
 
-        [PersistentProperty]
+        [PersistentProperty()]
         public bool LongDistance
         {
             get { return this.m_LongDistance; }

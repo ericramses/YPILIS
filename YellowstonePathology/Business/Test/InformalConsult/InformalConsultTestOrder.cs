@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,7 +25,7 @@ namespace YellowstonePathology.Business.Test.InformalConsult
             
 		}
 
-        [PersistentProperty()]
+        [PersistentStringProperty(500)]
         public string Request
         {
             get { return this.m_Request; }
@@ -39,7 +39,7 @@ namespace YellowstonePathology.Business.Test.InformalConsult
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(1000)]
         public string Result
         {
             get { return this.m_Result; }
