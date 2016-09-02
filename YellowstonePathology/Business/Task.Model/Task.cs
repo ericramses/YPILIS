@@ -21,8 +21,9 @@ namespace YellowstonePathology.Business.Task.Model
 
         public Task(string assignedTo, string description)
         {
+            this.m_TaskId = "GNRCTSK";
             this.m_AssignedTo = assignedTo;
-            this.m_Description = description;
+            this.m_Description = description;            
         }
 
         public string TaskId

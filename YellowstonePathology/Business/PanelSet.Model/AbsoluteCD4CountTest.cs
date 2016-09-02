@@ -22,7 +22,7 @@ namespace YellowstonePathology.Business.Test.AbsoluteCD4Count
 			this.m_AllowMultiplePerAccession = true;            
 
             string taskDescription = "Send materials to ARUP for testing.";
-			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Flow, taskDescription));
+			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskFedexShipment(YellowstonePathology.Business.Task.Model.TaskAssignment.Flow, taskDescription));
 
             this.m_TechnicalComponentFacility = new YellowstonePathology.Business.Facility.Model.ARUP();
             this.m_ProfessionalComponentFacility = new YellowstonePathology.Business.Facility.Model.ARUP();

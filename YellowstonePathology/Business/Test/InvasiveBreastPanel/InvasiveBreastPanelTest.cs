@@ -35,10 +35,10 @@ namespace YellowstonePathology.Business.Test.InvasiveBreastPanel
 			YellowstonePathology.Business.Task.Model.TaskPerformInhouseMolecularTesting taskPerformInhouseMolecularTesting = new YellowstonePathology.Business.Task.Model.TaskPerformInhouseMolecularTesting(this.m_PanelSetName);
 
             string taskDescription = "Prepare 2 unstained slides with 1 H&E after slide for D-ISH and deliver to Molecular. Prepare ER and PR IHC and deliver to pathologist.";
-			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Histology, taskDescription));
+			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.Task(YellowstonePathology.Business.Task.Model.TaskAssignment.Histology, taskDescription));
 
             string taskDescription2 = "Receive material from Histology and perform D-ISH testing.";
-			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, taskDescription2));
+			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.Task(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, taskDescription2));
 
             string task3Description = "Please check to make sure the Fixation is entered correctly for this case.";
             this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.Task(YellowstonePathology.Business.Task.Model.TaskAssignment.Flow, task3Description));

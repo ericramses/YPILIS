@@ -83,6 +83,7 @@ namespace YellowstonePathology.Business.Facility.Model
             result.Add(new MontanaDepartmentofJustice());
             result.Add(new UniversityOfMichigan());
             result.Add(new UniversityOfMiami());
+            result.Add(new FoundationOne());
             return Sort(result);
         }
 

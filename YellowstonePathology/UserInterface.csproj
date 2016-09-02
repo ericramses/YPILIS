@@ -40,7 +40,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>65</ApplicationRevision>
+    <ApplicationRevision>71</ApplicationRevision>
     <ApplicationVersion>10.1.6.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -133,6 +133,7 @@
     </Reference>
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Speech">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
@@ -735,6 +736,7 @@
     <Compile Include="Business\Facility.Model\MLabs.cs" />
     <Compile Include="Business\Facility.Model\MontanaDepartmentofJustice.cs" />
     <Compile Include="Business\Facility.Model\MontanaDermatology.cs" />
+    <Compile Include="Business\Facility.Model\FoundationOne.cs" />
     <Compile Include="Business\Facility.Model\MUSC.cs" />
     <Compile Include="Business\Facility.Model\NationalInstituteOfHealth.cs" />
     <Compile Include="Business\Facility.Model\NeogenomicsFlorida.cs" />
@@ -1003,6 +1005,14 @@
     <Compile Include="Business\Logging\EmailExceptionHandler.cs" />
     <Compile Include="Business\Logging\ScanLogger.cs" />
     <Compile Include="Business\MasterAccessionNo.cs" />
+    <Compile Include="Business\MaterialTracking.Model\FedexAccount.cs" />
+    <Compile Include="Business\MaterialTracking.Model\FedexAccountProduction.cs" />
+    <Compile Include="Business\MaterialTracking.Model\FedexAccountTesting.cs" />
+    <Compile Include="Business\MaterialTracking.Model\FedexDeleteShipmentRequest.cs" />
+    <Compile Include="Business\MaterialTracking.Model\FedexProcessShipmentReply.cs" />
+    <Compile Include="Business\MaterialTracking.Model\FedexTrackingRequest.cs" />
+    <Compile Include="Business\MaterialTracking.Model\FedexShipmentRequest.cs" />
+    <Compile Include="Business\MaterialTracking.Model\FedexTrackingResponse.cs" />
     <Compile Include="Business\MaterialTracking.Model\MaterialTrackingBatch.cs" />
     <Compile Include="Business\MaterialTracking.Model\MaterialTrackingBatchCollection.cs" />
     <Compile Include="Business\MaterialTracking.Model\MaterialTrackingLog.cs" />
@@ -1049,6 +1059,9 @@
     <Compile Include="Business\Persistence\PersitentStringProperty.cs" />
     <Compile Include="Business\Persistence\SqlDataRowReaderPropertyWriter.cs" />
     <Compile Include="Business\Surgical\ProcessorRunDefinitions.cs" />
+    <Compile Include="Business\Task.Model\TaskFedexShipment.cs" />
+    <Compile Include="Business\Task.Model\TaskOrderDetailFactory.cs" />
+    <Compile Include="Business\Task.Model\TaskOrderDetailFedexShipment.cs" />
     <Compile Include="Business\Test\AMLPrognosticProfile\AMLPrognosticProfileTest.cs" />
     <Compile Include="Business\Test\GrossOnly\GrossOnlyTest.cs" />
     <Compile Include="Business\Test\GrossOnly\GrossOnlyTestOrder.cs" />
@@ -1547,7 +1560,6 @@
     <Compile Include="Business\Task.Model\TaskParaffinCurlPreparation.cs" />
     <Compile Include="Business\Task.Model\TaskPerformInhouseMolecularTesting.cs" />
     <Compile Include="Business\Task.Model\TaskPOCReport.cs" />
-    <Compile Include="Business\Task.Model\TaskReferenceLabSendout.cs" />
     <Compile Include="Business\Task.Model\TaskSendBlockToNeogenomics.cs" />
     <Compile Include="Business\Task.Model\TaskSurgicalSpecimenDisposal.cs" />
     <Compile Include="Business\Task.Model\TaskUnstainedSlideWithAfterSlidePreparation.cs" />
@@ -4785,6 +4797,11 @@
     <Resource Include="Business\XMLTemplates\DNADefaultExtension.xml" />
     <Resource Include="Business\XPSDocument\Xps\ReportLogo.jpg" />
     <EmbeddedResource Include="Business\Billing.Model\JSONCPTCodes.txt" />
+    <EmbeddedResource Include="Business\MaterialTracking.Model\FedexProcessShipmentRequest.v15.xml" />
+    <EmbeddedResource Include="Business\MaterialTracking.Model\FedexDeleteShipmentRequest.v19.xml" />
+    <EmbeddedResource Include="Business\MaterialTracking.Model\FedexTrackingRequest.v9.xml" />
+    <EmbeddedResource Include="Business\MaterialTracking.Model\FedexProcessShipmentRequest.v19.xml" />
+    <Resource Include="Business\MaterialTracking.Model\ProcessShipmentReply.xml" />
     <Content Include="dll\Interop.FAXCOMEXLib.dll" />
   </ItemGroup>
   <ItemGroup>

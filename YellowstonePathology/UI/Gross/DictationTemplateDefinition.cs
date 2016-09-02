@@ -21,7 +21,7 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "Prostate Needle Core";
             this.m_Text = "[identifier] and consists of [number] tan-pink cylindrical tissue fragments measuring [measurement] in aggregate.  " +
-                "The specimen is entirely submitted in cassette [cassettelabel].  ";            
+                "The specimen is [cassettesummary].  ";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ProstateNeedleBiopsy nb = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ProstateNeedleBiopsy();
             this.m_SpecimenCollection.Add(nb);
@@ -30,7 +30,7 @@ namespace YellowstonePathology.UI.Gross
         public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
-            result = this.ReplaceCassetteLabel(result, specimenOrder);
+            result = this.ReplaceCassetteSummary(result, specimenOrder);
             return result;
         }
     }
@@ -81,7 +81,7 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "Biopsy Specimen";
             this.m_Text = "[identifier] and consists of [number] tan-pink tissue fragment[?s?] measuring [measurement] [? in aggregate?].  " +
-                "The specimen is filtered through a fine mesh bag and entirely submitted in cassette [cassettelabel].  ";            
+                "The specimen is filtered through a fine mesh bag and [cassettesummary].  ";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Biopsy bx = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Biopsy();
             this.m_SpecimenCollection.Add(bx);
@@ -90,7 +90,7 @@ namespace YellowstonePathology.UI.Gross
         public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
-            result = this.ReplaceCassetteLabel(result, specimenOrder);
+            result = this.ReplaceCassetteSummary(result, specimenOrder);
             return result;
         }
     }
@@ -100,7 +100,7 @@ namespace YellowstonePathology.UI.Gross
         public FluidTemplate()
         {
             this.m_TemplateName = "Fluid Specimen";
-            this.m_Text = "The specimen is received in CytoLyt in a container labeled \"[identifier]\" and consists of [Quantity] ml of [Color] fluid. The specimen is submitted for selective cellular enhancement processing.";
+            this.m_Text = "[Specimen] is received in CytoLyt in a container labeled \"[identifier]\" and consists of [Quantity] ml of [Color] fluid[? with particulate?].  The specimen is submitted for selective cellular enhancement processing.";
             
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Fluid fluid = new Business.Specimen.Model.SpecimenDefinition.Fluid();
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Urine urine = new Business.Specimen.Model.SpecimenDefinition.Urine();
@@ -115,6 +115,8 @@ namespace YellowstonePathology.UI.Gross
             {
                 this.m_Text += " A cell block was made.";
             }
+
+            this.m_Text = this.m_Text.Replace("[Specimen]", "Specimen " + specimenOrder.SpecimenNumber);
             return this.m_Text.Replace("[identifier]", identifier);
         }
     }
@@ -149,7 +151,7 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "Sinus Content Specimen";
             this.m_Text = "[identifier] and consists of multiple fragments of tan-pink tissue and bone aggregating to [measurement].  " +
-                "They are filtered through a fine mesh bag and entirely submitted in cassette [cassettelabel][? for decalcification prior to processing?].  ";
+                "They are filtered through a fine mesh bag and [cassettesummary][? for decalcification prior to processing?].  ";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SinusContent sinusContent = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SinusContent();
             this.m_SpecimenCollection.Add(sinusContent);
@@ -158,7 +160,7 @@ namespace YellowstonePathology.UI.Gross
         public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
-            result = this.ReplaceCassetteLabel(result, specimenOrder);
+            result = this.ReplaceCassetteSummary(result, specimenOrder);
             return result;
         }
     }
@@ -369,7 +371,7 @@ namespace YellowstonePathology.UI.Gross
             this.m_Text = "[identifier]." + Environment.NewLine +
                 "Tonsils:  Two tan-pink, lobular, palatine tonsils." + Environment.NewLine +
                 "Adenoids:  [description]" + Environment.NewLine +
-                "Weight:  [weight] grams" + Environment.NewLine +
+                "Weight:  [weight] grams." + Environment.NewLine +
                 "Measurement Tonsil 1:  [measurement]" + Environment.NewLine +
                 "Measurement Tonsil 2:  [measurement]" + Environment.NewLine +
                 "Measurement Adenoids:  [measurement]" + Environment.NewLine +
@@ -395,7 +397,7 @@ namespace YellowstonePathology.UI.Gross
             this.m_TemplateName = "Tonsil Excision";
             this.m_Text = "[identifier]." + Environment.NewLine +
                 "Gross Description:  [quantity] tan-pink, lobular, palatine [tonsils]." + Environment.NewLine +
-                "Weight:  [weight] grams" + Environment.NewLine +
+                "Weight:  [weight] grams." + Environment.NewLine +
                 "[measurementstring]" + Environment.NewLine +                
                 "Cut Surface:  [description]" + Environment.NewLine +
                 "Submitted:  [representativesectionsagerestricted].  ";
@@ -434,7 +436,7 @@ namespace YellowstonePathology.UI.Gross
             this.m_TemplateName = "Adenoid Excision";
             this.m_Text = "[identifier]." + Environment.NewLine +
                 "Gross Description:  [description]" + Environment.NewLine +
-                "Weight:  [weight] grams" + Environment.NewLine +
+                "Weight:  [weight] grams." + Environment.NewLine +
                 "Measurement Adenoids:  [measurement]" + Environment.NewLine +
                 "Cut Surface:  [description]" + Environment.NewLine +
                 "Submitted:  [representativesectionsagerestricted].  ";
@@ -470,7 +472,7 @@ namespace YellowstonePathology.UI.Gross
         public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
-            result = this.ReplaceSubmitted(result, specimenOrder);
+            result = this.ReplaceRepresentativeSections(result, specimenOrder);
             return result;
         }
     }
@@ -482,7 +484,7 @@ namespace YellowstonePathology.UI.Gross
             this.m_TemplateName = "BreastReduction";
             this.m_Text = "[identifier]." + Environment.NewLine +
                 "Gross Description:  [description]" + Environment.NewLine +
-                "Weight:  [weight] grams" + Environment.NewLine +
+                "Weight:  [weight] grams." + Environment.NewLine +
                 "Measurement:  [measurement]" + Environment.NewLine +
                 "Cut Surface:  [description]" + Environment.NewLine +
                 "Submitted:  [representativesections].  ";            
@@ -507,7 +509,7 @@ namespace YellowstonePathology.UI.Gross
             this.m_Text = "[identifier]." + Environment.NewLine +
                 "Gross Description:   Multiple tan-pink fragments of tissue and mucus." + Environment.NewLine +
                 "Measurement:  [measurement]" + Environment.NewLine +
-                "Submitted:  Filtered through a fine mesh bag and entirely submitted in cassette [cassettelabel].  ";            
+                "Submitted:  Filtered through a fine mesh bag and [cassettesummary].  ";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ECC ecc = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ECC();
             this.m_SpecimenCollection.Add(ecc);
@@ -516,7 +518,7 @@ namespace YellowstonePathology.UI.Gross
         public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
-            result = this.ReplaceCassetteLabel(result, specimenOrder);
+            result = this.ReplaceCassetteSummary(result, specimenOrder);
             return result;
         }
     }
@@ -551,7 +553,7 @@ namespace YellowstonePathology.UI.Gross
             this.m_Text = "[identifier]." + Environment.NewLine +
                 "Gross Description:  [number], tan-pink, rubbery fragment[s]." + Environment.NewLine +
                 "Measurement:  [measurement]" + Environment.NewLine +
-                "Submitted:  Filtered through a fine mesh bag and entirely submitted in cassette [cassettelabel].  ";
+                "Submitted:  Filtered through a fine mesh bag and [cassettesummary].  ";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.CervicalBiopsy cervicalBiopsy = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.CervicalBiopsy();
             this.m_SpecimenCollection.Add(cervicalBiopsy);
@@ -560,7 +562,7 @@ namespace YellowstonePathology.UI.Gross
         public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
-            result = this.ReplaceCassetteLabel(result, specimenOrder);
+            result = this.ReplaceCassetteSummary(result, specimenOrder);
             return result;
         }
     }
@@ -660,7 +662,7 @@ namespace YellowstonePathology.UI.Gross
                 "   Point of Rupture:  [description]" + Environment.NewLine +
                 Environment.NewLine +
                 "Placental Disc:" + Environment.NewLine +
-                "   Weight:  [weight] grams" + Environment.NewLine +
+                "   Weight:  [weight] grams." + Environment.NewLine +
                 "   Shape:  [shape]" + Environment.NewLine +
                 "   Measurements:  [measurement]" + Environment.NewLine +
                 "   Fetal Surface:" + Environment.NewLine +
@@ -733,7 +735,7 @@ namespace YellowstonePathology.UI.Gross
             	"      Twin B:  [description]" + Environment.NewLine +
                 Environment.NewLine +
             	"Placental Disc:" + Environment.NewLine +
-                "   Weight:  [weight] grams" + Environment.NewLine +
+                "   Weight:  [weight] grams." + Environment.NewLine +
                 "   Shape:  [shape]" + Environment.NewLine +
                 "   Measurements:  [measurement]" + Environment.NewLine +
                 "   Fetal Surface:" + Environment.NewLine +
@@ -808,7 +810,7 @@ namespace YellowstonePathology.UI.Gross
             	"      Twin B:  [description]" + Environment.NewLine +
                 Environment.NewLine +
             	"Placental Disc:" + Environment.NewLine +
-                "   Weight:  [weight] grams" + Environment.NewLine +
+                "   Weight:  [weight] grams." + Environment.NewLine +
                 "   Shape:  [shape]" + Environment.NewLine +
                 "   Measurements:  [measurement]" + Environment.NewLine +
                 "   Fetal Surface:" + Environment.NewLine +
@@ -850,7 +852,7 @@ namespace YellowstonePathology.UI.Gross
             this.m_Text = "[identifier]." + Environment.NewLine +                
                 Environment.NewLine +
                 "Uterine Corpus:" + Environment.NewLine +
-                "   Weight:  [weight] grams" + Environment.NewLine +
+                "   Weight:  [weight] grams." + Environment.NewLine +
                 "   Dimensions:  [measurements]" + Environment.NewLine +
                 "Serosa:" + Environment.NewLine +
                 "   Uterine Serosa:  [color], [description]" + Environment.NewLine +
@@ -910,7 +912,7 @@ namespace YellowstonePathology.UI.Gross
                 "      Surface:  [description]" + Environment.NewLine +
                 "      Cut Surface:  [description]" + Environment.NewLine +
                 "Uterine Corpus:" + Environment.NewLine +
-                "   Weight:  [weight] grams" + Environment.NewLine +
+                "   Weight:  [weight] grams." + Environment.NewLine +
                 "   Dimensions: [measurements]" + Environment.NewLine +
                 "   Serosa:" + Environment.NewLine +
                 "      Uterine Serosa Description:  [description]" + Environment.NewLine +
@@ -951,7 +953,7 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "Needle Core Biopsy";
             this.m_Text = "[identifier] and consists of [number] [color] threadlike tissue fragments measuring [measurement] in aggregate.  " +
-                "They are filtered through a fine mesh bag and entirely submitted in cassette [cassettelabel].  ";            
+                "They are filtered through a fine mesh bag and [cassettesummary].  ";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.NeedleCoreBiopsy needleCoreBiopsy = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.NeedleCoreBiopsy();
             this.m_SpecimenCollection.Add(needleCoreBiopsy);
@@ -960,7 +962,7 @@ namespace YellowstonePathology.UI.Gross
         public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
-            result = this.ReplaceCassetteLabel(result, specimenOrder);
+            result = this.ReplaceCassetteSummary(result, specimenOrder);
             return result;
         }
     }

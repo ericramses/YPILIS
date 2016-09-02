@@ -25,7 +25,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
 			
 
             string taskDescription = "Gather materials and send to Foundation Medicine";
-			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, taskDescription));
+			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskFedexShipment(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, taskDescription));
 
             this.m_TechnicalComponentFacility = new YellowstonePathology.Business.Facility.Model.FoundationMedicine();
             this.m_ProfessionalComponentFacility = new YellowstonePathology.Business.Facility.Model.FoundationMedicine();

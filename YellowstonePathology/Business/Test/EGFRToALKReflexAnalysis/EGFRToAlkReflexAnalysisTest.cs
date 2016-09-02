@@ -32,10 +32,10 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
 
             string taskDescription1 = "Cut curls and an H&E after slide. Give the H&E after slide, paraffin block and curls to Molecular." +
            	"Pathologist should circle tumor on H&E slide in preparation for ALK and ROS1 and then hand off material to Molecular.";
-            this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Histology, taskDescription1));
+            this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.Task(YellowstonePathology.Business.Task.Model.TaskAssignment.Histology, taskDescription1));
 
             string taskDescription2 = "Collect circled H&E after slide, curls and paraffin block from pathologist and perform EGFR testing.";
-            this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, taskDescription2));
+            this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.Task(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, taskDescription2));
 
             this.m_TechnicalComponentFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();
             this.m_TechnicalComponentBillingFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();
