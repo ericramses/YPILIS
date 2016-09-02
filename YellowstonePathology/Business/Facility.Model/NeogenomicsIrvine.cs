@@ -18,6 +18,7 @@ namespace YellowstonePathology.Business.Facility.Model
             this.m_State = "CA";
             this.m_ZipCode = "92618";
             this.m_IsReferenceLab = true;
+            this.m_PhoneNumber = "(866)776-5907";
 			
 			this.m_CliaLicense = new CLIALicense(this, "05D1065194");            
         }

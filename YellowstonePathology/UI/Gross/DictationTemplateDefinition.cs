@@ -100,7 +100,7 @@ namespace YellowstonePathology.UI.Gross
         public FluidTemplate()
         {
             this.m_TemplateName = "Fluid Specimen";
-            this.m_Text = "The specimen is received in CytoLyt in a container labeled \"[identifier]\" and consists of [Quantity] ml of [Color] fluid.  The specimen is submitted for selective cellular enhancement processing.";
+            this.m_Text = "[Specimen] is received in CytoLyt in a container labeled \"[identifier]\" and consists of [Quantity] ml of [Color] fluid[? with particulate?].  The specimen is submitted for selective cellular enhancement processing.";
             
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Fluid fluid = new Business.Specimen.Model.SpecimenDefinition.Fluid();
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Urine urine = new Business.Specimen.Model.SpecimenDefinition.Urine();
@@ -115,6 +115,8 @@ namespace YellowstonePathology.UI.Gross
             {
                 this.m_Text += " A cell block was made.";
             }
+
+            this.m_Text = this.m_Text.Replace("[Specimen]", "Specimen " + specimenOrder.SpecimenNumber);
             return this.m_Text.Replace("[identifier]", identifier);
         }
     }

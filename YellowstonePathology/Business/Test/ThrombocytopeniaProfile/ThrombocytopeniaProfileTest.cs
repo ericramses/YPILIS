@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.Test.ThrombocytopeniaProfile
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.ThombocytopeniaProfile.ThombocytopeniaProfileWordDocument).AssemblyQualifiedName;
 
             string taskDescription = "Perform thrombocytopenia profile testing.";
-			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Flow, taskDescription));
+			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskFedexShipment(YellowstonePathology.Business.Task.Model.TaskAssignment.Flow, taskDescription));
 
             this.m_HasProfessionalComponent = false;
             this.m_ProfessionalComponentFacility = null;

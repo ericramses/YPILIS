@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Test.PlateletAssociatedAntibodies
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.PlateletAssociatedAntibodies.PlateletAssociatedAntibodiesWordDocument).AssemblyQualifiedName;
 
             string taskDescription = "Perform PAA testing.";
-			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Flow, taskDescription));
+			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.Task(YellowstonePathology.Business.Task.Model.TaskAssignment.Flow, taskDescription));
 
             this.m_HasProfessionalComponent = false;
             this.m_ProfessionalComponentFacility = null;

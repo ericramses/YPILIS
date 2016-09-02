@@ -27,7 +27,7 @@ namespace YellowstonePathology.Business.Test.Prothrombin
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.Prothrombin.ProthrombinWordDocument).AssemblyQualifiedName;
 			
             string taskDescription = "Gather materials and send to St. Vincent Healthcare for testing";
-			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, taskDescription));
+			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.Task(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, taskDescription));
 
             this.m_TechnicalComponentFacility = new YellowstonePathology.Business.Facility.Model.StVincentHealthcare();
             this.m_TechnicalComponentBillingFacility = new YellowstonePathology.Business.Facility.Model.StVincentHealthcare();
