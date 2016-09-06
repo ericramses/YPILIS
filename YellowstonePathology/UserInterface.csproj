@@ -40,7 +40,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>71</ApplicationRevision>
+    <ApplicationRevision>75</ApplicationRevision>
     <ApplicationVersion>10.1.6.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -1009,6 +1009,7 @@
     <Compile Include="Business\MaterialTracking.Model\FedexAccountProduction.cs" />
     <Compile Include="Business\MaterialTracking.Model\FedexAccountTesting.cs" />
     <Compile Include="Business\MaterialTracking.Model\FedexDeleteShipmentRequest.cs" />
+    <Compile Include="Business\MaterialTracking.Model\FedexDeleteShipmentReply.cs" />
     <Compile Include="Business\MaterialTracking.Model\FedexProcessShipmentReply.cs" />
     <Compile Include="Business\MaterialTracking.Model\FedexTrackingRequest.cs" />
     <Compile Include="Business\MaterialTracking.Model\FedexShipmentRequest.cs" />
@@ -1070,6 +1071,8 @@
     <Compile Include="Business\Test\MUM1ByIHC\MUM1ByIHCTest.cs" />
     <Compile Include="Business\Test\PlateletAssociatedAntibodies\PlateletAssociatedAntibodiesEPICOBXView.cs" />
     <Compile Include="Business\Test\ROS1ByFISH\ROS1ByFISHPositiveResult.cs" />
+    <Compile Include="Business\Test\IRF4F\IRF4FTest.cs" />
+    <Compile Include="Business\Test\TP63F\TP63FTest.cs" />
     <Compile Include="MySQLMigration\MigrationStatus.cs" />
     <Compile Include="MySQLMigration\MigrationStatusCollection.cs" />
     <Compile Include="MySQLMigration\MySQLDatabaseBuilder.cs" />
@@ -3404,6 +3407,7 @@
     <Compile Include="UI\TaskWorkspace.xaml.cs">
       <DependentUpon>TaskWorkspace.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\TemplateSelector\TaskOrderDetailTemplateSelector.cs" />
     <Compile Include="UI\TestOrderRemover.cs" />
     <Compile Include="UI\Test\ABL1KinaseDomainMutationResultPage.xaml.cs">
       <DependentUpon>ABL1KinaseDomainMutationResultPage.xaml</DependentUpon>

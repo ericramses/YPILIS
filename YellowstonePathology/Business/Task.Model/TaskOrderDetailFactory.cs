@@ -22,5 +22,20 @@ namespace YellowstonePathology.Business.Task.Model
             }
             return result;
         }
+
+        public static TaskOrderDetail GetTaskOrderDetail(string taskOrderDetailId, string taskOrderId, string objectId, Task task)
+        {
+            TaskOrderDetail result = null;
+            switch (task.TaskId)
+            {
+                case "FDXSHPMNT":
+                    result = new TaskOrderDetailFedexShipment(taskOrderDetailId, taskOrderId, objectId, task);
+                    break;
+                default:
+                    result = new TaskOrderDetail(taskOrderDetailId, taskOrderId, objectId, task);
+                    break;
+            }
+            return result;
+        }
     }
 }

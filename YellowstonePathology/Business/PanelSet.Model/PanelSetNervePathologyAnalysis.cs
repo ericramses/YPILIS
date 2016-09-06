@@ -23,7 +23,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
             this.m_AllowMultiplePerAccession = true;
 
             string taskDescription = "Gather materials and send out to Therapath.";
-			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskFedexShipment(YellowstonePathology.Business.Task.Model.TaskAssignment.Transcription, taskDescription));
+			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskFedexShipment(YellowstonePathology.Business.Task.Model.TaskAssignment.Transcription, taskDescription, new Facility.Model.Therapath()));
 
             this.m_TechnicalComponentFacility = new YellowstonePathology.Business.Facility.Model.Therapath();
             this.m_ProfessionalComponentFacility = new YellowstonePathology.Business.Facility.Model.Therapath();

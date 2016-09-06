@@ -25,8 +25,10 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
             this.SetShipementRequestData();
         }        
 
-        public string RequestShipment()
+        public Business.MaterialTracking.Model.FedexProcessShipmentReply RequestShipment()
         {
+            Business.MaterialTracking.Model.FedexProcessShipmentReply result = null;
+
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(this.m_FedexAccount.URL);
             byte[] bytes;
             bytes = System.Text.Encoding.ASCII.GetBytes(this.m_ProcessShipmentRequest.ToString());
@@ -42,9 +44,14 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
             {
                 System.IO.Stream responseStream = response.GetResponseStream();
                 string responseStr = new System.IO.StreamReader(responseStream).ReadToEnd();
-                return responseStr;
+                result = new FedexProcessShipmentReply(responseStr);
             }
-            return null;
+            else
+            {
+                result = new FedexProcessShipmentReply(false);
+            }
+
+            return result; ;
         }
 
         private void SetShipementRequestData()

@@ -14,6 +14,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
         private string m_TrackingNumber;
         private XDocument m_ShipmentResponse;
         private string m_ZPLII;
+        private bool m_RequestWasSuccessful;
 
         public FedexProcessShipmentReply(string response)
         {
@@ -24,6 +25,20 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
             this.m_ShipmentResponse = XDocument.Parse(response);
             this.m_TrackingNumber = this.m_ShipmentResponse.XPathSelectElement("//SOAP-ENV:Envelope/SOAP-ENV:Body/ns:ProcessShipmentReply/ns:CompletedShipmentDetail/ns:CompletedPackageDetails/ns:TrackingIds/ns:TrackingNumber", namespaces).Value;
             this.m_ZPLII = this.m_ShipmentResponse.XPathSelectElement("//SOAP-ENV:Envelope/SOAP-ENV:Body/ns:ProcessShipmentReply/ns:CompletedShipmentDetail/ns:CompletedPackageDetails/ns:Label/ns:Parts/ns:Image", namespaces).Value;
+            string status = this.m_ShipmentResponse.XPathSelectElement("//SOAP-ENV:Envelope/SOAP-ENV:Body/ns:ProcessShipmentReply/ns:HighestSeverity", namespaces).Value;
+            if (status == "SUCCESS")
+            {
+                this.m_RequestWasSuccessful = true;
+            }
+            else
+            {
+                this.m_RequestWasSuccessful = false;
+            }            
+        }
+
+        public FedexProcessShipmentReply(bool requestWasSuccessful)
+        {
+            this.m_RequestWasSuccessful = requestWasSuccessful;
         }
 
         public string TrackingNumber
@@ -34,6 +49,11 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
         public string ZPLII
         {
             get { return this.m_ZPLII; }
+        }
+
+        public bool RequestWasSuccessful
+        {
+            get { return this.m_RequestWasSuccessful; }
         }
     }
 }

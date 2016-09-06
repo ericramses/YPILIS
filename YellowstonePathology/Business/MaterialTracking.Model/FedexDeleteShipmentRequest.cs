@@ -24,8 +24,10 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
             this.SetShipementRequestData();
         }        
 
-        public string Post()
+        public FedexDeleteShipmentReply Post()
         {
+            FedexDeleteShipmentReply result = null;
+
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(this.m_FedexAccount.URL);
             byte[] bytes;
             bytes = System.Text.Encoding.ASCII.GetBytes(this.m_ProcessShipmentRequest.ToString());
@@ -41,9 +43,14 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
             {
                 System.IO.Stream responseStream = response.GetResponseStream();
                 string responseStr = new System.IO.StreamReader(responseStream).ReadToEnd();
-                return responseStr;
+                result = new FedexDeleteShipmentReply(responseStr);
             }
-            return null;
+            else
+            {
+                result = new FedexDeleteShipmentReply(false);
+            }                
+
+            return result;
         }
 
         private void SetShipementRequestData()
@@ -65,7 +72,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
         private void OpenShipmentRequestFile()
         {
             var asm = System.Reflection.Assembly.GetExecutingAssembly();
-            using (var stream = asm.GetManifestResourceStream("YellowstonePathology.Business.MaterialTracking.Model.FedexDeleteShipmentRequest.xml"))
+            using (var stream = asm.GetManifestResourceStream("YellowstonePathology.Business.MaterialTracking.Model.FedexDeleteShipmentRequest.v19.xml"))
             {
                 this.m_ProcessShipmentRequest = XDocument.Load(stream);
             }

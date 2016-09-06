@@ -1611,7 +1611,7 @@ namespace YellowstonePathology.Business.Test
             {
 				string taskOrderDetailId = YellowstonePathology.Business.OrderIdParser.GetNextTaskOrderDetailId(taskOrder.TaskOrderDetailCollection, taskOrderId);
                 string taskOrderDetailObjectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-                YellowstonePathology.Business.Task.Model.TaskOrderDetail taskOrderDetail = new Business.Task.Model.TaskOrderDetail(taskOrderDetailId, taskOrderId, taskOrderDetailObjectId, task);
+                YellowstonePathology.Business.Task.Model.TaskOrderDetail taskOrderDetail = Business.Task.Model.TaskOrderDetailFactory.GetTaskOrderDetail(taskOrderDetailId, taskOrderId, taskOrderDetailObjectId, task);
 
                 if (this.ClientAccessioned == true)
                 {                    
