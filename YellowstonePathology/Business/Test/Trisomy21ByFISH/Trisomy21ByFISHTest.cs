@@ -25,7 +25,7 @@ namespace YellowstonePathology.Business.Test.Trisomy21ByFISH
             this.m_ExpectedDuration = new TimeSpan(7, 0, 0, 0);            
 
             string taskDescription = "Gather materials and send out to Shodair.";
-			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskFedexShipment(YellowstonePathology.Business.Task.Model.TaskAssignment.Flow, taskDescription));
+			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskFedexShipment(YellowstonePathology.Business.Task.Model.TaskAssignment.Flow, taskDescription, new Facility.Model.NeogenomicsIrvine()));
 
             this.m_TechnicalComponentFacility = new YellowstonePathology.Business.Facility.Model.Showdair();
             this.m_TechnicalComponentBillingFacility = new YellowstonePathology.Business.Facility.Model.Showdair();

@@ -12,21 +12,25 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
 {
     public class FedexShipmentRequest
     {
-        private Business.Facility.Model.Facility m_Facility;
+        private Business.Facility.Model.Facility m_ShipToFacility;
         private FedexAccount m_FedexAccount;
         private XDocument m_ProcessShipmentRequest;
+        private string m_PaymentType;
 
-        public FedexShipmentRequest(Business.Facility.Model.Facility facility, FedexAccount fedexAccount)
+        public FedexShipmentRequest(Business.Facility.Model.Facility shipTofacility, FedexAccount fedexAccount, string paymentType)
         {
-            this.m_Facility = facility;
+            this.m_ShipToFacility = shipTofacility;
             this.m_FedexAccount = fedexAccount;
+            this.m_PaymentType = paymentType;
 
             this.OpenShipmentRequestFile();
             this.SetShipementRequestData();
         }        
 
-        public string RequestShipment()
+        public Business.MaterialTracking.Model.FedexProcessShipmentReply RequestShipment()
         {
+            Business.MaterialTracking.Model.FedexProcessShipmentReply result = null;
+
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(this.m_FedexAccount.URL);
             byte[] bytes;
             bytes = System.Text.Encoding.ASCII.GetBytes(this.m_ProcessShipmentRequest.ToString());
@@ -42,9 +46,14 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
             {
                 System.IO.Stream responseStream = response.GetResponseStream();
                 string responseStr = new System.IO.StreamReader(responseStream).ReadToEnd();
-                return responseStr;
+                result = new FedexProcessShipmentReply(responseStr);
             }
-            return null;
+            else
+            {
+                result = new FedexProcessShipmentReply(false);
+            }
+
+            return result; ;
         }
 
         private void SetShipementRequestData()
@@ -62,16 +71,29 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
             this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:ShipTimestamp", namespaces).Value = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss"); //2016-08-25T16:30:12
 
             this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:Recipient/v19:Contact/v19:PersonName", namespaces).Value = string.Empty;
-            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:Recipient/v19:Contact/v19:CompanyName", namespaces).Value = this.m_Facility.FacilityName;
-            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:Recipient/v19:Contact/v19:PhoneNumber", namespaces).Value = this.m_Facility.PhoneNumber;
+            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:Recipient/v19:Contact/v19:CompanyName", namespaces).Value = this.m_ShipToFacility.FacilityName;
+            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:Recipient/v19:Contact/v19:PhoneNumber", namespaces).Value = this.m_ShipToFacility.PhoneNumber;
             this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:Recipient/v19:Contact/v19:EMailAddress", namespaces).Value = string.Empty;
 
-            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:Recipient/v19:Address/v19:StreetLines[1]", namespaces).Value = this.m_Facility.Address1;
-            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:Recipient/v19:Address/v19:StreetLines[2]", namespaces).Value = this.m_Facility.Address2;
-            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:Recipient/v19:Address/v19:City", namespaces).Value = this.m_Facility.City;
-            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:Recipient/v19:Address/v19:StateOrProvinceCode", namespaces).Value = this.m_Facility.State;
-            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:Recipient/v19:Address/v19:PostalCode", namespaces).Value = this.m_Facility.ZipCode;
+            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:Recipient/v19:Address/v19:StreetLines[1]", namespaces).Value = this.m_ShipToFacility.Address1;
+            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:Recipient/v19:Address/v19:StreetLines[2]", namespaces).Value = this.m_ShipToFacility.Address2;
+            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:Recipient/v19:Address/v19:City", namespaces).Value = this.m_ShipToFacility.City;
+            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:Recipient/v19:Address/v19:StateOrProvinceCode", namespaces).Value = this.m_ShipToFacility.State;
+            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:Recipient/v19:Address/v19:PostalCode", namespaces).Value = this.m_ShipToFacility.ZipCode;
             this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:Recipient/v19:Address/v19:CountryCode", namespaces).Value = "US";
+
+            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:ShippingChargesPayment/v19:PaymentType", namespaces).Value = this.m_PaymentType;
+            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:ShippingChargesPayment/v19:Payor/v19:ResponsibleParty/v19:AccountNumber", namespaces).Value = this.m_ShipToFacility.FedexAccountNo;
+
+            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:ShippingChargesPayment/v19:Payor/v19:ResponsibleParty/v19:Contact/v19:CompanyName", namespaces).Value = this.m_ShipToFacility.FacilityName;
+            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:ShippingChargesPayment/v19:Payor/v19:ResponsibleParty/v19:Contact/v19:PhoneNumber", namespaces).Value = this.m_ShipToFacility.PhoneNumber;
+
+            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:ShippingChargesPayment/v19:Payor/v19:ResponsibleParty/v19:Address/v19:StreetLines[1]", namespaces).Value = this.m_ShipToFacility.Address1;
+            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:ShippingChargesPayment/v19:Payor/v19:ResponsibleParty/v19:Address/v19:StreetLines[2]", namespaces).Value = this.m_ShipToFacility.Address2;
+            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:ShippingChargesPayment/v19:Payor/v19:ResponsibleParty/v19:Address/v19:City", namespaces).Value = this.m_ShipToFacility.City;
+            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:ShippingChargesPayment/v19:Payor/v19:ResponsibleParty/v19:Address/v19:StateOrProvinceCode", namespaces).Value = this.m_ShipToFacility.State;
+            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:ShippingChargesPayment/v19:Payor/v19:ResponsibleParty/v19:Address/v19:PostalCode", namespaces).Value = this.m_ShipToFacility.ZipCode;
+            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:ShippingChargesPayment/v19:Payor/v19:ResponsibleParty/v19:Address/v19:CountryCode", namespaces).Value = "US";
         }
 
         private void OpenShipmentRequestFile()

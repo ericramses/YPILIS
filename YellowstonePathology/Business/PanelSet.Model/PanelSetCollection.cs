@@ -245,9 +245,14 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new PanelSetIHCHerpesVirus());
             panelSetCollection.Add(new PanelSetCytogeneticAnalysisRetired());
 
-			panelSetCollection.Add(new YellowstonePathology.Business.Test.ChromosomeAnalysisForFetalAnomaly.ChromosomeAnalysisForFetalAnomalyTest());
+            panelSetCollection.Add(new Business.Test.TP63F.TP63FTest());
+            panelSetCollection.Add(new Business.Test.IRF4F.IRF4FTest());
+
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.ChromosomeAnalysisForFetalAnomaly.ChromosomeAnalysisForFetalAnomalyTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.MissingInformation.MissingInformationTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.Trisomy21ByFISH.Trisomy21ByFISHTest());
+
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.BrainDonation.BrainDonationTest());
 
             PanelSetCollection result = new PanelSetCollection();
             IEnumerable<PanelSet> enumerable = panelSetCollection.OrderBy(i => i.PanelSetName);

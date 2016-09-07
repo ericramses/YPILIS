@@ -84,6 +84,7 @@ namespace YellowstonePathology.Business.Facility.Model
             result.Add(new UniversityOfMichigan());
             result.Add(new UniversityOfMiami());
             result.Add(new FoundationOne());
+            result.Add(new ClevelandClinicFoundation());
             return Sort(result);
         }
 

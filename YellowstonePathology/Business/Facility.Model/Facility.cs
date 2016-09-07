@@ -24,6 +24,8 @@ namespace YellowstonePathology.Business.Facility.Model
         protected bool m_IsReferenceLab;
         protected string m_AccessioningLocation;
         protected string m_LocationAbbreviation;
+        protected string m_FedexAccountNo;
+        protected string m_FedexPaymentType;
 
 		protected LocationCollection m_Locations;
         protected CLIALicense m_CliaLicense;        
@@ -206,9 +208,35 @@ namespace YellowstonePathology.Business.Facility.Model
                     this.NotifyPropertyChanged("LocationAbbreviation");
                 }
             }
-        }       
+        }
 
-		public LocationCollection Locations
+        public string FedexAccountNo
+        {
+            get { return this.m_FedexAccountNo; }
+            set
+            {
+                if (this.m_FedexAccountNo != value)
+                {
+                    this.m_FedexAccountNo = value;
+                    this.NotifyPropertyChanged("FedexAccountNo");
+                }
+            }
+        }
+
+        public string FedexPaymentType
+        {
+            get { return this.m_FedexPaymentType; }
+            set
+            {
+                if (this.m_FedexPaymentType != value)
+                {
+                    this.m_FedexPaymentType = value;
+                    this.NotifyPropertyChanged("FedexPaymentType");
+                }
+            }
+        }
+
+        public LocationCollection Locations
         {
             get { return this.m_Locations; }
         }

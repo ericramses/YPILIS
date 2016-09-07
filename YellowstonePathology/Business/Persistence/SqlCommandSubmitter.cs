@@ -105,18 +105,7 @@ namespace YellowstonePathology.Business.Persistence
         }
 
         private void RunSqlCommands(Queue<SqlCommand> sqlCommandQueue, SqlConnection cn, SqlTransaction trans)
-        {
-            /*while (sqlCommandQueue.Count != 0)
-            {
-                SqlCommand cmd = sqlCommandQueue.Dequeue();
-                using (SqlConnection cn = new SqlConnection(this.m_ConnectionString))
-                {                    
-                    cn.Open();
-                    cmd.Connection = cn;                    
-                    cmd.ExecuteNonQuery();                    
-                }
-            }*/
-
+        {            
             while (sqlCommandQueue.Count != 0)
             {
                 SqlCommand cmd = sqlCommandQueue.Dequeue();
@@ -127,18 +116,7 @@ namespace YellowstonePathology.Business.Persistence
         }
 
         private void RunSqlCommands(Stack<SqlCommand> sqlCommandStack, SqlConnection cn, SqlTransaction trans)
-        {
-            /*while (sqlCommandStack.Count != 0)
-            {
-                SqlCommand cmd = sqlCommandStack.Pop();
-                using (SqlConnection cn = new SqlConnection(this.m_ConnectionString))
-                {                    
-                    cn.Open();
-                    cmd.Connection = cn;
-                    cmd.ExecuteNonQuery();                    
-                }
-            }*/
-
+        {            
             while (sqlCommandStack.Count != 0)
             {
                 SqlCommand cmd = sqlCommandStack.Pop();

@@ -101,8 +101,11 @@
         </TabControl>
 
         <StatusBar Grid.Column="0" Grid.Row="3">
-            <StatusBarItem>
+            <StatusBarItem HorizontalAlignment="Left">
                 <TextBlock Name="TextBlockStatus" Margin="2,2,2,2" TextAlignment="Left" VerticalAlignment="Center" Width="300" Text="{Binding Path=StatusMessage}"></TextBlock>
+            </StatusBarItem>
+            <StatusBarItem HorizontalAlignment="Right">
+                <TextBlock Name="TextBlockScanCount" Margin="2,2,2,2" TextAlignment="Right" VerticalAlignment="Center" Width="300" Text="{Binding Path=ScanCount}"></TextBlock>
             </StatusBarItem>
         </StatusBar>
 
