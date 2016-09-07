@@ -1009,8 +1009,11 @@ namespace YellowstonePathology.UI
             //Business.Label.Model.ZPLPrinter zplPrinter = new Business.Label.Model.ZPLPrinter();
             //zplPrinter.Print(Business.Label.Model.PantherZPLLabel.GetCommands("16-21986.1.2", DateTime.Parse("6/30/1993"), "MOUSE, MICKEY", "Thin Prep Fluid"));            
 
-            Business.Facility.Model.NeogenomicsIrvine neo = new Business.Facility.Model.NeogenomicsIrvine();
+            //Business.Facility.Model.NeogenomicsIrvine neo = new Business.Facility.Model.NeogenomicsIrvine();
             Business.MaterialTracking.Model.FedexAccountProduction acct = new Business.MaterialTracking.Model.FedexAccountProduction();
+            Business.MaterialTracking.Model.FedexTrackingRequest trackingRequest = new Business.MaterialTracking.Model.FedexTrackingRequest(acct, "784010962852");
+
+            string result = trackingRequest.Post();
 
             //Business.MaterialTracking.Model.FedexShipmentRequest fedexShipment = new Business.MaterialTracking.Model.FedexShipmentRequest(neo, acct);
             //string result = fedexShipment.RequestShipment();           

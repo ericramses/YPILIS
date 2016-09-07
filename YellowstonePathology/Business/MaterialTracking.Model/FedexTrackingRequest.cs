@@ -25,7 +25,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
             this.SetShipementRequestData();
         }        
 
-        public string RequestShipment()
+        public string Post()
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(this.m_FedexAccount.URL);
             byte[] bytes;
@@ -51,7 +51,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
         {
             XmlNamespaceManager namespaces = new XmlNamespaceManager(new NameTable());            
             namespaces.AddNamespace("soapenv", "http://schemas.xmlsoap.org/soap/envelope/");
-            namespaces.AddNamespace("v9", "http://fedex.com/ws/ship/v9");
+            namespaces.AddNamespace("v9", "http://fedex.com/ws/track/v9");
 
             this.m_TrackingRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v9:TrackRequest/v9:WebAuthenticationDetail/v9:UserCredential/v9:Key", namespaces).Value = this.m_FedexAccount.Key;
             this.m_TrackingRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v9:TrackRequest/v9:WebAuthenticationDetail/v9:UserCredential/v9:Password", namespaces).Value = this.m_FedexAccount.Password;
@@ -65,7 +65,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
         private void OpenShipmentRequestFile()
         {
             var asm = System.Reflection.Assembly.GetExecutingAssembly();
-            using (var stream = asm.GetManifestResourceStream("YellowstonePathology.Business.MaterialTracking.Model.FedexTrackingRequest.V9.xml"))
+            using (var stream = asm.GetManifestResourceStream("YellowstonePathology.Business.MaterialTracking.Model.FedexTrackingRequest.v9.xml"))
             {
                 this.m_TrackingRequest = XDocument.Load(stream);
             }
