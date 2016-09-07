@@ -74,7 +74,26 @@ namespace YellowstonePathology.UI.Gross
             return result;
         }
     }
-    
+
+    public class ConsultTemplate : DictationTemplate
+    {
+        public ConsultTemplate()
+        {
+            this.m_TemplateName = "Consult";
+            this.m_Text = "Received in consultation from [physician name], M.D. ([facility], [city/state]) are [number] slide[?s?] and [number] block[?s?] labeled [accession] for patient [patient name].";
+
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Consult consult = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Consult();
+            this.m_SpecimenCollection.Add(consult);
+        }
+
+        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        {
+            string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
+            result = this.ReplaceCassetteSummary(result, specimenOrder);
+            return result;
+        }
+    }
+
     public class BXTemplate : DictationTemplate
     {
         public BXTemplate()
@@ -195,7 +214,7 @@ namespace YellowstonePathology.UI.Gross
         public SkinShavePunchMiscTemplate()
         {
             this.m_TemplateName = "Skin Shave Punch and Misc Biopsy";
-            this.m_Text = "[identifier]." + Environment.NewLine +
+            this.m_Text = "[identifier]." Received in consultation from[physician name], M.D. ([facility], [city/state]) are[number] slide[?s ?] and[number] block[?s ?] labeled "[accession]" for patient[patient name].
                 "Gross Description:  [description]" + Environment.NewLine +
                 "Measurements:  [measurements]" + Environment.NewLine +
                 "Submitted:  [submitted].  ";            
