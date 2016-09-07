@@ -21,7 +21,6 @@ namespace YellowstonePathology.Business.Test.ErPrSemiQuantitative
 		private string m_InternalControls;
 		private string m_ExternalControls;
 		private string m_Interpretation;
-		private string m_ReportReferences;
 		private string m_ResultComment;
 		private string m_SpecimenSiteAndType;
 		private string m_SpecimenIdentification;
@@ -177,20 +176,6 @@ namespace YellowstonePathology.Business.Test.ErPrSemiQuantitative
 				{
 					this.m_Interpretation = value;
 					this.NotifyPropertyChanged("Interpretation");
-				}
-			}
-		}
-
-		[PersistentProperty()]
-		public string ReportReferences
-		{
-			get { return this.m_ReportReferences; }
-			set
-			{
-				if (this.m_ReportReferences != value)
-				{
-					this.m_ReportReferences = value;
-					this.NotifyPropertyChanged("ReportReferences");
 				}
 			}
 		}

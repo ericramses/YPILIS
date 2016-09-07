@@ -27,7 +27,7 @@ namespace YellowstonePathology.Business.Billing.Model
 		private string m_ICD9Code;
         private string m_ICD10Code;
 		private string m_ReportNo;
-		private int m_SpecimenLogId;
+		private int? m_SpecimenLogId;
 		private string m_MasterAccessionNo;
 		private string m_DesignatedFor;
 		private string m_Source;
@@ -268,7 +268,7 @@ namespace YellowstonePathology.Business.Billing.Model
 		}
 
 		[PersistentProperty()]
-		public int SpecimenLogId
+		public int? SpecimenLogId
 		{
 			get { return this.m_SpecimenLogId; }
 			set

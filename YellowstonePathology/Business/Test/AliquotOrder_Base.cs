@@ -39,7 +39,7 @@ namespace YellowstonePathology.Business.Test
         private string m_FacilityName;
         protected bool m_Validated;
         protected string m_ValidationStation;
-        protected int m_ValidatedById;
+        protected int? m_ValidatedById;
         protected string m_ValidatedBy;
         protected Nullable<DateTime> m_ValidationDate;
         protected string m_Status;
@@ -317,7 +317,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
-        public int ValidatedById
+        public int? ValidatedById
         {
             get
             {

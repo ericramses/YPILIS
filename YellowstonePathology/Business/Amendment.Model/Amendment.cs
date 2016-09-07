@@ -40,7 +40,7 @@ namespace YellowstonePathology.Business.Amendment.Model
         private string m_AmendmentType;
         private string m_PathologistSignature;
         private string m_ReferenceReportNo;
-        private int m_AcceptedById;
+        private int? m_AcceptedById;
         private bool m_Accepted;
         private Nullable<DateTime> m_AcceptedDate;
         private Nullable<DateTime> m_AcceptedTime;
@@ -417,7 +417,7 @@ namespace YellowstonePathology.Business.Amendment.Model
         }
 
         [PersistentProperty()]
-        public int AcceptedById
+        public int? AcceptedById
         {
             get { return this.m_AcceptedById; }
             set

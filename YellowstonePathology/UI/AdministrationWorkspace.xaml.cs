@@ -1226,10 +1226,69 @@ namespace YellowstonePathology.UI
             
         }
 
-
-        private void ButtonWilliamTesting_Click(object sender, RoutedEventArgs e)
+        private void ButtonWilliamTesting_Click(object sender, RoutedEventArgs e) // Compares AccessionOrderBuilder ao to AccessionOrderBuilderV2 ao
         {
-            /*List<string> masterAccessionNos = new List<string>();
+            string resultString = string.Empty;
+            DateTime startDate = DateTime.Parse("7/1/2016");
+            //for (int didx = 0; didx < 10; didx++)
+            //{
+                DateTime endDate = startDate.AddMonths(1).AddDays(-1);
+                List<string> masterAccessionNos = new List<string>();
+                SqlCommand cmd = new SqlCommand("select MasteraccessionNo from tblAccessionOrder where AccessionDate between '" + startDate.ToString() + "' and '" + endDate.ToString() + "'"); // order by 1 asc");
+                cmd.CommandType = CommandType.Text;
+                using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+                {
+                    cn.Open();
+                    cmd.Connection = cn;
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            string s = dr[0].ToString();
+                            masterAccessionNos.Add(s);
+                        }
+                    }
+                }
+
+                foreach (string masterAccessionNo in masterAccessionNos)
+                {
+                    SqlCommand cmd1 = new SqlCommand();
+                    cmd1.CommandText = "gwGetAccessionByMasterAccessionNo_A8";
+                    cmd1.CommandType = CommandType.StoredProcedure;
+                    cmd1.Parameters.Add("@MasterAccessionNo", SqlDbType.VarChar).Value = masterAccessionNo;
+
+                    SqlCommand cmd2 = new SqlCommand();
+                    cmd2.CommandText = "prcGetAccessionOrder";
+                    cmd2.CommandType = CommandType.StoredProcedure;
+                    cmd2.Parameters.Add("@MasterAccessionNo", SqlDbType.VarChar).Value = masterAccessionNo;
+
+                    Business.Test.AccessionOrder ao1 = new Business.Test.AccessionOrder();
+                    Business.Test.AccessionOrder ao2 = new Business.Test.AccessionOrder();
+
+                    Business.Gateway.AccessionOrderBuilder accessionOrderBuilder = new Business.Gateway.AccessionOrderBuilder();
+                    accessionOrderBuilder.Build(cmd1, ao1);
+
+                    Business.Gateway.AccessionOrderBuilderV2 accessionOrderBuilderV2 = new Business.Gateway.AccessionOrderBuilderV2();
+                    accessionOrderBuilderV2.Build(cmd2, ao2);
+
+                    Business.Persistence.DocumentTestBuilders document = new Business.Persistence.DocumentTestBuilders(ao1, ao2);
+                    if (document.IsDirty())
+                    {
+                        resultString = ao1.MasterAccessionNo + ": ";
+                        resultString += "results are not the same.";
+                        MessageBox.Show(resultString);
+                    }
+                }
+                //Console.WriteLine("Finished " + startDate.ToString("MM/dd/yyyy") + " : at " + DateTime.Now.ToString());
+                //startDate = startDate.AddMonths(1);
+            //}
+            resultString = "done";
+            MessageBox.Show(resultString);
+        }
+
+        /*private void ButtonWilliamTesting_Click(object sender, RoutedEventArgs e) //Compares MySql accession order (accession table only) to Sql Server
+        {
+            List<string> masterAccessionNos = new List<string>();
             masterAccessionNos.Add("16-123");
             masterAccessionNos.Add("16-17110");
             masterAccessionNos.Add("16-11839");
@@ -1263,31 +1322,32 @@ namespace YellowstonePathology.UI
 
                 string resultString = ao1.MasterAccessionNo + ": ";
                 Business.Persistence.ObjectComparer objectComparer = new Business.Persistence.ObjectComparer(ao1, ao2);
-                objectComparer.Compare();
-                if (objectComparer.Result != true)
+
+                StringBuilder result1 = new StringBuilder();
+                Business.Persistence.JSONObjectWriter.WriteV2(result1, ao1);
+
+                StringBuilder result2 = new StringBuilder();
+                Business.Persistence.JSONObjectWriter.WriteV2(result2, ao2);
+
+                string s1 = result1.ToString();
+                string s2 = result2.ToString();
+
+                for (int idx = 0; idx < s1.Length; idx++)
                 {
-                    resultString += "results are not the same.";
-                }*/
-
-            /*StringBuilder result1 = new StringBuilder();
-            Business.Persistence.JSONObjectWriter.WriteV2(result1, ao1);
-
-            StringBuilder result2 = new StringBuilder();
-            Business.Persistence.JSONObjectWriter.WriteV2(result2, ao2);
-
-            string s1 = result1.ToString();
-            string s2 = result2.ToString();
-
-            for (int idx = 0; idx < s1.Length; idx++)
-            {
-                if (s1[idx] != s2[idx])
-                {
-                    resultString += s1.Substring(idx - 50, 51);
-                    break;
+                    if (s1[idx] != s2[idx])
+                    {
+                        resultString += s1.Substring(idx - 50, 51);
+                        break;
+                    }
                 }
-            }*/
+            }
+            resultString = "done";
+            MessageBox.Show(resultString);
+        }*/
 
-            /*string basePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase);
+        /*private void ButtonWilliamTesting_Click(object sender, RoutedEventArgs e) //Set initial string lengths in .cs files
+        {
+            string basePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase);
             basePath = basePath.Remove(0, 6);
             basePath = basePath.Replace(@"YellowstonePathology\bin\Debug", "");
             MySQLMigration.MySQLDatabaseBuilder builder = new MySQLMigration.MySQLDatabaseBuilder();
@@ -1318,8 +1378,13 @@ namespace YellowstonePathology.UI
                         writer.WriteLine(migrationStatus.Name);
                     }
                 }
-            }*/
+            }
+            string resultString = "done";
+            MessageBox.Show(resultString);
+        }*/
 
+        /*private void ButtonWilliamTesting_Click(object sender, RoutedEventArgs e) // Recalculates and Sets the length of the string in the .cs files
+        {
             MySQLMigration.MySQLDatabaseBuilder builder = new MySQLMigration.MySQLDatabaseBuilder();
             List<string> dbTypes = new List<string>();
             MySQLMigration.MigrationStatusCollection migrationStatusCollection = MySQLMigration.MigrationStatusCollection.GetAll();
@@ -1336,6 +1401,6 @@ namespace YellowstonePathology.UI
             }
             string resultString = "done";
             MessageBox.Show(resultString);
-        }
+        }*/
     }
 }
