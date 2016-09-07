@@ -94,6 +94,20 @@ namespace YellowstonePathology.Business.Task.Model
 			return result;
 		}
 
+        public TaskOrderDetailFedexShipment GetFedexShipment()
+        {
+            TaskOrderDetailFedexShipment result = null;
+            foreach (TaskOrderDetail taskOrderDetail in this)
+            {
+                if (taskOrderDetail is TaskOrderDetailFedexShipment)
+                {
+                    result = taskOrderDetail as TaskOrderDetailFedexShipment;
+                    break;
+                }
+            }
+            return result;
+        }
+
         public void Sync(DataTable dataTable, string taskOrderId)
         {
             this.RemoveDeleted(dataTable);
@@ -102,6 +116,7 @@ namespace YellowstonePathology.Business.Task.Model
             {
                 string taskOrderDetailId = dataTableReader["TaskOrderDetailId"].ToString();
                 string taskOrderDetailTaskOrderId = dataTableReader["TaskOrderId"].ToString();
+                string taskId = dataTableReader["TaskId"].ToString();
 
                 TaskOrderDetail taskOrderDetail = null;
 
@@ -111,7 +126,7 @@ namespace YellowstonePathology.Business.Task.Model
                 }
                 else if (taskOrderId == taskOrderDetailTaskOrderId)
                 {
-                    taskOrderDetail = new TaskOrderDetail();
+                    taskOrderDetail = TaskOrderDetailFactory.GetTaskOrderDetail(taskId);
                     this.Add(taskOrderDetail);
                 }
 

@@ -26,7 +26,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
                 "Peripheral Blood: 2-5 mL sodium heparin tube. EDTA tube is acceptable. Fresh, Unfixed Tissue: Tissue in RPMI. " +
                 "Fluids: Equal parts RPMI to specimen volume. Paraffin Block: H&E slide (required) plus paraffin block. Circle H&E for tech-only." +
                 "Cut Slides: H&E slide (required) plus 2 unstained slides cut at 4 microns. Circle H&E for tech-only.) and send out to Neo.";
-			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Flow, taskDescription));
+			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskFedexShipment(YellowstonePathology.Business.Task.Model.TaskAssignment.Flow, taskDescription, new Facility.Model.NeogenomicsIrvine()));
 
             this.m_TechnicalComponentFacility = new YellowstonePathology.Business.Facility.Model.NeogenomicsIrvine();
             this.m_ProfessionalComponentFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologistBillings();

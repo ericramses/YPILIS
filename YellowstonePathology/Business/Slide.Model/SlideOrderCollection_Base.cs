@@ -67,6 +67,35 @@ namespace YellowstonePathology.Business.Slide.Model
             }
         }
 
+        public void SyncForTestOrder(DataTable dataTable, string testOrderId)
+        {
+            this.RemoveDeleted(dataTable);
+            DataTableReader dataTableReader = new DataTableReader(dataTable);
+            while (dataTableReader.Read())
+            {
+                string slideOrderId = dataTableReader["SlideOrderId"].ToString();
+                string slideTestOrderId = dataTableReader["TestOrderId"].ToString();
+
+                SlideOrder slideOrder = null;
+
+                if (this.Exists(slideOrderId) == true)
+                {
+                    slideOrder = this.Get(slideOrderId);
+                }
+                else if (slideTestOrderId == testOrderId)
+                {
+                    slideOrder = new SlideOrder();
+                    this.Add(slideOrder);
+                }
+
+                if (slideOrder != null)
+                {
+                    YellowstonePathology.Business.Persistence.SqlDataTableReaderPropertyWriter sqlDataTableReaderPropertyWriter = new Persistence.SqlDataTableReaderPropertyWriter(slideOrder, dataTableReader);
+                    sqlDataTableReaderPropertyWriter.WriteProperties();
+                }
+            }
+        }
+
         public void RemoveDeleted(IEnumerable<XElement> elements)
         {
             for (int i = this.Count - 1; i > -1; i--)

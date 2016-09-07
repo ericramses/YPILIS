@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business.Persistence
             YellowstonePathology.Business.User.SystemIdentity systemIdentity = YellowstonePathology.Business.User.SystemIdentity.Instance;
 
             this.m_SQLCommand = new SqlCommand();
-            m_SQLCommand.CommandText = "gwGetAccessionByMasterAccessionNo_A8";
+            m_SQLCommand.CommandText = "gwGetAccessionByMasterAccessionNo_A9";
             //this.m_SQLCommand.CommandText = "whctest";
             m_SQLCommand.CommandType = CommandType.StoredProcedure;
             m_SQLCommand.Parameters.Add("@MasterAccessionNo", SqlDbType.VarChar).Value = masterAccessionNo;            

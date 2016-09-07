@@ -23,7 +23,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Document.ReferenceLabReport).AssemblyQualifiedName;
 
             string taskDescription = "Gather materials and send to Genomic Health.";
-			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskRefernceLabSendout(YellowstonePathology.Business.Task.Model.TaskAssignment.Transcription, taskDescription));
+			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskFedexShipment(YellowstonePathology.Business.Task.Model.TaskAssignment.Transcription, taskDescription, new Facility.Model.GenomicHealth()));
 
             this.m_TechnicalComponentFacility = new YellowstonePathology.Business.Facility.Model.GenomicHealth();
             this.m_ProfessionalComponentFacility = new YellowstonePathology.Business.Facility.Model.GenomicHealth();

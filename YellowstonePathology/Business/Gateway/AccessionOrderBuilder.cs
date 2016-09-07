@@ -543,7 +543,8 @@ namespace YellowstonePathology.Business.Gateway
                 }
                 else
                 {
-                    taskOrderDetail = new YellowstonePathology.Business.Task.Model.TaskOrderDetail();
+                    string taskId = taskOrderDetailElement.Element("TaskId").Value;
+                    taskOrderDetail = YellowstonePathology.Business.Task.Model.TaskOrderDetailFactory.GetTaskOrderDetail(taskId);
                     taskOrder.TaskOrderDetailCollection.Add(taskOrderDetail);
                 }
 

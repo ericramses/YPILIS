@@ -208,6 +208,70 @@ namespace YellowstonePathology.UI.Login.Receiving
                 this.m_TaskOrder.Acknowledged = false;
                 this.m_TaskOrder.AcknowledgedDate = null;
             }
-        }             
-	}
+        }
+
+        private void HyperLinkGetTrackingNumber_Click(object sender, RoutedEventArgs e)
+        {
+            Business.Task.Model.TaskOrderDetailFedexShipment taskOrderDetail = this.m_TaskOrder.TaskOrderDetailCollection.GetFedexShipment();
+            if(string.IsNullOrEmpty(taskOrderDetail.TrackingNumber) == true)
+            {
+                Business.Facility.Model.FacilityCollection allFacilities = Business.Facility.Model.FacilityCollection.GetAllFacilities();
+                Business.Facility.Model.Facility facility = allFacilities.GetByFacilityId(taskOrderDetail.ShipToFacilityId);
+                Business.MaterialTracking.Model.FedexAccountProduction fedExAccount = new Business.MaterialTracking.Model.FedexAccountProduction();
+                Business.MaterialTracking.Model.FedexShipmentRequest shipmentRequest = new Business.MaterialTracking.Model.FedexShipmentRequest(facility, fedExAccount);
+                Business.MaterialTracking.Model.FedexProcessShipmentReply result = shipmentRequest.RequestShipment();
+
+                if (result.RequestWasSuccessful == true)
+                {
+                    taskOrderDetail.TrackingNumber = result.TrackingNumber;
+                    taskOrderDetail.SetZPLFromBase64(result.ZPLII);
+                }
+                else
+                {
+                    MessageBox.Show("There was a problem with this shipping request.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("A Tracking number for this task already exists.");
+            }        
+        }
+
+        private void HyperLinkPrintLabel_Click(object sender, RoutedEventArgs e)
+        {
+            Business.Task.Model.TaskOrderDetailFedexShipment taskOrderDetail = this.m_TaskOrder.TaskOrderDetailCollection.GetFedexShipment();      
+            if(string.IsNullOrEmpty(taskOrderDetail.ZPLII) == false)
+            {
+                Business.Label.Model.ZPLPrinter zplPrinter = new Business.Label.Model.ZPLPrinter();
+                zplPrinter.Print(taskOrderDetail.ZPLII);
+                taskOrderDetail.LabelHasBeenPrinted = true;
+            }
+            else
+            {
+                MessageBox.Show("The label cannot be printed until a tracking number exists.");
+            }
+        }
+
+        private void HyperLinkCancelShipment_Click(object sender, RoutedEventArgs e)
+        {
+            Business.Task.Model.TaskOrderDetailFedexShipment taskOrderDetail = this.m_TaskOrder.TaskOrderDetailCollection.GetFedexShipment();
+            if(string.IsNullOrEmpty(taskOrderDetail.TrackingNumber) == false)
+            {
+                Business.MaterialTracking.Model.FedexAccountProduction fedExAccount = new Business.MaterialTracking.Model.FedexAccountProduction();
+                Business.MaterialTracking.Model.FedexDeleteShipmentRequest deleteShipmentRequest = new Business.MaterialTracking.Model.FedexDeleteShipmentRequest(fedExAccount, taskOrderDetail.TrackingNumber);
+                Business.MaterialTracking.Model.FedexDeleteShipmentReply result = deleteShipmentRequest.Post();
+
+                if(result.RequestWasSuccessful == true)
+                {
+                    taskOrderDetail.ZPLII = null;
+                    taskOrderDetail.TrackingNumber = null;
+                    taskOrderDetail.LabelHasBeenPrinted = false;
+                }
+                else
+                {
+                    MessageBox.Show("There was a problem with this Request.");
+                }
+            }            
+        }
+    }
 }
