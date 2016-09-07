@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
@@ -60,7 +60,7 @@ namespace YellowstonePathology.Business.User
             return result;
         }
 
-		[PersistentPrimaryKeyProperty(false)]
+		[PersistentPrimaryKeyProperty(false, 200)]
 		public string HostName
 		{
 			get { return this.m_HostName; }
@@ -74,7 +74,7 @@ namespace YellowstonePathology.Business.User
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(50)]
 		public string LocationId
 		{
 			get { return this.m_LocationId; }
@@ -102,7 +102,7 @@ namespace YellowstonePathology.Business.User
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
         public string BarcodeScanPort
         {
             get { return this.m_BarcodeScanPort; }
@@ -130,7 +130,7 @@ namespace YellowstonePathology.Business.User
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
 		public string LockMode
 		{
 			get { return this.m_LockMode ; }
@@ -144,7 +144,7 @@ namespace YellowstonePathology.Business.User
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
         public string ContainerLabelPrinter
         {
             get { return this.m_ContainerLabelPrinter; }
@@ -158,7 +158,7 @@ namespace YellowstonePathology.Business.User
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
         public string HistologySlideLabelPrinter
         {
 			get { return this.m_HistologySlideLabelPrinter; }
@@ -172,7 +172,7 @@ namespace YellowstonePathology.Business.User
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
 		public string CytologySlideLabelPrinter
 		{
 			get { return this.m_CytologySlideLabelPrinter; }
@@ -186,7 +186,7 @@ namespace YellowstonePathology.Business.User
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
 		public string RequisitionPrinter
 		{
 			get { return this.m_RequisitionPrinter; }
@@ -200,7 +200,7 @@ namespace YellowstonePathology.Business.User
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
 		public string CassettePrinter
 		{
 			get { return this.m_CassettePrinter; }
@@ -214,7 +214,7 @@ namespace YellowstonePathology.Business.User
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
         public string LaserCassettePrinter
         {
             get { return this.m_LaserCassettePrinter; }
@@ -228,7 +228,7 @@ namespace YellowstonePathology.Business.User
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
         public string SpecialStainAcknowledgementPrinter
         {
             get { return this.m_SpecialStainAcknowledgementPrinter; }
@@ -242,7 +242,7 @@ namespace YellowstonePathology.Business.User
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
 		public string StartupPage
 		{
 			get { return this.m_StartupPage; }
@@ -256,7 +256,7 @@ namespace YellowstonePathology.Business.User
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
 		public string MolecularLabelPrinter
 		{
 			get { return this.m_MolecularLabelPrinter; }
@@ -270,7 +270,7 @@ namespace YellowstonePathology.Business.User
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
         public string MolecularLabelFormat
         {
             get { return this.m_MolecularLabelFormat; }
@@ -284,7 +284,7 @@ namespace YellowstonePathology.Business.User
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
 		public string PageScanner
 		{
 			get { return this.m_PageScanner; }
@@ -298,7 +298,7 @@ namespace YellowstonePathology.Business.User
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
         public string FacilityId
         {
             get { return this.m_FacilityId; }
@@ -326,7 +326,7 @@ namespace YellowstonePathology.Business.User
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentStringProperty(100)]
         public string AlertWaveFileName
         {
             get { return this.m_AlertWaveFileName; }
@@ -340,7 +340,7 @@ namespace YellowstonePathology.Business.User
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
         public string AcknowledgeTasksFor
         {
             get { return this.m_AcknowledgeTasksFor; }
@@ -354,7 +354,7 @@ namespace YellowstonePathology.Business.User
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
         public string TecanImportExportPath
         {
             get { return this.m_TecanImportExportPath; }
@@ -368,7 +368,7 @@ namespace YellowstonePathology.Business.User
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
         public string SlideMatePrinterPath
         {
             get { return this.m_SlideMatePrinterPath; }
@@ -382,7 +382,7 @@ namespace YellowstonePathology.Business.User
             }
         }
 
-		[PersistentProperty()]
+		[PersistentStringProperty(50)]
 		public string WeekdayProcessorRunId
 		{
 			get { return this.m_WeekdayProcessorRunId; }
@@ -396,7 +396,7 @@ namespace YellowstonePathology.Business.User
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(50)]
 		public string WeekendProcessorRunId
 		{
 			get { return this.m_WeekendProcessorRunId; }
@@ -410,7 +410,7 @@ namespace YellowstonePathology.Business.User
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
         public string CytologySlidePrinter
         {
             get { return this.m_CytologySlidePrinter; }
@@ -424,7 +424,7 @@ namespace YellowstonePathology.Business.User
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
         public string LastReportNo
         {
             get { return this.m_LastReportNo; }
@@ -438,7 +438,7 @@ namespace YellowstonePathology.Business.User
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
         public string ThermoFisherSlidePrinter
         {
             get { return this.m_ThermoFisherSlidePrinter; }

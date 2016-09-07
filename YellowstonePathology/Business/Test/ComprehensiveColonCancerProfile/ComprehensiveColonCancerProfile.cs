@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -30,7 +30,7 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
             
 		}        
 
-        [PersistentProperty()]
+        [PersistentStringProperty(500)]
         public string Interpretation
         {
             get { return this.m_Interpretation; }

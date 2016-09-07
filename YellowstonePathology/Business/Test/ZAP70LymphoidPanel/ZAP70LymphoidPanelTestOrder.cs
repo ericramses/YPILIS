@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,7 +27,7 @@ namespace YellowstonePathology.Business.Test.ZAP70LymphoidPanel
 		{
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(50)]
 		public string Result
 		{
 			get { return this.m_Result; }
@@ -41,7 +41,7 @@ namespace YellowstonePathology.Business.Test.ZAP70LymphoidPanel
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(5000)]
 		public string Comment
 		{
 			get { return this.m_Comment; }
@@ -55,7 +55,7 @@ namespace YellowstonePathology.Business.Test.ZAP70LymphoidPanel
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string Lymphocytes
 		{
 			get { return this.m_Lymphocytes; }
@@ -69,7 +69,7 @@ namespace YellowstonePathology.Business.Test.ZAP70LymphoidPanel
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string PopulationAnalysis
 		{
 			get { return this.m_PopulationAnalysis; }
@@ -83,7 +83,7 @@ namespace YellowstonePathology.Business.Test.ZAP70LymphoidPanel
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(1000)]
 		public string MarkersPerformed
 		{
 			get { return this.m_MarkersPerformed; }

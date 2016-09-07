@@ -23,63 +23,63 @@ namespace YellowstonePathology.Business.Client.Model
 
 		}
 
-		[PersistentProperty]
+		[PersistentProperty()]
 		public string PhysicianClientId
 		{
 			get { return this.m_PhysicianClientId; }
 			set { this.m_PhysicianClientId = value; }
 		}
 
-		[PersistentProperty]
+		[PersistentProperty()]
 		public int ClientId
 		{
 			get { return this.m_ClientId; }
 			set { this.m_ClientId = value; }
 		}
 
-		[PersistentProperty]
+		[PersistentProperty()]
 		public int PhysicianId
 		{
 			get { return this.m_PhysicianId; }
 			set { this.m_PhysicianId = value; }
 		}
 
-		[PersistentProperty]
+		[PersistentProperty()]
 		public string ProviderId
 		{
 			get { return this.m_ProviderId; }
 			set { this.m_ProviderId = value; }
 		}
 
-		[PersistentProperty]
+		[PersistentProperty()]
 		public string ClientName
 		{
 			get { return this.m_ClientName; }
 			set { this.m_ClientName = value; }
 		}
 
-		[PersistentProperty]
+		[PersistentProperty()]
 		public string FirstName
 		{
 			get { return this.m_FirstName; }
 			set { this.m_FirstName = value; }
 		}
 
-		[PersistentProperty]
+		[PersistentProperty()]
 		public string LastName
 		{
 			get { return this.m_LastName; }
 			set { this.m_LastName = value; }
 		}
 
-		[PersistentProperty]
+		[PersistentProperty()]
 		public string Telephone
 		{
 			get { return this.m_Telephone; }
 			set { this.m_Telephone = value; }
 		}
 
-		[PersistentProperty]
+		[PersistentProperty()]
 		public string Fax
 		{
 			get { return this.m_Fax; }

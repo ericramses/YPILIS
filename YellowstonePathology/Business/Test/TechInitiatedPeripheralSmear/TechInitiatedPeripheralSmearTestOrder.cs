@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -53,7 +53,7 @@ namespace YellowstonePathology.Business.Test.TechInitiatedPeripheralSmear
             return result;
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(500)]
         public string TechnologistsQuestion
         {
             get { return this.m_TechnologistsQuestion; }
@@ -67,7 +67,7 @@ namespace YellowstonePathology.Business.Test.TechInitiatedPeripheralSmear
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(500)]
         public string PathologistFeedback
         {
             get { return this.m_PathologistFeedback; }
@@ -81,7 +81,7 @@ namespace YellowstonePathology.Business.Test.TechInitiatedPeripheralSmear
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(500)]
         public string CBCComment
         {
             get { return this.m_CBCComment; }

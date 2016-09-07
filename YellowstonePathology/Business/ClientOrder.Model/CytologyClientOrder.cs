@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -48,7 +48,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		private string m_ScreeningType;
 		private bool m_TrichomonasVaginalis;
 
-		[PersistentProperty]
+		[PersistentProperty()]
 		[DataMember]
 		public string LMP
 		{
@@ -63,7 +63,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 			}
 		}
 
-		[PersistentProperty]
+		[PersistentProperty()]
 		[DataMember]
 		public bool CervixPresent
 		{
@@ -78,7 +78,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 			}
 		}
 
-		[PersistentProperty]
+		[PersistentProperty()]
 		[DataMember]
 		public bool CervicalEndoCervical
 		{
@@ -93,7 +93,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 			}
 		}
 
-		[PersistentProperty]
+		[PersistentProperty()]
 		[DataMember]
 		public bool Vaginal
 		{
@@ -108,7 +108,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 			}
 		}
 
-		[PersistentProperty]
+		[PersistentProperty()]
 		[DataMember]
 		public bool Hysterectomy
 		{
@@ -123,7 +123,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 			}
 		}
 
-		[PersistentProperty]
+		[PersistentProperty()]
 		[DataMember]
 		public bool AbnormalBleeding
 		{
@@ -138,7 +138,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 			}
 		}
 
-		[PersistentProperty]
+		[PersistentProperty()]
 		[DataMember]
 		public bool BirthControl
 		{
@@ -153,7 +153,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 			}
 		}
 
-		[PersistentProperty]
+		[PersistentProperty()]
 		[DataMember]
 		public bool HormoneTherapy
 		{
@@ -168,7 +168,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 			}
 		}
 
-		[PersistentProperty]
+		[PersistentProperty()]
 		[DataMember]
 		public bool PreviousNormalPap
 		{
@@ -183,7 +183,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 			}
 		}
 
-		[PersistentProperty]
+		[PersistentProperty()]
 		[DataMember]
 		public string PreviousNormalPapDate
 		{
@@ -198,7 +198,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 			}
 		}
 
-		[PersistentProperty]
+		[PersistentProperty()]
 		[DataMember]
 		public bool PreviousAbnormalPap
 		{
@@ -213,7 +213,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 			}
 		}
 
-		[PersistentProperty]
+		[PersistentProperty()]
 		[DataMember]
 		public string PreviousAbnormalPapDate
 		{
@@ -228,7 +228,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 			}
 		}
 
-		[PersistentProperty]
+		[PersistentProperty()]
 		[DataMember]
 		public bool PreviousBiopsy
 		{
@@ -243,7 +243,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 			}
 		}
 
-		[PersistentProperty]
+		[PersistentProperty()]
 		[DataMember]
 		public string PreviousBiopsyDate
 		{
@@ -258,7 +258,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 			}
 		}
 
-		[PersistentProperty]
+		[PersistentProperty()]
 		[DataMember]
 		public bool Prenatal
 		{
@@ -273,7 +273,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 			}
 		}
 
-		[PersistentProperty]
+		[PersistentProperty()]
 		[DataMember]
 		public bool Postpartum
 		{
@@ -288,7 +288,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 			}
 		}
 
-		[PersistentProperty]
+		[PersistentProperty()]
 		[DataMember]
 		public bool Postmenopausal
 		{
@@ -303,7 +303,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 			}
 		}
 
-		[PersistentProperty]
+		[PersistentProperty()]
 		[DataMember]
 		public string Icd9Code
 		{
@@ -318,7 +318,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 			}
 		}
 
-		[PersistentProperty]
+		[PersistentProperty()]
 		[DataMember]
 		public bool ReflexHPV
 		{
@@ -333,7 +333,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 			}
 		}
 
-		[PersistentProperty]
+		[PersistentProperty()]
 		[DataMember]
 		public bool RoutineHPVTesting
 		{
@@ -348,7 +348,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 			}
 		}
 
-		[PersistentProperty]
+		[PersistentProperty()]
 		[DataMember]
 		public bool NGCTTesting
 		{
@@ -363,7 +363,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 			}
 		}
 
-		[PersistentProperty]
+		[PersistentProperty()]
 		[DataMember]
 		public string ScreeningType
 		{
@@ -378,7 +378,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 			}
 		}
 
-		[PersistentProperty]
+		[PersistentProperty()]
 		[DataMember]
 		public bool TrichomonasVaginalis
 		{

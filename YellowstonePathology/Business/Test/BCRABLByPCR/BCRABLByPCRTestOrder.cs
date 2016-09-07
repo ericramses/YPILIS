@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,7 +28,7 @@ namespace YellowstonePathology.Business.Test.BCRABLByPCR
 		{
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string Result
 		{
 			get { return this.m_Result; }
@@ -42,7 +42,7 @@ namespace YellowstonePathology.Business.Test.BCRABLByPCR
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string DetectedLogReduction
 		{
 			get { return this.m_DetectedLogReduction; }
@@ -56,7 +56,7 @@ namespace YellowstonePathology.Business.Test.BCRABLByPCR
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string FusionTranscriptType
 		{
 			get { return this.m_FusionTranscriptType; }
@@ -70,7 +70,7 @@ namespace YellowstonePathology.Business.Test.BCRABLByPCR
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
         public string PercentBCRABL
         {
             get { return this.m_PercentBCRABL; }
@@ -84,7 +84,7 @@ namespace YellowstonePathology.Business.Test.BCRABLByPCR
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(5000)]
 		public string Interpretation
 		{
 			get { return this.m_Interpretation; }
@@ -98,7 +98,7 @@ namespace YellowstonePathology.Business.Test.BCRABLByPCR
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(5000)]
 		public string Method
 		{
 			get { return this.m_Method; }

@@ -30,7 +30,7 @@ namespace YellowstonePathology.Business.Typing
 		}
 
 		//[PersistentDocumentIdProperty()]
-        [PersistentPrimaryKeyProperty(false)]
+        [PersistentPrimaryKeyProperty(false, 50)]
         public string ObjectId
 		{
 			get { return this.m_ObjectId; }
@@ -44,7 +44,7 @@ namespace YellowstonePathology.Business.Typing
 			}
 		}        
 
-        [PersistentProperty()]   
+        [PersistentStringProperty(50)]   
 		public string Shortcut
 		{
 			get { return this.m_Shortcut; }
@@ -58,7 +58,7 @@ namespace YellowstonePathology.Business.Typing
 			}
 		}
 
-        [PersistentProperty()] 
+        [PersistentStringProperty(-1)] 
 		public string Text
 		{
 			get { return this.m_Text; }
@@ -73,7 +73,7 @@ namespace YellowstonePathology.Business.Typing
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
 		public string Type
 		{
 			get { return this.m_Type; }

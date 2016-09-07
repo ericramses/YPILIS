@@ -26,8 +26,8 @@ namespace YellowstonePathology.Business.Test.BCRABLByFish
 		{
 		}
 
-		[PersistentProperty()]
-		public string Result
+        [PersistentStringProperty(50)]
+        public string Result
 		{
 			get { return this.m_Result; }
 			set
@@ -40,8 +40,8 @@ namespace YellowstonePathology.Business.Test.BCRABLByFish
 			}
 		}
 
-		[PersistentProperty()]
-		public string Interpretation
+        [PersistentStringProperty(5000)]
+        public string Interpretation
 		{
 			get { return this.m_Interpretation; }
 			set
@@ -54,8 +54,8 @@ namespace YellowstonePathology.Business.Test.BCRABLByFish
 			}
 		}
 
-		[PersistentProperty()]
-		public string ProbeSetDetail
+        [PersistentStringProperty(5000)]
+        public string ProbeSetDetail
 		{
 			get { return this.m_ProbeSetDetail; }
 			set
@@ -68,8 +68,8 @@ namespace YellowstonePathology.Business.Test.BCRABLByFish
 			}
 		}
 
-		[PersistentProperty()]
-		public string NucleiScored
+        [PersistentStringProperty(50)]
+        public string NucleiScored
 		{
 			get { return this.m_NucleiScored; }
 			set

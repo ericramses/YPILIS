@@ -22,7 +22,7 @@ namespace YellowstonePathology.Business.Domain
 		{
 		}
 
-		[PersistentDocumentIdProperty()]
+		[PersistentDocumentIdProperty(20)]
 		public string ReportNo
 		{
 			get { return this.m_ReportNo; }

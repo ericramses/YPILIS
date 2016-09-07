@@ -33,7 +33,7 @@ namespace YellowstonePathology.Business
 
         }
 
-		[PersistentDocumentIdProperty()]
+		[PersistentDocumentIdProperty(50)]
 		public string ObjectId
 		{
 			get { return this.m_ObjectId; }
@@ -47,7 +47,7 @@ namespace YellowstonePathology.Business
 			}
 		}
 
-        [Persistence.PersistentPrimaryKeyProperty(false)]
+        [Persistence.PersistentPrimaryKeyProperty(false, 0)]
         public string NeogenomicsResultId
         {
             get { return this.m_NeogenomicsResultId; }

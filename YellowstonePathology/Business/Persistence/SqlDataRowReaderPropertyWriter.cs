@@ -134,7 +134,7 @@ namespace YellowstonePathology.Business.Persistence
 
         private void WriteDateTime(PropertyInfo property)
         {
-            DateTime sqlValue = DateTime.Parse(this.m_DataTableReader[property.Name].ToString());
+            DateTime sqlValue = (DateTime)this.m_DataTableReader[property.Name];
             property.SetValue(this.m_ObjectToWriteTo, sqlValue, null);
         }
 

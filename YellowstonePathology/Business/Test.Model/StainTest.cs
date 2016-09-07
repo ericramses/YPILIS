@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -26,7 +26,7 @@ namespace YellowstonePathology.Business.Test.Model
 
 		}
 
-		[PersistentDocumentIdProperty()]
+		[PersistentDocumentIdProperty(50)]
 		public string ObjectId
 		{
 			get { return this.m_ObjectId; }
@@ -40,7 +40,7 @@ namespace YellowstonePathology.Business.Test.Model
 			}
 		}
 
-        [PersistentPrimaryKeyProperty(false)]
+        [PersistentPrimaryKeyProperty(false, 0)]
 		public int StainTestId
 		{
 			get { return this.m_StainTestId; }
@@ -68,7 +68,7 @@ namespace YellowstonePathology.Business.Test.Model
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentStringProperty(20)]
 		public string CptCode
 		{
 			get { return this.m_CptCode; }
@@ -110,7 +110,7 @@ namespace YellowstonePathology.Business.Test.Model
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
 		public string ControlComment
 		{
 			get { return this.m_ControlComment; }
@@ -124,7 +124,7 @@ namespace YellowstonePathology.Business.Test.Model
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
 		public string StainType
 		{
 			get { return this.m_StainType; }

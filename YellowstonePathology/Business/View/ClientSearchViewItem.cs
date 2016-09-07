@@ -21,42 +21,42 @@ namespace YellowstonePathology.Business.View
 		{
 		}
 
-		[PersistentDocumentIdProperty]
+		[PersistentDocumentIdProperty(50)]
 		public string ObjectId
 		{
 			get { return this.m_ObjectId; }
 			set { this.m_ObjectId = value; }
 		}
 
-		[PersistentProperty]
+		[PersistentProperty()]
 		public int ClientId
 		{
 			get { return this.m_ClientId; }
 			set { this.m_ClientId = value; }
 		}
 
-		[PersistentProperty]
+		[PersistentProperty()]
 		public string ClientName
 		{
 			get { return this.m_ClientName; }
 			set { this.m_ClientName = value; }
 		}
 
-		[PersistentProperty]
+		[PersistentProperty()]
         public string Address
         {
             get { return this.m_Address; }
             set { this.m_Address = value; }
         }
 
-		[PersistentProperty]
+		[PersistentProperty()]
 		public string Telephone
 		{
 			get { return this.m_Telephone; }
 			set { this.m_Telephone = value; }
 		}
 
-		[PersistentProperty]
+		[PersistentProperty()]
 		public string Fax
 		{
 			get { return this.m_Fax; }

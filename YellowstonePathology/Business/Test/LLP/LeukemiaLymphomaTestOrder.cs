@@ -101,8 +101,8 @@ namespace YellowstonePathology.Business.Test.LLP
 			}
 		}
 
-        [PersistentProperty()]
-		public string GatingPopulationV2
+        [PersistentStringProperty(50)]
+        public string GatingPopulationV2
 		{
 			get { return this.m_GatingPopulationV2; }
 			set
@@ -204,8 +204,8 @@ namespace YellowstonePathology.Business.Test.LLP
 			}
 		}
 
-        [PersistentProperty()]
-		public string OtherName
+        [PersistentStringProperty(200)]
+        public string OtherName
 		{
 			get { return this.m_OtherName; }
 			set
@@ -302,8 +302,8 @@ namespace YellowstonePathology.Business.Test.LLP
 			}
 		}
 
-        [PersistentProperty()]
-		public string InterpretiveComment
+        [PersistentStringProperty(5000)]
+        public string InterpretiveComment
 		{
 			get { return this.m_InterpretiveComment; }
 			set
@@ -316,8 +316,8 @@ namespace YellowstonePathology.Business.Test.LLP
 			}
 		}
 
-        [PersistentProperty()]
-		public string Impression
+        [PersistentStringProperty(1000)]
+        public string Impression
 		{
 			get { return this.m_Impression; }
 			set
@@ -358,8 +358,8 @@ namespace YellowstonePathology.Business.Test.LLP
 			}
 		}
 
-        [PersistentProperty()]
-		public string CellPopulationOfInterest
+        [PersistentStringProperty(100)]
+        public string CellPopulationOfInterest
 		{
 			get { return this.m_CellPopulationOfInterest; }
 			set
@@ -372,8 +372,8 @@ namespace YellowstonePathology.Business.Test.LLP
 			}
 		}
 
-        [PersistentProperty()]
-		public string TestResult
+        [PersistentStringProperty(50)]
+        public string TestResult
 		{
 			get { return this.m_TestResult; }
 			set
@@ -386,8 +386,8 @@ namespace YellowstonePathology.Business.Test.LLP
 			}
 		}
 
-        [PersistentProperty()]
-		public string CellDescription
+        [PersistentStringProperty(50)]
+        public string CellDescription
 		{
 			get { return this.m_CellDescription; }
 			set
@@ -400,8 +400,8 @@ namespace YellowstonePathology.Business.Test.LLP
 			}
 		}
 
-        [PersistentProperty()]
-		public string BTCellSelection
+        [PersistentStringProperty(50)]
+        public string BTCellSelection
 		{
 			get { return this.m_BTCellSelection; }
 			set
@@ -414,8 +414,8 @@ namespace YellowstonePathology.Business.Test.LLP
 			}
 		}
 
-        [PersistentProperty()]
-		public string KappaLambda
+        [PersistentStringProperty(50)]
+        public string KappaLambda
 		{
 			get { return this.m_KappaLambda; }
 			set
@@ -428,8 +428,8 @@ namespace YellowstonePathology.Business.Test.LLP
 			}
 		}
 
-        [PersistentProperty()]
-		public string EGateCD34Percent
+        [PersistentStringProperty(50)]
+        public string EGateCD34Percent
 		{
 			get { return this.m_EGateCD34Percent; }
 			set
@@ -442,8 +442,8 @@ namespace YellowstonePathology.Business.Test.LLP
 			}
 		}
 
-        [PersistentProperty()]
-		public string EGateCD117Percent
+        [PersistentStringProperty(50)]
+        public string EGateCD117Percent
 		{
 			get { return this.m_EGateCD117Percent; }
 			set
@@ -510,10 +510,10 @@ namespace YellowstonePathology.Business.Test.LLP
 					this.NotifyPropertyChanged("TechFinaledById");
 				}
 			}
-		}        
+		}
 
-        [PersistentProperty()]
-		public string ReportComment
+        [PersistentStringProperty(1000)]
+        public string ReportComment
 		{
 			get { return this.m_ReportComment; }
 			set
@@ -526,8 +526,8 @@ namespace YellowstonePathology.Business.Test.LLP
 			}
 		}
 
-        [PersistentProperty()]
-		public string TestCancelledComment
+        [PersistentStringProperty(1000)]
+        public string TestCancelledComment
 		{
 			get { return this.m_TestCancelledComment; }
 			set

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -291,7 +291,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(5000)]
 		public string Result
 		{
 			get { return this.m_Result; }
@@ -305,7 +305,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(20)]
 		public string PolysomyPercent
 		{
 			get { return this.m_PolysomyPercent; }
@@ -319,7 +319,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(10)]
 		public string Chr17SignalRangeLow
 		{
 			get { return this.m_Chr17SignalRangeLow; }
@@ -333,7 +333,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(50)]
 		public string Chr17SignalRangeHigh
 		{
 			get { return this.m_Chr17SignalRangeHigh; }
@@ -347,7 +347,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(10)]
 		public string Her2SignalRangeLow
 		{
 			get { return this.m_Her2SignalRangeLow; }
@@ -361,7 +361,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(10)]
 		public string Her2SignalRangeHigh
 		{
 			get { return this.m_Her2SignalRangeHigh; }
@@ -375,7 +375,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(50)]
 		public string CommentLabel
 		{
 			get { return this.m_CommentLabel; }
@@ -389,7 +389,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(5000)]
 		public string ResultDescription
 		{
 			get { return this.m_ResultDescription; }
@@ -403,7 +403,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(100)]
 		public string SampleAdequacy
 		{
 			get { return this.m_SampleAdequacy; }
@@ -417,7 +417,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(30)]
 		public string ProbeSignalIntensity
 		{
 			get { return this.m_ProbeSignalIntensity; }
@@ -431,7 +431,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string TechComment
 		{
 			get { return this.m_TechComment; }
@@ -445,7 +445,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(5000)]
 		public string ResultComment
 		{
 			get { return this.m_ResultComment; }
@@ -459,7 +459,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(5000)]
 		public string InterpretiveComment
 		{
 			get { return this.m_InterpretiveComment; }
@@ -473,7 +473,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(100)]
 		public string GeneticHeterogeneity
 		{
 			get { return this.m_GeneticHeterogeneity; }
@@ -487,7 +487,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(20)]
 		public string Her2Chr17ClusterRatio
 		{
 			get { return this.m_Her2Chr17ClusterRatio; }
@@ -501,7 +501,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string ReportReference
 		{
 			get { return this.m_ReportReference; }
@@ -515,7 +515,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(350)]
 		public string SourceBlock
 		{
 			get { return this.m_SourceBlock; }
@@ -529,7 +529,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(50)]
 		public string Indicator
 		{
 			get { return this.m_Indicator; }
@@ -543,7 +543,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string Method
 		{
 			get { return this.m_Method; }
@@ -571,7 +571,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string ASRComment
 		{
 			get { return this.m_ASRComment; }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
@@ -50,7 +50,7 @@ namespace YellowstonePathology.Business.SpecialStain
 			this.m_ResultList = new StainResultOptionList();
 		}
 
-		[PersistentDocumentIdProperty()]
+		[PersistentDocumentIdProperty(50)]
 		public string ObjectId
 		{
 			get { return this.m_ObjectId; }
@@ -64,7 +64,7 @@ namespace YellowstonePathology.Business.SpecialStain
 			}
 		}
 
-		[PersistentPrimaryKeyProperty(false)]
+		[PersistentPrimaryKeyProperty(false, 50)]
 		public string StainResultId
 		{
 			get { return this.m_StainResultId; }
@@ -78,7 +78,7 @@ namespace YellowstonePathology.Business.SpecialStain
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(50)]
 		public string SurgicalSpecimenId
 		{
 			get { return this.m_SurgicalSpecimenId; }
@@ -120,7 +120,7 @@ namespace YellowstonePathology.Business.SpecialStain
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(100)]
 		public string TestOrderId
 		{
 			get { return this.m_TestOrderId; }
@@ -134,7 +134,7 @@ namespace YellowstonePathology.Business.SpecialStain
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(1000)]
 		public string Result
 		{
 			get { return this.m_Result; }
@@ -148,7 +148,7 @@ namespace YellowstonePathology.Business.SpecialStain
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(200)]
 		public string ProcedureName
 		{
 			get { return this.m_ProcedureName; }
@@ -162,7 +162,7 @@ namespace YellowstonePathology.Business.SpecialStain
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string ProcedureComment
 		{
 			get { return this.m_ProcedureComment; }
@@ -176,7 +176,7 @@ namespace YellowstonePathology.Business.SpecialStain
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(5000)]
 		public string ReportComment
 		{
 			get { return this.m_ReportComment; }
@@ -190,7 +190,7 @@ namespace YellowstonePathology.Business.SpecialStain
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(50)]
 		public string ControlComment
 		{
 			get { return this.m_ControlComment; }
@@ -204,7 +204,7 @@ namespace YellowstonePathology.Business.SpecialStain
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(50)]
 		public string CptCode
 		{
 			get { return this.m_CptCode; }
@@ -232,7 +232,7 @@ namespace YellowstonePathology.Business.SpecialStain
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(1000)]
 		public string ImmunoComment
 		{
 			get { return this.m_ImmunoComment; }
@@ -260,7 +260,7 @@ namespace YellowstonePathology.Business.SpecialStain
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(50)]
 		public string StainType
 		{
 			get { return this.m_StainType; }

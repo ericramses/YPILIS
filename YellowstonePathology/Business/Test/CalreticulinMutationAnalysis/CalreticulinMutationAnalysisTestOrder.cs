@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,7 +29,7 @@ namespace YellowstonePathology.Business.Test.CalreticulinMutationAnalysis
 
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
         public string Result
         {
             get { return this.m_Result; }
@@ -43,7 +43,7 @@ namespace YellowstonePathology.Business.Test.CalreticulinMutationAnalysis
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
         public string Percentage
         {
             get { return this.m_Percentage; }
@@ -57,7 +57,7 @@ namespace YellowstonePathology.Business.Test.CalreticulinMutationAnalysis
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
         public string Mutations
         {
             get { return this.m_Mutations; }
@@ -71,7 +71,7 @@ namespace YellowstonePathology.Business.Test.CalreticulinMutationAnalysis
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(1000)]
         public string Interpretation
         {
             get { return this.m_Interpretation; }
@@ -85,7 +85,7 @@ namespace YellowstonePathology.Business.Test.CalreticulinMutationAnalysis
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(5000)]
         public string Method
         {
             get { return this.m_Method; }

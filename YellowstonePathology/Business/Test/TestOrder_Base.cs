@@ -34,7 +34,7 @@ namespace YellowstonePathology.Business.Test.Model
 
         }
 
-        [PersistentDocumentIdProperty()]
+        [PersistentDocumentIdProperty(50)]
         public string ObjectId
         {
             get { return this.m_ObjectId; }
@@ -48,7 +48,7 @@ namespace YellowstonePathology.Business.Test.Model
             }
         }
 
-        [PersistentPrimaryKeyProperty(false)]
+        [PersistentPrimaryKeyProperty(false, 100)]
         public string TestOrderId
         {
             get { return this.m_TestOrderId; }
@@ -62,7 +62,7 @@ namespace YellowstonePathology.Business.Test.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
         public string PanelOrderId
         {
             get { return this.m_PanelOrderId; }
@@ -76,7 +76,7 @@ namespace YellowstonePathology.Business.Test.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
         public string AliquotOrderId
         {
             get { return this.m_AliquotOrderId; }
@@ -104,7 +104,7 @@ namespace YellowstonePathology.Business.Test.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(100)]
         public string TestName
         {
             get { return this.m_TestName; }
@@ -118,7 +118,7 @@ namespace YellowstonePathology.Business.Test.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(100)]
         public string TestAbbreviation
         {
             get { return this.m_TestAbbreviation; }
@@ -132,7 +132,7 @@ namespace YellowstonePathology.Business.Test.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(1000)]
         public string Result
         {
             get { return this.m_Result; }
@@ -146,7 +146,7 @@ namespace YellowstonePathology.Business.Test.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(1000)]
         public string Comment
         {
             get { return this.m_Comment; }

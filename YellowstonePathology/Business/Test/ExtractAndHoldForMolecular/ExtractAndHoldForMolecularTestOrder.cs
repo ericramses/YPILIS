@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using YellowstonePathology.Business.Persistence;
 
 namespace YellowstonePathology.Business.Test.ExtractAndHoldForMolecular
@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.Test.ExtractAndHoldForMolecular
             : base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute)
         { }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
         public string Comment
         {
             get { return this.m_Comment; }

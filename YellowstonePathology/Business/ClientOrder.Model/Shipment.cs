@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -57,7 +57,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		private string m_ShipmentPreparedBy;
 		private int m_ClientId;
 
-		[PersistentDocumentIdProperty()]
+		[PersistentDocumentIdProperty(50)]
 		public string ObjectId
 		{
 			get { return this.m_ObjectId; }
@@ -71,7 +71,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 			}
 		}
 
-		[PersistentPrimaryKeyProperty(false)]
+		[PersistentPrimaryKeyProperty(false, 0)]
 		[DataMember]
 		public string ShipmentId
 		{

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -103,7 +103,7 @@ namespace YellowstonePathology.Business.Slide.Model
             this.NotifyPropertyChanged(string.Empty);
         }
 
-        [PersistentDocumentIdProperty()]
+        [PersistentDocumentIdProperty(50)]
         public string ObjectId
         {
             get { return this.m_ObjectId; }
@@ -117,7 +117,7 @@ namespace YellowstonePathology.Business.Slide.Model
             }
         }
 
-        [PersistentPrimaryKeyProperty(false)]
+        [PersistentPrimaryKeyProperty(false, 50)]
         public string SlideOrderId
         {
             get { return this.m_SlideOrderId; }
@@ -144,7 +144,7 @@ namespace YellowstonePathology.Business.Slide.Model
             }
         }        
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
         public string AliquotOrderId
         {
             get
@@ -175,7 +175,7 @@ namespace YellowstonePathology.Business.Slide.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
         public string ValidationStation
         {
             get
@@ -223,7 +223,7 @@ namespace YellowstonePathology.Business.Slide.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(500)]
         public string ValidatedBy
         {
             get
@@ -254,7 +254,7 @@ namespace YellowstonePathology.Business.Slide.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(500)]
         public string PrintStation
         {
             get
@@ -302,7 +302,7 @@ namespace YellowstonePathology.Business.Slide.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(500)]
         public string PrintedBy
         {
             get
@@ -333,7 +333,7 @@ namespace YellowstonePathology.Business.Slide.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(500)]
         public string Description
         {
             get
@@ -350,7 +350,7 @@ namespace YellowstonePathology.Business.Slide.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
         public string AliquotType
         {
             get
@@ -368,7 +368,7 @@ namespace YellowstonePathology.Business.Slide.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(500)]
         public string Label
         {
             get
@@ -385,7 +385,7 @@ namespace YellowstonePathology.Business.Slide.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(500)]
         public string ClientLabel
         {
             get
@@ -419,7 +419,7 @@ namespace YellowstonePathology.Business.Slide.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(100)]
         public string OrderedBy
         {
             get
@@ -436,7 +436,7 @@ namespace YellowstonePathology.Business.Slide.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
         public string OrderedFrom
         {
             get
@@ -453,7 +453,7 @@ namespace YellowstonePathology.Business.Slide.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
         public string Status
         {
             get
@@ -487,7 +487,7 @@ namespace YellowstonePathology.Business.Slide.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(100)]
         public string TestName
         {
             get
@@ -504,7 +504,7 @@ namespace YellowstonePathology.Business.Slide.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(100)]
         public string TestAbbreviation
         {
             get
@@ -521,7 +521,7 @@ namespace YellowstonePathology.Business.Slide.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
         public string TestOrderId
         {
             get
@@ -538,7 +538,7 @@ namespace YellowstonePathology.Business.Slide.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(500)]
         public string PatientLastName
         {
             get
@@ -555,7 +555,7 @@ namespace YellowstonePathology.Business.Slide.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(500)]
         public string Location
         {
             get
@@ -572,7 +572,7 @@ namespace YellowstonePathology.Business.Slide.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
         public string ReportNo
         {
             get
@@ -589,7 +589,7 @@ namespace YellowstonePathology.Business.Slide.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(500)]
         public string LabelType
         {
             get
@@ -623,7 +623,7 @@ namespace YellowstonePathology.Business.Slide.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(500)]
         public string LocationId
         {
             get { return this.m_LocationId; }
@@ -637,7 +637,7 @@ namespace YellowstonePathology.Business.Slide.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
         public string FacilityId
         {
             get { return this.m_FacilityId; }

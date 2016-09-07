@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -75,7 +75,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
             return methodResult;
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
 		public string Result
 		{
 			get { return this.m_Result; }

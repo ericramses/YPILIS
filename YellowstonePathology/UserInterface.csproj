@@ -1058,12 +1058,14 @@
     <Compile Include="Business\Monitor.Model\PendingTestCollection.cs" />
     <Compile Include="Business\PanelSet.Model\NeoTypeDiscoveryProfileTest.cs" />
     <Compile Include="Business\ParseSpecimenOrderIdResult.cs" />
+    <Compile Include="Business\Persistence\DocumentTestBuilders.cs" />
     <Compile Include="Business\Persistence\PersitentStringProperty.cs" />
     <Compile Include="Business\Persistence\SqlDataRowReaderPropertyWriter.cs" />
     <Compile Include="Business\Surgical\ProcessorRunDefinitions.cs" />
     <Compile Include="Business\Task.Model\TaskFedexShipment.cs" />
     <Compile Include="Business\Task.Model\TaskOrderDetailFactory.cs" />
     <Compile Include="Business\Task.Model\TaskOrderDetailFedexShipment.cs" />
+    <Compile Include="Business\Task.Model\TaskReferenceLabSendout.cs" />
     <Compile Include="Business\Test\AMLPrognosticProfile\AMLPrognosticProfileTest.cs" />
     <Compile Include="Business\Test\GrossOnly\GrossOnlyTest.cs" />
     <Compile Include="Business\Test\GrossOnly\GrossOnlyTestOrder.cs" />
@@ -1905,7 +1907,7 @@
     <Compile Include="Business\Test\BCRABLByFish\BCRABLByFishPositiveResult.cs" />
     <Compile Include="Business\Test\BCRABLByFish\BCRABLByFishResultCollection.cs" />
     <Compile Include="Business\Test\BCRABLByFish\BCRABLByFishTest.cs" />
-    <Compile Include="Business\Test\BCRABLByFish\BCRABLByFishTestOrder .cs" />
+    <Compile Include="Business\Test\BCRABLByFish\BCRABLByFishTestOrder.cs" />
     <Compile Include="Business\Test\BCRABLByFish\BCRABLByFishWordDocument.cs" />
     <Compile Include="Business\Test\BCRABLByPCR\BCRABLByPCRDetectedResult.cs" />
     <Compile Include="Business\Test\BCRABLByPCR\BCRABLByPCREpicObxView.cs" />

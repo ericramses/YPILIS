@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -50,7 +50,7 @@ namespace YellowstonePathology.Business.Test.PDL1
                 "better response to PD-1 antagonists.";
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(500)]
         public string Result
         {
             get { return this.m_Result; }
@@ -64,7 +64,7 @@ namespace YellowstonePathology.Business.Test.PDL1
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
         public string StainPercent
         {
             get { return this.m_StainPercent; }
@@ -78,7 +78,7 @@ namespace YellowstonePathology.Business.Test.PDL1
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(5000)]
         public string Method
         {
             get { return this.m_Method; }
@@ -92,7 +92,7 @@ namespace YellowstonePathology.Business.Test.PDL1
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(500)]
         public string Comment
         {
             get { return this.m_Comment; }
@@ -106,7 +106,7 @@ namespace YellowstonePathology.Business.Test.PDL1
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(5000)]
         public string Interpretation
         {
             get { return this.m_Interpretation; }

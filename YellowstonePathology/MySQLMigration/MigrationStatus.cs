@@ -22,6 +22,7 @@ namespace YellowstonePathology.MySQLMigration
         private bool m_HasDBTS;
         private int m_OutOfSyncCount;
         private int m_UnLoadedDataCount;
+        private string m_FileName;
 
         public MigrationStatus(Type type)
         {
@@ -29,6 +30,7 @@ namespace YellowstonePathology.MySQLMigration
             this.GetTableName();
             this.GetPrimaryKey();
             this.GetPersistentProperties();
+            this.GetFileName();
         }
 
         public void NotifyPropertyChanged(String info)
@@ -121,6 +123,11 @@ namespace YellowstonePathology.MySQLMigration
                 this.m_UnLoadedDataCount = value;
                 NotifyPropertyChanged("UnLoadedDataCount");
             }
+        }
+
+        public string FileName
+        {
+            get { return this.m_FileName; }
         }
         private void GetTableName()
         {
@@ -219,6 +226,17 @@ namespace YellowstonePathology.MySQLMigration
         {
             PropertyInfo[] properties = this.m_Type.GetProperties().Where(prop => Attribute.IsDefined(prop, typeof(Business.Persistence.PersistentDocumentIdProperty))).ToArray();
             if (properties.Length > 0) this.m_PersistentProperties.Add(properties[0]);
+        }
+
+        private void GetFileName()
+        {
+            string name = this.m_Type.AssemblyQualifiedName;
+            int idx = name.IndexOf(",");
+            name = name.Substring(0, idx);
+            name = name.Replace('.', '\\');
+            name = name.Replace("\\Model", ".Model");
+            name = name + ".cs";
+            this.m_FileName = name;
         }
     }
 }

@@ -62,7 +62,7 @@ namespace YellowstonePathology.Business.Domain
 			this.m_HPV1618StandingOrderCode = standingOrderNotSet.StandingOrderCode;
 		}
 
-        [PersistentPrimaryKeyProperty(false)]
+        [PersistentPrimaryKeyProperty(false, 0)]
 		public int PhysicianId
 		{
 			get { return this.m_PhysicianId; }
@@ -76,7 +76,7 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
-		[PersistentDocumentIdProperty()]
+		[PersistentDocumentIdProperty(50)]
 		public string ObjectId
 		{
 			get { return this.m_ObjectId; }
@@ -90,7 +90,7 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentStringProperty(100)]
 		public string FirstName
 		{
 			get { return this.m_FirstName; }
@@ -104,7 +104,7 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentStringProperty(100)]
 		public string LastName
 		{
 			get { return this.m_LastName; }
@@ -118,7 +118,7 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
 		public string MiddleInitial
 		{
 			get { return this.m_MiddleInitial; }
@@ -132,7 +132,7 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
 		public string Credentials
 		{
 			get { return this.m_Credentials; }
@@ -160,7 +160,7 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
 		public string Address
 		{
 			get { return this.m_Address; }
@@ -174,7 +174,7 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
 		public string City
 		{
 			get { return this.m_City; }
@@ -188,7 +188,7 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
 		public string State
 		{
 			get { return this.m_State; }
@@ -202,7 +202,7 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
 		public string Zip
 		{
 			get { return this.m_Zip; }
@@ -216,7 +216,7 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
 		public string Phone
 		{
 			get { return this.m_Phone; }
@@ -230,7 +230,7 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
 		public string Fax
 		{
 			get { return this.m_Fax; }
@@ -300,7 +300,7 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentStringProperty(100)]
 		public string FullName
 		{
 			get { return this.m_FullName; }
@@ -314,7 +314,7 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
 		public string HPVStandingOrderCode
 		{
 			get { return this.m_HPVStandingOrderCode; }
@@ -342,7 +342,7 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentStringProperty(250)]
 		public string DisplayName
 		{
 			get { return this.m_DisplayName; }
@@ -384,7 +384,7 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentStringProperty(100)]
 		public string Npi
 		{
 			get { return this.m_Npi; }
@@ -398,7 +398,7 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
 		public string HPV1618StandingOrderCode
 		{
             get { return this.m_HPV1618StandingOrderCode; }
@@ -423,7 +423,7 @@ namespace YellowstonePathology.Business.Domain
             return result;
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
         public string MDFirstName
         {
             get { return this.m_MDFirstName; }
@@ -437,7 +437,7 @@ namespace YellowstonePathology.Business.Domain
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
         public string MDLastName
         {
             get { return this.m_MDLastName; }
@@ -465,7 +465,7 @@ namespace YellowstonePathology.Business.Domain
             }
         }
 
-        [PersistentProperty()]
+        [PersistentStringProperty(50)]
         public string PublishNotificationEmailAddress
         {
             get { return this.m_PublishNotificationEmailAddress; }

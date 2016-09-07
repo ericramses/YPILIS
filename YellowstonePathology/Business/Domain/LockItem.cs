@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.Domain
 		{
 		}
 
-        [PersistentPrimaryKeyProperty(false)]
+        [PersistentPrimaryKeyProperty(false, 0)]
 		public string KeyString
 		{
 			get { return this.m_KeyString; }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Data;
@@ -32,7 +32,7 @@ namespace YellowstonePathology.Business.Test.HPV
             this.m_TechnicalComponentInstrumentId = Instrument.HOLOGICPANTHERID;
 		}        
 
-		[PersistentProperty()]
+		[PersistentStringProperty(100)]
 		public string Result
 		{
 			get { return this.m_Result; }
@@ -46,7 +46,7 @@ namespace YellowstonePathology.Business.Test.HPV
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(500)]
 		public string Comment
 		{
 			get { return this.m_Comment; }
@@ -60,7 +60,7 @@ namespace YellowstonePathology.Business.Test.HPV
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentStringProperty(5000)]
 		public string TestInformation
 		{
 			get { return this.m_TestInformation; }
@@ -74,7 +74,7 @@ namespace YellowstonePathology.Business.Test.HPV
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentStringProperty(500)]
         public string ASRComment
         {
             get { return this.m_ASRComment; }
