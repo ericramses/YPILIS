@@ -567,7 +567,45 @@ namespace YellowstonePathology.Business.Test
 			return result;
 		}
 
-		public AliquotOrder GetLastBlock()
+        public int GetBlockCount()
+        {
+            int result = 0;
+            foreach (AliquotOrder aliquotOrder in this)
+            {
+                if(aliquotOrder.ClientAccessioned == true)
+                {
+                    if (aliquotOrder.AliquotType == "Block" || aliquotOrder.AliquotType == "CellBlock")
+                    {
+                        result += 1;
+                    }
+                }                
+            }
+            return result;
+        }
+
+        public int GetSlideCount()
+        {
+            int result = 0;
+            foreach (AliquotOrder aliquotOrder in this)
+            {
+                if(aliquotOrder.ClientAccessioned == true)
+                {
+                    if (aliquotOrder.AliquotType == "Block" || aliquotOrder.AliquotType == "CellBlock")
+                    {
+                        foreach (Slide.Model.SlideOrder slideOrder in aliquotOrder.SlideOrderCollection)
+                        {
+                            if(slideOrder.ClientAccessioned == true)
+                            {
+                                result += 1;
+                            }                            
+                        }
+                    }
+                }                
+            }
+            return result;
+        }
+
+        public AliquotOrder GetLastBlock()
 		{
 			AliquotOrder result = null;
 			for (int idx = this.Count - 1; idx > -1; idx--)

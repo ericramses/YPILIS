@@ -80,16 +80,24 @@ namespace YellowstonePathology.UI.Gross
         public ConsultTemplate()
         {
             this.m_TemplateName = "Consult";
-            this.m_Text = "Received in consultation from [physician name], M.D. ([facility], [city/state]) are [number] slide[?s?] and [number] block[?s?] labeled [accession] for patient [patient name].";
+            this.m_Text = "Received in consultation from physicianname (clientname - clientcitystate) are slidecount slide[?s?] and blockcount block[?s?] labeled clientaccession for patient patientname.  ";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Consult consult = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Consult();
             this.m_SpecimenCollection.Add(consult);
         }
 
         public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
-        {
-            string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
-            result = this.ReplaceCassetteSummary(result, specimenOrder);
+        {            
+            string result = this.m_Text.Replace("physicianname", accessionOrder.PhysicianName);
+            result = result.Replace("clientaccession", accessionOrder.ClientAccessionNo);
+            result = result.Replace("patientname", accessionOrder.PatientDisplayName);
+            result = result.Replace("blockcount", specimenOrder.AliquotOrderCollection.GetBlockCount().ToString());
+            result = result.Replace("slidecount", specimenOrder.AliquotOrderCollection.GetSlideCount().ToString());
+            result = base.ReplaceIdentifier(result, specimenOrder, accessionOrder);
+
+            YellowstonePathology.Business.Client.Model.Client client = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientByClientId(accessionOrder.ClientId);
+            result = result.Replace("clientname", client.ClientName);
+            result = result.Replace("clientcitystate", client.City + "/" + client.State);
             return result;
         }
     }
@@ -216,7 +224,7 @@ namespace YellowstonePathology.UI.Gross
         public SkinShavePunchMiscTemplate()
         {
             this.m_TemplateName = "Skin Shave Punch and Misc Biopsy";
-            this.m_Text = "[identifier]." Received in consultation from[physician name], M.D. ([facility], [city/state]) are[number] slide[?s ?] and[number] block[?s ?] labeled "[accession]" for patient[patient name].
+            this.m_Text = "[identifier]." + Environment.NewLine +
                 "Gross Description:  [description]" + Environment.NewLine +
                 "Measurements:  [measurements]" + Environment.NewLine +
                 "Submitted:  [submitted].  ";            
