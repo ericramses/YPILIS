@@ -40,7 +40,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>75</ApplicationRevision>
+    <ApplicationRevision>79</ApplicationRevision>
     <ApplicationVersion>10.1.6.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -703,6 +703,7 @@
     <Compile Include="Business\Facility.Model\AllFacility.cs" />
     <Compile Include="Business\Facility.Model\ARUP.cs" />
     <Compile Include="Business\Facility.Model\BigSkyDermatology.cs" />
+    <Compile Include="Business\Facility.Model\ClevelandClinicFoundation.cs" />
     <Compile Include="Business\Facility.Model\BillingsClinic.cs" />
     <Compile Include="Business\Facility.Model\BillingsClinicDermatology.cs" />
     <Compile Include="Business\Facility.Model\BillingsClinicPathology.cs" />
@@ -1067,6 +1068,7 @@
     <Compile Include="Business\Test\GrossOnly\GrossOnlyTest.cs" />
     <Compile Include="Business\Test\GrossOnly\GrossOnlyTestOrder.cs" />
     <Compile Include="Business\Test\GrossOnly\GrossOnlyWordDocument.cs" />
+    <Compile Include="Business\Test\BrainDonation\BrainDonationTest.cs" />
     <Compile Include="Business\Test\JAK2V617F\JAK2V617FWPHObxView.cs" />
     <Compile Include="Business\Test\MUM1ByIHC\MUM1ByIHCTest.cs" />
     <Compile Include="Business\Test\PlateletAssociatedAntibodies\PlateletAssociatedAntibodiesEPICOBXView.cs" />

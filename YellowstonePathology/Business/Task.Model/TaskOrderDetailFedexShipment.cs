@@ -21,6 +21,7 @@ namespace YellowstonePathology.Business.Task.Model
         private string m_ShipToCity;
         private string m_ShipToState;
         private string m_ShipToZip;
+        private string m_PaymentType;
 
         public TaskOrderDetailFedexShipment()
         {
@@ -39,6 +40,7 @@ namespace YellowstonePathology.Business.Task.Model
             this.m_ShipToState = fedexShipment.ShipToFacility.State;
             this.m_ShipToZip = fedexShipment.ShipToFacility.ZipCode;
             this.m_ShipToPhone = fedexShipment.ShipToFacility.PhoneNumber;
+            this.m_PaymentType = fedexShipment.ShipToFacility.FedexPaymentType;
         }
 
         public void SetZPLFromBase64(string encodedString)
@@ -198,6 +200,20 @@ namespace YellowstonePathology.Business.Task.Model
                 {
                     this.m_ShipToZip = value;
                     this.NotifyPropertyChanged("ShipToZip");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string PaymentType
+        {
+            get { return this.m_PaymentType; }
+            set
+            {
+                if (this.m_PaymentType != value)
+                {
+                    this.m_PaymentType = value;
+                    this.NotifyPropertyChanged("PaymentType");
                 }
             }
         }

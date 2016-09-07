@@ -31,6 +31,7 @@ namespace YellowstonePathology.UI
         private YellowstonePathology.Business.Surgical.ProcessorRunCollection m_ProcessorRunCollection;
         private EmbeddingBreastCaseList m_EmbeddingBreastCaseList;
         private string m_StatusMessage;
+        private string m_ScanCount;
 
         private BackgroundWorker m_BackgroundWorker;
 
@@ -40,7 +41,8 @@ namespace YellowstonePathology.UI
             this.m_WorkDate = DateTime.Today;
             this.m_EmbeddingScanCollection = Business.BarcodeScanning.EmbeddingScanCollection.GetByScanDate(this.m_WorkDate);                       
             
-            this.m_StatusMessage = "OK";
+            this.m_StatusMessage = "Status: OK";
+            this.m_ScanCount = "Block Count: " + this.m_EmbeddingScanCollection.Count.ToString();
 
             InitializeComponent();
 
@@ -92,6 +94,9 @@ namespace YellowstonePathology.UI
 
                 this.m_SpecimenOrderHoldCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetSpecimenOrderHoldCollection();
                 this.NotifyPropertyChanged("SpecimenOrderHoldCollection");
+
+                this.m_ScanCount = "Block Count: " + this.m_EmbeddingScanCollection.Count.ToString();
+                this.NotifyPropertyChanged("ScanCount");
             }
             ));
         }
@@ -135,7 +140,12 @@ namespace YellowstonePathology.UI
         public string StatusMessage
         {
             get { return this.m_StatusMessage; }
-        }     
+        }
+
+        public string ScanCount
+        {
+            get { return this.m_ScanCount; }
+        }
 
         public YellowstonePathology.UI.EmbeddingNotScannedList EmbeddingNotScannedList
         {
@@ -181,8 +191,11 @@ namespace YellowstonePathology.UI
             this.m_EmbeddingScanCollection = YellowstonePathology.Business.BarcodeScanning.EmbeddingScanCollection.GetByScanDate(this.m_WorkDate);
             this.m_EmbeddingNotScannedList = Business.Gateway.AccessionOrderGateway.GetEmbeddingNotScannedCollection(this.GetWorkingAccessionDate());
 
+            this.m_ScanCount = "Block Count: " + this.m_EmbeddingScanCollection.Count.ToString();
+
             this.NotifyPropertyChanged("EmbeddingNotScannedList");
             this.NotifyPropertyChanged("EmbeddingScanCollection");
+            this.NotifyPropertyChanged("ScanCount");
         }
 
         private void ButtonAccessionOrderForward_Click(object sender, RoutedEventArgs e)
@@ -191,8 +204,10 @@ namespace YellowstonePathology.UI
             this.m_EmbeddingScanCollection = YellowstonePathology.Business.BarcodeScanning.EmbeddingScanCollection.GetByScanDate(this.m_WorkDate);
             this.m_EmbeddingNotScannedList = Business.Gateway.AccessionOrderGateway.GetEmbeddingNotScannedCollection(this.GetWorkingAccessionDate());
 
+            this.m_ScanCount = "Block Count: " + this.m_EmbeddingScanCollection.Count.ToString();
             this.NotifyPropertyChanged("EmbeddingNotScannedList");
             this.NotifyPropertyChanged("EmbeddingScanCollection");
+            this.NotifyPropertyChanged("ScanCount");
         }
 
         public void NotifyPropertyChanged(String info)
