@@ -17,6 +17,7 @@ namespace YellowstonePathology.Business.Facility.Model
             this.m_City = "Billings";
             this.m_State = "MT";
             this.m_ZipCode = "59101";
+            this.m_PhoneNumber = "(406)860-3984";
             this.m_IsReferenceLab = false;
             this.m_AccessioningLocation = "Billings";
             this.m_LocationAbbreviation = "YPI Blgs, Mt";
