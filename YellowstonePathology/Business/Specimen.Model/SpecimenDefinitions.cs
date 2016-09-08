@@ -566,4 +566,16 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
                 this.m_RequiresGrossExamination = true;
             }
         }
+    public class Consult : Specimen
+    {
+        public Consult()
+        {
+            this.m_SpecimenId = "CNSLT";
+            this.m_SpecimenName = "Consult";
+            this.m_Description = null;
+            this.m_LabFixation = null;
+            this.m_ClientFixation = null;
+            this.m_RequiresGrossExamination = false;
+        }
+    }
 }
