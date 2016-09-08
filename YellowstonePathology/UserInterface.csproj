@@ -40,7 +40,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>80</ApplicationRevision>
+    <ApplicationRevision>85</ApplicationRevision>
     <ApplicationVersion>10.1.6.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -1065,8 +1065,8 @@
     <Compile Include="Business\Task.Model\TaskFedexShipment.cs" />
     <Compile Include="Business\Task.Model\TaskOrderDetailFactory.cs" />
     <Compile Include="Business\Task.Model\TaskOrderDetailFedexShipment.cs" />
-    <Compile Include="Business\Task.Model\TaskReferenceLabSendout.cs" />
     <Compile Include="Business\Test\AMLPrognosticProfile\AMLPrognosticProfileTest.cs" />
+    <Compile Include="Business\Test\BCRABLByFish\BCRABLByFishTestOrder.cs" />
     <Compile Include="Business\Test\GrossOnly\GrossOnlyTest.cs" />
     <Compile Include="Business\Test\GrossOnly\GrossOnlyTestOrder.cs" />
     <Compile Include="Business\Test\GrossOnly\GrossOnlyWordDocument.cs" />
@@ -1907,7 +1907,6 @@
     <Compile Include="Business\Test\BCRABLByFish\BCRABLByFishPositiveResult.cs" />
     <Compile Include="Business\Test\BCRABLByFish\BCRABLByFishResultCollection.cs" />
     <Compile Include="Business\Test\BCRABLByFish\BCRABLByFishTest.cs" />
-    <Compile Include="Business\Test\BCRABLByFish\BCRABLByFishTestOrder.cs" />
     <Compile Include="Business\Test\BCRABLByFish\BCRABLByFishWordDocument.cs" />
     <Compile Include="Business\Test\BCRABLByPCR\BCRABLByPCRDetectedResult.cs" />
     <Compile Include="Business\Test\BCRABLByPCR\BCRABLByPCREpicObxView.cs" />
