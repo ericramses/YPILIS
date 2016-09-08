@@ -132,7 +132,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			set { this.m_SurgicalAuditCollection = value; }
 		}
 
-		[PersistentProperty()]
+		[PersistentProperty("0")]
 		public bool PapCorrelationRequired
 		{
 			get { return this.m_PapCorrelationRequired; }
@@ -146,7 +146,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentProperty("0")]
 		public bool ReportableCase
 		{
 			get { return this.m_ReportableCase; }
@@ -160,7 +160,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentProperty("0")]
 		public bool PQRIRequired
 		{
 			get { return this.m_PQRIRequired; }
@@ -174,7 +174,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}		
 
-		[PersistentProperty()]
+		[PersistentProperty("255")]
 		public int PhysicianId
 		{
 			get { return this.m_PhysicianId; }
@@ -188,7 +188,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentProperty("0")]
 		public int ImmediateCorrelation
 		{
 			get { return this.m_ImmediateCorrelation; }
@@ -202,7 +202,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentProperty("0")]
 		public int PapCorrelation
 		{
 			get { return this.m_PapCorrelation; }
@@ -216,7 +216,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentProperty("0")]
 		public int PQRIInstructions
 		{
 			get { return this.m_PQRIInstructions; }
@@ -230,7 +230,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}		
 
-		[PersistentStringProperty(-1)]
+		[PersistentStringProperty(-1, "'???'")]
 		public string GrossX
 		{
 			get { return this.m_GrossX; }
@@ -244,7 +244,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}
 
-		[PersistentStringProperty(-1)]
+		[PersistentStringProperty(-1, "'Not performed'")]
 		public string ImmediateX
 		{
 			get { return this.m_ImmediateX; }
@@ -258,7 +258,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}
 
-		[PersistentStringProperty(-1)]
+		[PersistentStringProperty(-1, "'???'")]
 		public string MicroscopicX
 		{
 			get { return this.m_MicroscopicX; }
@@ -300,7 +300,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}
 
-		[PersistentStringProperty(10)]
+		[PersistentStringProperty(10, "'Open'")]
 		public string Status
 		{
 			get { return this.m_Status; }

@@ -127,7 +127,7 @@ namespace YellowstonePathology.Business.Billing.Model
 			}
 		}
 
-		[PersistentStringProperty(100)]
+		[PersistentStringProperty(100, "0")]
 		public string SpecimenOrderId
 		{
 			get { return this.m_SpecimenOrderId; }
@@ -141,7 +141,7 @@ namespace YellowstonePathology.Business.Billing.Model
 			}
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentStringProperty(50, "0")]
 		public string SurgicalSpecimenId
 		{
 			get { return this.m_SurgicalSpecimenId; }
@@ -183,7 +183,7 @@ namespace YellowstonePathology.Business.Billing.Model
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentProperty("1")]
 		public int Quantity
 		{
 			get { return this.m_Quantity; }
@@ -197,7 +197,7 @@ namespace YellowstonePathology.Business.Billing.Model
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentProperty("0")]
 		public int SpecimenId
 		{
 			get { return this.m_SpecimenId; }
@@ -211,7 +211,7 @@ namespace YellowstonePathology.Business.Billing.Model
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentProperty("0")]
 		public int UserId
 		{
 			get { return this.m_UserId; }
@@ -225,7 +225,7 @@ namespace YellowstonePathology.Business.Billing.Model
 			}
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentStringProperty(50, "'ICD9 Code'")]
 		public string ICD9Code
 		{
 			get { return this.m_ICD9Code; }
@@ -281,7 +281,7 @@ namespace YellowstonePathology.Business.Billing.Model
 			}
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentStringProperty(50, "0")]
 		public string MasterAccessionNo
 		{
 			get { return this.m_MasterAccessionNo; }

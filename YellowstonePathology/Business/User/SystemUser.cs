@@ -126,7 +126,7 @@ namespace YellowstonePathology.Business.User
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentProperty("1")]
 		public bool Active
 		{
 			get { return this.m_Active; }

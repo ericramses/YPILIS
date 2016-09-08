@@ -160,7 +160,7 @@ namespace YellowstonePathology.Business.Test.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentProperty("0")]
         public bool OrderedAsDual
         {
             get { return this.m_OrderedAsDual; }
@@ -174,7 +174,7 @@ namespace YellowstonePathology.Business.Test.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentProperty("0")]
         public bool NoCharge
         {
             get { return this.m_NoCharge; }

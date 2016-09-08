@@ -89,7 +89,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentProperty()]
+		[PersistentProperty("0")]
 		public int Priority
 		{
 			get { return this.m_Priority; }

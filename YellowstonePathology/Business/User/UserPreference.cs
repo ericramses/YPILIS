@@ -88,7 +88,7 @@ namespace YellowstonePathology.Business.User
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentProperty("0")]
         public bool BarcodeScanEnabled
         {
             get { return this.m_BarcodeScanEnabled; }
@@ -102,7 +102,7 @@ namespace YellowstonePathology.Business.User
             }
         }
 
-        [PersistentStringProperty(50)]
+        [PersistentStringProperty(50, "'COM3'")]
         public string BarcodeScanPort
         {
             get { return this.m_BarcodeScanPort; }
@@ -116,7 +116,7 @@ namespace YellowstonePathology.Business.User
             }
         }
 
-        [PersistentProperty()]
+        [PersistentProperty("'10/1/2010'")]
         public Nullable<DateTime> LastLocalDataUpdate
         {
             get { return this.m_LastLocalDataUpdate; }
@@ -130,7 +130,7 @@ namespace YellowstonePathology.Business.User
             }
         }
 
-        [PersistentStringProperty(50)]
+        [PersistentStringProperty(50, "'Always Attempt Lock'")]
 		public string LockMode
 		{
 			get { return this.m_LockMode ; }
@@ -312,7 +312,7 @@ namespace YellowstonePathology.Business.User
             }
         }
 
-		[PersistentProperty()]
+		[PersistentProperty("0")]
 		public bool ActivateNotificationAlert
 		{
 			get { return this.m_ActivateNotificationAlert; }
@@ -452,7 +452,7 @@ namespace YellowstonePathology.Business.User
             }
         }
 
-        [PersistentProperty()]
+        [PersistentProperty("0")]
         public bool UseLaserCassettePrinter
         {
             get { return this.m_UseLaserCassettePrinter; }

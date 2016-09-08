@@ -62,7 +62,7 @@ namespace YellowstonePathology.Business.Domain
             }
         }
 
-        [PersistentProperty()]
+        [PersistentProperty("0")]
 		public int PhysicianId
         {
             get { return this.m_PhysicianId; }
@@ -76,7 +76,7 @@ namespace YellowstonePathology.Business.Domain
             }
         }
 
-        [PersistentProperty()]
+        [PersistentProperty("0")]
         public int ClientId
         {
             get { return this.m_ClientId; }

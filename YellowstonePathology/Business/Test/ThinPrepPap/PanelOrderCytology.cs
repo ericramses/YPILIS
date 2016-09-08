@@ -339,7 +339,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentProperty("0")]
         public bool Reconciled
         {
             get { return this.m_Reconciled; }

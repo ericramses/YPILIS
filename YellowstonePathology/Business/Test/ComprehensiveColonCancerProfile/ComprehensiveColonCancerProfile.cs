@@ -44,7 +44,7 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
             }
         }
 
-        [PersistentProperty()]
+        [PersistentProperty("0")]
         public bool IncludeTestsPerformedOnOtherBlocks
         {
             get { return this.m_IncludeTestsPerformedOnOtherBlocks; }

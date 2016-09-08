@@ -179,7 +179,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentProperty("0")]
 		public bool IncludeImmunoRecommendedComment
 		{
 			get { return this.m_IncludeImmunoRecommendedComment; }
@@ -193,7 +193,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentProperty("0")]
 		public bool IncludeResultComment
 		{
 			get { return this.m_IncludeResultComment; }
@@ -207,7 +207,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentProperty("0")]
 		public bool IncludePolysomyComment
 		{
 			get { return this.m_IncludePolysomyComment; }
@@ -221,7 +221,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentProperty("0")]
 		public int CellsCounted
 		{
 			get { return this.m_CellsCounted; }
@@ -235,7 +235,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentProperty("0")]
 		public int TotalChr17SignalsCounted
 		{
 			get { return this.m_TotalChr17SignalsCounted; }
@@ -249,7 +249,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentProperty("0")]
 		public int TotalHer2SignalsCounted
 		{
 			get { return this.m_TotalHer2SignalsCounted; }
@@ -263,7 +263,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentProperty("0")]
 		public int Her2byIHCOrder
 		{
 			get { return this.m_Her2byIHCOrder; }
@@ -277,7 +277,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentProperty("2")]
 		public int NumberOfObservers
 		{
 			get { return this.m_NumberOfObservers; }
@@ -557,7 +557,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentProperty("0")]
 		public bool NotInterpretable
 		{
 			get { return this.m_NotInterpretable; }

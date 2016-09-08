@@ -138,7 +138,7 @@ namespace YellowstonePathology.Business.Task.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentProperty("0")]
         public bool Acknowledged
         {
             get { return this.m_Acknowledged; }

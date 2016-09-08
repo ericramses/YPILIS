@@ -132,7 +132,7 @@ namespace YellowstonePathology.Business.Test.EGFRMutationAnalysis
             }
         }
 
-		[PersistentProperty()]
+		[PersistentProperty("0")]
 		public bool MicrodissectionPerformed
         {
             get { return this.m_MicrodissectionPerformed; }
