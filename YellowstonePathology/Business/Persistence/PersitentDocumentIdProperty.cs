@@ -13,7 +13,12 @@ namespace YellowstonePathology.Business.Persistence
         {
             this.m_MaxLength = maxLength;
         }
-        
+
+        public PersistentDocumentIdProperty(int maxLength, string defaultValue) :base(defaultValue)
+        {
+            this.m_MaxLength = maxLength;
+        }
+
         public int MaxLength
         {
             get { return this.m_MaxLength; }

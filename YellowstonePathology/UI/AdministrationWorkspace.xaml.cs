@@ -1229,7 +1229,7 @@ namespace YellowstonePathology.UI
             
         }
 
-        private void ButtonWilliamTesting_Click(object sender, RoutedEventArgs e) // Compares AccessionOrderBuilder ao to AccessionOrderBuilderV2 ao
+        /*private void ButtonWilliamTesting_Click(object sender, RoutedEventArgs e) // Compares AccessionOrderBuilder ao to AccessionOrderBuilderV2 ao
         {
             string resultString = string.Empty;
             DateTime startDate = DateTime.Parse("7/1/2016");
@@ -1287,7 +1287,7 @@ namespace YellowstonePathology.UI
             //}
             resultString = "done";
             MessageBox.Show(resultString);
-        }
+        }*/
 
         /*private void ButtonWilliamTesting_Click(object sender, RoutedEventArgs e) //Compares MySql accession order (accession table only) to Sql Server
         {
@@ -1348,7 +1348,7 @@ namespace YellowstonePathology.UI
             MessageBox.Show(resultString);
         }*/
 
-        /*private void ButtonWilliamTesting_Click(object sender, RoutedEventArgs e) //Set initial string lengths in .cs files
+        private void ButtonWilliamTesting_Click(object sender, RoutedEventArgs e) //Set initial string lengths in .cs files
         {
             string basePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase);
             basePath = basePath.Remove(0, 6);
@@ -1361,8 +1361,7 @@ namespace YellowstonePathology.UI
                 if (File.Exists(filePath))
                 {
                     string[] lines = File.ReadAllLines(filePath);
-                    //builder.RevisePersistentAttribute(migrationStatus, lines);
-                    if (builder.ResizeMaxStrings(migrationStatus, lines) == true)
+                    if (builder.SetPersistentAttributeDefaultValue(migrationStatus, lines))
                     {
                         using (StreamWriter writer = new StreamWriter(filePath, false))
                         {
@@ -1384,7 +1383,7 @@ namespace YellowstonePathology.UI
             }
             string resultString = "done";
             MessageBox.Show(resultString);
-        }*/
+        }
 
         /*private void ButtonWilliamTesting_Click(object sender, RoutedEventArgs e) // Recalculates and Sets the length of the string in the .cs files
         {

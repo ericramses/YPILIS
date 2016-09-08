@@ -12,7 +12,12 @@ namespace YellowstonePathology.Business.Persistence
         public PersistentStringProperty(int maxLength)
         {
             this.m_MaxLength = maxLength;            
-        }        
+        }
+
+        public PersistentStringProperty(int maxLength, string defaultValue) : base(defaultValue)
+        {
+            this.m_MaxLength = maxLength;
+        }
 
         public int MaxLength
         {
