@@ -44,8 +44,12 @@ namespace YellowstonePathology.Business.Gateway
             this.m_AccessionOrder.AccessionLock.MasterAccessionNo = accessionOrder.MasterAccessionNo;
             this.m_AccessionOrder.PanelSetOrderCollection.RemoveDeleted(this.m_PanelSetOrderReportNumbers);
             this.RemoveDeletedPanelOrders();
-            if(this.m_TestOrderDataTable != null) this.HandleSlideOrderTestOrder(this.m_TestOrderDataTable);
-            if(this.m_AliquotOrderDataTable != null) this.HandleTestOrderAliquotOrder(this.m_AliquotOrderDataTable);
+            if (this.m_TestOrderDataTable != null)
+            {
+                this.HandleSlideOrderTestOrder(this.m_TestOrderDataTable);
+                this.HandleAliquotOrderTestOrder(this.m_TestOrderDataTable);
+            }
+            if (this.m_AliquotOrderDataTable != null) this.HandleTestOrderAliquotOrder(this.m_AliquotOrderDataTable);
             if (this.m_SlideOrderDataTable != null) this.HandleTestOrderSlideOrderCollection(this.m_SlideOrderDataTable);
 
             if (this.m_AccessionOrder.PanelSetOrderCollection.HasSurgical() == true)
@@ -164,7 +168,11 @@ namespace YellowstonePathology.Business.Gateway
             this.m_AccessionOrder.AccessionLock.MasterAccessionNo = accessionOrder.MasterAccessionNo;
             this.m_AccessionOrder.PanelSetOrderCollection.RemoveDeleted(this.m_PanelSetOrderReportNumbers);
             this.RemoveDeletedPanelOrders();
-            if (this.m_TestOrderDataTable != null) this.HandleSlideOrderTestOrder(this.m_TestOrderDataTable);
+            if (this.m_TestOrderDataTable != null)
+            {
+                this.HandleSlideOrderTestOrder(this.m_TestOrderDataTable);
+                this.HandleAliquotOrderTestOrder(this.m_TestOrderDataTable);
+            }
             if (this.m_AliquotOrderDataTable != null) this.HandleTestOrderAliquotOrder(this.m_AliquotOrderDataTable);
             if (this.m_SlideOrderDataTable != null) this.HandleTestOrderSlideOrderCollection(this.m_SlideOrderDataTable);
 

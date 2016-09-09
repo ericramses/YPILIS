@@ -1229,14 +1229,16 @@ namespace YellowstonePathology.UI
             
         }
 
-        /*private void ButtonWilliamTesting_Click(object sender, RoutedEventArgs e) // Compares AccessionOrderBuilder ao to AccessionOrderBuilderV2 ao
+        private void ButtonWilliamTesting_Click(object sender, RoutedEventArgs e) // Compares AccessionOrderBuilder ao to AccessionOrderBuilderV2 ao
         {
             string resultString = string.Empty;
             DateTime startDate = DateTime.Parse("7/1/2016");
             //for (int didx = 0; didx < 10; didx++)
             //{
-                DateTime endDate = startDate.AddMonths(1).AddDays(-1);
-                List<string> masterAccessionNos = new List<string>();
+                //DateTime endDate = startDate.AddMonths(1).AddDays(-1);
+            DateTime endDate = startDate.AddDays(1);
+            List<string> masterAccessionNos = new List<string>();
+            //masterAccessionNos.Add("16-23061");
                 SqlCommand cmd = new SqlCommand("select MasteraccessionNo from tblAccessionOrder where AccessionDate between '" + startDate.ToString() + "' and '" + endDate.ToString() + "'"); // order by 1 asc");
                 cmd.CommandType = CommandType.Text;
                 using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
@@ -1256,7 +1258,7 @@ namespace YellowstonePathology.UI
                 foreach (string masterAccessionNo in masterAccessionNos)
                 {
                     SqlCommand cmd1 = new SqlCommand();
-                    cmd1.CommandText = "gwGetAccessionByMasterAccessionNo_A8";
+                    cmd1.CommandText = "gwGetAccessionByMasterAccessionNo_A9";
                     cmd1.CommandType = CommandType.StoredProcedure;
                     cmd1.Parameters.Add("@MasterAccessionNo", SqlDbType.VarChar).Value = masterAccessionNo;
 
@@ -1287,7 +1289,7 @@ namespace YellowstonePathology.UI
             //}
             resultString = "done";
             MessageBox.Show(resultString);
-        }*/
+        }
 
         /*private void ButtonWilliamTesting_Click(object sender, RoutedEventArgs e) //Compares MySql accession order (accession table only) to Sql Server
         {
@@ -1348,7 +1350,7 @@ namespace YellowstonePathology.UI
             MessageBox.Show(resultString);
         }*/
 
-        private void ButtonWilliamTesting_Click(object sender, RoutedEventArgs e) //Set initial string lengths in .cs files
+        /*private void ButtonWilliamTesting_Click(object sender, RoutedEventArgs e) //Set initial string lengths in .cs files
         {
             string basePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase);
             basePath = basePath.Remove(0, 6);
@@ -1383,7 +1385,7 @@ namespace YellowstonePathology.UI
             }
             string resultString = "done";
             MessageBox.Show(resultString);
-        }
+        }*/
 
         /*private void ButtonWilliamTesting_Click(object sender, RoutedEventArgs e) // Recalculates and Sets the length of the string in the .cs files
         {

@@ -434,30 +434,31 @@ namespace YellowstonePathology.MySQLMigration
                 string createTimeStampColumn = this.GetAddColumnCommand(migrationSatus.TableName, "Timestamp", "Timestamp");
 
                 Business.Rules.MethodResult result = this.RunCommand(createTableCommand);
+                if (result.Success == true)
+                {
+                    result = this.RunCommand(createPrimaryKeyCommand);
+                }
+                else
+                {
+                    methodResult.Success = false;
+                    methodResult.Message += result.Message;
+                }
+
+                if (result.Success == true)
+                {
+                    result = this.RunCommand(createTimeStampColumn);
+                }
+                else
+                {
+                    methodResult.Success = false;
+                    methodResult.Message += result.Message;
+                }
+
                 if (result.Success == false)
                 {
                     methodResult.Success = false;
                     methodResult.Message += result.Message;
                 }
-                else
-                {
-                    result = this.RunCommand(createPrimaryKeyCommand);
-                    if (result.Success == false)
-                    {
-                        methodResult.Success = false;
-                        methodResult.Message += result.Message;
-                    }
-                    else
-                    {
-                        result = this.RunCommand(createTimeStampColumn);
-                        if (result.Success == false)
-                        {
-                            methodResult.Success = false;
-                            methodResult.Message += result.Message;
-                        }
-                    }
-                }
-
             }
 
             return methodResult;
