@@ -344,7 +344,7 @@ namespace YellowstonePathology.Business.Gateway
             {
                 foreach(Business.Test.AliquotOrder aliquotOrder in specimenOrder.AliquotOrderCollection)
                 {
-                    aliquotOrder.TestOrderCollection.Sync(dataTable, aliquotOrder.AliquotOrderId);                    
+                    aliquotOrder.TestOrderCollection.SyncAliquot(dataTable, aliquotOrder.AliquotOrderId);                    
                 }
             }
         }
@@ -406,7 +406,7 @@ namespace YellowstonePathology.Business.Gateway
                         {
                             if(testOrder.AliquotOrder == null)
                             {
-                                aliquotOrder = new Test.AliquotOrder_Base();
+                                aliquotOrder = new Test.AliquotOrder();
                             }
                             else
                             {

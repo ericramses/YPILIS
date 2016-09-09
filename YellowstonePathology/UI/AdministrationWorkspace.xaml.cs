@@ -1277,7 +1277,7 @@ namespace YellowstonePathology.UI
                     accessionOrderBuilderV2.Build(cmd2, ao2);
 
                     Business.Persistence.DocumentTestBuilders document = new Business.Persistence.DocumentTestBuilders(ao1, ao2);
-                    if (document.IsDirty())
+                    if (document.Compare() == false)
                     {
                         resultString = ao1.MasterAccessionNo + ": ";
                         resultString += "results are not the same.";

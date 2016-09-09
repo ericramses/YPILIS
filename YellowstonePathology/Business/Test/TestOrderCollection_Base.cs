@@ -189,6 +189,18 @@ namespace YellowstonePathology.Business.Test.Model
             return result;
         }
 
+        private TestOrder GetTestOrder(string testOrderId)
+        {
+            foreach (TestOrder item in this)
+            {
+                if (item.TestOrderId == testOrderId)
+                {
+                    return item;
+                }
+            }
+            return null;
+        }
+
         public bool Exists(int testId)
         {
             bool result = false;
@@ -254,6 +266,35 @@ namespace YellowstonePathology.Business.Test.Model
                 else if (testPanelOrderId == aliquotOrderId)
                 {
                     testOrder = new TestOrder_Base();
+                    this.Add(testOrder);
+                }
+
+                if (testOrder != null)
+                {
+                    YellowstonePathology.Business.Persistence.SqlDataTableReaderPropertyWriter sqlDataTableReaderPropertyWriter = new Persistence.SqlDataTableReaderPropertyWriter(testOrder, dataTableReader);
+                    sqlDataTableReaderPropertyWriter.WriteProperties();
+                }
+            }
+        }
+
+        public void SyncAliquot(DataTable dataTable, string aliquotOrderId)
+        {
+            this.RemoveDeleted(dataTable);
+            DataTableReader dataTableReader = new DataTableReader(dataTable);
+            while (dataTableReader.Read())
+            {
+                string testOrderId = dataTableReader["TestOrderId"].ToString();
+                string testAliquotOrderId = dataTableReader["AliquotOrderId"].ToString();
+
+                TestOrder testOrder = null;
+
+                if (this.Exists(testOrderId) == true)
+                {
+                    testOrder = this.GetTestOrder(testOrderId);
+                }
+                else if (testAliquotOrderId == aliquotOrderId)
+                {
+                    testOrder = new TestOrder();
                     this.Add(testOrder);
                 }
 
