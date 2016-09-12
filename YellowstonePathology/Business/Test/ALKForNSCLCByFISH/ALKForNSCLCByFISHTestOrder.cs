@@ -176,7 +176,7 @@ namespace YellowstonePathology.Business.Test.ALKForNSCLCByFISH
             }
         }
 
-        [PersistentProperty()]
+        [PersistentProperty("0")]
         public bool ALKGeneAmplification
         {
             get { return this.m_ALKGeneAmplification; }

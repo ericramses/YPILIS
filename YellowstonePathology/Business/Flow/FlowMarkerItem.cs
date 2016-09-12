@@ -96,7 +96,7 @@ namespace YellowstonePathology.Business.Flow
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentProperty("0")]
 		public double Percentage
 		{
 			get { return this.m_Percentage; }
@@ -124,7 +124,7 @@ namespace YellowstonePathology.Business.Flow
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentProperty("0")]
 		public bool Report
 		{
 			get { return this.m_Report; }
@@ -138,7 +138,7 @@ namespace YellowstonePathology.Business.Flow
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentProperty("0")]
 		public bool MarkerUsed
 		{
 			get { return this.m_MarkerUsed; }
@@ -180,7 +180,7 @@ namespace YellowstonePathology.Business.Flow
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentProperty("0")]
 		public bool Predictive
 		{
 			get { return this.m_Predictive; }
@@ -194,7 +194,7 @@ namespace YellowstonePathology.Business.Flow
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentProperty("0")]
 		public int Expresses
 		{
 			get { return this.m_Expresses; }
@@ -208,7 +208,7 @@ namespace YellowstonePathology.Business.Flow
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentProperty("0")]
 		public int OrderFlag
 		{
 			get { return this.m_OrderFlag; }

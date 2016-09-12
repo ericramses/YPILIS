@@ -92,7 +92,7 @@ namespace YellowstonePathology.Business.Test
             }
         }
 
-        [PersistentProperty()]
+        [PersistentProperty("0")]
         public bool ClientAccessioned
         {
             get { return this.m_ClientAccessioned; }
@@ -106,7 +106,7 @@ namespace YellowstonePathology.Business.Test
             }
         }       
 
-        [PersistentStringProperty(50)]
+        [PersistentStringProperty(50, "''")]
         public string AliquotType
         {
             get { return this.m_AliquotType; }
@@ -176,7 +176,7 @@ namespace YellowstonePathology.Business.Test
             }
         }
 
-        [PersistentProperty()]
+        [PersistentProperty("0")]
         public bool GrossVerified
         {
             get { return this.m_GrossVerified; }
@@ -190,7 +190,7 @@ namespace YellowstonePathology.Business.Test
             }
         }
 
-        [PersistentProperty()]
+        [PersistentProperty("0")]
         public Nullable<int> GrossVerifiedById
         {
             get { return this.m_GrossVerifiedById; }
@@ -232,7 +232,7 @@ namespace YellowstonePathology.Business.Test
             }
         }
 
-        [PersistentProperty()]
+        [PersistentProperty("0")]
         public bool Printed
         {
             get { return this.m_Printed; }
@@ -302,7 +302,7 @@ namespace YellowstonePathology.Business.Test
             }
         }
 
-        [PersistentProperty()]
+        [PersistentProperty("0")]
         public bool Validated
         {
             get { return this.m_Validated; }
@@ -398,7 +398,7 @@ namespace YellowstonePathology.Business.Test
             }
         }
 
-        [PersistentProperty()]
+        [PersistentProperty("0")]
         public bool EmbeddingVerified
         {
             get { return this.m_EmbeddingVerified; }

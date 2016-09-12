@@ -120,7 +120,7 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
             }
         }
 
-        [PersistentProperty()]
+        [PersistentProperty("0")]
         public bool QNSForALK
         {
             get { return this.m_QNSForALK; }
@@ -131,7 +131,7 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
             }
         }
 
-        [PersistentProperty()]
+        [PersistentProperty("0")]
         public bool QNSForROS1
         {
             get { return this.m_QNSForROS1; }

@@ -38,7 +38,7 @@ namespace YellowstonePathology.Business.User
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentProperty("0")]
 		public int UserID
 		{
 			get { return this.m_UserId; }
