@@ -36,6 +36,11 @@ namespace YellowstonePathology.Business.Persistence
                 PropertyInfo[] properties = type.GetProperties();
                 foreach (PropertyInfo property in properties)
                 {
+                    if(property.Name == "Item")
+                    {
+                        continue;
+                    }
+
                     if (property.PropertyType.FullName.Contains("System") == false || 
                         property.PropertyType.FullName.Contains("Collection") == true || property.PropertyType.FullName.Contains("List") == true)
                     {
@@ -72,6 +77,12 @@ namespace YellowstonePathology.Business.Persistence
         private bool HandleCollection(PropertyInfo property, object object1, object object2)
         {
             bool result = true;
+
+            if(property.Name == "ValidationErrors")
+            {
+                return result;
+            }
+
             IList collectionObjects1 = (IList)property.GetValue(object1, null);
             IList collectionObjects2 = (IList)property.GetValue(object2, null);
 

@@ -120,7 +120,9 @@ namespace YellowstonePathology.Business.Test
             this.m_AccessionLock = new AccessionLock();
             this.m_ObjectId = objectId;
 			this.m_AccessionDate = DateTime.Today;
-			this.m_AccessionTime = DateTime.Now;            
+			this.m_AccessionTime = DateTime.Now;
+            this.m_CollectionDate = DateTime.Today;
+            this.m_CollectionTime = DateTime.Today;
             this.m_AccessioningFacilityId = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId;
 			this.m_SpecimenOrderCollection = new YellowstonePathology.Business.Specimen.Model.SpecimenOrderCollection();
             this.m_PanelSetOrderCollection = new YellowstonePathology.Business.Test.PanelSetOrderCollection();

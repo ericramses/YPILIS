@@ -722,7 +722,35 @@ namespace YellowstonePathology.MySQLMigration
             }
             else result += this.GetMySQLDataType(propertyInfo.PropertyType);
 
+            result += this.AddDefaultToColumnDefinition(propertyInfo);
+
             result += ", ";
+
+            return result;
+        }
+
+        private string AddDefaultToColumnDefinition(PropertyInfo propertyInfo)
+        {
+            string result = string.Empty;
+
+            Attribute attribute = propertyInfo.GetCustomAttribute(typeof(YellowstonePathology.Business.Persistence.PersistentProperty));
+            if (attribute != null)
+            {
+                YellowstonePathology.Business.Persistence.PersistentProperty persistentProperty = (Business.Persistence.PersistentProperty)attribute;
+                result = persistentProperty.DefaultValue;
+            }
+
+            if (string.IsNullOrEmpty(result) == false)
+            {
+                if(propertyInfo.PropertyType == typeof(DateTime) || propertyInfo.PropertyType == typeof(DateTime?))
+                {
+                    result = string.Empty;
+                }
+                else
+                {
+                    result = " DEFAULT " + result;
+                }
+            }
 
             return result;
         }
