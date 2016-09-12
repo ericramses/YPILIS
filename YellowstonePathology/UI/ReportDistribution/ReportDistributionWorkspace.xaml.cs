@@ -348,7 +348,8 @@ namespace YellowstonePathology.UI.ReportDistribution
                 YellowstonePathology.Business.Interface.ICaseDocument caseDocument = YellowstonePathology.Business.Document.DocumentFactory.GetDocument(accessionOrder, panelSetOrder, Business.Document.ReportSaveModeEnum.Normal);
                 YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(panelSetOrder.ReportNo);
 
-                if(panelSetOrder.HoldDistribution == false)
+                panelSetOrder.ResultStatus = "F";
+                if (panelSetOrder.HoldDistribution == false)
                 {
                     if (this.TryDelete(panelSetOrder, caseDocument, orderIdParser) == true)
                     {
@@ -359,7 +360,7 @@ namespace YellowstonePathology.UI.ReportDistribution
                                 foreach (YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution testOrderReportDistribution in panelSetOrder.TestOrderReportDistributionCollection)
                                 {
                                     if (testOrderReportDistribution.Distributed == false)
-                                    {
+                                    {                                        
                                         YellowstonePathology.Business.ReportDistribution.Model.DistributionResult distributionResult = this.Distribute(testOrderReportDistribution, accessionOrder);
                                         if (distributionResult.IsComplete == true)
                                         {
@@ -454,7 +455,7 @@ namespace YellowstonePathology.UI.ReportDistribution
 
         private YellowstonePathology.Business.ReportDistribution.Model.DistributionResult Distribute(YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution testOrderReportDistribution, Business.Test.AccessionOrder accessionOrder)
         {
-            YellowstonePathology.Business.ReportDistribution.Model.DistributionResult result = null;
+            YellowstonePathology.Business.ReportDistribution.Model.DistributionResult result = null;            
 
             switch (testOrderReportDistribution.DistributionType)
             {

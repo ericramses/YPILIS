@@ -11,9 +11,9 @@ namespace YellowstonePathology.Business.Label.Model
         private string m_IPAddress;
         private int m_Port;        
 
-        public ZPLPrinter()
+        public ZPLPrinter(string ipAddress)
         {
-            this.m_IPAddress = "10.1.1.20";
+            this.m_IPAddress = ipAddress;
             this.m_Port = 9100;
         }        
 

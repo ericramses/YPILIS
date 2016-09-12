@@ -37,7 +37,9 @@ namespace YellowstonePathology.UI.Login.Receiving
 		private PageNavigationModeEnum m_PageNavigationMode;
         private List<string> m_TaskAssignmentList;
 
-		public TaskOrderPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
+        private YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort m_BarcodeScanPort;
+
+        public TaskOrderPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
 			YellowstonePathology.Business.Task.Model.TaskOrder taskOrder,
 			PageNavigationModeEnum pageNavigationMode)
 		{
@@ -46,8 +48,9 @@ namespace YellowstonePathology.UI.Login.Receiving
 			this.m_PageNavigationMode = pageNavigationMode;			
 
 			this.m_TaskAssignmentList = YellowstonePathology.Business.Task.Model.TaskAssignment.GetTaskAssignmentList();
+            this.m_BarcodeScanPort = YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort.Instance;
 
-			InitializeComponent();
+            InitializeComponent();
 
 			this.SetButtonVisibility();
 			DataContext = this;
@@ -58,12 +61,27 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         private void TaskOrderPage_Loaded(object sender, RoutedEventArgs e)
         {
-             
-        }
+            this.m_BarcodeScanPort.FedexOvernightScanReceived += BarcodeScanPort_FedexOvernightScanReceived;
+        }        
 
         private void TaskOrderPage_Unloaded(object sender, RoutedEventArgs e)
         {
              
+        }
+
+        private void BarcodeScanPort_FedexOvernightScanReceived(string scanData)
+        {
+            this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
+            {                                    
+                if(this.m_TaskOrder.TaskOrderDetailCollection.FedexShipmentExists() == true)
+                {
+                    Business.Task.Model.TaskOrderDetailFedexShipment taskOrderDetailFedexShipment = this.m_TaskOrder.TaskOrderDetailCollection.GetFedexShipment();
+                    if(string.IsNullOrEmpty(taskOrderDetailFedexShipment.TrackingNumber) == true)
+                    {
+                        taskOrderDetailFedexShipment.TrackingNumber = scanData.Substring(22, 12);
+                    }                    
+                }
+            }));            
         }
 
         public void NotifyPropertyChanged(String info)
@@ -242,7 +260,7 @@ namespace YellowstonePathology.UI.Login.Receiving
             Business.Task.Model.TaskOrderDetailFedexShipment taskOrderDetail = this.m_TaskOrder.TaskOrderDetailCollection.GetFedexShipment();      
             if(string.IsNullOrEmpty(taskOrderDetail.ZPLII) == false)
             {
-                Business.Label.Model.ZPLPrinter zplPrinter = new Business.Label.Model.ZPLPrinter();
+                Business.Label.Model.ZPLPrinter zplPrinter = new Business.Label.Model.ZPLPrinter("10.1.1.20");
                 zplPrinter.Print(taskOrderDetail.ZPLII);
                 taskOrderDetail.LabelHasBeenPrinted = true;
             }
@@ -272,6 +290,15 @@ namespace YellowstonePathology.UI.Login.Receiving
                     MessageBox.Show("There was a problem with this Request.");
                 }
             }            
+        }
+
+        private void HyperLinkSendAddGenericTask_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Task.Model.Task task = new Business.Task.Model.Task(string.Empty, string.Empty);
+            string taskOrderDetailId = YellowstonePathology.Business.OrderIdParser.GetNextTaskOrderDetailId(this.m_TaskOrder.TaskOrderDetailCollection, this.m_TaskOrder.TaskOrderId);
+            string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
+            YellowstonePathology.Business.Task.Model.TaskOrderDetail taskOrderDetail = new Business.Task.Model.TaskOrderDetail(taskOrderDetailId, this.m_TaskOrder.TaskOrderId, objectId, task);
+            this.m_TaskOrder.TaskOrderDetailCollection.Add(taskOrderDetail);
         }
     }
 }

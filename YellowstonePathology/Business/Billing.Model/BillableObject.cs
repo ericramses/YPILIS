@@ -317,8 +317,7 @@ namespace YellowstonePathology.Business.Billing.Model
 
                 this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.SetPostDate(DateTime.Today);
                 this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.SetPostDate(DateTime.Today);
-                this.m_PanelSetOrder.IsPosted = true;
-                this.m_PanelSetOrder.ResultStatus = "F";
+                this.m_PanelSetOrder.IsPosted = true;                
                 methodResult.Success = true;
             }
             else

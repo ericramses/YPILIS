@@ -108,6 +108,20 @@ namespace YellowstonePathology.Business.Task.Model
             return result;
         }
 
+        public bool FedexShipmentExists()
+        {
+            bool result = false;
+            foreach (TaskOrderDetail taskOrderDetail in this)
+            {
+                if (taskOrderDetail is TaskOrderDetailFedexShipment)
+                {
+                    result = true;
+                    break;
+                }
+            }
+            return result;
+        }
+
         public void Sync(DataTable dataTable, string taskOrderId)
         {
             this.RemoveDeleted(dataTable);

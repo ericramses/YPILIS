@@ -23,6 +23,8 @@ namespace YellowstonePathology.Business.HL7View.EPIC
             this.m_AccessionOrder = accessionOrder;
             this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 
+            if (this.m_PanelSetOrder.IsPosted == false) this.m_PanelSetOrder.ResultStatus = "P";
+
             if (this.m_AccessionOrder.UniversalServiceId.ToUpper() != this.m_PanelSetOrder.UniversalServiceId.ToUpper())
             {
                 this.m_SendUnsolicited = true;
@@ -39,7 +41,7 @@ namespace YellowstonePathology.Business.HL7View.EPIC
         public void Send(YellowstonePathology.Business.Rules.MethodResult result)
         {                        
             XElement detailDocument = CreateDocument();
-            this.WriteDocumentToServer(detailDocument);
+            this.WriteDocumentToServer(detailDocument);            
 
             result.Success = true;
             result.Message = "An HL7 message was created and sent to the interface.";         
