@@ -130,7 +130,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentProperty("0")]
 		public int PerformedById
 		{
 			get { return this.m_PerformedById; }
@@ -158,7 +158,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentStringProperty(50, "'Not Correlated'")]
 		public string Correlation
 		{
 			get { return this.m_Correlation; }
@@ -186,7 +186,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentProperty("0")]
 		public bool CorrelationAffectsPatientCare
 		{
 			get { return this.m_CorrelationAffectsPatientCare; }

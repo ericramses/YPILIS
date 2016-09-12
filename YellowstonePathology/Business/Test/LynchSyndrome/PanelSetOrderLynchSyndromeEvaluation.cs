@@ -93,7 +93,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             }
         }
 
-        [PersistentProperty()]
+        [PersistentProperty("0")]
         public bool BRAFIsIndicated
         {
             get { return this.m_BRAFIsIndicated; }

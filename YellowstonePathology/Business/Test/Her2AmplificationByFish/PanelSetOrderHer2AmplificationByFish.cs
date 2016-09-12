@@ -174,7 +174,7 @@ namespace YellowstonePathology.Business.Test.Her2AmplificationByFish
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentProperty("0")]
         public bool NonBreast
         {
             get { return this.m_NonBreast; }

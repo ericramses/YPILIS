@@ -1232,11 +1232,13 @@ namespace YellowstonePathology.UI
         private void ButtonWilliamTesting_Click(object sender, RoutedEventArgs e) // Compares AccessionOrderBuilder ao to AccessionOrderBuilderV2 ao
         {
             string resultString = string.Empty;
-            DateTime startDate = DateTime.Parse("7/1/2016");
-            //for (int didx = 0; didx < 10; didx++)
-            //{
-                DateTime endDate = startDate.AddMonths(1).AddDays(-1);
-                List<string> masterAccessionNos = new List<string>();
+            DateTime startDate = DateTime.Parse("2/10/2016");
+            for (int didx = 0; didx < 4; didx++)
+            {
+                //DateTime endDate = startDate.AddMonths(1).AddDays(-1);
+            DateTime endDate = startDate.AddDays(1);
+            List<string> masterAccessionNos = new List<string>();
+            //masterAccessionNos.Add("16-3667");
                 SqlCommand cmd = new SqlCommand("select MasteraccessionNo from tblAccessionOrder where AccessionDate between '" + startDate.ToString() + "' and '" + endDate.ToString() + "'"); // order by 1 asc");
                 cmd.CommandType = CommandType.Text;
                 using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
@@ -1256,7 +1258,7 @@ namespace YellowstonePathology.UI
                 foreach (string masterAccessionNo in masterAccessionNos)
                 {
                     SqlCommand cmd1 = new SqlCommand();
-                    cmd1.CommandText = "gwGetAccessionByMasterAccessionNo_A8";
+                    cmd1.CommandText = "gwGetAccessionByMasterAccessionNo_A9";
                     cmd1.CommandType = CommandType.StoredProcedure;
                     cmd1.Parameters.Add("@MasterAccessionNo", SqlDbType.VarChar).Value = masterAccessionNo;
 
@@ -1275,7 +1277,7 @@ namespace YellowstonePathology.UI
                     accessionOrderBuilderV2.Build(cmd2, ao2);
 
                     Business.Persistence.DocumentTestBuilders document = new Business.Persistence.DocumentTestBuilders(ao1, ao2);
-                    if (document.IsDirty())
+                    if (document.Compare() == false)
                     {
                         resultString = ao1.MasterAccessionNo + ": ";
                         resultString += "results are not the same.";
@@ -1284,7 +1286,8 @@ namespace YellowstonePathology.UI
                 }
                 //Console.WriteLine("Finished " + startDate.ToString("MM/dd/yyyy") + " : at " + DateTime.Now.ToString());
                 //startDate = startDate.AddMonths(1);
-            //}
+                startDate = startDate.AddDays(2);
+            }
             resultString = "done";
             MessageBox.Show(resultString);
         }
@@ -1361,8 +1364,7 @@ namespace YellowstonePathology.UI
                 if (File.Exists(filePath))
                 {
                     string[] lines = File.ReadAllLines(filePath);
-                    //builder.RevisePersistentAttribute(migrationStatus, lines);
-                    if (builder.ResizeMaxStrings(migrationStatus, lines) == true)
+                    if (builder.SetPersistentAttributeDefaultValue(migrationStatus, lines))
                     {
                         using (StreamWriter writer = new StreamWriter(filePath, false))
                         {

@@ -92,7 +92,7 @@ namespace YellowstonePathology.Business.SpecialStain
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentProperty("1")]
 		public bool Billable
 		{
 			get { return this.m_Billable; }
@@ -106,7 +106,7 @@ namespace YellowstonePathology.Business.SpecialStain
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentProperty("1")]
 		public bool Reportable
 		{
 			get { return this.m_Reportable; }
@@ -218,7 +218,7 @@ namespace YellowstonePathology.Business.SpecialStain
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentProperty("0")]
 		public int CptCodeQuantity
 		{
 			get { return this.m_CptCodeQuantity; }
@@ -246,7 +246,7 @@ namespace YellowstonePathology.Business.SpecialStain
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentProperty("0")]
 		public int ImmunoCommentRptSeq
 		{
 			get { return this.m_ImmunoCommentRptSeq; }
@@ -274,7 +274,7 @@ namespace YellowstonePathology.Business.SpecialStain
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentProperty("0")]
 		public bool NoCharge
 		{
 			get { return this.m_NoCharge; }
@@ -288,7 +288,7 @@ namespace YellowstonePathology.Business.SpecialStain
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentProperty("0")]
 		public bool OrderedAsDual
 		{
 			get { return this.m_OrderedAsDual; }
@@ -302,7 +302,7 @@ namespace YellowstonePathology.Business.SpecialStain
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentProperty("0")]
 		public bool IsGraded
 		{
 			get { return this.m_IsGraded; }
@@ -316,7 +316,7 @@ namespace YellowstonePathology.Business.SpecialStain
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentProperty("0")]
         public bool ClientAccessioned
         {
             get { return this.m_ClientAccessioned; }

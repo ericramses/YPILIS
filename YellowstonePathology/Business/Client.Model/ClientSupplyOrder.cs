@@ -82,7 +82,7 @@ namespace YellowstonePathology.Business.Client.Model
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentProperty("0")]
 		public int ClientId
 		{
 			get { return this.m_ClientId; }
@@ -194,7 +194,7 @@ namespace YellowstonePathology.Business.Client.Model
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentProperty("0")]
 		public bool OrderFinal
 		{
 			get { return this.m_OrderFinal; }
@@ -208,7 +208,7 @@ namespace YellowstonePathology.Business.Client.Model
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentProperty("0")]
 		public int OrderTakenById
 		{
 			get { return this.m_OrderTakenById; }
@@ -222,7 +222,7 @@ namespace YellowstonePathology.Business.Client.Model
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentProperty("0")]
 		public int OrderFilledById
 		{
 			get { return this.m_OrderFilledById; }

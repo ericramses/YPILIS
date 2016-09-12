@@ -304,7 +304,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentProperty("0")]
         public bool ClientAccessioned
         {
             get { return this.m_ClientAccessioned; }

@@ -58,7 +58,7 @@ namespace YellowstonePathology.Business.Client.Model
 			}
 		}
 
-        [PersistentStringProperty(50)]
+        [PersistentStringProperty(50, "0")]
 		public string clientsupplyorderid
 		{
 			get { return this.m_clientsupplyorderid; }
@@ -72,7 +72,7 @@ namespace YellowstonePathology.Business.Client.Model
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentProperty("0")]
 		public int clientsupplyid
 		{
 			get { return this.m_clientsupplyid; }

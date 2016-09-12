@@ -146,7 +146,7 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentProperty("1")]
 		public bool Active
 		{
 			get { return this.m_Active; }
@@ -244,7 +244,7 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentProperty("0")]
 		public bool OutsideConsult
 		{
 			get { return this.m_OutsideConsult; }
@@ -258,7 +258,7 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentProperty("0")]
 		public bool HPVTest
 		{
 			get { return this.m_HPVTest; }
@@ -272,7 +272,7 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentProperty("0")]
 		public int HPVInstructionID
 		{
 			get { return this.m_HPVInstructionID; }
@@ -286,7 +286,7 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentProperty("1")]
 		public int HPVTestToPerformID
 		{
 			get { return this.m_HPVTestToPerformID; }
@@ -314,7 +314,7 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
-        [PersistentStringProperty(50)]
+        [PersistentStringProperty(50, "'STNDNONE'")]
 		public string HPVStandingOrderCode
 		{
 			get { return this.m_HPVStandingOrderCode; }
@@ -328,7 +328,7 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentProperty("0")]
 		public int ReportDeliveryMethod
 		{
 			get { return this.m_ReportDeliveryMethod; }
@@ -370,7 +370,7 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentProperty("0")]
 		public bool KRASBRAFStandingOrder
 		{
 			get { return this.m_KRASBRAFStandingOrder; }
@@ -384,7 +384,7 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
-        [PersistentStringProperty(100)]
+        [PersistentStringProperty(100, "0")]
 		public string Npi
 		{
 			get { return this.m_Npi; }
@@ -398,7 +398,7 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
-        [PersistentStringProperty(50)]
+        [PersistentStringProperty(50, "'STNDNONE'")]
 		public string HPV1618StandingOrderCode
 		{
             get { return this.m_HPV1618StandingOrderCode; }
@@ -451,7 +451,7 @@ namespace YellowstonePathology.Business.Domain
             }
         }
 
-        [PersistentProperty()]
+        [PersistentProperty("0")]
         public bool SendPublishNotifications
         {
             get { return this.m_SendPublishNotifications; }

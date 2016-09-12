@@ -40,7 +40,7 @@ namespace YellowstonePathology.Business.Test.TestCancelled
             set { this.m_Comment = value; }
         }
 
-        [YellowstonePathology.Business.Persistence.PersistentProperty()]
+        [YellowstonePathology.Business.Persistence.PersistentProperty("0")]
         public int CancelledTestId
         {
             get { return this.m_CancelledTestId; }

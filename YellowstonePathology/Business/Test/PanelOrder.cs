@@ -248,7 +248,7 @@ namespace YellowstonePathology.Business.Test
 			}
 		}
 
-		[PersistentProperty(true)]
+		[PersistentProperty(true, "0")]
 		public int PanelId
 		{
 			get { return this.m_PanelId; }
@@ -290,7 +290,7 @@ namespace YellowstonePathology.Business.Test
             }
         }
 
-		[PersistentProperty()]
+		[PersistentProperty("0")]
 		public int PanelOrderBatchId
 		{
 			get { return this.m_PanelOrderBatchId; }
@@ -304,7 +304,7 @@ namespace YellowstonePathology.Business.Test
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentProperty("0")]
 		public bool Acknowledged
 		{
 			get { return this.m_Acknowledged; }
@@ -346,7 +346,7 @@ namespace YellowstonePathology.Business.Test
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentProperty("0")]
 		public int AcceptedById
 		{
 			get { return this.m_AcceptedById; }
@@ -360,7 +360,7 @@ namespace YellowstonePathology.Business.Test
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentProperty("0")]
 		public bool Accepted
 		{
 			get { return this.m_Accepted; }
@@ -402,7 +402,7 @@ namespace YellowstonePathology.Business.Test
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentProperty("0")]
 		public int AcknowledgedById
 		{
 			get { return this.m_AcknowledgedById; }
@@ -416,7 +416,7 @@ namespace YellowstonePathology.Business.Test
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentProperty("0")]
 		public int OrderedById
 		{
 			get { return this.m_OrderedById; }
@@ -430,7 +430,7 @@ namespace YellowstonePathology.Business.Test
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentProperty("CONVERT([varchar](20),getdate(),(101))")]
 		public Nullable<DateTime> OrderDate
 		{
 			get { return this.m_OrderDate; }
@@ -444,7 +444,7 @@ namespace YellowstonePathology.Business.Test
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentProperty("getdate()")]
 		public Nullable<DateTime> OrderTime
 		{
 			get { return this.m_OrderTime; }
@@ -472,7 +472,7 @@ namespace YellowstonePathology.Business.Test
 			}
 		}
 
-		[PersistentProperty()]
+		[PersistentProperty("0")]
 		public int AssignedToId
 		{
 			get { return this.m_AssignedToId; }

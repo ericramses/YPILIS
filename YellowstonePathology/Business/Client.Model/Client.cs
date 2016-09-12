@@ -188,7 +188,7 @@ namespace YellowstonePathology.Business.Client.Model
 			}
 		}
 
-        [PersistentStringProperty(100)]
+        [PersistentStringProperty(100, "'Non-Hospital'")]
 		public string FacilityType
 		{
 			get { return this.m_FacilityType; }
@@ -217,7 +217,7 @@ namespace YellowstonePathology.Business.Client.Model
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentProperty("0")]
 		public bool LongDistance
 		{
 			get { return this.m_LongDistance; }
@@ -231,7 +231,7 @@ namespace YellowstonePathology.Business.Client.Model
 			}
 		}        
 
-        [PersistentProperty()]
+        [PersistentProperty("1")]
 		public bool ShowPhysiciansOnRequisition
 		{
 			get { return this.m_ShowPhysiciansOnRequisition; }
@@ -287,7 +287,7 @@ namespace YellowstonePathology.Business.Client.Model
 			}
 		}               
 
-        [PersistentProperty()]
+        [PersistentProperty("0")]
 		public bool Inactive
 		{
 			get { return this.m_Inactive; }
@@ -315,7 +315,7 @@ namespace YellowstonePathology.Business.Client.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentProperty("0")]
         public bool HasReferringProvider
         {
             get { return this.m_HasReferringProvider; }

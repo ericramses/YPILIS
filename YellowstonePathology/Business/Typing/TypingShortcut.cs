@@ -73,7 +73,7 @@ namespace YellowstonePathology.Business.Typing
 			}
 		}
 
-        [PersistentStringProperty(50)]
+        [PersistentStringProperty(50, "'Global'")]
 		public string Type
 		{
 			get { return this.m_Type; }
@@ -87,7 +87,7 @@ namespace YellowstonePathology.Business.Typing
 			}
 		}
 
-        [PersistentProperty()]
+        [PersistentProperty("5075")]
 		public int UserId
 		{
 			get { return this.m_UserId; }

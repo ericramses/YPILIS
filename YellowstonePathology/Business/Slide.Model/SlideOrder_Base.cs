@@ -130,7 +130,7 @@ namespace YellowstonePathology.Business.Slide.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentProperty("0")]
         public bool ClientAccessioned
         {
             get { return this.m_ClientAccessioned; }
@@ -144,7 +144,7 @@ namespace YellowstonePathology.Business.Slide.Model
             }
         }        
 
-        [PersistentStringProperty(50)]
+        [PersistentStringProperty(50, "0")]
         public string AliquotOrderId
         {
             get
@@ -161,7 +161,7 @@ namespace YellowstonePathology.Business.Slide.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentProperty("getdate()")]
         public DateTime OrderDate
         {
             get { return this.m_OrderDate; }
@@ -192,7 +192,7 @@ namespace YellowstonePathology.Business.Slide.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentProperty("0")]
         public bool Validated
         {
             get { return this.m_Validated; }
@@ -206,7 +206,7 @@ namespace YellowstonePathology.Business.Slide.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentProperty("0")]
         public int ValidatedById
         {
             get
@@ -271,7 +271,7 @@ namespace YellowstonePathology.Business.Slide.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentProperty("0")]
         public bool Printed
         {
             get { return this.m_Printed; }
@@ -402,7 +402,7 @@ namespace YellowstonePathology.Business.Slide.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentProperty("0")]
         public int OrderedById
         {
             get
@@ -453,7 +453,7 @@ namespace YellowstonePathology.Business.Slide.Model
             }
         }
 
-        [PersistentStringProperty(50)]
+        [PersistentStringProperty(50, "'Created'")]
         public string Status
         {
             get
@@ -606,7 +606,7 @@ namespace YellowstonePathology.Business.Slide.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentProperty("0")]
         public bool OrderedAsDual
         {
             get

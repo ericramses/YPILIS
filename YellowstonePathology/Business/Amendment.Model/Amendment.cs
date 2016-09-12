@@ -178,7 +178,7 @@ namespace YellowstonePathology.Business.Amendment.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentProperty("1")]
         public bool RequirePathologistSignature
         {
             get { return this.m_RequirePathologistSignature; }
@@ -192,7 +192,7 @@ namespace YellowstonePathology.Business.Amendment.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentProperty("0")]
         public bool ShowPreviousDiagnosis
         {
             get { return this.m_ShowPreviousDiagnosis; }
@@ -206,7 +206,7 @@ namespace YellowstonePathology.Business.Amendment.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentProperty("0")]
         public bool Final
         {
             get { return this.m_Final; }
@@ -220,7 +220,7 @@ namespace YellowstonePathology.Business.Amendment.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentProperty("0")]
         public bool IsDistributed
         {
             get { return this.m_IsDistributed; }
@@ -234,7 +234,7 @@ namespace YellowstonePathology.Business.Amendment.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentProperty("1")]
         public bool DistributeOnFinal
         {
             get { return this.m_DistributeOnFinal; }
@@ -248,7 +248,7 @@ namespace YellowstonePathology.Business.Amendment.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentProperty("1")]
         public bool ShowAmendmentOnReport
         {
             get { return this.m_ShowAmendmentOnReport; }
@@ -262,7 +262,7 @@ namespace YellowstonePathology.Business.Amendment.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentProperty("0")]
         public bool RevisedDiagnosis
         {
             get { return this.m_RevisedDiagnosis; }
@@ -276,7 +276,7 @@ namespace YellowstonePathology.Business.Amendment.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentProperty("CONVERT([varchar](20),getdate(),(102))")]
         public Nullable<DateTime> AmendmentDate
         {
             get { return this.m_AmendmentDate; }
@@ -290,7 +290,7 @@ namespace YellowstonePathology.Business.Amendment.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentProperty("getdate()")]
         public Nullable<DateTime> AmendmentTime
         {
             get { return this.m_AmendmentTime; }
@@ -332,7 +332,7 @@ namespace YellowstonePathology.Business.Amendment.Model
             }
         }
 
-        [PersistentProperty()]
+        [PersistentProperty("0")]
         public int UserId
         {
             get { return this.m_UserId; }
@@ -360,7 +360,7 @@ namespace YellowstonePathology.Business.Amendment.Model
             }
         }
 
-        [PersistentStringProperty(5000)]
+        [PersistentStringProperty(5000, "'???'")]
         public string Text
         {
             get { return this.m_Text; }
