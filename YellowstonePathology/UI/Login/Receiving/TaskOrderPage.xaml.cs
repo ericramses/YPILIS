@@ -36,6 +36,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 		private YellowstonePathology.Business.Task.Model.TaskOrder m_TaskOrder;
 		private PageNavigationModeEnum m_PageNavigationMode;
         private List<string> m_TaskAssignmentList;
+        private YellowstonePathology.Business.Facility.Model.FacilityCollection m_FacilityCollection;
 
         private YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort m_BarcodeScanPort;
 
@@ -45,9 +46,10 @@ namespace YellowstonePathology.UI.Login.Receiving
 		{
 			this.m_AccessionOrder = accessionOrder;
 			this.m_TaskOrder = taskOrder;
-			this.m_PageNavigationMode = pageNavigationMode;			
+			this.m_PageNavigationMode = pageNavigationMode;
 
-			this.m_TaskAssignmentList = YellowstonePathology.Business.Task.Model.TaskAssignment.GetTaskAssignmentList();
+            this.m_FacilityCollection = Business.Facility.Model.FacilityCollection.GetAllFacilities();
+            this.m_TaskAssignmentList = YellowstonePathology.Business.Task.Model.TaskAssignment.GetTaskAssignmentList();
             this.m_BarcodeScanPort = YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort.Instance;
 
             InitializeComponent();
@@ -60,7 +62,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 		}
 
         private void TaskOrderPage_Loaded(object sender, RoutedEventArgs e)
-        {
+        {            
             this.m_BarcodeScanPort.FedexOvernightScanReceived += BarcodeScanPort_FedexOvernightScanReceived;
         }        
 
@@ -108,6 +110,11 @@ namespace YellowstonePathology.UI.Login.Receiving
 					break;
 			}
 		}
+
+        public YellowstonePathology.Business.Facility.Model.FacilityCollection FacilityCollection
+        {
+            get { return this.m_FacilityCollection; }
+        }
 
         public List<string> TaskAssignmentList
         {
@@ -299,6 +306,17 @@ namespace YellowstonePathology.UI.Login.Receiving
             string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
             YellowstonePathology.Business.Task.Model.TaskOrderDetail taskOrderDetail = new Business.Task.Model.TaskOrderDetail(taskOrderDetailId, this.m_TaskOrder.TaskOrderId, objectId, task);
             this.m_TaskOrder.TaskOrderDetailCollection.Add(taskOrderDetail);
+        }
+
+        private void ComboboxShipToFacility_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(this.IsLoaded == true)
+            {
+                ComboBox comboBox = (ComboBox)sender;
+                Business.Facility.Model.Facility facility = (Business.Facility.Model.Facility)comboBox.SelectedItem;
+                Business.Task.Model.TaskOrderDetailFedexShipment taskOrderDetail = this.m_TaskOrder.TaskOrderDetailCollection.GetFedexShipment();
+                taskOrderDetail.SetShipTo(facility);
+            }            
         }
     }
 }

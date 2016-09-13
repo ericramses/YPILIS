@@ -16,8 +16,9 @@ namespace YellowstonePathology.Business.Facility.Model
             this.m_State = "MI";
             this.m_ZipCode = "48109-5054";
             this.m_IsReferenceLab = true;
-			
-			this.m_CliaLicense = new CLIALicense(this, null);
+
+            this.m_FedexPaymentType = "SENDER";
+            this.m_CliaLicense = new CLIALicense(this, null);
         }
     }
 }

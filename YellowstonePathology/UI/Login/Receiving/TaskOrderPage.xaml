@@ -42,13 +42,14 @@
                         <TextBox Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" Text="{Binding Path=Comment}" TextWrapping="Wrap"/>
 
                         <TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right" IsEnabled="False">Ship To:</TextBlock>
-                        <TextBox Grid.Column="1" Grid.Row="2" Margin="2,2,2,2" Text="{Binding Path=ShipToName}"/>
+                        <ComboBox Name="ComboboxShipToFacility" Grid.Column="1" Grid.Row="2" Margin="2,2,2,2" HorizontalAlignment="Stretch" ItemsSource="{Binding Path=FacilityCollection, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}" SelectedValuePath="FacilityId" DisplayMemberPath="FacilityName" IsEnabled="{Binding Path=PropertiesAreEnabled}"
+							SelectedValue="{Binding Path=ShipToFacilityId}" SelectionChanged="ComboboxShipToFacility_SelectionChanged"/>
 
                         <TextBlock Grid.Column="0" Grid.Row="3" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right" IsEnabled="False">Address 1:</TextBlock>
-                        <TextBox Grid.Column="1" Grid.Row="3" Margin="2,2,2,2" Text="{Binding Path=ShipToAddress1}"/>
+                        <TextBox Grid.Column="1" Grid.Row="3" Margin="2,2,2,2" Text="{Binding Path=ShipToAddress1}" IsEnabled="{Binding Path=PropertiesAreEnabled}"/>
 
                         <TextBlock Grid.Column="0" Grid.Row="4" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right" IsEnabled="False">Address 2:</TextBlock>
-                        <TextBox Grid.Column="1" Grid.Row="4" Margin="2,2,2,2" Text="{Binding Path=ShipToAddress2}"/>
+                        <TextBox Grid.Column="1" Grid.Row="4" Margin="2,2,2,2" Text="{Binding Path=ShipToAddress2}" IsEnabled="{Binding Path=PropertiesAreEnabled}"/>
 
                         <TextBlock Grid.Column="0" Grid.Row="5" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right" IsEnabled="False">City/State/Zip:</TextBlock>
                         <Grid Grid.Column="1" Grid.Row="5">
@@ -58,16 +59,16 @@
                                 <ColumnDefinition Width="2*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
 
-                            <TextBox Grid.Column="0" Margin="2,2,2,2" Text="{Binding Path=ShipToCity}" />
-                            <TextBox Grid.Column="1" Margin="2,2,2,2" Text="{Binding Path=ShipToState}"/>
-                            <TextBox Grid.Column="2" Margin="2,2,2,2" Text="{Binding Path=ShipToZip}"/>
+                            <TextBox Grid.Column="0" Margin="2,2,2,2" Text="{Binding Path=ShipToCity}" IsEnabled="{Binding Path=PropertiesAreEnabled}"/>
+                            <TextBox Grid.Column="1" Margin="2,2,2,2" Text="{Binding Path=ShipToState}" IsEnabled="{Binding Path=PropertiesAreEnabled}"/>
+                            <TextBox Grid.Column="2" Margin="2,2,2,2" Text="{Binding Path=ShipToZip}" IsEnabled="{Binding Path=PropertiesAreEnabled}"/>
                         </Grid>
 
                         <TextBlock Grid.Column="0" Grid.Row="6" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right" IsEnabled="False">Phone Number:</TextBlock>
-                        <TextBox Grid.Column="1" Grid.Row="6" Margin="2,2,2,2" Text="{Binding Path=ShipToPhone}"/>
+                        <TextBox Grid.Column="1" Grid.Row="6" Margin="2,2,2,2" Text="{Binding Path=ShipToPhone}" IsEnabled="{Binding Path=PropertiesAreEnabled}"/>
                         
                         <TextBlock Grid.Column="0" Grid.Row="7" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right" IsEnabled="False">Payment Type:</TextBlock>
-                        <TextBox Grid.Column="1" Grid.Row="7" Margin="2,2,2,2" Text="{Binding Path=PaymentType}"/>
+                        <TextBox Grid.Column="1" Grid.Row="7" Margin="2,2,2,2" Text="{Binding Path=PaymentType}" IsEnabled="{Binding Path=PropertiesAreEnabled}"/>
                         
                         <TextBlock Grid.Column="0" Grid.Row="8" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right">FedEx Tracking No:</TextBlock>
                         <TextBox Grid.Column="1" Grid.Row="8" Margin="2,2,2,2" Text="{Binding Path=TrackingNumber}" IsEnabled="False"/>

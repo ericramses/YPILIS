@@ -43,6 +43,19 @@ namespace YellowstonePathology.Business.Task.Model
             this.m_PaymentType = fedexShipment.ShipToFacility.FedexPaymentType;
         }
 
+        public void SetShipTo(Business.Facility.Model.Facility facility)
+        {
+            this.m_ShipToFacilityId = facility.FacilityId;
+            this.m_ShipToName = facility.FacilityName;
+            this.m_ShipToAddress1 = facility.Address1;
+            this.m_ShipToAddress2 = facility.Address2;
+            this.m_ShipToCity = facility.City;
+            this.m_ShipToState = facility.State;
+            this.m_ShipToZip = facility.ZipCode;
+            this.m_ShipToPhone = facility.PhoneNumber;
+            this.m_PaymentType = facility.FedexPaymentType;
+        }
+
         public void SetZPLFromBase64(string encodedString)
         {
             byte[] bytes = Convert.FromBase64String(encodedString);
@@ -63,7 +76,7 @@ namespace YellowstonePathology.Business.Task.Model
                 }
             }
         }
-
+        
         [PersistentProperty()]
         public string ShipToFacilityId
         {
@@ -215,6 +228,16 @@ namespace YellowstonePathology.Business.Task.Model
                     this.m_PaymentType = value;
                     this.NotifyPropertyChanged("PaymentType");
                 }
+            }
+        }
+
+        public bool PropertiesAreEnabled
+        {
+            get
+            {
+                bool result = false;
+                if (string.IsNullOrEmpty(this.m_TrackingNumber) == true) result = true;
+                return result;
             }
         }
     }
