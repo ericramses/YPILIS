@@ -38,8 +38,7 @@ namespace YellowstonePathology.Business.Billing.Model
             this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.Unpost();
             if (this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.PostedItemsExist() == false)
             {
-                this.m_PanelSetOrder.IsPosted = false;
-                this.m_PanelSetOrder.ResultStatus = "P";
+                this.m_PanelSetOrder.IsPosted = false;                
             }
         }
 

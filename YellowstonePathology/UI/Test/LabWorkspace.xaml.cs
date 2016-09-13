@@ -990,7 +990,7 @@ namespace YellowstonePathology.UI.Test
             if (this.ListViewCaseList.SelectedItem != null)
             {
 				YellowstonePathology.Business.Search.ReportSearchItem item = (YellowstonePathology.Business.Search.ReportSearchItem)this.ListViewCaseList.SelectedItem;
-				YellowstonePathology.Business.HL7View.IResultView resultView = YellowstonePathology.Business.HL7View.ResultViewFactory.GetResultView(item.ReportNo, this.m_LabUI.AccessionOrder, this.m_LabUI.AccessionOrder.ClientId, false);
+				YellowstonePathology.Business.HL7View.IResultView resultView = YellowstonePathology.Business.HL7View.ResultViewFactory.GetResultView(item.ReportNo, this.m_LabUI.AccessionOrder, this.m_LabUI.AccessionOrder.ClientId, "F", false);
 				if (resultView != null)
 				{
 					XElement document = resultView.GetDocument();
@@ -1009,7 +1009,7 @@ namespace YellowstonePathology.UI.Test
             if (this.ListViewCaseList.SelectedItem != null)
             {
 				YellowstonePathology.Business.Search.ReportSearchItem item = (YellowstonePathology.Business.Search.ReportSearchItem)this.ListViewCaseList.SelectedItem;                
-                YellowstonePathology.Business.HL7View.IResultView resultView = YellowstonePathology.Business.HL7View.ResultViewFactory.GetResultView(item.ReportNo, this.m_LabUI.AccessionOrder, this.m_LabUI.AccessionOrder.ClientId, false);
+                YellowstonePathology.Business.HL7View.IResultView resultView = YellowstonePathology.Business.HL7View.ResultViewFactory.GetResultView(item.ReportNo, this.m_LabUI.AccessionOrder, this.m_LabUI.AccessionOrder.ClientId, "F", false);
                 YellowstonePathology.Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
                 resultView.Send(methodResult);                               
             }
@@ -1020,7 +1020,7 @@ namespace YellowstonePathology.UI.Test
             if (this.ListViewCaseList.SelectedItem != null)
             {
 				YellowstonePathology.Business.Search.ReportSearchItem item = (YellowstonePathology.Business.Search.ReportSearchItem)this.ListViewCaseList.SelectedItem;
-                YellowstonePathology.Business.HL7View.IResultView resultView = YellowstonePathology.Business.HL7View.ResultViewFactory.GetResultView(item.ReportNo, this.m_LabUI.AccessionOrder, this.m_LabUI.AccessionOrder.ClientId, true);
+                YellowstonePathology.Business.HL7View.IResultView resultView = YellowstonePathology.Business.HL7View.ResultViewFactory.GetResultView(item.ReportNo, this.m_LabUI.AccessionOrder, this.m_LabUI.AccessionOrder.ClientId, "F", true);
                 YellowstonePathology.Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
                 resultView.Send(methodResult);
             }
