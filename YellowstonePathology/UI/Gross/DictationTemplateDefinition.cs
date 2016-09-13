@@ -97,7 +97,7 @@ namespace YellowstonePathology.UI.Gross
 
             YellowstonePathology.Business.Client.Model.Client client = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientByClientId(accessionOrder.ClientId);
             result = result.Replace("clientname", client.ClientName);
-            result = result.Replace("clientcitystate", client.City + "/" + client.State);
+            result = result.Replace("clientcitystate", client.City + ", " + client.State);
             return result;
         }
     }
