@@ -91,7 +91,7 @@ namespace YellowstonePathology.Business.Test.BRAFV600EK
 			}
 		}
 
-        [PersistentStringProperty(50)]
+        [PersistentStringProperty(500)]
         public string IndicationComment
         {
             get { return this.m_IndicationComment; }

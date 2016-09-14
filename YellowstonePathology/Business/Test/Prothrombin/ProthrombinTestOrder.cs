@@ -55,7 +55,7 @@ namespace YellowstonePathology.Business.Test.Prothrombin
 			}
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentStringProperty(100)]
 		public string ResultDescription
 		{
 			get { return this.m_ResultDescription; }

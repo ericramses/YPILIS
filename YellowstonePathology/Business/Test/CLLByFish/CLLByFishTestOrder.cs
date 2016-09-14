@@ -45,7 +45,7 @@ namespace YellowstonePathology.Business.Test.CLLByFish
 			}
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentStringProperty(100)]
 		public string ResultDescription
 		{
 			get { return this.m_ResultDescription; }

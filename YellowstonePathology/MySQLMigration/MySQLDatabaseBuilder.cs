@@ -297,7 +297,7 @@ namespace YellowstonePathology.MySQLMigration
                             Business.Rules.MethodResult result = this.RunCommand(commandText);
                             if(result.Success == false)
                             {
-                                methodResult.Message = "Error in Loading Data";
+                                methodResult.Message += "Error in Loading Data" + commandText;
                                 methodResult.Success = false;
                             }
                         }
@@ -395,6 +395,7 @@ namespace YellowstonePathology.MySQLMigration
                     if (dataType == "TEXT")
                     {
                         string text = dr[i].ToString().Replace("'", "''");
+                        text = text.Replace("\\", "\\\\");
                         if (string.IsNullOrEmpty(text))
                         {
                             result = result + "NULL, ";
@@ -682,10 +683,11 @@ namespace YellowstonePathology.MySQLMigration
         private string GetDataColumnDefinition(string tableName, PropertyInfo propertyInfo)
         {
             string result = propertyInfo.Name + " ";
+            string mySqlDataType = string.Empty;
+            int dataLength = 0;
 
             if (propertyInfo.PropertyType == typeof(string))
             {
-                int dataLength = 0;
                 Attribute attribute = propertyInfo.GetCustomAttribute(typeof(YellowstonePathology.Business.Persistence.PersistentStringProperty));
                 if (attribute != null)
                 {
@@ -717,12 +719,20 @@ namespace YellowstonePathology.MySQLMigration
                 }
                 else
                 {
-                    result += "TEXT";
+                    mySqlDataType = "TEXT";
+                    result += mySqlDataType;
                 }
             }
-            else result += this.GetMySQLDataType(propertyInfo.PropertyType);
+            else
+            {
+                mySqlDataType = this.GetMySQLDataType(propertyInfo.PropertyType);
+                result += mySqlDataType;
+            }
 
-            result += this.AddDefaultToColumnDefinition(propertyInfo);
+            if (!(mySqlDataType == "TEXT" && dataLength == -1) && mySqlDataType.Contains("DATETIME") == false)
+            {
+                result += this.AddDefaultToColumnDefinition(propertyInfo);
+            }
 
             result += ", ";
 

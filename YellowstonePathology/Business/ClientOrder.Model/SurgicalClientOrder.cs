@@ -23,8 +23,8 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		{
 		}
 
-        [PersistentProperty()]
         [DataMember]
+        [PersistentProperty()]
         public string PreOpDiagnosis
         {
             get { return this.m_PreOpDiagnosis; }
@@ -38,8 +38,8 @@ namespace YellowstonePathology.Business.ClientOrder.Model
             }
         }
 
-        [PersistentProperty()]
         [DataMember]
+        [PersistentProperty()]
         public string PostOpDiagnosis
         {
             get { return this.m_PostOpDiagnosis; }

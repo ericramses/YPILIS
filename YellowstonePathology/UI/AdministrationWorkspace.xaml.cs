@@ -1233,13 +1233,13 @@ namespace YellowstonePathology.UI
         {
             string resultString = string.Empty;
             DateTime startDate = DateTime.Parse("2/10/2016");
-            for (int didx = 0; didx < 4; didx++)
-            {
+            //for (int didx = 0; didx < 4; didx++)
+            //{
                 //DateTime endDate = startDate.AddMonths(1).AddDays(-1);
             DateTime endDate = startDate.AddDays(1);
             List<string> masterAccessionNos = new List<string>();
-            //masterAccessionNos.Add("16-3667");
-                SqlCommand cmd = new SqlCommand("select MasteraccessionNo from tblAccessionOrder where AccessionDate between '" + startDate.ToString() + "' and '" + endDate.ToString() + "'"); // order by 1 asc");
+                masterAccessionNos.Add("16-22139");
+                /*SqlCommand cmd = new SqlCommand("select MasteraccessionNo from tblAccessionOrder where AccessionDate between '" + startDate.ToString() + "' and '" + endDate.ToString() + "'"); // order by 1 asc");
                 cmd.CommandType = CommandType.Text;
                 using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
                 {
@@ -1253,7 +1253,7 @@ namespace YellowstonePathology.UI
                             masterAccessionNos.Add(s);
                         }
                     }
-                }
+                }*/
 
                 foreach (string masterAccessionNo in masterAccessionNos)
                 {
@@ -1287,7 +1287,7 @@ namespace YellowstonePathology.UI
                 //Console.WriteLine("Finished " + startDate.ToString("MM/dd/yyyy") + " : at " + DateTime.Now.ToString());
                 //startDate = startDate.AddMonths(1);
                 startDate = startDate.AddDays(2);
-            }
+            //}
             resultString = "done";
             MessageBox.Show(resultString);
         }

@@ -57,7 +57,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			this.ReportNo = panelSetOrderSurgical.ReportNo;
 			this.AmendmentId = amendmentId;
             this.PathologistId = pathologistId;
-			//this.ClinicalInfo = panelSetOrderSurgical.ClinicalInfo;
+			this.ClinicalInfo = "None Provided";
 			this.GrossX = panelSetOrderSurgical.GrossX;
 			this.ImmediateX = panelSetOrderSurgical.ImmediateX;
 			this.MicroscopicX = panelSetOrderSurgical.MicroscopicX;

@@ -97,7 +97,7 @@ namespace YellowstonePathology.Business.Test.KRASStandardReflex
             }
         }
 
-        [PersistentStringProperty(50)]
+        [PersistentStringProperty(500)]
         public string IndicationComment
         {
             get { return this.m_IndicationComment; }

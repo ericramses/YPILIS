@@ -57,8 +57,11 @@ namespace YellowstonePathology.Business.Test.Surgical
 			this.m_SurgicalSpecimenCollection = new SurgicalSpecimenCollection();
             this.m_SurgicalAuditCollection = new SurgicalAuditCollection();
             this.m_TypingStainCollection = new SpecialStain.StainResultItemCollection();
-            this.m_SpecimenOrderCollection = new YellowstonePathology.Business.Specimen.Model.SpecimenOrderCollection();			
-		}
+            this.m_SpecimenOrderCollection = new YellowstonePathology.Business.Specimen.Model.SpecimenOrderCollection();
+            this.m_GrossX = "???";
+            this.m_ImmediateX = "Not performed";
+            this.m_MicroscopicX = "???";
+        }
 
         public SurgicalTestOrder(string masterAccessionNo, string reportNo, string objectId,
             YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
@@ -70,6 +73,9 @@ namespace YellowstonePathology.Business.Test.Surgical
             this.m_SurgicalAuditCollection = new SurgicalAuditCollection();
             this.m_TypingStainCollection = new SpecialStain.StainResultItemCollection();
             this.m_SpecimenOrderCollection = new YellowstonePathology.Business.Specimen.Model.SpecimenOrderCollection();
+            this.m_GrossX = "???";
+            this.m_ImmediateX = "Not performed";
+            this.m_MicroscopicX = "???";
         }
 
         public override YellowstonePathology.Business.Amendment.Model.Amendment AddAmendment()

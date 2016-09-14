@@ -71,8 +71,8 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 			}
 		}
 
-		[PersistentPrimaryKeyProperty(false, 0)]
 		[DataMember]
+		[PersistentPrimaryKeyProperty(false, 0)]
 		public string ShipmentId
 		{
 			get { return this.m_ShipmentId; }
@@ -86,8 +86,8 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 			}
 		}
 
-		[PersistentProperty()]
 		[DataMember]
+		[PersistentProperty()]
 		public string ShipmentFrom
 		{
 			get { return this.m_ShipmentFrom; }
@@ -101,8 +101,8 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 			}
 		}
 
-		[PersistentProperty()]
 		[DataMember]
+		[PersistentProperty()]
 		public string ShipmentTo
 		{
 			get { return this.m_ShipmentTo; }
@@ -116,8 +116,8 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 			}
 		}
 
-		[PersistentProperty()]
 		[DataMember]
+		[PersistentProperty()]
 		public Nullable<DateTime> ShipDate
 		{
 			get { return this.m_ShipDate; }
@@ -131,8 +131,8 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 			}
 		}
 
-		[PersistentProperty()]
 		[DataMember]
+		[PersistentProperty()]
 		public bool Shipped
 		{
 			get { return this.m_Shipped; }
@@ -146,8 +146,8 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 			}
 		}
 
-		[PersistentProperty()]
 		[DataMember]
+		[PersistentProperty()]
 		public bool Received
 		{
 			get { return this.m_Received; }
@@ -161,8 +161,8 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 			}
 		}
 
-		[PersistentProperty()]
 		[DataMember]
+		[PersistentProperty()]
 		public Nullable<DateTime> ReceivedDate
 		{
 			get { return this.m_ReceivedDate; }
@@ -176,8 +176,8 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 			}
 		}
 
-		[PersistentProperty()]
 		[DataMember]
+		[PersistentProperty()]
 		public int ReceivedById
 		{
 			get { return this.m_ReceivedById; }
@@ -191,8 +191,8 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 			}
 		}
 
-		[PersistentProperty()]
 		[DataMember]
+		[PersistentProperty()]
 		public string ShipmentPreparedBy
 		{
 			get { return this.m_ShipmentPreparedBy; }
@@ -206,8 +206,8 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 			}
 		}
 
-		[PersistentProperty()]
 		[DataMember]
+		[PersistentProperty()]
 		public int ClientId
 		{
 			get { return this.m_ClientId; }
