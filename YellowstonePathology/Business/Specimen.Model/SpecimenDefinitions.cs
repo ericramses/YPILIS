@@ -41,6 +41,19 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
         }
     }
 
+    public class Peripheral : Specimen
+    {
+        public Peripheral()
+        {
+            this.m_SpecimenId = "SPCPBS";
+            this.m_SpecimenName = "Peripheral Blood Smear";
+            this.m_Description = "Peripheral Blood Smear";
+            this.m_LabFixation = null;
+            this.m_ClientFixation = null;
+            this.m_RequiresGrossExamination = false;
+        }
+    }
+
     public class GenericSpecimenGrossRequiredWithBlocks : Specimen
     {
         public GenericSpecimenGrossRequiredWithBlocks()
