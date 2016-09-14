@@ -56,8 +56,7 @@ namespace YellowstonePathology.UI.Test
             this.m_HPV1618ReflexOrderCollection = YellowstonePathology.Business.Client.Model.ReflexOrderCollection.GetHPV1618ReflexOrders();
             this.m_HPV1618StandingOrderCollection = YellowstonePathology.Business.Client.Model.StandingOrderCollection.GetHPV1618StandingOrders();
             
-            this.m_ClientOrder = clientOrder;
-			//this.m_WomensHealthProfileTestOrder = (YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(116);
+            this.m_ClientOrder = clientOrder;			
             this.m_WomensHealthProfileTestOrder = womensHealthProfileTestOrder;
             this.m_SystemIdentity = Business.User.SystemIdentity.Instance;
             this.m_BackButtonVisibility = backButtonVisibility;

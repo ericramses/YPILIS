@@ -36,6 +36,7 @@ using MongoDB.Driver.Builders;
 using MongoDB.Driver.GridFS;
 using Newtonsoft.Json;
 using MySql.Data.MySqlClient;
+using LibGit2Sharp;
 
 namespace YellowstonePathology.UI
 {    
@@ -1010,16 +1011,28 @@ namespace YellowstonePathology.UI
             //zplPrinter.Print(Business.Label.Model.PantherZPLLabel.GetCommands("16-21986.1.2", DateTime.Parse("6/30/1993"), "MOUSE, MICKEY", "Thin Prep Fluid"));            
 
             //Business.Facility.Model.NeogenomicsIrvine neo = new Business.Facility.Model.NeogenomicsIrvine();
-            Business.MaterialTracking.Model.FedexAccountProduction acct = new Business.MaterialTracking.Model.FedexAccountProduction();
-            Business.MaterialTracking.Model.FedexTrackingRequest trackingRequest = new Business.MaterialTracking.Model.FedexTrackingRequest(acct, "784010962852");
+            //Business.MaterialTracking.Model.FedexAccountProduction acct = new Business.MaterialTracking.Model.FedexAccountProduction();
+            //Business.MaterialTracking.Model.FedexTrackingRequest trackingRequest = new Business.MaterialTracking.Model.FedexTrackingRequest(acct, "784010962852");
 
-            string result = trackingRequest.Post();
+            //string result = trackingRequest.Post();
 
             //Business.MaterialTracking.Model.FedexShipmentRequest fedexShipment = new Business.MaterialTracking.Model.FedexShipmentRequest(neo, acct);
             //string result = fedexShipment.RequestShipment();           
 
             //Business.MaterialTracking.Model.FedexDeleteShipmentRequest delete = new Business.MaterialTracking.Model.FedexDeleteShipmentRequest(acct, "783967960879");
             //string result = delete.Post();
+
+
+            //LibGit2Sharp.Repository repo = new Repository("https://github.com/YPII/lisdata.git");
+            LibGit2Sharp.Repository repo = new Repository(@"C:\ProgramData\ypi\lisdata");
+            repo.Fetch("origin");
+            LibGit2Sharp.Signature signature = new Signature("SidHarder", "softwarenavigator@gmail.com", new DateTimeOffset(DateTime.Now));
+            Branch master = repo.Branches["master"];
+            repo.MergeFetchedRefs(signature, new MergeOptions());
+
+            //LibGit2Sharp.PullOptions pullOptions = new PullOptions();            
+            //LibGit2Sharp.Commands.Pull(repo, signature, pullOptions);
+
         }        
 
         private void PrintDocument_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)

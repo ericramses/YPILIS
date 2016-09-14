@@ -583,7 +583,7 @@ namespace YellowstonePathology.Business.Test
             return result;
         }
 
-        public int GetSlideCount()
+        public int GetClientAccessionedSlideOrderCount()
         {
             int result = 0;
             foreach (AliquotOrder aliquotOrder in this)
@@ -601,6 +601,20 @@ namespace YellowstonePathology.Business.Test
                         }
                     }
                 }                
+            }
+            return result;
+        }
+
+        public int GetSlideCount()
+        {
+            int result = 0;
+            foreach (AliquotOrder aliquotOrder in this)
+            {                
+                if (aliquotOrder.AliquotType == "Slide")
+                {                    
+                    result += 1;                    
+                }
+                
             }
             return result;
         }
