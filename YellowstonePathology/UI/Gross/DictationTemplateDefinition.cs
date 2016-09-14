@@ -102,6 +102,26 @@ namespace YellowstonePathology.UI.Gross
         }
     }
 
+    public class PeripheralBloodTemplate : DictationTemplate
+    {
+        public PeripheralBloodTemplate()
+        {
+            this.m_TemplateName = "Perihperal Blood Smear";
+            this.m_Text = "The specimen consists of slidecount [unstained/stained] peripheral blood smear[?s?] each labeled patientname for review by pathologist.  ";
+
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Peripheral peripheral = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Peripheral();
+            this.m_SpecimenCollection.Add(peripheral);
+        }
+
+        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        {
+
+            string result = this.m_Text.Replace("patientname", accessionOrder.PatientDisplayName);
+            result = result.Replace("slidecount", specimenOrder.AliquotOrderCollection.GetSlideCount().ToString());
+            return result;
+        }
+    }
+
     public class BXTemplate : DictationTemplate
     {
         public BXTemplate()
