@@ -1059,7 +1059,7 @@
     <Compile Include="Business\PanelSet.Model\NeoTypeDiscoveryProfileTest.cs" />
     <Compile Include="Business\ParseSpecimenOrderIdResult.cs" />
     <Compile Include="Business\Persistence\DocumentTestBuilders.cs" />
-    <Compile Include="Business\Persistence\PersitentStringProperty.cs" />
+    <Compile Include="Business\Persistence\PersistentDataColumnProperty.cs" />
     <Compile Include="Business\Persistence\SqlDataRowReaderPropertyWriter.cs" />
     <Compile Include="Business\Surgical\ProcessorRunDefinitions.cs" />
     <Compile Include="Business\Task.Model\TaskFedexShipment.cs" />

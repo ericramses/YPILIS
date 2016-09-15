@@ -28,7 +28,7 @@ namespace YellowstonePathology.Business.Test.ABL1KinaseDomainMutation
 
 		}
 
-		[PersistentStringProperty(500)]
+		[PersistentProperty()]
 		public string Result
 		{
 			get { return this.m_Result; }
@@ -42,7 +42,7 @@ namespace YellowstonePathology.Business.Test.ABL1KinaseDomainMutation
 			}
 		}
 
-		[PersistentStringProperty(1000)]
+		[PersistentProperty()]
 		public string Interpretation
 		{
 			get { return this.m_Interpretation; }
@@ -56,7 +56,7 @@ namespace YellowstonePathology.Business.Test.ABL1KinaseDomainMutation
 			}
 		}
 
-		[PersistentStringProperty(1000)]
+		[PersistentProperty()]
 		public string Method
 		{
 			get { return this.m_Method; }
@@ -70,7 +70,7 @@ namespace YellowstonePathology.Business.Test.ABL1KinaseDomainMutation
 			}
 		}
 
-		[PersistentStringProperty(500)]
+		[PersistentProperty()]
 		public string ASRComment
 		{
 			get { return this.m_ASRComment; }

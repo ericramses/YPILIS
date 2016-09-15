@@ -32,7 +32,7 @@ namespace YellowstonePathology.Business.Test.HPV
             this.m_TechnicalComponentInstrumentId = Instrument.HOLOGICPANTHERID;
 		}        
 
-		[PersistentStringProperty(100)]
+		[PersistentProperty()]
 		public string Result
 		{
 			get { return this.m_Result; }
@@ -46,7 +46,7 @@ namespace YellowstonePathology.Business.Test.HPV
 			}
 		}
 
-		[PersistentStringProperty(500)]
+		[PersistentProperty()]
 		public string Comment
 		{
 			get { return this.m_Comment; }
@@ -60,7 +60,7 @@ namespace YellowstonePathology.Business.Test.HPV
 			}
 		}
 
-		[PersistentStringProperty(5000)]
+		[PersistentProperty()]
 		public string TestInformation
 		{
 			get { return this.m_TestInformation; }
@@ -74,7 +74,7 @@ namespace YellowstonePathology.Business.Test.HPV
 			}
 		}
 
-        [PersistentStringProperty(500)]
+        [PersistentProperty()]
         public string ASRComment
         {
             get { return this.m_ASRComment; }

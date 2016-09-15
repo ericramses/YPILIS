@@ -61,7 +61,7 @@ namespace YellowstonePathology.Business.Client.Model
             set { this.m_ClientLocationCollection = value; }
 		}
 
-        [PersistentDocumentIdProperty(50)]
+        [PersistentDocumentIdProperty()]
         public string ObjectId
         {
             get { return this.m_ObjectId; }
@@ -75,7 +75,7 @@ namespace YellowstonePathology.Business.Client.Model
             }
         }
 
-        [PersistentPrimaryKeyProperty(false, 50)]
+        [PersistentPrimaryKeyProperty(false)]
 		public int ClientId
 		{
 			get { return this.m_ClientId; }
@@ -89,7 +89,7 @@ namespace YellowstonePathology.Business.Client.Model
 			}
 		}
 
-        [PersistentStringProperty(300)]
+        [PersistentProperty()]
 		public string ClientName
 		{
 			get { return this.m_ClientName; }
@@ -103,7 +103,7 @@ namespace YellowstonePathology.Business.Client.Model
 			}
 		}
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
         public string Abbreviation
         {
             get { return this.m_Abbreviation; }
@@ -117,7 +117,7 @@ namespace YellowstonePathology.Business.Client.Model
             }
         }
 
-        [PersistentStringProperty(300)]
+        [PersistentProperty()]
 		public string Address
 		{
 			get { return this.m_Address; }
@@ -131,7 +131,7 @@ namespace YellowstonePathology.Business.Client.Model
 			}
 		}
 
-        [PersistentStringProperty(100)]
+        [PersistentProperty()]
 		public string City
 		{
 			get { return this.m_City; }
@@ -145,7 +145,7 @@ namespace YellowstonePathology.Business.Client.Model
 			}
 		}
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
 		public string State
 		{
 			get { return this.m_State; }
@@ -159,7 +159,7 @@ namespace YellowstonePathology.Business.Client.Model
 			}
 		}
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
 		public string ZipCode
 		{
 			get { return this.m_ZipCode; }
@@ -173,7 +173,7 @@ namespace YellowstonePathology.Business.Client.Model
 			}
 		}
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
 		public string Telephone
 		{
 			get { return this.m_Telephone; }
@@ -188,7 +188,7 @@ namespace YellowstonePathology.Business.Client.Model
 			}
 		}
 
-        [PersistentStringProperty(100, "'Non-Hospital'")]
+        [PersistentProperty()]
 		public string FacilityType
 		{
 			get { return this.m_FacilityType; }
@@ -202,7 +202,7 @@ namespace YellowstonePathology.Business.Client.Model
 			}
 		}                                        
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
 		public string Fax
 		{
 			get { return this.m_Fax; }
@@ -217,7 +217,7 @@ namespace YellowstonePathology.Business.Client.Model
 			}
 		}
 
-        [PersistentProperty("0")]
+        [PersistentProperty()]
 		public bool LongDistance
 		{
 			get { return this.m_LongDistance; }
@@ -231,7 +231,7 @@ namespace YellowstonePathology.Business.Client.Model
 			}
 		}        
 
-        [PersistentProperty("1")]
+        [PersistentProperty()]
 		public bool ShowPhysiciansOnRequisition
 		{
 			get { return this.m_ShowPhysiciansOnRequisition; }
@@ -245,7 +245,7 @@ namespace YellowstonePathology.Business.Client.Model
 			}
 		}
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
 		public string BillingRuleSetId
 		{
 			get { return this.m_BillingRuleSetId; }
@@ -259,7 +259,7 @@ namespace YellowstonePathology.Business.Client.Model
 			}
 		}
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
         public string BillingRuleSetId2
         {
             get { return this.m_BillingRuleSetId2; }
@@ -273,7 +273,7 @@ namespace YellowstonePathology.Business.Client.Model
             }
         }
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
 		public string DistributionType
 		{
 			get { return this.m_DistributionType; }
@@ -287,7 +287,7 @@ namespace YellowstonePathology.Business.Client.Model
 			}
 		}               
 
-        [PersistentProperty("0")]
+        [PersistentProperty()]
 		public bool Inactive
 		{
 			get { return this.m_Inactive; }
@@ -301,7 +301,7 @@ namespace YellowstonePathology.Business.Client.Model
 			}
 		}
 
-        [PersistentStringProperty(200)]
+        [PersistentProperty()]
         public string ContactName
         {
             get { return this.m_ContactName; }
@@ -315,7 +315,7 @@ namespace YellowstonePathology.Business.Client.Model
             }
         }
 
-        [PersistentProperty("0")]
+        [PersistentProperty()]
         public bool HasReferringProvider
         {
             get { return this.m_HasReferringProvider; }
@@ -329,7 +329,7 @@ namespace YellowstonePathology.Business.Client.Model
             }
         }
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
         public string ReferringProviderClientId
         {
             get { return this.m_ReferringProviderClientId; }
@@ -343,7 +343,7 @@ namespace YellowstonePathology.Business.Client.Model
             }
         }
 
-        [PersistentStringProperty(500)]
+        [PersistentProperty()]
         public string ReferringProviderClientName
         {
             get { return this.m_ReferringProviderClientName; }
@@ -357,7 +357,7 @@ namespace YellowstonePathology.Business.Client.Model
             }
         }
 
-        [PersistentStringProperty(500)]
+        [PersistentProperty()]
         public string AdditionalTestingNotificationEmail
         {
             get { return this.m_AdditionalTestingNotificationEmail; }

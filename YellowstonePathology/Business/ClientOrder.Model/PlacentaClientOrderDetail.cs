@@ -90,7 +90,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		private string m_SubmittedBy;
 
 		[DataMember]
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string Birthdate
 		{
 			get { return this.m_Birthdate; }
@@ -105,7 +105,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string BirthTime
 		{
 			get { return this.m_BirthTime; }
@@ -120,7 +120,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string PlacentaDeliveryTime
 		{
 			get { return this.m_PlacentaDeliveryTime; }
@@ -135,7 +135,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentStringProperty(500)]
+		[PersistentProperty()]
 		public string GestationalAge
 		{
 			get { return this.m_GestationalAge; }
@@ -150,7 +150,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentStringProperty(500)]
+		[PersistentProperty()]
 		public string Gravida
 		{
 			get { return this.m_Gravida; }
@@ -165,7 +165,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentStringProperty(500)]
+		[PersistentProperty()]
 		public string Para
 		{
 			get { return this.m_Para; }
@@ -180,7 +180,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public bool Abortion
 		{
 			get { return this.m_Abortion; }
@@ -195,7 +195,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentStringProperty(500)]
+		[PersistentProperty()]
 		public string Apgar1Min
 		{
 			get { return this.m_Apgar1Min; }
@@ -210,7 +210,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentStringProperty(500)]
+		[PersistentProperty()]
 		public string Apgar5Min
 		{
 			get { return this.m_Apgar5Min; }
@@ -225,7 +225,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentStringProperty(500)]
+		[PersistentProperty()]
 		public string Apgar10Min
 		{
 			get { return this.m_Apgar10Min; }
@@ -240,7 +240,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentStringProperty(500)]
+		[PersistentProperty()]
 		public string InfantWeight
 		{
 			get { return this.m_InfantWeight; }
@@ -255,7 +255,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentStringProperty(500)]
+		[PersistentProperty()]
 		public string SpecificQuestions
 		{
 			get { return this.m_SpecificQuestions; }
@@ -270,7 +270,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public bool GrossExam
 		{
 			get { return this.m_GrossExam; }
@@ -285,7 +285,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public bool CompleteExam
 		{
 			get { return this.m_CompleteExam; }
@@ -300,7 +300,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public bool Cytogenetics
 		{
 			get { return this.m_Cytogenetics; }
@@ -315,7 +315,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentStringProperty(-1)]
+		[PersistentProperty()]
 		public string OtherExam
 		{
 			get { return this.m_OtherExam; }
@@ -330,7 +330,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public bool DiabetesMellitus
 		{
 			get { return this.m_DiabetesMellitus; }
@@ -345,7 +345,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public bool PregnancyInducedHypertension
 		{
 			get { return this.m_PregnancyInducedHypertension; }
@@ -360,7 +360,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public bool UnexplainedFever
 		{
 			get { return this.m_UnexplainedFever; }
@@ -375,7 +375,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public bool PrematureRuptureOfMembranes
 		{
 			get { return this.m_PrematureRuptureOfMembranes; }
@@ -390,7 +390,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public bool PoorOrLimitedPrenatalCare
 		{
 			get { return this.m_PoorOrLimitedPrenatalCare; }
@@ -405,7 +405,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public bool Polyhydramnios
 		{
 			get { return this.m_Polyhydramnios; }
@@ -420,7 +420,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public bool Oligohydramnios
 		{
 			get { return this.m_Oligohydramnios; }
@@ -435,7 +435,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public bool PretermDeliveryLessThan36Weeks
 		{
 			get { return this.m_PretermDeliveryLessThan36Weeks; }
@@ -450,7 +450,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public bool PostTermDeliveryMoreThan42Weeks
 		{
 			get { return this.m_PostTermDeliveryMoreThan42Weeks; }
@@ -465,7 +465,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public bool Infection
 		{
 			get { return this.m_Infection; }
@@ -480,7 +480,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public bool PostpartumHemorrhage
 		{
 			get { return this.m_PostpartumHemorrhage; }
@@ -495,7 +495,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public bool MaternalHistoryOfReproductiveFailure
 		{
 			get { return this.m_MaternalHistoryOfReproductiveFailure; }
@@ -510,7 +510,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public bool SeverePreeclampsia
 		{
 			get { return this.m_SeverePreeclampsia; }
@@ -525,7 +525,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public bool SuspectedDrugUse
 		{
 			get { return this.m_SuspectedDrugUse; }
@@ -540,7 +540,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentStringProperty(-1)]
+		[PersistentProperty()]
 		public string Other1
 		{
 			get { return this.m_Other1; }
@@ -555,7 +555,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public bool SuspectedInfection
 		{
 			get { return this.m_SuspectedInfection; }
@@ -570,7 +570,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public bool Stillborn
 		{
 			get { return this.m_Stillborn; }
@@ -585,7 +585,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public bool ErythroblastosisFetalis
 		{
 			get { return this.m_ErythroblastosisFetalis; }
@@ -600,7 +600,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public bool NeonatalDeath
 		{
 			get { return this.m_NeonatalDeath; }
@@ -615,7 +615,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public bool TransferToNICU
 		{
 			get { return this.m_TransferToNICU; }
@@ -630,7 +630,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public bool ViscidOrThickMeconium
 		{
 			get { return this.m_ViscidOrThickMeconium; }
@@ -645,7 +645,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public bool MultipleGestation
 		{
 			get { return this.m_MultipleGestation; }
@@ -660,7 +660,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public bool OminousFHRTracing
 		{
 			get { return this.m_OminousFHRTracing; }
@@ -675,7 +675,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public bool Prematurity
 		{
 			get { return this.m_Prematurity; }
@@ -690,7 +690,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public bool IUGR
 		{
 			get { return this.m_IUGR; }
@@ -705,7 +705,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public bool ApgarLessThan7at5Min
 		{
 			get { return this.m_ApgarLessThan7at5Min; }
@@ -720,7 +720,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public bool CordpHLessThan7dot10
 		{
 			get { return this.m_CordpHLessThan7dot10; }
@@ -735,7 +735,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public bool CongenitalAnomalies
 		{
 			get { return this.m_CongenitalAnomalies; }
@@ -750,7 +750,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public bool NeonatalSeizures
 		{
 			get { return this.m_NeonatalSeizures; }
@@ -765,7 +765,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentStringProperty(-1)]
+		[PersistentProperty()]
 		public string Other2
 		{
 			get { return this.m_Other2; }
@@ -780,7 +780,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public bool Infarcts
 		{
 			get { return this.m_Infarcts; }
@@ -795,7 +795,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public bool AbnormalCalcifications
 		{
 			get { return this.m_AbnormalCalcifications; }
@@ -810,7 +810,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public bool Abruption
 		{
 			get { return this.m_Abruption; }
@@ -825,7 +825,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public bool PlacentaPrevia
 		{
 			get { return this.m_PlacentaPrevia; }
@@ -840,7 +840,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public bool VasaPrevia
 		{
 			get { return this.m_VasaPrevia; }
@@ -855,7 +855,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public bool AbnormalCordAppearance
 		{
 			get { return this.m_AbnormalCordAppearance; }
@@ -870,7 +870,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public bool Mass
 		{
 			get { return this.m_Mass; }
@@ -885,7 +885,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentStringProperty(-1)]
+		[PersistentProperty()]
 		public string Other3
 		{
 			get { return this.m_Other3; }
@@ -900,7 +900,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public Nullable<DateTime> DateSubmitted
 		{
 			get { return this.m_DateSubmitted; }
@@ -915,7 +915,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentStringProperty(500)]
+		[PersistentProperty()]
 		public string SubmittedBy
 		{
 			get { return this.m_SubmittedBy; }

@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.Test.ExtractAndHoldForMolecular
             : base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute)
         { }
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
         public string Comment
         {
             get { return this.m_Comment; }

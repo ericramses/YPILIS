@@ -150,7 +150,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 			set { this.m_ClientOrderDetailAliquotCollection = value; }
 		}
 
-		[PersistentDocumentIdProperty(50)]
+		[PersistentDocumentIdProperty()]
 		public string ObjectId
 		{
 			get { return this.m_ObjectId; }
@@ -165,7 +165,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 		
 		[DataMember]
-		[PersistentPrimaryKeyProperty(false, 50)]
+		[PersistentPrimaryKeyProperty(false)]
 		public string ClientOrderDetailId
 		{
 			get { return this.m_ClientOrderDetailId; }
@@ -180,7 +180,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string ClientOrderId
 		{
 			get { return this.m_ClientOrderId; }
@@ -195,7 +195,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
         [DataMember]
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
         public string SpecimenId
         {
             get { return this.m_SpecimenId; }
@@ -210,7 +210,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
         }
 
 		[DataMember]
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string ContainerId
 		{
 			get { return this.m_ContainerId; }
@@ -240,7 +240,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public bool Submitted
 		{
 			get { return this.m_Submitted; }
@@ -255,7 +255,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public bool Accessioned
 		{
 			get { return this.m_Accessioned; }
@@ -270,7 +270,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public bool Received
 		{
 			get { return this.m_Received; }
@@ -300,7 +300,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public bool Validated
 		{
 			get { return this.m_Validated; }
@@ -315,7 +315,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentStringProperty(-1)]
+		[PersistentProperty()]
 		public string Description
 		{
 			get { return this.m_Description; }
@@ -330,7 +330,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentStringProperty(-1)]
+		[PersistentProperty()]
 		public string DescriptionToAccession
 		{
 			get { return this.m_DescriptionToAccession; }
@@ -375,7 +375,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string OrderedBy
 		{
 			get { return this.m_OrderedBy; }
@@ -390,7 +390,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentStringProperty(100)]
+		[PersistentProperty()]
 		public string OrderType
 		{
 			get { return this.m_OrderType; }
@@ -405,7 +405,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentStringProperty(-1)]
+		[PersistentProperty()]
 		public string SpecialInstructions
 		{
 			get { return this.m_SpecialInstructions; }
@@ -420,7 +420,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public bool Inactive
 		{
 			get { return this.m_Inactive; }
@@ -450,7 +450,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}        
 
 		[DataMember]
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string CallbackNumber
 		{
 			get { return this.m_CallbackNumber; }
@@ -465,7 +465,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string ClientFixation
 		{
 			get { return this.m_ClientFixation; }
@@ -480,7 +480,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string LabFixation
 		{
 			get { return this.m_LabFixation; }
@@ -495,7 +495,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}		
 
 		[DataMember]
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public bool Shipped
 		{
 			get { return this.m_Shipped; }
@@ -525,7 +525,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string ShipmentId
 		{
 			get { return this.m_ShipmentId; }
@@ -540,7 +540,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string SpecimenNumberMatchStatus
 		{
 			get { return this.m_SpecimenNumberMatchStatus; }
@@ -555,7 +555,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string SpecimenDescriptionMatchStatus
 		{
 			get { return this.m_SpecimenDescriptionMatchStatus; }
@@ -570,7 +570,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string SpecimenTrackingInitiated
 		{
 			get { return this.m_SpecimenTrackingInitiated; }
@@ -585,7 +585,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string SystemInitiatingOrder
 		{
 			get { return this.m_SystemInitiatingOrder; }
@@ -600,7 +600,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentStringProperty(500)]
+		[PersistentProperty()]
 		public string SpecimenSource
 		{
 			get { return this.m_SpecimenSource; }
@@ -615,7 +615,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string OrderTypeCode
 		{
 			get { return this.m_OrderTypeCode; }
@@ -630,7 +630,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
         [DataMember]
-        [PersistentProperty("1")]
+        [PersistentProperty()]
         public bool RequiresGrossExamination
         {
             get { return this.m_RequiresGrossExamination; }
@@ -645,7 +645,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
         }                   
 
         [DataMember]
-        [PersistentStringProperty(500)]
+        [PersistentProperty()]
         public string FixationComment
         {
             get { return this.m_FixationComment; }
@@ -675,7 +675,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
         }
 
         [DataMember]
-        [PersistentProperty("0")]
+        [PersistentProperty()]
         public bool FixationStartTimeManuallyEntered
         {
             get { return this.m_FixationStartTimeManuallyEntered; }
@@ -690,7 +690,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
         }
 
         [DataMember]
-        [PersistentProperty("0")]
+        [PersistentProperty()]
         public bool ClientAccessioned
         {
             get { return this.m_ClientAccessioned; }

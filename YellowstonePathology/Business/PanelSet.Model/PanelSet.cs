@@ -147,7 +147,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
             get { return this.m_ProfessionalComponentBillingFacility; }
         }
 
-        [PersistentDocumentIdProperty(50)]
+        [PersistentDocumentIdProperty()]
         public string ObjectId
         {
             get { return this.m_ObjectId; }

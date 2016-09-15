@@ -152,7 +152,7 @@ namespace YellowstonePathology.Business.Test.Retired
 		}
 
 		#region Persistent Properties
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public bool IncludeImmunoRecommendedComment
 		{
 			get { return this.m_IncludeImmunoRecommendedComment; }
@@ -166,7 +166,7 @@ namespace YellowstonePathology.Business.Test.Retired
 			}
 		}
 
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public bool IncludeResultComment
 		{
 			get { return this.m_IncludeResultComment; }
@@ -180,7 +180,7 @@ namespace YellowstonePathology.Business.Test.Retired
 			}
 		}
 
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public bool IncludePolysomyComment
 		{
 			get { return this.m_IncludePolysomyComment; }
@@ -194,7 +194,7 @@ namespace YellowstonePathology.Business.Test.Retired
 			}
 		}
 
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public int CellsCounted
 		{
 			get { return this.m_CellsCounted; }
@@ -208,7 +208,7 @@ namespace YellowstonePathology.Business.Test.Retired
 			}
 		}
 
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public int TotalChr17SignalsCounted
 		{
 			get { return this.m_TotalChr17SignalsCounted; }
@@ -222,7 +222,7 @@ namespace YellowstonePathology.Business.Test.Retired
 			}
 		}
 
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public int TotalHer2SignalsCounted
 		{
 			get { return this.m_TotalHer2SignalsCounted; }
@@ -236,7 +236,7 @@ namespace YellowstonePathology.Business.Test.Retired
 			}
 		}
 
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public int Her2byIHCOrder
 		{
 			get { return this.m_Her2byIHCOrder; }
@@ -250,7 +250,7 @@ namespace YellowstonePathology.Business.Test.Retired
 			}
 		}
 
-		[PersistentProperty("2")]
+		[PersistentProperty()]
 		public int NumberOfObservers
 		{
 			get { return this.m_NumberOfObservers; }
@@ -264,7 +264,7 @@ namespace YellowstonePathology.Business.Test.Retired
 			}
 		}
 
-		[PersistentStringProperty(5000)]
+		[PersistentProperty()]
 		public string Result
 		{
 			get { return this.m_Result; }
@@ -278,7 +278,7 @@ namespace YellowstonePathology.Business.Test.Retired
 			}
 		}
 
-		[PersistentStringProperty(20)]
+		[PersistentProperty()]
 		public string PolysomyPercent
 		{
 			get { return this.m_PolysomyPercent; }
@@ -292,7 +292,7 @@ namespace YellowstonePathology.Business.Test.Retired
 			}
 		}
 
-		[PersistentStringProperty(10)]
+		[PersistentProperty()]
 		public string Chr17SignalRangeLow
 		{
 			get { return this.m_Chr17SignalRangeLow; }
@@ -306,7 +306,7 @@ namespace YellowstonePathology.Business.Test.Retired
 			}
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string Chr17SignalRangeHigh
 		{
 			get { return this.m_Chr17SignalRangeHigh; }
@@ -320,7 +320,7 @@ namespace YellowstonePathology.Business.Test.Retired
 			}
 		}
 
-		[PersistentStringProperty(10)]
+		[PersistentProperty()]
 		public string Her2SignalRangeLow
 		{
 			get { return this.m_Her2SignalRangeLow; }
@@ -334,7 +334,7 @@ namespace YellowstonePathology.Business.Test.Retired
 			}
 		}
 
-		[PersistentStringProperty(10)]
+		[PersistentProperty()]
 		public string Her2SignalRangeHigh
 		{
 			get { return this.m_Her2SignalRangeHigh; }
@@ -348,7 +348,7 @@ namespace YellowstonePathology.Business.Test.Retired
 			}
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string CommentLabel
 		{
 			get { return this.m_CommentLabel; }
@@ -362,7 +362,7 @@ namespace YellowstonePathology.Business.Test.Retired
 			}
 		}
 
-		[PersistentStringProperty(5000)]
+		[PersistentProperty()]
 		public string ResultDescription
 		{
 			get { return this.m_ResultDescription; }
@@ -376,7 +376,7 @@ namespace YellowstonePathology.Business.Test.Retired
 			}
 		}
 
-		[PersistentStringProperty(100)]
+		[PersistentProperty()]
 		public string SampleAdequacy
 		{
 			get { return this.m_SampleAdequacy; }
@@ -390,7 +390,7 @@ namespace YellowstonePathology.Business.Test.Retired
 			}
 		}
 
-		[PersistentStringProperty(30)]
+		[PersistentProperty()]
 		public string ProbeSignalIntensity
 		{
 			get { return this.m_ProbeSignalIntensity; }
@@ -404,7 +404,7 @@ namespace YellowstonePathology.Business.Test.Retired
 			}
 		}
 
-		[PersistentStringProperty(500)]
+		[PersistentProperty()]
 		public string TechComment
 		{
 			get { return this.m_TechComment; }
@@ -418,7 +418,7 @@ namespace YellowstonePathology.Business.Test.Retired
 			}
 		}
 
-		[PersistentStringProperty(5000)]
+		[PersistentProperty()]
 		public string ResultComment
 		{
 			get { return this.m_ResultComment; }
@@ -432,7 +432,7 @@ namespace YellowstonePathology.Business.Test.Retired
 			}
 		}
 
-		[PersistentStringProperty(5000)]
+		[PersistentProperty()]
 		public string InterpretiveComment
 		{
 			get { return this.m_InterpretiveComment; }
@@ -446,7 +446,7 @@ namespace YellowstonePathology.Business.Test.Retired
 			}
 		}
 
-		[PersistentStringProperty(100)]
+		[PersistentProperty()]
 		public string GeneticHeterogeneity
 		{
 			get { return this.m_GeneticHeterogeneity; }
@@ -460,7 +460,7 @@ namespace YellowstonePathology.Business.Test.Retired
 			}
 		}
 
-		[PersistentStringProperty(20)]
+		[PersistentProperty()]
 		public string Her2Chr17ClusterRatio
 		{
 			get { return this.m_Her2Chr17ClusterRatio; }
@@ -474,7 +474,7 @@ namespace YellowstonePathology.Business.Test.Retired
 			}
 		}
 
-		[PersistentStringProperty(500)]
+		[PersistentProperty()]
 		public string ReportReference
 		{
 			get { return this.m_ReportReference; }
@@ -488,7 +488,7 @@ namespace YellowstonePathology.Business.Test.Retired
 			}
 		}
 
-		[PersistentStringProperty(350)]
+		[PersistentProperty()]
 		public string SourceBlock
 		{
 			get { return this.m_SourceBlock; }
@@ -502,7 +502,7 @@ namespace YellowstonePathology.Business.Test.Retired
 			}
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string Indicator
 		{
 			get { return this.m_Indicator; }
@@ -516,7 +516,7 @@ namespace YellowstonePathology.Business.Test.Retired
 			}
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string Method
 		{
 			get { return this.m_Method; }

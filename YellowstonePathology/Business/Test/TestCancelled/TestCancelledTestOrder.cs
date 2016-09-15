@@ -33,21 +33,21 @@ namespace YellowstonePathology.Business.Test.TestCancelled
 			this.m_NoCharge = true;
 		}       
 
-        [YellowstonePathology.Business.Persistence.PersistentStringProperty(1000)]
+        [PersistentProperty()]
         public string Comment
         {
             get { return this.m_Comment; }
             set { this.m_Comment = value; }
         }
 
-        [YellowstonePathology.Business.Persistence.PersistentProperty("0")]
+        [PersistentProperty()]
         public int CancelledTestId
         {
             get { return this.m_CancelledTestId; }
             set { this.m_CancelledTestId = value; }
         }
 
-        [YellowstonePathology.Business.Persistence.PersistentStringProperty(50)]
+        [PersistentProperty()]
         public string CancelledTestName
         {
             get { return this.m_CancelledTestName; }

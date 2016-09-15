@@ -34,7 +34,7 @@ namespace YellowstonePathology.Business.Test.Model
 
         }
 
-        [PersistentDocumentIdProperty(50)]
+        [PersistentDocumentIdProperty()]
         public string ObjectId
         {
             get { return this.m_ObjectId; }
@@ -48,7 +48,7 @@ namespace YellowstonePathology.Business.Test.Model
             }
         }
 
-        [PersistentPrimaryKeyProperty(false, 100)]
+        [PersistentPrimaryKeyProperty(false)]
         public string TestOrderId
         {
             get { return this.m_TestOrderId; }
@@ -62,7 +62,7 @@ namespace YellowstonePathology.Business.Test.Model
             }
         }
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
         public string PanelOrderId
         {
             get { return this.m_PanelOrderId; }
@@ -76,7 +76,7 @@ namespace YellowstonePathology.Business.Test.Model
             }
         }
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
         public string AliquotOrderId
         {
             get { return this.m_AliquotOrderId; }
@@ -104,7 +104,7 @@ namespace YellowstonePathology.Business.Test.Model
             }
         }
 
-        [PersistentStringProperty(100)]
+        [PersistentProperty()]
         public string TestName
         {
             get { return this.m_TestName; }
@@ -118,7 +118,7 @@ namespace YellowstonePathology.Business.Test.Model
             }
         }
 
-        [PersistentStringProperty(100)]
+        [PersistentProperty()]
         public string TestAbbreviation
         {
             get { return this.m_TestAbbreviation; }
@@ -132,7 +132,7 @@ namespace YellowstonePathology.Business.Test.Model
             }
         }
 
-        [PersistentStringProperty(1000)]
+        [PersistentProperty()]
         public string Result
         {
             get { return this.m_Result; }
@@ -146,7 +146,7 @@ namespace YellowstonePathology.Business.Test.Model
             }
         }
 
-        [PersistentStringProperty(1000)]
+        [PersistentProperty()]
         public string Comment
         {
             get { return this.m_Comment; }
@@ -160,7 +160,7 @@ namespace YellowstonePathology.Business.Test.Model
             }
         }
 
-        [PersistentProperty("0")]
+        [PersistentProperty()]
         public bool OrderedAsDual
         {
             get { return this.m_OrderedAsDual; }
@@ -174,7 +174,7 @@ namespace YellowstonePathology.Business.Test.Model
             }
         }
 
-        [PersistentProperty("0")]
+        [PersistentProperty()]
         public bool NoCharge
         {
             get { return this.m_NoCharge; }

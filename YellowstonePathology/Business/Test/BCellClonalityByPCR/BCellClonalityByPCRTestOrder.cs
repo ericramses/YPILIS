@@ -31,7 +31,7 @@ namespace YellowstonePathology.Business.Test.BCellClonalityByPCR
 
 		}
 
-		[PersistentStringProperty(500)]
+		[PersistentProperty()]
 		public string Result
 		{
 			get { return this.m_Result; }
@@ -45,7 +45,7 @@ namespace YellowstonePathology.Business.Test.BCellClonalityByPCR
 			}
 		}
 
-		[PersistentStringProperty(5000)]
+		[PersistentProperty()]
 		public string Interpretation
 		{
 			get { return this.m_Interpretation; }
@@ -59,7 +59,7 @@ namespace YellowstonePathology.Business.Test.BCellClonalityByPCR
 			}
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string TumorNucleiPercent
 		{
 			get { return this.m_TumorNucleiPercent; }
@@ -73,7 +73,7 @@ namespace YellowstonePathology.Business.Test.BCellClonalityByPCR
 			}
 		}
 
-		[PersistentStringProperty(500)]
+		[PersistentProperty()]
 		public string Comment
 		{
 			get { return this.m_Comment; }
@@ -87,7 +87,7 @@ namespace YellowstonePathology.Business.Test.BCellClonalityByPCR
 			}
 		}
 
-		[PersistentStringProperty(500)]
+		[PersistentProperty()]
 		public string Method
 		{
 			get { return this.m_Method; }
@@ -101,7 +101,7 @@ namespace YellowstonePathology.Business.Test.BCellClonalityByPCR
 			}
 		}
 
-		[PersistentStringProperty(1000)]
+		[PersistentProperty()]
 		public string ASRComment
 		{
 			get { return this.m_ASRComment; }
@@ -115,7 +115,7 @@ namespace YellowstonePathology.Business.Test.BCellClonalityByPCR
 			}
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string BCellFrameWork1
 		{
 			get { return this.m_BCellFrameWork1; }
@@ -129,7 +129,7 @@ namespace YellowstonePathology.Business.Test.BCellClonalityByPCR
 			}
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string BCellFrameWork2
 		{
 			get { return this.m_BCellFrameWork2; }
@@ -143,7 +143,7 @@ namespace YellowstonePathology.Business.Test.BCellClonalityByPCR
 			}
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string BCellFrameWork3
 		{
 			get { return this.m_BCellFrameWork3; }
@@ -157,7 +157,7 @@ namespace YellowstonePathology.Business.Test.BCellClonalityByPCR
 			}
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string BCellFragmentSize
 		{
 			get { return this.m_BCellFragmentSize; }

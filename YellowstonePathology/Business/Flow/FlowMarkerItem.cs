@@ -40,7 +40,7 @@ namespace YellowstonePathology.Business.Flow
 			this.m_MarkerUsed = true;
 		}
 
-		[PersistentDocumentIdProperty(50)]
+		[PersistentDocumentIdProperty()]
 		public string ObjectId
 		{
 			get { return this.m_ObjectId; }
@@ -54,7 +54,7 @@ namespace YellowstonePathology.Business.Flow
 			}
 		}
 
-		[PersistentPrimaryKeyProperty(false, 50)]
+		[PersistentPrimaryKeyProperty(false)]
 		public string FlowMarkerId
 		{
 			get { return this.m_FlowMarkerId; }
@@ -68,7 +68,7 @@ namespace YellowstonePathology.Business.Flow
 			}
 		}
 
-		[PersistentStringProperty(20)]
+		[PersistentProperty()]
 		public string ReportNo
 		{
 			get { return this.m_ReportNo; }
@@ -82,7 +82,7 @@ namespace YellowstonePathology.Business.Flow
 			}
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string Name
 		{
 			get { return this.m_Name; }
@@ -96,7 +96,7 @@ namespace YellowstonePathology.Business.Flow
 			}
 		}
 
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public double Percentage
 		{
 			get { return this.m_Percentage; }
@@ -110,7 +110,7 @@ namespace YellowstonePathology.Business.Flow
 			}
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string Intensity
 		{
 			get { return this.m_Intensity; }
@@ -124,7 +124,7 @@ namespace YellowstonePathology.Business.Flow
 			}
 		}
 
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public bool Report
 		{
 			get { return this.m_Report; }
@@ -138,7 +138,7 @@ namespace YellowstonePathology.Business.Flow
 			}
 		}
 
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public bool MarkerUsed
 		{
 			get { return this.m_MarkerUsed; }
@@ -152,7 +152,7 @@ namespace YellowstonePathology.Business.Flow
 			}
 		}
 
-		[PersistentStringProperty(20)]
+		[PersistentProperty()]
 		public string MarkerType
 		{
 			get { return this.m_MarkerType; }
@@ -166,7 +166,7 @@ namespace YellowstonePathology.Business.Flow
 			}
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string Interpretation
 		{
 			get { return this.m_Interpretation; }
@@ -180,7 +180,7 @@ namespace YellowstonePathology.Business.Flow
 			}
 		}
 
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public bool Predictive
 		{
 			get { return this.m_Predictive; }
@@ -194,7 +194,7 @@ namespace YellowstonePathology.Business.Flow
 			}
 		}
 
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public int Expresses
 		{
 			get { return this.m_Expresses; }
@@ -208,7 +208,7 @@ namespace YellowstonePathology.Business.Flow
 			}
 		}
 
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public int OrderFlag
 		{
 			get { return this.m_OrderFlag; }
@@ -222,7 +222,7 @@ namespace YellowstonePathology.Business.Flow
 			}
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string Result
 		{
 			get { return this.m_Result; }

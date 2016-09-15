@@ -40,7 +40,7 @@ namespace YellowstonePathology.Business.Client.Model
 			}
 		}
 
-		[PersistentDocumentIdProperty(50)]
+		[PersistentDocumentIdProperty()]
 		public string ObjectId
 		{
 			get { return this.m_ObjectId; }
@@ -54,7 +54,7 @@ namespace YellowstonePathology.Business.Client.Model
 			}
 		}
 
-		[PersistentPrimaryKeyProperty(false, 0)]
+		[PersistentPrimaryKeyProperty(false)]
 		public int ClientLocationId
 		{
 			get { return this.m_ClientLocationId; }
@@ -82,7 +82,7 @@ namespace YellowstonePathology.Business.Client.Model
 			}
 		}
 
-		[PersistentStringProperty(500)]
+		[PersistentProperty()]
 		public string Location
 		{
 			get { return this.m_Location; }
@@ -96,7 +96,7 @@ namespace YellowstonePathology.Business.Client.Model
 			}
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string OrderType
 		{
 			get { return this.m_OrderType; }
@@ -110,7 +110,7 @@ namespace YellowstonePathology.Business.Client.Model
 			}
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string SpecimenTrackingInitiated
 		{
 			get { return this.m_SpecimenTrackingInitiated; }
@@ -166,7 +166,7 @@ namespace YellowstonePathology.Business.Client.Model
 			}
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string DefaultOrderDetailTypeCode
 		{
 			get { return this.m_DefaultOrderDetailTypeCode; }

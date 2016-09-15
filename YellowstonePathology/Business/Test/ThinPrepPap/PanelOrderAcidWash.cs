@@ -75,7 +75,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
             return methodResult;
         }
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
 		public string Result
 		{
 			get { return this.m_Result; }

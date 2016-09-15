@@ -53,7 +53,7 @@ namespace YellowstonePathology.Business.Test.TechInitiatedPeripheralSmear
             return result;
         }
 
-        [PersistentStringProperty(500)]
+        [PersistentProperty()]
         public string TechnologistsQuestion
         {
             get { return this.m_TechnologistsQuestion; }
@@ -67,7 +67,7 @@ namespace YellowstonePathology.Business.Test.TechInitiatedPeripheralSmear
             }
         }
 
-        [PersistentStringProperty(500)]
+        [PersistentProperty()]
         public string PathologistFeedback
         {
             get { return this.m_PathologistFeedback; }
@@ -81,7 +81,7 @@ namespace YellowstonePathology.Business.Test.TechInitiatedPeripheralSmear
             }
         }
 
-        [PersistentStringProperty(500)]
+        [PersistentProperty()]
         public string CBCComment
         {
             get { return this.m_CBCComment; }

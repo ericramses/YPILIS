@@ -34,7 +34,7 @@ namespace YellowstonePathology.Business.Test.ChromosomeAnalysisForFetalAnomaly
 		{
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string Result
 		{
 			get { return this.m_Result; }
@@ -48,7 +48,7 @@ namespace YellowstonePathology.Business.Test.ChromosomeAnalysisForFetalAnomaly
 			}
 		}
 
-		[PersistentStringProperty(500)]
+		[PersistentProperty()]
 		public string Karyotype
 		{
 			get { return this.m_Karyotype; }
@@ -62,7 +62,7 @@ namespace YellowstonePathology.Business.Test.ChromosomeAnalysisForFetalAnomaly
 			}
 		}
 
-		[PersistentStringProperty(5000)]
+		[PersistentProperty()]
 		public string Interpretation
 		{
 			get { return this.m_Interpretation; }
@@ -76,7 +76,7 @@ namespace YellowstonePathology.Business.Test.ChromosomeAnalysisForFetalAnomaly
 			}
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string Scored
 		{
 			get { return this.m_Scored; }
@@ -90,7 +90,7 @@ namespace YellowstonePathology.Business.Test.ChromosomeAnalysisForFetalAnomaly
 			}
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string NumberOfColonies
 		{
 			get { return this.m_NumberOfColonies; }
@@ -104,7 +104,7 @@ namespace YellowstonePathology.Business.Test.ChromosomeAnalysisForFetalAnomaly
 			}
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string NumberOfCultures
 		{
 			get { return this.m_NumberOfCultures; }
@@ -118,7 +118,7 @@ namespace YellowstonePathology.Business.Test.ChromosomeAnalysisForFetalAnomaly
 			}
 		}
 
-		[PersistentStringProperty(500)]
+		[PersistentProperty()]
 		public string Karyotyped
 		{
 			get { return this.m_Karyotyped; }
@@ -132,7 +132,7 @@ namespace YellowstonePathology.Business.Test.ChromosomeAnalysisForFetalAnomaly
 			}
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string Analyzed
 		{
 			get { return this.m_Analyzed; }
@@ -146,7 +146,7 @@ namespace YellowstonePathology.Business.Test.ChromosomeAnalysisForFetalAnomaly
 			}
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string Counted
 		{
 			get { return this.m_Counted; }
@@ -160,7 +160,7 @@ namespace YellowstonePathology.Business.Test.ChromosomeAnalysisForFetalAnomaly
 			}
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string GTGBandLevel
 		{
 			get { return this.m_GTGBandLevel; }
@@ -174,7 +174,7 @@ namespace YellowstonePathology.Business.Test.ChromosomeAnalysisForFetalAnomaly
 			}
 		}
 
-        [PersistentStringProperty(500)]
+        [PersistentProperty()]
         public string TestDetails
         {
             get { return this.m_TestDetails; }

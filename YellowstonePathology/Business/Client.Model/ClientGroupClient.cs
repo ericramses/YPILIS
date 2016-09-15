@@ -34,7 +34,7 @@ namespace YellowstonePathology.Business.Client.Model
             this.m_ClientGroupId = clientGroupId;
         }
 
-        [PersistentDocumentIdProperty(50)]
+        [PersistentDocumentIdProperty()]
         public string ObjectId
         {
             get { return this.m_ObjectId; }
@@ -48,7 +48,7 @@ namespace YellowstonePathology.Business.Client.Model
             }
         }
 
-        [PersistentPrimaryKeyProperty(false, 0)]
+        [PersistentPrimaryKeyProperty(false)]
         public int ClientGroupClientId
         {
             get { return this.m_ClientGroupClientId; }

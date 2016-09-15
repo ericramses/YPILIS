@@ -38,7 +38,7 @@ namespace YellowstonePathology.Business.Test.ROS1ByFISH
 			
 		}        
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
         public string Result
         {
             get { return this.m_Result; }
@@ -52,7 +52,7 @@ namespace YellowstonePathology.Business.Test.ROS1ByFISH
             }
         }
 
-        [PersistentStringProperty(5000)]
+        [PersistentProperty()]
         public string Interpretation
         {
             get { return this.m_Interpretation; }
@@ -66,7 +66,7 @@ namespace YellowstonePathology.Business.Test.ROS1ByFISH
             }
         }
 
-        [PersistentStringProperty(500)]
+        [PersistentProperty()]
         public string ReferenceRange
         {
             get { return this.m_ReferenceRange; }
@@ -80,7 +80,7 @@ namespace YellowstonePathology.Business.Test.ROS1ByFISH
             }
         }
 
-        [PersistentStringProperty(500)]
+        [PersistentProperty()]
         public string ProbeSetDetail
         {
             get { return this.m_ProbeSetDetail; }
@@ -94,7 +94,7 @@ namespace YellowstonePathology.Business.Test.ROS1ByFISH
             }
         }
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
         public string NucleiScored
         {
             get { return this.m_NucleiScored; }
@@ -108,7 +108,7 @@ namespace YellowstonePathology.Business.Test.ROS1ByFISH
             }
         }
 
-        [PersistentStringProperty(1000)]
+        [PersistentProperty()]
         public string Method
         {
             get { return this.m_Method; }
@@ -122,7 +122,7 @@ namespace YellowstonePathology.Business.Test.ROS1ByFISH
             }
         }
 
-        [PersistentStringProperty(5000)]
+        [PersistentProperty()]
         public string ReportDisclaimer
         {
             get { return this.m_ReportDisclaimer; }
@@ -136,7 +136,7 @@ namespace YellowstonePathology.Business.Test.ROS1ByFISH
             }
         }        
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
         public string TumorNucleiPercentage
         {
             get { return this.m_TumorNucleiPercentage; }

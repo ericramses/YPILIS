@@ -28,7 +28,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
          
 		}        
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
         public string Result
         {
             get { return this.m_Result; }
@@ -42,7 +42,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             }
         }
 
-		[PersistentStringProperty(5000)]
+		[PersistentProperty()]
 		public string Interpretation
 		{
 			get { return this.m_Interpretation; }
@@ -56,7 +56,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 			}
 		}
 
-		[PersistentStringProperty(5000)]
+		[PersistentProperty()]
 		public string Method
 		{
 			get { return this.m_Method; }
@@ -70,7 +70,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 			}
 		}
 
-		[PersistentStringProperty(20)]
+		[PersistentProperty()]
 		public string MLH1MethylationPercent
 		{
 			get { return this.m_MLH1MethylationPercent; }

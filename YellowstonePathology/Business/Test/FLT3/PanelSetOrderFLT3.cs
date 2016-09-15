@@ -28,7 +28,7 @@ namespace YellowstonePathology.Business.Test.FLT3
 		{
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string Result
 		{
 			get { return this.m_Result; }
@@ -42,7 +42,7 @@ namespace YellowstonePathology.Business.Test.FLT3
 			}
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string ITDMutation
 		{
 			get { return this.m_ITDMutation; }
@@ -56,7 +56,7 @@ namespace YellowstonePathology.Business.Test.FLT3
 			}
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string ITDPercentage
 		{
 			get { return this.m_ITDPercentage; }
@@ -70,7 +70,7 @@ namespace YellowstonePathology.Business.Test.FLT3
 			}
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string TKDMutation
 		{
 			get { return this.m_TKDMutation; }
@@ -84,7 +84,7 @@ namespace YellowstonePathology.Business.Test.FLT3
 			}
 		}
 
-		[PersistentStringProperty(1000)]
+		[PersistentProperty()]
 		public string Interpretation
 		{
 			get { return this.m_Interpretation; }
@@ -98,7 +98,7 @@ namespace YellowstonePathology.Business.Test.FLT3
 			}
 		}
 
-		[PersistentStringProperty(5000)]
+		[PersistentProperty()]
 		public string Method
 		{
 			get { return this.m_Method; }

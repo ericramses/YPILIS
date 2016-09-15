@@ -51,7 +51,7 @@ namespace YellowstonePathology.Business.Test.MissingInformation
 
         }       
 
-        [PersistentStringProperty(500)]
+        [PersistentProperty()]
         public string MissingInformation
         {
             get { return this.m_MissingInformation; }
@@ -65,7 +65,7 @@ namespace YellowstonePathology.Business.Test.MissingInformation
             }
         }
 
-        [PersistentStringProperty(1000)]
+        [PersistentProperty()]
         public string CallComments
         {
             get { return this.m_CallComments; }
@@ -93,7 +93,7 @@ namespace YellowstonePathology.Business.Test.MissingInformation
             }
         }
 
-        [PersistentStringProperty(500)]
+        [PersistentProperty()]
         public string FirstCallMadeBy
         {
             get { return this.m_FirstCallMadeBy; }
@@ -121,7 +121,7 @@ namespace YellowstonePathology.Business.Test.MissingInformation
             }
         }
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
         public string FirstCallComment
         {
             get { return this.m_FirstCallComment; }
@@ -149,7 +149,7 @@ namespace YellowstonePathology.Business.Test.MissingInformation
             }
         }
 
-        [PersistentStringProperty(500)]
+        [PersistentProperty()]
         public string SecondCallMadeBy
         {
             get { return this.m_SecondCallMadeBy; }
@@ -177,7 +177,7 @@ namespace YellowstonePathology.Business.Test.MissingInformation
             }
         }
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
         public string SecondCallComment
         {
             get { return this.m_SecondCallComment; }
@@ -205,7 +205,7 @@ namespace YellowstonePathology.Business.Test.MissingInformation
             }
         }
 
-        [PersistentStringProperty(500)]
+        [PersistentProperty()]
         public string ThirdCallMadeBy
         {
             get { return this.m_ThirdCallMadeBy; }
@@ -233,7 +233,7 @@ namespace YellowstonePathology.Business.Test.MissingInformation
             }
         }
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
         public string ThirdCallComment
         {
             get { return this.m_ThirdCallComment; }
@@ -261,7 +261,7 @@ namespace YellowstonePathology.Business.Test.MissingInformation
             }
         }
 
-        [PersistentStringProperty(500)]
+        [PersistentProperty()]
         public string FaxSentBy
         {
             get { return this.m_FaxSentBy; }
@@ -303,7 +303,7 @@ namespace YellowstonePathology.Business.Test.MissingInformation
             }
         }
 
-        [PersistentStringProperty(500)]
+        [PersistentProperty()]
         public string ClientSystemLookupBy
         {
             get { return this.m_ClientSystemLookupBy; }

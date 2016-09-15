@@ -57,7 +57,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		private string m_ShipmentPreparedBy;
 		private int m_ClientId;
 
-		[PersistentDocumentIdProperty(50)]
+		[PersistentDocumentIdProperty()]
 		public string ObjectId
 		{
 			get { return this.m_ObjectId; }
@@ -72,7 +72,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		[PersistentPrimaryKeyProperty(false, 0)]
+		[PersistentPrimaryKeyProperty(false)]
 		public string ShipmentId
 		{
 			get { return this.m_ShipmentId; }

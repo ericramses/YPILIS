@@ -36,7 +36,7 @@ namespace YellowstonePathology.Business.Test.ALKForNSCLCByFISH
 
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string Result
 		{
 			get { return this.m_Result; }
@@ -50,7 +50,7 @@ namespace YellowstonePathology.Business.Test.ALKForNSCLCByFISH
 			}
 		}
 
-		[PersistentStringProperty(5000)]
+		[PersistentProperty()]
 		public string Interpretation
 		{
 			get { return this.m_Interpretation; }
@@ -64,7 +64,7 @@ namespace YellowstonePathology.Business.Test.ALKForNSCLCByFISH
 			}
 		}
 
-		[PersistentStringProperty(500)]
+		[PersistentProperty()]
 		public string ReferenceRange
 		{
 			get { return this.m_ReferenceRange; }
@@ -78,7 +78,7 @@ namespace YellowstonePathology.Business.Test.ALKForNSCLCByFISH
 			}
 		}
 
-		[PersistentStringProperty(1000)]
+		[PersistentProperty()]
 		public string ProbeSetDetail
 		{
 			get { return this.m_ProbeSetDetail; }
@@ -92,7 +92,7 @@ namespace YellowstonePathology.Business.Test.ALKForNSCLCByFISH
 			}
 		}
 
-		[PersistentStringProperty(5)]
+		[PersistentProperty()]
 		public string NucleiScored
 		{
 			get { return this.m_NucleiScored; }
@@ -106,7 +106,7 @@ namespace YellowstonePathology.Business.Test.ALKForNSCLCByFISH
 			}
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string NucleiPercent
 		{
 			get { return this.m_NucleiPercent; }
@@ -120,7 +120,7 @@ namespace YellowstonePathology.Business.Test.ALKForNSCLCByFISH
 			}
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string Fusions
 		{
 			get { return this.m_Fusions; }
@@ -134,7 +134,7 @@ namespace YellowstonePathology.Business.Test.ALKForNSCLCByFISH
 			}
 		}
 
-        [PersistentStringProperty(1000)]
+        [PersistentProperty()]
         public string Method
         {
             get { return this.m_Method; }
@@ -148,7 +148,7 @@ namespace YellowstonePathology.Business.Test.ALKForNSCLCByFISH
             }
         }
 
-		[PersistentStringProperty(500)]
+		[PersistentProperty()]
         public string ReportDisclaimer
         {
 			get { return this.m_ReportDisclaimer; }
@@ -162,7 +162,7 @@ namespace YellowstonePathology.Business.Test.ALKForNSCLCByFISH
             }
         }
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
         public string ThreeFPercentage
         {
             get { return this.m_ThreeFPercentage; }
@@ -176,7 +176,7 @@ namespace YellowstonePathology.Business.Test.ALKForNSCLCByFISH
             }
         }
 
-        [PersistentProperty("0")]
+        [PersistentProperty()]
         public bool ALKGeneAmplification
         {
             get { return this.m_ALKGeneAmplification; }
@@ -190,7 +190,7 @@ namespace YellowstonePathology.Business.Test.ALKForNSCLCByFISH
             }
         }
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
         public string TumorNucleiPercentage
         {
             get { return this.m_TumorNucleiPercentage; }

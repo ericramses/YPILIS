@@ -22,7 +22,7 @@ namespace YellowstonePathology.Business.User
 		{
 		}
 
-		[PersistentPrimaryKeyProperty(true, 0)]
+		[PersistentPrimaryKeyProperty(true)]
 		public int SystemRoleId
 		{
 			get { return this.m_SystemRoleId; }
@@ -36,7 +36,7 @@ namespace YellowstonePathology.Business.User
 			}
 		}
 
-		[PersistentStringProperty(100)]
+		[PersistentProperty()]
 		public string RoleName
 		{
 			get { return this.m_RoleName; }

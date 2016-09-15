@@ -27,7 +27,7 @@ namespace YellowstonePathology.Business.Test.MPNStandardReflex
 
 		}
 
-        [PersistentStringProperty(100)]
+        [PersistentProperty()]
         public string Comment
         {
             get { return this.m_Comment; }
@@ -41,7 +41,7 @@ namespace YellowstonePathology.Business.Test.MPNStandardReflex
             }
         }
 
-        [PersistentStringProperty(5000)]
+        [PersistentProperty()]
         public string Interpretation
         {
             get { return this.m_Interpretation; }
@@ -55,7 +55,7 @@ namespace YellowstonePathology.Business.Test.MPNStandardReflex
             }
         }
 
-        [PersistentStringProperty(5000)]
+        [PersistentProperty()]
         public string Method
         {
             get { return this.m_Method; }

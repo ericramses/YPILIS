@@ -44,7 +44,7 @@ namespace YellowstonePathology.Business.Client.Model
             }
         }
 
-        [PersistentPrimaryKeyProperty(false, 50)]
+        [PersistentPrimaryKeyProperty(false)]
 		public string clientsupplyorderdetailid
 		{
 			get { return this.m_clientsupplyorderdetailid; }
@@ -58,7 +58,7 @@ namespace YellowstonePathology.Business.Client.Model
 			}
 		}
 
-        [PersistentStringProperty(50, "0")]
+        [PersistentProperty()]
 		public string clientsupplyorderid
 		{
 			get { return this.m_clientsupplyorderid; }
@@ -72,7 +72,7 @@ namespace YellowstonePathology.Business.Client.Model
 			}
 		}
 
-        [PersistentProperty("0")]
+        [PersistentProperty()]
 		public int clientsupplyid
 		{
 			get { return this.m_clientsupplyid; }
@@ -86,7 +86,7 @@ namespace YellowstonePathology.Business.Client.Model
 			}
 		}
 
-        [PersistentStringProperty(100)]
+        [PersistentProperty()]
 		public string supplyname
 		{
 			get { return this.m_supplyname; }
@@ -100,7 +100,7 @@ namespace YellowstonePathology.Business.Client.Model
 			}
 		}
 
-        [PersistentStringProperty(500)]
+        [PersistentProperty()]
 		public string supplydescription
 		{
 			get { return this.m_supplydescription; }
@@ -114,7 +114,7 @@ namespace YellowstonePathology.Business.Client.Model
 			}
 		}
 
-        [PersistentStringProperty(100)]
+        [PersistentProperty()]
 		public string quantityordered
 		{
 			get { return this.m_quantityordered; }
@@ -142,7 +142,7 @@ namespace YellowstonePathology.Business.Client.Model
 			}
 		}
 
-        [PersistentDocumentIdProperty(50)]
+        [PersistentDocumentIdProperty()]
 		public string ObjectId
 		{
 			get { return this.m_ObjectId; }

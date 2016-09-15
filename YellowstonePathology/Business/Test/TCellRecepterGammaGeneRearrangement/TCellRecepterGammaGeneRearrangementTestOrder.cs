@@ -25,7 +25,7 @@ namespace YellowstonePathology.Business.Test.TCellRecepterGammaGeneRearrangement
 		{
 		}
 
-		[PersistentStringProperty(500)]
+		[PersistentProperty()]
 		public string Result
 		{
 			get { return this.m_Result; }
@@ -39,7 +39,7 @@ namespace YellowstonePathology.Business.Test.TCellRecepterGammaGeneRearrangement
 			}
 		}
 
-		[PersistentStringProperty(1000)]
+		[PersistentProperty()]
 		public string Interpretation
 		{
 			get { return this.m_Interpretation; }
@@ -53,7 +53,7 @@ namespace YellowstonePathology.Business.Test.TCellRecepterGammaGeneRearrangement
 			}
 		}
 
-		[PersistentStringProperty(5000)]
+		[PersistentProperty()]
 		public string Method
 		{
 			get { return this.m_Method; }

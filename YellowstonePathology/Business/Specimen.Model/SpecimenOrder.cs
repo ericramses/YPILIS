@@ -344,7 +344,7 @@ namespace YellowstonePathology.Business.Specimen.Model
 			return result;
 		}
 
-		[PersistentDocumentIdProperty(50)]
+		[PersistentDocumentIdProperty()]
 		public string ObjectId
 		{
 			get { return this.m_ObjectId; }
@@ -358,7 +358,7 @@ namespace YellowstonePathology.Business.Specimen.Model
 			}
 		}
 		
-		[PersistentPrimaryKeyProperty(false, 100)]
+		[PersistentPrimaryKeyProperty(false)]
 		public string SpecimenOrderId
 		{
 			get { return this.m_SpecimenOrderId; }
@@ -372,7 +372,7 @@ namespace YellowstonePathology.Business.Specimen.Model
 			}
 		}
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
         public string SpecimenId
         {
             get { return this.m_SpecimenId; }
@@ -386,7 +386,7 @@ namespace YellowstonePathology.Business.Specimen.Model
             }
         }
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string SpecimenType
 		{
 			get { return this.m_SpecimenType; }
@@ -428,7 +428,7 @@ namespace YellowstonePathology.Business.Specimen.Model
 			}
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string SpecimenSite
 		{
 			get { return this.m_SpecimenSite; }
@@ -442,7 +442,7 @@ namespace YellowstonePathology.Business.Specimen.Model
 			}
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string FixationType
 		{
 			get { return this.m_FixationType; }
@@ -456,7 +456,7 @@ namespace YellowstonePathology.Business.Specimen.Model
 			}
 		}
 
-        [PersistentProperty("0")]
+        [PersistentProperty()]
         public Nullable<int> FixationDuration
         {
             get { return this.m_FixationDuration; }
@@ -508,7 +508,7 @@ namespace YellowstonePathology.Business.Specimen.Model
             }            
         }          
 
-		[PersistentStringProperty(5000)]
+		[PersistentProperty()]
 		public string Description
 		{
 			get { return this.m_Description; }
@@ -522,7 +522,7 @@ namespace YellowstonePathology.Business.Specimen.Model
 			}
 		}
 
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public int AliquotRequestCount
 		{
 			get { return this.m_AliquotRequestCount; }
@@ -536,7 +536,7 @@ namespace YellowstonePathology.Business.Specimen.Model
 			}
 		}
 
-		[PersistentProperty("getdate()")]
+		[PersistentProperty()]
 		public Nullable<DateTime> AccessionTime
 		{
 			get { return this.m_AccessionTime; }
@@ -550,7 +550,7 @@ namespace YellowstonePathology.Business.Specimen.Model
 			}
 		}
 
-		[PersistentStringProperty(25)]
+		[PersistentProperty()]
 		public string ClientFixation
 		{
 			get { return this.m_ClientFixation; }
@@ -564,7 +564,7 @@ namespace YellowstonePathology.Business.Specimen.Model
 			}
 		}
 
-		[PersistentStringProperty(25)]
+		[PersistentProperty()]
 		public string LabFixation
 		{
 			get { return this.m_LabFixation; }
@@ -578,7 +578,7 @@ namespace YellowstonePathology.Business.Specimen.Model
 			}
 		}
 
-		[PersistentProperty("1")]
+		[PersistentProperty()]
 		public bool CollectionTimeUnknown
 		{
 			get { return this.m_CollectionTimeUnknown; }
@@ -592,7 +592,7 @@ namespace YellowstonePathology.Business.Specimen.Model
 			}
 		}		        
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string MasterAccessionNo
 		{
 			get { return this.m_MasterAccessionNo; }
@@ -606,7 +606,7 @@ namespace YellowstonePathology.Business.Specimen.Model
 			}
 		}
 
-		[PersistentStringProperty(500)]
+		[PersistentProperty()]
 		public string FixationComment
 		{
 			get { return this.m_FixationComment; }
@@ -620,7 +620,7 @@ namespace YellowstonePathology.Business.Specimen.Model
 			}
 		}
 
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public int SpecimenNumber
 		{
 			get { return this.m_SpecimenNumber; }
@@ -634,7 +634,7 @@ namespace YellowstonePathology.Business.Specimen.Model
 			}
 		}
 
-        [PersistentProperty("0")]
+        [PersistentProperty()]
         public Nullable<int> ClientSpecimenNumber
         {
             get { return this.m_ClientSpecimenNumber; }
@@ -648,7 +648,7 @@ namespace YellowstonePathology.Business.Specimen.Model
             }
         }
 
-        [PersistentProperty("0")]
+        [PersistentProperty()]
         public bool ClientAccessioned
         {
             get { return this.m_ClientAccessioned; }
@@ -662,7 +662,7 @@ namespace YellowstonePathology.Business.Specimen.Model
             }
         }
 
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public bool Accepted
 		{
 			get { return this.m_Accepted; }
@@ -676,7 +676,7 @@ namespace YellowstonePathology.Business.Specimen.Model
 			}
 		}
 
-		[PersistentStringProperty(500)]
+		[PersistentProperty()]
 		public string SpecialInstructions
 		{
 			get { return this.m_SpecialInstructions; }
@@ -690,7 +690,7 @@ namespace YellowstonePathology.Business.Specimen.Model
 			}
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string ContainerId
 		{
 			get { return this.m_ContainerId; }
@@ -704,7 +704,7 @@ namespace YellowstonePathology.Business.Specimen.Model
 			}
 		}
 
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public bool Verified
 		{
 			get { return this.m_Verified; }
@@ -718,7 +718,7 @@ namespace YellowstonePathology.Business.Specimen.Model
 			}
 		}
 
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public int VerifiedById
 		{
 			get { return this.m_VerifiedById; }
@@ -746,7 +746,7 @@ namespace YellowstonePathology.Business.Specimen.Model
 			}
 		}
 
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public bool RequiresBlindVerification
 		{
 			get { return this.m_RequiresBlindVerification; }
@@ -760,7 +760,7 @@ namespace YellowstonePathology.Business.Specimen.Model
 			}
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string SystemInitiatingOrder
 		{
 			get { return this.m_SystemInitiatingOrder; }
@@ -774,7 +774,7 @@ namespace YellowstonePathology.Business.Specimen.Model
 			}
 		}
 
-		[PersistentStringProperty(500)]
+		[PersistentProperty()]
 		public string SpecimenSource
 		{
 			get { return this.m_SpecimenSource; }
@@ -802,7 +802,7 @@ namespace YellowstonePathology.Business.Specimen.Model
 			}
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string SpecimenAdequacy
 		{
 			get { return this.m_SpecimenAdequacy; }
@@ -816,7 +816,7 @@ namespace YellowstonePathology.Business.Specimen.Model
 			}
 		}
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
         public string LocationFacilityId
         {
             get { return this.m_LocationFacilityId; }
@@ -830,7 +830,7 @@ namespace YellowstonePathology.Business.Specimen.Model
             }
         }
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
         public string OwnerFacilityId
         {
             get { return this.m_OwnerFacilityId; }
@@ -844,7 +844,7 @@ namespace YellowstonePathology.Business.Specimen.Model
             }
         }
 
-        [PersistentProperty("1")]
+        [PersistentProperty()]
         public bool RequiresGrossExamination
         {
             get { return this.m_RequiresGrossExamination; }
@@ -858,7 +858,7 @@ namespace YellowstonePathology.Business.Specimen.Model
             }
         }
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
         public string LocationId
         {
             get { return this.m_LocationId; }
@@ -872,7 +872,7 @@ namespace YellowstonePathology.Business.Specimen.Model
             }
         }
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
         public string FacilityId
         {
             get { return this.m_FacilityId; }
@@ -886,7 +886,7 @@ namespace YellowstonePathology.Business.Specimen.Model
             }
         }
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
         public string ProcessorRun
         {
             get { return this.m_ProcessorRun; }
@@ -900,7 +900,7 @@ namespace YellowstonePathology.Business.Specimen.Model
             }
         }
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
         public string ProcessorRunId
         {
             get { return this.m_ProcessorRunId; }
@@ -928,7 +928,7 @@ namespace YellowstonePathology.Business.Specimen.Model
             }
         }
 
-        [PersistentProperty("0")]
+        [PersistentProperty()]
         public Nullable<int> ProcessorFixationTime
         {
             get { return this.m_ProcessorFixationTime; }
@@ -942,7 +942,7 @@ namespace YellowstonePathology.Business.Specimen.Model
             }
         }        
 
-        [PersistentProperty("0")]
+        [PersistentProperty()]
         public bool FixationStartTimeManuallyEntered
         {
             get { return this.m_FixationStartTimeManuallyEntered; }
@@ -998,7 +998,7 @@ namespace YellowstonePathology.Business.Specimen.Model
             }
         }
 
-        [PersistentStringProperty(500)]
+        [PersistentProperty()]
         public string TimeToFixationHourString
         {
             get { return this.m_TimeToFixationHourString; }

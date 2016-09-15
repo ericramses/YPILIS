@@ -26,7 +26,7 @@ namespace YellowstonePathology.Business.Test.NPM1
 		{
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string Result
 		{
 			get { return this.m_Result; }
@@ -40,7 +40,7 @@ namespace YellowstonePathology.Business.Test.NPM1
 			}
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string PercentageNPM1Mutation
 		{
 			get { return this.m_PercentageNPM1Mutation; }
@@ -54,7 +54,7 @@ namespace YellowstonePathology.Business.Test.NPM1
 			}
 		}
 
-		[PersistentStringProperty(500)]
+		[PersistentProperty()]
 		public string Interpretation
 		{
 			get { return this.m_Interpretation; }
@@ -68,7 +68,7 @@ namespace YellowstonePathology.Business.Test.NPM1
 			}
 		}
 
-		[PersistentStringProperty(5000)]
+		[PersistentProperty()]
 		public string Method
 		{
 			get { return this.m_Method; }

@@ -20,8 +20,8 @@ namespace YellowstonePathology.Business
 		{
 		}
 
-		[PersistentDocumentIdProperty(50)]
-		[PersistentPrimaryKeyProperty(false, 50)]
+		[PersistentDocumentIdProperty()]
+		[PersistentPrimaryKeyProperty(false)]
 		public string ObjectId
 		{
 			get { return this.m_ObjectId; }
@@ -35,7 +35,7 @@ namespace YellowstonePathology.Business
 			}
 		}
 
-		[PersistentStringProperty(200)]
+		[PersistentProperty()]
 		public string Version
 		{
 			get { return this.m_Version; }

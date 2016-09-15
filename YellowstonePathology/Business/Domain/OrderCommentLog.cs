@@ -162,7 +162,7 @@ namespace YellowstonePathology.Business.Domain
 			client.Send(mailMessage);
 		}
 
-		[PersistentDocumentIdProperty(50)]
+		[PersistentDocumentIdProperty()]
 		public string ObjectId
 		{
 			get { return this.m_ObjectId; }
@@ -176,7 +176,7 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
-		[PersistentPrimaryKeyProperty(true, 0)]
+		[PersistentPrimaryKeyProperty(true)]
 		public int OrderCommentLogId
 		{
 			get { return this.m_OrderCommentLogId; }
@@ -204,7 +204,7 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public int SpecimenLogId
 		{
 			get { return this.m_SpecimenLogId; }
@@ -218,7 +218,7 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
-		[PersistentStringProperty(50, "0")]
+		[PersistentProperty()]
 		public string MasterAccessionNo
 		{
 			get { return this.m_MasterAccessionNo; }
@@ -232,7 +232,7 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
-		[PersistentStringProperty(50, "0")]
+		[PersistentProperty()]
 		public string AliquotOrderId
 		{
 			get { return this.m_AliquotOrderId; }
@@ -246,7 +246,7 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
-		[PersistentStringProperty(100)]
+		[PersistentProperty()]
 		public string Category
 		{
 			get { return this.m_Category; }
@@ -260,7 +260,7 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string Action
 		{
 			get { return this.m_Action; }
@@ -274,7 +274,7 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
-		[PersistentProperty("getdate()")]
+		[PersistentProperty()]
 		public DateTime LogDate
 		{
 			get { return this.m_LogDate; }
@@ -288,7 +288,7 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public int ClientId
 		{
 			get { return this.m_ClientId; }
@@ -302,7 +302,7 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
-		[PersistentStringProperty(100)]
+		[PersistentProperty()]
 		public string Description
 		{
 			get { return this.m_Description; }
@@ -316,7 +316,7 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
-		[PersistentStringProperty(1000)]
+		[PersistentProperty()]
 		public string Comment
 		{
 			get { return this.m_Comment; }
@@ -344,7 +344,7 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
-		[PersistentStringProperty(250)]
+		[PersistentProperty()]
 		public string LoggedBy
 		{
 			get { return this.m_LoggedBy; }
@@ -358,7 +358,7 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string ClientOrderId
 		{
 			get { return this.m_ClientOrderId; }
@@ -372,7 +372,7 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public bool RequiresResponse
 		{
 			get { return this.m_RequiresResponse; }
@@ -386,7 +386,7 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public bool RequiresNotification
 		{
 			get { return this.m_RequiresNotification; }
@@ -400,7 +400,7 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string Response
 		{
 			get { return this.m_Response; }
@@ -414,7 +414,7 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
-		[PersistentStringProperty(250)]
+		[PersistentProperty()]
 		public string NotificationAddress
 		{
 			get { return this.m_NotificationAddress; }
@@ -428,7 +428,7 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string StationName
 		{
 			get { return this.m_StationName; }
@@ -442,7 +442,7 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string ContainerId
 		{
 			get { return this.m_ContainerId; }

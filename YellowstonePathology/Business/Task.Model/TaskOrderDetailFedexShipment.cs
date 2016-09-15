@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -50,7 +50,7 @@ namespace YellowstonePathology.Business.Task.Model
             this.m_ZPLII = zplString;
         }
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
         public string TrackingNumber
         {
             get { return this.m_TrackingNumber; }
@@ -64,7 +64,7 @@ namespace YellowstonePathology.Business.Task.Model
             }
         }
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
         public string ShipToFacilityId
         {
             get { return this.m_ShipToFacilityId; }
@@ -78,7 +78,7 @@ namespace YellowstonePathology.Business.Task.Model
             }
         }
 
-        [PersistentStringProperty(8000)]
+        [PersistentProperty()]
         public string ZPLII
         {
             get { return this.m_ZPLII; }
@@ -106,7 +106,7 @@ namespace YellowstonePathology.Business.Task.Model
             }
         }
 
-        [PersistentStringProperty(500)]
+        [PersistentProperty()]
         public string ShipToName
         {
             get { return this.m_ShipToName; }
@@ -120,7 +120,7 @@ namespace YellowstonePathology.Business.Task.Model
             }
         }
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
         public string ShipToPhone
         {
             get { return this.m_ShipToPhone; }
@@ -134,7 +134,7 @@ namespace YellowstonePathology.Business.Task.Model
             }
         }
 
-        [PersistentStringProperty(500)]
+        [PersistentProperty()]
         public string ShipToAddress1
         {
             get { return this.m_ShipToAddress1; }
@@ -148,7 +148,7 @@ namespace YellowstonePathology.Business.Task.Model
             }
         }
 
-        [PersistentStringProperty(500)]
+        [PersistentProperty()]
         public string ShipToAddress2
         {
             get { return this.m_ShipToAddress2; }
@@ -162,7 +162,7 @@ namespace YellowstonePathology.Business.Task.Model
             }
         }
 
-        [PersistentStringProperty(500)]
+        [PersistentProperty()]
         public string ShipToCity
         {
             get { return this.m_ShipToCity; }
@@ -176,7 +176,7 @@ namespace YellowstonePathology.Business.Task.Model
             }
         }
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
         public string ShipToState
         {
             get { return this.m_ShipToState; }
@@ -190,7 +190,7 @@ namespace YellowstonePathology.Business.Task.Model
             }
         }
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
         public string ShipToZip
         {
             get { return this.m_ShipToZip; }
@@ -204,7 +204,7 @@ namespace YellowstonePathology.Business.Task.Model
             }
         }
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
         public string PaymentType
         {
             get { return this.m_PaymentType; }

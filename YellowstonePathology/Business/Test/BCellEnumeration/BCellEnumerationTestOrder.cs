@@ -51,7 +51,7 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
                 "4. Stewart CC, Stewart SJ. Immunological monitoring utilizing novel probes.Annual of the New York Annal of New York Academy of Science.  1993; 95: 816 - 823.";
         }
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
 		public string Method
 		{
 			get { return this.m_Method; }
@@ -65,7 +65,7 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
 			}
 		}
 
-		[PersistentStringProperty(1000)]
+		[PersistentProperty()]
 		public string ASRComment
 		{
 			get { return this.m_ASRComment; }

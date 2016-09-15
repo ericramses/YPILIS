@@ -27,7 +27,7 @@ namespace YellowstonePathology.Business.Test.BCL2t1418ByFISH
 		{
         }
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
         public string Result
         {
             get { return this.m_Result; }
@@ -41,7 +41,7 @@ namespace YellowstonePathology.Business.Test.BCL2t1418ByFISH
             }
         }
 
-        [PersistentStringProperty(1000)]
+        [PersistentProperty()]
         public string Interpretation
         {
             get { return this.m_Interpretation; }
@@ -55,7 +55,7 @@ namespace YellowstonePathology.Business.Test.BCL2t1418ByFISH
             }
         }
 
-        [PersistentStringProperty(5000)]
+        [PersistentProperty()]
         public string Method
         {
             get { return this.m_Method; }
@@ -69,7 +69,7 @@ namespace YellowstonePathology.Business.Test.BCL2t1418ByFISH
             }
         }
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
         public string ReportDisclaimer
         {
             get { return this.m_ReportDisclaimer; }

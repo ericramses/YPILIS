@@ -1229,7 +1229,7 @@ namespace YellowstonePathology.UI
             
         }
 
-        private void ButtonWilliamTesting_Click(object sender, RoutedEventArgs e) // Compares AccessionOrderBuilder ao to AccessionOrderBuilderV2 ao
+        /*private void ButtonWilliamTesting_Click(object sender, RoutedEventArgs e) // Compares AccessionOrderBuilder ao to AccessionOrderBuilderV2 ao
         {
             string resultString = string.Empty;
             DateTime startDate = DateTime.Parse("2/10/2016");
@@ -1237,9 +1237,9 @@ namespace YellowstonePathology.UI
             //{
                 //DateTime endDate = startDate.AddMonths(1).AddDays(-1);
             DateTime endDate = startDate.AddDays(1);
-            List<string> masterAccessionNos = new List<string>();
+            //List<string> masterAccessionNos = new List<string>();
                 masterAccessionNos.Add("16-22139");
-                /*SqlCommand cmd = new SqlCommand("select MasteraccessionNo from tblAccessionOrder where AccessionDate between '" + startDate.ToString() + "' and '" + endDate.ToString() + "'"); // order by 1 asc");
+                SqlCommand cmd = new SqlCommand("select MasteraccessionNo from tblAccessionOrder where AccessionDate between '" + startDate.ToString() + "' and '" + endDate.ToString() + "'"); // order by 1 asc");
                 cmd.CommandType = CommandType.Text;
                 using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
                 {
@@ -1253,7 +1253,7 @@ namespace YellowstonePathology.UI
                             masterAccessionNos.Add(s);
                         }
                     }
-                }*/
+                }
 
                 foreach (string masterAccessionNo in masterAccessionNos)
                 {
@@ -1290,7 +1290,7 @@ namespace YellowstonePathology.UI
             //}
             resultString = "done";
             MessageBox.Show(resultString);
-        }
+        }*/
 
         /*private void ButtonWilliamTesting_Click(object sender, RoutedEventArgs e) //Compares MySql accession order (accession table only) to Sql Server
         {
@@ -1351,7 +1351,7 @@ namespace YellowstonePathology.UI
             MessageBox.Show(resultString);
         }*/
 
-        /*private void ButtonWilliamTesting_Click(object sender, RoutedEventArgs e) //Set initial string lengths in .cs files
+        private void ButtonWilliamTesting_Click(object sender, RoutedEventArgs e)
         {
             string basePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase);
             basePath = basePath.Remove(0, 6);
@@ -1364,15 +1364,15 @@ namespace YellowstonePathology.UI
                 if (File.Exists(filePath))
                 {
                     string[] lines = File.ReadAllLines(filePath);
-                    if (builder.SetPersistentAttributeDefaultValue(migrationStatus, lines))
+                    if (builder.BuildPersistentDataColumnProperty(migrationStatus, lines))
                     {
-                        using (StreamWriter writer = new StreamWriter(filePath, false))
+                        /*using (StreamWriter writer = new StreamWriter(filePath, false))
                         {
                             foreach (string line in lines)
                             {
                                 writer.WriteLine(line);
                             }
-                        }
+                        }*/
                     }
                 }
                 else
@@ -1386,26 +1386,6 @@ namespace YellowstonePathology.UI
             }
             string resultString = "done";
             MessageBox.Show(resultString);
-        }*/
-
-        /*private void ButtonWilliamTesting_Click(object sender, RoutedEventArgs e) // Recalculates and Sets the length of the string in the .cs files
-        {
-            MySQLMigration.MySQLDatabaseBuilder builder = new MySQLMigration.MySQLDatabaseBuilder();
-            List<string> dbTypes = new List<string>();
-            MySQLMigration.MigrationStatusCollection migrationStatusCollection = MySQLMigration.MigrationStatusCollection.GetAll();
-            foreach (MySQLMigration.MigrationStatus migrationStatus in migrationStatusCollection)
-            {
-                builder.GetDBDataTypes(migrationStatus.TableName, dbTypes);
-            }
-            using (StreamWriter writer = new StreamWriter(@"C:\TEMP\DBTypesToUse.txt", true))
-            {
-                foreach (string ctype in dbTypes)
-                {
-                    writer.WriteLine(ctype);
-                }
-            }
-            string resultString = "done";
-            MessageBox.Show(resultString);
-        }*/
+        }
     }
 }

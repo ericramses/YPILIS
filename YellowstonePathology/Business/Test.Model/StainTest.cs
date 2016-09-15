@@ -26,7 +26,7 @@ namespace YellowstonePathology.Business.Test.Model
 
 		}
 
-		[PersistentDocumentIdProperty(50)]
+		[PersistentDocumentIdProperty()]
 		public string ObjectId
 		{
 			get { return this.m_ObjectId; }
@@ -40,7 +40,7 @@ namespace YellowstonePathology.Business.Test.Model
 			}
 		}
 
-        [PersistentPrimaryKeyProperty(false, 0)]
+        [PersistentPrimaryKeyProperty(false)]
 		public int StainTestId
 		{
 			get { return this.m_StainTestId; }
@@ -68,7 +68,7 @@ namespace YellowstonePathology.Business.Test.Model
 			}
 		}
 
-        [PersistentStringProperty(20)]
+        [PersistentProperty()]
 		public string CptCode
 		{
 			get { return this.m_CptCode; }
@@ -110,7 +110,7 @@ namespace YellowstonePathology.Business.Test.Model
 			}
 		}
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
 		public string ControlComment
 		{
 			get { return this.m_ControlComment; }
@@ -124,7 +124,7 @@ namespace YellowstonePathology.Business.Test.Model
 			}
 		}
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
 		public string StainType
 		{
 			get { return this.m_StainType; }

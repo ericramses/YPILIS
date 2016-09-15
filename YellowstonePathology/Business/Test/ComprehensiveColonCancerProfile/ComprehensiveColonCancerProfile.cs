@@ -30,7 +30,7 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
             
 		}        
 
-        [PersistentStringProperty(500)]
+        [PersistentProperty()]
         public string Interpretation
         {
             get { return this.m_Interpretation; }
@@ -44,7 +44,7 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
             }
         }
 
-        [PersistentProperty("0")]
+        [PersistentProperty()]
         public bool IncludeTestsPerformedOnOtherBlocks
         {
             get { return this.m_IncludeTestsPerformedOnOtherBlocks; }

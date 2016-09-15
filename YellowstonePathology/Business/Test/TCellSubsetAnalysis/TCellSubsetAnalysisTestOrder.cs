@@ -53,7 +53,7 @@ namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
                 "with peripheral blood, the analysis includes both peripheral blood lymphocytes and BAL lymphocytes.";
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string Method
 		{
 			get { return this.m_Method; }
@@ -67,7 +67,7 @@ namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
 			}
 		}
 
-		[PersistentStringProperty(1000)]
+		[PersistentProperty()]
 		public string ASRComment
 		{
 			get { return this.m_ASRComment; }
@@ -139,7 +139,7 @@ namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
 			}
 		}
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
         public string ReferenceRange
         {
             get { return this.m_ReferenceRange; }
@@ -153,7 +153,7 @@ namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
             }
         }
 
-        [PersistentStringProperty(500)]
+        [PersistentProperty()]
         public string Disclosure
         {
             get { return this.m_Disclosure; }
@@ -167,7 +167,7 @@ namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
             }
         }
 
-        [PersistentStringProperty(100)]
+        [PersistentProperty()]
         public string Interpretation
         {
             get { return this.m_Interpretation; }

@@ -25,7 +25,7 @@ namespace YellowstonePathology.Business.Test.ReviewForAdditionalTesting
 		{
 		}
 
-		[PersistentStringProperty(500)]
+		[PersistentProperty()]
 		public string Comment
 		{
             get { return this.m_Comment; }
@@ -39,7 +39,7 @@ namespace YellowstonePathology.Business.Test.ReviewForAdditionalTesting
 			}
 		}
 
-		[PersistentStringProperty(100)]
+		[PersistentProperty()]
 		public string Result
 		{
 			get { return this.m_Result; }

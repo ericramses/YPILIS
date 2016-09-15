@@ -28,7 +28,7 @@ namespace YellowstonePathology.Business.Test.BladderCancerFISHUrovysion
 
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string Result
 		{
 			get { return this.m_Result; }
@@ -42,7 +42,7 @@ namespace YellowstonePathology.Business.Test.BladderCancerFISHUrovysion
 			}
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string ResultDescription
 		{
 			get { return this.m_ResultDescription; }
@@ -56,7 +56,7 @@ namespace YellowstonePathology.Business.Test.BladderCancerFISHUrovysion
 			}
 		}
 
-		[PersistentStringProperty(1000)]
+		[PersistentProperty()]
 		public string Interpretation
 		{
 			get { return this.m_Interpretation; }
@@ -70,7 +70,7 @@ namespace YellowstonePathology.Business.Test.BladderCancerFISHUrovysion
 			}
 		}
 
-		[PersistentStringProperty(500)]
+		[PersistentProperty()]
 		public string ProbeSetDetail
 		{
 			get { return this.m_ProbeSetDetail; }
@@ -84,7 +84,7 @@ namespace YellowstonePathology.Business.Test.BladderCancerFISHUrovysion
 			}
 		}
 
-		[PersistentStringProperty(100)]
+		[PersistentProperty()]
 		public string NucleiScored
 		{
 			get { return this.m_NucleiScored; }

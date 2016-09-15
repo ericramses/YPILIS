@@ -34,7 +34,7 @@ namespace YellowstonePathology.Business.Domain
 			this.m_ClientId = clientId;
 		}
 
-		[PersistentDocumentIdProperty(50)]
+		[PersistentDocumentIdProperty()]
 		public String ObjectId
 		{
 			get { return this.m_ObjectId; }
@@ -48,7 +48,7 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
-        [PersistentPrimaryKeyProperty(false, 50)]
+        [PersistentPrimaryKeyProperty(false)]
         public string PhysicianClientId
         {
             get { return this.m_PhysicianClientId; }
@@ -62,7 +62,7 @@ namespace YellowstonePathology.Business.Domain
             }
         }
 
-        [PersistentProperty("0")]
+        [PersistentProperty()]
 		public int PhysicianId
         {
             get { return this.m_PhysicianId; }
@@ -76,7 +76,7 @@ namespace YellowstonePathology.Business.Domain
             }
         }
 
-        [PersistentProperty("0")]
+        [PersistentProperty()]
         public int ClientId
         {
             get { return this.m_ClientId; }
@@ -90,7 +90,7 @@ namespace YellowstonePathology.Business.Domain
             }
         }
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string ProviderId
 		{
 			get { return this.m_ProviderId; }

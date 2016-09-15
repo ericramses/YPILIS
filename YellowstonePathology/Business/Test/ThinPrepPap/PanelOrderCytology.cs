@@ -101,7 +101,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 			}
 		}		
 
-		[PersistentStringProperty(500)]
+		[PersistentProperty()]
 		public string SpecimenAdequacy
 		{
 			get { return this.m_SpecimenAdequacy; }
@@ -115,7 +115,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 			}
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string ScreeningType
 		{
 			get { return this.m_ScreeningType; }
@@ -129,7 +129,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 			}
 		}
 
-		[PersistentStringProperty(150)]
+		[PersistentProperty()]
 		public string ScreenedByName
 		{
 			get { return this.m_ScreenedByName; }
@@ -143,7 +143,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 			}
 		}
 
-		[PersistentStringProperty(500)]
+		[PersistentProperty()]
 		public string ScreeningImpression
 		{
 			get { return this.m_ScreeningImpression; }
@@ -157,7 +157,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 			}
 		}
 
-		[PersistentStringProperty(500)]
+		[PersistentProperty()]
 		public string ScreeningImpressionComment
 		{
 			get { return this.m_ScreeningImpressionComment; }
@@ -171,7 +171,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 			}
 		}
 
-		[PersistentStringProperty(500)]
+		[PersistentProperty()]
 		public string OtherConditions
 		{
 			get { return this.m_OtherConditions; }
@@ -185,7 +185,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 			}
 		}
 
-		[PersistentStringProperty(1000)]
+		[PersistentProperty()]
 		public string ReportComment
 		{
 			get { return this.m_ReportComment; }
@@ -199,7 +199,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 			}
 		}
 
-		[PersistentStringProperty(1000)]
+		[PersistentProperty()]
 		public string InternalComment
 		{
 			get { return this.m_InternalComment; }
@@ -213,7 +213,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 			}
 		}
 
-		[PersistentStringProperty(1000)]
+		[PersistentProperty()]
 		public string ScreenerComment
 		{
 			get { return this.m_ScreenerComment; }
@@ -227,7 +227,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 			}
 		}
 
-		[PersistentStringProperty(500)]
+		[PersistentProperty()]
 		public string OrderComment
 		{
 			get { return this.m_OrderComment; }
@@ -339,7 +339,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 			}
 		}
 
-        [PersistentProperty("0")]
+        [PersistentProperty()]
         public bool Reconciled
         {
             get { return this.m_Reconciled; }

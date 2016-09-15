@@ -40,7 +40,7 @@ namespace YellowstonePathology.Business.Test.ErPrSemiQuantitative
 			
 		}        
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string ErResult
 		{
 			get { return this.m_ErResult; }
@@ -54,7 +54,7 @@ namespace YellowstonePathology.Business.Test.ErPrSemiQuantitative
 			}
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string ErIntensity
 		{
 			get { return this.m_ErIntensity; }
@@ -68,7 +68,7 @@ namespace YellowstonePathology.Business.Test.ErPrSemiQuantitative
 			}
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string ErPercentageOfCells
 		{
 			get { return this.m_ErPercentageOfCells; }
@@ -82,7 +82,7 @@ namespace YellowstonePathology.Business.Test.ErPrSemiQuantitative
 			}
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string PrResult
 		{
 			get { return this.m_PrResult; }
@@ -96,7 +96,7 @@ namespace YellowstonePathology.Business.Test.ErPrSemiQuantitative
 			}
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string PrIntensity
 		{
 			get { return this.m_PrIntensity; }
@@ -110,7 +110,7 @@ namespace YellowstonePathology.Business.Test.ErPrSemiQuantitative
 			}
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string PrPercentageOfCells
 		{
 			get { return this.m_PrPercentageOfCells; }
@@ -124,7 +124,7 @@ namespace YellowstonePathology.Business.Test.ErPrSemiQuantitative
 			}
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string SpecimenAdequacy
 		{
 			get { return this.m_SpecimenAdequacy; }
@@ -138,7 +138,7 @@ namespace YellowstonePathology.Business.Test.ErPrSemiQuantitative
 			}
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string InternalControls
 		{
 			get { return this.m_InternalControls; }
@@ -152,7 +152,7 @@ namespace YellowstonePathology.Business.Test.ErPrSemiQuantitative
 			}
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string ExternalControls
 		{
 			get { return this.m_ExternalControls; }
@@ -166,7 +166,7 @@ namespace YellowstonePathology.Business.Test.ErPrSemiQuantitative
 			}
 		}
 
-		[PersistentStringProperty(500)]
+		[PersistentProperty()]
 		public string Interpretation
 		{
 			get { return this.m_Interpretation; }
@@ -180,7 +180,7 @@ namespace YellowstonePathology.Business.Test.ErPrSemiQuantitative
 			}
 		}
 
-		[PersistentStringProperty(100)]
+		[PersistentProperty()]
 		public string ResultComment
 		{
 			get { return this.m_ResultComment; }
@@ -194,7 +194,7 @@ namespace YellowstonePathology.Business.Test.ErPrSemiQuantitative
 			}
 		}
 
-		[PersistentStringProperty(100)]
+		[PersistentProperty()]
 		public string SpecimenSiteAndType
 		{
 			get { return this.m_SpecimenSiteAndType; }
@@ -208,7 +208,7 @@ namespace YellowstonePathology.Business.Test.ErPrSemiQuantitative
 			}
 		}
 
-		[PersistentStringProperty(100)]
+		[PersistentProperty()]
 		public string SpecimenIdentification
 		{
 			get { return this.m_SpecimenIdentification; }
@@ -222,7 +222,7 @@ namespace YellowstonePathology.Business.Test.ErPrSemiQuantitative
 			}
 		}
 
-		[PersistentStringProperty(500)]
+		[PersistentProperty()]
 		public string Method
 		{
 			get { return this.m_Method; }

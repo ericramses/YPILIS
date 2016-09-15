@@ -29,7 +29,7 @@ namespace YellowstonePathology.Business.Test.API2MALT1ByPCR
 
         }
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
         public string Result
         {
             get { return this.m_Result; }
@@ -43,7 +43,7 @@ namespace YellowstonePathology.Business.Test.API2MALT1ByPCR
             }
         }
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
         public string ResultDescription
         {
             get { return this.m_ResultDescription; }
@@ -57,7 +57,7 @@ namespace YellowstonePathology.Business.Test.API2MALT1ByPCR
             }
         }
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
         public string Interpretation
         {
             get { return this.m_Interpretation; }
@@ -71,7 +71,7 @@ namespace YellowstonePathology.Business.Test.API2MALT1ByPCR
             }
         }
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
         public string ProbeSetDetail
         {
             get { return this.m_ProbeSetDetail; }
@@ -85,7 +85,7 @@ namespace YellowstonePathology.Business.Test.API2MALT1ByPCR
             }
         }
 
-        [PersistentStringProperty(100)]
+        [PersistentProperty()]
         public string NucleiScored
         {
             get { return this.m_NucleiScored; }

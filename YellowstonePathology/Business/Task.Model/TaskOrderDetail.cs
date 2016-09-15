@@ -40,7 +40,7 @@ namespace YellowstonePathology.Business.Task.Model
             this.m_AssignedTo = task.AssignedTo;
 		}
 
-		[PersistentDocumentIdProperty(50)]
+		[PersistentDocumentIdProperty()]
 		public string ObjectId
 		{
 			get { return this.m_ObjectId; }
@@ -54,7 +54,7 @@ namespace YellowstonePathology.Business.Task.Model
 			}
 		}
 		
-		[PersistentPrimaryKeyProperty(false, 50)]
+		[PersistentPrimaryKeyProperty(false)]
 		public string TaskOrderDetailId
 		{
 			get { return this.m_TaskOrderDetailId; }
@@ -68,7 +68,7 @@ namespace YellowstonePathology.Business.Task.Model
 			}
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string TaskOrderId
 		{
 			get { return this.m_TaskOrderId; }
@@ -82,7 +82,7 @@ namespace YellowstonePathology.Business.Task.Model
 			}
 		}
 
-		[PersistentStringProperty(500)]
+		[PersistentProperty()]
 		public string TaskId
 		{
 			get { return this.m_TaskId; }
@@ -96,7 +96,7 @@ namespace YellowstonePathology.Business.Task.Model
 			}
 		}
 
-		[PersistentStringProperty(5000)]
+		[PersistentProperty()]
 		public string Description
 		{
 			get { return this.m_Description; }
@@ -110,7 +110,7 @@ namespace YellowstonePathology.Business.Task.Model
 			}
 		}
 
-		[PersistentStringProperty(500)]
+		[PersistentProperty()]
 		public string Comment
 		{
 			get { return this.m_Comment; }
@@ -124,7 +124,7 @@ namespace YellowstonePathology.Business.Task.Model
 			}
 		}
 
-        [PersistentStringProperty(500)]
+        [PersistentProperty()]
         public string AssignedTo
         {
             get { return this.m_AssignedTo; }
@@ -138,7 +138,7 @@ namespace YellowstonePathology.Business.Task.Model
             }
         }
 
-        [PersistentProperty("0")]
+        [PersistentProperty()]
         public bool Acknowledged
         {
             get { return this.m_Acknowledged; }
@@ -166,7 +166,7 @@ namespace YellowstonePathology.Business.Task.Model
             }
         }
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
         public string AcknowledgedByInitials
         {
             get { return this.m_AcknowledgedByInitials; }

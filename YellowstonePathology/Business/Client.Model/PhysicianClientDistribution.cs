@@ -32,28 +32,28 @@ namespace YellowstonePathology.Business.Client.Model
 			this.m_DistributionID = distributionID;
 		}
 
-		[PersistentDocumentIdProperty(50)]
+		[PersistentDocumentIdProperty()]
 		public string ObjectId
 		{
 			get { return this.m_ObjectId; }
 			set { this.m_ObjectId = value; }
 		}
 
-		[PersistentPrimaryKeyProperty(true, 0)]
+		[PersistentPrimaryKeyProperty(true)]
 		public int PhysicianClientDistributionID
 		{
 			get { return this.m_PhysicianClientDistributionID; }
 			set { this.m_PhysicianClientDistributionID = value; }
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string PhysicianClientID
 		{
 			get { return this.m_PhysicianClientID; }
 			set { this.m_PhysicianClientID = value; }
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string DistributionID
 		{
 			get { return this.m_DistributionID; }

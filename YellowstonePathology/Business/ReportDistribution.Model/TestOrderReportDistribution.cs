@@ -57,7 +57,7 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
             this.m_LongDistance = longDistance;
 		}
 
-        [PersistentDocumentIdProperty(50)]
+        [PersistentDocumentIdProperty()]
         public string ObjectId
         {
             get { return this.m_ObjectId; }
@@ -71,7 +71,7 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
 			}
         }
 
-		[PersistentPrimaryKeyProperty(false, 50)]
+		[PersistentPrimaryKeyProperty(false)]
         public string TestOrderReportDistributionId
 		{
             get { return this.m_TestOrderReportDistributionId; }
@@ -85,7 +85,7 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
 			}
 		}        
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
         public string ReportNo
         {
             get { return this.m_ReportNo; }
@@ -127,7 +127,7 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
 			}
 		}
 
-		[PersistentStringProperty(250)]
+		[PersistentProperty()]
 		public string PhysicianName
 		{
 			get { return this.m_PhysicianName; }
@@ -141,7 +141,7 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
 			}
 		}
 
-		[PersistentStringProperty(250)]
+		[PersistentProperty()]
 		public string ClientName
 		{
 			get { return this.m_ClientName; }
@@ -155,7 +155,7 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
 			}
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string DistributionType
 		{
 			get { return this.m_DistributionType; }
@@ -225,7 +225,7 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
             }
         }
 
-        [PersistentStringProperty(500)]
+        [PersistentProperty()]
         public string FaxNumber
         {
             get { return this.m_FaxNumber; }
@@ -267,7 +267,7 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
             }
         }
 
-        [PersistentStringProperty(500)]
+        [PersistentProperty()]
         public string RescheduledMessage
         {
             get { return this.m_RescheduledMessage; }

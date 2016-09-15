@@ -87,7 +87,7 @@ namespace YellowstonePathology.Business.Test.LLP
             }
         }
 
-        [PersistentProperty("0")]
+        [PersistentProperty()]
 		public int GatingPopulation
 		{
 			get { return this.m_GatingPopulation; }
@@ -101,7 +101,7 @@ namespace YellowstonePathology.Business.Test.LLP
 			}
 		}
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
         public string GatingPopulationV2
 		{
 			get { return this.m_GatingPopulationV2; }
@@ -115,7 +115,7 @@ namespace YellowstonePathology.Business.Test.LLP
 			}
 		}
 
-        [PersistentProperty("0")]
+        [PersistentProperty()]
 		public int LymphocyteCount
 		{
 			get { return this.m_LymphocyteCount; }
@@ -130,7 +130,7 @@ namespace YellowstonePathology.Business.Test.LLP
 			}
 		}
 
-        [PersistentProperty("0")]
+        [PersistentProperty()]
 		public double GPLymphocytePrc
 		{
 			get { return this.m_GPLymphocytePrc; }
@@ -144,7 +144,7 @@ namespace YellowstonePathology.Business.Test.LLP
 			}
 		}
 
-        [PersistentProperty("0")]
+        [PersistentProperty()]
 		public int MonocyteCount
 		{
 			get { return this.m_MonocyteCount; }
@@ -159,7 +159,7 @@ namespace YellowstonePathology.Business.Test.LLP
 			}
 		}
 
-        [PersistentProperty("0")]
+        [PersistentProperty()]
 		public int MyeloidCount
 		{
 			get { return this.m_MyeloidCount; }
@@ -174,7 +174,7 @@ namespace YellowstonePathology.Business.Test.LLP
 			}
 		}
 
-        [PersistentProperty("0")]
+        [PersistentProperty()]
 		public int DimCD45ModSSCount
 		{
 			get { return this.m_DimCD45ModSSCount; }
@@ -189,7 +189,7 @@ namespace YellowstonePathology.Business.Test.LLP
 			}
 		}
 
-        [PersistentProperty("0")]
+        [PersistentProperty()]
 		public int OtherCount
 		{
 			get { return this.m_OtherCount; }
@@ -204,7 +204,7 @@ namespace YellowstonePathology.Business.Test.LLP
 			}
 		}
 
-        [PersistentStringProperty(200)]
+        [PersistentProperty()]
         public string OtherName
 		{
 			get { return this.m_OtherName; }
@@ -218,7 +218,7 @@ namespace YellowstonePathology.Business.Test.LLP
 			}
 		}
 
-        [PersistentProperty("0")]
+        [PersistentProperty()]
 		public int? LightScatter
 		{
 			get { return this.m_LightScatter; }
@@ -246,7 +246,7 @@ namespace YellowstonePathology.Business.Test.LLP
 			}
 		}*/
 
-        [PersistentProperty("0")]
+        [PersistentProperty()]
 		public double BCellPercent
 		{
 			get { return this.m_BCellPercent; }
@@ -260,7 +260,7 @@ namespace YellowstonePathology.Business.Test.LLP
 			}
 		}
 
-        [PersistentProperty("0")]
+        [PersistentProperty()]
 		public double TCellPercent
 		{
 			get { return this.m_TCellPercent; }
@@ -274,7 +274,7 @@ namespace YellowstonePathology.Business.Test.LLP
 			}
 		}
 
-        [PersistentProperty("0")]
+        [PersistentProperty()]
 		public double NKCellPercent
 		{
 			get { return this.m_NKCellPercent; }
@@ -288,7 +288,7 @@ namespace YellowstonePathology.Business.Test.LLP
 			}
 		}
 
-        [PersistentProperty("0")]
+        [PersistentProperty()]
 		public double MyeloidCellPercent
 		{
 			get { return this.m_MyeloidCellPercent; }
@@ -302,7 +302,7 @@ namespace YellowstonePathology.Business.Test.LLP
 			}
 		}
 
-        [PersistentStringProperty(5000)]
+        [PersistentProperty()]
         public string InterpretiveComment
 		{
 			get { return this.m_InterpretiveComment; }
@@ -316,7 +316,7 @@ namespace YellowstonePathology.Business.Test.LLP
 			}
 		}
 
-        [PersistentStringProperty(1000)]
+        [PersistentProperty()]
         public string Impression
 		{
 			get { return this.m_Impression; }
@@ -330,7 +330,7 @@ namespace YellowstonePathology.Business.Test.LLP
 			}
 		}
 
-        [PersistentProperty("0")]
+        [PersistentProperty()]
 		public int SpecimenViability
 		{
 			get { return this.m_SpecimenViability; }
@@ -344,7 +344,7 @@ namespace YellowstonePathology.Business.Test.LLP
 			}
 		}
 
-        [PersistentProperty("0")]
+        [PersistentProperty()]
 		public double SpecimenViabilityPercent
 		{
 			get { return this.m_SpecimenViabilityPercent; }
@@ -358,7 +358,7 @@ namespace YellowstonePathology.Business.Test.LLP
 			}
 		}
 
-        [PersistentStringProperty(100)]
+        [PersistentProperty()]
         public string CellPopulationOfInterest
 		{
 			get { return this.m_CellPopulationOfInterest; }
@@ -372,7 +372,7 @@ namespace YellowstonePathology.Business.Test.LLP
 			}
 		}
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
         public string TestResult
 		{
 			get { return this.m_TestResult; }
@@ -386,7 +386,7 @@ namespace YellowstonePathology.Business.Test.LLP
 			}
 		}
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
         public string CellDescription
 		{
 			get { return this.m_CellDescription; }
@@ -400,7 +400,7 @@ namespace YellowstonePathology.Business.Test.LLP
 			}
 		}
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
         public string BTCellSelection
 		{
 			get { return this.m_BTCellSelection; }
@@ -414,7 +414,7 @@ namespace YellowstonePathology.Business.Test.LLP
 			}
 		}
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
         public string KappaLambda
 		{
 			get { return this.m_KappaLambda; }
@@ -428,7 +428,7 @@ namespace YellowstonePathology.Business.Test.LLP
 			}
 		}
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
         public string EGateCD34Percent
 		{
 			get { return this.m_EGateCD34Percent; }
@@ -442,7 +442,7 @@ namespace YellowstonePathology.Business.Test.LLP
 			}
 		}
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
         public string EGateCD117Percent
 		{
 			get { return this.m_EGateCD117Percent; }
@@ -456,7 +456,7 @@ namespace YellowstonePathology.Business.Test.LLP
 			}
 		}
 
-        [PersistentProperty("0")]
+        [PersistentProperty()]
 		public bool TechFinal
 		{
 			get { return this.m_TechFinal; }
@@ -498,7 +498,7 @@ namespace YellowstonePathology.Business.Test.LLP
 			}
 		}
 
-        [PersistentProperty("0")]
+        [PersistentProperty()]
 		public int TechFinaledById
 		{
 			get { return this.m_TechFinaledById; }
@@ -512,7 +512,7 @@ namespace YellowstonePathology.Business.Test.LLP
 			}
 		}
 
-        [PersistentStringProperty(1000)]
+        [PersistentProperty()]
         public string ReportComment
 		{
 			get { return this.m_ReportComment; }
@@ -526,7 +526,7 @@ namespace YellowstonePathology.Business.Test.LLP
 			}
 		}
 
-        [PersistentStringProperty(1000)]
+        [PersistentProperty()]
         public string TestCancelledComment
 		{
 			get { return this.m_TestCancelledComment; }
@@ -540,7 +540,7 @@ namespace YellowstonePathology.Business.Test.LLP
 			}
 		}
 
-        [PersistentProperty("0")]
+        [PersistentProperty()]
 		public bool TestCancelled
 		{
 			get { return this.m_TestCancelled; }

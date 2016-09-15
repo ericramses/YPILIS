@@ -39,7 +39,7 @@ namespace YellowstonePathology.Business.Test.IHCQC
 			}
 		}
 
-		[PersistentStringProperty(500)]
+		[PersistentProperty()]
 		public string Comment
 		{
             get { return this.m_Comment; }

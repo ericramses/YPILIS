@@ -50,7 +50,7 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
             this.m_DistributionType = testOrderReportDistribution.DistributionType;            
         }
 
-		[PersistentDocumentIdProperty(50)]
+		[PersistentDocumentIdProperty()]
 		public string ObjectId
 		{
 			get { return this.m_ObjectId; }
@@ -64,7 +64,7 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
 			}
 		}
 
-		[PersistentPrimaryKeyProperty(false, 100)]
+		[PersistentPrimaryKeyProperty(false)]
 		public string TestOrderReportDistributionLogId
 		{
             get { return this.m_TestOrderReportDistributionLogId; }
@@ -78,7 +78,7 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
 			}
 		}		
 
-		[PersistentStringProperty(20)]
+		[PersistentProperty()]
 		public string ReportNo
 		{
 			get { return this.m_ReportNo; }
@@ -106,7 +106,7 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
 			}
 		}		
 
-		[PersistentStringProperty(5000)]
+		[PersistentProperty()]
 		public string Comment
 		{
 			get { return this.m_Comment; }
@@ -148,7 +148,7 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
 			}
 		}
 
-		[PersistentStringProperty(250)]
+		[PersistentProperty()]
 		public string PhysicianName
 		{
 			get { return this.m_PhysicianName; }
@@ -162,7 +162,7 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
 			}
 		}
 
-		[PersistentStringProperty(250)]
+		[PersistentProperty()]
 		public string ClientName
 		{
 			get { return this.m_ClientName; }
@@ -176,7 +176,7 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
 			}
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string DistributionType
 		{
 			get { return this.m_DistributionType; }

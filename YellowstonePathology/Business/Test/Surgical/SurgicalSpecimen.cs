@@ -105,7 +105,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			get { return DiagnosisId.ToString() + "."; }
 		}
 
-		[PersistentDocumentIdProperty(50)]
+		[PersistentDocumentIdProperty()]
 		public string ObjectId
 		{
 			get { return this.m_ObjectId; }
@@ -119,7 +119,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}
 
-		[PersistentPrimaryKeyProperty(false, 50)]
+		[PersistentPrimaryKeyProperty(false)]
 		public string SurgicalSpecimenId
 		{
 			get { return this.m_SurgicalSpecimenId; }
@@ -133,7 +133,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}
 
-		[PersistentStringProperty(20)]
+		[PersistentProperty()]
 		public string ReportNo
 		{
 			get { return this.m_ReportNo; }
@@ -147,7 +147,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}
 
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public bool Report
 		{
 			get { return this.m_Report; }
@@ -161,7 +161,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}
 
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public bool ImmediatePerformed
 		{
 			get { return this.m_ImmediatePerformed; }
@@ -203,7 +203,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}
 
-		[PersistentStringProperty(100)]
+		[PersistentProperty()]
 		public string SpecimenOrderId
 		{
 			get { return this.m_SpecimenOrderId; }
@@ -217,7 +217,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}
 
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public int DiagnosisId
 		{
 			get { return this.m_DiagnosisId; }
@@ -231,7 +231,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}
 
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public int ImmediateCorrelation
 		{
 			get { return this.m_ImmediateCorrelation; }
@@ -245,7 +245,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}
 
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public int ImmediatePerformedById
 		{
 			get { return this.m_ImmediatePerformedById; }
@@ -259,7 +259,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}
 
-		[PersistentStringProperty(-1)]
+		[PersistentProperty()]
 		public string Diagnosis
 		{
 			get { return this.m_Diagnosis; }
@@ -273,7 +273,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}
 
-		[PersistentStringProperty(350)]
+		[PersistentProperty()]
 		public string SpecimenType
 		{
 			get { return this.m_SpecimenType; }
@@ -287,7 +287,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}
 
-		[PersistentStringProperty(30)]
+		[PersistentProperty()]
 		public string RescreenStatus
 		{
 			get { return this.m_RescreenStatus; }
@@ -301,7 +301,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 		}
 
-		[PersistentStringProperty(100)]
+		[PersistentProperty()]
 		public string ImmediatePerformedBy
 		{
 			get { return this.m_ImmediatePerformedBy; }

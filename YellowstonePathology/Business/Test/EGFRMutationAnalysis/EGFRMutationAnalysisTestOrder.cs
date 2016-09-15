@@ -34,7 +34,7 @@ namespace YellowstonePathology.Business.Test.EGFRMutationAnalysis
 			
 		}
 
-		[PersistentStringProperty(100)]
+		[PersistentProperty()]
 		public string Result
         {
             get { return this.m_Result; }
@@ -48,7 +48,7 @@ namespace YellowstonePathology.Business.Test.EGFRMutationAnalysis
             }
         }
 
-		[PersistentStringProperty(500)]
+		[PersistentProperty()]
 		public string Mutation
         {
             get { return this.m_Mutation; }
@@ -62,7 +62,7 @@ namespace YellowstonePathology.Business.Test.EGFRMutationAnalysis
             }
         }
 
-		[PersistentStringProperty(500)]
+		[PersistentProperty()]
 		public string Indication
         {
             get { return this.m_Indication; }
@@ -76,7 +76,7 @@ namespace YellowstonePathology.Business.Test.EGFRMutationAnalysis
             }
         }
 
-		[PersistentStringProperty(1000)]
+		[PersistentProperty()]
 		public string Method
         {
             get { return this.m_Method; }
@@ -90,7 +90,7 @@ namespace YellowstonePathology.Business.Test.EGFRMutationAnalysis
             }
         }
 
-		[PersistentStringProperty(1000)]
+		[PersistentProperty()]
 		public string Interpretation
         {
             get { return this.m_Interpretation; }
@@ -104,7 +104,7 @@ namespace YellowstonePathology.Business.Test.EGFRMutationAnalysis
             }
         }
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string TumorNucleiPercentage
         {
             get { return this.m_TumorNucleiPercentage; }
@@ -118,7 +118,7 @@ namespace YellowstonePathology.Business.Test.EGFRMutationAnalysis
             }
         }
 
-		[PersistentStringProperty(500)]
+		[PersistentProperty()]
 		public string Comment
         {
             get { return this.m_Comment; }
@@ -132,7 +132,7 @@ namespace YellowstonePathology.Business.Test.EGFRMutationAnalysis
             }
         }
 
-		[PersistentProperty("0")]
+		[PersistentProperty()]
 		public bool MicrodissectionPerformed
         {
             get { return this.m_MicrodissectionPerformed; }
@@ -146,7 +146,7 @@ namespace YellowstonePathology.Business.Test.EGFRMutationAnalysis
             }
         }
 
-        [PersistentStringProperty(1000)]
+        [PersistentProperty()]
         public string ReportDisclaimer
         {
             get { return this.m_ReportDisclaimer; }

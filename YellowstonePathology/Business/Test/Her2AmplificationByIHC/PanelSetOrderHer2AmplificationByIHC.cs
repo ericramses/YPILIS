@@ -31,7 +31,7 @@ namespace YellowstonePathology.Business.Test.Her2AmplificationByIHC
 		{
 		}
 
-		[PersistentStringProperty(500)]
+		[PersistentProperty()]
 		public string Result
 		{
 			get { return this.m_Result; }
@@ -45,7 +45,7 @@ namespace YellowstonePathology.Business.Test.Her2AmplificationByIHC
 			}
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string Score
 		{
 			get { return this.m_Score; }
@@ -59,7 +59,7 @@ namespace YellowstonePathology.Business.Test.Her2AmplificationByIHC
 			}
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string IntenseCompleteMembraneStainingPercent
 		{
 			get { return this.m_IntenseCompleteMembraneStainingPercent; }
@@ -73,7 +73,7 @@ namespace YellowstonePathology.Business.Test.Her2AmplificationByIHC
 			}
 		}
 
-		[PersistentStringProperty(500)]
+		[PersistentProperty()]
 		public string BreastTestingFixative
 		{
 			get { return this.m_BreastTestingFixative; }
@@ -87,7 +87,7 @@ namespace YellowstonePathology.Business.Test.Her2AmplificationByIHC
 			}
 		}
 
-		[PersistentStringProperty(5000)]
+		[PersistentProperty()]
 		public string Interpretation
 		{
 			get { return this.m_Interpretation; }
@@ -101,7 +101,7 @@ namespace YellowstonePathology.Business.Test.Her2AmplificationByIHC
 			}
 		}
 
-		[PersistentStringProperty(500)]
+		[PersistentProperty()]
 		public string Method
 		{
 			get { return this.m_Method; }
@@ -115,7 +115,7 @@ namespace YellowstonePathology.Business.Test.Her2AmplificationByIHC
 			}
 		}
 
-		[PersistentStringProperty(1000)]
+		[PersistentProperty()]
 		public string ReportDisclaimer
 		{
 			get { return this.m_ReportDisclaimer; }
@@ -129,7 +129,7 @@ namespace YellowstonePathology.Business.Test.Her2AmplificationByIHC
 			}
 		}
 
-		[PersistentStringProperty(1000)]
+		[PersistentProperty()]
 		public string Reference
 		{
 			get { return this.m_Reference; }

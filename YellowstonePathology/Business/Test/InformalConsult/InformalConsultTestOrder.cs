@@ -25,7 +25,7 @@ namespace YellowstonePathology.Business.Test.InformalConsult
             
 		}
 
-        [PersistentStringProperty(500)]
+        [PersistentProperty()]
         public string Request
         {
             get { return this.m_Request; }
@@ -39,7 +39,7 @@ namespace YellowstonePathology.Business.Test.InformalConsult
             }
         }
 
-        [PersistentStringProperty(1000)]
+        [PersistentProperty()]
         public string Result
         {
             get { return this.m_Result; }

@@ -23,7 +23,7 @@ namespace YellowstonePathology.Business.Test.GrossOnly
 		{
         }
 
-        [PersistentStringProperty(-1)]
+        [PersistentProperty()]
         public string GrossX
         {
             get { return this.m_GrossX; }

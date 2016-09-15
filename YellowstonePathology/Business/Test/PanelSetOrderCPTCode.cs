@@ -70,7 +70,7 @@ namespace YellowstonePathology.Business.Test
 			}
 		}
 
-		[PersistentDocumentIdProperty(50)]
+		[PersistentDocumentIdProperty()]
 		public string ObjectId
 		{
 			get { return this.m_ObjectId; }
@@ -84,7 +84,7 @@ namespace YellowstonePathology.Business.Test
 			}
 		}
 
-		[PersistentPrimaryKeyProperty(false, 50)]
+		[PersistentPrimaryKeyProperty(false)]
         public string PanelSetOrderCPTCodeId
 		{
             get { return this.m_PanelSetOrderCPTCodeId; }
@@ -98,7 +98,7 @@ namespace YellowstonePathology.Business.Test
 			}
 		}
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
         public string ReferenceId
         {
             get { return this.m_ReferenceId; }
@@ -112,7 +112,7 @@ namespace YellowstonePathology.Business.Test
             }
         }
 
-		[PersistentStringProperty(20)]
+		[PersistentProperty()]
 		public string ReportNo
 		{
 			get { return this.m_ReportNo; }
@@ -154,7 +154,7 @@ namespace YellowstonePathology.Business.Test
 			}
 		}								
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string CPTCode
 		{
 			get { return this.m_CPTCode; }
@@ -168,7 +168,7 @@ namespace YellowstonePathology.Business.Test
 			}
 		}
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string Modifier
 		{
 			get { return this.m_Modifier; }
@@ -182,7 +182,7 @@ namespace YellowstonePathology.Business.Test
 			}
 		}
 
-		[PersistentStringProperty(1000)]
+		[PersistentProperty()]
 		public string CodeableDescription
 		{
 			get { return this.m_CodeableDescription; }
@@ -196,7 +196,7 @@ namespace YellowstonePathology.Business.Test
 			}
 		}		      
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
         public string CodeableType
         {
             get { return this.m_CodeableType; }
@@ -210,7 +210,7 @@ namespace YellowstonePathology.Business.Test
             }
         }
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
         public string EntryType
         {
             get { return this.m_EntryType; }
@@ -224,7 +224,7 @@ namespace YellowstonePathology.Business.Test
             }
         }
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string SpecimenOrderId
 		{
 			get { return this.m_SpecimenOrderId; }
@@ -252,7 +252,7 @@ namespace YellowstonePathology.Business.Test
             }
         }
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
         public string CodeType
         {
             get { return this.m_CodeType; }

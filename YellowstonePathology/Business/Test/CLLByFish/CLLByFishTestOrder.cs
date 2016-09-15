@@ -31,7 +31,7 @@ namespace YellowstonePathology.Business.Test.CLLByFish
                 "4.Atlas of Genetics and Cytogenetics in Oncology and Hematology http://atlasgeneticsoncology.org/";
         }
 
-		[PersistentStringProperty(50)]
+		[PersistentProperty()]
 		public string Result
 		{
 			get { return this.m_Result; }
@@ -45,7 +45,7 @@ namespace YellowstonePathology.Business.Test.CLLByFish
 			}
 		}
 
-		[PersistentStringProperty(100)]
+		[PersistentProperty()]
 		public string ResultDescription
 		{
 			get { return this.m_ResultDescription; }
@@ -59,7 +59,7 @@ namespace YellowstonePathology.Business.Test.CLLByFish
 			}
 		}
 
-		[PersistentStringProperty(5000)]
+		[PersistentProperty()]
 		public string Interpretation
 		{
 			get { return this.m_Interpretation; }
@@ -73,7 +73,7 @@ namespace YellowstonePathology.Business.Test.CLLByFish
 			}
 		}
 
-		[PersistentStringProperty(5000)]
+		[PersistentProperty()]
 		public string ProbeSetDetail
 		{
 			get { return this.m_ProbeSetDetail; }
@@ -87,7 +87,7 @@ namespace YellowstonePathology.Business.Test.CLLByFish
 			}
 		}
 
-		[PersistentStringProperty(100)]
+		[PersistentProperty()]
 		public string NucleiScored
 		{
 			get { return this.m_NucleiScored; }

@@ -30,7 +30,7 @@ namespace YellowstonePathology.Business.Test.CCNDIBCLIGHByPCR
                 "certified to perform high complexity clinical testing.";
         }
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
         public string Result
         {
             get { return this.m_Result; }
@@ -44,7 +44,7 @@ namespace YellowstonePathology.Business.Test.CCNDIBCLIGHByPCR
             }
         }
 
-        [PersistentStringProperty(1000)]
+        [PersistentProperty()]
         public string Interpretation
         {
             get { return this.m_Interpretation; }
@@ -58,7 +58,7 @@ namespace YellowstonePathology.Business.Test.CCNDIBCLIGHByPCR
             }
         }
 
-        [PersistentStringProperty(1000)]
+        [PersistentProperty()]
         public string Method
         {
             get { return this.m_Method; }
@@ -72,7 +72,7 @@ namespace YellowstonePathology.Business.Test.CCNDIBCLIGHByPCR
             }
         }
 
-        [PersistentStringProperty(500)]
+        [PersistentProperty()]
         public string ACR
         {
             get { return this.m_ACR; }

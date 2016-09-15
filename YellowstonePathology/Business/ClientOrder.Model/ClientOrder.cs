@@ -93,7 +93,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
             set { this.m_ClientOrderDetailCollection = value; }
         }
 
-		[PersistentDocumentIdProperty(50)]
+		[PersistentDocumentIdProperty()]
 		public string ObjectId
 		{
 			get { return this.m_ObjectId; }
@@ -108,7 +108,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
         [DataMember]
-        [PersistentPrimaryKeyProperty(false, 0)]
+        [PersistentPrimaryKeyProperty(false)]
         public string ClientOrderId
         {
             get { return this.m_ClientOrderId; }

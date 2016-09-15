@@ -27,7 +27,7 @@ namespace YellowstonePathology.Business.Test.CKIT
 		{
 		}
 
-		[PersistentStringProperty(500)]
+		[PersistentProperty()]
 		public string Result
 		{
 			get { return this.m_Result; }
@@ -41,7 +41,7 @@ namespace YellowstonePathology.Business.Test.CKIT
 			}
 		}
 
-		[PersistentStringProperty(500)]
+		[PersistentProperty()]
 		public string Comment
 		{
 			get { return this.m_Comment; }
@@ -55,7 +55,7 @@ namespace YellowstonePathology.Business.Test.CKIT
 			}
 		}
 
-		[PersistentStringProperty(1000)]
+		[PersistentProperty()]
 		public string Interpretation
 		{
 			get { return this.m_Interpretation; }
@@ -69,7 +69,7 @@ namespace YellowstonePathology.Business.Test.CKIT
 			}
 		}
 
-		[PersistentStringProperty(1000)]
+		[PersistentProperty()]
 		public string Method
 		{
 			get { return this.m_Method; }
@@ -83,7 +83,7 @@ namespace YellowstonePathology.Business.Test.CKIT
 			}
 		}
 
-		[PersistentStringProperty(500)]
+		[PersistentProperty()]
 		public string TestDevelopment
 		{
 			get { return this.m_TestDevelopment; }

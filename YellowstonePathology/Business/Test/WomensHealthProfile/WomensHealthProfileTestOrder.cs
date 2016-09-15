@@ -41,7 +41,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
             this.m_HPV1618StandingOrderCode = standingOrderNotSet.StandingOrderCode;
 		}        
 
-        [PersistentProperty("0")]
+        [PersistentProperty()]
         public bool OrderHPV
         {
             get { return this.m_OrderHPV; }
@@ -55,7 +55,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
             }
         }
 
-        [PersistentProperty("0")]
+        [PersistentProperty()]
         public bool OrderNGCT
         {
             get { return this.m_OrderNGCT; }
@@ -69,7 +69,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
             }
         }
 
-        [PersistentProperty("0")]
+        [PersistentProperty()]
         public bool OrderTrichomonas
         {
             get { return this.m_OrderTrichomonas; }
@@ -97,7 +97,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
             }
         }
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
         public string HPVReflexOrderCode
         {
             get { return this.m_HPVReflexOrderCode; }
@@ -111,7 +111,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
             }
         }        
 
-        [PersistentStringProperty(50, "'STNDNONE'")]
+        [PersistentProperty()]
         public string HPVStandingOrderCode
         {
             get { return this.m_HPVStandingOrderCode; }
@@ -125,7 +125,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
             }
         }        
 
-        [PersistentStringProperty(50)]
+        [PersistentProperty()]
         public string HPV1618ReflexOrderCode
         {
             get { return this.m_HPV1618ReflexOrderCode; }
@@ -140,7 +140,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
         }
                        
 
-        [PersistentStringProperty(50, "'STNDNONE'")]
+        [PersistentProperty()]
         public string HPV1618StandingOrderCode
         {
             get { return this.m_HPV1618StandingOrderCode; }
@@ -154,7 +154,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
             }
         }
 
-        [PersistentStringProperty(1000)]
+        [PersistentProperty()]
         public string Comment
         {
             get { return this.m_Comment; }

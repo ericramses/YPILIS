@@ -27,7 +27,7 @@ namespace YellowstonePathology.Business.Test.Trichomonas
             this.m_Method = TrichomonasResult.Method;
         }
 
-        [YellowstonePathology.Business.Persistence.PersistentStringProperty(50)]
+        [PersistentProperty()]
         public string Result
         {
             get { return this.m_Result; }
@@ -41,7 +41,7 @@ namespace YellowstonePathology.Business.Test.Trichomonas
             }
         }
 
-        [YellowstonePathology.Business.Persistence.PersistentStringProperty(1000)]
+        [PersistentProperty()]
         public string Method
         {
             get { return this.m_Method; }
