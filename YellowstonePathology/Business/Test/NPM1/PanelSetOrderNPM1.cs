@@ -27,6 +27,7 @@ namespace YellowstonePathology.Business.Test.NPM1
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
 		public string Result
 		{
 			get { return this.m_Result; }
@@ -41,6 +42,7 @@ namespace YellowstonePathology.Business.Test.NPM1
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
 		public string PercentageNPM1Mutation
 		{
 			get { return this.m_PercentageNPM1Mutation; }
@@ -55,6 +57,7 @@ namespace YellowstonePathology.Business.Test.NPM1
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "500", "null", "varchar")]
 		public string Interpretation
 		{
 			get { return this.m_Interpretation; }
@@ -69,6 +72,7 @@ namespace YellowstonePathology.Business.Test.NPM1
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "5000", "null", "varchar")]
 		public string Method
 		{
 			get { return this.m_Method; }

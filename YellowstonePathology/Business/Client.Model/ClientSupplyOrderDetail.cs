@@ -45,6 +45,7 @@ namespace YellowstonePathology.Business.Client.Model
         }
 
         [PersistentPrimaryKeyProperty(false)]
+        [PersistentDataColumnProperty(false, "50", "null", "varchar")]
 		public string clientsupplyorderdetailid
 		{
 			get { return this.m_clientsupplyorderdetailid; }
@@ -59,6 +60,7 @@ namespace YellowstonePathology.Business.Client.Model
 		}
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "0", "varchar")]
 		public string clientsupplyorderid
 		{
 			get { return this.m_clientsupplyorderid; }
@@ -73,6 +75,7 @@ namespace YellowstonePathology.Business.Client.Model
 		}
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "11", "0", "int")]
 		public int clientsupplyid
 		{
 			get { return this.m_clientsupplyid; }
@@ -87,6 +90,7 @@ namespace YellowstonePathology.Business.Client.Model
 		}
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "100", "null", "varchar")]
 		public string supplyname
 		{
 			get { return this.m_supplyname; }
@@ -101,6 +105,7 @@ namespace YellowstonePathology.Business.Client.Model
 		}
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "500", "null", "varchar")]
 		public string supplydescription
 		{
 			get { return this.m_supplydescription; }
@@ -115,6 +120,7 @@ namespace YellowstonePathology.Business.Client.Model
 		}
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "100", "null", "varchar")]
 		public string quantityordered
 		{
 			get { return this.m_quantityordered; }
@@ -129,6 +135,7 @@ namespace YellowstonePathology.Business.Client.Model
 		}
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "11", "null", "int")]
 		public int quantity
 		{
 			get { return this.m_quantity; }
@@ -143,6 +150,7 @@ namespace YellowstonePathology.Business.Client.Model
 		}
 
         [PersistentDocumentIdProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
 		public string ObjectId
 		{
 			get { return this.m_ObjectId; }

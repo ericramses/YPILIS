@@ -28,6 +28,7 @@ namespace YellowstonePathology.Business.Test.MPNStandardReflex
 		}
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "100", "null", "varchar")]
         public string Comment
         {
             get { return this.m_Comment; }
@@ -42,6 +43,7 @@ namespace YellowstonePathology.Business.Test.MPNStandardReflex
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "5000", "null", "varchar")]
         public string Interpretation
         {
             get { return this.m_Interpretation; }
@@ -56,6 +58,7 @@ namespace YellowstonePathology.Business.Test.MPNStandardReflex
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "5000", "null", "varchar")]
         public string Method
         {
             get { return this.m_Method; }

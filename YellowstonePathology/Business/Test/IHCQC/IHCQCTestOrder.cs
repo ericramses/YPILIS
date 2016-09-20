@@ -26,6 +26,7 @@ namespace YellowstonePathology.Business.Test.IHCQC
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(false, "1", "null", "bit")]
         public bool ControlsReactedAppropriately
 		{
             get { return this.m_ControlsReactedAppropriately; }
@@ -40,6 +41,7 @@ namespace YellowstonePathology.Business.Test.IHCQC
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "500", "null", "varchar")]
 		public string Comment
 		{
             get { return this.m_Comment; }

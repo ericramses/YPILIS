@@ -28,6 +28,7 @@ namespace YellowstonePathology.Business.Test.Trichomonas
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
         public string Result
         {
             get { return this.m_Result; }
@@ -42,6 +43,7 @@ namespace YellowstonePathology.Business.Test.Trichomonas
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "1000", "null", "varchar")]
         public string Method
         {
             get { return this.m_Method; }

@@ -58,6 +58,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
         }
 
 		[PersistentDocumentIdProperty()]
+		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
 		public string ObjectId
 		{
 			get { return this.m_ObjectId; }
@@ -72,6 +73,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
 		}
 
         [PersistentPrimaryKeyProperty(false)]
+        [PersistentDataColumnProperty(false, "50", "null", "varchar")]
 		public string MaterialTrackingBatchId
 		{
 			get { return this.m_MaterialTrackingBatchId; }
@@ -86,6 +88,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
 		}
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "3", "null", "datetime")]
         public DateTime BatchDate
         {
             get { return this.m_BatchDate; }
@@ -100,6 +103,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "1000", "null", "varchar")]
 		public string Description
 		{
 			get { return this.m_Description; }
@@ -114,6 +118,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
 		}
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
         public string FromFacilityId
         {
             get { return this.m_FromFacilityId; }
@@ -129,6 +134,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
 
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "500", "null", "varchar")]
         public string FromFacilityName
         {
             get { return this.m_FromFacilityName; }
@@ -143,6 +149,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
 		public string FromLocationId
 		{
 			get { return this.m_FromLocationId; }
@@ -157,6 +164,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
 		}
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "500", "null", "varchar")]
 		public string FromLocationName
 		{
 			get { return this.m_FromLocationName; }
@@ -171,6 +179,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
 		}
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
         public string ToFacilityId
         {
             get { return this.m_ToFacilityId; }
@@ -185,6 +194,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "500", "null", "varchar")]
         public string ToFacilityName
         {
             get { return this.m_ToFacilityName; }
@@ -199,6 +209,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
         public string ToLocationId
         {
             get { return this.m_ToLocationId; }
@@ -213,6 +224,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "500", "null", "varchar")]
         public string ToLocationName
         {
             get { return this.m_ToLocationName; }
@@ -227,6 +239,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
         }
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "3", "null", "datetime")]
 		public DateTime OpenDate
 		{
 			get { return this.m_OpenDate; }
@@ -241,6 +254,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "3", "null", "datetime")]
 		public DateTime? ClosedDate
 		{
 			get { return this.m_ClosedDate; }
@@ -255,6 +269,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "1", "null", "bit")]
 		public bool IsOpen
 		{
 			get { return this.m_IsOpen; }
@@ -269,6 +284,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
 		}
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "500", "null", "varchar")]
         public string TrackingInformation
         {
             get { return this.m_TrackingInformation; }
@@ -283,6 +299,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
         public string MasterAccessionNo
         {
             get { return this.m_MasterAccessionNo; }

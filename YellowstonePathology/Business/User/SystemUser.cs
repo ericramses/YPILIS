@@ -43,6 +43,7 @@ namespace YellowstonePathology.Business.User
 		}
 
 		[PersistentPrimaryKeyProperty(true)]
+		[PersistentDataColumnProperty(false, "11", "null", "int")]
 		public int UserId
 		{
 			get { return this.m_UserId; }
@@ -57,6 +58,7 @@ namespace YellowstonePathology.Business.User
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
 		public string FirstName
 		{
 			get { return this.m_FirstName; }
@@ -71,6 +73,7 @@ namespace YellowstonePathology.Business.User
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
 		public string LastName
 		{
 			get { return this.m_LastName; }
@@ -85,6 +88,7 @@ namespace YellowstonePathology.Business.User
 		}
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
         public string MiddleInitial
         {
             get { return this.m_MiddleInitial; }
@@ -99,6 +103,7 @@ namespace YellowstonePathology.Business.User
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "200", "null", "varchar")]
 		public string DisplayName
 		{
 			get { return this.m_DisplayName; }
@@ -113,6 +118,7 @@ namespace YellowstonePathology.Business.User
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
 		public string UserName
 		{
 			get { return this.m_UserName; }
@@ -127,6 +133,7 @@ namespace YellowstonePathology.Business.User
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "1", "1", "bit")]
 		public bool Active
 		{
 			get { return this.m_Active; }
@@ -141,6 +148,7 @@ namespace YellowstonePathology.Business.User
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "100", "null", "varchar")]
 		public string Signature
 		{
 			get { return this.m_Signature; }
@@ -155,6 +163,7 @@ namespace YellowstonePathology.Business.User
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "10", "null", "varchar")]
 		public string Initials
 		{
 			get { return this.m_Initials; }
@@ -169,6 +178,7 @@ namespace YellowstonePathology.Business.User
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
 		public string NationalProviderId
         {
             get { return this.m_NationalProviderId; }
@@ -183,6 +193,7 @@ namespace YellowstonePathology.Business.User
         }
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "500", "null", "varchar")]
 		public string EmailAddress
         {
             get { return this.m_EmailAddress; }

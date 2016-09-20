@@ -69,6 +69,7 @@ namespace YellowstonePathology.Business.Client.Model
 		}
 
         [PersistentPrimaryKeyProperty(false)]
+        [PersistentDataColumnProperty(false, "50", "null", "varchar")]
 		public string ClientSupplyOrderId
 		{
 			get { return this.m_ClientSupplyOrderId; }
@@ -83,6 +84,7 @@ namespace YellowstonePathology.Business.Client.Model
 		}
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "11", "0", "int")]
 		public int ClientId
 		{
 			get { return this.m_ClientId; }
@@ -97,6 +99,7 @@ namespace YellowstonePathology.Business.Client.Model
 		}
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "200", "null", "varchar")]
 		public string ClientName
 		{
 			get { return this.m_ClientName; }
@@ -111,6 +114,7 @@ namespace YellowstonePathology.Business.Client.Model
 		}
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "200", "null", "varchar")]
 		public string ClientAddress
 		{
 			get { return this.m_ClientAddress; }
@@ -125,6 +129,7 @@ namespace YellowstonePathology.Business.Client.Model
 		}
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "100", "null", "varchar")]
 		public string ClientCity
 		{
 			get { return this.m_ClientCity; }
@@ -139,6 +144,7 @@ namespace YellowstonePathology.Business.Client.Model
 		}
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "20", "null", "varchar")]
 		public string ClientState
 		{
 			get { return this.m_ClientState; }
@@ -153,6 +159,7 @@ namespace YellowstonePathology.Business.Client.Model
 		}
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "20", "null", "varchar")]
 		public string ClientZip
 		{
 			get { return this.m_ClientZip; }
@@ -167,6 +174,7 @@ namespace YellowstonePathology.Business.Client.Model
 		}
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "3", "null", "datetime")]
 		public DateTime? OrderDate
 		{
 			get { return this.m_OrderDate; }
@@ -181,6 +189,7 @@ namespace YellowstonePathology.Business.Client.Model
 		}
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "3", "null", "datetime")]
 		public DateTime? DateOrderSent
 		{
 			get { return this.m_DateOrderSent; }
@@ -195,6 +204,7 @@ namespace YellowstonePathology.Business.Client.Model
 		}
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "1", "0", "bit")]
 		public bool OrderFinal
 		{
 			get { return this.m_OrderFinal; }
@@ -209,6 +219,7 @@ namespace YellowstonePathology.Business.Client.Model
 		}
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "11", "0", "int")]
 		public int OrderTakenById
 		{
 			get { return this.m_OrderTakenById; }
@@ -223,6 +234,7 @@ namespace YellowstonePathology.Business.Client.Model
 		}
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "11", "0", "int")]
 		public int OrderFilledById
 		{
 			get { return this.m_OrderFilledById; }
@@ -237,6 +249,7 @@ namespace YellowstonePathology.Business.Client.Model
 		}
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "500", "null", "varchar")]
 		public string ContactName
 		{
 			get { return this.m_ContactName; }
@@ -251,6 +264,7 @@ namespace YellowstonePathology.Business.Client.Model
 		}
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "5000", "null", "varchar")]
 		public string Comment
 		{
 			get { return this.m_Comment; }
@@ -265,6 +279,7 @@ namespace YellowstonePathology.Business.Client.Model
 		}
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "200", "null", "varchar")]
         public string OrderTakenBy
         {
             get { return this.m_OrderTakenBy; }
@@ -279,6 +294,7 @@ namespace YellowstonePathology.Business.Client.Model
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "200", "null", "varchar")]
         public string OrderFilledBy
         {
             get { return this.m_OrderFilledBy; }
@@ -293,6 +309,7 @@ namespace YellowstonePathology.Business.Client.Model
         }
 
         [PersistentDocumentIdProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
 		public string ObjectId
 		{
 			get { return this.m_ObjectId; }

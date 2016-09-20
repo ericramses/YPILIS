@@ -32,6 +32,7 @@ namespace YellowstonePathology.Business.Test.BCellClonalityByPCR
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "500", "null", "varchar")]
 		public string Result
 		{
 			get { return this.m_Result; }
@@ -46,6 +47,7 @@ namespace YellowstonePathology.Business.Test.BCellClonalityByPCR
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "5000", "null", "varchar")]
 		public string Interpretation
 		{
 			get { return this.m_Interpretation; }
@@ -60,6 +62,7 @@ namespace YellowstonePathology.Business.Test.BCellClonalityByPCR
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
 		public string TumorNucleiPercent
 		{
 			get { return this.m_TumorNucleiPercent; }
@@ -74,6 +77,7 @@ namespace YellowstonePathology.Business.Test.BCellClonalityByPCR
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "500", "null", "varchar")]
 		public string Comment
 		{
 			get { return this.m_Comment; }
@@ -88,6 +92,7 @@ namespace YellowstonePathology.Business.Test.BCellClonalityByPCR
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "500", "null", "varchar")]
 		public string Method
 		{
 			get { return this.m_Method; }
@@ -102,6 +107,7 @@ namespace YellowstonePathology.Business.Test.BCellClonalityByPCR
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "1000", "null", "varchar")]
 		public string ASRComment
 		{
 			get { return this.m_ASRComment; }
@@ -116,6 +122,7 @@ namespace YellowstonePathology.Business.Test.BCellClonalityByPCR
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
 		public string BCellFrameWork1
 		{
 			get { return this.m_BCellFrameWork1; }
@@ -130,6 +137,7 @@ namespace YellowstonePathology.Business.Test.BCellClonalityByPCR
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
 		public string BCellFrameWork2
 		{
 			get { return this.m_BCellFrameWork2; }
@@ -144,6 +152,7 @@ namespace YellowstonePathology.Business.Test.BCellClonalityByPCR
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
 		public string BCellFrameWork3
 		{
 			get { return this.m_BCellFrameWork3; }
@@ -158,6 +167,7 @@ namespace YellowstonePathology.Business.Test.BCellClonalityByPCR
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
 		public string BCellFragmentSize
 		{
 			get { return this.m_BCellFragmentSize; }

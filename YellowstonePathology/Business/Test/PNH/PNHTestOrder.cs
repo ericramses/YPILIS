@@ -72,6 +72,7 @@ namespace YellowstonePathology.Business.Test.PNH
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "500", "null", "varchar")]
 		public string Result
 		{
 			get { return this.m_Result; }
@@ -86,6 +87,7 @@ namespace YellowstonePathology.Business.Test.PNH
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "1000", "null", "varchar")]
 		public string Comment
 		{
 			get { return this.m_Comment; }
@@ -100,6 +102,7 @@ namespace YellowstonePathology.Business.Test.PNH
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
 		public string TypeIRedBloodCells
 		{
 			get { return this.m_TypeIRedBloodCells; }
@@ -114,6 +117,7 @@ namespace YellowstonePathology.Business.Test.PNH
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
 		public string TypeIIRedBloodCells
 		{
 			get { return this.m_TypeIIRedBloodCells; }
@@ -128,6 +132,7 @@ namespace YellowstonePathology.Business.Test.PNH
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
 		public string TypeIIIRedBloodCells
 		{
 			get { return this.m_TypeIIIRedBloodCells; }
@@ -142,6 +147,7 @@ namespace YellowstonePathology.Business.Test.PNH
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
 		public string TypeIIMonocytes
 		{
 			get { return this.m_TypeIIMonocytes; }
@@ -156,6 +162,7 @@ namespace YellowstonePathology.Business.Test.PNH
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
 		public string TypeIIIMonocytes
 		{
 			get { return this.m_TypeIIIMonocytes; }
@@ -170,6 +177,7 @@ namespace YellowstonePathology.Business.Test.PNH
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
 		public string TypeIIGranulocytes
 		{
 			get { return this.m_TypeIIGranulocytes; }
@@ -184,6 +192,7 @@ namespace YellowstonePathology.Business.Test.PNH
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
 		public string TypeIIIGranulocytes
 		{
 			get { return this.m_TypeIIIGranulocytes; }
@@ -198,6 +207,7 @@ namespace YellowstonePathology.Business.Test.PNH
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "1000", "null", "varchar")]
 		public string Method
 		{
 			get { return this.m_Method; }
@@ -212,6 +222,7 @@ namespace YellowstonePathology.Business.Test.PNH
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "1000", "null", "varchar")]
 		public string ASRComment
 		{
 			get { return this.m_ASRComment; }

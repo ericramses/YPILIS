@@ -31,6 +31,7 @@ namespace YellowstonePathology.Business.Test.NeoARRAYSNPCytogeneticProfile
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "500", "null", "varchar")]
 		public string Result
 		{
 			get { return this.m_Result; }
@@ -45,6 +46,7 @@ namespace YellowstonePathology.Business.Test.NeoARRAYSNPCytogeneticProfile
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
 		public string CopyNumberVariant
 		{
 			get { return this.m_CopyNumberVariant; }
@@ -59,6 +61,7 @@ namespace YellowstonePathology.Business.Test.NeoARRAYSNPCytogeneticProfile
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
 		public string UniparentalDisomy
 		{
 			get { return this.m_UniparentalDisomy; }
@@ -73,6 +76,7 @@ namespace YellowstonePathology.Business.Test.NeoARRAYSNPCytogeneticProfile
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "500", "null", "varchar")]
 		public string MicroarrayResults
 		{
 			get { return this.m_MicroarrayResults; }
@@ -87,6 +91,7 @@ namespace YellowstonePathology.Business.Test.NeoARRAYSNPCytogeneticProfile
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "5000", "null", "varchar")]
 		public string Interpretation
 		{
 			get { return this.m_Interpretation; }
@@ -101,6 +106,7 @@ namespace YellowstonePathology.Business.Test.NeoARRAYSNPCytogeneticProfile
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "5000", "null", "varchar")]
 		public string Method
 		{
 			get { return this.m_Method; }
@@ -115,6 +121,7 @@ namespace YellowstonePathology.Business.Test.NeoARRAYSNPCytogeneticProfile
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "500", "null", "varchar")]
 		public string TestDevelopment
 		{
 			get { return this.m_TestDevelopment; }

@@ -191,11 +191,11 @@ namespace YellowstonePathology.Business.Gateway
                 "Left Outer Join tblSystemUser su on pso.OrderedById = su.UserId " +
                 "WHERE a.AccessionDate = @AccessionDate " +
                 "And pso.PanelSetId in (" + panelSetIdString + ")" +
-                "ORDER BY AccessionTime desc " +
-                "for xml path('ReportSearchItem'), type, root('ReportSearchList')";
+                "ORDER BY AccessionTime desc ";
             cmd.Parameters.Add("@AccessionDate", SqlDbType.VarChar).Value = accessionDate;
 
-			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
+            Search.ReportSearchList reportSearchList = BuildReportSearchList(cmd);
+
             return reportSearchList;
         }
 
@@ -256,13 +256,14 @@ namespace YellowstonePathology.Business.Gateway
 		public static YellowstonePathology.Business.Search.ReportSearchList GetReportSearchListByDateRange(List<object> parameters)
 		{
 			SqlCommand cmd = new SqlCommand();
-			cmd.CommandType = CommandType.StoredProcedure;
-			cmd.CommandText = "gwAccessionOrderListByCurrentMonthFill";
-			cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = parameters[0];
-			cmd.Parameters.Add("@EndDate", SqlDbType.DateTime).Value = parameters[1];
-			cmd.Parameters.Add("@PanelSetId", SqlDbType.VarChar).Value = parameters[2];
-			YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
-			return reportSearchList;
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "gwAccessionOrderListByCurrentMonthFill_1";
+            cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = parameters[0];
+            cmd.Parameters.Add("@EndDate", SqlDbType.DateTime).Value = parameters[1];
+            cmd.Parameters.Add("@PanelSetId", SqlDbType.VarChar).Value = parameters[2];
+
+            Search.ReportSearchList reportSearchList = BuildReportSearchList(cmd);
+            return reportSearchList;
 		}
 
 		public static YellowstonePathology.Business.Search.ReportSearchList GetReportSearchListByDateRangeLocation(List<object> parameters)
@@ -418,6 +419,28 @@ namespace YellowstonePathology.Business.Gateway
             }
 
             result.SetState();
+            return result;
+        }
+
+        private static YellowstonePathology.Business.Search.ReportSearchList BuildReportSearchList(SqlCommand cmd)
+        {
+            Search.ReportSearchList result = new Search.ReportSearchList();
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        Search.ReportSearchItem reportSearchItem = new Search.ReportSearchItem();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(reportSearchItem, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(reportSearchItem);
+                    }
+                }
+            }
             return result;
         }
     }

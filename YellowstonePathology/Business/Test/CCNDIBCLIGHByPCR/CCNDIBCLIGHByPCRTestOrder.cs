@@ -31,6 +31,7 @@ namespace YellowstonePathology.Business.Test.CCNDIBCLIGHByPCR
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
         public string Result
         {
             get { return this.m_Result; }
@@ -45,6 +46,7 @@ namespace YellowstonePathology.Business.Test.CCNDIBCLIGHByPCR
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "1000", "null", "varchar")]
         public string Interpretation
         {
             get { return this.m_Interpretation; }
@@ -59,6 +61,7 @@ namespace YellowstonePathology.Business.Test.CCNDIBCLIGHByPCR
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "1000", "null", "varchar")]
         public string Method
         {
             get { return this.m_Method; }
@@ -73,6 +76,7 @@ namespace YellowstonePathology.Business.Test.CCNDIBCLIGHByPCR
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "500", "null", "varchar")]
         public string ACR
         {
             get { return this.m_ACR; }

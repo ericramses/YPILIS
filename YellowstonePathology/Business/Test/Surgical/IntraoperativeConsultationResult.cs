@@ -47,6 +47,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 		}
 
 		[PersistentDocumentIdProperty()]
+		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
 		public string ObjectId
 		{
 			get { return this.m_ObjectId; }
@@ -61,6 +62,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 		}
 
 		[PersistentPrimaryKeyProperty(false)]
+		[PersistentDataColumnProperty(false, "50", "null", "varchar")]
 		public string IntraoperativeConsultationResultId
 		{
 			get { return this.m_IntraoperativeConsultationResultId; }
@@ -75,6 +77,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
 		public string SurgicalSpecimenId
 		{
 			get { return this.m_SurgicalSpecimenId; }
@@ -89,6 +92,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "3", "null", "datetime")]
 		public Nullable<DateTime> StartDate
 		{
 			get { return this.m_StartDate; }
@@ -103,6 +107,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "3", "null", "datetime")]
 		public Nullable<DateTime> EndDate
 		{
 			get { return this.m_EndDate; }
@@ -117,6 +122,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "100", "null", "varchar")]
 		public string TestOrderId
 		{
 			get { return this.m_TestOrderId; }
@@ -131,6 +137,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(false, "11", "0", "int")]
 		public int PerformedById
 		{
 			get { return this.m_PerformedById; }
@@ -145,6 +152,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "5000", "null", "varchar")]
 		public string Result
 		{
 			get { return this.m_Result; }
@@ -159,6 +167,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "50", "'Not Correlated'", "varchar")]
 		public string Correlation
 		{
 			get { return this.m_Correlation; }
@@ -173,6 +182,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "50", "'Not Correlated'", "varchar")]
 		public string CorrelationDiscrepancyType
 		{
 			get { return this.m_CorrelationDiscrepancyType; }
@@ -187,6 +197,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "50", "'Not Correlated'", "varchar")]
 		public bool CorrelationAffectsPatientCare
 		{
 			get { return this.m_CorrelationAffectsPatientCare; }
@@ -201,6 +212,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "50", "'Not Correlated'", "varchar")]
 		public string CorrelationEffectOnPatientCare
 		{
 			get { return this.m_CorrelationEffectOnPatientCare; }
@@ -215,6 +227,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "250", "null", "varchar")]
 		public string CallbackContact
 		{
 			get { return this.m_CallbackContact; }
@@ -229,6 +242,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "1", "null", "bit")]
 		public bool Final
 		{
 			get { return this.m_Final; }
@@ -243,6 +257,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "3", "null", "datetime")]
 		public DateTime? FinalDate
 		{
 			get { return this.m_FinalDate; }
@@ -257,6 +272,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "3", "null", "datetime")]
 		public DateTime? FinalTime
 		{
 			get { return this.m_FinalTime; }
@@ -271,6 +287,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "11", "null", "int")]
 		public int? FinaledById
 		{
 			get { return this.m_FinaledById; }
@@ -285,6 +302,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "100", "null", "varchar")]
 		public string FinaledBy
 		{
 			get { return this.m_FinaledBy; }

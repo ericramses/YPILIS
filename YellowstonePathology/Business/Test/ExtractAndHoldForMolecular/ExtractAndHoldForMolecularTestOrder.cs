@@ -19,6 +19,7 @@ namespace YellowstonePathology.Business.Test.ExtractAndHoldForMolecular
         { }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
         public string Comment
         {
             get { return this.m_Comment; }

@@ -33,6 +33,7 @@ namespace YellowstonePathology.Business.Test.HPV
 		}        
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "100", "null", "varchar")]
 		public string Result
 		{
 			get { return this.m_Result; }
@@ -47,6 +48,7 @@ namespace YellowstonePathology.Business.Test.HPV
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "500", "null", "varchar")]
 		public string Comment
 		{
 			get { return this.m_Comment; }
@@ -61,6 +63,7 @@ namespace YellowstonePathology.Business.Test.HPV
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "5000", "null", "varchar")]
 		public string TestInformation
 		{
 			get { return this.m_TestInformation; }
@@ -75,6 +78,7 @@ namespace YellowstonePathology.Business.Test.HPV
 		}
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "500", "null", "varchar")]
         public string ASRComment
         {
             get { return this.m_ASRComment; }

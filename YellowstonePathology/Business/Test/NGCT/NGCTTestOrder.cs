@@ -75,6 +75,7 @@ namespace YellowstonePathology.Business.Test.NGCT
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
 		public string NeisseriaGonorrhoeaeResult
 		{
 			get { return this.m_NeisseriaGonorrhoeaeResult; }
@@ -89,6 +90,7 @@ namespace YellowstonePathology.Business.Test.NGCT
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
 		public string ChlamydiaTrachomatisResult
 		{
 			get { return this.m_ChlamydiaTrachomatisResult; }
@@ -103,6 +105,7 @@ namespace YellowstonePathology.Business.Test.NGCT
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
 		public string NGResultCode
 		{
 			get { return this.m_NGResultCode; }
@@ -117,6 +120,7 @@ namespace YellowstonePathology.Business.Test.NGCT
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
 		public string CTResultCode
 		{
 			get { return this.m_CTResultCode; }
@@ -131,6 +135,7 @@ namespace YellowstonePathology.Business.Test.NGCT
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "1000", "null", "varchar")]
 		public string Comment
 		{
 			get { return this.m_Comment; }
@@ -145,6 +150,7 @@ namespace YellowstonePathology.Business.Test.NGCT
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "500", "null", "varchar")]
 		public string Method
 		{
 			get { return this.m_Method; }
@@ -159,6 +165,7 @@ namespace YellowstonePathology.Business.Test.NGCT
 		}
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "5000", "null", "varchar")]
         public string TestInformation
         {
             get { return this.m_TestInformation; }

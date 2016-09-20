@@ -24,6 +24,7 @@ namespace YellowstonePathology.Business.Test.GrossOnly
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "-1", "null", "text")]
         public string GrossX
         {
             get { return this.m_GrossX; }

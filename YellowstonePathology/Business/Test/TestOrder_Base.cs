@@ -35,6 +35,7 @@ namespace YellowstonePathology.Business.Test.Model
         }
 
         [PersistentDocumentIdProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
         public string ObjectId
         {
             get { return this.m_ObjectId; }
@@ -49,6 +50,7 @@ namespace YellowstonePathology.Business.Test.Model
         }
 
         [PersistentPrimaryKeyProperty(false)]
+        [PersistentDataColumnProperty(false, "100", "null", "varchar")]
         public string TestOrderId
         {
             get { return this.m_TestOrderId; }
@@ -63,6 +65,7 @@ namespace YellowstonePathology.Business.Test.Model
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
         public string PanelOrderId
         {
             get { return this.m_PanelOrderId; }
@@ -77,6 +80,7 @@ namespace YellowstonePathology.Business.Test.Model
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
         public string AliquotOrderId
         {
             get { return this.m_AliquotOrderId; }
@@ -91,6 +95,7 @@ namespace YellowstonePathology.Business.Test.Model
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "11", "null", "int")]
         public int TestId
         {
             get { return this.m_TestId; }
@@ -105,6 +110,7 @@ namespace YellowstonePathology.Business.Test.Model
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "100", "null", "varchar")]
         public string TestName
         {
             get { return this.m_TestName; }
@@ -119,6 +125,7 @@ namespace YellowstonePathology.Business.Test.Model
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "100", "null", "varchar")]
         public string TestAbbreviation
         {
             get { return this.m_TestAbbreviation; }
@@ -133,6 +140,7 @@ namespace YellowstonePathology.Business.Test.Model
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "1000", "null", "varchar")]
         public string Result
         {
             get { return this.m_Result; }
@@ -147,6 +155,7 @@ namespace YellowstonePathology.Business.Test.Model
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "1000", "null", "varchar")]
         public string Comment
         {
             get { return this.m_Comment; }
@@ -161,6 +170,7 @@ namespace YellowstonePathology.Business.Test.Model
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(false, "1", "0", "bit")]
         public bool OrderedAsDual
         {
             get { return this.m_OrderedAsDual; }
@@ -175,6 +185,7 @@ namespace YellowstonePathology.Business.Test.Model
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "1", "0", "bit")]
         public bool NoCharge
         {
             get { return this.m_NoCharge; }

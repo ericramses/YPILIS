@@ -41,6 +41,7 @@ namespace YellowstonePathology.Business.Client.Model
 		}
 
 		[PersistentDocumentIdProperty()]
+		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
 		public string ObjectId
 		{
 			get { return this.m_ObjectId; }
@@ -55,6 +56,7 @@ namespace YellowstonePathology.Business.Client.Model
 		}
 
 		[PersistentPrimaryKeyProperty(false)]
+		[PersistentDataColumnProperty(false, "11", "null", "int")]
 		public int ClientLocationId
 		{
 			get { return this.m_ClientLocationId; }
@@ -69,6 +71,7 @@ namespace YellowstonePathology.Business.Client.Model
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(false, "11", "null", "int")]
 		public int ClientId
 		{
 			get { return this.m_ClientId; }
@@ -83,6 +86,7 @@ namespace YellowstonePathology.Business.Client.Model
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(false, "500", "null", "varchar")]
 		public string Location
 		{
 			get { return this.m_Location; }
@@ -97,6 +101,7 @@ namespace YellowstonePathology.Business.Client.Model
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
 		public string OrderType
 		{
 			get { return this.m_OrderType; }
@@ -111,6 +116,7 @@ namespace YellowstonePathology.Business.Client.Model
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
 		public string SpecimenTrackingInitiated
 		{
 			get { return this.m_SpecimenTrackingInitiated; }
@@ -125,6 +131,7 @@ namespace YellowstonePathology.Business.Client.Model
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
 		public bool AllowMultipleOrderTypes
 		{
 			get { return this.m_AllowMultipleOrderTypes; }
@@ -139,6 +146,7 @@ namespace YellowstonePathology.Business.Client.Model
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "11", "null", "int")]
 		public int DefaultOrderPanelSetId
 		{
 			get { return this.m_DefaultOrderPanelSetId; }
@@ -153,6 +161,7 @@ namespace YellowstonePathology.Business.Client.Model
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "1", "null", "bit")]
 		public bool AllowMultipleOrderDetailTypes
 		{
 			get { return this.m_AllowMultipleOrderDetailTypes; }
@@ -167,6 +176,7 @@ namespace YellowstonePathology.Business.Client.Model
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
 		public string DefaultOrderDetailTypeCode
 		{
 			get { return this.m_DefaultOrderDetailTypeCode; }

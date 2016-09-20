@@ -27,6 +27,7 @@ namespace YellowstonePathology.Business.Test.Model
 		}
 
 		[PersistentDocumentIdProperty()]
+		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
 		public string ObjectId
 		{
 			get { return this.m_ObjectId; }
@@ -41,6 +42,7 @@ namespace YellowstonePathology.Business.Test.Model
 		}
 
         [PersistentPrimaryKeyProperty(false)]
+        [PersistentDataColumnProperty(false, "11", "null", "int")]
 		public int StainTestId
 		{
 			get { return this.m_StainTestId; }
@@ -55,6 +57,7 @@ namespace YellowstonePathology.Business.Test.Model
 		}
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(false, "11", "null", "int")]
 		public int TestId
 		{
 			get { return this.m_TestId; }
@@ -69,6 +72,7 @@ namespace YellowstonePathology.Business.Test.Model
 		}
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "20", "null", "varchar")]
 		public string CptCode
 		{
 			get { return this.m_CptCode; }
@@ -83,6 +87,7 @@ namespace YellowstonePathology.Business.Test.Model
 		}
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "20", "null", "varchar")]
 		public int CptCodeQuantity
 		{
 			get { return this.m_CptCodeQuantity; }
@@ -97,6 +102,7 @@ namespace YellowstonePathology.Business.Test.Model
 		}
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "11", "null", "int")]
 		public int ImmunoCommentId
 		{
 			get { return this.m_ImmunoCommentId; }
@@ -111,6 +117,7 @@ namespace YellowstonePathology.Business.Test.Model
 		}
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
 		public string ControlComment
 		{
 			get { return this.m_ControlComment; }
@@ -125,6 +132,7 @@ namespace YellowstonePathology.Business.Test.Model
 		}
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
 		public string StainType
 		{
 			get { return this.m_StainType; }

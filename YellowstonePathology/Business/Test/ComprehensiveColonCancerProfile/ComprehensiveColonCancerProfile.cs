@@ -31,6 +31,7 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
 		}        
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "500", "null", "varchar")]
         public string Interpretation
         {
             get { return this.m_Interpretation; }
@@ -45,6 +46,7 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "1", "0", "bit")]
         public bool IncludeTestsPerformedOnOtherBlocks
         {
             get { return this.m_IncludeTestsPerformedOnOtherBlocks; }

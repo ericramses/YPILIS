@@ -32,6 +32,7 @@ namespace YellowstonePathology.Business.Test.CLLByFish
         }
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
 		public string Result
 		{
 			get { return this.m_Result; }
@@ -46,6 +47,7 @@ namespace YellowstonePathology.Business.Test.CLLByFish
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "500", "null", "varchar")]
 		public string ResultDescription
 		{
 			get { return this.m_ResultDescription; }
@@ -60,6 +62,7 @@ namespace YellowstonePathology.Business.Test.CLLByFish
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "5000", "null", "varchar")]
 		public string Interpretation
 		{
 			get { return this.m_Interpretation; }
@@ -74,6 +77,7 @@ namespace YellowstonePathology.Business.Test.CLLByFish
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "5000", "null", "varchar")]
 		public string ProbeSetDetail
 		{
 			get { return this.m_ProbeSetDetail; }
@@ -88,6 +92,7 @@ namespace YellowstonePathology.Business.Test.CLLByFish
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "100", "null", "varchar")]
 		public string NucleiScored
 		{
 			get { return this.m_NucleiScored; }

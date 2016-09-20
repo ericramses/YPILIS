@@ -34,6 +34,7 @@ namespace YellowstonePathology.Business.Test.TestCancelled
 		}       
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "1000", "null", "varchar")]
         public string Comment
         {
             get { return this.m_Comment; }
@@ -41,6 +42,7 @@ namespace YellowstonePathology.Business.Test.TestCancelled
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "11", "0", "int")]
         public int CancelledTestId
         {
             get { return this.m_CancelledTestId; }
@@ -48,6 +50,7 @@ namespace YellowstonePathology.Business.Test.TestCancelled
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
         public string CancelledTestName
         {
             get { return this.m_CancelledTestName; }

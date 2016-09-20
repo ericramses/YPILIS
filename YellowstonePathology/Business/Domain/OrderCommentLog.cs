@@ -163,6 +163,7 @@ namespace YellowstonePathology.Business.Domain
 		}
 
 		[PersistentDocumentIdProperty()]
+		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
 		public string ObjectId
 		{
 			get { return this.m_ObjectId; }
@@ -177,6 +178,7 @@ namespace YellowstonePathology.Business.Domain
 		}
 
 		[PersistentPrimaryKeyProperty(true)]
+		[PersistentDataColumnProperty(false, "11", "null", "int")]
 		public int OrderCommentLogId
 		{
 			get { return this.m_OrderCommentLogId; }
@@ -191,6 +193,7 @@ namespace YellowstonePathology.Business.Domain
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "11", "null", "int")]
 		public int OrderCommentId
 		{
 			get { return this.m_OrderCommentId; }
@@ -205,6 +208,7 @@ namespace YellowstonePathology.Business.Domain
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "11", "0", "int")]
 		public int SpecimenLogId
 		{
 			get { return this.m_SpecimenLogId; }
@@ -219,6 +223,7 @@ namespace YellowstonePathology.Business.Domain
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "50", "0", "varchar")]
 		public string MasterAccessionNo
 		{
 			get { return this.m_MasterAccessionNo; }
@@ -233,6 +238,7 @@ namespace YellowstonePathology.Business.Domain
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "50", "0", "nvarchar")]
 		public string AliquotOrderId
 		{
 			get { return this.m_AliquotOrderId; }
@@ -247,6 +253,7 @@ namespace YellowstonePathology.Business.Domain
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "100", "null", "varchar")]
 		public string Category
 		{
 			get { return this.m_Category; }
@@ -261,6 +268,7 @@ namespace YellowstonePathology.Business.Domain
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
 		public string Action
 		{
 			get { return this.m_Action; }
@@ -275,6 +283,7 @@ namespace YellowstonePathology.Business.Domain
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(false, "3", "null", "datetime")]
 		public DateTime LogDate
 		{
 			get { return this.m_LogDate; }
@@ -289,6 +298,7 @@ namespace YellowstonePathology.Business.Domain
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "11", "0", "int")]
 		public int ClientId
 		{
 			get { return this.m_ClientId; }
@@ -303,6 +313,7 @@ namespace YellowstonePathology.Business.Domain
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "100", "null", "varchar")]
 		public string Description
 		{
 			get { return this.m_Description; }
@@ -317,6 +328,7 @@ namespace YellowstonePathology.Business.Domain
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "1000", "null", "varchar")]
 		public string Comment
 		{
 			get { return this.m_Comment; }
@@ -331,6 +343,7 @@ namespace YellowstonePathology.Business.Domain
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "11", "null", "int")]
 		public int LoggedById
 		{
 			get { return this.m_LoggedById; }
@@ -345,6 +358,7 @@ namespace YellowstonePathology.Business.Domain
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "250", "null", "varchar")]
 		public string LoggedBy
 		{
 			get { return this.m_LoggedBy; }
@@ -359,6 +373,7 @@ namespace YellowstonePathology.Business.Domain
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
 		public string ClientOrderId
 		{
 			get { return this.m_ClientOrderId; }
@@ -373,6 +388,7 @@ namespace YellowstonePathology.Business.Domain
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(false, "1", "0", "bit")]
 		public bool RequiresResponse
 		{
 			get { return this.m_RequiresResponse; }
@@ -387,6 +403,7 @@ namespace YellowstonePathology.Business.Domain
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(false, "1", "0", "bit")]
 		public bool RequiresNotification
 		{
 			get { return this.m_RequiresNotification; }
@@ -401,6 +418,7 @@ namespace YellowstonePathology.Business.Domain
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
 		public string Response
 		{
 			get { return this.m_Response; }
@@ -415,6 +433,7 @@ namespace YellowstonePathology.Business.Domain
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "250", "null", "varchar")]
 		public string NotificationAddress
 		{
 			get { return this.m_NotificationAddress; }
@@ -429,6 +448,7 @@ namespace YellowstonePathology.Business.Domain
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
 		public string StationName
 		{
 			get { return this.m_StationName; }
@@ -443,6 +463,7 @@ namespace YellowstonePathology.Business.Domain
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
 		public string ContainerId
 		{
 			get { return this.m_ContainerId; }

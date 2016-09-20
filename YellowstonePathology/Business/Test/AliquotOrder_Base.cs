@@ -51,6 +51,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentDocumentIdProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
         public string ObjectId
         {
             get { return this.m_ObjectId; }
@@ -65,6 +66,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentPrimaryKeyProperty(false)]
+        [PersistentDataColumnProperty(false, "100", "null", "varchar")]
         public string AliquotOrderId
         {
             get { return this.m_AliquotOrderId; }
@@ -79,6 +81,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(false, "100", "null", "varchar")]
         public string SpecimenOrderId
         {
             get { return this.m_SpecimenOrderId; }
@@ -93,6 +96,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "1", "0", "bit")]
         public bool ClientAccessioned
         {
             get { return this.m_ClientAccessioned; }
@@ -107,6 +111,7 @@ namespace YellowstonePathology.Business.Test
         }       
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "''", "varchar")]
         public string AliquotType
         {
             get { return this.m_AliquotType; }
@@ -121,6 +126,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "500", "null", "varchar")]
         public string Description
         {
             get { return this.m_Description; }
@@ -135,6 +141,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "500", "null", "varchar")]
         public string Label
         {
             get { return this.m_Label; }
@@ -149,6 +156,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "500", "null", "varchar")]
         public string ClientLabel
         {
             get { return this.m_ClientLabel; }
@@ -163,6 +171,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "500", "null", "varchar")]
         public string LabelPrefix
         {
             get { return this.m_LabelPrefix; }
@@ -177,6 +186,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(false, "1", "0", "bit")]
         public bool GrossVerified
         {
             get { return this.m_GrossVerified; }
@@ -191,6 +201,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "11", "0", "int")]
         public Nullable<int> GrossVerifiedById
         {
             get { return this.m_GrossVerifiedById; }
@@ -205,6 +216,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "100", "null", "varchar")]
         public string GrossVerifiedBy
         {
             get { return this.m_GrossVerifiedBy; }
@@ -219,6 +231,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "3", "null", "datetime")]
         public Nullable<DateTime> GrossVerifiedDate
         {
             get { return this.m_GrossVerifiedDate; }
@@ -233,6 +246,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(false, "1", "0", "bit")]
         public bool Printed
         {
             get { return this.m_Printed; }
@@ -247,6 +261,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "500", "null", "varchar")]
         public string LabelType
         {
             get { return this.m_LabelType; }
@@ -261,6 +276,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
         public string LocationId
         {
             get { return this.m_LocationId; }
@@ -275,6 +291,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
         public string FacilityId
         {
             get { return this.m_FacilityId; }
@@ -289,6 +306,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "500", "null", "varchar")]
         public string FacilityName
         {
             get { return this.m_FacilityName; }
@@ -303,6 +321,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "1", "0", "bit")]
         public bool Validated
         {
             get { return this.m_Validated; }
@@ -317,6 +336,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "11", "null", "int")]
         public int? ValidatedById
         {
             get
@@ -334,6 +354,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
         public string ValidatedBy
         {
             get
@@ -351,6 +372,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "3", "null", "datetime")]
         public Nullable<DateTime> ValidationDate
         {
             get { return this.m_ValidationDate; }
@@ -365,6 +387,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
         public string Status
         {
             get
@@ -382,6 +405,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
         public string EmbeddingInstructions
         {
             get
@@ -399,6 +423,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "1", "0", "bit")]
         public bool EmbeddingVerified
         {
             get { return this.m_EmbeddingVerified; }
@@ -413,6 +438,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "11", "null", "int")]
         public Nullable<int> EmbeddingVerifiedById
         {
             get { return this.m_EmbeddingVerifiedById; }
@@ -427,6 +453,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "100", "null", "varchar")]
         public string EmbeddingVerifiedBy
         {
             get { return this.m_EmbeddingVerifiedBy; }
@@ -441,6 +468,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "3", "null", "datetime")]
         public Nullable<DateTime> EmbeddingVerifiedDate
         {
             get { return this.m_EmbeddingVerifiedDate; }

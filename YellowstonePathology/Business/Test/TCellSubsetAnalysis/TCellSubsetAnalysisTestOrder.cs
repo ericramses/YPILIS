@@ -54,6 +54,7 @@ namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
 		public string Method
 		{
 			get { return this.m_Method; }
@@ -68,6 +69,7 @@ namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "1000", "null", "varchar")]
 		public string ASRComment
 		{
 			get { return this.m_ASRComment; }
@@ -82,6 +84,7 @@ namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "", "null", "float")]
 		public double? CD3Percent
 		{
 			get { return this.m_CD3Percent; }
@@ -96,6 +99,7 @@ namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "", "null", "float")]
 		public double? CD4Percent
 		{
 			get { return this.m_CD4Percent; }
@@ -111,6 +115,7 @@ namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "", "null", "float")]
 		public double? CD8Percent
 		{
 			get { return this.m_CD8Percent; }
@@ -126,6 +131,7 @@ namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "", "null", "float")]
 		public double? CD4CD8Ratio
 		{
 			get { return this.m_CD4CD8Ratio; }
@@ -140,6 +146,7 @@ namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
 		}
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
         public string ReferenceRange
         {
             get { return this.m_ReferenceRange; }
@@ -154,6 +161,7 @@ namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "500", "null", "varchar")]
         public string Disclosure
         {
             get { return this.m_Disclosure; }
@@ -168,6 +176,7 @@ namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "100", "null", "varchar")]
         public string Interpretation
         {
             get { return this.m_Interpretation; }

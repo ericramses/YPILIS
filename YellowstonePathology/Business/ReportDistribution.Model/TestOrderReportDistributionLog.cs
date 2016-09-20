@@ -51,6 +51,7 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
         }
 
 		[PersistentDocumentIdProperty()]
+		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
 		public string ObjectId
 		{
 			get { return this.m_ObjectId; }
@@ -65,6 +66,7 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
 		}
 
 		[PersistentPrimaryKeyProperty(false)]
+		[PersistentDataColumnProperty(false, "100", "null", "varchar")]
 		public string TestOrderReportDistributionLogId
 		{
             get { return this.m_TestOrderReportDistributionLogId; }
@@ -79,6 +81,7 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
 		}		
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "20", "null", "varchar")]
 		public string ReportNo
 		{
 			get { return this.m_ReportNo; }
@@ -93,6 +96,7 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
 		}						
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "3", "null", "datetime")]
 		public Nullable<DateTime> TimeDistributed
 		{
 			get { return this.m_TimeDistributed; }
@@ -107,6 +111,7 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
 		}		
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "5000", "null", "varchar")]
 		public string Comment
 		{
 			get { return this.m_Comment; }
@@ -121,6 +126,7 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "11", "null", "int")]
 		public int PhysicianId
 		{
 			get { return this.m_PhysicianId; }
@@ -135,6 +141,7 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "11", "null", "int")]
 		public int ClientId
 		{
 			get { return this.m_ClientId; }
@@ -149,6 +156,7 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "250", "null", "varchar")]
 		public string PhysicianName
 		{
 			get { return this.m_PhysicianName; }
@@ -163,6 +171,7 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "250", "null", "varchar")]
 		public string ClientName
 		{
 			get { return this.m_ClientName; }
@@ -177,6 +186,7 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
 		public string DistributionType
 		{
 			get { return this.m_DistributionType; }
@@ -191,6 +201,7 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
 		}		
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "1", "null", "bit")]
 		public bool ErrorInDistribution
 		{
 			get { return this.m_ErrorInDistribution; }

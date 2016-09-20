@@ -29,6 +29,7 @@ namespace YellowstonePathology.Business.Test.FLT3
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
 		public string Result
 		{
 			get { return this.m_Result; }
@@ -43,6 +44,7 @@ namespace YellowstonePathology.Business.Test.FLT3
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
 		public string ITDMutation
 		{
 			get { return this.m_ITDMutation; }
@@ -57,6 +59,7 @@ namespace YellowstonePathology.Business.Test.FLT3
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
 		public string ITDPercentage
 		{
 			get { return this.m_ITDPercentage; }
@@ -71,6 +74,7 @@ namespace YellowstonePathology.Business.Test.FLT3
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
 		public string TKDMutation
 		{
 			get { return this.m_TKDMutation; }
@@ -85,6 +89,7 @@ namespace YellowstonePathology.Business.Test.FLT3
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "1000", "null", "varchar")]
 		public string Interpretation
 		{
 			get { return this.m_Interpretation; }
@@ -99,6 +104,7 @@ namespace YellowstonePathology.Business.Test.FLT3
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "5000", "null", "varchar")]
 		public string Method
 		{
 			get { return this.m_Method; }

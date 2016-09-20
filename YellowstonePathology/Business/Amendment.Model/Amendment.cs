@@ -151,6 +151,7 @@ namespace YellowstonePathology.Business.Amendment.Model
         }
 
         [PersistentDocumentIdProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
         public string ObjectId
         {
             get { return this.m_ObjectId; }
@@ -165,6 +166,7 @@ namespace YellowstonePathology.Business.Amendment.Model
         }
 
         [PersistentPrimaryKeyProperty(false)]
+        [PersistentDataColumnProperty(false, "50", "null", "varchar")]
         public string AmendmentId
         {
             get { return this.m_AmendmentId; }
@@ -179,6 +181,7 @@ namespace YellowstonePathology.Business.Amendment.Model
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(false, "1", "1", "bit")]
         public bool RequirePathologistSignature
         {
             get { return this.m_RequirePathologistSignature; }
@@ -193,6 +196,7 @@ namespace YellowstonePathology.Business.Amendment.Model
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(false, "1", "0", "bit")]
         public bool ShowPreviousDiagnosis
         {
             get { return this.m_ShowPreviousDiagnosis; }
@@ -207,6 +211,7 @@ namespace YellowstonePathology.Business.Amendment.Model
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(false, "1", "0", "bit")]
         public bool Final
         {
             get { return this.m_Final; }
@@ -221,6 +226,7 @@ namespace YellowstonePathology.Business.Amendment.Model
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(false, "1", "0", "bit")]
         public bool IsDistributed
         {
             get { return this.m_IsDistributed; }
@@ -235,6 +241,7 @@ namespace YellowstonePathology.Business.Amendment.Model
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(false, "1", "0", "bit")]
         public bool DistributeOnFinal
         {
             get { return this.m_DistributeOnFinal; }
@@ -249,6 +256,7 @@ namespace YellowstonePathology.Business.Amendment.Model
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(false, "1", "1", "bit")]
         public bool ShowAmendmentOnReport
         {
             get { return this.m_ShowAmendmentOnReport; }
@@ -263,6 +271,7 @@ namespace YellowstonePathology.Business.Amendment.Model
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(false, "1", "0", "bit")]
         public bool RevisedDiagnosis
         {
             get { return this.m_RevisedDiagnosis; }
@@ -277,6 +286,7 @@ namespace YellowstonePathology.Business.Amendment.Model
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "3", "null", "datetime")]
         public Nullable<DateTime> AmendmentDate
         {
             get { return this.m_AmendmentDate; }
@@ -291,6 +301,7 @@ namespace YellowstonePathology.Business.Amendment.Model
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "3", "null", "datetime")]
         public Nullable<DateTime> AmendmentTime
         {
             get { return this.m_AmendmentTime; }
@@ -305,6 +316,7 @@ namespace YellowstonePathology.Business.Amendment.Model
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "3", "null", "datetime")]
         public Nullable<DateTime> FinalDate
         {
             get { return this.m_FinalDate; }
@@ -319,6 +331,7 @@ namespace YellowstonePathology.Business.Amendment.Model
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "3", "null", "datetime")]
         public Nullable<DateTime> FinalTime
         {
             get { return this.m_FinalTime; }
@@ -333,6 +346,7 @@ namespace YellowstonePathology.Business.Amendment.Model
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(false, "11", "0", "int")]
         public int UserId
         {
             get { return this.m_UserId; }
@@ -347,6 +361,7 @@ namespace YellowstonePathology.Business.Amendment.Model
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "20", "null", "varchar")]
         public string ReportNo
         {
             get { return this.m_ReportNo; }
@@ -361,6 +376,7 @@ namespace YellowstonePathology.Business.Amendment.Model
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "5000", "'???'", "varchar")]
         public string Text
         {
             get { return this.m_Text; }
@@ -375,6 +391,7 @@ namespace YellowstonePathology.Business.Amendment.Model
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "100", "null", "varchar")]
         public string AmendmentType
         {
             get { return this.m_AmendmentType; }
@@ -389,6 +406,7 @@ namespace YellowstonePathology.Business.Amendment.Model
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "250", "null", "varchar")]
         public string PathologistSignature
         {
             get { return this.m_PathologistSignature; }
@@ -403,6 +421,7 @@ namespace YellowstonePathology.Business.Amendment.Model
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "20", "null", "varchar")]
         public string ReferenceReportNo
         {
             get { return this.m_ReferenceReportNo; }
@@ -417,6 +436,7 @@ namespace YellowstonePathology.Business.Amendment.Model
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "11", "null", "int")]
         public int? AcceptedById
         {
             get { return this.m_AcceptedById; }
@@ -431,6 +451,7 @@ namespace YellowstonePathology.Business.Amendment.Model
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "1", "null", "bit")]
         public bool Accepted
         {
             get { return this.m_Accepted; }
@@ -445,6 +466,7 @@ namespace YellowstonePathology.Business.Amendment.Model
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "3", "null", "datetime")]
         public Nullable<DateTime> AcceptedDate
         {
             get { return this.m_AcceptedDate; }
@@ -459,6 +481,7 @@ namespace YellowstonePathology.Business.Amendment.Model
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "3", "null", "datetime")]
         public Nullable<DateTime> AcceptedTime
         {
             get { return this.m_AcceptedTime; }
@@ -473,6 +496,7 @@ namespace YellowstonePathology.Business.Amendment.Model
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "100", "null", "varchar")]
         public string AcceptedBy
         {
             get { return this.m_AcceptedBy; }
@@ -487,6 +511,7 @@ namespace YellowstonePathology.Business.Amendment.Model
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "1", "null", "bit")]
         public bool SystemGenerated
         {
             get { return this.m_SystemGenerated; }

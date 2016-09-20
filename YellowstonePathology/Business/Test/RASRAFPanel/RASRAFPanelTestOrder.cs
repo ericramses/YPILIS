@@ -51,6 +51,7 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "5000", "null", "varchar")]
         public string Method
         {
             get { return this.m_Method; }
@@ -65,6 +66,7 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "500", "null", "varchar")]
         public string ReportDisclaimer
         {
             get { return this.m_ReportDisclaimer; }
@@ -79,6 +81,7 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
         public string KRASResult
         {
             get { return this.m_KRASResult; }
@@ -93,6 +96,7 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
         public string NRASResult
         {
             get { return this.m_NRASResult; }
@@ -107,6 +111,7 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
         public string HRASResult
         {
             get { return this.m_HRASResult; }
@@ -121,6 +126,7 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
         public string BRAFResult
         {
             get { return this.m_BRAFResult; }
@@ -135,6 +141,7 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
         public string KRASMutationName
         {
             get { return this.m_KRASMutationName; }
@@ -149,6 +156,7 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
         public string KRASAlternateNucleotideMutationName
         {
             get { return this.m_KRASAlternateNucleotideMutationName; }
@@ -163,6 +171,7 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
         public string KRASConsequence
         {
             get { return this.m_KRASConsequence; }
@@ -177,6 +186,7 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
         public string KRASPredictedEffectOnProtein
         {
             get { return this.m_KRASPredictedEffectOnProtein; }
@@ -191,6 +201,7 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
         public string NRASMutationName
         {
             get { return this.m_NRASMutationName; }
@@ -205,6 +216,7 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
         public string NRASAlternateNucleotideMutationName
         {
             get { return this.m_NRASAlternateNucleotideMutationName; }
@@ -219,6 +231,7 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
         public string NRASConsequence
         {
             get { return this.m_NRASConsequence; }
@@ -233,6 +246,7 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
         public string NRASPredictedEffectOnProtein
         {
             get { return this.m_NRASPredictedEffectOnProtein; }
@@ -247,6 +261,7 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
         public string HRASMutationName
         {
             get { return this.m_HRASMutationName; }
@@ -261,6 +276,7 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
         public string HRASAlternateNucleotideMutationName
         {
             get { return this.m_HRASAlternateNucleotideMutationName; }
@@ -275,6 +291,7 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
         public string HRASConsequence
         {
             get { return this.m_HRASConsequence; }
@@ -289,6 +306,7 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
         public string HRASPredictedEffectOnProtein
         {
             get { return this.m_HRASPredictedEffectOnProtein; }
@@ -303,6 +321,7 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
         public string BRAFMutationName
         {
             get { return this.m_BRAFMutationName; }
@@ -317,6 +336,7 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
         public string BRAFAlternateNucleotideMutationName
         {
             get { return this.m_BRAFAlternateNucleotideMutationName; }
@@ -331,6 +351,7 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
         public string BRAFConsequence
         {
             get { return this.m_BRAFConsequence; }
@@ -345,6 +366,7 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
         public string BRAFPredictedEffectOnProtein
         {
             get { return this.m_BRAFPredictedEffectOnProtein; }
@@ -359,6 +381,7 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "1000", "null", "varchar")]
         public string Interpretation
         {
             get { return this.m_Interpretation; }
@@ -373,6 +396,7 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "500", "null", "varchar")]
         public string Comment
         {
             get { return this.m_Comment; }

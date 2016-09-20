@@ -54,6 +54,7 @@ namespace YellowstonePathology.Business.Test.TechInitiatedPeripheralSmear
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "500", "null", "varchar")]
         public string TechnologistsQuestion
         {
             get { return this.m_TechnologistsQuestion; }
@@ -68,6 +69,7 @@ namespace YellowstonePathology.Business.Test.TechInitiatedPeripheralSmear
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "500", "null", "varchar")]
         public string PathologistFeedback
         {
             get { return this.m_PathologistFeedback; }
@@ -82,6 +84,7 @@ namespace YellowstonePathology.Business.Test.TechInitiatedPeripheralSmear
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "500", "null", "varchar")]
         public string CBCComment
         {
             get { return this.m_CBCComment; }

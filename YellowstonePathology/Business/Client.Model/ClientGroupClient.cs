@@ -35,6 +35,7 @@ namespace YellowstonePathology.Business.Client.Model
         }
 
         [PersistentDocumentIdProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
         public string ObjectId
         {
             get { return this.m_ObjectId; }
@@ -49,6 +50,7 @@ namespace YellowstonePathology.Business.Client.Model
         }
 
         [PersistentPrimaryKeyProperty(false)]
+        [PersistentDataColumnProperty(false, "11", "null", "int")]
         public int ClientGroupClientId
         {
             get { return this.m_ClientGroupClientId; }
@@ -63,6 +65,7 @@ namespace YellowstonePathology.Business.Client.Model
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "11", "null", "int")]
         public int ClientId
         {
             get { return this.m_ClientId; }
@@ -77,6 +80,7 @@ namespace YellowstonePathology.Business.Client.Model
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "11", "null", "int")]
         public int ClientGroupId
         {
             get { return this.m_ClientGroupId; }

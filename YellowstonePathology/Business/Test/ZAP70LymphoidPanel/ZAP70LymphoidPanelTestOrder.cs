@@ -28,6 +28,7 @@ namespace YellowstonePathology.Business.Test.ZAP70LymphoidPanel
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
 		public string Result
 		{
 			get { return this.m_Result; }
@@ -42,6 +43,7 @@ namespace YellowstonePathology.Business.Test.ZAP70LymphoidPanel
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "5000", "null", "varchar")]
 		public string Comment
 		{
 			get { return this.m_Comment; }
@@ -56,6 +58,7 @@ namespace YellowstonePathology.Business.Test.ZAP70LymphoidPanel
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "500", "null", "varchar")]
 		public string Lymphocytes
 		{
 			get { return this.m_Lymphocytes; }
@@ -70,6 +73,7 @@ namespace YellowstonePathology.Business.Test.ZAP70LymphoidPanel
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "500", "null", "varchar")]
 		public string PopulationAnalysis
 		{
 			get { return this.m_PopulationAnalysis; }
@@ -84,6 +88,7 @@ namespace YellowstonePathology.Business.Test.ZAP70LymphoidPanel
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "1000", "null", "varchar")]
 		public string MarkersPerformed
 		{
 			get { return this.m_MarkersPerformed; }

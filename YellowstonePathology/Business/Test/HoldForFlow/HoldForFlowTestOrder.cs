@@ -31,6 +31,7 @@ namespace YellowstonePathology.Business.Test.HoldForFlow
         { }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "500", "null", "varchar")]
         public string Comment
         {
             get { return this.m_Comment; }

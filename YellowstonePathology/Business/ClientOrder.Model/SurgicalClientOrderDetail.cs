@@ -66,6 +66,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 
 		[DataMember]
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "1", "null", "bit")]
 		public Nullable<bool> OrderImmediateExam
 		{
 			get { return this.m_OrderImmediateExam; }
@@ -81,6 +82,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 
 		[DataMember]
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "1", "null", "bit")]
 		public Nullable<bool> OrderFrozenSection
 		{
 			get { return this.m_OrderFrozenSection; }

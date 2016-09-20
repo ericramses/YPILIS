@@ -28,6 +28,7 @@ namespace YellowstonePathology.Business.Test.BCL2t1418ByFISH
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
         public string Result
         {
             get { return this.m_Result; }
@@ -42,6 +43,7 @@ namespace YellowstonePathology.Business.Test.BCL2t1418ByFISH
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "1000", "null", "varchar")]
         public string Interpretation
         {
             get { return this.m_Interpretation; }
@@ -56,6 +58,7 @@ namespace YellowstonePathology.Business.Test.BCL2t1418ByFISH
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "5000", "null", "varchar")]
         public string Method
         {
             get { return this.m_Method; }
@@ -70,6 +73,7 @@ namespace YellowstonePathology.Business.Test.BCL2t1418ByFISH
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
         public string ReportDisclaimer
         {
             get { return this.m_ReportDisclaimer; }

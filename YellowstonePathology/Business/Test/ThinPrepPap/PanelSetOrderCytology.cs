@@ -151,6 +151,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 		}					
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "11", "null", "int")]
 		public int ScreenedById
 		{
 			get { return this.m_ScreenedById; }
@@ -165,6 +166,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 		}		
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
 		public string ScreeningType
 		{
 			get { return this.m_ScreeningType; }
@@ -179,6 +181,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "150", "null", "varchar")]
 		public string ScreenedByName
 		{
 			get { return this.m_ScreenedByName; }
@@ -193,6 +196,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "500", "null", "varchar")]
 		public string ScreeningImpression
 		{
 			get { return this.m_ScreeningImpression; }
@@ -207,6 +211,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "500", "null", "varchar")]
 		public string ScreeningImpressionComment
 		{
 			get { return this.m_ScreeningImpressionComment; }
@@ -221,6 +226,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "500", "null", "varchar")]
 		public string OtherConditions
 		{
 			get { return this.m_OtherConditions; }
@@ -235,6 +241,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "500", "null", "varchar")]
 		public string SpecimenAdequacy
 		{
 			get { return this.m_SpecimenAdequacy; }
@@ -249,6 +256,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "1000", "null", "varchar")]
 		public string ReportComment
 		{
 			get { return this.m_ReportComment; }
@@ -263,6 +271,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "1000", "null", "varchar")]
 		public string InternalComment
 		{
 			get { return this.m_InternalComment; }
@@ -277,6 +286,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
 		public string ScreenerComment
 		{
 			get { return this.m_ScreenerComment; }
@@ -291,6 +301,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
 		public string OrderComment
 		{
 			get { return this.m_OrderComment; }
@@ -305,6 +316,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 		}
 		
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "1", "null", "bit")]
 		public bool QC
 		{
 			get { return this.m_QC; }
@@ -319,6 +331,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "1", "null", "bit")]
 		public bool ImagerError
 		{
 			get { return this.m_ImagerError; }
@@ -333,6 +346,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 		}		
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "1", "null", "bit")]
 		public bool PhysicianInterpretation
 		{
 			get { return this.m_PhysicianInterpretation; }
@@ -347,6 +361,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "11", "null", "int")]
 		public int SlideCount
 		{
 			get { return this.m_SlideCount; }
@@ -361,6 +376,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "1", "null", "bit")]
 		public bool ECCCheckPerformed
 		{
 			get { return this.m_ECCCheckPerformed; }
@@ -375,6 +391,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 		}
 
 		[PersistentProperty()]
+		[PersistentDataColumnProperty(true, "1", "null", "bit")]
 		public bool ScreeningError
 		{
 			get { return this.m_ScreeningError; }
@@ -389,6 +406,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 		}
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "500", "null", "varchar")]
         public string Method
         {
             get { return this.m_Method; }
