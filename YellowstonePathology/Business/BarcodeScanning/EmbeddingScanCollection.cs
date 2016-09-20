@@ -25,10 +25,10 @@ namespace YellowstonePathology.Business.BarcodeScanning
             }
         }
 
-        public EmbeddingScan HandleScan(string aliquotOrderId, string processorRunId, string processorRun)
+        public EmbeddingScan HandleScan(string aliquotOrderId, string processorRunId, string processorRun, DateTime processorStartTime, TimeSpan processorFixationTime)
         {            
             IDatabase db = Business.RedisConnection.Instance.GetDatabase();
-            EmbeddingScan scan = new EmbeddingScan(aliquotOrderId, processorRunId, processorRun);
+            EmbeddingScan scan = new EmbeddingScan(aliquotOrderId, processorRunId, processorRun, processorStartTime, processorFixationTime);
 
             if (db.KeyExists("EmbeddingScan:" + aliquotOrderId) == true)
             {

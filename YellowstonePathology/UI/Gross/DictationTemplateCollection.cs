@@ -22,7 +22,7 @@ namespace YellowstonePathology.UI.Gross
                 {
                     if (dictationTemplate.SpecimenCollection.Exists(specimenId) == true)
                     {
-                        result = dictationTemplate;
+                        result = (DictationTemplate)Activator.CreateInstance(dictationTemplate.GetType());                        
                         break;
                     }
                 }

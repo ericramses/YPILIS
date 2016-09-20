@@ -106,7 +106,7 @@ namespace YellowstonePathology.UI.Gross
     {
         public PeripheralBloodTemplate()
         {
-            this.m_TemplateName = "Perihperal Blood Smear";
+            this.m_TemplateName = "Peripheral Blood Smear";
             this.m_Text = "The specimen consists of [slidecount] [unstained/stained] peripheral blood smear[?s?] each labeled [patientname] for review by pathologist.  ";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Peripheral peripheral = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Peripheral();
@@ -276,9 +276,23 @@ namespace YellowstonePathology.UI.Gross
 
         public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
-            string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
-            result = this.ReplaceSubmitted(result, specimenOrder);
-            return result;
+            //string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
+            //result = this.ReplaceSubmitted(result, specimenOrder);
+            //return result;
+            
+            if (specimenOrder.AliquotOrderCollection.Count == 1)
+            {
+                this.m_Text = this.m_Text.Replace("[submitted]", "Entirely submitted in cassette \"" + specimenOrder.AliquotOrderCollection[0].Label + "\"");
+            }
+            else if(specimenOrder.AliquotOrderCollection.Count == 2)
+            {
+                this.m_Text = this.m_Text.Replace("[submitted]", "Shave [procedure] and submitted in cassette \"" + specimenOrder.SpecimenNumber + "A\".  " + "The curettings are filtered through a fine mesh bag and entirely submitted in cassette \"" + specimenOrder.AliquotOrderCollection.GetLastBlock().Label + "\"");                              
+            }
+            else
+            {
+                this.m_Text = "This template only works with 2 blocks.";
+            }
+            return this.m_Text;
         }
     }
 

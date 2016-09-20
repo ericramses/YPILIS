@@ -97,7 +97,8 @@ namespace YellowstonePathology.Business.Test
         private Nullable<DateTime> m_TimeAdditionalTestingEmailSent;
         private string m_AdditionalTestingEmailMessage;
         private string m_AdditionalTestingEmailAddress;
-        protected string m_ReportReferences;        
+        protected string m_ReportReferences;
+        protected bool m_ResearchTesting;  
 
         protected YellowstonePathology.Business.Document.CaseDocumentCollection m_CaseDocumentCollection;
 
@@ -124,7 +125,7 @@ namespace YellowstonePathology.Business.Test
 			this.m_OrderedByInitials = Business.User.SystemIdentity.Instance.User.Initials;
 			this.OrderDate = DateTime.Today;
 			this.OrderTime = DateTime.Now;
-
+            this.m_ResearchTesting = panelSet.ResearchTesting;
 			this.m_PanelSetId = panelSet.PanelSetId;
             this.m_CaseType = panelSet.CaseType;
 			this.m_PanelSetName = panelSet.PanelSetName;
@@ -175,7 +176,7 @@ namespace YellowstonePathology.Business.Test
             this.OrderDate = DateTime.Today;
 			this.OrderTime = DateTime.Now;
             this.m_CaseType = panelSet.CaseType;
-
+            this.m_ResearchTesting = panelSet.ResearchTesting;
 			if (orderTarget != null)
 			{
 				this.m_OrderedOnId = orderTarget.GetId();
@@ -1185,7 +1186,21 @@ namespace YellowstonePathology.Business.Test
                     this.NotifyPropertyChanged("ReportReferences");
                 }
             }
-        }        
+        }
+
+        [PersistentProperty()]
+        public bool ResearchTesting
+        {
+            get { return this.m_ResearchTesting; }
+            set
+            {
+                if (this.m_ResearchTesting != value)
+                {
+                    this.m_ResearchTesting = value;
+                    this.NotifyPropertyChanged("ResearchTesting");
+                }
+            }
+        }
 
         public virtual void DeleteChildren()
 		{
