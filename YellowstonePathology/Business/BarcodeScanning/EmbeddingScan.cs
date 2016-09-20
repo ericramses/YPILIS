@@ -8,19 +8,17 @@ using System.ComponentModel;
 
 namespace YellowstonePathology.Business.BarcodeScanning
 {
-    public class EmbeddingScan: INotifyPropertyChanged 
+    public class EmbeddingScan : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
         private string m_AliquotOrderId;
         private string m_ProcessorRunId;
-        private string m_ProcessorRun;        
+        private string m_ProcessorRun;
         private DateTime m_DateScanned;
         private string m_ScannedBy;
         private int m_ScannedById;
-        private DateTime m_ProcessorStartTime;
-        private TimeSpan m_ProcessorFixationTime;
-        private bool m_Updated;        
+        private bool m_Updated;
 
         public EmbeddingScan()
         {
@@ -35,12 +33,10 @@ namespace YellowstonePathology.Business.BarcodeScanning
             this.m_DateScanned = DateTime.Parse(hashEntries[3].Value);
             this.m_ScannedById = Convert.ToInt32(hashEntries[4].Value);
             this.m_ScannedBy = hashEntries[5].Value;
-            this.m_Updated = Convert.ToBoolean( hashEntries[6].Value);
-            this.m_ProcessorStartTime = DateTime.Parse(hashEntries[7].Value);
-            this.m_ProcessorFixationTime = TimeSpan.FromTicks(Convert.ToInt32(hashEntries[8].Value));
+            this.m_Updated = Convert.ToBoolean(hashEntries[6].Value);
         }
 
-        public EmbeddingScan(string aliquotOrderId, string processorRunId, string processorRun, DateTime processorStartTime, TimeSpan fixationTime)
+        public EmbeddingScan(string aliquotOrderId, string processorRunId, string processorRun)
         {
             this.m_AliquotOrderId = aliquotOrderId;
             this.m_ProcessorRunId = processorRunId;
@@ -49,8 +45,6 @@ namespace YellowstonePathology.Business.BarcodeScanning
             this.m_ScannedBy = YellowstonePathology.Business.User.SystemIdentity.Instance.User.UserName;
             this.m_ScannedById = YellowstonePathology.Business.User.SystemIdentity.Instance.User.UserId;
             this.m_Updated = false;
-            this.m_ProcessorStartTime = processorStartTime;
-            this.m_ProcessorFixationTime = fixationTime;
         }
 
         public string AliquotOrderId
@@ -86,16 +80,6 @@ namespace YellowstonePathology.Business.BarcodeScanning
         public DateTime DateScanned
         {
             get { return this.m_DateScanned; }
-        }        
-
-        public DateTime ProcessorStartTime
-        {
-            get { return this.m_ProcessorStartTime; }
-        }
-
-        public TimeSpan ProcessFixationTime
-        {
-            get { return this.m_ProcessorFixationTime; }
         }
 
         public bool Updated
@@ -103,11 +87,11 @@ namespace YellowstonePathology.Business.BarcodeScanning
             get { return this.m_Updated; }
             set
             {
-                if(this.m_Updated != value)
+                if (this.m_Updated != value)
                 {
                     this.m_Updated = true;
                     this.NotifyPropertyChanged("Updated");
-                }                
+                }
             }
         }
 
@@ -126,8 +110,6 @@ namespace YellowstonePathology.Business.BarcodeScanning
             hashEntries[4] = new HashEntry("ScannedById", this.m_ScannedById);
             hashEntries[5] = new HashEntry("ScannedBy", this.m_ScannedBy);
             hashEntries[6] = new HashEntry("Updated", this.m_Updated.ToString());
-            hashEntries[7] = new HashEntry("ProcessorStartTime", this.m_ProcessorStartTime.ToString());
-            hashEntries[8] = new HashEntry("ProcessorFixationTime", this.m_ProcessorFixationTime.Ticks);
             return hashEntries;
         }
 
