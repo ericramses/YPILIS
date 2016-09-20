@@ -97,8 +97,7 @@ namespace YellowstonePathology.Business.Test
         private Nullable<DateTime> m_TimeAdditionalTestingEmailSent;
         private string m_AdditionalTestingEmailMessage;
         private string m_AdditionalTestingEmailAddress;
-        protected string m_ReportReferences;
-        protected string m_ResultStatus;
+        protected string m_ReportReferences;        
 
         protected YellowstonePathology.Business.Document.CaseDocumentCollection m_CaseDocumentCollection;
 

@@ -18,7 +18,8 @@ namespace YellowstonePathology.Business.Facility.Model
             this.m_ZipCode = "94115-3011";
             this.m_IsReferenceLab = true;
 
-			this.m_CliaLicense = new CLIALicense(this, null);            
+            this.m_FedexPaymentType = "SENDER";
+            this.m_CliaLicense = new CLIALicense(this, null);            
         }
     }
 }

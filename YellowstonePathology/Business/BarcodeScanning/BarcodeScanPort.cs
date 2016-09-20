@@ -40,6 +40,9 @@ namespace YellowstonePathology.Business.BarcodeScanning
         public event USPostalServiceCertifiedMailReceivedHandler USPostalServiceCertifiedMailReceived;
         public delegate void USPostalServiceCertifiedMailReceivedHandler(string scanData);
 
+        public event FedexOvernightScanReceivedHandler FedexOvernightScanReceived;
+        public delegate void FedexOvernightScanReceivedHandler(string scanData);
+
         public event AliquotOrderIdReceivedHandler AliquotOrderIdReceived;
         public delegate void AliquotOrderIdReceivedHandler(string scanData);
 
@@ -165,6 +168,10 @@ namespace YellowstonePathology.Business.BarcodeScanning
             else if (scanData.Trim().Length == 20 && scanData.StartsWith("701")) // US Postal Service Certified Mail
             {
                 if (USPostalServiceCertifiedMailReceived != null) this.USPostalServiceCertifiedMailReceived(scanData);
+            }
+            else if(scanData.Trim().Length == 34 && scanData.StartsWith("1001"))
+            {
+                if (FedexOvernightScanReceived != null) this.FedexOvernightScanReceived(scanData);
             }
             else
             {

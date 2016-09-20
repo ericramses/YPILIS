@@ -16,7 +16,8 @@ namespace YellowstonePathology.Business.Facility.Model
             this.m_City = "Atlanta";
             this.m_State = "GA";
             this.m_ZipCode = "30322";
-            this.m_IsReferenceLab = true;                        
+            this.m_IsReferenceLab = true;
+            this.m_FedexPaymentType = "SENDER";
         }
     }
 }

@@ -268,10 +268,14 @@ namespace YellowstonePathology.UI.ReportDistribution
 
             //try
             //{
-                caseDocument.Render();
+            caseDocument.Render();
+            if(panelSetOrder.ResultDocumentSource != "Reference Lab")
+            {
                 caseDocument.Publish();
+            }
+                
+            this.m_ReportDistributionLogEntryCollection.AddEntry("INFO", "Publish Next", null, panelSetOrder.ReportNo, panelSetOrder.MasterAccessionNo, null, null, "PanelSetOrder Published");
 
-                this.m_ReportDistributionLogEntryCollection.AddEntry("INFO", "Publish Next", null, panelSetOrder.ReportNo, panelSetOrder.MasterAccessionNo, null, null, "PanelSetOrder Published");
             //}                                    
             //catch (Exception publishException)
             //{
@@ -347,8 +351,8 @@ namespace YellowstonePathology.UI.ReportDistribution
 
                 YellowstonePathology.Business.Interface.ICaseDocument caseDocument = YellowstonePathology.Business.Document.DocumentFactory.GetDocument(accessionOrder, panelSetOrder, Business.Document.ReportSaveModeEnum.Normal);
                 YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(panelSetOrder.ReportNo);
-
-                if(panelSetOrder.HoldDistribution == false)
+                
+                if (panelSetOrder.HoldDistribution == false)
                 {
                     if (this.TryDelete(panelSetOrder, caseDocument, orderIdParser) == true)
                     {
@@ -359,13 +363,13 @@ namespace YellowstonePathology.UI.ReportDistribution
                                 foreach (YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution testOrderReportDistribution in panelSetOrder.TestOrderReportDistributionCollection)
                                 {
                                     if (testOrderReportDistribution.Distributed == false)
-                                    {
-                                        YellowstonePathology.Business.ReportDistribution.Model.DistributionResult distributionResult = this.Distribute(testOrderReportDistribution, accessionOrder);
+                                    {                                        
+                                        YellowstonePathology.Business.ReportDistribution.Model.DistributionResult distributionResult = this.Distribute(testOrderReportDistribution, accessionOrder, panelSetOrder);
                                         if (distributionResult.IsComplete == true)
                                         {
                                             testOrderReportDistribution.TimeOfLastDistribution = DateTime.Now;
                                             testOrderReportDistribution.ScheduledDistributionTime = null;
-                                            testOrderReportDistribution.Distributed = true;
+                                            testOrderReportDistribution.Distributed = true;                                            
 
                                             string testOrderReportDistributionLogId = Guid.NewGuid().ToString();
                                             string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
@@ -452,9 +456,9 @@ namespace YellowstonePathology.UI.ReportDistribution
             }
         }
 
-        private YellowstonePathology.Business.ReportDistribution.Model.DistributionResult Distribute(YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution testOrderReportDistribution, Business.Test.AccessionOrder accessionOrder)
+        private YellowstonePathology.Business.ReportDistribution.Model.DistributionResult Distribute(YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution testOrderReportDistribution, Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder)
         {
-            YellowstonePathology.Business.ReportDistribution.Model.DistributionResult result = null;
+            YellowstonePathology.Business.ReportDistribution.Model.DistributionResult result = null;            
 
             switch (testOrderReportDistribution.DistributionType)
             {
@@ -462,7 +466,7 @@ namespace YellowstonePathology.UI.ReportDistribution
                     result = this.HandleFaxDistribution(testOrderReportDistribution);
                     break;
                 case YellowstonePathology.Business.ReportDistribution.Model.DistributionType.EPIC:
-                    result = this.HandleEPICDistribution(testOrderReportDistribution, accessionOrder);
+                    result = this.HandleEPICDistribution(testOrderReportDistribution, accessionOrder, panelSetOrder);
                     break;                
                 case YellowstonePathology.Business.ReportDistribution.Model.DistributionType.ECW:
                     result = this.HandleECWDistribution(testOrderReportDistribution, accessionOrder);
@@ -578,9 +582,18 @@ namespace YellowstonePathology.UI.ReportDistribution
             return YellowstonePathology.Business.ReportDistribution.Model.FaxSubmission.Submit(testOrderReportDistribution.FaxNumber, testOrderReportDistribution.LongDistance, testOrderReportDistribution.ReportNo, tifCaseFileName);
         }
 
-        private YellowstonePathology.Business.ReportDistribution.Model.DistributionResult HandleEPICDistribution(YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution testOrderReportDistribution, Business.Test.AccessionOrder accessionOrder)
+        private YellowstonePathology.Business.ReportDistribution.Model.DistributionResult HandleEPICDistribution(YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution testOrderReportDistribution, Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder)
         {
-            YellowstonePathology.Business.HL7View.IResultView resultView = YellowstonePathology.Business.HL7View.ResultViewFactory.GetResultView(testOrderReportDistribution.ReportNo, accessionOrder, testOrderReportDistribution.ClientId, false);
+            if(panelSetOrder.IsPosted == true)
+            {
+                testOrderReportDistribution.ResultStatus = "F";
+            }
+            else
+            {
+                testOrderReportDistribution.ResultStatus = "P";
+            }
+                
+            YellowstonePathology.Business.HL7View.IResultView resultView = YellowstonePathology.Business.HL7View.ResultViewFactory.GetResultView(testOrderReportDistribution.ReportNo, accessionOrder, testOrderReportDistribution.ClientId, testOrderReportDistribution.ResultStatus, false);
             YellowstonePathology.Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
             resultView.Send(methodResult);
 

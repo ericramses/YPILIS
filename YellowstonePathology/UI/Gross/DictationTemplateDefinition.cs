@@ -80,7 +80,7 @@ namespace YellowstonePathology.UI.Gross
         public ConsultTemplate()
         {
             this.m_TemplateName = "Consult";
-            this.m_Text = "Received in consultation from physicianname (clientname - clientcitystate) are slidecount slide[?s?] and blockcount block[?s?] labeled clientaccession for patient patientname.  ";
+            this.m_Text = "Received in consultation from [physicianname] ([clientname] - [clientcitystate]) are [slidecount] slide[?s?] and blockcount block[?s?] labeled [clientaccession] for patient [patientname].  ";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Consult consult = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Consult();
             this.m_SpecimenCollection.Add(consult);
@@ -88,16 +88,35 @@ namespace YellowstonePathology.UI.Gross
 
         public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {            
-            string result = this.m_Text.Replace("physicianname", accessionOrder.PhysicianName);
-            result = result.Replace("clientaccession", accessionOrder.ClientAccessionNo);
-            result = result.Replace("patientname", accessionOrder.PatientDisplayName);
-            result = result.Replace("blockcount", specimenOrder.AliquotOrderCollection.GetBlockCount().ToString());
-            result = result.Replace("slidecount", specimenOrder.AliquotOrderCollection.GetSlideCount().ToString());
+            string result = this.m_Text.Replace("[physicianname]", accessionOrder.PhysicianName);
+            result = result.Replace("[clientaccession]", accessionOrder.ClientAccessionNo);
+            result = result.Replace("[patientname]", accessionOrder.PatientDisplayName);
+            result = result.Replace("[blockcount]", specimenOrder.AliquotOrderCollection.GetBlockCount().ToString());
+            result = result.Replace("[slidecount]", specimenOrder.AliquotOrderCollection.GetClientAccessionedSlideOrderCount().ToString());
             result = base.ReplaceIdentifier(result, specimenOrder, accessionOrder);
 
             YellowstonePathology.Business.Client.Model.Client client = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientByClientId(accessionOrder.ClientId);
-            result = result.Replace("clientname", client.ClientName);
-            result = result.Replace("clientcitystate", client.City + "/" + client.State);
+            result = result.Replace("[clientname]", client.ClientName);
+            result = result.Replace("[clientcitystate]", client.City + ", " + client.State);
+            return result;
+        }
+    }
+
+    public class PeripheralBloodTemplate : DictationTemplate
+    {
+        public PeripheralBloodTemplate()
+        {
+            this.m_TemplateName = "Perihperal Blood Smear";
+            this.m_Text = "The specimen consists of [slidecount] [unstained/stained] peripheral blood smear[?s?] each labeled [patientname] for review by pathologist.  ";
+
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Peripheral peripheral = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Peripheral();
+            this.m_SpecimenCollection.Add(peripheral);
+        }
+
+        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        {
+            string result = this.m_Text.Replace("[patientname]", accessionOrder.PatientDisplayName);
+            result = result.Replace("[slidecount]", specimenOrder.AliquotOrderCollection.GetSlideCount().ToString());
             return result;
         }
     }

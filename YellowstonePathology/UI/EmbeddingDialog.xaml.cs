@@ -132,6 +132,8 @@ namespace YellowstonePathology.UI
                     YellowstonePathology.Business.Surgical.ProcessorRun processorRun = (YellowstonePathology.Business.Surgical.ProcessorRun)this.ComboBoxProcessorRuns.SelectedItem;
                     YellowstonePathology.Business.BarcodeScanning.EmbeddingScan result = this.m_EmbeddingScanCollection.HandleScan(barcode.ID, processorRun.ProcessorRunId, processorRun.Name);
                     this.ListViewEmbeddingScans.SelectedIndex = 0;
+                    this.m_ScanCount = "Block Count: " + this.m_EmbeddingScanCollection.Count.ToString();
+                    this.NotifyPropertyChanged("ScanCount");
                 }                
             }
             ));

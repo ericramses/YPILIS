@@ -32,7 +32,8 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
         private string m_FaxNumber;
         private bool m_LongDistance;
         private bool m_Rescheduled;
-        private string m_RescheduledMessage;        
+        private string m_RescheduledMessage;
+        private string m_ResultStatus;   
 
 		public TestOrderReportDistribution()
         {
@@ -293,6 +294,20 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
                 {
                     this.m_RescheduledMessage = value;
                     this.NotifyPropertyChanged("RescheduledMessage");
+                }
+            }
+        }
+
+        [PersistentStringProperty(50, "F")]
+        public string ResultStatus
+        {
+            get { return this.m_ResultStatus; }
+            set
+            {
+                if (this.m_ResultStatus != value)
+                {
+                    this.m_ResultStatus = value;
+                    this.NotifyPropertyChanged("ResultStatus");
                 }
             }
         }
