@@ -298,7 +298,8 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
             }
         }
 
-        [PersistentStringProperty(50, "F")]
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "'F'", "varchar")]
         public string ResultStatus
         {
             get { return this.m_ResultStatus; }

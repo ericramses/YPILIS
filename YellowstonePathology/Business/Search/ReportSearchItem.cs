@@ -346,6 +346,7 @@ namespace YellowstonePathology.Business.Search
 			}
 		}
 
+        [PersistentProperty()]
         public bool IsPosted
         {
             get { return this.m_IsPosted; }
