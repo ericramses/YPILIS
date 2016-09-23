@@ -1224,7 +1224,7 @@ namespace YellowstonePathology.UI
             
         }
 
-        private void ButtonWilliamTesting_Click(object sender, RoutedEventArgs e) // Compares AccessionOrderBuilder ao to AccessionOrderBuilderV2 ao
+        /*private void ButtonWilliamTesting_Click(object sender, RoutedEventArgs e) // Compares AccessionOrderBuilder ao to AccessionOrderBuilderV2 ao
         {
             string resultString = string.Empty;
             DateTime startDate = DateTime.Parse("2/10/2016");
@@ -1234,7 +1234,7 @@ namespace YellowstonePathology.UI
             DateTime endDate = startDate.AddDays(1);
             List<string> masterAccessionNos = new List<string>();
                 masterAccessionNos.Add("16-22139");
-                /*SqlCommand cmd = new SqlCommand("select MasteraccessionNo from tblAccessionOrder where AccessionDate between '" + startDate.ToString() + "' and '" + endDate.ToString() + "'"); // order by 1 asc");
+                SqlCommand cmd = new SqlCommand("select MasteraccessionNo from tblAccessionOrder where AccessionDate between '" + startDate.ToString() + "' and '" + endDate.ToString() + "'"); // order by 1 asc");
                 cmd.CommandType = CommandType.Text;
                 using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
                 {
@@ -1248,7 +1248,7 @@ namespace YellowstonePathology.UI
                             masterAccessionNos.Add(s);
                         }
                     }
-                }*/
+                }
 
                 foreach (string masterAccessionNo in masterAccessionNos)
                 {
@@ -1285,7 +1285,7 @@ namespace YellowstonePathology.UI
             //}
             resultString = "done";
             MessageBox.Show(resultString);
-        }
+        }*/
 
         /*private void ButtonWilliamTesting_Click(object sender, RoutedEventArgs e) //Compares MySql accession order (accession table only) to Sql Server
         {
@@ -1382,5 +1382,32 @@ namespace YellowstonePathology.UI
             string resultString = "done";
             MessageBox.Show(resultString);
         }*/
+
+        private void ButtonWilliamTesting_Click(object sender, RoutedEventArgs e)
+        {
+            List<int> panelIds = new List<int>();
+            panelIds.Add(0);
+            panelIds.Add(1);
+            panelIds.Add(2);
+            panelIds.Add(5);
+            panelIds.Add(6);
+            panelIds.Add(8);
+            panelIds.Add(9);
+            panelIds.Add(10);
+            panelIds.Add(11);
+            panelIds.Add(12);
+            panelIds.Add(13);
+            panelIds.Add(14);
+            panelIds.Add(15);
+            panelIds.Add(16);
+            panelIds.Add(17);
+            panelIds.Add(18);
+            panelIds.Add(19);
+            foreach(int id in panelIds)
+            {
+                Business.Flow.FlowMarkerCollection result = Business.Gateway.FlowGateway.GetFlowMarkerCollectionByPanelId("16-99999.F1", id);
+            }
+            MessageBox.Show("done");
+        }
     }
 }
