@@ -328,6 +328,7 @@ namespace YellowstonePathology.UI.Login.Receiving
                 Business.Facility.Model.Facility facility = (Business.Facility.Model.Facility)comboBox.SelectedItem;
                 Business.Task.Model.TaskOrderDetailFedexShipment taskOrderDetail = this.m_TaskOrder.TaskOrderDetailCollection.GetFedexShipment();
                 taskOrderDetail.SetShipTo(facility);
+                this.NotifyPropertyChanged(string.Empty);
             }            
         }
     }

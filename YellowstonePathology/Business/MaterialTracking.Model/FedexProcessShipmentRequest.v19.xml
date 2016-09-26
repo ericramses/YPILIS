@@ -103,7 +103,14 @@
           <v19:LabelStockType>STOCK_4X6</v19:LabelStockType>
         </v19:LabelSpecification>
         <v19:RateRequestTypes>LIST</v19:RateRequestTypes>
-        <v19:PackageCount>1</v19:PackageCount>        
+        <v19:PackageCount>1</v19:PackageCount>
+        <v19:RequestedPackageLineItems>
+          <v19:SequenceNumber>1</v19:SequenceNumber>            
+          <v19:Weight>
+            <v19:Units>LB</v19:Units>
+            <v19:Value>2</v19:Value>
+          </v19:Weight>          
+        </v19:RequestedPackageLineItems>
       </v19:RequestedShipment>
     </v19:ProcessShipmentRequest>
   </soapenv:Body>

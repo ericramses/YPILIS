@@ -80,7 +80,7 @@ namespace YellowstonePathology.UI.Gross
         public ConsultTemplate()
         {
             this.m_TemplateName = "Consult";
-            this.m_Text = "Received in consultation from [physicianname] ([clientname] - [clientcitystate]) are [slidecount] slide[?s?] and blockcount block[?s?] labeled [clientaccession] for patient [patientname].  ";
+            this.m_Text = "Received in consultation from [physicianname] ([clientname] - [clientcitystate]) are [slidecount] and [blockcount] labeled [clientaccession] for patient \"[patientname]\".  ";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Consult consult = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Consult();
             this.m_SpecimenCollection.Add(consult);
@@ -91,8 +91,35 @@ namespace YellowstonePathology.UI.Gross
             string result = this.m_Text.Replace("[physicianname]", accessionOrder.PhysicianName);
             result = result.Replace("[clientaccession]", accessionOrder.ClientAccessionNo);
             result = result.Replace("[patientname]", accessionOrder.PatientDisplayName);
-            result = result.Replace("[blockcount]", specimenOrder.AliquotOrderCollection.GetBlockCount().ToString());
-            result = result.Replace("[slidecount]", specimenOrder.AliquotOrderCollection.GetClientAccessionedSlideOrderCount().ToString());
+            result = result.Replace("[blockcount]", specimenOrder.AliquotOrderCollection.GetBlockCountString().ToString());
+            result = result.Replace("[slidecount]", specimenOrder.AliquotOrderCollection.GetClientAccessionedSlideOrderCountString());
+            result = base.ReplaceIdentifier(result, specimenOrder, accessionOrder);
+
+            YellowstonePathology.Business.Client.Model.Client client = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientByClientId(accessionOrder.ClientId);
+            result = result.Replace("[clientname]", client.ClientName);
+            result = result.Replace("[clientcitystate]", client.City + ", " + client.State);
+            return result;
+        }
+    }
+
+    public class InitialReadingTemplate : DictationTemplate
+    {
+        public InitialReadingTemplate()
+        {
+            this.m_TemplateName = "Consult";
+            this.m_Text = "Received from [physicianname] ([clientname] - [clientcitystate]) are [slidecount] and [blockcount] labeled [clientaccession] for patient \"[patientname]\" for pathologist interpretation. ";
+
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.InitialReading initialReading = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.InitialReading();
+            this.m_SpecimenCollection.Add(initialReading);
+        }
+
+        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        {
+            string result = this.m_Text.Replace("[physicianname]", accessionOrder.PhysicianName);
+            result = result.Replace("[clientaccession]", accessionOrder.ClientAccessionNo);
+            result = result.Replace("[patientname]", accessionOrder.PatientDisplayName);
+            result = result.Replace("[blockcount]", specimenOrder.AliquotOrderCollection.GetBlockCountString().ToString());
+            result = result.Replace("[slidecount]", specimenOrder.AliquotOrderCollection.GetClientAccessionedSlideOrderCountString().ToString());
             result = base.ReplaceIdentifier(result, specimenOrder, accessionOrder);
 
             YellowstonePathology.Business.Client.Model.Client client = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientByClientId(accessionOrder.ClientId);
@@ -107,7 +134,7 @@ namespace YellowstonePathology.UI.Gross
         public PeripheralBloodTemplate()
         {
             this.m_TemplateName = "Peripheral Blood Smear";
-            this.m_Text = "The specimen consists of [slidecount] [unstained/stained] peripheral blood smear[?s?] each labeled [patientname] for review by pathologist.  ";
+            this.m_Text = "The specimen consists of [slidecount] [unstained/stained] peripheral blood smear[?s?] each labeled \"[patientname]\" for review by pathologist.  ";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Peripheral peripheral = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Peripheral();
             this.m_SpecimenCollection.Add(peripheral);
@@ -277,22 +304,24 @@ namespace YellowstonePathology.UI.Gross
         public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             //string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
-            //result = this.ReplaceSubmitted(result, specimenOrder);
-            //return result;
-            
+
+            string result = this.ReplaceIdentifier(this.m_Text, specimenOrder, accessionOrder);
             if (specimenOrder.AliquotOrderCollection.Count == 1)
             {
-                this.m_Text = this.m_Text.Replace("[submitted]", "Entirely submitted in cassette \"" + specimenOrder.AliquotOrderCollection[0].Label + "\"");
+                result = result.Replace("[submitted]", "Entirely submitted in cassette \"" + specimenOrder.AliquotOrderCollection[0].Label + "\"");
             }
             else if(specimenOrder.AliquotOrderCollection.Count == 2)
             {
-                this.m_Text = this.m_Text.Replace("[submitted]", "Shave [procedure] and submitted in cassette \"" + specimenOrder.SpecimenNumber + "A\".  " + "The curettings are filtered through a fine mesh bag and entirely submitted in cassette \"" + specimenOrder.AliquotOrderCollection.GetLastBlock().Label + "\"");                              
+                result = result.Replace("[submitted]", "Shave [procedure] and submitted in cassette \"" + specimenOrder.SpecimenNumber + "A\".  " + "The curettings are filtered through a fine mesh bag and entirely submitted in cassette \"" + specimenOrder.AliquotOrderCollection.GetLastBlock().Label + "\"");                              
             }
             else
             {
-                this.m_Text = "This template only works with 2 blocks.";
+                result = "This template only works with 2 blocks.";
             }
-            return this.m_Text;
+            
+            result = this.AppendInitials(result, specimenOrder, accessionOrder, systemIdentity);
+            this.m_Text = result;
+            return result;
         }
     }
 

@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>117</ApplicationRevision>
+    <ApplicationRevision>131</ApplicationRevision>
     <ApplicationVersion>10.1.6.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -3039,6 +3039,7 @@
       <DependentUpon>ClientGroupEntry.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Common\OrderItemView.cs" />
+    <Compile Include="UI\Converter\PathologySpecimenColorConverter.cs" />
     <Compile Include="UI\Converter\BooleanVisibilityHiddenConverter.cs" />
     <Compile Include="UI\Converter\GatingPercentConverter.cs" />
     <Compile Include="UI\Converter\GatingPopulationConverter.cs" />
@@ -4803,7 +4804,7 @@
     <Resource Include="Business\XMLTemplates\CytologyOrderInstructions.xml" />
     <Resource Include="Business\XMLTemplates\DNADefaultExtension.xml" />
     <Resource Include="Business\XPSDocument\Xps\ReportLogo.jpg" />
-    <EmbeddedResource Include="Business\Billing.Model\JSONCPTCodes.txt" />
+    <EmbeddedResource Include="Business\Billing.Model\CPTCodeDefinition.json" />
     <EmbeddedResource Include="Business\MaterialTracking.Model\FedexProcessShipmentRequest.v15.xml" />
     <EmbeddedResource Include="Business\MaterialTracking.Model\FedexDeleteShipmentRequest.v19.xml" />
     <EmbeddedResource Include="Business\MaterialTracking.Model\FedexTrackingRequest.v9.xml" />
