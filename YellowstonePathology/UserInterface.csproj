@@ -3003,6 +3003,9 @@
       <DependentUpon>BillingPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Billing\BillingPath.cs" />
+    <Compile Include="UI\Billing\SVHCDMResultDialog.xaml.cs">
+      <DependentUpon>SVHCDMResultDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Billing\ClientBillingReportDialog.xaml.cs">
       <DependentUpon>ClientBillingReportDialog.xaml</DependentUpon>
     </Compile>
@@ -4874,6 +4877,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\AppMessaging\LockRequestResponseRecievedPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Billing\SVHCDMResultDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
