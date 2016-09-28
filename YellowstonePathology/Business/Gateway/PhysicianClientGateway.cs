@@ -173,12 +173,40 @@ namespace YellowstonePathology.Business.Gateway
 #endif
         }
 
-		public static YellowstonePathology.Business.Client.Model.Client GetClientByClientId(int clientId)
+        /*private static XElement GetXElementFromCommand(SqlCommand cmd)
+        {
+            XElement result = null;
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (XmlReader xmlReader = cmd.ExecuteXmlReader())
+                {
+                    if (xmlReader.Read() == true)
+                    {
+                        result = XElement.Load(xmlReader, LoadOptions.PreserveWhitespace);
+                    }
+                }
+            }
+            return result;
+        }*/
+
+        public static YellowstonePathology.Business.Client.Model.Client GetClientByClientId(int clientId)
 		{
 #if MONGO
             return PhysicianClientGatewayMongo.GetClientByClientId(clientId);
 #else
-			SqlCommand cmd = new SqlCommand();
+            /*SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "SELECT c.*, (SELECT * from tblClientLocation where ClientId = c.ClientId for xml path('ClientLocation'), type) ClientLocationCollection " +
+                " FROM tblClient c where c.ClientId = @ClientId for xml Path('Client'), type";
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.Add("@ClientId", SqlDbType.Int).Value = clientId;
+            ClientBuilder builder = new ClientBuilder();
+            XElement document = PhysicianClientGateway.GetXElementFromCommand(cmd);
+            builder.Build(document);
+            return builder.Client;*/
+
+            SqlCommand cmd = new SqlCommand();
             cmd.CommandText = "SELECT * FROM tblClient where ClientId = @ClientId " +
                 "SELECT * from tblClientLocation where ClientId = @ClientId";
             cmd.CommandType = CommandType.Text;
@@ -195,6 +223,14 @@ namespace YellowstonePathology.Business.Gateway
 #if MONGO
 			return PhysicianClientGatewayMongo.GetClientsByClientName(clientName);
 #else
+            /*SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "SELECT c.*, (SELECT * from tblClientLocation where ClientId = c.ClientId order by Location for xml path('ClientLocation'), type) ClientLocationCollection " +
+                "FROM tblClient c where c.ClientName like @ClientName + '%' order by ClientName for xml Path('Client'), Root('ClientCollection'), type";
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.Add("@ClientName", SqlDbType.VarChar).Value = clientName;
+            XElement resultElement = PhysicianClientGateway.GetXElementFromCommand(cmd);
+            return BuildClientCollection(resultElement);*/
+
             SqlCommand cmd = new SqlCommand();
             cmd.CommandText = "SELECT * FROM tblClient where ClientName like @ClientName + '%' order by ClientName " +
                 "SELECT * from tblClientLocation where ClientId in (SELECT ClientId FROM tblClient where ClientName like @ClientName + '%') order by Location";
@@ -205,12 +241,91 @@ namespace YellowstonePathology.Business.Gateway
 #endif
         }
 
+        /*private static View.ClientPhysicianView BuildClientPhysicianView(XElement sourceElement)
+        {
+            View.ClientPhysicianView result = new View.ClientPhysicianView();
+            XElement clientElement = sourceElement.Element("Client");
+            YellowstonePathology.Business.Persistence.XmlPropertyWriter xmlPropertyWriter = new Persistence.XmlPropertyWriter(clientElement, result);
+            xmlPropertyWriter.Write();
+
+            XElement physiciansElement = clientElement.Element("Physicians");
+            if (physiciansElement != null)
+            {
+                List<XElement> physicianElements = physiciansElement.Elements("Physician").ToList<XElement>();
+                foreach (XElement physicianElement in physicianElements)
+                {
+                    Domain.Physician physician = new Domain.Physician();
+                    YellowstonePathology.Business.Persistence.XmlPropertyWriter xmlPropertyWriter1 = new Persistence.XmlPropertyWriter(physicianElement, physician);
+                    xmlPropertyWriter1.Write();
+                    result.Physicians.Add(physician);
+                }
+            }
+            return result;
+        }*/
+
+        /*private static YellowstonePathology.Business.Client.Model.ClientCollection BuildClientCollection(XElement sourceElement)
+        {
+            YellowstonePathology.Business.Client.Model.ClientCollection clientCollection = new YellowstonePathology.Business.Client.Model.ClientCollection();
+            if (sourceElement != null)
+            {
+                foreach (XElement clientElement in sourceElement.Elements("Client"))
+                {
+                    ClientBuilder builder = new ClientBuilder();
+                    builder.Build(clientElement);
+                    YellowstonePathology.Business.Client.Model.Client client = builder.Client;
+                    clientCollection.Add(client);
+                }
+            }
+            return clientCollection;
+        }*/
+
+        /*private static View.PhysicianClientView BuildPhysicianClientView(SqlCommand cmd)
+        {
+            View.PhysicianClientView result = new View.PhysicianClientView();
+            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(result, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                    }
+
+                    dr.NextResult();
+
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.Business.Client.Model.Client client = new YellowstonePathology.Business.Client.Model.Client();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(client, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Clients.Add(client);
+                    }
+                }
+            }
+            return result;
+        }*/
+
         public static View.ClientLocationViewCollection GetClientLocationViewByClientName(string clientName)
 		{
 #if MONGO
 			return PhysicianClientGatewayMongo.GetClientLocationViewByClientName(clientName);
 #else
-			SqlCommand cmd = new SqlCommand();
+            /*SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "select c.ClientId, c.ClientName, cl.ClientLocationId, cl.Location from tblClientLocation cl join tblClient c on cl.ClientId = c.ClientId where c.ClientName like @ClientName + '%' Order By 2, 4 " +
+                "for xml path('ClientLocationView'), type, root('ClientLocationViewCollection')";
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.Add("@ClientName", SqlDbType.VarChar).Value = clientName;
+            View.ClientLocationViewCollection results = Persistence.SqlCommandHelper.ExecuteCollectionCommand<View.ClientLocationViewCollection>(cmd);
+            if (results == null)
+            {
+                results = new View.ClientLocationViewCollection();
+            }
+            return results;*/
+
+            SqlCommand cmd = new SqlCommand();
 			cmd.CommandText = "select c.ClientId, c.ClientName, cl.ClientLocationId, cl.Location from tblClientLocation cl join tblClient c on cl.ClientId = c.ClientId where c.ClientName like @ClientName + '%' Order By 2, 4";
             cmd.CommandType = CommandType.Text;
             cmd.Parameters.Add("@ClientName", SqlDbType.VarChar).Value = clientName;
@@ -344,6 +459,22 @@ namespace YellowstonePathology.Business.Gateway
 
 		public static View.ClientPhysicianView GetClientPhysicianViewByClientIdV2(int clientId)
 		{
+            /*View.ClientPhysicianView result = null;
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "with phys as(select p.* from tblPhysician p join tblPhysicianClient pc on p.ObjectId = pc.ProviderId where pc.ClientId = @ClientId) " +
+                "select c.*," +
+                " ( select phys.*" +
+                "   from phys order by phys.FirstName for xml Path('Physician'), type) Physicians" +
+                " from tblClient c where c.ClientId = @ClientId for xml Path('Client'), root('ClientPhysicianView')";
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.Add("@ClientId", SqlDbType.Int).Value = clientId;
+            XElement resultElement = PhysicianClientGateway.GetXElementFromCommand(cmd);
+            if (resultElement != null)
+            {
+                result = PhysicianClientGateway.BuildClientPhysicianView(resultElement);
+            }
+            return result;*/
+
             View.ClientPhysicianView result = null;
 			SqlCommand cmd = new SqlCommand();
             cmd.CommandText = "select * from tblClient c where c.ClientId = @ClientId " +
@@ -910,7 +1041,29 @@ namespace YellowstonePathology.Business.Gateway
 
 		public static YellowstonePathology.Business.Client.Model.ClientSupplyOrderCollection GetClientSupplyOrderCollectionByClientId(int clientId)
 		{
-			SqlCommand cmd = new SqlCommand();
+            /*YellowstonePathology.Business.Client.Model.ClientSupplyOrderCollection result = new Client.Model.ClientSupplyOrderCollection();
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "SELECT c.*," +
+                " (Select cd.* " +
+                "  from tblClientSupplyOrderDetail cd where cd.clientSupplyOrderId = c.clientSupplyOrderId for xml path('ClientSupplyOrderDetail'), type) ClientSupplyOrderDetailCollection" +
+                " from tblClientSupplyOrder c where c.ClientId = @ClientId order by c.OrderDate desc for xml path('ClientSupplyOrder'), root('ClientSupplyOrderCollection')";
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.Add("@ClientId", SqlDbType.Int).Value = clientId;
+
+            XElement collectionElement = PhysicianClientGateway.GetXElementFromCommand(cmd);
+            if (collectionElement != null)
+            {
+                List<XElement> clientSupplyOrderList = collectionElement.Elements("ClientSupplyOrder").ToList();
+                foreach (XElement clientSupplyOrderElement in clientSupplyOrderList)
+                {
+                    YellowstonePathology.Business.Client.Model.ClientSupplyOrder clientSupplyOrder = BuildClientSupplyOrder(clientSupplyOrderElement);
+                    result.Add(clientSupplyOrder);
+
+                }
+            }
+            return result;*/
+
+            SqlCommand cmd = new SqlCommand();
             cmd.CommandText = "SELECT * from tblClientSupplyOrder where ClientId = @ClientId order by OrderDate desc " +
                 "Select * from tblClientSupplyOrderDetail where clientSupplyOrderId in (SELECT clientSupplyOrderId from tblClientSupplyOrder where ClientId = @ClientId) order by ClientSupplyOrderDetailId";
             cmd.CommandType = CommandType.Text;
@@ -960,6 +1113,27 @@ namespace YellowstonePathology.Business.Gateway
 
         public static YellowstonePathology.Business.Client.Model.ClientSupplyOrderCollection GetClientSupplyOrderCollection()
         {
+            /*YellowstonePathology.Business.Client.Model.ClientSupplyOrderCollection result = new Client.Model.ClientSupplyOrderCollection();
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "SELECT c.*," +
+                " (Select cd.* " +
+                "  from tblClientSupplyOrderDetail cd where cd.clientSupplyOrderId = c.clientSupplyOrderId for xml path('ClientSupplyOrderDetail'), type) ClientSupplyOrderDetailCollection" +
+                " from tblClientSupplyOrder c where c.OrderDate >= dateadd(mm, -3, getdate()) order by c.OrderDate desc for xml path('ClientSupplyOrder'), root('ClientSupplyOrderCollection')";
+            cmd.CommandType = CommandType.Text;
+
+            XElement collectionElement = PhysicianClientGateway.GetXElementFromCommand(cmd);
+            if (collectionElement != null)
+            {
+                List<XElement> clientSupplyOrderList = collectionElement.Elements("ClientSupplyOrder").ToList();
+                foreach (XElement clientSupplyOrderElement in clientSupplyOrderList)
+                {
+                    YellowstonePathology.Business.Client.Model.ClientSupplyOrder clientSupplyOrder = BuildClientSupplyOrder(clientSupplyOrderElement);
+                    result.Add(clientSupplyOrder);
+
+                }
+            }
+            return result;*/
+
             SqlCommand cmd = new SqlCommand();
             cmd.CommandText = "SELECT * from tblClientSupplyOrder where OrderDate >= dateadd(mm, -3, getdate()) order by OrderDate desc " +
                 "Select * from tblClientSupplyOrderDetail where clientSupplyOrderId in(SELECT clientSupplyOrderId from tblClientSupplyOrder where OrderDate >= dateadd(mm, -3, getdate()))";
@@ -970,27 +1144,34 @@ namespace YellowstonePathology.Business.Gateway
 
         public static YellowstonePathology.Business.Client.Model.ClientSupplyOrderCollection GetClientSupplyOrderCollectionByFinal(bool final)
         {
+            /*YellowstonePathology.Business.Client.Model.ClientSupplyOrderCollection result = new Client.Model.ClientSupplyOrderCollection();
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "SELECT c.*," +
+                " (Select cd.* " +
+                "  from tblClientSupplyOrderDetail cd where cd.clientSupplyOrderId = c.clientSupplyOrderId for xml path('ClientSupplyOrderDetail'), type) ClientSupplyOrderDetailCollection" +
+                " from tblClientSupplyOrder c where c.OrderDate >= dateadd(mm, -3, getdate()) and c.OrderFinal = @Final order by c.OrderDate desc for xml path('ClientSupplyOrder'), root('ClientSupplyOrderCollection')";
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.Add("@Final", SqlDbType.Bit).Value = final;
+
+            XElement collectionElement = PhysicianClientGateway.GetXElementFromCommand(cmd);
+            if (collectionElement != null)
+            {
+                List<XElement> clientSupplyOrderList = collectionElement.Elements("ClientSupplyOrder").ToList();
+                foreach (XElement clientSupplyOrderElement in clientSupplyOrderList)
+                {
+                    YellowstonePathology.Business.Client.Model.ClientSupplyOrder clientSupplyOrder = BuildClientSupplyOrder(clientSupplyOrderElement);
+                    result.Add(clientSupplyOrder);
+
+                }
+            }
+            return result;*/
+
             SqlCommand cmd = new SqlCommand();
             cmd.CommandText = "SELECT * from tblClientSupplyOrder where OrderDate >= dateadd(mm, -3, getdate()) and OrderFinal = @Final order by OrderDate desc " +
                 "Select * from tblClientSupplyOrderDetail cd where cd.clientSupplyOrderId in(SELECT ClientSupplyOrderId from tblClientSupplyOrder where OrderDate >= dateadd(mm, -3, getdate()) and OrderFinal = @Final)";
             cmd.CommandType = CommandType.Text;
             cmd.Parameters.Add("@Final", SqlDbType.Bit).Value = final;
             YellowstonePathology.Business.Client.Model.ClientSupplyOrderCollection result = BuildClientSupplyOrderCollection(cmd);
-            /*if (result.Count == result1.Count)
-            {
-                for (int idx = 0; idx < result.Count; idx++)
-                {
-                    Persistence.DocumentTestBuilders document = new Persistence.DocumentTestBuilders(result[idx], result1[idx]);
-                    if (document.Compare() == false)
-                    {
-                        string s = idx.ToString();
-                    }
-                }
-            }
-            else
-            {
-                string s = "whoops";
-            }*/
             return result;
         }
 
@@ -1140,6 +1321,27 @@ namespace YellowstonePathology.Business.Gateway
 
         public static YellowstonePathology.Business.Client.Model.ProviderClientCollection GetHomeBaseProviderClientListByProviderLastName(string physicianLastName)
         {
+            /*YellowstonePathology.Business.Client.Model.ProviderClientCollection result = new Client.Model.ProviderClientCollection();
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "Select p.*, " +
+                "(select pc.* from tblPhysicianClient pc where p.ObjectId = pc.ProviderId and pc.ClientId = p.HomeBaseClientId for xml Path('ProviderClient'), type),  " +
+                "(select c.* from tblClient c where c.ClientId = p.HomeBaseClientId for xml Path('Client'), type) " +
+                "from tblPhysician p where p.LastName like @LastName + '%' order by p.LastName, p.FirstName for xml Path('Physician'), root('ProviderClientCollection')";
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.Add("@LastName", SqlDbType.VarChar, 50).Value = physicianLastName;
+
+            XElement providerClientCollectionElement = GetXElementFromCommand(cmd);
+            if (providerClientCollectionElement != null)
+            {
+                List<XElement> providerElements = providerClientCollectionElement.Elements("Physician").ToList();
+                foreach (XElement providerElement in providerElements)
+                {
+                    YellowstonePathology.Business.Client.Model.ProviderClient providerClient = BuildHomeBaseProviderClient(providerElement);
+                    result.Add(providerClient);
+                }
+            }
+            return result;*/
+
             SqlCommand cmd = new SqlCommand();
             cmd.CommandText = "Select * from tblPhysician where LastName like @LastName + '%' order by LastName, FirstName " +
                 "select c.* from tblClient c join tblPhysician p on c.ClientId = p.HomeBaseClientId where p.LastName like @LastName + '%' " +
@@ -1152,6 +1354,28 @@ namespace YellowstonePathology.Business.Gateway
 
         public static YellowstonePathology.Business.Client.Model.ProviderClientCollection GetHomeBaseProviderClientListByProviderFirstLastName(string firstName, string lastName)
         {
+            /*YellowstonePathology.Business.Client.Model.ProviderClientCollection result = new Client.Model.ProviderClientCollection();
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "Select p.*, " +
+                "(select pc.* from tblPhysicianClient pc where p.ObjectId = pc.ProviderId and pc.ClientId = p.HomeBaseClientId for xml Path('ProviderClient'), type),  " +
+                "(select c.* from tblClient c where c.ClientId = p.HomeBaseClientId for xml Path('Client'), type) " +
+                "from tblPhysician p where p.FirstName like @FirstName + '%' and p.LastName like @LastName + '%' order by p.LastName, p.FirstName for xml Path('Physician'), root('ProviderClientCollection')";
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.Add("@FirstName", SqlDbType.VarChar, 50).Value = firstName;
+            cmd.Parameters.Add("@LastName", SqlDbType.VarChar, 50).Value = lastName;
+
+            XElement providerClientCollectionElement = GetXElementFromCommand(cmd);
+            if (providerClientCollectionElement != null)
+            {
+                List<XElement> providerElements = providerClientCollectionElement.Elements("Physician").ToList();
+                foreach (XElement providerElement in providerElements)
+                {
+                    YellowstonePathology.Business.Client.Model.ProviderClient providerClient = BuildHomeBaseProviderClient(providerElement);
+                    result.Add(providerClient);
+                }
+            }
+            return result;*/
+
             SqlCommand cmd = new SqlCommand();
             cmd.CommandText = "Select * from tblPhysician where FirstName like @FirstName + '%' and LastName like @LastName + '%' order by LastName, FirstName " +
                 "select c.* from tblClient c join tblPhysician p on c.ClientId = p.HomeBaseClientId where p.FirstName like @FirstName + '%' and p.LastName like @LastName + '%' " +
@@ -1162,6 +1386,32 @@ namespace YellowstonePathology.Business.Gateway
             YellowstonePathology.Business.Client.Model.ProviderClientCollection result = BuildProviderClientCollection(cmd);
             return result;
         }
+
+        /*private static YellowstonePathology.Business.Client.Model.ProviderClient BuildHomeBaseProviderClient(XElement providerElement)
+        {
+            YellowstonePathology.Business.Client.Model.ProviderClient result = new Client.Model.ProviderClient();
+            YellowstonePathology.Business.Domain.Physician physician = new Domain.Physician();
+            YellowstonePathology.Business.Persistence.XmlPropertyWriter xmlPropertyWriterP = new Persistence.XmlPropertyWriter(providerElement, physician);
+            xmlPropertyWriterP.Write();
+            result.Physician = physician;
+
+            XElement clientElement = providerElement.Element("Client");
+            if (clientElement != null)
+            {
+                YellowstonePathology.Business.Client.Model.Client client = new Client.Model.Client();
+                YellowstonePathology.Business.Persistence.XmlPropertyWriter xmlPropertyWriterC = new Persistence.XmlPropertyWriter(clientElement, client);
+                xmlPropertyWriterC.Write();
+                result.Client = client;
+            }
+
+            XElement providerClientElement = providerElement.Element("ProviderClient");
+            if (providerClientElement != null)
+            {
+                YellowstonePathology.Business.Persistence.XmlPropertyWriter xmlPropertyWriterPC = new Persistence.XmlPropertyWriter(providerClientElement, result);
+                xmlPropertyWriterPC.Write();
+            }
+            return result;
+        }*/
 
         private static YellowstonePathology.Business.Client.Model.ProviderClientCollection BuildProviderClientCollection(SqlCommand cmd)
         {
@@ -1193,7 +1443,6 @@ namespace YellowstonePathology.Business.Gateway
                     dr.NextResult();
                     while (dr.Read())
                     {
-                        //PhysicianClientId, PhysicianId, ClientId, ObjectId, ProviderId, Timestamp, Transferred
                         string providerClientId = dr["PhysicianClientId"].ToString();
                         string physicianObjectId = dr["ProviderId"].ToString();
                         foreach(Client.Model.ProviderClient providerClient in result)
