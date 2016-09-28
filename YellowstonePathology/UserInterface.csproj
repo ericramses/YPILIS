@@ -31,7 +31,7 @@
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <PublishUrl>\\Ypiidc\YPIILIS\Test\</PublishUrl>
+    <PublishUrl>\\ypiidc\YPIILIS\Application\</PublishUrl>
     <Install>false</Install>
     <InstallFrom>Unc</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>132</ApplicationRevision>
+    <ApplicationRevision>134</ApplicationRevision>
     <ApplicationVersion>10.1.6.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -991,6 +991,7 @@
     <Compile Include="Business\Label.Model\MolecularLabelPrinter.cs" />
     <Compile Include="Business\Label.Model\MolecularLabelZebra.cs" />
     <Compile Include="Business\Label.Model\PantherLabel.cs" />
+    <Compile Include="Business\Label.Model\ContainerZPLLabel.cs" />
     <Compile Include="Business\Label.Model\PantherZPLLabel.cs" />
     <Compile Include="Business\Label.Model\PAPSlideLabel.cs" />
     <Compile Include="Business\Label.Model\PAPSlideLabelPrinter.cs" />

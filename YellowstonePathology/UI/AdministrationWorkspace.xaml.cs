@@ -1002,19 +1002,10 @@ namespace YellowstonePathology.UI
         
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
-        {
-            //if (accessionOrder.AccessionLock.IsLockAquiredByMe == false ||
-            //    (this.m_TestOrder.Final == true &&
-            //    (this.m_TestOrder.Distribute == false ||
-            //    this.m_TestOrder.TestOrderReportDistributionCollection.HasDistributedItems())))
-
-            bool haveLock = false;
-            bool isFinal = false;
-            bool willDistribute = false;
-            bool hasDistributed = false;
-
-            bool result = haveLock || (isFinal && (willDistribute || hasDistributed));
-            Console.WriteLine("Result: " + result);
+        {            
+            Business.Label.Model.ZPLPrinter printer = new Business.Label.Model.ZPLPrinter("10.1.1.21"); 
+            YellowstonePathology.Business.BarcodeScanning.ContainerBarcode containerBarcode = Business.BarcodeScanning.ContainerBarcode.Parse();
+            printer.Print(Business.Label.Model.ContainerZPLLabel.GetCommands(containerBarcode.ID));
         }        
 
         private void PrintDocument_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
