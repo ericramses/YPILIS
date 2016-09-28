@@ -31,7 +31,7 @@
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <PublishUrl>\\ypiidc\YPIILIS\Application\</PublishUrl>
+    <PublishUrl>\\Ypiidc\YPIILIS\Test\</PublishUrl>
     <Install>false</Install>
     <InstallFrom>Unc</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>131</ApplicationRevision>
+    <ApplicationRevision>132</ApplicationRevision>
     <ApplicationVersion>10.1.6.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -1062,7 +1062,7 @@
     <Compile Include="Business\PanelSet.Model\NeoTypeDiscoveryProfileTest.cs" />
     <Compile Include="Business\ParseSpecimenOrderIdResult.cs" />
     <Compile Include="Business\Persistence\DocumentTestBuilders.cs" />
-    <Compile Include="Business\Persistence\PersitentStringProperty.cs" />
+    <Compile Include="Business\Persistence\PersistentDataColumnProperty.cs" />
     <Compile Include="Business\Persistence\SqlDataRowReaderPropertyWriter.cs" />
     <Compile Include="Business\Surgical\ProcessorRunDefinitions.cs" />
     <Compile Include="Business\Task.Model\TaskFedexShipment.cs" />
