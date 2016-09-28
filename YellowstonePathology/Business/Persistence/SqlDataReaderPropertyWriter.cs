@@ -108,7 +108,11 @@ namespace YellowstonePathology.Business.Persistence
 
         private void WriteInt(PropertyInfo property)
         {
-            int sqlValue = Convert.ToInt32(this.m_SqlDataReader[property.Name].ToString());
+            int sqlValue = 0;
+            if (this.m_SqlDataReader[property.Name] != DBNull.Value) //ClientSupplyOrderDetail
+            {
+                sqlValue = Convert.ToInt32(this.m_SqlDataReader[property.Name].ToString());
+            }
 			property.SetValue(this.m_ObjectToWriteTo, sqlValue, null);
         }
 
@@ -137,7 +141,11 @@ namespace YellowstonePathology.Business.Persistence
 
         private void WriteBoolean(PropertyInfo property)
         {
-            bool sqlValue = Convert.ToBoolean(this.m_SqlDataReader[property.Name].ToString());
+            bool sqlValue = false;
+            if (this.m_SqlDataReader[property.Name] != DBNull.Value) //ClientLocation
+            {
+                sqlValue = Convert.ToBoolean(this.m_SqlDataReader[property.Name].ToString());
+            }
 			property.SetValue(this.m_ObjectToWriteTo, sqlValue, null);
         }
 

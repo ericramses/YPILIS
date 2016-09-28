@@ -70,6 +70,10 @@ namespace YellowstonePathology.Business.Persistence
             else
             {
                 result = this.CheckNulls(this.m_Value, this.m_Clone);
+                if (result == false)
+                {
+                    string s = "nope";
+                }
             }
             return result;
         }

@@ -716,6 +716,31 @@ namespace YellowstonePathology.Business.Slide.Model
             if (xml.Element("OrderedFrom") != null) m_OrderedFrom = xml.Element("OrderedFrom").Value;
             if (xml.Element("ValidationDate") != null) m_ValidationDate = DateTime.Parse(xml.Element("ValidationDate").Value);
             if (xml.Element("Status") != null) m_Status = xml.Element("Status").Value;
+
+
+            if (xml.Element("ObjectId") != null) m_ObjectId = xml.Element("ObjectId").Value;
+            if (xml.Element("ClientAccessioned") != null) m_ClientAccessioned = Convert.ToBoolean(Convert.ToInt32(xml.Element("ClientAccessioned").Value));
+            if (xml.Element("ClientLabel") != null) m_ClientLabel = xml.Element("ClientLabel").Value;
+            if (xml.Element("Validated") != null) m_Validated = Convert.ToBoolean(Convert.ToInt32(xml.Element("Validated").Value));
+            if (xml.Element("ValidationStation") != null) m_ValidationStation = xml.Element("ValidationStation").Value;
+            if (xml.Element("ValidatedById") != null) m_ValidatedById = Convert.ToInt32(xml.Element("ValidatedById").Value);
+            if (xml.Element("ValidatedBy") != null) m_ValidatedBy = xml.Element("ValidatedBy").Value;
+            if (xml.Element("Printed") != null) m_Printed = Convert.ToBoolean(Convert.ToInt32(xml.Element("Printed").Value));
+            if (xml.Element("PrintStation") != null) m_PrintStation = xml.Element("PrintStation").Value;
+            if (xml.Element("PrintedById") != null) m_PrintedById = Convert.ToInt32(xml.Element("PrintedById").Value);
+            if (xml.Element("PrintedBy") != null) m_PrintedBy = xml.Element("PrintedBy").Value;
+            if (xml.Element("PrintDate") != null) m_PrintDate = DateTime.Parse(xml.Element("PrintDate").Value);
+            if (xml.Element("TestId") != null) m_TestId = Convert.ToInt32(xml.Element("TestId").Value);
+            if (xml.Element("TestName") != null) m_TestName = xml.Element("TestName").Value;
+            if (xml.Element("TestAbbreviation") != null) m_TestAbbreviation = xml.Element("TestAbbreviation").Value;
+            if (xml.Element("TestOrderId") != null) m_TestOrderId = xml.Element("TestOrderId").Value;
+            if (xml.Element("PatientLastName") != null) m_PatientLastName = xml.Element("PatientLastName").Value;
+            if (xml.Element("Location") != null) m_Location = xml.Element("Location").Value;
+            if (xml.Element("ReportNo") != null) m_ReportNo = xml.Element("ReportNo").Value;
+            if (xml.Element("LabelType") != null) m_LabelType = xml.Element("LabelType").Value;
+            if (xml.Element("OrderedAsDual") != null) m_OrderedAsDual = Convert.ToBoolean(Convert.ToInt32(xml.Element("OrderedAsDual").Value));
+            if (xml.Element("LocationId") != null) m_LocationId = xml.Element("LocationId").Value;
+            if (xml.Element("FacilityId") != null) m_FacilityId = xml.Element("FacilityId").Value;
         }
 
         public XElement ToXml()
