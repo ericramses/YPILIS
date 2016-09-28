@@ -2699,7 +2699,7 @@ namespace YellowstonePathology.Business.Gateway
                 "from tblAmendment a " +
                 "join tblTestOrderReportDistribution trd on a.ReportNo = trd.ReportNo " +
                 "join tblPanelSetOrder pso on trd.ReportNo = pso.ReportNo " +
-                "where trd.TimeOfLastDistribution < a.finalTime and trd.ScheduledDistributionTime is null and a.finalTime < dateAdd(mi, -15, getdate())";
+                "where trd.TimeOfLastDistribution < a.finalTime and trd.ScheduledDistributionTime is null and a.finalTime < dateAdd(mi, -15, getdate()) and a.DistributeOnFinal = 1 ";
 
             cmd.CommandType = CommandType.Text;
             using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))

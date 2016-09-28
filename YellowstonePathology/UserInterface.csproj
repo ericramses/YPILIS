@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>116</ApplicationRevision>
+    <ApplicationRevision>134</ApplicationRevision>
     <ApplicationVersion>10.1.6.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -992,6 +992,7 @@
     <Compile Include="Business\Label.Model\MolecularLabelPrinter.cs" />
     <Compile Include="Business\Label.Model\MolecularLabelZebra.cs" />
     <Compile Include="Business\Label.Model\PantherLabel.cs" />
+    <Compile Include="Business\Label.Model\ContainerZPLLabel.cs" />
     <Compile Include="Business\Label.Model\PantherZPLLabel.cs" />
     <Compile Include="Business\Label.Model\PAPSlideLabel.cs" />
     <Compile Include="Business\Label.Model\PAPSlideLabelPrinter.cs" />
@@ -3004,6 +3005,9 @@
       <DependentUpon>BillingPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Billing\BillingPath.cs" />
+    <Compile Include="UI\Billing\SVHCDMResultDialog.xaml.cs">
+      <DependentUpon>SVHCDMResultDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Billing\ClientBillingReportDialog.xaml.cs">
       <DependentUpon>ClientBillingReportDialog.xaml</DependentUpon>
     </Compile>
@@ -3040,6 +3044,7 @@
       <DependentUpon>ClientGroupEntry.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Common\OrderItemView.cs" />
+    <Compile Include="UI\Converter\PathologySpecimenColorConverter.cs" />
     <Compile Include="UI\Converter\BooleanVisibilityHiddenConverter.cs" />
     <Compile Include="UI\Converter\GatingPercentConverter.cs" />
     <Compile Include="UI\Converter\GatingPopulationConverter.cs" />
@@ -4804,7 +4809,7 @@
     <Resource Include="Business\XMLTemplates\CytologyOrderInstructions.xml" />
     <Resource Include="Business\XMLTemplates\DNADefaultExtension.xml" />
     <Resource Include="Business\XPSDocument\Xps\ReportLogo.jpg" />
-    <EmbeddedResource Include="Business\Billing.Model\JSONCPTCodes.txt" />
+    <EmbeddedResource Include="Business\Billing.Model\CPTCodeDefinition.json" />
     <EmbeddedResource Include="Business\MaterialTracking.Model\FedexProcessShipmentRequest.v15.xml" />
     <EmbeddedResource Include="Business\MaterialTracking.Model\FedexDeleteShipmentRequest.v19.xml" />
     <EmbeddedResource Include="Business\MaterialTracking.Model\FedexTrackingRequest.v9.xml" />
@@ -4874,6 +4879,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\AppMessaging\LockRequestResponseRecievedPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Billing\SVHCDMResultDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

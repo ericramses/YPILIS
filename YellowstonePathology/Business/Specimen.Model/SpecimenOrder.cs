@@ -66,7 +66,7 @@ namespace YellowstonePathology.Business.Specimen.Model
 		private YellowstonePathology.Business.Test.AliquotOrderCollection m_AliquotOrderCollection;		
 		private List<YellowstonePathology.Business.Test.Model.TestOrder> m_PeerReviewTestOrders;		
 		private bool m_DeletePending = false;
-		private bool m_ApplyFixation = true;
+		private bool m_ApplyFixation = true;                
 
 		public SpecimenOrder()
 		{
@@ -261,7 +261,7 @@ namespace YellowstonePathology.Business.Specimen.Model
 				m_DeletePending = value;
 				NotifyPropertyChanged("DeletePending");
 			}
-		}
+		}        
 
 		public bool ApplyFixation
 		{
