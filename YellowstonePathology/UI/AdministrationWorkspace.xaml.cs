@@ -1218,14 +1218,15 @@ namespace YellowstonePathology.UI
         /*private void ButtonWilliamTesting_Click(object sender, RoutedEventArgs e) // Compares AccessionOrderBuilder ao to AccessionOrderBuilderV2 ao
         {
             string resultString = string.Empty;
-            DateTime startDate = DateTime.Parse("2/10/2016");
+            DateTime startDate = DateTime.Parse("8/17/2016");
             //for (int didx = 0; didx < 4; didx++)
             //{
                 //DateTime endDate = startDate.AddMonths(1).AddDays(-1);
-            DateTime endDate = startDate.AddDays(1);
+            DateTime endDate = startDate.AddDays(2);
             List<string> masterAccessionNos = new List<string>();
-                masterAccessionNos.Add("16-22139");
+                //masterAccessionNos.Add("16-21295");
                 SqlCommand cmd = new SqlCommand("select MasteraccessionNo from tblAccessionOrder where AccessionDate between '" + startDate.ToString() + "' and '" + endDate.ToString() + "'"); // order by 1 asc");
+                //SqlCommand cmd = new SqlCommand("select distinct MasteraccessionNo from tblPanelSetOrder where panelSetId = 215");
                 cmd.CommandType = CommandType.Text;
                 using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
                 {
