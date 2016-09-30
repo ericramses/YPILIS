@@ -948,9 +948,6 @@ namespace YellowstonePathology.UI
 
         private void BuildObjectsTesting()
         {
-            XElement xElement = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderXMLDocument("14-27868");
-			YellowstonePathology.Business.Persistence.ObjectXMLBuilder objectXMLBuilder = new YellowstonePathology.Business.Persistence.ObjectXMLBuilder();
-            object result = objectXMLBuilder.Build(xElement);
         }
 
         private void WriteStVincentAllInSql()
@@ -1200,9 +1197,6 @@ namespace YellowstonePathology.UI
 
         private void BuildTest()
         {
-            XElement xElement = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderXMLDocument("14-123");
-			YellowstonePathology.Business.Persistence.ObjectXMLBuilder b = new YellowstonePathology.Business.Persistence.ObjectXMLBuilder();
-            b.Build(xElement);
         }
 
         private void ButtonRunShowTemplatePage_Click(object sender, RoutedEventArgs e)
