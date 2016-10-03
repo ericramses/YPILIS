@@ -18,6 +18,7 @@ namespace YellowstonePathology.Business.Gateway
         private DataTable m_TestOrderDataTable;
         private DataTable m_AliquotOrderDataTable;
         private DataTable m_SlideOrderDataTable;
+        private DataTable m_TestOrderUnsortedDataTable;
 
         public AccessionOrderBuilderV2()
         {
@@ -43,6 +44,7 @@ namespace YellowstonePathology.Business.Gateway
 
             this.m_AccessionOrder.AccessionLock.MasterAccessionNo = accessionOrder.MasterAccessionNo;
             this.m_AccessionOrder.PanelSetOrderCollection.RemoveDeleted(this.m_PanelSetOrderReportNumbers);
+            this.m_AccessionOrder.PanelSetOrderCollection = Test.PanelSetOrderCollection.Sort(this.m_AccessionOrder.PanelSetOrderCollection);
             this.RemoveDeletedPanelOrders();
             if (this.m_TestOrderDataTable != null)
             {
@@ -59,6 +61,12 @@ namespace YellowstonePathology.Business.Gateway
                 this.SetSurgicalSpecimenSpecimenOrder(surgicalTestOrder);
                 this.SetSurgicalSpecimenAuditSpecimenOrder(surgicalTestOrder);
                 this.SetSurgicalSpecimenOrderItemCollection(surgicalTestOrder);
+                this.SetTypingStainCollection(surgicalTestOrder);
+            }
+
+            foreach(Test.PanelSetOrder panelSetOrder in this.m_AccessionOrder.PanelSetOrderCollection)
+            {
+                SetOrderedOnDescription(panelSetOrder);
             }
         }
 
@@ -93,6 +101,11 @@ namespace YellowstonePathology.Business.Gateway
                         this.HandlePanelOrder(dataTable);
                         break;
                     case "tblTestOrder":
+                        //this.HandleTestOrder(dataTable);
+                        this.m_TestOrderDataTable = dataTable;
+                        break;
+                    case "tblTestOrderUnsorted":
+                        this.m_TestOrderUnsortedDataTable = dataTable;
                         this.HandleTestOrder(dataTable);
                         break;
                     case "tblTaskOrder":
@@ -171,7 +184,8 @@ namespace YellowstonePathology.Business.Gateway
             if (this.m_TestOrderDataTable != null)
             {
                 this.HandleSlideOrderTestOrder(this.m_TestOrderDataTable);
-                this.HandleAliquotOrderTestOrder(this.m_TestOrderDataTable);
+                //this.HandleAliquotOrderTestOrder(this.m_TestOrderDataTable);
+                this.HandleAliquotOrderTestOrder(this.m_TestOrderUnsortedDataTable);
             }
             if (this.m_AliquotOrderDataTable != null) this.HandleTestOrderAliquotOrder(this.m_AliquotOrderDataTable);
             if (this.m_SlideOrderDataTable != null) this.HandleTestOrderSlideOrderCollection(this.m_SlideOrderDataTable);
@@ -328,7 +342,7 @@ namespace YellowstonePathology.Business.Gateway
 
         private void HandleTestOrder(DataTable dataTable)
         {
-            this.m_TestOrderDataTable = dataTable;
+            //this.m_TestOrderDataTable = dataTable;
             foreach (Test.PanelSetOrder panelSetOrder in this.m_AccessionOrder.PanelSetOrderCollection)
             {
                 foreach (Test.PanelOrder panelOrder in panelSetOrder.PanelOrderCollection)
@@ -397,6 +411,7 @@ namespace YellowstonePathology.Business.Gateway
             DataTableReader dataTableReader = new DataTableReader(dataTable);
             while (dataTableReader.Read())
             {
+                string aliquotOrderId = dataTableReader["AliquotOrderId"].ToString();
                 YellowstonePathology.Business.Test.AliquotOrder_Base aliquotOrder = null;
                 foreach(Business.Test.PanelSetOrder panelSetOrder in this.m_AccessionOrder.PanelSetOrderCollection)
                 {
@@ -404,17 +419,20 @@ namespace YellowstonePathology.Business.Gateway
                     {
                         foreach(Business.Test.Model.TestOrder testOrder in panelOrder.TestOrderCollection)
                         {
-                            if(testOrder.AliquotOrder == null)
+                            if (testOrder.AliquotOrderId == aliquotOrderId)
                             {
-                                aliquotOrder = new Test.AliquotOrder();
-                            }
-                            else
-                            {
-                                aliquotOrder = testOrder.AliquotOrder;
-                            }
+                                if (testOrder.AliquotOrder == null)
+                                {
+                                    aliquotOrder = new Test.AliquotOrder();
+                                }
+                                else
+                                {
+                                    aliquotOrder = testOrder.AliquotOrder;
+                                }
 
-                            YellowstonePathology.Business.Persistence.SqlDataTableReaderPropertyWriter sqlDataTableReaderPropertyWriter = new Persistence.SqlDataTableReaderPropertyWriter(aliquotOrder, dataTableReader);
-                            sqlDataTableReaderPropertyWriter.WriteProperties();
+                                YellowstonePathology.Business.Persistence.SqlDataTableReaderPropertyWriter sqlDataTableReaderPropertyWriter = new Persistence.SqlDataTableReaderPropertyWriter(aliquotOrder, dataTableReader);
+                                sqlDataTableReaderPropertyWriter.WriteProperties();
+                            }
                         }
                     }
                 }
@@ -438,6 +456,30 @@ namespace YellowstonePathology.Business.Gateway
         private void HandleICD9BillingCode(DataTable dataTable)
         {
             this.m_AccessionOrder.ICD9BillingCodeCollection.Sync(dataTable);
+        }
+
+        private void SetOrderedOnDescription(Test.PanelSetOrder panelSetOrder)
+        {
+            if (panelSetOrder.OrderedOn != null)
+            {
+                YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(panelSetOrder.OrderedOn, panelSetOrder.OrderedOnId);
+                if (specimenOrder != null)
+                {
+                    switch (panelSetOrder.OrderedOn)
+                    {
+                        case YellowstonePathology.Business.OrderedOn.Specimen:
+                        case YellowstonePathology.Business.OrderedOn.ThinPrepFluid:
+                            panelSetOrder.OrderedOnDescription = specimenOrder.Description;
+                            break;
+                        case YellowstonePathology.Business.OrderedOn.Aliquot:
+                            YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetAliquotOrder(panelSetOrder.OrderedOnId);
+                            panelSetOrder.OrderedOnDescription = specimenOrder.Description + " - " + aliquotOrder.Label;
+                            break;
+                        default:
+                            throw new Exception("Must be Specimen or Aliquot");
+                    }
+                }
+            }
         }
 
         private void HandleAmendment(DataTable dataTable)
@@ -590,6 +632,23 @@ namespace YellowstonePathology.Business.Gateway
                     }
                 }
             }
+        }
+
+        private void SetTypingStainCollection(YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder)
+        {
+            List<string> stainResultIdList = new List<string>();
+            foreach (Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen in surgicalTestOrder.SurgicalSpecimenCollection)
+            {
+                foreach (YellowstonePathology.Business.SpecialStain.StainResultItem stainResultItem in surgicalSpecimen.StainResultItemCollection)
+                {
+                    stainResultIdList.Add(stainResultItem.StainResultId);
+                    if (surgicalTestOrder.TypingStainCollection.Exists(stainResultItem.StainResultId) == false)
+                    {
+                        surgicalTestOrder.TypingStainCollection.Add(stainResultItem);
+                    }
+                }
+            }
+            surgicalTestOrder.TypingStainCollection.RemoveDeleted(stainResultIdList);
         }
 
         private void RemoveDeletedPanelOrders()

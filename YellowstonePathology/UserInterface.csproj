@@ -805,6 +805,7 @@
     <Compile Include="Business\Gateway\AOSaveResult.cs" />
     <Compile Include="Business\Gateway\BillingGateway.cs" />
     <Compile Include="Business\Gateway\ClientBuilder.cs" />
+    <Compile Include="Business\Gateway\ClientBuilderV2.cs" />
     <Compile Include="Business\Gateway\ClientOrderBuilder.cs" />
     <Compile Include="Business\Gateway\ClientOrderGateway.cs" />
     <Compile Include="Business\Gateway\CytologyScreeningSearchGateway.cs" />
