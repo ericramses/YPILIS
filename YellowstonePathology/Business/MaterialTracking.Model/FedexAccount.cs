@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
     public class FedexAccount
     {        
         //Web useraname: ypiflow
-        //Web Password: cytometry1
+        //Web Password: Cytometry1
         //Phone 877 339 2774 2,3
         //41572608
 

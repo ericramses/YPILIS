@@ -54,6 +54,7 @@ namespace YellowstonePathology.Business.Task.Model
             this.m_ShipToZip = facility.ZipCode;
             this.m_ShipToPhone = facility.PhoneNumber;
             this.m_PaymentType = facility.FedexPaymentType;
+            this.NotifyPropertyChanged(string.Empty);
         }
 
         public void SetZPLFromBase64(string encodedString)
