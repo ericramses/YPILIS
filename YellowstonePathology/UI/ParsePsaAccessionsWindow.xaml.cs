@@ -46,6 +46,13 @@ namespace YellowstonePathology.UI
                         {
                             string reportNo = cols[0].Insert(2, "-");
                             int indexOfFirstChar = this.FindFirstLetter(reportNo);
+
+                            if(indexOfFirstChar == -1)
+                            {
+                                MessageBox.Show("This report no sucks: " + reportNo);
+                                return;
+                            }
+
                             reportNo = reportNo.Insert(indexOfFirstChar, ".");
                             DateTime postDate = DateTime.Parse(cols[1].Trim());
                             importList.Add(new PsaImport(reportNo, postDate));
@@ -59,7 +66,7 @@ namespace YellowstonePathology.UI
                     Console.WriteLine("Row Not valid: " + row);
                 }
             }
-            this.TextBoxText.Text = insertStatements.ToString();
+            this.TextBoxText.Text = insertStatements.ToString();            
         }
 
         private int FindFirstLetter(string str)
