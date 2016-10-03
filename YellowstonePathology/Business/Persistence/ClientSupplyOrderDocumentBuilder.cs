@@ -13,7 +13,7 @@ namespace YellowstonePathology.Business.Persistence
     {
         SqlCommand m_SQLCommand;
 
-        public ClientSupplyOrderDocumentBuilder(string clientSupplyOrderId)
+        /*public ClientSupplyOrderDocumentBuilder(string clientSupplyOrderId)
         {
             this.m_SQLCommand = new SqlCommand();
             this.m_SQLCommand.CommandText = "SELECT cso.*, (SELECT * from tblClientSupplyOrderDetail where clientsupplyorderid = " +
@@ -21,17 +21,50 @@ namespace YellowstonePathology.Business.Persistence
                 "FROM tblClientSupplyOrder cso where cso.ClientSupplyOrderId = @ClientSupplyOrderId for xml Path('ClientSupplyOrder'), type";
             this.m_SQLCommand.CommandType = CommandType.Text;
             this.m_SQLCommand.Parameters.Add("@ClientSupplyOrderId", SqlDbType.VarChar).Value = clientSupplyOrderId;
-        }
+        }*/
 
+        public ClientSupplyOrderDocumentBuilder(string clientSupplyOrderId)
+        {
+            this.m_SQLCommand = new SqlCommand();
+            this.m_SQLCommand.CommandText = "SELECT * from tblClientSupplyOrder where ClientSupplyOrderId = @ClientSupplyOrderId " +
+                "Select * from tblClientSupplyOrderDetail where clientSupplyOrderId = @ClientSupplyOrderId";
+            this.m_SQLCommand.CommandType = CommandType.Text;
+            this.m_SQLCommand.Parameters.Add("@ClientSupplyOrderId", SqlDbType.VarChar).Value = clientSupplyOrderId;
+        }
 
         public override object BuildNew()
         {
             YellowstonePathology.Business.Client.Model.ClientSupplyOrder clientSupplyOrder = new Client.Model.ClientSupplyOrder();
             this.BuildClientSupplyOrder(clientSupplyOrder);
             return clientSupplyOrder;
-        }        
+        }
 
         private void BuildClientSupplyOrder(YellowstonePathology.Business.Client.Model.ClientSupplyOrder clientSupplyOrder)
+        {
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                this.m_SQLCommand.Connection = cn;
+                using (SqlDataReader dr = this.m_SQLCommand.ExecuteReader(CommandBehavior.KeyInfo))
+                {
+                    while (dr.Read())
+                    {
+                        Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(clientSupplyOrder, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                    }
+
+                    dr.NextResult();
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.Business.Client.Model.ClientSupplyOrderDetail clientSupplyOrderDetail = new YellowstonePathology.Business.Client.Model.ClientSupplyOrderDetail();
+                        Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(clientSupplyOrderDetail, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        clientSupplyOrder.ClientSupplyOrderDetailCollection.Add(clientSupplyOrderDetail);
+                    }
+                }
+            }
+        }
+        /*private void BuildClientSupplyOrder(YellowstonePathology.Business.Client.Model.ClientSupplyOrder clientSupplyOrder)
         {
             using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
@@ -64,6 +97,6 @@ namespace YellowstonePathology.Business.Persistence
                 xmlPropertyWriter.Write();
                 clientSupplyOrder.ClientSupplyOrderDetailCollection.Add(clientSupplyOrderDetail);
             }
-        }
+        }*/
     }
 }

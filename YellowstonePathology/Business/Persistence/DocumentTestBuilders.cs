@@ -36,13 +36,14 @@ namespace YellowstonePathology.Business.Persistence
                 PropertyInfo[] properties = type.GetProperties();
                 foreach (PropertyInfo property in properties)
                 {
-                    if(property.Name == "Item")
+                    if(property.Name == "Item" || property.Name == "PublishedDocument")
                     {
                         continue;
                     }
 
                     if (property.PropertyType.FullName.Contains("System") == false || 
-                        property.PropertyType.FullName.Contains("Collection") == true || property.PropertyType.FullName.Contains("List") == true)
+                        property.PropertyType.FullName.Contains("Collection") == true ||
+                        property.PropertyType.FullName.Contains("List") == true)
                     {
                         if (property.PropertyType.FullName.Contains("Collection") == false && property.PropertyType.FullName.Contains("List") == false)
                         {
@@ -55,7 +56,9 @@ namespace YellowstonePathology.Business.Persistence
                         }
                         else
                         {
-                            this.HandleCollection(property, this.m_Value, this.m_Clone);
+                            result = this.HandleCollection(property, this.m_Value, this.m_Clone);
+                            if (result == false)
+                                break;
                         }
                     }
                     else
@@ -70,6 +73,10 @@ namespace YellowstonePathology.Business.Persistence
             else
             {
                 result = this.CheckNulls(this.m_Value, this.m_Clone);
+                if (result == false)
+                {
+                    string s = "nope";
+                }
             }
             return result;
         }

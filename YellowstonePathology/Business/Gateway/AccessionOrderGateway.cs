@@ -607,34 +607,6 @@ namespace YellowstonePathology.Business.Gateway
             return result;
         }        
 
-		public static XElement GetAccessionOrderDocumentByReportNo(string reportNo)
-		{
-			SqlCommand cmd = new SqlCommand();
-			cmd.CommandText = "gwGetAccessionByReportNo_A8";
-			cmd.CommandType = CommandType.StoredProcedure;
-			cmd.Parameters.Add("@ReportNo", SqlDbType.VarChar).Value = reportNo;
-			XElement document = AccessionOrderGateway.GetAccessionOrderElement(cmd);
-			return document;
-		}
-
-		private static XElement GetAccessionOrderElement(SqlCommand cmd)
-		{
-			XElement result = null;
-			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-			{
-				cn.Open();
-				cmd.Connection = cn;
-				using (XmlReader xmlReader = cmd.ExecuteXmlReader())
-				{
-					if (xmlReader.Read() == true)
-					{
-						result = XElement.Load(xmlReader, LoadOptions.PreserveWhitespace);
-					}
-				}
-			}
-			return result;
-		}
-
         public static YellowstonePathology.Business.Patient.Model.SVHBillingDataCollection GetSVHBillingDataCollection(string mrn)
 		{
 			SqlCommand cmd = new SqlCommand();
@@ -2289,29 +2261,6 @@ namespace YellowstonePathology.Business.Gateway
 			return result;
 #endif
 		}
-
-		public static XElement GetAccessionOrderXMLDocument(string masterAccessionNo)
-		{            
-			SqlCommand cmd = new SqlCommand();
-			cmd.CommandText = "buildAccessionOrderXML";
-			cmd.CommandType = CommandType.StoredProcedure;
-			cmd.Parameters.Add("@MasterAccessionNo", SqlDbType.VarChar).Value = masterAccessionNo;
-
-			XElement result = null;
-
-			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-			{
-				cn.Open();
-				cmd.Connection = cn;
-
-				using (XmlReader xmlReader = cmd.ExecuteXmlReader())
-				{
-					result = XElement.Load(xmlReader);
-				}
-			}
-
-			return result;
-		}		
 
 		public static YellowstonePathology.Business.Test.Model.StainTest GetStainTestByTestId(int testId)
 		{

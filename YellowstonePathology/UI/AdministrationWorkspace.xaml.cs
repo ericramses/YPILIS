@@ -948,9 +948,6 @@ namespace YellowstonePathology.UI
 
         private void BuildObjectsTesting()
         {
-            XElement xElement = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderXMLDocument("14-27868");
-			YellowstonePathology.Business.Persistence.ObjectXMLBuilder objectXMLBuilder = new YellowstonePathology.Business.Persistence.ObjectXMLBuilder();
-            object result = objectXMLBuilder.Build(xElement);
         }
 
         private void WriteStVincentAllInSql()
@@ -1200,9 +1197,6 @@ namespace YellowstonePathology.UI
 
         private void BuildTest()
         {
-            XElement xElement = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderXMLDocument("14-123");
-			YellowstonePathology.Business.Persistence.ObjectXMLBuilder b = new YellowstonePathology.Business.Persistence.ObjectXMLBuilder();
-            b.Build(xElement);
         }
 
         private void ButtonRunShowTemplatePage_Click(object sender, RoutedEventArgs e)
@@ -1218,14 +1212,15 @@ namespace YellowstonePathology.UI
         /*private void ButtonWilliamTesting_Click(object sender, RoutedEventArgs e) // Compares AccessionOrderBuilder ao to AccessionOrderBuilderV2 ao
         {
             string resultString = string.Empty;
-            DateTime startDate = DateTime.Parse("2/10/2016");
+            DateTime startDate = DateTime.Parse("8/17/2016");
             //for (int didx = 0; didx < 4; didx++)
             //{
                 //DateTime endDate = startDate.AddMonths(1).AddDays(-1);
-            DateTime endDate = startDate.AddDays(1);
+            DateTime endDate = startDate.AddDays(2);
             List<string> masterAccessionNos = new List<string>();
-                masterAccessionNos.Add("16-22139");
+                //masterAccessionNos.Add("16-21295");
                 SqlCommand cmd = new SqlCommand("select MasteraccessionNo from tblAccessionOrder where AccessionDate between '" + startDate.ToString() + "' and '" + endDate.ToString() + "'"); // order by 1 asc");
+                //SqlCommand cmd = new SqlCommand("select distinct MasteraccessionNo from tblPanelSetOrder where panelSetId = 215");
                 cmd.CommandType = CommandType.Text;
                 using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
                 {
@@ -1376,28 +1371,6 @@ namespace YellowstonePathology.UI
 
         private void ButtonWilliamTesting_Click(object sender, RoutedEventArgs e)
         {
-            List<int> panelIds = new List<int>();
-            panelIds.Add(0);
-            panelIds.Add(1);
-            panelIds.Add(2);
-            panelIds.Add(5);
-            panelIds.Add(6);
-            panelIds.Add(8);
-            panelIds.Add(9);
-            panelIds.Add(10);
-            panelIds.Add(11);
-            panelIds.Add(12);
-            panelIds.Add(13);
-            panelIds.Add(14);
-            panelIds.Add(15);
-            panelIds.Add(16);
-            panelIds.Add(17);
-            panelIds.Add(18);
-            panelIds.Add(19);
-            foreach(int id in panelIds)
-            {
-                Business.Flow.FlowMarkerCollection result = Business.Gateway.FlowGateway.GetFlowMarkerCollectionByPanelId("16-99999.F1", id);
-            }
             MessageBox.Show("done");
         }
     }
