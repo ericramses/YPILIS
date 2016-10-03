@@ -37,8 +37,35 @@ namespace YellowstonePathology.Business.Gateway
 			}
 			return result;
 		}
+        public static XElement GetCytologySlideDisposalReport_1(DateTime disposalDate)
+        {
+            XElement result = null;
+            SqlCommand cmd = new SqlCommand("pCytologySlideDisposalReport_1");
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add("@DisposalDate", System.Data.SqlDbType.DateTime).Value = disposalDate;
 
-		public static XElement GetSpecimenDisposalReport(DateTime disposalDate)
+            StringBuilder xmlString = new StringBuilder();
+            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (XmlReader xmlReader = cmd.ExecuteXmlReader())
+                {
+                    while (xmlReader.Read())
+                    {
+                        xmlString.Append(xmlReader.ReadOuterXml());
+                    }
+                }
+            }
+
+            if (xmlString.Length > 0)
+            {
+                result = XElement.Parse(xmlString.ToString());
+            }
+            return result;
+        }
+
+        public static XElement GetSpecimenDisposalReport(DateTime disposalDate)
 		{
 			XElement result = null;
 			SqlCommand cmd = new SqlCommand("pDailySpecimenDisposalReport");
