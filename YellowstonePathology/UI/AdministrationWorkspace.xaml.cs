@@ -1371,6 +1371,42 @@ namespace YellowstonePathology.UI
 
         private void ButtonWilliamTesting_Click(object sender, RoutedEventArgs e)
         {
+            DateTime startDate = DateTime.Parse("3/28/2016");
+            DateTime endDate = startDate.AddDays(6);
+            bool keepOn = true;
+            while(keepOn)
+            {
+                YellowstonePathology.Business.Reports.POCRetensionReport report = new YellowstonePathology.Business.Reports.POCRetensionReport(startDate, endDate);
+                Login.Receiving.LoginPageWindow dlg = new Login.Receiving.LoginPageWindow();
+                dlg.MainContent.Content = report;
+                dlg.WindowStartupLocation = WindowStartupLocation.Manual;
+                dlg.Width = 550;
+                dlg.Left = 20;
+                dlg.Top = 20;
+                dlg.Show();
+                YellowstonePathology.Business.Reports.POCRetensionReportV2 report1 = new YellowstonePathology.Business.Reports.POCRetensionReportV2(startDate, endDate);
+                Login.Receiving.LoginPageWindow dlg1 = new Login.Receiving.LoginPageWindow();
+                dlg1.MainContent.Content = report1;
+                dlg1.WindowStartupLocation = WindowStartupLocation.Manual;
+                dlg1.Width = 550;
+                dlg1.Left = 600;
+                dlg1.Top = 20;
+                dlg1.Show();
+
+                MessageBoxResult result = MessageBox.Show("Continue", "Continue", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes);
+                if(result == MessageBoxResult.Yes)
+                {
+                    startDate = startDate.AddDays(7);
+                    endDate = startDate.AddDays(6);
+                    keepOn = true;
+                }
+                else
+                {
+                    keepOn = false;
+                }
+                dlg.Close();
+                dlg1.Close();
+            }
             MessageBox.Show("done");
         }
     }

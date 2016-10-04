@@ -1066,6 +1066,18 @@
     <Compile Include="Business\Persistence\DocumentTestBuilders.cs" />
     <Compile Include="Business\Persistence\PersistentDataColumnProperty.cs" />
     <Compile Include="Business\Persistence\SqlDataRowReaderPropertyWriter.cs" />
+    <Compile Include="Business\Reports\DisposalReportData.cs" />
+    <Compile Include="Business\Reports\CytologySlideDisposalReportV2.xaml.cs">
+      <DependentUpon>CytologySlideDisposalReportV2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Business\Reports\POCRetensionReportData.cs" />
+    <Compile Include="Business\Reports\POCRetensionReportDataItem.cs" />
+    <Compile Include="Business\Reports\POCRetensionReportV2.xaml.cs">
+      <DependentUpon>POCRetensionReportV2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Business\Reports\SurgicalSpecimenDisposalReportV2.xaml.cs">
+      <DependentUpon>SurgicalSpecimenDisposalReportV2.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Business\Surgical\ProcessorRunDefinitions.cs" />
     <Compile Include="Business\Task.Model\TaskFedexShipment.cs" />
     <Compile Include="Business\Task.Model\TaskOrderDetailFactory.cs" />
@@ -4834,9 +4846,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Business\Reports\CytologySlideDisposalReportV2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Business\Reports\POCRetensionReport.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Business\Reports\POCRetensionReportV2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Business\Reports\SpecimenDisposalReport.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -4845,6 +4865,10 @@
     <Page Include="Business\Reports\SurgicalSpecimenDisposalReport.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Business\Reports\SurgicalSpecimenDisposalReportV2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Business\Rules\ExecutionStatusDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
