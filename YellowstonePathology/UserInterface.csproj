@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>137</ApplicationRevision>
+    <ApplicationRevision>141</ApplicationRevision>
     <ApplicationVersion>10.1.6.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -1017,6 +1017,7 @@
     <Compile Include="Business\MaterialTracking.Model\FedexDeleteShipmentRequest.cs" />
     <Compile Include="Business\MaterialTracking.Model\FedexDeleteShipmentReply.cs" />
     <Compile Include="Business\MaterialTracking.Model\FedexProcessShipmentReply.cs" />
+    <Compile Include="Business\MaterialTracking.Model\FedexReturnLabelRequest.cs" />
     <Compile Include="Business\MaterialTracking.Model\FedexTrackingRequest.cs" />
     <Compile Include="Business\MaterialTracking.Model\FedexShipmentRequest.cs" />
     <Compile Include="Business\MaterialTracking.Model\FedexTrackingResponse.cs" />
@@ -4827,6 +4828,9 @@
     <EmbeddedResource Include="Business\MaterialTracking.Model\FedexTrackingRequest.v9.xml" />
     <EmbeddedResource Include="Business\MaterialTracking.Model\FedexProcessShipmentRequest.v19.xml" />
     <Resource Include="Business\MaterialTracking.Model\ProcessShipmentReply.xml" />
+    <EmbeddedResource Include="Business\MaterialTracking.Model\FedexProcessShipmentRequestReturn.v19.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <Content Include="dll\Interop.FAXCOMEXLib.dll" />
   </ItemGroup>
   <ItemGroup>

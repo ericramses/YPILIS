@@ -54,7 +54,9 @@ namespace YellowstonePathology.Business.User
 			}
 		}
 
-		public int RoleID
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "11", "0", "int")]
+        public int RoleID
 		{
 			get { return this.m_RoleId; }
 			set
