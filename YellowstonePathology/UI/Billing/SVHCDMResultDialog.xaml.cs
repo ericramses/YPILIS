@@ -92,7 +92,7 @@ namespace YellowstonePathology.UI.Billing
         {
             SqlCommand cmd = new SqlCommand();
             cmd.CommandText = "update tblTestOrderReportDistribution set ResultStatus = 'F' " +                
-                "where tor.testOrderReportDistributionId = '" + testOrderReportDistributionId + "'";
+                "where testOrderReportDistributionId = '" + testOrderReportDistributionId + "'";
 
             cmd.CommandType = CommandType.Text;
             using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
