@@ -1373,7 +1373,8 @@ namespace YellowstonePathology.UI
         {
             DateTime startDate = DateTime.Parse("3/28/2016");
             DateTime endDate = startDate.AddDays(6);
-            bool keepOn = true;
+
+            /*bool keepOn = true;
             while(keepOn)
             {
                 YellowstonePathology.Business.Reports.POCRetensionReport report = new YellowstonePathology.Business.Reports.POCRetensionReport(startDate, endDate);
@@ -1406,7 +1407,7 @@ namespace YellowstonePathology.UI
                 }
                 dlg.Close();
                 dlg1.Close();
-            }
+            }*/
             MessageBox.Show("done");
         }
     }

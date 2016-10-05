@@ -169,7 +169,71 @@ namespace YellowstonePathology.Business.Gateway
 			return xElementFromSql;
 		}
 
-		public static YellowstonePathology.Document.Result.Data.AccessionOrderDataSheetData GetAccessionOrderDataSheetData(string masterAccessionNo)
+        public static YellowstonePathology.Business.Reports.LabOrderSheetData GetOrdersToAcknowledge(string panelOrderIds)
+        {
+            Reports.LabOrderSheetData result = new Reports.LabOrderSheetData();
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "pGetXmlOrdersToAcknowledge_A2";
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@PanelOrderIdString", SqlDbType.VarChar).Value = panelOrderIds;
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while(dr.Read())
+                    {
+                        Reports.LabOrderSheetDataReport labOrderSheetDataReport = new Reports.LabOrderSheetDataReport();
+                        Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(labOrderSheetDataReport, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(labOrderSheetDataReport);
+                    }
+                    dr.NextResult();
+
+                    while (dr.Read())
+                    {
+                        Reports.LabOrderSheetDataPanelOrder labOrderSheetDataPanelOrder = new Reports.LabOrderSheetDataPanelOrder();
+                        Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(labOrderSheetDataPanelOrder, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        foreach(Reports.LabOrderSheetDataReport labOrderSheetDataReport in result)
+                        {
+                            if (labOrderSheetDataReport.ReportNo == labOrderSheetDataPanelOrder.ReportNo)
+                            {
+                                labOrderSheetDataReport.LabOrderSheetDataPanelOrders.Add(labOrderSheetDataPanelOrder);
+                                break;
+                            }
+                        }
+                    }
+                    dr.NextResult();
+
+                    while (dr.Read())
+                    {
+                        Reports.LabOrderSheetDataTestOrder labOrderSheetDataTestOrder = new Reports.LabOrderSheetDataTestOrder();
+                        Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(labOrderSheetDataTestOrder, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        foreach (Reports.LabOrderSheetDataReport labOrderSheetDataReport in result)
+                        {
+                            bool added = false;
+                            foreach(Reports.LabOrderSheetDataPanelOrder labOrderSheetDataPanelOrder in labOrderSheetDataReport.LabOrderSheetDataPanelOrders)
+                            {
+                                if (labOrderSheetDataPanelOrder.PanelOrderId == labOrderSheetDataTestOrder.PanelOrderId)
+                                {
+                                    labOrderSheetDataPanelOrder.LabOrderSheetDataTestOrders.Add(labOrderSheetDataTestOrder);
+                                    added = true;
+                                    break;
+                                }
+                            }
+                            if (added == true) break;
+                        }
+                    }
+                }
+            }
+            return result;
+        }
+
+        public static YellowstonePathology.Document.Result.Data.AccessionOrderDataSheetData GetAccessionOrderDataSheetData(string masterAccessionNo)
 		{
 			XElement accessionOrderDocument = XmlGateway.GetAccessionOrder(masterAccessionNo);
 			XElement specimenOrderDocument = XmlGateway.GetSpecimenOrder(masterAccessionNo);

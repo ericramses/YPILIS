@@ -1070,6 +1070,10 @@
     <Compile Include="Business\Reports\CytologySlideDisposalReportV2.xaml.cs">
       <DependentUpon>CytologySlideDisposalReportV2.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Business\Reports\LabOrderSheetData.cs" />
+    <Compile Include="Business\Reports\LabOrderSheetDataPanelOrder.cs" />
+    <Compile Include="Business\Reports\LabOrderSheetDataReport.cs" />
+    <Compile Include="Business\Reports\LabOrderSheetDataTestOrder.cs" />
     <Compile Include="Business\Reports\POCRetensionReportData.cs" />
     <Compile Include="Business\Reports\POCRetensionReportDataItem.cs" />
     <Compile Include="Business\Reports\POCRetensionReportV2.xaml.cs">
