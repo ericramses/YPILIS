@@ -1099,6 +1099,10 @@
     <Compile Include="Business\Test\ROS1ByFISH\ROS1ByFISHPositiveResult.cs" />
     <Compile Include="Business\Test\IRF4F\IRF4FTest.cs" />
     <Compile Include="Business\Test\TP63F\TP63FTest.cs" />
+    <Compile Include="Business\XPSDocument\ClientBillingDetailReportV2.cs" />
+    <Compile Include="Business\XPSDocument\Result\ClientBillingDetailReportResult\ClientBillingDetailReportData.cs" />
+    <Compile Include="Business\XPSDocument\Result\ClientBillingDetailReportResult\ClientBillingDetailReportDataAccessionOrder.cs" />
+    <Compile Include="Business\XPSDocument\Result\ClientBillingDetailReportResult\ClientBillingDetailReportDataReport.cs" />
     <Compile Include="MySQLMigration\MigrationStatus.cs" />
     <Compile Include="MySQLMigration\MigrationStatusCollection.cs" />
     <Compile Include="MySQLMigration\MySQLDatabaseBuilder.cs" />

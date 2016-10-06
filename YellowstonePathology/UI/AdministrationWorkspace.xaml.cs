@@ -1371,7 +1371,7 @@ namespace YellowstonePathology.UI
 
         private void ButtonWilliamTesting_Click(object sender, RoutedEventArgs e)
         {
-            DateTime startDate = DateTime.Parse("3/28/2016");
+            DateTime startDate = DateTime.Parse("9/1/2016");
             DateTime endDate = startDate.AddDays(6);
 
             /*bool keepOn = true;

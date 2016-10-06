@@ -62,9 +62,12 @@ namespace YellowstonePathology.UI.Billing
         }
 
         private void ButtonShowReport_Click(object sender, RoutedEventArgs e)
-        {                                    
-            XElement reportData = YellowstonePathology.Business.Gateway.XmlGateway.GetClientBillingDetailReport(this.m_PostDateStart.Value, this.m_PostDateEnd.Value, this.m_ClientGroup.ClientGroupId);
-            YellowstonePathology.Document.ClientBillingDetailReport clientBillingDetailReport = new Document.ClientBillingDetailReport(reportData, this.m_PostDateStart.Value, this.m_PostDateEnd.Value);
+        {
+            //XElement reportData = YellowstonePathology.Business.Gateway.XmlGateway.GetClientBillingDetailReport(this.m_PostDateStart.Value, this.m_PostDateEnd.Value, this.m_ClientGroup.ClientGroupId);
+            //YellowstonePathology.Document.ClientBillingDetailReport clientBillingDetailReport = new Document.ClientBillingDetailReport(reportData, this.m_PostDateStart.Value, this.m_PostDateEnd.Value);
+            Business.XPSDocument.Result.ClientBillingDetailReportResult.ClientBillingDetailReportData clientBillingDetailReportData = YellowstonePathology.Business.Gateway.XmlGateway.GetClientBillingDetailReport(this.m_PostDateStart.Value, this.m_PostDateEnd.Value, this.m_ClientGroup.ClientGroupId);
+            YellowstonePathology.Document.ClientBillingDetailReportV2 clientBillingDetailReport = new Document.ClientBillingDetailReportV2(clientBillingDetailReportData, this.m_PostDateStart.Value, this.m_PostDateEnd.Value);
+
             XpsDocumentViewer viewer = new XpsDocumentViewer();
             viewer.LoadDocument(clientBillingDetailReport.FixedDocument);
             viewer.ShowDialog();
