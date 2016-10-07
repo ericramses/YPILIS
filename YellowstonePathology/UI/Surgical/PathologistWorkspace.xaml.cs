@@ -237,7 +237,6 @@ namespace YellowstonePathology.UI.Surgical
 		{			
 			YellowstonePathology.UI.Common.OrderDialog orderDiaglog = new YellowstonePathology.UI.Common.OrderDialog(this.m_PathologistUI.AccessionOrder, this.m_PathologistUI.PanelSetOrder);
 			orderDiaglog.ShowDialog();
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
             this.m_PathologistUI.AccessionOrder.PanelSetOrderCollection.PathologistTestOrderItemList.Build(this.m_PathologistUI.AccessionOrder);
             this.m_PathologistUI.NotifyPropertyChanged("AccessionOrder.PanelSetOrderCollection.PathologistTestOrderItemList");
         }
