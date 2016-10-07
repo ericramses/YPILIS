@@ -1103,6 +1103,7 @@
     <Compile Include="Business\XPSDocument\Result\ClientBillingDetailReportResult\ClientBillingDetailReportData.cs" />
     <Compile Include="Business\XPSDocument\Result\ClientBillingDetailReportResult\ClientBillingDetailReportDataAccessionOrder.cs" />
     <Compile Include="Business\XPSDocument\Result\ClientBillingDetailReportResult\ClientBillingDetailReportDataReport.cs" />
+    <Compile Include="Business\XPSDocument\Result\Xps\ClientSupplyOrderReportV2.cs" />
     <Compile Include="MySQLMigration\MigrationStatus.cs" />
     <Compile Include="MySQLMigration\MigrationStatusCollection.cs" />
     <Compile Include="MySQLMigration\MySQLDatabaseBuilder.cs" />

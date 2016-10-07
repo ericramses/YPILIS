@@ -356,7 +356,7 @@ namespace YellowstonePathology.Business.Gateway
             return result;
         }
 
-        public static XElement GetClientSupplyOrderReportData(string clientSupplyOrderId)
+        /*public static XElement GetClientSupplyOrderReportData(string clientSupplyOrderId)
         {
             XElement result = new XElement("Document");
             SqlCommand cmd = new SqlCommand();
@@ -381,6 +381,6 @@ namespace YellowstonePathology.Business.Gateway
             }
 
             return result;
-        }
+        }*/
     }
 }

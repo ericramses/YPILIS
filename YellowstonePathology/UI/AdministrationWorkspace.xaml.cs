@@ -1374,25 +1374,34 @@ namespace YellowstonePathology.UI
             DateTime startDate = DateTime.Parse("9/1/2016");
             DateTime endDate = startDate.AddDays(6);
 
-            /*bool keepOn = true;
-            while(keepOn)
+            bool keepOn = true;
+            int idx =360;
+            Business.Client.Model.ClientSupplyOrderCollection supplyOrders = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientSupplyOrderCollectionByClientId(558);
+            while(keepOn && idx < supplyOrders.Count)
             {
-                YellowstonePathology.Business.Reports.POCRetensionReport report = new YellowstonePathology.Business.Reports.POCRetensionReport(startDate, endDate);
-                Login.Receiving.LoginPageWindow dlg = new Login.Receiving.LoginPageWindow();
-                dlg.MainContent.Content = report;
+                XpsDocumentViewer dlg = new XpsDocumentViewer();
+                dlg.Viewer.Width = 730;
+                dlg.SizeToContent = SizeToContent.Width;
                 dlg.WindowStartupLocation = WindowStartupLocation.Manual;
-                dlg.Width = 550;
-                dlg.Left = 20;
+                dlg.Left = 5;
                 dlg.Top = 20;
-                dlg.Show();
-                YellowstonePathology.Business.Reports.POCRetensionReportV2 report1 = new YellowstonePathology.Business.Reports.POCRetensionReportV2(startDate, endDate);
-                Login.Receiving.LoginPageWindow dlg1 = new Login.Receiving.LoginPageWindow();
-                dlg1.MainContent.Content = report1;
+                XpsDocumentViewer dlg1 = new XpsDocumentViewer();
+                dlg1.Viewer.Width = 730;
+                dlg1.SizeToContent = SizeToContent.Width;
                 dlg1.WindowStartupLocation = WindowStartupLocation.Manual;
-                dlg1.Width = 550;
-                dlg1.Left = 600;
+                dlg1.Left = 760;
                 dlg1.Top = 20;
-                dlg1.Show();
+
+                /*Business.Client.Model.ClientSupplyOrder clientSupplyOrder = supplyOrders[idx++];
+                XElement dataElement = YellowstonePathology.Business.Gateway.XmlGateway.GetClientSupplyOrderReportData(clientSupplyOrder.ClientSupplyOrderId);
+                YellowstonePathology.Business.XPSDocument.Result.Data.ClientSupplyOrderReportData clientSupplyOrderReportData = new Business.XPSDocument.Result.Data.ClientSupplyOrderReportData(dataElement);
+                YellowstonePathology.Business.XPSDocument.Result.Xps.ClientSupplyOrderReport clientSupplyOrderReport = new Business.XPSDocument.Result.Xps.ClientSupplyOrderReport(clientSupplyOrderReportData);
+                dlg.LoadDocument(clientSupplyOrderReport.FixedDocument);
+                dlg.Show();
+
+                YellowstonePathology.Business.XPSDocument.Result.Xps.ClientSupplyOrderReportV2 clientSupplyOrderReport1 = new Business.XPSDocument.Result.Xps.ClientSupplyOrderReportV2(clientSupplyOrder);
+                dlg1.LoadDocument(clientSupplyOrderReport1.FixedDocument);
+                dlg1.Show();*/
 
                 MessageBoxResult result = MessageBox.Show("Continue", "Continue", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes);
                 if(result == MessageBoxResult.Yes)
@@ -1407,8 +1416,8 @@ namespace YellowstonePathology.UI
                 }
                 dlg.Close();
                 dlg1.Close();
-            }*/
-            MessageBox.Show("done");
+            }
+            //MessageBox.Show("done");
         }
     }
 }
