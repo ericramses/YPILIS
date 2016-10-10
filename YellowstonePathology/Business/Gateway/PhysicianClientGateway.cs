@@ -241,6 +241,15 @@ namespace YellowstonePathology.Business.Gateway
 #endif
         }
 
+        public static YellowstonePathology.Business.Client.Model.ClientCollection GetAllClients()
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "SELECT * FROM tblClient";                
+            cmd.CommandType = CommandType.Text;            
+            Client.Model.ClientCollection result = BuildClientCollection(cmd);
+            return result;
+        }
+
         /*private static View.ClientPhysicianView BuildClientPhysicianView(XElement sourceElement)
         {
             View.ClientPhysicianView result = new View.ClientPhysicianView();

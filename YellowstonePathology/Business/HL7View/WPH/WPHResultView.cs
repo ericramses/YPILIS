@@ -82,9 +82,9 @@ namespace YellowstonePathology.Business.HL7View.WPH
                 panelSetOrder.FinalTime, this.m_OrderingPhysician, this.m_SigningPathologist, WPHResultStatsusEnum.S.ToString(), universalService, this.m_SendUnsolicited);
             obr.ToXml(document);
 
-            WPHOBXView epicObxView = WPHOBXViewFactory.GetObxView(panelSetOrder.PanelSetId, this.m_AccessionOrder, this.m_PanelSetOrder.ReportNo, this.m_ObxCount);
-            epicObxView.ToXml(document);
-            this.m_ObxCount = epicObxView.ObxCount;                            
+            WPHOBXView wphObxView = WPHOBXViewFactory.GetObxView(panelSetOrder.PanelSetId, this.m_AccessionOrder, this.m_PanelSetOrder.ReportNo, this.m_ObxCount);
+            wphObxView.ToXml(document);
+            this.m_ObxCount = wphObxView.ObxCount;                            
 
             return document;
         }

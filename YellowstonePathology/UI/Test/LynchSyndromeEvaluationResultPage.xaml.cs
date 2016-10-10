@@ -81,8 +81,7 @@ namespace YellowstonePathology.UI.Test
 
         private void LynchSyndromeEvaluationResultPage_Loaded(object sender, RoutedEventArgs e)
         {
-            this.SetLSEResults();
-             
+            this.SetLSEResults();             
         }
 
         public YellowstonePathology.Business.Test.LynchSyndrome.LSETypeCollection LSETypeCollection

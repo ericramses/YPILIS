@@ -108,7 +108,7 @@
           <v19:SequenceNumber>1</v19:SequenceNumber>            
           <v19:Weight>
             <v19:Units>LB</v19:Units>
-            <v19:Value>2</v19:Value>
+            <v19:Value>1</v19:Value>
           </v19:Weight>          
         </v19:RequestedPackageLineItems>
       </v19:RequestedShipment>
