@@ -109,7 +109,11 @@
           <v19:Weight>
             <v19:Units>LB</v19:Units>
             <v19:Value>1</v19:Value>
-          </v19:Weight>          
+          </v19:Weight>
+          <v19:CustomerReferences>
+            <v19:CustomerReferenceType>CUSTOMER_REFERENCE</v19:CustomerReferenceType>
+            <v19:Value></v19:Value>
+          </v19:CustomerReferences>
         </v19:RequestedPackageLineItems>
       </v19:RequestedShipment>
     </v19:ProcessShipmentRequest>
