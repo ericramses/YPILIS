@@ -67,7 +67,7 @@ namespace YellowstonePathology.Business
       
         
 
-        private System.Xml.Linq.XElement ExcuteCommand(SqlCommand cmd)
+        /*private System.Xml.Linq.XElement ExcuteCommand(SqlCommand cmd)
         {
             System.Xml.Linq.XElement result = null;
 
@@ -83,6 +83,6 @@ namespace YellowstonePathology.Business
             }
 
             return result;
-        }
+        }*/
     }
 }
