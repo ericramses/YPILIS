@@ -19,6 +19,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
         private bool m_Submitted;
         private bool m_Received;
         private string m_OrderType;
+        private string m_OrderStatus;
 
         public OrderBrowserListItem()
         {
@@ -102,6 +103,13 @@ namespace YellowstonePathology.Business.ClientOrder.Model
             set { this.m_OrderType = value; }
         }
 
+        [DataMember]
+        public string OrderStatus
+        {
+            get { return this.m_OrderStatus; }
+            set { this.m_OrderStatus = value; }
+        }
+
         public void WriteProperties(YellowstonePathology.Business.Domain.Persistence.IPropertyWriter propertyWriter)
         {
             this.m_ClientOrderId = propertyWriter.WriteString("ClientOrderId");
@@ -115,6 +123,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
             this.m_ProviderName = propertyWriter.WriteString("ProviderName");
             this.m_ClientName = propertyWriter.WriteString("ClientName");
             this.m_OrderType = propertyWriter.WriteString("OrderType");
+            this.m_OrderStatus = propertyWriter.WriteString("OrderStatus");
         }
     }
 }

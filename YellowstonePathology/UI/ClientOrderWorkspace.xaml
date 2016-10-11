@@ -64,6 +64,7 @@
                 <ListView.View>
                     <GridView AllowsColumnReorder="True" ColumnHeaderToolTip="Case List">
                         <GridViewColumn DisplayMemberBinding="{Binding Path=OrderTime, Converter={StaticResource MilitaryDateTimeConverter}}" Header="Date" Width="110"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=OrderStatus}" Header="Status" Width="60"/>
                         <GridViewColumn DisplayMemberBinding="{Binding Path=PFirstName}" Header="First Name" Width="150"/>
                         <GridViewColumn DisplayMemberBinding="{Binding Path=PLastName}" Header="Last Name" Width="150"/>
                         <GridViewColumn DisplayMemberBinding="{Binding Path=ProviderName}" Header="Provider" Width="200"/>

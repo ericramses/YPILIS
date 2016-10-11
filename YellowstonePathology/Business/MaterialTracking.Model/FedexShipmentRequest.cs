@@ -87,6 +87,8 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
             this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:Recipient/v19:Address/v19:PostalCode", namespaces).Value = this.m_TaskOrderDetail.ShipToZip;
             this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:Recipient/v19:Address/v19:CountryCode", namespaces).Value = "US";
 
+            string masterAccessionNo = this.m_TaskOrderDetail.TaskOrderDetailId.Split('.')[0];            
+            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:RequestedPackageLineItems/v19:CustomerReferences/v19:Value", namespaces).Value = YellowstonePathology.Business.User.SystemIdentity.Instance.User.UserName + ": " + masterAccessionNo;
 
             this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:ShippingChargesPayment/v19:PaymentType", namespaces).Value = this.m_PaymentType;
             if (this.m_PaymentType == "THIRD_PARTY")
@@ -121,8 +123,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
             else
             {
                 throw new Exception("Payment Type not supported.");
-            }
-            
+            }           
         }
 
         private void OpenShipmentRequestFile()
