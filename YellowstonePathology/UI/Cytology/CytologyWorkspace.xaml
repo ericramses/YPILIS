@@ -147,7 +147,7 @@
 				<TextBlock Margin="2" TextAlignment="Right" HorizontalAlignment="Stretch" VerticalAlignment="Center">Locked By:</TextBlock>
 			</StatusBarItem>
 			<StatusBarItem>
-                <TextBlock Width="300" Margin="2" TextAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="{Binding Path=AccessionOrder.LockStatus}"></TextBlock>
+                <TextBlock Width="300" Margin="2" TextAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="{Binding Path=AccessionOrder.AccessionLock.Address}"></TextBlock>
 			</StatusBarItem>
 
 			<StatusBarItem>

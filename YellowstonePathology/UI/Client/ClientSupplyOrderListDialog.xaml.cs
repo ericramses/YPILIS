@@ -74,9 +74,10 @@ namespace YellowstonePathology.UI.Client
             if (this.ListViewClientSupplyOrders.SelectedItem != null)
             {
                 YellowstonePathology.Business.Client.Model.ClientSupplyOrder clientSupplyOrder = (YellowstonePathology.Business.Client.Model.ClientSupplyOrder)this.ListViewClientSupplyOrders.SelectedItem;
-                XElement dataElement = YellowstonePathology.Business.Gateway.XmlGateway.GetClientSupplyOrderReportData(clientSupplyOrder.ClientSupplyOrderId);
-                YellowstonePathology.Business.XPSDocument.Result.Data.ClientSupplyOrderReportData clientSupplyOrderReportData = new Business.XPSDocument.Result.Data.ClientSupplyOrderReportData(dataElement);
-                YellowstonePathology.Business.XPSDocument.Result.Xps.ClientSupplyOrderReport clientSupplyOrderReport = new Business.XPSDocument.Result.Xps.ClientSupplyOrderReport(clientSupplyOrderReportData);
+                //XElement dataElement = YellowstonePathology.Business.Gateway.XmlGateway.GetClientSupplyOrderReportData(clientSupplyOrder.ClientSupplyOrderId);
+                //YellowstonePathology.Business.XPSDocument.Result.Data.ClientSupplyOrderReportData clientSupplyOrderReportData = new Business.XPSDocument.Result.Data.ClientSupplyOrderReportData(dataElement);
+                //YellowstonePathology.Business.XPSDocument.Result.Xps.ClientSupplyOrderReport clientSupplyOrderReport = new Business.XPSDocument.Result.Xps.ClientSupplyOrderReport(clientSupplyOrderReportData);
+                YellowstonePathology.Business.XPSDocument.Result.Xps.ClientSupplyOrderReportV2 clientSupplyOrderReport = new Business.XPSDocument.Result.Xps.ClientSupplyOrderReportV2(clientSupplyOrder);
                 XpsDocumentViewer xpsDocumentViewer = new XpsDocumentViewer();
                 xpsDocumentViewer.LoadDocument(clientSupplyOrderReport.FixedDocument);
                 xpsDocumentViewer.ShowDialog();
