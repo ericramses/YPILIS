@@ -21,7 +21,7 @@ namespace YellowstonePathology.Business.Document
 
 		public override void Show(System.Windows.Controls.ContentControl contentControl, object writer)
 		{
-			YellowstonePathology.Document.Result.Data.PlacentalPathologyQuestionnaireData placentalPathologyData = YellowstonePathology.Business.Gateway.XmlGateway.GetPlacentalPathologyQuestionnaire(this.m_PlacentalClientOrderId, writer);
+			/*YellowstonePathology.Document.Result.Data.PlacentalPathologyQuestionnaireData placentalPathologyData = YellowstonePathology.Business.Gateway.XmlGateway.GetPlacentalPathologyQuestionnaire(this.m_PlacentalClientOrderId, writer);
 			if (placentalPathologyData != null)
 			{
 				YellowstonePathology.Document.PlacentalPathologyQuestionnaire placentalPathologyQuestionnare = new YellowstonePathology.Document.PlacentalPathologyQuestionnaire(placentalPathologyData);
@@ -29,9 +29,19 @@ namespace YellowstonePathology.Business.Document
 				documentViewer.Loaded += new System.Windows.RoutedEventHandler(DocumentViewer_Loaded);
 				documentViewer.Document = placentalPathologyQuestionnare.FixedDocument;
 				contentControl.Content = documentViewer;
-			}
-			else
-			{
+			}*/
+
+            YellowstonePathology.Business.XPSDocument.Result.Data.PlacentalPathologyQuestionnaireDataV2 placentalPathologyData = YellowstonePathology.Business.Gateway.XmlGateway.GetPlacentalPathologyQuestionnaire1(this.m_PlacentalClientOrderId, writer);
+            if (placentalPathologyData != null)
+            {
+                YellowstonePathology.Business.XPSDocument.PlacentalPathologyQuestionnaireV2 placentalPathologyQuestionnare = new YellowstonePathology.Business.XPSDocument.PlacentalPathologyQuestionnaireV2(placentalPathologyData);
+                System.Windows.Controls.DocumentViewer documentViewer = new System.Windows.Controls.DocumentViewer();
+                documentViewer.Loaded += new System.Windows.RoutedEventHandler(DocumentViewer_Loaded);
+                documentViewer.Document = placentalPathologyQuestionnare.FixedDocument;
+                contentControl.Content = documentViewer;
+            }
+            else
+            {
 				contentControl.Content = null;
 				System.Windows.MessageBox.Show("Placental Questionaire is not available");
 			}
