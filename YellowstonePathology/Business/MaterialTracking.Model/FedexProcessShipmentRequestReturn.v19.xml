@@ -100,11 +100,7 @@
         <v19:SpecialServicesRequested>
           <v19:SpecialServiceTypes>RETURN_SHIPMENT</v19:SpecialServiceTypes>
           <v19:ReturnShipmentDetail>
-            <v19:ReturnType>PRINT_RETURN_LABEL</v19:ReturnType>
-            <v19:ReturnAssociation>
-              <v19:TrackingNumber></v19:TrackingNumber>
-              <v19:ShipDate></v19:ShipDate>
-            </v19:ReturnAssociation>
+            <v19:ReturnType>PRINT_RETURN_LABEL</v19:ReturnType>            
           </v19:ReturnShipmentDetail>
         </v19:SpecialServicesRequested>
         <v19:LabelSpecification>
@@ -118,7 +114,7 @@
           <v19:SequenceNumber>1</v19:SequenceNumber>            
           <v19:Weight>
             <v19:Units>LB</v19:Units>
-            <v19:Value>2</v19:Value>
+            <v19:Value>1</v19:Value>
           </v19:Weight>          
         </v19:RequestedPackageLineItems>
       </v19:RequestedShipment>

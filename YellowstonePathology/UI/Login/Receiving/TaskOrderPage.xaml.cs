@@ -249,7 +249,7 @@ namespace YellowstonePathology.UI.Login.Receiving
                 if (result.RequestWasSuccessful == true)
                 {
                     taskOrderDetail.TrackingNumber = result.TrackingNumber;
-                    taskOrderDetail.SetZPLFromBase64(result.ZPLII);
+                    taskOrderDetail.ZPLII = Business.Label.Model.ZPLPrinter.DecodeZPLFromBase64(result.ZPLII);
                 }
                 else
                 {

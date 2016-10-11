@@ -308,7 +308,7 @@ namespace YellowstonePathology.UI.Client
                 Business.MaterialTracking.Model.FedexProcessShipmentReply result = returnLabelRequest.RequestShipment();
 
                 Business.Label.Model.ZPLPrinter zplPrinter = new Business.Label.Model.ZPLPrinter("10.1.1.20");
-                zplPrinter.Print(result.ZPLII);
+                zplPrinter.Print(Business.Label.Model.ZPLPrinter.DecodeZPLFromBase64(result.ZPLII));
             }
             else
             {

@@ -55,14 +55,7 @@ namespace YellowstonePathology.Business.Task.Model
             this.m_ShipToPhone = facility.PhoneNumber;
             this.m_PaymentType = facility.FedexPaymentType;
             this.NotifyPropertyChanged(string.Empty);
-        }
-
-        public void SetZPLFromBase64(string encodedString)
-        {
-            byte[] bytes = Convert.FromBase64String(encodedString);
-            string zplString = System.Text.Encoding.Default.GetString(bytes);
-            this.m_ZPLII = zplString;
-        }
+        }        
 
         [PersistentProperty()]
         [PersistentDataColumnProperty(true, "50", "null", "varchar")]

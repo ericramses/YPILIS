@@ -999,10 +999,40 @@ namespace YellowstonePathology.UI
         
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
-        {            
-            Business.Label.Model.ZPLPrinter printer = new Business.Label.Model.ZPLPrinter("10.1.1.21"); 
-            YellowstonePathology.Business.BarcodeScanning.ContainerBarcode containerBarcode = Business.BarcodeScanning.ContainerBarcode.Parse();
-            printer.Print(Business.Label.Model.ContainerZPLLabel.GetCommands(containerBarcode.ID));
+        {
+            StringBuilder rpcCommand = new StringBuilder("{\"jsonrpc\":\"2.0\",\"method\":\"add\",\"params\":[");
+            Business.Client.Model.ClientCollection clientCollection = Business.Gateway.PhysicianClientGateway.GetAllClients();
+
+            int cnt = clientCollection.Count;
+            for(int x=0; x<cnt; x++)
+            {                
+                StringBuilder payload = new StringBuilder();
+                Business.Persistence.JSONObjectWriter.WriteV2(payload, clientCollection[x]);
+                rpcCommand.Append("{\"key\": \"" + "pando.com/test/client/clientid:" + clientCollection[x].ClientId.ToString() + "\", \"payload\":" + payload.ToString() + "}");
+                if (x + 1 != cnt) rpcCommand.Append(", ");                               
+            }
+            rpcCommand.Append("], \"id\":\"1\"}");
+
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://10.1.2.27:8000");
+            byte[] bytes;
+            bytes = System.Text.Encoding.ASCII.GetBytes(rpcCommand.ToString());
+            request.ContentType = "application/json; encoding='utf-8'";
+            request.ContentLength = bytes.Length;
+            request.Method = "POST";
+            System.IO.Stream requestStream = request.GetRequestStream();
+            requestStream.Write(bytes, 0, bytes.Length);
+            requestStream.Close();
+            HttpWebResponse response;
+            response = (HttpWebResponse)request.GetResponse();
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                System.IO.Stream responseStream = response.GetResponseStream();
+                string responseStr = new System.IO.StreamReader(responseStream).ReadToEnd();
+                Console.WriteLine(responseStr);
+            }
+
+            System.Windows.MessageBox.Show("Done");
         }        
 
         private void PrintDocument_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)

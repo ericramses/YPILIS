@@ -15,7 +15,14 @@ namespace YellowstonePathology.Business.Label.Model
         {
             this.m_IPAddress = ipAddress;
             this.m_Port = 9100;
-        }        
+        }
+
+        public static string DecodeZPLFromBase64(string encodedString)
+        {
+            byte[] bytes = Convert.FromBase64String(encodedString);
+            string result = System.Text.Encoding.Default.GetString(bytes);
+            return result;
+        }
 
         public void Print(string zplCommands)
         {            

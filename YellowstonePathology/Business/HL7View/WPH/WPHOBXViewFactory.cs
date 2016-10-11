@@ -29,7 +29,7 @@ namespace YellowstonePathology.Business.HL7View.WPH
 					//view = new YellowstonePathology.Business.Test.HPV.HPVWPHOBXView(accessionOrder, reportNo, obxCount);
                     break;
                 case 15:
-					//view = new YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapWPHOBXView(accessionOrder, reportNo, obxCount);
+					view = new YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapWPHOBXView(accessionOrder, reportNo, obxCount);
                     break;
                 case 18:
 					//view = new YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKWPHOBXView(accessionOrder, reportNo, obxCount);
