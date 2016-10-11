@@ -1371,13 +1371,31 @@ namespace YellowstonePathology.UI
 
         private void ButtonWilliamTesting_Click(object sender, RoutedEventArgs e)
         {
-            DateTime startDate = DateTime.Parse("9/1/2016");
+            /*DateTime startDate = DateTime.Parse("10/5/2016");
             DateTime endDate = startDate.AddDays(6);
 
+            List<string> masterAccessionNos = new List<string>();
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "select MasterAccessionNo from tblAccessionOrder where AccessionDate = @StartDate";
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.Add(@"StartDate", SqlDbType.DateTime).Value = startDate;
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        string masterAccessionNo = dr[0].ToString();
+                        masterAccessionNos.Add(masterAccessionNo);
+                    }
+                }
+            }
             bool keepOn = true;
-            int idx =360;
-            Business.Client.Model.ClientSupplyOrderCollection supplyOrders = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientSupplyOrderCollectionByClientId(558);
-            while(keepOn && idx < supplyOrders.Count)
+            int idx = 0;
+            while(keepOn && idx < masterAccessionNos.Count)
             {
                 XpsDocumentViewer dlg = new XpsDocumentViewer();
                 dlg.Viewer.Width = 730;
@@ -1392,32 +1410,28 @@ namespace YellowstonePathology.UI
                 dlg1.Left = 760;
                 dlg1.Top = 20;
 
-                /*Business.Client.Model.ClientSupplyOrder clientSupplyOrder = supplyOrders[idx++];
-                XElement dataElement = YellowstonePathology.Business.Gateway.XmlGateway.GetClientSupplyOrderReportData(clientSupplyOrder.ClientSupplyOrderId);
-                YellowstonePathology.Business.XPSDocument.Result.Data.ClientSupplyOrderReportData clientSupplyOrderReportData = new Business.XPSDocument.Result.Data.ClientSupplyOrderReportData(dataElement);
-                YellowstonePathology.Business.XPSDocument.Result.Xps.ClientSupplyOrderReport clientSupplyOrderReport = new Business.XPSDocument.Result.Xps.ClientSupplyOrderReport(clientSupplyOrderReportData);
-                dlg.LoadDocument(clientSupplyOrderReport.FixedDocument);
+                dlg.LoadDocument(accessionOrderDataSheet.FixedDocument);
                 dlg.Show();
 
-                YellowstonePathology.Business.XPSDocument.Result.Xps.ClientSupplyOrderReportV2 clientSupplyOrderReport1 = new Business.XPSDocument.Result.Xps.ClientSupplyOrderReportV2(clientSupplyOrder);
-                dlg1.LoadDocument(clientSupplyOrderReport1.FixedDocument);
-                dlg1.Show();*/
+            dlg1.LoadDocument(accessionOrderDataSheet1.FixedDocument);
+                dlg1.Show();
 
                 MessageBoxResult result = MessageBox.Show("Continue", "Continue", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes);
-                if(result == MessageBoxResult.Yes)
+                if (result == MessageBoxResult.Yes)
                 {
                     startDate = startDate.AddDays(7);
                     endDate = startDate.AddDays(6);
                     keepOn = true;
+                    idx++;
                 }
                 else
                 {
                     keepOn = false;
                 }
-                dlg.Close();
-                dlg1.Close();
-            }
-            //MessageBox.Show("done");
+                    dlg.Close();
+                    dlg1.Close();
+            }*/
+            MessageBox.Show("done");
         }
     }
 }
