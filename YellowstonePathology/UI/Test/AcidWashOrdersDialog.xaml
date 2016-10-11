@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YellowstonePathology.UI.Test"
-        Title="Acid Wash Orders Dialog" Height="400" Width="750" WindowStyle="ToolWindow" WindowStartupLocation="CenterScreen">
+        Title="Acid Wash Orders Dialog" Height="400" Width="880" WindowStyle="ToolWindow" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.Resources>
             <Color x:Key="NormalColor">#e5fee7</Color>
@@ -55,6 +55,7 @@
             <ListView.View>
                 <GridView AllowsColumnReorder="True" ColumnHeaderToolTip="Case List">
                     <GridViewColumn DisplayMemberBinding="{Binding Path=ReportNo}" Header="Report No" Width="85" />
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=UserName}" Header="Ordered By" Width="100" />
                     <GridViewColumn DisplayMemberBinding="{Binding Path=OrderTime, Converter={StaticResource MilitaryDateTimeConverter}}" Header="Order Time" Width="110"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=PatientName}" Header="Patient Name" Width="150"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Accepted}" Header="Accepted" Width="90"/>

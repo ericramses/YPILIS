@@ -742,5 +742,11 @@ namespace YellowstonePathology.UI.Surgical
             this.m_BarcodeScanPort.HistologyBlockScanReceived += new Business.BarcodeScanning.BarcodeScanPort.HistologyBlockScanReceivedHandler(BarcodeScanPort_HistologyBlockScanReceived);
             this.m_BarcodeScanPort.ThinPrepSlideScanReceived += new Business.BarcodeScanning.BarcodeScanPort.ThinPrepSlideScanReceivedHandler(BarcodeScanPort_ThinPrepSlideScanReceived);
         }
+
+        private void ButtonMaterialTracking_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.UI.MaterialTracking.MaterialTrackingPath materialTrackingPath = new MaterialTracking.MaterialTrackingPath(this.m_PathologistUI.AccessionOrder.MasterAccessionNo);
+            materialTrackingPath.Start();
+        }
     }
 }

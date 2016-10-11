@@ -1000,16 +1000,21 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
+            
+        }        
+
+        private void AddAllClients()
+        {
             StringBuilder rpcCommand = new StringBuilder("{\"jsonrpc\":\"2.0\",\"method\":\"add\",\"params\":[");
             Business.Client.Model.ClientCollection clientCollection = Business.Gateway.PhysicianClientGateway.GetAllClients();
 
             int cnt = clientCollection.Count;
-            for(int x=0; x<cnt; x++)
-            {                
+            for (int x = 0; x < cnt; x++)
+            {
                 StringBuilder payload = new StringBuilder();
                 Business.Persistence.JSONObjectWriter.WriteV2(payload, clientCollection[x]);
                 rpcCommand.Append("{\"key\": \"" + "pando.com/test/client/clientid:" + clientCollection[x].ClientId.ToString() + "\", \"payload\":" + payload.ToString() + "}");
-                if (x + 1 != cnt) rpcCommand.Append(", ");                               
+                if (x + 1 != cnt) rpcCommand.Append(", ");
             }
             rpcCommand.Append("], \"id\":\"1\"}");
 
@@ -1033,7 +1038,7 @@ namespace YellowstonePathology.UI
             }
 
             System.Windows.MessageBox.Show("Done");
-        }        
+        }
 
         private void PrintDocument_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
