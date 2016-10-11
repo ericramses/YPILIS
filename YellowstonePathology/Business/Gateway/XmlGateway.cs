@@ -11,7 +11,7 @@ namespace YellowstonePathology.Business.Gateway
 {
     public class XmlGateway
     {
-        public static XElement GetSpecimenOrder(string masterAccessionNo)
+        /*public static XElement GetSpecimenOrder(string masterAccessionNo)
         {
             XElement result = new XElement("SpecimenOrders");
 
@@ -40,9 +40,9 @@ namespace YellowstonePathology.Business.Gateway
             }
 
             return result;
-        }
+        }*/
 
-		public static XElement GetAccessionOrder(string masterAccessionNo)
+		/*public static XElement GetAccessionOrder(string masterAccessionNo)
         {            
             SqlCommand cmd = new SqlCommand();
             cmd.CommandText = "Select * from tblAccessionOrder where MasterAccessionno = '" + masterAccessionNo + "'";
@@ -67,9 +67,9 @@ namespace YellowstonePathology.Business.Gateway
 			YellowstonePathology.Business.Persistence.XmlPropertyReader xmlPropertyReader = new YellowstonePathology.Business.Persistence.XmlPropertyReader(accessionOrder, result);
 			xmlPropertyReader.Write();
             return result;
-        }
+        }*/
 
-		public static XElement GetClientOrders(string masterAccessionNo)
+		/*public static XElement GetClientOrders(string masterAccessionNo)
 		{			
 			XElement result = new XElement("ClientOrders");
             YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection clientOrderCollection = YellowstonePathology.Business.Gateway.ClientOrderGateway.GetClientOrdersByMasterAccessionNo(masterAccessionNo);
@@ -89,7 +89,7 @@ namespace YellowstonePathology.Business.Gateway
                 }
             }            
 			return result;
-		}
+		}*/
 
 		public static XElement GetOrderComments(string masterAccessionNo)
 		{
@@ -123,10 +123,10 @@ namespace YellowstonePathology.Business.Gateway
 			return result;
 		}
 
-		public static YellowstonePathology.Document.Result.Data.PlacentalPathologyQuestionnaireData GetPlacentalPathologyQuestionnaire(string clientOrderId, object writer)
+		/*public static YellowstonePathology.Document.Result.Data.PlacentalPathologyQuestionnaireData GetPlacentalPathologyQuestionnaire(string clientOrderId, object writer)
 		{
             YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullClientOrder(clientOrderId, writer);
-			XElement clientOrderElement = new XElement("ClientOrder");
+            XElement clientOrderElement = new XElement("ClientOrder");
 			YellowstonePathology.Business.Persistence.XmlPropertyReader clientOrderPropertyWriter = new Persistence.XmlPropertyReader(clientOrder, clientOrderElement);
 			clientOrderPropertyWriter.Write();
 
@@ -141,10 +141,17 @@ namespace YellowstonePathology.Business.Gateway
 				}
 			}
 			YellowstonePathology.Document.Result.Data.PlacentalPathologyQuestionnaireData result = new YellowstonePathology.Document.Result.Data.PlacentalPathologyQuestionnaireData(clientOrderElement);
-			return result;
-		}
+            return result;
+		}*/
 
-		/*public static YellowstonePathology.Business.Domain.XElementFromSql GetXmlOrdersToAcknowledge(string panelOrderIds)
+        public static YellowstonePathology.Business.XPSDocument.Result.Data.PlacentalPathologyQuestionnaireDataV2 GetPlacentalPathologyQuestionnaire1(string clientOrderId, object writer)
+        {
+            YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullClientOrder(clientOrderId, writer);
+            YellowstonePathology.Business.XPSDocument.Result.Data.PlacentalPathologyQuestionnaireDataV2 result = new YellowstonePathology.Business.XPSDocument.Result.Data.PlacentalPathologyQuestionnaireDataV2(clientOrder);
+            return result;
+        }
+
+        /*public static YellowstonePathology.Business.Domain.XElementFromSql GetXmlOrdersToAcknowledge(string panelOrderIds)
 		{
 			SqlCommand cmd = new SqlCommand();
 			cmd.CommandText = "pGetXmlOrdersToAcknowledge_A1";

@@ -1104,6 +1104,7 @@
     <Compile Include="Business\Test\ThinPrepPap\ThinPrepPapWPHOBXView.cs" />
     <Compile Include="Business\Test\TP63F\TP63FTest.cs" />
     <Compile Include="Business\XPSDocument\ClientBillingDetailReportV2.cs" />
+    <Compile Include="Business\XPSDocument\PlacentalPathologyQuestionnaireV2.cs" />
     <Compile Include="Business\XPSDocument\Result\ClientBillingDetailReportResult\ClientBillingDetailReportData.cs" />
     <Compile Include="Business\XPSDocument\Result\ClientBillingDetailReportResult\ClientBillingDetailReportDataAccessionOrder.cs" />
     <Compile Include="Business\XPSDocument\Result\ClientBillingDetailReportResult\ClientBillingDetailReportDataReport.cs" />
@@ -1112,6 +1113,7 @@
     <Compile Include="Business\XPSDocument\Result\Data\AccessionOrderDataSheetDataCommentLog.cs" />
     <Compile Include="Business\XPSDocument\Result\Data\AccessionOrderDataSheetDataSpecimenOrder.cs" />
     <Compile Include="Business\XPSDocument\Result\Data\AccessionOrderDataSheetDataV2.cs" />
+    <Compile Include="Business\XPSDocument\Result\Data\PlacentalPathologyQuestionnaireDataV2.cs" />
     <Compile Include="Business\XPSDocument\Result\Xps\AccessionOrderDataSheetV2.cs" />
     <Compile Include="Business\XPSDocument\Result\Xps\ClientSupplyOrderReportV2.cs" />
     <Compile Include="MySQLMigration\MigrationStatus.cs" />

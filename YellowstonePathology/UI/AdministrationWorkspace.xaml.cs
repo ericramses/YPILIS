@@ -1401,10 +1401,10 @@ namespace YellowstonePathology.UI
 
         private void ButtonWilliamTesting_Click(object sender, RoutedEventArgs e)
         {
-            /*DateTime startDate = DateTime.Parse("10/5/2016");
+            DateTime startDate = DateTime.Parse("10/5/2016");
             DateTime endDate = startDate.AddDays(6);
 
-            List<string> masterAccessionNos = new List<string>();
+            /*List<string> masterAccessionNos = new List<string>();
             SqlCommand cmd = new SqlCommand();
             cmd.CommandText = "select MasterAccessionNo from tblAccessionOrder where AccessionDate = @StartDate";
             cmd.CommandType = CommandType.Text;
@@ -1440,10 +1440,11 @@ namespace YellowstonePathology.UI
                 dlg1.Left = 760;
                 dlg1.Top = 20;
 
-                dlg.LoadDocument(accessionOrderDataSheet.FixedDocument);
+
+                dlg.LoadDocument(placentalPathologyQuestionnare.FixedDocument);
                 dlg.Show();
 
-            dlg1.LoadDocument(accessionOrderDataSheet1.FixedDocument);
+                dlg1.LoadDocument(placentalPathologyQuestionnare1.FixedDocument);
                 dlg1.Show();
 
                 MessageBoxResult result = MessageBox.Show("Continue", "Continue", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes);
@@ -1458,8 +1459,8 @@ namespace YellowstonePathology.UI
                 {
                     keepOn = false;
                 }
-                    dlg.Close();
-                    dlg1.Close();
+                    //dlg.Close();
+                    //dlg1.Close();
             }*/
             MessageBox.Show("done");
         }
