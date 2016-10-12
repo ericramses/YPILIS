@@ -456,7 +456,7 @@ namespace YellowstonePathology.UI.Surgical
             if (this.PanelSetOrderSurgical.Final == false)
             {
                 YellowstonePathology.Business.Audit.Model.AuditResult auditResult = this.PanelSetOrderSurgical.IsOkToFinalize(this.m_PathologistUI.AccessionOrder);
-                if(auditResult.Status == Business.Audit.Model.AuditStatusEnum.Failure)
+                if(auditResult.Status == Business.Audit.Model.AuditStatusEnum.Failure || auditResult.Status == Business.Audit.Model.AuditStatusEnum.Warning)
                 {
                     PathologistSignoutPath pathologistSignoutPath = new PathologistSignoutPath(this.m_PathologistUI.AccessionOrder, this.PanelSetOrderSurgical);
                     pathologistSignoutPath.Start();

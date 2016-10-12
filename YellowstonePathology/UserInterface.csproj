@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>154</ApplicationRevision>
+    <ApplicationRevision>157</ApplicationRevision>
     <ApplicationVersion>10.1.6.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -204,6 +204,7 @@
     <Compile Include="Business\Audit.Model\AccessionOrderAudit.cs" />
     <Compile Include="Business\Audit.Model\AccountNoAudit.cs" />
     <Compile Include="Business\Audit.Model\AliquotAndStainOrderAuditCollection.cs" />
+    <Compile Include="Business\Audit.Model\CellBlockWarningAudit.cs" />
     <Compile Include="Business\Audit.Model\AncillaryStudiesAreHandledAudit.cs" />
     <Compile Include="Business\Audit.Model\AreAllWHPTestsFinalAudit.cs" />
     <Compile Include="Business\Audit.Model\Audit.cs" />
