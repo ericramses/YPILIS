@@ -1003,7 +1003,7 @@ namespace YellowstonePathology.UI
             //YellowstonePathology.Business.BarcodeScanning.HistologyBlock histologyBlock = Business.BarcodeScanning.HistologyBlock.Parse(barcode);
             //string commands = Business.Label.Model.HistologyBlockPaperZPLLabel.GetCommands(histologyBlock, "MM", "1A", "16-25894");
 
-            string commands = YellowstonePathology.Business.Label.Model.HistologySlidePaperZPLLabel.GetCommands("16-12345.1A1", "16-12345.S", "BOZO", "HE", "1A1", "YPI Cody, Wy");            
+            string commands = YellowstonePathology.Business.Label.Model.HistologySlidePaperZPLLabel.GetCommands("16-12345.1A1", "16-12345.F2", "BOZO", "H&E", "3AA12", "YPI Cody, Wy");            
             printer.Print(commands);            
         }        
 
