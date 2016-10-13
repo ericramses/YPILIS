@@ -68,7 +68,6 @@ namespace YellowstonePathology.Business.BarcodeScanning
                 list.Add(item);
             }
 
-
             list.Sort(delegate (EmbeddingScan x, EmbeddingScan y)
             {
                 if (x.DateScanned == y.DateScanned) return 0;
@@ -94,23 +93,18 @@ namespace YellowstonePathology.Business.BarcodeScanning
         public static EmbeddingScanCollection GetAll()
         {
             EmbeddingScanCollection result = new EmbeddingScanCollection();
+            IDatabase db = Business.RedisConnection.Instance.GetDatabase();            
 
-            IDatabase db = Business.RedisConnection.Instance.GetDatabase();
-            //var server = Business.RedisConnection.Instance.
-            //foreach (var key in db.keysKeys(pattern: "*foo*"))
-            //{
-            //    Console.WriteLine(key);
-            //}
-
-            RedisValue[] members = db.SetMembers("EmbeddingScans:");
-
-            List<EmbeddingScan> list = new List<EmbeddingScan>();
-            for (int i = 0; i < members.Length; i++)
+            foreach (var key in Business.RedisConnection.Instance.Server.Keys(pattern: "EmbeddingScans:*"))
             {
-                HashEntry[] hashEntries = db.HashGetAll(members[i].ToString());
-                EmbeddingScan item = new EmbeddingScan(hashEntries);
-                list.Add(item);
-            }            
+                RedisValue[] members = db.SetMembers(key);                
+                for (int i = 0; i < members.Length; i++)
+                {
+                    HashEntry[] hashEntries = db.HashGetAll(members[i].ToString());
+                    EmbeddingScan item = new EmbeddingScan(hashEntries);
+                    result.Add(item);
+                }
+            }
 
             return result;
         }

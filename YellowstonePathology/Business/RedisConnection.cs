@@ -12,16 +12,18 @@ namespace YellowstonePathology.Business
         private static volatile RedisConnection instance;
         private static object syncRoot = new Object();
 
-        public ConnectionMultiplexer m_Connection;             
+        private ConnectionMultiplexer m_Connection;
+        private IServer m_Server;
 
         static RedisConnection()
         {
-
+            
         }
 
         private RedisConnection()
         {
-            this.m_Connection = ConnectionMultiplexer.Connect("10.1.2.25, ConnectTimeout=5000, SyncTimeout=5000");            
+            this.m_Connection = ConnectionMultiplexer.Connect("10.1.2.25, ConnectTimeout=5000, SyncTimeout=5000");
+            this.m_Server = this.m_Connection.GetServer("10.1.2.25:6379");
         }
 
         public IDatabase GetDatabase()
@@ -32,6 +34,11 @@ namespace YellowstonePathology.Business
         public ISubscriber GetSubscriber()
         {
             return this.m_Connection.GetSubscriber();
+        }
+
+        public IServer Server
+        {
+            get { return this.m_Server; }
         }
 
         public static RedisConnection Instance

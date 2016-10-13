@@ -225,7 +225,12 @@ namespace YellowstonePathology.UI
         private void ButtonUpdate_Click(object sender, RoutedEventArgs e)
         {
 
-            this.m_EmbeddingScanCollection = Business.BarcodeScanning.EmbeddingScanCollection.GetByScanDate(this.m_WorkDate);
+            this.m_EmbeddingScanCollection = Business.BarcodeScanning.EmbeddingScanCollection.GetAll();
+            foreach(Business.BarcodeScanning.EmbeddingScan embeddingScan in this.m_EmbeddingScanCollection)
+            {
+                embeddingScan
+            }
+
             /*
             this.m_BackgroundWorker = new BackgroundWorker();
             this.m_BackgroundWorker.WorkerReportsProgress = true;
