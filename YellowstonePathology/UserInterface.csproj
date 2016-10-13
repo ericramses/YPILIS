@@ -981,6 +981,7 @@
     <Compile Include="Business\Label.Model\CassettePrinter.cs" />
     <Compile Include="Business\Label.Model\ContainerPaperLabel.cs" />
     <Compile Include="Business\Label.Model\ContainerPaperLabelPrinter.cs" />
+    <Compile Include="Business\Label.Model\HistologySlidePaperZPLLabel.cs" />
     <Compile Include="Business\Label.Model\HistologyBlockPaperZPLLabel.cs" />
     <Compile Include="Business\Label.Model\HistologySlideDirectPrintLabel.cs" />
     <Compile Include="Business\Label.Model\HistologySlideLabel.cs" />
