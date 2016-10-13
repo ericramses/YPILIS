@@ -36,17 +36,18 @@
 
         <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right">
             <Button Width="150" Margin="2,2,2,2" Click="ButtonUpdate_Click">Update</Button>
-            <ComboBox  Name="ComboBoxProcessorRuns" ItemsSource="{Binding Path=ProcessorRunCollection}" DisplayMemberPath="Name" Margin="2,2,2,2" Width="200"></ComboBox>
+            <ComboBox  Name="ComboBoxProcessorRuns" ItemsSource="{Binding Path=ProcessorRunCollection}" DisplayMemberPath="Name" Margin="2,2,2,2" Width="200" SelectionChanged="ComboBoxProcessorRun_SelectionChanged"></ComboBox>
             <TextBox Name="TextBoxProcessorStartTime" Margin="2" Width="120" Text="{Binding Path=ProcessorStartTime, Converter={StaticResource MilitaryDateTimeConverter}}" />
-            <TextBox Name="TextBoxProcessorFixationDuration" Margin="2" Width="120" Text="{Binding Path=ProcessorFixationDuration, Converter={StaticResource MilitaryDateTimeConverter}}" />
+            <TextBox Name="TextBoxProcessorFixationDuration" Margin="2" Width="120" Text="{Binding Path=ProcessorFixationDuration.TotalMinutes, Mode=OneWay}" />
         </StackPanel>
 
         <ListView Name="ListViewEmbeddingScans" Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" ItemsSource="{Binding Path=EmbeddingScanCollection}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Block" Width="100" DisplayMemberBinding="{Binding Path=AliquotOrderId}" />
-                    <GridViewColumn Header="Date" Width="130" DisplayMemberBinding="{Binding Path=DateScanned}" />
-                    <GridViewColumn Header="Processor" Width="200" DisplayMemberBinding="{Binding Path=ProcessorRun}" />
+                    <GridViewColumn Header="Scanned" Width="130" DisplayMemberBinding="{Binding Path=DateScanned}" />
+                    <GridViewColumn Header="Started" Width="200" DisplayMemberBinding="{Binding Path=ProcessorStartTime}" />
+                    <GridViewColumn Header="Duration" Width="150" DisplayMemberBinding="{Binding Path=ProcessorFixationDuration}" />
                     <GridViewColumn Header="By" Width="150" DisplayMemberBinding="{Binding Path=ScannedBy}" />
                     <GridViewColumn Header="Updated" Width="120" DisplayMemberBinding="{Binding Path=Updated}" />
                 </GridView>

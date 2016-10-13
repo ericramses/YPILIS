@@ -8,7 +8,7 @@ namespace YellowstonePathology.Business.Surgical
     public class ProcessorRun
     {        
         protected string m_Name;
-        protected DateTime m_StartTime;
+        protected Nullable<DateTime> m_StartTime;
         protected TimeSpan m_FixationDuration;        
 
         public ProcessorRun()
@@ -16,18 +16,12 @@ namespace YellowstonePathology.Business.Surgical
 
         }
 
-        public ProcessorRun(string name, DateTime startTime, TimeSpan fixationDuration)
+        public ProcessorRun(string name, Nullable<DateTime> startTime, TimeSpan fixationDuration)
         {     
             this.m_Name = name;
             this.m_StartTime = startTime;
             this.m_FixationDuration = fixationDuration;
-        }
-
-        public ProcessorRun(string name, TimeSpan fixationDuration)
-        {
-            this.m_Name = name;            
-            this.m_FixationDuration = fixationDuration;
-        }
+        }             
 
         public Business.Rules.MethodResult FixationDurationIsOk()
         {
@@ -76,7 +70,7 @@ namespace YellowstonePathology.Business.Surgical
 
         public DateTime GetFixationEndTime(DateTime fixationStartTime)
         {                        
-            return this.m_StartTime.Add(this.m_FixationDuration);
+            return this.m_StartTime.Value.Add(this.m_FixationDuration);
         }                            
 
         public string Name
@@ -85,7 +79,7 @@ namespace YellowstonePathology.Business.Surgical
             set { this.m_Name = value;}
         }
 
-        public DateTime StartTime
+        public Nullable<DateTime> StartTime
         {
             get { return this.m_StartTime; }
             set { this.m_StartTime = value; }
