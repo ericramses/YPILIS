@@ -213,27 +213,14 @@ namespace YellowstonePathology.UI.Login.Receiving
                     else
                     {
                         if(this.m_ClientOrderDetail.FixationStartTime.HasValue == true)
-                        {
-                            YellowstonePathology.Business.Surgical.ProcessorRun processorRun = null;
-                            if(DateTime.Today.DayOfWeek ==  DayOfWeek.Friday || DateTime.Today.DayOfWeek == DayOfWeek.Saturday)
+                        {                            
+                            if(this.m_ClientOrderDetail.FixationStartTime.HasValue == true)
                             {
-                                processorRun = new Business.Surgical.CheechSunday();
-                            }
-                            else
-                            {
-                                processorRun = new Business.Surgical.CheechTodayOvernight();
+                                Business.Surgical.ProcessorRun processorRun = new Business.Surgical.ProcessorRun("Standard Run", new TimeSpan(2, 30, 0));
+                                DateTime fixationEndTime = processorRun.GetFixationEndTime(this.m_ClientOrderDetail.FixationStartTime.Value);
+                                Business.Rules.MethodResult fixationOkResult = processorRun.FixationDurationIsOk();
+                                if (fixationOkResult.Success == false) MessageBox.Show(fixationOkResult.Message);
                             }                            
-
-                            Nullable<DateTime> fixationEndTime = processorRun.GetFixationEndTime(this.m_ClientOrderDetail.FixationStartTime, this.m_ClientOrderDetail.DateReceived.Value);
-                            TimeSpan fixationDuration = fixationEndTime.Value - this.m_ClientOrderDetail.FixationStartTime.Value;
-                            if(fixationDuration.TotalHours < 6)
-                            {
-                                MessageBox.Show("Warning! Fixation duration will be under 6 hours unless this specimen is held.");
-                            }
-                            else if(fixationDuration.TotalHours > 72)
-                            {
-                                MessageBox.Show("Warning! Fixation duration will be over 72 hours if processed normally.");
-                            }
                         }                        
                     }                    
                 }

@@ -57,9 +57,7 @@ namespace YellowstonePathology.Business.View
 		{            
 			XElement specimenOrderElement = new XElement("SpecimenOrder",
 				new XElement("ContainerId", this.m_SpecimenOrder.ContainerId),
-				new XElement("SpecimenOrderId", this.m_SpecimenOrder.SpecimenOrderId),
-                new XElement("ProcessorRun", this.m_SpecimenOrder.ProcessorRun),
-                new XElement("ProcessorRunId", this.m_SpecimenOrder.ProcessorRunId),
+				new XElement("SpecimenOrderId", this.m_SpecimenOrder.SpecimenOrderId),                
 				new XElement("SpecimenNumber", this.m_SpecimenOrder.SpecimenNumber),
                 new XElement("FixationDurationString", this.m_SpecimenOrder.FixationDurationString),
 				new XElement("Description", this.m_SpecimenOrder.Description));

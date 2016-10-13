@@ -110,11 +110,11 @@ namespace YellowstonePathology.Business.Gateway
             return result;
         }
 
-        public static YellowstonePathology.Business.Specimen.Model.SpecimenOrderCollection GetSpecimenOrderHoldCollection()
+        public static YellowstonePathology.Business.Test.AliquotOrderCollection GetAliquotOrderHoldCollection()
         {
-            YellowstonePathology.Business.Specimen.Model.SpecimenOrderCollection result = new Specimen.Model.SpecimenOrderCollection();
+            YellowstonePathology.Business.Test.AliquotOrderCollection result = new Test.AliquotOrderCollection();
             SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "Select * from tblSpecimenOrder where ProcessorRunId = 'HOLD'";
+            cmd.CommandText = "Select * from tblAliquotOrder where Status = 'Hold'";
             cmd.CommandType = CommandType.Text;
 
             using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
@@ -125,10 +125,10 @@ namespace YellowstonePathology.Business.Gateway
                 {
                     while (dr.Read())
                     {
-                        YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = new Specimen.Model.SpecimenOrder();
-                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(specimenOrder, dr);
+                        YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = new Test.AliquotOrder();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(aliquotOrder, dr);
                         sqlDataReaderPropertyWriter.WriteProperties();
-                        result.Add(specimenOrder);
+                        result.Add(aliquotOrder);
                     }
                 }
             }

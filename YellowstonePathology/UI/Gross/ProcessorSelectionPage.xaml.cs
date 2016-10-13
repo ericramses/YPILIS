@@ -28,7 +28,7 @@ namespace YellowstonePathology.UI.Gross
         public ProcessorSelectionPage(YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder)
 		{
             this.m_SpecimenOrder = specimenOrder;
-            this.m_ProcessorRunCollection = Business.Surgical.ProcessorRunCollection.GetAll(false);
+            this.m_ProcessorRunCollection = Business.Surgical.ProcessorRunCollection.GetAll();
 			InitializeComponent();
 			DataContext = this;
             this.ListBoxProcessorRun.SelectionChanged += new SelectionChangedEventHandler(ListBoxProcessorRun_SelectionChanged);
@@ -36,11 +36,7 @@ namespace YellowstonePathology.UI.Gross
 
         private void ListBoxProcessorRun_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (this.ListBoxProcessorRun.SelectedItem != null)
-            {
-                YellowstonePathology.Business.Surgical.ProcessorRun processorRun = (YellowstonePathology.Business.Surgical.ProcessorRun)this.ListBoxProcessorRun.SelectedItem;
-                this.m_SpecimenOrder.SetProcessor(processorRun);
-            }
+            throw new Exception("needs work");
         }
 
         public YellowstonePathology.Business.Specimen.Model.SpecimenOrder SpecimenOrder

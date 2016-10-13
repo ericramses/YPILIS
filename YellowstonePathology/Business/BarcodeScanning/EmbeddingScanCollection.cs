@@ -25,10 +25,10 @@ namespace YellowstonePathology.Business.BarcodeScanning
             }
         }
 
-        public EmbeddingScan HandleScan(string aliquotOrderId, string processorRunId, string processorRun)
+        public EmbeddingScan HandleScan(string aliquotOrderId, DateTime processorStartTime, TimeSpan processorFixationDuration)
         {
             IDatabase db = Business.RedisConnection.Instance.GetDatabase();
-            EmbeddingScan scan = new EmbeddingScan(aliquotOrderId, processorRunId, processorRun);
+            EmbeddingScan scan = new EmbeddingScan(aliquotOrderId, processorStartTime, processorFixationDuration);
 
             if (db.KeyExists("EmbeddingScan:" + aliquotOrderId) == true)
             {
@@ -87,6 +87,30 @@ namespace YellowstonePathology.Business.BarcodeScanning
             {
                 result.InsertItem(0, item);
             }
+
+            return result;
+        }
+
+        public static EmbeddingScanCollection GetAll()
+        {
+            EmbeddingScanCollection result = new EmbeddingScanCollection();
+
+            IDatabase db = Business.RedisConnection.Instance.GetDatabase();
+            //var server = Business.RedisConnection.Instance.
+            //foreach (var key in db.keysKeys(pattern: "*foo*"))
+            //{
+            //    Console.WriteLine(key);
+            //}
+
+            RedisValue[] members = db.SetMembers("EmbeddingScans:");
+
+            List<EmbeddingScan> list = new List<EmbeddingScan>();
+            for (int i = 0; i < members.Length; i++)
+            {
+                HashEntry[] hashEntries = db.HashGetAll(members[i].ToString());
+                EmbeddingScan item = new EmbeddingScan(hashEntries);
+                list.Add(item);
+            }            
 
             return result;
         }

@@ -401,18 +401,14 @@ namespace YellowstonePathology.UI.Gross
 			XElement specimenElement = new XElement("SpecimenOrder");
 			XElement specimenIsSelectedElement = new XElement("IsSelected", false);
 			XElement specimenOrderIdElement = new XElement("SpecimenOrderId", this.m_SpecimenOrder.SpecimenOrderId);
-            XElement specimenDescriptionElement = new XElement("Description", this.m_SpecimenOrder.Description);
-            XElement specimenProcessorRunElement = new XElement("ProcessorRun", this.m_SpecimenOrder.ProcessorRun);
-            XElement specimenProcessorRunIdElement = new XElement("ProcessorRunId", this.m_SpecimenOrder.ProcessorRunId);
+            XElement specimenDescriptionElement = new XElement("Description", this.m_SpecimenOrder.Description);            
             XElement specimenFixationDurationStringElement = new XElement("FixationDurationString", this.m_SpecimenOrder.FixationDurationString);
             XElement specimenTimeToFixationStringElement = new XElement("TimeToFixationString", this.m_SpecimenOrder.TimeToFixationString);
             XElement specimenFixationCommentElement = new XElement("FixationComment", this.m_SpecimenOrder.FixationComment);
 
 			specimenElement.Add(specimenIsSelectedElement);
 			specimenElement.Add(specimenOrderIdElement);
-			specimenElement.Add(specimenDescriptionElement);
-            specimenElement.Add(specimenProcessorRunElement);
-            specimenElement.Add(specimenProcessorRunIdElement);
+			specimenElement.Add(specimenDescriptionElement);            
             specimenElement.Add(specimenFixationDurationStringElement);
             specimenElement.Add(specimenTimeToFixationStringElement);
             specimenElement.Add(specimenFixationCommentElement);

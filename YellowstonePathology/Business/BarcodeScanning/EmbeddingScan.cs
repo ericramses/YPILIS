@@ -19,6 +19,8 @@ namespace YellowstonePathology.Business.BarcodeScanning
         private string m_ScannedBy;
         private int m_ScannedById;
         private bool m_Updated;
+        private Nullable<DateTime> m_ProcessorStartTime;
+        private Nullable<TimeSpan> m_ProcessorFixationDuration;
 
         public EmbeddingScan()
         {
@@ -34,13 +36,15 @@ namespace YellowstonePathology.Business.BarcodeScanning
             this.m_ScannedById = Convert.ToInt32(hashEntries[4].Value);
             this.m_ScannedBy = hashEntries[5].Value;
             this.m_Updated = Convert.ToBoolean(hashEntries[6].Value);
+            //this.m_ProcessorStartTime = DateTime.Parse(hashEntries[7].Value);
+            //this.m_ProcessorFixationDuration = TimeSpan.Parse(hashEntries[8].Value);
         }
 
-        public EmbeddingScan(string aliquotOrderId, string processorRunId, string processorRun)
+        public EmbeddingScan(string aliquotOrderId, DateTime processorStartTime, TimeSpan processorFixationDuration)
         {
             this.m_AliquotOrderId = aliquotOrderId;
-            this.m_ProcessorRunId = processorRunId;
-            this.m_ProcessorRun = processorRun;
+            this.m_ProcessorStartTime = processorStartTime;
+            this.m_ProcessorFixationDuration = processorFixationDuration;
             this.m_DateScanned = DateTime.Now;
             this.m_ScannedBy = YellowstonePathology.Business.User.SystemIdentity.Instance.User.UserName;
             this.m_ScannedById = YellowstonePathology.Business.User.SystemIdentity.Instance.User.UserId;
@@ -82,6 +86,16 @@ namespace YellowstonePathology.Business.BarcodeScanning
             get { return this.m_DateScanned; }
         }
 
+        public Nullable<DateTime> ProcessorStartTime
+        {
+            get { return this.m_ProcessorStartTime; }
+        }
+
+        public Nullable<TimeSpan> ProcessorFixationDuration
+        {
+            get { return this.m_ProcessorFixationDuration; }
+        }
+
         public bool Updated
         {
             get { return this.m_Updated; }
@@ -103,14 +117,38 @@ namespace YellowstonePathology.Business.BarcodeScanning
         public HashEntry[] GetHasEntries()
         {
             HashEntry[] hashEntries = new HashEntry[7];
-            hashEntries[0] = new HashEntry("AliquotOrderId", this.m_AliquotOrderId);
-            hashEntries[1] = new HashEntry("ProcessorRunId", this.m_ProcessorRunId);
-            hashEntries[2] = new HashEntry("ProcessorRun", this.m_ProcessorRun);
+            hashEntries[0] = new HashEntry("AliquotOrderId", this.m_AliquotOrderId);                                                
+            hashEntries[1] = new HashEntry("ProcessorStartTime", this.GetProcessorStartTimeHashString());
+            hashEntries[2] = new HashEntry("ProcessorFixationDuration", this.GetProcessorFixationDurationHashString());
             hashEntries[3] = new HashEntry("DateScanned", DateTime.Now.ToString());
             hashEntries[4] = new HashEntry("ScannedById", this.m_ScannedById);
             hashEntries[5] = new HashEntry("ScannedBy", this.m_ScannedBy);
             hashEntries[6] = new HashEntry("Updated", this.m_Updated.ToString());
             return hashEntries;
+        }        
+
+        private string GetProcessorStartTimeHashString()
+        {
+            if(this.m_ProcessorStartTime.HasValue == true)
+            {
+                return this.m_ProcessorStartTime.ToString();
+            }
+            else
+            {
+                return "null";
+            }
+        }
+
+        private string GetProcessorFixationDurationHashString()
+        {
+            if (this.m_ProcessorFixationDuration.HasValue == true)
+            {
+                return this.m_ProcessorFixationDuration.Value.Ticks.ToString();
+            }
+            else
+            {
+                return "null";
+            }
         }
 
         public void NotifyPropertyChanged(String info)

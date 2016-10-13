@@ -12,7 +12,7 @@ namespace YellowstonePathology.Business
         private static volatile RedisConnection instance;
         private static object syncRoot = new Object();
 
-        private ConnectionMultiplexer m_Connection;             
+        public ConnectionMultiplexer m_Connection;             
 
         static RedisConnection()
         {

@@ -28,8 +28,7 @@ namespace YellowstonePathology.UI.Common
 
         private YellowstonePathology.Business.Label.Model.LabelFormatCollection m_MolecularLabelFormatCollection;
         private System.Printing.PrintQueueCollection m_PrintQueueCollection;
-		private YellowstonePathology.Business.ApplicationVersion m_ApplicationVersion;
-        private YellowstonePathology.Business.Surgical.ProcessorRunCollection m_ProcessorRunCollection;
+		private YellowstonePathology.Business.ApplicationVersion m_ApplicationVersion;        
 
 		public UserPreferences()
 		{
@@ -42,8 +41,7 @@ namespace YellowstonePathology.UI.Common
             System.Printing.LocalPrintServer printServer = new System.Printing.LocalPrintServer();            
             this.m_PrintQueueCollection = printServer.GetPrintQueues(new[] { System.Printing.EnumeratedPrintQueueTypes.Local, System.Printing.EnumeratedPrintQueueTypes.Connections });
 
-			this.m_ApplicationVersion = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.GetApplicationVersion(this);			
-            this.m_ProcessorRunCollection = Business.Surgical.ProcessorRunCollection.GetAll(true);
+			this.m_ApplicationVersion = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.GetApplicationVersion(this);			            
 
 			InitializeComponent();            
 
@@ -73,12 +71,7 @@ namespace YellowstonePathology.UI.Common
                 MessageBox.Show("Unable to initialize the TWAIN Scanner Collection.");
             }
 			
-		}
-
-        public YellowstonePathology.Business.Surgical.ProcessorRunCollection ProcessorRunCollection
-        {
-            get { return this.m_ProcessorRunCollection; }
-        }
+		}        
 
         public YellowstonePathology.Business.Label.Model.LabelFormatCollection MolecularLabelFormatCollection
         {
