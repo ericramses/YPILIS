@@ -13,20 +13,22 @@ namespace YellowstonePathology.Business.Label.Model
 
         }
 
-        public static string GetCommands(YellowstonePathology.Business.BarcodeScanning.HistologyBlock histologyBlock, string patientInitials, string blockId)
+        public static string GetCommands(YellowstonePathology.Business.BarcodeScanning.HistologyBlock histologyBlock, string patientInitials, string blockId, string masterAccessionNo)
         {
             StringBuilder result = new StringBuilder();
+
+            result.Append("^XA");        
             
-            //string line1 = containerId.Substring(0, 14);
-            //string line2 = containerId.Substring(14, 14);
-            //string line3 = containerId.Substring(28);
+            result.Append("^FO" + 30 + ",090^BXN,08,200^FD" + histologyBlock.AliquotOrderId + "^FS");
+            result.Append("^FO" + 30 + ",040^ATN,40,40^FD" + masterAccessionNo + "^FS");
+            result.Append("^FO" + 30 + ",220^ARN,25,25^FD" + patientInitials + "^FS");
+            result.Append("^FO" + 175 + ",220^ARN,25,25^FD" + blockId + "^FS");
 
 
-            //result.Append("^FO" + (xOffset + 85) + ",020^AUN,50,50^FD" + "YPI" + "^FS");
-            //result.Append("^FO" + (xOffset + 75) + ",080^BXN,04,200^FD" + containerId + "^FS");
-            //result.Append("^FO" + (xOffset + 30) + ",190^FB190,1,0,C,0^ADN,20^FD" + line1 + "^FS");
-            //result.Append("^FO" + (xOffset + 30) + ",210^FB190,1,0,C,0^ADN,20^FD" + line2 + "^FS");
-            //result.Append("^FO" + (xOffset + 25) + ",240^FB190,1,0,C,0^ARN,18^FD" + line3 + "^FS");
+
+
+            result.Append("^XZ");
+
 
             return result.ToString();
         }        

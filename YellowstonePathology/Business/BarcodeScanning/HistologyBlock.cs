@@ -34,8 +34,9 @@ namespace YellowstonePathology.Business.BarcodeScanning
         }
 
         public static HistologyBlock Parse(BarcodeVersion1 barcode)
-        {
-            HistologyBlock result = null;
+        {            
+            HistologyBlock result = new HistologyBlock();
+            result.AliquotOrderId = barcode.ID;
             return result;
         }
     }
