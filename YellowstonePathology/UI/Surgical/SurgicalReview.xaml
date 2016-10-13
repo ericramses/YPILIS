@@ -320,7 +320,7 @@
 						 IsEnabled="{Binding ElementName=SurgicalReviewControl, Path=DataContext.FieldEnabler.IsProtectedEnabled}">
 				</TextBox>
                 <TextBox Name="TextBoxDiagnosis" Grid.Row="1" Grid.Column="1" Margin="2" TextWrapping="Wrap" AcceptsReturn="True"
-						 FontSize="12" MinWidth="300" SpellCheck.IsEnabled="False" KeyUp="TextBox_KeyUp"
+						 FontSize="12" MinWidth="300" SpellCheck.IsEnabled="False" KeyUp="TextBox_KeyUp" Tag="{Binding Path=IsSelected}"
 						 Text="{Binding Path=SurgicalSpecimen.Diagnosis, UpdateSourceTrigger=PropertyChanged}" RequestBringIntoView="Any_RequestBringIntoView"
 						 IsEnabled="{Binding ElementName=SurgicalReviewControl, Path=DataContext.FieldEnabler.IsProtectedEnabled}">
                 </TextBox>
