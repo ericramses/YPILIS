@@ -331,6 +331,7 @@ namespace YellowstonePathology.UI.Surgical
                             {
                                 SurgicalReview surgicalReview = (SurgicalReview)this.m_PathologistsReview.ReviewContent;
                                 surgicalReview.BillingSpecimenViewCollection.SetSelectedBySlideOrderid(barcode.ID);
+                                surgicalReview.SetFocusOnDiagnosis();
                             }
                         }
 						else
