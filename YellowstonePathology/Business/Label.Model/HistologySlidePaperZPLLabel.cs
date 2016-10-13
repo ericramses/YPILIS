@@ -13,7 +13,7 @@ namespace YellowstonePathology.Business.Label.Model
 
         }
 
-        public static string GetCommands(string slideOrderId)
+        public static string GetCommands(string slideOrderId, string reportNo, string lastName, string testname, string slideLabel, string location)
         {
             StringBuilder result = new StringBuilder();
             result.Append("^XA");        
