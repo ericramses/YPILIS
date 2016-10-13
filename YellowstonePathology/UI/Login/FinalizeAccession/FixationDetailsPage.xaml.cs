@@ -29,14 +29,13 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private ObservableCollection<string> m_FixationTypeCollection;		
         private YellowstonePathology.Business.Surgical.ProcessorRunCollection m_ProcessorRunCollection;
-        private ObservableCollection<string> m_TimeToFixationTypeCollection;
-        
+        private ObservableCollection<string> m_TimeToFixationTypeCollection;        
 
 		public FixationDetailsPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{			
 			this.m_AccessionOrder = accessionOrder;
 
-            this.m_ProcessorRunCollection = Business.Surgical.ProcessorRunCollection.GetAll(true);
+            this.m_ProcessorRunCollection = Business.Surgical.ProcessorRunCollection.GetAll();
             this.m_FixationTypeCollection = YellowstonePathology.Business.Specimen.Model.FixationType.GetFixationTypeCollection();
 
             this.m_TimeToFixationTypeCollection = YellowstonePathology.Business.Specimen.Model.TimeToFixationType.GetTimeToFixationTypeCollection();
@@ -103,8 +102,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 foreach (YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder in this.ListViewSpecimen.SelectedItems)
                 {
                     specimenOrder.SetFixationStartTime();
-                    specimenOrder.SetTimeToFixation();
-                    specimenOrder.SetProcessor(processorRun);
+                    specimenOrder.SetTimeToFixation();                    
                     specimenOrder.SetFixationEndTime();
                     specimenOrder.SetFixationDuration();                    
                 }

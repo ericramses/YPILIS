@@ -640,6 +640,7 @@ namespace YellowstonePathology.Business.Test
                 this.EmbeddingVerifiedById = systemUser.UserId;
                 this.EmbeddingVerifiedDate = DateTime.Now;
                 this.EmbeddingVerifiedBy = systemUser.UserName;
+                this.Status = "Validated";
             }
         }
 
