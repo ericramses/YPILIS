@@ -253,14 +253,14 @@ namespace YellowstonePathology.Business.Gateway
 
         public static Business.XPSDocument.Result.Data.AccessionOrderDataSheetDataV2 GetAccessionOrderDataSheetData(string masterAccessionNo)
         {
-            Test.AccessionOrder accessionOrder = GetAccessionOrder1(masterAccessionNo);
+            Test.AccessionOrder accessionOrder = GetAccessionOrder(masterAccessionNo);
             ClientOrder.Model.ClientOrderCollection clientOrderCollection = YellowstonePathology.Business.Gateway.ClientOrderGateway.GetClientOrdersByMasterAccessionNo(masterAccessionNo);
             Domain.OrderCommentLogCollection orderCommentLogCollection = Gateway.OrderCommentGateway.GetOrderCommentLogCollectionByMasterAccessionNo(masterAccessionNo);
             Business.XPSDocument.Result.Data.AccessionOrderDataSheetDataV2 accessionOrderDataSheetData = new Business.XPSDocument.Result.Data.AccessionOrderDataSheetDataV2(accessionOrder, clientOrderCollection, orderCommentLogCollection);
             return accessionOrderDataSheetData;
         }
 
-        public static Test.AccessionOrder GetAccessionOrder1(string masterAccessionNo)
+        public static Test.AccessionOrder GetAccessionOrder(string masterAccessionNo)
         {
             SqlCommand cmd = new SqlCommand();
             cmd.CommandText = "Select * from tblAccessionOrder where MasterAccessionno = @MasterAccessionNo " +
