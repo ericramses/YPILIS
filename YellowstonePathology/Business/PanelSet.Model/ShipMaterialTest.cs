@@ -20,7 +20,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
             this.m_Active = true;
             this.m_ExpectedDuration = TimeSpan.FromDays(1);
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Document.ReferenceLabReport).AssemblyQualifiedName;
-
+            this.m_NeverDistribute = true;
             this.m_AllowMultiplePerAccession = true;                        
 			
             string taskDescription = "Ship materials";

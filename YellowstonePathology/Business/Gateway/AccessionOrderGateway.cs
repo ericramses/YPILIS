@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.Gateway
         {
             YellowstonePathology.UI.EmbeddingBreastCaseList result = new UI.EmbeddingBreastCaseList();
             SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "select ao.MasterAccessionNo, ao.PFirstName, ao.PLastName, so.Collectiontime, so.ProcessorRun, so.FixationStartTime, so.FixationEndTime, datediff(hh, fixationstarttime, fixationendtime) [FixationDurationCalc], FixationDuration " + 
+            cmd.CommandText = "select ao.MasterAccessionNo, ao.PFirstName, ao.PLastName, so.Collectiontime, so.ProcessorRun, so.FixationStartTime, so.FixationEndTime, datediff(hh, fixationstarttime, fixationendtime) [FixationDurationCalc], FixationDuration, so.Description " + 
                 "from tblAccessionOrder ao " +
                 "join tblspecimenOrder so on ao.masterAccessionNo = so.MasterAccessionNo " +
                 "where charindex('Breast', so.Description) > 0 " +
