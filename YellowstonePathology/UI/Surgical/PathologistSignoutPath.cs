@@ -34,7 +34,7 @@ namespace YellowstonePathology.UI.Surgical
             this.m_PathologistSignoutAuditCollection = new Business.Audit.Model.PathologistSignoutAuditCollection(this.m_AccessionOrder);
 
             this.m_AuditResult = this.m_PathologistSignoutAuditCollection.Run2();
-            if (this.m_AuditResult.Status == Business.Audit.Model.AuditStatusEnum.Failure)
+            if (this.m_AuditResult.Status == Business.Audit.Model.AuditStatusEnum.Failure || this.m_AuditResult.Status == Business.Audit.Model.AuditStatusEnum.Warning)
             {
                 this.SetActionList();
             }
@@ -42,7 +42,7 @@ namespace YellowstonePathology.UI.Surgical
 
         public void Start()
         {
-            if (this.m_AuditResult.Status == Business.Audit.Model.AuditStatusEnum.Failure)
+            if (this.m_AuditResult.Status == Business.Audit.Model.AuditStatusEnum.Failure || this.m_AuditResult.Status == Business.Audit.Model.AuditStatusEnum.Warning)
             {
                 this.m_PathologistSignoutDialog = new PathologistSignoutDialog();
                 this.m_ActionIndex = 0;
@@ -80,7 +80,7 @@ namespace YellowstonePathology.UI.Surgical
             Business.Audit.Model.AuditCollection auditMessageCollection = this.m_PathologistSignoutAuditCollection.GetAuditMessageCollection();
             foreach (YellowstonePathology.Business.Audit.Model.Audit audit in auditMessageCollection)
             {
-                if (audit.Status == Business.Audit.Model.AuditStatusEnum.Failure)
+                if (audit.Status == Business.Audit.Model.AuditStatusEnum.Failure || audit.Status == Business.Audit.Model.AuditStatusEnum.Warning)
                 {
                     this.m_AuditMessages.Add(audit.Message.ToString().Trim());
                     this.m_MessageAuditResult.Status = audit.Status;

@@ -19,6 +19,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
         private string m_PMiddleInitial;
         private bool m_Accepted;
         private string m_Comment;
+        private string m_UserName;
         private Business.Monitor.Model.MonitorStateEnum m_State;
 
         public AcidWashListItem()
@@ -85,6 +86,13 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
         {
             get { return this.m_Comment; }
             set { this.m_Comment = value; }
+        }
+
+        [PersistentProperty()]
+        public string UserName
+        {
+            get { return this.m_UserName; }
+            set { this.m_UserName = value; }
         }
 
         public Business.Monitor.Model.MonitorStateEnum State

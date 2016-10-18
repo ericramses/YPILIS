@@ -34,10 +34,59 @@ namespace YellowstonePathology.UI.Surgical
 
 			this.m_BillingSpecimenViewCollection = new Business.View.BillingSpecimenViewCollection();
 			this.RefreshBillingSpecimenViewCollection();
+
+            this.Loaded += SurgicalReview_Loaded;
             this.PreviewLostKeyboardFocus += SurgicalReview_PreviewLostKeyboardFocus;
 
             InitializeComponent();                    
             this.DataContext = this;            
+        }
+
+        private void SurgicalReview_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.SetFocusOnDiagnosis();
+        }
+
+        public void SetFocusOnDiagnosis()
+        {
+            this.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
+            {
+                for(int i=0; i<this.ItemsControlSpecimen.Items.Count; i++)
+                {                    
+                    IEnumerable<TextBox> textBoxList = FindVisualChildren<TextBox>(this.ItemsControlSpecimen);
+                    foreach (TextBox textBox in textBoxList)
+                    {
+                        if (textBox.Name == "TextBoxDiagnosis")
+                        {
+                            bool tag = (bool)textBox.Tag;
+                            if(tag == true)
+                            {
+                                textBox.Focus();
+                                textBox.SelectionLength = 0;
+                                break;
+                            }                            
+                        }
+                    }                    
+                }               
+            }
+            ));            
+        }
+
+        public IEnumerable<T> FindVisualChildren<T>(DependencyObject depObj) where T : DependencyObject
+        {
+            if (depObj != null)
+            {
+                for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
+                {
+                    DependencyObject child = VisualTreeHelper.GetChild(depObj, i);
+
+                    if (child != null && child is T)
+                        yield return (T)child;
+
+                    foreach (T childOfChild in FindVisualChildren<T>(child))
+                        yield return childOfChild;
+                }
+            }
         }
 
         private void SurgicalReview_PreviewLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
@@ -456,7 +505,7 @@ namespace YellowstonePathology.UI.Surgical
             if (this.PanelSetOrderSurgical.Final == false)
             {
                 YellowstonePathology.Business.Audit.Model.AuditResult auditResult = this.PanelSetOrderSurgical.IsOkToFinalize(this.m_PathologistUI.AccessionOrder);
-                if(auditResult.Status == Business.Audit.Model.AuditStatusEnum.Failure)
+                if(auditResult.Status == Business.Audit.Model.AuditStatusEnum.Failure || auditResult.Status == Business.Audit.Model.AuditStatusEnum.Warning)
                 {
                     PathologistSignoutPath pathologistSignoutPath = new PathologistSignoutPath(this.m_PathologistUI.AccessionOrder, this.PanelSetOrderSurgical);
                     pathologistSignoutPath.Start();

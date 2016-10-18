@@ -255,6 +255,8 @@ namespace YellowstonePathology.Business.PanelSet.Model
 
             panelSetCollection.Add(new YellowstonePathology.Business.Test.BrainDonation.BrainDonationTest());
 
+            panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.ShipMaterialTest());
+
             PanelSetCollection result = new PanelSetCollection();
             IEnumerable<PanelSet> enumerable = panelSetCollection.OrderBy(i => i.PanelSetName);
             foreach (PanelSet item in enumerable)
@@ -396,6 +398,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.Test.TechnicalOnly.TechnicalOnlyTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.HoldForFlow.HoldForFlowTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.GrossOnly.GrossOnlyTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.ShipMaterialTest());
             return panelSetCollection;
         }
 

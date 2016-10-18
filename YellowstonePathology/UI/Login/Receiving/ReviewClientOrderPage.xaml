@@ -130,7 +130,10 @@
 
                 <TextBlock Grid.Column="2" Grid.Row="4" Margin="2,2,2,2" HorizontalAlignment="Right" FontWeight="Bold">Accessioned:</TextBlock>
                 <CheckBox Grid.Column="3" Grid.Row="4" Margin="2,2,2,2" IsChecked="{Binding Path=ClientOrder.Accessioned}" VerticalAlignment="Center"></CheckBox>
-                
+
+                <TextBlock Grid.Column="2" Grid.Row="5" Margin="2,2,2,2" HorizontalAlignment="Right" FontWeight="Bold">Order Status:</TextBlock>
+                <TextBlock Grid.Column="3" Grid.Row="5" Margin="2,2,2,2" Text="{Binding Path=ClientOrder.OrderStatus}"></TextBlock>
+
                 <TextBlock Grid.Column="0" Grid.Row="7" Margin="2,2,2,2" HorizontalAlignment="Right" FontWeight="Bold">Hold:</TextBlock>
                 <CheckBox Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="7" Margin="2,2,2,2" IsChecked="{Binding Path=ClientOrder.Hold}" VerticalAlignment="Center"></CheckBox>
 

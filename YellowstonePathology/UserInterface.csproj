@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>146</ApplicationRevision>
+    <ApplicationRevision>162</ApplicationRevision>
     <ApplicationVersion>10.1.6.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -204,6 +204,7 @@
     <Compile Include="Business\Audit.Model\AccessionOrderAudit.cs" />
     <Compile Include="Business\Audit.Model\AccountNoAudit.cs" />
     <Compile Include="Business\Audit.Model\AliquotAndStainOrderAuditCollection.cs" />
+    <Compile Include="Business\Audit.Model\CellBlockWarningAudit.cs" />
     <Compile Include="Business\Audit.Model\AncillaryStudiesAreHandledAudit.cs" />
     <Compile Include="Business\Audit.Model\AreAllWHPTestsFinalAudit.cs" />
     <Compile Include="Business\Audit.Model\Audit.cs" />
@@ -762,6 +763,7 @@
     <Compile Include="Business\Facility.Model\UCSFDermPathService.cs" />
     <Compile Include="Business\Facility.Model\UniPath.cs" />
     <Compile Include="Business\Facility.Model\UniversityOfArkansasMedicalSciences.cs" />
+    <Compile Include="Business\Facility.Model\UniversityOfColoradoHospital.cs" />
     <Compile Include="Business\Facility.Model\UniversityOfMiami.cs" />
     <Compile Include="Business\Facility.Model\UniversityOfMichigan.cs" />
     <Compile Include="Business\Facility.Model\UniversityOfWashington.cs" />
@@ -979,6 +981,8 @@
     <Compile Include="Business\Label.Model\CassettePrinter.cs" />
     <Compile Include="Business\Label.Model\ContainerPaperLabel.cs" />
     <Compile Include="Business\Label.Model\ContainerPaperLabelPrinter.cs" />
+    <Compile Include="Business\Label.Model\HistologySlidePaperZPLLabel.cs" />
+    <Compile Include="Business\Label.Model\HistologyBlockPaperZPLLabel.cs" />
     <Compile Include="Business\Label.Model\HistologySlideDirectPrintLabel.cs" />
     <Compile Include="Business\Label.Model\HistologySlideLabel.cs" />
     <Compile Include="Business\Label.Model\HistologySlidePaperLabel.cs" />
@@ -1064,6 +1068,7 @@
     <Compile Include="Business\Monitor.Model\PendingTestCollection.cs" />
     <Compile Include="Business\PanelSet.Model\NeoTypeEsophagealTumorProfileTest.cs" />
     <Compile Include="Business\PanelSet.Model\NeoTypeDiscoveryProfileTest.cs" />
+    <Compile Include="Business\PanelSet.Model\ShipMaterialTest.cs" />
     <Compile Include="Business\ParseSpecimenOrderIdResult.cs" />
     <Compile Include="Business\Persistence\DocumentTestBuilders.cs" />
     <Compile Include="Business\Persistence\PersistentDataColumnProperty.cs" />

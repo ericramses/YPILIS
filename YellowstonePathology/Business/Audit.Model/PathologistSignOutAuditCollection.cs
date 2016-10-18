@@ -13,6 +13,7 @@ namespace YellowstonePathology.Business.Audit.Model
         public PathologistSignoutAuditCollection(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
             YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder = accessionOrder.PanelSetOrderCollection.GetSurgical();
+            this.Add(new CellBlockWarningAudit(accessionOrder));
             this.Add(new AncillaryStudiesAreHandledAudit(surgicalTestOrder));
             this.Add(new SurgicalCaseHasQuestionMarksAudit(accessionOrder, surgicalTestOrder));
             this.Add(new SigningUserIsAssignedUserAudit(surgicalTestOrder));
@@ -40,7 +41,8 @@ namespace YellowstonePathology.Business.Audit.Model
             AuditCollection result = new AuditCollection();
             foreach(Audit audit in this)
             {
-                if(audit.GetType() == typeof(AncillaryStudiesAreHandledAudit) ||
+                if(audit.GetType() == typeof(CellBlockWarningAudit) ||                    
+                    audit.GetType() == typeof(AncillaryStudiesAreHandledAudit) ||
                     audit.GetType() == typeof(SurgicalCaseHasQuestionMarksAudit) ||
                     audit.GetType() == typeof(SigningUserIsAssignedUserAudit) ||
                     audit.GetType() == typeof(SvhCaseHasMRNAndAccountNoAudit) ||

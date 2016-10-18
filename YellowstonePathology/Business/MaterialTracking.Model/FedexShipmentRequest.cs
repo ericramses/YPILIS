@@ -91,7 +91,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
             this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:RequestedPackageLineItems/v19:CustomerReferences/v19:Value", namespaces).Value = YellowstonePathology.Business.User.SystemIdentity.Instance.User.UserName + ": " + masterAccessionNo;
 
             this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:ShippingChargesPayment/v19:PaymentType", namespaces).Value = this.m_PaymentType;
-            if (this.m_PaymentType == "THIRD_PARTY")
+            if (this.m_PaymentType == "THIRD_PARTY" || this.m_PaymentType == "RECIPIENT")
             {
                 this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:ShippingChargesPayment/v19:Payor/v19:ResponsibleParty/v19:AccountNumber", namespaces).Value = this.m_ShipToFacility.FedexAccountNo;
 
