@@ -45,8 +45,8 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Block" Width="100" DisplayMemberBinding="{Binding Path=AliquotOrderId}" />
-                    <GridViewColumn Header="Scanned" Width="130" DisplayMemberBinding="{Binding Path=DateScanned}" />
-                    <GridViewColumn Header="Started" Width="200" DisplayMemberBinding="{Binding Path=ProcessorStartTime}" />
+                    <GridViewColumn Header="Scanned" Width="130" DisplayMemberBinding="{Binding Path=DateScanned, Converter={StaticResource MilitaryDateTimeConverter}}" />
+                    <GridViewColumn Header="Started" Width="200" DisplayMemberBinding="{Binding Path=ProcessorStartTime, Converter={StaticResource MilitaryDateTimeConverter}}" />
                     <GridViewColumn Header="Duration" Width="150" DisplayMemberBinding="{Binding Path=ProcessorFixationDuration}" />
                     <GridViewColumn Header="By" Width="150" DisplayMemberBinding="{Binding Path=ScannedBy}" />
                     <GridViewColumn Header="Updated" Width="120" DisplayMemberBinding="{Binding Path=Updated}" />
@@ -65,7 +65,9 @@
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Id" Width="100" DisplayMemberBinding="{Binding Path=AliquotOrderId}" />
-                            <GridViewColumn Header="Status" Width="500" DisplayMemberBinding="{Binding Path=Status}" />
+                            <GridViewColumn Header="Type" Width="100" DisplayMemberBinding="{Binding Path=AliquotType}" />
+                            <GridViewColumn Header="Status" Width="100" DisplayMemberBinding="{Binding Path=Status}" />
+                            <GridViewColumn Header="Instructions" Width="300" DisplayMemberBinding="{Binding Path=EmbeddingInstructions}" />
                         </GridView>
                     </ListView.View>
                 </ListView>
@@ -75,7 +77,7 @@
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="ID" Width="100" DisplayMemberBinding="{Binding Path=AliquotOrderId}" />
-                            <GridViewColumn Header="Test" Width="100" DisplayMemberBinding="{Binding Path=PanelSetName}" />
+                            <GridViewColumn Header="Test" Width="120" DisplayMemberBinding="{Binding Path=PanelSetName}" />
                             <GridViewColumn Header="Description" Width="500" DisplayMemberBinding="{Binding Path=Description}" />
                         </GridView>
                     </ListView.View>
@@ -89,9 +91,8 @@
                             <GridViewColumn Header="Master Accession No" Width="100" DisplayMemberBinding="{Binding Path=MasterAccessionNo}" />
                             <GridViewColumn Header="First" Width="100" DisplayMemberBinding="{Binding Path=PFirstName}" />
                             <GridViewColumn Header="Last" Width="100" DisplayMemberBinding="{Binding Path=PLastName}" />
-                            <GridViewColumn Header="Collected" Width="130" DisplayMemberBinding="{Binding Path=CollectionTime}" />
-                            <GridViewColumn Header="Processor" Width="200" DisplayMemberBinding="{Binding Path=ProcessorRun}" />
-                            <GridViewColumn Header="Start" Width="150" DisplayMemberBinding="{Binding Path=FixationStartTime}" />
+                            <GridViewColumn Header="Collected" Width="130" DisplayMemberBinding="{Binding Path=CollectionTime, Converter={StaticResource MilitaryDateTimeConverter}}" />
+                            <GridViewColumn Header="Start" Width="150" DisplayMemberBinding="{Binding Path=FixationStartTime, Converter={StaticResource MilitaryDateTimeConverter}}" />
                             <GridViewColumn Header="End" Width="150" DisplayMemberBinding="{Binding Path=FixationEndTime}" />
                             <GridViewColumn Header="Duration" Width="120" DisplayMemberBinding="{Binding Path=FixationDuration}" />
                         </GridView>

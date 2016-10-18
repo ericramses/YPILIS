@@ -20,21 +20,21 @@ namespace YellowstonePathology.Business.Persistence
 
         public void SetSqlByContainerId(string containerId)
         {
-            this.m_SQLCommand = new SqlCommand("select * from tblSpecimenOrder where ContainerId = @ContainerId");
+            this.m_SQLCommand = new SqlCommand("select * from tblSpecimenOrder where ContainerId = @ContainerId; Select * from tblAliquotOrder where specimenOrderId in (select specimenOrderId from tblSpecimenOrder where ContainerId = @ContainerId)");
             this.m_SQLCommand.CommandType = CommandType.Text;
             this.m_SQLCommand.Parameters.Add("@ContainerId", SqlDbType.VarChar).Value = containerId;
         }
 
         public void SetSqlByAliquotOrderId(string aliquotOrderId)
         {
-            this.m_SQLCommand = new SqlCommand("select * from tblSpecimenOrder where SpecimenOrderId in (Select SpecimenOrderId from tblAliquotOrder where aliquotOrderId = @AliquotOrderId)");
+            this.m_SQLCommand = new SqlCommand("select * from tblSpecimenOrder where SpecimenOrderId in (Select SpecimenOrderId from tblAliquotOrder where aliquotOrderId = @AliquotOrderId); Select * from tblAliquotOrder where AliquotOrderid = @AliquotOrderId");
             this.m_SQLCommand.CommandType = CommandType.Text;
             this.m_SQLCommand.Parameters.Add("@AliquotOrderId", SqlDbType.VarChar).Value = aliquotOrderId;
         }
 
         public void SetSqlBySpecimenOrderId(string specimenOrderId)
         {
-            this.m_SQLCommand = new SqlCommand("select * from tblSpecimenOrder where SpecimenOrderId = @SpecimenOrderId");
+            this.m_SQLCommand = new SqlCommand("select * from tblSpecimenOrder where SpecimenOrderId = @SpecimenOrderId; Select * from tblAliquotOrder where specimenOrderId in (select specimenOrderId from tblSpecimenOrder where SpecimenOrderId = @SpecimenOrderId)");
             this.m_SQLCommand.CommandType = CommandType.Text;
             this.m_SQLCommand.Parameters.Add("@SpecimenOrderId", SqlDbType.VarChar).Value = specimenOrderId;
         }
@@ -58,6 +58,14 @@ namespace YellowstonePathology.Business.Persistence
                     {                        
                         YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(specimenOrder, dr);
                         sqlDataReaderPropertyWriter.WriteProperties();
+                    }
+                    dr.NextResult();
+                    while (dr.Read())
+                    {
+                        Business.Test.AliquotOrder aliquotOrder = new Test.AliquotOrder();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(aliquotOrder, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        specimenOrder.AliquotOrderCollection.Add(aliquotOrder);
                     }
                 }
             }

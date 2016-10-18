@@ -14,7 +14,7 @@ namespace YellowstonePathology.Business.Facility.Model
             this.m_FacilityName = "MD Anderson Cancer Center";
             this.m_Address1 = "1515 holcombe Blvd.";
             this.m_Address2 = "RM G1-3669";
-            this.m_City = "Houstin";
+            this.m_City = "Houston";
             this.m_State = "TX";
             this.m_ZipCode = "77030";
             this.m_IsReferenceLab = true;

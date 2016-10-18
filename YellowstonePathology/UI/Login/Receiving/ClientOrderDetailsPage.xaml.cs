@@ -216,10 +216,17 @@ namespace YellowstonePathology.UI.Login.Receiving
                         {                            
                             if(this.m_ClientOrderDetail.FixationStartTime.HasValue == true)
                             {
-                                Business.Surgical.ProcessorRun processorRun = new Business.Surgical.ProcessorRun("Standard Run", DateTime.Parse(DateTime.Today.ToString() + "T17:00"), new TimeSpan(2, 30, 0));
+                                Business.Surgical.ProcessorRun processorRun = new Business.Surgical.ProcessorRun("Standard Run", DateTime.Parse(DateTime.Today.ToString("yyyy-MM-dd") + "T17:00"), new TimeSpan(2, 30, 0));
                                 DateTime fixationEndTime = processorRun.GetFixationEndTime(this.m_ClientOrderDetail.FixationStartTime.Value);
-                                Business.Rules.MethodResult fixationOkResult = processorRun.FixationDurationIsOk();
-                                if (fixationOkResult.Success == false) MessageBox.Show(fixationOkResult.Message);
+                                TimeSpan fixationDuration = fixationEndTime.Subtract(this.m_ClientOrderDetail.FixationStartTime.Value);
+                                if (fixationDuration.TotalHours < 6)
+                                {
+                                    MessageBox.Show("Warning! Fixation duration will be under 6 hours unless this specimen is held.");                                    
+                                }
+                                else if (fixationDuration.TotalHours > 72)
+                                {
+                                    MessageBox.Show("Warning! Fixation duration will be over 72 hours if processed normally.");                                    
+                                }
                             }                            
                         }                        
                     }                    

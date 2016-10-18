@@ -131,5 +131,19 @@ namespace YellowstonePathology.UI.Gross
                 this.Next(this, specimenOrderReturnEventArgs);
             }
         }
+
+        private void ButtonHoldBlock_Click(object sender, RoutedEventArgs e)
+        {
+            if(this.m_AliquotOrder.Status == "Hold")
+            {
+                this.m_AliquotOrder.Status = null;
+            }
+            else
+            {
+                this.m_AliquotOrder.Status = "Hold";
+            }            
+            CustomEventArgs.SpecimenOrderReturnEventArgs specimenOrderReturnEventArgs = new CustomEventArgs.SpecimenOrderReturnEventArgs(this.m_SpecimenOrder);
+            this.Next(this, specimenOrderReturnEventArgs);
+        }
     }
 }

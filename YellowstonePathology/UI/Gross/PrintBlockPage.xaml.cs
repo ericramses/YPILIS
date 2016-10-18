@@ -116,6 +116,7 @@ namespace YellowstonePathology.UI.Gross
 		{
 			this.m_BarcodeScanPort.HistologyBlockScanReceived += this.HistologyBlockScanReceived;
             this.m_BarcodeScanPort.ContainerScanReceived += BarcodeScanPort_ContainerScanReceived;
+
 			if (this.m_CaseDocumentCollection.GetFirstRequisition() != null)
 			{
 				this.m_DocumentViewer.ShowDocument(this.m_CaseDocumentCollection.GetFirstRequisition());
@@ -402,7 +403,7 @@ namespace YellowstonePathology.UI.Gross
 			XElement specimenIsSelectedElement = new XElement("IsSelected", false);
 			XElement specimenOrderIdElement = new XElement("SpecimenOrderId", this.m_SpecimenOrder.SpecimenOrderId);
             XElement specimenDescriptionElement = new XElement("Description", this.m_SpecimenOrder.Description);            
-            XElement specimenFixationDurationStringElement = new XElement("FixationDurationString", this.m_SpecimenOrder.FixationDurationString);
+            XElement specimenFixationDurationStringElement = new XElement("FixationDurationString", this.m_SpecimenOrder.GetExpectedFixationDuration());
             XElement specimenTimeToFixationStringElement = new XElement("TimeToFixationString", this.m_SpecimenOrder.TimeToFixationString);
             XElement specimenFixationCommentElement = new XElement("FixationComment", this.m_SpecimenOrder.FixationComment);
 
@@ -522,6 +523,23 @@ namespace YellowstonePathology.UI.Gross
         private void ButtonProcessor_Click(object sender, RoutedEventArgs e)
         {
             if (this.ShowProcessorSelectionPage != null) this.ShowProcessorSelectionPage(this, new CustomEventArgs.SpecimenOrderReturnEventArgs(this.m_SpecimenOrder));
-        }        	
-	}
+        }
+
+        private void ButtonHoldAll_Click(object sender, RoutedEventArgs e)
+        {
+            foreach(Business.Test.AliquotOrder aliquotOrder in this.m_SpecimenOrder.AliquotOrderCollection)
+            {
+                if(aliquotOrder.Status == "Hold")
+                {
+                    aliquotOrder.Status = null;
+                }
+                else
+                {
+                    aliquotOrder.Status = "Hold";
+                }
+            }
+            this.GrossBlockManagementView = new Business.View.GrossBlockManagementView(this.m_AccessionOrder, this.m_CaseNotesDocument, this.m_SpecimenOrder);
+            this.SetupSpecimenView();
+        }
+    }
 }

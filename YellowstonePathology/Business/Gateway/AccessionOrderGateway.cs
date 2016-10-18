@@ -53,8 +53,7 @@ namespace YellowstonePathology.Business.Gateway
                 "join tblPanelSetOrder pso on ao.MasterAccessionNo = pso.MasterAccessionNo " +
                 "join tblSpecimenOrder so on ao.MasterAccessionno = so.MasterAccessionNo " +
                 "join tblAliquotOrder a on so.SpecimenOrderId = a.SpecimenOrderId " +
-                "where ao.AccessionDate = @AccessionDate and aliquotType = 'Block' and embeddingVerified = 0" +
-                "and so.RequiresGrossExamination = 1 and so.ProcessorRunId <> 'HOLD'";
+                "where ao.AccessionDate = @AccessionDate and a.aliquotType = 'Block' and a.embeddingVerified = 0 and a.ClientAccessioned = 0";                
 
             cmd.CommandType = CommandType.Text;
             cmd.Parameters.Add("@AccessionDate", SqlDbType.DateTime).Value = accessionDate;            
@@ -115,6 +114,31 @@ namespace YellowstonePathology.Business.Gateway
             YellowstonePathology.Business.Test.AliquotOrderCollection result = new Test.AliquotOrderCollection();
             SqlCommand cmd = new SqlCommand();
             cmd.CommandText = "Select * from tblAliquotOrder where Status = 'Hold'";
+            cmd.CommandType = CommandType.Text;
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = new Test.AliquotOrder();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(aliquotOrder, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(aliquotOrder);
+                    }
+                }
+            }
+            return result;
+        }
+
+        public static YellowstonePathology.Business.Test.AliquotOrderCollection GetAliquotOrderCollection(string specimenOrderId)
+        {
+            YellowstonePathology.Business.Test.AliquotOrderCollection result = new Test.AliquotOrderCollection();
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "Select * from tblAliquotOrder where SpecimenOrderId = '" + specimenOrderId + "'";
             cmd.CommandType = CommandType.Text;
 
             using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))

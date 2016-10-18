@@ -256,11 +256,16 @@ namespace YellowstonePathology.UI.Login
         }
 
         private void HyperlinkHoldSpecimen_Click(object sender, RoutedEventArgs e)
-        {
-            throw new Exception("needs work");
-            //YellowstonePathology.Business.Surgical.HoldProcessor holdProcessor = new Business.Surgical.HoldProcessor();            
-            //this.m_SpecimenOrder.ProcessorRun = holdProcessor.ProcessorRunCollection[0].Name;
-            //this.m_SpecimenOrder.ProcessorRunId = holdProcessor.ProcessorRunCollection[0].ProcessorRunId;
+        {     
+            foreach(Business.Test.AliquotOrder aliquotOrder in this.m_SpecimenOrder.AliquotOrderCollection)
+            {
+                if(aliquotOrder.AliquotType == "Block")
+                {
+                    aliquotOrder.Status = "Hold";
+                }                
+            }
+
+            MessageBox.Show("All the blocks on this specimen have been put on hold.");
         }
 
         public void NotifyPropertyChanged(String info)

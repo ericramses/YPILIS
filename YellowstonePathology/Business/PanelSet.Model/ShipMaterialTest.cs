@@ -14,6 +14,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
             this.m_Abbreviation = "SHPMTRL";			
 			this.m_HasTechnicalComponent = false;			
             this.m_HasProfessionalComponent = false;
+            this.m_IsBillable = false;
 			this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.None;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterR();
             this.m_Active = true;
