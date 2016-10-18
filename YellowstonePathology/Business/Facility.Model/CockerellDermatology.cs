@@ -15,6 +15,9 @@ namespace YellowstonePathology.Business.Facility.Model
             this.m_City = "Dallas";
             this.m_State = "TX";
             this.m_ZipCode = "75235";
+            this.m_PhoneNumber = "(214)530-5200";
+            this.m_FedexAccountNo = "110815565";
+            this.m_FedexPaymentType = "RECIPIENT";
             this.m_IsReferenceLab = true;            
         }
     }

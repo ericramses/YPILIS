@@ -68,7 +68,6 @@ namespace YellowstonePathology.Business.Facility.Model
             result.Add(new ButtePathology());
             result.Add(new ColoradoGeneticsLaboratory());
             result.Add(new PhenoPath());
-            result.Add(new UAMS());
             result.Add(new StVincentHealthcare());
             result.Add(new UniversityOfArkansasMedicalSciences());
             result.Add(new SeattleCancerCenterAlliance());
@@ -83,9 +82,13 @@ namespace YellowstonePathology.Business.Facility.Model
             result.Add(new MontanaDepartmentofJustice());
             result.Add(new UniversityOfMichigan());
             result.Add(new UniversityOfMiami());
-            result.Add(new FoundationOne());
             result.Add(new ClevelandClinicFoundation());
             result.Add(new SheridanPathologyAssociates());
+            result.Add(new MontanaSkinCancerandDermatologyCenter());
+            result.Add(new BigHornCountyMemorialHospital());
+            result.Add(new MountainViewHospital());
+            result.Add(new EasternIdahoRegionalMedicalCenter());
+            result.Add(new SheridanMemorialHospital());
             return Sort(result);
         }
 

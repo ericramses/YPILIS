@@ -739,7 +739,8 @@
     <Compile Include="Business\Facility.Model\MountainViewHospital.cs" />
     <Compile Include="Business\Facility.Model\BigHornCountyMemorialHospital.cs" />
     <Compile Include="Business\Facility.Model\EIRMC.cs" />
-    <Compile Include="Business\Facility.Model\SheridanMemorialHospitalPathology.cs" />
+    <Compile Include="Business\Facility.Model\NationalCancerInstitue.cs" />
+    <Compile Include="Business\Facility.Model\SheridanMemorialHospital.cs" />
     <Compile Include="Business\Facility.Model\MontanaSkinCancerandDermatologyCenter.cs" />
     <Compile Include="Business\Facility.Model\SheridanPathologyAssociates.cs" />
     <Compile Include="Business\Facility.Model\MayoClinic.cs" />
@@ -750,7 +751,7 @@
     <Compile Include="Business\Facility.Model\FoundationOne.cs" />
     <Compile Include="Business\Facility.Model\MUSC.cs" />
     <Compile Include="Business\Facility.Model\NationalInstituteOfHealth.cs" />
-    <Compile Include="Business\Facility.Model\NeogenomicsFlorida.cs" />
+    <Compile Include="Business\Facility.Model\NeogenomicsInc.cs" />
     <Compile Include="Business\Facility.Model\NeogenomicsIrvine.cs" />
     <Compile Include="Business\Facility.Model\NullFacility.cs" />
     <Compile Include="Business\Facility.Model\NullLocation.cs" />

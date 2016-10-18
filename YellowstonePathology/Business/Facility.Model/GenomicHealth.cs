@@ -11,9 +11,9 @@ namespace YellowstonePathology.Business.Facility.Model
         {
             this.m_FacilityId = "GNMCHLTH";
             this.m_FacilityName = "Genomic Health";
-            this.m_City = "Redwood City";
             this.m_Address1 = "301 Penobscot Dr.";
-            this.m_Address2 = string.Empty;
+            this.m_Address2 = null;
+            this.m_City = "Redwood City";
             this.m_State = "CA";
             this.m_ZipCode = "94063-4700";
             this.m_PhoneNumber = "(866)662-6897";

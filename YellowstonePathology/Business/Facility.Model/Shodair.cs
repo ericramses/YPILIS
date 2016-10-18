@@ -10,9 +10,12 @@ namespace YellowstonePathology.Business.Facility.Model
         public Showdair()
         {
             this.m_FacilityId = "SHDR"; 
-            this.m_FacilityName = "Shodair";
+            this.m_FacilityName = "Shodair Children's Hospital - Department of Medical Genetics";
+            this.m_Address1 = "2755 Colonial Drive";
             this.m_City = "Helena";
             this.m_State = "MT";
+            this.m_ZipCode = "59601";
+            this.m_PhoneNumber = "(406)444-7532";
             this.m_IsReferenceLab = true;
 
             this.m_CliaLicense = new CLIALicense(this, null);
