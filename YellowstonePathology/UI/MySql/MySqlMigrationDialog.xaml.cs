@@ -22,6 +22,9 @@ namespace YellowstonePathology.UI.MySql
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        private int m_RepeatCount;
+        private int m_CurrentCount;
+
         private MySQLMigration.MigrationStatusCollection m_MigrationStatusCollection;
         private YellowstonePathology.MySQLMigration.MySQLDatabaseBuilder m_MySQLDatabaseBuilder;
         private string m_NumberOfTimesToQuery;
@@ -132,6 +135,76 @@ namespace YellowstonePathology.UI.MySql
             }
         }
 
+        private void MenuItemCompareTables_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.ListViewMigrationStatus.SelectedItems.Count > 1)
+            {
+                this.StatusMessage = "Working on it.";
+                Business.Rules.MethodResult overallResult = new Business.Rules.MethodResult();
+                overallResult.Message = "Tables missing Columns: ";
+                foreach (MySQLMigration.MigrationStatus migrationStatus in this.ListViewMigrationStatus.SelectedItems)
+                {
+                    Business.Rules.MethodResult methodResult = m_MySQLDatabaseBuilder.CompareTable(migrationStatus);
+                    if(methodResult.Success == false)
+                    {
+                        overallResult.Success = false;
+                        overallResult.Message += migrationStatus.Name;
+                    }
+                }
+
+                this.SetStatusMessage(overallResult);
+            }
+            else if(this.ListViewMigrationStatus.SelectedItems.Count == 1)
+            {
+                MySQLMigration.MigrationStatus migrationStatus = (MySQLMigration.MigrationStatus)this.ListViewMigrationStatus.SelectedItems[0];
+                this.CompareSingleTable(migrationStatus);
+            }
+            else
+            {
+                MessageBox.Show("Select a single class to check.");
+            }
+        }
+
+        private void CompareSingleTable(MySQLMigration.MigrationStatus migrationStatus)
+        {
+            Business.Rules.MethodResult methodResult = m_MySQLDatabaseBuilder.CompareTable(migrationStatus);
+            this.SetStatusMessage(methodResult);
+        }
+
+        private void MenuItemAddMissingColumns_Click(object sender, RoutedEventArgs e)
+        {
+            this.StatusMessage = "Working on it.";
+            if (this.ListViewMigrationStatus.SelectedItems.Count > 1)
+            {
+                Business.Rules.MethodResult overallResult = new Business.Rules.MethodResult();
+                overallResult.Message = "Error in: ";
+                foreach (MySQLMigration.MigrationStatus migrationStatus in this.ListViewMigrationStatus.SelectedItems)
+                {
+                    Business.Rules.MethodResult methodResult = m_MySQLDatabaseBuilder.AddMissingColumns(migrationStatus);
+                    if(methodResult.Success == false)
+                    {
+                        overallResult.Message += migrationStatus.Name + ", ";
+                    }
+                }
+                this.SetStatusMessage(overallResult);
+            }
+            else if(this.ListViewMigrationStatus.SelectedItems.Count == 1)
+            {
+                MySQLMigration.MigrationStatus migrationStatus = (MySQLMigration.MigrationStatus)this.ListViewMigrationStatus.SelectedItems[0];
+                this.AddMissingColumnsToSingleTable(migrationStatus);
+            }
+            else
+            {
+                MessageBox.Show("Select a class.");
+            }
+        }
+
+        private void AddMissingColumnsToSingleTable(MySQLMigration.MigrationStatus migrationStatus)
+        {
+            Business.Rules.MethodResult methodResult = m_MySQLDatabaseBuilder.AddMissingColumns(migrationStatus);
+            this.SetStatusMessage(methodResult);
+        }
+
         private void MenuItemAddTransferColumn_Click(object sender, RoutedEventArgs e)
         {
             this.StatusMessage = "Working on it.";
@@ -235,6 +308,66 @@ namespace YellowstonePathology.UI.MySql
             else
             {
                 MessageBox.Show("Select a class to Sync.");
+            }
+        }
+
+        private void MenuItemDailySync_Click(object sender, RoutedEventArgs e)
+        {
+            this.StatusMessage = "Working on it.";
+            Business.Rules.MethodResult overallResult = new Business.Rules.MethodResult();
+            foreach (MySQLMigration.MigrationStatus migrationStatus in this.ListViewMigrationStatus.SelectedItems)
+            {
+                Business.Rules.MethodResult methodResult = m_MySQLDatabaseBuilder.DailySync(migrationStatus);
+                if (methodResult.Success == false)
+                {
+                    overallResult.Success = false;
+                    overallResult.Message += methodResult.Message;
+                }
+            }
+            this.SetStatusMessage(overallResult);
+        }
+
+        private void MenuItemMultiLoad_Click(object sender, RoutedEventArgs e)
+        {
+            this.m_RepeatCount = 5;
+            this.m_CurrentCount = 0;
+            MySQLMigration.MigrationStatus migrationStatus = (MySQLMigration.MigrationStatus)this.ListViewMigrationStatus.SelectedItem;
+            Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
+            if (migrationStatus != null)
+            {
+                this.MultiLoad(migrationStatus, methodResult);
+            }
+            this.SetStatusMessage(methodResult);
+        }
+
+        private void MultiLoad(MySQLMigration.MigrationStatus migrationStatus, Business.Rules.MethodResult overallResult)
+        {
+            this.StatusMessage = "Working on it.";
+            Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
+            m_MySQLDatabaseBuilder.GetStatus(migrationStatus);
+            if (migrationStatus.OutOfSyncCount > 0)
+            {
+                methodResult = m_MySQLDatabaseBuilder.Synchronize(migrationStatus);
+                if(methodResult.Success == false)
+                {
+                    overallResult.Success = false;
+                    overallResult.Message += methodResult.Message;
+                }
+                this.MultiLoad(migrationStatus, overallResult);
+            }
+            else if (migrationStatus.UnLoadedDataCount > 0)
+            {
+                if (this.m_CurrentCount < this.m_RepeatCount)
+                {
+                    this.m_CurrentCount++;
+                    methodResult = m_MySQLDatabaseBuilder.LoadData(migrationStatus, 200, 10);
+                    if (methodResult.Success == false)
+                    {
+                        overallResult.Success = false;
+                        overallResult.Message += methodResult.Message;
+                    }
+                    this.MultiLoad(migrationStatus, overallResult);
+                }
             }
         }
 
