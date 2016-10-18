@@ -745,10 +745,7 @@
     <Compile Include="Business\Facility.Model\SheridanPathologyAssociates.cs" />
     <Compile Include="Business\Facility.Model\MayoClinic.cs" />
     <Compile Include="Business\Facility.Model\MDAndersonCancerCenter.cs" />
-    <Compile Include="Business\Facility.Model\MLabs.cs" />
-    <Compile Include="Business\Facility.Model\MontanaDepartmentofJustice.cs" />
     <Compile Include="Business\Facility.Model\MontanaDermatology.cs" />
-    <Compile Include="Business\Facility.Model\FoundationOne.cs" />
     <Compile Include="Business\Facility.Model\MUSC.cs" />
     <Compile Include="Business\Facility.Model\NationalInstituteOfHealth.cs" />
     <Compile Include="Business\Facility.Model\NeogenomicsInc.cs" />
@@ -765,7 +762,6 @@
     <Compile Include="Business\Facility.Model\TallmanDermatology.cs" />
     <Compile Include="Business\Facility.Model\Therapath.cs" />
     <Compile Include="Business\Facility.Model\TXChildrensHospital.cs" />
-    <Compile Include="Business\Facility.Model\UAMS.cs" />
     <Compile Include="Business\Facility.Model\UCSanFrancisco.cs" />
     <Compile Include="Business\Facility.Model\UCSFDermPathService.cs" />
     <Compile Include="Business\Facility.Model\UniPath.cs" />
