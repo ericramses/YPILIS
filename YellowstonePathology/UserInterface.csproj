@@ -736,6 +736,11 @@
     <Compile Include="Business\Facility.Model\LocationCollection.cs" />
     <Compile Include="Business\Facility.Model\LocationDefinitions.cs" />
     <Compile Include="Business\Facility.Model\LoweLawGroup.cs" />
+    <Compile Include="Business\Facility.Model\MountainViewHospital.cs" />
+    <Compile Include="Business\Facility.Model\BigHornCountyMemorialHospital.cs" />
+    <Compile Include="Business\Facility.Model\EIRMC.cs" />
+    <Compile Include="Business\Facility.Model\SheridanMemorialHospitalPathology.cs" />
+    <Compile Include="Business\Facility.Model\MontanaSkinCancerandDermatologyCenter.cs" />
     <Compile Include="Business\Facility.Model\SheridanPathologyAssociates.cs" />
     <Compile Include="Business\Facility.Model\MayoClinic.cs" />
     <Compile Include="Business\Facility.Model\MDAndersonCancerCenter.cs" />
