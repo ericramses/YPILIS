@@ -320,8 +320,12 @@ namespace YellowstonePathology.Business.Gateway
 
         private void HandlePanelSetOrder(DataTable dataTable)
         {
-            string reportNo = dataTable.Rows[0]["ReportNo"].ToString();            
-            this.m_PanelSetOrderReportNumbers.Add(reportNo);
+            DataTableReader dataTableReader = new DataTableReader(dataTable);
+            while (dataTableReader.Read())
+            {
+                string reportNo = dataTableReader["ReportNo"].ToString();
+                this.m_PanelSetOrderReportNumbers.Add(reportNo);
+            }
             this.m_AccessionOrder.PanelSetOrderCollection.Sync(dataTable);
         }
 
