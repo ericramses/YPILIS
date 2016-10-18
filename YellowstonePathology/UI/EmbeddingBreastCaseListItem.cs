@@ -17,6 +17,7 @@ namespace YellowstonePathology.UI
         private string m_ProcessorRun;
         private Nullable<DateTime> m_FixationStartTime;
         private Nullable<DateTime> m_FixationEndTime;
+        private Nullable<int> m_FixationDurationCalc;
         private Nullable<int> m_FixationDuration;
 
         public EmbeddingBreastCaseListItem()
@@ -71,6 +72,13 @@ namespace YellowstonePathology.UI
         {
             get { return this.m_FixationEndTime; }
             set { this.m_FixationEndTime = value; }
+        }
+
+        [PersistentProperty()]
+        public Nullable<int> FixationDurationCalc
+        {
+            get { return this.m_FixationDurationCalc; }
+            set { this.m_FixationDurationCalc = value; }
         }
 
         [PersistentProperty()]

@@ -23,7 +23,6 @@ namespace YellowstonePathology.Business.Gateway
         public AccessionOrderBuilderV2()
         {
             this.m_PanelSetCollection = PanelSet.Model.PanelSetCollection.GetAll();
-
         }
 
         public void Build(SqlCommand cmd, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
@@ -46,6 +45,7 @@ namespace YellowstonePathology.Business.Gateway
             this.m_AccessionOrder.PanelSetOrderCollection.RemoveDeleted(this.m_PanelSetOrderReportNumbers);
             this.m_AccessionOrder.PanelSetOrderCollection = Test.PanelSetOrderCollection.Sort(this.m_AccessionOrder.PanelSetOrderCollection);
             this.RemoveDeletedPanelOrders();
+
             if (this.m_TestOrderDataTable != null)
             {
                 this.HandleSlideOrderTestOrder(this.m_TestOrderDataTable);

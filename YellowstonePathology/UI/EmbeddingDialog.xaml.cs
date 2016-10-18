@@ -296,10 +296,23 @@ namespace YellowstonePathology.UI
                     if (parseSpecimenOrderIdResult.ParsedSuccessfully == true)
                     {
                         YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullSpecimenOrder(parseSpecimenOrderIdResult.SpecimenOrderId, this);
-                        specimenOrder.ProcessorStartTime = embeddingScan.ProcessorStartTime;
-                        specimenOrder.ProcessorFixationTime = Convert.ToInt32(embeddingScan.ProcessorFixationDuration.Value.TotalMinutes);
-                        specimenOrder.SetFixationEndTime();
-                        specimenOrder.SetFixationDuration();
+                        if(specimenOrder.ProcessorStartTime.HasValue == false)
+                        {
+                            specimenOrder.ProcessorStartTime = embeddingScan.ProcessorStartTime;
+                            specimenOrder.ProcessorFixationTime = Convert.ToInt32(embeddingScan.ProcessorFixationDuration.Value.TotalMinutes);
+                            specimenOrder.SetFixationEndTime();
+                            specimenOrder.SetFixationDuration();
+                        }                        
+                        else if(specimenOrder.ProcessorStartTime.HasValue == true)
+                        {                            
+                            if(Business.Helper.DateTimeExtensions.IsDateToday(specimenOrder.ProcessorStartTime.Value) || Business.Helper.DateTimeExtensions.IsDateYesterday(specimenOrder.ProcessorStartTime.Value))
+                            {
+                                specimenOrder.ProcessorStartTime = embeddingScan.ProcessorStartTime;
+                                specimenOrder.ProcessorFixationTime = Convert.ToInt32(embeddingScan.ProcessorFixationDuration.Value.TotalMinutes);
+                                specimenOrder.SetFixationEndTime();
+                                specimenOrder.SetFixationDuration();
+                            }
+                        }
                     }
                     else
                     {

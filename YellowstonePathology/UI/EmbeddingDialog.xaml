@@ -94,6 +94,7 @@
                             <GridViewColumn Header="Collected" Width="130" DisplayMemberBinding="{Binding Path=CollectionTime, Converter={StaticResource MilitaryDateTimeConverter}}" />
                             <GridViewColumn Header="Start" Width="150" DisplayMemberBinding="{Binding Path=FixationStartTime, Converter={StaticResource MilitaryDateTimeConverter}}" />
                             <GridViewColumn Header="End" Width="150" DisplayMemberBinding="{Binding Path=FixationEndTime}" />
+                            <GridViewColumn Header="Duration" Width="120" DisplayMemberBinding="{Binding Path=FixationDurationCalc}" />
                             <GridViewColumn Header="Duration" Width="120" DisplayMemberBinding="{Binding Path=FixationDuration}" />
                         </GridView>
                     </ListView.View>
