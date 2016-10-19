@@ -45,8 +45,7 @@ namespace YellowstonePathology.Business.Facility.Model
             result.Add(new Therapath());
             result.Add(new UniversityOfWashington());
             result.Add(new MontanaDermatology());
-            result.Add(new GenomicHealth());
-            result.Add(new MLabs());
+            result.Add(new GenomicHealth());            
             result.Add(new UCSanFrancisco());
             result.Add(new UCSFDermPathService());
             result.Add(new WesternMontanaClinic());

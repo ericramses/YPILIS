@@ -736,6 +736,7 @@
     <Compile Include="Business\Facility.Model\LocationCollection.cs" />
     <Compile Include="Business\Facility.Model\LocationDefinitions.cs" />
     <Compile Include="Business\Facility.Model\LoweLawGroup.cs" />
+    <Compile Include="Business\Facility.Model\MontanaDepartmentofJustice.cs" />
     <Compile Include="Business\Facility.Model\MountainViewHospital.cs" />
     <Compile Include="Business\Facility.Model\BigHornCountyMemorialHospital.cs" />
     <Compile Include="Business\Facility.Model\EIRMC.cs" />
