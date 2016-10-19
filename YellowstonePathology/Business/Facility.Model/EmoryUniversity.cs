@@ -16,11 +16,11 @@ namespace YellowstonePathology.Business.Facility.Model
             this.m_Address2 = "Suite H180";
             this.m_City = "Atlanta";
             this.m_State = "GA";
-            this.m_ZipCode = "30322";
-            this.m_PhoneNumber = null;
-            this.m_IsReferenceLab = true;
-            this.m_FedexPaymentType = "SENDER";
+            this.m_ZipCode = "30322";            
             this.m_PhoneNumber = "(404)727-5640";
+            this.m_FedexAccountNo = null;
+            this.m_FedexPaymentType = "SENDER";
+            this.m_IsReferenceLab = true;
 
         }
     }

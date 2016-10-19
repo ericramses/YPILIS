@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Facility.Model
             this.m_City = "Seattle";
             this.m_State = "WA";
             this.m_ZipCode = "98103-8675";
-            this.m_PhoneNumber = null;
+            this.m_PhoneNumber = "(206)374-9000";
             this.m_FedexAccountNo = null;
             this.m_FedexPaymentType = null;
             this.m_IsReferenceLab = true;                        
