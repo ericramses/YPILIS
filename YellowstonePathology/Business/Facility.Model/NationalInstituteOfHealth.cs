@@ -17,9 +17,9 @@ namespace YellowstonePathology.Business.Facility.Model
             this.m_City = "Bethesda";
             this.m_State = "MD";
             this.m_ZipCode = "20892";
+            this.m_PhoneNumber = "(301)496-2132";
             this.m_FedexAccountNo = "138537129";
             this.m_FedexPaymentType = "RECIPIENT";
-            this.m_PhoneNumber = "(301)496-2132";
             this.m_IsReferenceLab = true;                        
         }
     }

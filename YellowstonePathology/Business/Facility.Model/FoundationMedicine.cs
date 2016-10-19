@@ -13,6 +13,7 @@ namespace YellowstonePathology.Business.Facility.Model
             this.m_FacilityIdOLD = null;
             this.m_FacilityName = "Foundation Medicine";
             this.m_Address1 = "7010 Kit Creek Road";
+            this.m_Address2 = null;
             this.m_City = "Morrisville";
             this.m_State = "NC";
             this.m_ZipCode = "27560";

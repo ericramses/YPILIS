@@ -757,7 +757,7 @@
     <Compile Include="Business\Facility.Model\ProfessionalPathologyOfWyoming.cs" />
     <Compile Include="Business\Facility.Model\SeattleCancerCenterAlliance.cs" />
     <Compile Include="Business\Facility.Model\Shodair.cs" />
-    <Compile Include="Business\Facility.Model\StJamesHospital.cs" />
+    <Compile Include="Business\Facility.Model\StJamesHealth.cs" />
     <Compile Include="Business\Facility.Model\StVincentHealthcare.cs" />
     <Compile Include="Business\Facility.Model\TallmanDermatology.cs" />
     <Compile Include="Business\Facility.Model\Therapath.cs" />

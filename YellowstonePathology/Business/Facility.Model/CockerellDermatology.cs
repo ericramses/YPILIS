@@ -10,8 +10,10 @@ namespace YellowstonePathology.Business.Facility.Model
         public CockerellDermatology()
         {
             this.m_FacilityId = "CKRLLDRM";
+            this.m_FacilityIdOLD = null;
             this.m_FacilityName = "Cockerell Dermatology";
             this.m_Address1 = "2110 Research Row";
+            this.m_Address2 = null;
             this.m_City = "Dallas";
             this.m_State = "TX";
             this.m_ZipCode = "75235";

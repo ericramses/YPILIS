@@ -9,7 +9,8 @@ namespace YellowstonePathology.Business.Facility.Model
     {        
         public UCSFDermPathService()
         {
-            this.m_FacilityId = "UCSFDRM";       
+            this.m_FacilityId = "UCSFDRM";
+            this.m_FacilityIdOLD = null; 
             this.m_FacilityName = "UCSF Derm Path Service";
             this.m_Address1 = "1701 Divisadero St.";
             this.m_Address2 = "Ste 280";
