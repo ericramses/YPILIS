@@ -421,13 +421,15 @@ namespace YellowstonePathology.UI.Gross
 				XElement aliquotIdElement = new XElement("AliquotOrderId", aliquotOrder.AliquotOrderId);
 				XElement aliquotLabelElement = new XElement("Label", aliquotOrder.Display);
 				XElement aliquotTypeElement = new XElement("Type", aliquotOrder.AliquotType);
-				XElement aliquotIsSelectedElement = new XElement("IsSelected", false);
+                XElement embeddingInstructionsElement = new XElement("EmbeddingInstructions", aliquotOrder.EmbeddingInstructions);
+                XElement aliquotIsSelectedElement = new XElement("IsSelected", false);
 
 				aliquotElement.Add(aliquotLabelElement);
 				aliquotElement.Add(aliquotIdElement);
 				aliquotElement.Add(aliquotTypeElement);
 				aliquotElement.Add(aliquotIsSelectedElement);
-				specimenElement.Add(aliquotElement);
+                aliquotElement.Add(embeddingInstructionsElement);
+                specimenElement.Add(aliquotElement);
 				
 				foreach (YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder in this.m_AccessionOrder.PanelSetOrderCollection)
 				{

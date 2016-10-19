@@ -8,23 +8,40 @@ namespace YellowstonePathology.Business.Label.Model
 {
     public class HistologyBlockPaperZPLLabel
     {
-        public HistologyBlockPaperZPLLabel()
-        {
+        private string m_MasterAccessionNo;
+        private string m_AliquotOrderId;
+        private string m_PatientInitials;
+        private string m_BlockId;
 
+        public HistologyBlockPaperZPLLabel(string aliquotOrderId, string patientInitials, string blockId, string masterAccessionNo)
+        {
+            this.m_MasterAccessionNo = masterAccessionNo;
+            this.m_PatientInitials = patientInitials;
+            this.m_AliquotOrderId = aliquotOrderId;
+            this.m_BlockId = blockId;
         }
 
-        public static string GetCommands(YellowstonePathology.Business.BarcodeScanning.HistologyBlock histologyBlock, string patientInitials, string blockId, string masterAccessionNo)
+        public void AppendCommands(StringBuilder zplString, int xOffset)
         {
+            zplString.Append("^FO" + (30 + xOffset) + ",090^BXN,08,200^FD" + this.m_AliquotOrderId + "^FS");
+            zplString.Append("^FO" + (30 + xOffset) + ",040^ATN,40,40^FD" + this.m_MasterAccessionNo + "^FS");
+            zplString.Append("^FO" + (30 + xOffset) + ",220^ARN,25,25^FD" + this.m_PatientInitials + "^FS");
+            zplString.Append("^FO" + (175 + xOffset) + ",220^ARN,25,25^FD" + this.m_BlockId + "^FS");
+
+            /*
             StringBuilder result = new StringBuilder();
+            int xOffset = 0;
 
-            result.Append("^XA");         
-            result.Append("^FO" + 30 + ",090^BXN,08,200^FD" + histologyBlock.AliquotOrderId + "^FS");
-            result.Append("^FO" + 30 + ",040^ATN,40,40^FD" + masterAccessionNo + "^FS");
-            result.Append("^FO" + 30 + ",220^ARN,25,25^FD" + patientInitials + "^FS");
-            result.Append("^FO" + 175 + ",220^ARN,25,25^FD" + blockId + "^FS");
+            result.Append("^XA");
+            for (int i = 0; i < barcodeList.Count; i++)
+            {
+                GetOne(barcodeList[i].ToString(), result, xOffset);
+                xOffset += 325;
+            }
+
             result.Append("^XZ");
-
-            return result.ToString();
+            return result.ToString();            
+            */
         }        
     }
 }

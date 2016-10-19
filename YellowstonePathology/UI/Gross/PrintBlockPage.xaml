@@ -105,10 +105,9 @@
 
                                 <Border BorderThickness="0,0,0,1" BorderBrush="Black" Grid.Column="0" Grid.Row="0">
                                     <StackPanel Margin="0,0,0,1" Background="{Binding Path=Element.[StatusDepricated].Value, Converter={StaticResource GrossVerifiedColorConverter}}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-								</Border>
+                                </Border>
 								<StackPanel Grid.Column="0" Grid.Row="1" Background="{Binding Path=Element.[BlockColor].Value}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-									<TextBlock Margin="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Background="{Binding Path=Element.[BlockColor].Value}" TextAlignment="Center" Text="{Binding Path=Element[Label].Value}" TextWrapping="Wrap" />
-                                    <TextBlock Margin="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Background="{Binding Path=Element.[BlockColor].Value}" TextAlignment="Center" Text="{Binding Path=Element[Status].Value}" TextWrapping="Wrap" />
+                                    <TextBlock Margin="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Background="{Binding Path=Element.[BlockColor].Value}" TextAlignment="Center" Text="{Binding Path=Element[Label].Value}" TextWrapping="Wrap" />
                                     <TextBlock Margin="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Background="{Binding Path=Element.[BlockColor].Value}" TextAlignment="Center" Text="{Binding Path=Element[EmbeddingInstructions].Value}" TextWrapping="Wrap" />
 								</StackPanel>
 							</Grid>

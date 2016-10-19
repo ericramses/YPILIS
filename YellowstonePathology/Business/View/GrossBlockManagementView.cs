@@ -86,9 +86,16 @@ namespace YellowstonePathology.Business.View
             YellowstonePathology.Business.Common.PrintMate printMate = new Common.PrintMate();
             YellowstonePathology.Business.Common.PrintMateColumn printMateColumn = printMate.Carousel.GetColumn(this.m_AccessionOrder.PrintMateColumnNumber);
 
-            string hold = null;
-            if (aliquotOrder.Status == "Hold") hold = "Hold";
-
+            string blockColor = null;
+            if (aliquotOrder.Status == "Hold")
+            {
+                blockColor = "#f42a56";
+            }
+            else
+            {
+                blockColor = printMateColumn.ColorCode;
+            }
+            
 			string status = "Created";
 			if(aliquotOrder.StatusDepricated == YellowstonePathology.Business.Slide.Model.SlideStatusEnum.Printed) status = "Printed";
             if (aliquotOrder.StatusDepricated == YellowstonePathology.Business.Slide.Model.SlideStatusEnum.Validated) status = "Validated";
@@ -99,9 +106,8 @@ namespace YellowstonePathology.Business.View
 					new XElement("Description", aliquotOrder.Description),
 					new XElement("Label", aliquotOrder.PrintLabel),
 					new XElement("GrossVerified", aliquotOrder.GrossVerified.ToString()),
-					new XElement("BlockColor", printMateColumn.ColorCode),
-                    new XElement("EmbeddingInstructions", aliquotOrder.EmbeddingInstructions),
-                    new XElement("Status", hold),
+					new XElement("BlockColor", blockColor),
+                    new XElement("EmbeddingInstructions", aliquotOrder.EmbeddingInstructions),                    
                     new XElement("StatusDepricated", status));
 
 			XElement testCollectionElement = new XElement("TestOrderCollection");
