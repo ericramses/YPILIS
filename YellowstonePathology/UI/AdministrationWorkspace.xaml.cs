@@ -948,9 +948,6 @@ namespace YellowstonePathology.UI
 
         private void BuildObjectsTesting()
         {
-            XElement xElement = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderXMLDocument("14-27868");
-			YellowstonePathology.Business.Persistence.ObjectXMLBuilder objectXMLBuilder = new YellowstonePathology.Business.Persistence.ObjectXMLBuilder();
-            object result = objectXMLBuilder.Build(xElement);
         }
 
         private void WriteStVincentAllInSql()
@@ -997,16 +994,55 @@ namespace YellowstonePathology.UI
         {
             //string crc = YellowstonePathology.Business.BarcodeScanning.CRC32V.CRC32("15-1234.1.1");
             //Console.WriteLine("CRC: " + crc);            
-        }
-
-        
+        }        
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
-        {            
-            Business.Label.Model.ZPLPrinter printer = new Business.Label.Model.ZPLPrinter("10.1.1.21"); 
-            YellowstonePathology.Business.BarcodeScanning.ContainerBarcode containerBarcode = Business.BarcodeScanning.ContainerBarcode.Parse();
-            printer.Print(Business.Label.Model.ContainerZPLLabel.GetCommands(containerBarcode.ID));
+        {
+            //Business.Label.Model.ZPLPrinter printer = new Business.Label.Model.ZPLPrinter("10.1.1.21");
+            //YellowstonePathology.Business.BarcodeScanning.BarcodeVersion1 barcode = new Business.BarcodeScanning.BarcodeVersion1("HBLK16-25894.1A");
+            //YellowstonePathology.Business.BarcodeScanning.HistologyBlock histologyBlock = Business.BarcodeScanning.HistologyBlock.Parse(barcode);
+            //string commands = Business.Label.Model.HistologyBlockPaperZPLLabel.GetCommands(histologyBlock, "MM", "1A", "16-25894");
+
+            //string commands = YellowstonePathology.Business.Label.Model.HistologySlidePaperZPLLabel.GetCommands("16-12345.1A1", "16-12345.F2", "ABCDEFGHIJ", "ABCDEFGHIJKLMNOP", "3A3", "YPI Cody, Wy");            
+            //printer.Print(commands);            
         }        
+
+        private void AddAllClients()
+        {
+            StringBuilder rpcCommand = new StringBuilder("{\"jsonrpc\":\"2.0\",\"method\":\"add\",\"params\":[");
+            Business.Client.Model.ClientCollection clientCollection = Business.Gateway.PhysicianClientGateway.GetAllClients();
+
+            int cnt = clientCollection.Count;
+            for (int x = 0; x < cnt; x++)
+            {
+                StringBuilder payload = new StringBuilder();
+                Business.Persistence.JSONObjectWriter.WriteV2(payload, clientCollection[x]);
+                rpcCommand.Append("{\"key\": \"" + "pando.com/test/client/clientid:" + clientCollection[x].ClientId.ToString() + "\", \"payload\":" + payload.ToString() + "}");
+                if (x + 1 != cnt) rpcCommand.Append(", ");
+            }
+            rpcCommand.Append("], \"id\":\"1\"}");
+
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://10.1.2.27:8000");
+            byte[] bytes;
+            bytes = System.Text.Encoding.ASCII.GetBytes(rpcCommand.ToString());
+            request.ContentType = "application/json; encoding='utf-8'";
+            request.ContentLength = bytes.Length;
+            request.Method = "POST";
+            System.IO.Stream requestStream = request.GetRequestStream();
+            requestStream.Write(bytes, 0, bytes.Length);
+            requestStream.Close();
+            HttpWebResponse response;
+            response = (HttpWebResponse)request.GetResponse();
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                System.IO.Stream responseStream = response.GetResponseStream();
+                string responseStr = new System.IO.StreamReader(responseStream).ReadToEnd();
+                Console.WriteLine(responseStr);
+            }
+
+            System.Windows.MessageBox.Show("Done");
+        }
 
         private void PrintDocument_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
@@ -1200,9 +1236,6 @@ namespace YellowstonePathology.UI
 
         private void BuildTest()
         {
-            XElement xElement = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderXMLDocument("14-123");
-			YellowstonePathology.Business.Persistence.ObjectXMLBuilder b = new YellowstonePathology.Business.Persistence.ObjectXMLBuilder();
-            b.Build(xElement);
         }
 
         private void ButtonRunShowTemplatePage_Click(object sender, RoutedEventArgs e)
@@ -1218,14 +1251,15 @@ namespace YellowstonePathology.UI
         /*private void ButtonWilliamTesting_Click(object sender, RoutedEventArgs e) // Compares AccessionOrderBuilder ao to AccessionOrderBuilderV2 ao
         {
             string resultString = string.Empty;
-            DateTime startDate = DateTime.Parse("2/10/2016");
+            DateTime startDate = DateTime.Parse("8/17/2016");
             //for (int didx = 0; didx < 4; didx++)
             //{
                 //DateTime endDate = startDate.AddMonths(1).AddDays(-1);
-            DateTime endDate = startDate.AddDays(1);
+            DateTime endDate = startDate.AddDays(2);
             List<string> masterAccessionNos = new List<string>();
-                masterAccessionNos.Add("16-22139");
+                //masterAccessionNos.Add("16-21295");
                 SqlCommand cmd = new SqlCommand("select MasteraccessionNo from tblAccessionOrder where AccessionDate between '" + startDate.ToString() + "' and '" + endDate.ToString() + "'"); // order by 1 asc");
+                //SqlCommand cmd = new SqlCommand("select distinct MasteraccessionNo from tblPanelSetOrder where panelSetId = 215");
                 cmd.CommandType = CommandType.Text;
                 using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
                 {
@@ -1376,28 +1410,67 @@ namespace YellowstonePathology.UI
 
         private void ButtonWilliamTesting_Click(object sender, RoutedEventArgs e)
         {
-            List<int> panelIds = new List<int>();
-            panelIds.Add(0);
-            panelIds.Add(1);
-            panelIds.Add(2);
-            panelIds.Add(5);
-            panelIds.Add(6);
-            panelIds.Add(8);
-            panelIds.Add(9);
-            panelIds.Add(10);
-            panelIds.Add(11);
-            panelIds.Add(12);
-            panelIds.Add(13);
-            panelIds.Add(14);
-            panelIds.Add(15);
-            panelIds.Add(16);
-            panelIds.Add(17);
-            panelIds.Add(18);
-            panelIds.Add(19);
-            foreach(int id in panelIds)
+            DateTime startDate = DateTime.Parse("10/5/2016");
+            DateTime endDate = startDate.AddDays(6);
+
+            /*List<string> masterAccessionNos = new List<string>();
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "select MasterAccessionNo from tblAccessionOrder where AccessionDate = @StartDate";
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.Add(@"StartDate", SqlDbType.DateTime).Value = startDate;
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
-                Business.Flow.FlowMarkerCollection result = Business.Gateway.FlowGateway.GetFlowMarkerCollectionByPanelId("16-99999.F1", id);
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        string masterAccessionNo = dr[0].ToString();
+                        masterAccessionNos.Add(masterAccessionNo);
+                    }
+                }
             }
+            bool keepOn = true;
+            int idx = 0;
+            while(keepOn && idx < masterAccessionNos.Count)
+            {
+                XpsDocumentViewer dlg = new XpsDocumentViewer();
+                dlg.Viewer.Width = 730;
+                dlg.SizeToContent = SizeToContent.Width;
+                dlg.WindowStartupLocation = WindowStartupLocation.Manual;
+                dlg.Left = 5;
+                dlg.Top = 20;
+                XpsDocumentViewer dlg1 = new XpsDocumentViewer();
+                dlg1.Viewer.Width = 730;
+                dlg1.SizeToContent = SizeToContent.Width;
+                dlg1.WindowStartupLocation = WindowStartupLocation.Manual;
+                dlg1.Left = 760;
+                dlg1.Top = 20;
+
+
+                dlg.LoadDocument(placentalPathologyQuestionnare.FixedDocument);
+                dlg.Show();
+
+                dlg1.LoadDocument(placentalPathologyQuestionnare1.FixedDocument);
+                dlg1.Show();
+
+                MessageBoxResult result = MessageBox.Show("Continue", "Continue", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes);
+                if (result == MessageBoxResult.Yes)
+                {
+                    startDate = startDate.AddDays(7);
+                    endDate = startDate.AddDays(6);
+                    keepOn = true;
+                    idx++;
+                }
+                else
+                {
+                    keepOn = false;
+                }
+                    //dlg.Close();
+                    //dlg1.Close();
+            }*/
             MessageBox.Show("done");
         }
     }

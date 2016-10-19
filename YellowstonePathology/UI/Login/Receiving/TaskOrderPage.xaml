@@ -42,7 +42,9 @@
                         <TextBox Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" Text="{Binding Path=Comment}" TextWrapping="Wrap"/>
 
                         <TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right" IsEnabled="False">Ship To:</TextBlock>
-                        <ComboBox Name="ComboboxShipToFacility" Grid.Column="1" Grid.Row="2" Margin="2,2,2,2" HorizontalAlignment="Stretch" ItemsSource="{Binding Path=FacilityCollection, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}" SelectedValuePath="FacilityId" DisplayMemberPath="FacilityName" IsEnabled="{Binding Path=PropertiesAreEnabled}"
+                        <ComboBox Name="ComboboxShipToFacility" Grid.Column="1" Grid.Row="2" Margin="2,2,2,2" HorizontalAlignment="Stretch" IsEditable="True" 
+                            ItemsSource="{Binding Path=FacilityCollection, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}" 
+                            SelectedValuePath="FacilityId" DisplayMemberPath="FacilityName" IsEnabled="{Binding Path=PropertiesAreEnabled}"
 							SelectedValue="{Binding Path=ShipToFacilityId}" SelectionChanged="ComboboxShipToFacility_SelectionChanged"/>
 
                         <TextBlock Grid.Column="0" Grid.Row="3" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right" IsEnabled="False">Address 1:</TextBlock>
@@ -66,12 +68,14 @@
 
                         <TextBlock Grid.Column="0" Grid.Row="6" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right" IsEnabled="False">Phone Number:</TextBlock>
                         <TextBox Grid.Column="1" Grid.Row="6" Margin="2,2,2,2" Text="{Binding Path=ShipToPhone}" IsEnabled="{Binding Path=PropertiesAreEnabled}"/>
-                        
+
                         <TextBlock Grid.Column="0" Grid.Row="7" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right" IsEnabled="False">Payment Type:</TextBlock>
-                        <TextBox Grid.Column="1" Grid.Row="7" Margin="2,2,2,2" Text="{Binding Path=PaymentType}" IsEnabled="{Binding Path=PropertiesAreEnabled}"/>
+                        <ComboBox Name="ComboBoxPaymentType" Grid.Column="1" Grid.Row="7" Margin="2,2,2,2" SelectedValue="{Binding Path=PaymentType}"
+                                        ItemsSource="{Binding DataContext.PaymentTypeList, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}">
+                        </ComboBox>
                         
                         <TextBlock Grid.Column="0" Grid.Row="8" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right">FedEx Tracking No:</TextBlock>
-                        <TextBox Grid.Column="1" Grid.Row="8" Margin="2,2,2,2" Text="{Binding Path=TrackingNumber}" IsEnabled="False"/>
+                        <TextBox Grid.Column="1" Grid.Row="8" Margin="2,2,2,2" Text="{Binding Path=TrackingNumber}" IsEnabled="True"/>
                         
                         <TextBlock Grid.Column="0" Grid.Row="9" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right">Assigned To:</TextBlock>
                         <ComboBox Name="ComboBoxTaskAssignment" Grid.Column="1" Grid.Row="9" Margin="2,2,2,2" SelectedValue="{Binding Path=AssignedTo}"

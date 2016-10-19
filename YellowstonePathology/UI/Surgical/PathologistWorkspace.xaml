@@ -219,6 +219,14 @@
                                 <TextBlock Margin="2" VerticalAlignment="Center">Peer Review ...</TextBlock>
                             </StackPanel>
                         </Button>
+                        <Button Name="ButtonMaterialTracking" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center"
+							HorizontalAlignment="Center" Click="ButtonMaterialTracking_Click" Background="Gainsboro"
+							IsEnabled="{Binding Path=StainOrderButtonIsEnabled}">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Margin="2" Height="16" Source="/UserInterface;component/Resources/Order.ico"></Image>
+                                <TextBlock Margin="2" VerticalAlignment="Center">Material Tracking ...</TextBlock>
+                            </StackPanel>
+                        </Button>
                     </ToolBar>
 				</ToolBarTray>
 

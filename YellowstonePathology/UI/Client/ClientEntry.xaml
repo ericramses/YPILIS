@@ -263,8 +263,9 @@
 
         </TabControl>
 		
-		<StackPanel Grid.Row="1" HorizontalAlignment="Right" Orientation="Horizontal">			
-			<Button Margin="5" Width="120" Height="30" Click="ButtonOk_Click" Content="OK" />
+		<StackPanel Grid.Row="1" HorizontalAlignment="Right" Orientation="Horizontal">
+            <Button Margin="5" Width="200" Height="30" Click="ButtonPrintFedexReturnLabel_Click" Content="Print Fedex Return Label" />
+            <Button Margin="5" Width="120" Height="30" Click="ButtonOk_Click" Content="OK" />
 		</StackPanel>
 	</Grid>
 </Window>

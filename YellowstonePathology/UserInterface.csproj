@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>134</ApplicationRevision>
+    <ApplicationRevision>188</ApplicationRevision>
     <ApplicationVersion>10.1.6.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -204,6 +204,7 @@
     <Compile Include="Business\Audit.Model\AccessionOrderAudit.cs" />
     <Compile Include="Business\Audit.Model\AccountNoAudit.cs" />
     <Compile Include="Business\Audit.Model\AliquotAndStainOrderAuditCollection.cs" />
+    <Compile Include="Business\Audit.Model\CellBlockWarningAudit.cs" />
     <Compile Include="Business\Audit.Model\AncillaryStudiesAreHandledAudit.cs" />
     <Compile Include="Business\Audit.Model\AreAllWHPTestsFinalAudit.cs" />
     <Compile Include="Business\Audit.Model\Audit.cs" />
@@ -735,6 +736,7 @@
     <Compile Include="Business\Facility.Model\LocationCollection.cs" />
     <Compile Include="Business\Facility.Model\LocationDefinitions.cs" />
     <Compile Include="Business\Facility.Model\LoweLawGroup.cs" />
+    <Compile Include="Business\Facility.Model\SheridanPathologyAssociates.cs" />
     <Compile Include="Business\Facility.Model\MayoClinic.cs" />
     <Compile Include="Business\Facility.Model\MDAndersonCancerCenter.cs" />
     <Compile Include="Business\Facility.Model\MLabs.cs" />
@@ -762,6 +764,7 @@
     <Compile Include="Business\Facility.Model\UCSFDermPathService.cs" />
     <Compile Include="Business\Facility.Model\UniPath.cs" />
     <Compile Include="Business\Facility.Model\UniversityOfArkansasMedicalSciences.cs" />
+    <Compile Include="Business\Facility.Model\UniversityOfColoradoHospital.cs" />
     <Compile Include="Business\Facility.Model\UniversityOfMiami.cs" />
     <Compile Include="Business\Facility.Model\UniversityOfMichigan.cs" />
     <Compile Include="Business\Facility.Model\UniversityOfWashington.cs" />
@@ -805,6 +808,7 @@
     <Compile Include="Business\Gateway\AOSaveResult.cs" />
     <Compile Include="Business\Gateway\BillingGateway.cs" />
     <Compile Include="Business\Gateway\ClientBuilder.cs" />
+    <Compile Include="Business\Gateway\ClientBuilderV2.cs" />
     <Compile Include="Business\Gateway\ClientOrderBuilder.cs" />
     <Compile Include="Business\Gateway\ClientOrderGateway.cs" />
     <Compile Include="Business\Gateway\CytologyScreeningSearchGateway.cs" />
@@ -978,6 +982,8 @@
     <Compile Include="Business\Label.Model\CassettePrinter.cs" />
     <Compile Include="Business\Label.Model\ContainerPaperLabel.cs" />
     <Compile Include="Business\Label.Model\ContainerPaperLabelPrinter.cs" />
+    <Compile Include="Business\Label.Model\HistologySlidePaperZPLLabel.cs" />
+    <Compile Include="Business\Label.Model\HistologyBlockPaperZPLLabel.cs" />
     <Compile Include="Business\Label.Model\HistologySlideDirectPrintLabel.cs" />
     <Compile Include="Business\Label.Model\HistologySlideLabel.cs" />
     <Compile Include="Business\Label.Model\HistologySlidePaperLabel.cs" />
@@ -1016,6 +1022,7 @@
     <Compile Include="Business\MaterialTracking.Model\FedexDeleteShipmentRequest.cs" />
     <Compile Include="Business\MaterialTracking.Model\FedexDeleteShipmentReply.cs" />
     <Compile Include="Business\MaterialTracking.Model\FedexProcessShipmentReply.cs" />
+    <Compile Include="Business\MaterialTracking.Model\FedexReturnLabelRequest.cs" />
     <Compile Include="Business\MaterialTracking.Model\FedexTrackingRequest.cs" />
     <Compile Include="Business\MaterialTracking.Model\FedexShipmentRequest.cs" />
     <Compile Include="Business\MaterialTracking.Model\FedexTrackingResponse.cs" />
@@ -1060,12 +1067,29 @@
     <Compile Include="Business\Monitor.Model\MonitorStateEnum.cs" />
     <Compile Include="Business\Monitor.Model\PendingTest.cs" />
     <Compile Include="Business\Monitor.Model\PendingTestCollection.cs" />
+    <Compile Include="Business\PanelSet.Model\NeoTypeEsophagealTumorProfileTest.cs" />
     <Compile Include="Business\PanelSet.Model\NeoTypeDiscoveryProfileTest.cs" />
+    <Compile Include="Business\PanelSet.Model\ShipMaterialTest.cs" />
     <Compile Include="Business\ParseSpecimenOrderIdResult.cs" />
     <Compile Include="Business\Persistence\DocumentTestBuilders.cs" />
     <Compile Include="Business\Persistence\PersistentDataColumnProperty.cs" />
     <Compile Include="Business\Persistence\SqlDataRowReaderPropertyWriter.cs" />
-    <Compile Include="Business\Surgical\ProcessorRunDefinitions.cs" />
+    <Compile Include="Business\Reports\DisposalReportData.cs" />
+    <Compile Include="Business\Reports\CytologySlideDisposalReportV2.xaml.cs">
+      <DependentUpon>CytologySlideDisposalReportV2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Business\Reports\LabOrderSheetData.cs" />
+    <Compile Include="Business\Reports\LabOrderSheetDataPanelOrder.cs" />
+    <Compile Include="Business\Reports\LabOrderSheetDataReport.cs" />
+    <Compile Include="Business\Reports\LabOrderSheetDataTestOrder.cs" />
+    <Compile Include="Business\Reports\POCRetensionReportData.cs" />
+    <Compile Include="Business\Reports\POCRetensionReportDataItem.cs" />
+    <Compile Include="Business\Reports\POCRetensionReportV2.xaml.cs">
+      <DependentUpon>POCRetensionReportV2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Business\Reports\SurgicalSpecimenDisposalReportV2.xaml.cs">
+      <DependentUpon>SurgicalSpecimenDisposalReportV2.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Business\Task.Model\TaskFedexShipment.cs" />
     <Compile Include="Business\Task.Model\TaskOrderDetailFactory.cs" />
     <Compile Include="Business\Task.Model\TaskOrderDetailFedexShipment.cs" />
@@ -1076,11 +1100,27 @@
     <Compile Include="Business\Test\GrossOnly\GrossOnlyWordDocument.cs" />
     <Compile Include="Business\Test\BrainDonation\BrainDonationTest.cs" />
     <Compile Include="Business\Test\JAK2V617F\JAK2V617FWPHObxView.cs" />
+    <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult32.cs" />
+    <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult42.cs" />
     <Compile Include="Business\Test\MUM1ByIHC\MUM1ByIHCTest.cs" />
     <Compile Include="Business\Test\PlateletAssociatedAntibodies\PlateletAssociatedAntibodiesEPICOBXView.cs" />
     <Compile Include="Business\Test\ROS1ByFISH\ROS1ByFISHPositiveResult.cs" />
     <Compile Include="Business\Test\IRF4F\IRF4FTest.cs" />
+    <Compile Include="Business\Test\ThinPrepPap\ThinPrepPapWPHOBXView.cs" />
     <Compile Include="Business\Test\TP63F\TP63FTest.cs" />
+    <Compile Include="Business\XPSDocument\ClientBillingDetailReportV2.cs" />
+    <Compile Include="Business\XPSDocument\PlacentalPathologyQuestionnaireV2.cs" />
+    <Compile Include="Business\XPSDocument\Result\ClientBillingDetailReportResult\ClientBillingDetailReportData.cs" />
+    <Compile Include="Business\XPSDocument\Result\ClientBillingDetailReportResult\ClientBillingDetailReportDataAccessionOrder.cs" />
+    <Compile Include="Business\XPSDocument\Result\ClientBillingDetailReportResult\ClientBillingDetailReportDataReport.cs" />
+    <Compile Include="Business\XPSDocument\Result\Data\AccessionOrderDataSheetDataAccessionOrder.cs" />
+    <Compile Include="Business\XPSDocument\Result\Data\AccessionOrderDataSheetDataClientOrder.cs" />
+    <Compile Include="Business\XPSDocument\Result\Data\AccessionOrderDataSheetDataCommentLog.cs" />
+    <Compile Include="Business\XPSDocument\Result\Data\AccessionOrderDataSheetDataSpecimenOrder.cs" />
+    <Compile Include="Business\XPSDocument\Result\Data\AccessionOrderDataSheetDataV2.cs" />
+    <Compile Include="Business\XPSDocument\Result\Data\PlacentalPathologyQuestionnaireDataV2.cs" />
+    <Compile Include="Business\XPSDocument\Result\Xps\AccessionOrderDataSheetV2.cs" />
+    <Compile Include="Business\XPSDocument\Result\Xps\ClientSupplyOrderReportV2.cs" />
     <Compile Include="MySQLMigration\MigrationStatus.cs" />
     <Compile Include="MySQLMigration\MigrationStatusCollection.cs" />
     <Compile Include="MySQLMigration\MySQLDatabaseBuilder.cs" />
@@ -1517,11 +1557,7 @@
     <Compile Include="Business\Specimen.Model\ThinPrepSlide.cs" />
     <Compile Include="Business\Specimen.Model\TimeToFixationType.cs" />
     <Compile Include="Business\SpellCheck.cs" />
-    <Compile Include="Business\Surgical\Cheech.cs" />
-    <Compile Include="Business\Surgical\Chong.cs" />
-    <Compile Include="Business\Surgical\HoldProcessor.cs" />
     <Compile Include="Business\Surgical\KeyWordCollection.cs" />
-    <Compile Include="Business\Surgical\NullProcessor.cs" />
     <Compile Include="Business\Surgical\PathologistHistoryItemListItem.cs" />
     <Compile Include="Business\Surgical\PathologistHistoryList.cs" />
     <Compile Include="Business\Surgical\PQRIKeyWordCollection.cs" />
@@ -1535,11 +1571,8 @@
     <Compile Include="Business\Surgical\PQRSMeasureCollection.cs" />
     <Compile Include="Business\Surgical\PQRSMelanomaMeasure.cs" />
     <Compile Include="Business\Surgical\PQRSRadicalProstatectomyMeasure.cs" />
-    <Compile Include="Business\Surgical\Processor.cs" />
-    <Compile Include="Business\Surgical\ProcessorCollection.cs" />
     <Compile Include="Business\Surgical\ProcessorRun.cs" />
     <Compile Include="Business\Surgical\ProcessorRunCollection.cs" />
-    <Compile Include="Business\Surgical\ProcessorRunDayEnum.cs" />
     <Compile Include="Business\Surgical\ReportableCases.cs" />
     <Compile Include="Business\Surgical\SurgicalBillingItem.cs" />
     <Compile Include="Business\Surgical\SurgicalBillingItemCollection.cs" />
@@ -3167,7 +3200,6 @@
       <DependentUpon>MissingInformationPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Login\FinalizeAccession\FacilityColorConverter.cs" />
-    <Compile Include="UI\Login\FinalizeAccession\FixationUpdate.cs" />
     <Compile Include="UI\Login\FinalizeAccession\SpecimenMappingPage.xaml.cs">
       <DependentUpon>SpecimenMappingPage.xaml</DependentUpon>
     </Compile>
@@ -4814,6 +4846,9 @@
     <EmbeddedResource Include="Business\MaterialTracking.Model\FedexTrackingRequest.v9.xml" />
     <EmbeddedResource Include="Business\MaterialTracking.Model\FedexProcessShipmentRequest.v19.xml" />
     <Resource Include="Business\MaterialTracking.Model\ProcessShipmentReply.xml" />
+    <EmbeddedResource Include="Business\MaterialTracking.Model\FedexProcessShipmentRequestReturn.v19.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <Content Include="dll\Interop.FAXCOMEXLib.dll" />
   </ItemGroup>
   <ItemGroup>
@@ -4833,9 +4868,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Business\Reports\CytologySlideDisposalReportV2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Business\Reports\POCRetensionReport.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Business\Reports\POCRetensionReportV2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Business\Reports\SpecimenDisposalReport.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -4844,6 +4887,10 @@
     <Page Include="Business\Reports\SurgicalSpecimenDisposalReport.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Business\Reports\SurgicalSpecimenDisposalReportV2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Business\Rules\ExecutionStatusDialog.xaml">
       <Generator>MSBuild:Compile</Generator>

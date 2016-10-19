@@ -133,18 +133,7 @@ namespace YellowstonePathology.UI.Gross
             {
                 DictationTemplatePage dictationTemplatePage = new DictationTemplatePage(specimenOrder, this.m_AccessionOrder, this.m_SystemIdentity);
                 this.m_SecondaryWindow.PageNavigator.Navigate(dictationTemplatePage);
-            }
-
-            if (string.IsNullOrEmpty(specimenOrder.ProcessorRunId) == true)
-            {
-                YellowstonePathology.Business.Surgical.ProcessorRunCollection processorRunCollection = YellowstonePathology.Business.Surgical.ProcessorRunCollection.GetAll(false);
-                YellowstonePathology.Business.Surgical.ProcessorRun processorRun = processorRunCollection.Get(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference);
-                if(processorRun != null)
-                {
-                    specimenOrder.SetProcessor(processorRun);
-                    specimenOrder.SetFixationDuration();
-                }                
-            }
+            }            
 
             if (this.m_AccessionOrder.PrintMateColumnNumber == 0 && this.m_AccessionOrder.PanelSetOrderCollection.HasTestBeenOrdered(48) == false)
             {
@@ -263,29 +252,9 @@ namespace YellowstonePathology.UI.Gross
 			PrintBlockPage printBlockPage = new PrintBlockPage(this.m_SystemIdentity, this.m_AccessionOrder, specimenOrder);
             printBlockPage.Next += new PrintBlockPage.NextEventHandler(PrintBlockPage_Next);
             printBlockPage.ShowBlockOptions += new PrintBlockPage.ShowBlockOptionsEventHandler(PrintBlockPage_ShowBlockOptions);
-            printBlockPage.ShowStainOrderPage += new PrintBlockPage.ShowStainOrderPageEventHandler(PrintBlockPage_ShowStainOrderPage);
-            printBlockPage.ShowProcessorSelectionPage += new PrintBlockPage.ShowProcessorSelectionPageEventHandler(PrintBlockPage_ShowProcessorSelectionPage);
+            printBlockPage.ShowStainOrderPage += new PrintBlockPage.ShowStainOrderPageEventHandler(PrintBlockPage_ShowStainOrderPage);            
 			this.m_HistologyGrossDialog.PageNavigator.Navigate(printBlockPage);
-		}
-
-        private void PrintBlockPage_ShowProcessorSelectionPage(object sender, CustomEventArgs.SpecimenOrderReturnEventArgs e)
-        {
-            ProcessorSelectionPage processorSelectionPage = new ProcessorSelectionPage(e.SpecimenOrder);            
-            processorSelectionPage.Next += new ProcessorSelectionPage.NextEventHandler(ProcessorSelectionPage_Next);
-            this.m_HistologyGrossDialog.PageNavigator.Navigate(processorSelectionPage);
-        }
-
-        private void ProcessorSelectionPage_Next(object sender, CustomEventArgs.SpecimenOrderReturnEventArgs e)
-        {
-            if(e.SpecimenOrder.ProcessorRunId == "HOLD")
-            {
-                this.ShowScanContainerPage();
-            }
-            else
-            {
-                this.ShowPrintBlockPage(e.SpecimenOrder);
-            }            
-        }        
+		}                     
 
         private void PrintBlockPage_ShowStainOrderPage(object sender, YellowstonePathology.UI.CustomEventArgs.SpecimenOrderAliquotOrderReturnEventArgs e)
         {

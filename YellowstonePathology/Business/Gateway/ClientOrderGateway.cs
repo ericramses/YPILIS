@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.Gateway
         {
             YellowstonePathology.Business.ClientOrder.Model.OrderBrowserListItemCollection resultCollection = new YellowstonePathology.Business.ClientOrder.Model.OrderBrowserListItemCollection();
             SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "Select ClientOrderId, PanelSetId, PLastName, PFirstName, ProviderName, ClientName, OrderedBy, OrderTime, Submitted, Received, OrderType " +
+            cmd.CommandText = "Select ClientOrderId, OrderStatus, PanelSetId, PLastName, PFirstName, ProviderName, ClientName, OrderedBy, OrderTime, Submitted, Received, OrderType " +
                 "from tblClientOrder " +
                 "Where OrderDate = @OrderDate " + 
                 "Order by OrderTime desc";
@@ -49,7 +49,7 @@ namespace YellowstonePathology.Business.Gateway
         {
             YellowstonePathology.Business.ClientOrder.Model.OrderBrowserListItemCollection resultCollection = new YellowstonePathology.Business.ClientOrder.Model.OrderBrowserListItemCollection();
             SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "Select ClientOrderId, PanelSetId, PLastName, PFirstName, ProviderName, ClientName, OrderedBy, OrderTime, Submitted, Received, OrderType " +
+            cmd.CommandText = "Select ClientOrderId, OrderStatus, PanelSetId, PLastName, PFirstName, ProviderName, ClientName, OrderedBy, OrderTime, Submitted, Received, OrderType " +
                 "from tblClientOrder " +
                 "Where Hold = 1 " +
                 "Order by OrderTime desc";
@@ -90,7 +90,7 @@ namespace YellowstonePathology.Business.Gateway
 
             YellowstonePathology.Business.ClientOrder.Model.OrderBrowserListItemCollection resultCollection = new YellowstonePathology.Business.ClientOrder.Model.OrderBrowserListItemCollection();
             SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "Select ClientOrderId, ClientName, PanelSetId, PLastName, PFirstName, ProviderName, OrderedBy, OrderTime, Submitted, Received, OrderType " +
+            cmd.CommandText = "Select ClientOrderId, OrderStatus, ClientName, PanelSetId, PLastName, PFirstName, ProviderName, OrderedBy, OrderTime, Submitted, Received, OrderType " +
                 "from tblClientOrder " +
                 "Where ClientId in (" + clientIdString + ") and " +
                 "OrderTime >  dateadd(dd, -7, getdate()) and " +
@@ -123,7 +123,7 @@ namespace YellowstonePathology.Business.Gateway
 			YellowstonePathology.Business.ClientOrder.Model.OrderBrowserListItemCollection resultCollection = new YellowstonePathology.Business.ClientOrder.Model.OrderBrowserListItemCollection();
 			SqlCommand cmd = new SqlCommand();
 			cmd.Parameters.Add("@MasterAccessionNo", SqlDbType.VarChar).Value = masterAccessionNo;
-			cmd.CommandText = "Select ClientOrderId, PanelSetId, PLastName, PFirstName, ProviderName, ClientName, OrderedBy, OrderTime, Submitted, Received, OrderType " +
+			cmd.CommandText = "Select ClientOrderId, OrderStatus, PanelSetId, PLastName, PFirstName, ProviderName, ClientName, OrderedBy, OrderTime, Submitted, Received, OrderType " +
 				"from tblClientOrder " +
 				"Where MasterAccessionNo = @MasterAccessionNo " +
 				"Order by OrderTime desc";
@@ -156,13 +156,13 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.Parameters.Add("@PLastName", SqlDbType.VarChar).Value = lastName;
 			if (string.IsNullOrEmpty(firstName) == true)
 			{
-				cmd.CommandText = "Select ClientOrderId, PanelSetId, PLastName, PFirstName, ProviderName, ClientName, OrderedBy, OrderTime, Submitted, Received, OrderType " +
+				cmd.CommandText = "Select ClientOrderId, OrderStatus, PanelSetId, PLastName, PFirstName, ProviderName, ClientName, OrderedBy, OrderTime, Submitted, Received, OrderType " +
 					"from tblClientOrder Where PLastName like @PLastName + '%' Order by OrderTime desc";
 			}
 			else
 			{
 				cmd.Parameters.Add("@PFirstName", SqlDbType.VarChar).Value = firstName;
-				cmd.CommandText = "Select ClientOrderId, PanelSetId, PLastName, PFirstName, ProviderName, ClientName, OrderedBy, OrderTime, Submitted, Received, OrderType " +
+				cmd.CommandText = "Select ClientOrderId, OrderStatus, PanelSetId, PLastName, PFirstName, ProviderName, ClientName, OrderedBy, OrderTime, Submitted, Received, OrderType " +
 					"from tblClientOrder Where PLastName like @PLastName + '%' and  PFirstName like @PFirstName + '%' Order by OrderTime desc";
 			}
 

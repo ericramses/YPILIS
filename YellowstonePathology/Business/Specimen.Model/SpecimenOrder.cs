@@ -50,9 +50,7 @@ namespace YellowstonePathology.Business.Specimen.Model
         private bool m_RequiresGrossExamination;
         private string m_LocationId;
         private string m_FacilityId;
-        
-        private string m_ProcessorRun;
-        private string m_ProcessorRunId;
+                
         private Nullable<DateTime> m_ProcessorStartTime;
         private Nullable<int> m_ProcessorFixationTime;        
         private bool m_FixationStartTimeManuallyEntered;
@@ -492,6 +490,24 @@ namespace YellowstonePathology.Business.Specimen.Model
             }
             this.NotifyPropertyChanged("FixationDuration");
         }
+
+        public string GetExpectedFixationDuration()
+        {
+            string result = null;
+            if(this.m_FixationStartTime.HasValue == true)
+            {
+                DateTime todayAt5 = DateTime.Parse(DateTime.Today.ToString("yyyy-MM-dd") + "T17:00");
+                Business.Surgical.ProcessorRun processorRun = new Surgical.ProcessorRun("Today", todayAt5, new TimeSpan(2, 30, 0));
+                DateTime expectedFixationEndTime = processorRun.GetFixationEndTime(this.m_FixationStartTime.Value);
+                TimeSpan expectedDurationTS = expectedFixationEndTime.Subtract(this.m_FixationStartTime.Value);
+                result = "~" + Math.Round(expectedDurationTS.TotalHours, 0).ToString() + "hrs";
+            }
+            else
+            {
+                result = "Unknown";
+            }
+            return result;
+        }
         
         public string FixationDurationString
         {
@@ -920,37 +936,7 @@ namespace YellowstonePathology.Business.Specimen.Model
                     this.NotifyPropertyChanged("FacilityId");
                 }
             }
-        }
-
-        [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
-        public string ProcessorRun
-        {
-            get { return this.m_ProcessorRun; }
-            set
-            {
-                if (this.m_ProcessorRun != value)
-                {
-                    this.m_ProcessorRun = value;
-                    this.NotifyPropertyChanged("ProcessorRun");
-                }
-            }
-        }
-
-        [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
-        public string ProcessorRunId
-        {
-            get { return this.m_ProcessorRunId; }
-            set
-            {
-                if (this.m_ProcessorRunId != value)
-                {
-                    this.m_ProcessorRunId = value;
-                    this.NotifyPropertyChanged("ProcessorRunId");
-                }
-            }
-        }
+        }        
 
         [PersistentProperty()]
         [PersistentDataColumnProperty(true, "3", "null", "datetime")]
@@ -1110,19 +1096,7 @@ namespace YellowstonePathology.Business.Specimen.Model
             this.NotifyPropertyChanged("TimeToFixation");
             this.NotifyPropertyChanged("TimeToFixationString");
             this.NotifyPropertyChanged("TimeToFixationHourString");            
-        }
-
-        public void SetProcessor(YellowstonePathology.Business.Surgical.ProcessorRun processorRun)
-        {            
-            this.m_ProcessorRun = processorRun.Name;
-            this.m_ProcessorRunId = processorRun.ProcessorRunId;
-            this.m_ProcessorFixationTime = Convert.ToInt32(processorRun.FixationTime.TotalMinutes);
-            this.m_ProcessorStartTime = processorRun.GetProcessorStartTime(this.m_DateReceived);
-
-            this.SetFixationEndTime();
-            this.SetFixationDuration();
-            this.NotifyPropertyChanged(string.Empty);            
-        }
+        }        
 
         public string TimeToFixationString
         {
@@ -1229,9 +1203,7 @@ namespace YellowstonePathology.Business.Specimen.Model
             this.m_RequiresGrossExamination = propertyWriter.WriteBoolean("RequiresGrossExamination");
             this.m_ClientAccessioned = propertyWriter.WriteBoolean("ClientAccessioned");
             this.m_FacilityId = propertyWriter.WriteString("FacilityId");
-            this.m_LocationId = propertyWriter.WriteString("LocationId");
-            this.m_ProcessorRun = propertyWriter.WriteString("ProcessorRun");
-            this.m_ProcessorRunId = propertyWriter.WriteString("ProcessorRunId");
+            this.m_LocationId = propertyWriter.WriteString("LocationId");            
             this.m_ProcessorStartTime = propertyWriter.WriteNullableDateTime("ProcessorStartTime");
             this.m_ProcessorFixationTime = propertyWriter.WriteNullableInt("ProcessorFixationTime");
             this.m_TimeToFixation = propertyWriter.WriteNullableInt("TimeToFixation");
@@ -1278,9 +1250,7 @@ namespace YellowstonePathology.Business.Specimen.Model
             propertyReader.ReadBoolean("RequiresGrossExamination", RequiresGrossExamination);
             propertyReader.ReadBoolean("ClientAccessioned", ClientAccessioned);
             propertyReader.ReadString("LocationId", LocationId);
-            propertyReader.ReadString("FacilityId", FacilityId);
-            propertyReader.ReadString("ProcessorRun", ProcessorRun);
-            propertyReader.ReadString("ProcessorRunId", ProcessorRunId);
+            propertyReader.ReadString("FacilityId", FacilityId);            
             propertyReader.ReadNullableDateTime("ProcessorStartTime", ProcessorStartTime);
             propertyReader.ReadNullableInt("ProcessorFixationTime", ProcessorFixationTime);            
             propertyReader.ReadBoolean("FixationStartTimeManuallyEntered", FixationStartTimeManuallyEntered);

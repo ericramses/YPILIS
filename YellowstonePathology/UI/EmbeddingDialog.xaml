@@ -36,17 +36,18 @@
 
         <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right">
             <Button Width="150" Margin="2,2,2,2" Click="ButtonUpdate_Click">Update</Button>
-            <ComboBox  Name="ComboBoxProcessorRuns" ItemsSource="{Binding Path=ProcessorRunCollection}" DisplayMemberPath="Name" Margin="2,2,2,2" Width="200"></ComboBox>
-            <ComboBox  Name="ComboBoxProcessorStartHour" ItemsSource="{Binding Path=ProcessorStartHourList}" Margin="2,2,2,2" Width="200"></ComboBox>
+            <ComboBox  Name="ComboBoxProcessorRuns" ItemsSource="{Binding Path=ProcessorRunCollection}" DisplayMemberPath="Name" Margin="2,2,2,2" Width="200" SelectionChanged="ComboBoxProcessorRun_SelectionChanged"></ComboBox>
+            <TextBox Name="TextBoxProcessorStartTime" Margin="2" Width="120" Text="{Binding Path=ProcessorStartTime, Converter={StaticResource MilitaryDateTimeConverter}}" />
+            <TextBox Name="TextBoxProcessorFixationDuration" Margin="2" Width="120" Text="{Binding Path=ProcessorFixationDuration.TotalMinutes, Mode=OneWay}" />
         </StackPanel>
-        
 
         <ListView Name="ListViewEmbeddingScans" Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" ItemsSource="{Binding Path=EmbeddingScanCollection}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Block" Width="100" DisplayMemberBinding="{Binding Path=AliquotOrderId}" />
-                    <GridViewColumn Header="Date" Width="130" DisplayMemberBinding="{Binding Path=DateScanned}" />
-                    <GridViewColumn Header="Processor" Width="200" DisplayMemberBinding="{Binding Path=ProcessorRun}" />
+                    <GridViewColumn Header="Scanned" Width="130" DisplayMemberBinding="{Binding Path=DateScanned, Converter={StaticResource MilitaryDateTimeConverter}}" />
+                    <GridViewColumn Header="Started" Width="200" DisplayMemberBinding="{Binding Path=ProcessorStartTime, Converter={StaticResource MilitaryDateTimeConverter}}" />
+                    <GridViewColumn Header="Duration" Width="150" DisplayMemberBinding="{Binding Path=ProcessorFixationDuration}" />
                     <GridViewColumn Header="By" Width="150" DisplayMemberBinding="{Binding Path=ScannedBy}" />
                     <GridViewColumn Header="Updated" Width="120" DisplayMemberBinding="{Binding Path=Updated}" />
                 </GridView>
@@ -55,7 +56,7 @@
 
         <TabControl Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2">
             <TabItem Header="On Hold">
-                <ListView Name="ListViewHoldList" Margin="2,2,2,2" ItemsSource="{Binding Path=SpecimenOrderHoldCollection}">
+                <ListView Name="ListViewHoldList" Margin="2,2,2,2" ItemsSource="{Binding Path=AliquotOrderHoldCollection}">
                     <ListView.ContextMenu>
                         <ContextMenu>
                             <MenuItem Tag="{Binding}" Header="Remove Hold" Click="ContextMenuRemoveHold_Click"></MenuItem>
@@ -63,8 +64,10 @@
                     </ListView.ContextMenu>
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Master Accession" Width="100" DisplayMemberBinding="{Binding Path=MasterAccessionNo}" />
-                            <GridViewColumn Header="Description" Width="500" DisplayMemberBinding="{Binding Path=Description}" />
+                            <GridViewColumn Header="Id" Width="100" DisplayMemberBinding="{Binding Path=AliquotOrderId}" />
+                            <GridViewColumn Header="Type" Width="100" DisplayMemberBinding="{Binding Path=AliquotType}" />
+                            <GridViewColumn Header="Status" Width="100" DisplayMemberBinding="{Binding Path=Status}" />
+                            <GridViewColumn Header="Instructions" Width="300" DisplayMemberBinding="{Binding Path=EmbeddingInstructions}" />
                         </GridView>
                     </ListView.View>
                 </ListView>
@@ -74,7 +77,7 @@
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="ID" Width="100" DisplayMemberBinding="{Binding Path=AliquotOrderId}" />
-                            <GridViewColumn Header="Test" Width="100" DisplayMemberBinding="{Binding Path=PanelSetName}" />
+                            <GridViewColumn Header="Test" Width="120" DisplayMemberBinding="{Binding Path=PanelSetName}" />
                             <GridViewColumn Header="Description" Width="500" DisplayMemberBinding="{Binding Path=Description}" />
                         </GridView>
                     </ListView.View>
@@ -88,11 +91,12 @@
                             <GridViewColumn Header="Master Accession No" Width="100" DisplayMemberBinding="{Binding Path=MasterAccessionNo}" />
                             <GridViewColumn Header="First" Width="100" DisplayMemberBinding="{Binding Path=PFirstName}" />
                             <GridViewColumn Header="Last" Width="100" DisplayMemberBinding="{Binding Path=PLastName}" />
-                            <GridViewColumn Header="Collected" Width="130" DisplayMemberBinding="{Binding Path=CollectionTime}" />
-                            <GridViewColumn Header="Processor" Width="200" DisplayMemberBinding="{Binding Path=ProcessorRun}" />
-                            <GridViewColumn Header="Start" Width="150" DisplayMemberBinding="{Binding Path=FixationStartTime}" />
+                            <GridViewColumn Header="Collected" Width="130" DisplayMemberBinding="{Binding Path=CollectionTime, Converter={StaticResource MilitaryDateTimeConverter}}" />
+                            <GridViewColumn Header="Start" Width="150" DisplayMemberBinding="{Binding Path=FixationStartTime, Converter={StaticResource MilitaryDateTimeConverter}}" />
                             <GridViewColumn Header="End" Width="150" DisplayMemberBinding="{Binding Path=FixationEndTime}" />
+                            <GridViewColumn Header="Duration" Width="120" DisplayMemberBinding="{Binding Path=FixationDurationCalc}" />
                             <GridViewColumn Header="Duration" Width="120" DisplayMemberBinding="{Binding Path=FixationDuration}" />
+                            <GridViewColumn Header="Description" Width="300" DisplayMemberBinding="{Binding Path=Description}" />
                         </GridView>
                     </ListView.View>
                 </ListView>

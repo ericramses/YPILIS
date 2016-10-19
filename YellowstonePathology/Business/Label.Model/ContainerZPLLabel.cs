@@ -13,16 +13,34 @@ namespace YellowstonePathology.Business.Label.Model
 
         }
 
-        public static string GetCommands(string containerId)
-        {            
-            StringBuilder commands = new StringBuilder();
-            commands.Append("^XA");
-            //commands.Append("^FT20,120^BY2^A0N,50,30 ^BC,100,N,N,N,A^FD" + aliquotOrderId + "^FS");
-            //commands.Append("^FO20,130^ADN,18,10^FD" + aliquotOrderId + ": " + pBirthdate.ToString("MM/dd/yyyy") + "^FS");
-            //commands.Append("^FO20,150^ADN,18,10^FD" + patientName + "^FS");
-            //commands.Append("^FO20,170^ADN,18,10^FD" + specimen + "^FS");
-            //commands.Append("^XZ");
-            return commands.ToString();
+        public static string GetCommands(List<YellowstonePathology.Business.BarcodeScanning.ContainerBarcode> barcodeList)
+        {
+            StringBuilder result = new StringBuilder();            
+            int xOffset = 0;            
+
+            result.Append("^XA");            
+            for (int i = 0; i < barcodeList.Count; i++)
+            {
+                GetOne(barcodeList[i].ToString(), result, xOffset);
+                xOffset += 325;            
+            }
+                        
+            result.Append("^XZ");
+            return result.ToString();
+        }
+
+        private static void GetOne(string containerId, StringBuilder result, int xOffset)
+        {
+            string line1 = containerId.Substring(0, 14);
+            string line2 = containerId.Substring(14, 14);
+            string line3 = containerId.Substring(28);
+                        
+
+            result.Append("^FO" + (xOffset + 85) + ",020^AUN,50,50^FD" + "YPI" + "^FS");
+            result.Append("^FO" + (xOffset + 75) + ",080^BXN,04,200^FD" + containerId + "^FS");
+            result.Append("^FO" + (xOffset + 30) + ",190^FB190,1,0,C,0^ADN,20^FD" + line1 + "^FS");
+            result.Append("^FO" + (xOffset + 30) + ",210^FB190,1,0,C,0^ADN,20^FD" + line2 + "^FS");
+            result.Append("^FO" + (xOffset + 25) + ",240^FB190,1,0,C,0^ARN,18^FD" + line3 + "^FS");            
         }
     }
 }

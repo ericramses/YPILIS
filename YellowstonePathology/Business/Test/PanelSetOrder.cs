@@ -1258,6 +1258,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "1", "0", "bit")]
         public bool ResearchTesting
         {
             get { return this.m_ResearchTesting; }

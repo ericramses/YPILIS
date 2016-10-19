@@ -331,6 +331,7 @@ namespace YellowstonePathology.UI.Surgical
                             {
                                 SurgicalReview surgicalReview = (SurgicalReview)this.m_PathologistsReview.ReviewContent;
                                 surgicalReview.BillingSpecimenViewCollection.SetSelectedBySlideOrderid(barcode.ID);
+                                surgicalReview.SetFocusOnDiagnosis();
                             }
                         }
 						else
@@ -741,6 +742,12 @@ namespace YellowstonePathology.UI.Surgical
             this.m_BarcodeScanPort.HistologySlideScanReceived += new Business.BarcodeScanning.BarcodeScanPort.HistologySlideScanReceivedHandler(HistologySlideScanReceived);
             this.m_BarcodeScanPort.HistologyBlockScanReceived += new Business.BarcodeScanning.BarcodeScanPort.HistologyBlockScanReceivedHandler(BarcodeScanPort_HistologyBlockScanReceived);
             this.m_BarcodeScanPort.ThinPrepSlideScanReceived += new Business.BarcodeScanning.BarcodeScanPort.ThinPrepSlideScanReceivedHandler(BarcodeScanPort_ThinPrepSlideScanReceived);
+        }
+
+        private void ButtonMaterialTracking_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.UI.MaterialTracking.MaterialTrackingPath materialTrackingPath = new MaterialTracking.MaterialTrackingPath(this.m_PathologistUI.AccessionOrder.MasterAccessionNo);
+            materialTrackingPath.Start();
         }
     }
 }

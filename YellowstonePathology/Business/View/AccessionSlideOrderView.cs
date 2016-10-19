@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Xml.Linq;
+using YellowstonePathology.Business.Persistence;
 
 namespace YellowstonePathology.Business.View
 {
@@ -34,6 +35,7 @@ namespace YellowstonePathology.Business.View
 			set { this.m_SlideOrder = value; }
 		}
 
+        [PersistentProperty()]
         public string MasterAccessionNo
         {
             get { return this.m_MasterAccessionNo; }
@@ -47,6 +49,7 @@ namespace YellowstonePathology.Business.View
             }
         }
 
+        [PersistentProperty()]
         public string ReportNo
         {
             get { return this.m_ReportNo; }
@@ -60,6 +63,7 @@ namespace YellowstonePathology.Business.View
             }
         }
 
+        [PersistentProperty()]
         public string PFirstName
         {
             get { return this.m_PFirstName; }
@@ -73,6 +77,7 @@ namespace YellowstonePathology.Business.View
             }
         }
 
+        [PersistentProperty()]
         public string PLastName
         {
             get { return this.m_PLastName; }
@@ -86,6 +91,7 @@ namespace YellowstonePathology.Business.View
             }
         }
 
+        [PersistentProperty()]
         public int ClientId
         {
             get { return this.m_ClientId; }
@@ -99,6 +105,7 @@ namespace YellowstonePathology.Business.View
             }
         }
 
+        [PersistentProperty()]
         public string ClientName
         {
             get { return this.m_ClientName; }
@@ -112,7 +119,8 @@ namespace YellowstonePathology.Business.View
             }
         }
 
-		public int PhysicianId
+        [PersistentProperty()]
+        public int PhysicianId
         {
             get { return this.m_PhysicianId; }
             set
@@ -125,6 +133,7 @@ namespace YellowstonePathology.Business.View
             }
         }
 
+        [PersistentProperty()]
         public string PhysicianName
         {
             get { return this.m_PhysicianName; }

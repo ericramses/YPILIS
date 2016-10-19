@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.Gateway
         {
             YellowstonePathology.UI.EmbeddingBreastCaseList result = new UI.EmbeddingBreastCaseList();
             SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "select ao.MasterAccessionNo, ao.PFirstName, ao.PLastName, so.Collectiontime, so.ProcessorRun, so.FixationStartTime, so.FixationEndTime, datediff(hh, fixationstarttime, fixationendtime) [FixationDuration] " + 
+            cmd.CommandText = "select ao.MasterAccessionNo, ao.PFirstName, ao.PLastName, so.Collectiontime, so.ProcessorRun, so.FixationStartTime, so.FixationEndTime, datediff(hh, fixationstarttime, fixationendtime) [FixationDurationCalc], FixationDuration, so.Description " + 
                 "from tblAccessionOrder ao " +
                 "join tblspecimenOrder so on ao.masterAccessionNo = so.MasterAccessionNo " +
                 "where charindex('Breast', so.Description) > 0 " +
@@ -53,8 +53,7 @@ namespace YellowstonePathology.Business.Gateway
                 "join tblPanelSetOrder pso on ao.MasterAccessionNo = pso.MasterAccessionNo " +
                 "join tblSpecimenOrder so on ao.MasterAccessionno = so.MasterAccessionNo " +
                 "join tblAliquotOrder a on so.SpecimenOrderId = a.SpecimenOrderId " +
-                "where ao.AccessionDate = @AccessionDate and aliquotType = 'Block' and embeddingVerified = 0" +
-                "and so.RequiresGrossExamination = 1 and so.ProcessorRunId <> 'HOLD'";
+                "where ao.AccessionDate = @AccessionDate and a.aliquotType = 'Block' and a.embeddingVerified = 0 and a.ClientAccessioned = 0";                
 
             cmd.CommandType = CommandType.Text;
             cmd.Parameters.Add("@AccessionDate", SqlDbType.DateTime).Value = accessionDate;            
@@ -110,11 +109,11 @@ namespace YellowstonePathology.Business.Gateway
             return result;
         }
 
-        public static YellowstonePathology.Business.Specimen.Model.SpecimenOrderCollection GetSpecimenOrderHoldCollection()
+        public static YellowstonePathology.Business.Test.AliquotOrderCollection GetAliquotOrderHoldCollection()
         {
-            YellowstonePathology.Business.Specimen.Model.SpecimenOrderCollection result = new Specimen.Model.SpecimenOrderCollection();
+            YellowstonePathology.Business.Test.AliquotOrderCollection result = new Test.AliquotOrderCollection();
             SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "Select * from tblSpecimenOrder where ProcessorRunId = 'HOLD'";
+            cmd.CommandText = "Select * from tblAliquotOrder where Status = 'Hold'";
             cmd.CommandType = CommandType.Text;
 
             using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
@@ -125,10 +124,35 @@ namespace YellowstonePathology.Business.Gateway
                 {
                     while (dr.Read())
                     {
-                        YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = new Specimen.Model.SpecimenOrder();
-                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(specimenOrder, dr);
+                        YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = new Test.AliquotOrder();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(aliquotOrder, dr);
                         sqlDataReaderPropertyWriter.WriteProperties();
-                        result.Add(specimenOrder);
+                        result.Add(aliquotOrder);
+                    }
+                }
+            }
+            return result;
+        }
+
+        public static YellowstonePathology.Business.Test.AliquotOrderCollection GetAliquotOrderCollection(string specimenOrderId)
+        {
+            YellowstonePathology.Business.Test.AliquotOrderCollection result = new Test.AliquotOrderCollection();
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "Select * from tblAliquotOrder where SpecimenOrderId = '" + specimenOrderId + "'";
+            cmd.CommandType = CommandType.Text;
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = new Test.AliquotOrder();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(aliquotOrder, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(aliquotOrder);
                     }
                 }
             }
@@ -606,34 +630,6 @@ namespace YellowstonePathology.Business.Gateway
             }
             return result;
         }        
-
-		public static XElement GetAccessionOrderDocumentByReportNo(string reportNo)
-		{
-			SqlCommand cmd = new SqlCommand();
-			cmd.CommandText = "gwGetAccessionByReportNo_A8";
-			cmd.CommandType = CommandType.StoredProcedure;
-			cmd.Parameters.Add("@ReportNo", SqlDbType.VarChar).Value = reportNo;
-			XElement document = AccessionOrderGateway.GetAccessionOrderElement(cmd);
-			return document;
-		}
-
-		private static XElement GetAccessionOrderElement(SqlCommand cmd)
-		{
-			XElement result = null;
-			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-			{
-				cn.Open();
-				cmd.Connection = cn;
-				using (XmlReader xmlReader = cmd.ExecuteXmlReader())
-				{
-					if (xmlReader.Read() == true)
-					{
-						result = XElement.Load(xmlReader, LoadOptions.PreserveWhitespace);
-					}
-				}
-			}
-			return result;
-		}
 
         public static YellowstonePathology.Business.Patient.Model.SVHBillingDataCollection GetSVHBillingDataCollection(string mrn)
 		{
@@ -2289,29 +2285,6 @@ namespace YellowstonePathology.Business.Gateway
 			return result;
 #endif
 		}
-
-		public static XElement GetAccessionOrderXMLDocument(string masterAccessionNo)
-		{            
-			SqlCommand cmd = new SqlCommand();
-			cmd.CommandText = "buildAccessionOrderXML";
-			cmd.CommandType = CommandType.StoredProcedure;
-			cmd.Parameters.Add("@MasterAccessionNo", SqlDbType.VarChar).Value = masterAccessionNo;
-
-			XElement result = null;
-
-			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-			{
-				cn.Open();
-				cmd.Connection = cn;
-
-				using (XmlReader xmlReader = cmd.ExecuteXmlReader())
-				{
-					result = XElement.Load(xmlReader);
-				}
-			}
-
-			return result;
-		}		
 
 		public static YellowstonePathology.Business.Test.Model.StainTest GetStainTestByTestId(int testId)
 		{

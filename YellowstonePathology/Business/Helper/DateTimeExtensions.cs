@@ -107,6 +107,20 @@ namespace YellowstonePathology.Business.Helper
             return match.Success;
         }
 
+        public static bool IsDateToday(DateTime dt)
+        {
+            bool result = false;
+            if (dt.Day == DateTime.Today.Day && dt.Year == DateTime.Today.Year) result = true;
+            return result;
+        }
+
+        public static bool IsDateYesterday(DateTime dt)
+        {
+            bool result = false;
+            if (dt.Day == DateTime.Today.AddDays(-1).Day && dt.Year == DateTime.Today.AddDays(-1).Year) result = true;
+            return result;
+        }
+
         public static bool IsCorrectFormat(string formattedDateString)
         {
             bool result = false;
@@ -192,6 +206,20 @@ namespace YellowstonePathology.Business.Helper
         {
             return resultDate.ToString("yyyy-MM-ddTHH:mm:ssZ");
         }        
+
+        public static Nullable<DateTime> NullableDateTimeFromString(string dt)
+        {
+            Nullable<DateTime> result = new DateTime();
+            if (dt != "null") result = DateTime.Parse(dt);
+            return result;
+        }
+
+        public static Nullable<TimeSpan> NullableTimeSpanFromString(string ts)
+        {
+            Nullable<TimeSpan> result = new TimeSpan();
+            if (ts != "null") result = TimeSpan.FromTicks(Convert.ToInt64(ts.ToString()));
+            return result;
+        }
 
         public static void ToXmlString(XElement element, Nullable<DateTime> value)
         {

@@ -259,13 +259,13 @@ namespace YellowstonePathology.MySQLMigration
             return methodResult;
         }
 
-        public Business.Rules.MethodResult LoadData(MigrationStatus migrationSatus, int numberOfObjectsToMove, int whenToStop)
+        public Business.Rules.MethodResult LoadData(MigrationStatus migrationStatus, int numberOfObjectsToMove, int whenToStop)
         {
             Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
 
             string countToMove = numberOfObjectsToMove.ToString();
            
-            int repetitions = this.GetTableRepeatCount(migrationSatus.TableName, countToMove);
+            int repetitions = this.GetTableRepeatCount(migrationStatus.TableName, countToMove);
             if(repetitions > 0)
             {
                 if(whenToStop <= repetitions)
@@ -277,10 +277,10 @@ namespace YellowstonePathology.MySQLMigration
             for (int idx = 0; idx < repetitions; idx++)
             {
                 SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = this.GetSelectStatement(migrationSatus.TableName, migrationSatus.PersistentProperties, countToMove);
+                cmd.CommandText = this.GetSelectStatement(migrationStatus.TableName, migrationStatus.PersistentProperties, countToMove);
                 cmd.CommandType = CommandType.Text;
 
-                using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+                /*using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
                 {
                     cn.Open();
                     cmd.Connection = cn;
@@ -288,21 +288,50 @@ namespace YellowstonePathology.MySQLMigration
                     {
                         while (dr.Read())
                         {
-                            string commandText = this.GetInsertStatement(migrationSatus.TableName, migrationSatus.PersistentProperties, dr);
+                            string commandText = this.GetInsertStatement(migrationStatus.TableName, migrationStatus.PersistentProperties, dr);
                             Business.Rules.MethodResult result = this.RunCommand(commandText);
                             if(result.Success == false)
                             {
                                 methodResult.Message += "Error in Loading Data" + commandText;
                                 methodResult.Success = false;
+                                this.SaveError(migrationStatus.TableName, commandText);
                             }
                         }
                     }
+                }*/
+
+
+                DataSet dataSet = new DataSet();
+                dataSet.EnforceConstraints = false;
+                DataTable dataTable = new DataTable();
+                dataSet.Tables.Add(dataTable);
+                using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+                {
+                    cn.Open();
+                    cmd.Connection = cn;
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        dataTable.Load(dr, LoadOption.OverwriteChanges);
+                    }
                 }
 
-                this.SetTransfered(migrationSatus.TableName, migrationSatus.KeyFieldName, countToMove);
+                DataTableReader dataTableReader = new DataTableReader(dataTable);
+                while (dataTableReader.Read())
+                {
+                    string commandText = this.GetInsertStatement(migrationStatus.TableName, migrationStatus.PersistentProperties, dataTableReader);
+                    Business.Rules.MethodResult result = this.RunCommand(commandText);
+                    if (result.Success == false)
+                    {
+                        methodResult.Message += "Error in Loading Data" + commandText;
+                        methodResult.Success = false;
+                        this.SaveError(migrationStatus.TableName, commandText);
+                    }
+                }
+
+                this.SetTransfered(migrationStatus.TableName, migrationStatus.KeyFieldName, countToMove);
             }
 
-            YellowstonePathology.Business.Mongo.Gateway.SetTransferDBTS(migrationSatus.TableName);
+            YellowstonePathology.Business.Mongo.Gateway.SetTransferDBTS(migrationStatus.TableName);
             return methodResult;
         }
 
@@ -334,10 +363,12 @@ namespace YellowstonePathology.MySQLMigration
             }
             return result;
         }
+
         private void SetTransfered(string tableName, string keyName, string rowsToUse)
         {
             SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "update " + tableName + " set Transferred = 1 where  " + keyName + " in (Select top (" + rowsToUse + ") " + keyName + " from " + tableName + " where Transferred is null or Transferred = 0)";
+            //cmd.CommandText = "update " + tableName + " set Transferred = 1 where  " + keyName + " in (Select top (" + rowsToUse + ") " + keyName + " from " + tableName + " where (Transferred is null or Transferred = 0) order by " + keyName + ")";
+            cmd.CommandText = "update " + tableName + " set Transferred = 1 where  " + keyName + " in (Select top (" + rowsToUse + ") " + keyName + " from " + tableName + " where (Transferred is null or Transferred = 0) and ReportNo not like '16-%' order by " + keyName + ")";
             using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
@@ -358,11 +389,13 @@ namespace YellowstonePathology.MySQLMigration
 
             result = result.Remove(result.Length - 2, 2);
 
-            result = result + " from " + tableName + " Where Transferred is null or Transferred = 0 Order By " + properties[0].Name;
+            //result = result + " from " + tableName + " Where (Transferred is null or Transferred = 0) Order By " + properties[0].Name;
+            result = result + " from " + tableName + " Where (Transferred is null or Transferred = 0) and ReportNo not like '16-%' Order By " + properties[0].Name;
             return result;
         }
 
-        private string GetInsertStatement(string tableName, List<PropertyInfo> properties, SqlDataReader dr)
+        //private string GetInsertStatement(string tableName, List<PropertyInfo> properties, SqlDataReader dr)
+        private string GetInsertStatement(string tableName, List<PropertyInfo> properties, System.Data.Common.DbDataReader dr)
         {
             string result = "Insert " + tableName + "(";
 
@@ -464,7 +497,7 @@ namespace YellowstonePathology.MySQLMigration
         {
             Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
             methodResult.Message = string.Empty;
-            string rowsToUse = "1000";
+            string rowsToUse = migrationSatus.OutOfSyncCount.ToString();
             string primaryKeyType = this.GetMySQLDataType(migrationSatus.KeyFieldProperty.PropertyType);
             if (migrationSatus.PersistentProperties.Count > 0)
             {
@@ -571,6 +604,9 @@ namespace YellowstonePathology.MySQLMigration
                 migrationStatus.UnLoadedDataCount = this.GetDataCount(migrationStatus.TableName);
                 migrationStatus.OutOfSyncCount = migrationStatus.UnLoadedDataCount;
             }
+
+            Business.Rules.MethodResult missingColumnResult = CompareTable(migrationStatus);
+            migrationStatus.HasAllColumns = missingColumnResult.Success;
         }
 
         private bool TableHasTransferColumn(string tableName)
@@ -955,6 +991,126 @@ namespace YellowstonePathology.MySQLMigration
             dataDefinition.Append("\", \"");
             dataDefinition.Append(dataType);
             dataDefinition.Append("\")]");
+        }
+
+        public Business.Rules.MethodResult CompareTable(MigrationStatus migrationStatus)
+        {
+            Business.Rules.MethodResult result = new Business.Rules.MethodResult();
+            result.Message = "Missing columns: ";
+            List<string> columnNames = this.RunTableQuery(migrationStatus.TableName);
+            foreach(PropertyInfo property in migrationStatus.PersistentProperties)
+            {
+                bool found = false;
+                foreach(string columnName in columnNames)
+                {
+                    if(columnName == property.Name)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+
+                if(found == false)
+                {
+                    result.Success = false;
+                    result.Message += property.Name + ", ";
+                }
+            }
+            return result;
+        }
+
+        private List<string> RunTableQuery(string tableName)
+        {
+            List<string> result = new List<string>();
+
+            using (MySqlConnection cn = new MySqlConnection(ConnectionString))
+            {
+                cn.Open();
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.Connection = cn;
+                cmd.CommandText = "select c.NAME from INFORMATION_SCHEMA.INNODB_SYS_COLUMNS c join INFORMATION_SCHEMA.INNODB_SYS_TABLES t " +
+                    "on c.TABLE_ID = t.TABLE_ID where t.Name = concat('lis/', @TableName);";
+                cmd.Parameters.Add("@TableName", MySqlDbType.VarChar).Value = tableName;
+
+                using(MySqlDataReader msdr = cmd.ExecuteReader())
+                {
+                    while(msdr.Read())
+                    {
+                        result.Add(msdr[0].ToString());
+                    }
+                }
+            }
+            return result;
+        }
+
+        public Business.Rules.MethodResult AddMissingColumns(MigrationStatus migrationStatus)
+        {
+            Business.Rules.MethodResult result = new Business.Rules.MethodResult();
+            result.Message = "Errored on: ";
+            Business.Rules.MethodResult missingColumnResult = this.CompareTable(migrationStatus);
+            if(missingColumnResult.Success == false)
+            {
+                string columns = missingColumnResult.Message.Replace("Missing columns: ", string.Empty);
+                string[] missingColumns = columns.Split(new string[] { ", " }, StringSplitOptions.RemoveEmptyEntries);
+                foreach(string columnName in missingColumns)
+                {
+                    foreach(PropertyInfo property in migrationStatus.PersistentProperties)
+                    {
+                        if(property.Name == columnName)
+                        {
+                            string columnDefinition = this.GetDataColumnDefinition(migrationStatus.TableName, property);
+                            string columnDataType = columnDefinition.Replace(columnName + " ", string.Empty);
+                            columnDataType = columnDataType.Substring(0, columnDataType.Length - 2);
+                            string command = this.GetAddColumnCommand(migrationStatus.TableName, columnName, columnDataType);
+                            Business.Rules.MethodResult columnResult = this.RunCommand(command);
+                            if(columnResult.Success == false)
+                            {
+                                result.Success = false;
+                                result.Message += columnName + ", ";
+                            }
+                            break;
+                        }
+                    }
+                }
+            }
+
+            migrationStatus.HasAllColumns = result.Success;
+            return result;
+        }
+
+        private void SaveError(string tableName, string errorCommand)
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "Insert tblMySqlError(TableName, ErrorCommand) values(@TableName, @ErrorCommand)";
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.Add("@TableName", SqlDbType.VarChar).Value = tableName;
+            cmd.Parameters.Add("@ErrorCommand", SqlDbType.VarChar).Value = errorCommand;
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public Business.Rules.MethodResult DailySync(MigrationStatus migrationStatus)
+        {
+            Business.Rules.MethodResult result = new Business.Rules.MethodResult();
+            this.GetStatus(migrationStatus);
+            if(migrationStatus.HasTable && migrationStatus.HasAllColumns && migrationStatus.HasDBTS &&
+                migrationStatus.HasTimestampColumn && migrationStatus.HasTransferredColumn)
+            {
+                if(migrationStatus.OutOfSyncCount > 0)
+                {
+                    result = this.Synchronize(migrationStatus);
+                }
+                if (migrationStatus.UnLoadedDataCount > 0)
+                {
+                    result = this.LoadData(migrationStatus, migrationStatus.UnLoadedDataCount, 1);
+                }
+            }
+            return result;
         }
 
         #region ReservedWords

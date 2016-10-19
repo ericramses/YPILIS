@@ -11,7 +11,7 @@ namespace YellowstonePathology.Business.Gateway
 {
     public class XmlGateway
     {
-        public static XElement GetSpecimenOrder(string masterAccessionNo)
+        /*public static XElement GetSpecimenOrder(string masterAccessionNo)
         {
             XElement result = new XElement("SpecimenOrders");
 
@@ -40,9 +40,9 @@ namespace YellowstonePathology.Business.Gateway
             }
 
             return result;
-        }
+        }*/
 
-		public static XElement GetAccessionOrder(string masterAccessionNo)
+		/*public static XElement GetAccessionOrder(string masterAccessionNo)
         {            
             SqlCommand cmd = new SqlCommand();
             cmd.CommandText = "Select * from tblAccessionOrder where MasterAccessionno = '" + masterAccessionNo + "'";
@@ -67,9 +67,9 @@ namespace YellowstonePathology.Business.Gateway
 			YellowstonePathology.Business.Persistence.XmlPropertyReader xmlPropertyReader = new YellowstonePathology.Business.Persistence.XmlPropertyReader(accessionOrder, result);
 			xmlPropertyReader.Write();
             return result;
-        }
+        }*/
 
-		public static XElement GetClientOrders(string masterAccessionNo)
+		/*public static XElement GetClientOrders(string masterAccessionNo)
 		{			
 			XElement result = new XElement("ClientOrders");
             YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection clientOrderCollection = YellowstonePathology.Business.Gateway.ClientOrderGateway.GetClientOrdersByMasterAccessionNo(masterAccessionNo);
@@ -89,7 +89,7 @@ namespace YellowstonePathology.Business.Gateway
                 }
             }            
 			return result;
-		}
+		}*/
 
 		public static XElement GetOrderComments(string masterAccessionNo)
 		{
@@ -123,10 +123,10 @@ namespace YellowstonePathology.Business.Gateway
 			return result;
 		}
 
-		public static YellowstonePathology.Document.Result.Data.PlacentalPathologyQuestionnaireData GetPlacentalPathologyQuestionnaire(string clientOrderId, object writer)
+		/*public static YellowstonePathology.Document.Result.Data.PlacentalPathologyQuestionnaireData GetPlacentalPathologyQuestionnaire(string clientOrderId, object writer)
 		{
             YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullClientOrder(clientOrderId, writer);
-			XElement clientOrderElement = new XElement("ClientOrder");
+            XElement clientOrderElement = new XElement("ClientOrder");
 			YellowstonePathology.Business.Persistence.XmlPropertyReader clientOrderPropertyWriter = new Persistence.XmlPropertyReader(clientOrder, clientOrderElement);
 			clientOrderPropertyWriter.Write();
 
@@ -141,10 +141,17 @@ namespace YellowstonePathology.Business.Gateway
 				}
 			}
 			YellowstonePathology.Document.Result.Data.PlacentalPathologyQuestionnaireData result = new YellowstonePathology.Document.Result.Data.PlacentalPathologyQuestionnaireData(clientOrderElement);
-			return result;
-		}
+            return result;
+		}*/
 
-		public static YellowstonePathology.Business.Domain.XElementFromSql GetXmlOrdersToAcknowledge(string panelOrderIds)
+        public static YellowstonePathology.Business.XPSDocument.Result.Data.PlacentalPathologyQuestionnaireDataV2 GetPlacentalPathologyQuestionnaire1(string clientOrderId, object writer)
+        {
+            YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullClientOrder(clientOrderId, writer);
+            YellowstonePathology.Business.XPSDocument.Result.Data.PlacentalPathologyQuestionnaireDataV2 result = new YellowstonePathology.Business.XPSDocument.Result.Data.PlacentalPathologyQuestionnaireDataV2(clientOrder);
+            return result;
+        }
+
+        /*public static YellowstonePathology.Business.Domain.XElementFromSql GetXmlOrdersToAcknowledge(string panelOrderIds)
 		{
 			SqlCommand cmd = new SqlCommand();
 			cmd.CommandText = "pGetXmlOrdersToAcknowledge_A1";
@@ -167,9 +174,73 @@ namespace YellowstonePathology.Business.Gateway
 			YellowstonePathology.Business.Domain.XElementFromSql xElementFromSql = new Domain.XElementFromSql();
 			xElementFromSql.Document = fromSqlElement;
 			return xElementFromSql;
-		}
+		}*/
 
-		public static YellowstonePathology.Document.Result.Data.AccessionOrderDataSheetData GetAccessionOrderDataSheetData(string masterAccessionNo)
+        public static YellowstonePathology.Business.Reports.LabOrderSheetData GetOrdersToAcknowledge(string panelOrderIds)
+        {
+            Reports.LabOrderSheetData result = new Reports.LabOrderSheetData();
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "pGetXmlOrdersToAcknowledge_A2";
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@PanelOrderIdString", SqlDbType.VarChar).Value = panelOrderIds;
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while(dr.Read())
+                    {
+                        Reports.LabOrderSheetDataReport labOrderSheetDataReport = new Reports.LabOrderSheetDataReport();
+                        Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(labOrderSheetDataReport, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(labOrderSheetDataReport);
+                    }
+                    dr.NextResult();
+
+                    while (dr.Read())
+                    {
+                        Reports.LabOrderSheetDataPanelOrder labOrderSheetDataPanelOrder = new Reports.LabOrderSheetDataPanelOrder();
+                        Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(labOrderSheetDataPanelOrder, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        foreach(Reports.LabOrderSheetDataReport labOrderSheetDataReport in result)
+                        {
+                            if (labOrderSheetDataReport.ReportNo == labOrderSheetDataPanelOrder.ReportNo)
+                            {
+                                labOrderSheetDataReport.LabOrderSheetDataPanelOrders.Add(labOrderSheetDataPanelOrder);
+                                break;
+                            }
+                        }
+                    }
+                    dr.NextResult();
+
+                    while (dr.Read())
+                    {
+                        Reports.LabOrderSheetDataTestOrder labOrderSheetDataTestOrder = new Reports.LabOrderSheetDataTestOrder();
+                        Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(labOrderSheetDataTestOrder, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        foreach (Reports.LabOrderSheetDataReport labOrderSheetDataReport in result)
+                        {
+                            bool added = false;
+                            foreach(Reports.LabOrderSheetDataPanelOrder labOrderSheetDataPanelOrder in labOrderSheetDataReport.LabOrderSheetDataPanelOrders)
+                            {
+                                if (labOrderSheetDataPanelOrder.PanelOrderId == labOrderSheetDataTestOrder.PanelOrderId)
+                                {
+                                    labOrderSheetDataPanelOrder.LabOrderSheetDataTestOrders.Add(labOrderSheetDataTestOrder);
+                                    added = true;
+                                    break;
+                                }
+                            }
+                            if (added == true) break;
+                        }
+                    }
+                }
+            }
+            return result;
+        }
+
+        /*public static YellowstonePathology.Document.Result.Data.AccessionOrderDataSheetData GetAccessionOrderDataSheetData(string masterAccessionNo)
 		{
 			XElement accessionOrderDocument = XmlGateway.GetAccessionOrder(masterAccessionNo);
 			XElement specimenOrderDocument = XmlGateway.GetSpecimenOrder(masterAccessionNo);
@@ -178,9 +249,53 @@ namespace YellowstonePathology.Business.Gateway
 
 			YellowstonePathology.Document.Result.Data.AccessionOrderDataSheetData accessionOrderDataSheetData = new YellowstonePathology.Document.Result.Data.AccessionOrderDataSheetData(accessionOrderDocument, specimenOrderDocument, clientOrderDocument, caseNotesDocument);
 			return accessionOrderDataSheetData;
-		}		
-        
-        public static XElement GetClientBillingDetailReport(DateTime postDateStart, DateTime postDateEnd, Nullable<int> clientGroupId)
+		}*/
+
+        public static Business.XPSDocument.Result.Data.AccessionOrderDataSheetDataV2 GetAccessionOrderDataSheetData(string masterAccessionNo)
+        {
+            Test.AccessionOrder accessionOrder = GetAccessionOrder(masterAccessionNo);
+            ClientOrder.Model.ClientOrderCollection clientOrderCollection = YellowstonePathology.Business.Gateway.ClientOrderGateway.GetClientOrdersByMasterAccessionNo(masterAccessionNo);
+            Domain.OrderCommentLogCollection orderCommentLogCollection = Gateway.OrderCommentGateway.GetOrderCommentLogCollectionByMasterAccessionNo(masterAccessionNo);
+            Business.XPSDocument.Result.Data.AccessionOrderDataSheetDataV2 accessionOrderDataSheetData = new Business.XPSDocument.Result.Data.AccessionOrderDataSheetDataV2(accessionOrder, clientOrderCollection, orderCommentLogCollection);
+            return accessionOrderDataSheetData;
+        }
+
+        public static Test.AccessionOrder GetAccessionOrder(string masterAccessionNo)
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "Select * from tblAccessionOrder where MasterAccessionno = @MasterAccessionNo " +
+                "Select * from tblSpecimenOrder where MasterAccessionNo = @MasterAccessionNo order by SpecimenNumber";
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.Add("@MasterAccessionNo", SqlDbType.VarChar).Value = masterAccessionNo;
+
+            YellowstonePathology.Business.Test.AccessionOrder result = new Test.AccessionOrder();
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter propertyWriter = new YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter(result, dr);
+                        propertyWriter.WriteProperties();
+                    }
+                    dr.NextResult();
+
+                    while (dr.Read())
+                    {
+                        Specimen.Model.SpecimenOrder specimenOrder = new Specimen.Model.SpecimenOrder();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter propertyWriter = new YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter(specimenOrder, dr);
+                        propertyWriter.WriteProperties();
+                        result.SpecimenOrderCollection.Add(specimenOrder);
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        /*public static XElement GetClientBillingDetailReport(DateTime postDateStart, DateTime postDateEnd, Nullable<int> clientGroupId)
         {
             XElement result = new XElement("Document");
             SqlCommand cmd = new SqlCommand();
@@ -204,9 +319,95 @@ namespace YellowstonePathology.Business.Gateway
             }
 
             return result;
+        }*/
+
+        public static XPSDocument.Result.ClientBillingDetailReportResult.ClientBillingDetailReportData GetClientBillingDetailReport(DateTime postDateStart, DateTime postDateEnd, Nullable<int> clientGroupId)
+        {
+            XPSDocument.Result.ClientBillingDetailReportResult.ClientBillingDetailReportData result = new XPSDocument.Result.ClientBillingDetailReportResult.ClientBillingDetailReportData();
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "prcGetClientBillingDetailReport_1";
+            cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = postDateStart;
+            cmd.Parameters.Add("@EndDate", SqlDbType.DateTime).Value = postDateEnd;
+            cmd.Parameters.Add("@ClientGroupId", SqlDbType.Int).Value = clientGroupId;
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        XPSDocument.Result.ClientBillingDetailReportResult.ClientBillingDetailReportDataAccessionOrder clientBillingDetailReportDataAccessionOrder = new XPSDocument.Result.ClientBillingDetailReportResult.ClientBillingDetailReportDataAccessionOrder();
+                        Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(clientBillingDetailReportDataAccessionOrder, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(clientBillingDetailReportDataAccessionOrder);
+                    }
+                    dr.NextResult();
+
+                    while (dr.Read())
+                    {
+                        XPSDocument.Result.ClientBillingDetailReportResult.ClientBillingDetailReportDataReport clientBillingDetailReportDataReport = new XPSDocument.Result.ClientBillingDetailReportResult.ClientBillingDetailReportDataReport();
+                        Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(clientBillingDetailReportDataReport, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        foreach(XPSDocument.Result.ClientBillingDetailReportResult.ClientBillingDetailReportDataAccessionOrder clientBillingDetailReportDataAccessionOrder in result)
+                        {
+                            if (clientBillingDetailReportDataReport.MasterAccessionNo == clientBillingDetailReportDataAccessionOrder.MasterAccessionNo)
+                            {
+                                clientBillingDetailReportDataAccessionOrder.ClientBillingDetailReportDataReports.Add(clientBillingDetailReportDataReport);
+                                break;
+                            }
+
+                        }
+                    }
+                    dr.NextResult();
+
+                    while (dr.Read())
+                    {
+                        Test.PanelSetOrderCPTCode panelSetOrderCPTCode = new Test.PanelSetOrderCPTCode();
+                        Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(panelSetOrderCPTCode, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        foreach (XPSDocument.Result.ClientBillingDetailReportResult.ClientBillingDetailReportDataAccessionOrder clientBillingDetailReportDataAccessionOrder in result)
+                        {
+                            bool added = false;
+                            foreach(XPSDocument.Result.ClientBillingDetailReportResult.ClientBillingDetailReportDataReport clientBillingDetailReportDataReport in clientBillingDetailReportDataAccessionOrder.ClientBillingDetailReportDataReports)
+                            if (panelSetOrderCPTCode.ReportNo == clientBillingDetailReportDataReport.ReportNo)
+                            {
+                                clientBillingDetailReportDataReport.PanelSetOrderCPTCodes.Add(panelSetOrderCPTCode);
+                                added = true;
+                                break;
+                            }
+                            if (added) break;
+                        }
+                    }
+                    dr.NextResult();
+
+                    while (dr.Read())
+                    {
+                        Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill = new Test.PanelSetOrderCPTCodeBill();
+                        Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(panelSetOrderCPTCodeBill, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        foreach (XPSDocument.Result.ClientBillingDetailReportResult.ClientBillingDetailReportDataAccessionOrder clientBillingDetailReportDataAccessionOrder in result)
+                        {
+                            bool added = false;
+                            foreach (XPSDocument.Result.ClientBillingDetailReportResult.ClientBillingDetailReportDataReport clientBillingDetailReportDataReport in clientBillingDetailReportDataAccessionOrder.ClientBillingDetailReportDataReports)
+                                if (panelSetOrderCPTCodeBill.ReportNo == clientBillingDetailReportDataReport.ReportNo)
+                                {
+                                    clientBillingDetailReportDataReport.PanelSetOrderCPTCodeBills.Add(panelSetOrderCPTCodeBill);
+                                    added = true;
+                                    break;
+                                }
+                            if (added) break;
+                        }
+                    }
+                }
+            }
+
+            return result;
         }
 
-        public static XElement GetClientSupplyOrderReportData(string clientSupplyOrderId)
+        /*public static XElement GetClientSupplyOrderReportData(string clientSupplyOrderId)
         {
             XElement result = new XElement("Document");
             SqlCommand cmd = new SqlCommand();
@@ -231,6 +432,6 @@ namespace YellowstonePathology.Business.Gateway
             }
 
             return result;
-        }
+        }*/
     }
 }

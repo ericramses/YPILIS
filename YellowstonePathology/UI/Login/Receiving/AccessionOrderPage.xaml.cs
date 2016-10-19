@@ -403,8 +403,10 @@ namespace YellowstonePathology.UI.Login.Receiving
             if (this.m_AccessionOrder.PanelSetOrderCollection.Count > 0)
             {
                 Business.Persistence.DocumentGateway.Instance.Save();
-                YellowstonePathology.Document.Result.Data.AccessionOrderDataSheetData accessionOrderDataSheetData = YellowstonePathology.Business.Gateway.XmlGateway.GetAccessionOrderDataSheetData(this.m_AccessionOrder.MasterAccessionNo);
-                YellowstonePathology.Document.Result.Xps.AccessionOrderDataSheet accessionOrderDataSheet = new Document.Result.Xps.AccessionOrderDataSheet(accessionOrderDataSheetData);
+                //YellowstonePathology.Document.Result.Data.AccessionOrderDataSheetData accessionOrderDataSheetData = YellowstonePathology.Business.Gateway.XmlGateway.GetAccessionOrderDataSheetData(this.m_AccessionOrder.MasterAccessionNo);
+                //YellowstonePathology.Document.Result.Xps.AccessionOrderDataSheet accessionOrderDataSheet = new Document.Result.Xps.AccessionOrderDataSheet(accessionOrderDataSheetData);
+                YellowstonePathology.Business.XPSDocument.Result.Data.AccessionOrderDataSheetDataV2 accessionOrderDataSheetData = YellowstonePathology.Business.Gateway.XmlGateway.GetAccessionOrderDataSheetData(this.m_AccessionOrder.MasterAccessionNo);
+                YellowstonePathology.Document.Result.Xps.AccessionOrderDataSheetV2 accessionOrderDataSheet = new Document.Result.Xps.AccessionOrderDataSheetV2(accessionOrderDataSheetData);
                 System.Printing.PrintQueue printQueue = new System.Printing.LocalPrintServer().DefaultPrintQueue;
 
                 System.Windows.Controls.PrintDialog printDialog = new System.Windows.Controls.PrintDialog();

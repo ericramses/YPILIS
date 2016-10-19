@@ -8,11 +8,11 @@ namespace YellowstonePathology.Business.Label.Model
     public class BlockLabelPrinter
     {
         private System.Drawing.Printing.PrintDocument m_PrintDocument;        
-        private Queue<BlockLabel> m_BlockLabelQueue;        
+        private Queue<Business.Label.Model.HistologyBlockPaperZPLLabel> m_BlockLabelQueue;        
 
         public BlockLabelPrinter(YellowstonePathology.Business.Test.AliquotOrderCollection aliquotOrderCollection, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {            
-            this.m_BlockLabelQueue = new Queue<BlockLabel>();
+            this.m_BlockLabelQueue = new Queue<Business.Label.Model.HistologyBlockPaperZPLLabel>();
             foreach (YellowstonePathology.Business.Test.AliquotOrder aliquotOrder in aliquotOrderCollection)
             {
                 if (aliquotOrder.IsBlock() == true)
@@ -22,16 +22,16 @@ namespace YellowstonePathology.Business.Label.Model
                         YellowstonePathology.Business.OrderIdParser orderIdParser = new OrderIdParser(accessionOrder.MasterAccessionNo);
                         if (orderIdParser.IsLegacyMasterAccessionNo == false)
                         {
-                            BlockLabel blockLabel = new BlockLabel();
-                            blockLabel.FromAliquotOrder(aliquotOrder.AliquotOrderId, aliquotOrder.Label, accessionOrder.MasterAccessionNo, accessionOrder.PLastName, accessionOrder.PFirstName);
+                            string initials = Business.Helper.PatientHelper.GetPatientInitials(accessionOrder.PFirstName, accessionOrder.PLastName);
+                            Business.Label.Model.HistologyBlockPaperZPLLabel blockLabel = new Business.Label.Model.HistologyBlockPaperZPLLabel(aliquotOrder.AliquotOrderId, initials, aliquotOrder.Label, accessionOrder.MasterAccessionNo);                            
                             this.m_BlockLabelQueue.Enqueue(blockLabel);
                             aliquotOrder.Printed = true;
                         }
                         else
                         {
                             string reportNo = accessionOrder.PanelSetOrderCollection[0].ReportNo;
-                            BlockLabelLegacy blockLabel = new BlockLabelLegacy();
-                            blockLabel.FromLegacyAliquotOrder(aliquotOrder.AliquotOrderId, aliquotOrder.Label, reportNo, accessionOrder.PLastName, accessionOrder.PFirstName);
+                            string initials = Business.Helper.PatientHelper.GetPatientInitials(accessionOrder.PFirstName, accessionOrder.PLastName);
+                            Business.Label.Model.HistologyBlockPaperZPLLabel blockLabel = new Business.Label.Model.HistologyBlockPaperZPLLabel(aliquotOrder.AliquotOrderId, initials, aliquotOrder.Label, reportNo);
                             this.m_BlockLabelQueue.Enqueue(blockLabel);
                             aliquotOrder.Printed = true;
                         }
@@ -42,10 +42,10 @@ namespace YellowstonePathology.Business.Label.Model
 
         public BlockLabelPrinter(string aliquotOrderId, string aliquotLabel, string masterAccessionNo, string pLastName, string pFirstName)
         {
-            this.m_BlockLabelQueue = new Queue<BlockLabel>();
-            BlockLabel blockLabel = new BlockLabel();
-            blockLabel.FromAliquotOrder(aliquotOrderId, aliquotLabel, masterAccessionNo, pLastName, pFirstName);
-            this.m_BlockLabelQueue.Enqueue(blockLabel);        
+            this.m_BlockLabelQueue = new Queue<Business.Label.Model.HistologyBlockPaperZPLLabel>();
+            string initials = Business.Helper.PatientHelper.GetPatientInitials(pFirstName, pLastName);
+            Business.Label.Model.HistologyBlockPaperZPLLabel blockLabel = new Business.Label.Model.HistologyBlockPaperZPLLabel(aliquotOrderId, initials, aliquotLabel, masterAccessionNo);
+            this.m_BlockLabelQueue.Enqueue(blockLabel);
         }        
 
         public bool HasItemsToPrint()
@@ -56,38 +56,33 @@ namespace YellowstonePathology.Business.Label.Model
         }        
 
         public void Print()
-        {
-            this.m_PrintDocument = new System.Drawing.Printing.PrintDocument();
-            System.Printing.PrintServer printServer = new System.Printing.LocalPrintServer();
-            System.Printing.PrintQueue printQueue = printServer.GetPrintQueue(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.HistologySlideLabelPrinter);
-            this.m_PrintDocument.PrinterSettings.PrinterName = printQueue.FullName;
-            this.m_PrintDocument.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(PrintDocument_PrintPage);
-            this.m_PrintDocument.Print();            
+        {            
+            while (this.m_BlockLabelQueue.Count != 0)
+            {
+                this.PrintRow();
+            }
         }
 
-        private void PrintDocument_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        private void PrintRow()
         {
-            int count = 1;
-            int x = 3;
-            int y = 8;
+            StringBuilder result = new StringBuilder();
+            int xOffset = 0;
 
+            result.Append("^XA");
             for (int i = 0; i < 4; i++)
             {
-                BlockLabel blockLabel = this.m_BlockLabelQueue.Dequeue();
-                blockLabel.DrawLabel(x, y, e);                
-                x = x + 106;
-                count += 1;
-                if (this.m_BlockLabelQueue.Count == 0) break;
+                if(this.m_BlockLabelQueue.Count != 0)
+                {
+                    Business.Label.Model.HistologyBlockPaperZPLLabel label = this.m_BlockLabelQueue.Dequeue();
+                    label.AppendCommands(result, xOffset);
+                    xOffset += 325;
+                }                
             }
 
-            if (this.m_BlockLabelQueue.Count == 0)
-            {
-                e.HasMorePages = false;
-            }
-            else
-            {
-                e.HasMorePages = true;
-            }
-        }  
+            result.Append("^XZ");
+
+            Business.Label.Model.ZPLPrinter printer = new ZPLPrinter("10.1.1.21");
+            printer.Print(result.ToString());
+        }        
     }
 }

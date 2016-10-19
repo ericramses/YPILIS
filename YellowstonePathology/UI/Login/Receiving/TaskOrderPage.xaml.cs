@@ -39,6 +39,7 @@ namespace YellowstonePathology.UI.Login.Receiving
         private YellowstonePathology.Business.Facility.Model.FacilityCollection m_FacilityCollection;
 
         private YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort m_BarcodeScanPort;
+        private List<string> m_PaymentTypeList;
 
         public TaskOrderPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
 			YellowstonePathology.Business.Task.Model.TaskOrder taskOrder,
@@ -51,6 +52,11 @@ namespace YellowstonePathology.UI.Login.Receiving
             this.m_FacilityCollection = Business.Facility.Model.FacilityCollection.GetAllFacilities();
             this.m_TaskAssignmentList = YellowstonePathology.Business.Task.Model.TaskAssignment.GetTaskAssignmentList();
             this.m_BarcodeScanPort = YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort.Instance;
+
+            this.m_PaymentTypeList = new List<string>();
+            this.m_PaymentTypeList.Add("SENDER");
+            this.m_PaymentTypeList.Add("THIRD_PARTY");
+            this.m_PaymentTypeList.Add("RECIPIENT");
 
             InitializeComponent();
 
@@ -69,6 +75,11 @@ namespace YellowstonePathology.UI.Login.Receiving
         private void TaskOrderPage_Unloaded(object sender, RoutedEventArgs e)
         {
              
+        }
+
+        public List<string> PaymentTypeList
+        {
+            get { return this.m_PaymentTypeList; }
         }
 
         private void BarcodeScanPort_FedexOvernightScanReceived(string scanData)
@@ -249,7 +260,7 @@ namespace YellowstonePathology.UI.Login.Receiving
                 if (result.RequestWasSuccessful == true)
                 {
                     taskOrderDetail.TrackingNumber = result.TrackingNumber;
-                    taskOrderDetail.SetZPLFromBase64(result.ZPLII);
+                    taskOrderDetail.ZPLII = Business.Label.Model.ZPLPrinter.DecodeZPLFromBase64(result.ZPLII);
                 }
                 else
                 {
@@ -325,9 +336,15 @@ namespace YellowstonePathology.UI.Login.Receiving
             if(this.IsLoaded == true)
             {
                 ComboBox comboBox = (ComboBox)sender;
-                Business.Facility.Model.Facility facility = (Business.Facility.Model.Facility)comboBox.SelectedItem;
-                Business.Task.Model.TaskOrderDetailFedexShipment taskOrderDetail = this.m_TaskOrder.TaskOrderDetailCollection.GetFedexShipment();
-                taskOrderDetail.SetShipTo(facility);
+                if(comboBox.SelectionBoxItem != null)
+                {
+                    Business.Facility.Model.Facility facility = (Business.Facility.Model.Facility)comboBox.SelectedItem;
+                    if(facility != null)
+                    {
+                        Business.Task.Model.TaskOrderDetailFedexShipment taskOrderDetail = this.m_TaskOrder.TaskOrderDetailCollection.GetFedexShipment();
+                        taskOrderDetail.SetShipTo(facility);
+                    }                    
+                }                
                 this.NotifyPropertyChanged(string.Empty);
             }            
         }

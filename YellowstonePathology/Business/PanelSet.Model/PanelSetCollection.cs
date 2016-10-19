@@ -128,6 +128,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.Test.MUM1ByIHC.MUM1ByIHCTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.AMLPrognosticProfile.AMLPrognosticProfileTest());
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.NeoTypeDiscoveryProfileTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.NeoTypeEsophagealTumorProfileTest());
 
             //ARUP
             panelSetCollection.Add(new YellowstonePathology.Business.Test.HPV1618.HPV1618Test());
@@ -253,6 +254,8 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.Test.Trisomy21ByFISH.Trisomy21ByFISHTest());
 
             panelSetCollection.Add(new YellowstonePathology.Business.Test.BrainDonation.BrainDonationTest());
+
+            panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.ShipMaterialTest());
 
             PanelSetCollection result = new PanelSetCollection();
             IEnumerable<PanelSet> enumerable = panelSetCollection.OrderBy(i => i.PanelSetName);
@@ -395,6 +398,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.Test.TechnicalOnly.TechnicalOnlyTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.HoldForFlow.HoldForFlowTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.GrossOnly.GrossOnlyTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.ShipMaterialTest());
             return panelSetCollection;
         }
 

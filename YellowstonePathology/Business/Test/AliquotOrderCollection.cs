@@ -573,11 +573,11 @@ namespace YellowstonePathology.Business.Test
             int blockCount = GetBlockCount();
             if(blockCount == 1)
             {
-                result = "1 block ";
+                result = "1 block";
             }
             else
             {
-                result = blockCount.ToString() + " blocks ";
+                result = blockCount.ToString() + " blocks";
             }
             return result;
         }
@@ -604,11 +604,11 @@ namespace YellowstonePathology.Business.Test
             int count = GetClientAccessionedSlideOrderCount();
             if (count == 1)
             {
-                result = "1 slide ";
+                result = "1 slide";
             }
             else
             {
-                result = count.ToString() + " slides ";
+                result = count.ToString() + " slides";
             }
 
             return result;

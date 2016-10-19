@@ -116,6 +116,7 @@ namespace YellowstonePathology.UI.Gross
 		{
 			this.m_BarcodeScanPort.HistologyBlockScanReceived += this.HistologyBlockScanReceived;
             this.m_BarcodeScanPort.ContainerScanReceived += BarcodeScanPort_ContainerScanReceived;
+
 			if (this.m_CaseDocumentCollection.GetFirstRequisition() != null)
 			{
 				this.m_DocumentViewer.ShowDocument(this.m_CaseDocumentCollection.GetFirstRequisition());
@@ -401,18 +402,14 @@ namespace YellowstonePathology.UI.Gross
 			XElement specimenElement = new XElement("SpecimenOrder");
 			XElement specimenIsSelectedElement = new XElement("IsSelected", false);
 			XElement specimenOrderIdElement = new XElement("SpecimenOrderId", this.m_SpecimenOrder.SpecimenOrderId);
-            XElement specimenDescriptionElement = new XElement("Description", this.m_SpecimenOrder.Description);
-            XElement specimenProcessorRunElement = new XElement("ProcessorRun", this.m_SpecimenOrder.ProcessorRun);
-            XElement specimenProcessorRunIdElement = new XElement("ProcessorRunId", this.m_SpecimenOrder.ProcessorRunId);
-            XElement specimenFixationDurationStringElement = new XElement("FixationDurationString", this.m_SpecimenOrder.FixationDurationString);
+            XElement specimenDescriptionElement = new XElement("Description", this.m_SpecimenOrder.Description);            
+            XElement specimenFixationDurationStringElement = new XElement("FixationDurationString", this.m_SpecimenOrder.GetExpectedFixationDuration());
             XElement specimenTimeToFixationStringElement = new XElement("TimeToFixationString", this.m_SpecimenOrder.TimeToFixationString);
             XElement specimenFixationCommentElement = new XElement("FixationComment", this.m_SpecimenOrder.FixationComment);
 
 			specimenElement.Add(specimenIsSelectedElement);
 			specimenElement.Add(specimenOrderIdElement);
-			specimenElement.Add(specimenDescriptionElement);
-            specimenElement.Add(specimenProcessorRunElement);
-            specimenElement.Add(specimenProcessorRunIdElement);
+			specimenElement.Add(specimenDescriptionElement);            
             specimenElement.Add(specimenFixationDurationStringElement);
             specimenElement.Add(specimenTimeToFixationStringElement);
             specimenElement.Add(specimenFixationCommentElement);
@@ -424,13 +421,15 @@ namespace YellowstonePathology.UI.Gross
 				XElement aliquotIdElement = new XElement("AliquotOrderId", aliquotOrder.AliquotOrderId);
 				XElement aliquotLabelElement = new XElement("Label", aliquotOrder.Display);
 				XElement aliquotTypeElement = new XElement("Type", aliquotOrder.AliquotType);
-				XElement aliquotIsSelectedElement = new XElement("IsSelected", false);
+                XElement embeddingInstructionsElement = new XElement("EmbeddingInstructions", aliquotOrder.EmbeddingInstructions);
+                XElement aliquotIsSelectedElement = new XElement("IsSelected", false);
 
 				aliquotElement.Add(aliquotLabelElement);
 				aliquotElement.Add(aliquotIdElement);
 				aliquotElement.Add(aliquotTypeElement);
 				aliquotElement.Add(aliquotIsSelectedElement);
-				specimenElement.Add(aliquotElement);
+                aliquotElement.Add(embeddingInstructionsElement);
+                specimenElement.Add(aliquotElement);
 				
 				foreach (YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder in this.m_AccessionOrder.PanelSetOrderCollection)
 				{
@@ -526,6 +525,23 @@ namespace YellowstonePathology.UI.Gross
         private void ButtonProcessor_Click(object sender, RoutedEventArgs e)
         {
             if (this.ShowProcessorSelectionPage != null) this.ShowProcessorSelectionPage(this, new CustomEventArgs.SpecimenOrderReturnEventArgs(this.m_SpecimenOrder));
-        }        	
-	}
+        }
+
+        private void ButtonHoldAll_Click(object sender, RoutedEventArgs e)
+        {
+            foreach(Business.Test.AliquotOrder aliquotOrder in this.m_SpecimenOrder.AliquotOrderCollection)
+            {
+                if(aliquotOrder.Status == "Hold")
+                {
+                    aliquotOrder.Status = null;
+                }
+                else
+                {
+                    aliquotOrder.Status = "Hold";
+                }
+            }
+            this.GrossBlockManagementView = new Business.View.GrossBlockManagementView(this.m_AccessionOrder, this.m_CaseNotesDocument, this.m_SpecimenOrder);
+            this.SetupSpecimenView();
+        }
+    }
 }

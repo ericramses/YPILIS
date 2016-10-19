@@ -122,6 +122,30 @@ namespace YellowstonePathology.Business.Gateway
 #if MONGO
             return FlowGatewayMongo.GetFlowMarkerCollectionByPanelId(reportNo, panelId);
 #else
+            /*SqlCommand cmd = new SqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "Select @ReportNo as ReportNo, mp.MarkerName as Name, mp.Intensity, mp.Interpretation, 1 as MarkerUsed " +
+                "from tblFlowMarkerPanel mp left outer join tblMarkers m on mp.MarkerName = m.MarkerName where PanelId = @PanelId " +
+                "order by m.OrderFlag, m.MarkerName for xml path('FlowMarkerItem'), type, root('FlowMarkerCollection')";
+            cmd.Parameters.Add("@ReportNo", SqlDbType.VarChar).Value = reportNo;
+            cmd.Parameters.Add("@PanelId", SqlDbType.Int).Value = panelId;
+
+            XElement flowMarkerCollectionElement = null;
+            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (XmlReader xmlReader = cmd.ExecuteXmlReader())
+                {
+                    if (xmlReader.Read() == true)
+                    {
+                        flowMarkerCollectionElement = XElement.Load(xmlReader, LoadOptions.PreserveWhitespace);
+                    }
+                }
+            }
+
+            return BuildFlowMarkerCollection(flowMarkerCollectionElement);*/
+
             Flow.FlowMarkerCollection result = new Flow.FlowMarkerCollection();
             SqlCommand cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
@@ -171,7 +195,7 @@ namespace YellowstonePathology.Business.Gateway
 			return result;
 		}
 
-		private static Flow.FlowMarkerCollection BuildFlowMarkerCollection(XElement sourceElement)
+		/*private static Flow.FlowMarkerCollection BuildFlowMarkerCollection(XElement sourceElement)
 		{
 			Flow.FlowMarkerCollection flowMarkerCollection = new Flow.FlowMarkerCollection();
 			if (sourceElement != null)
@@ -183,7 +207,7 @@ namespace YellowstonePathology.Business.Gateway
 				}
 			}
 			return flowMarkerCollection;
-		}
+		}*/
 
 		private static Flow.FlowMarkerItem BuildFlowMarkerItem(XElement sourceElement)
 		{

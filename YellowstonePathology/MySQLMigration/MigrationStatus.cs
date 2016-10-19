@@ -19,6 +19,7 @@ namespace YellowstonePathology.MySQLMigration
         private bool m_HasTable;
         private bool m_HasTransferredColumn;
         private bool m_HasTimestampColumn;
+        private bool m_HasAllColumns;
         private bool m_HasDBTS;
         private int m_OutOfSyncCount;
         private int m_UnLoadedDataCount;
@@ -93,6 +94,16 @@ namespace YellowstonePathology.MySQLMigration
             {
                 this.m_HasTimestampColumn = value;
                 NotifyPropertyChanged("HasTimestampColumn");
+            }
+        }
+
+        public bool HasAllColumns
+        {
+            get { return this.m_HasAllColumns; }
+            set
+            {
+                this.m_HasAllColumns = value;
+                NotifyPropertyChanged("HasAllColumns");
             }
         }
 

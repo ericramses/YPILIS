@@ -20,8 +20,9 @@
             <Button Margin="10" Width="140" Height="50" Content="&lt; Back" Click="ButtonBack_Click" />
             <Button Margin="10" Width="140" Height="50" Content="Change Block Color" Click="ButtonChangeBlockColor_Click" />
             <Button Margin="10" Width="140" Height="50" Content="Reprint Block" Click="ButtonReprintBlock_Click" />
-			<Button Margin="10" Width="140" Height="50" Content="FS to IC only" Click="ButtonChangeFSToIC_Click" />			
-		</StackPanel>
+			<Button Margin="10" Width="140" Height="50" Content="FS to IC only" Click="ButtonChangeFSToIC_Click" />
+            <Button Margin="10" Width="140" Height="50" Content="Hold Block" Click="ButtonHoldBlock_Click" />
+        </StackPanel>
 
         <ListBox Grid.Column="0" Grid.Row="3" ItemsSource="{Binding Path=EmbeddingInstructionList}" Name="ListBoxEmbeddingInstructionList" SelectionChanged="ListBoxEmbeddingInstructionList_SelectionChanged"
                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled">

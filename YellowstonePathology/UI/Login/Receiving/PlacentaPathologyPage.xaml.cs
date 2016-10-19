@@ -37,7 +37,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
 		private void PlacentalFormDisplayPage_Loaded(object sender, RoutedEventArgs e)
 		{
-			XElement clientOrderElement = this.m_ClientOrder.ToXML(false);
+            /*XElement clientOrderElement = this.m_ClientOrder.ToXML(false);
 			foreach (YellowstonePathology.Business.ClientOrder.Model.ClientOrderDetail clientOrderDetail in this.m_ClientOrder.ClientOrderDetailCollection)
 			{
 				if (clientOrderDetail.OrderTypeCode == "PLCNT")
@@ -49,7 +49,10 @@ namespace YellowstonePathology.UI.Login.Receiving
 				}
 			}
 			YellowstonePathology.Document.Result.Data.PlacentalPathologyQuestionnaireData placentalPathologyQuestionnaireData = new YellowstonePathology.Document.Result.Data.PlacentalPathologyQuestionnaireData(clientOrderElement);
-			YellowstonePathology.Document.PlacentalPathologyQuestionnaire placentalPathologyQuestionnare = new Document.PlacentalPathologyQuestionnaire(placentalPathologyQuestionnaireData);
+			YellowstonePathology.Document.PlacentalPathologyQuestionnaire placentalPathologyQuestionnare = new Document.PlacentalPathologyQuestionnaire(placentalPathologyQuestionnaireData);*/
+
+            YellowstonePathology.Business.XPSDocument.Result.Data.PlacentalPathologyQuestionnaireDataV2 placentalPathologyQuestionnaireData = new YellowstonePathology.Business.XPSDocument.Result.Data.PlacentalPathologyQuestionnaireDataV2(this.m_ClientOrder);
+			YellowstonePathology.Business.XPSDocument.PlacentalPathologyQuestionnaireV2 placentalPathologyQuestionnare = new Business.XPSDocument.PlacentalPathologyQuestionnaireV2(placentalPathologyQuestionnaireData);
 			this.Viewer.Document = placentalPathologyQuestionnare.FixedDocument;
 		}
 

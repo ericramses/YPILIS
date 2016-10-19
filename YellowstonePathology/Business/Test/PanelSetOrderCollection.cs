@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using System.Windows.Data;
 using System.Xml.Linq;
 using System.Xml.Serialization;
+using System.Linq;
 
 namespace YellowstonePathology.Business.Test
 {
@@ -929,9 +930,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         public void Sync(DataTable dataTable)
-        {            
-            //this.RemoveDeleted(dataTable);
-
+        {                        
             DataTableReader dataTableReader = new DataTableReader(dataTable);
             while (dataTableReader.Read())
             {
@@ -953,7 +952,6 @@ namespace YellowstonePathology.Business.Test
 
                 YellowstonePathology.Business.Persistence.SqlDataTableReaderPropertyWriter sqlDataTableReaderPropertyWriter = new Persistence.SqlDataTableReaderPropertyWriter(panelSetOrder, dataTableReader);
                 sqlDataTableReaderPropertyWriter.WriteProperties();
-
             }
         }
 
@@ -976,6 +974,17 @@ namespace YellowstonePathology.Business.Test
                     this.RemoveItem(i);
                 }
             }
+        }
+
+        public static PanelSetOrderCollection Sort(PanelSetOrderCollection panelSetOrderCollection)
+        {
+            PanelSetOrderCollection result = new PanelSetOrderCollection();
+            IOrderedEnumerable<PanelSetOrder> orderedResult = panelSetOrderCollection.OrderBy(i => i.ReportNo);
+            foreach (PanelSetOrder panelSetOrder in orderedResult)
+            {
+                result.Add(panelSetOrder);
+            }
+            return result;
         }
     }
 }

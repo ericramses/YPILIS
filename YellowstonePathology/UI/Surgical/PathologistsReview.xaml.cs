@@ -134,7 +134,7 @@ namespace YellowstonePathology.UI.Surgical
 			object historyContent = null;
 			YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetAll().GetPanelSet(this.PanelSetOrder.PanelSetId);
             if (panelSet.ResultDocumentSource == Business.PanelSet.Model.ResultDocumentSourceEnum.PublishedDocument ||
-                panelSet.ResultDocumentSource == Business.PanelSet.Model.ResultDocumentSourceEnum.RetiredTestDocument)
+                panelSet.ResultDocumentSource == Business.PanelSet.Model.ResultDocumentSourceEnum.RetiredTestDocument || panelSet.ResultDocumentSource == Business.PanelSet.Model.ResultDocumentSourceEnum.None)
 			{
                 this.m_ReviewContent = new PublishedDocumentReview(this.m_PathologistUI, this.m_SystemIdentity);
 				historyContent = new CommonHistory(this.AccessionOrder);
