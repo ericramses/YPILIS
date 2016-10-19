@@ -28,7 +28,7 @@ namespace YellowstonePathology.Business.Test.Her2AmplificationByIHC
 
 			this.AddNextObxElement("", document, "F");
 			this.AddNextObxElement("Pathologist: " + panelSetOrder.ReferenceLabSignature, document, "F");
-			if (panelSetOrder.FinalTime.HasValue == true)
+			if (panelSetOrder.ReferenceLabFinalDate.HasValue == true)
 			{
 				this.AddNextObxElement("E-signed " + panelSetOrder.ReferenceLabFinalDate.Value.ToString("MM/dd/yyyy HH:mm"), document, "F");
 			}
