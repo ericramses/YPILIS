@@ -8,46 +8,51 @@ namespace YellowstonePathology.Business.Label.Model
 {
     public class HistologySlidePaperZPLLabel
     {
-        public HistologySlidePaperZPLLabel()
-        {
+        private string m_SlideOrderId;
+        private string m_ReportNo;
+        private string m_LastName;
+        private string m_TestName;
+        private string m_SlideLabel;
+        private string m_Location;
 
+        public HistologySlidePaperZPLLabel(string slideOrderId, string reportNo, string lastName, string testName, string slideLabel, string location)
+        {
+            this.m_SlideOrderId = slideOrderId;
+            this.m_ReportNo = reportNo;
+            this.m_LastName = lastName;
+            this.m_TestName = testName;
+            this.m_SlideLabel = slideLabel;
+            this.m_Location = location;
         }
 
-        public static string GetCommands(string slideOrderId, string reportNo, string lastName, string testName, string slideLabel, string location)
-        {
-            StringBuilder result = new StringBuilder();
-            result.Append("^XA");            
-
+        public void AppendCommands(StringBuilder result, int xOffset)
+        {                        
             string truncatedtestName = null;
-            if (testName.Length > 13)
+            if (this.m_TestName.Length > 13)
             {
-                truncatedtestName = testName.Substring(0, 13);
+                truncatedtestName = this.m_TestName.Substring(0, 13);
             }
             else
             {
-                truncatedtestName = testName;
+                truncatedtestName = this.m_TestName;
             }
 
             string truncatedLastName = null;
-            if (lastName.Length > 13)
+            if (this.m_LastName.Length > 13)
             {
-                truncatedLastName = lastName.Substring(0, 13);
+                truncatedLastName = this.m_LastName.Substring(0, 13);
             }
             else
             {
-                truncatedLastName = lastName;
+                truncatedLastName = this.m_LastName;
             }
                  
-
-            result.Append("^FO" + 28 + ",090^BXN,04,200^FD" + slideOrderId + "^FS");
-            result.Append("^FO" + 28 + ",030^ATN,40,40^FD" + reportNo + "^FS");
-            result.Append("^FO" + 28 + ",180^ARN,25,25^FD" + truncatedLastName + "^FS");
-            result.Append("^FO" + 28 + ",210^ARN,25,25^FD" + truncatedtestName + "^FS");
-            result.Append("^FO" + 140 + ",118^ATN,25,25^FD" + slideLabel + "^FS");
-            result.Append("^FO" + 100 + ",240^AQN,25,25^FD" + location + "^FS");
-
-            result.Append("^XZ");
-            return result.ToString();
+            result.Append("^FO" + (28 + xOffset) + ",090^BXN,04,200^FD" + this.m_SlideOrderId + "^FS");
+            result.Append("^FO" + (28 + xOffset) + ",030^ATN,40,40^FD" + this.m_ReportNo + "^FS");
+            result.Append("^FO" + (28 + xOffset) + ",180^ARN,25,25^FD" + truncatedLastName + "^FS");
+            result.Append("^FO" + (28 + xOffset) + ",210^ARN,25,25^FD" + truncatedtestName + "^FS");
+            result.Append("^FO" + (140 + xOffset) + ",118^ATN,25,25^FD" + this.m_SlideLabel + "^FS");
+            result.Append("^FO" + (100 + xOffset) + ",240^AQN,25,25^FD" + this.m_Location + "^FS");            
         }        
     }
 }

@@ -720,17 +720,37 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
         private void PrintSelectedSlides()
         {
+            Queue<Business.Label.Model.HistologySlidePaperZPLLabel> queue = new Queue<Business.Label.Model.HistologySlidePaperZPLLabel>();
             YellowstonePathology.Business.Slide.Model.SlideOrderCollection slideOrderCollection = this.m_AliquotAndStainOrderView.GetSelectedSlideOrders();            
             foreach(YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder in slideOrderCollection)
-            {
-                YellowstonePathology.Business.Label.Model.HistologySlidePaperLabel paperLabel = new Business.Label.Model.HistologySlidePaperLabel(slideOrder.SlideOrderId,
-                    slideOrder.ReportNo, slideOrder.Label, slideOrder.PatientLastName, slideOrder.TestAbbreviation, slideOrder.Location);
+            {                
+                Business.Label.Model.HistologySlidePaperZPLLabel label = new Business.Label.Model.HistologySlidePaperZPLLabel(slideOrder.SlideOrderId, slideOrder.ReportNo, slideOrder.PatientLastName, slideOrder.TestAbbreviation, slideOrder.Label, slideOrder.Location);
+                queue.Enqueue(label);
+            }
 
-                YellowstonePathology.Business.Label.Model.HistologySlidePaperLabelPrinter printer = new Business.Label.Model.HistologySlidePaperLabelPrinter();
-                printer.Queue.Enqueue(paperLabel);
-                printer.Print();
-            }            
-        }        
+            while (queue.Count != 0) PrintRowOfSlides(queue);            
+        }
+
+        private void PrintRowOfSlides(Queue<Business.Label.Model.HistologySlidePaperZPLLabel> queue)
+        {
+            StringBuilder result = new StringBuilder();
+            int xOffset = 0;
+
+            result.Append("^XA");
+            for (int i = 0; i < 4; i++)
+            {
+                if (queue.Count != 0)
+                {
+                    Business.Label.Model.HistologySlidePaperZPLLabel label = queue.Dequeue();
+                    label.AppendCommands(result, xOffset);
+                    xOffset += 325;
+                }
+            }
+            result.Append("^XZ");
+
+            Business.Label.Model.ZPLPrinter printer = new Business.Label.Model.ZPLPrinter("10.1.1.21");
+            printer.Print(result.ToString());
+        }
 
         private void ButtonAddSlideOrder_Click(object sender, RoutedEventArgs e)
         {

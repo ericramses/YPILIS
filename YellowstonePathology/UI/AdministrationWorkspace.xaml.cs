@@ -998,13 +998,13 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            Business.Label.Model.ZPLPrinter printer = new Business.Label.Model.ZPLPrinter("10.1.1.21");
+            //Business.Label.Model.ZPLPrinter printer = new Business.Label.Model.ZPLPrinter("10.1.1.21");
             //YellowstonePathology.Business.BarcodeScanning.BarcodeVersion1 barcode = new Business.BarcodeScanning.BarcodeVersion1("HBLK16-25894.1A");
             //YellowstonePathology.Business.BarcodeScanning.HistologyBlock histologyBlock = Business.BarcodeScanning.HistologyBlock.Parse(barcode);
             //string commands = Business.Label.Model.HistologyBlockPaperZPLLabel.GetCommands(histologyBlock, "MM", "1A", "16-25894");
 
-            string commands = YellowstonePathology.Business.Label.Model.HistologySlidePaperZPLLabel.GetCommands("16-12345.1A1", "16-12345.F2", "ABCDEFGHIJ", "ABCDEFGHIJKLMNOP", "3A3", "YPI Cody, Wy");            
-            printer.Print(commands);            
+            //string commands = YellowstonePathology.Business.Label.Model.HistologySlidePaperZPLLabel.GetCommands("16-12345.1A1", "16-12345.F2", "ABCDEFGHIJ", "ABCDEFGHIJKLMNOP", "3A3", "YPI Cody, Wy");            
+            //printer.Print(commands);            
         }        
 
         private void AddAllClients()
