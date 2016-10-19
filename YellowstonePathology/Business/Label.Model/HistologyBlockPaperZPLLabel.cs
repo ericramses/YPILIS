@@ -26,22 +26,7 @@ namespace YellowstonePathology.Business.Label.Model
             zplString.Append("^FO" + (30 + xOffset) + ",090^BXN,08,200^FD" + this.m_AliquotOrderId + "^FS");
             zplString.Append("^FO" + (30 + xOffset) + ",040^ATN,40,40^FD" + this.m_MasterAccessionNo + "^FS");
             zplString.Append("^FO" + (30 + xOffset) + ",220^ARN,25,25^FD" + this.m_PatientInitials + "^FS");
-            zplString.Append("^FO" + (175 + xOffset) + ",220^ARN,25,25^FD" + this.m_BlockId + "^FS");
-
-            /*
-            StringBuilder result = new StringBuilder();
-            int xOffset = 0;
-
-            result.Append("^XA");
-            for (int i = 0; i < barcodeList.Count; i++)
-            {
-                GetOne(barcodeList[i].ToString(), result, xOffset);
-                xOffset += 325;
-            }
-
-            result.Append("^XZ");
-            return result.ToString();            
-            */
+            zplString.Append("^FO" + (175 + xOffset) + ",220^ARN,25,25^FD" + this.m_BlockId + "^FS");            
         }        
     }
 }
