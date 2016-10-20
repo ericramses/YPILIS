@@ -54,14 +54,14 @@ namespace YellowstonePathology.Business.View
 		}
 
 		private void BuildSpecimenElement()
-		{            
+		{
+
+            string expectedFixationDuration = this.m_SpecimenOrder.GetExpectedFixationDuration();
 			XElement specimenOrderElement = new XElement("SpecimenOrder",
 				new XElement("ContainerId", this.m_SpecimenOrder.ContainerId),
-				new XElement("SpecimenOrderId", this.m_SpecimenOrder.SpecimenOrderId),
-                new XElement("ProcessorRun", this.m_SpecimenOrder.ProcessorRun),
-                new XElement("ProcessorRunId", this.m_SpecimenOrder.ProcessorRunId),
+				new XElement("SpecimenOrderId", this.m_SpecimenOrder.SpecimenOrderId),                
 				new XElement("SpecimenNumber", this.m_SpecimenOrder.SpecimenNumber),
-                new XElement("FixationDurationString", this.m_SpecimenOrder.FixationDurationString),
+                new XElement("FixationDurationString", expectedFixationDuration),
 				new XElement("Description", this.m_SpecimenOrder.Description));
 
 			XElement aliquotCollectionElement = new XElement("AliquotOrderCollection");
@@ -84,19 +84,30 @@ namespace YellowstonePathology.Business.View
 		private XElement BuildAliquotOrderElement(YellowstonePathology.Business.Test.AliquotOrder aliquotOrder)
 		{
             YellowstonePathology.Business.Common.PrintMate printMate = new Common.PrintMate();
-            YellowstonePathology.Business.Common.PrintMateColumn printMateColumn = printMate.Carousel.GetColumn(this.m_AccessionOrder.PrintMateColumnNumber);            
-			
+            YellowstonePathology.Business.Common.PrintMateColumn printMateColumn = printMate.Carousel.GetColumn(this.m_AccessionOrder.PrintMateColumnNumber);
+
+            string blockColor = null;
+            if (aliquotOrder.Status == "Hold")
+            {
+                blockColor = "#f42a56";
+            }
+            else
+            {
+                blockColor = printMateColumn.ColorCode;
+            }
+            
 			string status = "Created";
 			if(aliquotOrder.StatusDepricated == YellowstonePathology.Business.Slide.Model.SlideStatusEnum.Printed) status = "Printed";
             if (aliquotOrder.StatusDepricated == YellowstonePathology.Business.Slide.Model.SlideStatusEnum.Validated) status = "Validated";
+
 			XElement result = new XElement("AliquotOrder",
 					new XElement("AliquotType",aliquotOrder.AliquotType),
 					new XElement("AliquotOrderId",aliquotOrder.AliquotOrderId),
 					new XElement("Description", aliquotOrder.Description),
 					new XElement("Label", aliquotOrder.PrintLabel),
 					new XElement("GrossVerified", aliquotOrder.GrossVerified.ToString()),
-					new XElement("BlockColor", printMateColumn.ColorCode),
-                    new XElement("EmbeddingInstructions", aliquotOrder.EmbeddingInstructions),
+					new XElement("BlockColor", blockColor),
+                    new XElement("EmbeddingInstructions", aliquotOrder.EmbeddingInstructions),                    
                     new XElement("StatusDepricated", status));
 
 			XElement testCollectionElement = new XElement("TestOrderCollection");

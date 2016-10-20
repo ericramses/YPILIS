@@ -930,9 +930,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         public void Sync(DataTable dataTable)
-        {            
-            //this.RemoveDeleted(dataTable);
-
+        {                        
             DataTableReader dataTableReader = new DataTableReader(dataTable);
             while (dataTableReader.Read())
             {
@@ -954,7 +952,6 @@ namespace YellowstonePathology.Business.Test
 
                 YellowstonePathology.Business.Persistence.SqlDataTableReaderPropertyWriter sqlDataTableReaderPropertyWriter = new Persistence.SqlDataTableReaderPropertyWriter(panelSetOrder, dataTableReader);
                 sqlDataTableReaderPropertyWriter.WriteProperties();
-
             }
         }
 

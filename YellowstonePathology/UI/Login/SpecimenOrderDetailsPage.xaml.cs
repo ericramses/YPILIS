@@ -30,18 +30,19 @@ namespace YellowstonePathology.UI.Login
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private ObservableCollection<string> m_FixationTypeCollection;
         private YellowstonePathology.UI.Login.FinalizeAccession.SpecimenAdequacyTypes m_SpecimenAdequacyTypes;        
-		private YellowstonePathology.Business.Specimen.Model.SpecimenOrder m_SpecimenOrder;
-        private YellowstonePathology.Business.Surgical.ProcessorRunCollection m_ProcessorRunCollection;
+		private YellowstonePathology.Business.Specimen.Model.SpecimenOrder m_SpecimenOrder;        
 
         private YellowstonePathology.Business.Specimen.Model.SpecimenCollection m_SpecimenCollection;
+
+        private DateTime m_ProcessorStartTime;
+        private TimeSpan m_ProcessFixationDuration;
 
         public SpecimenOrderDetailsPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
 			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder)
 		{
 			this.m_AccessionOrder = accessionOrder;
 			this.m_SpecimenOrder = specimenOrder;
-
-            this.m_ProcessorRunCollection = Business.Surgical.ProcessorRunCollection.GetAll(true);
+            
             this.m_SpecimenCollection = YellowstonePathology.Business.Specimen.Model.SpecimenCollection.GetAll();
 
             this.m_FixationTypeCollection = YellowstonePathology.Business.Specimen.Model.FixationType.GetFixationTypeCollection();
@@ -70,8 +71,7 @@ namespace YellowstonePathology.UI.Login
                 }
             }
 
-            this.ComboBoxSpecimenId.SelectionChanged += ComboBoxSpecimenId_SelectionChanged;
-            this.ComboBoxProcessorRun.SelectionChanged += new SelectionChangedEventHandler(ComboBoxProcessorRun_SelectionChanged);
+            this.ComboBoxSpecimenId.SelectionChanged += ComboBoxSpecimenId_SelectionChanged;            
             this.ComboBoxReceivedIn.SelectionChanged += new SelectionChangedEventHandler(ComboBoxReceivedIn_SelectionChanged);
             this.CheckBoxClientAccessioned.Checked +=new RoutedEventHandler(CheckBoxClientAccessioned_Checked);
             this.CheckBoxClientAccessioned.Unchecked +=new RoutedEventHandler(CheckBoxClientAccessioned_Unchecked);
@@ -86,21 +86,7 @@ namespace YellowstonePathology.UI.Login
         {
             this.m_SpecimenOrder.SetFixationStartTime();
             this.m_SpecimenOrder.SetTimeToFixation();            
-        }
-
-        private void ComboBoxProcessorRun_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (this.ComboBoxProcessorRun.SelectedItem != null)
-            {
-                YellowstonePathology.Business.Surgical.ProcessorRun processorRun = (YellowstonePathology.Business.Surgical.ProcessorRun)this.ComboBoxProcessorRun.SelectedItem;
-                this.m_SpecimenOrder.SetProcessor(processorRun);                               
-            }
-        }
-
-        public YellowstonePathology.Business.Surgical.ProcessorRunCollection ProcessorRunCollection
-        {
-            get { return this.m_ProcessorRunCollection; }
-        }
+        }        
 
         public YellowstonePathology.Business.Test.AccessionOrder AccessionOrder
         {
@@ -199,11 +185,7 @@ namespace YellowstonePathology.UI.Login
             this.m_SpecimenOrder.LabFixation = YellowstonePathology.Business.Specimen.Model.FixationType.PreservCyt;
             this.m_SpecimenOrder.SetFixationStartTime();
             this.m_SpecimenOrder.SetTimeToFixation();
-            this.m_SpecimenOrder.SetFixationDuration();
-
-            YellowstonePathology.Business.Surgical.NullProcessor nullProcessor = new Business.Surgical.NullProcessor();
-            YellowstonePathology.Business.Surgical.ProcessorRun processorRun = nullProcessor.ProcessorRunCollection[0];
-            this.m_SpecimenOrder.SetProcessor(processorRun);            
+            this.m_SpecimenOrder.SetFixationDuration();                        
         }
 
         private void TextBoxCollectionDate_LostFocus(object sender, RoutedEventArgs e)
@@ -274,10 +256,16 @@ namespace YellowstonePathology.UI.Login
         }
 
         private void HyperlinkHoldSpecimen_Click(object sender, RoutedEventArgs e)
-        {
-            YellowstonePathology.Business.Surgical.HoldProcessor holdProcessor = new Business.Surgical.HoldProcessor();            
-            this.m_SpecimenOrder.ProcessorRun = holdProcessor.ProcessorRunCollection[0].Name;
-            this.m_SpecimenOrder.ProcessorRunId = holdProcessor.ProcessorRunCollection[0].ProcessorRunId;
+        {     
+            foreach(Business.Test.AliquotOrder aliquotOrder in this.m_SpecimenOrder.AliquotOrderCollection)
+            {
+                if(aliquotOrder.AliquotType == "Block")
+                {
+                    aliquotOrder.Status = "Hold";
+                }                
+            }
+
+            MessageBox.Show("All the blocks on this specimen have been put on hold.");
         }
 
         public void NotifyPropertyChanged(String info)

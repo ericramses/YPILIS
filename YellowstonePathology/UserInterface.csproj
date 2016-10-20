@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>162</ApplicationRevision>
+    <ApplicationRevision>188</ApplicationRevision>
     <ApplicationVersion>10.1.6.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -736,6 +736,7 @@
     <Compile Include="Business\Facility.Model\LocationCollection.cs" />
     <Compile Include="Business\Facility.Model\LocationDefinitions.cs" />
     <Compile Include="Business\Facility.Model\LoweLawGroup.cs" />
+    <Compile Include="Business\Facility.Model\SheridanPathologyAssociates.cs" />
     <Compile Include="Business\Facility.Model\MayoClinic.cs" />
     <Compile Include="Business\Facility.Model\MDAndersonCancerCenter.cs" />
     <Compile Include="Business\Facility.Model\MLabs.cs" />
@@ -1089,7 +1090,6 @@
     <Compile Include="Business\Reports\SurgicalSpecimenDisposalReportV2.xaml.cs">
       <DependentUpon>SurgicalSpecimenDisposalReportV2.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Business\Surgical\ProcessorRunDefinitions.cs" />
     <Compile Include="Business\Task.Model\TaskFedexShipment.cs" />
     <Compile Include="Business\Task.Model\TaskOrderDetailFactory.cs" />
     <Compile Include="Business\Task.Model\TaskOrderDetailFedexShipment.cs" />
@@ -1557,11 +1557,7 @@
     <Compile Include="Business\Specimen.Model\ThinPrepSlide.cs" />
     <Compile Include="Business\Specimen.Model\TimeToFixationType.cs" />
     <Compile Include="Business\SpellCheck.cs" />
-    <Compile Include="Business\Surgical\Cheech.cs" />
-    <Compile Include="Business\Surgical\Chong.cs" />
-    <Compile Include="Business\Surgical\HoldProcessor.cs" />
     <Compile Include="Business\Surgical\KeyWordCollection.cs" />
-    <Compile Include="Business\Surgical\NullProcessor.cs" />
     <Compile Include="Business\Surgical\PathologistHistoryItemListItem.cs" />
     <Compile Include="Business\Surgical\PathologistHistoryList.cs" />
     <Compile Include="Business\Surgical\PQRIKeyWordCollection.cs" />
@@ -1575,11 +1571,8 @@
     <Compile Include="Business\Surgical\PQRSMeasureCollection.cs" />
     <Compile Include="Business\Surgical\PQRSMelanomaMeasure.cs" />
     <Compile Include="Business\Surgical\PQRSRadicalProstatectomyMeasure.cs" />
-    <Compile Include="Business\Surgical\Processor.cs" />
-    <Compile Include="Business\Surgical\ProcessorCollection.cs" />
     <Compile Include="Business\Surgical\ProcessorRun.cs" />
     <Compile Include="Business\Surgical\ProcessorRunCollection.cs" />
-    <Compile Include="Business\Surgical\ProcessorRunDayEnum.cs" />
     <Compile Include="Business\Surgical\ReportableCases.cs" />
     <Compile Include="Business\Surgical\SurgicalBillingItem.cs" />
     <Compile Include="Business\Surgical\SurgicalBillingItemCollection.cs" />
@@ -3207,7 +3200,6 @@
       <DependentUpon>MissingInformationPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Login\FinalizeAccession\FacilityColorConverter.cs" />
-    <Compile Include="UI\Login\FinalizeAccession\FixationUpdate.cs" />
     <Compile Include="UI\Login\FinalizeAccession\SpecimenMappingPage.xaml.cs">
       <DependentUpon>SpecimenMappingPage.xaml</DependentUpon>
     </Compile>

@@ -358,6 +358,11 @@ namespace YellowstonePathology.UI.Test
                         publishedDocumentResultPath.Finish += new ResultPath.FinishEventHandler(ResultPath_Finish);
                         publishedDocumentResultPath.Start();
                     }
+                    else
+                    {
+                        result = true;
+                        
+                    }
                 }
             }
 

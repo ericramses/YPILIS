@@ -6,28 +6,39 @@ using System.Text;
 namespace YellowstonePathology.Business.Surgical
 {
     public class ProcessorRun
-    {
-        protected string m_ProcessorRunId;
+    {        
         protected string m_Name;
-        protected TimeSpan m_StartTime;
-        protected TimeSpan m_FixationTime;
-        protected string m_FixationTimeString;
-        protected ProcessorRunDayEnum m_ProcessorRunDay;
+        protected Nullable<DateTime> m_StartTime;
+        protected TimeSpan m_FixationDuration;        
 
         public ProcessorRun()
         {
 
         }
 
-        public ProcessorRun(string processorRunId, string name, TimeSpan startTime, TimeSpan fixationTime, string fixationTimeString, ProcessorRunDayEnum processorRunDay)
-        {
-            this.m_ProcessorRunId = processorRunId;
+        public ProcessorRun(string name, Nullable<DateTime> startTime, TimeSpan fixationDuration)
+        {     
             this.m_Name = name;
             this.m_StartTime = startTime;
-            this.m_FixationTime = fixationTime;
-            this.m_FixationTimeString = fixationTimeString;
-            this.m_ProcessorRunDay = processorRunDay;
+            this.m_FixationDuration = fixationDuration;
         }             
+
+        public Business.Rules.MethodResult FixationDurationIsOk()
+        {
+            Business.Rules.MethodResult result = new Rules.MethodResult();
+            result.Success = true;
+            if (this.m_FixationDuration.TotalHours < 6)
+            {
+                result.Message = "Warning! Fixation duration will be under 6 hours unless this specimen is held.";
+                result.Success = false;
+            }
+            else if (this.m_FixationDuration.TotalHours > 72)
+            {
+                result.Message = "Warning! Fixation duration will be over 72 hours if processed normally.";
+                result.Success = false;
+            }
+            return result;
+        }
 
         public Nullable<DateTime> GetProcessorStartTime(Nullable<DateTime> receivedTime)
         {
@@ -35,6 +46,8 @@ namespace YellowstonePathology.Business.Surgical
 
             if (receivedTime.HasValue == true)
             {
+                throw new Exception("needs work");
+                /*
                 DateTime processorStartDate = DateTime.Parse(receivedTime.Value.ToShortDateString());
                 switch (this.m_ProcessorRunDay)
                 {
@@ -49,32 +62,16 @@ namespace YellowstonePathology.Business.Surgical
                         result = processorStartDate.AddDays(7 - dayOfWeek) + this.m_StartTime;
                         break;
                 }
+                */
             }
 
             return result;
         }        
 
-        public Nullable<DateTime> GetFixationEndTime(Nullable<DateTime> fixationStartTime, DateTime dateReceived)
-        {
-            Nullable<DateTime> result = null;
-
-            if (fixationStartTime.HasValue == true)
-            {
-                Nullable<DateTime> processorStartTime = this.GetProcessorStartTime(dateReceived);
-                if (processorStartTime.HasValue == true)
-                {
-                    result = processorStartTime + this.m_FixationTime;
-                }
-            }
-
-            return result;
-        }                    
-
-        public string ProcessorRunId
-        {
-            get { return this.m_ProcessorRunId; }
-            set { this.m_ProcessorRunId = value; }
-        }
+        public DateTime GetFixationEndTime(DateTime fixationStartTime)
+        {                        
+            return this.m_StartTime.Value.Add(this.m_FixationDuration);
+        }                            
 
         public string Name
         {
@@ -82,22 +79,16 @@ namespace YellowstonePathology.Business.Surgical
             set { this.m_Name = value;}
         }
 
-        public TimeSpan StartTime
+        public Nullable<DateTime> StartTime
         {
             get { return this.m_StartTime; }
             set { this.m_StartTime = value; }
         }
 
-        public TimeSpan FixationTime
+        public TimeSpan FixationDuration
         {
-            get { return this.m_FixationTime; }
-            set { this.m_FixationTime = value; }
-        }
-
-        public ProcessorRunDayEnum ProcessorRunDay
-        {
-            get { return this.m_ProcessorRunDay; }
-            set { this.m_ProcessorRunDay = value; }
-        }
+            get { return this.m_FixationDuration; }
+            set { this.m_FixationDuration = value; }
+        }       
     }
 }

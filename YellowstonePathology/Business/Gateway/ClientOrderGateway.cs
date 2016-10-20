@@ -162,7 +162,7 @@ namespace YellowstonePathology.Business.Gateway
 			else
 			{
 				cmd.Parameters.Add("@PFirstName", SqlDbType.VarChar).Value = firstName;
-				cmd.CommandText = "Select ClientOrderId, PanelSetId, PLastName, PFirstName, ProviderName, ClientName, OrderedBy, OrderTime, Submitted, Received, OrderType " +
+				cmd.CommandText = "Select ClientOrderId, OrderStatus, PanelSetId, PLastName, PFirstName, ProviderName, ClientName, OrderedBy, OrderTime, Submitted, Received, OrderType " +
 					"from tblClientOrder Where PLastName like @PLastName + '%' and  PFirstName like @PFirstName + '%' Order by OrderTime desc";
 			}
 

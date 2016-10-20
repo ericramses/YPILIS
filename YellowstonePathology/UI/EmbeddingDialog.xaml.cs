@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.ComponentModel;
+using StackExchange.Redis;
 
 namespace YellowstonePathology.UI
 {
@@ -22,17 +23,19 @@ namespace YellowstonePathology.UI
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private DateTime m_WorkDate;
+        private DateTime m_WorkDate;        
 
         private YellowstonePathology.Business.BarcodeScanning.EmbeddingScanCollection m_EmbeddingScanCollection;
-        private YellowstonePathology.Business.Specimen.Model.SpecimenOrderCollection m_SpecimenOrderHoldCollection;
+        private YellowstonePathology.Business.Test.AliquotOrderCollection m_AliquotOrderHoldCollection;
         private EmbeddingNotScannedList m_EmbeddingNotScannedList;
         private YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort m_BarcodeScanPort;
         private YellowstonePathology.Business.Surgical.ProcessorRunCollection m_ProcessorRunCollection;
         private EmbeddingBreastCaseList m_EmbeddingBreastCaseList;
         private string m_StatusMessage;
         private string m_ScanCount;
-        private List<DateTime> m_ProcessorStartHourList;
+
+        private Nullable<DateTime> m_ProcessorStartTime;
+        private TimeSpan m_ProcessorFixationDuration;
 
         private BackgroundWorker m_BackgroundWorker;
 
@@ -40,23 +43,11 @@ namespace YellowstonePathology.UI
         {            
             this.m_BarcodeScanPort = YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort.Instance;
             this.m_WorkDate = DateTime.Today;
+                        
             this.m_EmbeddingScanCollection = Business.BarcodeScanning.EmbeddingScanCollection.GetByScanDate(this.m_WorkDate);                       
             
             this.m_StatusMessage = "Status: OK";
-            this.m_ScanCount = "Block Count: " + this.m_EmbeddingScanCollection.Count.ToString();
-
-            this.m_ProcessorStartHourList = new List<DateTime>();
-            this.m_ProcessorStartHourList.Add(DateTime.Parse(DateTime.Today.ToShortDateString() + " 04:00"));
-            this.m_ProcessorStartHourList.Add(DateTime.Parse(DateTime.Today.ToShortDateString() + " 05:00"));
-            this.m_ProcessorStartHourList.Add(DateTime.Parse(DateTime.Today.ToShortDateString() + " 06:00"));
-            this.m_ProcessorStartHourList.Add(DateTime.Parse(DateTime.Today.ToShortDateString() + " 07:00"));
-            this.m_ProcessorStartHourList.Add(DateTime.Parse(DateTime.Today.ToShortDateString() + " 08:00"));
-            this.m_ProcessorStartHourList.Add(DateTime.Parse(DateTime.Today.ToShortDateString() + " 09:00"));
-            this.m_ProcessorStartHourList.Add(DateTime.Parse(DateTime.Today.ToShortDateString() + " 10:00"));
-            this.m_ProcessorStartHourList.Add(DateTime.Parse(DateTime.Today.ToShortDateString() + " 10:00"));
-            this.m_ProcessorStartHourList.Add(DateTime.Parse(DateTime.Today.ToShortDateString() + " 11:00"));
-            this.m_ProcessorStartHourList.Add(DateTime.Parse(DateTime.Today.ToShortDateString() + " 12:00"));
-            this.m_ProcessorStartHourList.Add(DateTime.Parse(DateTime.Today.ToShortDateString() + " 13:00"));
+            this.m_ScanCount = "Block Count: " + this.m_EmbeddingScanCollection.Count.ToString();            
 
             InitializeComponent();
 
@@ -86,8 +77,8 @@ namespace YellowstonePathology.UI
                 this.m_BarcodeScanPort.HistologyBlockScanReceived += this.HistologyBlockScanReceived;
                 this.m_BarcodeScanPort.ContainerScanReceived += BarcodeScanPort_ContainerScanReceived;
                 
-                this.m_SpecimenOrderHoldCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetSpecimenOrderHoldCollection();                
-                this.m_ProcessorRunCollection = YellowstonePathology.Business.Surgical.ProcessorRunCollection.GetAll(false);
+                this.m_AliquotOrderHoldCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAliquotOrderHoldCollection();
+                this.m_ProcessorRunCollection = YellowstonePathology.Business.Surgical.ProcessorRunCollection.GetAll();
 
                 this.m_EmbeddingNotScannedList = Business.Gateway.AccessionOrderGateway.GetEmbeddingNotScannedCollection(this.GetWorkingAccessionDate());
                 this.m_EmbeddingBreastCaseList = Business.Gateway.AccessionOrderGateway.GetEmbeddingBreastCasesCollection();
@@ -100,15 +91,23 @@ namespace YellowstonePathology.UI
         private void BarcodeScanPort_ContainerScanReceived(Business.BarcodeScanning.ContainerBarcode containerBarcode)
         {
             this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
-            {
-                YellowstonePathology.Business.Surgical.HoldProcessor holdProcessor = new Business.Surgical.HoldProcessor();
+            {                
                 YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullSpecimenOrderByContainerId(containerBarcode.ToString(), this);
-                specimenOrder.ProcessorRun = holdProcessor.ProcessorRunCollection[0].Name;
-                specimenOrder.ProcessorRunId = holdProcessor.ProcessorRunCollection[0].ProcessorRunId;
-                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
+                foreach(Business.Test.AliquotOrder aliquotOrder in specimenOrder.AliquotOrderCollection)
+                {
+                    if(aliquotOrder.Status == "Hold")
+                    {
+                        aliquotOrder.Status = null;
+                    }
+                    else
+                    {
+                        aliquotOrder.Status = "Hold";
+                    }                    
+                }
 
-                this.m_SpecimenOrderHoldCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetSpecimenOrderHoldCollection();
-                this.NotifyPropertyChanged("SpecimenOrderHoldCollection");
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
+                this.m_AliquotOrderHoldCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAliquotOrderHoldCollection();
+                this.NotifyPropertyChanged("AliquotOrderHoldCollection");
 
                 this.m_ScanCount = "Block Count: " + this.m_EmbeddingScanCollection.Count.ToString();
                 this.NotifyPropertyChanged("ScanCount");
@@ -117,21 +116,21 @@ namespace YellowstonePathology.UI
         }
 
         private void ContextMenuRemoveHold_Click(object sender, RoutedEventArgs e)
-        {
+        {            
             this.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
             {
                 if(this.ListViewHoldList.SelectedItem != null)
                 {
-                    YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = (YellowstonePathology.Business.Specimen.Model.SpecimenOrder)this.ListViewHoldList.SelectedItem;                    
-                    YellowstonePathology.Business.Specimen.Model.SpecimenOrder dbSpecimenOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullSpecimenOrder(specimenOrder.SpecimenOrderId, this);
-                    dbSpecimenOrder.ProcessorRun = null;
-                    dbSpecimenOrder.ProcessorRunId = null;
+                    YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = (YellowstonePathology.Business.Test.AliquotOrder)this.ListViewHoldList.SelectedItem;                    
+                    YellowstonePathology.Business.Test.AliquotOrder dbAliquotOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAliquotOrder(aliquotOrder.AliquotOrderId, this);
+                    dbAliquotOrder.Status = null;                    
+
                     YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
-                    this.m_SpecimenOrderHoldCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetSpecimenOrderHoldCollection();
-                    this.NotifyPropertyChanged("SpecimenOrderHoldCollection");
+                    this.m_AliquotOrderHoldCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAliquotOrderHoldCollection();
+                    this.NotifyPropertyChanged("AliquotOrderHoldCollection");
                 }                
             }
-            ));
+            ));         
         }
 
         private void HistologyBlockScanReceived(YellowstonePathology.Business.BarcodeScanning.Barcode barcode)
@@ -143,26 +142,18 @@ namespace YellowstonePathology.UI
                     MessageBox.Show("The scan for this block was read correctly. Please try again.");
                 }
                 else
-                {
-                    YellowstonePathology.Business.Surgical.ProcessorRun processorRun = (YellowstonePathology.Business.Surgical.ProcessorRun)this.ComboBoxProcessorRuns.SelectedItem;                    
-                    if (processorRun is Business.Surgical.CheechTodayShortMini)
+                {                                        
+                    if(this.m_ProcessorStartTime.HasValue == true)
                     {
-                        if (this.ComboBoxProcessorStartHour.SelectedIndex < 0)
-                        {
-                            MessageBox.Show("You must select a start time from the combo box in the top right hand corner of the window.");
-                            return;
-                        }
-                        else
-                        {
-                            DateTime startTime = (DateTime)this.ComboBoxProcessorStartHour.SelectedItem;
-                            processorRun.StartTime = new TimeSpan(startTime.Hour, 0, 0);
-                        }
+                        YellowstonePathology.Business.BarcodeScanning.EmbeddingScan result = this.m_EmbeddingScanCollection.HandleScan(barcode.ID, this.m_ProcessorStartTime.Value, this.m_ProcessorFixationDuration);
+                        this.ListViewEmbeddingScans.SelectedIndex = 0;
+                        this.m_ScanCount = "Block Count: " + this.m_EmbeddingScanCollection.Count.ToString();
+                        this.NotifyPropertyChanged("ScanCount");
                     }
-
-                    YellowstonePathology.Business.BarcodeScanning.EmbeddingScan result = this.m_EmbeddingScanCollection.HandleScan(barcode.ID, processorRun.ProcessorRunId, processorRun.Name);
-                    this.ListViewEmbeddingScans.SelectedIndex = 0;
-                    this.m_ScanCount = "Block Count: " + this.m_EmbeddingScanCollection.Count.ToString();
-                    this.NotifyPropertyChanged("ScanCount");
+                    else
+                    {
+                        MessageBox.Show("I can't add the scan until a processor start time is entered.");
+                    }                    
                 }                
             }
             ));
@@ -176,11 +167,17 @@ namespace YellowstonePathology.UI
         public string ScanCount
         {
             get { return this.m_ScanCount; }
-        }
-
-        public List<DateTime> ProcessorStartHourList
+        }      
+        
+        public Nullable<DateTime> ProcessorStartTime
         {
-            get { return this.m_ProcessorStartHourList; }
+            get { return this.m_ProcessorStartTime; }
+            set { this.m_ProcessorStartTime = value; }
+        }  
+
+        public Nullable<TimeSpan> ProcessorFixationDuration
+        {
+            get { return this.m_ProcessorFixationDuration; }
         }
 
         public YellowstonePathology.UI.EmbeddingNotScannedList EmbeddingNotScannedList
@@ -216,9 +213,9 @@ namespace YellowstonePathology.UI
             get { return this.m_EmbeddingScanCollection; }
         }            
 
-        public YellowstonePathology.Business.Specimen.Model.SpecimenOrderCollection SpecimenOrderHoldCollection
+        public YellowstonePathology.Business.Test.AliquotOrderCollection AliquotOrderHoldCollection
         {
-            get { return this.m_SpecimenOrderHoldCollection; }
+            get { return this.m_AliquotOrderHoldCollection; }
         }        
 
         private void ButtonAccessionOrderBack_Click(object sender, RoutedEventArgs e)
@@ -255,13 +252,13 @@ namespace YellowstonePathology.UI
         }
 
         private void ButtonUpdate_Click(object sender, RoutedEventArgs e)
-        {
+        {            
             this.m_BackgroundWorker = new BackgroundWorker();
             this.m_BackgroundWorker.WorkerReportsProgress = true;
             this.m_BackgroundWorker.DoWork += Bgw_DoWork;
             this.m_BackgroundWorker.ProgressChanged += Bgw_ProgressChanged;
             this.m_BackgroundWorker.RunWorkerCompleted += Bgw_RunWorkerCompleted;
-            this.m_BackgroundWorker.RunWorkerAsync();            
+            this.m_BackgroundWorker.RunWorkerAsync();                     
         }
 
         private void Bgw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -284,7 +281,7 @@ namespace YellowstonePathology.UI
 
         private void Bgw_DoWork(object sender, DoWorkEventArgs e)
         {            
-            YellowstonePathology.Business.Surgical.ProcessorRunCollection processorRunCollection = Business.Surgical.ProcessorRunCollection.GetAll(false);
+            YellowstonePathology.Business.Surgical.ProcessorRunCollection processorRunCollection = Business.Surgical.ProcessorRunCollection.GetAll();
 
             foreach (YellowstonePathology.Business.BarcodeScanning.EmbeddingScan embeddingScan in this.ListViewEmbeddingScans.Items)
             {
@@ -293,20 +290,29 @@ namespace YellowstonePathology.UI
                 if (embeddingScan.Updated == false)
                 {
                     YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAliquotOrder(embeddingScan.AliquotOrderId, this);
-                    aliquotOrder.EmbeddingVerify(YellowstonePathology.Business.User.SystemIdentity.Instance.User);
-
-                    YellowstonePathology.Business.Surgical.ProcessorRun processorRun = processorRunCollection.Get(embeddingScan.ProcessorRunId);
+                    aliquotOrder.EmbeddingVerify(YellowstonePathology.Business.User.SystemIdentity.Instance.User);                    
 
                     Business.ParseSpecimenOrderIdResult parseSpecimenOrderIdResult = aliquotOrder.ParseSpecimenOrderIdFromBlock();
                     if (parseSpecimenOrderIdResult.ParsedSuccessfully == true)
                     {
                         YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullSpecimenOrder(parseSpecimenOrderIdResult.SpecimenOrderId, this);
-                        specimenOrder.ProcessorRun = embeddingScan.ProcessorRun;
-                        specimenOrder.ProcessorRunId = embeddingScan.ProcessorRunId;
-                        specimenOrder.ProcessorStartTime = processorRun.GetProcessorStartTime(specimenOrder.DateReceived);                        
-                        specimenOrder.ProcessorFixationTime = Convert.ToInt32(processorRun.FixationTime.TotalMinutes);                        
-                        specimenOrder.SetFixationEndTime();
-                        specimenOrder.SetFixationDuration();
+                        if(specimenOrder.ProcessorStartTime.HasValue == false)
+                        {
+                            specimenOrder.ProcessorStartTime = embeddingScan.ProcessorStartTime;
+                            specimenOrder.ProcessorFixationTime = Convert.ToInt32(embeddingScan.ProcessorFixationDuration.Value.TotalMinutes);
+                            specimenOrder.SetFixationEndTime();
+                            specimenOrder.SetFixationDuration();
+                        }                        
+                        else if(specimenOrder.ProcessorStartTime.HasValue == true)
+                        {                            
+                            if(Business.Helper.DateTimeExtensions.IsDateToday(specimenOrder.ProcessorStartTime.Value) || Business.Helper.DateTimeExtensions.IsDateYesterday(specimenOrder.ProcessorStartTime.Value))
+                            {
+                                specimenOrder.ProcessorStartTime = embeddingScan.ProcessorStartTime;
+                                specimenOrder.ProcessorFixationTime = Convert.ToInt32(embeddingScan.ProcessorFixationDuration.Value.TotalMinutes);
+                                specimenOrder.SetFixationEndTime();
+                                specimenOrder.SetFixationDuration();
+                            }
+                        }
                     }
                     else
                     {
@@ -314,11 +320,22 @@ namespace YellowstonePathology.UI
                     }
 
                     YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
-                    this.m_SpecimenOrderHoldCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetSpecimenOrderHoldCollection();
+                    this.m_AliquotOrderHoldCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAliquotOrderHoldCollection();
                     embeddingScan.Updated = true;
                     this.m_EmbeddingScanCollection.UpdateStatus(embeddingScan);
                 }
             }            
+        }
+
+        private void ComboBoxProcessorRun_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(this.ComboBoxProcessorRuns.SelectedItem != null)
+            {
+                Business.Surgical.ProcessorRun run = (Business.Surgical.ProcessorRun)this.ComboBoxProcessorRuns.SelectedItem;
+                this.m_ProcessorStartTime = run.StartTime;
+                this.m_ProcessorFixationDuration = run.FixationDuration;
+                this.NotifyPropertyChanged(string.Empty);
+            }
         }
     }
 }

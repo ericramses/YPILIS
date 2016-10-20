@@ -27,12 +27,28 @@
         <v19:ServiceType>PRIORITY_OVERNIGHT</v19:ServiceType>
         <v19:PackagingType>YOUR_PACKAGING</v19:PackagingType>
         <v19:Shipper>
-          <v19:AccountNumber>235542196</v19:AccountNumber>
+          <v19:AccountNumber></v19:AccountNumber>
+          <v19:Contact>
+            <v19:PersonName></v19:PersonName>
+            <v19:CompanyName></v19:CompanyName>
+            <v19:PhoneNumber></v19:PhoneNumber>
+            <v19:EMailAddress/>
+          </v19:Contact>
+          <v19:Address>
+            <v19:StreetLines></v19:StreetLines>
+            <v19:StreetLines></v19:StreetLines>
+            <v19:City></v19:City>
+            <v19:StateOrProvinceCode>MT</v19:StateOrProvinceCode>
+            <v19:PostalCode></v19:PostalCode>
+            <v19:CountryCode>US</v19:CountryCode>
+          </v19:Address>
+        </v19:Shipper>
+        <v19:Recipient>
           <v19:Contact>
             <v19:PersonName></v19:PersonName>
             <v19:CompanyName>Yellowstone Pathology Institute</v19:CompanyName>
-            <v19:PhoneNumber>4062386360</v19:PhoneNumber>
-            <v19:EMailAddress/>
+            <v19:PhoneNumber>(406)238-6360</v19:PhoneNumber>
+            <v19:EMailAddress>support@ypii.com</v19:EMailAddress>
           </v19:Contact>
           <v19:Address>
             <v19:StreetLines>2900 12th Ave. N.</v19:StreetLines>
@@ -42,13 +58,13 @@
             <v19:PostalCode>59101</v19:PostalCode>
             <v19:CountryCode>US</v19:CountryCode>
           </v19:Address>
-        </v19:Shipper>
-        <v19:Recipient>
+        </v19:Recipient>
+        <v19:Origin>
           <v19:Contact>
             <v19:PersonName></v19:PersonName>
             <v19:CompanyName></v19:CompanyName>
             <v19:PhoneNumber></v19:PhoneNumber>
-            <v19:EMailAddress></v19:EMailAddress>
+            <v19:EMailAddress/>
           </v19:Contact>
           <v19:Address>
             <v19:StreetLines></v19:StreetLines>
@@ -56,27 +72,11 @@
             <v19:City></v19:City>
             <v19:StateOrProvinceCode></v19:StateOrProvinceCode>
             <v19:PostalCode></v19:PostalCode>
-            <v19:CountryCode>US</v19:CountryCode>
-          </v19:Address>
-        </v19:Recipient>
-        <v19:Origin>
-          <v19:Contact>
-            <v19:PersonName></v19:PersonName>
-            <v19:CompanyName>Yellowstone Pathology Institute</v19:CompanyName>
-            <v19:PhoneNumber>4062386360</v19:PhoneNumber>
-            <v19:EMailAddress/>
-          </v19:Contact>
-          <v19:Address>
-            <v19:StreetLines>2900 12th Ave. N.</v19:StreetLines>
-            <v19:StreetLines>Suite 295W</v19:StreetLines>
-            <v19:City>Billings</v19:City>
-            <v19:StateOrProvinceCode>MT</v19:StateOrProvinceCode>
-            <v19:PostalCode>59101</v19:PostalCode>
-            <v19:CountryCode>US</v19:CountryCode>
+            <v19:CountryCode></v19:CountryCode>
           </v19:Address>
         </v19:Origin>
         <v19:ShippingChargesPayment>
-          <v19:PaymentType>SENDER</v19:PaymentType>
+          <v19:PaymentType>RECIPIENT</v19:PaymentType>
           <v19:Payor>
             <v19:ResponsibleParty>
               <v19:AccountNumber>235542196</v19:AccountNumber>

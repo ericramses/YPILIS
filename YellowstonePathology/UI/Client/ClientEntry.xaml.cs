@@ -301,7 +301,7 @@ namespace YellowstonePathology.UI.Client
 
         private void ButtonPrintFedexReturnLabel_Click(object sender, RoutedEventArgs e)
         {
-            if(this.Client.ClientId == 879)
+            if(this.Client.ClientId == 879 || this.Client.ClientId == 1513)
             {                                
                 Business.MaterialTracking.Model.FedexAccountProduction fedExAccount = new Business.MaterialTracking.Model.FedexAccountProduction();
                 Business.MaterialTracking.Model.FedexReturnLabelRequest returnLabelRequest = new Business.MaterialTracking.Model.FedexReturnLabelRequest(this.m_Client.ClientName, this.m_Client.Telephone, this.m_Client.Address, null, this.m_Client.City, this.m_Client.State, this.m_Client.ZipCode, fedExAccount);

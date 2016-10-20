@@ -75,7 +75,7 @@
                         </ComboBox>
                         
                         <TextBlock Grid.Column="0" Grid.Row="8" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right">FedEx Tracking No:</TextBlock>
-                        <TextBox Grid.Column="1" Grid.Row="8" Margin="2,2,2,2" Text="{Binding Path=TrackingNumber}" IsEnabled="False"/>
+                        <TextBox Grid.Column="1" Grid.Row="8" Margin="2,2,2,2" Text="{Binding Path=TrackingNumber}" IsEnabled="True"/>
                         
                         <TextBlock Grid.Column="0" Grid.Row="9" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right">Assigned To:</TextBlock>
                         <ComboBox Name="ComboBoxTaskAssignment" Grid.Column="1" Grid.Row="9" Margin="2,2,2,2" SelectedValue="{Binding Path=AssignedTo}"
