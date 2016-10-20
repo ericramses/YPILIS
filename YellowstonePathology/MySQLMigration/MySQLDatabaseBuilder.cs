@@ -340,7 +340,7 @@ namespace YellowstonePathology.MySQLMigration
             int rows = Convert.ToInt32(rowsToUse);
             SqlCommand cmd = new SqlCommand();
             //cmd.CommandText = "Select count(*) from " + TableName + " where Transferred is null or Transferred = 0";
-            cmd.CommandText = "Select count(*) from " + TableName + " where (Transferred is null or Transferred = 0) and logdate < '9/30/2016'";
+            cmd.CommandText = "Select count(*) from " + TableName + " where (Transferred is null or Transferred = 0) and MasterAccessionNo not like '16-%'";
 
             int result = 0;
             int count = 0;
@@ -370,7 +370,7 @@ namespace YellowstonePathology.MySQLMigration
             SqlCommand cmd = new SqlCommand();
             //cmd.CommandText = "update " + tableName + " set Transferred = 1 where  " + keyName + " in (Select top (" + rowsToUse + ") " + keyName + " from " + tableName + " where (Transferred is null or Transferred = 0) order by " + keyName + ")";
             cmd.CommandText = "update " + tableName + " set Transferred = 1 where  " + keyName + " in (Select top (" + rowsToUse + ") " + keyName + 
-            " from " + tableName + " where (Transferred is null or Transferred = 0) " + "and logdate < '9/30/2016' order by " + keyName + ")";
+            " from " + tableName + " where (Transferred is null or Transferred = 0) " + " and MasterAccessionNo not like '16-%' order by " + keyName + ")";
             using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
@@ -392,7 +392,7 @@ namespace YellowstonePathology.MySQLMigration
             result = result.Remove(result.Length - 2, 2);
 
             //result = result + " from " + tableName + " Where (Transferred is null or Transferred = 0) Order By " + properties[0].Name;
-            result = result + " from " + tableName + " Where (Transferred is null or Transferred = 0) and logdate < '9/30/2016' Order By " + properties[0].Name;
+            result = result + " from " + tableName + " Where (Transferred is null or Transferred = 0) and MasterAccessionNo not like '16-%' Order By " + properties[0].Name;
             return result;
         }
 
