@@ -35,8 +35,8 @@ namespace YellowstonePathology.UI.MySql
         {
             m_MySQLDatabaseBuilder = new MySQLMigration.MySQLDatabaseBuilder();
             m_MigrationStatusCollection = MySQLMigration.MigrationStatusCollection.GetAll();
-            this.m_NumberOfItemsInQuery = "500";
-            this.m_NumberOfTimesToQuery = "10";
+            this.m_NumberOfItemsInQuery = "1000";
+            this.m_NumberOfTimesToQuery = "15";
             this.m_StatusMessage = "Idle";
 
             InitializeComponent();
