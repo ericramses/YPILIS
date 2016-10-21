@@ -11,7 +11,7 @@ namespace YellowstonePathology.Business.Facility.Model
         public ClientBillingFacilityCollection()
         {
             NeogenomicsIrvine neogenomicsIrvine = new NeogenomicsIrvine();
-            NeogenomicsFlorida neogenomicsFlorida = new NeogenomicsFlorida();
+            NeogenomicsInc neogenomicsFlorida = new NeogenomicsInc();
 
             YellowstonePathologyInstituteBillings ypii = new YellowstonePathologyInstituteBillings();
             YellowstonePathology.Business.Client.Model.ClientGroupClientCollection clientGroupStVincent = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientGroupClientCollectionByClientGroupId(1);
