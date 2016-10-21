@@ -25,8 +25,7 @@
             <MenuItem Header="Add DBTS Attribute" Click="MenuItemAddDBTS_Click" Margin="5"></MenuItem>
             <MenuItem Header="Load Data" Click="MenuItemLoadData_Click" Margin="5"></MenuItem>
             <MenuItem Header="Synchronize Data" Click="MenuItemSynchronizeData_Click" Margin="5"></MenuItem>
-            <MenuItem Header="Daily Sync" Click="MenuItemDailySync_Click" Margin="5"></MenuItem>
-            <MenuItem Header="Multi Load" Click="MenuItemMultiLoad_Click" Margin="5"></MenuItem>
+            <MenuItem Header="Sync and Load new and altered" Click="MenuItemDailySync_Click" Margin="5"></MenuItem>
         </Menu>
 
         <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal">

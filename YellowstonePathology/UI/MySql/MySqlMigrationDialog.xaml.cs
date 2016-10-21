@@ -35,8 +35,8 @@ namespace YellowstonePathology.UI.MySql
         {
             m_MySQLDatabaseBuilder = new MySQLMigration.MySQLDatabaseBuilder();
             m_MigrationStatusCollection = MySQLMigration.MigrationStatusCollection.GetAll();
-            this.m_NumberOfItemsInQuery = "500";
-            this.m_NumberOfTimesToQuery = "10";
+            this.m_NumberOfItemsInQuery = "1000";
+            this.m_NumberOfTimesToQuery = "15";
             this.m_StatusMessage = "Idle";
 
             InitializeComponent();
@@ -315,7 +315,7 @@ namespace YellowstonePathology.UI.MySql
         {
             this.StatusMessage = "Working on it.";
             Business.Rules.MethodResult overallResult = new Business.Rules.MethodResult();
-            foreach (MySQLMigration.MigrationStatus migrationStatus in this.ListViewMigrationStatus.SelectedItems)
+            foreach (MySQLMigration.MigrationStatus migrationStatus in this.ListViewMigrationStatus.Items)
             {
                 Business.Rules.MethodResult methodResult = m_MySQLDatabaseBuilder.DailySync(migrationStatus);
                 if (methodResult.Success == false)
@@ -325,50 +325,6 @@ namespace YellowstonePathology.UI.MySql
                 }
             }
             this.SetStatusMessage(overallResult);
-        }
-
-        private void MenuItemMultiLoad_Click(object sender, RoutedEventArgs e)
-        {
-            this.m_RepeatCount = 5;
-            this.m_CurrentCount = 0;
-            MySQLMigration.MigrationStatus migrationStatus = (MySQLMigration.MigrationStatus)this.ListViewMigrationStatus.SelectedItem;
-            Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
-            if (migrationStatus != null)
-            {
-                this.MultiLoad(migrationStatus, methodResult);
-            }
-            this.SetStatusMessage(methodResult);
-        }
-
-        private void MultiLoad(MySQLMigration.MigrationStatus migrationStatus, Business.Rules.MethodResult overallResult)
-        {
-            this.StatusMessage = "Working on it.";
-            Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
-            m_MySQLDatabaseBuilder.GetStatus(migrationStatus);
-            if (migrationStatus.OutOfSyncCount > 0)
-            {
-                methodResult = m_MySQLDatabaseBuilder.Synchronize(migrationStatus);
-                if(methodResult.Success == false)
-                {
-                    overallResult.Success = false;
-                    overallResult.Message += methodResult.Message;
-                }
-                this.MultiLoad(migrationStatus, overallResult);
-            }
-            else if (migrationStatus.UnLoadedDataCount > 0)
-            {
-                if (this.m_CurrentCount < this.m_RepeatCount)
-                {
-                    this.m_CurrentCount++;
-                    methodResult = m_MySQLDatabaseBuilder.LoadData(migrationStatus, 200, 10);
-                    if (methodResult.Success == false)
-                    {
-                        overallResult.Success = false;
-                        overallResult.Message += methodResult.Message;
-                    }
-                    this.MultiLoad(migrationStatus, overallResult);
-                }
-            }
         }
 
         private void GetStatus(MySQLMigration.MigrationStatus migrationStatus)
