@@ -17,6 +17,9 @@ namespace YellowstonePathology.Business.Facility.Model
             this.m_City = "Salt Lake City";
             this.m_State = "UT";
             this.m_ZipCode = "84112-5550";
+            this.m_PhoneNumber = "(801)446-1320";
+            this.m_FedexAccountNo = "111960402";
+            this.m_FedexPaymentType = "RECIPIENT";
             this.m_IsReferenceLab = true;
 
             this.m_CliaLicense = new CLIALicense(this, null);            

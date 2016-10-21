@@ -10,11 +10,15 @@ namespace YellowstonePathology.Business.Facility.Model
         public CarisLifeSciences()
         {
             this.m_FacilityId = "CRSLFS";
+            this.m_FacilityIdOLD = null;
             this.m_FacilityName = "Caris Life Sciences";
             this.m_Address1 = "4610 south 44th Place, Suite 100";
             this.m_City = "Phoenix";
             this.m_State = "AZ";
             this.m_ZipCode = "85040";
+            this.m_PhoneNumber = null;
+            this.m_FedexAccountNo = null;
+            this.m_FedexPaymentType = null;
             this.m_IsReferenceLab = true;
 
 			this.m_CliaLicense = new CLIALicense(this, string.Empty);
