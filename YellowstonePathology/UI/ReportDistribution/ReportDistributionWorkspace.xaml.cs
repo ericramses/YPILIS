@@ -266,23 +266,23 @@ namespace YellowstonePathology.UI.ReportDistribution
         {
             bool result = true;
 
-            //try
-            //{
-            caseDocument.Render();
-            if(panelSetOrder.ResultDocumentSource != "Reference Lab")
+            try
             {
-                caseDocument.Publish();
-            }
+                caseDocument.Render();
+                if(panelSetOrder.ResultDocumentSource != "Reference Lab")
+                {
+                    caseDocument.Publish();
+                }
                 
-            this.m_ReportDistributionLogEntryCollection.AddEntry("INFO", "Publish Next", null, panelSetOrder.ReportNo, panelSetOrder.MasterAccessionNo, null, null, "PanelSetOrder Published");
+                this.m_ReportDistributionLogEntryCollection.AddEntry("INFO", "Publish Next", null, panelSetOrder.ReportNo, panelSetOrder.MasterAccessionNo, null, null, "PanelSetOrder Published");
 
-            //}                                    
-            //catch (Exception publishException)
-            //{
-            //    this.m_ReportDistributionLogEntryCollection.AddEntry("ERROR", "Publish Next", null, panelSetOrder.ReportNo, panelSetOrder.MasterAccessionNo, null, null, publishException.Message);                
-            //    this.DelayPublishAndDistribution(15, publishException.Message, panelSetOrder);
-            //    result = false;
-            //}                                    
+            }                                    
+            catch (Exception publishException)
+            {
+                this.m_ReportDistributionLogEntryCollection.AddEntry("ERROR", "Publish Next", null, panelSetOrder.ReportNo, panelSetOrder.MasterAccessionNo, null, null, publishException.Message);                
+                this.DelayPublishAndDistribution(15, publishException.Message, panelSetOrder);
+                result = false;
+            }                                    
 
             return result;
         }

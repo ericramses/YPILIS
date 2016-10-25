@@ -136,14 +136,14 @@ namespace YellowstonePathology.UI
         private void HistologyBlockScanReceived(YellowstonePathology.Business.BarcodeScanning.Barcode barcode)
         {
             this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
-            {
+            {                
                 if(barcode.ID.Contains("ALQ") == true)
                 {
                     MessageBox.Show("The scan for this block was read correctly. Please try again.");
                 }
                 else
                 {                                        
-                    if(this.m_ProcessorStartTime.HasValue == true)
+                    if(this.IsProcessorStartTimeValid() == true)
                     {
                         YellowstonePathology.Business.BarcodeScanning.EmbeddingScan result = this.m_EmbeddingScanCollection.HandleScan(barcode.ID, this.m_ProcessorStartTime.Value, this.m_ProcessorFixationDuration);
                         this.ListViewEmbeddingScans.SelectedIndex = 0;
@@ -157,7 +157,14 @@ namespace YellowstonePathology.UI
                 }                
             }
             ));
-        }   
+        }  
+        
+        private bool IsProcessorStartTimeValid()
+        {
+            bool result = false;
+            if (this.m_ProcessorStartTime.HasValue == true) result = true;
+            return result;
+        } 
         
         public string StatusMessage
         {

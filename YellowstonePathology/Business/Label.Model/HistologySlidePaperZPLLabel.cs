@@ -47,7 +47,7 @@ namespace YellowstonePathology.Business.Label.Model
                 truncatedLastName = this.m_LastName;
             }
                  
-            result.Append("^FO" + (28 + xOffset) + ",090^BXN,04,200^FD" + this.m_SlideOrderId + "^FS");
+            result.Append("^FO" + (28 + xOffset) + ",090^BXN,04,200^FD" + "HSLD" + this.m_SlideOrderId + "^FS");
             result.Append("^FO" + (28 + xOffset) + ",030^ATN,40,40^FD" + this.m_ReportNo + "^FS");
             result.Append("^FO" + (28 + xOffset) + ",180^ARN,25,25^FD" + truncatedLastName + "^FS");
             result.Append("^FO" + (28 + xOffset) + ",210^ARN,25,25^FD" + truncatedtestName + "^FS");

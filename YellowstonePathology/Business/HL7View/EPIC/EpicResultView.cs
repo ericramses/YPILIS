@@ -74,7 +74,7 @@ namespace YellowstonePathology.Business.HL7View.EPIC
             YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_PanelSetOrder.ReportNo);
 
             string resultStatus = this.m_ResultStatus;
-            if (panelSetOrder.AmendmentCollection.Count != 0) resultStatus = ResultStatusEnum.Correction.ToString();
+            if (panelSetOrder.AmendmentCollection.Count != 0) resultStatus = ResultStatusEnum.Correction.Value;
 
             YellowstonePathology.Business.ClientOrder.Model.UniversalServiceCollection universalServiceIdCollection = YellowstonePathology.Business.ClientOrder.Model.UniversalServiceCollection.GetAll();
             YellowstonePathology.Business.ClientOrder.Model.UniversalService universalService = universalServiceIdCollection.GetByUniversalServiceId(panelSetOrder.UniversalServiceId);            
