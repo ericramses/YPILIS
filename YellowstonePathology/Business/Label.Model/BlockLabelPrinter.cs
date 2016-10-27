@@ -40,11 +40,10 @@ namespace YellowstonePathology.Business.Label.Model
             }       
         }
 
-        public BlockLabelPrinter(string aliquotOrderId, string aliquotLabel, string masterAccessionNo, string pLastName, string pFirstName)
+        public BlockLabelPrinter(string aliquotOrderId, string aliquotLabel, string masterAccessionNo, string pLastName)
         {
             this.m_BlockLabelQueue = new Queue<Business.Label.Model.HistologyBlockPaperZPLLabel>();
-            string initials = Business.Helper.PatientHelper.GetPatientInitials(pFirstName, pLastName);
-            Business.Label.Model.HistologyBlockPaperZPLLabel blockLabel = new Business.Label.Model.HistologyBlockPaperZPLLabel(aliquotOrderId, initials, aliquotLabel, masterAccessionNo);
+            Business.Label.Model.HistologyBlockPaperZPLLabel blockLabel = new Business.Label.Model.HistologyBlockPaperZPLLabel(aliquotOrderId, pLastName, aliquotLabel, masterAccessionNo);
             this.m_BlockLabelQueue.Enqueue(blockLabel);
         }        
 
