@@ -16,6 +16,9 @@ namespace YellowstonePathology.Business.Facility.Model
             this.m_City = "Ogden";
             this.m_State = "UT";
             this.m_ZipCode = "84405";
+            this.m_PhoneNumber = null;
+            this.m_FedexAccountNo = null;
+            this.m_FedexPaymentType = null;
             this.m_IsReferenceLab = false;                        
         }
     }

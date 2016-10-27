@@ -17,6 +17,9 @@ namespace YellowstonePathology.Business.Facility.Model
             this.m_City = "Zion";
             this.m_State = "IL";
             this.m_ZipCode = "60099";
+            this.m_PhoneNumber = "(847)746-2288";
+            this.m_FedexAccountNo = "481734541";
+            this.m_FedexPaymentType = "RECIPIENT";
             this.m_IsReferenceLab = true;
 
             this.m_CliaLicense = new CLIALicense(this, null);            

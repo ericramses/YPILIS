@@ -111,8 +111,7 @@ namespace YellowstonePathology.UI.Billing
                 "from tblPanelSetOrder pso " +
                 "join tblTestOrderReportDistribution tor on pso.ReportNo = tor.ReportNo " +
                 "join tblAccessionOrder ao on pso.MasterAccessionno = ao.MasterAccessionNo " +
-                "where pso.IsPosted = 1 and tor.DistributionType = 'EPIC' " +
-                "and exists (select null from tblPanelSetOrderCPTCodeBill where reportNo = pso.ReportNo and PostDate = '" + workDate.ToString() + "') order by ao.AccessionTime";
+                "where tor.ResultStatus = 'P' ";                
 
             cmd.CommandType = CommandType.Text;
 

@@ -1090,7 +1090,7 @@ namespace YellowstonePathology.Business.Specimen.Model
             else
             {
                 this.m_TimeToFixation = null;
-				this.m_TimeToFixationHourString = YellowstonePathology.Business.Specimen.Model.TimeToFixationType.Unknown;
+				this.m_TimeToFixationHourString = YellowstonePathology.Business.Specimen.Model.TimeToFixationType.LessThanOneHour;
             }  
           
             this.NotifyPropertyChanged("TimeToFixation");

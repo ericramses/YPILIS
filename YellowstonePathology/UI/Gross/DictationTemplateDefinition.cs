@@ -199,11 +199,15 @@ namespace YellowstonePathology.UI.Gross
         public FallopianTubeTemplate()
         {
             this.m_TemplateName = "Fallopian Tube Specimen";
-            this.m_Text = "[identifier]." + Environment.NewLine +
-            	"Gross description:  [description]" + Environment.NewLine +
-                "Fimbriated Ends:  [description]" + Environment.NewLine +
-            	"Fallopian Tube 1:  [description], [measurement], [inked]" + Environment.NewLine +                          
-				"Fallopian Tube 2:  [description], [measurement], [inked]" + Environment.NewLine +
+            this.m_Text = "[identifier]." + Environment.NewLine +            	
+            	"Fallopian Tube 1:" + Environment.NewLine +
+                "  Dimensions:  [measurements] ([w/wo] fimbriated end)" + Environment.NewLine +
+                "  Surface:  [description] [paratubal cysts absent/present]" + Environment.NewLine +
+                "  Inked:  [color]" + Environment.NewLine +
+                "Fallopian Tube 2:" + Environment.NewLine +
+                "  Dimensions:  [measurements] ([w/wo] fimbriated end)" + Environment.NewLine +
+                "  Surface:  [description] [paratubal cysts absent/present]" + Environment.NewLine +
+                "  Inked:  [color]" + Environment.NewLine +
                 "Submitted:  [representativesections].  ";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.FallopianTube fallopianTube = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.FallopianTube();
