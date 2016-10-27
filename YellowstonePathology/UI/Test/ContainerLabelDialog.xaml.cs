@@ -37,23 +37,12 @@ namespace YellowstonePathology.UI.Test
             {
                 if (this.TextBlockRowCount.Text.Length > 0)
                 {
+                    Business.Label.Model.ZPLPrinter printer = new Business.Label.Model.ZPLPrinter("10.1.1.21");
                     int pageCount = this.GetPageCount();
-                    if (pageCount > 0)
-                    {
-                        Business.Label.Model.ZPLPrinter printer = new Business.Label.Model.ZPLPrinter("10.1.1.21");                        
-                        for (int x = 0; x < pageCount; x++)
-                        {
-                            int columns = 4;
-                            List<YellowstonePathology.Business.BarcodeScanning.ContainerBarcode> barcodeList = new List<Business.BarcodeScanning.ContainerBarcode>();
-                            for (int y = 0; y < columns; y++)
-                            {
-                                YellowstonePathology.Business.BarcodeScanning.ContainerBarcode containerBarcode = Business.BarcodeScanning.ContainerBarcode.Parse();
-                                barcodeList.Add(containerBarcode);
-                            }
-
-                            string commands = Business.Label.Model.ContainerZPLLabel.GetCommands(barcodeList);
-                            printer.Print(commands);
-                        }
+                    for (int x=0; x<pageCount; x++)
+                    {                        
+                        string commands = Business.Label.Model.ContainerZPLLabel.GetCommands();
+                        printer.Print(commands);                        
                     }
                 }
                 else
