@@ -82,7 +82,7 @@ namespace YellowstonePathology.Business.Test.MissingInformation
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "null", "bit")]
+        [PersistentDataColumnProperty(true, "1", "null", "tinyint")]
         public bool FirstCall
         {
             get { return this.m_FirstCall; }
@@ -142,7 +142,7 @@ namespace YellowstonePathology.Business.Test.MissingInformation
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "null", "bit")]
+        [PersistentDataColumnProperty(true, "1", "null", "tinyint")]
         public bool SecondCall
         {
             get { return this.m_SecondCall; }
@@ -202,7 +202,7 @@ namespace YellowstonePathology.Business.Test.MissingInformation
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "null", "bit")]
+        [PersistentDataColumnProperty(true, "1", "null", "tinyint")]
         public bool ThirdCall
         {
             get { return this.m_ThirdCall; }
@@ -262,7 +262,7 @@ namespace YellowstonePathology.Business.Test.MissingInformation
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "null", "bit")]
+        [PersistentDataColumnProperty(true, "1", "null", "tinyint")]
         public bool Fax
         {
             get { return this.m_Fax; }
@@ -307,7 +307,7 @@ namespace YellowstonePathology.Business.Test.MissingInformation
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "null", "bit")]
+        [PersistentDataColumnProperty(true, "1", "null", "tinyint")]
         public bool ClientSystemLookup
         {
             get { return this.m_ClientSystemLookup; }

@@ -103,7 +103,7 @@ namespace YellowstonePathology.Business.Task.Model
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "null", "bit")]
+        [PersistentDataColumnProperty(true, "1", "null", "tinyint")]
         public bool LabelHasBeenPrinted
         {
             get { return this.m_LabelHasBeenPrinted; }

@@ -92,7 +92,7 @@ namespace YellowstonePathology.Business.Test
 		private string m_SignatureButtonText;
 		private bool m_SignatureButtonIsEnabled;
         private bool m_HoldDistribution;
-        private bool m_AdditionalTestingEmailSent;
+        private bool? m_AdditionalTestingEmailSent;
         private string m_AdditionalTestingEmailSentBy;
         private Nullable<DateTime> m_TimeAdditionalTestingEmailSent;
         private string m_AdditionalTestingEmailMessage;
@@ -328,7 +328,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(false, "1", "0", "bit")]
+        [PersistentDataColumnProperty(false, "1", "0", "tinyint")]
         public bool Final
         {
             get { return this.m_Final; }
@@ -388,7 +388,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "0", "bit")]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
         public bool Accepted
         {
             get { return this.m_Accepted; }
@@ -553,7 +553,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "0", "bit")]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
         public bool Audited
         {
             get { return this.m_Audited; }
@@ -598,7 +598,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "0", "bit")]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
         public bool HoldBilling
         {
             get { return this.m_HoldBilling; }
@@ -643,7 +643,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(false, "1", "0", "bit")]
+        [PersistentDataColumnProperty(false, "1", "0", "tinyint")]
         public bool Published
         {
             get { return this.m_Published; }
@@ -688,7 +688,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "0", "bit")]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
         public bool PublishNotificationSent
         {
             get { return this.m_PublishNotificationSent; }
@@ -763,7 +763,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(false, "1", "0", "bit")]
+        [PersistentDataColumnProperty(false, "1", "0", "tinyint")]
         public bool HasTechnicalComponent
         {
             get { return this.m_HasTechnicalComponent; }
@@ -808,7 +808,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(false, "1", "0", "bit")]
+        [PersistentDataColumnProperty(false, "1", "0", "tinyint")]
         public bool HasProfessionalComponent
         {
             get { return this.m_HasProfessionalComponent; }
@@ -883,7 +883,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(false, "1", "0", "bit")]
+        [PersistentDataColumnProperty(false, "1", "0", "tinyint")]
         public bool NoCharge
         {
             get { return this.m_NoCharge; }
@@ -898,7 +898,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "0", "bit")]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
         public bool Ordered14DaysPostDischarge
         {
             get { return this.m_Ordered14DaysPostDischarge; }
@@ -928,7 +928,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "0", "bit")]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
         public bool IsBillable
         {
             get { return this.m_IsBillable; }
@@ -943,7 +943,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "0", "bit")]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
         public bool IsPosted
         {
             get { return this.m_IsPosted; }
@@ -958,7 +958,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "0", "bit")]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
         public bool Distribute
         {
             get { return this.m_Distribute; }
@@ -1033,7 +1033,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "0", "bit")]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
         public bool IsDelayed
         {
             get { return this.m_IsDelayed; }
@@ -1108,7 +1108,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "0", "bit")]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
         public bool HoldForPeerReview
         {
             get { return this.m_HoldForPeerReview; }
@@ -1153,7 +1153,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "0", "bit")]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
         public bool HoldDistribution
         {
             get { return this.m_HoldDistribution; }
@@ -1168,8 +1168,8 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "null", "bit")]
-        public bool AdditionalTestingEmailSent
+        [PersistentDataColumnProperty(true, "1", "null", "tinyint")]
+        public bool? AdditionalTestingEmailSent
         {
             get { return this.m_AdditionalTestingEmailSent; }
             set
@@ -1258,7 +1258,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "0", "bit")]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
         public bool ResearchTesting
         {
             get { return this.m_ResearchTesting; }

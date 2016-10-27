@@ -388,7 +388,7 @@ namespace YellowstonePathology.Business.Domain
 		}
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(false, "1", "0", "bit")]
+		[PersistentDataColumnProperty(false, "1", "0", "tinyint")]
 		public bool RequiresResponse
 		{
 			get { return this.m_RequiresResponse; }
@@ -403,7 +403,7 @@ namespace YellowstonePathology.Business.Domain
 		}
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(false, "1", "0", "bit")]
+		[PersistentDataColumnProperty(false, "1", "0", "tinyint")]
 		public bool RequiresNotification
 		{
 			get { return this.m_RequiresNotification; }

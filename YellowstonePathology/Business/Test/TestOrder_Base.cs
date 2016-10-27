@@ -170,7 +170,7 @@ namespace YellowstonePathology.Business.Test.Model
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(false, "1", "0", "bit")]
+        [PersistentDataColumnProperty(false, "1", "0", "tinyint")]
         public bool OrderedAsDual
         {
             get { return this.m_OrderedAsDual; }
@@ -185,7 +185,7 @@ namespace YellowstonePathology.Business.Test.Model
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "0", "bit")]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
         public bool NoCharge
         {
             get { return this.m_NoCharge; }

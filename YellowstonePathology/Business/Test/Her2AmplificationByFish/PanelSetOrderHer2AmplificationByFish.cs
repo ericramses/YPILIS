@@ -185,7 +185,7 @@ namespace YellowstonePathology.Business.Test.Her2AmplificationByFish
 		}
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "0", "bit")]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
         public bool NonBreast
         {
             get { return this.m_NonBreast; }

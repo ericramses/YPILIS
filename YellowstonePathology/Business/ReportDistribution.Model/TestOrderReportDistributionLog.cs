@@ -201,7 +201,7 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
 		}		
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(true, "1", "null", "bit")]
+		[PersistentDataColumnProperty(true, "1", "null", "tinyint")]
 		public bool ErrorInDistribution
 		{
 			get { return this.m_ErrorInDistribution; }

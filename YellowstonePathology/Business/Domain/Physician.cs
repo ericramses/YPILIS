@@ -153,7 +153,7 @@ namespace YellowstonePathology.Business.Domain
 		}
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(false, "1", "1", "bit")]
+        [PersistentDataColumnProperty(false, "1", "1", "tinyint")]
 		public bool Active
 		{
 			get { return this.m_Active; }
@@ -258,7 +258,7 @@ namespace YellowstonePathology.Business.Domain
 		}
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(false, "1", "0", "bit")]
+        [PersistentDataColumnProperty(false, "1", "0", "tinyint")]
 		public bool OutsideConsult
 		{
 			get { return this.m_OutsideConsult; }
@@ -273,7 +273,7 @@ namespace YellowstonePathology.Business.Domain
 		}
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(false, "1", "0", "bit")]
+        [PersistentDataColumnProperty(false, "1", "0", "tinyint")]
 		public bool HPVTest
 		{
 			get { return this.m_HPVTest; }
@@ -393,7 +393,7 @@ namespace YellowstonePathology.Business.Domain
 		}
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(false, "1", "0", "bit")]
+        [PersistentDataColumnProperty(false, "1", "0", "tinyint")]
 		public bool KRASBRAFStandingOrder
 		{
 			get { return this.m_KRASBRAFStandingOrder; }
@@ -479,7 +479,7 @@ namespace YellowstonePathology.Business.Domain
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "0", "bit")]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
         public bool SendPublishNotifications
         {
             get { return this.m_SendPublishNotifications; }

@@ -98,7 +98,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "0", "bit")]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
         public bool BRAFIsIndicated
         {
             get { return this.m_BRAFIsIndicated; }

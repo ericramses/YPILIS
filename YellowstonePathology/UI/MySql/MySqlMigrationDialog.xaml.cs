@@ -315,7 +315,7 @@ namespace YellowstonePathology.UI.MySql
         {
             this.StatusMessage = "Working on it.";
             Business.Rules.MethodResult overallResult = new Business.Rules.MethodResult();
-            foreach (MySQLMigration.MigrationStatus migrationStatus in this.ListViewMigrationStatus.Items)
+            foreach (MySQLMigration.MigrationStatus migrationStatus in this.ListViewMigrationStatus.SelectedItems)
             {
                 Business.Rules.MethodResult methodResult = m_MySQLDatabaseBuilder.DailySync(migrationStatus);
                 if (methodResult.Success == false)
@@ -327,10 +327,30 @@ namespace YellowstonePathology.UI.MySql
             this.SetStatusMessage(overallResult);
         }
 
+        private void MenuItemCompareData_Click(object sender, RoutedEventArgs e)
+        {
+            this.StatusMessage = "Working on it.";
+            if (this.ListViewMigrationStatus.SelectedItem != null)
+            {
+                MySQLMigration.MigrationStatus migrationStatus = (MySQLMigration.MigrationStatus)this.ListViewMigrationStatus.SelectedItem;
+                Business.Rules.MethodResult methodResult = m_MySQLDatabaseBuilder.CompareData(migrationStatus);
+                this.SetStatusMessage(methodResult);
+            }
+            else
+            {
+                MessageBox.Show("Select a class to compare.");
+            }
+        }
+
         private void GetStatus(MySQLMigration.MigrationStatus migrationStatus)
         {
             this.m_MySQLDatabaseBuilder.GetStatus(migrationStatus);
             this.StatusMessage = "Got Status for " + migrationStatus.Name;
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

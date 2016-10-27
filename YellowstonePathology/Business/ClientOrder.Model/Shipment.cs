@@ -138,7 +138,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 
 		[DataMember]
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(false, "1", "0", "bit")]
+		[PersistentDataColumnProperty(false, "1", "0", "tinyint")]
 		public bool Shipped
 		{
 			get { return this.m_Shipped; }
@@ -154,7 +154,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 
 		[DataMember]
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(false, "1", "0", "bit")]
+		[PersistentDataColumnProperty(false, "1", "0", "tinyint")]
 		public bool Received
 		{
 			get { return this.m_Received; }

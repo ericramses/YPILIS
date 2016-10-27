@@ -197,7 +197,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 		}
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(true, "50", "'Not Correlated'", "varchar")]
+		[PersistentDataColumnProperty(false, "1", "0", "tinyint")]
 		public bool CorrelationAffectsPatientCare
 		{
 			get { return this.m_CorrelationAffectsPatientCare; }
@@ -242,7 +242,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 		}
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(true, "1", "null", "bit")]
+		[PersistentDataColumnProperty(true, "1", "null", "tinyint")]
 		public bool Final
 		{
 			get { return this.m_Final; }
