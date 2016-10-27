@@ -23,7 +23,7 @@ namespace YellowstonePathology.Business.Label.Model
                         if (orderIdParser.IsLegacyMasterAccessionNo == false)
                         {
                             string initials = Business.Helper.PatientHelper.GetPatientInitials(accessionOrder.PFirstName, accessionOrder.PLastName);
-                            Business.Label.Model.HistologyBlockPaperZPLLabel blockLabel = new Business.Label.Model.HistologyBlockPaperZPLLabel(aliquotOrder.AliquotOrderId, initials, aliquotOrder.Label, accessionOrder.MasterAccessionNo);                            
+                            Business.Label.Model.HistologyBlockPaperZPLLabel blockLabel = new Business.Label.Model.HistologyBlockPaperZPLLabel(aliquotOrder.AliquotOrderId, accessionOrder.PLastName, accessionOrder.PFirstName, aliquotOrder.Label, accessionOrder.MasterAccessionNo);                            
                             this.m_BlockLabelQueue.Enqueue(blockLabel);
                             aliquotOrder.Printed = true;
                         }
@@ -31,7 +31,7 @@ namespace YellowstonePathology.Business.Label.Model
                         {
                             string reportNo = accessionOrder.PanelSetOrderCollection[0].ReportNo;
                             string initials = Business.Helper.PatientHelper.GetPatientInitials(accessionOrder.PFirstName, accessionOrder.PLastName);
-                            Business.Label.Model.HistologyBlockPaperZPLLabel blockLabel = new Business.Label.Model.HistologyBlockPaperZPLLabel(aliquotOrder.AliquotOrderId, initials, aliquotOrder.Label, reportNo);
+                            Business.Label.Model.HistologyBlockPaperZPLLabel blockLabel = new Business.Label.Model.HistologyBlockPaperZPLLabel(aliquotOrder.AliquotOrderId, accessionOrder.PFirstName, accessionOrder.PLastName, aliquotOrder.Label, reportNo);
                             this.m_BlockLabelQueue.Enqueue(blockLabel);
                             aliquotOrder.Printed = true;
                         }
@@ -40,10 +40,10 @@ namespace YellowstonePathology.Business.Label.Model
             }       
         }
 
-        public BlockLabelPrinter(string aliquotOrderId, string aliquotLabel, string masterAccessionNo, string pLastName)
+        public BlockLabelPrinter(string aliquotOrderId, string aliquotLabel, string masterAccessionNo, string pLastName, string pFirstName)
         {
             this.m_BlockLabelQueue = new Queue<Business.Label.Model.HistologyBlockPaperZPLLabel>();
-            Business.Label.Model.HistologyBlockPaperZPLLabel blockLabel = new Business.Label.Model.HistologyBlockPaperZPLLabel(aliquotOrderId, pLastName, aliquotLabel, masterAccessionNo);
+            Business.Label.Model.HistologyBlockPaperZPLLabel blockLabel = new Business.Label.Model.HistologyBlockPaperZPLLabel(aliquotOrderId, pLastName, pFirstName, aliquotLabel, masterAccessionNo);
             this.m_BlockLabelQueue.Enqueue(blockLabel);
         }        
 
