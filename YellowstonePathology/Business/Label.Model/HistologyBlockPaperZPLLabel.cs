@@ -25,6 +25,7 @@ namespace YellowstonePathology.Business.Label.Model
         {
             zplString.Append("^FO" + (30 + xOffset) + ",090^BXN,08,200^FD" + "HBLK" + this.m_AliquotOrderId + "^FS");
             zplString.Append("^FO" + (30 + xOffset) + ",040^ATN,40,40^FD" + this.m_MasterAccessionNo + "^FS");
+            zplString.Append("^FO" + (175 + xOffset) + ",115^ARN,40,40^FD" + "YPI" + "^FS");
             zplString.Append("^FO" + (30 + xOffset) + ",220^ARN,25,25^FD" + this.m_PatientInitials + "^FS");
             zplString.Append("^FO" + (175 + xOffset) + ",220^ARN,25,25^FD" + this.m_BlockId + "^FS");            
         }        
