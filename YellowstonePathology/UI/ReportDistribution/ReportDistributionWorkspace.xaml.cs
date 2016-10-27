@@ -266,23 +266,23 @@ namespace YellowstonePathology.UI.ReportDistribution
         {
             bool result = true;
 
-            //try
-            //{
-            caseDocument.Render();
-            if(panelSetOrder.ResultDocumentSource != "Reference Lab")
+            try
             {
-                caseDocument.Publish();
-            }
+                caseDocument.Render();
+                if(panelSetOrder.ResultDocumentSource != "Reference Lab")
+                {
+                    caseDocument.Publish();
+                }
                 
-            this.m_ReportDistributionLogEntryCollection.AddEntry("INFO", "Publish Next", null, panelSetOrder.ReportNo, panelSetOrder.MasterAccessionNo, null, null, "PanelSetOrder Published");
+                this.m_ReportDistributionLogEntryCollection.AddEntry("INFO", "Publish Next", null, panelSetOrder.ReportNo, panelSetOrder.MasterAccessionNo, null, null, "PanelSetOrder Published");
 
-            //}                                    
-            //catch (Exception publishException)
-            //{
-            //    this.m_ReportDistributionLogEntryCollection.AddEntry("ERROR", "Publish Next", null, panelSetOrder.ReportNo, panelSetOrder.MasterAccessionNo, null, null, publishException.Message);                
-            //    this.DelayPublishAndDistribution(15, publishException.Message, panelSetOrder);
-            //    result = false;
-            //}                                    
+            }                                    
+            catch (Exception publishException)
+            {
+                this.m_ReportDistributionLogEntryCollection.AddEntry("ERROR", "Publish Next", null, panelSetOrder.ReportNo, panelSetOrder.MasterAccessionNo, null, null, publishException.Message);                
+                this.DelayPublishAndDistribution(15, publishException.Message, panelSetOrder);
+                result = false;
+            }                                    
 
             return result;
         }
@@ -583,17 +583,8 @@ namespace YellowstonePathology.UI.ReportDistribution
         }
 
         private YellowstonePathology.Business.ReportDistribution.Model.DistributionResult HandleEPICDistribution(YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution testOrderReportDistribution, Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder)
-        {
-            if(panelSetOrder.IsPosted == true)
-            {
-                testOrderReportDistribution.ResultStatus = "F";
-            }
-            else
-            {
-                testOrderReportDistribution.ResultStatus = "P";
-            }
-                
-            YellowstonePathology.Business.HL7View.IResultView resultView = YellowstonePathology.Business.HL7View.ResultViewFactory.GetResultView(testOrderReportDistribution.ReportNo, accessionOrder, testOrderReportDistribution.ClientId, testOrderReportDistribution.ResultStatus, false);
+        {                                        
+            YellowstonePathology.Business.HL7View.IResultView resultView = YellowstonePathology.Business.HL7View.ResultViewFactory.GetResultView(testOrderReportDistribution.ReportNo, accessionOrder, testOrderReportDistribution.ClientId, false);
             YellowstonePathology.Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
             resultView.Send(methodResult);
 

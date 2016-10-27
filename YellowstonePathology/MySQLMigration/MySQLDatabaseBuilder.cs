@@ -21,7 +21,7 @@ namespace YellowstonePathology.MySQLMigration
 
         public MySQLDatabaseBuilder()
         {
-            this.BuildForbiddenWordLists();
+            //this.BuildForbiddenWordLists();
         }
 
         private string GetMySQLDataType(Type type)
@@ -367,8 +367,8 @@ namespace YellowstonePathology.MySQLMigration
         private void SetTransfered(string tableName, string keyName, string rowsToUse)
         {
             SqlCommand cmd = new SqlCommand();
-            //cmd.CommandText = "update " + tableName + " set Transferred = 1 where  " + keyName + " in (Select top (" + rowsToUse + ") " + keyName + " from " + tableName + " where (Transferred is null or Transferred = 0) order by " + keyName + ")";
-            cmd.CommandText = "update " + tableName + " set Transferred = 1 where  " + keyName + " in (Select top (" + rowsToUse + ") " + keyName + " from " + tableName + " where (Transferred is null or Transferred = 0) and ReportNo not like '16-%' order by " + keyName + ")";
+            cmd.CommandText = "update " + tableName + " set Transferred = 1 where  " + keyName + " in (Select top (" + rowsToUse + ") " + 
+                keyName + " from " + tableName + " where (Transferred is null or Transferred = 0) order by " + keyName + ")";
             using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
@@ -389,12 +389,10 @@ namespace YellowstonePathology.MySQLMigration
 
             result = result.Remove(result.Length - 2, 2);
 
-            //result = result + " from " + tableName + " Where (Transferred is null or Transferred = 0) Order By " + properties[0].Name;
-            result = result + " from " + tableName + " Where (Transferred is null or Transferred = 0) and ReportNo not like '16-%' Order By " + properties[0].Name;
+            result = result + " from " + tableName + " Where (Transferred is null or Transferred = 0) Order By " + properties[0].Name;
             return result;
         }
 
-        //private string GetInsertStatement(string tableName, List<PropertyInfo> properties, SqlDataReader dr)
         private string GetInsertStatement(string tableName, List<PropertyInfo> properties, System.Data.Common.DbDataReader dr)
         {
             string result = "Insert " + tableName + "(";
@@ -424,14 +422,14 @@ namespace YellowstonePathology.MySQLMigration
                     {
                         string text = dr[i].ToString().Replace("'", "''");
                         text = text.Replace("\\", "\\\\");
-                        if (string.IsNullOrEmpty(text))
+                        /*if (string.IsNullOrEmpty(text))
                         {
                             result = result + "NULL, ";
                         }
                         else
-                        {
+                        {*/
                             result = result + "'" + text + "', ";
-                        }
+                        //}
                     }
                     else if (dataType == "DATETIME(3)" || dataType == "DATETIME(3) NOT NULL")
                     {
@@ -560,7 +558,7 @@ namespace YellowstonePathology.MySQLMigration
             for (int i = 0; i < properties.Count; i++)
             {
                 PropertyInfo property = properties[i];
-                result = result + property.Name + ", ";
+                result = result + "[" +property.Name + "], ";
             }
 
             result = result.Remove(result.Length - 2, 2);
@@ -1109,6 +1107,11 @@ namespace YellowstonePathology.MySQLMigration
                 {
                     result = this.LoadData(migrationStatus, migrationStatus.UnLoadedDataCount, 1);
                 }
+            }
+            else
+            {
+                result.Success = false;
+                result.Message += "Table or column issue with " + migrationStatus.TableName;
             }
             return result;
         }

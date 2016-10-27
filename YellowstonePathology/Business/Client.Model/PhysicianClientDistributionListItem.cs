@@ -306,6 +306,10 @@ namespace YellowstonePathology.Business.Client.Model
                 {
                     this.AddTestOrderReportDistribution(panelSetOrder, accessionOrder.PhysicianId, accessionOrder.PhysicianName, accessionOrder.ClientId, accessionOrder.ClientName, YellowstonePathology.Business.ReportDistribution.Model.DistributionType.MEDITECH, this.FaxNumber, this.LongDistance);
                 }
+                else
+                {
+                    this.HandleAddFaxDistribution(panelSetOrder);
+                }
             }
             return result;
         }

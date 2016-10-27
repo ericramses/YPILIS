@@ -15,7 +15,7 @@ namespace YellowstonePathology.Business.Test.InformalConsult
             this.m_CaseType = YellowstonePathology.Business.CaseType.Technical;
 			this.m_HasTechnicalComponent = false;			
 			this.m_HasProfessionalComponent = true;
-			this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.None;
+			this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterT();
             this.m_Active = true;            
 			                    

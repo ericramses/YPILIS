@@ -500,8 +500,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 TestOrderReportDistributionPage testOrderReportDistributionPage = new TestOrderReportDistributionPage(testOrderReportDistribution, this.m_PageNavigator);
                 testOrderReportDistributionPage.Next += new TestOrderReportDistributionPage.NextEventHandler(AddDistribution_TestOrderReportDistributionPage_Next);
                 testOrderReportDistributionPage.Back += new TestOrderReportDistributionPage.BackEventHandler(AddDistribution_TestOrderReportDistributionPage_Back);
-                this.m_PageNavigator.Navigate(testOrderReportDistributionPage);
-                 
+                this.m_PageNavigator.Navigate(testOrderReportDistributionPage);                 
             }
         }
 
