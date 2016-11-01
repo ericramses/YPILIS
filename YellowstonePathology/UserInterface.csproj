@@ -767,6 +767,7 @@
     <Compile Include="Business\Facility.Model\UCSFDermPathService.cs" />
     <Compile Include="Business\Facility.Model\UniPath.cs" />
     <Compile Include="Business\Facility.Model\UniversityOfArkansasMedicalSciences.cs" />
+    <Compile Include="Business\Facility.Model\Anschutz Pathology UCH.cs" />
     <Compile Include="Business\Facility.Model\UniversityOfColoradoHospital.cs" />
     <Compile Include="Business\Facility.Model\UniversityOfMiami.cs" />
     <Compile Include="Business\Facility.Model\UniversityOfMichigan.cs" />
