@@ -5,20 +5,20 @@ using System.Text;
 
 namespace YellowstonePathology.Business.Facility.Model
 {
-    public class UniversityOfColoradoHospital : Facility
+    public class AnschutzPathologyUCH : Facility
     {
-        public UniversityOfColoradoHospital()
+        public AnschutzPathologyUCH()
         {
             this.m_FacilityId = "UOCH";
             this.m_FacilityIdOLD = null;
-            this.m_FacilityName = "University Of Colorado Hospital";
-            this.m_Address1 = "1665 Aurora Court";
-            this.m_Address2 = "Suite 3070";
+            this.m_FacilityName = "Anschutz Inpatient Pavilion - Pathology; University Of Colorado Hospital";
+            this.m_Address1 = "12605 Aurora Court";
+            this.m_Address2 = "Suite 3.003";
             this.m_City = "Aurora";
             this.m_State = "CO";
             this.m_ZipCode = "80045";
-            this.m_PhoneNumber = "(720)848-0590";
-            this.m_FedexAccountNo = "175391088";
+            this.m_PhoneNumber = "(720)848-4421";
+            this.m_FedexAccountNo = "478927088";
             this.m_FedexPaymentType = "SENDER";
             this.m_IsReferenceLab = true;
 
