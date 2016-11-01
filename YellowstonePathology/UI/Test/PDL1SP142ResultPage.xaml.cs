@@ -16,9 +16,9 @@ using System.ComponentModel;
 namespace YellowstonePathology.UI.Test
 {
     /// <summary>
-    /// Interaction logic for PDL1ResultPage.xaml
+    /// Interaction logic for PDL1SP142ResultPage.xaml
     /// </summary>
-    public partial class PDL1ResultPage : ResultControl, INotifyPropertyChanged 
+    public partial class PDL1SP142ResultPage : ResultControl, INotifyPropertyChanged 
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -27,12 +27,12 @@ namespace YellowstonePathology.UI.Test
 
         private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;        
-        private YellowstonePathology.Business.Test.PDL1.PDL1TestOrder m_PanelSetOrder;
+        private YellowstonePathology.Business.Test.PDL1SP142.PDL1SP142TestOrder m_PanelSetOrder;
 
         private string m_PageHeaderText;
         private string m_OrderedOnDescription;
 
-        public PDL1ResultPage(YellowstonePathology.Business.Test.PDL1.PDL1TestOrder testOrder,
+        public PDL1SP142ResultPage(YellowstonePathology.Business.Test.PDL1SP142.PDL1SP142TestOrder testOrder,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
             YellowstonePathology.Business.User.SystemIdentity systemIdentity) : base(testOrder, accessionOrder)
         {
@@ -59,7 +59,7 @@ namespace YellowstonePathology.UI.Test
             get { return this.m_OrderedOnDescription; }
         }
 
-        public YellowstonePathology.Business.Test.PDL1.PDL1TestOrder PanelSetOrder
+        public YellowstonePathology.Business.Test.PDL1SP142.PDL1SP142TestOrder PanelSetOrder
         {
             get { return this.m_PanelSetOrder; }
         }        
@@ -79,7 +79,7 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Test.PDL1.PDL1WordDocument report = new YellowstonePathology.Business.Test.PDL1.PDL1WordDocument(this.m_AccessionOrder, this.m_PanelSetOrder, Business.Document.ReportSaveModeEnum.Draft);
+            YellowstonePathology.Business.Test.PDL1SP142.PDL1SP142WordDocument report = new YellowstonePathology.Business.Test.PDL1SP142.PDL1SP142WordDocument(this.m_AccessionOrder, this.m_PanelSetOrder, Business.Document.ReportSaveModeEnum.Draft);
             report.Render();
 
             YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
@@ -102,7 +102,7 @@ namespace YellowstonePathology.UI.Test
                     YellowstonePathology.Business.Test.PanelSetOrder surgicalPanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetSurgical.PanelSetId);
                     if (surgicalPanelSetOrder.AmendmentCollection.HasAmendmentForReport(this.m_PanelSetOrder.ReportNo) == false)
                     {
-                        string amendmentText = YellowstonePathology.Business.Test.PDL1.PDL1SystemGeneratedAmendmentText.AmendmentText(this.m_PanelSetOrder);
+                        string amendmentText = YellowstonePathology.Business.Test.PDL1SP142.PDL1SP142SystemGeneratedAmendmentText.AmendmentText(this.m_PanelSetOrder);
                         YellowstonePathology.Business.Amendment.Model.Amendment amendment = surgicalPanelSetOrder.AddAmendment();
                         amendment.TestResultAmendmentFill(surgicalPanelSetOrder.ReportNo, surgicalPanelSetOrder.AssignedToId, amendmentText);
                         amendment.ReferenceReportNo = this.m_PanelSetOrder.ReportNo;

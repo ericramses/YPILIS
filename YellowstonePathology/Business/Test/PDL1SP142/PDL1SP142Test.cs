@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace YellowstonePathology.Business.Test.PDL1
+namespace YellowstonePathology.Business.Test.PDL1SP142
 {
-	public class PDL1Test : YellowstonePathology.Business.PanelSet.Model.PanelSet
+	public class PDL1SP142Test : YellowstonePathology.Business.PanelSet.Model.PanelSet
 	{
-        public PDL1Test()
+        public PDL1SP142Test()
 		{
 			this.m_PanelSetId = 215;
-            this.m_PanelSetName = "PD-L1";
-            this.m_Abbreviation = "PD-L1";
+            this.m_PanelSetName = "PD-L1 (SP142)";
+            this.m_Abbreviation = "PD-L1  (SP142)";
             this.m_CaseType = YellowstonePathology.Business.CaseType.IHC;
 			this.m_HasTechnicalComponent = true;			
 			this.m_HasProfessionalComponent = true;
@@ -23,9 +23,8 @@ namespace YellowstonePathology.Business.Test.PDL1
             this.m_AllowMultiplePerAccession = true;
             this.m_EpicDistributionIsImplemented = true;
 
-            this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.PDL1.PDL1TestOrder).AssemblyQualifiedName;
-            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.PDL1.PDL1WordDocument).AssemblyQualifiedName;
-			//changed by MS and TK;
+            this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.PDL1SP142.PDL1SP142TestOrder).AssemblyQualifiedName;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.PDL1SP142.PDL1SP142WordDocument).AssemblyQualifiedName;			
 
             string taskDescription = "Give block to Flow for sendout.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.Task(YellowstonePathology.Business.Task.Model.TaskAssignment.Histology, taskDescription));
