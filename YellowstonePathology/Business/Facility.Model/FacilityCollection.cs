@@ -88,6 +88,7 @@ namespace YellowstonePathology.Business.Facility.Model
             result.Add(new MountainViewHospital());
             result.Add(new EasternIdahoRegionalMedicalCenter());
             result.Add(new SheridanMemorialHospital());
+            result.Add(new ChristianaCare());
             return Sort(result);
         }
 
