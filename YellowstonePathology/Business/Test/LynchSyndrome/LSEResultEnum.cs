@@ -10,6 +10,8 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 		NotApplicable,
 		Positive,
 		Negative,
-        Pending
+        Pending,
+        Loss,
+        Intact
 	}
 }
