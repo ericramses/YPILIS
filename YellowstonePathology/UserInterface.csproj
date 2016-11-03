@@ -780,6 +780,8 @@
     <Compile Include="Business\Facility.Model\YellowstonePathologyInstituteCody.cs" />
     <Compile Include="Business\FileList.cs" />
     <Compile Include="Business\FileListItem.cs" />
+    <Compile Include="Business\Flow\CellPopulationOfInterest.cs" />
+    <Compile Include="Business\Flow\CellPopulationsOfInterest.cs" />
     <Compile Include="Business\Flow\FlowCaseValidation.cs" />
     <Compile Include="Business\Flow\FlowComment.cs" />
     <Compile Include="Business\Flow\FlowCommentCollection.cs" />
