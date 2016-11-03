@@ -18,6 +18,27 @@ namespace YellowstonePathology.Business.Flow
 
         }
 
+        public int GetNextCellPopulationId()
+        {
+            int highestCellPopulationId = 0;
+            foreach(Flow.FlowMarkerItem item in this)
+            {
+                if (item.CellPopulationId > highestCellPopulationId) highestCellPopulationId = item.CellPopulationId;
+            }
+            return highestCellPopulationId + 1;
+        }
+
+        public void ClearCellPopulation(int cellPopulationId)
+        {
+            for (int i = this.Count - 1; i > -1; i--)
+            {
+                if (this[i].CellPopulationId == cellPopulationId)
+                {
+                    this.Remove(this[i]);
+                }
+            }
+        }
+
         public void RemoveDeleted(IEnumerable<XElement> elements)
         {
             for (int i = this.Count - 1; i > -1; i--)
@@ -132,7 +153,7 @@ namespace YellowstonePathology.Business.Flow
 			return result;
 		}
 
-		public void Insert(FlowMarkerCollection panelMarkers, string reportNo)
+		public void Insert(FlowMarkerCollection panelMarkers, string reportNo, int cellPopulationId, string cellPopulationOfInterest)
 		{
 			foreach (FlowMarkerItem panelMarkerItem in panelMarkers)
 			{
@@ -140,7 +161,9 @@ namespace YellowstonePathology.Business.Flow
 				flowMarker.Intensity = panelMarkerItem.Intensity;
 				flowMarker.Interpretation = panelMarkerItem.Interpretation;
 				flowMarker.MarkerUsed = panelMarkerItem.MarkerUsed;
-				this.Add(flowMarker);
+                flowMarker.CellPopulationId = cellPopulationId;
+                flowMarker.CellPopulationOfInterest = cellPopulationOfInterest;
+                this.Add(flowMarker);
 			}
 		}
 

@@ -509,7 +509,8 @@ namespace YellowstonePathology.UI.Flow
             if (comboBox.SelectedItem != null)
             {
                 int panelId = (int)comboBox.SelectedValue;
-                this.m_FlowUI.SetMarkerPanel(panelId);
+                string cellPopulationOfInterest = (string)this.comboBoxCellPopulationOfInterest.SelectedItem;
+                this.m_FlowUI.SetMarkerPanel(panelId, cellPopulationOfInterest);
             }
         }
 
