@@ -23,5 +23,22 @@ namespace YellowstonePathology.Business.Flow
             }
             return result;
         }
+
+        public Nullable<int> GetFirstId()
+        {
+            Nullable<int> result = null;
+            foreach (CellPopulationOfInterest item in this)
+            {
+                if (result.HasValue == false)
+                {
+                    result = item.Id;
+                }
+                else if (item.Id < result.Value)
+                {
+                    result = item.Id;
+                }
+            }
+            return result;
+        }
     }
 }

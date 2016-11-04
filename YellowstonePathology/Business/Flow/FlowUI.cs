@@ -359,13 +359,11 @@ namespace YellowstonePathology.Business.Flow
             }
         }
 
-		public void SetMarkerPanel(int panelId, string cellPopulationOfInterest)
+		public void SetMarkerPanel(int panelId, string cellPopulationOfInterest, string panelName)
 		{
-            //int nextCellPopulationId = this.PanelSetOrderLeukemiaLymphoma.FlowMarkerCollection.GetNextCellPopulationId();
-            this.PanelSetOrderLeukemiaLymphoma.FlowMarkerCollection.Clear();
-            int nextCellPopulationId = 1;
+            int nextCellPopulationId = this.PanelSetOrderLeukemiaLymphoma.FlowMarkerCollection.GetNextCellPopulationId();            
             Flow.FlowMarkerCollection panelCollection = Gateway.FlowGateway.GetFlowMarkerCollectionByPanelId(this.PanelSetOrderLeukemiaLymphoma.ReportNo, panelId);
-			this.PanelSetOrderLeukemiaLymphoma.FlowMarkerCollection.Insert(panelCollection, this.PanelSetOrderLeukemiaLymphoma.ReportNo, nextCellPopulationId, cellPopulationOfInterest);
+			this.PanelSetOrderLeukemiaLymphoma.FlowMarkerCollection.Insert(panelCollection, this.PanelSetOrderLeukemiaLymphoma.ReportNo, nextCellPopulationId, cellPopulationOfInterest, panelName);
 		}		
 
 		public string SignReportButtonContent
