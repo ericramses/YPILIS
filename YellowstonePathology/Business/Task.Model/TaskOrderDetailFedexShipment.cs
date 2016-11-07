@@ -22,6 +22,7 @@ namespace YellowstonePathology.Business.Task.Model
         private string m_ShipToState;
         private string m_ShipToZip;
         private string m_PaymentType;
+        private string m_AccountNo;
 
         public TaskOrderDetailFedexShipment()
         {
@@ -41,6 +42,7 @@ namespace YellowstonePathology.Business.Task.Model
             this.m_ShipToZip = fedexShipment.ShipToFacility.ZipCode;
             this.m_ShipToPhone = fedexShipment.ShipToFacility.PhoneNumber;
             this.m_PaymentType = fedexShipment.ShipToFacility.FedexPaymentType;
+            this.m_AccountNo = fedexShipment.ShipToFacility.FedexAccountNo;
         }
 
         public void SetShipTo(Business.Facility.Model.Facility facility)
@@ -54,6 +56,7 @@ namespace YellowstonePathology.Business.Task.Model
             this.m_ShipToZip = facility.ZipCode;
             this.m_ShipToPhone = facility.PhoneNumber;
             this.m_PaymentType = facility.FedexPaymentType;
+            this.m_AccountNo = facility.FedexAccountNo;
             this.NotifyPropertyChanged(string.Empty);
         }        
 
@@ -233,6 +236,21 @@ namespace YellowstonePathology.Business.Task.Model
                 {
                     this.m_PaymentType = value;
                     this.NotifyPropertyChanged("PaymentType");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
+        public string AccountNo
+        {
+            get { return this.m_AccountNo; }
+            set
+            {
+                if (this.m_AccountNo != value)
+                {
+                    this.m_AccountNo = value;
+                    this.NotifyPropertyChanged("AccountNo");
                 }
             }
         }

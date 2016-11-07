@@ -411,35 +411,18 @@
 							<RowDefinition Height="80"></RowDefinition>							
 							<RowDefinition></RowDefinition>
 						</Grid.RowDefinitions>
-						<StackPanel VerticalAlignment="Center" Grid.Column="0" Grid.Row="0">
-              
-							<StackPanel Orientation="Horizontal" Margin="5">
-								<TextBlock VerticalAlignment="Center" Width="200" Style="{StaticResource GatingTextBlock}" TextAlignment="Right" Margin="2,2,2,2">Cell Population Of Interest:</TextBlock>
-								<ComboBox Name="comboBoxCellPopulationOfInterest" Width="150" IsEditable="True" Margin="2,2,2,2"
-                                    Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.CellPopulationOfInterest}" VerticalAlignment="Top" IsEnabled="{Binding Path=IsWorkspaceEnabled}">
-                                      <ComboBoxItem>Abnormal Lymphocytes</ComboBoxItem>
-                                      <ComboBoxItem>All WBC's</ComboBoxItem>
-                                    <ComboBoxItem>All Nucleated Cells</ComboBoxItem>
-                                      <ComboBoxItem>Blasts</ComboBoxItem>
-                                      <ComboBoxItem>Dim CD45</ComboBoxItem>                                    
-                                      <ComboBoxItem>Granulocytes</ComboBoxItem>
-                                      <ComboBoxItem>Lymphocytes</ComboBoxItem>
-                                      <ComboBoxItem>Monocytes</ComboBoxItem>									
-                                      <ComboBoxItem>Plasma Cells</ComboBoxItem>
-								</ComboBox>
-							</StackPanel>
-              
-							<StackPanel Orientation="Horizontal" Margin="5">
-								<TextBlock VerticalAlignment="Center" Width="200" Style="{StaticResource GatingTextBlock}" TextAlignment="Right" Margin="2,2,2,2">Marker Panel:</TextBlock>                
-								<ComboBox Name="comboBoxMarkerPanel" Width="150" ItemsSource="{Binding Path=FlowPanelList}" Margin="2,2,2,2"
-                                          DisplayMemberPath="PanelName" SelectedValuePath="PanelId" IsEnabled="{Binding Path=IsWorkspaceEnabled}">                  
-                                </ComboBox>
-                                <Button Name="ButtonSetMarkerPanel" Height="20" Width="100" Click="ButtonSetMarkerPanel_Click" IsEnabled="{Binding Path=IsWorkspaceEnabled}" Margin="2,2,2,2">Set Marker Panel</Button>
-								<Button Height="20" Width="100" Click="ButtonRemoveMarker_Click" IsEnabled="{Binding Path=IsWorkspaceEnabled}" Margin="2,2,2,2">Remove Marker</Button>
-							</StackPanel>
-						</StackPanel>
 
-						<ListView Name="listViewMarkers" Grid.Column="0" Grid.Row="1" ItemsSource="{Binding Path=PanelSetOrderLeukemiaLymphoma.FlowMarkerCollection}" ScrollViewer.CanContentScroll="True" 
+                        <ListView Grid.Column="0" Grid.Row="0" Name="listViewCellPopulationsOfInterest" ItemsSource="{Binding Path=PanelSetOrderLeukemiaLymphoma.FlowMarkerCollection.CellPopulationsOfInterest}"
+                                  SelectionChanged="ListViewCellPopulationsOfInterest_SelectionChanged">
+                            <ListView.View>
+                                <GridView ColumnHeaderToolTip="Cell Populations Of Interest">
+                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Id}" Header="Cell Population" Width="100" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Description}" Header="Cells of interest" Width="400"/>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+
+                        <ListView Name="listViewMarkers" Grid.Column="0" Grid.Row="1" ItemsSource="{Binding Path=PanelSetOrderLeukemiaLymphoma.FlowMarkerCollection.CurrentMarkerPanel}" ScrollViewer.CanContentScroll="True" 
 							ScrollViewer.VerticalScrollBarVisibility="Visible">
 							<ListView.View>
 								<GridView AllowsColumnReorder="true">
@@ -949,8 +932,36 @@
 					</StackPanel>
 				</Grid>
 			</TabItem>
-            
-			<TabItem Name="tabItemClientSearch" Header="Client Search">
+            <TabItem Name="tabItemPanels" Header="Panels">
+                <StackPanel Grid.Column="0" Grid.Row="0">
+
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        <TextBlock VerticalAlignment="Center" Width="200" Style="{StaticResource GatingTextBlock}" TextAlignment="Right" Margin="2,2,2,2">Cell Population Of Interest:</TextBlock>
+                        <ComboBox Name="comboBoxCellPopulationOfInterest" Width="150" IsEditable="True" Margin="2,2,2,2"
+                                    Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.CellPopulationOfInterest}" VerticalAlignment="Top" IsEnabled="{Binding Path=IsWorkspaceEnabled}">
+                            <ComboBoxItem>Abnormal Lymphocytes</ComboBoxItem>
+                            <ComboBoxItem>All WBC's</ComboBoxItem>
+                            <ComboBoxItem>All Nucleated Cells</ComboBoxItem>
+                            <ComboBoxItem>Blasts</ComboBoxItem>
+                            <ComboBoxItem>Dim CD45</ComboBoxItem>
+                            <ComboBoxItem>Granulocytes</ComboBoxItem>
+                            <ComboBoxItem>Lymphocytes</ComboBoxItem>
+                            <ComboBoxItem>Monocytes</ComboBoxItem>
+                            <ComboBoxItem>Plasma Cells</ComboBoxItem>
+                        </ComboBox>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        <TextBlock VerticalAlignment="Center" Width="200" Style="{StaticResource GatingTextBlock}" TextAlignment="Right" Margin="2,2,2,2">Marker Panel:</TextBlock>
+                        <ComboBox Name="comboBoxMarkerPanel" Width="150" ItemsSource="{Binding Path=FlowPanelList}" Margin="2,2,2,2"
+                                          DisplayMemberPath="PanelName" SelectedValuePath="PanelId" IsEnabled="{Binding Path=IsWorkspaceEnabled}">
+                        </ComboBox>
+                        <Button Name="ButtonSetMarkerPanel" Height="20" Width="100" Click="ButtonSetMarkerPanel_Click" IsEnabled="{Binding Path=IsWorkspaceEnabled}" Margin="2,2,2,2">Set Marker Panel</Button>
+                        <Button Height="20" Width="100" Click="ButtonRemoveMarker_Click" IsEnabled="{Binding Path=IsWorkspaceEnabled}" Margin="2,2,2,2">Remove Marker</Button>
+                    </StackPanel>
+                </StackPanel>
+            </TabItem>
+            <TabItem Name="tabItemClientSearch" Header="Client Search">
                 
             </TabItem>            
                         

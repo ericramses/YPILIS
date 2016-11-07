@@ -80,6 +80,8 @@ namespace YellowstonePathology.Business.Facility.Model
             result.Add(new StJamesHealth());
             result.Add(new MontanaDepartmentofJustice());
             result.Add(new UniversityOfMichigan());
+            result.Add(new UniversityOfColoradoHospital());
+            result.Add(new AnschutzPathologyUCH());
             result.Add(new UniversityOfMiami());
             result.Add(new ClevelandClinicFoundation());
             result.Add(new SheridanPathologyAssociates());
@@ -88,6 +90,7 @@ namespace YellowstonePathology.Business.Facility.Model
             result.Add(new MountainViewHospital());
             result.Add(new EasternIdahoRegionalMedicalCenter());
             result.Add(new SheridanMemorialHospital());
+            result.Add(new ChristianaCare());
             return Sort(result);
         }
 

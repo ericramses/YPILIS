@@ -12,17 +12,17 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             : base(lseResult, accessionOrder, orderedOnId)
         {
             LSEResult result1 = new LSEResult();
-            result1.MLH1Result = LSEResultEnum.Negative;
-            result1.MSH2Result = LSEResultEnum.Positive;
-            result1.MSH6Result = LSEResultEnum.Positive;
-            result1.PMS2Result = LSEResultEnum.Negative;
+            result1.MLH1Result = LSEResultEnum.Loss;
+            result1.MSH2Result = LSEResultEnum.Intact;
+            result1.MSH6Result = LSEResultEnum.Intact;
+            result1.PMS2Result = LSEResultEnum.Loss;
             m_LSEResultList.Add(result1);
 
             LSEResult result2 = new LSEResult();
-            result2.MLH1Result = LSEResultEnum.Negative;
-            result2.MSH2Result = LSEResultEnum.Positive;
-            result2.MSH6Result = LSEResultEnum.Positive;
-            result2.PMS2Result = LSEResultEnum.Positive;
+            result2.MLH1Result = LSEResultEnum.Loss;
+            result2.MSH2Result = LSEResultEnum.Intact;
+            result2.MSH6Result = LSEResultEnum.Intact;
+            result2.PMS2Result = LSEResultEnum.Intact;
             m_LSEResultList.Add(result2);            
 
             if (this.IsMatch() == true)

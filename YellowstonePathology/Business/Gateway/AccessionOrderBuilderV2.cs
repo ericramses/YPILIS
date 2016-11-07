@@ -584,11 +584,11 @@ namespace YellowstonePathology.Business.Gateway
                 {
                     Test.LLP.PanelSetOrderLeukemiaLymphoma llpPanelSetOrder = (Test.LLP.PanelSetOrderLeukemiaLymphoma)panelSetOrder;
                     llpPanelSetOrder.FlowMarkerCollection.Sync(dataTable, llpPanelSetOrder.ReportNo);
+                    llpPanelSetOrder.FlowMarkerCollection.SetCellPopulationsOfInterest();
+                    llpPanelSetOrder.FlowMarkerCollection.SetFirstMarkerPanelIfExists();
                 }
             }
         }
-
-
 
         private void SetSurgicalAuditAmendment(YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder)
         {

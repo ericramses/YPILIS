@@ -10,7 +10,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 		public LSEIHCResultIntactExpression()
 		{
 			this.m_Description = "Intact nuclear expression";
-			this.m_LSEResult = LSEResultEnum.Positive;
+			this.m_LSEResult = LSEResultEnum.Intact;
 		}
 	}
 }

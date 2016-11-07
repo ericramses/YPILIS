@@ -509,7 +509,8 @@ namespace YellowstonePathology.UI.Flow
             if (comboBox.SelectedItem != null)
             {
                 int panelId = (int)comboBox.SelectedValue;
-                this.m_FlowUI.SetMarkerPanel(panelId);
+                string cellPopulationOfInterest = (string)this.comboBoxCellPopulationOfInterest.Text;
+                this.m_FlowUI.SetMarkerPanel(panelId, cellPopulationOfInterest);
             }
         }
 
@@ -951,6 +952,20 @@ namespace YellowstonePathology.UI.Flow
                 string icd10Code = element.GetAttribute("ICD10");
                 this.m_FlowUI.AddICD9Code(icd9Code, icd10Code);
             }            
+        }
+
+        private void ListViewCellPopulationsOfInterest_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(this.listViewCellPopulationsOfInterest.SelectedItem != null)
+            {
+                Business.Flow.CellPopulationOfInterest item = (Business.Flow.CellPopulationOfInterest)this.listViewCellPopulationsOfInterest.SelectedItem;
+                this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.FlowMarkerCollection.SetCurrentMarkerPanel(item.Id);
+            }
+        }
+
+        private void ButtonRemovePanel_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

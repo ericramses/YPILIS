@@ -9,9 +9,9 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 	{
 		public LSEColorectalResult11()
 		{
-			this.m_MLH1Result = LSEResultEnum.Positive;
-			this.m_MSH2Result = LSEResultEnum.Positive;
-			this.m_MSH6Result = LSEResultEnum.Positive;
+			this.m_MLH1Result = LSEResultEnum.Intact;
+			this.m_MSH2Result = LSEResultEnum.Intact;
+			this.m_MSH6Result = LSEResultEnum.Loss;
 			this.m_PMS2Result = LSEResultEnum.Negative;
 			this.m_BrafResult = LSEResultEnum.NotApplicable;
 			this.m_MethResult = LSEResultEnum.NotApplicable;

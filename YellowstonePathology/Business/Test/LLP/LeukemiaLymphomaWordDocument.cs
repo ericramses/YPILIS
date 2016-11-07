@@ -88,39 +88,8 @@ namespace YellowstonePathology.Business.Test.LLP
 				this.SetXmlNodeData("blast_cd117_percent", panelSetOrderLeukemiaLymphoma.EGateCD117Percent);
 			}
 
-			XmlNode tableNode1 = this.m_ReportXml.SelectSingleNode("descendant::w:tbl[w:tr/w:tc/w:p/w:r/w:t='marker_name1']", this.m_NameSpaceManager);
-			XmlNode MarkerNode1 = tableNode1.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='marker_name1']", this.m_NameSpaceManager);
-			XmlNode nodeToInsertAfter1 = MarkerNode1;
-
-			int rowCount = panelSetOrderLeukemiaLymphoma.FlowMarkerCollection.Count;
-			int FirstHalfCount = rowCount / 2;
-			int LastHalfCount = rowCount - FirstHalfCount;
-
-			for (int i = 0; i < FirstHalfCount; i++)
-			{
-				XmlNode NewMarkerNode1 = MarkerNode1.Clone();
-				NewMarkerNode1.SelectSingleNode("descendant::w:r[w:t='marker_name1']/w:t", this.m_NameSpaceManager).InnerText = panelSetOrderLeukemiaLymphoma.FlowMarkerCollection[i].Name;
-				NewMarkerNode1.SelectSingleNode("descendant::w:r[w:t='marker_interpretation1']/w:t", this.m_NameSpaceManager).InnerText = panelSetOrderLeukemiaLymphoma.FlowMarkerCollection[i].Interpretation;
-				NewMarkerNode1.SelectSingleNode("descendant::w:r[w:t='marker_intensity1']/w:t", this.m_NameSpaceManager).InnerText = panelSetOrderLeukemiaLymphoma.FlowMarkerCollection[i].Intensity;
-				tableNode1.InsertAfter(NewMarkerNode1, nodeToInsertAfter1);
-				nodeToInsertAfter1 = NewMarkerNode1;
-			}
-			tableNode1.RemoveChild(MarkerNode1);
-
-			XmlNode tableNode2 = this.m_ReportXml.SelectSingleNode("descendant::w:tbl[w:tr/w:tc/w:p/w:r/w:t='marker_name2']", this.m_NameSpaceManager);
-			XmlNode MarkerNode2 = tableNode2.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='marker_name2']", this.m_NameSpaceManager);
-			XmlNode nodeToInsertAfter2 = MarkerNode2;
-
-			for (int i = FirstHalfCount; i < rowCount; i++)
-			{
-				XmlNode NewMarkerNode2 = MarkerNode2.Clone();
-				NewMarkerNode2.SelectSingleNode("descendant::w:r[w:t='marker_name2']/w:t", this.m_NameSpaceManager).InnerText = panelSetOrderLeukemiaLymphoma.FlowMarkerCollection[i].Name;
-				NewMarkerNode2.SelectSingleNode("descendant::w:r[w:t='marker_interpretation2']/w:t", this.m_NameSpaceManager).InnerText = panelSetOrderLeukemiaLymphoma.FlowMarkerCollection[i].Interpretation;
-				NewMarkerNode2.SelectSingleNode("descendant::w:r[w:t='marker_intensity2']/w:t", this.m_NameSpaceManager).InnerText = panelSetOrderLeukemiaLymphoma.FlowMarkerCollection[i].Intensity;
-				tableNode2.InsertAfter(NewMarkerNode2, nodeToInsertAfter2);
-				nodeToInsertAfter2 = NewMarkerNode2;
-			}
-			tableNode2.RemoveChild(MarkerNode2);
+            panelSetOrderLeukemiaLymphoma.FlowMarkerCollection.SetFirstMarkerPanelIfExists();
+            this.HandleMarkers(panelSetOrderLeukemiaLymphoma.FlowMarkerCollection.CurrentMarkerPanel);
 
 			this.SetXmlNodeData("clinical_history", this.m_AccessionOrder.ClinicalHistory);
 			this.SetXmlNodeData("specimen_description", specimenOrder.Description);
@@ -141,6 +110,43 @@ namespace YellowstonePathology.Business.Test.LLP
 
 			this.SaveReport();
 		}
+
+        private void HandleMarkers(Business.Flow.FlowMarkerCollection flowMarkerCollection)
+        {            
+            XmlNode tableNode1 = this.m_ReportXml.SelectSingleNode("descendant::w:tbl[w:tr/w:tc/w:p/w:r/w:t='marker_name1']", this.m_NameSpaceManager);
+            XmlNode MarkerNode1 = tableNode1.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='marker_name1']", this.m_NameSpaceManager);
+            XmlNode nodeToInsertAfter1 = MarkerNode1;
+
+            int rowCount = flowMarkerCollection.Count;
+            int FirstHalfCount = rowCount / 2;
+            int LastHalfCount = rowCount - FirstHalfCount;
+
+            for (int i = 0; i < FirstHalfCount; i++)
+            {
+                XmlNode NewMarkerNode1 = MarkerNode1.Clone();
+                NewMarkerNode1.SelectSingleNode("descendant::w:r[w:t='marker_name1']/w:t", this.m_NameSpaceManager).InnerText = flowMarkerCollection[i].Name;
+                NewMarkerNode1.SelectSingleNode("descendant::w:r[w:t='marker_interpretation1']/w:t", this.m_NameSpaceManager).InnerText = flowMarkerCollection[i].Interpretation;
+                NewMarkerNode1.SelectSingleNode("descendant::w:r[w:t='marker_intensity1']/w:t", this.m_NameSpaceManager).InnerText = flowMarkerCollection[i].Intensity;
+                tableNode1.InsertAfter(NewMarkerNode1, nodeToInsertAfter1);
+                nodeToInsertAfter1 = NewMarkerNode1;
+            }
+            tableNode1.RemoveChild(MarkerNode1);
+
+            XmlNode tableNode2 = this.m_ReportXml.SelectSingleNode("descendant::w:tbl[w:tr/w:tc/w:p/w:r/w:t='marker_name2']", this.m_NameSpaceManager);
+            XmlNode MarkerNode2 = tableNode2.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='marker_name2']", this.m_NameSpaceManager);
+            XmlNode nodeToInsertAfter2 = MarkerNode2;
+
+            for (int i = FirstHalfCount; i < rowCount; i++)
+            {
+                XmlNode NewMarkerNode2 = MarkerNode2.Clone();
+                NewMarkerNode2.SelectSingleNode("descendant::w:r[w:t='marker_name2']/w:t", this.m_NameSpaceManager).InnerText = flowMarkerCollection[i].Name;
+                NewMarkerNode2.SelectSingleNode("descendant::w:r[w:t='marker_interpretation2']/w:t", this.m_NameSpaceManager).InnerText = flowMarkerCollection[i].Interpretation;
+                NewMarkerNode2.SelectSingleNode("descendant::w:r[w:t='marker_intensity2']/w:t", this.m_NameSpaceManager).InnerText = flowMarkerCollection[i].Intensity;
+                tableNode2.InsertAfter(NewMarkerNode2, nodeToInsertAfter2);
+                nodeToInsertAfter2 = NewMarkerNode2;
+            }
+            tableNode2.RemoveChild(MarkerNode2);
+        }
 
 		public string GetGatingPercent(double gatingPercent)
 		{

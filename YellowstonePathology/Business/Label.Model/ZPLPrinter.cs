@@ -8,6 +8,7 @@ namespace YellowstonePathology.Business.Label.Model
 {
     public class ZPLPrinter
     {
+        private int m_ErrorCount;
         private string m_IPAddress;
         private int m_Port;        
 
@@ -25,7 +26,13 @@ namespace YellowstonePathology.Business.Label.Model
         }
 
         public void Print(string zplCommands)
-        {            
+        {
+            this.m_ErrorCount = 0;
+            this.TryPrint(zplCommands);
+        }
+
+        public void TryPrint(string zplCommands)
+        {
             try
             {
                 // Open connection
@@ -43,7 +50,16 @@ namespace YellowstonePathology.Business.Label.Model
             }
             catch (Exception ex)
             {
-                System.Windows.MessageBox.Show(ex.Message);
+                this.m_ErrorCount += 1;
+                if(this.m_ErrorCount < 10)
+                {
+                    System.Threading.Thread.Sleep(5000);
+                    this.TryPrint(zplCommands);
+                }
+                else
+                {
+                    throw ex;
+                }
             }
         }
     }
