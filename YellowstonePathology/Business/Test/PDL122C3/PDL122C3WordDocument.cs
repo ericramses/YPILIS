@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace YellowstonePathology.Business.Test.PDL1SP142
+namespace YellowstonePathology.Business.Test.PDL122C3
 {
-    public class PDL1SP142WordDocument : YellowstonePathology.Business.Document.CaseReportV2
+    public class PDL122C3WordDocument : YellowstonePathology.Business.Document.CaseReportV2
     {
-        public PDL1SP142WordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+        public PDL122C3WordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
             : base(accessionOrder, panelSetOrder, reportSaveMode)
         {
 
@@ -15,9 +15,9 @@ namespace YellowstonePathology.Business.Test.PDL1SP142
 
         public override void Render()
         {            
-            PDL1SP142TestOrder testOrder = (PDL1SP142TestOrder)this.m_PanelSetOrder;
+            PDL122C3TestOrder testOrder = (PDL122C3TestOrder)this.m_PanelSetOrder;
 
-            this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\PDL1SP142.1.xml";
+            this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\PDL122C3.1.xml";
             base.OpenTemplate();
 
             this.SetDemographicsV2();

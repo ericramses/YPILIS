@@ -152,6 +152,8 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.Test.EosinophiliaByFISH.EosinophiliaByFISHTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.NeoARRAYSNPCytogeneticProfileTest.NeoARRAYSNPCytogeneticProfileTest());
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetNextGenMyeloidDisordersProfile());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.PDL1SP142.PDL1SP142Test());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.PDL122C3.PDL122C3Test());
 
             //YPII
             panelSetCollection.Add(new YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisTest());
@@ -214,8 +216,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
             //Billings Clinic
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetDirectImmunoFluorescence());
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetImmunohistochemistry());
-            panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetGlycophorinA());
-            panelSetCollection.Add(new YellowstonePathology.Business.Test.PDL1SP142.PDL1SP142Test());
+            panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetGlycophorinA());            
             panelSetCollection.Add(new YellowstonePathology.Business.Test.CD1a.CD1aTest());
 
             //TheraPath
