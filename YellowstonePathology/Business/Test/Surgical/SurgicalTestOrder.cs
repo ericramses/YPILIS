@@ -33,8 +33,8 @@ namespace YellowstonePathology.Business.Test.Surgical
 		private string m_ImmediateCorrelationComment;
 		private string m_PapCorrelationComment;
 		private string m_PapCorrelationAccessionNo;
-        private bool m_PQRSIsIndicated;
-        private bool m_PQRSNotApplicable;
+        private bool? m_PQRSIsIndicated;
+        private bool? m_PQRSNotApplicable;
 
 		private SurgicalSpecimenCollection m_SurgicalSpecimenCollection;
 		private YellowstonePathology.Business.Specimen.Model.SpecimenOrderCollection m_SpecimenOrderCollection;
@@ -425,7 +425,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 
         [PersistentProperty()]
         [PersistentDataColumnProperty(true, "1", "null", "tinyint")]
-        public bool PQRSIsIndicated
+        public bool? PQRSIsIndicated
         {
             get { return this.m_PQRSIsIndicated; }
             set
@@ -440,7 +440,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 
         [PersistentProperty()]
         [PersistentDataColumnProperty(true, "1", "null", "tinyint")]
-        public bool PQRSNotApplicable
+        public bool? PQRSNotApplicable
         {
             get { return this.m_PQRSNotApplicable; }
             set

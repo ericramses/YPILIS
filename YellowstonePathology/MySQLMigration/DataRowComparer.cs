@@ -31,65 +31,60 @@ namespace YellowstonePathology.MySQLMigration
             this.m_MySqlDataTableReader = mySqlDataTableReader;
             this.m_MethodResult = new Business.Rules.MethodResult();
             this.m_StatementStart = "Update " + this.m_MigrationStatus.TableName + " set ";
-            this.m_StatementEnd = " where " + this.m_MigrationStatus.KeyFieldName + " = KEYCOLUMNVALUE;ENDR";
+            this.m_StatementEnd = " where " + this.m_MigrationStatus.KeyFieldName + " = KEYCOLUMNVALUE;";
             this.m_Fields = string.Empty;
-            
+            this.GetKeyValue();
+
             foreach (PropertyInfo property in this.m_MigrationStatus.PersistentProperties)
             {
-                if (this.SqlServerColumnExists(property.Name) && this.MySqlColumnExists(property.Name))
+                //if (this.m_SqlServerDataTableReader[property.Name].ToString() != this.m_MySqlDataTableReader[property.Name].ToString())
+                //{
+                Type dataType = property.PropertyType;
+                if (dataType == typeof(string))
                 {
-                    Type dataType = property.PropertyType;
-                    if (dataType == typeof(string))
-                    {
-                        this.CompareString(property);
-                    }
-                    else if (dataType == typeof(int))
-                    {
-                        this.CompareInt(property);
-                    }
-                    else if (dataType == typeof(double))
-                    {
-                        this.CompareDouble(property);
-                    }
-                    else if (dataType == typeof(Nullable<int>))
-                    {
-                        this.CompareNullableInt(property);
-                    }
-                    else if (dataType == typeof(Nullable<float>))
-                    {
-                        this.CompareNullableDouble(property);
-                    }
-                    else if (dataType == typeof(Nullable<double>))
-                    {
-                        this.CompareNullableDouble(property);
-                    }
-                    else if (dataType == typeof(DateTime))
-                    {
-                        this.CompareDateTime(property);
-                    }
-                    else if (dataType == typeof(bool))
-                    {
-                        this.CompareBoolean(property);
-                    }
-                    else if (dataType == typeof(Nullable<bool>))
-                    {
-                        this.CompareNullableBoolean(property);
-                    }
-                    else if (dataType == typeof(Nullable<DateTime>))
-                    {
-                        this.CompareNullableDateTime(property);
-                    }
-                    else
-                    {
-                        throw new Exception("This Data Type is Not Implemented: " + dataType.Name);
-                    }
+                    this.CompareString(property);
                 }
-                else if((this.SqlServerColumnExists(property.Name) == false && this.MySqlColumnExists(property.Name)) ||
-                    (this.SqlServerColumnExists(property.Name) && this.MySqlColumnExists(property.Name) == false))
+                else if (dataType == typeof(int))
                 {
-                    this.m_MethodResult.Success = false;
-                    this.m_MethodResult.Message += property.Name + " Differs";
+                    this.CompareInt(property);
                 }
+                else if (dataType == typeof(double))
+                {
+                    this.CompareDouble(property);
+                }
+                else if (dataType == typeof(Nullable<int>))
+                {
+                    this.CompareNullableInt(property);
+                }
+                else if (dataType == typeof(Nullable<float>))
+                {
+                    this.CompareNullableDouble(property);
+                }
+                else if (dataType == typeof(Nullable<double>))
+                {
+                    this.CompareNullableDouble(property);
+                }
+                else if (dataType == typeof(DateTime))
+                {
+                    this.CompareDateTime(property);
+                }
+                else if (dataType == typeof(bool))
+                {
+                    this.CompareBoolean(property);
+                }
+                else if (dataType == typeof(Nullable<bool>))
+                {
+                    this.CompareNullableBoolean(property);
+                }
+                else if (dataType == typeof(Nullable<DateTime>))
+                {
+                    this.CompareNullableDateTime(property);
+                }
+                else
+                {
+                    throw new Exception("This Data Type is Not Implemented: " + dataType.Name);
+                }
+                //}
             }
             if(this.m_MethodResult.Success == false)
             {
@@ -140,11 +135,6 @@ namespace YellowstonePathology.MySQLMigration
                 myValue = this.m_MySqlDataTableReader[property.Name].ToString();
             }
 
-            if (property.Name == this.m_MigrationStatus.KeyFieldName)
-            {
-                this.m_KeyFieldValue = "'" + sqlValue + "'";
-            }
-
             if ((sqlValue == null && myValue != null) || (sqlValue != null && myValue == null))
             {
                 compares = false;
@@ -160,7 +150,16 @@ namespace YellowstonePathology.MySQLMigration
 
             if (compares == false)
             {
-                string value = sqlValue == null ? "null" : "'" + sqlValue + "'";
+                string value = string.Empty;
+                if(sqlValue == null)
+                {
+                    value = "null";
+                }
+                else
+                {
+                    value = "'" + sqlValue.Replace("'", "''") + "'";
+                    value = value.Replace("\\", "\\\\");
+                }
                 this.SetFieldValues(property.Name, value);
             }
         }
@@ -358,5 +357,43 @@ namespace YellowstonePathology.MySQLMigration
             this.m_StatementEnd = this.m_StatementEnd.Replace("KEYCOLUMNVALUE", this.m_KeyFieldValue);
             this.m_MethodResult.Message = this.m_StatementStart + this.m_Fields + this.m_StatementEnd;
         }
+
+        private void GetKeyValue()
+        {
+            this.m_KeyFieldValue = this.m_SqlServerDataTableReader[this.m_MigrationStatus.KeyFieldName].ToString();
+            if(this.m_MigrationStatus.KeyFieldProperty.PropertyType == typeof(string))
+            {
+                this.m_KeyFieldValue = "'" + this.m_KeyFieldValue + "'";
+            }       
+        }
+
+        /*private void SetFieldValues(string errorColumnName, string errorColumnValue)
+        {
+            string errorField = FindNonASCIICharacters(errorColumnValue).ToString();
+            string result = errorColumnName + errorField;
+            this.m_Fields += result;
+
+            this.m_MethodResult.Success = false;
+        }
+
+        private void SetErrorMessage()
+        {
+            string result = this.m_MigrationStatus.TableName + ": " + this.m_MigrationStatus.KeyFieldName + " = " + this.m_KeyFieldValue;
+            this.m_MethodResult.Message = result + this.m_Fields;
+        }
+
+        private StringBuilder FindNonASCIICharacters(string errorString)
+        {
+            StringBuilder result = new StringBuilder();
+            for (int i = 0; i < errorString.Length; ++i)
+            {
+                char c = errorString[i];
+                if (((int)c) > 127)
+                {
+                    result.Append(" Character: " + errorString[i].ToString() + ", Code: " + ((int)c).ToString());
+                }
+            }
+            return result;
+        }*/
     }
 }

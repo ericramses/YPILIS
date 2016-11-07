@@ -27,7 +27,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 		private bool m_CorrelationAffectsPatientCare;
 		private string m_CorrelationEffectOnPatientCare;
 		private string m_CallbackContact;
-		private bool m_Final;
+		private bool? m_Final;
 		private DateTime? m_FinalDate;
 		private DateTime? m_FinalTime;
 		private int? m_FinaledById;
@@ -243,7 +243,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 
 		[PersistentProperty()]
 		[PersistentDataColumnProperty(true, "1", "null", "tinyint")]
-		public bool Final
+		public bool? Final
 		{
 			get { return this.m_Final; }
 			set
@@ -332,7 +332,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 		public YellowstonePathology.Business.Rules.MethodResult IsOkToFinalize()
 		{
 			YellowstonePathology.Business.Rules.MethodResult methodResult = new Rules.MethodResult();
-			if (this.m_Final == true)
+			if (this.m_Final.HasValue && this.m_Final == true)
 			{
 				methodResult.Success = false;
 				methodResult.Message = "Unable to finalize the Intraoperative Consultation as it is already finaled.";
@@ -350,8 +350,8 @@ namespace YellowstonePathology.Business.Test.Surgical
 		public YellowstonePathology.Business.Rules.MethodResult IsOkToUnfinalize()
 		{
 			YellowstonePathology.Business.Rules.MethodResult methodResult = new Rules.MethodResult();
-			if (this.m_Final == false)
-			{
+			if ((this.m_Final.HasValue && this.m_Final.Value == false) || this.m_Final.HasValue == false)
+            {
 				methodResult.Success = false;
 				methodResult.Message = "Unable to unfinalize the Intraoperative Consultation as it is not finaled.";
 			}

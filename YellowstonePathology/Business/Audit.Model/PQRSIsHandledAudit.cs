@@ -34,9 +34,9 @@ namespace YellowstonePathology.Business.Audit.Model
         {
             YellowstonePathology.Business.Surgical.PQRSMeasure result = null;
             YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetSurgical();
-            if(surgicalTestOrder.PQRSIsIndicated == true)
+            if(surgicalTestOrder.PQRSIsIndicated.HasValue && surgicalTestOrder.PQRSIsIndicated.Value == true)
             {
-                if (surgicalTestOrder.PQRSNotApplicable == false)
+                if (surgicalTestOrder.PQRSNotApplicable.HasValue == false || surgicalTestOrder.PQRSNotApplicable == false)
                 {
                     YellowstonePathology.Business.Surgical.PQRSMeasureCollection pqrsCollection = YellowstonePathology.Business.Surgical.PQRSMeasureCollection.GetAll();
                     int patientAge = YellowstonePathology.Business.Helper.PatientHelper.GetAge(this.m_AccessionOrder.PBirthdate.Value);
