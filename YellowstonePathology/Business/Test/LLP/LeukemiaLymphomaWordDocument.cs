@@ -175,6 +175,7 @@ namespace YellowstonePathology.Business.Test.LLP
 
             tableNode1.RemoveChild(cellPopulationNode);
             tableNode1.RemoveChild(MarkerNode1);
+            tableNode1.RemoveChild(blankRowNode1);
 
             tableNode2.RemoveChild(blankRowNode2);
             tableNode2.RemoveChild(MarkerNode2);            

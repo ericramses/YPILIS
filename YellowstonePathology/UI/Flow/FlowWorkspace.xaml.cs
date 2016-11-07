@@ -520,7 +520,7 @@ namespace YellowstonePathology.UI.Flow
                 {
                     Business.Flow.FlowPanelListItem panelItem = (Business.Flow.FlowPanelListItem)this.comboBoxMarkerPanel.SelectedItem;
                     string cellPopulationOfInterest = (string)this.comboBoxCellPopulationOfInterest.Text;
-                    this.m_FlowUI.SetMarkerPanel(panelId, cellPopulationOfInterest, panelItem.PanelName);
+                    this.m_FlowUI.AddMarkerPanel(panelId, cellPopulationOfInterest, panelItem.PanelName);
                 }                
             }
         }

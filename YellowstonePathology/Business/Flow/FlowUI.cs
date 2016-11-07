@@ -359,7 +359,7 @@ namespace YellowstonePathology.Business.Flow
             }
         }
 
-		public void SetMarkerPanel(int panelId, string cellPopulationOfInterest, string panelName)
+		public void AddMarkerPanel(int panelId, string cellPopulationOfInterest, string panelName)
 		{
             int nextCellPopulationId = this.PanelSetOrderLeukemiaLymphoma.FlowMarkerCollection.GetNextCellPopulationId();            
             Flow.FlowMarkerCollection panelCollection = Gateway.FlowGateway.GetFlowMarkerCollectionByPanelId(this.PanelSetOrderLeukemiaLymphoma.ReportNo, panelId);
