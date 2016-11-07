@@ -497,17 +497,17 @@ namespace YellowstonePathology.UI.Flow
             comment.AddComment(item.Category, item.Impression, item.Comment);
         }
 
-        public void ButtonSetMarkerPanel_Click(object sender, RoutedEventArgs args)
+        public void ButtonAddMarkerPanel_Click(object sender, RoutedEventArgs args)
         {
             Button button = (Button)sender;
             ComboBox comboBox = null;
 
             switch (button.Name)
             {
-                case "ButtonSetCommonMarkerPanel":
+                case "ButtonAddCommonMarkerPanel":
                     comboBox = this.comboBoxCommonMarkerPanel;
                     break;
-                case "ButtonSetMarkerPanel":
+                case "ButtonAddMarkerPanel":
                     comboBox = this.comboBoxMarkerPanel;
                     break;
             }

@@ -115,10 +115,11 @@ namespace YellowstonePathology.Business.Test.LLP
             XmlNode tableNode1 = this.m_ReportXml.SelectSingleNode("descendant::w:tbl[w:tr/w:tc/w:p/w:r/w:t='marker_name1']", this.m_NameSpaceManager);
             XmlNode MarkerNode1 = tableNode1.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='marker_name1']", this.m_NameSpaceManager);
             XmlNode cellPopulationNode = tableNode1.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='cell_population_of_interest']", this.m_NameSpaceManager);
+            XmlNode blankRowNode1 = tableNode1.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='blank_row']", this.m_NameSpaceManager);
 
             XmlNode tableNode2 = this.m_ReportXml.SelectSingleNode("descendant::w:tbl[w:tr/w:tc/w:p/w:r/w:t='marker_name2']", this.m_NameSpaceManager);
             XmlNode MarkerNode2 = tableNode2.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='marker_name2']", this.m_NameSpaceManager);
-            XmlNode blankRowNode = tableNode2.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='blank_row']", this.m_NameSpaceManager);
+            XmlNode blankRowNode2 = tableNode2.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='blank_row']", this.m_NameSpaceManager);
 
             foreach (Business.Flow.CellPopulationOfInterest cellPopulationOfInterest in panelSetOrderLeukemiaLymphoma.FlowMarkerCollection.CellPopulationsOfInterest)
             {
@@ -143,14 +144,18 @@ namespace YellowstonePathology.Business.Test.LLP
                     NewMarkerNode1.SelectSingleNode("descendant::w:r[w:t='marker_intensity1']/w:t", this.m_NameSpaceManager).InnerText = flowMarkerCollection[i].Intensity;
                     tableNode1.InsertAfter(NewMarkerNode1, nodeToInsertAfter1);
                     nodeToInsertAfter1 = NewMarkerNode1;
-                }                
-                
+                }
+
+                XmlNode newBlankRowNode3 = blankRowNode1.Clone();
+                newBlankRowNode3.SelectSingleNode("descendant::w:r[w:t='blank_row']/w:t", this.m_NameSpaceManager).InnerText = null;
+                tableNode1.InsertAfter(newBlankRowNode3, nodeToInsertAfter1);                
+
                 XmlNode nodeToInsertAfter2 = MarkerNode2;
 
-                XmlNode newBlankRowNode = blankRowNode.Clone();
-                newBlankRowNode.SelectSingleNode("descendant::w:r[w:t='blank_row']/w:t", this.m_NameSpaceManager).InnerText = null;
-                tableNode2.InsertAfter(newBlankRowNode, nodeToInsertAfter2);
-                nodeToInsertAfter2 = newBlankRowNode;
+                XmlNode newBlankRowNode2 = blankRowNode2.Clone();
+                newBlankRowNode2.SelectSingleNode("descendant::w:r[w:t='blank_row']/w:t", this.m_NameSpaceManager).InnerText = null;
+                tableNode2.InsertAfter(newBlankRowNode2, nodeToInsertAfter2);
+                nodeToInsertAfter2 = newBlankRowNode2;
 
                 for (int i = FirstHalfCount; i < rowCount; i++)
                 {
@@ -161,12 +166,17 @@ namespace YellowstonePathology.Business.Test.LLP
                     tableNode2.InsertAfter(NewMarkerNode2, nodeToInsertAfter2);
                     nodeToInsertAfter2 = NewMarkerNode2;
                 }                
+
+                XmlNode newBlankRowNode4 = blankRowNode2.Clone();
+                newBlankRowNode4.SelectSingleNode("descendant::w:r[w:t='blank_row']/w:t", this.m_NameSpaceManager).InnerText = null;
+                tableNode2.InsertAfter(newBlankRowNode4, nodeToInsertAfter2);
+                nodeToInsertAfter2 = newBlankRowNode4;
             }
 
             tableNode1.RemoveChild(cellPopulationNode);
             tableNode1.RemoveChild(MarkerNode1);
 
-            tableNode2.RemoveChild(blankRowNode);
+            tableNode2.RemoveChild(blankRowNode2);
             tableNode2.RemoveChild(MarkerNode2);            
         }
 
