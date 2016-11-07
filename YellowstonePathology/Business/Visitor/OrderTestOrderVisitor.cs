@@ -183,7 +183,7 @@ namespace YellowstonePathology.Business.Visitor
                 {
                     string testOrderObjectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
                     YellowstonePathology.Business.Test.Model.TestOrder testOrder = panelOrder.TestOrderCollection.Add(panelOrder.PanelOrderId, testOrderObjectId, null, test, test.OrderComment);
-                    panelOrder.TestOrderCollection.Add(testOrder);
+                    //panelOrder.TestOrderCollection.Add(testOrder);
                 }
             }
         }
