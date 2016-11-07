@@ -184,8 +184,14 @@ namespace YellowstonePathology.UI.Flow
         {
             if (this.listViewFlowMarkers.SelectedItems.Count != 0)
             {
-                YellowstonePathology.Business.Flow.MarkerItem item = (YellowstonePathology.Business.Flow.MarkerItem)this.listViewFlowMarkers.SelectedItem;
-                this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.FlowMarkerCollection.Add(this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.ReportNo, item);
+                if(this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.FlowMarkerCollection.CurrentMarkerPanel.Count != 0)
+                {
+                    YellowstonePathology.Business.Flow.MarkerItem item = (YellowstonePathology.Business.Flow.MarkerItem)this.listViewFlowMarkers.SelectedItem;
+                    int cellPopulationId = this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.FlowMarkerCollection.CurrentMarkerPanel[0].CellPopulationId;
+                    string cellPopulationOfInterest = this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.FlowMarkerCollection.CurrentMarkerPanel[0].CellPopulationOfInterest;
+                    string panelName = this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.FlowMarkerCollection.CurrentMarkerPanel[0].PanelName;
+                    this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.FlowMarkerCollection.Add(this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.ReportNo, item, cellPopulationId, cellPopulationOfInterest, panelName);
+                }                
             }
         }
 
@@ -356,7 +362,7 @@ namespace YellowstonePathology.UI.Flow
             List<YellowstonePathology.Business.Interface.IFlowMarker> flowMarkers = this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.FlowMarkerCollection.ToList<YellowstonePathology.Business.Interface.IFlowMarker>();
 
 			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_FlowUI.AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.OrderedOn, this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.OrderedOnId);
-			YellowstonePathology.Business.Helper.FlowCommentHelper comment = new YellowstonePathology.Business.Helper.FlowCommentHelper(specimenOrder.Description, this.m_FlowUI.PanelSetOrderLeukemiaLymphoma, flowMarkers);
+			YellowstonePathology.Business.Helper.FlowCommentHelper comment = new YellowstonePathology.Business.Helper.FlowCommentHelper(specimenOrder.Description, this.m_FlowUI.PanelSetOrderLeukemiaLymphoma);
             comment.SetInterpretiveComment();
         }
 
@@ -486,22 +492,22 @@ namespace YellowstonePathology.UI.Flow
         public void ListViewComments_MouseDoubleClick(object sender, RoutedEventArgs args)
         {
             List<YellowstonePathology.Business.Interface.IFlowMarker> flowMarkers = this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.FlowMarkerCollection.ToList<YellowstonePathology.Business.Interface.IFlowMarker>();
-			YellowstonePathology.Business.Helper.FlowCommentHelper comment = new YellowstonePathology.Business.Helper.FlowCommentHelper(this.m_FlowUI.AccessionOrder.SpecimenOrderCollection[0].Description, this.m_FlowUI.PanelSetOrderLeukemiaLymphoma, flowMarkers);
+			YellowstonePathology.Business.Helper.FlowCommentHelper comment = new YellowstonePathology.Business.Helper.FlowCommentHelper(this.m_FlowUI.AccessionOrder.SpecimenOrderCollection[0].Description, this.m_FlowUI.PanelSetOrderLeukemiaLymphoma);
             YellowstonePathology.Business.Flow.FlowCommentItem item = (YellowstonePathology.Business.Flow.FlowCommentItem)this.listViewComments.SelectedItem;
             comment.AddComment(item.Category, item.Impression, item.Comment);
         }
 
-        public void ButtonSetMarkerPanel_Click(object sender, RoutedEventArgs args)
+        public void ButtonAddMarkerPanel_Click(object sender, RoutedEventArgs args)
         {
             Button button = (Button)sender;
             ComboBox comboBox = null;
 
             switch (button.Name)
             {
-                case "ButtonSetCommonMarkerPanel":
+                case "ButtonAddCommonMarkerPanel":
                     comboBox = this.comboBoxCommonMarkerPanel;
                     break;
-                case "ButtonSetMarkerPanel":
+                case "ButtonAddMarkerPanel":
                     comboBox = this.comboBoxMarkerPanel;
                     break;
             }
@@ -509,8 +515,13 @@ namespace YellowstonePathology.UI.Flow
             if (comboBox.SelectedItem != null)
             {
                 int panelId = (int)comboBox.SelectedValue;
-                string cellPopulationOfInterest = (string)this.comboBoxCellPopulationOfInterest.Text;
-                this.m_FlowUI.SetMarkerPanel(panelId, cellPopulationOfInterest);
+
+                if(comboBoxMarkerPanel.SelectedItem != null)
+                {
+                    Business.Flow.FlowPanelListItem panelItem = (Business.Flow.FlowPanelListItem)this.comboBoxMarkerPanel.SelectedItem;
+                    string cellPopulationOfInterest = (string)this.comboBoxCellPopulationOfInterest.Text;
+                    this.m_FlowUI.SetMarkerPanel(panelId, cellPopulationOfInterest, panelItem.PanelName);
+                }                
             }
         }
 
@@ -518,10 +529,15 @@ namespace YellowstonePathology.UI.Flow
         {
             if (this.listViewFlowMarkers.SelectedItems.Count != 0)
             {
-                YellowstonePathology.Business.Flow.MarkerItem item = (YellowstonePathology.Business.Flow.MarkerItem)this.listViewFlowMarkers.SelectedItem;
-                this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.FlowMarkerCollection.Add(this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.ReportNo, item);
-                this.m_FlowUI.GetAccessionOrder(this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.ReportNo, this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.MasterAccessionNo);
-            }
+                if (this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.FlowMarkerCollection.CurrentMarkerPanel.Count != 0)
+                {
+                    YellowstonePathology.Business.Flow.MarkerItem item = (YellowstonePathology.Business.Flow.MarkerItem)this.listViewFlowMarkers.SelectedItem;
+                    int cellPopulationId = this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.FlowMarkerCollection.CurrentMarkerPanel[0].CellPopulationId;
+                    string cellPopulationOfInterest = this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.FlowMarkerCollection.CurrentMarkerPanel[0].CellPopulationOfInterest;
+                    string panelName = this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.FlowMarkerCollection.CurrentMarkerPanel[0].PanelName;
+                    this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.FlowMarkerCollection.Add(this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.ReportNo, item, cellPopulationId, cellPopulationOfInterest, panelName);
+                }                
+            }            
         }
 
         public void ButtonRemoveMarker_Click(object sender, RoutedEventArgs arts)
@@ -966,6 +982,19 @@ namespace YellowstonePathology.UI.Flow
         private void ButtonRemovePanel_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void ContextMenuRemovePanel_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.listViewCellPopulationsOfInterest.SelectedItems.Count != 0)
+            {
+                YellowstonePathology.Business.Flow.CellPopulationOfInterest item = (YellowstonePathology.Business.Flow.CellPopulationOfInterest)this.listViewCellPopulationsOfInterest.SelectedItem;
+                MessageBoxResult result = MessageBox.Show("Delete Panel " + item.PanelName, "Delete Panel", MessageBoxButton.OKCancel);
+                if (result == MessageBoxResult.OK)
+                {
+                    this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.FlowMarkerCollection.RemovePanel(item.Id);
+                }
+            }
         }
     }
 }
