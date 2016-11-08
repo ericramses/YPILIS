@@ -498,31 +498,22 @@ namespace YellowstonePathology.UI.Flow
         }
 
         public void ButtonAddMarkerPanel_Click(object sender, RoutedEventArgs args)
-        {
-            Button button = (Button)sender;
-            ComboBox comboBox = null;
+        {                        
+            if (this.comboBoxMarkerPanel.SelectedItem != null)
+            {                
+                Business.Flow.FlowPanelListItem panelItem = (Business.Flow.FlowPanelListItem)this.comboBoxMarkerPanel.SelectedItem;
+                string cellPopulationOfInterest = (string)this.comboBoxCellPopulationOfInterest.Text;
+                this.m_FlowUI.AddMarkerPanel(panelItem.PanelId, cellPopulationOfInterest, panelItem.PanelName);
+            }            
+        }
 
-            switch (button.Name)
-            {
-                case "ButtonAddCommonMarkerPanel":
-                    comboBox = this.comboBoxCommonMarkerPanel;
-                    break;
-                case "ButtonAddMarkerPanel":
-                    comboBox = this.comboBoxMarkerPanel;
-                    break;
-            }
-
-            if (comboBox.SelectedItem != null)
-            {
-                int panelId = (int)comboBox.SelectedValue;
-
-                if(comboBoxMarkerPanel.SelectedItem != null)
-                {
-                    Business.Flow.FlowPanelListItem panelItem = (Business.Flow.FlowPanelListItem)this.comboBoxMarkerPanel.SelectedItem;
-                    string cellPopulationOfInterest = (string)this.comboBoxCellPopulationOfInterest.Text;
-                    this.m_FlowUI.AddMarkerPanel(panelId, cellPopulationOfInterest, panelItem.PanelName);
-                }                
-            }
+        public void ButtonAddCommonMarkerPanel_Click(object sender, RoutedEventArgs args)
+        {            
+            if (this.comboBoxCommonMarkerPanel.SelectedItem != null)
+            {                
+                Business.Flow.FlowPanelListItem panelItem = (Business.Flow.FlowPanelListItem)this.comboBoxCommonMarkerPanel.SelectedItem;
+                this.m_FlowUI.AddMarkerPanel(panelItem.PanelId, null, panelItem.PanelName);
+            }          
         }
 
         public void ButtonAddMarker_Click(object sender, RoutedEventArgs args)

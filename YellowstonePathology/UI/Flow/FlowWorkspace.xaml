@@ -669,8 +669,8 @@
 
                     <StackPanel Orientation="Horizontal" Margin="5" Grid.Column="0" Grid.Row="0">
                       <TextBlock VerticalAlignment="Center" Width="200" Style="{StaticResource GatingTextBlock}" TextAlignment="Right" Margin="2,2,2,2">Marker Panel:</TextBlock>
-                            <ComboBox Name="comboBoxCommonMarkerPanel" Width="150" ItemsSource="{Binding Path=FlowPanelList}" Height="22" Margin="2,2,2,2"/>
-                            <Button Name="ButtonSetCommonMarkerPanel" Height="20" Width="100" Click="ButtonAddMarkerPanel_Click" Margin="2,2,2,2">Add Panel</Button>              
+                            <ComboBox Name="comboBoxCommonMarkerPanel" Width="150" ItemsSource="{Binding Path=FlowPanelList}" DisplayMemberPath="PanelName" SelectedValuePath="PanelId" Height="22" Margin="2,2,2,2"/>
+                            <Button Name="ButtonAddCommonMarkerPanel" Height="20" Width="100" Click="ButtonAddCommonMarkerPanel_Click" Margin="2,2,2,2">Add Panel</Button>              
                     </StackPanel>
             
                     <ListView Name="listViewCommonMarkers" Grid.Column="0" Grid.Row="1" 
