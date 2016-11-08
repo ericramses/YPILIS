@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using YellowstonePathology.Business.Persistence;
 
-namespace YellowstonePathology.Business.Test.PDL1
+namespace YellowstonePathology.Business.Test.PDL122C3
 {
-    [PersistentClass("tblPDL1TestOrder", "tblPanelSetOrder", "YPIDATA")]
-    public class PDL1TestOrder : PanelSetOrder
+    [PersistentClass("tblPDL122C3TestOrder", "tblPanelSetOrder", "YPIDATA")]
+    public class PDL122C3TestOrder : PanelSetOrder
     {
         private string m_Result;
         private string m_StainPercent;
@@ -15,18 +15,18 @@ namespace YellowstonePathology.Business.Test.PDL1
         private string m_Comment;
         private string m_Interpretation;
 
-        public PDL1TestOrder()
+        public PDL122C3TestOrder()
         {
         	
         }
         
-        public PDL1TestOrder(string masterAccessionNo, string reportNo, string objectId,
+        public PDL122C3TestOrder(string masterAccessionNo, string reportNo, string objectId,
             YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
             YellowstonePathology.Business.Interface.IOrderTarget orderTarget,
             bool distribute)
             : base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute)
         {
-            this.m_Method = "Formalin-fixed paraffin-embedded tissue sections were stained with an anti-PD-L1 primary antibody (clone SP142) " +
+            this.m_Method = "Formalin-fixed paraffin-embedded tissue sections were stained with an anti-PD-L1 primary antibody (clone 22C3) " +
                 "and a polymertechnology based system was used for detection.  Stains were scored by a pathologist using manual microscopy.  " +
                 "The percentage of tumor cells with membrane staining is reported and the intensity of staining is scored as follows: 0, " +
                 "absent; 1 +, weak; 2 +, moderate; and 3 +, strong.  Currently, there are no standardized cut offs for determining positivity " +

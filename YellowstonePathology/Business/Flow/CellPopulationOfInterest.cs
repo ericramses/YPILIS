@@ -10,11 +10,13 @@ namespace YellowstonePathology.Business.Flow
     {
         private int m_Id;
         private string m_Description;
+        private string m_PanelName;
 
-        public CellPopulationOfInterest(int id, string description)
+        public CellPopulationOfInterest(int id, string description, string panelName)
         {
             this.m_Id = id;
             this.m_Description = description;
+            this.m_PanelName = panelName;
         }
 
         public int Id
@@ -27,6 +29,12 @@ namespace YellowstonePathology.Business.Flow
         {
             get { return this.m_Description; }
             set { this.m_Description = value; }
+        }
+
+        public string PanelName
+        {
+            get { return this.m_PanelName; }
+            set { this.m_PanelName = value; }
         }
     }
 }

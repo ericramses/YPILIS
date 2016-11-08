@@ -239,7 +239,7 @@ namespace YellowstonePathology.Business.HL7View.EPIC
                     view = new YellowstonePathology.Business.Test.TechInitiatedPeripheralSmear.TechInitiatedPeripheralSmearEPICObxView(accessionOrder, reportNo, obxCount);
                     break;
                 case 215:
-                    view = new YellowstonePathology.Business.Test.PDL1.PDL1EPICObxView(accessionOrder, reportNo, obxCount);
+                    view = new YellowstonePathology.Business.Test.PDL1SP142.PDL1SP142EPICObxView(accessionOrder, reportNo, obxCount);
                     break;
                 case 217:
                     view = new YellowstonePathology.Business.Test.KRASExon23Mutation.KRASExon23MutationEPICObxView(accessionOrder, reportNo, obxCount);

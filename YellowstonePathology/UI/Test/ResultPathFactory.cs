@@ -241,7 +241,10 @@ namespace YellowstonePathology.UI.Test
                     result = new TechInitiatedPeripheralSmearResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
                 case 215:
-                    result = new PDL1ResultPath(reportNo, accessionOrder, pageNavigator, window);
+                    result = new PDL1SP142ResultPath(reportNo, accessionOrder, pageNavigator, window);
+                    break;
+                case 245:
+                    result = new PDL1SP22C3ResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
                 case 216:
                     result = new InformalConsultResultPath(reportNo, accessionOrder, pageNavigator, window);

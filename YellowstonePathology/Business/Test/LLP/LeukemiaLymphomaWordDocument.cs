@@ -21,7 +21,7 @@ namespace YellowstonePathology.Business.Test.LLP
 		{			
 			PanelSetOrderLeukemiaLymphoma panelSetOrderLeukemiaLymphoma = (PanelSetOrderLeukemiaLymphoma)this.m_PanelSetOrder;
 
-			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\LeukemiaLymphoma.8.xml";
+			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\LeukemiaLymphoma.9.xml";
 
 			base.OpenTemplate();
 
@@ -50,8 +50,7 @@ namespace YellowstonePathology.Business.Test.LLP
 			this.SetXmlNodeData("pathologist_signature", signature);
 
 			this.SetXMLNodeParagraphData("report_impression", panelSetOrderLeukemiaLymphoma.Impression);
-			this.SetXmlNodeData("interpretive_comment", panelSetOrderLeukemiaLymphoma.InterpretiveComment);
-			this.SetXmlNodeData("cell_population_of_interest", panelSetOrderLeukemiaLymphoma.CellPopulationOfInterest);
+			this.SetXmlNodeData("interpretive_comment", panelSetOrderLeukemiaLymphoma.InterpretiveComment);			
 
 			double LymphCnt = Convert.ToDouble(panelSetOrderLeukemiaLymphoma.LymphocyteCount);
 			double MonoCnt = Convert.ToDouble(panelSetOrderLeukemiaLymphoma.MonocyteCount);
@@ -87,10 +86,8 @@ namespace YellowstonePathology.Business.Test.LLP
 				this.SetXmlNodeData("blast_cd34_percent", panelSetOrderLeukemiaLymphoma.EGateCD34Percent);
 				this.SetXmlNodeData("blast_cd117_percent", panelSetOrderLeukemiaLymphoma.EGateCD117Percent);
 			}
-
-            panelSetOrderLeukemiaLymphoma.FlowMarkerCollection.SetFirstMarkerPanelIfExists();
-            this.HandleMarkers(panelSetOrderLeukemiaLymphoma.FlowMarkerCollection.CurrentMarkerPanel);
-
+                
+            this.HandleMarkers(panelSetOrderLeukemiaLymphoma);
 			this.SetXmlNodeData("clinical_history", this.m_AccessionOrder.ClinicalHistory);
 			this.SetXmlNodeData("specimen_description", specimenOrder.Description);
 
@@ -111,41 +108,77 @@ namespace YellowstonePathology.Business.Test.LLP
 			this.SaveReport();
 		}
 
-        private void HandleMarkers(Business.Flow.FlowMarkerCollection flowMarkerCollection)
+        private void HandleMarkers(PanelSetOrderLeukemiaLymphoma panelSetOrderLeukemiaLymphoma)
         {            
+            panelSetOrderLeukemiaLymphoma.FlowMarkerCollection.SetFirstMarkerPanelIfExists();
+
             XmlNode tableNode1 = this.m_ReportXml.SelectSingleNode("descendant::w:tbl[w:tr/w:tc/w:p/w:r/w:t='marker_name1']", this.m_NameSpaceManager);
             XmlNode MarkerNode1 = tableNode1.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='marker_name1']", this.m_NameSpaceManager);
-            XmlNode nodeToInsertAfter1 = MarkerNode1;
-
-            int rowCount = flowMarkerCollection.Count;
-            int FirstHalfCount = rowCount / 2;
-            int LastHalfCount = rowCount - FirstHalfCount;
-
-            for (int i = 0; i < FirstHalfCount; i++)
-            {
-                XmlNode NewMarkerNode1 = MarkerNode1.Clone();
-                NewMarkerNode1.SelectSingleNode("descendant::w:r[w:t='marker_name1']/w:t", this.m_NameSpaceManager).InnerText = flowMarkerCollection[i].Name;
-                NewMarkerNode1.SelectSingleNode("descendant::w:r[w:t='marker_interpretation1']/w:t", this.m_NameSpaceManager).InnerText = flowMarkerCollection[i].Interpretation;
-                NewMarkerNode1.SelectSingleNode("descendant::w:r[w:t='marker_intensity1']/w:t", this.m_NameSpaceManager).InnerText = flowMarkerCollection[i].Intensity;
-                tableNode1.InsertAfter(NewMarkerNode1, nodeToInsertAfter1);
-                nodeToInsertAfter1 = NewMarkerNode1;
-            }
-            tableNode1.RemoveChild(MarkerNode1);
+            XmlNode cellPopulationNode = tableNode1.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='cell_population_of_interest']", this.m_NameSpaceManager);
+            XmlNode blankRowNode1 = tableNode1.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='blank_row']", this.m_NameSpaceManager);
 
             XmlNode tableNode2 = this.m_ReportXml.SelectSingleNode("descendant::w:tbl[w:tr/w:tc/w:p/w:r/w:t='marker_name2']", this.m_NameSpaceManager);
             XmlNode MarkerNode2 = tableNode2.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='marker_name2']", this.m_NameSpaceManager);
-            XmlNode nodeToInsertAfter2 = MarkerNode2;
+            XmlNode blankRowNode2 = tableNode2.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='blank_row']", this.m_NameSpaceManager);
 
-            for (int i = FirstHalfCount; i < rowCount; i++)
+            foreach (Business.Flow.CellPopulationOfInterest cellPopulationOfInterest in panelSetOrderLeukemiaLymphoma.FlowMarkerCollection.CellPopulationsOfInterest)
             {
-                XmlNode NewMarkerNode2 = MarkerNode2.Clone();
-                NewMarkerNode2.SelectSingleNode("descendant::w:r[w:t='marker_name2']/w:t", this.m_NameSpaceManager).InnerText = flowMarkerCollection[i].Name;
-                NewMarkerNode2.SelectSingleNode("descendant::w:r[w:t='marker_interpretation2']/w:t", this.m_NameSpaceManager).InnerText = flowMarkerCollection[i].Interpretation;
-                NewMarkerNode2.SelectSingleNode("descendant::w:r[w:t='marker_intensity2']/w:t", this.m_NameSpaceManager).InnerText = flowMarkerCollection[i].Intensity;
-                tableNode2.InsertAfter(NewMarkerNode2, nodeToInsertAfter2);
-                nodeToInsertAfter2 = NewMarkerNode2;
+                Business.Flow.FlowMarkerCollection flowMarkerCollection = panelSetOrderLeukemiaLymphoma.FlowMarkerCollection.GetMarkerPanel(cellPopulationOfInterest.Id);
+                
+                XmlNode nodeToInsertAfter1 = MarkerNode1;
+
+                int rowCount = flowMarkerCollection.Count;
+                int FirstHalfCount = rowCount / 2;
+                int LastHalfCount = rowCount - FirstHalfCount;
+
+                XmlNode newCellPopulationNode = cellPopulationNode.Clone();
+                newCellPopulationNode.SelectSingleNode("descendant::w:r[w:t='cell_population_of_interest']/w:t", this.m_NameSpaceManager).InnerText = panelSetOrderLeukemiaLymphoma.CellPopulationOfInterest;
+                tableNode1.InsertAfter(newCellPopulationNode, nodeToInsertAfter1);
+                nodeToInsertAfter1 = newCellPopulationNode;
+
+                for (int i = 0; i < FirstHalfCount; i++)
+                {
+                    XmlNode NewMarkerNode1 = MarkerNode1.Clone();
+                    NewMarkerNode1.SelectSingleNode("descendant::w:r[w:t='marker_name1']/w:t", this.m_NameSpaceManager).InnerText = flowMarkerCollection[i].Name;
+                    NewMarkerNode1.SelectSingleNode("descendant::w:r[w:t='marker_interpretation1']/w:t", this.m_NameSpaceManager).InnerText = flowMarkerCollection[i].Interpretation;
+                    NewMarkerNode1.SelectSingleNode("descendant::w:r[w:t='marker_intensity1']/w:t", this.m_NameSpaceManager).InnerText = flowMarkerCollection[i].Intensity;
+                    tableNode1.InsertAfter(NewMarkerNode1, nodeToInsertAfter1);
+                    nodeToInsertAfter1 = NewMarkerNode1;
+                }
+
+                XmlNode newBlankRowNode3 = blankRowNode1.Clone();
+                newBlankRowNode3.SelectSingleNode("descendant::w:r[w:t='blank_row']/w:t", this.m_NameSpaceManager).InnerText = null;
+                tableNode1.InsertAfter(newBlankRowNode3, nodeToInsertAfter1);                
+
+                XmlNode nodeToInsertAfter2 = MarkerNode2;
+
+                XmlNode newBlankRowNode2 = blankRowNode2.Clone();
+                newBlankRowNode2.SelectSingleNode("descendant::w:r[w:t='blank_row']/w:t", this.m_NameSpaceManager).InnerText = null;
+                tableNode2.InsertAfter(newBlankRowNode2, nodeToInsertAfter2);
+                nodeToInsertAfter2 = newBlankRowNode2;
+
+                for (int i = FirstHalfCount; i < rowCount; i++)
+                {
+                    XmlNode NewMarkerNode2 = MarkerNode2.Clone();
+                    NewMarkerNode2.SelectSingleNode("descendant::w:r[w:t='marker_name2']/w:t", this.m_NameSpaceManager).InnerText = flowMarkerCollection[i].Name;
+                    NewMarkerNode2.SelectSingleNode("descendant::w:r[w:t='marker_interpretation2']/w:t", this.m_NameSpaceManager).InnerText = flowMarkerCollection[i].Interpretation;
+                    NewMarkerNode2.SelectSingleNode("descendant::w:r[w:t='marker_intensity2']/w:t", this.m_NameSpaceManager).InnerText = flowMarkerCollection[i].Intensity;
+                    tableNode2.InsertAfter(NewMarkerNode2, nodeToInsertAfter2);
+                    nodeToInsertAfter2 = NewMarkerNode2;
+                }                
+
+                XmlNode newBlankRowNode4 = blankRowNode2.Clone();
+                newBlankRowNode4.SelectSingleNode("descendant::w:r[w:t='blank_row']/w:t", this.m_NameSpaceManager).InnerText = null;
+                tableNode2.InsertAfter(newBlankRowNode4, nodeToInsertAfter2);
+                nodeToInsertAfter2 = newBlankRowNode4;
             }
-            tableNode2.RemoveChild(MarkerNode2);
+
+            tableNode1.RemoveChild(cellPopulationNode);
+            tableNode1.RemoveChild(MarkerNode1);
+            tableNode1.RemoveChild(blankRowNode1);
+
+            tableNode2.RemoveChild(blankRowNode2);
+            tableNode2.RemoveChild(MarkerNode2);            
         }
 
 		public string GetGatingPercent(double gatingPercent)

@@ -28,19 +28,22 @@ namespace YellowstonePathology.Business.Flow
 		private string m_Result;
         private int m_CellPopulationId;
         private string m_CellPopulationOfInterest;
-
+        private string m_PanelName;
 
         public FlowMarkerItem()
         {
         }
 
-		public FlowMarkerItem(string flowMarkerId, string objectId, string reportNo, string name)
+		public FlowMarkerItem(string flowMarkerId, string objectId, string reportNo, string name, int cellPopulationId, string cellPopulationOfInterest, string panelName)
 		{
 			this.m_FlowMarkerId = flowMarkerId;
 			this.m_ObjectId = objectId;
 			this.m_ReportNo = reportNo;
 			this.m_Name = name;
 			this.m_MarkerUsed = true;
+            this.m_CellPopulationId = cellPopulationId;
+            this.m_CellPopulationOfInterest = cellPopulationOfInterest;
+            this.m_PanelName = panelName;
 		}
 
 		[PersistentDocumentIdProperty()]
@@ -279,6 +282,21 @@ namespace YellowstonePathology.Business.Flow
                 {
                     this.m_CellPopulationOfInterest = value;
                     this.NotifyPropertyChanged("CellPopulationOfInterest");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "100", "null", "varchar")]
+        public string PanelName
+        {
+            get { return this.m_PanelName; }
+            set
+            {
+                if (this.m_PanelName != value)
+                {
+                    this.m_PanelName = value;
+                    this.NotifyPropertyChanged("PanelName");
                 }
             }
         }
