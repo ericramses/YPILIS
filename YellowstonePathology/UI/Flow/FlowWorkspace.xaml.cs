@@ -240,7 +240,7 @@ namespace YellowstonePathology.UI.Flow
 
         }
 
-        public void ContextMenuFlowMarkers_Click(object sender, RoutedEventArgs args)
+        public void ContextMenuRemoveMarker_Click(object sender, RoutedEventArgs args)
         {
             if (this.listViewMarkers.SelectedItems.Count != 0)
             {
@@ -249,6 +249,8 @@ namespace YellowstonePathology.UI.Flow
                 if (result == MessageBoxResult.OK)
                 {
                     this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.FlowMarkerCollection.Remove(item);
+                    int cellPopulationOfInterest = this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.FlowMarkerCollection.CurrentMarkerPanel[0].CellPopulationId;
+                    this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.FlowMarkerCollection.SetCurrentMarkerPanel(cellPopulationOfInterest);
                 }
             }
         }
@@ -527,6 +529,7 @@ namespace YellowstonePathology.UI.Flow
                     string cellPopulationOfInterest = this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.FlowMarkerCollection.CurrentMarkerPanel[0].CellPopulationOfInterest;
                     string panelName = this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.FlowMarkerCollection.CurrentMarkerPanel[0].PanelName;
                     this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.FlowMarkerCollection.Add(this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.ReportNo, item, cellPopulationId, cellPopulationOfInterest, panelName);
+                    this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.FlowMarkerCollection.SetCurrentMarkerPanel(cellPopulationId);
                 }                
             }            
         }
@@ -537,6 +540,8 @@ namespace YellowstonePathology.UI.Flow
             {
                 YellowstonePathology.Business.Flow.FlowMarkerItem item = (YellowstonePathology.Business.Flow.FlowMarkerItem)this.listViewMarkers.SelectedItem;
                 this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.FlowMarkerCollection.Remove(item);
+                int cellPopulationId = this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.FlowMarkerCollection.CurrentMarkerPanel[0].CellPopulationId;
+                this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.FlowMarkerCollection.SetCurrentMarkerPanel(cellPopulationId);
             }
         }
 

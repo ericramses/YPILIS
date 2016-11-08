@@ -70,9 +70,7 @@ namespace YellowstonePathology.Business.HL7View.EPIC
         private void WriteDocumentToServer(XElement document)
         {
             string fileExtension = ".HL7.xml";
-
-            string interfaceFileName = @"\\YPIIInterface1\ChannelData\Outgoing\1002\Test\ft1" + this.m_PanelSetOrderCPTCodeBill.PanelSetOrderCPTCodeBillId + fileExtension;
-            
+            string interfaceFileName = @"\\YPIIInterface1\ChannelData\Outgoing\1002\Test\ft1\" + this.m_PanelSetOrderCPTCodeBill.PanelSetOrderCPTCodeBillId + fileExtension;            
             using (System.IO.StreamWriter sw = new System.IO.StreamWriter(interfaceFileName))
             {
                 document.Save(sw);

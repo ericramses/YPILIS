@@ -425,7 +425,7 @@
 							ScrollViewer.VerticalScrollBarVisibility="Visible">
                             <ListView.ContextMenu>
                                 <ContextMenu Name="ContextMenuFlowMarkers">
-                                    <MenuItem Header="Remove Marker" Click="ContextMenuFlowMarkers_Click"></MenuItem>
+                                    <MenuItem Header="Remove Marker" Click="ContextMenuRemoveMarker_Click"></MenuItem>
                                 </ContextMenu>
                             </ListView.ContextMenu>
                             <ListView.View>

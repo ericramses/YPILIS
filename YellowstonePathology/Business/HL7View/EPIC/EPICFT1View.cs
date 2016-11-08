@@ -32,7 +32,7 @@ namespace YellowstonePathology.Business.HL7View.EPIC
             // FT1||||20160523|20160523|CG|760502971|WDCUL$WOUND CULT||1||||||||||1962440800^^^^^^^^NPI^^^^NPI|||M3591||760502971
             // FT1||||20160523|20160523|CG|760101585|RENW$RENAL PANEL||1||||||||||1629286430^^^^^^^^NPI^^^^NPI|||M1019||760101585
 
-            XElement ft1Element = new XElement("FT1", "FT1");
+            XElement ft1Element = new XElement("FT1");
             document.Add(ft1Element);
 
             XElement ft14Element = new XElement("FT1.4", this.m_BillDate.ToString(this.m_DateFormat));
@@ -69,8 +69,8 @@ namespace YellowstonePathology.Business.HL7View.EPIC
             YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("FT1.20.13", "NPI", ft120Element);
             ft1Element.Add(ft120Element);
 
-            XElement ft123Element = new XElement("FT1.23", "?????");
-            ft1Element.Add(ft123Element);
+            //XElement ft123Element = new XElement("FT1.23");
+            //ft1Element.Add(ft123Element);
 
             XElement ft125Element = new XElement("FT1.25", this.m_CptCode.SVHCDMCode);
             ft1Element.Add(ft125Element);
