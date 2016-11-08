@@ -430,7 +430,7 @@
                             </ListView.ContextMenu>
                             <ListView.View>
 								<GridView AllowsColumnReorder="true">
-									<GridViewColumn Width="60" DisplayMemberBinding="{Binding Path=Name}" Header="Marker"/>
+									<GridViewColumn Width="100" DisplayMemberBinding="{Binding Path=Name}" Header="Marker"/>
 									<GridViewColumn Header="Interpretation">
 										<GridViewColumn.CellTemplate>
 											<DataTemplate>
