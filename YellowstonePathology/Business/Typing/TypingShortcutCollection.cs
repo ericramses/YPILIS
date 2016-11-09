@@ -27,6 +27,17 @@ namespace YellowstonePathology.Business.Typing
                 }
             }
             return string.Empty;
-        }                             
+        }       
+        
+        public void UpdateItem(TypingShortcut typingShortcut)
+        {
+            foreach(TypingShortcut item in this)
+            {
+                if(item.ObjectId == typingShortcut.ObjectId)
+                {
+                    item.Update(typingShortcut);
+                }
+            }
+        }                      
     }
 }

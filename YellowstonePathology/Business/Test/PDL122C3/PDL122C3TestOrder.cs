@@ -26,12 +26,14 @@ namespace YellowstonePathology.Business.Test.PDL122C3
             bool distribute)
             : base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute)
         {
-            this.m_Method = "Formalin-fixed paraffin-embedded tissue sections were stained with an anti-PD-L1 primary antibody (clone 22C3) " +
-                "and a polymertechnology based system was used for detection.  Stains were scored by a pathologist using manual microscopy.  " +
-                "The percentage of tumor cells with membrane staining is reported and the intensity of staining is scored as follows: 0, " +
-                "absent; 1 +, weak; 2 +, moderate; and 3 +, strong.  Currently, there are no standardized cut offs for determining positivity " +
-                "or negativity for PD - L1, however some published studies have used 5 % of tumor cells with moderate to strong staining as " +
-                "the positive cut - off.";
+            this.m_Method = "PD-L1 22C3 FDA (KEYTRUDA): " +
+                "PD - L1 staining was performed utilizing the DAKO FDA - approved PD - L1, 22C3 pharmDx protocol using the Dako Automated Link 48 platform.Following incubation " +
+                "with the primary monoclonal antibody to PD - L1 or the Negative Control Reagent(NCR), specimens were incubated with a Linker antibody specific to the host species " +
+                "of the primary antibody, and then were incubated with a ready-to - use visualization reagent consisting of secondary antibody molecules and horseradish peroxidase " +
+                "molecules coupled to a dextran polymer backbone.The enzymatic conversion of the subsequently added chromogen results in precipitation of a visible reaction product at " +
+                "the site of antigen.The color of the chromogenic reaction was modified by a chromogen enhancement reagent.The specimen then was counterstained and coverslipped.PD - L1 " +
+                "protein expression is determined by using Tumor Proportion Score(TPS), which is the percentage of viable tumor cells showing partial or complete membrane staining. The specimen " +
+                "should be considered PD-L1 positive for KEYTRUDA (pembrolizumab) eligibility if TPS >= 50% of the viable tumor cells exhibit membrane staining at any intensity.";
             this.m_Interpretation = "PD-L1 is one of the receptors for PD-1. PD-L1 is inducibly expressed on both hematopoietic and " +
                 "non-hematopoietic cells following cellspecific stimulation and plays a role in maintenance of peripheral tolerance.  PD - L1 " +
                 "expression has been linked to poorer prognosis and shorter survival in some tumor types.  On - going clinical trials are " +
@@ -46,7 +48,7 @@ namespace YellowstonePathology.Business.Test.PDL122C3
                 "virusassociated malignancies.Clin Cancer Res. 2013; 19(13):3462 - 73." + Environment.NewLine +
                 "5. Zhang Y, Kang S, Shen J, et al. Prognostic significance of programmed cell death 1(PD - 1) or PD-1 ligand 1(PD - L1) Expression " +
                 "in epithelial - originated cancer: a meta-analysis.Medicine(Baltimore). 2015; 94(6):e515.";
-            this.m_Comment = "This test utilizes PD-L1 antibody clone SP142.  In general, higher levels of PD-L1 expression are associated with " +
+            this.m_Comment = "This test utilizes PD-L1 antibody clone 22C3.  In general, higher levels of PD-L1 expression are associated with " +
                 "better response to PD-1 antagonists.";
         }
 

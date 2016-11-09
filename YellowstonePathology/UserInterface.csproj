@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>217</ApplicationRevision>
+    <ApplicationRevision>225</ApplicationRevision>
     <ApplicationVersion>10.1.6.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -3106,6 +3106,7 @@
     <Compile Include="UI\CustomEventArgs\BarcodReturnEventArgs.cs" />
     <Compile Include="UI\CustomEventArgs\EventHandlerDefinitions.cs" />
     <Compile Include="UI\CustomEventArgs\AccessionLockMessageReturnEventArgs.cs" />
+    <Compile Include="UI\CustomEventArgs\TypingShortcutReturnEventArgs.cs" />
     <Compile Include="UI\CustomEventArgs\TestOrderAliquotOrderReturnEventArgs.cs" />
     <Compile Include="UI\CustomEventArgs\TestOrderReturnEventArgs.cs" />
     <Compile Include="UI\CustomEventArgs\SlideOrderReturnEventArgs.cs" />

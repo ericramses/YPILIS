@@ -58,7 +58,7 @@ namespace YellowstonePathology.UI
             YellowstonePathology.Business.Typing.TypingShortcut typingShortcut = new YellowstonePathology.Business.Typing.TypingShortcut(objectId);            
 			typingShortcut.ObjectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();            
 
-            YellowstonePathology.UI.TypingShorcutDialog typingShorcutDialog = new TypingShorcutDialog(typingShortcut, true);
+            YellowstonePathology.UI.TypingShorcutDialog typingShorcutDialog = new TypingShorcutDialog(typingShortcut.ObjectId, true);
             typingShorcutDialog.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             typingShorcutDialog.ShowDialog();            
 
@@ -73,9 +73,15 @@ namespace YellowstonePathology.UI
         public void ContextMenuTypingShortcutEdit_Click(object sender, RoutedEventArgs args)
         {            
             YellowstonePathology.Business.Typing.TypingShortcut typingShortcut = (YellowstonePathology.Business.Typing.TypingShortcut)this.ListViewTypingShortcut.SelectedItem;            
-            YellowstonePathology.UI.TypingShorcutDialog typingShortcutDialog = new TypingShorcutDialog(typingShortcut, false);
+            YellowstonePathology.UI.TypingShorcutDialog typingShortcutDialog = new TypingShorcutDialog(typingShortcut.ObjectId, false);
+            typingShortcutDialog.Finished += TypingShortcutDialog_Finished;
             typingShortcutDialog.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             typingShortcutDialog.ShowDialog();            
+        }
+
+        private void TypingShortcutDialog_Finished(object sender, CustomEventArgs.TypingShortcutReturnEventArgs e)
+        {
+            this.m_TypingShortcutCollection.UpdateItem(e.TypingShortcut);
         }
 
         public void SetShortcut(TextBox textBox)

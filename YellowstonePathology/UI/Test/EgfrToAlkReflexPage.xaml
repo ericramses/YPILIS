@@ -32,11 +32,12 @@
 				<RowDefinition Height="Auto"></RowDefinition>
 				<RowDefinition Height="Auto"></RowDefinition>
 				<RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
 				<RowDefinition Height="Auto"></RowDefinition>
-				<RowDefinition Height="Auto"></RowDefinition>
-				<RowDefinition Height="Auto"></RowDefinition>
-				<RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>                                
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
@@ -46,24 +47,33 @@
             <TextBlock Grid.Column="0" Grid.Row="0" Margin="0,5,0,0" FontWeight="Bold" FontSize="16">Order</TextBlock>
 
             <TextBlock Grid.Column="0" Grid.Row="1" Margin="5,3,0,0">
-                <Hyperlink Click="HyperLinkOrderALKAndROS1_Click" FontSize="14">ALK and ROS1</Hyperlink>
+                <Hyperlink Click="HyperLinkOrderPDL1SP142_Click" FontSize="14">PD-L1 (SP142)</Hyperlink>
+            </TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="2" Margin="5,3,0,0">
+                <Hyperlink Click="HyperLinkOrderPDL122C3_Click" FontSize="14">PD-L1 (22C3)</Hyperlink>
+            </TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="3" Margin="5,3,0,0">
+                <Hyperlink Click="HyperLinkOrderALK_Click" FontSize="14">ALK</Hyperlink>
+            </TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="4" Margin="5,3,0,0">
+                <Hyperlink Click="HyperLinkOrderROS1_Click" FontSize="14">ROS1</Hyperlink>
             </TextBlock>
 
-            <TextBlock Grid.Column="0" Grid.Row="3" Margin="0,20,0,0" FontWeight="Bold" FontSize="16">Options</TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="5" Margin="0,20,0,0" FontWeight="Bold" FontSize="16">Options</TextBlock>
 
-			<TextBlock Grid.Column="0" Grid.Row="4" Margin="5,3,0,0">                    
+			<TextBlock Grid.Column="0" Grid.Row="6" Margin="5,3,0,0">                    
                 <Hyperlink Click="HyperLinkSetResults_Click" FontSize="14">Set Results</Hyperlink>
 			</TextBlock>
 
-			<TextBlock Grid.Column="0" Grid.Row="5" Margin="5,3,0,0">
+			<TextBlock Grid.Column="0" Grid.Row="7" Margin="5,3,0,0">
                     <Hyperlink Click="HyperLinkAcceptResults_Click" FontSize="14">Accept Results</Hyperlink>
 			</TextBlock>
 
-            <TextBlock Name="TextBlockShowDocument" Grid.Column="0" Grid.Row="6" Margin="5,3,0,0">                    
+            <TextBlock Name="TextBlockShowDocument" Grid.Column="0" Grid.Row="8" Margin="5,3,0,0">                    
                 <Hyperlink Click="HyperLinkShowDocument_Click" FontSize="14">Show Document</Hyperlink>
             </TextBlock>
 
-			<TextBlock Grid.Column="0" Grid.Row="7" Margin="5,3,0,0">
+			<TextBlock Grid.Column="0" Grid.Row="9" Margin="5,3,0,0">
                 <Hyperlink Click="HyperLinkFinalizeResults_Click" FontSize="14">Finalize</Hyperlink>
             </TextBlock>
 

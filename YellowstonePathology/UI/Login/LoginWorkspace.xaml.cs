@@ -922,5 +922,20 @@ namespace YellowstonePathology.UI.Login
                 additionalTestingEmailPath.Start();
             }
         }
+
+        private void MenuItemSendBillingHL7_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.ListViewAccessionOrders.SelectedItem != null)
+            {
+                YellowstonePathology.Business.Search.ReportSearchItem reportSearchItem = (YellowstonePathology.Business.Search.ReportSearchItem)this.ListViewAccessionOrders.SelectedItem;
+                YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_LoginUI.AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportSearchItem.ReportNo);
+                Business.Test.PanelSetOrderCPTCodeBill bill = panelSetOrder.PanelSetOrderCPTCodeBillCollection[0];
+                Business.HL7View.EPIC.EPICFT1ResultView resultView = new Business.HL7View.EPIC.EPICFT1ResultView(this.m_LoginUI.AccessionOrder, bill, true);
+
+                Business.Rules.MethodResult result = new Business.Rules.MethodResult();
+                resultView.Send(result);
+                MessageBox.Show(result.Message);
+            }
+        }
     }
 }

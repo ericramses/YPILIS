@@ -24,12 +24,21 @@ namespace YellowstonePathology.UI.Test
 		public event FinishEventHandler Finish;
 
         public delegate void BackEventHandler(object sender, EventArgs e);
-        public event BackEventHandler Back;        
+        public event BackEventHandler Back;
 
-        public delegate void OrderALKAndROS1EventHandler(object sender, EventArgs e);
-        public event OrderALKAndROS1EventHandler OrderALKAndROS1;
+        public delegate void OrderPDL1SP142EventHandler(object sender, EventArgs e);
+        public event OrderPDL1SP142EventHandler OrderPDL1SP142;
 
-		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
+        public delegate void OrderPDL122C3EventHandler(object sender, EventArgs e);
+        public event OrderPDL122C3EventHandler OrderPDL122C3;
+
+        public delegate void OrderALKEventHandler(object sender, EventArgs e);
+        public event OrderALKEventHandler OrderALK;
+
+        public delegate void OrderROS1EventHandler(object sender, EventArgs e);
+        public event OrderROS1EventHandler OrderROS1;
+
+        private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 
         private YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisTestOrder m_EGFRToALKReflexAnalysisTestOrder;
@@ -121,14 +130,29 @@ namespace YellowstonePathology.UI.Test
 		public string PageHeaderText
 		{
             get { return this.m_PageHeaderText; }
-		}
+		}        
 
-        private void HyperLinkOrderALKAndROS1_Click(object sender, RoutedEventArgs e)
+        private void HyperLinkOrderPDL1SP142_Click(object sender, RoutedEventArgs e)
         {
-            this.OrderALKAndROS1(this, new EventArgs());
-        }  
+            this.OrderPDL1SP142(this, new EventArgs());
+        }
 
-		private void HyperLinkSetResults_Click(object sender, RoutedEventArgs e)
+        private void HyperLinkOrderPDL122C3_Click(object sender, RoutedEventArgs e)
+        {
+            this.OrderPDL122C3(this, new EventArgs());
+        }
+
+        private void HyperLinkOrderROS1_Click(object sender, RoutedEventArgs e)
+        {
+            this.OrderROS1(this, new EventArgs());
+        }
+
+        private void HyperLinkOrderALK_Click(object sender, RoutedEventArgs e)
+        {
+            this.OrderALK(this, new EventArgs());
+        }
+
+        private void HyperLinkSetResults_Click(object sender, RoutedEventArgs e)
 		{
             this.m_EGFRToALKReflexAnalysisTestOrder.SetResults(this.m_AccessionOrder);
 		}
@@ -244,6 +268,6 @@ namespace YellowstonePathology.UI.Test
         {
             this.m_EGFRToALKReflexAnalysisResult = new Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisResult(this.m_AccessionOrder, this.m_EGFRToALKReflexAnalysisTestOrder);
             this.NotifyPropertyChanged(string.Empty);
-        }                    
+        }        
     }
 }

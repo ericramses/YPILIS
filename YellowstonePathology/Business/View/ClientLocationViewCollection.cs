@@ -64,7 +64,7 @@ namespace YellowstonePathology.Business.View
             YellowstonePathology.Business.View.ClientLocationView advancedDerm = new Business.View.ClientLocationView(1260, 633, "Advanced Dermatology", "Medical Records");
             result.Add(advancedDerm);
 
-            YellowstonePathology.Business.View.ClientLocationView bigskyOBGYN = new Business.View.ClientLocationView(25, 4, "Big Sky OB/GYN - SVPN", "Medical Records");
+            YellowstonePathology.Business.View.ClientLocationView bigskyOBGYN = new Business.View.ClientLocationView(1565, 750, "Midwifery and Womens Health - SVH Clinic", "Medical Records");
             result.Add(bigskyOBGYN);
 
             return Sort(result);
