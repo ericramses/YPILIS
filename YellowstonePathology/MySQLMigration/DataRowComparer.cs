@@ -37,8 +37,6 @@ namespace YellowstonePathology.MySQLMigration
 
             foreach (PropertyInfo property in this.m_MigrationStatus.PersistentProperties)
             {
-                //if (this.m_SqlServerDataTableReader[property.Name].ToString() != this.m_MySqlDataTableReader[property.Name].ToString())
-                //{
                 Type dataType = property.PropertyType;
                 if (dataType == typeof(string))
                 {
@@ -84,7 +82,6 @@ namespace YellowstonePathology.MySQLMigration
                 {
                     throw new Exception("This Data Type is Not Implemented: " + dataType.Name);
                 }
-                //}
             }
             if(this.m_MethodResult.Success == false)
             {

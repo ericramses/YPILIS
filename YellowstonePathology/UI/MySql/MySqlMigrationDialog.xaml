@@ -17,13 +17,13 @@
 
         <Menu Name="MainMenu" Grid.Column="0" Grid.Row="0" DockPanel.Dock="Top">
             <MenuItem Header="Get Status" Click="MenuItemGetStatus_Click" Margin="5"></MenuItem>
-            <MenuItem Header="Table Construction ..." Margin="5">
-                <MenuItem Header="Table Actions" Click="MenuItemCreateTable_Click" Margin="5"></MenuItem>
-                <MenuItem Header="Compare Table to Class" Click="MenuItemCompareTables_Click" Margin="5"></MenuItem>
-                <MenuItem Header="Add Missing Columns" Click="MenuItemAddMissingColumns_Click" Margin="5"></MenuItem>
-                <MenuItem Header="Add Transfer Column" Click="MenuItemAddTransferColumn_Click" Margin="5"></MenuItem>
-                <MenuItem Header="Add Timestamp Column" Click="MenuItemAddTimestampColumn_Click" Margin="5"></MenuItem>
-                <MenuItem Header="Add DBTS Attribute" Click="MenuItemAddDBTS_Click" Margin="5"></MenuItem>
+            <MenuItem Header="Table Actions ..." Margin="5">
+                <MenuItem Header="Create MySql Table" Click="MenuItemCreateTable_Click" Margin="5"></MenuItem>
+                <MenuItem Header="Compare MySql Table to Class" Click="MenuItemCompareTables_Click" Margin="5"></MenuItem>
+                <MenuItem Header="Add Missing Columns to MySql" Click="MenuItemAddMissingColumns_Click" Margin="5"></MenuItem>
+                <MenuItem Header="Add Transfer Column to SqlServer" Click="MenuItemAddTransferColumn_Click" Margin="5"></MenuItem>
+                <MenuItem Header="Add Timestamp Column to SqlServer" Click="MenuItemAddTimestampColumn_Click" Margin="5"></MenuItem>
+                <MenuItem Header="Add DBTS Attribute to SqlServer" Click="MenuItemAddDBTS_Click" Margin="5"></MenuItem>
             </MenuItem>
             <MenuItem Header="Move Selected Data ..." Margin="5">
                 <MenuItem Header="Sync and Load new and altered" Click="MenuItemDailySync_Click" Margin="5"></MenuItem>
