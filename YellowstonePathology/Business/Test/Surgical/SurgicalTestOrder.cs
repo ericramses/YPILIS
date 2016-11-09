@@ -33,8 +33,8 @@ namespace YellowstonePathology.Business.Test.Surgical
 		private string m_ImmediateCorrelationComment;
 		private string m_PapCorrelationComment;
 		private string m_PapCorrelationAccessionNo;
-        private bool? m_PQRSIsIndicated;
-        private bool? m_PQRSNotApplicable;
+        private bool m_PQRSIsIndicated;
+        private bool m_PQRSNotApplicable;
 
 		private SurgicalSpecimenCollection m_SurgicalSpecimenCollection;
 		private YellowstonePathology.Business.Specimen.Model.SpecimenOrderCollection m_SpecimenOrderCollection;
@@ -61,6 +61,8 @@ namespace YellowstonePathology.Business.Test.Surgical
             this.m_GrossX = "???";
             this.m_ImmediateX = "Not performed";
             this.m_MicroscopicX = "???";
+            this.m_PQRIRequired = false;
+            this.m_PQRSIsIndicated = false;
         }
 
         public SurgicalTestOrder(string masterAccessionNo, string reportNo, string objectId,
@@ -76,6 +78,8 @@ namespace YellowstonePathology.Business.Test.Surgical
             this.m_GrossX = "???";
             this.m_ImmediateX = "Not performed";
             this.m_MicroscopicX = "???";
+            this.m_PQRIRequired = false;
+            this.m_PQRSIsIndicated = false;
         }
 
         public override YellowstonePathology.Business.Amendment.Model.Amendment AddAmendment()
@@ -424,8 +428,8 @@ namespace YellowstonePathology.Business.Test.Surgical
 		}
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "null", "tinyint")]
-        public bool? PQRSIsIndicated
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
+        public bool PQRSIsIndicated
         {
             get { return this.m_PQRSIsIndicated; }
             set
@@ -439,8 +443,8 @@ namespace YellowstonePathology.Business.Test.Surgical
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "null", "tinyint")]
-        public bool? PQRSNotApplicable
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
+        public bool PQRSNotApplicable
         {
             get { return this.m_PQRSNotApplicable; }
             set

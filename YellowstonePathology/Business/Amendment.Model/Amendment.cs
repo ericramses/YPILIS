@@ -49,8 +49,6 @@ namespace YellowstonePathology.Business.Amendment.Model
 
         public Amendment()
         {
-            this.m_Accepted = false;
-            this.m_SystemGenerated = false;
         }
 
         public Amendment(string reportNo, string objectId, string amendmentId)
@@ -59,6 +57,8 @@ namespace YellowstonePathology.Business.Amendment.Model
             this.m_ObjectId = objectId;
             this.AmendmentId = amendmentId;
             this.SetDefaultValues(reportNo);
+            this.m_Accepted = false;
+            this.m_SystemGenerated = false;
         }
 
         public string SignatureButtonText
