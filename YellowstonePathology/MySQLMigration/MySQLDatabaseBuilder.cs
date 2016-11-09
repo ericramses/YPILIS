@@ -259,6 +259,20 @@ namespace YellowstonePathology.MySQLMigration
             return methodResult;
         }
 
+        private string KeyStringFromList(MigrationStatus migrationStatus, List<string> keys)
+        {
+            bool needsTic = migrationStatus.KeyFieldProperty.PropertyType == typeof(string) ? true : false;
+            string result = string.Empty;
+
+            foreach (string key in keys)
+            {
+                if (needsTic == true) result += "'" + key + "', ";
+                else result += key + ", ";
+            }
+            result = result.Remove(result.Length - 2, 2);
+            return result;
+        }
+
         public Business.Rules.MethodResult BulkLoadData(MigrationStatus migrationStatus, int numberOfObjectsToMove, int whenToStop)
         {
             Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
@@ -281,18 +295,11 @@ namespace YellowstonePathology.MySQLMigration
                     for (int idx = 0; idx < repetitions; idx++)
                     {
                         List<string> keys = this.GetBulkLoadDataKeys(migrationStatus, countToMove);
-                        string keyString = string.Empty;
-
-                        bool needsTic = migrationStatus.KeyFieldProperty.PropertyType == typeof(string) ? true : false;
-                        foreach (string key in keys)
+                        if(keys.Count == 0)
                         {
-                            string keyValue = key + ", ";
-                            if (needsTic == true)
-                            {
-                                keyValue = "'" + key + "', ";
-                            }
-                            keyString += keyValue + ", ";
+                            break;
                         }
+                        string keyString = this.KeyStringFromList(migrationStatus, keys);
                         methodResult = this.LoadData(migrationStatus, keyString);
 
                     }
@@ -311,18 +318,7 @@ namespace YellowstonePathology.MySQLMigration
                 if (migrationStatus.UnLoadedDataCount > 0)
                 {
                     List<string> keys = this.GetDailyLoadDataKeys(migrationStatus);
-                    string keyString = string.Empty;
-
-                    bool needsTic = migrationStatus.KeyFieldProperty.PropertyType == typeof(string) ? true : false;
-                    foreach (string key in keys)
-                    {
-                        string keyValue = key + ", ";
-                        if (needsTic == true)
-                        {
-                            keyValue = "'" + key + "', ";
-                        }
-                        keyString += keyValue + ", ";
-                    }
+                    string keyString = this.KeyStringFromList(migrationStatus, keys);
                     methodResult = this.LoadData(migrationStatus, keyString);
                     YellowstonePathology.Business.Mongo.Gateway.SetTransferDBTS(migrationStatus.TableName);
                 }
@@ -1306,8 +1302,8 @@ namespace YellowstonePathology.MySQLMigration
         private List<string> GetBulkLoadDataKeys(MigrationStatus migrationStatus, string countToSelect)
         {
             List<string> result = new List<string>();
-            SqlCommand cmd = new SqlCommand("Select top " + countToSelect + " " + migrationStatus.KeyFieldName + " from " + migrationStatus.TableName + " where " +
-                //"ReportNo like '_0[0-5]%' and " +
+            SqlCommand cmd = new SqlCommand("Select top (" + countToSelect + ") " + migrationStatus.KeyFieldName + " from " + migrationStatus.TableName + " where " +
+                "ReportNo not like '16%' and " +
                 //"orderdate < '10/1/2016' and " +
                 "Transferred = 0 order by 1");
             using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))

@@ -41,15 +41,16 @@ namespace YellowstonePathology.Business.Amendment.Model
         private string m_PathologistSignature;
         private string m_ReferenceReportNo;
         private int? m_AcceptedById;
-        private bool? m_Accepted;
+        private bool m_Accepted;
         private Nullable<DateTime> m_AcceptedDate;
         private Nullable<DateTime> m_AcceptedTime;
         private string m_AcceptedBy;
-        private bool? m_SystemGenerated;
+        private bool m_SystemGenerated;
 
         public Amendment()
         {
-
+            this.m_Accepted = false;
+            this.m_SystemGenerated = false;
         }
 
         public Amendment(string reportNo, string objectId, string amendmentId)
@@ -451,8 +452,8 @@ namespace YellowstonePathology.Business.Amendment.Model
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "null", "tinyint")]
-        public bool? Accepted
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
+        public bool Accepted
         {
             get { return this.m_Accepted; }
             set
@@ -511,8 +512,8 @@ namespace YellowstonePathology.Business.Amendment.Model
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "null", "tinyint")]
-        public bool? SystemGenerated
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
+        public bool SystemGenerated
         {
             get { return this.m_SystemGenerated; }
             set
@@ -645,7 +646,7 @@ namespace YellowstonePathology.Business.Amendment.Model
 
         public void Finish()
         {
-            if (this.m_Accepted.HasValue == false || this.m_Accepted == false)
+            if (this.m_Accepted == false)
             {
                 this.Accept();
             }
