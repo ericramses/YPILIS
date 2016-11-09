@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Test.PDL122C3
         {            
             PDL122C3TestOrder testOrder = (PDL122C3TestOrder)this.m_PanelSetOrder;
 
-            this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\PDL122C3.1.xml";
+            this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\PDL122C3.2.xml";
             base.OpenTemplate();
 
             this.SetDemographicsV2();
@@ -28,6 +28,7 @@ namespace YellowstonePathology.Business.Test.PDL122C3
             amendmentSection.SetAmendment(m_PanelSetOrder.AmendmentCollection, this.m_ReportXml, this.m_NameSpaceManager, true);
 
             this.ReplaceText("stain_percent", testOrder.StainPercent);
+            this.ReplaceText("stain_result", testOrder.Result);
             this.ReplaceText("report_comment", testOrder.Comment);
             this.ReplaceText("report_interpretation", testOrder.Interpretation);
             this.ReplaceText("report_method", testOrder.Method);
