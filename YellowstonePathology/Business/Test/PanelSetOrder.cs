@@ -92,7 +92,7 @@ namespace YellowstonePathology.Business.Test
 		private string m_SignatureButtonText;
 		private bool m_SignatureButtonIsEnabled;
         private bool m_HoldDistribution;
-        private bool? m_AdditionalTestingEmailSent;
+        private bool m_AdditionalTestingEmailSent;
         private string m_AdditionalTestingEmailSentBy;
         private Nullable<DateTime> m_TimeAdditionalTestingEmailSent;
         private string m_AdditionalTestingEmailMessage;
@@ -130,6 +130,7 @@ namespace YellowstonePathology.Business.Test
             this.m_CaseType = panelSet.CaseType;
 			this.m_PanelSetName = panelSet.PanelSetName;
 
+            this.m_HasTechnicalComponent = false;
             if (panelSet.HasTechnicalComponent == true)
             {
                 this.m_HasTechnicalComponent = true;
@@ -137,6 +138,7 @@ namespace YellowstonePathology.Business.Test
                 this.m_TechnicalComponentBillingFacilityId = panelSet.TechnicalComponentBillingFacility.FacilityId;
             }
 
+            this.m_HasProfessionalComponent = false;
             if (panelSet.HasProfessionalComponent == true)
             {
                 this.m_HasProfessionalComponent = true;
@@ -164,9 +166,23 @@ namespace YellowstonePathology.Business.Test
 
             YellowstonePathology.Business.ClientOrder.Model.UniversalService universalService = panelSet.UniversalServiceIdCollection.GetByApplicationName(YellowstonePathology.Business.ClientOrder.Model.UniversalServiceApplicationNameEnum.EPIC);
             this.m_UniversalServiceId = universalService.UniversalServiceId;
-		}
 
-		public PanelSetOrder(string masterAccessionNo, string reportNo, string objectId, YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet, YellowstonePathology.Business.Interface.IOrderTarget orderTarget, bool distribute)
+            this.m_Final = false;
+            this.m_Accepted = false;
+            this.m_HoldBilling = false;
+            this.m_Audited = false;
+            this.m_Published = false;
+            this.m_PublishNotificationSent = false;
+            this.m_NoCharge = false;
+            this.m_Ordered14DaysPostDischarge = false;
+            this.m_IsPosted = false;
+            this.m_IsDelayed = false;
+            this.m_HoldForPeerReview = false;
+            this.m_HoldDistribution = false;
+            this.m_AdditionalTestingEmailSent = false;
+        }
+
+        public PanelSetOrder(string masterAccessionNo, string reportNo, string objectId, YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet, YellowstonePathology.Business.Interface.IOrderTarget orderTarget, bool distribute)
 		{
 			this.MasterAccessionNo = masterAccessionNo;
 			this.ReportNo = reportNo;
@@ -186,14 +202,16 @@ namespace YellowstonePathology.Business.Test
 			this.m_PanelSetId = panelSet.PanelSetId;
 			this.m_PanelSetName = panelSet.PanelSetName;
 
-			if (panelSet.HasTechnicalComponent == true)
+            this.m_HasTechnicalComponent = false;
+            if (panelSet.HasTechnicalComponent == true)
 			{
 				this.m_HasTechnicalComponent = true;
 				this.m_TechnicalComponentFacilityId = panelSet.TechnicalComponentFacility.FacilityId;
 				this.m_TechnicalComponentBillingFacilityId = panelSet.TechnicalComponentBillingFacility.FacilityId;
 			}
 
-			if (panelSet.HasProfessionalComponent == true)
+            this.m_HasProfessionalComponent = false;
+            if (panelSet.HasProfessionalComponent == true)
 			{
 				this.m_HasProfessionalComponent = true;
 				this.m_ProfessionalComponentFacilityId = panelSet.ProfessionalComponentFacility.FacilityId;
@@ -219,10 +237,24 @@ namespace YellowstonePathology.Business.Test
             this.m_AmendmentCollection = new YellowstonePathology.Business.Amendment.Model.AmendmentCollection();
 
             YellowstonePathology.Business.ClientOrder.Model.UniversalService universalService = panelSet.UniversalServiceIdCollection.GetByApplicationName(YellowstonePathology.Business.ClientOrder.Model.UniversalServiceApplicationNameEnum.EPIC);
-            this.m_UniversalServiceId = universalService.UniversalServiceId;			
-		}
+            this.m_UniversalServiceId = universalService.UniversalServiceId;
 
-		[PersistentDocumentIdProperty()]
+            this.m_Final = false;
+            this.m_Accepted = false;
+            this.m_HoldBilling = false;
+            this.m_Audited = false;
+            this.m_Published = false;
+            this.m_PublishNotificationSent = false;
+            this.m_NoCharge = false;
+            this.m_Ordered14DaysPostDischarge = false;
+            this.m_IsPosted = false;
+            this.m_IsDelayed = false;
+            this.m_HoldForPeerReview = false;
+            this.m_HoldDistribution = false;
+            this.m_AdditionalTestingEmailSent = false;
+        }
+
+        [PersistentDocumentIdProperty()]
 		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
 		public string ObjectId
 		{
@@ -1168,8 +1200,8 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "null", "tinyint")]
-        public bool? AdditionalTestingEmailSent
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
+        public bool AdditionalTestingEmailSent
         {
             get { return this.m_AdditionalTestingEmailSent; }
             set
