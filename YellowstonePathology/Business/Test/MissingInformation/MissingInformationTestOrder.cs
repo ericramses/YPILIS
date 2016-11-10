@@ -48,7 +48,11 @@ namespace YellowstonePathology.Business.Test.MissingInformation
             bool distribute)
             : base(masterAccessionNo, reportNo, objectId, panelSet, distribute)
 		{
-
+            this.m_FirstCall = false;
+            this.m_SecondCall = false;
+            this.m_ThirdCall = false;
+            this.m_Fax = false;
+            this.m_ClientSystemLookup = false;
         }       
 
         [PersistentProperty()]
@@ -82,7 +86,7 @@ namespace YellowstonePathology.Business.Test.MissingInformation
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "null", "tinyint")]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
         public bool FirstCall
         {
             get { return this.m_FirstCall; }
@@ -142,7 +146,7 @@ namespace YellowstonePathology.Business.Test.MissingInformation
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "null", "tinyint")]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
         public bool SecondCall
         {
             get { return this.m_SecondCall; }
@@ -202,7 +206,7 @@ namespace YellowstonePathology.Business.Test.MissingInformation
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "null", "tinyint")]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
         public bool ThirdCall
         {
             get { return this.m_ThirdCall; }
@@ -262,7 +266,7 @@ namespace YellowstonePathology.Business.Test.MissingInformation
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "null", "tinyint")]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
         public bool Fax
         {
             get { return this.m_Fax; }
@@ -307,7 +311,7 @@ namespace YellowstonePathology.Business.Test.MissingInformation
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "null", "tinyint")]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
         public bool ClientSystemLookup
         {
             get { return this.m_ClientSystemLookup; }
