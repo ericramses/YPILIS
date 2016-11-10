@@ -321,6 +321,14 @@ namespace YellowstonePathology.MySQLMigration
                     string keyString = this.KeyStringFromList(migrationStatus, keys);
                     methodResult = this.LoadData(migrationStatus, keyString);
                     YellowstonePathology.Business.Mongo.Gateway.SetTransferDBTS(migrationStatus.TableName);
+
+                    List<string> checkCommands = new List<string>();
+                    Business.Rules.MethodResult checkResult = this.CompareData(migrationStatus, keys, checkCommands);
+                    if (checkCommands.Count > 0)
+                    {
+                        methodResult.Success = false;
+                        methodResult.Message += "Update failed on " + checkCommands.Count.ToString();
+                    }
                 }
             }
             return methodResult;
@@ -1305,7 +1313,7 @@ namespace YellowstonePathology.MySQLMigration
             SqlCommand cmd = new SqlCommand("Select top (" + countToSelect + ") " + migrationStatus.KeyFieldName + " from " + migrationStatus.TableName + " where " +
                 "ReportNo not like '16%' and " +
                 //"orderdate < '10/1/2016' and " +
-                "Transferred = 0 order by 1");
+                "(Transferred = 0 or Transferred is null) order by 1");
             using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
@@ -1325,7 +1333,7 @@ namespace YellowstonePathology.MySQLMigration
         {
             List<string> result = new List<string>();
             SqlCommand cmd = new SqlCommand("Select " + migrationStatus.KeyFieldName + " from " + migrationStatus.TableName + " where " +
-                "Transferred = 0 order by 1");
+                "(Transferred = 0 or Transferred is null) order by 1");
             using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
