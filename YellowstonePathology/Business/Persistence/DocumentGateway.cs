@@ -295,7 +295,7 @@ namespace YellowstonePathology.Business.Persistence
             }
         }              
 
-        public YellowstonePathology.Business.ClientOrder.Model.ClientOrder PullClientOrderByExternalOrderId(string clientOrderId, object writer)
+        /*public YellowstonePathology.Business.ClientOrder.Model.ClientOrder PullClientOrderByExternalOrderId(string clientOrderId, object writer)
         {
             lock (locker)
             {
@@ -312,7 +312,7 @@ namespace YellowstonePathology.Business.Persistence
 
                 return (YellowstonePathology.Business.ClientOrder.Model.ClientOrder)document.Value;
             }
-        }
+        }*/
 
         public YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch PullMaterialTrackingBatch(string materialTrackingBatchId, object writer)
         {

@@ -26,7 +26,7 @@ namespace YellowstonePathology.Business.Search
 		private string m_ClientName;
 		private string m_PhysicianName;
 		private string m_ForeignAccessionNo;
-		private string m_ColorCode;
+		//private string m_ColorCode;
 		private Nullable<DateTime> m_FinalDate;
 		private string m_PanelSetName;
         private string m_SpecimenDescription;
@@ -235,7 +235,7 @@ namespace YellowstonePathology.Business.Search
 			}
 		}
 
-        [PersistentProperty()]
+        /*[PersistentProperty()]
         public string ColorCode
 		{
 			get { return this.m_ColorCode; }
@@ -273,9 +273,9 @@ namespace YellowstonePathology.Business.Search
 				}
 				return "Transparent";
 			}
-		}
+		}*/
 
-		public bool HasDataError
+        public bool HasDataError
 		{
 			get { return this.m_HasDataError; }
 			set

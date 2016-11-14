@@ -1248,7 +1248,7 @@ namespace YellowstonePathology.MySQLMigration
         {
             List<string> result = new List<string>();
             SqlCommand cmd = new SqlCommand("Select " + migrationStatus.KeyFieldName + " from " + migrationStatus.TableName + " where " +
-                "ReportNo like '_0[0-5]%' and " +
+                //"ReportNo like '16%' and " +
                 //"orderdate < '10/1/2016' and " +
                 "Transferred = 1 and [TimeStamp] < (SELECT convert(int, ep.value) FROM sys.extended_properties AS ep " +
                 "INNER JOIN sys.tables AS t ON ep.major_id = t.object_id " +
@@ -1311,7 +1311,7 @@ namespace YellowstonePathology.MySQLMigration
         {
             List<string> result = new List<string>();
             SqlCommand cmd = new SqlCommand("Select top (" + countToSelect + ") " + migrationStatus.KeyFieldName + " from " + migrationStatus.TableName + " where " +
-                "ReportNo not like '16%' and " +
+                //"ReportNo  like '_9%' and " +
                 //"orderdate < '10/1/2016' and " +
                 "(Transferred = 0 or Transferred is null) order by 1");
             using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))

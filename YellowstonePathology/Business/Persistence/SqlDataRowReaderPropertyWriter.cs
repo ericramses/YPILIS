@@ -80,15 +80,17 @@ namespace YellowstonePathology.Business.Persistence
 
         private bool ColumnExists(string name)
         {
-            try
+            bool result = false;
+            for (int idx = 0; idx < this.m_DataTableReader.FieldCount; idx++)
             {
-                int a = this.m_DataTableReader.GetOrdinal(name);
-                return true;
+                string fieldName = this.m_DataTableReader.GetName(idx);
+                if (fieldName == name)
+                {
+                    result = true;
+                    break;
+                }
             }
-            catch
-            {
-                return false;
-            }
+            return result;
         }
 
         private void WriteString(PropertyInfo property)
