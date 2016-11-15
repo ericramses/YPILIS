@@ -28,6 +28,8 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
             reportDistributionLogEntry.ClientName = clientName;
             reportDistributionLogEntry.Message = message;
             this.InsertItem(0, reportDistributionLogEntry);
+
+            if (this.Count > 50) this.RemoveAt(this.Count - 1);
         }           
     }
 }
