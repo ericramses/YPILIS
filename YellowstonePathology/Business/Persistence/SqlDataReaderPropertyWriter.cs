@@ -12,24 +12,14 @@ namespace YellowstonePathology.Business.Persistence
     {
 		object m_ObjectToWriteTo;
         SqlDataReader m_SqlDataReader;
-        Type m_ObjectType;
-        //bool m_RemoveCarriageReturn; // for xml comparison testing
+        Type m_ObjectType;        
 
 		public SqlDataReaderPropertyWriter(object objectToWriteTo, SqlDataReader dataReader)
 		{
 			this.m_ObjectToWriteTo = objectToWriteTo;
             this.m_SqlDataReader = dataReader;
-			this.m_ObjectType = objectToWriteTo.GetType();
-            //this.m_RemoveCarriageReturn = false;
-        }
-
-        /*public SqlDataReaderPropertyWriter(object objectToWriteTo, SqlDataReader dataReader, bool removeCarriageReturn)
-        {
-            this.m_ObjectToWriteTo = objectToWriteTo;
-            this.m_SqlDataReader = dataReader;
-            this.m_ObjectType = objectToWriteTo.GetType();
-            this.m_RemoveCarriageReturn = removeCarriageReturn;
-        }*/
+			this.m_ObjectType = objectToWriteTo.GetType();         
+        }        
 
         public void WriteProperties()
         {                                    
@@ -97,11 +87,7 @@ namespace YellowstonePathology.Business.Persistence
         {
             if (this.m_SqlDataReader[property.Name] != DBNull.Value)
             {
-                string sqlValue = this.m_SqlDataReader[property.Name].ToString();
-                /*if (this.m_RemoveCarriageReturn == true && sqlValue.Contains("\r\n"))
-                {
-                    sqlValue = sqlValue.Replace("\r\n", "\n");
-                }*/
+                string sqlValue = this.m_SqlDataReader[property.Name].ToString();                
 				property.SetValue(this.m_ObjectToWriteTo, sqlValue, null);
             }
         }

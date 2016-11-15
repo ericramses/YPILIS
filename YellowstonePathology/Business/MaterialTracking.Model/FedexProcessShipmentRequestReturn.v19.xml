@@ -103,6 +103,33 @@
             <v19:ReturnType>PRINT_RETURN_LABEL</v19:ReturnType>            
           </v19:ReturnShipmentDetail>
         </v19:SpecialServicesRequested>
+        <v19:SpecialServicesRequested>
+          <v19:SpecialServiceTypes>HOLD_AT_LOCATION</v19:SpecialServiceTypes>
+          <v19:DeliveryInstructions>Hold package for pickup</v19:DeliveryInstructions>
+          <v19:HoldAtLocationDetail>
+            <v19:PhoneNumber>(406)238-6367</v19:PhoneNumber>
+            <v19:LocationContactAndAddress>
+              <v19:Contact>
+                <v19:ContactId>FLWCYTMTRY</v19:ContactId>
+                <v19:PersonName>Flow Cytometry</v19:PersonName>
+                <v19:Title>Mr.</v19:Title>
+                <v19:CompanyName>Yellowstone Pathology Institute</v19:CompanyName>
+                <v19:PhoneNumber>(406)238-6367</v19:PhoneNumber>
+                <v19:PhoneExtension></v19:PhoneExtension>
+                <v19:EMailAddress>flowstaff@ypii.com</v19:EMailAddress>
+              </v19:Contact>
+                <v19:Address>
+                  <v19:StreetLines>1148 1st Ave N.</v19:StreetLines>
+                  <v19:StreetLines></v19:StreetLines>
+                  <v19:City>Billings</v19:City>
+                  <v19:StateOrProvinceCode>MT</v19:StateOrProvinceCode>
+                  <v19:PostalCode>59101</v19:PostalCode>
+                  <v19:CountryCode>US</v19:CountryCode>
+              </v19:Address>
+            </v19:LocationContactAndAddress>
+          <v19:LocationType>FEDEX_EXPRESS_STATION</v19:LocationType>
+        </v19:HoldAtLocationDetail>      
+      </v19:SpecialServicesRequested>
         <v19:LabelSpecification>
           <v19:LabelFormatType>COMMON2D</v19:LabelFormatType>
           <v19:ImageType>ZPLII</v19:ImageType>

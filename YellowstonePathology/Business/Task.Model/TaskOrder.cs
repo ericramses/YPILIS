@@ -430,6 +430,22 @@ namespace YellowstonePathology.Business.Task.Model
 			}
 		}
 
+        public string TrackingNumber
+        {
+            get
+            {
+                if(this.m_TaskOrderDetailCollection.FedexShipmentExists() == true)
+                {
+                    Business.Task.Model.TaskOrderDetailFedexShipment taskOrderDetailFedexShipment = this.m_TaskOrderDetailCollection.GetFedexShipment();
+                    return taskOrderDetailFedexShipment.TrackingNumber;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
         public void NotifyPropertyChanged(String info)
         {
             if (PropertyChanged != null)

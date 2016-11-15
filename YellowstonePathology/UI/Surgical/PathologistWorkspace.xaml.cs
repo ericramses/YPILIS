@@ -267,8 +267,7 @@ namespace YellowstonePathology.UI.Surgical
 		}
 
 		public void ShowCaseDocument()
-		{
-            //this.Save();
+		{            
             if (this.ListViewSearchResults.SelectedItem != null)
             {
                 YellowstonePathology.Business.Search.PathologistSearchResult item = (YellowstonePathology.Business.Search.PathologistSearchResult)this.ListViewSearchResults.SelectedItem;

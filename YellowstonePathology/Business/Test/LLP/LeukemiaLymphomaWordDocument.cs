@@ -132,7 +132,7 @@ namespace YellowstonePathology.Business.Test.LLP
                 int LastHalfCount = rowCount - FirstHalfCount;
 
                 XmlNode newCellPopulationNode = cellPopulationNode.Clone();
-                newCellPopulationNode.SelectSingleNode("descendant::w:r[w:t='cell_population_of_interest']/w:t", this.m_NameSpaceManager).InnerText = panelSetOrderLeukemiaLymphoma.CellPopulationOfInterest;
+                newCellPopulationNode.SelectSingleNode("descendant::w:r[w:t='cell_population_of_interest']/w:t", this.m_NameSpaceManager).InnerText = cellPopulationOfInterest.Description;
                 tableNode1.InsertAfter(newCellPopulationNode, nodeToInsertAfter1);
                 nodeToInsertAfter1 = newCellPopulationNode;
 
