@@ -253,7 +253,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 		}
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(true, "1", "null", "bit")]
+		[PersistentDataColumnProperty(true, "1", "null", "tinyint")]
 		public bool QC
 		{
 			get { return this.m_QC; }
@@ -268,7 +268,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 		}
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(true, "1", "null", "bit")]
+		[PersistentDataColumnProperty(true, "1", "null", "tinyint")]
 		public bool ImagerError
 		{
 			get { return this.m_ImagerError; }
@@ -283,7 +283,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 		}
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(true, "1", "null", "bit")]
+		[PersistentDataColumnProperty(true, "1", "null", "tinyint")]
 		public bool NoCharge
 		{
 			get { return this.m_NoCharge; }
@@ -298,7 +298,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 		}
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(true, "1", "null", "bit")]
+		[PersistentDataColumnProperty(true, "1", "null", "tinyint")]
 		public bool PhysicianInterpretation
 		{
 			get { return this.m_PhysicianInterpretation; }
@@ -328,7 +328,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 		}
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(true, "1", "null", "bit")]
+		[PersistentDataColumnProperty(true, "1", "null", "tinyint")]
 		public bool ECCCheckPerformed
 		{
 			get { return this.m_ECCCheckPerformed; }
@@ -343,7 +343,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 		}
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(true, "1", "null", "bit")]
+		[PersistentDataColumnProperty(true, "1", "null", "tinyint")]
 		public bool ScreeningError
 		{
 			get { return this.m_ScreeningError; }
@@ -358,7 +358,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 		}
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "0", "bit")]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
         public bool Reconciled
         {
             get { return this.m_Reconciled; }

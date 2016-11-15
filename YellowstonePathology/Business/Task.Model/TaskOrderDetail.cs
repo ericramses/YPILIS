@@ -146,7 +146,7 @@ namespace YellowstonePathology.Business.Task.Model
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "0", "bit")]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
         public bool Acknowledged
         {
             get { return this.m_Acknowledged; }

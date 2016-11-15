@@ -151,7 +151,7 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "0", "bit")]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
         public bool QNSForALK
         {
             get { return this.m_QNSForALK; }
@@ -163,7 +163,7 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "0", "bit")]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
         public bool QNSForROS1
         {
             get { return this.m_QNSForROS1; }

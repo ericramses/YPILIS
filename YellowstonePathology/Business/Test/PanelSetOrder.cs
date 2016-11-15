@@ -130,6 +130,7 @@ namespace YellowstonePathology.Business.Test
             this.m_CaseType = panelSet.CaseType;
 			this.m_PanelSetName = panelSet.PanelSetName;
 
+            this.m_HasTechnicalComponent = false;
             if (panelSet.HasTechnicalComponent == true)
             {
                 this.m_HasTechnicalComponent = true;
@@ -137,6 +138,7 @@ namespace YellowstonePathology.Business.Test
                 this.m_TechnicalComponentBillingFacilityId = panelSet.TechnicalComponentBillingFacility.FacilityId;
             }
 
+            this.m_HasProfessionalComponent = false;
             if (panelSet.HasProfessionalComponent == true)
             {
                 this.m_HasProfessionalComponent = true;
@@ -164,9 +166,23 @@ namespace YellowstonePathology.Business.Test
 
             YellowstonePathology.Business.ClientOrder.Model.UniversalService universalService = panelSet.UniversalServiceIdCollection.GetByApplicationName(YellowstonePathology.Business.ClientOrder.Model.UniversalServiceApplicationNameEnum.EPIC);
             this.m_UniversalServiceId = universalService.UniversalServiceId;
-		}
 
-		public PanelSetOrder(string masterAccessionNo, string reportNo, string objectId, YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet, YellowstonePathology.Business.Interface.IOrderTarget orderTarget, bool distribute)
+            this.m_Final = false;
+            this.m_Accepted = false;
+            this.m_HoldBilling = false;
+            this.m_Audited = false;
+            this.m_Published = false;
+            this.m_PublishNotificationSent = false;
+            this.m_NoCharge = false;
+            this.m_Ordered14DaysPostDischarge = false;
+            this.m_IsPosted = false;
+            this.m_IsDelayed = false;
+            this.m_HoldForPeerReview = false;
+            this.m_HoldDistribution = false;
+            this.m_AdditionalTestingEmailSent = false;
+        }
+
+        public PanelSetOrder(string masterAccessionNo, string reportNo, string objectId, YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet, YellowstonePathology.Business.Interface.IOrderTarget orderTarget, bool distribute)
 		{
 			this.MasterAccessionNo = masterAccessionNo;
 			this.ReportNo = reportNo;
@@ -186,14 +202,16 @@ namespace YellowstonePathology.Business.Test
 			this.m_PanelSetId = panelSet.PanelSetId;
 			this.m_PanelSetName = panelSet.PanelSetName;
 
-			if (panelSet.HasTechnicalComponent == true)
+            this.m_HasTechnicalComponent = false;
+            if (panelSet.HasTechnicalComponent == true)
 			{
 				this.m_HasTechnicalComponent = true;
 				this.m_TechnicalComponentFacilityId = panelSet.TechnicalComponentFacility.FacilityId;
 				this.m_TechnicalComponentBillingFacilityId = panelSet.TechnicalComponentBillingFacility.FacilityId;
 			}
 
-			if (panelSet.HasProfessionalComponent == true)
+            this.m_HasProfessionalComponent = false;
+            if (panelSet.HasProfessionalComponent == true)
 			{
 				this.m_HasProfessionalComponent = true;
 				this.m_ProfessionalComponentFacilityId = panelSet.ProfessionalComponentFacility.FacilityId;
@@ -219,10 +237,24 @@ namespace YellowstonePathology.Business.Test
             this.m_AmendmentCollection = new YellowstonePathology.Business.Amendment.Model.AmendmentCollection();
 
             YellowstonePathology.Business.ClientOrder.Model.UniversalService universalService = panelSet.UniversalServiceIdCollection.GetByApplicationName(YellowstonePathology.Business.ClientOrder.Model.UniversalServiceApplicationNameEnum.EPIC);
-            this.m_UniversalServiceId = universalService.UniversalServiceId;			
-		}
+            this.m_UniversalServiceId = universalService.UniversalServiceId;
 
-		[PersistentDocumentIdProperty()]
+            this.m_Final = false;
+            this.m_Accepted = false;
+            this.m_HoldBilling = false;
+            this.m_Audited = false;
+            this.m_Published = false;
+            this.m_PublishNotificationSent = false;
+            this.m_NoCharge = false;
+            this.m_Ordered14DaysPostDischarge = false;
+            this.m_IsPosted = false;
+            this.m_IsDelayed = false;
+            this.m_HoldForPeerReview = false;
+            this.m_HoldDistribution = false;
+            this.m_AdditionalTestingEmailSent = false;
+        }
+
+        [PersistentDocumentIdProperty()]
 		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
 		public string ObjectId
 		{
@@ -328,7 +360,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(false, "1", "0", "bit")]
+        [PersistentDataColumnProperty(false, "1", "0", "tinyint")]
         public bool Final
         {
             get { return this.m_Final; }
@@ -388,7 +420,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "0", "bit")]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
         public bool Accepted
         {
             get { return this.m_Accepted; }
@@ -553,7 +585,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "0", "bit")]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
         public bool Audited
         {
             get { return this.m_Audited; }
@@ -598,7 +630,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "0", "bit")]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
         public bool HoldBilling
         {
             get { return this.m_HoldBilling; }
@@ -643,7 +675,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(false, "1", "0", "bit")]
+        [PersistentDataColumnProperty(false, "1", "0", "tinyint")]
         public bool Published
         {
             get { return this.m_Published; }
@@ -688,7 +720,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "0", "bit")]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
         public bool PublishNotificationSent
         {
             get { return this.m_PublishNotificationSent; }
@@ -763,7 +795,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(false, "1", "0", "bit")]
+        [PersistentDataColumnProperty(false, "1", "0", "tinyint")]
         public bool HasTechnicalComponent
         {
             get { return this.m_HasTechnicalComponent; }
@@ -808,7 +840,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(false, "1", "0", "bit")]
+        [PersistentDataColumnProperty(false, "1", "0", "tinyint")]
         public bool HasProfessionalComponent
         {
             get { return this.m_HasProfessionalComponent; }
@@ -883,7 +915,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(false, "1", "0", "bit")]
+        [PersistentDataColumnProperty(false, "1", "0", "tinyint")]
         public bool NoCharge
         {
             get { return this.m_NoCharge; }
@@ -898,7 +930,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "0", "bit")]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
         public bool Ordered14DaysPostDischarge
         {
             get { return this.m_Ordered14DaysPostDischarge; }
@@ -928,7 +960,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "0", "bit")]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
         public bool IsBillable
         {
             get { return this.m_IsBillable; }
@@ -943,7 +975,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "0", "bit")]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
         public bool IsPosted
         {
             get { return this.m_IsPosted; }
@@ -958,7 +990,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "0", "bit")]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
         public bool Distribute
         {
             get { return this.m_Distribute; }
@@ -1033,7 +1065,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "0", "bit")]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
         public bool IsDelayed
         {
             get { return this.m_IsDelayed; }
@@ -1108,7 +1140,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "0", "bit")]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
         public bool HoldForPeerReview
         {
             get { return this.m_HoldForPeerReview; }
@@ -1153,7 +1185,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "0", "bit")]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
         public bool HoldDistribution
         {
             get { return this.m_HoldDistribution; }
@@ -1168,7 +1200,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "null", "bit")]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
         public bool AdditionalTestingEmailSent
         {
             get { return this.m_AdditionalTestingEmailSent; }
@@ -1258,7 +1290,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "0", "bit")]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
         public bool ResearchTesting
         {
             get { return this.m_ResearchTesting; }

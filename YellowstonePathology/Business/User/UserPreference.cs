@@ -91,7 +91,7 @@ namespace YellowstonePathology.Business.User
 		}
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "0", "bit")]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
         public bool BarcodeScanEnabled
         {
             get { return this.m_BarcodeScanEnabled; }
@@ -331,7 +331,7 @@ namespace YellowstonePathology.Business.User
         }
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(false, "1", "0", "bit")]
+		[PersistentDataColumnProperty(false, "1", "0", "tinyint")]
 		public bool ActivateNotificationAlert
 		{
 			get { return this.m_ActivateNotificationAlert; }
@@ -481,7 +481,7 @@ namespace YellowstonePathology.Business.User
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
         public bool UseLaserCassettePrinter
         {
             get { return this.m_UseLaserCassettePrinter; }

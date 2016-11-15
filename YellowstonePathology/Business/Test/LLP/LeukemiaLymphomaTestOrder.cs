@@ -483,7 +483,7 @@ namespace YellowstonePathology.Business.Test.LLP
 		}
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(false, "1", "0", "bit")]
+        [PersistentDataColumnProperty(false, "1", "0", "tinyint")]
         public bool TechFinal
 		{
 			get { return this.m_TechFinal; }
@@ -573,7 +573,7 @@ namespace YellowstonePathology.Business.Test.LLP
 		}
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(false, "1", "0", "bit")]
+        [PersistentDataColumnProperty(false, "1", "0", "tinyint")]
         public bool TestCancelled
 		{
 			get { return this.m_TestCancelled; }

@@ -180,7 +180,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 		}
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(false, "1", "0", "bit")]
+		[PersistentDataColumnProperty(false, "1", "0", "tinyint")]
 		public bool IncludeImmunoRecommendedComment
 		{
 			get { return this.m_IncludeImmunoRecommendedComment; }
@@ -195,7 +195,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 		}
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(false, "1", "0", "bit")]
+		[PersistentDataColumnProperty(false, "1", "0", "tinyint")]
 		public bool IncludeResultComment
 		{
 			get { return this.m_IncludeResultComment; }
@@ -210,7 +210,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 		}
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(false, "1", "0", "bit")]
+		[PersistentDataColumnProperty(false, "1", "0", "tinyint")]
 		public bool IncludePolysomyComment
 		{
 			get { return this.m_IncludePolysomyComment; }
@@ -585,7 +585,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 		}
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(true, "1", "0", "bit")]
+		[PersistentDataColumnProperty(true, "1", "0", "tinyint")]
 		public bool NotInterpretable
 		{
 			get { return this.m_NotInterpretable; }

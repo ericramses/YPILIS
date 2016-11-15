@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.Client.Model
 		private string m_supplyname;
 		private string m_supplydescription;
 		private string m_quantityordered;
-		private int m_quantity;
+		private int? m_quantity;
 		private string m_ObjectId;
 
 		public ClientSupplyOrderDetail()
@@ -136,7 +136,7 @@ namespace YellowstonePathology.Business.Client.Model
 
         [PersistentProperty()]
         [PersistentDataColumnProperty(true, "11", "null", "int")]
-		public int quantity
+		public int? quantity
 		{
 			get { return this.m_quantity; }
 			set

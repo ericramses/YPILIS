@@ -52,7 +52,7 @@ namespace YellowstonePathology.Business
 		}
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(true, "1", "null", "bit")]
+		[PersistentDataColumnProperty(true, "1", "null", "tinyint")]
 		public bool EnforceChange
 		{
 			get { return this.m_EnforceChange; }

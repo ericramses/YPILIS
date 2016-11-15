@@ -24,7 +24,7 @@ namespace YellowstonePathology.Business.Flow
 		private string m_Interpretation;
 		private bool m_Predictive;
 		private int m_Expresses;
-		private int m_OrderFlag;
+		private int? m_OrderFlag;
 		private string m_Result;
         private int m_CellPopulationId;
         private string m_CellPopulationOfInterest;
@@ -137,7 +137,7 @@ namespace YellowstonePathology.Business.Flow
 		}
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(true, "1", "0", "bit")]
+		[PersistentDataColumnProperty(true, "1", "0", "tinyint")]
 		public bool Report
 		{
 			get { return this.m_Report; }
@@ -152,7 +152,7 @@ namespace YellowstonePathology.Business.Flow
 		}
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(true, "1", "0", "bit")]
+		[PersistentDataColumnProperty(true, "1", "0", "tinyint")]
 		public bool MarkerUsed
 		{
 			get { return this.m_MarkerUsed; }
@@ -197,7 +197,7 @@ namespace YellowstonePathology.Business.Flow
 		}
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(true, "1", "0", "bit")]
+		[PersistentDataColumnProperty(true, "1", "0", "tinyint")]
 		public bool Predictive
 		{
 			get { return this.m_Predictive; }
@@ -228,7 +228,7 @@ namespace YellowstonePathology.Business.Flow
 
 		[PersistentProperty()]
 		[PersistentDataColumnProperty(true, "11", "0", "int")]
-		public int OrderFlag
+		public int? OrderFlag
 		{
 			get { return this.m_OrderFlag; }
 			set

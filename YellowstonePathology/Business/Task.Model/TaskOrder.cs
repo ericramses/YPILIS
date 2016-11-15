@@ -59,7 +59,7 @@ namespace YellowstonePathology.Business.Task.Model
             this.m_OrderDate = DateTime.Now;
             this.m_PanelSetName = panelSetName;
 			this.m_AcknowledgementType = acknowledgementType;
-
+            this.m_Final = false;
 			this.m_TaskOrderDetailCollection = new TaskOrderDetailCollection();
         }
 
@@ -266,7 +266,7 @@ namespace YellowstonePathology.Business.Task.Model
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(false, "1", "0", "bit")]
+        [PersistentDataColumnProperty(false, "1", "0", "tinyint")]
         public bool Acknowledged
         {
             get { return this.m_Acknowledged; }
@@ -326,7 +326,7 @@ namespace YellowstonePathology.Business.Task.Model
 		}
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "null", "bit")]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
         public bool Final
         {
             get { return this.m_Final; }
