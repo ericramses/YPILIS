@@ -269,7 +269,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
 		}
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(true, "1", "null", "bit")]
+		[PersistentDataColumnProperty(true, "1", "null", "tinyint")]
 		public bool IsOpen
 		{
 			get { return this.m_IsOpen; }

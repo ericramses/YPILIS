@@ -43,6 +43,7 @@ namespace YellowstonePathology.Business.Task.Model
             this.m_ShipToPhone = fedexShipment.ShipToFacility.PhoneNumber;
             this.m_PaymentType = fedexShipment.ShipToFacility.FedexPaymentType;
             this.m_AccountNo = fedexShipment.ShipToFacility.FedexAccountNo;
+            this.m_LabelHasBeenPrinted = false;
         }
 
         public void SetShipTo(Business.Facility.Model.Facility facility)
@@ -106,7 +107,7 @@ namespace YellowstonePathology.Business.Task.Model
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "null", "bit")]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
         public bool LabelHasBeenPrinted
         {
             get { return this.m_LabelHasBeenPrinted; }

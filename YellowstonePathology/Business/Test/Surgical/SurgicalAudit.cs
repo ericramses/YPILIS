@@ -140,7 +140,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 		}		
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(false, "1", "0", "bit")]
+		[PersistentDataColumnProperty(false, "1", "0", "tinyint")]
 		public bool PapCorrelationRequired
 		{
 			get { return this.m_PapCorrelationRequired; }
@@ -155,7 +155,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 		}
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(false, "1", "0", "bit")]
+		[PersistentDataColumnProperty(false, "1", "0", "tinyint")]
 		public bool ReportableCase
 		{
 			get { return this.m_ReportableCase; }
@@ -170,7 +170,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 		}
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(false, "1", "0", "bit")]
+		[PersistentDataColumnProperty(false, "1", "0", "tinyint")]
 		public bool PQRIRequired
 		{
 			get { return this.m_PQRIRequired; }

@@ -1135,6 +1135,7 @@
     <Compile Include="Business\XPSDocument\Result\Data\PlacentalPathologyQuestionnaireDataV2.cs" />
     <Compile Include="Business\XPSDocument\Result\Xps\AccessionOrderDataSheetV2.cs" />
     <Compile Include="Business\XPSDocument\Result\Xps\ClientSupplyOrderReportV2.cs" />
+    <Compile Include="MySQLMigration\DataRowComparer.cs" />
     <Compile Include="MySQLMigration\MigrationStatus.cs" />
     <Compile Include="MySQLMigration\MigrationStatusCollection.cs" />
     <Compile Include="MySQLMigration\MySQLDatabaseBuilder.cs" />

@@ -140,7 +140,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 		}
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(false, "1", "0", "bit")]
+		[PersistentDataColumnProperty(false, "1", "0", "tinyint")]
 		public bool Report
 		{
 			get { return this.m_Report; }
@@ -155,7 +155,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 		}
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(false, "1", "0", "bit")]
+		[PersistentDataColumnProperty(false, "1", "0", "tinyint")]
 		public bool ImmediatePerformed
 		{
 			get { return this.m_ImmediatePerformed; }

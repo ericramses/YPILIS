@@ -49,7 +49,6 @@ namespace YellowstonePathology.Business.Amendment.Model
 
         public Amendment()
         {
-
         }
 
         public Amendment(string reportNo, string objectId, string amendmentId)
@@ -58,6 +57,8 @@ namespace YellowstonePathology.Business.Amendment.Model
             this.m_ObjectId = objectId;
             this.AmendmentId = amendmentId;
             this.SetDefaultValues(reportNo);
+            this.m_Accepted = false;
+            this.m_SystemGenerated = false;
         }
 
         public string SignatureButtonText
@@ -181,7 +182,7 @@ namespace YellowstonePathology.Business.Amendment.Model
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(false, "1", "1", "bit")]
+        [PersistentDataColumnProperty(false, "1", "1", "tinyint")]
         public bool RequirePathologistSignature
         {
             get { return this.m_RequirePathologistSignature; }
@@ -196,7 +197,7 @@ namespace YellowstonePathology.Business.Amendment.Model
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(false, "1", "0", "bit")]
+        [PersistentDataColumnProperty(false, "1", "0", "tinyint")]
         public bool ShowPreviousDiagnosis
         {
             get { return this.m_ShowPreviousDiagnosis; }
@@ -211,7 +212,7 @@ namespace YellowstonePathology.Business.Amendment.Model
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(false, "1", "0", "bit")]
+        [PersistentDataColumnProperty(false, "1", "0", "tinyint")]
         public bool Final
         {
             get { return this.m_Final; }
@@ -226,7 +227,7 @@ namespace YellowstonePathology.Business.Amendment.Model
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(false, "1", "0", "bit")]
+        [PersistentDataColumnProperty(false, "1", "0", "tinyint")]
         public bool IsDistributed
         {
             get { return this.m_IsDistributed; }
@@ -241,7 +242,7 @@ namespace YellowstonePathology.Business.Amendment.Model
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(false, "1", "0", "bit")]
+        [PersistentDataColumnProperty(false, "1", "0", "tinyint")]
         public bool DistributeOnFinal
         {
             get { return this.m_DistributeOnFinal; }
@@ -256,7 +257,7 @@ namespace YellowstonePathology.Business.Amendment.Model
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(false, "1", "1", "bit")]
+        [PersistentDataColumnProperty(false, "1", "1", "tinyint")]
         public bool ShowAmendmentOnReport
         {
             get { return this.m_ShowAmendmentOnReport; }
@@ -271,7 +272,7 @@ namespace YellowstonePathology.Business.Amendment.Model
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(false, "1", "0", "bit")]
+        [PersistentDataColumnProperty(false, "1", "0", "tinyint")]
         public bool RevisedDiagnosis
         {
             get { return this.m_RevisedDiagnosis; }
@@ -451,7 +452,7 @@ namespace YellowstonePathology.Business.Amendment.Model
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "null", "bit")]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
         public bool Accepted
         {
             get { return this.m_Accepted; }
@@ -511,7 +512,7 @@ namespace YellowstonePathology.Business.Amendment.Model
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "null", "bit")]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
         public bool SystemGenerated
         {
             get { return this.m_SystemGenerated; }
@@ -645,7 +646,7 @@ namespace YellowstonePathology.Business.Amendment.Model
 
         public void Finish()
         {
-            if (this.Accepted == false)
+            if (this.m_Accepted == false)
             {
                 this.Accept();
             }

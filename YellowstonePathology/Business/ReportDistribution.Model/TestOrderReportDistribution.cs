@@ -178,7 +178,7 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
 		}
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "null", "bit")]
+        [PersistentDataColumnProperty(true, "1", "null", "tinyint")]
         public bool Distributed
         {
             get { return this.m_Distributed; }
@@ -253,7 +253,7 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "null", "bit")]
+        [PersistentDataColumnProperty(true, "1", "null", "tinyint")]
         public bool LongDistance
         {
             get { return this.m_LongDistance; }
@@ -268,7 +268,7 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "null", "bit")]
+        [PersistentDataColumnProperty(true, "1", "null", "tinyint")]
         public bool Rescheduled
         {
             get { return this.m_Rescheduled; }

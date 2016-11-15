@@ -321,7 +321,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "0", "bit")]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
         public bool ClientAccessioned
         {
             get { return this.m_ClientAccessioned; }

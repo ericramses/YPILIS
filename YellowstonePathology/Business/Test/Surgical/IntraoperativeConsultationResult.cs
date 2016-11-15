@@ -44,6 +44,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			this.m_ObjectId = objectId;
 			this.m_SurgicalSpecimenId = surgicalSpecimenId;
 			this.m_ValidationErrors = new Dictionary<string, string>();
+            this.m_Final = false;
 		}
 
 		[PersistentDocumentIdProperty()]
@@ -197,7 +198,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 		}
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(true, "50", "'Not Correlated'", "varchar")]
+		[PersistentDataColumnProperty(false, "1", "0", "tinyint")]
 		public bool CorrelationAffectsPatientCare
 		{
 			get { return this.m_CorrelationAffectsPatientCare; }
@@ -242,7 +243,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 		}
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(true, "1", "null", "bit")]
+		[PersistentDataColumnProperty(true, "1", "0", "tinyint")]
 		public bool Final
 		{
 			get { return this.m_Final; }
@@ -351,7 +352,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 		{
 			YellowstonePathology.Business.Rules.MethodResult methodResult = new Rules.MethodResult();
 			if (this.m_Final == false)
-			{
+            {
 				methodResult.Success = false;
 				methodResult.Message = "Unable to unfinalize the Intraoperative Consultation as it is not finaled.";
 			}

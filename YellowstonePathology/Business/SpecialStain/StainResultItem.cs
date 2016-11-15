@@ -96,7 +96,7 @@ namespace YellowstonePathology.Business.SpecialStain
 		}
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(false, "1", "1", "bit")]
+		[PersistentDataColumnProperty(false, "1", "1", "tinyint")]
 		public bool Billable
 		{
 			get { return this.m_Billable; }
@@ -111,7 +111,7 @@ namespace YellowstonePathology.Business.SpecialStain
 		}
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(false, "1", "1", "bit")]
+		[PersistentDataColumnProperty(false, "1", "1", "tinyint")]
 		public bool Reportable
 		{
 			get { return this.m_Reportable; }
@@ -291,7 +291,7 @@ namespace YellowstonePathology.Business.SpecialStain
 		}
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(true, "1", "0", "bit")]
+		[PersistentDataColumnProperty(true, "1", "0", "tinyint")]
 		public bool NoCharge
 		{
 			get { return this.m_NoCharge; }
@@ -306,7 +306,7 @@ namespace YellowstonePathology.Business.SpecialStain
 		}
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(false, "1", "0", "bit")]
+		[PersistentDataColumnProperty(false, "1", "0", "tinyint")]
 		public bool OrderedAsDual
 		{
 			get { return this.m_OrderedAsDual; }
@@ -321,7 +321,7 @@ namespace YellowstonePathology.Business.SpecialStain
 		}
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(true, "1", "0", "bit")]
+		[PersistentDataColumnProperty(true, "1", "0", "tinyint")]
 		public bool IsGraded
 		{
 			get { return this.m_IsGraded; }
@@ -336,7 +336,7 @@ namespace YellowstonePathology.Business.SpecialStain
 		}
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "0", "bit")]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
         public bool ClientAccessioned
         {
             get { return this.m_ClientAccessioned; }

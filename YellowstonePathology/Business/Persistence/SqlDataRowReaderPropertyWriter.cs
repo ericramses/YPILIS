@@ -141,15 +141,7 @@ namespace YellowstonePathology.Business.Persistence
         private void WriteBoolean(PropertyInfo property)
         {
             bool sqlValue = false;
-            Type type = this.m_DataTableReader[property.Name].GetType();
-            if(type == typeof(Boolean))
-            {
-                sqlValue = (Boolean)this.m_DataTableReader[property.Name];
-            }
-            else if (type == typeof(UInt64))
-            {
-                sqlValue = Convert.ToBoolean((UInt64)this.m_DataTableReader[property.Name]);
-            }
+            sqlValue = (Boolean)this.m_DataTableReader[property.Name];
             property.SetValue(this.m_ObjectToWriteTo, sqlValue, null);
         }
 
@@ -158,15 +150,7 @@ namespace YellowstonePathology.Business.Persistence
             Nullable<bool> sqlValue = null;
             if (this.m_DataTableReader[property.Name] != DBNull.Value)
             {
-                Type type = this.m_DataTableReader[property.Name].GetType();
-                if (type == typeof(Boolean))
-                {
-                    sqlValue = (Boolean)this.m_DataTableReader[property.Name];
-                }
-                else if (type == typeof(UInt64))
-                {
-                    sqlValue = Convert.ToBoolean((UInt64)this.m_DataTableReader[property.Name]);
-                }
+                sqlValue = (Boolean)this.m_DataTableReader[property.Name];
             }
             property.SetValue(this.m_ObjectToWriteTo, sqlValue, null);
         }

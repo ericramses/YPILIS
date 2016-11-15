@@ -127,7 +127,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 
         [DataMember]
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "0", "bit")]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
         public bool Received
         {
             get { return this.m_Received; }
@@ -143,7 +143,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 
         [DataMember]
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "0", "bit")]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
         public bool Submitted
         {
             get { return this.m_Submitted; }
@@ -479,7 +479,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 
         [DataMember]
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "0", "bit")]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
         public bool Accessioned
         {
             get { return this.m_Accessioned; }
@@ -495,7 +495,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 
         [DataMember]
         [PersistentProperty()]
-        [PersistentDataColumnProperty(false, "1", "0", "bit")]
+        [PersistentDataColumnProperty(false, "1", "0", "tinyint")]
         public bool Validated
         {
             get { return this.m_Validated; }
@@ -653,7 +653,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 
         [DataMember]
         [PersistentProperty()]
-        [PersistentDataColumnProperty(false, "1", "0", "bit")]
+        [PersistentDataColumnProperty(false, "1", "0", "tinyint")]
         public bool Hold
         {
             get { return this.m_Hold; }
@@ -701,7 +701,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 
         [DataMember]
         [PersistentProperty()]
-        [PersistentDataColumnProperty(false, "1", "0", "bit")]
+        [PersistentDataColumnProperty(false, "1", "0", "tinyint")]
         public bool Acknowledged
         {
             get { return this.m_Acknowledged; }
