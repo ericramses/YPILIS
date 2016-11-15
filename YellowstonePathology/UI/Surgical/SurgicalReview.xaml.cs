@@ -20,26 +20,26 @@ namespace YellowstonePathology.UI.Surgical
     /// </summary>
     public partial class SurgicalReview : UserControl, INotifyPropertyChanged
     {
-		public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
 
         private PathologistUI m_PathologistUI;
-        private string m_CancerCaseSummaryVisibility;        
+        private string m_CancerCaseSummaryVisibility;
         private YellowstonePathology.UI.TypingShortcutUserControl m_TypingShortcutUserControl;
-		private YellowstonePathology.Business.View.BillingSpecimenViewCollection m_BillingSpecimenViewCollection;
+        private YellowstonePathology.Business.View.BillingSpecimenViewCollection m_BillingSpecimenViewCollection;
 
         public SurgicalReview(YellowstonePathology.UI.TypingShortcutUserControl typingShortcutUserControl, PathologistUI pathologistUI)
         {
             this.m_TypingShortcutUserControl = typingShortcutUserControl;
-            this.m_PathologistUI = pathologistUI;            
+            this.m_PathologistUI = pathologistUI;
 
-			this.m_BillingSpecimenViewCollection = new Business.View.BillingSpecimenViewCollection();
-			this.RefreshBillingSpecimenViewCollection();
+            this.m_BillingSpecimenViewCollection = new Business.View.BillingSpecimenViewCollection();
+            this.RefreshBillingSpecimenViewCollection();
 
             this.Loaded += SurgicalReview_Loaded;
             this.PreviewLostKeyboardFocus += SurgicalReview_PreviewLostKeyboardFocus;
 
-            InitializeComponent();                    
-            this.DataContext = this;            
+            InitializeComponent();
+            this.DataContext = this;
         }
 
         private void SurgicalReview_Loaded(object sender, RoutedEventArgs e)
@@ -51,25 +51,25 @@ namespace YellowstonePathology.UI.Surgical
         {
             this.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
             {
-                for(int i=0; i<this.ItemsControlSpecimen.Items.Count; i++)
-                {                    
+                for (int i = 0; i < this.ItemsControlSpecimen.Items.Count; i++)
+                {
                     IEnumerable<TextBox> textBoxList = FindVisualChildren<TextBox>(this.ItemsControlSpecimen);
                     foreach (TextBox textBox in textBoxList)
                     {
                         if (textBox.Name == "TextBoxDiagnosis")
                         {
                             bool tag = (bool)textBox.Tag;
-                            if(tag == true)
+                            if (tag == true)
                             {
                                 textBox.Focus();
                                 textBox.SelectionLength = 0;
                                 break;
-                            }                            
+                            }
                         }
-                    }                    
-                }               
+                    }
+                }
             }
-            ));            
+            ));
         }
 
         public IEnumerable<T> FindVisualChildren<T>(DependencyObject depObj) where T : DependencyObject
@@ -112,10 +112,10 @@ namespace YellowstonePathology.UI.Surgical
             get { return this.m_PathologistUI.AccessionOrder; }
         }
 
-		public YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder PanelSetOrderSurgical
-		{
-			get { return (YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder)this.m_PathologistUI.PanelSetOrder; }
-		}
+        public YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder PanelSetOrderSurgical
+        {
+            get { return (YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder)this.m_PathologistUI.PanelSetOrder; }
+        }
 
         public YellowstonePathology.Business.Common.FieldEnabler FieldEnabler
         {
@@ -139,9 +139,9 @@ namespace YellowstonePathology.UI.Surgical
 
         private void HyperLinkFS_Click(object sender, RoutedEventArgs e)
         {
-			YellowstonePathology.Business.Test.Surgical.IntraoperativeConsultationResult intraoperativeConsultationResult = ((Hyperlink)sender).Tag as YellowstonePathology.Business.Test.Surgical.IntraoperativeConsultationResult;
+            YellowstonePathology.Business.Test.Surgical.IntraoperativeConsultationResult intraoperativeConsultationResult = ((Hyperlink)sender).Tag as YellowstonePathology.Business.Test.Surgical.IntraoperativeConsultationResult;
             Test.FrozenFinalDialog frozenFinalDialog = new Test.FrozenFinalDialog(this.AccessionOrder, intraoperativeConsultationResult, this.m_TypingShortcutUserControl);
-            frozenFinalDialog.ShowDialog();            
+            frozenFinalDialog.ShowDialog();
         }
 
         private void HyperlinkAcceptPeerReview_Click(object sender, RoutedEventArgs e)
@@ -167,49 +167,49 @@ namespace YellowstonePathology.UI.Surgical
 
         private void ButtonAddCptCode_Click(object sender, RoutedEventArgs args)
         {
-			YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen = (YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen)((Button)sender).Tag;
-			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderById(surgicalSpecimen.SpecimenOrderId);
-			YellowstonePathology.Business.Test.PanelSetOrderCPTCode panelSetOrderCPTCode = this.PanelSetOrderSurgical.PanelSetOrderCPTCodeCollection.GetNextItem(this.PanelSetOrderSurgical.ReportNo);
-			panelSetOrderCPTCode.Quantity = 1;
-			panelSetOrderCPTCode.CPTCode = null;			
-			panelSetOrderCPTCode.Modifier = null;
-			panelSetOrderCPTCode.CodeableDescription = "Specimen " + specimenOrder.SpecimenNumber + ": " + this.PanelSetOrderSurgical.PanelSetName;
-			panelSetOrderCPTCode.CodeableType = "Surgical Diagnosis";
-			panelSetOrderCPTCode.EntryType = YellowstonePathology.Business.Billing.Model.PanelSetOrderCPTCodeEntryType.ManualEntry;
-			panelSetOrderCPTCode.SpecimenOrderId = specimenOrder.SpecimenOrderId;
-			panelSetOrderCPTCode.ClientId = this.AccessionOrder.ClientId;
-			this.PanelSetOrderSurgical.PanelSetOrderCPTCodeCollection.Add(panelSetOrderCPTCode);
-			this.RefreshBillingSpecimenViewCollection();
-		}
+            YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen = (YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen)((Button)sender).Tag;
+            YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderById(surgicalSpecimen.SpecimenOrderId);
+            YellowstonePathology.Business.Test.PanelSetOrderCPTCode panelSetOrderCPTCode = this.PanelSetOrderSurgical.PanelSetOrderCPTCodeCollection.GetNextItem(this.PanelSetOrderSurgical.ReportNo);
+            panelSetOrderCPTCode.Quantity = 1;
+            panelSetOrderCPTCode.CPTCode = null;
+            panelSetOrderCPTCode.Modifier = null;
+            panelSetOrderCPTCode.CodeableDescription = "Specimen " + specimenOrder.SpecimenNumber + ": " + this.PanelSetOrderSurgical.PanelSetName;
+            panelSetOrderCPTCode.CodeableType = "Surgical Diagnosis";
+            panelSetOrderCPTCode.EntryType = YellowstonePathology.Business.Billing.Model.PanelSetOrderCPTCodeEntryType.ManualEntry;
+            panelSetOrderCPTCode.SpecimenOrderId = specimenOrder.SpecimenOrderId;
+            panelSetOrderCPTCode.ClientId = this.AccessionOrder.ClientId;
+            this.PanelSetOrderSurgical.PanelSetOrderCPTCodeCollection.Add(panelSetOrderCPTCode);
+            this.RefreshBillingSpecimenViewCollection();
+        }
 
         private void ButtonDeleteCptCode_Click(object sender, RoutedEventArgs args)
-        {            
-			YellowstonePathology.Business.Test.PanelSetOrderCPTCode panelSetOrderCPTCode = (YellowstonePathology.Business.Test.PanelSetOrderCPTCode)((Button)sender).Tag;
-			this.PanelSetOrderSurgical.PanelSetOrderCPTCodeCollection.Remove(panelSetOrderCPTCode);
-			this.RefreshBillingSpecimenViewCollection();
-		}
+        {
+            YellowstonePathology.Business.Test.PanelSetOrderCPTCode panelSetOrderCPTCode = (YellowstonePathology.Business.Test.PanelSetOrderCPTCode)((Button)sender).Tag;
+            this.PanelSetOrderSurgical.PanelSetOrderCPTCodeCollection.Remove(panelSetOrderCPTCode);
+            this.RefreshBillingSpecimenViewCollection();
+        }
 
         private void ButtonAddIcd9Code_Click(object sender, RoutedEventArgs args)
         {
-			YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen = (YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen)((Button)sender).Tag;
-			YellowstonePathology.Business.Billing.Model.ICD9BillingCode icd9BillingCode = this.AccessionOrder.ICD9BillingCodeCollection.GetNextItem(this.PanelSetOrderSurgical.ReportNo,
-				this.AccessionOrder.MasterAccessionNo, surgicalSpecimen.SpecimenOrderId, null, null, 1);
-			icd9BillingCode.SurgicalSpecimenId = surgicalSpecimen.SurgicalSpecimenId;
-			this.AccessionOrder.ICD9BillingCodeCollection.Add(icd9BillingCode);			
-			this.RefreshBillingSpecimenViewCollection();
-		}
+            YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen = (YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen)((Button)sender).Tag;
+            YellowstonePathology.Business.Billing.Model.ICD9BillingCode icd9BillingCode = this.AccessionOrder.ICD9BillingCodeCollection.GetNextItem(this.PanelSetOrderSurgical.ReportNo,
+                this.AccessionOrder.MasterAccessionNo, surgicalSpecimen.SpecimenOrderId, null, null, 1);
+            icd9BillingCode.SurgicalSpecimenId = surgicalSpecimen.SurgicalSpecimenId;
+            this.AccessionOrder.ICD9BillingCodeCollection.Add(icd9BillingCode);
+            this.RefreshBillingSpecimenViewCollection();
+        }
 
         private void ButtonDeleteIcd9Code_Click(object sender, RoutedEventArgs args)
-        {            			
-			string icd9BillingId = ((YellowstonePathology.Business.Billing.Model.ICD9BillingCode)((Button)sender).Tag).Icd9BillingId;
-			YellowstonePathology.Business.Billing.Model.ICD9BillingCode icd9BillingCode = this.AccessionOrder.ICD9BillingCodeCollection.GetCurrent(icd9BillingId);
-			this.AccessionOrder.ICD9BillingCodeCollection.Remove(icd9BillingCode);
-			this.RefreshBillingSpecimenViewCollection();
-		}
+        {
+            string icd9BillingId = ((YellowstonePathology.Business.Billing.Model.ICD9BillingCode)((Button)sender).Tag).Icd9BillingId;
+            YellowstonePathology.Business.Billing.Model.ICD9BillingCode icd9BillingCode = this.AccessionOrder.ICD9BillingCodeCollection.GetCurrent(icd9BillingId);
+            this.AccessionOrder.ICD9BillingCodeCollection.Remove(icd9BillingCode);
+            this.RefreshBillingSpecimenViewCollection();
+        }
 
         private void ButtonCorrelation_Click(object sender, RoutedEventArgs e)
         {
-			YellowstonePathology.Business.Test.Surgical.IntraoperativeConsultationResult intraoperativeConsultationResult = ((Button)sender).Tag as YellowstonePathology.Business.Test.Surgical.IntraoperativeConsultationResult;
+            YellowstonePathology.Business.Test.Surgical.IntraoperativeConsultationResult intraoperativeConsultationResult = ((Button)sender).Tag as YellowstonePathology.Business.Test.Surgical.IntraoperativeConsultationResult;
             ImmediateExamCorrelationDialog immediateExamCorrelationDialog = new ImmediateExamCorrelationDialog(intraoperativeConsultationResult);
             immediateExamCorrelationDialog.ShowDialog();
         }
@@ -222,7 +222,7 @@ namespace YellowstonePathology.UI.Surgical
             }
             else
             {
-                if(this.PanelSetOrderSurgical.TestOrderReportDistributionCollection.HasDistributedItems() == false)
+                if (this.PanelSetOrderSurgical.TestOrderReportDistributionCollection.HasDistributedItems() == false)
                 {
                     this.PanelSetOrderSurgical.Unfinalize();
                 }
@@ -234,7 +234,7 @@ namespace YellowstonePathology.UI.Surgical
                 this.m_PathologistUI.RunWorkspaceEnableRules();
                 this.m_PathologistUI.RunPathologistEnableRules();
             }
-        }        
+        }
 
         private void ButtonSignAmendment_Click(object sender, RoutedEventArgs args)
         {
@@ -256,9 +256,9 @@ namespace YellowstonePathology.UI.Surgical
                         }
                     }
 
-                    if(canFinal == true)
+                    if (canFinal == true)
                     {
-                        amendment.Finish();                    
+                        amendment.Finish();
                     }
                 }
                 else
@@ -282,7 +282,7 @@ namespace YellowstonePathology.UI.Surgical
                     else
                     {
                         amendment.Unfinalize();
-                    }                    
+                    }
                 }
                 else
                 {
@@ -291,9 +291,9 @@ namespace YellowstonePathology.UI.Surgical
             }
 
             YellowstonePathology.Business.Rules.Surgical.SetAmendmentSignatureText setAmendmentSignatureText = new Business.Rules.Surgical.SetAmendmentSignatureText();
-            setAmendmentSignatureText.Execute(this.m_PathologistUI.AccessionOrder, this.m_PathologistUI.PanelSetOrder, amendment);                                
+            setAmendmentSignatureText.Execute(this.m_PathologistUI.AccessionOrder, this.m_PathologistUI.PanelSetOrder, amendment);
             this.NotifyPropertyChanged(string.Empty);
-        }        
+        }
 
         private void ButtonAddAmendment_Click(object sender, RoutedEventArgs args)
         {
@@ -311,34 +311,34 @@ namespace YellowstonePathology.UI.Surgical
 
         private void ButtonSetAncillaryStudiesCommentsToGood_Click(object sender, RoutedEventArgs args)
         {
-			if (string.IsNullOrEmpty(this.PanelSetOrderSurgical.ReportNo) == false)
+            if (string.IsNullOrEmpty(this.PanelSetOrderSurgical.ReportNo) == false)
             {
-				this.PanelSetOrderSurgical.SetProcedureCommentsToGood();
-			}
+                this.PanelSetOrderSurgical.SetProcedureCommentsToGood();
+            }
         }
 
         private void ButtonReassignCase_Click(object sender, RoutedEventArgs e)
         {
             if (this.PanelSetOrderSurgical != null)
             {
-				Common.ReassignCaseDialog reassignCaseDialog = new Common.ReassignCaseDialog(this.PanelSetOrderSurgical, Business.User.SystemIdentity.Instance);
-                reassignCaseDialog.ShowDialog();                
+                Common.ReassignCaseDialog reassignCaseDialog = new Common.ReassignCaseDialog(this.PanelSetOrderSurgical, Business.User.SystemIdentity.Instance);
+                reassignCaseDialog.ShowDialog();
             }
         }
 
         private void ButtonPapAccession_Click(object sender, RoutedEventArgs e)
         {
-			Common.HistroicalAccessionDialog dlg = new YellowstonePathology.UI.Common.HistroicalAccessionDialog(this.PanelSetOrderSurgical.ReportNo);
+            Common.HistroicalAccessionDialog dlg = new YellowstonePathology.UI.Common.HistroicalAccessionDialog(this.PanelSetOrderSurgical.ReportNo);
 
             if (dlg.ShowDialog().Value == true)
             {
-				this.PanelSetOrderSurgical.PapCorrelationAccessionNo = dlg.CorrelatedAccessionNo;
+                this.PanelSetOrderSurgical.PapCorrelationAccessionNo = dlg.CorrelatedAccessionNo;
             }
         }
 
         private void ButtonCancerCaseSummary_Click(object sender, RoutedEventArgs args)
         {
-			if (string.IsNullOrEmpty(this.PanelSetOrderSurgical.ReportNo) == false)
+            if (string.IsNullOrEmpty(this.PanelSetOrderSurgical.ReportNo) == false)
             {
                 if (this.CancerCaseSummaryVisibility == "Visible")
                 {
@@ -361,9 +361,9 @@ namespace YellowstonePathology.UI.Surgical
             if (!isFinal)
             {
                 YellowstonePathology.Business.Rules.Amendment.PendingStudies pendingStudies = new YellowstonePathology.Business.Rules.Amendment.PendingStudies();
-				pendingStudies.Execute(this.PanelSetOrderSurgical);
+                pendingStudies.Execute(this.PanelSetOrderSurgical);
             }
-        }        
+        }
 
         private void ComboBoxAmendmentUsers_SelectionChanged(object sender, RoutedEventArgs args)
         {
@@ -376,19 +376,19 @@ namespace YellowstonePathology.UI.Surgical
             }
         }
 
-		private void CheckBoxRevisedDiagnosis_Checked(object sender, RoutedEventArgs e)
-		{
-			CheckBox checkBox = (CheckBox)sender;
+        private void CheckBoxRevisedDiagnosis_Checked(object sender, RoutedEventArgs e)
+        {
+            CheckBox checkBox = (CheckBox)sender;
             YellowstonePathology.Business.Amendment.Model.Amendment amendment = (YellowstonePathology.Business.Amendment.Model.Amendment)checkBox.Tag;
-			amendment.ShowPreviousDiagnosis = true;
-		}
+            amendment.ShowPreviousDiagnosis = true;
+        }
 
-		private void CheckBoxRevisedDiagnosis_Unchecked(object sender, RoutedEventArgs e)
-		{
-			CheckBox checkBox = (CheckBox)sender;
+        private void CheckBoxRevisedDiagnosis_Unchecked(object sender, RoutedEventArgs e)
+        {
+            CheckBox checkBox = (CheckBox)sender;
             YellowstonePathology.Business.Amendment.Model.Amendment amendment = (YellowstonePathology.Business.Amendment.Model.Amendment)checkBox.Tag;
-			amendment.ShowPreviousDiagnosis = false;
-		}        
+            amendment.ShowPreviousDiagnosis = false;
+        }
 
         public string CancerCaseSummaryVisibility
         {
@@ -401,9 +401,9 @@ namespace YellowstonePathology.UI.Surgical
                 }
                 else
                 {
-					if (this.PanelSetOrderSurgical.PanelSetId == 13)
+                    if (this.PanelSetOrderSurgical.PanelSetId == 13)
                     {
-						if (!string.IsNullOrEmpty(this.PanelSetOrderSurgical.CancerSummary))
+                        if (!string.IsNullOrEmpty(this.PanelSetOrderSurgical.CancerSummary))
                         {
                             result = "Visible";
                         }
@@ -427,17 +427,17 @@ namespace YellowstonePathology.UI.Surgical
             }
         }
 
-		public YellowstonePathology.Business.View.BillingSpecimenViewCollection BillingSpecimenViewCollection
-		{
-			get { return this.m_BillingSpecimenViewCollection; }
-		}
+        public YellowstonePathology.Business.View.BillingSpecimenViewCollection BillingSpecimenViewCollection
+        {
+            get { return this.m_BillingSpecimenViewCollection; }
+        }
 
-		public void RefreshBillingSpecimenViewCollection()
-		{
-			this.m_BillingSpecimenViewCollection.Refresh(this.PanelSetOrderSurgical.SurgicalSpecimenCollection,
-					this.m_PathologistUI.AccessionOrder.SpecimenOrderCollection, this.PanelSetOrderSurgical.PanelSetOrderCPTCodeCollection,
-					this.m_PathologistUI.AccessionOrder.ICD9BillingCodeCollection);
-		}
+        public void RefreshBillingSpecimenViewCollection()
+        {
+            this.m_BillingSpecimenViewCollection.Refresh(this.PanelSetOrderSurgical.SurgicalSpecimenCollection,
+                    this.m_PathologistUI.AccessionOrder.SpecimenOrderCollection, this.PanelSetOrderSurgical.PanelSetOrderCPTCodeCollection,
+                    this.m_PathologistUI.AccessionOrder.ICD9BillingCodeCollection);
+        }
 
         private void HyperLinkReplaceSpecialCharacters_Click(object sender, RoutedEventArgs e)
         {
@@ -479,6 +479,33 @@ namespace YellowstonePathology.UI.Surgical
             }
 
             this.PanelSetOrderSurgical.CancerSummary = text;
+
+            //Remove this line
+            this.ReplaceNonASCIICharactersInAudits();
+        }
+
+        //Remove this method
+        private void ReplaceNonASCIICharactersInAudits()
+        {
+            foreach (YellowstonePathology.Business.Test.Surgical.SurgicalAudit surgicalAudit in this.PanelSetOrderSurgical.SurgicalAuditCollection)
+            {
+                StringBuilder result = new StringBuilder();
+                string text = surgicalAudit.CancerSummary;
+
+                Dictionary<int, string> mapDictionary = new Dictionary<int, string>();
+                mapDictionary.Add(8804, "<=");
+                mapDictionary.Add(8805, ">=");
+                mapDictionary.Add(8220, "\"");
+                mapDictionary.Add(8221, "\"");
+
+                foreach (KeyValuePair<int, string> map in mapDictionary)
+                {
+                    char nonASCIIChar = (char)map.Key;
+                    text = text.Replace(nonASCIIChar.ToString(), map.Value);
+                }
+
+                surgicalAudit.CancerSummary = text;
+            }
         }
 
         private StringBuilder FindNonASCIICharacters()
@@ -505,7 +532,7 @@ namespace YellowstonePathology.UI.Surgical
             if (this.PanelSetOrderSurgical.Final == false)
             {
                 YellowstonePathology.Business.Audit.Model.AuditResult auditResult = this.PanelSetOrderSurgical.IsOkToFinalize(this.m_PathologistUI.AccessionOrder);
-                if(auditResult.Status == Business.Audit.Model.AuditStatusEnum.Failure || auditResult.Status == Business.Audit.Model.AuditStatusEnum.Warning)
+                if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.Failure || auditResult.Status == Business.Audit.Model.AuditStatusEnum.Warning)
                 {
                     PathologistSignoutPath pathologistSignoutPath = new PathologistSignoutPath(this.m_PathologistUI.AccessionOrder, this.PanelSetOrderSurgical);
                     pathologistSignoutPath.Start();
@@ -523,7 +550,7 @@ namespace YellowstonePathology.UI.Surgical
                 }
 
                 this.m_PathologistUI.SetSignatureButtonProperties();
-                this.NotifyPropertyChanged(string.Empty);                
+                this.NotifyPropertyChanged(string.Empty);
             }
         }
 
@@ -533,6 +560,6 @@ namespace YellowstonePathology.UI.Surgical
             //MenuItem menuItem = (MenuItem)sender;
             //YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen = (YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen)menuItem.Tag;
             //YellowstonePathology.Business.Visitor.OrderTestVisitor orderTestVisitor = new Business.Visitor.OrderTestVisitor(this.m_PathologistUI.PanelSetOrder.ReportNo, intraoperativeConsultation, null, null, false, )
-        }        
+        }
     }
 }
