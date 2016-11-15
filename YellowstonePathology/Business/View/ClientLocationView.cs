@@ -55,5 +55,20 @@ namespace YellowstonePathology.Business.View
 			get { return this.m_Location; }
 			set { this.m_Location = value; }
 		}
+
+        public string ClientNameTruncated
+        {
+            get
+            {
+                if(this.m_ClientName.Length >= 24)
+                {
+                    return this.m_ClientName.Substring(0, 24) + "...";
+                }
+                else
+                {
+                    return this.m_ClientName;
+                }                
+            }
+        }
 	}
 }

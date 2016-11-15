@@ -18,27 +18,28 @@ namespace YellowstonePathology.UI
 
     public partial class TypingShorcutDialog : System.Windows.Window
     {
+        public delegate void FinishedEventHandler(object sender, CustomEventArgs.TypingShortcutReturnEventArgs e);
+        public event FinishedEventHandler Finished;
+
         YellowstonePathology.Business.Typing.TypingShortcut m_TypingShortcut;
 		YellowstonePathology.Business.User.SystemUserCollection m_SystemUserCollection;
         
         bool m_IsNewItem = false;
 
-        public TypingShorcutDialog(YellowstonePathology.Business.Typing.TypingShortcut typingShortcut, bool isNewShortcut)
-        {
-            this.m_TypingShortcut = typingShortcut;
+        public TypingShorcutDialog(string objectId, bool isNewShortcut)
+        {            
             this.m_IsNewItem = isNewShortcut;
+            if (isNewShortcut == false)
+            {
+                this.m_TypingShortcut = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullTypingShortcut(objectId, this);
+            }
 
             InitializeComponent();
 
             this.m_SystemUserCollection = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetUsersByRole(YellowstonePathology.Business.User.SystemUserRoleDescriptionEnum.Typing, true);
 
             this.DataContext = this.m_TypingShortcut;
-            this.comboBoxTypingUsers.ItemsSource = this.m_SystemUserCollection;
-
-            if (isNewShortcut == false)
-            {
-                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullTypingShortcut(typingShortcut.ObjectId, this);
-            }
+            this.comboBoxTypingUsers.ItemsSource = this.m_SystemUserCollection;            
 
             this.Closing += TypingShorcutDialog_Closing;
         }
@@ -47,6 +48,7 @@ namespace YellowstonePathology.UI
         {
             if(this.DialogResult == true)
             {
+                this.Finished(this, new CustomEventArgs.TypingShortcutReturnEventArgs(this.m_TypingShortcut));
                 YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
             }
             else

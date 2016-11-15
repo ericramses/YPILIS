@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using YellowstonePathology.Business.Persistence;
 
-namespace YellowstonePathology.Business.Test.PDL1
+namespace YellowstonePathology.Business.Test.PDL1SP142
 {
-    [PersistentClass("tblPDL1TestOrder", "tblPanelSetOrder", "YPIDATA")]
-    public class PDL1TestOrder : PanelSetOrder
+    [PersistentClass("tblPDL1SP142TestOrder", "tblPanelSetOrder", "YPIDATA")]
+    public class PDL1SP142TestOrder : PanelSetOrder
     {
         private string m_Result;
         private string m_StainPercent;
@@ -15,12 +15,12 @@ namespace YellowstonePathology.Business.Test.PDL1
         private string m_Comment;
         private string m_Interpretation;
 
-        public PDL1TestOrder()
+        public PDL1SP142TestOrder()
         {
         	
         }
         
-        public PDL1TestOrder(string masterAccessionNo, string reportNo, string objectId,
+        public PDL1SP142TestOrder(string masterAccessionNo, string reportNo, string objectId,
             YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
             YellowstonePathology.Business.Interface.IOrderTarget orderTarget,
             bool distribute)

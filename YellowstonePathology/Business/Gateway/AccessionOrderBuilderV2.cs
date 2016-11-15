@@ -183,8 +183,7 @@ namespace YellowstonePathology.Business.Gateway
             this.RemoveDeletedPanelOrders();
             if (this.m_TestOrderDataTable != null)
             {
-                this.HandleSlideOrderTestOrder(this.m_TestOrderDataTable);
-                //this.HandleAliquotOrderTestOrder(this.m_TestOrderDataTable);
+                this.HandleSlideOrderTestOrder(this.m_TestOrderDataTable);                
                 this.HandleAliquotOrderTestOrder(this.m_TestOrderUnsortedDataTable);
             }
             if (this.m_AliquotOrderDataTable != null) this.HandleTestOrderAliquotOrder(this.m_AliquotOrderDataTable);
@@ -584,11 +583,11 @@ namespace YellowstonePathology.Business.Gateway
                 {
                     Test.LLP.PanelSetOrderLeukemiaLymphoma llpPanelSetOrder = (Test.LLP.PanelSetOrderLeukemiaLymphoma)panelSetOrder;
                     llpPanelSetOrder.FlowMarkerCollection.Sync(dataTable, llpPanelSetOrder.ReportNo);
+                    llpPanelSetOrder.FlowMarkerCollection.SetCellPopulationsOfInterest();
+                    llpPanelSetOrder.FlowMarkerCollection.SetFirstMarkerPanelIfExists();
                 }
             }
         }
-
-
 
         private void SetSurgicalAuditAmendment(YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder)
         {

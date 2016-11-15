@@ -124,8 +124,17 @@ namespace YellowstonePathology.Business.Typing
                 text = text.Replace('\r', ' ');
                 return text;
             }
-        }        
+        }   
         
+        public void Update(TypingShortcut typingShortcut)
+        {
+            this.m_Shortcut = typingShortcut.Shortcut;
+            this.m_Text = typingShortcut.Text;
+            this.m_Type = typingShortcut.Type;
+            this.m_UserId = typingShortcut.UserId;
+            this.NotifyPropertyChanged(string.Empty);
+        }
+
         public void NotifyPropertyChanged(String info)
         {
             if (PropertyChanged != null)
