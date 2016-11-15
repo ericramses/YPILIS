@@ -232,6 +232,17 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
         }
     }
 
+    public class BladderTUR : Specimen
+    {
+        public BladderTUR()
+        {
+            this.m_SpecimenId = "SPCMNBLDDRTTUR";
+            this.m_SpecimenName = "Bladder TUR";
+            this.m_Description = "Bladder, transurethral resection";
+            this.m_CPTCode = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88309();
+        }
+    }
+
     public class ProstateRadicalResection : Specimen
     {
         public ProstateRadicalResection()
@@ -398,25 +409,12 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             }
         }
         
-        public class Twin1Placenta : Specimen
+        public class TwinPlacenta : Specimen
         {
-            public Twin1Placenta()
+            public TwinPlacenta()
             {
                 this.m_SpecimenId = "TWNPLCNTWMSPCMN";
-                this.m_SpecimenName = "Twin Placenta with Dividing Membrane";
-                this.m_Description = "Twin Placenta";
-                this.m_LabFixation = "Formalin";
-                this.m_ClientFixation = null;
-                this.m_RequiresGrossExamination = true;
-            }
-        }
-        
-        public class Twin2Placenta : Specimen
-        {
-            public Twin2Placenta()
-            {
-                this.m_SpecimenId = "TWNPLCNTWOMSPCMN";
-                this.m_SpecimenName = "Twin Placenta without Dividing Membrane";
+                this.m_SpecimenName = "Twin Placenta";
                 this.m_Description = "Twin Placenta";
                 this.m_LabFixation = "Formalin";
                 this.m_ClientFixation = null;
