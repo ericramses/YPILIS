@@ -187,7 +187,7 @@ namespace YellowstonePathology.Business.Test.ALKForNSCLCByFISH
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "0", "bit")]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
         public bool ALKGeneAmplification
         {
             get { return this.m_ALKGeneAmplification; }

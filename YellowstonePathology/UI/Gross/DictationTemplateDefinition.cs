@@ -55,6 +55,26 @@ namespace YellowstonePathology.UI.Gross
         }
     }
 
+    public class BladderTURTemplate : DictationTemplate
+    {
+        public BladderTURTemplate()
+        {
+            this.m_TemplateName = "Bladder TUR";
+            this.m_Text = "[identifier] and consists of [number] irregular ragged tan-pink tissue fragment[?s?] " +
+                "measuring [measurement] [? in aggregate?].  [representativesections].  ";
+
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.BladderTUR turb = new Business.Specimen.Model.SpecimenDefinition.BladderTUR();
+            this.m_SpecimenCollection.Add(turb);
+        }
+
+        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        {
+            string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
+            result = this.ReplaceRepresentativeSections(result, specimenOrder);
+            return result;
+        }
+    }
+
     public class GITemplate : DictationTemplate
     {
         public GITemplate()
@@ -199,11 +219,15 @@ namespace YellowstonePathology.UI.Gross
         public FallopianTubeTemplate()
         {
             this.m_TemplateName = "Fallopian Tube Specimen";
-            this.m_Text = "[identifier]." + Environment.NewLine +
-            	"Gross description:  [description]" + Environment.NewLine +
-                "Fimbriated Ends:  [description]" + Environment.NewLine +
-            	"Fallopian Tube 1:  [description], [measurement], [inked]" + Environment.NewLine +                          
-				"Fallopian Tube 2:  [description], [measurement], [inked]" + Environment.NewLine +
+            this.m_Text = "[identifier]." + Environment.NewLine +            	
+            	"Fallopian Tube 1:" + Environment.NewLine +
+                "  Dimensions:  [measurements] ([w/wo] fimbriated end)" + Environment.NewLine +
+                "  Surface:  [description] [paratubal cysts absent/present]" + Environment.NewLine +
+                "  Inked:  [color]" + Environment.NewLine +
+                "Fallopian Tube 2:" + Environment.NewLine +
+                "  Dimensions:  [measurements] ([w/wo] fimbriated end)" + Environment.NewLine +
+                "  Surface:  [description] [paratubal cysts absent/present]" + Environment.NewLine +
+                "  Inked:  [color]" + Environment.NewLine +
                 "Submitted:  [representativesections].  ";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.FallopianTube fallopianTube = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.FallopianTube();
@@ -740,7 +764,6 @@ namespace YellowstonePathology.UI.Gross
                 "   Vessels:  [number]" + Environment.NewLine +
                 "   Knots:  [description]" + Environment.NewLine +
                 "   Coiling:  [description]" + Environment.NewLine +
-                "   Other:  [description]" + Environment.NewLine +
                 Environment.NewLine +
                 "Extraplacental Membranes:" + Environment.NewLine +
                 "   Insertion:  [insertion]" + Environment.NewLine +
@@ -763,7 +786,6 @@ namespace YellowstonePathology.UI.Gross
                 "         Non-Adherent:  [measurement]" + Environment.NewLine +
                 "      Maternal Surface:  [description]" + Environment.NewLine +
                 "      Surface Infarcts:  [description]" + Environment.NewLine +
-                "      Other:  [description]" + Environment.NewLine +
                 "   Sectioned at 1 cm intervals:" + Environment.NewLine +
                 "       Infarcts:  [description]" + Environment.NewLine +
                 "       Cysts:  [description]" + Environment.NewLine + 
@@ -783,17 +805,17 @@ namespace YellowstonePathology.UI.Gross
         }
     }
     
-        public class Twin1PlacentaTemplate : DictationTemplate
+        public class TwinPlacentaTemplate : DictationTemplate
     {
-        public Twin1PlacentaTemplate()
+        public TwinPlacentaTemplate()
         {
-            this.m_TemplateName = "Twin1Placenta";
+            this.m_TemplateName = "TwinPlacenta";
             this.m_Text = "[identifier] and consists of a twin placenta with two umbilical cord and attached membranes." + Environment.NewLine +
                 Environment.NewLine +
                 "Extraplacental Membranes:" + Environment.NewLine +
-            	"   Dividing Membrane:  Present"+ Environment.NewLine +
+            	"   Dividing Membrane:  [present/absent]"+ Environment.NewLine +
                 "      Description:  [description]" + Environment.NewLine +
-            	"      Intervening chorion:  [present/absent]" + Environment.NewLine +
+            	"      Intervening chorion:  [present/absent/indeterminate]" + Environment.NewLine +
                 "   Color:  [color]" + Environment.NewLine +
                 "   Amnion Nodosum:  [description]" + Environment.NewLine +
                 "   Cysts:  [description]" + Environment.NewLine +
@@ -818,9 +840,6 @@ namespace YellowstonePathology.UI.Gross
                 "   Coiling:" + Environment.NewLine +
             	"      Twin A:  [description]" + Environment.NewLine +
             	"      Twin B:  [description]" + Environment.NewLine +
-                "   Other:" + Environment.NewLine +
-            	"      Twin A:  [description]" + Environment.NewLine +
-            	"      Twin B:  [description]" + Environment.NewLine +
                 Environment.NewLine +
             	"Placental Disc:" + Environment.NewLine +
                 "   Weight:  [weight] grams." + Environment.NewLine +
@@ -836,22 +855,19 @@ namespace YellowstonePathology.UI.Gross
                 "         Non-Adherent:  [measurement]" + Environment.NewLine +
                 "      Maternal Surface:  [description]" + Environment.NewLine +
                 "      Surface Infarcts:  [description]" + Environment.NewLine +
-                "      Other:  [description]" + Environment.NewLine +
                 "   Sectioned at 1 cm intervals:" + Environment.NewLine +
                 "       Infarcts:  [description]" + Environment.NewLine +
                 "       Cysts:  [description]" + Environment.NewLine + 
             	Environment.NewLine +
                 "Cassette Summary: " + Environment.NewLine +
                 "\"1A\" - Twin A umbilical cord and membranes, " + Environment.NewLine +
-                "\"1B\" - Twin A placenta at cord insertion site, " + Environment.NewLine +
-                "\"1C\" - \"1D\" - Twin A placenta " + Environment.NewLine +
+                "\"1B\" - \"1D\" - Twin A central placenta, " + Environment.NewLine +
             	"\"1E\" - Dividing membranes" + Environment.NewLine +
             	"\"1F\" -Twin B umbilical cord and membranes" + Environment.NewLine +
-            	"\"1G\" -Twin B placenta at cord insertion site" + Environment.NewLine +
-                "\"1H\" - \"1I\" - Twin B placenta  ";
+            	"\"1G\" - \"1I\" - Twin B central placenta  ";
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Twin1Placenta twin1Placenta = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Twin1Placenta();
-            this.m_SpecimenCollection.Add(twin1Placenta);
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.TwinPlacenta twinPlacenta = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.TwinPlacenta();
+            this.m_SpecimenCollection.Add(twinPlacenta);
         }
 
         public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
@@ -859,78 +875,6 @@ namespace YellowstonePathology.UI.Gross
             return base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
         }
     }
-    
-        public class Twin2PlacentaTemplate : DictationTemplate
-    {
-        public Twin2PlacentaTemplate()
-        {
-            this.m_TemplateName = "Twin2Placenta";
-            this.m_Text = "[identifier] and consists of a twin placenta with two umbilical cord and attached membranes." + Environment.NewLine +
-                Environment.NewLine +
-                "Extraplacental Membranes:" + Environment.NewLine +
-            	"   Dividing Membrane:  Absent"+ Environment.NewLine +
-                "   Color:  [color]" + Environment.NewLine +
-                "   Amnion Nodosum:  [description]" + Environment.NewLine +
-                "   Cysts:  [description]" + Environment.NewLine +
-                "   Point of Rupture:  [description]" + Environment.NewLine +
-                Environment.NewLine +
-                "Umbilical Cord:" + Environment.NewLine +
-            	"   Designations:" + Environment.NewLine +
-            	"      Twin A:  [designation]" + Environment.NewLine +
-            	"      Twin B:  [designation]" + Environment.NewLine +
-                "   Length:" + Environment.NewLine +
-            	"      Twin A:  [length]" + Environment.NewLine +
-            	"      Twin B:  [length]" + Environment.NewLine +
-                "   Insertion:" + Environment.NewLine +
-            	"      Twin A:  [insertion]" + Environment.NewLine +
-            	"      Twin B:  [insertion]" + Environment.NewLine +
-                "   Vessels:" + Environment.NewLine +
-            	"      Twin A:  [number]" + Environment.NewLine +
-            	"      Twin B:  [number]" + Environment.NewLine +
-                "   Knots:" + Environment.NewLine +
-            	"      Twin A:  [description]" + Environment.NewLine +
-            	"      Twin B:  [description]" + Environment.NewLine +
-                "   Coiling:" + Environment.NewLine +
-            	"      Twin A:  [description]" + Environment.NewLine +
-            	"      Twin B:  [description]" + Environment.NewLine +
-                "   Other:" + Environment.NewLine +
-            	"      Twin A:  [description]" + Environment.NewLine +
-            	"      Twin B:  [description]" + Environment.NewLine +
-                Environment.NewLine +
-            	"Placental Disc:" + Environment.NewLine +
-                "   Weight:  [weight] grams." + Environment.NewLine +
-                "   Shape:  [shape]" + Environment.NewLine +
-                "   Measurements:  [measurement]" + Environment.NewLine +
-                "   Fetal Surface:" + Environment.NewLine +
-                "      Fetal Surface:  [description]" + Environment.NewLine +
-                "      Amnion Nodosum:  [description]" + Environment.NewLine +
-                "      Cysts:  [description]" + Environment.NewLine +
-                "   Maternal Surface:" + Environment.NewLine +
-                "      Hemorrhage:  [description]" + Environment.NewLine +
-                "         Adherent:  [measurement], [description]" + Environment.NewLine +
-                "         Non-Adherent:  [measurement]" + Environment.NewLine +
-                "      Maternal Surface:  [description]" + Environment.NewLine +
-                "      Surface Infarcts:  [description]" + Environment.NewLine +
-                "      Other:  [description]" + Environment.NewLine +
-                "   Sectioned at 1 cm intervals:" + Environment.NewLine +
-                "       Infarcts:  [description]" + Environment.NewLine +
-                "       Cysts:  [description]" + Environment.NewLine + 
-            	Environment.NewLine +
-                "Cassette Summary: " + Environment.NewLine +
-                "\"1A\" - Twin A umbilical cord, " + Environment.NewLine +
-                "\"1B\" - Twin B umbilical cord, " + Environment.NewLine +
-                "\"1C\" - Membranes.  " + Environment.NewLine +
-                "\"1D\" - \"1G\" - Placental Disc.  ";
-
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Twin2Placenta twin2Placenta = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Twin2Placenta();
-            this.m_SpecimenCollection.Add(twin2Placenta);
-        }
-
-        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
-        {
-            return base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
-        }
-    }        
 
     public class UterusTemplate : DictationTemplate
     {

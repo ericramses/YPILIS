@@ -11,19 +11,17 @@ namespace YellowstonePathology.Business.HL7View.EPIC
     {        
         private int m_ObxCount;        
         private bool m_SendUnsolicited;
-        private bool m_Testing;
-        private string m_ResultStatus;
+        private bool m_Testing;        
 
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
         private YellowstonePathology.Business.Domain.Physician m_OrderingPhysician;                
 
-        public EPICResultView(string reportNo, Business.Test.AccessionOrder accessionOrder, string resultStatus, bool testing)
+        public EPICResultView(string reportNo, Business.Test.AccessionOrder accessionOrder, bool testing)
         {            
             this.m_Testing = testing;
             this.m_AccessionOrder = accessionOrder;
-            this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
-            this.m_ResultStatus = resultStatus;            
+            this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);            
 
             if (this.m_AccessionOrder.UniversalServiceId.ToUpper() != this.m_PanelSetOrder.UniversalServiceId.ToUpper())
             {
@@ -73,8 +71,8 @@ namespace YellowstonePathology.Business.HL7View.EPIC
 
             YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_PanelSetOrder.ReportNo);
 
-            string resultStatus = this.m_ResultStatus;
-            if (panelSetOrder.AmendmentCollection.Count != 0) resultStatus = ResultStatusEnum.Correction.ToString();
+            string resultStatus = ResultStatusEnum.Final.Value;
+            if (panelSetOrder.AmendmentCollection.Count != 0) resultStatus = ResultStatusEnum.Correction.Value;
 
             YellowstonePathology.Business.ClientOrder.Model.UniversalServiceCollection universalServiceIdCollection = YellowstonePathology.Business.ClientOrder.Model.UniversalServiceCollection.GetAll();
             YellowstonePathology.Business.ClientOrder.Model.UniversalService universalService = universalServiceIdCollection.GetByUniversalServiceId(panelSetOrder.UniversalServiceId);            

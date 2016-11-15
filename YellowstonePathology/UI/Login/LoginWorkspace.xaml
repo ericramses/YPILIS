@@ -126,6 +126,7 @@
                         <MenuItem Header="Show IT Audits" Click="MenuItemShowITAudits_Click"></MenuItem>
                         <MenuItem Header="Send Order To Panther" Click="MenuItemSendPantherOrder_Click"></MenuItem>
                         <MenuItem Header="Cancel Panther Order" Click="MenuItemCancelPantherOrder_Click"></MenuItem>
+                        <MenuItem Header="Send Billing HL7" Click="MenuItemSendBillingHL7_Click"></MenuItem>
                     </ContextMenu>
                 </ListView.ContextMenu>
                         

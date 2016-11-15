@@ -42,7 +42,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
 		}        
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "0", "bit")]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
         public bool OrderHPV
         {
             get { return this.m_OrderHPV; }
@@ -57,7 +57,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(false, "1", "0", "bit")]
+        [PersistentDataColumnProperty(false, "1", "0", "tinyint")]
         public bool OrderNGCT
         {
             get { return this.m_OrderNGCT; }
@@ -72,7 +72,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(false, "1", "0", "bit")]
+        [PersistentDataColumnProperty(false, "1", "0", "tinyint")]
         public bool OrderTrichomonas
         {
             get { return this.m_OrderTrichomonas; }
@@ -87,7 +87,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "0", "bit")]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
         public bool OrderHPV1618
         {
             get { return this.m_OrderHPV1618; }

@@ -45,8 +45,7 @@ namespace YellowstonePathology.Business.Facility.Model
             result.Add(new Therapath());
             result.Add(new UniversityOfWashington());
             result.Add(new MontanaDermatology());
-            result.Add(new GenomicHealth());
-            result.Add(new MLabs());
+            result.Add(new GenomicHealth());            
             result.Add(new UCSanFrancisco());
             result.Add(new UCSFDermPathService());
             result.Add(new WesternMontanaClinic());
@@ -68,7 +67,6 @@ namespace YellowstonePathology.Business.Facility.Model
             result.Add(new ButtePathology());
             result.Add(new ColoradoGeneticsLaboratory());
             result.Add(new PhenoPath());
-            result.Add(new UAMS());
             result.Add(new StVincentHealthcare());
             result.Add(new UniversityOfArkansasMedicalSciences());
             result.Add(new SeattleCancerCenterAlliance());
@@ -79,13 +77,21 @@ namespace YellowstonePathology.Business.Facility.Model
             result.Add(new TallmanDermatology());
             result.Add(new BozemanDeaconess());
             result.Add(new CMMC());
-            result.Add(new StJamesHospital());
+            result.Add(new StJamesHealth());
             result.Add(new MontanaDepartmentofJustice());
             result.Add(new UniversityOfMichigan());
+            result.Add(new UniversityOfColoradoHospital());
+            result.Add(new AnschutzPathologyUCH());
             result.Add(new UniversityOfMiami());
-            result.Add(new FoundationOne());
             result.Add(new ClevelandClinicFoundation());
             result.Add(new SheridanPathologyAssociates());
+            result.Add(new MontanaSkinCancerandDermatologyCenter());
+            result.Add(new BigHornCountyMemorialHospital());
+            result.Add(new MountainViewHospital());
+            result.Add(new EasternIdahoRegionalMedicalCenter());
+            result.Add(new SheridanMemorialHospital());
+            result.Add(new ChristianaCare());
+            result.Add(new NeogenomicsNashville());
             return Sort(result);
         }
 

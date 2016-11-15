@@ -46,7 +46,7 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "0", "bit")]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
         public bool IncludeTestsPerformedOnOtherBlocks
         {
             get { return this.m_IncludeTestsPerformedOnOtherBlocks; }

@@ -66,7 +66,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 
 		[DataMember]
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(false, "1", "0", "bit")]
+		[PersistentDataColumnProperty(false, "1", "0", "tinyint")]
 		public bool CervixPresent
 		{
 			get { return this.m_CervixPresent; }
@@ -82,7 +82,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 
 		[DataMember]
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(false, "1", "0", "bit")]
+		[PersistentDataColumnProperty(false, "1", "0", "tinyint")]
 		public bool CervicalEndoCervical
 		{
 			get { return this.m_CervicalEndoCervical; }
@@ -98,7 +98,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 
 		[DataMember]
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(false, "1", "0", "bit")]
+		[PersistentDataColumnProperty(false, "1", "0", "tinyint")]
 		public bool Vaginal
 		{
 			get { return this.m_Vaginal; }
@@ -114,7 +114,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 
 		[DataMember]
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(false, "1", "0", "bit")]
+		[PersistentDataColumnProperty(false, "1", "0", "tinyint")]
 		public bool Hysterectomy
 		{
 			get { return this.m_Hysterectomy; }
@@ -130,7 +130,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 
 		[DataMember]
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(false, "1", "0", "bit")]
+		[PersistentDataColumnProperty(false, "1", "0", "tinyint")]
 		public bool AbnormalBleeding
 		{
 			get { return this.m_AbnormalBleeding; }
@@ -146,7 +146,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 
 		[DataMember]
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(false, "1", "0", "bit")]
+		[PersistentDataColumnProperty(false, "1", "0", "tinyint")]
 		public bool BirthControl
 		{
 			get { return this.m_BirthControl; }
@@ -162,7 +162,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 
 		[DataMember]
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(false, "1", "0", "bit")]
+		[PersistentDataColumnProperty(false, "1", "0", "tinyint")]
 		public bool HormoneTherapy
 		{
 			get { return this.m_HormoneTherapy; }
@@ -178,7 +178,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 
 		[DataMember]
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(false, "1", "0", "bit")]
+		[PersistentDataColumnProperty(false, "1", "0", "tinyint")]
 		public bool PreviousNormalPap
 		{
 			get { return this.m_PreviousNormalPap; }
@@ -210,7 +210,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 
 		[DataMember]
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(false, "1", "0", "bit")]
+		[PersistentDataColumnProperty(false, "1", "0", "tinyint")]
 		public bool PreviousAbnormalPap
 		{
 			get { return this.m_PreviousAbnormalPap; }
@@ -242,7 +242,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 
 		[DataMember]
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(false, "1", "0", "bit")]
+		[PersistentDataColumnProperty(false, "1", "0", "tinyint")]
 		public bool PreviousBiopsy
 		{
 			get { return this.m_PreviousBiopsy; }
@@ -274,7 +274,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 
 		[DataMember]
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(false, "1", "0", "bit")]
+		[PersistentDataColumnProperty(false, "1", "0", "tinyint")]
 		public bool Prenatal
 		{
 			get { return this.m_Prenatal; }
@@ -290,7 +290,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 
 		[DataMember]
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(false, "1", "0", "bit")]
+		[PersistentDataColumnProperty(false, "1", "0", "tinyint")]
 		public bool Postpartum
 		{
 			get { return this.m_Postpartum; }
@@ -306,7 +306,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 
 		[DataMember]
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(false, "1", "0", "bit")]
+		[PersistentDataColumnProperty(false, "1", "0", "tinyint")]
 		public bool Postmenopausal
 		{
 			get { return this.m_Postmenopausal; }
@@ -338,7 +338,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 
 		[DataMember]
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(false, "1", "0", "bit")]
+		[PersistentDataColumnProperty(false, "1", "0", "tinyint")]
 		public bool ReflexHPV
 		{
 			get { return this.m_ReflexHPV; }
@@ -354,7 +354,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 
 		[DataMember]
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(false, "1", "0", "bit")]
+		[PersistentDataColumnProperty(false, "1", "0", "tinyint")]
 		public bool RoutineHPVTesting
 		{
 			get { return this.m_RoutineHPVTesting; }
@@ -370,7 +370,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 
 		[DataMember]
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(false, "1", "0", "bit")]
+		[PersistentDataColumnProperty(false, "1", "0", "tinyint")]
 		public bool NGCTTesting
 		{
 			get { return this.m_NGCTTesting; }
@@ -402,7 +402,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 
 		[DataMember]
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(false, "1", "0", "bit")]
+		[PersistentDataColumnProperty(false, "1", "0", "tinyint")]
 		public bool TrichomonasVaginalis
 		{
 			get { return this.m_TrichomonasVaginalis; }

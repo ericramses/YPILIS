@@ -13,7 +13,7 @@ namespace YellowstonePathology.Business.BarcodeScanning
         public EmbeddingScanCollection()
         {
 
-        }
+        }        
 
         public void UpdateStatus(EmbeddingScan scan)
         {

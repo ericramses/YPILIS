@@ -140,7 +140,7 @@ namespace YellowstonePathology.Business.Test.EGFRMutationAnalysis
         }
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(true, "1", "0", "bit")]
+		[PersistentDataColumnProperty(true, "1", "0", "tinyint")]
 		public bool MicrodissectionPerformed
         {
             get { return this.m_MicrodissectionPerformed; }

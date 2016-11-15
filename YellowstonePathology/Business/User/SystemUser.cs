@@ -133,7 +133,7 @@ namespace YellowstonePathology.Business.User
 		}
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(true, "1", "1", "bit")]
+		[PersistentDataColumnProperty(true, "1", "1", "tinyint")]
 		public bool Active
 		{
 			get { return this.m_Active; }

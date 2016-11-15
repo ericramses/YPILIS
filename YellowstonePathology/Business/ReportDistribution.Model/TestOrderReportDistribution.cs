@@ -32,8 +32,7 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
         private string m_FaxNumber;
         private bool m_LongDistance;
         private bool m_Rescheduled;
-        private string m_RescheduledMessage;
-        private string m_ResultStatus;   
+        private string m_RescheduledMessage;        
 
 		public TestOrderReportDistribution()
         {
@@ -179,7 +178,7 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
 		}
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "null", "bit")]
+        [PersistentDataColumnProperty(true, "1", "null", "tinyint")]
         public bool Distributed
         {
             get { return this.m_Distributed; }
@@ -254,7 +253,7 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "null", "bit")]
+        [PersistentDataColumnProperty(true, "1", "null", "tinyint")]
         public bool LongDistance
         {
             get { return this.m_LongDistance; }
@@ -269,7 +268,7 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "null", "bit")]
+        [PersistentDataColumnProperty(true, "1", "null", "tinyint")]
         public bool Rescheduled
         {
             get { return this.m_Rescheduled; }
@@ -296,22 +295,7 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
                     this.NotifyPropertyChanged("RescheduledMessage");
                 }
             }
-        }
-
-        [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "50", "'F'", "varchar")]
-        public string ResultStatus
-        {
-            get { return this.m_ResultStatus; }
-            set
-            {
-                if (this.m_ResultStatus != value)
-                {
-                    this.m_ResultStatus = value;
-                    this.NotifyPropertyChanged("ResultStatus");
-                }
-            }
-        }
+        }        
 
         public void ScheduleForDistribution(Nullable<DateTime> timeToSchedule)
         {

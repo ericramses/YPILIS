@@ -108,6 +108,9 @@ namespace YellowstonePathology.Business.HL7View.CMMC
                 case 214:
                     view = new YellowstonePathology.Business.Test.TechInitiatedPeripheralSmear.TechInitiatedPeripheralSmearCMMCNteView(accessionOrder, reportNo);
                     break;
+                case 218:
+                    view = new YellowstonePathology.Business.Test.RASRAFPanel.RASRAFCMMCNTEView(accessionOrder, reportNo);
+                    break;
                 case 228:
                     view = new YellowstonePathology.Business.Test.API2MALT1ByPCR.API2MALT1ByPCRCMMCNTEView(accessionOrder, reportNo);
                     break;

@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business.Flow
 
         private YellowstonePathology.Business.Flow.FlowLogSearch m_FlowLogSearch;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        private YellowstonePathology.Business.Test.LLP.PanelSetOrderLeukemiaLymphoma m_PanelSetOrderLeukemiaLymphoma;
+        private YellowstonePathology.Business.Test.LLP.PanelSetOrderLeukemiaLymphoma m_PanelSetOrderLeukemiaLymphoma;        
 
         private YellowstonePathology.Business.User.SystemUserCollection m_PathologistUsers;
         private YellowstonePathology.Business.User.SystemUserCollection m_MedTechUsers;
@@ -359,12 +359,11 @@ namespace YellowstonePathology.Business.Flow
             }
         }
 
-		public void SetMarkerPanel(int panelId)
+		public void AddMarkerPanel(int panelId, string cellPopulationOfInterest, string panelName)
 		{
-			this.PanelSetOrderLeukemiaLymphoma.FlowMarkerCollection.Clear();
-
-			Flow.FlowMarkerCollection panelCollection = Gateway.FlowGateway.GetFlowMarkerCollectionByPanelId(this.PanelSetOrderLeukemiaLymphoma.ReportNo, panelId);
-			this.PanelSetOrderLeukemiaLymphoma.FlowMarkerCollection.Insert(panelCollection, this.PanelSetOrderLeukemiaLymphoma.ReportNo);
+            int nextCellPopulationId = this.PanelSetOrderLeukemiaLymphoma.FlowMarkerCollection.GetNextCellPopulationId();            
+            Flow.FlowMarkerCollection panelCollection = Gateway.FlowGateway.GetFlowMarkerCollectionByPanelId(this.PanelSetOrderLeukemiaLymphoma.ReportNo, panelId);
+			this.PanelSetOrderLeukemiaLymphoma.FlowMarkerCollection.Insert(panelCollection, this.PanelSetOrderLeukemiaLymphoma.ReportNo, nextCellPopulationId, cellPopulationOfInterest, panelName);
 		}		
 
 		public string SignReportButtonContent

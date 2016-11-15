@@ -316,7 +316,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 		}
 		
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(true, "1", "null", "bit")]
+		[PersistentDataColumnProperty(true, "1", "null", "tinyint")]
 		public bool QC
 		{
 			get { return this.m_QC; }
@@ -331,7 +331,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 		}
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(true, "1", "null", "bit")]
+		[PersistentDataColumnProperty(true, "1", "null", "tinyint")]
 		public bool ImagerError
 		{
 			get { return this.m_ImagerError; }
@@ -346,7 +346,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 		}		
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(true, "1", "null", "bit")]
+		[PersistentDataColumnProperty(true, "1", "null", "tinyint")]
 		public bool PhysicianInterpretation
 		{
 			get { return this.m_PhysicianInterpretation; }
@@ -376,7 +376,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 		}
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(true, "1", "null", "bit")]
+		[PersistentDataColumnProperty(true, "1", "null", "tinyint")]
 		public bool ECCCheckPerformed
 		{
 			get { return this.m_ECCCheckPerformed; }
@@ -391,7 +391,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 		}
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(true, "1", "null", "bit")]
+		[PersistentDataColumnProperty(true, "1", "null", "tinyint")]
 		public bool ScreeningError
 		{
 			get { return this.m_ScreeningError; }

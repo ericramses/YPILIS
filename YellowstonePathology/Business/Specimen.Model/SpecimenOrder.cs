@@ -609,7 +609,7 @@ namespace YellowstonePathology.Business.Specimen.Model
 		}
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(false, "1", "1", "bit")]
+		[PersistentDataColumnProperty(false, "1", "1", "tinyint")]
 		public bool CollectionTimeUnknown
 		{
 			get { return this.m_CollectionTimeUnknown; }
@@ -684,7 +684,7 @@ namespace YellowstonePathology.Business.Specimen.Model
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "0", "bit")]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
         public bool ClientAccessioned
         {
             get { return this.m_ClientAccessioned; }
@@ -699,7 +699,7 @@ namespace YellowstonePathology.Business.Specimen.Model
         }
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(false, "1", "0", "bit")]
+		[PersistentDataColumnProperty(false, "1", "0", "tinyint")]
 		public bool Accepted
 		{
 			get { return this.m_Accepted; }
@@ -744,7 +744,7 @@ namespace YellowstonePathology.Business.Specimen.Model
 		}
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(false, "1", "0", "bit")]
+		[PersistentDataColumnProperty(false, "1", "0", "tinyint")]
 		public bool Verified
 		{
 			get { return this.m_Verified; }
@@ -789,7 +789,7 @@ namespace YellowstonePathology.Business.Specimen.Model
 		}
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(false, "1", "0", "bit")]
+		[PersistentDataColumnProperty(false, "1", "0", "tinyint")]
 		public bool RequiresBlindVerification
 		{
 			get { return this.m_RequiresBlindVerification; }
@@ -894,7 +894,7 @@ namespace YellowstonePathology.Business.Specimen.Model
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "1", "bit")]
+        [PersistentDataColumnProperty(true, "1", "1", "tinyint")]
         public bool RequiresGrossExamination
         {
             get { return this.m_RequiresGrossExamination; }
@@ -969,7 +969,7 @@ namespace YellowstonePathology.Business.Specimen.Model
         }        
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "0", "bit")]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
         public bool FixationStartTimeManuallyEntered
         {
             get { return this.m_FixationStartTimeManuallyEntered; }
@@ -1090,7 +1090,7 @@ namespace YellowstonePathology.Business.Specimen.Model
             else
             {
                 this.m_TimeToFixation = null;
-				this.m_TimeToFixationHourString = YellowstonePathology.Business.Specimen.Model.TimeToFixationType.Unknown;
+				this.m_TimeToFixationHourString = YellowstonePathology.Business.Specimen.Model.TimeToFixationType.LessThanOneHour;
             }  
           
             this.NotifyPropertyChanged("TimeToFixation");

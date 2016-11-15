@@ -19,7 +19,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
-            <TextBox Name="TextBoxDate" Margin="2" Width="120" Text="{Binding Path=WorkDate, Converter={StaticResource ShortDateConverter}}" />
+            <TextBox Name="TextBoxDate" Margin="2" Width="120" Text="{Binding Path=WorkDate, Converter={StaticResource ShortDateConverter}, UpdateSourceTrigger=PropertyChanged}" />
 
             <Button Click="ButtonAccessionOrderBack_Click" Width="30">
                 <StackPanel Orientation="Horizontal">
@@ -35,6 +35,7 @@
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right">
+            <Button Width="150" Margin="2,2,2,2" Click="ButtonRefresh_Click">Refresh</Button>
             <Button Width="150" Margin="2,2,2,2" Click="ButtonUpdate_Click">Update</Button>
             <ComboBox  Name="ComboBoxProcessorRuns" ItemsSource="{Binding Path=ProcessorRunCollection}" DisplayMemberPath="Name" Margin="2,2,2,2" Width="200" SelectionChanged="ComboBoxProcessorRun_SelectionChanged"></ComboBox>
             <TextBox Name="TextBoxProcessorStartTime" Margin="2" Width="120" Text="{Binding Path=ProcessorStartTime, Converter={StaticResource MilitaryDateTimeConverter}}" />
@@ -74,6 +75,11 @@
             </TabItem>
             <TabItem Header="Not Scanned">
                 <ListView Name="ListViewNotScannedList" Margin="2,2,2,2" ItemsSource="{Binding Path=EmbeddingNotScannedList}">
+                    <ListView.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Tag="{Binding}" Header="Manual Scan" Click="ContextMenuManualScan_Click"></MenuItem>
+                        </ContextMenu>
+                    </ListView.ContextMenu>
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="ID" Width="100" DisplayMemberBinding="{Binding Path=AliquotOrderId}" />

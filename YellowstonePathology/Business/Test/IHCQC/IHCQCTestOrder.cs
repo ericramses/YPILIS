@@ -26,7 +26,7 @@ namespace YellowstonePathology.Business.Test.IHCQC
 		}
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(false, "1", "null", "bit")]
+		[PersistentDataColumnProperty(false, "1", "null", "tinyint")]
         public bool ControlsReactedAppropriately
 		{
             get { return this.m_ControlsReactedAppropriately; }

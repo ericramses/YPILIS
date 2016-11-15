@@ -35,8 +35,8 @@ namespace YellowstonePathology.UI.MySql
         {
             m_MySQLDatabaseBuilder = new MySQLMigration.MySQLDatabaseBuilder();
             m_MigrationStatusCollection = MySQLMigration.MigrationStatusCollection.GetAll();
-            this.m_NumberOfItemsInQuery = "500";
-            this.m_NumberOfTimesToQuery = "10";
+            this.m_NumberOfItemsInQuery = "1000";
+            this.m_NumberOfTimesToQuery = "15";
             this.m_StatusMessage = "Idle";
 
             InitializeComponent();
@@ -85,13 +85,14 @@ namespace YellowstonePathology.UI.MySql
             set
             {
                 this.m_StatusMessage = value;
+                this.TextBlockStatusMessage.Text = this.m_StatusMessage;
                 this.NotifyPropertyChanged("StatusMessage");
             }
         }
 
         private void SetStatusMessage(Business.Rules.MethodResult methodResult)
         {
-            if(methodResult.Success == true)
+            if(string.IsNullOrEmpty(methodResult.Message) == true)
             {
                 this.StatusMessage = "Success";
             }
@@ -284,7 +285,7 @@ namespace YellowstonePathology.UI.MySql
 
                 foreach (MySQLMigration.MigrationStatus migrationStatus in this.ListViewMigrationStatus.SelectedItems)
                 {
-                    Business.Rules.MethodResult methodResult = m_MySQLDatabaseBuilder.LoadData(migrationStatus, countToMove, numberofReps);
+                    Business.Rules.MethodResult methodResult = m_MySQLDatabaseBuilder.BulkLoadData(migrationStatus, countToMove, numberofReps);
                     this.SetStatusMessage(methodResult);
                 }
             }
@@ -301,7 +302,7 @@ namespace YellowstonePathology.UI.MySql
                 this.StatusMessage = "Working on it.";
                 foreach (MySQLMigration.MigrationStatus migrationStatus in this.ListViewMigrationStatus.SelectedItems)
                 {
-                    Business.Rules.MethodResult methodResult = m_MySQLDatabaseBuilder.Synchronize(migrationStatus);
+                    Business.Rules.MethodResult methodResult = m_MySQLDatabaseBuilder.SynchronizeData(migrationStatus);
                     this.SetStatusMessage(methodResult);
                 }
             }
@@ -318,56 +319,27 @@ namespace YellowstonePathology.UI.MySql
             foreach (MySQLMigration.MigrationStatus migrationStatus in this.ListViewMigrationStatus.SelectedItems)
             {
                 Business.Rules.MethodResult methodResult = m_MySQLDatabaseBuilder.DailySync(migrationStatus);
+                overallResult.Message += methodResult.Message;
                 if (methodResult.Success == false)
                 {
                     overallResult.Success = false;
-                    overallResult.Message += methodResult.Message;
                 }
             }
             this.SetStatusMessage(overallResult);
         }
 
-        private void MenuItemMultiLoad_Click(object sender, RoutedEventArgs e)
-        {
-            this.m_RepeatCount = 5;
-            this.m_CurrentCount = 0;
-            MySQLMigration.MigrationStatus migrationStatus = (MySQLMigration.MigrationStatus)this.ListViewMigrationStatus.SelectedItem;
-            Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
-            if (migrationStatus != null)
-            {
-                this.MultiLoad(migrationStatus, methodResult);
-            }
-            this.SetStatusMessage(methodResult);
-        }
-
-        private void MultiLoad(MySQLMigration.MigrationStatus migrationStatus, Business.Rules.MethodResult overallResult)
+        private void MenuItemCompareData_Click(object sender, RoutedEventArgs e)
         {
             this.StatusMessage = "Working on it.";
-            Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
-            m_MySQLDatabaseBuilder.GetStatus(migrationStatus);
-            if (migrationStatus.OutOfSyncCount > 0)
+            if (this.ListViewMigrationStatus.SelectedItem != null)
             {
-                methodResult = m_MySQLDatabaseBuilder.Synchronize(migrationStatus);
-                if(methodResult.Success == false)
-                {
-                    overallResult.Success = false;
-                    overallResult.Message += methodResult.Message;
-                }
-                this.MultiLoad(migrationStatus, overallResult);
+                MySQLMigration.MigrationStatus migrationStatus = (MySQLMigration.MigrationStatus)this.ListViewMigrationStatus.SelectedItem;
+                Business.Rules.MethodResult methodResult = m_MySQLDatabaseBuilder.CompareTables(migrationStatus);
+                this.SetStatusMessage(methodResult);
             }
-            else if (migrationStatus.UnLoadedDataCount > 0)
+            else
             {
-                if (this.m_CurrentCount < this.m_RepeatCount)
-                {
-                    this.m_CurrentCount++;
-                    methodResult = m_MySQLDatabaseBuilder.LoadData(migrationStatus, 200, 10);
-                    if (methodResult.Success == false)
-                    {
-                        overallResult.Success = false;
-                        overallResult.Message += methodResult.Message;
-                    }
-                    this.MultiLoad(migrationStatus, overallResult);
-                }
+                MessageBox.Show("Select a class to compare.");
             }
         }
 
@@ -375,6 +347,11 @@ namespace YellowstonePathology.UI.MySql
         {
             this.m_MySQLDatabaseBuilder.GetStatus(migrationStatus);
             this.StatusMessage = "Got Status for " + migrationStatus.Name;
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

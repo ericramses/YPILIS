@@ -153,7 +153,7 @@ namespace YellowstonePathology.Business.Test.Retired
 
 		#region Persistent Properties
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(false, "1", "0", "bit")]
+		[PersistentDataColumnProperty(false, "1", "0", "tinyint")]
 		public bool IncludeImmunoRecommendedComment
 		{
 			get { return this.m_IncludeImmunoRecommendedComment; }
@@ -168,7 +168,7 @@ namespace YellowstonePathology.Business.Test.Retired
 		}
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(false, "1", "0", "bit")]
+		[PersistentDataColumnProperty(false, "1", "0", "tinyint")]
 		public bool IncludeResultComment
 		{
 			get { return this.m_IncludeResultComment; }
@@ -183,7 +183,7 @@ namespace YellowstonePathology.Business.Test.Retired
 		}
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(false, "1", "0", "bit")]
+		[PersistentDataColumnProperty(false, "1", "0", "tinyint")]
 		public bool IncludePolysomyComment
 		{
 			get { return this.m_IncludePolysomyComment; }

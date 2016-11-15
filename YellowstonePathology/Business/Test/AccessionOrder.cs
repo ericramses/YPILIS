@@ -182,7 +182,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "0", "bit")]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
         public bool ClientAccessioned
         {
             get { return this.m_ClientAccessioned; }
@@ -675,7 +675,7 @@ namespace YellowstonePathology.Business.Test
 		}
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(false, "1", "1", "bit")]
+		[PersistentDataColumnProperty(false, "1", "1", "tinyint")]
 		public bool Accessioned
 		{
 			get { return this.m_Accessioned; }
@@ -735,7 +735,7 @@ namespace YellowstonePathology.Business.Test
 		}
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(false, "1", "0", "bit")]
+		[PersistentDataColumnProperty(false, "1", "0", "tinyint")]
 		public bool RequisitionVerified
 		{
 			get { return this.m_RequisitionVerified; }
@@ -810,7 +810,7 @@ namespace YellowstonePathology.Business.Test
 		}
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(false, "1", "0", "bit")]
+		[PersistentDataColumnProperty(false, "1", "0", "tinyint")]
 		public bool OrderCancelled
 		{
 			get { return this.m_OrderCancelled; }
@@ -840,7 +840,7 @@ namespace YellowstonePathology.Business.Test
 		}		
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(false, "1", "0", "bit")]
+		[PersistentDataColumnProperty(false, "1", "0", "tinyint")]
 		public bool Verified
 		{
 			get { return this.m_Verified; }
@@ -1035,7 +1035,7 @@ namespace YellowstonePathology.Business.Test
 		}
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(false, "1", "0", "bit")]
+		[PersistentDataColumnProperty(false, "1", "0", "tinyint")]
 		public bool Finalized
 		{
 			get { return this.m_Finalized; }
@@ -1080,7 +1080,7 @@ namespace YellowstonePathology.Business.Test
 		}
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(false, "1", "0", "bit")]
+		[PersistentDataColumnProperty(false, "1", "0", "tinyint")]
 		public bool RequiresBlindVerification
 		{
 			get { return this.m_RequiresBlindVerification; }
@@ -1170,7 +1170,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "1", "bit")]
+        [PersistentDataColumnProperty(true, "1", "1", "tinyint")]
         public bool UseBillingAgent
         {
             get { return this.m_UseBillingAgent; }
@@ -1200,7 +1200,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "0", "bit")]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
         public bool ITAudited
         {
             get { return this.m_ITAudited; }
@@ -1215,7 +1215,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "0", "bit")]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
         public bool ITAuditRequired
         {
             get { return this.m_ITAuditRequired; }

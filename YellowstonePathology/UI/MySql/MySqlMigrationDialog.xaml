@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YellowstonePathology.UI.MySql"
-        Title="MySql Migration Dialog" Width="1500" Height="800" WindowStartupLocation="CenterScreen">
+        Title="MySql Migration Dialog" Width="1550" Height="800" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
@@ -17,16 +17,20 @@
 
         <Menu Name="MainMenu" Grid.Column="0" Grid.Row="0" DockPanel.Dock="Top">
             <MenuItem Header="Get Status" Click="MenuItemGetStatus_Click" Margin="5"></MenuItem>
-            <MenuItem Header="Create Table" Click="MenuItemCreateTable_Click" Margin="5"></MenuItem>
-            <MenuItem Header="Compare Table to Class" Click="MenuItemCompareTables_Click" Margin="5"></MenuItem>
-            <MenuItem Header="Add Missing Columns" Click="MenuItemAddMissingColumns_Click" Margin="5"></MenuItem>
-            <MenuItem Header="Add Transfer Column" Click="MenuItemAddTransferColumn_Click" Margin="5"></MenuItem>
-            <MenuItem Header="Add Timestamp Column" Click="MenuItemAddTimestampColumn_Click" Margin="5"></MenuItem>
-            <MenuItem Header="Add DBTS Attribute" Click="MenuItemAddDBTS_Click" Margin="5"></MenuItem>
-            <MenuItem Header="Load Data" Click="MenuItemLoadData_Click" Margin="5"></MenuItem>
-            <MenuItem Header="Synchronize Data" Click="MenuItemSynchronizeData_Click" Margin="5"></MenuItem>
-            <MenuItem Header="Daily Sync" Click="MenuItemDailySync_Click" Margin="5"></MenuItem>
-            <MenuItem Header="Multi Load" Click="MenuItemMultiLoad_Click" Margin="5"></MenuItem>
+            <MenuItem Header="Table Actions ..." Margin="5">
+                <MenuItem Header="Create MySql Table" Click="MenuItemCreateTable_Click" Margin="5"></MenuItem>
+                <MenuItem Header="Compare MySql Table to Class" Click="MenuItemCompareTables_Click" Margin="5"></MenuItem>
+                <MenuItem Header="Add Missing Columns to MySql" Click="MenuItemAddMissingColumns_Click" Margin="5"></MenuItem>
+                <MenuItem Header="Add Transfer Column to SqlServer" Click="MenuItemAddTransferColumn_Click" Margin="5"></MenuItem>
+                <MenuItem Header="Add Timestamp Column to SqlServer" Click="MenuItemAddTimestampColumn_Click" Margin="5"></MenuItem>
+                <MenuItem Header="Add DBTS Attribute to SqlServer" Click="MenuItemAddDBTS_Click" Margin="5"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Move Selected Data ..." Margin="5">
+                <MenuItem Header="Sync and Load new and altered" Click="MenuItemDailySync_Click" Margin="5"></MenuItem>
+                <MenuItem Header="Load Data" Click="MenuItemLoadData_Click" Margin="5"></MenuItem>
+                <MenuItem Header="Synchronize Data" Click="MenuItemSynchronizeData_Click" Margin="5"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Compare/Update Selected Data" Click="MenuItemCompareData_Click" Margin="5"></MenuItem>
         </Menu>
 
         <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal">
@@ -40,14 +44,16 @@
                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5,5,5,5">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Name, Mode=OneWay}" Header="Class" Width="280"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=TableName, Mode=OneWay}" Header="Table Name" Width="280"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=KeyFieldName, Mode=OneWay}" Header="Key Field" Width="150"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=HasTable}" Header="Has MySql Tbl" Width="85"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Name, Mode=OneWay}" Header="Class" Width="260"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=TableName, Mode=OneWay}" Header="Table Name" Width="260"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=KeyFieldName, Mode=OneWay}" Header="Key Field" Width="130"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=HasTable}" Header="Has MySql Tbl" Width="80"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=HasAllColumns}" Header="Has All Cols" Width="78"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=HasTransferredColumn}" Header="Has Xfer Col" Width="78"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=HasTimestampColumn}" Header="Has Tmstmp Col" Width="92"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=HasDBTS}" Header="Has DBTS Attr" Width="90"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=SqlServerTransferredCount}" Header="Transferred" Width="100"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=MySqlRowCount}" Header="MySql Rows" Width="100"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=UnLoadedDataCount}" Header="Unmigrated Count" Width="120"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=OutOfSyncCount}" Header="Unsynced Count" Width="100"/>
                 </GridView>

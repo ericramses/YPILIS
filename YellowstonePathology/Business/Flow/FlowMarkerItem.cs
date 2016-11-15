@@ -24,20 +24,26 @@ namespace YellowstonePathology.Business.Flow
 		private string m_Interpretation;
 		private bool m_Predictive;
 		private int m_Expresses;
-		private int m_OrderFlag;
+		private int? m_OrderFlag;
 		private string m_Result;
+        private int m_CellPopulationId;
+        private string m_CellPopulationOfInterest;
+        private string m_PanelName;
 
-		public FlowMarkerItem()
+        public FlowMarkerItem()
         {
         }
 
-		public FlowMarkerItem(string flowMarkerId, string objectId, string reportNo, string name)
+		public FlowMarkerItem(string flowMarkerId, string objectId, string reportNo, string name, int cellPopulationId, string cellPopulationOfInterest, string panelName)
 		{
 			this.m_FlowMarkerId = flowMarkerId;
 			this.m_ObjectId = objectId;
 			this.m_ReportNo = reportNo;
 			this.m_Name = name;
 			this.m_MarkerUsed = true;
+            this.m_CellPopulationId = cellPopulationId;
+            this.m_CellPopulationOfInterest = cellPopulationOfInterest;
+            this.m_PanelName = panelName;
 		}
 
 		[PersistentDocumentIdProperty()]
@@ -131,7 +137,7 @@ namespace YellowstonePathology.Business.Flow
 		}
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(true, "1", "0", "bit")]
+		[PersistentDataColumnProperty(true, "1", "0", "tinyint")]
 		public bool Report
 		{
 			get { return this.m_Report; }
@@ -146,7 +152,7 @@ namespace YellowstonePathology.Business.Flow
 		}
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(true, "1", "0", "bit")]
+		[PersistentDataColumnProperty(true, "1", "0", "tinyint")]
 		public bool MarkerUsed
 		{
 			get { return this.m_MarkerUsed; }
@@ -191,7 +197,7 @@ namespace YellowstonePathology.Business.Flow
 		}
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(true, "1", "0", "bit")]
+		[PersistentDataColumnProperty(true, "1", "0", "tinyint")]
 		public bool Predictive
 		{
 			get { return this.m_Predictive; }
@@ -222,7 +228,7 @@ namespace YellowstonePathology.Business.Flow
 
 		[PersistentProperty()]
 		[PersistentDataColumnProperty(true, "11", "0", "int")]
-		public int OrderFlag
+		public int? OrderFlag
 		{
 			get { return this.m_OrderFlag; }
 			set
@@ -250,7 +256,52 @@ namespace YellowstonePathology.Business.Flow
 			}
 		}
 
-		public string InterpretationProxy
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(false, null, null, "int")]
+        public int CellPopulationId
+        {
+            get { return this.m_CellPopulationId; }
+            set
+            {
+                if (this.m_CellPopulationId != value)
+                {
+                    this.m_CellPopulationId = value;
+                    this.NotifyPropertyChanged("CellPopulationId");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
+        public string CellPopulationOfInterest
+        {
+            get { return this.m_CellPopulationOfInterest; }
+            set
+            {
+                if (this.m_CellPopulationOfInterest != value)
+                {
+                    this.m_CellPopulationOfInterest = value;
+                    this.NotifyPropertyChanged("CellPopulationOfInterest");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "100", "null", "varchar")]
+        public string PanelName
+        {
+            get { return this.m_PanelName; }
+            set
+            {
+                if (this.m_PanelName != value)
+                {
+                    this.m_PanelName = value;
+                    this.NotifyPropertyChanged("PanelName");
+                }
+            }
+        }
+
+        public string InterpretationProxy
         {
             get { return this.Interpretation; }
             set

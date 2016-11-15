@@ -13,18 +13,19 @@ namespace YellowstonePathology.Business.Label.Model
 
         }
 
-        public static string GetCommands(List<YellowstonePathology.Business.BarcodeScanning.ContainerBarcode> barcodeList)
-        {
-            StringBuilder result = new StringBuilder();            
-            int xOffset = 0;            
+        public static string GetCommands()
+        {                        
+            StringBuilder result = new StringBuilder();
+            int xOffset = 0;
 
-            result.Append("^XA");            
-            for (int i = 0; i < barcodeList.Count; i++)
+            result.Append("^XA");
+            for (int i = 0; i < 4; i++)
             {
-                GetOne(barcodeList[i].ToString(), result, xOffset);
-                xOffset += 325;            
+                YellowstonePathology.Business.BarcodeScanning.ContainerBarcode containerBarcode = Business.BarcodeScanning.ContainerBarcode.Parse();
+                GetOne(containerBarcode.ToString(), result, xOffset);
+                xOffset += 325;
             }
-                        
+            
             result.Append("^XZ");
             return result.ToString();
         }
@@ -34,13 +35,13 @@ namespace YellowstonePathology.Business.Label.Model
             string line1 = containerId.Substring(0, 14);
             string line2 = containerId.Substring(14, 14);
             string line3 = containerId.Substring(28);
-                        
+
 
             result.Append("^FO" + (xOffset + 85) + ",020^AUN,50,50^FD" + "YPI" + "^FS");
             result.Append("^FO" + (xOffset + 75) + ",080^BXN,04,200^FD" + containerId + "^FS");
             result.Append("^FO" + (xOffset + 30) + ",190^FB190,1,0,C,0^ADN,20^FD" + line1 + "^FS");
             result.Append("^FO" + (xOffset + 30) + ",210^FB190,1,0,C,0^ADN,20^FD" + line2 + "^FS");
-            result.Append("^FO" + (xOffset + 25) + ",240^FB190,1,0,C,0^ARN,18^FD" + line3 + "^FS");            
+            result.Append("^FO" + (xOffset + 25) + ",240^FB190,1,0,C,0^ARN,18^FD" + line3 + "^FS");
         }
     }
 }

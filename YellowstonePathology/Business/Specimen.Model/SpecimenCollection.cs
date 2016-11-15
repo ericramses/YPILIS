@@ -70,6 +70,7 @@ namespace YellowstonePathology.Business.Specimen.Model
             result.Add(new SpecimenDefinition.Peripheral());
             result.Add(new SpecimenDefinition.GallbladderExcision());
             result.Add(new SpecimenDefinition.Biopsy());
+            result.Add(new SpecimenDefinition.BladderTUR());
             result.Add(new SpecimenDefinition.GIBiopsy());
             result.Add(new SpecimenDefinition.KneeTissue());
             result.Add(new SpecimenDefinition.LEEP());
@@ -84,8 +85,7 @@ namespace YellowstonePathology.Business.Specimen.Model
             result.Add(new SpecimenDefinition.ProstateTUR());
             result.Add(new SpecimenDefinition.SinusContent());
             result.Add(new SpecimenDefinition.SinglePlacenta());
-            result.Add(new SpecimenDefinition.Twin1Placenta());
-            result.Add(new SpecimenDefinition.Twin2Placenta());
+            result.Add(new SpecimenDefinition.TwinPlacenta());
             result.Add(new SpecimenDefinition.SkinExcisionOrientedBiopsy());
             result.Add(new SpecimenDefinition.SkinExcisionUnorientedBiopsy());
             result.Add(new SpecimenDefinition.SkinExcisionOrientedwithCurettingsBiopsy());

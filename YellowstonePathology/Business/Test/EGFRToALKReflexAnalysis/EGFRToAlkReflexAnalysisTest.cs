@@ -26,8 +26,7 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
 			this.m_IsReflexPanel = true;
 			this.m_AllowMultiplePerAccession = true;
             this.m_IsBillable = false;
-            this.m_ExpectedDuration = TimeSpan.FromDays(14);
-            //Checked by MS and TK;
+            this.m_ExpectedDuration = TimeSpan.FromDays(14);            
             this.m_EpicDistributionIsImplemented = true;
 
             string taskDescription1 = "Cut curls and an H&E after slide. Give the H&E after slide, paraffin block and curls to Molecular." +

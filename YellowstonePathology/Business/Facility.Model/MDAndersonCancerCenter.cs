@@ -17,6 +17,9 @@ namespace YellowstonePathology.Business.Facility.Model
             this.m_City = "Houston";
             this.m_State = "TX";
             this.m_ZipCode = "77030";
+            this.m_PhoneNumber = null;
+            this.m_FedexAccountNo = null;
+            this.m_FedexPaymentType = "SENDER";
             this.m_IsReferenceLab = true;
 
             this.m_CliaLicense = new CLIALicense(this, null);            

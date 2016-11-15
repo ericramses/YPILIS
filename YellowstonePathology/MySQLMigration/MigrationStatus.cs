@@ -24,6 +24,8 @@ namespace YellowstonePathology.MySQLMigration
         private int m_OutOfSyncCount;
         private int m_UnLoadedDataCount;
         private string m_FileName;
+        private int m_SqlServerTransferredCount;
+        private int m_MySqlRowCount;
 
         public MigrationStatus(Type type)
         {
@@ -133,6 +135,26 @@ namespace YellowstonePathology.MySQLMigration
             {
                 this.m_UnLoadedDataCount = value;
                 NotifyPropertyChanged("UnLoadedDataCount");
+            }
+        }
+
+        public int SqlServerTransferredCount
+        {
+            get { return this.m_SqlServerTransferredCount; }
+            set
+            {
+                this.m_SqlServerTransferredCount = value;
+                NotifyPropertyChanged("SqlServerTransferredCount");
+            }
+        }
+
+        public int MySqlRowCount
+        {
+            get { return this.m_MySqlRowCount; }
+            set
+            {
+                this.m_MySqlRowCount = value;
+                NotifyPropertyChanged("MySqlRowCount");
             }
         }
 

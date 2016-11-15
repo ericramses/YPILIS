@@ -183,8 +183,7 @@ namespace YellowstonePathology.Business.Gateway
             this.RemoveDeletedPanelOrders();
             if (this.m_TestOrderDataTable != null)
             {
-                this.HandleSlideOrderTestOrder(this.m_TestOrderDataTable);
-                //this.HandleAliquotOrderTestOrder(this.m_TestOrderDataTable);
+                this.HandleSlideOrderTestOrder(this.m_TestOrderDataTable);                
                 this.HandleAliquotOrderTestOrder(this.m_TestOrderUnsortedDataTable);
             }
             if (this.m_AliquotOrderDataTable != null) this.HandleTestOrderAliquotOrder(this.m_AliquotOrderDataTable);
@@ -386,6 +385,7 @@ namespace YellowstonePathology.Business.Gateway
             DataTableReader dataTableReader = new DataTableReader(dataTable);
             while (dataTableReader.Read())
             {
+                string testOrderId = dataTableReader["TestOrderId"].ToString();
                 YellowstonePathology.Business.Test.Model.TestOrder_Base testOrder = null;
                 foreach (Business.Specimen.Model.SpecimenOrder specimenOrder in this.m_AccessionOrder.SpecimenOrderCollection)
                 {
@@ -393,17 +393,21 @@ namespace YellowstonePathology.Business.Gateway
                     {
                         foreach (Business.Slide.Model.SlideOrder slideOrder in aliquotOrder.SlideOrderCollection)
                         {
-                            if(slideOrder.TestOrder == null)
+                            if (slideOrder.TestOrderId == testOrderId)
                             {
-                                testOrder = new Test.Model.TestOrder();
-                            }
-                            else
-                            {
-                                testOrder = slideOrder.TestOrder;
-                            }
+                                if (slideOrder.TestOrder == null)
+                                {
+                                    testOrder = new Test.Model.TestOrder();
+                                    slideOrder.TestOrder = testOrder;
+                                }
+                                else
+                                {
+                                    testOrder = slideOrder.TestOrder;
+                                }
 
-                            YellowstonePathology.Business.Persistence.SqlDataTableReaderPropertyWriter sqlDataTableReaderPropertyWriter = new Persistence.SqlDataTableReaderPropertyWriter(testOrder, dataTableReader);
-                            sqlDataTableReaderPropertyWriter.WriteProperties();
+                                YellowstonePathology.Business.Persistence.SqlDataTableReaderPropertyWriter sqlDataTableReaderPropertyWriter = new Persistence.SqlDataTableReaderPropertyWriter(testOrder, dataTableReader);
+                                sqlDataTableReaderPropertyWriter.WriteProperties();
+                            }
                         }
                     }
                 }
@@ -428,6 +432,7 @@ namespace YellowstonePathology.Business.Gateway
                                 if (testOrder.AliquotOrder == null)
                                 {
                                     aliquotOrder = new Test.AliquotOrder();
+                                    testOrder.AliquotOrder = aliquotOrder;
                                 }
                                 else
                                 {
@@ -578,11 +583,11 @@ namespace YellowstonePathology.Business.Gateway
                 {
                     Test.LLP.PanelSetOrderLeukemiaLymphoma llpPanelSetOrder = (Test.LLP.PanelSetOrderLeukemiaLymphoma)panelSetOrder;
                     llpPanelSetOrder.FlowMarkerCollection.Sync(dataTable, llpPanelSetOrder.ReportNo);
+                    llpPanelSetOrder.FlowMarkerCollection.SetCellPopulationsOfInterest();
+                    llpPanelSetOrder.FlowMarkerCollection.SetFirstMarkerPanelIfExists();
                 }
             }
         }
-
-
 
         private void SetSurgicalAuditAmendment(YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder)
         {

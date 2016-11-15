@@ -131,7 +131,7 @@ namespace YellowstonePathology.Business.Client.Model
 		}
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
+		[PersistentDataColumnProperty(true, "1", "null", "tinyint")]
 		public bool AllowMultipleOrderTypes
 		{
 			get { return this.m_AllowMultipleOrderTypes; }
@@ -161,7 +161,7 @@ namespace YellowstonePathology.Business.Client.Model
 		}
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(true, "1", "null", "bit")]
+		[PersistentDataColumnProperty(true, "1", "null", "tinyint")]
 		public bool AllowMultipleOrderDetailTypes
 		{
 			get { return this.m_AllowMultipleOrderDetailTypes; }

@@ -16,6 +16,9 @@ namespace YellowstonePathology.Business.Facility.Model
             this.m_City = "Charleston";
             this.m_State = "SC";
             this.m_ZipCode = "29425-9080";
+            this.m_PhoneNumber = null;
+            this.m_FedexAccountNo = null;
+            this.m_FedexPaymentType = "SENDER";
             this.m_IsReferenceLab = true;                        
         }
     }

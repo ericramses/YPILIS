@@ -135,29 +135,41 @@ namespace YellowstonePathology.UI
 
         private void HistologyBlockScanReceived(YellowstonePathology.Business.BarcodeScanning.Barcode barcode)
         {
-            this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
+            if (barcode.ID.Contains("ALQ") == true)
             {
-                if(barcode.ID.Contains("ALQ") == true)
+                MessageBox.Show("The scan for this block was read correctly. Please try again.");
+            }
+            else
+            {
+                this.RecieveScan(barcode.ID);
+            }            
+        } 
+        
+        private void RecieveScan(string aliquotOrderId)
+        {
+            this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
+            {                                
+                if (this.IsProcessorStartTimeValid() == true)
                 {
-                    MessageBox.Show("The scan for this block was read correctly. Please try again.");
+                    YellowstonePathology.Business.BarcodeScanning.EmbeddingScan result = this.m_EmbeddingScanCollection.HandleScan(aliquotOrderId, this.m_ProcessorStartTime.Value, this.m_ProcessorFixationDuration);
+                    this.ListViewEmbeddingScans.SelectedIndex = 0;
+                    this.m_ScanCount = "Block Count: " + this.m_EmbeddingScanCollection.Count.ToString();
+                    this.NotifyPropertyChanged("ScanCount");
                 }
                 else
-                {                                        
-                    if(this.m_ProcessorStartTime.HasValue == true)
-                    {
-                        YellowstonePathology.Business.BarcodeScanning.EmbeddingScan result = this.m_EmbeddingScanCollection.HandleScan(barcode.ID, this.m_ProcessorStartTime.Value, this.m_ProcessorFixationDuration);
-                        this.ListViewEmbeddingScans.SelectedIndex = 0;
-                        this.m_ScanCount = "Block Count: " + this.m_EmbeddingScanCollection.Count.ToString();
-                        this.NotifyPropertyChanged("ScanCount");
-                    }
-                    else
-                    {
-                        MessageBox.Show("I can't add the scan until a processor start time is entered.");
-                    }                    
+                {
+                    MessageBox.Show("I can't add the scan until a processor start time is entered.");
                 }                
             }
             ));
-        }   
+        } 
+        
+        private bool IsProcessorStartTimeValid()
+        {
+            bool result = false;
+            if (this.m_ProcessorStartTime.HasValue == true) result = true;
+            return result;
+        } 
         
         public string StatusMessage
         {
@@ -336,6 +348,29 @@ namespace YellowstonePathology.UI
                 this.m_ProcessorFixationDuration = run.FixationDuration;
                 this.NotifyPropertyChanged(string.Empty);
             }
+        }
+
+        private void ContextMenuManualScan_Click(object sender, RoutedEventArgs e)
+        {
+            if(this.ListViewNotScannedList.SelectedItem != null)
+            {
+                EmbeddingNotScannedListItem item = (EmbeddingNotScannedListItem)this.ListViewNotScannedList.SelectedItem;
+                this.RecieveScan(item.AliquotOrderId);
+                this.NotifyPropertyChanged("EmbeddingNotScannedList");
+            }
+        }
+
+        private void ButtonRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            this.m_EmbeddingScanCollection = Business.BarcodeScanning.EmbeddingScanCollection.GetByScanDate(this.m_WorkDate);
+            this.m_StatusMessage = "Status: OK";
+            this.m_ScanCount = "Block Count: " + this.m_EmbeddingScanCollection.Count.ToString();
+
+            this.m_AliquotOrderHoldCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAliquotOrderHoldCollection();            
+            this.m_EmbeddingNotScannedList = Business.Gateway.AccessionOrderGateway.GetEmbeddingNotScannedCollection(this.GetWorkingAccessionDate());
+            this.m_EmbeddingBreastCaseList = Business.Gateway.AccessionOrderGateway.GetEmbeddingBreastCasesCollection();
+
+            this.NotifyPropertyChanged(string.Empty);
         }
     }
 }

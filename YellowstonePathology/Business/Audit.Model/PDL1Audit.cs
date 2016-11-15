@@ -27,7 +27,7 @@ namespace YellowstonePathology.Business.Audit.Model
             this.m_Status = AuditStatusEnum.OK;
             this.m_Message.Clear();
 
-            YellowstonePathology.Business.Test.PDL1.PDL1Test pdl1Test = new Test.PDL1.PDL1Test();
+            YellowstonePathology.Business.Test.PDL1SP142.PDL1SP142Test pdl1Test = new Test.PDL1SP142.PDL1SP142Test();
             if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(pdl1Test.PanelSetId) == false)
             {
                 YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetSurgical();

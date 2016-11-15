@@ -10,11 +10,14 @@ namespace YellowstonePathology.Business.Facility.Model
         public BillingsClinic()
         {
             this.m_FacilityId = "BLGSCLNC";
+            this.m_FacilityIdOLD = null;
             this.m_FacilityName = "Billings Clinic";
             this.m_Address1 = "2800 10th Avenue North";
+            this.m_Address2 = null;
             this.m_City = "Billings";
             this.m_State = "MT";
             this.m_ZipCode = "59101";
+            this.m_PhoneNumber = null;
             this.m_IsReferenceLab = true;
 	
             this.m_CliaLicense = new CLIALicense(this, string.Empty);

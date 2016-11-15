@@ -45,9 +45,9 @@ namespace YellowstonePathology.Business.Test.LLP
 		private string m_TestCancelledComment;
 		private bool m_TestCancelled;		
 
-		private Flow.FlowMarkerCollection m_FlowMarkerCollection;
+		private Flow.FlowMarkerCollection m_FlowMarkerCollection;        
 
-		public PanelSetOrderLeukemiaLymphoma()
+        public PanelSetOrderLeukemiaLymphoma()
 		{
 			this.m_FlowMarkerCollection = new Flow.FlowMarkerCollection();
 		}
@@ -483,7 +483,7 @@ namespace YellowstonePathology.Business.Test.LLP
 		}
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(false, "1", "0", "bit")]
+        [PersistentDataColumnProperty(false, "1", "0", "tinyint")]
         public bool TechFinal
 		{
 			get { return this.m_TechFinal; }
@@ -573,7 +573,7 @@ namespace YellowstonePathology.Business.Test.LLP
 		}
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(false, "1", "0", "bit")]
+        [PersistentDataColumnProperty(false, "1", "0", "tinyint")]
         public bool TestCancelled
 		{
 			get { return this.m_TestCancelled; }

@@ -56,10 +56,10 @@ namespace YellowstonePathology.UI.Gross
             result.Add(new POCTemplate());
             result.Add(new ProstateNeedleCoreTemplate());
             result.Add(new ProstateTURTemplate());
+            result.Add(new BladderTURTemplate());
             result.Add(new SinusContentTemplate());
             result.Add(new SinglePlacentaTemplate());
-            result.Add(new Twin1PlacentaTemplate());
-            result.Add(new Twin2PlacentaTemplate());
+            result.Add(new TwinPlacentaTemplate());
             result.Add(new SkinExcisionOrientedTemplate());
             result.Add(new SkinExcisionUnorientedTemplate());
             result.Add(new SkinExcisionOrientedwithCurettingsTemplate());

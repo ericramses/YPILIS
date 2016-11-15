@@ -4,19 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 
-namespace YellowstonePathology.Business.Test.PDL1
+namespace YellowstonePathology.Business.Test.PDL1SP142
 {
-    public class PDL1EPICObxView : YellowstonePathology.Business.HL7View.EPIC.EPICObxView
+    public class PDL1SP142EPICObxView : YellowstonePathology.Business.HL7View.EPIC.EPICObxView
     {
-        public PDL1EPICObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount)
+        public PDL1SP142EPICObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount)
 			: base(accessionOrder, reportNo, obxCount)
 		{
         }
 
         public override void ToXml(XElement document)
         {
-            PDL1TestOrder panelSetOrder = (PDL1TestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
-            this.AddHeader(document, panelSetOrder, "PD-L1 Analysis");
+            PDL1SP142TestOrder panelSetOrder = (PDL1SP142TestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
+            this.AddHeader(document, panelSetOrder, "PD-L1 (SP142) Analysis");
 
             this.AddNextObxElement("", document, "F");
             this.AddNextObxElement("Stain Percent: " + panelSetOrder.StainPercent, document, "F");            
