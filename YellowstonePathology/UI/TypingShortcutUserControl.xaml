@@ -1,5 +1,6 @@
 <UserControl x:Class="YellowstonePathology.UI.TypingShortcutUserControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:LocalUI="clr-namespace:YellowstonePathology.UI"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 	<UserControl.Resources>
 		<ResourceDictionary Source="Styles.xaml"/>
@@ -12,7 +13,7 @@
 			<RowDefinition Height="*"></RowDefinition>			
         </Grid.RowDefinitions>
 
-        <ListView Name="ListViewTypingShortcut" Grid.Column="0" Grid.Row="0" ItemsSource="{Binding Path=TypingShortcutCollection}" IsSynchronizedWithCurrentItem="True">
+        <ListView Name="ListViewTypingShortcut" Grid.Column="0" Grid.Row="0" ItemsSource="{Binding Path=TypingShortcutCollection}" IsSynchronizedWithCurrentItem="True"  LocalUI:ListViewSorter.IsSortable="true">
             <ListView.ContextMenu>
                 <ContextMenu>
                     <MenuItem Click="ContextMenuTypingShortcutAdd_Click" Header="Add"></MenuItem>
@@ -22,9 +23,10 @@
             </ListView.ContextMenu>
             <ListView.View>
                 <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Shortcut}" Header="Shortcut" Width="90"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Type}" Header="Type" Width="90"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=ShortText}" Header="Text" Width="300"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Shortcut}" Header="Shortcut" Width="90" LocalUI:ListViewSorter.SortPropertyName="Shortcut"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Type}" Header="Type" Width="90" LocalUI:ListViewSorter.SortPropertyName="Type"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=UserName}" Header="User" Width="110" LocalUI:ListViewSorter.SortPropertyName="UserName"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=ShortText}" Header="Text" Width="300" LocalUI:ListViewSorter.SortPropertyName="ShortText"/>
                 </GridView>
             </ListView.View>
         </ListView>

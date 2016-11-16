@@ -104,8 +104,7 @@
           </v19:ReturnShipmentDetail>
         </v19:SpecialServicesRequested>
         <v19:SpecialServicesRequested>
-          <v19:SpecialServiceTypes>HOLD_AT_LOCATION</v19:SpecialServiceTypes>
-          <v19:DeliveryInstructions>Hold package for pickup</v19:DeliveryInstructions>
+          <v19:SpecialServiceTypes>HOLD_AT_LOCATION</v19:SpecialServiceTypes>          
           <v19:HoldAtLocationDetail>
             <v19:PhoneNumber>(406)238-6367</v19:PhoneNumber>
             <v19:LocationContactAndAddress>

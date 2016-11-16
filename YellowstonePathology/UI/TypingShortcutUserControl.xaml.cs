@@ -58,16 +58,22 @@ namespace YellowstonePathology.UI
             YellowstonePathology.Business.Typing.TypingShortcut typingShortcut = new YellowstonePathology.Business.Typing.TypingShortcut(objectId);            
 			typingShortcut.ObjectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();            
 
-            YellowstonePathology.UI.TypingShorcutDialog typingShorcutDialog = new TypingShorcutDialog(typingShortcut.ObjectId, true);
-            typingShorcutDialog.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            typingShorcutDialog.ShowDialog();            
+            YellowstonePathology.UI.TypingShorcutDialog typingShortcutDialog = new TypingShorcutDialog(typingShortcut.ObjectId, true);
+            typingShortcutDialog.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            typingShortcutDialog.Finished += TypingShortcutDialogAdd_Finished;
+            typingShortcutDialog.ShowDialog();            
 
-            if(typingShorcutDialog.DialogResult == true)
+            if(typingShortcutDialog.DialogResult == true)
             {
                 this.m_TypingShortcutCollection.Add(typingShortcut);
             }
             
             this.NotifyPropertyChanged("");
+        }
+
+        private void TypingShortcutDialogAdd_Finished(object sender, CustomEventArgs.TypingShortcutReturnEventArgs e)
+        {
+            this.m_TypingShortcutCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetTypingShortcutCollectionByUser(this.m_SystemIdentity.User.UserId);
         }
 
         public void ContextMenuTypingShortcutEdit_Click(object sender, RoutedEventArgs args)
