@@ -1248,7 +1248,7 @@ namespace YellowstonePathology.MySQLMigration
         {
             List<string> result = new List<string>();
             SqlCommand cmd = new SqlCommand("Select " + migrationStatus.KeyFieldName + " from " + migrationStatus.TableName + " where " +
-                //"ReportNo like '16%' and " +
+                "MasterAccessionNo like '16-%' and " +
                 //"orderdate < '10/1/2016' and " +
                 "Transferred = 1 and [TimeStamp] < (SELECT convert(int, ep.value) FROM sys.extended_properties AS ep " +
                 "INNER JOIN sys.tables AS t ON ep.major_id = t.object_id " +
