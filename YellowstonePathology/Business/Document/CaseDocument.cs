@@ -203,6 +203,23 @@ namespace YellowstonePathology.Business.Document
 			CaseDocument.ReleaseComObject(oWord);
         }
 
+        public static void OpenWordDoc(string fileName)
+        {
+            Microsoft.Office.Interop.Word.Application oWord;
+            Object oMissing = System.Reflection.Missing.Value;
+            Object oTrue = true;
+            Object oFalse = false;
+            Object oCopies = 1;
+
+            oWord = new Microsoft.Office.Interop.Word.Application();            
+            oWord.Visible = true;
+
+            Object oFile = fileName;
+            Microsoft.Office.Interop.Word.Document doc = oWord.Documents.Open(ref oFile, ref oMissing, ref oTrue,
+                 ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing,
+                 ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing);             
+        }
+
         public static void OpenTiff(string fileName)
         {
             Process p = new Process();
@@ -223,14 +240,9 @@ namespace YellowstonePathology.Business.Document
         {
             string newFile = string.Empty;
             if (File.Exists(fileName) == true)
-            {
-                //string[] dotsplit = fileName.Split('.');
-                //string extenstion = dotsplit[dotsplit.Length - 1];
-				//newFile = @"\\cfileserver\Documents\Distribution\OpenedWordViewerFiles\" + Guid.NewGuid() + "." + extenstion;
-                //File.Copy(fileName, newFile);
-
+            {                
                 Process p1 = new Process();
-                p1.StartInfo = new ProcessStartInfo("wordview.exe", fileName);
+                p1.StartInfo = new ProcessStartInfo("winword.exe", fileName);
                 p1.Start();                                
                 p1.Close();
             }

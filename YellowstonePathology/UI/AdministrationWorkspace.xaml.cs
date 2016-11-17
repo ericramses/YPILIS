@@ -998,6 +998,13 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
+            StringBuilder result = new StringBuilder();
+            Business.Test.AccessionOrder ao = Business.Persistence.DocumentGateway.Instance.PullAccessionOrder("16-16813", this);
+            Business.Persistence.JSONObjectWriter.WriteV2(result, ao);
+
+            
+            //AddAllClients();
+            /*
             Business.ReportNoCollection reportNos = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetReportNumbers();
             foreach(Business.ReportNo reportNo in reportNos)
             {
@@ -1007,7 +1014,7 @@ namespace YellowstonePathology.UI
                 YellowstonePathology.Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
                 resultView.Send(methodResult);
             }
-
+            */
 
 
             //Business.Label.Model.ZPLPrinter printer = new Business.Label.Model.ZPLPrinter("10.1.1.21");

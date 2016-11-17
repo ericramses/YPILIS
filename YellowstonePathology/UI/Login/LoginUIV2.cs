@@ -242,18 +242,7 @@ namespace YellowstonePathology.UI.Login
             }            
             
 			return result;
-		}		
-
-        /*public void GetAccessionOrderBySlideOrderId(string slideOrderId)
-        {
-            this.m_AccessionOrder = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAccessionOrderBySlideOrderId(slideOrderId);
-            if (this.m_AccessionOrder != null)
-            {
-                string reportNo = this.m_AccessionOrder.PanelSetOrderCollection[0].ReportNo;
-                this.GetReportSearchListByReportNo(reportNo);
-                this.NotifyPropertyChanged("ReportSearchList");
-            }
-        }*/
+		}		        
 
 		public void NotifyPropertyChanged(String info)
 		{

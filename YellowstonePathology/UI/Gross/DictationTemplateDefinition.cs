@@ -61,7 +61,7 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "Bladder TUR";
             this.m_Text = "[identifier] and consists of [number] irregular ragged tan-pink tissue fragment[?s?] " +
-                "measuring [measurement] [? in aggregate?].  [representativesections].  ";
+                "measuring [measurement] [? in aggregate?]. The specimen is filtered through a fine mesh bag and[cassettesummary].  ";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.BladderTUR turb = new Business.Specimen.Model.SpecimenDefinition.BladderTUR();
             this.m_SpecimenCollection.Add(turb);
@@ -70,7 +70,7 @@ namespace YellowstonePathology.UI.Gross
         public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
-            result = this.ReplaceRepresentativeSections(result, specimenOrder);
+            result = this.ReplaceCassetteSummary(result, specimenOrder);
             return result;
         }
     }
@@ -861,10 +861,10 @@ namespace YellowstonePathology.UI.Gross
             	Environment.NewLine +
                 "Cassette Summary: " + Environment.NewLine +
                 "\"1A\" - Twin A umbilical cord and membranes, " + Environment.NewLine +
-                "\"1B\" - \"1D\" - Twin A central placenta, " + Environment.NewLine +
-            	"\"1E\" - Dividing membranes" + Environment.NewLine +
-            	"\"1F\" -Twin B umbilical cord and membranes" + Environment.NewLine +
-            	"\"1G\" - \"1I\" - Twin B central placenta  ";
+                "\"1B\" - \"1D\" - Twin A central placenta, " + Environment.NewLine +            	
+            	"\"1E\" -Twin B umbilical cord and membranes" + Environment.NewLine +
+                "\"1F\" - \"1I\" - Twin B central placenta" + Environment.NewLine +
+                "[?\"1G\" - Dividing membranes ?]";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.TwinPlacenta twinPlacenta = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.TwinPlacenta();
             this.m_SpecimenCollection.Add(twinPlacenta);

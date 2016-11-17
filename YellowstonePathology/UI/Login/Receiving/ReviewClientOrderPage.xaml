@@ -152,6 +152,7 @@
 							<GridViewColumn Header="Accession Time" DisplayMemberBinding="{Binding Path=AccessionTime, Converter={StaticResource ShortDateTimeConverter}}" Width="120" />
 							<GridViewColumn Header="Last Name" DisplayMemberBinding="{Binding Path=PLastName}" Width="120" />
 							<GridViewColumn Header="First Name" DisplayMemberBinding="{Binding Path=PFirstName}" Width="120" />
+                            <GridViewColumn Header="Birthday" DisplayMemberBinding="{Binding Path=PBirthdate, Converter={StaticResource ShortDateTimeConverter}}" Width="120" />
 							<GridViewColumn Header="Physician" DisplayMemberBinding="{Binding Path=PhysicianName}" Width="120" />
 							<GridViewColumn Header="Client" DisplayMemberBinding="{Binding Path=ClientName}" Width="120" />
 							<GridViewColumn Header="Collection Time" DisplayMemberBinding="{Binding Path=CollectionTime, Converter={StaticResource MilitaryDateTimeConverter}}" Width="120" />

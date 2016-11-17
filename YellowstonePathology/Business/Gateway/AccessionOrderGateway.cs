@@ -1134,7 +1134,7 @@ namespace YellowstonePathology.Business.Gateway
 		{
 			YellowstonePathology.Business.View.RecentAccessionViewCollection result = new View.RecentAccessionViewCollection();
 			SqlCommand cmd = new SqlCommand();
-			cmd.CommandText = "select ao.MasterAccessionNo, pso.ReportNo, ao.PFirstName, ao.PLastName, ao.AccessionTime, ao.ClientName, ao.PhysicianName, ao.CollectionTime " +
+			cmd.CommandText = "select ao.MasterAccessionNo, pso.ReportNo, ao.PFirstName, ao.PLastName, ao.PBirthdate, ao.AccessionTime, ao.ClientName, ao.PhysicianName, ao.CollectionTime " +
 				"from tblAccessionOrder ao " +
 				"left outer join tblPanelSetOrder pso on ao.MasterAccessionNo = pso.MasterAccessionNo " +
 				"where ao.PFirstName = @PFirstName and ao.PLastName = @PLastName and datediff(d, ao.AccessionDate, getdate()) <= 7 ";
@@ -1813,9 +1813,11 @@ namespace YellowstonePathology.Business.Gateway
 		{
             SqlCommand cmd = new SqlCommand("select * from tblTaskOrder where AcknowledgementType = @AcknowledgementType and " +
                 "OrderDate between dateadd(dd, -15, GetDate()) and GetDate() order by OrderDate desc " +
-                "select * from tblTaskOrderDetail where TaskOrderId in(select TaskOrderId from tblTaskOrder where " +
+                "select * from tblTaskOrderDetail tod " +
+                "join tblTaskOrderDetailFedexShipment todf on tod.TaskOrderDetailId = todf.TaskOrderDetailId " +
+                "where TaskOrderId in(select TaskOrderId from tblTaskOrder where " +
                 "AcknowledgementType = @AcknowledgementType and OrderDate between dateadd(dd, -15, GetDate()) and GetDate()) " +
-                "order by TaskOrderDetailId");
+                "order by tod.TaskOrderDetailId");
             cmd.CommandType = CommandType.Text;
             cmd.Parameters.Add("@AcknowledgementType", SqlDbType.VarChar).Value = acknowledgementType;
 			YellowstonePathology.Business.Task.Model.TaskOrderCollection result = BuildTaskOrderCollection(cmd);
@@ -1948,7 +1950,7 @@ namespace YellowstonePathology.Business.Gateway
 		{
             SqlCommand cmd = new SqlCommand("select * from tblTaskOrder where AcknowledgementType = @AcknowledgementType and TaskOrderId in " +
                 "(Select TaskOrderId from tblTaskOrderDetail where Acknowledged = 0 and AssignedTo = @AssignedTo) order by OrderDate desc " +
-                "select * from tblTaskOrderDetail where Acknowledged = 0 and AssignedTo = @AssignedTo order by TaskOrderDetailId");
+                "select * from tblTaskOrderDetail tod join tblTaskOrderDetailFedexShipment todf on tod.TaskOrderDetailId = todf.TaskOrderDetailId where Acknowledged = 0 and AssignedTo = @AssignedTo order by tod.TaskOrderDetailId");
             cmd.CommandType = CommandType.Text;
             cmd.Parameters.Add("@AssignedTo", SqlDbType.VarChar).Value = assignedTo;
             cmd.Parameters.Add("@AcknowledgementType", SqlDbType.VarChar).Value = acknowledgementType;
@@ -1998,8 +2000,15 @@ namespace YellowstonePathology.Business.Gateway
                     while (dr.Read())
                     {
                         Task.Model.TaskOrderDetail taskOrderDetail = new Task.Model.TaskOrderDetail();
+                        string taskId = dr["TaskId"].ToString();
+                        if (dr["TaskId"].ToString() == "FDXSHPMNT")
+                        {
+                            taskOrderDetail = new Task.Model.TaskOrderDetailFedexShipment();
+                        }                        
+
                         Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(taskOrderDetail, dr);
                         sqlDataReaderPropertyWriter.WriteProperties();
+
                         foreach (Task.Model.TaskOrder taskOrder in result)
                         {
                             if (taskOrderDetail.TaskOrderId == taskOrder.TaskOrderId)
