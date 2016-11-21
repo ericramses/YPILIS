@@ -343,15 +343,16 @@ namespace YellowstonePathology.UI.MySql
             }
         }
 
+        private void MenuItemNonpersistentTables_Click(object sender, RoutedEventArgs e)
+        {
+            NonpersistentTableDialog dialog = new NonpersistentTableDialog();
+            dialog.ShowDialog();
+        }
+
         private void GetStatus(MySQLMigration.MigrationStatus migrationStatus)
         {
             this.m_MySQLDatabaseBuilder.GetStatus(migrationStatus);
             this.StatusMessage = "Got Status for " + migrationStatus.Name;
-        }
-
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

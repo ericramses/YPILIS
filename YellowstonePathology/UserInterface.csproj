@@ -3032,6 +3032,10 @@
     <Compile Include="DomainPersistence\XmlPropertyReader.cs" />
     <Compile Include="DomainPersistence\XmlPropertyWriter.cs" />
     <Compile Include="MySQLMigration\MySqlDataReaderPropertyWriter.cs" />
+    <Compile Include="MySQLMigration\NonpersistentColumnDef.cs" />
+    <Compile Include="MySQLMigration\NonpersistentTableDef.cs" />
+    <Compile Include="MySQLMigration\NonpersistentTableDefCollection.cs" />
+    <Compile Include="MySQLMigration\NonpersistentTableDefPanelSet.cs" />
     <Compile Include="UI\AmendmentPage.xaml.cs">
       <DependentUpon>AmendmentPage.xaml</DependentUpon>
     </Compile>
@@ -3283,6 +3287,9 @@
     </Compile>
     <Compile Include="UI\MySql\MySqlMigrationDialog.xaml.cs">
       <DependentUpon>MySqlMigrationDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MySql\NonpersistentTableDialog.xaml.cs">
+      <DependentUpon>NonpersistentTableDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\NHunspell.xaml.cs">
       <DependentUpon>NHunspell.xaml</DependentUpon>
@@ -5179,6 +5186,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\MySql\MySqlMigrationDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\MySql\NonpersistentTableDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

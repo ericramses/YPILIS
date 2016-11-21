@@ -31,6 +31,7 @@
                 <MenuItem Header="Synchronize Data" Click="MenuItemSynchronizeData_Click" Margin="5"></MenuItem>
             </MenuItem>
             <MenuItem Header="Compare/Update Selected Data" Click="MenuItemCompareData_Click" Margin="5"></MenuItem>
+            <MenuItem Header="Nonpersistent Tables ..." Click="MenuItemNonpersistentTables_Click"></MenuItem>
         </Menu>
 
         <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal">
