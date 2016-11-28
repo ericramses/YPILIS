@@ -319,6 +319,9 @@ namespace YellowstonePathology.MySQLMigration
                 {
                     List<string> keys = this.GetDailyLoadDataKeys(migrationStatus);
                     string keyString = this.KeyStringFromList(migrationStatus, keys);
+                    string deleteCmd = "Delete from " + migrationStatus.TableName + " where " + migrationStatus.KeyFieldName + " in (" + keyString + ");";
+                    this.RunCommand(deleteCmd);
+
                     methodResult = this.LoadData(migrationStatus, keyString);
                     YellowstonePathology.Business.Mongo.Gateway.SetTransferDBTS(migrationStatus.TableName);
 
@@ -429,7 +432,8 @@ namespace YellowstonePathology.MySQLMigration
             result = result.Remove(result.Length - 2, 2);
             result.Append(" from ");
             result.Append(migrationStatus.TableName);
-            result.Append(" Where (Transferred is null or Transferred = 0) and ");
+            //result.Append(" Where (Transferred is null or Transferred = 0) and ");
+            result.Append(" Where ");
             result.Append(migrationStatus.KeyFieldName);
             result.Append(" in (");
             result.Append(keys);
@@ -1509,7 +1513,9 @@ namespace YellowstonePathology.MySQLMigration
                     }
                     else
                     {
-                        if (columnDef.ColumnType.ToUpper() == "VARCHAR" || columnDef.ColumnType.ToUpper() == "TEXT")
+                        if (columnDef.ColumnType.ToUpper() == "VARCHAR" || 
+                            columnDef.ColumnType.ToUpper() == "TEXT" ||
+                            columnDef.ColumnType.ToUpper() == "CHAR")
                         {
                             string text = dataTableReader[columnDef.ColumnName].ToString().Replace("'", "''");
                             text = text.Replace("\\", "\\\\");
