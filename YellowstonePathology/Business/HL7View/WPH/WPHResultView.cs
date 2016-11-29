@@ -55,12 +55,7 @@ namespace YellowstonePathology.Business.HL7View.WPH
             WPHHl7Client client = new WPHHl7Client();
             OruR01 messageType = new OruR01();
 
-            string locationCode = "YPIIBILLINGS";
-            if (this.m_AccessionOrder.SvhMedicalRecord.StartsWith("A") == true)
-            {
-                locationCode = "SVHNPATH";
-            }
-
+            string locationCode = "YPIIBILLINGS";            
             WPHMSHView msh = new WPHMSHView(client, messageType, locationCode);
             msh.ToXml(document);
 
@@ -71,9 +66,7 @@ namespace YellowstonePathology.Business.HL7View.WPH
             WPHORCView orc = new WPHORCView(this.m_AccessionOrder.ExternalOrderId, this.m_OrderingPhysician, this.m_AccessionOrder.MasterAccessionNo, OrderStatusEnum.Complete, this.m_AccessionOrder.SystemInitiatingOrder, this.m_SendUnsolicited);
             orc.ToXml(document);
 
-            YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_PanelSetOrder.ReportNo);            
-            
-            //if (panelSetOrder.AmendmentCollection.Count != 0) resultStatus = ResultStatusEnum.Correction;
+            YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_PanelSetOrder.ReportNo);                                   
 
             YellowstonePathology.Business.ClientOrder.Model.UniversalServiceCollection universalServiceIdCollection = YellowstonePathology.Business.ClientOrder.Model.UniversalServiceCollection.GetAll();
             YellowstonePathology.Business.ClientOrder.Model.UniversalService universalService = universalServiceIdCollection.GetByUniversalServiceId(panelSetOrder.UniversalServiceId);
@@ -95,7 +88,7 @@ namespace YellowstonePathology.Business.HL7View.WPH
 
             YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
 			string serverFileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + "\\" + this.m_PanelSetOrder.ReportNo + fileExtension;
-            string interfaceFileName = @"\\YPIIInterface1\ChannelData\Outgoing\WestParkHospital\" + this.m_PanelSetOrder.ReportNo + fileExtension;
+            string interfaceFileName = @"\\YPIIInterface1\ChannelData\Outgoing\WestParkHospital\Prod\" + this.m_PanelSetOrder.ReportNo + fileExtension;
             if (this.m_Testing == true) interfaceFileName = @"\\YPIIInterface1\ChannelData\Outgoing\WestParkHospital\Testing\" + this.m_PanelSetOrder.ReportNo + fileExtension;            
             
             using (System.IO.StreamWriter sw = new System.IO.StreamWriter(serverFileName))

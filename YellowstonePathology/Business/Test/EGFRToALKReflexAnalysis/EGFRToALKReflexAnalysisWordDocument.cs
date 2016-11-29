@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
 
         public override void Render()
         {            
-            this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\EGFRToALKReflexAnalysis.7.xml";
+            this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\EGFRALKROS1PDL.1.xml";
             this.OpenTemplate();
             this.SetDemographicsV2();
             this.SetReportDistribution();
@@ -71,6 +71,26 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
             else
             {
                 base.ReplaceText("ros1_result", "ROS1 not performed");
+            }
+
+            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(215) == true)
+            {
+                YellowstonePathology.Business.Test.PDL1SP142.PDL1SP142TestOrder pdl1sp142TestOrder = (YellowstonePathology.Business.Test.PDL1SP142.PDL1SP142TestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(215);
+                base.ReplaceText("pdl1sp142_result", pdl1sp142TestOrder.StainPercent);
+            }
+            else
+            {
+                this.DeleteRow("pdl1sp142_result");
+            }
+
+            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(245) == true)
+            {
+                YellowstonePathology.Business.Test.PDL122C3.PDL122C3TestOrder pdl122C3TestOrder = (YellowstonePathology.Business.Test.PDL122C3.PDL122C3TestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(245);
+                base.ReplaceText("pdl122c3_result", pdl122C3TestOrder.Result);
+            }
+            else
+            {
+                this.DeleteRow("pdl122c3_result");
             }
 
             base.SetXMLNodeParagraphData("report_interpretation", egfrToALKReflexAnalysisTestOrder.Interpretation);

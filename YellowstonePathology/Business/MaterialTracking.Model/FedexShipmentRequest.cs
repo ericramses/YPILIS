@@ -55,7 +55,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
                 result = new FedexProcessShipmentReply(false);
             }
 
-            return result; ;
+            return result;
         }
 
         private void SetShipementRequestData()
