@@ -998,9 +998,9 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            StringBuilder result = new StringBuilder();
-            Business.Test.AccessionOrder ao = Business.Persistence.DocumentGateway.Instance.PullAccessionOrder("16-16813", this);
-            Business.Persistence.JSONObjectWriter.WriteV2(result, ao);
+            Business.MaterialTracking.Model.FedexLocationSearchRequest fedex = new Business.MaterialTracking.Model.FedexLocationSearchRequest();
+            string result = fedex.LocationSearch();
+            Console.WriteLine(result);
 
             
             //AddAllClients();

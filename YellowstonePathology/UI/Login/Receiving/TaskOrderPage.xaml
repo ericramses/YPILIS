@@ -109,7 +109,11 @@
                             <TextBlock Margin="2,2,2,2">
                                 <Hyperlink Click="HyperLinkDelete_Click" Tag="{Binding Path=.}">Delete</Hyperlink>
                             </TextBlock>
-                            
+
+                            <TextBlock Grid.Column="2" Grid.Row="1" Margin="2,2,2,2">
+                                            <Hyperlink Click="HyperLinkAcknowledge_Click" Tag="{Binding Path=.}">Acknowledge</Hyperlink>
+                            </TextBlock>
+
                         </StackPanel>
 
                     </Grid>

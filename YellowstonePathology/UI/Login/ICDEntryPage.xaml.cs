@@ -137,6 +137,28 @@ namespace YellowstonePathology.UI.Login
                 YellowstonePathology.Business.Billing.Model.ICD9BillingCode icd9BillingCode = (YellowstonePathology.Business.Billing.Model.ICD9BillingCode)this.ListViewICD9BillingCodes.SelectedItem;
                 this.m_AccessionOrder.ICD9BillingCodeCollection.Remove(icd9BillingCode);
             }
-        }          
-	}
+        }
+
+        private void HyperlinkScanICD10_Click(object sender, RoutedEventArgs e)
+        {
+            if(string.IsNullOrEmpty(this.m_AccessionOrder.SpecialInstructions) == false)
+            {
+                for (int i = 0; i < this.ListBoxCodeCategories.Items.Count; i++)
+                {
+                    System.Xml.XmlElement xmlElement = (System.Xml.XmlElement)this.ListBoxCodeCategories.Items[i];
+                    string code = xmlElement.GetAttribute("ICD10");
+                    if (string.IsNullOrEmpty(code) == false)
+                    {
+                        if (this.AccessionOrder.SpecialInstructions.Contains(code))
+                        {
+                            if (this.m_AccessionOrder.ICD9BillingCodeCollection.CodeExists(code) == false)
+                            {
+                                this.AddICD9Code(null, code, 1);
+                            }
+                        }
+                    }
+                }
+            }            
+        }
+    }
 }

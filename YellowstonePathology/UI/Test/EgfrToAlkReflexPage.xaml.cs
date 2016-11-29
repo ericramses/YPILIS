@@ -45,6 +45,7 @@ namespace YellowstonePathology.UI.Test
         private YellowstonePathology.Business.Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHTestOrder m_ALKForNSCLCByFISHTestOrder;
         private YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisTestOrder m_EGFRMutationAnalysisTestOrder;
         private YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisResult m_EGFRToALKReflexAnalysisResult;
+
         private string m_PageHeaderText;
         private string m_OrderedOnDescription;
         private System.Windows.Visibility m_BackButtonVisibility;
@@ -60,7 +61,6 @@ namespace YellowstonePathology.UI.Test
 
 			this.m_EGFRToALKReflexAnalysisTestOrder = testOrder;
             this.m_EGFRToALKReflexAnalysisTestOrder.SetStatus(this.m_AccessionOrder.PanelSetOrderCollection);
-
 
             this.m_EGFRMutationAnalysisTestOrder = (YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(60);
             if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(131) == true)
@@ -158,7 +158,7 @@ namespace YellowstonePathology.UI.Test
 		}
 
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
-		{
+		{            
             YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisWordDocument report = new Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisWordDocument(this.m_AccessionOrder, this.m_EGFRToALKReflexAnalysisTestOrder, Business.Document.ReportSaveModeEnum.Draft);
             report.Render();
 

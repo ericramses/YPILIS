@@ -31,9 +31,9 @@
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <PublishUrl>\\ypiidc\YPIILIS\Application\</PublishUrl>
+    <PublishUrl>ls\</PublishUrl>
     <Install>false</Install>
-    <InstallFrom>Unc</InstallFrom>
+    <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateMode>Foreground</UpdateMode>
     <UpdateInterval>7</UpdateInterval>
@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>246</ApplicationRevision>
+    <ApplicationRevision>257</ApplicationRevision>
     <ApplicationVersion>10.1.6.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -1031,6 +1031,7 @@
     <Compile Include="Business\MaterialTracking.Model\FedexDeleteShipmentReply.cs" />
     <Compile Include="Business\MaterialTracking.Model\FedexProcessShipmentReply.cs" />
     <Compile Include="Business\MaterialTracking.Model\FedexReturnLabelRequest.cs" />
+    <Compile Include="Business\MaterialTracking.Model\FedexLocationSearchRequest.cs" />
     <Compile Include="Business\MaterialTracking.Model\FedexTrackingRequest.cs" />
     <Compile Include="Business\MaterialTracking.Model\FedexShipmentRequest.cs" />
     <Compile Include="Business\MaterialTracking.Model\FedexTrackingResponse.cs" />
@@ -1104,6 +1105,8 @@
     <Compile Include="Business\Test\AMLFavorableRisk\AMLFavorableRiskTest.cs" />
     <Compile Include="Business\Test\AMLPrognosticProfile\AMLPrognosticProfileTest.cs" />
     <Compile Include="Business\Test\BCRABLByFish\BCRABLByFishTestOrder.cs" />
+    <Compile Include="Business\Test\EGFRToALKReflexAnalysis\EGFRToALKReflexAnalysisPDL122C3Result.cs" />
+    <Compile Include="Business\Test\EGFRToALKReflexAnalysis\EGFRToALKReflexAnalysisPDL1SP142Result.cs" />
     <Compile Include="Business\Test\GrossOnly\GrossOnlyTest.cs" />
     <Compile Include="Business\Test\GrossOnly\GrossOnlyTestOrder.cs" />
     <Compile Include="Business\Test\GrossOnly\GrossOnlyWordDocument.cs" />
@@ -4881,6 +4884,7 @@
     <EmbeddedResource Include="Business\MaterialTracking.Model\FedexProcessShipmentRequestReturn.v19.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Business\MaterialTracking.Model\FedexSearchLocationRequest.v1.xml" />
     <Content Include="dll\Interop.FAXCOMEXLib.dll" />
   </ItemGroup>
   <ItemGroup>

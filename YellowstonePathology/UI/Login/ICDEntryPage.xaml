@@ -149,6 +149,7 @@
 					<Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
 						<ColumnDefinition Width="*"></ColumnDefinition>						
 					</Grid.ColumnDefinitions>
                     
@@ -158,11 +159,14 @@
 
                     <TextBlock Grid.Column="0" Grid.Row="0" Margin="10,2,2,2" VerticalAlignment="Center" Text="ICD 10 Code:" />
                     <TextBox Grid.Column="1" Grid.Row="0" Name="TextBoxICD10Code" Margin="2,2,2,2" Width="130"/>
-                    <TextBlock Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" TextAlignment="Left">
+                    <TextBlock Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" TextAlignment="Left" Margin="5,5,5,5">
 				        <Hyperlink Click="HyperlinkAddICDCode_Click">Add</Hyperlink>
-                    </TextBlock>                    
-                    
-				</Grid>
+                    </TextBlock>
+                    <TextBlock Grid.Column="3" Grid.Row="0" HorizontalAlignment="Left" TextAlignment="Right" Margin="5,5,5,5">				        
+                        <Hyperlink Click="HyperlinkScanICD10_Click">Scan For Codes</Hyperlink>
+                    </TextBlock>
+
+                </Grid>
 				
                 <ListView Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" Name="ListViewICD9BillingCodes" ItemsSource="{Binding Path=AccessionOrder.ICD9BillingCodeCollection, Mode=OneWay}"
 						  HorizontalAlignment="Stretch" IsTabStop="False">
