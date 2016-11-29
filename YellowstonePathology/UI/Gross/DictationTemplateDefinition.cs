@@ -242,6 +242,45 @@ namespace YellowstonePathology.UI.Gross
         }
     }
 
+    public class FallopianTubeAndOvariesTemplate : DictationTemplate
+    {
+        public FallopianTubeAndOvariesTemplate()
+        {
+            this.m_TemplateName = "Fallopian Tube and Ovaries Specimen";
+            this.m_Text = "[identifier]." + Environment.NewLine +
+                Environment.NewLine +
+                "Right Fallopian Tube: " + Environment.NewLine +
+                "      Dimensions:  [measurements]([w/wo] fimbriated end)" + Environment.NewLine +
+                "      Surface:  [description/paratubal cysts absent/present]" + Environment.NewLine +
+                "      Inked:  [color]" + Environment.NewLine +
+                "Right Ovary:" + Environment.NewLine +
+                "      Dimensions:  [measurement]" + Environment.NewLine +
+                "      Surface:  [description]" + Environment.NewLine +
+                "      Cut Surface:  [description]" + Environment.NewLine +
+                "Left Fallopian Tube: " + Environment.NewLine +
+                "      Dimensions:  [measurements]([w/wo] fimbriated end)" + Environment.NewLine +
+                "      Surface:  [description/paratubal cysts absent/present]" + Environment.NewLine +
+                "      Inked:  [color]" + Environment.NewLine +
+                "Left Ovary:" + Environment.NewLine +
+                "      Dimensions:  [measurement]" + Environment.NewLine +
+                "      Surface:  [description]" + Environment.NewLine +
+                "      Cut Surface:  [description]" + Environment.NewLine +
+                Environment.NewLine +
+                "[summarysubmission].  ";
+
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.FallopianTubeAndOvaries fallopianTubeAndOvaries = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.FallopianTubeAndOvaries();
+            this.m_SpecimenCollection.Add(fallopianTubeAndOvaries);
+        }
+
+        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        {
+            string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
+            result = this.ReplaceSummarySubmission(result, specimenOrder);
+            return result;
+        }
+    }
+
+
     public class SinusContentTemplate : DictationTemplate
     {
         public SinusContentTemplate()

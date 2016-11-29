@@ -565,7 +565,20 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             }
         }
 
-        public class SinusContent : Specimen
+        public class FallopianTubeAndOvaries : Specimen
+        {
+            public FallopianTubeAndOvaries()
+            {
+                this.m_SpecimenId = "FTOSPCMN";
+                this.m_SpecimenName = "Fallopian Tube and Ovaries";
+                this.m_Description = null;
+                this.m_LabFixation = "Formalin";
+                this.m_ClientFixation = null;
+                this.m_RequiresGrossExamination = true;
+            }
+        }
+
+    public class SinusContent : Specimen
         {
             public SinusContent()
             {
