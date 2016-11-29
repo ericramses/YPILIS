@@ -21,56 +21,6 @@ namespace YellowstonePathology.MySQLMigration
 
         public MySQLDatabaseBuilder()
         {
-            //this.BuildForbiddenWordLists();
-        }
-
-        private string GetMySQLDataType(Type type)
-        {
-
-            string result = null;
-
-            if (type == typeof(string))
-            {
-                result = "TEXT";
-            }
-            else if (type == typeof(int))
-            {
-                result = "INT NOT NULL";
-            }
-            else if (type == typeof(double))
-            {
-                result = "DOUBLE NOT NULL";
-            }
-            else if (type == typeof(Nullable<int>))
-            {
-                result = "INT";
-            }
-            else if (type == typeof(DateTime))
-            {
-                result = "DATETIME(3) NOT NULL";
-            }
-            else if (type == typeof(bool))
-            {
-                result = "BIT(1) NOT NULL";
-            }
-            else if (type == typeof(Nullable<bool>))
-            {
-                result = "BIT(1)";
-            }
-            else if (type == typeof(Nullable<DateTime>))
-            {
-                result = "DATETIME(3)";
-            }
-            else if (type == typeof(double?))
-            {
-                result = "DOUBLE";
-            }
-            else
-            {
-                throw new Exception("This Data Type is Not Implemented: " + type.Name);
-            }
-
-            return result;
         }
 
         public string CreateIndex(string tableName, string columnName)
@@ -193,19 +143,6 @@ namespace YellowstonePathology.MySQLMigration
             if (hasDBTS == false) Business.Mongo.Gateway.AddTransferDBTSAttribute(tableName);
             if (hasTSA == false) Business.Mongo.Gateway.AddTransferStraightAcrossAttribute(tableName, false);
             return methodResult;
-        }
-
-        private PropertyInfo GetPrimaryKey(Type type)
-        {
-            PropertyInfo result = null;
-            PropertyInfo[] primaryKeyProperties = type.GetProperties().
-                Where(prop => Attribute.IsDefined(prop, typeof(Business.Persistence.PersistentPrimaryKeyProperty))).ToArray();
-
-            if (primaryKeyProperties.Length > 0)
-            {
-                result = primaryKeyProperties[0];
-            }
-            return result;
         }
 
         private string GetCreateTableCommand(string tableName, List<PropertyInfo> tableProperties)
@@ -466,14 +403,13 @@ namespace YellowstonePathology.MySQLMigration
                 }
                 else
                 {
-                    string dataType = this.GetMySQLDataType(property.PropertyType);
-                    if (dataType == "TEXT")
+                    if (property.PropertyType == typeof(string))
                     {
                         string text = dr[i].ToString().Replace("'", "''");
                         text = text.Replace("\\", "\\\\");
                         result = result + "'" + text + "', ";
                     }
-                    else if (dataType == "DATETIME(3)" || dataType == "DATETIME(3) NOT NULL")
+                    else if (property.PropertyType == typeof(DateTime) || property.PropertyType == typeof(DateTime?))
                     {
                         DateTime dt = (DateTime)dr[i];
                         result = result + "'" + dt.ToString("yyyy-MM-dd HH:mm:ss.ffffff") + "', ";
@@ -1560,6 +1496,17 @@ namespace YellowstonePathology.MySQLMigration
             string result = "Truncate table " + tableDef.TableName +";";
             return result;
         }
+
+        public Business.Rules.MethodResult RemoveDeletedRows(MigrationStatus migrationStatus)
+        {
+            Business.Rules.MethodResult result = new Business.Rules.MethodResult();
+            if(migrationStatus.MySqlRowCount - migrationStatus.SqlServerTransferredCount > 0)
+            {
+
+            }
+            return result;
+        }
+
 
         #region ReservedWords
 

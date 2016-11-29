@@ -1108,6 +1108,7 @@
     <Compile Include="Business\Test\GrossOnly\GrossOnlyTestOrder.cs" />
     <Compile Include="Business\Test\GrossOnly\GrossOnlyWordDocument.cs" />
     <Compile Include="Business\Test\BrainDonation\BrainDonationTest.cs" />
+    <Compile Include="Business\Test\HPV\HPVWPHObxView.cs" />
     <Compile Include="Business\Test\JAK2V617F\JAK2V617FWPHObxView.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult32.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult42.cs" />
