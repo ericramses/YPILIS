@@ -16,17 +16,17 @@ namespace YellowstonePathology.Business.HL7View.WPH
 					view = new YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FWPHOBXView(accessionOrder, reportNo, obxCount);
                     break;                
                 case 3:
-                    //view = new YellowstonePathology.Business.Test.NGCT.NGCTWPHOBXView(accessionOrder, reportNo, obxCount);
+                    view = new YellowstonePathology.Business.Test.NGCT.NGCTWPHOBXView(accessionOrder, reportNo, obxCount);
 					break;
 				case 46:
-					//view = new YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHWPHOBXView(accessionOrder, reportNo, obxCount);
+					view = new YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHWPHOBXView(accessionOrder, reportNo, obxCount);
                     break;
                 case 13:
                 case 128:
 					view = new YellowstonePathology.Business.Test.Surgical.SurgicalWPHObxView(accessionOrder, reportNo, obxCount);
                     break;
                 case 14:
-					//view = new YellowstonePathology.Business.Test.HPV.HPVWPHOBXView(accessionOrder, reportNo, obxCount);
+					view = new YellowstonePathology.Business.Test.HPV.HPVWPHOBXView(accessionOrder, reportNo, obxCount);
                     break;
                 case 15:
 					view = new YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapWPHOBXView(accessionOrder, reportNo, obxCount);
@@ -41,7 +41,7 @@ namespace YellowstonePathology.Business.HL7View.WPH
 					//view = new YellowstonePathology.Business.Test.KRASStandard.KRASStandardWPHOBXView(accessionOrder, reportNo, obxCount);
                     break;
                 case 20:
-					//view = new YellowstonePathology.Business.Test.LLP.LLPWPHOBXView(accessionOrder, reportNo, obxCount);
+					view = new YellowstonePathology.Business.Test.LLP.LLPWPHOBXView(accessionOrder, reportNo, obxCount);
                     break;
                 case 21:
 					//view = new YellowstonePathology.Business.Test.ThrombocytopeniaProfile.ThrombocytopeniaProfileWPHOBXView(accessionOrder, reportNo, obxCount);
@@ -74,7 +74,7 @@ namespace YellowstonePathology.Business.HL7View.WPH
                     //view = new YellowstonePathology.Business.Test.HPV1618ByPCR.HPV1618ByPCRWPHOBXView(accessionOrder, reportNo, obxCount);
                     break;
                 case 66:
-					//view = new YellowstonePathology.Business.Test.TestCancelled.TestCancelledWPHOBXView(accessionOrder, reportNo, obxCount);
+					view = new YellowstonePathology.Business.Test.TestCancelled.TestCancelledWPHOBXView(accessionOrder, reportNo, obxCount);
                     break;
 				case 100:
 					//view = new YellowstonePathology.Business.Test.BCL1t1114.BCL1t1114WPHOBXView(accessionOrder, reportNo, obxCount);
@@ -89,7 +89,7 @@ namespace YellowstonePathology.Business.HL7View.WPH
 					//view = new YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile.ComprehensiveColonCancerProfileWPHOBXView(accessionOrder, reportNo, obxCount);
 					break;
                 case 116:
-					//view = new YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileWPHOBXView(accessionOrder, reportNo, obxCount);
+					view = new YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileWPHOBXView(accessionOrder, reportNo, obxCount);
                     break;
 				case 124:
 					//view = new YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisWPHOBXView(accessionOrder, reportNo, obxCount);
@@ -122,7 +122,7 @@ namespace YellowstonePathology.Business.HL7View.WPH
 					//view = new YellowstonePathology.Business.Test.LynchSyndrome.MLH1MethylationAnalysisWPHOBXView(accessionOrder, reportNo, obxCount);
 					break;
 				case 145:
-					//view = new YellowstonePathology.Business.Test.ChromosomeAnalysis.ChromosomeAnalysisWPHOBXView(accessionOrder, reportNo, obxCount);
+					view = new YellowstonePathology.Business.Test.ChromosomeAnalysis.ChromosomeAnalysisWPHOBXView(accessionOrder, reportNo, obxCount);
 					break;
 				case 147:
 					//view = new YellowstonePathology.Business.Test.MultipleMyelomaMGUSByFish.MultipleMyelomaMGUSByFishWPHOBXView(accessionOrder, reportNo, obxCount);

@@ -88,7 +88,7 @@ namespace YellowstonePathology.Business.Test.CKIT
 		}
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(true, "500", "null", "varchar")]
+		[PersistentDataColumnProperty(true, "1000", "null", "varchar")]
 		public string TestDevelopment
 		{
 			get { return this.m_TestDevelopment; }

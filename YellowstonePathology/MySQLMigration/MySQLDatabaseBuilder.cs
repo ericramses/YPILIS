@@ -21,56 +21,6 @@ namespace YellowstonePathology.MySQLMigration
 
         public MySQLDatabaseBuilder()
         {
-            //this.BuildForbiddenWordLists();
-        }
-
-        private string GetMySQLDataType(Type type)
-        {
-
-            string result = null;
-
-            if (type == typeof(string))
-            {
-                result = "TEXT";
-            }
-            else if (type == typeof(int))
-            {
-                result = "INT NOT NULL";
-            }
-            else if (type == typeof(double))
-            {
-                result = "DOUBLE NOT NULL";
-            }
-            else if (type == typeof(Nullable<int>))
-            {
-                result = "INT";
-            }
-            else if (type == typeof(DateTime))
-            {
-                result = "DATETIME(3) NOT NULL";
-            }
-            else if (type == typeof(bool))
-            {
-                result = "BIT(1) NOT NULL";
-            }
-            else if (type == typeof(Nullable<bool>))
-            {
-                result = "BIT(1)";
-            }
-            else if (type == typeof(Nullable<DateTime>))
-            {
-                result = "DATETIME(3)";
-            }
-            else if (type == typeof(double?))
-            {
-                result = "DOUBLE";
-            }
-            else
-            {
-                throw new Exception("This Data Type is Not Implemented: " + type.Name);
-            }
-
-            return result;
         }
 
         public string CreateIndex(string tableName, string columnName)
@@ -195,19 +145,6 @@ namespace YellowstonePathology.MySQLMigration
             return methodResult;
         }
 
-        private PropertyInfo GetPrimaryKey(Type type)
-        {
-            PropertyInfo result = null;
-            PropertyInfo[] primaryKeyProperties = type.GetProperties().
-                Where(prop => Attribute.IsDefined(prop, typeof(Business.Persistence.PersistentPrimaryKeyProperty))).ToArray();
-
-            if (primaryKeyProperties.Length > 0)
-            {
-                result = primaryKeyProperties[0];
-            }
-            return result;
-        }
-
         private string GetCreateTableCommand(string tableName, List<PropertyInfo> tableProperties)
         {
             string sqlCommand = "Create Table If Not Exists " + tableName + "(";
@@ -319,6 +256,9 @@ namespace YellowstonePathology.MySQLMigration
                 {
                     List<string> keys = this.GetDailyLoadDataKeys(migrationStatus);
                     string keyString = this.KeyStringFromList(migrationStatus, keys);
+                    string deleteCmd = "Delete from " + migrationStatus.TableName + " where " + migrationStatus.KeyFieldName + " in (" + keyString + ");";
+                    this.RunCommand(deleteCmd);
+
                     methodResult = this.LoadData(migrationStatus, keyString);
                     YellowstonePathology.Business.Mongo.Gateway.SetTransferDBTS(migrationStatus.TableName);
 
@@ -429,7 +369,8 @@ namespace YellowstonePathology.MySQLMigration
             result = result.Remove(result.Length - 2, 2);
             result.Append(" from ");
             result.Append(migrationStatus.TableName);
-            result.Append(" Where (Transferred is null or Transferred = 0) and ");
+            //result.Append(" Where (Transferred is null or Transferred = 0) and ");
+            result.Append(" Where ");
             result.Append(migrationStatus.KeyFieldName);
             result.Append(" in (");
             result.Append(keys);
@@ -462,14 +403,13 @@ namespace YellowstonePathology.MySQLMigration
                 }
                 else
                 {
-                    string dataType = this.GetMySQLDataType(property.PropertyType);
-                    if (dataType == "TEXT")
+                    if (property.PropertyType == typeof(string))
                     {
                         string text = dr[i].ToString().Replace("'", "''");
                         text = text.Replace("\\", "\\\\");
                         result = result + "'" + text + "', ";
                     }
-                    else if (dataType == "DATETIME(3)" || dataType == "DATETIME(3) NOT NULL")
+                    else if (property.PropertyType == typeof(DateTime) || property.PropertyType == typeof(DateTime?))
                     {
                         DateTime dt = (DateTime)dr[i];
                         result = result + "'" + dt.ToString("yyyy-MM-dd HH:mm:ss.ffffff") + "', ";
@@ -550,29 +490,40 @@ namespace YellowstonePathology.MySQLMigration
                 {
                     List<string> updateCommands = new List<string>();
                     List<string> keys = this.GetSyncDataKeyList(migrationStatus);
-                    Business.Rules.MethodResult result = this.CompareData(migrationStatus, keys, updateCommands);
-                    if (result.Success == false)
+                    string deleteKeys = this.KeyStringFromList(migrationStatus, keys);
+                    string deleteCmd = "Delete from " + migrationStatus.TableName + " where " + migrationStatus.KeyFieldName + " in (" + deleteKeys + ");";
+
+                    Business.Rules.MethodResult result = this.RunCommand(deleteCmd);
+                    if (result.Success == true)
                     {
-                        overallResult.Success = false;
-                        overallResult.Message += result.Message;
-                    }
-                    if (updateCommands.Count > 0)
-                    {
-                        result = this.Synchronize(updateCommands);
-                        overallResult.Message += result.Message;
-                        if (result.Success == false)
+                        result = this.LoadData(migrationStatus, deleteKeys);
+                        if(result.Success == true)
+                        {
+                            result = this.CompareData(migrationStatus, keys, updateCommands);
+                            YellowstonePathology.Business.Mongo.Gateway.SetTransferDBTS(migrationStatus.TableName);
+                            if (updateCommands.Count > 0)
+                            {
+                                overallResult.Success = false;
+                                overallResult.Message += "Update failed on " + updateCommands.Count.ToString();
+                            }
+
+                            if(result.Success == false)
+                            {
+                                overallResult.Success = false;
+                                overallResult.Message += result.Message;
+                            }
+                        }
+                        else
                         {
                             overallResult.Success = false;
+                            overallResult.Message += result.Message;
                         }
                     }
-                    List<string> checkCommands = new List<string>();
-                    Business.Rules.MethodResult checkResult = this.CompareData(migrationStatus, keys, checkCommands);
-                    if (checkCommands.Count > 0)
+                    else
                     {
                         overallResult.Success = false;
-                        overallResult.Message += "Update failed on " + checkCommands.Count.ToString();
+                        overallResult.Message += result.Message;
                     }
-                    YellowstonePathology.Business.Mongo.Gateway.SetTransferDBTS(migrationStatus.TableName);
                 }
             }
             return overallResult;
@@ -612,8 +563,9 @@ namespace YellowstonePathology.MySQLMigration
             {
                 migrationStatus.UnLoadedDataCount = this.GetUnloadedDataCount(migrationStatus.TableName);
                 migrationStatus.OutOfSyncCount = this.GetOutOfSyncCount(migrationStatus.TableName);
-                migrationStatus.SqlServerTransferredCount = this.GetSqlServerRowCount(migrationStatus);
-                migrationStatus.MySqlRowCount = this.GetMySqlRowCount(migrationStatus);
+                string cmdString = "Select count(*) from " + migrationStatus.TableName + " where Transferred = 1;";
+                migrationStatus.SqlServerTransferredCount = this.GetSqlServerRowCount(cmdString);
+                migrationStatus.MySqlRowCount = this.GetMySqlRowCount(migrationStatus.TableName);
             }
             else
             {
@@ -1204,11 +1156,10 @@ namespace YellowstonePathology.MySQLMigration
             return overallResult;
         }
 
-        private int GetSqlServerRowCount(MigrationStatus migrationStatus)
+        private int GetSqlServerRowCount(string commandText)
         {
             int result = 0;
-            string key = migrationStatus.PersistentProperties[0].Name;
-            SqlCommand cmd = new SqlCommand("Select count(*) from " + migrationStatus.TableName + " where Transferred = 1");
+            SqlCommand cmd = new SqlCommand(commandText);
             using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
@@ -1224,13 +1175,13 @@ namespace YellowstonePathology.MySQLMigration
             return result;
         }
 
-        private int GetMySqlRowCount(MigrationStatus migrationStatus)
+        private int GetMySqlRowCount(string tableName)
         {
             int result = 0;
             using (MySqlConnection cn = new MySqlConnection(ConnectionString))
             {
                 cn.Open();
-                MySqlCommand cmd = new MySqlCommand("Select count(*) from " + migrationStatus.TableName);
+                MySqlCommand cmd = new MySqlCommand("Select count(*) from " + tableName + ";");
                 cmd.Connection = cn;
 
                 using (MySqlDataReader msdr = cmd.ExecuteReader())
@@ -1248,7 +1199,7 @@ namespace YellowstonePathology.MySQLMigration
         {
             List<string> result = new List<string>();
             SqlCommand cmd = new SqlCommand("Select " + migrationStatus.KeyFieldName + " from " + migrationStatus.TableName + " where " +
-                "ReportNo like '_0[0-5]%' and " +
+                "(ReportNo is null or ReportNo like '16-%') and " +
                 //"orderdate < '10/1/2016' and " +
                 "Transferred = 1 and [TimeStamp] < (SELECT convert(int, ep.value) FROM sys.extended_properties AS ep " +
                 "INNER JOIN sys.tables AS t ON ep.major_id = t.object_id " +
@@ -1311,7 +1262,7 @@ namespace YellowstonePathology.MySQLMigration
         {
             List<string> result = new List<string>();
             SqlCommand cmd = new SqlCommand("Select top (" + countToSelect + ") " + migrationStatus.KeyFieldName + " from " + migrationStatus.TableName + " where " +
-                "ReportNo not like '16%' and " +
+                //"ReportNo  like '_9%' and " +
                 //"orderdate < '10/1/2016' and " +
                 "(Transferred = 0 or Transferred is null) order by 1");
             using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
@@ -1392,6 +1343,170 @@ namespace YellowstonePathology.MySQLMigration
             }
             return result;
         }
+
+        public Business.Rules.MethodResult GetStatus(MySQLMigration.NonpersistentTableDef nonpersistentTableDef)
+        {
+            Business.Rules.MethodResult overallResult = new Business.Rules.MethodResult();
+
+            nonpersistentTableDef.HasTable = this.HasMySqlTable(nonpersistentTableDef.TableName);
+            if (nonpersistentTableDef.HasTable)
+            {
+                string cmdString = "Select count(*) from " + nonpersistentTableDef.TableName + ";";
+                nonpersistentTableDef.SqlServerRowCount = this.GetSqlServerRowCount(cmdString);
+                nonpersistentTableDef.MySqlRowCount = this.GetMySqlRowCount(nonpersistentTableDef.TableName);
+                Business.Rules.MethodResult missingColumnResult = CompareTable(nonpersistentTableDef);
+                nonpersistentTableDef.HasAllColumns = missingColumnResult.Success;
+            }
+
+            return overallResult;
+        }
+
+        public Business.Rules.MethodResult BuildTable(MySQLMigration.NonpersistentTableDef nonpersistentTableDef)
+        {
+            string createPrimaryKeyCommand = this.GetCreatePrimaryKeyCommand(nonpersistentTableDef.TableName, nonpersistentTableDef.KeyField);
+
+            Business.Rules.MethodResult result = this.RunCommand(nonpersistentTableDef.GetCreateTableCommand());
+            if (result.Success == true)
+            {
+                result = this.RunCommand(createPrimaryKeyCommand);
+            }
+            return result;
+        }
+
+        public Business.Rules.MethodResult CompareTable(MySQLMigration.NonpersistentTableDef nonpersistentTableDef)
+        {
+            Business.Rules.MethodResult overallResult = new Business.Rules.MethodResult();
+            List<string> columnNames = this.RunTableQuery(nonpersistentTableDef.TableName);
+            foreach (MySQLMigration.NonpersistentColumnDef columnDef in nonpersistentTableDef.ColumnDefinitions)
+            {
+                bool found = false;
+                foreach (string columnName in columnNames)
+                {
+                    if (columnName == columnDef.ColumnName)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (found == false)
+                {
+                    overallResult.Success = false;
+                    overallResult.Message += columnDef.ColumnName + ", ";
+                }
+            }
+            return overallResult;
+        }
+
+        public Business.Rules.MethodResult AddMissingColumns(MySQLMigration.NonpersistentTableDef nonpersistentTableDef)
+        {
+            Business.Rules.MethodResult overallResult = new Business.Rules.MethodResult();
+            Business.Rules.MethodResult missingColumnResult = this.CompareTable(nonpersistentTableDef);
+            if (missingColumnResult.Success == false)
+            {
+                string columns = missingColumnResult.Message.Replace("Missing columns: ", string.Empty);
+                string[] missingColumns = columns.Split(new string[] { ", " }, StringSplitOptions.RemoveEmptyEntries);
+                foreach (string columnName in missingColumns)
+                {
+                    foreach (MySQLMigration.NonpersistentColumnDef columnDef in nonpersistentTableDef.ColumnDefinitions)
+                    {
+                        if (columnDef.ColumnName == columnName)
+                        {
+                            string command = "ALTER TABLE " + nonpersistentTableDef.TableName + " ADD COLUMN " + columnDef.ColumnDefinition + ";";
+                            Business.Rules.MethodResult columnResult = this.RunCommand(command);
+                            if (columnResult.Success == false)
+                            {
+                                overallResult.Success = false;
+                                overallResult.Message += columnName + ", ";
+                            }
+                            break;
+                        }
+                    }
+                }
+            }
+
+            nonpersistentTableDef.HasAllColumns = overallResult.Success;
+            return overallResult;
+        }
+
+        public Business.Rules.MethodResult LoadNonpersistentData(NonpersistentTableDef tableDef)
+        {
+            this.RunCommand(this.GetTruncateTableStatement(tableDef));
+
+            List<string> insertCommands = new List<string>();
+            Business.Rules.MethodResult overallResult = new Business.Rules.MethodResult();
+            DataTable insertDataTable = this.GetSqlServerData(tableDef.SelectStatement, string.Empty);
+            DataTableReader dataTableReader = new DataTableReader(insertDataTable);
+            while(dataTableReader.Read())
+            {
+                StringBuilder cmdString = new StringBuilder();
+                cmdString.Append(tableDef.InsertColumnsStatement);
+                foreach(NonpersistentColumnDef columnDef in tableDef.ColumnDefinitions)
+                {
+                    if (dataTableReader[columnDef.ColumnName] == DBNull.Value)
+                    {
+                        cmdString.Append("NULL, ");
+                    }
+                    else
+                    {
+                        if (columnDef.ColumnType.ToUpper() == "VARCHAR" || 
+                            columnDef.ColumnType.ToUpper() == "TEXT" ||
+                            columnDef.ColumnType.ToUpper() == "CHAR")
+                        {
+                            string text = dataTableReader[columnDef.ColumnName].ToString().Replace("'", "''");
+                            text = text.Replace("\\", "\\\\");
+                            cmdString.Append("'");
+                            cmdString.Append(text);
+                            cmdString.Append("', ");
+                        }
+                        else if (columnDef.ColumnType.ToUpper() == "DATETIME")
+                        {
+                            DateTime dt = (DateTime)dataTableReader[columnDef.ColumnName];
+                            cmdString.Append("'");
+                            cmdString.Append(dt.ToString("yyyy-MM-dd HH:mm:ss.ffffff"));
+                            cmdString.Append("', ");
+                        }
+                        else
+                        {
+                            cmdString.Append(dataTableReader[columnDef.ColumnName].ToString());
+                            cmdString.Append(", ");
+                        }
+                    }
+                }
+                cmdString.Remove(cmdString.Length - 2, 2);
+                cmdString.Append(");");
+                insertCommands.Add(cmdString.ToString());
+            }
+
+            foreach(string command in insertCommands)
+            {
+                Business.Rules.MethodResult result = this.RunCommand(command);
+                if(result.Success == false)
+                {
+                    overallResult.Success = false;
+                    overallResult.Message += result.Message + Environment.NewLine;
+                }
+            }
+
+            return overallResult;
+        }
+
+        private string GetTruncateTableStatement(NonpersistentTableDef tableDef)
+        {
+            string result = "Truncate table " + tableDef.TableName +";";
+            return result;
+        }
+
+        public Business.Rules.MethodResult RemoveDeletedRows(MigrationStatus migrationStatus)
+        {
+            Business.Rules.MethodResult result = new Business.Rules.MethodResult();
+            if(migrationStatus.MySqlRowCount - migrationStatus.SqlServerTransferredCount > 0)
+            {
+
+            }
+            return result;
+        }
+
 
         #region ReservedWords
 

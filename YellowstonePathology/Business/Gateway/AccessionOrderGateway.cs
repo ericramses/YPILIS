@@ -1321,7 +1321,7 @@ namespace YellowstonePathology.Business.Gateway
 			return result;
 		}
 
-		public static string GetPanelOrderIdsToAcknowledge()
+		/*public static string GetPanelOrderIdsToAcknowledge()
 		{
 			StringBuilder result = new StringBuilder();
 			SqlCommand cmd = new SqlCommand("pGetListOfPanelOrderIdsToAcknowledge");
@@ -1341,7 +1341,7 @@ namespace YellowstonePathology.Business.Gateway
 
 			if (result.Length > 0) result = result.Remove(result.Length - 1, 1);
 			return result.ToString();
-		}
+		}*/
 
         public static YellowstonePathology.Business.Test.PantherAliquotList GetPantherOrdersNotAliquoted()
         {

@@ -70,7 +70,7 @@ namespace YellowstonePathology.Business.Persistence
             }
         }
 
-        private bool ColumnExists(string name)
+        /*private bool ColumnExists(string name)
         {
             try
             {
@@ -81,6 +81,21 @@ namespace YellowstonePathology.Business.Persistence
             {
                 return false;
             }
+        }*/
+
+        private bool ColumnExists(string name)
+        {
+            bool result = false;
+            for(int idx = 0; idx < this.m_SqlDataReader.FieldCount; idx++)
+            {
+                string fieldName = this.m_SqlDataReader.GetName(idx);
+                if(fieldName == name)
+                {
+                    result = true;
+                    break;
+                }
+            }
+            return result;
         }
 
         private void WriteString(PropertyInfo property)

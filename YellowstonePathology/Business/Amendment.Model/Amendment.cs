@@ -96,16 +96,19 @@ namespace YellowstonePathology.Business.Amendment.Model
             get
             {
                 string text = string.Empty;
-                if (this.Text.Length > 100)
+                if (this.m_Text != null)
                 {
-                    text = this.Text.Substring(0, 100);
+                    if (this.Text.Length > 100)
+                    {
+                        text = this.Text.Substring(0, 100);
+                    }
+                    else
+                    {
+                        text = this.Text;
+                    }
+                    text = text.Replace('\n', ' ');
+                    text = text.Replace('\r', ' ');
                 }
-                else
-                {
-                    text = this.Text;
-                }
-                text = text.Replace('\n', ' ');
-                text = text.Replace('\r', ' ');
                 return text;
             }
         }

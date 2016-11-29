@@ -616,7 +616,9 @@ namespace YellowstonePathology.Business.Test
 			}
 		}
 
-		public string SecondaryInsurance
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "'Not Selected'", "varchar")]
+        public string SecondaryInsurance
 		{
 			get { return this.m_SecondaryInsurance; }
 			set
