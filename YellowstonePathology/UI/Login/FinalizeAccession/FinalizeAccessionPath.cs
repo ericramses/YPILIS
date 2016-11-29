@@ -191,7 +191,12 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 return true;
             }
 
-            if(this.m_AccessionOrder.ClientId == 1260)
+            if(this.m_AccessionOrder.PanelSetOrderCollection.HasGrossBeenOrdered())
+            {
+                return true;
+            }
+
+            if (this.m_AccessionOrder.ClientId == 1260)
             {
                 return true;
             }

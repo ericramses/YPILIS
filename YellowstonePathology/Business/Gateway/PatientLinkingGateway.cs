@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business.Gateway
 		public static ObservableCollection<YellowstonePathology.Business.Patient.Model.PatientLinkingListItem> GetPatientLinkingList(YellowstonePathology.Business.Patient.Model.PatientLinkingListItem patientLinkingListItem)
 		{
 			ObservableCollection<YellowstonePathology.Business.Patient.Model.PatientLinkingListItem> result = new ObservableCollection<Patient.Model.PatientLinkingListItem>();
-			SqlCommand cmd = new SqlCommand("pGetPatientLinking");
+			SqlCommand cmd = new SqlCommand("pGetPatientLinkingV2");
 			cmd.CommandType = CommandType.StoredProcedure;
 
 			cmd.Parameters.Add("@MasterAccessionNo", SqlDbType.VarChar).Value = patientLinkingListItem.MasterAccessionNo;

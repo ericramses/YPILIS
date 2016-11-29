@@ -279,6 +279,10 @@ namespace YellowstonePathology.Business.Client.Model
                         this.AddTestOrderReportDistribution(panelSetOrder, this.m_PhysicianId, this.m_PhysicianName, this.m_ClientId, this.m_ClientName, YellowstonePathology.Business.ReportDistribution.Model.DistributionType.ATHENA, this.FaxNumber, this.LongDistance);
                     }
                 }
+                else
+                {
+                    this.HandleAddFaxDistribution(panelSetOrder);
+                }
             }            
             return result;
         }

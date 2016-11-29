@@ -10,13 +10,17 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
         private EGFRToALKReflexAnalysisEGFRResult m_EGFRToALKReflexAnalysisEGFRResult;
         private EGFRToALKReflexAnalysisALKResult m_EGFRToALKReflexAnalysisALKResult;
         private EGFRToALKReflexAnalysisROS1Result m_EGFRToALKReflexAnalysisROS1RResult;
+        private EGFRToALKReflexAnalysisPDL1SP142Result m_EGFRToALKReflexAnalysisPDL1SP142Result;
+        private EGFRToALKReflexAnalysisPDL122C3Result m_EGFRToALKReflexAnalysisPDL122C3Result;
 
         public EGFRToALKReflexAnalysisResult(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, 
             YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisTestOrder egfrToALKReflexAnalysisTestOrder)
         {
             this.m_EGFRToALKReflexAnalysisEGFRResult = new EGFRToALKReflexAnalysisEGFRResult(accessionOrder);
-            this.m_EGFRToALKReflexAnalysisALKResult = new EGFRToALKReflexAnalysisALKResult(accessionOrder, this.m_EGFRToALKReflexAnalysisEGFRResult.EGFRMutationAnalysisResult, egfrToALKReflexAnalysisTestOrder);
-            this.m_EGFRToALKReflexAnalysisROS1RResult = new EGFRToALKReflexAnalysisROS1Result(accessionOrder, this.m_EGFRToALKReflexAnalysisEGFRResult.EGFRMutationAnalysisResult, egfrToALKReflexAnalysisTestOrder);
+            this.m_EGFRToALKReflexAnalysisALKResult = new EGFRToALKReflexAnalysisALKResult(accessionOrder);
+            this.m_EGFRToALKReflexAnalysisROS1RResult = new EGFRToALKReflexAnalysisROS1Result(accessionOrder);
+            this.m_EGFRToALKReflexAnalysisPDL1SP142Result = new EGFRToALKReflexAnalysisPDL1SP142Result(accessionOrder);
+            this.m_EGFRToALKReflexAnalysisPDL122C3Result = new EGFRToALKReflexAnalysisPDL122C3Result(accessionOrder);
         }
 
         public EGFRToALKReflexAnalysisEGFRResult EGFRToALKReflexAnalysisEGFRResult
@@ -32,6 +36,16 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
         public EGFRToALKReflexAnalysisROS1Result EGFRToALKReflexAnalysisROS1Result
         {
             get { return this.m_EGFRToALKReflexAnalysisROS1RResult; }
+        }
+
+        public EGFRToALKReflexAnalysisPDL1SP142Result EGFRToALKReflexAnalysisPDL1SP142Result
+        {
+            get { return this.m_EGFRToALKReflexAnalysisPDL1SP142Result; }
+        }
+
+        public EGFRToALKReflexAnalysisPDL122C3Result EGFRToALKReflexAnalysisPDL122C3Result
+        {
+            get { return this.m_EGFRToALKReflexAnalysisPDL122C3Result; }
         }
     }
 }
