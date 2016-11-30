@@ -328,6 +328,17 @@ namespace YellowstonePathology.UI.MySql
             this.SetStatusMessage(overallResult);
         }
 
+        private void MenuItemRemoveUnneededData_Click(object sender, RoutedEventArgs e)
+        {
+            this.StatusMessage = "Working on it.";
+            Business.Rules.MethodResult overallResult = new Business.Rules.MethodResult();
+            foreach (MySQLMigration.MigrationStatus migrationStatus in this.ListViewMigrationStatus.SelectedItems)
+            {
+                this.m_MySQLDatabaseBuilder.RemoveDeletedRowsFromMySql(migrationStatus);
+            }
+            this.SetStatusMessage(overallResult);
+        }
+
         private void MenuItemCompareData_Click(object sender, RoutedEventArgs e)
         {
             this.StatusMessage = "Working on it.";

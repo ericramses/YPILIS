@@ -1497,16 +1497,76 @@ namespace YellowstonePathology.MySQLMigration
             return result;
         }
 
-        public Business.Rules.MethodResult RemoveDeletedRows(MigrationStatus migrationStatus)
+        public Business.Rules.MethodResult RemoveDeletedRowsFromMySql(MigrationStatus migrationStatus)
         {
             Business.Rules.MethodResult result = new Business.Rules.MethodResult();
-            if(migrationStatus.MySqlRowCount - migrationStatus.SqlServerTransferredCount > 0)
+            int mismatchCount = migrationStatus.MySqlRowCount - migrationStatus.SqlServerTransferredCount;
+            if(mismatchCount > 0)
             {
-
+                bool needsTic = migrationStatus.KeyFieldProperty.PropertyType == typeof(string);
+                List<string> keys = this.GetMySqlKeyList(migrationStatus.TableName, migrationStatus.KeyFieldName, needsTic);
+                foreach(string key in keys)
+                {
+                    if(this.SqlServerHasRow(migrationStatus.TableName, migrationStatus.KeyFieldName, key) == false)
+                    {
+                        string cmd = "Delete from " + migrationStatus.TableName + " where " + migrationStatus.KeyFieldName + " = " + key + ";";
+                        this.RunCommand(cmd);
+                        mismatchCount -= 1;
+                        if (mismatchCount == 0) break;
+                    }
+                }
             }
             return result;
         }
 
+        private List<string> GetMySqlKeyList(string tableName, string keyField, bool needsTic)
+        {
+            List<string> keys = new List<string>();
+            StringBuilder selectStatement = new StringBuilder();
+            selectStatement.Append("select ");
+            if (needsTic) selectStatement.Append("quote(");
+            selectStatement.Append(keyField);
+            if (needsTic) selectStatement.Append(") " + keyField);
+            selectStatement.Append(" from ");
+            selectStatement.Append(tableName);
+            selectStatement.Append(" order by 1 desc;");
+            using (MySqlConnection cn = new MySqlConnection(ConnectionString))
+            {
+                cn.Open();
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.Connection = cn;
+                cmd.CommandText = selectStatement.ToString();
+
+                using (MySqlDataReader msdr = cmd.ExecuteReader())
+                {
+                    while (msdr.Read())
+                    {
+                        keys.Add(msdr[0].ToString());
+                    }
+                }
+            }
+            return keys;
+        }
+
+        private bool SqlServerHasRow(string tableName, string keyField, string keyValue)
+        {
+            bool result = true;
+            SqlCommand cmd = new SqlCommand("select count(*) from " + tableName + " where " + keyField + " = " + keyValue);
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        result = dr[0].ToString() == "0" ? false : true;
+                    }
+                }
+            }
+            return result;
+
+        }
 
         #region ReservedWords
 
