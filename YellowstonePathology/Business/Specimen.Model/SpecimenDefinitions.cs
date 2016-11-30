@@ -583,8 +583,8 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             public SinusContent()
             {
                 this.m_SpecimenId = "SCSPCMN";
-                this.m_SpecimenName = "Sinus Content";
-                this.m_Description = "[Right/Left] sinus content";
+                this.m_SpecimenName = "Sinus Contents";
+                this.m_Description = "[Right/Left] sinus contents";
                 this.m_LabFixation = "Formalin";
                 this.m_ClientFixation = null;
                 this.m_RequiresGrossExamination = true;
