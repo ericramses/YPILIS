@@ -3046,9 +3046,13 @@
     <Compile Include="MySQLMigration\NonpersistentTableDef.cs" />
     <Compile Include="MySQLMigration\NonpersistentTableDefCollection.cs" />
     <Compile Include="MySQLMigration\NonpersistentTableDefCytologyDiagnosis.cs" />
+    <Compile Include="MySQLMigration\NonpersistentTableDefFlowCommentV2.cs" />
+    <Compile Include="MySQLMigration\NonpersistentTableDefMarkers.cs" />
     <Compile Include="MySQLMigration\NonpersistentTableDefPanelSet.cs" />
     <Compile Include="MySQLMigration\NonpersistentTableDefStVincent.cs" />
     <Compile Include="MySQLMigration\NonpersistentTableDefTest.cs" />
+    <Compile Include="MySQLMigration\NonpersistentTableDefWebServiceAccount.cs" />
+    <Compile Include="MySQLMigration\NonpersistentTableDefWebServiceAccountClient.cs" />
     <Compile Include="UI\AmendmentPage.xaml.cs">
       <DependentUpon>AmendmentPage.xaml</DependentUpon>
     </Compile>
