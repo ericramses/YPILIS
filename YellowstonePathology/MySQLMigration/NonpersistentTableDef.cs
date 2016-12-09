@@ -20,10 +20,14 @@ namespace YellowstonePathology.MySQLMigration
         private int m_SqlServerRowCount;
         private int m_MySqlRowCount;
         protected List<NonpersistentColumnDef> m_ColumnDefinitions;
+        protected TableIndexCollection m_TableIndexCollection;
+        protected TableForeignKeyCollection m_TableForeignKeyCollection;
 
         public NonpersistentTableDef()
         {
             this.m_ColumnDefinitions = new List<NonpersistentColumnDef>();
+            this.m_TableIndexCollection = new TableIndexCollection();
+            m_TableForeignKeyCollection = new TableForeignKeyCollection();
         }
 
         public void NotifyPropertyChanged(String info)
@@ -96,6 +100,26 @@ namespace YellowstonePathology.MySQLMigration
             {
                 this.m_MySqlRowCount = value;
                 NotifyPropertyChanged("MySqlRowCount");
+            }
+        }
+
+        public TableIndexCollection TableIndexCollection
+        {
+            get { return this.m_TableIndexCollection; }
+            set
+            {
+                this.m_TableIndexCollection = value;
+                NotifyPropertyChanged("TableIndexCollection");
+            }
+        }
+
+        public TableForeignKeyCollection TableForeignKeyCollection
+        {
+            get { return this.m_TableForeignKeyCollection; }
+            set
+            {
+                this.m_TableForeignKeyCollection = value;
+                NotifyPropertyChanged("TableForeignKeyCollection");
             }
         }
 

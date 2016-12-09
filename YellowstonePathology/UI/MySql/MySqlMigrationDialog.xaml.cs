@@ -22,9 +22,6 @@ namespace YellowstonePathology.UI.MySql
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private int m_RepeatCount;
-        private int m_CurrentCount;
-
         private MySQLMigration.MigrationStatusCollection m_MigrationStatusCollection;
         private YellowstonePathology.MySQLMigration.MySQLDatabaseBuilder m_MySQLDatabaseBuilder;
         private string m_NumberOfTimesToQuery;
@@ -193,6 +190,54 @@ namespace YellowstonePathology.UI.MySql
             {
                 MySQLMigration.MigrationStatus migrationStatus = (MySQLMigration.MigrationStatus)this.ListViewMigrationStatus.SelectedItems[0];
                 this.AddMissingColumnsToSingleTable(migrationStatus);
+            }
+            else
+            {
+                MessageBox.Show("Select a class.");
+            }
+        }
+
+        private void MenuItemAddIndexes_Click(object sender, RoutedEventArgs e)
+        {
+            this.StatusMessage = "Working on it.";
+            if (this.ListViewMigrationStatus.SelectedItems.Count > 0)
+            {
+                Business.Rules.MethodResult overallResult = new Business.Rules.MethodResult();
+
+                foreach (MySQLMigration.MigrationStatus migrationStatus in this.ListViewMigrationStatus.SelectedItems)
+                {
+                    Business.Rules.MethodResult methodResult = m_MySQLDatabaseBuilder.AddMissingIndexes(migrationStatus);
+                    if (methodResult.Success == false)
+                    {
+                        overallResult.Success = false;
+                        overallResult.Message += methodResult.Message;
+                    }
+                }
+                this.SetStatusMessage(overallResult);
+            }
+            else
+            {
+                MessageBox.Show("Select a class.");
+            }
+        }
+
+        private void MenuItemAddForeignKeys_Click(object sender, RoutedEventArgs e)
+        {
+            this.StatusMessage = "Working on it.";
+            if (this.ListViewMigrationStatus.SelectedItems.Count > 0)
+            {
+                Business.Rules.MethodResult overallResult = new Business.Rules.MethodResult();
+
+                foreach (MySQLMigration.MigrationStatus migrationStatus in this.ListViewMigrationStatus.SelectedItems)
+                {
+                    Business.Rules.MethodResult methodResult = m_MySQLDatabaseBuilder.AddMissingForeignKeys(migrationStatus);
+                    if (methodResult.Success == false)
+                    {
+                        overallResult.Success = false;
+                        overallResult.Message += methodResult.Message;
+                    }
+                }
+                this.SetStatusMessage(overallResult);
             }
             else
             {

@@ -1147,6 +1147,8 @@
     <Compile Include="Business\XPSDocument\Result\Xps\AccessionOrderDataSheetV2.cs" />
     <Compile Include="Business\XPSDocument\Result\Xps\ClientSupplyOrderReportV2.cs" />
     <Compile Include="MySQLMigration\DataRowComparer.cs" />
+    <Compile Include="MySQLMigration\IndexedColumn.cs" />
+    <Compile Include="MySQLMigration\IndexedColumnCollection.cs" />
     <Compile Include="MySQLMigration\MigrationStatus.cs" />
     <Compile Include="MySQLMigration\MigrationStatusCollection.cs" />
     <Compile Include="MySQLMigration\MySQLDatabaseBuilder.cs" />
@@ -3053,6 +3055,10 @@
     <Compile Include="MySQLMigration\NonpersistentTableDefTest.cs" />
     <Compile Include="MySQLMigration\NonpersistentTableDefWebServiceAccount.cs" />
     <Compile Include="MySQLMigration\NonpersistentTableDefWebServiceAccountClient.cs" />
+    <Compile Include="MySQLMigration\TableForeignKey.cs" />
+    <Compile Include="MySQLMigration\TableForeignKeyCollection.cs" />
+    <Compile Include="MySQLMigration\TableIndex.cs" />
+    <Compile Include="MySQLMigration\TableIndexCollection.cs" />
     <Compile Include="UI\AmendmentPage.xaml.cs">
       <DependentUpon>AmendmentPage.xaml</DependentUpon>
     </Compile>
