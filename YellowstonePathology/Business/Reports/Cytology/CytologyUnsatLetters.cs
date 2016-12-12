@@ -50,7 +50,7 @@ namespace YellowstonePathology.Business.Reports.Cytology
 
         private void FillData()
         {
-            using (SqlConnection cn = new SqlConnection(BaseData.SqlConnectionString))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;                

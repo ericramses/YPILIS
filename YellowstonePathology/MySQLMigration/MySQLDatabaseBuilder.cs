@@ -137,11 +137,11 @@ namespace YellowstonePathology.MySQLMigration
         public Business.Rules.MethodResult AddDBTS(string tableName)
         {
             Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
-            bool hasDBTS = Business.Mongo.Gateway.HasTransferDBTSAttribute(tableName);
-            bool hasTSA = Business.Mongo.Gateway.HasTransferTransferStraightAcrossAttribute(tableName);
+            bool hasDBTS = MySQLDatabaseBuilder.HasTransferDBTSAttribute(tableName);
+            bool hasTSA = MySQLDatabaseBuilder.HasTransferTransferStraightAcrossAttribute(tableName);
 
-            if (hasDBTS == false) Business.Mongo.Gateway.AddTransferDBTSAttribute(tableName);
-            if (hasTSA == false) Business.Mongo.Gateway.AddTransferStraightAcrossAttribute(tableName, false);
+            if (hasDBTS == false) MySQLDatabaseBuilder.AddTransferDBTSAttribute(tableName);
+            if (hasTSA == false) MySQLDatabaseBuilder.AddTransferStraightAcrossAttribute(tableName, false);
             return methodResult;
         }
 
@@ -241,7 +241,7 @@ namespace YellowstonePathology.MySQLMigration
 
                     }
 
-                    YellowstonePathology.Business.Mongo.Gateway.SetTransferDBTS(migrationStatus.TableName);
+                    MySQLDatabaseBuilder.SetTransferDBTS(migrationStatus.TableName);
                 }
             }
             return methodResult;
@@ -260,7 +260,7 @@ namespace YellowstonePathology.MySQLMigration
                     this.RunMySqlCommand(deleteCmd);
 
                     methodResult = this.LoadData(migrationStatus, keyString);
-                    YellowstonePathology.Business.Mongo.Gateway.SetTransferDBTS(migrationStatus.TableName);
+                    MySQLDatabaseBuilder.SetTransferDBTS(migrationStatus.TableName);
 
                     List<string> checkCommands = new List<string>();
                     Business.Rules.MethodResult checkResult = this.CompareData(migrationStatus, keys, checkCommands);
@@ -500,7 +500,7 @@ namespace YellowstonePathology.MySQLMigration
                         if(result.Success == true)
                         {
                             result = this.CompareData(migrationStatus, keys, updateCommands);
-                            YellowstonePathology.Business.Mongo.Gateway.SetTransferDBTS(migrationStatus.TableName);
+                            MySQLDatabaseBuilder.SetTransferDBTS(migrationStatus.TableName);
                             if (updateCommands.Count > 0)
                             {
                                 overallResult.Success = false;
@@ -552,10 +552,10 @@ namespace YellowstonePathology.MySQLMigration
 
         public void GetStatus(MigrationStatus migrationStatus)
         {
-            migrationStatus.HasTimestampColumn = Business.Mongo.Gateway.HasSQLTimestamp(migrationStatus.TableName);
+            migrationStatus.HasTimestampColumn = MySQLDatabaseBuilder.HasSQLTimestamp(migrationStatus.TableName);
             migrationStatus.HasTransferredColumn = this.TableHasTransferColumn(migrationStatus.TableName);
-            bool hasDBTS = Business.Mongo.Gateway.HasTransferDBTSAttribute(migrationStatus.TableName);
-            bool hasTSA = Business.Mongo.Gateway.HasTransferTransferStraightAcrossAttribute(migrationStatus.TableName);
+            bool hasDBTS = MySQLDatabaseBuilder.HasTransferDBTSAttribute(migrationStatus.TableName);
+            bool hasTSA = MySQLDatabaseBuilder.HasTransferTransferStraightAcrossAttribute(migrationStatus.TableName);
             migrationStatus.HasDBTS = hasDBTS && hasTSA;
 
             migrationStatus.HasTable = this.HasMySqlTable(migrationStatus.TableName);
@@ -1786,6 +1786,153 @@ namespace YellowstonePathology.MySQLMigration
             }
             return result;
         }
+
+
+
+
+        public static bool HasTransferDBTSAttribute(string tableName)
+        {
+            bool result = false;
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "SELECT objtype, objname, name, value " +
+                "FROM fn_listextendedproperty('TransferDBTS' " +
+                ",'schema', 'dbo' " +
+                ",'table', '" + tableName + "'" +
+                ",'column', 'TimeStamp');";
+            cmd.CommandType = CommandType.Text;
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                var value = cmd.ExecuteScalar();
+                if (value != null) result = true;
+            }
+
+            return result;
+        }
+
+        public static bool HasTransferTransferStraightAcrossAttribute(string tableName)
+        {
+            bool result = false;
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "SELECT objtype, objname, name, value " +
+                "FROM fn_listextendedproperty('TransferStraightAcross' " +
+                ",'schema', 'dbo' " +
+                ",'table', '" + tableName + "'" +
+                ",'column', 'TimeStamp');";
+            cmd.CommandType = CommandType.Text;
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                var value = cmd.ExecuteScalar();
+                if (value != null) result = true;
+            }
+
+            return result;
+        }
+
+        public static bool HasSQLTimestamp(string tableName)
+        {
+            bool result = false;
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "select * from sys.columns where Name = N'Timestamp' and Object_ID = Object_ID(N'" + tableName + "')";
+            cmd.CommandType = CommandType.Text;
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                var value = cmd.ExecuteScalar();
+                if (value != null) result = true;
+            }
+
+            return result;
+        }
+
+        public static void AddTransferDBTSAttribute(string tableName)
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "EXEC sys.sp_addextendedproperty @name = N'TransferDBTS',  " +
+                "@value = null,  " +
+                "@level0type = N'SCHEMA', @level0name = dbo, " +
+                "@level1type = N'TABLE',  @level1name = " + tableName + ", " +
+                "@level2type = N'COLUMN', @level2name = [Timestamp];";
+
+            cmd.CommandType = CommandType.Text;
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public static void AddTransferStraightAcrossAttribute(string tableName, bool result)
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "EXEC sys.sp_addextendedproperty @name = N'TransferStraightAcross',  " +
+                "@value = '" + result.ToString() + "',  " +
+                "@level0type = N'SCHEMA', @level0name = dbo, " +
+                "@level1type = N'TABLE',  @level1name = " + tableName + ", " +
+                "@level2type = N'COLUMN', @level2name = [Timestamp];";
+
+            cmd.CommandType = CommandType.Text;
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public static void AddSQLTimestampColumn(string tableName)
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "IF NOT EXISTS(SELECT * FROM INFORMATION_SCHEMA.COLUMNS " +
+                "WHERE TABLE_NAME = '" + tableName + "' AND COLUMN_NAME = 'Timestamp') " +
+                "BEGIN " +
+                "ALTER TABLE [dbo].[" + tableName + "] ADD " +
+                "[Timestamp] Timestamp NULL " +
+                "END";
+
+            cmd.CommandType = CommandType.Text;
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public static void SetTransferDBTS(string tableName)
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "EXECUTE sp_updateextendedproperty " +
+                "'TransferDBTS', " +
+                "@@DBTS, " +
+                "'SCHEMA', 'dbo', " +
+                "'TABLE', '" + tableName + "', " +
+                "'COLUMN', 'TimeStamp'";
+
+            cmd.CommandType = CommandType.Text;
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                cmd.ExecuteNonQuery();
+            }
+        }
+
 
         #region ReservedWords
 

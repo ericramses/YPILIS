@@ -64,25 +64,5 @@ namespace YellowstonePathology.Business
                 }
             }            
         }  
-      
-        
-
-        /*private System.Xml.Linq.XElement ExcuteCommand(SqlCommand cmd)
-        {
-            System.Xml.Linq.XElement result = null;
-
-            using (SqlConnection cn = new SqlConnection("Data Source=TestSQL;Initial Catalog=YPIData;Integrated Security=True"))
-            {
-                cn.Open();
-                cmd.Connection = cn;
-                using (System.Xml.XmlReader xmlReader = cmd.ExecuteXmlReader())
-                {
-                    xmlReader.Read();
-                    result = System.Xml.Linq.XElement.Load(xmlReader);
-                }
-            }
-
-            return result;
-        }*/
     }
 }

@@ -679,8 +679,8 @@ namespace YellowstonePathology.UI
 
 		private void MenuItemDatabase_Click(object sender, RoutedEventArgs e)
 		{
-			YellowstonePathology.UI.Common.DatabaseSelection dlg = new YellowstonePathology.UI.Common.DatabaseSelection();
-			dlg.ShowDialog();
+			//YellowstonePathology.UI.Common.DatabaseSelection dlg = new YellowstonePathology.UI.Common.DatabaseSelection();
+			//dlg.ShowDialog();
 		}
 
 		private void MenuItemValidate_Click(object sender, RoutedEventArgs e)
@@ -821,12 +821,6 @@ namespace YellowstonePathology.UI
         {
             YellowstonePathology.UI.Monitor.MonitorPath monitorPath = new Monitor.MonitorPath();
             monitorPath.Show(YellowstonePathology.UI.Monitor.MonitorPageLoadEnum.PendingTestMonitor);            
-        }
-
-        private void MenuItemMongoMigration_Click(object sender, RoutedEventArgs e)
-        {
-            YellowstonePathology.UI.Mongo.MongoMigrationWindow mongoMigrationWindow = new Mongo.MongoMigrationWindow();
-            mongoMigrationWindow.ShowDialog();
         }
 
         private void MenuItemClientSupplyOrders_Click(object sender, RoutedEventArgs e)

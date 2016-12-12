@@ -12,8 +12,6 @@ namespace YellowstonePathology.Business.Gateway
 {    
     public class ClientOrderGateway
     {
-        private static string ServerSqlConnectionString = "Data Source=TestSQL;Initial Catalog=YPIData;Integrated Security=True";        
-
         public static YellowstonePathology.Business.ClientOrder.Model.OrderBrowserListItemCollection GetOrderBrowserListItemsByOrderDate(DateTime orderDate)
         {
             YellowstonePathology.Business.ClientOrder.Model.OrderBrowserListItemCollection resultCollection = new YellowstonePathology.Business.ClientOrder.Model.OrderBrowserListItemCollection();
@@ -26,7 +24,7 @@ namespace YellowstonePathology.Business.Gateway
             cmd.Parameters.Add("@OrderDate", SqlDbType.DateTime).Value = orderDate;
             cmd.CommandType = System.Data.CommandType.Text;
 
-            using (SqlConnection cn = new SqlConnection(ServerSqlConnectionString))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;
@@ -56,7 +54,7 @@ namespace YellowstonePathology.Business.Gateway
             
             cmd.CommandType = System.Data.CommandType.Text;
 
-            using (SqlConnection cn = new SqlConnection(ServerSqlConnectionString))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;
@@ -99,7 +97,7 @@ namespace YellowstonePathology.Business.Gateway
 
             cmd.CommandType = System.Data.CommandType.Text;
 
-            using (SqlConnection cn = new SqlConnection(ServerSqlConnectionString))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;
@@ -130,7 +128,7 @@ namespace YellowstonePathology.Business.Gateway
 
 			cmd.CommandType = System.Data.CommandType.Text;
 
-			using (SqlConnection cn = new SqlConnection(ServerSqlConnectionString))
+			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{
 				cn.Open();
 				cmd.Connection = cn;
@@ -168,7 +166,7 @@ namespace YellowstonePathology.Business.Gateway
 
 			cmd.CommandType = System.Data.CommandType.Text;
 
-			using (SqlConnection cn = new SqlConnection(ServerSqlConnectionString))
+			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{
 				cn.Open();
 				cmd.Connection = cn;
@@ -224,7 +222,7 @@ namespace YellowstonePathology.Business.Gateway
 
             YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection clientOrderCollection = new YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection();
 
-            using (SqlConnection cn = new SqlConnection(ServerSqlConnectionString))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;
@@ -249,7 +247,7 @@ namespace YellowstonePathology.Business.Gateway
 
             YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = null;
 
-            using (SqlConnection cn = new SqlConnection(ServerSqlConnectionString))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;
@@ -281,7 +279,7 @@ namespace YellowstonePathology.Business.Gateway
 
             YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection clientOrderCollection = new YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection();
 
-            using (SqlConnection cn = new SqlConnection(ServerSqlConnectionString))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;
@@ -304,7 +302,7 @@ namespace YellowstonePathology.Business.Gateway
 
             YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection clientOrderCollection = new YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection();
 
-            using (SqlConnection cn = new SqlConnection(ServerSqlConnectionString))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;
@@ -327,7 +325,7 @@ namespace YellowstonePathology.Business.Gateway
 
             YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection clientOrderCollection = new YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection();
 
-			using (SqlConnection cn = new SqlConnection(ServerSqlConnectionString))
+			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{
 				cn.Open();
 				cmd.Connection = cn;
@@ -353,7 +351,7 @@ namespace YellowstonePathology.Business.Gateway
 
             YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection clientOrderCollection = new YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection();
 
-            using (SqlConnection cn = new SqlConnection(ServerSqlConnectionString))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;
@@ -383,7 +381,7 @@ namespace YellowstonePathology.Business.Gateway
 
             YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection clientOrderCollection = new YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection();
 
-            using (SqlConnection cn = new SqlConnection(ServerSqlConnectionString))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;
@@ -411,7 +409,7 @@ namespace YellowstonePathology.Business.Gateway
 
             string result = null;
 
-            using (SqlConnection cn = new SqlConnection(ServerSqlConnectionString))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;
@@ -433,7 +431,7 @@ namespace YellowstonePathology.Business.Gateway
 
             YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection clientOrderCollection = new YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection();
 
-            using (SqlConnection cn = new SqlConnection(ServerSqlConnectionString))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;
@@ -459,7 +457,7 @@ namespace YellowstonePathology.Business.Gateway
 		public static string GetContainerIdByLast12Characters(string last12Characters)
 		{
 			string result = string.Empty;
-			using (SqlConnection cn = new SqlConnection(ServerSqlConnectionString))
+			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{
 				cn.Open();
 				SqlCommand cmd = new SqlCommand("Select ContainerId from tblClientOrderDetail where ContainerId like '%' + @Last12Characters");
@@ -486,7 +484,7 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.CommandType = CommandType.Text;
 			cmd.Parameters.Add("@ClientId", SqlDbType.Int).Value = clientId;
 
-			using (SqlConnection cn = new SqlConnection(ServerSqlConnectionString))
+			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{
 				cn.Open();
 				cmd.Connection = cn;
@@ -521,7 +519,7 @@ namespace YellowstonePathology.Business.Gateway
             shipmentReturnResult.Shipment = shipment;
             shipmentReturnResult.ClientOrderDetailCollection = clientOrderDetailCollection;
 
-			using (SqlConnection cn = new SqlConnection(ServerSqlConnectionString))
+			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{
 				cn.Open();
 				cmd.Connection = cn;
@@ -596,7 +594,7 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.CommandType = System.Data.CommandType.Text;
 			cmd.Parameters.Add("@ContainerId", SqlDbType.VarChar).Value = containerId;
 			cmd.Parameters.Add("@ClientOrderDetailId", SqlDbType.VarChar).Value = clientOrderDetailId;
-			using (SqlConnection cn = new SqlConnection(ServerSqlConnectionString))
+			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{
 				cn.Open();
 				cmd.Connection = cn;
@@ -714,7 +712,7 @@ namespace YellowstonePathology.Business.Gateway
         public static YellowstonePathology.Business.ClientOrder.Model.ClientOrderDetail BuildClientOrderDetail(SqlCommand cmd)
         {
             YellowstonePathology.Business.ClientOrder.Model.ClientOrderDetail clientOrderDetail = null; 
-            using (SqlConnection cn = new SqlConnection(ServerSqlConnectionString))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;
@@ -756,7 +754,7 @@ namespace YellowstonePathology.Business.Gateway
 		private static YellowstonePathology.Business.ClientOrder.Model.OrderTypeCollection BuildOrderTypeCollection(SqlCommand cmd)
 		{
             YellowstonePathology.Business.ClientOrder.Model.OrderTypeCollection orderTypeCollection = new YellowstonePathology.Business.ClientOrder.Model.OrderTypeCollection();
-			using (SqlConnection cn = new SqlConnection(ServerSqlConnectionString))
+			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{
 				cn.Open();
 				cmd.Connection = cn;
@@ -778,7 +776,7 @@ namespace YellowstonePathology.Business.Gateway
 		private static YellowstonePathology.Business.ClientOrder.Model.OrderCategoryCollection BuildOrderCategoryCollection(SqlCommand cmd)
 		{
             YellowstonePathology.Business.ClientOrder.Model.OrderCategoryCollection orderCategoryCollection = new YellowstonePathology.Business.ClientOrder.Model.OrderCategoryCollection();
-			using (SqlConnection cn = new SqlConnection(ServerSqlConnectionString))
+			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{
 				cn.Open();
 				cmd.Connection = cn;

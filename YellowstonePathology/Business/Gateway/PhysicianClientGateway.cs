@@ -29,9 +29,6 @@ namespace YellowstonePathology.Business.Gateway
 
 		public static Domain.Physician GetPhysicianByNpi(string npi)
 		{
-#if MONGO
-			return PhysicianClientGatewayMongo.GetPhysicianByNpi(npi);
-#else
 			Domain.Physician result = null;
 			if (string.IsNullOrEmpty(npi) == false && npi != "0")
 			{
@@ -42,21 +39,16 @@ namespace YellowstonePathology.Business.Gateway
 				result = PhysicianClientGateway.GetPhysicianFromCommand(cmd);
 			}
 			return result;
-#endif
 		}
 
 		public static Domain.Physician GetPhysicianByPhysicianId(int physicianId)
 		{
-#if MONGO
-            return PhysicianClientGatewayMongo.GetPhysicianByPhysicianId(physicianId);
-#else
 			SqlCommand cmd = new SqlCommand();
 			cmd.CommandText = "SELECT * FROM tblPhysician where PhysicianId = @PhysicianId";
 			cmd.CommandType = CommandType.Text;
 			cmd.Parameters.Add("@PhysicianId", SqlDbType.Int).Value = physicianId;
 			Domain.Physician result = PhysicianClientGateway.GetPhysicianFromCommand(cmd);
 			return result;
-#endif
 		}
 
 		private static Domain.Physician GetPhysicianFromCommand(SqlCommand cmd)
@@ -82,9 +74,6 @@ namespace YellowstonePathology.Business.Gateway
         
 		public static Domain.PhysicianCollection GetPhysiciansByName(string firstName, string lastName)
 		{
-#if MONGO
-			return PhysicianClientGatewayMongo.GetPhysiciansByName(firstName, lastName);
-#else
 			SqlCommand cmd = new SqlCommand();
 			cmd.CommandType = CommandType.Text;
 			if(string.IsNullOrEmpty(firstName))
@@ -121,13 +110,12 @@ namespace YellowstonePathology.Business.Gateway
 				result = PhysicianClientGateway.GetPhysicianCollectionFromCommand(cmd);
 			}
 			return result;
-#endif
 		}        		
 
 		private static Domain.PhysicianCollection GetPhysicianCollectionFromCommand(SqlCommand cmd)
 		{
 			Domain.PhysicianCollection result = new Domain.PhysicianCollection();
-			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.BaseData.SqlConnectionString))
+			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{
 				cn.Open();
 				cmd.Connection = cn;
@@ -147,9 +135,6 @@ namespace YellowstonePathology.Business.Gateway
 
         public static YellowstonePathology.Business.Client.Model.ClientGroupCollection GetClientGroupCollection()
         {
-#if MONGO
-            return PhysicianClientGatewayMongo.GetClientGroupCollection();
-#else
             YellowstonePathology.Business.Client.Model.ClientGroupCollection result = new Client.Model.ClientGroupCollection();
             SqlCommand cmd = new SqlCommand("select * from tblClientGroup order by GroupName");
             cmd.CommandType = CommandType.Text;            
@@ -170,7 +155,6 @@ namespace YellowstonePathology.Business.Gateway
                 }
             }
             return result;
-#endif
         }
 
         /*private static XElement GetXElementFromCommand(SqlCommand cmd)
@@ -193,9 +177,6 @@ namespace YellowstonePathology.Business.Gateway
 
         public static YellowstonePathology.Business.Client.Model.Client GetClientByClientId(int clientId)
 		{
-#if MONGO
-            return PhysicianClientGatewayMongo.GetClientByClientId(clientId);
-#else
             /*SqlCommand cmd = new SqlCommand();
             cmd.CommandText = "SELECT c.*, (SELECT * from tblClientLocation where ClientId = c.ClientId for xml path('ClientLocation'), type) ClientLocationCollection " +
                 " FROM tblClient c where c.ClientId = @ClientId for xml Path('Client'), type";
@@ -215,14 +196,10 @@ namespace YellowstonePathology.Business.Gateway
             clientBuilderV2.Build(cmd);
             Client.Model.Client result = clientBuilderV2.Client;
             return result;
-#endif
 		}
 
 		public static YellowstonePathology.Business.Client.Model.ClientCollection GetClientsByClientName(string clientName)
         {
-#if MONGO
-			return PhysicianClientGatewayMongo.GetClientsByClientName(clientName);
-#else
             /*SqlCommand cmd = new SqlCommand();
             cmd.CommandText = "SELECT c.*, (SELECT * from tblClientLocation where ClientId = c.ClientId order by Location for xml path('ClientLocation'), type) ClientLocationCollection " +
                 "FROM tblClient c where c.ClientName like @ClientName + '%' order by ClientName for xml Path('Client'), Root('ClientCollection'), type";
@@ -238,7 +215,6 @@ namespace YellowstonePathology.Business.Gateway
             cmd.Parameters.Add("@ClientName", SqlDbType.VarChar).Value = clientName;
             Client.Model.ClientCollection result = BuildClientCollection(cmd);
             return result;
-#endif
         }
 
         public static YellowstonePathology.Business.Client.Model.ClientCollection GetAllClients()
@@ -291,7 +267,7 @@ namespace YellowstonePathology.Business.Gateway
         /*private static View.PhysicianClientView BuildPhysicianClientView(SqlCommand cmd)
         {
             View.PhysicianClientView result = new View.PhysicianClientView();
-            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;
@@ -319,9 +295,6 @@ namespace YellowstonePathology.Business.Gateway
 
         public static View.ClientLocationViewCollection GetClientLocationViewByClientName(string clientName)
 		{
-#if MONGO
-			return PhysicianClientGatewayMongo.GetClientLocationViewByClientName(clientName);
-#else
             /*SqlCommand cmd = new SqlCommand();
             cmd.CommandText = "select c.ClientId, c.ClientName, cl.ClientLocationId, cl.Location from tblClientLocation cl join tblClient c on cl.ClientId = c.ClientId where c.ClientName like @ClientName + '%' Order By 2, 4 " +
                 "for xml path('ClientLocationView'), type, root('ClientLocationViewCollection')";
@@ -340,7 +313,7 @@ namespace YellowstonePathology.Business.Gateway
             cmd.Parameters.Add("@ClientName", SqlDbType.VarChar).Value = clientName;
             View.ClientLocationViewCollection result = new View.ClientLocationViewCollection();
 
-            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.BaseData.SqlConnectionString))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;
@@ -357,7 +330,6 @@ namespace YellowstonePathology.Business.Gateway
             }
 
             return result;
-#endif
 		}
 
         public static Domain.Physician GetPhysicianById(string objectId)
@@ -448,7 +420,7 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.Parameters.Add("@ProviderId", SqlDbType.VarChar).Value = providerId;
 			cmd.Parameters.Add("@ClientId", SqlDbType.Int).Value = clientId;
 
-			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.BaseData.SqlConnectionString))
+			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{
 				cn.Open();
 				cmd.Connection = cn;
@@ -530,7 +502,7 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.Parameters.Add("@ClientName", SqlDbType.VarChar).Value = clientName;
 			cmd.Parameters.Add("@PhysicianName", SqlDbType.VarChar).Value = physicianName;
 
-			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.BaseData.SqlConnectionString))
+			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{
 				cn.Open();
 				cmd.Connection = cn;
@@ -559,7 +531,7 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.CommandType = CommandType.Text;
 			cmd.Parameters.Add("@PhysicianClientId", SqlDbType.VarChar).Value = physicianClientId;
 
-			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.BaseData.SqlConnectionString))
+			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{
 				cn.Open();
 				cmd.Connection = cn;
@@ -589,7 +561,7 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.CommandType = CommandType.Text;
 			cmd.Parameters.Add("@LastName", SqlDbType.VarChar).Value = physicianLastName;
 
-			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.BaseData.SqlConnectionString))
+			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{
 				cn.Open();
 				cmd.Connection = cn;
@@ -621,7 +593,7 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.CommandType = CommandType.Text;
 			cmd.Parameters.Add("@PhysicianClientId", SqlDbType.VarChar).Value = physicianClientId;
 
-			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.BaseData.SqlConnectionString))
+			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{
 				cn.Open();
 				cmd.Connection = cn;
@@ -650,7 +622,7 @@ namespace YellowstonePathology.Business.Gateway
 				" select c.* from tblClient c join tblPhysicianClient pc on c.ClientId = pc.ClientId where pc.ProviderId = @ObjectId order by ClientName";
 			cmd.CommandType = CommandType.Text;
 			cmd.Parameters.Add("@ObjectId", SqlDbType.VarChar).Value = physicianId;
-            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;

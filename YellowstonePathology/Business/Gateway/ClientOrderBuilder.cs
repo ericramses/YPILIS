@@ -9,8 +9,6 @@ namespace YellowstonePathology.Business.Gateway
 {
     public class ClientOrderBuilder
     {
-        private static string ServerSqlConnectionString = "Data Source=TestSQL;Initial Catalog=YPIData;Integrated Security=True";
-
         SqlCommand m_Command;
         SqlConnection m_Connection;
         SqlDataReader m_DataReader;
@@ -19,7 +17,7 @@ namespace YellowstonePathology.Business.Gateway
         public ClientOrderBuilder(SqlCommand cmd)
         {
             this.m_Command = cmd;
-            this.m_Connection = new SqlConnection(ServerSqlConnectionString);
+            this.m_Connection = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString);
             this.m_Connection.Open();
             this.m_Command.Connection = this.m_Connection;
             this.m_DataReader = this.m_Command.ExecuteReader();
@@ -29,7 +27,7 @@ namespace YellowstonePathology.Business.Gateway
         {
             this.m_ClientOrder = clientOrder;
             this.m_Command = cmd;
-            this.m_Connection = new SqlConnection(ServerSqlConnectionString);
+            this.m_Connection = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString);
             this.m_Connection.Open();
             this.m_Command.Connection = this.m_Connection;
             this.m_DataReader = this.m_Command.ExecuteReader();

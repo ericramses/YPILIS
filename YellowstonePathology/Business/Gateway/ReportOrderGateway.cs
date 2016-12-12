@@ -29,7 +29,7 @@ namespace YellowstonePathology.Business.Gateway
 
 		public static void UpdateReportOrderAbsoluteCD4Count(YellowstonePathology.Business.Test.AbsoluteCD4Count.AbsoluteCD4CountTestOrder reportOrderAbsoluteCD4Count)
         {
-            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.CurrentConnectionString))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 SqlCommand cmd = new SqlCommand();
@@ -49,7 +49,7 @@ namespace YellowstonePathology.Business.Gateway
 		private static YellowstonePathology.Business.Test.MolecularAnalysis.MolecularAnalysisTestOrder BuildReportOrderMolecularAnalysis(string reportNo)
         {
 			YellowstonePathology.Business.Test.MolecularAnalysis.MolecularAnalysisTestOrder reportMolecularAnalysis = null;
-            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.CurrentConnectionString))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 SqlCommand cmd = new SqlCommand();
@@ -77,7 +77,7 @@ namespace YellowstonePathology.Business.Gateway
 		private static YellowstonePathology.Business.Test.FishAnalysis.FishAnalysisTestOrder BuildReportOrderFishAnalysis(string reportNo)
         {
 			YellowstonePathology.Business.Test.FishAnalysis.FishAnalysisTestOrder reportFishAnalysis = null;
-            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.CurrentConnectionString))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 SqlCommand cmd = new SqlCommand();
@@ -105,7 +105,7 @@ namespace YellowstonePathology.Business.Gateway
 		private static YellowstonePathology.Business.Test.AbsoluteCD4Count.AbsoluteCD4CountTestOrder BuildReportOrderAbsoluteCD4Count(string reportNo)
         {
 			YellowstonePathology.Business.Test.AbsoluteCD4Count.AbsoluteCD4CountTestOrder reportAbsoluteCD4Count = null;
-            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.CurrentConnectionString))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 SqlCommand cmd = new SqlCommand();

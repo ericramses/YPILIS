@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     Title="Database Selection" Height="160" Width="180" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow">
     <Grid>
-		<Grid.ColumnDefinitions>
+<!--		<Grid.ColumnDefinitions>
 			<ColumnDefinition></ColumnDefinition>
 		</Grid.ColumnDefinitions>
 		<Grid.RowDefinitions>
@@ -20,5 +20,5 @@
 				<RadioButton Margin="10,3,3,3" Tag="Development" Click="RadioButton_Click" IsEnabled="{Binding Path=PasswordOK}" IsChecked="{Binding Path=DevelopmentSelected}">Development</RadioButton>
 				<Button Margin="25, 10, 25, 2" Click="ButtonOK_Click">Cancel</Button>
 			</StackPanel>
-    </Grid>
+-->    </Grid>
 </Window>

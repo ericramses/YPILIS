@@ -811,7 +811,6 @@
     <Compile Include="Business\Gateway\AccessionOrderBuilder.cs" />
     <Compile Include="Business\Gateway\AccessionOrderBuilderV2.cs" />
     <Compile Include="Business\Gateway\AccessionOrderGateway.cs" />
-    <Compile Include="Business\Gateway\AccessionOrderGatewayMongo.cs" />
     <Compile Include="Business\Gateway\AccessionSlideOrderViewBuilder.cs" />
     <Compile Include="Business\Gateway\AOSaveResult.cs" />
     <Compile Include="Business\Gateway\BillingGateway.cs" />
@@ -821,11 +820,9 @@
     <Compile Include="Business\Gateway\ClientOrderGateway.cs" />
     <Compile Include="Business\Gateway\CytologyScreeningSearchGateway.cs" />
     <Compile Include="Business\Gateway\FlowGateway.cs" />
-    <Compile Include="Business\Gateway\FlowGatewayMongo.cs" />
     <Compile Include="Business\Gateway\OrderCommentGateway.cs" />
     <Compile Include="Business\Gateway\PatientLinkingGateway.cs" />
     <Compile Include="Business\Gateway\PhysicianClientGateway.cs" />
-    <Compile Include="Business\Gateway\PhysicianClientGatewayMongo.cs" />
     <Compile Include="Business\Gateway\ReportDistributionGateway.cs" />
     <Compile Include="Business\Gateway\ReportOrderGateway.cs" />
     <Compile Include="Business\Gateway\ReportSearchGateway.cs" />
@@ -1044,29 +1041,6 @@
     <Compile Include="Business\MaterialTracking.Model\MaterialTrackingScannedItemView.cs" />
     <Compile Include="Business\MaterialTracking.Model\MaterialTrackingScannedItemViewCollection.cs" />
     <Compile Include="Business\MolecularTesting\CaseList.cs" />
-    <Compile Include="Business\Mongo\AOTransferBuilder.cs" />
-    <Compile Include="Business\Mongo\BSONBuilder.cs" />
-    <Compile Include="Business\Mongo\BSONDRBuilder.cs" />
-    <Compile Include="Business\Mongo\BSONObjectBuilder.cs" />
-    <Compile Include="Business\Mongo\BSONPropertyWriter.cs" />
-    <Compile Include="Business\Mongo\ClientTransferBuilder.cs" />
-    <Compile Include="Business\Mongo\CompoundBsonDocumentBuilder.cs" />
-    <Compile Include="Business\Mongo\CytologyTransfer.cs" />
-    <Compile Include="Business\Mongo\DocumentCollectionTracker.cs" />
-    <Compile Include="Business\Mongo\DocumentStatusEnum.cs" />
-    <Compile Include="Business\Mongo\DocumentTracker.cs" />
-    <Compile Include="Business\Mongo\Gateway.cs" />
-    <Compile Include="Business\Mongo\LocalServer.cs" />
-    <Compile Include="Business\Mongo\MongoTestServer.cs" />
-    <Compile Include="Business\Mongo\PSOCytologyTransferBuilder.cs" />
-    <Compile Include="Business\Mongo\PSOSurgicalTransferBuilder.cs" />
-    <Compile Include="Business\Mongo\PSOTransferBuilder.cs" />
-    <Compile Include="Business\Mongo\Server.cs" />
-    <Compile Include="Business\Mongo\SurgicalTransfer.cs" />
-    <Compile Include="Business\Mongo\TestServer.cs" />
-    <Compile Include="Business\Mongo\Transfer.cs" />
-    <Compile Include="Business\Mongo\TransferCollection.cs" />
-    <Compile Include="Business\Mongo\ValueHelper.cs" />
     <Compile Include="Business\Monitor.Model\CytologyScreening.cs" />
     <Compile Include="Business\Monitor.Model\CytologyScreeningCollection.cs" />
     <Compile Include="Business\Monitor.Model\Distribution.cs" />
@@ -3288,16 +3262,6 @@
     <Compile Include="UI\MaterialTracking\FedXTrackingPage.xaml.cs">
       <DependentUpon>FedXTrackingPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Mongo\ClassHelper.cs" />
-    <Compile Include="UI\Mongo\MongoMigrationWindow.xaml.cs">
-      <DependentUpon>MongoMigrationWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Mongo\ProcessRunner.cs" />
-    <Compile Include="UI\Mongo\SQLGateway.cs" />
-    <Compile Include="UI\Mongo\Testing.cs" />
-    <Compile Include="UI\Mongo\TransferWindow.xaml.cs">
-      <DependentUpon>TransferWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UI\Monitor\AutopsyRequestMonitorPage.xaml.cs">
       <DependentUpon>AutopsyRequestMonitorPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -5191,14 +5155,6 @@
     <Page Include="UI\MaterialTracking\FedXTrackingPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\Mongo\MongoMigrationWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\Mongo\TransferWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Monitor\AutopsyRequestMonitorPage.xaml" />
     <Page Include="UI\Monitor\MissingInformationMonitorPage.xaml">

@@ -277,9 +277,9 @@ namespace YellowstonePathology.UI.MySql
                 {
                     if(migrationStatus.HasTimestampColumn == false)
                     {
-                        Business.Mongo.Gateway.AddSQLTimestampColumn(migrationStatus.TableName);
-                        Business.Mongo.Gateway.AddTransferDBTSAttribute(migrationStatus.TableName);
-                        Business.Mongo.Gateway.AddTransferStraightAcrossAttribute(migrationStatus.TableName, false);
+                        MySQLMigration.MySQLDatabaseBuilder.AddSQLTimestampColumn(migrationStatus.TableName);
+                        MySQLMigration.MySQLDatabaseBuilder.AddTransferDBTSAttribute(migrationStatus.TableName);
+                        MySQLMigration.MySQLDatabaseBuilder.AddTransferStraightAcrossAttribute(migrationStatus.TableName, false);
                     }
                     this.StatusMessage = "Timestamp Column added.";
                 }

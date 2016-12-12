@@ -8,7 +8,7 @@ namespace YellowstonePathology.Business
 {
     public class LabAlert
     {
-        string SoundFileName = @"C:\Chimes.Wav";
+        /*string SoundFileName = @"C:\Chimes.Wav";
         System.Timers.Timer m_Timer;
 
         [System.Runtime.InteropServices.DllImport("winmm.DLL", EntryPoint = "PlaySound", SetLastError = true)]
@@ -40,7 +40,7 @@ namespace YellowstonePathology.Business
         void m_Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             System.Windows.MessageBox.Show("asdf");            
-            using (SqlConnection cn = new SqlConnection("Data Source = TestSQL; Initial Catalog = YPIData; Integrated Security = True"))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 SqlCommand cmd = new SqlCommand();
@@ -55,6 +55,6 @@ namespace YellowstonePathology.Business
                     }
                 }
             }
-        }
+        }*/
     }
 }
