@@ -25,11 +25,9 @@ namespace YellowstonePathology.Business.Test.PDL1SP142
 
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.PDL1SP142.PDL1SP142TestOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.PDL1SP142.PDL1SP142WordDocument).AssemblyQualifiedName;			
+            //updated 12.14.16 by MS;
 
-            string taskDescription = "Give block to Flow for sendout.";
-			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.Task(YellowstonePathology.Business.Task.Model.TaskAssignment.Histology, taskDescription));
-
-            string task2Description = "Receive block from Histology and send to Neo for testing.";
+            string task2Description = "Collect paraffin block from Histology and send to Neo.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskFedexShipment(YellowstonePathology.Business.Task.Model.TaskAssignment.Flow, task2Description, new Facility.Model.NeogenomicsIrvine()));
 
             YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88342(), 1);
