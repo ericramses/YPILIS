@@ -1103,6 +1103,10 @@
     <Compile Include="Business\Test\RASRAFPanel\RASRAFCMMCNTEView.cs" />
     <Compile Include="Business\Test\ROS1ByFISH\ROS1ByFISHPositiveResult.cs" />
     <Compile Include="Business\Test\IRF4F\IRF4FTest.cs" />
+    <Compile Include="Business\Test\TCellNKProfile\TCellNKProfileEPICOBXView.cs" />
+    <Compile Include="Business\Test\TCellNKProfile\TCellNKProfileTest.cs" />
+    <Compile Include="Business\Test\TCellNKProfile\TCellNKProfileTestOrder.cs" />
+    <Compile Include="Business\Test\TCellNKProfile\TCellNKProfileWordDocument.cs" />
     <Compile Include="Business\Test\TestCancelled\TestCancelledWPHOBXView.cs" />
     <Compile Include="Business\Test\ThinPrepPap\ThinPrepPapWPHOBXView.cs" />
     <Compile Include="Business\Test\TP63F\TP63FTest.cs" />
@@ -3802,6 +3806,10 @@
       <DependentUpon>RUNX1RUNX1T1AML1ETOTranslocationResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Test\RUNX1RUNX1T1AML1ETOTranslocationResultPath.cs" />
+    <Compile Include="UI\Test\TCellNKProfileResultPage.xaml.cs">
+      <DependentUpon>TCellNKProfileResultPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Test\TCellNKProfileResultPath.cs" />
     <Compile Include="UI\Test\TCellRecepterBetaGeneRearrangementResultPage.xaml.cs" />
     <Compile Include="UI\Test\TCellRecepterBetaGeneRearrangementResultPath.cs" />
     <Compile Include="UI\Test\TCellSubsetAnalysisResultPage.xaml.cs">
@@ -5679,6 +5687,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\Test\RUNX1RUNX1T1AML1ETOTranslocationResultPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Test\TCellNKProfileResultPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
