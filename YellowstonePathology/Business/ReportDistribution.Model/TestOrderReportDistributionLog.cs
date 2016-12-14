@@ -29,6 +29,10 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
         private string m_Comment;
         private Nullable<DateTime> m_TimeDistributed;
 
+        // these 2 properties added to allow ws_ stored procedures to work
+        private bool m_CaseDistributed;
+        private DateTime? m_DateDistributed;
+
         public TestOrderReportDistributionLog()
         {
 
@@ -38,6 +42,7 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
 		{
 			this.m_TestOrderReportDistributionLogId = testOrderReportDistributionLogId;
 			this.m_ObjectId = objectId;
+            this.m_CaseDistributed = false;
 		}
 
         public void FromTestOrderReportDistribution(TestOrderReportDistribution testOrderReportDistribution)
@@ -47,7 +52,7 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
             this.m_PhysicianName = testOrderReportDistribution.PhysicianName;
             this.m_ClientId = testOrderReportDistribution.ClientId;
             this.m_ClientName = testOrderReportDistribution.ClientName;
-            this.m_DistributionType = testOrderReportDistribution.DistributionType;            
+            this.m_DistributionType = testOrderReportDistribution.DistributionType;
         }
 
 		[PersistentDocumentIdProperty()]
@@ -213,7 +218,38 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
 					this.NotifyPropertyChanged("ErrorInDistribution");
 				}
 			}
-		}			
+		}
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "1", "'0'", "tinyint")]
+        public bool CaseDistributed
+        {
+            get { return this.m_CaseDistributed; }
+            set
+            {
+                if (this.m_CaseDistributed != value)
+                {
+                    this.m_CaseDistributed = value;
+                    this.NotifyPropertyChanged("CaseDistributed");
+                }
+            }
+        }
+
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "3", "null", "datetime")]
+        public DateTime? DateDistributed
+        {
+            get { return this.m_DateDistributed; }
+            set
+            {
+                if (this.m_DateDistributed != value)
+                {
+                    this.m_DateDistributed = value;
+                    this.NotifyPropertyChanged("DateDistributed");
+                }
+            }
+        }
 
         public void NotifyPropertyChanged(String info)
         {

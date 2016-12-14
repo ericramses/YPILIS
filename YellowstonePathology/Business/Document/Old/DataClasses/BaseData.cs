@@ -13,7 +13,7 @@ namespace YellowstonePathology.Business.Document.Old.DataClasses
         public DataSet GetDataSetFromSqlStatementsWithHistory(ArrayList sqlStatements, ArrayList tableNames, string reportNo)
         {
             DataSet dataSet = new DataSet();
-			SqlConnection cn = new SqlConnection(Properties.Settings.Default.CurrentConnectionString);
+			SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString);
             cn.Open();
 
             SqlCommand cmd = new SqlCommand();

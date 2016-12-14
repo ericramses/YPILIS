@@ -297,6 +297,9 @@ namespace YellowstonePathology.UI.Test
                 case 238:
                     result = new GrossOnlyResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
+                case 247:
+                    result = new TCellNKProfileResultPath(reportNo, accessionOrder, pageNavigator, window);
+                    break;
             }
             return result;
         }

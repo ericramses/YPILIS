@@ -88,7 +88,7 @@ namespace YellowstonePathology.Business
                 sql = sql.Remove(sql.Length - 2, 1);
                 sql += "Where " + tableAttribute.KeyFieldName + " = @" + tableAttribute.KeyFieldName;                
 
-                using (SqlConnection cn = new SqlConnection(BaseData.SqlConnectionString))
+                using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
                 {                    
                     cn.Open();
                     cmd.Connection = cn;
@@ -134,7 +134,7 @@ namespace YellowstonePathology.Business
                 fieldList = fieldList.Remove(fieldList.Length - 2, 1);
                 valueList = valueList.Remove(valueList.Length - 2, 1);
                 sql += "(" + fieldList + ") values (" + valueList + ") ";                
-                using (SqlConnection cn = new SqlConnection(BaseData.SqlConnectionString))
+                using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
                 {                    
                     cn.Open();
                     cmd.Connection = cn;
@@ -376,7 +376,7 @@ namespace YellowstonePathology.Business
                     text = text + "\n" + line;
                 }
 
-                using (SqlConnection cn = new SqlConnection(BaseData.SqlConnectionString))
+                using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
                 {
                     cn.Open();
                     SqlCommand cmd = new SqlCommand();
@@ -398,7 +398,7 @@ namespace YellowstonePathology.Business
 
         public static void GetStoredProcedures()
         {
-            using (SqlConnection cn = new SqlConnection(BaseData.SqlConnectionString))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 SqlCommand cmd = new SqlCommand();

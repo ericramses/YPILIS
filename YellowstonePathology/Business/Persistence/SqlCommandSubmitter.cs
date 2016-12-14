@@ -22,11 +22,12 @@ namespace YellowstonePathology.Business.Persistence
             switch (databaseName)
             {
                 case "YPIDATA":
-                    this.m_ConnectionString = @"Data Source=TestSQL;Initial Catalog=YPIData;Integrated Security=True";
+                    //this.m_ConnectionString = @"Data Source=TestSQL;Initial Catalog=YPIData;Integrated Security=True";
+                    this.m_ConnectionString = YellowstonePathology.Properties.Settings.Default.CurrentConnectionString;
                     break;
-                case "YPILocalData":
-                    this.m_ConnectionString = @"Data Source=.\LIS;Initial Catalog=YPILocalData;Integrated Security=True";
-                    break;
+                //case "YPILocalData":
+                //    this.m_ConnectionString = @"Data Source=.\LIS;Initial Catalog=YPILocalData;Integrated Security=True";
+                //    break;
                 default:
                     throw new Exception("Database name does not match existing.");
             }

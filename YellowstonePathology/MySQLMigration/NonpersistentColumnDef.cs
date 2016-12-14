@@ -28,22 +28,8 @@ namespace YellowstonePathology.MySQLMigration
             this.m_DefaultValue = defaultValue;
             this.m_IsNull = isNull;
 
-            StringBuilder def = new StringBuilder();
-            def.Append("`");
-            def.Append(columnName);
-            def.Append("` ");
-            def.Append(columnType);
-            def.Append("(");
-            def.Append(columnWidth);
-            def.Append(")");
-            if (isNull == false) def.Append(" NOT NULL");
-            if (string.IsNullOrEmpty(defaultValue) == false)
-            {
-                def.Append(" DEFAULT ");
-                def.Append(defaultValue);
-            }
-
-            this.m_ColumnDefinition = def.ToString();
+            this.m_ColumnDefinition = NonpersistentColumnDef.GetColumnDefinition(this.m_ColumnName, this.m_ColumnType, this.m_ColumnWidth,
+                this.m_DefaultValue, this.m_IsNull);
         }
 
         public string ColumnDefinition
@@ -74,6 +60,26 @@ namespace YellowstonePathology.MySQLMigration
         public bool IsNull
         {
             get { return this.m_IsNull; }
+        }
+
+        public static string GetColumnDefinition(string columnName, string columnType, string columnWidth, string defaultValue, bool isNull)
+        {
+            StringBuilder def = new StringBuilder();
+            def.Append("`");
+            def.Append(columnName);
+            def.Append("` ");
+            def.Append(columnType);
+            def.Append("(");
+            def.Append(columnWidth);
+            def.Append(")");
+            if (isNull == false) def.Append(" NOT NULL");
+            if (string.IsNullOrEmpty(defaultValue) == false)
+            {
+                def.Append(" DEFAULT ");
+                def.Append(defaultValue);
+            }
+
+            return def.ToString();
         }
     }
 }

@@ -1180,12 +1180,6 @@ namespace YellowstonePathology.UI
 
         private void TestReflectionDelagate()
         {
-            YellowstonePathology.Business.Mongo.LocalServer localServer = new Business.Mongo.LocalServer("LocalLIS");
-            YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistributionCollection tt = new YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistributionCollection();            
-            YellowstonePathology.Business.Mongo.DocumentCollectionTracker dct = new Business.Mongo.DocumentCollectionTracker(tt, localServer);
-
-            YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution t1 = new YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution();
-            tt.Add(t1);
         }
 
         private void DoMongoMove()
@@ -1198,16 +1192,6 @@ namespace YellowstonePathology.UI
 
         private void MongoPersistenceTest()
         {
-            YellowstonePathology.Business.ReportDistribution.Model.ReportDistributionLogEntryCollection col = YellowstonePathology.Business.Mongo.Gateway.GetReportDistributionLogEntryCollectionGTETime(DateTime.Now);
-            YellowstonePathology.Business.Mongo.LocalServer localServer = new Business.Mongo.LocalServer(YellowstonePathology.Business.Mongo.LocalServer.LocalLISDatabaseName);
-
-            foreach (YellowstonePathology.Business.ReportDistribution.Model.ReportDistributionLogEntry item in col)
-            {
-                YellowstonePathology.Business.Mongo.DocumentTracker documentTracker = new Business.Mongo.DocumentTracker(localServer);
-                documentTracker.Register(item);
-                item.Message = "What's up";
-                documentTracker.SubmitChanges();
-            }
         }
 
         private void WriteTestOrderReportDistributionIds()

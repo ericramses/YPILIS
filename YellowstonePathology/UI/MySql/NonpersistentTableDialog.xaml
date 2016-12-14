@@ -22,6 +22,8 @@
                 <MenuItem Header="Create MySql Table" Click="MenuItemCreateTable_Click" Margin="5"></MenuItem>
                 <MenuItem Header="Compare MySql Table to Class" Click="MenuItemCompareTables_Click" Margin="5"></MenuItem>
                 <MenuItem Header="Add Missing Columns to MySql" Click="MenuItemAddMissingColumns_Click" Margin="5"></MenuItem>
+                <MenuItem Header="Create MySql Indexes" Click="MenuItemAddIndexes_Click" Margin="5"></MenuItem>
+                <MenuItem Header="Create MySql Foreign Keys" Click="MenuItemAddForeignKeys_Click" Margin="5"></MenuItem>
             </MenuItem>
             <MenuItem Header="Load Data" Click="MenuItemLoadData_Click" Margin="5"></MenuItem>
         </Menu>
