@@ -27,44 +27,62 @@ namespace YellowstonePathology.MySQLMigration
                 Where(prop => Attribute.IsDefined(prop, typeof(Business.Persistence.PersistentProperty)) || Attribute.IsDefined(prop, typeof(Business.Persistence.PersistentPrimaryKeyProperty))).ToArray();
             foreach (PropertyInfo property in properties)
             {
-                Type dataType = property.PropertyType;
-                if (dataType == typeof(string))
+                if (this.ColumnExists(property.Name))
                 {
-                    this.WriteString(property);
-                }
-                else if (dataType == typeof(int))
-                {
-                    this.WriteInt(property);
-                }
-                else if (dataType == typeof(double))
-                {
-                    this.WriteDouble(property);
-                }
-                else if (dataType == typeof(Nullable<int>))
-                {
-                    this.WriteNullableInt(property);
-                }
-                else if (dataType == typeof(DateTime))
-                {
-                    this.WriteDateTime(property);
-                }
-                else if (dataType == typeof(bool))
-                {
-                    this.WriteBoolean(property);
-                }
-                else if (dataType == typeof(Nullable<bool>))
-                {
-                    this.WriteNullableBoolean(property);
-                }
-                else if (dataType == typeof(Nullable<DateTime>))
-                {
-                    this.WriteNullableDateTime(property);
-                }
-                else
-                {
-                    throw new Exception("This Data Type is Not Implemented: " + dataType.Name);
+                    Type dataType = property.PropertyType;
+                    if (dataType == typeof(string))
+                    {
+                        this.WriteString(property);
+                    }
+                    else if (dataType == typeof(int))
+                    {
+                        this.WriteInt(property);
+                    }
+                    else if (dataType == typeof(double))
+                    {
+                        this.WriteDouble(property);
+                    }
+                    else if (dataType == typeof(Nullable<int>))
+                    {
+                        this.WriteNullableInt(property);
+                    }
+                    else if (dataType == typeof(DateTime))
+                    {
+                        this.WriteDateTime(property);
+                    }
+                    else if (dataType == typeof(bool))
+                    {
+                        this.WriteBoolean(property);
+                    }
+                    else if (dataType == typeof(Nullable<bool>))
+                    {
+                        this.WriteNullableBoolean(property);
+                    }
+                    else if (dataType == typeof(Nullable<DateTime>))
+                    {
+                        this.WriteNullableDateTime(property);
+                    }
+                    else
+                    {
+                        throw new Exception("This Data Type is Not Implemented: " + dataType.Name);
+                    }
                 }
             }
+        }
+
+        private bool ColumnExists(string name)
+        {
+            bool result = false;
+            for (int idx = 0; idx < this.m_MySqlDataReader.FieldCount; idx++)
+            {
+                string fieldName = this.m_MySqlDataReader.GetName(idx);
+                if (fieldName == name)
+                {
+                    result = true;
+                    break;
+                }
+            }
+            return result;
         }
 
         private void WriteString(PropertyInfo property)
