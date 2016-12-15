@@ -14,6 +14,33 @@ namespace YellowstonePathology.Business.Gateway
 {
 	public class AccessionOrderGateway
 	{
+        public static YellowstonePathology.Business.HL7View.ADTMessages GetADTMessages(string mrn)
+        {
+            YellowstonePathology.Business.HL7View.ADTMessages result = new HL7View.ADTMessages();
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "select * from tblADT where MedicalRecordNo = @MRN";
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.Add("@MRN", SqlDbType.VarChar).Value = mrn;
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.Business.HL7View.ADTMessage item = new HL7View.ADTMessage();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(item, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        item.ParseHL7();
+                        result.Messages.Add(item);
+                    }
+                }
+            }
+            return result;
+        }
+
         public static YellowstonePathology.UI.EmbeddingBreastCaseList GetEmbeddingBreastCasesCollection()
         {
             YellowstonePathology.UI.EmbeddingBreastCaseList result = new UI.EmbeddingBreastCaseList();

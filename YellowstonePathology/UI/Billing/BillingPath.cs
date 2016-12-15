@@ -56,6 +56,7 @@ namespace YellowstonePathology.UI.Billing
             this.m_BillingPage.ShowICDCodeEntry += new BillingPage.ShowICDCodeEntryEventHandler(BillingPage_ShowICDCodeEntry);
             this.m_BillingPage.ShowCPTCodeEntry += new BillingPage.ShowCPTCodeEntryEventHandler(BillingPage_ShowCPTCodeEntry);
 			this.m_BillingPage.ShowPatientDetailPage += new BillingPage.ShowPatientDetailPageEventHandler(BillingPage_ShowPatientDetailPage);
+            this.m_BillingPage.ShowADTPage += new BillingPage.ShowADTPageEventHandler(BillingPage_ShowADTPage);
 
             if (this.m_BillingWindowPrimary.PageNavigator.HasDualMonitors() == true)
             {
@@ -65,7 +66,17 @@ namespace YellowstonePathology.UI.Billing
             this.m_BillingWindowPrimary.PageNavigator.Navigate(this.m_BillingPage);
         }
 
-		private void BillingPage_ShowPatientDetailPage(object sender, EventArgs e)
+        private void BillingPage_ShowADTPage(object sender, EventArgs e)
+        {
+            YellowstonePathology.UI.Billing.ADTPage adtPage = new ADTPage(this.m_AccessionOrder);
+            if (this.m_BillingWindowPrimary.PageNavigator.HasDualMonitors() == false)
+            {
+                this.m_BillingWindowSecondary.Show();
+            }
+            this.m_BillingWindowSecondary.PageNavigator.Navigate(adtPage);
+        }
+
+        private void BillingPage_ShowPatientDetailPage(object sender, EventArgs e)
 		{
             if (string.IsNullOrEmpty(this.m_AccessionOrder.SvhMedicalRecord) == false)
             {
@@ -78,8 +89,7 @@ namespace YellowstonePathology.UI.Billing
                     patientDetailPage.Next += new Billing.PatientDetailPage.NextEventHandler(PatientDetailPage_Next);
 
                     if (this.m_BillingWindowPrimary.PageNavigator.HasDualMonitors() == false)
-                    {
-                        //this.m_BillingWindowSecondary = new BillingWindowSecondary();
+                    {                        
                         this.m_BillingWindowSecondary.Show();
                     }
                     this.m_BillingWindowSecondary.PageNavigator.Navigate(patientDetailPage);
