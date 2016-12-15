@@ -25,11 +25,9 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
             this.m_AllowMultiplePerAccession = true;
             this.m_ExpectedDuration = TimeSpan.FromDays(10);
             this.m_EpicDistributionIsImplemented = true;
+            //updated 12.14.16 by MS;
 
-            string taskDescription = "Give block to molecular for sendout.";
-			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.Task(YellowstonePathology.Business.Task.Model.TaskAssignment.Histology, taskDescription));
-
-            string task2Description = "Receive block from Histology and send to Neo for testing.";
+            string task2Description = "Collect paraffin block from Histology and send to Neo.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskFedexShipment(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, task2Description, new Facility.Model.NeogenomicsIrvine()));
 
             this.m_TechnicalComponentFacility = new YellowstonePathology.Business.Facility.Model.NeogenomicsIrvine();
