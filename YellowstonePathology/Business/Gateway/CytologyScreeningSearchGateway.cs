@@ -13,7 +13,7 @@ namespace YellowstonePathology.Business.Gateway
 			List<YellowstonePathology.Business.Search.CytologyScreeningSearchResult> result = new List<Search.CytologyScreeningSearchResult>();
 			SqlCommand cmd = new SqlCommand(sqlStatement);
 
-			using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{
 				cn.Open();
 				cmd.Connection = cn;
@@ -58,7 +58,7 @@ namespace YellowstonePathology.Business.Gateway
             SqlCommand cmd = new SqlCommand(sqlStatement);
             cmd.Parameters.Add("@AssignedToId", System.Data.SqlDbType.Int).Value = assignedToId;
 
-            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;

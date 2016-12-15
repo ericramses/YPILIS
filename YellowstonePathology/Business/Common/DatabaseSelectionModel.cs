@@ -7,7 +7,7 @@ using System.ComponentModel;
 
 namespace YellowstonePathology.Business.Common
 {
-	public class DatabaseSelectionModel : INotifyPropertyChanged
+	public class DatabaseSelectionModel {/*: INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -108,6 +108,6 @@ namespace YellowstonePathology.Business.Common
 			{
 				PropertyChanged(this, new PropertyChangedEventArgs(info));
 			}
-		}
+		}*/
 	}
 }

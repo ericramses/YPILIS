@@ -164,6 +164,54 @@ namespace YellowstonePathology.UI.MySql
             }
         }
 
+        private void MenuItemAddIndexes_Click(object sender, RoutedEventArgs e)
+        {
+            this.StatusMessage = "Working on it.";
+            if (this.ListViewNonpersistentTableDef.SelectedItems.Count > 0)
+            {
+                Business.Rules.MethodResult overallResult = new Business.Rules.MethodResult();
+
+                foreach (MySQLMigration.NonpersistentTableDef nonpersistentTableDef in this.ListViewNonpersistentTableDef.SelectedItems)
+                {
+                    Business.Rules.MethodResult methodResult = m_MySQLDatabaseBuilder.AddMissingIndexes(nonpersistentTableDef);
+                    if (methodResult.Success == false)
+                    {
+                        overallResult.Success = false;
+                        overallResult.Message += methodResult.Message;
+                    }
+                }
+                this.SetStatusMessage(overallResult);
+            }
+            else
+            {
+                MessageBox.Show("Select a class.");
+            }
+        }
+
+        private void MenuItemAddForeignKeys_Click(object sender, RoutedEventArgs e)
+        {
+            this.StatusMessage = "Working on it.";
+            if (this.ListViewNonpersistentTableDef.SelectedItems.Count > 0)
+            {
+                Business.Rules.MethodResult overallResult = new Business.Rules.MethodResult();
+
+                foreach (MySQLMigration.NonpersistentTableDef nonpersistentTableDef in this.ListViewNonpersistentTableDef.SelectedItems)
+                {
+                    Business.Rules.MethodResult methodResult = m_MySQLDatabaseBuilder.AddMissingForeignKeys(nonpersistentTableDef);
+                    if (methodResult.Success == false)
+                    {
+                        overallResult.Success = false;
+                        overallResult.Message += methodResult.Message;
+                    }
+                }
+                this.SetStatusMessage(overallResult);
+            }
+            else
+            {
+                MessageBox.Show("Select a class.");
+            }
+        }
+
         private void MenuItemLoadData_Click(object sender, RoutedEventArgs e)
         {
             this.StatusMessage = "Working on it.";

@@ -27,6 +27,9 @@ namespace YellowstonePathology.MySQLMigration
         private int m_SqlServerTransferredCount;
         private int m_MySqlRowCount;
 
+        private TableIndexCollection m_TableIndexCollection;
+        private TableForeignKeyCollection m_TableForeignKeyCollection;
+
         public MigrationStatus(Type type)
         {
             this.m_Type = type;
@@ -162,15 +165,29 @@ namespace YellowstonePathology.MySQLMigration
         {
             get { return this.m_FileName; }
         }
+
+        public TableIndexCollection TableIndexCollection
+        {
+            get { return this.m_TableIndexCollection; }
+            set
+            {
+                this.m_TableIndexCollection = value;
+                NotifyPropertyChanged("TableIndexCollection");
+            }
+        }
+
+        public TableForeignKeyCollection TableForeignKeyCollection
+        {
+            get { return this.m_TableForeignKeyCollection; }
+            set
+            {
+                this.m_TableForeignKeyCollection = value;
+                NotifyPropertyChanged("TableForeignKeyCollection");
+            }
+        }
+
         private void GetTableName()
         {
-            //string typeName = this.m_Type.Name;
-            //if (typeName == "FlowMarkerItem") typeName = "FlowMarkers";
-            //typeName = typeName.Replace("_Base", "");
-            //typeName = typeName.Replace("Item", "");
-            //this.m_TableName = "tbl" + typeName;
-
-
             object[] customAttributes = this.m_Type.GetCustomAttributes(typeof(YellowstonePathology.Business.Persistence.PersistentClass), false);
             if (customAttributes.Length > 0)
             {
@@ -234,11 +251,6 @@ namespace YellowstonePathology.MySQLMigration
                     this.m_PersistentProperties.Remove(this.m_KeyFieldProperty);
                 }
                 this.m_PersistentProperties.Insert(0, this.m_KeyFieldProperty);
-
-                /*if (this.HasObjectId() == false)
-                {
-                    this.GetObjectIdProperty();
-                }*/
             }
         }
 

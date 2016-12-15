@@ -29,7 +29,7 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.Parameters.Add("@FacilityId", SqlDbType.VarChar).Value = facilityId;
 			cmd.Parameters.Add("@LocationId", SqlDbType.VarChar).Value = locationId;
 
-			using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{
 				cn.Open();
 				cmd.Connection = cn;
@@ -78,7 +78,7 @@ namespace YellowstonePathology.Business.Gateway
             cmd.CommandType = System.Data.CommandType.Text;
 			cmd.CommandText = "Update tblSlideOrder set Validated = 1, ValidationDate = GetDate(), Status = 'Validated' where SlideOrderId = @SlideOrderId ";
 			cmd.Parameters.Add("@SlideOrderId", System.Data.SqlDbType.VarChar).Value = slideOrderId;
-            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;
@@ -93,7 +93,7 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.CommandText = "Update tblSlideOrder set Status = @Status where SlideOrderId = @SlideOrderId ";
 			cmd.Parameters.Add("@SlideOrderId", System.Data.SqlDbType.VarChar).Value = slideOrderId;
             cmd.Parameters.Add("Status", System.Data.SqlDbType.VarChar, 50).Value = status;
-            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;
@@ -107,7 +107,7 @@ namespace YellowstonePathology.Business.Gateway
             cmd.CommandText = "Delete tblSlideOrder where SlideOrderId = @SlideOrderId ";
             cmd.CommandType = System.Data.CommandType.Text;
             cmd.Parameters.Add("@SlideOrderId", System.Data.SqlDbType.VarChar).Value = slideOrderId;
-            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;
@@ -135,7 +135,7 @@ namespace YellowstonePathology.Business.Gateway
             cmd.Parameters.Add("@SlideOrderId", System.Data.SqlDbType.VarChar).Value = slideOrderId;
 
             XElement viewElement = null;
-            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;
@@ -209,7 +209,7 @@ namespace YellowstonePathology.Business.Gateway
             cmd.Parameters.Add("@BatchId", System.Data.SqlDbType.VarChar).Value = batchId;
 
             XElement resultElement = null;
-            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;
@@ -311,7 +311,7 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.CommandText = "Select * from tblMaterialLocation order by Name";
             cmd.CommandType = System.Data.CommandType.Text;
 
-            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;
@@ -386,7 +386,7 @@ namespace YellowstonePathology.Business.Gateway
             cmd.CommandType = System.Data.CommandType.Text;
             cmd.Parameters.Add("@SlideOrderId", System.Data.SqlDbType.VarChar).Value = slideOrderId;
 
-            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;
@@ -414,7 +414,7 @@ namespace YellowstonePathology.Business.Gateway
             cmd.Parameters.Add("@MaterialId", System.Data.SqlDbType.VarChar).Value = slideOrderId;
             cmd.Parameters.Add("@MaterialTrackingBatchId", System.Data.SqlDbType.VarChar).Value = materialTrackingBatchId;
 
-            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;
@@ -440,7 +440,7 @@ namespace YellowstonePathology.Business.Gateway
             cmd.CommandType = System.Data.CommandType.Text;
             cmd.Parameters.Add("@MaterialTrackingBatchId", System.Data.SqlDbType.VarChar).Value = materialTrackingBatchId;
 
-            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;
@@ -468,7 +468,7 @@ namespace YellowstonePathology.Business.Gateway
             cmd.Parameters.Add("@MaterialTrackingBatchId", System.Data.SqlDbType.VarChar).Value = materialTrackingBatchId;
             cmd.Parameters.Add("@MasterAccessionNo", System.Data.SqlDbType.VarChar).Value = masterAccessionNo;
 
-            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;
@@ -554,7 +554,7 @@ namespace YellowstonePathology.Business.Gateway
         private static YellowstonePathology.Business.Slide.Model.SlideOrderCollection BuildSlideOrderCollection(SqlCommand cmd)
 		{
 			YellowstonePathology.Business.Slide.Model.SlideOrderCollection result = new YellowstonePathology.Business.Slide.Model.SlideOrderCollection();
-			using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{
 				cn.Open();
 				cmd.Connection = cn;
@@ -575,7 +575,7 @@ namespace YellowstonePathology.Business.Gateway
 		private static YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection BuildMaterialTrackingLogCollection(SqlCommand cmd)
 		{
 			YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection materialTrackingLogCollection = new YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection();
-			using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{
 				cn.Open();
 				cmd.Connection = cn;
@@ -596,7 +596,7 @@ namespace YellowstonePathology.Business.Gateway
 		private static YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog BuildMaterialTrackingLog(SqlCommand cmd)
 		{
 			YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog = null;
-			using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{
 				cn.Open();
 				cmd.Connection = cn;
@@ -616,7 +616,7 @@ namespace YellowstonePathology.Business.Gateway
 		private static YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatchCollection BuildMaterialTrackingBatchCollection(SqlCommand cmd)
         {
 			YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatchCollection materialTrackingBatchCollection = new YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatchCollection();
-            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;
@@ -647,7 +647,7 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.CommandType = System.Data.CommandType.Text;
 			cmd.Parameters.Add("@BatchId", System.Data.SqlDbType.VarChar).Value = materialBatchId;
 
-            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;

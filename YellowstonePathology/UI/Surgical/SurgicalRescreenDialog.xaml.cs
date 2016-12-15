@@ -106,7 +106,7 @@ namespace YellowstonePathology.UI.Surgical
 					cmd.CommandType = CommandType.Text;
 					cmd.Parameters.Add("@RescreenStatus", SqlDbType.VarChar).Value = rescreenStatus;
 					cmd.Parameters.Add("@SpecimenOrderId", SqlDbType.VarChar).Value = specimenOrderId;
-					using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.BaseData.SqlConnectionString))
+					using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 					{
 						cn.Open();
 						cmd.Connection = cn;

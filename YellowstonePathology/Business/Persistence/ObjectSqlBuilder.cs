@@ -46,7 +46,7 @@ namespace YellowstonePathology.Business.Persistence
         {
             object result = null;
 
-            using (SqlConnection cn = new SqlConnection("Data Source=TestSQL;Initial Catalog=YPIData;Integrated Security=True"))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;
