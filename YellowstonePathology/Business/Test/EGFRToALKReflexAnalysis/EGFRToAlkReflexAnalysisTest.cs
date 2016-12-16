@@ -29,8 +29,7 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
             this.m_ExpectedDuration = TimeSpan.FromDays(14);            
             this.m_EpicDistributionIsImplemented = true;
 
-            string taskDescription1 = "Cut curls and an H&E after slide. Give the H&E after slide, paraffin block and curls to Molecular." +
-           	"Pathologist should circle tumor on H&E slide in preparation for ALK and ROS1 and then hand off material to Molecular.";
+            string taskDescription1 = "Cut H&E slide and give to pathologist to circle tumor for tech only. Give the paraffin block to Flow so they can send to NEO.";
             this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.Task(YellowstonePathology.Business.Task.Model.TaskAssignment.Histology, taskDescription1));
 
             string taskDescription2 = "Collect circled H&E after slide, curls and paraffin block from pathologist and perform EGFR testing.";
