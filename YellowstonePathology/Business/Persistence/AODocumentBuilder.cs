@@ -1,21 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Data;
-using System.Data.SqlClient;
+﻿using System.Data;
+using MySql.Data.MySqlClient;
 
 namespace YellowstonePathology.Business.Persistence
 {
     public class AODocumentBuilder : DocumentBuilder
     {        
-        private SqlCommand m_SQLCommand;
+        private MySqlCommand m_SQLCommand;
 
         public AODocumentBuilder(string masterAccessionNo, bool obtainLock)
         {                        
             YellowstonePathology.Business.User.SystemIdentity systemIdentity = YellowstonePathology.Business.User.SystemIdentity.Instance;
 
-            this.m_SQLCommand = new SqlCommand();
+            this.m_SQLCommand = new MySqlCommand();
             //m_SQLCommand.CommandText = "gwGetAccessionByMasterAccessionNo_A9";
             this.m_SQLCommand.CommandText = "prcGetAccessionOrder_1";
             m_SQLCommand.CommandType = CommandType.StoredProcedure;

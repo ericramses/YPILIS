@@ -1055,6 +1055,7 @@
     <Compile Include="Business\PanelSet.Model\ShipMaterialTest.cs" />
     <Compile Include="Business\ParseSpecimenOrderIdResult.cs" />
     <Compile Include="Business\Persistence\DocumentTestBuilders.cs" />
+    <Compile Include="Business\Persistence\MySqlDataReaderPropertyWriter.cs" />
     <Compile Include="Business\Persistence\PersistentDataColumnProperty.cs" />
     <Compile Include="Business\Persistence\SqlDataRowReaderPropertyWriter.cs" />
     <Compile Include="Business\Reports\DisposalReportData.cs" />

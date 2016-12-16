@@ -1,22 +1,19 @@
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
 using System.Data;
-using System.Data.SqlClient;
-using System.Windows;
+using MySql.Data.MySqlClient;
 
 namespace YellowstonePathology.Business
 {
     public class SearchList : ObservableCollection<SearchListItem>
     {
-        SqlCommand m_Cmd;
+        MySqlCommand m_Cmd;
         string m_SearchType;
         string m_SearchString;        
        
         public SearchList()
         {
-            this.m_Cmd = new SqlCommand();
+            this.m_Cmd = new MySqlCommand();
         }
 
         public string SearchString
@@ -176,11 +173,11 @@ namespace YellowstonePathology.Business
         public void Fill()
         {
             this.ClearItems();
-            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();                               
                 this.m_Cmd.Connection = cn;               
-                using (SqlDataReader dr = this.m_Cmd.ExecuteReader())
+                using (MySqlDataReader dr = this.m_Cmd.ExecuteReader())
                 {
                     while (dr.Read())
                     {

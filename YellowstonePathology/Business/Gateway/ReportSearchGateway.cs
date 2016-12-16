@@ -1,13 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Xml;
-using System.Xml.Linq;
-using System.Linq;
-using System.Text;
 using System.Data;
-using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 
 namespace YellowstonePathology.Business.Gateway
 {
@@ -15,7 +9,7 @@ namespace YellowstonePathology.Business.Gateway
 	{
 		public static YellowstonePathology.Business.Search.ReportSearchList GetReportSearchListByReportNo(string reportNo)
         {
-            /*SqlCommand cmd = new SqlCommand();
+            /*MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "SELECT pso.[MasterAccessionNo], pso.[ReportNo], a.AccessionTime [AccessionDate],  pso.[PanelSetId], a.[PFirstName] + ' ' + a.[PLastName] AS [PatientName], " +
                 "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate], pso.[OriginatingLocation], pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
@@ -29,7 +23,7 @@ namespace YellowstonePathology.Business.Gateway
             YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
             return reportSearchList;*/
 
-            SqlCommand cmd = new SqlCommand();
+            MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "SELECT pso.[MasterAccessionNo], pso.[ReportNo], a.AccessionTime [AccessionDate],  pso.[PanelSetId], a.[PFirstName] + ' ' + a.[PLastName] AS [PatientName], " +
                 "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate],  pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
@@ -44,7 +38,7 @@ namespace YellowstonePathology.Business.Gateway
 
 		public static YellowstonePathology.Business.Search.ReportSearchList GetReportSearchListByPanelSetFinalDate(DateTime finalDate)
         {
-            /*SqlCommand cmd = new SqlCommand();
+            /*MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "SELECT pso.[MasterAccessionNo], pso.[ReportNo], a.AccessionTime [AccessionDate],  pso.[PanelSetId], a.[PFirstName] + ' ' + a.[PLastName] AS [PatientName], " +
                 "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate], pso.[OriginatingLocation], pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
@@ -58,7 +52,7 @@ namespace YellowstonePathology.Business.Gateway
             YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
             return reportSearchList;*/
 
-            SqlCommand cmd = new SqlCommand();
+            MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "SELECT pso.[MasterAccessionNo], pso.[ReportNo], a.AccessionTime [AccessionDate],  pso.[PanelSetId], a.[PFirstName] + ' ' + a.[PLastName] AS [PatientName], " +
                 "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate], pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
@@ -73,7 +67,7 @@ namespace YellowstonePathology.Business.Gateway
 
 		public static YellowstonePathology.Business.Search.ReportSearchList GetReportSearchListByNotPosted()
         {
-            /*SqlCommand cmd = new SqlCommand();
+            /*MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "SELECT pso.[MasterAccessionNo], pso.[ReportNo], a.AccessionTime [AccessionDate],  pso.[PanelSetId], a.[PFirstName] + ' ' + a.[PLastName] AS [PatientName], " +
                 "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate], pso.[OriginatingLocation], pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
@@ -86,7 +80,7 @@ namespace YellowstonePathology.Business.Gateway
             YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
             return reportSearchList;*/
 
-            SqlCommand cmd = new SqlCommand();
+            MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "SELECT pso.[MasterAccessionNo], pso.[ReportNo], a.AccessionTime [AccessionDate],  pso.[PanelSetId], a.[PFirstName] + ' ' + a.[PLastName] AS [PatientName], " +
                 "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate], pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
@@ -100,7 +94,7 @@ namespace YellowstonePathology.Business.Gateway
 
 		public static YellowstonePathology.Business.Search.ReportSearchList GetReportSearchListByPostDate(DateTime postDate)
         {
-            /*SqlCommand cmd = new SqlCommand();
+            /*MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "SELECT distinct pso.[MasterAccessionNo], pso.[ReportNo], a.AccessionTime [AccessionDate],  pso.[PanelSetId], a.[PFirstName] + ' ' + a.[PLastName] AS [PatientName], " +
                 "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate], pso.[OriginatingLocation], pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
@@ -116,7 +110,7 @@ namespace YellowstonePathology.Business.Gateway
             YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
             return reportSearchList;*/
 
-            SqlCommand cmd = new SqlCommand();
+            MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "SELECT distinct pso.[MasterAccessionNo], pso.[ReportNo], a.AccessionTime [AccessionDate],  pso.[PanelSetId], a.[PFirstName] + ' ' + a.[PLastName] AS [PatientName], " +
                 "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate], pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
@@ -134,7 +128,7 @@ namespace YellowstonePathology.Business.Gateway
 
 		public static YellowstonePathology.Business.Search.ReportSearchList GetReportSearchListByPositiveHPylori(DateTime startDate, DateTime endDate)
         {
-            /*SqlCommand cmd = new SqlCommand();
+            /*MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "SELECT distinct pso.[MasterAccessionNo], pso.[ReportNo], a.AccessionTime [AccessionDate],  pso.[PanelSetId], a.[PFirstName] + ' ' + a.[PLastName] AS [PatientName], " +
                 "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate], pso.[OriginatingLocation], pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
@@ -153,7 +147,7 @@ namespace YellowstonePathology.Business.Gateway
             YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
             return reportSearchList;*/
 
-            SqlCommand cmd = new SqlCommand();
+            MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "SELECT distinct pso.[MasterAccessionNo], pso.[ReportNo], a.AccessionTime [AccessionDate],  pso.[PanelSetId], a.[PFirstName] + ' ' + a.[PLastName] AS [PatientName], " +
                 "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate], pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
@@ -174,7 +168,7 @@ namespace YellowstonePathology.Business.Gateway
 
 		public static YellowstonePathology.Business.Search.ReportSearchList GetReportSearchListByAutopsies()
         {
-            /*SqlCommand cmd = new SqlCommand();
+            /*MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "SELECT pso.[MasterAccessionNo], pso.[ReportNo], a.AccessionTime [AccessionDate],  pso.[PanelSetId], a.[PFirstName] + ' ' + a.[PLastName] AS [PatientName], " +
                 "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate], pso.[OriginatingLocation], pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
@@ -188,7 +182,7 @@ namespace YellowstonePathology.Business.Gateway
             YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
             return reportSearchList;*/
 
-            SqlCommand cmd = new SqlCommand();
+            MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "SELECT pso.[MasterAccessionNo], pso.[ReportNo], a.AccessionTime [AccessionDate],  pso.[PanelSetId], a.[PFirstName] + ' ' + a.[PLastName] AS [PatientName], " +
                 "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate], pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
@@ -203,7 +197,7 @@ namespace YellowstonePathology.Business.Gateway
 
         public static YellowstonePathology.Business.Search.ReportSearchList GetReportSearchListByClientAccessioned()
         {
-            /*SqlCommand cmd = new SqlCommand();
+            /*MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "SELECT pso.[MasterAccessionNo], pso.[ReportNo], a.AccessionTime [AccessionDate],  pso.[PanelSetId], a.[PFirstName] + ' ' + a.[PLastName] AS [PatientName], " +
                 "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate], pso.[OriginatingLocation], pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
@@ -217,7 +211,7 @@ namespace YellowstonePathology.Business.Gateway
             YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
             return reportSearchList;*/
 
-            SqlCommand cmd = new SqlCommand();
+            MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "SELECT pso.[MasterAccessionNo], pso.[ReportNo], a.AccessionTime [AccessionDate],  pso.[PanelSetId], a.[PFirstName] + ' ' + a.[PLastName] AS [PatientName], " +
                 "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate], pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
@@ -232,7 +226,7 @@ namespace YellowstonePathology.Business.Gateway
 
         public static YellowstonePathology.Business.Search.ReportSearchList GetReportSearchListByDrKurtzman()
         {
-            /*SqlCommand cmd = new SqlCommand();
+            /*MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "SELECT pso.[MasterAccessionNo], pso.[ReportNo], a.AccessionTime [AccessionDate],  pso.[PanelSetId], a.[PFirstName] + ' ' + a.[PLastName] AS [PatientName], " +
                 "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate], pso.[OriginatingLocation], pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
@@ -246,7 +240,7 @@ namespace YellowstonePathology.Business.Gateway
             YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
             return reportSearchList;*/
 
-            SqlCommand cmd = new SqlCommand();
+            MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "SELECT pso.[MasterAccessionNo], pso.[ReportNo], a.AccessionTime [AccessionDate],  pso.[PanelSetId], a.[PFirstName] + ' ' + a.[PLastName] AS [PatientName], " +
                 "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate], pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
@@ -261,7 +255,7 @@ namespace YellowstonePathology.Business.Gateway
 
         public static YellowstonePathology.Business.Search.ReportSearchList GetReportSearchListBySpecimenKeyword(string specimenDescription, DateTime startDate, DateTime endDate)
         {
-            /*SqlCommand cmd = new SqlCommand();
+            /*MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "SELECT pso.[MasterAccessionNo], pso.[ReportNo], a.AccessionTime [AccessionDate],  pso.[PanelSetId], a.[PFirstName] + ' ' + a.[PLastName] AS [PatientName], " +
                 "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate], pso.[OriginatingLocation], pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
@@ -282,7 +276,7 @@ namespace YellowstonePathology.Business.Gateway
             YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
             return reportSearchList;*/
 
-            SqlCommand cmd = new SqlCommand();
+            MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "SELECT pso.[MasterAccessionNo], pso.[ReportNo], a.AccessionTime [AccessionDate],  pso.[PanelSetId], a.[PFirstName] + ' ' + a.[PLastName] AS [PatientName], " +
                 "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate], pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
@@ -305,7 +299,7 @@ namespace YellowstonePathology.Business.Gateway
 		public static YellowstonePathology.Business.Search.ReportSearchList GetReportSearchListByAccessionDate(DateTime accessionDate, List<int> panelSetIdList)
         {
             /*string panelSetIdString = YellowstonePathology.Business.Helper.IdListHelper.ToIdString(panelSetIdList);
-            SqlCommand cmd = new SqlCommand();
+            MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "SELECT pso.[MasterAccessionNo], pso.[ReportNo], a.AccessionTime [AccessionDate],  pso.[PanelSetId], a.[PFirstName] + ' ' + a.[PLastName] AS [PatientName], " +
                 "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate], pso.[OriginatingLocation], pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
@@ -322,7 +316,7 @@ namespace YellowstonePathology.Business.Gateway
             return reportSearchList;*/
 
             string panelSetIdString = YellowstonePathology.Business.Helper.IdListHelper.ToIdString(panelSetIdList);
-            SqlCommand cmd = new SqlCommand();
+            MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "SELECT pso.[MasterAccessionNo], pso.[ReportNo], a.AccessionTime [AccessionDate],  pso.[PanelSetId], a.[PFirstName] + ' ' + a.[PLastName] AS [PatientName], " +
                 "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate], pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
@@ -339,7 +333,7 @@ namespace YellowstonePathology.Business.Gateway
 
 		public static YellowstonePathology.Business.Search.ReportSearchList GetReportSearchListByMasterAccessionNo(string masterAccessionNo)
 		{
-            /*SqlCommand cmd = new SqlCommand();
+            /*MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "SELECT a.[MasterAccessionNo], pso.[ReportNo], a.AccessionTime [AccessionDate],  pso.[PanelSetId], a.[PFirstName] + ' ' + a.[PLastName] AS [PatientName], " +
                 "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate], pso.[OriginatingLocation], pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
@@ -354,7 +348,7 @@ namespace YellowstonePathology.Business.Gateway
             YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
             return reportSearchList;*/
 
-            SqlCommand cmd = new SqlCommand();
+            MySqlCommand cmd = new MySqlCommand();
 			cmd.CommandType = CommandType.Text;
 			cmd.CommandText = "SELECT a.[MasterAccessionNo], pso.[ReportNo], a.AccessionTime [AccessionDate],  pso.[PanelSetId], a.[PFirstName] + ' ' + a.[PLastName] AS [PatientName], " +
                 "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate], pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
@@ -370,7 +364,7 @@ namespace YellowstonePathology.Business.Gateway
 
         public static YellowstonePathology.Business.Search.ReportSearchList GetReportSearchListByAliquotOrderId(string aliquotOrderId)
         {
-            /*SqlCommand cmd = new SqlCommand();
+            /*MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "SELECT pso.[MasterAccessionNo], pso.[ReportNo], a.AccessionTime [AccessionDate],  pso.[PanelSetId], a.[PFirstName] + ' ' + a.[PLastName] AS [PatientName], " +
                "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate], pso.[OriginatingLocation], pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
@@ -386,7 +380,7 @@ namespace YellowstonePathology.Business.Gateway
             YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
             return reportSearchList;*/
 
-            SqlCommand cmd = new SqlCommand();
+            MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "SELECT pso.[MasterAccessionNo], pso.[ReportNo], a.AccessionTime [AccessionDate],  pso.[PanelSetId], a.[PFirstName] + ' ' + a.[PLastName] AS [PatientName], " +
                "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate], pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
@@ -403,7 +397,7 @@ namespace YellowstonePathology.Business.Gateway
 
         public static YellowstonePathology.Business.Search.ReportSearchList GetReportSearchListByITAudit(YellowstonePathology.Business.Test.ITAuditPriorityEnum itAuditPriority)
         {
-            /*SqlCommand cmd = new SqlCommand();
+            /*MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "SELECT a.[MasterAccessionNo], pso.[ReportNo], a.AccessionTime [AccessionDate],  pso.[PanelSetId], a.[PFirstName] + ' ' + a.[PLastName] AS [PatientName], " +
                 "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate], pso.[OriginatingLocation], pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
@@ -417,7 +411,7 @@ namespace YellowstonePathology.Business.Gateway
             YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
             return reportSearchList;*/
 
-            SqlCommand cmd = new SqlCommand();
+            MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "SELECT a.[MasterAccessionNo], pso.[ReportNo], a.AccessionTime [AccessionDate],  pso.[PanelSetId], a.[PFirstName] + ' ' + a.[PLastName] AS [PatientName], " +
                 "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate], pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
@@ -433,7 +427,7 @@ namespace YellowstonePathology.Business.Gateway
 
 		public static YellowstonePathology.Business.Search.ReportSearchList GetReportSearchListByDateRange(List<object> parameters)
 		{
-            /*SqlCommand cmd = new SqlCommand();
+            /*MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "gwAccessionOrderListByCurrentMonthFill";
             cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = parameters[0];
@@ -442,7 +436,7 @@ namespace YellowstonePathology.Business.Gateway
             YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
             return reportSearchList;*/
 
-            SqlCommand cmd = new SqlCommand();
+            MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "gwAccessionOrderListByCurrentMonthFill_2";
             cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = parameters[0];
@@ -454,7 +448,7 @@ namespace YellowstonePathology.Business.Gateway
 
         /*public static YellowstonePathology.Business.Search.ReportSearchList GetReportSearchListByDateRangeLocation(List<object> parameters)
         {
-            SqlCommand cmd = new SqlCommand();
+            MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "gwAccessionOrderListByCurrentMonthFill";
             cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = parameters[0];
@@ -467,14 +461,14 @@ namespace YellowstonePathology.Business.Gateway
 
         public static YellowstonePathology.Business.Search.ReportSearchList GetReportSearchListByReportNo(List<object> parameters)
 		{
-            /*SqlCommand cmd = new SqlCommand();
+            /*MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "gwAccessionOrderListByAccessionNoFill";
             cmd.Parameters.Add("@ReportNo", SqlDbType.VarChar).Value = parameters[0];
             YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
             return reportSearchList;*/
 
-            SqlCommand cmd = new SqlCommand();
+            MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "gwAccessionOrderListByAccessionNoFill_2";
             cmd.Parameters.Add("@ReportNo", SqlDbType.VarChar).Value = parameters[0];
@@ -484,14 +478,14 @@ namespace YellowstonePathology.Business.Gateway
 
 		public static YellowstonePathology.Business.Search.ReportSearchList GetReportSearchListByNotDistributed(List<object> parameters)
 		{
-            /*SqlCommand cmd = new SqlCommand();
+            /*MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "gwAccessionOrderListByUnDistributedFill";
             cmd.Parameters.Add("@PanelId", SqlDbType.Int).Value = parameters[0];
             YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
             return reportSearchList;*/
 
-            SqlCommand cmd = new SqlCommand();
+            MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "gwAccessionOrderListByUnDistributedFill_2";
             cmd.Parameters.Add("@PanelId", SqlDbType.Int).Value = parameters[0];
@@ -501,14 +495,14 @@ namespace YellowstonePathology.Business.Gateway
 
 		public static YellowstonePathology.Business.Search.ReportSearchList GetReportSearchListByNotFinalPanelId(List<object> parameters)
 		{
-            /*SqlCommand cmd = new SqlCommand();
+            /*MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "gwAccessionOrderListByNotFinalFill";
             cmd.Parameters.Add("@PanelId", SqlDbType.Int).Value = parameters[0];
             YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
             return reportSearchList;*/
 
-            SqlCommand cmd = new SqlCommand();
+            MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "gwAccessionOrderListByNotFinalFill_2";
             cmd.Parameters.Add("@PanelId", SqlDbType.Int).Value = parameters[0];
@@ -518,13 +512,13 @@ namespace YellowstonePathology.Business.Gateway
 
 		public static YellowstonePathology.Business.Search.ReportSearchList GetReportSearchListByInHouseMolecularPending()
         {
-            /*SqlCommand cmd = new SqlCommand();
+            /*MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "gwAccessionOrderListByInHouseMolecularPending";
             YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
             return reportSearchList;*/
 
-            SqlCommand cmd = new SqlCommand();
+            MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "gwAccessionOrderListByInHouseMolecularPending_2";
             Search.ReportSearchList reportSearchList = BuildReportSearchList(cmd);
@@ -533,7 +527,7 @@ namespace YellowstonePathology.Business.Gateway
 
 		public static YellowstonePathology.Business.Search.ReportSearchList GetReportSearchListByPatientName(List<object> parameters)
 		{
-            /*SqlCommand cmd = new SqlCommand();
+            /*MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "pReportSearchListByPatientName";
             cmd.Parameters.Add("@PLastName", SqlDbType.VarChar).Value = parameters[0].ToString();
@@ -542,7 +536,7 @@ namespace YellowstonePathology.Business.Gateway
             YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
             return reportSearchList;*/
 
-            SqlCommand cmd = new SqlCommand();
+            MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "pReportSearchListByPatientName_2";
             cmd.Parameters.Add("@PLastName", SqlDbType.VarChar).Value = parameters[0].ToString();
@@ -554,14 +548,14 @@ namespace YellowstonePathology.Business.Gateway
 
 		public static YellowstonePathology.Business.Search.ReportSearchList GetReportSearchListByMasterAccessionNo(List<object> parameters)
 		{
-            /*SqlCommand cmd = new SqlCommand();
+            /*MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "gwAccessionOrderListByMasterAccessionNoFill";
             cmd.Parameters.Add("@MasterAccessionNo", SqlDbType.VarChar).Value = parameters[0];
             YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
             return reportSearchList;*/
 
-            SqlCommand cmd = new SqlCommand();
+            MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "gwAccessionOrderListByMasterAccessionNoFill_2";
             cmd.Parameters.Add("@MasterAccessionNo", SqlDbType.VarChar).Value = parameters[0];
@@ -571,14 +565,14 @@ namespace YellowstonePathology.Business.Gateway
 
 		public static YellowstonePathology.Business.Search.ReportSearchList GetReportSearchListByNotAudited(List<object> parameters)
 		{
-            /*SqlCommand cmd = new SqlCommand();
+            /*MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "gwAccessionOrderListByNotAudited";
             cmd.Parameters.Add("CaseType", SqlDbType.VarChar).Value = parameters[0];
             YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
             return reportSearchList;*/
 
-            SqlCommand cmd = new SqlCommand();
+            MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "gwAccessionOrderListByNotAudited_2";
             cmd.Parameters.Add("CaseType", SqlDbType.VarChar).Value = parameters[0];
@@ -588,14 +582,14 @@ namespace YellowstonePathology.Business.Gateway
 
 		public static YellowstonePathology.Business.Search.ReportSearchList GetReportSearchListByPatientId(List<object> parameters)
 		{
-            /*SqlCommand cmd = new SqlCommand();
+            /*MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "gwAccessionOrderListByPatientId";
             cmd.Parameters.Add("@PatientId", SqlDbType.VarChar).Value = parameters[0].ToString();
             YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
             return reportSearchList;*/
 
-            SqlCommand cmd = new SqlCommand();
+            MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "gwAccessionOrderListByPatientId_2";
             cmd.Parameters.Add("@PatientId", SqlDbType.VarChar).Value = parameters[0].ToString();
@@ -605,7 +599,7 @@ namespace YellowstonePathology.Business.Gateway
 
         public static YellowstonePathology.Business.Search.ReportSearchList GetReportSearchListByPanelSetId(List<object> parameters)
         {
-            /*SqlCommand cmd = new SqlCommand();
+            /*MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "gwAccessionOrderListByPanelSetId_2";
             cmd.Parameters.Add("@PanelSetId", SqlDbType.Int).Value = parameters[0];
@@ -613,7 +607,7 @@ namespace YellowstonePathology.Business.Gateway
             YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
             return reportSearchList;*/
 
-            SqlCommand cmd = new SqlCommand();
+            MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "gwAccessionOrderListByPanelSetId_4";
             cmd.Parameters.Add("@PanelSetId", SqlDbType.Int).Value = parameters[0];
@@ -624,7 +618,7 @@ namespace YellowstonePathology.Business.Gateway
 
         public static YellowstonePathology.Business.Search.ReportSearchList GetReportSearchListByTest(int panelSetId, DateTime startDate, DateTime endDate)
         {
-            /*SqlCommand cmd = new SqlCommand();
+            /*MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "SELECT pso.[MasterAccessionNo], pso.[ReportNo], a.AccessionTime [AccessionDate],  pso.[PanelSetId], a.[PFirstName] + ' ' + a.[PLastName] AS [PatientName], " +
                 "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate], pso.[OriginatingLocation], pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
@@ -643,7 +637,7 @@ namespace YellowstonePathology.Business.Gateway
             YellowstonePathology.Business.Search.ReportSearchList reportSearchList = Persistence.SqlCommandHelper.ExecuteCollectionCommand<YellowstonePathology.Business.Search.ReportSearchList>(cmd);
             return reportSearchList;*/
 
-            SqlCommand cmd = new SqlCommand();
+            MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "SELECT pso.[MasterAccessionNo], pso.[ReportNo], a.AccessionTime [AccessionDate],  pso.[PanelSetId], a.[PFirstName] + ' ' + a.[PLastName] AS [PatientName], " +
                 "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate], pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
@@ -663,7 +657,7 @@ namespace YellowstonePathology.Business.Gateway
         public static Test.ThinPrepPap.AcidWashList GetAcidWashList(DateTime startDate)
         {
             Test.ThinPrepPap.AcidWashList result = new Test.ThinPrepPap.AcidWashList();
-            SqlCommand cmd = new SqlCommand();
+            MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "Select pso.MasterAccessionNo, po.ReportNo, po.OrderTime, po.Accepted, a.PLastName, a.PFirstName, a.PMiddleInitial, po.Comment, su.UserName " +
                 "from tblPanelOrder po " +
@@ -673,11 +667,11 @@ namespace YellowstonePathology.Business.Gateway
 
             cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = startDate;
 
-            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;
-                using (SqlDataReader dr = cmd.ExecuteReader())
+                using (MySqlDataReader dr = cmd.ExecuteReader())
                 {
                     while (dr.Read())
                     {
@@ -693,15 +687,15 @@ namespace YellowstonePathology.Business.Gateway
             return result;
         }
 
-        private static YellowstonePathology.Business.Search.ReportSearchList BuildReportSearchList(SqlCommand cmd)
+        private static YellowstonePathology.Business.Search.ReportSearchList BuildReportSearchList(MySqlCommand cmd)
         {
             Search.ReportSearchList result = new Search.ReportSearchList();
 
-            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;
-                using (SqlDataReader dr = cmd.ExecuteReader())
+                using (MySqlDataReader dr = cmd.ExecuteReader())
                 {
                     while (dr.Read())
                     {

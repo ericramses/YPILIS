@@ -1,20 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Data;
-using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 
 namespace YellowstonePathology.Business.Persistence
 {
     public class GenericDocumentBuilder : DocumentBuilder
     {
-        private SqlCommand m_SQLCommand;
+        private MySqlCommand m_MySqlCommand;
         private Type m_Type;
 
-        public GenericDocumentBuilder(SqlCommand sqlCommand, Type type)
+        public GenericDocumentBuilder(MySqlCommand sqlCommand, Type type)
         {
-            this.m_SQLCommand = sqlCommand;
+            this.m_MySqlCommand = sqlCommand;
             this.m_Type = type;
         }
 
@@ -27,16 +23,16 @@ namespace YellowstonePathology.Business.Persistence
 
         private void Build(object o)
         {
-            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
-                m_SQLCommand.Connection = cn;
+                m_MySqlCommand.Connection = cn;
 
-                using (SqlDataReader dr = m_SQLCommand.ExecuteReader())
+                using (MySqlDataReader dr = m_MySqlCommand.ExecuteReader())
                 {
                     while (dr.Read())
                     {
-                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(o, dr);
+                        YellowstonePathology.Business.Persistence.MySqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.MySqlDataReaderPropertyWriter(o, dr);
                         sqlDataReaderPropertyWriter.WriteProperties();
                     }
                 }

@@ -1,20 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Reflection;
-using System.Data;
-using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 
 namespace YellowstonePathology.Business.Persistence
 {
     public class SqlDataReaderPropertyWriter
     {
 		object m_ObjectToWriteTo;
-        SqlDataReader m_SqlDataReader;
+        MySqlDataReader m_SqlDataReader;
         Type m_ObjectType;        
 
-		public SqlDataReaderPropertyWriter(object objectToWriteTo, SqlDataReader dataReader)
+		public SqlDataReaderPropertyWriter(object objectToWriteTo, MySqlDataReader dataReader)
 		{
 			this.m_ObjectToWriteTo = objectToWriteTo;
             this.m_SqlDataReader = dataReader;

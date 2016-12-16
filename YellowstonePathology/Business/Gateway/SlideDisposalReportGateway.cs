@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Data.SqlClient;
 using System.Xml;
 using System.Xml.Linq;
+using MySql.Data.MySqlClient;
 
 namespace YellowstonePathology.Business.Gateway
 {
@@ -13,12 +11,12 @@ namespace YellowstonePathology.Business.Gateway
 		public static XElement GetCytologySlideDisposalReport(DateTime disposalDate)
 		{
 			XElement result = null;
-			SqlCommand cmd = new SqlCommand("pCytologySlideDisposalReport");
+			MySqlCommand cmd = new MySqlCommand("pCytologySlideDisposalReport");
 			cmd.CommandType = System.Data.CommandType.StoredProcedure;
 			cmd.Parameters.Add("@DisposalDate", System.Data.SqlDbType.DateTime).Value = disposalDate;
 
 			StringBuilder xmlString = new StringBuilder();
-			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+			using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{
 				cn.Open();
 				cmd.Connection = cn;
@@ -40,7 +38,7 @@ namespace YellowstonePathology.Business.Gateway
 
         public static Reports.DisposalReportData GetCytologySlideDisposalReport_1(DateTime disposalDate)
         {
-            SqlCommand cmd = new SqlCommand("pCytologySlideDisposalReport_1");
+            MySqlCommand cmd = new MySqlCommand("pCytologySlideDisposalReport_1");
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
             cmd.Parameters.Add("@DisposalDate", System.Data.SqlDbType.DateTime).Value = disposalDate;
             Reports.DisposalReportData result = BuildDisposalReportData(cmd);
@@ -50,12 +48,12 @@ namespace YellowstonePathology.Business.Gateway
         public static XElement GetSpecimenDisposalReport(DateTime disposalDate)
 		{
 			XElement result = null;
-			SqlCommand cmd = new SqlCommand("pDailySpecimenDisposalReport");
+			MySqlCommand cmd = new MySqlCommand("pDailySpecimenDisposalReport");
 			cmd.CommandType = System.Data.CommandType.StoredProcedure;
 			cmd.Parameters.Add("@DisposalDate", System.Data.SqlDbType.DateTime).Value = disposalDate;
 
 			StringBuilder xmlString = new StringBuilder();
-			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+			using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{
 				cn.Open();
 				cmd.Connection = cn;
@@ -77,21 +75,21 @@ namespace YellowstonePathology.Business.Gateway
 
         public static Reports.DisposalReportData GetSpecimenDisposalReport_1(DateTime disposalDate)
         {
-            SqlCommand cmd = new SqlCommand("pDailySpecimenDisposalReport_1");
+            MySqlCommand cmd = new MySqlCommand("pDailySpecimenDisposalReport_1");
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
             cmd.Parameters.Add("@DisposalDate", System.Data.SqlDbType.DateTime).Value = disposalDate;
             Reports.DisposalReportData result = BuildDisposalReportData(cmd);
             return result;
         }
 
-        private static Reports.DisposalReportData BuildDisposalReportData(SqlCommand cmd)
+        private static Reports.DisposalReportData BuildDisposalReportData(MySqlCommand cmd)
         {
             Reports.DisposalReportData result = new Reports.DisposalReportData();
-            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;
-                using (SqlDataReader dr = cmd.ExecuteReader())
+                using (MySqlDataReader dr = cmd.ExecuteReader())
                 {
                     while (dr.Read())
                     {
@@ -129,16 +127,16 @@ namespace YellowstonePathology.Business.Gateway
         public static Reports.POCRetensionReportData GetPOCRetensionReport(DateTime startDate, DateTime endDate)
         {
             Reports.POCRetensionReportData result = new Reports.POCRetensionReportData();
-            SqlCommand cmd = new SqlCommand("prcPOCRetensionReport_1");
+            MySqlCommand cmd = new MySqlCommand("prcPOCRetensionReport_1");
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
             cmd.Parameters.Add("@StartDate", System.Data.SqlDbType.DateTime).Value = startDate;
             cmd.Parameters.Add("@EndDate", System.Data.SqlDbType.DateTime).Value = endDate;
 
-            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;
-                using (SqlDataReader dr = cmd.ExecuteReader())
+                using (MySqlDataReader dr = cmd.ExecuteReader())
                 {
                     while (dr.Read())
                     {
