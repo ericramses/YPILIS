@@ -38,8 +38,8 @@ namespace YellowstonePathology.Business.Test.HPV1618ByPCR
             YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT87625(), 1);
             this.m_PanelSetCptCodeCollection.Add(panelSetCptCode);
 
-            string taskDescription = "Cut curls and an after H&E. Give to molecular";
-			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.Task(YellowstonePathology.Business.Task.Model.TaskAssignment.Histology, taskDescription));
+            string task1Description = "Cut curls and an after H&E. Give to molecular";
+			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.Task(YellowstonePathology.Business.Task.Model.TaskAssignment.Histology, task1Description));
 
             string task2Description = "Receive materials from histology and run test.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.Task(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, task2Description));

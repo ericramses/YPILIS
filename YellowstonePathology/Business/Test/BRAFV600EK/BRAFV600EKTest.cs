@@ -38,8 +38,8 @@ namespace YellowstonePathology.Business.Test.BRAFV600EK
             //Checked by MS and TK;
             //updated 12.14.16 by MS;
 
-            string task2Description = "Collect paraffin block from Histology and send to Neo.";
-			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.Task(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, task2Description));
+            string taskDescription = "Collect paraffin block from Histology and send to Neo.";
+			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.Task(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, taskDescription));
 
             YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT81210(), 1);
             this.m_PanelSetCptCodeCollection.Add(panelSetCptCode);
