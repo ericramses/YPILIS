@@ -2248,7 +2248,7 @@ namespace YellowstonePathology.Business.Gateway
             return result;
         }
 
-        public static YellowstonePathology.Business.NeogenomicsResultCollection GetNeogenomicsResultCollection()
+        /*public static YellowstonePathology.Business.NeogenomicsResultCollection GetNeogenomicsResultCollection()
 		{            
 			YellowstonePathology.Business.NeogenomicsResultCollection result = new YellowstonePathology.Business.NeogenomicsResultCollection();
 			MySqlCommand cmd = new MySqlCommand();
@@ -2271,7 +2271,7 @@ namespace YellowstonePathology.Business.Gateway
 				}
 			}
 			return result;
-		}
+		}*/
 
 		public static YellowstonePathology.Business.Test.Model.StainTest GetStainTestByTestId(int testId)
 		{
