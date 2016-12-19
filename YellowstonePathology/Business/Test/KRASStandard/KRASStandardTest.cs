@@ -37,8 +37,8 @@ namespace YellowstonePathology.Business.Test.KRASStandard
             //updated on 12.14.16 by MS;
 
 
-            string task2Description = "Collect paraffin block from Histology and send to Neo.";
-			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskFedexShipment(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, task2Description, new Facility.Model.NeogenomicsIrvine()));
+            string taskDescription = "Collect paraffin block from Histology and send to Neo.";
+			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskFedexShipment(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, taskDescription, new Facility.Model.NeogenomicsIrvine()));
 
             YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT81275(), 1);
             this.m_PanelSetCptCodeCollection.Add(panelSetCptCode);

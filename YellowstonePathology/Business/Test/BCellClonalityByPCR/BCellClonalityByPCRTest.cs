@@ -32,8 +32,8 @@ namespace YellowstonePathology.Business.Test.BCellClonalityByPCR
 
             this.m_HasSplitCPTCode = true;
 
-            string taskDescription = "Give block to Molecular for sendout to Neo.";
-			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.Task(YellowstonePathology.Business.Task.Model.TaskAssignment.Histology, taskDescription));
+            string task1Description = "Give block to Molecular for sendout to Neo.";
+			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.Task(YellowstonePathology.Business.Task.Model.TaskAssignment.Histology, task1Description));
 
             string task2Description = "Receive block from Histology and send to Neo for testing.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskFedexShipment(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, task2Description, new Facility.Model.NeogenomicsIrvine()));
