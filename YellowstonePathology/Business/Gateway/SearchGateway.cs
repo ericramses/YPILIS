@@ -11,10 +11,10 @@ namespace YellowstonePathology.Business.Gateway
 		{
 			MySqlCommand cmd = new MySqlCommand("pPathologistGenericSearch_3");
 			cmd.CommandType = CommandType.StoredProcedure;
-			cmd.Parameters.Add("@CaseType",SqlDbType.VarChar).Value = caseType;
-			cmd.Parameters.Add("@PathologistId",SqlDbType.Int).Value = pathologistId;
-			cmd.Parameters.Add("@Final",SqlDbType.Bit).Value = final;
-			cmd.Parameters.Add("@FinalDateLimit",SqlDbType.VarChar).Value = finalDateLimit;
+			cmd.Parameters.AddWithValue("CaseType", caseType);
+			cmd.Parameters.AddWithValue("PathologistId", pathologistId);
+			cmd.Parameters.AddWithValue("Final", final);
+			cmd.Parameters.AddWithValue("FinalDateLimit", finalDateLimit);
 			return this.BuildResultList(cmd);
 		}
 
@@ -22,11 +22,11 @@ namespace YellowstonePathology.Business.Gateway
 		{
 			MySqlCommand cmd = new MySqlCommand("pPathologistNameSearch_3");
 			cmd.CommandType = CommandType.StoredProcedure;
-			cmd.Parameters.Add("@PLastName", SqlDbType.VarChar).Value = pLastName;
-			cmd.Parameters.Add("@PFirstName", SqlDbType.VarChar).Value = pFirstName;
+			cmd.Parameters.AddWithValue("PLastName", pLastName);
+			cmd.Parameters.AddWithValue("PFirstName", pFirstName);
 			if (string.IsNullOrEmpty(pFirstName) == true)
 			{
-				cmd.Parameters["@PFirstName"].Value = DBNull.Value;
+				cmd.Parameters["PFirstName"].Value = DBNull.Value;
 			}
 			return this.BuildResultList(cmd);
 		}
@@ -35,7 +35,7 @@ namespace YellowstonePathology.Business.Gateway
 		{
 			MySqlCommand cmd = new MySqlCommand("pPathologistPatientIdSearch_3");
 			cmd.CommandType = CommandType.StoredProcedure;
-			cmd.Parameters.Add("@PatientId", SqlDbType.VarChar).Value = patientId;
+			cmd.Parameters.AddWithValue("PatientId",  patientId);
 			return this.BuildResultList(cmd);
 		}
 
@@ -43,7 +43,7 @@ namespace YellowstonePathology.Business.Gateway
 		{
             MySqlCommand cmd = new MySqlCommand("pPathologistHistologySlideSearch_3");
 			cmd.CommandType = CommandType.StoredProcedure;
-			cmd.Parameters.Add("@SlideOrderId", SqlDbType.VarChar).Value = slideOrderId;
+			cmd.Parameters.AddWithValue("SlideOrderId", slideOrderId);
 			return this.BuildResultList(cmd);
 		}
 
@@ -52,7 +52,7 @@ namespace YellowstonePathology.Business.Gateway
 
             MySqlCommand cmd = new MySqlCommand("pPathologistAliquotOrderIdSearch_5");
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.Add("@AliquotOrderId", SqlDbType.VarChar).Value = aliquotOrderId;
+            cmd.Parameters.AddWithValue("AliquotOrderId", aliquotOrderId);
 
             List<YellowstonePathology.Business.Search.PathologistSearchResult> resultList = new List<Search.PathologistSearchResult>();
 
@@ -93,7 +93,7 @@ namespace YellowstonePathology.Business.Gateway
         public YellowstonePathology.Business.Search.PathologistSearchResultCollection GetPathologistSearchListByReportNo(string reportNo)
 		{
 			MySqlCommand cmd = new MySqlCommand("pPathologistReportNoSearch_3");
-			cmd.Parameters.Add("@ReportNo", SqlDbType.VarChar).Value = reportNo;
+			cmd.Parameters.AddWithValue("ReportNo", reportNo);
 			cmd.CommandType = CommandType.StoredProcedure;
 
 			return this.BuildResultList(cmd);
@@ -102,7 +102,7 @@ namespace YellowstonePathology.Business.Gateway
         public YellowstonePathology.Business.Search.PathologistSearchResultCollection GetPathologistSearchListByMasterAccessionNoNo(string masterAccessionNo)
         {
             MySqlCommand cmd = new MySqlCommand("pPathologistMasterAccessionNoSearch_3");
-            cmd.Parameters.Add("@MasterAccessionNo", SqlDbType.VarChar).Value = masterAccessionNo;
+            cmd.Parameters.AddWithValue("MasterAccessionNo", masterAccessionNo);
             cmd.CommandType = CommandType.StoredProcedure;
 
             return this.BuildResultList(cmd);

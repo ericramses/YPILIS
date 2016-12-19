@@ -22,8 +22,8 @@ namespace YellowstonePathology.Business.Patient.Model
             this.m_Cmd.Parameters.Clear();
             this.m_Cmd.CommandText = "prcGetPatientLookup";
             this.m_Cmd.CommandType = CommandType.StoredProcedure;
-            this.m_Cmd.Parameters.Add("@Lastname", SqlDbType.VarChar, 100).Value = lastName;
-            this.m_Cmd.Parameters.Add("@Firstname", SqlDbType.VarChar, 100).Value = firstName;            
+            this.m_Cmd.Parameters.AddWithValue("Lastname", lastName);
+            this.m_Cmd.Parameters.AddWithValue("Firstname", firstName);            
         }
 
         public void Fill()

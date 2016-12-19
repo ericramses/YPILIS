@@ -26,7 +26,7 @@ namespace YellowstonePathology.Business.User
                     while (dr.Read())
                     {
                         YellowstonePathology.Business.User.SystemUser systemUser = new SystemUser();
-                        YellowstonePathology.Business.Persistence.MySqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.MySqlDataReaderPropertyWriter(systemUser, dr);
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(systemUser, dr);
                         sqlDataReaderPropertyWriter.WriteProperties();
                         systemUserCollection.Add(systemUser);
                     }
@@ -34,7 +34,7 @@ namespace YellowstonePathology.Business.User
                     while (dr.Read())
                     {
                         YellowstonePathology.Business.User.SystemUserRole systemUserRole = new SystemUserRole();
-                        YellowstonePathology.Business.Persistence.MySqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.MySqlDataReaderPropertyWriter(systemUserRole, dr);
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(systemUserRole, dr);
                         sqlDataReaderPropertyWriter.WriteProperties();
                         foreach (SystemUser systemUser in systemUserCollection)
                         {

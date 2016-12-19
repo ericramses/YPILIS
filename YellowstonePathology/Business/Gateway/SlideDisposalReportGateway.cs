@@ -8,34 +8,6 @@ namespace YellowstonePathology.Business.Gateway
 {
 	public class SlideDisposalReportGateway
 	{
-		public static XElement GetCytologySlideDisposalReport(DateTime disposalDate)
-		{
-			XElement result = null;
-			MySqlCommand cmd = new MySqlCommand("pCytologySlideDisposalReport");
-			cmd.CommandType = System.Data.CommandType.StoredProcedure;
-			cmd.Parameters.Add("@DisposalDate", System.Data.SqlDbType.DateTime).Value = disposalDate;
-
-			StringBuilder xmlString = new StringBuilder();
-			using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-			{
-				cn.Open();
-				cmd.Connection = cn;
-				using (XmlReader xmlReader = cmd.ExecuteXmlReader())
-				{
-					while (xmlReader.Read())
-					{
-						xmlString.Append(xmlReader.ReadOuterXml());
-					}
-				}
-			}
-
-			if (xmlString.Length > 0)
-			{
-				result = XElement.Parse(xmlString.ToString());
-			}
-			return result;
-		}
-
         public static Reports.DisposalReportData GetCytologySlideDisposalReport_1(DateTime disposalDate)
         {
             MySqlCommand cmd = new MySqlCommand("pCytologySlideDisposalReport_1");
@@ -44,34 +16,6 @@ namespace YellowstonePathology.Business.Gateway
             Reports.DisposalReportData result = BuildDisposalReportData(cmd);
             return result;
         }
-
-        public static XElement GetSpecimenDisposalReport(DateTime disposalDate)
-		{
-			XElement result = null;
-			MySqlCommand cmd = new MySqlCommand("pDailySpecimenDisposalReport");
-			cmd.CommandType = System.Data.CommandType.StoredProcedure;
-			cmd.Parameters.Add("@DisposalDate", System.Data.SqlDbType.DateTime).Value = disposalDate;
-
-			StringBuilder xmlString = new StringBuilder();
-			using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-			{
-				cn.Open();
-				cmd.Connection = cn;
-				using (XmlReader xmlReader = cmd.ExecuteXmlReader())
-				{
-					while (xmlReader.Read())
-					{
-						xmlString.Append(xmlReader.ReadOuterXml());
-					}
-				}
-			}
-
-			if (xmlString.Length > 0)
-			{
-				result = XElement.Parse(xmlString.ToString());
-			}
-			return result;
-		}
 
         public static Reports.DisposalReportData GetSpecimenDisposalReport_1(DateTime disposalDate)
         {

@@ -142,7 +142,7 @@ namespace YellowstonePathology.Business.Persistence
             bool sqlValue = false;
             if (this.m_SqlDataReader[property.Name] != DBNull.Value) //ClientLocation
             {
-                sqlValue = Convert.ToBoolean(this.m_SqlDataReader[property.Name].ToString());
+                sqlValue = Convert.ToBoolean(this.m_SqlDataReader[property.Name]);
             }
 			property.SetValue(this.m_ObjectToWriteTo, sqlValue, null);
         }
@@ -152,7 +152,7 @@ namespace YellowstonePathology.Business.Persistence
             Nullable<bool> sqlValue = null;
             if (this.m_SqlDataReader[property.Name] != DBNull.Value)
             {
-                sqlValue = Convert.ToBoolean(this.m_SqlDataReader[property.Name].ToString());
+                sqlValue = Convert.ToBoolean(this.m_SqlDataReader[property.Name]);
             }
 			property.SetValue(this.m_ObjectToWriteTo, sqlValue, null);
         }

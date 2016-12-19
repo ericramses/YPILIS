@@ -274,9 +274,7 @@ namespace YellowstonePathology.Business.Persistence
             {
                 MySqlCommand cmd = new MySqlCommand();
                 cmd.CommandText = "gwGetClientOrderByClientOrderId";
-                MySqlParameter clientOrderIdParameter = new MySqlParameter("@ClientOrderId", SqlDbType.VarChar, 100);
-                clientOrderIdParameter.Value = clientOrderId;
-                cmd.Parameters.Add(clientOrderIdParameter);
+                cmd.Parameters.AddWithValue("ClientOrderId", clientOrderId);
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 ClientOrderDocumentBuilder builder = new ClientOrderDocumentBuilder(cmd);
 

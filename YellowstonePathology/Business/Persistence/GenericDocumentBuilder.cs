@@ -32,7 +32,7 @@ namespace YellowstonePathology.Business.Persistence
                 {
                     while (dr.Read())
                     {
-                        YellowstonePathology.Business.Persistence.MySqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.MySqlDataReaderPropertyWriter(o, dr);
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(o, dr);
                         sqlDataReaderPropertyWriter.WriteProperties();
                     }
                 }

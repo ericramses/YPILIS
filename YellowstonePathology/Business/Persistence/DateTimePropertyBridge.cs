@@ -37,7 +37,7 @@ namespace YellowstonePathology.Business.Persistence
         public override void SetSqlParameter(MySqlCommand cmd)
         {
             base.SetSqlParameter(cmd);
-            this.m_SqlParameter.SqlDbType = SqlDbType.DateTime;
+            this.m_SqlParameter.MySqlDbType = MySqlDbType.DateTime;
         }
     }
 }
