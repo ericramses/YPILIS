@@ -3012,6 +3012,7 @@
     <Compile Include="MySQLMigration\NonpersistentTableDef.cs" />
     <Compile Include="MySQLMigration\NonpersistentTableDefCollection.cs" />
     <Compile Include="MySQLMigration\NonpersistentTableDefCytologyDiagnosis.cs" />
+    <Compile Include="MySQLMigration\NonpersistentTableDefCytologyScreeningImpression.cs" />
     <Compile Include="MySQLMigration\NonpersistentTableDefFlowCommentV2.cs" />
     <Compile Include="MySQLMigration\NonpersistentTableDefMarkers.cs" />
     <Compile Include="MySQLMigration\NonpersistentTableDefPanelSet.cs" />
