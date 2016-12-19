@@ -3020,6 +3020,7 @@
     <Compile Include="MySQLMigration\NonpersistentTableDefImmunoComment.cs" />
     <Compile Include="MySQLMigration\NonpersistentTableDefMarkers.cs" />
     <Compile Include="MySQLMigration\NonpersistentTableDefOrderComment.cs" />
+    <Compile Include="MySQLMigration\NonpersistentTableDefPanel.cs" />
     <Compile Include="MySQLMigration\NonpersistentTableDefPanelSet.cs" />
     <Compile Include="MySQLMigration\NonpersistentTableDefSpecimenAdequacy.cs" />
     <Compile Include="MySQLMigration\NonpersistentTableDefStainResultOption.cs" />
