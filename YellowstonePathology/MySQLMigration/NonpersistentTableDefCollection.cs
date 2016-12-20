@@ -21,6 +21,7 @@ namespace YellowstonePathology.MySQLMigration
             result.Add(new NonpersistentTableDefCytologySAComments());
             result.Add(new NonpersistentTableDefCytologyScreeningImpression());
             result.Add(new NonpersistentTableDefFlowCommentV2());
+            result.Add(new NonpersistentTableDefICD9Code());
             result.Add(new NonpersistentTableDefImmunoComment());
             result.Add(new NonpersistentTableDefMarkers()); 
             result.Add(new NonpersistentTableDefOrderComment());
