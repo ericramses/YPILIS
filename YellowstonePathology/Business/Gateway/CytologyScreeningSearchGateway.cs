@@ -33,14 +33,14 @@ namespace YellowstonePathology.Business.Gateway
             List<YellowstonePathology.Business.Search.CytologyScreeningSearchResult> result = new List<Search.CytologyScreeningSearchResult>();
             string sqlStatement = "Select ao.MasterAccessionNo, " +
                 "pso.ReportNo, " +
-                "ao.PFirstName + ' ' + ao.PLastName [PatientName], " +
+                "concat(ao.PFirstName, ' ', ao.PLastName) PatientName, " +
                 "ao.AccessionTime, " +
                 "cpo.ScreeningType, " +
-                "su.DisplayName [OrderedByName], " +
+                "su.DisplayName OrderedByName, " +
                 "cpo.ScreenedByName, " +
-                "su1.DisplayName [AssignedToName], " +
-                "po.AcceptedTime [ScreeningFinalTime], " +
-                "pso.FinalTime [CaseFinalTime], " +
+                "su1.DisplayName AssignedToName, " +
+                "po.AcceptedTime ScreeningFinalTime, " +
+                "pso.FinalTime CaseFinalTime, " +
                 "cpo.Reconciled " +
                 "from tblAccessionOrder ao " +
                 "join tblPanelSetOrder pso on ao.MasterAccessionNo = pso.MasterAccessionNo " +
@@ -48,12 +48,12 @@ namespace YellowstonePathology.Business.Gateway
                 "join tblPanelOrderCytology cpo on po.PanelOrderId = cpo.PanelORderId " +
                 "left outer join tblSystemUser su on po.OrderedById = su.UserId " +
                 "left outer join tblSystemUser su1 on po.AssignedToId = su1.UserId " +
-                "where ao.AccessionDate >= dateadd(dd, -30, getdate()) " +
+                "where ao.AccessionDate >= date_add(curdate(), Interval -30 Day) " +
                     "and po.AssignedToId = @AssignedToId " +
                     "and pso.ResultCode <> po.ResultCode ";
 
             MySqlCommand cmd = new MySqlCommand(sqlStatement);
-            cmd.Parameters.Add("@AssignedToId", System.Data.SqlDbType.Int).Value = assignedToId;
+            cmd.Parameters.AddWithValue("@AssignedToId", assignedToId);
 
             using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {

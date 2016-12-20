@@ -234,7 +234,7 @@ namespace YellowstonePathology.Business
             }
             else
             {
-                return Convert.ToBoolean(dr[fieldName].ToString());
+                return Convert.ToBoolean(dr[fieldName]); //.ToString());
             }
         }
 

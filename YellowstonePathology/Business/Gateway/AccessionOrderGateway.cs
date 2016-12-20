@@ -12,16 +12,16 @@ namespace YellowstonePathology.Business.Gateway
         public static YellowstonePathology.Business.HL7View.ADTMessages GetADTMessages(string mrn)
         {
             YellowstonePathology.Business.HL7View.ADTMessages result = new HL7View.ADTMessages();
-            SqlCommand cmd = new SqlCommand();
+            MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = "select * from tblADT where MedicalRecordNo = @MRN";
             cmd.CommandType = CommandType.Text;
-            cmd.Parameters.Add("@MRN", SqlDbType.VarChar).Value = mrn;
+            cmd.Parameters.AddWithValue("@MRN", mrn);
 
-            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;
-                using (SqlDataReader dr = cmd.ExecuteReader())
+                using (MySqlDataReader dr = cmd.ExecuteReader())
                 {
                     while (dr.Read())
                     {
@@ -46,7 +46,7 @@ namespace YellowstonePathology.Business.Gateway
                 "from tblAccessionOrder ao " +
                 "join tblspecimenOrder so on ao.masterAccessionNo = so.MasterAccessionNo " +
                 "where instr(so.Description, 'Breast') > 0 " +
-                "and ao.AccessionDate >= date_add(currdate(), interval -30 day) " +
+                "and ao.AccessionDate >= date_add(curdate(), interval -30 day) " +
                 "order by ao.AccessionTime desc;";
             cmd.CommandType = CommandType.Text;            
 
@@ -953,7 +953,7 @@ namespace YellowstonePathology.Business.Gateway
                 "FROM tblAccessionOrder a JOIN tblPanelSetOrder pso ON a.MasterAccessionNo = pso.MasterAccessionNo " +
                 "JOIN tblSurgicalTestOrder sto ON pso.ReportNo = sto.ReportNo " +
                 "JOIN tblSystemUser su on pso.AssignedToId = su.UserId " +
-                "WHERE sto.Grossx like '%???%' and a.AccessionDate >= date_add(currdate(), Interval -10 Day)) T1 " +
+                "WHERE sto.Grossx like '%???%' and a.AccessionDate >= date_add(curdate(), Interval -10 Day)) T1 " +
                 "ORDER BY AccessionTime;";
             cmd.CommandType = CommandType.Text;
 
@@ -970,7 +970,7 @@ namespace YellowstonePathology.Business.Gateway
                 "FROM tblAccessionOrder a JOIN tblPanelSetOrder pso ON a.MasterAccessionNo = pso.MasterAccessionNo " +
                 "JOIN tblSurgicalTestOrder sto ON pso.ReportNo = sto.ReportNo " +
                 "JOIN tblSystemUser su on pso.AssignedToId = su.UserId " +
-                "WHERE a.ClinicalHistory = '???' and a.AccessionDate >= date_add(currdate(), Interval -10 Day)) T1 " +
+                "WHERE a.ClinicalHistory = '???' and a.AccessionDate >= date_add(curdate(), Interval -10 Day)) T1 " +
                 "ORDER BY AccessionTime;";
             cmd.CommandType = CommandType.Text;
 
@@ -1157,7 +1157,7 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.CommandText = "select ao.MasterAccessionNo, pso.ReportNo, ao.PFirstName, ao.PLastName, ao.PBirthdate, ao.AccessionTime, " +
                 "ao.ClientName, ao.PhysicianName, ao.CollectionTime from tblAccessionOrder ao " +
 				"left outer join tblPanelSetOrder pso on ao.MasterAccessionNo = pso.MasterAccessionNo " +
-				"where ao.PFirstName = PFirstName and ao.PLastName = PLastName and datediff(currdate(), ao.AccessionDate) <= 7 ;";
+				"where ao.PFirstName = PFirstName and ao.PLastName = PLastName and datediff(curdate(), ao.AccessionDate) <= 7 ;";
 			cmd.Parameters.AddWithValue("PLastName", pLastName);
 			cmd.Parameters.AddWithValue("PFirstName", pFirstName);
 
@@ -1775,7 +1775,7 @@ namespace YellowstonePathology.Business.Gateway
                 "from tblPanelSetOrder pso " +
                 "join tblWomensHealthProfileTestOrder psowhp on pso.ReportNo = psowhp.ReportNo " +
                 "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
-                "where pso.Final = 1 and pso.FinalDate >= date_Add(currdate(), interval -1, Month) order by pso.FinalTime desc;";
+                "where pso.Final = 1 and pso.FinalDate >= date_Add(curdate(), interval -1, Month) order by pso.FinalTime desc;";
 
             using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
@@ -1831,11 +1831,11 @@ namespace YellowstonePathology.Business.Gateway
 		public static YellowstonePathology.Business.Task.Model.TaskOrderCollection GetTaskOrderCollection(string acknowledgementType)
 		{
             MySqlCommand cmd = new MySqlCommand("select * from tblTaskOrder where tblTaskOrder.AcknowledgementType = AcknowledgementType and " +
-                "OrderDate between date_add(currdate(), Interval-15 Day) and currdate() order by OrderDate desc " +
+                "OrderDate between date_add(curdate(), Interval-15 Day) and curdate() order by OrderDate desc; " +
                 "select * from tblTaskOrderDetail tod " +
                 "join tblTaskOrderDetailFedexShipment todf on tod.TaskOrderDetailId = todf.TaskOrderDetailId " +
                 "where TaskOrderId in(select TaskOrderId from tblTaskOrder where " +
-                "AcknowledgementType = AcknowledgementType and OrderDate between date_add(currdate(), Interval-15 Day) and currdate()) " +
+                "AcknowledgementType = AcknowledgementType and OrderDate between date_add(curdate(), Interval-15 Day) and curdate()) " +
                 "order by tod.TaskOrderDetailId;");
             cmd.CommandType = CommandType.Text;
             cmd.Parameters.AddWithValue("AcknowledgementType", acknowledgementType);
@@ -1848,7 +1848,7 @@ namespace YellowstonePathology.Business.Gateway
 			YellowstonePathology.Business.Task.Model.TaskOrderCollection result = new YellowstonePathology.Business.Task.Model.TaskOrderCollection();
             string sql = "Select * from tblTaskOrder where AcknowledgementType = 'Daily' " +
 	            "and Acknowledged = 0 " +
-	            "and TaskDate <= currDate() order by TaskDate desc;";
+	            "and TaskDate <= curdate() order by TaskDate desc;";
             MySqlCommand cmd = new MySqlCommand(sql);	
 			cmd.CommandType = CommandType.Text;
 			cmd.Parameters.AddWithValue("AcknowledgementType", Task.Model.TaskAcknowledgementType.Daily);

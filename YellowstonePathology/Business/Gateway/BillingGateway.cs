@@ -10,7 +10,7 @@ namespace YellowstonePathology.Business.Gateway
         {
             MySqlCommand cmd = new MySqlCommand("pUpdateAccessionBillingInformationFromSVHBillingData");
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.Add("@FileDate", SqlDbType.DateTime).Value = fileDate;
+            cmd.Parameters.AddWithValue("FileDate", fileDate);
 
             using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
