@@ -31,9 +31,9 @@
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <PublishUrl>ls\</PublishUrl>
+    <PublishUrl>\\ypiidc\YPIILIS\Application\</PublishUrl>
     <Install>false</Install>
-    <InstallFrom>Disk</InstallFrom>
+    <InstallFrom>Unc</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateMode>Foreground</UpdateMode>
     <UpdateInterval>7</UpdateInterval>
@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>257</ApplicationRevision>
+    <ApplicationRevision>271</ApplicationRevision>
     <ApplicationVersion>10.1.6.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -291,6 +291,8 @@
     <Compile Include="Business\BaseData.cs" />
     <Compile Include="Business\BaseItem.cs" />
     <Compile Include="Business\BaseListItem.cs" />
+    <Compile Include="Business\HL7View\ADTMessage.cs" />
+    <Compile Include="Business\HL7View\ADTMessages.cs" />
     <Compile Include="Business\Billing.Model\BillableObject.cs" />
     <Compile Include="Business\Billing.Model\BillableObjectFactory.cs" />
     <Compile Include="Business\Billing.Model\BillableObjectInHouseMolecular.cs" />
@@ -637,6 +639,9 @@
     <Compile Include="Business\Document\ReportDisclaimer.cs" />
     <Compile Include="Business\Document\ReportDistributionTable.cs" />
     <Compile Include="Business\Document\ReportSaveModeEnum.cs" />
+    <Compile Include="Business\Document\ADTInsuranceDocument.xaml.cs">
+      <DependentUpon>ADTInsuranceDocument.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Business\Document\SVHBillingDocument.xaml.cs">
       <DependentUpon>SVHBillingDocument.xaml</DependentUpon>
     </Compile>
@@ -808,6 +813,7 @@
     <Compile Include="Business\Flow\MarkerItem.cs" />
     <Compile Include="Business\Flow\MarkerItem.Generated.cs" />
     <Compile Include="Business\FtpTransfer.cs" />
+    <Compile Include="Business\Gateway\AccessionOrderBuilder.cs" />
     <Compile Include="Business\Gateway\AccessionOrderBuilderV2.cs" />
     <Compile Include="Business\Gateway\AccessionOrderGateway.cs" />
     <Compile Include="Business\Gateway\AccessionSlideOrderViewBuilder.cs" />
@@ -894,6 +900,8 @@
     <Compile Include="Business\HL7View\Hl7Client.cs" />
     <Compile Include="Business\HL7View\Hl7MessageType.cs" />
     <Compile Include="Business\HL7View\HolyRosaryHealthCare.cs" />
+    <Compile Include="Business\HL7View\GT1.cs" />
+    <Compile Include="Business\HL7View\IN1.cs" />
     <Compile Include="Business\HL7View\IResultView.cs" />
     <Compile Include="Business\HL7View\MshView.cs" />
     <Compile Include="Business\HL7View\ObrView.cs" />
@@ -928,6 +936,7 @@
     <Compile Include="Business\HL7View\Panther\PantherOrderPriorityEnum.cs" />
     <Compile Include="Business\HL7View\Panther\PantherPID.cs" />
     <Compile Include="Business\HL7View\PidView.cs" />
+    <Compile Include="Business\HL7View\PV1.cs" />
     <Compile Include="Business\HL7View\ResultStatus.cs" />
     <Compile Include="Business\HL7View\ResultStatusEnum.cs" />
     <Compile Include="Business\HL7View\ResultViewFactory.cs" />
@@ -1341,6 +1350,7 @@
     <Compile Include="Business\Persistence\RemoteObjectTransferAgent.cs" />
     <Compile Include="Business\Persistence\SpecimenOrderDocumentBuilder.cs" />
     <Compile Include="Business\Persistence\SqlCommandBuilder.cs" />
+    <Compile Include="Business\Persistence\SqlCommandHelper.cs" />
     <Compile Include="Business\Persistence\SqlCommandQueues.cs" />
     <Compile Include="Business\Persistence\SqlCommandSubmitter.cs" />
     <Compile Include="Business\Persistence\SqlDataReaderPropertyWriter.cs" />
@@ -1412,15 +1422,27 @@
     <Compile Include="Business\ReportNoLetter.cs" />
     <Compile Include="Business\ReportNoLetterDefinitions.cs" />
     <Compile Include="Business\Reports\CreateExcelSpreadSheet.cs" />
+    <Compile Include="Business\Reports\CytologySlideDisposalReport.xaml.cs">
+      <DependentUpon>CytologySlideDisposalReport.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Business\Reports\Cytology\CytologyUnsatLetters.cs" />
     <Compile Include="Business\Reports\IReport.cs" />
     <Compile Include="Business\Reports\LabOrderSheet.cs" />
     <Compile Include="Business\Reports\OrderLog.cs" />
     <Compile Include="Business\Reports\PatientLinkingListing.cs" />
+    <Compile Include="Business\Reports\POCRetensionReport.xaml.cs">
+      <DependentUpon>POCRetensionReport.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Business\Reports\Report.cs" />
     <Compile Include="Business\Reports\ReportBase.cs" />
     <Compile Include="Business\Reports\ReportParameterAttribute.cs" />
     <Compile Include="Business\Reports\ReportUI.cs" />
+    <Compile Include="Business\Reports\SpecimenDisposalReport.xaml.cs">
+      <DependentUpon>SpecimenDisposalReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Business\Reports\SurgicalSpecimenDisposalReport.xaml.cs">
+      <DependentUpon>SurgicalSpecimenDisposalReport.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Business\Reports\Surgical\SurgicalMasterLog.cs" />
     <Compile Include="Business\Requisition.cs" />
     <Compile Include="Business\Rules\Amendment\FinalAmendment.cs" />
@@ -3054,6 +3076,9 @@
       <DependentUpon>BillingPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Billing\BillingPath.cs" />
+    <Compile Include="UI\Billing\ADTPage.xaml.cs">
+      <DependentUpon>ADTPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Billing\SVHCDMResultDialog.xaml.cs">
       <DependentUpon>SVHCDMResultDialog.xaml</DependentUpon>
     </Compile>
@@ -4884,13 +4909,33 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Business\Document\ADTInsuranceDocument.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Page Include="Business\Reports\CytologySlideDisposalReport.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Business\Reports\CytologySlideDisposalReportV2.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Business\Reports\POCRetensionReport.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Business\Reports\POCRetensionReportV2.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Business\Reports\SpecimenDisposalReport.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Business\Reports\SurgicalSpecimenDisposalReport.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Business\Reports\SurgicalSpecimenDisposalReportV2.xaml">
       <SubType>Designer</SubType>
@@ -4929,6 +4974,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\AppMessaging\LockRequestResponseRecievedPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Billing\ADTPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

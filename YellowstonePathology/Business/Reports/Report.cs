@@ -60,7 +60,7 @@ namespace YellowstonePathology.Business.Reports
         public void OpenReport()
         {
             Process p1 = new Process();
-            p1.StartInfo = new ProcessStartInfo("wordview.exe", this.m_ReportSaveFileName);
+            p1.StartInfo = new ProcessStartInfo("winword.exe", this.m_ReportSaveFileName);
             p1.Start();
         }
 

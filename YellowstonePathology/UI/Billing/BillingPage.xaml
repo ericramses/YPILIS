@@ -216,7 +216,9 @@
             </StackPanel>
 
             <StackPanel Orientation="Vertical" Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" VerticalAlignment="Bottom">
-                <Button Width="100" Height="40" Margin="2,2,2,2" Click="ButtonPatientDetails_Click">PatientDetails ...</Button>
+                <Button Width="100" Height="40" Margin="2,2,2,2" Click="ButtonInsuranceCard_Click">Insurance Card</Button>
+                <Button Width="100" Height="40" Margin="2,2,2,2" Click="ButtonADT_Click">ADT</Button>
+                <Button Width="100" Height="40" Margin="2,2,2,2" Click="ButtonPatientDetails_Click">Patient Details ...</Button>
                 <Button Width="100" Height="40" Margin="2,2,2,2" Click="ButtonSendFT1_Click">SVH Financial</Button>
 				<Button Width="100" Height="40" Margin="2,2,2,2" Click="ButtonCPTCodes_Click">CPT Codes</Button>
 				<Button Width="100" Height="40" Margin="2,2,2,2" Click="ButtonICDCodes_Click">ICD Codes</Button>

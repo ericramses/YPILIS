@@ -24,8 +24,7 @@ namespace YellowstonePathology.Business.Test.EGFRMutationAnalysis
             
 			this.m_AllowMultiplePerAccession = true;
             this.m_ExpectedDuration = new TimeSpan(5, 0, 0, 0);
-            //Checked by MS and TK;
-            //updated 12.14.16 by MS;            
+            
             this.m_EpicDistributionIsImplemented = true;
 
             string taskDescription = "Collect paraffin block from Histology and send to Neo.";
@@ -36,7 +35,7 @@ namespace YellowstonePathology.Business.Test.EGFRMutationAnalysis
 
             this.m_ProfessionalComponentFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologistBillings();
             this.m_ProfessionalComponentBillingFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();
-            
+
             this.m_HasSplitCPTCode = true;
 
             YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT81235(), 1);

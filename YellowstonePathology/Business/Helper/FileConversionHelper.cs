@@ -142,7 +142,7 @@ namespace YellowstonePathology.Business.Helper
 				RenderTargetBitmap renderTarget =
 					new RenderTargetBitmap((int)(docPage.Size.Width * 300 / 96),
 											(int)(docPage.Size.Height * 300 / 96),
-											300d, // WPF (Avalon) units are 96dpi based
+											300d,
 											300d,
 											System.Windows.Media.PixelFormats.Default);
 
