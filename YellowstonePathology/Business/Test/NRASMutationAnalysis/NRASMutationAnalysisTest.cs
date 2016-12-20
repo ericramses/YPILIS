@@ -25,8 +25,8 @@ namespace YellowstonePathology.Business.Test.NRASMutationAnalysis
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.NRASMutationAnalysis.NRASMutationAnalysisWordDocument).AssemblyQualifiedName;
             //updated 12.14.16 by MS;
 
-            string task2Description = "Collect paraffin block from Histology and send to Neo.";
-			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskFedexShipment(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, task2Description, new Facility.Model.NeogenomicsIrvine()));
+            string taskDescription = "Collect paraffin block from Histology and send to Neo.";
+			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskFedexShipment(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, taskDescription, new Facility.Model.NeogenomicsIrvine()));
 
             this.m_TechnicalComponentFacility = new YellowstonePathology.Business.Facility.Model.NeogenomicsIrvine();
             this.m_TechnicalComponentBillingFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();

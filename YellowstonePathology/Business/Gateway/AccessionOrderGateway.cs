@@ -809,7 +809,7 @@ namespace YellowstonePathology.Business.Gateway
             return result;
         }
 
-		public static Surgical.SurgicalBillingItemCollection GetSurgicalBillingItemCollectionByDate(DateTime date)
+		/*public static Surgical.SurgicalBillingItemCollection GetSurgicalBillingItemCollectionByDate(DateTime date)
 		{
 			YellowstonePathology.Business.Surgical.SurgicalBillingItemCollection result = new Surgical.SurgicalBillingItemCollection();
 			SqlCommand cmd = new SqlCommand();
@@ -833,7 +833,7 @@ namespace YellowstonePathology.Business.Gateway
 			}
 
 			return result;
-		}
+		}*/
 
 		public static Surgical.SurgicalOrderList GetSurgicalOrderListByAccessionDate(DateTime accessionDate)
 		{
@@ -2273,7 +2273,7 @@ namespace YellowstonePathology.Business.Gateway
             return result;
         }
 
-        public static YellowstonePathology.Business.NeogenomicsResultCollection GetNeogenomicsResultCollection()
+        /*public static YellowstonePathology.Business.NeogenomicsResultCollection GetNeogenomicsResultCollection()
 		{            
 #if MONGO
             return AccessionOrderGatewayMongo.GetNeogenomicsResultCollection();
@@ -2300,7 +2300,7 @@ namespace YellowstonePathology.Business.Gateway
 			}
 			return result;
 #endif
-		}
+		}*/
 
 		public static YellowstonePathology.Business.Test.Model.StainTest GetStainTestByTestId(int testId)
 		{
