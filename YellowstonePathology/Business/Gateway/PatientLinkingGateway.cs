@@ -13,20 +13,20 @@ namespace YellowstonePathology.Business.Gateway
 			MySqlCommand cmd = new MySqlCommand("pGetPatientLinkingV2");
 			cmd.CommandType = CommandType.StoredProcedure;
 
-			cmd.Parameters.Add("@MasterAccessionNo", SqlDbType.VarChar).Value = patientLinkingListItem.MasterAccessionNo;
-			cmd.Parameters.Add("@PFirstName", SqlDbType.VarChar).Value = patientLinkingListItem.PFirstName;
-			cmd.Parameters.Add("@PLastName", SqlDbType.VarChar).Value = patientLinkingListItem.PLastName;
-			cmd.Parameters.Add("@PSSN", SqlDbType.VarChar).Value = DBNull.Value;
+			cmd.Parameters.AddWithValue("MasterAccessionNo", patientLinkingListItem.MasterAccessionNo);
+			cmd.Parameters.AddWithValue("PFirstName", patientLinkingListItem.PFirstName);
+			cmd.Parameters.AddWithValue("PLastName", patientLinkingListItem.PLastName);
+			cmd.Parameters.AddWithValue("PSSN", DBNull.Value);
 			if (string.IsNullOrEmpty(patientLinkingListItem.PSSN) == false)
 			{
-				cmd.Parameters["@PSSN"].Value = patientLinkingListItem.PSSN;
+				cmd.Parameters["PSSN"].Value = patientLinkingListItem.PSSN;
 			}
-			cmd.Parameters.Add("@PatientId", SqlDbType.VarChar).Value = DBNull.Value;
+			cmd.Parameters.AddWithValue("PatientId", DBNull.Value);
 			if (string.IsNullOrEmpty(patientLinkingListItem.PatientId) == false)
 			{
-				cmd.Parameters["@PatientId"].Value = patientLinkingListItem.PatientId;
+				cmd.Parameters["PatientId"].Value = patientLinkingListItem.PatientId;
 			}
-			cmd.Parameters.Add("@PBirthdate", SqlDbType.DateTime).Value = patientLinkingListItem.PBirthdate.Value;
+			cmd.Parameters.AddWithValue("PBirthdate", patientLinkingListItem.PBirthdate.Value);
 
 			using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{
@@ -48,7 +48,7 @@ namespace YellowstonePathology.Business.Gateway
 
 		public static string GetNewPatientId()
 		{
-			MySqlCommand cmd = new MySqlCommand("Insert into tblPatient DEFAULT VALUES; SELECT * from tblPatient where PatientId = IDENT_CURRENT('tblPatient')");
+			MySqlCommand cmd = new MySqlCommand("Insert into tblPatient DEFAULT VALUES; SELECT * from tblPatient where PatientId = LAST_INSERT_ID();");
 			cmd.CommandType = CommandType.Text;
 			string patientId = null;
 			using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))

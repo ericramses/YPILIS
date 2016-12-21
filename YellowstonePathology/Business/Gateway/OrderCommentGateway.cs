@@ -7,9 +7,9 @@ namespace YellowstonePathology.Business.Gateway
 		public static Domain.OrderCommentLogCollection GetOrderCommentLogCollectionByClientOrderId(string clientOrderId)
 		{
 			MySqlCommand cmd = new MySqlCommand();
-			cmd.CommandText = "gwOrderCommentsByClientOrderId_1";
+			cmd.CommandText = "gwOrderCommentsByClientOrderId_1;";
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
-            cmd.Parameters.Add("@ClientOrderId", System.Data.SqlDbType.VarChar).Value = clientOrderId;
+            cmd.Parameters.AddWithValue("ClientOrderId", clientOrderId);
             Domain.OrderCommentLogCollection result = BuildOrderCommentLogCollection(cmd);
             return result;
 		}
@@ -19,7 +19,7 @@ namespace YellowstonePathology.Business.Gateway
 			MySqlCommand cmd = new MySqlCommand();
 			cmd.CommandText = "gwOrderCommentsByMasterAccessionNo_1";
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
-            cmd.Parameters.Add("@MasterAccessionNo", System.Data.SqlDbType.VarChar).Value = masterAccessionNo;
+            cmd.Parameters.AddWithValue("MasterAccessionNo", masterAccessionNo);
             Domain.OrderCommentLogCollection result = BuildOrderCommentLogCollection(cmd);
             return result;
         }
@@ -27,9 +27,9 @@ namespace YellowstonePathology.Business.Gateway
         public static Domain.OrderCommentLogCollection GetOrderCommentsForSpecimenLogId(int specimenLogId)
 		{
 			MySqlCommand cmd = new MySqlCommand();
-			cmd.CommandText = "SELECT * from tblOrderCommentLog where SpecimenLogId = @SpecimenLogId order by LogDate desc";
+			cmd.CommandText = "SELECT * from tblOrderCommentLog where SpecimenLogId = @SpecimenLogId order by LogDate desc;";
             cmd.CommandType = System.Data.CommandType.Text;
-            cmd.Parameters.Add("@SpecimenLogId", System.Data.SqlDbType.Int).Value = specimenLogId;
+            cmd.Parameters.AddWithValue("@SpecimenLogId", specimenLogId);
             Domain.OrderCommentLogCollection result = BuildOrderCommentLogCollection(cmd);
             return result;
         }
@@ -44,16 +44,16 @@ namespace YellowstonePathology.Business.Gateway
                 switch (caseNotesKey.CaseNotesKeyName)
                 {
                     case Domain.CaseNotesKeyNameEnum.MasterAccessionNo:
-                        cmd.CommandText = "SELECT * from tblOrderCommentLog where MasterAccessionNo = '" + caseNotesKey.Key + "' order by LogDate";
+                        cmd.CommandText = "SELECT * from tblOrderCommentLog where MasterAccessionNo = '" + caseNotesKey.Key + "' order by LogDate;";
                         break;
                     case Domain.CaseNotesKeyNameEnum.ClientOrderId:
-                        cmd.CommandText = "SELECT * from tblOrderCommentLog where ClientOrderId = '" + caseNotesKey.Key + "' order by LogDate";
+                        cmd.CommandText = "SELECT * from tblOrderCommentLog where ClientOrderId = '" + caseNotesKey.Key + "' order by LogDate;";
                         break;
                     case Domain.CaseNotesKeyNameEnum.ContainerId:
-                        cmd.CommandText = "SELECT * from tblOrderCommentLog where ContainerId = '" + caseNotesKey.Key + "' order by LogDate";
+                        cmd.CommandText = "SELECT * from tblOrderCommentLog where ContainerId = '" + caseNotesKey.Key + "' order by LogDate;";
                         break;
                     case Domain.CaseNotesKeyNameEnum.SpecimenLogId:
-                        cmd.CommandText = "SELECT * from tblOrderCommentLog where SpecimenLogId = " + caseNotesKey.Key + " order by LogDate";
+                        cmd.CommandText = "SELECT * from tblOrderCommentLog where SpecimenLogId = " + caseNotesKey.Key + " order by LogDate;";
                         break;
                 }
 

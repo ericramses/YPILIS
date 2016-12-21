@@ -9,13 +9,14 @@ namespace YellowstonePathology.Business.Gateway
         public static YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistributionCollection GetReportDistributionCollectionByDateRangeTumorRegistry(DateTime startDate, DateTime endDate, string distributionType)
         {
             YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistributionCollection result = new YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistributionCollection();
-            string sql = "Select * from tblTestOrderReportDistribution where TimeOfLastDistribution between @StartDate and @EndDate and DistributionType = @DistributionType";
+            string sql = "Select * from tblTestOrderReportDistribution where TimeOfLastDistribution between @StartDate and @EndDate and " +
+                "DistributionType = @DistributionType;";
 
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = sql;
-            cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = startDate;
-            cmd.Parameters.Add("@EndDate", SqlDbType.DateTime).Value = endDate;
-            cmd.Parameters.Add("@DistributionType", SqlDbType.VarChar).Value = distributionType;
+            cmd.Parameters.AddWithValue("@StartDate", startDate);
+            cmd.Parameters.AddWithValue("@EndDate", endDate);
+            cmd.Parameters.AddWithValue("@DistributionType", distributionType);
             cmd.CommandType = CommandType.Text;
 
             using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
@@ -39,18 +40,19 @@ namespace YellowstonePathology.Business.Gateway
         public static YellowstonePathology.Business.Client.Model.PhysicianClientDistributionList GetPhysicianClientDistributionCollection(int physicianId, int clientId)
         {
             YellowstonePathology.Business.Client.Model.PhysicianClientDistributionList result = new Client.Model.PhysicianClientDistributionList();
-            string sql = "Select c.ClientId, c.ClientName, ph.PhysicianId, ph.DisplayName [PhysicianName], c.DistributionType, c.Fax [FaxNumber], c.LongDistance " +
+            string sql = "Select c.ClientId, c.ClientName, ph.PhysicianId, ph.DisplayName [PhysicianName], c.DistributionType, " +
+                "c.Fax [FaxNumber], c.LongDistance " +
                 "from tblPhysicianClient pc " +
 	            "join tblPhysicianClientDistribution pcd on pc.PhysicianClientId = pcd.PhysicianClientId " +
 	            "join tblPhysicianClient pc2 on pcd.DistributionId = pc2.PhysicianClientId " +
 	            "join tblClient c on pc2.ClientId = c.ClientId " +
                 "join tblPhysician ph on pc2.Physicianid = ph.PhysicianId " +
-	            "where pc.ClientId = @ClientId and pc.PhysicianId = @PhysicianId";
+	            "where pc.ClientId = @ClientId and pc.PhysicianId = @PhysicianId;";
 
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = sql;
-            cmd.Parameters.Add("@PhysicianId", SqlDbType.Int).Value = physicianId;
-            cmd.Parameters.Add("@ClientId", SqlDbType.Int).Value = clientId;            
+            cmd.Parameters.AddWithValue("@PhysicianId",physicianId);
+            cmd.Parameters.AddWithValue("@ClientId", clientId);
             cmd.CommandType = CommandType.Text;
 
             using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
@@ -81,11 +83,11 @@ namespace YellowstonePathology.Business.Gateway
                 "join tblPhysicianClient pc2 on pcd.DistributionId = pc2.PhysicianClientId " +
                 "join tblClient c on pc2.ClientId = c.ClientId " +
                 "join tblPhysician ph on pc2.Physicianid = ph.PhysicianId " +
-                "where pc.PhysicianClientId = @PhysicianClientId";
+                "where pc.PhysicianClientId = @PhysicianClientId;";
 
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = sql;
-            cmd.Parameters.Add("@PhysicianClientId", SqlDbType.VarChar).Value = physicianClientId;            
+            cmd.Parameters.AddWithValue("@PhysicianClientId", physicianClientId);
             cmd.CommandType = CommandType.Text;
 
             using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))

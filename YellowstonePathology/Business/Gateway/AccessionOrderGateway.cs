@@ -13,7 +13,7 @@ namespace YellowstonePathology.Business.Gateway
         {
             YellowstonePathology.Business.HL7View.ADTMessages result = new HL7View.ADTMessages();
             MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "select * from tblADT where MedicalRecordNo = @MRN";
+            cmd.CommandText = "select * from tblADT where MedicalRecordNo = @MRN;";
             cmd.CommandType = CommandType.Text;
             cmd.Parameters.AddWithValue("@MRN", mrn);
 

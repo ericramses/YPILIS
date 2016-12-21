@@ -8,7 +8,6 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 	public class LoginCaseNotesPath
 	{
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private Login.Receiving.LoginPageWindow m_LoginPageWindow;		
 
 		public LoginCaseNotesPath(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)

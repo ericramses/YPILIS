@@ -15,23 +15,26 @@ namespace YellowstonePathology.Business.Persistence
 
         public void SetSqlByContainerId(string containerId)
         {
-            this.m_SQLCommand = new MySqlCommand("select * from tblSpecimenOrder where ContainerId = @ContainerId; Select * from tblAliquotOrder where specimenOrderId in (select specimenOrderId from tblSpecimenOrder where ContainerId = @ContainerId)");
+            this.m_SQLCommand = new MySqlCommand("select * from tblSpecimenOrder where ContainerId = @ContainerId; Select * from tblAliquotOrder " +
+                "where specimenOrderId in (select specimenOrderId from tblSpecimenOrder where ContainerId = @ContainerId);");
             this.m_SQLCommand.CommandType = CommandType.Text;
-            this.m_SQLCommand.Parameters.Add("@ContainerId", SqlDbType.VarChar).Value = containerId;
+            this.m_SQLCommand.Parameters.AddWithValue("@ContainerId", containerId);
         }
 
         public void SetSqlByAliquotOrderId(string aliquotOrderId)
         {
-            this.m_SQLCommand = new MySqlCommand("select * from tblSpecimenOrder where SpecimenOrderId in (Select SpecimenOrderId from tblAliquotOrder where aliquotOrderId = @AliquotOrderId); Select * from tblAliquotOrder where AliquotOrderid = @AliquotOrderId");
+            this.m_SQLCommand = new MySqlCommand("select * from tblSpecimenOrder where SpecimenOrderId in (Select SpecimenOrderId from " +
+                "tblAliquotOrder where aliquotOrderId = @AliquotOrderId); Select * from tblAliquotOrder where AliquotOrderid = @AliquotOrderId;");
             this.m_SQLCommand.CommandType = CommandType.Text;
-            this.m_SQLCommand.Parameters.Add("@AliquotOrderId", SqlDbType.VarChar).Value = aliquotOrderId;
+            this.m_SQLCommand.Parameters.AddWithValue("@AliquotOrderId", aliquotOrderId);
         }
 
         public void SetSqlBySpecimenOrderId(string specimenOrderId)
         {
-            this.m_SQLCommand = new MySqlCommand("select * from tblSpecimenOrder where SpecimenOrderId = @SpecimenOrderId; Select * from tblAliquotOrder where specimenOrderId in (select specimenOrderId from tblSpecimenOrder where SpecimenOrderId = @SpecimenOrderId)");
+            this.m_SQLCommand = new MySqlCommand("select * from tblSpecimenOrder where SpecimenOrderId = @SpecimenOrderId; Select * from " +
+                "tblAliquotOrder where specimenOrderId = @SpecimenOrderId;");
             this.m_SQLCommand.CommandType = CommandType.Text;
-            this.m_SQLCommand.Parameters.Add("@SpecimenOrderId", SqlDbType.VarChar).Value = specimenOrderId;
+            this.m_SQLCommand.Parameters.AddWithValue("@SpecimenOrderId", specimenOrderId);
         }
 
         public override object BuildNew()

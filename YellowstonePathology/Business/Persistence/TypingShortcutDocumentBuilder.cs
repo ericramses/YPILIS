@@ -11,9 +11,9 @@ namespace YellowstonePathology.Business.Persistence
         public TypingShortcutDocumentBuilder(string objectId)
         {
             this.m_SQLCommand = new MySqlCommand();
-            this.m_SQLCommand.CommandText = "select * From tblTypingShortcut where ObjectId = @ObjectId";
+            this.m_SQLCommand.CommandText = "select * From tblTypingShortcut where ObjectId = @ObjectId;";
             this.m_SQLCommand.CommandType = CommandType.Text;
-            this.m_SQLCommand.Parameters.Add("@ObjectId", SqlDbType.VarChar).Value = objectId;
+            this.m_SQLCommand.Parameters.AddWithValue("@ObjectId", objectId);
         }
 
         public override object BuildNew()

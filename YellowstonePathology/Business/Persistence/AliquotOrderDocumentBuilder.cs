@@ -15,9 +15,9 @@ namespace YellowstonePathology.Business.Persistence
 
         public AliquotOrderDocumentBuilder(string aliquotOrderId)
         {
-            this.m_SQLCommand = new MySqlCommand("select * from tblAliquotOrder where AliquotOrderId = @AliquotOrderId");
+            this.m_SQLCommand = new MySqlCommand("select * from tblAliquotOrder where AliquotOrderId = @AliquotOrderId;");
             this.m_SQLCommand.CommandType = CommandType.Text;
-            this.m_SQLCommand.Parameters.Add("@AliquotOrderId", SqlDbType.VarChar).Value = aliquotOrderId;
+            this.m_SQLCommand.Parameters.AddWithValue("@AliquotOrderId", aliquotOrderId);
         }
 
         public override object BuildNew()

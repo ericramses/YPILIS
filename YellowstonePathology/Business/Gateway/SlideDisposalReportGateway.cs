@@ -12,7 +12,7 @@ namespace YellowstonePathology.Business.Gateway
         {
             MySqlCommand cmd = new MySqlCommand("pCytologySlideDisposalReport_1");
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
-            cmd.Parameters.Add("@DisposalDate", System.Data.SqlDbType.DateTime).Value = disposalDate;
+            cmd.Parameters.AddWithValue("DisposalDate", disposalDate);
             Reports.DisposalReportData result = BuildDisposalReportData(cmd);
             return result;
         }
@@ -21,7 +21,7 @@ namespace YellowstonePathology.Business.Gateway
         {
             MySqlCommand cmd = new MySqlCommand("pDailySpecimenDisposalReport_1");
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
-            cmd.Parameters.Add("@DisposalDate", System.Data.SqlDbType.DateTime).Value = disposalDate;
+            cmd.Parameters.AddWithValue("DisposalDate", disposalDate);
             Reports.DisposalReportData result = BuildDisposalReportData(cmd);
             return result;
         }
@@ -73,8 +73,8 @@ namespace YellowstonePathology.Business.Gateway
             Reports.POCRetensionReportData result = new Reports.POCRetensionReportData();
             MySqlCommand cmd = new MySqlCommand("prcPOCRetensionReport_1");
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
-            cmd.Parameters.Add("@StartDate", System.Data.SqlDbType.DateTime).Value = startDate;
-            cmd.Parameters.Add("@EndDate", System.Data.SqlDbType.DateTime).Value = endDate;
+            cmd.Parameters.AddWithValue("StartDate", startDate);
+            cmd.Parameters.AddWithValue("EndDate", endDate);
 
             using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {

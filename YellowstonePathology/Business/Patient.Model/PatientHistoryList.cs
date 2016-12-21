@@ -34,7 +34,7 @@ namespace YellowstonePathology.Business.Patient.Model
 			this.m_SqlCommand.Parameters.Clear();
 			this.m_SqlCommand.CommandType = CommandType.StoredProcedure;
 			this.m_SqlCommand.CommandText = "pGetCaseHistoryFromReportNo";
-			this.m_SqlCommand.Parameters.Add("@ReportNo", SqlDbType.VarChar).Value = reportNo;
+			this.m_SqlCommand.Parameters.AddWithValue("ReportNo", reportNo);
 		}
 
 		public void Fill()

@@ -93,10 +93,10 @@ namespace YellowstonePathology.UI.Surgical
 					string specimenOrderId = item.SpecimenOrderId;
 
 					MySqlCommand cmd = new MySqlCommand();
-					cmd.CommandText = "Update tblSurgicalSpecimen set RescreenStatus = @RescreenStatus where SpecimenOrderId = @SpecimenOrderId";
+					cmd.CommandText = "Update tblSurgicalSpecimen set RescreenStatus = @RescreenStatus where SpecimenOrderId = @SpecimenOrderId;";
 					cmd.CommandType = CommandType.Text;
-					cmd.Parameters.Add("@RescreenStatus", SqlDbType.VarChar).Value = rescreenStatus;
-					cmd.Parameters.Add("@SpecimenOrderId", SqlDbType.VarChar).Value = specimenOrderId;
+					cmd.Parameters.AddWithValue("@RescreenStatus", rescreenStatus);
+					cmd.Parameters.AddWithValue("@SpecimenOrderId", specimenOrderId);
 					using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 					{
 						cn.Open();

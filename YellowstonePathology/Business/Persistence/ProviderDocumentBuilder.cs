@@ -11,9 +11,9 @@ namespace YellowstonePathology.Business.Persistence
         public ProviderDocumentBuilder(int physicianId)
         {
             this.m_SQLCommand = new MySqlCommand();
-            this.m_SQLCommand.CommandText = "select * From tblPhysician where PhysicianId = @PhysicianId";
+            this.m_SQLCommand.CommandText = "select * From tblPhysician where PhysicianId = @PhysicianId;";
             this.m_SQLCommand.CommandType = CommandType.Text;
-            this.m_SQLCommand.Parameters.Add("@PhysicianId", SqlDbType.Int).Value = physicianId;
+            this.m_SQLCommand.Parameters.AddWithValue("@PhysicianId", physicianId);
         }
 
         public override object BuildNew()

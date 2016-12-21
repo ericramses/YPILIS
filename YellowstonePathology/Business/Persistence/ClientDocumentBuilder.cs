@@ -10,12 +10,10 @@ namespace YellowstonePathology.Business.Persistence
         public ClientDocumentBuilder(int clientId)
         {            
             this.m_SQLCommand = new MySqlCommand();
-            //this.m_SQLCommand.CommandText = "SELECT c.*, (SELECT * from tblClientLocation where ClientId = c.ClientId order by Location for xml path('ClientLocation'), type) ClientLocationCollection " +
-            //    "FROM tblClient c where c.ClientId = @ClientId for xml Path('Client'), type";
-            this.m_SQLCommand.CommandText = "SELECT * FROM tblClient where ClientId = @ClientId " +
-                "SELECT * from tblClientLocation where ClientId = @ClientId";
+            this.m_SQLCommand.CommandText = "SELECT * FROM tblClient where ClientId = @ClientId; " +
+                "SELECT * from tblClientLocation where ClientId = @ClientId;";
             this.m_SQLCommand.CommandType = CommandType.Text;
-            this.m_SQLCommand.Parameters.Add("@ClientId",  SqlDbType.Int).Value = clientId;
+            this.m_SQLCommand.Parameters.AddWithValue("@ClientId", clientId);
         }
 
         public override object BuildNew()

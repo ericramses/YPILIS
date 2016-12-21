@@ -65,8 +65,8 @@ namespace YellowstonePathology.UI.Billing
         private void ScheduleDistribution(string testOrderReportDistributionId)
         {
             MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "update tbltestOrderReportDistribution set [distributed] = 0, ScheduledDistributiontime = getdate() " +
-                "where testOrderReportDistributionId = '" + testOrderReportDistributionId + "'";
+            cmd.CommandText = "update tbltestOrderReportDistribution set [distributed] = 0, ScheduledDistributiontime = now() " +
+                "where testOrderReportDistributionId = '" + testOrderReportDistributionId + "';";
 
             cmd.CommandType = CommandType.Text;
             using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
@@ -81,7 +81,7 @@ namespace YellowstonePathology.UI.Billing
         {
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = "update tblTestOrderReportDistribution set ResultStatus = 'F' " +                
-                "where testOrderReportDistributionId = '" + testOrderReportDistributionId + "'";
+                "where testOrderReportDistributionId = '" + testOrderReportDistributionId + "';";
 
             cmd.CommandType = CommandType.Text;
             using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
@@ -96,11 +96,12 @@ namespace YellowstonePathology.UI.Billing
         {
             List<SVHCDMItem> result = new List<SVHCDMItem>();
             MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "select pso.ReportNo, ao.PLastName, ao.PFirstName, ao.ClientName, ao.PhysicianName, pso.PanelSetName, tor.ResultStatus, tor.TestOrderReportDistributionId, pso.Distribute, tor.ScheduledDistributionTime " +
+            cmd.CommandText = "select pso.ReportNo, ao.PLastName, ao.PFirstName, ao.ClientName, ao.PhysicianName, pso.PanelSetName, " +
+                "tor.ResultStatus, tor.TestOrderReportDistributionId, pso.Distribute, tor.ScheduledDistributionTime " +
                 "from tblPanelSetOrder pso " +
                 "join tblTestOrderReportDistribution tor on pso.ReportNo = tor.ReportNo " +
                 "join tblAccessionOrder ao on pso.MasterAccessionno = ao.MasterAccessionNo " +
-                "where tor.ResultStatus = 'P' ";                
+                "where tor.ResultStatus = 'P';";                
 
             cmd.CommandType = CommandType.Text;
 

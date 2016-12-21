@@ -10,17 +10,11 @@ namespace YellowstonePathology.Business.Test
 	public class PanelSetOrderCollection : ObservableCollection<PanelSetOrder>
 	{
 		private PathologistTestOrderItemList m_PathologistTestOrderItemList;
-        private PanelSetOrder m_CurrentPanelSetOrder;
 
 		public PanelSetOrderCollection()
 		{
 			m_PathologistTestOrderItemList = new PathologistTestOrderItemList();
 		}
-
-        public PanelSetOrder CurrentPanelSetOrder
-        {
-            get { return this.m_CurrentPanelSetOrder; }
-        }
 
         public void RemoveDeleted(IEnumerable<XElement> elements)
         {

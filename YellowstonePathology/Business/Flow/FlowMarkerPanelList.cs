@@ -36,8 +36,8 @@ namespace YellowstonePathology.Business.Flow
         public void SetFillCommandByPanelId(int panelId)
         {
             this.m_Cmd.Parameters.Clear();
-            string sql = "Select * from tblFlowMarkerPanel where PanelId = @PanelId";
-            this.m_Cmd.Parameters.Add("@PanelId", SqlDbType.Int).Value = panelId;            
+            string sql = "Select * from tblFlowMarkerPanel where PanelId = @PanelId;";
+            this.m_Cmd.Parameters.AddWithValue("@PanelId", panelId);
             this.m_Cmd.CommandText = sql;
             this.m_Cmd.CommandType = CommandType.Text;
         }

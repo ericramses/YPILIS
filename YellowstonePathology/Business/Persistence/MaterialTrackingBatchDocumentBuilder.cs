@@ -11,9 +11,9 @@ namespace YellowstonePathology.Business.Persistence
         public MaterialTrackingBatchDocumentBuilder(string materialTrackingBatchId)
         {
             this.m_SQLCommand = new MySqlCommand();
-            this.m_SQLCommand.CommandText = "Select * from tblMaterialTrackingBatch where MaterialTrackingBatchId = @MaterialTrackingBatchId";
+            this.m_SQLCommand.CommandText = "Select * from tblMaterialTrackingBatch where MaterialTrackingBatchId = @MaterialTrackingBatchId;";
             this.m_SQLCommand.CommandType = CommandType.Text;
-            this.m_SQLCommand.Parameters.Add("@MaterialTrackingBatchId", SqlDbType.VarChar).Value = materialTrackingBatchId;
+            this.m_SQLCommand.Parameters.AddWithValue("@MaterialTrackingBatchId", materialTrackingBatchId);
         }
 
         public override object BuildNew()

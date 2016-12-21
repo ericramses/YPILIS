@@ -19,7 +19,7 @@ namespace YellowstonePathology.Business
             this.m_Cmd.Parameters.Clear();
             this.m_Cmd.CommandText = "prcGetSearchResultsByAccessionNo";
             this.m_Cmd.CommandType = CommandType.StoredProcedure;
-			this.m_Cmd.Parameters.Add("@ReportNo", SqlDbType.VarChar).Value = reportNo;
+			this.m_Cmd.Parameters.AddWithValue("ReportNo", reportNo);
         }
 
         public void Fill()
