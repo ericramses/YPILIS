@@ -23,8 +23,7 @@ namespace YellowstonePathology.Business.Test.PDL122C3
             result.AppendLine("), which yielded the following result:");
             result.AppendLine();
             result.Append("        PD - L1 (22C3): ");
-            result.Append(testOrder.StainPercent);
-            result.AppendLine("%");
+            result.Append(testOrder.StainPercent);            
             result.AppendLine();
             result.AppendLine(comment);
 
