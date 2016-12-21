@@ -3041,6 +3041,7 @@
     <Compile Include="MySQLMigration\NonpersistentTableDefCytologyScreeningImpression.cs" />
     <Compile Include="MySQLMigration\NonpersistentTableDefFlowCommentV2.cs" />
     <Compile Include="MySQLMigration\NonpersistentTableDefFlowMarkerPanel.cs" />
+    <Compile Include="MySQLMigration\NonpersistentTableDefFlowPanel.cs" />
     <Compile Include="MySQLMigration\NonpersistentTableDefICD9Code.cs" />
     <Compile Include="MySQLMigration\NonpersistentTableDefImmunoComment.cs" />
     <Compile Include="MySQLMigration\NonpersistentTableDefMarkers.cs" />
