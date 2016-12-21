@@ -397,6 +397,7 @@
 							<RowDefinition></RowDefinition>
 							<RowDefinition></RowDefinition>
                             <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
 						</Grid.RowDefinitions>
 
 						<TextBlock Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" FontWeight="Bold"                                   
@@ -414,6 +415,10 @@
 
                         <TextBlock Grid.Column="0" Grid.Row="3" HorizontalAlignment="Right" Margin="2,2,2,2" VerticalAlignment="Bottom">Error:</TextBlock>
                         <CheckBox Grid.Column="1" Grid.Row="3" Margin="2,2,2,2" VerticalAlignment="Bottom" IsChecked="{Binding Path=ScreeningError}" IsEnabled="False"></CheckBox>
+                        
+                        <TextBlock Grid.Column="0" Grid.Row="4" Margin="2,2,2,2" Grid.ColumnSpan="2" HorizontalAlignment="Center">
+					        <Hyperlink Click="HyperLinkHistory_Click">History</Hyperlink>
+                        </TextBlock>
 
                     </Grid>
 
