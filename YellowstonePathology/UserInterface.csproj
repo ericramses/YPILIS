@@ -1573,8 +1573,6 @@
     <Compile Include="Business\Surgical\ProcessorRun.cs" />
     <Compile Include="Business\Surgical\ProcessorRunCollection.cs" />
     <Compile Include="Business\Surgical\ReportableCases.cs" />
-    <Compile Include="Business\Surgical\SurgicalBillingItem.cs" />
-    <Compile Include="Business\Surgical\SurgicalBillingItemCollection.cs" />
     <Compile Include="Business\Surgical\SurgicalMasterLogList.cs" />
     <Compile Include="Business\Surgical\SurgicalOrderList.cs" />
     <Compile Include="Business\Surgical\SurgicalRescreenItem.cs" />

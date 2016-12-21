@@ -817,32 +817,6 @@ namespace YellowstonePathology.Business.Gateway
             return result;
         }
 
-		public static Surgical.SurgicalBillingItemCollection GetSurgicalBillingItemCollectionByDate(DateTime date)
-		{
-			YellowstonePathology.Business.Surgical.SurgicalBillingItemCollection result = new Surgical.SurgicalBillingItemCollection();
-			MySqlCommand cmd = new MySqlCommand();
-			cmd.CommandText = "SELECT * FROM tblSurgicalBilling where AccessionDate = Date;";
-			cmd.CommandType = CommandType.Text;
-			cmd.Parameters.AddWithValue("Date", date);
-			using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-			{
-				cn.Open();
-				cmd.Connection = cn;
-				using (MySqlDataReader dr = cmd.ExecuteReader())
-				{
-					while (dr.Read())
-					{
-						YellowstonePathology.Business.Surgical.SurgicalBillingItem surgicalBilling = new Business.Surgical.SurgicalBillingItem();
-						YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(surgicalBilling, dr);
-						sqlDataReaderPropertyWriter.WriteProperties();
-						result.Add(surgicalBilling);
-					}
-				}
-			}
-
-			return result;
-		}
-
 		public static Surgical.SurgicalOrderList GetSurgicalOrderListByAccessionDate(DateTime accessionDate)
 		{
 			MySqlCommand cmd = new MySqlCommand();
