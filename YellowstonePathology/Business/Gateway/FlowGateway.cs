@@ -33,7 +33,7 @@ namespace YellowstonePathology.Business.Gateway
 			MySqlCommand cmd = new MySqlCommand("select pso.ReportNo, ao.PLastName, ao.PFirstName, ao.AccessionDate, pso.FinalDate, " +
                 "pso.PanelSetName TestName, pso.ObjectId, pso.MasterAccessionNo " +
 				"from tblPanelSetOrder pso join tblAccessionOrder ao on pso.MasterAccessionNo = ao.MasterAccessionNo " +
-                "where pso.PanelSetId not in (19,143,211,222,223) and pso.CaseType = 'Flow Cytometry' and pso.ReportNo = @ReportNo;");
+                "where pso.PanelSetId not in (19,143,211,222,223,247,248) and pso.CaseType = 'Flow Cytometry' and pso.ReportNo = @ReportNo ");
 			cmd.CommandType = CommandType.Text;
 			cmd.Parameters.AddWithValue("@ReportNo", reportNo);
 			return BuildFlowLogList(cmd);
@@ -44,7 +44,7 @@ namespace YellowstonePathology.Business.Gateway
 			MySqlCommand cmd = new MySqlCommand("Select pso.ReportNo, ao.PLastName, ao.PFirstName, ao.AccessionDate, pso.FinalDate, " +
                 "pso.PanelSetName TestName, pso.ObjectId, pso.MasterAccessionNo " +
                 "from tblPanelSetOrder pso join tblAccessionOrder ao on pso.MasterAccessionNo = ao.MasterAccessionNo " +
-				"where pso.PanelSetId not in (19,143,211,222,223) and pso.CaseType = 'Flow Cytometry' and month(ao.AccessionDate) = @Month " +
+				"where pso.PanelSetId not in (19,143,211,222,223,247,248) and pso.CaseType = 'Flow Cytometry' and month(ao.AccessionDate) = @Month " +
                 "and Year(ao.AccessionDate) = @Year " +
 				"order by ao.AccessionDate desc, pso.ReportNo desc;");
 			cmd.Parameters.AddWithValue("@Month", date.Month);

@@ -46,8 +46,7 @@ namespace YellowstonePathology.Business.HL7View
                 this.m_InsuranceAddress = subAddressSubfields[0] + ", " + subAddressSubfields[2] + ", " + subAddressSubfields[3] + ", " + subAddressSubfields[4];
             }
 
-            this.m_PolicyNumber = split[36];
-            
+            this.m_PolicyNumber = split[36];            
         }
 
         public string InsurancePlanId
@@ -117,13 +116,12 @@ namespace YellowstonePathology.Business.HL7View
                 StringBuilder result = new StringBuilder();
                 result.AppendLine(this.m_InsuranceName);
                 result.AppendLine(this.m_InsuranceAddress);
-                result.AppendLine(this.m_InsurancePhoneNumber);
+                result.AppendLine("Phone Number: " + this.m_InsurancePhoneNumber);
                 result.AppendLine("Plan Id: " + this.m_InsurancePlanId);
                 result.AppendLine("Policy Number: " + this.m_PolicyNumber);                
                 result.AppendLine("Group: " + this.m_GroupName + " - " + this.m_GroupNumber);
                 result.AppendLine("Employer: " + this.m_InusuredsGroupEmployerName);
-                result.AppendLine("Name Of Insured: " + this.m_NameOfInsured);
-
+                result.AppendLine("Name Of Insured: " + this.m_NameOfInsured);                
                 return result.ToString();
             }            
         }        

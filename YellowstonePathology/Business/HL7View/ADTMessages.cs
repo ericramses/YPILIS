@@ -14,7 +14,7 @@ namespace YellowstonePathology.Business.HL7View
         public ADTMessages()
         {
             this.m_Messages = new ObservableCollection<ADTMessage>();            
-        }  
+        }          
         
         public ObservableCollection<ADTMessage> Messages
         {

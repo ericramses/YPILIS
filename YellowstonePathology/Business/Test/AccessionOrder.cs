@@ -1278,6 +1278,8 @@ namespace YellowstonePathology.Business.Test
 			this.SvhAccount = clientOrder.SvhAccountNo;
 			this.SvhMedicalRecord = clientOrder.SvhMedicalRecord;
 
+            if (clientOrder.PatientType == "IN") this.m_PatientType = "IP";
+
             if (string.IsNullOrEmpty(clientOrder.ClinicalHistory) == false)
             {
                 this.ClinicalHistory = clientOrder.ClinicalHistory;
