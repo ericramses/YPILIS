@@ -62,7 +62,7 @@ namespace YellowstonePathology.Business.Gateway
 			string sql = "select pso.ReportNo, ao.PLastName, ao.PFirstName, ao.AccessionDate, pso.FinalDate, pso.PanelSetName TestName, " +
                 "pso.ObjectId, pso.MasterAccessionNo " +
                 "from tblPanelSetOrder pso join tblAccessionOrder ao on pso.MasterAccessionNo = ao.MasterAccessionNo " +
-                "Where pso.PanelSetId not in (19,143,211,222,223) and pso.CaseType = 'Flow Cytometry' ";
+                "Where pso.PanelSetId not in (19,143,211,222,223,247,248) and pso.CaseType = 'Flow Cytometry' ";
 
 			string[] commaSplit = patientName.Split(',');
 			switch (commaSplit.Length)
