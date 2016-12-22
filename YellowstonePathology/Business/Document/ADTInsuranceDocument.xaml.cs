@@ -48,15 +48,17 @@ namespace YellowstonePathology.Business.Document
                 result.AppendLine("Last Name: " + this.m_ADTMessages.Messages[0].PLastName);
                 result.AppendLine("First Name: " + this.m_ADTMessages.Messages[0].PFirstName);
                 result.AppendLine("Birthdate: " + this.m_ADTMessages.Messages[0].PBirthdate.ToShortDateString());                
+                result.AppendLine();
 
-                result.AppendLine();
-                result.AppendLine();
+                if(this.m_ADTMessages.Messages[0].IN2Segments.Count > 0)
+                {
+                    result.AppendLine(this.m_ADTMessages.Messages[0].IN2Segments[0].DisplayString);
+                }                
 
                 List<Business.HL7View.IN1> in1Segments = this.m_ADTMessages.GetUniqueIN1Segments();
                 foreach(Business.HL7View.IN1 in1 in in1Segments)
                 {
-                    result.AppendLine(in1.DisplayString);
-                    result.AppendLine();
+                    result.AppendLine(in1.DisplayString);                
                     result.AppendLine();
                 }                                            
                 

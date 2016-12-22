@@ -10,6 +10,8 @@ namespace YellowstonePathology.Business.HL7View
     public class ADTMessage
     {
         List<Business.HL7View.IN1> m_IN1Segments;
+        List<Business.HL7View.IN2> m_IN2Segments;
+
         Business.HL7View.GT1 m_Gt1Segment;
         Business.HL7View.PV1 m_PV1Segment;
 
@@ -26,6 +28,8 @@ namespace YellowstonePathology.Business.HL7View
         public ADTMessage()
         {
             this.m_IN1Segments = new List<HL7View.IN1>();
+            this.m_IN2Segments = new List<HL7View.IN2>();
+
             this.m_Gt1Segment = new HL7View.GT1();
             this.m_PV1Segment = new PV1();
         }
@@ -33,6 +37,11 @@ namespace YellowstonePathology.Business.HL7View
         public List<Business.HL7View.IN1> IN1Segments
         {
             get { return this.m_IN1Segments; }
+        }
+
+        public List<Business.HL7View.IN2> IN2Segments
+        {
+            get { return this.m_IN2Segments; }
         }
 
         public void ParseHL7()
@@ -46,6 +55,13 @@ namespace YellowstonePathology.Business.HL7View
                     Business.HL7View.IN1 in1 = new HL7View.IN1();
                     in1.FromHl7(lines[i]);
                     this.m_IN1Segments.Add(in1);
+                }
+
+                if (fields[0] == "IN2")
+                {
+                    Business.HL7View.IN2 in2 = new HL7View.IN2();
+                    in2.FromHl7(lines[i]);
+                    this.m_IN2Segments.Add(in2);
                 }
 
                 if (fields[0] == "GT1")

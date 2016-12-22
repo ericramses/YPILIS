@@ -23,8 +23,7 @@ namespace YellowstonePathology.Business.Test.PDL1SP142
             result.AppendLine("), which yielded the following result:");
             result.AppendLine();
             result.Append("        PD - L1 (SP142): ");
-            result.Append(testOrder.StainPercent);
-            result.AppendLine("%");
+            result.Append(testOrder.StainPercent);            
             result.AppendLine();
             result.AppendLine(comment);
 
