@@ -50,7 +50,7 @@ namespace YellowstonePathology.Business.Gateway
                 "left outer join tblSystemUser su1 on po.AssignedToId = su1.UserId " +
                 "where ao.AccessionDate >= date_add(curdate(), Interval -30 Day) " +
                     "and po.AssignedToId = @AssignedToId " +
-                    "and pso.ResultCode <> po.ResultCode ";
+                    "and pso.ResultCode <> po.ResultCode;";
 
             MySqlCommand cmd = new MySqlCommand(sqlStatement);
             cmd.Parameters.AddWithValue("@AssignedToId", assignedToId);

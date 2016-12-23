@@ -18,11 +18,11 @@ namespace YellowstonePathology.Business.Gateway
 			YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch result = null;
 
 			MySqlCommand cmd = new MySqlCommand();
-			cmd.CommandText = "select * from tblMaterialTrackingBatch where IsOpen = 1 and tblMaterialTrackingBatch.FromFacilityId = FacilityId " +
-                "and tblMaterialTrackingBatch.FromLocationId = LocationId;";
+			cmd.CommandText = "select * from tblMaterialTrackingBatch where IsOpen = 1 and tblMaterialTrackingBatch.FromFacilityId = @FacilityId " +
+                "and tblMaterialTrackingBatch.FromLocationId = @LocationId;";
 			cmd.CommandType = CommandType.Text;
-			cmd.Parameters.AddWithValue("FacilityId", facilityId);
-			cmd.Parameters.AddWithValue("LocationId", locationId);
+			cmd.Parameters.AddWithValue("@FacilityId", facilityId);
+			cmd.Parameters.AddWithValue("@LocationId", locationId);
 
 			using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{
@@ -71,8 +71,8 @@ namespace YellowstonePathology.Business.Gateway
         {
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = System.Data.CommandType.Text;
-			cmd.CommandText = "Update tblSlideOrder set Validated = 1, ValidationDate = Now(), Status = 'Validated' where SlideOrderId = SlideOrderId ";
-			cmd.Parameters.AddWithValue("SlideOrderId", slideOrderId);
+			cmd.CommandText = "Update tblSlideOrder set Validated = 1, ValidationDate = Now(), Status = 'Validated' where SlideOrderId = @SlideOrderId ";
+			cmd.Parameters.AddWithValue("@SlideOrderId", slideOrderId);
             using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
@@ -85,9 +85,9 @@ namespace YellowstonePathology.Business.Gateway
         {
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = System.Data.CommandType.Text;
-			cmd.CommandText = "Update tblSlideOrder set tblSlideOrder.Status = Status where tblSlideOrder.SlideOrderId = SlideOrderId;";
-			cmd.Parameters.AddWithValue("SlideOrderId", slideOrderId);
-            cmd.Parameters.AddWithValue("Status", status);
+			cmd.CommandText = "Update tblSlideOrder set tblSlideOrder.Status = @Status where tblSlideOrder.SlideOrderId = @SlideOrderId;";
+			cmd.Parameters.AddWithValue("@SlideOrderId", slideOrderId);
+            cmd.Parameters.AddWithValue("@Status", status);
             using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
@@ -99,9 +99,9 @@ namespace YellowstonePathology.Business.Gateway
         public static void DeleteSlideOrder(string slideOrderId)
         {
             MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "Delete tblSlideOrder where tblSlideOrder.SlideOrderId = SlideOrderId ";
+            cmd.CommandText = "Delete tblSlideOrder where tblSlideOrder.SlideOrderId = @SlideOrderId ";
             cmd.CommandType = System.Data.CommandType.Text;
-            cmd.Parameters.AddWithValue("SlideOrderId", slideOrderId);
+            cmd.Parameters.AddWithValue("@SlideOrderId", slideOrderId);
             using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
@@ -121,10 +121,10 @@ namespace YellowstonePathology.Business.Gateway
                 "join tblPanelOrder po on t.PanelOrderId = po.PanelOrderId " +
                 "join tblPanelSetOrder pso on po.ReportNo = pso.ReportNo " +
                 "join tblAccessionOrder ao on pso.MasterAccessionNo = ao.MasterAccessionNo " +
-                "where asl.SlideOrderId = slideOrderId; " +
+                "where asl.SlideOrderId = @SlideOrderId; " +
                 "Select * from tblSlideOrder where SlideOrderId = @SlideOrderId;";
             cmd.CommandType = System.Data.CommandType.Text;
-            cmd.Parameters.AddWithValue("SlideOrderId", slideOrderId);
+            cmd.Parameters.AddWithValue("@SlideOrderId", slideOrderId);
             using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
@@ -158,7 +158,7 @@ namespace YellowstonePathology.Business.Gateway
                 "Select slo.* from tblSlideOrder slo join tblMaterialTrackingLog mtl on slo.SlideOrderId = mtl.MaterialId " +
                 "join tblTestOrder t on slo.TestOrderId = t.TestOrderId " +
                 "join tblPanelOrder po on t.PanelOrderId = po.PanelOrderId " +
-                "where mtl.MaterialTrackingBatchId = BatchId order by slo.SlideOrderId; " +
+                "where mtl.MaterialTrackingBatchId = @BatchId order by slo.SlideOrderId; " +
                 "Select ao.MasterAccessionNo, ao.PLastName, ao.PFirstName, ao.ClientId, ao.ClientName, ao.PhysicianId, " +
                 "ao.PhysicianName, po.ReportNo, asl.SlideOrderId " +
                 "from tblAccessionOrder ao " +
@@ -168,9 +168,9 @@ namespace YellowstonePathology.Business.Gateway
                 "join tblMaterialTrackingLog astl on asl.SlideOrderId = astl.MaterialId " +
                 "join tblTestOrder t on asl.TestOrderId = t.TestOrderId " +
                 "join tblPanelOrder po on t.PanelOrderId = po.PanelOrderId " +
-                "where astl.MaterialTrackingBatchId = BatchId;";
+                "where astl.MaterialTrackingBatchId = @BatchId;";
             cmd.CommandType = System.Data.CommandType.Text;
-            cmd.Parameters.AddWithValue("BatchId", batchId);
+            cmd.Parameters.AddWithValue("@BatchId", batchId);
             using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
@@ -208,29 +208,29 @@ namespace YellowstonePathology.Business.Gateway
         public static YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection GetMaterialTrackingLogCollectionByBatchDate(DateTime batchDate)
 		{
 			MySqlCommand cmd = new MySqlCommand();
-			cmd.CommandText = "Select * from tblMaterialTrackingLog where tblMaterialTrackingLog.LogDate = LogDate;";
+			cmd.CommandText = "Select * from tblMaterialTrackingLog where tblMaterialTrackingLog.LogDate = @LogDate;";
 			cmd.CommandType = System.Data.CommandType.Text;
-			cmd.Parameters.AddWithValue("LogDate", batchDate);
+			cmd.Parameters.AddWithValue("@LogDate", batchDate);
             return BuildMaterialTrackingLogCollection(cmd);
 		}
 
 		public static YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection GetMaterialTrackingLogCollectionByBatchId(string batchId)
 		{
 			MySqlCommand cmd = new MySqlCommand();
-			cmd.CommandText = "Select * from tblMaterialTrackingLog where tblMaterialTrackingLog.MaterialTrackingBatchId = BatchId order by LogDate desc;";
+			cmd.CommandText = "Select * from tblMaterialTrackingLog where tblMaterialTrackingLog.MaterialTrackingBatchId = @BatchId order by LogDate desc;";
 			cmd.CommandType = System.Data.CommandType.Text;
-            cmd.Parameters.AddWithValue("BatchId", batchId);	
+            cmd.Parameters.AddWithValue("@BatchId", batchId);	
 			return BuildMaterialTrackingLogCollection(cmd);
 		}
 
 		public static YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection GetMaterialTrackingLogCollectionByBatchIdMasterAccessionNo(string batchId, string masterAccessionNo)
         {
             MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "Select * from tblMaterialTrackingLog where tblMaterialTrackingLog.MasterAccessionNo = MasterAccessionNo and " +
-                "tblMaterialTrackingLog.MaterialTrackingBatchId = MaterialTrackingBatchId;";
+            cmd.CommandText = "Select * from tblMaterialTrackingLog where tblMaterialTrackingLog.MasterAccessionNo = @MasterAccessionNo and " +
+                "tblMaterialTrackingLog.MaterialTrackingBatchId = @MaterialTrackingBatchId;";
             cmd.CommandType = System.Data.CommandType.Text;
-            cmd.Parameters.AddWithValue("MasterAccessionNo", masterAccessionNo);
-            cmd.Parameters.AddWithValue("MaterialTrackingBatchId", batchId);
+            cmd.Parameters.AddWithValue("@MasterAccessionNo", masterAccessionNo);
+            cmd.Parameters.AddWithValue("@MaterialTrackingBatchId", batchId);
             return BuildMaterialTrackingLogCollection(cmd);
         }
 
@@ -273,39 +273,39 @@ namespace YellowstonePathology.Business.Gateway
             cmd.CommandText = "Select * " +
 	            "from tblMaterialTrackingBatch " +
                 "where MaterialTrackingBatchId in (Select MaterialTrackingBatchId from tblMaterialTrackingLog where " +
-                "tblMaterialTrackingLog.MasterAccessionNo = MasterAccessionNo) " +
+                "tblMaterialTrackingLog.MasterAccessionNo = @MasterAccessionNo) " +
 	            "order by OpenDate desc;";
             cmd.CommandType = System.Data.CommandType.Text;
-            cmd.Parameters.AddWithValue("MasterAccessionNo", masterAccessionNo);
+            cmd.Parameters.AddWithValue("@MasterAccessionNo", masterAccessionNo);
             return BuildMaterialTrackingBatchCollection(cmd);
         }
 
 		public static YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatchCollection GetMaterialTrackingBatchCollection(string facilityId, string locationId)
 		{
 			MySqlCommand cmd = new MySqlCommand();
-			cmd.CommandText = "Select top 100 * from tblMaterialTrackingBatch where FromFacilityId = FacilityId and " +
-                "FromLocationId = LocationId order by OpenDate desc;";
+			cmd.CommandText = "Select top 100 * from tblMaterialTrackingBatch where FromFacilityId = @FacilityId and " +
+                "FromLocationId = @LocationId order by OpenDate desc;";
 			cmd.CommandType = System.Data.CommandType.Text;
-			cmd.Parameters.AddWithValue("FacilityId", facilityId);
-			cmd.Parameters.AddWithValue("LocationId", locationId);
+			cmd.Parameters.AddWithValue("@FacilityId", facilityId);
+			cmd.Parameters.AddWithValue("@LocationId", locationId);
 			return BuildMaterialTrackingBatchCollection(cmd);
 		}
 
 		public static YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection GetMaterialTrackingLogCollectionByMaterialId(string materialId)
 		{
 			MySqlCommand cmd = new MySqlCommand();
-			cmd.CommandText = "Select * from tblMaterialTrackingLog wheretblMaterialTrackingLog. MaterialId = MaterialId;";
+			cmd.CommandText = "Select * from tblMaterialTrackingLog wheretblMaterialTrackingLog. MaterialId = @MaterialId;";
 			cmd.CommandType = System.Data.CommandType.Text;
-			cmd.Parameters.AddWithValue("MaterialId", materialId);
+			cmd.Parameters.AddWithValue("@MaterialId", materialId);
 			return BuildMaterialTrackingLogCollection(cmd);
 		}
 
 		public static YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection GetMaterialTrackingLogCollectionByMasterAccessionNo(string masterAccessionNo)
 		{
 			MySqlCommand cmd = new MySqlCommand();
-			cmd.CommandText = "Select * from tblMaterialTrackingLog where tblMaterialTrackingLog.MasterAccessionNo = MasterAccessionNo order by LogDate desc;";
+			cmd.CommandText = "Select * from tblMaterialTrackingLog where tblMaterialTrackingLog.MasterAccessionNo = @MasterAccessionNo order by LogDate desc;";
 			cmd.CommandType = System.Data.CommandType.Text;
-			cmd.Parameters.AddWithValue("MasterAccessionNo", masterAccessionNo);
+			cmd.Parameters.AddWithValue("@MasterAccessionNo", masterAccessionNo);
 			return BuildMaterialTrackingLogCollection(cmd);
 		}
 
@@ -314,9 +314,9 @@ namespace YellowstonePathology.Business.Gateway
             YellowstonePathology.Business.Slide.Model.SlideOrder result = null;
 
             MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "Select * from tblSlideOrder where tblSlideOrder.SlideOrderid = SlideOrderId;";
+            cmd.CommandText = "Select * from tblSlideOrder where tblSlideOrder.SlideOrderid = @SlideOrderId;";
             cmd.CommandType = System.Data.CommandType.Text;
-            cmd.Parameters.AddWithValue("SlideOrderId", slideOrderId);
+            cmd.Parameters.AddWithValue("@SlideOrderId", slideOrderId);
 
             using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
@@ -341,11 +341,11 @@ namespace YellowstonePathology.Business.Gateway
 			YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogView result = null;
             
             MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "Select * from tblMaterialTrackingLog where tblMaterialTrackingLog.MaterialId = MaterialId and " +
-                "tblMaterialTrackingLog.MaterialTrackingBatchId = MaterialTrackingBatchId;";
+            cmd.CommandText = "Select * from tblMaterialTrackingLog where tblMaterialTrackingLog.MaterialId = @MaterialId and " +
+                "tblMaterialTrackingLog.MaterialTrackingBatchId = @MaterialTrackingBatchId;";
             cmd.CommandType = System.Data.CommandType.Text;
-            cmd.Parameters.AddWithValue("MaterialId", slideOrderId);
-            cmd.Parameters.AddWithValue("MaterialTrackingBatchId", materialTrackingBatchId);
+            cmd.Parameters.AddWithValue("@MaterialId", slideOrderId);
+            cmd.Parameters.AddWithValue("@MaterialTrackingBatchId", materialTrackingBatchId);
 
             using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
@@ -370,9 +370,9 @@ namespace YellowstonePathology.Business.Gateway
 			YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogViewCollection result = new YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogViewCollection();
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = "Select * from ViewMaterialTrackingLog where ViewMaterialTrackingLog.MaterialTrackingBatchId = " +
-                "MaterialTrackingBatchId order by LogDate desc;";
+                "@MaterialTrackingBatchId order by LogDate desc;";
             cmd.CommandType = System.Data.CommandType.Text;
-            cmd.Parameters.AddWithValue("MaterialTrackingBatchId", materialTrackingBatchId);
+            cmd.Parameters.AddWithValue("@MaterialTrackingBatchId", materialTrackingBatchId);
 
             using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
@@ -398,10 +398,10 @@ namespace YellowstonePathology.Business.Gateway
 			YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogViewCollection result = new YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogViewCollection();
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = "Select * from ViewMaterialTrackingLog where ViewMaterialTrackingLog.MaterialTrackingBatchId = " +
-                "MaterialTrackingBatchId and ViewMaterialTrackingLog.MasterAccessionNo = MasterAccessionNo;";
+                "@MaterialTrackingBatchId and ViewMaterialTrackingLog.MasterAccessionNo = @MasterAccessionNo;";
             cmd.CommandType = System.Data.CommandType.Text;
-            cmd.Parameters.AddWithValue("MaterialTrackingBatchId", materialTrackingBatchId);
-            cmd.Parameters.AddWithValue("MasterAccessionNo", masterAccessionNo);
+            cmd.Parameters.AddWithValue("@MaterialTrackingBatchId", materialTrackingBatchId);
+            cmd.Parameters.AddWithValue("@MasterAccessionNo", masterAccessionNo);
 
             using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
@@ -425,12 +425,12 @@ namespace YellowstonePathology.Business.Gateway
 		public static YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog GetMaterialTrackingLog(int materialId, string locationName, DateTime logDate)
 		{
 			MySqlCommand cmd = new MySqlCommand();
-			cmd.CommandText = "Select * from tblMaterialTrackingLog where tblMaterialTrackingLog.MaterialId = MaterialId and " +
-                "tblMaterialTrackingLog.LocationName = LocationName and tblMaterialTrackingLog.LogDate = LogDate;";
+			cmd.CommandText = "Select * from tblMaterialTrackingLog where tblMaterialTrackingLog.MaterialId = @ViewMaterialTrackingLogMaterialId and " +
+                "tblMaterialTrackingLog.LocationName = @ViewMaterialTrackingLogLocationName and tblMaterialTrackingLog.LogDate = @ViewMaterialTrackingLogLogDate;";
 			cmd.CommandType = System.Data.CommandType.Text;
-			cmd.Parameters.AddWithValue("MaterialId", materialId);
-			cmd.Parameters.AddWithValue("LocationName", locationName);
-			cmd.Parameters.AddWithValue("LogDate", logDate);
+			cmd.Parameters.AddWithValue("@ViewMaterialTrackingLogMaterialId", materialId);
+			cmd.Parameters.AddWithValue("@ViewMaterialTrackingLogLocationName", locationName);
+			cmd.Parameters.AddWithValue("@ViewMaterialTrackingLogLogDate", logDate);
 			return BuildMaterialTrackingLog(cmd);
 		}
 
@@ -442,8 +442,8 @@ namespace YellowstonePathology.Business.Gateway
                 "from tblSlideOrder s " +                
 				"join tblTestOrder t on s.TestOrderId = t.TestOrderId " +
 				"join tblPanelOrder po on t.PanelOrderId = po.PanelOrderId " +
-				"where po.ReportNo = ReportNo order by Label;";
-			cmd.Parameters.AddWithValue("ReportNo", reportNo);
+                "where po.ReportNo = @ViewMaterialTrackingLogReportNo order by Label;";
+			cmd.Parameters.AddWithValue("@ViewMaterialTrackingLogReportNo", reportNo);
 			return BuildSlideOrderCollection(cmd);
 		}
 
@@ -455,8 +455,8 @@ namespace YellowstonePathology.Business.Gateway
                 "from tblSlideOrder s " +
                 "join tblAliquotOrder ao on s.AliquotOrderid = ao.AliquotOrderId " +
                 "join tblSpecimenOrder so on ao.SpecimenOrderId = so.SpecimenOrderId " +
-                "where ao.MasterAccessionNo = MasterAccessionNo order by Label;";
-            cmd.Parameters.AddWithValue("MasterAccessionNo", masterAccessionNo);
+                "where ao.MasterAccessionNo = @MasterAccessionNo order by Label;";
+            cmd.Parameters.AddWithValue("@MasterAccessionNo", masterAccessionNo);
 			return BuildSlideOrderCollection(cmd);
 		}        
 
@@ -464,8 +464,8 @@ namespace YellowstonePathology.Business.Gateway
 		{
 			MySqlCommand cmd = new MySqlCommand();
 			cmd.CommandType = System.Data.CommandType.Text;
-			cmd.CommandText = "select distinct s.* from tblSlideOrder s where s.TestOrderId = TestOrderId order by Label;";
-			cmd.Parameters.AddWithValue("TestOrderId", testOrderId);
+			cmd.CommandText = "select distinct s.* from tblSlideOrder s where s.TestOrderId = @TestOrderId order by Label;";
+			cmd.Parameters.AddWithValue("@TestOrderId", testOrderId);
 			return BuildSlideOrderCollection(cmd);
 		}
 
@@ -560,10 +560,10 @@ namespace YellowstonePathology.Business.Gateway
 				"join tblSpecimenOrder so on ao.MasterAccessionNo = so.MasterAccessionNo " + 
 				"join tblAliquotOrder a on so.specimenOrderId = a.SpecimenOrderId " + 
 				"join tblSlideOrder asl on a.AliquotOrderId = asl.AliquotOrderId " + 
-				"join tblMaterialTrackingLog astl on asl.SlideOrderId = astl.MaterialId " + 				
-                "where astl.MaterialTrackingBatchId = BatchId;";
+				"join tblMaterialTrackingLog astl on asl.SlideOrderId = astl.MaterialId " +
+                "where astl.MaterialTrackingBatchId = @BatchId;";
 			cmd.CommandType = System.Data.CommandType.Text;
-			cmd.Parameters.AddWithValue("BatchId", materialBatchId);
+			cmd.Parameters.AddWithValue("@BatchId", materialBatchId);
 
             using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {

@@ -122,7 +122,7 @@ namespace YellowstonePathology.Business.Persistence
 
             for (int i = 0; i < propertyBridgeList.Count; i++)
             {
-                fieldList.Append("[" + propertyBridgeList[i].Name + "]");
+                fieldList.Append(propertyBridgeList[i].Name);
                 fieldList.Append(", ");
 
                 parameterList.Append(propertyBridgeList[i].AtName);
@@ -142,7 +142,7 @@ namespace YellowstonePathology.Business.Persistence
 
             sqlUpdateStatement.Append("(" + fieldList + ")");
             sqlUpdateStatement.Append(" Values ");
-            sqlUpdateStatement.Append("(" + parameterList + ")");
+            sqlUpdateStatement.Append("(" + parameterList + ");");
 
             cmd.CommandText = sqlUpdateStatement.ToString();
             keyPropertyBridge.SetSqlParameter(cmd);

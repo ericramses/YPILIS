@@ -32,6 +32,10 @@ namespace YellowstonePathology.Business.Persistence
             var propertyValue = this.m_Property.GetValue(this.m_Object, null);
             if (propertyValue != null)
             {
+                if(this.m_Property.PropertyType == typeof(bool) || this.m_Property.PropertyType == typeof(bool?))
+                {
+                    propertyValue = Convert.ToByte(propertyValue);
+                }
                 this.m_SqlParameter.Value = propertyValue;                
             }
             else

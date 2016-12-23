@@ -18,9 +18,9 @@ namespace YellowstonePathology.Business.Reports.Cytology
         public void FillByPhysicianId(int physicianId, DateTime startDate, DateTime endDate)
         {            
             string sql = "prcReportGetCytologyUnsatLettersByPhysician";
-            cmd.Parameters.AddWithValue("@PhysicianId", physicianId);
-            cmd.Parameters.AddWithValue("@StartDate", startDate.ToShortDateString());
-            cmd.Parameters.AddWithValue("@EndDate", endDate.ToShortDateString());
+            cmd.Parameters.AddWithValue("PhysicianId", physicianId);
+            cmd.Parameters.AddWithValue("StartDate", startDate.ToShortDateString());
+            cmd.Parameters.AddWithValue("EndDate", endDate.ToShortDateString());
             cmd.CommandText = sql;
             cmd.CommandType = CommandType.StoredProcedure;
             this.FillData();
@@ -29,9 +29,9 @@ namespace YellowstonePathology.Business.Reports.Cytology
         public void FillByClientId(int clientId, DateTime startDate, DateTime endDate)
         {
             string sql = "prcReportGetCytologyUnsatLettersByClient";
-            cmd.Parameters.AddWithValue("@ClientId", clientId);
-            cmd.Parameters.AddWithValue("@StartDate", startDate.ToShortDateString());
-            cmd.Parameters.AddWithValue("@EndDate", endDate.ToShortDateString());
+            cmd.Parameters.AddWithValue("ClientId", clientId);
+            cmd.Parameters.AddWithValue("StartDate", startDate.ToShortDateString());
+            cmd.Parameters.AddWithValue("EndDate", endDate.ToShortDateString());
             cmd.CommandText = sql;
             cmd.CommandType = CommandType.StoredProcedure;
             this.FillData();
@@ -40,8 +40,8 @@ namespace YellowstonePathology.Business.Reports.Cytology
         public void FillByDate(DateTime startDate, DateTime endDate)
         {            
             string sql = "prcReportGetCytologyUnsatLetters";
-            cmd.Parameters.AddWithValue("@StartDate", startDate.ToShortDateString());
-            cmd.Parameters.AddWithValue("@EndDate", endDate.ToShortDateString());
+            cmd.Parameters.AddWithValue("StartDate", startDate.ToShortDateString());
+            cmd.Parameters.AddWithValue("EndDate", endDate.ToShortDateString());
             cmd.CommandText = sql;
             cmd.CommandType = CommandType.StoredProcedure;
             this.FillData();

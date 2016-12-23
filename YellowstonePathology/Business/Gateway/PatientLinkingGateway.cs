@@ -48,7 +48,7 @@ namespace YellowstonePathology.Business.Gateway
 
 		public static string GetNewPatientId()
 		{
-			MySqlCommand cmd = new MySqlCommand("Insert into tblPatient DEFAULT VALUES; SELECT * from tblPatient where PatientId = LAST_INSERT_ID();");
+			MySqlCommand cmd = new MySqlCommand("Insert into tblPatient (PatientId) values(0); SELECT * from tblPatient where PatientId = LAST_INSERT_ID();");
 			cmd.CommandType = CommandType.Text;
 			string patientId = null;
 			using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))

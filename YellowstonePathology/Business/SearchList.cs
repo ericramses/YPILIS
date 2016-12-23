@@ -126,7 +126,7 @@ namespace YellowstonePathology.Business
             this.m_Cmd.Parameters.Clear();
 			this.m_Cmd.CommandText = "prcGetSearchListByReportNo"; //"prcGetSearchListByAccessionNo";
             this.m_Cmd.CommandType = CommandType.StoredProcedure;
-			this.m_Cmd.Parameters.AddWithValue("@ReportNo", this.AccessionNo);
+			this.m_Cmd.Parameters.AddWithValue("ReportNo", this.AccessionNo);
         }
 
         public void SetFillByPatientName()
@@ -134,8 +134,8 @@ namespace YellowstonePathology.Business
             this.m_Cmd.Parameters.Clear();
             this.m_Cmd.CommandText = "prcGetSearchListByPatientName";
             this.m_Cmd.CommandType = CommandType.StoredProcedure;
-            this.m_Cmd.Parameters.AddWithValue("@LastName", this.PLastName);
-            this.m_Cmd.Parameters.AddWithValue("@FirstName", this.PFirstName);
+            this.m_Cmd.Parameters.AddWithValue("LastName", this.PLastName);
+            this.m_Cmd.Parameters.AddWithValue("FirstName", this.PFirstName);
         }
 
         public void SetFillByBirthdate()
@@ -143,7 +143,7 @@ namespace YellowstonePathology.Business
             this.m_Cmd.Parameters.Clear();
             this.m_Cmd.CommandText = "prcGetSearchListByBirthdate";
             this.m_Cmd.CommandType = CommandType.StoredProcedure;
-            this.m_Cmd.Parameters.AddWithValue("@Birthdate", this.Birthdate); 
+            this.m_Cmd.Parameters.AddWithValue("Birthdate", this.Birthdate); 
         }
 
         public void SetFillBySSN()
@@ -151,7 +151,7 @@ namespace YellowstonePathology.Business
             this.m_Cmd.Parameters.Clear();
             this.m_Cmd.CommandText = "prcGetSearchListBySSN";
             this.m_Cmd.CommandType = CommandType.StoredProcedure;
-            this.m_Cmd.Parameters.AddWithValue("@SSN", this.SSN);
+            this.m_Cmd.Parameters.AddWithValue("SSN", this.SSN);
         }
 
         public void SetFillByPhysicianClientId()
@@ -159,7 +159,7 @@ namespace YellowstonePathology.Business
             this.m_Cmd.Parameters.Clear();
             this.m_Cmd.CommandText = "prcGetSearchListByPhysicianClientId_1";
             this.m_Cmd.CommandType = CommandType.StoredProcedure;
-            this.m_Cmd.Parameters.AddWithValue("@PhysicianClientId", this.PhysicianClientId);
+            this.m_Cmd.Parameters.AddWithValue("PhysicianClientId", this.PhysicianClientId);
         }
 
 		public void SetFillByMasterAccessionNo()
@@ -167,7 +167,7 @@ namespace YellowstonePathology.Business
 			this.m_Cmd.Parameters.Clear();
 			this.m_Cmd.CommandText = "prcGetSearchListByMasterAccessionNo";
 			this.m_Cmd.CommandType = CommandType.StoredProcedure;
-			this.m_Cmd.Parameters.AddWithValue("@MasterAccessionNo", this.MasterAccessionNo);
+			this.m_Cmd.Parameters.AddWithValue("MasterAccessionNo", this.MasterAccessionNo);
 		}
 
         public void Fill()

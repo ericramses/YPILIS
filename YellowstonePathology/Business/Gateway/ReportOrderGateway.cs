@@ -39,6 +39,7 @@ namespace YellowstonePathology.Business.Gateway
                 cmd.Parameters.AddWithValue("@CD8Result", reportOrderAbsoluteCD4Count.CD8Result);
                 cmd.Parameters.AddWithValue("@CD4CD8Ratio", reportOrderAbsoluteCD4Count.CD4CD8Ratio);
                 cmd.Parameters.AddWithValue("@Interpretation", reportOrderAbsoluteCD4Count.Interpretation);
+                cmd.Parameters.AddWithValue("@ReportOrderAbsoluteCD4CountId", reportOrderAbsoluteCD4Count.ReportOrderAbsoluteCD4CountId);
                 cmd.Connection = cn;
                 cmd.ExecuteNonQuery();
             }

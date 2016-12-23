@@ -130,7 +130,7 @@ namespace YellowstonePathology.Business.Persistence
 
             for (int i = 0; i < propertyBridgeList.Count; i++)
             {
-                sqlStatement.Append("[" + propertyBridgeList[i].Name + "] = " + propertyBridgeList[i].AtName);
+                sqlStatement.Append(propertyBridgeList[i].Name + " = " + propertyBridgeList[i].AtName);
                 if (i != propertyBridgeList.Count - 1)
                 {
                     sqlStatement.Append(", ");
@@ -138,7 +138,7 @@ namespace YellowstonePathology.Business.Persistence
                 propertyBridgeList[i].SetSqlParameter(cmd);
             }
             
-            sqlStatement.Append(" Where " + keyPropertyBridge.Name + " = " + keyPropertyBridge.AtName);
+            sqlStatement.Append(" Where " + keyPropertyBridge.Name + " = " + keyPropertyBridge.AtName + ";");
             cmd.CommandText = sqlStatement.ToString();            
 
             return cmd;            

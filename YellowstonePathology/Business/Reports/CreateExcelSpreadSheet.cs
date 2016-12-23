@@ -44,8 +44,8 @@ namespace YellowstonePathology.Business.Reports
                 cmd.Connection = cn;
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "prcGetBillingClientReportData";
-                cmd.Parameters.AddWithValue("@StartDate", startDate.ToShortDateString());
-                cmd.Parameters.AddWithValue("@EndDate", endDate.ToShortDateString());
+                cmd.Parameters.AddWithValue("StartDate", startDate.ToShortDateString());
+                cmd.Parameters.AddWithValue("EndDate", endDate.ToShortDateString());
 
                 using (MySqlDataReader dr = cmd.ExecuteReader())
                 {

@@ -96,7 +96,7 @@ namespace YellowstonePathology.Business.Persistence
             MySqlCommand cmd = new MySqlCommand();            
                         
             StringBuilder sqlStatement = new StringBuilder("Delete " + storageName);
-            sqlStatement.Append(" Where " + keyPropertyBridge.Name + " = " + keyPropertyBridge.AtName);
+            sqlStatement.Append(" Where " + keyPropertyBridge.Name + " = " + keyPropertyBridge.AtName + ";");
             
             cmd.CommandText = sqlStatement.ToString();
             keyPropertyBridge.SetSqlParameter(cmd);
