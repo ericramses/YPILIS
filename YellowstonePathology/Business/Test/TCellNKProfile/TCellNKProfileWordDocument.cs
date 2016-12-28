@@ -20,7 +20,7 @@ namespace YellowstonePathology.Business.Test.TCellNKProfile
         {
             TCellNKProfileTestOrder testOrder = (TCellNKProfileTestOrder)this.m_PanelSetOrder;
 
-            this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\TCellNKProfile.xml";
+            this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\TCellNKProfile.2.xml";
 
             base.OpenTemplate();
 
@@ -58,6 +58,14 @@ namespace YellowstonePathology.Business.Test.TCellNKProfile
             this.SetXmlNodeData("nkcell_percent", testOrder.CD16CD56NKPercent.ToString().StringAsPercent());
             this.SetXmlNodeData("nkcell_count", testOrder.CD16CD56NKCount);
             this.SetXmlNodeData("cd4cd8_ratio", testOrder.CD4CD8Ratio);
+
+            this.SetXmlNodeData("cd3_percent", testOrder.CD3Percent.ToString().StringAsPercent());
+            this.SetXmlNodeData("cd4_percent", testOrder.CD4Percent.ToString().StringAsPercent());
+            this.SetXmlNodeData("cd8_percent", testOrder.CD8Percent.ToString().StringAsPercent());
+            this.SetXmlNodeData("cd16_percent", testOrder.CD16Percent.ToString().StringAsPercent());
+            this.SetXmlNodeData("cd19_percent", testOrder.CD19Percent.ToString().StringAsPercent());
+            this.SetXmlNodeData("cd45_percent", testOrder.CD45Percent.ToString().StringAsPercent());
+            this.SetXmlNodeData("cd56_percent", testOrder.CD56Percent.ToString().StringAsPercent());
 
             this.SetXmlNodeData("clinical_history", this.m_AccessionOrder.ClinicalHistory);
 

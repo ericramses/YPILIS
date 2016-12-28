@@ -1706,7 +1706,6 @@ namespace YellowstonePathology.MySQLMigration
                         overallResult.Message += "Unable to create foreign key " + tableForeignKey.MySqlForeignKeyName + Environment.NewLine;
                         overallResult.Success = false;
                     }
-                    break;
                 }
             }
             return overallResult;
@@ -1734,7 +1733,6 @@ namespace YellowstonePathology.MySQLMigration
                         overallResult.Message += "Unable to create foreign key " + tableForeignKey.MySqlForeignKeyName + Environment.NewLine;
                         overallResult.Success = false;
                     }
-                    break;
                 }
             }
             return overallResult;
