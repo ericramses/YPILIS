@@ -1277,7 +1277,20 @@ namespace YellowstonePathology.Business.Test
 			this.SvhAccount = clientOrder.SvhAccountNo;
 			this.SvhMedicalRecord = clientOrder.SvhMedicalRecord;
 
-            if (clientOrder.PatientType == "IN") this.m_PatientType = "IP";
+            switch(clientOrder.PatientType)
+            {
+                case "IN":
+                case "ER":
+                case "INO":
+                case "RCR":
+                    this.m_PatientType = "IP";
+                    break;
+                case "CLI":
+                case "SDC":
+                case "REF":
+                    this.m_PatientType = "OP";
+                    break;
+            }            
 
             if (string.IsNullOrEmpty(clientOrder.ClinicalHistory) == false)
             {
