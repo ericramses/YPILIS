@@ -753,9 +753,9 @@ namespace YellowstonePathology.Business.Gateway
 				"join tblTest t on tt.TestId = t.TestId " +
 				"join tblStainResultOptionGroup srog on t.StainResultGroupId = srog.StainResultGroupId " +
 				"join tblStainResultOption sro on sro.StainResultOptionId = srog.StainResultOptionId " +
-				"where sr.StainResultId = StainResultId;";
+				"where sr.StainResultId = @StainResultId;";
 			cmd.CommandType = CommandType.Text;
-			cmd.Parameters.AddWithValue("StainResultId", stainResultId);
+			cmd.Parameters.AddWithValue("@StainResultId", stainResultId);
 
 			using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{
