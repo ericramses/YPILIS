@@ -237,6 +237,12 @@ namespace YellowstonePathology.UI.Cutting
 
         private void AddMaterialTrackingLog(YellowstonePathology.Business.Test.AliquotOrder aliquotOrder)
         {
+            if(aliquotOrder == null)
+            {
+                Business.Logging.EmailExceptionHandler.HandleException("Attention Sid, The AliquotOrder is null in the cutting path.");
+                return;
+            }
+
             YellowstonePathology.Business.Facility.Model.FacilityCollection facilityCollection = Business.Facility.Model.FacilityCollection.GetAllFacilities();
             YellowstonePathology.Business.Facility.Model.LocationCollection locationCollection = YellowstonePathology.Business.Facility.Model.LocationCollection.GetAllLocations();
             YellowstonePathology.Business.Facility.Model.Facility thisFacility = facilityCollection.GetByFacilityId(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId);
@@ -246,7 +252,14 @@ namespace YellowstonePathology.UI.Cutting
             YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog = new Business.MaterialTracking.Model.MaterialTrackingLog(objectId, aliquotOrder.AliquotOrderId, null, thisFacility.FacilityId, thisFacility.FacilityName,
                 thisLocation.LocationId, thisLocation.Description, "Block Scanned", "Block Scanned At Cutting", "Aliquot", this.m_AccessionOrder.MasterAccessionNo, aliquotOrder.Label, aliquotOrder.ClientAccessioned);
 
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(materialTrackingLog, this.m_CuttingWorkspaceWindow);
+            if(this.m_CuttingWorkspaceWindow == null)
+            {
+                Business.Logging.EmailExceptionHandler.HandleException("Attention Sid, The CuttingWorkspaceWindow is null.");
+            }
+            else
+            {
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(materialTrackingLog, this.m_CuttingWorkspaceWindow);
+            }            
         }
 
         private void HandleAliquotOrderFound(YellowstonePathology.Business.Test.AliquotOrder aliquotOrder)
