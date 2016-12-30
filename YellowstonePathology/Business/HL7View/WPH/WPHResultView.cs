@@ -24,7 +24,7 @@ namespace YellowstonePathology.Business.HL7View.WPH
             this.m_AccessionOrder = accessionOrder;
             this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 
-            if (this.m_AccessionOrder.UniversalServiceId.ToUpper() != this.m_PanelSetOrder.UniversalServiceId.ToUpper())
+            if (string.IsNullOrEmpty(this.m_AccessionOrder.IncomingHL7) == true)
             {
                 this.m_SendUnsolicited = true;
             }

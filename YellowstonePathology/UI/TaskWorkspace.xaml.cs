@@ -190,8 +190,7 @@ namespace YellowstonePathology.UI
                 foreach (YellowstonePathology.Business.Task.Model.TaskOrder taskOrder in this.ListViewDailyTaskOrders.SelectedItems)
                 {
                     if (taskOrder.TaskId == taskCytologySlideDisposal.TaskId)
-                    {
-                        //YellowstonePathology.Business.Reports.CytologySlideDisposalReport report1 = new YellowstonePathology.Business.Reports.CytologySlideDisposalReport(taskOrder.TaskDate.Value);
+                    {                        
                         YellowstonePathology.Business.Reports.CytologySlideDisposalReportV2 report1 = new YellowstonePathology.Business.Reports.CytologySlideDisposalReportV2(taskOrder.TaskDate.Value);
                         System.Windows.Controls.PrintDialog printDialog1 = new System.Windows.Controls.PrintDialog();
 
@@ -199,16 +198,14 @@ namespace YellowstonePathology.UI
                         printDialog1.PrintDocument(report1.DocumentPaginator, "Cytology Slide Disposal");
                     }
                     else if (taskOrder.TaskId == taskSurgicalSpecimenDisposal.TaskId)
-                    {
-                        //YellowstonePathology.Business.Reports.SurgicalSpecimenDisposalReport report2 = new YellowstonePathology.Business.Reports.SurgicalSpecimenDisposalReport(taskOrder.TaskDate.Value);
+                    {                     
                         YellowstonePathology.Business.Reports.SurgicalSpecimenDisposalReportV2 report2 = new YellowstonePathology.Business.Reports.SurgicalSpecimenDisposalReportV2(taskOrder.TaskDate.Value);
                         System.Windows.Controls.PrintDialog printDialog2 = new System.Windows.Controls.PrintDialog();
                         printDialog2.ShowDialog();
                         printDialog2.PrintDocument(report2.DocumentPaginator, "Surgical Specimen Disposal Report for: ");
                     }
                     else if (taskOrder.TaskId == taskPOCReport.TaskId)
-                    {
-                        //YellowstonePathology.Business.Reports.POCRetensionReport report = new YellowstonePathology.Business.Reports.POCRetensionReport(taskOrder.TaskDate.Value.AddDays(-6), taskOrder.TaskDate.Value);
+                    {                     
                         YellowstonePathology.Business.Reports.POCRetensionReportV2 report = new YellowstonePathology.Business.Reports.POCRetensionReportV2(taskOrder.TaskDate.Value.AddDays(-6), taskOrder.TaskDate.Value);
                         System.Windows.Controls.PrintDialog printDialog = new System.Windows.Controls.PrintDialog();
                         printDialog.ShowDialog();

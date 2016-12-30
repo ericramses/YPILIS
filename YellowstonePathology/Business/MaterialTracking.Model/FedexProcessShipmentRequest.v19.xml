@@ -96,10 +96,12 @@
               </v19:Address>
             </v19:ResponsibleParty>
           </v19:Payor>
-        </v19:ShippingChargesPayment>       
+        </v19:ShippingChargesPayment>     
+        <!--
         <v19:SpecialServicesRequested>          
           <v19:SpecialServiceTypes>SATURDAY_DELIVERY</v19:SpecialServiceTypes>          
         </v19:SpecialServicesRequested>       
+        -->
         <v19:LabelSpecification>
           <v19:LabelFormatType>COMMON2D</v19:LabelFormatType>
           <v19:ImageType>ZPLII</v19:ImageType>
