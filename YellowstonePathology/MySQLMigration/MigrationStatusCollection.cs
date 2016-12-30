@@ -17,8 +17,7 @@ namespace YellowstonePathology.MySQLMigration
             MigrationStatusCollection result = new MigrationStatusCollection();
 
             List<Type> types = new List<Type>();
-            string assemblyName = @"C:\GIT\William\YPILIS\YellowstonePathology\bin\Debug\UserInterface.exe";
-            //string assemblyName = @"C:\GIT\Sid\YPILIS\YellowstonePathology\bin\Debug\UserInterface.exe";
+            string assemblyName = System.Reflection.Assembly.GetExecutingAssembly().CodeBase.Replace("file:///", string.Empty).Replace("/", "\\");
             Assembly assembly = Assembly.LoadFile(assemblyName);
             Type[] persistentTypes = assembly.GetTypes();
 
