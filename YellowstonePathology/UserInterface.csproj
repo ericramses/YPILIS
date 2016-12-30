@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>287</ApplicationRevision>
+    <ApplicationRevision>288</ApplicationRevision>
     <ApplicationVersion>10.1.6.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -1087,6 +1087,7 @@
     <Compile Include="Business\Task.Model\TaskOrderDetailFedexShipment.cs" />
     <Compile Include="Business\Test\AMLFavorableRisk\AMLFavorableRiskTest.cs" />
     <Compile Include="Business\Test\AMLPrognosticProfile\AMLPrognosticProfileTest.cs" />
+    <Compile Include="Business\Test\MPNStandardReflexPanel\MPNStandardReflexPanelTest.cs" />
     <Compile Include="Business\Test\FlowCytometryAnalysis\FlowCytometryAnalysisTest.cs" />
     <Compile Include="Business\Test\BCRABLByFish\BCRABLByFishTestOrder.cs" />
     <Compile Include="Business\Test\ChromosomeAnalysis\ChromosomeAnalysisWPHOBXView.cs" />
