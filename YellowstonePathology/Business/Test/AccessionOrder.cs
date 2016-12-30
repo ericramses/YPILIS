@@ -1,12 +1,13 @@
 using System;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
+
 using System.Linq;
 using System.Xml.Linq;
 using System.Text;
 using YellowstonePathology.Business.Persistence;
 using System.Collections.Generic;
+using MySql.Data.MySqlClient;
 
 namespace YellowstonePathology.Business.Test
 {
@@ -1276,6 +1277,21 @@ namespace YellowstonePathology.Business.Test
 			this.PSSN = clientOrder.PSSN;
 			this.SvhAccount = clientOrder.SvhAccountNo;
 			this.SvhMedicalRecord = clientOrder.SvhMedicalRecord;
+
+            switch(clientOrder.PatientType)
+            {
+                case "IN":
+                case "ER":
+                case "INO":
+                case "RCR":
+                    this.m_PatientType = "IP";
+                    break;
+                case "CLI":
+                case "SDC":
+                case "REF":
+                    this.m_PatientType = "OP";
+                    break;
+            }            
 
             if (string.IsNullOrEmpty(clientOrder.ClinicalHistory) == false)
             {

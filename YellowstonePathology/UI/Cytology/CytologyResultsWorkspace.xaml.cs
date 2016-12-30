@@ -706,5 +706,23 @@ namespace YellowstonePathology.UI.Cytology
             Business.Rules.MethodResult methodResult = panelOrderAcidWash.IsOkToAccept();
             panelOrderAcidWash.Comment = "QNS";
         }
+
+        private void HyperLinkHistory_Click(object sender, RoutedEventArgs e)
+        {                        
+            if(this.m_CytologyUI.AccessionOrder != null)
+            {
+                UI.Login.FinalizeAccession.PatientHistoryPage patientHistoryPage = new UI.Login.FinalizeAccession.PatientHistoryPage(this.m_CytologyUI.AccessionOrder, null);
+                patientHistoryPage.Return += PatientHistoryPage_Return;
+
+                this.m_PageNavigationWindow = new PageNavigationWindow(Business.User.SystemIdentity.Instance);
+                this.m_PageNavigationWindow.Show();
+                this.m_PageNavigationWindow.PageNavigator.Navigate(patientHistoryPage);
+            }                        
+        }
+
+        private void PatientHistoryPage_Return(object sender, Navigation.PageNavigationReturnEventArgs e)
+        {
+            this.m_PageNavigationWindow.Close();
+        }
     }
 }

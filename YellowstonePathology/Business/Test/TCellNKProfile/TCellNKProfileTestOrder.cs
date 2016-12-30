@@ -23,6 +23,15 @@ namespace YellowstonePathology.Business.Test.TCellNKProfile
         private string m_CD8TCount;
         private string m_CD16CD56NKCount;
 
+        private double? m_CD3Percent;
+        private double? m_CD4Percent;
+        private double? m_CD8Percent;
+        private double? m_CD16Percent;
+        private double? m_CD19Percent;
+        private double? m_CD45Percent;
+        private double? m_CD56Percent;
+
+
         public TCellNKProfileTestOrder()
         {
 
@@ -177,7 +186,7 @@ namespace YellowstonePathology.Business.Test.TCellNKProfile
                 }
             }
         }
-
+        
         public string CD3TCount
         {
             get { return this.m_CD3TCount; }
@@ -203,7 +212,7 @@ namespace YellowstonePathology.Business.Test.TCellNKProfile
                 }
             }
         }
-
+        
         public string CD8TCount
         {
             get { return this.m_CD8TCount; }
@@ -216,7 +225,7 @@ namespace YellowstonePathology.Business.Test.TCellNKProfile
                 }
             }
         }
-
+        
         public string CD16CD56NKCount
         {
             get { return this.m_CD16CD56NKCount; }
@@ -239,6 +248,111 @@ namespace YellowstonePathology.Business.Test.TCellNKProfile
                 {
                     this.m_CD4CD8Ratio = value;
                     this.NotifyPropertyChanged("CD4CD8Ratio");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "", "null", "float")]
+        public double? CD3Percent
+        {
+            get { return this.m_CD3Percent; }
+            set
+            {
+                if (this.m_CD3Percent != value)
+                {
+                    this.m_CD3Percent = value;
+                    this.NotifyPropertyChanged("CD3Percent");                    
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "", "null", "float")]
+        public double? CD4Percent
+        {
+            get { return this.m_CD3Percent; }
+            set
+            {
+                if (this.m_CD4Percent != value)
+                {
+                    this.m_CD4Percent = value;
+                    this.NotifyPropertyChanged("CD4Percent");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "", "null", "float")]
+        public double? CD8Percent
+        {
+            get { return this.m_CD8Percent; }
+            set
+            {
+                if (this.m_CD8Percent != value)
+                {
+                    this.m_CD8Percent = value;
+                    this.NotifyPropertyChanged("CD8Percent");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "", "null", "float")]
+        public double? CD16Percent
+        {
+            get { return this.m_CD16Percent; }
+            set
+            {
+                if (this.m_CD16Percent != value)
+                {
+                    this.m_CD16Percent = value;
+                    this.NotifyPropertyChanged("CD16Percent");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "", "null", "float")]
+        public double? CD19Percent
+        {
+            get { return this.m_CD19Percent; }
+            set
+            {
+                if (this.m_CD19Percent != value)
+                {
+                    this.m_CD19Percent = value;
+                    this.NotifyPropertyChanged("CD19Percent");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "", "null", "float")]
+        public double? CD45Percent
+        {
+            get { return this.m_CD45Percent; }
+            set
+            {
+                if (this.m_CD45Percent != value)
+                {
+                    this.m_CD45Percent = value;
+                    this.NotifyPropertyChanged("CD45Percent");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "", "null", "float")]
+        public double? CD56Percent
+        {
+            get { return this.m_CD56Percent; }
+            set
+            {
+                if (this.m_CD56Percent != value)
+                {
+                    this.m_CD56Percent = value;
+                    this.NotifyPropertyChanged("CD56Percent");
                 }
             }
         }

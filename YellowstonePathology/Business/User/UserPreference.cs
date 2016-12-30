@@ -45,7 +45,8 @@ namespace YellowstonePathology.Business.User
         private string m_ThermoFisherSlidePrinter;
         private string m_LaserCassettePrinter;
         private bool m_UseLaserCassettePrinter;
-        private Nullable<int> m_GPathologistId;        
+        private Nullable<int> m_GPathologistId;
+        private string m_FedExLabelPrinter;     
 
         public UserPreference()
         {
@@ -506,6 +507,21 @@ namespace YellowstonePathology.Business.User
                 {
                     this.m_GPathologistId = value;
                     this.NotifyPropertyChanged("GPathologistId");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
+        public string FedExLabelPrinter
+        {
+            get { return this.m_FedExLabelPrinter; }
+            set
+            {
+                if (this.m_FedExLabelPrinter != value)
+                {
+                    this.m_FedExLabelPrinter = value;
+                    this.NotifyPropertyChanged("FedExLabelPrinter");
                 }
             }
         }

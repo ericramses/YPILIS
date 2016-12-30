@@ -290,9 +290,16 @@ namespace YellowstonePathology.UI.Login.Receiving
             Business.Task.Model.TaskOrderDetailFedexShipment taskOrderDetail = this.m_TaskOrder.TaskOrderDetailCollection.GetFedexShipment();      
             if(string.IsNullOrEmpty(taskOrderDetail.ZPLII) == false)
             {
-                Business.Label.Model.ZPLPrinter zplPrinter = new Business.Label.Model.ZPLPrinter("10.1.1.20");
-                zplPrinter.Print(taskOrderDetail.ZPLII);
-                taskOrderDetail.LabelHasBeenPrinted = true;
+                if(string.IsNullOrEmpty(Business.User.UserPreferenceInstance.Instance.UserPreference.FedExLabelPrinter) == false)
+                {
+                    Business.Label.Model.ZPLPrinter zplPrinter = new Business.Label.Model.ZPLPrinter(Business.User.UserPreferenceInstance.Instance.UserPreference.FedExLabelPrinter);
+                    zplPrinter.Print(taskOrderDetail.ZPLII);
+                    taskOrderDetail.LabelHasBeenPrinted = true;
+                }
+                else
+                {
+                    MessageBox.Show("You need to go into User Preferences and choose your FedEx label printer before your label can be printed.");
+                }                
             }
             else
             {

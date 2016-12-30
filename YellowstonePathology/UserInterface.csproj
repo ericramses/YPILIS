@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>271</ApplicationRevision>
+    <ApplicationRevision>285</ApplicationRevision>
     <ApplicationVersion>10.1.6.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -813,13 +813,11 @@
     <Compile Include="Business\Flow\MarkerItem.cs" />
     <Compile Include="Business\Flow\MarkerItem.Generated.cs" />
     <Compile Include="Business\FtpTransfer.cs" />
-    <Compile Include="Business\Gateway\AccessionOrderBuilder.cs" />
     <Compile Include="Business\Gateway\AccessionOrderBuilderV2.cs" />
     <Compile Include="Business\Gateway\AccessionOrderGateway.cs" />
     <Compile Include="Business\Gateway\AccessionSlideOrderViewBuilder.cs" />
     <Compile Include="Business\Gateway\AOSaveResult.cs" />
     <Compile Include="Business\Gateway\BillingGateway.cs" />
-    <Compile Include="Business\Gateway\ClientBuilder.cs" />
     <Compile Include="Business\Gateway\ClientBuilderV2.cs" />
     <Compile Include="Business\Gateway\ClientOrderBuilder.cs" />
     <Compile Include="Business\Gateway\ClientOrderGateway.cs" />
@@ -901,6 +899,7 @@
     <Compile Include="Business\HL7View\Hl7MessageType.cs" />
     <Compile Include="Business\HL7View\HolyRosaryHealthCare.cs" />
     <Compile Include="Business\HL7View\GT1.cs" />
+    <Compile Include="Business\HL7View\IN2.cs" />
     <Compile Include="Business\HL7View\IN1.cs" />
     <Compile Include="Business\HL7View\IResultView.cs" />
     <Compile Include="Business\HL7View\MshView.cs" />
@@ -1086,6 +1085,7 @@
     <Compile Include="Business\Task.Model\TaskOrderDetailFedexShipment.cs" />
     <Compile Include="Business\Test\AMLFavorableRisk\AMLFavorableRiskTest.cs" />
     <Compile Include="Business\Test\AMLPrognosticProfile\AMLPrognosticProfileTest.cs" />
+    <Compile Include="Business\Test\FlowCytometryAnalysis\FlowCytometryAnalysisTest.cs" />
     <Compile Include="Business\Test\BCRABLByFish\BCRABLByFishTestOrder.cs" />
     <Compile Include="Business\Test\ChromosomeAnalysis\ChromosomeAnalysisWPHOBXView.cs" />
     <Compile Include="Business\Test\EGFRToALKReflexAnalysis\EGFRToALKReflexAnalysisPDL122C3Result.cs" />
@@ -1350,7 +1350,6 @@
     <Compile Include="Business\Persistence\RemoteObjectTransferAgent.cs" />
     <Compile Include="Business\Persistence\SpecimenOrderDocumentBuilder.cs" />
     <Compile Include="Business\Persistence\SqlCommandBuilder.cs" />
-    <Compile Include="Business\Persistence\SqlCommandHelper.cs" />
     <Compile Include="Business\Persistence\SqlCommandQueues.cs" />
     <Compile Include="Business\Persistence\SqlCommandSubmitter.cs" />
     <Compile Include="Business\Persistence\SqlDataReaderPropertyWriter.cs" />
@@ -1422,27 +1421,15 @@
     <Compile Include="Business\ReportNoLetter.cs" />
     <Compile Include="Business\ReportNoLetterDefinitions.cs" />
     <Compile Include="Business\Reports\CreateExcelSpreadSheet.cs" />
-    <Compile Include="Business\Reports\CytologySlideDisposalReport.xaml.cs">
-      <DependentUpon>CytologySlideDisposalReport.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Business\Reports\Cytology\CytologyUnsatLetters.cs" />
     <Compile Include="Business\Reports\IReport.cs" />
     <Compile Include="Business\Reports\LabOrderSheet.cs" />
     <Compile Include="Business\Reports\OrderLog.cs" />
     <Compile Include="Business\Reports\PatientLinkingListing.cs" />
-    <Compile Include="Business\Reports\POCRetensionReport.xaml.cs">
-      <DependentUpon>POCRetensionReport.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Business\Reports\Report.cs" />
     <Compile Include="Business\Reports\ReportBase.cs" />
     <Compile Include="Business\Reports\ReportParameterAttribute.cs" />
     <Compile Include="Business\Reports\ReportUI.cs" />
-    <Compile Include="Business\Reports\SpecimenDisposalReport.xaml.cs">
-      <DependentUpon>SpecimenDisposalReport.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Business\Reports\SurgicalSpecimenDisposalReport.xaml.cs">
-      <DependentUpon>SurgicalSpecimenDisposalReport.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Business\Reports\Surgical\SurgicalMasterLog.cs" />
     <Compile Include="Business\Requisition.cs" />
     <Compile Include="Business\Rules\Amendment\FinalAmendment.cs" />
@@ -1588,8 +1575,6 @@
     <Compile Include="Business\Surgical\ProcessorRun.cs" />
     <Compile Include="Business\Surgical\ProcessorRunCollection.cs" />
     <Compile Include="Business\Surgical\ReportableCases.cs" />
-    <Compile Include="Business\Surgical\SurgicalBillingItem.cs" />
-    <Compile Include="Business\Surgical\SurgicalBillingItemCollection.cs" />
     <Compile Include="Business\Surgical\SurgicalMasterLogList.cs" />
     <Compile Include="Business\Surgical\SurgicalOrderList.cs" />
     <Compile Include="Business\Surgical\SurgicalRescreenItem.cs" />
@@ -3032,6 +3017,7 @@
     <Compile Include="MySQLMigration\MySqlDataReaderPropertyWriter.cs" />
     <Compile Include="MySQLMigration\NonpersistentColumnDef.cs" />
     <Compile Include="MySQLMigration\NonpersistentTableDef.cs" />
+    <Compile Include="MySQLMigration\NonpersistentTableDefADT.cs" />
     <Compile Include="MySQLMigration\NonpersistentTableDefCollection.cs" />
     <Compile Include="MySQLMigration\NonpersistentTableDefCytologyDiagnosis.cs" />
     <Compile Include="MySQLMigration\NonpersistentTableDefCytologyOtherConditions.cs" />
@@ -3039,11 +3025,16 @@
     <Compile Include="MySQLMigration\NonpersistentTableDefCytologySAComments.cs" />
     <Compile Include="MySQLMigration\NonpersistentTableDefCytologyScreeningImpression.cs" />
     <Compile Include="MySQLMigration\NonpersistentTableDefFlowCommentV2.cs" />
+    <Compile Include="MySQLMigration\NonpersistentTableDefFlowMarkerPanel.cs" />
+    <Compile Include="MySQLMigration\NonpersistentTableDefFlowPanel.cs" />
+    <Compile Include="MySQLMigration\NonpersistentTableDefICD9Code.cs" />
     <Compile Include="MySQLMigration\NonpersistentTableDefImmunoComment.cs" />
     <Compile Include="MySQLMigration\NonpersistentTableDefMarkers.cs" />
+    <Compile Include="MySQLMigration\NonpersistentTableDefMaterialLocation.cs" />
     <Compile Include="MySQLMigration\NonpersistentTableDefOrderComment.cs" />
     <Compile Include="MySQLMigration\NonpersistentTableDefPanel.cs" />
     <Compile Include="MySQLMigration\NonpersistentTableDefPanelSet.cs" />
+    <Compile Include="MySQLMigration\NonpersistentTableDefPatient.cs" />
     <Compile Include="MySQLMigration\NonpersistentTableDefSpecimenAdequacy.cs" />
     <Compile Include="MySQLMigration\NonpersistentTableDefStainResultOption.cs" />
     <Compile Include="MySQLMigration\NonpersistentTableDefStainResultOptionGroup.cs" />
@@ -4913,29 +4904,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <Page Include="Business\Reports\CytologySlideDisposalReport.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Business\Reports\CytologySlideDisposalReportV2.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Business\Reports\POCRetensionReport.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Business\Reports\POCRetensionReportV2.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Business\Reports\SpecimenDisposalReport.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Business\Reports\SurgicalSpecimenDisposalReport.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Business\Reports\SurgicalSpecimenDisposalReportV2.xaml">
       <SubType>Designer</SubType>

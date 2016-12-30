@@ -1,13 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Text;
 using System.Data;
-using System.Data.SqlClient;
-using System.Windows.Data;
 using System.Xml.Linq;
-using System.Xml.Serialization;
 using System.Linq;
 
 namespace YellowstonePathology.Business.Test
@@ -15,17 +10,11 @@ namespace YellowstonePathology.Business.Test
 	public class PanelSetOrderCollection : ObservableCollection<PanelSetOrder>
 	{
 		private PathologistTestOrderItemList m_PathologistTestOrderItemList;
-        private PanelSetOrder m_CurrentPanelSetOrder;
 
 		public PanelSetOrderCollection()
 		{
 			m_PathologistTestOrderItemList = new PathologistTestOrderItemList();
 		}
-
-        public PanelSetOrder CurrentPanelSetOrder
-        {
-            get { return this.m_CurrentPanelSetOrder; }
-        }
 
         public void RemoveDeleted(IEnumerable<XElement> elements)
         {

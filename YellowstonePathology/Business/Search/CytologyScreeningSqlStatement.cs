@@ -11,14 +11,14 @@ namespace YellowstonePathology.Business.Search
         {			
 			this.m_SelectClause = "Select ao.MasterAccessionNo, " +
 				"pso.ReportNo, " +
-				"ao.PFirstName + ' ' + ao.PLastName [PatientName], " + 
+				"concat(ao.PFirstName, ' ', ao.PLastName) PatientName, " + 
 				"ao.AccessionTime, " +
 				"cpo.ScreeningType, " +
-				"su.DisplayName [OrderedByName], " +
+				"su.DisplayName OrderedByName, " +
 				"cpo.ScreenedByName, " +
-				"su1.DisplayName [AssignedToName], " +
-				"po.AcceptedTime [ScreeningFinalTime], " +
-				"pso.FinalTime [CaseFinalTime], " +
+				"su1.DisplayName AssignedToName, " +
+				"po.AcceptedTime ScreeningFinalTime, " +
+				"pso.FinalTime CaseFinalTime, " +
                 "cpo.Reconciled ";
 
 

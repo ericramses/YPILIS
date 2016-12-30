@@ -38,6 +38,7 @@
 			<RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
 			<RowDefinition Height="*"></RowDefinition>
 		</Grid.RowDefinitions>        
         
@@ -172,12 +173,19 @@
             <ComboBoxItem>\\10.1.1.92\pulsar\</ComboBoxItem>
         </ComboBox>
 
-        <TextBlock Grid.Column="0" Grid.Row="26" Margin="2,2,2,2" VerticalAlignment="Center" TextAlignment="Right">Use Laser Cassette Printer:</TextBlock>
-        <CheckBox Grid.Column="1" Grid.Row="26" Margin="2,2,2,2" IsChecked="{Binding Path=UserPreference.UseLaserCassettePrinter}" HorizontalAlignment="Stretch"></CheckBox>
-        
-        <Button Name="ButtonTestBlockPrinter" Grid.Column="0" Grid.Row="27" Margin="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="ButtonTestBlockPrinter_Click"  Width="130" Height="30">Test Cassette Printer</Button>
+        <TextBlock Grid.Column="0" Grid.Row="26" Margin="2" VerticalAlignment="Center" TextAlignment="Right">FedEx Label Printer:</TextBlock>
+        <ComboBox Grid.Column="1" Grid.Row="26" Name="ComboBoxFedExLabelPrinter" Margin="2"
+                  IsEditable="True" Text="{Binding Path=UserPreference.FedExLabelPrinter}" HorizontalAlignment="Stretch">
+            <ComboBoxItem>10.1.1.20</ComboBoxItem>
+            <ComboBoxItem>10.1.1.33</ComboBoxItem>
+        </ComboBox>
 
-		<StackPanel Grid.Column="1" Grid.Row="28" HorizontalAlignment="Right" VerticalAlignment="Bottom" Orientation="Horizontal">            
+        <TextBlock Grid.Column="0" Grid.Row="27" Margin="2,2,2,2" VerticalAlignment="Center" TextAlignment="Right">Use Laser Cassette Printer:</TextBlock>
+        <CheckBox Grid.Column="1" Grid.Row="27" Margin="2,2,2,2" IsChecked="{Binding Path=UserPreference.UseLaserCassettePrinter}" HorizontalAlignment="Stretch"></CheckBox>
+        
+        <Button Name="ButtonTestBlockPrinter" Grid.Column="0" Grid.Row="28" Margin="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="ButtonTestBlockPrinter_Click"  Width="130" Height="30">Test Cassette Printer</Button>
+
+		<StackPanel Grid.Column="1" Grid.Row="29" HorizontalAlignment="Right" VerticalAlignment="Bottom" Orientation="Horizontal">            
             <Button Name="ButtonOK" Margin="2" HorizontalAlignment="Center" Click="ButtonOK_Click" Width="50" Height="30">OK</Button>
             <Button Name="ButtonCancel" Margin="2" HorizontalAlignment="Center" Click="ButtonCancel_Click" Width="50" Height="30">Cancel</Button>
         </StackPanel>
