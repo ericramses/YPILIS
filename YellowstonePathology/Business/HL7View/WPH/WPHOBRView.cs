@@ -51,10 +51,12 @@ namespace YellowstonePathology.Business.HL7View.WPH
             obrElement.Add(obr01Element);
             
 
-            //If this is an add on test then do not write this element.
-            XElement obr02Element = new XElement("OBR.2");
-            YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("OBR.2.1", this.m_ExternalOrderId, obr02Element);
-            obrElement.Add(obr02Element);                
+            if(this.m_SendUnsolicited == false)
+            {
+                XElement obr02Element = new XElement("OBR.2");
+                YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("OBR.2.1", this.m_ExternalOrderId, obr02Element);
+                obrElement.Add(obr02Element);
+            }            
 
             XElement obr03Element = new XElement("OBR.3");
             YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("OBR.3.1", this.m_ReportNo, obr03Element);

@@ -300,26 +300,18 @@ namespace YellowstonePathology.UI.Client
         }
 
         private void ButtonPrintFedexReturnLabel_Click(object sender, RoutedEventArgs e)
-        {
-            if(this.Client.ClientId == 879 || this.Client.ClientId == 1513)
-            {                                
-                for(int i=0; i<5; i++)
-                {
-                    Business.MaterialTracking.Model.FedexAccountProduction fedExAccount = new Business.MaterialTracking.Model.FedexAccountProduction();
-                    Business.MaterialTracking.Model.FedexReturnLabelRequest returnLabelRequest = new Business.MaterialTracking.Model.FedexReturnLabelRequest(this.m_Client.ClientName, this.m_Client.Telephone, this.m_Client.Address, null, this.m_Client.City, this.m_Client.State, this.m_Client.ZipCode, fedExAccount);
-                    Business.MaterialTracking.Model.FedexProcessShipmentReply result = returnLabelRequest.RequestShipment();
-
-                    Business.Label.Model.ZPLPrinter zplPrinter = new Business.Label.Model.ZPLPrinter("10.1.1.20");
-                    zplPrinter.Print(Business.Label.Model.ZPLPrinter.DecodeZPLFromBase64(result.ZPLII));
-                }                
-
-                MessageBox.Show("Fedex labels have been sent to the printer.");
-            }
-            else
+        {            
+            for(int i=0; i<5; i++)
             {
-                MessageBox.Show("Fedex labels have not been setup for this client.");
-            }
+                Business.MaterialTracking.Model.FedexAccountProduction fedExAccount = new Business.MaterialTracking.Model.FedexAccountProduction();
+                Business.MaterialTracking.Model.FedexReturnLabelRequest returnLabelRequest = new Business.MaterialTracking.Model.FedexReturnLabelRequest(this.m_Client.ClientName, this.m_Client.Telephone, this.m_Client.Address, null, this.m_Client.City, this.m_Client.State, this.m_Client.ZipCode, fedExAccount);
+                Business.MaterialTracking.Model.FedexProcessShipmentReply result = returnLabelRequest.RequestShipment();
 
+                Business.Label.Model.ZPLPrinter zplPrinter = new Business.Label.Model.ZPLPrinter(Business.User.UserPreferenceInstance.Instance.UserPreference.FedExLabelPrinter);
+                zplPrinter.Print(Business.Label.Model.ZPLPrinter.DecodeZPLFromBase64(result.ZPLII));
+            }                
+
+            MessageBox.Show("Fedex labels have been sent to the printer.");            
         }
     }
 }
