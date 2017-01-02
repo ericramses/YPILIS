@@ -120,7 +120,6 @@ namespace YellowstonePathology.Business.Surgical
 		private string m_PatientName;
 		private System.Nullable<DateTime> m_AcceptedDate;
 		private System.Nullable<DateTime> m_FinalDate;
-		private string m_OriginatingLocation;
 		private string m_Pathologist;
 		private int m_PathologistId;
 		private bool m_Audited;		
@@ -194,23 +193,6 @@ namespace YellowstonePathology.Business.Surgical
 			}
 		}
 
-
-		[PersistentProperty()]
-		public string OriginatingLocation
-		{
-			get
-			{
-				return this.m_OriginatingLocation;
-			}
-			set
-			{
-				if (this.m_OriginatingLocation != value)
-				{
-					this.m_OriginatingLocation = value;
-					NotifyPropertyChanged("OriginatingLocation");
-				}
-			}
-		}
 
 		[PersistentProperty()]
 		public string Pathologist
