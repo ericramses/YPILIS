@@ -26,7 +26,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
             this.m_TaskOrderDetail = taskOrderDetail;
 
             this.OpenShipmentRequestFile();
-            this.SetShipementRequestData();
+            this.SetShipmentRequestData();
         }        
 
         public Business.MaterialTracking.Model.FedexProcessShipmentReply RequestShipment()
@@ -58,10 +58,10 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
             return result;
         }
 
-        private void SetShipementRequestData()
+        private void SetShipmentRequestData()
         {
             XmlNamespaceManager namespaces = new XmlNamespaceManager(new NameTable());            
-            namespaces.AddNamespace("soapenv", "http://schemas.xmlsoap.org/soap/envelope/");
+            namespaces.AddNamespace("soapenv", "http://schemas.xmlsoap.org/soap/envelope/");            
             namespaces.AddNamespace("v19", "http://fedex.com/ws/ship/v19");
 
             this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:WebAuthenticationDetail/v19:UserCredential/v19:Key", namespaces).Value = this.m_FedexAccount.Key;
@@ -127,7 +127,14 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
             else
             {
                 throw new Exception("Payment Type not supported.");
-            }           
+            }   
+            
+            if(DateTime.Today.DayOfWeek == DayOfWeek.Friday)
+            {
+                XNamespace v19 ="http://fedex.com/ws/ship/v19";                                
+                this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:ShippingChargesPayment", namespaces)
+                    .AddAfterSelf(new XElement(v19 + "SpecialServicesRequested", new XElement(v19 + "SpecialServiceTypes", "SATURDAY_DELIVERY")));
+            }        
         }
 
         private void OpenShipmentRequestFile()
