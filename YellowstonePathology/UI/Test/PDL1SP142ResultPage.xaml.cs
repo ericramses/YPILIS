@@ -89,6 +89,15 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkFinalizeResults_Click(object sender, RoutedEventArgs e)
         {
+            if (this.m_PanelSetOrder.Final == true && this.m_PanelSetOrder.StainPercent.Contains("%") == false)
+            {
+                MessageBoxResult noPercentResult = MessageBox.Show("The result for PDL should have a % which is not present.  Are you sure you want to continue?", "Continue?", MessageBoxButton.OKCancel);
+                if (noPercentResult == MessageBoxResult.Cancel)
+                {
+                    return;
+                }
+            }
+
             YellowstonePathology.Business.Rules.MethodResult result = this.m_PanelSetOrder.IsOkToFinalize();
             if (result.Success == true)
             {
@@ -117,7 +126,7 @@ namespace YellowstonePathology.UI.Test
         }
 
         private void HyperLinkUnfinalResults_Click(object sender, RoutedEventArgs e)
-        {
+        {            
             YellowstonePathology.Business.Rules.MethodResult result = this.m_PanelSetOrder.IsOkToUnfinalize();
             if (result.Success == true)
             {
@@ -156,7 +165,7 @@ namespace YellowstonePathology.UI.Test
         }
 
         private void ButtonNext_Click(object sender, RoutedEventArgs e)
-        {
+        {                        
             if (this.Next != null) this.Next(this, new EventArgs());
         }                                      
     }

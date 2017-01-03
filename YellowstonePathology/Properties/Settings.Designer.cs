@@ -131,93 +131,67 @@ namespace YellowstonePathology.Properties {
                 return ((string)(this["ServerAFFFile"]));
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=TestSQL;Initial Catalog=YPIData;Integrated Security=True")]
-        public string CurrentConnectionString
-        {
-            get
-            {
+        public string CurrentConnectionString {
+            get {
                 return ((string)(this["CurrentConnectionString"]));
             }
-            set
-            {
+            set {
                 this["CurrentConnectionString"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=development\\develop;Initial Catalog=YPIData;Integrated Security=True")]
-        public string TestConnectionString
-        {
-            get
-            {
-                return ((string)(this["TestConnectionString"]));
-            }
-            set
-            {
-                this["TestConnectionString"] = value;
-            }
-        }
-
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=Development\\Develop;Initial Catalog=YPIData;Integrated Security=True")]
-        public string DevelopConnectionString
-        {
-            get
-            {
-                return ((string)(this["DevelopConnectionString"]));
-            }
-            set
-            {
-                this["DevelopConnectionString"] = value;
-            }
-        }
-
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=TestSQL;Initial Catalog=YPIData;Integrated Security=True")]
-        public string ProductionConnectionString
-        {
-            get
-            {
-                return ((string)(this["ProductionConnectionString"]));
-            }
-        }
-
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("changedb")]
-        public string ChangeDBPassword
-        {
-            get
-            {
+        public string ChangeDBPassword {
+            get {
                 return ((string)(this["ChangeDBPassword"]));
             }
+            set {
+                this["ChangeDBPassword"] = value;
+            }
         }
-
+        
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("\\\\cfileserver\\Documents\\SpecimenLog\\")]
-        public string SpecimenLogScannedDocumentFilePath
-        {
-            get
-            {
+        [global::System.Configuration.DefaultSettingValueAttribute("\\\\\\\\cfileserver\\\\Documents\\\\SpecimenLog\\\\")]
+        public string SpecimenLogScannedDocumentFilePath {
+            get {
                 return ((string)(this["SpecimenLogScannedDocumentFilePath"]));
             }
         }
-
+        
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("\\\\cfileserver\\documents\\Dictation\\")]
-        public string ServerDictationFolder
-        {
-            get
-            {
+        [global::System.Configuration.DefaultSettingValueAttribute("\\\\\\\\cfileserver\\\\documents\\\\Dictation\\\\")]
+        public string ServerDictationFolder {
+            get {
                 return ((string)(this["ServerDictationFolder"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Server = 10.1.2.26; Uid = sqldude; Pwd = 123Whatsup; Database = lis;")]
+        public string MySqlConnectionString {
+            get {
+                return ((string)(this["MySqlConnectionString"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=TestSQL;Initial Catalog=YPIData;Integrated Security=True")]
+        public string SqlServerConnectionString {
+            get {
+                return ((string)(this["SqlServerConnectionString"]));
+            }
+            set {
+                this["SqlServerConnectionString"] = value;
             }
         }
     }

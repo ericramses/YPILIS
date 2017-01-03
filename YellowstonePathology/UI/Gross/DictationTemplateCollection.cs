@@ -42,6 +42,7 @@ namespace YellowstonePathology.UI.Gross
             result.Add(new ECCTemplate());
             result.Add(new FemoralHeadTemplate());
             result.Add(new FallopianTubeTemplate());
+            result.Add(new FallopianTubeAndOvariesTemplate());
             result.Add(new PeripheralBloodTemplate());
             result.Add(new GallbladderExcisionTemplate());
             result.Add(new BXTemplate());

@@ -573,5 +573,21 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 			this.m_PanelSetOrder.TestOrderReportDistributionCollection.AddNext(testOrderReportDistributionId, testOrderReportDistributionId, this.m_PanelSetOrder.ReportNo, 3946, "Cari Williams, RN",
                 1542, "Oncology Patient Navigator", YellowstonePathology.Business.ReportDistribution.Model.DistributionType.WEBSERVICE);
         }
+
+        private void MenuItemConvertToFax_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.ListViewTestOrderReportDistribution.SelectedItem != null)
+            {                
+                YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution testOrderReportDistribution = (YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution)this.ListViewTestOrderReportDistribution.SelectedItem;
+                if(string.IsNullOrEmpty(testOrderReportDistribution.FaxNumber) == false)
+                {
+                    testOrderReportDistribution.DistributionType = "Fax";
+                }
+                else
+                {
+                    MessageBox.Show("This distribution cannot be converted to a fax because there is no fax number.");
+                }
+            }
+        }
     }
 }

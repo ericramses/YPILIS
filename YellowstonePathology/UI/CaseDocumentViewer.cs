@@ -28,8 +28,9 @@ namespace YellowstonePathology.UI
 			switch (doc.NativeDocumentFormat)
 			{
 				case Business.Document.NativeDocumentFormatEnum.Word:
-					YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(fileName);
-					break;
+					//YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(fileName);
+                    YellowstonePathology.Business.Document.CaseDocument.OpenWordDoc(fileName);
+                    break;
 				case Business.Document.NativeDocumentFormatEnum.XPS:
 					YellowstonePathology.UI.XpsDocumentViewer xpsDocumentViewer = new XpsDocumentViewer();
 					xpsDocumentViewer.ViewDocument(fileName);

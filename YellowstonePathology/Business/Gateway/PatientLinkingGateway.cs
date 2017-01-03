@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business.Gateway
 		public static ObservableCollection<YellowstonePathology.Business.Patient.Model.PatientLinkingListItem> GetPatientLinkingList(YellowstonePathology.Business.Patient.Model.PatientLinkingListItem patientLinkingListItem)
 		{
 			ObservableCollection<YellowstonePathology.Business.Patient.Model.PatientLinkingListItem> result = new ObservableCollection<Patient.Model.PatientLinkingListItem>();
-			SqlCommand cmd = new SqlCommand("pGetPatientLinking");
+			SqlCommand cmd = new SqlCommand("pGetPatientLinkingV2");
 			cmd.CommandType = CommandType.StoredProcedure;
 
 			cmd.Parameters.Add("@MasterAccessionNo", SqlDbType.VarChar).Value = patientLinkingListItem.MasterAccessionNo;
@@ -34,7 +34,7 @@ namespace YellowstonePathology.Business.Gateway
 			}
 			cmd.Parameters.Add("@PBirthdate", SqlDbType.DateTime).Value = patientLinkingListItem.PBirthdate.Value;
 
-			using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{
 				cn.Open();
 				cmd.Connection = cn;
@@ -57,7 +57,7 @@ namespace YellowstonePathology.Business.Gateway
 			SqlCommand cmd = new SqlCommand("Insert into tblPatient DEFAULT VALUES; SELECT * from tblPatient where PatientId = IDENT_CURRENT('tblPatient')");
 			cmd.CommandType = CommandType.Text;
 			string patientId = null;
-			using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{
 				cn.Open();
 				cmd.Connection = cn;

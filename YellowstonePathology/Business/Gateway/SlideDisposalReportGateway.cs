@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.Parameters.Add("@DisposalDate", System.Data.SqlDbType.DateTime).Value = disposalDate;
 
 			StringBuilder xmlString = new StringBuilder();
-			using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{
 				cn.Open();
 				cmd.Connection = cn;
@@ -55,7 +55,7 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.Parameters.Add("@DisposalDate", System.Data.SqlDbType.DateTime).Value = disposalDate;
 
 			StringBuilder xmlString = new StringBuilder();
-			using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{
 				cn.Open();
 				cmd.Connection = cn;
@@ -87,7 +87,7 @@ namespace YellowstonePathology.Business.Gateway
         private static Reports.DisposalReportData BuildDisposalReportData(SqlCommand cmd)
         {
             Reports.DisposalReportData result = new Reports.DisposalReportData();
-            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;
@@ -134,7 +134,7 @@ namespace YellowstonePathology.Business.Gateway
             cmd.Parameters.Add("@StartDate", System.Data.SqlDbType.DateTime).Value = startDate;
             cmd.Parameters.Add("@EndDate", System.Data.SqlDbType.DateTime).Value = endDate;
 
-            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;

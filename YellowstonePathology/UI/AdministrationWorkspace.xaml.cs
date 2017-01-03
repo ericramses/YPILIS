@@ -998,6 +998,13 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
+            Business.MaterialTracking.Model.FedexLocationSearchRequest fedex = new Business.MaterialTracking.Model.FedexLocationSearchRequest();
+            string result = fedex.LocationSearch();
+            Console.WriteLine(result);
+
+            
+            //AddAllClients();
+            /*
             Business.ReportNoCollection reportNos = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetReportNumbers();
             foreach(Business.ReportNo reportNo in reportNos)
             {
@@ -1007,7 +1014,7 @@ namespace YellowstonePathology.UI
                 YellowstonePathology.Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
                 resultView.Send(methodResult);
             }
-
+            */
 
 
             //Business.Label.Model.ZPLPrinter printer = new Business.Label.Model.ZPLPrinter("10.1.1.21");
@@ -1173,12 +1180,6 @@ namespace YellowstonePathology.UI
 
         private void TestReflectionDelagate()
         {
-            YellowstonePathology.Business.Mongo.LocalServer localServer = new Business.Mongo.LocalServer("LocalLIS");
-            YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistributionCollection tt = new YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistributionCollection();            
-            YellowstonePathology.Business.Mongo.DocumentCollectionTracker dct = new Business.Mongo.DocumentCollectionTracker(tt, localServer);
-
-            YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution t1 = new YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution();
-            tt.Add(t1);
         }
 
         private void DoMongoMove()
@@ -1191,16 +1192,6 @@ namespace YellowstonePathology.UI
 
         private void MongoPersistenceTest()
         {
-            YellowstonePathology.Business.ReportDistribution.Model.ReportDistributionLogEntryCollection col = YellowstonePathology.Business.Mongo.Gateway.GetReportDistributionLogEntryCollectionGTETime(DateTime.Now);
-            YellowstonePathology.Business.Mongo.LocalServer localServer = new Business.Mongo.LocalServer(YellowstonePathology.Business.Mongo.LocalServer.LocalLISDatabaseName);
-
-            foreach (YellowstonePathology.Business.ReportDistribution.Model.ReportDistributionLogEntry item in col)
-            {
-                YellowstonePathology.Business.Mongo.DocumentTracker documentTracker = new Business.Mongo.DocumentTracker(localServer);
-                documentTracker.Register(item);
-                item.Message = "What's up";
-                documentTracker.SubmitChanges();
-            }
         }
 
         private void WriteTestOrderReportDistributionIds()
@@ -1260,176 +1251,13 @@ namespace YellowstonePathology.UI
             
         }
 
-        /*private void ButtonWilliamTesting_Click(object sender, RoutedEventArgs e) // Compares AccessionOrderBuilder ao to AccessionOrderBuilderV2 ao
-        {
-            string resultString = string.Empty;
-            DateTime startDate = DateTime.Parse("8/17/2016");
-            //for (int didx = 0; didx < 4; didx++)
-            //{
-                //DateTime endDate = startDate.AddMonths(1).AddDays(-1);
-            DateTime endDate = startDate.AddDays(2);
-            List<string> masterAccessionNos = new List<string>();
-                //masterAccessionNos.Add("16-21295");
-                SqlCommand cmd = new SqlCommand("select MasteraccessionNo from tblAccessionOrder where AccessionDate between '" + startDate.ToString() + "' and '" + endDate.ToString() + "'"); // order by 1 asc");
-                //SqlCommand cmd = new SqlCommand("select distinct MasteraccessionNo from tblPanelSetOrder where panelSetId = 215");
-                cmd.CommandType = CommandType.Text;
-                using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-                {
-                    cn.Open();
-                    cmd.Connection = cn;
-                    using (SqlDataReader dr = cmd.ExecuteReader())
-                    {
-                        while (dr.Read())
-                        {
-                            string s = dr[0].ToString();
-                            masterAccessionNos.Add(s);
-                        }
-                    }
-                }
-
-                foreach (string masterAccessionNo in masterAccessionNos)
-                {
-                    SqlCommand cmd1 = new SqlCommand();
-                    cmd1.CommandText = "gwGetAccessionByMasterAccessionNo_A9";
-                    cmd1.CommandType = CommandType.StoredProcedure;
-                    cmd1.Parameters.Add("@MasterAccessionNo", SqlDbType.VarChar).Value = masterAccessionNo;
-
-                    SqlCommand cmd2 = new SqlCommand();
-                    cmd2.CommandText = "prcGetAccessionOrder";
-                    cmd2.CommandType = CommandType.StoredProcedure;
-                    cmd2.Parameters.Add("@MasterAccessionNo", SqlDbType.VarChar).Value = masterAccessionNo;
-
-                    Business.Test.AccessionOrder ao1 = new Business.Test.AccessionOrder();
-                    Business.Test.AccessionOrder ao2 = new Business.Test.AccessionOrder();
-
-                    Business.Gateway.AccessionOrderBuilder accessionOrderBuilder = new Business.Gateway.AccessionOrderBuilder();
-                    accessionOrderBuilder.Build(cmd1, ao1);
-
-                    Business.Gateway.AccessionOrderBuilderV2 accessionOrderBuilderV2 = new Business.Gateway.AccessionOrderBuilderV2();
-                    accessionOrderBuilderV2.Build(cmd2, ao2);
-
-                    Business.Persistence.DocumentTestBuilders document = new Business.Persistence.DocumentTestBuilders(ao1, ao2);
-                    if (document.Compare() == false)
-                    {
-                        resultString = ao1.MasterAccessionNo + ": ";
-                        resultString += "results are not the same.";
-                        MessageBox.Show(resultString);
-                    }
-                }
-                //Console.WriteLine("Finished " + startDate.ToString("MM/dd/yyyy") + " : at " + DateTime.Now.ToString());
-                //startDate = startDate.AddMonths(1);
-                startDate = startDate.AddDays(2);
-            //}
-            resultString = "done";
-            MessageBox.Show(resultString);
-        }*/
-
-        /*private void ButtonWilliamTesting_Click(object sender, RoutedEventArgs e) //Compares MySql accession order (accession table only) to Sql Server
-        {
-            List<string> masterAccessionNos = new List<string>();
-            masterAccessionNos.Add("16-123");
-            masterAccessionNos.Add("16-17110");
-            masterAccessionNos.Add("16-11839");
-            masterAccessionNos.Add("16-18075");
-            masterAccessionNos.Add("16-21523");
-            masterAccessionNos.Add("16-19328");
-            masterAccessionNos.Add("16-19220");
-            masterAccessionNos.Add("16-9960");
-            masterAccessionNos.Add("16-12139");
-            masterAccessionNos.Add("13-30079");
-            foreach (string masterAccessionNo in masterAccessionNos)
-            {
-                SqlCommand cmd1 = new SqlCommand();
-                cmd1.CommandText = "Select 'tblAccessionOrder' tablename, ao.* from tblAccessionOrder ao where MasterAccessionNo = '13-30079'"; //gwGetAccessionByMasterAccessionNo_A8";
-                cmd1.CommandType = CommandType.Text; //.StoredProcedure;
-                //cmd1.Parameters.Add("@MasterAccessionNo", SqlDbType.VarChar).Value = masterAccessionNo;
-
-                MySqlCommand cmd2 = new MySqlCommand();
-                cmd2.CommandText = "Select 'tblAccessionOrder' tablename, ao.* from tblAccessionOrder ao where MasterAccessionNo = '13-30079'"; //"prcGetAccessionOrder";
-                cmd2.CommandType = CommandType.Text; //.StoredProcedure;
-                //cmd2.Parameters.Add("@MasterAccessionNo", SqlDbType.VarChar).Value = masterAccessionNo;
-
-                Business.Test.AccessionOrder ao1 = new Business.Test.AccessionOrder();
-                Business.Test.AccessionOrder ao2 = new Business.Test.AccessionOrder();
-
-                Business.Gateway.AccessionOrderBuilderV2 accessionOrderBuilder = new Business.Gateway.AccessionOrderBuilderV2();
-                accessionOrderBuilder.Build(cmd1, ao1);
-
-                Business.Gateway.AccessionOrderBuilderV2 accessionOrderBuilderV2 = new Business.Gateway.AccessionOrderBuilderV2();
-                accessionOrderBuilderV2.BuildMySql(cmd2, ao2);
-
-                string resultString = ao1.MasterAccessionNo + ": ";
-                Business.Persistence.ObjectComparer objectComparer = new Business.Persistence.ObjectComparer(ao1, ao2);
-
-                StringBuilder result1 = new StringBuilder();
-                Business.Persistence.JSONObjectWriter.WriteV2(result1, ao1);
-
-                StringBuilder result2 = new StringBuilder();
-                Business.Persistence.JSONObjectWriter.WriteV2(result2, ao2);
-
-                string s1 = result1.ToString();
-                string s2 = result2.ToString();
-
-                for (int idx = 0; idx < s1.Length; idx++)
-                {
-                    if (s1[idx] != s2[idx])
-                    {
-                        resultString += s1.Substring(idx - 50, 51);
-                        break;
-                    }
-                }
-            }
-            resultString = "done";
-            MessageBox.Show(resultString);
-        }*/
-
-        /*private void ButtonWilliamTesting_Click(object sender, RoutedEventArgs e)
-        {
-            string basePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase);
-            basePath = basePath.Remove(0, 6);
-            basePath = basePath.Replace(@"YellowstonePathology\bin\Debug", "");
-            MySQLMigration.MySQLDatabaseBuilder builder = new MySQLMigration.MySQLDatabaseBuilder();
-            MySQLMigration.MigrationStatusCollection migrationStatusCollection = MySQLMigration.MigrationStatusCollection.GetAll();
-            foreach (MySQLMigration.MigrationStatus migrationStatus in migrationStatusCollection)
-            {
-                string filePath = System.IO.Path.Combine(basePath, migrationStatus.FileName);
-                if (File.Exists(filePath))
-                {
-                    string[] lines = File.ReadAllLines(filePath);
-                    if (builder.BuildPersistentDataColumnProperty(migrationStatus, lines))
-                    {
-                        using (StreamWriter writer = new StreamWriter(filePath, false))
-                        {
-                            foreach (string line in lines)
-                            {
-                                writer.WriteLine(line);
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    string s = filePath;
-                    using (StreamWriter writer = new StreamWriter(@"C:\TEMP\FilesNotFound.txt", true))
-                    {
-                        writer.WriteLine(migrationStatus.Name);
-                    }
-                }
-            }
-            string resultString = "done";
-            MessageBox.Show(resultString);
-        }*/
-
         private void ButtonWilliamTesting_Click(object sender, RoutedEventArgs e)
         {
-            DateTime startDate = DateTime.Parse("10/5/2016");
-            DateTime endDate = startDate.AddDays(6);
-
-            /*List<string> masterAccessionNos = new List<string>();
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "select MasterAccessionNo from tblAccessionOrder where AccessionDate = @StartDate";
+            StringBuilder results = new StringBuilder();
+            List<string> panelSetIds = new List<string>();
+            SqlCommand cmd = new SqlCommand("Select distinct PanelSetId from tblPanelSetOrder where orderdate between '4/1/2016' and '9/1/2016' " +
+                "and PanelSetId between 102 and 205 order by 1");
             cmd.CommandType = CommandType.Text;
-            cmd.Parameters.Add(@"StartDate", SqlDbType.DateTime).Value = startDate;
 
             using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
@@ -1439,51 +1267,51 @@ namespace YellowstonePathology.UI
                 {
                     while (dr.Read())
                     {
-                        string masterAccessionNo = dr[0].ToString();
-                        masterAccessionNos.Add(masterAccessionNo);
+                        panelSetIds.Add(dr[0].ToString());
                     }
                 }
             }
-            bool keepOn = true;
-            int idx = 0;
-            while(keepOn && idx < masterAccessionNos.Count)
+
+            foreach(string panelSetId in panelSetIds)
             {
-                XpsDocumentViewer dlg = new XpsDocumentViewer();
-                dlg.Viewer.Width = 730;
-                dlg.SizeToContent = SizeToContent.Width;
-                dlg.WindowStartupLocation = WindowStartupLocation.Manual;
-                dlg.Left = 5;
-                dlg.Top = 20;
-                XpsDocumentViewer dlg1 = new XpsDocumentViewer();
-                dlg1.Viewer.Width = 730;
-                dlg1.SizeToContent = SizeToContent.Width;
-                dlg1.WindowStartupLocation = WindowStartupLocation.Manual;
-                dlg1.Left = 760;
-                dlg1.Top = 20;
+                List<string> masterAccessionNos = new List<string>();
+                cmd = new SqlCommand("Select top 10 MasterAccessionNo from tblPanelSetOrder where orderdate between '1/1/2016' and '11/1/2016' and PanelSetId = " + panelSetId);
+                cmd.CommandType = CommandType.Text;
 
-
-                dlg.LoadDocument(placentalPathologyQuestionnare.FixedDocument);
-                dlg.Show();
-
-                dlg1.LoadDocument(placentalPathologyQuestionnare1.FixedDocument);
-                dlg1.Show();
-
-                MessageBoxResult result = MessageBox.Show("Continue", "Continue", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes);
-                if (result == MessageBoxResult.Yes)
+                using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
                 {
-                    startDate = startDate.AddDays(7);
-                    endDate = startDate.AddDays(6);
-                    keepOn = true;
-                    idx++;
+                    cn.Open();
+                    cmd.Connection = cn;
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            masterAccessionNos.Add(dr[0].ToString());
+                        }
+                    }
                 }
-                else
+
+                /*foreach(string masterAccessionNo in masterAccessionNos)
                 {
-                    keepOn = false;
-                }
-                    //dlg.Close();
-                    //dlg1.Close();
-            }*/
-            MessageBox.Show("done");
+                    YellowstonePathology.Business.Persistence.AODocumentBuilder oldBuilder = new Business.Persistence.AODocumentBuilder(masterAccessionNo, false);
+                    YellowstonePathology.Business.Persistence.AODocumentBuilder newBuilder = new Business.Persistence.AODocumentBuilder(masterAccessionNo);
+
+                    YellowstonePathology.Business.Test.AccessionOrder oldAccessionOrder = (YellowstonePathology.Business.Test.AccessionOrder)oldBuilder.BuildNew();
+                    YellowstonePathology.Business.Test.AccessionOrder newAccessionOrder = (YellowstonePathology.Business.Test.AccessionOrder)newBuilder.BuildNew();
+
+                    YellowstonePathology.Business.Persistence.DocumentTestBuilders testBuilders = new Business.Persistence.DocumentTestBuilders(oldAccessionOrder, newAccessionOrder);
+                    if(testBuilders.Compare() == false)
+                    {
+                        results.AppendLine("Mismatched " + masterAccessionNo);
+                    }
+                }*/
+            }
+
+            if(results.Length > 0)
+            {
+                MessageBox.Show(results.ToString());
+            }
+            else MessageBox.Show("done");
         }
     }
 }

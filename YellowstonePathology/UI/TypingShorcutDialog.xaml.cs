@@ -33,6 +33,10 @@ namespace YellowstonePathology.UI
             {
                 this.m_TypingShortcut = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullTypingShortcut(objectId, this);
             }
+            else
+            {
+                this.m_TypingShortcut = new Business.Typing.TypingShortcut(objectId);
+            }
 
             InitializeComponent();
 
@@ -48,8 +52,14 @@ namespace YellowstonePathology.UI
         {
             if(this.DialogResult == true)
             {
-                this.Finished(this, new CustomEventArgs.TypingShortcutReturnEventArgs(this.m_TypingShortcut));
+                if(comboBoxTypingUsers.SelectedItem != null)
+                {
+                    Business.User.SystemUser systemUser = (Business.User.SystemUser)this.comboBoxTypingUsers.SelectedItem;
+                    this.m_TypingShortcut.UserName = systemUser.UserName;
+                }
+                
                 YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
+                this.Finished(this, new CustomEventArgs.TypingShortcutReturnEventArgs(this.m_TypingShortcut));
             }
             else
             {

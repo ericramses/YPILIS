@@ -19,6 +19,7 @@ namespace YellowstonePathology.Business.Typing
 		string m_Text = string.Empty;
 		string m_Type = string.Empty;
 		int m_UserId;
+        string m_UserName;
 
 		public TypingShortcut()
 		{
@@ -28,8 +29,7 @@ namespace YellowstonePathology.Business.Typing
 		{
 			this.m_ObjectId = objectId;
 		}
-
-		//[PersistentDocumentIdProperty()]
+		
         [PersistentPrimaryKeyProperty(false)]
         [PersistentDataColumnProperty(true, "50", "null", "varchar")]
         public string ObjectId
@@ -105,7 +105,22 @@ namespace YellowstonePathology.Business.Typing
 				}
 			}
 		}
-        
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "500", "'Global'", "varchar")]
+        public string UserName
+        {
+            get { return this.m_UserName; }
+            set
+            {
+                if (value != this.m_UserName)
+                {
+                    this.m_UserName = value;
+                    this.NotifyPropertyChanged("UserName");
+                }
+            }
+        }
+
         public string ShortText
         {
             get

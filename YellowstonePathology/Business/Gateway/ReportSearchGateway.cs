@@ -32,8 +32,8 @@ namespace YellowstonePathology.Business.Gateway
             SqlCommand cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "SELECT pso.[MasterAccessionNo], pso.[ReportNo], a.AccessionTime [AccessionDate],  pso.[PanelSetId], a.[PFirstName] + ' ' + a.[PLastName] AS [PatientName], " +
-                "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate], pso.[OriginatingLocation], pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
-                "a.ColorCode, '' ForeignAccessionNo " +
+                "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate],  pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
+                "'' ForeignAccessionNo " +
                 "FROM tblAccessionOrder a JOIN tblPanelSetOrder pso ON a.[MasterAccessionNo] = pso.[MasterAccessionNo] " +
                 "Left Outer Join tblSystemUser su on pso.OrderedById = su.UserId " +
                 "WHERE pso.ReportNo = @ReportNo";
@@ -61,8 +61,8 @@ namespace YellowstonePathology.Business.Gateway
             SqlCommand cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "SELECT pso.[MasterAccessionNo], pso.[ReportNo], a.AccessionTime [AccessionDate],  pso.[PanelSetId], a.[PFirstName] + ' ' + a.[PLastName] AS [PatientName], " +
-                "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate], pso.[OriginatingLocation], pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
-                "a.ColorCode, '' ForeignAccessionNo, pso.IsPosted " +
+                "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate], pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
+                "'' ForeignAccessionNo, pso.IsPosted " +
                 "FROM tblAccessionOrder a JOIN tblPanelSetOrder pso ON a.[MasterAccessionNo] = pso.[MasterAccessionNo] " +
                 "Left Outer Join tblSystemUser su on pso.OrderedById = su.UserId " +
                 "WHERE pso.FinalDate = @FinalDate order by pso.[ReportNo]";
@@ -89,8 +89,8 @@ namespace YellowstonePathology.Business.Gateway
             SqlCommand cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "SELECT pso.[MasterAccessionNo], pso.[ReportNo], a.AccessionTime [AccessionDate],  pso.[PanelSetId], a.[PFirstName] + ' ' + a.[PLastName] AS [PatientName], " +
-                "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate], pso.[OriginatingLocation], pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
-                "a.ColorCode, '' ForeignAccessionNo, pso.IsPosted " +
+                "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate], pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
+                "'' ForeignAccessionNo, pso.IsPosted " +
                 "FROM tblAccessionOrder a JOIN tblPanelSetOrder pso ON a.[MasterAccessionNo] = pso.[MasterAccessionNo] " +
                 "Left Outer Join tblSystemUser su on pso.OrderedById = su.UserId " +
                 "WHERE pso.Final = 1 and pso.IsPosted = 0 and pso.OrderDate >= '1/1/2014' and pso.IsBillable = 1 Order By pso.FinalDate, pso.PanelSetId, a.AccessionTime";
@@ -119,8 +119,8 @@ namespace YellowstonePathology.Business.Gateway
             SqlCommand cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "SELECT distinct pso.[MasterAccessionNo], pso.[ReportNo], a.AccessionTime [AccessionDate],  pso.[PanelSetId], a.[PFirstName] + ' ' + a.[PLastName] AS [PatientName], " +
-                "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate], pso.[OriginatingLocation], pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
-                "a.ColorCode, '' ForeignAccessionNo, pso.IsPosted " +
+                "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate], pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
+                "'' ForeignAccessionNo, pso.IsPosted " +
                 "FROM tblAccessionOrder a  " +
                 "JOIN tblPanelSetOrder pso ON a.[MasterAccessionNo] = pso.[MasterAccessionNo] " +
                 "join tblPanelSetOrderCPTCodeBill psocpt on pso.ReportNo = psocpt.ReportNo " +
@@ -156,8 +156,8 @@ namespace YellowstonePathology.Business.Gateway
             SqlCommand cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "SELECT distinct pso.[MasterAccessionNo], pso.[ReportNo], a.AccessionTime [AccessionDate],  pso.[PanelSetId], a.[PFirstName] + ' ' + a.[PLastName] AS [PatientName], " +
-                "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate], pso.[OriginatingLocation], pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
-                "a.ColorCode, '' ForeignAccessionNo, pso.IsPosted " +
+                "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate], pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
+                "'' ForeignAccessionNo, pso.IsPosted " +
                 "FROM tblAccessionOrder a " +
                 "join tblPanelSetOrder pso ON a.[MasterAccessionNo] = pso.[MasterAccessionNo] " +
                 "join tblPanelOrder po on pso.ReportNo = po.ReportNo " +
@@ -191,8 +191,8 @@ namespace YellowstonePathology.Business.Gateway
             SqlCommand cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "SELECT pso.[MasterAccessionNo], pso.[ReportNo], a.AccessionTime [AccessionDate],  pso.[PanelSetId], a.[PFirstName] + ' ' + a.[PLastName] AS [PatientName], " +
-                "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate], pso.[OriginatingLocation], pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
-                "a.ColorCode, '' ForeignAccessionNo, pso.IsPosted " +
+                "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate], pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
+                "'' ForeignAccessionNo, pso.IsPosted " +
                 "FROM tblAccessionOrder a " +
                 "join tblPanelSetOrder pso ON a.[MasterAccessionNo] = pso.[MasterAccessionNo] " +
                 "Left Outer Join tblSystemUser su on pso.OrderedById = su.UserId " +
@@ -220,8 +220,8 @@ namespace YellowstonePathology.Business.Gateway
             SqlCommand cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "SELECT pso.[MasterAccessionNo], pso.[ReportNo], a.AccessionTime [AccessionDate],  pso.[PanelSetId], a.[PFirstName] + ' ' + a.[PLastName] AS [PatientName], " +
-                "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate], pso.[OriginatingLocation], pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
-                "a.ColorCode, '' ForeignAccessionNo, pso.IsPosted " +
+                "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate], pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
+                "'' ForeignAccessionNo, pso.IsPosted " +
                 "FROM tblAccessionOrder a " +
                 "join tblPanelSetOrder pso ON a.[MasterAccessionNo] = pso.[MasterAccessionNo] " +
                 "Left Outer Join tblSystemUser su on pso.OrderedById = su.UserId " +
@@ -249,8 +249,8 @@ namespace YellowstonePathology.Business.Gateway
             SqlCommand cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "SELECT pso.[MasterAccessionNo], pso.[ReportNo], a.AccessionTime [AccessionDate],  pso.[PanelSetId], a.[PFirstName] + ' ' + a.[PLastName] AS [PatientName], " +
-                "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate], pso.[OriginatingLocation], pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
-                "a.ColorCode, '' ForeignAccessionNo, pso.IsPosted " +
+                "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate], pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
+                "'' ForeignAccessionNo, pso.IsPosted " +
                 "FROM tblAccessionOrder a " +
                 "join tblPanelSetOrder pso ON a.[MasterAccessionNo] = pso.[MasterAccessionNo] " +
                 "Left Outer Join tblSystemUser su on pso.OrderedById = su.UserId " +
@@ -285,8 +285,8 @@ namespace YellowstonePathology.Business.Gateway
             SqlCommand cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "SELECT pso.[MasterAccessionNo], pso.[ReportNo], a.AccessionTime [AccessionDate],  pso.[PanelSetId], a.[PFirstName] + ' ' + a.[PLastName] AS [PatientName], " +
-                "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate], pso.[OriginatingLocation], pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
-                "a.ColorCode, '' ForeignAccessionNo, pso.IsPosted " +
+                "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate], pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
+                "'' ForeignAccessionNo, pso.IsPosted " +
                 "FROM tblAccessionOrder a " +
                 "JOIN tblPanelSetOrder pso ON a.[MasterAccessionNo] = pso.[MasterAccessionNo] " +
                 "Left Outer Join tblSystemUser su on pso.OrderedById = su.UserId " +
@@ -325,8 +325,8 @@ namespace YellowstonePathology.Business.Gateway
             SqlCommand cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "SELECT pso.[MasterAccessionNo], pso.[ReportNo], a.AccessionTime [AccessionDate],  pso.[PanelSetId], a.[PFirstName] + ' ' + a.[PLastName] AS [PatientName], " +
-                "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate], pso.[OriginatingLocation], pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
-                "a.ColorCode, '' ForeignAccessionNo, pso.IsPosted " +
+                "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate], pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
+                "'' ForeignAccessionNo, pso.IsPosted " +
                 "FROM tblAccessionOrder a JOIN tblPanelSetOrder pso ON a.[MasterAccessionNo] = pso.[MasterAccessionNo] " +
                 "Left Outer Join tblSystemUser su on pso.OrderedById = su.UserId " +
                 "WHERE a.AccessionDate = @AccessionDate " +
@@ -357,8 +357,8 @@ namespace YellowstonePathology.Business.Gateway
             SqlCommand cmd = new SqlCommand();
 			cmd.CommandType = CommandType.Text;
 			cmd.CommandText = "SELECT a.[MasterAccessionNo], pso.[ReportNo], a.AccessionTime [AccessionDate],  pso.[PanelSetId], a.[PFirstName] + ' ' + a.[PLastName] AS [PatientName], " +
-                "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate], pso.[OriginatingLocation], pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
-                "a.ColorCode, '' ForeignAccessionNo, pso.IsPosted " +
+                "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate], pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
+                "'' ForeignAccessionNo, pso.IsPosted " +
                 "FROM tblAccessionOrder a " +
                 "Left outer JOIN tblPanelSetOrder pso ON a.[MasterAccessionNo] = pso.[MasterAccessionNo] " +
                 "Left Outer Join tblSystemUser su on pso.OrderedById = su.UserId " +
@@ -389,8 +389,8 @@ namespace YellowstonePathology.Business.Gateway
             SqlCommand cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "SELECT pso.[MasterAccessionNo], pso.[ReportNo], a.AccessionTime [AccessionDate],  pso.[PanelSetId], a.[PFirstName] + ' ' + a.[PLastName] AS [PatientName], " +
-               "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate], pso.[OriginatingLocation], pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
-               "a.ColorCode, '' ForeignAccessionNo, pso.IsPosted " +
+               "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate], pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
+               "'' ForeignAccessionNo, pso.IsPosted " +
                "FROM tblAccessionOrder a " +
                "JOIN tblPanelSetOrder pso ON a.[MasterAccessionNo] = pso.[MasterAccessionNo] " +
                "Left Outer Join tblSystemUser su on pso.OrderedById = su.UserId " +
@@ -420,8 +420,8 @@ namespace YellowstonePathology.Business.Gateway
             SqlCommand cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "SELECT a.[MasterAccessionNo], pso.[ReportNo], a.AccessionTime [AccessionDate],  pso.[PanelSetId], a.[PFirstName] + ' ' + a.[PLastName] AS [PatientName], " +
-                "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate], pso.[OriginatingLocation], pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
-                "a.ColorCode, '' ForeignAccessionNo, pso.IsPosted " +
+                "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate], pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
+                "'' ForeignAccessionNo, pso.IsPosted " +
                 "FROM tblAccessionOrder a " +
                 "Left outer JOIN tblPanelSetOrder pso ON a.[MasterAccessionNo] = pso.[MasterAccessionNo] " +
                 "Left Outer JOIN tblSystemUser su on pso.OrderedById = su.UserId " +
@@ -444,7 +444,7 @@ namespace YellowstonePathology.Business.Gateway
 
             SqlCommand cmd = new SqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.CommandText = "gwAccessionOrderListByCurrentMonthFill_1";
+            cmd.CommandText = "gwAccessionOrderListByCurrentMonthFill_2";
             cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = parameters[0];
             cmd.Parameters.Add("@EndDate", SqlDbType.DateTime).Value = parameters[1];
             cmd.Parameters.Add("@PanelSetId", SqlDbType.VarChar).Value = parameters[2];
@@ -476,7 +476,7 @@ namespace YellowstonePathology.Business.Gateway
 
             SqlCommand cmd = new SqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.CommandText = "gwAccessionOrderListByAccessionNoFill_1";
+            cmd.CommandText = "gwAccessionOrderListByAccessionNoFill_2";
             cmd.Parameters.Add("@ReportNo", SqlDbType.VarChar).Value = parameters[0];
             Search.ReportSearchList reportSearchList = BuildReportSearchList(cmd);
             return reportSearchList;
@@ -493,7 +493,7 @@ namespace YellowstonePathology.Business.Gateway
 
             SqlCommand cmd = new SqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.CommandText = "gwAccessionOrderListByUnDistributedFill_1";
+            cmd.CommandText = "gwAccessionOrderListByUnDistributedFill_2";
             cmd.Parameters.Add("@PanelId", SqlDbType.Int).Value = parameters[0];
             Search.ReportSearchList reportSearchList = BuildReportSearchList(cmd);
             return reportSearchList;
@@ -510,7 +510,7 @@ namespace YellowstonePathology.Business.Gateway
 
             SqlCommand cmd = new SqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.CommandText = "gwAccessionOrderListByNotFinalFill_1";
+            cmd.CommandText = "gwAccessionOrderListByNotFinalFill_2";
             cmd.Parameters.Add("@PanelId", SqlDbType.Int).Value = parameters[0];
             Search.ReportSearchList reportSearchList = BuildReportSearchList(cmd);
             return reportSearchList;
@@ -526,7 +526,7 @@ namespace YellowstonePathology.Business.Gateway
 
             SqlCommand cmd = new SqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.CommandText = "gwAccessionOrderListByInHouseMolecularPending_1";
+            cmd.CommandText = "gwAccessionOrderListByInHouseMolecularPending_2";
             Search.ReportSearchList reportSearchList = BuildReportSearchList(cmd);
             return reportSearchList;
         }
@@ -544,7 +544,7 @@ namespace YellowstonePathology.Business.Gateway
 
             SqlCommand cmd = new SqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.CommandText = "pReportSearchListByPatientName_1";
+            cmd.CommandText = "pReportSearchListByPatientName_2";
             cmd.Parameters.Add("@PLastName", SqlDbType.VarChar).Value = parameters[0].ToString();
             if (parameters[1] == null) cmd.Parameters.Add("@PFirstName", SqlDbType.VarChar).Value = DBNull.Value;
             else cmd.Parameters.Add("@PFirstName", SqlDbType.VarChar).Value = parameters[1].ToString();
@@ -563,7 +563,7 @@ namespace YellowstonePathology.Business.Gateway
 
             SqlCommand cmd = new SqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.CommandText = "gwAccessionOrderListByMasterAccessionNoFill_1";
+            cmd.CommandText = "gwAccessionOrderListByMasterAccessionNoFill_2";
             cmd.Parameters.Add("@MasterAccessionNo", SqlDbType.VarChar).Value = parameters[0];
             Search.ReportSearchList reportSearchList = BuildReportSearchList(cmd);
             return reportSearchList;
@@ -580,7 +580,7 @@ namespace YellowstonePathology.Business.Gateway
 
             SqlCommand cmd = new SqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.CommandText = "gwAccessionOrderListByNotAudited_1";
+            cmd.CommandText = "gwAccessionOrderListByNotAudited_2";
             cmd.Parameters.Add("CaseType", SqlDbType.VarChar).Value = parameters[0];
             Search.ReportSearchList reportSearchList = BuildReportSearchList(cmd);
             return reportSearchList;
@@ -597,7 +597,7 @@ namespace YellowstonePathology.Business.Gateway
 
             SqlCommand cmd = new SqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.CommandText = "gwAccessionOrderListByPatientId_1";
+            cmd.CommandText = "gwAccessionOrderListByPatientId_2";
             cmd.Parameters.Add("@PatientId", SqlDbType.VarChar).Value = parameters[0].ToString();
             Search.ReportSearchList reportSearchList = BuildReportSearchList(cmd);
             return reportSearchList;
@@ -615,7 +615,7 @@ namespace YellowstonePathology.Business.Gateway
 
             SqlCommand cmd = new SqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.CommandText = "gwAccessionOrderListByPanelSetId_3";
+            cmd.CommandText = "gwAccessionOrderListByPanelSetId_4";
             cmd.Parameters.Add("@PanelSetId", SqlDbType.Int).Value = parameters[0];
             cmd.Parameters.Add("@AccessionDate", SqlDbType.DateTime).Value = parameters[1];
             Search.ReportSearchList reportSearchList = BuildReportSearchList(cmd);
@@ -646,8 +646,8 @@ namespace YellowstonePathology.Business.Gateway
             SqlCommand cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "SELECT pso.[MasterAccessionNo], pso.[ReportNo], a.AccessionTime [AccessionDate],  pso.[PanelSetId], a.[PFirstName] + ' ' + a.[PLastName] AS [PatientName], " +
-                "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate], pso.[OriginatingLocation], pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
-                "a.ColorCode, '' ForeignAccessionNo, pso.IsPosted " +
+                "a.[PLastName], a.[PFirstName], a.[ClientName], a.[PhysicianName], a.[PBirthdate], pso.[FinalDate], pso.PanelSetName, su.UserName as [OrderedBy], " +
+                "'' ForeignAccessionNo, pso.IsPosted " +
                 "FROM tblAccessionOrder a " +
                 "JOIN tblPanelSetOrder pso ON a.[MasterAccessionNo] = pso.[MasterAccessionNo] " +
                 "Left Outer Join tblSystemUser su on pso.OrderedById = su.UserId " +

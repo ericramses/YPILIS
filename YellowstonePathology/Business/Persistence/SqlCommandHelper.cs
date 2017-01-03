@@ -14,7 +14,7 @@ namespace YellowstonePathology.Business.Persistence
         public static T ExecuteCollectionCommand<T>(SqlCommand sqlCommand)
         {
             StringBuilder xmlString = new StringBuilder();
-            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 sqlCommand.Connection = cn;

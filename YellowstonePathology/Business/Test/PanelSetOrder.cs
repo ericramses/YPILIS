@@ -1020,7 +1020,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "150", "null", "varchar")]
+        [PersistentDataColumnProperty(true, "500", "null", "varchar")]
         public string ReferenceLabSignature
         {
             get { return this.m_ReferenceLabSignature; }

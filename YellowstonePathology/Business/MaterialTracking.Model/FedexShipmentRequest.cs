@@ -26,7 +26,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
             this.m_TaskOrderDetail = taskOrderDetail;
 
             this.OpenShipmentRequestFile();
-            this.SetShipementRequestData();
+            this.SetShipmentRequestData();
         }        
 
         public Business.MaterialTracking.Model.FedexProcessShipmentReply RequestShipment()
@@ -55,13 +55,13 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
                 result = new FedexProcessShipmentReply(false);
             }
 
-            return result; ;
+            return result;
         }
 
-        private void SetShipementRequestData()
+        private void SetShipmentRequestData()
         {
             XmlNamespaceManager namespaces = new XmlNamespaceManager(new NameTable());            
-            namespaces.AddNamespace("soapenv", "http://schemas.xmlsoap.org/soap/envelope/");
+            namespaces.AddNamespace("soapenv", "http://schemas.xmlsoap.org/soap/envelope/");            
             namespaces.AddNamespace("v19", "http://fedex.com/ws/ship/v19");
 
             this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:WebAuthenticationDetail/v19:UserCredential/v19:Key", namespaces).Value = this.m_FedexAccount.Key;
@@ -99,7 +99,11 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
                 this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:ShippingChargesPayment/v19:Payor/v19:ResponsibleParty/v19:Contact/v19:PhoneNumber", namespaces).Value = this.m_TaskOrderDetail.ShipToPhone;
 
                 this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:ShippingChargesPayment/v19:Payor/v19:ResponsibleParty/v19:Address/v19:StreetLines[1]", namespaces).Value = this.m_TaskOrderDetail.ShipToAddress1;
-                this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:ShippingChargesPayment/v19:Payor/v19:ResponsibleParty/v19:Address/v19:StreetLines[2]", namespaces).Value = this.m_TaskOrderDetail.ShipToAddress2;
+                if(string.IsNullOrEmpty(this.m_TaskOrderDetail.ShipToAddress2) == false)
+                {
+                    this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:ShippingChargesPayment/v19:Payor/v19:ResponsibleParty/v19:Address/v19:StreetLines[2]", namespaces).Value = this.m_TaskOrderDetail.ShipToAddress2;
+                }
+                
                 this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:ShippingChargesPayment/v19:Payor/v19:ResponsibleParty/v19:Address/v19:City", namespaces).Value = this.m_TaskOrderDetail.ShipToCity;
                 this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:ShippingChargesPayment/v19:Payor/v19:ResponsibleParty/v19:Address/v19:StateOrProvinceCode", namespaces).Value = this.m_TaskOrderDetail.ShipToState;
                 this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:ShippingChargesPayment/v19:Payor/v19:ResponsibleParty/v19:Address/v19:PostalCode", namespaces).Value = this.m_TaskOrderDetail.ShipToZip;
@@ -123,7 +127,14 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
             else
             {
                 throw new Exception("Payment Type not supported.");
-            }           
+            }   
+            
+            if(DateTime.Today.DayOfWeek == DayOfWeek.Friday)
+            {
+                XNamespace v19 ="http://fedex.com/ws/ship/v19";                                
+                this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:ShippingChargesPayment", namespaces)
+                    .AddAfterSelf(new XElement(v19 + "SpecialServicesRequested", new XElement(v19 + "SpecialServiceTypes", "SATURDAY_DELIVERY")));
+            }        
         }
 
         private void OpenShipmentRequestFile()

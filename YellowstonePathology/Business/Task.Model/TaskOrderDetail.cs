@@ -30,14 +30,22 @@ namespace YellowstonePathology.Business.Task.Model
 
 		}
 
-		public TaskOrderDetail(string taskOrderDetailId, string taskOrderId, string objectId, Task task)
+		public TaskOrderDetail(string taskOrderDetailId, string taskOrderId, string objectId, Task task, int clientId)
 		{
-			this.m_TaskOrderDetailId = taskOrderDetailId;
-			this.m_TaskOrderId = taskOrderId;
-			this.m_ObjectId = objectId;
-			this.m_TaskId = task.TaskId;
-			this.m_Description = task.Description;
+            this.m_TaskOrderDetailId = taskOrderDetailId;
+            this.m_TaskOrderId = taskOrderId;
+            this.m_ObjectId = objectId;
+            this.m_TaskId = task.TaskId;
+            this.m_Description = task.Description;
             this.m_AssignedTo = task.AssignedTo;
+
+            if (task.IsClientSpecific == true)
+            {
+                if (task.ClientIdList.Contains(clientId) == true)
+                {
+                    this.m_Description = task.ClientSpecificDescription;
+                }
+            }            
 		}
 
 		[PersistentDocumentIdProperty()]

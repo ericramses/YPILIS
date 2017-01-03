@@ -32,7 +32,10 @@ namespace YellowstonePathology.Business.Billing.Model
 		private string m_DesignatedFor;
 		private string m_Source;
 
-		public ICD9BillingCode()
+        //the following property is added to allow ws- stored procedure to work
+        private string m_CptBillingId;
+
+        public ICD9BillingCode()
         {
 
 		}
@@ -338,5 +341,20 @@ namespace YellowstonePathology.Business.Billing.Model
 				}
 			}
 		}
-	}
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(false, "50", "'0'", "varchar")]
+        public string CptBillingId
+        {
+            get { return this.m_CptBillingId; }
+            set
+            {
+                if (this.m_CptBillingId != value)
+                {
+                    this.m_CptBillingId = value;
+                    this.NotifyPropertyChanged("CptBillingId");
+                }
+            }
+        }
+    }
 }

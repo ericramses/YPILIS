@@ -24,7 +24,7 @@ namespace YellowstonePathology.Business.Document
 				File.Copy(this.FullFileName, newFile);
 
 				Process p1 = new Process();
-				p1.StartInfo = new ProcessStartInfo("wordview.exe", newFile);
+				p1.StartInfo = new ProcessStartInfo("winword.exe", newFile);
 				p1.Start();
 				p1.WaitForExit();
 				p1.Close();

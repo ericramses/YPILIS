@@ -40,7 +40,7 @@ namespace YellowstonePathology.Business.Reports
             this.m_Writer.WriteAttributeString("ss:Name", sheetName);                
             this.m_Writer.WriteStartElement("Table");                              
 
-            using (SqlConnection cn = new SqlConnection(BaseData.SqlConnectionString))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 SqlCommand cmd = new SqlCommand();

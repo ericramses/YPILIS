@@ -29,7 +29,7 @@ namespace YellowstonePathology.Business.Persistence
 
         private void Build(YellowstonePathology.Business.Domain.Physician physician)
         {
-            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 m_SQLCommand.Connection = cn;

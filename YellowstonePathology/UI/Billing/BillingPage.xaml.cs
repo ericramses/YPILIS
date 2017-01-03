@@ -45,7 +45,10 @@ namespace YellowstonePathology.UI.Billing
 		public delegate void ShowPatientDetailPageEventHandler(object sender, EventArgs e);
 		public event ShowPatientDetailPageEventHandler ShowPatientDetailPage;
 
-		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
+        public delegate void ShowADTPageEventHandler(object sender, EventArgs e);
+        public event ShowADTPageEventHandler ShowADTPage;
+
+        private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
 		private string m_PageHeaderText;
         
@@ -172,6 +175,12 @@ namespace YellowstonePathology.UI.Billing
 
         private void ButtonSet_Click(object sender, RoutedEventArgs e)
         {
+            if(this.m_PanelSetOrder.ResearchTesting == true)
+            {
+                MessageBox.Show("This test has been marked as research testing.  Please contact Sid.");
+                return;
+            }
+
             if (this.IsTechnicalBillingFacilityValid() == true)
             {
                 if (this.IsProfessionalBillingFacilityValid() == true)
@@ -368,6 +377,36 @@ namespace YellowstonePathology.UI.Billing
                     epicFT1ResultView.Send(sendResult);
                 }
             }
+        }
+
+        private void ButtonADT_Click(object sender, RoutedEventArgs e)
+        {
+            if(string.IsNullOrEmpty(this.m_AccessionOrder.SvhMedicalRecord) == false)
+            {
+                this.ShowADTPage(this, new EventArgs());
+            }
+            else
+            {
+                MessageBox.Show("Cannot show ADT information when the MRN is blank");
+            }
+        }
+
+        private void ButtonInsuranceCard_Click(object sender, RoutedEventArgs e)
+        {
+            Business.HL7View.ADTMessages adtMessages = Business.Gateway.AccessionOrderGateway.GetADTMessages(this.m_AccessionOrder.SvhMedicalRecord);
+            if(adtMessages.Messages.Count > 0)
+            {
+                Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_AccessionOrder.MasterAccessionNo);
+                YellowstonePathology.Business.Document.ADTInsuranceDocument adtInsuranceDocument = new Business.Document.ADTInsuranceDocument(adtMessages);
+                adtInsuranceDocument.SaveAsTIF(orderIdParser);
+                this.m_CaseDocumentCollection = new Business.Document.CaseDocumentCollection(this.m_ReportNo);
+                this.NotifyPropertyChanged("CaseDocumentCollection");
+                MessageBox.Show("The insurance card was successfully created.");
+            }
+            else
+            {
+                MessageBox.Show("No ADT information was found.");
+            }            
         }
     }
 }

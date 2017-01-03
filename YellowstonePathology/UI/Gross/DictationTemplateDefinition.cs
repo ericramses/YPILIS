@@ -61,7 +61,7 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "Bladder TUR";
             this.m_Text = "[identifier] and consists of [number] irregular ragged tan-pink tissue fragment[?s?] " +
-                "measuring [measurement] [? in aggregate?].  [representativesections].  ";
+                "measuring [measurement] [? in aggregate?]. The specimen is filtered through a fine mesh bag and[cassettesummary].  ";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.BladderTUR turb = new Business.Specimen.Model.SpecimenDefinition.BladderTUR();
             this.m_SpecimenCollection.Add(turb);
@@ -70,7 +70,7 @@ namespace YellowstonePathology.UI.Gross
         public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
-            result = this.ReplaceRepresentativeSections(result, specimenOrder);
+            result = this.ReplaceCassetteSummary(result, specimenOrder);
             return result;
         }
     }
@@ -241,6 +241,45 @@ namespace YellowstonePathology.UI.Gross
             return result;
         }
     }
+
+    public class FallopianTubeAndOvariesTemplate : DictationTemplate
+    {
+        public FallopianTubeAndOvariesTemplate()
+        {
+            this.m_TemplateName = "Fallopian Tube and Ovaries Specimen";
+            this.m_Text = "[identifier]." + Environment.NewLine +
+                Environment.NewLine +
+                "Right Fallopian Tube: " + Environment.NewLine +
+                "      Dimensions:  [measurements]([w/wo] fimbriated end)" + Environment.NewLine +
+                "      Surface:  [description/paratubal cysts absent/present]" + Environment.NewLine +
+                "      Inked:  [color]" + Environment.NewLine +
+                "Right Ovary:" + Environment.NewLine +
+                "      Dimensions:  [measurement]" + Environment.NewLine +
+                "      Surface:  [description]" + Environment.NewLine +
+                "      Cut Surface:  [description]" + Environment.NewLine +
+                "Left Fallopian Tube: " + Environment.NewLine +
+                "      Dimensions:  [measurements]([w/wo] fimbriated end)" + Environment.NewLine +
+                "      Surface:  [description/paratubal cysts absent/present]" + Environment.NewLine +
+                "      Inked:  [color]" + Environment.NewLine +
+                "Left Ovary:" + Environment.NewLine +
+                "      Dimensions:  [measurement]" + Environment.NewLine +
+                "      Surface:  [description]" + Environment.NewLine +
+                "      Cut Surface:  [description]" + Environment.NewLine +
+                Environment.NewLine +
+                "[summarysubmission].  ";
+
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.FallopianTubeAndOvaries fallopianTubeAndOvaries = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.FallopianTubeAndOvaries();
+            this.m_SpecimenCollection.Add(fallopianTubeAndOvaries);
+        }
+
+        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        {
+            string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
+            result = this.ReplaceSummarySubmission(result, specimenOrder);
+            return result;
+        }
+    }
+
 
     public class SinusContentTemplate : DictationTemplate
     {
@@ -861,10 +900,10 @@ namespace YellowstonePathology.UI.Gross
             	Environment.NewLine +
                 "Cassette Summary: " + Environment.NewLine +
                 "\"1A\" - Twin A umbilical cord and membranes, " + Environment.NewLine +
-                "\"1B\" - \"1D\" - Twin A central placenta, " + Environment.NewLine +
-            	"\"1E\" - Dividing membranes" + Environment.NewLine +
-            	"\"1F\" -Twin B umbilical cord and membranes" + Environment.NewLine +
-            	"\"1G\" - \"1I\" - Twin B central placenta  ";
+                "\"1B\" - \"1D\" - Twin A central placenta, " + Environment.NewLine +            	
+            	"\"1E\" -Twin B umbilical cord and membranes" + Environment.NewLine +
+                "\"1F\" - \"1I\" - Twin B central placenta" + Environment.NewLine +
+                "[?\"1G\" - Dividing membranes ?]";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.TwinPlacenta twinPlacenta = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.TwinPlacenta();
             this.m_SpecimenCollection.Add(twinPlacenta);

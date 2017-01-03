@@ -28,12 +28,10 @@ namespace YellowstonePathology.Business.Test.KRASStandardReflex
             this.m_ExpectedDuration = new TimeSpan(120, 0, 0);
             this.m_IsBillable = false;
             this.m_EpicDistributionIsImplemented = true;
+            //updated 12.14.16 by MS
 
-            string taskDescription = "Give block to Molecular for sendout.";
-			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.Task(YellowstonePathology.Business.Task.Model.TaskAssignment.Histology, taskDescription));
-
-            string task2Description = "Receive block from Histology and send to Neo for testing.";
-			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskFedexShipment(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, task2Description, new Facility.Model.NeogenomicsIrvine()));
+            string taskDescription = "Collect paraffin block from Histology and send to Neo.";
+			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskFedexShipment(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, taskDescription, new Facility.Model.NeogenomicsIrvine()));
 
             this.m_TechnicalComponentFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();
             this.m_TechnicalComponentBillingFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();

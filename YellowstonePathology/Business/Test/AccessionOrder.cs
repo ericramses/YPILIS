@@ -616,7 +616,9 @@ namespace YellowstonePathology.Business.Test
 			}
 		}
 
-		public string SecondaryInsurance
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "'Not Selected'", "varchar")]
+        public string SecondaryInsurance
 		{
 			get { return this.m_SecondaryInsurance; }
 			set
@@ -1275,6 +1277,21 @@ namespace YellowstonePathology.Business.Test
 			this.SvhAccount = clientOrder.SvhAccountNo;
 			this.SvhMedicalRecord = clientOrder.SvhMedicalRecord;
 
+            switch(clientOrder.PatientType)
+            {
+                case "IN":
+                case "ER":
+                case "INO":
+                case "RCR":
+                    this.m_PatientType = "IP";
+                    break;
+                case "CLI":
+                case "SDC":
+                case "REF":
+                    this.m_PatientType = "OP";
+                    break;
+            }            
+
             if (string.IsNullOrEmpty(clientOrder.ClinicalHistory) == false)
             {
                 this.ClinicalHistory = clientOrder.ClinicalHistory;
@@ -1687,7 +1704,7 @@ namespace YellowstonePathology.Business.Test
             {
 				string taskOrderDetailId = YellowstonePathology.Business.OrderIdParser.GetNextTaskOrderDetailId(taskOrder.TaskOrderDetailCollection, taskOrderId);
                 string taskOrderDetailObjectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-                YellowstonePathology.Business.Task.Model.TaskOrderDetail taskOrderDetail = Business.Task.Model.TaskOrderDetailFactory.GetTaskOrderDetail(taskOrderDetailId, taskOrderId, taskOrderDetailObjectId, task);
+                YellowstonePathology.Business.Task.Model.TaskOrderDetail taskOrderDetail = Business.Task.Model.TaskOrderDetailFactory.GetTaskOrderDetail(taskOrderDetailId, taskOrderId, taskOrderDetailObjectId, task, this.m_ClientId);
 
                 if (this.ClientAccessioned == true)
                 {                    

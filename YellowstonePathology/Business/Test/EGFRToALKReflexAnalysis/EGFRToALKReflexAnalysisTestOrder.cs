@@ -31,9 +31,10 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
 
         public override void OrderInitialTests(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Interface.IOrderTarget orderTarget)
         {
-            int[] clientIds = new int[] { 658, 1116, 879, 1123, 1505, 1469, 1558, 313, 1311, 294, 1487 };
+            //int[] idahoClientIds = new int[] { 658, 1116, 879, 1123, 1505, 1469, 1558, 313, 1311, 294, 1487 };
+            Business.Client.Model.IdahoClientIdList idahoClientIds = new Client.Model.IdahoClientIdList();
 
-            if (clientIds.Contains(accessionOrder.ClientId) == true)
+            if (idahoClientIds.Contains(accessionOrder.ClientId) == true)
             {
                 YellowstonePathology.Business.Test.PDL122C3.PDL122C3Test pdl122C3Test = new PDL122C3.PDL122C3Test();
                 YellowstonePathology.Business.Test.TestOrderInfo testOrderInfoPDL122C3 = new TestOrderInfo(pdl122C3Test, orderTarget, false);
@@ -94,16 +95,34 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
 
             if (accessionOrder.PanelSetOrderCollection.Exists(204) == true)
             {                
-                YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHTestOrder ros1ByFISHTestOrder = (YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(204);
-                //references.AppendLine();
-                //references.AppendLine("ROS1: " + ros1ByFISHTestOrder.References);
+                YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHTestOrder ros1ByFISHTestOrder = (YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(204);                
 
                 interpretation.AppendLine();
                 interpretation.AppendLine("ROS1: " + ros1ByFISHTestOrder.Interpretation);
 
                 method.AppendLine();
                 method.AppendLine("ROS1: " + ros1ByFISHTestOrder.Method);
-            }            
+            }
+
+            if (accessionOrder.PanelSetOrderCollection.Exists(215) == true)
+            {
+                YellowstonePathology.Business.Test.PDL1SP142.PDL1SP142TestOrder pdl1sp142TestOrder = (YellowstonePathology.Business.Test.PDL1SP142.PDL1SP142TestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(215);
+                interpretation.AppendLine();
+                interpretation.AppendLine(pdl1sp142TestOrder.PanelSetName + ": " + pdl1sp142TestOrder.Interpretation);
+
+                method.AppendLine();
+                method.AppendLine(pdl1sp142TestOrder.PanelSetName + ": " + pdl1sp142TestOrder.Method);
+            }
+
+            if (accessionOrder.PanelSetOrderCollection.Exists(245) == true)
+            {
+                YellowstonePathology.Business.Test.PDL122C3.PDL122C3TestOrder pdl122C3TestOrder = (YellowstonePathology.Business.Test.PDL122C3.PDL122C3TestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(245);
+                interpretation.AppendLine();
+                interpretation.AppendLine(pdl122C3TestOrder.PanelSetName + ": " + pdl122C3TestOrder.Interpretation);
+
+                method.AppendLine();
+                method.AppendLine(pdl122C3TestOrder.PanelSetName + ": " + pdl122C3TestOrder.Method);
+            }
 
             char[] lineFeedCharacters = { '\r', '\n' };            
             this.Interpretation = interpretation.ToString().TrimEnd(lineFeedCharacters);

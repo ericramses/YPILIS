@@ -24,7 +24,7 @@ namespace YellowstonePathology.Business.Test.AMLPrognosticProfile
             //this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHTestOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Document.ReferenceLabReport).AssemblyQualifiedName;
 
-            string taskDescription = "Collect block from Histology and send to Neo.";
+            string taskDescription = "Collect paraffin block from Histology and send to Neo.";
             this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskFedexShipment(YellowstonePathology.Business.Task.Model.TaskAssignment.Flow, taskDescription, new Facility.Model.NeogenomicsIrvine()));
 
             this.m_TechnicalComponentFacility = new YellowstonePathology.Business.Facility.Model.NeogenomicsIrvine();

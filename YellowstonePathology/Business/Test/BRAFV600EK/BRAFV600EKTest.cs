@@ -36,12 +36,10 @@ namespace YellowstonePathology.Business.Test.BRAFV600EK
 
             this.m_HasSplitCPTCode = true;
             //Checked by MS and TK;
+            //updated 12.14.16 by MS;
 
-            string taskDescription = "Cut 3 x 20µm curls in a microcentrifuge tube and an after H&E. Give to molecular.";
-			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.Task(YellowstonePathology.Business.Task.Model.TaskAssignment.Histology, taskDescription));
-
-            string task2Description = "Receive curls from Histology and perform testing.";
-			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.Task(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, task2Description));
+            string taskDescription = "Collect paraffin block from Histology and send to Neo.";
+			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.Task(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, taskDescription));
 
             YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT81210(), 1);
             this.m_PanelSetCptCodeCollection.Add(panelSetCptCode);

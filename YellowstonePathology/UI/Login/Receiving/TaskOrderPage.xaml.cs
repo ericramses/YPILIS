@@ -177,7 +177,7 @@ namespace YellowstonePathology.UI.Login.Receiving
             YellowstonePathology.Business.Task.Model.TaskSendBlockToNeogenomics task = new Business.Task.Model.TaskSendBlockToNeogenomics();
             string taskOrderDetailId = YellowstonePathology.Business.OrderIdParser.GetNextTaskOrderDetailId(this.m_TaskOrder.TaskOrderDetailCollection, this.m_TaskOrder.TaskOrderId);
             string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-            YellowstonePathology.Business.Task.Model.TaskOrderDetail taskOrderDetail = new Business.Task.Model.TaskOrderDetail(taskOrderDetailId, this.m_TaskOrder.TaskOrderId, objectId, task);
+            YellowstonePathology.Business.Task.Model.TaskOrderDetail taskOrderDetail = new Business.Task.Model.TaskOrderDetail(taskOrderDetailId, this.m_TaskOrder.TaskOrderId, objectId, task, this.m_AccessionOrder.ClientId);
             this.m_TaskOrder.TaskOrderDetailCollection.Add(taskOrderDetail);
         }		      
 
@@ -290,9 +290,16 @@ namespace YellowstonePathology.UI.Login.Receiving
             Business.Task.Model.TaskOrderDetailFedexShipment taskOrderDetail = this.m_TaskOrder.TaskOrderDetailCollection.GetFedexShipment();      
             if(string.IsNullOrEmpty(taskOrderDetail.ZPLII) == false)
             {
-                Business.Label.Model.ZPLPrinter zplPrinter = new Business.Label.Model.ZPLPrinter("10.1.1.20");
-                zplPrinter.Print(taskOrderDetail.ZPLII);
-                taskOrderDetail.LabelHasBeenPrinted = true;
+                if(string.IsNullOrEmpty(Business.User.UserPreferenceInstance.Instance.UserPreference.FedExLabelPrinter) == false)
+                {
+                    Business.Label.Model.ZPLPrinter zplPrinter = new Business.Label.Model.ZPLPrinter(Business.User.UserPreferenceInstance.Instance.UserPreference.FedExLabelPrinter);
+                    zplPrinter.Print(taskOrderDetail.ZPLII);
+                    taskOrderDetail.LabelHasBeenPrinted = true;
+                }
+                else
+                {
+                    MessageBox.Show("You need to go into User Preferences and choose your FedEx label printer before your label can be printed.");
+                }                
             }
             else
             {
@@ -327,7 +334,7 @@ namespace YellowstonePathology.UI.Login.Receiving
             YellowstonePathology.Business.Task.Model.Task task = new Business.Task.Model.Task(string.Empty, string.Empty);
             string taskOrderDetailId = YellowstonePathology.Business.OrderIdParser.GetNextTaskOrderDetailId(this.m_TaskOrder.TaskOrderDetailCollection, this.m_TaskOrder.TaskOrderId);
             string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-            YellowstonePathology.Business.Task.Model.TaskOrderDetail taskOrderDetail = new Business.Task.Model.TaskOrderDetail(taskOrderDetailId, this.m_TaskOrder.TaskOrderId, objectId, task);
+            YellowstonePathology.Business.Task.Model.TaskOrderDetail taskOrderDetail = new Business.Task.Model.TaskOrderDetail(taskOrderDetailId, this.m_TaskOrder.TaskOrderId, objectId, task, this.m_AccessionOrder.ClientId);
             this.m_TaskOrder.TaskOrderDetailCollection.Add(taskOrderDetail);
         }
 

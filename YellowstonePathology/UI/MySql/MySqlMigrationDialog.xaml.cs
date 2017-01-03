@@ -22,9 +22,6 @@ namespace YellowstonePathology.UI.MySql
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private int m_RepeatCount;
-        private int m_CurrentCount;
-
         private MySQLMigration.MigrationStatusCollection m_MigrationStatusCollection;
         private YellowstonePathology.MySQLMigration.MySQLDatabaseBuilder m_MySQLDatabaseBuilder;
         private string m_NumberOfTimesToQuery;
@@ -200,6 +197,54 @@ namespace YellowstonePathology.UI.MySql
             }
         }
 
+        private void MenuItemAddIndexes_Click(object sender, RoutedEventArgs e)
+        {
+            this.StatusMessage = "Working on it.";
+            if (this.ListViewMigrationStatus.SelectedItems.Count > 0)
+            {
+                Business.Rules.MethodResult overallResult = new Business.Rules.MethodResult();
+
+                foreach (MySQLMigration.MigrationStatus migrationStatus in this.ListViewMigrationStatus.SelectedItems)
+                {
+                    Business.Rules.MethodResult methodResult = m_MySQLDatabaseBuilder.AddMissingIndexes(migrationStatus);
+                    if (methodResult.Success == false)
+                    {
+                        overallResult.Success = false;
+                        overallResult.Message += methodResult.Message;
+                    }
+                }
+                this.SetStatusMessage(overallResult);
+            }
+            else
+            {
+                MessageBox.Show("Select a class.");
+            }
+        }
+
+        private void MenuItemAddForeignKeys_Click(object sender, RoutedEventArgs e)
+        {
+            this.StatusMessage = "Working on it.";
+            if (this.ListViewMigrationStatus.SelectedItems.Count > 0)
+            {
+                Business.Rules.MethodResult overallResult = new Business.Rules.MethodResult();
+
+                foreach (MySQLMigration.MigrationStatus migrationStatus in this.ListViewMigrationStatus.SelectedItems)
+                {
+                    Business.Rules.MethodResult methodResult = m_MySQLDatabaseBuilder.AddMissingForeignKeys(migrationStatus);
+                    if (methodResult.Success == false)
+                    {
+                        overallResult.Success = false;
+                        overallResult.Message += methodResult.Message;
+                    }
+                }
+                this.SetStatusMessage(overallResult);
+            }
+            else
+            {
+                MessageBox.Show("Select a class.");
+            }
+        }
+
         private void AddMissingColumnsToSingleTable(MySQLMigration.MigrationStatus migrationStatus)
         {
             Business.Rules.MethodResult methodResult = m_MySQLDatabaseBuilder.AddMissingColumns(migrationStatus);
@@ -232,9 +277,9 @@ namespace YellowstonePathology.UI.MySql
                 {
                     if(migrationStatus.HasTimestampColumn == false)
                     {
-                        Business.Mongo.Gateway.AddSQLTimestampColumn(migrationStatus.TableName);
-                        Business.Mongo.Gateway.AddTransferDBTSAttribute(migrationStatus.TableName);
-                        Business.Mongo.Gateway.AddTransferStraightAcrossAttribute(migrationStatus.TableName, false);
+                        MySQLMigration.MySQLDatabaseBuilder.AddSQLTimestampColumn(migrationStatus.TableName);
+                        MySQLMigration.MySQLDatabaseBuilder.AddTransferDBTSAttribute(migrationStatus.TableName);
+                        MySQLMigration.MySQLDatabaseBuilder.AddTransferStraightAcrossAttribute(migrationStatus.TableName, false);
                     }
                     this.StatusMessage = "Timestamp Column added.";
                 }
@@ -328,6 +373,17 @@ namespace YellowstonePathology.UI.MySql
             this.SetStatusMessage(overallResult);
         }
 
+        private void MenuItemRemoveUnneededData_Click(object sender, RoutedEventArgs e)
+        {
+            this.StatusMessage = "Working on it.";
+            Business.Rules.MethodResult overallResult = new Business.Rules.MethodResult();
+            foreach (MySQLMigration.MigrationStatus migrationStatus in this.ListViewMigrationStatus.SelectedItems)
+            {
+                this.m_MySQLDatabaseBuilder.RemoveDeletedRowsFromMySql(migrationStatus);
+            }
+            this.SetStatusMessage(overallResult);
+        }
+
         private void MenuItemCompareData_Click(object sender, RoutedEventArgs e)
         {
             this.StatusMessage = "Working on it.";
@@ -343,15 +399,16 @@ namespace YellowstonePathology.UI.MySql
             }
         }
 
+        private void MenuItemNonpersistentTables_Click(object sender, RoutedEventArgs e)
+        {
+            NonpersistentTableDialog dialog = new NonpersistentTableDialog();
+            dialog.ShowDialog();
+        }
+
         private void GetStatus(MySQLMigration.MigrationStatus migrationStatus)
         {
             this.m_MySQLDatabaseBuilder.GetStatus(migrationStatus);
             this.StatusMessage = "Got Status for " + migrationStatus.Name;
-        }
-
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

@@ -46,6 +46,5 @@
             <Button Width="75" Height="30" Margin="2,2,2,2" Click="ButtonCancel_Click" HorizontalAlignment="Right">Cancel</Button>
         </StackPanel>
       
-
     </Grid>
 </Window>

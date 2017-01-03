@@ -28,7 +28,7 @@ namespace YellowstonePathology.Business
         public void Fill()
         {
             this.Clear();
-            using (SqlConnection cn = new SqlConnection(BaseData.SqlConnectionString))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 this.m_Cmd.Connection = cn;

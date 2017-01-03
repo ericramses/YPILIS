@@ -63,7 +63,7 @@ namespace YellowstonePathology.Business.Persistence
         {
             XElement documentElement = new XElement("Document");
 
-            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 this.m_SQLCommand.Connection = cn;

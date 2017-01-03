@@ -171,25 +171,58 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
 		private bool ShowAssignmentPage()
 		{
-            bool result = false;
+            bool result = false;			
 
-			YellowstonePathology.Business.Test.TechnicalOnly.TechnicalOnlyTest panelSetTechnicalOnly = new Business.Test.TechnicalOnly.TechnicalOnlyTest();
-            YellowstonePathology.Business.Test.ReviewForAdditionalTesting.ReviewForAdditionalTestingTest reviewForAdditionalTestingTest = new Business.Test.ReviewForAdditionalTesting.ReviewForAdditionalTestingTest();
-            YellowstonePathology.Business.Test.IHCQC.IHCQCTest ihcQCTest = new Business.Test.IHCQC.IHCQCTest();
-
-            if (this.m_AccessionOrder.IsDermatologyClient() == true || this.m_AccessionOrder.PanelSetOrderCollection.HasGrossBeenOrdered() == true 
-                || this.m_AccessionOrder.PanelSetOrderCollection.Exists(panelSetTechnicalOnly.PanelSetId) == true
-                || this.m_AccessionOrder.PanelSetOrderCollection.Exists(reviewForAdditionalTestingTest.PanelSetId) == true
-                || this.m_AccessionOrder.PanelSetOrderCollection.Exists(ihcQCTest.PanelSetId) == true
-                || this.m_AccessionOrder.ClientId == 1260)
-			{
-			    AssignmentPage assignmentPage = new AssignmentPage(this.m_AccessionOrder);
-			    assignmentPage.Return += new AssignmentPage.ReturnEventHandler(AssignmentPage_Return);
-			    this.m_PageNavigator.Navigate(assignmentPage);
+            if(this.IsOkToShowAssignmentPage() == true)
+            {
+                AssignmentPage assignmentPage = new AssignmentPage(this.m_AccessionOrder);
+                assignmentPage.Return += new AssignmentPage.ReturnEventHandler(AssignmentPage_Return);
+                this.m_PageNavigator.Navigate(assignmentPage);
                 result = true;
             }
+			
             return result;
 		}
+
+        private bool IsOkToShowAssignmentPage()
+        {           
+            if (this.m_AccessionOrder.IsDermatologyClient())
+            {
+                return true;
+            }
+
+            if(this.m_AccessionOrder.PanelSetOrderCollection.HasGrossBeenOrdered())
+            {
+                return true;
+            }
+
+            if (this.m_AccessionOrder.ClientId == 1260)
+            {
+                return true;
+            }
+
+            if(this.m_AccessionOrder.PanelSetOrderCollection.HasSurgical() == true)
+            {
+                if(this.m_AccessionOrder.AccessionDate < DateTime.Today)
+                {
+                    Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetSurgical();
+                    if(panelSetOrder.AssignedToId == 0)
+                    {
+                        return true;
+                    }
+                }
+            }       
+            
+            foreach(Business.Test.PanelSetOrder pso in this.m_AccessionOrder.PanelSetOrderCollection)
+            {
+                if(pso.PanelSetId != 13 && pso.AssignedToId == 0)
+                {
+                    return true;
+                }
+            }   
+              
+            return false;
+        }
 
         private void StartAliquotAndStainOrderPath()
 		{

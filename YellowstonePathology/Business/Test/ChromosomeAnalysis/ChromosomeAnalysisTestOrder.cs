@@ -19,6 +19,7 @@ namespace YellowstonePathology.Business.Test.ChromosomeAnalysis
 		private string m_CultureType;
 		private string m_BandingTechnique;
 		private string m_BandingResolution;
+        private string m_ASR;
 		
 		public ChromosomeAnalysisTestOrder()
         {
@@ -30,6 +31,7 @@ namespace YellowstonePathology.Business.Test.ChromosomeAnalysis
 			bool distribute)
 			: base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute)
 		{
+            this.m_ASR = "The performance characteristics of this test have been determined by NeoGenomics Laboratories. This test has not been approved by the FDA. The FDA has determined such clearance or approval is not necessary. This laboratory is CLIA certified to perform high complexity clinical testing.";
 		}
 
 		[PersistentProperty()]
@@ -182,7 +184,22 @@ namespace YellowstonePathology.Business.Test.ChromosomeAnalysis
 			}
 		}
 
-		public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "5000", "null", "varchar")]
+        public string ASR
+        {
+            get { return this.m_ASR; }
+            set
+            {
+                if (this.m_ASR != value)
+                {
+                    this.m_ASR = value;
+                    this.NotifyPropertyChanged("ASR");
+                }
+            }
+        }
+
+        public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
             StringBuilder result = new StringBuilder();
 

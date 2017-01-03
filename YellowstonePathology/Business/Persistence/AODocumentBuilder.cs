@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Persistence
 
             this.m_SQLCommand = new SqlCommand();
             //m_SQLCommand.CommandText = "gwGetAccessionByMasterAccessionNo_A9";
-            this.m_SQLCommand.CommandText = "prcGetAccessionOrder";
+            this.m_SQLCommand.CommandText = "prcGetAccessionOrder_1";
             m_SQLCommand.CommandType = CommandType.StoredProcedure;
             m_SQLCommand.Parameters.Add("@MasterAccessionNo", SqlDbType.VarChar).Value = masterAccessionNo;            
         }

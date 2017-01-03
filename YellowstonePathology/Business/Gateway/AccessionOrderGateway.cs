@@ -14,6 +14,33 @@ namespace YellowstonePathology.Business.Gateway
 {
 	public class AccessionOrderGateway
 	{
+        public static YellowstonePathology.Business.HL7View.ADTMessages GetADTMessages(string mrn)
+        {
+            YellowstonePathology.Business.HL7View.ADTMessages result = new HL7View.ADTMessages();
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "select * from tblADT where MedicalRecordNo = @MRN";
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.Add("@MRN", SqlDbType.VarChar).Value = mrn;
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.Business.HL7View.ADTMessage item = new HL7View.ADTMessage();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(item, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        item.ParseHL7();
+                        result.Messages.Add(item);
+                    }
+                }
+            }
+            return result;
+        }
+
         public static YellowstonePathology.UI.EmbeddingBreastCaseList GetEmbeddingBreastCasesCollection()
         {
             YellowstonePathology.UI.EmbeddingBreastCaseList result = new UI.EmbeddingBreastCaseList();
@@ -222,7 +249,7 @@ namespace YellowstonePathology.Business.Gateway
             cmd.Parameters.Add("@UserId", SqlDbType.Int).Value = userId;
 
             YellowstonePathology.Business.Typing.TypingShortcutCollection typingShorcutCollection = new Typing.TypingShortcutCollection();
-            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.BaseData.SqlConnectionString))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;
@@ -330,9 +357,6 @@ namespace YellowstonePathology.Business.Gateway
 
         public static YellowstonePathology.Business.Test.PanelSetOrderView GetCaseToSchedule(string reportNo)
         {
-#if MONGO
-            return AccessionOrderGatewayMongo.GetCaseToSchedule(reportNo);
-#else
 			YellowstonePathology.Business.Test.PanelSetOrderView result = null;
             SqlCommand cmd = new SqlCommand();
             cmd.CommandText = "Select * from tblPanelSetOrder where ReportNo = @ReportNo";
@@ -355,14 +379,10 @@ namespace YellowstonePathology.Business.Gateway
                 }
             }
             return result;
-#endif
         }
 
         public static List<YellowstonePathology.Business.Test.PanelSetOrderView> GetCasesToSchedule()
         {
-#if MONGO
-            return AccessionOrderGatewayMongo.GetCasesToSchedule();
-#else
 			List<YellowstonePathology.Business.Test.PanelSetOrderView> result = new List<Test.PanelSetOrderView>();
             SqlCommand cmd = new SqlCommand();
             cmd.CommandText = "Select * from tblPanelSetOrder pso where pso.Final = 1 and pso.ScheduledPublishTime is null and pso.Published = 0";
@@ -384,14 +404,10 @@ namespace YellowstonePathology.Business.Gateway
 				}
 			}
 			return result;
-#endif
 		}
 
 		public static List<YellowstonePathology.Business.Test.PanelSetOrderView> GetNextCasesToPublish()
 		{
-#if MONGO
-            return AccessionOrderGatewayMongo.GetNextCasesToPublish();
-#else
 			List<YellowstonePathology.Business.Test.PanelSetOrderView> result = new List<Test.PanelSetOrderView>();
 			SqlCommand cmd = new SqlCommand();
             cmd.CommandText = "Select * from tblPanelSetOrder pso where pso.Final = 1 and pso.finalTime < dateAdd(mi, -15, getdate()) and pso.ScheduledPublishTime <= getdate() union " +
@@ -415,7 +431,6 @@ namespace YellowstonePathology.Business.Gateway
 				}
 			}
 			return result;
-#endif
 		}
 
         public static List<YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution> GetNextTORD()
@@ -550,9 +565,6 @@ namespace YellowstonePathology.Business.Gateway
 
 		public static YellowstonePathology.Business.Test.AccessionOrderView GetAccessionOrderView(string masterAccessionNo)
 		{
-#if MONGO
-            return AccessionOrderGatewayMongo.GetAccessionOrderView(masterAccessionNo);
-#else
 			YellowstonePathology.Business.Test.AccessionOrderView result = null;
 			SqlCommand cmd = new SqlCommand();
 			cmd.CommandText = "Select * from tblAccessionOrder where MasterAccessionNo = @MasterAccessionNo";
@@ -574,7 +586,6 @@ namespace YellowstonePathology.Business.Gateway
 				}
 			}
 			return result;
-#endif
 		}
 
         public static List<YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder> GetSurgicalTestOrder()
@@ -639,7 +650,7 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.CommandType = CommandType.Text;
 
             YellowstonePathology.Business.Patient.Model.SVHBillingDataCollection result = new YellowstonePathology.Business.Patient.Model.SVHBillingDataCollection();
-			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.BaseData.SqlConnectionString))
+			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{
 				cn.Open();
 				cmd.Connection = cn;
@@ -659,15 +670,12 @@ namespace YellowstonePathology.Business.Gateway
 
 		public static YellowstonePathology.Business.Facility.Model.HostCollection GetHostCollection()
 		{
-#if MONGO
-			return AccessionOrderGatewayMongo.GetHostCollection();
-#else
 			SqlCommand cmd = new SqlCommand();
 			cmd.CommandText = "select * from tblHost";
 			cmd.CommandType = CommandType.Text;
 
 			YellowstonePathology.Business.Facility.Model.HostCollection hostCollection = new YellowstonePathology.Business.Facility.Model.HostCollection();
-			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.BaseData.SqlConnectionString))
+			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{
 				cn.Open();
 				cmd.Connection = cn;
@@ -683,7 +691,6 @@ namespace YellowstonePathology.Business.Gateway
 				}
 			}
 			return hostCollection;
-#endif
 		}		
 
 		public static string GetNextMasterAccessionNo()
@@ -720,7 +727,7 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.Parameters.Add("@PanelSetId", SqlDbType.Int).Value = panelSetId;
 			SqlParameter newReportParameter = new SqlParameter("@NewReportNo", SqlDbType.VarChar, 12, ParameterDirection.Output, false, 12, 12, "@NewReportNo", DataRowVersion.Current, newReportNo);
 			cmd.Parameters.Add(newReportParameter);
-			using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.CurrentConnectionString))
+			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{
 				cn.Open();
 				cmd.Connection = cn;
@@ -802,14 +809,14 @@ namespace YellowstonePathology.Business.Gateway
             return result;
         }
 
-		public static Surgical.SurgicalBillingItemCollection GetSurgicalBillingItemCollectionByDate(DateTime date)
+		/*public static Surgical.SurgicalBillingItemCollection GetSurgicalBillingItemCollectionByDate(DateTime date)
 		{
 			YellowstonePathology.Business.Surgical.SurgicalBillingItemCollection result = new Surgical.SurgicalBillingItemCollection();
 			SqlCommand cmd = new SqlCommand();
 			cmd.CommandText = "SELECT * FROM tblSurgicalBilling where AccessionDate = @Date";
 			cmd.CommandType = CommandType.Text;
 			cmd.Parameters.Add("@Date", SqlDbType.SmallDateTime).Value = date;
-			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.BaseData.SqlConnectionString))
+			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{
 				cn.Open();
 				cmd.Connection = cn;
@@ -826,7 +833,7 @@ namespace YellowstonePathology.Business.Gateway
 			}
 
 			return result;
-		}
+		}*/
 
 		public static Surgical.SurgicalOrderList GetSurgicalOrderListByAccessionDate(DateTime accessionDate)
 		{
@@ -1112,7 +1119,7 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.CommandType = CommandType.Text;
 			cmd.Parameters.Add("@OrderDate", SqlDbType.VarChar, 20).Value = reportDate.ToShortDateString();
 
-			using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{
 				cn.Open();
 				cmd.Connection = cn;
@@ -1134,14 +1141,14 @@ namespace YellowstonePathology.Business.Gateway
 		{
 			YellowstonePathology.Business.View.RecentAccessionViewCollection result = new View.RecentAccessionViewCollection();
 			SqlCommand cmd = new SqlCommand();
-			cmd.CommandText = "select ao.MasterAccessionNo, pso.ReportNo, ao.PFirstName, ao.PLastName, ao.AccessionTime, ao.ClientName, ao.PhysicianName, ao.CollectionTime " +
+			cmd.CommandText = "select ao.MasterAccessionNo, pso.ReportNo, ao.PFirstName, ao.PLastName, ao.PBirthdate, ao.AccessionTime, ao.ClientName, ao.PhysicianName, ao.CollectionTime " +
 				"from tblAccessionOrder ao " +
 				"left outer join tblPanelSetOrder pso on ao.MasterAccessionNo = pso.MasterAccessionNo " +
 				"where ao.PFirstName = @PFirstName and ao.PLastName = @PLastName and datediff(d, ao.AccessionDate, getdate()) <= 7 ";
 			cmd.Parameters.Add("@PLastName", SqlDbType.VarChar).Value = pLastName;
 			cmd.Parameters.Add("@PFirstName", SqlDbType.VarChar).Value = pFirstName;
 
-			using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{
 				cn.Open();
 				cmd.Connection = cn;
@@ -1166,7 +1173,7 @@ namespace YellowstonePathology.Business.Gateway
 
 			YellowstonePathology.Business.ReportNoCollection reportNoCollection = new ReportNoCollection();
 
-			using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{
 				cn.Open();
 				cmd.Connection = cn;
@@ -1192,7 +1199,7 @@ namespace YellowstonePathology.Business.Gateway
 
 			YellowstonePathology.Business.ReportNoCollection reportNoCollection = new ReportNoCollection();
 
-			using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{
 				cn.Open();
 				cmd.Connection = cn;
@@ -1224,7 +1231,7 @@ namespace YellowstonePathology.Business.Gateway
 
             List<YellowstonePathology.Business.Patient.Model.SVHBillingData> result = new List<YellowstonePathology.Business.Patient.Model.SVHBillingData>();
 
-			using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{
 				cn.Open();
 				cmd.Connection = cn;
@@ -1248,7 +1255,7 @@ namespace YellowstonePathology.Business.Gateway
 			SqlCommand cmd = new SqlCommand("Select count(*) from tblPanelOrder where PanelOrderBatchId = @PanelOrderBatchId");
 			cmd.CommandType = CommandType.Text;
 			cmd.Parameters.Add("@PanelOrderBatchId", SqlDbType.Int).Value = panelOrderBatchId;
-			using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.CurrentConnectionString))
+			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{
 				cn.Open();
 				cmd.Connection = cn;
@@ -1266,7 +1273,7 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.CommandType = CommandType.Text;
 			cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = startDate;
 			cmd.Parameters.Add("@EndDate", SqlDbType.DateTime).Value = endDate;
-			using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.CurrentConnectionString))
+			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{
 				cn.Open();
 				cmd.Connection = cn;
@@ -1286,7 +1293,7 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.Parameters.Add(new SqlParameter("@MasterAccessionNo", SqlDbType.VarChar)).Value = masterAccessionNo;
 			cmd.Parameters.Add(new SqlParameter("@PatientId", SqlDbType.VarChar, 15)).Value = patientId;
 
-			using (SqlConnection cn = new SqlConnection(BaseData.SqlConnectionString))
+			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{
 				cn.Open();
 				cmd.Connection = cn;
@@ -1321,12 +1328,12 @@ namespace YellowstonePathology.Business.Gateway
 			return result;
 		}
 
-		public static string GetPanelOrderIdsToAcknowledge()
+		/*public static string GetPanelOrderIdsToAcknowledge()
 		{
 			StringBuilder result = new StringBuilder();
 			SqlCommand cmd = new SqlCommand("pGetListOfPanelOrderIdsToAcknowledge");
 			cmd.CommandType = CommandType.StoredProcedure;
-			using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{
 				cn.Open();
 				cmd.Connection = cn;
@@ -1341,7 +1348,7 @@ namespace YellowstonePathology.Business.Gateway
 
 			if (result.Length > 0) result = result.Remove(result.Length - 1, 1);
 			return result.ToString();
-		}
+		}*/
 
         public static YellowstonePathology.Business.Test.PantherAliquotList GetPantherOrdersNotAliquoted()
         {
@@ -1356,7 +1363,7 @@ namespace YellowstonePathology.Business.Gateway
                 "where ao.AliquotType = 'Panther Aliquot' " +
                 "and ao.Validated = 0 order by a.AccessionTime";
 
-            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;
@@ -1387,7 +1394,7 @@ namespace YellowstonePathology.Business.Gateway
                 "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +                 
                 "where TechnicalComponentInstrumentId = 'PNTHR' and pso.Accepted = 0 order by pso.OrderTime";          
 
-            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;
@@ -1418,7 +1425,7 @@ namespace YellowstonePathology.Business.Gateway
                 "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
                 "where TechnicalComponentInstrumentId = 'PNTHR' and pso.Accepted = 0 order by pso.OrderTime";
 
-            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;
@@ -1449,7 +1456,7 @@ namespace YellowstonePathology.Business.Gateway
                 "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
                 "where TechnicalComponentInstrumentId = 'PNTHR' and pso.Accepted = 1 and pso.Final = 0 order by pso.FinalTime desc";
 
-            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;
@@ -1480,7 +1487,7 @@ namespace YellowstonePathology.Business.Gateway
                 "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
                 "where TechnicalComponentInstrumentId = 'PNTHR' and pso.Final = 1 order by pso.FinalTime desc";
 
-            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;
@@ -1511,7 +1518,7 @@ namespace YellowstonePathology.Business.Gateway
                 "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
                 "where TechnicalComponentInstrumentId = 'PNTHR' and pso.Accepted = 1 and pso.Final = 0 order by pso.OrderTime";
 
-            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;
@@ -1542,7 +1549,7 @@ namespace YellowstonePathology.Business.Gateway
                 "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
                 "where TechnicalComponentInstrumentId = 'PNTHR' and pso.Final = 1 and pso.FinalDate >= dateAdd(mm, -3, pso.FinalDate) order by pso.FinalTime desc";
 
-            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;
@@ -1573,7 +1580,7 @@ namespace YellowstonePathology.Business.Gateway
                 "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
                 "where TechnicalComponentInstrumentId = 'PNTHR' and pso.Accepted = 0 order by pso.OrderTime";
 
-            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;
@@ -1604,7 +1611,7 @@ namespace YellowstonePathology.Business.Gateway
                 "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
                 "where TechnicalComponentInstrumentId = 'PNTHR' and pso.Accepted = 0 order by pso.OrderTime";
 
-            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;
@@ -1635,7 +1642,7 @@ namespace YellowstonePathology.Business.Gateway
                 "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
                 "where TechnicalComponentInstrumentId = 'PNTHR' and pso.Accepted = 1 and pso.Final = 0 order by pso.FinalTime desc";
 
-            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;
@@ -1666,7 +1673,7 @@ namespace YellowstonePathology.Business.Gateway
                 "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
                 "where TechnicalComponentInstrumentId = 'PNTHR' and pso.Accepted = 1 and pso.Final = 0 order by pso.FinalTime desc";
 
-            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;
@@ -1697,7 +1704,7 @@ namespace YellowstonePathology.Business.Gateway
                 "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
                 "where TechnicalComponentInstrumentId = 'PNTHR' and pso.Final = 1 order by pso.FinalTime desc";
 
-            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;
@@ -1728,7 +1735,7 @@ namespace YellowstonePathology.Business.Gateway
                 "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
                 "where TechnicalComponentInstrumentId = 'PNTHR' and pso.Final = 1 order by pso.FinalTime desc";
 
-            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;
@@ -1759,7 +1766,7 @@ namespace YellowstonePathology.Business.Gateway
                 "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
                 "where pso.Final = 1 and pso.FinalDate >= dateAdd(mm, -1, getDate()) order by pso.FinalTime desc";
 
-            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;
@@ -1790,7 +1797,7 @@ namespace YellowstonePathology.Business.Gateway
                 "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
                 "where pso.Final = 0 order by pso.OrderTime";
 
-            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;
@@ -1813,9 +1820,11 @@ namespace YellowstonePathology.Business.Gateway
 		{
             SqlCommand cmd = new SqlCommand("select * from tblTaskOrder where AcknowledgementType = @AcknowledgementType and " +
                 "OrderDate between dateadd(dd, -15, GetDate()) and GetDate() order by OrderDate desc " +
-                "select * from tblTaskOrderDetail where TaskOrderId in(select TaskOrderId from tblTaskOrder where " +
+                "select * from tblTaskOrderDetail tod " +
+                "join tblTaskOrderDetailFedexShipment todf on tod.TaskOrderDetailId = todf.TaskOrderDetailId " +
+                "where TaskOrderId in(select TaskOrderId from tblTaskOrder where " +
                 "AcknowledgementType = @AcknowledgementType and OrderDate between dateadd(dd, -15, GetDate()) and GetDate()) " +
-                "order by TaskOrderDetailId");
+                "order by tod.TaskOrderDetailId");
             cmd.CommandType = CommandType.Text;
             cmd.Parameters.Add("@AcknowledgementType", SqlDbType.VarChar).Value = acknowledgementType;
 			YellowstonePathology.Business.Task.Model.TaskOrderCollection result = BuildTaskOrderCollection(cmd);
@@ -1832,7 +1841,7 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.CommandType = CommandType.Text;
 			cmd.Parameters.Add("@AcknowledgementType", SqlDbType.VarChar).Value = Task.Model.TaskAcknowledgementType.Daily;
 
-			using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{
 				cn.Open();
 				cmd.Connection = cn;
@@ -1862,7 +1871,7 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = DateTime.Today.AddDays(-daysBack);
 			cmd.Parameters.Add("@EndDate", SqlDbType.DateTime).Value = DateTime.Today;
 
-			using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{
 				cn.Open();
 				cmd.Connection = cn;
@@ -1889,7 +1898,7 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.Parameters.Add("@AcknowledgementType", SqlDbType.VarChar).Value = Task.Model.TaskAcknowledgementType.Daily;
 			cmd.Parameters.Add("@TaskId", SqlDbType.VarChar).Value = taskId;
 
-			using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{
 				cn.Open();
 				cmd.Connection = cn;
@@ -1924,7 +1933,7 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.Parameters.Add("@AcknowledgementType", SqlDbType.VarChar).Value = Task.Model.TaskAcknowledgementType.Daily;
 			cmd.Parameters.Add("@TaskId", SqlDbType.VarChar).Value = taskId;
 
-			using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{
 				cn.Open();
 				cmd.Connection = cn;
@@ -1948,7 +1957,7 @@ namespace YellowstonePathology.Business.Gateway
 		{
             SqlCommand cmd = new SqlCommand("select * from tblTaskOrder where AcknowledgementType = @AcknowledgementType and TaskOrderId in " +
                 "(Select TaskOrderId from tblTaskOrderDetail where Acknowledged = 0 and AssignedTo = @AssignedTo) order by OrderDate desc " +
-                "select * from tblTaskOrderDetail where Acknowledged = 0 and AssignedTo = @AssignedTo order by TaskOrderDetailId");
+                "select * from tblTaskOrderDetail tod join tblTaskOrderDetailFedexShipment todf on tod.TaskOrderDetailId = todf.TaskOrderDetailId where Acknowledged = 0 and AssignedTo = @AssignedTo order by tod.TaskOrderDetailId");
             cmd.CommandType = CommandType.Text;
             cmd.Parameters.Add("@AssignedTo", SqlDbType.VarChar).Value = assignedTo;
             cmd.Parameters.Add("@AcknowledgementType", SqlDbType.VarChar).Value = acknowledgementType;
@@ -1981,7 +1990,7 @@ namespace YellowstonePathology.Business.Gateway
         private static Task.Model.TaskOrderCollection BuildTaskOrderCollection(SqlCommand cmd)
         {
             YellowstonePathology.Business.Task.Model.TaskOrderCollection result = new YellowstonePathology.Business.Task.Model.TaskOrderCollection();
-            using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;
@@ -1998,8 +2007,15 @@ namespace YellowstonePathology.Business.Gateway
                     while (dr.Read())
                     {
                         Task.Model.TaskOrderDetail taskOrderDetail = new Task.Model.TaskOrderDetail();
+                        string taskId = dr["TaskId"].ToString();
+                        if (dr["TaskId"].ToString() == "FDXSHPMNT")
+                        {
+                            taskOrderDetail = new Task.Model.TaskOrderDetailFedexShipment();
+                        }                        
+
                         Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(taskOrderDetail, dr);
                         sqlDataReaderPropertyWriter.WriteProperties();
+
                         foreach (Task.Model.TaskOrder taskOrder in result)
                         {
                             if (taskOrderDetail.TaskOrderId == taskOrder.TaskOrderId)
@@ -2052,7 +2068,7 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.Parameters.Add("@AliquotOrderId", SqlDbType.VarChar).Value = aliquotOrderId;
 
 			YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingScannedItemView result = null;
-			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.BaseData.SqlConnectionString))
+			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{
 				cn.Open();
 				cmd.Connection = cn;
@@ -2080,7 +2096,7 @@ namespace YellowstonePathology.Business.Gateway
             cmd.Parameters.Add("@ContainerId", SqlDbType.VarChar).Value = "CTNR" + containerId;
 
             YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingScannedItemView result = null;
-            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.BaseData.SqlConnectionString))
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;
@@ -2111,7 +2127,7 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.Parameters.Add("@SlideOrderId", SqlDbType.VarChar).Value = slideOrderId;
 
 			YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingScannedItemView result = null;
-			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Business.BaseData.SqlConnectionString))
+			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{
 				cn.Open();
 				cmd.Connection = cn;
@@ -2257,7 +2273,7 @@ namespace YellowstonePathology.Business.Gateway
             return result;
         }
 
-        public static YellowstonePathology.Business.NeogenomicsResultCollection GetNeogenomicsResultCollection()
+        /*public static YellowstonePathology.Business.NeogenomicsResultCollection GetNeogenomicsResultCollection()
 		{            
 #if MONGO
             return AccessionOrderGatewayMongo.GetNeogenomicsResultCollection();
@@ -2284,7 +2300,7 @@ namespace YellowstonePathology.Business.Gateway
 			}
 			return result;
 #endif
-		}
+		}*/
 
 		public static YellowstonePathology.Business.Test.Model.StainTest GetStainTestByTestId(int testId)
 		{
@@ -2293,7 +2309,7 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.CommandType = System.Data.CommandType.Text;
 			cmd.Parameters.Add("@TestId", SqlDbType.Int).Value = testId;
 
-			using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{
 				cn.Open();
 				cmd.Connection = cn;
@@ -2318,7 +2334,7 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.CommandType = System.Data.CommandType.Text;
 			cmd.Parameters.Add("@ImmunoCommentId", SqlDbType.Int).Value = immunoCommentId;
 
-			using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{
 				cn.Open();
 				cmd.Connection = cn;
@@ -2342,7 +2358,7 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.CommandText = "SELECT * from tblOrderComment order by OrderCommentId";
 			cmd.CommandType = System.Data.CommandType.Text;
 
-			using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{
 				cn.Open();
 				cmd.Connection = cn;
@@ -2368,7 +2384,7 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.CommandType = System.Data.CommandType.Text;
 			cmd.Parameters.Add("@OrderCommentId", System.Data.SqlDbType.Int).Value = orderCommentId;
 
-			using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{
 				cn.Open();
 				cmd.Connection = cn;
@@ -2392,7 +2408,7 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.CommandText = "select distinct CaseType from tblPanelSet where CaseType is not null";
 			cmd.CommandType = CommandType.Text;
 
-			using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{
 				cn.Open();
 				cmd.Connection = cn;
@@ -2444,7 +2460,7 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.CommandType = System.Data.CommandType.Text;
 			cmd.Parameters.Add("@LineId", SqlDbType.Int).Value = otherConditionId;
 
-			using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{
 				cn.Open();
 				cmd.Connection = cn;
@@ -2495,7 +2511,7 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.CommandType = System.Data.CommandType.Text;
 			cmd.Parameters.Add("@CommentId", SqlDbType.Int).Value = commentId;
 
-			using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{
 				cn.Open();
 				cmd.Connection = cn;
@@ -2546,7 +2562,7 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.CommandType = System.Data.CommandType.Text;
 			cmd.Parameters.Add("@ResultCode", SqlDbType.VarChar).Value = resultCode;
 
-			using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{
 				cn.Open();
 				cmd.Connection = cn;
@@ -2597,7 +2613,7 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.CommandType = System.Data.CommandType.Text;
 			cmd.Parameters.Add("@ResultCode", SqlDbType.VarChar).Value = resultCode;
 
-			using (SqlConnection cn = new SqlConnection(Properties.Settings.Default.ProductionConnectionString))
+			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{
 				cn.Open();
 				cmd.Connection = cn;

@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>229</ApplicationRevision>
+    <ApplicationRevision>292</ApplicationRevision>
     <ApplicationVersion>10.1.6.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -291,6 +291,9 @@
     <Compile Include="Business\BaseData.cs" />
     <Compile Include="Business\BaseItem.cs" />
     <Compile Include="Business\BaseListItem.cs" />
+    <Compile Include="Business\Client.Model\IdahoClientIdList.cs" />
+    <Compile Include="Business\HL7View\ADTMessage.cs" />
+    <Compile Include="Business\HL7View\ADTMessages.cs" />
     <Compile Include="Business\Billing.Model\BillableObject.cs" />
     <Compile Include="Business\Billing.Model\BillableObjectFactory.cs" />
     <Compile Include="Business\Billing.Model\BillableObjectInHouseMolecular.cs" />
@@ -637,6 +640,9 @@
     <Compile Include="Business\Document\ReportDisclaimer.cs" />
     <Compile Include="Business\Document\ReportDistributionTable.cs" />
     <Compile Include="Business\Document\ReportSaveModeEnum.cs" />
+    <Compile Include="Business\Document\ADTInsuranceDocument.xaml.cs">
+      <DependentUpon>ADTInsuranceDocument.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Business\Document\SVHBillingDocument.xaml.cs">
       <DependentUpon>SVHBillingDocument.xaml</DependentUpon>
     </Compile>
@@ -811,7 +817,6 @@
     <Compile Include="Business\Gateway\AccessionOrderBuilder.cs" />
     <Compile Include="Business\Gateway\AccessionOrderBuilderV2.cs" />
     <Compile Include="Business\Gateway\AccessionOrderGateway.cs" />
-    <Compile Include="Business\Gateway\AccessionOrderGatewayMongo.cs" />
     <Compile Include="Business\Gateway\AccessionSlideOrderViewBuilder.cs" />
     <Compile Include="Business\Gateway\AOSaveResult.cs" />
     <Compile Include="Business\Gateway\BillingGateway.cs" />
@@ -821,11 +826,9 @@
     <Compile Include="Business\Gateway\ClientOrderGateway.cs" />
     <Compile Include="Business\Gateway\CytologyScreeningSearchGateway.cs" />
     <Compile Include="Business\Gateway\FlowGateway.cs" />
-    <Compile Include="Business\Gateway\FlowGatewayMongo.cs" />
     <Compile Include="Business\Gateway\OrderCommentGateway.cs" />
     <Compile Include="Business\Gateway\PatientLinkingGateway.cs" />
     <Compile Include="Business\Gateway\PhysicianClientGateway.cs" />
-    <Compile Include="Business\Gateway\PhysicianClientGatewayMongo.cs" />
     <Compile Include="Business\Gateway\ReportDistributionGateway.cs" />
     <Compile Include="Business\Gateway\ReportOrderGateway.cs" />
     <Compile Include="Business\Gateway\ReportSearchGateway.cs" />
@@ -898,6 +901,9 @@
     <Compile Include="Business\HL7View\Hl7Client.cs" />
     <Compile Include="Business\HL7View\Hl7MessageType.cs" />
     <Compile Include="Business\HL7View\HolyRosaryHealthCare.cs" />
+    <Compile Include="Business\HL7View\GT1.cs" />
+    <Compile Include="Business\HL7View\IN2.cs" />
+    <Compile Include="Business\HL7View\IN1.cs" />
     <Compile Include="Business\HL7View\IResultView.cs" />
     <Compile Include="Business\HL7View\MshView.cs" />
     <Compile Include="Business\HL7View\ObrView.cs" />
@@ -932,6 +938,7 @@
     <Compile Include="Business\HL7View\Panther\PantherOrderPriorityEnum.cs" />
     <Compile Include="Business\HL7View\Panther\PantherPID.cs" />
     <Compile Include="Business\HL7View\PidView.cs" />
+    <Compile Include="Business\HL7View\PV1.cs" />
     <Compile Include="Business\HL7View\ResultStatus.cs" />
     <Compile Include="Business\HL7View\ResultStatusEnum.cs" />
     <Compile Include="Business\HL7View\ResultViewFactory.cs" />
@@ -1031,6 +1038,7 @@
     <Compile Include="Business\MaterialTracking.Model\FedexDeleteShipmentReply.cs" />
     <Compile Include="Business\MaterialTracking.Model\FedexProcessShipmentReply.cs" />
     <Compile Include="Business\MaterialTracking.Model\FedexReturnLabelRequest.cs" />
+    <Compile Include="Business\MaterialTracking.Model\FedexLocationSearchRequest.cs" />
     <Compile Include="Business\MaterialTracking.Model\FedexTrackingRequest.cs" />
     <Compile Include="Business\MaterialTracking.Model\FedexShipmentRequest.cs" />
     <Compile Include="Business\MaterialTracking.Model\FedexTrackingResponse.cs" />
@@ -1043,29 +1051,6 @@
     <Compile Include="Business\MaterialTracking.Model\MaterialTrackingScannedItemView.cs" />
     <Compile Include="Business\MaterialTracking.Model\MaterialTrackingScannedItemViewCollection.cs" />
     <Compile Include="Business\MolecularTesting\CaseList.cs" />
-    <Compile Include="Business\Mongo\AOTransferBuilder.cs" />
-    <Compile Include="Business\Mongo\BSONBuilder.cs" />
-    <Compile Include="Business\Mongo\BSONDRBuilder.cs" />
-    <Compile Include="Business\Mongo\BSONObjectBuilder.cs" />
-    <Compile Include="Business\Mongo\BSONPropertyWriter.cs" />
-    <Compile Include="Business\Mongo\ClientTransferBuilder.cs" />
-    <Compile Include="Business\Mongo\CompoundBsonDocumentBuilder.cs" />
-    <Compile Include="Business\Mongo\CytologyTransfer.cs" />
-    <Compile Include="Business\Mongo\DocumentCollectionTracker.cs" />
-    <Compile Include="Business\Mongo\DocumentStatusEnum.cs" />
-    <Compile Include="Business\Mongo\DocumentTracker.cs" />
-    <Compile Include="Business\Mongo\Gateway.cs" />
-    <Compile Include="Business\Mongo\LocalServer.cs" />
-    <Compile Include="Business\Mongo\MongoTestServer.cs" />
-    <Compile Include="Business\Mongo\PSOCytologyTransferBuilder.cs" />
-    <Compile Include="Business\Mongo\PSOSurgicalTransferBuilder.cs" />
-    <Compile Include="Business\Mongo\PSOTransferBuilder.cs" />
-    <Compile Include="Business\Mongo\Server.cs" />
-    <Compile Include="Business\Mongo\SurgicalTransfer.cs" />
-    <Compile Include="Business\Mongo\TestServer.cs" />
-    <Compile Include="Business\Mongo\Transfer.cs" />
-    <Compile Include="Business\Mongo\TransferCollection.cs" />
-    <Compile Include="Business\Mongo\ValueHelper.cs" />
     <Compile Include="Business\Monitor.Model\CytologyScreening.cs" />
     <Compile Include="Business\Monitor.Model\CytologyScreeningCollection.cs" />
     <Compile Include="Business\Monitor.Model\Distribution.cs" />
@@ -1101,16 +1086,26 @@
     <Compile Include="Business\Task.Model\TaskFedexShipment.cs" />
     <Compile Include="Business\Task.Model\TaskOrderDetailFactory.cs" />
     <Compile Include="Business\Task.Model\TaskOrderDetailFedexShipment.cs" />
+    <Compile Include="Business\Test\AMLFavorableRisk\AMLFavorableRiskTest.cs" />
     <Compile Include="Business\Test\AMLPrognosticProfile\AMLPrognosticProfileTest.cs" />
+    <Compile Include="Business\Test\MPNStandardReflexPanel\MPNStandardReflexPanelTest.cs" />
+    <Compile Include="Business\Test\FlowCytometryAnalysis\FlowCytometryAnalysisTest.cs" />
     <Compile Include="Business\Test\BCRABLByFish\BCRABLByFishTestOrder.cs" />
+    <Compile Include="Business\Test\ChromosomeAnalysis\ChromosomeAnalysisWPHOBXView.cs" />
+    <Compile Include="Business\Test\EGFRToALKReflexAnalysis\EGFRToALKReflexAnalysisPDL122C3Result.cs" />
+    <Compile Include="Business\Test\EGFRToALKReflexAnalysis\EGFRToALKReflexAnalysisPDL1SP142Result.cs" />
     <Compile Include="Business\Test\GrossOnly\GrossOnlyTest.cs" />
     <Compile Include="Business\Test\GrossOnly\GrossOnlyTestOrder.cs" />
     <Compile Include="Business\Test\GrossOnly\GrossOnlyWordDocument.cs" />
     <Compile Include="Business\Test\BrainDonation\BrainDonationTest.cs" />
+    <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationByISHWPHOBXView.cs" />
+    <Compile Include="Business\Test\HPV\HPVWPHOBXView.cs" />
     <Compile Include="Business\Test\JAK2V617F\JAK2V617FWPHObxView.cs" />
+    <Compile Include="Business\Test\LLP\LLPWPHOBXView.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult32.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult42.cs" />
     <Compile Include="Business\Test\MUM1ByIHC\MUM1ByIHCTest.cs" />
+    <Compile Include="Business\Test\NGCT\NGCTWPHOBXView.cs" />
     <Compile Include="Business\Test\PDL122C3\PDL122C3EpicObxView.cs" />
     <Compile Include="Business\Test\PDL122C3\PDL122C3SystemGeneratedAmendmentText.cs" />
     <Compile Include="Business\Test\PDL122C3\PDL122C3Test.cs" />
@@ -1120,8 +1115,14 @@
     <Compile Include="Business\Test\RASRAFPanel\RASRAFCMMCNTEView.cs" />
     <Compile Include="Business\Test\ROS1ByFISH\ROS1ByFISHPositiveResult.cs" />
     <Compile Include="Business\Test\IRF4F\IRF4FTest.cs" />
+    <Compile Include="Business\Test\TCellNKProfile\TCellNKProfileEPICOBXView.cs" />
+    <Compile Include="Business\Test\TCellNKProfile\TCellNKProfileTest.cs" />
+    <Compile Include="Business\Test\TCellNKProfile\TCellNKProfileTestOrder.cs" />
+    <Compile Include="Business\Test\TCellNKProfile\TCellNKProfileWordDocument.cs" />
+    <Compile Include="Business\Test\TestCancelled\TestCancelledWPHOBXView.cs" />
     <Compile Include="Business\Test\ThinPrepPap\ThinPrepPapWPHOBXView.cs" />
     <Compile Include="Business\Test\TP63F\TP63FTest.cs" />
+    <Compile Include="Business\Test\WomensHealthProfile\WomensHealthProfileWPHOBXView.cs" />
     <Compile Include="Business\XPSDocument\ClientBillingDetailReportV2.cs" />
     <Compile Include="Business\XPSDocument\PlacentalPathologyQuestionnaireV2.cs" />
     <Compile Include="Business\XPSDocument\Result\ClientBillingDetailReportResult\ClientBillingDetailReportData.cs" />
@@ -1136,6 +1137,8 @@
     <Compile Include="Business\XPSDocument\Result\Xps\AccessionOrderDataSheetV2.cs" />
     <Compile Include="Business\XPSDocument\Result\Xps\ClientSupplyOrderReportV2.cs" />
     <Compile Include="MySQLMigration\DataRowComparer.cs" />
+    <Compile Include="MySQLMigration\IndexedColumn.cs" />
+    <Compile Include="MySQLMigration\IndexedColumnCollection.cs" />
     <Compile Include="MySQLMigration\MigrationStatus.cs" />
     <Compile Include="MySQLMigration\MigrationStatusCollection.cs" />
     <Compile Include="MySQLMigration\MySQLDatabaseBuilder.cs" />
@@ -3031,6 +3034,37 @@
     <Compile Include="DomainPersistence\XmlPropertyReader.cs" />
     <Compile Include="DomainPersistence\XmlPropertyWriter.cs" />
     <Compile Include="MySQLMigration\MySqlDataReaderPropertyWriter.cs" />
+    <Compile Include="MySQLMigration\NonpersistentColumnDef.cs" />
+    <Compile Include="MySQLMigration\NonpersistentTableDef.cs" />
+    <Compile Include="MySQLMigration\NonpersistentTableDefADT.cs" />
+    <Compile Include="MySQLMigration\NonpersistentTableDefCollection.cs" />
+    <Compile Include="MySQLMigration\NonpersistentTableDefCytologyDiagnosis.cs" />
+    <Compile Include="MySQLMigration\NonpersistentTableDefCytologyOtherConditions.cs" />
+    <Compile Include="MySQLMigration\NonpersistentTableDefCytologyReportComment.cs" />
+    <Compile Include="MySQLMigration\NonpersistentTableDefCytologySAComments.cs" />
+    <Compile Include="MySQLMigration\NonpersistentTableDefCytologyScreeningImpression.cs" />
+    <Compile Include="MySQLMigration\NonpersistentTableDefFlowCommentV2.cs" />
+    <Compile Include="MySQLMigration\NonpersistentTableDefFlowMarkerPanel.cs" />
+    <Compile Include="MySQLMigration\NonpersistentTableDefFlowPanel.cs" />
+    <Compile Include="MySQLMigration\NonpersistentTableDefICD9Code.cs" />
+    <Compile Include="MySQLMigration\NonpersistentTableDefImmunoComment.cs" />
+    <Compile Include="MySQLMigration\NonpersistentTableDefMarkers.cs" />
+    <Compile Include="MySQLMigration\NonpersistentTableDefMaterialLocation.cs" />
+    <Compile Include="MySQLMigration\NonpersistentTableDefOrderComment.cs" />
+    <Compile Include="MySQLMigration\NonpersistentTableDefPanel.cs" />
+    <Compile Include="MySQLMigration\NonpersistentTableDefPanelSet.cs" />
+    <Compile Include="MySQLMigration\NonpersistentTableDefPatient.cs" />
+    <Compile Include="MySQLMigration\NonpersistentTableDefSpecimenAdequacy.cs" />
+    <Compile Include="MySQLMigration\NonpersistentTableDefStainResultOption.cs" />
+    <Compile Include="MySQLMigration\NonpersistentTableDefStainResultOptionGroup.cs" />
+    <Compile Include="MySQLMigration\NonpersistentTableDefStVincent.cs" />
+    <Compile Include="MySQLMigration\NonpersistentTableDefTest.cs" />
+    <Compile Include="MySQLMigration\NonpersistentTableDefWebServiceAccount.cs" />
+    <Compile Include="MySQLMigration\NonpersistentTableDefWebServiceAccountClient.cs" />
+    <Compile Include="MySQLMigration\TableForeignKey.cs" />
+    <Compile Include="MySQLMigration\TableForeignKeyCollection.cs" />
+    <Compile Include="MySQLMigration\TableIndex.cs" />
+    <Compile Include="MySQLMigration\TableIndexCollection.cs" />
     <Compile Include="UI\AmendmentPage.xaml.cs">
       <DependentUpon>AmendmentPage.xaml</DependentUpon>
     </Compile>
@@ -3052,6 +3086,9 @@
       <DependentUpon>BillingPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Billing\BillingPath.cs" />
+    <Compile Include="UI\Billing\ADTPage.xaml.cs">
+      <DependentUpon>ADTPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Billing\SVHCDMResultDialog.xaml.cs">
       <DependentUpon>SVHCDMResultDialog.xaml</DependentUpon>
     </Compile>
@@ -3260,16 +3297,6 @@
     <Compile Include="UI\MaterialTracking\FedXTrackingPage.xaml.cs">
       <DependentUpon>FedXTrackingPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Mongo\ClassHelper.cs" />
-    <Compile Include="UI\Mongo\MongoMigrationWindow.xaml.cs">
-      <DependentUpon>MongoMigrationWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Mongo\ProcessRunner.cs" />
-    <Compile Include="UI\Mongo\SQLGateway.cs" />
-    <Compile Include="UI\Mongo\Testing.cs" />
-    <Compile Include="UI\Mongo\TransferWindow.xaml.cs">
-      <DependentUpon>TransferWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UI\Monitor\AutopsyRequestMonitorPage.xaml.cs">
       <DependentUpon>AutopsyRequestMonitorPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -3282,6 +3309,9 @@
     </Compile>
     <Compile Include="UI\MySql\MySqlMigrationDialog.xaml.cs">
       <DependentUpon>MySqlMigrationDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MySql\NonpersistentTableDialog.xaml.cs">
+      <DependentUpon>NonpersistentTableDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\NHunspell.xaml.cs">
       <DependentUpon>NHunspell.xaml</DependentUpon>
@@ -3807,6 +3837,10 @@
       <DependentUpon>RUNX1RUNX1T1AML1ETOTranslocationResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Test\RUNX1RUNX1T1AML1ETOTranslocationResultPath.cs" />
+    <Compile Include="UI\Test\TCellNKProfileResultPage.xaml.cs">
+      <DependentUpon>TCellNKProfileResultPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Test\TCellNKProfileResultPath.cs" />
     <Compile Include="UI\Test\TCellRecepterBetaGeneRearrangementResultPage.xaml.cs" />
     <Compile Include="UI\Test\TCellRecepterBetaGeneRearrangementResultPath.cs" />
     <Compile Include="UI\Test\TCellSubsetAnalysisResultPage.xaml.cs">
@@ -4869,6 +4903,7 @@
     <EmbeddedResource Include="Business\MaterialTracking.Model\FedexProcessShipmentRequestReturn.v19.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Business\MaterialTracking.Model\FedexSearchLocationRequest.v1.xml" />
     <Content Include="dll\Interop.FAXCOMEXLib.dll" />
   </ItemGroup>
   <ItemGroup>
@@ -4881,6 +4916,10 @@
       <SubType>Designer</SubType>
     </Page>
     <EmbeddedResource Include="Business\Document\SVHBillingDocument.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Business\Document\ADTInsuranceDocument.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -4945,6 +4984,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\AppMessaging\LockRequestResponseRecievedPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Billing\ADTPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -5160,14 +5203,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\Mongo\MongoMigrationWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\Mongo\TransferWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="UI\Monitor\AutopsyRequestMonitorPage.xaml" />
     <Page Include="UI\Monitor\MissingInformationMonitorPage.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -5178,6 +5213,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\MySql\MySqlMigrationDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\MySql\NonpersistentTableDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -5687,6 +5726,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\Test\RUNX1RUNX1T1AML1ETOTranslocationResultPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Test\TCellNKProfileResultPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
