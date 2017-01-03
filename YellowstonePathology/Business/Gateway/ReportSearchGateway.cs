@@ -157,7 +157,7 @@ namespace YellowstonePathology.Business.Gateway
                 "Left Outer Join tblSystemUser su on pso.OrderedById = su.UserId " +
                 "WHERE a.MasterAccessionNo in " +
                 "(Select MasterAccessionNo from tblSpecimenOrder so where so.masterAccessionNo = a.masterAccessionNo " +
-                "and charindex(@SpecimenDescription, so.Description) > 0) " +
+                "and locate(@SpecimenDescription, so.Description) > 0) " +
                 "and a.AccessionDate between @StartDate and @EndDate;";
 
             cmd.Parameters.AddWithValue("@SpecimenDescription", specimenDescription);

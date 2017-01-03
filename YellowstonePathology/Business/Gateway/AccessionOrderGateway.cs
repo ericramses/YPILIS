@@ -1022,40 +1022,41 @@ namespace YellowstonePathology.Business.Gateway
 			return result;
 		}
 
-        /*WHC needs to be fixed */
 		public static Surgical.SurgicalMasterLogList GetSurgicalMasterLogList(DateTime reportDate)
 		{
 			Surgical.SurgicalMasterLogList result = new Surgical.SurgicalMasterLogList();
             MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "declare rpts table " +
-                "( " +
-                "AccessionTime datetime, " +
-                "ReportNo varchar(20), " +
-                "AccessioningFacilityId varchar(100), " +
-                "PFirstName varchar(100), " +
-                "PLastName varchar(100), " +
-                "PBirthdate datetime, " +
-                "PhysicianName varchar(100), " +
-                "ClientName varchar(100), " +
-                "AliquotCount int " +
-                ") " +
-                "insert rpts " +
-                "SELECT Distinct a.AccessionTime, pso.ReportNo, a.AccessioningFacilityId, a.PFirstName, a.PLastName, " +
-                "a.PBirthdate, a.PhysicianName, a.ClientName, Count(*) AliquotCount " +
-                "FROM tblAccessionOrder a JOIN tblPanelSetOrder pso ON a.MasterAccessionNo = pso.MasterAccessionNo " +
-                "JOIN tblSpecimenORder so on a.MasterAccessionNo = so.MasterAccessionNo " +
-                "LEFT OUTER JOIN tblAliquotOrder ao on so.SpecimenOrderId = ao.SpecimenOrderId " +
-                "WHERE AccessionDate = @ReportDate and pso.PanelSetId in (13, 50)  " +
-                " group by a.AccessionTime, pso.ReportNo, a.AccessioningFacilityId, a.PFirstName, a.PLastName, " +
-                "a.PBirthdate, a.PhysicianName, a.ClientName " +
-                "Order By AccessionTime " +
-                "SELECT rpts.* From rpts rpts Order By AccessionTime; " +
-                "Select ssr.DiagnosisId, so.Description, ssr.ReportNo " +
-                "FROM tblSurgicalSpecimen ssr " +
-                "JOIN tblSpecimenOrder so ON ssr.SpecimenOrderId = so.SpecimenOrderId " +
-                "join rpts rpts on ssr.ReportNo = rpts.ReportNo order by 1;";
-            cmd.CommandType = CommandType.Text;
-            cmd.Parameters.AddWithValue("@ReportDate", reportDate.ToShortDateString());
+            cmd.CommandText = "pGetSurgicalMasterLogListByDate";
+            /*"declare rpts table " +
+            "( " +
+            "AccessionTime datetime, " +
+            "ReportNo varchar(20), " +
+            "AccessioningFacilityId varchar(100), " +
+            "PFirstName varchar(100), " +
+            "PLastName varchar(100), " +
+            "PBirthdate datetime, " +
+            "PhysicianName varchar(100), " +
+            "ClientName varchar(100), " +
+            "AliquotCount int " +
+            ") " +
+            "insert rpts " +
+            "SELECT Distinct a.AccessionTime, pso.ReportNo, a.AccessioningFacilityId, a.PFirstName, a.PLastName, " +
+            "a.PBirthdate, a.PhysicianName, a.ClientName, Count(*) AliquotCount " +
+            "FROM tblAccessionOrder a JOIN tblPanelSetOrder pso ON a.MasterAccessionNo = pso.MasterAccessionNo " +
+            "JOIN tblSpecimenORder so on a.MasterAccessionNo = so.MasterAccessionNo " +
+            "LEFT OUTER JOIN tblAliquotOrder ao on so.SpecimenOrderId = ao.SpecimenOrderId " +
+            "WHERE AccessionDate = @ReportDate and pso.PanelSetId in (13, 50)  " +
+            " group by a.AccessionTime, pso.ReportNo, a.AccessioningFacilityId, a.PFirstName, a.PLastName, " +
+            "a.PBirthdate, a.PhysicianName, a.ClientName " +
+            "Order By AccessionTime " +
+            "SELECT rpts.* From rpts rpts Order By AccessionTime; " +
+            "Select ssr.DiagnosisId, so.Description, ssr.ReportNo " +
+            "FROM tblSurgicalSpecimen ssr " +
+            "JOIN tblSpecimenOrder so ON ssr.SpecimenOrderId = so.SpecimenOrderId " +
+            "join rpts rpts on ssr.ReportNo = rpts.ReportNo order by 1;";
+            cmd.CommandType = CommandType.Text;*/
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("ReportDate", reportDate);
             using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
