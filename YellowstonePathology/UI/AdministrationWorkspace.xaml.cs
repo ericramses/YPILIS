@@ -89,10 +89,10 @@ namespace YellowstonePathology.UI
 
         private void ButtonPOCRetension_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Reports.POCRetensionReport report = new Business.Reports.POCRetensionReport(DateTime.Parse("3/26/2011"), DateTime.Parse("5/04/2011"));
-            System.Windows.Controls.PrintDialog printDialog = new System.Windows.Controls.PrintDialog();
-            printDialog.ShowDialog();
-            printDialog.PrintDocument(report.DocumentPaginator, "POC Retention Report for: ");
+            //YellowstonePathology.Business.Reports.POCRetensionReport report = new Business.Reports.POCRetensionReport(DateTime.Parse("3/26/2011"), DateTime.Parse("5/04/2011"));
+            //System.Windows.Controls.PrintDialog printDialog = new System.Windows.Controls.PrintDialog();
+            //printDialog.ShowDialog();
+            //printDialog.PrintDocument(report.DocumentPaginator, "POC Retention Report for: ");
         }
 
         private void ButtonCytologyUnsatLetters_Click(object sender, RoutedEventArgs e)
