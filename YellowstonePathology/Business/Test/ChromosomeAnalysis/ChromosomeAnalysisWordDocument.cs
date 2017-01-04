@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business.Test.ChromosomeAnalysis
 		{			
 			ChromosomeAnalysisTestOrder panelSetOrderChromosomeAnalysis = (ChromosomeAnalysisTestOrder)this.m_PanelSetOrder;
 
-			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\ChromosomeAnalysis.1.xml";
+			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\ChromosomeAnalysis.2.xml";
 			base.OpenTemplate();
 
 			this.SetDemographicsV2();
@@ -36,8 +36,9 @@ namespace YellowstonePathology.Business.Test.ChromosomeAnalysis
 			this.ReplaceText("culture_type", panelSetOrderChromosomeAnalysis.CultureType);
 			this.ReplaceText("banding_technique", panelSetOrderChromosomeAnalysis.BandingTechnique);
 			this.ReplaceText("banding_resolution", panelSetOrderChromosomeAnalysis.BandingResolution);
+            this.ReplaceText("asr_comment", panelSetOrderChromosomeAnalysis.ASR);
 
-			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);
+            YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);
 			base.ReplaceText("specimen_description", specimenOrder.Description);
 
 			string collectionDateTimeString = YellowstonePathology.Business.Helper.DateTimeExtensions.CombineDateAndTime(specimenOrder.CollectionDate, specimenOrder.CollectionTime);

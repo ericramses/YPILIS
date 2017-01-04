@@ -660,7 +660,8 @@ namespace YellowstonePathology.UI
 		private void MenuItemMasterLog_Click(object sender, RoutedEventArgs e)
 		{
 			YellowstonePathology.Business.Reports.Surgical.SurgicalMasterLog report = new YellowstonePathology.Business.Reports.Surgical.SurgicalMasterLog();
-			report.CreateReport(DateTime.Today);
+			//report.CreateReport(DateTime.Today);
+            report.CreateReport(DateTime.Parse("10/3/2016"));
             report.PrintReport();
 		}		
 

@@ -59,6 +59,7 @@
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>                    
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
@@ -155,7 +156,10 @@
                 <TextBlock Grid.Column="0" Grid.Row="20" Margin="2,2,2,2" TextAlignment="Right" VerticalAlignment="Center" FontWeight="Bold">Use Billing Agent:</TextBlock>
                 <CheckBox Grid.Column="1" Grid.Row="20" Margin="2,2,2,2" HorizontalAlignment="Left" VerticalAlignment="Center" IsChecked="{Binding Path=AccessionOrder.UseBillingAgent}" />
 
-                <ListView Name="ListViewDocuments" Grid.Column="0" Grid.Row="21" Grid.ColumnSpan="2" ItemsSource="{Binding Path=CaseDocumentCollection}" 
+                <TextBlock Grid.Column="0" Grid.Row="21" Margin="2,2,2,2" TextAlignment="Right" VerticalAlignment="Center" FontWeight="Bold">Research Testing:</TextBlock>
+                <CheckBox Grid.Column="1" Grid.Row="21" Margin="2,2,2,2" HorizontalAlignment="Left" VerticalAlignment="Center" IsChecked="{Binding Path=PanelSetOrder.ResearchTesting}" />
+
+                <ListView Name="ListViewDocuments" Grid.Column="0" Grid.Row="22" Grid.ColumnSpan="2" ItemsSource="{Binding Path=CaseDocumentCollection}" 
                           MouseDoubleClick="ListViewDocuments_MouseDoubleClick">
                     <ListView.View>
                         <GridView>

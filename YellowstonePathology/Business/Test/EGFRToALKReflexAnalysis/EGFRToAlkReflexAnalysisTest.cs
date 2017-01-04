@@ -30,7 +30,8 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
             this.m_EpicDistributionIsImplemented = true;
 
             string task1Description = "Cut H&E slide and give to pathologist to circle tumor for tech only. Give the paraffin block to Flow so they can send to NEO.";
-            this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.Task(YellowstonePathology.Business.Task.Model.TaskAssignment.Histology, task1Description));
+            string task1ClientSpecificDescription = "Give provided slides to pathologist to circle tumor for tech only. Give the paraffin block to Flow so they can send to NEO.";
+            this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.Task(YellowstonePathology.Business.Task.Model.TaskAssignment.Histology, task1Description, task1ClientSpecificDescription, new Business.Client.Model.IdahoClientIdList()));
 
             string task2Description = "Collect circled H&E after slide, curls and paraffin block from pathologist and send to NEO.";
             this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskFedexShipment(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, task2Description, new Facility.Model.NeogenomicsIrvine()));

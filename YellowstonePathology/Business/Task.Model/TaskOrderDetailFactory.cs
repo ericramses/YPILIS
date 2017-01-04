@@ -23,16 +23,16 @@ namespace YellowstonePathology.Business.Task.Model
             return result;
         }
 
-        public static TaskOrderDetail GetTaskOrderDetail(string taskOrderDetailId, string taskOrderId, string objectId, Task task)
+        public static TaskOrderDetail GetTaskOrderDetail(string taskOrderDetailId, string taskOrderId, string objectId, Task task, int clientId)
         {
             TaskOrderDetail result = null;
             switch (task.TaskId)
             {
                 case "FDXSHPMNT":
-                    result = new TaskOrderDetailFedexShipment(taskOrderDetailId, taskOrderId, objectId, task);
+                    result = new TaskOrderDetailFedexShipment(taskOrderDetailId, taskOrderId, objectId, task, clientId);
                     break;
                 default:
-                    result = new TaskOrderDetail(taskOrderDetailId, taskOrderId, objectId, task);
+                    result = new TaskOrderDetail(taskOrderDetailId, taskOrderId, objectId, task, clientId);
                     break;
             }
             return result;
