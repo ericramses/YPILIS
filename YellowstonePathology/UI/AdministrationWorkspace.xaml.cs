@@ -329,7 +329,7 @@ namespace YellowstonePathology.UI
             YellowstonePathology.UI.Login.SerumLabel label = new Login.SerumLabel("Serum", "84165-26");                        
 
             System.Windows.Controls.PrintDialog printDialog = new System.Windows.Controls.PrintDialog();
-            printDialog.PrintTicket.CopyCount = 50;
+            printDialog.PrintTicket.CopyCount = 5;
             printDialog.PrintTicket.PageMediaSize = new PageMediaSize(384, 96);
             printDialog.PrintQueue = printQueue;
 
@@ -344,7 +344,7 @@ namespace YellowstonePathology.UI
             
             YellowstonePathology.UI.Login.FormalinAddedLabel label = new Login.FormalinAddedLabel();
             System.Windows.Controls.PrintDialog printDialog = new System.Windows.Controls.PrintDialog();
-            printDialog.PrintTicket.CopyCount = 50;
+            printDialog.PrintTicket.CopyCount = 5;
             printDialog.PrintTicket.PageMediaSize = new PageMediaSize(384, 96);
             printDialog.PrintQueue = printQueue;
 
@@ -359,7 +359,7 @@ namespace YellowstonePathology.UI
 
             YellowstonePathology.UI.Login.IFELabel label = new Login.IFELabel();
             System.Windows.Controls.PrintDialog printDialog = new System.Windows.Controls.PrintDialog();
-            printDialog.PrintTicket.CopyCount = 50;
+            printDialog.PrintTicket.CopyCount = 5;
             printDialog.PrintTicket.PageMediaSize = new PageMediaSize(384, 96);
             printDialog.PrintQueue = printQueue;
 
@@ -374,7 +374,7 @@ namespace YellowstonePathology.UI
             YellowstonePathology.UI.Login.SerumLabel serumLabel = new Login.SerumLabel("Urine", "84166-26");
             System.Windows.Controls.PrintDialog printDialog = new System.Windows.Controls.PrintDialog();
 
-            printDialog.PrintTicket.CopyCount = 50;
+            printDialog.PrintTicket.CopyCount = 5;
             printDialog.PrintTicket.PageMediaSize = new PageMediaSize(384, 96);
             printDialog.PrintQueue = printQueue;
             printDialog.PrintDocument(serumLabel.DocumentPaginator, "Urine Labels");           
