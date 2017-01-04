@@ -29,8 +29,8 @@ namespace YellowstonePathology.Business.Task.Model
             
         }
 
-        public TaskOrderDetailFedexShipment(string taskOrderDetailId, string taskOrderId, string objectId, Task task) 
-            : base(taskOrderDetailId, taskOrderId, objectId, task)
+        public TaskOrderDetailFedexShipment(string taskOrderDetailId, string taskOrderId, string objectId, Task task, int clientId) 
+            : base(taskOrderDetailId, taskOrderId, objectId, task, clientId)
         {
             TaskFedexShipment fedexShipment = (TaskFedexShipment)task;
             this.m_ShipToFacilityId = fedexShipment.ShipToFacility.FacilityId;

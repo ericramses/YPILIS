@@ -105,7 +105,7 @@ namespace YellowstonePathology.Business.Visitor
             {
 				string taskOrderDetailId = YellowstonePathology.Business.OrderIdParser.GetNextTaskOrderDetailId(this.m_TaskOrderStainAcknowlegedment.TaskOrderDetailCollection, this.m_TaskOrderStainAcknowlegedment.TaskOrderId);
                 string taskOrderDetailObjectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-				this.m_TaskOrderDetailAddedTestOrders = new YellowstonePathology.Business.Task.Model.TaskOrderDetail(taskOrderDetailId, this.m_TaskOrderStainAcknowlegedment.TaskOrderId, taskOrderDetailObjectId, taskAcknowledgeStainOrder);                
+				this.m_TaskOrderDetailAddedTestOrders = new YellowstonePathology.Business.Task.Model.TaskOrderDetail(taskOrderDetailId, this.m_TaskOrderStainAcknowlegedment.TaskOrderId, taskOrderDetailObjectId, taskAcknowledgeStainOrder, this.m_AccessionOrder.ClientId);
                 this.m_TaskOrderStainAcknowlegedment.TaskOrderDetailCollection.Add(this.m_TaskOrderDetailAddedTestOrders);
             }
         }
@@ -117,7 +117,7 @@ namespace YellowstonePathology.Business.Visitor
             {
 				string taskOrderDetailId = YellowstonePathology.Business.OrderIdParser.GetNextTaskOrderDetailId(this.m_TaskOrderStainAcknowlegedment.TaskOrderDetailCollection, this.m_TaskOrderStainAcknowlegedment.TaskOrderId);
                 string taskOrderDetailObjectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-				this.m_TaskOrderDetailCancelledTestOrders = new YellowstonePathology.Business.Task.Model.TaskOrderDetail(taskOrderDetailId, this.m_TaskOrderStainAcknowlegedment.TaskOrderId, taskOrderDetailObjectId, taskAcknowledgeStainOrder);                
+				this.m_TaskOrderDetailCancelledTestOrders = new YellowstonePathology.Business.Task.Model.TaskOrderDetail(taskOrderDetailId, this.m_TaskOrderStainAcknowlegedment.TaskOrderId, taskOrderDetailObjectId, taskAcknowledgeStainOrder, this.m_AccessionOrder.ClientId);                
                 this.m_TaskOrderStainAcknowlegedment.TaskOrderDetailCollection.Add(this.m_TaskOrderDetailCancelledTestOrders);
             }
         }

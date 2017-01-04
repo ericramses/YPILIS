@@ -57,7 +57,10 @@ namespace YellowstonePathology.Business.Test.ChromosomeAnalysis
 			this.AddNextObxElement("  Banding Technique   : " + panelSetOrder.BandingTechnique, document, "F");
 			this.AddNextObxElement("  Banding Resolution   : " + panelSetOrder.BandingResolution, document, "F");
 
-			this.AddNextObxElement("", document, "F");
+            this.AddNextObxElement("", document, "F");
+            this.AddNextObxElement(panelSetOrder.ASR, document, "F");
+
+            this.AddNextObxElement("", document, "F");
             string locationPerformed = panelSetOrder.GetLocationPerformedComment();
 			this.AddNextObxElement(locationPerformed, document, "F");
 			this.AddNextObxElement(string.Empty, document, "F");
