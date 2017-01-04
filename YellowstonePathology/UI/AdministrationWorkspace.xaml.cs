@@ -323,7 +323,7 @@ namespace YellowstonePathology.UI
         private void ButtonSerumLabels_Click(object sender, RoutedEventArgs e)
         {
             Business.Label.Model.ZPLPrinter printer = new Business.Label.Model.ZPLPrinter("10.1.1.21");
-            int pageCount = 2;
+            int pageCount = 1;
             for (int x = 0; x < pageCount; x++)
             {
                 string commands = Business.Label.Model.SerumZPLLabel.GetCommands();
@@ -333,17 +333,35 @@ namespace YellowstonePathology.UI
 
         private void ButtonFormalinAddedLabels_Click(object sender, RoutedEventArgs e)
         {
-               
+            Business.Label.Model.ZPLPrinter printer = new Business.Label.Model.ZPLPrinter("10.1.1.21");
+            int pageCount = 1;
+            for (int x = 0; x < pageCount; x++)
+            {
+                string commands = Business.Label.Model.FormalinAddedZPLLabel.GetCommands();
+                printer.Print(commands);
+            }
         }
 
         private void ButtonIFLabels_Click(object sender, RoutedEventArgs e)
         {
-            
+            Business.Label.Model.ZPLPrinter printer = new Business.Label.Model.ZPLPrinter("10.1.1.21");
+            int pageCount = 1;
+            for (int x = 0; x < pageCount; x++)
+            {
+                string commands = Business.Label.Model.IFEZPLLabel.GetCommands();
+                printer.Print(commands);
+            }
         }
 
         private void ButtonUrineLabels_Click(object sender, RoutedEventArgs e)
         {
-            
+            Business.Label.Model.ZPLPrinter printer = new Business.Label.Model.ZPLPrinter("10.1.1.21");
+            int pageCount = 1;
+            for (int x = 0; x < pageCount; x++)
+            {
+                string commands = Business.Label.Model.UrineZPLLabel.GetCommands();
+                printer.Print(commands);
+            }
         }
 
 		private void ButtonAccessionSlideOrderTracking_Click(object sender, RoutedEventArgs e)
