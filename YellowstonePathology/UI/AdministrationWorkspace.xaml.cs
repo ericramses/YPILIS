@@ -329,7 +329,7 @@ namespace YellowstonePathology.UI
             YellowstonePathology.UI.Login.SerumLabel label = new Login.SerumLabel("Serum", "84165-26");                        
 
             System.Windows.Controls.PrintDialog printDialog = new System.Windows.Controls.PrintDialog();
-            printDialog.PrintTicket.CopyCount = 50;
+            printDialog.PrintTicket.CopyCount = 1;
             printDialog.PrintTicket.PageMediaSize = new PageMediaSize(384, 96);
             printDialog.PrintQueue = printQueue;
 
