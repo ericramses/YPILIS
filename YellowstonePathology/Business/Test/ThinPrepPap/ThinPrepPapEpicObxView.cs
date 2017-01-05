@@ -58,23 +58,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
                 this.AddNextObxElement(string.Empty, document, "F");
             }                      
                     
-            this.AddNextObxElement(string.Empty, document, "F");
-
-            bool hpvHasBeenOrdered = this.m_AccessionOrder.PanelSetOrderCollection.Exists(14);            
-
-            string additionalTestingComment = string.Empty;
-            if (hpvHasBeenOrdered == true)
-            {
-				additionalTestingComment = YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapWordDocument.HPVHasBeenOrderedComment;                
-            }
-            else
-            {
-				additionalTestingComment = YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapWordDocument.NoAdditionalTestingOrderedComment;
-            }
-
-            this.AddNextObxElement("Additional Testing:", document, "F");
-            this.AddNextObxElement(additionalTestingComment, document, "F");
-            this.AddNextObxElement(string.Empty, document, "F");
+            this.AddNextObxElement(string.Empty, document, "F");           
 
             this.AddNextObxElement("Finaled By: " + panelSetOrderCytology.Signature, document, "F");
             if (panelSetOrderCytology.FinalTime.HasValue == true)

@@ -28,23 +28,7 @@ namespace YellowstonePathology.Business.Test.HPV
             this.AddAmendments(document);
 
             this.AddNextObxElement("Specimen: ThinPrep fluid", document, "F");
-            this.AddNextObxElement("", document, "F");
-
-            bool hpvHasBeenOrdered = this.m_AccessionOrder.PanelSetOrderCollection.Exists(62);
-
-            string additionalTestingComment = string.Empty;
-            if (hpvHasBeenOrdered == true)
-            {
-                additionalTestingComment = YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapWordDocument.HPV1618HasBeenOrderedComment;
-            }
-            else
-            {
-                additionalTestingComment = YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapWordDocument.NoAdditionalTestingOrderedComment;
-            }
-
-            this.AddNextObxElement("Additional Testing:", document, "F");
-            this.AddNextObxElement(additionalTestingComment, document, "F");
-            this.AddNextObxElement(string.Empty, document, "F");
+            this.AddNextObxElement("", document, "F");            
 
             this.AddNextObxElement("Test Information: ", document, "F");
             this.HandleLongString(panelSetOrder.TestInformation, document, "F");

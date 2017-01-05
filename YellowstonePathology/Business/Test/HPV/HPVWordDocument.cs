@@ -33,21 +33,7 @@ namespace YellowstonePathology.Business.Test.HPV
 			if(string.IsNullOrEmpty(panelSetOrder.Result) == false) base.ReplaceText("test_result", panelSetOrder.Result);            
 
 			if (string.IsNullOrEmpty(panelSetOrder.Comment) == false) base.ReplaceText("report_comment", panelSetOrder.Comment);
-			else base.DeleteRow("report_comment");
-
-            bool hpv1618HasBeenOrdered = this.m_AccessionOrder.PanelSetOrderCollection.Exists(62);
-
-            string additionalTestingComment = string.Empty;
-            if (hpv1618HasBeenOrdered == true)
-            {
-				additionalTestingComment = YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapWordDocument.HPV1618HasBeenOrderedComment;
-            }
-            else
-            {
-				additionalTestingComment = YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapWordDocument.NoAdditionalTestingOrderedComment;
-            }
-
-            this.ReplaceText("additional_testing", additionalTestingComment);    
+			else base.DeleteRow("report_comment");            
 
 			base.ReplaceText("test_information", panelSetOrder.TestInformation);
 			base.ReplaceText("report_references", panelSetOrder.ReportReferences);

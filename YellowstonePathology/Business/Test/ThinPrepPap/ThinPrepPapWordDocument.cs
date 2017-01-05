@@ -10,13 +10,9 @@ using System.Text.RegularExpressions;
 namespace YellowstonePathology.Business.Test.ThinPrepPap
 {
     public class ThinPrepPapWordDocument : YellowstonePathology.Business.Interface.ICaseDocument
-    {
-        public const string HPVHasBeenOrderedComment = "High Risk HPV testing has been ordered and will be reported separately.";
-        public const string HPV1618HasBeenOrderedComment = "HPV Genotypes 16 and 18 testing has been ordered and will be reported separately.";
-        public const string NoAdditionalTestingOrderedComment = "No additional testing has been ordered.";
-        public const string HPVHasBeenOrderedAndHasBeenResulted = "High Risk HPV testing (YPI report #*REPORTNO*): *RESULT*";
+    {        
 
-        const string m_ThinPrepTemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\CytologyThinPrep.7.xml";
+        const string m_ThinPrepTemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\CytologyThinPrep.8.xml";
         const string m_RegularTemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\CytologyRegular.6.xml";
 
         protected string m_TemplateName;
@@ -64,19 +60,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 
             this.SetCaseHistory();
 
-            bool hpvHasBeenOrdered = this.m_AccessionOrder.PanelSetOrderCollection.Exists(14);            
-
-            string additionalTestingComment = string.Empty;
-            if (hpvHasBeenOrdered == true)
-            {                
-                additionalTestingComment = HPVHasBeenOrderedComment;                
-            }            
-            else
-            {
-                additionalTestingComment = NoAdditionalTestingOrderedComment;
-            }
-
-            this.ReplaceText("additional_testing", additionalTestingComment);            
+            bool hpvHasBeenOrdered = this.m_AccessionOrder.PanelSetOrderCollection.Exists(14);                            
 
             string sceeningImpression = m_PanelSetOrderCytology.ScreeningImpression;
             if (string.IsNullOrEmpty(sceeningImpression) == false)

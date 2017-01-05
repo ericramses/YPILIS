@@ -95,10 +95,7 @@
 							  SelectedValue="{Binding Path=PanelSetOrder.Result}" SelectedValuePath="Result" HorizontalAlignment="Stretch" />
 
                     <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Margin="2,2,2,2" HorizontalAlignment="Left" FontWeight="Bold">Report Comment:</TextBlock>
-					<TextBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" Margin="2,2,2,2" HorizontalAlignment="Stretch" Text="{Binding Path=PanelSetOrder.Comment}"  TextWrapping="Wrap"/>
-
-                    <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" Margin="2,2,2,2" HorizontalAlignment="Left" FontWeight="Bold">Additional Testing:</TextBlock>
-                    <TextBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4" Margin="2,2,2,2" HorizontalAlignment="Stretch" Text="{Binding Path=AdditionalTestingComment, Mode=OneWay}" TextWrapping="Wrap" IsEnabled="False"/>
+                    <TextBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" Margin="2,2,2,2" HorizontalAlignment="Stretch" Text="{Binding Path=PanelSetOrder.Comment}"  TextWrapping="Wrap"/>
 
                     <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Left">Test Information:</TextBlock>
                     <TextBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="6" Margin="2,2,2,2" HorizontalAlignment="Stretch" Text="{Binding Path=PanelSetOrder.TestInformation}"  TextWrapping="Wrap"/>
