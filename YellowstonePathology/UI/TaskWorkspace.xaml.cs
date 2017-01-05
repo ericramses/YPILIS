@@ -224,7 +224,7 @@ namespace YellowstonePathology.UI
             this.m_TaskUI.GetDailyTaskOrderHistoryCollection();
         }
 
-        private void ButtonDailyTaskOrderAddDays_Click(object sender, RoutedEventArgs e)
+        /*private void ButtonDailyTaskOrderAddDays_Click(object sender, RoutedEventArgs e)
         {
             StringBuilder message = new StringBuilder();
             YellowstonePathology.Business.Rules.MethodResult result = YellowstonePathology.Business.Task.Model.TaskOrderCollection.AddDailyTaskOrderCytologySlideDisposal(30);
@@ -234,7 +234,7 @@ namespace YellowstonePathology.UI
             message.AppendLine(result.Message);
 
             MessageBox.Show(message.ToString());
-        }
+        }*/
 
         private void MenuItemDeleteTask_Click(object sender, RoutedEventArgs e)
         {

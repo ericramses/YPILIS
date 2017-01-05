@@ -65,20 +65,7 @@ namespace YellowstonePathology.Business.Persistence
                     }
                 }
             }
-        }
-
-        /*private bool ColumnExists(string name)
-        {
-            try
-            {
-                this.m_SqlDataReader.GetOrdinal(name);
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }*/
+        }       
 
         private bool ColumnExists(string name)
         {
@@ -107,7 +94,7 @@ namespace YellowstonePathology.Business.Persistence
         private void WriteInt(PropertyInfo property)
         {
             int sqlValue = 0;
-            if (this.m_SqlDataReader[property.Name] != DBNull.Value) //ClientSupplyOrderDetail
+            if (this.m_SqlDataReader[property.Name] != DBNull.Value)
             {
                 sqlValue = Convert.ToInt32(this.m_SqlDataReader[property.Name].ToString());
             }
@@ -131,8 +118,7 @@ namespace YellowstonePathology.Business.Persistence
         }
 
         private void WriteDateTime(PropertyInfo property)
-        {
-            //DateTime sqlValue = DateTime.Parse(this.m_SqlDataReader[property.Name].ToString());
+        {            
             DateTime sqlValue = (DateTime)this.m_SqlDataReader[property.Name];
             property.SetValue(this.m_ObjectToWriteTo, sqlValue, null);
         }
@@ -140,7 +126,7 @@ namespace YellowstonePathology.Business.Persistence
         private void WriteBoolean(PropertyInfo property)
         {
             bool sqlValue = false;
-            if (this.m_SqlDataReader[property.Name] != DBNull.Value) //ClientLocation
+            if (this.m_SqlDataReader[property.Name] != DBNull.Value) 
             {
                 sqlValue = Convert.ToBoolean(this.m_SqlDataReader[property.Name]);
             }
@@ -161,8 +147,7 @@ namespace YellowstonePathology.Business.Persistence
         {
             Nullable<DateTime> sqlValue = null;
             if (this.m_SqlDataReader[property.Name] != DBNull.Value)
-            {
-                //sqlValue = DateTime.Parse(this.m_SqlDataReader[property.Name].ToString());
+            {                
                 sqlValue = (DateTime)this.m_SqlDataReader[property.Name];
             }
             property.SetValue(this.m_ObjectToWriteTo, sqlValue, null);

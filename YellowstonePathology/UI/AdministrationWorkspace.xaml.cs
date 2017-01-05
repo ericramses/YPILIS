@@ -18,7 +18,7 @@ using System.Windows.Xps;
 using System.Windows.Xps.Packaging;
 using System.Diagnostics;
 using System.Data;
-
+using System.Data.SqlClient;
 using System.Net;
 using System.Linq;
 using System.Data.Linq;
@@ -89,10 +89,10 @@ namespace YellowstonePathology.UI
 
         private void ButtonPOCRetension_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Reports.POCRetensionReportV2 report = new Business.Reports.POCRetensionReportV2(DateTime.Parse("3/26/2011"), DateTime.Parse("5/04/2011"));
-            System.Windows.Controls.PrintDialog printDialog = new System.Windows.Controls.PrintDialog();
-            printDialog.ShowDialog();
-            printDialog.PrintDocument(report.DocumentPaginator, "POC Retention Report for: ");
+            //YellowstonePathology.Business.Reports.POCRetensionReport report = new Business.Reports.POCRetensionReport(DateTime.Parse("3/26/2011"), DateTime.Parse("5/04/2011"));
+            //System.Windows.Controls.PrintDialog printDialog = new System.Windows.Controls.PrintDialog();
+            //printDialog.ShowDialog();
+            //printDialog.PrintDocument(report.DocumentPaginator, "POC Retention Report for: ");
         }
 
         private void ButtonCytologyUnsatLetters_Click(object sender, RoutedEventArgs e)
@@ -858,7 +858,7 @@ namespace YellowstonePathology.UI
             //System.Collections.IList childObjectCollection = (System.Collections.IList)Activator.CreateInstance(collectionType);
 
             //YellowstonePathology.Business.Persistence.SqlCommandBuilder sqlCommandBuilder = new Persistence.SqlCommandBuilder(typeof(YellowstonePathology.Business.Test.AccessionOrder), "14-19341");
-            //System.Data.SqlClient.MySqlCommand cmd = sqlCommandBuilder.Build();
+            //System.Data.SqlClient.SqlCommand cmd = sqlCommandBuilder.Build();
 
             /*
             YellowstonePathology.Business.PanelSet.Model.PanelSetCollection psc = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetAll();
@@ -1251,67 +1251,16 @@ namespace YellowstonePathology.UI
             
         }
 
-        private void ButtonWilliamTesting_Click(object sender, RoutedEventArgs e)
+        private void ButtonAddYearDailyTasks_Click(object sender, RoutedEventArgs e)
         {
-            StringBuilder results = new StringBuilder();
-            List<string> panelSetIds = new List<string>();
-            MySqlCommand cmd = new MySqlCommand("Select distinct PanelSetId from tblPanelSetOrder where orderdate between '4/1/2016' and '9/1/2016' " +
-                "and PanelSetId between 102 and 205 order by 1");
-            cmd.CommandType = CommandType.Text;
+            StringBuilder message = new StringBuilder();
+            YellowstonePathology.Business.Rules.MethodResult result = YellowstonePathology.Business.Task.Model.TaskOrderCollection.AddDailyTaskOrderCytologySlideDisposal(365, this);
+            message.AppendLine(result.Message);
 
-            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-            {
-                cn.Open();
-                cmd.Connection = cn;
-                using (MySqlDataReader dr = cmd.ExecuteReader())
-                {
-                    while (dr.Read())
-                    {
-                        panelSetIds.Add(dr[0].ToString());
-                    }
-                }
-            }
+            result = YellowstonePathology.Business.Task.Model.TaskOrderCollection.AddDailyTaskOrderSurgicalSpecimenDisposal(365, this);
+            message.AppendLine(result.Message);
 
-            foreach(string panelSetId in panelSetIds)
-            {
-                List<string> masterAccessionNos = new List<string>();
-                cmd = new MySqlCommand("Select top 10 MasterAccessionNo from tblPanelSetOrder where orderdate between '1/1/2016' and '11/1/2016' and PanelSetId = " + panelSetId);
-                cmd.CommandType = CommandType.Text;
-
-                using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-                {
-                    cn.Open();
-                    cmd.Connection = cn;
-                    using (MySqlDataReader dr = cmd.ExecuteReader())
-                    {
-                        while (dr.Read())
-                        {
-                            masterAccessionNos.Add(dr[0].ToString());
-                        }
-                    }
-                }
-
-                /*foreach(string masterAccessionNo in masterAccessionNos)
-                {
-                    YellowstonePathology.Business.Persistence.AODocumentBuilder oldBuilder = new Business.Persistence.AODocumentBuilder(masterAccessionNo, false);
-                    YellowstonePathology.Business.Persistence.AODocumentBuilder newBuilder = new Business.Persistence.AODocumentBuilder(masterAccessionNo);
-
-                    YellowstonePathology.Business.Test.AccessionOrder oldAccessionOrder = (YellowstonePathology.Business.Test.AccessionOrder)oldBuilder.BuildNew();
-                    YellowstonePathology.Business.Test.AccessionOrder newAccessionOrder = (YellowstonePathology.Business.Test.AccessionOrder)newBuilder.BuildNew();
-
-                    YellowstonePathology.Business.Persistence.DocumentTestBuilders testBuilders = new Business.Persistence.DocumentTestBuilders(oldAccessionOrder, newAccessionOrder);
-                    if(testBuilders.Compare() == false)
-                    {
-                        results.AppendLine("Mismatched " + masterAccessionNo);
-                    }
-                }*/
-            }
-
-            if(results.Length > 0)
-            {
-                MessageBox.Show(results.ToString());
-            }
-            else MessageBox.Show("done");
+            MessageBox.Show(message.ToString());
         }
     }
 }
