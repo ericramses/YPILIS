@@ -105,12 +105,11 @@ namespace YellowstonePathology.Business.Task.Model
 			return result;
 		}
 
-		public static YellowstonePathology.Business.Rules.MethodResult AddDailyTaskOrderCytologySlideDisposal(int days)
+		public static YellowstonePathology.Business.Rules.MethodResult AddDailyTaskOrderCytologySlideDisposal(int days, object writer)
 		{
 			YellowstonePathology.Business.Rules.MethodResult result = new Rules.MethodResult();
 			YellowstonePathology.Business.Task.Model.TaskCytologySlideDisposal task = new TaskCytologySlideDisposal();
 			DateTime actionDate = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetNewestDailyTaskOrderTaskDate(task.TaskId);
-			YellowstonePathology.Business.Task.Model.TaskOrderCollection taskOrderCollection = new YellowstonePathology.Business.Task.Model.TaskOrderCollection();
             YellowstonePathology.Business.User.SystemIdentity systemIdentity = Business.User.SystemIdentity.Instance;
 
 			DateTime finalDate = actionDate.AddDays(days);
@@ -120,23 +119,21 @@ namespace YellowstonePathology.Business.Task.Model
 				string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 
 				YellowstonePathology.Business.Task.Model.TaskOrderCytologySlideDisposal taskOrder = new YellowstonePathology.Business.Task.Model.TaskOrderCytologySlideDisposal(objectId, actionDate, objectId, systemIdentity);
-				taskOrderCollection.Add(taskOrder);
+                Persistence.DocumentGateway.Instance.InsertDocument(taskOrder, writer);
 				actionDate = actionDate.AddDays(1);
-			}
+            }
 
-            //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(taskOrderCollection, false);			
-
-			actionDate = actionDate.AddDays(-1);
+            Persistence.DocumentGateway.Instance.Clear(writer);
+            actionDate = actionDate.AddDays(-1);
 			result.Message = "Daily Task Order Cytology Slide Disposal have been added through " + actionDate.ToString("MM/dd/yyyy");
 			return result;
 		}
 
-		public static YellowstonePathology.Business.Rules.MethodResult AddDailyTaskOrderSurgicalSpecimenDisposal(int days)
+		public static YellowstonePathology.Business.Rules.MethodResult AddDailyTaskOrderSurgicalSpecimenDisposal(int days, object writer)
 		{
 			YellowstonePathology.Business.Rules.MethodResult result = new Rules.MethodResult();
 			YellowstonePathology.Business.Task.Model.TaskSurgicalSpecimenDisposal task = new TaskSurgicalSpecimenDisposal();
 			DateTime actionDate = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetNewestDailyTaskOrderTaskDate(task.TaskId);
-			YellowstonePathology.Business.Task.Model.TaskOrderCollection taskOrderCollection = new YellowstonePathology.Business.Task.Model.TaskOrderCollection();
             YellowstonePathology.Business.User.SystemIdentity systemIdentity = Business.User.SystemIdentity.Instance;
 
 			DateTime finalDate = actionDate.AddDays(days);
@@ -146,12 +143,12 @@ namespace YellowstonePathology.Business.Task.Model
 				string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 
 				YellowstonePathology.Business.Task.Model.TaskOrderSurgicalSpecimenDisposal taskOrderSurgical = new YellowstonePathology.Business.Task.Model.TaskOrderSurgicalSpecimenDisposal(objectId, actionDate, objectId, systemIdentity);
-				taskOrderCollection.Add(taskOrderSurgical);
-				actionDate = actionDate.AddDays(1);
+                Persistence.DocumentGateway.Instance.InsertDocument(taskOrderSurgical, writer);
+                actionDate = actionDate.AddDays(1);
 			}
 
-            //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(taskOrderCollection, true);			
-			actionDate = actionDate.AddDays(-1);
+            Persistence.DocumentGateway.Instance.Clear(writer);
+            actionDate = actionDate.AddDays(-1);
 			result.Message = "Daily Task Order Surgical Specimen Disposal have been added through " + actionDate.ToString("MM/dd/yyyy");
 			return result;
 		}
