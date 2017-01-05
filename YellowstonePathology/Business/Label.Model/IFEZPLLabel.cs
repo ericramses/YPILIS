@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace YellowstonePathology.Business.Label.Model
 {
-    public class SerumZPLLabel
+    public class IFEZPLLabel
     {
-        public SerumZPLLabel()
+        public IFEZPLLabel()
         {
 
         }
@@ -37,8 +37,9 @@ namespace YellowstonePathology.Business.Label.Model
             string line3 = containerId.Substring(28);
 
 
-            result.Append("^FO" + (xOffset + 65) + ",030^ATN,50^FD" + "Serum" + "^FS");
-            result.Append("^FO" + (xOffset + 30) + ",090^ATN,50^FD" + "84165-26" + "^FS");
+            result.Append("^FO" + (xOffset + 65) + ",030^ATN,50^FD" + "IFE" + "^FS");
+            result.Append("^FO" + (xOffset + 30) + ",070^ARN,50^FD" + "86334-26 x1" + "^FS");
+            result.Append("^FO" + (xOffset + 30) + ",100^ARN,50^FD" + "82784-26 x3" + "^FS");
             result.Append("^FO" + (xOffset + 170) + ",150^ATN,50^FD" + "MD" + "^FS");
             result.Append("^FO" + (xOffset + 30) + ",210^ATN,50^FD" + "    /    /17" + "^FS");
         }
