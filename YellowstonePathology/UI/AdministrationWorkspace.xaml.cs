@@ -1217,67 +1217,16 @@ namespace YellowstonePathology.UI
             
         }
 
-        private void ButtonWilliamTesting_Click(object sender, RoutedEventArgs e)
+        private void ButtonAddYearDailyTasks_Click(object sender, RoutedEventArgs e)
         {
-            StringBuilder results = new StringBuilder();
-            List<string> panelSetIds = new List<string>();
-            SqlCommand cmd = new SqlCommand("Select distinct PanelSetId from tblPanelSetOrder where orderdate between '4/1/2016' and '9/1/2016' " +
-                "and PanelSetId between 102 and 205 order by 1");
-            cmd.CommandType = CommandType.Text;
+            StringBuilder message = new StringBuilder();
+            YellowstonePathology.Business.Rules.MethodResult result = YellowstonePathology.Business.Task.Model.TaskOrderCollection.AddDailyTaskOrderCytologySlideDisposal(365, this);
+            message.AppendLine(result.Message);
 
-            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-            {
-                cn.Open();
-                cmd.Connection = cn;
-                using (SqlDataReader dr = cmd.ExecuteReader())
-                {
-                    while (dr.Read())
-                    {
-                        panelSetIds.Add(dr[0].ToString());
-                    }
-                }
-            }
+            result = YellowstonePathology.Business.Task.Model.TaskOrderCollection.AddDailyTaskOrderSurgicalSpecimenDisposal(365, this);
+            message.AppendLine(result.Message);
 
-            foreach(string panelSetId in panelSetIds)
-            {
-                List<string> masterAccessionNos = new List<string>();
-                cmd = new SqlCommand("Select top 10 MasterAccessionNo from tblPanelSetOrder where orderdate between '1/1/2016' and '11/1/2016' and PanelSetId = " + panelSetId);
-                cmd.CommandType = CommandType.Text;
-
-                using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-                {
-                    cn.Open();
-                    cmd.Connection = cn;
-                    using (SqlDataReader dr = cmd.ExecuteReader())
-                    {
-                        while (dr.Read())
-                        {
-                            masterAccessionNos.Add(dr[0].ToString());
-                        }
-                    }
-                }
-
-                /*foreach(string masterAccessionNo in masterAccessionNos)
-                {
-                    YellowstonePathology.Business.Persistence.AODocumentBuilder oldBuilder = new Business.Persistence.AODocumentBuilder(masterAccessionNo, false);
-                    YellowstonePathology.Business.Persistence.AODocumentBuilder newBuilder = new Business.Persistence.AODocumentBuilder(masterAccessionNo);
-
-                    YellowstonePathology.Business.Test.AccessionOrder oldAccessionOrder = (YellowstonePathology.Business.Test.AccessionOrder)oldBuilder.BuildNew();
-                    YellowstonePathology.Business.Test.AccessionOrder newAccessionOrder = (YellowstonePathology.Business.Test.AccessionOrder)newBuilder.BuildNew();
-
-                    YellowstonePathology.Business.Persistence.DocumentTestBuilders testBuilders = new Business.Persistence.DocumentTestBuilders(oldAccessionOrder, newAccessionOrder);
-                    if(testBuilders.Compare() == false)
-                    {
-                        results.AppendLine("Mismatched " + masterAccessionNo);
-                    }
-                }*/
-            }
-
-            if(results.Length > 0)
-            {
-                MessageBox.Show(results.ToString());
-            }
-            else MessageBox.Show("done");
+            MessageBox.Show(message.ToString());
         }
     }
 }
