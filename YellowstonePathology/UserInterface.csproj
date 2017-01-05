@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>293</ApplicationRevision>
+    <ApplicationRevision>299</ApplicationRevision>
     <ApplicationVersion>10.1.6.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -995,6 +995,10 @@
     <Compile Include="Business\Label.Model\CassettePrinter.cs" />
     <Compile Include="Business\Label.Model\ContainerPaperLabel.cs" />
     <Compile Include="Business\Label.Model\ContainerPaperLabelPrinter.cs" />
+    <Compile Include="Business\Label.Model\UrineZPLLabel.cs" />
+    <Compile Include="Business\Label.Model\IFEZPLLabel.cs" />
+    <Compile Include="Business\Label.Model\FormalinAddedZPLLabel.cs" />
+    <Compile Include="Business\Label.Model\SerumZPLLabel.cs" />
     <Compile Include="Business\Label.Model\HistologySlidePaperZPLLabel.cs" />
     <Compile Include="Business\Label.Model\HistologyBlockPaperZPLLabel.cs" />
     <Compile Include="Business\Label.Model\HistologySlideDirectPrintLabel.cs" />
