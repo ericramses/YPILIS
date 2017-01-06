@@ -78,7 +78,7 @@
             <TextBlock Grid.Column="2" Grid.Row="6" HorizontalAlignment="Right" VerticalAlignment="Center"  Margin="2,2,2,2" FontWeight="Bold">Hold Billing/Audited</TextBlock>
 
             <StackPanel Grid.Column="3" Grid.Row="0" Orientation="Horizontal">
-                <TextBox Name="TextBoxReportNoSearch" Width="100" HorizontalAlignment="Left" KeyDown="TextBoxReportNoSearch_KeyDown" TabIndex="0" Margin="2,2,2,2" VerticalAlignment="Center">16-</TextBox>
+                <TextBox Name="TextBoxReportNoSearch" Width="100" HorizontalAlignment="Left" KeyDown="TextBoxReportNoSearch_KeyDown" TabIndex="0" Margin="2,2,2,2" VerticalAlignment="Center">17-</TextBox>
                 <Button Click="ButtonRefresh_Click" Margin="2,2,2,2" VerticalAlignment="Center">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="/Resources/Refresh.ico" Margin="2" Height="16"></Image>
@@ -631,8 +631,7 @@
             <TabItem Name="tabItemDocumentViewer" Header="Document">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="73*"/>
-                        <ColumnDefinition Width="52*"/>
+                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
                     <Grid.RowDefinitions>
@@ -640,9 +639,9 @@
                         <RowDefinition Height="Auto"></RowDefinition>
                     </Grid.RowDefinitions>
 
-                    <ContentControl Name="ContentControlDocument" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Margin="0,0,0.2,0.2"></ContentControl>
+                    <ContentControl Name="ContentControlDocument" Grid.Column="0" Grid.Row="0" Margin="2,2,2,2"></ContentControl>
 
-                    <Menu Grid.Column="0" Height="30" Grid.ColumnSpan="2" Margin="0,487,0.2,0.6" Grid.RowSpan="2">
+                    <Menu Grid.Column="0" Grid.Row="1" Height="30" Margin="2,2,2,2" Grid.RowSpan="2">
                         <MenuItem Header="Requisition" Click="MenuItemShowRequisition_Click"></MenuItem>
                         <MenuItem Header="Accession Data Sheet" Click="MenuItemShowAccessionDataSheet_Click"></MenuItem>
                         <MenuItem Header="Patient Face Sheet" Click="MenuItemShowPatientFaceSheet_Click"></MenuItem>
