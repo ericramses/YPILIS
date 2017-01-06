@@ -3037,6 +3037,7 @@
     <Compile Include="MySQLMigration\NonpersistentTableDefPanel.cs" />
     <Compile Include="MySQLMigration\NonpersistentTableDefPanelSet.cs" />
     <Compile Include="MySQLMigration\NonpersistentTableDefPatient.cs" />
+    <Compile Include="MySQLMigration\NonpersistentTableDefPsaImport.cs" />
     <Compile Include="MySQLMigration\NonpersistentTableDefSpecimenAdequacy.cs" />
     <Compile Include="MySQLMigration\NonpersistentTableDefStainResultOption.cs" />
     <Compile Include="MySQLMigration\NonpersistentTableDefStainResultOptionGroup.cs" />
