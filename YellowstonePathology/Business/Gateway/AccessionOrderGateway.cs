@@ -44,7 +44,7 @@ namespace YellowstonePathology.Business.Gateway
                 "so.FixationStartTime, so.FixationEndTime, hour(timediff(fixationendtime, fixationstarttime)) FixationDurationCalc, " +
                 "FixationDuration, so.Description " + 
                 "from tblAccessionOrder ao " +
-                "join tblspecimenOrder so on ao.masterAccessionNo = so.MasterAccessionNo " +
+                "join tblSpecimenOrder so on ao.MasterAccessionNo = so.MasterAccessionNo " +
                 "where instr(so.Description, 'Breast') > 0 " +
                 "and ao.AccessionDate >= date_add(curdate(), interval -30 day) " +
                 "order by ao.AccessionTime desc;";
@@ -439,7 +439,7 @@ namespace YellowstonePathology.Business.Gateway
         {
             List<YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution> result = new List<YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution>();
             MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "Select top 10 * from tblTestOrderReportDistribution;";            
+            cmd.CommandText = "Select * from tblTestOrderReportDistribution limit 10;";            
             cmd.CommandType = CommandType.Text;
 
             using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))

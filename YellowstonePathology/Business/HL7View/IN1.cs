@@ -37,8 +37,7 @@ namespace YellowstonePathology.Business.HL7View
             this.m_InusuredsGroupEmployerName = split[11];
                         
             string [] subNameOfInsuredFields = split[16].Split('^');
-            this.m_NameOfInsured = subNameOfInsuredFields[0] + ", " + subNameOfInsuredFields[1];
-            this.m_PolicyNumber = split[36];
+            this.m_NameOfInsured = subNameOfInsuredFields[0] + ", " + subNameOfInsuredFields[1];            
 
             if(string.IsNullOrEmpty(split[5]) == false)
             {
@@ -46,7 +45,7 @@ namespace YellowstonePathology.Business.HL7View
                 this.m_InsuranceAddress = subAddressSubfields[0] + ", " + subAddressSubfields[2] + ", " + subAddressSubfields[3] + ", " + subAddressSubfields[4];
             }
 
-            this.m_PolicyNumber = split[36];            
+            if(split.Length >= 36) this.m_PolicyNumber = split[36];            
         }
 
         public string InsurancePlanId

@@ -31,8 +31,7 @@ namespace YellowstonePathology.UI.Test
 		private string m_PageHeaderText;
         private YellowstonePathology.Business.Test.HPV.HPVResultCollection m_ResultCollection;
         private YellowstonePathology.Business.Test.HPV.HPVTestOrder m_HPVTestOrder;
-		private YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;
-        private string m_AdditionalTestingComment;
+		private YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;        
 
         public HPVResultPage(YellowstonePathology.Business.Test.HPV.HPVTestOrder hpvTestOrder,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,            
@@ -45,17 +44,7 @@ namespace YellowstonePathology.UI.Test
 			this.m_PageNavigator = pageNavigator;
 
             this.m_ResultCollection = Business.Test.HPV.HPVResultCollection.GetAllResults();
-			this.m_PageHeaderText = "HPV Results For: " + this.m_AccessionOrder.PatientDisplayName + "  (" + this.m_HPVTestOrder.ReportNo + ")";
-
-            bool hpv1618HasBeenOrdered = this.m_AccessionOrder.PanelSetOrderCollection.Exists(62);            
-            if (hpv1618HasBeenOrdered == true)
-            {
-                this.m_AdditionalTestingComment = YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapWordDocument.HPV1618HasBeenOrderedComment;
-            }
-            else
-            {
-                this.m_AdditionalTestingComment = YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapWordDocument.NoAdditionalTestingOrderedComment;
-            }
+			this.m_PageHeaderText = "HPV Results For: " + this.m_AccessionOrder.PatientDisplayName + "  (" + this.m_HPVTestOrder.ReportNo + ")";          
 
             InitializeComponent();
 
@@ -79,12 +68,7 @@ namespace YellowstonePathology.UI.Test
         {
             this.ComboBoxResult.SelectionChanged -= ComboBoxResult_SelectionChanged;
              
-        }
-
-        public string AdditionalTestingComment
-        {
-            get { return this.m_AdditionalTestingComment; }
-        }           
+        }        
 
 		public YellowstonePathology.Business.Test.HPV.HPVTestOrder PanelSetOrder
 		{
