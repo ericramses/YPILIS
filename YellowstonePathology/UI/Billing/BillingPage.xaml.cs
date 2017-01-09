@@ -60,7 +60,7 @@ namespace YellowstonePathology.UI.Billing
         private string m_ReportNo;
         private YellowstonePathology.Business.Facility.Model.FacilityCollection m_FacilityCollection;
 
-        private Business.Billing.Model.MonitoredPropertyCollection m_MonitoredPropertyCollection;
+        private Business.Billing.Model.MonitoredObjectCollection m_MonitoredObjectCollection;
 
         public BillingPage(string reportNo, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{			
@@ -93,15 +93,14 @@ namespace YellowstonePathology.UI.Billing
                 this.ShowTIFDocument(this, new CustomEventArgs.FileNameReturnEventArgs(firstRequisition.FullFileName));
             }
 
-            this.m_MonitoredPropertyCollection = new Business.Billing.Model.MonitoredPropertyCollection();
-            this.m_MonitoredPropertyCollection.Load(typeof(Business.Test.PanelSetOrder), this.m_PanelSetOrder);
+            this.m_MonitoredObjectCollection = new Business.Billing.Model.MonitoredObjectCollection();
+            this.m_MonitoredObjectCollection.Load(typeof(Business.Test.PanelSetOrder), this.m_PanelSetOrder, this.m_PanelSetOrder.ReportNo);
         }
 
         private void BillingPage_Unloaded(object sender, RoutedEventArgs e)
         {
             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
-            string result = this.m_MonitoredPropertyCollection.Diff();
-            //MessageBox.Show(result);
+            this.m_MonitoredObjectCollection.WriteChanges();
         }
 
         public YellowstonePathology.Business.Facility.Model.FacilityCollection FacilityCollection

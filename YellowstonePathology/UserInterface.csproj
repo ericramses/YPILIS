@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>316</ApplicationRevision>
+    <ApplicationRevision>318</ApplicationRevision>
     <ApplicationVersion>10.1.6.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -291,8 +291,9 @@
     <Compile Include="Business\BaseData.cs" />
     <Compile Include="Business\BaseItem.cs" />
     <Compile Include="Business\BaseListItem.cs" />
-    <Compile Include="Business\Billing.Model\MonitoredProperty.cs" />
-    <Compile Include="Business\Billing.Model\MonitoredPropertyCollection.cs" />
+    <Compile Include="Business\Billing.Model\MonitoredObject.cs" />
+    <Compile Include="Business\Billing.Model\MonitoredObjectCollection.cs" />
+    <Compile Include="Business\Billing.Model\PropertyChanges.cs" />
     <Compile Include="Business\Client.Model\IdahoClientIdList.cs" />
     <Compile Include="Business\HL7View\ADTMessage.cs" />
     <Compile Include="Business\HL7View\ADTMessages.cs" />

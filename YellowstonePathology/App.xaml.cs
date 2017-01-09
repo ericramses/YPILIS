@@ -81,8 +81,10 @@ namespace YellowstonePathology.UI
             base.OnStartup(e);
 
             this.StartTimer();
-            //HandleLocalRepository();          
-		}
+            //HandleLocalRepository(); 
+            this.SetupApplicationFolders();
+
+        }
 
         public static void HandleLocalRepository()
         {
@@ -157,7 +159,11 @@ namespace YellowstonePathology.UI
             if (Directory.Exists(YellowstonePathology.Properties.Settings.Default.LocalLoginDataFolder) == false)
             {
                 Directory.CreateDirectory(YellowstonePathology.Properties.Settings.Default.LocalLoginDataFolder);
-            }            
+            }
+            if (Directory.Exists(YellowstonePathology.Properties.Settings.Default.MonitoredPropertyFolder) == false)
+            {
+                Directory.CreateDirectory(YellowstonePathology.Properties.Settings.Default.MonitoredPropertyFolder);
+            }
         }                      
 
 		private bool CheckDuplicateProcess()

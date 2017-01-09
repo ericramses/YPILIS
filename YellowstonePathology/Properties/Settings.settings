@@ -56,5 +56,8 @@
     <Setting Name="SqlServerConnectionString" Type="System.String" Scope="User">
       <Value Profile="(Default)">Data Source=TestSQL;Initial Catalog=YPIData;Integrated Security=True</Value>
     </Setting>
+    <Setting Name="MonitoredPropertyFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Program Files\Yellowstone Pathology Institute\MonitoredProperty</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
