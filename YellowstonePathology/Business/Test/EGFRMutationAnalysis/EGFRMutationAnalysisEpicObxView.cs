@@ -24,11 +24,24 @@ namespace YellowstonePathology.Business.Test.EGFRMutationAnalysis
             this.AddNextObxElement(egfrMutationAnalysisTestOrder.Result, document, "F");
 
             this.AddNextObxElement("", document, "F");
-            this.AddNextObxElement("Pathologist: " + egfrMutationAnalysisTestOrder.Signature, document, "F");
-            if (egfrMutationAnalysisTestOrder.FinalTime.HasValue == true)
+            if (string.IsNullOrEmpty(egfrMutationAnalysisTestOrder.ReferenceLabSignature) == false)
             {
-                this.AddNextObxElement("E-signed " + egfrMutationAnalysisTestOrder.FinalTime.Value.ToString("MM/dd/yyyy HH:mm"), document, "F");
+                this.AddNextObxElement("Pathologist: " + egfrMutationAnalysisTestOrder.ReferenceLabSignature, document, "F");
+                if (egfrMutationAnalysisTestOrder.FinalTime.HasValue == true)
+                {
+                    this.AddNextObxElement("E-signed " + egfrMutationAnalysisTestOrder.ReferenceLabFinalDate.Value.ToString("MM/dd/yyyy HH:mm"), document, "F");
+                }
             }
+            else
+            {
+                
+                this.AddNextObxElement("Pathologist: " + egfrMutationAnalysisTestOrder.Signature, document, "F");
+                if (egfrMutationAnalysisTestOrder.FinalTime.HasValue == true)
+                {
+                    this.AddNextObxElement("E-signed " + egfrMutationAnalysisTestOrder.FinalTime.Value.ToString("MM/dd/yyyy HH:mm"), document, "F");
+                }
+            }
+            
             
             this.AddNextObxElement("", document, "F");
             this.AddAmendments(document);
