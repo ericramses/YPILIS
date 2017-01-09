@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using System.ComponentModel;
 using System.Xml;
 using System.Xml.Linq;
+using System.Reflection;
 
 namespace YellowstonePathology.UI.Billing
 {	
@@ -59,6 +60,8 @@ namespace YellowstonePathology.UI.Billing
         private string m_ReportNo;
         private YellowstonePathology.Business.Facility.Model.FacilityCollection m_FacilityCollection;
 
+        private Business.Billing.Model.MonitoredPropertyCollection m_MonitoredPropertyCollection;
+
         public BillingPage(string reportNo, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{			
 			this.m_AccessionOrder = accessionOrder;
@@ -72,14 +75,17 @@ namespace YellowstonePathology.UI.Billing
             this.m_PanelSetOrderCPTCodeBillCollection = this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection;                        
 
             this.m_CaseDocumentCollection = new Business.Document.CaseDocumentCollection(this.m_ReportNo);            
-			this.m_PageHeaderText = "Billing For: " + this.m_AccessionOrder.PatientDisplayName + " - " + this.m_AccessionOrder.PBirthdate.Value.ToShortDateString();            			
-            
+			this.m_PageHeaderText = "Billing For: " + this.m_AccessionOrder.PatientDisplayName + " - " + this.m_AccessionOrder.PBirthdate.Value.ToShortDateString();
+
+            this.m_MonitoredPropertyCollection = new Business.Billing.Model.MonitoredPropertyCollection();
+            this.m_MonitoredPropertyCollection.Load(this.m_PanelSetOrder);
+
 			InitializeComponent();
 
 			DataContext = this;
             this.Loaded += new RoutedEventHandler(BillingPage_Loaded);
             Unloaded += BillingPage_Unloaded;
-		}
+		}        
 
         private void BillingPage_Loaded(object sender, RoutedEventArgs e)
         {

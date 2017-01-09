@@ -291,6 +291,8 @@
     <Compile Include="Business\BaseData.cs" />
     <Compile Include="Business\BaseItem.cs" />
     <Compile Include="Business\BaseListItem.cs" />
+    <Compile Include="Business\Billing.Model\MonitoredProperty.cs" />
+    <Compile Include="Business\Billing.Model\MonitoredPropertyCollection.cs" />
     <Compile Include="Business\Client.Model\IdahoClientIdList.cs" />
     <Compile Include="Business\HL7View\ADTMessage.cs" />
     <Compile Include="Business\HL7View\ADTMessages.cs" />
@@ -1072,6 +1074,7 @@
     <Compile Include="Business\Patient.Model\Address.cs" />
     <Compile Include="Business\Persistence\DocumentTestBuilders.cs" />
     <Compile Include="Business\Persistence\PersistentDataColumnProperty.cs" />
+    <Compile Include="Business\Persistence\MonitorProperty.cs" />
     <Compile Include="Business\Persistence\SqlDataRowReaderPropertyWriter.cs" />
     <Compile Include="Business\Reports\DisposalReportData.cs" />
     <Compile Include="Business\Reports\CytologySlideDisposalReportV2.xaml.cs">

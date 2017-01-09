@@ -747,8 +747,9 @@ namespace YellowstonePathology.Business.Test
                     this.NotifyPropertyChanged("TimeOfLastPublishNotification");
                 }
             }
-        }        
+        }
 
+        [MonitorProperty(true)]
         [PersistentProperty()]
         [PersistentDataColumnProperty(true, "50", "null", "varchar")]
         public string TechnicalComponentFacilityId
@@ -779,6 +780,7 @@ namespace YellowstonePathology.Business.Test
             }
         }
 
+        [MonitorProperty(true)]
         [PersistentProperty()]
         [PersistentDataColumnProperty(true, "50", "null", "varchar")]
         public string TechnicalComponentBillingFacilityId
@@ -794,6 +796,7 @@ namespace YellowstonePathology.Business.Test
             }
         }
 
+        [MonitorProperty(true)]
         [PersistentProperty()]
         [PersistentDataColumnProperty(false, "1", "0", "tinyint")]
         public bool HasTechnicalComponent
@@ -809,6 +812,7 @@ namespace YellowstonePathology.Business.Test
             }
         }
 
+        [MonitorProperty(true)]
         [PersistentProperty()]
         [PersistentDataColumnProperty(true, "50", "null", "varchar")]
         public string ProfessionalComponentFacilityId
@@ -824,6 +828,7 @@ namespace YellowstonePathology.Business.Test
             }
         }
 
+        [MonitorProperty(true)]
         [PersistentProperty()]
         [PersistentDataColumnProperty(true, "50", "null", "varchar")]
         public string ProfessionalComponentBillingFacilityId
@@ -839,6 +844,7 @@ namespace YellowstonePathology.Business.Test
             }
         }
 
+        [MonitorProperty(true)]
         [PersistentProperty()]
         [PersistentDataColumnProperty(false, "1", "0", "tinyint")]
         public bool HasProfessionalComponent
