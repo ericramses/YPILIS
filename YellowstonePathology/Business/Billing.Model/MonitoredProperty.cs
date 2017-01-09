@@ -9,13 +9,15 @@ namespace YellowstonePathology.Business.Billing.Model
 {
     public class MonitoredProperty
     {
+        private Object m_Object;
         private PropertyInfo m_PropertyInfo;
         private object m_OrginalValue;
                 
         public MonitoredProperty(PropertyInfo propertyInfo, object o)
         {
-            //this.m_PropertyInfo = PropertyInfo;
-            //this.m_OrginalValue = this.m_PropertyInfo.GetValue(o);
+            this.m_Object = o;
+            this.m_PropertyInfo = propertyInfo;
+            this.m_OrginalValue = this.m_PropertyInfo.GetValue(o);
         }
 
         public PropertyInfo PropertyInfo
@@ -28,13 +30,19 @@ namespace YellowstonePathology.Business.Billing.Model
             get { return this.m_OrginalValue; }
         }
 
-        public bool HasChanged(object o)
+        public bool HasChanged()
         {
             bool result = false;
-            if (this.m_PropertyInfo.GetValue(o) != this.OriginalValue)
+            if (this.m_PropertyInfo.GetValue(this.m_Object) != this.OriginalValue)
             {
                 result = true;
             }
+            return result;
+        }
+
+        public override string ToString()
+        {
+            string result = "Property: " + this.m_PropertyInfo.Name;
             return result;
         }
     }

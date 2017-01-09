@@ -75,17 +75,14 @@ namespace YellowstonePathology.UI.Billing
             this.m_PanelSetOrderCPTCodeBillCollection = this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection;                        
 
             this.m_CaseDocumentCollection = new Business.Document.CaseDocumentCollection(this.m_ReportNo);            
-			this.m_PageHeaderText = "Billing For: " + this.m_AccessionOrder.PatientDisplayName + " - " + this.m_AccessionOrder.PBirthdate.Value.ToShortDateString();
-
-            this.m_MonitoredPropertyCollection = new Business.Billing.Model.MonitoredPropertyCollection();
-            this.m_MonitoredPropertyCollection.Load(this.m_PanelSetOrder);
+			this.m_PageHeaderText = "Billing For: " + this.m_AccessionOrder.PatientDisplayName + " - " + this.m_AccessionOrder.PBirthdate.Value.ToShortDateString();            
 
 			InitializeComponent();
 
 			DataContext = this;
             this.Loaded += new RoutedEventHandler(BillingPage_Loaded);
-            Unloaded += BillingPage_Unloaded;
-		}        
+            this.Unloaded += BillingPage_Unloaded;            
+        }        
 
         private void BillingPage_Loaded(object sender, RoutedEventArgs e)
         {
@@ -95,11 +92,16 @@ namespace YellowstonePathology.UI.Billing
             {
                 this.ShowTIFDocument(this, new CustomEventArgs.FileNameReturnEventArgs(firstRequisition.FullFileName));
             }
+
+            this.m_MonitoredPropertyCollection = new Business.Billing.Model.MonitoredPropertyCollection();
+            this.m_MonitoredPropertyCollection.Load(typeof(Business.Test.PanelSetOrder), this.m_PanelSetOrder);
         }
 
         private void BillingPage_Unloaded(object sender, RoutedEventArgs e)
         {
             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
+            string result = this.m_MonitoredPropertyCollection.Diff();
+            //MessageBox.Show(result);
         }
 
         public YellowstonePathology.Business.Facility.Model.FacilityCollection FacilityCollection
