@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>312</ApplicationRevision>
+    <ApplicationRevision>314</ApplicationRevision>
     <ApplicationVersion>10.1.6.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -938,6 +938,7 @@
     <Compile Include="Business\HL7View\Panther\PantherOrderPriorityEnum.cs" />
     <Compile Include="Business\HL7View\Panther\PantherPID.cs" />
     <Compile Include="Business\HL7View\PidView.cs" />
+    <Compile Include="Business\HL7View\PID.cs" />
     <Compile Include="Business\HL7View\PV1.cs" />
     <Compile Include="Business\HL7View\ResultStatus.cs" />
     <Compile Include="Business\HL7View\ResultStatusEnum.cs" />
@@ -1068,6 +1069,7 @@
     <Compile Include="Business\PanelSet.Model\NeoTypeDiscoveryProfileTest.cs" />
     <Compile Include="Business\PanelSet.Model\ShipMaterialTest.cs" />
     <Compile Include="Business\ParseSpecimenOrderIdResult.cs" />
+    <Compile Include="Business\Patient.Model\Address.cs" />
     <Compile Include="Business\Persistence\DocumentTestBuilders.cs" />
     <Compile Include="Business\Persistence\PersistentDataColumnProperty.cs" />
     <Compile Include="Business\Persistence\SqlDataRowReaderPropertyWriter.cs" />

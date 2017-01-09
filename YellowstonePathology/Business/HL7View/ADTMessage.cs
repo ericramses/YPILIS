@@ -14,6 +14,7 @@ namespace YellowstonePathology.Business.HL7View
 
         Business.HL7View.GT1 m_Gt1Segment;
         Business.HL7View.PV1 m_PV1Segment;
+        Business.HL7View.PID m_PIDSegment;
 
         protected string m_MessageId;
         protected DateTime m_DateReceived;
@@ -24,14 +25,21 @@ namespace YellowstonePathology.Business.HL7View
         protected string m_AccountNo;
         protected string m_MedicalRecordNo;
         protected string m_MessageType;
+        protected Business.Patient.Model.Address m_Address;
 
         public ADTMessage()
-        {
+        {            
             this.m_IN1Segments = new List<HL7View.IN1>();
             this.m_IN2Segments = new List<HL7View.IN2>();
 
             this.m_Gt1Segment = new HL7View.GT1();
             this.m_PV1Segment = new PV1();
+            this.m_PIDSegment = new PID();
+        }
+
+        public Business.Patient.Model.Address PatientAddress
+        {
+            get { return this.m_Address; }
         }
 
         public List<Business.HL7View.IN1> IN1Segments
@@ -73,6 +81,12 @@ namespace YellowstonePathology.Business.HL7View
                 {
                     this.m_PV1Segment.FromHL7(lines[i]);
                 }
+
+                if (fields[0] == "PID")
+                {
+                    this.m_PIDSegment.FromHL7(lines[i]);
+                    this.m_Address = this.m_PIDSegment.Address;
+                }                
             }            
         }        
 
