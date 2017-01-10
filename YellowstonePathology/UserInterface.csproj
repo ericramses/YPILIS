@@ -1121,6 +1121,8 @@
     <Compile Include="Business\Test\PDL122C3\PDL122C3Test.cs" />
     <Compile Include="Business\Test\PDL122C3\PDL122C3TestOrder.cs" />
     <Compile Include="Business\Test\PDL122C3\PDL122C3WordDocument.cs" />
+    <Compile Include="Business\Test\PDL122C3\PDL122C3WPHOBXView.cs" />
+    <Compile Include="Business\Test\PDL1SP142\PDL1SP142WPHOBXView.cs" />
     <Compile Include="Business\Test\PlateletAssociatedAntibodies\PlateletAssociatedAntibodiesEPICOBXView.cs" />
     <Compile Include="Business\Test\RASRAFPanel\RASRAFCMMCNTEView.cs" />
     <Compile Include="Business\Test\ROS1ByFISH\ROS1ByFISHPositiveResult.cs" />
