@@ -233,7 +233,7 @@ namespace YellowstonePathology.Business.HL7View.WPH
                     //view = new YellowstonePathology.Business.Test.TechInitiatedPeripheralSmear.TechInitiatedPeripheralSmearWPHOBXView(accessionOrder, reportNo, obxCount);
                     break;
                 case 215:
-                    //view = new YellowstonePathology.Business.Test.PDL1.PDL1WPHOBXView(accessionOrder, reportNo, obxCount);
+                    view = new YellowstonePathology.Business.Test.PDL1SP142.PDL1SP142WPHOBXView(accessionOrder, reportNo, obxCount);
                     break;
                 case 217:
                     //view = new YellowstonePathology.Business.Test.KRASExon23Mutation.KRASExon23MutationWPHOBXView(accessionOrder, reportNo, obxCount);
@@ -264,6 +264,9 @@ namespace YellowstonePathology.Business.HL7View.WPH
                     break;
                 case 231:
                     //view = new YellowstonePathology.Business.Test.RUNX1RUNX1T1AML1ETOTranslocation.RUNX1RUNX1T1AML1ETOTranslocationWPHOBXView(accessionOrder, reportNo, obxCount);
+                    break;
+                case 245:
+                    view = new YellowstonePathology.Business.Test.PDL122C3.PDL122C3WPHOBXView(accessionOrder, reportNo, obxCount);
                     break;
             }
             return view;
