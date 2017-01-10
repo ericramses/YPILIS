@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>318</ApplicationRevision>
+    <ApplicationRevision>319</ApplicationRevision>
     <ApplicationVersion>10.1.6.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -2205,7 +2205,6 @@
     <Compile Include="Business\Test\HighGradeLargeBCellLymphoma\HighGradeLargeBCellLymphomaAbnormalResult2.cs" />
     <Compile Include="Business\Test\HighGradeLargeBCellLymphoma\HighGradeLargeBCellLymphomaEpicObxView.cs" />
     <Compile Include="Business\Test\HighGradeLargeBCellLymphoma\HighGradeLargeBCellLymphomaNegativeResult.cs" />
-    <Compile Include="Business\Test\HighGradeLargeBCellLymphoma\HighGradeLargeBCellLymphomaNormalResult.cs" />
     <Compile Include="Business\Test\HighGradeLargeBCellLymphoma\HighGradeLargeBCellLymphomaPanelTest.cs" />
     <Compile Include="Business\Test\HighGradeLargeBCellLymphoma\HighGradeLargeBCellLymphomaPositiveResult1.cs" />
     <Compile Include="Business\Test\HighGradeLargeBCellLymphoma\HighGradeLargeBCellLymphomaResult.cs" />
