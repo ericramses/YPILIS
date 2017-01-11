@@ -56,8 +56,10 @@ namespace YellowstonePathology.Business.Test.CalreticulinMutationAnalysis
 			this.HandleLongString(panelSetOrder.ReportReferences, document, "F");
 
 			this.AddNextObxElement("This test was performed using a US FDA approved DNA probe kit.  The FDA procedure was performed using a modified DNA extraction method for test optimization, and the modified procedure was validated by Yellowstone Pathology Institute (YPI).  YPI assumes the responsibility for test performance. Laboratory Improvement Amendments of 1988 (CLIA-88) as qualified to perform high complexity clinical laboratory testing.", document, "F");
+            this.AddNextObxElement("", document, "F");
+            this.AddNextObxElement(panelSetOrder.ASR, document, "F");
 
-			this.AddNextObxElement("", document, "F");
+            this.AddNextObxElement("", document, "F");
             string locationPerformed = panelSetOrder.GetLocationPerformedComment();
 			this.AddNextObxElement(locationPerformed, document, "F");
 			this.AddNextObxElement(string.Empty, document, "F");
