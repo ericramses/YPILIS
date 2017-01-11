@@ -15,8 +15,8 @@
     <TargetZone>LocalIntranet</TargetZone>
     <GenerateManifests>true</GenerateManifests>
     <SignManifests>false</SignManifests>
-    <ManifestCertificateThumbprint>A5D9223B0EA83E7653817CA36B63666AB6FD1B49</ManifestCertificateThumbprint>
-    <ManifestKeyFile>UserInterface_1_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestCertificateThumbprint>4C14207605FEA3771245BE4157A0ECF2637A8347</ManifestCertificateThumbprint>
+    <ManifestKeyFile>UserInterface_TemporaryKey.pfx</ManifestKeyFile>
     <ApplicationExtension>.application</ApplicationExtension>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileUpgradeFlags>
@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>322</ApplicationRevision>
+    <ApplicationRevision>327</ApplicationRevision>
     <ApplicationVersion>10.1.6.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -4891,6 +4891,7 @@
     <Compile Include="UI\ValidationRules\SSNValidRule.cs" />
     <AppDesigner Include="Properties\" />
     <EmbeddedResource Include="UI\MaterialTracking\FedXTrackingRequest.json" />
+    <None Include="UserInterface_TemporaryKey.pfx" />
     <Resource Include="Business\Document\CaseHeader.xml" />
     <Resource Include="Business\Document\DnaReport.xml" />
     <Resource Include="Business\Document\SharedHeaderFooter.xml">

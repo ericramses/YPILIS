@@ -34,9 +34,7 @@ namespace YellowstonePathology.Business.Test.BRAFV600EK
             this.m_ProfessionalComponentFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologistBillings();
             this.m_ProfessionalComponentBillingFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();
 
-            this.m_HasSplitCPTCode = true;
-            //Checked by MS and TK;
-            //updated 12.14.16 by MS;
+            this.m_HasSplitCPTCode = true;            
 
             string taskDescription = "Collect paraffin block from Histology and send to Neo.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.Task(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, taskDescription));
