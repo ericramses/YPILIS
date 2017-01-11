@@ -1105,7 +1105,7 @@ namespace YellowstonePathology.Business.Gateway
 			  "JOIN tblSpecimenOrder so ON ao.SpecimenOrderId = so.SpecimenOrderId LEFT OUTER JOIN tblStainResult sr ON  sr.TestOrderId = ot.TestOrderId " +
               "WHERE po.OrderDate = @OrderDate AND po.PanelId in (19, 21) and ot.TestId not in (49) ORDER BY 5 Asc, 1;";
 			cmd.CommandType = CommandType.Text;
-			cmd.Parameters.AddWithValue("@OrderDate", reportDate.ToShortDateString());
+			cmd.Parameters.AddWithValue("@OrderDate", reportDate);
 
 			using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{
@@ -2227,7 +2227,7 @@ namespace YellowstonePathology.Business.Gateway
                 "join tblAccessionOrder ao on pso.MasterAccessionNo = ao.MasterAccessionNo	" +
                 "join tblMissingInformationTestOrder mit on pso.ReportNo = mit.ReportNo " +
                 "join tblSystemUser su on pso.AssignedToId = su.UserId " +
-                "where pso.PanelSetId = 212 and pso.Final = 0" +
+                "where pso.PanelSetId = 212 and pso.Final = 0 " +
                 "order by ExpectedFinalTime;";
             cmd.CommandType = CommandType.Text;
 
