@@ -23,7 +23,7 @@ namespace YellowstonePathology.Business.Test.JAK2Exon1214
 
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.JAK2Exon1214.JAK2Exon1214TestOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.JAK2Exon1214.JAK2Exon1214WordDocument).AssemblyQualifiedName;
-            //Checked by MS;
+            
             this.m_EpicDistributionIsImplemented = true;
 
             string taskDescription = "Gather materials (Peripheral blood: 5 mL in EDTA tube or Bone marrow: 2 mL in EDTA tube) and send out to Neo.";

@@ -27,7 +27,7 @@ namespace YellowstonePathology.UI.Test
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private string m_PageHeaderText;
 
-        private YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHTestOrder m_ROS1ByFISHTestOrder;
+        private YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHTestOrder m_PanelSetOrder;
         private string m_OrderedOnDescription;
 
         private YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHResultCollection m_ResultCollection;
@@ -36,15 +36,15 @@ namespace YellowstonePathology.UI.Test
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity) : base(ros1ByFISHTestOrder, accessionOrder)
 		{
-            this.m_ROS1ByFISHTestOrder = ros1ByFISHTestOrder;
+            this.m_PanelSetOrder = ros1ByFISHTestOrder;
 			this.m_AccessionOrder = accessionOrder;			
 			this.m_SystemIdentity = systemIdentity;
 
             this.m_ResultCollection = new Business.Test.ROS1ByFISH.ROS1ByFISHResultCollection();
             this.m_PageHeaderText = "ROS1 Results For: " + this.m_AccessionOrder.PatientDisplayName;
 
-			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByOrderTarget(this.m_ROS1ByFISHTestOrder.OrderedOnId);
-            YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetAliquotOrder(this.m_ROS1ByFISHTestOrder.OrderedOnId);
+			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByOrderTarget(this.m_PanelSetOrder.OrderedOnId);
+            YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetAliquotOrder(this.m_PanelSetOrder.OrderedOnId);
             this.m_OrderedOnDescription = specimenOrder.Description;
             if(aliquotOrder != null) this.m_OrderedOnDescription += ": " + aliquotOrder.Label;
 
@@ -74,9 +74,9 @@ namespace YellowstonePathology.UI.Test
             get { return this.m_OrderedOnDescription; }
         }
 
-        public YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHTestOrder ROS1ByFISHTestOrder
+        public YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHTestOrder PanelSetOrder
         {
-            get { return this.m_ROS1ByFISHTestOrder; }
+            get { return this.m_PanelSetOrder; }
         }
 
 		public void NotifyPropertyChanged(String info)
@@ -94,21 +94,21 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{            
-            YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHWordDocument report = new Business.Test.ROS1ByFISH.ROS1ByFISHWordDocument(this.m_AccessionOrder, this.m_ROS1ByFISHTestOrder, Business.Document.ReportSaveModeEnum.Draft);
+            YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHWordDocument report = new Business.Test.ROS1ByFISH.ROS1ByFISHWordDocument(this.m_AccessionOrder, this.m_PanelSetOrder, Business.Document.ReportSaveModeEnum.Draft);
             report.Render();
 
-			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_ROS1ByFISHTestOrder.ReportNo);
+			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
             string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);
             YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(fileName);         
 		}
 
         private void HyperLinkFinalizeResults_Click(object sender, RoutedEventArgs e)
         {
-            if (this.m_ROS1ByFISHTestOrder.Accepted == true)
+            if (this.m_PanelSetOrder.Accepted == true)
             {
-                if (this.m_ROS1ByFISHTestOrder.Final == false)
+                if (this.m_PanelSetOrder.Final == false)
                 {
-                    this.m_ROS1ByFISHTestOrder.Finish(this.m_AccessionOrder);
+                    this.m_PanelSetOrder.Finish(this.m_AccessionOrder);
                 }
                 else
                 {
@@ -123,9 +123,9 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkUnfinalResults_Click(object sender, RoutedEventArgs e)
 		{            			
-			if (this.m_ROS1ByFISHTestOrder.Final == true)
+			if (this.m_PanelSetOrder.Final == true)
             {
-                this.m_ROS1ByFISHTestOrder.Unfinalize();
+                this.m_PanelSetOrder.Unfinalize();
             }
             else
             {
@@ -135,11 +135,11 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkAcceptResults_Click(object sender, RoutedEventArgs e)
 		{
-            if (this.m_ROS1ByFISHTestOrder.Final == false)
+            if (this.m_PanelSetOrder.Final == false)
             {
-                if (this.m_ROS1ByFISHTestOrder.Accepted == false)
+                if (this.m_PanelSetOrder.Accepted == false)
                 {
-                    this.m_ROS1ByFISHTestOrder.Accept();
+                    this.m_PanelSetOrder.Accept();
                 }
                 else
                 {
@@ -154,9 +154,9 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkUnacceptResults_Click(object sender, RoutedEventArgs e)
 		{            			
-			if (this.m_ROS1ByFISHTestOrder.Accepted == true)
+			if (this.m_PanelSetOrder.Accepted == true)
 			{
-				this.m_ROS1ByFISHTestOrder.Unaccept();
+				this.m_PanelSetOrder.Unaccept();
 			}
 			else
 			{
@@ -176,12 +176,12 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkSetResults_Click(object sender, RoutedEventArgs e)
         {
-            if (this.m_ROS1ByFISHTestOrder.Accepted == false)
+            if (this.m_PanelSetOrder.Accepted == false)
             {
                 if (this.ComboBoxResult.SelectedItem != null)
                 {
                     YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHResult result = (YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHResult)this.ComboBoxResult.SelectedItem;
-                    result.SetResult(this.m_ROS1ByFISHTestOrder);
+                    result.SetResult(this.m_PanelSetOrder);
                 }
             }
             else
@@ -195,7 +195,7 @@ namespace YellowstonePathology.UI.Test
             if (this.ComboBoxResult.SelectedItem != null)
             {
                 YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHResult result = (YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHResult)this.ComboBoxResult.SelectedItem;
-                this.m_ROS1ByFISHTestOrder.ResultCode = result.ResultCode;
+                this.m_PanelSetOrder.ResultCode = result.ResultCode;
             }
         }
 	}

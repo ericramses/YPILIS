@@ -22,11 +22,22 @@ namespace YellowstonePathology.Business.Test.ROS1ByFISH
             string result = "Result: " + panelSetOrder.Result;
             this.AddNextObxElement(result, document, "F");
 
-            this.AddNextObxElement("", document, "F");
-            this.AddNextObxElement("Pathologist: " + panelSetOrder.Signature, document, "F");
-            if (panelSetOrder.FinalTime.HasValue == true)
+            this.AddNextObxElement("", document, "F");            
+            if(string.IsNullOrEmpty(panelSetOrder.ReferenceLabSignature) == false)
             {
-                this.AddNextObxElement("E-signed " + panelSetOrder.FinalTime.Value.ToString("MM/dd/yyyy HH:mm"), document, "F");
+                this.AddNextObxElement("Pathologist: " + panelSetOrder.ReferenceLabSignature, document, "F");
+                if (panelSetOrder.FinalTime.HasValue == true)
+                {
+                    this.AddNextObxElement("E-signed " + panelSetOrder.ReferenceLabFinalDate.Value.ToString("MM/dd/yyyy HH:mm"), document, "F");
+                }
+            }
+            else
+            {
+                this.AddNextObxElement("Pathologist: " + panelSetOrder.Signature, document, "F");
+                if (panelSetOrder.FinalTime.HasValue == true)
+                {
+                    this.AddNextObxElement("E-signed " + panelSetOrder.FinalTime.Value.ToString("MM/dd/yyyy HH:mm"), document, "F");
+                }
             }
 
             this.AddNextObxElement("", document, "F");

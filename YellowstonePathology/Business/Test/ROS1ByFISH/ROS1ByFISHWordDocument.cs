@@ -46,8 +46,17 @@ namespace YellowstonePathology.Business.Test.ROS1ByFISH
             this.SetXMLNodeParagraphData("report_method", ros1ByFISHTestOrder.Method);
             this.SetXMLNodeParagraphData("tumor_nuclei_percentage", ros1ByFISHTestOrder.TumorNucleiPercentage);
 
-            this.ReplaceText("report_date", BaseData.GetShortDateString(this.m_PanelSetOrder.FinalDate));
-			this.ReplaceText("pathologist_signature", this.m_PanelSetOrder.Signature);            
+            if(string.IsNullOrEmpty(this.m_PanelSetOrder.ReferenceLabSignature) == false)
+            {
+                this.ReplaceText("pathologist_signature", this.m_PanelSetOrder.ReferenceLabSignature);
+                this.ReplaceText("report_date", BaseData.GetShortDateString(this.m_PanelSetOrder.ReferenceLabFinalDate));
+            }
+            else
+            {
+                this.ReplaceText("pathologist_signature", this.m_PanelSetOrder.Signature);
+                this.ReplaceText("report_date", BaseData.GetShortDateString(this.m_PanelSetOrder.FinalDate));
+            }
+            
             this.ReplaceText("report_disclaimer", ros1ByFISHTestOrder.ReportDisclaimer);
 
 			this.SaveReport();
