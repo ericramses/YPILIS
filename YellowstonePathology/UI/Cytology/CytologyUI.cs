@@ -186,8 +186,8 @@ namespace YellowstonePathology.UI.Cytology
                 if (this.m_AccessionOrder.PanelSetOrderCollection.WomensHealthProfileExists() == true)
                 {
                     this.m_AccessionOrder.PanelSetOrderCollection.GetWomensHealthProfile().SetExptectedFinalTime(this.m_AccessionOrder);
-                }
-
+                }                
+                
 				this.StartWomensHealthProfilePath();
             }						
         }        
