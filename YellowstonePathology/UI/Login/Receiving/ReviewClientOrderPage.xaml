@@ -134,6 +134,10 @@
                 <TextBlock Grid.Column="2" Grid.Row="5" Margin="2,2,2,2" HorizontalAlignment="Right" FontWeight="Bold">Order Status:</TextBlock>
                 <TextBlock Grid.Column="3" Grid.Row="5" Margin="2,2,2,2" Text="{Binding Path=ClientOrder.OrderStatus}"></TextBlock>
 
+                <TextBlock Name="HyperLinkCreateNewAccessionRecentAccessionsExist" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="6" Margin="2,2,2,2" Visibility="Hidden">                    
+                    <Hyperlink Click="HyperLinkCreateNewAccessionRecentAccessionsExist_Click">Create a new Accession even though recent accessions exist.</Hyperlink>
+                </TextBlock>
+
                 <TextBlock Grid.Column="0" Grid.Row="7" Margin="2,2,2,2" HorizontalAlignment="Right" FontWeight="Bold">Hold:</TextBlock>
                 <CheckBox Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="7" Margin="2,2,2,2" IsChecked="{Binding Path=ClientOrder.Hold}" VerticalAlignment="Center"></CheckBox>
 
@@ -148,8 +152,8 @@
 				<ListView.View>
 					<GridView>
 						<GridView.Columns>
-							<GridViewColumn Header="Report No" DisplayMemberBinding="{Binding Path=ReportNo}" Width="85" />
-							<GridViewColumn Header="Accession Time" DisplayMemberBinding="{Binding Path=AccessionTime, Converter={StaticResource ShortDateTimeConverter}}" Width="120" />
+                            <GridViewColumn Header="Report No" DisplayMemberBinding="{Binding Path=ReportNo}" Width="85" />
+                            <GridViewColumn Header="Accession Time" DisplayMemberBinding="{Binding Path=AccessionTime, Converter={StaticResource ShortDateTimeConverter}}" Width="120" />
 							<GridViewColumn Header="Last Name" DisplayMemberBinding="{Binding Path=PLastName}" Width="120" />
 							<GridViewColumn Header="First Name" DisplayMemberBinding="{Binding Path=PFirstName}" Width="120" />
                             <GridViewColumn Header="Birthday" DisplayMemberBinding="{Binding Path=PBirthdate, Converter={StaticResource ShortDateTimeConverter}}" Width="120" />
