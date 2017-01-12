@@ -54,6 +54,8 @@ namespace YellowstonePathology.Business.Test.MPL
             string locationPerformed = panelSetOrder.GetLocationPerformedComment();
 			this.AddNextObxElement(locationPerformed, document, "F");
 			this.AddNextObxElement(string.Empty, document, "F");
-		}
+
+            this.AddNextObxElement(panelSetOrder.ASR, document, "F");
+        }
 	}
 }
