@@ -25,7 +25,7 @@ namespace YellowstonePathology.Business.Test
         public PanelSetOrder CurrentPanelSetOrder
         {
             get { return this.m_CurrentPanelSetOrder; }
-        }
+        }        
 
         public void RemoveDeleted(IEnumerable<XElement> elements)
         {

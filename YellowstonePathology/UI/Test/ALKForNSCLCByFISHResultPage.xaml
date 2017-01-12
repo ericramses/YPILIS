@@ -132,9 +132,9 @@
 
                     <TextBlock Grid.Column="0" Grid.Row="13" Margin="2,2,2,2" FontWeight="Bold">Probe Set Details:</TextBlock>
                     <TextBox Grid.Column="0" Grid.Row="14" Grid.ColumnSpan="2" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.ProbeSetDetail}" TextWrapping="Wrap" AcceptsReturn="True"></TextBox>
-                    
-                    <local:ReferenceLabFinalControl x:Name="ReferenceLabFinalControl" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="15" Margin="2,2,2,2"/>
 
+                    <local:ReferenceLabFinalControl x:Name="ReferenceLabFinalControl" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="15" Margin="2,2,2,2"/>
+                    
                 </Grid>
             </ScrollViewer>
 

@@ -106,7 +106,7 @@ namespace YellowstonePathology.Business.Test.HPV1618ByPCR
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
+        [PersistentDataColumnProperty(true, "1000", "null", "varchar")]
         public string Comment
         {
             get { return this.m_Comment; }

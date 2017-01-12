@@ -390,7 +390,18 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 		}
 
 		private void ButtonOrder_Click(object sender, RoutedEventArgs e)
-		{
+		{            
+            if(this.m_PanelSetOrder.PanelSetId == 216)
+            {
+                MessageBox.Show("Sorry, I can't let you add stains to an Informal Consult.");
+                return;
+            }
+            if (this.m_PanelSetOrder.PanelSetId == 197)  //Peer Review
+            {
+                MessageBox.Show("Sorry, I can't let you add stains to a Peer Review.");
+                return;
+            }
+
             bool isDualStain = false;
             YellowstonePathology.Business.Test.Model.Test test = null;
             YellowstonePathology.Business.Test.Model.DualStain dualStain = null;

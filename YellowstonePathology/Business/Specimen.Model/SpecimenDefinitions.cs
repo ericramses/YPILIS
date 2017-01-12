@@ -61,7 +61,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_SpecimenId = "SPCMGENERICGRWBLCKS";
             this.m_SpecimenName = "Generic Specimen, Gross Required With Blocks";
             this.m_Description = null;
-            this.m_LabFixation = "Fomalin";
+            this.m_LabFixation = "Formalin";
             this.m_ClientFixation = "Formalin";
             this.m_RequiresGrossExamination = true;
         }
@@ -583,8 +583,8 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             public SinusContent()
             {
                 this.m_SpecimenId = "SCSPCMN";
-                this.m_SpecimenName = "Sinus Contents";
-                this.m_Description = "[Right/Left] sinus contents";
+                this.m_SpecimenName = "Sinus Content";
+                this.m_Description = "[Right/Left] sinus content";
                 this.m_LabFixation = "Formalin";
                 this.m_ClientFixation = null;
                 this.m_RequiresGrossExamination = true;

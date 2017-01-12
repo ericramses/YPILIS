@@ -141,6 +141,16 @@ namespace YellowstonePathology.UI.Login.Receiving
                 {
                     MessageBox.Show("This order cannot be accessioned because the provider has no report distributions for the client.", "Unable to create report distributions.", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 }
+                else if(this.m_PatientRecentAccessions.RecentAccessions.Count > 0)
+                {
+                    Business.Logging.EmailExceptionHandler.HandleException("Recent Accessions Exist for: " + this.m_ClientOrder.PLastName + ", " + this.m_ClientOrder.PFirstName);
+                    if (this.m_PatientRecentAccessions.ItemsExistFromPast24Hours() == true)
+                    {
+                        this.HyperLinkCreateNewAccessionRecentAccessionsExist.Visibility = Visibility.Visible;
+                        MessageBox.Show("One or more recent Accessions exist in the past 24hrs, you must acknowledge them before you can create a new accession.");
+                    }
+                }
+                
                 else
                 {
                     if (this.CreateNewAccessionOrder != null)
@@ -266,5 +276,12 @@ namespace YellowstonePathology.UI.Login.Receiving
             return result;
         }
 
+        private void HyperLinkCreateNewAccessionRecentAccessionsExist_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.CreateNewAccessionOrder != null)
+            {
+                this.CreateNewAccessionOrder(this, new EventArgs());
+            }
+        }
     }
 }

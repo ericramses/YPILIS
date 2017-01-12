@@ -392,7 +392,7 @@ namespace YellowstonePathology.UI.Surgical
             if (this.m_TypingUI.SurgicalTestOrder.AssignedToId == 0)
             {
                 methodResult.Success = false;
-                methodResult.Message = "Please assign a pathologist to this case.";
+                methodResult.Message = "This case cannot be accepted until a pathologist has been assigned.";
             }            
             return methodResult;
         }
@@ -423,6 +423,9 @@ namespace YellowstonePathology.UI.Surgical
             }
             else
             {
+                this.m_TypingUI.SurgicalTestOrder.Accepted = false;
+                this.m_TypingUI.SurgicalTestOrder.AcceptedDate = null;
+                this.m_TypingUI.SurgicalTestOrder.AcceptedTime = null;
                 MessageBox.Show(methodResult.Message);
             }
         }        

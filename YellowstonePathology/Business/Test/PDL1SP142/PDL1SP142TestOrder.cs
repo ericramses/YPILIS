@@ -96,7 +96,7 @@ namespace YellowstonePathology.Business.Test.PDL1SP142
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "500", "null", "varchar")]
+        [PersistentDataColumnProperty(true, "1000", "null", "varchar")]
         public string Comment
         {
             get { return this.m_Comment; }

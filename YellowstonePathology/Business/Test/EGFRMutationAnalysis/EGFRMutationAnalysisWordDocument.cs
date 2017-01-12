@@ -56,8 +56,17 @@ namespace YellowstonePathology.Business.Test.EGFRMutationAnalysis
             this.SetXMLNodeParagraphData("report_references", egfrMutationAnalysisTestOrder.ReportReferences);
             this.SetXMLNodeParagraphData("report_disclaimer", egfrMutationAnalysisTestOrder.ReportDisclaimer);
 
-            this.ReplaceText("report_date", BaseData.GetShortDateString(this.m_PanelSetOrder.FinalDate));			
-			this.ReplaceText("pathologist_signature", this.m_PanelSetOrder.Signature);
+            if(string.IsNullOrEmpty(this.m_PanelSetOrder.ReferenceLabSignature) == false)
+            {
+                this.ReplaceText("report_date", BaseData.GetShortDateString(this.m_PanelSetOrder.ReferenceLabFinalDate));
+                this.ReplaceText("pathologist_signature", this.m_PanelSetOrder.ReferenceLabSignature);
+            }
+            else
+            {
+                this.ReplaceText("report_date", BaseData.GetShortDateString(this.m_PanelSetOrder.FinalDate));
+                this.ReplaceText("pathologist_signature", this.m_PanelSetOrder.Signature);
+
+            }
 
 			this.SaveReport();
 		}

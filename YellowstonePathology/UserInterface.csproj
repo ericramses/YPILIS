@@ -15,8 +15,8 @@
     <TargetZone>LocalIntranet</TargetZone>
     <GenerateManifests>true</GenerateManifests>
     <SignManifests>false</SignManifests>
-    <ManifestCertificateThumbprint>A5D9223B0EA83E7653817CA36B63666AB6FD1B49</ManifestCertificateThumbprint>
-    <ManifestKeyFile>UserInterface_1_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestCertificateThumbprint>4C14207605FEA3771245BE4157A0ECF2637A8347</ManifestCertificateThumbprint>
+    <ManifestKeyFile>UserInterface_TemporaryKey.pfx</ManifestKeyFile>
     <ApplicationExtension>.application</ApplicationExtension>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileUpgradeFlags>
@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>293</ApplicationRevision>
+    <ApplicationRevision>333</ApplicationRevision>
     <ApplicationVersion>10.1.6.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -291,6 +291,9 @@
     <Compile Include="Business\BaseData.cs" />
     <Compile Include="Business\BaseItem.cs" />
     <Compile Include="Business\BaseListItem.cs" />
+    <Compile Include="Business\Billing.Model\MonitoredObject.cs" />
+    <Compile Include="Business\Billing.Model\MonitoredObjectCollection.cs" />
+    <Compile Include="Business\Billing.Model\PropertyChanges.cs" />
     <Compile Include="Business\Client.Model\IdahoClientIdList.cs" />
     <Compile Include="Business\HL7View\ADTMessage.cs" />
     <Compile Include="Business\HL7View\ADTMessages.cs" />
@@ -938,6 +941,7 @@
     <Compile Include="Business\HL7View\Panther\PantherOrderPriorityEnum.cs" />
     <Compile Include="Business\HL7View\Panther\PantherPID.cs" />
     <Compile Include="Business\HL7View\PidView.cs" />
+    <Compile Include="Business\HL7View\PID.cs" />
     <Compile Include="Business\HL7View\PV1.cs" />
     <Compile Include="Business\HL7View\ResultStatus.cs" />
     <Compile Include="Business\HL7View\ResultStatusEnum.cs" />
@@ -997,6 +1001,10 @@
     <Compile Include="Business\Label.Model\CassettePrinter.cs" />
     <Compile Include="Business\Label.Model\ContainerPaperLabel.cs" />
     <Compile Include="Business\Label.Model\ContainerPaperLabelPrinter.cs" />
+    <Compile Include="Business\Label.Model\UrineZPLLabel.cs" />
+    <Compile Include="Business\Label.Model\IFEZPLLabel.cs" />
+    <Compile Include="Business\Label.Model\FormalinAddedZPLLabel.cs" />
+    <Compile Include="Business\Label.Model\SerumZPLLabel.cs" />
     <Compile Include="Business\Label.Model\HistologySlidePaperZPLLabel.cs" />
     <Compile Include="Business\Label.Model\HistologyBlockPaperZPLLabel.cs" />
     <Compile Include="Business\Label.Model\HistologySlideDirectPrintLabel.cs" />
@@ -1064,8 +1072,10 @@
     <Compile Include="Business\PanelSet.Model\NeoTypeDiscoveryProfileTest.cs" />
     <Compile Include="Business\PanelSet.Model\ShipMaterialTest.cs" />
     <Compile Include="Business\ParseSpecimenOrderIdResult.cs" />
+    <Compile Include="Business\Patient.Model\Address.cs" />
     <Compile Include="Business\Persistence\DocumentTestBuilders.cs" />
     <Compile Include="Business\Persistence\PersistentDataColumnProperty.cs" />
+    <Compile Include="Business\Persistence\MonitorProperty.cs" />
     <Compile Include="Business\Persistence\SqlDataRowReaderPropertyWriter.cs" />
     <Compile Include="Business\Reports\DisposalReportData.cs" />
     <Compile Include="Business\Reports\CytologySlideDisposalReportV2.xaml.cs">
@@ -1111,6 +1121,8 @@
     <Compile Include="Business\Test\PDL122C3\PDL122C3Test.cs" />
     <Compile Include="Business\Test\PDL122C3\PDL122C3TestOrder.cs" />
     <Compile Include="Business\Test\PDL122C3\PDL122C3WordDocument.cs" />
+    <Compile Include="Business\Test\PDL122C3\PDL122C3WPHOBXView.cs" />
+    <Compile Include="Business\Test\PDL1SP142\PDL1SP142WPHOBXView.cs" />
     <Compile Include="Business\Test\PlateletAssociatedAntibodies\PlateletAssociatedAntibodiesEPICOBXView.cs" />
     <Compile Include="Business\Test\RASRAFPanel\RASRAFCMMCNTEView.cs" />
     <Compile Include="Business\Test\ROS1ByFISH\ROS1ByFISHPositiveResult.cs" />
@@ -2195,7 +2207,6 @@
     <Compile Include="Business\Test\HighGradeLargeBCellLymphoma\HighGradeLargeBCellLymphomaAbnormalResult2.cs" />
     <Compile Include="Business\Test\HighGradeLargeBCellLymphoma\HighGradeLargeBCellLymphomaEpicObxView.cs" />
     <Compile Include="Business\Test\HighGradeLargeBCellLymphoma\HighGradeLargeBCellLymphomaNegativeResult.cs" />
-    <Compile Include="Business\Test\HighGradeLargeBCellLymphoma\HighGradeLargeBCellLymphomaNormalResult.cs" />
     <Compile Include="Business\Test\HighGradeLargeBCellLymphoma\HighGradeLargeBCellLymphomaPanelTest.cs" />
     <Compile Include="Business\Test\HighGradeLargeBCellLymphoma\HighGradeLargeBCellLymphomaPositiveResult1.cs" />
     <Compile Include="Business\Test\HighGradeLargeBCellLymphoma\HighGradeLargeBCellLymphomaResult.cs" />
@@ -3054,6 +3065,7 @@
     <Compile Include="MySQLMigration\NonpersistentTableDefPanel.cs" />
     <Compile Include="MySQLMigration\NonpersistentTableDefPanelSet.cs" />
     <Compile Include="MySQLMigration\NonpersistentTableDefPatient.cs" />
+    <Compile Include="MySQLMigration\NonpersistentTableDefPsaImport.cs" />
     <Compile Include="MySQLMigration\NonpersistentTableDefSpecimenAdequacy.cs" />
     <Compile Include="MySQLMigration\NonpersistentTableDefStainResultOption.cs" />
     <Compile Include="MySQLMigration\NonpersistentTableDefStainResultOptionGroup.cs" />
@@ -4879,6 +4891,7 @@
     <Compile Include="UI\ValidationRules\SSNValidRule.cs" />
     <AppDesigner Include="Properties\" />
     <EmbeddedResource Include="UI\MaterialTracking\FedXTrackingRequest.json" />
+    <None Include="UserInterface_TemporaryKey.pfx" />
     <Resource Include="Business\Document\CaseHeader.xml" />
     <Resource Include="Business\Document\DnaReport.xml" />
     <Resource Include="Business\Document\SharedHeaderFooter.xml">

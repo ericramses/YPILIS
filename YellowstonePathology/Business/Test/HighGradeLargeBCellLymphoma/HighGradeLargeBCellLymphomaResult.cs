@@ -7,7 +7,7 @@ namespace YellowstonePathology.Business.Test.HighGradeLargeBCellLymphoma
 {
 	public class HighGradeLargeBCellLymphomaResult
 	{
-		public static string NucleiScored = "200";
+		public static string NucleiScored;
 		protected string m_Result;
 		protected string m_Interpretation;
 		protected string m_ProbeSetDetail;
@@ -35,8 +35,7 @@ namespace YellowstonePathology.Business.Test.HighGradeLargeBCellLymphoma
 		{
 			panelSetOrderHighGradeLargeBCellLymphoma.Result = this.m_Result;
 			panelSetOrderHighGradeLargeBCellLymphoma.Interpretation = this.m_Interpretation;
-			panelSetOrderHighGradeLargeBCellLymphoma.ProbeSetDetail = this.m_ProbeSetDetail;
-			panelSetOrderHighGradeLargeBCellLymphoma.NucleiScored = HighGradeLargeBCellLymphomaResult.NucleiScored;
+			panelSetOrderHighGradeLargeBCellLymphoma.ProbeSetDetail = this.m_ProbeSetDetail;			
 		}
 	}
 }

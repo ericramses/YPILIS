@@ -11,15 +11,14 @@ namespace YellowstonePathology.Business.Test.HighGradeLargeBCellLymphoma
 		{
 			this.m_Result = "NEGATIVE";
 
-			this.m_Interpretation = "Fluorescence in situ hybridization (FISH) analysis was performed using probes specific for rearrangements involving " +
-				"BCL6, MYC, and t (14;18), which are reported in high-grade/large B-cell lymphomas.  Increased signals were identified in all probe sets, " +
-				"suggesting polysomy.  While this represents an abnormal result, there is no presence of gene rearrangements involving BCL2, BCL6, MYC, " +
-				"and IGH, and the results are considered NEGATIVE.";
+			this.m_Interpretation = "Normal results were observed for the BCL6, MYC, and t(14;18) probe sets." + Environment.NewLine + Environment.NewLine +
+                "Fluorescence in situ hybridization (FISH)analysis was performed using probes specific for rearrangements involving BCL6, MYC, and t(14; 18), which are " +
+                "reported in high - grade / large B - cell lymphomas.All signals were within the normal reference range. This finding represents a NORMAL result indicating " +
+                "the absence of gene rearrangements involving BCL2, BCL6, MYC, and IGH.";
 
-			this.m_ProbeSetDetail = "IgH/BCL2 t(14;18): A subpopulation of cells contains increased signals indicating polysomy. There is no evidence of " +
-				"a IGH/BCL2 translocation.\r\n" +
-				"MYC (8q24): A subpopulation of cells contains increased signals indicating polysomy. There is no evidence of a MYC translocation.\r\n" +
-				"BCL6 (3q27): A subpopulation of cells contains increased signals indicating polysomy. There is no evidence of a BCL6 translocation.";
-		}
-	}
+            this.m_ProbeSetDetail = "IgH/BCL2 t(14;18): Normal signal pattern 2R2G was observed. This is a NORMAL result negative for IgH/BCL2 fusion." + Environment.NewLine +
+                "MYC(8q24): Normal signal pattern 2F was observed. This is negative for MYC gene rearrangement." + Environment.NewLine +
+                "BCL6(3q27): The probe shows a normal 2F(yellow) signal pattern.This represents a NORMAL result negative for BCL6 gene rearrangement.";
+        }
+    }
 }

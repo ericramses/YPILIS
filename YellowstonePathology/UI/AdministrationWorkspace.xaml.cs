@@ -322,62 +322,46 @@ namespace YellowstonePathology.UI
 
         private void ButtonSerumLabels_Click(object sender, RoutedEventArgs e)
         {
-            System.Printing.PrintServer printServer = new System.Printing.LocalPrintServer();
-            string printer = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.ContainerLabelPrinter;
-            System.Printing.PrintQueue printQueue = printServer.GetPrintQueue(printer);
-
-            YellowstonePathology.UI.Login.SerumLabel label = new Login.SerumLabel("Serum", "84165-26");                        
-
-            System.Windows.Controls.PrintDialog printDialog = new System.Windows.Controls.PrintDialog();
-            printDialog.PrintTicket.CopyCount = 50;
-            printDialog.PrintTicket.PageMediaSize = new PageMediaSize(384, 96);
-            printDialog.PrintQueue = printQueue;
-
-            printDialog.PrintDocument(label.DocumentPaginator, "Labels");            
+            Business.Label.Model.ZPLPrinter printer = new Business.Label.Model.ZPLPrinter("10.1.1.21");
+            int pageCount = 50;
+            for (int x = 0; x < pageCount; x++)
+            {
+                string commands = Business.Label.Model.SerumZPLLabel.GetCommands();
+                printer.Print(commands);
+            }
         }
 
         private void ButtonFormalinAddedLabels_Click(object sender, RoutedEventArgs e)
         {
-            System.Printing.PrintServer printServer = new System.Printing.LocalPrintServer();
-            string printer = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.ContainerLabelPrinter;
-            System.Printing.PrintQueue printQueue = printServer.GetPrintQueue(printer);
-            
-            YellowstonePathology.UI.Login.FormalinAddedLabel label = new Login.FormalinAddedLabel();
-            System.Windows.Controls.PrintDialog printDialog = new System.Windows.Controls.PrintDialog();
-            printDialog.PrintTicket.CopyCount = 50;
-            printDialog.PrintTicket.PageMediaSize = new PageMediaSize(384, 96);
-            printDialog.PrintQueue = printQueue;
-
-            printDialog.PrintDocument(label.DocumentPaginator, "Labels");            
+            Business.Label.Model.ZPLPrinter printer = new Business.Label.Model.ZPLPrinter("10.1.1.21");
+            int pageCount = 50;
+            for (int x = 0; x < pageCount; x++)
+            {
+                string commands = Business.Label.Model.FormalinAddedZPLLabel.GetCommands();
+                printer.Print(commands);
+            }
         }
 
         private void ButtonIFLabels_Click(object sender, RoutedEventArgs e)
         {
-            System.Printing.PrintServer printServer = new System.Printing.LocalPrintServer();
-            string printer = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.ContainerLabelPrinter;
-            System.Printing.PrintQueue printQueue = printServer.GetPrintQueue(printer);
-
-            YellowstonePathology.UI.Login.IFELabel label = new Login.IFELabel();
-            System.Windows.Controls.PrintDialog printDialog = new System.Windows.Controls.PrintDialog();
-            printDialog.PrintTicket.CopyCount = 50;
-            printDialog.PrintTicket.PageMediaSize = new PageMediaSize(384, 96);
-            printDialog.PrintQueue = printQueue;
-
-            printDialog.PrintDocument(label.DocumentPaginator, "Labels");            
+            Business.Label.Model.ZPLPrinter printer = new Business.Label.Model.ZPLPrinter("10.1.1.21");
+            int pageCount = 50;
+            for (int x = 0; x < pageCount; x++)
+            {
+                string commands = Business.Label.Model.IFEZPLLabel.GetCommands();
+                printer.Print(commands);
+            }
         }
 
         private void ButtonUrineLabels_Click(object sender, RoutedEventArgs e)
         {
-            System.Printing.PrintServer printServer = new System.Printing.LocalPrintServer();
-            System.Printing.PrintQueue printQueue = printServer.GetPrintQueue(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.ContainerLabelPrinter);
-            
-            YellowstonePathology.UI.Login.SerumLabel serumLabel = new Login.SerumLabel("Urine", "84166-26");
-            System.Windows.Controls.PrintDialog printDialog = new System.Windows.Controls.PrintDialog();
-
-            printDialog.PrintTicket.CopyCount = 50;
-            printDialog.PrintTicket.PageMediaSize = new PageMediaSize(384, 96);
-            printDialog.PrintQueue = printQueue;
-            printDialog.PrintDocument(serumLabel.DocumentPaginator, "Urine Labels");           
+            Business.Label.Model.ZPLPrinter printer = new Business.Label.Model.ZPLPrinter("10.1.1.21");
+            int pageCount = 50;
+            for (int x = 0; x < pageCount; x++)
+            {
+                string commands = Business.Label.Model.UrineZPLLabel.GetCommands();
+                printer.Print(commands);
+            }
         }
 
 		private void ButtonAccessionSlideOrderTracking_Click(object sender, RoutedEventArgs e)
@@ -1251,67 +1235,16 @@ namespace YellowstonePathology.UI
             
         }
 
-        private void ButtonWilliamTesting_Click(object sender, RoutedEventArgs e)
+        private void ButtonAddYearDailyTasks_Click(object sender, RoutedEventArgs e)
         {
-            StringBuilder results = new StringBuilder();
-            List<string> panelSetIds = new List<string>();
-            SqlCommand cmd = new SqlCommand("Select distinct PanelSetId from tblPanelSetOrder where orderdate between '4/1/2016' and '9/1/2016' " +
-                "and PanelSetId between 102 and 205 order by 1");
-            cmd.CommandType = CommandType.Text;
+            StringBuilder message = new StringBuilder();
+            YellowstonePathology.Business.Rules.MethodResult result = YellowstonePathology.Business.Task.Model.TaskOrderCollection.AddDailyTaskOrderCytologySlideDisposal(365, this);
+            message.AppendLine(result.Message);
 
-            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-            {
-                cn.Open();
-                cmd.Connection = cn;
-                using (SqlDataReader dr = cmd.ExecuteReader())
-                {
-                    while (dr.Read())
-                    {
-                        panelSetIds.Add(dr[0].ToString());
-                    }
-                }
-            }
+            result = YellowstonePathology.Business.Task.Model.TaskOrderCollection.AddDailyTaskOrderSurgicalSpecimenDisposal(365, this);
+            message.AppendLine(result.Message);
 
-            foreach(string panelSetId in panelSetIds)
-            {
-                List<string> masterAccessionNos = new List<string>();
-                cmd = new SqlCommand("Select top 10 MasterAccessionNo from tblPanelSetOrder where orderdate between '1/1/2016' and '11/1/2016' and PanelSetId = " + panelSetId);
-                cmd.CommandType = CommandType.Text;
-
-                using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-                {
-                    cn.Open();
-                    cmd.Connection = cn;
-                    using (SqlDataReader dr = cmd.ExecuteReader())
-                    {
-                        while (dr.Read())
-                        {
-                            masterAccessionNos.Add(dr[0].ToString());
-                        }
-                    }
-                }
-
-                /*foreach(string masterAccessionNo in masterAccessionNos)
-                {
-                    YellowstonePathology.Business.Persistence.AODocumentBuilder oldBuilder = new Business.Persistence.AODocumentBuilder(masterAccessionNo, false);
-                    YellowstonePathology.Business.Persistence.AODocumentBuilder newBuilder = new Business.Persistence.AODocumentBuilder(masterAccessionNo);
-
-                    YellowstonePathology.Business.Test.AccessionOrder oldAccessionOrder = (YellowstonePathology.Business.Test.AccessionOrder)oldBuilder.BuildNew();
-                    YellowstonePathology.Business.Test.AccessionOrder newAccessionOrder = (YellowstonePathology.Business.Test.AccessionOrder)newBuilder.BuildNew();
-
-                    YellowstonePathology.Business.Persistence.DocumentTestBuilders testBuilders = new Business.Persistence.DocumentTestBuilders(oldAccessionOrder, newAccessionOrder);
-                    if(testBuilders.Compare() == false)
-                    {
-                        results.AppendLine("Mismatched " + masterAccessionNo);
-                    }
-                }*/
-            }
-
-            if(results.Length > 0)
-            {
-                MessageBox.Show(results.ToString());
-            }
-            else MessageBox.Show("done");
+            MessageBox.Show(message.ToString());
         }
     }
 }
