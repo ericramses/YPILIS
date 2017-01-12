@@ -16,6 +16,14 @@ namespace YellowstonePathology.Business.Test
 			m_PathologistTestOrderItemList = new PathologistTestOrderItemList();
 		}
 
+<<<<<<< HEAD
+=======
+        public PanelSetOrder CurrentPanelSetOrder
+        {
+            get { return this.m_CurrentPanelSetOrder; }
+        }        
+
+>>>>>>> delta
         public void RemoveDeleted(IEnumerable<XElement> elements)
         {
             for (int i = this.Count - 1; i > -1; i--)

@@ -14,6 +14,7 @@ namespace YellowstonePathology.Business.Test.CalreticulinMutationAnalysis
         private string m_Mutations;
         private string m_Interpretation;
         private string m_Method;
+        private string m_ASR;
 
         public CalreticulinMutationAnalysisTestOrder()
         {
@@ -26,7 +27,15 @@ namespace YellowstonePathology.Business.Test.CalreticulinMutationAnalysis
 			bool distribute)
 			: base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute)
         {
-
+            this.m_ASR = "The performance characteristics of this test have been determined by NeoGenomics Laboratories. This test has not been approved by the FDA. The FDA has " +
+                "determined such clearance or approval is not necessary.This laboratory is CLIA certified to perform high complexity clinical testing.";
+            this.m_Method = "The total nucleic acid was extracted from patient’s plasma or PB/BM cells. Primer pairs were designed to encompass the MPL exon " +
+                "10, which includes W515 and S505 point mutations.The PCR product was then purified and sequenced in both forward and reverse " +
+                "directions.The resulting sequence is compared to Genebank Acce# NM_005373 reference sequence. This is a sequencing-based assay " +
+                "which has a typical sensitivity of 10 - 15 % for detecting mutated MPL in the wild - type background.Various factors including quantity and " +
+                "quality of nucleic acid, sample preparation and sample age can affect assay performance.";
+            this.m_ReportReferences = "1. Pikman Y, et al. MPL W515L is a novel somatic activating mutation in myelofibrosis with myeloid metaplasia. PLoS Med. " +
+                "2006; 3:1140 - 1151.";
         }
 
         [PersistentProperty()]
@@ -104,7 +113,22 @@ namespace YellowstonePathology.Business.Test.CalreticulinMutationAnalysis
             }
         }
 
-		public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "5000", "null", "varchar")]
+        public string ASR
+        {
+            get { return this.m_ASR; }
+            set
+            {
+                if (this.m_ASR != value)
+                {
+                    this.m_ASR = value;
+                    this.NotifyPropertyChanged("ASR");
+                }
+            }
+        }
+
+        public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
 			StringBuilder result = new StringBuilder();
 

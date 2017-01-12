@@ -21,8 +21,15 @@ namespace YellowstonePathology.Business.Billing.Model
         {
             StringBuilder result = new StringBuilder();
             foreach (MonitoredObject monitoredObject in this)
-            {                
-                monitoredObject.WriteChanges();                
+            {
+                try
+                {
+                    monitoredObject.WriteChanges();
+                }
+                catch(Exception e)
+                {
+                    Business.Logging.EmailExceptionHandler.HandleException("Monitor Object Collection:WriteChanges(): " + e.Message);
+                }                
             }            
         }
     }
