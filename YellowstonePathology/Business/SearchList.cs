@@ -143,7 +143,7 @@ namespace YellowstonePathology.Business
             this.m_Cmd.Parameters.Clear();
             this.m_Cmd.CommandText = "prcGetSearchListByBirthdate";
             this.m_Cmd.CommandType = CommandType.StoredProcedure;
-            this.m_Cmd.Parameters.AddWithValue("Birthdate", this.Birthdate); 
+            this.m_Cmd.Parameters.AddWithValue("Birthdate", DateTime.Parse(this.m_SearchString)); 
         }
 
         public void SetFillBySSN()
