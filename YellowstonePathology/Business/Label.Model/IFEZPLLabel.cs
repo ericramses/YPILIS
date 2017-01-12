@@ -21,8 +21,7 @@ namespace YellowstonePathology.Business.Label.Model
             result.Append("^XA");
             for (int i = 0; i < 4; i++)
             {
-                YellowstonePathology.Business.BarcodeScanning.ContainerBarcode containerBarcode = Business.BarcodeScanning.ContainerBarcode.Parse();
-                GetOne(containerBarcode.ToString(), result, xOffset);
+                GetOne(result, xOffset);
                 xOffset += 325;
             }
             
@@ -30,13 +29,8 @@ namespace YellowstonePathology.Business.Label.Model
             return result.ToString();
         }
 
-        private static void GetOne(string containerId, StringBuilder result, int xOffset)
+        private static void GetOne(StringBuilder result, int xOffset)
         {
-            string line1 = containerId.Substring(0, 14);
-            string line2 = containerId.Substring(14, 14);
-            string line3 = containerId.Substring(28);
-
-
             result.Append("^FO" + (xOffset + 65) + ",030^ATN,50^FD" + "IFE" + "^FS");
             result.Append("^FO" + (xOffset + 30) + ",070^ARN,50^FD" + "86334-26 x1" + "^FS");
             result.Append("^FO" + (xOffset + 30) + ",100^ARN,50^FD" + "82784-26 x3" + "^FS");

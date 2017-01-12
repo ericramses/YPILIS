@@ -46,7 +46,7 @@ namespace YellowstonePathology.Business.HL7View.WYDOH
             document.Add(pidElement);
 
             XElement pid03Element = new XElement("PID.3");
-            YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("PID.3.1", this.m_PatientId, pid03Element);
+            YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("PID.3.1", YellowstonePathology.Business.Helper.SsnHelper.FormatWithoutDashes(this.m_Ssn), pid03Element);
             YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElementIfNotEmpty(pidElement, pid03Element);
 
             XElement pid05Element = new XElement("PID.5");

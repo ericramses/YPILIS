@@ -50,7 +50,12 @@ namespace YellowstonePathology.Business.Document
                 result.AppendLine("Birthdate: " + this.m_ADTMessages.Messages[0].PBirthdate.ToShortDateString());                
                 result.AppendLine();
 
-                if(this.m_ADTMessages.Messages[0].IN2Segments.Count > 0)
+                Business.Patient.Model.Address address = this.m_ADTMessages.GetPatientAddress();
+                result.Append(address.DisplayString());
+
+                result.AppendLine();
+
+                if (this.m_ADTMessages.Messages[0].IN2Segments.Count > 0)
                 {
                     result.AppendLine(this.m_ADTMessages.Messages[0].IN2Segments[0].DisplayString);
                 }                

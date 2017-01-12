@@ -59,5 +59,8 @@
     <Setting Name="MySqlTestConnection" Type="System.String" Scope="User">
       <Value Profile="(Default)">Server = 10.1.2.26; Uid = sqldude; Pwd = 123Whatsup; Database = test;</Value>
     </Setting>
+    <Setting Name="MonitoredPropertyFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Program Files\Yellowstone Pathology Institute\MonitoredProperty</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

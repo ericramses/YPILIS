@@ -206,5 +206,17 @@ namespace YellowstonePathology.Properties {
                 this["MySqlTestConnection"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Program Files\\Yellowstone Pathology Institute\\MonitoredProperty")]
+        public string MonitoredPropertyFolder {
+            get {
+                return ((string)(this["MonitoredPropertyFolder"]));
+            }
+            set {
+                this["MonitoredPropertyFolder"] = value;
+            }
+        }
     }
 }
