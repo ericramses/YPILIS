@@ -34,6 +34,20 @@ namespace YellowstonePathology.Business.Rules.Surgical
             }
 		}
 
+        public bool ItemsExistFromPast24Hours()
+        {
+            bool result = false;
+            foreach(View.RecentAccessionView recentAccession in this.m_RecentAccessionViewCollection)
+            {
+                if(recentAccession.AccessionTime > DateTime.Now.AddHours(-24))
+                {
+                    result = true;
+                    break;
+                }
+            }
+            return result;
+        }
+
 		private void GetPatientNameRecentAccessions()
 		{
 			if (!string.IsNullOrEmpty(this.m_PLastName))
