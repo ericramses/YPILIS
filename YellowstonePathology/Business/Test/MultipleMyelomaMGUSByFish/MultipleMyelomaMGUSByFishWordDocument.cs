@@ -41,8 +41,9 @@ namespace YellowstonePathology.Business.Test.MultipleMyelomaMGUSByFish
 			this.ReplaceText("report_interpretation", panelSetOrderMultipleMyelomaMGUSByFish.Interpretation);
 			this.ReplaceText("probe_set_detail", panelSetOrderMultipleMyelomaMGUSByFish.ProbeSetDetail);
 			this.ReplaceText("nuclei_scored", panelSetOrderMultipleMyelomaMGUSByFish.NucleiScored);
+            this.ReplaceText("report_references", panelSetOrderMultipleMyelomaMGUSByFish.ReportReferences);
 
-			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);
+            YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);
 			base.ReplaceText("specimen_description", specimenOrder.Description);
 
 			string collectionDateTimeString = YellowstonePathology.Business.Helper.DateTimeExtensions.CombineDateAndTime(specimenOrder.CollectionDate, specimenOrder.CollectionTime);
