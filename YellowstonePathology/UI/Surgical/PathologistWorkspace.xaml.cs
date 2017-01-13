@@ -228,7 +228,18 @@ namespace YellowstonePathology.UI.Surgical
 
 		private void ButtonStainOrder_Click(object sender, RoutedEventArgs e)
 		{
-			this.ShowStainOrderForm();
+            if(this.m_PathologistUI.PanelSetOrder.PanelSetId == 197)  //Peer Review
+            {
+                MessageBox.Show("Stains cannot be ordered on a Peer Review.");
+                return;
+            }
+            if (this.m_PathologistUI.PanelSetOrder.PanelSetId == 216)  //Informal Consult
+            {
+                MessageBox.Show("Stains cannot be ordered on an Informal Consult.");
+                return;
+            }
+
+            this.ShowStainOrderForm();
 		}
 
 		private void ShowStainOrderForm()

@@ -49,13 +49,13 @@ namespace YellowstonePathology.Business.Test.TCellNKProfile
             if (testOrder.WBC.HasValue == true) wbcCount = testOrder.WBC.Value.ToString();
             this.SetXmlNodeData("wbc_count", wbcCount);
             this.SetXmlNodeData("lymphocyte_percentage", testOrder.LymphocytePercentage.ToString().StringAsPercent());
-            this.SetXmlNodeData("tcell_percent", testOrder.CD3TPercent.ToString().StringAsPercent());
+            this.SetXmlNodeData("tcell_percent", testOrder.CD3TPercent.ToString());
             this.SetXmlNodeData("tcell_count", testOrder.CD3TCount);
-            this.SetXmlNodeData("cd4t_percent", testOrder.CD4TPercent.ToString().StringAsPercent());
+            this.SetXmlNodeData("cd4t_percent", testOrder.CD4TPercent.ToString());
             this.SetXmlNodeData("cd4t_count", testOrder.CD4TCount);
-            this.SetXmlNodeData("cd8t_percent", testOrder.CD8TPercent.ToString().StringAsPercent());
+            this.SetXmlNodeData("cd8t_percent", testOrder.CD8TPercent.ToString());
             this.SetXmlNodeData("cd8t_count", testOrder.CD8TCount);
-            this.SetXmlNodeData("nkcell_percent", testOrder.CD16CD56NKPercent.ToString().StringAsPercent());
+            this.SetXmlNodeData("nkcell_percent", testOrder.CD16CD56NKPercent.ToString());
             this.SetXmlNodeData("nkcell_count", testOrder.CD16CD56NKCount);
             this.SetXmlNodeData("cd4cd8_ratio", testOrder.CD4CD8Ratio);
 
