@@ -22,6 +22,7 @@
                 <MenuItem Header="Test" Click="MenuItemSetDBToTest_Click" Margin="5"></MenuItem>
             </MenuItem>
             <TextBlock Text="{Binding Path=DBIndicator}" Width="30" TextAlignment="Left" Margin="5"></TextBlock>
+            <MenuItem Header="Get Status" Click="MenuItemGetStatus_Click" Margin="5" IsEnabled="{Binding Path=HaveDBSelection}"></MenuItem>
             <MenuItem Header="Table Actions ..." Margin="5" IsEnabled="{Binding Path=HaveDBSelection}">
                 <MenuItem Header="Create MySql Table" Click="MenuItemCreateTable_Click" Margin="5"></MenuItem>
                 <MenuItem Header="Compare MySql Table to Class" Click="MenuItemCompareTables_Click" Margin="5"></MenuItem>
