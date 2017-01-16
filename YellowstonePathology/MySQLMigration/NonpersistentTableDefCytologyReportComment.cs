@@ -20,6 +20,7 @@ namespace YellowstonePathology.MySQLMigration
             this.SetKeyField("CommentID");
             this.SetSelectStatement();
             this.SetInsertColumnsStatement();
+            this.IsAutoIncrement = true;
         }
     }
 }

@@ -19,6 +19,7 @@ namespace YellowstonePathology.MySQLMigration
             this.SetKeyField("PsaImportId");
             this.SetSelectStatement();
             this.SetInsertColumnsStatement();
+            this.IsAutoIncrement = true;
         }
     }
 }
