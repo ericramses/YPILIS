@@ -19,6 +19,7 @@ namespace YellowstonePathology.MySQLMigration
         private bool m_HasAllColumns;
         private int m_SqlServerRowCount;
         private int m_MySqlRowCount;
+        protected bool m_IsAutoIncrement;
         protected List<NonpersistentColumnDef> m_ColumnDefinitions;
         protected TableIndexCollection m_TableIndexCollection;
         protected TableForeignKeyCollection m_TableForeignKeyCollection;
@@ -103,6 +104,16 @@ namespace YellowstonePathology.MySQLMigration
             }
         }
 
+        public bool IsAutoIncrement
+        {
+            get { return this.m_IsAutoIncrement; }
+            set
+            {
+                this.m_IsAutoIncrement = value;
+                NotifyPropertyChanged("IsAutoIncrement");
+            }
+        }
+
         public TableIndexCollection TableIndexCollection
         {
             get { return this.m_TableIndexCollection; }
@@ -176,6 +187,21 @@ namespace YellowstonePathology.MySQLMigration
             }
             result.Remove(result.Length - 2, 2);
             result.Append(");");
+
+            return result.ToString();
+        }
+
+        public string GetCreateAutoIncrementOnKeyFieldStatement()
+        {
+            StringBuilder result = new StringBuilder();
+            if (this.m_IsAutoIncrement == true)
+            {
+                result.Append("ALTER TABLE ");
+                result.Append(this.m_TableName);
+                result.Append(" MODIFY `");
+                result.Append(this.m_KeyField);
+                result.Append(" int(11) NOT NULL AUTO_INCREMENT; ");
+            }
 
             return result.ToString();
         }
