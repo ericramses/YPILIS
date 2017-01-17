@@ -37,6 +37,11 @@ namespace YellowstonePathology.Business.HL7View
             this.m_PIDSegment = new PID();
         }
 
+        public PID PIDSegment
+        {
+            get { return this.m_PIDSegment; }
+        }
+
         public Business.Patient.Model.Address PatientAddress
         {
             get { return this.m_Address; }
