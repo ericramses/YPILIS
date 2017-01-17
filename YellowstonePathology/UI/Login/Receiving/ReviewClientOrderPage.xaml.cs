@@ -143,14 +143,20 @@ namespace YellowstonePathology.UI.Login.Receiving
                 }
                 else if(this.m_PatientRecentAccessions.RecentAccessions.Count > 0)
                 {
-                    Business.Logging.EmailExceptionHandler.HandleException("Recent Accessions Exist for: " + this.m_ClientOrder.PLastName + ", " + this.m_ClientOrder.PFirstName);
+                    //Business.Logging.EmailExceptionHandler.HandleException("Recent Accessions Exist for: " + this.m_ClientOrder.PLastName + ", " + this.m_ClientOrder.PFirstName);
                     if (this.m_PatientRecentAccessions.ItemsExistFromPast24Hours() == true)
                     {
                         this.HyperLinkCreateNewAccessionRecentAccessionsExist.Visibility = Visibility.Visible;
                         MessageBox.Show("One or more recent Accessions exist in the past 24hrs, you must acknowledge them before you can create a new accession.");
                     }
-                }
-                
+                    else
+                    {
+                        if (this.CreateNewAccessionOrder != null)
+                        {
+                            this.CreateNewAccessionOrder(this, new EventArgs());
+                        }
+                    }
+                }                
                 else
                 {
                     if (this.CreateNewAccessionOrder != null)
