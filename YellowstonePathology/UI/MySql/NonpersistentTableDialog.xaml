@@ -22,12 +22,14 @@
                 <MenuItem Header="Test" Click="MenuItemSetDBToTest_Click" Margin="5"></MenuItem>
             </MenuItem>
             <TextBlock Text="{Binding Path=DBIndicator}" Width="30" TextAlignment="Left" Margin="5"></TextBlock>
+            <MenuItem Header="Get Status" Click="MenuItemGetStatus_Click" Margin="5" IsEnabled="{Binding Path=HaveDBSelection}"></MenuItem>
             <MenuItem Header="Table Actions ..." Margin="5" IsEnabled="{Binding Path=HaveDBSelection}">
                 <MenuItem Header="Create MySql Table" Click="MenuItemCreateTable_Click" Margin="5"></MenuItem>
                 <MenuItem Header="Compare MySql Table to Class" Click="MenuItemCompareTables_Click" Margin="5"></MenuItem>
                 <MenuItem Header="Add Missing Columns to MySql" Click="MenuItemAddMissingColumns_Click" Margin="5"></MenuItem>
                 <MenuItem Header="Create MySql Indexes" Click="MenuItemAddIndexes_Click" Margin="5"></MenuItem>
                 <MenuItem Header="Create MySql Foreign Keys" Click="MenuItemAddForeignKeys_Click" Margin="5"></MenuItem>
+                <MenuItem Header="Create All MySql Auto Increments" Click="MenuItemCreateAutoIncrements_Click" Margin="5"></MenuItem>
             </MenuItem>
             <MenuItem Header="Load Data" Click="MenuItemLoadData_Click" Margin="5" IsEnabled="{Binding Path=HaveDBSelection}"></MenuItem>
         </Menu>
