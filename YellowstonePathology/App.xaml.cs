@@ -79,6 +79,7 @@ namespace YellowstonePathology.UI
 
             EventManager.RegisterClassHandler(typeof(TextBox), TextBox.GotFocusEvent, new RoutedEventHandler(TextBox_GotFocus));
             base.OnStartup(e);
+            
 
             this.StartTimer();
             //HandleLocalRepository(); 
@@ -143,7 +144,26 @@ namespace YellowstonePathology.UI
 		}
 
         private void SetupApplicationFolders()
-        {
+        {            
+            List<string> appDirectories = new List<string>();            
+            appDirectories.Add(@"%USERPROFILE%\AppData\Local\ypi\");
+            
+            foreach(string appDir in appDirectories)
+            {
+                if (System.IO.Directory.Exists(Environment.ExpandEnvironmentVariables(appDir)) == false)
+                {
+                    try
+                    {                        
+                        System.IO.Directory.CreateDirectory(Environment.ExpandEnvironmentVariables(appDir));
+                    }
+                    catch (Exception e)
+                    {
+                        Business.Logging.EmailExceptionHandler.HandleException(e.Message);
+                    }                    
+                }
+            }                        
+
+            /*
             try
             {
                 if (Directory.Exists(YellowstonePathology.Properties.Settings.Default.LocalApplicationFolder) == false)
@@ -171,6 +191,7 @@ namespace YellowstonePathology.UI
             {
                 Business.Logging.EmailExceptionHandler.HandleException(e.Message);
             }
+            */
         }                      
 
 		private bool CheckDuplicateProcess()
