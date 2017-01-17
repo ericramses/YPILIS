@@ -490,5 +490,16 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
             }
             return auditResult;
         }
-	}
+
+        public bool IsPhysicianInterp()
+        {
+            bool result = false;            
+            Business.User.SystemUser systemUser = Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetSystemUserById(this.FinaledById);
+            if (systemUser.SystemUserRoleCollection.IsUserInRole(User.SystemUserRoleDescriptionEnum.Pathologist) == true)
+            {
+                result = true;                    
+            }            
+            return result;
+        }
+    }
 }

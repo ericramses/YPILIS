@@ -31,8 +31,9 @@ namespace YellowstonePathology.Business.Test.MPL
 			this.ReplaceText("report_interpretation", panelSetOrderMPL.Interpretation);
 			this.ReplaceText("report_method", panelSetOrderMPL.Method);
 			this.ReplaceText("report_references", panelSetOrderMPL.ReportReferences);
+            this.ReplaceText("test_asr", panelSetOrderMPL.ASR);
 
-			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);
+            YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);
 			base.ReplaceText("specimen_description", specimenOrder.Description);
 
 			string collectionDateTimeString = YellowstonePathology.Business.Helper.DateTimeExtensions.CombineDateAndTime(specimenOrder.CollectionDate, specimenOrder.CollectionTime);

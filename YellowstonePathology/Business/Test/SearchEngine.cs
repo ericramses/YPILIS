@@ -79,9 +79,13 @@ namespace YellowstonePathology.Business.Test
 
 		public void SetFillByLastMonth(int panelSetId)
 		{
-			DateTime startDate = DateTime.Parse(DateTime.Today.AddMonths(-1).Month.ToString() + "/1/" + DateTime.Today.Year.ToString());
-			DateTime endDate = startDate.AddDays(DateTime.DaysInMonth(startDate.Year, startDate.Month) - 1);
-			this.m_Parameters.Clear();
+			//DateTime startDate = DateTime.Parse(DateTime.Today.AddMonths(-1).Month.ToString() + "/1/" + DateTime.Today.AddMonths(-1).Year.ToString());
+			//DateTime endDate = startDate.AddDays(DateTime.DaysInMonth(startDate.Year, startDate.Month) - 1);
+            DateTime startDate = DateTime.Today.AddMonths(-1);
+            startDate = startDate.AddDays(-startDate.Day + 1);
+            DateTime endDate = startDate.AddMonths(1);
+            endDate = endDate.AddDays(-1);
+            this.m_Parameters.Clear();
 			this.m_Parameters.Add(startDate);
 			this.m_Parameters.Add(endDate);
 			this.m_Parameters.Add(panelSetId);
