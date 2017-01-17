@@ -22,6 +22,7 @@ namespace YellowstonePathology.MySQLMigration
             this.SetKeyField("MaterialLocationId");
             this.SetSelectStatement();
             this.SetInsertColumnsStatement();
+            this.IsAutoIncrement = true;
         }
     }
 }

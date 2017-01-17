@@ -260,6 +260,22 @@ namespace YellowstonePathology.UI.MySql
             }
         }
 
+        private void MenuItemCreateAutoIncrements_Click(object sender, RoutedEventArgs e)
+        {
+            this.StatusMessage = "Working on it.";
+            Business.Rules.MethodResult overallResult = new Business.Rules.MethodResult();
+            foreach (MySQLMigration.NonpersistentTableDef nonpersistentTableDef in this.ListViewNonpersistentTableDef.SelectedItems)
+            {
+                Business.Rules.MethodResult methodResult = m_MySQLDatabaseBuilder.CreateMySqlAutoIncrement(nonpersistentTableDef);
+                if (methodResult.Success == false)
+                {
+                    overallResult.Success = false;
+                    overallResult.Message += nonpersistentTableDef.TableName + " ";
+                }
+            }
+            this.SetStatusMessage(overallResult);
+        }
+
         private void GetStatus(MySQLMigration.NonpersistentTableDef nonpersistentTableDef)
         {
             this.m_MySQLDatabaseBuilder.GetStatus(nonpersistentTableDef);

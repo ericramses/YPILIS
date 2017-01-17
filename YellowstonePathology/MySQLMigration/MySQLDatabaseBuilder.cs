@@ -1955,6 +1955,44 @@ namespace YellowstonePathology.MySQLMigration
             }
         }
 
+        public Business.Rules.MethodResult CreateMySqlAutoIncrement(NonpersistentTableDef nonpersistentTableDef)
+        {
+            Business.Rules.MethodResult overallResult = new Business.Rules.MethodResult();
+            if(nonpersistentTableDef.IsAutoIncrement == true)
+            {
+                MySqlCommand cmd = new MySqlCommand();
+                string command = nonpersistentTableDef.GetCreateAutoIncrementOnKeyFieldStatement();
+                this.RunMySqlCommand(command);
+
+                int value = this.GetAutoIncrementValue(nonpersistentTableDef.TableName, nonpersistentTableDef.KeyField);
+                command = "Alter Table `" + nonpersistentTableDef.TableName + "` AUTO_INCREMENT = " + value.ToString();
+                this.RunMySqlCommand(command);
+            }
+            return overallResult;
+        }
+
+        private int GetAutoIncrementValue(string tableName, string keyField)
+        {
+            int result = 1000;
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "Select MAX(" + keyField + ") from " + tableName;
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        result += (int)dr[0];
+                    }
+                }
+            }
+            return result;
+        }
+
 
         #region ReservedWords
 

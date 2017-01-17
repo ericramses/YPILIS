@@ -20,6 +20,7 @@ namespace YellowstonePathology.MySQLMigration
             this.SetKeyField("CytologyScreeningImpressionId");
             this.SetSelectStatement();
             this.SetInsertColumnsStatement();
+            this.IsAutoIncrement = true;
         }
     }
 }
