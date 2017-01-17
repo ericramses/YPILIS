@@ -27,11 +27,12 @@ namespace YellowstonePathology.UI.MySql
         private string m_NumberOfTimesToQuery;
         private string m_NumberOfItemsInQuery;
         private string m_StatusMessage;
+        private bool m_HaveDBSelection;
+        private string m_DBIndicator;
 
         public MySqlMigrationDialog()
         {
-            m_MySQLDatabaseBuilder = new MySQLMigration.MySQLDatabaseBuilder();
-            m_MigrationStatusCollection = MySQLMigration.MigrationStatusCollection.GetAll();
+            m_MigrationStatusCollection = new MySQLMigration.MigrationStatusCollection();
             this.m_NumberOfItemsInQuery = "1000";
             this.m_NumberOfTimesToQuery = "15";
             this.m_StatusMessage = "Idle";
@@ -39,16 +40,6 @@ namespace YellowstonePathology.UI.MySql
             InitializeComponent();
 
             DataContext = this;
-
-            Loaded += MySqlMigrationDialog_Loaded;
-        }
-
-        private void MySqlMigrationDialog_Loaded(object sender, RoutedEventArgs e)
-        {
-            //foreach(MySQLMigration.MigrationStatus migrationStatus in this.m_MigrationStatusCollection)
-            //{
-            //    this.m_MySQLDatabaseBuilder.GetStatus(migrationStatus);
-            //}
         }
 
         public void NotifyPropertyChanged(String info)
@@ -62,6 +53,12 @@ namespace YellowstonePathology.UI.MySql
         public MySQLMigration.MigrationStatusCollection MigrationStatusCollection
         {
             get { return this.m_MigrationStatusCollection; }
+            private set
+            {
+                this.m_MigrationStatusCollection = value;
+                this.NotifyPropertyChanged("MigrationStatusCollection");
+                this.HaveDBSelection = true;
+            }
         }
 
         public string NumberOfItemsInQuery
@@ -87,6 +84,26 @@ namespace YellowstonePathology.UI.MySql
             }
         }
 
+        public bool HaveDBSelection
+        {
+            get { return this.m_HaveDBSelection; }
+            set
+            {
+                this.m_HaveDBSelection = value;
+                this.NotifyPropertyChanged("HaveDBSelection");
+            }
+        }
+
+        public string DBIndicator
+        {
+            get { return this.m_DBIndicator; }
+            set
+            {
+                this.m_DBIndicator = value;
+                this.NotifyPropertyChanged("DBIndicator");
+            }
+        }
+
         private void SetStatusMessage(Business.Rules.MethodResult methodResult)
         {
             if(string.IsNullOrEmpty(methodResult.Message) == true)
@@ -97,6 +114,20 @@ namespace YellowstonePathology.UI.MySql
             {
                 this.StatusMessage = methodResult.Message;
             }
+        }
+
+        private void MenuItemSetDBToLIS_Click(object sender, RoutedEventArgs e)
+        {
+            m_MySQLDatabaseBuilder = new MySQLMigration.MySQLDatabaseBuilder("LIS");
+            this.MigrationStatusCollection = MySQLMigration.MigrationStatusCollection.GetAll();
+            this.DBIndicator = "LIS";
+        }
+
+        private void MenuItemSetDBToTest_Click(object sender, RoutedEventArgs e)
+        {
+            m_MySQLDatabaseBuilder = new MySQLMigration.MySQLDatabaseBuilder("Test");
+            this.MigrationStatusCollection = MySQLMigration.MigrationStatusCollection.GetAll();
+            this.DBIndicator = "Test";
         }
 
         private void MenuItemGetStatus_Click(object sender, RoutedEventArgs e)
@@ -243,6 +274,19 @@ namespace YellowstonePathology.UI.MySql
             {
                 MessageBox.Show("Select a class.");
             }
+        }
+
+        private void MenuItemDropForeignKeys_Click(object sender, RoutedEventArgs e)
+        {
+                Business.Rules.MethodResult overallResult = new Business.Rules.MethodResult();
+
+                    Business.Rules.MethodResult methodResult = m_MySQLDatabaseBuilder.DropMySqlForeignKeys();
+                    if (methodResult.Success == false)
+                    {
+                        overallResult.Success = false;
+                        overallResult.Message += methodResult.Message;
+                    }
+                this.SetStatusMessage(overallResult);
         }
 
         private void AddMissingColumnsToSingleTable(MySQLMigration.MigrationStatus migrationStatus)
