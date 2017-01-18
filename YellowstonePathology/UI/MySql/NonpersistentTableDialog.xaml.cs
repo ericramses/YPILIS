@@ -106,11 +106,11 @@ namespace YellowstonePathology.UI.MySql
             this.DBIndicator = "LIS";
         }
 
-        private void MenuItemSetDBToTest_Click(object sender, RoutedEventArgs e)
+        private void MenuItemSetDBToTemp_Click(object sender, RoutedEventArgs e)
         {
-            m_MySQLDatabaseBuilder = new MySQLMigration.MySQLDatabaseBuilder("Test");
+            m_MySQLDatabaseBuilder = new MySQLMigration.MySQLDatabaseBuilder("temp");
             this.NonpersistentTableDefCollection = MySQLMigration.NonpersistentTableDefCollection.GetAll();
-            this.DBIndicator = "Test";
+            this.DBIndicator = "temp";
         }
 
         private void MenuItemGetStatus_Click(object sender, RoutedEventArgs e)

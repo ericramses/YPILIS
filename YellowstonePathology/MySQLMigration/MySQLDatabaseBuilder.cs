@@ -22,7 +22,7 @@ namespace YellowstonePathology.MySQLMigration
         public MySQLDatabaseBuilder(string dbIndicator)
         {
             MySqlConnectionString = YellowstonePathology.Properties.Settings.Default.MySqlConnectionString;
-            if(dbIndicator == "Test") MySqlConnectionString = MySqlConnectionString.Replace("lis", "test");
+            if(dbIndicator == "temp") MySqlConnectionString = MySqlConnectionString.Replace("lis", "temp");
         }
 
         public string CreateIndex(string tableName, string columnName)
@@ -1973,7 +1973,7 @@ namespace YellowstonePathology.MySQLMigration
 
         private int GetAutoIncrementValue(string tableName, string keyField)
         {
-            int result = 1000;
+            int result = 1;
             SqlCommand cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "Select MAX(" + keyField + ") from " + tableName;
