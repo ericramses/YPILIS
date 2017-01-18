@@ -85,8 +85,7 @@ namespace YellowstonePathology.UI.Billing
         }        
 
         private void BillingPage_Loaded(object sender, RoutedEventArgs e)
-        {
-             
+        {             
             YellowstonePathology.Business.Document.CaseDocument firstRequisition = this.m_CaseDocumentCollection.GetFirstRequisition();
             if(firstRequisition != null)
             {
