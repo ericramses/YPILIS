@@ -42,6 +42,7 @@ namespace YellowstonePathology.MySQLMigration
             this.SetKeyField("WebServiceAccountId");
             this.SetSelectStatement();
             this.SetInsertColumnsStatement();
+            this.IsAutoIncrement = true;
         }
     }
 }

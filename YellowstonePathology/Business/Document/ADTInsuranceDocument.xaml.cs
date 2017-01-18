@@ -47,7 +47,8 @@ namespace YellowstonePathology.Business.Document
                 StringBuilder result = new StringBuilder();
                 result.AppendLine("Last Name: " + this.m_ADTMessages.Messages[0].PLastName);
                 result.AppendLine("First Name: " + this.m_ADTMessages.Messages[0].PFirstName);
-                result.AppendLine("Birthdate: " + this.m_ADTMessages.Messages[0].PBirthdate.ToShortDateString());                
+                result.AppendLine("Birthdate: " + this.m_ADTMessages.Messages[0].PBirthdate.ToShortDateString());
+                result.AppendLine("Home Phone: " + this.m_ADTMessages.Messages[0].PIDSegment.HomePhoneNumber);
                 result.AppendLine();
 
                 Business.Patient.Model.Address address = this.m_ADTMessages.GetPatientAddress();

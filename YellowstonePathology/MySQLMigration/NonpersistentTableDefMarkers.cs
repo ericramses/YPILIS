@@ -25,6 +25,7 @@ namespace YellowstonePathology.MySQLMigration
             this.SetKeyField("MarkerId");
             this.SetSelectStatement();
             this.SetInsertColumnsStatement();
+            this.IsAutoIncrement = true;
         }
     }
 }

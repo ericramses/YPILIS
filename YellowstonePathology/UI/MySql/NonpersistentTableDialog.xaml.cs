@@ -25,26 +25,17 @@ namespace YellowstonePathology.UI.MySql
         private MySQLMigration.NonpersistentTableDefCollection m_NonpersistentTableDefCollection;
         private YellowstonePathology.MySQLMigration.MySQLDatabaseBuilder m_MySQLDatabaseBuilder;
         private string m_StatusMessage;
+        private bool m_HaveDBSelection;
+        private string m_DBIndicator;
 
         public NonpersistentTableDialog()
         {
-            m_MySQLDatabaseBuilder = new MySQLMigration.MySQLDatabaseBuilder();
-            m_NonpersistentTableDefCollection = MySQLMigration.NonpersistentTableDefCollection.GetAll();
+            m_NonpersistentTableDefCollection = new MySQLMigration.NonpersistentTableDefCollection();
             this.m_StatusMessage = "Idle";
 
             InitializeComponent();
 
             DataContext = this;
-
-            Loaded += NonpersistentTableDialog_Loaded;
-        }
-
-        private void NonpersistentTableDialog_Loaded(object sender, RoutedEventArgs e)
-        {
-            //foreach(MySQLMigration.MigrationStatus migrationStatus in this.m_MigrationStatusCollection)
-            //{
-            //    this.m_MySQLDatabaseBuilder.GetStatus(migrationStatus);
-            //}
         }
 
         public void NotifyPropertyChanged(String info)
@@ -58,6 +49,32 @@ namespace YellowstonePathology.UI.MySql
         public MySQLMigration.NonpersistentTableDefCollection NonpersistentTableDefCollection
         {
             get { return this.m_NonpersistentTableDefCollection; }
+            private set
+            {
+                this.m_NonpersistentTableDefCollection = value;
+                this.NotifyPropertyChanged("NonpersistentTableDefCollection");
+                this.HaveDBSelection = true;
+            }
+        }
+
+        public bool HaveDBSelection
+        {
+            get { return this.m_HaveDBSelection; }
+            set
+            {
+                this.m_HaveDBSelection = value;
+                this.NotifyPropertyChanged("HaveDBSelection");
+            }
+        }
+
+        public string DBIndicator
+        {
+            get { return this.m_DBIndicator; }
+            set
+            {
+                this.m_DBIndicator = value;
+                this.NotifyPropertyChanged("DBIndicator");
+            }
         }
 
         public string StatusMessage
@@ -80,6 +97,20 @@ namespace YellowstonePathology.UI.MySql
             {
                 this.StatusMessage = methodResult.Message;
             }
+        }
+
+        private void MenuItemSetDBToLIS_Click(object sender, RoutedEventArgs e)
+        {
+            m_MySQLDatabaseBuilder = new MySQLMigration.MySQLDatabaseBuilder("LIS");
+            this.NonpersistentTableDefCollection = MySQLMigration.NonpersistentTableDefCollection.GetAll();
+            this.DBIndicator = "LIS";
+        }
+
+        private void MenuItemSetDBToTest_Click(object sender, RoutedEventArgs e)
+        {
+            m_MySQLDatabaseBuilder = new MySQLMigration.MySQLDatabaseBuilder("Test");
+            this.NonpersistentTableDefCollection = MySQLMigration.NonpersistentTableDefCollection.GetAll();
+            this.DBIndicator = "Test";
         }
 
         private void MenuItemGetStatus_Click(object sender, RoutedEventArgs e)
@@ -227,6 +258,22 @@ namespace YellowstonePathology.UI.MySql
             {
                 MessageBox.Show("Select a table to Load.");
             }
+        }
+
+        private void MenuItemCreateAutoIncrements_Click(object sender, RoutedEventArgs e)
+        {
+            this.StatusMessage = "Working on it.";
+            Business.Rules.MethodResult overallResult = new Business.Rules.MethodResult();
+            foreach (MySQLMigration.NonpersistentTableDef nonpersistentTableDef in this.ListViewNonpersistentTableDef.SelectedItems)
+            {
+                Business.Rules.MethodResult methodResult = m_MySQLDatabaseBuilder.CreateMySqlAutoIncrement(nonpersistentTableDef);
+                if (methodResult.Success == false)
+                {
+                    overallResult.Success = false;
+                    overallResult.Message += nonpersistentTableDef.TableName + " ";
+                }
+            }
+            this.SetStatusMessage(overallResult);
         }
 
         private void GetStatus(MySQLMigration.NonpersistentTableDef nonpersistentTableDef)

@@ -14,13 +14,15 @@ namespace YellowstonePathology.MySQLMigration
 {
     public class MySQLDatabaseBuilder
     {
-        private const string ConnectionString = "Server = 10.1.2.26; Uid = sqldude; Pwd = 123Whatsup; Database = lis;";
+        private string MySqlConnectionString;
         List<string> m_ForbiddenWords;
         List<string> m_ReservedWords;
         List<string> m_KeyWords;
 
-        public MySQLDatabaseBuilder()
+        public MySQLDatabaseBuilder(string dbIndicator)
         {
+            MySqlConnectionString = YellowstonePathology.Properties.Settings.Default.MySqlConnectionString;
+            if(dbIndicator == "Test") MySqlConnectionString = MySqlConnectionString.Replace("lis", "test");
         }
 
         public string CreateIndex(string tableName, string columnName)
@@ -30,7 +32,7 @@ namespace YellowstonePathology.MySQLMigration
             string command = "Create INDEX " + indexName + " on " + tableName + " (" + columnName + ");";
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = command;
-            cmd.Connection = new MySqlConnection(ConnectionString);
+            cmd.Connection = new MySqlConnection(MySqlConnectionString);
             cmd.Connection.Open();
 
             try
@@ -59,7 +61,7 @@ namespace YellowstonePathology.MySQLMigration
 
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = command;
-            cmd.Connection = new MySqlConnection(ConnectionString);
+            cmd.Connection = new MySqlConnection(MySqlConnectionString);
             cmd.Connection.Open();
 
             try
@@ -81,7 +83,7 @@ namespace YellowstonePathology.MySQLMigration
             string command = "alter table " + tableName + " drop column " + columnToBeDropped;
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = command;
-            cmd.Connection = new MySqlConnection(ConnectionString);
+            cmd.Connection = new MySqlConnection(MySqlConnectionString);
             cmd.Connection.Open();
 
             try
@@ -175,7 +177,7 @@ namespace YellowstonePathology.MySQLMigration
         private Business.Rules.MethodResult RunMySqlCommand(string command)
         {
             Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
-            using (MySqlConnection cn = new MySqlConnection(ConnectionString))
+            using (MySqlConnection cn = new MySqlConnection(MySqlConnectionString))
             {
                 cn.Open();
                 MySqlCommand cmd = new MySqlCommand();
@@ -601,7 +603,7 @@ namespace YellowstonePathology.MySQLMigration
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = "SELECT table_name FROM INFORMATION_SCHEMA.TABLES WHERE table_schema = 'lis' AND table_name = '" + tableName + "'";
 
-            using (MySqlConnection cn = new MySqlConnection(ConnectionString))
+            using (MySqlConnection cn = new MySqlConnection(MySqlConnectionString))
             {
                 string mySqlTableName = string.Empty;
                 cn.Open();
@@ -987,7 +989,7 @@ namespace YellowstonePathology.MySQLMigration
         {
             List<string> result = new List<string>();
 
-            using (MySqlConnection cn = new MySqlConnection(ConnectionString))
+            using (MySqlConnection cn = new MySqlConnection(MySqlConnectionString))
             {
                 cn.Open();
                 MySqlCommand cmd = new MySqlCommand();
@@ -1178,7 +1180,7 @@ namespace YellowstonePathology.MySQLMigration
         private int GetMySqlRowCount(string tableName)
         {
             int result = 0;
-            using (MySqlConnection cn = new MySqlConnection(ConnectionString))
+            using (MySqlConnection cn = new MySqlConnection(MySqlConnectionString))
             {
                 cn.Open();
                 MySqlCommand cmd = new MySqlCommand("Select count(*) from " + tableName + ";");
@@ -1327,7 +1329,7 @@ namespace YellowstonePathology.MySQLMigration
             dataSet.EnforceConstraints = false;
             DataTable result = new DataTable();
             dataSet.Tables.Add(result);
-            using (MySqlConnection cn = new MySqlConnection(ConnectionString))
+            using (MySqlConnection cn = new MySqlConnection(MySqlConnectionString))
             {
                 cn.Open();
                 MySqlCommand cmd = new MySqlCommand(selectStatement + keyValue + ";");
@@ -1530,7 +1532,7 @@ namespace YellowstonePathology.MySQLMigration
             selectStatement.Append(" from ");
             selectStatement.Append(tableName);
             selectStatement.Append(" order by 1 desc;");
-            using (MySqlConnection cn = new MySqlConnection(ConnectionString))
+            using (MySqlConnection cn = new MySqlConnection(MySqlConnectionString))
             {
                 cn.Open();
                 MySqlCommand cmd = new MySqlCommand();
@@ -1674,7 +1676,7 @@ namespace YellowstonePathology.MySQLMigration
         private bool MySqlIndexExists(string indexName)
         {
             bool result = false;
-            using (MySqlConnection cn = new MySqlConnection(ConnectionString))
+            using (MySqlConnection cn = new MySqlConnection(MySqlConnectionString))
             {
                 cn.Open();
                 MySqlCommand cmd = new MySqlCommand("select count(*) from information_schema.statistics where " +
@@ -1772,7 +1774,7 @@ namespace YellowstonePathology.MySQLMigration
         private bool MySqlForeignKeyExists(string foreignKeyName)
         {
             bool result = false;
-            using (MySqlConnection cn = new MySqlConnection(ConnectionString))
+            using (MySqlConnection cn = new MySqlConnection(MySqlConnectionString))
             {
                 cn.Open();
                 MySqlCommand cmd = new MySqlCommand("select count(*) from information_schema.key_column_usage where " +
@@ -1785,7 +1787,29 @@ namespace YellowstonePathology.MySQLMigration
             return result;
         }
 
+        public Business.Rules.MethodResult DropMySqlForeignKeys()
+        {
+            Business.Rules.MethodResult overallResult = new Business.Rules.MethodResult();
+            List<string> dropCommands = new List<string>();
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "select concat('ALTER TABLE ', `Table_Name`, ' DROP FOREIGN KEY ', `Constraint_Name`, ';') statement from " +
+                "information_schema.key_column_usage where table_schema = 'lis' and constraint_name like 'fk%' order by constraint_name;";
 
+            using (MySqlConnection cn = new MySqlConnection(MySqlConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        string dropCommand = dr[0].ToString();
+                        this.RunMySqlCommand(dropCommand);
+                    }
+                }
+            }
+            return overallResult;
+        }
 
 
         public static bool HasTransferDBTSAttribute(string tableName)
@@ -1929,6 +1953,44 @@ namespace YellowstonePathology.MySQLMigration
                 cmd.Connection = cn;
                 cmd.ExecuteNonQuery();
             }
+        }
+
+        public Business.Rules.MethodResult CreateMySqlAutoIncrement(NonpersistentTableDef nonpersistentTableDef)
+        {
+            Business.Rules.MethodResult overallResult = new Business.Rules.MethodResult();
+            if(nonpersistentTableDef.IsAutoIncrement == true)
+            {
+                MySqlCommand cmd = new MySqlCommand();
+                string command = nonpersistentTableDef.GetCreateAutoIncrementOnKeyFieldStatement();
+                this.RunMySqlCommand(command);
+
+                int value = this.GetAutoIncrementValue(nonpersistentTableDef.TableName, nonpersistentTableDef.KeyField);
+                command = "Alter Table `" + nonpersistentTableDef.TableName + "` AUTO_INCREMENT = " + value.ToString();
+                this.RunMySqlCommand(command);
+            }
+            return overallResult;
+        }
+
+        private int GetAutoIncrementValue(string tableName, string keyField)
+        {
+            int result = 1000;
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "Select MAX(" + keyField + ") from " + tableName;
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        result += (int)dr[0];
+                    }
+                }
+            }
+            return result;
         }
 
 
