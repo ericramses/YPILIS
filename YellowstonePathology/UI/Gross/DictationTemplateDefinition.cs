@@ -193,7 +193,7 @@ namespace YellowstonePathology.UI.Gross
         public FluidTemplate()
         {
             this.m_TemplateName = "Fluid Specimen";
-            this.m_Text = "[Specimen] is received in CytoLyt in a container labeled \"[identifier] - [Description]\" and consists of [Quantity] ml of [Color] fluid[? with particulate?].  The specimen is submitted for selective cellular enhancement processing.";
+            this.m_Text = "[Specimen] is received in CytoLyt in a container labeled \"[identifier]\" and consists of [Quantity] ml of [Color] fluid[? with particulate?].  The specimen is submitted for selective cellular enhancement processing.";
             
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Fluid fluid = new Business.Specimen.Model.SpecimenDefinition.Fluid();
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Urine urine = new Business.Specimen.Model.SpecimenDefinition.Urine();
