@@ -187,18 +187,25 @@ namespace YellowstonePathology.UI.Billing
                 return;
             }
 
-            if (this.IsTechnicalBillingFacilityValid() == true)
+            try
             {
-                if (this.IsProfessionalBillingFacilityValid() == true)
+                if (this.IsTechnicalBillingFacilityValid() == true)
                 {
-                    YellowstonePathology.Business.Billing.Model.BillableObject billableObject = Business.Billing.Model.BillableObjectFactory.GetBillableObject(this.m_AccessionOrder, this.m_ReportNo);
-                    YellowstonePathology.Business.Rules.MethodResult methodResult = billableObject.Set();
-                    if (methodResult.Success == false)
+                    if (this.IsProfessionalBillingFacilityValid() == true)
                     {
-                        MessageBox.Show(methodResult.Message);
+                        YellowstonePathology.Business.Billing.Model.BillableObject billableObject = Business.Billing.Model.BillableObjectFactory.GetBillableObject(this.m_AccessionOrder, this.m_ReportNo);
+                        YellowstonePathology.Business.Rules.MethodResult methodResult = billableObject.Set();
+                        if (methodResult.Success == false)
+                        {
+                            MessageBox.Show(methodResult.Message);
+                        }
                     }
                 }
             }
+            catch(Exception exc)
+            {
+                Business.Logging.EmailExceptionHandler.HandleException("ButtonSet_Click: ReportNo - " + this.m_PanelSetOrder.ReportNo + " - " + exc.Message);
+            }            
         }
 
         private bool IsTechnicalBillingFacilityValid()
