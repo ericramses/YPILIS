@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>337</ApplicationRevision>
+    <ApplicationRevision>359</ApplicationRevision>
     <ApplicationVersion>10.1.6.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -3045,6 +3045,7 @@
     <Compile Include="MySQLMigration\NonpersistentTableDefICD9Code.cs" />
     <Compile Include="MySQLMigration\NonpersistentTableDefImmunoComment.cs" />
     <Compile Include="MySQLMigration\NonpersistentTableDefMarkers.cs" />
+    <Compile Include="MySQLMigration\NonpersistentTableDefMasterAccessionNo.cs" />
     <Compile Include="MySQLMigration\NonpersistentTableDefMaterialLocation.cs" />
     <Compile Include="MySQLMigration\NonpersistentTableDefOrderComment.cs" />
     <Compile Include="MySQLMigration\NonpersistentTableDefPanel.cs" />
@@ -3058,6 +3059,7 @@
     <Compile Include="MySQLMigration\NonpersistentTableDefTest.cs" />
     <Compile Include="MySQLMigration\NonpersistentTableDefWebServiceAccount.cs" />
     <Compile Include="MySQLMigration\NonpersistentTableDefWebServiceAccountClient.cs" />
+    <Compile Include="MySQLMigration\SqlServerFromMySqlRefresher.cs" />
     <Compile Include="MySQLMigration\TableForeignKey.cs" />
     <Compile Include="MySQLMigration\TableForeignKeyCollection.cs" />
     <Compile Include="MySQLMigration\TableIndex.cs" />
@@ -3309,6 +3311,9 @@
     </Compile>
     <Compile Include="UI\MySql\NonpersistentTableDialog.xaml.cs">
       <DependentUpon>NonpersistentTableDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MySql\SqlServerRefreshDialog.xaml.cs">
+      <DependentUpon>SqlServerRefreshDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\NHunspell.xaml.cs">
       <DependentUpon>NHunspell.xaml</DependentUpon>
@@ -5199,6 +5204,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\MySql\NonpersistentTableDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\MySql\SqlServerRefreshDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -12,6 +12,7 @@ namespace YellowstonePathology.MySQLMigration
     public class MySQLDatabaseBuilder
     {
         private string MySqlConnectionString;
+        private string m_DBName;
         List<string> m_ForbiddenWords;
         List<string> m_ReservedWords;
         List<string> m_KeyWords;
@@ -19,7 +20,12 @@ namespace YellowstonePathology.MySQLMigration
         public MySQLDatabaseBuilder(string dbIndicator)
         {
             MySqlConnectionString = YellowstonePathology.Properties.Settings.Default.MySqlConnectionString;
-            if(dbIndicator == "Test") MySqlConnectionString = MySqlConnectionString.Replace("lis", "test");
+            this.m_DBName = "lis";
+            if (dbIndicator == "temp")
+            {
+                MySqlConnectionString = MySqlConnectionString.Replace("lis", "temp");
+                this.m_DBName = "temp";
+            }
         }
 
         public string CreateIndex(string tableName, string columnName)
@@ -139,8 +145,8 @@ namespace YellowstonePathology.MySQLMigration
             bool hasDBTS = MySQLDatabaseBuilder.HasTransferDBTSAttribute(tableName);
             bool hasTSA = MySQLDatabaseBuilder.HasTransferTransferStraightAcrossAttribute(tableName);
 
-            if (hasDBTS == false) MySQLDatabaseBuilder.AddTransferDBTSAttribute(tableName);
-            if (hasTSA == false) MySQLDatabaseBuilder.AddTransferStraightAcrossAttribute(tableName, false);
+            if (hasDBTS == false) this.AddTransferDBTSAttribute(tableName);
+            if (hasTSA == false) this.AddTransferStraightAcrossAttribute(tableName, false);
             return methodResult;
         }
 
@@ -598,7 +604,7 @@ namespace YellowstonePathology.MySQLMigration
         {
             bool result = false;
             MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "SELECT table_name FROM INFORMATION_SCHEMA.TABLES WHERE table_schema = 'lis' AND table_name = '" + tableName + "'";
+            cmd.CommandText = "SELECT table_name FROM INFORMATION_SCHEMA.TABLES WHERE table_schema = '" + this.m_DBName + "' AND table_name = '" + tableName + "'";
 
             using (MySqlConnection cn = new MySqlConnection(MySqlConnectionString))
             {
@@ -992,7 +998,7 @@ namespace YellowstonePathology.MySQLMigration
                 MySqlCommand cmd = new MySqlCommand();
                 cmd.Connection = cn;
                 cmd.CommandText = "select c.NAME from INFORMATION_SCHEMA.INNODB_SYS_COLUMNS c join INFORMATION_SCHEMA.INNODB_SYS_TABLES t " +
-                    "on c.TABLE_ID = t.TABLE_ID where t.Name = concat('lis/', @TableName);";
+                    "on c.TABLE_ID = t.TABLE_ID where t.Name = concat('" + this.m_DBName + "/', @TableName);";
                 cmd.Parameters.Add("@TableName", MySqlDbType.VarChar).Value = tableName;
 
                 using(MySqlDataReader msdr = cmd.ExecuteReader())
@@ -1677,7 +1683,7 @@ namespace YellowstonePathology.MySQLMigration
             {
                 cn.Open();
                 MySqlCommand cmd = new MySqlCommand("select count(*) from information_schema.statistics where " +
-                    "table_schema = 'lis'and index_name = '" + indexName + "';");
+                    "table_schema = '" + this.m_DBName + "' and index_name = '" + indexName + "';");
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = cn;
                 object value = cmd.ExecuteScalar();
@@ -1775,7 +1781,7 @@ namespace YellowstonePathology.MySQLMigration
             {
                 cn.Open();
                 MySqlCommand cmd = new MySqlCommand("select count(*) from information_schema.key_column_usage where " +
-                    "table_schema = 'lis'and constraint_name = '" + foreignKeyName + "';");
+                    "table_schema = '" + this.m_DBName + "' and constraint_name = '" + foreignKeyName + "';");
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = cn;
                 object value = cmd.ExecuteScalar();
@@ -1790,7 +1796,7 @@ namespace YellowstonePathology.MySQLMigration
             List<string> dropCommands = new List<string>();
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = "select concat('ALTER TABLE ', `Table_Name`, ' DROP FOREIGN KEY ', `Constraint_Name`, ';') statement from " +
-                "information_schema.key_column_usage where table_schema = 'lis' and constraint_name like 'fk%' order by constraint_name;";
+                "information_schema.key_column_usage where table_schema = '" + this.m_DBName + "' and constraint_name like 'fk%' order by constraint_name;";
 
             using (MySqlConnection cn = new MySqlConnection(MySqlConnectionString))
             {
@@ -1874,7 +1880,7 @@ namespace YellowstonePathology.MySQLMigration
             return result;
         }
 
-        public static void AddTransferDBTSAttribute(string tableName)
+        public void AddTransferDBTSAttribute(string tableName)
         {
             SqlCommand cmd = new SqlCommand();
             cmd.CommandText = "EXEC sys.sp_addextendedproperty @name = N'TransferDBTS',  " +
@@ -1893,7 +1899,7 @@ namespace YellowstonePathology.MySQLMigration
             }
         }
 
-        public static void AddTransferStraightAcrossAttribute(string tableName, bool result)
+        public void AddTransferStraightAcrossAttribute(string tableName, bool result)
         {
             SqlCommand cmd = new SqlCommand();
             cmd.CommandText = "EXEC sys.sp_addextendedproperty @name = N'TransferStraightAcross',  " +
@@ -1912,7 +1918,7 @@ namespace YellowstonePathology.MySQLMigration
             }
         }
 
-        public static void AddSQLTimestampColumn(string tableName)
+        public void AddSQLTimestampColumn(string tableName)
         {
             SqlCommand cmd = new SqlCommand();
             cmd.CommandText = "IF NOT EXISTS(SELECT * FROM INFORMATION_SCHEMA.COLUMNS " +
@@ -1970,7 +1976,7 @@ namespace YellowstonePathology.MySQLMigration
 
         private int GetAutoIncrementValue(string tableName, string keyField)
         {
-            int result = 1000;
+            int result = 1;
             SqlCommand cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "Select MAX(" + keyField + ") from " + tableName;
