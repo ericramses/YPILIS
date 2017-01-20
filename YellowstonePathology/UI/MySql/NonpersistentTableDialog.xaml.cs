@@ -149,7 +149,7 @@ namespace YellowstonePathology.UI.MySql
 
         private void MenuItemCompareTables_Click(object sender, RoutedEventArgs e)
         {
-            if (this.ListViewNonpersistentTableDef.SelectedItems.Count > 1)
+            if (this.ListViewNonpersistentTableDef.SelectedItems.Count == 1)
             {
                 this.StatusMessage = "Working on it.";
                 Business.Rules.MethodResult overallResult = new Business.Rules.MethodResult();

@@ -321,9 +321,9 @@ namespace YellowstonePathology.UI.MySql
                 {
                     if(migrationStatus.HasTimestampColumn == false)
                     {
-                        MySQLMigration.MySQLDatabaseBuilder.AddSQLTimestampColumn(migrationStatus.TableName);
-                        MySQLMigration.MySQLDatabaseBuilder.AddTransferDBTSAttribute(migrationStatus.TableName);
-                        MySQLMigration.MySQLDatabaseBuilder.AddTransferStraightAcrossAttribute(migrationStatus.TableName, false);
+                        this.m_MySQLDatabaseBuilder.AddSQLTimestampColumn(migrationStatus.TableName);
+                        this.m_MySQLDatabaseBuilder.AddTransferDBTSAttribute(migrationStatus.TableName);
+                        this.m_MySQLDatabaseBuilder.AddTransferStraightAcrossAttribute(migrationStatus.TableName, false);
                     }
                     this.StatusMessage = "Timestamp Column added.";
                 }
