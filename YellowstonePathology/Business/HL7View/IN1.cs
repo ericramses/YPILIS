@@ -8,6 +8,7 @@ namespace YellowstonePathology.Business.HL7View
 {
     public class IN1
     {
+        private DateTime m_DateReceived;
         private string m_InsurancePlanId;
         private string m_InsuranceCompanyId;
         private string m_InsuranceName;
@@ -25,8 +26,10 @@ namespace YellowstonePathology.Business.HL7View
 
         }
 
-        public void FromHl7(string in1Segment)
+        public void FromHl7(string in1Segment, DateTime dateReceived)
         {
+            this.m_DateReceived = dateReceived;
+
             string[] split = in1Segment.Split('|');
             this.m_InsurancePlanId = split[2];
             this.m_InsuranceCompanyId = split[3];
@@ -117,6 +120,7 @@ namespace YellowstonePathology.Business.HL7View
             get
             {
                 StringBuilder result = new StringBuilder();
+                result.AppendLine("Date Received: " + this.m_DateReceived.ToShortDateString());
                 result.AppendLine(this.m_InsuranceName);
                 result.AppendLine(this.m_InsuranceAddress);
                 result.AppendLine("Phone Number: " + this.m_InsurancePhoneNumber);
