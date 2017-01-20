@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.Gateway
         {
             YellowstonePathology.Business.HL7View.ADTMessages result = new HL7View.ADTMessages();
             SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "select * from tblADT where MedicalRecordNo = @MRN";
+            cmd.CommandText = "select * from tblADT where MedicalRecordNo = @MRN order by DateReceived desc";
             cmd.CommandType = CommandType.Text;
             cmd.Parameters.Add("@MRN", SqlDbType.VarChar).Value = mrn;
 

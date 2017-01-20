@@ -78,9 +78,7 @@ namespace YellowstonePathology.Business.Typing
                     this.m_SurgicalTestOrder = (YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
                     this.m_CaseDocumentCollection = new Business.Document.CaseDocumentCollection(this.m_AccessionOrder, reportNo);
                     this.RefreshBillingSpecimenViewCollection();
-
                     
-
                     this.m_SpecialInstructions = null;
                     this.m_SpecialInstructionsVisibility = Visibility.Collapsed;                    
 
