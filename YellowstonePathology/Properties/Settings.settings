@@ -39,7 +39,7 @@
       <Value Profile="(Default)">\\ypiidc\YPIILIS\Dictionary\ypi-custom.aff</Value>
     </Setting>
     <Setting Name="CurrentConnectionString" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Server = 10.1.2.26; Uid = sqldude; Pwd = 123Whatsup; Database = test;</Value>
+      <Value Profile="(Default)">Server = 10.1.2.26; Uid = sqldude; Pwd = 123Whatsup; Database = lis;</Value>
     </Setting>
     <Setting Name="ChangeDBPassword" Type="System.String" Scope="User">
       <Value Profile="(Default)">changedb</Value>
@@ -55,9 +55,6 @@
     </Setting>
     <Setting Name="SqlServerConnectionString" Type="System.String" Scope="User">
       <Value Profile="(Default)">Data Source=TestSQL;Initial Catalog=YPIData;Integrated Security=True</Value>
-    </Setting>
-    <Setting Name="MySqlTestConnection" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Server = 10.1.2.26; Uid = sqldude; Pwd = 123Whatsup; Database = test;</Value>
     </Setting>
     <Setting Name="MonitoredPropertyFolder" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\Program Files\Yellowstone Pathology Institute\MonitoredProperty</Value>
