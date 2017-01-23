@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
 		public TCellSubsetAnalysisTest()
 		{
 			this.m_PanelSetId = 223;
-			this.m_PanelSetName = "T-Cell Subset Analysis";
+			this.m_PanelSetName = "BAL T-Cell Subset Analysis";
 			this.m_CaseType = YellowstonePathology.Business.CaseType.FlowCytometry;
 			this.m_HasTechnicalComponent = true;			
             this.m_HasProfessionalComponent = false;
@@ -31,8 +31,8 @@ namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
             
 			this.m_AllowMultiplePerAccession = true;
             this.m_EpicDistributionIsImplemented = true;
-
-            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT86356(), 3);
+            
+            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT86356(), 1);
             this.m_PanelSetCptCodeCollection.Add(panelSetCptCode);
 
             string taskDescription = "Gather materials and perform test.";
@@ -41,7 +41,7 @@ namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
             this.m_TechnicalComponentFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();
             this.m_TechnicalComponentBillingFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();
 
-            this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceFLOWYPI());
-		}
+            this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceFLOWYPI());            
+        }
 	}
 }
