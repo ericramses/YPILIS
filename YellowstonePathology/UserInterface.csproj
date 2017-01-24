@@ -1098,6 +1098,7 @@
     <Compile Include="Business\Task.Model\TaskOrderDetailFedexShipment.cs" />
     <Compile Include="Business\Test\AMLFavorableRisk\AMLFavorableRiskTest.cs" />
     <Compile Include="Business\Test\AMLPrognosticProfile\AMLPrognosticProfileTest.cs" />
+    <Compile Include="Business\Test\HoldForFlow\HoldForFlowWPHOBXView.cs" />
     <Compile Include="Business\Test\MPNStandardReflexPanel\MPNStandardReflexPanelTest.cs" />
     <Compile Include="Business\Test\FlowCytometryAnalysis\FlowCytometryAnalysisTest.cs" />
     <Compile Include="Business\Test\BCRABLByFish\BCRABLByFishTestOrder.cs" />
