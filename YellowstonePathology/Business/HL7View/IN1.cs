@@ -8,6 +8,7 @@ namespace YellowstonePathology.Business.HL7View
 {
     public class IN1
     {
+        private int m_SetId;
         private DateTime m_DateReceived;
         private string m_InsurancePlanId;
         private string m_InsuranceCompanyId;
@@ -31,6 +32,7 @@ namespace YellowstonePathology.Business.HL7View
             this.m_DateReceived = dateReceived;
 
             string[] split = in1Segment.Split('|');
+            this.m_SetId = Convert.ToInt32(split[1]);
             this.m_InsurancePlanId = split[2];
             this.m_InsuranceCompanyId = split[3];
             this.m_InsuranceName = split[4];
@@ -53,6 +55,12 @@ namespace YellowstonePathology.Business.HL7View
             }
 
             if(split.Length >= 36) this.m_PolicyNumber = split[36];            
+        }
+
+        public int SetId
+        {
+            get { return this.m_SetId; }
+            set { this.m_SetId = value; }
         }
 
         public string InsurancePlanId
@@ -114,12 +122,35 @@ namespace YellowstonePathology.Business.HL7View
             get { return this.m_NameOfInsured; }
             set { this.m_NameOfInsured = value; }
         }
+
+        public string InsurancePriority
+        {
+            get
+            {
+                string result = null;
+                switch (this.m_SetId)
+                {
+                    case 1:
+                        result = "Primary";
+                        break;
+                    case 2:
+                        result = "Secondary";
+                        break;
+                    default:
+                        result = "#" + this.m_SetId.ToString();
+                        break;
+
+                }
+                return result;
+            }
+        }
         
         public string DisplayString
         {
             get
             {
                 StringBuilder result = new StringBuilder();
+                result.AppendLine("Priority: " + this.InsurancePriority);
                 result.AppendLine("Date Received: " + this.m_DateReceived.ToShortDateString());
                 result.AppendLine(this.m_InsuranceName);
                 result.AppendLine(this.m_InsuranceAddress);
