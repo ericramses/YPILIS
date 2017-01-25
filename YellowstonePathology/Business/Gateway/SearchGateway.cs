@@ -14,7 +14,7 @@ namespace YellowstonePathology.Business.Gateway
 	public class SearchGateway
 	{		
 		public YellowstonePathology.Business.Search.PathologistSearchResultCollection PathologistGenericSearch(string caseType, int pathologistId, bool final, string finalDateLimit)
-		{
+		{            
 			SqlCommand cmd = new SqlCommand("pPathologistGenericSearch_3");
 			cmd.CommandType = CommandType.StoredProcedure;
 			cmd.Parameters.Add("@CaseType",SqlDbType.VarChar).Value = caseType;
