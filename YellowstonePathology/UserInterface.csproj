@@ -1098,6 +1098,10 @@
     <Compile Include="Business\Task.Model\TaskOrderDetailFedexShipment.cs" />
     <Compile Include="Business\Test\AMLFavorableRisk\AMLFavorableRiskTest.cs" />
     <Compile Include="Business\Test\AMLPrognosticProfile\AMLPrognosticProfileTest.cs" />
+    <Compile Include="Business\Test\FISH5p159q2215p22\FISH5p159q2215p22EPICOBXView.cs" />
+    <Compile Include="Business\Test\FISH5p159q2215p22\FISH5p159q2215p22Test.cs" />
+    <Compile Include="Business\Test\FISH5p159q2215p22\FISH5p159q2215p22TestOrder.cs" />
+    <Compile Include="Business\Test\FISH5p159q2215p22\FISH5p159q2215p22WordDocument.cs" />
     <Compile Include="Business\Test\HoldForFlow\HoldForFlowWPHOBXView.cs" />
     <Compile Include="Business\Test\MPNStandardReflexPanel\MPNStandardReflexPanelTest.cs" />
     <Compile Include="Business\Test\FlowCytometryAnalysis\FlowCytometryAnalysisTest.cs" />
@@ -3644,6 +3648,10 @@
       <DependentUpon>FGFR1ResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Test\FGFR1ResultPath.cs" />
+    <Compile Include="UI\Test\FISH5p159q2215p22ResultPage.xaml.cs">
+      <DependentUpon>FISH5p159q2215p22ResultPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Test\FISH5p159q2215p22ResultPath.cs" />
     <Compile Include="UI\Test\GrossOnlyResultPage.xaml.cs">
       <DependentUpon>GrossOnlyResultPage.xaml</DependentUpon>
     </Compile>
@@ -5541,6 +5549,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Test\FGFR1ResultPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Test\FISH5p159q2215p22ResultPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
