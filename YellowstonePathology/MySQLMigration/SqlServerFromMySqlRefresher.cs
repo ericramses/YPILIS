@@ -94,6 +94,7 @@ namespace YellowstonePathology.MySQLMigration
             {
                 List<string> createdKeys = new List<string>();
                 List<string> modifiedKeys = new List<string>();
+                List<string> deletedKeys = new List<string>();
                 cn.Open();
                 SqlCommand cmd = new SqlCommand("AATestRefresh");
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -112,10 +113,61 @@ namespace YellowstonePathology.MySQLMigration
                     {
                         modifiedKeys.Add(dr[0].ToString());
                     }
+                    dr.NextResult();
+                    while (dr.Read())
+                    {
+                        deletedKeys.Add(dr[0].ToString());
+                    }
                 }
                 nonpersistentTableDef.CreatedKeys = createdKeys;
                 nonpersistentTableDef.ModifiedKeys = modifiedKeys;
+                nonpersistentTableDef.DeletedKeys = deletedKeys;
             }
+        }
+
+        private List<string> GetAllKeys(MySQLMigration.NonpersistentTableDef nonpersistentTableDef)
+        {
+            List<string> keys = new List<string>();
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.SqlServerConnectionString))
+            {
+                cn.Open();
+                SqlCommand cmd = new SqlCommand("AATestGetAllKeys");
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@TableName", SqlDbType.VarChar).Value = nonpersistentTableDef.TableName;
+                cmd.Parameters.Add("@KeyField", SqlDbType.VarChar).Value = nonpersistentTableDef.KeyField;
+                cmd.Connection = cn;
+
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        keys.Add(dr[0].ToString());
+                    }
+                }
+            }
+            return keys;
+        }
+
+        private string KeyStringFromList(NonpersistentTableDef nonpersistentTableDef, List<string> keys)
+        {
+            bool needsTic = false;
+            foreach(NonpersistentColumnDef columnDef in nonpersistentTableDef.ColumnDefinitions)
+            {
+                if(columnDef.ColumnName == nonpersistentTableDef.KeyField)
+                {
+                    needsTic = columnDef.ColumnType.ToUpper().Contains("VARCHAR") ? true : false;
+                    break;
+                }
+            }
+            string result = string.Empty;
+
+            foreach (string key in keys)
+            {
+                if (needsTic == true) result += "'" + key + "', ";
+                else result += key + ", ";
+            }
+            result = result.Remove(result.Length - 2, 2);
+            return result;
         }
     }
 }

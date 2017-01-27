@@ -26,6 +26,7 @@ namespace YellowstonePathology.MySQLMigration
         protected TableForeignKeyCollection m_TableForeignKeyCollection;
         protected List<string> m_ModifiedKeys;
         protected List<string> m_CreatedKeys;
+        protected List<string> m_DeletedKeys;
 
         public NonpersistentTableDef()
         {
@@ -34,6 +35,7 @@ namespace YellowstonePathology.MySQLMigration
             m_TableForeignKeyCollection = new TableForeignKeyCollection();
             this.m_ModifiedKeys = new List<string>();
             this.m_CreatedKeys = new List<string>();
+            this.m_DeletedKeys = new List<string>();
         }
 
         public void NotifyPropertyChanged(String info)
@@ -119,6 +121,11 @@ namespace YellowstonePathology.MySQLMigration
             get { return this.m_CreatedKeys.Count; }
         }
 
+        public int DeletedCount
+        {
+            get { return this.m_DeletedKeys.Count; }
+        }
+
         public bool IsAutoIncrement
         {
             get { return this.m_IsAutoIncrement; }
@@ -168,6 +175,17 @@ namespace YellowstonePathology.MySQLMigration
                 this.m_CreatedKeys = value;
                 NotifyPropertyChanged("CreatedKeys");
                 NotifyPropertyChanged("CreatedCount");
+            }
+        }
+
+        public List<string> DeletedKeys
+        {
+            get { return this.m_DeletedKeys; }
+            set
+            {
+                this.m_DeletedKeys = value;
+                NotifyPropertyChanged("DeletedKeys");
+                NotifyPropertyChanged("DeletedCount");
             }
         }
 
