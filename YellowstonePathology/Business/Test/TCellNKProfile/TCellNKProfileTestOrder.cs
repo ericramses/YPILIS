@@ -31,7 +31,6 @@ namespace YellowstonePathology.Business.Test.TCellNKProfile
         private double? m_CD45Percent;
         private double? m_CD56Percent;
 
-
         public TCellNKProfileTestOrder()
         {
 
@@ -271,7 +270,7 @@ namespace YellowstonePathology.Business.Test.TCellNKProfile
         [PersistentDataColumnProperty(true, "", "null", "float")]
         public double? CD4Percent
         {
-            get { return this.m_CD3Percent; }
+            get { return this.m_CD4Percent; }
             set
             {
                 if (this.m_CD4Percent != value)
