@@ -1999,6 +1999,68 @@ namespace YellowstonePathology.MySQLMigration
             return result;
         }
 
+        public Business.Rules.MethodResult RemoveFromMySqlNoLongerInSqlServer(MigrationStatus migrationStatus)
+        {
+            Business.Rules.MethodResult result = new Business.Rules.MethodResult();
+            int mismatchCount = migrationStatus.MySqlRowCount - migrationStatus.SqlServerTransferredCount;
+            if (mismatchCount > 0)
+            {
+                bool needsTic = migrationStatus.KeyFieldProperty.PropertyType == typeof(string);
+                List<string> mySqlKeys = this.GetMySqlKeyList(migrationStatus.TableName, migrationStatus.KeyFieldName, needsTic);
+                List<string> sqlServerKeys = this.GetSqlServerKeyList(migrationStatus.TableName, migrationStatus.KeyFieldName, needsTic);
+
+                List<string> deleteKeys = mySqlKeys.Except(sqlServerKeys).ToList();
+                if (deleteKeys.Count > 0)
+                {
+                    string keyString = KeyStringFromList(migrationStatus, deleteKeys);
+
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.CommandText = "DELETE OPENQUERY(MYSQL, 'SELECT " + migrationStatus.KeyFieldName + " FROM " + m_DBName + "." + migrationStatus.TableName + " WHERE " + migrationStatus.KeyFieldName + " in (" + keyString + ")')";
+
+                    using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+                    {
+                        cn.Open();
+                        cmd.Connection = cn;
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            return result;
+        }
+
+        private List<string> GetSqlServerKeyList(string tableName, string keyField, bool needsTic)
+        {
+            List<string> keys = new List<string>();
+            StringBuilder selectStatement = new StringBuilder();
+            selectStatement.Append("select ");
+            selectStatement.Append(keyField);
+            selectStatement.Append(" from ");
+            selectStatement.Append(tableName);
+            selectStatement.Append(" order by 1 desc;");
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = cn;
+                cmd.CommandText = selectStatement.ToString();
+
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        if(needsTic)
+                        {
+                            keys.Add("'" + dr[0].ToString() + "'");
+                        }
+                        else
+                        {  
+                            keys.Add(dr[0].ToString());
+                        }
+                    }
+                }
+            }
+            return keys;
+        }
 
         #region ReservedWords
 
