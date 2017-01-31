@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>372</ApplicationRevision>
+    <ApplicationRevision>376</ApplicationRevision>
     <ApplicationVersion>10.1.6.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -1103,6 +1103,7 @@
     <Compile Include="Business\Test\FISH5p159q2215p22\FISH5p159q2215p22TestOrder.cs" />
     <Compile Include="Business\Test\FISH5p159q2215p22\FISH5p159q2215p22WordDocument.cs" />
     <Compile Include="Business\Test\HoldForFlow\HoldForFlowWPHOBXView.cs" />
+    <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult1A.cs" />
     <Compile Include="Business\Test\MPNStandardReflexPanel\MPNStandardReflexPanelTest.cs" />
     <Compile Include="Business\Test\FlowCytometryAnalysis\FlowCytometryAnalysisTest.cs" />
     <Compile Include="Business\Test\BCRABLByFish\BCRABLByFishTestOrder.cs" />
@@ -2371,7 +2372,6 @@
     <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult6.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult7.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult8.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult9.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEGYNResult1.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEGYNResult2.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEGYNResult3.cs" />
