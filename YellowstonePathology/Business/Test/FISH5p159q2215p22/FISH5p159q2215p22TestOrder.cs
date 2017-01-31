@@ -86,7 +86,7 @@ namespace YellowstonePathology.Business.Test.FISH5p159q2215p22
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
+        [PersistentDataColumnProperty(true, "500", "null", "varchar")]
         public string ReportDisclaimer
         {
             get { return this.m_ReportDisclaimer; }

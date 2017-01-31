@@ -423,7 +423,8 @@ namespace YellowstonePathology.UI.MySql
             Business.Rules.MethodResult overallResult = new Business.Rules.MethodResult();
             foreach (MySQLMigration.MigrationStatus migrationStatus in this.ListViewMigrationStatus.SelectedItems)
             {
-                this.m_MySQLDatabaseBuilder.RemoveDeletedRowsFromMySql(migrationStatus);
+                //this.m_MySQLDatabaseBuilder.RemoveDeletedRowsFromMySql(migrationStatus);
+                this.m_MySQLDatabaseBuilder.RemoveFromMySqlNoLongerInSqlServer(migrationStatus);
             }
             this.SetStatusMessage(overallResult);
         }
