@@ -15,8 +15,8 @@ namespace YellowstonePathology.Business.Billing.Model
 
         public override void SetPanelSetOrderCPTCodes()
         {
-			if (this.IsOkToSet() == true)
-			{
+			//if (this.IsOkToSet() == true)
+			//{
 				if (this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.Exists("88184", 1) == false)
 				{
 					YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByOrderTarget(this.m_PanelSetOrder.OrderedOnId);
@@ -91,7 +91,7 @@ namespace YellowstonePathology.Business.Billing.Model
 						this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.Add(panelSetOrderCPTCode88189);
 					}
 				}
-            }                       
+            //}                       
         }        
     }
 }

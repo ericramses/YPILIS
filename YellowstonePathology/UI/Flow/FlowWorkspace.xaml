@@ -525,7 +525,7 @@
 						</StackPanel>
 					</StackPanel>
 				</TabItem>
-				<TabItem Header="Coding">
+				<TabItem Header="ICD10 Codes">
 					<Grid Background="White">
 						<Grid.ContextMenu>
                             <ContextMenu>
@@ -567,7 +567,33 @@
                           <Button VerticalAlignment="Top" Width="200" Style="{StaticResource NormalButton}" Click="ButtonRemoveICDCode_Click">Remove ICD Code</Button>
                         </StackPanel>
 					</Grid>
-				</TabItem>								
+				</TabItem>
+                <TabItem Header="CPT Codes">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <ListView Name="ListViewPanelSetOrderCPTCode" Grid.Column="0" Grid.Row="0" ItemsSource="{Binding Path=PanelSetOrderLeukemiaLymphoma.PanelSetOrderCPTCodeCollection}" Margin="2,2,2,2">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Quantity}" Header="Qty" Width="75"/>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Path=CPTCode}" Header="CPT Code" Width="100"/>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Path=CodeableDescription}" Header="Description" Width="200"/>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Path=CodeableType}" Header="Type" Width="150"/>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Modifier}" Header="Modifier" Width="100"/>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Path=PostDate, Converter={StaticResource ShortDateConverter}}" Header="Post Date" Width="120"/>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Path=EntryType}" Header="Entry Type" Width="100"/>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Path=ClientId}" Header="Client" Width="100"/>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                        <Button Grid.Column="0" Grid.Row="1" Width="100" Height="30" Click="ButtonSetCodes_Click" HorizontalAlignment="Right" Margin="2,2,2,2">Set Codes</Button>
+                    </Grid>
+                </TabItem>
                 <TabItem Header="Tech Final">
                   <Grid>
                     <Grid.ColumnDefinitions>
