@@ -1103,6 +1103,10 @@
     <Compile Include="Business\Test\FISH5p159q2215p22\FISH5p159q2215p22TestOrder.cs" />
     <Compile Include="Business\Test\FISH5p159q2215p22\FISH5p159q2215p22WordDocument.cs" />
     <Compile Include="Business\Test\HoldForFlow\HoldForFlowWPHOBXView.cs" />
+    <Compile Include="Business\Test\LiposarcomaFusionProfile\LiposarcomaFusionProfileEPICOBXView.cs" />
+    <Compile Include="Business\Test\LiposarcomaFusionProfile\LiposarcomaFusionProfileTest.cs" />
+    <Compile Include="Business\Test\LiposarcomaFusionProfile\LiposarcomaFusionProfileTestOrder.cs" />
+    <Compile Include="Business\Test\LiposarcomaFusionProfile\LiposarcomaFusionProfileWordDocument.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult1A.cs" />
     <Compile Include="Business\Test\MPNStandardReflexPanel\MPNStandardReflexPanelTest.cs" />
     <Compile Include="Business\Test\FlowCytometryAnalysis\FlowCytometryAnalysisTest.cs" />
@@ -3671,6 +3675,10 @@
       <DependentUpon>KRASExon23MutationResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Test\KRASExon23MutationResultPath.cs" />
+    <Compile Include="UI\Test\LiposarcomaFusionProfileResultPage.xaml.cs">
+      <DependentUpon>LiposarcomaFusionProfileResultPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Test\LiposarcomaFusionProfileResultPath.cs" />
     <Compile Include="UI\Test\MissingInformationResultPage.xaml.cs">
       <DependentUpon>MissingInformationResultPage.xaml</DependentUpon>
     </Compile>
@@ -5573,6 +5581,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Test\KRASExon23MutationResultPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Test\LiposarcomaFusionProfileResultPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
