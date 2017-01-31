@@ -487,9 +487,9 @@
 							</ListView.View>
 						</ListView>
 
-                        <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="0" Grid.Row="2">
                             <TextBlock Margin="2,2,2,2">Marker Count:</TextBlock>
-                            <TextBlock Text="{Binding Path=MarkerCount}" Margin="2,2,2,2"></TextBlock>
+                            <TextBlock Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.FlowMarkerCollection.Count}" Margin="2,2,2,2"></TextBlock>
                         </StackPanel>
 					</Grid>		
 				</TabItem>				
