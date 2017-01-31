@@ -995,7 +995,7 @@ namespace YellowstonePathology.UI.Flow
 
         private void ButtonSetCodes_Click(object sender, RoutedEventArgs e)
         {
-            if(this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.IsPosted == true)
+            if(this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.IsPosted == false)
             {
                 YellowstonePathology.Business.Billing.Model.BillableObject billableObject = Business.Billing.Model.BillableObjectFactory.GetBillableObject(this.m_FlowUI.AccessionOrder, this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.ReportNo);
                 YellowstonePathology.Business.Rules.MethodResult methodResult = billableObject.Set();
