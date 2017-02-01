@@ -3492,8 +3492,8 @@
     <Compile Include="UI\BindingErrorListener.cs" />
     <Compile Include="UI\BindingValidator.cs" />
     <Compile Include="UI\BindingValidatorItem.cs" />
-    <Compile Include="UI\CodeSelectionV2.xaml.cs">
-      <DependentUpon>CodeSelectionV2.xaml</DependentUpon>
+    <Compile Include="UI\CodeSelection.xaml.cs">
+      <DependentUpon>CodeSelection.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\CustomEventArgs\AccessionOrderWithTrackerReturnEventArgs.cs" />
     <Compile Include="UI\CustomEventArgs\CPTCodeReturnEventArgs.cs" />
@@ -5086,7 +5086,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\CodeSelectionV2.xaml">
+    <Page Include="UI\CodeSelection.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

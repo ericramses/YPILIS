@@ -93,6 +93,7 @@ namespace YellowstonePathology.Business.Billing.Model
 						this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.Add(panelSetOrderCPTCode88189);
 					}
 				}
+                this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.UpdateCodeType();
             }                       
         }        
     }
