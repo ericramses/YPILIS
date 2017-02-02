@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>381</ApplicationRevision>
+    <ApplicationRevision>338</ApplicationRevision>
     <ApplicationVersion>10.1.6.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -2361,6 +2361,7 @@
     <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult6.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult7.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult8.cs" />
+    <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult9.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEGYNResult1.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEGYNResult2.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEGYNResult3.cs" />
@@ -3477,8 +3478,8 @@
     <Compile Include="UI\BindingErrorListener.cs" />
     <Compile Include="UI\BindingValidator.cs" />
     <Compile Include="UI\BindingValidatorItem.cs" />
-    <Compile Include="UI\CodeSelection.xaml.cs">
-      <DependentUpon>CodeSelection.xaml</DependentUpon>
+    <Compile Include="UI\CodeSelectionV2.xaml.cs">
+      <DependentUpon>CodeSelectionV2.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\CustomEventArgs\AccessionOrderWithTrackerReturnEventArgs.cs" />
     <Compile Include="UI\CustomEventArgs\CPTCodeReturnEventArgs.cs" />
@@ -5055,7 +5056,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\CodeSelection.xaml">
+    <Page Include="UI\CodeSelectionV2.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
