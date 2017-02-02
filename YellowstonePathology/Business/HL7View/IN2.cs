@@ -27,8 +27,8 @@ namespace YellowstonePathology.Business.HL7View
             string[] split = in1Segment.Split('|');
             this.m_InsuredEmployerId = split[1];
             this.m_InsuredSSN = split[2];
-            this.m_InsuredMaritalStatus = split[43];
-            this.m_InsuredPhoneNumber = split[63];
+            if(split.Length >= 44) this.m_InsuredMaritalStatus = split[43];
+            if (split.Length >= 63) this.m_InsuredPhoneNumber = split[63];
         }
 
         public string InsuredEmployerId
