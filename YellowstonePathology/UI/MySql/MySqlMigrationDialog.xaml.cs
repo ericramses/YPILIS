@@ -423,7 +423,23 @@ namespace YellowstonePathology.UI.MySql
             Business.Rules.MethodResult overallResult = new Business.Rules.MethodResult();
             foreach (MySQLMigration.MigrationStatus migrationStatus in this.ListViewMigrationStatus.SelectedItems)
             {
-                this.m_MySQLDatabaseBuilder.RemoveDeletedRowsFromMySql(migrationStatus);
+                this.m_MySQLDatabaseBuilder.RemoveFromMySqlNoLongerInSqlServer(migrationStatus);
+            }
+            this.SetStatusMessage(overallResult);
+        }
+
+        private void MenuItemAddMissingTransferredData_Click(object sender, RoutedEventArgs e)
+        {
+            this.StatusMessage = "Working on it.";
+            Business.Rules.MethodResult overallResult = new Business.Rules.MethodResult();
+            foreach (MySQLMigration.MigrationStatus migrationStatus in this.ListViewMigrationStatus.SelectedItems)
+            {
+                Business.Rules.MethodResult result = this.m_MySQLDatabaseBuilder.InsertMySqlTransferredButMissing(migrationStatus);
+                if (result.Success == false)
+                {
+                    overallResult.Success = false;
+                    overallResult.Message += result.Message;
+                }
             }
             this.SetStatusMessage(overallResult);
         }
