@@ -2062,6 +2062,27 @@ namespace YellowstonePathology.MySQLMigration
             return keys;
         }
 
+        public Business.Rules.MethodResult InsertMySqlTransferredButMissing(MigrationStatus migrationStatus)
+        {
+            Business.Rules.MethodResult result = new Business.Rules.MethodResult();
+            int mismatchCount = migrationStatus.SqlServerTransferredCount - migrationStatus.MySqlRowCount;
+            if (mismatchCount > 0)
+            {
+                bool needsTic = migrationStatus.KeyFieldProperty.PropertyType == typeof(string);
+                List<string> mySqlKeys = this.GetMySqlKeyList(migrationStatus.TableName, migrationStatus.KeyFieldName, needsTic);
+                List<string> sqlServerKeys = this.GetSqlServerKeyList(migrationStatus.TableName, migrationStatus.KeyFieldName, needsTic);
+
+                List<string> deleteKeys = sqlServerKeys.Except(mySqlKeys).ToList();
+                if (deleteKeys.Count > 0)
+                {
+                    string keyString = KeyStringFromList(migrationStatus, deleteKeys);
+
+                    result = this.LoadData(migrationStatus, keyString);
+                }
+            }
+            return result;
+        }
+
         #region ReservedWords
 
         private void BuildForbiddenWordLists()
