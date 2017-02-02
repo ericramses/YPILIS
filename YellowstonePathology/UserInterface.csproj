@@ -2361,7 +2361,6 @@
     <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult6.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult7.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult8.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult9.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEGYNResult1.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEGYNResult2.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEGYNResult3.cs" />
@@ -3136,6 +3135,9 @@
     <Compile Include="UI\Client\ClientGroupEntry.xaml.cs">
       <DependentUpon>ClientGroupEntry.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\CodeSelection.xaml.cs">
+      <DependentUpon>CodeSelection.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Common\OrderItemView.cs" />
     <Compile Include="UI\Converter\PathologySpecimenColorConverter.cs" />
     <Compile Include="UI\Converter\BooleanVisibilityHiddenConverter.cs" />
@@ -3478,9 +3480,6 @@
     <Compile Include="UI\BindingErrorListener.cs" />
     <Compile Include="UI\BindingValidator.cs" />
     <Compile Include="UI\BindingValidatorItem.cs" />
-    <Compile Include="UI\CodeSelectionV2.xaml.cs">
-      <DependentUpon>CodeSelectionV2.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UI\CustomEventArgs\AccessionOrderWithTrackerReturnEventArgs.cs" />
     <Compile Include="UI\CustomEventArgs\CPTCodeReturnEventArgs.cs" />
     <Compile Include="UI\CustomEventArgs\TaskOrderReturnEventArgs.cs" />
@@ -5056,7 +5055,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\CodeSelectionV2.xaml">
+    <Page Include="UI\CodeSelection.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
