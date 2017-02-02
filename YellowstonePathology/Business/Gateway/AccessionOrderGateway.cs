@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.Gateway
         {
             YellowstonePathology.Business.HL7View.ADTMessages result = new HL7View.ADTMessages();
             SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "select * from tblADT where MedicalRecordNo = @MRN";
+            cmd.CommandText = "select * from tblADT where MedicalRecordNo = @MRN order by DateReceived desc";
             cmd.CommandType = CommandType.Text;
             cmd.Parameters.Add("@MRN", SqlDbType.VarChar).Value = mrn;
 
@@ -1610,6 +1610,39 @@ namespace YellowstonePathology.Business.Gateway
                 "join tblTrichomonasTestOrder t on pso.ReportNo = t.ReportNo " +
                 "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
                 "where TechnicalComponentInstrumentId = 'PNTHR' and pso.Accepted = 0 order by pso.OrderTime";
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.Business.Test.PantherOrderListItem pantherOrderListItem = new Test.PantherOrderListItem();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(pantherOrderListItem, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(pantherOrderListItem);
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        public static YellowstonePathology.Business.Test.PantherOrderList GetPantherOrdersPreviouslyRun()
+        {
+            YellowstonePathology.Business.Test.PantherOrderList result = new Test.PantherOrderList();
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "select a.MasterAccessionNo, pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, a.PFirstName, pso.AcceptedTime, pso.FinalTime, null as Result, null, null, pso.HoldDistribution " +
+                "from tblPanelSetOrder pso " +
+                "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " + 
+                "where accepted = 0 and panelsetid in (14, 62, 61, 3) " +
+                "and exists(select null from tblPanelSetOrder pso2 " +
+                "where masterAccessionNo = pso.MasterAccessionNo and panelSetId <> pso.PanelSetId and panelSetId in (14, 62, 61, 3) " +
+                "and pso2.Accepted = 1) order by pso.OrderTime";
 
             using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {

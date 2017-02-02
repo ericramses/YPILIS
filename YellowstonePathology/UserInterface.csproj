@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>337</ApplicationRevision>
+    <ApplicationRevision>389</ApplicationRevision>
     <ApplicationVersion>10.1.6.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -1098,6 +1098,16 @@
     <Compile Include="Business\Task.Model\TaskOrderDetailFedexShipment.cs" />
     <Compile Include="Business\Test\AMLFavorableRisk\AMLFavorableRiskTest.cs" />
     <Compile Include="Business\Test\AMLPrognosticProfile\AMLPrognosticProfileTest.cs" />
+    <Compile Include="Business\Test\FISH5p159q2215p22\FISH5p159q2215p22EPICOBXView.cs" />
+    <Compile Include="Business\Test\FISH5p159q2215p22\FISH5p159q2215p22Test.cs" />
+    <Compile Include="Business\Test\FISH5p159q2215p22\FISH5p159q2215p22TestOrder.cs" />
+    <Compile Include="Business\Test\FISH5p159q2215p22\FISH5p159q2215p22WordDocument.cs" />
+    <Compile Include="Business\Test\HoldForFlow\HoldForFlowWPHOBXView.cs" />
+    <Compile Include="Business\Test\LiposarcomaFusionProfile\LiposarcomaFusionProfileEPICOBXView.cs" />
+    <Compile Include="Business\Test\LiposarcomaFusionProfile\LiposarcomaFusionProfileTest.cs" />
+    <Compile Include="Business\Test\LiposarcomaFusionProfile\LiposarcomaFusionProfileTestOrder.cs" />
+    <Compile Include="Business\Test\LiposarcomaFusionProfile\LiposarcomaFusionProfileWordDocument.cs" />
+    <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult1A.cs" />
     <Compile Include="Business\Test\MPNStandardReflexPanel\MPNStandardReflexPanelTest.cs" />
     <Compile Include="Business\Test\FlowCytometryAnalysis\FlowCytometryAnalysisTest.cs" />
     <Compile Include="Business\Test\BCRABLByFish\BCRABLByFishTestOrder.cs" />
@@ -2366,7 +2376,6 @@
     <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult6.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult7.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult8.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult9.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEGYNResult1.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEGYNResult2.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEGYNResult3.cs" />
@@ -3060,6 +3069,7 @@
     <Compile Include="MySQLMigration\NonpersistentTableDefICD9Code.cs" />
     <Compile Include="MySQLMigration\NonpersistentTableDefImmunoComment.cs" />
     <Compile Include="MySQLMigration\NonpersistentTableDefMarkers.cs" />
+    <Compile Include="MySQLMigration\NonpersistentTableDefMasterAccessionNo.cs" />
     <Compile Include="MySQLMigration\NonpersistentTableDefMaterialLocation.cs" />
     <Compile Include="MySQLMigration\NonpersistentTableDefOrderComment.cs" />
     <Compile Include="MySQLMigration\NonpersistentTableDefPanel.cs" />
@@ -3073,6 +3083,7 @@
     <Compile Include="MySQLMigration\NonpersistentTableDefTest.cs" />
     <Compile Include="MySQLMigration\NonpersistentTableDefWebServiceAccount.cs" />
     <Compile Include="MySQLMigration\NonpersistentTableDefWebServiceAccountClient.cs" />
+    <Compile Include="MySQLMigration\SqlServerFromMySqlRefresher.cs" />
     <Compile Include="MySQLMigration\TableForeignKey.cs" />
     <Compile Include="MySQLMigration\TableForeignKeyCollection.cs" />
     <Compile Include="MySQLMigration\TableIndex.cs" />
@@ -3325,6 +3336,9 @@
     <Compile Include="UI\MySql\NonpersistentTableDialog.xaml.cs">
       <DependentUpon>NonpersistentTableDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\MySql\SqlServerRefreshDialog.xaml.cs">
+      <DependentUpon>SqlServerRefreshDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\NHunspell.xaml.cs">
       <DependentUpon>NHunspell.xaml</DependentUpon>
     </Compile>
@@ -3478,8 +3492,8 @@
     <Compile Include="UI\BindingErrorListener.cs" />
     <Compile Include="UI\BindingValidator.cs" />
     <Compile Include="UI\BindingValidatorItem.cs" />
-    <Compile Include="UI\CodeSelectionV2.xaml.cs">
-      <DependentUpon>CodeSelectionV2.xaml</DependentUpon>
+    <Compile Include="UI\CodeSelection.xaml.cs">
+      <DependentUpon>CodeSelection.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\CustomEventArgs\AccessionOrderWithTrackerReturnEventArgs.cs" />
     <Compile Include="UI\CustomEventArgs\CPTCodeReturnEventArgs.cs" />
@@ -3638,6 +3652,10 @@
       <DependentUpon>FGFR1ResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Test\FGFR1ResultPath.cs" />
+    <Compile Include="UI\Test\FISH5p159q2215p22ResultPage.xaml.cs">
+      <DependentUpon>FISH5p159q2215p22ResultPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Test\FISH5p159q2215p22ResultPath.cs" />
     <Compile Include="UI\Test\GrossOnlyResultPage.xaml.cs">
       <DependentUpon>GrossOnlyResultPage.xaml</DependentUpon>
     </Compile>
@@ -3657,6 +3675,10 @@
       <DependentUpon>KRASExon23MutationResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Test\KRASExon23MutationResultPath.cs" />
+    <Compile Include="UI\Test\LiposarcomaFusionProfileResultPage.xaml.cs">
+      <DependentUpon>LiposarcomaFusionProfileResultPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Test\LiposarcomaFusionProfileResultPath.cs" />
     <Compile Include="UI\Test\MissingInformationResultPage.xaml.cs">
       <DependentUpon>MissingInformationResultPage.xaml</DependentUpon>
     </Compile>
@@ -5064,7 +5086,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\CodeSelectionV2.xaml">
+    <Page Include="UI\CodeSelection.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -5230,6 +5252,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\MySql\NonpersistentTableDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\MySql\SqlServerRefreshDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -5534,6 +5560,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UI\Test\FISH5p159q2215p22ResultPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\Test\GrossOnlyResultPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -5551,6 +5581,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Test\KRASExon23MutationResultPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Test\LiposarcomaFusionProfileResultPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
