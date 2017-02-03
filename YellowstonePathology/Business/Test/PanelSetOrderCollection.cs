@@ -25,7 +25,25 @@ namespace YellowstonePathology.Business.Test
         public PanelSetOrder CurrentPanelSetOrder
         {
             get { return this.m_CurrentPanelSetOrder; }
-        }        
+        } 
+        
+        public bool HasUnfinaledTests(List<int> panelSetIdList)
+        {
+            bool result = false;
+            foreach(int panelSetId in panelSetIdList)
+            {
+                if(this.Exists(panelSetId) == true)
+                {
+                    PanelSetOrder panelSetOrder = this.GetItem(panelSetId);
+                    if(panelSetOrder.Final == false)
+                    {
+                        result = true;
+                        break;
+                    }
+                }
+            }
+            return result;
+        }       
 
         public void RemoveDeleted(IEnumerable<XElement> elements)
         {
