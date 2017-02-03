@@ -31,7 +31,7 @@
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <PublishUrl>\\Ypiidc\YPIILIS\Test\</PublishUrl>
+    <PublishUrl>\\ypiidc\YPIILIS\Application\</PublishUrl>
     <Install>false</Install>
     <InstallFrom>Unc</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>338</ApplicationRevision>
+    <ApplicationRevision>389</ApplicationRevision>
     <ApplicationVersion>10.1.6.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -822,6 +822,7 @@
     <Compile Include="Business\Gateway\AccessionSlideOrderViewBuilder.cs" />
     <Compile Include="Business\Gateway\AOSaveResult.cs" />
     <Compile Include="Business\Gateway\BillingGateway.cs" />
+    <Compile Include="Business\Gateway\ClientBuilder.cs" />
     <Compile Include="Business\Gateway\ClientBuilderV2.cs" />
     <Compile Include="Business\Gateway\ClientOrderBuilder.cs" />
     <Compile Include="Business\Gateway\ClientOrderGateway.cs" />
@@ -1450,6 +1451,9 @@
     <Compile Include="Business\Reports\LabOrderSheet.cs" />
     <Compile Include="Business\Reports\OrderLog.cs" />
     <Compile Include="Business\Reports\PatientLinkingListing.cs" />
+    <Compile Include="Business\Reports\POCRetensionReport.xaml.cs">
+      <DependentUpon>POCRetensionReport.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Business\Reports\Report.cs" />
     <Compile Include="Business\Reports\ReportBase.cs" />
     <Compile Include="Business\Reports\ReportParameterAttribute.cs" />
@@ -3135,9 +3139,6 @@
     <Compile Include="UI\Client\ClientGroupEntry.xaml.cs">
       <DependentUpon>ClientGroupEntry.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\CodeSelection.xaml.cs">
-      <DependentUpon>CodeSelection.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UI\Common\OrderItemView.cs" />
     <Compile Include="UI\Converter\PathologySpecimenColorConverter.cs" />
     <Compile Include="UI\Converter\BooleanVisibilityHiddenConverter.cs" />
@@ -3480,6 +3481,9 @@
     <Compile Include="UI\BindingErrorListener.cs" />
     <Compile Include="UI\BindingValidator.cs" />
     <Compile Include="UI\BindingValidatorItem.cs" />
+    <Compile Include="UI\CodeSelection.xaml.cs">
+      <DependentUpon>CodeSelection.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\CustomEventArgs\AccessionOrderWithTrackerReturnEventArgs.cs" />
     <Compile Include="UI\CustomEventArgs\CPTCodeReturnEventArgs.cs" />
     <Compile Include="UI\CustomEventArgs\TaskOrderReturnEventArgs.cs" />
@@ -4946,6 +4950,10 @@
     <Page Include="Business\Reports\CytologySlideDisposalReportV2.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Business\Reports\POCRetensionReport.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Business\Reports\POCRetensionReportV2.xaml">
       <SubType>Designer</SubType>
