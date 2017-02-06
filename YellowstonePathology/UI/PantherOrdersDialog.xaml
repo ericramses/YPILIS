@@ -232,7 +232,7 @@
 
                 </Grid>
             </TabItem>
-            <TabItem Header="Previously RUn">
+            <TabItem Header="Previously Run">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"></ColumnDefinition>
