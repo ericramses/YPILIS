@@ -83,9 +83,10 @@ namespace YellowstonePathology.Business.HL7View.WPH
 					//view = new YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeIHCPanelWPHOBXView(accessionOrder, reportNo, obxCount);
                     break;
                 case 106:
-					//view = new YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeEvaluationWPHOBXView(accessionOrder, reportNo, obxCount);
-                    break;  
-				case 112:
+					view = new YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeEvaluationWPHOBXView(accessionOrder, reportNo, obxCount);
+                    break;
+
+                case 112:
 					//view = new YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile.ComprehensiveColonCancerProfileWPHOBXView(accessionOrder, reportNo, obxCount);
 					break;
                 case 116:
