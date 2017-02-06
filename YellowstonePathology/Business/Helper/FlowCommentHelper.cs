@@ -21,8 +21,11 @@ namespace YellowstonePathology.Business.Helper
 
             foreach(Business.Flow.CellPopulationOfInterest cellPopulationOfInterest in this.m_PanelSetOrderLeukemiaLymphoma.FlowMarkerCollection.CellPopulationsOfInterest)
             {
-                result.AppendLine("Cell population of interest: " + cellPopulationOfInterest.Description);                
-
+                if(this.m_PanelSetOrderLeukemiaLymphoma.FlowMarkerCollection.CellPopulationsOfInterest.Count >= 2)
+                {
+                    result.AppendLine("Cell population of interest: " + cellPopulationOfInterest.Description);
+                }
+                
                 Business.Flow.FlowMarkerCollection flowMarkerCollection = this.m_PanelSetOrderLeukemiaLymphoma.FlowMarkerCollection.GetMarkerPanel(cellPopulationOfInterest.Id);
                 if (this.m_PanelSetOrderLeukemiaLymphoma.TestResult == "Normal")
                 {
@@ -38,11 +41,7 @@ namespace YellowstonePathology.Business.Helper
                     {
                         result.Append(this.GetAbnormalComment(flowMarkerCollection));
                     }
-                }
-
-                result.AppendLine();
-                result.AppendLine();
-
+                }                
             }			
 
             this.m_PanelSetOrderLeukemiaLymphoma.InterpretiveComment = result.ToString();
