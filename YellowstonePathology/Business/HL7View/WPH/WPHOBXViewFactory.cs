@@ -32,7 +32,7 @@ namespace YellowstonePathology.Business.HL7View.WPH
 					view = new YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapWPHOBXView(accessionOrder, reportNo, obxCount);
                     break;
                 case 18:
-					//view = new YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKWPHOBXView(accessionOrder, reportNo, obxCount);
+					view = new YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKWPHOBXView(accessionOrder, reportNo, obxCount);
                     break;
                 case 19:
 					//view = new YellowstonePathology.Business.Test.PNH.PNHWPHOBXView(accessionOrder, reportNo, obxCount);
@@ -83,10 +83,11 @@ namespace YellowstonePathology.Business.HL7View.WPH
 					//view = new YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeIHCPanelWPHOBXView(accessionOrder, reportNo, obxCount);
                     break;
                 case 106:
-					//view = new YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeEvaluationWPHOBXView(accessionOrder, reportNo, obxCount);
-                    break;  
-				case 112:
-					//view = new YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile.ComprehensiveColonCancerProfileWPHOBXView(accessionOrder, reportNo, obxCount);
+					view = new YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeEvaluationWPHOBXView(accessionOrder, reportNo, obxCount);
+                    break;
+
+                case 112:
+					view = new YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile.ComprehensiveColonCancerProfileWPHOBXView(accessionOrder, reportNo, obxCount);
 					break;
                 case 116:
 					view = new YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileWPHOBXView(accessionOrder, reportNo, obxCount);
@@ -209,7 +210,7 @@ namespace YellowstonePathology.Business.HL7View.WPH
 					//view = new YellowstonePathology.Business.Test.NRASMutationAnalysis.NRASMutationAnalysisWPHOBXView(accessionOrder, reportNo, obxCount);
 					break;
 				case 181:
-					//view = new YellowstonePathology.Business.Test.CKIT.CKITWPHOBXView(accessionOrder, reportNo, obxCount);
+					view = new YellowstonePathology.Business.Test.CKIT.CKITWPHOBXView(accessionOrder, reportNo, obxCount);
 					break;
 				case 183:
 					//view = new YellowstonePathology.Business.Test.CysticFibrosis.CysticFibrosisWPHOBXView(accessionOrder, reportNo, obxCount);
