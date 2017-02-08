@@ -962,7 +962,7 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "Uterus with Adnexa";
             this.m_FontSize = 16;
-            this.m_Text = "[identifier] and consists of uterus, cervix, bilateral fallopian tubes, and ovaries." + Environment.NewLine +
+            this.m_Text = "[identifier] and consists of [description]." + Environment.NewLine +
                 Environment.NewLine +
                 "Right Adnexal Organs:" + Environment.NewLine +
                 "   Fallopian Tube: " + Environment.NewLine +
