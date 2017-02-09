@@ -34,7 +34,7 @@ namespace YellowstonePathology.Business.Test.TCellNKProfile
             this.m_PanelSetCptCodeCollection.Add(cpt86359);
             this.m_PanelSetCptCodeCollection.Add(cpt86360);
 
-            string taskDescription = "Perform T-Cell/NK Profile testing.";
+            string taskDescription = "Perform BAL T-Cell/NK Profile testing.";
             this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.Task(YellowstonePathology.Business.Task.Model.TaskAssignment.Flow, taskDescription));
 
             this.m_TechnicalComponentFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();
