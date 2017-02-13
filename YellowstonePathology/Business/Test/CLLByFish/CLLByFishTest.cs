@@ -21,10 +21,10 @@ namespace YellowstonePathology.Business.Test.CLLByFish
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.CLLByFish.CLLByFishTestOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.CLLByFish.CLLByFishWordDocument).AssemblyQualifiedName;
             
-			this.m_AllowMultiplePerAccession = true;
-            //changed by MS and Tk;
+			this.m_AllowMultiplePerAccession = true;            
             this.m_EpicDistributionIsImplemented = true;
 
+            this.m_SurgicalAmendmentRequired = true;
             string taskDescription = "Gather materials (Peripheral blood: 2-5 mL in sodium heparin tube, 2x5 mL in EDTA tube; " +
             "Bone marrow: 1-2 mL in sodium heparin tube or 2 mL in EDTA tube; Fresh unfixed tissue in RPMI) and send out to Neo.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskFedexShipment(YellowstonePathology.Business.Task.Model.TaskAssignment.Flow, taskDescription, new Facility.Model.NeogenomicsIrvine()));

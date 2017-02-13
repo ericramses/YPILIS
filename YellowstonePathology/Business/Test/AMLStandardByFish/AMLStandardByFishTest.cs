@@ -18,8 +18,8 @@ namespace YellowstonePathology.Business.Test.AMLStandardByFish
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterR();
             this.m_Active = true;
 
-
-			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.AMLStandardByFish.AMLStandardByFishTestOrder).AssemblyQualifiedName;
+            this.m_SurgicalAmendmentRequired = true;
+            this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.AMLStandardByFish.AMLStandardByFishTestOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.AMLStandardByFish.AMLStandardByFishWordDocument).AssemblyQualifiedName;
             
 			this.m_AllowMultiplePerAccession = true;            
