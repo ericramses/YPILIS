@@ -24,7 +24,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
 			panelSetCollection.Add(new YellowstonePathology.Business.Test.MultipleFISHProbe.MultipleFISHProbeTest());
 			panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetALKRetired());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHTest()); 
-            panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetPMLRARAByFish()); 
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.PMLRARAByFish.PMLRARAByFishTest()); 
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetPMLRARAByPCR()); 
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetCLLPrognosticPanel());
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetCLLByFishPanelRetired());
