@@ -280,6 +280,9 @@ namespace YellowstonePathology.Business.HL7View.EPIC
                 case 234:
                     view = new YellowstonePathology.Business.Test.TCellRecepterBetaGeneRearrangement.TCellRecepterBetaGeneRearrangementEPICOBXView(accessionOrder, reportNo, obxCount);
                     break;
+                case 245:
+                    view = new YellowstonePathology.Business.Test.PDL122C3.PDL122C3EPICObxView(accessionOrder, reportNo, obxCount);
+                    break;
                 case 247:
                     view = new YellowstonePathology.Business.Test.TCellNKProfile.TCellNKProfileEPICOBXView(accessionOrder, reportNo, obxCount);
                     break;
