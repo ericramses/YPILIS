@@ -68,6 +68,9 @@ namespace YellowstonePathology.UI.Test
 				case 62:
 					result = new HPV1618ResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
+                case 79:
+                    result = new PMLRARAByFishResultPath(reportNo, accessionOrder, pageNavigator, window);
+                    break;
                 case 213:
                     result = new HPV1618ByPCRResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
