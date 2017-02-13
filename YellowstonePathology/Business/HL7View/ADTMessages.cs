@@ -21,6 +21,16 @@ namespace YellowstonePathology.Business.HL7View
             get { return this.m_Messages; }
         }
 
+        public void SetCurrentAddress(Business.Test.AccessionOrder accessionOrder)
+        {
+            var result = this.m_Messages.OrderByDescending(t => t.DateReceived).First();
+            accessionOrder.PAddress1 = result.PatientAddress.PAddress1;
+            accessionOrder.PAddress2 = result.PatientAddress.PAddress2;
+            accessionOrder.PCity = result.PatientAddress.PCity;
+            accessionOrder.PState = result.PatientAddress.PState;
+            accessionOrder.PZipCode = result.PatientAddress.PZipCode;            
+        }        
+
         public Business.Patient.Model.Address GetPatientAddress()
         {
             Business.Patient.Model.Address result = null;
