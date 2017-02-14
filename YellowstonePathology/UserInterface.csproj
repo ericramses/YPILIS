@@ -1072,6 +1072,7 @@
     <Compile Include="Business\Monitor.Model\PendingTestCollection.cs" />
     <Compile Include="Business\PanelSet.Model\NeoTypeEsophagealTumorProfileTest.cs" />
     <Compile Include="Business\PanelSet.Model\NeoTypeDiscoveryProfileTest.cs" />
+    <Compile Include="Business\PanelSet.Model\PanelSetPMLRARAByFish.cs" />
     <Compile Include="Business\PanelSet.Model\ShipMaterialTest.cs" />
     <Compile Include="Business\ParseSpecimenOrderIdResult.cs" />
     <Compile Include="Business\Patient.Model\Address.cs" />
@@ -1141,11 +1142,6 @@
     <Compile Include="Business\Test\PDL122C3\PDL122C3WPHOBXView.cs" />
     <Compile Include="Business\Test\PDL1SP142\PDL1SP142WPHOBXView.cs" />
     <Compile Include="Business\Test\PlateletAssociatedAntibodies\PlateletAssociatedAntibodiesEPICOBXView.cs" />
-    <Compile Include="Business\Test\PMLRARAByFish\PMLRARAByFishEPICOBXView.cs" />
-    <Compile Include="Business\Test\PMLRARAByFish\PMLRARAByFishTest.cs" />
-    <Compile Include="Business\Test\PMLRARAByFish\PMLRARAByFishTestOrder.cs" />
-    <Compile Include="Business\Test\PMLRARAByFish\PMLRARAByFishWordDocument.cs" />
-    <Compile Include="Business\Test\PMLRARAByFish\PMLRARAByFishWPHOBXView.cs" />
     <Compile Include="Business\Test\RASRAFPanel\RASRAFCMMCNTEView.cs" />
     <Compile Include="Business\Test\ROS1ByFISH\ROS1ByFISHPositiveResult.cs" />
     <Compile Include="Business\Test\IRF4F\IRF4FTest.cs" />
@@ -3703,10 +3699,6 @@
     </Compile>
     <Compile Include="UI\Test\PDL1SP22C3ResultPath.cs" />
     <Compile Include="UI\Test\PDL1SP142ResultPath.cs" />
-    <Compile Include="UI\Test\PMLRARAByFishResultPage.xaml.cs">
-      <DependentUpon>PMLRARAByFishResultPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Test\PMLRARAByFishResultPath.cs" />
     <Compile Include="UI\Test\RASRAFPanelResultPage.xaml.cs">
       <DependentUpon>RASRAFPanelResultPage.xaml</DependentUpon>
     </Compile>
@@ -5613,10 +5605,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\Test\PDL1SP142ResultPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\Test\PMLRARAByFishResultPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
