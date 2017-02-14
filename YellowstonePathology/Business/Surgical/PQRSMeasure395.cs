@@ -10,9 +10,18 @@ namespace YellowstonePathology.Business.Surgical
         public PQRSMeasure395()
         {            
 			this.m_Header = "Lung Cancer Reporting #395";
+
+            this.m_PQRIKeyWordCollection.Add("Lung");
+            this.m_PQRIKeyWordCollection.Add("Bronch");
+            this.m_PQRIKeyWordCollection.Add("Pleural");
+
+            this.m_CptCodeCollection.Add(new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88104());
+            this.m_CptCodeCollection.Add(new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88108());
+            this.m_CptCodeCollection.Add(new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88112());
+            this.m_CptCodeCollection.Add(new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88173());
             this.m_CptCodeCollection.Add(new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88305());
-            this.m_CptCodeCollection.Add(new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88307());
-            this.m_PQRSAgeDefinition = PQRSAgeDefinitionEnum.Patients18To75;
+
+            this.m_PQRSAgeDefinition = PQRSAgeDefinitionEnum.Patients18AndOlder;            
 
             this.m_PQRSCodeCollection.Add(new YellowstonePathology.Business.Billing.Model.PQRSCodeDefinitions.PQRSG9418());
 			this.m_PQRSCodeCollection.Add(new YellowstonePathology.Business.Billing.Model.PQRSCodeDefinitions.PQRSG9419());
@@ -25,9 +34,8 @@ namespace YellowstonePathology.Business.Surgical
         {
             bool result = false;
             if (string.IsNullOrEmpty(surgicalSpecimen.SpecimenOrder.Description) == false)
-            {
-                string specimenKeyWord = "Lung";
-                if (surgicalSpecimen.SpecimenOrder.Description.ToUpper().Contains(specimenKeyWord.ToUpper()) == true)
+            {                                
+                if (this.m_PQRIKeyWordCollection.WordsExistIn(surgicalSpecimen.SpecimenOrder.Description) == true)
                 {
                     string diagnosisKeyWord = "Carcinoma";
                     if (string.IsNullOrEmpty(surgicalSpecimen.Diagnosis) == false && surgicalSpecimen.Diagnosis.ToUpper().Contains(diagnosisKeyWord.ToUpper()) == true)

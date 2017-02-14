@@ -935,5 +935,30 @@ namespace YellowstonePathology.UI.Surgical
                 nhunspell.ShowDialog();
             }
         }
+
+        private void ButtonUpdateFromADT_Click(object sender, RoutedEventArgs e)
+        {
+            if(this.m_TypingUI.AccessionOrder != null)
+            {
+                if(string.IsNullOrEmpty(this.m_TypingUI.AccessionOrder.SvhMedicalRecord) == false)
+                {
+                    Business.HL7View.ADTMessages adtMessages = Business.Gateway.AccessionOrderGateway.GetADTMessages(this.m_TypingUI.AccessionOrder.SvhMedicalRecord);
+                    if(adtMessages.Messages.Count > 0)
+                    {
+                        adtMessages.SetCurrentAddress(this.m_TypingUI.AccessionOrder);
+                        MessageBox.Show("The ADT information has been updated.");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Sorry,  I couldn't find any ADT messages for this case.");
+                    }
+                    
+                }
+                else
+                {
+                    MessageBox.Show("I'm not able to find ADT information without Medical Record No.");
+                }                
+            }            
+        }
     }    
 }
