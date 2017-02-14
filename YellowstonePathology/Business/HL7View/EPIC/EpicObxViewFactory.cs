@@ -82,9 +82,9 @@ namespace YellowstonePathology.Business.HL7View.EPIC
                 case 66:
 					view = new YellowstonePathology.Business.Test.TestCancelled.TestCancelledEPICObxView(accessionOrder, reportNo, obxCount);
                     break;
-                case 79:
-                    view = new YellowstonePathology.Business.Test.PMLRARAByFish.PMLRARAByFishEPICOBXView(accessionOrder, reportNo, obxCount);
-                    break;
+                //case 79:
+                //    view = new YellowstonePathology.Business.Test.PMLRARAByFish.PMLRARAByFishEPICOBXView(accessionOrder, reportNo, obxCount);
+                //    break;
                 case 100:
 					view = new YellowstonePathology.Business.Test.BCL1t1114.BCL1t1114EPICObxView(accessionOrder, reportNo, obxCount);
 					break;

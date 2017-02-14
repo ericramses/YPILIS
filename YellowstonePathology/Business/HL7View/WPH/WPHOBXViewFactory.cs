@@ -74,7 +74,7 @@ namespace YellowstonePathology.Business.HL7View.WPH
 					view = new YellowstonePathology.Business.Test.TestCancelled.TestCancelledWPHOBXView(accessionOrder, reportNo, obxCount);
                     break;
                 case 79:
-                    view = new YellowstonePathology.Business.Test.PMLRARAByFish.PMLRARAByFishWPHOBXView(accessionOrder, reportNo, obxCount);
+                    //view = new YellowstonePathology.Business.Test.PMLRARAByFish.PMLRARAByFishWPHOBXView(accessionOrder, reportNo, obxCount);
                     break;
                 case 100:
 					//view = new YellowstonePathology.Business.Test.BCL1t1114.BCL1t1114WPHOBXView(accessionOrder, reportNo, obxCount);
