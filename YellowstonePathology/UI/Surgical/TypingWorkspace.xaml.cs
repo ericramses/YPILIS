@@ -925,7 +925,8 @@ namespace YellowstonePathology.UI.Surgical
         private void HyperLinkCleanClinicalInformation_Click(object sender, RoutedEventArgs e)
         {
             this.m_TypingUI.AccessionOrder.ClinicalHistory = this.m_TypingUI.AccessionOrder.ClinicalHistory.Replace("Comprehensive Consult:->No", "");
-;        }
+            this.m_TypingUI.AccessionOrder.ClinicalHistory = this.m_TypingUI.AccessionOrder.ClinicalHistory.Replace(" (CMS-HCC)", "");
+        }
 
         private void HyperLinkSpellCheck_Click(object sender, RoutedEventArgs e)
         {
