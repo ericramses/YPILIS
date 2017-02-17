@@ -982,9 +982,10 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            Business.MaterialTracking.Model.FedexLocationSearchRequest fedex = new Business.MaterialTracking.Model.FedexLocationSearchRequest();
-            string result = fedex.LocationSearch();
-            Console.WriteLine(result);
+            SendJSONRPC();
+            //Business.MaterialTracking.Model.FedexLocationSearchRequest fedex = new Business.MaterialTracking.Model.FedexLocationSearchRequest();
+            //string result = fedex.LocationSearch();
+            //Console.WriteLine(result);
 
             
             //AddAllClients();
@@ -1010,27 +1011,18 @@ namespace YellowstonePathology.UI
             //printer.Print(commands);            
         }        
 
-        private void AddAllClients()
+        private void SendJSONRPC()
         {
-            StringBuilder rpcCommand = new StringBuilder("{\"jsonrpc\":\"2.0\",\"method\":\"add\",\"params\":[");
-            Business.Client.Model.ClientCollection clientCollection = Business.Gateway.PhysicianClientGateway.GetAllClients();
+            StringBuilder rpcCommand = new StringBuilder("{ \"jsonrpc\": \"2.0\", \"method\": \"add\", \"params\": [42, 23], \"id\": 1}");
+            Console.WriteLine(rpcCommand.ToBson());
 
-            int cnt = clientCollection.Count;
-            for (int x = 0; x < cnt; x++)
-            {
-                StringBuilder payload = new StringBuilder();
-                Business.Persistence.JSONObjectWriter.WriteV2(payload, clientCollection[x]);
-                rpcCommand.Append("{\"key\": \"" + "pando.com/test/client/clientid:" + clientCollection[x].ClientId.ToString() + "\", \"payload\":" + payload.ToString() + "}");
-                if (x + 1 != cnt) rpcCommand.Append(", ");
-            }
-            rpcCommand.Append("], \"id\":\"1\"}");
-
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://10.1.2.27:8000");
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://127.0.0.1:8000");
             byte[] bytes;
             bytes = System.Text.Encoding.ASCII.GetBytes(rpcCommand.ToString());
             request.ContentType = "application/json; encoding='utf-8'";
             request.ContentLength = bytes.Length;
             request.Method = "POST";
+
             System.IO.Stream requestStream = request.GetRequestStream();
             requestStream.Write(bytes, 0, bytes.Length);
             requestStream.Close();
