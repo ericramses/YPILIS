@@ -1070,6 +1070,7 @@
     <Compile Include="Business\Monitor.Model\MonitorStateEnum.cs" />
     <Compile Include="Business\Monitor.Model\PendingTest.cs" />
     <Compile Include="Business\Monitor.Model\PendingTestCollection.cs" />
+    <Compile Include="Business\PanelSet.Model\CXCR4MutationAnalysisTest.cs" />
     <Compile Include="Business\PanelSet.Model\NeoTypeEsophagealTumorProfileTest.cs" />
     <Compile Include="Business\PanelSet.Model\NeoTypeDiscoveryProfileTest.cs" />
     <Compile Include="Business\PanelSet.Model\PanelSetPMLRARAByFish.cs" />
