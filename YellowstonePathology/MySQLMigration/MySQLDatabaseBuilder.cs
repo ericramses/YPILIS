@@ -1371,7 +1371,7 @@ namespace YellowstonePathology.MySQLMigration
             string createPrimaryKeyCommand = this.GetCreatePrimaryKeyCommand(nonpersistentTableDef.TableName, nonpersistentTableDef.KeyField);
 
             Business.Rules.MethodResult result = this.RunMySqlCommand(nonpersistentTableDef.GetCreateTableCommand());
-            if (result.Success == true)
+            if (result.Success == true && nonpersistentTableDef.HasPrimaryKey == true)
             {
                 result = this.RunMySqlCommand(createPrimaryKeyCommand);
             }
@@ -1434,66 +1434,33 @@ namespace YellowstonePathology.MySQLMigration
             return overallResult;
         }
 
-        public Business.Rules.MethodResult LoadNonpersistentData(NonpersistentTableDef tableDef)
+        public Business.Rules.MethodResult LoadNonpersistentData(string tableName, string fields)
         {
-            this.RunMySqlCommand(this.GetTruncateTableStatement(tableDef));
+            Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
+            string cmdString = "Truncate table " + tableName + ";";
+            this.RunMySqlCommand(cmdString);
 
-            List<string> insertCommands = new List<string>();
-            Business.Rules.MethodResult overallResult = new Business.Rules.MethodResult();
-            DataTable insertDataTable = this.GetSqlServerData(tableDef.SelectStatement, string.Empty);
-            DataTableReader dataTableReader = new DataTableReader(insertDataTable);
-            while(dataTableReader.Read())
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "INSERT OPENQUERY(MYSQL, 'select " + fields + " from " + this.m_DBName + "." + tableName + "') SELECT " + fields + " from " + tableName + ";";
+            cmd.CommandType = CommandType.Text;
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
-                StringBuilder cmdString = new StringBuilder();
-                cmdString.Append(tableDef.InsertColumnsStatement);
-                foreach(NonpersistentColumnDef columnDef in tableDef.ColumnDefinitions)
+                try
                 {
-                    if (dataTableReader[columnDef.ColumnName] == DBNull.Value)
-                    {
-                        cmdString.Append("NULL, ");
-                    }
-                    else
-                    {
-                        if (columnDef.ColumnType.ToUpper() == "VARCHAR" || 
-                            columnDef.ColumnType.ToUpper() == "TEXT" ||
-                            columnDef.ColumnType.ToUpper() == "CHAR")
-                        {
-                            string text = dataTableReader[columnDef.ColumnName].ToString().Replace("'", "''");
-                            text = text.Replace("\\", "\\\\");
-                            cmdString.Append("'");
-                            cmdString.Append(text);
-                            cmdString.Append("', ");
-                        }
-                        else if (columnDef.ColumnType.ToUpper() == "DATETIME")
-                        {
-                            DateTime dt = (DateTime)dataTableReader[columnDef.ColumnName];
-                            cmdString.Append("'");
-                            cmdString.Append(dt.ToString("yyyy-MM-dd HH:mm:ss.ffffff"));
-                            cmdString.Append("', ");
-                        }
-                        else
-                        {
-                            cmdString.Append(dataTableReader[columnDef.ColumnName].ToString());
-                            cmdString.Append(", ");
-                        }
-                    }
+                    cn.Open();
+                    cmd.Connection = cn;
+                    cmd.ExecuteNonQuery();
                 }
-                cmdString.Remove(cmdString.Length - 2, 2);
-                cmdString.Append(");");
-                insertCommands.Add(cmdString.ToString());
-            }
-
-            foreach(string command in insertCommands)
-            {
-                Business.Rules.MethodResult result = this.RunMySqlCommand(command);
-                if(result.Success == false)
+                catch (Exception e)
                 {
-                    overallResult.Success = false;
-                    overallResult.Message += result.Message + Environment.NewLine;
+                    string s = e.Message;
+                    methodResult.Message = cmd.CommandText;
+                    methodResult.Success = false;
                 }
             }
 
-            return overallResult;
+            return methodResult;
         }
 
         private string GetTruncateTableStatement(NonpersistentTableDef tableDef)
@@ -1958,20 +1925,46 @@ namespace YellowstonePathology.MySQLMigration
             }
         }
 
-        public Business.Rules.MethodResult CreateMySqlAutoIncrement(NonpersistentTableDef nonpersistentTableDef)
+        public bool TableHasIdentityColumn(string tableName)
         {
-            Business.Rules.MethodResult overallResult = new Business.Rules.MethodResult();
-            if(nonpersistentTableDef.IsAutoIncrement == true)
+            bool result = false;
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT count(*) FROM SYS.IDENTITY_COLUMNS WHERE OBJECT_NAME(OBJECT_ID) = @TableName";
+            cmd.Parameters.Add("@TableName", SqlDbType.VarChar).Value = tableName;
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        if((int)dr[0] == 1)
+                        {
+                            result = true;
+                        }
+                    }
+                }
+            }
+            return result;
+        }
+
+        public Business.Rules.MethodResult CreateMySqlAutoIncrement(string tableName, string keyField)
+        {
+            Business.Rules.MethodResult result = new Business.Rules.MethodResult();
+            if(this.TableHasIdentityColumn(tableName) == true)
             {
                 MySqlCommand cmd = new MySqlCommand();
-                string command = nonpersistentTableDef.GetCreateAutoIncrementOnKeyFieldStatement();
+                string command = "ALTER TABLE " + tableName + " MODIFY `" + keyField + "` int(11) NOT NULL AUTO_INCREMENT; ";
                 this.RunMySqlCommand(command);
 
-                int value = this.GetAutoIncrementValue(nonpersistentTableDef.TableName, nonpersistentTableDef.KeyField);
-                command = "Alter Table `" + nonpersistentTableDef.TableName + "` AUTO_INCREMENT = " + value.ToString();
+                int value = this.GetAutoIncrementValue(tableName, keyField);
+                command = "Alter Table `" + tableName + "` AUTO_INCREMENT = " + value.ToString();
                 this.RunMySqlCommand(command);
             }
-            return overallResult;
+            return result;
         }
 
         private int GetAutoIncrementValue(string tableName, string keyField)

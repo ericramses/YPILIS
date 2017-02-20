@@ -15,6 +15,7 @@ namespace YellowstonePathology.MySQLMigration
             this.m_ColumnDefinitions.Add(new NonpersistentColumnDef("WebServiceAccountId", "int", "11", null, false));
             this.m_ColumnDefinitions.Add(new NonpersistentColumnDef("ClientId", "int", "11", null, false));
             this.m_ColumnDefinitions.Add(new NonpersistentColumnDef("ObjectId", "varchar", "50", "null", true));
+            this.m_ColumnDefinitions.Add(new NonpersistentColumnDef("Timestamp", "Timestamp", "3", null, false));
 
             this.SetKeyField("WebServiceAccountClientId");
             this.SetSelectStatement();
