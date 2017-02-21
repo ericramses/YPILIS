@@ -27,6 +27,7 @@
                 <MenuItem Header="Compare MySql Table to Class" Click="MenuItemCompareTables_Click" Margin="5"></MenuItem>
                 <MenuItem Header="Add Missing Columns to MySql" Click="MenuItemAddMissingColumns_Click" Margin="5"></MenuItem>
                 <MenuItem Header="Create MySql Indexes" Click="MenuItemAddIndexes_Click" Margin="5"></MenuItem>
+                <MenuItem Header="Create MySql Auto Increment" Click="MenuItemCreateAutoIncrements_Click"  Margin="5"></MenuItem>
                 <MenuItem Header="Create MySql Foreign Keys" Click="MenuItemAddForeignKeys_Click" Margin="5"></MenuItem>
                 <MenuItem Header="Add Transfer Column to SqlServer" Click="MenuItemAddTransferColumn_Click" Margin="5"></MenuItem>
                 <MenuItem Header="Add Timestamp Column to SqlServer" Click="MenuItemAddTimestampColumn_Click" Margin="5"></MenuItem>
