@@ -1070,7 +1070,6 @@
     <Compile Include="Business\Monitor.Model\MonitorStateEnum.cs" />
     <Compile Include="Business\Monitor.Model\PendingTest.cs" />
     <Compile Include="Business\Monitor.Model\PendingTestCollection.cs" />
-    <Compile Include="Business\PanelSet.Model\CXCR4MutationAnalysisTest.cs" />
     <Compile Include="Business\PanelSet.Model\NeoTypeEsophagealTumorProfileTest.cs" />
     <Compile Include="Business\PanelSet.Model\NeoTypeDiscoveryProfileTest.cs" />
     <Compile Include="Business\PanelSet.Model\PanelSetPMLRARAByFish.cs" />
@@ -1107,6 +1106,7 @@
     <Compile Include="Business\Test\BRAFV600EK\BRAFV600EKWPHOBXView.cs" />
     <Compile Include="Business\Test\CKIT\CKITWPHOBXView.cs" />
     <Compile Include="Business\Test\ComprehensiveColonCancerProfile\ComprehensiveColonCancerProfileWPHOBXView.cs" />
+    <Compile Include="Business\Test\CXCR4MutationAnalysis\CXCR4MutationAnalysisTest.cs" />
     <Compile Include="Business\Test\FISH5p159q2215p22\FISH5p159q2215p22EPICOBXView.cs" />
     <Compile Include="Business\Test\FISH5p159q2215p22\FISH5p159q2215p22Test.cs" />
     <Compile Include="Business\Test\FISH5p159q2215p22\FISH5p159q2215p22TestOrder.cs" />
@@ -1116,6 +1116,7 @@
     <Compile Include="Business\Test\LiposarcomaFusionProfile\LiposarcomaFusionProfileTest.cs" />
     <Compile Include="Business\Test\LiposarcomaFusionProfile\LiposarcomaFusionProfileTestOrder.cs" />
     <Compile Include="Business\Test\LiposarcomaFusionProfile\LiposarcomaFusionProfileWordDocument.cs" />
+    <Compile Include="Business\Test\LymphocyteSubsetPanel7\LymphocyteSubsetPanel7Test.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult1A.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LynchSyndromeEvaluationWPHOBXView.cs" />
     <Compile Include="Business\Test\MDSByFish\MDSByFishWPHOBXView.cs" />
