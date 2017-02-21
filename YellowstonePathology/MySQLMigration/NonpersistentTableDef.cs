@@ -21,6 +21,7 @@ namespace YellowstonePathology.MySQLMigration
         private int m_SqlServerRowCount;
         private int m_MySqlRowCount;
         protected bool m_IsAutoIncrement;
+        protected bool m_HasPrimaryKey;
         protected List<NonpersistentColumnDef> m_ColumnDefinitions;
         protected TableIndexCollection m_TableIndexCollection;
         protected TableForeignKeyCollection m_TableForeignKeyCollection;
@@ -36,6 +37,8 @@ namespace YellowstonePathology.MySQLMigration
             this.m_ModifiedKeys = new List<string>();
             this.m_CreatedKeys = new List<string>();
             this.m_DeletedKeys = new List<string>();
+
+            this.m_HasPrimaryKey = true;
         }
 
         public void NotifyPropertyChanged(String info)
@@ -136,6 +139,16 @@ namespace YellowstonePathology.MySQLMigration
             }
         }
 
+        public bool HasPrimaryKey
+        {
+            get { return this.m_HasPrimaryKey; }
+            set
+            {
+                this.m_HasPrimaryKey = value;
+                NotifyPropertyChanged("HasPrimaryKey");
+            }
+        }
+
         public TableIndexCollection TableIndexCollection
         {
             get { return this.m_TableIndexCollection; }
@@ -215,16 +228,19 @@ namespace YellowstonePathology.MySQLMigration
         protected void SetInsertColumnsStatement()
         {
             StringBuilder result = new StringBuilder();
-            result.Append("Insert into ");
-            result.Append(this.m_TableName);
-            result.Append("(");
+            //result.Append("Insert into ");
+            //result.Append(this.m_TableName);
+            //result.Append("(");
             foreach (NonpersistentColumnDef columnDef in this.m_ColumnDefinitions)
             {
-                result.Append(columnDef.ColumnName);
-                result.Append(", ");
+                if (columnDef.ColumnName != "Timestamp")
+                {
+                    result.Append(columnDef.ColumnName);
+                    result.Append(", ");
+                }
             }
             result.Remove(result.Length - 2, 2);
-            result.Append(") Values (");
+            //result.Append(") Values (");
 
             this.m_InsertColumnsStatement = result.ToString();
         }

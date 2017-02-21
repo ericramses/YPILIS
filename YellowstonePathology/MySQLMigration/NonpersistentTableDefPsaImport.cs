@@ -15,6 +15,7 @@ namespace YellowstonePathology.MySQLMigration
             this.m_ColumnDefinitions.Add(new NonpersistentColumnDef("ReportNo", "varchar", "20", "NULL", true));
             this.m_ColumnDefinitions.Add(new NonpersistentColumnDef("PostDate", "datetime", "3", "NULL", true));
             this.m_ColumnDefinitions.Add(new NonpersistentColumnDef("ObjectId", "varchar", "50", "NULL", true));
+            this.m_ColumnDefinitions.Add(new NonpersistentColumnDef("Timestamp", "Timestamp", "3", null, false));
 
             this.SetKeyField("PsaImportId");
             this.SetSelectStatement();
