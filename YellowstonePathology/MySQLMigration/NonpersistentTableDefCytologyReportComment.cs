@@ -16,6 +16,7 @@ namespace YellowstonePathology.MySQLMigration
             this.m_ColumnDefinitions.Add(new NonpersistentColumnDef("Comment", "varchar", "5000", "NULL", true));
             this.m_ColumnDefinitions.Add(new NonpersistentColumnDef("AbbreviatedComment", "varchar", "500", "NULL", true));
             this.m_ColumnDefinitions.Add(new NonpersistentColumnDef("ObjectId", "varchar", "50", "NULL", true));
+            this.m_ColumnDefinitions.Add(new NonpersistentColumnDef("Timestamp", "Timestamp", "3", null, false));
 
             this.SetKeyField("CommentID");
             this.SetSelectStatement();

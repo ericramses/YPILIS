@@ -436,7 +436,7 @@ namespace YellowstonePathology.UI.Surgical
 
             Control ctrl = (Control)args.Source;
 			YellowstonePathology.Business.View.BillingSpecimenView billingSpecimenView = (YellowstonePathology.Business.View.BillingSpecimenView)ctrl.Tag;            
-			YellowstonePathology.UI.CodeSelectionV2 codeSelection = new CodeSelectionV2(this.m_TypingUI.AccessionOrder, billingSpecimenView.SurgicalSpecimen);
+			YellowstonePathology.UI.CodeSelection codeSelection = new CodeSelection(this.m_TypingUI.AccessionOrder, billingSpecimenView.SurgicalSpecimen);
             codeSelection.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             codeSelection.ShowDialog();
 			this.m_TypingUI.RefreshBillingSpecimenViewCollection();
@@ -925,7 +925,8 @@ namespace YellowstonePathology.UI.Surgical
         private void HyperLinkCleanClinicalInformation_Click(object sender, RoutedEventArgs e)
         {
             this.m_TypingUI.AccessionOrder.ClinicalHistory = this.m_TypingUI.AccessionOrder.ClinicalHistory.Replace("Comprehensive Consult:->No", "");
-;        }
+            this.m_TypingUI.AccessionOrder.ClinicalHistory = this.m_TypingUI.AccessionOrder.ClinicalHistory.Replace(" (CMS-HCC)", "");
+        }
 
         private void HyperLinkSpellCheck_Click(object sender, RoutedEventArgs e)
         {
@@ -934,6 +935,31 @@ namespace YellowstonePathology.UI.Surgical
                 YellowstonePathology.UI.NHunspell nhunspell = new NHunspell(this.m_TypingUI.AccessionOrder);
                 nhunspell.ShowDialog();
             }
+        }
+
+        private void ButtonUpdateFromADT_Click(object sender, RoutedEventArgs e)
+        {
+            if(this.m_TypingUI.AccessionOrder != null)
+            {
+                if(string.IsNullOrEmpty(this.m_TypingUI.AccessionOrder.SvhMedicalRecord) == false)
+                {
+                    Business.HL7View.ADTMessages adtMessages = Business.Gateway.AccessionOrderGateway.GetADTMessages(this.m_TypingUI.AccessionOrder.SvhMedicalRecord);
+                    if(adtMessages.Messages.Count > 0)
+                    {
+                        adtMessages.SetCurrentAddress(this.m_TypingUI.AccessionOrder);
+                        MessageBox.Show("The ADT information has been updated.");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Sorry,  I couldn't find any ADT messages for this case.");
+                    }
+                    
+                }
+                else
+                {
+                    MessageBox.Show("I'm not able to find ADT information without Medical Record No.");
+                }                
+            }            
         }
     }    
 }

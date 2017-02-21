@@ -68,6 +68,9 @@ namespace YellowstonePathology.UI.Test
 				case 62:
 					result = new HPV1618ResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
+                case 79:
+                    //result = new PMLRARAByFishResultPath(reportNo, accessionOrder, pageNavigator, window);
+                    break;
                 case 213:
                     result = new HPV1618ByPCRResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
@@ -299,6 +302,12 @@ namespace YellowstonePathology.UI.Test
                     break;
                 case 247:
                     result = new TCellNKProfileResultPath(reportNo, accessionOrder, pageNavigator, window);
+                    break;
+                case 250:
+                    result = new FISH5p159q2215p22ResultPath(reportNo, accessionOrder, pageNavigator, window);
+                    break;
+                case 251:
+                    result = new LiposarcomaFusionProfileResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
             }
             return result;

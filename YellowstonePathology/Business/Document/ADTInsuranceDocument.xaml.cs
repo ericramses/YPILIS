@@ -19,12 +19,13 @@ using System.Windows.Threading;
 using System.Windows.Xps;
 using System.Windows.Xps.Packaging;
 using System.Xml.Linq;
+using System.Collections.ObjectModel;
 
 namespace YellowstonePathology.Business.Document
 {
 	public class ADTInsuranceDocument
 	{
-        private Business.HL7View.ADTMessages m_ADTMessages;
+        private Business.HL7View.ADTMessages m_ADTMessages;        
         private string m_DisplayText;
 		private FixedDocument m_Document;
 		private System.Windows.Threading.DispatcherPriority m_DispatcherPriority;
@@ -32,13 +33,13 @@ namespace YellowstonePathology.Business.Document
 
         public ADTInsuranceDocument(Business.HL7View.ADTMessages adtMessages)
 		{
-            this.m_ADTMessages = adtMessages;
+            this.m_ADTMessages = adtMessages;            
             this.SetDisplayText();
                   
 			this.m_DispatcherPriority = DispatcherPriority.SystemIdle;
 			this.LoadTemplate();
 			this.InjectData();
-		}   
+		}        
 
         private void SetDisplayText()
         {
@@ -62,10 +63,17 @@ namespace YellowstonePathology.Business.Document
                 }                
 
                 List<Business.HL7View.IN1> in1Segments = this.m_ADTMessages.GetUniqueIN1Segments();
-                foreach(Business.HL7View.IN1 in1 in in1Segments)
+                for(int i=0; i<4; i++)
                 {
-                    result.AppendLine(in1.DisplayString);                
-                    result.AppendLine();
+                    if(i < in1Segments.Count)
+                    {
+                        result.AppendLine(in1Segments[i].DisplayString);
+                        result.AppendLine();
+                    }
+                    else
+                    {
+                        break;
+                    }
                 }                                            
                 
                 this.m_DisplayText = result.ToString();

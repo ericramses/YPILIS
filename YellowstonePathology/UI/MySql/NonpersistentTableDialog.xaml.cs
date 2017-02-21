@@ -106,11 +106,11 @@ namespace YellowstonePathology.UI.MySql
             this.DBIndicator = "LIS";
         }
 
-        private void MenuItemSetDBToTest_Click(object sender, RoutedEventArgs e)
+        private void MenuItemSetDBToTemp_Click(object sender, RoutedEventArgs e)
         {
-            m_MySQLDatabaseBuilder = new MySQLMigration.MySQLDatabaseBuilder("Test");
+            m_MySQLDatabaseBuilder = new MySQLMigration.MySQLDatabaseBuilder("temp");
             this.NonpersistentTableDefCollection = MySQLMigration.NonpersistentTableDefCollection.GetAll();
-            this.DBIndicator = "Test";
+            this.DBIndicator = "temp";
         }
 
         private void MenuItemGetStatus_Click(object sender, RoutedEventArgs e)
@@ -149,7 +149,7 @@ namespace YellowstonePathology.UI.MySql
 
         private void MenuItemCompareTables_Click(object sender, RoutedEventArgs e)
         {
-            if (this.ListViewNonpersistentTableDef.SelectedItems.Count > 1)
+            if (this.ListViewNonpersistentTableDef.SelectedItems.Count == 1)
             {
                 this.StatusMessage = "Working on it.";
                 Business.Rules.MethodResult overallResult = new Business.Rules.MethodResult();
@@ -250,7 +250,7 @@ namespace YellowstonePathology.UI.MySql
             {
                 foreach (MySQLMigration.NonpersistentTableDef nonpersistentTableDef in this.ListViewNonpersistentTableDef.SelectedItems)
                 {
-                    Business.Rules.MethodResult methodResult = m_MySQLDatabaseBuilder.LoadNonpersistentData(nonpersistentTableDef);
+                    Business.Rules.MethodResult methodResult = m_MySQLDatabaseBuilder.LoadNonpersistentData(nonpersistentTableDef.TableName, nonpersistentTableDef.InsertColumnsStatement);
                     this.SetStatusMessage(methodResult);
                 }
             }
@@ -266,7 +266,7 @@ namespace YellowstonePathology.UI.MySql
             Business.Rules.MethodResult overallResult = new Business.Rules.MethodResult();
             foreach (MySQLMigration.NonpersistentTableDef nonpersistentTableDef in this.ListViewNonpersistentTableDef.SelectedItems)
             {
-                Business.Rules.MethodResult methodResult = m_MySQLDatabaseBuilder.CreateMySqlAutoIncrement(nonpersistentTableDef);
+                Business.Rules.MethodResult methodResult = m_MySQLDatabaseBuilder.CreateMySqlAutoIncrement(nonpersistentTableDef.TableName, nonpersistentTableDef.KeyField);
                 if (methodResult.Success == false)
                 {
                     overallResult.Success = false;

@@ -154,7 +154,7 @@ namespace YellowstonePathology.UI.Gross
         public PeripheralBloodTemplate()
         {
             this.m_TemplateName = "Peripheral Blood Smear";
-            this.m_Text = "The specimen consists of [slidecount] [unstained/stained] peripheral blood smear[?s?] each labeled \"[patientname]\" for review by pathologist.  ";
+            this.m_Text = "Received are [slidecount] [unstained/stained] peripheral blood smear[?s?] labeled \"[patientname]\" for pathologist review.  ";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Peripheral peripheral = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Peripheral();
             this.m_SpecimenCollection.Add(peripheral);
@@ -962,7 +962,7 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "Uterus with Adnexa";
             this.m_FontSize = 16;
-            this.m_Text = "[identifier] and consists of uterus, cervix, bilateral fallopian tubes, and ovaries." + Environment.NewLine +
+            this.m_Text = "[identifier] and consists of [description]." + Environment.NewLine +
                 Environment.NewLine +
                 "Right Adnexal Organs:" + Environment.NewLine +
                 "   Fallopian Tube: " + Environment.NewLine +

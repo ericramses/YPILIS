@@ -21,6 +21,33 @@ namespace YellowstonePathology.Business.HL7View
             get { return this.m_Messages; }
         }
 
+        public ObservableCollection<ADTMessage> TakeTop(int count)
+        {
+            ObservableCollection<ADTMessage> result = new ObservableCollection<ADTMessage>();
+            for(int i=0; i<count; i++)
+            {
+                if(i<this.m_Messages.Count)
+                {
+                    result.Add(this.Messages[i]);
+                }
+                else
+                {
+                    break;
+                }                
+            }
+            return result;
+        }
+
+        public void SetCurrentAddress(Business.Test.AccessionOrder accessionOrder)
+        {
+            var result = this.m_Messages.OrderByDescending(t => t.DateReceived).First();
+            accessionOrder.PAddress1 = result.PatientAddress.PAddress1;
+            accessionOrder.PAddress2 = result.PatientAddress.PAddress2;
+            accessionOrder.PCity = result.PatientAddress.PCity;
+            accessionOrder.PState = result.PatientAddress.PState;
+            accessionOrder.PZipCode = result.PatientAddress.PZipCode;            
+        }        
+
         public Business.Patient.Model.Address GetPatientAddress()
         {
             Business.Patient.Model.Address result = null;

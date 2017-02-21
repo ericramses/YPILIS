@@ -24,6 +24,7 @@ namespace YellowstonePathology.Business.Test.CCNDIBCLIGHByFISH
 			this.m_AllowMultiplePerAccession = true;
             this.m_EpicDistributionIsImplemented = true;
 
+            this.m_SurgicalAmendmentRequired = true;
             string taskDescription = "Collect parafin block from Histology and send to Neo.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskFedexShipment(YellowstonePathology.Business.Task.Model.TaskAssignment.Flow, taskDescription, new Facility.Model.NeogenomicsIrvine()));
 

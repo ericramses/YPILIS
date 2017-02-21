@@ -36,10 +36,7 @@ namespace YellowstonePathology.Business.Test.JAK2V617F
 
             YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT81270(), 1);
             this.m_PanelSetCptCodeCollection.Add(panelSetCptCode);
-
-			//YellowstonePathology.Business.Task.Model.TaskParaffinCurlPreparation paraffinCurlPreparation = new YellowstonePathology.Business.Task.Model.TaskParaffinCurlPreparation();
-            //this.m_TaskCollection.Add(paraffinCurlPreparation);            
-            
+			
             string taskDescription = "Gather materials and get to work.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.Task(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, taskDescription));
 

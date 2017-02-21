@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
+using System.Reflection;
 
 namespace YellowstonePathology.MySQLMigration
 {
@@ -20,15 +21,24 @@ namespace YellowstonePathology.MySQLMigration
         private int m_SqlServerRowCount;
         private int m_MySqlRowCount;
         protected bool m_IsAutoIncrement;
+        protected bool m_HasPrimaryKey;
         protected List<NonpersistentColumnDef> m_ColumnDefinitions;
         protected TableIndexCollection m_TableIndexCollection;
         protected TableForeignKeyCollection m_TableForeignKeyCollection;
+        protected List<string> m_ModifiedKeys;
+        protected List<string> m_CreatedKeys;
+        protected List<string> m_DeletedKeys;
 
         public NonpersistentTableDef()
         {
             this.m_ColumnDefinitions = new List<NonpersistentColumnDef>();
             this.m_TableIndexCollection = new TableIndexCollection();
             m_TableForeignKeyCollection = new TableForeignKeyCollection();
+            this.m_ModifiedKeys = new List<string>();
+            this.m_CreatedKeys = new List<string>();
+            this.m_DeletedKeys = new List<string>();
+
+            this.m_HasPrimaryKey = true;
         }
 
         public void NotifyPropertyChanged(String info)
@@ -104,6 +114,21 @@ namespace YellowstonePathology.MySQLMigration
             }
         }
 
+        public int ModifiedCount
+        {
+            get { return this.m_ModifiedKeys.Count; }
+        }
+
+        public int CreatedCount
+        {
+            get { return this.m_CreatedKeys.Count; }
+        }
+
+        public int DeletedCount
+        {
+            get { return this.m_DeletedKeys.Count; }
+        }
+
         public bool IsAutoIncrement
         {
             get { return this.m_IsAutoIncrement; }
@@ -111,6 +136,16 @@ namespace YellowstonePathology.MySQLMigration
             {
                 this.m_IsAutoIncrement = value;
                 NotifyPropertyChanged("IsAutoIncrement");
+            }
+        }
+
+        public bool HasPrimaryKey
+        {
+            get { return this.m_HasPrimaryKey; }
+            set
+            {
+                this.m_HasPrimaryKey = value;
+                NotifyPropertyChanged("HasPrimaryKey");
             }
         }
 
@@ -131,6 +166,39 @@ namespace YellowstonePathology.MySQLMigration
             {
                 this.m_TableForeignKeyCollection = value;
                 NotifyPropertyChanged("TableForeignKeyCollection");
+            }
+        }
+
+        public List<string> ModifiedKeys
+        {
+            get { return this.m_ModifiedKeys; }
+            set
+            {
+                this.m_ModifiedKeys = value;
+                NotifyPropertyChanged("ModifiedKeys");
+                NotifyPropertyChanged("ModifiedCount");
+            }
+        }
+
+        public List<string> CreatedKeys
+        {
+            get { return this.m_CreatedKeys; }
+            set
+            {
+                this.m_CreatedKeys = value;
+                NotifyPropertyChanged("CreatedKeys");
+                NotifyPropertyChanged("CreatedCount");
+            }
+        }
+
+        public List<string> DeletedKeys
+        {
+            get { return this.m_DeletedKeys; }
+            set
+            {
+                this.m_DeletedKeys = value;
+                NotifyPropertyChanged("DeletedKeys");
+                NotifyPropertyChanged("DeletedCount");
             }
         }
 
@@ -160,16 +228,19 @@ namespace YellowstonePathology.MySQLMigration
         protected void SetInsertColumnsStatement()
         {
             StringBuilder result = new StringBuilder();
-            result.Append("Insert into ");
-            result.Append(this.m_TableName);
-            result.Append("(");
+            //result.Append("Insert into ");
+            //result.Append(this.m_TableName);
+            //result.Append("(");
             foreach (NonpersistentColumnDef columnDef in this.m_ColumnDefinitions)
             {
-                result.Append(columnDef.ColumnName);
-                result.Append(", ");
+                if (columnDef.ColumnName != "Timestamp")
+                {
+                    result.Append(columnDef.ColumnName);
+                    result.Append(", ");
+                }
             }
             result.Remove(result.Length - 2, 2);
-            result.Append(") Values (");
+            //result.Append(") Values (");
 
             this.m_InsertColumnsStatement = result.ToString();
         }
@@ -200,10 +271,32 @@ namespace YellowstonePathology.MySQLMigration
                 result.Append(this.m_TableName);
                 result.Append(" MODIFY `");
                 result.Append(this.m_KeyField);
-                result.Append(" int(11) NOT NULL AUTO_INCREMENT; ");
+                result.Append("` int(11) NOT NULL AUTO_INCREMENT; ");
             }
 
             return result.ToString();
+        }
+
+        public static NonpersistentTableDef FromMigrationStatus(MigrationStatus migrationStatus)
+        {
+            NonpersistentTableDef result = new NonpersistentTableDef();
+            result.m_TableName = migrationStatus.TableName;
+            result.m_KeyField = migrationStatus.KeyFieldName;
+            {
+                foreach(PropertyInfo property in migrationStatus.PersistentProperties)
+                {
+                    Attribute attribute = property.GetCustomAttribute(typeof(YellowstonePathology.Business.Persistence.PersistentDataColumnProperty));
+                    if (attribute != null)
+                    {
+                        YellowstonePathology.Business.Persistence.PersistentDataColumnProperty persistentDataColumnProperty = (Business.Persistence.PersistentDataColumnProperty)attribute;
+                        NonpersistentColumnDef columnDef = new NonpersistentColumnDef(property.Name, persistentDataColumnProperty.DataType, persistentDataColumnProperty.ColumnLength, persistentDataColumnProperty.DefaultValue, persistentDataColumnProperty.IsNullable);
+                        result.ColumnDefinitions.Add(columnDef);
+                    }
+                }
+            }
+            result.SetSelectStatement();
+            result.SetInsertColumnsStatement();
+            return result;
         }
     }
 }

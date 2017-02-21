@@ -31,7 +31,6 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
         public SpecimenMappingPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
 			this.m_AccessionOrder = accessionOrder;
-
             this.m_TimeToFixationTypeCollection = YellowstonePathology.Business.Specimen.Model.TimeToFixationType.GetTimeToFixationTypeCollection();
 
 			this.m_PathologistUsers = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetUsersByRole(YellowstonePathology.Business.User.SystemUserRoleDescriptionEnum.Pathologist, true);			
@@ -220,13 +219,6 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             CheckBox checkBox = (CheckBox)sender;
             YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder = (YellowstonePathology.Business.Slide.Model.SlideOrder)checkBox.Tag;
             slideOrder.Status = YellowstonePathology.Business.Slide.Model.SlideStatusEnum.Created.ToString();
-        }
-
-        private void ButtonUpdateTrackingLog_Click(object sender, RoutedEventArgs e)
-        {
-            YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection materialTrackingLogCollection = YellowstonePathology.Business.Gateway.SlideAccessionGateway.GetMaterialTrackingLogCollectionByMasterAccessionNo(this.m_AccessionOrder.MasterAccessionNo);            
-            materialTrackingLogCollection.UpdateClientAccessioned(this.m_AccessionOrder.SpecimenOrderCollection);
-            //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(materialTrackingLogCollection, false);            
-        }
+        }        
 	}
 }

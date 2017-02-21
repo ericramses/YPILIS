@@ -75,6 +75,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
         private string m_UniversalServiceId;
         private string m_OrderStatus;
         private string m_PatientType;
+        private string m_ElectronicOrderType;
 
         public ClientOrder()
         {
@@ -670,7 +671,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 
         [DataMember]
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "250", "0", "varchar")]
+        [PersistentDataColumnProperty(true, "250", "null", "varchar")]
         public string HoldMessage
         {
             get { return this.m_HoldMessage; }
@@ -920,6 +921,21 @@ namespace YellowstonePathology.Business.ClientOrder.Model
                 {
                     this.m_PatientType = value;
                     this.NotifyPropertyChanged("PatientType");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
+        public string ElectronicOrderType
+        {
+            get { return this.m_ElectronicOrderType; }
+            set
+            {
+                if (this.m_ElectronicOrderType != value)
+                {
+                    this.m_ElectronicOrderType = value;
+                    this.NotifyPropertyChanged("ElectronicOrderType");
                 }
             }
         }

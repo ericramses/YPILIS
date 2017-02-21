@@ -22,7 +22,7 @@ namespace YellowstonePathology.Business.Test.EosinophiliaByFISH
             this.m_EpicDistributionIsImplemented = true;
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.EosinophiliaByFISH.EosinophiliaByFISHTestOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.EosinophiliaByFISH.EosinophiliaByFISHWordDocument).AssemblyQualifiedName;
-			//changed by MS and Tk;
+            this.m_SurgicalAmendmentRequired = true;
 
             string taskDescription = "Gather materials (Peripheral blood: 2-5 mL in sodium heparin tube, 2x5 mL in EDTA tube; " +
             "Bone marrow: 1-2 mL in sodium heparin tube or 2 mL in EDTA tube; Fresh unfixed tissue in RPMI) and send out to Neo.";

@@ -23,7 +23,7 @@ namespace YellowstonePathology.Business.Test.MDSExtendedByFish
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.MDSExtendedByFish.MDSExtendedByFishWordDocument).AssemblyQualifiedName;
             
 			this.m_AllowMultiplePerAccession = true;
-            //checked by MS and TK;
+            this.m_SurgicalAmendmentRequired = true;
             this.m_EpicDistributionIsImplemented = true;
 
             string taskDescription = "Gather materials (Peripheral blood: 2-5 mL in sodium heparin tube and 2x5 mL in EDTA tube or" +
