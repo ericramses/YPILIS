@@ -4,23 +4,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace YellowstonePathology.Business.PanelSet.Model
+namespace YellowstonePathology.Business.Test.LymphocyteSubsetPanel7
 {
-    public class CXCR4MutationAnalysisTest : YellowstonePathology.Business.PanelSet.Model.PanelSet
+    public class LymphocyteSubsetPanel7Test : YellowstonePathology.Business.PanelSet.Model.PanelSet
     {
-        public CXCR4MutationAnalysisTest()
+        public LymphocyteSubsetPanel7Test()
         {
-            this.m_PanelSetId = 253;
-            this.m_PanelSetName = "CXCR4 Mutation Analysis";
+            this.m_PanelSetId = 254;
+            this.m_PanelSetName = "Lymphocyte Subset Panel 7";
+            this.m_Abbreviation = "Lymphocyte Subset Panel 7";
             this.m_CaseType = YellowstonePathology.Business.CaseType.Molecular;
             this.m_HasTechnicalComponent = true;
             this.m_HasProfessionalComponent = true;
-            this.m_ResultDocumentSource = ResultDocumentSourceEnum.PublishedDocument;
+            this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.PublishedDocument;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterR();
-            this.m_Active = false;
+            this.m_Active = true;
+            this.m_IsBillable = true;
+
+            this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.PanelSetOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Document.ReferenceLabReport).AssemblyQualifiedName;
-
-
             this.m_AllowMultiplePerAccession = true;
 
             string taskDescription = "Gather materials and send to ARUP.";
