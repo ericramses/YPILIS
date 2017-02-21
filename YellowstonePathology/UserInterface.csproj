@@ -1079,6 +1079,7 @@
     <Compile Include="Business\Persistence\DocumentTestBuilders.cs" />
     <Compile Include="Business\Persistence\PersistentDataColumnProperty.cs" />
     <Compile Include="Business\Persistence\MonitorProperty.cs" />
+    <Compile Include="Business\Persistence\ProtobufWriter.cs" />
     <Compile Include="Business\Persistence\SqlDataRowReaderPropertyWriter.cs" />
     <Compile Include="Business\Reports\DisposalReportData.cs" />
     <Compile Include="Business\Reports\CytologySlideDisposalReportV2.xaml.cs">
