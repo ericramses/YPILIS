@@ -2072,6 +2072,72 @@ namespace YellowstonePathology.MySQLMigration
             return result;
         }
 
+        public Business.Rules.MethodResult CompareSSTableToMySqlTable(string tableName)
+        {
+            Business.Rules.MethodResult result = new Business.Rules.MethodResult();
+            int count = 0;
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = cn;
+                cmd.CommandText = "zCompareSSToMyTable";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@TableName", SqlDbType.VarChar).Value = tableName;
+
+                try
+                {
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                            while (dr.Read())
+                            {
+                                count++;
+                            }
+                    }
+                }
+                catch(Exception e)
+                {
+                    result.Message = tableName + " - " + e.Message + Environment.NewLine;
+                    result.Success = false;
+                }
+            }
+
+            if(count > 0)
+            {
+                result.Message = tableName + " - " + count.ToString() + Environment.NewLine;
+                result.Success = false;
+            }
+            return result;
+        }
+        public Business.Rules.MethodResult SyncSSToMyTable(string tableName, string keyField)
+        {
+            Business.Rules.MethodResult result = new Business.Rules.MethodResult();
+            List<string> ids = new List<string>();
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = cn;
+                cmd.CommandText = "zSyncSSToMySqlTable";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@DBName", SqlDbType.VarChar).Value = this.m_DBName;
+                cmd.Parameters.Add("@TableName", SqlDbType.VarChar).Value = tableName;
+                cmd.Parameters.Add("@KeyField", SqlDbType.VarChar).Value = keyField;
+
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                }
+                catch (Exception e)
+                {
+                    result.Message = e.Message;
+                    result.Success = false;
+                }
+            }
+
+            return result;
+        }
+
         #region ReservedWords
 
         private void BuildForbiddenWordLists()
