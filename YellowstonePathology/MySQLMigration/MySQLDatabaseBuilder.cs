@@ -2083,6 +2083,7 @@ namespace YellowstonePathology.MySQLMigration
                 cmd.Connection = cn;
                 cmd.CommandText = "zCompareSSToMyTable";
                 cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@DBName", SqlDbType.VarChar).Value = this.m_DBName;
                 cmd.Parameters.Add("@TableName", SqlDbType.VarChar).Value = tableName;
 
                 try
