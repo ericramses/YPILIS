@@ -42,7 +42,7 @@ namespace YellowstonePathology.Business.Test.MPNFish
 		}
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(true, "500", "null", "varchar")]
+		[PersistentDataColumnProperty(true, "1000", "null", "varchar")]
 		public string Interpretation
 		{
 			get { return this.m_Interpretation; }

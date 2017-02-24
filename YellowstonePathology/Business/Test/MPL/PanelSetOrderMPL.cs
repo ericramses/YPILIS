@@ -83,8 +83,8 @@ namespace YellowstonePathology.Business.Test.MPL
 			}
 		}
 
-        [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1000", "null", "varchar")]
+        //[PersistentProperty()]
+        //[PersistentDataColumnProperty(true, "1000", "null", "varchar")]
         public string ASR
         {
             get { return this.m_ASR; }
