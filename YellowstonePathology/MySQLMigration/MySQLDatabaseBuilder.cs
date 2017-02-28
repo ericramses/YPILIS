@@ -261,7 +261,7 @@ namespace YellowstonePathology.MySQLMigration
                 {
                     List<string> keys = this.GetDailyLoadDataKeys(migrationStatus);
                     string keyString = this.KeyStringFromList(migrationStatus, keys);
-                    string deleteCmd = "Delete from " + migrationStatus.TableName + " where " + migrationStatus.KeyFieldName + " in (" + keyString + ");";
+                    string deleteCmd = "Delete from " + this.m_DBName + '.' + migrationStatus.TableName + " where " + migrationStatus.KeyFieldName + " in (" + keyString + ");";
                     this.RunMySqlCommand(deleteCmd);
 
                     methodResult = this.LoadData(migrationStatus, keyString);
@@ -386,7 +386,7 @@ namespace YellowstonePathology.MySQLMigration
 
         private string GetInsertStatement(string tableName, List<PropertyInfo> properties, System.Data.Common.DbDataReader dr)
         {
-            string result = "Insert " + tableName + "(";
+            string result = "Insert " + this.m_DBName + '.' + tableName + "(";
 
             for (int i = 0; i < properties.Count; i++)
             {
