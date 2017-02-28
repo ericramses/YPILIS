@@ -84,8 +84,8 @@ namespace YellowstonePathology.Business.Surgical
 
 		public void FillByNoSignature()
 		{
-			//SurgicalOrderList surgicalOrderList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetSurgicalOrderListByNoSignature();
-			//this.FillFromList(surgicalOrderList);
+			SurgicalOrderList surgicalOrderList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetSurgicalOrderListByNotAssigned();
+			this.FillFromList(surgicalOrderList);
 		}
 
         public void FillByNoGross()
