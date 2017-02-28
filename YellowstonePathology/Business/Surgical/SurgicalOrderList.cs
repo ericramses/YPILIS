@@ -82,11 +82,11 @@ namespace YellowstonePathology.Business.Surgical
 			this.FillFromList(surgicalOrderList);
 		}
 
-		/*public void FillByNoSignature()
+		public void FillByNoSignature()
 		{
-			SurgicalOrderList surgicalOrderList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetSurgicalOrderListByNoSignature();
-			this.FillFromList(surgicalOrderList);
-		}*/
+			//SurgicalOrderList surgicalOrderList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetSurgicalOrderListByNoSignature();
+			//this.FillFromList(surgicalOrderList);
+		}
 
         public void FillByNoGross()
         {
