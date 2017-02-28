@@ -39,9 +39,11 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             this.SetXmlNodeData("mlh1_result", panelSetOrder.MLH1Result);
             this.SetXmlNodeData("msh2_result", panelSetOrder.MSH2Result);
             this.SetXmlNodeData("msh6_result", panelSetOrder.MSH6Result);
-            this.SetXmlNodeData("pms2_result", panelSetOrder.PMS2Result);            
-			
-			this.ReplaceText("report_date", BaseData.GetShortDateString(this.m_PanelSetOrder.FinalDate));			
+            this.SetXmlNodeData("pms2_result", panelSetOrder.PMS2Result);
+
+            this.SetXmlNodeData("report_comment", panelSetOrder.Comment);
+
+            this.ReplaceText("report_date", BaseData.GetShortDateString(this.m_PanelSetOrder.FinalDate));			
 			this.ReplaceText("pathologist_signature", this.m_PanelSetOrder.Signature);
 
 			this.SaveReport();
