@@ -920,9 +920,8 @@ namespace YellowstonePathology.Business.Gateway
 			Surgical.SurgicalOrderList result = AccessionOrderGateway.BuildSurgicalOrderList(cmd);
 			return result;
 		}
-
-        /*
-		public static Surgical.SurgicalOrderList GetSurgicalOrderListByN
+        
+		public static Surgical.SurgicalOrderList GetSurgicalOrderListByNoAssigned()
 		{
 			SqlCommand cmd = new SqlCommand();
 			cmd.CommandText = "SELECT pso.ReportNo, a.AccessionDate, a.PFirstName + ' ' + a.PLastName AS PatientName, pso.AcceptedDate, " +
@@ -936,7 +935,6 @@ namespace YellowstonePathology.Business.Gateway
 			Surgical.SurgicalOrderList result = AccessionOrderGateway.BuildSurgicalOrderList(cmd);
 			return result;
 		}
-        */
 
         public static Surgical.SurgicalOrderList GetSurgicalOrderListByNoGross()
         {
