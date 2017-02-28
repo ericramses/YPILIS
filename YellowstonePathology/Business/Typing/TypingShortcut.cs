@@ -43,6 +43,7 @@ namespace YellowstonePathology.Business.Typing
             }
         }
 
+        [PersistentProperty()]
         [PersistentDataColumnProperty(true, "50", "null", "varchar")]
         public string ObjectId
 		{

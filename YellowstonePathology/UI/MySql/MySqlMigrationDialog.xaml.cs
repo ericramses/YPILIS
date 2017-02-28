@@ -177,7 +177,7 @@ namespace YellowstonePathology.UI.MySql
                     if(methodResult.Success == false)
                     {
                         overallResult.Success = false;
-                        overallResult.Message += migrationStatus.Name;
+                        overallResult.Message += methodResult;
                     }
                 }
 
@@ -367,6 +367,30 @@ namespace YellowstonePathology.UI.MySql
             }
         }
 
+        private void MenuItemCompareTableData_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.ListViewMigrationStatus.SelectedItems.Count > 0)
+            {
+                this.StatusMessage = "Working on it.";
+                Business.Rules.MethodResult overallResult = new Business.Rules.MethodResult();
+                foreach (MySQLMigration.MigrationStatus migrationStatus in this.ListViewMigrationStatus.SelectedItems)
+                {
+                    Business.Rules.MethodResult methodResult = m_MySQLDatabaseBuilder.CompareSSTableToMySqlTable(migrationStatus.TableName);
+                    if (methodResult.Success == false)
+                    {
+                        overallResult.Success = false;
+                        overallResult.Message += methodResult.Message;
+                    }
+                }
+
+                this.SetStatusMessage(overallResult);
+            }
+            else
+            {
+                MessageBox.Show("Select a single class to check.");
+            }
+        }
+
         private void MenuItemLoadData_Click(object sender, RoutedEventArgs e)
         {
             this.StatusMessage = "Working on it.";
@@ -466,7 +490,7 @@ namespace YellowstonePathology.UI.MySql
             if (this.ListViewMigrationStatus.SelectedItem != null)
             {
                 MySQLMigration.MigrationStatus migrationStatus = (MySQLMigration.MigrationStatus)this.ListViewMigrationStatus.SelectedItem;
-                Business.Rules.MethodResult methodResult = m_MySQLDatabaseBuilder.CompareTables(migrationStatus);
+                Business.Rules.MethodResult methodResult = m_MySQLDatabaseBuilder.SyncSSToMyTable(migrationStatus.TableName, migrationStatus.KeyFieldName);
                 this.SetStatusMessage(methodResult);
             }
             else
