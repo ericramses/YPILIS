@@ -41,7 +41,7 @@ namespace YellowstonePathology.Business.Test.TCellRecepterGammaGeneRearrangement
 		}
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(true, "1000", "null", "varchar")]
+		[PersistentDataColumnProperty(true, "2000", "null", "varchar")]
 		public string Interpretation
 		{
 			get { return this.m_Interpretation; }

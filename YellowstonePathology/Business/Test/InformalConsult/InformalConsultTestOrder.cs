@@ -26,7 +26,7 @@ namespace YellowstonePathology.Business.Test.InformalConsult
 		}
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "500", "null", "varchar")]
+        [PersistentDataColumnProperty(true, "2000", "null", "varchar")]
         public string Request
         {
             get { return this.m_Request; }
@@ -41,7 +41,7 @@ namespace YellowstonePathology.Business.Test.InformalConsult
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1000", "null", "varchar")]
+        [PersistentDataColumnProperty(true, "2000", "null", "varchar")]
         public string Result
         {
             get { return this.m_Result; }
