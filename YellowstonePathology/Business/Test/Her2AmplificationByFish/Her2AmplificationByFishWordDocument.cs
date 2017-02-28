@@ -62,7 +62,7 @@ namespace YellowstonePathology.Business.Test.Her2AmplificationByFish
 				this.SetXmlNodeData("avg_her", panelSetOrderHer2AmplificationByFish.AverageHER2SignalsPerNucleus);
 				this.SetXmlNodeData("avg_chr", panelSetOrderHer2AmplificationByFish.AverageCEN17SignalsPerNucleus);
 				this.SetXmlNodeData("tst_ratio", panelSetOrderHer2AmplificationByFish.HER2CEN17SignalRatio);
-				this.SetXmlNodeData("report_reference_ranges", panelSetOrderHer2AmplificationByFish.ReferenceRanges);
+				this.SetXmlNodeData("report_reference_ranges", panelSetOrderHer2AmplificationByFish.ReferenceRanges);               
 
 				XmlNode tableNode = this.m_ReportXml.SelectSingleNode("descendant::w:tbl[w:tr/w:tc/w:p/w:r/w:t='report_interpretation']", this.m_NameSpaceManager);
 				this.SetXMLNodeParagraphDataNode(tableNode, "report_interpretation", panelSetOrderHer2AmplificationByFish.Interpretation);

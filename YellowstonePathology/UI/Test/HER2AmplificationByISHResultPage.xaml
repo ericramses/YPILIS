@@ -121,7 +121,9 @@
 						<RowDefinition Height="Auto"></RowDefinition>
 						<RowDefinition Height="Auto"></RowDefinition>
 						<RowDefinition Height="Auto"></RowDefinition>
-						<RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
 						<RowDefinition Height="Auto"></RowDefinition>
 						<RowDefinition Height="Auto"></RowDefinition>
 						<RowDefinition Height="Auto"></RowDefinition>
@@ -212,18 +214,21 @@
 					<TextBox Grid.Column="0" Grid.Row="22" Grid.ColumnSpan="2" AcceptsReturn="True" TextWrapping="Wrap" Margin="2" Text="{Binding Path=PanelSetOrder.InterpretiveComment}" />
 
 					<TextBlock Grid.Column="0" Grid.Row="23" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left">Method:</TextBlock>
-					<TextBlock Grid.Column="0" Grid.Row="24" Grid.ColumnSpan="2" Margin="2,2,2,2" VerticalAlignment="Center" Text="{Binding Path=PanelSetOrder.Method}" TextWrapping="Wrap" />
+                    <TextBox Grid.Column="0" Grid.Row="24" Grid.ColumnSpan="2" Margin="2,2,2,2" VerticalAlignment="Center" Text="{Binding Path=PanelSetOrder.Method}" TextWrapping="Wrap" AcceptsReturn="True" />
 
 					<TextBlock Grid.Column="0" Grid.Row="25" FontWeight="Bold" Margin="2" VerticalAlignment="Center">Report Reference:</TextBlock>
-					<TextBlock Grid.Column="0" Grid.Row="26" Grid.ColumnSpan="2" TextWrapping="Wrap" Margin="2" VerticalAlignment="Center" Text="{Binding Path=PanelSetOrder.ReportReference}" />                    
-                    
-                    <TextBlock Grid.Column="0" Grid.Row="27" Margin="2,2,2,2" FontWeight="Bold">Distribute:</TextBlock>
-					<CheckBox Grid.Column="1" Grid.Row="27" Margin="2,2,2,2" IsChecked="{Binding Path=PanelSetOrder.Distribute}"></CheckBox>
+                    <TextBox Grid.Column="0" Grid.Row="26" Grid.ColumnSpan="2" TextWrapping="Wrap" Margin="2" VerticalAlignment="Center" Text="{Binding Path=PanelSetOrder.ReportReference}" AcceptsReturn="True" />
 
-                    <TextBlock Grid.Column="0" Grid.Row="28" Margin="2,2,2,2" FontWeight="Bold">No Charge:</TextBlock>
-                    <CheckBox Grid.Column="1" Grid.Row="28" Margin="2,2,2,2" IsChecked="{Binding Path=PanelSetOrder.NoCharge}"></CheckBox>
+                    <TextBlock Grid.Column="0" Grid.Row="27" FontWeight="Bold" Margin="2" VerticalAlignment="Center">Fixation Comment:</TextBlock>
+                    <TextBox Grid.Column="0" Grid.Row="28" Grid.ColumnSpan="2" TextWrapping="Wrap" Margin="2" AcceptsReturn="True" VerticalAlignment="Center" Text="{Binding Path=PanelSetOrder.FixationComment}" />
 
-                    <Grid Grid.Column="0" Grid.Row="29" Grid.ColumnSpan="2">
+                    <TextBlock Grid.Column="0" Grid.Row="29" Margin="2,2,2,2" FontWeight="Bold">Distribute:</TextBlock>
+					<CheckBox Grid.Column="1" Grid.Row="29" Margin="2,2,2,2" IsChecked="{Binding Path=PanelSetOrder.Distribute}"></CheckBox>
+
+                    <TextBlock Grid.Column="0" Grid.Row="30" Margin="2,2,2,2" FontWeight="Bold">No Charge:</TextBlock>
+                    <CheckBox Grid.Column="1" Grid.Row="30" Margin="2,2,2,2" IsChecked="{Binding Path=PanelSetOrder.NoCharge}"></CheckBox>
+
+                    <Grid Grid.Column="0" Grid.Row="31" Grid.ColumnSpan="2">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="Auto"></ColumnDefinition>
 							<ColumnDefinition Width="*"></ColumnDefinition>
