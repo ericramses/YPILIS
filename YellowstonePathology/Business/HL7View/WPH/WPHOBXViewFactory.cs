@@ -111,7 +111,7 @@ namespace YellowstonePathology.Business.HL7View.WPH
 					//view = new YellowstonePathology.Business.Test.MPNExtendedReflex.MPNExtendedReflexWPHOBXView(accessionOrder, reportNo, obxCount);
 					break;
 				case 140:
-					//view = new YellowstonePathology.Business.Test.CalreticulinMutationAnalysis.CalreticulinMutationAnalysisWPHOBXView(accessionOrder, reportNo, obxCount);
+					view = new YellowstonePathology.Business.Test.CalreticulinMutationAnalysis.CalreticulinMutationAnalysisWPHOBXView(accessionOrder, reportNo, obxCount);
 					break;
 				case 141:
 					//view = new YellowstonePathology.Business.Test.JAK2Exon1214.JAK2Exon1214WPHOBXView(accessionOrder, reportNo, obxCount);
