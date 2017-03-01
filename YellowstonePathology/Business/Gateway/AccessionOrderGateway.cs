@@ -851,13 +851,13 @@ namespace YellowstonePathology.Business.Gateway
 		{
 			MySqlCommand cmd = new MySqlCommand();
 			cmd.CommandText = "SELECT pso.ReportNo, a.AccessionDate, concat(a.PFirstName, ' ', a.PLastName) AS PatientName, pso.AcceptedDate, " +
-				"pso.FinalDate, pso.OriginatingLocation, su.DisplayName AS Pathologist, su.UserId AS PathologistId, pso.Audited " +
+				"pso.FinalDate, su.DisplayName AS Pathologist, su.UserId AS PathologistId, pso.Audited " +
 				"FROM tblAccessionOrder a JOIN tblPanelSetOrder pso ON a.MasterAccessionNo = pso.MasterAccessionNo " +
 				"JOIN tblSystemUser su on pso.AssignedToId = su.UserId " +
 				"WHERE a.AccessionDate = @AccessionDate and pso.PanelSetId = 13 " +
 				"ORDER BY a.AccessionTime;";
 			cmd.CommandType = CommandType.Text;
-			cmd.Parameters.AddWithValue("@AccessionDate", accessionDate.ToShortDateString());
+            cmd.Parameters.AddWithValue("@AccessionDate", accessionDate);
 
 			Surgical.SurgicalOrderList result = AccessionOrderGateway.BuildSurgicalOrderList(cmd);
 			return result;
@@ -867,7 +867,7 @@ namespace YellowstonePathology.Business.Gateway
 		{
 			MySqlCommand cmd = new MySqlCommand();
 			cmd.CommandText = "SELECT pso.ReportNo, a.AccessionDate, concat(a.PFirstName, ' ', a.PLastName) AS PatientName, pso.AcceptedDate, " +
-				"pso.FinalDate, pso.OriginatingLocation, su.DisplayName AS Pathologist, su.UserId AS PathologistId, pso.Audited " +
+				"pso.FinalDate, su.DisplayName AS Pathologist, su.UserId AS PathologistId, pso.Audited " +
 				"FROM tblAccessionOrder a JOIN tblPanelSetOrder pso ON a.MasterAccessionNo = pso.MasterAccessionNo " +
 				"JOIN tblSurgicalTestOrder sr ON pso.ReportNo = sr.ReportNo " +
 				"JOIN tblSystemUser su on pso.AssignedToId = su.UserId " +
@@ -890,7 +890,7 @@ namespace YellowstonePathology.Business.Gateway
 		{
 			MySqlCommand cmd = new MySqlCommand();
 			cmd.CommandText = "SELECT pso.ReportNo, a.AccessionDate, concat(a.PFirstName, ' ', a.PLastName) AS PatientName, pso.AcceptedDate, " +
-				"pso.FinalDate, pso.OriginatingLocation, su.DisplayName AS Pathologist, su.UserId AS PathologistId, pso.Audited " +
+				"pso.FinalDate, su.DisplayName AS Pathologist, su.UserId AS PathologistId, pso.Audited " +
 				"FROM tblAccessionOrder a JOIN tblPanelSetOrder pso ON a.MasterAccessionNo = pso.MasterAccessionNo " +
 				"JOIN tblSystemUser su on pso.AssignedToId = su.UserId " +
 				"WHERE pso.FinalDate  = @FinalDate and pso.PanelSetId = 13 " +
@@ -906,7 +906,7 @@ namespace YellowstonePathology.Business.Gateway
 		{
 			MySqlCommand cmd = new MySqlCommand();
 			cmd.CommandText = "SELECT pso.ReportNo, a.AccessionDate, concat(a.PFirstName, ' ', a.PLastName) AS PatientName, pso.AcceptedDate, " +
-				"pso.FinalDate, pso.OriginatingLocation, su.DisplayName AS Pathologist, su.UserId AS PathologistId, pso.Audited " +
+				"pso.FinalDate, su.DisplayName AS Pathologist, su.UserId AS PathologistId, pso.Audited " +
 				"FROM tblAccessionOrder a JOIN tblPanelSetOrder pso ON a.MasterAccessionNo = pso.MasterAccessionNo " +
 				"JOIN tblSystemUser su on pso.AssignedToId = su.UserId " +
 				"WHERE pso.Final = 1 AND pso.Audited = 0 and pso.PanelSetId = 13 " +
@@ -921,7 +921,7 @@ namespace YellowstonePathology.Business.Gateway
 		{
 			MySqlCommand cmd = new MySqlCommand();
 			cmd.CommandText = "SELECT DISTINCT pso.ReportNo, a.AccessionDate, concat(a.PFirstName, ' ', a.PLastName) AS PatientName, pso.AcceptedDate, " +
-				"pso.FinalDate, pso.OriginatingLocation, su.DisplayName AS Pathologist, su.UserId AS PathologistId, pso.Audited " +
+				"pso.FinalDate, su.DisplayName AS Pathologist, su.UserId AS PathologistId, pso.Audited " +
 				"FROM tblAccessionOrder a JOIN tblPanelSetOrder pso ON a.MasterAccessionNo = pso.MasterAccessionNo " +
 				"JOIN tblSurgicalSpecimenResult ssr ON pso.ReportNo = ssr.ReportNo" +
 				"JOIN tblSystemUser su on pso.AssignedToId = su.UserId WHERE ssr.ImmediatePerformedBy is not null AND ssr.ImmediatePerformedBy <> ' ' " +
@@ -935,9 +935,9 @@ namespace YellowstonePathology.Business.Gateway
         
 		public static Surgical.SurgicalOrderList GetSurgicalOrderListByNotAssigned()
 		{
-			SqlCommand cmd = new SqlCommand();
+			MySqlCommand cmd = new MySqlCommand();
 			cmd.CommandText = "select pso.ReportNo, ao.AccessionDate, ao.PFirstName + ' ' + ao.PLastName AS PatientName, pso.AcceptedDate, " +
-                "pso.FinalDate, pso.OriginatingLocation, null AS Pathologist, null AS PathologistId, pso.Audited " +
+                "pso.FinalDate, null AS Pathologist, null AS PathologistId, pso.Audited " +
                 "from tblAccessionOrder ao " +
                 "join tblPanelSetOrder pso on ao.masterAccessionno = pso.masterAccessionno " +
                 "where pso.PanelSetId = 13 and pso.AssignedToId = 0 " +
@@ -945,7 +945,7 @@ namespace YellowstonePathology.Business.Gateway
                 "join tblSpecimenOrder s on al.SpecimenOrderId = s.SpecimenOrderid " +
                 "join tblAccessionOrder acc on s.masterAccessionNo = acc.MasterAccessionNo " +
                 "where acc.MasteraccessionNo = ao.MasterAccessionNo and al.EmbeddingVerified = 1 " +
-                "and al.EmbeddingVerifiedDate <= getdate())";
+                "and al.EmbeddingVerifiedDate <= now())";
 
             cmd.CommandType = CommandType.Text;
 
@@ -958,7 +958,7 @@ namespace YellowstonePathology.Business.Gateway
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = "Select * from " +
                 "(SELECT pso.ReportNo, a.AccessionDate, concat(a.PFirstName, ' ', a.PLastName) AS PatientName, pso.AcceptedDate, " +
-                "pso.FinalDate, pso.OriginatingLocation, su.DisplayName AS Pathologist, su.UserId AS PathologistId, pso.Audited, a.AccessionTime " +
+                "pso.FinalDate, su.DisplayName AS Pathologist, su.UserId AS PathologistId, pso.Audited, a.AccessionTime " +
                 "FROM tblAccessionOrder a JOIN tblPanelSetOrder pso ON a.MasterAccessionNo = pso.MasterAccessionNo " +
                 "JOIN tblSurgicalTestOrder sto ON pso.ReportNo = sto.ReportNo " +
                 "JOIN tblSystemUser su on pso.AssignedToId = su.UserId " +
@@ -975,7 +975,7 @@ namespace YellowstonePathology.Business.Gateway
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = "Select * from " +
                 "(SELECT pso.ReportNo, a.AccessionDate, concat(a.PFirstName, ' ', a.PLastName) AS PatientName, pso.AcceptedDate, " +
-                "pso.FinalDate, pso.OriginatingLocation, su.DisplayName AS Pathologist, su.UserId AS PathologistId, pso.Audited, a.AccessionTime " +
+                "pso.FinalDate, su.DisplayName AS Pathologist, su.UserId AS PathologistId, pso.Audited, a.AccessionTime " +
                 "FROM tblAccessionOrder a JOIN tblPanelSetOrder pso ON a.MasterAccessionNo = pso.MasterAccessionNo " +
                 "JOIN tblSurgicalTestOrder sto ON pso.ReportNo = sto.ReportNo " +
                 "JOIN tblSystemUser su on pso.AssignedToId = su.UserId " +
@@ -991,7 +991,7 @@ namespace YellowstonePathology.Business.Gateway
 		{
 			MySqlCommand cmd = new MySqlCommand();
 			cmd.CommandText = "SELECT pso.ReportNo, a.AccessionDate, concat(a.PFirstName, ' ', a.PLastName) AS PatientName, pso.AcceptedDate, " +
-				"pso.FinalDate, pso.OriginatingLocation, su.DisplayName AS Pathologist, su.UserId AS PathologistId, pso.Audited " +
+				"pso.FinalDate, su.DisplayName AS Pathologist, su.UserId AS PathologistId, pso.Audited " +
 				"FROM tblAccessionOrder a JOIN tblPanelSetOrder pso ON a.MasterAccessionNo = pso.MasterAccessionNo " +
 				"Left outer JOIN tblSystemUser su on pso.AssignedToId = su.UserId " +
 				"WHERE a.AccessionDate = @AccessionDate and a.ClientId in (558,33,57,123,126,230,242,250,253,313,505,558,622,744,758,759,760,820,845,873,969,979,1025,1058,1124,1151,1306,1313,1321) " +
