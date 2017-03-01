@@ -539,9 +539,9 @@ namespace YellowstonePathology.UI.Surgical
                 case "Cases Not Audited":
 					this.m_TypingUI.SurgicalOrderList.FillByNotAudited();
                     break;
-				//case "Cases No Signature":
-				//	this.m_TypingUI.SurgicalOrderList.FillByNoSignature();
-				//	break;
+				case "Cases Not Assigned":
+					this.m_TypingUI.SurgicalOrderList.FillByNoSignature();
+					break;
                 case "Daily Accession List":
                 case "Daily Final List":
                 case "PQRI Cases":

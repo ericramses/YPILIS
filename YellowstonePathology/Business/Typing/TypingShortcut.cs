@@ -13,11 +13,11 @@ namespace YellowstonePathology.Business.Typing
 
 		private string m_ObjectId;
         private int m_ShortcutId;
-		string m_Shortcut = string.Empty;		
-		string m_Text = string.Empty;
-		string m_Type = string.Empty;
-		int m_UserId;
-        string m_UserName;
+        private string m_Shortcut = string.Empty;
+        private string m_Text = string.Empty;
+        private string m_Type = string.Empty;
+        private int m_UserId;
+        private string m_UserName;
 
 		public TypingShortcut()
 		{

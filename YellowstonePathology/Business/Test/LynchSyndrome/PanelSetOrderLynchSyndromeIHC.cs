@@ -12,7 +12,8 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
         private string m_MLH1Result;
         private string m_MSH2Result;
         private string m_MSH6Result;
-        private string m_PMS2Result;        
+        private string m_PMS2Result;
+        private string m_Comment;      
 
         public PanelSetOrderLynchSyndromeIHC()
         {
@@ -86,9 +87,24 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
                     this.NotifyPropertyChanged("PMS2Result");
                 }
             }
-        }        
+        }
 
-		public void SetSummaryResult(LSEResult lSEResult)
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "5000", "null", "varchar")]
+        public string Comment
+        {
+            get { return this.m_Comment; }
+            set
+            {
+                if (this.m_Comment != value)
+                {
+                    this.m_Comment = value;
+                    this.NotifyPropertyChanged("Comment");
+                }
+            }
+        }
+
+        public void SetSummaryResult(LSEResult lSEResult)
 		{
 			IHCResult result = IHCResult.CreateResultFromResultCode(this.m_ResultCode);
 			if (result != null)

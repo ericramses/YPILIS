@@ -215,7 +215,8 @@ namespace YellowstonePathology.UI.Test
             if (methodResult.Success == true)
             {
                 YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHResult result = this.m_ResultCollection.GetResultFromIndication(this.m_PanelSetOrder);
-                result.SetResults(this.m_PanelSetOrder);
+                YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);
+                result.SetResults(this.m_PanelSetOrder, specimenOrder);
             }
             else
             {

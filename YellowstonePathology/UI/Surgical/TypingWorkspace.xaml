@@ -609,9 +609,9 @@
                                         <TextBlock Text="{Binding Path=ProcedureName}" Width="100" Margin="2,2,2,2"/>
 
                                         <ComboBox VerticalContentAlignment="Center" DisplayMemberPath="StainResult" IsEditable="True"
-										ItemsSource="{Binding Path=ResultList}"					
-										Text="{Binding Path=Result}"
-										Margin="3" Width="200" HorizontalAlignment="Left" IsEnabled="{Binding ElementName=PathologistUserControl, Path=DataContext.FieldEnabler.IsProtectedEnabled}">
+										    ItemsSource="{Binding Path=ResultList}"					
+										    Text="{Binding Path=Result}"
+										    Margin="3" Width="200" HorizontalAlignment="Left" IsEnabled="{Binding ElementName=PathologistUserControl, Path=DataContext.FieldEnabler.IsProtectedEnabled}">
                                         </ComboBox>
 
                                         <TextBox Text="{Binding Path=ReportComment, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" TextWrapping="Wrap" Style="{StaticResource NewTextBox}" Width="200"
@@ -772,7 +772,7 @@
                             <ComboBoxItem IsSelected="True">Daily Accession List</ComboBoxItem>
                             <ComboBoxItem>Daily Final List</ComboBoxItem>
                             <ComboBoxItem>Cases Not Audited</ComboBoxItem>
-                            <!--<ComboBoxItem>Cases No Signature</ComboBoxItem>-->
+                            <ComboBoxItem>Cases Not Assigned</ComboBoxItem>
                             <ComboBoxItem>SVH Electronic Orders</ComboBoxItem>
                             <ComboBoxItem>PQRI Cases</ComboBoxItem>
                             <ComboBoxItem>No Gross</ComboBoxItem>

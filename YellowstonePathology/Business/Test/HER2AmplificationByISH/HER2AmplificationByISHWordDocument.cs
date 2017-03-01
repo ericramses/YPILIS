@@ -142,9 +142,9 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 				SetXmlNodeData("asr_comment", panelSetOrderHer2ByIsh.ASRComment);
 				SetXmlNodeData("sample_adequacy", panelSetOrderHer2ByIsh.SampleAdequacy);
 				SetXmlNodeData("date_time_collected", collectionDateTimeString);
-				SetXmlNodeData("report_distribution", "No Distribution Selected");
+				SetXmlNodeData("report_distribution", "No Distribution Selected");                
 
-				this.SetXmlNodeData("pathologist_signature", this.m_PanelSetOrder.Signature);
+                this.SetXmlNodeData("pathologist_signature", this.m_PanelSetOrder.Signature);
 			}
 			else
 			{

@@ -20,7 +20,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 
 		}
 
-		public override void SetResults(HER2AmplificationByISHTestOrder testOrder)
+		public override void SetResults(HER2AmplificationByISHTestOrder testOrder, Business.Specimen.Model.SpecimenOrder specimenOrder)
 		{
 			this.m_ResultComment = null;
 			this.m_ResultDescription = "Ratio = " + testOrder.Her2Chr17Ratio;
@@ -72,7 +72,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 				this.m_InterpretiveComment += Environment.NewLine + Environment.NewLine + m_InterpretiveCommentP4IHCOrder;
 			}
 
-			base.SetResults(testOrder);
+			base.SetResults(testOrder, specimenOrder);
 		}
 	}
 }
