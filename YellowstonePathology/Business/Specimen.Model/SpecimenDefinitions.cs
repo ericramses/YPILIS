@@ -382,6 +382,19 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
         }
     }
 
+    public class EMC : Specimen
+    {
+        public EMC()
+        {
+            this.m_SpecimenId = "EMCSPCMN";
+            this.m_SpecimenName = "EMC";
+            this.m_Description = "Endometrium, curettings";
+            this.m_LabFixation = "Formalin";
+            this.m_ClientFixation = null;
+            this.m_RequiresGrossExamination = true;
+        }
+    }
+
     public class CervicalBiopsy : Specimen
     {
         public CervicalBiopsy()
