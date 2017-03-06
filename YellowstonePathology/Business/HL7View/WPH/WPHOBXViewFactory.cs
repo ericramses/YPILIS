@@ -159,7 +159,7 @@ namespace YellowstonePathology.Business.HL7View.WPH
 					view = new YellowstonePathology.Business.Test.MDSByFish.MDSByFishWPHOBXView(accessionOrder, reportNo, obxCount);
 					break;
 				case 159:
-					//view = new YellowstonePathology.Business.Test.MPL.MPLWPHOBXView(accessionOrder, reportNo, obxCount);
+					view = new YellowstonePathology.Business.Test.MPL.MPLWPHOBXView(accessionOrder, reportNo, obxCount);
 					break;
 				case 160:
 					//view = new YellowstonePathology.Business.Test.MultipleFISHProbe.MultipleFISHProbeWPHOBXView(accessionOrder, reportNo, obxCount);
