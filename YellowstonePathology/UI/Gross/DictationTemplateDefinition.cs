@@ -687,6 +687,9 @@ namespace YellowstonePathology.UI.Gross
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.EMB emb = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.EMB();
             this.m_SpecimenCollection.Add(emb);
+
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.EMC emc = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.EMC();
+            this.m_SpecimenCollection.Add(emc);
         }
 
         public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)

@@ -65,6 +65,7 @@ namespace YellowstonePathology.Business.Specimen.Model
             result.Add(new SpecimenDefinition.CervicalBiopsy());
             result.Add(new SpecimenDefinition.ECC());
             result.Add(new SpecimenDefinition.EMB());
+            result.Add(new SpecimenDefinition.EMC());
             result.Add(new SpecimenDefinition.FemoralHead());
             result.Add(new SpecimenDefinition.FallopianTube());
             result.Add(new SpecimenDefinition.FallopianTubeAndOvaries());
