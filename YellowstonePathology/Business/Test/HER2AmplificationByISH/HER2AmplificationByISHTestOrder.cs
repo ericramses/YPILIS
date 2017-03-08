@@ -43,6 +43,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 		private string m_Method;
 		private bool m_NotInterpretable;
 		private string m_ASRComment;
+        private string m_FixationComment;
 
 		public HER2AmplificationByISHTestOrder()
 		{
@@ -614,7 +615,22 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 			}
 		}
 
-		public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "5000", "null", "varchar")]
+        public string FixationComment
+        {
+            get { return this.m_FixationComment; }
+            set
+            {
+                if (this.m_FixationComment != value)
+                {
+                    this.m_FixationComment = value;
+                    this.NotifyPropertyChanged("FixationComment");
+                }
+            }
+        }
+
+        public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
 			string result = "HER2 Amplification by D-ISH: " + this.Result;
 			return result;

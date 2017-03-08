@@ -260,6 +260,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
 
             panelSetCollection.Add(new Business.Test.TP63F.TP63FTest());
             panelSetCollection.Add(new Business.Test.IRF4F.IRF4FTest());
+            panelSetCollection.Add(new Business.Test.AmyloidProteinIDParLCMS.AmyloidProteinIDParLCMSTest());
 
             panelSetCollection.Add(new YellowstonePathology.Business.Test.ChromosomeAnalysisForFetalAnomaly.ChromosomeAnalysisForFetalAnomalyTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.MissingInformation.MissingInformationTest());
