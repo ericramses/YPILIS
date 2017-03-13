@@ -490,7 +490,8 @@ namespace YellowstonePathology.UI.MySql
             if (this.ListViewMigrationStatus.SelectedItem != null)
             {
                 MySQLMigration.MigrationStatus migrationStatus = (MySQLMigration.MigrationStatus)this.ListViewMigrationStatus.SelectedItem;
-                Business.Rules.MethodResult methodResult = m_MySQLDatabaseBuilder.SyncSSToMyTable(migrationStatus.TableName, migrationStatus.KeyFieldName);
+                //Business.Rules.MethodResult methodResult = m_MySQLDatabaseBuilder.SyncSSToMyTable(migrationStatus.TableName, migrationStatus.KeyFieldName);
+                Business.Rules.MethodResult methodResult = m_MySQLDatabaseBuilder.CompareTables(migrationStatus);
                 this.SetStatusMessage(methodResult);
             }
             else
