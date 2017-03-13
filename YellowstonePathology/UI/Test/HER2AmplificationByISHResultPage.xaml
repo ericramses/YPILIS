@@ -220,7 +220,7 @@
                     <TextBox Grid.Column="0" Grid.Row="26" Grid.ColumnSpan="2" TextWrapping="Wrap" Margin="2" VerticalAlignment="Center" Text="{Binding Path=PanelSetOrder.ReportReference}" AcceptsReturn="True" />
 
                     <TextBlock Grid.Column="0" Grid.Row="27" FontWeight="Bold" Margin="2" VerticalAlignment="Center">Fixation Comment:</TextBlock>
-                    <TextBox Grid.Column="0" Grid.Row="28" Grid.ColumnSpan="2" TextWrapping="Wrap" Margin="2" AcceptsReturn="True" VerticalAlignment="Center" Text="{Binding Path=PanelSetOrder.FixationComment}" />
+                    <TextBox Grid.Column="0" Grid.Row="28" Grid.ColumnSpan="2" TextWrapping="Wrap" Margin="2" AcceptsReturn="True" VerticalAlignment="Center" Text="{Binding Path=SpecimenOrder.FixationComment}" />
 
                     <TextBlock Grid.Column="0" Grid.Row="29" Margin="2,2,2,2" FontWeight="Bold">Distribute:</TextBlock>
 					<CheckBox Grid.Column="1" Grid.Row="29" Margin="2,2,2,2" IsChecked="{Binding Path=PanelSetOrder.Distribute}"></CheckBox>
