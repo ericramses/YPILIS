@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>413</ApplicationRevision>
+    <ApplicationRevision>421</ApplicationRevision>
     <ApplicationVersion>10.1.6.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -294,6 +294,7 @@
     <Compile Include="Business\Billing.Model\MonitoredObject.cs" />
     <Compile Include="Business\Billing.Model\MonitoredObjectCollection.cs" />
     <Compile Include="Business\Billing.Model\PropertyChanges.cs" />
+    <Compile Include="Business\Client.Model\HPVCompoundStandingOrderRule6.cs" />
     <Compile Include="Business\Client.Model\IdahoClientIdList.cs" />
     <Compile Include="Business\Flow\CytoplasmicMarkerMapping.cs" />
     <Compile Include="Business\Flow\CytoplasmicMarkerMappingCollection.cs" />
@@ -1123,6 +1124,7 @@
     <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult1A.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LynchSyndromeEvaluationWPHOBXView.cs" />
     <Compile Include="Business\Test\MDSByFish\MDSByFishWPHOBXView.cs" />
+    <Compile Include="Business\Test\METMutationAnalysis\METMutationAnalysisTest.cs" />
     <Compile Include="Business\Test\MPL\MPLWPHOBXView.cs" />
     <Compile Include="Business\Test\MPNStandardReflexPanel\MPNStandardReflexPanelTest.cs" />
     <Compile Include="Business\Test\FlowCytometryAnalysis\FlowCytometryAnalysisTest.cs" />
@@ -1151,6 +1153,7 @@
     <Compile Include="Business\Test\PDL1SP142\PDL1SP142WPHOBXView.cs" />
     <Compile Include="Business\Test\PlateletAssociatedAntibodies\PlateletAssociatedAntibodiesEPICOBXView.cs" />
     <Compile Include="Business\Test\RASRAFPanel\RASRAFCMMCNTEView.cs" />
+    <Compile Include="Business\Test\RETMutationAnalysis\RETMutationAnalysisTest.cs" />
     <Compile Include="Business\Test\ROS1ByFISH\ROS1ByFISHPositiveResult.cs" />
     <Compile Include="Business\Test\IRF4F\IRF4FTest.cs" />
     <Compile Include="Business\Test\SoftTissueTumorProfile\SoftTissueTumorProfileTest.cs" />

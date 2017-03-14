@@ -217,6 +217,7 @@ namespace YellowstonePathology.Business.Document
 				if (item.FileName.ToUpper().Contains("REQ") ||                    
 					this.FileIs1000s(item.FileName) ||                    
                     item.FileName.ToUpper() == masterAccessionNo.ToUpper() + ".PATIENT.TIF" ||
+                    item.FileName.ToUpper() == masterAccessionNo.ToUpper() + ".INSURANCE.TIF" ||
                     item.FileName.ToUpper() == reportNo.ToUpper() + ".BILLINGDETAILS.XML" ||
 					item.FileName.ToUpper() == reportNo.ToUpper() + ".TIF")
 				{
