@@ -1088,33 +1088,25 @@ namespace YellowstonePathology.MySQLMigration
         public Business.Rules.MethodResult CompareTables(MigrationStatus migrationStatus)
         {
             Business.Rules.MethodResult overallResult = new Business.Rules.MethodResult();
-            if (this.TablesAreOkToUse(migrationStatus) == true)
+            List<string> keys = this.GetCompareDataKeyList(migrationStatus.TableName, migrationStatus.KeyFieldName, "'16-%'");
+            List<string> updateCommands = new List<string>();
+            overallResult = this.CompareData(migrationStatus, keys, updateCommands);
+            if (updateCommands.Count > 0)
             {
-                List<string> keys = this.GetCompareDataKeyList(migrationStatus);
-                List<string> updateCommands = new List<string>();
-                overallResult = this.CompareData(migrationStatus, keys, updateCommands);
-                if (updateCommands.Count > 0)
+                Business.Rules.MethodResult result = this.Synchronize(updateCommands);
+                overallResult.Message += result.Message;
+                if(result.Success == false)
                 {
-                    Business.Rules.MethodResult result = this.Synchronize(updateCommands);
-                    overallResult.Message += result.Message;
-                    if(result.Success == false)
-                    {
-                        overallResult.Success = false;
-                    }
-
-                    List<string> checkCommands = new List<string>();
-                    Business.Rules.MethodResult checkResult = this.CompareData(migrationStatus, keys, checkCommands);
-                    if (checkCommands.Count > 0)
-                    {
-                        overallResult.Success = false;
-                        overallResult.Message += "Update failed on " + checkCommands.Count.ToString();
-                    }
+                    overallResult.Success = false;
                 }
-            }
-            else
-            {
-                overallResult.Success = false;
-                overallResult.Message += "Table or column issue with " + migrationStatus.TableName;
+
+                List<string> checkCommands = new List<string>();
+                Business.Rules.MethodResult checkResult = this.CompareData(migrationStatus, keys, checkCommands);
+                if (checkCommands.Count > 0)
+                {
+                    overallResult.Success = false;
+                    overallResult.Message += "Update failed on " + checkCommands.Count.ToString();
+                }
             }
             return overallResult;
         }
@@ -1200,16 +1192,36 @@ namespace YellowstonePathology.MySQLMigration
             return result;
         }
 
+        private List<string> GetCompareDataKeyList(string tableName, string keyField, string compareString)
+        {
+            List<string> result = new List<string>();
+            SqlCommand cmd = new SqlCommand("Select " + keyField + " from " + tableName + " where " + keyField + " like " + compareString);
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        result.Add(dr[0].ToString());
+                    }
+                }
+            }
+            return result;
+        }
+
         private List<string> GetCompareDataKeyList(MigrationStatus migrationStatus)
         {
             List<string> result = new List<string>();
             SqlCommand cmd = new SqlCommand("Select " + migrationStatus.KeyFieldName + " from " + migrationStatus.TableName + " where " +
-                "(ReportNo is null or ReportNo like '16-%') and " +
-                //"orderdate < '10/1/2016' and " +
+                migrationStatus.KeyFieldName + " like '16-%' "); // +
+                /*"and " +
                 "Transferred = 1 and [TimeStamp] < (SELECT convert(int, ep.value) FROM sys.extended_properties AS ep " +
                 "INNER JOIN sys.tables AS t ON ep.major_id = t.object_id " +
                 "INNER JOIN sys.columns AS c ON ep.major_id = c.object_id AND ep.minor_id = c.column_id " +
-                "WHERE class = 1 and t.Name = '" + migrationStatus.TableName + "' and c.Name = 'TimeStamp' and ep.Name = 'TransferDBTS') order by 1");
+                "WHERE class = 1 and t.Name = '" + migrationStatus.TableName + "' and c.Name = 'TimeStamp' and ep.Name = 'TransferDBTS') order by 1");*/
             using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();

@@ -75,7 +75,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 
             if(specimenOrder.FixationDuration > 72 || specimenOrder.FixationDuration < 6)
             {
-                testOrder.FixationComment = m_FixationOutOfBoundsComment;
+                specimenOrder.FixationComment = m_FixationOutOfBoundsComment;
             }
 		}
 
