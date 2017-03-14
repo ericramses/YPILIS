@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>416</ApplicationRevision>
+    <ApplicationRevision>421</ApplicationRevision>
     <ApplicationVersion>10.1.6.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -294,6 +294,7 @@
     <Compile Include="Business\Billing.Model\MonitoredObject.cs" />
     <Compile Include="Business\Billing.Model\MonitoredObjectCollection.cs" />
     <Compile Include="Business\Billing.Model\PropertyChanges.cs" />
+    <Compile Include="Business\Client.Model\HPVCompoundStandingOrderRule6.cs" />
     <Compile Include="Business\Client.Model\IdahoClientIdList.cs" />
     <Compile Include="Business\Flow\CytoplasmicMarkerMapping.cs" />
     <Compile Include="Business\Flow\CytoplasmicMarkerMappingCollection.cs" />

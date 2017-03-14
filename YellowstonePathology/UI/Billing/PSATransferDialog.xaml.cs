@@ -69,7 +69,7 @@ namespace YellowstonePathology.UI.Billing
         }          
 
         private void ButtonStartTransfer_Click(object sender, RoutedEventArgs e)
-        {
+        {            
             if (this.m_PostDate.HasValue == true)
             {
                 this.m_BackgroundWorker = new System.ComponentModel.BackgroundWorker();
