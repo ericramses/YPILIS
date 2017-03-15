@@ -139,6 +139,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.Test.IgHClonalityMRDByNGS.IgHClonalityMRDByNGSTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.RETMutationAnalysis.RETMutationAnalysisTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.METMutationAnalysis.METMutationAnalysisTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.TcellLeukemia1.TcellLeukemia1Test());
 
             //ARUP
             panelSetCollection.Add(new YellowstonePathology.Business.Test.HPV1618.HPV1618Test());
