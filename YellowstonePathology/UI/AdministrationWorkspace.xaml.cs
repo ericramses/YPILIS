@@ -36,6 +36,7 @@ using MongoDB.Driver.Builders;
 using MongoDB.Driver.GridFS;
 using Newtonsoft.Json;
 using MySql.Data.MySqlClient;
+using Grpc.Core;
 
 namespace YellowstonePathology.UI
 {    
@@ -982,34 +983,37 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            SendJSONRPC();
-            //Business.MaterialTracking.Model.FedexLocationSearchRequest fedex = new Business.MaterialTracking.Model.FedexLocationSearchRequest();
-            //string result = fedex.LocationSearch();
-            //Console.WriteLine(result);
+            DoGRPC();
+        }
+        
+        private void DoGRPC()
+        {
+            //protoc -I d:/protogen --csharp_out d:/protogen/result d:/protogen/ventana.proto --grpc_out d:/protogen/result --plugin=protoc-gen-grpc=grpc_csharp_plugin.exe
 
-            
-            //AddAllClients();
+            Channel channel = new Channel("127.0.0.1:49165", ChannelCredentials.Insecure);
+            Ventana.StainOrder.StainOrderClient stainOrderClient = new Ventana.StainOrder.StainOrderClient(channel);
+
+            Ventana.OrderRequest orderRequest = new Ventana.OrderRequest();
+
+            orderRequest.Pid = new Ventana.pid();
+            orderRequest.Pid.FirstName = "George";
+            orderRequest.Pid.LastName = "Washington";
+
+            Ventana.OrderReply orderReply = stainOrderClient.getOrder(orderRequest);
+            Console.WriteLine(orderReply.Hl7);
+
             /*
-            Business.ReportNoCollection reportNos = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetReportNumbers();
-            foreach(Business.ReportNo reportNo in reportNos)
-            {
-                string masterAccessionNo = Business.Gateway.AccessionOrderGateway.GetMasterAccessionNoFromReportNo(reportNo.Value);
-                Business.Test.AccessionOrder ao = Business.Persistence.DocumentGateway.Instance.GetAccessionOrderByMasterAccessionNo(masterAccessionNo);
-                Business.HL7View.IResultView resultView = YellowstonePathology.Business.HL7View.ResultViewFactory.GetResultView(reportNo.Value, ao, ao.ClientId, false);
-                YellowstonePathology.Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
-                resultView.Send(methodResult);
-            }
+            var client = new Greeter.GreeterClient(channel);
+            String user = "you";
+
+            var reply = client.SayHello(new HelloRequest { Name = user });
+            Console.WriteLine("Greeting: " + reply.Message);
+
+            channel.ShutdownAsync().Wait();
+            Console.WriteLine("Press any key to exit...");
+            Console.ReadKey();
             */
-
-
-            //Business.Label.Model.ZPLPrinter printer = new Business.Label.Model.ZPLPrinter("10.1.1.21");
-            //YellowstonePathology.Business.BarcodeScanning.BarcodeVersion1 barcode = new Business.BarcodeScanning.BarcodeVersion1("HBLK16-25894.1A");
-            //YellowstonePathology.Business.BarcodeScanning.HistologyBlock histologyBlock = Business.BarcodeScanning.HistologyBlock.Parse(barcode);
-            //string commands = Business.Label.Model.HistologyBlockPaperZPLLabel.GetCommands(histologyBlock, "MM", "1A", "16-25894");
-
-            //string commands = YellowstonePathology.Business.Label.Model.HistologySlidePaperZPLLabel.GetCommands("16-12345.1A1", "16-12345.F2", "ABCDEFGHIJ", "ABCDEFGHIJKLMNOP", "3A3", "YPI Cody, Wy");            
-            //printer.Print(commands);            
-        }        
+        }
 
         private void SendJSONRPC()
         {
