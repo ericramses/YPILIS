@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace YellowstonePathology.Business.Test.AMLPrognosticProfile
+namespace YellowstonePathology.Business.Test.TcellLeukemia1
 {
-    public class AMLPrognosticProfileTest : YellowstonePathology.Business.PanelSet.Model.PanelSet
+    public class TcellLeukemia1Test : YellowstonePathology.Business.PanelSet.Model.PanelSet
     {
-        public AMLPrognosticProfileTest()
+        public TcellLeukemia1Test()
         {
-            this.m_PanelSetId = 237;
-            this.m_PanelSetName = "AML Prognostic Profile";
-            this.m_Abbreviation = "AML Prognostic Profile";
+            this.m_PanelSetId = 260;
+            this.m_PanelSetName = "T-cell Leukemia 1";
+            this.m_Abbreviation = "T-cell Leukemia 1";
             this.m_CaseType = YellowstonePathology.Business.CaseType.Molecular;
             this.m_HasTechnicalComponent = true;
             this.m_HasProfessionalComponent = false;
@@ -24,7 +24,7 @@ namespace YellowstonePathology.Business.Test.AMLPrognosticProfile
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.PanelSetOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Document.ReferenceLabReport).AssemblyQualifiedName;
 
-            string taskDescription = "Collect paraffin block from Histology and send to Neo.";
+            string taskDescription = "Gather materials and send out to Neo.";
             this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskFedexShipment(YellowstonePathology.Business.Task.Model.TaskAssignment.Flow, taskDescription, new Facility.Model.NeogenomicsIrvine()));
 
             this.m_TechnicalComponentFacility = new YellowstonePathology.Business.Facility.Model.NeogenomicsIrvine();
