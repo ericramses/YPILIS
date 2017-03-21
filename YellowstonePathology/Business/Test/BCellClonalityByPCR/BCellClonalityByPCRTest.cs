@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business.Test.BCellClonalityByPCR
 			this.m_HasProfessionalComponent = true;
 			this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterM();
-            this.m_Active = true;
+            this.m_Active = false;
 
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.BCellClonalityByPCR.BCellClonalityByPCRTestOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.BCellClonalityByPCR.BCellClonalityByPCRWordDocument).AssemblyQualifiedName;

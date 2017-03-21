@@ -25,6 +25,7 @@
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Shortcut}" Header="Shortcut" Width="90" LocalUI:ListViewSorter.SortPropertyName="Shortcut"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Type}" Header="Type" Width="90" LocalUI:ListViewSorter.SortPropertyName="Type"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Category}" Header="Category" Width="90" LocalUI:ListViewSorter.SortPropertyName="Category"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=UserName}" Header="User" Width="110" LocalUI:ListViewSorter.SortPropertyName="UserName"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=ShortText}" Header="Text" Width="300" LocalUI:ListViewSorter.SortPropertyName="ShortText"/>
                 </GridView>
