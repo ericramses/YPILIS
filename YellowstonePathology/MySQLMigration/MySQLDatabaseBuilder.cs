@@ -1091,24 +1091,44 @@ namespace YellowstonePathology.MySQLMigration
         public Business.Rules.MethodResult CompareTables(MigrationStatus migrationStatus)
         {
             Business.Rules.MethodResult overallResult = new Business.Rules.MethodResult();
-            List<string> keys = this.GetCompareDataKeyList(migrationStatus.TableName, migrationStatus.KeyFieldName, "'16-%'");
-            List<string> updateCommands = new List<string>();
-            overallResult = this.CompareData(migrationStatus, keys, updateCommands);
-            if (updateCommands.Count > 0)
+           List<string> matchLike = new List<string>();
+            if(migrationStatus.KeyFieldName == "ReportNo")
             {
-                Business.Rules.MethodResult result = this.Synchronize(updateCommands);
-                overallResult.Message += result.Message;
-                if(result.Success == false)
-                {
-                    overallResult.Success = false;
-                }
+                /*matchLike.Add("'_99-%'"); matchLike.Add("'_00-%'"); matchLike.Add("'_01-%'"); matchLike.Add("'_02-%'"); matchLike.Add("'_03-%'");
+                matchLike.Add("'_04-%'"); matchLike.Add("'_05-%'"); matchLike.Add("'_06-%'"); matchLike.Add("'_07-%'"); matchLike.Add("'_08-%'");
+                matchLike.Add("'_09-%'"); matchLike.Add("'_10-%'");*/ matchLike.Add("'_11-%'"); matchLike.Add("'_12-%'"); matchLike.Add("'_13-%'");
+                matchLike.Add("'_14-%'"); matchLike.Add("'14-%'"); matchLike.Add("'_15-%'"); matchLike.Add("'15-%'"); matchLike.Add("'_16-%'");
+                matchLike.Add("'16-%'");
+            }
+            else
+            {
+                matchLike.Add("'0%'"); matchLike.Add("'1%'"); matchLike.Add("'2%'"); matchLike.Add("'3%'"); matchLike.Add("'4%'");
+                matchLike.Add("'5%'"); matchLike.Add("'6%'"); matchLike.Add("'7%'"); matchLike.Add("'8%'"); matchLike.Add("'9%'");
+                matchLike.Add("'a%'"); matchLike.Add("'b%'"); matchLike.Add("'c%'"); matchLike.Add("'d%'"); matchLike.Add("'e%'"); matchLike.Add("'f%'");
 
-                List<string> checkCommands = new List<string>();
-                Business.Rules.MethodResult checkResult = this.CompareData(migrationStatus, keys, checkCommands);
-                if (checkCommands.Count > 0)
+            }
+
+            foreach (string match in matchLike)
+            {
+                List<string> keys = this.GetCompareDataKeyList(migrationStatus.TableName, migrationStatus.KeyFieldName, match);
+                List<string> updateCommands = new List<string>();
+                overallResult = this.CompareData(migrationStatus, keys, updateCommands);
+                if (updateCommands.Count > 0)
                 {
-                    overallResult.Success = false;
-                    overallResult.Message += "Update failed on " + checkCommands.Count.ToString();
+                    Business.Rules.MethodResult result = this.Synchronize(updateCommands);
+                    overallResult.Message += result.Message;
+                    if (result.Success == false)
+                    {
+                        overallResult.Success = false;
+                    }
+
+                    List<string> checkCommands = new List<string>();
+                    Business.Rules.MethodResult checkResult = this.CompareData(migrationStatus, keys, checkCommands);
+                    if (checkCommands.Count > 0)
+                    {
+                        overallResult.Success = false;
+                        overallResult.Message += "Update failed on " + checkCommands.Count.ToString();
+                    }
                 }
             }
             return overallResult;
@@ -1149,6 +1169,7 @@ namespace YellowstonePathology.MySQLMigration
                     Business.Rules.MethodResult result = dataRowComparer.Compare(sqlServerDataTableReader, mySqlDataTableReader);
                     if(result.Success == false)
                     {
+                        File.AppendAllText("C:/TEMP/SurgicalTestOrders.txt", key.ToString() + Environment.NewLine);
                         updateCommands.Add(result.Message);
                     }
                 }
