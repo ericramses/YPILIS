@@ -1096,15 +1096,15 @@ namespace YellowstonePathology.MySQLMigration
             {
                 /*matchLike.Add("'_99-%'"); matchLike.Add("'_00-%'"); matchLike.Add("'_01-%'"); matchLike.Add("'_02-%'"); matchLike.Add("'_03-%'");
                 matchLike.Add("'_04-%'"); matchLike.Add("'_05-%'"); matchLike.Add("'_06-%'"); matchLike.Add("'_07-%'"); matchLike.Add("'_08-%'");
-                matchLike.Add("'_09-%'"); matchLike.Add("'_10-%'");*/ matchLike.Add("'_11-%'"); matchLike.Add("'_12-%'"); matchLike.Add("'_13-%'");
+                matchLike.Add("'_09-%'");*/ matchLike.Add("'_10-%'"); /*matchLike.Add("'_11-%'"); matchLike.Add("'_12-%'"); matchLike.Add("'_13-%'");
                 matchLike.Add("'_14-%'"); matchLike.Add("'14-%'"); matchLike.Add("'_15-%'"); matchLike.Add("'15-%'"); matchLike.Add("'_16-%'");
-                matchLike.Add("'16-%'");
+                matchLike.Add("'16-%'");*/
             }
             else
             {
-                matchLike.Add("'0%'"); matchLike.Add("'1%'"); matchLike.Add("'2%'"); matchLike.Add("'3%'"); matchLike.Add("'4%'");
+                /*matchLike.Add("'0%'");*/ matchLike.Add("'1%'"); matchLike.Add("'2%'"); matchLike.Add("'3%'"); matchLike.Add("'4%'");
                 matchLike.Add("'5%'"); matchLike.Add("'6%'"); matchLike.Add("'7%'"); matchLike.Add("'8%'"); matchLike.Add("'9%'");
-                matchLike.Add("'a%'"); matchLike.Add("'b%'"); matchLike.Add("'c%'"); matchLike.Add("'d%'"); matchLike.Add("'e%'"); matchLike.Add("'f%'");
+                /*matchLike.Add("'a%'"); matchLike.Add("'b%'"); matchLike.Add("'c%'"); matchLike.Add("'d%'"); matchLike.Add("'e%'"); matchLike.Add("'f%'");*/
 
             }
 
@@ -1128,6 +1128,8 @@ namespace YellowstonePathology.MySQLMigration
                     {
                         overallResult.Success = false;
                         overallResult.Message += "Update failed on " + checkCommands.Count.ToString();
+                        foreach(string cmd in checkCommands)
+                        File.AppendAllText("C:/TEMP/SurgicalTestOrders.txt", cmd + Environment.NewLine + "-------------------" + Environment.NewLine);
                     }
                 }
             }
@@ -1169,7 +1171,7 @@ namespace YellowstonePathology.MySQLMigration
                     Business.Rules.MethodResult result = dataRowComparer.Compare(sqlServerDataTableReader, mySqlDataTableReader);
                     if(result.Success == false)
                     {
-                        File.AppendAllText("C:/TEMP/SurgicalTestOrders.txt", key.ToString() + Environment.NewLine);
+                        //File.AppendAllText("C:/TEMP/SurgicalTestOrders.txt", key.ToString() + Environment.NewLine);
                         updateCommands.Add(result.Message);
                     }
                 }
