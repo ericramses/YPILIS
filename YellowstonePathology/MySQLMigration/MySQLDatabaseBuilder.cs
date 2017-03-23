@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Data.SqlClient;
 using MySql.Data.MySqlClient;
 using System.Data;
+using System.IO;
 
 namespace YellowstonePathology.MySQLMigration
 {
@@ -1148,7 +1149,7 @@ namespace YellowstonePathology.MySQLMigration
                             overallResult.Success = false;
                             overallResult.Message += "Update failed on " + checkCommands.Count.ToString();
                             foreach (string cmd in checkCommands)
-                                File.AppendAllText("C:/TEMP/NotMatched.txt", cmd + Environment.NewLine + "-- ----------------" + Environment.NewLine + Environment.NewLine);
+                            File.AppendAllText("C:/TEMP/NotMatched.txt", cmd + Environment.NewLine + "-- ----------------" + Environment.NewLine + Environment.NewLine);
                         }
                     }
                 }
