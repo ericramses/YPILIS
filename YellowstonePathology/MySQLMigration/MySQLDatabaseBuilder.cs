@@ -1088,48 +1088,71 @@ namespace YellowstonePathology.MySQLMigration
             return overallResult;
         }
 
+        private List<string> GetMatchList(string tableName, string keyField)
+        {
+            List<string> result = new List<string>();
+
+            int cnt = this.GetDataCount(tableName);
+            if (cnt < 200000) result.Add("'%'");
+            else
+            {
+                if (keyField == "MasterAccessionNo")
+                {
+                    result.Add("'19%'"); result.Add("'50%'"); result.Add("'2000%'"); result.Add("'2001%'"); result.Add("'2002%'");
+                    result.Add("'2003%'"); result.Add("'2004%'"); result.Add("'2005%'"); result.Add("'2006%'"); result.Add("'2007%'");
+                    result.Add("'2008%'"); result.Add("'2009%'"); result.Add("'2010%'"); result.Add("'2011%'"); result.Add("'2012%'");
+                    result.Add("'2013%'"); result.Add("'13-%'"); ; result.Add("'14-%'"); result.Add("'15-%'"); result.Add("'16-%'");
+                    result.Add("'17-%'");
+                }
+                else if (keyField == "ReportNo")
+                {
+                    result.Add("'_99-%'"); result.Add("'_00-%'"); result.Add("'_01-%'"); result.Add("'_02-%'"); result.Add("'_03-%'");
+                    result.Add("'_04-%'"); result.Add("'_05-%'"); result.Add("'_06-%'"); result.Add("'_07-%'"); result.Add("'_08-%'");
+                    result.Add("'_09-%'"); result.Add("'_10-%'"); result.Add("'_11-%'"); result.Add("'_12-%'"); result.Add("'_13-%'");
+                    result.Add("'_14-%'"); result.Add("'14-%'"); result.Add("'_15-%'"); result.Add("'15-%'"); result.Add("'_16-%'");
+                    result.Add("'16-%'"); result.Add("'_17-%'"); result.Add("'17-%'");
+                }
+                else
+                {
+                    result.Add("'0%'"); result.Add("'1%'"); result.Add("'2%'"); result.Add("'3%'"); result.Add("'4%'");
+                    result.Add("'5%'"); result.Add("'6%'"); result.Add("'7%'"); result.Add("'8%'"); result.Add("'9%'");
+                    result.Add("'a%'"); result.Add("'b%'"); result.Add("'c%'"); result.Add("'d%'"); result.Add("'e%'");
+                    result.Add("'f%'");
+                }
+            }
+            return result;
+        }
+
         public Business.Rules.MethodResult CompareTables(MigrationStatus migrationStatus)
         {
             Business.Rules.MethodResult overallResult = new Business.Rules.MethodResult();
-           List<string> matchLike = new List<string>();
-            if(migrationStatus.KeyFieldName == "ReportNo")
-            {
-                /*matchLike.Add("'_99-%'"); matchLike.Add("'_00-%'"); matchLike.Add("'_01-%'"); matchLike.Add("'_02-%'"); matchLike.Add("'_03-%'");
-                matchLike.Add("'_04-%'"); matchLike.Add("'_05-%'"); matchLike.Add("'_06-%'"); matchLike.Add("'_07-%'"); matchLike.Add("'_08-%'");
-                matchLike.Add("'_09-%'"); matchLike.Add("'_10-%'"); matchLike.Add("'_11-%'");*/ matchLike.Add("'_12-%'"); matchLike.Add("'_13-%'");
-                matchLike.Add("'_14-%'"); matchLike.Add("'14-%'"); matchLike.Add("'_15-%'"); matchLike.Add("'15-%'"); matchLike.Add("'_16-%'");
-                matchLike.Add("'16-%'");
-            }
-            else
-            {
-                /*matchLike.Add("'0%'");*/ matchLike.Add("'1%'"); matchLike.Add("'2%'"); matchLike.Add("'3%'"); matchLike.Add("'4%'");
-                matchLike.Add("'5%'"); matchLike.Add("'6%'"); matchLike.Add("'7%'"); matchLike.Add("'8%'"); matchLike.Add("'9%'");
-                /*matchLike.Add("'a%'"); matchLike.Add("'b%'"); matchLike.Add("'c%'"); matchLike.Add("'d%'"); matchLike.Add("'e%'"); matchLike.Add("'f%'");*/
-
-            }
+            List<string> matchLike = this.GetMatchList(migrationStatus.TableName, migrationStatus.KeyFieldName);
 
             foreach (string match in matchLike)
             {
                 List<string> keys = this.GetCompareDataKeyList(migrationStatus.TableName, migrationStatus.KeyFieldName, match);
-                List <string> updateCommands = new List<string>();
-                overallResult = this.CompareData(migrationStatus, keys, updateCommands);
-                if (updateCommands.Count > 0)
+                if (keys.Count > 0)
                 {
-                    Business.Rules.MethodResult result = this.Synchronize(updateCommands);
-                    overallResult.Message += result.Message;
-                    if (result.Success == false)
+                    List<string> updateCommands = new List<string>();
+                    overallResult = this.CompareData(migrationStatus, keys, updateCommands);
+                    if (updateCommands.Count > 0)
                     {
-                        overallResult.Success = false;
-                    }
+                        Business.Rules.MethodResult result = this.Synchronize(updateCommands);
+                        overallResult.Message += result.Message;
+                        if (result.Success == false)
+                        {
+                            overallResult.Success = false;
+                        }
 
-                    List<string> checkCommands = new List<string>();
-                    Business.Rules.MethodResult checkResult = this.CompareData(migrationStatus, keys, checkCommands);
-                    if (checkCommands.Count > 0)
-                    {
-                        overallResult.Success = false;
-                        overallResult.Message += "Update failed on " + checkCommands.Count.ToString();
-                        foreach(string cmd in checkCommands)
-                        File.AppendAllText("C:/TEMP/SurgicalTestOrders.txt", cmd + Environment.NewLine + "-- ----------------" + Environment.NewLine);
+                        List<string> checkCommands = new List<string>();
+                        Business.Rules.MethodResult checkResult = this.CompareData(migrationStatus, keys, checkCommands);
+                        if (checkCommands.Count > 0)
+                        {
+                            overallResult.Success = false;
+                            overallResult.Message += "Update failed on " + checkCommands.Count.ToString();
+                            foreach (string cmd in checkCommands)
+                                File.AppendAllText("C:/TEMP/NotMatched.txt", cmd + Environment.NewLine + "-- ----------------" + Environment.NewLine + Environment.NewLine);
+                        }
                     }
                 }
             }
@@ -1156,7 +1179,7 @@ namespace YellowstonePathology.MySQLMigration
                 if (mySqlDataTable.Rows.Count == 0)
                 {
                     overallResult.Success = false;
-                    overallResult.Message += "Missing " + migrationStatus.KeyFieldName + " = " + keyString;
+                    overallResult.Message += "Missing " + migrationStatus.TableName + " - " + migrationStatus.KeyFieldName + " = " + keyString;
                     this.SaveError(migrationStatus.TableName, "Update " + migrationStatus.TableName + " set Transferred = 0 where " + migrationStatus.KeyFieldName + " = " + keyString);
                     continue;
                 }
