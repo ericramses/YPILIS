@@ -1157,6 +1157,7 @@
     <Compile Include="Business\Test\ROS1ByFISH\ROS1ByFISHPositiveResult.cs" />
     <Compile Include="Business\Test\IRF4F\IRF4FTest.cs" />
     <Compile Include="Business\Test\SoftTissueTumorProfile\SoftTissueTumorProfileTest.cs" />
+    <Compile Include="Business\Test\STAT3MutationAnalysis\STAT3MutationAnalysisTest.cs" />
     <Compile Include="Business\Test\TcellLeukemia1\TcellLeukemia1Test.cs" />
     <Compile Include="Business\Test\TCellNKProfile\TCellNKProfileEPICOBXView.cs" />
     <Compile Include="Business\Test\TCellNKProfile\TCellNKProfileTest.cs" />

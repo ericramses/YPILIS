@@ -142,7 +142,22 @@ namespace YellowstonePathology.MySQLMigration
             }
             else if(sqlValue != myValue)
             {
-                compares = false;
+                int si = sqlValue.Length;
+                int mi = myValue.Length;
+                myValue.Remove('\0');
+                myValue = myValue.Replace("\n", "\r\n");
+                si = sqlValue.Length;
+                mi = myValue.Length;
+                for(int idx = 0; idx < sqlValue.Length;idx++)
+                {
+                    if(sqlValue[idx] != myValue[idx])
+                    {
+                        char s = sqlValue[idx];
+                        char m = myValue[idx];
+                        compares = false;
+                        break;
+                    }
+                }
             }
 
             if (compares == false)
