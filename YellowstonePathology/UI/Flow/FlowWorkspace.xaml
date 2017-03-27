@@ -67,6 +67,7 @@
                     <ICDCode ICD9="202.20" ICD10="C84.10" Description="Sezary disease, unspecified site" />
                     <ICDCode ICD9="287.5" ICD10="D69.6" Description="Thrombocytopenia, unspecified" />
                     <ICDCode ICD9="780.79" ICD10="R53.1" Description="Weakness" />
+                    <ICDCode ICD9="780.79" ICD10="R22.1" Description="Localized swelling, mass, or lump in neck." />
                     <ICDCode ICD9="757.33" ICD10="Q82.1" Description="Xeroderma pigmentosum" />
                 </ICDCodeCollection>
             </x:XData>

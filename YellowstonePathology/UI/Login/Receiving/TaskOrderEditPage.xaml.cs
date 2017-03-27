@@ -96,9 +96,9 @@ namespace YellowstonePathology.UI.Login.Receiving
 		}
 
 		private void ButtonBack_Click(object sender, RoutedEventArgs e)
-		{
-			if (this.Back != null) this.Back(this, new EventArgs());
-		}
+		{            
+            if (this.Back != null) this.Back(this, new EventArgs());
+        }
 
 		private void ButtonClose_Click(object sender, RoutedEventArgs e)
 		{

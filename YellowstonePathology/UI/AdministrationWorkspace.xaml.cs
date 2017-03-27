@@ -983,7 +983,75 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            DoGRPC();
+            WriteSchema();
+        }
+
+        private void WriteSchema()
+        {
+            Type [] types = Assembly.GetExecutingAssembly().GetTypes();
+
+            for (int i=0; i<types.Length; i++)
+            {
+                if(Attribute.IsDefined(types[i], typeof(Business.Persistence.PersistentClass), false) == true)
+                {                    
+                    Business.Persistence.PersistentClass persistentClassAttribute = (Business.Persistence.PersistentClass)types[i].GetCustomAttributes(typeof(Business.Persistence.PersistentClass), false).Single();
+                    PropertyInfo primaryKeyPropertyInfo = types[i].GetProperties().Where(prop => Attribute.IsDefined(prop, typeof(Business.Persistence.PersistentPrimaryKeyProperty))).Single();                    
+
+                    List<PropertyInfo> propertyList = types[i].GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.DeclaredOnly).Where(prop => Attribute.IsDefined(prop, typeof(Business.Persistence.PersistentDataColumnProperty))).ToList();
+                    if (propertyList.Count != 0)
+                    {
+                        string filePath = @"d:\git\ap-mssql\src\schema\" + persistentClassAttribute.StorageName + ".json";
+                        System.IO.StreamWriter file = new System.IO.StreamWriter(filePath, false);
+
+                        using (JsonTextWriter writer = new JsonTextWriter(file))
+                        {
+                            writer.Formatting = Newtonsoft.Json.Formatting.Indented;
+                            writer.WriteStartObject();
+                            writer.WritePropertyName("className");
+                            writer.WriteValue(types[i].Name);
+
+                            writer.WritePropertyName("fields");
+                            writer.WriteStartArray();
+                                                        
+                            foreach (PropertyInfo propertyInfo in propertyList)
+                            {
+                                Business.Persistence.PersistentDataColumnProperty persistentProperty = (Business.Persistence.PersistentDataColumnProperty)propertyInfo.GetCustomAttribute(typeof(Business.Persistence.PersistentDataColumnProperty));
+
+                                writer.WriteStartObject();
+                                writer.WritePropertyName("isPrimaryKey");
+                                if (primaryKeyPropertyInfo.Name == propertyInfo.Name)
+                                {
+                                    writer.WriteValue("True");
+                                }
+                                else
+                                {
+                                    writer.WriteValue("False");
+                                }
+
+                                writer.WritePropertyName("name");
+                                writer.WriteValue(propertyInfo.Name);
+
+                                writer.WritePropertyName("width");
+                                writer.WriteValue(persistentProperty.ColumnLength);
+
+                                writer.WritePropertyName("dataType");
+                                writer.WriteValue(persistentProperty.DataType);
+
+                                writer.WritePropertyName("defaultValue");
+                                writer.WriteValue(persistentProperty.DefaultValue);
+
+                                writer.WritePropertyName("isNullable");
+                                writer.WriteValue(persistentProperty.IsNullable.ToString());
+
+                                writer.WriteEndObject();
+                            }
+                            writer.WriteEnd();
+                            writer.WriteEndObject();
+                        }
+                        file.Close();
+                    }
+                }                 
+            }
         }
         
         private void DoGRPC()
