@@ -926,5 +926,11 @@ namespace YellowstonePathology.UI
             Billing.SVHCDMResultDialog dialog = new Billing.SVHCDMResultDialog();
             dialog.ShowDialog();
         }
+
+        private void MenuItemRefreshFromMySql_Click(object sender, RoutedEventArgs e)
+        {
+            UI.MySql.SqlServerRefreshDialog sqlServerRefreshDialog = new MySql.SqlServerRefreshDialog();
+            sqlServerRefreshDialog.ShowDialog();
+        }
     }
 }

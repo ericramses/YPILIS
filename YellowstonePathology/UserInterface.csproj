@@ -1194,6 +1194,7 @@
     <Compile Include="Business\XPSDocument\Result\Xps\AccessionOrderDataSheetV2.cs" />
     <Compile Include="Business\XPSDocument\Result\Xps\ClientSupplyOrderReportV2.cs" />
     <Compile Include="MySQLMigration\DataRowComparer.cs" />
+    <Compile Include="MySQLMigration\DataRowRefreshComparer.cs" />
     <Compile Include="MySQLMigration\IndexedColumn.cs" />
     <Compile Include="MySQLMigration\IndexedColumnCollection.cs" />
     <Compile Include="MySQLMigration\MigrationStatus.cs" />
