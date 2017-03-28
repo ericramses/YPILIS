@@ -81,44 +81,10 @@ namespace YellowstonePathology.UI
             base.OnStartup(e);
             
 
-            this.StartTimer();
-            //HandleLocalRepository(); 
+            this.StartTimer();            
             this.SetupApplicationFolders();
 
-        }
-
-        public static void HandleLocalRepository()
-        {
-            /*
-            string localRepoPath = @"C:\ProgramData\ypi\lisdata";
-
-            if(System.IO.Directory.Exists(localRepoPath) == false)
-                    System.IO.Directory.CreateDirectory(localRepoPath);
-
-            Repository repo = null;
-            if(Repository.IsValid(localRepoPath) == false)
-            {
-                string remoteRepoPath = "https://github.com/YPII/lisdata.git";
-                Repository.Clone(remoteRepoPath, localRepoPath);
-            }
-            else
-            {
-                repo = new Repository(localRepoPath);
-                RepositoryStatus repositoryStatus = repo.RetrieveStatus();
-                if(repositoryStatus.IsDirty == false)
-                {
-                    repo.Fetch("origin");
-                    Signature signature = new Signature("SidHarder", "softwarenavigator@gmail.com", new DateTimeOffset(DateTime.Now));
-                    Branch master = repo.Branches["master"];
-                    repo.MergeFetchedRefs(signature, new MergeOptions());
-                }
-                else
-                {
-                    MessageBox.Show("The local repository has uncommitted changes.");
-                }
-            }   
-            */         
-        }
+        }        
 
         public static bool HandledictionarySetup()
         {            

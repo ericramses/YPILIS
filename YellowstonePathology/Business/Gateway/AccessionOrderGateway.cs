@@ -43,10 +43,9 @@ namespace YellowstonePathology.Business.Gateway
         public static YellowstonePathology.UI.EmbeddingBreastCaseList GetEmbeddingBreastCasesCollection()
         {
             YellowstonePathology.UI.EmbeddingBreastCaseList result = new UI.EmbeddingBreastCaseList();
-            MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "select ao.MasterAccessionNo, ao.PFirstName, ao.PLastName, so.Collectiontime, so.ProcessorRun, " +
-                "so.FixationStartTime, so.FixationEndTime, hour(timediff(fixationendtime, fixationstarttime)) FixationDurationCalc, " +
-                "FixationDuration, so.Description " + 
+            MySqlCommand cmd = new MySqlCommand();            
+            cmd.CommandText = "select ao.MasterAccessionNo, ao.PFirstName, ao.PLastName, so.CollectionTime, so.ProcessorRun, " +
+				"so.FixationStartTime, so.FixationEndTime, FixationDuration, so.Description " + 
                 "from tblAccessionOrder ao " +
                 "join tblspecimenOrder so on ao.masterAccessionNo = so.MasterAccessionNo " +
                 "where instr(so.Description, 'Breast') > 0 " +
