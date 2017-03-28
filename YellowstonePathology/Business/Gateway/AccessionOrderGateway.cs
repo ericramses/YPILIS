@@ -47,7 +47,7 @@ namespace YellowstonePathology.Business.Gateway
             cmd.CommandText = "select ao.MasterAccessionNo, ao.PFirstName, ao.PLastName, so.CollectionTime, so.ProcessorRun, " +
 				"so.FixationStartTime, so.FixationEndTime, FixationDuration, so.Description " + 
                 "from tblAccessionOrder ao " +
-                "join tblspecimenOrder so on ao.masterAccessionNo = so.MasterAccessionNo " +
+                "join tblSpecimenOrder so on ao.MasterAccessionNo = so.MasterAccessionNo " +
                 "where instr(so.Description, 'Breast') > 0 " +
                 "and ao.AccessionDate >= date_add(curdate(), interval -30 day) " +
                 "order by ao.AccessionTime desc;";
@@ -1414,7 +1414,7 @@ namespace YellowstonePathology.Business.Gateway
 
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "select pso.masterAccessionNo, pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, " +
+            cmd.CommandText = "select pso.MasterAccessionNo, pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, " +
                 "a.PFirstName, pso.ResultCode, pso.AcceptedTime, pso.FinalTime, psoh.Result, pso.HoldDistribution " +
                 "from tblPanelSetOrder pso " +
                 "join tblHPVTestOrder psoh on pso.ReportNo = psoh.ReportNo " +
