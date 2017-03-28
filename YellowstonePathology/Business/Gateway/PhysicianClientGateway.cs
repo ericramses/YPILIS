@@ -252,7 +252,7 @@ namespace YellowstonePathology.Business.Gateway
             cmd.CommandText = "select c.* " +
                 "from tblClientGroup cg " +
                 "join tblClientGroupClient cgc on cg.ClientGroupId = cgc.ClientGroupId " +
-                "join tblclient c on cgc.ClientId = c.ClientId " +
+                "join tblClient c on cgc.ClientId = c.ClientId " +
                 "where cgc.ClientGroupId = @ClientGroupId order by c.ClientName;";
             cmd.Parameters.AddWithValue("@ClientGroupId", clientGroupId);
             cmd.CommandType = CommandType.Text;

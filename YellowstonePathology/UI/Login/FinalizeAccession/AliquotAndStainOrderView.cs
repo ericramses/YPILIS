@@ -167,8 +167,10 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 						XElement aliquotElement = new XElement("AliquotOrder");
 						XElement aliquotIdElement = new XElement("AliquotOrderId", aliquotOrder.AliquotOrderId);
                         XElement aliquotClientAccessionedElement = new XElement("ClientAccessioned", aliquotOrder.ClientAccessioned);
-						XElement aliquotLabelElement = new XElement("Label", aliquotOrder.Display); ;
-						XElement aliquotTypeElement = new XElement("Type", aliquotOrder.AliquotType);
+						XElement aliquotLabelElement = new XElement("Label", aliquotOrder.Display);
+                        XElement aliquotGrossVerifiedElement = null;
+                        if (aliquotOrder.GrossVerifiedDate.HasValue) aliquotGrossVerifiedElement = new XElement("GrossVerifiedDate", aliquotOrder.GrossVerifiedDate.Value.ToString("MM/dd/yy HH:mm"));
+                        XElement aliquotTypeElement = new XElement("Type", aliquotOrder.AliquotType);
 						XElement aliquotIdentificationType = new XElement("LabelType", aliquotOrder.LabelType);
 						XElement aliquotIsSelectedElement = new XElement("IsSelected", false);
                         XElement aliquotEmbeddingInstructionsElement = new XElement("EmbeddingInstructions", aliquotOrder.EmbeddingInstructions);
@@ -177,7 +179,8 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 						aliquotElement.Add(aliquotIdElement);
                         aliquotElement.Add(aliquotClientAccessionedElement);
 						aliquotElement.Add(aliquotTypeElement);
-						aliquotElement.Add(aliquotIsSelectedElement);
+                        if (aliquotOrder.GrossVerifiedDate.HasValue) aliquotElement.Add(aliquotGrossVerifiedElement);
+                        aliquotElement.Add(aliquotIsSelectedElement);
 						aliquotElement.Add(aliquotIdentificationType);
                         aliquotElement.Add(aliquotEmbeddingInstructionsElement);
                         specimenElement.Add(aliquotElement);

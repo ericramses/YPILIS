@@ -43,12 +43,11 @@ namespace YellowstonePathology.Business.Gateway
         public static YellowstonePathology.UI.EmbeddingBreastCaseList GetEmbeddingBreastCasesCollection()
         {
             YellowstonePathology.UI.EmbeddingBreastCaseList result = new UI.EmbeddingBreastCaseList();
-            MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "select ao.MasterAccessionNo, ao.PFirstName, ao.PLastName, so.Collectiontime, so.ProcessorRun, " +
-                "so.FixationStartTime, so.FixationEndTime, hour(timediff(fixationendtime, fixationstarttime)) FixationDurationCalc, " +
-                "FixationDuration, so.Description " + 
+            MySqlCommand cmd = new MySqlCommand();            
+            cmd.CommandText = "select ao.MasterAccessionNo, ao.PFirstName, ao.PLastName, so.CollectionTime, so.ProcessorRun, " +
+				"so.FixationStartTime, so.FixationEndTime, FixationDuration, so.Description " + 
                 "from tblAccessionOrder ao " +
-                "join tblspecimenOrder so on ao.masterAccessionNo = so.MasterAccessionNo " +
+                "join tblSpecimenOrder so on ao.MasterAccessionNo = so.MasterAccessionNo " +
                 "where instr(so.Description, 'Breast') > 0 " +
                 "and ao.AccessionDate >= date_add(curdate(), interval -30 day) " +
                 "order by ao.AccessionTime desc;";
@@ -1062,33 +1061,35 @@ namespace YellowstonePathology.Business.Gateway
 		{
 			Surgical.SurgicalMasterLogList result = new Surgical.SurgicalMasterLogList();
             MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "declare rpts table " +
-                "( " +
-                "AccessionTime datetime, " +
-                "ReportNo varchar(20), " +
-                "AccessioningFacilityId varchar(100), " +
-                "PFirstName varchar(100), " +
-                "PLastName varchar(100), " +
-                "PBirthdate datetime, " +
-                "PhysicianName varchar(100), " +
-                "ClientName varchar(100), " +
-                "AliquotCount int " +
-                ") " +
-                "insert rpts " +
-                "SELECT Distinct a.AccessionTime, pso.ReportNo, a.AccessioningFacilityId, a.PFirstName, a.PLastName, " +
-                "a.PBirthdate, a.PhysicianName, a.ClientName, Count(*) AliquotCount " +
-                "FROM tblAccessionOrder a JOIN tblPanelSetOrder pso ON a.MasterAccessionNo = pso.MasterAccessionNo " +
-                "JOIN tblSpecimenORder so on a.MasterAccessionNo = so.MasterAccessionNo " +
-                "LEFT OUTER JOIN tblAliquotOrder ao on so.SpecimenOrderId = ao.SpecimenOrderId " +
-                "WHERE AccessionDate = @ReportDate and pso.PanelSetId in (13, 50)  " +
-                " group by a.AccessionTime, pso.ReportNo, a.AccessioningFacilityId, a.PFirstName, a.PLastName, " +
-                "a.PBirthdate, a.PhysicianName, a.ClientName " +
-                "Order By AccessionTime " +
-                "SELECT rpts.* From rpts rpts Order By AccessionTime " +
-                "Select ssr.DiagnosisId, so.Description, ssr.ReportNo " +
-                "FROM tblSurgicalSpecimen ssr " +
-                "JOIN tblSpecimenOrder so ON ssr.SpecimenOrderId = so.SpecimenOrderId " +
-                "join rpts rpts on ssr.ReportNo = rpts.ReportNo order by 1;";
+            cmd.CommandText = "create temporary table if not exists rpts " +
+            "( " +
+            "AccessionTime datetime, " +
+            "ReportNo varchar(20), " +
+            "AccessioningFacilityId varchar(100), " +
+            "PFirstName varchar(100), " +
+            "PLastName varchar(100), " +
+            "PBirthdate datetime, " +
+            "PhysicianName varchar(100), " +
+            "ClientName varchar(100), " +
+            "AliquotCount int " +
+            ") " +
+            "as " +
+            "SELECT Distinct a.AccessionTime, pso.ReportNo, a.AccessioningFacilityId, a.PFirstName, a.PLastName,  " +
+            "a.PBirthdate, a.PhysicianName, a.ClientName, Count(*) AliquotCount " +
+            "FROM tblAccessionOrder a JOIN tblPanelSetOrder pso ON a.MasterAccessionNo = pso.MasterAccessionNo " +
+            "JOIN tblSpecimenOrder so on a.MasterAccessionNo = so.MasterAccessionNo " +
+            "LEFT OUTER JOIN tblAliquotOrder ao on so.SpecimenOrderId = ao.SpecimenOrderId " +
+            "WHERE AccessionDate = '2017-3-24' and pso.PanelSetId in (13, 50) " +
+            "group by a.AccessionTime, pso.ReportNo, a.AccessioningFacilityId, a.PFirstName, a.PLastName, " +
+            "a.PBirthdate, a.PhysicianName, a.ClientName " +
+            "Order By AccessionTime; " +
+            "SELECT rpts.*From rpts rpts Order By AccessionTime; " +
+            "Select ssr.DiagnosisId, so.Description, ssr.ReportNo " +
+            "FROM tblSurgicalSpecimen ssr " +
+            "JOIN tblSpecimenOrder so ON ssr.SpecimenOrderId = so.SpecimenOrderId " +
+            "join rpts rpts on ssr.ReportNo = rpts.ReportNo order by 1; " +
+            "drop temporary table rpts; ";
+
             cmd.CommandType = CommandType.Text;
             cmd.Parameters.AddWithValue("@ReportDate", reportDate.ToShortDateString());
             using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
@@ -1413,7 +1414,7 @@ namespace YellowstonePathology.Business.Gateway
 
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "select pso.masterAccessionNo, pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, " +
+            cmd.CommandText = "select pso.MasterAccessionNo, pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, " +
                 "a.PFirstName, pso.ResultCode, pso.AcceptedTime, pso.FinalTime, psoh.Result, pso.HoldDistribution " +
                 "from tblPanelSetOrder pso " +
                 "join tblHPVTestOrder psoh on pso.ReportNo = psoh.ReportNo " +
