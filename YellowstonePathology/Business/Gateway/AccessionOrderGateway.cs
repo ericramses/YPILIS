@@ -1446,7 +1446,7 @@ namespace YellowstonePathology.Business.Gateway
 
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "select pso.masterAccessionNo, pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, " +
+            cmd.CommandText = "select pso.MasterAccessionNo, pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, " +
                 "a.PFirstName, pso.AcceptedTime, pso.FinalTime, null as Result, ngct.NeisseriaGonorrhoeaeResult, " +
                 "ngct.ChlamydiaTrachomatisResult, pso.HoldDistribution " +
                 "from tblPanelSetOrder pso " +
