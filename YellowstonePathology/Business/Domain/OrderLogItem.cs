@@ -7,8 +7,7 @@ using System.Xml.Serialization;
 using YellowstonePathology.Business.Persistence;
 
 namespace YellowstonePathology.Business.Domain
-{
-	[PersistentClass(false, "", "YPIDATA")]
+{	
 	public class OrderLogItem
 	{
 		private string m_ReportNo;

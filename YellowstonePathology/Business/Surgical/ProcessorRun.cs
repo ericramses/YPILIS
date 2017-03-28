@@ -6,10 +6,10 @@ using System.Text;
 namespace YellowstonePathology.Business.Surgical
 {
     public class ProcessorRun
-    {        
+    {
         protected string m_Name;
         protected Nullable<DateTime> m_StartTime;
-        protected TimeSpan m_FixationDuration;        
+        protected TimeSpan m_FixationDuration;
 
         public ProcessorRun()
         {
@@ -17,11 +17,11 @@ namespace YellowstonePathology.Business.Surgical
         }
 
         public ProcessorRun(string name, Nullable<DateTime> startTime, TimeSpan fixationDuration)
-        {     
+        {
             this.m_Name = name;
             this.m_StartTime = startTime;
             this.m_FixationDuration = fixationDuration;
-        }             
+        }
 
         public Business.Rules.MethodResult FixationDurationIsOk()
         {
@@ -66,17 +66,17 @@ namespace YellowstonePathology.Business.Surgical
             }
 
             return result;
-        }        
+        }
 
         public DateTime GetFixationEndTime(DateTime fixationStartTime)
-        {                        
+        {
             return this.m_StartTime.Value.Add(this.m_FixationDuration);
-        }                            
+        }
 
         public string Name
         {
             get { return this.m_Name; }
-            set { this.m_Name = value;}
+            set { this.m_Name = value; }
         }
 
         public Nullable<DateTime> StartTime
@@ -89,6 +89,6 @@ namespace YellowstonePathology.Business.Surgical
         {
             get { return this.m_FixationDuration; }
             set { this.m_FixationDuration = value; }
-        }       
+        }
     }
 }
