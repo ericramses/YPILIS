@@ -242,9 +242,9 @@ namespace YellowstonePathology.Business.Persistence
             lock (locker)
             {
                 string hostName = Environment.MachineName;
-                MySqlCommand cmd = new MySqlCommand("Select * from tblUserPreference where tblUserPreference.HostName = HostName;");
+                MySqlCommand cmd = new MySqlCommand("Select * from tblUserPreference where tblUserPreference.HostName = @HostName;");
                 cmd.CommandType = System.Data.CommandType.Text;
-                cmd.Parameters.AddWithValue("HostName", hostName);
+                cmd.Parameters.AddWithValue("@HostName", hostName);
                 GenericDocumentBuilder builder = new GenericDocumentBuilder(cmd, typeof(YellowstonePathology.Business.User.UserPreference));
 
                 DocumentId documentId = new DocumentId(typeof(YellowstonePathology.Business.User.UserPreference), writer, hostName);
