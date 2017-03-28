@@ -1913,7 +1913,7 @@ namespace YellowstonePathology.Business.Gateway
 			YellowstonePathology.Business.Task.Model.TaskOrderCollection result = new YellowstonePathology.Business.Task.Model.TaskOrderCollection();
             string sql = "Select * from tblTaskOrder where AcknowledgementType = 'Daily' " +
 	            "and Acknowledged = 0 " +
-	            "and TaskDate <= curDate() order by TaskDate desc;";
+	            "and TaskDate <= curdate() order by TaskDate desc;";
             MySqlCommand cmd = new MySqlCommand(sql);	
 			cmd.CommandType = CommandType.Text;
 			//cmd.Parameters.AddWithValue("AcknowledgementType", Task.Model.TaskAcknowledgementType.Daily);
@@ -2183,7 +2183,7 @@ namespace YellowstonePathology.Business.Gateway
 				"join tblAliquotOrder ao on s.AliquotOrderId = ao.AliquotOrderId " +
 				"join tblSpecimenOrder so on ao.SpecimenOrderId = so.SpecimenOrderId " +
 				"join tblAccessionOrder a on so.MasterAccessionNo = a.MasterAccessionNo " +
-				"where s.SlideOrderid = @SlideOrderId ;";
+				"where s.SlideOrderId = @SlideOrderId ;";
 			cmd.CommandType = CommandType.Text;
 			cmd.Parameters.AddWithValue("@SlideOrderId", slideOrderId);
 
@@ -2246,7 +2246,7 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.CommandText = "Select pso.ReportNo, ao.AccessionTime, cpo.ScreeningType, cpo.ScreenedByName, " +
                 "su1.DisplayName AssignedToName, po.AcceptedTime ScreeningFinalTime, pso.FinalTime CaseFinalTime, " +
                 "ao.ClientName, ao.PhysicianName ProviderName, pso.Final,  " +
-				"(Select count(*) from tblPanelOrder where Reportno = pso.ReportNo) as ScreeningCount " +
+				"(Select count(*) from tblPanelOrder where ReportNo = pso.ReportNo) as ScreeningCount " +
 				"from tblAccessionOrder ao join tblPanelSetOrder pso on ao.MasterAccessionNo = pso.MasterAccessionNo " +
 				"join tblPanelOrder po on pso.ReportNo = po.ReportNo " +
 				"join tblPanelOrderCytology cpo on po.PanelOrderId = cpo.PanelORderId " +
@@ -2284,7 +2284,7 @@ namespace YellowstonePathology.Business.Gateway
 				"from tblPanelSetOrder pso " +
 				"join tblAccessionOrder ao on pso.MasterAccessionNo = ao.MasterAccessionNo	" +
 				"join tblSystemUser su on pso.AssignedToId = su.UserId " +
-				"where final = 0 and panelSetId <> 212 " +  //Will not show Missing Information Tests!
+				"where Final = 0 and panelSetId <> 212 " +  //Will not show Missing Information Tests!
 				"order by ExpectedFinalTime;";
 			cmd.CommandType = CommandType.Text;
 
@@ -2393,7 +2393,7 @@ namespace YellowstonePathology.Business.Gateway
 		{
 			YellowstonePathology.Business.Domain.ImmunoComment result = null;
 			MySqlCommand cmd = new MySqlCommand();
-			cmd.CommandText = "SELECT * from tblImmunoComment where tblImmunoComment.immunocommentid = @ImmunoCommentId;";
+			cmd.CommandText = "SELECT * from tblImmunoComment where tblImmunoComment.ImmunoCommentId = @ImmunoCommentId;";
 			cmd.CommandType = System.Data.CommandType.Text;
 			cmd.Parameters.AddWithValue("@ImmunoCommentId", immunoCommentId);
 
@@ -2753,8 +2753,8 @@ namespace YellowstonePathology.Business.Gateway
                 "from tblAmendment a " +
                 "join tblTestOrderReportDistribution trd on a.ReportNo = trd.ReportNo " +
                 "join tblPanelSetOrder pso on trd.ReportNo = pso.ReportNo " +
-                "where trd.TimeOfLastDistribution < a.finalTime and trd.ScheduledDistributionTime is null and " +
-                "a.finalTime < date_Add(now(), Interval -15 Minute) and a.DistributeOnFinal = 1 ;";
+                "where trd.TimeOfLastDistribution < a.FinalTime and trd.ScheduledDistributionTime is null and " +
+                "a.FinalTime < date_Add(now(), Interval -15 Minute) and a.DistributeOnFinal = 1 ;";
 
             cmd.CommandType = CommandType.Text;
             using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
@@ -2780,7 +2780,7 @@ namespace YellowstonePathology.Business.Gateway
             MySqlCommand cmd = new MySqlCommand();
             //cmd.CommandText = "Select distinct MasterAccessionNo from tblPanelSetOrder pso where final = 1 and distribute = 1 and not exists (Select * from tblTestOrderReportDistribution where reportNo = pso.ReportNo)";
             cmd.CommandText = "Select distinct MasterAccessionNo from tblPanelSetOrder pso where final = 1 and " +
-                "pso.finalTime < date_Add(Now(), Interval -15 Minute) and distribute = 1 and not exists " +
+                "pso.FinalTime < date_Add(Now(), Interval -15 Minute) and distribute = 1 and not exists " +
                 "(Select * from tblTestOrderReportDistribution where ReportNo = pso.ReportNo);";
             cmd.CommandType = CommandType.Text;
             MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString);       
@@ -2826,7 +2826,7 @@ namespace YellowstonePathology.Business.Gateway
             cmd.CommandText = "Select distinct pso.MasterAccessionNo from tblTestOrderReportDistribution tor " +
                 "join tblPanelSetOrder pso on tor.ReportNo = pso.ReportNo " +
                 "where tor.Distributed = 0 and tor.ScheduledDistributionTime is null and pso.Final = 1 and " +
-                "pso.finalTime < date_Add(now(), Interval -15 Minute) and pso.Distribute = 1 and pso.HoldDistribution = 0;";
+                "pso.FinalTime < date_Add(now(), Interval -15 Minute) and pso.Distribute = 1 and pso.HoldDistribution = 0;";
 
             cmd.CommandType = CommandType.Text;
             using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
@@ -2851,7 +2851,7 @@ namespace YellowstonePathology.Business.Gateway
 
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = "Select Distinct MasterAccessionNo from tblPanelSetOrder pso where pso.Final = 1 and " +
-                "pso.finalTime < date_Add(now(), Interval -15 Minute) and pso.ScheduledPublishTime is null and pso.Published = 0;";
+                "pso.FinalTime < date_Add(now(), Interval -15 Minute) and pso.ScheduledPublishTime is null and pso.Published = 0;";
 
             cmd.CommandType = CommandType.Text;
             using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
