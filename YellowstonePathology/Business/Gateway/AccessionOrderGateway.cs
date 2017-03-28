@@ -80,7 +80,7 @@ namespace YellowstonePathology.Business.Gateway
                 "join tblPanelSetOrder pso on ao.MasterAccessionNo = pso.MasterAccessionNo " +
                 "join tblSpecimenOrder so on ao.MasterAccessionno = so.MasterAccessionNo " +
                 "join tblAliquotOrder a on so.SpecimenOrderId = a.SpecimenOrderId " +
-                "where ao.AccessionDate = @AccessionDate and a.aliquotType = 'Block' and a.embeddingVerified = 0 and a.ClientAccessioned = 0;";                
+                "where ao.AccessionDate = @AccessionDate and a.AliquotType = 'Block' and a.EmbeddingVerified = 0 and a.ClientAccessioned = 0;";                
 
             cmd.CommandType = CommandType.Text;
             cmd.Parameters.AddWithValue("@AccessionDate", accessionDate); 
@@ -109,7 +109,7 @@ namespace YellowstonePathology.Business.Gateway
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = "select a.*, null as TestOrderId " +
                 "from tblAccessionOrder ao " +
-                "join tblSpecimenOrder s on ao.MasterAccessionNo = s.masterAccessionNo " +
+                "join tblSpecimenOrder s on ao.MasterAccessionNo = s.MasterAccessionNo " +
                 "join tblAliquotOrder a on s.SpecimenOrderId = a.SpecimenOrderId " +
                 "where a.EmbeddingVerifiedDate between @EmbeddingVerifiedDate and @EmbeddingVerifiedDatePlus1 " +
                 "order by a.EmbeddingVerifiedDate desc;";
@@ -191,7 +191,7 @@ namespace YellowstonePathology.Business.Gateway
             YellowstonePathology.Business.Specimen.Model.SpecimenOrderCollection result = new Specimen.Model.SpecimenOrderCollection();
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = "Select s.* from tblSpecimenOrder s " +
-                "where exists(select * from tblAliquotOrder where specimenOrderId = s.SpecimenOrderId and " +
+                "where exists(select * from tblAliquotOrder where SpecimenOrderId = s.SpecimenOrderId and " +
                 "tblAliquotOrder.EmbeddingVerifiedDate between @EmbeddingVerifiedDate and @EmbeddingVerifiedDatePlus1);";
             cmd.Parameters.AddWithValue("@EmbeddingVerifiedDate", embeddingVerifiedDate);
             cmd.Parameters.AddWithValue("@EmbeddingVerifiedDatePlus1", embeddingVerifiedDate.AddDays(1));
@@ -327,7 +327,7 @@ namespace YellowstonePathology.Business.Gateway
         public static void SetPanelSetOrderAsCancelledTest(string reportNo)
 		{
 			MySqlCommand cmd = new MySqlCommand();
-			cmd.CommandText = "Update tblPanelSetOrder set PanelSetid = 66, panelSetName = 'Test Cancelled', CaseType = 'Test Cancelled' " +
+			cmd.CommandText = "Update tblPanelSetOrder set PanelSetid = 66, PanelSetName = 'Test Cancelled', CaseType = 'Test Cancelled' " +
                 "where tblPanelSetOrder.Reportno = @ReportNo;";
 			cmd.Parameters.AddWithValue("@ReportNo", reportNo);
 			cmd.CommandType = CommandType.Text;
@@ -413,10 +413,10 @@ namespace YellowstonePathology.Business.Gateway
 		{
 			List<YellowstonePathology.Business.Test.PanelSetOrderView> result = new List<Test.PanelSetOrderView>();
 			MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "Select * from tblPanelSetOrder pso where pso.Final = 1 and pso.finalTime < date_Add(Now(), Interval -15 Minute) " +
+            cmd.CommandText = "Select * from tblPanelSetOrder pso where pso.Final = 1 and pso.FinalTime < date_Add(Now(), Interval -15 Minute) " +
                 "and pso.ScheduledPublishTime <= Now() union " +
                 "Select pso.* from tblPanelSetOrder pso join tblTestOrderReportDistribution trd on pso.ReportNo = trd.ReportNo " +
-                "where pso.Final = 1 and pso.finalTime < date_Add(Now(), Interval -15, Minute) and trd.ScheduledDistributionTime <= Now() " +
+                "where pso.Final = 1 and pso.FinalTime < date_Add(Now(), Interval -15, Minute) and trd.ScheduledDistributionTime <= Now() " +
                 "and pso.Distribute = 1;";
 			cmd.CommandType = CommandType.Text;
 
@@ -524,7 +524,7 @@ namespace YellowstonePathology.Business.Gateway
             cmd.CommandText = "select trd.* " +
                 "from tblAmendment a " +
 		        "join tblTestOrderReportDistribution trd on a.ReportNo = trd.ReportNo " +
-		        "where trd.TimeOfLastDistribution < a.finalTime and trd.ScheduledDistributionTime is null;";
+		        "where trd.TimeOfLastDistribution < a.FinalTime and trd.ScheduledDistributionTime is null;";
             cmd.CommandType = CommandType.Text;
 
             using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
@@ -938,12 +938,12 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.CommandText = "select pso.ReportNo, ao.AccessionDate, ao.PFirstName + ' ' + ao.PLastName AS PatientName, pso.AcceptedDate, " +
                 "pso.FinalDate, null AS Pathologist, null AS PathologistId, pso.Audited " +
                 "from tblAccessionOrder ao " +
-                "join tblPanelSetOrder pso on ao.masterAccessionno = pso.masterAccessionno " +
+                "join tblPanelSetOrder pso on ao.MasterAccessionNo = pso.MasterAccessionNo " +
                 "where pso.PanelSetId = 13 and pso.AssignedToId = 0 " +
                 "and 0 < (select count(*) from tblAliquotOrder al " +
-                "join tblSpecimenOrder s on al.SpecimenOrderId = s.SpecimenOrderid " +
-                "join tblAccessionOrder acc on s.masterAccessionNo = acc.MasterAccessionNo " +
-                "where acc.MasteraccessionNo = ao.MasterAccessionNo and al.EmbeddingVerified = 1 " +
+                "join tblSpecimenOrder s on al.SpecimenOrderId = s.SpecimenOrderId " +
+                "join tblAccessionOrder acc on s.MasterAccessionNo = acc.MasterAccessionNo " +
+                "where acc.MasterAccessionNo = ao.MasterAccessionNo and al.EmbeddingVerified = 1 " +
                 "and al.EmbeddingVerifiedDate <= now())";
 
             cmd.CommandType = CommandType.Text;
@@ -1642,7 +1642,7 @@ namespace YellowstonePathology.Business.Gateway
 
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "select pso.MasterAccessionno, pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, " +
+            cmd.CommandText = "select pso.MasterAccessionNo, pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, " +
                 "a.PFirstName, pso.AcceptedTime, pso.FinalTime, null as Result, t.Result, null, pso.HoldDistribution " +
                 "from tblPanelSetOrder pso " +
                 "join tblTrichomonasTestOrder t on pso.ReportNo = t.ReportNo " +
@@ -1677,9 +1677,9 @@ namespace YellowstonePathology.Business.Gateway
             cmd.CommandText = "select a.MasterAccessionNo, pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, a.PFirstName, pso.AcceptedTime, pso.FinalTime, null as Result, null, null, pso.HoldDistribution " +
                 "from tblPanelSetOrder pso " +
                 "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " + 
-                "where accepted = 0 and panelsetid in (14, 62, 61, 3) " +
+                "where Accepted = 0 and PanelSetId in (14, 62, 61, 3) " +
                 "and exists(select null from tblPanelSetOrder pso2 " +
-                "where masterAccessionNo = pso.MasterAccessionNo and panelSetId <> pso.PanelSetId and panelSetId in (14, 62, 61, 3) " +
+                "where MasterAccessionNo = pso.MasterAccessionNo and PanelSetId <> pso.PanelSetId and panelSetId in (14, 62, 61, 3) " +
                 "and pso2.Accepted = 1) order by pso.OrderTime";
 
             using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
