@@ -534,7 +534,7 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.CommandText = "Select pp.PhysicianClientId, c.ClientId, c.ClientName, ph.PhysicianId, ph.ObjectId ProviderId, " +
                 "ph.DisplayName PhysicianName, c.DistributionType, c.Fax FaxNumber, c.Telephone, c.LongDistance, c.FacilityType, ph.NPI " +
 				 "from tblClient c " +
-				 "join tblPhysicianClient pp on c.clientid = pp.clientid " +
+				 "join tblPhysicianClient pp on c.ClientId = pp.ClientId " +
 				 "Join tblPhysician ph on pp.ProviderId = ph.ObjectId " +
 				 "where ph.LastName like concat(@LastName, '%') order by ph.LastName, ph.FirstName, c.ClientName;";
 			cmd.CommandType = CommandType.Text;
@@ -565,7 +565,7 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.CommandText = "Select pp.PhysicianClientId, c.ClientId, c.ClientName, ph.PhysicianId, ph.ObjectId ProviderId, " +
                 "ph.DisplayName PhysicianName, c.DistributionType, c.Fax FaxNumber, c.Telephone, c.LongDistance, c.FacilityType, ph.NPI " +
 				 "from tblClient c " +
-				 "join tblPhysicianClient pp on c.clientid = pp.clientid " +
+				 "join tblPhysicianClient pp on c.ClientId = pp.ClientId " +
 				 "Join tblPhysician ph on pp.ProviderId = ph.ObjectId " +
 				 "where c.ClientName like concat(@ClientName, '%') and ph.LastName like concat(@PhysicianLastName, '%') order by " +
                  "ph.LastName, ph.FirstName, c.ClientName;";
@@ -598,7 +598,7 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.CommandText = "Select pp.PhysicianClientId, c.ClientId, c.ClientName, ph.PhysicianId, ph.ObjectId ProviderId, " +
                 "ph.DisplayName PhysicianName, c.FacilityType, c.DistributionType, c.Fax FaxNumber, c.Telephone, c.LongDistance, ph.NPI " +
 				 "from tblClient c " +
-				 "join tblPhysicianClient pp on c.clientid = pp.clientid " +
+				 "join tblPhysicianClient pp on c.ClientId = pp.ClientId " +
 				 "Join tblPhysician ph on pp.ProviderId = ph.ObjectId " +
 				 "where c.ClientId = @ClientId order by ph.LastName, ph.FirstName, c.ClientName;";
 			cmd.CommandType = CommandType.Text;
@@ -629,7 +629,7 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.CommandText = "Select c.ClientId, c.ClientName, ph.PhysicianId, ph.DisplayName PhysicianName, c.DistributionType, " +
                 "c.Fax FaxNumber, c.LongDistance " +
 				 "from tblClient c " +
-				 "join tblPhysicianClient pp on c.clientid = pp.clientid " +
+				 "join tblPhysicianClient pp on c.ClientId = pp.ClientId " +
 				 "Join tblPhysician ph on pp.ProviderId = ph.ObjectId " +
 				 "where c.ClientId = @ClientId order by ph.LastName, ph.FirstName, c.ClientName;";
 			cmd.CommandType = CommandType.Text;
@@ -660,7 +660,7 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.CommandText = "Select c.ClientId, c.ClientName, ph.PhysicianId, ph.DisplayName PhysicianName, c.DistributionType, " +
                 "c.Fax FaxNumber, c.LongDistance " +
 				 "from tblClient c " +
-				 "join tblPhysicianClient pp on c.clientid = pp.clientid " +
+				 "join tblPhysicianClient pp on c.ClientId = pp.ClientId " +
 				 "Join tblPhysician ph on pp.ProviderId = ph.ObjectId " +
 				 "where c.ClientName like concat(@ClientName, '%') and ph.LastName like concat(@PhysicianLastName, '%') " +
                  "order by ph.LastName, ph.FirstName, c.ClientName;";
@@ -693,7 +693,7 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.CommandText = "Select c.ClientId, c.ClientName, ph.PhysicianId, ph.DisplayName PhysicianName, c.DistributionType, " +
                 "c.Fax FaxNumber, c.LongDistance " +
 				 "from tblClient c " +
-				 "join tblPhysicianClient pp on c.clientid = pp.clientid " +
+				 "join tblPhysicianClient pp on c.ClientId = pp.ClientId " +
 				 "Join tblPhysician ph on pp.ProviderId = ph.ObjectId " +
 				 "where ph.FirstName like concat(@FirstName, '%') and ph.LastName like concat(@LastName, '%') order by " +
                  "ph.LastName, ph.FirstName, c.ClientName;";
@@ -726,7 +726,7 @@ namespace YellowstonePathology.Business.Gateway
 			cmd.CommandText = "Select c.ClientId, c.ClientName, ph.PhysicianId, ph.DisplayName PhysicianName, c.DistributionType, " +
                 "c.Fax FaxNumber, c.LongDistance " +
 				 "from tblClient c " +
-				 "join tblPhysicianClient pp on c.clientid = pp.clientid " +
+				 "join tblPhysicianClient pp on c.ClientId = pp.ClientId " +
 				 "Join tblPhysician ph on pp.ProviderId = ph.ObjectId " +
 				 "where ph.LastName like concat(@LastName, '%') order by ph.LastName, ph.FirstName, c.ClientName;";
 			cmd.CommandType = CommandType.Text;
@@ -914,7 +914,7 @@ namespace YellowstonePathology.Business.Gateway
 		{
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = "SELECT * from tblClientSupplyOrder where tblClientSupplyOrder.ClientId = @ClientId order by OrderDate desc; " +
-                "Select * from tblClientSupplyOrderDetail where clientSupplyOrderId in (SELECT clientSupplyOrderId from " +
+                "Select * from tblClientSupplyOrderDetail where ClientSupplyOrderId in (SELECT ClientSupplyOrderId from " +
                 "tblClientSupplyOrder where tblClientSupplyOrder.ClientId = @ClientId) order by ClientSupplyOrderDetailId;";
             cmd.CommandType = CommandType.Text;
             cmd.Parameters.AddWithValue("@ClientId", clientId);
@@ -965,7 +965,7 @@ namespace YellowstonePathology.Business.Gateway
         {
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = "SELECT * from tblClientSupplyOrder where OrderDate >= date_add(curdate(), Interval -3 Month) order by OrderDate desc; " +
-                "Select * from tblClientSupplyOrderDetail where clientSupplyOrderId in(SELECT clientSupplyOrderId from " +
+                "Select * from tblClientSupplyOrderDetail where ClientSupplyOrderId in(SELECT ClientSupplyOrderId from " +
                 "tblClientSupplyOrder where OrderDate >= date_add(curdate(), Interval -3 Month));";
             cmd.CommandType = CommandType.Text;
             YellowstonePathology.Business.Client.Model.ClientSupplyOrderCollection result = BuildClientSupplyOrderCollection(cmd);
@@ -977,7 +977,7 @@ namespace YellowstonePathology.Business.Gateway
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = "SELECT * from tblClientSupplyOrder where OrderDate >= date_add(curdate(), Interval -3 Month) and " +
                 "OrderFinal = @Final order by OrderDate desc; " +
-                "Select * from tblClientSupplyOrderDetail cd where cd.clientSupplyOrderId in(SELECT ClientSupplyOrderId from " +
+                "Select * from tblClientSupplyOrderDetail cd where cd.ClientSupplyOrderId in(SELECT ClientSupplyOrderId from " +
                 "tblClientSupplyOrder where OrderDate >= date_add(curdate(), Interval -3 Month) and OrderFinal = @Final);";
             cmd.CommandType = CommandType.Text;
             cmd.Parameters.AddWithValue("@Final", final);
