@@ -965,7 +965,7 @@ namespace YellowstonePathology.Business.Gateway
         {
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = "SELECT * from tblClientSupplyOrder where OrderDate >= date_add(curdate(), Interval -3 Month) order by OrderDate desc; " +
-                "Select * from tblClientSupplyOrderDetail where clientSupplyOrderId in(SELECT clientSupplyOrderId from " +
+                "Select * from tblClientSupplyOrderDetail where ClientSupplyOrderId in(SELECT ClientSupplyOrderId from " +
                 "tblClientSupplyOrder where OrderDate >= date_add(curdate(), Interval -3 Month));";
             cmd.CommandType = CommandType.Text;
             YellowstonePathology.Business.Client.Model.ClientSupplyOrderCollection result = BuildClientSupplyOrderCollection(cmd);
@@ -977,7 +977,7 @@ namespace YellowstonePathology.Business.Gateway
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = "SELECT * from tblClientSupplyOrder where OrderDate >= date_add(curdate(), Interval -3 Month) and " +
                 "OrderFinal = @Final order by OrderDate desc; " +
-                "Select * from tblClientSupplyOrderDetail cd where cd.clientSupplyOrderId in(SELECT ClientSupplyOrderId from " +
+                "Select * from tblClientSupplyOrderDetail cd where cd.ClientSupplyOrderId in(SELECT ClientSupplyOrderId from " +
                 "tblClientSupplyOrder where OrderDate >= date_add(curdate(), Interval -3 Month) and OrderFinal = @Final);";
             cmd.CommandType = CommandType.Text;
             cmd.Parameters.AddWithValue("@Final", final);
