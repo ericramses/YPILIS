@@ -46,7 +46,7 @@ namespace YellowstonePathology.Business.Gateway
 	            "join tblPhysicianClientDistribution pcd on pc.PhysicianClientId = pcd.PhysicianClientId " +
 	            "join tblPhysicianClient pc2 on pcd.DistributionId = pc2.PhysicianClientId " +
 	            "join tblClient c on pc2.ClientId = c.ClientId " +
-                "join tblPhysician ph on pc2.Physicianid = ph.PhysicianId " +
+                "join tblPhysician ph on pc2.PhysicianId = ph.PhysicianId " +
 	            "where pc.ClientId = @ClientId and pc.PhysicianId = @PhysicianId;";
 
             MySqlCommand cmd = new MySqlCommand();
