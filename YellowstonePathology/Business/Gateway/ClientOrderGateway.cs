@@ -388,7 +388,7 @@ namespace YellowstonePathology.Business.Gateway
             cmd.CommandText = "Select co.ClientOrderId " +
                 "from tblClientOrder co " +
                 "join tblClientOrderDetail cod on co.ClientOrderId = cod.ClientOrderId " +
-                "where cod.Containerid = @ContainerId;";
+                "where cod.ContainerId = @ContainerId;";
 
             cmd.Parameters.AddWithValue("@ContainerId", containerId);
             cmd.CommandType = System.Data.CommandType.Text;
