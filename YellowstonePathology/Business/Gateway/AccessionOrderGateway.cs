@@ -2317,8 +2317,8 @@ namespace YellowstonePathology.Business.Gateway
                 "join tblAccessionOrder ao on pso.MasterAccessionNo = ao.MasterAccessionNo	" +
                 "join tblMissingInformationTestOrder mit on pso.ReportNo = mit.ReportNo " +
                 "join tblSystemUser su on pso.AssignedToId = su.UserId " +
-                "where pso.PanelSetId = 212 and pso.Final = 0" +
-                "order by ExpectedFinalTime;";
+                "where pso.PanelSetId = 212 and pso.Final = 0 " +
+                "order by pso.ExpectedFinalTime;";
             cmd.CommandType = CommandType.Text;
 
             using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
