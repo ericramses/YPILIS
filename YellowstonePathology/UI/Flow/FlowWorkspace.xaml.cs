@@ -710,17 +710,20 @@ namespace YellowstonePathology.UI.Flow
 
         private void ButtonAuditComplete_Click(object sender, RoutedEventArgs e)
         {
-            if (this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.Audited == true)
+            if (this.listViewCaseFileList.SelectedItem != null)
             {
-                this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.Audited = false;
-                this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.AuditedDate = null;
-                this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.AuditedById = 0;
-            }
-            else
-            {
-                this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.Audited = true;
-                this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.AuditedDate = DateTime.Now;
-                this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.AuditedById = this.m_SystemIdentity.User.UserId;
+                if (this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.Audited == true)
+                {
+                    this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.Audited = false;
+                    this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.AuditedDate = null;
+                    this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.AuditedById = 0;
+                }
+                else
+                {
+                    this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.Audited = true;
+                    this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.AuditedDate = DateTime.Now;
+                    this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.AuditedById = this.m_SystemIdentity.User.UserId;
+                }
             }
         }
 
