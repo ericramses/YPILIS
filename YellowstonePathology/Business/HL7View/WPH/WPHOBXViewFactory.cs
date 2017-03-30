@@ -126,7 +126,7 @@ namespace YellowstonePathology.Business.HL7View.WPH
 					view = new YellowstonePathology.Business.Test.ChromosomeAnalysis.ChromosomeAnalysisWPHOBXView(accessionOrder, reportNo, obxCount);
 					break;
 				case 147:
-					//view = new YellowstonePathology.Business.Test.MultipleMyelomaMGUSByFish.MultipleMyelomaMGUSByFishWPHOBXView(accessionOrder, reportNo, obxCount);
+					view = new YellowstonePathology.Business.Test.MultipleMyelomaMGUSByFish.MultipleMyelomaMGUSByFishWPHOBXView(accessionOrder, reportNo, obxCount);
 					break;
 				case 148:
 					//view = new YellowstonePathology.Business.Test.CCNDIBCLIGHByFISH.CCNDIBCLIGHByFISHWPHOBXView(accessionOrder, reportNo, obxCount);
