@@ -117,9 +117,12 @@ namespace YellowstonePathology.MySQLMigration
             {
                 int si = sqlValue.Length;
                 int mi = myValue.Length;
-                sqlValue = sqlValue.Replace("\r\n", "\n");
-                si = sqlValue.Length;
-                mi = myValue.Length;
+                if (mi != si)
+                {
+                    sqlValue = sqlValue.Replace("\r\n", "\n");
+                    si = sqlValue.Length;
+                    mi = myValue.Length;
+                }
                 for (int idx = 0; idx < sqlValue.Length; idx++)
                 {
                     if (sqlValue[idx] != myValue[idx])
@@ -196,13 +199,13 @@ namespace YellowstonePathology.MySQLMigration
             {
                 compares = true;
             }
-            else if (sqlValue.Value != myValue.Value)
+            else if (myValue.Value != myValue.Value)
             {
                 compares = false;
             }
             if (compares == false)
             {
-                string value = sqlValue == null ? "null" : myValue.ToString();
+                string value = myValue == null ? "null" : myValue.ToString();
                 this.SetFieldValues(property.Name, value);
             }
         }
@@ -235,7 +238,7 @@ namespace YellowstonePathology.MySQLMigration
             }
             if (compares == false)
             {
-                string value = sqlValue == null ? "null" : myValue.ToString();
+                string value = myValue == null ? "null" : myValue.ToString();
                 this.SetFieldValues(property.Name, value);
             }
         }
@@ -288,7 +291,7 @@ namespace YellowstonePathology.MySQLMigration
             }
             if (compares == false)
             {
-                string value = sqlValue == null ? "null" : myValue.ToString();
+                string value = myValue == null ? "null" : myValue.ToString();
                 this.SetFieldValues(property.Name, value);
             }
         }
@@ -321,7 +324,7 @@ namespace YellowstonePathology.MySQLMigration
             }
             if (compares == false)
             {
-                string value = sqlValue == null ? "null" : myValue.ToString();
+                string value = myValue == null ? "null" : myValue.ToString();
                 this.SetFieldValues(property.Name, value);
             }
         }

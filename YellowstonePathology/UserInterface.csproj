@@ -1155,6 +1155,7 @@
     <Compile Include="Business\Test\LLP\LLPWPHOBXView.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult32.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult42.cs" />
+    <Compile Include="Business\Test\MultipleMyelomaMGUSByFish\MultipleMyelomaMGUSByFishWPHOBXView.cs" />
     <Compile Include="Business\Test\MUM1ByIHC\MUM1ByIHCTest.cs" />
     <Compile Include="Business\Test\NGCT\NGCTWPHOBXView.cs" />
     <Compile Include="Business\Test\PDL122C3\PDL122C3EpicObxView.cs" />
