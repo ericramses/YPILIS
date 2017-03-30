@@ -869,7 +869,7 @@ namespace YellowstonePathology.Business.Gateway
         {
             
             MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "delete tblClientGroupClient where tblClientGroupClient.ClientGroupId = @ClientGroupId and " +
+            cmd.CommandText = "delete from tblClientGroupClient where tblClientGroupClient.ClientGroupId = @ClientGroupId and " +
                 "tblClientGroupClient.ClientId = @ClientId;";
             cmd.CommandType = CommandType.Text;
             cmd.Parameters.AddWithValue("@ClientGroupId", clientGroupId);
