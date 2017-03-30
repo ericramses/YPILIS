@@ -108,10 +108,10 @@ namespace YellowstonePathology.UI.MySql
             Business.Rules.MethodResult overallResult = new Business.Rules.MethodResult();
             foreach (MySQLMigration.MigrationStatus migrationStatus in this.m_MigrationStatusCollection)
             {
-                if (/*migrationStatus.TableName == "tblSurgicalAudit" || migrationStatus.TableName == "tblSurgicalSpecimen" ||
-                    migrationStatus.TableName == "tblSurgicalSpecimenAudit" || */migrationStatus.TableName == "tblSurgicalTestOrder" /*||
+                if (migrationStatus.TableName == "tblSurgicalAudit" || migrationStatus.TableName == "tblSurgicalSpecimen" ||
+                    migrationStatus.TableName == "tblSurgicalSpecimenAudit" || migrationStatus.TableName == "tblSurgicalTestOrder" ||
                     migrationStatus.TableName == "tblGrossOnlyResult" || migrationStatus.TableName == "tblBCellEnumerationTestOrder" ||
-                    migrationStatus.TableName == "tblTCellNKProfileTestOrder" || migrationStatus.TableName == "tblTCellSubsetAnalysisTestOrder"*/)
+                    migrationStatus.TableName == "tblTCellNKProfileTestOrder" || migrationStatus.TableName == "tblTCellSubsetAnalysisTestOrder")
                 {
                     Business.Rules.MethodResult methodResult = m_SqlServerFromMySqlRefresher.CompareTables(migrationStatus);
                     if (methodResult.Success == false)
