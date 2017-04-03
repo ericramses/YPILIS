@@ -38,6 +38,20 @@ namespace YellowstonePathology.MySQLMigration
 
             foreach (string match in matchLike)
             {
+            /*List<string> keys = new List<string>();
+            keys.Add("S12-11376");
+            keys.Add("S12-13570");
+            keys.Add("S12-14515");
+            keys.Add("S12-17501");
+            keys.Add("S12-18105");
+            keys.Add("S12-19051");
+            keys.Add("S13-3173");
+            keys.Add("S13-4087");
+            keys.Add("S13-6045");
+            keys.Add("S13-6073");
+            keys.Add("S13-7880");
+            keys.Add("S13-8551");
+            keys.Add("15-8056.S");*/
                 List <string> keys = this.GetCompareDataKeyList(migrationStatus.TableName, migrationStatus.KeyFieldName, match);
                 if (keys.Count > 0)
                 {
