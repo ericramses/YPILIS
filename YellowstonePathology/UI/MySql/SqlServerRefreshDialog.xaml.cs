@@ -109,7 +109,7 @@ namespace YellowstonePathology.UI.MySql
             foreach (MySQLMigration.MigrationStatus migrationStatus in this.m_MigrationStatusCollection)
             {
                 if (/*migrationStatus.TableName == "tblSurgicalAudit" || migrationStatus.TableName == "tblSurgicalSpecimen" ||
-                    migrationStatus.TableName == "tblSurgicalSpecimenAudit" || */migrationStatus.TableName == "tblSurgicalTestOrder" /*||
+                    migrationStatus.TableName == "tblSurgicalSpecimenAudit" ||*/ migrationStatus.TableName == "tblSurgicalTestOrder" /*||
                     migrationStatus.TableName == "tblGrossOnlyResult" || migrationStatus.TableName == "tblBCellEnumerationTestOrder" ||
                     migrationStatus.TableName == "tblTCellNKProfileTestOrder" || migrationStatus.TableName == "tblTCellSubsetAnalysisTestOrder"*/)
                 {
