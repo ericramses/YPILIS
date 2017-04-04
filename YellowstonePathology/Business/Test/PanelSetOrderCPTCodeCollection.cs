@@ -426,6 +426,29 @@ namespace YellowstonePathology.Business.Test
             }
         }
 
+        public void SetCPTCodes(Business.Specimen.Model.SpecimenOrderCollection specimenOrderCollection, string reportNo, int clientId)
+        {
+            Business.Specimen.Model.SpecimenCollection skins = Business.Specimen.Model.SpecimenCollection.GetSkins();
+            foreach(Business.Specimen.Model.SpecimenOrder specimenOrder in specimenOrderCollection)
+            {
+                if(skins.Any(item => item.SpecimenId == specimenOrder.SpecimenId))
+                {
+                    if (this.Exists("88305", 1) == false)
+                    {
+                        YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88305 cpt88305 = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88305();
+                        YellowstonePathology.Business.Test.PanelSetOrderCPTCode panelSetOrderCPTCode = this.GetNextItem(reportNo);
+                        panelSetOrderCPTCode.Quantity = 1;
+                        panelSetOrderCPTCode.CPTCode = cpt88305.Code;
+                        panelSetOrderCPTCode.CodeType = cpt88305.CodeType.ToString();                        
+                        panelSetOrderCPTCode.EntryType = YellowstonePathology.Business.Billing.Model.PanelSetOrderCPTCodeEntryType.SystemGenerated;
+                        panelSetOrderCPTCode.SpecimenOrderId = specimenOrder.SpecimenOrderId;
+                        panelSetOrderCPTCode.ClientId = clientId;
+                        this.Add(panelSetOrderCPTCode);
+                    }
+                }
+            }
+        }
+
         public void RemoveDeleted(DataTable dataTable)
         {
             for (int i = this.Count - 1; i > -1; i--)
