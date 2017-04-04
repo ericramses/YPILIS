@@ -294,7 +294,7 @@ namespace YellowstonePathology.Business.Gateway
 		public static YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection GetMaterialTrackingLogCollectionByMaterialId(string materialId)
 		{
 			MySqlCommand cmd = new MySqlCommand();
-			cmd.CommandText = "Select * from tblMaterialTrackingLog wheretblMaterialTrackingLog. MaterialId = @MaterialId;";
+			cmd.CommandText = "Select * from tblMaterialTrackingLog where tblMaterialTrackingLog. MaterialId = @MaterialId;";
 			cmd.CommandType = System.Data.CommandType.Text;
 			cmd.Parameters.AddWithValue("@MaterialId", materialId);
 			return BuildMaterialTrackingLogCollection(cmd);
@@ -558,7 +558,7 @@ namespace YellowstonePathology.Business.Gateway
 			MySqlCommand cmd = new MySqlCommand();           
 			cmd.CommandText = "Select Distinct ao.MasterAccessionNo from tblAccessionOrder ao " + 
 				"join tblSpecimenOrder so on ao.MasterAccessionNo = so.MasterAccessionNo " + 
-				"join tblAliquotOrder a on so.specimenOrderId = a.SpecimenOrderId " + 
+				"join tblAliquotOrder a on so.SpecimenOrderId = a.SpecimenOrderId " + 
 				"join tblSlideOrder asl on a.AliquotOrderId = asl.AliquotOrderId " + 
 				"join tblMaterialTrackingLog astl on asl.SlideOrderId = astl.MaterialId " +
                 "where astl.MaterialTrackingBatchId = @BatchId;";
