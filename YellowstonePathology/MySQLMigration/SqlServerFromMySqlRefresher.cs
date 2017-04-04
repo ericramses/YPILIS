@@ -38,7 +38,7 @@ namespace YellowstonePathology.MySQLMigration
 
             foreach (string match in matchLike)
             {
-                List<string> keys = this.GetCompareDataKeyList(migrationStatus.TableName, migrationStatus.KeyFieldName, match);
+                List <string> keys = this.GetCompareDataKeyList(migrationStatus.TableName, migrationStatus.KeyFieldName, match);
                 if (keys.Count > 0)
                 {
                     List<string> updateCommands = new List<string>();
