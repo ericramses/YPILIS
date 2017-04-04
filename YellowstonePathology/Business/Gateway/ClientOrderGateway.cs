@@ -587,7 +587,7 @@ namespace YellowstonePathology.Business.Gateway
 				{
 					while (dr.Read())
 					{
-						int count = (int)dr[0];
+						int count = Convert.ToInt32(dr[0]);
 						if (count > 0)
 						{
 							result.Found = true;
