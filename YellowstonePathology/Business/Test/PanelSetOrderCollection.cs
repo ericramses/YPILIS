@@ -324,7 +324,7 @@ namespace YellowstonePathology.Business.Test
             return result;
         }
 
-        public bool HasUnfinaledPeerReview()
+        public bool HasUnfinaledProspectiveReview()
         {
             bool result = false;            
             foreach (YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder in this)

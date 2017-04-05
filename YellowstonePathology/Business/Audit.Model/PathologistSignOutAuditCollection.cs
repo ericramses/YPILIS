@@ -21,7 +21,7 @@ namespace YellowstonePathology.Business.Audit.Model
             this.Add(new CaseHasNotFoundClientAudit(accessionOrder));
             this.Add(new CaseHasNotFoundProviderAudit(accessionOrder));
             this.Add(new DistributionCanBeSetAudit(accessionOrder));
-            this.Add(new CaseHasUnfinaledPeerReviewAudit(accessionOrder));
+            this.Add(new CaseHasUnfinaledProspectiveReviewAudit(accessionOrder));
             this.Add(new GradedStainsAreHandledAudit(surgicalTestOrder));
             this.Add(new IntraoperativeConsultationCorrelationAudit(surgicalTestOrder));
             this.Add(new PapCorrelationIsRequiredAudit(accessionOrder));
@@ -49,7 +49,7 @@ namespace YellowstonePathology.Business.Audit.Model
                     audit.GetType() == typeof(CaseHasNotFoundClientAudit) ||
                     audit.GetType() == typeof(CaseHasNotFoundProviderAudit) ||
                     audit.GetType() == typeof(DistributionCanBeSetAudit) ||
-                    audit.GetType() == typeof(CaseHasUnfinaledPeerReviewAudit) ||
+                    audit.GetType() == typeof(CaseHasUnfinaledProspectiveReviewAudit) ||
                     audit.GetType() == typeof(GradedStainsAreHandledAudit) ||
                     audit.GetType() == typeof(IntraoperativeConsultationCorrelationAudit))
                 {
