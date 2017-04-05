@@ -269,12 +269,19 @@ namespace YellowstonePathology.Business.Flow
 
         public int CountOfBillableMarkers()
         {
-            int result = 0;            
+            int result = 0;
+
+            List<string> markerNames = new List<string>();
             foreach (FlowMarkerItem flowMarker in this)
             {
                 if (flowMarker.MarkerUsed == true)
                 {
-                    result++;
+                    Console.WriteLine(flowMarker.Name);
+                    if(!markerNames.Contains(flowMarker.Name))
+                    {
+                        markerNames.Add(flowMarker.Name);
+                        result++;
+                    }                    
                 }
             }
 

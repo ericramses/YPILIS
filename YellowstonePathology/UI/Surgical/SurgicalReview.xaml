@@ -451,6 +451,11 @@
 							<TextBlock VerticalAlignment="Center" Margin="2">Reassign Case</TextBlock>
 						</StackPanel>
 					</Button>
+                    <Button ToolTip="Set CPT COdes" Click="ButtonSetCPTCodes_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock VerticalAlignment="Center" Margin="2">CPT Codes</TextBlock>
+                        </StackPanel>
+                    </Button>
                 </ToolBar>
 			</ToolBarTray>
 

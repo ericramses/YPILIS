@@ -15,8 +15,7 @@ namespace YellowstonePathology.Business.Test.TestCancelled
             this.m_HasTechnicalComponent = false;                        
             this.m_HasProfessionalComponent = false;
             this.m_CaseType = YellowstonePathology.Business.CaseType.TestCancelled;
-			this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase;
-
+			this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase;            
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.TestCancelled.TestCancelledTestOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.TestCancelled.TestCancelledWordDocument).AssemblyQualifiedName;
 			this.m_AllowMultiplePerAccession = true;
