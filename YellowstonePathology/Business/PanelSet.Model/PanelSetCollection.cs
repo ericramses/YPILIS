@@ -200,7 +200,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetNonGYNCytology());
 			panelSetCollection.Add(new YellowstonePathology.Business.Test.FactorVLeiden.FactorVLeidenTest());
 			panelSetCollection.Add(new YellowstonePathology.Business.Test.Prothrombin.ProthrombinTest());
-            panelSetCollection.Add(new YellowstonePathology.Business.Test.PeerReview.PeerReviewTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.ProspectiveReview.ProspectiveReviewTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.IHCQC.IHCQCTest());
 			panelSetCollection.Add(new YellowstonePathology.Business.Test.ReviewForAdditionalTesting.ReviewForAdditionalTestingTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.HoldForFlow.HoldForFlowTest());

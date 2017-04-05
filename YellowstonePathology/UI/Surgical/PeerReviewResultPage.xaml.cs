@@ -23,20 +23,20 @@ namespace YellowstonePathology.UI.Surgical
         private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;		
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private string m_PageHeaderText;
-        private ObservableCollection<YellowstonePathology.Business.Test.PeerReview.PeerReviewTestOrder> m_PeerReviewTestOrderCollection;
+        private ObservableCollection<YellowstonePathology.Business.Test.ProspectiveReview.ProspectiveReviewTestOrder> m_ProspectiveReviewTestOrderCollection;
         private YellowstonePathology.Business.User.SystemUserCollection m_PathologistUsers;
-        private YellowstonePathology.Business.Test.PeerReview.PeerReviewTypeCollection m_PeerReviewTypeCollection;
+        private YellowstonePathology.Business.Test.ProspectiveReview.ProspectiveReviewTypeCollection m_ProspectiveReviewTypeCollection;
 
         public PeerReviewResultPage(YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
-            this.m_PeerReviewTypeCollection = new YellowstonePathology.Business.Test.PeerReview.PeerReviewTypeCollection();                        
+            this.m_ProspectiveReviewTypeCollection = new YellowstonePathology.Business.Test.ProspectiveReview.ProspectiveReviewTypeCollection();                        
 
             this.m_PanelSetOrder = panelSetOrder;
 			this.m_AccessionOrder = accessionOrder;            			
 
 			this.m_PageHeaderText = "Peer Review for: " + this.m_AccessionOrder.PatientDisplayName;
-            this.m_PeerReviewTestOrderCollection = this.m_AccessionOrder.PanelSetOrderCollection.GetPeerReviewCollection();
+            this.m_ProspectiveReviewTestOrderCollection = this.m_AccessionOrder.PanelSetOrderCollection.GetProspectiveReviewCollection();
             this.m_PathologistUsers = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetUsersByRole(YellowstonePathology.Business.User.SystemUserRoleDescriptionEnum.Pathologist, true);
 
 			InitializeComponent();            
@@ -44,9 +44,9 @@ namespace YellowstonePathology.UI.Surgical
 			DataContext = this;
 		}
 
-        public YellowstonePathology.Business.Test.PeerReview.PeerReviewTypeCollection PeerReviewTypeCollection
+        public YellowstonePathology.Business.Test.ProspectiveReview.ProspectiveReviewTypeCollection ProspectiveReviewTypeCollection
         {
-            get { return this.m_PeerReviewTypeCollection; }
+            get { return this.m_ProspectiveReviewTypeCollection; }
         }
 
         public YellowstonePathology.Business.Test.PanelSetOrder PanelSetOrder
@@ -59,9 +59,9 @@ namespace YellowstonePathology.UI.Surgical
             get { return this.m_PathologistUsers; }
         }
 
-        public ObservableCollection<YellowstonePathology.Business.Test.PeerReview.PeerReviewTestOrder> PeerReviewTestOrderCollection
+        public ObservableCollection<YellowstonePathology.Business.Test.ProspectiveReview.ProspectiveReviewTestOrder> ProspectiveReviewTestOrderCollection
         {
-            get { return this.m_PeerReviewTestOrderCollection; }
+            get { return this.m_ProspectiveReviewTestOrderCollection; }
         }
 
 		public void NotifyPropertyChanged(String info)
@@ -87,15 +87,15 @@ namespace YellowstonePathology.UI.Surgical
         {
             if (string.IsNullOrEmpty(this.m_PanelSetOrder.PeerReviewRequestType) == false)
             {                
-                YellowstonePathology.Business.Test.PeerReview.PeerReviewTest peerReviewTest = new YellowstonePathology.Business.Test.PeerReview.PeerReviewTest();
+                YellowstonePathology.Business.Test.ProspectiveReview.ProspectiveReviewTest peerReviewTest = new YellowstonePathology.Business.Test.ProspectiveReview.ProspectiveReviewTest();
                 string reportNo = this.m_AccessionOrder.GetNextReportNo(peerReviewTest);
 				string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-                YellowstonePathology.Business.Test.PeerReview.PeerReviewTestOrder peerReviewTestOrder = new YellowstonePathology.Business.Test.PeerReview.PeerReviewTestOrder(this.m_AccessionOrder.MasterAccessionNo, reportNo, objectId, peerReviewTest, null, false);
+                YellowstonePathology.Business.Test.ProspectiveReview.ProspectiveReviewTestOrder peerReviewTestOrder = new YellowstonePathology.Business.Test.ProspectiveReview.ProspectiveReviewTestOrder(this.m_AccessionOrder.MasterAccessionNo, reportNo, objectId, peerReviewTest, null, false);
                 peerReviewTestOrder.AssignedToId = pathologistId;
                 peerReviewTestOrder.HoldForPeerReview = true;
-                peerReviewTestOrder.PeerReviewRequestType = YellowstonePathology.Business.Test.PeerReview.PeerReviewTypeEnum.Mandatory.ToString();
+                peerReviewTestOrder.PeerReviewRequestType = YellowstonePathology.Business.Test.ProspectiveReview.ProspectiveReviewTypeEnum.Mandatory.ToString();
                 this.m_AccessionOrder.PanelSetOrderCollection.Add(peerReviewTestOrder);
-                this.m_PeerReviewTestOrderCollection = this.m_AccessionOrder.PanelSetOrderCollection.GetPeerReviewCollection();
+                this.m_ProspectiveReviewTestOrderCollection = this.m_AccessionOrder.PanelSetOrderCollection.GetProspectiveReviewCollection();
                 this.NotifyPropertyChanged("PeerReviewTestOrderCollection");                
             }
             else
@@ -147,15 +147,15 @@ namespace YellowstonePathology.UI.Surgical
         private void HyperLinkDeleteItem_Click(object sender, RoutedEventArgs e)
         {
             Hyperlink hyperlink = (Hyperlink)sender;
-            YellowstonePathology.Business.Test.PeerReview.PeerReviewTestOrder peerReviewTestOrder = (YellowstonePathology.Business.Test.PeerReview.PeerReviewTestOrder)hyperlink.Tag;
-            if (peerReviewTestOrder.Final == false)
+            YellowstonePathology.Business.Test.ProspectiveReview.ProspectiveReviewTestOrder prospectiveReviewTestOrder = (YellowstonePathology.Business.Test.ProspectiveReview.ProspectiveReviewTestOrder)hyperlink.Tag;
+            if (prospectiveReviewTestOrder.Final == false)
             {
                 MessageBoxResult messageBoxResult = MessageBox.Show("Are you sure you want to delete this.", "Delete?", MessageBoxButton.YesNo);
                 if (messageBoxResult == MessageBoxResult.Yes)
                 {
-                    this.m_AccessionOrder.PanelSetOrderCollection.Remove(peerReviewTestOrder);
-                    this.m_PeerReviewTestOrderCollection = this.m_AccessionOrder.PanelSetOrderCollection.GetPeerReviewCollection();
-                    this.NotifyPropertyChanged("PeerReviewTestOrderCollection");
+                    this.m_AccessionOrder.PanelSetOrderCollection.Remove(prospectiveReviewTestOrder);
+                    this.m_ProspectiveReviewTestOrderCollection = this.m_AccessionOrder.PanelSetOrderCollection.GetProspectiveReviewCollection();
+                    this.NotifyPropertyChanged("ProspectiveReviewTestOrderCollection");
                 }
             }
             else
@@ -167,12 +167,12 @@ namespace YellowstonePathology.UI.Surgical
         private void HyperLinkFinal_Click(object sender, RoutedEventArgs e)
         {
             Hyperlink hyperlink = (Hyperlink)sender;
-            YellowstonePathology.Business.Test.PeerReview.PeerReviewTestOrder peerReviewTestOrder = (YellowstonePathology.Business.Test.PeerReview.PeerReviewTestOrder)hyperlink.Tag;            
+            YellowstonePathology.Business.Test.ProspectiveReview.ProspectiveReviewTestOrder prospectiveReviewTestOrder = (YellowstonePathology.Business.Test.ProspectiveReview.ProspectiveReviewTestOrder)hyperlink.Tag;            
             
-            if (peerReviewTestOrder.AssignedToId == YellowstonePathology.Business.User.SystemIdentity.Instance.User.UserId)
+            if (prospectiveReviewTestOrder.AssignedToId == YellowstonePathology.Business.User.SystemIdentity.Instance.User.UserId)
             {
-                peerReviewTestOrder.Accept();
-                peerReviewTestOrder.Finish(this.m_AccessionOrder);
+                prospectiveReviewTestOrder.Accept();
+                prospectiveReviewTestOrder.Finish(this.m_AccessionOrder);
             }
             else
             {
@@ -183,7 +183,7 @@ namespace YellowstonePathology.UI.Surgical
         private void HyperLinkUnfinal_Click(object sender, RoutedEventArgs e)
         {
             Hyperlink hyperlink = (Hyperlink)sender;
-            YellowstonePathology.Business.Test.PeerReview.PeerReviewTestOrder peerReviewTestOrder = (YellowstonePathology.Business.Test.PeerReview.PeerReviewTestOrder)hyperlink.Tag;
+            YellowstonePathology.Business.Test.ProspectiveReview.ProspectiveReviewTestOrder peerReviewTestOrder = (YellowstonePathology.Business.Test.ProspectiveReview.ProspectiveReviewTestOrder)hyperlink.Tag;
             peerReviewTestOrder.Unfinalize();
             peerReviewTestOrder.Unaccept();
         }

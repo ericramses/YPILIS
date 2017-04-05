@@ -2590,10 +2590,10 @@
     <Compile Include="Business\Test\PDL1SP142\PDL1SP142Test.cs" />
     <Compile Include="Business\Test\PDL1SP142\PDL1SP142TestOrder.cs" />
     <Compile Include="Business\Test\PDL1SP142\PDL1SP142WordDocument.cs" />
-    <Compile Include="Business\Test\PeerReview\PeerReviewTest.cs" />
-    <Compile Include="Business\Test\PeerReview\PeerReviewTestOrder.cs" />
-    <Compile Include="Business\Test\PeerReview\PeerReviewTypeCollection.cs" />
-    <Compile Include="Business\Test\PeerReview\PeerReviewTypeEnum.cs" />
+    <Compile Include="Business\Test\ProspectiveReview\ProspectiveReviewTest.cs" />
+    <Compile Include="Business\Test\ProspectiveReview\ProspectiveReviewTestOrder.cs" />
+    <Compile Include="Business\Test\ProspectiveReview\ProspectiveReviewTypeCollection.cs" />
+    <Compile Include="Business\Test\ProspectiveReview\ProspectiveReviewTypeEnum.cs" />
     <Compile Include="Business\Test\PlasmaCellMyelomaRiskStratification\PlasmaCellMyelomaRiskStratificationEpicObxView.cs" />
     <Compile Include="Business\Test\PlasmaCellMyelomaRiskStratification\PlasmaCellMyelomaRiskStratificationResult.cs" />
     <Compile Include="Business\Test\PlasmaCellMyelomaRiskStratification\PlasmaCellMyelomaRiskStratificationTest.cs" />
