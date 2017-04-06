@@ -27,9 +27,11 @@ namespace YellowstonePathology.UI.Billing
 		public event BackEventHandler Back;
 
         private YellowstonePathology.Business.Patient.Model.SVHBillingData m_SVHBillingData;
+        private string m_MasterAccessionNo;
 
-        public PatientDetailPage(YellowstonePathology.Business.Patient.Model.SVHBillingData svhBillingData)
+        public PatientDetailPage(string masterAccessionNo, YellowstonePathology.Business.Patient.Model.SVHBillingData svhBillingData)
 		{
+            this.m_MasterAccessionNo = masterAccessionNo;
             this.m_SVHBillingData = svhBillingData;
 			InitializeComponent();			
 			DataContext = this;
@@ -56,6 +58,13 @@ namespace YellowstonePathology.UI.Billing
 		private void ButtonBack_Click(object sender, RoutedEventArgs e)
 		{
 			if (this.Back != null) this.Back(this, new EventArgs());
-		}		
-	}
+		}
+
+        private void ButtonPrint_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_MasterAccessionNo);
+            YellowstonePathology.Business.Document.SVHBillingDocument svhBillingDocument = new Business.Document.SVHBillingDocument(this.m_SVHBillingData);
+            svhBillingDocument.SaveAsTIF(orderIdParser);
+        }
+    }
 }

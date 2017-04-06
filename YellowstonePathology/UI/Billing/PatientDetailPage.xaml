@@ -360,7 +360,11 @@
 
 		<Border Grid.Row="2" BorderBrush="Transparent" BorderThickness="0" Background="{DynamicResource {x:Static SystemColors.InactiveCaptionBrushKey}}"></Border>
 		<Button Name="ButtonBack" Grid.Row="2" Margin="5,5,5,5" Click="ButtonBack_Click" Width="100" Height="40" HorizontalAlignment="Left">&lt; Back</Button>
-        <Button Name="ButtonNext" Grid.Row="2" Margin="5,5,5,5" Click="ButtonNext_Click" Width="100" Height="40" HorizontalAlignment="Right">Next ></Button>		
+        <StackPanel Grid.Row="2" HorizontalAlignment="Right" Orientation="Horizontal">
+            <Button Name="ButtonPrint" Margin="5,5,5,5" Click="ButtonPrint_Click" Width="100" Height="40" HorizontalAlignment="Right">Print</Button>
+            <Button Name="ButtonNext" Margin="5,5,5,5" Click="ButtonNext_Click" Width="100" Height="40" HorizontalAlignment="Right">Next ></Button>
+        </StackPanel>
+        
 
 	</Grid>
 </UserControl>

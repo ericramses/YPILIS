@@ -172,8 +172,7 @@ namespace YellowstonePathology.Business.Task.Model
 
 				actionDate = actionDate.AddDays(7);
 			}
-
-            //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(taskOrderCollection, true);
+            
             actionDate = actionDate.AddDays(-7);
 			result.Message = "Daily Task Order POC Report have been added through " + actionDate.ToString("MM/dd/yyyy");
 			return result;

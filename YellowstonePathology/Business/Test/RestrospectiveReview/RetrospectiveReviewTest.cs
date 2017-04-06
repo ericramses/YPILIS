@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace YellowstonePathology.Business.Test.PeerReview
+namespace YellowstonePathology.Business.Test.RetrospectiveReview
 {
-	public class PeerReviewTest : YellowstonePathology.Business.PanelSet.Model.PanelSet
+	public class RetrospectiveReviewTest : YellowstonePathology.Business.PanelSet.Model.PanelSet
 	{
-        public PeerReviewTest()
+        public RetrospectiveReviewTest()
         {
-			this.m_PanelSetId = 197;
-			this.m_PanelSetName = "Peer Review";
-            this.m_Abbreviation = "PEERRVW";
+			this.m_PanelSetId = 262;
+			this.m_PanelSetName = "Retrospective Review";
+            this.m_Abbreviation = "RETRORVW";
             this.m_CaseType = YellowstonePathology.Business.CaseType.Surgical;
 			this.m_HasTechnicalComponent = false;            
             this.m_HasProfessionalComponent = false;
@@ -21,7 +21,7 @@ namespace YellowstonePathology.Business.Test.PeerReview
             
 			this.m_AllowMultiplePerAccession = true;
 
-			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.PeerReview.PeerReviewTestOrder).AssemblyQualifiedName;
+			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.ProspectiveReview.ProspectiveReviewTestOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Document.NothingToPublishReport).AssemblyQualifiedName;
 
             this.m_ExpectedDuration = new TimeSpan(3, 0, 0, 0);

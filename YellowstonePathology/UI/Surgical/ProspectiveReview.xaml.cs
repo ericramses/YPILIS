@@ -14,14 +14,14 @@ using System.Windows.Shapes;
 namespace YellowstonePathology.UI.Surgical
 {
     /// <summary>
-    /// Interaction logic for PeerReview.xaml
+    /// Interaction logic for ProspectiveReview.xaml
     /// </summary>
-    public partial class PeerReview : Window
+    public partial class ProspectiveReview : Window
     {
         YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         List<YellowstonePathology.Business.Test.PanelOrder> m_PanelOrderItems;
 
-        public PeerReview(YellowstonePathology.Business.Test.AccessionOrder accessonOrderItem)
+        public ProspectiveReview(YellowstonePathology.Business.Test.AccessionOrder accessonOrderItem)
         {
             this.m_PanelOrderItems = new List<YellowstonePathology.Business.Test.PanelOrder>();
             this.m_AccessionOrder = accessonOrderItem;
