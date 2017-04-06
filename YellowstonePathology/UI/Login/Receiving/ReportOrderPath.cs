@@ -42,8 +42,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 		}							
 
 		public void Start(YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo)
-		{
-             
+		{             
             this.m_TestOrderInfo = testOrderInfo;
             if (this.IsOkToOrder() == true)
             {
