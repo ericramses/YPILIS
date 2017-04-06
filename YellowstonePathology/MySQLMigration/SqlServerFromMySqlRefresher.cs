@@ -51,39 +51,11 @@ namespace YellowstonePathology.MySQLMigration
             keys.Add("S13-6073");
             keys.Add("S13-7880");
             keys.Add("S13-8551");
-            keys.Add("15-8056.S");
-            keys.Add("17-3977.S");
-            keys.Add("17-4542.S");
-            keys.Add("17-4620.S");
-            keys.Add("17-4637.S");
-            keys.Add("17-4648.S");
-            keys.Add("17-4683.S");
-            keys.Add("17-4698.S");
-            keys.Add("17-7418.S");
-            keys.Add("17-7471.S");
-            keys.Add("17-7619.S");
-            keys.Add("17-7643.S");
-            keys.Add("17-7672.S");
-            keys.Add("17-7673.S");
-            keys.Add("17-7680.S");
-            keys.Add("17-7693.S");
-            keys.Add("17-7701.S");
-            keys.Add("17-7725.S");
-            keys.Add("17-7743.S");
-            keys.Add("17-7813.S");
-            keys.Add("17-7966.S");
-            keys.Add("17-7989.S");
-            keys.Add("17-8021.S");
-            keys.Add("17-8026.S");*/
-
-            //tblTCellNKProfileTestOrder 
-            //keys.Add("17-7834.F1");
-            //keys.Add("17-7835.F1");
-            //keys.Add("17-7836.F1");
-            List <string> keys = this.GetCompareDataKeyList(migrationStatus.TableName, migrationStatus.KeyFieldName, match);
-            if (keys.Count > 0)
-            {
-            List<string> updateCommands = new List<string>();
+            keys.Add("15-8056.S");*/
+                List <string> keys = this.GetCompareDataKeyList(migrationStatus.TableName, migrationStatus.KeyFieldName, match);
+                if (keys.Count > 0)
+                {
+                    List<string> updateCommands = new List<string>();
                     overallResult = this.CompareData(migrationStatus, keys, updateCommands);
                     if (updateCommands.Count > 0)
                     {

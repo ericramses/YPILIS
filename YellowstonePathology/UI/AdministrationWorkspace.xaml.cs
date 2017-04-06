@@ -983,7 +983,121 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            WriteSchema();
+            WriteSchema();            
+        }
+
+        private void UpdateTypingShortcut()
+        {
+            List<int> list = new List<int>();
+            list.Add(2084);
+            list.Add(2085);
+            list.Add(2086);
+            list.Add(2087);
+            list.Add(2088);
+            list.Add(2089);
+            list.Add(2090);
+            list.Add(2091);
+            list.Add(2092);
+            list.Add(2093);
+            list.Add(2094);
+            list.Add(2095);
+            list.Add(2096);
+            list.Add(2097);
+            list.Add(2098);
+            list.Add(2099);
+            list.Add(2100);
+            list.Add(2101);
+            list.Add(2102);
+            list.Add(2103);
+            list.Add(2104);
+            list.Add(2105);
+            list.Add(2106);
+            list.Add(2107);
+            list.Add(2108);
+            list.Add(2109);
+            list.Add(2110);
+            list.Add(2111);
+            list.Add(2112);
+            list.Add(2113);
+            list.Add(2114);
+            list.Add(2115);
+            list.Add(2116);
+            list.Add(2117);
+            list.Add(2118);
+            list.Add(2119);
+            list.Add(2120);
+            list.Add(2121);
+            list.Add(2122);
+            list.Add(2123);
+            list.Add(2124);
+            list.Add(2125);
+            list.Add(2126);
+            list.Add(2127);
+            list.Add(2128);
+            list.Add(2129);
+            list.Add(2130);
+            list.Add(2131);
+            list.Add(2133);
+            list.Add(2134);
+            list.Add(2135);
+            list.Add(2136);
+            list.Add(2137);
+            list.Add(2138);
+            list.Add(2139);
+            list.Add(2140);
+            list.Add(2142);
+            list.Add(2143);
+            list.Add(2144);
+            list.Add(2145);
+            list.Add(2146);
+            list.Add(2147);
+            list.Add(2148);
+            list.Add(2149);
+            list.Add(2150);
+            list.Add(2151);
+            list.Add(2152);
+            list.Add(2153);
+            list.Add(2154);
+            list.Add(2155);
+            list.Add(2156);
+            list.Add(2157);
+            list.Add(2158);
+            list.Add(2159);
+            list.Add(2160);
+            list.Add(2161);
+            list.Add(2162);
+            list.Add(2163);
+            list.Add(2164);
+            list.Add(2165);
+            list.Add(2166);
+            list.Add(2167);
+            list.Add(2168);
+            list.Add(2169);
+            list.Add(2170);
+            list.Add(2172);
+            list.Add(2173);
+            list.Add(2174);
+            list.Add(2175);
+            list.Add(2176);
+            list.Add(2178);
+            list.Add(2182);
+            list.Add(2183);
+            list.Add(2184);
+            list.Add(2185);
+            list.Add(2186);
+            list.Add(2187);
+            list.Add(2188);
+            list.Add(2189);
+            list.Add(2190);
+            list.Add(2191);
+            list.Add(2192);
+            list.Add(2193);
+            list.Add(2194);
+
+            foreach(int id in list)
+            {
+                Console.WriteLine("Update tblTypingShortcut set ObjectId = '" + MongoDB.Bson.ObjectId.GenerateNewId().ToString() + "' where ShortcutId = " + id.ToString());
+            }
         }
 
         private void WriteSchema()
@@ -1000,15 +1114,17 @@ namespace YellowstonePathology.UI
                     List<PropertyInfo> propertyList = types[i].GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.DeclaredOnly).Where(prop => Attribute.IsDefined(prop, typeof(Business.Persistence.PersistentDataColumnProperty))).ToList();
                     if (propertyList.Count != 0)
                     {
-                        string filePath = @"d:\git\ap-mssql\src\schema\" + persistentClassAttribute.StorageName + ".json";
+                        string filePath = @"d:\git\ap-mysql\src\schema\" + persistentClassAttribute.StorageName + ".json";
                         System.IO.StreamWriter file = new System.IO.StreamWriter(filePath, false);
 
                         using (JsonTextWriter writer = new JsonTextWriter(file))
                         {
                             writer.Formatting = Newtonsoft.Json.Formatting.Indented;
                             writer.WriteStartObject();
-                            writer.WritePropertyName("className");
-                            writer.WriteValue(types[i].Name);
+                            writer.WritePropertyName("objectName");
+                            writer.WriteValue(types[i].Name);                            
+                            writer.WritePropertyName("tableName");
+                            writer.WriteValue("tbl" + types[i].Name);
 
                             writer.WritePropertyName("fields");
                             writer.WriteStartArray();
@@ -1021,11 +1137,11 @@ namespace YellowstonePathology.UI
                                 writer.WritePropertyName("isPrimaryKey");
                                 if (primaryKeyPropertyInfo.Name == propertyInfo.Name)
                                 {
-                                    writer.WriteValue("True");
+                                    writer.WriteValue(true);
                                 }
                                 else
                                 {
-                                    writer.WriteValue("False");
+                                    writer.WriteValue(false);
                                 }
 
                                 writer.WritePropertyName("name");
@@ -1035,7 +1151,18 @@ namespace YellowstonePathology.UI
                                 writer.WriteValue(persistentProperty.ColumnLength);
 
                                 writer.WritePropertyName("dataType");
-                                writer.WriteValue(persistentProperty.DataType);
+                                switch (persistentProperty.DataType)
+                                {                                    
+                                    case "int":
+                                        writer.WriteValue("number");
+                                        break;
+                                    case "tinyint":
+                                        writer.WriteValue("boolean");
+                                        break;
+                                    default:
+                                        writer.WriteValue("string");
+                                        break;
+                                }                                                               
 
                                 writer.WritePropertyName("defaultValue");
                                 writer.WriteValue(persistentProperty.DefaultValue);

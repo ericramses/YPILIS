@@ -709,23 +709,7 @@ namespace YellowstonePathology.UI.Surgical
 				p.Start();
 			}
 		}
-
-        private void ButtonPeerReview_Click(object sender, RoutedEventArgs e)
-        {            
-            if (this.m_PathologistUI.AccessionOrder.PanelSetOrderCollection.HasSurgical() == true)
-            {
-                YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder = (YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder)this.m_PathologistUI.AccessionOrder.PanelSetOrderCollection.GetSurgical();
-                PeerReviewDialog peerReviewDialog = new PeerReviewDialog();
-                PeerReviewResultPage peerReviewResultPage = new PeerReviewResultPage(surgicalTestOrder, this.m_PathologistUI.AccessionOrder);
-                peerReviewDialog.PageNavigator.Navigate(peerReviewResultPage);
-                peerReviewDialog.ShowDialog();
-            }
-            else
-            {
-                MessageBox.Show("Only cases with Surgical Pathology can have Peer Review");
-            }            
-        }
-
+        
         private void MenuItemShowAllTestsForThisCase_Click(object sender, RoutedEventArgs e)
         {
             if (this.ListViewSearchResults.SelectedItem != null)
@@ -756,6 +740,22 @@ namespace YellowstonePathology.UI.Surgical
         {
             YellowstonePathology.UI.MaterialTracking.MaterialTrackingPath materialTrackingPath = new MaterialTracking.MaterialTrackingPath(this.m_PathologistUI.AccessionOrder.MasterAccessionNo);
             materialTrackingPath.Start();
+        }
+
+        private void ButtonProspectiveReview_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.m_PathologistUI.AccessionOrder.PanelSetOrderCollection.HasSurgical() == true)
+            {
+                YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder = (YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder)this.m_PathologistUI.AccessionOrder.PanelSetOrderCollection.GetSurgical();
+                ProspectiveReviewDialog peerReviewDialog = new ProspectiveReviewDialog();
+                ProspectiveReviewResultPage peerReviewResultPage = new ProspectiveReviewResultPage(surgicalTestOrder, this.m_PathologistUI.AccessionOrder);
+                peerReviewDialog.PageNavigator.Navigate(peerReviewResultPage);
+                peerReviewDialog.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Only cases with Surgical Pathology can have Peer Review");
+            }
         }
     }
 }

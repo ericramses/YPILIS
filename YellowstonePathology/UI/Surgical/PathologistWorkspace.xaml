@@ -211,12 +211,12 @@
 								<TextBlock Margin="2" VerticalAlignment="Center">Report Order ...</TextBlock>
 							</StackPanel>
 						</Button>
-                        <Button Name="ButtonPeerReview" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center"
-							HorizontalAlignment="Center" Click="ButtonPeerReview_Click" Background="Gainsboro"
+                        <Button Name="ButtonProspectiveReview" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center"
+							HorizontalAlignment="Center" Click="ButtonProspectiveReview_Click" Background="Gainsboro"
 							IsEnabled="{Binding Path=FieldEnabler.IsUnprotectedEnabled}">
                             <StackPanel Orientation="Horizontal">
                                 <Image Margin="2" Height="16" Source="/UserInterface;component/Resources/Order.ico"></Image>
-                                <TextBlock Margin="2" VerticalAlignment="Center">Peer Review ...</TextBlock>
+                                <TextBlock Margin="2" VerticalAlignment="Center">Prospective Review ...</TextBlock>
                             </StackPanel>
                         </Button>
                         <Button Name="ButtonMaterialTracking" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center"

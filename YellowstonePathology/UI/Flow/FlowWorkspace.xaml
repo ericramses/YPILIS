@@ -490,7 +490,7 @@
 
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="0" Grid.Row="2">
                             <TextBlock Margin="2,2,2,2">Marker Count:</TextBlock>
-                            <TextBlock Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.FlowMarkerCollection.Count}" Margin="2,2,2,2"></TextBlock>
+                            <TextBlock Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.FlowMarkerCollection.CurrentMarkerPanel.Count}" Margin="2,2,2,2"></TextBlock>
                         </StackPanel>
 					</Grid>		
 				</TabItem>				
@@ -822,7 +822,7 @@
 								Checked="RadioButtonFlowSearch_Checked"
 								Style="{StaticResource RadioButtonStyle}"
 							  GroupName="radioButtonGroupSearch">Report No:</RadioButton>
-							<TextBox Name="textBoxSearchReportNo" Width="100" Visibility="Hidden" KeyUp="textBoxSearchReportNo_KeyUp">16-</TextBox>
+							<TextBox Name="textBoxSearchReportNo" Width="100" Visibility="Hidden" KeyUp="textBoxSearchReportNo_KeyUp">17-</TextBox>
 						</StackPanel>
 						<StackPanel Orientation="Horizontal">
 							<RadioButton Name="radioButtonSearchPatientName"

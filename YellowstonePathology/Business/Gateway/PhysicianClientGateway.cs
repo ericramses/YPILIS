@@ -1001,7 +1001,7 @@ namespace YellowstonePathology.Business.Gateway
                 {
                     while (dr.Read())
                     {
-                        result = (Int32)dr[0];
+                        result = Convert.ToInt32(dr[0]);
                     }
                 }
             }
@@ -1025,7 +1025,7 @@ namespace YellowstonePathology.Business.Gateway
                 {
                     while (dr.Read())
                     {
-                        result = (Int32)dr[0];
+                        result = Convert.ToInt32(dr[0]);
                     }
                 }
             }

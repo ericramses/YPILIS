@@ -83,8 +83,8 @@ namespace YellowstonePathology.UI.Billing
                 YellowstonePathology.Business.Patient.Model.SVHBillingDataCollection svhBillingDataCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetSVHBillingDataCollection(this.m_AccessionOrder.SvhMedicalRecord);
                 if (svhBillingDataCollection.Count > 0)
                 {
-                    YellowstonePathology.Business.Patient.Model.SVHBillingData svhBillingDate = svhBillingDataCollection.GetMostRecent();
-                    YellowstonePathology.UI.Billing.PatientDetailPage patientDetailPage = new PatientDetailPage(svhBillingDate);
+                    YellowstonePathology.Business.Patient.Model.SVHBillingData svhBillingData = svhBillingDataCollection.GetMostRecent();
+                    YellowstonePathology.UI.Billing.PatientDetailPage patientDetailPage = new PatientDetailPage(this.m_AccessionOrder.MasterAccessionNo, svhBillingData);
                     patientDetailPage.Back += new Billing.PatientDetailPage.BackEventHandler(PatientDetailPage_Back);
                     patientDetailPage.Next += new Billing.PatientDetailPage.NextEventHandler(PatientDetailPage_Next);
 

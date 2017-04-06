@@ -16,11 +16,11 @@ namespace YellowstonePathology.UI.Surgical
     /// <summary>
     /// Interaction logic for ResultDialog.xaml
     /// </summary>
-    public partial class PeerReviewDialog : Window
+    public partial class ProspectiveReviewDialog : Window
     {
         private YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;
 
-        public PeerReviewDialog()
+        public ProspectiveReviewDialog()
         {
             InitializeComponent();
 
