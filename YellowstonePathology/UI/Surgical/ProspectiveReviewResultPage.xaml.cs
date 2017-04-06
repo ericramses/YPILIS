@@ -16,7 +16,7 @@ using System.Collections.ObjectModel;
 
 namespace YellowstonePathology.UI.Surgical
 {	
-	public partial class PeerReviewResultPage : UserControl, INotifyPropertyChanged 
+	public partial class ProspectiveReviewResultPage : UserControl, INotifyPropertyChanged 
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
         
@@ -27,7 +27,7 @@ namespace YellowstonePathology.UI.Surgical
         private YellowstonePathology.Business.User.SystemUserCollection m_PathologistUsers;
         private YellowstonePathology.Business.Test.ProspectiveReview.ProspectiveReviewTypeCollection m_ProspectiveReviewTypeCollection;
 
-        public PeerReviewResultPage(YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder,
+        public ProspectiveReviewResultPage(YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
             this.m_ProspectiveReviewTypeCollection = new YellowstonePathology.Business.Test.ProspectiveReview.ProspectiveReviewTypeCollection();                        
@@ -85,18 +85,18 @@ namespace YellowstonePathology.UI.Surgical
 
         private void AddPeerReview(int pathologistId)
         {
-            if (string.IsNullOrEmpty(this.m_PanelSetOrder.PeerReviewRequestType) == false)
+            if (string.IsNullOrEmpty(this.m_PanelSetOrder.ProspectiveReviewRequestType) == false)
             {                
                 YellowstonePathology.Business.Test.ProspectiveReview.ProspectiveReviewTest peerReviewTest = new YellowstonePathology.Business.Test.ProspectiveReview.ProspectiveReviewTest();
                 string reportNo = this.m_AccessionOrder.GetNextReportNo(peerReviewTest);
 				string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
                 YellowstonePathology.Business.Test.ProspectiveReview.ProspectiveReviewTestOrder peerReviewTestOrder = new YellowstonePathology.Business.Test.ProspectiveReview.ProspectiveReviewTestOrder(this.m_AccessionOrder.MasterAccessionNo, reportNo, objectId, peerReviewTest, null, false);
                 peerReviewTestOrder.AssignedToId = pathologistId;
-                peerReviewTestOrder.HoldForPeerReview = true;
-                peerReviewTestOrder.PeerReviewRequestType = YellowstonePathology.Business.Test.ProspectiveReview.ProspectiveReviewTypeEnum.Mandatory.ToString();
+                peerReviewTestOrder.HoldForProspectiveReview = true;
+                peerReviewTestOrder.ProspectiveReviewRequestType = YellowstonePathology.Business.Test.ProspectiveReview.ProspectiveReviewTypeEnum.Mandatory.ToString();
                 this.m_AccessionOrder.PanelSetOrderCollection.Add(peerReviewTestOrder);
                 this.m_ProspectiveReviewTestOrderCollection = this.m_AccessionOrder.PanelSetOrderCollection.GetProspectiveReviewCollection();
-                this.NotifyPropertyChanged("PeerReviewTestOrderCollection");                
+                this.NotifyPropertyChanged("ProspectiveReviewTestOrderCollection");                
             }
             else
             {

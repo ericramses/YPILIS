@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business.Audit.Model
             this.Add(new SvhCaseHasMRNAndAccountNoAudit(accessionOrder));
             this.Add(new CaseHasNotFoundClientAudit(accessionOrder));
             this.Add(new CaseHasNotFoundProviderAudit(accessionOrder));
-            this.Add(new CaseHasUnfinaledPeerReviewAudit(accessionOrder));
+            this.Add(new CaseHasUnfinaledProspectiveReviewAudit(accessionOrder));
             this.Add(new GradedStainsAreHandledAudit(surgicalTestOrder));
             this.Add(new IntraoperativeConsultationCorrelationAudit(surgicalTestOrder));
             this.Add(new PapCorrelationIsHandledAudit(accessionOrder));

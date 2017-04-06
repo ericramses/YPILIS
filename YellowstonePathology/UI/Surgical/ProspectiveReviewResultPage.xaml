@@ -7,7 +7,7 @@
              xmlns:Test="clr-namespace:YellowstonePathology.UI.Test"
              x:Name="UserControlProspectiveReviewPage">
     <UserControl.Resources>
-        <DataTemplate x:Key="ProspecitveReviewTemplate">
+        <DataTemplate x:Key="ProspectiveReviewTemplate">
             <Border BorderBrush="LightGray" BorderThickness="1" CornerRadius="2">
                 <Grid Margin="2,2,2,2">
                     <Grid.ColumnDefinitions>
@@ -28,7 +28,7 @@
                     <TextBlock Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" VerticalAlignment="Center" Text="{Binding Path=OrderDate, Converter={StaticResource ShortDateConverter}}"/>                    
                 
                     <TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" FontWeight="Bold" Text="Assigned To:" HorizontalAlignment="Right"/>
-                    <ComboBox Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" ItemsSource="{Binding ElementName=UserControlProspecitveReviewPage, Path=DataContext.PathologistUsers}"
+                    <ComboBox Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" ItemsSource="{Binding ElementName=UserControlProspectiveReviewPage, Path=DataContext.PathologistUsers}"
 								      SelectedValuePath="UserId"
 								      DisplayMemberPath="DisplayName"
 								      SelectedValue="{Binding Path=AssignedToId}" HorizontalAlignment="Stretch"/>
@@ -149,7 +149,7 @@
                 </Grid.RowDefinitions>
 
                 <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" FontWeight="Bold" Text="Ordered By:" HorizontalAlignment="Right"/>
-                <ComboBox Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" ItemsSource="{Binding ElementName=UserControlProspecitveReviewPage, Path=DataContext.PathologistUsers}"
+                <ComboBox Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" ItemsSource="{Binding ElementName=UserControlProspectiveReviewPage, Path=DataContext.PathologistUsers}"
 								      SelectedValuePath="UserId"
 								      DisplayMemberPath="DisplayName"
 								      SelectedValue="{Binding Path=PanelSetOrder.AssignedToId}" HorizontalAlignment="Stretch"/>

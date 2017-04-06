@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>438</ApplicationRevision>
+    <ApplicationRevision>442</ApplicationRevision>
     <ApplicationVersion>10.1.6.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -3515,8 +3515,8 @@
     <Compile Include="UI\Surgical\PublishedDocumentFinalPage.xaml.cs">
       <DependentUpon>PublishedDocumentFinalPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Surgical\PeerReviewResultPage.xaml.cs">
-      <DependentUpon>PeerReviewResultPage.xaml</DependentUpon>
+    <Compile Include="UI\Surgical\ProspectiveReviewResultPage.xaml.cs">
+      <DependentUpon>ProspectiveReviewResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Surgical\PQRSMeasurePage.xaml.cs">
       <DependentUpon>PQRSMeasurePage.xaml</DependentUpon>
@@ -5447,7 +5447,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\Surgical\PeerReviewResultPage.xaml">
+    <Page Include="UI\Surgical\ProspectiveReviewResultPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
