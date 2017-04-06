@@ -49,7 +49,7 @@
 				</TextBlock>
 
 				<TextBlock Grid.Column="0" Grid.Row="4" Margin="5,3,0,5">
-					<Hyperlink Click="HyperLinkFinalizeResults_Click">Finalize"</Hyperlink>
+					<Hyperlink Click="HyperLinkFinalizeResults_Click">Finalize</Hyperlink>
 				</TextBlock>
 
 				<TextBlock Grid.Column="0" Grid.Row="6" Margin="5,3,0,0">                    

@@ -324,7 +324,7 @@ namespace YellowstonePathology.Business.Test
             return result;
         }
 
-        public bool HasUnfinaledPeerReview()
+        public bool HasUnfinaledProspectiveReview()
         {
             bool result = false;            
             foreach (YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder in this)
@@ -675,15 +675,15 @@ namespace YellowstonePathology.Business.Test
             return result;
         }
 
-        public ObservableCollection<YellowstonePathology.Business.Test.PeerReview.PeerReviewTestOrder> GetPeerReviewCollection()
+        public ObservableCollection<YellowstonePathology.Business.Test.ProspectiveReview.ProspectiveReviewTestOrder> GetProspectiveReviewCollection()
         {
-            ObservableCollection<YellowstonePathology.Business.Test.PeerReview.PeerReviewTestOrder> result = new ObservableCollection<YellowstonePathology.Business.Test.PeerReview.PeerReviewTestOrder>();
-            YellowstonePathology.Business.Test.PeerReview.PeerReviewTest peerReviewTest = new YellowstonePathology.Business.Test.PeerReview.PeerReviewTest();
+            ObservableCollection<YellowstonePathology.Business.Test.ProspectiveReview.ProspectiveReviewTestOrder> result = new ObservableCollection<YellowstonePathology.Business.Test.ProspectiveReview.ProspectiveReviewTestOrder>();
+            YellowstonePathology.Business.Test.ProspectiveReview.ProspectiveReviewTest peerReviewTest = new YellowstonePathology.Business.Test.ProspectiveReview.ProspectiveReviewTest();
             foreach (YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder in this)
             {
                 if (panelSetOrder.PanelSetId == peerReviewTest.PanelSetId)
                 {
-                    result.Add(panelSetOrder as YellowstonePathology.Business.Test.PeerReview.PeerReviewTestOrder);
+                    result.Add(panelSetOrder as YellowstonePathology.Business.Test.ProspectiveReview.ProspectiveReviewTestOrder);
                 }
             }
             return result;
