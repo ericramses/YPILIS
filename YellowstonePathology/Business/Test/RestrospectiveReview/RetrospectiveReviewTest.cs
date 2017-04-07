@@ -18,6 +18,7 @@ namespace YellowstonePathology.Business.Test.RetrospectiveReview
 			this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterQ();
             this.m_Active = true;
+            this.m_ReportAsAdditionalTesting = false;
             
 			this.m_AllowMultiplePerAccession = true;
 

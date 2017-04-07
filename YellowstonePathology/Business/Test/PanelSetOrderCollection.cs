@@ -26,6 +26,27 @@ namespace YellowstonePathology.Business.Test
         {
             get { return this.m_CurrentPanelSetOrder; }
         } 
+
+        public string GetAdditionalTestingString(string currentReportNo)
+        {
+            StringBuilder result = new StringBuilder();
+            Business.PanelSet.Model.PanelSetCollection panelSetCollection = Business.PanelSet.Model.PanelSetCollection.GetAll();
+
+            foreach(PanelSetOrder pso in this)
+            {
+                if(pso.ReportNo != currentReportNo)
+                {
+                    Business.PanelSet.Model.PanelSet panelSet = panelSetCollection.GetPanelSet(pso.PanelSetId);
+                    if (panelSet.ReportAsAdditionalTesting == true)
+                    {
+                        result.AppendLine(pso.PanelSetName);
+                    }
+                }                
+            }
+
+            if (result.Length == 0) result.AppendLine("No additional testing has been ordered at this time.");
+            return result.ToString();
+        }
         
         public bool HasUnfinaledTests(List<int> panelSetIdList)
         {
