@@ -309,6 +309,9 @@ namespace YellowstonePathology.UI.Test
                 case 251:
                     result = new LiposarcomaFusionProfileResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
+                case 262:
+                    result = new RetrospectiveResultPath(reportNo, accessionOrder, pageNavigator, window);
+                    break;
             }
             return result;
         }

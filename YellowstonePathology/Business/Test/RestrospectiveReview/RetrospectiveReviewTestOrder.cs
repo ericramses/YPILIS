@@ -6,6 +6,8 @@ using YellowstonePathology.Business.Persistence;
 
 namespace YellowstonePathology.Business.Test.RetrospectiveReview
 {
+    //tblRetrospectiveReviewTestOrder
+    //tblRetrospectiveResultTestOrder
     [PersistentClass("tblRetrospectiveReviewTestOrder", "tblPanelSetOrder", "YPIDATA")]
 	public class RetrospectiveReviewTestOrder : YellowstonePathology.Business.Test.PanelSetOrder
 	{
