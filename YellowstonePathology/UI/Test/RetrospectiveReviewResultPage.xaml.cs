@@ -122,5 +122,10 @@ namespace YellowstonePathology.UI.Test
         {
             
         }
-	}
+
+        private void HyperLinkDisagreements_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+    }
 }
