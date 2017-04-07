@@ -17,16 +17,16 @@ namespace YellowstonePathology.Business.Test.ProspectiveReview
 
         }
 
-		public ProspectiveReviewTestOrder(string masterAccessionNo, string reportNo, string objectId,
-			YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
-			YellowstonePathology.Business.Interface.IOrderTarget orderTarget,
-			bool distribute)
+        public ProspectiveReviewTestOrder(string masterAccessionNo, string reportNo, string objectId,
+            YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
+            YellowstonePathology.Business.Interface.IOrderTarget orderTarget,
+            bool distribute)
 			: base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute)
 		{
 
-		}
-		
-		[PersistentProperty()]
+        }
+
+        [PersistentProperty()]
 		[PersistentDataColumnProperty(true, "500", "null", "varchar")]
 		public string Result
 		{
