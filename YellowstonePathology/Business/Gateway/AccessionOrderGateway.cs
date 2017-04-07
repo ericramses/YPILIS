@@ -1079,7 +1079,7 @@ namespace YellowstonePathology.Business.Gateway
             "FROM tblAccessionOrder a JOIN tblPanelSetOrder pso ON a.MasterAccessionNo = pso.MasterAccessionNo " +
             "JOIN tblSpecimenOrder so on a.MasterAccessionNo = so.MasterAccessionNo " +
             "LEFT OUTER JOIN tblAliquotOrder ao on so.SpecimenOrderId = ao.SpecimenOrderId " +
-            "WHERE AccessionDate = '2017-3-24' and pso.PanelSetId in (13, 50) " +
+            "WHERE AccessionDate = @ReportDate and pso.PanelSetId in (13, 50) " +
             "group by a.AccessionTime, pso.ReportNo, a.AccessioningFacilityId, a.PFirstName, a.PLastName, " +
             "a.PBirthdate, a.PhysicianName, a.ClientName " +
             "Order By AccessionTime; " +
@@ -1091,7 +1091,7 @@ namespace YellowstonePathology.Business.Gateway
             "drop temporary table rpts; ";
 
             cmd.CommandType = CommandType.Text;
-            cmd.Parameters.AddWithValue("@ReportDate", reportDate.ToShortDateString());
+            cmd.Parameters.AddWithValue("@ReportDate", reportDate);
             using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
