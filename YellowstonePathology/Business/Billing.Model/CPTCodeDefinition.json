@@ -819,6 +819,22 @@
       "SVHCDMDescription": "MOLECULAR PATHOLOGY PROC LEVEL 2"
     },
     {
+      "$type": "YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT81405, UserInterface",
+      "Code": "81405",
+      "Description": null,
+      "Modifier": null,
+      "FeeSchedule": 1,
+      "HasTechnicalComponent": true,
+      "HasProfessionalComponent": false,
+      "CodeType": 2,
+      "IsBillable": true,
+      "GCode": null,
+      "HasMedicareQuantityLimit": false,
+      "MedicareQuantityLimit": 0,
+      "SVHCDMCode": "760805571",
+      "SVHCDMDescription": "MOLECULAR PATHOLOGY PROC LEVEL 2"
+    },
+    {
       "$type": "YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT81402, UserInterface",
       "Code": "81402",
       "Description": null,

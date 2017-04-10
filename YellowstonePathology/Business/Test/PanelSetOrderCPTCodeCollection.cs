@@ -453,7 +453,7 @@ namespace YellowstonePathology.Business.Test
                         panelSetOrderCPTCode.Quantity = 1;
                         panelSetOrderCPTCode.CPTCode = cpt88305.Code;
                         panelSetOrderCPTCode.CodeType = cpt88305.CodeType.ToString();
-                        //panelSetOrderCPTCode.EntryType = YellowstonePathology.Business.Billing.Model.PanelSetOrderCPTCodeEntryType.SystemGenerated;
+                        panelSetOrderCPTCode.EntryType = YellowstonePathology.Business.Billing.Model.PanelSetOrderCPTCodeEntryType.ManualEntry;
                         panelSetOrderCPTCode.CodeableDescription = "Specimen " + specimenOrder.SpecimenNumber + ": " + specimenOrder.Description;
                         panelSetOrderCPTCode.SpecimenOrderId = specimenOrder.SpecimenOrderId;
                         panelSetOrderCPTCode.ClientId = clientId;
