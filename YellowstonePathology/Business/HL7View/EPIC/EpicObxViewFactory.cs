@@ -295,6 +295,9 @@ namespace YellowstonePathology.Business.HL7View.EPIC
                 case 251:
                     view = new YellowstonePathology.Business.Test.LiposarcomaFusionProfile.LiposarcomaFusionProfileEPICOBXView(accessionOrder, reportNo, obxCount);
                     break;
+                case 263:
+                    view = new YellowstonePathology.Business.Test.BCellSubsetAnalysis.BCellSubsetAnalysisEPICOBXView(accessionOrder, reportNo, obxCount);
+                    break;
             }
             return view;
         }
