@@ -36,12 +36,9 @@ namespace YellowstonePathology.Business.Test.BCellSubsetAnalysis
             this.ReplaceText("report_class_switched", testOrder.ClassSwitchedMemoryBCellPercent);
             this.ReplaceText("report_naive", testOrder.NaiveBCellPercent);
             this.ReplaceText("report_transitional", testOrder.TransitionalBCellPercent);
-            this.ReplaceText("report_plasmablasts", testOrder.PlasmaBlastsPercent);
-            this.ReplaceText("report_cd24_mfi", testOrder.MFIPercent);
+            this.ReplaceText("report_plasmablasts", testOrder.PlasmaBlastsPercent);            
             this.ReplaceText("report_total_nucleated", testOrder.TotalNucleatedPercent);
-            this.ReplaceText("report_total_lymphocytes", testOrder.TotalLymphocytesPercent);
-
-            this.ReplaceText("report_interpretation", testOrder.Interpretation);
+            this.ReplaceText("report_total_lymphocytes", testOrder.TotalLymphocytesPercent);            
             this.ReplaceText("report_method", testOrder.Method);
             this.ReplaceText("report_references", testOrder.ReportReferences);
             this.ReplaceText("asr_comment", testOrder.ASRComment);

@@ -42,9 +42,7 @@ namespace YellowstonePathology.Business.Test.BCellSubsetAnalysis
             this.AddNextObxElement("", document, "F");
             this.AddNextObxElement("Plasmablasts 38+++ Igm- : " + panelSetOrder.PlasmaBlastsPercent, document, "F");
             this.AddNextObxElement("Normal Range : 0 – 1.81", document, "F");
-            this.AddNextObxElement("", document, "F");
-            this.AddNextObxElement("Cd24 MFI : " + panelSetOrder.MFIPercent, document, "F");
-            this.AddNextObxElement("Normal Range : 1.14 – 38.64", document, "F");
+            this.AddNextObxElement("", document, "F");            
             this.AddNextObxElement("", document, "F");
             this.AddNextObxElement("Total Lymphs % of Nucleated Cells : " + panelSetOrder.TotalNucleatedPercent, document, "F");
             this.AddNextObxElement("", document, "F");
@@ -64,10 +62,7 @@ namespace YellowstonePathology.Business.Test.BCellSubsetAnalysis
             YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(panelSetOrder.OrderedOn, panelSetOrder.OrderedOnId);
             this.AddNextObxElement("Specimen Identification: " + specimenOrder.Description, document, "F");
             string collectionDateTimeString = YellowstonePathology.Business.Helper.DateTimeExtensions.CombineDateAndTime(specimenOrder.CollectionDate, specimenOrder.CollectionTime);
-            this.AddNextObxElement("Collection Date/Time: " + collectionDateTimeString, document, "F");
-
-            this.AddNextObxElement("", document, "F");
-            this.AddNextObxElement("Interpretation: " + panelSetOrder.Interpretation, document, "F");
+            this.AddNextObxElement("Collection Date/Time: " + collectionDateTimeString, document, "F");            
 
             this.AddNextObxElement("", document, "F");
             this.AddNextObxElement("Method:", document, "F");
