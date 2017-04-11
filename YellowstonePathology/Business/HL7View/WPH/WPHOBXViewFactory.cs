@@ -275,6 +275,9 @@ namespace YellowstonePathology.Business.HL7View.WPH
                 case 245:
                     view = new YellowstonePathology.Business.Test.PDL122C3.PDL122C3WPHOBXView(accessionOrder, reportNo, obxCount);
                     break;
+                case 263:
+                    view = new YellowstonePathology.Business.Test.BCellSubsetAnalysis.BCellSubsetAnalysisWPHOBXView(accessionOrder, reportNo, obxCount);
+                    break;
             }
             return view;
         }

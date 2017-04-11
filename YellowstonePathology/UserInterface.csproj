@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>448</ApplicationRevision>
+    <ApplicationRevision>458</ApplicationRevision>
     <ApplicationVersion>10.1.6.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -1118,6 +1118,11 @@
     <Compile Include="Business\Test\AMLStandardByFish\AMLStandardByFishWPHOBXView.cs" />
     <Compile Include="Business\Test\AmyloidProteinIDParLCMS\AmyloidProteinIDParLCMSTest.cs" />
     <Compile Include="Business\Test\BartonellaSpeciesByPCR\BartonellaSpeciesByPCRTest.cs" />
+    <Compile Include="Business\Test\BCellSubsetAnalysis\BCellSubsetAnalysisEPICOBXView.cs" />
+    <Compile Include="Business\Test\BCellSubsetAnalysis\BCellSubsetAnalysisTest.cs" />
+    <Compile Include="Business\Test\BCellSubsetAnalysis\BCellSubsetAnalysisWordDocument.cs" />
+    <Compile Include="Business\Test\BCellSubsetAnalysis\BCellSubsetAnalysisTestOrder.cs" />
+    <Compile Include="Business\Test\BCellSubsetAnalysis\BCellSubsetAnalysisWPHOBXView.cs" />
     <Compile Include="Business\Test\BRAFV600EK\BRAFV600EKWPHOBXView.cs" />
     <Compile Include="Business\Test\CalreticulinMutationAnalysis\CalreticulinMutationAnalysisWPHOBXView.cs" />
     <Compile Include="Business\Test\CKIT\CKITWPHOBXView.cs" />
@@ -3599,6 +3604,10 @@
       <DependentUpon>BCellGeneRearrangementResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Test\BCellGeneRearrangementResultPath.cs" />
+    <Compile Include="UI\Test\BCellSubsetAnalysisResultPage.xaml.cs">
+      <DependentUpon>BCellSubsetAnalysisResultPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Test\BCellSubsetAnalysisResultPath.cs" />
     <Compile Include="UI\Test\BCL1t1114ResultPage.xaml.cs">
       <DependentUpon>BCL1t1114ResultPage.xaml</DependentUpon>
     </Compile>
@@ -5499,6 +5508,10 @@
     </Page>
     <Page Include="UI\Test\BCellEnumerationResultPage.xaml" />
     <Page Include="UI\Test\BCellGeneRearrangementResultPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Test\BCellSubsetAnalysisResultPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
