@@ -1130,6 +1130,8 @@ namespace YellowstonePathology.MySQLMigration
 
             foreach (string match in matchLike)
             {
+                //List<string> keys = new List<string>();
+
                 List<string> keys = this.GetCompareDataKeyList(migrationStatus.TableName, migrationStatus.KeyFieldName, match);
                 if (keys.Count > 0)
                 {
@@ -1178,9 +1180,9 @@ namespace YellowstonePathology.MySQLMigration
 
                 if (mySqlDataTable.Rows.Count == 0)
                 {
-                    overallResult.Success = false;
-                    overallResult.Message += "Missing " + migrationStatus.TableName + " - " + migrationStatus.KeyFieldName + " = " + keyString;
-                    this.SaveError(migrationStatus.TableName, "Update " + migrationStatus.TableName + " set Transferred = 0 where " + migrationStatus.KeyFieldName + " = " + keyString);
+                   // overallResult.Success = false;
+                   // overallResult.Message += "Missing " + migrationStatus.TableName + " - " + migrationStatus.KeyFieldName + " = " + keyString;
+                   // this.SaveError(migrationStatus.TableName, "Update " + migrationStatus.TableName + " set Transferred = 0 where " + migrationStatus.KeyFieldName + " = " + keyString);
                     continue;
                 }
 

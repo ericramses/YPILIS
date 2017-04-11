@@ -168,63 +168,80 @@ namespace YellowstonePathology.Business.Test
                 string reflexInstruction1 = "Test->Pap Test with High Risk HPV with reflex to HPV 16/18 Genotyping (only if PAP neg/HPV Pos)";                
                 if (accessionOrder.SpecialInstructions.Contains(reflexInstruction1) == true)
                 {
+                    YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder womensHealthProfileTestOrder = null;
                     if (this.HasWomensHealthProfileOrder() == false)
                     {
                         YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTest womensHealthProfileTest = new YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTest();
                         string reportNo = accessionOrder.GetNextReportNo(womensHealthProfileTest);
 						string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-						YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder womensHealthProfileTestOrder = new YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder(accessionOrder.MasterAccessionNo, reportNo, objectId, womensHealthProfileTest, accessionOrder.SpecimenOrderCollection[0], false);
-                        womensHealthProfileTestOrder.AssignedToId = 5051;
-
-                        YellowstonePathology.Business.Client.Model.HPV1618ReflexOrderPAPNormalHPVPositive hpv1618ReflexOrderPAPNormalHPVPositive = new YellowstonePathology.Business.Client.Model.HPV1618ReflexOrderPAPNormalHPVPositive();
-                        womensHealthProfileTestOrder.HPV1618ReflexOrderCode = hpv1618ReflexOrderPAPNormalHPVPositive.ReflexOrderCode;
-                        womensHealthProfileTestOrder.OrderHPV = true;
+                        womensHealthProfileTestOrder = new YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder(accessionOrder.MasterAccessionNo, reportNo, objectId, womensHealthProfileTest, accessionOrder.SpecimenOrderCollection[0], false);                        
                         accessionOrder.PanelSetOrderCollection.Add(womensHealthProfileTestOrder);
-
-						YellowstonePathology.Business.Specimen.Model.SpecimenOrder hpvSpecimen = accessionOrder.SpecimenOrderCollection.GetThinPrep();
-						YellowstonePathology.Business.Test.HPV.HPVTest panelSetHPV = new YellowstonePathology.Business.Test.HPV.HPVTest();
-                        YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new TestOrderInfo(panelSetHPV, hpvSpecimen, true);
-                        YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Visitor.OrderTestOrderVisitor(testOrderInfo);
-                        accessionOrder.TakeATrip(orderTestOrderVisitor); 
                     }
+                    else
+                    {
+                        womensHealthProfileTestOrder = (YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(116);
+                    }
+
+                    womensHealthProfileTestOrder.AssignedToId = 5051;
+
+                    YellowstonePathology.Business.Client.Model.HPV1618ReflexOrderPAPNormalHPVPositive hpv1618ReflexOrderPAPNormalHPVPositive = new YellowstonePathology.Business.Client.Model.HPV1618ReflexOrderPAPNormalHPVPositive();
+                    womensHealthProfileTestOrder.HPV1618ReflexOrderCode = hpv1618ReflexOrderPAPNormalHPVPositive.ReflexOrderCode;
+                    womensHealthProfileTestOrder.OrderHPV = true;                    
+
+					YellowstonePathology.Business.Specimen.Model.SpecimenOrder hpvSpecimen = accessionOrder.SpecimenOrderCollection.GetThinPrep();
+					YellowstonePathology.Business.Test.HPV.HPVTest panelSetHPV = new YellowstonePathology.Business.Test.HPV.HPVTest();
+                    YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new TestOrderInfo(panelSetHPV, hpvSpecimen, true);
+                    YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Visitor.OrderTestOrderVisitor(testOrderInfo);
+                    accessionOrder.TakeATrip(orderTestOrderVisitor);                     
                 }
 
                 string reflexInstruction2 = "Test->Pap Test with High Risk HPV DNA reflex testing if diagnosis is ASCUS";
                 if (accessionOrder.SpecialInstructions.Contains(reflexInstruction2) == true)
                 {
+                    YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder womensHealthProfileTestOrder = null;
                     if (this.HasWomensHealthProfileOrder() == false)
                     {
                         YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTest womensHealthProfileTest = new YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTest();
                         string reportNo = accessionOrder.GetNextReportNo(womensHealthProfileTest);
 						string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-						YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder womensHealthProfileTestOrder = new YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder(accessionOrder.MasterAccessionNo, reportNo, objectId, womensHealthProfileTest, accessionOrder.SpecimenOrderCollection[0], false);
-                        womensHealthProfileTestOrder.AssignedToId = 5051;
-
-                        YellowstonePathology.Business.Client.Model.HPVReflexOrderRule2 hpvReflexOrderRule2 = new YellowstonePathology.Business.Client.Model.HPVReflexOrderRule2();
-                        womensHealthProfileTestOrder.HPVReflexOrderCode = hpvReflexOrderRule2.ReflexOrderCode;
+                        womensHealthProfileTestOrder = new YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder(accessionOrder.MasterAccessionNo, reportNo, objectId, womensHealthProfileTest, accessionOrder.SpecimenOrderCollection[0], false);                        
                         accessionOrder.PanelSetOrderCollection.Add(womensHealthProfileTestOrder);
-                    }                    
+                    }
+                    else
+                    {
+                        womensHealthProfileTestOrder = (YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(116);
+                    }
+
+                    womensHealthProfileTestOrder.AssignedToId = 5051;
+                    YellowstonePathology.Business.Client.Model.HPVReflexOrderRule2 hpvReflexOrderRule2 = new YellowstonePathology.Business.Client.Model.HPVReflexOrderRule2();
+                    womensHealthProfileTestOrder.HPVReflexOrderCode = hpvReflexOrderRule2.ReflexOrderCode;                    
                 }
 
                 string reflexInstruction3 = "Test->Pap Test with High Risk HPV DNA testing regardless of diagnosis";
                 if (accessionOrder.SpecialInstructions.Contains(reflexInstruction3) == true)
                 {
+                    YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder womensHealthProfileTestOrder = null;
                     if (this.HasWomensHealthProfileOrder() == false)
                     {
                         YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTest womensHealthProfileTest = new YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTest();
                         string whpReportNo = accessionOrder.GetNextReportNo(womensHealthProfileTest);
-						string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-						YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder womensHealthProfileTestOrder = new YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder(accessionOrder.MasterAccessionNo, whpReportNo, objectId, womensHealthProfileTest, accessionOrder.SpecimenOrderCollection[0], false);
-                        womensHealthProfileTestOrder.AssignedToId = 5051;
-                        womensHealthProfileTestOrder.OrderHPV = true;
+                        string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
+                        womensHealthProfileTestOrder = new YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder(accessionOrder.MasterAccessionNo, whpReportNo, objectId, womensHealthProfileTest, accessionOrder.SpecimenOrderCollection[0], false);                        
                         accessionOrder.PanelSetOrderCollection.Add(womensHealthProfileTestOrder);
-
-						YellowstonePathology.Business.Specimen.Model.SpecimenOrder hpvSpecimen = accessionOrder.SpecimenOrderCollection.GetThinPrep();
-						YellowstonePathology.Business.Test.HPV.HPVTest panelSetHPV = new YellowstonePathology.Business.Test.HPV.HPVTest();
-                        YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new TestOrderInfo(panelSetHPV, hpvSpecimen, true);
-                        YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Visitor.OrderTestOrderVisitor(testOrderInfo);
-                        accessionOrder.TakeATrip(orderTestOrderVisitor); 
                     }
+                    else
+                    {
+                        womensHealthProfileTestOrder = (YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(116);
+                    }
+
+                    womensHealthProfileTestOrder.OrderHPV = true;
+                    womensHealthProfileTestOrder.AssignedToId = 5051;
+
+                    YellowstonePathology.Business.Specimen.Model.SpecimenOrder hpvSpecimen = accessionOrder.SpecimenOrderCollection.GetThinPrep();
+					YellowstonePathology.Business.Test.HPV.HPVTest panelSetHPV = new YellowstonePathology.Business.Test.HPV.HPVTest();
+                    YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new TestOrderInfo(panelSetHPV, hpvSpecimen, true);
+                    YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Visitor.OrderTestOrderVisitor(testOrderInfo);
+                    accessionOrder.TakeATrip(orderTestOrderVisitor);                     
                 }
             }
         }

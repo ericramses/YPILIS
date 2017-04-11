@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>442</ApplicationRevision>
+    <ApplicationRevision>461</ApplicationRevision>
     <ApplicationVersion>10.1.6.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -833,7 +833,6 @@
     <Compile Include="Business\Flow\MarkerItem.cs" />
     <Compile Include="Business\Flow\MarkerItem.Generated.cs" />
     <Compile Include="Business\FtpTransfer.cs" />
-    <Compile Include="Business\Gateway\AccessionOrderBuilder.cs" />
     <Compile Include="Business\Gateway\AccessionOrderBuilderV2.cs" />
     <Compile Include="Business\Gateway\AccessionOrderGateway.cs" />
     <Compile Include="Business\Gateway\AccessionSlideOrderViewBuilder.cs" />
@@ -1119,6 +1118,11 @@
     <Compile Include="Business\Test\AMLStandardByFish\AMLStandardByFishWPHOBXView.cs" />
     <Compile Include="Business\Test\AmyloidProteinIDParLCMS\AmyloidProteinIDParLCMSTest.cs" />
     <Compile Include="Business\Test\BartonellaSpeciesByPCR\BartonellaSpeciesByPCRTest.cs" />
+    <Compile Include="Business\Test\BCellSubsetAnalysis\BCellSubsetAnalysisEPICOBXView.cs" />
+    <Compile Include="Business\Test\BCellSubsetAnalysis\BCellSubsetAnalysisTest.cs" />
+    <Compile Include="Business\Test\BCellSubsetAnalysis\BCellSubsetAnalysisWordDocument.cs" />
+    <Compile Include="Business\Test\BCellSubsetAnalysis\BCellSubsetAnalysisTestOrder.cs" />
+    <Compile Include="Business\Test\BCellSubsetAnalysis\BCellSubsetAnalysisWPHOBXView.cs" />
     <Compile Include="Business\Test\BRAFV600EK\BRAFV600EKWPHOBXView.cs" />
     <Compile Include="Business\Test\CalreticulinMutationAnalysis\CalreticulinMutationAnalysisWPHOBXView.cs" />
     <Compile Include="Business\Test\CKIT\CKITWPHOBXView.cs" />
@@ -1415,7 +1419,6 @@
     <Compile Include="Business\Persistence\RemoteObjectTransferAgent.cs" />
     <Compile Include="Business\Persistence\SpecimenOrderDocumentBuilder.cs" />
     <Compile Include="Business\Persistence\SqlCommandBuilder.cs" />
-    <Compile Include="Business\Persistence\SqlCommandHelper.cs" />
     <Compile Include="Business\Persistence\SqlCommandQueues.cs" />
     <Compile Include="Business\Persistence\SqlCommandSubmitter.cs" />
     <Compile Include="Business\Persistence\SqlDataReaderPropertyWriter.cs" />
@@ -1487,9 +1490,6 @@
     <Compile Include="Business\ReportNoLetter.cs" />
     <Compile Include="Business\ReportNoLetterDefinitions.cs" />
     <Compile Include="Business\Reports\CreateExcelSpreadSheet.cs" />
-    <Compile Include="Business\Reports\CytologySlideDisposalReport.xaml.cs">
-      <DependentUpon>CytologySlideDisposalReport.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Business\Reports\Cytology\CytologyUnsatLetters.cs" />
     <Compile Include="Business\Reports\IReport.cs" />
     <Compile Include="Business\Reports\LabOrderSheet.cs" />
@@ -1502,12 +1502,6 @@
     <Compile Include="Business\Reports\ReportBase.cs" />
     <Compile Include="Business\Reports\ReportParameterAttribute.cs" />
     <Compile Include="Business\Reports\ReportUI.cs" />
-    <Compile Include="Business\Reports\SpecimenDisposalReport.xaml.cs">
-      <DependentUpon>SpecimenDisposalReport.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Business\Reports\SurgicalSpecimenDisposalReport.xaml.cs">
-      <DependentUpon>SurgicalSpecimenDisposalReport.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Business\Reports\Surgical\SurgicalMasterLog.cs" />
     <Compile Include="Business\Requisition.cs" />
     <Compile Include="Business\Rules\Amendment\FinalAmendment.cs" />
@@ -3610,6 +3604,10 @@
       <DependentUpon>BCellGeneRearrangementResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Test\BCellGeneRearrangementResultPath.cs" />
+    <Compile Include="UI\Test\BCellSubsetAnalysisResultPage.xaml.cs">
+      <DependentUpon>BCellSubsetAnalysisResultPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Test\BCellSubsetAnalysisResultPath.cs" />
     <Compile Include="UI\Test\BCL1t1114ResultPage.xaml.cs">
       <DependentUpon>BCL1t1114ResultPage.xaml</DependentUpon>
     </Compile>
@@ -5003,10 +5001,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <Page Include="Business\Reports\CytologySlideDisposalReport.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Business\Reports\CytologySlideDisposalReportV2.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -5018,14 +5012,6 @@
     <Page Include="Business\Reports\POCRetensionReportV2.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Business\Reports\SpecimenDisposalReport.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Business\Reports\SurgicalSpecimenDisposalReport.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Business\Reports\SurgicalSpecimenDisposalReportV2.xaml">
       <SubType>Designer</SubType>
@@ -5522,6 +5508,10 @@
     </Page>
     <Page Include="UI\Test\BCellEnumerationResultPage.xaml" />
     <Page Include="UI\Test\BCellGeneRearrangementResultPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Test\BCellSubsetAnalysisResultPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

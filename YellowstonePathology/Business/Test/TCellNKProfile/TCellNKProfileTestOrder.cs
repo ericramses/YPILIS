@@ -118,7 +118,6 @@ namespace YellowstonePathology.Business.Test.TCellNKProfile
                     this.m_CD4TPercent = value;
                     this.NotifyPropertyChanged("CD4TPercent");
                     this.CD4TCount = this.CalculateAbsoluteCount(m_CD4TPercent);
-                    this.SetCD4CD8Ratio();
                 }
             }
         }
@@ -135,7 +134,6 @@ namespace YellowstonePathology.Business.Test.TCellNKProfile
                     this.m_CD8TPercent = value;
                     this.NotifyPropertyChanged("CD8TPercent");
                     this.CD8TCount = this.CalculateAbsoluteCount(m_CD8TPercent);
-                    this.SetCD4CD8Ratio();
                 }
             }
         }
@@ -238,6 +236,8 @@ namespace YellowstonePathology.Business.Test.TCellNKProfile
             }
         }
 
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "10", "null", "varchar")]
         public string CD4CD8Ratio
         {
             get { return this.m_CD4CD8Ratio; }
@@ -366,16 +366,6 @@ namespace YellowstonePathology.Business.Test.TCellNKProfile
                 result = resultValue.ToString();
             }
             return result;
-        }
-
-        private void SetCD4CD8Ratio()
-        {
-            double? result = null;
-            if (this.m_CD4TPercent.HasValue && this.m_CD8TPercent.HasValue)
-            {
-                result = Math.Round(this.m_CD4TPercent.Value / this.m_CD8TPercent.Value, 2);
-            }
-            this.CD4CD8Ratio = result.ToString();
         }
 
         public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)

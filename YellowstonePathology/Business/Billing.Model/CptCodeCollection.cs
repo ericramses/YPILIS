@@ -29,7 +29,7 @@ namespace YellowstonePathology.Business.Billing.Model
 
                 return instance;
             }
-        }
+        }        
 
         public CptCodeCollection()
         {

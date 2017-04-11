@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
 using System.Data;
+using System.Globalization;
 
 namespace YellowstonePathology.MySQLMigration
 {
@@ -115,24 +116,18 @@ namespace YellowstonePathology.MySQLMigration
             }
             else if (sqlValue != myValue)
             {
-                int si = sqlValue.Length;
-                int mi = myValue.Length;
-                if (mi != si)
+                sqlValue = sqlValue.Normalize();
+                myValue = myValue.Normalize();
+                /*if (sqlValue != myValue)
                 {
-                    sqlValue = sqlValue.Replace("\r\n", "\n");
-                    si = sqlValue.Length;
-                    mi = myValue.Length;
-                }
-                for (int idx = 0; idx < sqlValue.Length; idx++)
-                {
-                    if (sqlValue[idx] != myValue[idx])
-                    {
-                        char s = sqlValue[idx];
-                        char m = myValue[idx];
+                    myValue = Encoding.UTF8.GetString(Encoding.GetEncoding(1252).GetBytes(myValue));
+                    sqlValue = Encoding.UTF8.GetString(Encoding.GetEncoding("utf-8").GetBytes(sqlValue));
+
+                    if (sqlValue != myValue)
+                    {*/
                         compares = false;
-                        break;
-                    }
-                }
+                    //}
+                //}
             }
 
             if (compares == false)
@@ -259,7 +254,8 @@ namespace YellowstonePathology.MySQLMigration
             bool myValue = (Boolean)this.m_MySqlDataTableReader[property.Name];
             if (sqlValue != myValue)
             {
-                this.SetFieldValues(property.Name, myValue.ToString());
+                string value = myValue == true ? "1" : "0";
+                this.SetFieldValues(property.Name, value);
             }
         }
 
@@ -291,7 +287,15 @@ namespace YellowstonePathology.MySQLMigration
             }
             if (compares == false)
             {
-                string value = myValue == null ? "null" : myValue.ToString();
+                string value = string.Empty;
+                if(myValue.HasValue == false)
+                {
+                    value = "null";
+                }
+                else
+                {
+                    value = myValue == true ? "1" : "0";
+                }
                 this.SetFieldValues(property.Name, value);
             }
         }
