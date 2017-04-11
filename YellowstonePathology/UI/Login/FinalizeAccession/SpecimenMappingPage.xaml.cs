@@ -219,6 +219,20 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             CheckBox checkBox = (CheckBox)sender;
             YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder = (YellowstonePathology.Business.Slide.Model.SlideOrder)checkBox.Tag;
             slideOrder.Status = YellowstonePathology.Business.Slide.Model.SlideStatusEnum.Created.ToString();
-        }        
-	}
+        }
+
+        private void ButtonMarkBlocks_Click(object sender, RoutedEventArgs e)
+        {
+            foreach(YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder in this.m_AccessionOrder.SpecimenOrderCollection)
+            {
+                foreach (YellowstonePathology.Business.Test.AliquotOrder aliquotOrder in specimenOrder.AliquotOrderCollection)
+                {
+                    if(aliquotOrder.ClientAccessioned == false)
+                        aliquotOrder.ClientAccessioned = true;
+                    if(string.IsNullOrEmpty(aliquotOrder.ClientLabel) == true)
+                        aliquotOrder.ClientLabel = aliquotOrder.Label;
+                }
+            }            
+        }
+    }
 }

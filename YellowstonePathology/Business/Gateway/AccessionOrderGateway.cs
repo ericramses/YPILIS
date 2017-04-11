@@ -49,7 +49,7 @@ namespace YellowstonePathology.Business.Gateway
                 "from tblAccessionOrder ao " +
                 "join tblspecimenOrder so on ao.masterAccessionNo = so.MasterAccessionNo " +
                 "where charindex('Breast', so.Description) > 0 " +
-                "and ao.AccessionDate >= dateadd(d, -30, getdate()) " +
+                "and ao.AccessionDate >= dateadd(d, -30, getdate()) and so.ClientAccessioned = 0 " +
                 "order by ao.AccessionTime desc";
             cmd.CommandType = CommandType.Text;            
 
