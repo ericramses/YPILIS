@@ -92,6 +92,7 @@ namespace YellowstonePathology.Business.Facility.Model
             result.Add(new SheridanMemorialHospital());
             result.Add(new ChristianaCare());
             result.Add(new NeogenomicsNashville());
+            result.Add(new CBCI());
             return Sort(result);
         }
 
