@@ -1128,15 +1128,15 @@ namespace YellowstonePathology.MySQLMigration
             Business.Rules.MethodResult overallResult = new Business.Rules.MethodResult();
             List<string> matchLike = this.GetMatchList(migrationStatus.TableName, migrationStatus.KeyFieldName);
 
-            //foreach (string match in matchLike)
-            //{
-            List<string> keys = new List<string>();
+            foreach (string match in matchLike)
+            {
+                //List<string> keys = new List<string>();
 
-            //List<string> keys = this.GetCompareDataKeyList(migrationStatus.TableName, migrationStatus.KeyFieldName, match);
-                //if (keys.Count > 0)
-                //{
+                List<string> keys = this.GetCompareDataKeyList(migrationStatus.TableName, migrationStatus.KeyFieldName, match);
+                if (keys.Count > 0)
+                {
                     List<string> updateCommands = new List<string>();
-            overallResult = this.CompareData(migrationStatus, keys, updateCommands);
+                    overallResult = this.CompareData(migrationStatus, keys, updateCommands);
                     if (updateCommands.Count > 0)
                     {
                         Business.Rules.MethodResult result = this.Synchronize(updateCommands);
@@ -1156,8 +1156,8 @@ namespace YellowstonePathology.MySQLMigration
                                 File.AppendAllText("C:/TEMP/NotMatched.txt", cmd + Environment.NewLine + "-- ----------------" + Environment.NewLine + Environment.NewLine);
                         }
                     }
-                //}
-            //}
+                }
+            }
             return overallResult;
         }
 
