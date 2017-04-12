@@ -8,8 +8,8 @@ using YellowstonePathology.Business.Persistence;
 namespace YellowstonePathology.Business.Test.ThinPrepPap
 {
 	[PersistentClass("tblPanelSetOrderCytology", "tblPanelSetOrder", "YPIDATA")]
-	public class PanelSetOrderCytology : PanelSetOrder
-	{		
+	public class PanelSetOrderCytology : YellowstonePathology.Business.Test.ReflexTesting.ReflexTestingPlan
+    {		
 		private int m_ScreenedById;
 		private string m_ScreenedByName;		
 		private string m_SpecimenAdequacy;
@@ -45,8 +45,16 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
             this.ScreeningType = "Final Result";
 
             this.m_ReportReferences = YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapResult.References;
-            this.m_Method = YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapResult.Method;			
-		}
+            this.m_Method = YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapResult.Method;            
+        }
+        
+        public override void OrderInitialTests(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Interface.IOrderTarget orderTarget)
+        {
+            YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTest whpTest = new WomensHealthProfile.WomensHealthProfileTest();
+            YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new TestOrderInfo(whpTest, orderTarget, false);
+            YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Visitor.OrderTestOrderVisitor(testOrderInfo);
+            accessionOrder.TakeATrip(orderTestOrderVisitor);            
+        }        
 
         public void UpdateFromScreening(YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology panelOrderCytology)
         {
