@@ -39,7 +39,7 @@ namespace YellowstonePathology.Business.Test
                     Business.PanelSet.Model.PanelSet panelSet = panelSetCollection.GetPanelSet(pso.PanelSetId);
                     if (panelSet.ReportAsAdditionalTesting == true)
                     {
-                        result.AppendLine(pso.PanelSetName);
+                        result.AppendLine(pso.ReportNo + " " + pso.PanelSetName);
                     }
                 }                
             }
