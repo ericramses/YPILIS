@@ -8,10 +8,8 @@ namespace YellowstonePathology.Business.Test.BCellSubsetAnalysis
     [PersistentClass("tblBCellSubsetAnalysisTestOrder", "tblPanelSetOrder", "YPIDATA")]
     public class BCellSubsetAnalysisTestOrder : PanelSetOrder
     {
-        private string m_Method;
-        private string m_Interpretation;
+        private string m_Method;        
         private string m_ASRComment;
-
         private string m_MatureBCellsPlusPercent;
         private string m_MatureBCellsMinusPercent;
         private string m_MemoryBCellPercent;
@@ -20,8 +18,7 @@ namespace YellowstonePathology.Business.Test.BCellSubsetAnalysis
         private string m_ClassSwitchedMemoryBCellPercent;
         private string m_NaiveBCellPercent;
         private string m_TransitionalBCellPercent;
-        private string m_PlasmaBlastsPercent;
-        private string m_MFIPercent;
+        private string m_PlasmaBlastsPercent;        
         private string m_TotalNucleatedPercent;
         private string m_TotalLymphocytesPercent;
 
@@ -41,8 +38,9 @@ namespace YellowstonePathology.Business.Test.BCellSubsetAnalysis
                 "investigational or for research.  This laboratory is certified under the Clinical Laboratory Improvement Amendments of 1988 (CLIA-88) " +
                 "as qualified to perform high complexity clinical laboratory testing.";
             this.m_Method = "Quantitative Flow Cytometry.";
-            this.m_ReportReferences = "Needs References";
-            this.m_Interpretation = "Needs interpretation.";
+            this.m_ReportReferences = "A. S. Bradley, B Ford, A.S. Bansal.  Altered functional B cell subset populations in patients with chronic fatigue syndrome compared to healthy controls.  British Society for Immunology, Clinical and Experimental Immunology, 172: 73-80. " + Environment.NewLine +
+                "F.Mensah, A Bansal, S. Berkovitz, A.Sharma, V Reddy, M J.Leandro and G.Cambridge.Extended B cell phenotype in patients with myalgic encephalomyelitis/ chronic fatigue syndrome: a cross-sectional study.British Society for Immunology, Clinical and Experimental Immunology, 184: 237 - 247." + Environment.NewLine +
+                "Ramos S, Brenu E, Nuyen T, Ng J, Staines D, et al.Characterisation of B cell Subsets and Receptors in Chronic Fatigue Syndrom Paqtients.J Clin Cell Immunol 6: 288.";            
         }
 
         [PersistentProperty()]
@@ -58,22 +56,7 @@ namespace YellowstonePathology.Business.Test.BCellSubsetAnalysis
                     this.NotifyPropertyChanged("Method");
                 }
             }
-        }
-
-        [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1000", "null", "varchar")]
-        public string Interpretation
-        {
-            get { return this.m_Interpretation; }
-            set
-            {
-                if (this.m_Interpretation != value)
-                {
-                    this.m_Interpretation = value;
-                    this.NotifyPropertyChanged("Interpretation");
-                }
-            }
-        }
+        }        
 
         [PersistentProperty()]
         [PersistentDataColumnProperty(true, "1000", "null", "varchar")]
@@ -224,22 +207,7 @@ namespace YellowstonePathology.Business.Test.BCellSubsetAnalysis
                     this.NotifyPropertyChanged("PlasmaBlastsPercent");
                 }
             }
-        }
-
-        [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "10", "null", "varchar")]
-        public string MFIPercent
-        {
-            get { return this.m_MFIPercent; }
-            set
-            {
-                if (this.m_MFIPercent != value)
-                {
-                    this.m_MFIPercent = value;
-                    this.NotifyPropertyChanged("MFIPercent");
-                }
-            }
-        }
+        }        
 
         [PersistentProperty()]
         [PersistentDataColumnProperty(true, "10", "null", "varchar")]
@@ -276,15 +244,14 @@ namespace YellowstonePathology.Business.Test.BCellSubsetAnalysis
             StringBuilder result = new StringBuilder();
 
             result.AppendLine("Mature B-Cells Percent: " + this.m_MatureBCellsPlusPercent);
-            result.AppendLine(": " + this.m_MatureBCellsMinusPercent);
+            result.AppendLine("21+ 38-: " + this.m_MatureBCellsMinusPercent);
             result.AppendLine("Memory B-Cell Percent: " + this.m_MemoryBCellPercent);
             result.AppendLine("Non-Switched Memory B-Cell Percent: " + this.m_NonSwitchedMemoryBCellPercent);
             result.AppendLine("Marginal ZoneB-Cell Percent: " + this.m_MarginalZoneBCellPercent);
             result.AppendLine("Class Switched Memory B-Cell Percent: " + this.m_ClassSwitchedMemoryBCellPercent);
             result.AppendLine("Naive B-Cell Percent: " + this.m_NaiveBCellPercent);
             result.AppendLine("Transitional B-Cell Percent: " + this.m_TransitionalBCellPercent);
-            result.AppendLine("Plasmablasts Percent: " + this.m_PlasmaBlastsPercent);
-            result.AppendLine("MFI Percent: " + this.m_MFIPercent);
+            result.AppendLine("Plasmablasts Percent: " + this.m_PlasmaBlastsPercent);            
             result.AppendLine("Total Lymphs % of Nucleated Cells: " + this.m_TotalNucleatedPercent);
             result.AppendLine("B-Cell % of Total Lymphocytes: " + this.m_TotalLymphocytesPercent);
 

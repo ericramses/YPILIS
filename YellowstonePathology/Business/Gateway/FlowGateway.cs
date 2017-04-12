@@ -35,7 +35,7 @@ namespace YellowstonePathology.Business.Gateway
 		{
 			SqlCommand cmd = new SqlCommand("select pso.ReportNo, ao.PLastName, ao.PFirstName, ao.AccessionDate, pso.FinalDate, pso.PanelSetName [TestName], pso.ObjectId, pso.MasterAccessionNo " +
 				"from tblPanelSetOrder pso join tblAccessionOrder ao on pso.MasterAccessionNo = ao.MasterAccessionNo " +
-                "where pso.PanelSetId not in (19,143,211,222,223,247,248) and pso.CaseType = 'Flow Cytometry' and pso.ReportNo = @ReportNo ");
+                "where pso.PanelSetId not in (19,143,211,222,223,247,248,263) and pso.CaseType = 'Flow Cytometry' and pso.ReportNo = @ReportNo ");
 			cmd.CommandType = CommandType.Text;
 			cmd.Parameters.Add("@ReportNo", SqlDbType.VarChar).Value = reportNo;
 			return BuildFlowLogList(cmd);
@@ -45,7 +45,7 @@ namespace YellowstonePathology.Business.Gateway
 		{
 			SqlCommand cmd = new SqlCommand("Select pso.ReportNo, ao.PLastName, ao.PFirstName, ao.AccessionDate, pso.FinalDate, pso.PanelSetName [TestName], pso.ObjectId, pso.MasterAccessionNo " +
                 "from tblPanelSetOrder pso join tblAccessionOrder ao on pso.MasterAccessionNo = ao.MasterAccessionNo " +
-                "where pso.PanelSetId not in (19,143,211,222,223,247,248) and pso.CaseType = 'Flow Cytometry' and month(ao.AccessionDate) = @Month and Year(ao.AccessionDate) = @Year " +
+                "where pso.PanelSetId not in (19,143,211,222,223,247,248,263) and pso.CaseType = 'Flow Cytometry' and month(ao.AccessionDate) = @Month and Year(ao.AccessionDate) = @Year " +
 				"order by ao.AccessionDate desc, pso.ReportNo desc");
 			cmd.Parameters.Add("@Month", SqlDbType.Int).Value = date.Month;
 			cmd.Parameters.Add("@Year", SqlDbType.Int).Value = date.Year;
@@ -61,7 +61,7 @@ namespace YellowstonePathology.Business.Gateway
 			string whereClause = string.Empty;
 			string sql = "select pso.ReportNo, ao.PLastName, ao.PFirstName, ao.AccessionDate, pso.FinalDate, pso.PanelSetName [TestName], pso.ObjectId, pso.MasterAccessionNo " +
                 "from tblPanelSetOrder pso join tblAccessionOrder ao on pso.MasterAccessionNo = ao.MasterAccessionNo " +
-                "Where pso.PanelSetId not in (19,143,211,222,223,247,248) and pso.CaseType = 'Flow Cytometry' ";
+                "Where pso.PanelSetId not in (19,143,211,222,223,247,248,263) and pso.CaseType = 'Flow Cytometry' ";
 
 			string[] commaSplit = patientName.Split(',');
 			switch (commaSplit.Length)
@@ -141,21 +141,7 @@ namespace YellowstonePathology.Business.Gateway
 				}
 			}
 			return result;
-		}
-
-		/*private static Flow.FlowMarkerCollection BuildFlowMarkerCollection(XElement sourceElement)
-		{
-			Flow.FlowMarkerCollection flowMarkerCollection = new Flow.FlowMarkerCollection();
-			if (sourceElement != null)
-			{
-				foreach (XElement flowMarkerItemElement in sourceElement.Elements("FlowMarkerItem"))
-				{
-					Flow.FlowMarkerItem flowMarkerItem = BuildFlowMarkerItem(flowMarkerItemElement);
-					flowMarkerCollection.Add(flowMarkerItem);
-				}
-			}
-			return flowMarkerCollection;
-		}*/
+		}		
 
 		private static Flow.FlowMarkerItem BuildFlowMarkerItem(XElement sourceElement)
 		{
