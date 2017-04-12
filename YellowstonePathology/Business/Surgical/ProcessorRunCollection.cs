@@ -37,6 +37,7 @@ namespace YellowstonePathology.Business.Surgical
 
             result.Add(new ProcessorRun("Chong, Overnight", yesterdayAt500, new TimeSpan(2, 30, 0)));
             result.Add(new ProcessorRun("Cheech, Overnight", yesterdayAt500, new TimeSpan(3, 10, 0)));
+            result.Add(new ProcessorRun("Overnight Friday", yesterdayAt500, new TimeSpan(3, 10, 0)));
             result.Add(new ProcessorRun("Long Mini", todayAtNoon, new TimeSpan(0, 60, 0)));
             result.Add(new ProcessorRun("Short Mini", todayAtNoon, new TimeSpan(0, 30, 0)));
             return result;
