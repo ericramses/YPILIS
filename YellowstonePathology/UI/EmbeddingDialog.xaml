@@ -19,7 +19,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
-            <TextBox Name="TextBoxDate" Margin="2" Width="120" Text="{Binding Path=WorkDate, Converter={StaticResource ShortDateConverter}, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Name="TextBoxDate" Margin="2" Width="120" Text="{Binding Path=WorkDate, Converter={StaticResource ShortDateConverter}, UpdateSourceTrigger=PropertyChanged}" IsEnabled="False" />
 
             <Button Click="ButtonAccessionOrderBack_Click" Width="30">
                 <StackPanel Orientation="Horizontal">

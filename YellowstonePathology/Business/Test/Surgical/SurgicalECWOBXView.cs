@@ -125,7 +125,11 @@ namespace YellowstonePathology.Business.Test.Surgical
             this.HandleLongString(this.m_AccessionOrder.ClinicalHistory, document, "F");
             this.AddNextObxElement("", document, "F");
 
-			string immunoComment = panelSetOrderSurgical.GetImmunoComment();
+            this.AddNextObxElement("Additional Testing: ", document, "F");
+            this.HandleLongString(this.m_AccessionOrder.PanelSetOrderCollection.GetAdditionalTestingString(panelSetOrderSurgical.ReportNo), document, "F");
+            this.AddNextObxElement("", document, "F");
+
+            string immunoComment = panelSetOrderSurgical.GetImmunoComment();
 			if (string.IsNullOrEmpty(immunoComment) == false)
 			{
 				this.HandleLongString(immunoComment, document, "F");

@@ -26,6 +26,7 @@ namespace YellowstonePathology.Business.Test.MissingInformation
             this.m_ShowResultPageOnOrder = true;
             this.m_NeverDistribute = true;
             this.m_HasNoOrderTarget = true;
+            this.m_ReportAsAdditionalTesting = false;
         }
 	}
 }

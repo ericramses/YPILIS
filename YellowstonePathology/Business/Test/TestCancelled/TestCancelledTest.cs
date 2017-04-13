@@ -21,6 +21,7 @@ namespace YellowstonePathology.Business.Test.TestCancelled
 			this.m_AllowMultiplePerAccession = true;
             this.m_IsBillable = false;
             this.m_EpicDistributionIsImplemented = true;
+            this.m_ReportAsAdditionalTesting = false;
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMiscellaneous());
 		}

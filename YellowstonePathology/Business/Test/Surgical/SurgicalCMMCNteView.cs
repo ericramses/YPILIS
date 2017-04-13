@@ -131,7 +131,11 @@ namespace YellowstonePathology.Business.Test.Surgical
 			this.HandleLongString(panelSetOrderSurgical.GrossX, document);
 			this.AddBlankNteElement(document);
 
-			this.AddNextNteElement("Clinical Information: ", document);
+            this.AddNextNteElement("Additional Testing: ", document);
+            this.HandleLongString(this.m_AccessionOrder.PanelSetOrderCollection.GetAdditionalTestingString(panelSetOrderSurgical.ReportNo), document);
+            this.AddBlankNteElement(document);
+
+            this.AddNextNteElement("Clinical Information: ", document);
 			this.HandleLongString(this.m_AccessionOrder.ClinicalHistory, document);
 		}
 	}

@@ -42,6 +42,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
         protected string m_EPICOBXViewClassName;
         protected string m_CMMCNTEViewClassName;
         protected bool m_ResearchTesting;
+        protected bool m_ReportAsAdditionalTesting;
 
         protected YellowstonePathology.Business.Specimen.Model.Aliquot m_AliquotToAddOnOrder;        
 
@@ -84,6 +85,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
 
             this.m_EpicDistributionIsImplemented = false;
             this.m_CMMCDistributionIsImplemented = false;
+            this.m_ReportAsAdditionalTesting = true;
 
             this.m_OrderTargetTypeCollectionExclusions = new YellowstonePathology.Business.OrderTargetTypeCollection();
             this.m_OrderTargetTypeCollectionRestrictions = new YellowstonePathology.Business.OrderTargetTypeCollection();
@@ -585,6 +587,20 @@ namespace YellowstonePathology.Business.PanelSet.Model
                 {
                     this.m_ResearchTesting = value;
                     this.NotifyPropertyChanged("ResearchTesting");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public bool ReportAsAdditionalTesting
+        {
+            get { return this.m_ReportAsAdditionalTesting; }
+            set
+            {
+                if (this.m_ReportAsAdditionalTesting != value)
+                {
+                    this.m_ReportAsAdditionalTesting = value;
+                    this.NotifyPropertyChanged("ReportAsAdditionalTesting");
                 }
             }
         }

@@ -92,7 +92,7 @@ namespace YellowstonePathology.UI
         private void CalculateEstimatedFixationDuration()
         {
             foreach(EmbeddingBreastCaseListItem item in this.m_EmbeddingBreastCaseList)
-            {
+            {                                
                 if(item.FixationStartTime.HasValue == true)
                 {
                     if (item.FixationEndTime.HasValue == false)
@@ -106,9 +106,9 @@ namespace YellowstonePathology.UI
                             item.FixationDurationExpected = Convert.ToInt32(Math.Round(expectedDurationTS.TotalHours, 0));                            
                         }
                         else
-                        {                            
-                            Business.Surgical.ProcessorRunCollection runs = Business.Surgical.ProcessorRunCollection.GetAll();
-                            Business.Surgical.ProcessorRun run = runs.Get("Chong, Overnight");
+                        {
+                            DateTime todayAtFive = DateTime.Parse(DateTime.Today.ToString("yyyy-MM-dd") + "T17:00");
+                            Business.Surgical.ProcessorRun run = new Business.Surgical.ProcessorRun("Today", todayAtFive, new TimeSpan(2, 30, 0));
                             DateTime expectedFixationEndTime = run.GetFixationEndTime(item.FixationStartTime.Value);
                             TimeSpan expectedDurationTS = expectedFixationEndTime.Subtract(item.FixationStartTime.Value);
                             item.FixationDurationExpected = Convert.ToInt32(Math.Round(expectedDurationTS.TotalHours, 0));                         
@@ -181,6 +181,7 @@ namespace YellowstonePathology.UI
             {                                
                 if (this.IsProcessorStartTimeValid() == true)
                 {
+                    this.ComboBoxProcessorRuns.Focus();
                     YellowstonePathology.Business.BarcodeScanning.EmbeddingScan result = this.m_EmbeddingScanCollection.HandleScan(aliquotOrderId, this.m_ProcessorStartTime.Value, this.m_ProcessorFixationDuration);
                     this.ListViewEmbeddingScans.SelectedIndex = 0;
                     this.m_ScanCount = "Block Count: " + this.m_EmbeddingScanCollection.Count.ToString();

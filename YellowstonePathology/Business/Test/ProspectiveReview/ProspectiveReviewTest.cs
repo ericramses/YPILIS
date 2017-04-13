@@ -18,8 +18,9 @@ namespace YellowstonePathology.Business.Test.ProspectiveReview
 			this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterQ();
             this.m_Active = true;
-            
-			this.m_AllowMultiplePerAccession = true;
+            this.m_ReportAsAdditionalTesting = false;
+
+            this.m_AllowMultiplePerAccession = true;
 
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.ProspectiveReview.ProspectiveReviewTestOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Document.NothingToPublishReport).AssemblyQualifiedName;
