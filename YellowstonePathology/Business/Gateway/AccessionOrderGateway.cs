@@ -49,7 +49,7 @@ namespace YellowstonePathology.Business.Gateway
                 "from tblAccessionOrder ao " +
                 "join tblSpecimenOrder so on ao.MasterAccessionNo = so.MasterAccessionNo " +
                 "where instr(so.Description, 'Breast') > 0 " +
-                "and ao.AccessionDate >= date_add(curdate(), interval -30 day) " +
+                "and ao.AccessionDate >= date_add(curdate(), interval -30 day)  and so.ClientAccessioned = 0 " +
                 "order by ao.AccessionTime desc;";
             cmd.CommandType = CommandType.Text;            
 
@@ -1940,6 +1940,7 @@ namespace YellowstonePathology.Business.Gateway
 		public static YellowstonePathology.Business.Task.Model.TaskOrderCollection GetDailyTaskOrderHistoryCollection(int daysBack)
 		{
 			YellowstonePathology.Business.Task.Model.TaskOrderCollection result = new YellowstonePathology.Business.Task.Model.TaskOrderCollection();
+			XElement collectionElement = new XElement("Document");
 			string sql = "Select * from tblTaskOrder where AcknowledgementType = 'Daily' " +
 				"and TaskDate between @StartDate and @EndDate order by TaskDate desc;";
 			MySqlCommand cmd = new MySqlCommand(sql);

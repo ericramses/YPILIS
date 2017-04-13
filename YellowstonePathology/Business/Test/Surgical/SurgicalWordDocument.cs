@@ -14,7 +14,7 @@ namespace YellowstonePathology.Business.Test.Surgical
         public override void Render()
 		{						
 			SurgicalTestOrder panelSetOrderSurgical = (SurgicalTestOrder)this.m_PanelSetOrder;
-			this.m_TemplateName = @"\\Cfileserver\Documents\ReportTemplates\XmlTemplates\Surgical.8.xml";
+			this.m_TemplateName = @"\\Cfileserver\Documents\ReportTemplates\XmlTemplates\Surgical.9.xml";
 
 			base.OpenTemplate();
 
@@ -369,7 +369,10 @@ namespace YellowstonePathology.Business.Test.Surgical
 				this.DeleteRow("immuno_comment");
 			}
 
-			this.SaveReport();
+
+            this.SetXMLNodeParagraphData("additional_testing", this.m_AccessionOrder.PanelSetOrderCollection.GetAdditionalTestingString(this.m_PanelSetOrder.ReportNo));
+
+            this.SaveReport();
 		}
 
 		private XmlNode SetStains(XmlNode tableNodeSS,
