@@ -23,9 +23,8 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelWordDocument).AssemblyQualifiedName;
 
             this.m_AllowMultiplePerAccession = true;
-            this.m_ExpectedDuration = TimeSpan.FromDays(10);
-            this.m_EpicDistributionIsImplemented = true;
-            //updated 12.14.16 by MS;
+            this.m_ExpectedDuration = TimeSpan.FromDays(14);
+            this.m_EpicDistributionIsImplemented = true;            
 
             string taskDescription = "Collect paraffin block from Histology and send to Neo.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskFedexShipment(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, taskDescription, new Facility.Model.NeogenomicsIrvine()));
