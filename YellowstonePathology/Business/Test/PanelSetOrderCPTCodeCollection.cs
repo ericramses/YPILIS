@@ -440,36 +440,22 @@ namespace YellowstonePathology.Business.Test
         }
 
         public void SetCPTCodes(Business.Specimen.Model.SpecimenOrderCollection specimenOrderCollection, string reportNo, int clientId)
-        {
-            Business.Specimen.Model.SpecimenCollection skins = Business.Specimen.Model.SpecimenCollection.GetSkins();
+        {            
             foreach(Business.Specimen.Model.SpecimenOrder specimenOrder in specimenOrderCollection)
-            {
-                if(skins.Any(item => item.SpecimenId == specimenOrder.SpecimenId))
+            {                
+                if (this.Exists("88305", specimenOrder.SpecimenOrderId) == false)
                 {
-                    if (this.Exists("88305", specimenOrder.SpecimenOrderId) == false)
-                    {
-                        YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88305 cpt88305 = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88305();
-                        YellowstonePathology.Business.Test.PanelSetOrderCPTCode panelSetOrderCPTCode = this.GetNextItem(reportNo);
-                        panelSetOrderCPTCode.Quantity = 1;
-                        panelSetOrderCPTCode.CPTCode = cpt88305.Code;
-                        panelSetOrderCPTCode.CodeType = cpt88305.CodeType.ToString();
-                        panelSetOrderCPTCode.EntryType = YellowstonePathology.Business.Billing.Model.PanelSetOrderCPTCodeEntryType.ManualEntry;
-                        panelSetOrderCPTCode.CodeableDescription = "Specimen " + specimenOrder.SpecimenNumber + ": " + specimenOrder.Description;
-                        panelSetOrderCPTCode.SpecimenOrderId = specimenOrder.SpecimenOrderId;
-                        panelSetOrderCPTCode.ClientId = clientId;
-                        this.Add(panelSetOrderCPTCode);
-
-                        //panelSetOrderCPTCode.Quantity = cptItem.Quantity;
-                        //panelSetOrderCPTCode.CPTCode = cptItem.CptCode.Code;
-                        //panelSetOrderCPTCode.Modifier = null;
-                        //panelSetOrderCPTCode.CodeableDescription = "Specimen " + specimenOrder.SpecimenNumber + ": " + this.m_SurgicalTestOrder.PanelSetName;
-                        //panelSetOrderCPTCode.CodeableType = "Surgical Diagnosis";
-                        //panelSetOrderCPTCode.EntryType = YellowstonePathology.Business.Billing.Model.PanelSetOrderCPTCodeEntryType.ManualEntry;
-                        //panelSetOrderCPTCode.SpecimenOrderId = specimenOrder.SpecimenOrderId;
-                        //panelSetOrderCPTCode.CodeType = cptItem.CptCode.CodeType.ToString();
-                        //panelSetOrderCPTCode.ClientId = this.m_AccessionOrder.ClientId;
-                    }
-                }
+                    YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88305 cpt88305 = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88305();
+                    YellowstonePathology.Business.Test.PanelSetOrderCPTCode panelSetOrderCPTCode = this.GetNextItem(reportNo);
+                    panelSetOrderCPTCode.Quantity = 1;
+                    panelSetOrderCPTCode.CPTCode = cpt88305.Code;
+                    panelSetOrderCPTCode.CodeType = cpt88305.CodeType.ToString();
+                    panelSetOrderCPTCode.EntryType = YellowstonePathology.Business.Billing.Model.PanelSetOrderCPTCodeEntryType.ManualEntry;
+                    panelSetOrderCPTCode.CodeableDescription = "Specimen " + specimenOrder.SpecimenNumber + ": " + specimenOrder.Description;
+                    panelSetOrderCPTCode.SpecimenOrderId = specimenOrder.SpecimenOrderId;
+                    panelSetOrderCPTCode.ClientId = clientId;
+                    this.Add(panelSetOrderCPTCode);                
+                }                
             }
         }
 
