@@ -453,7 +453,7 @@
 					</Button>
                     <Button ToolTip="Set CPT Codes" Click="ButtonSetCPTCodes_Click">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock VerticalAlignment="Center" Margin="2">CPT Codes</TextBlock>
+                            <TextBlock VerticalAlignment="Center" Margin="2">88305</TextBlock>
                         </StackPanel>
                     </Button>
                 </ToolBar>
