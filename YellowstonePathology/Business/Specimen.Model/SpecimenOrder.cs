@@ -495,9 +495,9 @@ namespace YellowstonePathology.Business.Specimen.Model
         {
             string result = null;
             if(this.m_FixationStartTime.HasValue == true)
-            {                
-                Business.Surgical.ProcessorRunCollection runs = Business.Surgical.ProcessorRunCollection.GetAll();
-                Business.Surgical.ProcessorRun run = runs.Get("Chong, Overnight");
+            {
+                DateTime todaydayAt500 = DateTime.Parse(DateTime.Today.ToString("yyyy-MM-dd") + "T17:00");
+                Business.Surgical.ProcessorRun run = new Surgical.ProcessorRun("Tonight", todaydayAt500, new TimeSpan(2, 30, 0));
                 DateTime expectedFixationEndTime = run.GetFixationEndTime(this.m_FixationStartTime.Value);
                 TimeSpan expectedDurationTS = expectedFixationEndTime.Subtract(this.m_FixationStartTime.Value);
                 result = "~" + Math.Round(expectedDurationTS.TotalHours, 0).ToString() + "hrs";             
