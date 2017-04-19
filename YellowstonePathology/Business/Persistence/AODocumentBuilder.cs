@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business.Persistence
             YellowstonePathology.Business.User.SystemIdentity systemIdentity = YellowstonePathology.Business.User.SystemIdentity.Instance;
 
             this.m_SQLCommand = new SqlCommand();            
-            this.m_SQLCommand.CommandText = "prcGetAccessionOrder_1";
+            this.m_SQLCommand.CommandText = "prcGetAccessionOrder_2";
             m_SQLCommand.CommandType = CommandType.StoredProcedure;
             m_SQLCommand.Parameters.Add("@MasterAccessionNo", SqlDbType.VarChar).Value = masterAccessionNo;            
         }
@@ -31,8 +31,7 @@ namespace YellowstonePathology.Business.Persistence
 
         public override void Refresh(object o)
         {
-            YellowstonePathology.Business.Test.AccessionOrder accessionOrder = (YellowstonePathology.Business.Test.AccessionOrder)o;
-            //YellowstonePathology.Business.Gateway.AccessionOrderBuilder builder = new YellowstonePathology.Business.Gateway.AccessionOrderBuilder();
+            YellowstonePathology.Business.Test.AccessionOrder accessionOrder = (YellowstonePathology.Business.Test.AccessionOrder)o;            
             YellowstonePathology.Business.Gateway.AccessionOrderBuilderV2 builder = new YellowstonePathology.Business.Gateway.AccessionOrderBuilderV2();
             builder.Build(this.m_SQLCommand, accessionOrder);
         }

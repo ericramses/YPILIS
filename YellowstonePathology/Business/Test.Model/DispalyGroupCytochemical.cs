@@ -23,7 +23,7 @@ namespace YellowstonePathology.Business.Test.Model
             this.m_List.Add(new Fites());
             this.m_List.Add(new Giemsa());
             this.m_List.Add(new GMS());
-            this.m_List.Add(new HuckerTwordt());
+            this.m_List.Add(new HuckerTwort());
             this.m_List.Add(new Iron());
             this.m_List.Add(new MelanA());
             this.m_List.Add(new Mucin());
