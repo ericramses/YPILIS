@@ -93,6 +93,8 @@ namespace YellowstonePathology.Business.Facility.Model
             result.Add(new ChristianaCare());
             result.Add(new NeogenomicsNashville());
             result.Add(new CBCI());
+            result.Add(new AssociatedDermatology());
+            result.Add(new VAEasternColorado());
             return Sort(result);
         }
 
