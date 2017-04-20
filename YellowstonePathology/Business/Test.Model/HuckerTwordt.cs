@@ -5,13 +5,13 @@ using System.Text;
 
 namespace YellowstonePathology.Business.Test.Model
 {
-	public class HuckerTwordt : CytochemicalForMicroorganisms
+	public class HuckerTwort : CytochemicalForMicroorganisms
 	{
-		public HuckerTwordt()
+		public HuckerTwort()
 		{
 			this.m_TestId = 112;
-			this.m_TestName = "Hucker-Twordt";
-            this.m_TestAbbreviation = "Hucker-Twordt";
+			this.m_TestName = "Hucker-Twort";
+            this.m_TestAbbreviation = "Hucker-Twort";
 			this.m_Active = true;
 			this.m_NeedsAcknowledgement = true;
 		}

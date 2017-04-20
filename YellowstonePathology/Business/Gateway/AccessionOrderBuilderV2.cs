@@ -64,6 +64,8 @@ namespace YellowstonePathology.Business.Gateway
                 this.SetTypingStainCollection(surgicalTestOrder);
             }
 
+            //if(this.m_AccessionOrder.PanelSetOrderCollection.has)
+
             foreach(Test.PanelSetOrder panelSetOrder in this.m_AccessionOrder.PanelSetOrderCollection)
             {
                 SetOrderedOnDescription(panelSetOrder);
@@ -100,8 +102,7 @@ namespace YellowstonePathology.Business.Gateway
                     case "tblPanelOrder":
                         this.HandlePanelOrder(dataTable);
                         break;
-                    case "tblTestOrder":
-                        //this.HandleTestOrder(dataTable);
+                    case "tblTestOrder":                        
                         this.m_TestOrderDataTable = dataTable;
                         break;
                     case "tblTestOrderUnsorted":
@@ -276,6 +277,9 @@ namespace YellowstonePathology.Business.Gateway
                         break;
                     case "tblFlowMarkers":
                         this.HandleFlowMarker(dataTable);
+                        break;
+                    case "tblRetrospectiveReviewTestOrderDetail":
+                        this.HandleRetrospectiveReview(dataTable);
                         break;
                 }
             }
@@ -585,6 +589,18 @@ namespace YellowstonePathology.Business.Gateway
                     llpPanelSetOrder.FlowMarkerCollection.Sync(dataTable, llpPanelSetOrder.ReportNo);
                     llpPanelSetOrder.FlowMarkerCollection.SetCellPopulationsOfInterest();
                     llpPanelSetOrder.FlowMarkerCollection.SetFirstMarkerPanelIfExists();
+                }
+            }
+        }
+
+        private void HandleRetrospectiveReview(DataTable dataTable)
+        {
+            foreach (Test.PanelSetOrder panelSetOrder in this.m_AccessionOrder.PanelSetOrderCollection)
+            {
+                if (panelSetOrder is Test.RetrospectiveReview.RetrospectiveReviewTestOrder)
+                {
+                    Test.RetrospectiveReview.RetrospectiveReviewTestOrder rrto = (Test.RetrospectiveReview.RetrospectiveReviewTestOrder)panelSetOrder;
+                    rrto.RetrospectiveReviewTestOrderDetailCollection.Sync(dataTable);                    
                 }
             }
         }

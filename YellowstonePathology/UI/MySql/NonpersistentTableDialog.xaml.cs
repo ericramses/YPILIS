@@ -250,7 +250,7 @@ namespace YellowstonePathology.UI.MySql
             {
                 foreach (MySQLMigration.NonpersistentTableDef nonpersistentTableDef in this.ListViewNonpersistentTableDef.SelectedItems)
                 {
-                    Business.Rules.MethodResult methodResult = m_MySQLDatabaseBuilder.LoadNonpersistentData(nonpersistentTableDef);
+                    Business.Rules.MethodResult methodResult = m_MySQLDatabaseBuilder.LoadNonpersistentData(nonpersistentTableDef.TableName, nonpersistentTableDef.InsertColumnsStatement);
                     this.SetStatusMessage(methodResult);
                 }
             }
@@ -266,7 +266,7 @@ namespace YellowstonePathology.UI.MySql
             Business.Rules.MethodResult overallResult = new Business.Rules.MethodResult();
             foreach (MySQLMigration.NonpersistentTableDef nonpersistentTableDef in this.ListViewNonpersistentTableDef.SelectedItems)
             {
-                Business.Rules.MethodResult methodResult = m_MySQLDatabaseBuilder.CreateMySqlAutoIncrement(nonpersistentTableDef);
+                Business.Rules.MethodResult methodResult = m_MySQLDatabaseBuilder.CreateMySqlAutoIncrement(nonpersistentTableDef.TableName, nonpersistentTableDef.KeyField);
                 if (methodResult.Success == false)
                 {
                     overallResult.Success = false;
@@ -280,6 +280,30 @@ namespace YellowstonePathology.UI.MySql
         {
             this.m_MySQLDatabaseBuilder.GetStatus(nonpersistentTableDef);
             this.StatusMessage = "Got Status for " + nonpersistentTableDef.TableName;
+        }
+
+        private void MenuItemCompareTableData_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.ListViewNonpersistentTableDef.SelectedItems.Count > 0)
+            {
+                this.StatusMessage = "Working on it.";
+                Business.Rules.MethodResult overallResult = new Business.Rules.MethodResult();
+                foreach (MySQLMigration.NonpersistentTableDef nonpersistentTableDef in this.ListViewNonpersistentTableDef.SelectedItems)
+                {
+                    Business.Rules.MethodResult methodResult = m_MySQLDatabaseBuilder.CompareSSTableToMySqlTable(nonpersistentTableDef.TableName);
+                    if (methodResult.Success == false)
+                    {
+                        overallResult.Success = false;
+                        overallResult.Message += methodResult.Message;
+                    }
+                }
+
+                this.SetStatusMessage(overallResult);
+            }
+            else
+            {
+                MessageBox.Show("Select a table to check.");
+            }
         }
     }
 }

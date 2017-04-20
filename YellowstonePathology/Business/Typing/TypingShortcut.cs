@@ -14,12 +14,14 @@ namespace YellowstonePathology.Business.Typing
 	{
         public event PropertyChangedEventHandler PropertyChanged;
 
-		private string m_ObjectId;        
-		string m_Shortcut = string.Empty;		
-		string m_Text = string.Empty;
-		string m_Type = string.Empty;
-		int m_UserId;
-        string m_UserName;
+		private string m_ObjectId;
+        private int m_ShortcutId;
+        private string m_Shortcut = string.Empty;
+        private string m_Text = string.Empty;
+        private string m_Type = string.Empty;
+        private int m_UserId;
+        private string m_UserName;
+        private string m_Category;
 
 		public TypingShortcut()
 		{
@@ -29,8 +31,23 @@ namespace YellowstonePathology.Business.Typing
 		{
 			this.m_ObjectId = objectId;
 		}
-		
-        [PersistentPrimaryKeyProperty(false)]
+
+        [PersistentPrimaryKeyProperty(true)]
+        [PersistentDataColumnProperty(false, "11", "null", "int")]
+        public int ShortcutId
+        {
+            get { return this.m_ShortcutId; }
+            set
+            {
+                if (value != this.m_ShortcutId)
+                {
+                    this.m_ShortcutId = value;
+                    this.NotifyPropertyChanged("ShortcutId");
+                }
+            }
+        }
+
+        [PersistentProperty()]
         [PersistentDataColumnProperty(true, "50", "null", "varchar")]
         public string ObjectId
 		{
@@ -121,6 +138,21 @@ namespace YellowstonePathology.Business.Typing
             }
         }
 
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "500", "'Global'", "varchar")]
+        public string Category
+        {
+            get { return this.m_Category; }
+            set
+            {
+                if (value != this.m_Category)
+                {
+                    this.m_Category = value;
+                    this.NotifyPropertyChanged("Category");
+                }
+            }
+        }
+
         public string ShortText
         {
             get
@@ -147,6 +179,7 @@ namespace YellowstonePathology.Business.Typing
             this.m_Text = typingShortcut.Text;
             this.m_Type = typingShortcut.Type;
             this.m_UserId = typingShortcut.UserId;
+            this.m_Category = typingShortcut.Category;
             this.NotifyPropertyChanged(string.Empty);
         }
 

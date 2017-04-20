@@ -45,6 +45,19 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
         }
     }
 
+    public class CPT82091 : CptCode
+    {
+        public CPT82091()
+        {
+            this.m_Code = "82091";
+            this.m_FeeSchedule = FeeScheduleEnum.Clinical;
+            this.m_HasProfessionalComponent = false;
+            this.m_HasTechnicalComponent = true;
+            this.m_IsBillable = true;
+            this.m_CodeType = CPTCodeTypeEnum.TechnicalOnly;
+        }
+    }
+
     public class CPT88120 : CptCode
     {        
         public CPT88120()
@@ -314,6 +327,20 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
             this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.TechnicalOnly;
+        }
+    }
+
+    public class CPT81405 : CptCode
+    {
+        public CPT81405()
+        {
+            this.m_Code = "81405";
+            this.m_FeeSchedule = FeeScheduleEnum.Clinical;
+            this.m_HasProfessionalComponent = false;
+            this.m_HasTechnicalComponent = true;
+            this.m_IsBillable = true;
+            this.m_CodeType = CPTCodeTypeEnum.TechnicalOnly;            
+            this.m_SVHCDMDescription = "MOLECULAR PATHOLOGY PROC LEVEL 8";
         }
     }
 

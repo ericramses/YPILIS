@@ -14,25 +14,21 @@ namespace YellowstonePathology.Business.Audit.Model
         }
 
         public override void Run()
-        {            
-			YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTest womensHealthProfileTest = new YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTest();
+        {
+            List<int> whpTestList = new List<int>();
+            whpTestList.Add(15);
+            whpTestList.Add(14);
+            whpTestList.Add(61);
+            whpTestList.Add(3);
+            whpTestList.Add(62);
+
+            YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTest womensHealthProfileTest = new YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTest();
 			if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(womensHealthProfileTest.PanelSetId) == true)
             {
                 YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder womensHealthProfileTestOrder = (YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(womensHealthProfileTest.PanelSetId);
 				if (womensHealthProfileTestOrder.Final == false)
-                {
-                    bool foundUnfinalPanelSet = false;
-                    foreach (YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder in this.m_AccessionOrder.PanelSetOrderCollection)
-                    {
-						if (panelSetOrder.PanelSetId != womensHealthProfileTest.PanelSetId)
-                        {
-                            if (panelSetOrder.Final == false && panelSetOrder.PanelSetId != 13)
-                            {
-                                foundUnfinalPanelSet = true;                                
-                            }
-                        }
-                    }
-                    if (foundUnfinalPanelSet == true)
+                {                                        
+                    if (this.m_AccessionOrder.PanelSetOrderCollection.HasUnfinaledTests(whpTestList) == true)
                     {
                         this.m_ActionRequired = true;
 						this.m_Message.Append("The Womens Health Profile cannot be finalized as there are tests that are pending.");

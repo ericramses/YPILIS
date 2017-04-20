@@ -20,8 +20,10 @@ namespace YellowstonePathology.MySQLMigration
             this.m_ColumnDefinitions.Add(new NonpersistentColumnDef("AccountNo", "varchar", "500", "NULL", true));
             this.m_ColumnDefinitions.Add(new NonpersistentColumnDef("MedicalRecordNo", "varchar", "500", "NULL", true));
             this.m_ColumnDefinitions.Add(new NonpersistentColumnDef("MessageType", "varchar", "50", "NULL", true));
+            this.m_ColumnDefinitions.Add(new NonpersistentColumnDef("Timestamp", "Timestamp", "3", null, false));
 
             this.SetKeyField("MessageId");
+            this.m_HasPrimaryKey = false;
             this.SetSelectStatement();
             this.SetInsertColumnsStatement();
         }

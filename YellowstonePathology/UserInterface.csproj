@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>389</ApplicationRevision>
+    <ApplicationRevision>474</ApplicationRevision>
     <ApplicationVersion>10.1.6.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -83,6 +83,14 @@
   </PropertyGroup>
   <PropertyGroup />
   <ItemGroup>
+    <Reference Include="Google.Protobuf, Version=3.2.0.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Protobuf.3.2.0\lib\net45\Google.Protobuf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Grpc.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d754f35622e28bad, processorArchitecture=MSIL">
+      <HintPath>..\packages\Grpc.Core.1.1.0\lib\net45\Grpc.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Interop.FAXCOMEXLib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=8aa395087185f434, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -136,6 +144,10 @@
     </Reference>
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Interactive.Async, Version=3.0.3000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Interactive.Async.3.1.1\lib\net46\System.Interactive.Async.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Speech">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
@@ -294,7 +306,13 @@
     <Compile Include="Business\Billing.Model\MonitoredObject.cs" />
     <Compile Include="Business\Billing.Model\MonitoredObjectCollection.cs" />
     <Compile Include="Business\Billing.Model\PropertyChanges.cs" />
+    <Compile Include="Business\Client.Model\HPVCompoundStandingOrderRule6.cs" />
     <Compile Include="Business\Client.Model\IdahoClientIdList.cs" />
+    <Compile Include="Business\Facility.Model\VAEasternColorado.cs" />
+    <Compile Include="Business\Facility.Model\CBCI.cs" />
+    <Compile Include="Business\Facility.Model\AssociatedDermatology.cs" />
+    <Compile Include="Business\Flow\CytoplasmicMarkerMapping.cs" />
+    <Compile Include="Business\Flow\CytoplasmicMarkerMappingCollection.cs" />
     <Compile Include="Business\HL7View\ADTMessage.cs" />
     <Compile Include="Business\HL7View\ADTMessages.cs" />
     <Compile Include="Business\Billing.Model\BillableObject.cs" />
@@ -817,7 +835,6 @@
     <Compile Include="Business\Flow\MarkerItem.cs" />
     <Compile Include="Business\Flow\MarkerItem.Generated.cs" />
     <Compile Include="Business\FtpTransfer.cs" />
-    <Compile Include="Business\Gateway\AccessionOrderBuilder.cs" />
     <Compile Include="Business\Gateway\AccessionOrderBuilderV2.cs" />
     <Compile Include="Business\Gateway\AccessionOrderGateway.cs" />
     <Compile Include="Business\Gateway\AccessionSlideOrderViewBuilder.cs" />
@@ -1070,12 +1087,14 @@
     <Compile Include="Business\Monitor.Model\PendingTestCollection.cs" />
     <Compile Include="Business\PanelSet.Model\NeoTypeEsophagealTumorProfileTest.cs" />
     <Compile Include="Business\PanelSet.Model\NeoTypeDiscoveryProfileTest.cs" />
+    <Compile Include="Business\PanelSet.Model\PanelSetPMLRARAByFish.cs" />
     <Compile Include="Business\PanelSet.Model\ShipMaterialTest.cs" />
     <Compile Include="Business\ParseSpecimenOrderIdResult.cs" />
     <Compile Include="Business\Patient.Model\Address.cs" />
     <Compile Include="Business\Persistence\DocumentTestBuilders.cs" />
     <Compile Include="Business\Persistence\PersistentDataColumnProperty.cs" />
     <Compile Include="Business\Persistence\MonitorProperty.cs" />
+    <Compile Include="Business\Persistence\ProtobufWriter.cs" />
     <Compile Include="Business\Persistence\SqlDataRowReaderPropertyWriter.cs" />
     <Compile Include="Business\Reports\DisposalReportData.cs" />
     <Compile Include="Business\Reports\CytologySlideDisposalReportV2.xaml.cs">
@@ -1098,16 +1117,35 @@
     <Compile Include="Business\Task.Model\TaskOrderDetailFedexShipment.cs" />
     <Compile Include="Business\Test\AMLFavorableRisk\AMLFavorableRiskTest.cs" />
     <Compile Include="Business\Test\AMLPrognosticProfile\AMLPrognosticProfileTest.cs" />
+    <Compile Include="Business\Test\AMLStandardByFish\AMLStandardByFishWPHOBXView.cs" />
+    <Compile Include="Business\Test\AmyloidProteinIDParLCMS\AmyloidProteinIDParLCMSTest.cs" />
+    <Compile Include="Business\Test\BartonellaSpeciesByPCR\BartonellaSpeciesByPCRTest.cs" />
+    <Compile Include="Business\Test\BCellSubsetAnalysis\BCellSubsetAnalysisEPICOBXView.cs" />
+    <Compile Include="Business\Test\BCellSubsetAnalysis\BCellSubsetAnalysisTest.cs" />
+    <Compile Include="Business\Test\BCellSubsetAnalysis\BCellSubsetAnalysisWordDocument.cs" />
+    <Compile Include="Business\Test\BCellSubsetAnalysis\BCellSubsetAnalysisTestOrder.cs" />
+    <Compile Include="Business\Test\BCellSubsetAnalysis\BCellSubsetAnalysisWPHOBXView.cs" />
+    <Compile Include="Business\Test\BRAFV600EK\BRAFV600EKWPHOBXView.cs" />
+    <Compile Include="Business\Test\CalreticulinMutationAnalysis\CalreticulinMutationAnalysisWPHOBXView.cs" />
+    <Compile Include="Business\Test\CKIT\CKITWPHOBXView.cs" />
+    <Compile Include="Business\Test\ComprehensiveColonCancerProfile\ComprehensiveColonCancerProfileWPHOBXView.cs" />
+    <Compile Include="Business\Test\CXCR4MutationAnalysis\CXCR4MutationAnalysisTest.cs" />
     <Compile Include="Business\Test\FISH5p159q2215p22\FISH5p159q2215p22EPICOBXView.cs" />
     <Compile Include="Business\Test\FISH5p159q2215p22\FISH5p159q2215p22Test.cs" />
     <Compile Include="Business\Test\FISH5p159q2215p22\FISH5p159q2215p22TestOrder.cs" />
     <Compile Include="Business\Test\FISH5p159q2215p22\FISH5p159q2215p22WordDocument.cs" />
     <Compile Include="Business\Test\HoldForFlow\HoldForFlowWPHOBXView.cs" />
+    <Compile Include="Business\Test\IgHClonalityMRDByNGS\IgHClonalityMRDByNGSTest.cs" />
     <Compile Include="Business\Test\LiposarcomaFusionProfile\LiposarcomaFusionProfileEPICOBXView.cs" />
     <Compile Include="Business\Test\LiposarcomaFusionProfile\LiposarcomaFusionProfileTest.cs" />
     <Compile Include="Business\Test\LiposarcomaFusionProfile\LiposarcomaFusionProfileTestOrder.cs" />
     <Compile Include="Business\Test\LiposarcomaFusionProfile\LiposarcomaFusionProfileWordDocument.cs" />
+    <Compile Include="Business\Test\LymphocyteSubsetPanel7\LymphocyteSubsetPanel7Test.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult1A.cs" />
+    <Compile Include="Business\Test\LynchSyndrome\LynchSyndromeEvaluationWPHOBXView.cs" />
+    <Compile Include="Business\Test\MDSByFish\MDSByFishWPHOBXView.cs" />
+    <Compile Include="Business\Test\METMutationAnalysis\METMutationAnalysisTest.cs" />
+    <Compile Include="Business\Test\MPL\MPLWPHOBXView.cs" />
     <Compile Include="Business\Test\MPNStandardReflexPanel\MPNStandardReflexPanelTest.cs" />
     <Compile Include="Business\Test\FlowCytometryAnalysis\FlowCytometryAnalysisTest.cs" />
     <Compile Include="Business\Test\BCRABLByFish\BCRABLByFishTestOrder.cs" />
@@ -1124,6 +1162,7 @@
     <Compile Include="Business\Test\LLP\LLPWPHOBXView.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult32.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult42.cs" />
+    <Compile Include="Business\Test\MultipleMyelomaMGUSByFish\MultipleMyelomaMGUSByFishWPHOBXView.cs" />
     <Compile Include="Business\Test\MUM1ByIHC\MUM1ByIHCTest.cs" />
     <Compile Include="Business\Test\NGCT\NGCTWPHOBXView.cs" />
     <Compile Include="Business\Test\PDL122C3\PDL122C3EpicObxView.cs" />
@@ -1134,9 +1173,17 @@
     <Compile Include="Business\Test\PDL122C3\PDL122C3WPHOBXView.cs" />
     <Compile Include="Business\Test\PDL1SP142\PDL1SP142WPHOBXView.cs" />
     <Compile Include="Business\Test\PlateletAssociatedAntibodies\PlateletAssociatedAntibodiesEPICOBXView.cs" />
+    <Compile Include="Business\Test\RestrospectiveReview\RetrospectiveReviewTestOrderDetail.cs" />
     <Compile Include="Business\Test\RASRAFPanel\RASRAFCMMCNTEView.cs" />
+    <Compile Include="Business\Test\RestrospectiveReview\RetrospectiveReviewTest.cs" />
+    <Compile Include="Business\Test\RestrospectiveReview\RetrospectiveReviewTestOrder.cs" />
+    <Compile Include="Business\Test\RestrospectiveReview\RetrospectiveReviewTestOrderDetailCollection.cs" />
+    <Compile Include="Business\Test\RETMutationAnalysis\RETMutationAnalysisTest.cs" />
     <Compile Include="Business\Test\ROS1ByFISH\ROS1ByFISHPositiveResult.cs" />
     <Compile Include="Business\Test\IRF4F\IRF4FTest.cs" />
+    <Compile Include="Business\Test\SoftTissueTumorProfile\SoftTissueTumorProfileTest.cs" />
+    <Compile Include="Business\Test\STAT3MutationAnalysis\STAT3MutationAnalysisTest.cs" />
+    <Compile Include="Business\Test\TcellLeukemia1\TcellLeukemia1Test.cs" />
     <Compile Include="Business\Test\TCellNKProfile\TCellNKProfileEPICOBXView.cs" />
     <Compile Include="Business\Test\TCellNKProfile\TCellNKProfileTest.cs" />
     <Compile Include="Business\Test\TCellNKProfile\TCellNKProfileTestOrder.cs" />
@@ -1159,6 +1206,7 @@
     <Compile Include="Business\XPSDocument\Result\Xps\AccessionOrderDataSheetV2.cs" />
     <Compile Include="Business\XPSDocument\Result\Xps\ClientSupplyOrderReportV2.cs" />
     <Compile Include="MySQLMigration\DataRowComparer.cs" />
+    <Compile Include="MySQLMigration\DataRowRefreshComparer.cs" />
     <Compile Include="MySQLMigration\IndexedColumn.cs" />
     <Compile Include="MySQLMigration\IndexedColumnCollection.cs" />
     <Compile Include="MySQLMigration\MigrationStatus.cs" />
@@ -1280,7 +1328,6 @@
     <Compile Include="Business\PanelSet.Model\PanelSetP53ByFish.cs" />
     <Compile Include="Business\PanelSet.Model\PanelSetPDGFRa.cs" />
     <Compile Include="Business\PanelSet.Model\PanelSetPDGFRb.cs" />
-    <Compile Include="Business\PanelSet.Model\PanelSetPMLRARAByFish.cs" />
     <Compile Include="Business\PanelSet.Model\PanelSetPMLRARAByPCR.cs" />
     <Compile Include="Business\PanelSet.Model\PanelSetRenalBiopsyPanel.cs" />
     <Compile Include="Business\PanelSet.Model\PanelSetTCellClonalityByPCRRetired.cs" />
@@ -1376,7 +1423,6 @@
     <Compile Include="Business\Persistence\RemoteObjectTransferAgent.cs" />
     <Compile Include="Business\Persistence\SpecimenOrderDocumentBuilder.cs" />
     <Compile Include="Business\Persistence\SqlCommandBuilder.cs" />
-    <Compile Include="Business\Persistence\SqlCommandHelper.cs" />
     <Compile Include="Business\Persistence\SqlCommandQueues.cs" />
     <Compile Include="Business\Persistence\SqlCommandSubmitter.cs" />
     <Compile Include="Business\Persistence\SqlDataReaderPropertyWriter.cs" />
@@ -1448,9 +1494,6 @@
     <Compile Include="Business\ReportNoLetter.cs" />
     <Compile Include="Business\ReportNoLetterDefinitions.cs" />
     <Compile Include="Business\Reports\CreateExcelSpreadSheet.cs" />
-    <Compile Include="Business\Reports\CytologySlideDisposalReport.xaml.cs">
-      <DependentUpon>CytologySlideDisposalReport.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Business\Reports\Cytology\CytologyUnsatLetters.cs" />
     <Compile Include="Business\Reports\IReport.cs" />
     <Compile Include="Business\Reports\LabOrderSheet.cs" />
@@ -1463,12 +1506,6 @@
     <Compile Include="Business\Reports\ReportBase.cs" />
     <Compile Include="Business\Reports\ReportParameterAttribute.cs" />
     <Compile Include="Business\Reports\ReportUI.cs" />
-    <Compile Include="Business\Reports\SpecimenDisposalReport.xaml.cs">
-      <DependentUpon>SpecimenDisposalReport.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Business\Reports\SurgicalSpecimenDisposalReport.xaml.cs">
-      <DependentUpon>SurgicalSpecimenDisposalReport.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Business\Reports\Surgical\SurgicalMasterLog.cs" />
     <Compile Include="Business\Requisition.cs" />
     <Compile Include="Business\Rules\Amendment\FinalAmendment.cs" />
@@ -2554,10 +2591,10 @@
     <Compile Include="Business\Test\PDL1SP142\PDL1SP142Test.cs" />
     <Compile Include="Business\Test\PDL1SP142\PDL1SP142TestOrder.cs" />
     <Compile Include="Business\Test\PDL1SP142\PDL1SP142WordDocument.cs" />
-    <Compile Include="Business\Test\PeerReview\PeerReviewTest.cs" />
-    <Compile Include="Business\Test\PeerReview\PeerReviewTestOrder.cs" />
-    <Compile Include="Business\Test\PeerReview\PeerReviewTypeCollection.cs" />
-    <Compile Include="Business\Test\PeerReview\PeerReviewTypeEnum.cs" />
+    <Compile Include="Business\Test\ProspectiveReview\ProspectiveReviewTest.cs" />
+    <Compile Include="Business\Test\ProspectiveReview\ProspectiveReviewTestOrder.cs" />
+    <Compile Include="Business\Test\ProspectiveReview\ProspectiveReviewTypeCollection.cs" />
+    <Compile Include="Business\Test\ProspectiveReview\ProspectiveReviewTypeEnum.cs" />
     <Compile Include="Business\Test\PlasmaCellMyelomaRiskStratification\PlasmaCellMyelomaRiskStratificationEpicObxView.cs" />
     <Compile Include="Business\Test\PlasmaCellMyelomaRiskStratification\PlasmaCellMyelomaRiskStratificationResult.cs" />
     <Compile Include="Business\Test\PlasmaCellMyelomaRiskStratification\PlasmaCellMyelomaRiskStratificationTest.cs" />
@@ -3477,8 +3514,8 @@
     <Compile Include="UI\Surgical\PublishedDocumentFinalPage.xaml.cs">
       <DependentUpon>PublishedDocumentFinalPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Surgical\PeerReviewResultPage.xaml.cs">
-      <DependentUpon>PeerReviewResultPage.xaml</DependentUpon>
+    <Compile Include="UI\Surgical\ProspectiveReviewResultPage.xaml.cs">
+      <DependentUpon>ProspectiveReviewResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Surgical\PQRSMeasurePage.xaml.cs">
       <DependentUpon>PQRSMeasurePage.xaml</DependentUpon>
@@ -3504,8 +3541,8 @@
       <DependentUpon>PublishedDocumentReview.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="UI\Surgical\PeerReviewDialog.xaml.cs">
-      <DependentUpon>PeerReviewDialog.xaml</DependentUpon>
+    <Compile Include="UI\Surgical\ProspectiveReviewDialog.xaml.cs">
+      <DependentUpon>ProspectiveReviewDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Surgical\ResultPathReview.xaml.cs">
       <DependentUpon>ResultPathReview.xaml</DependentUpon>
@@ -3571,6 +3608,10 @@
       <DependentUpon>BCellGeneRearrangementResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Test\BCellGeneRearrangementResultPath.cs" />
+    <Compile Include="UI\Test\BCellSubsetAnalysisResultPage.xaml.cs">
+      <DependentUpon>BCellSubsetAnalysisResultPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Test\BCellSubsetAnalysisResultPath.cs" />
     <Compile Include="UI\Test\BCL1t1114ResultPage.xaml.cs">
       <DependentUpon>BCL1t1114ResultPage.xaml</DependentUpon>
     </Compile>
@@ -3696,6 +3737,10 @@
     </Compile>
     <Compile Include="UI\Test\RASRAFPanelResultPath.cs" />
     <Compile Include="UI\Test\ResultControl.cs" />
+    <Compile Include="UI\Test\RetrospectiveReviewResultPage.xaml.cs">
+      <DependentUpon>RetrospectiveReviewResultPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Test\RetrospectiveReviewResultPath.cs" />
     <Compile Include="UI\Test\ROS1ResultPath.cs" />
     <Compile Include="UI\Test\ROS1ResultPage.xaml.cs">
       <DependentUpon>ROS1ResultPage.xaml</DependentUpon>
@@ -4429,6 +4474,8 @@
     <Compile Include="UI\Test\TestResultEditDialog.xaml.cs">
       <DependentUpon>TestResultEditDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Ventana.cs" />
+    <Compile Include="UI\VentanaGrpc.cs" />
     <Compile Include="UI\WatchBitmap.xaml.cs">
       <DependentUpon>WatchBitmap.xaml</DependentUpon>
     </Compile>
@@ -4615,8 +4662,8 @@
     <Compile Include="UI\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Surgical\PeerReview.xaml.cs">
-      <DependentUpon>PeerReview.xaml</DependentUpon>
+    <Compile Include="UI\Surgical\ProspectiveReview.xaml.cs">
+      <DependentUpon>ProspectiveReview.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\TemplateSelector\CytologyPanelOrderTemplateSelector.cs" />
     <Compile Include="UI\Test\LabUI.cs" />
@@ -4958,10 +5005,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <Page Include="Business\Reports\CytologySlideDisposalReport.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Business\Reports\CytologySlideDisposalReportV2.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -4973,14 +5016,6 @@
     <Page Include="Business\Reports\POCRetensionReportV2.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Business\Reports\SpecimenDisposalReport.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Business\Reports\SurgicalSpecimenDisposalReport.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Business\Reports\SurgicalSpecimenDisposalReportV2.xaml">
       <SubType>Designer</SubType>
@@ -5403,7 +5438,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\Surgical\PeerReviewResultPage.xaml">
+    <Page Include="UI\Surgical\ProspectiveReviewResultPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -5415,7 +5450,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Surgical\PeerReviewDialog.xaml">
+    <Page Include="UI\Surgical\ProspectiveReviewDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -5477,6 +5512,10 @@
     </Page>
     <Page Include="UI\Test\BCellEnumerationResultPage.xaml" />
     <Page Include="UI\Test\BCellGeneRearrangementResultPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Test\BCellSubsetAnalysisResultPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -5603,6 +5642,10 @@
     <Page Include="UI\Test\RASRAFPanelResultPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Test\RetrospectiveReviewResultPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\Test\ROS1ResultPage.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -6429,7 +6472,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Surgical\PeerReview.xaml">
+    <Page Include="UI\Surgical\ProspectiveReview.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <Generator>MSBuild:Compile</Generator>
@@ -6964,5 +7007,7 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\LibGit2Sharp.NativeBinaries.1.0.129\build\LibGit2Sharp.NativeBinaries.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\LibGit2Sharp.NativeBinaries.1.0.129\build\LibGit2Sharp.NativeBinaries.props'))" />
+    <Error Condition="!Exists('..\packages\Grpc.Core.1.1.0\build\net45\Grpc.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Grpc.Core.1.1.0\build\net45\Grpc.Core.targets'))" />
   </Target>
+  <Import Project="..\packages\Grpc.Core.1.1.0\build\net45\Grpc.Core.targets" Condition="Exists('..\packages\Grpc.Core.1.1.0\build\net45\Grpc.Core.targets')" />
 </Project>

@@ -687,6 +687,9 @@ namespace YellowstonePathology.UI.Gross
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.EMB emb = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.EMB();
             this.m_SpecimenCollection.Add(emb);
+
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.EMC emc = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.EMC();
+            this.m_SpecimenCollection.Add(emc);
         }
 
         public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
@@ -962,7 +965,7 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "Uterus with Adnexa";
             this.m_FontSize = 16;
-            this.m_Text = "[identifier] and consists of uterus, cervix, bilateral fallopian tubes, and ovaries." + Environment.NewLine +
+            this.m_Text = "[identifier] and consists of [description]." + Environment.NewLine +
                 Environment.NewLine +
                 "Right Adnexal Organs:" + Environment.NewLine +
                 "   Fallopian Tube: " + Environment.NewLine +

@@ -31,7 +31,6 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
         public SpecimenMappingPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
 			this.m_AccessionOrder = accessionOrder;
-
             this.m_TimeToFixationTypeCollection = YellowstonePathology.Business.Specimen.Model.TimeToFixationType.GetTimeToFixationTypeCollection();
 
 			this.m_PathologistUsers = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetUsersByRole(YellowstonePathology.Business.User.SystemUserRoleDescriptionEnum.Pathologist, true);			
@@ -222,11 +221,18 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             slideOrder.Status = YellowstonePathology.Business.Slide.Model.SlideStatusEnum.Created.ToString();
         }
 
-        private void ButtonUpdateTrackingLog_Click(object sender, RoutedEventArgs e)
+        private void ButtonMarkBlocks_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection materialTrackingLogCollection = YellowstonePathology.Business.Gateway.SlideAccessionGateway.GetMaterialTrackingLogCollectionByMasterAccessionNo(this.m_AccessionOrder.MasterAccessionNo);            
-            materialTrackingLogCollection.UpdateClientAccessioned(this.m_AccessionOrder.SpecimenOrderCollection);
-            //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(materialTrackingLogCollection, false);            
+            foreach(YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder in this.m_AccessionOrder.SpecimenOrderCollection)
+            {
+                foreach (YellowstonePathology.Business.Test.AliquotOrder aliquotOrder in specimenOrder.AliquotOrderCollection)
+                {
+                    if(aliquotOrder.ClientAccessioned == false)
+                        aliquotOrder.ClientAccessioned = true;
+                    if(string.IsNullOrEmpty(aliquotOrder.ClientLabel) == true)
+                        aliquotOrder.ClientLabel = aliquotOrder.Label;
+                }
+            }            
         }
-	}
+    }
 }

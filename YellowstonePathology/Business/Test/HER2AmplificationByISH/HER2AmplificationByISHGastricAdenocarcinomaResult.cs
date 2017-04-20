@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 			this.m_ReportReference = "Gravalos, C. et al., HER2 in gastric cancer: a new prognostic factor and a novel therapeutic target. Ann Oncology 2008, 19:1523-1529.";
 		}
 
-		public override void SetResults(HER2AmplificationByISHTestOrder testOrder)
+		public override void SetResults(HER2AmplificationByISHTestOrder testOrder, Business.Specimen.Model.SpecimenOrder specimenOrder)
 		{
 			this.m_ResultComment = null;
 			this.m_ResultDescription = "Ratio = " + testOrder.Her2Chr17Ratio;
@@ -47,16 +47,14 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 				this.m_InterpretiveComment = this.m_InterpretiveComment.Replace("*HER2STATUS*", IndeterminateResult);
 				this.m_Result = IndeterminateResult;
 				this.m_ResultCode = IndeterminateResultCode;
-			}
-
-			//this.m_InterpretiveComment = this.m_InterpretiveComment;
+			}			
 
 			if (testOrder.Her2byIHCOrder == 1)
 			{
 				this.m_InterpretiveComment += Environment.NewLine + Environment.NewLine + this.m_InterpretiveCommentP4IHCOrder;
 			}
 
-			base.SetResults(testOrder);
+			base.SetResults(testOrder, specimenOrder);
 		}
 	}
 }

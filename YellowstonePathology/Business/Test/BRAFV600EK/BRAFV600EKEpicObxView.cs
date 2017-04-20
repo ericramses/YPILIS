@@ -51,16 +51,16 @@ namespace YellowstonePathology.Business.Test.BRAFV600EK
             this.AddNextObxElement(specimenOrder.Description, document, "F");
             this.AddNextObxElement(string.Empty, document, "F");
 
-            string method = "Following lysis of paraffin embedded tissue; highly purified DNA was extracted from the specimen using an automated method.  PCR amplification using fluorescently labeled primers was then performed.  The products of the PCR reaction were then separated by high resolution capillary electrophoresis to look for the presence of the 107 nucleotide fragment indicative of a BRAF V600E mutation.";
-            this.AddNextObxElement("Method: " + method, document, "F");
+            string method = panelSetOrder.Method;
+            this.HandleLongString("Method: " + method, document, "F");
             this.AddNextObxElement("", document, "F");
 
             this.AddNextObxElement("References: ", document, "F");
 			this.HandleLongString(panelSetOrder.ReportReferences, document, "F");
             this.AddNextObxElement("", document, "F");
 
-            string asr = "This test was developed and its performance characteristics determined by Yellowstone Pathology Institute, Inc.  It has not been cleared or approved by the U.S. Food and Drug Administration. The FDA has determined that such clearance or approval is not necessary.  This test is used for clinical purposes.  It should not be regarded as investigational or for research.  This laboratory is certified under the Clinical Laboratory Improvement Amendments of 1988 (CLIA-88) as qualified to perform high complexity clinical laboratory testing.";
-            this.AddNextObxElement(asr, document, "F");
+            string asr = panelSetOrder.ReportDisclaimer;
+            this.HandleLongString(asr, document, "F");
 
             string locationPerformed = panelSetOrder.GetLocationPerformedComment();
             this.AddNextObxElement(locationPerformed, document, "F");

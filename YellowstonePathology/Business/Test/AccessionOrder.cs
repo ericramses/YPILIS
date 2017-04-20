@@ -24,7 +24,7 @@ namespace YellowstonePathology.Business.Test
 		private YellowstonePathology.Business.Specimen.Model.SpecimenOrderCollection m_SpecimenOrderCollection;
 		private YellowstonePathology.Business.Test.PanelSetOrderCollection m_PanelSetOrderCollection;
 		private YellowstonePathology.Business.Task.Model.TaskOrderCollection m_TaskOrderCollection;
-		private YellowstonePathology.Business.Billing.Model.ICD9BillingCodeCollection m_ICD9BillingCodeCollection;			
+		private YellowstonePathology.Business.Billing.Model.ICD9BillingCodeCollection m_ICD9BillingCodeCollection;        
 
 		private XElement m_OrderInstructionsUpdate;
 
@@ -1376,9 +1376,9 @@ namespace YellowstonePathology.Business.Test
 		{
 			get { return this.m_PanelSetOrderCollection; }
             set { this.m_PanelSetOrderCollection = value; }
-		}		
-
-		public string PatientDisplayName
+		}
+        
+        public string PatientDisplayName
         {
             get
             {

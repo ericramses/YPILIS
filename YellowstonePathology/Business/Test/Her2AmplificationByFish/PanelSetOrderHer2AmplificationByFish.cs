@@ -19,7 +19,7 @@ namespace YellowstonePathology.Business.Test.Her2AmplificationByFish
 		private string m_Comment;
 		private string m_NucleiScored;
 		private string m_Reference;
-        private bool m_NonBreast;
+        private bool m_NonBreast;        
 
 		public PanelSetOrderHer2AmplificationByFish()
         {
@@ -197,9 +197,9 @@ namespace YellowstonePathology.Business.Test.Her2AmplificationByFish
                     this.NotifyPropertyChanged("NonBreast");
                 }
             }
-        }
+        }        
 
-		public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
+        public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
 			StringBuilder result = new StringBuilder();
 

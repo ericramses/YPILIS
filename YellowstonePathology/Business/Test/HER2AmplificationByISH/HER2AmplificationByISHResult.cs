@@ -22,8 +22,10 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 		protected string IndeterminateResultCode = "HRMPLFCTNBISHNDTRMNT";
 		protected string m_Method = "This test was performed using a molecular method, In Situ Hybridization (ISH) with the US FDA approved Inform HER2 DNA probe kit, modified to report results according to ASCO/CAP guidelines. The test was performed on paraffin embedded tissue in compliance with ASCO/CAP guidelines.  Probes used include a locus specific probe for HER2 and an internal hybridization control probe for the centromeric region of chromosome 17 (Chr17).";
 		protected string m_ASRComment = "This test was performed using a US FDA approved DNA probe kit, modified to report results according to ASCO/CAP guidelines, and the modified procedure was validated by Yellowstone Pathology Institute (YPI).  YPI assumes the responsibility for test performance";
+        protected string m_FixationOutOfBoundsComment = "The specimen fixation time does not meet ASCO CAP guidelines (6 to 72 hours), which may cause false negative results.  Repeat testing on an alternate specimen that meets fixation time guidelines is recommended, if available.";
+        protected string m_FixationColdSchemaComment = "The time from specimen procurement to fixation in formalin (cold ischemia time) exceeds one hour, which may cause false negative results.  Repeat testing on an alternate specimen that meets ASCO CAP guidelines for cold ischemia time is recommended, if available.";
 
-		public HER2AmplificationByISHResult()
+        public HER2AmplificationByISHResult()
 		{
 			this.m_ResultComment = null;
 			this.m_InterpretiveComment = null;
@@ -31,7 +33,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 			this.m_ReportReference = null;
 		}
 
-		public virtual void SetResults(HER2AmplificationByISHTestOrder testOrder)
+		public virtual void SetResults(HER2AmplificationByISHTestOrder testOrder, Business.Specimen.Model.SpecimenOrder specimenOrder)
 		{
 			if (testOrder.GeneticHeterogeneity == HER2AmplificationByISHGeneticHeterogeneityCollection.GeneticHeterogeneityPresentInCells)
 			{
@@ -70,6 +72,11 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 			testOrder.ReportReference = this.m_ReportReference;
 			testOrder.ASRComment = this.m_ASRComment;
             testOrder.NoCharge = false;
+
+            if(specimenOrder.FixationDuration > 72 || specimenOrder.FixationDuration < 6)
+            {
+                specimenOrder.FixationComment = m_FixationOutOfBoundsComment;
+            }
 		}
 
 		public static void AcceptResults(HER2AmplificationByISHTestOrder testOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)

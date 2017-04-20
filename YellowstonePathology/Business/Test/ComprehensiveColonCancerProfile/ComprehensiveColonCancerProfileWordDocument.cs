@@ -70,16 +70,27 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
         }
 
         private void SetIHC(ComprehensiveColonCancerProfileResult comprehensiveColonCancerProfileResult)
-        {
+        {                              
             XmlNode tableNode = this.m_ReportXml.SelectSingleNode("descendant::w:tbl[w:tr/w:tc/w:p/w:r/w:t='mlh1_result']", this.m_NameSpaceManager);
             XmlNode rowmlh1Node = tableNode.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='mlh1_result']", this.m_NameSpaceManager);
             XmlNode rowmsh2Node = tableNode.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='msh2_result']", this.m_NameSpaceManager);
             XmlNode rowmsh6Node = tableNode.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='msh6_result']", this.m_NameSpaceManager);
             XmlNode rowpms2Node = tableNode.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='pms2_result']", this.m_NameSpaceManager);
             XmlNode insertAfterRow = rowmlh1Node;
+
             foreach (YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC testOrder in comprehensiveColonCancerProfileResult.PanelSetOrderLynchSyndromeIHCCollection)
             {
-                YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByOrderTarget(testOrder.OrderedOnId);
+                YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = null;
+                if (testOrder.MasterAccessionNo == this.m_AccessionOrder.MasterAccessionNo)
+                {
+                    specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByOrderTarget(testOrder.OrderedOnId);
+                }
+                else
+                {                                            
+                    YellowstonePathology.Business.Test.AccessionOrder lseIHCAccessionOrder = Business.Persistence.DocumentGateway.Instance.GetAccessionOrderByMasterAccessionNo(testOrder.MasterAccessionNo);
+                    specimenOrder = lseIHCAccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByOrderTarget(testOrder.OrderedOnId);
+                }
+                
                 YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = specimenOrder.AliquotOrderCollection.GetByAliquotOrderId(testOrder.OrderedOnId);
                 YellowstonePathology.Business.Test.LynchSyndrome.IHCResult ihcResult = YellowstonePathology.Business.Test.LynchSyndrome.IHCResult.CreateResultFromResultCode(testOrder.ResultCode);
 
@@ -103,6 +114,7 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
 
                 insertAfterRow = rowpms2NodeClone;
             }
+
             if (comprehensiveColonCancerProfileResult.PanelSetOrderLynchSyndromeIHCCollection.Count > 0)
             {
                 this.DeleteRow("mlh1_result");

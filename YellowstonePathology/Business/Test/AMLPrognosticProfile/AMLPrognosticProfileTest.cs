@@ -21,7 +21,7 @@ namespace YellowstonePathology.Business.Test.AMLPrognosticProfile
             this.m_Active = true;
 
             this.m_AllowMultiplePerAccession = true;
-            //this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHTestOrder).AssemblyQualifiedName;
+            this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.PanelSetOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Document.ReferenceLabReport).AssemblyQualifiedName;
 
             string taskDescription = "Collect paraffin block from Histology and send to Neo.";

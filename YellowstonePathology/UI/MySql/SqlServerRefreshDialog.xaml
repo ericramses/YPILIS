@@ -17,19 +17,17 @@
         </Grid.RowDefinitions>
 
         <Menu Name="MainMenu" Grid.Column="0" Grid.Row="0" DockPanel.Dock="Top">
-            <MenuItem Header="Get Status" Click="MenuItemGetStatus_Click" Margin="5"></MenuItem>
+            <MenuItem Header="Get Status" Click="MenuItemGetRowCounts_Click" Margin="5"></MenuItem>
             <MenuItem Header="Refresh Data" Click="MenuItemRefreshData_Click"  Margin="5"></MenuItem>
         </Menu>
 
-        <ListView Name="ListViewNonpersistentTableDef" Grid.Column="0" Grid.Row="1" ItemsSource="{Binding Path=NonpersistentTableDefCollection}" 
+        <ListView Name="ListViewTables" Grid.Column="0" Grid.Row="1" ItemsSource="{Binding Path=MigrationStatusCollection}" 
                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5,5,5,5">
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=TableName, Mode=OneWay}" Header="Table Name" Width="300"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=SqlServerRowCount}" Header="SqlServer Rows" Width="100"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=SqlServerTransferredCount}" Header="SqlServer Rows" Width="100"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=MySqlRowCount}" Header="MySql Rows" Width="100"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=ModifiedCount}" Header="MySql Modified Count" Width="140"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=CreatedCount}" Header="MySql Created Count" Width="140"/>
                 </GridView>
             </ListView.View>
         </ListView>

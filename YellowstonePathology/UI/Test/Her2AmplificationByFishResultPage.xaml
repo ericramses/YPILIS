@@ -88,13 +88,13 @@
 						<RowDefinition Height="Auto"></RowDefinition>
 						<RowDefinition Height="Auto"></RowDefinition>
 						<RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
 						<RowDefinition Height="Auto"></RowDefinition>
 						<RowDefinition Height="Auto"></RowDefinition>
-						<RowDefinition Height="Auto"></RowDefinition>
-						<RowDefinition Height="Auto"></RowDefinition>
-						<RowDefinition Height="Auto"></RowDefinition>
-						<RowDefinition Height="Auto"></RowDefinition>
-						<RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
 						<RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>                        
                         <RowDefinition Height="Auto"></RowDefinition>
@@ -125,7 +125,7 @@
 					<TextBox Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="2" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.Comment}" TextWrapping="Wrap" AcceptsReturn="True"></TextBox>
 
 					<TextBlock Grid.Column="0" Grid.Row="10" Margin="2,2,2,5" FontWeight="Bold">References:</TextBlock>
-					<TextBox Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="2" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.Reference}" TextWrapping="Wrap" AcceptsReturn="True" />
+                    <TextBox Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="2" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.Reference}" TextWrapping="Wrap" AcceptsReturn="True" />
 
                     <TextBlock Grid.Column="0" Grid.Row="12" Margin="2,2,2,5" FontWeight="Bold">Non-Breast:</TextBlock>
                     <CheckBox Grid.Column="1" Grid.Row="12" Margin="2,2,2,2" IsChecked="{Binding Path=PanelSetOrder.NonBreast}" />

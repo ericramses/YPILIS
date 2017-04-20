@@ -36,6 +36,7 @@ using MongoDB.Driver.Builders;
 using MongoDB.Driver.GridFS;
 using Newtonsoft.Json;
 using MySql.Data.MySqlClient;
+using Grpc.Core;
 
 namespace YellowstonePathology.UI
 {    
@@ -982,55 +983,245 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            Business.MaterialTracking.Model.FedexLocationSearchRequest fedex = new Business.MaterialTracking.Model.FedexLocationSearchRequest();
-            string result = fedex.LocationSearch();
-            Console.WriteLine(result);
+            WriteSchema();            
+        }
 
-            
-            //AddAllClients();
-            /*
-            Business.ReportNoCollection reportNos = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetReportNumbers();
-            foreach(Business.ReportNo reportNo in reportNos)
-            {
-                string masterAccessionNo = Business.Gateway.AccessionOrderGateway.GetMasterAccessionNoFromReportNo(reportNo.Value);
-                Business.Test.AccessionOrder ao = Business.Persistence.DocumentGateway.Instance.GetAccessionOrderByMasterAccessionNo(masterAccessionNo);
-                Business.HL7View.IResultView resultView = YellowstonePathology.Business.HL7View.ResultViewFactory.GetResultView(reportNo.Value, ao, ao.ClientId, false);
-                YellowstonePathology.Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
-                resultView.Send(methodResult);
-            }
-            */
-
-
-            //Business.Label.Model.ZPLPrinter printer = new Business.Label.Model.ZPLPrinter("10.1.1.21");
-            //YellowstonePathology.Business.BarcodeScanning.BarcodeVersion1 barcode = new Business.BarcodeScanning.BarcodeVersion1("HBLK16-25894.1A");
-            //YellowstonePathology.Business.BarcodeScanning.HistologyBlock histologyBlock = Business.BarcodeScanning.HistologyBlock.Parse(barcode);
-            //string commands = Business.Label.Model.HistologyBlockPaperZPLLabel.GetCommands(histologyBlock, "MM", "1A", "16-25894");
-
-            //string commands = YellowstonePathology.Business.Label.Model.HistologySlidePaperZPLLabel.GetCommands("16-12345.1A1", "16-12345.F2", "ABCDEFGHIJ", "ABCDEFGHIJKLMNOP", "3A3", "YPI Cody, Wy");            
-            //printer.Print(commands);            
-        }        
-
-        private void AddAllClients()
+        private void UpdateTypingShortcut()
         {
-            StringBuilder rpcCommand = new StringBuilder("{\"jsonrpc\":\"2.0\",\"method\":\"add\",\"params\":[");
-            Business.Client.Model.ClientCollection clientCollection = Business.Gateway.PhysicianClientGateway.GetAllClients();
+            List<int> list = new List<int>();
+            list.Add(2084);
+            list.Add(2085);
+            list.Add(2086);
+            list.Add(2087);
+            list.Add(2088);
+            list.Add(2089);
+            list.Add(2090);
+            list.Add(2091);
+            list.Add(2092);
+            list.Add(2093);
+            list.Add(2094);
+            list.Add(2095);
+            list.Add(2096);
+            list.Add(2097);
+            list.Add(2098);
+            list.Add(2099);
+            list.Add(2100);
+            list.Add(2101);
+            list.Add(2102);
+            list.Add(2103);
+            list.Add(2104);
+            list.Add(2105);
+            list.Add(2106);
+            list.Add(2107);
+            list.Add(2108);
+            list.Add(2109);
+            list.Add(2110);
+            list.Add(2111);
+            list.Add(2112);
+            list.Add(2113);
+            list.Add(2114);
+            list.Add(2115);
+            list.Add(2116);
+            list.Add(2117);
+            list.Add(2118);
+            list.Add(2119);
+            list.Add(2120);
+            list.Add(2121);
+            list.Add(2122);
+            list.Add(2123);
+            list.Add(2124);
+            list.Add(2125);
+            list.Add(2126);
+            list.Add(2127);
+            list.Add(2128);
+            list.Add(2129);
+            list.Add(2130);
+            list.Add(2131);
+            list.Add(2133);
+            list.Add(2134);
+            list.Add(2135);
+            list.Add(2136);
+            list.Add(2137);
+            list.Add(2138);
+            list.Add(2139);
+            list.Add(2140);
+            list.Add(2142);
+            list.Add(2143);
+            list.Add(2144);
+            list.Add(2145);
+            list.Add(2146);
+            list.Add(2147);
+            list.Add(2148);
+            list.Add(2149);
+            list.Add(2150);
+            list.Add(2151);
+            list.Add(2152);
+            list.Add(2153);
+            list.Add(2154);
+            list.Add(2155);
+            list.Add(2156);
+            list.Add(2157);
+            list.Add(2158);
+            list.Add(2159);
+            list.Add(2160);
+            list.Add(2161);
+            list.Add(2162);
+            list.Add(2163);
+            list.Add(2164);
+            list.Add(2165);
+            list.Add(2166);
+            list.Add(2167);
+            list.Add(2168);
+            list.Add(2169);
+            list.Add(2170);
+            list.Add(2172);
+            list.Add(2173);
+            list.Add(2174);
+            list.Add(2175);
+            list.Add(2176);
+            list.Add(2178);
+            list.Add(2182);
+            list.Add(2183);
+            list.Add(2184);
+            list.Add(2185);
+            list.Add(2186);
+            list.Add(2187);
+            list.Add(2188);
+            list.Add(2189);
+            list.Add(2190);
+            list.Add(2191);
+            list.Add(2192);
+            list.Add(2193);
+            list.Add(2194);
 
-            int cnt = clientCollection.Count;
-            for (int x = 0; x < cnt; x++)
+            foreach(int id in list)
             {
-                StringBuilder payload = new StringBuilder();
-                Business.Persistence.JSONObjectWriter.WriteV2(payload, clientCollection[x]);
-                rpcCommand.Append("{\"key\": \"" + "pando.com/test/client/clientid:" + clientCollection[x].ClientId.ToString() + "\", \"payload\":" + payload.ToString() + "}");
-                if (x + 1 != cnt) rpcCommand.Append(", ");
+                Console.WriteLine("Update tblTypingShortcut set ObjectId = '" + MongoDB.Bson.ObjectId.GenerateNewId().ToString() + "' where ShortcutId = " + id.ToString());
             }
-            rpcCommand.Append("], \"id\":\"1\"}");
+        }
 
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://10.1.2.27:8000");
+        private void WriteSchema()
+        {
+            Type [] types = Assembly.GetExecutingAssembly().GetTypes();
+
+            for (int i=0; i<types.Length; i++)
+            {
+                if(Attribute.IsDefined(types[i], typeof(Business.Persistence.PersistentClass), false) == true)
+                {                    
+                    Business.Persistence.PersistentClass persistentClassAttribute = (Business.Persistence.PersistentClass)types[i].GetCustomAttributes(typeof(Business.Persistence.PersistentClass), false).Single();
+                    PropertyInfo primaryKeyPropertyInfo = types[i].GetProperties().Where(prop => Attribute.IsDefined(prop, typeof(Business.Persistence.PersistentPrimaryKeyProperty))).Single();                    
+
+                    List<PropertyInfo> propertyList = types[i].GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.DeclaredOnly).Where(prop => Attribute.IsDefined(prop, typeof(Business.Persistence.PersistentDataColumnProperty))).ToList();
+                    if (propertyList.Count != 0)
+                    {
+                        string filePath = @"d:\git\ap-mysql\src\schema\" + persistentClassAttribute.StorageName + ".json";
+                        System.IO.StreamWriter file = new System.IO.StreamWriter(filePath, false);
+
+                        using (JsonTextWriter writer = new JsonTextWriter(file))
+                        {
+                            writer.Formatting = Newtonsoft.Json.Formatting.Indented;
+                            writer.WriteStartObject();
+                            writer.WritePropertyName("objectName");
+                            writer.WriteValue(types[i].Name);                            
+                            writer.WritePropertyName("tableName");
+                            writer.WriteValue("tbl" + types[i].Name);
+
+                            writer.WritePropertyName("fields");
+                            writer.WriteStartArray();
+                                                        
+                            foreach (PropertyInfo propertyInfo in propertyList)
+                            {
+                                Business.Persistence.PersistentDataColumnProperty persistentProperty = (Business.Persistence.PersistentDataColumnProperty)propertyInfo.GetCustomAttribute(typeof(Business.Persistence.PersistentDataColumnProperty));
+
+                                writer.WriteStartObject();
+                                writer.WritePropertyName("isPrimaryKey");
+                                if (primaryKeyPropertyInfo.Name == propertyInfo.Name)
+                                {
+                                    writer.WriteValue(true);
+                                }
+                                else
+                                {
+                                    writer.WriteValue(false);
+                                }
+
+                                writer.WritePropertyName("name");
+                                writer.WriteValue(propertyInfo.Name);
+
+                                writer.WritePropertyName("width");
+                                writer.WriteValue(persistentProperty.ColumnLength);
+
+                                writer.WritePropertyName("dataType");
+                                switch (persistentProperty.DataType)
+                                {                                    
+                                    case "int":
+                                        writer.WriteValue("number");
+                                        break;
+                                    case "tinyint":
+                                        writer.WriteValue("boolean");
+                                        break;
+                                    default:
+                                        writer.WriteValue("string");
+                                        break;
+                                }                                                               
+
+                                writer.WritePropertyName("defaultValue");
+                                writer.WriteValue(persistentProperty.DefaultValue);
+
+                                writer.WritePropertyName("isNullable");
+                                writer.WriteValue(persistentProperty.IsNullable.ToString());
+
+                                writer.WriteEndObject();
+                            }
+                            writer.WriteEnd();
+                            writer.WriteEndObject();
+                        }
+                        file.Close();
+                    }
+                }                 
+            }
+        }
+        
+        private void DoGRPC()
+        {
+            //protoc -I d:/protogen --csharp_out d:/protogen/result d:/protogen/ventana.proto --grpc_out d:/protogen/result --plugin=protoc-gen-grpc=grpc_csharp_plugin.exe
+
+            Channel channel = new Channel("127.0.0.1:49165", ChannelCredentials.Insecure);
+            Ventana.StainOrder.StainOrderClient stainOrderClient = new Ventana.StainOrder.StainOrderClient(channel);
+
+            Ventana.OrderRequest orderRequest = new Ventana.OrderRequest();
+
+            orderRequest.Pid = new Ventana.pid();
+            orderRequest.Pid.FirstName = "George";
+            orderRequest.Pid.LastName = "Washington";
+
+            Ventana.OrderReply orderReply = stainOrderClient.getOrder(orderRequest);
+            Console.WriteLine(orderReply.Hl7);
+
+            /*
+            var client = new Greeter.GreeterClient(channel);
+            String user = "you";
+
+            var reply = client.SayHello(new HelloRequest { Name = user });
+            Console.WriteLine("Greeting: " + reply.Message);
+
+            channel.ShutdownAsync().Wait();
+            Console.WriteLine("Press any key to exit...");
+            Console.ReadKey();
+            */
+        }
+
+        private void SendJSONRPC()
+        {
+            StringBuilder rpcCommand = new StringBuilder("{ \"jsonrpc\": \"2.0\", \"method\": \"add\", \"params\": [42, 23], \"id\": 1}");
+            Console.WriteLine(rpcCommand.ToBson());
+
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://127.0.0.1:8000");
             byte[] bytes;
             bytes = System.Text.Encoding.ASCII.GetBytes(rpcCommand.ToString());
             request.ContentType = "application/json; encoding='utf-8'";
             request.ContentLength = bytes.Length;
             request.Method = "POST";
+
             System.IO.Stream requestStream = request.GetRequestStream();
             requestStream.Write(bytes, 0, bytes.Length);
             requestStream.Close();

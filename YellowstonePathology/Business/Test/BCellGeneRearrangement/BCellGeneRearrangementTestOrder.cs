@@ -42,7 +42,7 @@ namespace YellowstonePathology.Business.Test.BCellGeneRearrangement
 		}
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(true, "1000", "null", "varchar")]
+		[PersistentDataColumnProperty(true, "5000", "null", "varchar")]
 		public string Interpretation
 		{
 			get { return this.m_Interpretation; }

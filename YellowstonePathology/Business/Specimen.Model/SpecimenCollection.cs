@@ -54,6 +54,18 @@ namespace YellowstonePathology.Business.Specimen.Model
             return result;
         }
 
+        public static SpecimenCollection GetSkins()
+        {
+            SpecimenCollection result = new SpecimenCollection();
+            result.Add(new SpecimenDefinition.SkinExcisionOrientedBiopsy());
+            result.Add(new SpecimenDefinition.SkinExcisionUnorientedBiopsy());
+            result.Add(new SpecimenDefinition.SkinExcisionOrientedwithCurettingsBiopsy());
+            result.Add(new SpecimenDefinition.SkinExcisionUnorientedwithCurettingsBiopsy());
+            result.Add(new SpecimenDefinition.SkinShavePunchMiscBiopsy());
+            result.Add(new SpecimenDefinition.SkinShavewithCurettingsBiopsy());            
+            return Sort(result);
+        }
+
         public static SpecimenCollection GetAll()
         {
             SpecimenCollection result = new SpecimenCollection();
@@ -65,6 +77,7 @@ namespace YellowstonePathology.Business.Specimen.Model
             result.Add(new SpecimenDefinition.CervicalBiopsy());
             result.Add(new SpecimenDefinition.ECC());
             result.Add(new SpecimenDefinition.EMB());
+            result.Add(new SpecimenDefinition.EMC());
             result.Add(new SpecimenDefinition.FemoralHead());
             result.Add(new SpecimenDefinition.FallopianTube());
             result.Add(new SpecimenDefinition.FallopianTubeAndOvaries());

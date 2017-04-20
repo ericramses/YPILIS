@@ -21,7 +21,7 @@ namespace YellowstonePathology.Business.Flow
 
         public FlowMarkerCollection()
         {
-            //this.m_CellPopulationsOfInterest = new CellPopulationsOfInterest();
+            
         }
 
         public void RemovePanel(int cellPopulationId)
@@ -266,6 +266,29 @@ namespace YellowstonePathology.Business.Flow
 			}
 			return result;
 		}
+
+        public int CountOfBillableMarkers()
+        {
+            int result = 0;
+
+            List<string> markerNames = new List<string>();
+            foreach (FlowMarkerItem flowMarker in this)
+            {
+                if (flowMarker.MarkerUsed == true)
+                {
+                    Console.WriteLine(flowMarker.Name);
+                    if(!markerNames.Contains(flowMarker.Name))
+                    {
+                        markerNames.Add(flowMarker.Name);
+                        result++;
+                    }                    
+                }
+            }
+
+            Business.Flow.CytoplasmicMarkerMappingCollection cytoplasmicMarkerMappingCollection = new CytoplasmicMarkerMappingCollection();
+            result -= cytoplasmicMarkerMappingCollection.CountOfCytoplasmicDups(this);
+            return result;
+        }
 
         public void Sync(DataTable dataTable, string reportNo)
         {

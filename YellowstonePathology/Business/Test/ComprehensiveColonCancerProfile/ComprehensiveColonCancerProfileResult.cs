@@ -48,39 +48,48 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
         private bool m_RASRAFIsOrdered;
 
         public ComprehensiveColonCancerProfileResult(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			ComprehensiveColonCancerProfile comprehensiveColonCancerProfile)
-		{            
-			this.m_SpecimenOrder = accessionOrder.SpecimenOrderCollection.GetSpecimenOrderByOrderTarget(comprehensiveColonCancerProfile.OrderedOnId);
-			this.m_PanelSetOrderSurgical = (YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder)accessionOrder.PanelSetOrderCollection.GetSurgical();
-			this.m_SurgicalSpecimen = this.m_PanelSetOrderSurgical.SurgicalSpecimenCollection.GetBySpecimenOrderId(this.m_SpecimenOrder.SpecimenOrderId);
+            ComprehensiveColonCancerProfile comprehensiveColonCancerProfile)
+        {
+            this.m_SpecimenOrder = accessionOrder.SpecimenOrderCollection.GetSpecimenOrderByOrderTarget(comprehensiveColonCancerProfile.OrderedOnId);
+            this.m_PanelSetOrderSurgical = (YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder)accessionOrder.PanelSetOrderCollection.GetSurgical();
+            this.m_SurgicalSpecimen = this.m_PanelSetOrderSurgical.SurgicalSpecimenCollection.GetBySpecimenOrderId(this.m_SpecimenOrder.SpecimenOrderId);
 
             bool restrictToOrderedOn = !comprehensiveColonCancerProfile.IncludeTestsPerformedOnOtherBlocks;
-			YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeIHCPanelTest panelSetLynchSyndromeIHCPanel = new YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeIHCPanelTest();
+            YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeIHCPanelTest panelSetLynchSyndromeIHCPanel = new YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeIHCPanelTest();
             if (accessionOrder.PanelSetOrderCollection.Exists(panelSetLynchSyndromeIHCPanel.PanelSetId, comprehensiveColonCancerProfile.OrderedOnId, restrictToOrderedOn) == true)
-			{
+            {
                 this.m_LSEIHCIsOrdered = true;
                 this.m_PanelSetOrderLynchSyndromeIHC = (YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetLynchSyndromeIHCPanel.PanelSetId, comprehensiveColonCancerProfile.OrderedOnId, restrictToOrderedOn);
-				this.m_IHCResult = YellowstonePathology.Business.Test.LynchSyndrome.IHCResult.CreateResultFromResultCode(this.m_PanelSetOrderLynchSyndromeIHC.ResultCode);
-			}
+                this.m_IHCResult = YellowstonePathology.Business.Test.LynchSyndrome.IHCResult.CreateResultFromResultCode(this.m_PanelSetOrderLynchSyndromeIHC.ResultCode);
+            }
             else
             {
                 YellowstonePathology.Business.Domain.PatientHistory patientHistory = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPatientHistory(accessionOrder.PatientId);
-                if(patientHistory.PanelSetIdExists(102) == true)
+                if (patientHistory.PanelSetIdExists(102) == true)
                 {
                     YellowstonePathology.Business.Domain.PatientHistoryResult patientHistoryResult = patientHistory.GetByPanelSetId(102);
                     YellowstonePathology.Business.Test.AccessionOrder lseIHCAccessionOrder = Business.Persistence.DocumentGateway.Instance.GetAccessionOrderByMasterAccessionNo(patientHistoryResult.MasterAccessionNo);
                     this.m_LSEIHCIsOrdered = true;
-                    this.m_PanelSetOrderLynchSyndromeIHC = (YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC)lseIHCAccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetLynchSyndromeIHCPanel.PanelSetId, comprehensiveColonCancerProfile.OrderedOnId, restrictToOrderedOn);
+
+                    if (this.m_PanelSetOrderSurgical.MasterAccessionNo == patientHistoryResult.MasterAccessionNo)
+                    {
+                        this.m_PanelSetOrderLynchSyndromeIHC = (YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC)lseIHCAccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetLynchSyndromeIHCPanel.PanelSetId, comprehensiveColonCancerProfile.OrderedOnId, restrictToOrderedOn);
+                    }
+                    else
+                    {
+                        this.m_PanelSetOrderLynchSyndromeIHC = (YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC)lseIHCAccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(102);
+                    }
+
                     this.m_IHCResult = YellowstonePathology.Business.Test.LynchSyndrome.IHCResult.CreateResultFromResultCode(this.m_PanelSetOrderLynchSyndromeIHC.ResultCode);
                 }
             }
 
-			YellowstonePathology.Business.Test.LynchSyndrome.MLH1MethylationAnalysisTest panelSetMLH1 = new YellowstonePathology.Business.Test.LynchSyndrome.MLH1MethylationAnalysisTest();
+            YellowstonePathology.Business.Test.LynchSyndrome.MLH1MethylationAnalysisTest panelSetMLH1 = new YellowstonePathology.Business.Test.LynchSyndrome.MLH1MethylationAnalysisTest();
             if (accessionOrder.PanelSetOrderCollection.Exists(panelSetMLH1.PanelSetId, comprehensiveColonCancerProfile.OrderedOnId, restrictToOrderedOn) == true)
-			{
+            {
                 this.m_MLHIsOrdered = true;
-				this.m_PanelSetOrderMLH1MethylationAnalysis = (YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderMLH1MethylationAnalysis)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetMLH1.PanelSetId, comprehensiveColonCancerProfile.OrderedOnId, restrictToOrderedOn);
-			}
+                this.m_PanelSetOrderMLH1MethylationAnalysis = (YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderMLH1MethylationAnalysis)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetMLH1.PanelSetId, comprehensiveColonCancerProfile.OrderedOnId, restrictToOrderedOn);
+            }
 
             this.m_BRAFV600EKTest = new YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTest();
             if (accessionOrder.PanelSetOrderCollection.Exists(this.m_BRAFV600EKTest.PanelSetId, comprehensiveColonCancerProfile.OrderedOnId, restrictToOrderedOn) == true)
@@ -118,7 +127,7 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
             }
 
             this.m_RASRAFPanelTest = new RASRAFPanel.RASRAFPanelTest();
-            if(accessionOrder.PanelSetOrderCollection.Exists(this.m_RASRAFPanelTest.PanelSetId, comprehensiveColonCancerProfile.OrderedOnId, restrictToOrderedOn) == true)
+            if (accessionOrder.PanelSetOrderCollection.Exists(this.m_RASRAFPanelTest.PanelSetId, comprehensiveColonCancerProfile.OrderedOnId, restrictToOrderedOn) == true)
             {
                 this.m_RASRAFIsOrdered = true;
                 this.m_RASRAFPanelTestOrder = (RASRAFPanel.RASRAFPanelTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_RASRAFPanelTest.PanelSetId, comprehensiveColonCancerProfile.OrderedOnId, restrictToOrderedOn);
@@ -136,15 +145,15 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
 
             this.m_PanelSetOrderLynchSyndromeIHCCollection = new Collection<LynchSyndrome.PanelSetOrderLynchSyndromeIHC>();
             this.m_MolecularTestOrderCollection = new PanelSetOrderCollection();
-            foreach(YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder in accessionOrder.PanelSetOrderCollection)
+            foreach (YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder in accessionOrder.PanelSetOrderCollection)
             {
-                if(panelSetOrder is YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC)
+                if (panelSetOrder is YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC)
                 {
                     this.m_PanelSetOrderLynchSyndromeIHCCollection.Add((YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC)panelSetOrder);
                 }
                 else
                 {
-                    if(panelSetOrder is LynchSyndrome.PanelSetOrderMLH1MethylationAnalysis ||
+                    if (panelSetOrder is LynchSyndrome.PanelSetOrderMLH1MethylationAnalysis ||
                         panelSetOrder is KRASStandard.KRASStandardTestOrder ||
                         panelSetOrder is KRASExon23Mutation.KRASExon23MutationTestOrder ||
                         panelSetOrder is KRASExon4Mutation.KRASExon4MutationTestOrder ||
@@ -154,6 +163,18 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
                     {
                         this.m_MolecularTestOrderCollection.Add(panelSetOrder);
                     }
+                }
+            }
+
+            if (accessionOrder.PanelSetOrderCollection.Exists(panelSetLynchSyndromeIHCPanel.PanelSetId, comprehensiveColonCancerProfile.OrderedOnId, restrictToOrderedOn) == false)
+            {
+                YellowstonePathology.Business.Domain.PatientHistory patientHistory = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPatientHistory(accessionOrder.PatientId);
+                if (patientHistory.PanelSetIdExists(102) == true)
+                {
+                    YellowstonePathology.Business.Domain.PatientHistoryResult patientHistoryResult = patientHistory.GetByPanelSetId(102);
+                    YellowstonePathology.Business.Test.AccessionOrder lseIHCAccessionOrder = Business.Persistence.DocumentGateway.Instance.GetAccessionOrderByMasterAccessionNo(patientHistoryResult.MasterAccessionNo);
+                    this.m_PanelSetOrderLynchSyndromeIHC = (YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC)lseIHCAccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(102);
+                    this.m_PanelSetOrderLynchSyndromeIHCCollection.Add(m_PanelSetOrderLynchSyndromeIHC);
                 }
             }
         }

@@ -45,11 +45,11 @@ namespace YellowstonePathology.Business.Gateway
         {
             YellowstonePathology.UI.EmbeddingBreastCaseList result = new UI.EmbeddingBreastCaseList();
             SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "select ao.MasterAccessionNo, ao.PFirstName, ao.PLastName, so.Collectiontime, so.ProcessorRun, so.FixationStartTime, so.FixationEndTime, datediff(hh, fixationstarttime, fixationendtime) [FixationDurationCalc], FixationDuration, so.Description " + 
+            cmd.CommandText = "select ao.MasterAccessionNo, ao.PFirstName, ao.PLastName, so.CollectionTime, so.ProcessorRun, so.FixationStartTime, so.FixationEndTime, FixationDuration, so.Description " + 
                 "from tblAccessionOrder ao " +
                 "join tblspecimenOrder so on ao.masterAccessionNo = so.MasterAccessionNo " +
                 "where charindex('Breast', so.Description) > 0 " +
-                "and ao.AccessionDate >= dateadd(d, -30, getdate()) " +
+                "and ao.AccessionDate >= dateadd(d, -30, getdate()) and so.ClientAccessioned = 0 " +
                 "order by ao.AccessionTime desc";
             cmd.CommandType = CommandType.Text;            
 
@@ -920,21 +920,26 @@ namespace YellowstonePathology.Business.Gateway
 			Surgical.SurgicalOrderList result = AccessionOrderGateway.BuildSurgicalOrderList(cmd);
 			return result;
 		}
-
-		/*public static Surgical.SurgicalOrderList GetSurgicalOrderListByNoSignature()
+        
+		public static Surgical.SurgicalOrderList GetSurgicalOrderListByNotAssigned()
 		{
 			SqlCommand cmd = new SqlCommand();
-			cmd.CommandText = "SELECT pso.ReportNo, a.AccessionDate, a.PFirstName + ' ' + a.PLastName AS PatientName, pso.AcceptedDate, " +
-				"pso.FinalDate, pso.OriginatingLocation, su.DisplayName AS Pathologist, su.UserId AS PathologistId, pso.Audited " +
-				"FROM tblAccessionOrder a JOIN tblPanelSetOrder pso ON a.MasterAccessionNo = pso.MasterAccessionNo " +
-				"JOIN tblSystemUser su on pso.AssignedToId = su.UserId " +
-				"WHERE pso.Final = 1 AND pso.SignatureAudit = 1 and pso.PanelSetId = 13 " +
-				"ORDER BY pso.OrderTime";
-			cmd.CommandType = CommandType.Text;
+			cmd.CommandText = "select pso.ReportNo, ao.AccessionDate, ao.PFirstName + ' ' + ao.PLastName AS PatientName, pso.AcceptedDate, " +
+                "pso.FinalDate, pso.OriginatingLocation, null AS Pathologist, null AS PathologistId, pso.Audited " +
+                "from tblAccessionOrder ao " +
+                "join tblPanelSetOrder pso on ao.masterAccessionno = pso.masterAccessionno " +
+                "where pso.PanelSetId = 13 and pso.AssignedToId = 0 " +
+                "and 0 < (select count(*) from tblAliquotOrder al " +
+                "join tblSpecimenOrder s on al.SpecimenOrderId = s.SpecimenOrderid " +
+                "join tblAccessionOrder acc on s.masterAccessionNo = acc.MasterAccessionNo " +
+                "where acc.MasteraccessionNo = ao.MasterAccessionNo and al.EmbeddingVerified = 1 " +
+                "and al.EmbeddingVerifiedDate <= getdate())";
+
+            cmd.CommandType = CommandType.Text;
 
 			Surgical.SurgicalOrderList result = AccessionOrderGateway.BuildSurgicalOrderList(cmd);
 			return result;
-		}*/
+		}
 
         public static Surgical.SurgicalOrderList GetSurgicalOrderListByNoGross()
         {

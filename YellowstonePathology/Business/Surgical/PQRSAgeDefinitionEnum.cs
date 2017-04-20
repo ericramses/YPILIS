@@ -8,6 +8,7 @@ namespace YellowstonePathology.Business.Surgical
     public enum  PQRSAgeDefinitionEnum
     {
         AllPatients,
-        Patients18To75
+        Patients18To75,
+        Patients18AndOlder
     }
 }

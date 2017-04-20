@@ -13,6 +13,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using Newtonsoft.Json;
 
 namespace YellowstonePathology.UI.Login.Receiving
 {
@@ -188,6 +189,10 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         private void HyperlingPrint2CopiesTaskOrder_Click(object sender, RoutedEventArgs e)
         {
+            //string result = JsonConvert.SerializeObject(this.m_TaskOrder, Newtonsoft.Json.Formatting.Indented, new JsonSerializerSettings
+            //{
+            //    TypeNameHandling = TypeNameHandling.All
+            //});
             this.PrintTaskOrder(2);
         }
 

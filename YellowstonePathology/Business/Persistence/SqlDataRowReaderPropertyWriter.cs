@@ -142,8 +142,8 @@ namespace YellowstonePathology.Business.Persistence
 
         private void WriteBoolean(PropertyInfo property)
         {
-            bool sqlValue = false;
-            sqlValue = (Boolean)this.m_DataTableReader[property.Name];
+            bool sqlValue = false;            
+            sqlValue = Convert.ToBoolean(this.m_DataTableReader[property.Name]);
             property.SetValue(this.m_ObjectToWriteTo, sqlValue, null);
         }
 

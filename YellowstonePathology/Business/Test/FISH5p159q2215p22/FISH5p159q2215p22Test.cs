@@ -24,6 +24,7 @@ namespace YellowstonePathology.Business.Test.FISH5p159q2215p22
 
             this.m_AllowMultiplePerAccession = true;
             this.m_EpicDistributionIsImplemented = true;
+            this.m_SurgicalAmendmentRequired = true;
 
             string taskDescription = "Collect specimen from Histology and send to Neo.";
             this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskFedexShipment(YellowstonePathology.Business.Task.Model.TaskAssignment.Flow, taskDescription, new Facility.Model.NeogenomicsIrvine()));

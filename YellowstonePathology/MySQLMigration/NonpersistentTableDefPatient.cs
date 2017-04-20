@@ -13,6 +13,7 @@ namespace YellowstonePathology.MySQLMigration
             this.m_TableName = "tblPatient";
             this.m_ColumnDefinitions.Add(new NonpersistentColumnDef("PatientId", "int", "11", null, false));
             this.m_ColumnDefinitions.Add(new NonpersistentColumnDef("ObjectId", "varchar", "50", "NULL", true));
+            this.m_ColumnDefinitions.Add(new NonpersistentColumnDef("Timestamp", "Timestamp", "3", null, false));
 
             this.SetKeyField("PatientId");
             this.SetSelectStatement();

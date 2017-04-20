@@ -4,29 +4,29 @@ using System.Linq;
 using System.Text;
 using YellowstonePathology.Business.Persistence;
 
-namespace YellowstonePathology.Business.Test.PeerReview
+namespace YellowstonePathology.Business.Test.ProspectiveReview
 {
-    [PersistentClass("tblPeerReviewTestOrder", "tblPanelSetOrder", "YPIDATA")]
-	public class PeerReviewTestOrder : YellowstonePathology.Business.Test.PanelSetOrder
+    [PersistentClass("tblProspectiveReviewTestOrder", "tblPanelSetOrder", "YPIDATA")]
+	public class ProspectiveReviewTestOrder : YellowstonePathology.Business.Test.PanelSetOrder
 	{
 		private string m_Result;
 		private string m_Comment;		
 		
-		public PeerReviewTestOrder()
+		public ProspectiveReviewTestOrder()
         {
 
         }
 
-		public PeerReviewTestOrder(string masterAccessionNo, string reportNo, string objectId,
-			YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
-			YellowstonePathology.Business.Interface.IOrderTarget orderTarget,
-			bool distribute)
+        public ProspectiveReviewTestOrder(string masterAccessionNo, string reportNo, string objectId,
+            YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
+            YellowstonePathology.Business.Interface.IOrderTarget orderTarget,
+            bool distribute)
 			: base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute)
 		{
 
-		}
-		
-		[PersistentProperty()]
+        }
+
+        [PersistentProperty()]
 		[PersistentDataColumnProperty(true, "500", "null", "varchar")]
 		public string Result
 		{

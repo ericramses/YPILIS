@@ -519,7 +519,11 @@ namespace YellowstonePathology.UI.Gross
                 {
                     MessageBox.Show("This feature only works if there is a Surgical");
                 }
-			}            
+			}  
+            else
+            {
+                MessageBox.Show("A block must be selected before you can add stains.");
+            }          
         }
 
         private void ButtonProcessor_Click(object sender, RoutedEventArgs e)

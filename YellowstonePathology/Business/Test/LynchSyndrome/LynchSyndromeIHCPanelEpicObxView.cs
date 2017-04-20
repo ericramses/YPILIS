@@ -24,7 +24,8 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             this.AddNextObxElement("MSH2 Result: " + panelSetOrder.MSH2Result, document, "F");
             this.AddNextObxElement("MSH6 Result: " + panelSetOrder.MSH6Result, document, "F");
             this.AddNextObxElement("PMS2 Result: " + panelSetOrder.PMS2Result, document, "F");
-
+            this.AddNextObxElement("", document, "F");
+            this.HandleLongString("Comment: " + panelSetOrder.Comment, document, "F");
             this.AddNextObxElement("", document, "F");                       
 
             this.AddNextObxElement("", document, "F");

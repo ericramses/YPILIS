@@ -155,6 +155,7 @@
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
                         <ColumnDefinition Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
 
@@ -175,7 +176,7 @@
 							BorderBrush="LightGray" BorderThickness="1" Width="100"
 							ItemsSource="{Binding Path=EmbeddingInstructionList, RelativeSource={RelativeSource AncestorType=UserControl}}" Text="{Binding Path=Element[EmbeddingInstructions].Value}" IsEditable="True">
                     </ComboBox>
-                    
+                    <TextBlock Grid.Column="7" Margin="2,2,2,2" VerticalAlignment="Center" Text="{Binding Path=Element[GrossVerifiedDate].Value}"></TextBlock>
                 </Grid>                				
 			</HierarchicalDataTemplate>
 

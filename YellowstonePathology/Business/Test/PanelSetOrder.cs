@@ -86,9 +86,9 @@ namespace YellowstonePathology.Business.Test
         protected Nullable<DateTime> m_DelayedDate;
         protected string m_DelayComment;
         protected string m_CaseType;
-        protected bool m_HoldForPeerReview;
-        private string m_PeerReviewRequestComment;
-        private string m_PeerReviewRequestType;		       
+        protected bool m_HoldForProspectiveReview;
+        private string m_ProspectiveReviewRequestComment;
+        private string m_ProspectiveReviewRequestType;		       
 		private string m_SignatureButtonText;
 		private bool m_SignatureButtonIsEnabled;
         private bool m_HoldDistribution;
@@ -177,7 +177,7 @@ namespace YellowstonePathology.Business.Test
             this.m_Ordered14DaysPostDischarge = false;
             this.m_IsPosted = false;
             this.m_IsDelayed = false;
-            this.m_HoldForPeerReview = false;
+            this.m_HoldForProspectiveReview = false;
             this.m_HoldDistribution = false;
             this.m_AdditionalTestingEmailSent = false;
         }
@@ -249,7 +249,7 @@ namespace YellowstonePathology.Business.Test
             this.m_Ordered14DaysPostDischarge = false;
             this.m_IsPosted = false;
             this.m_IsDelayed = false;
-            this.m_HoldForPeerReview = false;
+            this.m_HoldForProspectiveReview = false;
             this.m_HoldDistribution = false;
             this.m_AdditionalTestingEmailSent = false;
         }
@@ -1147,45 +1147,45 @@ namespace YellowstonePathology.Business.Test
 
         [PersistentProperty()]
         [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
-        public bool HoldForPeerReview
+        public bool HoldForProspectiveReview
         {
-            get { return this.m_HoldForPeerReview; }
+            get { return this.m_HoldForProspectiveReview; }
             set
             {
-                if (this.m_HoldForPeerReview != value)
+                if (this.m_HoldForProspectiveReview != value)
                 {
-                    this.m_HoldForPeerReview = value;
-                    this.NotifyPropertyChanged("HoldForPeerReview");
+                    this.m_HoldForProspectiveReview = value;
+                    this.NotifyPropertyChanged("HoldForProspectiveReview");
                 }
             }
         }
 
         [PersistentProperty()]
         [PersistentDataColumnProperty(true, "5000", "null", "varchar")]
-        public string PeerReviewRequestComment
+        public string ProspectiveReviewRequestComment
         {
-            get { return this.m_PeerReviewRequestComment; }
+            get { return this.m_ProspectiveReviewRequestComment; }
             set
             {
-                if (this.m_PeerReviewRequestComment != value)
+                if (this.m_ProspectiveReviewRequestComment != value)
                 {
-                    this.m_PeerReviewRequestComment = value;
-                    this.NotifyPropertyChanged("PeerReviewRequestComment");
+                    this.m_ProspectiveReviewRequestComment = value;
+                    this.NotifyPropertyChanged("ProspectiveReviewRequestComment");
                 }
             }
         }
 
         [PersistentProperty()]
         [PersistentDataColumnProperty(true, "500", "null", "varchar")]
-        public string PeerReviewRequestType
+        public string ProspectiveReviewRequestType
         {
-            get { return this.m_PeerReviewRequestType; }
+            get { return this.m_ProspectiveReviewRequestType; }
             set
             {
-                if (this.m_PeerReviewRequestType != value)
+                if (this.m_ProspectiveReviewRequestType != value)
                 {
-                    this.m_PeerReviewRequestType = value;
-                    this.NotifyPropertyChanged("PeerReviewRequestType");
+                    this.m_ProspectiveReviewRequestType = value;
+                    this.NotifyPropertyChanged("ProspectiveReviewRequestType");
                 }
             }
         }

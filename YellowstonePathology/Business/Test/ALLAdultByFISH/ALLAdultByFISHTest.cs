@@ -18,12 +18,11 @@ namespace YellowstonePathology.Business.Test.ALLAdultByFISH
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterR();
             this.m_Active = true;
 
-
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.ALLAdultByFISH.ALLAdultByFISHTestOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.ALLAdultByFISH.ALLAdultByFISHWordDocument).AssemblyQualifiedName;
             
 			this.m_AllowMultiplePerAccession = true;
-            //changed by MS and Tk;
+            this.m_SurgicalAmendmentRequired = true;
             this.m_EpicDistributionIsImplemented = true;
 
             string taskDescription = "Gather materials (Peripheral blood: 2-5 mL in sodium heparin tube, 2x5 mL in EDTA tube; " +

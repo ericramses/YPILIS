@@ -82,10 +82,40 @@ namespace YellowstonePathology.UI
 
                 this.m_EmbeddingNotScannedList = Business.Gateway.AccessionOrderGateway.GetEmbeddingNotScannedCollection(this.GetWorkingAccessionDate());
                 this.m_EmbeddingBreastCaseList = Business.Gateway.AccessionOrderGateway.GetEmbeddingBreastCasesCollection();
+                this.CalculateEstimatedFixationDuration();
 
                 this.NotifyPropertyChanged(string.Empty);
             }
             ));
+        }
+
+        private void CalculateEstimatedFixationDuration()
+        {
+            foreach(EmbeddingBreastCaseListItem item in this.m_EmbeddingBreastCaseList)
+            {                                
+                if(item.FixationStartTime.HasValue == true)
+                {
+                    if (item.FixationEndTime.HasValue == false)
+                    {
+                        if(DateTime.Today.DayOfWeek == DayOfWeek.Friday)
+                        {
+                            DateTime sundayAt550 = DateTime.Parse(DateTime.Today.AddDays(2).ToString("yyyy-MM-dd") + "T17:50");
+                            Business.Surgical.ProcessorRun run = new Business.Surgical.ProcessorRun("Sunday", sundayAt550, new TimeSpan(2, 30, 0));
+                            DateTime expectedFixationEndTime = run.GetFixationEndTime(item.FixationStartTime.Value);
+                            TimeSpan expectedDurationTS = expectedFixationEndTime.Subtract(item.FixationStartTime.Value);
+                            item.FixationDurationExpected = Convert.ToInt32(Math.Round(expectedDurationTS.TotalHours, 0));                            
+                        }
+                        else
+                        {
+                            DateTime todayAtFive = DateTime.Parse(DateTime.Today.ToString("yyyy-MM-dd") + "T17:00");
+                            Business.Surgical.ProcessorRun run = new Business.Surgical.ProcessorRun("Today", todayAtFive, new TimeSpan(2, 30, 0));
+                            DateTime expectedFixationEndTime = run.GetFixationEndTime(item.FixationStartTime.Value);
+                            TimeSpan expectedDurationTS = expectedFixationEndTime.Subtract(item.FixationStartTime.Value);
+                            item.FixationDurationExpected = Convert.ToInt32(Math.Round(expectedDurationTS.TotalHours, 0));                         
+                        }                        
+                    }                    
+                }                
+            }
         }
 
         private void BarcodeScanPort_ContainerScanReceived(Business.BarcodeScanning.ContainerBarcode containerBarcode)
@@ -151,6 +181,7 @@ namespace YellowstonePathology.UI
             {                                
                 if (this.IsProcessorStartTimeValid() == true)
                 {
+                    this.ComboBoxProcessorRuns.Focus();
                     YellowstonePathology.Business.BarcodeScanning.EmbeddingScan result = this.m_EmbeddingScanCollection.HandleScan(aliquotOrderId, this.m_ProcessorStartTime.Value, this.m_ProcessorFixationDuration);
                     this.ListViewEmbeddingScans.SelectedIndex = 0;
                     this.m_ScanCount = "Block Count: " + this.m_EmbeddingScanCollection.Count.ToString();
@@ -356,6 +387,7 @@ namespace YellowstonePathology.UI
             this.m_AliquotOrderHoldCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAliquotOrderHoldCollection();            
             this.m_EmbeddingNotScannedList = Business.Gateway.AccessionOrderGateway.GetEmbeddingNotScannedCollection(this.GetWorkingAccessionDate());
             this.m_EmbeddingBreastCaseList = Business.Gateway.AccessionOrderGateway.GetEmbeddingBreastCasesCollection();
+            this.CalculateEstimatedFixationDuration();
 
             this.NotifyPropertyChanged(string.Empty);
         }

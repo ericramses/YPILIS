@@ -344,9 +344,9 @@
                     </Grid.ColumnDefinitions>
 
                     <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal">
-                        <TextBlock Margin="20, 2, 2, 2" VerticalAlignment="Top">ICD9 Codes</TextBlock>
+                        <TextBlock Margin="20, 2, 2, 2" VerticalAlignment="Top">ICD10 Codes</TextBlock>
 
-                        <Button Margin="5,2,2,2" Height="15" Width="15" HorizontalAlignment="Left" ToolTip="Add ICD9 Code"
+                        <Button Margin="5,2,2,2" Height="15" Width="15" HorizontalAlignment="Left" ToolTip="Add ICD10 Code"
 									Click="ButtonAddIcd9Code_Click" VerticalAlignment="Top" Tag="{Binding Path=SurgicalSpecimen}"
 									IsEnabled="{Binding ElementName=SurgicalReviewControl, Path=DataContext.FieldEnabler.IsUnprotectedEnabled}">
                             <StackPanel Orientation="Horizontal">
@@ -451,6 +451,11 @@
 							<TextBlock VerticalAlignment="Center" Margin="2">Reassign Case</TextBlock>
 						</StackPanel>
 					</Button>
+                    <Button ToolTip="Set CPT Codes" Click="ButtonSetCPTCodes_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock VerticalAlignment="Center" Margin="2">88305</TextBlock>
+                        </StackPanel>
+                    </Button>
                 </ToolBar>
 			</ToolBarTray>
 

@@ -19,7 +19,7 @@ namespace YellowstonePathology.UI.Test
         {
             this.m_TestOrder = testOrder;
             this.m_ControlsNotDisabledOnFinal = new List<FrameworkElement>();
-
+                        
             this.m_DisableRequired = false;
             if (accessionOrder.AccessionLock.IsLockAquiredByMe == false)
             {

@@ -22,13 +22,29 @@ namespace YellowstonePathology.UI.MySql
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        private MySQLMigration.MigrationStatusCollection m_MigrationStatusCollection;
         private MySQLMigration.NonpersistentTableDefCollection m_NonpersistentTableDefCollection;
         private YellowstonePathology.MySQLMigration.SqlServerFromMySqlRefresher m_SqlServerFromMySqlRefresher;
         private string m_StatusMessage;
 
         public SqlServerRefreshDialog()
         {
+            this.m_MigrationStatusCollection = MySQLMigration.MigrationStatusCollection.GetAll();
+            this.m_SqlServerFromMySqlRefresher = new MySQLMigration.SqlServerFromMySqlRefresher();
+
             InitializeComponent();
+
+            DataContext = this;
+        }
+
+        public MySQLMigration.MigrationStatusCollection MigrationStatusCollection
+        {
+            get { return this.m_MigrationStatusCollection; }
+            private set
+            {
+                this.m_MigrationStatusCollection = value;
+                this.NotifyPropertyChanged("MigrationStatusCollection");
+            }
         }
 
         public MySQLMigration.NonpersistentTableDefCollection NonpersistentTableDefCollection
@@ -71,20 +87,14 @@ namespace YellowstonePathology.UI.MySql
             }
         }
 
-        private void GetStatus(MySQLMigration.NonpersistentTableDef nonpersistentTableDef)
+        private void MenuItemGetRowCounts_Click(object sender, RoutedEventArgs e)
         {
-            this.m_SqlServerFromMySqlRefresher.GetStatus(nonpersistentTableDef);
-            this.StatusMessage = "Got Status for " + nonpersistentTableDef.TableName;
-        }
-
-        private void MenuItemGetStatus_Click(object sender, RoutedEventArgs e)
-        {
-            if (this.ListViewNonpersistentTableDef.SelectedItems.Count > 0)
+            if (this.ListViewTables.SelectedItems.Count > 0)
             {
                 this.StatusMessage = "Working on it.";
-                foreach (MySQLMigration.NonpersistentTableDef nonpersistentTableDef in this.ListViewNonpersistentTableDef.SelectedItems)
+                foreach (MySQLMigration.MigrationStatus migrationStatus in this.ListViewTables.SelectedItems)
                 {
-                    this.GetStatus(nonpersistentTableDef);
+                    this.m_SqlServerFromMySqlRefresher.GetRowCounts(migrationStatus);
                 }
             }
             else
@@ -96,13 +106,19 @@ namespace YellowstonePathology.UI.MySql
         private void MenuItemRefreshData_Click(object sender, RoutedEventArgs e)
         {
             Business.Rules.MethodResult overallResult = new Business.Rules.MethodResult();
-            foreach (MySQLMigration.NonpersistentTableDef nonpersistentTableDef in this.ListViewNonpersistentTableDef.SelectedItems)
+            foreach (MySQLMigration.MigrationStatus migrationStatus in this.m_MigrationStatusCollection)
             {
-                Business.Rules.MethodResult methodResult = m_SqlServerFromMySqlRefresher.Refresh(nonpersistentTableDef);
-                if (methodResult.Success == false)
+                if (/*migrationStatus.TableName == "tblSurgicalAudit" || migrationStatus.TableName == "tblSurgicalSpecimen" ||
+                    migrationStatus.TableName == "tblSurgicalSpecimenAudit" ||*/ migrationStatus.TableName == "tblSurgicalTestOrder" /*||
+                    migrationStatus.TableName == "tblGrossOnlyResult" || migrationStatus.TableName == "tblBCellEnumerationTestOrder" ||
+                    migrationStatus.TableName == "tblTCellNKProfileTestOrder" || migrationStatus.TableName == "tblTCellSubsetAnalysisTestOrder"*/)
                 {
-                    overallResult.Success = false;
-                    overallResult.Message += nonpersistentTableDef.TableName + " ";
+                    Business.Rules.MethodResult methodResult = m_SqlServerFromMySqlRefresher.CompareTables(migrationStatus);
+                    if (methodResult.Success == false)
+                    {
+                        overallResult.Success = false;
+                        overallResult.Message += methodResult.Message;
+                    }
                 }
             }
             this.SetStatusMessage(overallResult);

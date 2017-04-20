@@ -539,9 +539,9 @@ namespace YellowstonePathology.UI.Surgical
                 case "Cases Not Audited":
 					this.m_TypingUI.SurgicalOrderList.FillByNotAudited();
                     break;
-				//case "Cases No Signature":
-				//	this.m_TypingUI.SurgicalOrderList.FillByNoSignature();
-				//	break;
+				case "Cases Not Assigned":
+					this.m_TypingUI.SurgicalOrderList.FillByNoSignature();
+					break;
                 case "Daily Accession List":
                 case "Daily Final List":
                 case "PQRI Cases":
@@ -748,7 +748,7 @@ namespace YellowstonePathology.UI.Surgical
 				if (svhBillingDataCollection.Count > 0)
 				{
                     YellowstonePathology.Business.Patient.Model.SVHBillingData svhBillingDate = svhBillingDataCollection.GetMostRecent();
-					YellowstonePathology.UI.Billing.PatientDetailPage patientDetailPage = new Billing.PatientDetailPage(svhBillingDate);
+					YellowstonePathology.UI.Billing.PatientDetailPage patientDetailPage = new Billing.PatientDetailPage(this.m_TypingUI.AccessionOrder.MasterAccessionNo, svhBillingDate);
 					patientDetailPage.Back += new Billing.PatientDetailPage.BackEventHandler(PatientDetailPage_Return);
 					patientDetailPage.Next += new Billing.PatientDetailPage.NextEventHandler(PatientDetailPage_Return);
 
@@ -925,7 +925,8 @@ namespace YellowstonePathology.UI.Surgical
         private void HyperLinkCleanClinicalInformation_Click(object sender, RoutedEventArgs e)
         {
             this.m_TypingUI.AccessionOrder.ClinicalHistory = this.m_TypingUI.AccessionOrder.ClinicalHistory.Replace("Comprehensive Consult:->No", "");
-;        }
+            this.m_TypingUI.AccessionOrder.ClinicalHistory = this.m_TypingUI.AccessionOrder.ClinicalHistory.Replace(" (CMS-HCC)", "");
+        }
 
         private void HyperLinkSpellCheck_Click(object sender, RoutedEventArgs e)
         {
@@ -934,6 +935,31 @@ namespace YellowstonePathology.UI.Surgical
                 YellowstonePathology.UI.NHunspell nhunspell = new NHunspell(this.m_TypingUI.AccessionOrder);
                 nhunspell.ShowDialog();
             }
+        }
+
+        private void ButtonUpdateFromADT_Click(object sender, RoutedEventArgs e)
+        {
+            if(this.m_TypingUI.AccessionOrder != null)
+            {
+                if(string.IsNullOrEmpty(this.m_TypingUI.AccessionOrder.SvhMedicalRecord) == false)
+                {
+                    Business.HL7View.ADTMessages adtMessages = Business.Gateway.AccessionOrderGateway.GetADTMessages(this.m_TypingUI.AccessionOrder.SvhMedicalRecord);
+                    if(adtMessages.Messages.Count > 0)
+                    {
+                        adtMessages.SetCurrentAddress(this.m_TypingUI.AccessionOrder);
+                        MessageBox.Show("The ADT information has been updated.");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Sorry,  I couldn't find any ADT messages for this case.");
+                    }
+                    
+                }
+                else
+                {
+                    MessageBox.Show("I'm not able to find ADT information without Medical Record No.");
+                }                
+            }            
         }
     }    
 }

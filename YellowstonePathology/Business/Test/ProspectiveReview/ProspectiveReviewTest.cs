@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace YellowstonePathology.Business.Test.PeerReview
+namespace YellowstonePathology.Business.Test.ProspectiveReview
 {
-	public class PeerReviewTest : YellowstonePathology.Business.PanelSet.Model.PanelSet
+	public class ProspectiveReviewTest : YellowstonePathology.Business.PanelSet.Model.PanelSet
 	{
-        public PeerReviewTest()
+        public ProspectiveReviewTest()
         {
 			this.m_PanelSetId = 197;
-			this.m_PanelSetName = "Peer Review";
+			this.m_PanelSetName = "Prospective Review";
             this.m_Abbreviation = "PEERRVW";
             this.m_CaseType = YellowstonePathology.Business.CaseType.Surgical;
 			this.m_HasTechnicalComponent = false;            
@@ -18,10 +18,11 @@ namespace YellowstonePathology.Business.Test.PeerReview
 			this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterQ();
             this.m_Active = true;
-            
-			this.m_AllowMultiplePerAccession = true;
+            this.m_ReportAsAdditionalTesting = false;
 
-			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.PeerReview.PeerReviewTestOrder).AssemblyQualifiedName;
+            this.m_AllowMultiplePerAccession = true;
+
+			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.ProspectiveReview.ProspectiveReviewTestOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Document.NothingToPublishReport).AssemblyQualifiedName;
 
             this.m_ExpectedDuration = new TimeSpan(3, 0, 0, 0);

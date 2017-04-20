@@ -27,6 +27,7 @@ namespace YellowstonePathology.Business.Billing.Model
             List<PropertyChanges> propertyChangeList = new List<PropertyChanges>();
             PropertyInfo[] properties = this.m_Object.GetType().GetProperties().
                 Where(prop => Attribute.IsDefined(prop, typeof(Business.Persistence.MonitorProperty))).ToArray();            
+
             foreach (PropertyInfo property in properties)
             {
                 if (Business.Persistence.PersistenceHelper.ArePropertiesEqual(property, this.m_Object, this.m_Clone) == false)

@@ -19,7 +19,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
-            <TextBox Name="TextBoxDate" Margin="2" Width="120" Text="{Binding Path=WorkDate, Converter={StaticResource ShortDateConverter}, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Name="TextBoxDate" Margin="2" Width="120" Text="{Binding Path=WorkDate, Converter={StaticResource ShortDateConverter}, UpdateSourceTrigger=PropertyChanged}" IsEnabled="False" />
 
             <Button Click="ButtonAccessionOrderBack_Click" Width="30">
                 <StackPanel Orientation="Horizontal">
@@ -100,8 +100,8 @@
                             <GridViewColumn Header="Collected" Width="130" DisplayMemberBinding="{Binding Path=CollectionTime, Converter={StaticResource MilitaryDateTimeConverter}}" />
                             <GridViewColumn Header="Start" Width="150" DisplayMemberBinding="{Binding Path=FixationStartTime, Converter={StaticResource MilitaryDateTimeConverter}}" />
                             <GridViewColumn Header="End" Width="150" DisplayMemberBinding="{Binding Path=FixationEndTime}" />
-                            <GridViewColumn Header="Duration" Width="120" DisplayMemberBinding="{Binding Path=FixationDurationCalc}" />
-                            <GridViewColumn Header="Duration" Width="120" DisplayMemberBinding="{Binding Path=FixationDuration}" />
+                            <GridViewColumn Header="Expected" Width="120" DisplayMemberBinding="{Binding Path=FixationDurationExpected}" />
+                            <GridViewColumn Header="Actual" Width="120" DisplayMemberBinding="{Binding Path=FixationDuration}" />
                             <GridViewColumn Header="Description" Width="300" DisplayMemberBinding="{Binding Path=Description}" />
                         </GridView>
                     </ListView.View>

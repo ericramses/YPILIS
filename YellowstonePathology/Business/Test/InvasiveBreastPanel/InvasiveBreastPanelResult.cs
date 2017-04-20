@@ -11,8 +11,7 @@ namespace YellowstonePathology.Business.Test.InvasiveBreastPanel
 
 		private YellowstonePathology.Business.Test.InvasiveBreastPanel.InvasiveBreastPanel m_InvasiveBreastPanel;
 		private YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHTestOrder m_PanelSetOrderHer2ByIsh;
-        private YellowstonePathology.Business.Test.ErPrSemiQuantitative.ErPrSemiQuantitativeTestOrder m_PanelSetOrderErPrSemiQuantitative;
-		//private YellowstonePathology.Business.Test.PanelSetOrderHer2AmplificationByFishRetired3 m_PanelSetOrderHer2AmplificationByFishRetired3;
+        private YellowstonePathology.Business.Test.ErPrSemiQuantitative.ErPrSemiQuantitativeTestOrder m_PanelSetOrderErPrSemiQuantitative;		
 		private YellowstonePathology.Business.Specimen.Model.SpecimenOrder m_SpecimenOrder;
 		private YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen m_SurgicalSpecimen;
 

@@ -32,6 +32,7 @@
                 <MenuItem Header="Create All MySql Auto Increments" Click="MenuItemCreateAutoIncrements_Click" Margin="5"></MenuItem>
             </MenuItem>
             <MenuItem Header="Load Data" Click="MenuItemLoadData_Click" Margin="5" IsEnabled="{Binding Path=HaveDBSelection}"></MenuItem>
+            <MenuItem Header="Compare Sql Server Table to MySql" Click="MenuItemCompareTableData_Click" Margin="5"></MenuItem>
         </Menu>
 
         <ListView Name="ListViewNonpersistentTableDef" Grid.Column="0" Grid.Row="1" ItemsSource="{Binding Path=NonpersistentTableDefCollection}" 

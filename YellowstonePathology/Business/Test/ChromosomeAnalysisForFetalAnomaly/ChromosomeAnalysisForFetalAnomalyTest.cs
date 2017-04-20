@@ -21,8 +21,10 @@ namespace YellowstonePathology.Business.Test.ChromosomeAnalysisForFetalAnomaly
 
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.ChromosomeAnalysisForFetalAnomaly.ChromosomeAnalysisForFetalAnomalyTestOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.ChromosomeAnalysisForFetalAnomaly.ChromosomeAnalysisForFetalAnomalyWordDocument).AssemblyQualifiedName;
-            
-			this.m_AllowMultiplePerAccession = true;
+
+            this.m_SurgicalAmendmentRequired = true;
+
+            this.m_AllowMultiplePerAccession = true;
             this.m_EpicDistributionIsImplemented = true;
 
             string taskDescription = "Collect fresh tissue in RPMI and send out to Neo.";

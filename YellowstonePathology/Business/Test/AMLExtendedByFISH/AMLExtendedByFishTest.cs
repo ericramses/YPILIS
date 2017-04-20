@@ -16,10 +16,10 @@ namespace YellowstonePathology.Business.Test.AMLExtendedByFish
             this.m_HasProfessionalComponent = true;
 			this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.PublishedDocument;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterR();
-            this.m_Active = true;
+            this.m_Active = false;            
 
-
-			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.AMLStandardByFish.AMLStandardByFishTestOrder).AssemblyQualifiedName;
+            this.m_SurgicalAmendmentRequired = true;
+            this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.AMLStandardByFish.AMLStandardByFishTestOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Document.ReferenceLabReport).AssemblyQualifiedName;
 
             this.m_AllowMultiplePerAccession = true;
