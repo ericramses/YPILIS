@@ -40,8 +40,25 @@ namespace YellowstonePathology.Business.Visitor
             this.HandlePanelOrders();
             this.HandlDistribution();
             this.HandlReflexTestingPlan();
-            this.HandlePantherOrder();          
-        }
+            this.HandlePantherOrder();
+            this.HandleRetrospectiveReviews();   
+        }    
+        
+        private void HandleRetrospectiveReviews()
+        {
+            if(this.m_PanelSetOrder is Business.Test.RetrospectiveReview.RetrospectiveReviewTestOrder)
+            {
+                Business.Test.RetrospectiveReview.RetrospectiveReviewTestOrder rrto = (Business.Test.RetrospectiveReview.RetrospectiveReviewTestOrder)this.m_PanelSetOrder;
+                foreach(Business.Specimen.Model.SpecimenOrder specimenOrder in this.m_AccessionOrder.SpecimenOrderCollection)
+                {
+                    string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
+                    Business.Test.RetrospectiveReview.RetrospectiveReviewTestOrderDetail rrtod = new Test.RetrospectiveReview.RetrospectiveReviewTestOrderDetail(objectId);
+                    rrtod.SpecimenDescription = specimenOrder.Description;
+                    rrtod.SpecimenNumber = specimenOrder.SpecimenNumber;
+                    rrto.RetrospectiveReviewTestOrderDetailCollection.Add(rrtod);
+                }
+            }
+        }    
 
         private void HandlePantherOrder()
         {
