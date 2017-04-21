@@ -44,6 +44,7 @@
             </MenuItem>
             <MenuItem Header="Compare/Update Selected Data" Click="MenuItemCompareData_Click" Margin="5" IsEnabled="{Binding Path=HaveDBSelection}"></MenuItem>
             <MenuItem Header="Nonpersistent Tables ..." Click="MenuItemNonpersistentTables_Click"></MenuItem>
+            <MenuItem Header="Compare Accession Orders for year" Click="MenuItemCompareAccessionOrderForYear_Click"></MenuItem>
         </Menu>
 
         <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal">
@@ -51,6 +52,8 @@
             <TextBox Name="TextBoxItemsToQuery" Margin="5" Width="45" Text="{Binding Path=NumberOfItemsInQuery}" />
             <TextBlock Margin="5">Number of times to query:</TextBlock>
             <TextBox Name="TextBoxRepetitionsOfQuery" Margin="5" Width="45" Text="{Binding Path=NumberOfTimesToQuery}" />
+            <TextBlock Margin="450,5,5,5">Accession Year:</TextBlock>
+            <TextBox Name="TextBoxYearToCompare" Margin="5" Width="45" Text="{Binding Path=NumberOfTimesToQuery}" />
         </StackPanel>
             
         <ListView Name="ListViewMigrationStatus" Grid.Column="0" Grid.Row="2" ItemsSource="{Binding Path=MigrationStatusCollection}" 
