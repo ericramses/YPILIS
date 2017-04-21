@@ -1092,34 +1092,115 @@ namespace YellowstonePathology.MySQLMigration
         {
             List<string> result = new List<string>();
 
-            int cnt = this.GetDataCount(tableName);
-            if (cnt < 200000) result.Add("'%'");
-            else
-            {
+            //int cnt = this.GetDataCount(tableName);
+            //if (cnt < 200000) result.Add("'%'");
+            //else
+            //{
                 if (keyField == "MasterAccessionNo")
                 {
-                    result.Add("'19%'"); result.Add("'50%'"); result.Add("'2000%'"); result.Add("'2001%'"); result.Add("'2002%'");
+                    /*result.Add("'19%'"); result.Add("'50%'"); result.Add("'2000%'"); result.Add("'2001%'"); result.Add("'2002%'");
                     result.Add("'2003%'"); result.Add("'2004%'"); result.Add("'2005%'"); result.Add("'2006%'"); result.Add("'2007%'");
                     result.Add("'2008%'"); result.Add("'2009%'"); result.Add("'2010%'"); result.Add("'2011%'"); result.Add("'2012%'");
-                    result.Add("'2013%'"); result.Add("'13-%'"); ; result.Add("'14-%'"); result.Add("'15-%'"); result.Add("'16-%'");
+                    result.Add("'2013%'"); result.Add("'13-%'"); ; result.Add("'14-%'"); result.Add("'15-%'"); result.Add("'16-%'");*/
                     result.Add("'17-%'");
                 }
                 else if (keyField == "ReportNo")
                 {
-                    result.Add("'_99-%'"); result.Add("'_00-%'"); result.Add("'_01-%'"); result.Add("'_02-%'"); result.Add("'_03-%'");
+                    /*result.Add("'_99-%'"); result.Add("'_00-%'"); result.Add("'_01-%'"); result.Add("'_02-%'"); result.Add("'_03-%'");
                     result.Add("'_04-%'"); result.Add("'_05-%'"); result.Add("'_06-%'"); result.Add("'_07-%'"); result.Add("'_08-%'");
                     result.Add("'_09-%'"); result.Add("'_10-%'"); result.Add("'_11-%'"); result.Add("'_12-%'"); result.Add("'_13-%'");
                     result.Add("'_14-%'"); result.Add("'14-%'"); result.Add("'_15-%'"); result.Add("'15-%'"); result.Add("'_16-%'");
-                    result.Add("'16-%'"); result.Add("'_17-%'"); result.Add("'17-%'");
+                    result.Add("'16-%'"); result.Add("'_17-%'");*/ result.Add("'17-%'");
                 }
                 else
                 {
-                    result.Add("'0%'"); result.Add("'1%'"); result.Add("'2%'"); result.Add("'3%'"); result.Add("'4%'");
+                    /*result.Add("'0%'"); result.Add("'1%'"); result.Add("'2%'"); result.Add("'3%'"); result.Add("'4%'");
                     result.Add("'5%'"); result.Add("'6%'"); result.Add("'7%'"); result.Add("'8%'"); result.Add("'9%'");
                     result.Add("'a%'"); result.Add("'b%'"); result.Add("'c%'"); result.Add("'d%'"); result.Add("'e%'");
-                    result.Add("'f%'");
+                    result.Add("'f%'");*/
+                    switch (tableName)
+                    {
+                        case "tblAliquotOrder":
+                            result.Add("select AliquotOrderId from tblAliquotOrder a join tblSpecimenOrder s on a.SpecimenORderId = s.SpecimenORderID where s.MasterAccessionNo like '17-%'");
+                            break;
+                        case "tblAmendment" :
+                            result.Add("select AmendmentId from tblAmendment where finalDate > '12/31/2016'");
+                            break;
+                        case "tblFlowMarkers":
+                            result.Add("select FlowMarkerId from tblFlowMarkers where ReportNo like '17-%'");
+                            break;
+                        case "tblIntraoperativeConsultationResult":
+                            result.Add("select IntraoperativeConsultationResultId from tblIntraoperativeConsultationResult");
+                            break;
+                        case "tblMaterialTrackingBatch" :
+                            result.Add("select MaterialTrackingBatchId from tblMaterialTrackingBatch where BatchDate > '12/31/2016'");
+                            break;
+                        case "tblMaterialTrackingLog":
+                            result.Add("select MaterialTrackingLogId from tblMaterialTrackingLog l join tblMaterialTrackingBatch b on l.MaterialTrackingBatchId = b.MaterialTrackingBatchId where b.BatchDate > '12/31/2016'");
+                            break;
+                        case "tblPanelOrder" :
+                            result.Add("select PanelOrderId from tblPanelOrder where ReportNo like '17-%'");
+                            break;
+                        case "tblPanelOrderCytology":
+                            result.Add("select t.PanelOrderId from tblPanelOrderCytology t join tblPanelOrder p on t.PanelOrderId = p.PanelOrderId where p.ReportNo like '17-%'");
+                            break;
+                        case "tblPanelSetOrderCPTCode":
+                            result.Add("select PanelSetOrderCptCodeId from tblPanelSetOrderCptCode where ReportNo like '17-%'");
+                            break;
+                        case "tblPanelSetOrderCPTCodeBill":
+                            result.Add("select PanelSetOrderCptCodeBillId from tblPanelSetOrderCptCodeBill where ReportNo like '17-%'");
+                            break;
+                        case "tblPhysician":
+                            result.Add("select PhysicianId from tblPhysician");
+                            break;
+                        case "tblPhysicianClient":
+                            result.Add("select PhysicianClientId from tblPhysicianClient");
+                            break;
+                        case "tblPhysicianClientDistribution":
+                            result.Add("select PhysicianClientDistributionID from tblPhysicianClientDistribution");
+                            break;
+                        case "tblSlideOrder":
+                            result.Add("select SlideOrderId from tblSlideOrder where orderDate > '12/31/2016'");
+                            break;
+                        case "tblSpecimenOrder":
+                            result.Add("select SpecimenOrderId from tblSpecimenOrder where MasterAccessionNo like '17-%'");
+                            break;
+                        case "tblStainResult":
+                            result.Add("select s.StainResultId from tblStainResult s join tblTestOrder t on s.TestOrderId = t.TestOrderId join tblPanelOrder p on t.PanelOrderId = p.PanelOrderId where p.ReportNo like '17-%'");
+                            break;
+                        case "tblStainTest":
+                            result.Add("select stainTestId from tblStainTest");
+                            break;
+                        case "tblSurgicalAudit":
+                            result.Add("select SurgicalAuditId from tblSurgicalAudit where ReportNo like '17-%'");
+                            break;
+                        case "tblSurgicalSpecimen":
+                            result.Add("select SurgicalSpecimenId from tblSurgicalSpecimen where ReportNo like '17-%'");
+                            break;
+                        case "tblSurgicalSpecimenAudit":
+                            result.Add("select SurgicalSpecimenAuditId from tblSurgicalSpecimenAudit where ReportNo like '17-%'");
+                            break;
+                        case "tblTaskOrder":
+                            result.Add("select TaskOrderId from tblTaskOrder where ReportNo like '17-%'");
+                            break;
+                        case "tblTaskOrderDetail":
+                            result.Add("select d.TaskOrderDetailId from tblTaskOrderDetail d join tblTaskOrder t on d.TaskOrderId = t.TaskOrderId where t.ReportNo like '17-%'");
+                            break;
+                        case "tblTaskOrderDetailFedexShipment":
+                            result.Add("select f.TaskOrderDetailId from tblTaskOrderDetailFedexShipment f join tblTaskOrderDetail d on f.TaskOrderDetailId = d.TaskOrderDetailId join tblTaskOrder t on d.TaskOrderId = t.TaskOrderId where t.ReportNo like '17-%'");
+                            break;
+                        case "tblTestOrder":
+                            result.Add("select t.TestOrderId from tblTestOrder t join tblPanelOrder p on t.PanelOrderId = p.PanelOrderId where p.ReportNo like '17-%'");
+                            break;
+                        case "tblTestOrderReportDistribution":
+                            result.Add("select TestOrderReportDistributionId from tblTestOrderReportDistribution where DateAdded > '12/31/2016'");
+                            break;
+                        case "tblTestOrderReportDistributionLog":
+                            result.Add("select TestOrderReportDistributionLogId from tblTestOrderReportDistributionLog where timeDistributed > '1/1/2017'");
+                            break;
+                    }
                 }
-            }
+            //}
             return result;
         }
 
@@ -1246,7 +1327,8 @@ namespace YellowstonePathology.MySQLMigration
         private List<string> GetCompareDataKeyList(string tableName, string keyField, string compareString)
         {
             List<string> result = new List<string>();
-            SqlCommand cmd = new SqlCommand("Select " + keyField + " from " + tableName + " where " + keyField + " like " + compareString);
+            //SqlCommand cmd = new SqlCommand("Select " + keyField + " from " + tableName + " where " + keyField + " like " + compareString);
+            SqlCommand cmd = new SqlCommand(compareString);
 
             using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
