@@ -11,6 +11,15 @@ namespace YellowstonePathology.Business.Facility.Model.LocationDefinitions
         {
         }
     }
+    
+    public class Sandra : Location
+    {
+        public Sandra()
+        {
+            this.LocationId = "SNDRCHRBN";
+            this.m_Description = "Sandra";
+        }
+    }
 
     public class NANODROPPC : Location
     {

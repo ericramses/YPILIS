@@ -759,6 +759,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             result.Append("^XZ");
 
             Business.Label.Model.ZPLPrinter printer = new Business.Label.Model.ZPLPrinter("10.1.1.21");
+            //Business.Label.Model.ZPLPrinter printer = new Business.Label.Model.ZPLPrinter("10.1.1.34");
             printer.Print(result.ToString());
         }
 

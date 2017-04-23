@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>474</ApplicationRevision>
+    <ApplicationRevision>478</ApplicationRevision>
     <ApplicationVersion>10.1.6.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -1211,6 +1211,7 @@
     <Compile Include="MySQLMigration\IndexedColumnCollection.cs" />
     <Compile Include="MySQLMigration\MigrationStatus.cs" />
     <Compile Include="MySQLMigration\MigrationStatusCollection.cs" />
+    <Compile Include="MySQLMigration\MySqlAODocumentBuilder.cs" />
     <Compile Include="MySQLMigration\MySQLDatabaseBuilder.cs" />
     <Compile Include="Business\NeogenomicsResult.cs" />
     <Compile Include="Business\NeogenomicsResultCollection.cs" />
