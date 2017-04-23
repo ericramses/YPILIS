@@ -13,8 +13,7 @@ namespace YellowstonePathology.Business.Test.Model
             
             this.m_List.Add(new S100());
             this.m_List.Add(new MelanA());
-            this.m_List.Add(new HMB45());
-            this.m_List.Add(new MITF());            
+            this.m_List.Add(new HMB45());            
         }
     }
 }

@@ -511,5 +511,30 @@ namespace YellowstonePathology.UI.MySql
             this.m_MySQLDatabaseBuilder.GetStatus(migrationStatus);
             this.StatusMessage = "Got Status for " + migrationStatus.Name;
         }
+
+        private void MenuItemCompareAccessionOrderForYear_Click(object sender, RoutedEventArgs e) // Compares AccessionOrderBuilder ao to AccessionOrderBuilderV2 ao
+        {
+            Business.Rules.MethodResult overallResult = new Business.Rules.MethodResult();
+            string yearToCompare = this.TextBoxYearToCompare.Text;
+            if(yearToCompare == "1999" || yearToCompare == "2000" || yearToCompare == "2001" || yearToCompare == "2001" || yearToCompare == "2003" ||
+                yearToCompare == "2004" || yearToCompare == "2005" || yearToCompare == "2006" || yearToCompare == "2007" || yearToCompare == "2008" ||
+                yearToCompare == "2009" || yearToCompare == "2010" || yearToCompare == "2011" || yearToCompare == "2012" || yearToCompare == "2013" ||
+                yearToCompare == "2015" || yearToCompare == "2015" || yearToCompare == "2016" || yearToCompare == "2017")
+            {
+                DateTime startDate = DateTime.Parse(yearToCompare);
+                startDate = startDate.AddMonths(1);
+                for (int didx = 0; didx < 12; didx++)
+                {
+                    DateTime endDate = startDate.AddMonths(1).AddDays(-1);
+                    this.m_MySQLDatabaseBuilder.CompareAccessionOrders(startDate, endDate);
+                    startDate = startDate.AddMonths(1);
+                }
+            }
+            else
+            {
+                this.StatusMessage = "Idle";
+                MessageBox.Show("Enter a year between 1999 and 2017.");
+            }
+        }
     }
 }

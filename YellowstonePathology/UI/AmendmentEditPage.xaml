@@ -114,6 +114,7 @@
                     <ComboBoxItem>Correct usage of words (e.g. affect and effect)</ComboBoxItem>
                     <ComboBoxItem>Consistency (e.g. using both disc and disk in a document)</ComboBoxItem>
                     <ComboBoxItem>ICD-10 entered incorrectly from requisition</ComboBoxItem>
+                    <ComboBoxItem>Client supplied wrong Date Of Service</ComboBoxItem>
                 </ComboBox>
             </Grid>
 
