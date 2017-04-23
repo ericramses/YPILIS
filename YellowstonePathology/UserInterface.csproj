@@ -1211,6 +1211,7 @@
     <Compile Include="MySQLMigration\IndexedColumnCollection.cs" />
     <Compile Include="MySQLMigration\MigrationStatus.cs" />
     <Compile Include="MySQLMigration\MigrationStatusCollection.cs" />
+    <Compile Include="MySQLMigration\MySqlAODocumentBuilder.cs" />
     <Compile Include="MySQLMigration\MySQLDatabaseBuilder.cs" />
     <Compile Include="Business\NeogenomicsResult.cs" />
     <Compile Include="Business\NeogenomicsResultCollection.cs" />
