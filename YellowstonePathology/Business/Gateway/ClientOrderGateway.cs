@@ -464,7 +464,7 @@ namespace YellowstonePathology.Business.Gateway
 			YellowstonePathology.Business.ClientOrder.Model.ShipmentListItemCollection resultCollection = new YellowstonePathology.Business.ClientOrder.Model.ShipmentListItemCollection();
 			MySqlCommand cmd = new MySqlCommand();
 			cmd.CommandText = " Select * from tblShipment where tblShipment.ClientId = @ClientId and (ShipDate is null or " +
-                "datediff(curdate(), ShipDate) < 8) order by ShipDate Desc;";
+                "datediff(now(), ShipDate) < 8) order by ShipDate Desc;";
 			cmd.CommandType = CommandType.Text;
 			cmd.Parameters.AddWithValue("@ClientId", clientId);
 

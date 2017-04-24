@@ -783,7 +783,7 @@ namespace YellowstonePathology.Business.Gateway
         {
             Surgical.PathologistHistoryList result = new Surgical.PathologistHistoryList();
             MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "prcGetPatientHistory_5";
+            cmd.CommandText = "prcGetPatientHistory_6";
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("PatientId", patientId);
 
@@ -1900,7 +1900,7 @@ namespace YellowstonePathology.Business.Gateway
                 "select * from tblTaskOrderDetail tod " +
                 "join tblTaskOrderDetailFedexShipment todf on tod.TaskOrderDetailId = todf.TaskOrderDetailId " +
                 "where TaskOrderId in(select TaskOrderId from tblTaskOrder where " +
-                "AcknowledgementType = @AcknowledgementType and tblTaskOrder.OrderDate between date_add(curdate(), Interval -15 Day) and curdate()) " +
+                "AcknowledgementType = @AcknowledgementType and tblTaskOrder.OrderDate between date_add(curdate(), Interval -15 Day) and now()) " +
                 "order by tod.TaskOrderDetailId;");
             cmd.CommandType = CommandType.Text;
             cmd.Parameters.AddWithValue("@AcknowledgementType", acknowledgementType);
@@ -1913,7 +1913,7 @@ namespace YellowstonePathology.Business.Gateway
 			YellowstonePathology.Business.Task.Model.TaskOrderCollection result = new YellowstonePathology.Business.Task.Model.TaskOrderCollection();
             string sql = "Select * from tblTaskOrder where AcknowledgementType = 'Daily' " +
 	            "and Acknowledged = 0 " +
-	            "and TaskDate <= curdate() order by TaskDate desc;";
+	            "and TaskDate <= now() order by TaskDate desc;";
             MySqlCommand cmd = new MySqlCommand(sql);	
 			cmd.CommandType = CommandType.Text;
 			//cmd.Parameters.AddWithValue("AcknowledgementType", Task.Model.TaskAcknowledgementType.Daily);
