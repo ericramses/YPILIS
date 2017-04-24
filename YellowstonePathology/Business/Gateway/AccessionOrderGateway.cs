@@ -416,7 +416,7 @@ namespace YellowstonePathology.Business.Gateway
             cmd.CommandText = "Select * from tblPanelSetOrder pso where pso.Final = 1 and pso.FinalTime < date_Add(Now(), Interval -15 Minute) " +
                 "and pso.ScheduledPublishTime <= Now() union " +
                 "Select pso.* from tblPanelSetOrder pso join tblTestOrderReportDistribution trd on pso.ReportNo = trd.ReportNo " +
-                "where pso.Final = 1 and pso.FinalTime < date_Add(Now(), Interval -15, Minute) and trd.ScheduledDistributionTime <= Now() " +
+                "where pso.Final = 1 and pso.FinalTime < date_Add(Now(), Interval -15 Minute) and trd.ScheduledDistributionTime <= Now() " +
                 "and pso.Distribute = 1;";
 			cmd.CommandType = CommandType.Text;
 
