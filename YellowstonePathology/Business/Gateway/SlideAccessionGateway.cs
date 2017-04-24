@@ -368,9 +368,39 @@ namespace YellowstonePathology.Business.Gateway
 		public static YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogViewCollection GetMaterialTrackingLogViewCollectionByBatchId(string materialTrackingBatchId)
         {
 			YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogViewCollection result = new YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogViewCollection();
+            string sql = "SELECT " +
+                "mtb.MaterialTrackingBatchId AS MaterialTrackingBatchId, " +
+                "mtl.MaterialTrackingLogId AS MaterialTrackingLogId, " +
+                "ao.MasterAccessionNo AS MasterAccessionNo, " +
+                "ao.PLastName AS PLastName, " +
+                "ao.PFirstName AS PFirstName, " +
+                "mtl.MaterialType AS MaterialType, " +
+                " mtl.MaterialId AS MaterialId, " +
+                "mtl.LogDate AS LogDate, " +
+                "(CASE " +
+                "WHEN " +
+                "(mtl.MaterialType = 'Slide') " +
+                "THEN " +
+                "(SELECT " +
+                    "tblSlideOrder.Label " +
+                "FROM " +
+                    "tblSlideOrder " +
+                    "WHERE " +
+                    "(tblSlideOrder.SlideOrderId = mtl.MaterialId)) " +
+                    "ELSE 'None' " +
+                "END) AS `MaterialLabel`, " +
+                "mtl.LoggedBy AS `LoggedBy` " +
+                "FROM " +
+                "tblMaterialTrackingBatch mtb " +
+                "JOIN tblMaterialTrackingLog mtl ON mtb.MaterialTrackingBatchId = mtl.MaterialTrackingBatchId " +
+                "Left JOIN tblAccessionOrder ao ON mtl.MasterAccessionNo = ao.MasterAccessionNo " +
+                "where mtb.MaterialTrackingBatchId = @MaterialTrackingBatchId order by mtl.LogDate desc";
+
             MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "Select * from ViewMaterialTrackingLog where ViewMaterialTrackingLog.MaterialTrackingBatchId = " +
-                "@MaterialTrackingBatchId order by LogDate desc;";
+            //cmd.CommandText = "Select * from ViewMaterialTrackingLog where ViewMaterialTrackingLog.MaterialTrackingBatchId = " +
+            //    "@MaterialTrackingBatchId order by LogDate desc;";
+
+            cmd.CommandText = sql;
             cmd.CommandType = System.Data.CommandType.Text;
             cmd.Parameters.AddWithValue("@MaterialTrackingBatchId", materialTrackingBatchId);
 

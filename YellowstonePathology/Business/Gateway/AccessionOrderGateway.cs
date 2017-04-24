@@ -49,7 +49,7 @@ namespace YellowstonePathology.Business.Gateway
                 "from tblAccessionOrder ao " +
                 "join tblSpecimenOrder so on ao.MasterAccessionNo = so.MasterAccessionNo " +
                 "where instr(so.Description, 'Breast') > 0 " +
-                "and ao.AccessionDate >= date_add(curdate(), interval -30 day)  and so.ClientAccessioned = 0 " +
+                "and ao.AccessionDate >= date_add(now(), interval -30 day)  and so.ClientAccessioned = 0 " +
                 "order by ao.AccessionTime desc;";
             cmd.CommandType = CommandType.Text;            
 
@@ -1896,7 +1896,7 @@ namespace YellowstonePathology.Business.Gateway
 		public static YellowstonePathology.Business.Task.Model.TaskOrderCollection GetTaskOrderCollection(string acknowledgementType)
 		{
             MySqlCommand cmd = new MySqlCommand("select * from tblTaskOrder where AcknowledgementType = @AcknowledgementType and " +
-                "OrderDate between date_add(curdate(), Interval -15 Day) and curdate() order by OrderDate desc; " +
+                "OrderDate between date_add(curdate(), Interval -15 Day) and now() order by OrderDate desc; " +
                 "select * from tblTaskOrderDetail tod " +
                 "join tblTaskOrderDetailFedexShipment todf on tod.TaskOrderDetailId = todf.TaskOrderDetailId " +
                 "where TaskOrderId in(select TaskOrderId from tblTaskOrder where " +
@@ -2119,7 +2119,7 @@ namespace YellowstonePathology.Business.Gateway
 		{
 			MySqlCommand cmd = new MySqlCommand();
 			cmd.CommandText = "select ao.AliquotOrderId MaterialId, ao.AliquotType MaterialType, a.MasterAccessionNo, a.PLastName, " +
-                "a.PFirstName, ao.Label MaterialLabel" +
+                "a.PFirstName, ao.Label MaterialLabel " +
 				"from tblAliquotOrder ao " +
 				"join tblSpecimenOrder so on ao.SpecimenOrderId = so.SpecimenOrderId " +
 				"join tblAccessionOrder a on so.MasterAccessionNo = a.MasterAccessionNo " +
@@ -2179,7 +2179,7 @@ namespace YellowstonePathology.Business.Gateway
 
 			MySqlCommand cmd = new MySqlCommand();
 			cmd.CommandText = "select s.SlideOrderId MaterialId, 'Slide' MaterialType, a.MasterAccessionNo, a.PLastName, " +
-                "a.PFirstName, s.Label MaterialLabel" +
+                "a.PFirstName, s.Label MaterialLabel " +
 				"from tblSlideOrder s " +
 				"join tblAliquotOrder ao on s.AliquotOrderId = ao.AliquotOrderId " +
 				"join tblSpecimenOrder so on ao.SpecimenOrderId = so.SpecimenOrderId " +
