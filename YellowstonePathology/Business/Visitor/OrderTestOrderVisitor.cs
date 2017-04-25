@@ -52,7 +52,7 @@ namespace YellowstonePathology.Business.Visitor
                 foreach(Business.Specimen.Model.SpecimenOrder specimenOrder in this.m_AccessionOrder.SpecimenOrderCollection)
                 {
                     string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-                    Business.Test.RetrospectiveReview.RetrospectiveReviewTestOrderDetail rrtod = new Test.RetrospectiveReview.RetrospectiveReviewTestOrderDetail(objectId);
+                    Business.Test.RetrospectiveReview.RetrospectiveReviewTestOrderDetail rrtod = new Test.RetrospectiveReview.RetrospectiveReviewTestOrderDetail(objectId, rrto.ReportNo);                    
                     rrtod.SpecimenDescription = specimenOrder.Description;
                     rrtod.SpecimenNumber = specimenOrder.SpecimenNumber;
                     rrto.RetrospectiveReviewTestOrderDetailCollection.Add(rrtod);

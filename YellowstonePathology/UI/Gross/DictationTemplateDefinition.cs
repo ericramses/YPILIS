@@ -61,7 +61,7 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "Bladder TUR";
             this.m_Text = "[identifier] and consists of [number] irregular ragged tan-pink tissue fragment[?s?] " +
-                "measuring [measurement] [? in aggregate?]. The specimen is filtered through a fine mesh bag and[cassettesummary].  ";
+                "measuring [measurement] [? in aggregate?]. The specimen is filtered through a fine mesh bag and [cassettesummary].  ";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.BladderTUR turb = new Business.Specimen.Model.SpecimenDefinition.BladderTUR();
             this.m_SpecimenCollection.Add(turb);
@@ -1048,11 +1048,11 @@ namespace YellowstonePathology.UI.Gross
             this.m_TemplateName = "Aortic Valve";            
 
             this.m_Text = "[identifier]." + Environment.NewLine +
-                "Gross Description:  [description]" + Environment.NewLine +
-                "Measurements:  [measurements]" + Environment.NewLine +
-                "Calcification:  [present/not present]" + Environment.NewLine +
-                "Vegetation:  [present/not present]" + Environment.NewLine +
-                "Submitted:  [representativesections][? for decalcification prior to processing?].  ";
+                "Gross Description: [description]" + Environment.NewLine +
+                "Measurements: [measurements]" + Environment.NewLine +
+                "Calcification: [present/not present]" + Environment.NewLine +
+                "Vegetation: [present/not present]" + Environment.NewLine +
+                "Submitted: [representativesections] [? for decalcification prior to processing?].  ";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.AorticValve aorticValve = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.AorticValve();
             this.m_SpecimenCollection.Add(aorticValve);

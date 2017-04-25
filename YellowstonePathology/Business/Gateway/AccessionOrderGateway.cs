@@ -1140,7 +1140,7 @@ namespace YellowstonePathology.Business.Gateway
 			  "JOIN tblSpecimenOrder so ON ao.SpecimenOrderId = so.SpecimenOrderId LEFT OUTER JOIN tblStainResult sr ON  sr.TestOrderId = ot.TestOrderId " +
 			  "WHERE po.OrderDate = @OrderDate AND po.PanelId in (19, 21) and ot.TestId not in (49) ORDER BY 5 Asc, 1;";
 			cmd.CommandType = CommandType.Text;
-			cmd.Parameters.AddWithValue("@OrderDate", reportDate.ToShortDateString());
+			cmd.Parameters.AddWithValue("@OrderDate", reportDate.ToString("yyyy-MM-dd"));
 
 			using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{

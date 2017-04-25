@@ -13,6 +13,7 @@ namespace YellowstonePathology.Business.Test.RetrospectiveReview
         public event PropertyChangedEventHandler PropertyChanged;
 
         private string m_RetrospectiveReviewTestOrderDetailId;
+        private string m_ReportNo;
         private string m_Result;
         private string m_Comment;
         private string m_Type;
@@ -26,9 +27,10 @@ namespace YellowstonePathology.Business.Test.RetrospectiveReview
 
         }
 
-        public RetrospectiveReviewTestOrderDetail(string retrospectiveReviewTestOrderDetailId)
+        public RetrospectiveReviewTestOrderDetail(string retrospectiveReviewTestOrderDetailId, string reportNo)
         {
-            this.m_RetrospectiveReviewTestOrderDetailId = retrospectiveReviewTestOrderDetailId;            
+            this.m_RetrospectiveReviewTestOrderDetailId = retrospectiveReviewTestOrderDetailId;
+            this.m_ReportNo = reportNo;
         }
 
         [PersistentPrimaryKeyProperty(false)]
@@ -42,6 +44,21 @@ namespace YellowstonePathology.Business.Test.RetrospectiveReview
                 {
                     this.m_RetrospectiveReviewTestOrderDetailId = value;
                     this.NotifyPropertyChanged("RetrospectiveReviewTestOrderDetailId");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
+        public string ReportNo
+        {
+            get { return this.m_ReportNo; }
+            set
+            {
+                if (this.m_ReportNo != value)
+                {
+                    this.m_ReportNo = value;
+                    this.NotifyPropertyChanged("ReportNo");
                 }
             }
         }
