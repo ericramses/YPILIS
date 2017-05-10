@@ -16,14 +16,15 @@ namespace YellowstonePathology.Business.HL7View.WPH
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
         private YellowstonePathology.Business.Domain.Physician m_OrderingPhysician;
-        private YellowstonePathology.Business.User.SystemUser m_SigningPathologist;      
+        private YellowstonePathology.Business.User.SystemUser m_SigningPathologist;
+        private Business.ClientOrder.Model.ClientOrder m_ClientOrder;  
 
         public WPHResultView(string reportNo, Business.Test.AccessionOrder accessionOrder, bool testing)
         {            
             this.m_Testing = testing;
             this.m_AccessionOrder = accessionOrder;
             this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
-
+            this.m_ClientOrder = Business.Gateway.ClientOrderGateway.GetClientOrderByExternalOrderId(this.m_AccessionOrder.ExternalOrderId);
             if (string.IsNullOrEmpty(this.m_AccessionOrder.IncomingHL7) == true)
             {
                 this.m_SendUnsolicited = true;
@@ -77,7 +78,13 @@ namespace YellowstonePathology.Business.HL7View.WPH
 
             WPHOBXView wphObxView = WPHOBXViewFactory.GetObxView(panelSetOrder.PanelSetId, this.m_AccessionOrder, this.m_PanelSetOrder.ReportNo, this.m_ObxCount);
             wphObxView.ToXml(document);
-            this.m_ObxCount = wphObxView.ObxCount;                            
+            this.m_ObxCount = wphObxView.ObxCount;
+
+            if(this.m_ClientOrder != null)
+            {
+                WPHOBXCCView wphOBXCCView = new WPHOBXCCView(this.m_ClientOrder);
+                wphOBXCCView.ToXml(document);
+            }            
 
             return document;
         }

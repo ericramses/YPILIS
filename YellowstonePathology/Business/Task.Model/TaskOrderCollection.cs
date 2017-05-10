@@ -129,7 +129,34 @@ namespace YellowstonePathology.Business.Task.Model
 			return result;
 		}
 
-		public static YellowstonePathology.Business.Rules.MethodResult AddDailyTaskOrderSurgicalSpecimenDisposal(int days, object writer)
+        public static YellowstonePathology.Business.Rules.MethodResult AddDailyTaskOrderRetrospectiveReviews(object writer)
+        {           
+            YellowstonePathology.Business.Rules.MethodResult result = new Rules.MethodResult();            
+            //DateTime actionDate = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetNewestDailyTaskOrderTaskDate(task.TaskId);
+            DateTime actionDate = DateTime.Today;
+            YellowstonePathology.Business.User.SystemIdentity systemIdentity = Business.User.SystemIdentity.Instance;
+
+            DateTime finalDate = DateTime.Parse("12/31/2017");
+
+            while (actionDate < finalDate)
+            {
+                if(actionDate.DayOfWeek != DayOfWeek.Saturday && actionDate.DayOfWeek != DayOfWeek.Sunday)
+                {
+                    string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
+
+                    YellowstonePathology.Business.Task.Model.TaskOrderRetrospectiveReview taskOrder = new YellowstonePathology.Business.Task.Model.TaskOrderRetrospectiveReview(objectId, actionDate, objectId, systemIdentity);
+                    Persistence.DocumentGateway.Instance.InsertDocument(taskOrder, writer);                    
+                }
+                actionDate = actionDate.AddDays(1);
+            }
+
+            Persistence.DocumentGateway.Instance.Clear(writer);
+            actionDate = actionDate.AddDays(-1);
+            result.Message = "Daily Task Order Retrospective Reviews have been added through " + actionDate.ToString("MM/dd/yyyy");
+            return result;
+        }
+
+        public static YellowstonePathology.Business.Rules.MethodResult AddDailyTaskOrderSurgicalSpecimenDisposal(int days, object writer)
 		{
 			YellowstonePathology.Business.Rules.MethodResult result = new Rules.MethodResult();
 			YellowstonePathology.Business.Task.Model.TaskSurgicalSpecimenDisposal task = new TaskSurgicalSpecimenDisposal();

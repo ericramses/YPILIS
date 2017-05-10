@@ -95,6 +95,10 @@ namespace YellowstonePathology.Business.Facility.Model
             result.Add(new CBCI());
             result.Add(new AssociatedDermatology());
             result.Add(new VAEasternColorado());
+            result.Add(new StLukesMagicValley());
+            result.Add(new StanfordUniversityMedicalCenter());
+            result.Add(new MadisonMemorialHospital());
+            result.Add(new OregonHealthScienceUniversity());
             return Sort(result);
         }
 

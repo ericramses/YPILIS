@@ -21,9 +21,8 @@ namespace YellowstonePathology.Business.Test.RetrospectiveReview
 
 		public RetrospectiveReviewTestOrder(string masterAccessionNo, string reportNo, string objectId,
 			YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
-			YellowstonePathology.Business.Interface.IOrderTarget orderTarget,
 			bool distribute)
-			: base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute)
+			: base(masterAccessionNo, reportNo, objectId, panelSet, distribute)
 		{
             this.m_RetrospectiveReviewTestOrderDetailCollection = new RetrospectiveReviewTestOrderDetailCollection();
 		}

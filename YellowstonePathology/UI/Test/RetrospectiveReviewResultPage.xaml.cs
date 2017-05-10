@@ -40,7 +40,10 @@ namespace YellowstonePathology.UI.Test
 
 			InitializeComponent();
 
-			DataContext = this;						
+            this.m_ControlsNotDisabledOnFinal.Add(this.ButtonNext);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalize);
+
+            DataContext = this;						
         }                        
 
         public YellowstonePathology.Business.Test.RetrospectiveReview.RetrospectiveReviewTestOrder PanelSetOrder
@@ -79,6 +82,42 @@ namespace YellowstonePathology.UI.Test
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
+        }
+
+        private void HyperLinkAgreeAll_Click(object sender, RoutedEventArgs e)
+        {
+            foreach(Business.Test.RetrospectiveReview.RetrospectiveReviewTestOrderDetail rrtod in this.m_PanelSetOrder.RetrospectiveReviewTestOrderDetailCollection)
+            {
+                rrtod.Result = "Agree";
+                rrtod.Impact = null;
+                rrtod.Level = null;
+                rrtod.Type = null;
+                this.NotifyPropertyChanged(string.Empty);
+            }
+        }
+
+        private void ComboboxResult_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBox cmbBox = (ComboBox)e.Source;            
+            Business.Test.RetrospectiveReview.RetrospectiveReviewTestOrderDetail rrtod = (Business.Test.RetrospectiveReview.RetrospectiveReviewTestOrderDetail)cmbBox.Tag;
+            if(rrtod.Result == "Agree")
+            {
+                rrtod.Impact = null;
+                rrtod.Level = null;
+                rrtod.Type = null;
+            }
+        }
+
+        private void HyperLinkFinalize_Click(object sender, RoutedEventArgs e)
+        {
+            this.m_PanelSetOrder.Accept();
+            this.m_PanelSetOrder.Finish(this.m_AccessionOrder);
+        }
+
+        private void HyperLinkUnfinalize_Click(object sender, RoutedEventArgs e)
+        {
+            this.m_PanelSetOrder.Unfinalize();
+            this.m_PanelSetOrder.Unaccept();
         }
     }
 }

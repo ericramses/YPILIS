@@ -25,5 +25,28 @@ namespace YellowstonePathology.Business.HL7View
         {
             get { return this.m_PatientType; }
         }
+
+        public string ConvertedPatientType
+        {
+            get
+            {
+                string result = this.m_PatientType;
+                switch (this.m_PatientType)
+                {
+                    case "IN":
+                    case "ER":
+                    case "INO":
+                    case "RCR":
+                        result += "(IP)";
+                        break;
+                    case "CLI":
+                    case "SDC":
+                    case "REF":
+                        result += "(OP)";
+                        break;
+                }
+                return result;
+            }
+        }
     }
 }

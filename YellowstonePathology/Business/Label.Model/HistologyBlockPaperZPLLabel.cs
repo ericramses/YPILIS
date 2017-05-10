@@ -26,25 +26,25 @@ namespace YellowstonePathology.Business.Label.Model
 
         public void AppendCommands(StringBuilder zplString, int xOffset)
         {
-        string truncatedFirstName = null;
-        if (this.m_FirstName.Length > 13)
-        {
-            truncatedFirstName = this.m_FirstName.Substring(0, 13);
-        }
-        else
-        {
-            truncatedFirstName = this.m_FirstName;
-        }
+            string truncatedFirstName = null;
+            if (this.m_FirstName.Length > 13)
+            {
+                truncatedFirstName = this.m_FirstName.Substring(0, 13);
+            }
+            else
+            {
+                truncatedFirstName = this.m_FirstName;
+            }
 
-        string truncatedLastName = null;
-        if (this.m_LastName.Length > 13)
-        {
-            truncatedLastName = this.m_LastName.Substring(0, 13);
-        }
-        else
-        {
-           truncatedLastName = this.m_LastName;
-        }
+            string truncatedLastName = null;
+            if (this.m_LastName.Length > 13)
+            {
+                truncatedLastName = this.m_LastName.Substring(0, 13);
+            }
+            else
+            {
+               truncatedLastName = this.m_LastName;
+            }
         
             zplString.Append("^FO" + (30 + xOffset) + ",090^BXN,08,200^FD" + "HBLK" + this.m_AliquotOrderId + "^FS");
             zplString.Append("^FO" + (30 + xOffset) + ",040^ATN,40,40^FD" + this.m_MasterAccessionNo + "^FS");
@@ -52,6 +52,6 @@ namespace YellowstonePathology.Business.Label.Model
             zplString.Append("^FO" + (30 + xOffset) + ",245^AQN,25,25^FD" + truncatedFirstName + "^FS");
             zplString.Append("^FO" + (175 + xOffset) + ",130^ATN,25,25^FD" + this.m_BlockId + "^FS");
             zplString.Append("^FO" + (175 + xOffset) + ",175^AQN,25,25^FD" + "YPI" + "^FS");
-        }        
+            }        
     }
 }

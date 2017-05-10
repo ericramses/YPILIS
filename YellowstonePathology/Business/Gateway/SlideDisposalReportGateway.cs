@@ -6,8 +6,8 @@ using MySql.Data.MySqlClient;
 
 namespace YellowstonePathology.Business.Gateway
 {
-	public class SlideDisposalReportGateway
-	{
+    public class SlideDisposalReportGateway
+    {
         public static Reports.DisposalReportData GetCytologySlideDisposalReport_1(DateTime disposalDate)
         {
             MySqlCommand cmd = new MySqlCommand("pCytologySlideDisposalReport_1");

@@ -982,8 +982,8 @@ namespace YellowstonePathology.UI
         }        
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
-        {
-            WriteSchema();            
+        {                        
+            //YellowstonePathology.Business.Task.Model.TaskOrderCollection.AddDailyTaskOrderRetrospectiveReviews(this);                                        
         }
 
         private void UpdateTypingShortcut()

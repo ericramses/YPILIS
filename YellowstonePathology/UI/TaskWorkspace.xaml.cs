@@ -185,7 +185,7 @@ namespace YellowstonePathology.UI
             {
                 YellowstonePathology.Business.Task.Model.TaskCytologySlideDisposal taskCytologySlideDisposal = new Business.Task.Model.TaskCytologySlideDisposal();
                 YellowstonePathology.Business.Task.Model.TaskSurgicalSpecimenDisposal taskSurgicalSpecimenDisposal = new Business.Task.Model.TaskSurgicalSpecimenDisposal();
-                YellowstonePathology.Business.Task.Model.TaskPOCReport taskPOCReport = new Business.Task.Model.TaskPOCReport();
+                YellowstonePathology.Business.Task.Model.TaskRetrospectiveReview taskRetrospectiveReview = new Business.Task.Model.TaskRetrospectiveReview();
 
                 foreach (YellowstonePathology.Business.Task.Model.TaskOrder taskOrder in this.ListViewDailyTaskOrders.SelectedItems)
                 {
@@ -204,12 +204,12 @@ namespace YellowstonePathology.UI
                         printDialog2.ShowDialog();
                         printDialog2.PrintDocument(report2.DocumentPaginator, "Surgical Specimen Disposal Report for: ");
                     }
-                    else if (taskOrder.TaskId == taskPOCReport.TaskId)
+                    else if (taskOrder.TaskId == taskRetrospectiveReview.TaskId)
                     {                     
-                        YellowstonePathology.Business.Reports.POCRetensionReportV2 report = new YellowstonePathology.Business.Reports.POCRetensionReportV2(taskOrder.TaskDate.Value.AddDays(-6), taskOrder.TaskDate.Value);
+                        YellowstonePathology.Business.Reports.RetrospectiveReviewReport report = new YellowstonePathology.Business.Reports.RetrospectiveReviewReport(taskOrder.TaskDate.Value);
                         System.Windows.Controls.PrintDialog printDialog = new System.Windows.Controls.PrintDialog();
                         printDialog.ShowDialog();
-                        printDialog.PrintDocument(report.DocumentPaginator, "POC ");
+                        printDialog.PrintDocument(report.DocumentPaginator, "Retrospective Review");
                     }
                 }
             }
@@ -224,8 +224,9 @@ namespace YellowstonePathology.UI
             this.m_TaskUI.GetDailyTaskOrderHistoryCollection();
         }
 
-        /*private void ButtonDailyTaskOrderAddDays_Click(object sender, RoutedEventArgs e)
+        private void ButtonDailyTaskOrderAddDays_Click(object sender, RoutedEventArgs e)
         {
+            /*
             StringBuilder message = new StringBuilder();
             YellowstonePathology.Business.Rules.MethodResult result = YellowstonePathology.Business.Task.Model.TaskOrderCollection.AddDailyTaskOrderCytologySlideDisposal(30);
             message.AppendLine(result.Message);
@@ -234,7 +235,8 @@ namespace YellowstonePathology.UI
             message.AppendLine(result.Message);
 
             MessageBox.Show(message.ToString());
-        }*/
+            */            
+        }
 
         private void MenuItemDeleteTask_Click(object sender, RoutedEventArgs e)
         {

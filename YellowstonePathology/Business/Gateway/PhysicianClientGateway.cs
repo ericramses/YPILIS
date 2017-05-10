@@ -89,21 +89,13 @@ namespace YellowstonePathology.Business.Gateway
 				cmd = new MySqlCommand();
 				if(string.IsNullOrEmpty(firstName))
 				{
-					cmd.CommandText = "SELECT PhysicianID, ClientId, FirstName, LastName, Active, Address, City, State, Zip, " +
-                        "Phone, Fax, OutsideConsult, HPVTest, " +
-						"HPVInstructionID, HPVTestToPerformID, FullName, HPVStandingOrderCode, ReportDeliveryMethod, " +
-                        "DisplayName, HomeBaseClientId, KRASBRAFStandingOrder, " +
-						"VoiceCommand, VoiceCommandIsEnabled, Npi, MiddleInitial, Credentials, UserName, ClientsPhysicianId, ObjectId " +
+					cmd.CommandText = "SELECT * " +
                         "FROM tblPhysician where tblPhysician.LastName like concat(@LastName, '%') order by tblPhysician.LastName, " +
                         "tblPhysician.FirstName;";
 				}
 				else
 				{
-					cmd.CommandText = "SELECT PhysicianID, ClientId, FirstName, LastName, Active, Address, City, State, Zip, Phone, " +
-                        "Fax, OutsideConsult, HPVTest, " +
-						"HPVInstructionID, HPVTestToPerformID, FullName, HPVStandingOrderCode, ReportDeliveryMethod, DisplayName, " +
-                        "HomeBaseClientId, KRASBRAFStandingOrder, " +
-						"VoiceCommand, VoiceCommandIsEnabled, Npi, MiddleInitial, Credentials, UserName, ClientsPhysicianId, ObjectId " +
+					cmd.CommandText = "SELECT * " + 
                         "FROM tblPhysician where tblPhysician.FirstName like concat(@FirstName, '%') and tblPhysician.LastName like " +
                         "concat(@LastName, '%') order by tblPhysician.LastName, tblPhysician.FirstName;";
 					cmd.Parameters.AddWithValue("@FirstName", firstName);

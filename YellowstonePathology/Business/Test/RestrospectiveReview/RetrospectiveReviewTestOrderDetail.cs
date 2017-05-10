@@ -34,7 +34,7 @@ namespace YellowstonePathology.Business.Test.RetrospectiveReview
         }
 
         [PersistentPrimaryKeyProperty(false)]
-        [PersistentDataColumnProperty(false, "50", "null", "varchar")]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
         public string RetrospectiveReviewTestOrderDetailId
         {
             get { return this.m_RetrospectiveReviewTestOrderDetailId; }
@@ -49,7 +49,7 @@ namespace YellowstonePathology.Business.Test.RetrospectiveReview
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
+        [PersistentDataColumnProperty(false, "50", "null", "varchar")]
         public string ReportNo
         {
             get { return this.m_ReportNo; }

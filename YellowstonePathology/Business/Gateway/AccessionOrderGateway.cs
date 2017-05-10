@@ -13,6 +13,35 @@ namespace YellowstonePathology.Business.Gateway
 {
 	public class AccessionOrderGateway
 	{
+        public static Business.ReportNoCollection GetSurgicalFinal(DateTime finalDate)
+        {
+            Business.ReportNoCollection result = new ReportNoCollection();
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "Select pso.ReportNo " +
+                "from tblAccessionOrder ao " +
+                "join tblPanelSetOrder pso on ao.MasterAccessionNo = pso.MasterAccessionNo " +
+                "where pso.FinalDate = @FinalDate and pso.PanelSetId = 13; ";
+
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.AddWithValue("@FinalDate", finalDate.ToString("yyyy-MM-dd"));
+
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        Business.ReportNo reportNo = new ReportNo(dr[0].ToString());                        
+                        result.Add(reportNo);
+                    }
+                }
+            }
+
+            return result;
+        }
+
         public static YellowstonePathology.Business.HL7View.ADTMessages GetADTMessages(string mrn)
         {
             YellowstonePathology.Business.HL7View.ADTMessages result = new HL7View.ADTMessages();
@@ -820,32 +849,6 @@ namespace YellowstonePathology.Business.Gateway
             return result;
         }
 
-		/*public static Surgical.SurgicalBillingItemCollection GetSurgicalBillingItemCollectionByDate(DateTime date)
-		{
-			YellowstonePathology.Business.Surgical.SurgicalBillingItemCollection result = new Surgical.SurgicalBillingItemCollection();
-			MySqlCommand cmd = new MySqlCommand();
-			cmd.CommandText = "SELECT * FROM tblSurgicalBilling where AccessionDate = Date;";
-			cmd.CommandType = CommandType.Text;
-			cmd.Parameters.AddWithValue("Date", date);
-			using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-			{
-				cn.Open();
-				cmd.Connection = cn;
-				using (MySqlDataReader dr = cmd.ExecuteReader())
-				{
-					while (dr.Read())
-					{
-						YellowstonePathology.Business.Surgical.SurgicalBillingItem surgicalBilling = new Business.Surgical.SurgicalBillingItem();
-						YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(surgicalBilling, dr);
-						sqlDataReaderPropertyWriter.WriteProperties();
-						result.Add(surgicalBilling);
-					}
-				}
-			}
-
-			return result;
-		}*/
-
 		public static Surgical.SurgicalOrderList GetSurgicalOrderListByAccessionDate(DateTime accessionDate)
 		{
 			MySqlCommand cmd = new MySqlCommand();
@@ -1351,29 +1354,7 @@ namespace YellowstonePathology.Business.Gateway
 			}
 
 			return result;
-		}
-
-		/*public static string GetPanelOrderIdsToAcknowledge()
-		{
-			StringBuilder result = new StringBuilder();
-			SqlCommand cmd = new SqlCommand("pGetListOfPanelOrderIdsToAcknowledge");
-			cmd.CommandType = CommandType.StoredProcedure;
-			using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-			{
-				cn.Open();
-				cmd.Connection = cn;
-				using (SqlDataReader dr = cmd.ExecuteReader())
-				{
-					while (dr.Read())
-					{
-						result.Append(dr[0].ToString() + ",");
-					}
-				}
-			}
-
-			if (result.Length > 0) result = result.Remove(result.Length - 1, 1);
-			return result.ToString();
-		}*/
+		}		
 
         public static YellowstonePathology.Business.Test.PantherAliquotList GetPantherOrdersNotAliquoted()
         {
@@ -1583,7 +1564,7 @@ namespace YellowstonePathology.Business.Gateway
                 "join tblHPVTestOrder psoh on pso.ReportNo = psoh.ReportNo " +
                 "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
                 "where TechnicalComponentInstrumentId = 'PNTHR' and pso.Final = 1 and " +
-                "pso.FinalDate >= date_Add(pso.FinalDate, Intervfal -3 Month) order by pso.FinalTime desc;";
+                "pso.FinalDate >= date_Add(pso.FinalDate, Interval -3 Month) order by pso.FinalTime desc;";
 
             using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
@@ -2149,7 +2130,7 @@ namespace YellowstonePathology.Business.Gateway
         {
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = "select so.ContainerId MaterialId, 'Container' MaterialType, ao.MasterAccessionNo, ao.PLastName, " +
-                "ao.PFirstName, so.Description MaterialLabel" +
+                "ao.PFirstName, so.Description MaterialLabel " +
                 "from tblAccessionOrder ao " +
                 "join tblSpecimenOrder so on ao.MasterAccessionNo = so.MasterAccessionNo " +                
                 "where so.ContainerId = @ContainerId ;";

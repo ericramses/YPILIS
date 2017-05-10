@@ -177,6 +177,21 @@ namespace YellowstonePathology.UI.Surgical
                     }
                 }                
             }
+            else if(e.Key == Key.Delete)
+            {
+                StringBuilder text = new StringBuilder(this.TextBoxGrossDescription.Text);                
+                int cursorPosition = this.TextBoxGrossDescription.SelectionStart;
+                int selectedTextLength = this.TextBoxGrossDescription.SelectionLength;                
+                text.Remove(cursorPosition, selectedTextLength);                
+
+                if (text.ToString(cursorPosition, 1) == "."  && text.ToString(cursorPosition - 1, 1) == " ")
+                {
+                    text.Remove(cursorPosition - 1, 1);                    
+                }
+                this.TextBoxGrossDescription.Text = text.ToString();
+                this.TextBoxGrossDescription.SelectionStart = cursorPosition;
+                e.Handled = true;
+            }
         }        
 
         private void HandleTextBoxGrossDescriptionTab()

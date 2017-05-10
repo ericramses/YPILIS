@@ -136,7 +136,14 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 				this.SetXmlNodeData("report_reference", panelSetOrderHer2ByIsh.ReportReference);
                 SetXmlNodeData("duration_of_fixation", specimenOrder.FixationDurationString);				
 				
-			    this.SetXmlNodeData("fixation_comment", specimenOrder.FixationComment);				
+                if(string.IsNullOrEmpty(specimenOrder.FixationComment) == false)
+                {
+                    this.SetXmlNodeData("fixation_comment", specimenOrder.FixationComment);
+                }
+                else
+                {
+                    this.SetXmlNodeData("fixation_comment", string.Empty);
+                }			    
 
 				SetXmlNodeData("report_method", panelSetOrderHer2ByIsh.Method);
 				SetXmlNodeData("asr_comment", panelSetOrderHer2ByIsh.ASRComment);

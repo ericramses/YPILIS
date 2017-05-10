@@ -628,12 +628,7 @@ namespace YellowstonePathology.Business.Gateway
                         clientOrderDetailCollection.Add(clientOrderDetail);
                     }
                 }
-            }
-            else
-            {
-                dr.NextResult();
-                dr.NextResult();
-            }
+            }            
 		}
 
         public static YellowstonePathology.Business.ClientOrder.Model.ClientOrder BuildClientOrder(MySqlDataReader dr)

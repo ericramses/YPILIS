@@ -41,15 +41,16 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "Prostate TUR";
             this.m_Text = "[identifier] and consists of [number] irregular ragged tan-pink tissue fragment[?s?] " +
-                "weighing [weight] grams and measuring [measurement] [? in aggregate?].  [representativesections].  ";                
+                "weighing [weight] grams and measuring [measurement] [?in aggregate?].  [representativesections].  ";                
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ProstateTUR tur = new Business.Specimen.Model.SpecimenDefinition.ProstateTUR();
             this.m_SpecimenCollection.Add(tur);
         }
 
         public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
-        {
-            string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
+        {            
+            string result = base.ReplaceIdentifierNoDescription(this.m_Text, specimenOrder, accessionOrder);
+            result = base.AppendInitials(result, specimenOrder, accessionOrder, systemIdentity);
             result = this.ReplaceRepresentativeSections(result, specimenOrder);
             return result;
         }
@@ -61,15 +62,16 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "Bladder TUR";
             this.m_Text = "[identifier] and consists of [number] irregular ragged tan-pink tissue fragment[?s?] " +
-                "measuring [measurement] [? in aggregate?]. The specimen is filtered through a fine mesh bag and [cassettesummary].  ";
+                "measuring [measurement] [?in aggregate?]. The specimen is filtered through a fine mesh bag and [cassettesummary].  ";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.BladderTUR turb = new Business.Specimen.Model.SpecimenDefinition.BladderTUR();
             this.m_SpecimenCollection.Add(turb);
         }
 
         public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
-        {
-            string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
+        {            
+            string result = base.ReplaceIdentifierNoDescription(this.m_Text, specimenOrder, accessionOrder);
+            result = base.AppendInitials(result, specimenOrder, accessionOrder, systemIdentity);
             result = this.ReplaceCassetteSummary(result, specimenOrder);
             return result;
         }
@@ -80,7 +82,7 @@ namespace YellowstonePathology.UI.Gross
         public GITemplate()
         {
             this.m_TemplateName = "GI Specimen";
-            this.m_Text = "[identifier] and consists of [number] tan-pink tissue fragment[?s?] measuring [measurement][? in aggregate?].  " +
+            this.m_Text = "[identifier] and consists of [number] tan-pink tissue fragment[?s?] measuring [measurement] [?in aggregate?].  " +
                 "The specimen is filtered through a fine mesh bag and [cassettesummary].  ";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.GIBiopsy gi = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.GIBiopsy();
@@ -173,7 +175,7 @@ namespace YellowstonePathology.UI.Gross
         public BXTemplate()
         {
             this.m_TemplateName = "Biopsy Specimen";
-            this.m_Text = "[identifier] and consists of [number] tan-pink tissue fragment[?s?] measuring [measurement] [? in aggregate?].  " +
+            this.m_Text = "[identifier] and consists of [number] tan-pink tissue fragment[?s?] measuring [measurement] [?in aggregate?].  " +
                 "The specimen is filtered through a fine mesh bag and [cassettesummary].  ";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Biopsy bx = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Biopsy();
@@ -193,7 +195,7 @@ namespace YellowstonePathology.UI.Gross
         public FluidTemplate()
         {
             this.m_TemplateName = "Fluid Specimen";
-            this.m_Text = "[Specimen] is received in CytoLyt in a container labeled \"[identifier]\" and consists of [Quantity] ml of [Color] fluid[? with particulate?].  The specimen is submitted for selective cellular enhancement processing.";
+            this.m_Text = "[Specimen] is received in CytoLyt in a container labeled \"[identifier]\" and consists of [Quantity] ml of [Color] fluid [?with particulate?].  The specimen is submitted for selective cellular enhancement processing.";
             
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Fluid fluid = new Business.Specimen.Model.SpecimenDefinition.Fluid();
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Urine urine = new Business.Specimen.Model.SpecimenDefinition.Urine();
@@ -287,15 +289,16 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "Sinus Content Specimen";
             this.m_Text = "[identifier] and consists of multiple fragments of tan-pink tissue and bone aggregating to [measurement].  " +
-                "They are filtered through a fine mesh bag and [cassettesummary][? for decalcification prior to processing?].  ";
+                "They are filtered through a fine mesh bag and [cassettesummary] [?for decalcification prior to processing?].  ";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SinusContent sinusContent = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SinusContent();
             this.m_SpecimenCollection.Add(sinusContent);
         }
 
         public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
-        {
-            string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
+        {            
+            string result = base.ReplaceIdentifierNoDescription(this.m_Text, specimenOrder, accessionOrder);
+            result = base.AppendInitials(result, specimenOrder, accessionOrder, systemIdentity);
             result = this.ReplaceCassetteSummary(result, specimenOrder);
             return result;
         }
@@ -613,7 +616,7 @@ namespace YellowstonePathology.UI.Gross
             this.m_Text = "[identifier]." + Environment.NewLine +
                 "Gross Description:  [description]" + Environment.NewLine +
                 "Measurement:  [measurement]" + Environment.NewLine +
-                "Villi:  [description]" + Environment.NewLine +
+                "Villi:  [present/not present]" + Environment.NewLine +
                 "Fetal Parts:  [description]" + Environment.NewLine +
                 "Submitted:  [representativesections].  ";            
 
@@ -730,7 +733,7 @@ namespace YellowstonePathology.UI.Gross
             this.m_Text = "[identifier]." + Environment.NewLine +
                 "Gross Description:  [color], [characteristics]" + Environment.NewLine +
                 "Measurement:  [measurement]" + Environment.NewLine +
-                "Os:  [description], [measurement]" + Environment.NewLine +
+                "Os:  [present/not present], [description/measurement]" + Environment.NewLine +
                 "Inking:  [description]" + Environment.NewLine +
                 "Submitted:  [submitted].  ";            
 
@@ -835,7 +838,7 @@ namespace YellowstonePathology.UI.Gross
                 "Cassette Summary: " + Environment.NewLine +
                 "\"1A\" - Cord from both ends, " + Environment.NewLine +
                 "\"1B\" - Membranes, " + Environment.NewLine +
-                "\"1C\" - \"1D\" - Central placenta.  ";            
+                "\"1C\" - \"1D\" - Central placenta/infarts.  ";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SinglePlacenta singlePlacenta = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SinglePlacenta();
             this.m_SpecimenCollection.Add(singlePlacenta);
@@ -1052,7 +1055,7 @@ namespace YellowstonePathology.UI.Gross
                 "Measurements: [measurements]" + Environment.NewLine +
                 "Calcification: [present/not present]" + Environment.NewLine +
                 "Vegetation: [present/not present]" + Environment.NewLine +
-                "Submitted: [representativesections] [? for decalcification prior to processing?].  ";
+                "Submitted: [representativesections] [?for decalcification prior to processing?].  ";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.AorticValve aorticValve = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.AorticValve();
             this.m_SpecimenCollection.Add(aorticValve);
@@ -1076,7 +1079,7 @@ namespace YellowstonePathology.UI.Gross
                "Leaflets Description:  [description]" + Environment.NewLine +
                "Measurements:  [measurements]" + Environment.NewLine +
                "Chordae:  [description]" + Environment.NewLine +               
-               "Submitted:  [representativesections][? for decalcification prior to processing?].  ";
+               "Submitted:  [representativesections] [?for decalcification prior to processing?].  ";
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.MitralValve mitralValve = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.MitralValve();
             this.m_SpecimenCollection.Add(mitralValve);
@@ -1117,7 +1120,7 @@ namespace YellowstonePathology.UI.Gross
             this.m_TemplateName = "Femoral Head";
             this.m_Text = "[identifier] and consists of a [description] femoral head with attached femoral neck measuring [measurement].  " +
                 "The femoral neck margin is [description]. The articular surface shows [percent] eburnation and [percent] osteophyte formation.  " +
-                "Sectioning reveals tan-yellow trabecular bone. [representativesections][? following overnight decalcification?].  ";            
+                "Sectioning reveals tan-yellow trabecular bone. [representativesections] [?following overnight decalcification?].  ";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.FemoralHead femoralHead = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.FemoralHead();
             this.m_SpecimenCollection.Add(femoralHead);

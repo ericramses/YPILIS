@@ -298,6 +298,9 @@ namespace YellowstonePathology.Business.HL7View.EPIC
                 case 263:
                     view = new YellowstonePathology.Business.Test.BCellSubsetAnalysis.BCellSubsetAnalysisEPICOBXView(accessionOrder, reportNo, obxCount);
                     break;
+                case 203:
+                    view = new YellowstonePathology.Business.Test.ReviewForAdditionalTesting.ReviewForAdditionalTestingEPICObxView(accessionOrder, reportNo, obxCount);
+                    break;
             }
             return view;
         }

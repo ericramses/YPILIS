@@ -59,9 +59,7 @@ namespace YellowstonePathology.Business.Gateway
                 this.SetSurgicalSpecimenAuditSpecimenOrder(surgicalTestOrder);
                 this.SetSurgicalSpecimenOrderItemCollection(surgicalTestOrder);
                 this.SetTypingStainCollection(surgicalTestOrder);
-            }
-
-            //if(this.m_AccessionOrder.PanelSetOrderCollection.has)
+            }            
 
             foreach(Test.PanelSetOrder panelSetOrder in this.m_AccessionOrder.PanelSetOrderCollection)
             {
@@ -151,6 +149,9 @@ namespace YellowstonePathology.Business.Gateway
                     case "tblFlowMarkers":
                         this.HandleFlowMarker(dataTable);
                         break;
+                    case "tblRetrospectiveReviewTestOrderDetail":
+                        this.HandleRetrospectiveReview(dataTable);
+                        break;
                 }
             }
             
@@ -206,7 +207,7 @@ namespace YellowstonePathology.Business.Gateway
             dataTable.Load(dr, LoadOption.OverwriteChanges);
             if (dataTable.Rows.Count > 0)
             {
-                string tablename = dataTable.Rows[0][0].ToString();
+                string tablename = dataTable.Rows[0][0].ToString();                
                 switch (tablename)
                 {
                     case "tblAccessionOrder":
@@ -596,7 +597,7 @@ namespace YellowstonePathology.Business.Gateway
             {
                 if (panelSetOrder is Test.RetrospectiveReview.RetrospectiveReviewTestOrder)
                 {
-                    Test.RetrospectiveReview.RetrospectiveReviewTestOrder rrto = (Test.RetrospectiveReview.RetrospectiveReviewTestOrder)panelSetOrder;
+                    Test.RetrospectiveReview.RetrospectiveReviewTestOrder rrto = (Test.RetrospectiveReview.RetrospectiveReviewTestOrder)panelSetOrder;                    
                     rrto.RetrospectiveReviewTestOrderDetailCollection.Sync(dataTable);                    
                 }
             }

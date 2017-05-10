@@ -53,7 +53,7 @@ namespace YellowstonePathology.Business.HL7View.EPIC
             this.AddNextObxElement(string.Empty, document, "F");
             this.AddNextObxElement("Yellowstone Pathology Institute, Inc", document, "F");
             this.AddNextObxElement("2900 12th Ave. North, Ste. 295W", document, "F");
-            this.AddNextObxElement("Billings, Mt 59101", document, "F");
+            this.AddNextObxElement("Billings, MT 59101", document, "F");
             this.AddNextObxElement("(406)238-6360", document, "F");
             this.AddNextObxElement(string.Empty, document, "F");
             this.AddNextObxElement(title, document, "F");

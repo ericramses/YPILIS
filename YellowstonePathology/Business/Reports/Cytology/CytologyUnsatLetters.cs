@@ -40,8 +40,8 @@ namespace YellowstonePathology.Business.Reports.Cytology
         public void FillByDate(DateTime startDate, DateTime endDate)
         {            
             string sql = "prcReportGetCytologyUnsatLetters";
-            cmd.Parameters.AddWithValue("StartDate", startDate.ToShortDateString());
-            cmd.Parameters.AddWithValue("EndDate", endDate.ToShortDateString());
+            cmd.Parameters.AddWithValue("StartDate", startDate.ToString("yyyy-MM-dd"));
+            cmd.Parameters.AddWithValue("EndDate", endDate.ToString("yyyy-MM-dd"));
             cmd.CommandText = sql;
             cmd.CommandType = CommandType.StoredProcedure;
             this.FillData();

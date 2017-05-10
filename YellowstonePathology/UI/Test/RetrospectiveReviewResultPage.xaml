@@ -45,97 +45,171 @@
                     <RowDefinition Height="Auto"></RowDefinition>                    
 				</Grid.RowDefinitions>
 
-                <TextBlock Grid.Column="0" Grid.Row="0" Margin="0,3,0,0" FontWeight="Bold" FontSize="14">Help</TextBlock>
+                <TextBlock Grid.Column="0" Grid.Row="0" Margin="0,3,0,0" FontWeight="Bold" FontSize="14">Options</TextBlock>
 
                 <TextBlock Grid.Column="0" Grid.Row="1" Margin="5,3,0,0">                    
-                    <Hyperlink Click="HyperLinkDisagreements_Click">Disagreements</Hyperlink>
+                    <Hyperlink Click="HyperLinkAgreeAll_Click">Agree All</Hyperlink>
                 </TextBlock>
-                                
-			</Grid>
+
+                <TextBlock Grid.Column="0" Grid.Row="3" Margin="5,3,0,0">                    
+                    <Hyperlink Click="HyperLinkFinalize_Click">Finalize</Hyperlink>
+                </TextBlock>
+
+                <TextBlock Name="TextBlockUnfinalize" Grid.Column="0" Grid.Row="4" Margin="5,3,0,0">                    
+                    <Hyperlink Click="HyperLinkUnfinalize_Click">Unfinalize</Hyperlink>
+                </TextBlock>
+
+            </Grid>
 
             <ScrollViewer Grid.Column="1" Margin="10">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"></ColumnDefinition>
                         <ColumnDefinition Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
-                        <RowDefinition Height="Auto"></RowDefinition>
-                        <RowDefinition Height="Auto"></RowDefinition>
-                        <RowDefinition Height="Auto"></RowDefinition>
-                        <RowDefinition Height="Auto"></RowDefinition>
-                        <RowDefinition Height="Auto"></RowDefinition>
-                        <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" FontWeight="Bold">Result:</TextBlock>
-                    <ComboBox Name="ComboBoxResult" Grid.Column="1" Grid.Row="0" Margin="2,2,2,2">
-                        <ComboBoxItem Tag="Hide">Agree</ComboBoxItem>
-                        <ComboBoxItem Tag="Show">Disagree</ComboBoxItem>
-                    </ComboBox>
+                    <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" FontWeight="Bold" Text="{Binding Path=PanelSetOrder.ReportNo}"></TextBlock>
 
-                    <TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" FontWeight="Bold">Comment:</TextBlock>
-                    <TextBox Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" HorizontalAlignment="Stretch" AcceptsReturn="True" Height="100"></TextBox>
+                    <ItemsControl Name="ItemsControlReview"  Grid.Column="0" Grid.Row="1"
+										ItemsSource="{Binding Path=PanelSetOrder.RetrospectiveReviewTestOrderDetailCollection}"
+										KeyboardNavigation.IsTabStop="False">
+                        <ItemsControl.Template>
+                            <ControlTemplate TargetType="ItemsControl">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <ItemsPresenter Grid.Column="0" Grid.Row="0" Margin="5"/>
+                                </Grid>
+                            </ControlTemplate>
+                        </ItemsControl.Template>
 
-                    <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2">
-                        <Grid.Style>
-                            <Style>
-                                <Setter Property="Grid.Visibility" Value="Collapsed"></Setter>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding ElementName=ComboBoxResult, Path=SelectedItem.Tag}" Value="Show">
-                                        <Setter Property="Grid.Visibility" Value="Visible"></Setter>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Grid.Style>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,15,2,2" FontWeight="Bold" VerticalAlignment="Bottom">Specimen:</TextBlock>
+                                    <TextBlock Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" FontWeight="Bold" Text="{Binding Path=SpecimenDescription}" VerticalAlignment="Bottom"></TextBlock>
+                                    
+                                    <TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" FontWeight="Bold">Result:</TextBlock>
+                                    <ComboBox Name="ComboBoxResult" Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" IsEditable="True" Tag="{Binding Path=.}" Text="{Binding Path=Result}" SelectionChanged="ComboboxResult_SelectionChanged">
+                                        <ComboBoxItem Tag="Hide">Agree</ComboBoxItem>
+                                        <ComboBoxItem Tag="Show">Disagree</ComboBoxItem>
+                                    </ComboBox>
+
+                                    <TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" FontWeight="Bold">Comment:</TextBlock>
+                                    <TextBox Grid.Column="1" Grid.Row="2" Margin="2,2,2,2" HorizontalAlignment="Stretch" AcceptsReturn="True" Height="100" Text="{Binding Path=Comment}"></TextBox>
+
+                                    <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3">
+                                        <Grid.Style>
+                                            <Style>
+                                                <Setter Property="Grid.Visibility" Value="Collapsed"></Setter>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding ElementName=ComboBoxResult, Path=Text}" Value="Disagree">
+                                                        <Setter Property="Grid.Visibility" Value="Visible"></Setter>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Grid.Style>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                            <RowDefinition Height="*"></RowDefinition>
+                                        </Grid.RowDefinitions>
+
+                                        <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" FontWeight="Bold">Disagreement Type:</TextBlock>
+                                        <ComboBox Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" IsEditable="True" Text="{Binding Path=Type}">
+                                            <ComboBoxItem>Threshold</ComboBoxItem>
+                                            <ComboBoxItem>Process</ComboBoxItem>
+                                            <ComboBoxItem>Grade</ComboBoxItem>
+                                            <ComboBoxItem>Other</ComboBoxItem>
+                                        </ComboBox>
+
+                                        <TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" FontWeight="Bold">Disagreement Level:</TextBlock>
+                                        <ComboBox Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" IsEditable="True" Text="{Binding Path=Level}">
+                                            <ComboBoxItem>Major</ComboBoxItem>
+                                            <ComboBoxItem>Minor</ComboBoxItem>
+                                        </ComboBox>
+
+                                        <TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" FontWeight="Bold">Impact On Patient:</TextBlock>
+                                        <ComboBox Grid.Column="1" Grid.Row="2" Margin="2,2,2,2" IsEditable="True" Text="{Binding Path=Impact}">
+                                            <ComboBoxItem>Near Miss</ComboBoxItem>
+                                            <ComboBoxItem>Precursors Safety Event</ComboBoxItem>
+                                            <ComboBoxItem>Serious Safety Event</ComboBoxItem>
+                                            <ComboBoxItem>Moderate permanent harm</ComboBoxItem>
+                                            <ComboBoxItem>Severe permanent harm</ComboBoxItem>
+                                            <ComboBoxItem>Death</ComboBoxItem>
+                                        </ComboBox>
+
+                                    </Grid>
+
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                    <Grid Grid.Column="0" Grid.Row="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"></ColumnDefinition>
                             <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
+
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"></RowDefinition>
                             <RowDefinition Height="Auto"></RowDefinition>
                             <RowDefinition Height="Auto"></RowDefinition>
                             <RowDefinition Height="Auto"></RowDefinition>
-                            <RowDefinition Height="Auto"></RowDefinition>
-                            <RowDefinition Height="*"></RowDefinition>
                         </Grid.RowDefinitions>
 
-                        <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" FontWeight="Bold">Disagreement Type:</TextBlock>
-                        <ComboBox Grid.Column="1" Grid.Row="0" Margin="2,2,2,2">
-                            <ComboBoxItem>Threshold</ComboBoxItem>
-                            <ComboBoxItem>Process</ComboBoxItem>
-                            <ComboBoxItem>Grade</ComboBoxItem>
-                            <ComboBoxItem>Other</ComboBoxItem>
-                        </ComboBox>
+                        <TextBlock Grid.Column="2" Grid.Row="0" Margin="2,2,2,2" FontWeight="Bold">Final:</TextBlock>
+                        <CheckBox Grid.Column="3" Grid.Row="0" Margin="2,2,2,2" IsChecked="{Binding Path=PanelSetOrder.Final}" IsEnabled="False"></CheckBox>
 
-                        <TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" FontWeight="Bold">Disagreement Level:</TextBlock>
-                        <ComboBox Grid.Column="1" Grid.Row="1" Margin="2,2,2,2">
-                            <ComboBoxItem>Major</ComboBoxItem>
-                            <ComboBoxItem>Minor</ComboBoxItem>
-                        </ComboBox>
+                        <TextBlock Grid.Column="2" Grid.Row="1" Margin="2,2,2,2" FontWeight="Bold">Date Finaled:</TextBlock>
+                        <TextBox Grid.Column="3" Grid.Row="1" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.FinalTime}" IsEnabled="False"></TextBox>
 
-                        <TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" FontWeight="Bold">Impact On Patient:</TextBlock>
-                        <ComboBox Grid.Column="1" Grid.Row="2" Margin="2,2,2,2">
-                            <ComboBoxItem>Near Miss</ComboBoxItem>
-                            <ComboBoxItem>Precursors Safety Event</ComboBoxItem>
-                            <ComboBoxItem>Serious Safety Event</ComboBoxItem>
-                            <ComboBoxItem>Moderate permanent harm</ComboBoxItem>
-                            <ComboBoxItem>Severe permanent harm</ComboBoxItem>
-                            <ComboBoxItem>Death</ComboBoxItem>
-                        </ComboBox>
+                        <TextBlock Grid.Column="2" Grid.Row="2" Margin="2,2,2,2" FontWeight="Bold">Finaled By:</TextBlock>
+                        <TextBox Grid.Column="3" Grid.Row="2" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.Signature}" IsEnabled="False"></TextBox>
 
                     </Grid>
+                    
                 </Grid>
             </ScrollViewer>
 
         </Grid>
 
         <Border Grid.Column="0" Grid.Row="2" BorderBrush="Transparent" BorderThickness="0" Background="{DynamicResource {x:Static SystemColors.InactiveCaptionBrushKey}}"></Border>
-        <Button Name="ButtonNext" Grid.Column="0" Grid.Row="2" Width="100" Height="40" HorizontalAlignment="Right" Margin="5,5,5,5" Click="ButtonNext_Click">Next ></Button>
-        
+        <Button Name="ButtonNext" Grid.Column="0" Grid.Row="2" Width="100" Height="40" HorizontalAlignment="Right" Margin="5,5,5,5" Click="ButtonNext_Click">Next</Button>
+
     </Grid>
 </Test:ResultControl>

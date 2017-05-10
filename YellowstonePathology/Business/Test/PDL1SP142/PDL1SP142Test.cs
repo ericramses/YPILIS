@@ -11,13 +11,13 @@ namespace YellowstonePathology.Business.Test.PDL1SP142
 		{
 			this.m_PanelSetId = 215;
             this.m_PanelSetName = "PD-L1 (SP142)";
-            this.m_Abbreviation = "PD-L1  (SP142)";
+            this.m_Abbreviation = "PD-L1 (SP142)";
             this.m_CaseType = YellowstonePathology.Business.CaseType.IHC;
 			this.m_HasTechnicalComponent = true;			
 			this.m_HasProfessionalComponent = true;
             this.m_ResultDocumentSource = PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterR();
-            this.m_Active = true;
+            this.m_Active = false;
 
             this.m_SurgicalAmendmentRequired = true;
             this.m_AllowMultiplePerAccession = true;
