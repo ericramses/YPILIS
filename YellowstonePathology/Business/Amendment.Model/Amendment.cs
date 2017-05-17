@@ -13,7 +13,6 @@ namespace YellowstonePathology.Business.Amendment.Model
         bool m_SignatureButtonIsEnabled;
         bool m_DeleteButtonIsEnabled;
 
-        private string m_ObjectId;
         private string m_AmendmentId;
         private string m_ReportNo;
         private bool m_RequirePathologistSignature;
@@ -44,10 +43,9 @@ namespace YellowstonePathology.Business.Amendment.Model
         {
         }
 
-        public Amendment(string reportNo, string objectId, string amendmentId)
+        public Amendment(string reportNo, string amendmentId)
         {
             this.m_ReportNo = reportNo;
-            this.m_ObjectId = objectId;
             this.AmendmentId = amendmentId;
             this.SetDefaultValues(reportNo);
             this.m_Accepted = false;
@@ -144,21 +142,6 @@ namespace YellowstonePathology.Business.Amendment.Model
             if (PropertyChanged != null)
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
-            }
-        }
-
-        [PersistentDocumentIdProperty()]
-        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
-        public string ObjectId
-        {
-            get { return this.m_ObjectId; }
-            set
-            {
-                if (this.m_ObjectId != value)
-                {
-                    this.m_ObjectId = value;
-                    this.NotifyPropertyChanged("ObjectId");
-                }
             }
         }
 
