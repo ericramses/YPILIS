@@ -351,7 +351,7 @@ namespace YellowstonePathology.Business.Gateway
             }
 
             return result;
-        }
+        }        
 
         public static void SetPanelSetOrderAsCancelledTest(string reportNo)
 		{

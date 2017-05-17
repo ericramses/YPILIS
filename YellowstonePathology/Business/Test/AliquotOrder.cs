@@ -26,6 +26,7 @@ namespace YellowstonePathology.Business.Test
 			this.m_AliquotOrderId = aliquotOrderId;
 			this.m_ObjectId = objectId;
 			this.m_SpecimenOrderId = specimenOrderId;
+            this.m_Decal = false;
 
             this.m_TestOrderCollection = new YellowstonePathology.Business.Test.Model.TestOrderCollection_Base();			
 			this.m_SlideOrderCollection = new YellowstonePathology.Business.Slide.Model.SlideOrderCollection();

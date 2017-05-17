@@ -33,10 +33,20 @@ namespace YellowstonePathology.Business.Reports
             double tenPercentOfCount = Math.Round((count * .1), 0);
 
             Random rnd = new Random();
-            for (int i=0; i<tenPercentOfCount; i++)
+            int i = 0;
+            while(true)
             {                
                 int nextRnd = rnd.Next(0, count - 1);
-                this.m_ReportNoCollection.Add(finalCases[nextRnd].Value);
+                string nextMasterAccessionNo = finalCases[nextRnd].MasterAccessionNo;
+
+                Business.Test.AccessionOrder ao = Business.Persistence.DocumentGateway.Instance.GetAccessionOrderByMasterAccessionNo(nextMasterAccessionNo);
+                if(ao.PanelSetOrderCollection.HasPanelSetBeenOrdered(197) == false)
+                {
+                    this.m_ReportNoCollection.Add(finalCases[nextRnd].Value);
+                }
+
+                i += 1;
+                if (i == 10) break;
             }            
 
             InitializeComponent();

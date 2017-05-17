@@ -58,8 +58,8 @@ namespace YellowstonePathology.UI.Cytology
         {
             YellowstonePathology.UI.Cytology.ScanAliquotPage scanAliquotPage = new ScanAliquotPage(this.m_SystemIdentity, "Scan Aliquot");
             this.m_PrintSlideDialog.PageNavigator.Navigate(scanAliquotPage);
-            scanAliquotPage.UseThisAliquotOrderId += ScanAliquotPage_UseThisAliquotOrderId;
-        }
+            scanAliquotPage.UseThisAliquotOrderId += ScanAliquotPage_UseThisAliquotOrderId;            
+        }        
 
         private void ScanAliquotPage_UseThisAliquotOrderId(object sender, string aliquotOrderId)
         {

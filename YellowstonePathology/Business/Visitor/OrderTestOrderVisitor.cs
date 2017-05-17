@@ -55,6 +55,11 @@ namespace YellowstonePathology.Business.Visitor
                     Business.Test.RetrospectiveReview.RetrospectiveReviewTestOrderDetail rrtod = new Test.RetrospectiveReview.RetrospectiveReviewTestOrderDetail(objectId, rrto.ReportNo);                    
                     rrtod.SpecimenDescription = specimenOrder.Description;
                     rrtod.SpecimenNumber = specimenOrder.SpecimenNumber;
+
+                    Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetSurgical();
+                    Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen = surgicalTestOrder.SurgicalSpecimenCollection.GetBySpecimenOrderId(specimenOrder.SpecimenOrderId);
+                    rrtod.Diagnosis = surgicalSpecimen.Diagnosis;
+
                     rrto.RetrospectiveReviewTestOrderDetailCollection.Add(rrtod);
                 }
             }

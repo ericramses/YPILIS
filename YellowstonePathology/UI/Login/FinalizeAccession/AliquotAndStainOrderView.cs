@@ -164,10 +164,14 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
 					foreach (YellowstonePathology.Business.Test.AliquotOrder aliquotOrder in specimenOrder.AliquotOrderCollection)
 					{
+                        string decal = null;
+                        if (aliquotOrder.Decal == true) decal = "(Decal)";
+
 						XElement aliquotElement = new XElement("AliquotOrder");
 						XElement aliquotIdElement = new XElement("AliquotOrderId", aliquotOrder.AliquotOrderId);
                         XElement aliquotClientAccessionedElement = new XElement("ClientAccessioned", aliquotOrder.ClientAccessioned);
 						XElement aliquotLabelElement = new XElement("Label", aliquotOrder.Display);
+                        XElement aliquotDecalElement = new XElement("Decal", decal);
                         XElement aliquotGrossVerifiedElement = null;
                         if (aliquotOrder.GrossVerifiedDate.HasValue) aliquotGrossVerifiedElement = new XElement("GrossVerifiedDate", aliquotOrder.GrossVerifiedDate.Value.ToString("MM/dd/yy HH:mm"));
                         XElement aliquotTypeElement = new XElement("Type", aliquotOrder.AliquotType);
@@ -179,6 +183,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 						aliquotElement.Add(aliquotIdElement);
                         aliquotElement.Add(aliquotClientAccessionedElement);
 						aliquotElement.Add(aliquotTypeElement);
+                        aliquotElement.Add(aliquotDecalElement);
                         if (aliquotOrder.GrossVerifiedDate.HasValue) aliquotElement.Add(aliquotGrossVerifiedElement);
                         aliquotElement.Add(aliquotIsSelectedElement);
 						aliquotElement.Add(aliquotIdentificationType);

@@ -25,12 +25,7 @@ namespace YellowstonePathology.Business.Test.RetrospectiveReview
                     rsrd = this.Get(id);
                 }
                 else
-                {
-                    //int panelSetId = (int)dataTableReader["PanelSetId"];
-                    //PanelSet.Model.PanelSet panelSet = PanelSet.Model.PanelSetCollection.GetAll().GetPanelSet(panelSetId);
-                    //panelSetOrder = Test.PanelSetOrderFactory.CreatePanelSetOrder(panelSet);
-                    //this.Add(panelSetOrder);
-
+                {                    
                     rsrd = new RetrospectiveReviewTestOrderDetail();
                     this.Add(rsrd);
                 }

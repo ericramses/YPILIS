@@ -417,17 +417,22 @@ namespace YellowstonePathology.UI.Gross
 
 			foreach (YellowstonePathology.Business.Test.AliquotOrder aliquotOrder in this.m_SpecimenOrder.AliquotOrderCollection)
 			{
-				XElement aliquotElement = new XElement("AliquotOrder");
+                string decal = null;
+                if (aliquotOrder.Decal == true) decal = "Decal";
+
+                XElement aliquotElement = new XElement("AliquotOrder");
 				XElement aliquotIdElement = new XElement("AliquotOrderId", aliquotOrder.AliquotOrderId);
 				XElement aliquotLabelElement = new XElement("Label", aliquotOrder.Display);
-				XElement aliquotTypeElement = new XElement("Type", aliquotOrder.AliquotType);
+                XElement aliquotDecalElement = new XElement("Decal", decal);
+                XElement aliquotTypeElement = new XElement("Type", aliquotOrder.AliquotType);
                 XElement embeddingInstructionsElement = new XElement("EmbeddingInstructions", aliquotOrder.EmbeddingInstructions);
-                XElement aliquotIsSelectedElement = new XElement("IsSelected", false);
+                XElement aliquotIsSelectedElement = new XElement("IsSelected", false);                
 
-				aliquotElement.Add(aliquotLabelElement);
+                aliquotElement.Add(aliquotLabelElement);
 				aliquotElement.Add(aliquotIdElement);
 				aliquotElement.Add(aliquotTypeElement);
-				aliquotElement.Add(aliquotIsSelectedElement);
+                aliquotElement.Add(aliquotDecalElement);
+                aliquotElement.Add(aliquotIsSelectedElement);
                 aliquotElement.Add(embeddingInstructionsElement);
                 specimenElement.Add(aliquotElement);
 				
@@ -546,6 +551,6 @@ namespace YellowstonePathology.UI.Gross
             }
             this.GrossBlockManagementView = new Business.View.GrossBlockManagementView(this.m_AccessionOrder, this.m_CaseNotesDocument, this.m_SpecimenOrder);
             this.SetupSpecimenView();
-        }
+        }        
     }
 }

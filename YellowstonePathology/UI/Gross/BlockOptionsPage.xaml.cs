@@ -145,5 +145,19 @@ namespace YellowstonePathology.UI.Gross
             CustomEventArgs.SpecimenOrderReturnEventArgs specimenOrderReturnEventArgs = new CustomEventArgs.SpecimenOrderReturnEventArgs(this.m_SpecimenOrder);
             this.Next(this, specimenOrderReturnEventArgs);
         }
+
+        private void ButtonDecal_Click(object sender, RoutedEventArgs e)
+        {
+            if(this.m_AliquotOrder.Decal == true)
+            {
+                this.m_AliquotOrder.Decal = false;
+            }
+            else
+            {
+                this.m_AliquotOrder.Decal = true;
+            }
+            CustomEventArgs.SpecimenOrderReturnEventArgs specimenOrderReturnEventArgs = new CustomEventArgs.SpecimenOrderReturnEventArgs(this.m_SpecimenOrder);
+            this.Next(this, specimenOrderReturnEventArgs);
+        }
     }
 }

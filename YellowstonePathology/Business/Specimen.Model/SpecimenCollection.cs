@@ -118,6 +118,8 @@ namespace YellowstonePathology.Business.Specimen.Model
             result.Add(new SpecimenDefinition.Urine());
             result.Add(new SpecimenDefinition.Consult());
             result.Add(new SpecimenDefinition.InitialReading());
+            result.Add(new SpecimenDefinition.BoneBiopsy());
+            result.Add(new SpecimenDefinition.ExplantedDevices());
             return Sort(result);
         }
 

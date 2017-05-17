@@ -99,6 +99,7 @@ namespace YellowstonePathology.Business.Facility.Model
             result.Add(new StanfordUniversityMedicalCenter());
             result.Add(new MadisonMemorialHospital());
             result.Add(new OregonHealthScienceUniversity());
+            result.Add(new CasperDermatologyClinic());
             return Sort(result);
         }
 

@@ -82,6 +82,10 @@ namespace YellowstonePathology.UI.Client
                                 StandardRequisition standardRequisition = new StandardRequisition(this.m_ClientId);
                                 standardRequisition.Print(this.m_Copies, printQueue);
                                 break;
+                            case "Cytology":
+                                CytologyRequisition cytologyRequisition = new CytologyRequisition(this.m_ClientId);
+                                cytologyRequisition.Print(this.m_Copies, printQueue);
+                                break;
                             case "Oncology":
                                 OncologyRequisition oncologyRequisition = new OncologyRequisition(this.m_ClientId);
                                 oncologyRequisition.Print(this.m_Copies, printQueue);

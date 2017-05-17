@@ -28,6 +28,32 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
         }
     }
 
+    public class ExplantedDevices : Specimen
+    {
+        public ExplantedDevices()
+        {
+            this.m_SpecimenId = "XPLNTDDVCS";
+            this.m_SpecimenName = "Explanted Devices";
+            this.m_Description = null;
+            this.m_LabFixation = null;
+            this.m_ClientFixation = null;
+            this.m_RequiresGrossExamination = false;
+        }
+    }
+
+    public class BoneBiopsy : Specimen
+    {
+        public BoneBiopsy()
+        {
+            this.m_SpecimenId = "BNBPSY";
+            this.m_SpecimenName = "Bone Biopsy";
+            this.m_Description = null;
+            this.m_LabFixation = null;
+            this.m_ClientFixation = null;
+            this.m_RequiresGrossExamination = false;
+        }
+    }
+
     public class Urine : Specimen
     {
         public Urine()
