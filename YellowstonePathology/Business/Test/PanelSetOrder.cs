@@ -1658,7 +1658,7 @@ namespace YellowstonePathology.Business.Test
         public virtual YellowstonePathology.Business.Amendment.Model.Amendment AddAmendment()
 		{
 			string amendmentId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-            YellowstonePathology.Business.Amendment.Model.Amendment amendment = this.m_AmendmentCollection.GetNextItem(this.m_ReportNo, amendmentId, amendmentId);
+            YellowstonePathology.Business.Amendment.Model.Amendment amendment = this.m_AmendmentCollection.GetNextItem(this.m_ReportNo, amendmentId);
 			this.m_AmendmentCollection.Add(amendment);
 			return amendment;
 		}

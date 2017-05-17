@@ -150,7 +150,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 		public SurgicalSpecimen GetNextItem(string reportNo)
 		{
 			string surgicalSpecimenId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-			SurgicalSpecimen result = new SurgicalSpecimen(reportNo, surgicalSpecimenId, surgicalSpecimenId);
+			SurgicalSpecimen result = new SurgicalSpecimen(reportNo, surgicalSpecimenId);
 			return result;
 		}
 
