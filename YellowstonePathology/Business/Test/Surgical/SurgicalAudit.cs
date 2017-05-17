@@ -9,7 +9,6 @@ namespace YellowstonePathology.Business.Test.Surgical
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		private string m_ObjectId;
 		private string m_SurgicalAuditId;
 		private string m_ReportNo;		
 		private bool m_PapCorrelationRequired;
@@ -43,11 +42,10 @@ namespace YellowstonePathology.Business.Test.Surgical
 			this.m_SurgicalSpecimenAuditCollection = new SurgicalSpecimenAuditCollection();
 		}
 
-		public SurgicalAudit(string objectId, string surgicalAuditId, string amendmentId, YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder panelSetOrderSurgical, int pathologistId, int assignedToId)
-		{
-			this.m_SurgicalSpecimenAuditCollection = new SurgicalSpecimenAuditCollection();
+        public SurgicalAudit(string surgicalAuditId, string amendmentId, YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder panelSetOrderSurgical, int pathologistId, int assignedToId)
+        {
+            this.m_SurgicalSpecimenAuditCollection = new SurgicalSpecimenAuditCollection();
 
-			this.m_ObjectId = objectId;
 			this.SurgicalAuditId = surgicalAuditId;
 			this.ReportNo = panelSetOrderSurgical.ReportNo;
 			this.AmendmentId = amendmentId;
@@ -87,21 +85,6 @@ namespace YellowstonePathology.Business.Test.Surgical
             get { return this.m_Amendment; }
             set { this.m_Amendment = value; }
         }
-
-		[PersistentDocumentIdProperty()]
-		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
-		public string ObjectId
-		{
-			get { return this.m_ObjectId; }
-			set
-			{
-				if (this.m_ObjectId != value)
-				{
-					this.m_ObjectId = value;
-					this.NotifyPropertyChanged("ObjectId");
-				}
-			}
-		}
 
 		[PersistentPrimaryKeyProperty(false)]
 		[PersistentDataColumnProperty(false, "50", "null", "varchar")]

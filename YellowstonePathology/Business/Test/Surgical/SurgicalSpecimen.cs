@@ -14,7 +14,6 @@ namespace YellowstonePathology.Business.Test.Surgical
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		private string m_ObjectId;
 		private string m_SurgicalSpecimenId;
 		private string m_ReportNo;
 		private bool m_Report;
@@ -42,10 +41,9 @@ namespace YellowstonePathology.Business.Test.Surgical
 			this.m_ICD9BillingCodeCollection = new YellowstonePathology.Business.Billing.Model.ICD9BillingCodeCollection();
 		}
 
-		public SurgicalSpecimen(string reportNo, string objectId, string surgicalSpecimenId)
+		public SurgicalSpecimen(string reportNo, string surgicalSpecimenId)
 		{
 			this.m_ReportNo = reportNo;
-			this.m_ObjectId = objectId;
 			this.m_SurgicalSpecimenId = surgicalSpecimenId;
 			this.m_StainResultItemCollection = new YellowstonePathology.Business.SpecialStain.StainResultItemCollection();
 			this.m_IntraoperativeConsultationResultCollection = new IntraoperativeConsultationResultCollection();
@@ -103,21 +101,6 @@ namespace YellowstonePathology.Business.Test.Surgical
 		public string DiagnosisIdFormatted
 		{
 			get { return DiagnosisId.ToString() + "."; }
-		}
-
-		[PersistentDocumentIdProperty()]
-		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
-		public string ObjectId
-		{
-			get { return this.m_ObjectId; }
-			set
-			{
-				if (this.m_ObjectId != value)
-				{
-					this.m_ObjectId = value;
-					this.NotifyPropertyChanged("ObjectId");
-				}
-			}
 		}
 
 		[PersistentPrimaryKeyProperty(false)]

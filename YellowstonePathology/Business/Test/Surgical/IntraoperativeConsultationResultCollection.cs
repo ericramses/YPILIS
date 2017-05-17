@@ -39,7 +39,7 @@ namespace YellowstonePathology.Business.Test.Surgical
         public IntraoperativeConsultationResult GetNextItem(string surgicalSpecimenId)
 		{
 			string intraoperativeConsultationResultId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-			IntraoperativeConsultationResult intraoperativeConsultationResult = new IntraoperativeConsultationResult(intraoperativeConsultationResultId, intraoperativeConsultationResultId, surgicalSpecimenId);
+			IntraoperativeConsultationResult intraoperativeConsultationResult = new IntraoperativeConsultationResult(intraoperativeConsultationResultId, surgicalSpecimenId);
 
 			return intraoperativeConsultationResult;
 		}
