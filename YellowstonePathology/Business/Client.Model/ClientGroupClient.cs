@@ -9,42 +9,25 @@ namespace YellowstonePathology.Business.Client.Model
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private string m_ObjectId;
-        private int m_ClientGroupClientId;
+        private string m_ClientGroupClientId;
         private int m_ClientId;
-        private int m_ClientGroupId;
+        private string m_ClientGroupId;
         
         public ClientGroupClient()
         {
 
         }
 
-        public ClientGroupClient(string objectId, int clientGroupClientId, int clientId, int clientGroupId)
+        public ClientGroupClient(string clientGroupClientId, int clientId, string clientGroupId)
         {
-            this.m_ObjectId = ObjectId;
             this.m_ClientGroupClientId = clientGroupClientId;
             this.m_ClientId = clientId;
             this.m_ClientGroupId = clientGroupId;
         }
 
-        [PersistentDocumentIdProperty()]
-        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
-        public string ObjectId
-        {
-            get { return this.m_ObjectId; }
-            set
-            {
-                if (value != this.m_ObjectId)
-                {
-                    this.m_ObjectId = value;
-                    this.NotifyPropertyChanged("ObjectId");
-                }
-            }
-        }
-
         [PersistentPrimaryKeyProperty(false)]
-        [PersistentDataColumnProperty(false, "11", "null", "int")]
-        public int ClientGroupClientId
+        [PersistentDataColumnProperty(false, "50", "null", "varchar")]
+        public string ClientGroupClientId
         {
             get { return this.m_ClientGroupClientId; }
             set
@@ -73,8 +56,8 @@ namespace YellowstonePathology.Business.Client.Model
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "11", "null", "int")]
-        public int ClientGroupId
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
+        public string ClientGroupId
         {
             get { return this.m_ClientGroupId; }
             set

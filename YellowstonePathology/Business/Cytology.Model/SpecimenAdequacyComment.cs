@@ -14,7 +14,7 @@ namespace YellowstonePathology.Business.Cytology.Model
 	{
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private int m_CommentId;
+        private string m_CommentId;
         private string m_Comment;	
 
 		public SpecimenAdequacyComment()
@@ -23,7 +23,7 @@ namespace YellowstonePathology.Business.Cytology.Model
 		}
 
 		[PersistentProperty()]
-        public int CommentId
+        public string CommentId
         {
             get { return this.m_CommentId; }
             set

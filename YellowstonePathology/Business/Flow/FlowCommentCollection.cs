@@ -25,9 +25,9 @@ namespace YellowstonePathology.Business.Flow
             this.m_Cmd.CommandType = CommandType.Text;
         }
 
-        public void SetFillCommandByStainId(int commentId)
+        public void SetFillCommandByStainId(string commentId)
         {
-            string sql = "select * from tblFlowCommentV2 where CommentId = " + commentId;            
+            string sql = "select * from tblFlowCommentV2 where CommentId = '" + commentId + "'";            
             this.m_ParameterList.Clear();
             this.m_Cmd.CommandText = sql;
             this.m_Cmd.CommandType = CommandType.Text;

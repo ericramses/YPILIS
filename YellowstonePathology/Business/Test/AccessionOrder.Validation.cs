@@ -12,7 +12,7 @@ namespace YellowstonePathology.Business.Test
 			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
             validationResult.IsValid = true;
 
-            YellowstonePathology.Business.Client.Model.ClientGroupClientCollection westParkHospitalGroup = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientGroupClientCollectionByClientGroupId(36);
+            YellowstonePathology.Business.Client.Model.ClientGroupClientCollection westParkHospitalGroup = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientGroupClientCollectionByClientGroupId("36");
             if (westParkHospitalGroup.ClientIdExists(this.m_ClientId) == true)
             {
                 if (string.IsNullOrEmpty(this.m_SvhMedicalRecord) == false)
@@ -42,7 +42,7 @@ namespace YellowstonePathology.Business.Test
 			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
             validationResult.IsValid = true;
 
-            YellowstonePathology.Business.Client.Model.ClientGroupClientCollection westParkHospitalGroup = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientGroupClientCollectionByClientGroupId(36);
+            YellowstonePathology.Business.Client.Model.ClientGroupClientCollection westParkHospitalGroup = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientGroupClientCollectionByClientGroupId("36");
             if (westParkHospitalGroup.ClientIdExists(this.m_ClientId) == true)
             {
                 if (string.IsNullOrEmpty(this.m_SvhAccount) == false)
