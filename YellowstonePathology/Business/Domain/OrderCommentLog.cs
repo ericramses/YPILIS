@@ -14,8 +14,7 @@ namespace YellowstonePathology.Business.Domain
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		private string m_ObjectId;
-		private int m_OrderCommentLogId;
+		private string m_OrderCommentLogId;
 		private int m_OrderCommentId;
 		private int m_SpecimenLogId;
 		private string m_MasterAccessionNo;
@@ -40,9 +39,9 @@ namespace YellowstonePathology.Business.Domain
 		{
 		}
 
-		public OrderCommentLog(string objectId)
+		public OrderCommentLog(string orderCommentLogId)
 		{
-			this.m_ObjectId = objectId;
+			this.m_OrderCommentLogId = orderCommentLogId;
 		}
 
 		public void SetDefaultValues(YellowstonePathology.Business.User.SystemUser systemUser)
@@ -162,24 +161,9 @@ namespace YellowstonePathology.Business.Domain
 			client.Send(mailMessage);
 		}
 
-		[PersistentDocumentIdProperty()]
-		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
-		public string ObjectId
-		{
-			get { return this.m_ObjectId; }
-			set
-			{
-				if (this.m_ObjectId != value)
-				{
-					this.m_ObjectId = value;
-					this.NotifyPropertyChanged("ObjectId");
-				}
-			}
-		}
-
 		[PersistentPrimaryKeyProperty(true)]
-		[PersistentDataColumnProperty(false, "11", "null", "int")]
-		public int OrderCommentLogId
+		[PersistentDataColumnProperty(false, "50", "null", "varchar")]
+		public string OrderCommentLogId
 		{
 			get { return this.m_OrderCommentLogId; }
 			set
@@ -479,7 +463,7 @@ namespace YellowstonePathology.Business.Domain
 
 		public void WriteProperties(YellowstonePathology.Business.Domain.Persistence.IPropertyWriter propertyWriter)
 		{
-			this.m_OrderCommentLogId = propertyWriter.WriteInt("OrderCommentLogId");
+			this.m_OrderCommentLogId = propertyWriter.WriteString("OrderCommentLogId");
 			this.m_OrderCommentId = propertyWriter.WriteInt("OrderCommentId");
 			this.m_SpecimenLogId = propertyWriter.WriteInt("SpecimenLogId");
 			this.m_MasterAccessionNo = propertyWriter.WriteString("MasterAccessionNo");
@@ -499,12 +483,11 @@ namespace YellowstonePathology.Business.Domain
 			this.m_NotificationAddress = propertyWriter.WriteString("NotificationAddress");
 			this.m_StationName = propertyWriter.WriteString("StationName");
 			this.m_ContainerId = propertyWriter.WriteString("ContainerId");
-			this.m_ObjectId = propertyWriter.WriteString("ObjectId");
 		}
 
 		public void ReadProperties(YellowstonePathology.Business.Domain.Persistence.IPropertyReader propertyReader)
 		{
-			propertyReader.ReadInt("OrderCommentLogId", OrderCommentLogId);
+			propertyReader.ReadString("OrderCommentLogId", OrderCommentLogId);
 			propertyReader.ReadInt("OrderCommentId", OrderCommentId);
 			propertyReader.ReadInt("SpecimenLogId", SpecimenLogId);
 			propertyReader.ReadString("MasterAccessionNo", MasterAccessionNo);
@@ -524,7 +507,6 @@ namespace YellowstonePathology.Business.Domain
 			propertyReader.ReadString("NotificationAddress", NotificationAddress);
 			propertyReader.ReadString("StationName", StationName);
 			propertyReader.ReadString("ContainerId", ContainerId);
-			propertyReader.ReadString("ObjectId", ObjectId);
 		}
 	}
 }

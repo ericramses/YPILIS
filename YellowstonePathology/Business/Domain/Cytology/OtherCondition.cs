@@ -14,7 +14,7 @@ namespace YellowstonePathology.Business.Domain.Cytology
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		private int m_LineID;
+		private string m_LineID;
 		private string m_OtherConditionText;
 
 		public OtherCondition()
@@ -32,7 +32,7 @@ namespace YellowstonePathology.Business.Domain.Cytology
 		}
 
 		[PersistentProperty()]
-		public int LineID
+		public string LineID
 		{
 			get { return this.m_LineID; }
 			set

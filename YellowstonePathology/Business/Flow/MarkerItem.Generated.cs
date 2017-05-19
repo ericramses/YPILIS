@@ -3,13 +3,13 @@ using System.Data;
 
 namespace YellowstonePathology.Business.Flow
 {
-	[YellowstonePathology.Business.CustomAttributes.SqlTableAttribute("tblMarkers", "MarkerId", SqlDbType.Int, 4)]
+	[YellowstonePathology.Business.CustomAttributes.SqlTableAttribute("tblMarkers", "MarkerId", SqlDbType.VarChar, 50)]
 	public partial class MarkerItem : BaseItem
 	{
 		string m_CPTCode = string.Empty;
 		bool m_IsMyelodysplastic;
 		bool m_IsNormalMarker;
-		int m_MarkerId;
+		string m_MarkerId;
 		string m_MarkerName = string.Empty;
 		int m_OrderFlag;
 		bool m_Predictive;
@@ -61,8 +61,8 @@ namespace YellowstonePathology.Business.Flow
 			}
 		}
 
-		[YellowstonePathology.Business.CustomAttributes.SqlFieldAttribute("MarkerId", 4, SqlDbType.Int)]
-		public int MarkerId
+		[YellowstonePathology.Business.CustomAttributes.SqlFieldAttribute("MarkerId", 50, SqlDbType.VarChar)]
+		public string MarkerId
 		{
 			get { return this.m_MarkerId; }
 			set

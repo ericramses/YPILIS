@@ -25,9 +25,9 @@ namespace YellowstonePathology.Business.Flow
             this.m_Cmd.CommandType = CommandType.Text;
         }
 
-        public void SetFillCommandByMarkerId(int markerId)
+        public void SetFillCommandByMarkerId(string markerId)
         {
-            string sql = "select * from tblMarkers where MarkerId = " + markerId + ";"; 
+            string sql = "select * from tblMarkers where MarkerId = '" + markerId + "';"; 
             this.m_ParameterList.Clear();
             this.m_Cmd.CommandText = sql;
             this.m_Cmd.CommandType = CommandType.Text;

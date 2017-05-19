@@ -238,7 +238,7 @@ namespace YellowstonePathology.Business.Gateway
 			return result;
 		}
 
-        public static YellowstonePathology.Business.Client.Model.ClientCollection GetClientCollectionByClientGroupId(int clientGroupId)
+        public static YellowstonePathology.Business.Client.Model.ClientCollection GetClientCollectionByClientGroupId(string clientGroupId)
         {
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = "select c.* " +
@@ -788,52 +788,6 @@ namespace YellowstonePathology.Business.Gateway
 			return result;
 		}
 
-        public static int GetLargestClientGroupId()
-        {
-            int result = 0;
-            MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "Select max(ClientGroupId) from tblClientGroup;";
-            cmd.CommandType = CommandType.Text;
-
-            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-            {
-                cn.Open();
-                cmd.Connection = cn;
-                using (MySqlDataReader dr = cmd.ExecuteReader())
-                {
-                    while (dr.Read())
-                    {
-                        result = (Int32)dr[0];
-                    }
-                }
-            }
-
-            return result;
-        }
-
-        public static int GetLargestClientGroupClientId()
-        {
-            int result = 0;
-            MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "Select max(ClientGroupClientId) from tblClientGroupClient;";
-            cmd.CommandType = CommandType.Text;
-
-            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-            {
-                cn.Open();
-                cmd.Connection = cn;
-                using (MySqlDataReader dr = cmd.ExecuteReader())
-                {
-                    while (dr.Read())
-                    {
-                        result = (Int32)dr[0];
-                    }
-                }
-            }
-
-            return result;
-        }
-
         public static int GetLargestClientLocationId()
         {
             int result = 0;
@@ -857,7 +811,7 @@ namespace YellowstonePathology.Business.Gateway
             return result;
         }
 
-        public static void DeleteClientGroupClient(int clientid, int clientGroupId)
+        public static void DeleteClientGroupClient(int clientid, string clientGroupId)
         {
             
             MySqlCommand cmd = new MySqlCommand();
@@ -1217,7 +1171,7 @@ namespace YellowstonePathology.Business.Gateway
             return result;
         }
 
-        public static YellowstonePathology.Business.Client.Model.ClientGroupClientCollection GetClientGroupClientCollectionByClientGroupId(List<int> clientGroupIds)
+        public static YellowstonePathology.Business.Client.Model.ClientGroupClientCollection GetClientGroupClientCollectionByClientGroupId(List<string> clientGroupIds)
         {
             string inClause = YellowstonePathology.Business.Helper.IdListHelper.ToIdString(clientGroupIds);
             YellowstonePathology.Business.Client.Model.ClientGroupClientCollection result = new Client.Model.ClientGroupClientCollection();
@@ -1243,7 +1197,7 @@ namespace YellowstonePathology.Business.Gateway
             return result;
         }
 
-        public static YellowstonePathology.Business.Client.Model.ClientGroupClientCollection GetClientGroupClientCollectionByClientGroupId(int clientGroupId)
+        public static YellowstonePathology.Business.Client.Model.ClientGroupClientCollection GetClientGroupClientCollectionByClientGroupId(string clientGroupId)
         {
             YellowstonePathology.Business.Client.Model.ClientGroupClientCollection result = new Client.Model.ClientGroupClientCollection();
             MySqlCommand cmd = new MySqlCommand();
