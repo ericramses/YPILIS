@@ -499,9 +499,9 @@ namespace YellowstonePathology.UI.Gross
                 "Measurements:  [measurement]" + Environment.NewLine +
                 "Serosal Surface:  [description]" + Environment.NewLine +
                 "Adventitial Surface:  [description]" + Environment.NewLine +
-                "Mural Defects:  [description]" + Environment.NewLine +                          
-                "Luminal Contents:  [description]" + Environment.NewLine +
+                "Mural Defects:  [description]" + Environment.NewLine +
                 "Loose Stones:  [description]" + Environment.NewLine +
+                "Luminal Contents:  [description]" + Environment.NewLine +
                 "Mucosal Surface:  [description]" + Environment.NewLine +
                 "Wall Thickness:  [thickness]" + Environment.NewLine +
                 "Submitted:  [representativesections].  ";            

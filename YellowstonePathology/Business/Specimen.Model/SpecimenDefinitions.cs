@@ -100,8 +100,8 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_SpecimenId = "SPCMGENERICGO";
             this.m_SpecimenName = "Generic Specimen, Gross Only";
             this.m_Description = null;
-            this.m_LabFixation = "Fomalin";
-            this.m_ClientFixation = "Formalin";
+            this.m_LabFixation = null;
+            this.m_ClientFixation = null;
             this.m_RequiresGrossExamination = false;
         }
     }

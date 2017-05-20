@@ -22,8 +22,7 @@ namespace YellowstonePathology.Business.Test.BCellGeneRearrangement
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.BCellGeneRearrangement.BCellGeneRearrangementTestOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.BCellGeneRearrangement.BCellGeneRearrangementWordDocument).AssemblyQualifiedName;
             
-			this.m_AllowMultiplePerAccession = true;
-            //Changed by MS and TK;
+			this.m_AllowMultiplePerAccession = true;            
             this.m_EpicDistributionIsImplemented = true;
 
             string task1Description = "Cut H&E slide and give to pathologist to circle tumor for tech only. Give the paraffin block to Flow so they can send to NEO.";
@@ -39,6 +38,12 @@ namespace YellowstonePathology.Business.Test.BCellGeneRearrangement
             this.m_ProfessionalComponentFacility = new YellowstonePathology.Business.Facility.Model.NeogenomicsIrvine();
             this.m_ProfessionalComponentBillingFacility = new YellowstonePathology.Business.Facility.Model.NeogenomicsIrvine();
 
+            Business.Billing.Model.PanelSetCptCode panelSetCptCode1 = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT81261(), 1);
+            this.m_PanelSetCptCodeCollection.Add(panelSetCptCode1);
+
+            Business.Billing.Model.PanelSetCptCode panelSetCptCode2 = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT81264(), 1);
+            this.m_PanelSetCptCodeCollection.Add(panelSetCptCode2);
+            
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceFLOWYPI());
 		}
 	}

@@ -20,7 +20,9 @@ namespace YellowstonePathology.Business.Gateway
             cmd.CommandText = "Select pso.ReportNo " +
                 "from tblAccessionOrder ao " +
                 "join tblPanelSetOrder pso on ao.MasterAccessionNo = pso.MasterAccessionNo " +
-                "where pso.FinalDate = @FinalDate and pso.PanelSetId = 13; ";
+                "where pso.FinalDate = @FinalDate and pso.PanelSetId = 13 " +
+                "and exists (select null from tblPanelSetOrderCPTCode where reportNo = pso.ReportNo and cptCode = '88305') " +
+                "and not exists(select null from tblPanelSetOrder where masterAccessionNo = ao.MasterAccessionNo and panelSetId = 197);";
 
             cmd.CommandType = CommandType.Text;
             cmd.Parameters.AddWithValue("@FinalDate", finalDate.ToString("yyyy-MM-dd"));

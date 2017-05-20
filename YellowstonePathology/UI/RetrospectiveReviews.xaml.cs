@@ -11,61 +11,56 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.ComponentModel;
 
-namespace YellowstonePathology.Business.Reports
-{    
-    public partial class RetrospectiveReviewReport : FixedDocument
+namespace YellowstonePathology.UI
+{
+    /// <summary>
+    /// Interaction logic for RetrospectiveReviews.xaml
+    /// </summary>
+    public partial class RetrospectiveReviews : Window, INotifyPropertyChanged
     {
-        private List<string> m_ReportNoCollection;
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private YellowstonePathology.Business.Search.ReportSearchList m_ReportSearchList;
         private List<string> m_WordList;
 
-        public RetrospectiveReviewReport(DateTime actionDate)
+        public RetrospectiveReviews()
         {
-            this.m_ReportNoCollection = new List<string>();
             this.m_WordList = this.GetWordList();
-
-            DateTime finalDate = actionDate.AddDays(-1);
-            if (actionDate.DayOfWeek == DayOfWeek.Monday)
-            {
-                finalDate = finalDate.AddDays(-3);
-            }
-
-            Business.ReportNoCollection finalCases = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetSurgicalFinal(finalDate);
-            int count = finalCases.Count;
-            double tenPercentOfCount = Math.Round((count * .1), 0);
-
-            Random rnd = new Random();
-            int i = 0;
-            while(true)
-            {                
-                int nextRnd = rnd.Next(0, count - 1);
-                string nextMasterAccessionNo = finalCases[nextRnd].MasterAccessionNo;
-
-                Business.Persistence.AODocumentBuilder documentBuilder = new Persistence.AODocumentBuilder(nextMasterAccessionNo, false);
-                Business.Test.AccessionOrder ao = (Business.Test.AccessionOrder)documentBuilder.BuildNew();
-                if(DoWordsExist(ao) == true)
-                {
-                    this.m_ReportNoCollection.Add(finalCases[nextRnd].Value);
-                }                                    
-
-                i += 1;
-                if (i == 10) break;
-            }            
+            this.m_ReportSearchList = YellowstonePathology.Business.Gateway.ReportSearchGateway.GetRetrospectiveReviews(DateTime.Parse("2017-5-18"));
+            this.NotifyPropertyChanged("ReportSearchList");
 
             InitializeComponent();
             this.DataContext = this;
+            this.TrimTheList();
+        }
+
+        private void TrimTheList()
+        {
+            string xx = string.Empty;
+            foreach(string s in this.m_WordList)
+            {
+                xx = xx + s + "|";
+            }
+            Console.WriteLine(xx);
+        }
+
+        public YellowstonePathology.Business.Search.ReportSearchList ReportSearchList
+        {
+            get { return this.m_ReportSearchList; }
         }
 
         private bool DoWordsExist(Business.Test.AccessionOrder ao)
         {
             bool result = false;
-            foreach(Business.Specimen.Model.SpecimenOrder specimenOrder in ao.SpecimenOrderCollection)
-            {                
-                foreach(string word in this.m_WordList)
+            foreach (Business.Specimen.Model.SpecimenOrder specimenOrder in ao.SpecimenOrderCollection)
+            {
+                foreach (string word in this.m_WordList)
                 {
-                    if(string.IsNullOrEmpty(specimenOrder.Description) == false)
+                    if (string.IsNullOrEmpty(specimenOrder.Description) == false)
                     {
-                        if(specimenOrder.Description.ToLower().Contains(word.ToLower()))
+                        if (specimenOrder.Description.ToLower().Contains(word.ToLower()))
                         {
                             return true;
                         }
@@ -76,7 +71,7 @@ namespace YellowstonePathology.Business.Reports
         }
 
         private List<string> GetWordList()
-        {            
+        {
             List<string> result = new List<string>();
             result.Add("esophagus");
             result.Add("ge junction");
@@ -128,9 +123,12 @@ namespace YellowstonePathology.Business.Reports
             return result;
         }
 
-        public List<string> ReportNoCollection
+        public void NotifyPropertyChanged(String info)
         {
-            get { return this.m_ReportNoCollection; }
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
         }
     }
 }

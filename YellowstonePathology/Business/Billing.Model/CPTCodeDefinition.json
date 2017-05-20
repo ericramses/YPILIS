@@ -803,6 +803,22 @@
       "SVHCDMDescription": "TRG GENE REARRANGEMENT ANAL"
     },
     {
+      "$type": "YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT81340, UserInterface",
+      "Code": "81340",
+      "Description": null,
+      "Modifier": null,
+      "FeeSchedule": 1,
+      "HasTechnicalComponent": true,
+      "HasProfessionalComponent": false,
+      "CodeType": 2,
+      "IsBillable": true,
+      "GCode": null,
+      "HasMedicareQuantityLimit": false,
+      "MedicareQuantityLimit": 0,
+      "SVHCDMCode": null,
+      "SVHCDMDescription": null
+    },
+    {
       "$type": "YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT81401, UserInterface",
       "Code": "81401",
       "Description": null,
