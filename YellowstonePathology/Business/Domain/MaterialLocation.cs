@@ -11,7 +11,7 @@ namespace YellowstonePathology.Business.Domain
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		private int m_MaterialLocationId;
+		private string m_MaterialLocationId;
 		private string m_Name;
 		private string m_Address;
 		private string m_City;
@@ -30,8 +30,8 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
-        [PersistentPrimaryKeyProperty(true)]
-		public int MaterialLocationId
+        [PersistentPrimaryKeyProperty(false)]
+		public string MaterialLocationId
 		{
 			get { return this.m_MaterialLocationId; }
 			set

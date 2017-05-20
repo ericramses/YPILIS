@@ -53,7 +53,7 @@ namespace YellowstonePathology.Business.Rules.Cytology
 		{
 			if (String.IsNullOrEmpty(m_PanelOrder.ReportComment) == false)
 			{
-				string otherFacilityComment = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetCytologyReportCommentById(54).Comment;
+				string otherFacilityComment = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetCytologyReportCommentById("54").Comment;
 				this.m_PanelOrder.ReportComment = this.m_PanelOrder.ReportComment.Replace(otherFacilityComment, string.Empty).Trim();
 			}
 		}
@@ -71,7 +71,7 @@ namespace YellowstonePathology.Business.Rules.Cytology
 			bool diagnosisIsGreaterThanThree = YellowstonePathology.Business.Cytology.Model.CytologyResultCode.IsDiagnosisGreaterThanThree(this.m_PanelOrder.ResultCode);
 			if (diagnosisIsGreaterThanThree == true)
 			{
-				string otherFacilityComment = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetCytologyReportCommentById(54).Comment;
+				string otherFacilityComment = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetCytologyReportCommentById("54").Comment;
 				if (string.IsNullOrEmpty(this.m_PanelOrder.ReportComment) == true || this.m_PanelOrder.ReportComment.Contains(otherFacilityComment) == false)
 				{
 					if (string.IsNullOrEmpty(this.m_PanelOrder.ReportComment) == false)

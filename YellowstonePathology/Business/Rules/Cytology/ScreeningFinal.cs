@@ -186,7 +186,7 @@ namespace YellowstonePathology.Business.Rules.Cytology
 
         private void AddNoChargePeerReviewForEndoGreaterThan40Comment()
         {
-			string endoComment = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetCytologyReportCommentById(44).Comment;
+			string endoComment = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetCytologyReportCommentById("44").Comment;
             if (string.IsNullOrEmpty(this.m_PanelOrderToFinal.ReportComment) == false && this.m_PanelOrderToFinal.ReportComment.Contains(endoComment) == true)
             {
                 if (this.m_PanelSetOrderCytology.DoesPathologistReviewExist() == false)
@@ -270,7 +270,7 @@ namespace YellowstonePathology.Business.Rules.Cytology
             if (this.m_PanelOrderToFinal.ScreeningType.ToUpper() == "PATHOLOGIST REVIEW")
             {
 				bool pathologistReviewResultIsNormal = YellowstonePathology.Business.Cytology.Model.CytologyResultCode.IsResultCodeNormal(this.m_PanelOrderToFinal.ResultCode);
-				string endoComment = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetCytologyReportCommentById(44).Comment;
+				string endoComment = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetCytologyReportCommentById("44").Comment;
 				
 				if (pathologistReviewResultIsNormal == false && 
 					string.IsNullOrEmpty(this.m_PanelOrderToFinal.ReportComment) == false && this.m_PanelOrderToFinal.ReportComment.Contains(endoComment) == true)

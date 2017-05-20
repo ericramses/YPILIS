@@ -13,7 +13,7 @@ namespace YellowstonePathology.Business.SpecialStain
 
 	public class StainResultOption : ListItem
 	{
-		private int m_StainResultOptionId;
+		private string m_StainResultOptionId;
 		private string m_StainResult;
 
 		public StainResultOption()
@@ -21,7 +21,7 @@ namespace YellowstonePathology.Business.SpecialStain
 		}
 
 		[PersistentProperty()]
-		public int StainResultOptionId
+		public string StainResultOptionId
 		{
 			get
 			{

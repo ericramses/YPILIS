@@ -64,7 +64,7 @@ namespace YellowstonePathology.Business.Rules.Cytology
 		{
 			if (String.IsNullOrEmpty(m_PanelOrder.ReportComment) == false)
 			{
-				string reportComment = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetCytologyReportCommentById(48).Comment.Trim();
+				string reportComment = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetCytologyReportCommentById("48").Comment.Trim();
 				this.m_PanelOrder.ReportComment = this.m_PanelOrder.ReportComment.Replace(reportComment, string.Empty).Trim();
 			}
 		}
@@ -73,7 +73,7 @@ namespace YellowstonePathology.Business.Rules.Cytology
 		{
 			if (String.IsNullOrEmpty(m_PanelOrder.ReportComment) == false)
 			{
-				string reportComment = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetCytologyReportCommentById(17).Comment;
+				string reportComment = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetCytologyReportCommentById("17").Comment;
 				this.m_PanelOrder.ReportComment = this.m_PanelOrder.ReportComment.Replace(reportComment, string.Empty).Trim();
 			}
 		}
@@ -91,7 +91,7 @@ namespace YellowstonePathology.Business.Rules.Cytology
 			bool tZoneIsAbsent = YellowstonePathology.Business.Cytology.Model.CytologyResultCode.IsResultCodeTZoneAbsent(this.m_PanelOrder.ResultCode);
             if (tZoneIsAbsent == true)
             {
-				string reportComment = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetCytologyReportCommentById(48).Comment;
+				string reportComment = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetCytologyReportCommentById("48").Comment;
                 if (string.IsNullOrEmpty(this.m_PanelOrder.ReportComment) == true || this.m_PanelOrder.ReportComment.Contains(reportComment) == false)
                 {
                     if (string.IsNullOrEmpty(this.m_PanelOrder.ReportComment) == false)
@@ -111,7 +111,7 @@ namespace YellowstonePathology.Business.Rules.Cytology
                 YellowstonePathology.Business.Rules.Cytology.SetScreeningImpression setScreeningImpression = new SetScreeningImpression();
                 setScreeningImpression.Execute(screeningImpression, this.m_PanelOrder, this.m_AccessionOrder, this.m_ExecutionStatus);
 
-				string reportComment = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetCytologyReportCommentById(17).Comment;
+				string reportComment = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetCytologyReportCommentById("17").Comment;
                 YellowstonePathology.Business.Rules.Cytology.SetReportComment setReportComment = new SetReportComment();
                 setReportComment.Execute(reportComment, this.m_PanelOrder, this.m_ExecutionStatus);
             }

@@ -10,8 +10,7 @@ namespace YellowstonePathology.Business.Client.Model
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private string m_ObjectId;
-        private int m_ClientGroupId;
+        private string m_ClientGroupId;
         private string m_GroupName;
 
         public ClientGroup()
@@ -19,24 +18,9 @@ namespace YellowstonePathology.Business.Client.Model
 
         }
 
-        [PersistentDocumentIdProperty()]
-        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
-        public string ObjectId
-        {
-            get { return this.m_ObjectId; }
-            set
-            {
-                if (value != this.m_ObjectId)
-                {
-                    this.m_ObjectId = value;
-                    this.NotifyPropertyChanged("ObjectId");
-                }
-            }
-        }
-
-        [PersistentPrimaryKeyProperty(true)]
-        [PersistentDataColumnProperty(false, "11", "null", "int")]
-        public int ClientGroupId
+        [PersistentPrimaryKeyProperty(false)]
+        [PersistentDataColumnProperty(false, "50", "null", "varchar")]
+        public string ClientGroupId
         {
             get { return this.m_ClientGroupId; }
             set

@@ -3,12 +3,12 @@ using System.Data;
 
 namespace YellowstonePathology.Business.Flow
 {
-	[YellowstonePathology.Business.CustomAttributes.SqlTableAttribute("tblFlowCommentV2", "CommentId", SqlDbType.Int, 4)]
+	[YellowstonePathology.Business.CustomAttributes.SqlTableAttribute("tblFlowCommentV2", "CommentId", SqlDbType.VarChar, 50)]
 	public partial class FlowCommentItem : BaseItem
 	{
 		string m_Category = string.Empty;
 		string m_Comment = string.Empty;
-		int m_CommentId;
+		string m_CommentId;
 		string m_Description = string.Empty;
 		string m_Impression = string.Empty;
 
@@ -42,8 +42,8 @@ namespace YellowstonePathology.Business.Flow
 			}
 		}
 
-		[YellowstonePathology.Business.CustomAttributes.SqlFieldAttribute("CommentId", 4, SqlDbType.Int)]
-		public int CommentId
+		[YellowstonePathology.Business.CustomAttributes.SqlFieldAttribute("CommentId", 50, SqlDbType.VarChar)]
+		public string CommentId
 		{
 			get { return this.m_CommentId; }
 			set

@@ -25,7 +25,7 @@ namespace YellowstonePathology.Business.Domain
 			orderCommentLog.LoggedBy = systemIdentity.User.DisplayName;
 			orderCommentLog.StationName = System.Environment.MachineName;
 			orderCommentLog.LogDate = DateTime.Now;
-			orderCommentLog.ObjectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
+			orderCommentLog.OrderCommentLogId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 			this.Add(orderCommentLog);
 			return orderCommentLog;
 		}
