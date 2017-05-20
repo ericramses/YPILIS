@@ -80,10 +80,9 @@ namespace YellowstonePathology.UI.Client
             {
                 YellowstonePathology.Business.Client.Model.Client client = (YellowstonePathology.Business.Client.Model.Client)this.ListViewSearchClient.SelectedItem;
                 if (this.m_MembersClientCollection.Exists(client.ClientId) == false)
-                {                    
-                    int clientGroupClientId = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetLargestClientGroupClientId() + 1;
-                    string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-                    YellowstonePathology.Business.Client.Model.ClientGroupClient clientGroupClient = new Business.Client.Model.ClientGroupClient(objectId, clientGroupClientId, client.ClientId, this.m_ClientGroup.ClientGroupId);
+                {
+                    string clientGroupClientId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
+                    YellowstonePathology.Business.Client.Model.ClientGroupClient clientGroupClient = new Business.Client.Model.ClientGroupClient(clientGroupClientId, client.ClientId, this.m_ClientGroup.ClientGroupId);
                     YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(clientGroupClient, this);                    
 
                     this.m_MembersClientCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientCollectionByClientGroupId(this.m_ClientGroup.ClientGroupId);

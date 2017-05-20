@@ -29,7 +29,7 @@ namespace YellowstonePathology.UI
 		YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatchCollection m_MaterialTrackingBatchCollection;
 		YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection m_SlideTrackingLogCollection;
         int m_SlideCount;
-		int m_LocationId;
+		string m_LocationId;
 
         public MaterialTrackingDialog()
         {
@@ -219,9 +219,9 @@ namespace YellowstonePathology.UI
 			//submitter.SubmitChanges(gateway);
 		}
 
-		private int GetLocationId(string materialTrackingBatchName)
+		private string GetLocationId(string materialTrackingBatchName)
 		{
-			int result = 0;
+			string result = "0";
 			foreach (YellowstonePathology.Business.Domain.MaterialLocation materialLocation in this.m_MaterialLocationCollection)
 			{
 				if (materialLocation.Name == materialTrackingBatchName)

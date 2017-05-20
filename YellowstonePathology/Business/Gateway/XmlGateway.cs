@@ -154,12 +154,12 @@ namespace YellowstonePathology.Business.Gateway
             return result;
         }
 
-        public static XPSDocument.Result.ClientBillingDetailReportResult.ClientBillingDetailReportData GetClientBillingDetailReport(DateTime postDateStart, DateTime postDateEnd, Nullable<int> clientGroupId)
+        public static XPSDocument.Result.ClientBillingDetailReportResult.ClientBillingDetailReportData GetClientBillingDetailReport(DateTime postDateStart, DateTime postDateEnd, string clientGroupId)
         {
             XPSDocument.Result.ClientBillingDetailReportResult.ClientBillingDetailReportData result = new XPSDocument.Result.ClientBillingDetailReportResult.ClientBillingDetailReportData();
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.CommandText = "prcGetClientBillingDetailReport_1";
+            cmd.CommandText = "prcGetClientBillingDetailReport_2";
             cmd.Parameters.AddWithValue("StartDate", postDateStart);
             cmd.Parameters.AddWithValue("EndDate", postDateEnd);
             cmd.Parameters.AddWithValue("ClientGroupId", clientGroupId);

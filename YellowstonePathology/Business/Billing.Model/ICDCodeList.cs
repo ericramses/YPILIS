@@ -41,7 +41,7 @@ namespace YellowstonePathology.Business.Billing.Model
 
     public class ICDCode : ListItem
     {
-        int m_ICD9CodeId;
+        string m_ICD9CodeId;
         string m_ICD9Code = string.Empty;
         string m_ICD10Code = string.Empty;
         string m_Category = string.Empty;
@@ -52,7 +52,7 @@ namespace YellowstonePathology.Business.Billing.Model
 
         }
 
-        public int ICD9CodeId
+        public string ICD9CodeId
         {
             get { return this.m_ICD9CodeId; }
             set { this.m_ICD9CodeId = value; }
@@ -84,7 +84,7 @@ namespace YellowstonePathology.Business.Billing.Model
 
 		public override void Fill(MySqlDataReader dr)
         {
-            this.m_ICD9CodeId = BaseData.GetIntValue("ICD9CodeId", dr);
+            this.m_ICD9CodeId = BaseData.GetStringValue("ICD9CodeId", dr);
             this.m_ICD9Code = BaseData.GetStringValue("ICD9Code", dr);
             this.m_Category = BaseData.GetStringValue("Category", dr);
             this.m_Description = BaseData.GetStringValue("Description", dr);

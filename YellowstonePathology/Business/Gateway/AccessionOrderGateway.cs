@@ -2499,7 +2499,7 @@ namespace YellowstonePathology.Business.Gateway
 			return result;
 		}
 
-		public static YellowstonePathology.Business.Domain.Cytology.OtherCondition GetOtherConditionById(int otherConditionId)
+		public static YellowstonePathology.Business.Domain.Cytology.OtherCondition GetOtherConditionById(string otherConditionId)
 		{
 			YellowstonePathology.Business.Domain.Cytology.OtherCondition result = null;
 			MySqlCommand cmd = new MySqlCommand();
@@ -2551,7 +2551,7 @@ namespace YellowstonePathology.Business.Gateway
 			return result;
 		}
 
-		public static YellowstonePathology.Business.Domain.Cytology.CytologyReportComment GetCytologyReportCommentById(int commentId)
+		public static YellowstonePathology.Business.Domain.Cytology.CytologyReportComment GetCytologyReportCommentById(string commentId)
 		{
 			YellowstonePathology.Business.Domain.Cytology.CytologyReportComment result = null;
 			MySqlCommand cmd = new MySqlCommand();
