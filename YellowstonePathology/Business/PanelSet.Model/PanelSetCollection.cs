@@ -247,6 +247,9 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetAnatomicPathologyConsultation());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.GrossOnly.GrossOnlyTest());
 
+            // Caris Life Sciences
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.Miprofile.MiprofileTest());
+
             //ReflexTesting            
             panelSetCollection.Add(new YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisTest());
 			panelSetCollection.Add(new YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTest());
