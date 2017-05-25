@@ -23,104 +23,126 @@ namespace YellowstonePathology.UI
         public event PropertyChangedEventHandler PropertyChanged;
 
         private YellowstonePathology.Business.Search.ReportSearchList m_ReportSearchList;
-        private List<string> m_WordList;
+        private DateTime m_WorkDate;
 
         public RetrospectiveReviews()
-        {
-            this.m_WordList = this.GetWordList();
-            this.m_ReportSearchList = YellowstonePathology.Business.Gateway.ReportSearchGateway.GetRetrospectiveReviews(DateTime.Parse("2017-5-18"));
+        {            
+            if (DateTime.Today.DayOfWeek == DayOfWeek.Monday)
+            {
+                this.m_WorkDate = this.m_WorkDate.AddDays(-3);
+            }
+            else
+            {
+                this.m_WorkDate = DateTime.Today.AddDays(-1);
+            }
+
+            this.m_ReportSearchList = YellowstonePathology.Business.Gateway.ReportSearchGateway.GetRetrospectiveReviews(this.m_WorkDate);
             this.NotifyPropertyChanged("ReportSearchList");
 
             InitializeComponent();
-            this.DataContext = this;
-            this.TrimTheList();
+
+            this.DataContext = this;            
         }
 
-        private void TrimTheList()
+        public DateTime WorkDate
         {
-            string xx = string.Empty;
-            foreach(string s in this.m_WordList)
+            get { return this.m_WorkDate; }
+            set { this.m_WorkDate = value; }
+        }
+
+        private void AddRandomTest(DateTime workDate)
+        {
+            Business.Search.ReportSearchList list = YellowstonePathology.Business.Gateway.ReportSearchGateway.GetPossibleRetrospectiveReviews(workDate);
+            
+            int count = list.Count;
+            double tenPercentOfCount = Math.Round((count * .1), 0);
+
+            Random rnd = new Random();
+            int i = 0;
+            while (true)
             {
-                xx = xx + s + "|";
+                int nextRnd = rnd.Next(0, count - 1);
+                string nextMasterAccessionNo = list[nextRnd].MasterAccessionNo;
+
+                Business.Test.AccessionOrder ao = Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(nextMasterAccessionNo, this);                
+                if(ao.PanelSetOrderCollection.HasPanelSetBeenOrdered(262) == false)
+                {
+                    YellowstonePathology.Business.Test.RetrospectiveReview.RetrospectiveReviewTest retrospectiveReviewTest = new YellowstonePathology.Business.Test.RetrospectiveReview.RetrospectiveReviewTest();
+                    YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new Business.Test.TestOrderInfo(retrospectiveReviewTest, null, false);
+                    YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfo);
+                    ao.TakeATrip(orderTestOrderVisitor);
+                }
+
+                i += 1;
+                if (i == tenPercentOfCount)
+                {
+                    Business.Persistence.DocumentGateway.Instance.Push(this);
+                    break;
+                }
             }
-            Console.WriteLine(xx);
+        }
+
+        private void ContextMenuDeleteReview_Click(object sender, RoutedEventArgs e)
+        {
+            if(this.ListViewReviews.SelectedItems.Count != 0)
+            {
+                foreach (Business.Search.ReportSearchItem item in this.ListViewReviews.SelectedItems)
+                {
+                    Business.Test.AccessionOrder ao = Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(item.MasterAccessionNo, this);
+                    Business.Test.PanelSetOrder pso = ao.PanelSetOrderCollection.GetPanelSetOrder(item.ReportNo);
+                    ao.PanelSetOrderCollection.Remove(pso);
+                    Business.Persistence.DocumentGateway.Instance.Push(this);
+                }
+
+                this.m_ReportSearchList = YellowstonePathology.Business.Gateway.ReportSearchGateway.GetRetrospectiveReviews(this.m_WorkDate);
+                this.NotifyPropertyChanged("ReportSearchList");
+            }            
         }
 
         public YellowstonePathology.Business.Search.ReportSearchList ReportSearchList
         {
             get { return this.m_ReportSearchList; }
-        }
+        }                       
 
-        private bool DoWordsExist(Business.Test.AccessionOrder ao)
+        private void ButtonAddRandom_Click(object sender, RoutedEventArgs e)
         {
-            bool result = false;
-            foreach (Business.Specimen.Model.SpecimenOrder specimenOrder in ao.SpecimenOrderCollection)
+            if (this.m_ReportSearchList.Count == 0)
             {
-                foreach (string word in this.m_WordList)
-                {
-                    if (string.IsNullOrEmpty(specimenOrder.Description) == false)
-                    {
-                        if (specimenOrder.Description.ToLower().Contains(word.ToLower()))
-                        {
-                            return true;
-                        }
-                    }
-                }
+                this.AddRandomTest(this.m_WorkDate);
+                this.NotifyPropertyChanged("ReportSearchList");
             }
-            return result;
+            else
+            {
+                MessageBox.Show("Unable to add random test because some already exist.");
+            }
         }
 
-        private List<string> GetWordList()
+        private void ButtonAccessionOrderBack_Click(object sender, RoutedEventArgs e)
         {
-            List<string> result = new List<string>();
-            result.Add("esophagus");
-            result.Add("ge junction");
-            result.Add("gastroesophageal junction");
-            result.Add("stomach");
-            result.Add("small bowel");
-            result.Add("duodenum");
-            result.Add("jejunum");
-            result.Add("ampulla");
-            result.Add("common bile duct");
-            result.Add("ileum");
-            result.Add("terminal ileum");
-            result.Add("ileocecal valve");
-            result.Add("cecum");
-            result.Add("colon");
-            result.Add("rectum");
-            result.Add("anus");
-            result.Add("cervix");
-            result.Add("endocervix");
-            result.Add("endometrium");
-            result.Add("vagina");
-            result.Add("vulva");
-            result.Add("perineum");
-            result.Add("labia majora");
-            result.Add("labia minora");
-            result.Add("ovary");
-            result.Add("fallopian tube");
-            result.Add("skin");
-            result.Add("lung");
-            result.Add("bronchus");
-            result.Add("larynx");
-            result.Add("vocal cord");
-            result.Add("oral mucosa");
-            result.Add("oral cavity");
-            result.Add("tongue");
-            result.Add("gingiva");
-            result.Add("pharynx");
-            result.Add("epiglottis");
-            result.Add("kidney");
-            result.Add("nasopharynx");
-            result.Add("oropharynx");
-            result.Add("peritoneum");
-            result.Add("pleura");
-            result.Add("tonsil");
-            result.Add("trachea");
-            result.Add("ureter");
-            result.Add("urethra");
-            result.Add("bladder");
-            return result;
+            this.m_WorkDate = this.m_WorkDate.AddDays(-1);
+            this.m_ReportSearchList = YellowstonePathology.Business.Gateway.ReportSearchGateway.GetRetrospectiveReviews(this.m_WorkDate);
+            this.NotifyPropertyChanged(string.Empty);
+        }
+
+        private void ButtonAccessionOrderForward_Click(object sender, RoutedEventArgs e)
+        {
+            this.m_WorkDate = this.m_WorkDate.AddDays(1);
+            this.m_ReportSearchList = YellowstonePathology.Business.Gateway.ReportSearchGateway.GetRetrospectiveReviews(this.m_WorkDate);
+            this.NotifyPropertyChanged(string.Empty);
+        }
+
+        private void ButtonAccessionOrderRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            this.m_ReportSearchList = YellowstonePathology.Business.Gateway.ReportSearchGateway.GetRetrospectiveReviews(this.m_WorkDate);
+            this.NotifyPropertyChanged(string.Empty);
+        }
+
+        private void ButtonPrintList_Click(object sender, RoutedEventArgs e)
+        {
+            UI.Login.CaseListReport caseListReport = new UI.Login.CaseListReport(this.m_ReportSearchList);
+            YellowstonePathology.UI.XpsDocumentViewer xpsDocumentViewer = new XpsDocumentViewer();
+            xpsDocumentViewer.LoadDocument(caseListReport.FixedDocument);
+            xpsDocumentViewer.ShowDialog();
         }
 
         public void NotifyPropertyChanged(String info)
@@ -129,6 +151,6 @@ namespace YellowstonePathology.UI
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
-        }
+        }        
     }
 }

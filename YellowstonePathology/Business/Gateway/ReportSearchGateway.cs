@@ -186,7 +186,7 @@ namespace YellowstonePathology.Business.Gateway
             return reportSearchList;
         }
 
-        public static YellowstonePathology.Business.Search.ReportSearchList GetRetrospectiveReviews(DateTime finalDate)
+        public static YellowstonePathology.Business.Search.ReportSearchList GetPossibleRetrospectiveReviews(DateTime finalDate)
         {            
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.Text;
@@ -200,6 +200,25 @@ namespace YellowstonePathology.Business.Gateway
                 "WHERE pso.FinalDate = @FinalDate and pso.PanelSetId = 13 " +
                 "and exists (select null from tblPanelSetOrderCPTCode where reportNo = pso.ReportNo and cptCode = '88305') " +
                 "and exists (select null from tblSpecimenOrder where masterAccessionNo = a.MasterAccessionNo and LOWER(description) REGEXP 'esophagus|ge junction|gastroesophageal junction|stomach|small bowel|duodenum|jejunum|ampulla|common bile duct|ileum|terminal ileum|ileocecal valve|cecum|colon|rectum|anus|cervix|endocervix|endometrium|vagina|vulva|perineum|labia majora|labia minora|ovary|fallopian tube|skin|lung|bronchus|larynx|vocal cord|oral mucosa|oral cavity|tongue|gingiva|pharynx|epiglottis|kidney|nasopharynx|oropharynx|peritoneum|pleura|tonsil|trachea|ureter|urethra|bladder') " +
+                "ORDER BY AccessionTime desc;";
+            cmd.Parameters.AddWithValue("@FinalDate", finalDate);
+            Search.ReportSearchList reportSearchList = BuildReportSearchList(cmd);
+            return reportSearchList;
+        }
+
+        public static YellowstonePathology.Business.Search.ReportSearchList GetRetrospectiveReviews(DateTime finalDate)
+        {
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT pso.MasterAccessionNo, pso.ReportNo, a.AccessionTime AccessionDate,  pso.PanelSetId, " +
+                "concat(a.PFirstName, ' ', a.PLastName) AS PatientName, " +
+                "a.PLastName, a.PFirstName, a.ClientName, a.PhysicianName, a.PBirthdate, pso.FinalDate, pso.PanelSetName, su.UserName as OrderedBy, " +
+                "'' ForeignAccessionNo, pso.IsPosted " +
+                "FROM tblAccessionOrder a " +
+                "JOIN tblPanelSetOrder pso ON a.MasterAccessionNo = pso.MasterAccessionNo " +
+                "Left Outer Join tblSystemUser su on pso.OrderedById = su.UserId " +
+                "WHERE pso.FinalDate = @FinalDate and pso.PanelSetId = 13 " +
+                "and exists (select null from tblPanelSetOrder where MasterAccessionNo = a.MasterAccessionNo and PanelSetId = 262) " +                
                 "ORDER BY AccessionTime desc;";
             cmd.Parameters.AddWithValue("@FinalDate", finalDate);
             Search.ReportSearchList reportSearchList = BuildReportSearchList(cmd);
