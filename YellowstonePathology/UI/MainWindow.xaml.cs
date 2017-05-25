@@ -930,5 +930,11 @@ namespace YellowstonePathology.UI
             UI.MySql.SqlServerRefreshDialog sqlServerRefreshDialog = new MySql.SqlServerRefreshDialog();
             sqlServerRefreshDialog.ShowDialog();
         }
+
+        private void MenuItemRetrospectiveReviews_Click(object sender, RoutedEventArgs e)
+        {
+            RetrospectiveReviews retrospectiveReviews = new RetrospectiveReviews();
+            retrospectiveReviews.Show();
+        }
     }
 }

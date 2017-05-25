@@ -21,6 +21,7 @@ namespace YellowstonePathology.Business.Test.RetrospectiveReview
         private string m_Impact;
         private string m_SpecimenDescription;
         private int m_SpecimenNumber;
+        private string m_Diagnosis;
 
         public RetrospectiveReviewTestOrderDetail()
         {
@@ -164,6 +165,21 @@ namespace YellowstonePathology.Business.Test.RetrospectiveReview
                 {
                     this.m_SpecimenNumber = value;
                     this.NotifyPropertyChanged("SpecimenNumber");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "5000", "null", "varchar")]
+        public string Diagnosis
+        {
+            get { return this.m_Diagnosis; }
+            set
+            {
+                if (this.m_Diagnosis != value)
+                {
+                    this.m_Diagnosis = value;
+                    this.NotifyPropertyChanged("Diagnosis");
                 }
             }
         }

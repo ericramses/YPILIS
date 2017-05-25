@@ -852,13 +852,76 @@ namespace YellowstonePathology.UI.Surgical
                 bindingExpression.UpdateSource();
 
                 YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = clientOrderCollection[0];
-				this.m_TypingUI.AccessionOrder.ClinicalHistory += clientOrder.SpecialInstructions;
+                string clinicalHistory = this.CleanSpecialInstructions(clientOrder.SpecialInstructions);
+                clinicalHistory = this.CleanClinicalHistory(clinicalHistory);
+                clinicalHistory = Regex.Replace(clinicalHistory, @"^\s+$[\r\n]*", "", RegexOptions.Multiline);
+                clinicalHistory = this.FixCase(clinicalHistory.Trim());
+                this.m_TypingUI.AccessionOrder.ClinicalHistory += clinicalHistory;
             }
             else
             {
                 MessageBox.Show("Client order not found.");
             }
         }
+        
+        private string FixCase(string specialInstructions)
+        {
+            string result = specialInstructions.ToLower();
+            return char.ToUpper(result[0]) + result.Substring(1);            
+        }
+
+        public string CleanSpecialInstructions(string specialInstructions)
+        {
+            StringBuilder result = new StringBuilder();
+
+            List<string> removeList = new List<string>();
+            removeList.Add("PATH.ANTMCLOC:");
+            removeList.Add("PATH.BONEBX:");
+            removeList.Add("PATH.CC:");            
+            removeList.Add("PATH.CYTO:");
+            removeList.Add("PATH.F.COLLDATE:");
+            removeList.Add("PATH.F.COLLTIME:");
+            removeList.Add("PATH.FLOW:");
+            removeList.Add("PATH.PLACENTA:");
+            removeList.Add("PATH.PROC:");
+            removeList.Add("PATH.SPECIMEN:");
+
+            string[] rowSplit = specialInstructions.Split('\n');
+            foreach(string str in rowSplit)
+            {
+                bool matchFound = false;
+                foreach(string rmv in removeList)
+                {
+                    if(str.Contains(rmv) == true)
+                    {
+                        matchFound = true;
+                        break;
+                    }
+                }                
+                if (matchFound == false) result.AppendLine(str);                                
+            }
+            return result.ToString();
+        }
+
+        private string CleanClinicalHistory(string specialInstructions)
+        {
+            string preamble = "PATH.CLINICALHX: Clinical History:";
+            StringBuilder result = new StringBuilder();
+            string[] rowSplit = specialInstructions.Split('\n');
+            foreach(string str in rowSplit)
+            {
+                if(str.Contains(preamble) == true)
+                {
+                    string newStr = str.Substring(preamble.Length);
+                    result.AppendLine(newStr);
+                }
+                else
+                {                    
+                    result.AppendLine(str);                    
+                }                
+            }
+            return result.ToString();
+        }        
 
         private void ListViewSurgicalCaseList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {            

@@ -43,7 +43,8 @@ namespace YellowstonePathology.Business.Test
         protected string m_ValidatedBy;
         protected Nullable<DateTime> m_ValidationDate;
         protected string m_Status;
-        protected string m_EmbeddingInstructions;    
+        protected string m_EmbeddingInstructions;
+        protected bool m_Decal;
 
         public AliquotOrder_Base()
         {
@@ -478,6 +479,21 @@ namespace YellowstonePathology.Business.Test
                 {
                     this.m_EmbeddingVerifiedDate = value;
                     this.NotifyPropertyChanged("EmbeddingVerifiedDate");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
+        public bool Decal
+        {
+            get { return this.m_Decal; }
+            set
+            {
+                if (this.m_Decal != value)
+                {
+                    this.m_Decal = value;
+                    this.NotifyPropertyChanged("Decal");
                 }
             }
         }

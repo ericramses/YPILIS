@@ -21,6 +21,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             result.Add(new LSEColorectalResult1A());
             result.Add(new LSEColorectalResult2());
             result.Add(new LSEColorectalResult12());
+            result.Add(new LSEColorectalResult12B());
             result.Add(new LSEColorectalResult3());
             result.Add(new LSEColorectalResult32());
             result.Add(new LSEColorectalResult4());
@@ -47,6 +48,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             result.Add(new LSEColorectalResult1A());
             result.Add(new LSEColorectalResult2());
             result.Add(new LSEColorectalResult12());
+            result.Add(new LSEColorectalResult12B());
             result.Add(new LSEColorectalResult3());
             result.Add(new LSEColorectalResult32());
             result.Add(new LSEColorectalResult4());

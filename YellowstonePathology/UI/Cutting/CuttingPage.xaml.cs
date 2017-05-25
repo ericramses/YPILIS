@@ -23,10 +23,7 @@ namespace YellowstonePathology.UI.Cutting
         public event FinishedEventHandler Finished;
 
         public delegate void ShowTestOrderSelectionPageEventHandler(object sender, YellowstonePathology.UI.CustomEventArgs.AliquotOrderReturnEventArgs eventArgs);
-        public event ShowTestOrderSelectionPageEventHandler ShowTestOrderSelectionPage;        
-
-        //public delegate void PageTimedOutEventHandler(object sender, EventArgs eventArgs);
-        //public event PageTimedOutEventHandler PageTimedOut;
+        public event ShowTestOrderSelectionPageEventHandler ShowTestOrderSelectionPage;                
 
         private System.Windows.Threading.DispatcherTimer m_ListBoxSlidesMouseDownTimer;        
 
@@ -39,8 +36,7 @@ namespace YellowstonePathology.UI.Cutting
 
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort m_BarcodeScanPort;
-
-        //private System.Windows.Threading.DispatcherTimer m_PageTimeoutTimer;
+        
         private YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;
         private YellowstonePathology.Business.Label.Model.HistologySlidePaperLabelPrinter m_HistologySlidePaperLabelPrinter;
 
@@ -69,13 +65,7 @@ namespace YellowstonePathology.UI.Cutting
 			this.m_BarcodeScanPort = YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort.Instance;            
             
 			InitializeComponent();
-			DataContext = this;
-
-            /*this.m_PageTimeoutTimer = new System.Windows.Threading.DispatcherTimer();
-            this.m_PageTimeoutTimer.Interval = TimeSpan.FromMinutes(15);
-            //this.m_PageTimeoutTimer.Interval = TimeSpan.FromMinutes(2);
-            this.m_PageTimeoutTimer.Tick += new EventHandler(PageTimeoutTimer_Tick);
-            this.m_PageTimeoutTimer.Start();*/
+			DataContext = this;            
 
             this.Loaded += new RoutedEventHandler(CuttingPage_Loaded);
             this.Unloaded += new RoutedEventHandler(CuttingPage_Unloaded);            
@@ -88,13 +78,12 @@ namespace YellowstonePathology.UI.Cutting
 
         private void CuttingPage_Unloaded(object sender, RoutedEventArgs e)
         {
-            this.m_BarcodeScanPort.HistologySlideScanReceived -= BarcodeScanPort_HistologySlideScanReceived;
-            //this.m_PageTimeoutTimer.Stop();            
+            this.m_BarcodeScanPort.HistologySlideScanReceived -= BarcodeScanPort_HistologySlideScanReceived;            
         }
 
         private void PageTimeoutTimer_Tick(object sender, EventArgs e)
         {            
-            //this.PageTimedOut(this, new EventArgs());
+            
         }
 
 		public YellowstonePathology.Business.User.SystemIdentity SystemIdentity
@@ -292,7 +281,7 @@ namespace YellowstonePathology.UI.Cutting
 
         public override void BeforeNavigatingAway()
         {
-            //this.m_PageTimeoutTimer.Stop();
+            
         }
     }
 }

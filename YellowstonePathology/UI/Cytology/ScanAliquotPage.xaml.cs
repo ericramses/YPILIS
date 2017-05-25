@@ -20,9 +20,9 @@ namespace YellowstonePathology.UI.Cytology
 		public event PropertyChangedEventHandler PropertyChanged;		
 
         public delegate void UseThisAliquotOrderIdEventHandler(object sender, string aliquotOrderId);
-        public event UseThisAliquotOrderIdEventHandler UseThisAliquotOrderId;
+        public event UseThisAliquotOrderIdEventHandler UseThisAliquotOrderId;        
 
-		private YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort m_BarcodeScanPort;		
+        private YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort m_BarcodeScanPort;		
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
         private string m_Message;
 
@@ -43,11 +43,13 @@ namespace YellowstonePathology.UI.Cytology
 		{
             Business.Persistence.DocumentGateway.Instance.Push(Window.GetWindow(this));
             this.m_BarcodeScanPort.AliquotOrderIdReceived += BarcodeScanPort_AliquotOrderIdReceived;
+            this.m_BarcodeScanPort.ThinPrepSlideScanReceived += BarcodeScanPort_ThinPrepSlideScanReceived;
 		}        
 
         private void ScanContainerPage_Unloaded(object sender, RoutedEventArgs e)
 		{
-			this.m_BarcodeScanPort.AliquotOrderIdReceived -= this.BarcodeScanPort_AliquotOrderIdReceived;			
+			this.m_BarcodeScanPort.AliquotOrderIdReceived -= this.BarcodeScanPort_AliquotOrderIdReceived;
+            this.m_BarcodeScanPort.ThinPrepSlideScanReceived -= this.BarcodeScanPort_ThinPrepSlideScanReceived;
 		}
 
         public string Message
@@ -70,7 +72,16 @@ namespace YellowstonePathology.UI.Cytology
                 this.UseThisAliquotOrderId(this, scanData);
             }
             ));
-        }               
+        }
+
+        private void BarcodeScanPort_ThinPrepSlideScanReceived(Business.BarcodeScanning.Barcode barcode)
+        {
+            this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
+            {
+                this.UseThisAliquotOrderId(this, barcode.ID);
+            }
+            ));
+        }
 
         public string SystemUserDisplayText
         {

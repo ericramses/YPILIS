@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>55</ApplicationRevision>
+    <ApplicationRevision>85</ApplicationRevision>
     <ApplicationVersion>10.1.7.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -308,6 +308,8 @@
     <Compile Include="Business\Billing.Model\PropertyChanges.cs" />
     <Compile Include="Business\Client.Model\HPVCompoundStandingOrderRule6.cs" />
     <Compile Include="Business\Client.Model\IdahoClientIdList.cs" />
+    <Compile Include="Business\Facility.Model\FortHarrisonVA.cs" />
+    <Compile Include="Business\Facility.Model\CasperDermatologyClinic.cs" />
     <Compile Include="Business\Facility.Model\OregonHealthScienceUniversity.cs" />
     <Compile Include="Business\Facility.Model\MadisonMemorialHospital.cs" />
     <Compile Include="Business\Facility.Model\StanfordUniversityMedicalCenter.cs" />
@@ -1154,6 +1156,7 @@
     <Compile Include="Business\Test\LiposarcomaFusionProfile\LiposarcomaFusionProfileTestOrder.cs" />
     <Compile Include="Business\Test\LiposarcomaFusionProfile\LiposarcomaFusionProfileWordDocument.cs" />
     <Compile Include="Business\Test\LymphocyteSubsetPanel7\LymphocyteSubsetPanel7Test.cs" />
+    <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult12B.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult1A.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LynchSyndromeEvaluationWPHOBXView.cs" />
     <Compile Include="Business\Test\MDSByFish\MDSByFishWPHOBXView.cs" />
@@ -3204,6 +3207,7 @@
     <Compile Include="UI\Client\ClientGroupEntry.xaml.cs">
       <DependentUpon>ClientGroupEntry.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Client\CytologyRequisition.cs" />
     <Compile Include="UI\Common\OrderItemView.cs" />
     <Compile Include="UI\Converter\PathologySpecimenColorConverter.cs" />
     <Compile Include="UI\Converter\BooleanVisibilityHiddenConverter.cs" />
@@ -3502,6 +3506,9 @@
     </Compile>
     <Compile Include="UI\ReportOrder\ReportOrderMolecularAnalysisDialog.xaml.cs">
       <DependentUpon>ReportOrderMolecularAnalysisDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\RetrospectiveReviews.xaml.cs">
+      <DependentUpon>RetrospectiveReviews.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\SortDirectionAdorner.cs" />
     <Compile Include="UI\SpellCheckAccessionOrder.cs" />
@@ -5426,6 +5433,10 @@
     <Page Include="Resources\Styles\LoginStyles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\RetrospectiveReviews.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Surgical\SuggestedAdditionalTestingPage.xaml">
       <SubType>Designer</SubType>

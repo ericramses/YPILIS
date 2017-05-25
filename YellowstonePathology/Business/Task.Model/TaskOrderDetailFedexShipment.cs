@@ -23,6 +23,7 @@ namespace YellowstonePathology.Business.Task.Model
         private string m_ShipToZip;
         private string m_PaymentType;
         private string m_AccountNo;
+        private string m_ServiceType;
 
         public TaskOrderDetailFedexShipment()
         {
@@ -43,6 +44,7 @@ namespace YellowstonePathology.Business.Task.Model
             this.m_ShipToPhone = fedexShipment.ShipToFacility.PhoneNumber;
             this.m_PaymentType = fedexShipment.ShipToFacility.FedexPaymentType;
             this.m_AccountNo = fedexShipment.ShipToFacility.FedexAccountNo;
+            this.m_ServiceType = "PRIORITY_OVERNIGHT";
             this.m_LabelHasBeenPrinted = false;
         }
 
@@ -252,6 +254,21 @@ namespace YellowstonePathology.Business.Task.Model
                 {
                     this.m_AccountNo = value;
                     this.NotifyPropertyChanged("AccountNo");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "500", "null", "varchar")]
+        public string ServiceType
+        {
+            get { return this.m_ServiceType; }
+            set
+            {
+                if (this.m_ServiceType != value)
+                {
+                    this.m_ServiceType = value;
+                    this.NotifyPropertyChanged("ServiceType");
                 }
             }
         }

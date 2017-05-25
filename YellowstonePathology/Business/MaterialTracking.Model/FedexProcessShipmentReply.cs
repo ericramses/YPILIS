@@ -26,7 +26,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
             this.m_TrackingNumber = this.m_ShipmentResponse.XPathSelectElement("//SOAP-ENV:Envelope/SOAP-ENV:Body/ns:ProcessShipmentReply/ns:CompletedShipmentDetail/ns:CompletedPackageDetails/ns:TrackingIds/ns:TrackingNumber", namespaces).Value;
             this.m_ZPLII = this.m_ShipmentResponse.XPathSelectElement("//SOAP-ENV:Envelope/SOAP-ENV:Body/ns:ProcessShipmentReply/ns:CompletedShipmentDetail/ns:CompletedPackageDetails/ns:Label/ns:Parts/ns:Image", namespaces).Value;
             string status = this.m_ShipmentResponse.XPathSelectElement("//SOAP-ENV:Envelope/SOAP-ENV:Body/ns:ProcessShipmentReply/ns:HighestSeverity", namespaces).Value;
-            if (status == "SUCCESS")
+            if (status == "SUCCESS" || status == "WARNING")
             {
                 this.m_RequestWasSuccessful = true;
             }
