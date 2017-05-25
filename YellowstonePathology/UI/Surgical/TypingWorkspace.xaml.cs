@@ -851,17 +851,26 @@ namespace YellowstonePathology.UI.Surgical
                 BindingExpression bindingExpression = this.TextBoxClinical.GetBindingExpression(TextBox.TextProperty);
                 bindingExpression.UpdateSource();
 
-                YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = clientOrderCollection[0];
-                string clinicalHistory = this.CleanSpecialInstructions(clientOrder.SpecialInstructions);
-                clinicalHistory = this.CleanClinicalHistory(clinicalHistory);
-                clinicalHistory = Regex.Replace(clinicalHistory, @"^\s+$[\r\n]*", "", RegexOptions.Multiline);
-                clinicalHistory = this.FixCase(clinicalHistory.Trim());
-                this.m_TypingUI.AccessionOrder.ClinicalHistory += clinicalHistory;
+                YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = clientOrderCollection[0];                               
+                this.m_TypingUI.AccessionOrder.ClinicalHistory += this.CleanWPHClinicalHistory(clientOrder.SpecialInstructions);
             }
             else
             {
                 MessageBox.Show("Client order not found.");
             }
+        }
+
+        private string CleanWPHClinicalHistory(string specialInstructions)
+        {
+            string clinicalHistory = specialInstructions;
+            if(specialInstructions.Contains("PATH.CLINICALHX") == true)
+            {
+                clinicalHistory = this.CleanSpecialInstructions(clinicalHistory);
+                clinicalHistory = this.CleanClinicalHistory(clinicalHistory);
+                clinicalHistory = Regex.Replace(clinicalHistory, @"^\s+$[\r\n]*", "", RegexOptions.Multiline);
+                clinicalHistory = this.FixCase(clinicalHistory.Trim());
+            }            
+            return clinicalHistory;
         }
         
         private string FixCase(string specialInstructions)
