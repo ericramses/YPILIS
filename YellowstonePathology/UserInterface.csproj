@@ -1158,6 +1158,7 @@
     <Compile Include="Business\Test\LynchSyndrome\LynchSyndromeEvaluationWPHOBXView.cs" />
     <Compile Include="Business\Test\MDSByFish\MDSByFishWPHOBXView.cs" />
     <Compile Include="Business\Test\METMutationAnalysis\METMutationAnalysisTest.cs" />
+    <Compile Include="Business\Test\Miprofile\MiprofileTest.cs" />
     <Compile Include="Business\Test\MPL\MPLWPHOBXView.cs" />
     <Compile Include="Business\Test\MPNStandardReflexPanel\MPNStandardReflexPanelTest.cs" />
     <Compile Include="Business\Test\FlowCytometryAnalysis\FlowCytometryAnalysisTest.cs" />
