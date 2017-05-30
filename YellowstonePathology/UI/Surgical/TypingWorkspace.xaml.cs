@@ -865,9 +865,7 @@ namespace YellowstonePathology.UI.Surgical
             string clinicalHistory = specialInstructions;
             if(specialInstructions.Contains("PATH.CLINICALHX") == true)
             {
-                clinicalHistory = this.CleanSpecialInstructions(clinicalHistory);
-                clinicalHistory = this.CleanClinicalHistory(clinicalHistory);
-                clinicalHistory = Regex.Replace(clinicalHistory, @"^\s+$[\r\n]*", "", RegexOptions.Multiline);
+                clinicalHistory = this.GetWHPSpecialInstructions(specialInstructions);                
                 clinicalHistory = this.FixCase(clinicalHistory.Trim());
             }            
             return clinicalHistory;
@@ -879,54 +877,18 @@ namespace YellowstonePathology.UI.Surgical
             return char.ToUpper(result[0]) + result.Substring(1);            
         }
 
-        public string CleanSpecialInstructions(string specialInstructions)
-        {
-            StringBuilder result = new StringBuilder();
-
-            List<string> removeList = new List<string>();
-            removeList.Add("PATH.ANTMCLOC:");
-            removeList.Add("PATH.BONEBX:");
-            removeList.Add("PATH.CC:");            
-            removeList.Add("PATH.CYTO:");
-            removeList.Add("PATH.F.COLLDATE:");
-            removeList.Add("PATH.F.COLLTIME:");
-            removeList.Add("PATH.FLOW:");
-            removeList.Add("PATH.PLACENTA:");
-            removeList.Add("PATH.PROC:");
-            removeList.Add("PATH.SPECIMEN:");
-
-            string[] rowSplit = specialInstructions.Split('\n');
-            foreach(string str in rowSplit)
-            {
-                bool matchFound = false;
-                foreach(string rmv in removeList)
-                {
-                    if(str.Contains(rmv) == true)
-                    {
-                        matchFound = true;
-                        break;
-                    }
-                }                
-                if (matchFound == false) result.AppendLine(str);                                
-            }
-            return result.ToString();
-        }
-
-        private string CleanClinicalHistory(string specialInstructions)
+        public string GetWHPSpecialInstructions(string specialInstructions)
         {
             string preamble = "PATH.CLINICALHX: Clinical History:";
             StringBuilder result = new StringBuilder();
             string[] rowSplit = specialInstructions.Split('\n');
-            foreach(string str in rowSplit)
+            foreach (string str in rowSplit)
             {
-                if(str.Contains(preamble) == true)
+                if (str.Contains(preamble) == true)
                 {
                     string newStr = str.Substring(preamble.Length);
                     result.AppendLine(newStr);
-                }
-                else
-                {                    
-                    result.AppendLine(str);                    
+                    break;
                 }                
             }
             return result.ToString();
