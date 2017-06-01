@@ -1149,6 +1149,11 @@
     <Compile Include="Business\Test\FISH5p159q2215p22\FISH5p159q2215p22Test.cs" />
     <Compile Include="Business\Test\FISH5p159q2215p22\FISH5p159q2215p22TestOrder.cs" />
     <Compile Include="Business\Test\FISH5p159q2215p22\FISH5p159q2215p22WordDocument.cs" />
+    <Compile Include="Business\Test\HematopathologySummary\HematopathologySummaryEPICOBXView.cs" />
+    <Compile Include="Business\Test\HematopathologySummary\HematopathologySummaryTest.cs" />
+    <Compile Include="Business\Test\HematopathologySummary\HematopathologySummaryTestOrder.cs" />
+    <Compile Include="Business\Test\HematopathologySummary\HematopathologySummaryWordDocument.cs" />
+    <Compile Include="Business\Test\HematopathologySummary\HematopathologySummaryWPHOBXView.cs" />
     <Compile Include="Business\Test\HoldForFlow\HoldForFlowWPHOBXView.cs" />
     <Compile Include="Business\Test\IgHClonalityMRDByNGS\IgHClonalityMRDByNGSTest.cs" />
     <Compile Include="Business\Test\LiposarcomaFusionProfile\LiposarcomaFusionProfileEPICOBXView.cs" />
@@ -3725,6 +3730,10 @@
     <Compile Include="UI\Test\GrossOnlyResultPage.xaml.cs">
       <DependentUpon>GrossOnlyResultPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Test\HematopathologySummaryResultPage.xaml.cs">
+      <DependentUpon>HematopathologySummaryResultPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Test\HematopathologySummaryResultPath.cs" />
     <Compile Include="UI\Test\HoldForFlowResultPage.xaml.cs">
       <DependentUpon>HoldForFlowResultPage.xaml</DependentUpon>
     </Compile>
@@ -5639,6 +5648,10 @@
     <Page Include="UI\Test\GrossOnlyResultPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Test\HematopathologySummaryResultPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Test\HoldForFlowResultPage.xaml">
       <SubType>Designer</SubType>

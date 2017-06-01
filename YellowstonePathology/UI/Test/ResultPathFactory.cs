@@ -315,6 +315,9 @@ namespace YellowstonePathology.UI.Test
                 case 263:
                     result = new BCellSubsetAnalysisResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
+                case 268:
+                    result = new HematopathologySummaryResultPath(reportNo, accessionOrder, pageNavigator, window);
+                    break;
             }
             return result;
         }
