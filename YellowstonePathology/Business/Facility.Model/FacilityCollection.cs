@@ -101,6 +101,7 @@ namespace YellowstonePathology.Business.Facility.Model
             result.Add(new OregonHealthScienceUniversity());
             result.Add(new CasperDermatologyClinic());
             result.Add(new FortHarrisonVA());
+            result.Add(new NorthernMontanaHealthcare());
             return Sort(result);
         }
 

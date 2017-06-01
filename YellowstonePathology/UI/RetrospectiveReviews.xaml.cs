@@ -53,33 +53,40 @@ namespace YellowstonePathology.UI
         private void AddRandomTest(DateTime workDate)
         {
             Business.Search.ReportSearchList list = YellowstonePathology.Business.Gateway.ReportSearchGateway.GetPossibleRetrospectiveReviews(workDate);
-            
-            int count = list.Count;
-            double tenPercentOfCount = Math.Round((count * .1), 0);
-
-            Random rnd = new Random();
-            int i = 0;
-            while (true)
+            if(list.Count != 0)
             {
-                int nextRnd = rnd.Next(0, count - 1);
-                string nextMasterAccessionNo = list[nextRnd].MasterAccessionNo;
+                int count = list.Count;
 
-                Business.Test.AccessionOrder ao = Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(nextMasterAccessionNo, this);                
-                if(ao.PanelSetOrderCollection.HasPanelSetBeenOrdered(262) == false)
-                {
-                    YellowstonePathology.Business.Test.RetrospectiveReview.RetrospectiveReviewTest retrospectiveReviewTest = new YellowstonePathology.Business.Test.RetrospectiveReview.RetrospectiveReviewTest();
-                    YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new Business.Test.TestOrderInfo(retrospectiveReviewTest, null, false);
-                    YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfo);
-                    ao.TakeATrip(orderTestOrderVisitor);
-                }
+                double tenPercentOfCount = Math.Round((count * .1), 0);
 
-                i += 1;
-                if (i == tenPercentOfCount)
+                Random rnd = new Random();
+                int i = 0;
+                while (true)
                 {
-                    Business.Persistence.DocumentGateway.Instance.Push(this);
-                    break;
+                    int nextRnd = rnd.Next(0, count - 1);
+                    string nextMasterAccessionNo = list[nextRnd].MasterAccessionNo;
+
+                    Business.Test.AccessionOrder ao = Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(nextMasterAccessionNo, this);
+                    if (ao.PanelSetOrderCollection.HasPanelSetBeenOrdered(262) == false)
+                    {
+                        YellowstonePathology.Business.Test.RetrospectiveReview.RetrospectiveReviewTest retrospectiveReviewTest = new YellowstonePathology.Business.Test.RetrospectiveReview.RetrospectiveReviewTest();
+                        YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new Business.Test.TestOrderInfo(retrospectiveReviewTest, null, false);
+                        YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfo);
+                        ao.TakeATrip(orderTestOrderVisitor);
+                    }
+
+                    i += 1;
+                    if (i == tenPercentOfCount)
+                    {
+                        Business.Persistence.DocumentGateway.Instance.Push(this);
+                        break;
+                    }
                 }
             }
+            else
+            {
+                MessageBox.Show("There are no cases to choose from for this day.");
+            }            
         }
 
         private void ContextMenuDeleteReview_Click(object sender, RoutedEventArgs e)

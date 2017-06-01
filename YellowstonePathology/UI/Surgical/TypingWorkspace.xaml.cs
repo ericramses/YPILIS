@@ -878,18 +878,87 @@ namespace YellowstonePathology.UI.Surgical
         }
 
         public string GetWHPSpecialInstructions(string specialInstructions)
-        {
-            string preamble = "PATH.CLINICALHX: Clinical History:";
+        {            
             StringBuilder result = new StringBuilder();
             string[] rowSplit = specialInstructions.Split('\n');
             foreach (string str in rowSplit)
             {
-                if (str.Contains(preamble) == true)
+                string clnclhstry = "PATH.CLINICALHX: Clinical History:";
+                if (str.Contains(clnclhstry) == true)
                 {
-                    string newStr = str.Substring(preamble.Length);
+                    string newStr = str.Substring(clnclhstry.Length);
+                    result.AppendLine(newStr);                    
+                }
+
+                string apgar1 = "PATH.P.APGAR1: ";
+                if (str.Contains(apgar1) == true)
+                {
+                    string newStr = str.Substring(apgar1.Length);
                     result.AppendLine(newStr);
-                    break;
-                }                
+                }
+
+                string apgar2 = "PATH.P.APGAR2: ";
+                if (str.Contains(apgar2) == true)
+                {
+                    string newStr = str.Substring(apgar2.Length);
+                    result.AppendLine(newStr);
+                }
+
+                string gstge = "PATH.P.GESTAGE: ";
+                if (str.Contains(gstge) == true)
+                {
+                    string newStr = str.Substring(gstge.Length);
+                    result.AppendLine(newStr);
+                }
+
+                string grvd = "PATH.P.GRAVIDA: ";
+                if (str.Contains(grvd) == true)
+                {
+                    string newStr = str.Substring(grvd.Length);
+                    result.AppendLine(newStr);
+                }
+
+                string nfwght = "PATH.P.INFWGHT: ";
+                if (str.Contains(nfwght) == true)
+                {
+                    string newStr = str.Substring(nfwght.Length);
+                    result.AppendLine(newStr);
+                }
+
+                string thr = "PATH.P.OTHER: ";
+                if (str.Contains(thr) == true)
+                {
+                    string newStr = str.Substring(thr.Length);
+                    result.AppendLine(newStr);
+                }
+
+                string thr2 = "PATH.P.OTHER2: ";
+                if (str.Contains(thr2) == true)
+                {
+                    string newStr = str.Substring(thr2.Length);
+                    result.AppendLine(newStr);
+                }
+
+                string qstn = "PATH.P.QUESTION: ";
+                if (str.Contains(qstn) == true)
+                {
+                    string newStr = str.Substring(qstn.Length);
+                    result.AppendLine(newStr);
+                }
+
+                string tob = "PATH.P.TOB: ";
+                if (str.Contains(tob) == true)
+                {
+                    string newStr = str.Substring(tob.Length);
+                    result.AppendLine(newStr);
+                }
+
+                string topd = "PATH.P.TOPD: ";
+                if (str.Contains(topd) == true)
+                {
+                    string newStr = str.Substring(topd.Length);
+                    result.AppendLine(newStr);
+                }
             }
             return result.ToString();
         }        
