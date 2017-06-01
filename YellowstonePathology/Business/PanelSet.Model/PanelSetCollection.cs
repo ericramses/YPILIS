@@ -228,6 +228,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.Test.BCellEnumeration.BCellEnumerationTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.BCellSubsetAnalysis.BCellSubsetAnalysisTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.TCellSubsetAnalysis.TCellSubsetAnalysisTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.HematopathologySummary.HematopathologySummaryTest());
 
             //UniversityofWashington
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetUniversalOrganismByPCR());
