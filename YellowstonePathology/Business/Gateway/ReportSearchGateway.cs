@@ -217,9 +217,22 @@ namespace YellowstonePathology.Business.Gateway
                 "FROM tblAccessionOrder a " +
                 "JOIN tblPanelSetOrder pso ON a.MasterAccessionNo = pso.MasterAccessionNo " +
                 "Left Outer Join tblSystemUser su on pso.OrderedById = su.UserId " +
+                "WHERE pso.PanelSetId = 262 " +
+                "and exists (select null from tblPanelSetOrder where MasterAccessionNo = a.MasterAccessionNo and PanelSetId = 13 and FinalDate = @FinalDate) " +
+                "ORDER BY AccessionTime desc;";
+
+            /*
+            cmd.CommandText = "SELECT pso.MasterAccessionNo, pso.ReportNo, a.AccessionTime AccessionDate,  pso.PanelSetId, " +
+                "concat(a.PFirstName, ' ', a.PLastName) AS PatientName, " +
+                "a.PLastName, a.PFirstName, a.ClientName, a.PhysicianName, a.PBirthdate, pso.FinalDate, pso.PanelSetName, su.UserName as OrderedBy, " +
+                "'' ForeignAccessionNo, pso.IsPosted " +
+                "FROM tblAccessionOrder a " +
+                "JOIN tblPanelSetOrder pso ON a.MasterAccessionNo = pso.MasterAccessionNo " +
+                "Left Outer Join tblSystemUser su on pso.OrderedById = su.UserId " +
                 "WHERE pso.FinalDate = @FinalDate and pso.PanelSetId = 13 " +
                 "and exists (select null from tblPanelSetOrder where MasterAccessionNo = a.MasterAccessionNo and PanelSetId = 262) " +                
                 "ORDER BY AccessionTime desc;";
+            */
             cmd.Parameters.AddWithValue("@FinalDate", finalDate);
             Search.ReportSearchList reportSearchList = BuildReportSearchList(cmd);
             return reportSearchList;

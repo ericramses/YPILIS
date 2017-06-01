@@ -109,6 +109,7 @@ namespace YellowstonePathology.UI
             if (this.m_ReportSearchList.Count == 0)
             {
                 this.AddRandomTest(this.m_WorkDate);
+                this.m_ReportSearchList = YellowstonePathology.Business.Gateway.ReportSearchGateway.GetRetrospectiveReviews(this.m_WorkDate);
                 this.NotifyPropertyChanged("ReportSearchList");
             }
             else

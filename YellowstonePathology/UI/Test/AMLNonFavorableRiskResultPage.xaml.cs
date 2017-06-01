@@ -41,8 +41,7 @@ namespace YellowstonePathology.UI.Test
             this.m_AccessionOrder = accessionOrder;
             this.m_SystemIdentity = systemIdentity;
 
-            this.m_PageHeaderText = this.m_PanelSetOrder.PanelSetName + " Result For: " + this.m_AccessionOrder.PatientDisplayName;
-
+            this.m_PageHeaderText = this.m_PanelSetOrder.PanelSetName + " Result For: " + this.m_AccessionOrder.PatientDisplayName;            
             YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);
             this.m_OrderedOnDescription = specimenOrder.Description;
 
