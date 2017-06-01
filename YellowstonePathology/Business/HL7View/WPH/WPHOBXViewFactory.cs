@@ -278,6 +278,9 @@ namespace YellowstonePathology.Business.HL7View.WPH
                 case 263:
                     view = new YellowstonePathology.Business.Test.BCellSubsetAnalysis.BCellSubsetAnalysisWPHOBXView(accessionOrder, reportNo, obxCount);
                     break;
+                case 268:
+                    view = new YellowstonePathology.Business.Test.HematopathologySummary.HematopathologySummaryWPHOBXView(accessionOrder, reportNo, obxCount);
+                    break;
             }
             return view;
         }
