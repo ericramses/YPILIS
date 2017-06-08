@@ -165,6 +165,7 @@
 
                                         <TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" FontWeight="Bold">Impact On Patient:</TextBlock>
                                         <ComboBox Grid.Column="1" Grid.Row="2" Margin="2,2,2,2" IsEditable="True" Text="{Binding Path=Impact}">
+                                            <ComboBoxItem>None</ComboBoxItem>
                                             <ComboBoxItem>Near Miss</ComboBoxItem>
                                             <ComboBoxItem>Precursors Safety Event</ComboBoxItem>
                                             <ComboBoxItem>Serious Safety Event</ComboBoxItem>

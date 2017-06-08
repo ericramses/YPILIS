@@ -14,6 +14,7 @@ namespace YellowstonePathology.Business.Test.RetrospectiveReview
     {
         public void Sync(DataTable dataTable)
         {
+            this.RemoveDeleted(dataTable);
             DataTableReader dataTableReader = new DataTableReader(dataTable);
             while (dataTableReader.Read())
             {

@@ -415,6 +415,11 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 isDualStain = true;
             }
 
+            if(this.m_Aliquot != null && this.m_Aliquot.AliquotType == "Wash")
+            {
+                AddWash();
+            }
+
 			if (this.m_Aliquots.HasValue == true && this.m_Aliquot != null && this.m_Aliquot.AliquotType == "FNASLD")
             {
                 if (this.m_PassNumber.HasValue == true)
@@ -425,7 +430,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 {
                     this.AddFNASlide(false, 0);
                 }
-            }
+            }            
             else if (this.m_Aliquots.HasValue == true && this.m_Aliquot != null && this.m_Aliquot.AliquotType == "NGYNSLD")
             {                
                 this.AddNGYNSlide();                
@@ -492,6 +497,15 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                         specimenOrder.AliquotOrderCollection.AddFNASlide(specimenOrder, slideNumber, this.m_AccessionOrder.AccessionDate.Value);
                     }
                 }                
+            }
+        }
+
+        private void AddWash()
+        {
+            YellowstonePathology.Business.Specimen.Model.SpecimenOrderCollection selectedSpecimen = this.m_AliquotAndStainOrderView.GetSelectedSpecimen();
+            foreach (YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder in selectedSpecimen)
+            {                
+                specimenOrder.AliquotOrderCollection.AddWash(specimenOrder, this.m_AccessionOrder.AccessionDate.Value);                
             }
         }
 
@@ -662,6 +676,11 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
         private void ButtonAliquotTypeSpecimen_Click(object sender, RoutedEventArgs e)
         {
             this.Aliquot = new YellowstonePathology.Business.Specimen.Model.SpecimenAliquot(YellowstonePathology.Business.Specimen.Model.AliquotLabelType.PaperLabel);
+        }
+
+        private void ButtonAliquotTypeWash_Click(object sender, RoutedEventArgs e)
+        {
+            this.Aliquot = new YellowstonePathology.Business.Specimen.Model.WashAliquot(YellowstonePathology.Business.Specimen.Model.AliquotLabelType.PaperLabel);
         }
 
         private void ButtonAliquotTypeSlide_Click(object sender, RoutedEventArgs e)
@@ -839,10 +858,19 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
         {
             MenuItem menuItem = (MenuItem)sender;            
             XElement xElement = XElement.Parse(menuItem.Tag.ToString());
-            string aliquotOrderId = xElement.Element("AliquotOrderId").Value;
+            string aliquotOrderId = xElement.Element("AliquotOrderId").Value;            
             YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetAliquotOrder(aliquotOrderId);
-            YellowstonePathology.Business.Label.Model.BlockLabelPrinter blockLabelPrinter = new Business.Label.Model.BlockLabelPrinter(aliquotOrderId, aliquotOrder.Label, this.m_AccessionOrder.MasterAccessionNo, this.m_AccessionOrder.PLastName, this.m_AccessionOrder.PFirstName);
-            blockLabelPrinter.Print();
-        }
+
+            if(aliquotOrder.AliquotType == "Wash")
+            {
+                YellowstonePathology.Business.Label.Model.AliquotLabelPrinter aliquotLabelPrinter = new Business.Label.Model.AliquotLabelPrinter(aliquotOrderId, aliquotOrder.Label, this.m_AccessionOrder.MasterAccessionNo, this.m_AccessionOrder.PLastName, this.m_AccessionOrder.PFirstName);
+                aliquotLabelPrinter.Print();
+            }
+            else
+            {
+                YellowstonePathology.Business.Label.Model.BlockLabelPrinter blockLabelPrinter = new Business.Label.Model.BlockLabelPrinter(aliquotOrderId, aliquotOrder.Label, this.m_AccessionOrder.MasterAccessionNo, this.m_AccessionOrder.PLastName, this.m_AccessionOrder.PFirstName);
+                blockLabelPrinter.Print();
+            }            
+        }        
     }
 }

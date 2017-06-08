@@ -1781,7 +1781,12 @@ namespace YellowstonePathology.Business.Test
 			return "The result string for this test has not been implemented.";
 		}
 
-		public void Accept()
+        public virtual string ToSummaryResultString(AccessionOrder accessionOrder)
+        {
+            return "This result to be reported separately.";
+        }
+
+        public void Accept()
 		{
 			this.m_Accepted = true;
             this.m_AcceptedById = Business.User.SystemIdentity.Instance.User.UserId;

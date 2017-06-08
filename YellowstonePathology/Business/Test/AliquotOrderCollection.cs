@@ -215,7 +215,21 @@ namespace YellowstonePathology.Business.Test
             return aliquotOrder;
         }
 
-		public AliquotOrder AddCESlide(YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder, DateTime accessionDate)
+        public AliquotOrder AddWash(YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder, DateTime accessionDate)
+        {
+            AliquotOrder aliquotOrder = this.GetNextItem(specimenOrder, AliquotType.Wash, accessionDate);
+            aliquotOrder.SpecimenOrderId = specimenOrder.SpecimenOrderId;
+            aliquotOrder.Description = string.Empty;
+            aliquotOrder.AliquotType = "Wash";
+            aliquotOrder.LabelPrefix = string.Empty;
+            aliquotOrder.Label = specimenOrder.SpecimenNumber.ToString() + ".1";
+            aliquotOrder.LabelType = YellowstonePathology.Business.Specimen.Model.AliquotLabelType.PaperLabel;
+            this.Add(aliquotOrder);
+            this.SetBlockLabels(specimenOrder.SpecimenNumber);
+            return aliquotOrder;
+        }
+
+        public AliquotOrder AddCESlide(YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder, DateTime accessionDate)
         {
             AliquotOrder aliquotOrder = this.GetNextItem(specimenOrder, AliquotType.Slide, accessionDate);
             aliquotOrder.SpecimenOrderId = specimenOrder.SpecimenOrderId;

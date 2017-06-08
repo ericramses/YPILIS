@@ -29,7 +29,7 @@ namespace YellowstonePathology.UI
         {            
             if (DateTime.Today.DayOfWeek == DayOfWeek.Monday)
             {
-                this.m_WorkDate = this.m_WorkDate.AddDays(-3);
+                this.m_WorkDate = DateTime.Today.AddDays(-3);
             }
             else
             {
@@ -52,6 +52,10 @@ namespace YellowstonePathology.UI
 
         private void AddRandomTest(DateTime workDate)
         {
+            List<int> exclusionList = new List<int>();
+            exclusionList.Add(262);
+            exclusionList.Add(197);
+
             Business.Search.ReportSearchList list = YellowstonePathology.Business.Gateway.ReportSearchGateway.GetPossibleRetrospectiveReviews(workDate);
             if(list.Count != 0)
             {
@@ -67,12 +71,15 @@ namespace YellowstonePathology.UI
                     string nextMasterAccessionNo = list[nextRnd].MasterAccessionNo;
 
                     Business.Test.AccessionOrder ao = Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(nextMasterAccessionNo, this);
-                    if (ao.PanelSetOrderCollection.HasPanelSetBeenOrdered(262) == false)
+                    
+                    if (ao.PanelSetOrderCollection.HasPanelSetBeenOrdered(exclusionList) == false)
                     {
                         YellowstonePathology.Business.Test.RetrospectiveReview.RetrospectiveReviewTest retrospectiveReviewTest = new YellowstonePathology.Business.Test.RetrospectiveReview.RetrospectiveReviewTest();
                         YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new Business.Test.TestOrderInfo(retrospectiveReviewTest, null, false);
                         YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfo);
                         ao.TakeATrip(orderTestOrderVisitor);
+                        Business.Test.PanelSetOrder pso = ao.PanelSetOrderCollection.GetPanelSetOrder(262);
+                        pso.AssignedToId = 0;                         
                     }
 
                     i += 1;

@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>95</ApplicationRevision>
+    <ApplicationRevision>103</ApplicationRevision>
     <ApplicationVersion>10.1.7.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -83,6 +83,9 @@
   </PropertyGroup>
   <PropertyGroup />
   <ItemGroup>
+    <Reference Include="CefSharp.Wpf">
+      <HintPath>..\packages\CefSharp.Wpf.57.0.0\CefSharp\x86\CefSharp.Wpf.dll</HintPath>
+    </Reference>
     <Reference Include="Google.Protobuf, Version=3.2.0.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
       <HintPath>..\packages\Google.Protobuf.3.2.0\lib\net45\Google.Protobuf.dll</HintPath>
       <Private>True</Private>
@@ -1021,11 +1024,13 @@
     <Compile Include="Business\Label.Model\AliquotOrderPrinter.cs" />
     <Compile Include="Business\Label.Model\BlockLabel.cs" />
     <Compile Include="Business\Label.Model\BlockLabelLegacy.cs" />
+    <Compile Include="Business\Label.Model\AliquotLabelPrinter.cs" />
     <Compile Include="Business\Label.Model\BlockLabelPrinter.cs" />
     <Compile Include="Business\Label.Model\Cassette.cs" />
     <Compile Include="Business\Label.Model\CassettePrinter.cs" />
     <Compile Include="Business\Label.Model\ContainerPaperLabel.cs" />
     <Compile Include="Business\Label.Model\ContainerPaperLabelPrinter.cs" />
+    <Compile Include="Business\Label.Model\AliquotPaperZPLLabel.cs" />
     <Compile Include="Business\Label.Model\UrineZPLLabel.cs" />
     <Compile Include="Business\Label.Model\IFEZPLLabel.cs" />
     <Compile Include="Business\Label.Model\FormalinAddedZPLLabel.cs" />
@@ -1123,6 +1128,7 @@
     <Compile Include="Business\Reports\SurgicalSpecimenDisposalReportV2.xaml.cs">
       <DependentUpon>SurgicalSpecimenDisposalReportV2.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Business\Specimen.Model\WashAliquot.cs" />
     <Compile Include="Business\Task.Model\TaskOrderRetrospectiveReview.cs" />
     <Compile Include="Business\Task.Model\TaskRetrospectiveReview.cs" />
     <Compile Include="Business\Task.Model\TaskFedexShipment.cs" />
@@ -3200,6 +3206,9 @@
     <Compile Include="UI\CellCounter.xaml.cs">
       <DependentUpon>CellCounter.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\ChromiumTest.xaml.cs">
+      <DependentUpon>ChromiumTest.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\ClientOrderUI.cs" />
     <Compile Include="UI\ClientOrderWorkspace.xaml.cs">
       <DependentUpon>ClientOrderWorkspace.xaml</DependentUpon>
@@ -5141,6 +5150,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\CellCounter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\ChromiumTest.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -6,21 +6,21 @@ using System.Threading.Tasks;
 
 namespace YellowstonePathology.Business.Label.Model
 {
-    public class HistologyBlockPaperZPLLabel
+    public class AliquotPaperZPLLabel
     {
         private string m_MasterAccessionNo;
         private string m_AliquotOrderId;
         private string m_LastName;
         private string m_FirstName;
-        private string m_BlockId;
+        private string m_AliquotId;
 
-        public HistologyBlockPaperZPLLabel(string aliquotOrderId, string lastName, string firstName, string blockId, string masterAccessionNo)
+        public AliquotPaperZPLLabel(string aliquotOrderId, string lastName, string firstName, string aliquotId, string masterAccessionNo)
         {
             this.m_MasterAccessionNo = masterAccessionNo;
             this.m_LastName = lastName;
             this.m_FirstName = firstName;
             this.m_AliquotOrderId = aliquotOrderId;
-            this.m_BlockId = blockId;
+            this.m_AliquotId = aliquotId;
         }
 
 
@@ -46,11 +46,11 @@ namespace YellowstonePathology.Business.Label.Model
                truncatedLastName = this.m_LastName;
             }
         
-            zplString.Append("^FO" + (30 + xOffset) + ",090^BXN,08,200^FD" + "HBLK" + this.m_AliquotOrderId + "^FS");
+            zplString.Append("^FO" + (30 + xOffset) + ",090^BXN,08,200^FD" + this.m_AliquotOrderId + "^FS");
             zplString.Append("^FO" + (30 + xOffset) + ",040^ATN,40,40^FD" + this.m_MasterAccessionNo + "^FS");
             zplString.Append("^FO" + (30 + xOffset) + ",220^AQN,25,25^FD" + truncatedLastName + "^FS");
             zplString.Append("^FO" + (30 + xOffset) + ",245^AQN,25,25^FD" + truncatedFirstName + "^FS");
-            zplString.Append("^FO" + (175 + xOffset) + ",130^ATN,25,25^FD" + this.m_BlockId + "^FS");
+            zplString.Append("^FO" + (175 + xOffset) + ",130^ATN,25,25^FD" + this.m_AliquotId + "^FS");
             zplString.Append("^FO" + (175 + xOffset) + ",175^AQN,25,25^FD" + "YPI" + "^FS");
         }        
     }

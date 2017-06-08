@@ -97,8 +97,8 @@ namespace YellowstonePathology.Business.Test.BCL2t1418ByFISH
             result.AppendLine("Interpretation: " + this.m_Interpretation);
             result.AppendLine();
 
-            return result.ToString();
-        }
+            return result.ToString().Trim();
+        }        
     }
 }
 

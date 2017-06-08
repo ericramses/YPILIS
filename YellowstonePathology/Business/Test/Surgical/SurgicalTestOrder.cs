@@ -119,10 +119,10 @@ namespace YellowstonePathology.Business.Test.Surgical
 				result.AppendLine(surgicalSpecimenResult.Diagnosis);
 			}
 
-			return result.ToString();
-		}
+			return result.ToString().Trim();
+		}        
 
-		public YellowstonePathology.Business.Specimen.Model.SpecimenOrderCollection SpecimenOrderCollection
+        public YellowstonePathology.Business.Specimen.Model.SpecimenOrderCollection SpecimenOrderCollection
 		{
 			get { return m_SpecimenOrderCollection; }
 			set { m_SpecimenOrderCollection = value; }

@@ -187,8 +187,8 @@ namespace YellowstonePathology.UI.Billing
                 return;
             }
 
-            try
-            {
+            //try
+            //{
                 if (this.IsTechnicalBillingFacilityValid() == true)
                 {
                     if (this.IsProfessionalBillingFacilityValid() == true)
@@ -201,13 +201,13 @@ namespace YellowstonePathology.UI.Billing
                         }
                     }
                 }
-            }
-            catch(Exception exc)
-            {
-                Business.Logging.EmailExceptionHandler.HandleException("ButtonSet_Click: ReportNo - " + this.m_PanelSetOrder.ReportNo + " - " + exc.Message);
-                MessageBox.Show("Oops! An error occurred that I cannot recover from.  I sent and email to IT and I am going to shut the application down.");
-                Application.Current.Shutdown();
-            }            
+            //}
+            //catch(Exception exc)
+            //{
+            //    Business.Logging.EmailExceptionHandler.HandleException("ButtonSet_Click: ReportNo - " + this.m_PanelSetOrder.ReportNo + " - " + exc.Message);
+            //    MessageBox.Show("Oops! An error occurred that I cannot recover from.  I sent and email to IT and I am going to shut the application down.");
+            //    Application.Current.Shutdown();
+            //}            
         }
 
         private bool IsTechnicalBillingFacilityValid()

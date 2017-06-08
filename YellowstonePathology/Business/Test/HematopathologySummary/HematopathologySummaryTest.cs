@@ -19,13 +19,14 @@ namespace YellowstonePathology.Business.Test.HematopathologySummary
             this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterY();
             this.m_Active = true;
+            this.m_HasNoOrderTarget = true;
 
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.HematopathologySummary.HematopathologySummaryTestOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.HematopathologySummary.HematopathologySummaryWordDocument).AssemblyQualifiedName;
             this.m_AllowMultiplePerAccession = true;
             this.m_EpicDistributionIsImplemented = true;
 
-            this.m_ExpectedDuration = new TimeSpan(3, 0, 0, 0);
+            this.m_ExpectedDuration = new TimeSpan(14, 0, 0, 0);
 
             this.m_TechnicalComponentFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();
             this.m_TechnicalComponentBillingFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();

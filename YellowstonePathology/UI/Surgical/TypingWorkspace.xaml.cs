@@ -863,10 +863,13 @@ namespace YellowstonePathology.UI.Surgical
         private string CleanWPHClinicalHistory(string specialInstructions)
         {
             string clinicalHistory = specialInstructions;
-            if(specialInstructions.Contains("PATH.CLINICALHX") == true)
+            if(string.IsNullOrEmpty(clinicalHistory) == false)
             {
-                clinicalHistory = this.GetWHPSpecialInstructions(specialInstructions);                
-                clinicalHistory = this.FixCase(clinicalHistory.Trim());
+                if (specialInstructions.Contains("PATH.CLINICALHX") == true)
+                {
+                    clinicalHistory = this.GetWHPSpecialInstructions(specialInstructions);
+                    clinicalHistory = this.FixCase(clinicalHistory.Trim());
+                }
             }            
             return clinicalHistory;
         }

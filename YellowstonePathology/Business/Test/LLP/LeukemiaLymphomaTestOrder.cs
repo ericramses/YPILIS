@@ -706,9 +706,7 @@ namespace YellowstonePathology.Business.Test.LLP
 		public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
             StringBuilder result = new StringBuilder();
-            result.AppendLine("Test: " + this.m_PanelSetName);
-            result.AppendLine();
-
+                        
             result.AppendLine("Impression:");
             result.AppendLine(this.m_Impression);
             result.AppendLine();
@@ -716,7 +714,7 @@ namespace YellowstonePathology.Business.Test.LLP
             result.AppendLine("Interpetive Comment:");
             result.AppendLine(this.m_InterpretiveComment);
 
-            return result.ToString();
+            return result.ToString().Trim();
         }
 	}
 }

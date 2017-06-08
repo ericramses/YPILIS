@@ -485,31 +485,34 @@
 					<TextBlock Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Text="Aliquot Type" />
 
 					<StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal" >
-						<Button Margin="2,2,2,2" Width="120" Height="30" Click="ButtonAliquotTypeBlock_Click">
+						<Button Margin="2,2,2,2" Width="100" Height="30" Click="ButtonAliquotTypeBlock_Click">
 							<TextBlock FontSize="12">Block</TextBlock>
 						</Button>
-						<Button Margin="2,2,2,2" Width="120" Height="30" Click="ButtonAliquotTypeFrozen_Click">
+						<Button Margin="2,2,2,2" Width="100" Height="30" Click="ButtonAliquotTypeFrozen_Click">
 							<TextBlock FontSize="12">Frozen Block</TextBlock>
 						</Button>
-						<Button Margin="2,2,2,2" Width="120" Height="30" Click="ButtonAliquotTypeCellBlock_Click">
+						<Button Margin="2,2,2,2" Width="100" Height="30" Click="ButtonAliquotTypeCellBlock_Click">
 							<TextBlock FontSize="12">Cell Block</TextBlock>
 						</Button>
-						<Button Margin="2,2,2,2" Width="120" Height="30" Click="ButtonAliquotTypeSpecimen_Click">
+						<Button Margin="2,2,2,2" Width="100" Height="30" Click="ButtonAliquotTypeSpecimen_Click">
 							<TextBlock FontSize="12">Specimen</TextBlock>
-						</Button>						
+						</Button>
+                        <Button Margin="2,2,2,2" Width="100" Height="30" Click="ButtonAliquotTypeWash_Click">
+                            <TextBlock FontSize="12">Wash</TextBlock>
+                        </Button>
                     </StackPanel>
 
                     <StackPanel Grid.Column="0" Grid.Row="2" Orientation="Horizontal" >                        
-                        <Button Margin="2,2,2,2" Width="120" Height="30" Click="ButtonAliquotTypeSlide_Click">
+                        <Button Margin="2,2,2,2" Width="100" Height="30" Click="ButtonAliquotTypeSlide_Click">
                             <TextBlock FontSize="12">Slide</TextBlock>
                         </Button>
-                        <Button Margin="2,2,2,2" Width="120" Height="30" Click="ButtonAliquotTypeFNASlide_Click">
+                        <Button Margin="2,2,2,2" Width="100" Height="30" Click="ButtonAliquotTypeFNASlide_Click">
                             <TextBlock FontSize="12">FNA Slide</TextBlock>
                         </Button>                        
-                        <Button Margin="2,2,2,2" Width="120" Height="30" Click="ButtonAliquotTypeCESlide_Click">
+                        <Button Margin="2,2,2,2" Width="100" Height="30" Click="ButtonAliquotTypeCESlide_Click">
                             <TextBlock FontSize="12">CE Slide</TextBlock>
                         </Button>
-                        <Button Margin="2,2,2,2" Width="120" Height="30" Click="ButtonAddHESlide_Click">
+                        <Button Margin="2,2,2,2" Width="100" Height="30" Click="ButtonAddHESlide_Click">
                             <TextBlock FontSize="12">H&amp;E with Slide</TextBlock>
                         </Button>
                     </StackPanel>

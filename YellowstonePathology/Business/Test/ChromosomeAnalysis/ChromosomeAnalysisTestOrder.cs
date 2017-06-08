@@ -215,7 +215,7 @@ namespace YellowstonePathology.Business.Test.ChromosomeAnalysis
             result.AppendLine("Comment: " + this.m_Comment);
             result.AppendLine();            
             
-            return result.ToString();
+            return result.ToString().Trim();
         }
 	}
 }

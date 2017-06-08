@@ -591,6 +591,20 @@ namespace YellowstonePathology.Business.Test
             return result;
         }
 
+        public bool HasPanelSetBeenOrdered(List<int> panelSetIdList)
+        {
+            bool result = false;
+            foreach(int id in panelSetIdList)
+            {
+                if(HasPanelSetBeenOrdered(id) == true)
+                {
+                    result = true;
+                    break;
+                }
+            }
+            return result;
+        }
+
         public YellowstonePathology.Business.Test.PanelSetOrder GetItem(int panelSetId)
         {
             YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = null;
