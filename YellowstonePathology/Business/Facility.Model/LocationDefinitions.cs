@@ -407,4 +407,14 @@ namespace YellowstonePathology.Business.Facility.Model.LocationDefinitions
 			this.m_Description = "Cytology Slide Printing Station";
 		}
 	}
+
+    public class AshleeBrown : Location
+    {
+        public AshleeBrown()
+        {
+            this.LocationId = "ASHLBRWN";
+            this.m_Description = "Ashlee Brown";
+        }
+    }
+
 }
