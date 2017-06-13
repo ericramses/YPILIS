@@ -54,6 +54,7 @@ namespace YellowstonePathology.Business.Facility.Model
             this.Locations.Add(new YellowstonePathology.Business.Facility.Model.LocationDefinitions.WilliamCoplandOffice());
             this.Locations.Add(new YellowstonePathology.Business.Facility.Model.LocationDefinitions.YolandaHuttonOffice());
             this.Locations.Add(new YellowstonePathology.Business.Facility.Model.LocationDefinitions.Sandra());
+            this.Locations.Add(new YellowstonePathology.Business.Facility.Model.LocationDefinitions.AshleeBrown());
 
             this.m_CliaLicense = new CLIALicense(this, "27D0946844");
 		}
