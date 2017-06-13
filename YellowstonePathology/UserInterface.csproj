@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>103</ApplicationRevision>
+    <ApplicationRevision>108</ApplicationRevision>
     <ApplicationVersion>10.1.7.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -1162,6 +1162,21 @@
     <Compile Include="Business\Test\HematopathologySummary\HematopathologySummaryWordDocument.cs" />
     <Compile Include="Business\Test\HematopathologySummary\HematopathologySummaryWPHOBXView.cs" />
     <Compile Include="Business\Test\HoldForFlow\HoldForFlowWPHOBXView.cs" />
+    <Compile Include="Business\Test\HPV1618SolidTumor\HPV1618SolidTumorBothNegativeResult.cs" />
+    <Compile Include="Business\Test\HPV1618SolidTumor\HPV1618SolidTumorBothPositiveResult.cs" />
+    <Compile Include="Business\Test\HPV1618SolidTumor\HPV1618SolidTumorCMMCView.cs" />
+    <Compile Include="Business\Test\HPV1618SolidTumor\HPV1618SolidTumorEPICOBXView.cs" />
+    <Compile Include="Business\Test\HPV1618SolidTumor\HPV1618SolidTumorIndication.cs" />
+    <Compile Include="Business\Test\HPV1618SolidTumor\HPV1618SolidTumorPanel.cs" />
+    <Compile Include="Business\Test\HPV1618SolidTumor\HPV1618SolidTumorResult.cs" />
+    <Compile Include="Business\Test\HPV1618SolidTumor\HPV1618SolidTumorResultCollection.cs" />
+    <Compile Include="Business\Test\HPV1618SolidTumor\HPV1618SolidTumorTest.cs" />
+    <Compile Include="Business\Test\HPV1618SolidTumor\HPV1618SolidTumorTestOrder.cs" />
+    <Compile Include="Business\Test\HPV1618SolidTumor\HPV1618SolidTumorWordDocument.cs" />
+    <Compile Include="Business\Test\HPV1618SolidTumor\HPV1618SolidTumorIndeterminateResult.cs" />
+    <Compile Include="Business\Test\HPV1618SolidTumor\HPV1618SolidTumorNoResult.cs" />
+    <Compile Include="Business\Test\HPV1618SolidTumor\HPV16NegativeHPV18PositiveResult.cs" />
+    <Compile Include="Business\Test\HPV1618SolidTumor\HPV16PositiveHPV18NegativeResult.cs" />
     <Compile Include="Business\Test\IgHClonalityMRDByNGS\IgHClonalityMRDByNGSTest.cs" />
     <Compile Include="Business\Test\LiposarcomaFusionProfile\LiposarcomaFusionProfileEPICOBXView.cs" />
     <Compile Include="Business\Test\LiposarcomaFusionProfile\LiposarcomaFusionProfileTest.cs" />
@@ -3748,6 +3763,10 @@
       <DependentUpon>HoldForFlowResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Test\HoldForFlowResultPath.cs" />
+    <Compile Include="UI\Test\HPV1618SolidTumorResultPath.cs" />
+    <Compile Include="UI\Test\HPV1618SolidTumorResultPage.xaml.cs">
+      <DependentUpon>HPV1618SolidTumorResultPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Test\HPV1618ByPCRResultPath.cs" />
     <Compile Include="UI\Test\HPV1618ByPCRResultPage.xaml.cs">
       <DependentUpon>HPV1618ByPCRResultPage.xaml</DependentUpon>
@@ -5670,6 +5689,10 @@
     <Page Include="UI\Test\HoldForFlowResultPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Test\HPV1618SolidTumorResultPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\Test\HPV1618ByPCRResultPage.xaml">
       <Generator>MSBuild:Compile</Generator>

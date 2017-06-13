@@ -74,6 +74,9 @@ namespace YellowstonePathology.UI.Test
                 case 213:
                     result = new HPV1618ByPCRResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
+                case 269:
+                    result = new HPV1618SolidTumorResultPath(reportNo, accessionOrder, pageNavigator, window);
+                    break;
                 case 66:
 					result = new TestCancelledResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;				

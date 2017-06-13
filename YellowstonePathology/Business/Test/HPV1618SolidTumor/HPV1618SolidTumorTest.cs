@@ -3,24 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace YellowstonePathology.Business.Test.HPV1618ByPCR
+namespace YellowstonePathology.Business.Test.HPV1618SolidTumor
 {
-	public class HPV1618ByPCRTest : YellowstonePathology.Business.PanelSet.Model.PanelSetMolecularTest
+	public class HPV1618SolidTumorTest : YellowstonePathology.Business.PanelSet.Model.PanelSetMolecularTest
 	{
-		public HPV1618ByPCRTest()
+		public HPV1618SolidTumorTest()
 		{
-			this.m_PanelSetId = 213;
-			this.m_PanelSetName = "HPV Genotypes 16 and 18 By PCR";
-            this.m_Abbreviation = "HPV1618PCR";
+			this.m_PanelSetId = 269;
+			this.m_PanelSetName = "HPV 16 18/45 Solid Tumor";
+            this.m_Abbreviation = "HPV1618SLDTMR";
 			this.m_CaseType = YellowstonePathology.Business.CaseType.Molecular;
 			this.m_HasTechnicalComponent = true;			
 			this.m_HasProfessionalComponent = true;
 			this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterM();
-            this.m_Active = false;            
+            this.m_Active = true;            
 
-			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.HPV1618ByPCR.HPV1618ByPCRTestOrder).AssemblyQualifiedName;
-            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.HPV1618ByPCR.HPV1618ByPCRWordDocument).AssemblyQualifiedName;
+			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.HPV1618SolidTumor.HPV1618SolidTumorTestOrder).AssemblyQualifiedName;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.HPV1618SolidTumor.HPV1618SolidTumorWordDocument).AssemblyQualifiedName;
             this.m_RequiresPathologistSignature = false;
             this.m_AcceptOnFinal = false;
 			this.m_AllowMultiplePerAccession = true;
@@ -46,8 +46,8 @@ namespace YellowstonePathology.Business.Test.HPV1618ByPCR
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceHPV1618GEN());
 
-            HPV1618ByPCRPanel hpv1618ByPCRPanel = new HPV1618ByPCRPanel();
-            this.m_PanelCollection.Add(hpv1618ByPCRPanel);
+            HPV1618SolidTumorPanel hpv1618SolidTumorPanel = new HPV1618SolidTumorPanel();
+            this.m_PanelCollection.Add(hpv1618SolidTumorPanel);
         }
 	}
 }

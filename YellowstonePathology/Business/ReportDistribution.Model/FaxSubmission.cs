@@ -12,7 +12,7 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
             DistributionResult result = new DistributionResult();            
 
             FAXCOMEXLib.FaxServer faxServer = new FAXCOMEXLib.FaxServer();
-            faxServer.Connect("ypiifax");
+            faxServer.Connect("ypiiblfax");
 
             FAXCOMEXLib.FaxDocument faxDoc = new FAXCOMEXLib.FaxDocument();
             faxDoc.Body = fileName;                          
