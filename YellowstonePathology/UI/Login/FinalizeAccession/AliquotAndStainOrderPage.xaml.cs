@@ -859,18 +859,9 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             MenuItem menuItem = (MenuItem)sender;            
             XElement xElement = XElement.Parse(menuItem.Tag.ToString());
             string aliquotOrderId = xElement.Element("AliquotOrderId").Value;            
-            YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetAliquotOrder(aliquotOrderId);
-
-            if(aliquotOrder.AliquotType == "Wash")
-            {
-                YellowstonePathology.Business.Label.Model.AliquotLabelPrinter aliquotLabelPrinter = new Business.Label.Model.AliquotLabelPrinter(aliquotOrderId, aliquotOrder.Label, this.m_AccessionOrder.MasterAccessionNo, this.m_AccessionOrder.PLastName, this.m_AccessionOrder.PFirstName);
-                aliquotLabelPrinter.Print();
-            }
-            else
-            {
-                YellowstonePathology.Business.Label.Model.BlockLabelPrinter blockLabelPrinter = new Business.Label.Model.BlockLabelPrinter(aliquotOrderId, aliquotOrder.Label, this.m_AccessionOrder.MasterAccessionNo, this.m_AccessionOrder.PLastName, this.m_AccessionOrder.PFirstName);
-                blockLabelPrinter.Print();
-            }            
+            YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetAliquotOrder(aliquotOrderId);            
+            YellowstonePathology.Business.Label.Model.BlockLabelPrinter blockLabelPrinter = new Business.Label.Model.BlockLabelPrinter(aliquotOrderId, aliquotOrder.Label, this.m_AccessionOrder.MasterAccessionNo, this.m_AccessionOrder.PLastName, this.m_AccessionOrder.PFirstName);
+            blockLabelPrinter.Print();            
         }        
     }
 }

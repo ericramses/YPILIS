@@ -687,6 +687,16 @@ namespace YellowstonePathology.Business.Test
             return result;
         }
 
+        public bool IsWash()
+        {
+            bool result = false;
+            if (this.m_AliquotType == "Wash")
+            {
+                result = true;
+            }
+            return result;
+        }
+
         public bool IsSlide()
         {
             bool result = false;

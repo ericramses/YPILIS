@@ -11,7 +11,7 @@ namespace YellowstonePathology.Business.Label.Model
         private CassettePrinter m_CassettePrinter;
         private SlideLabelPrinter m_SlideLabelPrinter;
         private SpecimenLabelPrinter m_SpecimenLabelPrinter;
-        
+        private AliquotLabelPrinter m_AliquotLabelPrinter;
 
         private YellowstonePathology.Business.Test.AliquotOrderCollection m_AliquotOrderCollection;        
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
@@ -25,6 +25,7 @@ namespace YellowstonePathology.Business.Label.Model
             this.m_CassettePrinter = new CassettePrinter(this.m_AliquotOrderCollection, this.m_AccessionOrder);
             this.m_SlideLabelPrinter = new SlideLabelPrinter(this.m_AliquotOrderCollection, this.m_AccessionOrder);
             this.m_SpecimenLabelPrinter = new SpecimenLabelPrinter(this.m_AliquotOrderCollection, this.m_AccessionOrder);
+            this.m_AliquotLabelPrinter = new AliquotLabelPrinter(this.m_AliquotOrderCollection, this.m_AccessionOrder);
         }
 
         public void Print()
@@ -33,6 +34,7 @@ namespace YellowstonePathology.Business.Label.Model
             if (this.m_CassettePrinter.HasItemsToPrint() == true) this.m_CassettePrinter.Print();
             if (this.m_SlideLabelPrinter.HasItemsToPrint() == true) this.m_SlideLabelPrinter.Print();
             if (this.m_SpecimenLabelPrinter.HasItemsToPrint() == true) this.m_SpecimenLabelPrinter.Print();
+            if (this.m_AliquotLabelPrinter.HasItemsToPrint() == true) this.m_AliquotLabelPrinter.Print();
         }
 
         public bool HasCassettesToPrint()
