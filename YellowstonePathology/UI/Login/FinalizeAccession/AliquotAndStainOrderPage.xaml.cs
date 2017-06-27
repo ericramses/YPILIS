@@ -862,6 +862,17 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetAliquotOrder(aliquotOrderId);            
             YellowstonePathology.Business.Label.Model.BlockLabelPrinter blockLabelPrinter = new Business.Label.Model.BlockLabelPrinter(aliquotOrderId, aliquotOrder.Label, this.m_AccessionOrder.MasterAccessionNo, this.m_AccessionOrder.PLastName, this.m_AccessionOrder.PFirstName);
             blockLabelPrinter.Print();            
-        }        
+        }
+
+        private void MenuItemSendOrderToVentana_Click(object sender, RoutedEventArgs e)
+        {
+            MenuItem menuItem = (MenuItem)sender;
+            XElement xElement = XElement.Parse(menuItem.Tag.ToString());            
+            Business.HL7View.VentanaStainOrder ventanaStainOrder = new Business.HL7View.VentanaStainOrder();
+            string testOrderId = xElement.Element("TestOrderId").Value;
+            string slideOrderId = xElement.Element("SlideOrder").Element("SlideOrderId").Value;
+            string result = ventanaStainOrder.Send(this.m_AccessionOrder, testOrderId, slideOrderId);
+            MessageBox.Show(result);
+        }
     }
 }

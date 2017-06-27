@@ -931,19 +931,16 @@ namespace YellowstonePathology.UI.Gross
                 "Uterine Corpus:" + Environment.NewLine +
                 "   Weight:  [weight] grams." + Environment.NewLine +
                 "   Dimensions:  [measurements]" + Environment.NewLine +
-                "Serosa:" + Environment.NewLine +
-                "   Uterine Serosa:  [color], [description]" + Environment.NewLine +
-                "   Cul-de-sac Serosa:  [color], [description]" + Environment.NewLine +
-                "Cervix:" + Environment.NewLine +
+                "Serosa: [description]" + Environment.NewLine +
+                "Cervix: [description]" + Environment.NewLine +
                 "   Measurement:  [measurement] " + Environment.NewLine +
-                "   Os:  [description], [measurement]" + Environment.NewLine +
-                "   Ectocervical Mucosa:  [description]" + Environment.NewLine +
+                "   Os:  [description], [measurement]" + Environment.NewLine +                
                 "Sectioning of Uterus and Cervix:" + Environment.NewLine +
                 "   Endocervical Canal:  [description]" + Environment.NewLine +                
                 "   Endometrial Cavity:" + Environment.NewLine +
                 "      Dimensions:  [measurement]" + Environment.NewLine +
-                "      Description:  [description]" + Environment.NewLine +
                 "      Endometrial Thickness:  [thickness]" + Environment.NewLine +
+                "      Description:  [description]" + Environment.NewLine +                
                 "   Myometrium:" + Environment.NewLine +
                 "      Myometrial Thickness:  [thickness]" + Environment.NewLine +                
                 "      Lesions in Myometrium:  [description]" + Environment.NewLine +
@@ -991,20 +988,17 @@ namespace YellowstonePathology.UI.Gross
                 "Uterine Corpus:" + Environment.NewLine +
                 "   Weight:  [weight] grams." + Environment.NewLine +
                 "   Dimensions: [measurements]" + Environment.NewLine +
-                "   Serosa:" + Environment.NewLine +
-                "      Uterine Serosa Description:  [description]" + Environment.NewLine +
-                "      Cul-de-sac Description:  [description]" + Environment.NewLine +
-                "Cervix:" + Environment.NewLine +
+                "   Serosa: [description]" + Environment.NewLine +
+                "Cervix: [description]" + Environment.NewLine +
                 "   Measurement:  [measurement] " + Environment.NewLine +
-                "   Os:  [description], [measurement]" + Environment.NewLine +
-                "   Ectocervical Mucosa:  [description]" + Environment.NewLine +
+                "   Os:  [description], [measurement]" + Environment.NewLine +                
                 "Sectioning of Uterus and Cervix:" + Environment.NewLine +
                 "   Endocervical Canal:  [description]" + Environment.NewLine +
                 "   Endocervical Mucosa:  [description]" + Environment.NewLine +
                 "   Endometrial Cavity:" + Environment.NewLine +
                 "      Dimensions:  [measurement]" + Environment.NewLine +
-                "      Description:  [description]" + Environment.NewLine +
                 "      Endometrial Thickness:  [thickness]" + Environment.NewLine +
+                "      Description:  [description]" + Environment.NewLine +                
                 "   Myometrium:" + Environment.NewLine +
                 "      Myometrial Thickness:  [thickness]" + Environment.NewLine +                
                 "      Lesions in Myometrium:  [description]" + Environment.NewLine +

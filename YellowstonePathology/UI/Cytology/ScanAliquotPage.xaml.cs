@@ -44,12 +44,14 @@ namespace YellowstonePathology.UI.Cytology
             Business.Persistence.DocumentGateway.Instance.Push(Window.GetWindow(this));
             this.m_BarcodeScanPort.AliquotOrderIdReceived += BarcodeScanPort_AliquotOrderIdReceived;
             this.m_BarcodeScanPort.ThinPrepSlideScanReceived += BarcodeScanPort_ThinPrepSlideScanReceived;
+            this.m_BarcodeScanPort.HistologyBlockScanReceived += BarcodeScanPort_HistologyBlockScanReceived;
 		}        
 
         private void ScanContainerPage_Unloaded(object sender, RoutedEventArgs e)
 		{
 			this.m_BarcodeScanPort.AliquotOrderIdReceived -= this.BarcodeScanPort_AliquotOrderIdReceived;
             this.m_BarcodeScanPort.ThinPrepSlideScanReceived -= this.BarcodeScanPort_ThinPrepSlideScanReceived;
+            this.m_BarcodeScanPort.HistologyBlockScanReceived -= this.BarcodeScanPort_HistologyBlockScanReceived;
 		}
 
         public string Message
@@ -75,6 +77,15 @@ namespace YellowstonePathology.UI.Cytology
         }
 
         private void BarcodeScanPort_ThinPrepSlideScanReceived(Business.BarcodeScanning.Barcode barcode)
+        {
+            this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
+            {
+                this.UseThisAliquotOrderId(this, barcode.ID);
+            }
+            ));
+        }
+
+        private void BarcodeScanPort_HistologyBlockScanReceived(Business.BarcodeScanning.Barcode barcode)
         {
             this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
             {

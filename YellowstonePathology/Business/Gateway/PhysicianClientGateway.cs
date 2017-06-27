@@ -19,17 +19,17 @@ namespace YellowstonePathology.Business.Gateway
             cmd.Parameters.AddWithValue("@MasterAccessionNo", masterAccessionNo);
 			Domain.Physician result = PhysicianClientGateway.GetPhysicianFromCommand(cmd);
 			return result;
-		}
+		}        
 
-		public static Domain.Physician GetPhysicianByNpi(string npi)
+        public static Domain.Physician GetPhysicianByNpi(string npi)
 		{
 			Domain.Physician result = null;
 			if (string.IsNullOrEmpty(npi) == false && npi != "0")
 			{
 				MySqlCommand cmd = new MySqlCommand();
-				cmd.CommandText = "SELECT * FROM tblPhysician where tblPhysician.Npi = @Npi;";
+				cmd.CommandText = "SELECT * FROM tblPhysician where Npi = @npi;";
 				cmd.CommandType = CommandType.Text;
-				cmd.Parameters.AddWithValue("@Npi", SqlDbType.VarChar).Value = npi;
+				cmd.Parameters.AddWithValue("@npi", npi);
 				result = PhysicianClientGateway.GetPhysicianFromCommand(cmd);
 			}
 			return result;
@@ -53,14 +53,14 @@ namespace YellowstonePathology.Business.Gateway
 				cn.Open();
 				cmd.Connection = cn;
 				using (MySqlDataReader dr = cmd.ExecuteReader())
-				{
-					while (dr.Read())
-					{
-						result = new Domain.Physician();
-						YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(result, dr);
-						sqlDataReaderPropertyWriter.WriteProperties();
+				{                    
+                    while (dr.Read())
+                    {
+                        result = new Domain.Physician();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(result, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
 
-					}
+                    }                    
 				}
 			}
 			return result;

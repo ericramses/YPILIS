@@ -206,23 +206,39 @@ namespace YellowstonePathology.Business.Gateway
             return reportSearchList;
         }
 
-        public static YellowstonePathology.Business.Search.ReportSearchList GetRetrospectiveReviews(DateTime finalDate)
+        public static YellowstonePathology.UI.RetrospectiveReviewList GetRetrospectiveReviews(DateTime finalDate)
         {
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT pso.MasterAccessionNo, pso.ReportNo, a.AccessionTime AccessionDate,  pso.PanelSetId, " +
-                "concat(a.PFirstName, ' ', a.PLastName) AS PatientName, " +
-                "a.PLastName, a.PFirstName, a.ClientName, a.PhysicianName, a.PBirthdate, pso.FinalDate, pso.PanelSetName, su.UserName as OrderedBy, " +
-                "'' ForeignAccessionNo, pso.IsPosted " +
+            cmd.CommandText = "SELECT a.MasterAccessionNo, pso.ReportNo, pso.PanelSetId, pso.FinalDate, pso.PanelSetName, psos.ReportNo as SurgicalReportNo, sus.DisplayName as SurgicalFinaledBy, psos.FinalDate as SurgicalFinalDate " +
                 "FROM tblAccessionOrder a " +
                 "JOIN tblPanelSetOrder pso ON a.MasterAccessionNo = pso.MasterAccessionNo " +
+                "join tblPanelSetOrder psos on a.MasterAccessionNo = psos.MasterAccessionNo " +
                 "Left Outer Join tblSystemUser su on pso.OrderedById = su.UserId " +
-                "WHERE pso.PanelSetId = 262 " +
+                "join tblSystemUser sus on psos.FinaledById = sus.UserId " +
+                "WHERE pso.PanelSetId = 262 and psos.PanelSetId = 13 " +
                 "and exists (select null from tblPanelSetOrder where MasterAccessionNo = a.MasterAccessionNo and PanelSetId = 13 and FinalDate = @FinalDate) " +
-                "ORDER BY AccessionTime desc;";            
+	            "ORDER BY AccessionTime desc; ";
             cmd.Parameters.AddWithValue("@FinalDate", finalDate);
-            Search.ReportSearchList reportSearchList = BuildReportSearchList(cmd);
-            return reportSearchList;
+
+            UI.RetrospectiveReviewList result = new UI.RetrospectiveReviewList();
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        UI.RetrospectiveReviewListItem item = new UI.RetrospectiveReviewListItem();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(item, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(item);
+                    }
+                }
+            }
+
+            return result;
         }
 
         public static YellowstonePathology.Business.Search.ReportSearchList GetReportSearchListByMasterAccessionNo(string masterAccessionNo)

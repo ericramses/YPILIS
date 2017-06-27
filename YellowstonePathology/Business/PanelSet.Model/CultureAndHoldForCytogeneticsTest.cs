@@ -16,10 +16,7 @@ namespace YellowstonePathology.Business.Test
             this.m_HasProfessionalComponent = false;
 			this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.None;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterR();
-            this.m_Active = true;
-            
-			
-            
+            this.m_Active = true;           			            
 			this.m_AllowMultiplePerAccession = true;            
 
             this.m_ExpectedDuration = new TimeSpan(5, 0, 0, 0);

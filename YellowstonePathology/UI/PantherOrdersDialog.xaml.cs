@@ -312,10 +312,24 @@ namespace YellowstonePathology.UI
                 this.m_LoginPageWindow = new Login.Receiving.LoginPageWindow();
                 this.m_LoginPageWindow.Show();
 
-                YellowstonePathology.UI.Test.HPV1618ResultPath hpv1618ResultPath = new Test.HPV1618ResultPath(pantherOrderListItem.ReportNo, accessionOrder, this.m_LoginPageWindow.PageNavigator, this);
-                hpv1618ResultPath.Finish += HPV1618ResultPath_Finish;
-                hpv1618ResultPath.Start();
+                Business.Test.PanelSetOrder panelSetOrder = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(pantherOrderListItem.ReportNo);
+                if(panelSetOrder.PanelSetId == 62)
+                {
+                    YellowstonePathology.UI.Test.HPV1618ResultPath hpv1618ResultPath = new Test.HPV1618ResultPath(pantherOrderListItem.ReportNo, accessionOrder, this.m_LoginPageWindow.PageNavigator, this);
+                    hpv1618ResultPath.Finish += HPV1618ResultPath_Finish;
+                    hpv1618ResultPath.Start();
+                } else if(panelSetOrder.PanelSetId == 269)
+                {
+                    YellowstonePathology.UI.Test.HPV1618SolidTumorResultPath hpv1618SolidTumorPath = new Test.HPV1618SolidTumorResultPath(pantherOrderListItem.ReportNo, accessionOrder, this.m_LoginPageWindow.PageNavigator, this);
+                    hpv1618SolidTumorPath.Finish += Hpv1618SolidTumorPath_Finish;
+                    hpv1618SolidTumorPath.Start();
+                }                
             }
+        }
+
+        private void Hpv1618SolidTumorPath_Finish(object sender, EventArgs e)
+        {
+            this.m_LoginPageWindow.Close();
         }
 
         private void ButtonShowWHPResult_Click(object sender, RoutedEventArgs e)

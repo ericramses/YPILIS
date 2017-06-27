@@ -1594,11 +1594,19 @@ namespace YellowstonePathology.Business.Gateway
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "select pso.MasterAccessionNo, pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, " +
-                "a.PFirstName, pso.AcceptedTime, pso.FinalTime, null as Result, hpv.HPV16Result, hpv.HPV18Result, pso.HoldDistribution " +
+                "a.PFirstName, pso.AcceptedTime, pso.FinalTime, null as Result, hpv.HPV16Result, hpv.HPV18Result, pso.HoldDistribution " +                 
                 "from tblPanelSetOrder pso " +
                 "join tblPanelSetOrderHPV1618 hpv on pso.ReportNo = hpv.ReportNo " +
                 "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
-                "where TechnicalComponentInstrumentId = 'PNTHR' and pso.Accepted = 0 order by pso.OrderTime;";
+                "where TechnicalComponentInstrumentId = 'PNTHR' and pso.Accepted = 0 " +        
+                "union " +
+                "select pso.MasterAccessionNo, pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, " +
+	            "a.PFirstName, pso.AcceptedTime, pso.FinalTime, null as Result, hpv.HPV16Result, hpv.HPV18Result, pso.HoldDistribution " +
+                "from tblPanelSetOrder pso " +
+                "join tblHPV1618SolidTumorTestOrder hpv on pso.ReportNo = hpv.ReportNo " +
+                "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
+                "where TechnicalComponentInstrumentId = 'PNTHR' and pso.Accepted = 0 " +
+                "order by OrderTime;";
 
             using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
@@ -1689,13 +1697,21 @@ namespace YellowstonePathology.Business.Gateway
             YellowstonePathology.Business.Test.PantherOrderList result = new Test.PantherOrderList();
 
             MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandType = CommandType.Text;
+            cmd.CommandType = CommandType.Text;            
             cmd.CommandText = "select pso.MasterAccessionNo, pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, " +
                 "a.PFirstName, pso.AcceptedTime, pso.FinalTime, null as Result, hpv.HPV16Result, hpv.HPV18Result, pso.HoldDistribution " +
                 "from tblPanelSetOrder pso " +
                 "join tblPanelSetOrderHPV1618 hpv on pso.ReportNo = hpv.ReportNo " +
                 "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
-                "where TechnicalComponentInstrumentId = 'PNTHR' and pso.Accepted = 1 and pso.Final = 0 order by pso.FinalTime desc;";
+                "where TechnicalComponentInstrumentId = 'PNTHR' and pso.Accepted = 1 and pso.Final = 0 " +
+                "union " +
+                "select pso.MasterAccessionNo, pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, " +
+                "a.PFirstName, pso.AcceptedTime, pso.FinalTime, null as Result, hpv.HPV16Result, hpv.HPV18Result, pso.HoldDistribution " +
+                "from tblPanelSetOrder pso " +
+                "join tblHPV1618SolidTumorTestOrder hpv on pso.ReportNo = hpv.ReportNo " +
+                "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
+                "where TechnicalComponentInstrumentId = 'PNTHR' and pso.Accepted = 1 and pso.Final = 0 " +
+                "order by OrderTime;";
 
             using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
@@ -1753,14 +1769,21 @@ namespace YellowstonePathology.Business.Gateway
             YellowstonePathology.Business.Test.PantherOrderList result = new Test.PantherOrderList();
 
             MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandType = CommandType.Text;
+            cmd.CommandType = CommandType.Text;            
             cmd.CommandText = "select pso.MasterAccessionNo, pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, " +
-                "a.PFirstName, pso.AcceptedTime, pso.FinalTime, null as Result, hpv.HPV16Result, hpv.HPV18Result, pso.HoldDistribution " +            
+                "a.PFirstName, pso.AcceptedTime, pso.FinalTime, null as Result, hpv.HPV16Result, hpv.HPV18Result, pso.HoldDistribution " +
                 "from tblPanelSetOrder pso " +
                 "join tblPanelSetOrderHPV1618 hpv on pso.ReportNo = hpv.ReportNo " +
                 "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
-                "where TechnicalComponentInstrumentId = 'PNTHR' and pso.Final = 1 order by pso.FinalTime desc;";
-
+                "where TechnicalComponentInstrumentId = 'PNTHR' and pso.Final = 1 " +
+                "union " +
+                "select pso.MasterAccessionNo, pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, " +
+                "a.PFirstName, pso.AcceptedTime, pso.FinalTime, null as Result, hpv.HPV16Result, hpv.HPV18Result, pso.HoldDistribution " +
+                "from tblPanelSetOrder pso " +
+                "join tblHPV1618SolidTumorTestOrder hpv on pso.ReportNo = hpv.ReportNo " +
+                "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
+                "where TechnicalComponentInstrumentId = 'PNTHR' and pso.Final = 1 " +
+                "order by OrderTime desc;";
             using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();

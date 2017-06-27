@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>108</ApplicationRevision>
+    <ApplicationRevision>133</ApplicationRevision>
     <ApplicationVersion>10.1.7.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -311,6 +311,7 @@
     <Compile Include="Business\Billing.Model\PropertyChanges.cs" />
     <Compile Include="Business\Client.Model\HPVCompoundStandingOrderRule6.cs" />
     <Compile Include="Business\Client.Model\IdahoClientIdList.cs" />
+    <Compile Include="Business\Facility.Model\UniversityOfMississippi.cs" />
     <Compile Include="Business\Facility.Model\NorthernMtHealthcare.cs" />
     <Compile Include="Business\Facility.Model\FortHarrisonVA.cs" />
     <Compile Include="Business\Facility.Model\CasperDermatologyClinic.cs" />
@@ -974,6 +975,7 @@
     <Compile Include="Business\HL7View\ResultStatusEnum.cs" />
     <Compile Include="Business\HL7View\ResultViewFactory.cs" />
     <Compile Include="Business\HL7View\SurgicalObxView.cs" />
+    <Compile Include="Business\HL7View\VentanaStainOrder.cs" />
     <Compile Include="Business\HL7View\WPH\WPHHl7Client.cs" />
     <Compile Include="Business\HL7View\WPH\WPHMSHView.cs" />
     <Compile Include="Business\HL7View\WPH\WPHOBRView.cs" />
@@ -1134,6 +1136,8 @@
     <Compile Include="Business\Task.Model\TaskFedexShipment.cs" />
     <Compile Include="Business\Task.Model\TaskOrderDetailFactory.cs" />
     <Compile Include="Business\Task.Model\TaskOrderDetailFedexShipment.cs" />
+    <Compile Include="Business\Test.Model\VentanaStain.cs" />
+    <Compile Include="Business\Test.Model\VentanaStainCollection.cs" />
     <Compile Include="Business\Test\AMLFavorableRisk\AMLFavorableRiskTest.cs" />
     <Compile Include="Business\Test\AMLPrognosticProfile\AMLPrognosticProfileTest.cs" />
     <Compile Include="Business\Test\AMLStandardByFish\AMLStandardByFishWPHOBXView.cs" />
@@ -3218,6 +3222,9 @@
     <Compile Include="UI\BrowserWindow.xaml.cs">
       <DependentUpon>BrowserWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\RetrospectiveReviewListItem.cs" />
+    <Compile Include="UI\RetrospectiveReviewList.cs" />
+    <Compile Include="UI\RetrospectiveReviewReport.cs" />
     <Compile Include="UI\CellCounter.xaml.cs">
       <DependentUpon>CellCounter.xaml</DependentUpon>
     </Compile>

@@ -75,9 +75,9 @@ namespace YellowstonePathology.UI.Login.Receiving
         private void HandleProviderMapping()
         {
             if (this.m_ClientOrder.SystemInitiatingOrder == "EPIC")
-            {
+            {                
                 this.m_Physician = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianByNpi(this.m_ClientOrder.ProviderId);
-                this.NotifyPropertyChanged("Physician");
+                this.NotifyPropertyChanged("Physician");                
             }
         }
 

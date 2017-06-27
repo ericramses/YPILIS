@@ -27,7 +27,7 @@ namespace YellowstonePathology.Business.Test.HPV1618SolidTumor
 			bool distribute)
 			: base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute)
 		{
-            
+            this.m_TechnicalComponentInstrumentId = Instrument.HOLOGICPANTHERID;
         }
         
         [PersistentProperty()]

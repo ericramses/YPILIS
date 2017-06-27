@@ -32,6 +32,17 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
 			this.m_ObjectId = objectId;
 		}
 
+        public bool IsEqual(ReportDistributionLogEntry item)
+        {
+            bool result = false;
+            if(this.m_ClientName == item.ClientName && this.m_DistributionType == item.DistributionType && this.m_ReportNo == item.ReportNo
+                && this.m_PhysicianName == item.PhysicianName)
+            {
+                result = true;
+            }
+            return result;
+        }
+
         [PersistentDocumentIdProperty()]
         public string ObjectId
         {

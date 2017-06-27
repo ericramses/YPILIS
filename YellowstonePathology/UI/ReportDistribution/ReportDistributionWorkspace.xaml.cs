@@ -103,7 +103,7 @@ namespace YellowstonePathology.UI.ReportDistribution
                 this.SetStatus("Idle After Hours");
             }
             
-            this.m_Timer.Start();            
+            //this.m_Timer.Start();            
         }
 
         private void HandleUnscheduledAmendments()
@@ -376,8 +376,8 @@ namespace YellowstonePathology.UI.ReportDistribution
                                             YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistributionLog testOrderReportDistributionLog = new YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistributionLog(testOrderReportDistributionLogId, objectId);
                                             testOrderReportDistributionLog.FromTestOrderReportDistribution(testOrderReportDistribution);
                                             testOrderReportDistributionLog.TimeDistributed = DateTime.Now;
-                                            panelSetOrder.TestOrderReportDistributionLogCollection.Add(testOrderReportDistributionLog);                                            
-
+                                            panelSetOrder.TestOrderReportDistributionLogCollection.Add(testOrderReportDistributionLog);
+                                            
                                             this.m_ReportDistributionLogEntryCollection.AddEntry("INFO", "Publish Next", testOrderReportDistribution.DistributionType, panelSetOrder.ReportNo, panelSetOrder.MasterAccessionNo,
                                                 testOrderReportDistribution.PhysicianName, testOrderReportDistribution.ClientName, "TestOrderReportDistribution Distributed");
                                         }

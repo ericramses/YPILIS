@@ -436,7 +436,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
 			panelSetCollection.Add(new YellowstonePathology.Business.Test.ErPrSemiQuantitative.ErPrSemiQuantitativeTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisTest());
 			panelSetCollection.Add(new YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHTest());
-			panelSetCollection.Add(new YellowstonePathology.Business.Test.HPV1618ByPCR.HPV1618ByPCRTest());
+			panelSetCollection.Add(new YellowstonePathology.Business.Test.HPV1618SolidTumor.HPV1618SolidTumorTest());
 			panelSetCollection.Add(new YellowstonePathology.Business.Test.InvasiveBreastPanel.InvasiveBreastPanelTest());
 			panelSetCollection.Add(new YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FTest());
             panelSetCollection.Add(new PanelSetJAK2PolycythemiaVeraReflex());

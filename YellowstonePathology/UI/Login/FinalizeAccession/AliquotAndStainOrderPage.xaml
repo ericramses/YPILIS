@@ -140,6 +140,11 @@
 
 			<HierarchicalDataTemplate x:Key="DataTemplateCaseTreeTestListOrder" ItemsSource="{Binding Path=Elements[SlideOrder]}" ItemTemplate="{StaticResource DataTemplateCaseTreeSlideOrder}">
 				<StackPanel Orientation="Horizontal" Margin="2,2,2,2">
+                    <StackPanel.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Send Order To Ventana" Click="MenuItemSendOrderToVentana_Click" Tag="{Binding}"></MenuItem>
+                        </ContextMenu>
+                    </StackPanel.ContextMenu>
                     <CheckBox Margin="2,2,2,2" VerticalAlignment="Center" IsChecked="{Binding Path=Element[IsSelected].Value, Converter={StaticResource BooleanStringConverter}}" />
 					<TextBlock Margin="2,2,2,2" VerticalAlignment="Center" Text="{Binding Path=Element[TestName].Value}" Width="200"></TextBlock>
 				</StackPanel>

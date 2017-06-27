@@ -979,126 +979,27 @@ namespace YellowstonePathology.UI
         {
             //string crc = YellowstonePathology.Business.BarcodeScanning.CRC32V.CRC32("15-1234.1.1");
             //Console.WriteLine("CRC: " + crc);            
-        }        
+        }
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
-        {                        
-            //YellowstonePathology.Business.Task.Model.TaskOrderCollection.AddDailyTaskOrderRetrospectiveReviews(this);                                        
-        }
-
-        private void UpdateTypingShortcut()
         {
-            List<int> list = new List<int>();
-            list.Add(2084);
-            list.Add(2085);
-            list.Add(2086);
-            list.Add(2087);
-            list.Add(2088);
-            list.Add(2089);
-            list.Add(2090);
-            list.Add(2091);
-            list.Add(2092);
-            list.Add(2093);
-            list.Add(2094);
-            list.Add(2095);
-            list.Add(2096);
-            list.Add(2097);
-            list.Add(2098);
-            list.Add(2099);
-            list.Add(2100);
-            list.Add(2101);
-            list.Add(2102);
-            list.Add(2103);
-            list.Add(2104);
-            list.Add(2105);
-            list.Add(2106);
-            list.Add(2107);
-            list.Add(2108);
-            list.Add(2109);
-            list.Add(2110);
-            list.Add(2111);
-            list.Add(2112);
-            list.Add(2113);
-            list.Add(2114);
-            list.Add(2115);
-            list.Add(2116);
-            list.Add(2117);
-            list.Add(2118);
-            list.Add(2119);
-            list.Add(2120);
-            list.Add(2121);
-            list.Add(2122);
-            list.Add(2123);
-            list.Add(2124);
-            list.Add(2125);
-            list.Add(2126);
-            list.Add(2127);
-            list.Add(2128);
-            list.Add(2129);
-            list.Add(2130);
-            list.Add(2131);
-            list.Add(2133);
-            list.Add(2134);
-            list.Add(2135);
-            list.Add(2136);
-            list.Add(2137);
-            list.Add(2138);
-            list.Add(2139);
-            list.Add(2140);
-            list.Add(2142);
-            list.Add(2143);
-            list.Add(2144);
-            list.Add(2145);
-            list.Add(2146);
-            list.Add(2147);
-            list.Add(2148);
-            list.Add(2149);
-            list.Add(2150);
-            list.Add(2151);
-            list.Add(2152);
-            list.Add(2153);
-            list.Add(2154);
-            list.Add(2155);
-            list.Add(2156);
-            list.Add(2157);
-            list.Add(2158);
-            list.Add(2159);
-            list.Add(2160);
-            list.Add(2161);
-            list.Add(2162);
-            list.Add(2163);
-            list.Add(2164);
-            list.Add(2165);
-            list.Add(2166);
-            list.Add(2167);
-            list.Add(2168);
-            list.Add(2169);
-            list.Add(2170);
-            list.Add(2172);
-            list.Add(2173);
-            list.Add(2174);
-            list.Add(2175);
-            list.Add(2176);
-            list.Add(2178);
-            list.Add(2182);
-            list.Add(2183);
-            list.Add(2184);
-            list.Add(2185);
-            list.Add(2186);
-            list.Add(2187);
-            list.Add(2188);
-            list.Add(2189);
-            list.Add(2190);
-            list.Add(2191);
-            list.Add(2192);
-            list.Add(2193);
-            list.Add(2194);
+            string filePath = @"D:\git\openlis\ap-hl7\src\core\protocols.json";
+            string json = File.ReadAllText(filePath);
+            Newtonsoft.Json.Linq.JArray array = Newtonsoft.Json.Linq.JArray.Parse(json);
 
-            foreach(int id in list)
+            
+            foreach (Newtonsoft.Json.Linq.JObject obj in array)
             {
-                Console.WriteLine("Update tblTypingShortcut set ObjectId = '" + MongoDB.Bson.ObjectId.GenerateNewId().ToString() + "' where ShortcutId = " + id.ToString());
+                StringBuilder result = new StringBuilder();
+                result.Append("this.Add(new VentanaStain(\"");
+                result.Append(obj["ventana_id"].ToString() + "\", \"");
+                result.Append(obj["ventana_name"].ToString() + "\", \"");                
+                result.Append(obj["ypi_id"].ToString() + "\", \"");
+                result.Append(obj["type"].ToString() + "\", \"");
+                result.Append(obj["color"].ToString() + "\"));");
+                Console.WriteLine(result.ToString());
             }
-        }
+        }    
 
         private void WriteSchema()
         {
@@ -1185,17 +1086,102 @@ namespace YellowstonePathology.UI
         {
             //protoc -I d:/protogen --csharp_out d:/protogen/result d:/protogen/ventana.proto --grpc_out d:/protogen/result --plugin=protoc-gen-grpc=grpc_csharp_plugin.exe
 
-            Channel channel = new Channel("127.0.0.1:49165", ChannelCredentials.Insecure);
-            Ventana.StainOrder.StainOrderClient stainOrderClient = new Ventana.StainOrder.StainOrderClient(channel);
-
+            Channel channel = new Channel("127.0.0.1:50051", ChannelCredentials.Insecure);            
+            Ventana.VentanaService.VentanaServiceClient ventanaServiceClient = new Ventana.VentanaService.VentanaServiceClient(channel);
             Ventana.OrderRequest orderRequest = new Ventana.OrderRequest();
 
-            orderRequest.Pid = new Ventana.pid();
-            orderRequest.Pid.FirstName = "George";
-            orderRequest.Pid.LastName = "Washington";
+            orderRequest.Msh = new Ventana.msh();
+            orderRequest.Msh.SendingApplication = "YPILIS";
+            orderRequest.Msh.SendingFacility = "YPI";
+            orderRequest.Msh.ReceivingApplication = "Ventana";
+            orderRequest.Msh.ReceivingFacility = "YPI";
+            orderRequest.Msh.DateTimeOfMessage = DateTime.Now.ToString("yyyyMMddhhmm");
+            orderRequest.Msh.MessageType = "OML^O21";
+            orderRequest.Msh.MessageControlId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 
-            Ventana.OrderReply orderReply = stainOrderClient.getOrder(orderRequest);
-            Console.WriteLine(orderReply.Hl7);
+            orderRequest.Pid = new Ventana.pid();
+            orderRequest.Pid.FirstName = "MICKEY";
+            orderRequest.Pid.LastName = "MOUSE";
+            orderRequest.Pid.MiddleInitial = "E";
+            orderRequest.Pid.Birthdate = "08/10/1966";
+            orderRequest.Pid.Sex = "M";
+            
+            orderRequest.Pv1 = new Ventana.pv1();
+            orderRequest.Pv1.RequestingPhysicianFirstname = "DUCK";
+            orderRequest.Pv1.RequestingPhysicianLastname = "DONALD";
+            orderRequest.Pv1.RequestingPhysicianNpi = "NPI12345";
+
+            orderRequest.Sac = new Ventana.sac();
+            orderRequest.Sac.RegistrationDateTime = "06/20/2017";
+
+            Ventana.stain_order stainOrder1 = new Ventana.stain_order();
+            Ventana.orc orc1 = new Ventana.orc();
+            orc1.OrderControl = "1";
+            orc1.PlacerOrderNumber = "17-1234.S.1";
+            orc1.SiteName = "YPI";
+            orc1.SiteDescription = "Yellowstone Pathology";
+            orc1.FacilityCode = "YPI";
+            orc1.FacilityName = "Yellowstone Pathology";
+            stainOrder1.Orc = orc1;
+
+            Ventana.obr obr1 = new Ventana.obr();
+            obr1.OrderSequenceId = "1";
+            obr1.PlacerOrderNumber = "123123123";
+            obr1.ProtocolNumber = "3";
+            obr1.ProtocolName = "D K/L-Titration";
+            obr1.OrderType = "????";
+            obr1.ObservationDateTime = "6/1/2017 13:56";
+            obr1.SpecimenName = "Biopsy";
+            obr1.SpecimenDescription = "Left ear, biopsy";
+            obr1.SurgicalProcedureName = "Surgical Pathology";
+            obr1.PathologistNpi = "NPI123123";
+            obr1.PathologistLastname = "DUCK";
+            obr1.PathologistFirstname = "DONALD";
+            obr1.SlideId = "17-123.1A1";
+            obr1.SlideSequence = "1";
+            obr1.Blockid = "17-123.1A";
+            obr1.BlockSequence = "A";
+            obr1.SpecimenId = "17-123.1";
+            obr1.SpecimenSequence = "1";
+            stainOrder1.Obr = obr1;            
+            orderRequest.StainOrders.Add(stainOrder1);
+
+            Ventana.stain_order stainOrder2 = new Ventana.stain_order();
+
+            Ventana.orc orc2 = new Ventana.orc();
+            orc2.OrderControl = "2";
+            orc2.PlacerOrderNumber = "17-1234.S.2";
+            orc2.SiteName = "YPI";
+            orc2.SiteDescription = "Yellowstone Pathology";
+            orc2.FacilityCode = "YPI";
+            orc2.FacilityName = "Yellowstone Pathology";
+            stainOrder2.Orc = orc2;
+
+            Ventana.obr obr2 = new Ventana.obr();
+            obr2.OrderSequenceId = "2";
+            obr2.PlacerOrderNumber = "123123123";
+            obr2.ProtocolNumber = "3";
+            obr2.ProtocolName = "D K/L-Titration";
+            obr2.OrderType = "STAIN";
+            obr2.ObservationDateTime = "6/1/2017 13:56";
+            obr2.SpecimenName = "Biopsy";
+            obr2.SpecimenDescription = "Left ear, biopsy";
+            obr2.SurgicalProcedureName = "Surgical Pathology";
+            obr2.PathologistNpi = "NPI123123";
+            obr2.PathologistLastname = "DUCK";
+            obr2.PathologistFirstname = "DONALD";
+            obr2.SlideId = "17-123.2A1";
+            obr2.SlideSequence = "1";
+            obr2.Blockid = "17-123.1A";
+            obr2.BlockSequence = "A";
+            obr2.SpecimenId = "17-123.2";
+            obr2.SpecimenSequence = "2";
+            stainOrder2.Obr = obr2;
+
+            orderRequest.StainOrders.Add(stainOrder2);
+           
+            Ventana.OrderReply orderReply = ventanaServiceClient.sendOrder(orderRequest);
+            Console.WriteLine(orderReply.Message);
 
             /*
             var client = new Greeter.GreeterClient(channel);

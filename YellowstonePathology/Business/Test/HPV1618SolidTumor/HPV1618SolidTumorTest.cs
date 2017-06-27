@@ -17,9 +17,13 @@ namespace YellowstonePathology.Business.Test.HPV1618SolidTumor
 			this.m_HasProfessionalComponent = true;
 			this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterM();
-            this.m_Active = true;            
+            this.m_Active = true;
 
-			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.HPV1618SolidTumor.HPV1618SolidTumorTestOrder).AssemblyQualifiedName;
+            this.m_SendOrderToPanther = true;
+            this.m_AddAliquotOnOrder = true;
+            this.m_AliquotToAddOnOrder = new YellowstonePathology.Business.Specimen.Model.PantherAliquot();
+
+            this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.HPV1618SolidTumor.HPV1618SolidTumorTestOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.HPV1618SolidTumor.HPV1618SolidTumorWordDocument).AssemblyQualifiedName;
             this.m_RequiresPathologistSignature = false;
             this.m_AcceptOnFinal = false;

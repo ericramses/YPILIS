@@ -2104,7 +2104,7 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
 			this.m_HasProfessionalComponent = false;
 			this.m_HasTechnicalComponent = true;
 			this.m_IsBillable = true;
-            this.m_CodeType = CPTCodeTypeEnum.ProfessionalOnly;
+            this.m_CodeType = CPTCodeTypeEnum.TechnicalOnly;
 		}
 	}
 		
@@ -2117,7 +2117,7 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
 			this.m_HasProfessionalComponent = false;
 			this.m_HasTechnicalComponent = true;
 			this.m_IsBillable = true;
-            this.m_CodeType = CPTCodeTypeEnum.ProfessionalOnly;
+            this.m_CodeType = CPTCodeTypeEnum.TechnicalOnly;
 		}
 	}
 		
@@ -2130,7 +2130,7 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
 			this.m_HasProfessionalComponent = false;
 			this.m_HasTechnicalComponent = true;
 			this.m_IsBillable = true;
-            this.m_CodeType = CPTCodeTypeEnum.ProfessionalOnly;
+            this.m_CodeType = CPTCodeTypeEnum.TechnicalOnly;
 		}
 	}
 			
@@ -2143,7 +2143,7 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
 			this.m_HasProfessionalComponent = false;
 			this.m_HasTechnicalComponent = true;
 			this.m_IsBillable = true;
-            this.m_CodeType = CPTCodeTypeEnum.ProfessionalOnly;
+            this.m_CodeType = CPTCodeTypeEnum.TechnicalOnly;
 		}
 	}
 			
@@ -2156,7 +2156,7 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
 			this.m_HasProfessionalComponent = false;
 			this.m_HasTechnicalComponent = true;
 			this.m_IsBillable = true;
-            this.m_CodeType = CPTCodeTypeEnum.ProfessionalOnly;
+            this.m_CodeType = CPTCodeTypeEnum.TechnicalOnly;
 		}
 	}
 	
@@ -2169,7 +2169,7 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
 			this.m_HasProfessionalComponent = false;
 			this.m_HasTechnicalComponent = true;
 			this.m_IsBillable = true;
-            this.m_CodeType = CPTCodeTypeEnum.ProfessionalOnly;
+            this.m_CodeType = CPTCodeTypeEnum.TechnicalOnly;
 		}
 	}	
 		
@@ -2182,7 +2182,7 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
 			this.m_HasProfessionalComponent = false;
 			this.m_HasTechnicalComponent = true;
 			this.m_IsBillable = true;
-            this.m_CodeType = CPTCodeTypeEnum.ProfessionalOnly;
+            this.m_CodeType = CPTCodeTypeEnum.TechnicalOnly;
 		}
 	}	
 }

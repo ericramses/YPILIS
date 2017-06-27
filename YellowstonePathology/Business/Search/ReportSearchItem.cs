@@ -17,8 +17,7 @@ namespace YellowstonePathology.Business.Search
 		private string m_PFirstName;
 		private string m_ClientName;
 		private string m_PhysicianName;
-		private string m_ForeignAccessionNo;
-		//private string m_ColorCode;
+		private string m_ForeignAccessionNo;		
 		private Nullable<DateTime> m_FinalDate;
 		private string m_PanelSetName;
         private string m_SpecimenDescription;

@@ -44,8 +44,8 @@ namespace YellowstonePathology.Business.Test.BRAFV600EK
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceBRAFMANAL());
 
-            BRAFV600EKPanel brafV600EKPanel = new BRAFV600EKPanel();
-            this.m_PanelCollection.Add(brafV600EKPanel);
+            //BRAFV600EKPanel brafV600EKPanel = new BRAFV600EKPanel();
+            //this.m_PanelCollection.Add(brafV600EKPanel);
 		}
 	}
 }

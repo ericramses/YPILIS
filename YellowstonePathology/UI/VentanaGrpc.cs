@@ -8,17 +8,17 @@ using System.Threading.Tasks;
 using Grpc.Core;
 
 namespace Ventana {
-  public static partial class StainOrder
+  public static partial class VentanaService
   {
-    static readonly string __ServiceName = "ventana.StainOrder";
+    static readonly string __ServiceName = "ventana.VentanaService";
 
     static readonly Marshaller<global::Ventana.OrderRequest> __Marshaller_OrderRequest = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Ventana.OrderRequest.Parser.ParseFrom);
     static readonly Marshaller<global::Ventana.OrderReply> __Marshaller_OrderReply = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Ventana.OrderReply.Parser.ParseFrom);
 
-    static readonly Method<global::Ventana.OrderRequest, global::Ventana.OrderReply> __Method_getOrder = new Method<global::Ventana.OrderRequest, global::Ventana.OrderReply>(
+    static readonly Method<global::Ventana.OrderRequest, global::Ventana.OrderReply> __Method_sendOrder = new Method<global::Ventana.OrderRequest, global::Ventana.OrderReply>(
         MethodType.Unary,
         __ServiceName,
-        "getOrder",
+        "sendOrder",
         __Marshaller_OrderRequest,
         __Marshaller_OrderReply);
 
@@ -28,68 +28,68 @@ namespace Ventana {
       get { return global::Ventana.VentanaReflection.Descriptor.Services[0]; }
     }
 
-    /// <summary>Base class for server-side implementations of StainOrder</summary>
-    public abstract partial class StainOrderBase
+    /// <summary>Base class for server-side implementations of VentanaService</summary>
+    public abstract partial class VentanaServiceBase
     {
-      public virtual global::System.Threading.Tasks.Task<global::Ventana.OrderReply> getOrder(global::Ventana.OrderRequest request, ServerCallContext context)
+      public virtual global::System.Threading.Tasks.Task<global::Ventana.OrderReply> sendOrder(global::Ventana.OrderRequest request, ServerCallContext context)
       {
         throw new RpcException(new Status(StatusCode.Unimplemented, ""));
       }
 
     }
 
-    /// <summary>Client for StainOrder</summary>
-    public partial class StainOrderClient : ClientBase<StainOrderClient>
+    /// <summary>Client for VentanaService</summary>
+    public partial class VentanaServiceClient : ClientBase<VentanaServiceClient>
     {
-      /// <summary>Creates a new client for StainOrder</summary>
+      /// <summary>Creates a new client for VentanaService</summary>
       /// <param name="channel">The channel to use to make remote calls.</param>
-      public StainOrderClient(Channel channel) : base(channel)
+      public VentanaServiceClient(Channel channel) : base(channel)
       {
       }
-      /// <summary>Creates a new client for StainOrder that uses a custom <c>CallInvoker</c>.</summary>
+      /// <summary>Creates a new client for VentanaService that uses a custom <c>CallInvoker</c>.</summary>
       /// <param name="callInvoker">The callInvoker to use to make remote calls.</param>
-      public StainOrderClient(CallInvoker callInvoker) : base(callInvoker)
+      public VentanaServiceClient(CallInvoker callInvoker) : base(callInvoker)
       {
       }
       /// <summary>Protected parameterless constructor to allow creation of test doubles.</summary>
-      protected StainOrderClient() : base()
+      protected VentanaServiceClient() : base()
       {
       }
       /// <summary>Protected constructor to allow creation of configured clients.</summary>
       /// <param name="configuration">The client configuration.</param>
-      protected StainOrderClient(ClientBaseConfiguration configuration) : base(configuration)
+      protected VentanaServiceClient(ClientBaseConfiguration configuration) : base(configuration)
       {
       }
 
-      public virtual global::Ventana.OrderReply getOrder(global::Ventana.OrderRequest request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      public virtual global::Ventana.OrderReply sendOrder(global::Ventana.OrderRequest request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
       {
-        return getOrder(request, new CallOptions(headers, deadline, cancellationToken));
+        return sendOrder(request, new CallOptions(headers, deadline, cancellationToken));
       }
-      public virtual global::Ventana.OrderReply getOrder(global::Ventana.OrderRequest request, CallOptions options)
+      public virtual global::Ventana.OrderReply sendOrder(global::Ventana.OrderRequest request, CallOptions options)
       {
-        return CallInvoker.BlockingUnaryCall(__Method_getOrder, null, options, request);
+        return CallInvoker.BlockingUnaryCall(__Method_sendOrder, null, options, request);
       }
-      public virtual AsyncUnaryCall<global::Ventana.OrderReply> getOrderAsync(global::Ventana.OrderRequest request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      public virtual AsyncUnaryCall<global::Ventana.OrderReply> sendOrderAsync(global::Ventana.OrderRequest request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
       {
-        return getOrderAsync(request, new CallOptions(headers, deadline, cancellationToken));
+        return sendOrderAsync(request, new CallOptions(headers, deadline, cancellationToken));
       }
-      public virtual AsyncUnaryCall<global::Ventana.OrderReply> getOrderAsync(global::Ventana.OrderRequest request, CallOptions options)
+      public virtual AsyncUnaryCall<global::Ventana.OrderReply> sendOrderAsync(global::Ventana.OrderRequest request, CallOptions options)
       {
-        return CallInvoker.AsyncUnaryCall(__Method_getOrder, null, options, request);
+        return CallInvoker.AsyncUnaryCall(__Method_sendOrder, null, options, request);
       }
       /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
-      protected override StainOrderClient NewInstance(ClientBaseConfiguration configuration)
+      protected override VentanaServiceClient NewInstance(ClientBaseConfiguration configuration)
       {
-        return new StainOrderClient(configuration);
+        return new VentanaServiceClient(configuration);
       }
     }
 
     /// <summary>Creates service definition that can be registered with a server</summary>
     /// <param name="serviceImpl">An object implementing the server-side handling logic.</param>
-    public static ServerServiceDefinition BindService(StainOrderBase serviceImpl)
+    public static ServerServiceDefinition BindService(VentanaServiceBase serviceImpl)
     {
       return ServerServiceDefinition.CreateBuilder()
-          .AddMethod(__Method_getOrder, serviceImpl.getOrder).Build();
+          .AddMethod(__Method_sendOrder, serviceImpl.sendOrder).Build();
     }
 
   }
