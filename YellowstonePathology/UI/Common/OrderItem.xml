@@ -1453,24 +1453,7 @@
                 <TemplateName>StandardCheckBoxTemplate</TemplateName>
                 <OrderItems>
                 </OrderItems>
-              </OrderItem>
-              <OrderItem>
-                <Id>158</Id>
-                <ParentId>19</ParentId>
-                <ChildId>0</ChildId>
-                <Name>Thyroglobulin</Name>
-                <Orderable>True</Orderable>
-                <Order>False</Order>
-                <ItemType>Test</ItemType>
-                <OrderPriority>40</OrderPriority>
-                <NotListedName></NotListedName>
-                <NotListedNameVisible>False</NotListedNameVisible>
-                <Comment></Comment>
-                <CommentVisible>False</CommentVisible>
-                <TemplateName>StandardCheckBoxTemplate</TemplateName>
-                <OrderItems>
-                </OrderItems>
-              </OrderItem>
+              </OrderItem>              
               <OrderItem>
                 <Id>161</Id>
                 <ParentId>19</ParentId>

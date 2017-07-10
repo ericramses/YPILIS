@@ -103,8 +103,18 @@ namespace YellowstonePathology.Business.Visitor
         private void HandleAddAliquotOnOrder()
         {
             if (this.m_PanelSet.AddAliquotOnOrder == true)
-            {                
-                YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = (YellowstonePathology.Business.Specimen.Model.SpecimenOrder)this.m_TestOrderInfo.OrderTarget;
+            {
+                YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = null;
+                if (this.m_TestOrderInfo.OrderTarget is Business.Specimen.Model.SpecimenOrder)
+                {
+                    specimenOrder = (YellowstonePathology.Business.Specimen.Model.SpecimenOrder)this.m_OrderTarget;
+                }
+                else
+                {
+                    YellowstonePathology.Business.Test.AliquotOrder aliquotOrderOrderedOn = (YellowstonePathology.Business.Test.AliquotOrder)this.m_TestOrderInfo.OrderTarget;
+                    specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByAliquotOrderId(aliquotOrderOrderedOn.AliquotOrderId);
+                }                
+                 
                 YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = null;
 
                 if (specimenOrder.AliquotOrderCollection.Exists(this.m_PanelSet.AliquotToAddOnOrder) == false)

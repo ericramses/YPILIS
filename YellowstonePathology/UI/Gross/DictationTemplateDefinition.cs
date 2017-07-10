@@ -936,11 +936,11 @@ namespace YellowstonePathology.UI.Gross
                 "   Measurement:  [measurement] " + Environment.NewLine +
                 "   Os:  [description], [measurement]" + Environment.NewLine +                
                 "Sectioning of Uterus and Cervix:" + Environment.NewLine +
-                "   Endocervical Canal:  [description]" + Environment.NewLine +                
-                "   Endometrial Cavity:" + Environment.NewLine +
+                "   Endocervical Canal:  [description]" + Environment.NewLine +
+                "   Endometrial Cavity: " + Environment.NewLine +
+                "      Description:  [description]" + Environment.NewLine +
                 "      Dimensions:  [measurement]" + Environment.NewLine +
-                "      Endometrial Thickness:  [thickness]" + Environment.NewLine +
-                "      Description:  [description]" + Environment.NewLine +                
+                "      Endometrial Thickness:  [thickness]" + Environment.NewLine +                
                 "   Myometrium:" + Environment.NewLine +
                 "      Myometrial Thickness:  [thickness]" + Environment.NewLine +                
                 "      Lesions in Myometrium:  [description]" + Environment.NewLine +
@@ -996,9 +996,9 @@ namespace YellowstonePathology.UI.Gross
                 "   Endocervical Canal:  [description]" + Environment.NewLine +
                 "   Endocervical Mucosa:  [description]" + Environment.NewLine +
                 "   Endometrial Cavity:" + Environment.NewLine +
+                "      Description:  [description]" + Environment.NewLine +
                 "      Dimensions:  [measurement]" + Environment.NewLine +
-                "      Endometrial Thickness:  [thickness]" + Environment.NewLine +
-                "      Description:  [description]" + Environment.NewLine +                
+                "      Endometrial Thickness:  [thickness]" + Environment.NewLine +                
                 "   Myometrium:" + Environment.NewLine +
                 "      Myometrial Thickness:  [thickness]" + Environment.NewLine +                
                 "      Lesions in Myometrium:  [description]" + Environment.NewLine +

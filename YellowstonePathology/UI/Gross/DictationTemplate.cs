@@ -206,7 +206,11 @@ namespace YellowstonePathology.UI.Gross
             {
                 if (accessionOrder.SpecimenOrderCollection.IsLastNonPAPSpecimen(specimenOrder.SpecimenOrderId) == true)
                 {
-                    int grossVerifiedById = specimenOrder.AliquotOrderCollection[0].GrossVerifiedById.Value;
+                    int grossVerifiedById = 0;
+                    if(specimenOrder.AliquotOrderCollection[0].GrossVerifiedById.HasValue == true)
+                    {
+                        grossVerifiedById = specimenOrder.AliquotOrderCollection[0].GrossVerifiedById.Value;
+                    }
                     string grossedByInitials = "[??]";
 
                     if (grossVerifiedById != 0)

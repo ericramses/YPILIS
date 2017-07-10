@@ -220,8 +220,7 @@ namespace YellowstonePathology.Business.Test.Model
 
 			result.Add(new P504sRacemase());
 
-			result.Add(new P53());
-            result.Add(new P63());
+			result.Add(new P53());            
             result.Add(new Pancytokeratin());
 
 			result.Add(new PAX5());
@@ -237,8 +236,7 @@ namespace YellowstonePathology.Business.Test.Model
 			result.Add(new SmoothMuscleMyosin());
 
 			result.Add(new Synaptophysin());
-            result.Add(new TdT());
-            result.Add(new Thyroglobulin());
+            result.Add(new TdT());            
             result.Add(new TRAP());
 
 			result.Add(new TTF1());

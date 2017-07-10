@@ -65,6 +65,10 @@ namespace YellowstonePathology.UI.Gross
             YellowstonePathology.Business.Visitor.OrderTestVisitor orderTestVisitor = new Business.Visitor.OrderTestVisitor(this.m_PanelSetOrder.ReportNo, helicobacterPylori, helicobacterPylori.OrderComment, null, false, this.m_AliquotOrder, false, false, this.m_AccessionOrder.TaskOrderCollection);
             this.m_AccessionOrder.TakeATrip(orderTestVisitor);
 
+            YellowstonePathology.Business.Visitor.StainAcknowledgementTaskOrderVisitor stainAcknowledgementTaskOrderVisitor = new Business.Visitor.StainAcknowledgementTaskOrderVisitor(this.m_PanelSetOrder);
+            stainAcknowledgementTaskOrderVisitor.AddTestOrder(orderTestVisitor.TestOrder);
+            this.m_AccessionOrder.TakeATrip(stainAcknowledgementTaskOrderVisitor);
+
             this.m_TestOrderCollection = this.m_PanelSetOrder.GetTestOrderCollection(this.m_AliquotOrder.AliquotOrderId);
             this.NotifyPropertyChanged("TestOrderCollection");
         }
@@ -82,6 +86,10 @@ namespace YellowstonePathology.UI.Gross
             YellowstonePathology.Business.Test.Model.Pancytokeratin test = new YellowstonePathology.Business.Test.Model.Pancytokeratin();
 			YellowstonePathology.Business.Visitor.OrderTestVisitor orderTestVisitor = new Business.Visitor.OrderTestVisitor(this.m_PanelSetOrder.ReportNo, test, test.OrderComment, null, false, this.m_AliquotOrder, false, false, this.m_AccessionOrder.TaskOrderCollection);
             this.m_AccessionOrder.TakeATrip(orderTestVisitor);
+            
+            YellowstonePathology.Business.Visitor.StainAcknowledgementTaskOrderVisitor stainAcknowledgementTaskOrderVisitor = new Business.Visitor.StainAcknowledgementTaskOrderVisitor(this.m_PanelSetOrder);
+            stainAcknowledgementTaskOrderVisitor.AddTestOrder(orderTestVisitor.TestOrder);
+            this.m_AccessionOrder.TakeATrip(stainAcknowledgementTaskOrderVisitor);
 
             this.m_TestOrderCollection = this.m_PanelSetOrder.GetTestOrderCollection(this.m_AliquotOrder.AliquotOrderId);
             this.NotifyPropertyChanged("TestOrderCollection");
@@ -93,6 +101,10 @@ namespace YellowstonePathology.UI.Gross
 			YellowstonePathology.Business.Visitor.OrderTestVisitor orderTestVisitor = new Business.Visitor.OrderTestVisitor(this.m_PanelSetOrder.ReportNo, test, test.OrderComment, null, false, this.m_AliquotOrder, false, false, this.m_AccessionOrder.TaskOrderCollection);
             this.m_AccessionOrder.TakeATrip(orderTestVisitor);
 
+            YellowstonePathology.Business.Visitor.StainAcknowledgementTaskOrderVisitor stainAcknowledgementTaskOrderVisitor = new Business.Visitor.StainAcknowledgementTaskOrderVisitor(this.m_PanelSetOrder);
+            stainAcknowledgementTaskOrderVisitor.AddTestOrder(orderTestVisitor.TestOrder);
+            this.m_AccessionOrder.TakeATrip(stainAcknowledgementTaskOrderVisitor);
+
             this.m_TestOrderCollection = this.m_PanelSetOrder.GetTestOrderCollection(this.m_AliquotOrder.AliquotOrderId);
             this.NotifyPropertyChanged("TestOrderCollection");
         }
@@ -103,6 +115,10 @@ namespace YellowstonePathology.UI.Gross
 			YellowstonePathology.Business.Visitor.OrderTestVisitor orderTestVisitor = new Business.Visitor.OrderTestVisitor(this.m_PanelSetOrder.ReportNo, test, test.OrderComment, null, false, this.m_AliquotOrder, false, false, this.m_AccessionOrder.TaskOrderCollection);
             this.m_AccessionOrder.TakeATrip(orderTestVisitor);
 
+            YellowstonePathology.Business.Visitor.StainAcknowledgementTaskOrderVisitor stainAcknowledgementTaskOrderVisitor = new Business.Visitor.StainAcknowledgementTaskOrderVisitor(this.m_PanelSetOrder);
+            stainAcknowledgementTaskOrderVisitor.AddTestOrder(orderTestVisitor.TestOrder);
+            this.m_AccessionOrder.TakeATrip(stainAcknowledgementTaskOrderVisitor);
+
             this.m_TestOrderCollection = this.m_PanelSetOrder.GetTestOrderCollection(this.m_AliquotOrder.AliquotOrderId);
             this.NotifyPropertyChanged("TestOrderCollection");
         }
@@ -112,6 +128,10 @@ namespace YellowstonePathology.UI.Gross
             YellowstonePathology.Business.Test.Model.MITF test = new YellowstonePathology.Business.Test.Model.MITF();
 			YellowstonePathology.Business.Visitor.OrderTestVisitor orderTestVisitor = new Business.Visitor.OrderTestVisitor(this.m_PanelSetOrder.ReportNo, test, test.OrderComment, null, false, this.m_AliquotOrder, false, false, this.m_AccessionOrder.TaskOrderCollection);
             this.m_AccessionOrder.TakeATrip(orderTestVisitor);
+
+            YellowstonePathology.Business.Visitor.StainAcknowledgementTaskOrderVisitor stainAcknowledgementTaskOrderVisitor = new Business.Visitor.StainAcknowledgementTaskOrderVisitor(this.m_PanelSetOrder);
+            stainAcknowledgementTaskOrderVisitor.AddTestOrder(orderTestVisitor.TestOrder);
+            this.m_AccessionOrder.TakeATrip(stainAcknowledgementTaskOrderVisitor);
 
             this.m_TestOrderCollection = this.m_PanelSetOrder.GetTestOrderCollection(this.m_AliquotOrder.AliquotOrderId);
             this.NotifyPropertyChanged("TestOrderCollection");

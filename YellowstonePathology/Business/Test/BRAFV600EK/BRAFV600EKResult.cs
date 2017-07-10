@@ -78,14 +78,11 @@ namespace YellowstonePathology.Business.Test.BRAFV600EK
 
 		public virtual void AcceptResults(YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTestOrder panelSetOrder, YellowstonePathology.Business.Test.PanelOrder panelToAccept, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 		{			
-			panelSetOrder.Accept();
-			panelToAccept.AcceptResults();
+			panelSetOrder.Accept();			
 		}
 
 		public virtual void UnacceptResults(YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTestOrder panelSetOrder)
-		{
-			YellowstonePathology.Business.Test.PanelOrder acceptedPanelOrder = panelSetOrder.PanelOrderCollection.GetLastAcceptedPanelOrder();
-			acceptedPanelOrder.UnacceptResults();
+		{			
 			panelSetOrder.Unaccept();
 		}
 

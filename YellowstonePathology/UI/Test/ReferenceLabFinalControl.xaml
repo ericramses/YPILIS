@@ -24,10 +24,10 @@
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" FontWeight="Bold" VerticalAlignment="Center">Distribute:</TextBlock>
-        <CheckBox Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" IsChecked="{Binding Path=PanelSetOrder.Distribute}" VerticalAlignment="Center" />
+        <CheckBox Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" IsChecked="{Binding Path=PanelSetOrder.Distribute}" VerticalAlignment="Center" Width="50" HorizontalAlignment="Left"/>
 
         <TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" FontWeight="Bold" VerticalAlignment="Center">No Charge:</TextBlock>
-        <CheckBox Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" IsChecked="{Binding Path=PanelSetOrder.NoCharge}" VerticalAlignment="Center" />
+        <CheckBox Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" IsChecked="{Binding Path=PanelSetOrder.NoCharge}" VerticalAlignment="Center" Width="50" HorizontalAlignment="Left"/>
 
         <TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" FontWeight="Bold">Reference Lab Final Date:</TextBlock>
         <TextBox Grid.Column="1" Grid.Row="2" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.ReferenceLabFinalDate}"></TextBox>

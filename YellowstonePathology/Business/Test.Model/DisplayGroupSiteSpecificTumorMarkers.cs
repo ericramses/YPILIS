@@ -11,8 +11,7 @@ namespace YellowstonePathology.Business.Test.Model
         {
             this.m_GroupName = "Site Specific Tumor Markers";            
 
-            this.m_List.Add(new NapsinA());
-            this.m_List.Add(new Thyroglobulin());
+            this.m_List.Add(new NapsinA());            
             this.m_List.Add(new TTF1());
             this.m_List.Add(new CA199());
             this.m_List.Add(new CA125());
