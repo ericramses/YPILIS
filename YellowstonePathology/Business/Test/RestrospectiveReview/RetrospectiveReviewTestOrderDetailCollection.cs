@@ -12,13 +12,14 @@ namespace YellowstonePathology.Business.Test.RetrospectiveReview
 {
     public class RetrospectiveReviewTestOrderDetailCollection : ObservableCollection<RetrospectiveReviewTestOrderDetail>
     {
-        public void Sync(DataTable dataTable)
+        public void Sync(DataTable dataTable, string reportNo)
         {
-            this.RemoveDeleted(dataTable);
+            this.RemoveDeleted(dataTable, reportNo);
             DataTableReader dataTableReader = new DataTableReader(dataTable);
             while (dataTableReader.Read())
             {
                 string id = dataTableReader["RetrospectiveReviewTestOrderDetailId"].ToString();
+                string detailReportNo = dataTableReader["ReportNo"].ToString();
                 RetrospectiveReviewTestOrderDetail rsrd = null;
 
                 if (this.Exists(id) == true)
@@ -26,13 +27,19 @@ namespace YellowstonePathology.Business.Test.RetrospectiveReview
                     rsrd = this.Get(id);
                 }
                 else
-                {                    
-                    rsrd = new RetrospectiveReviewTestOrderDetail();
-                    this.Add(rsrd);
+                {
+                    if (detailReportNo == reportNo)
+                    {
+                        rsrd = new RetrospectiveReviewTestOrderDetail();
+                        this.Add(rsrd);
+                    }
                 }
 
-                YellowstonePathology.Business.Persistence.SqlDataTableReaderPropertyWriter sqlDataTableReaderPropertyWriter = new Persistence.SqlDataTableReaderPropertyWriter(rsrd, dataTableReader);
-                sqlDataTableReaderPropertyWriter.WriteProperties();
+                if (rsrd != null)
+                {
+                    YellowstonePathology.Business.Persistence.SqlDataTableReaderPropertyWriter sqlDataTableReaderPropertyWriter = new Persistence.SqlDataTableReaderPropertyWriter(rsrd, dataTableReader);
+                    sqlDataTableReaderPropertyWriter.WriteProperties();
+                }
             }
         }
 
@@ -62,21 +69,23 @@ namespace YellowstonePathology.Business.Test.RetrospectiveReview
             return result;
         }
 
-        public void RemoveDeleted(DataTable dataTable)
+        public void RemoveDeleted(DataTable dataTable, string reportNo)
         {
             for (int i = this.Count - 1; i > -1; i--)
             {
                 bool found = false;
+                string detailReportNo = string.Empty;
                 for (int idx = 0; idx < dataTable.Rows.Count; idx++)
                 {
+                    detailReportNo = dataTable.Rows[idx]["ReportNo"].ToString();
                     string id = dataTable.Rows[idx]["RetrospectiveReviewTestOrderDetailId"].ToString();
-                    if (this[i].RetrospectiveReviewTestOrderDetailId == id)
+                    if (this[i].RetrospectiveReviewTestOrderDetailId == id && detailReportNo == reportNo)
                     {
                         found = true;
                         break;
                     }
                 }
-                if (found == false)
+                if (found == false && detailReportNo == reportNo)
                 {
                     this.RemoveItem(i);
                 }
