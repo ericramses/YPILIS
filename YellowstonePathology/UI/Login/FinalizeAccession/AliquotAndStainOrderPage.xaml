@@ -179,7 +179,7 @@
 
                     <ComboBox Grid.Column="6" Margin="10,2,2,2" HorizontalAlignment="Stretch"
 							BorderBrush="LightGray" BorderThickness="1" Width="100"
-							ItemsSource="{Binding Path=EmbeddingInstructionList, RelativeSource={RelativeSource AncestorType=UserControl}}" Text="{Binding Path=Element[EmbeddingInstructions].Value}" IsEditable="True">
+							ItemsSource="{Binding Path=EmbeddingInstructionList, RelativeSource={RelativeSource AncestorType=UserControl}}" Text="{Binding Path=Element[EmbeddingInstructions].Value, UpdateSourceTrigger=PropertyChanged}" IsEditable="True">
                     </ComboBox>
                     <TextBlock Grid.Column="7" Margin="2,2,2,2" VerticalAlignment="Center" Text="{Binding Path=Element[GrossVerifiedDate].Value}"></TextBlock>
                 </Grid>                				

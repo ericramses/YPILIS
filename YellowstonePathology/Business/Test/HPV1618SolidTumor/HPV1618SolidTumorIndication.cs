@@ -7,13 +7,15 @@ namespace YellowstonePathology.Business.Test.HPV1618SolidTumor
 {
     public class HPV1618SolidTumorIndication
     {
-        public static string SquamousCellCarcinoma = "Squamous Cell Carcinoma of Head and Neck";        
+        public static string SquamousCellCarcinomaHeadAndNeck = "Squamous Cell Carcinoma of Head and Neck";
+        public static string SquamousCellCarcinomaAnalRegion = "Squamous cell carcinoma of anal region";
 
         public static List<string> GetIndicationList()
         {
             List<string> result = new List<string>();
             result.Add(null);
-            result.Add(SquamousCellCarcinoma);            
+            result.Add(SquamousCellCarcinomaHeadAndNeck);
+            result.Add(SquamousCellCarcinomaAnalRegion);
             return result;
         }
         
