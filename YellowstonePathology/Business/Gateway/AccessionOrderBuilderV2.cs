@@ -161,7 +161,7 @@ namespace YellowstonePathology.Business.Gateway
             }
         }
 
-        public void BuildMySql(MySqlCommand cmd, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
+        /*public void BuildMySql(MySqlCommand cmd, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
             this.m_PanelSetOrderReportNumbers = new List<string>();
             this.m_PanelOrderIds = new List<string>();
@@ -286,7 +286,7 @@ namespace YellowstonePathology.Business.Gateway
             {
                 HandleMySqlDataSets(dr);
             }
-        }
+        }*/
 
         private void HandleAccessionOrder(DataTable dataTable)
         {
@@ -598,7 +598,7 @@ namespace YellowstonePathology.Business.Gateway
                 if (panelSetOrder is Test.RetrospectiveReview.RetrospectiveReviewTestOrder)
                 {
                     Test.RetrospectiveReview.RetrospectiveReviewTestOrder rrto = (Test.RetrospectiveReview.RetrospectiveReviewTestOrder)panelSetOrder;                    
-                    rrto.RetrospectiveReviewTestOrderDetailCollection.Sync(dataTable);                    
+                    rrto.RetrospectiveReviewTestOrderDetailCollection.Sync(dataTable, rrto.ReportNo);                    
                 }
             }
         }
