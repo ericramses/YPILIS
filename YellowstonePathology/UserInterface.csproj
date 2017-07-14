@@ -1132,6 +1132,7 @@
       <DependentUpon>SurgicalSpecimenDisposalReportV2.xaml</DependentUpon>
     </Compile>
     <Compile Include="Business\Specimen.Model\WashAliquot.cs" />
+    <Compile Include="Business\Task.Model\TaskOrderDetailFedexShipment.Validation.cs" />
     <Compile Include="Business\Task.Model\TaskOrderRetrospectiveReview.cs" />
     <Compile Include="Business\Task.Model\TaskRetrospectiveReview.cs" />
     <Compile Include="Business\Task.Model\TaskFedexShipment.cs" />

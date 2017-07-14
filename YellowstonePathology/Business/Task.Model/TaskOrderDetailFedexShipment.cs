@@ -8,7 +8,7 @@ using YellowstonePathology.Business.Persistence;
 namespace YellowstonePathology.Business.Task.Model
 {
     [PersistentClass("tblTaskOrderDetailFedexShipment", "tblTaskOrderDetail", "YPIDATA")]
-    public class TaskOrderDetailFedexShipment : TaskOrderDetail
+    public partial class TaskOrderDetailFedexShipment : TaskOrderDetail
     {
         private string m_TrackingNumber;
         private string m_ShipToFacilityId;
@@ -27,12 +27,13 @@ namespace YellowstonePathology.Business.Task.Model
 
         public TaskOrderDetailFedexShipment()
         {
-            
+            this.m_ValidationErrors = new Dictionary<string, string>();
         }
 
         public TaskOrderDetailFedexShipment(string taskOrderDetailId, string taskOrderId, string objectId, Task task, int clientId) 
             : base(taskOrderDetailId, taskOrderId, objectId, task, clientId)
         {
+            this.m_ValidationErrors = new Dictionary<string, string>();
             TaskFedexShipment fedexShipment = (TaskFedexShipment)task;
             this.m_ShipToFacilityId = fedexShipment.ShipToFacility.FacilityId;
             this.m_ShipToName = fedexShipment.ShipToFacility.FacilityName;
