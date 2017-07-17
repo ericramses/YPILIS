@@ -765,25 +765,31 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
         {
             StringBuilder result = new StringBuilder();
             int xOffset = 0;
-
             result.Append("^XA");
-            for (int i = 0; i < 4; i++)
-            {
-                if (queue.Count != 0)
-                {
-                    Business.Label.Model.HistologySlidePaperZPLLabel label = queue.Dequeue();
-                    label.AppendCommands(result, xOffset);
-                    xOffset += 325;
-                }
-            }
-            result.Append("^XZ");
 
             string locationId = Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId;
             Business.Label.Model.ZPLPrinter printer = new Business.Label.Model.ZPLPrinter("10.1.1.21");
+
             if (locationId == "YPICDY" || locationId == "YPCDY")
             {
                 printer = new Business.Label.Model.ZPLPrinter("10.33.33.56");
-            }            
+                xOffset = 325;
+                Business.Label.Model.HistologySlidePaperZPLLabel label = queue.Dequeue();
+                label.AppendCommands(result, xOffset);
+            }
+            else
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    if (queue.Count != 0)
+                    {
+                        Business.Label.Model.HistologySlidePaperZPLLabel label = queue.Dequeue();
+                        label.AppendCommands(result, xOffset);
+                        xOffset += 325;
+                    }
+                }
+            }
+            result.Append("^XZ");
                         
             printer.Print(result.ToString());
         }
