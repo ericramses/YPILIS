@@ -91,7 +91,8 @@
         </StackPanel>
       
       <TextBlock Margin="2,2,2,0" Grid.Column="0" Grid.Row="1">Amendment</TextBlock>
-      <TextBox Name="TextBoxAmendment" Text="{Binding Path=Text}" TextWrapping="Wrap" Margin="2,0,2,2" Grid.ColumnSpan="2" Grid.Row="2" AcceptsReturn="True"></TextBox>      
+      <TextBox Name="TextBoxAmendment" Text="{Binding Path=Text}" TextWrapping="Wrap" Margin="2,0,2,2" Grid.ColumnSpan="2" Grid.Row="2" 
+               AcceptsReturn="True" IsEnabled="{Binding Path=Final, Converter={StaticResource InverseBooleanConverter}}"></TextBox>      
 
       <StackPanel Grid.Column="1" Grid.Row="3" HorizontalAlignment="Right" Orientation="Horizontal">
         <Button Name="ButtonFinalize" Width="100" Height="35" Margin="2,2,2,2" Click="ButtonFinalize_Click" HorizontalAlignment="Right">Finalize</Button>
