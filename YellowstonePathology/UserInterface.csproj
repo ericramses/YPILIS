@@ -1219,6 +1219,7 @@
     <Compile Include="Business\Test\MUM1ByIHC\MUM1ByIHCTest.cs" />
     <Compile Include="Business\Test\NeoTYPEOtherSolidTumorProfile\NeoTYPEOtherSolidTumorProfileTest.cs" />
     <Compile Include="Business\Test\NGCT\NGCTWPHOBXView.cs" />
+    <Compile Include="Business\Test\NPM1\NPM1WPHOBXView.cs" />
     <Compile Include="Business\Test\PDL122C3\PDL122C3EpicObxView.cs" />
     <Compile Include="Business\Test\PDL122C3\PDL122C3SystemGeneratedAmendmentText.cs" />
     <Compile Include="Business\Test\PDL122C3\PDL122C3Test.cs" />
