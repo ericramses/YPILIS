@@ -42,7 +42,7 @@ namespace YellowstonePathology.UI.Test
 
 			this.m_PageHeaderText = "Chromosome Analysis Result For: " + this.m_AccessionOrder.PatientDisplayName;
 
-			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderById(this.m_PanelSetOrder.OrderedOnId);			
+			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByOrderTarget(this.m_PanelSetOrder.OrderedOnId);			
 			this.m_OrderedOnDescription = specimenOrder.Description;
             this.m_ResultCollection = new YellowstonePathology.Business.Test.ChromosomeAnalysis.ChromosomeAnalysisResultCollection();
 			InitializeComponent();
