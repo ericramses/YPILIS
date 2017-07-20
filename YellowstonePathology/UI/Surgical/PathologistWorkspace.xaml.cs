@@ -80,7 +80,7 @@ namespace YellowstonePathology.UI.Surgical
             this.m_MainWindowCommandButtonHandler.ShowMessagingDialog += MainWindowCommandButtonHandler_ShowMessagingDialog;
 
             UI.AppMessaging.MessagingPath.Instance.LockReleasedActionList.Add(this.ReleaseLock);
-            UI.AppMessaging.MessagingPath.Instance.LockAquiredActionList.Add(this.m_PathologistUI.RunWorkspaceEnableRules);
+            UI.AppMessaging.MessagingPath.Instance.LockAquiredActionList.Add(this.m_PathologistUI.CheckEnabled);
 
             if (this.m_PathologistUI.AccessionOrder != null) this.m_PathologistUI.RunWorkspaceEnableRules();
             this.m_PathologistUI.PropertyChanged += PathologistUI_PropertyChanged;

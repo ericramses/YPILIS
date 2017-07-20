@@ -1132,6 +1132,7 @@
       <DependentUpon>SurgicalSpecimenDisposalReportV2.xaml</DependentUpon>
     </Compile>
     <Compile Include="Business\Specimen.Model\WashAliquot.cs" />
+    <Compile Include="Business\Task.Model\TaskOrderDetailFedexShipment.Validation.cs" />
     <Compile Include="Business\Task.Model\TaskOrderRetrospectiveReview.cs" />
     <Compile Include="Business\Task.Model\TaskRetrospectiveReview.cs" />
     <Compile Include="Business\Task.Model\TaskFedexShipment.cs" />
@@ -1218,6 +1219,7 @@
     <Compile Include="Business\Test\MUM1ByIHC\MUM1ByIHCTest.cs" />
     <Compile Include="Business\Test\NeoTYPEOtherSolidTumorProfile\NeoTYPEOtherSolidTumorProfileTest.cs" />
     <Compile Include="Business\Test\NGCT\NGCTWPHOBXView.cs" />
+    <Compile Include="Business\Test\NPM1\NPM1WPHOBXView.cs" />
     <Compile Include="Business\Test\PDL122C3\PDL122C3EpicObxView.cs" />
     <Compile Include="Business\Test\PDL122C3\PDL122C3SystemGeneratedAmendmentText.cs" />
     <Compile Include="Business\Test\PDL122C3\PDL122C3Test.cs" />

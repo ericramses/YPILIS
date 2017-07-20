@@ -147,8 +147,11 @@ namespace YellowstonePathology.UI.Login.Receiving
         {
             if (this.Next != null)
             {
-                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
-                this.Next(this, new EventArgs());
+                if(this.ValidateFedXTaskOrderDetail() == true)
+                {
+                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
+                    this.Next(this, new EventArgs());
+                }
             }
         }
 
@@ -159,8 +162,35 @@ namespace YellowstonePathology.UI.Login.Receiving
 
 		private void ButtonClose_Click(object sender, RoutedEventArgs e)
 		{
-			if (this.Close != null) this.Close(this, new EventArgs());
-		}        				
+            if (this.Close != null)
+            {
+                if(this.ValidateFedXTaskOrderDetail() == true) this.Close(this, new EventArgs());
+            }
+		}
+
+        private bool ValidateFedXTaskOrderDetail()
+        {
+            bool result = true;
+            if (this.m_TaskOrder.TaskOrderDetailCollection.FedexShipmentExists() == true)
+            {
+                result = false;
+                YellowstonePathology.Business.Task.Model.TaskOrderDetailFedexShipment taskOrderDetailFedexShipment = this.m_TaskOrder.TaskOrderDetailCollection.GetFedexShipment();
+                taskOrderDetailFedexShipment.ValidateObject();
+                if (taskOrderDetailFedexShipment.ValidationErrors.Count > 0)
+                {
+                    MessageBoxResult messageBoxResult = MessageBox.Show(taskOrderDetailFedexShipment.Errors, "FedX Issues", MessageBoxButton.YesNo, MessageBoxImage.Exclamation, MessageBoxResult.No);
+                    if (messageBoxResult == MessageBoxResult.Yes)
+                    {
+                        result = true;
+                    }
+                }
+                else
+                {
+                    result = true;
+                }
+            }
+            return result;
+        }
 
         private void HyperLinkSendToNeogenomics_Click(object sender, RoutedEventArgs e)
         {

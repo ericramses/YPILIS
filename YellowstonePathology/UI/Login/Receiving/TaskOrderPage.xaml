@@ -69,7 +69,7 @@
                         </Grid>
 
                         <TextBlock Grid.Column="0" Grid.Row="6" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right" IsEnabled="False">Phone Number:</TextBlock>
-                        <TextBox Grid.Column="1" Grid.Row="6" Margin="2,2,2,2" Text="{Binding Path=ShipToPhone}" IsEnabled="{Binding Path=PropertiesAreEnabled}"/>
+                        <TextBox Grid.Column="1" Grid.Row="6" Margin="2,2,2,2" Text="{Binding Path=ShipToPhoneBinding}" IsEnabled="{Binding Path=PropertiesAreEnabled}"/>
 
                         <TextBlock Grid.Column="0" Grid.Row="7" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right" IsEnabled="False">Payment Type:</TextBlock>
                         <ComboBox Name="ComboBoxPaymentType" Grid.Column="1" Grid.Row="7" Margin="2,2,2,2" SelectedValue="{Binding Path=PaymentType}"
@@ -89,7 +89,7 @@
                         </ComboBox>
 
                         <TextBlock Grid.Column="0" Grid.Row="10" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right">Account No:</TextBlock>
-                        <TextBox Grid.Column="1" Grid.Row="10" Margin="2,2,2,2" Text="{Binding Path=AccountNo}" IsEnabled="True"/>
+                        <TextBox Grid.Column="1" Grid.Row="10" Margin="2,2,2,2" Text="{Binding Path=AccountNoBinding}" IsEnabled="True" />
 
                         <TextBlock Grid.Column="0" Grid.Row="11" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right">Assigned To:</TextBlock>
                         <ComboBox Name="ComboBoxTaskAssignment" Grid.Column="1" Grid.Row="11" Margin="2,2,2,2" SelectedValue="{Binding Path=AssignedTo}"
