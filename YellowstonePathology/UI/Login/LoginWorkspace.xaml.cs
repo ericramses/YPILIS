@@ -589,13 +589,16 @@ namespace YellowstonePathology.UI.Login
         {
             if (this.ListViewAccessionOrders.SelectedItem != null)
             {
-                YellowstonePathology.UI.Login.FinalizeAccession.GrossEntryPage grossEntryPage = new FinalizeAccession.GrossEntryPage(this.m_LoginUI.AccessionOrder);
-                grossEntryPage.Next += new FinalizeAccession.GrossEntryPage.NextEventHandler(GrossEntryPage_Next);
-                grossEntryPage.Back += new FinalizeAccession.GrossEntryPage.BackEventHandler(GrossEntryPage_Back);
-                
-                this.m_LoginPageWindow = new Login.Receiving.LoginPageWindow();
-                this.m_LoginPageWindow.PageNavigator.Navigate(grossEntryPage);
-                this.m_LoginPageWindow.ShowDialog();
+                if (this.m_LoginUI.AccessionOrder.PanelSetOrderCollection.HasSurgical() == true)
+                {
+                    YellowstonePathology.UI.Login.FinalizeAccession.GrossEntryPage grossEntryPage = new FinalizeAccession.GrossEntryPage(this.m_LoginUI.AccessionOrder);
+                    grossEntryPage.Next += new FinalizeAccession.GrossEntryPage.NextEventHandler(GrossEntryPage_Next);
+                    grossEntryPage.Back += new FinalizeAccession.GrossEntryPage.BackEventHandler(GrossEntryPage_Back);
+
+                    this.m_LoginPageWindow = new Login.Receiving.LoginPageWindow();
+                    this.m_LoginPageWindow.PageNavigator.Navigate(grossEntryPage);
+                    this.m_LoginPageWindow.ShowDialog();
+                }
             }
         }
 
