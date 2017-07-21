@@ -67,7 +67,6 @@ namespace YellowstonePathology.Business.Task.Model
                     {
                         result += value + Environment.NewLine;
                     }
-                    result = result + Environment.NewLine + "One or more FedX issues need to handled.  Are you sure you want to continue?";
                 }
                 return result;
             }

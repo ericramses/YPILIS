@@ -178,7 +178,9 @@ namespace YellowstonePathology.UI.Login.Receiving
                 taskOrderDetailFedexShipment.ValidateObject();
                 if (taskOrderDetailFedexShipment.ValidationErrors.Count > 0)
                 {
-                    MessageBoxResult messageBoxResult = MessageBox.Show(taskOrderDetailFedexShipment.Errors, "FedX Issues", MessageBoxButton.YesNo, MessageBoxImage.Exclamation, MessageBoxResult.No);
+                    MessageBoxResult messageBoxResult = MessageBox.Show(taskOrderDetailFedexShipment.Errors + Environment.NewLine + 
+                        "One or more FedX issues need to handled.  Are you sure you want to continue?", "FedX Issues", MessageBoxButton.YesNo,
+                        MessageBoxImage.Exclamation, MessageBoxResult.No);
                     if (messageBoxResult == MessageBoxResult.Yes)
                     {
                         result = true;
@@ -284,28 +286,37 @@ namespace YellowstonePathology.UI.Login.Receiving
         private void HyperLinkGetTrackingNumber_Click(object sender, RoutedEventArgs e)
         {
             Business.Task.Model.TaskOrderDetailFedexShipment taskOrderDetail = this.m_TaskOrder.TaskOrderDetailCollection.GetFedexShipment();
-            if(this.IsOKToGetTrackingNumber(taskOrderDetail) == true)
+            taskOrderDetail.ValidateObject();
+            if (taskOrderDetail.ValidationErrors.Count == 0)
             {
-                Business.Facility.Model.FacilityCollection allFacilities = Business.Facility.Model.FacilityCollection.GetAllFacilities();
-                Business.Facility.Model.Facility facility = allFacilities.GetByFacilityId(taskOrderDetail.ShipToFacilityId);
-                Business.MaterialTracking.Model.FedexAccountProduction fedExAccount = new Business.MaterialTracking.Model.FedexAccountProduction();
-                Business.MaterialTracking.Model.FedexShipmentRequest shipmentRequest = new Business.MaterialTracking.Model.FedexShipmentRequest(facility, fedExAccount, taskOrderDetail.PaymentType, taskOrderDetail);
-                Business.MaterialTracking.Model.FedexProcessShipmentReply result = shipmentRequest.RequestShipment();
-
-                if (result.RequestWasSuccessful == true)
+                if (this.IsOKToGetTrackingNumber(taskOrderDetail) == true)
                 {
-                    taskOrderDetail.TrackingNumber = result.TrackingNumber;
-                    taskOrderDetail.ZPLII = Business.Label.Model.ZPLPrinter.DecodeZPLFromBase64(result.ZPLII);
+                    Business.Facility.Model.FacilityCollection allFacilities = Business.Facility.Model.FacilityCollection.GetAllFacilities();
+                    Business.Facility.Model.Facility facility = allFacilities.GetByFacilityId(taskOrderDetail.ShipToFacilityId);
+                    Business.MaterialTracking.Model.FedexAccountProduction fedExAccount = new Business.MaterialTracking.Model.FedexAccountProduction();
+                    Business.MaterialTracking.Model.FedexShipmentRequest shipmentRequest = new Business.MaterialTracking.Model.FedexShipmentRequest(facility, fedExAccount, taskOrderDetail.PaymentType, taskOrderDetail);
+                    Business.MaterialTracking.Model.FedexProcessShipmentReply result = shipmentRequest.RequestShipment();
+
+                    if (result.RequestWasSuccessful == true)
+                    {
+                        taskOrderDetail.TrackingNumber = result.TrackingNumber;
+                        taskOrderDetail.ZPLII = Business.Label.Model.ZPLPrinter.DecodeZPLFromBase64(result.ZPLII);
+                    }
+                    else
+                    {
+                        MessageBox.Show("There was a problem with this shipping request.");
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("There was a problem with this shipping request.");
+                    MessageBox.Show("We are unable to get the tracking number at this point because there are problems with the data.");
                 }
             }
             else
             {
-                MessageBox.Show("We are unable to get the tracking number at this point because there are problems with the data.");
-            }        
+                string message = "We are unable to get the tracking number at this point because" + Environment.NewLine + taskOrderDetail.Errors;
+                MessageBox.Show(message);
+            }       
         }
 
         private bool IsOKToGetTrackingNumber(Business.Task.Model.TaskOrderDetailFedexShipment taskOrderDetail)
