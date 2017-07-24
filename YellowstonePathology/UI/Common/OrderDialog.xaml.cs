@@ -160,7 +160,7 @@ namespace YellowstonePathology.UI.Common
                     this.m_StainAcknowledgementTaskOrderVisitor.TaskOrderDetailComment = this.m_PanelOrderComment;
                     this.m_AccessionOrder.TakeATrip(this.m_StainAcknowledgementTaskOrderVisitor);
 
-                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
+                    //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
 
                     this.m_OrderItemView.ClearSelectedItems();
                     this.NotifyPropertyChanged("OrderItemView");
