@@ -1144,6 +1144,7 @@
     <Compile Include="Business\Test\AMLPrognosticProfile\AMLPrognosticProfileTest.cs" />
     <Compile Include="Business\Test\AMLStandardByFish\AMLStandardByFishWPHOBXView.cs" />
     <Compile Include="Business\Test\AmyloidProteinIDParLCMS\AmyloidProteinIDParLCMSTest.cs" />
+    <Compile Include="Business\Test\ATRXIHC\ATRXIHCTest.cs" />
     <Compile Include="Business\Test\BartonellaSpeciesByPCR\BartonellaSpeciesByPCRTest.cs" />
     <Compile Include="Business\Test\BCellSubsetAnalysis\BCellSubsetAnalysisEPICOBXView.cs" />
     <Compile Include="Business\Test\BCellSubsetAnalysis\BCellSubsetAnalysisTest.cs" />
@@ -1188,6 +1189,7 @@
     <Compile Include="Business\Test\HPV1618SolidTumor\HPV1618SolidTumorNoResult.cs" />
     <Compile Include="Business\Test\HPV1618SolidTumor\HPV16NegativeHPV18PositiveResult.cs" />
     <Compile Include="Business\Test\HPV1618SolidTumor\HPV16PositiveHPV18NegativeResult.cs" />
+    <Compile Include="Business\Test\IDH1byIHC\IDH1byIHCTest.cs" />
     <Compile Include="Business\Test\IgHClonalityMRDByNGS\IgHClonalityMRDByNGSTest.cs" />
     <Compile Include="Business\Test\LiposarcomaFusionProfile\LiposarcomaFusionProfileEPICOBXView.cs" />
     <Compile Include="Business\Test\LiposarcomaFusionProfile\LiposarcomaFusionProfileTest.cs" />

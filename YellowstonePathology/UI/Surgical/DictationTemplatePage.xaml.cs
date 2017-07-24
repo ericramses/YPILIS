@@ -182,11 +182,11 @@ namespace YellowstonePathology.UI.Surgical
                 StringBuilder text = new StringBuilder(this.TextBoxGrossDescription.Text);                
                 int cursorPosition = this.TextBoxGrossDescription.SelectionStart;
                 int selectedTextLength = this.TextBoxGrossDescription.SelectionLength;                
-                text.Remove(cursorPosition, selectedTextLength);                
+                text.Remove(cursorPosition, selectedTextLength);
 
-                if (text.ToString(cursorPosition, 1) == "."  && text.ToString(cursorPosition - 1, 1) == " ")
+                if (text.Length > cursorPosition && text.ToString(cursorPosition, 1) == "." && text.ToString(cursorPosition - 1, 1) == " ")
                 {
-                    text.Remove(cursorPosition - 1, 1);                    
+                    text.Remove(cursorPosition - 1, 1);
                 }
                 this.TextBoxGrossDescription.Text = text.ToString();
                 this.TextBoxGrossDescription.SelectionStart = cursorPosition;
