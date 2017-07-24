@@ -238,6 +238,11 @@ namespace YellowstonePathology.UI.Surgical
                 MessageBox.Show("Stains cannot be ordered on an Informal Consult.");
                 return;
             }
+            if (this.m_PathologistUI.PanelSetOrder.PanelSetId == 262)  //Retrospective Review
+            {
+                MessageBox.Show("Stains cannot be ordered on a Retrospective Review.");
+                return;
+            }
 
             this.ShowStainOrderForm();
 		}

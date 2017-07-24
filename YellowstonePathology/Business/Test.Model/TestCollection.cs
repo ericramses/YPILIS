@@ -211,7 +211,6 @@ namespace YellowstonePathology.Business.Test.Model
 
             result.Add(new MLH1());
             result.Add(new MSH2());
-            result.Add(new MUM1());
             result.Add(new MuscleSpecificActin());
             result.Add(new Myeloperoxidase());
 			result.Add(new NKX31());
