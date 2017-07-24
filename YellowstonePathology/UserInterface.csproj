@@ -3708,6 +3708,10 @@
       <DependentUpon>BladderCancerFISHUrovysionResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Test\BladderCancerFISHUrovysionResultPath.cs" />
+    <Compile Include="UI\Test\BRAFMutationAnalysisResultPage.xaml.cs">
+      <DependentUpon>BRAFMutationAnalysisResultPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Test\BRAFMutationAnalysisResultPath.cs" />
     <Compile Include="UI\Test\BRAFV600EKResultPage.xaml.cs">
       <DependentUpon>BRAFV600EKResultPage.xaml</DependentUpon>
     </Compile>
@@ -5632,6 +5636,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Test\BladderCancerFISHUrovysionResultPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Test\BRAFMutationAnalysisResultPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
