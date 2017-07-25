@@ -49,20 +49,20 @@ namespace YellowstonePathology.Business.Test.BRAFMutationAnalysis
         public static BRAFMutationAnalysisResultCollection GetUniqueResultChoices()
         {
             BRAFMutationAnalysisResultCollection result = new BRAFMutationAnalysisResultCollection();
-            result.Add(new BRAFMutationAnalysisDetectedResult());
+            //result.Add(new BRAFMutationAnalysisDetectedResult());
             result.Add(new BRAFMutationAnalysisNotDetectedResult());
-            result.Add(new BRAFMutationAnalysisIndeterminateResult());
-            result.Add(new BRAFMutationAnalysisInsufficientResult());
+            //result.Add(new BRAFMutationAnalysisIndeterminateResult());
+            //result.Add(new BRAFMutationAnalysisInsufficientResult());
             return result;
         }
 
         public static BRAFMutationAnalysisResultCollection GetDetectedResults()
         {
             BRAFMutationAnalysisResultCollection result = new BRAFMutationAnalysisResultCollection();
-            result.Add(new BRAFMutationAnalysisDetectedCRCResult());
-            result.Add(new BRAFMutationAnalysisDetectedLynchSyndromeResult());
-            result.Add(new BRAFMutationAnalysisDetectedMetastaticMelanomaResult());
-            result.Add(new BRAFMutationAnalysisDetectedPapillaryThyroidResult());
+            //result.Add(new BRAFMutationAnalysisDetectedCRCResult());
+            //result.Add(new BRAFMutationAnalysisDetectedLynchSyndromeResult());
+            //result.Add(new BRAFMutationAnalysisDetectedMetastaticMelanomaResult());
+            //result.Add(new BRAFMutationAnalysisDetectedPapillaryThyroidResult());
             return result;
         }
 
@@ -83,12 +83,12 @@ namespace YellowstonePathology.Business.Test.BRAFMutationAnalysis
             result.Add(new BRAFMutationAnalysisNotDetectedLynchSyndromeResult());
             result.Add(new BRAFMutationAnalysisNotDetectedMetastaticMelanomaResult());
             result.Add(new BRAFMutationAnalysisNotDetectedPapillaryThyroidResult());
-            result.Add(new BRAFMutationAnalysisDetectedCRCResult());
-            result.Add(new BRAFMutationAnalysisDetectedLynchSyndromeResult());
-            result.Add(new BRAFMutationAnalysisDetectedMetastaticMelanomaResult());
-            result.Add(new BRAFMutationAnalysisDetectedPapillaryThyroidResult());
-            result.Add(new BRAFMutationAnalysisIndeterminateResult());
-            result.Add(new BRAFMutationAnalysisInsufficientResult());
+            //result.Add(new BRAFMutationAnalysisDetectedCRCResult());
+            //result.Add(new BRAFMutationAnalysisDetectedLynchSyndromeResult());
+            //result.Add(new BRAFMutationAnalysisDetectedMetastaticMelanomaResult());
+            //result.Add(new BRAFMutationAnalysisDetectedPapillaryThyroidResult());
+            //result.Add(new BRAFMutationAnalysisIndeterminateResult());
+            //result.Add(new BRAFMutationAnalysisInsufficientResult());
             return result;
         }
     }
