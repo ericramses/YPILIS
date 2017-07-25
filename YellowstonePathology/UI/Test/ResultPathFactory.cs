@@ -321,6 +321,9 @@ namespace YellowstonePathology.UI.Test
                 case 268:
                     result = new HematopathologySummaryResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
+                case 274:
+                    result = new BRAFMutationAnalysisResultPath(reportNo, accessionOrder, pageNavigator, window);
+                    break;
             }
             return result;
         }

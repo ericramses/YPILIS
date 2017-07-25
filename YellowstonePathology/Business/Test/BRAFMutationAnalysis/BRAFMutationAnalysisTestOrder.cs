@@ -30,7 +30,9 @@ namespace YellowstonePathology.Business.Test.BRAFMutationAnalysis
             bool distribute)
 			: base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute)
 		{
-            this.m_ReportDisclaimer = "";
+            this.m_ReportDisclaimer = "The performance characteristics of this test have been determined by NeoGenomics Laboratories. This test " +
+                "has not been approved by the FDA. The FDA has determined such clearance or approval is not necessary. This laboratory is CLIA " +
+                "certified to perform high complexity clinical testing.";
         }
 
         [PersistentProperty()]
