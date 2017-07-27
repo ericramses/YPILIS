@@ -47,7 +47,7 @@ namespace YellowstonePathology.Business.Test.RetrospectiveReview
         {
             foreach (RetrospectiveReviewTestOrderDetail item in this)
             {
-                if (item.RetrospectiveReviewTestOrderDetailId == item.RetrospectiveReviewTestOrderDetailId)
+                if (item.RetrospectiveReviewTestOrderDetailId == id)
                 {
                     return item;
                 }
