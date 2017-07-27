@@ -18,6 +18,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
         private string m_PLastName;
         private string m_PFirstName;
         private string m_MaterialLabel;
+        private string m_TestName;
 
         public MaterialTrackingScannedItemView()
         {
@@ -106,7 +107,21 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
                     this.NotifyPropertyChanged("MaterialLabel");
                 }
             }
-        }     
+        }
+
+        [PersistentProperty()]
+        public string TestName
+        {
+            get { return this.m_TestName; }
+            set
+            {
+                if (this.m_TestName != value)
+                {
+                    this.m_TestName = value;
+                    this.NotifyPropertyChanged("TestName");
+                }
+            }
+        }
 
         public void NotifyPropertyChanged(String info)
         {

@@ -2185,12 +2185,13 @@ namespace YellowstonePathology.Business.Gateway
 
 			MySqlCommand cmd = new MySqlCommand();
 			cmd.CommandText = "select s.SlideOrderId MaterialId, 'Slide' MaterialType, a.MasterAccessionNo, a.PLastName, " +
-                "a.PFirstName, s.Label MaterialLabel " +
+                "a.PFirstName, s.Label MaterialLabel, t.TestName " +
 				"from tblSlideOrder s " +
 				"join tblAliquotOrder ao on s.AliquotOrderId = ao.AliquotOrderId " +
 				"join tblSpecimenOrder so on ao.SpecimenOrderId = so.SpecimenOrderId " +
 				"join tblAccessionOrder a on so.MasterAccessionNo = a.MasterAccessionNo " +
-				"where s.SlideOrderId = @SlideOrderId ;";
+                "left outer join tblTestOrder t on s.TestOrderId = t.TestOrderId " +
+                "where s.SlideOrderId = @SlideOrderId ;";
 			cmd.CommandType = CommandType.Text;
 			cmd.Parameters.AddWithValue("@SlideOrderId", slideOrderId);
 
