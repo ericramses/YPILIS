@@ -147,6 +147,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.Test.HER2BreastEquivocalFISHPanel.HER2BreastEquivocalFISHPanelTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.ATRXIHC.ATRXIHCTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.IDH1byIHC.IDH1byIHCTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTest());
 
             //ARUP
             panelSetCollection.Add(new YellowstonePathology.Business.Test.HPV1618.HPV1618Test());
