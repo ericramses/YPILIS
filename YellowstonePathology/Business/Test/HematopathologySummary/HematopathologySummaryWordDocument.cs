@@ -41,13 +41,31 @@ namespace YellowstonePathology.Business.Test.HematopathologySummary
 
             string surgicalResult = string.Empty;
             YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetSurgical();
-            foreach(YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen in surgicalTestOrder.SurgicalSpecimenCollection)
+            string reportNo = surgicalTestOrder.ReportNo;
+
+            XmlNode surgicalTableNode = this.m_ReportXml.SelectSingleNode("descendant::w:tbl[w:tr/w:tc/w:p/w:r/w:t='surgical_description']", this.m_NameSpaceManager);
+            XmlNode descriptionRowNode = surgicalTableNode.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='surgical_description']", this.m_NameSpaceManager);
+            XmlNode diagnosisRowNode = surgicalTableNode.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='surgical_diagnosis']", this.m_NameSpaceManager);
+            foreach (YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen in surgicalTestOrder.SurgicalSpecimenCollection)
             {
-                surgicalResult += surgicalSpecimen.Diagnosis + Environment.NewLine;
+                string description = surgicalSpecimen.DiagnosisIdFormatted + "  " +surgicalSpecimen.SpecimenOrder.Description;
+
+                if (surgicalSpecimen.DiagnosisId > 1) reportNo = string.Empty;
+
+                XmlNode descriptionRowClone = descriptionRowNode.Clone();
+                descriptionRowClone.SelectSingleNode("descendant::w:r[w:t='surgical_description']/w:t", this.m_NameSpaceManager).InnerText = description;
+                descriptionRowClone.SelectSingleNode("descendant::w:r[w:t='surgical_report_no']/w:t", this.m_NameSpaceManager).InnerText = reportNo;
+
+                XmlNode diagnosisRowClone = diagnosisRowNode.Clone();
+                this.SetXMLNodeParagraphDataNode(diagnosisRowClone, "surgical_diagnosis", surgicalSpecimen.Diagnosis);
+
+                surgicalTableNode.InsertBefore(descriptionRowClone, descriptionRowNode);
+                surgicalTableNode.InsertBefore(diagnosisRowClone, descriptionRowNode);
             }
 
-            this.ReplaceText("surgical_result", surgicalResult);
-            this.ReplaceText("surgical_report_no", surgicalTestOrder.ReportNo);
+            surgicalTableNode.RemoveChild(descriptionRowNode);
+            surgicalTableNode.RemoveChild(diagnosisRowNode);
+
 
             XmlNode testTableNode = this.m_ReportXml.SelectSingleNode("descendant::w:tbl[w:tr/w:tc/w:p/w:r/w:t='test_name']", this.m_NameSpaceManager);            
             XmlNode rowTestNode = testTableNode.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='test_name']", this.m_NameSpaceManager);
