@@ -176,14 +176,5 @@ namespace YellowstonePathology.UI.Test
             string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);
             YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(fileName);
         }
-
-        private void ComboBoxResult_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            /*if (this.ComboBoxResult.SelectedItem != null)
-            {
-                YellowstonePathology.Business.Test.TestResult testResult = (YellowstonePathology.Business.Test.TestResult)this.ComboBoxResult.SelectedItem;
-                this.m_PanelSetOrder.ResultCode = testResult.ResultCode;
-            }*/
-        }
     }
 }
