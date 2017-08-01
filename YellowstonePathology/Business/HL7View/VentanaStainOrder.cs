@@ -30,7 +30,7 @@ namespace YellowstonePathology.Business.HL7View
             orderRequest.Msh.SendingFacility = "YPI";
             orderRequest.Msh.ReceivingApplication = "Ventana";
             orderRequest.Msh.ReceivingFacility = "YPI";
-            orderRequest.Msh.DateTimeOfMessage = DateTime.Now.ToString("yyyyMMddHHmm");
+            orderRequest.Msh.DateTimeOfMessage = DateTime.Now.ToString("yyyyMMddHHmmss");
             orderRequest.Msh.MessageType = "OML^O21";
             orderRequest.Msh.MessageControlId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 
