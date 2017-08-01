@@ -79,7 +79,7 @@
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
-                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto" MinHeight="70"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
@@ -92,11 +92,7 @@
                         <RowDefinition Height="Auto"></RowDefinition>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold">Result:</TextBlock>
-                    <ComboBox Name="ComboBoxResult" Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" ItemsSource="{Binding Path=ResultCollection}" DisplayMemberPath="Result"
-                              SelectedValue="{Binding Path=PanelSetOrder.Result}" SelectedValuePath="Result" HorizontalAlignment="Stretch" SelectionChanged="ComboBoxResult_SelectionChanged"/>
-
-                    <TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left">Interpretation:</TextBlock>
+                    <TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left">Summary:</TextBlock>
                     <TextBox Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Margin="2,2,2,2" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding Path=PanelSetOrder.Interpretation}" />
 
                     <TextBlock Grid.Column="0" Grid.Row="10" Margin="2,2,2,2" FontWeight="Bold">Distribute:</TextBlock>
