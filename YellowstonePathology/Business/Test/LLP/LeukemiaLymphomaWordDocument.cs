@@ -15,7 +15,7 @@ namespace YellowstonePathology.Business.Test.LLP
 		{			
 			PanelSetOrderLeukemiaLymphoma panelSetOrderLeukemiaLymphoma = (PanelSetOrderLeukemiaLymphoma)this.m_PanelSetOrder;
 
-			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\LeukemiaLymphoma.9.xml";
+			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\LeukemiaLymphoma.10.xml";
 
 			base.OpenTemplate();
 
@@ -85,7 +85,9 @@ namespace YellowstonePathology.Business.Test.LLP
 			this.SetXmlNodeData("clinical_history", this.m_AccessionOrder.ClinicalHistory);
 			this.SetXmlNodeData("specimen_description", specimenOrder.Description);
 
-			string dateTimeCollected = string.Empty;
+            this.SetXMLNodeParagraphData("additional_testing", this.m_AccessionOrder.PanelSetOrderCollection.GetAdditionalTestingString(this.m_PanelSetOrder.ReportNo));
+
+            string dateTimeCollected = string.Empty;
 			if (specimenOrder.CollectionTime.HasValue == true)
 			{
 				dateTimeCollected = specimenOrder.CollectionTime.Value.ToString("MM/dd/yyyy HH:mm");
