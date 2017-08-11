@@ -399,7 +399,7 @@
 
 	</UserControl.Resources>
 	
-	<Grid>
+	<Grid KeyUp="MainGrid_KeyUp">
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="*"></ColumnDefinition>
 		</Grid.ColumnDefinitions>
@@ -461,7 +461,7 @@
 
 			<Rectangle RadiusX="5" RadiusY="5" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="1" Grid.RowSpan="1" Margin="2"></Rectangle>
 
-			<ScrollViewer Grid.Column="0" Grid.Row="1" CanContentScroll="False">
+			<ScrollViewer Name="MainScrollViewer" Grid.Column="0" Grid.Row="1" CanContentScroll="False">
 				<StackPanel>
 					<Grid>
 						<Grid.ColumnDefinitions>

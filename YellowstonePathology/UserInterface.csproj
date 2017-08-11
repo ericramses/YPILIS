@@ -311,6 +311,7 @@
     <Compile Include="Business\Billing.Model\PropertyChanges.cs" />
     <Compile Include="Business\Client.Model\HPVCompoundStandingOrderRule6.cs" />
     <Compile Include="Business\Client.Model\IdahoClientIdList.cs" />
+    <Compile Include="Business\Facility.Model\BeneifsHealthSystem.cs" />
     <Compile Include="Business\Facility.Model\CastleBiosciences.cs" />
     <Compile Include="Business\Facility.Model\UniversityOfMississippi.cs" />
     <Compile Include="Business\Facility.Model\NorthernMtHealthcare.cs" />

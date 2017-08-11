@@ -567,5 +567,96 @@ namespace YellowstonePathology.UI.Surgical
             this.m_PathologistUI.PanelSetOrder.PanelSetOrderCPTCodeCollection.SetCPTCodes(this.m_PathologistUI.AccessionOrder.SpecimenOrderCollection, this.m_PathologistUI.PanelSetOrder.ReportNo, this.m_PathologistUI.AccessionOrder.ClientId);
             this.RefreshBillingSpecimenViewCollection();
         }
+
+        private void MainGrid_KeyUp(object sender, KeyEventArgs e)
+        {
+            /*if(e.Key == Key.F2)
+            {
+                List<TextBox> questionMarkTextBoxes = new List<TextBox>();
+
+                this.MainScrollViewer.ScrollToTop();
+                this.MainScrollViewer.UpdateLayout();
+                this.FindQuestionMarkTextBoxes(this.Content, questionMarkTextBoxes);
+                TextBox textBox = Keyboard.FocusedElement as TextBox;
+                if(questionMarkTextBoxes.Count > 0)
+                {
+                    if (textBox != null)
+                    {
+                        int idx = questionMarkTextBoxes.IndexOf(textBox);
+                        if(idx > -1)
+                        {
+                            if(idx == 0)
+                            {
+                                textBox = questionMarkTextBoxes[0];
+                            }
+                            else if (idx < questionMarkTextBoxes.Count - 2)
+                            {
+                                textBox = questionMarkTextBoxes[idx + 1];
+                            }
+                            else
+                            {
+                                textBox = questionMarkTextBoxes[0];
+                            }
+                        }
+                        else
+                        {
+                            textBox = questionMarkTextBoxes[0];
+                        }
+                    }
+                    else
+                    {
+                        textBox = questionMarkTextBoxes[0];
+                    }
+
+                    textBox.Focus();
+                    int offset = textBox.Text.IndexOf("???");
+                    textBox.Select(offset, 3);
+
+                    Point epoint = textBox.PointFromScreen(new Point());
+                    Point spoint = this.MainScrollViewer.PointFromScreen(new Point());
+                    double vertical = spoint.Y - epoint.Y - (textBox.ActualHeight / 2);
+                    this.MainScrollViewer.ScrollToVerticalOffset(vertical);
+                }
+                else
+                {
+                    MessageBox.Show("No ??? found.", "??? Not Found", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                }
+            }*/
+        }
+
+        private void FindQuestionMarkTextBoxes(object o, List<TextBox> questionMarkTextBoxes)
+        {
+            if(o is TextBox)
+            {
+                if(((TextBox)o).Text.Contains("???"))
+                {
+                    questionMarkTextBoxes.Add((TextBox)o);
+                }
+            }
+            else if (o is Panel)
+            {
+                Panel panel = (Panel)o;
+                foreach (UIElement element in panel.Children)
+                {
+                    FindQuestionMarkTextBoxes(element, questionMarkTextBoxes);
+                }
+            }
+            else if (o is CheckBox)
+            {
+                ((UIElement)o).IsEnabled = false;
+            }
+            else if (o is ContentControl)
+            {
+                ContentControl contentControl = (ContentControl)o;
+                if (contentControl.Content != null)
+                {
+                    FindQuestionMarkTextBoxes(contentControl.Content, questionMarkTextBoxes);
+                }
+                else
+                {
+                    contentControl.IsEnabled = false;
+                }
+            }
+        }
     }
 }
