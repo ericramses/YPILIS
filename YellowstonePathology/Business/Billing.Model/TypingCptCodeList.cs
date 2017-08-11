@@ -14,7 +14,13 @@ namespace YellowstonePathology.Business.Billing.Model
             this.Add(new TypingCptCodeListItem(CptCodeCollection.Instance.GetCptCode("88300")));
             this.Add(new TypingCptCodeListItem(CptCodeCollection.Instance.GetCptCode("88302")));
             this.Add(new TypingCptCodeListItem(CptCodeCollection.Instance.GetCptCode("88304")));
-            this.Add(new TypingCptCodeListItem(CptCodeCollection.Instance.GetCptCode("88305")));
+            this.Add(new TypingCptCodeListItem(CptCodeCollection.Instance.GetCptCode("88305")));   
+            
+            CptCode cpt88305 = CptCodeCollection.Instance.GetCptCode("88305");
+            CptCode po88305 = CptCode.Clone(cpt88305);
+            po88305.Modifier = "26";
+            this.Add(new TypingCptCodeListItem(po88305));
+
             this.Add(new TypingCptCodeListItem(CptCodeCollection.Instance.GetCptCode("88307")));
             this.Add(new TypingCptCodeListItem(CptCodeCollection.Instance.GetCptCode("88309")));
             this.Add(new TypingCptCodeListItem(CptCodeCollection.Instance.GetCptCode("88104")));

@@ -983,23 +983,37 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            string filePath = @"D:\git\openlis\ap-hl7\src\core\protocols.json";
-            string json = File.ReadAllText(filePath);
-            Newtonsoft.Json.Linq.JArray array = Newtonsoft.Json.Linq.JArray.Parse(json);
-
             
-            foreach (Newtonsoft.Json.Linq.JObject obj in array)
-            {
-                StringBuilder result = new StringBuilder();
-                result.Append("this.Add(new VentanaStain(\"");
-                result.Append(obj["ventana_id"].ToString() + "\", \"");
-                result.Append(obj["ventana_name"].ToString() + "\", \"");                
-                result.Append(obj["ypi_id"].ToString() + "\", \"");
-                result.Append(obj["type"].ToString() + "\", \"");
-                result.Append(obj["color"].ToString() + "\"));");
-                Console.WriteLine(result.ToString());
-            }
         }    
+
+        private void InsertBenchMarkData()
+        {
+            using (StreamReader sr = new StreamReader(@"c:\users\sid.harder\downloads\BenchMarkSpecialStains.txt"))
+            {
+                string line = null;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    string[] fields = line.Split('\t');
+                    string sql = "Insert tblVentanaBenchMark (StainerType, BarcodeNumber, Stainname, `Procedure`, ProtocolName)" +
+                        " values " +
+                        "('" + fields[0] + "', " + fields[1] + ", '" + fields[2] + "', '" + fields[3] + "', '" + fields[4] + "');";
+                    Console.WriteLine(sql);
+                }
+            }
+
+            using (StreamReader sr = new StreamReader(@"c:\users\sid.harder\downloads\BenchMarkULTRA.txt"))
+            {
+                string line = null;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    string[] fields = line.Split('\t');
+                    string sql = "Insert tblVentanaBenchMark (StainerType, BarcodeNumber, Stainname, `Procedure`, ProtocolName)" +
+                        " values " +
+                        "('" + fields[0] + "', " + fields[1] + ", '" + fields[2] + "', '" + fields[3] + "', '" + fields[4] + "');";
+                    Console.WriteLine(sql);
+                }
+            }
+        }
 
         private void WriteSchema()
         {

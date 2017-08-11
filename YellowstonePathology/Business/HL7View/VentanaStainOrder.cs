@@ -25,6 +25,15 @@ namespace YellowstonePathology.Business.HL7View
             Business.Test.PanelOrder panelOrder = accessionOrder.PanelSetOrderCollection.GetPanelOrderByTestOrderId(testOrderId);
             Business.User.SystemUser orderedBy = Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetSystemUserById(panelOrder.OrderedById);
 
+            Business.Test.AliquotOrder aliquotOrder = accessionOrder.SpecimenOrderCollection.GetAliquotOrderByTestOrderId(testOrderId);
+            Business.Test.Model.TestOrder testOrder = panelOrder.TestOrderCollection.Get(testOrderId);
+
+            Business.Surgical.VentanaBenchMarkCollection ventanaBenchMarkCollection = Business.Gateway.AccessionOrderGateway.GetVentanaBenchMarkCollection();
+            Business.Surgical.VentanaBenchMark ventanaBenchMark = ventanaBenchMarkCollection.GetByYPITestId(testOrder.TestId.ToString());
+
+            Business.Slide.Model.SlideOrder slideOrder = aliquotOrder.SlideOrderCollection.GetSlideOrderByTestOrderId(testOrderId);
+            Business.Specimen.Model.SpecimenOrder specimenOrder = accessionOrder.SpecimenOrderCollection.GetSpecimenOrderByAliquotOrderId(aliquotOrder.AliquotOrderId);
+
             orderRequest.Msh = new Ventana.msh();
             orderRequest.Msh.SendingApplication = "YPILIS";
             orderRequest.Msh.SendingFacility = "YPI";
@@ -52,29 +61,20 @@ namespace YellowstonePathology.Business.HL7View
 
             Ventana.stain_order stainOrder = new Ventana.stain_order();
             Ventana.orc orc = new Ventana.orc();
-            orc.OrderControl = "1";
-            orc.PlacerOrderNumber = testOrderId;
+            orc.OrderControl = "NW";
+            orc.PlacerOrderNumber = accessionOrder.MasterAccessionNo;
             orc.SiteName = "YPI";
             orc.SiteDescription = "Yellowstone Pathology";
             orc.FacilityCode = "YPI";
             orc.FacilityName = "Yellowstone Pathology";
-            stainOrder.Orc = orc;
-
-            Business.Test.AliquotOrder aliquotOrder = accessionOrder.SpecimenOrderCollection.GetAliquotOrderByTestOrderId(testOrderId);
-            Business.Test.Model.TestOrder testOrder = panelOrder.TestOrderCollection.Get(testOrderId);
-
-            Business.Test.Model.VentanaStainCollection ventanaStainCollection = new Test.Model.VentanaStainCollection();
-            Business.Test.Model.VentanaStain ventanaStain = ventanaStainCollection.GetByYPITestId(testOrder.TestId.ToString());
-
-            Business.Slide.Model.SlideOrder slideOrder = aliquotOrder.SlideOrderCollection.GetSlideOrderByTestOrderId(testOrderId);
-            Business.Specimen.Model.SpecimenOrder specimenOrder = accessionOrder.SpecimenOrderCollection.GetSpecimenOrderByAliquotOrderId(aliquotOrder.AliquotOrderId);
+            stainOrder.Orc = orc;            
 
             Ventana.obr obr = new Ventana.obr();
             obr.OrderSequenceId = "1";
-            obr.PlacerOrderNumber = testOrderId;
-            obr.ProtocolNumber = ventanaStain.Id;
-            obr.ProtocolName = ventanaStain.Name;
-            obr.OrderType = ventanaStain.Type;
+            obr.PlacerOrderNumber = accessionOrder.MasterAccessionNo;
+            obr.ProtocolNumber = ventanaBenchMark.BarcodeNumber.ToString();
+            obr.ProtocolName = ventanaBenchMark.StainName;
+            obr.OrderType = "STAIN";
             obr.ObservationDateTime = DateTime.Now.ToString("yyyyMMddHHmm");
             obr.SpecimenName = specimenOrder.SpecimenId;
             obr.SpecimenDescription = specimenOrder.Description;
@@ -83,10 +83,10 @@ namespace YellowstonePathology.Business.HL7View
             obr.PathologistLastname = orderedBy.LastName;
             obr.PathologistFirstname = orderedBy.FirstName;
             obr.SlideId = slideOrder.SlideOrderId;
-            obr.SlideSequence = slideOrder.Label;
+            obr.SlideSequence = Business.Specimen.Model.Slide.GetSlideNumber(slideOrder.Label);
             obr.Blockid = aliquotOrder.AliquotOrderId;
-            obr.BlockSequence = aliquotOrder.Label;
-            obr.SpecimenId = specimenOrder.SpecimenId;
+            obr.BlockSequence = Business.Specimen.Model.Block.GetBlockLetter(aliquotOrder.Label);            
+            obr.SpecimenId = specimenOrder.SpecimenOrderId;
             obr.SpecimenSequence = specimenOrder.SpecimenNumber.ToString();
             stainOrder.Obr = obr;
             orderRequest.StainOrders.Add(stainOrder);

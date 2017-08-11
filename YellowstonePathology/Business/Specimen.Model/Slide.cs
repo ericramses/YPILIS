@@ -11,5 +11,21 @@ namespace YellowstonePathology.Business.Specimen.Model
         {
 
         }
+
+        public static string GetSlideNumber(string slideLabel)
+        {
+            string result = slideLabel;
+            if (string.IsNullOrEmpty(slideLabel) == false)
+            {
+                string pattern = "([1-9]+)([A-Z]+)([1-9]+)";
+                System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex(pattern);
+                System.Text.RegularExpressions.Match match = regex.Match(slideLabel);
+                if (match.Captures.Count != 0)
+                {
+                    result = match.Groups[3].Value;
+                }
+            }
+            return result;
+        }
     }
 }

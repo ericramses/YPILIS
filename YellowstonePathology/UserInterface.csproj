@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>178</ApplicationRevision>
+    <ApplicationRevision>186</ApplicationRevision>
     <ApplicationVersion>10.1.7.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -1132,14 +1132,14 @@
       <DependentUpon>SurgicalSpecimenDisposalReportV2.xaml</DependentUpon>
     </Compile>
     <Compile Include="Business\Specimen.Model\WashAliquot.cs" />
+    <Compile Include="Business\Surgical\VentanaBenchMark.cs" />
+    <Compile Include="Business\Surgical\VentanaBenchMarkCollection.cs" />
     <Compile Include="Business\Task.Model\TaskOrderDetailFedexShipment.Validation.cs" />
     <Compile Include="Business\Task.Model\TaskOrderRetrospectiveReview.cs" />
     <Compile Include="Business\Task.Model\TaskRetrospectiveReview.cs" />
     <Compile Include="Business\Task.Model\TaskFedexShipment.cs" />
     <Compile Include="Business\Task.Model\TaskOrderDetailFactory.cs" />
     <Compile Include="Business\Task.Model\TaskOrderDetailFedexShipment.cs" />
-    <Compile Include="Business\Test.Model\VentanaStain.cs" />
-    <Compile Include="Business\Test.Model\VentanaStainCollection.cs" />
     <Compile Include="Business\Test\AMLFavorableRisk\AMLFavorableRiskTest.cs" />
     <Compile Include="Business\Test\AMLPrognosticProfile\AMLPrognosticProfileTest.cs" />
     <Compile Include="Business\Test\AMLStandardByFish\AMLStandardByFishWPHOBXView.cs" />

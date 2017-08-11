@@ -85,7 +85,7 @@ namespace YellowstonePathology.Business.Billing.Model
 
         public CptCode GetCptCode(string code)
         {
-            CptCode result = null;            
+            CptCode result = null;                        
             foreach (CptCode cptCode in this)
             {
                 if (cptCode.Code.ToUpper() == code.ToUpper())

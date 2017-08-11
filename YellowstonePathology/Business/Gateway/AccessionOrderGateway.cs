@@ -13,6 +13,32 @@ namespace YellowstonePathology.Business.Gateway
 {
 	public class AccessionOrderGateway
 	{
+        public static Business.Surgical.VentanaBenchMarkCollection GetVentanaBenchMarkCollection()
+        {
+            Business.Surgical.VentanaBenchMarkCollection result = new Surgical.VentanaBenchMarkCollection();
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "Select * from tblVentanaBenchMark";                
+            cmd.CommandType = CommandType.Text;                        
+
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        Business.Surgical.VentanaBenchMark item = new Surgical.VentanaBenchMark();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(item, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(item);
+                    }
+                }
+            }
+
+            return result;
+        }
+
         public static Business.ReportNoCollection GetSurgicalFinal(DateTime finalDate)
         {
             Business.ReportNoCollection result = new ReportNoCollection();
