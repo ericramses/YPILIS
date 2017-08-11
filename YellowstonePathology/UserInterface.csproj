@@ -1184,11 +1184,10 @@
     <Compile Include="Business\Test\FISH5p159q2215p22\FISH5p159q2215p22Test.cs" />
     <Compile Include="Business\Test\FISH5p159q2215p22\FISH5p159q2215p22TestOrder.cs" />
     <Compile Include="Business\Test\FISH5p159q2215p22\FISH5p159q2215p22WordDocument.cs" />
-    <Compile Include="Business\Test\HematopathologySummary\HematopathologySummaryEPICOBXView.cs" />
-    <Compile Include="Business\Test\HematopathologySummary\HematopathologySummaryTest.cs" />
-    <Compile Include="Business\Test\HematopathologySummary\HematopathologySummaryTestOrder.cs" />
-    <Compile Include="Business\Test\HematopathologySummary\HematopathologySummaryWordDocument.cs" />
-    <Compile Include="Business\Test\HematopathologySummary\HematopathologySummaryWPHOBXView.cs" />
+    <Compile Include="Business\Test\BoneMarrowSummary\BoneMarrowSummaryEPICOBXView.cs" />
+    <Compile Include="Business\Test\BoneMarrowSummary\BoneMarrowSummaryTest.cs" />
+    <Compile Include="Business\Test\BoneMarrowSummary\BoneMarrowSummaryWordDocument.cs" />
+    <Compile Include="Business\Test\BoneMarrowSummary\BoneMarrowSummaryWPHOBXView.cs" />
     <Compile Include="Business\Test\HER2BreastEquivocalFISHPanel\HER2BreastEquivocalFISHPanelTest.cs" />
     <Compile Include="Business\Test\HoldForFlow\HoldForFlowWPHOBXView.cs" />
     <Compile Include="Business\Test\HPV1618SolidTumor\HPV1618SolidTumorAnalRegionResult.cs" />
@@ -3794,10 +3793,10 @@
     <Compile Include="UI\Test\GrossOnlyResultPage.xaml.cs">
       <DependentUpon>GrossOnlyResultPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Test\HematopathologySummaryResultPage.xaml.cs">
-      <DependentUpon>HematopathologySummaryResultPage.xaml</DependentUpon>
+    <Compile Include="UI\Test\BoneMarrowSummaryResultPage.xaml.cs">
+      <DependentUpon>BoneMarrowSummaryResultPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Test\HematopathologySummaryResultPath.cs" />
+    <Compile Include="UI\Test\BoneMarrowSummaryResultPath.cs" />
     <Compile Include="UI\Test\HoldForFlowResultPage.xaml.cs">
       <DependentUpon>HoldForFlowResultPage.xaml</DependentUpon>
     </Compile>
@@ -5725,7 +5724,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\Test\HematopathologySummaryResultPage.xaml">
+    <Page Include="UI\Test\BoneMarrowSummaryResultPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

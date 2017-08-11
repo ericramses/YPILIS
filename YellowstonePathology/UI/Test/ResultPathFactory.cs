@@ -319,7 +319,7 @@ namespace YellowstonePathology.UI.Test
                     result = new BCellSubsetAnalysisResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
                 case 268:
-                    result = new HematopathologySummaryResultPath(reportNo, accessionOrder, pageNavigator, window);
+                    result = new BoneMarrowSummaryResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
                 case 274:
                     result = new BRAFMutationAnalysisResultPath(reportNo, accessionOrder, pageNavigator, window);
