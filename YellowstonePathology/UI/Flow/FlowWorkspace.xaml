@@ -603,22 +603,21 @@
                 <TabItem Header="Tech Final">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"></ColumnDefinition>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="150"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="10"></RowDefinition>
-                            <RowDefinition Height="Auto"></RowDefinition>
-                            <RowDefinition Height="Auto"></RowDefinition>
-                            <RowDefinition Height="Auto"></RowDefinition>
-                            <RowDefinition Height="Auto"></RowDefinition>
-                            <RowDefinition Height="Auto"></RowDefinition>
-                            <RowDefinition Height="50"></RowDefinition>
-                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="20"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="100"></RowDefinition>
                             <RowDefinition Height="50"></RowDefinition>
                             <RowDefinition Height="*"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <TextBlock HorizontalAlignment="Right" Grid.Column="0" Grid.Row="1" Style="{StaticResource HeadingTextBlock}" Width="Auto">Med Tech:</TextBlock>
+                        <TextBlock HorizontalAlignment="Right" Grid.Column="0" Grid.Row="1" Style="{StaticResource HeadingTextBlock}">Med Tech:</TextBlock>
 
                         <ComboBox Style="{StaticResource BoundTextBox}" Grid.Column="1" Grid.Row="1"
 								         ItemsSource="{Binding Path=MedTechUsers}" HorizontalAlignment="Left"
@@ -627,35 +626,24 @@
 								         SelectedValue="{Binding Path=PanelSetOrderLeukemiaLymphoma.TechFinaledById}">
                         </ComboBox>
 
-                        <TextBlock HorizontalAlignment="Right" Grid.Column="0" Grid.Row="2" Style="{StaticResource HeadingTextBlock}" Width="Auto">Tech Final:</TextBlock>
+                        <TextBlock HorizontalAlignment="Right" Grid.Column="0" Grid.Row="2" Style="{StaticResource HeadingTextBlock}">Tech Final:</TextBlock>
                         <TextBlock HorizontalAlignment="Left" Grid.Column="1" Grid.Row="2" Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.TechFinal}" Width="200" Style="{StaticResource HeadingTextBlock}" TextAlignment="Left"></TextBlock>
-                        <TextBlock HorizontalAlignment="Right" Grid.Column="0" Grid.Row="3" Style="{StaticResource HeadingTextBlock}" Width="Auto">Tech Final Date:</TextBlock>
+                        <TextBlock HorizontalAlignment="Right" Grid.Column="0" Grid.Row="3" Style="{StaticResource HeadingTextBlock}">Tech Final Date:</TextBlock>
                         <TextBlock HorizontalAlignment="Left" Grid.Column="1" Grid.Row="3" Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.TechFinalDate, Converter={StaticResource ShortDateConverter}}" Style="{StaticResource HeadingTextBlock}" Width="200" TextAlignment="Left"></TextBlock>
-                        <TextBlock HorizontalAlignment="Right" Grid.Column="0" Grid.Row="4" Style="{StaticResource HeadingTextBlock}" Width="Auto">Tech Final Time:</TextBlock>
+                        <TextBlock HorizontalAlignment="Right" Grid.Column="0" Grid.Row="4" Style="{StaticResource HeadingTextBlock}">Tech Final Time:</TextBlock>
                         <TextBlock HorizontalAlignment="Left" Grid.Column="1" Grid.Row="4" Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.TechFinalTime, Converter={StaticResource ShortTimeConverter}}" Style="{StaticResource HeadingTextBlock}" Width="200" TextAlignment="Left"></TextBlock>
-                        <TextBlock HorizontalAlignment="Right" Grid.Column="0" Grid.Row="5" Style="{StaticResource HeadingTextBlock}" Width="Auto">Test Canceled:</TextBlock>
+                        <TextBlock HorizontalAlignment="Right" Grid.Column="0" Grid.Row="5" Style="{StaticResource HeadingTextBlock}">Test Canceled:</TextBlock>
                         <CheckBox Name="CheckBoxTestCancelled" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="5" IsChecked="{Binding Path=PanelSetOrderLeukemiaLymphoma.TestCancelled}"></CheckBox>
-                        <TextBlock HorizontalAlignment="Right" Grid.Column="0" Grid.Row="6" Style="{StaticResource HeadingTextBlock}" Width="Auto">Comment:</TextBlock>
-                        <TextBox HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="6" Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.TestCancelledComment, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" TextAlignment="Left"                                   
+                        <TextBlock HorizontalAlignment="Right" Grid.Column="0" Grid.Row="6" Style="{StaticResource HeadingTextBlock}">Comment:</TextBlock>
+                        <TextBox HorizontalAlignment="Left" Grid.Column="1" Grid.Row="6" Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.TestCancelledComment, UpdateSourceTrigger=PropertyChanged}" Width="400" TextWrapping="Wrap" TextAlignment="Left"                                   
                                  IsEnabled="{Binding Path=IsWorkspaceEnabled}"></TextBox>
                         <StackPanel Grid.Column="1" Grid.Row="7" Orientation="Horizontal">
+
                             <Button HorizontalAlignment="Left" Name="buttonTechFinal" Click="ButtonTechFinal_Click" Height="25" Width="100" Margin="2,2,2,2">Tech Final</Button>
                             <Button HorizontalAlignment="Left" Name="buttonTechUnfinal" Click="ButtonTechUnfinal_Click" Height="25" Width="100" Margin="2,2,2,2">Tech Unfinal</Button>
                         </StackPanel>
 
                         <TextBox Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.ReportComment, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></TextBox>
-
-                        <TextBlock Grid.Column="0" Grid.Row="9" Style="{StaticResource BoldRightJustifiedTextBlock}" Margin="3,3,3,3">Additional Testing:</TextBlock>
-                        <ListView Name="listViewAdditionalTestingTech" Grid.Column="1" Grid.Row="9" Margin="3,3,3,3" HorizontalAlignment="Left"
-				        ItemsSource="{Binding Path=AccessionOrder.PanelSetOrderCollection}">
-                            <ListView.View>
-                                <GridView>
-                                    <GridViewColumn Width="150" DisplayMemberBinding="{Binding Path=ReportNo}" Header="Report No"/>
-                                    <GridViewColumn Width="200" DisplayMemberBinding="{Binding Path=PanelSetName}" Header="Name" />
-                                    <GridViewColumn Width="150" DisplayMemberBinding="{Binding Path=FinalTime, Converter={StaticResource ShortDateTimeConverter}}" Header="Final Date" />
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
 
                     </Grid>
                 </TabItem>
@@ -663,55 +651,41 @@
                 <TabItem Header="Case Final">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"></ColumnDefinition>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="150"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="10"></RowDefinition>
-                            <RowDefinition Height="Auto"></RowDefinition>
-                            <RowDefinition Height="Auto"></RowDefinition>
-                            <RowDefinition Height="Auto"></RowDefinition>
-                            <RowDefinition Height="Auto"></RowDefinition>
-                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="20"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="100"></RowDefinition>
                             <RowDefinition Height="50"></RowDefinition>
-                            <RowDefinition Height="Auto"></RowDefinition>
                             <RowDefinition Height="*"></RowDefinition>
                         </Grid.RowDefinitions>
-
-                        <TextBlock HorizontalAlignment="Right" Grid.Column="0" Grid.Row="1" Style="{StaticResource HeadingTextBlock}" Width="Auto">Final:</TextBlock>
+                        <TextBlock HorizontalAlignment="Right" Grid.Column="0" Grid.Row="1" Style="{StaticResource HeadingTextBlock}">Final:</TextBlock>
                         <TextBlock HorizontalAlignment="Left" Grid.Column="1" Grid.Row="1" Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.Final}" Width="200" Style="{StaticResource HeadingTextBlock}" TextAlignment="Left"></TextBlock>
-                        <TextBlock HorizontalAlignment="Right" Grid.Column="0" Grid.Row="2" Style="{StaticResource HeadingTextBlock}" Width="Auto">Final Date:</TextBlock>
+                        <TextBlock HorizontalAlignment="Right" Grid.Column="0" Grid.Row="2" Style="{StaticResource HeadingTextBlock}">Final Date:</TextBlock>
                         <TextBlock HorizontalAlignment="Left" Grid.Column="1" Grid.Row="2" Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.FinalDate, Converter={StaticResource ShortDateConverter}}" Style="{StaticResource HeadingTextBlock}" Width="200" TextAlignment="Left"></TextBlock>
-                        <TextBlock HorizontalAlignment="Right" Grid.Column="0" Grid.Row="3" Style="{StaticResource HeadingTextBlock}" Width="Auto">Final Time:</TextBlock>
+                        <TextBlock HorizontalAlignment="Right" Grid.Column="0" Grid.Row="3" Style="{StaticResource HeadingTextBlock}">Final Time:</TextBlock>
                         <TextBlock HorizontalAlignment="Left" Grid.Column="1" Grid.Row="3" Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.FinalTime, Converter={StaticResource ShortTimeConverter}}" Style="{StaticResource HeadingTextBlock}" Width="200" TextAlignment="Left"></TextBlock>
-                        <TextBlock HorizontalAlignment="Right" Grid.Column="0" Grid.Row="4" Style="{StaticResource HeadingTextBlock}" Width="Auto">Signature:</TextBlock>
+                        <TextBlock HorizontalAlignment="Right" Grid.Column="0" Grid.Row="4" Style="{StaticResource HeadingTextBlock}" Width="200">Signature:</TextBlock>
 
-                        <TextBlock HorizontalAlignment="Right" Grid.Column="0" Grid.Row="5" Style="{StaticResource HeadingTextBlock}" Width="Auto">Test Canceled:</TextBlock>
+                        <TextBlock HorizontalAlignment="Right" Grid.Column="0" Grid.Row="5" Style="{StaticResource HeadingTextBlock}">Test Canceled:</TextBlock>
                         <CheckBox HorizontalAlignment="Left" Grid.Column="1" Grid.Row="5" IsChecked="{Binding Path=PanelSetOrderLeukemiaLymphoma.TestCancelled}" IsEnabled="{Binding Path=IsWorkspaceEnabled}"></CheckBox>
-                        <TextBlock HorizontalAlignment="Right" Grid.Column="0" Grid.Row="6" Style="{StaticResource HeadingTextBlock}" Width="Auto">Comment:</TextBlock>
-                        <TextBox HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="6" Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.TestCancelledComment, UpdateSourceTrigger=PropertyChanged}" 
-                                 Margin="3,3,3,3" TextWrapping="Wrap" TextAlignment="Left" IsEnabled="{Binding Path=IsWorkspaceEnabled}"></TextBox>
+                        <TextBlock HorizontalAlignment="Right" Grid.Column="0" Grid.Row="6" Style="{StaticResource HeadingTextBlock}">Comment:</TextBlock>
+                        <TextBox HorizontalAlignment="Left" Grid.Column="1" Grid.Row="6" Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.TestCancelledComment, UpdateSourceTrigger=PropertyChanged}" Width="400" TextWrapping="Wrap" TextAlignment="Left" IsEnabled="{Binding Path=IsWorkspaceEnabled}"></TextBox>
 
                         <StackPanel Grid.Column="1" Grid.Row="4" Orientation="Horizontal">
                             <TextBlock Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.Signature}" Style="{StaticResource HeadingTextBlock}" TextAlignment="Left" Width="200"></TextBlock>
                             <TextBlock Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.FinaledById}" Style="{StaticResource HeadingTextBlock}" TextAlignment="Left" Visibility="Hidden"></TextBlock>
                         </StackPanel>
-                        <StackPanel Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="2" Orientation="Horizontal">
-                            <Button HorizontalAlignment="Left" Name="buttonViewReport" Click="ButtonViewReport_Click" Height="25" Width="100" Margin="3,3,3,3">View Report</Button>
-                            <Button HorizontalAlignment="Left" Name="buttonSignReport" Click="ButtonSignReport_Click" Height="25" Width="100" Margin="3,3,3,3" IsEnabled="{Binding Path=SignReportButtonEnabled}" Content="{Binding Path=SignReportButtonContent}" />
+                        <StackPanel Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" Orientation="Horizontal">
+                            <Button HorizontalAlignment="Left" Name="buttonViewReport" Click="ButtonViewReport_Click" Height="25" Width="100">View Report</Button>
+                            <Button HorizontalAlignment="Left" Name="buttonSignReport" Click="ButtonSignReport_Click" Height="25" Width="100" IsEnabled="{Binding Path=SignReportButtonEnabled}" Content="{Binding Path=SignReportButtonContent}" />
                         </StackPanel>
-
-                        <TextBlock Grid.Column="0" Grid.Row="8" Style="{StaticResource BoldRightJustifiedTextBlock}" Margin="3,3,3,3">Additional Testing:</TextBlock>
-                        <ListView Name="listViewAdditionalTestingFinal" Grid.Column="1" Grid.Row="8" Margin="3,3,3,3" HorizontalAlignment="Left"
-				        ItemsSource="{Binding Path=AccessionOrder.PanelSetOrderCollection}">
-                            <ListView.View>
-                                <GridView>
-                                    <GridViewColumn Width="150" DisplayMemberBinding="{Binding Path=ReportNo}" Header="Report No"/>
-                                    <GridViewColumn Width="200" DisplayMemberBinding="{Binding Path=PanelSetName}" Header="Name" />
-                                    <GridViewColumn Width="150" DisplayMemberBinding="{Binding Path=FinalTime, Converter={StaticResource ShortDateTimeConverter}}" Header="Final Date" />
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
 
                     </Grid>
                 </TabItem>

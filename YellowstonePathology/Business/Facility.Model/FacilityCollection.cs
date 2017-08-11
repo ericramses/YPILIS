@@ -104,6 +104,7 @@ namespace YellowstonePathology.Business.Facility.Model
             result.Add(new NorthernMontanaHealthcare());
             result.Add(new UniversityOfMississippi());
             result.Add(new CastleBiosciences());
+            result.Add(new BeneifsHealthSystem());
             return Sort(result);
         }
 
