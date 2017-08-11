@@ -17,9 +17,9 @@ using System.ComponentModel;
 namespace YellowstonePathology.UI.Test
 {
     /// <summary>
-    /// Interaction logic for HematopathologySummaryResultPage.xaml
+    /// Interaction logic for BoneMarrowSummaryResultPage.xaml
     /// </summary>
-    public partial class HematopathologySummaryResultPage : ResultControl, INotifyPropertyChanged
+    public partial class BoneMarrowSummaryResultPage : ResultControl, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -28,22 +28,22 @@ namespace YellowstonePathology.UI.Test
 
         private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
+        private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
         private YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;
-        private YellowstonePathology.Business.Test.HematopathologySummary.HematopathologySummaryTestOrder m_PanelSetOrder;
         private string m_PageHeaderText;
 
 
-        public HematopathologySummaryResultPage(YellowstonePathology.Business.Test.HematopathologySummary.HematopathologySummaryTestOrder testOrder,
+        public BoneMarrowSummaryResultPage(YellowstonePathology.Business.Test.PanelSetOrder testOrder,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
             YellowstonePathology.Business.User.SystemIdentity systemIdentity,
             YellowstonePathology.UI.Navigation.PageNavigator pageNavigator) : base(testOrder, accessionOrder)
 		{
-            this.m_PanelSetOrder = testOrder;
             this.m_AccessionOrder = accessionOrder;
+            this.m_PanelSetOrder = testOrder;
             this.m_SystemIdentity = systemIdentity;
             this.m_PageNavigator = pageNavigator;
 
-            this.m_PageHeaderText = "Hematopathology Summary Results For: " + this.m_AccessionOrder.PatientDisplayName;
+            this.m_PageHeaderText = "Bone Marrow Summary Results For: " + this.m_AccessionOrder.PatientDisplayName;
 
             InitializeComponent();
 
@@ -54,7 +54,7 @@ namespace YellowstonePathology.UI.Test
             this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalResults);
         }
 
-        public YellowstonePathology.Business.Test.HematopathologySummary.HematopathologySummaryTestOrder PanelSetOrder
+        public YellowstonePathology.Business.Test.PanelSetOrder PanelSetOrder
         {
             get { return this.m_PanelSetOrder; }
         }
@@ -169,7 +169,7 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Test.HematopathologySummary.HematopathologySummaryWordDocument report = new YellowstonePathology.Business.Test.HematopathologySummary.HematopathologySummaryWordDocument(this.m_AccessionOrder, this.m_PanelSetOrder, Business.Document.ReportSaveModeEnum.Draft);
+            YellowstonePathology.Business.Test.BoneMarrowSummary.BoneMarrowSummaryWordDocument report = new YellowstonePathology.Business.Test.BoneMarrowSummary.BoneMarrowSummaryWordDocument(this.m_AccessionOrder, this.m_PanelSetOrder, Business.Document.ReportSaveModeEnum.Draft);
             report.Render();
 
             YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);

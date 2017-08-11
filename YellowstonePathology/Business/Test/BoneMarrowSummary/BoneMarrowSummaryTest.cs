@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace YellowstonePathology.Business.Test.HematopathologySummary
+namespace YellowstonePathology.Business.Test.BoneMarrowSummary
 {
-    public class HematopathologySummaryTest : YellowstonePathology.Business.PanelSet.Model.PanelSet
+    public class BoneMarrowSummaryTest : YellowstonePathology.Business.PanelSet.Model.PanelSet
     {
-        public HematopathologySummaryTest()
+        public BoneMarrowSummaryTest()
         {
             this.m_PanelSetId = 268;
-            this.m_PanelSetName = "Hematopathology Summary";
-            this.m_Abbreviation = "Hematopathology Summary";
+            this.m_PanelSetName = "Bone Marrow Summary";
+            this.m_Abbreviation = "Bone Marrow Summary";
             this.m_CaseType = YellowstonePathology.Business.CaseType.Summary;
             this.m_HasTechnicalComponent = true;
             this.m_HasProfessionalComponent = true;
@@ -21,8 +21,8 @@ namespace YellowstonePathology.Business.Test.HematopathologySummary
             this.m_Active = true;
             this.m_HasNoOrderTarget = true;
 
-            this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.HematopathologySummary.HematopathologySummaryTestOrder).AssemblyQualifiedName;
-            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.HematopathologySummary.HematopathologySummaryWordDocument).AssemblyQualifiedName;
+            this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.PanelSetOrder).AssemblyQualifiedName;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.BoneMarrowSummary.BoneMarrowSummaryWordDocument).AssemblyQualifiedName;
             this.m_AllowMultiplePerAccession = true;
             this.m_EpicDistributionIsImplemented = true;
 
