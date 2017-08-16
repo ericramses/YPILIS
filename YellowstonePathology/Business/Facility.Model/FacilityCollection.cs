@@ -30,6 +30,19 @@ namespace YellowstonePathology.Business.Facility.Model
             return result;
         }
 
+        public static FacilityCollection GetPathGroupFacilities()
+        {
+            FacilityCollection result = new FacilityCollection();
+            result.Add(new NullFacility());
+            result.Add(new YellowstonePathologistBillings());
+            result.Add(new ButtePathology());
+            result.Add(new PathologyAssociatesOfIdahoFalls());
+            result.Add(new PathologyConsultantsOfWesternMontana());
+            result.Add(new ProfessionalPathologyOfWyoming());
+            result.Add(new SheridanPathologyAssociates());            
+            return result;
+        }
+
         public static FacilityCollection GetAllFacilities()
         {
             FacilityCollection result = new FacilityCollection();
@@ -105,6 +118,8 @@ namespace YellowstonePathology.Business.Facility.Model
             result.Add(new UniversityOfMississippi());
             result.Add(new CastleBiosciences());
             result.Add(new BeneifsHealthSystem());
+            result.Add(new UniversityOfArizonaCancerCenter());
+            result.Add(new PathologyConsultantsOfWesternMontana());
             return Sort(result);
         }
 

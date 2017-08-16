@@ -62,9 +62,9 @@ namespace YellowstonePathology.Business.Rules.Surgical
 			switch (this.m_AccessionOrder.PhysicianId)
 			{				
 				case 58:// Dr Hawk					
-                    if (!(YellowstonePathology.Business.User.SystemIdentity.Instance.User.UserId == 5088))
+                    if (!(YellowstonePathology.Business.User.SystemIdentity.Instance.User.UserId == 5143))
 					{
-						msg = "Dr Hawk has requested that only Dr. Emerick sign her cases.";
+						msg = "Dr Hawk has requested that only Dr. Morrison sign her cases.";
 						result = false;
 					}
 					break;				

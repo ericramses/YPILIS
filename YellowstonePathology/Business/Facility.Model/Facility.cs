@@ -26,6 +26,7 @@ namespace YellowstonePathology.Business.Facility.Model
         protected string m_LocationAbbreviation;
         protected string m_FedexAccountNo;
         protected string m_FedexPaymentType;
+        protected int m_ClientId;
 
 		protected LocationCollection m_Locations;
         protected CLIALicense m_CliaLicense;        
@@ -232,6 +233,19 @@ namespace YellowstonePathology.Business.Facility.Model
                 {
                     this.m_FedexPaymentType = value;
                     this.NotifyPropertyChanged("FedexPaymentType");
+                }
+            }
+        }
+
+        public int ClientId
+        {
+            get { return this.m_ClientId; }
+            set
+            {
+                if (this.m_ClientId != value)
+                {
+                    this.m_ClientId = value;
+                    this.NotifyPropertyChanged("ClientId");
                 }
             }
         }

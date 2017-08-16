@@ -38,7 +38,7 @@ namespace YellowstonePathology.UI.AppMessaging
 
         public LockRequestReceivedPage(Business.Test.AccessionOrder accessionOrder, AccessionLockMessage message)
         {
-            this.m_CurrentCountDown = 15;
+            this.m_CurrentCountDown = 7;
             this.m_AccessionOrder = accessionOrder;
             this.m_Message = message;            
             this.m_DisplayMessage = this.m_Message.From + " is asking for the lock on " + this.m_Message.MasterAccessionNo + ".";
