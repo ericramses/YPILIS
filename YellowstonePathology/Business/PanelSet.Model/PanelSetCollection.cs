@@ -105,7 +105,6 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.NeoTYPEMelanomaProfile());
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PTENTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.MALT1.MALT1Test());
-            panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.ETV6RUNX1Test());
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.HighRiskHPVByISHTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.FISH820Q20Test());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHTest());
