@@ -30,6 +30,8 @@ namespace YellowstonePathology.UI.Test
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
         private YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;
+        private List<string> m_AccessionReportsIncluded;
+        private YellowstonePathology.Business.Test.BoneMarrowSummary.OtherReportViewCollection m_OtherReportViewCollection;
         private string m_PageHeaderText;
 
 
@@ -45,6 +47,9 @@ namespace YellowstonePathology.UI.Test
 
             this.m_PageHeaderText = "Bone Marrow Summary Results For: " + this.m_AccessionOrder.PatientDisplayName;
 
+            this.SetAccessionReportsIncluded();
+            this.m_OtherReportViewCollection = YellowstonePathology.Business.Test.BoneMarrowSummary.BoneMarrowSummaryHelper.GetOtherReports(this.m_AccessionOrder);
+
             InitializeComponent();
 
             DataContext = this;
@@ -52,6 +57,14 @@ namespace YellowstonePathology.UI.Test
             this.m_ControlsNotDisabledOnFinal.Add(this.ButtonNext);
             this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockShowDocument);
             this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalResults);
+        }
+
+        public void NotifyPropertyChanged(String info)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
         }
 
         public YellowstonePathology.Business.Test.PanelSetOrder PanelSetOrder
@@ -64,20 +77,20 @@ namespace YellowstonePathology.UI.Test
             get { return this.m_AccessionOrder; }
         }
 
-        public void NotifyPropertyChanged(String info)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(info));
-            }
-        }
-
         public string PageHeaderText
         {
             get { return this.m_PageHeaderText; }
         }
 
+        public List<string> AccessionReportsIncluded
+        {
+            get { return this.m_AccessionReportsIncluded; }
+        }
 
+        public YellowstonePathology.Business.Test.BoneMarrowSummary.OtherReportViewCollection OtherReportViewCollection
+        {
+            get { return this.m_OtherReportViewCollection; }
+        }
 
         public void UpdateBindingSources()
         {
@@ -175,6 +188,40 @@ namespace YellowstonePathology.UI.Test
             YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
             string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);
             YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(fileName);
+        }
+
+        private void HyperLinkAddSelectedReport_Click(object sender, RoutedEventArgs e)
+        {
+            if(ListViewOtherReports.SelectedItem != null)
+            {
+                YellowstonePathology.Business.Test.PanelSetOrder pso = ListViewOtherReports.SelectedItem as YellowstonePathology.Business.Test.PanelSetOrder;
+                if(string.IsNullOrEmpty(pso.SummaryReportNo) == false && pso.SummaryReportNo != this.m_PanelSetOrder.ReportNo)
+                {
+                    MessageBoxResult messageBoxResult = MessageBox.Show("This report is summarized on another summary." + Environment.NewLine + "Do you wish to include it in this report?", "On another summary", MessageBoxButton.YesNo, MessageBoxImage.Exclamation, MessageBoxResult.No);
+                    if(messageBoxResult == MessageBoxResult.Yes)
+                    {
+                        MessageBox.Show("adding here");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("adding here");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Select a report to add");
+            }
+        }
+
+        private void SetAccessionReportsIncluded()
+        {
+            this.m_AccessionReportsIncluded = new List<string>();
+            List<YellowstonePathology.Business.Test.PanelSetOrder> panelSetOrders = YellowstonePathology.Business.Test.BoneMarrowSummary.BoneMarrowSummaryHelper.GetAccessionSummaryList(this.m_AccessionOrder);
+            foreach (Business.Test.PanelSetOrder pso in panelSetOrders)
+            {
+                this.m_AccessionReportsIncluded.Add(pso.ReportNo + '\t' + pso.PanelSetName);
+            }
         }
     }
 }
