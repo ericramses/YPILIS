@@ -570,7 +570,7 @@ namespace YellowstonePathology.UI.Surgical
 
         private void MainGrid_KeyUp(object sender, KeyEventArgs e)
         {
-            /*if(e.Key == Key.F2)
+            /*if(e.Key == Key.OemQuestion && (Keyboard.Modifiers & (ModifierKeys.Control | ModifierKeys.Shift)) == (ModifierKeys.Control | ModifierKeys.Shift))
             {
                 List<TextBox> questionMarkTextBoxes = new List<TextBox>();
 
@@ -585,23 +585,11 @@ namespace YellowstonePathology.UI.Surgical
                         int idx = questionMarkTextBoxes.IndexOf(textBox);
                         if(idx > -1)
                         {
-                            if(idx == 0)
-                            {
-                                textBox = questionMarkTextBoxes[0];
-                            }
-                            else if (idx < questionMarkTextBoxes.Count - 2)
-                            {
-                                textBox = questionMarkTextBoxes[idx + 1];
-                            }
-                            else
-                            {
-                                textBox = questionMarkTextBoxes[0];
-                            }
+                            if(idx == 0) textBox = questionMarkTextBoxes[0];
+                            else if (idx < questionMarkTextBoxes.Count - 2) textBox = questionMarkTextBoxes[idx + 1];
+                            else textBox = questionMarkTextBoxes[0];
                         }
-                        else
-                        {
-                            textBox = questionMarkTextBoxes[0];
-                        }
+                        else textBox = questionMarkTextBoxes[0];
                     }
                     else
                     {
@@ -614,7 +602,9 @@ namespace YellowstonePathology.UI.Surgical
 
                     Point epoint = textBox.PointFromScreen(new Point());
                     Point spoint = this.MainScrollViewer.PointFromScreen(new Point());
-                    double vertical = spoint.Y - epoint.Y - (textBox.ActualHeight / 2);
+                    double tbh = textBox.ActualHeight / 2;
+                    if (tbh > System.Windows.SystemParameters.WorkArea.Height) tbh = -tbh;
+                    double vertical = spoint.Y - epoint.Y - tbh;
                     this.MainScrollViewer.ScrollToVerticalOffset(vertical);
                 }
                 else
