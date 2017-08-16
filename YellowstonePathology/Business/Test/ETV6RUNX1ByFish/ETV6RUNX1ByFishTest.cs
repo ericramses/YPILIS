@@ -11,7 +11,7 @@ namespace YellowstonePathology.Business.Test.ETV6RUNX1ByFish
         public ETV6RUNX1ByFishTest()
         {
             this.m_PanelSetId = 275;
-            this.m_PanelSetName = "ETV6RUNX1 (TEL-AML) Translocation, t(12;21) By Fish";
+            this.m_PanelSetName = "ETV6RUNX1 By Fish";
             this.m_Abbreviation = "ETV6RUNX1ByFish";
             this.m_CaseType = YellowstonePathology.Business.CaseType.Molecular;
             this.m_HasTechnicalComponent = true;
