@@ -15,17 +15,17 @@ namespace YellowstonePathology.Business.Test
 	public class PanelSetOrderCollection : ObservableCollection<PanelSetOrder>
 	{
 		private PathologistTestOrderItemList m_PathologistTestOrderItemList;
-        private PanelSetOrder m_CurrentPanelSetOrder;
+        //private PanelSetOrder m_CurrentPanelSetOrder;
 
 		public PanelSetOrderCollection()
 		{
 			m_PathologistTestOrderItemList = new PathologistTestOrderItemList();
 		}
 
-        public PanelSetOrder CurrentPanelSetOrder
+        /*public PanelSetOrder CurrentPanelSetOrder
         {
             get { return this.m_CurrentPanelSetOrder; }
-        } 
+        }*/ 
 
         public string GetAdditionalTestingString(string currentReportNo)
         {
@@ -1054,6 +1054,56 @@ namespace YellowstonePathology.Business.Test
             {
                 result.Add(panelSetOrder);
             }
+            return result;
+        }
+
+        public List<Business.Test.PanelSetOrder> GetBoneMarrowAccessionSummaryList(string summaryReportNo, bool includeOtherReports)
+        {
+            List<Business.Test.PanelSetOrder> result = new List<PanelSetOrder>();
+            YellowstonePathology.Business.PanelSet.Model.PanelSetCollection panelSets = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetAll();
+
+            Business.Test.PanelSetOrderCollection flow = new PanelSetOrderCollection();
+            Business.Test.PanelSetOrderCollection cyto = new PanelSetOrderCollection();
+            Business.Test.PanelSetOrderCollection fish = new PanelSetOrderCollection();
+            Business.Test.PanelSetOrderCollection molecular = new PanelSetOrderCollection();
+            Business.Test.PanelSetOrderCollection other = new PanelSetOrderCollection();
+
+            List<int> exclusionList = new List<int>();
+            exclusionList.Add(13);
+            exclusionList.Add(197);
+            exclusionList.Add(262);
+            exclusionList.Add(268);
+
+            foreach (Business.Test.PanelSetOrder pso in this)
+            {
+                if (exclusionList.IndexOf(pso.PanelSetId) == -1)
+                {
+                    YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet = panelSets.GetPanelSet(pso.PanelSetId);
+                    if (panelSet.CaseType == YellowstonePathology.Business.CaseType.FlowCytometry) flow.Insert(0, pso);
+                    else if (panelSet.CaseType == YellowstonePathology.Business.CaseType.Cytogenetics) cyto.Insert(0, pso);
+                    else if (panelSet.CaseType == YellowstonePathology.Business.CaseType.FISH) fish.Insert(0, pso);
+                    else if (panelSet.CaseType == YellowstonePathology.Business.CaseType.Molecular) molecular.Insert(0, pso);
+                    else other.Insert(0, pso);
+                }
+            }
+
+            if (includeOtherReports == true)
+            {
+                BoneMarrowSummary.OtherReportViewCollection otherReports = Gateway.AccessionOrderGateway.GetOtherReportViewsForSummary(summaryReportNo);
+                foreach (BoneMarrowSummary.OtherReportView otherReportView in otherReports)
+                {
+                    AccessionOrder ao = Persistence.DocumentGateway.Instance.PullAccessionOrder(otherReportView.MasterAccessionNo, this);
+                    Business.Test.PanelSetOrder pso = ao.PanelSetOrderCollection.GetPanelSetOrder(otherReportView.ReportNo);
+                    other.Insert(0, pso);
+                }
+            }
+
+            result.AddRange(other);
+            result.AddRange(molecular);
+            result.AddRange(fish);
+            result.AddRange(cyto);
+            result.AddRange(flow);
+
             return result;
         }
     }

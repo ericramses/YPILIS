@@ -11,6 +11,7 @@ namespace YellowstonePathology.Business.Test.BoneMarrowSummary
         public event PropertyChangedEventHandler PropertyChanged;
 
         private string m_ReportNo;
+        private string m_MasterAccessionNo;
         private string m_PanelSetName;
         private DateTime? m_FinalDate;
         private string m_SummaryReportNo;
@@ -35,6 +36,20 @@ namespace YellowstonePathology.Business.Test.BoneMarrowSummary
                 {
                     this.m_ReportNo = value;
                     this.NotifyPropertyChanged("ReportNo");
+                }
+            }
+        }
+
+        [PersistentProperty(true)]
+        public string MasterAccessionNo
+        {
+            get { return this.m_MasterAccessionNo; }
+            set
+            {
+                if (this.m_MasterAccessionNo != value)
+                {
+                    this.m_MasterAccessionNo = value;
+                    this.NotifyPropertyChanged("MasterAccessionNo");
                 }
             }
         }

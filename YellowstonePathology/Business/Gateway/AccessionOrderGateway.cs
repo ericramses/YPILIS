@@ -2907,16 +2907,43 @@ namespace YellowstonePathology.Business.Gateway
         public static Business.Test.BoneMarrowSummary.OtherReportViewCollection GetOtherReportViewCollection(string patientId, string masterAccessionNo)
         {
             Business.Test.BoneMarrowSummary.OtherReportViewCollection result = new Test.BoneMarrowSummary.OtherReportViewCollection();
-
-            
+           
             MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "Select pso.ReportNo, pso.PanelSetName, pso.FinalDate, pso.SummaryReportNo from tblPanelSetOrder pso join " +
-                "tblAccessionOrder ao on pso.MasterAccessionNo = ao.MasterAccessionNo where ao.PatientId = @PatientId and pso.MasterAccessionNo " +
-                "!= @MasterAccessionNo;";
+            cmd.CommandText = "Select pso.ReportNo, pso.MasterAccessionNo, pso.PanelSetName, pso.FinalDate, pso.SummaryReportNo from " +
+                "tblPanelSetOrder pso join tblAccessionOrder ao on pso.MasterAccessionNo = ao.MasterAccessionNo where ao.PatientId = @PatientId " +
+                "and pso.MasterAccessionNo != @MasterAccessionNo;";
 
             cmd.CommandType = CommandType.Text;
             cmd.Parameters.AddWithValue("@PatientId", patientId);
             cmd.Parameters.AddWithValue("@MasterAccessionNo", masterAccessionNo);
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        Business.Test.BoneMarrowSummary.OtherReportView otherReportView = new Test.BoneMarrowSummary.OtherReportView();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(otherReportView, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(otherReportView);
+                    }
+                }
+            }
+            return result;
+        }
+
+        public static Business.Test.BoneMarrowSummary.OtherReportViewCollection GetOtherReportViewsForSummary(string reportNo)
+        {
+            Business.Test.BoneMarrowSummary.OtherReportViewCollection result = new Test.BoneMarrowSummary.OtherReportViewCollection();
+
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "Select ReportNo, MasterAccessionNo, PanelSetName, FinalDate, SummaryReportNo from " +
+                "tblPanelSetOrder where SummaryReportNo = @ReportNo;";
+
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.AddWithValue("@ReportNo", reportNo);
             using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();

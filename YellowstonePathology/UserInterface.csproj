@@ -1154,8 +1154,7 @@
     <Compile Include="Business\Test\BCellSubsetAnalysis\BCellSubsetAnalysisWPHOBXView.cs" />
     <Compile Include="Business\Test\BCellSubsetAnalysis\ReferenceRanges.cs" />
     <Compile Include="Business\Test\BCellSubsetAnalysis\ReferenceRangeValue.cs" />
-    <Compile Include="Business\Test\BoneMarrowSummary\BoneMarrowSummaryHelper.cs" />
-    <Compile Include="Business\Test\BoneMarrowSummary\OtherReportNoCollection.cs" />
+    <Compile Include="Business\Test\BoneMarrowSummary\OtherReportViewCollection.cs" />
     <Compile Include="Business\Test\BoneMarrowSummary\OtherReportView.cs" />
     <Compile Include="Business\Test\BRAFMutationAnalysis\BRAFMutationAnalysisDetectedPapillaryThyroidResult.cs" />
     <Compile Include="Business\Test\BRAFMutationAnalysis\BRAFMutationAnalysisCMMCNTEView.cs" />
