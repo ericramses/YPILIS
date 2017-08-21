@@ -188,6 +188,7 @@ namespace YellowstonePathology.UI.Surgical
                 {
                     text.Remove(cursorPosition - 1, 1);
                 }
+
                 this.TextBoxGrossDescription.Text = text.ToString();
                 this.TextBoxGrossDescription.SelectionStart = cursorPosition;
                 e.Handled = true;

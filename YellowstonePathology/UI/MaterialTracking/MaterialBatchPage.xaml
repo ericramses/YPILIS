@@ -90,7 +90,7 @@
                         <GridViewColumn Header="Last Name" DisplayMemberBinding="{Binding Path=PLastName}" Width="150"/>
                         <GridViewColumn Header="First Name" DisplayMemberBinding="{Binding Path=PFirstName}" Width="150"/>
                         <GridViewColumn Header="Type" DisplayMemberBinding="{Binding Path=MaterialType}" Width="150"/>
-                        <GridViewColumn Header="Label" DisplayMemberBinding="{Binding Path=MaterialLabel}" Width="150"/>
+                        <GridViewColumn Header="Label" DisplayMemberBinding="{Binding Path=MaterialLabel}" Width="200"/>
                         <GridViewColumn Header="Date" DisplayMemberBinding="{Binding Path=LogDate}" Width="150"/>
                         <GridViewColumn Header="By" DisplayMemberBinding="{Binding Path=LoggedBy}" Width="150"/>
                     </GridView>

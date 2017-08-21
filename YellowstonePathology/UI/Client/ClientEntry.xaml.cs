@@ -30,6 +30,7 @@ namespace YellowstonePathology.UI.Client
 		private YellowstonePathology.Business.Billing.Model.BillingRuleSetCollection m_BillingRuleSetCollection;
 		private YellowstonePathology.Business.Client.Model.ClientSupplyOrderCollection m_ClientSupplyOrderCollection;
         private YellowstonePathology.Business.Client.Model.PhysicianClientNameCollection m_ReferringProviderClientCollection;
+        private YellowstonePathology.Business.Facility.Model.FacilityCollection m_PathGroupFacilities;
 
         private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 
@@ -38,6 +39,7 @@ namespace YellowstonePathology.UI.Client
             this.m_Client = client;                        
             this.m_SystemIdentity = Business.User.SystemIdentity.Instance;
 
+            this.m_PathGroupFacilities = YellowstonePathology.Business.Facility.Model.FacilityCollection.GetPathGroupFacilities();
             this.m_ClientPhysicianView = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientPhysicianViewByClientIdV2(this.m_Client.ClientId);
 
             if (this.m_ClientPhysicianView == null)
@@ -76,7 +78,12 @@ namespace YellowstonePathology.UI.Client
 			}
 		}
 
-		public ObservableCollection<YellowstonePathology.Business.Domain.Physician> Physicians
+        public YellowstonePathology.Business.Facility.Model.FacilityCollection PathGroupFacilities
+        {
+            get { return this.m_PathGroupFacilities; }
+        }
+
+        public ObservableCollection<YellowstonePathology.Business.Domain.Physician> Physicians
 		{
 			get { return this.m_ClientPhysicianView.Physicians; }
 		}

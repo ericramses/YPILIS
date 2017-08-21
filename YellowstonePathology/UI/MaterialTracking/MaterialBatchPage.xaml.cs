@@ -337,6 +337,29 @@ namespace YellowstonePathology.UI.MaterialTracking
                     result = false;
                 }
             }
+
+            bool butteERPRSlidesFound = false;
+            if(this.m_MaterialTrackingBatch.ToFacilityId == "BTTPTHLGY")
+            {
+                foreach(Business.MaterialTracking.Model.MaterialTrackingLogView item in this.m_MaterialTrackingLogViewCollection)
+                {
+                    if(item.MaterialLabel.ToLower().Contains("receptor") == true)
+                    {
+                        butteERPRSlidesFound = true;
+                        break;       
+                    }
+                }                                               
+            }                                               
+            if(butteERPRSlidesFound == true)
+            {
+                MessageBoxResult messageBoxResult = MessageBox.Show("This batch has Butte ER/PR slides that may need to be held. Are you sure you want to continue.", "Continue?", MessageBoxButton.YesNo);
+                if (messageBoxResult == MessageBoxResult.No)
+                {
+                    result = false;
+
+                }
+            }
+
             return result;
         }
 		

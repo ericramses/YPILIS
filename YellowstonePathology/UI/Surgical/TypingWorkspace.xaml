@@ -532,6 +532,8 @@
                                                         </TextBox>
                                                         <TextBox Text="{Binding Path=CPTCode, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" FontWeight="Bold" Margin="2" Width="70"
 																	ToolTip="CPT Code" IsEnabled="False"></TextBox>
+                                                        <TextBox Text="{Binding Path=Modifier, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" FontWeight="Bold" Margin="2" Width="70"
+																	ToolTip="Modifier" IsEnabled="False"></TextBox>
                                                         <TextBlock Text="{Binding Path=PostDateProxy}" VerticalAlignment="Center" Margin="2" Width="80" ToolTip="Post Date"/>
 
                                                     </StackPanel>

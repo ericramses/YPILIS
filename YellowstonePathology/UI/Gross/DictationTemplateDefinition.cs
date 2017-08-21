@@ -838,7 +838,7 @@ namespace YellowstonePathology.UI.Gross
                 "Cassette Summary: " + Environment.NewLine +
                 "\"1A\" - Cord from both ends, " + Environment.NewLine +
                 "\"1B\" - Membranes, " + Environment.NewLine +
-                "\"1C\" - \"1D\" - Central placenta/infarcs.  ";            
+                "\"1C\" - \"1D\" - Central placenta/infarcts.  ";            
 
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SinglePlacenta singlePlacenta = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SinglePlacenta();
             this.m_SpecimenCollection.Add(singlePlacenta);

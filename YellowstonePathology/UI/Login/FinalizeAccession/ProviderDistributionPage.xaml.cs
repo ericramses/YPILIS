@@ -156,13 +156,13 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
         private void HyperLinkAddCopyTo_Click(object sender, RoutedEventArgs e)
         {
-            if (this.m_PanelSetOrder.Distribute == true)
-            {
+            //if (this.m_PanelSetOrder.Distribute == true)
+            //{
                 PhysicianClientSearchPage physicianClientSearchPage = new PhysicianClientSearchPage(this.m_AccessionOrder, this.m_AccessionOrder.ClientId, true);
                 physicianClientSearchPage.Back += new PhysicianClientSearchPage.BackEventHandler(CopyTo_PhysicianClientSearchPage_Back);
                 physicianClientSearchPage.Next += new PhysicianClientSearchPage.NextEventHandler(CopyTo_PhysicianClientSearchPage_Next);
                 this.m_PageNavigator.Navigate(physicianClientSearchPage);                
-            }
+            //}
         }
 
         private void CopyTo_PhysicianClientSearchPage_Back(object sender, EventArgs e)
@@ -322,13 +322,10 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
         }
 
         private void SetDistribution()
-        {
-            if (this.m_PanelSetOrder.Distribute == true)
-            {
-                YellowstonePathology.Business.Client.Model.PhysicianClientDistributionList physicianClientDistributionCollection = YellowstonePathology.Business.Gateway.ReportDistributionGateway.GetPhysicianClientDistributionCollection(this.m_AccessionOrder.PhysicianId, this.m_AccessionOrder.ClientId);
-                physicianClientDistributionCollection.SetDistribution(this.m_PanelSetOrder, this.m_AccessionOrder);                
-                this.NotifyPropertyChanged("");
-            }            
+        {            
+            YellowstonePathology.Business.Client.Model.PhysicianClientDistributionList physicianClientDistributionCollection = YellowstonePathology.Business.Gateway.ReportDistributionGateway.GetPhysicianClientDistributionCollection(this.m_AccessionOrder.PhysicianId, this.m_AccessionOrder.ClientId);
+            physicianClientDistributionCollection.SetDistribution(this.m_PanelSetOrder, this.m_AccessionOrder);                
+            this.NotifyPropertyChanged("");            
         }
 
         private void HyperLinkScheduleDistributionImmediate_Click(object sender, RoutedEventArgs e)
@@ -527,6 +524,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
         private void CheckBoxDistribute_Unchecked(object sender, RoutedEventArgs e)
         {
+            /*
             if (this.m_PanelSetOrder.TestOrderReportDistributionCollection.Count > 0)
             {
                 if (this.m_PanelSetOrder.TestOrderReportDistributionCollection.HasDistributedItems() == false)
@@ -535,6 +533,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                     this.m_PanelSetOrder.TestOrderReportDistributionCollection.Clear();
                 }
             }
+            */
         }
 
         private void HyperLinkEditDistribution_Click(object sender, RoutedEventArgs e)

@@ -144,6 +144,11 @@ namespace YellowstonePathology.UI.Surgical
             this.AddPeerReview(5136);
         }
 
+        private void HyperLinkAddDrMorrison_Click(object sender, RoutedEventArgs e)
+        {
+            this.AddPeerReview(5143);
+        }
+
         private void HyperLinkDeleteItem_Click(object sender, RoutedEventArgs e)
         {
             Hyperlink hyperlink = (Hyperlink)sender;
