@@ -17,14 +17,20 @@ namespace YellowstonePathology.Business.HL7View.WPH
         private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
         private YellowstonePathology.Business.Domain.Physician m_OrderingPhysician;
         private YellowstonePathology.Business.User.SystemUser m_SigningPathologist;
-        private Business.ClientOrder.Model.ClientOrder m_ClientOrder;  
+        private Business.ClientOrder.Model.ClientOrder m_ClientOrder;
 
         public WPHResultView(string reportNo, Business.Test.AccessionOrder accessionOrder, bool testing)
-        {            
+        {
             this.m_Testing = testing;
             this.m_AccessionOrder = accessionOrder;
             this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
-            this.m_ClientOrder = Business.Gateway.ClientOrderGateway.GetClientOrderByExternalOrderId(this.m_AccessionOrder.ExternalOrderId);
+            //this.m_ClientOrder = Business.Gateway.ClientOrderGateway.GetClientOrderByExternalOrderId(this.m_AccessionOrder.ExternalOrderId);
+            YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection clientOrders = Business.Gateway.ClientOrderGateway.GetClientOrdersByExternalOrderId(this.m_AccessionOrder.ExternalOrderId);
+            if (clientOrders.Count > 0)
+            {
+                this.m_ClientOrder = clientOrders[0];
+            }  
+
             if (string.IsNullOrEmpty(this.m_AccessionOrder.IncomingHL7) == true)
             {
                 this.m_SendUnsolicited = true;
