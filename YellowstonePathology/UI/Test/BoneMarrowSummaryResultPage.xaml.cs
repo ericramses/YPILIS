@@ -48,7 +48,7 @@ namespace YellowstonePathology.UI.Test
             this.m_PageHeaderText = "Bone Marrow Summary Results For: " + this.m_AccessionOrder.PatientDisplayName;
 
             this.SetAccessionReportsIncluded();
-            this.m_OtherReportViewCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetOtherReportViewCollection(accessionOrder.PatientId, accessionOrder.MasterAccessionNo);
+            this.m_OtherReportViewCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetOtherReportViewCollection(this.m_AccessionOrder.PatientId, this.m_AccessionOrder.MasterAccessionNo);
 
             InitializeComponent();
 
@@ -90,6 +90,12 @@ namespace YellowstonePathology.UI.Test
         public YellowstonePathology.Business.Test.BoneMarrowSummary.OtherReportViewCollection OtherReportViewCollection
         {
             get { return this.m_OtherReportViewCollection; }
+            private set
+            {
+                this.m_OtherReportViewCollection = value;
+                NotifyPropertyChanged("OtherReportViewCollection");
+
+            }
         }
 
         public void UpdateBindingSources()
@@ -222,7 +228,8 @@ namespace YellowstonePathology.UI.Test
             {
                 Business.Test.PanelSetOrder panelSetOrder = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(otherReportView.ReportNo);
                 panelSetOrder.SummaryReportNo = this.m_PanelSetOrder.ReportNo;
-                otherReportView.SummaryReportNo = this.m_PanelSetOrder.ReportNo;
+                Business.Persistence.DocumentGateway.Instance.Save();
+                this.OtherReportViewCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetOtherReportViewCollection(this.m_AccessionOrder.PatientId, this.m_AccessionOrder.MasterAccessionNo);
             }
             else
             {
@@ -242,7 +249,8 @@ namespace YellowstonePathology.UI.Test
                     {
                         Business.Test.PanelSetOrder panelSetOrder = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(otherReportView.ReportNo);
                         panelSetOrder.SummaryReportNo = null;
-                        otherReportView.SummaryReportNo = null;
+                        Business.Persistence.DocumentGateway.Instance.Save();
+                        this.OtherReportViewCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetOtherReportViewCollection(this.m_AccessionOrder.PatientId, this.m_AccessionOrder.MasterAccessionNo);
                     }
                     else
                     {
