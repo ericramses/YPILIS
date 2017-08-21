@@ -1540,7 +1540,7 @@ namespace YellowstonePathology.Business.Test
                 }
                 else
                 {
-                    panelSetOrder.AssignedToId = 5043; //Assign to Dr. Emerick
+                    panelSetOrder.AssignedToId = 5143; //Assign to Dr. Morrison
                     YellowstonePathology.Business.Facility.Model.YellowstonePathologistBillings yp = new Facility.Model.YellowstonePathologistBillings();
                     YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings ypi = new Facility.Model.YellowstonePathologyInstituteBillings();
                     panelSetOrder.ProfessionalComponentFacilityId = yp.FacilityId;
