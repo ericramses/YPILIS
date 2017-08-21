@@ -18,27 +18,41 @@ namespace YellowstonePathology.Business.Test.BoneMarrowSummary
         public override void ToXml(XElement document)
         {
             PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
-            this.AddHeader(document, panelSetOrder, "Hematopathology Summary");
+            this.AddHeader(document, panelSetOrder, "Bone Marrow Summary");
             this.AddNextObxElement("", document, "F");
 
-            //this.AddNextObxElement("Result: " + panelSetOrder.Result, document, "F");
-            //this.AddNextObxElement("", document, "F");
+            this.AddNextObxElement("SURGICAL PATHOLOGY DIAGNOSIS: ", document, "F");
 
+            YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetSurgical();
+            this.AddNextObxElement("Reference Report No: " + surgicalTestOrder.ReportNo, document, "F");
+
+            foreach (YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen in surgicalTestOrder.SurgicalSpecimenCollection)
+            {
+                this.HandleLongString("Specimen: " + surgicalSpecimen.DiagnosisIdFormatted + "  " + surgicalSpecimen.SpecimenOrder.Description, document, "F");
+                this.HandleLongString("Diagnosis: " + surgicalSpecimen.Diagnosis, document, "F");
+            }
+
+            this.AddNextObxElement("", document, "F");
+            this.AddNextObxElement("TESTING SUMMARY:", document, "F");
+
+            List<Business.Test.PanelSetOrder> testingSummaryList = this.m_AccessionOrder.PanelSetOrderCollection.GetBoneMarrowAccessionSummaryList(panelSetOrder.ReportNo, true);
+
+            for (int idx = testingSummaryList.Count - 1; idx > -1; idx--)
+            {
+                Business.Test.PanelSetOrder pso = testingSummaryList[idx];
+                this.AddNextObxElement("Reference Report No: " + pso.ReportNo, document, "F");
+                this.AddNextObxElement("Test Name: " + pso.PanelSetName, document, "F");
+                this.AddNextObxElement(pso.ToResultString(this.m_AccessionOrder), document, "F");
+                this.AddNextObxElement("", document, "F");
+            }
+
+            this.AddNextObxElement("", document, "F");
             this.AddNextObxElement("Pathologist: " + panelSetOrder.Signature, document, "F");
+
             if (panelSetOrder.FinalTime.HasValue == true)
             {
                 this.AddNextObxElement("E-signed " + panelSetOrder.FinalTime.Value.ToString("MM/dd/yyyy HH:mm"), document, "F");
             }
-            this.AddNextObxElement("", document, "F");
-            this.AddAmendments(document);
-
-            //this.AddNextObxElement("Interpretation: ", document, "F");
-            //this.HandleLongString(panelSetOrder.Interpretation, document, "F");
-            //this.AddNextObxElement("", document, "F");
-
-            string locationPerformed = panelSetOrder.GetLocationPerformedComment();
-            this.AddNextObxElement(locationPerformed, document, "F");
-            this.AddNextObxElement(string.Empty, document, "F");
         }
     }
 }

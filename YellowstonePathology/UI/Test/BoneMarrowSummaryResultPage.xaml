@@ -87,6 +87,39 @@
                         <RowDefinition Height="Auto"></RowDefinition>
                     </Grid.RowDefinitions>
 
+                    <TextBlock Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Margin="2,2,2,2" FontWeight="Bold">Reports included from this accession:</TextBlock>
+                    <ListBox Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Width="400" HorizontalAlignment="Left" ItemsSource="{Binding Path=AccessionReportsIncluded}" />
+
+                    <TextBlock Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Margin="2,2,2,2" FontWeight="Bold">Reports from other accessions:</TextBlock>
+                    <Grid Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        
+                        <ListView Name="ListViewOtherReports" Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" Height="250" ItemsSource="{Binding Path=OtherReportViewCollection}">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Path=ReportNo}" Header="Report No" Width="80"/>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Path=PanelSetName}" Header="Report Type" Width="200"/>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Path=SummaryReportNo}" Header="Summary Report" Width="100"/>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Path=FinalDate,Converter={StaticResource ShortDateConverter}}" Header=" Report Date" Width="150"/>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+
+                        <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical" Height="250">
+                            <TextBlock VerticalAlignment="Center" Margin="5,100,5,5">                    
+                                <Hyperlink Click="HyperLinkAddSelectedReport_Click">Add Selected</Hyperlink>
+                            </TextBlock>
+
+                            <TextBlock VerticalAlignment="Center" Margin="5,5,5,5">                    
+                                <Hyperlink Click="HyperLinkRemoveSelectedReport_Click">Remove Selected</Hyperlink>
+                            </TextBlock>
+                        </StackPanel>
+
+                    </Grid>
+
                     <TextBlock Grid.Column="0" Grid.Row="10" Margin="2,2,2,2" FontWeight="Bold">Distribute:</TextBlock>
                     <CheckBox Grid.Column="1" Grid.Row="10" Margin="2,2,2,2" IsChecked="{Binding Path=PanelSetOrder.Distribute}"></CheckBox>
 

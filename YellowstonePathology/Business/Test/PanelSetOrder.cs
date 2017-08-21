@@ -90,7 +90,8 @@ namespace YellowstonePathology.Business.Test
         private string m_AdditionalTestingEmailMessage;
         private string m_AdditionalTestingEmailAddress;
         protected string m_ReportReferences;
-        protected bool m_ResearchTesting;  
+        protected bool m_ResearchTesting;
+        protected string m_SummaryReportNo;
 
         protected YellowstonePathology.Business.Document.CaseDocumentCollection m_CaseDocumentCollection;
 
@@ -1298,6 +1299,21 @@ namespace YellowstonePathology.Business.Test
                 {
                     this.m_ResearchTesting = value;
                     this.NotifyPropertyChanged("ResearchTesting");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "20", "null", "varchar")]
+        public string SummaryReportNo
+        {
+            get { return this.m_SummaryReportNo; }
+            set
+            {
+                if (this.m_SummaryReportNo != value)
+                {
+                    this.m_SummaryReportNo = value;
+                    this.NotifyPropertyChanged("SummaryReportNo");
                 }
             }
         }

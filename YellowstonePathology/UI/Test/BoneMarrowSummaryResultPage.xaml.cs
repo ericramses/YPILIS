@@ -30,6 +30,8 @@ namespace YellowstonePathology.UI.Test
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
         private YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;
+        private List<string> m_AccessionReportsIncluded;
+        private YellowstonePathology.Business.Test.BoneMarrowSummary.OtherReportViewCollection m_OtherReportViewCollection;
         private string m_PageHeaderText;
 
 
@@ -45,6 +47,9 @@ namespace YellowstonePathology.UI.Test
 
             this.m_PageHeaderText = "Bone Marrow Summary Results For: " + this.m_AccessionOrder.PatientDisplayName;
 
+            this.SetAccessionReportsIncluded();
+            this.m_OtherReportViewCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetOtherReportViewCollection(accessionOrder.PatientId, accessionOrder.MasterAccessionNo);
+
             InitializeComponent();
 
             DataContext = this;
@@ -52,6 +57,14 @@ namespace YellowstonePathology.UI.Test
             this.m_ControlsNotDisabledOnFinal.Add(this.ButtonNext);
             this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockShowDocument);
             this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalResults);
+        }
+
+        public void NotifyPropertyChanged(String info)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
         }
 
         public YellowstonePathology.Business.Test.PanelSetOrder PanelSetOrder
@@ -64,20 +77,20 @@ namespace YellowstonePathology.UI.Test
             get { return this.m_AccessionOrder; }
         }
 
-        public void NotifyPropertyChanged(String info)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(info));
-            }
-        }
-
         public string PageHeaderText
         {
             get { return this.m_PageHeaderText; }
         }
 
+        public List<string> AccessionReportsIncluded
+        {
+            get { return this.m_AccessionReportsIncluded; }
+        }
 
+        public YellowstonePathology.Business.Test.BoneMarrowSummary.OtherReportViewCollection OtherReportViewCollection
+        {
+            get { return this.m_OtherReportViewCollection; }
+        }
 
         public void UpdateBindingSources()
         {
@@ -169,12 +182,88 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
         {
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
             YellowstonePathology.Business.Test.BoneMarrowSummary.BoneMarrowSummaryWordDocument report = new YellowstonePathology.Business.Test.BoneMarrowSummary.BoneMarrowSummaryWordDocument(this.m_AccessionOrder, this.m_PanelSetOrder, Business.Document.ReportSaveModeEnum.Draft);
             report.Render();
 
             YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
             string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);
             YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(fileName);
+        }
+
+        private void HyperLinkAddSelectedReport_Click(object sender, RoutedEventArgs e)
+        {
+            if(ListViewOtherReports.SelectedItem != null)
+            {
+                YellowstonePathology.Business.Test.BoneMarrowSummary.OtherReportView otherReportView = ListViewOtherReports.SelectedItem as YellowstonePathology.Business.Test.BoneMarrowSummary.OtherReportView;
+                if(string.IsNullOrEmpty(otherReportView.SummaryReportNo) == false && otherReportView.SummaryReportNo != this.m_PanelSetOrder.ReportNo)
+                {
+                    MessageBoxResult messageBoxResult = MessageBox.Show("This report is used by another summary." + Environment.NewLine + "Do you wish to include it in this report?", "On another summary report", MessageBoxButton.YesNo, MessageBoxImage.Exclamation, MessageBoxResult.No);
+                    if(messageBoxResult == MessageBoxResult.Yes)
+                    {
+                        this.AddOtherReport(otherReportView);
+                    }
+                }
+                else
+                {
+                    this.AddOtherReport(otherReportView);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Select a report to add");
+            }
+        }
+
+        private void AddOtherReport(YellowstonePathology.Business.Test.BoneMarrowSummary.OtherReportView otherReportView)
+        {
+            Business.Test.AccessionOrder accessionOrder = Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(otherReportView.MasterAccessionNo, this);
+            if (accessionOrder.AccessionLock.IsLockAquiredByMe == true)
+            {
+                Business.Test.PanelSetOrder panelSetOrder = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(otherReportView.ReportNo);
+                panelSetOrder.SummaryReportNo = this.m_PanelSetOrder.ReportNo;
+                otherReportView.SummaryReportNo = this.m_PanelSetOrder.ReportNo;
+            }
+            else
+            {
+                MessageBox.Show("Unable to add the selected report to the summary as that accession is locked.");
+            }
+        }
+
+        private void HyperLinkRemoveSelectedReport_Click(object sender, RoutedEventArgs e)
+        {
+            if (ListViewOtherReports.SelectedItem != null)
+            {
+                YellowstonePathology.Business.Test.BoneMarrowSummary.OtherReportView otherReportView = ListViewOtherReports.SelectedItem as YellowstonePathology.Business.Test.BoneMarrowSummary.OtherReportView;
+                if (string.IsNullOrEmpty(otherReportView.SummaryReportNo) == false && otherReportView.SummaryReportNo == this.m_PanelSetOrder.ReportNo)
+                {
+                    Business.Test.AccessionOrder accessionOrder = Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(otherReportView.MasterAccessionNo, this);
+                    if (accessionOrder.AccessionLock.IsLockAquiredByMe == true)
+                    {
+                        Business.Test.PanelSetOrder panelSetOrder = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(otherReportView.ReportNo);
+                        panelSetOrder.SummaryReportNo = null;
+                        otherReportView.SummaryReportNo = null;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Unable to remove the selected report as that accession is locked.");
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Select a report to remove");
+            }
+        }
+
+        private void SetAccessionReportsIncluded()
+        {
+            this.m_AccessionReportsIncluded = new List<string>();
+            List<YellowstonePathology.Business.Test.PanelSetOrder> panelSetOrders = this.m_AccessionOrder.PanelSetOrderCollection.GetBoneMarrowAccessionSummaryList(this.m_PanelSetOrder.ReportNo, false);
+            foreach (Business.Test.PanelSetOrder pso in panelSetOrders)
+            {
+                this.m_AccessionReportsIncluded.Add(pso.ReportNo + '\t' + pso.PanelSetName);
+            }
         }
     }
 }
