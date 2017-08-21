@@ -58,9 +58,17 @@ namespace YellowstonePathology.Business.Test.BoneMarrowSummary
             XmlNode testTableNode = this.m_ReportXml.SelectSingleNode("descendant::w:tbl[w:tr/w:tc/w:p/w:r/w:t='test_name']", this.m_NameSpaceManager);            
             XmlNode rowTestNode = testTableNode.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='test_name']", this.m_NameSpaceManager);
 
-            List<Business.Test.PanelSetOrder> testingSummaryList = this.GetTestingSummaryList(this.m_AccessionOrder.PanelSetOrderCollection);
+            List<Business.Test.PanelSetOrder> testingSummaryList = this.m_AccessionOrder.PanelSetOrderCollection.GetBoneMarrowAccessionSummaryList(this.m_PanelSetOrder.ReportNo, true);
+            //this.GetOtherCases(testingSummaryList);
+
             foreach (Business.Test.PanelSetOrder pso in testingSummaryList)
             {
+                string result = pso.ToResultString(this.m_AccessionOrder);
+                if (result == "The result string for this test has not been implemented.")
+                {
+                    result = "Result reported separately.";
+                }
+
                 XmlNode rowTestNodeClone = rowTestNode.Clone();
                 rowTestNodeClone.SelectSingleNode("descendant::w:r[w:t='test_name']/w:t", this.m_NameSpaceManager).InnerText = pso.PanelSetName;
                 rowTestNodeClone.SelectSingleNode("descendant::w:r[w:t='test_report_no']/w:t", this.m_NameSpaceManager).InnerText = pso.ReportNo;
@@ -76,43 +84,16 @@ namespace YellowstonePathology.Business.Test.BoneMarrowSummary
             this.SaveReport();
         }
 
-        private List<Business.Test.PanelSetOrder> GetTestingSummaryList(Business.Test.PanelSetOrderCollection panelSetOrderCollection)
+        /*private void GetOtherCases(List<Business.Test.PanelSetOrder> testingSummaryList)
         {
-            List<Business.Test.PanelSetOrder> result = new List<PanelSetOrder>();
-            YellowstonePathology.Business.PanelSet.Model.PanelSetCollection panelSets = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetAll();
-
-            Business.Test.PanelSetOrderCollection flow = new PanelSetOrderCollection();
-            Business.Test.PanelSetOrderCollection cyto = new PanelSetOrderCollection();
-            Business.Test.PanelSetOrderCollection fish = new PanelSetOrderCollection();
-            Business.Test.PanelSetOrderCollection molecular = new PanelSetOrderCollection();
-            Business.Test.PanelSetOrderCollection other = new PanelSetOrderCollection();
-
-            List<int> exclusionList = new List<int>();
-            exclusionList.Add(13);
-            exclusionList.Add(197);
-            exclusionList.Add(262);
-            exclusionList.Add(268);
-
-            foreach (Business.Test.PanelSetOrder pso in panelSetOrderCollection)
+            OtherReportViewCollection otherReports = Gateway.AccessionOrderGateway.GetOtherReportViewsForSummary(this.m_PanelSetOrder.ReportNo);
+            foreach(OtherReportView otherReportView in otherReports)
             {
-                if(exclusionList.IndexOf(pso.PanelSetId) == -1)
-                {
-                    YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet = panelSets.GetPanelSet(pso.PanelSetId);
-                    if (panelSet.CaseType == YellowstonePathology.Business.CaseType.FlowCytometry) flow.Insert(0, pso);
-                    else if (panelSet.CaseType == YellowstonePathology.Business.CaseType.Cytogenetics) cyto.Insert(0, pso);
-                    else if (panelSet.CaseType == YellowstonePathology.Business.CaseType.FISH) fish.Insert(0, pso);
-                    else if (panelSet.CaseType == YellowstonePathology.Business.CaseType.Molecular) molecular.Insert(0, pso);
-                    else other.Insert(0, pso);
-                }
+                AccessionOrder ao = Persistence.DocumentGateway.Instance.PullAccessionOrder(otherReportView.MasterAccessionNo, this);
+                Business.Test.PanelSetOrder pso = ao.PanelSetOrderCollection.GetPanelSetOrder(otherReportView.ReportNo);
+                testingSummaryList.Insert(0, pso);
             }
-
-            result.AddRange(other);
-            result.AddRange(molecular);
-            result.AddRange(fish);
-            result.AddRange(cyto);
-            result.AddRange(flow);
-            return result;
-        }
+        }*/
 
         public override void Publish()
         {
