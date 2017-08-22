@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business.Audit.Model
         {
             this.m_AccessionOrder = accessionOrder;
             this.m_KeyWordsOnly = new Surgical.KeyWordCollection { "bone marrow" };
-            this.m_KeyWordsAndOrder = new Surgical.KeyWordCollection { "peripheral smear" };
+            this.m_KeyWordsAndOrder = new Surgical.KeyWordCollection { "peripheral blood", "peripheral smear" };
 
         }
 
