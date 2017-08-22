@@ -34,6 +34,7 @@ namespace YellowstonePathology.Business.Audit.Model
             this.Add(new RASRAForMetastaticColorectalCancerAudit(accessionOrder));
             this.Add(new PNHOnBoneMarrowSpecimenAudit(accessionOrder));
             this.Add(new PDL1Audit(accessionOrder));
+            this.Add(new BoneMarrowSummaryAudit(accessionOrder));
         }
 
         public AuditCollection GetAuditMessageCollection()
@@ -70,7 +71,8 @@ namespace YellowstonePathology.Business.Audit.Model
                     audit.GetType() == typeof(HPV1618ForSiteAudit) ||
                     audit.GetType() == typeof(RASRAForMetastaticColorectalCancerAudit) ||
                     audit.GetType() == typeof(PNHOnBoneMarrowSpecimenAudit) ||
-                    audit.GetType() == typeof(PDL1Audit))
+                    audit.GetType() == typeof(PDL1Audit) ||
+                    audit.GetType() == typeof(BoneMarrowSummaryAudit))
                 {
                     result.Add(audit);
                 }
