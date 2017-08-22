@@ -2935,7 +2935,7 @@ namespace YellowstonePathology.Business.Gateway
             Business.Test.BoneMarrowSummary.OtherReportViewCollection result = new Test.BoneMarrowSummary.OtherReportViewCollection();
            
             MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "Select pso.ReportNo, pso.MasterAccessionNo, pso.PanelSetName, pso.FinalDate, pso.SummaryReportNo from " +
+            cmd.CommandText = "Select pso.ReportNo, pso.MasterAccessionNo, pso.PanelSetName, pso.FinalDate, pso.SummaryReportNo, pso.PanelSetId from " +
                 "tblPanelSetOrder pso join tblAccessionOrder ao on pso.MasterAccessionNo = ao.MasterAccessionNo where ao.PatientId = @PatientId " +
                 "and pso.MasterAccessionNo != @MasterAccessionNo order by pso.SummaryReportNo DESC, pso.FinalDate DESC;";
 
