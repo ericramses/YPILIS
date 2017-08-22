@@ -2937,7 +2937,7 @@ namespace YellowstonePathology.Business.Gateway
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = "Select pso.ReportNo, pso.MasterAccessionNo, pso.PanelSetName, pso.FinalDate, pso.SummaryReportNo from " +
                 "tblPanelSetOrder pso join tblAccessionOrder ao on pso.MasterAccessionNo = ao.MasterAccessionNo where ao.PatientId = @PatientId " +
-                "and pso.MasterAccessionNo != @MasterAccessionNo;";
+                "and pso.MasterAccessionNo != @MasterAccessionNo order by pso.SummaryReportNo DESC, pso.FinalDate DESC;";
 
             cmd.CommandType = CommandType.Text;
             cmd.Parameters.AddWithValue("@PatientId", patientId);
