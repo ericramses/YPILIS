@@ -33,6 +33,7 @@
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
                 </Grid.RowDefinitions>
 
                 <TextBlock Grid.Column="0" Grid.Row="0" Margin="0,3,0,0" FontWeight="Bold" FontSize="14">Order</TextBlock>
@@ -62,6 +63,10 @@
 
                 <TextBlock Grid.Column="0" Grid.Row="7" Margin="5,3,0,0" TextWrapping="Wrap">                    
                     <Hyperlink Click="HyperLinkPDL1_Click">PD-L1</Hyperlink>
+                </TextBlock>
+
+                <TextBlock Grid.Column="0" Grid.Row="8" Margin="5,3,0,0" TextWrapping="Wrap">                    
+                    <Hyperlink Click="HyperLinkBoneMarrowSummary_Click">Bone Marrow Summary</Hyperlink>
                 </TextBlock>
             </Grid>
 
