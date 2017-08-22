@@ -421,7 +421,7 @@ namespace YellowstonePathology.Business.Facility.Model.LocationDefinitions
     {
         public DrMorrisonOffice()
         {
-            this.m_LocationId = "DRMRRSNOFFC";
+            this.m_LocationId = "AMORRISONOFFC";
             this.m_Description = "Dr. Morrison";
         }
     }
