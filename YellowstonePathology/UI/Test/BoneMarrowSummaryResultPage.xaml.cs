@@ -202,23 +202,54 @@ namespace YellowstonePathology.UI.Test
             if(ListViewOtherReports.SelectedItem != null)
             {
                 YellowstonePathology.Business.Test.BoneMarrowSummary.OtherReportView otherReportView = ListViewOtherReports.SelectedItem as YellowstonePathology.Business.Test.BoneMarrowSummary.OtherReportView;
-                if(string.IsNullOrEmpty(otherReportView.SummaryReportNo) == false && otherReportView.SummaryReportNo != this.m_PanelSetOrder.ReportNo)
+                Business.Rules.MethodResult methodResult = this.CanAddReportToSummary(otherReportView);
+                if (methodResult.Success == true)
                 {
-                    MessageBoxResult messageBoxResult = MessageBox.Show("This report is used by another summary." + Environment.NewLine + "Do you wish to include it in this report?", "On another summary report", MessageBoxButton.YesNo, MessageBoxImage.Exclamation, MessageBoxResult.No);
-                    if(messageBoxResult == MessageBoxResult.Yes)
-                    {
-                        this.AddOtherReport(otherReportView);
-                    }
+                    this.AddOtherReport(otherReportView);
                 }
                 else
                 {
-                    this.AddOtherReport(otherReportView);
+                    MessageBox.Show(methodResult.Message);
                 }
             }
             else
             {
                 MessageBox.Show("Select a report to add");
             }
+        }
+
+        private Business.Rules.MethodResult CanAddReportToSummary(Business.Test.BoneMarrowSummary.OtherReportView otherReportView)
+        {
+            Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
+            if (string.IsNullOrEmpty(otherReportView.SummaryReportNo) == false)
+            {
+                methodResult.Success = false;
+                methodResult.Message = "The selected report is included in a summary.";
+            }
+
+            if (methodResult.Success == true)
+            {
+                List<int> exclusionList = this.m_AccessionOrder.PanelSetOrderCollection.GetBoneMarrowSummaryExclusionList();
+                if (exclusionList.IndexOf(otherReportView.PanelSetId) > -1)
+                {
+                    methodResult.Success = false;
+                    methodResult.Message = "The selected report is not valid in this summary.";
+                }
+            }
+
+            if (methodResult.Success == true)
+            {
+                YellowstonePathology.Business.Test.BoneMarrowSummary.BoneMarrowSummaryTest bmsTest = new Business.Test.BoneMarrowSummary.BoneMarrowSummaryTest();
+                Business.Test.AccessionOrder accessionOrder = Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(otherReportView.MasterAccessionNo, this);
+
+                if (accessionOrder.PanelSetOrderCollection.Exists(bmsTest.PanelSetId) == true)
+                {
+                    methodResult.Success = false;
+                    methodResult.Message = "The selected report is included in previous summary and may not be included in this summary.";
+                }
+            }
+
+            return methodResult;
         }
 
         private void AddOtherReport(YellowstonePathology.Business.Test.BoneMarrowSummary.OtherReportView otherReportView)
