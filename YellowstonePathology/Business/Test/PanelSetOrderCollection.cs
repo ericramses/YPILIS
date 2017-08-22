@@ -1068,11 +1068,7 @@ namespace YellowstonePathology.Business.Test
             Business.Test.PanelSetOrderCollection molecular = new PanelSetOrderCollection();
             Business.Test.PanelSetOrderCollection other = new PanelSetOrderCollection();
 
-            List<int> exclusionList = new List<int>();
-            exclusionList.Add(13);
-            exclusionList.Add(197);
-            exclusionList.Add(262);
-            exclusionList.Add(268);
+            List<int> exclusionList = this.GetBoneMarrowSummaryExclusionList();
 
             foreach (Business.Test.PanelSetOrder pso in this)
             {
@@ -1103,6 +1099,20 @@ namespace YellowstonePathology.Business.Test
             result.AddRange(fish);
             result.AddRange(cyto);
             result.AddRange(flow);
+
+            return result;
+        }
+
+        public List<int> GetBoneMarrowSummaryExclusionList()
+        {
+            List<int> result = new List<int>();
+            result.Add(13);
+            result.Add(31);   // Technical Only
+            result.Add(66);   // Test Cancelled
+            result.Add(197);
+            result.Add(244);  // Ship Material
+            result.Add(262);
+            result.Add(268);
 
             return result;
         }
