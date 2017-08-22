@@ -417,4 +417,12 @@ namespace YellowstonePathology.Business.Facility.Model.LocationDefinitions
         }
     }
 
+    public class DrMorrisonOffice : Location
+    {
+        public DrMorrisonOffice()
+        {
+            this.m_LocationId = "DRMRRSNOFFC";
+            this.m_Description = "Dr. Morrison";
+        }
+    }
 }
