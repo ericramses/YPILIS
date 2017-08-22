@@ -11,7 +11,7 @@ namespace YellowstonePathology.UI.Common
 		private const string CheckPatientHistoryMessage = "Check patient history.";
 		private const string AlopeciaMessage = "Check for alopecia.";
         private const string CervixMessage = "Please check to see if PAP slides need to be pulled.";
-        private const string OvaryMessage = "Check patient history.";
+        private const string OvaryMessage = "A specimen with an Ovary was found please check the patient history.";
 
         public PatientHistoryReview()
 		{
