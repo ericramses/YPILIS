@@ -42,7 +42,12 @@ namespace YellowstonePathology.Business.Test.BoneMarrowSummary
                 Business.Test.PanelSetOrder pso = testingSummaryList[idx];
                 this.AddNextObxElement("Reference Report No: " + pso.ReportNo, document, "F");
                 this.AddNextObxElement("Test Name: " + pso.PanelSetName, document, "F");
-                this.AddNextObxElement(pso.ToResultString(this.m_AccessionOrder), document, "F");
+                string result = pso.ToResultString(this.m_AccessionOrder);
+                if (result == "The result string for this test has not been implemented.")
+                {
+                    result = "Result reported separately.";
+                }
+                this.AddNextObxElement(result, document, "F");
                 this.AddNextObxElement("", document, "F");
             }
 

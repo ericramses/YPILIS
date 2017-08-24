@@ -3215,6 +3215,9 @@
     <Compile Include="UI\AmendmentPage.xaml.cs">
       <DependentUpon>AmendmentPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\AmendmentSuggestedPage.xaml.cs">
+      <DependentUpon>AmendmentSuggestedPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\AOBuilder.cs" />
     <Compile Include="UI\AORemover.cs" />
     <Compile Include="UI\AppMessaging\AccessionLockMessage.cs" />
@@ -5155,6 +5158,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\AmendmentPageController.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\AmendmentSuggestedPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
