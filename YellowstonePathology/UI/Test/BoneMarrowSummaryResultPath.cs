@@ -30,7 +30,73 @@ namespace YellowstonePathology.UI.Test
 
         private void BoneMarrowSummaryResultPage_Next(object sender, EventArgs e)
         {
-            this.Finished();
+            if (this.ShowAmendmentSuggestedPage() == false)
+            {
+                if(this.ShowAmendmentPage() == false)
+                this.Finished();
+            }
+        }
+
+        private bool SurgicalAmendmentExistsForThisSummary()
+        {
+            bool result = false;
+            if (this.m_AccessionOrder.PanelSetOrderCollection.HasSurgical() == true)
+            {
+                YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetSurgical();
+                if (surgicalTestOrder.AmendmentCollection.HasAmendmentForReferenceReportNo(this.m_TestOrder.ReportNo) == true)
+                {
+                    result = true;
+                }
+            }
+            return result;
+        }
+
+        private bool ShowAmendmentSuggestedPage()
+        {
+            bool result = false;
+            if (this.m_TestOrder.Final == true)
+            {
+                if (this.SurgicalAmendmentExistsForThisSummary() == false)
+                {
+                    result = true;
+                    AmendmentSuggestedPage amendmentSuggestedPage = new UI.AmendmentSuggestedPage(this.m_TestOrder, this.m_AccessionOrder);
+                    amendmentSuggestedPage.Next += AmendmentSuggestedPage_Next;
+                    this.m_PageNavigator.Navigate(amendmentSuggestedPage);
+                }
+            }
+            return result;
+        }
+
+        private void AmendmentSuggestedPage_Next(object sender, EventArgs e)
+        {
+            if (this.ShowAmendmentPage() == false)
+                this.Finished();
+        }
+
+        private bool ShowAmendmentPage()
+        {
+            bool result = false;
+            if (this.SurgicalAmendmentExistsForThisSummary() == true)
+            {
+                result = true;
+                YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetSurgical();
+                YellowstonePathology.Business.Amendment.Model.Amendment amendment = surgicalTestOrder.AmendmentCollection.GetAmendmentForReferenceReportNo(this.m_TestOrder.ReportNo);
+                AmendmentPage amendmentPage = new AmendmentPage(this.m_AccessionOrder, amendment, this.m_SystemIdentity);
+                amendmentPage.Back += AmendmentPage_Back;
+                amendmentPage.Finish += AmendmentPage_Finish;
+                this.m_PageNavigator.Navigate(amendmentPage);
+            }
+            return result;
+        }
+
+        private void AmendmentPage_Finish(object sender, EventArgs e)
+        {
+            base.Finished();
+        }
+
+        private void AmendmentPage_Back(object sender, EventArgs e)
+        {
+            this.ShowResultPage();
         }
     }
 }
