@@ -113,16 +113,40 @@ namespace YellowstonePathology.UI.Test
             YellowstonePathology.Business.Audit.Model.AuditResult auditResult = this.m_PanelSetOrder.IsOkToFinalize(this.m_AccessionOrder);
             if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.OK)
             {
-                this.m_PanelSetOrder.Finish(this.m_AccessionOrder);
-                if (this.m_PanelSetOrder.Accepted == false)
+                if (this.AreAllResultsReportable() == true)
                 {
-                    this.m_PanelSetOrder.Accept();
+                    this.m_PanelSetOrder.Finish(this.m_AccessionOrder);
+                    if (this.m_PanelSetOrder.Accepted == false)
+                    {
+                        this.m_PanelSetOrder.Accept();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("One or more tests are included with results that cannot be added to this report.  Therefore this case may not be finalized." + Environment.NewLine +
+                        Environment.NewLine + "Please see Sid.", "Unavailable results included");
                 }
             }
             else
             {
                 MessageBox.Show(auditResult.Message);
             }
+        }
+
+        private bool AreAllResultsReportable()
+        {
+            bool result = true;
+            Business.Test.PanelSetOrder pso = new Business.Test.PanelSetOrder();
+            List<Business.Test.PanelSetOrder> panelSetOrders = this.m_AccessionOrder.PanelSetOrderCollection.GetBoneMarrowAccessionSummaryList(this.m_PanelSetOrder.ReportNo, true);
+            foreach(Business.Test.PanelSetOrder panelSetOrder in panelSetOrders)
+            {
+                if(panelSetOrder.ToResultString(this.m_AccessionOrder) == pso.ToResultString(this.m_AccessionOrder))
+                {
+                    result = false;
+                    break;
+                }
+            }
+            return result;
         }
 
         private void HyperLinkUnfinalResults_Click(object sender, RoutedEventArgs e)

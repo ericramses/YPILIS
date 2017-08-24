@@ -73,7 +73,7 @@ namespace YellowstonePathology.Business.Test.BoneMarrowSummary
                 rowTestNodeClone.SelectSingleNode("descendant::w:r[w:t='test_name']/w:t", this.m_NameSpaceManager).InnerText = pso.PanelSetName;
                 rowTestNodeClone.SelectSingleNode("descendant::w:r[w:t='test_report_no']/w:t", this.m_NameSpaceManager).InnerText = pso.ReportNo;
 
-                this.SetXMLNodeParagraphDataNode(rowTestNodeClone, "test_result", pso.ToResultString(this.m_AccessionOrder));
+                this.SetXMLNodeParagraphDataNode(rowTestNodeClone, "test_result", result);
 
                 testTableNode.InsertAfter(rowTestNodeClone, rowTestNode);                    
             }
