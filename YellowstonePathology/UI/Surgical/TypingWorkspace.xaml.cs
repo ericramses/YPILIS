@@ -1067,5 +1067,36 @@ namespace YellowstonePathology.UI.Surgical
                 }                
             }            
         }
+
+        private void HyperLinkSetCPTCodes_Click(object sender, RoutedEventArgs e)
+        {
+            Business.Specimen.Model.SpecimenCollection specimenCollection = Business.Specimen.Model.SpecimenCollection.GetAll();
+            foreach(Business.Specimen.Model.SpecimenOrder specimenOrder in this.m_TypingUI.AccessionOrder.SpecimenOrderCollection)
+            {
+                if(string.IsNullOrEmpty(specimenOrder.SpecimenId) != true)
+                {
+                    Business.Specimen.Model.Specimen specimen = specimenCollection.GetSpecimen(specimenOrder.SpecimenId);
+                    if (specimen.CPTCode != null)
+                    {
+                        Business.Test.PanelSetOrder panelSetOrder = this.m_TypingUI.AccessionOrder.PanelSetOrderCollection.GetSurgical();
+                        if(panelSetOrder.PanelSetOrderCPTCodeCollection.Exists(specimen.CPTCode.Code, specimenOrder.SpecimenOrderId) == false)
+                        {
+                            YellowstonePathology.Business.Test.PanelSetOrderCPTCode panelSetOrderCPTCode = panelSetOrder.PanelSetOrderCPTCodeCollection.GetNextItem(panelSetOrder.ReportNo);
+                            panelSetOrderCPTCode.Quantity = 1;
+                            panelSetOrderCPTCode.CPTCode = specimen.CPTCode.Code;
+                            panelSetOrderCPTCode.Modifier = specimen.CPTCode.Modifier;
+                            panelSetOrderCPTCode.CodeableDescription = "Specimen " + specimenOrder.SpecimenNumber + ": " + panelSetOrder.PanelSetName;
+                            panelSetOrderCPTCode.CodeableType = "Surgical Diagnosis";
+                            panelSetOrderCPTCode.EntryType = YellowstonePathology.Business.Billing.Model.PanelSetOrderCPTCodeEntryType.ManualEntry;
+                            panelSetOrderCPTCode.SpecimenOrderId = specimenOrder.SpecimenOrderId;
+                            panelSetOrderCPTCode.CodeType = specimen.CPTCode.CodeType.ToString();
+                            panelSetOrderCPTCode.ClientId = this.m_TypingUI.AccessionOrder.ClientId;
+                            panelSetOrder.PanelSetOrderCPTCodeCollection.Add(panelSetOrderCPTCode);
+                        }                        
+                    }
+                }                
+            }
+            this.m_TypingUI.RefreshBillingSpecimenViewCollection();
+        }
     }    
 }

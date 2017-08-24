@@ -12,13 +12,17 @@
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
 
         <Button Grid.Row="0" Click="ButtonDeleteSlide_Click" Height="100" Width="200" Margin="5,5,5,5">Delete</Button>
         <Button Grid.Row="1" Click="ButtonPrintSlide_Click" Height="100" Width="200" Margin="5,5,5,5">Print Slide</Button>
         <Button Grid.Row="2" Click="ButtonPrintPaperLabel_Click" Height="100" Width="200" Margin="5,5,5,5">Print Paper Label</Button>
-        <Button Grid.Row="3" Click="ButtonClose_Click" Height="100" Width="200" Margin="5,5,5,5">Close</Button>
+        <Button Grid.Row="3" Click="ButtonCombineNextSlide_Click" Height="100" Width="200" Margin="5,5,5,5">Combine Next Slide</Button>
+        <Button Grid.Row="4" Click="ButtonUncombine_Click" Height="100" Width="200" Margin="5,5,5,5">Uncombine</Button>
+        <Button Grid.Row="5" Click="ButtonClose_Click" Height="100" Width="200" Margin="5,5,5,5">Close</Button>
 
     </Grid>
 </UserControl>

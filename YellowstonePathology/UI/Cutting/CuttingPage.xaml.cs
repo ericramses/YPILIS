@@ -130,13 +130,57 @@ namespace YellowstonePathology.UI.Cutting
             slideOptionsPage.DeleteSlideOrder += new SlideOptionsPage.DeleteSlideOrderEventHandler(SlideOptionsPage_DeleteSlideOrder);
             slideOptionsPage.PrintSlide += new SlideOptionsPage.PrintSlideEventHandler(SlideOptionsPage_PrintSlide);
             slideOptionsPage.PrintPaperLabel += new SlideOptionsPage.PrintPaperLabelEventHandler(SlideOptionsPage_PrintPaperLabel);
+            slideOptionsPage.CombineNextSlide += new SlideOptionsPage.CombineNextSlideEventHandler(SlideOptionsPage_CombineNextSlide);
+            slideOptionsPage.Uncombine += new SlideOptionsPage.UncombineEventHandler(SlideOptionsPage_Uncombine);
             slideOptionsPage.Close += new SlideOptionsPage.CloseEventHandler(SlideOptionsPage_Close);
             this.m_PageNavigator.Navigate(slideOptionsPage);            
+        }
+
+        private void SlideOptionsPage_Uncombine(object sender, CustomEventArgs.SlideOrderReturnEventArgs eventArgs)
+        {
+            eventArgs.SlideOrder.Combined = false;
+            int positionOfSlash = eventArgs.SlideOrder.Label.IndexOf("/");
+            if(positionOfSlash > 0)
+            {
+                eventArgs.SlideOrder.Label = eventArgs.SlideOrder.Label.Substring(0, positionOfSlash);
+                this.m_PageNavigator.Navigate(this);
+            }            
         }
 
         private void SlideOptionsPage_PrintPaperLabel(object sender, CustomEventArgs.SlideOrderReturnEventArgs eventArgs)
         {
             this.PrintPaperLabel(eventArgs.SlideOrder);
+            this.m_PageNavigator.Navigate(this);
+        }
+
+        private void SlideOptionsPage_CombineNextSlide(object sender, CustomEventArgs.SlideOrderReturnEventArgs eventArgs)
+        {
+            bool thisTestWasFound = false;
+            foreach(Business.Test.PanelOrder panelOrder in this.m_PanelSetOrder.PanelOrderCollection)
+            {
+                foreach(Business.Test.Model.TestOrder testOrder in panelOrder.TestOrderCollection)
+                {
+                    if(thisTestWasFound == true)
+                    {
+                        if(testOrder.TestId == eventArgs.SlideOrder.TestId)
+                        {                            
+                            if(eventArgs.SlideOrder.Combined == false)
+                            {
+                                eventArgs.SlideOrder.Combined = true;
+                                eventArgs.SlideOrder.Label += '/' + testOrder.AliquotOrder.Label;
+                                break;
+                            }                                                            
+                        }
+                    }
+                    else
+                    {
+                        if (testOrder.TestOrderId == eventArgs.SlideOrder.TestOrderId)
+                        {                            
+                            thisTestWasFound = true;
+                        }
+                    }                    
+                }
+            }
             this.m_PageNavigator.Navigate(this);
         }
 

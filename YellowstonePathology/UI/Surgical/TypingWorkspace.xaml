@@ -291,9 +291,15 @@
                         </Grid.RowDefinitions>
 
                         <TextBlock Grid.Column="0" Grid.Row="0" FontWeight="Bold">Clinical Information:</TextBlock>
-                        <TextBlock Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" Margin="0,0,2,0">                    
+
+                        <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right">
+                            <TextBlock Margin="0,0,10,0">                    
+                            <Hyperlink Click="HyperLinkSetCPTCodes_Click">Set CPT Codes</Hyperlink>
+                            </TextBlock>
+                            <TextBlock Margin="0,0,2,0">                    
                             <Hyperlink Click="HyperLinkCleanClinicalInformation_Click">Clean</Hyperlink>
-                        </TextBlock>
+                            </TextBlock>
+                        </StackPanel>
 
                         <TextBox Name="TextBoxClinical"  Grid.Column="0" Grid.Row="1" TextWrapping="Wrap" AcceptsReturn="True"
 									Text="{Binding Path=AccessionOrder.ClinicalHistory, UpdateSourceTrigger=PropertyChanged}"

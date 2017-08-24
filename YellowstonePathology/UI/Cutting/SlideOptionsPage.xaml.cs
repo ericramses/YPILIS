@@ -26,7 +26,13 @@ namespace YellowstonePathology.UI.Cutting
         public event PrintSlideEventHandler PrintSlide;
 
         public delegate void PrintPaperLabelEventHandler(object sender, YellowstonePathology.UI.CustomEventArgs.SlideOrderReturnEventArgs eventArgs);
-        public event PrintPaperLabelEventHandler PrintPaperLabel;        
+        public event PrintPaperLabelEventHandler PrintPaperLabel;
+
+        public delegate void CombineNextSlideEventHandler(object sender, YellowstonePathology.UI.CustomEventArgs.SlideOrderReturnEventArgs eventArgs);
+        public event CombineNextSlideEventHandler CombineNextSlide;
+
+        public delegate void UncombineEventHandler(object sender, YellowstonePathology.UI.CustomEventArgs.SlideOrderReturnEventArgs eventArgs);
+        public event UncombineEventHandler Uncombine;
 
         public delegate void CloseEventHandler(object sender, EventArgs eventArgs);
         public event CloseEventHandler Close;
@@ -66,6 +72,16 @@ namespace YellowstonePathology.UI.Cutting
         private void ButtonClose_Click(object sender, RoutedEventArgs e)
         {
             this.Close(this, new EventArgs());
-        }                  
-	}
+        }
+
+        private void ButtonCombineNextSlide_Click(object sender, RoutedEventArgs e)
+        {
+            this.CombineNextSlide(this, new CustomEventArgs.SlideOrderReturnEventArgs(this.m_SlideOrder));
+        }
+
+        private void ButtonUncombine_Click(object sender, RoutedEventArgs e)
+        {
+            this.Uncombine(this, new CustomEventArgs.SlideOrderReturnEventArgs(this.m_SlideOrder));
+        }
+    }
 }

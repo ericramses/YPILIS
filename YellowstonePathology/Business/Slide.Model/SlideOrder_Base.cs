@@ -52,9 +52,11 @@ namespace YellowstonePathology.Business.Slide.Model
         private string m_LocationId;
         private string m_FacilityId;
 
+        private bool m_Combined;
+
         public SlideOrder_Base()
         {
-
+            this.m_Combined = false;
         }
 
         public SlideOrder_Base(string objectId, string slideOrderId, YellowstonePathology.Business.Test.AliquotOrder aliquotOrder, YellowstonePathology.Business.Test.Model.TestOrder testOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity, int slideNumber)
@@ -70,7 +72,7 @@ namespace YellowstonePathology.Business.Slide.Model
             this.m_OrderedBy = systemIdentity.User.UserName;
             this.m_OrderedById = systemIdentity.User.UserId;
             this.m_OrderedFrom = Environment.MachineName;
-            this.m_OrderedAsDual = testOrder.OrderedAsDual;        
+            this.m_OrderedAsDual = testOrder.OrderedAsDual;                   
         }
 
         public void Validate(YellowstonePathology.Business.User.SystemIdentity systemIdentity)
@@ -681,6 +683,21 @@ namespace YellowstonePathology.Business.Slide.Model
                 {
                     this.m_FacilityId = value;
                     this.NotifyPropertyChanged("FacilityId");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
+        public bool Combined
+        {
+            get { return this.m_Combined; }
+            set
+            {
+                if (this.m_Combined != value)
+                {
+                    this.m_Combined = value;
+                    this.NotifyPropertyChanged("Combined");
                 }
             }
         }
