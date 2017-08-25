@@ -43,6 +43,13 @@ namespace YellowstonePathology.Business.Label.Model
         {            
             System.Drawing.Printing.PrintDocument printDocument = new System.Drawing.Printing.PrintDocument();
             printDocument.PrinterSettings.PrinterName = this.m_PrintQueue.FullName;
+
+            if(this.m_PrintQueue.FullName == "SlideMate AS")
+            {
+                System.Drawing.Printing.PaperSize paperSize = new System.Drawing.Printing.PaperSize("Label", 100, 100);
+                printDocument.PrinterSettings.DefaultPageSettings.PaperSize = paperSize;
+            }
+            
             printDocument.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(PrintDocument_PrintPage);
             printDocument.Print();
         }        

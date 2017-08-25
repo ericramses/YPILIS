@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace YellowstonePathology.Business.Label.Model
 {
-    public class ZPLPrinter
+    public class ZPLPrinterTCP
     {
         private int m_ErrorCount;
         private string m_IPAddress;
         private int m_Port;        
 
-        public ZPLPrinter(string ipAddress)
+        public ZPLPrinterTCP(string ipAddress)
         {            
             this.m_IPAddress = ipAddress;
             this.m_Port = 9100;

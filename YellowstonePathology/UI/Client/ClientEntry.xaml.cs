@@ -314,8 +314,8 @@ namespace YellowstonePathology.UI.Client
                 Business.MaterialTracking.Model.FedexReturnLabelRequest returnLabelRequest = new Business.MaterialTracking.Model.FedexReturnLabelRequest(this.m_Client.ClientName, this.m_Client.Telephone, this.m_Client.Address, null, this.m_Client.City, this.m_Client.State, this.m_Client.ZipCode, fedExAccount);
                 Business.MaterialTracking.Model.FedexProcessShipmentReply result = returnLabelRequest.RequestShipment();
 
-                Business.Label.Model.ZPLPrinter zplPrinter = new Business.Label.Model.ZPLPrinter(Business.User.UserPreferenceInstance.Instance.UserPreference.FedExLabelPrinter);
-                zplPrinter.Print(Business.Label.Model.ZPLPrinter.DecodeZPLFromBase64(result.ZPLII));
+                Business.Label.Model.ZPLPrinterTCP zplPrinter = new Business.Label.Model.ZPLPrinterTCP(Business.User.UserPreferenceInstance.Instance.UserPreference.FedExLabelPrinter);
+                zplPrinter.Print(Business.Label.Model.ZPLPrinterTCP.DecodeZPLFromBase64(result.ZPLII));
             }                
 
             MessageBox.Show("Fedex labels have been sent to the printer.");            

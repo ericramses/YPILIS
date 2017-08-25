@@ -225,7 +225,7 @@ namespace YellowstonePathology.UI.Cytology
                     YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByAliquotOrderId(aliquotOrder.AliquotOrderId);                    
                     string zplCommands = Business.Label.Model.PantherZPLLabel.GetCommands(aliquotOrder.AliquotOrderId, this.m_AccessionOrder.PBirthdate.Value, this.m_AccessionOrder.PatientDisplayName, specimenOrder.Description);
 
-                    Business.Label.Model.ZPLPrinter zplPrinter = new Business.Label.Model.ZPLPrinter("10.1.1.19");
+                    Business.Label.Model.ZPLPrinterTCP zplPrinter = new Business.Label.Model.ZPLPrinterTCP("10.1.1.19");
                     zplPrinter.Print(zplCommands);                    
                 }
             }
@@ -255,7 +255,7 @@ namespace YellowstonePathology.UI.Cytology
                         YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByAliquotOrderId(aliquotOrder.AliquotOrderId);                        
                         string zplCommands = Business.Label.Model.PantherZPLLabel.GetCommands(aliquotOrder.AliquotOrderId, this.m_AccessionOrder.PBirthdate.Value, this.m_AccessionOrder.PatientDisplayName, specimenOrder.Description);
 
-                        Business.Label.Model.ZPLPrinter zplPrinter = new Business.Label.Model.ZPLPrinter("10.1.1.19");
+                        Business.Label.Model.ZPLPrinterTCP zplPrinter = new Business.Label.Model.ZPLPrinterTCP("10.1.1.19");
                         zplPrinter.Print(zplCommands);                        
                     }
                     aliquotOrder.Status = YellowstonePathology.Business.TrackedItemStatusEnum.Printed.ToString();             

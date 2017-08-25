@@ -779,10 +779,10 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             result.Append("^XZ");
 
             string locationId = Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId;
-            Business.Label.Model.ZPLPrinter printer = new Business.Label.Model.ZPLPrinter("10.1.1.21");
+            Business.Label.Model.ZPLPrinterTCP printer = new Business.Label.Model.ZPLPrinterTCP("10.1.1.21");
             if (locationId == "YPICDY" || locationId == "YPCDY")
             {
-                printer = new Business.Label.Model.ZPLPrinter("10.33.33.56");
+                printer = new Business.Label.Model.ZPLPrinterTCP("10.33.33.56");
             }
 
             printer.Print(result.ToString());

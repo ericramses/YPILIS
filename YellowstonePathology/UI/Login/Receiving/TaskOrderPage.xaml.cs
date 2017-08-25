@@ -300,7 +300,7 @@ namespace YellowstonePathology.UI.Login.Receiving
                     if (result.RequestWasSuccessful == true)
                     {
                         taskOrderDetail.TrackingNumber = result.TrackingNumber;
-                        taskOrderDetail.ZPLII = Business.Label.Model.ZPLPrinter.DecodeZPLFromBase64(result.ZPLII);
+                        taskOrderDetail.ZPLII = Business.Label.Model.ZPLPrinterTCP.DecodeZPLFromBase64(result.ZPLII);
                     }
                     else
                     {
@@ -338,7 +338,7 @@ namespace YellowstonePathology.UI.Login.Receiving
             {
                 if(string.IsNullOrEmpty(Business.User.UserPreferenceInstance.Instance.UserPreference.FedExLabelPrinter) == false)
                 {
-                    Business.Label.Model.ZPLPrinter zplPrinter = new Business.Label.Model.ZPLPrinter(Business.User.UserPreferenceInstance.Instance.UserPreference.FedExLabelPrinter);
+                    Business.Label.Model.ZPLPrinterTCP zplPrinter = new Business.Label.Model.ZPLPrinterTCP(Business.User.UserPreferenceInstance.Instance.UserPreference.FedExLabelPrinter);
                     zplPrinter.Print(taskOrderDetail.ZPLII);
                     taskOrderDetail.LabelHasBeenPrinted = true;
                 }

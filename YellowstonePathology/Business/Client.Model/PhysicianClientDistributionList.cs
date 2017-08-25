@@ -39,6 +39,7 @@ namespace YellowstonePathology.Business.Client.Model
                 physicianClientDistribution.PhysicianName = "Staff Pathologist";
                 physicianClientDistribution.LongDistance = pathClient.LongDistance;
                 physicianClientDistribution.DistributionType = pathClient.DistributionType;
+                physicianClientDistribution.FaxNumber = pathClient.Fax;
                 this.Add(physicianClientDistribution);                
             }
         }

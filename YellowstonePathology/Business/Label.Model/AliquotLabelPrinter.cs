@@ -75,7 +75,7 @@ namespace YellowstonePathology.Business.Label.Model
 
             result.Append("^XZ");
 
-            Business.Label.Model.ZPLPrinter printer = new ZPLPrinter("10.1.1.21");
+            Business.Label.Model.ZPLPrinterTCP printer = new ZPLPrinterTCP("10.1.1.21");
             printer.Print(result.ToString());
         }        
     }

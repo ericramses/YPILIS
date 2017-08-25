@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Facility.Model
             this.m_City = "Missoula";
             this.m_State = "MT";
             this.m_ZipCode = "59802";
-            this.m_PhoneNumber = null;
+            this.m_PhoneNumber = null;            
             this.m_FedexAccountNo = null;
             this.m_FedexPaymentType = null;
             this.m_IsReferenceLab = false;
