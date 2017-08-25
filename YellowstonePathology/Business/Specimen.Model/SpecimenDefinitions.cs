@@ -64,6 +64,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_LabFixation = null;
             this.m_ClientFixation = null;
             this.m_RequiresGrossExamination = false;
+            this.m_CPTCode = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88112();
         }
     }
 
@@ -77,6 +78,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_LabFixation = null;
             this.m_ClientFixation = null;
             this.m_RequiresGrossExamination = false;
+            this.m_CPTCode = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT85060();
         }
     }
 
@@ -103,6 +105,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_LabFixation = null;
             this.m_ClientFixation = null;
             this.m_RequiresGrossExamination = false;
+            this.m_CPTCode = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88300();
         }
     }
 
@@ -116,6 +119,21 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_LabFixation = null;
             this.m_ClientFixation = null;
             this.m_RequiresGrossExamination = true;
+            this.m_CPTCode = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88112();
+        }
+    }
+
+    public class FNA : Specimen
+    {
+        public FNA()
+        {
+            this.m_SpecimenId = "SPCMFNA";
+            this.m_SpecimenName = "FNA";
+            this.m_Description = "FNA";
+            this.m_LabFixation = null;
+            this.m_ClientFixation = null;
+            this.m_RequiresGrossExamination = true;
+            this.m_CPTCode = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88173();
         }
     }
 
@@ -142,6 +160,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = "Formalin";
             this.m_RequiresGrossExamination = true;
+            this.m_CPTCode = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88305();
         }
     }
 
@@ -168,6 +187,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = "Formalin";
             this.m_RequiresGrossExamination = true;
+            this.m_CPTCode = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88305();
         }
     }
 
@@ -181,6 +201,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = "Formalin";
             this.m_RequiresGrossExamination = true;
+            this.m_CPTCode = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88305();
         }
     }
 
@@ -194,6 +215,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = null;
             this.m_RequiresGrossExamination = true;
+            this.m_CPTCode = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88304();
         }
     }
     
@@ -207,6 +229,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = "Formalin";
             this.m_RequiresGrossExamination = true;
+            this.m_CPTCode = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88305();
         }
     }
     public class SkinExcisionUnorientedBiopsy : Specimen
@@ -219,6 +242,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = "Formalin";
             this.m_RequiresGrossExamination = true;
+            this.m_CPTCode = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88305();
         }
     }
     
@@ -232,6 +256,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = "Formalin";
             this.m_RequiresGrossExamination = true;
+            this.m_CPTCode = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88305();
         }
     }
     public class SkinExcisionUnorientedwithCurettingsBiopsy : Specimen
@@ -244,6 +269,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = "Formalin";
             this.m_RequiresGrossExamination = true;
+            this.m_CPTCode = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88305();
         }
     }
 
@@ -254,7 +280,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_SpecimenId = "SPCMNPRSTTTUR";
             this.m_SpecimenName = "Prostate TUR";
             this.m_Description = "Prostate, transurethral resection";
-            this.m_CPTCode = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88309();            
+            this.m_CPTCode = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88305();            
         }
     }
 
@@ -265,7 +291,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_SpecimenId = "SPCMNBLDDRTTUR";
             this.m_SpecimenName = "Bladder TUR";
             this.m_Description = "Bladder, transurethral resection";
-            this.m_CPTCode = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88309();
+            this.m_CPTCode = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88307();
         }
     }
 
@@ -366,6 +392,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = null;
             this.m_RequiresGrossExamination = true;
+            this.m_CPTCode = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88305();
         }
     }
 
@@ -379,6 +406,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = null;
             this.m_RequiresGrossExamination = true;
+            this.m_CPTCode = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88305();
         }
     }
 
@@ -392,6 +420,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = null;
             this.m_RequiresGrossExamination = true;
+            this.m_CPTCode = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88305();
         }
     }
 
@@ -405,6 +434,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = null;
             this.m_RequiresGrossExamination = true;
+            this.m_CPTCode = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88305();
         }
     }
 
@@ -418,6 +448,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = null;
             this.m_RequiresGrossExamination = true;
+            this.m_CPTCode = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88305();
         }
     }
 
@@ -431,6 +462,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = null;
             this.m_RequiresGrossExamination = true;
+            this.m_CPTCode = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88305();
         }
     }
 
@@ -445,6 +477,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
                 this.m_LabFixation = "Formalin";
                 this.m_ClientFixation = null;
                 this.m_RequiresGrossExamination = true;
+                this.m_CPTCode = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88307();
             }
         }
         
@@ -458,6 +491,8 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
                 this.m_LabFixation = "Formalin";
                 this.m_ClientFixation = null;
                 this.m_RequiresGrossExamination = true;
+                this.m_CPTCode = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88305();
+                this.m_CPTCodeQuantity = 2;
             }
         }
 
@@ -523,6 +558,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
                 this.m_LabFixation = "Formalin";
                 this.m_ClientFixation = null;
                 this.m_RequiresGrossExamination = true;
+
             }
         }
 
@@ -562,6 +598,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
                 this.m_LabFixation = "Formalin";
                 this.m_ClientFixation = null;
                 this.m_RequiresGrossExamination = true;
+                this.m_CPTCode = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88305();
             }
         }
         
@@ -614,6 +651,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
                 this.m_LabFixation = "Formalin";
                 this.m_ClientFixation = null;
                 this.m_RequiresGrossExamination = true;
+                this.m_CPTCode = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88305();
             }
         }
 
@@ -627,6 +665,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
                 this.m_LabFixation = "Formalin";
                 this.m_ClientFixation = null;
                 this.m_RequiresGrossExamination = true;
+                this.m_CPTCode = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88305();
             }
         }
     public class Consult : Specimen

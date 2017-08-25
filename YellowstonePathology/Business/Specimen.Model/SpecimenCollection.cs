@@ -120,6 +120,7 @@ namespace YellowstonePathology.Business.Specimen.Model
             result.Add(new SpecimenDefinition.InitialReading());
             result.Add(new SpecimenDefinition.BoneBiopsy());
             result.Add(new SpecimenDefinition.ExplantedDevices());
+            result.Add(new SpecimenDefinition.FNA());
             return Sort(result);
         }
 

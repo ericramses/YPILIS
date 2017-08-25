@@ -121,7 +121,7 @@ namespace YellowstonePathology.Business.Test
             bool result = false;
             foreach (PanelSetOrderCPTCode panelSetOrderCPTCode in this)
             {
-                if (panelSetOrderCPTCode.SpecimenOrderId == specimenOrderId && panelSetOrderCPTCode.SpecimenOrderId == specimenOrderId)
+                if (panelSetOrderCPTCode.CPTCode == cptCode && panelSetOrderCPTCode.SpecimenOrderId == specimenOrderId)
                 {
                     result = true;
                 }

@@ -199,8 +199,11 @@ namespace YellowstonePathology.UI.Gross
             
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Fluid fluid = new Business.Specimen.Model.SpecimenDefinition.Fluid();
             YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Urine urine = new Business.Specimen.Model.SpecimenDefinition.Urine();
+            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.FNA fna = new Business.Specimen.Model.SpecimenDefinition.FNA();
+
             this.m_SpecimenCollection.Add(fluid);
             this.m_SpecimenCollection.Add(urine);
+            this.m_SpecimenCollection.Add(fna);
         }
 
         public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)

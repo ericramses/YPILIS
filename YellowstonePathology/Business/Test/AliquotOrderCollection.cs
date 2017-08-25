@@ -512,6 +512,73 @@ namespace YellowstonePathology.Business.Test
             return result;
         }
 
+        public bool HasDecal()
+        {
+            bool result = false;
+            foreach (AliquotOrder aliquotOrder in this)
+            {
+                if (aliquotOrder.Decal == true)
+                {
+                    result = true;
+                    break;
+                }
+            }
+            return result;
+        }
+
+        public bool HasFrozenBlock()
+        {
+            bool result = false;
+            foreach (AliquotOrder aliquotOrder in this)
+            {
+                if (aliquotOrder.AliquotType == "FrozenBlock")
+                {
+                    result = true;
+                    break;
+                }
+            }
+            return result;
+        }
+
+        public int CellBlockCount()
+        {
+            int result = 0;
+            foreach (AliquotOrder aliquotOrder in this)
+            {
+                if (aliquotOrder.AliquotType == "CellBlock")
+                {
+                    result += 1;                    
+                }
+            }
+            return result;
+        }
+
+        public int FrozenBlockCount()
+        {
+            int result = 0;
+            foreach (AliquotOrder aliquotOrder in this)
+            {
+                if (aliquotOrder.AliquotType == "FrozenBlock")
+                {
+                    result += 1;
+                }
+            }
+            return result;
+        }
+
+        public int DecalCount()
+        {
+            int result = 0;
+            foreach (AliquotOrder aliquotOrder in this)
+            {
+                if (aliquotOrder.Decal == true)
+                {
+                    result += 1;
+                }
+            }
+            return result;
+        }
+
         public bool HasThinPrepSlide()
         {
             YellowstonePathology.Business.Specimen.Model.ThinPrepSlide thinPrepSlide = new Specimen.Model.ThinPrepSlide();
