@@ -53,8 +53,8 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTest brafV600EKTest = new YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTest();
             YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelTest rasRAFPanelTest = new YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelTest();
             YellowstonePathology.Business.Test.LynchSyndrome.MLH1MethylationAnalysisTest panelSetMLH1 = new YellowstonePathology.Business.Test.LynchSyndrome.MLH1MethylationAnalysisTest();
-            if (((this.m_AccessionOrder.PanelSetOrderCollection.Exists(brafV600EKTest.PanelSetId, panelSetOrder.OrderedOnId, true) == true ||
-                this.m_AccessionOrder.PanelSetOrderCollection.Exists(rasRAFPanelTest.PanelSetId, panelSetOrder.OrderedOnId, true) == true) &&
+            if (((this.m_AccessionOrder.PanelSetOrderCollection.Exists(brafV600EKTest.PanelSetId, panelSetOrder.OrderedOnId, false) == true ||
+                this.m_AccessionOrder.PanelSetOrderCollection.Exists(rasRAFPanelTest.PanelSetId, panelSetOrder.OrderedOnId, false) == true) &&
                 panelSetOrder.BRAFIsIndicated == true) ||
                 this.m_AccessionOrder.PanelSetOrderCollection.Exists(panelSetMLH1.PanelSetId, panelSetOrder.OrderedOnId, true) == true)
             {
@@ -64,17 +64,17 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 
             if (panelSetOrder.BRAFIsIndicated == true)
 			{
-                if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(brafV600EKTest.PanelSetId, panelSetOrder.OrderedOnId, true) == true)
+                if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(brafV600EKTest.PanelSetId, panelSetOrder.OrderedOnId, false) == true)
 				{
-                    YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTestOrder panelSetOrderBraf = (YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(brafV600EKTest.PanelSetId, panelSetOrder.OrderedOnId, true);
+                    YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTestOrder panelSetOrderBraf = (YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(brafV600EKTest.PanelSetId, panelSetOrder.OrderedOnId, false);
 
 					this.AddNextNteElement("BRAF V600E Mutation by PCR: " + panelSetOrderBraf.ReportNo, document);
 					this.AddNextNteElement("Result: " + panelSetOrderBraf.Result, document);
 					this.AddBlankNteElement(document);
 				}
-                else if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(rasRAFPanelTest.PanelSetId, panelSetOrder.OrderedOnId, true) == true)
+                else if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(rasRAFPanelTest.PanelSetId, panelSetOrder.OrderedOnId, false) == true)
                 {
-                    YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelTestOrder panelSetOrderRASRAF = (YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(rasRAFPanelTest.PanelSetId, panelSetOrder.OrderedOnId, true);
+                    YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelTestOrder panelSetOrderRASRAF = (YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(rasRAFPanelTest.PanelSetId, panelSetOrder.OrderedOnId, false);
 
                     this.AddNextNteElement("BRAF V600E Mutation by PCR: " + panelSetOrderRASRAF.ReportNo, document);
                     this.AddNextNteElement("Result: " + panelSetOrderRASRAF.BRAFResult, document);
