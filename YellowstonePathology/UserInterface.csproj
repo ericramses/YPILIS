@@ -327,6 +327,7 @@
     <Compile Include="Business\Facility.Model\VAEasternColorado.cs" />
     <Compile Include="Business\Facility.Model\CBCI.cs" />
     <Compile Include="Business\Facility.Model\AssociatedDermatology.cs" />
+    <Compile Include="Business\Facility.Model\YellowstonePathologistBozeman.cs" />
     <Compile Include="Business\Flow\CytoplasmicMarkerMapping.cs" />
     <Compile Include="Business\Flow\CytoplasmicMarkerMappingCollection.cs" />
     <Compile Include="Business\HL7View\ADTMessage.cs" />

@@ -50,7 +50,8 @@ namespace YellowstonePathology.Business.Facility.Model
             result.Add(new YellowstonePathologyInstituteBillings());
             result.Add(new YellowstonePathologistBillings());
             result.Add(new YellowstonePathologyInstituteCody());
-            result.Add(new YellowstonePathologistCody());
+            result.Add(new YellowstonePathologistBozeman());
+            result.Add(new YellowstonePathologyInstituteCody());
             result.Add(new NeogenomicsIrvine());
             result.Add(new ARUP());
             result.Add(new BillingsClinic());
@@ -175,10 +176,13 @@ namespace YellowstonePathology.Business.Facility.Model
             YellowstonePathology.Business.Facility.Model.YellowstonePathologistCody ypCdy = new YellowstonePathology.Business.Facility.Model.YellowstonePathologistCody();
             YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteCody ypiCdy = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteCody();
 
+            YellowstonePathology.Business.Facility.Model.YellowstonePathologistBozeman ypBzmn = new YellowstonePathology.Business.Facility.Model.YellowstonePathologistBozeman();
+
             result.Add(ypBlgs);
             result.Add(ypiBlgs);
             result.Add(ypCdy);
             result.Add(ypiCdy);
+            result.Add(ypBzmn);
 
             return result;
         }
@@ -190,6 +194,7 @@ namespace YellowstonePathology.Business.Facility.Model
             if (facility is YellowstonePathologistCody == true) result = true;
             if (facility is YellowstonePathologyInstituteBillings == true) result = true;
             if (facility is YellowstonePathologyInstituteCody == true) result = true;
+            if (facility is YellowstonePathologistBozeman == true) result = true;
             return result;
         }        
 
