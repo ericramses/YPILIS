@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>204</ApplicationRevision>
+    <ApplicationRevision>206</ApplicationRevision>
     <ApplicationVersion>10.1.7.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -1070,7 +1070,9 @@
     <Compile Include="Business\Label.Model\ThinPrepSlide.cs" />
     <Compile Include="Business\Label.Model\ThinPrepSlideDirectPrintLabel.cs" />
     <Compile Include="Business\Label.Model\ThinPrepSlidePrinter.cs" />
-    <Compile Include="Business\Label.Model\ZPLPrinter.cs" />
+    <Compile Include="Business\Label.Model\ZPLPrinterUSB.cs" />
+    <Compile Include="Business\Label.Model\ZPLPrinterTCP.cs" />
+    <Compile Include="Business\Label.Model\RawPrinterHelper.cs" />
     <Compile Include="Business\LevenshteinDistance.cs" />
     <Compile Include="Business\ListItem.cs" />
     <Compile Include="Business\Logging\EmailExceptionHandler.cs" />

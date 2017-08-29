@@ -133,7 +133,7 @@ namespace YellowstonePathology.UI.Cutting
             slideOptionsPage.CombineNextSlide += new SlideOptionsPage.CombineNextSlideEventHandler(SlideOptionsPage_CombineNextSlide);
             slideOptionsPage.Uncombine += new SlideOptionsPage.UncombineEventHandler(SlideOptionsPage_Uncombine);
             slideOptionsPage.Close += new SlideOptionsPage.CloseEventHandler(SlideOptionsPage_Close);
-            this.m_PageNavigator.Navigate(slideOptionsPage);            
+            this.m_PageNavigator.Navigate(slideOptionsPage);
         }
 
         private void SlideOptionsPage_Uncombine(object sender, CustomEventArgs.SlideOrderReturnEventArgs eventArgs)
@@ -294,6 +294,9 @@ namespace YellowstonePathology.UI.Cutting
             thermoFisherSlidePrinter.Queue.Enqueue(histologySlideLabel);
             thermoFisherSlidePrinter.Print();
 
+            //Business.Label.Model.ZPLPrinterUSB zplPrinterUSB = new Business.Label.Model.ZPLPrinterUSB();
+            //zplPrinterUSB.Print(slideOrder.SlideOrderId, slideOrder.ReportNo, slideOrder.Label, slideOrder.PatientLastName, slideOrder.TestAbbreviation, slideOrder.Location);
+            
             slideOrder.SetAsPrinted(this.m_SystemIdentity);
         }
 

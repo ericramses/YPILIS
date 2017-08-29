@@ -983,8 +983,9 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            
-        }    
+            string s = @"^XA^FO0,0A0,30,20^FDHello^FS^XZ";
+            Business.Label.Model.RawPrinterHelper.SendStringToPrinter("ZDesigner GX430t", s);
+        }
 
         private void InsertBenchMarkData()
         {
