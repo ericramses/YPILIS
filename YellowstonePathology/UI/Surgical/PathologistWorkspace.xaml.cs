@@ -552,24 +552,35 @@ namespace YellowstonePathology.UI.Surgical
 			}
 		}
 
-		private void GridPathologist_KeyUp(object sender, KeyEventArgs e)
+		private void 
+            GridPathologist_KeyUp(object sender, KeyEventArgs e)
 		{
-			if (e.Key == Key.F7)
-			{
-				TraversalRequest traversalRequestNext = new TraversalRequest(FocusNavigationDirection.Next);				
-				UIElement keyboardFocus = Keyboard.FocusedElement as UIElement;
-				
-				if(keyboardFocus != null)
-				{
-					keyboardFocus.MoveFocus(traversalRequestNext);
-				}						
-				
-				this.m_PathologistUI.SpellCheckCurrentItem();										
-				e.Handled = true;
-			}
-		}
+            if (e.Key == Key.F7)
+            {
+                TraversalRequest traversalRequestNext = new TraversalRequest(FocusNavigationDirection.Next);
+                UIElement keyboardFocus = Keyboard.FocusedElement as UIElement;
 
-		private void PathologistUserControl_Loaded(object sender, RoutedEventArgs e)
+                if (keyboardFocus != null)
+                {
+                    keyboardFocus.MoveFocus(traversalRequestNext);
+                }
+
+                this.m_PathologistUI.SpellCheckCurrentItem();
+                e.Handled = true;
+            }
+            else if ((e.Key == Key.D2 || e.Key == Key.NumPad2) && Keyboard.Modifiers == ModifierKeys.Control)
+            {
+                if (this.m_PathologistsReview != null)
+                {
+                    if (this.m_PathologistsReview.ContentControlReview.Content is SurgicalReview)
+                    {
+                        this.HandleQuestionMarkSearch();
+                    }
+                }
+            }
+        }
+
+        private void PathologistUserControl_Loaded(object sender, RoutedEventArgs e)
 		{
 			if (this.m_PathologistUI != null)
 			{
@@ -760,6 +771,129 @@ namespace YellowstonePathology.UI.Surgical
             else
             {
                 MessageBox.Show("Only cases with Surgical Pathology can have Peer Review");
+            }
+        }
+
+        private void HandleQuestionMarkSearch()
+        {
+            List<TextBox> questionMarkTextBoxes = new List<TextBox>();
+
+            TabControl tabControl = this.m_PathologistsReview.RightTabControl;
+            tabControl.SelectedIndex = tabControl.Items.IndexOf(this.m_PathologistsReview.TabItemReview);
+            SurgicalReview surgicalReview = this.m_PathologistsReview.ContentControlReview.Content as SurgicalReview;
+            ScrollViewer scrollViewer = surgicalReview.MainScrollViewer;
+            scrollViewer.ScrollToTop();
+            scrollViewer.UpdateLayout();
+            this.FindQuestionMarkTextBoxes(scrollViewer, questionMarkTextBoxes);
+            TextBox textBox = Keyboard.FocusedElement as TextBox;
+
+
+
+            int offset = -1;
+            if (questionMarkTextBoxes.Count > 0)
+            {
+                if (textBox != null)
+                {
+                    int idx = questionMarkTextBoxes.IndexOf(textBox);
+                    offset = textBox.SelectionStart;
+                    if (offset > -1)
+                    {
+                        string txt = textBox.Text.Substring(offset);
+                        int nextIdx = this.GetQuestionMarkIndex(txt);
+                        if (nextIdx > -1)
+                        {
+                            offset = offset + nextIdx + 3;
+                        }
+                        else
+                        {
+                            if (idx < questionMarkTextBoxes.Count - 1) textBox = questionMarkTextBoxes[idx + 1];
+                            else textBox = questionMarkTextBoxes[0];
+                            offset = textBox.Text.IndexOf("???");
+                        }
+                    }
+                    else
+                    {
+                        offset = textBox.CaretIndex;
+                        if (offset > -1)
+                        {
+                            string txt = textBox.Text.Substring(offset);
+                            int nextIdx = this.GetQuestionMarkIndex(txt);
+                            if (nextIdx > -1)
+                            {
+                                offset = offset + nextIdx;
+                            }
+                            else
+                            {
+                                if (idx < questionMarkTextBoxes.Count - 1) textBox = questionMarkTextBoxes[idx + 1];
+                                else textBox = questionMarkTextBoxes[0];
+                                offset = textBox.Text.IndexOf("???");
+                            }
+                        }
+                        else
+                        {
+                            if (idx < questionMarkTextBoxes.Count - 1) textBox = questionMarkTextBoxes[idx + 1];
+                            else textBox = questionMarkTextBoxes[0];
+                            offset = textBox.Text.IndexOf("???");
+                        }
+                    }
+                }
+                else
+                {
+                    textBox = questionMarkTextBoxes[0];
+                    offset = textBox.Text.IndexOf("???");
+                }
+
+                textBox.Focus();
+                textBox.Select(offset, 3);
+
+                Rect rect = textBox.GetRectFromCharacterIndex(textBox.SelectionStart);
+                scrollViewer.ScrollToVerticalOffset(rect.TopLeft.Y);
+            }
+        }
+
+        private int GetQuestionMarkIndex(string text)
+        {
+            int result = -1;
+            if (text.Length > 3)
+            {
+                text = text.Substring(3);
+                result = text.IndexOf("???");
+            }
+            return result;
+        }
+
+        private void FindQuestionMarkTextBoxes(object o, List<TextBox> questionMarkTextBoxes)
+        {
+            if (o is TextBox)
+            {
+                if (((TextBox)o).Text.Contains("???"))
+                {
+                    questionMarkTextBoxes.Add((TextBox)o);
+                }
+            }
+            else if (o is Panel)
+            {
+                Panel panel = (Panel)o;
+                foreach (UIElement element in panel.Children)
+                {
+                    FindQuestionMarkTextBoxes(element, questionMarkTextBoxes);
+                }
+            }
+            else if (o is ContentControl)
+            {
+                ContentControl contentControl = (ContentControl)o;
+                if (contentControl.Content != null)
+                {
+                    FindQuestionMarkTextBoxes(contentControl.Content, questionMarkTextBoxes);
+                }
+            }
+            else if(o is ItemsControl)
+            {
+                ItemsControl itemsControl = (ItemsControl)o;
+                foreach(Object icobject in itemsControl.Items)
+                {
+                    FindQuestionMarkTextBoxes(icobject, questionMarkTextBoxes);
+                }
             }
         }
     }
