@@ -14,6 +14,7 @@ namespace YellowstonePathology.Business.Test
         private string m_PFirstName;
         private Nullable<DateTime> m_ValidationDate;
         private string m_ValidatedBy;
+        private string m_SpecimenDescription;
 
         public PantherAliquotListItem()
         {
@@ -60,6 +61,13 @@ namespace YellowstonePathology.Business.Test
         {
             get { return this.m_ValidatedBy; }
             set { this.m_ValidatedBy = value; }
+        }
+
+        [PersistentProperty()]
+        public string SpecimenDescription
+        {
+            get { return this.m_SpecimenDescription; }
+            set { this.m_SpecimenDescription = value; }
         }
     }
 }

@@ -1391,7 +1391,7 @@ namespace YellowstonePathology.Business.Gateway
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "select a.MasterAccessionNo, a.AccessionTime, a.PLastName, a.PFirstName, ao.AliquotType, " +
-                "ao.ValidationDate, ao.ValidatedBy " +
+                "ao.ValidationDate, ao.ValidatedBy, so.Description as SpecimenDescription " +
                 "from tblAccessionOrder a " +
                 "join tblSpecimenOrder so on a.MasterAccessionNo = so.MasterAccessionNo " +
                 "join tblAliquotOrder ao on so.SpecimenOrderId = ao.SpecimenOrderId " +                

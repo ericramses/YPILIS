@@ -41,6 +41,7 @@
                                 <GridViewColumn Header="Accession Time" DisplayMemberBinding="{Binding Path=AccessionTime, Converter={StaticResource MilitaryDateTimeConverter}}" Width="150" />
                                 <GridViewColumn Header="Last Name" DisplayMemberBinding="{Binding Path=PLastName}" Width="150" />
                                 <GridViewColumn Header="First Name" DisplayMemberBinding="{Binding Path=PFirstName}" Width="150" />
+                                <GridViewColumn Header="Specimen" DisplayMemberBinding="{Binding Path=SpecimenDescription}" Width="150" />
                             </GridView>
                         </ListView.View>
                     </ListView>
