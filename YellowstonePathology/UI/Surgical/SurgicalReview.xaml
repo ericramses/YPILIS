@@ -399,7 +399,7 @@
 
 	</UserControl.Resources>
 	
-	<Grid KeyUp="MainGrid_KeyUp">
+	<Grid Name="MainGrid">
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="*"></ColumnDefinition>
 		</Grid.ColumnDefinitions>
