@@ -50,8 +50,8 @@ namespace YellowstonePathology.Business.Facility.Model
             result.Add(new YellowstonePathologyInstituteBillings());
             result.Add(new YellowstonePathologistBillings());
             result.Add(new YellowstonePathologyInstituteCody());
-            result.Add(new YellowstonePathologistBozeman());
-            result.Add(new YellowstonePathologyInstituteCody());
+            result.Add(new YellowstonePathologistCody());
+            result.Add(new YellowstonePathologistBozeman());            
             result.Add(new NeogenomicsIrvine());
             result.Add(new ARUP());
             result.Add(new BillingsClinic());
