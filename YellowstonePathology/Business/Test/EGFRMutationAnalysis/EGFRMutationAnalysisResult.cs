@@ -13,12 +13,12 @@ namespace YellowstonePathology.Business.Test.EGFRMutationAnalysis
 
         protected string m_Indication = "Lung adenocarcinoma";
 
-        protected string m_Method = "DNA was isolated from the specimen using an automated DNA extraction system.  EGFR allele-specific PCR amplification of " +
-            "exons 18 – 21 was then performed followed by an amplification using primers designed to detect both mutant and wild-type forms of the EGFR gene.  Utilizing " +
-            "the Shifted Termination Assay, the presence of an EGFR point mutation causes termination of DNA chain synthesis during amplification. Thus, DNA strands are " +
-            "formed with lengths that are specific to the particular EGFR point mutation present.  Deletions and insertions of exons 19 and 20 are also detected by fragment " +
-            "analysis using capillary electrophoresis.  Mutations detected: E709X, G719X, S768I, T790M, L858R, L861Q, exon 19 deletions, and exon 20 insertions.  The assay " + 
-            "sensitivity is 1% tumor involvement.";
+        protected string m_Method = "DNA was isolated from cells or microdissection-enriched FFPE tissue.  Formalin-fixed, paraffin-embedded " +
+            "tumor tissue sections were deparaffinized and DNA was isolated.  EGFR tyrosine kinase domain mutations were evaluated in the " +
+            "entirety of exons 18 to 21.  The patient’s sequence is compared to the EGFR sequence database NM_005228.  This assay is by Sanger " +
+            "sequencing method with Locked Nucleic Acid (LNA) for T790M.  The sensitivity for detecting the T790M mutation in exon 20 is at " +
+            "least 3% with the remaining mutations having a sensitivity of 10 to 15% for detecting mutated EGFR DNA in a wild-type background.  " +
+            "Various factors including quantity and quality of nucleic acid, sample preparation and sample age can affect assay performance.";
 
         protected string m_References = "1. Janne PA, et al. Epidermal growth factor receptor mutations in non-small-cell lung cancer: implications for treatment and tumor biology. J Clin Oncol. 2005; 23:3227-34. \r\n" +
             "2. Lynch TJ, et al. Activating mutations in the epidermal growth factor receptor underlying responsiveness of non-small-cell lung cancer to gefitinib. N Engl J Med. 2004; 350:2129-39. \r\n" +
