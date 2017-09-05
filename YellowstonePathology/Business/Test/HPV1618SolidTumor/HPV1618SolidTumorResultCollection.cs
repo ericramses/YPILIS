@@ -35,7 +35,8 @@ namespace YellowstonePathology.Business.Test.HPV1618SolidTumor
 			result.Add(new HPV1618IndeterminateResult());
 			result.Add(new HPV16NegativeHPV18PositiveResult());
 			result.Add(new HPV16PositiveHPV18NegativeResult());
-			return result;
+            result.Add(new HPV1618SolidTumorAnalRegionResult());
+            return result;
 		}
 	}
 }
