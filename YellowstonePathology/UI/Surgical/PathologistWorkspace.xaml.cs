@@ -574,7 +574,7 @@ namespace YellowstonePathology.UI.Surgical
                 {
                     if (this.m_PathologistsReview.ContentControlReview.Content is SurgicalReview)
                     {
-                        this.HandleQuestionMarkSearch();
+                        this.HandleQuestionMarkSearchA();
                     }
                 }
             }
@@ -787,27 +787,28 @@ namespace YellowstonePathology.UI.Surgical
             this.FindQuestionMarkTextBoxes(scrollViewer, questionMarkTextBoxes);
             TextBox textBox = Keyboard.FocusedElement as TextBox;
 
-
-
             int offset = -1;
+            int idx = 0;
+
             if (questionMarkTextBoxes.Count > 0)
             {
                 if (textBox != null)
                 {
-                    int idx = questionMarkTextBoxes.IndexOf(textBox);
+                    idx = questionMarkTextBoxes.IndexOf(textBox);
+                    int nextIdx = idx < questionMarkTextBoxes.Count - 1 ? idx + 1 : 0;
+
                     offset = textBox.SelectionStart;
                     if (offset > -1)
                     {
                         string txt = textBox.Text.Substring(offset);
-                        int nextIdx = this.GetQuestionMarkIndex(txt);
-                        if (nextIdx > -1)
+                        int nextoffset = this.GetQuestionMarkIndex(txt);
+                        if (nextoffset > -1)
                         {
-                            offset = offset + nextIdx + 3;
+                            offset = offset + nextoffset + 3;
                         }
                         else
                         {
-                            if (idx < questionMarkTextBoxes.Count - 1) textBox = questionMarkTextBoxes[idx + 1];
-                            else textBox = questionMarkTextBoxes[0];
+                            textBox = questionMarkTextBoxes[nextIdx];
                             offset = textBox.Text.IndexOf("???");
                         }
                     }
@@ -817,22 +818,20 @@ namespace YellowstonePathology.UI.Surgical
                         if (offset > -1)
                         {
                             string txt = textBox.Text.Substring(offset);
-                            int nextIdx = this.GetQuestionMarkIndex(txt);
-                            if (nextIdx > -1)
+                            int nextoffset = this.GetQuestionMarkIndex(txt);
+                            if (nextoffset > -1)
                             {
-                                offset = offset + nextIdx;
+                                offset = offset + nextoffset;
                             }
                             else
                             {
-                                if (idx < questionMarkTextBoxes.Count - 1) textBox = questionMarkTextBoxes[idx + 1];
-                                else textBox = questionMarkTextBoxes[0];
+                                textBox = questionMarkTextBoxes[nextIdx];
                                 offset = textBox.Text.IndexOf("???");
                             }
                         }
                         else
                         {
-                            if (idx < questionMarkTextBoxes.Count - 1) textBox = questionMarkTextBoxes[idx + 1];
-                            else textBox = questionMarkTextBoxes[0];
+                            textBox = questionMarkTextBoxes[nextIdx];
                             offset = textBox.Text.IndexOf("???");
                         }
                     }
@@ -862,38 +861,106 @@ namespace YellowstonePathology.UI.Surgical
             return result;
         }
 
-        private void FindQuestionMarkTextBoxes(object o, List<TextBox> questionMarkTextBoxes)
+        private void FindQuestionMarkTextBoxes(DependencyObject parent, List<TextBox> questionMarkTextBoxes)
         {
-            if (o is TextBox)
+            if (parent == null) return;
+
+            int childrenCount = VisualTreeHelper.GetChildrenCount(parent);
+            for (int i = 0; i < childrenCount; i++)
             {
-                if (((TextBox)o).Text.Contains("???"))
+                object child = VisualTreeHelper.GetChild(parent, i);
+                if (child is TextBox)
                 {
-                    questionMarkTextBoxes.Add((TextBox)o);
+                    TextBox tmp = child as TextBox;
+                    if (tmp.Text.Contains("???"))
+                    {
+                        questionMarkTextBoxes.Add(tmp);
+                    }
+                }
+                else
+                {
+                    FindQuestionMarkTextBoxes((DependencyObject)child, questionMarkTextBoxes);
                 }
             }
-            else if (o is Panel)
+        }
+
+        private TextBox SelectQuestionMarkTextBox(List<TextBox> questionMarkTextBoxes)
+        {
+            TextBox textBox = Keyboard.FocusedElement as TextBox;
+
+            int offset = -1;
+            int idx = 0;
+            bool findNextOffset = false;
+
+            if (questionMarkTextBoxes.Count > 0)
             {
-                Panel panel = (Panel)o;
-                foreach (UIElement element in panel.Children)
+                if (textBox != null)
                 {
-                    FindQuestionMarkTextBoxes(element, questionMarkTextBoxes);
+                    idx = questionMarkTextBoxes.IndexOf(textBox);
+                    int nextIdx = idx < questionMarkTextBoxes.Count - 1 ? idx + 1 : 0;
+                    offset = textBox.SelectionStart;
+                    if (offset == -1)
+                    {
+                        offset = textBox.CaretIndex;
+                        if (offset == -1)
+                        {
+                            textBox = questionMarkTextBoxes[nextIdx];
+                            offset = textBox.Text.IndexOf("???");
+                        }
+                        else
+                        {
+                            offset += 3;
+                            findNextOffset = true;
+                        }
+                    }
+                    else
+                    {
+                        findNextOffset = true;
+                    }
+
+                    if (findNextOffset == true)
+                    {
+                        string txt = textBox.Text.Substring(offset);
+                        int nextoffset = this.GetQuestionMarkIndex(txt);
+                        if (nextoffset > -1)
+                        {
+                            offset = offset + nextoffset + 3;
+                        }
+                        else
+                        {
+                            textBox = questionMarkTextBoxes[nextIdx];
+                            offset = textBox.Text.IndexOf("???");
+                        }
+                    }
                 }
+                else
+                {
+                    textBox = questionMarkTextBoxes[0];
+                    offset = textBox.Text.IndexOf("???");
+                }
+
+                textBox.Focus();
+                textBox.Select(offset, 3);         
             }
-            else if (o is ContentControl)
+            return textBox;
+        }
+
+        private void HandleQuestionMarkSearchA()
+        {
+            List<TextBox> questionMarkTextBoxes = new List<TextBox>();
+
+            TabControl tabControl = this.m_PathologistsReview.RightTabControl;
+            tabControl.SelectedIndex = tabControl.Items.IndexOf(this.m_PathologistsReview.TabItemReview);
+            SurgicalReview surgicalReview = this.m_PathologistsReview.ContentControlReview.Content as SurgicalReview;
+            ScrollViewer scrollViewer = surgicalReview.MainScrollViewer;
+            scrollViewer.ScrollToTop();
+            scrollViewer.UpdateLayout();
+            this.FindQuestionMarkTextBoxes(scrollViewer, questionMarkTextBoxes);
+            TextBox textBox = this.SelectQuestionMarkTextBox(questionMarkTextBoxes);
+            if (textBox != null)
             {
-                ContentControl contentControl = (ContentControl)o;
-                if (contentControl.Content != null)
-                {
-                    FindQuestionMarkTextBoxes(contentControl.Content, questionMarkTextBoxes);
-                }
-            }
-            else if(o is ItemsControl)
-            {
-                ItemsControl itemsControl = (ItemsControl)o;
-                foreach(Object icobject in itemsControl.Items)
-                {
-                    FindQuestionMarkTextBoxes(icobject, questionMarkTextBoxes);
-                }
+                Rect rect = textBox.GetRectFromCharacterIndex(textBox.SelectionStart);
+                scrollViewer.ScrollToVerticalOffset(rect.TopLeft.Y);
             }
         }
     }
