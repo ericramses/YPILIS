@@ -966,7 +966,7 @@ namespace YellowstonePathology.Business.Gateway
 		public static Surgical.SurgicalOrderList GetSurgicalOrderListByNotAssigned()
 		{
 			MySqlCommand cmd = new MySqlCommand();
-			cmd.CommandText = "select pso.ReportNo, ao.AccessionDate, ao.PFirstName + ' ' + ao.PLastName AS PatientName, pso.AcceptedDate, " +
+			cmd.CommandText = "select pso.ReportNo, ao.AccessionDate, concat(ao.PFirstName, ' ', ao.PLastName) AS PatientName, pso.AcceptedDate, " +
                 "pso.FinalDate, null AS Pathologist, null AS PathologistId, pso.Audited " +
                 "from tblAccessionOrder ao " +
                 "join tblPanelSetOrder pso on ao.MasterAccessionNo = pso.MasterAccessionNo " +
