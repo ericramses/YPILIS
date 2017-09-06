@@ -28,7 +28,7 @@ namespace YellowstonePathology.UI.Gross
 
 		public void Start()
 		{
-            YellowstonePathology.Business.User.SystemIdentity.Instance.DisableSecurityBadgeScan();
+            YellowstonePathology.Business.User.SystemIdentity.Instance.EnableManualSecurityBadgeScan();
             this.m_HistologyGrossDialog = new HistologyGrossDialog();            
             this.m_HistologyGrossDialog.Closing += new System.ComponentModel.CancelEventHandler(HistologyGrossDialog_Closing);
             this.m_HistologyGrossDialog.Show();

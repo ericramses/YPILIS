@@ -83,7 +83,7 @@ namespace YellowstonePathology.Business.User
             this.NotifyPropertyChanged("");            
         }             
 
-        public void DisableSecurityBadgeScan()
+        public void EnableManualSecurityBadgeScan()
         {
             this.m_BarcodeScanPort.SecurityBadgeScanReceived -= BarcodeScanPort_SecurityBadgeScanReceived;
         }
