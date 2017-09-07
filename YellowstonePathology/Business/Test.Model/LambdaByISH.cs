@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace YellowstonePathology.Business.Test.Model
 {
-    public class KappaByISHLambdaByISH : ImmunoHistochemistryTest
+    public class LambdaByISH : ImmunoHistochemistryTest
     {
-        public KappaByISHLambdaByISH()
+        public LambdaByISH()
         {
-            this.m_TestId = 360;
-            this.m_TestName = "Kappa by ISH/Lambda by ISH";
-            this.m_TestAbbreviation = "Kappa/LambdaByISH";
+            this.m_TestId = 361;
+            this.m_TestName = "Lambda by ISH";
+            this.m_TestAbbreviation = "Lambda";
             this.m_Active = true;
             this.m_NeedsAcknowledgement = true;
         }

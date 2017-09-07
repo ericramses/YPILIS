@@ -106,5 +106,45 @@ namespace YellowstonePathology.Business.Billing.Model
             int uniqueTestCount = testOrderCollection.GetUniqueTestCount();
             return uniqueTestCount;            
         }
+
+        public int GetBillableGradedISHCount()
+        {
+            int result = 0;
+            foreach (Business.Test.Model.TestOrder testOrder in this.m_TestOrderCollection)
+            {
+                if (testOrder.NoCharge == false)
+                {
+                    if (testOrder.TestId == 360 || testOrder.TestId == 361) //Kappa and Lambda by ISH
+                    {
+                        Business.SpecialStain.StainResultItem stainResult = this.m_StainResultCollection.GetStainResult(testOrder.TestOrderId);
+                        if (stainResult.IsGraded == true)
+                        {
+                            result += 1;
+                        }
+                    }
+                }
+            }
+            return result;
+        }
+
+        public int GetBillableISHCount()
+        {
+            int result = 0;
+            foreach (Business.Test.Model.TestOrder testOrder in this.m_TestOrderCollection)
+            {
+                if (testOrder.NoCharge == false)
+                {
+                    if (testOrder.TestId == 360 || testOrder.TestId == 361) //Kappa and Lambda by ISH
+                    {
+                        Business.SpecialStain.StainResultItem stainResult = this.m_StainResultCollection.GetStainResult(testOrder.TestOrderId);
+                        if (stainResult.IsGraded == false)
+                        {
+                            result += 1;
+                        }
+                    }
+                }
+            }
+            return result;
+        }
     }
 }

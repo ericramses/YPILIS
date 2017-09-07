@@ -202,7 +202,8 @@ namespace YellowstonePathology.Business.Test.Model
 
 			result.Add(new IgKappa());
 			result.Add(new IgLambda());
-            result.Add(new KappaByISHLambdaByISH());
+            result.Add(new KappaByISH());
+            result.Add(new LambdaByISH());
             result.Add(new Ki67());            
 
             result.Add(new Lysozyme());
