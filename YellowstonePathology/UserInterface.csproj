@@ -1190,6 +1190,7 @@
     <Compile Include="Business\Test\ChromosomeAnalysisBreakage\ChromosomeAnalysisBreakageTest.cs" />
     <Compile Include="Business\Test\CKIT\CKITWPHOBXView.cs" />
     <Compile Include="Business\Test\ComprehensiveColonCancerProfile\ComprehensiveColonCancerProfileWPHOBXView.cs" />
+    <Compile Include="Business\Test\ConstitutionalChromosomeAnalysis\ConstitutionalChromosomeAnalysisTest.cs" />
     <Compile Include="Business\Test\CXCR4MutationAnalysis\CXCR4MutationAnalysisTest.cs" />
     <Compile Include="Business\Test\ETV6RUNX1ByFish\ETV6RUNX1ByFishTest.cs" />
     <Compile Include="Business\Test\ETV6RUNX1ByPCR\ETV6RUNX1ByPCRTest.cs" />
@@ -1252,6 +1253,7 @@
     <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult42.cs" />
     <Compile Include="Business\Test\MultipleMyelomaMGUSByFish\MultipleMyelomaMGUSByFishWPHOBXView.cs" />
     <Compile Include="Business\Test\MUM1ByIHC\MUM1ByIHCTest.cs" />
+    <Compile Include="Business\Test\NeoTYPELungTumorProfile\NeoTYPELungTumorProfileTest.cs" />
     <Compile Include="Business\Test\NeoTYPEOtherSolidTumorProfile\NeoTYPEOtherSolidTumorProfileTest.cs" />
     <Compile Include="Business\Test\NGCT\NGCTWPHOBXView.cs" />
     <Compile Include="Business\Test\NPM1\NPM1WPHOBXView.cs" />
