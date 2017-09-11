@@ -394,6 +394,13 @@
                                 <TextBlock Style="{StaticResource GatingTextBox}" Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.OtherCountPercent, Converter={StaticResource PercentConverter}}"></TextBlock>
                             </StackPanel>
                         </StackPanel>
+                        <StackPanel HorizontalAlignment="Left" Name="stackPanelSpecimenViaboility" Grid.Column="1" Grid.Row="1">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Style="{StaticResource GatingTextBlock}">Specimen Viability</TextBlock>
+                                <TextBox Width="50" IsEnabled="{Binding Path=IsWorkspaceEnabled}" GotFocus="TextBoxSelect_GotFocus"
+                                            Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.SpecimenViabilityPercent, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            </StackPanel>
+                        </StackPanel>
                     </Grid>
                 </TabItem>
                 <TabItem Header="Markers" Name="tabItemFlowCaseMarkers">

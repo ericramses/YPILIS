@@ -82,8 +82,14 @@ namespace YellowstonePathology.Business.Test.LLP
                 this.AddNextNteElement("CD117 " + blastCD117Percent, document);
                 this.AddBlankNteElement(document);
 			}
-			
-			this.AddNextNteElement("Clinical History:", document);
+
+            if(string.IsNullOrEmpty(panelSetOrder.SpecimenViabilityPercent) == false && panelSetOrder.SpecimenViabilityPercent != "0")
+            {
+                this.AddNextNteElement("Specimen Viability Percentage: " + panelSetOrder.SpecimenViabilityPercent, document);
+                this.AddBlankNteElement(document);
+            }
+
+            this.AddNextNteElement("Clinical History:", document);
 			this.HandleLongString(this.m_AccessionOrder.ClinicalHistory, document);
             this.AddBlankNteElement(document);
 			
