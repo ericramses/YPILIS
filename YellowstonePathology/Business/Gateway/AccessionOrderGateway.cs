@@ -1930,7 +1930,7 @@ namespace YellowstonePathology.Business.Gateway
             MySqlCommand cmd = new MySqlCommand("select * from tblTaskOrder where AcknowledgementType = @AcknowledgementType and " +
                 "OrderDate between date_add(curdate(), Interval -15 Day) and now() order by OrderDate desc; " +
                 "select * from tblTaskOrderDetail tod " +
-                "join tblTaskOrderDetailFedexShipment todf on tod.TaskOrderDetailId = todf.TaskOrderDetailId " +
+                "left outer join tblTaskOrderDetailFedexShipment todf on tod.TaskOrderDetailId = todf.TaskOrderDetailId " +
                 "where TaskOrderId in(select TaskOrderId from tblTaskOrder where " +
                 "AcknowledgementType = @AcknowledgementType and tblTaskOrder.OrderDate between date_add(curdate(), Interval -15 Day) and now()) " +
                 "order by tod.TaskOrderDetailId;");
