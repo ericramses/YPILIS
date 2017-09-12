@@ -2069,7 +2069,7 @@ namespace YellowstonePathology.Business.Gateway
             MySqlCommand cmd = new MySqlCommand("select * from tblTaskOrder where tblTaskOrder.AcknowledgementType = @AcknowledgementType " +
                 "and TaskOrderId in (Select TaskOrderId from tblTaskOrderDetail where Acknowledged = 0 and " +
                 "tblTaskOrderDetail.AssignedTo = @AssignedTo) order by OrderDate desc; " +
-                "select * from tblTaskOrderDetail tod join tblTaskOrderDetailFedexShipment todf on tod.TaskOrderDetailId = todf.TaskOrderDetailId " +
+                "select * from tblTaskOrderDetail tod left outer join tblTaskOrderDetailFedexShipment todf on tod.TaskOrderDetailId = todf.TaskOrderDetailId " +
                 "where Acknowledged = 0 and tod.AssignedTo = @AssignedTo order by tod.TaskOrderDetailId;");
             cmd.CommandType = CommandType.Text;
             cmd.Parameters.AddWithValue("@AssignedTo", assignedTo);
