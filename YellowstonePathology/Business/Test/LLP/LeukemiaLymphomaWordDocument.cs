@@ -15,7 +15,7 @@ namespace YellowstonePathology.Business.Test.LLP
 		{			
 			PanelSetOrderLeukemiaLymphoma panelSetOrderLeukemiaLymphoma = (PanelSetOrderLeukemiaLymphoma)this.m_PanelSetOrder;
 
-			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\LeukemiaLymphoma.10.xml";
+			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\LeukemiaLymphoma.11.xml";
 
 			base.OpenTemplate();
 
@@ -80,7 +80,19 @@ namespace YellowstonePathology.Business.Test.LLP
 				this.SetXmlNodeData("blast_cd34_percent", panelSetOrderLeukemiaLymphoma.EGateCD34Percent);
 				this.SetXmlNodeData("blast_cd117_percent", panelSetOrderLeukemiaLymphoma.EGateCD117Percent);
 			}
-                
+
+
+            if (string.IsNullOrEmpty(panelSetOrderLeukemiaLymphoma.SpecimenViabilityPercent) == true || panelSetOrderLeukemiaLymphoma.SpecimenViabilityPercent == "0")
+            {
+                this.SetXmlNodeData("llp_specimen_viability", "");
+                this.SetXmlNodeData("llp_specimen_viability_percent", "");
+            }
+            else
+            {
+                this.SetXmlNodeData("llp_specimen_viability", "Specimen Viability Percent");
+                this.SetXmlNodeData("llp_specimen_viability_percent", panelSetOrderLeukemiaLymphoma.SpecimenViabilityPercent);
+            }
+
             this.HandleMarkers(panelSetOrderLeukemiaLymphoma);
 			this.SetXmlNodeData("clinical_history", this.m_AccessionOrder.ClinicalHistory);
 			this.SetXmlNodeData("specimen_description", specimenOrder.Description);

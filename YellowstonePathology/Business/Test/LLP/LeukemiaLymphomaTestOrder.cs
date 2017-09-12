@@ -28,7 +28,7 @@ namespace YellowstonePathology.Business.Test.LLP
 		private string m_InterpretiveComment;
 		private string m_Impression;
 		private int m_SpecimenViability;
-		private double m_SpecimenViabilityPercent;
+		private string m_SpecimenViabilityPercent;
 		private string m_CellPopulationOfInterest;
 		private string m_TestResult;
 		private string m_CellDescription;
@@ -362,8 +362,8 @@ namespace YellowstonePathology.Business.Test.LLP
 		}
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "", "0", "float")]
-        public double SpecimenViabilityPercent
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
+        public string SpecimenViabilityPercent
 		{
 			get { return this.m_SpecimenViabilityPercent; }
 			set

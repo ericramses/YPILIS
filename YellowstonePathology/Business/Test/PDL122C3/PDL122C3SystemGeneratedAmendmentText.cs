@@ -14,16 +14,16 @@ namespace YellowstonePathology.Business.Test.PDL122C3
 
         public static string AmendmentText(PDL122C3.PDL122C3TestOrder testOrder)
         {
-            string comment = "        Comment: This test utilizes PD - L1 antibody clone 223C.In general, higher levels of " +
-                "PD - L1 expression are associated with better response to PD-1 antagonists.  For full details, refer to separate report.";
+            string comment = "Comment: This test utilizes PD-L1 antibody clone 223C.  In general, higher levels of " +
+                "PD-L1 expression are associated with better response to PD-1 antagonists.  For full details, refer to separate report.";
 
             StringBuilder result = new StringBuilder();
-            result.Append("PD - L1 immunohistochemical stain was performed on the specimen(see YPI report # ");
+            result.Append("PD-L1 immunohistochemical stain was performed on the specimen see YPI report # ");
             result.Append(testOrder.ReportNo);
-            result.AppendLine("), which yielded the following result:");
+            result.AppendLine(", which yielded the following result:");
             result.AppendLine();
-            result.Append("        PD - L1 (22C3): ");
-            result.Append(testOrder.StainPercent);            
+            result.AppendLine(testOrder.Interpretation);
+
             result.AppendLine();
             result.AppendLine(comment);
 
