@@ -248,7 +248,7 @@ namespace YellowstonePathology.Business.Test.Model
 
 			result.Add(new Vimentin());
 
-			result.Add(new Zap70());
+			//result.Add(new Zap70());
 
 			result.Add(new BartonellaHenselae());
             result.Add(new Uroplakin());

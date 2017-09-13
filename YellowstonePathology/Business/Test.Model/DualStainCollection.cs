@@ -87,7 +87,7 @@ namespace YellowstonePathology.Business.Test.Model
 			stainList.Add(new IgKappaIgLambdaDualStain());
 			stainList.Add(new Ki67MelanADualStain());
 			stainList.Add(new OSCARSmoothMuscleMyosinDualStain());
-			stainList.Add(new PAX5Zap70DualStain());
+			//stainList.Add(new PAX5Zap70DualStain());
 			stainList.Add(new TTF1NapsinADualStain());
 
 			stainList.Sort(DualStain.CompareByTestName);
