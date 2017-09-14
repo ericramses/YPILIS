@@ -71,23 +71,45 @@ namespace YellowstonePathology.Business.Search
 
         public PathologistSearchResult GetPrimaryResult()
         {
-            PathologistSearchResult result = null;
-            
-            bool surgicalFound = false;
-            foreach (PathologistSearchResult psr in this)
-            {                
-                if (psr.PanelSetId == 13)
-                {
-                    surgicalFound = true;
-                    result = psr;
-                    break;
-                }                
-            }
-            if (surgicalFound == false)
+            PathologistSearchResult result = this.HasUnfinaledRetrospectiveReview();
+
+            if (result == null)
             {
-                if (this.Count != 0) result = this[0];
+                bool surgicalFound = false;
+                foreach (PathologistSearchResult psr in this)
+                {
+                    if (psr.PanelSetId == 13)
+                    {
+                        surgicalFound = true;
+                        result = psr;
+                        break;
+                    }
+                }
+                if (surgicalFound == false)
+                {
+                    if (this.Count != 0) result = this[0];
+                }
             }
             
+            return result;
+        }
+
+        private PathologistSearchResult HasUnfinaledRetrospectiveReview()
+        {
+            PathologistSearchResult result = null;
+
+            foreach (PathologistSearchResult psr in this)
+            {
+                if (psr.PanelSetId == 262)
+                {
+                    if (psr.Final == false)
+                    {
+                        result = psr;
+                        break;
+                    }
+                }
+            }
+
             return result;
         }
     }
