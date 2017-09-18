@@ -48,7 +48,7 @@ namespace YellowstonePathology.Business.Reports
                 Facility.Model.Facility facility = facilityCollection.GetByFacilityId(blockSentNotReturned.FacilityId);
                 if (facility != null)
                 {
-                    facilityName = string.IsNullOrEmpty(facility.FacilityName) ? string.Empty : facility.FacilityName;
+                    facilityName = string.IsNullOrEmpty(facility.FacilityName) ? blockSentNotReturned.FacilityId : facility.FacilityName;
                 }
                 XmlNode nodeNew = nodeTemplate.Clone();
                 this.ReplaceTextInRowNode(nodeNew, "facility_id", facilityName);

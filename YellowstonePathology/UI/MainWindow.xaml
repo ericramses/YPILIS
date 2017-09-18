@@ -97,6 +97,7 @@
                 <MenuItem Name="MenuItemMonitorCytologyScreening" Header="Cytology Screening" Click="MenuItemShowCytologyScreeningMonitor_Click"></MenuItem>
                 <MenuItem Name="MenuItemMonitorPendingTests" Header="Pending Tests" Click="MenuItemShowPendingTestMonitor_Click"></MenuItem>
                 <MenuItem Name="MenuItemMonitorMissingInformation" Header="Missing Information" Click="MenuItemShowMissingInformationMonitor_Click"></MenuItem>
+                <MenuItem Name="MenuItemBlockCount" Header="Block Count" Click="MenuItemShowBlockCountMonitor_Click"></MenuItem>
             </MenuItem>
                 
             </Menu>

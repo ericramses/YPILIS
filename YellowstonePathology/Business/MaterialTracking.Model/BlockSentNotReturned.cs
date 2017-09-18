@@ -9,7 +9,6 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
         private string m_FacilityId;
         private string m_AliquotId;
         private DateTime m_LogDate;
-        private Facility.Model.Facility m_Facility;
 
         public BlockSentNotReturned() { }
 

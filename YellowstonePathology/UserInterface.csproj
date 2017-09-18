@@ -1102,6 +1102,8 @@
     <Compile Include="Business\MaterialTracking.Model\MaterialTrackingScannedItemView.cs" />
     <Compile Include="Business\MaterialTracking.Model\MaterialTrackingScannedItemViewCollection.cs" />
     <Compile Include="Business\MolecularTesting\CaseList.cs" />
+    <Compile Include="Business\Monitor.Model\BlockCount.cs" />
+    <Compile Include="Business\Monitor.Model\BlockCountCollection.cs" />
     <Compile Include="Business\Monitor.Model\CytologyScreening.cs" />
     <Compile Include="Business\Monitor.Model\CytologyScreeningCollection.cs" />
     <Compile Include="Business\Monitor.Model\Distribution.cs" />
@@ -3272,6 +3274,9 @@
     <Compile Include="UI\BrowserWindow.xaml.cs">
       <DependentUpon>BrowserWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Monitor\BlockCountMonitorPage.xaml.cs">
+      <DependentUpon>BlockCountMonitorPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\RetrospectiveReviewListItem.cs" />
     <Compile Include="UI\RetrospectiveReviewList.cs" />
     <Compile Include="UI\RetrospectiveReviewReport.cs" />
@@ -5410,6 +5415,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\Monitor\AutopsyRequestMonitorPage.xaml" />
+    <Page Include="UI\Monitor\BlockCountMonitorPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\Monitor\MissingInformationMonitorPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
