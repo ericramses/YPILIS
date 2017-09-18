@@ -1080,6 +1080,8 @@
     <Compile Include="Business\Logging\EmailExceptionHandler.cs" />
     <Compile Include="Business\Logging\ScanLogger.cs" />
     <Compile Include="Business\MasterAccessionNo.cs" />
+    <Compile Include="Business\MaterialTracking.Model\BlockSentNotReturned.cs" />
+    <Compile Include="Business\MaterialTracking.Model\BlockSentNotReturnedCollection.cs" />
     <Compile Include="Business\MaterialTracking.Model\FedexAccount.cs" />
     <Compile Include="Business\MaterialTracking.Model\FedexAccountProduction.cs" />
     <Compile Include="Business\MaterialTracking.Model\FedexAccountTesting.cs" />
@@ -1120,6 +1122,7 @@
     <Compile Include="Business\Persistence\MonitorProperty.cs" />
     <Compile Include="Business\Persistence\ProtobufWriter.cs" />
     <Compile Include="Business\Persistence\SqlDataRowReaderPropertyWriter.cs" />
+    <Compile Include="Business\Reports\BlocksSentNotReturnedReport.cs" />
     <Compile Include="Business\Reports\RetrospectiveReviewReport.xaml.cs">
       <DependentUpon>RetrospectiveReviewReport.xaml</DependentUpon>
     </Compile>

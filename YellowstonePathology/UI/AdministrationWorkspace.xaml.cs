@@ -90,6 +90,9 @@ namespace YellowstonePathology.UI
 
         private void ButtonPOCRetension_Click(object sender, RoutedEventArgs e)
         {
+            YellowstonePathology.Business.Reports.BlocksSentNotReturnedReport report = new Business.Reports.BlocksSentNotReturnedReport();
+            report.CreateReport(DateTime.Today);
+            report.OpenReport();
             //YellowstonePathology.Business.Reports.POCRetensionReport report = new Business.Reports.POCRetensionReport(DateTime.Parse("3/26/2011"), DateTime.Parse("5/04/2011"));
             //System.Windows.Controls.PrintDialog printDialog = new System.Windows.Controls.PrintDialog();
             //printDialog.ShowDialog();
