@@ -2988,9 +2988,9 @@ namespace YellowstonePathology.Business.Gateway
             return result;
         }
 
-        public static Business.Monitor.Model.BlockCountCollection GetBlockCountCollection()
+        public static Business.Monitor.Model.BlockCount GetBlockCount()
         {
-            Business.Monitor.Model.BlockCountCollection result = new Monitor.Model.BlockCountCollection();
+            Business.Monitor.Model.BlockCount result = new Monitor.Model.BlockCount();
 
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.Text;
@@ -3006,10 +3006,8 @@ namespace YellowstonePathology.Business.Gateway
                 {
                     while (dr.Read())
                     {
-                        Business.Monitor.Model.BlockCount blockCount = new Monitor.Model.BlockCount();
-                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(blockCount, dr);
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(result, dr);
                         sqlDataReaderPropertyWriter.WriteProperties();
-                        result.Add(blockCount);
                     }
                 }
             }
