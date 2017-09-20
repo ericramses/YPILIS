@@ -17,9 +17,9 @@ using System.ComponentModel;
 namespace YellowstonePathology.UI.Monitor
 {
     /// <summary>
-    /// Interaction logic for BlockCountMonitorPage.xaml
+    /// Interaction logic for DashboardPage.xaml
     /// </summary>
-    public partial class BlockCountMonitorPage : UserControl, INotifyPropertyChanged, IMonitorPage
+    public partial class DashboardPage : UserControl, INotifyPropertyChanged, IMonitorPage
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -27,7 +27,7 @@ namespace YellowstonePathology.UI.Monitor
 
         private Login.Receiving.LoginPageWindow m_LoginPageWindow;
 
-        public BlockCountMonitorPage()
+        public DashboardPage()
         {
             InitializeComponent();
             this.DataContext = this;
@@ -48,6 +48,11 @@ namespace YellowstonePathology.UI.Monitor
         public YellowstonePathology.Business.Monitor.Model.BlockCount BlockCount
         {
             get { return this.m_BlockCount; }
+        }
+
+        public DateTime DashboardDate
+        {
+            get { return DateTime.Now; }
         }
 
         public void NotifyPropertyChanged(String info)
