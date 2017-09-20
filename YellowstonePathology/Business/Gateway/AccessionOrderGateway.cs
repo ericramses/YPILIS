@@ -2987,5 +2987,34 @@ namespace YellowstonePathology.Business.Gateway
             }
             return result;
         }
+
+        public static Business.Monitor.Model.BlockCountCollection GetBlockCountCollection()
+        {
+            Business.Monitor.Model.BlockCountCollection result = new Monitor.Model.BlockCountCollection();
+
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "select count(*) YPIBlockCount from tblAliquotOrder ao join tblSpecimenOrder so on ao.specimenOrderId = so.SpecimenOrderId " +
+            "join tblAccessionOrder a on so.MasterAccessionNo = a.MasterAccessionNo " +
+            "where a.ClientId not in (1260, 1446, 1511) and ao.GrossVerified = 1 and ao.GrossVerifiedDate > curdate();";
+
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        Business.Monitor.Model.BlockCount blockCount = new Monitor.Model.BlockCount();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(blockCount, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(blockCount);
+                    }
+                }
+            }
+
+            return result;
+        }
     }
 }
