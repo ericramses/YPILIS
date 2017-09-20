@@ -5,45 +5,39 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:YellowstonePathology.UI.Monitor"
              xmlns:my="clr-namespace:YellowstonePathology.Business.Document;assembly=BusinessObjects">
-    <Grid>
-        <Grid.Resources>
-            <Color x:Key="NormalColor">#e5fee7</Color>
-            <SolidColorBrush x:Key="NormalBrush" Color="{StaticResource NormalColor}" />
-
-            <Color x:Key="WarningColor">#fff697</Color>
-            <SolidColorBrush x:Key="WarningBrush" Color="{StaticResource WarningColor}" />
-
-            <Color x:Key="CriticalColor">#f8b3be</Color>
-            <SolidColorBrush x:Key="CriticalBrush" Color="{StaticResource CriticalColor}" />
-        </Grid.Resources>
-
+    <Grid Background="#e5fee7">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Column="0" Grid.Row="0" Margin="10,10,10,10" FontSize="24">Block Count Monitor</TextBlock>
+        <TextBlock Grid.Column="0" Grid.Row="0" Margin="10,10,10,10" FontSize="24">Block Counts</TextBlock>
 
-        <Grid Grid.Column="0" Grid.Row="1" Background="#e5fee7" Margin ="5, 5, 5, 5">
+        <Grid Grid.Column="0" Grid.Row="1" Background="#e5fee7" Margin ="5, 5, 5, 5" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Column="0" Grid.Row="0" Margin ="5, 5, 50, 5" FontSize="50" FontWeight="Bold" TextAlignment="Right">Yellowstone Pathology Institute Blocks</TextBlock>
-            <TextBlock Grid.Column="0" Grid.Row="1" Margin ="5, 5, 5, 5" FontSize="50" FontWeight="Bold" TextAlignment="Center" Text="{Binding Path=BlockCount.YPIBlockCount}"></TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="0" Margin ="5, 5, 5, 5" FontSize="70" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Right">YPI:</TextBlock>
+            <TextBlock Grid.Column="1" Grid.Row="0" Margin ="5, 5, 5, 5" FontSize="70" TextAlignment="Center" Text="{Binding Path=BlockCount.YPIBlockCount}"></TextBlock>
 
-            <TextBlock Grid.Column="1" Grid.Row="0" Margin ="50, 5, 5, 5" FontSize="50" FontWeight="Bold" TextAlignment="Right">Bozeman Blocks</TextBlock>
-            <TextBlock Grid.Column="1" Grid.Row="1" Margin ="5, 5, 5, 5" FontSize="50" FontWeight="Bold" TextAlignment="Center" Text="{Binding Path=BlockCount.BozemanBlockCount}"></TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="1" Margin ="5, 5, 5, 5" FontSize="70" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Right">Bozeman:</TextBlock>
+            <TextBlock Grid.Column="1" Grid.Row="1" Margin ="5, 5, 5, 5" FontSize="70" TextAlignment="Center" Text="{Binding Path=BlockCount.BozemanBlockCount}"></TextBlock>
+
+            <TextBlock Grid.Column="0" Grid.Row="3" Margin ="5, 5, 5, 5" FontSize="70" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Right">Total:</TextBlock>
+            <TextBlock Grid.Column="1" Grid.Row="3" Margin ="5, 5, 5, 5" FontSize="70" TextAlignment="Center" Text="{Binding Path=BlockCount.Total}"></TextBlock>
         </Grid>
     </Grid>
 </UserControl>
