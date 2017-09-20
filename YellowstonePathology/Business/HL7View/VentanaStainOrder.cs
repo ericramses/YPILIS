@@ -14,11 +14,11 @@ namespace YellowstonePathology.Business.HL7View
 
         }
 
-        public string Send(Business.Test.AccessionOrder accessionOrder, string testOrderId, string slideOrderId)
+        public string Build(Business.Test.AccessionOrder accessionOrder, string testOrderId, string slideOrderId, string stainModifier)
         {
             //protoc -I d:/protogen --csharp_out d:/protogen/result d:/protogen/ventana.proto --grpc_out d:/protogen/result --plugin=protoc-gen-grpc=grpc_csharp_plugin.exe            
 
-            Channel channel = new Channel("127.0.0.1:50051", ChannelCredentials.Insecure);
+            Channel channel = new Channel("10.1.2.70:32222", ChannelCredentials.Insecure);
             Ventana.VentanaService.VentanaServiceClient ventanaServiceClient = new Ventana.VentanaService.VentanaServiceClient(channel);
             Ventana.OrderRequest orderRequest = new Ventana.OrderRequest();
 
@@ -29,7 +29,7 @@ namespace YellowstonePathology.Business.HL7View
             Business.Test.Model.TestOrder testOrder = panelOrder.TestOrderCollection.Get(testOrderId);
 
             Business.Surgical.VentanaBenchMarkCollection ventanaBenchMarkCollection = Business.Gateway.AccessionOrderGateway.GetVentanaBenchMarkCollection();
-            Business.Surgical.VentanaBenchMark ventanaBenchMark = ventanaBenchMarkCollection.GetByYPITestId(testOrder.TestId.ToString());
+            Business.Surgical.VentanaBenchMark ventanaBenchMark = ventanaBenchMarkCollection.GetByYPITestId(testOrder.TestId.ToString(), stainModifier);
 
             Business.Slide.Model.SlideOrder slideOrder = aliquotOrder.SlideOrderCollection.GetSlideOrderByTestOrderId(testOrderId);
             Business.Specimen.Model.SpecimenOrder specimenOrder = accessionOrder.SpecimenOrderCollection.GetSpecimenOrderByAliquotOrderId(aliquotOrder.AliquotOrderId);
@@ -91,7 +91,7 @@ namespace YellowstonePathology.Business.HL7View
             stainOrder.Obr = obr;
             orderRequest.StainOrders.Add(stainOrder);
 
-            Ventana.OrderReply orderReply = ventanaServiceClient.sendOrder(orderRequest);
+            Ventana.OrderReply orderReply = ventanaServiceClient.buildOrder(orderRequest);
             return orderReply.Message;
         }
     }

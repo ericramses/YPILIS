@@ -621,9 +621,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                         this.m_AliquotAndStainOrderView = new AliquotAndStainOrderView(this.m_AccessionOrder, this.m_PanelSetOrder);
 					}
 				}
-			}
-
-            //this.Save(false);						
+			}            				
 		}
 
 		private void OrderTestOnSelectedAliquots(YellowstonePathology.Business.Test.Model.Test test, bool orderedAsDual)
@@ -872,7 +870,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             Business.HL7View.VentanaStainOrder ventanaStainOrder = new Business.HL7View.VentanaStainOrder();
             string testOrderId = xElement.Element("TestOrderId").Value;
             string slideOrderId = xElement.Element("SlideOrder").Element("SlideOrderId").Value;
-            string result = ventanaStainOrder.Send(this.m_AccessionOrder, testOrderId, slideOrderId);
+            string result = ventanaStainOrder.Build(this.m_AccessionOrder, testOrderId, slideOrderId, "STANDARD");
             MessageBox.Show(result);
         }
     }

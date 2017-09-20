@@ -26,7 +26,7 @@ namespace YellowstonePathology.UI.Cytology
         private void ShowScanSecurityBadgePage()
         {
             YellowstonePathology.UI.Login.ScanSecurityBadgePage scanSecurityBadgePage = new Login.ScanSecurityBadgePage(System.Windows.Visibility.Visible);
-			this.m_PrintSlideDialog.PageNavigator.Navigate(scanSecurityBadgePage);
+			this.m_PrintSlideDialog.PageNavigator.Navigate(scanSecurityBadgePage);            
             scanSecurityBadgePage.AuthentificationSuccessful += new Login.ScanSecurityBadgePage.AuthentificationSuccessfulEventHandler(ScanSecurityBadgePage_AuthentificationSuccessful);
             scanSecurityBadgePage.Close += new Login.ScanSecurityBadgePage.CloseEventHandler(ScanSecurityBadgePage_Close);
         }

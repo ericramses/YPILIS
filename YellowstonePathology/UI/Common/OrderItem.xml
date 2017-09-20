@@ -1590,8 +1590,7 @@
                 <OrderItems>
                 </OrderItems>
               </OrderItem>
-              <OrderItem>
-                <!--Added 6/18/2012 WHC-->
+              <OrderItem>                
                 <Id>276</Id>
                 <ParentId>19</ParentId>
                 <ChildId>0</ChildId>

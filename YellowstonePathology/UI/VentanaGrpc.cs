@@ -15,10 +15,10 @@ namespace Ventana {
     static readonly Marshaller<global::Ventana.OrderRequest> __Marshaller_OrderRequest = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Ventana.OrderRequest.Parser.ParseFrom);
     static readonly Marshaller<global::Ventana.OrderReply> __Marshaller_OrderReply = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Ventana.OrderReply.Parser.ParseFrom);
 
-    static readonly Method<global::Ventana.OrderRequest, global::Ventana.OrderReply> __Method_sendOrder = new Method<global::Ventana.OrderRequest, global::Ventana.OrderReply>(
+    static readonly Method<global::Ventana.OrderRequest, global::Ventana.OrderReply> __Method_buildOrder = new Method<global::Ventana.OrderRequest, global::Ventana.OrderReply>(
         MethodType.Unary,
         __ServiceName,
-        "sendOrder",
+        "buildOrder",
         __Marshaller_OrderRequest,
         __Marshaller_OrderReply);
 
@@ -31,7 +31,7 @@ namespace Ventana {
     /// <summary>Base class for server-side implementations of VentanaService</summary>
     public abstract partial class VentanaServiceBase
     {
-      public virtual global::System.Threading.Tasks.Task<global::Ventana.OrderReply> sendOrder(global::Ventana.OrderRequest request, ServerCallContext context)
+      public virtual global::System.Threading.Tasks.Task<global::Ventana.OrderReply> buildOrder(global::Ventana.OrderRequest request, ServerCallContext context)
       {
         throw new RpcException(new Status(StatusCode.Unimplemented, ""));
       }
@@ -61,21 +61,21 @@ namespace Ventana {
       {
       }
 
-      public virtual global::Ventana.OrderReply sendOrder(global::Ventana.OrderRequest request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      public virtual global::Ventana.OrderReply buildOrder(global::Ventana.OrderRequest request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
       {
-        return sendOrder(request, new CallOptions(headers, deadline, cancellationToken));
+        return buildOrder(request, new CallOptions(headers, deadline, cancellationToken));
       }
-      public virtual global::Ventana.OrderReply sendOrder(global::Ventana.OrderRequest request, CallOptions options)
+      public virtual global::Ventana.OrderReply buildOrder(global::Ventana.OrderRequest request, CallOptions options)
       {
-        return CallInvoker.BlockingUnaryCall(__Method_sendOrder, null, options, request);
+        return CallInvoker.BlockingUnaryCall(__Method_buildOrder, null, options, request);
       }
-      public virtual AsyncUnaryCall<global::Ventana.OrderReply> sendOrderAsync(global::Ventana.OrderRequest request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      public virtual AsyncUnaryCall<global::Ventana.OrderReply> buildOrderAsync(global::Ventana.OrderRequest request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
       {
-        return sendOrderAsync(request, new CallOptions(headers, deadline, cancellationToken));
+        return buildOrderAsync(request, new CallOptions(headers, deadline, cancellationToken));
       }
-      public virtual AsyncUnaryCall<global::Ventana.OrderReply> sendOrderAsync(global::Ventana.OrderRequest request, CallOptions options)
+      public virtual AsyncUnaryCall<global::Ventana.OrderReply> buildOrderAsync(global::Ventana.OrderRequest request, CallOptions options)
       {
-        return CallInvoker.AsyncUnaryCall(__Method_sendOrder, null, options, request);
+        return CallInvoker.AsyncUnaryCall(__Method_buildOrder, null, options, request);
       }
       /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
       protected override VentanaServiceClient NewInstance(ClientBaseConfiguration configuration)
@@ -89,7 +89,7 @@ namespace Ventana {
     public static ServerServiceDefinition BindService(VentanaServiceBase serviceImpl)
     {
       return ServerServiceDefinition.CreateBuilder()
-          .AddMethod(__Method_sendOrder, serviceImpl.sendOrder).Build();
+          .AddMethod(__Method_buildOrder, serviceImpl.buildOrder).Build();
     }
 
   }

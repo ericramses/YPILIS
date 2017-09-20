@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>228</ApplicationRevision>
+    <ApplicationRevision>244</ApplicationRevision>
     <ApplicationVersion>10.1.7.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -7031,7 +7031,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="UI\Common\ComplexOrderItem.xml" />
-    <EmbeddedResource Include="UI\Common\OrderItem.xml" />
+    <EmbeddedResource Include="UI\Common\OrderItem.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Reassign.ico" />

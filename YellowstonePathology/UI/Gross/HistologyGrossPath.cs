@@ -27,8 +27,7 @@ namespace YellowstonePathology.UI.Gross
 		}
 
 		public void Start()
-		{
-            YellowstonePathology.Business.User.SystemIdentity.Instance.EnableManualSecurityBadgeScan();
+		{            
             this.m_HistologyGrossDialog = new HistologyGrossDialog();            
             this.m_HistologyGrossDialog.Closing += new System.ComponentModel.CancelEventHandler(HistologyGrossDialog_Closing);
             this.m_HistologyGrossDialog.Show();
@@ -177,7 +176,7 @@ namespace YellowstonePathology.UI.Gross
         }
 
         private void AddMaterialTrackingLog(YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder)
-        {
+        {            
             YellowstonePathology.Business.Facility.Model.FacilityCollection facilityCollection = Business.Facility.Model.FacilityCollection.GetAllFacilities();
             YellowstonePathology.Business.Facility.Model.LocationCollection locationCollection = YellowstonePathology.Business.Facility.Model.LocationCollection.GetAllLocations();
 			YellowstonePathology.Business.Facility.Model.Facility thisFacility = facilityCollection.GetByFacilityId(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId);
@@ -186,7 +185,7 @@ namespace YellowstonePathology.UI.Gross
             string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 			YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog = new Business.MaterialTracking.Model.MaterialTrackingLog(objectId, specimenOrder.SpecimenOrderId, null, thisFacility.FacilityId, thisFacility.FacilityName,
                 thisLocation.LocationId, thisLocation.Description, "Container Scan", "Container Scanned At Gross", "Specimen", this.m_AccessionOrder.MasterAccessionNo, specimenOrder.Description, specimenOrder.ClientAccessioned);
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(materialTrackingLog, m_HistologyGrossDialog);            
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(materialTrackingLog, m_HistologyGrossDialog);                     
         }
 
         private void ScanContainerPage_BarcodeWontScan(object sender, EventArgs e)

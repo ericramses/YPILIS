@@ -237,6 +237,7 @@ namespace YellowstonePathology.UI.Cutting
 
         private void AddMaterialTrackingLog(YellowstonePathology.Business.Test.AliquotOrder aliquotOrder)
         {
+            /*
             if(aliquotOrder == null)
             {
                 Business.Logging.EmailExceptionHandler.HandleException("Attention Sid, The AliquotOrder is null in the cutting path.");
@@ -259,7 +260,8 @@ namespace YellowstonePathology.UI.Cutting
             else
             {
                 YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(materialTrackingLog, this.m_CuttingWorkspaceWindow);
-            }            
+            }      
+            */      
         }
 
         private void HandleAliquotOrderFound(YellowstonePathology.Business.Test.AliquotOrder aliquotOrder)
