@@ -864,14 +864,18 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
         }
 
         private void MenuItemSendOrderToVentana_Click(object sender, RoutedEventArgs e)
-        {
+        {            
             MenuItem menuItem = (MenuItem)sender;
-            XElement xElement = XElement.Parse(menuItem.Tag.ToString());            
+            XElement xElement = XElement.Parse(menuItem.Tag.ToString());
             Business.HL7View.VentanaStainOrder ventanaStainOrder = new Business.HL7View.VentanaStainOrder();
             string testOrderId = xElement.Element("TestOrderId").Value;
             string slideOrderId = xElement.Element("SlideOrder").Element("SlideOrderId").Value;
             string result = ventanaStainOrder.Build(this.m_AccessionOrder, testOrderId, slideOrderId, "STANDARD");
-            MessageBox.Show(result);
+
+            string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
+            System.IO.File.WriteAllText(@"\\10.1.2.31\ChannelData\Outgoing\Ventana\" + objectId + ".hl7", result);
+
+            MessageBox.Show("The Ventana order was sent.");            
         }
     }
 }
