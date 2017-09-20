@@ -152,6 +152,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.Test.PlasmaCellMyelomaPrognosticFISHPanel.PlasmaCellMyelomaPrognosticFISHPanelTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.ConstitutionalChromosomeAnalysis.ConstitutionalChromosomeAnalysisTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.NeoTYPELungTumorProfile.NeoTYPELungTumorProfileTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.NeoTYPEMDSCMMLProfile.NeoTYPEMDSCMMLProfileTest());
 
             //ARUP
             panelSetCollection.Add(new YellowstonePathology.Business.Test.HPV1618.HPV1618Test());
