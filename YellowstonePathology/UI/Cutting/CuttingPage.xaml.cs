@@ -294,10 +294,14 @@ namespace YellowstonePathology.UI.Cutting
         {            
             if (slideOrder.LabelType == YellowstonePathology.Business.Slide.Model.SlideLabelTypeEnum.PaperLabel.ToString())
             {
-                //Business.HL7View.VentanaStainOrder ventanaStainOrder = new Business.HL7View.VentanaStainOrder();
-                //string result = ventanaStainOrder.Send(this.m_AccessionOrder, slideOrder.TestOrderId, slideOrder.SlideOrderId, stainType);
-                //Business.Label.Model.ZPLPrinterUSB zplPrinterUSB = new Business.Label.Model.ZPLPrinterUSB();
-                //zplPrinterUSB.Print(slideOrder.SlideOrderId, slideOrder.ReportNo, slideOrder.Label, slideOrder.PatientLastName, slideOrder.TestAbbreviation, slideOrder.Location);
+                Business.HL7View.VentanaStainOrder ventanaStainOrder = new Business.HL7View.VentanaStainOrder();
+                string result = ventanaStainOrder.Build(this.m_AccessionOrder, slideOrder.TestOrderId, slideOrder.SlideOrderId, stainType);
+
+                string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
+                System.IO.File.WriteAllText(@"\\10.1.2.31\ChannelData\Outgoing\Ventana\" + objectId + ".hl7", result);
+
+                Business.Label.Model.ZPLPrinterUSB zplPrinterUSB = new Business.Label.Model.ZPLPrinterUSB();
+                zplPrinterUSB.Print(slideOrder.SlideOrderId, slideOrder.ReportNo, slideOrder.Label, slideOrder.PatientLastName, slideOrder.TestAbbreviation, slideOrder.Location);
             }            
         }
 

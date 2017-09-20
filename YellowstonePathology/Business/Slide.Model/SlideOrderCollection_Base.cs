@@ -192,36 +192,6 @@ namespace YellowstonePathology.Business.Slide.Model
             }
             return result;
         }   
-
-        /*
-        public int GetNextSlideNumber(string blockLabel)
-        {
-            int result = 1;
-            if (this.Count > 0)
-            {
-                string label = this[this.Count - 1].Label;
-                if (label.Length == 1)
-                {
-                    result = Int32.Parse(label) + 1;
-                }
-                else
-                {
-                    string lastChar = label.Substring(label.Length - 1);
-                    string secondToLastChar = label.Substring(label.Length - 2, 1);
-
-                    int secondToLastInt = 0;
-                    if (Int32.TryParse(secondToLastChar, out secondToLastInt) == true)
-                    {
-                        result = Int32.Parse(secondToLastChar + lastChar) + 1;
-                    }
-                    else
-                    {
-                        result = Int32.Parse(lastChar) + 1;
-                    }
-                }
-            }
-            return result;
-        }
-        */
+       
     }
 }
