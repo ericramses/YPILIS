@@ -93,8 +93,11 @@ namespace YellowstonePathology.Business.Persistence
                     }
                     catch (Exception ex) //error occurred
                     {
-                        trans.Rollback();
-                        cn.Close();
+                        if (cn.State == System.Data.ConnectionState.Open)
+                        {
+                            trans.Rollback();
+                            cn.Close();
+                        }
                         throw(ex);
                     }
                 }
@@ -103,7 +106,7 @@ namespace YellowstonePathology.Business.Persistence
         }
 
         private void RunSqlCommands(Queue<MySqlCommand> sqlCommandQueue, MySqlConnection cn, MySqlTransaction trans)
-        {            
+        {
             while (sqlCommandQueue.Count != 0)
             {
                 MySqlCommand cmd = sqlCommandQueue.Dequeue();
@@ -114,7 +117,7 @@ namespace YellowstonePathology.Business.Persistence
         }
 
         private void RunSqlCommands(Stack<MySqlCommand> sqlCommandStack, MySqlConnection cn, MySqlTransaction trans)
-        {            
+        {
             while (sqlCommandStack.Count != 0)
             {
                 MySqlCommand cmd = sqlCommandStack.Pop();
