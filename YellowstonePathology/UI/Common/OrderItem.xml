@@ -212,24 +212,7 @@
 								<TemplateName>StandardCheckBoxTemplate</TemplateName>
 								<OrderItems>
 								</OrderItems>
-							</OrderItem>							
-							<OrderItem>
-								<Id>141</Id>
-								<ParentId>19</ParentId>
-								<ChildId>0</ChildId>
-								<Name>PAX-5/ZAP 70</Name>
-								<Orderable>True</Orderable>
-								<Order>False</Order>
-								<ItemType>DualStain</ItemType>
-								<OrderPriority>40</OrderPriority>
-								<NotListedName></NotListedName>
-								<NotListedNameVisible>False</NotListedNameVisible>
-								<Comment></Comment>
-								<CommentVisible>False</CommentVisible>
-								<TemplateName>StandardCheckBoxTemplate</TemplateName>
-								<OrderItems>
-								</OrderItems>
-							</OrderItem>											
+							</OrderItem>																					
 							<OrderItem> 
 								<Id>170</Id>
 								<ParentId>19</ParentId>
@@ -1607,8 +1590,7 @@
                 <OrderItems>
                 </OrderItems>
               </OrderItem>
-              <OrderItem>
-                <!--Added 6/18/2012 WHC-->
+              <OrderItem>                
                 <Id>276</Id>
                 <ParentId>19</ParentId>
                 <ChildId>0</ChildId>
@@ -2168,24 +2150,7 @@
 								<TemplateName>StandardCheckBoxTemplate</TemplateName>
 								<OrderItems>
 								</OrderItems>
-							</OrderItem>
-							<OrderItem>
-								<Id>165</Id>
-								<ParentId>19</ParentId>
-								<ChildId>0</ChildId>
-								<Name>ZAP 70</Name>
-								<Orderable>True</Orderable>
-								<Order>False</Order>
-								<ItemType>Test</ItemType>
-								<OrderPriority>40</OrderPriority>
-								<NotListedName></NotListedName>
-								<NotListedNameVisible>False</NotListedNameVisible>
-								<Comment></Comment>
-								<CommentVisible>False</CommentVisible>
-								<TemplateName>StandardCheckBoxTemplate</TemplateName>
-								<OrderItems>
-								</OrderItems>
-							</OrderItem>
+							</OrderItem>							
 							<OrderItem>
 								<Id>141</Id>
 								<ParentId>19</ParentId>

@@ -53,9 +53,9 @@ namespace Ventana {
             "aXJzdG5hbWUYDCABKAkSEAoIc2xpZGVfaWQYDSABKAkSFgoOc2xpZGVfc2Vx",
             "dWVuY2UYDiABKAkSDwoHYmxvY2tpZBgPIAEoCRIWCg5ibG9ja19zZXF1ZW5j",
             "ZRgQIAEoCRITCgtzcGVjaW1lbl9pZBgRIAEoCRIZChFzcGVjaW1lbl9zZXF1",
-            "ZW5jZRgSIAEoCTJLCg5WZW50YW5hU2VydmljZRI5CglzZW5kT3JkZXISFS52",
-            "ZW50YW5hLk9yZGVyUmVxdWVzdBoTLnZlbnRhbmEuT3JkZXJSZXBseSIAYgZw",
-            "cm90bzM="));
+            "ZW5jZRgSIAEoCTJMCg5WZW50YW5hU2VydmljZRI6CgpidWlsZE9yZGVyEhUu",
+            "dmVudGFuYS5PcmRlclJlcXVlc3QaEy52ZW50YW5hLk9yZGVyUmVwbHkiAGIG",
+            "cHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {

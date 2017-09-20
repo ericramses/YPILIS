@@ -108,15 +108,12 @@ namespace YellowstonePathology.Business.Test
             this.m_Address = null;
             this.m_TimeAquired = null;
 
-            IDatabase db = Business.RedisConnection.Instance.GetDatabase();
-            db.KeyDelete(this.HashKey);            
-
-            /*var transaction = db.CreateTransaction();
-            transaction.AddCondition(Condition.HashExists(this.HashKey, "MasterAccessionNo"));
-            //transaction.AddCondition(Condition.HashNotExists(this.HashKey, "MasterAccessionNo"));
+            IDatabase db = Business.RedisConnection.Instance.GetDatabase();            
+            var transaction = db.CreateTransaction();
+            transaction.AddCondition(Condition.HashExists(this.HashKey, "MasterAccessionNo"));            
             transaction.KeyDeleteAsync(this.HashKey);
-            //transaction.SetRemoveAsync("AccessionLocks", this.HashKey);
-            bool committed = transaction.Execute();*/
+            transaction.SetRemoveAsync("AccessionLocks", this.HashKey);
+            bool committed = transaction.Execute();
 
             this.NotifyPropertyChanged(string.Empty);
         }

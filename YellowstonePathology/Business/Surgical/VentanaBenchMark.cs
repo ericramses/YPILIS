@@ -19,6 +19,7 @@ namespace YellowstonePathology.Business.Surgical
         protected string m_Procedure;
         protected string m_ProtocolName;
         protected string m_YPITestId;
+        protected string m_StainModifier;
 
         public VentanaBenchMark()
         {
@@ -111,6 +112,21 @@ namespace YellowstonePathology.Business.Surgical
                 {
                     this.m_YPITestId = value;
                     this.NotifyPropertyChanged("YPITestId");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "100", "null", "varchar")]
+        public string StainModifier
+        {
+            get { return this.m_StainModifier; }
+            set
+            {
+                if (this.m_StainModifier != value)
+                {
+                    this.m_StainModifier = value;
+                    this.NotifyPropertyChanged("StainModifier");
                 }
             }
         }

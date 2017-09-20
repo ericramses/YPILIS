@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business.Test
         }
 
         public void ClearLocks()
-        {
+        {            
             foreach (Business.Test.AccessionLock accessionLock in this)
             {
                 if (accessionLock.Address == UI.AppMessaging.AccessionLockMessage.GetMyAddress())

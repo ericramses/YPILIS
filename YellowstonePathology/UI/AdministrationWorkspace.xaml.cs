@@ -37,6 +37,7 @@ using MongoDB.Driver.GridFS;
 using Newtonsoft.Json;
 using MySql.Data.MySqlClient;
 using Grpc.Core;
+using StackExchange.Redis;
 
 namespace YellowstonePathology.UI
 {    
@@ -982,8 +983,38 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            string s = @"^XA^FO0,0A0,30,20^FDHello^FS^XZ";
-            Business.Label.Model.RawPrinterHelper.SendStringToPrinter("ZDesigner GX430t", s);
+            /*
+            IDatabase db = Business.RedisConnection.Instance.GetDatabase();
+            RedisValue[] members = db.SetMembers("AccessionLocks");
+            for(int i=0; i<members.Length; i++)
+            {
+                string x = members[i].ToString();
+                db.SetRemove("AccessionLocks", members[i].ToString());
+            }
+            */
+
+            /*
+            string path = @"C:\temp\stains.csv";
+            string[] lines = System.IO.File.ReadAllLines(path);
+            for(int x = 1; x<lines.Length; x++)
+            {
+                string[] fields = lines[x].Split(',');
+                if(fields[0] != "Delete" && fields[0] != "NA")
+                {
+                    StringBuilder sql = new StringBuilder("Insert tblVentanaBenchMark ");
+                    sql.Append("(BarcodeNumber, StainerType, StainName, `Procedure`, ProtocolName, YPITestId, StainModifier) values (");
+                    sql.Append("'" + fields[1] + "', ");
+                    sql.Append("'" + fields[2] + "', ");
+                    sql.Append("'" + fields[3] + "', ");
+                    sql.Append("'" + fields[4] + "', ");
+                    sql.Append("'" + fields[5] + "', ");
+                    sql.Append("'" + fields[6] + "', ");
+                    sql.Append("'" + fields[7] + "'");
+                    sql.Append(");");
+                    Console.WriteLine(sql.ToString());
+                }                
+            }
+            */
         }
 
         private void InsertBenchMarkData()
@@ -1194,7 +1225,7 @@ namespace YellowstonePathology.UI
 
             orderRequest.StainOrders.Add(stainOrder2);
            
-            Ventana.OrderReply orderReply = ventanaServiceClient.sendOrder(orderRequest);
+            Ventana.OrderReply orderReply = ventanaServiceClient.buildOrder(orderRequest);
             Console.WriteLine(orderReply.Message);
 
             /*
