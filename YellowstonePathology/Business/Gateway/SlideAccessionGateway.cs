@@ -609,5 +609,43 @@ namespace YellowstonePathology.Business.Gateway
             }
 			return result;
 		}
-	}
+
+        public static MaterialTracking.Model.BlockSentNotReturnedCollection GetBlocksSentNotReturned()
+        {
+            MaterialTracking.Model.BlockSentNotReturnedCollection result = new MaterialTracking.Model.BlockSentNotReturnedCollection();
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "select distinct b.ToFacilityId FacilityId, l.MaterialId AliquotId, max(l.LogDate) LogDate from tblMaterialTrackingLog l " +
+                "join tblMaterialTrackingBatch b on l.MaterialTrackingBatchId = b.MaterialTrackingBatchId " +
+                "join tblAliquotOrder a on l.MaterialId = a.AliquotOrderId join tblSpecimenOrder s on a.SpecimenOrderId = s.SpecimenOrderId " +
+                "where s.ClientAccessioned = 0 and " +
+                " l.MaterialType = 'Aliquot' and " +
+                " (b.FromFacilityId = 'YPIBLGS' or b.FromFacilityId = 'YPBLGS') and " +
+                " b.ToFacilityId <> 'YPIBLGS' and b.ToFacilityId <> 'YPBLGS' and b.ToFacilityId <> 'YPCDY' and b.ToFacilityId <> 'YPICDY' " +
+                "and b.ToFacilityId is not null and l.MaterialTrackingLogId Not in " +
+                " (select ll.MaterialTrackingLogId from tblMaterialTrackingLog ll " +
+                " join tblMaterialTrackingBatch bb on ll.MaterialTrackingBatchId = bb.MaterialTrackingBatchId " +
+                " where (bb.ToFacilityId = 'YPIBLGS' or bb.ToFacilityId = 'YPBLGS') and " +
+                " bb.FromFacilityId <> 'YPCDY' and bb.FromFacilityId <> 'YPICDY' and bb.FromFacilityId <> 'YPIBLGS' and " +
+                " bb.FromFacilityId <> 'YPBLGS' and b.FromFacilityId is not null) " +
+                " group by b.ToFacilityId, l.MaterialId order by b.ToFacilityId Desc,  max(l.LogDate)Desc;";
+            cmd.CommandType = System.Data.CommandType.Text;
+ 
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        MaterialTracking.Model.BlockSentNotReturned blockSentNotReturned = new MaterialTracking.Model.BlockSentNotReturned();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter propertyWriter = new Persistence.SqlDataReaderPropertyWriter(blockSentNotReturned, dr);
+                        propertyWriter.WriteProperties();
+                        result.Add(blockSentNotReturned);
+                    }
+                }
+            }
+            return result;
+        }
+    }
 }
