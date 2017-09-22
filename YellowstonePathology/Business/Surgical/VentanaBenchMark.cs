@@ -20,6 +20,8 @@ namespace YellowstonePathology.Business.Surgical
         protected string m_ProtocolName;
         protected string m_YPITestId;
         protected string m_StainModifier;
+        protected bool m_UseWetProtocol;
+        protected string m_ProtocolColor;
 
         public VentanaBenchMark()
         {
@@ -127,6 +129,36 @@ namespace YellowstonePathology.Business.Surgical
                 {
                     this.m_StainModifier = value;
                     this.NotifyPropertyChanged("StainModifier");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
+        public bool UseWetProtocol
+        {
+            get { return this.m_UseWetProtocol; }
+            set
+            {
+                if (this.m_UseWetProtocol != value)
+                {
+                    this.m_UseWetProtocol = value;
+                    this.NotifyPropertyChanged("UseWetProtocol");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
+        public string ProtocolColor
+        {
+            get { return this.m_ProtocolColor; }
+            set
+            {
+                if (this.m_ProtocolColor != value)
+                {
+                    this.m_ProtocolColor = value;
+                    this.NotifyPropertyChanged("ProtocolColor");
                 }
             }
         }

@@ -52,8 +52,9 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 		public AliquotAndStainOrderPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
 			YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder)
 		{
-			this.m_AllTests = YellowstonePathology.Business.Test.Model.TestCollection.GetAllTests();          
-			this.m_AccessionOrder = accessionOrder;
+			this.m_AllTests = YellowstonePathology.Business.Test.Model.TestCollection.GetAllTests(false);            
+
+            this.m_AccessionOrder = accessionOrder;
 			this.m_PanelSetOrder = panelSetOrder;
 
             this.m_EmbeddingInstructionList = new Business.Specimen.Model.EmbeddingInstructionList();
@@ -387,13 +388,18 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 		private void CheckBoxTests_Unchecked(object sender, RoutedEventArgs e)
 		{
             this.m_AliquotAndStainOrderView.SetTestChecks(false);
+		}        
+
+        private void ButtonOrder_Click(object sender, RoutedEventArgs e)
+		{                        
+            OrderStain(false);            
 		}
 
-		private void ButtonOrder_Click(object sender, RoutedEventArgs e)
-		{            
-            if(this.m_PanelSetOrder.PanelSetId == 216)
+        private void OrderStain(bool useWetProtocol)
+        {
+            if (this.m_PanelSetOrder.PanelSetId == 216)
             {
-                MessageBox.Show("Warning: Stains should only be added to Informal Consults when adding client accessioned blocks/slide/stains.");                
+                MessageBox.Show("Warning: Stains should only be added to Informal Consults when adding client accessioned blocks/slide/stains.");
             }
             if (this.m_PanelSetOrder.PanelSetId == 197)  //Peer Review
             {
@@ -409,18 +415,18 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             {
                 test = (YellowstonePathology.Business.Test.Model.Test)this.m_Test;
             }
-            else if(this.m_Test is YellowstonePathology.Business.Test.Model.DualStain)
+            else if (this.m_Test is YellowstonePathology.Business.Test.Model.DualStain)
             {
                 dualStain = (YellowstonePathology.Business.Test.Model.DualStain)this.m_Test;
                 isDualStain = true;
             }
 
-            if(this.m_Aliquot != null && this.m_Aliquot.AliquotType == "Wash")
+            if (this.m_Aliquot != null && this.m_Aliquot.AliquotType == "Wash")
             {
                 AddWash();
             }
 
-			if (this.m_Aliquots.HasValue == true && this.m_Aliquot != null && this.m_Aliquot.AliquotType == "FNASLD")
+            if (this.m_Aliquots.HasValue == true && this.m_Aliquot != null && this.m_Aliquot.AliquotType == "FNASLD")
             {
                 if (this.m_PassNumber.HasValue == true)
                 {
@@ -430,10 +436,10 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 {
                     this.AddFNASlide(false, 0);
                 }
-            }            
+            }
             else if (this.m_Aliquots.HasValue == true && this.m_Aliquot != null && this.m_Aliquot.AliquotType == "NGYNSLD")
-            {                
-                this.AddNGYNSlide();                
+            {
+                this.AddNGYNSlide();
             }
             else if (this.m_Aliquots.HasValue == true && this.m_Aliquot != null && this.m_Aliquot.AliquotType == "CESLD")
             {
@@ -470,14 +476,13 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 }
             }
 
-			this.m_AccessionOrder.TakeATrip(this.m_StainAcknowledgementTaskOrderVisitor);
-
+            this.m_AccessionOrder.TakeATrip(this.m_StainAcknowledgementTaskOrderVisitor);
             this.m_AliquotAndStainOrderView.Refresh(true, this.m_PanelSetOrder);
             this.NotifyPropertyChanged("AliquotAndStainOrderView");
             this.Aliquots = null;
             this.Test = null;
             this.Aliquot = null;
-		}
+        }
 
         private void AddFNASlide(bool isPass, int passNumber)
         {
@@ -544,7 +549,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             }    
 
             YellowstonePathology.Business.Test.Model.TestOrderCollection selectedTestOrders = this.m_AliquotAndStainOrderView.GetSelectedTestOrders();
-			YellowstonePathology.Business.Test.Model.TestCollection allTests = YellowstonePathology.Business.Test.Model.TestCollection.GetAllTests();
+			YellowstonePathology.Business.Test.Model.TestCollection allTests = YellowstonePathology.Business.Test.Model.TestCollection.GetAllTests(false);
             foreach (YellowstonePathology.Business.Test.Model.TestOrder testOrder in selectedTestOrders)
             {
                 YellowstonePathology.Business.Visitor.RemoveTestOrderVisitor removeTestOrderVisitor = new Business.Visitor.RemoveTestOrderVisitor(testOrder.TestOrderId);
@@ -652,7 +657,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 			Hyperlink hyperlink = (Hyperlink)sender;
 			string initial = hyperlink.Tag.ToString();
 			
-			this.m_TestCollection = this.m_AllTests.GetTestsStartingWithToObjectCollection(initial);			
+			this.m_TestCollection = this.m_AllTests.GetTestsStartingWithToObjectCollection(initial, true);			
             this.NotifyPropertyChanged("TestCollection");            
 		}                
 
@@ -870,12 +875,12 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             Business.HL7View.VentanaStainOrder ventanaStainOrder = new Business.HL7View.VentanaStainOrder();
             string testOrderId = xElement.Element("TestOrderId").Value;
             string slideOrderId = xElement.Element("SlideOrder").Element("SlideOrderId").Value;
-            string result = ventanaStainOrder.Build(this.m_AccessionOrder, testOrderId, slideOrderId, "STANDARD");
+            string result = ventanaStainOrder.Build(this.m_AccessionOrder, testOrderId, slideOrderId);
 
             string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
             System.IO.File.WriteAllText(@"\\10.1.2.31\ChannelData\Outgoing\Ventana\" + objectId + ".hl7", result);
 
             MessageBox.Show("The Ventana order was sent.");            
-        }
+        }       
     }
 }

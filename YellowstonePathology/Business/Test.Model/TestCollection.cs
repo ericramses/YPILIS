@@ -59,7 +59,7 @@ namespace YellowstonePathology.Business.Test.Model
 		{
 			TestCollection result = new TestCollection();
 			List<Test> tests = new List<Test>();
-			TestCollection allTests = TestCollection.GetAllTests();
+			TestCollection allTests = TestCollection.GetAllTests(false);
 			foreach (Test test in allTests)
 			{
 				if (test.TestName.Substring(0, 1) == firstLetter) tests.Add(test);
@@ -73,11 +73,11 @@ namespace YellowstonePathology.Business.Test.Model
 			return result;
 		}
 
-        public ObservableCollection<object> GetTestsStartingWithToObjectCollection(string firstLetter)
+        public ObservableCollection<object> GetTestsStartingWithToObjectCollection(string firstLetter, bool includeWetProtocols)
         {
             ObservableCollection<object> result = new ObservableCollection<object>();
             List<Test> tests = new List<Test>();
-            TestCollection allTests = TestCollection.GetAllTests();
+            TestCollection allTests = TestCollection.GetAllTests(includeWetProtocols);
             foreach (Test test in allTests)
             {
                 if (test.TestName.Substring(0, 1) == firstLetter) tests.Add(test);
@@ -89,9 +89,9 @@ namespace YellowstonePathology.Business.Test.Model
                 result.Add(test);
             }
             return result;
-        }
+        }               
 
-        public static TestCollection GetAllTests()
+        public static TestCollection GetAllTests(bool includeWetProtocols)
         {
             TestCollection result = new TestCollection();
             
@@ -300,7 +300,7 @@ namespace YellowstonePathology.Business.Test.Model
             result.Add(new ERV3CT());
 
             result.Add(new ParoxysmalNocturnalHemoglobinuria());
-            result.Add(new Tryptase());
+            result.Add(new Tryptase());            
             
             return result;
         }
@@ -308,7 +308,7 @@ namespace YellowstonePathology.Business.Test.Model
         public static TestCollection GetIHCTests()
         {
             TestCollection result = new TestCollection();
-            TestCollection allTests = TestCollection.GetAllTests();
+            TestCollection allTests = TestCollection.GetAllTests(false);
             foreach (Test test in allTests)
             {
                 if (test is ImmunoHistochemistryTest == true)
@@ -322,7 +322,7 @@ namespace YellowstonePathology.Business.Test.Model
         public static TestCollection GetGradedTests()
         {
             TestCollection result = new TestCollection();
-            TestCollection allTests = TestCollection.GetAllTests();
+            TestCollection allTests = TestCollection.GetAllTests(false);
             foreach (Test test in allTests)
             {
                 if (test is GradedTest == true)
@@ -336,7 +336,7 @@ namespace YellowstonePathology.Business.Test.Model
         public static TestCollection GetCytochemicalTests()
         {
             TestCollection result = new TestCollection();
-            TestCollection allTests = TestCollection.GetAllTests();
+            TestCollection allTests = TestCollection.GetAllTests(false);
             foreach (Test test in allTests)
             {
                 if (test is CytochemicalTest == true)
@@ -350,7 +350,7 @@ namespace YellowstonePathology.Business.Test.Model
         public static TestCollection GetCytochemicalForMicroorganismsTests()
         {
             TestCollection result = new TestCollection();
-            TestCollection allTests = TestCollection.GetAllTests();
+            TestCollection allTests = TestCollection.GetAllTests(false);
             foreach (Test test in allTests)
             {
                 if (test is CytochemicalForMicroorganisms)

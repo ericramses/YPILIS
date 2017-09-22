@@ -158,9 +158,7 @@ namespace YellowstonePathology.UI.Common
                     this.HandleOrderingDualStains(selectedAliquots, selectedDualStains);
 
                     this.m_StainAcknowledgementTaskOrderVisitor.TaskOrderDetailComment = this.m_PanelOrderComment;
-                    this.m_AccessionOrder.TakeATrip(this.m_StainAcknowledgementTaskOrderVisitor);
-
-                    //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
+                    this.m_AccessionOrder.TakeATrip(this.m_StainAcknowledgementTaskOrderVisitor);                    
 
                     this.m_OrderItemView.ClearSelectedItems();
                     this.NotifyPropertyChanged("OrderItemView");

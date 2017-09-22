@@ -11,7 +11,7 @@ namespace YellowstonePathology.Business.Test.Model
 		{
 			this.m_TestId = 139;
 			this.m_TestName = "PAS for fungus";
-            this.m_TestAbbreviation = "PAS for fungus";
+            this.m_TestAbbreviation = "PASF";
 			this.m_Active = true;
 			this.m_NeedsAcknowledgement = true;
 		}

@@ -148,7 +148,7 @@ namespace YellowstonePathology.Business.Visitor
 
         public void SetTestOrdersAddedComment()
         {
-            YellowstonePathology.Business.Test.Model.TestCollection allTests = YellowstonePathology.Business.Test.Model.TestCollection.GetAllTests();            
+            YellowstonePathology.Business.Test.Model.TestCollection allTests = YellowstonePathology.Business.Test.Model.TestCollection.GetAllTests(false);            
             StringBuilder taskOrderDetailDescription = new StringBuilder();
             taskOrderDetailDescription.AppendLine("The following stains have been ordered:");
 
@@ -167,7 +167,7 @@ namespace YellowstonePathology.Business.Visitor
 
         public void SetTestOrdersCancelledComment()
         {
-            YellowstonePathology.Business.Test.Model.TestCollection allTests = YellowstonePathology.Business.Test.Model.TestCollection.GetAllTests();
+            YellowstonePathology.Business.Test.Model.TestCollection allTests = YellowstonePathology.Business.Test.Model.TestCollection.GetAllTests(false);
             StringBuilder taskOrderDetailDescription = new StringBuilder();            
             taskOrderDetailDescription.AppendLine("The following stains have been cancelled:");
 

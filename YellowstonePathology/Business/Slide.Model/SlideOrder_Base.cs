@@ -47,7 +47,10 @@ namespace YellowstonePathology.Business.Slide.Model
         protected string m_Location;
         protected string m_ReportNo;
         protected string m_LabelType;
-        protected bool m_OrderedAsDual;        
+        protected bool m_OrderedAsDual;
+        protected bool m_UseWetProtocol;
+        protected string m_ProtocolColor;
+        protected bool m_OrderSentToVentana;
 
         private string m_LocationId;
         private string m_FacilityId;
@@ -72,7 +75,7 @@ namespace YellowstonePathology.Business.Slide.Model
             this.m_OrderedBy = systemIdentity.User.UserName;
             this.m_OrderedById = systemIdentity.User.UserId;
             this.m_OrderedFrom = Environment.MachineName;
-            this.m_OrderedAsDual = testOrder.OrderedAsDual;                   
+            this.m_OrderedAsDual = testOrder.OrderedAsDual;               
         }
 
         public void Validate(YellowstonePathology.Business.User.SystemIdentity systemIdentity)
@@ -698,6 +701,51 @@ namespace YellowstonePathology.Business.Slide.Model
                 {
                     this.m_Combined = value;
                     this.NotifyPropertyChanged("Combined");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
+        public bool UseWetProtocol
+        {
+            get { return this.m_UseWetProtocol; }
+            set
+            {
+                if (this.m_UseWetProtocol != value)
+                {
+                    this.m_UseWetProtocol = value;
+                    this.NotifyPropertyChanged("UseWetProtocol");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
+        public string ProtocolColor
+        {
+            get { return this.m_ProtocolColor; }
+            set
+            {
+                if (this.m_ProtocolColor != value)
+                {
+                    this.m_ProtocolColor = value;
+                    this.NotifyPropertyChanged("ProtocolColor");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
+        public bool OrderSentToVentana
+        {
+            get { return this.m_OrderSentToVentana; }
+            set
+            {
+                if (this.m_OrderSentToVentana != value)
+                {
+                    this.m_OrderSentToVentana = value;
+                    this.NotifyPropertyChanged("OrderSentToVentana");
                 }
             }
         }

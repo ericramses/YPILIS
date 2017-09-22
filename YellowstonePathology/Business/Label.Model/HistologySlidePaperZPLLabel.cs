@@ -10,7 +10,7 @@ namespace YellowstonePathology.Business.Label.Model
     {
         private string m_SlideOrderId;
         private string m_ReportNo;
-        private string m_LastName;
+        private string m_LastName;        
         private string m_TestName;
         private string m_SlideLabel;
         private string m_Location;
@@ -19,7 +19,7 @@ namespace YellowstonePathology.Business.Label.Model
         {
             this.m_SlideOrderId = slideOrderId;
             this.m_ReportNo = reportNo;
-            this.m_LastName = lastName;
+            this.m_LastName = lastName;            
             this.m_TestName = testName;
             this.m_SlideLabel = slideLabel;
             this.m_Location = location;
@@ -28,9 +28,9 @@ namespace YellowstonePathology.Business.Label.Model
         public void AppendCommands(StringBuilder result, int xOffset)
         {                        
             string truncatedtestName = null;
-            if (this.m_TestName.Length > 13)
+            if (this.m_TestName.Length > 16)
             {
-                truncatedtestName = this.m_TestName.Substring(0, 13);
+                truncatedtestName = this.m_TestName.Substring(0, 16);
             }
             else
             {
@@ -38,21 +38,23 @@ namespace YellowstonePathology.Business.Label.Model
             }
 
             string truncatedLastName = null;
-            if (this.m_LastName.Length > 13)
+            if (this.m_LastName.Length > 16)
             {
-                truncatedLastName = this.m_LastName.Substring(0, 13);
+                truncatedLastName = this.m_LastName.Substring(0, 16);
             }
             else
             {
                 truncatedLastName = this.m_LastName;
-            }
-                 
-            result.Append("^FO" + (28 + xOffset) + ",090^BXN,04,200^FD" + "HSLD" + this.m_SlideOrderId + "^FS");
-            result.Append("^FO" + (28 + xOffset) + ",030^ATN,40,40^FD" + this.m_ReportNo + "^FS");
-            result.Append("^FO" + (28 + xOffset) + ",180^ARN,25,25^FD" + truncatedLastName + "^FS");
-            result.Append("^FO" + (28 + xOffset) + ",210^ARN,25,25^FD" + truncatedtestName + "^FS");
-            result.Append("^FO" + (140 + xOffset) + ",118^ATN,25,25^FD" + this.m_SlideLabel + "^FS");
-            result.Append("^FO" + (100 + xOffset) + ",240^AQN,25,25^FD" + this.m_Location + "^FS");            
-        }        
+            }            
+            
+            result.Append("^PW440");
+            result.Append("^FWR");
+            result.Append("^FO0,0^AO,15,10^FD" + this.m_Location + "^FS");            
+            result.Append("^FO120,0^AO,30,15^FD" + truncatedLastName + "^FS");
+            result.Append("^FO80,0^AO,30,15^FD" + truncatedtestName + "^FS");
+            result.Append("^FO50,0^AO,30,15^FD" + this.m_SlideLabel + "^FS");
+            result.Append("^FO0,190^BXN,04,200^FD" + "HSLD" + this.m_SlideOrderId + "^FS");            
+            result.Append("^FO150,0^AO,30,15^FD" + this.m_ReportNo + "^FS");            
+        }
     }
 }

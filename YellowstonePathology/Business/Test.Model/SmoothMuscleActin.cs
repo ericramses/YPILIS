@@ -11,7 +11,7 @@ namespace YellowstonePathology.Business.Test.Model
 		{
 			this.m_TestId = 153;
 			this.m_TestName = "Smooth Muscle Actin";
-            this.m_TestAbbreviation = "Smooth Muscle Actin";
+            this.m_TestAbbreviation = "SMA";
 			this.m_Active = true;
 			this.m_NeedsAcknowledgement = true;
 		}

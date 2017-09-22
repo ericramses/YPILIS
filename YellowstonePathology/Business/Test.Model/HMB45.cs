@@ -14,6 +14,7 @@ namespace YellowstonePathology.Business.Test.Model
             this.m_TestAbbreviation = "HMB-45";
 			this.m_Active = true;
 			this.m_NeedsAcknowledgement = true;
-		}
+            this.m_ProtocolColor = "RED";
+        }
 	}
 }

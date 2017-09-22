@@ -29,11 +29,15 @@ namespace YellowstonePathology.Business.Test.Model
         protected string m_AliquotType;
         protected bool m_NeedsAcknowledgement;
         protected string m_DefaultResult;
-        protected bool m_RequestForAdditionalReport;        
+        protected bool m_RequestForAdditionalReport;
+        protected bool m_UseWetProtocol;
+        protected string m_ProtocolColor;
 
-		public Test()
+        public Test()
 		{
 			this.m_ResultItemCollection = new YellowstonePathology.Test.Model.ResultItemCollection();
+            this.m_UseWetProtocol = false;
+            this.m_ProtocolColor = "BROWN";
 		}
 
         public Test(int testId, string testName)
@@ -200,7 +204,33 @@ namespace YellowstonePathology.Business.Test.Model
 			}
 		}
 
-		public string DefaultResult
+        public bool UseWetProtocol
+        {
+            get { return this.m_UseWetProtocol; }
+            set
+            {
+                if (this.m_UseWetProtocol != value)
+                {
+                    this.m_UseWetProtocol = value;
+                    this.NotifyPropertyChanged("UseWetProtocol");
+                }
+            }
+        }
+
+        public string ProtocolColor
+        {
+            get { return this.m_ProtocolColor; }
+            set
+            {
+                if (this.m_ProtocolColor != value)
+                {
+                    this.m_ProtocolColor = value;
+                    this.NotifyPropertyChanged("ProtocolColor");
+                }
+            }
+        }
+
+        public string DefaultResult
 		{
 			get { return this.m_DefaultResult; }
 			set
@@ -225,6 +255,24 @@ namespace YellowstonePathology.Business.Test.Model
 				}
 			}
 		}
+
+        public void SetWetProtocol()
+        {
+            this.m_UseWetProtocol = true;
+            this.m_TestName = this.m_TestName + "(Wet)";
+            this.m_TestAbbreviation = this.m_TestAbbreviation + "W";
+        }
+
+        public void SetProtocolColor(string color)
+        {
+            this.m_ProtocolColor = color;
+
+            if(color != "STANDARD")
+            {
+                this.m_TestName = this.m_TestName + color;
+                this.m_TestAbbreviation = this.m_TestAbbreviation + color.Substring(0, 1);
+            }            
+        }
 
         public virtual string GetCodeableType(bool orderedAsDual)
         {

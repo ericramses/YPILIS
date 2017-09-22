@@ -45,7 +45,7 @@ namespace YellowstonePathology.Business.Label.Model
             {
                truncatedLastName = this.m_LastName;
             }
-        
+            
             zplString.Append("^FO" + (30 + xOffset) + ",090^BXN,08,200^FD" + "HBLK" + this.m_AliquotOrderId + "^FS");
             zplString.Append("^FO" + (30 + xOffset) + ",040^ATN,40,40^FD" + this.m_MasterAccessionNo + "^FS");
             zplString.Append("^FO" + (30 + xOffset) + ",220^AQN,25,25^FD" + truncatedLastName + "^FS");

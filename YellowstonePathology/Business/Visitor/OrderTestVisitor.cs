@@ -22,7 +22,7 @@ namespace YellowstonePathology.Business.Visitor
         private YellowstonePathology.Business.Test.PanelOrder m_PanelOrder;
         private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
         private YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen m_SurgicalSpecimen;
-		private YellowstonePathology.Business.Task.Model.TaskOrderCollection m_TaskOrderCollection;
+		private YellowstonePathology.Business.Task.Model.TaskOrderCollection m_TaskOrderCollection;        
 
         public OrderTestVisitor(string reportNo, YellowstonePathology.Business.Test.Model.Test test, string testOrderComment, string panelOrderComment, bool orderedAsDual,
 			YellowstonePathology.Business.Test.AliquotOrder aliquotOrder, bool acknowledgeOnOrder, bool orderAsSlide,
@@ -138,14 +138,16 @@ namespace YellowstonePathology.Business.Visitor
         private void HandleTestOrder()
         {
             string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();            
-            YellowstonePathology.Business.Test.Model.TestOrder testOrder = this.m_PanelOrder.TestOrderCollection.GetNextItem(this.m_PanelOrder.PanelOrderId, objectId, this.m_AliquotOrder.AliquotOrderId, this.m_Test, this.m_TestOrderComment);
+            YellowstonePathology.Business.Test.Model.TestOrder testOrder = this.m_PanelOrder.TestOrderCollection.GetNextItem(this.m_PanelOrder.PanelOrderId, objectId, this.m_AliquotOrder.AliquotOrderId, this.m_Test, this.m_TestOrderComment);                        
             testOrder.OrderedAsDual = this.m_OrderedAsDual;
             testOrder.AliquotOrder = this.m_AliquotOrder;
 
             this.m_PanelOrder.TestOrderCollection.Add(testOrder);
             this.m_TestOrder = testOrder;
+            this.m_TestOrder.ProtocolColor = this.m_Test.ProtocolColor;
+            this.m_TestOrder.UseWetProtocol = this.m_Test.UseWetProtocol;            
 
-			this.m_AliquotOrder.SetLabelPrefix(testOrder, true);
+            this.m_AliquotOrder.SetLabelPrefix(testOrder, true);
             this.m_AliquotOrder.HandleAddFrozen(testOrder);
 			this.m_AliquotOrder.TestOrderCollection.Add(this.m_TestOrder);
         }        

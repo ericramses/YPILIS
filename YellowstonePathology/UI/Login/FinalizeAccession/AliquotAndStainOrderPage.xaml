@@ -659,9 +659,11 @@
 						    <Hyperlink Click="HyperlinkDualStains_Click" Style="{StaticResource HyperLinkStyle1}">Dual Stains</Hyperlink>
                         </TextBlock>                                                    
                     </StackPanel>
-                    
-                    <Button Grid.Column="1" Grid.Row="3" Margin="2,2,2,2" Height="30" Width="100" Content="Order" Click="ButtonOrder_Click" HorizontalAlignment="Right" VerticalAlignment="Top"/>
-                    
+
+                    <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button Margin="2,2,2,2" Height="30" Width="100" Content="Order" Click="ButtonOrder_Click"/>
+                    </StackPanel>
+
                 </Grid>				
                 
 			</Grid>

@@ -31,7 +31,7 @@ namespace YellowstonePathology.Business.Surgical
             return result;
         }
 
-        public VentanaBenchMark GetByYPITestId(string ypiTestId, string stainModifier)
+        public VentanaBenchMark GetByYPITestId(string ypiTestId, bool useWetProtocol, string protocolColor)
         {
             VentanaBenchMark result = null;
 
@@ -47,7 +47,7 @@ namespace YellowstonePathology.Business.Surgical
             {
                 foreach (VentanaBenchMark item in this)
                 {
-                    if (item.YPITestId == ypiTestId && item.StainModifier == stainModifier)
+                    if (item.YPITestId == ypiTestId && item.UseWetProtocol == useWetProtocol && item.ProtocolColor == protocolColor)
                     {
                         result = item;
                         break;

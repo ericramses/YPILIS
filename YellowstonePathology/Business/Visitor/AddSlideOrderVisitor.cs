@@ -9,15 +9,16 @@ namespace YellowstonePathology.Business.Visitor
     {
         private YellowstonePathology.Business.Test.AliquotOrder m_AliquotOrder;
         private YellowstonePathology.Business.Test.Model.TestOrder m_TestOrder;
-        private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
+        private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;        
 
         public AddSlideOrderVisitor(YellowstonePathology.Business.Test.AliquotOrder aliquotOrder, YellowstonePathology.Business.Test.Model.TestOrder testOrder)
             : base(true, false)
         {
             this.m_AliquotOrder = aliquotOrder;
-            this.m_TestOrder = testOrder;
+            this.m_TestOrder = testOrder;            
             this.m_SystemIdentity = YellowstonePathology.Business.User.SystemIdentity.Instance;
         }
+
 
         public override void Visit(Test.AccessionOrder accessionOrder)
         {
@@ -53,6 +54,8 @@ namespace YellowstonePathology.Business.Visitor
             slideOrder.Status = Business.Slide.Model.SlideStatusEnum.Created.ToString();
             slideOrder.Location = accessioningFacility.LocationAbbreviation;
             slideOrder.LabelType = slide.LabelType.ToString();
+            slideOrder.UseWetProtocol = this.m_TestOrder.UseWetProtocol;
+            slideOrder.ProtocolColor = this.m_TestOrder.ProtocolColor;            
 
             this.m_TestOrder.SlideOrderCollection.Add(slideOrder);
             this.m_AliquotOrder.SlideOrderCollection.Add(slideOrder);

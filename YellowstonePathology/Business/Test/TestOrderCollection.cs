@@ -218,7 +218,7 @@ namespace YellowstonePathology.Business.Test.Model
         public bool HasTestRequiringAcknowledgement()
         {
             bool result = false;
-            YellowstonePathology.Business.Test.Model.TestCollection testCollection = YellowstonePathology.Business.Test.Model.TestCollection.GetAllTests();
+            YellowstonePathology.Business.Test.Model.TestCollection testCollection = YellowstonePathology.Business.Test.Model.TestCollection.GetAllTests(false);
             foreach (TestOrder testOrder in this)
             {
                 YellowstonePathology.Business.Test.Model.Test test = testCollection.GetTest(testOrder.TestId);

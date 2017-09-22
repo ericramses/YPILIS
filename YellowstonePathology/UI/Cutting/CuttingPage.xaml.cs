@@ -149,8 +149,8 @@ namespace YellowstonePathology.UI.Cutting
 
         private void SlideOptionsPage_PrintPaperLabel(object sender, CustomEventArgs.SlideOrderReturnEventArgs eventArgs)
         {
-            this.PrintPaperLabel(eventArgs.SlideOrder);
-            this.HandleVentanaOrder(this.m_AccessionOrder, eventArgs.SlideOrder, "STANDARD");
+            this.HandleVentanaOrder(this.m_AccessionOrder, eventArgs.SlideOrder);
+            this.PrintPaperLabel(eventArgs.SlideOrder);            
             this.m_PageNavigator.Navigate(this);
         }
 
@@ -285,31 +285,39 @@ namespace YellowstonePathology.UI.Cutting
                     MessageBox.Show("This is a client accessioned slide and cannot be printed.");
                 }
 
-                this.HandleVentanaOrder(this.m_AccessionOrder, slideOrder, "STANDARD");
+                this.HandleVentanaOrder(this.m_AccessionOrder, slideOrder);
                 this.NotifyPropertyChanged(string.Empty);
             }
         }
 
-        private void HandleVentanaOrder(Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder, string stainType)
-        {            
+        private void HandleVentanaOrder(Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder)
+        {                        
             if (slideOrder.LabelType == YellowstonePathology.Business.Slide.Model.SlideLabelTypeEnum.PaperLabel.ToString())
             {
                 try
                 {
-                    Business.HL7View.VentanaStainOrder ventanaStainOrder = new Business.HL7View.VentanaStainOrder();
-                    string result = ventanaStainOrder.Build(this.m_AccessionOrder, slideOrder.TestOrderId, slideOrder.SlideOrderId, stainType);
+                    if(slideOrder.OrderSentToVentana == false)
+                    {                        
+                        Business.HL7View.VentanaStainOrder ventanaStainOrder = new Business.HL7View.VentanaStainOrder();
+                        string result = ventanaStainOrder.Build(this.m_AccessionOrder, slideOrder.TestOrderId, slideOrder.SlideOrderId);
+                        slideOrder.OrderSentToVentana = true;
 
-                    string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-                    System.IO.File.WriteAllText(@"\\10.1.2.31\ChannelData\Outgoing\Ventana\" + objectId + ".hl7", result);
+                        string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
+                        System.IO.File.WriteAllText(@"\\10.1.2.31\ChannelData\Outgoing\Ventana\" + objectId + ".hl7", result);                     
+                    }
+                    else
+                    {
+                        MessageBox.Show("The order for this stain was previously sent to the Ventana interface and will not be sent again.");
+                    }                    
 
                     Business.Label.Model.ZPLPrinterUSB zplPrinterUSB = new Business.Label.Model.ZPLPrinterUSB();
                     zplPrinterUSB.Print(slideOrder.SlideOrderId, slideOrder.ReportNo, slideOrder.Label, slideOrder.PatientLastName, slideOrder.TestAbbreviation, slideOrder.Location);
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
-                }                
-            }            
+                }
+            }                               
         }
 
         private void PrintSlide(YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder)
@@ -342,9 +350,7 @@ namespace YellowstonePathology.UI.Cutting
         }
        
         private void PrintPaperLabel(YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder)
-        {
-            this.HandleVentanaOrder(this.m_AccessionOrder, slideOrder, "STANDARD");
-            
+        {                        
             System.Windows.Controls.PrintDialog printDialog = new System.Windows.Controls.PrintDialog();
             System.Printing.PrintServer printServer = new System.Printing.LocalPrintServer();
 

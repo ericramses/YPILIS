@@ -122,6 +122,8 @@ namespace YellowstonePathology.Business.Facility.Model
             result.Add(new UniversityOfArizonaCancerCenter());
             result.Add(new PathologyConsultantsOfWesternMontana());
             result.Add(new WilliamsPorterDayLaw());
+            result.Add(new EasternColoradoHealthcare());
+            result.Add(new MyriadGeneticsLab());
             return Sort(result);
         }
 
