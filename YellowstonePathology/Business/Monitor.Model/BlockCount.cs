@@ -93,7 +93,7 @@ namespace YellowstonePathology.Business.Monitor.Model
 
         public void SetBozemanBlockCount()
         {
-            /*this.m_OutlookApp = new Microsoft.Office.Interop.Outlook.Application();
+            this.m_OutlookApp = new Microsoft.Office.Interop.Outlook.Application();
             this.m_OutlookNameSpace = (Microsoft.Office.Interop.Outlook._NameSpace)this.m_OutlookApp.GetNamespace("MAPI");
             this.m_MAPIFolder = this.m_OutlookNameSpace.GetDefaultFolder(Microsoft.Office.Interop.Outlook.OlDefaultFolders.olFolderInbox);
             this.m_Explorer = this.m_MAPIFolder.GetExplorer(false);
@@ -116,7 +116,7 @@ namespace YellowstonePathology.Business.Monitor.Model
                 }
                 System.Runtime.InteropServices.Marshal.FinalReleaseComObject(item);
             }
-            System.Runtime.InteropServices.Marshal.FinalReleaseComObject(items);*/
+            System.Runtime.InteropServices.Marshal.FinalReleaseComObject(items);
         }
 
         public void NotifyPropertyChanged(String info)
