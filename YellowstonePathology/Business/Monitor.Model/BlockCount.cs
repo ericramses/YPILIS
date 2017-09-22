@@ -56,6 +56,11 @@ namespace YellowstonePathology.Business.Monitor.Model
             }
         }
 
+        public int TotalBlockCount
+        {
+            get { return this.m_YPIBlockCount + this.m_BozemanBlockCount; }
+        }
+
         public MonitorStateEnum State
         {
             get { return this.m_State; }

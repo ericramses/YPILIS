@@ -3276,8 +3276,8 @@
     <Compile Include="UI\BrowserWindow.xaml.cs">
       <DependentUpon>BrowserWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Monitor\BlockCountMonitorPage.xaml.cs">
-      <DependentUpon>BlockCountMonitorPage.xaml</DependentUpon>
+    <Compile Include="UI\Monitor\DashboardPage.xaml.cs">
+      <DependentUpon>DashboardPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\RetrospectiveReviewListItem.cs" />
     <Compile Include="UI\RetrospectiveReviewList.cs" />
@@ -5417,7 +5417,7 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\Monitor\AutopsyRequestMonitorPage.xaml" />
-    <Page Include="UI\Monitor\BlockCountMonitorPage.xaml">
+    <Page Include="UI\Monitor\DashboardPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

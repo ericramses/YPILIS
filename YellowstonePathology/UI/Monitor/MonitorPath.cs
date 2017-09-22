@@ -74,10 +74,10 @@ namespace YellowstonePathology.UI.Monitor
                     missingInformationMonitorPage.Refresh();
                     this.m_MonitorPageWindow.PageNavigator.Navigate(missingInformationMonitorPage);
                     break;
-                case MonitorPageLoadEnum.BlockCount:
-                    BlockCountMonitorPage blockCountMonitorPage = new BlockCountMonitorPage();
-                    blockCountMonitorPage.Refresh();
-                    this.m_MonitorPageWindow.PageNavigator.Navigate(blockCountMonitorPage);
+                case MonitorPageLoadEnum.DashboardMonitor:
+                    DashboardPage dashboardPage = new DashboardPage();
+                    dashboardPage.Refresh();
+                    this.m_MonitorPageWindow.PageNavigator.Navigate(dashboardPage);
                     break;
             }
             this.m_MonitorPageWindow.Show();
@@ -97,8 +97,8 @@ namespace YellowstonePathology.UI.Monitor
             MissingInformationMonitorPage missingInformationPage = new MissingInformationMonitorPage();
             this.m_PageQueue.Enqueue(missingInformationPage);
 
-            BlockCountMonitorPage blockCountMonitorPage = new Monitor.BlockCountMonitorPage();
-            this.m_PageQueue.Enqueue(blockCountMonitorPage);
+            DashboardPage dashboardPage = new Monitor.DashboardPage();
+            this.m_PageQueue.Enqueue(dashboardPage);
         }
 
         public void StartTimer()
