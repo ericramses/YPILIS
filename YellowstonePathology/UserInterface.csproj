@@ -1143,6 +1143,8 @@
     <Compile Include="Business\Reports\SurgicalSpecimenDisposalReportV2.xaml.cs">
       <DependentUpon>SurgicalSpecimenDisposalReportV2.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Business\SpecialStain\VentanaBenchMark.cs" />
+    <Compile Include="Business\SpecialStain\VentanaBenchMarkCollection.cs" />
     <Compile Include="Business\Specimen.Model\WashAliquot.cs" />
     <Compile Include="Business\Surgical\VentanaBenchMark.cs" />
     <Compile Include="Business\Surgical\VentanaBenchMarkCollection.cs" />
@@ -4605,6 +4607,12 @@
     </Compile>
     <Compile Include="UI\Ventana.cs" />
     <Compile Include="UI\VentanaGrpc.cs" />
+    <Compile Include="UI\VentanaStainEditDialog.xaml.cs">
+      <DependentUpon>VentanaStainEditDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\VentanaStainMappingDialog.xaml.cs">
+      <DependentUpon>VentanaStainMappingDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\WatchBitmap.xaml.cs">
       <DependentUpon>WatchBitmap.xaml</DependentUpon>
     </Compile>
@@ -6710,6 +6718,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Test\TestResultEditDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\VentanaStainEditDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\VentanaStainMappingDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
