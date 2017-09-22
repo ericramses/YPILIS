@@ -942,5 +942,11 @@ namespace YellowstonePathology.UI
             RetrospectiveReviews retrospectiveReviews = new RetrospectiveReviews();
             retrospectiveReviews.Show();
         }
+
+        private void MenuItemVentanaStainMapping_Click(object sender, RoutedEventArgs e)
+        {
+            VentanaStainMappingDialog dialog = new UI.VentanaStainMappingDialog();
+            dialog.Show();
+        }
     }
 }

@@ -295,5 +295,21 @@ namespace YellowstonePathology.Business.Persistence
                 return (YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch)document.Value;
             }
         }
+
+        public YellowstonePathology.Business.SpecialStain.VentanaBenchMark PullVentanaBenchMark(int barcodeNumber, object writer)
+        {
+            lock (locker)
+            {
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.CommandText = "Select * from tblVentanaBenchMark m where m.BarcodeNumber = @BarcodeNumber;";
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("@BarcodeNumber", barcodeNumber);
+                GenericDocumentBuilder builder = new GenericDocumentBuilder(cmd, typeof(YellowstonePathology.Business.SpecialStain.VentanaBenchMark));
+
+                DocumentId documentId = new DocumentId(typeof(YellowstonePathology.Business.SpecialStain.VentanaBenchMark), writer, barcodeNumber);
+                Document document = this.m_Stack.Pull(documentId, builder);
+                return (YellowstonePathology.Business.SpecialStain.VentanaBenchMark)document.Value;
+            }
+        }
     }
 }

@@ -19,12 +19,14 @@ namespace YellowstonePathology.Business.Monitor.Model
 
         private int m_YPIBlockCount;
         private int m_BozemanBlockCount;
+        private string m_BozemanBlocks;
         private MonitorStateEnum m_State;
 
         public BlockCount()
         {
             this.m_YPIBlockCount = 0;
             this.m_BozemanBlockCount = 0;
+            this.m_BozemanBlocks = "Unknown";
             this.m_State = MonitorStateEnum.Normal;
         }
 
@@ -52,6 +54,19 @@ namespace YellowstonePathology.Business.Monitor.Model
                 {
                     this.m_BozemanBlockCount = value;
                     this.NotifyPropertyChanged("BozemanBlockCount");
+                }
+            }
+        }
+
+        public string BozemanBlocks
+        {
+            get { return this.m_BozemanBlocks; }
+            set
+            {
+                if (this.m_BozemanBlocks != value)
+                {
+                    this.m_BozemanBlocks = value;
+                    this.NotifyPropertyChanged("BozemanBlocks");
                 }
             }
         }
@@ -93,7 +108,7 @@ namespace YellowstonePathology.Business.Monitor.Model
 
         public void SetBozemanBlockCount()
         {
-            /*this.m_OutlookApp = new Microsoft.Office.Interop.Outlook.Application();
+            this.m_OutlookApp = new Microsoft.Office.Interop.Outlook.Application();
             this.m_OutlookNameSpace = (Microsoft.Office.Interop.Outlook._NameSpace)this.m_OutlookApp.GetNamespace("MAPI");
             this.m_MAPIFolder = this.m_OutlookNameSpace.GetDefaultFolder(Microsoft.Office.Interop.Outlook.OlDefaultFolders.olFolderInbox);
             this.m_Explorer = this.m_MAPIFolder.GetExplorer(false);
@@ -105,18 +120,31 @@ namespace YellowstonePathology.Business.Monitor.Model
                 if (item is Microsoft.Office.Interop.Outlook.MailItem)
                 {
                     Microsoft.Office.Interop.Outlook.MailItem mailItem = (Microsoft.Office.Interop.Outlook.MailItem)item;
-                    if (mailItem.SentOn.ToShortDateString() == DateTime.Today.ToShortDateString() && mailItem.Subject == "Daily Block Count")
+                    if (mailItem.UnRead)
                     {
-                        string body = mailItem.Body;
-                        int idx = body.IndexOf("Block Count ");
-                        string count = body.Substring(idx + 12);
-                        this.m_BozemanBlockCount = Convert.ToInt32(count);
-                        System.Runtime.InteropServices.Marshal.FinalReleaseComObject(mailItem);
+                        if (mailItem.SentOn.ToShortDateString() == DateTime.Today.ToShortDateString() && mailItem.Subject.Contains("Block Count"))
+                        {
+                            string subject = mailItem.Subject;
+                            int idx = subject.IndexOf("Block Count") + 12;
+                            string countString = subject.Substring(idx);
+                            string count = string.Empty;
+                            for(int x = 0; x < countString.Length; x++)
+                            {
+                                if(char.IsDigit(countString[x]))
+                                {
+                                    count = count + countString[x];
+                                }
+                            }
+                            if(string.IsNullOrEmpty(count) == false)
+                            this.m_BozemanBlockCount = Convert.ToInt32(count);
+                            this.m_BozemanBlocks = count;
+                        }
                     }
+                    System.Runtime.InteropServices.Marshal.FinalReleaseComObject(mailItem);
                 }
                 System.Runtime.InteropServices.Marshal.FinalReleaseComObject(item);
             }
-            System.Runtime.InteropServices.Marshal.FinalReleaseComObject(items);*/
+            System.Runtime.InteropServices.Marshal.FinalReleaseComObject(items);
         }
 
         public void NotifyPropertyChanged(String info)

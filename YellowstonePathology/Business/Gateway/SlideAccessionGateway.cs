@@ -647,5 +647,31 @@ namespace YellowstonePathology.Business.Gateway
             }
             return result;
         }
+
+        public static SpecialStain.VentanaBenchMarkCollection GetVentanaBenchMarks()
+        {
+            SpecialStain.VentanaBenchMarkCollection result = new SpecialStain.VentanaBenchMarkCollection();
+
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "select * from tblVentanaBenchMark order by StainName;";
+            cmd.CommandType = System.Data.CommandType.Text;
+
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        SpecialStain.VentanaBenchMark ventanaBenchMark = new SpecialStain.VentanaBenchMark();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter propertyWriter = new Persistence.SqlDataReaderPropertyWriter(ventanaBenchMark, dr);
+                        propertyWriter.WriteProperties();
+                        result.Add(ventanaBenchMark);
+                    }
+                }
+            }
+            return result;
+        }
     }
 }
