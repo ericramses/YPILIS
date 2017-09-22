@@ -982,26 +982,10 @@ namespace YellowstonePathology.UI
         }
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
-        {
-            /*
-            StringBuilder result = new StringBuilder();
-            result.Append("^XA");
-            result.Append("^FWR");
+        {                        
 
-            result.Append("^FO120,28^AO,20,10^FD17-12346.F2^FS");
-            result.Append("^FO60,28^BXN,04,200^FDHSLD1234567^FS");            
-
-            result.Append("^FO70,100^AO,20,10^FD1A2^FS");
-
-            result.Append("^FO30,28^AO,20,10^FDMOUSE^FS");
-            result.Append("^FO10,28^AO,20,10^FDMICKEY^FS");                        
-            //result.Append("^FO20,28^AO,20,10^FDYPI Blgs^FS");
-
-            result.Append("^XZ");
-
-            Business.Label.Model.ZPLPrinterUSB usbPrinter = new Business.Label.Model.ZPLPrinterUSB();
-            usbPrinter.Print("HSLD17-12123", "17-12345.F2", "123456789123456789123456789", "Oscar", "1A2", "YPI Blgs");
-            */
+            //Business.Label.Model.ZPLPrinterUSB usbPrinter = new Business.Label.Model.ZPLPrinterUSB();
+            //usbPrinter.Print("HSLD17-12123", "17-12345.F2", "FRANKENSTEIN", "Oscar", "1A2", "YPI Blgs");         
 
             //Business.Label.Model.ZPLPrinterTCP printer = new Business.Label.Model.ZPLPrinterTCP("10.1.1.19");
             //printer.Print(result.ToString());
@@ -1022,17 +1006,18 @@ namespace YellowstonePathology.UI
             for(int x = 1; x<lines.Length; x++)
             {
                 string[] fields = lines[x].Split(',');
-                if(fields[0] != "Delete" && fields[0] != "NA")
+                if(fields[0] == "1")
                 {
                     StringBuilder sql = new StringBuilder("Insert tblVentanaBenchMark ");
-                    sql.Append("(BarcodeNumber, StainerType, StainName, `Procedure`, ProtocolName, YPITestId, StainModifier) values (");
+                    sql.Append("(BarcodeNumber, StainerType, StainName, `Procedure`, ProtocolName, YPITestId, IsWetProtocol, IsDualProtocol) values (");
                     sql.Append("'" + fields[1] + "', ");
                     sql.Append("'" + fields[2] + "', ");
                     sql.Append("'" + fields[3] + "', ");
                     sql.Append("'" + fields[4] + "', ");
                     sql.Append("'" + fields[5] + "', ");
-                    sql.Append("'" + fields[6] + "', ");
-                    sql.Append("'" + fields[7] + "'");
+                    sql.Append("'" + fields[6] + "', ");                    
+                    sql.Append(fields[7] + ", ");
+                    sql.Append(fields[8]);
                     sql.Append(");");
                     Console.WriteLine(sql.ToString());
                 }                

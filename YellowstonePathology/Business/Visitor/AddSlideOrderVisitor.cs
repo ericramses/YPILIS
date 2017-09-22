@@ -54,8 +54,7 @@ namespace YellowstonePathology.Business.Visitor
             slideOrder.Status = Business.Slide.Model.SlideStatusEnum.Created.ToString();
             slideOrder.Location = accessioningFacility.LocationAbbreviation;
             slideOrder.LabelType = slide.LabelType.ToString();
-            slideOrder.UseWetProtocol = this.m_TestOrder.UseWetProtocol;
-            slideOrder.ProtocolColor = this.m_TestOrder.ProtocolColor;            
+            slideOrder.UseWetProtocol = this.m_TestOrder.UseWetProtocol;            
 
             this.m_TestOrder.SlideOrderCollection.Add(slideOrder);
             this.m_AliquotOrder.SlideOrderCollection.Add(slideOrder);

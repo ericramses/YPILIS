@@ -20,8 +20,7 @@ namespace YellowstonePathology.Business.Test.Model
         protected string m_Comment;
         protected bool m_OrderedAsDual;
         protected bool m_NoCharge;
-        protected bool m_UseWetProtocol;
-        protected string m_ProtocolColor;
+        protected bool m_UseWetProtocol;        
 
         public TestOrder_Base()
         {
@@ -191,22 +190,7 @@ namespace YellowstonePathology.Business.Test.Model
                     this.NotifyPropertyChanged("NoCharge");
                 }
             }
-        }
-
-        [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
-        public string ProtocolColor
-        {
-            get { return this.m_ProtocolColor; }
-            set
-            {
-                if (this.m_ProtocolColor != value)
-                {
-                    this.m_ProtocolColor = value;
-                    this.NotifyPropertyChanged("ProtocolColor");
-                }
-            }
-        }
+        }        
 
         [PersistentProperty()]
         [PersistentDataColumnProperty(true, "1", "0", "tinyint")]

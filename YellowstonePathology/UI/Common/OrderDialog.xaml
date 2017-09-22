@@ -59,7 +59,7 @@
 			<StackPanel Orientation="Horizontal">
 				<CheckBox Margin="2" VerticalAlignment="Center" IsChecked="{Binding Path=Element[Order].Value, Converter={StaticResource BooleanStringConverter}}" Tag="{Binding}"
 						  Checked="CheckBoxStain_Checked" Unchecked="CheckBoxStain_Unchecked"></CheckBox>
-				<TextBlock Margin="2" ToolTip="{Binding Path=Element[Name].Value}" Width="120" VerticalAlignment="Center" Text="{Binding Path=Element[Name].Value}"/>
+                <TextBlock Margin="2" ToolTip="{Binding Path=Element[Name].Value}" Width="120" VerticalAlignment="Center" Text="{Binding Path=Element[Name].Value}"/>
 			</StackPanel>
 		</DataTemplate>
 

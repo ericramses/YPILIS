@@ -32,7 +32,7 @@ namespace YellowstonePathology.Business.HL7View
             Business.Specimen.Model.SpecimenOrder specimenOrder = accessionOrder.SpecimenOrderCollection.GetSpecimenOrderByAliquotOrderId(aliquotOrder.AliquotOrderId);
 
             Business.Surgical.VentanaBenchMarkCollection ventanaBenchMarkCollection = Business.Gateway.AccessionOrderGateway.GetVentanaBenchMarkCollection();
-            Business.Surgical.VentanaBenchMark ventanaBenchMark = ventanaBenchMarkCollection.GetByYPITestId(testOrder.TestId.ToString(), slideOrder.UseWetProtocol, slideOrder.ProtocolColor);
+            Business.Surgical.VentanaBenchMark ventanaBenchMark = ventanaBenchMarkCollection.GetByYPITestId(testOrder.TestId.ToString(), slideOrder.UseWetProtocol);
 
             orderRequest.Msh = new Ventana.msh();
             orderRequest.Msh.SendingApplication = "YPILIS";

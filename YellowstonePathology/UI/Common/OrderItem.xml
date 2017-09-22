@@ -195,24 +195,7 @@
 								<TemplateName>StandardCheckBoxTemplate</TemplateName>
 								<OrderItems>
 								</OrderItems>
-							</OrderItem>
-							<OrderItem>
-								<Id>113</Id>
-								<ParentId>19</ParentId>
-								<ChildId>0</ChildId>
-								<Name>Ig Kappa/Ig Lambda</Name>
-								<Orderable>True</Orderable>
-								<Order>False</Order>
-								<ItemType>DualStain</ItemType>
-								<OrderPriority>40</OrderPriority>
-								<NotListedName></NotListedName>
-								<NotListedNameVisible>False</NotListedNameVisible>
-								<Comment></Comment>
-								<CommentVisible>False</CommentVisible>
-								<TemplateName>StandardCheckBoxTemplate</TemplateName>
-								<OrderItems>
-								</OrderItems>
-							</OrderItem>																					
+							</OrderItem>																								
 							<OrderItem> 
 								<Id>170</Id>
 								<ParentId>19</ParentId>
@@ -829,7 +812,7 @@
                 <Id>356</Id>
                 <ParentId>19</ParentId>
                 <ChildId>0</ChildId>
-                <Name>SOX10</Name>
+                <Name>SOX10</Name>                
                 <Orderable>True</Orderable>
                 <Order>False</Order>
                 <ItemType>Test</ItemType>
@@ -846,7 +829,7 @@
 								<Id>152</Id>
 								<ParentId>19</ParentId>
 								<ChildId>0</ChildId>
-								<Name>S100</Name>
+								<Name>S100</Name>                
 								<Orderable>True</Orderable>
 								<Order>False</Order>
 								<ItemType>Test</ItemType>
@@ -863,7 +846,7 @@
 								<Id>119</Id>
 								<ParentId>19</ParentId>
 								<ChildId>0</ChildId>
-								<Name>Melan A</Name>
+								<Name>Melan A</Name>                
 								<Orderable>True</Orderable>
 								<Order>False</Order>
 								<ItemType>Test</ItemType>
@@ -880,7 +863,7 @@
 								<Id>111</Id>
 								<ParentId>19</ParentId>
 								<ChildId>0</ChildId>
-								<Name>HMB-45</Name>
+								<Name>HMB-45</Name>                
 								<Orderable>True</Orderable>
 								<Order>False</Order>
 								<ItemType>Test</ItemType>
@@ -1016,7 +999,7 @@
 								<Id>154</Id>
 								<ParentId>19</ParentId>
 								<ChildId>0</ChildId>
-								<Name>Smooth Muscle Myosin</Name>
+								<Name>Smooth Muscle Myosin</Name>                
 								<Orderable>True</Orderable>
 								<Order>False</Order>
 								<ItemType>Test</ItemType>

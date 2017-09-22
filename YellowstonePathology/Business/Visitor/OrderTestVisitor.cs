@@ -143,8 +143,7 @@ namespace YellowstonePathology.Business.Visitor
             testOrder.AliquotOrder = this.m_AliquotOrder;
 
             this.m_PanelOrder.TestOrderCollection.Add(testOrder);
-            this.m_TestOrder = testOrder;
-            this.m_TestOrder.ProtocolColor = this.m_Test.ProtocolColor;
+            this.m_TestOrder = testOrder;            
             this.m_TestOrder.UseWetProtocol = this.m_Test.UseWetProtocol;            
 
             this.m_AliquotOrder.SetLabelPrefix(testOrder, true);

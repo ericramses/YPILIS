@@ -48,8 +48,7 @@ namespace YellowstonePathology.Business.Slide.Model
         protected string m_ReportNo;
         protected string m_LabelType;
         protected bool m_OrderedAsDual;
-        protected bool m_UseWetProtocol;
-        protected string m_ProtocolColor;
+        protected bool m_UseWetProtocol;        
         protected bool m_OrderSentToVentana;
 
         private string m_LocationId;
@@ -718,22 +717,7 @@ namespace YellowstonePathology.Business.Slide.Model
                     this.NotifyPropertyChanged("UseWetProtocol");
                 }
             }
-        }
-
-        [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
-        public string ProtocolColor
-        {
-            get { return this.m_ProtocolColor; }
-            set
-            {
-                if (this.m_ProtocolColor != value)
-                {
-                    this.m_ProtocolColor = value;
-                    this.NotifyPropertyChanged("ProtocolColor");
-                }
-            }
-        }
+        }        
 
         [PersistentProperty()]
         [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
