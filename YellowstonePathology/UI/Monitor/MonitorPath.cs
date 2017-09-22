@@ -174,9 +174,12 @@ namespace YellowstonePathology.UI.Monitor
                     Microsoft.Office.Interop.Outlook.MailItem mailItem = (Microsoft.Office.Interop.Outlook.MailItem)item;
                     if (mailItem.UnRead)
                     {
-                        result = true;
-                        System.Runtime.InteropServices.Marshal.FinalReleaseComObject(item);
-                        break;
+                        if (mailItem.To == "autopsyrequest" || mailItem.SenderEmailAddress == "RKurtzman@mt.gov" || mailItem.SenderEmailAddress == "HBeeler@mt.gov")
+                        {
+                            result = true;
+                            System.Runtime.InteropServices.Marshal.FinalReleaseComObject(item);
+                            break;
+                        }
                     }
                 }                
                 System.Runtime.InteropServices.Marshal.FinalReleaseComObject(item);
