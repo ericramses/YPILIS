@@ -50,9 +50,10 @@ namespace YellowstonePathology.Business.Slide.Model
         protected bool m_OrderedAsDual;
         protected bool m_UseWetProtocol;        
         protected bool m_OrderSentToVentana;
+        protected bool m_PerformedByHand;
 
         private string m_LocationId;
-        private string m_FacilityId;
+        private string m_FacilityId;        
 
         private bool m_Combined;
 
@@ -730,6 +731,21 @@ namespace YellowstonePathology.Business.Slide.Model
                 {
                     this.m_OrderSentToVentana = value;
                     this.NotifyPropertyChanged("OrderSentToVentana");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
+        public bool PerformedByHand
+        {
+            get { return this.m_PerformedByHand; }
+            set
+            {
+                if (this.m_PerformedByHand != value)
+                {
+                    this.m_PerformedByHand = value;
+                    this.NotifyPropertyChanged("PerformedByHand");
                 }
             }
         }

@@ -2371,32 +2371,7 @@ namespace YellowstonePathology.Business.Gateway
             }
 
             return result;
-        }
-
-        /*public static YellowstonePathology.Business.NeogenomicsResultCollection GetNeogenomicsResultCollection()
-		{            
-			YellowstonePathology.Business.NeogenomicsResultCollection result = new YellowstonePathology.Business.NeogenomicsResultCollection();
-			MySqlCommand cmd = new MySqlCommand();
-			cmd.CommandText = "Select * from tblNeogenomicsResult order by DateResultReceived desc;";
-			cmd.CommandType = CommandType.Text;
-
-			using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-			{
-				cn.Open();
-				cmd.Connection = cn;
-				using (MySqlDataReader dr = cmd.ExecuteReader())
-				{
-					while (dr.Read())
-					{
-						YellowstonePathology.Business.NeogenomicsResult neogenomicsResult = new YellowstonePathology.Business.NeogenomicsResult();
-						YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(neogenomicsResult, dr);
-						sqlDataReaderPropertyWriter.WriteProperties();
-						result.Add(neogenomicsResult);
-					}
-				}
-			}
-			return result;
-		}*/
+        }        
 
 		public static YellowstonePathology.Business.Test.Model.StainTest GetStainTestByTestId(int testId)
 		{

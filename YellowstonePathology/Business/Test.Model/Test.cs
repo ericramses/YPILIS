@@ -31,13 +31,13 @@ namespace YellowstonePathology.Business.Test.Model
         protected string m_DefaultResult;
         protected bool m_RequestForAdditionalReport;
         protected bool m_UseWetProtocol;
-        protected string m_ProtocolColor;
+        protected bool m_PerformedByHand;
 
         public Test()
 		{
 			this.m_ResultItemCollection = new YellowstonePathology.Test.Model.ResultItemCollection();
             this.m_UseWetProtocol = false;
-            this.m_ProtocolColor = "BROWN";
+            this.m_PerformedByHand = false;      
 		}
 
         public Test(int testId, string testName)
@@ -217,15 +217,15 @@ namespace YellowstonePathology.Business.Test.Model
             }
         }
 
-        public string ProtocolColor
+        public bool PerformedByHand
         {
-            get { return this.m_ProtocolColor; }
+            get { return this.m_PerformedByHand; }
             set
             {
-                if (this.m_ProtocolColor != value)
+                if (this.m_PerformedByHand != value)
                 {
-                    this.m_ProtocolColor = value;
-                    this.NotifyPropertyChanged("ProtocolColor");
+                    this.m_PerformedByHand = value;
+                    this.NotifyPropertyChanged("PerformedByHand");
                 }
             }
         }
@@ -261,18 +261,7 @@ namespace YellowstonePathology.Business.Test.Model
             this.m_UseWetProtocol = true;
             this.m_TestName = this.m_TestName + "(Wet)";
             this.m_TestAbbreviation = this.m_TestAbbreviation + "W";
-        }
-
-        public void SetProtocolColor(string color)
-        {
-            this.m_ProtocolColor = color;
-
-            if(color != "STANDARD")
-            {
-                this.m_TestName = this.m_TestName + color;
-                this.m_TestAbbreviation = this.m_TestAbbreviation + color.Substring(0, 1);
-            }            
-        }
+        }        
 
         public virtual string GetCodeableType(bool orderedAsDual)
         {

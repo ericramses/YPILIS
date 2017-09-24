@@ -68,7 +68,7 @@ namespace YellowstonePathology.UI.Cutting
 
         private void ButtonClear_Click(object sender, RoutedEventArgs e)
         {
-            this.TextMasterAccessionNo.Text = string.Empty;
+            this.TextMasterAccessionNo.Text = DateTime.Today.Year.ToString().Substring(2,2);
         }				          
 
         public void NotifyPropertyChanged(String info)

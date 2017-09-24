@@ -264,7 +264,7 @@ namespace YellowstonePathology.UI.AppMessaging
 
         private void LockRequestResponseReceivedPage_LockWasReleased(object sender, EventArgs e)
         {
-            this.LockWasReleased(this, new EventArgs());
+            if(this.LockWasReleased != null) this.LockWasReleased(this, new EventArgs());
         }        
     }
 }

@@ -47,7 +47,7 @@ namespace YellowstonePathology.Business.Surgical
             {
                 foreach (VentanaBenchMark item in this)
                 {
-                    if (item.YPITestId == ypiTestId && item.UseWetProtocol == useWetProtocol)
+                    if (item.YPITestId == ypiTestId && item.IsWetProtocol == useWetProtocol)
                     {
                         result = item;
                         break;

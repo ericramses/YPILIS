@@ -657,7 +657,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 			Hyperlink hyperlink = (Hyperlink)sender;
 			string initial = hyperlink.Tag.ToString();
 			
-			this.m_TestCollection = this.m_AllTests.GetTestsStartingWithToObjectCollection(initial, true);			
+			this.m_TestCollection = this.m_AllTests.GetTestsStartingWithToObjectCollection(initial, true);            
             this.NotifyPropertyChanged("TestCollection");            
 		}                
 

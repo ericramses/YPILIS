@@ -78,6 +78,8 @@ namespace YellowstonePathology.Business.Test.Model
             ObservableCollection<object> result = new ObservableCollection<object>();
             List<Test> tests = new List<Test>();
             TestCollection allTests = TestCollection.GetAllTests(includeWetProtocols);
+            allTests.Add(Business.Test.Model.TestCollection.GetWetIron());
+
             foreach (Test test in allTests)
             {
                 if (test.TestName.Substring(0, 1) == firstLetter) tests.Add(test);
@@ -90,6 +92,13 @@ namespace YellowstonePathology.Business.Test.Model
             }
             return result;
         }               
+
+        public static Iron GetWetIron()
+        {
+            Iron wetIron = new Iron();
+            wetIron.SetWetProtocol();
+            return wetIron;
+        }
 
         public static TestCollection GetAllTests(bool includeWetProtocols)
         {

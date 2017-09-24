@@ -982,8 +982,8 @@ namespace YellowstonePathology.UI
         }
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
-        {                        
-
+        {
+            //this.GetSlideNumberTest();
             //Business.Label.Model.ZPLPrinterUSB usbPrinter = new Business.Label.Model.ZPLPrinterUSB();
             //usbPrinter.Print("HSLD17-12123", "17-12345.F2", "FRANKENSTEIN", "Oscar", "1A2", "YPI Blgs");         
 
@@ -1000,7 +1000,7 @@ namespace YellowstonePathology.UI
             }
             */
 
-            
+            /*
             string path = @"C:\temp\stains.csv";
             string[] lines = System.IO.File.ReadAllLines(path);
             for(int x = 1; x<lines.Length; x++)
@@ -1021,7 +1021,16 @@ namespace YellowstonePathology.UI
                     sql.Append(");");
                     Console.WriteLine(sql.ToString());
                 }                
-            }            
+            } 
+            */
+        }
+
+        private void GetSlideNumberTest()
+        {
+            string t1 = Business.Specimen.Model.Slide.GetSlideNumber("1A1");
+            string t2 = Business.Specimen.Model.Slide.GetSlideNumber("12A1");
+            string t3 = Business.Specimen.Model.Slide.GetSlideNumber("1.CE");
+            string t4 = Business.Specimen.Model.Slide.GetSlideNumber("12.CE");
         }
 
         private void InsertBenchMarkData()

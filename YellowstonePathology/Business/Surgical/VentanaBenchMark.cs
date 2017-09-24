@@ -19,8 +19,8 @@ namespace YellowstonePathology.Business.Surgical
         protected string m_Procedure;
         protected string m_ProtocolName;
         protected string m_YPITestId;
-        protected string m_StainModifier;
-        protected bool m_UseWetProtocol;        
+        protected bool m_IsWetProtocol;
+        protected bool m_IsDualProtocol;        
 
         public VentanaBenchMark()
         {
@@ -115,37 +115,37 @@ namespace YellowstonePathology.Business.Surgical
                     this.NotifyPropertyChanged("YPITestId");
                 }
             }
-        }
+        }        
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "100", "null", "varchar")]
-        public string StainModifier
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
+        public bool IsWetProtocol
         {
-            get { return this.m_StainModifier; }
+            get { return this.m_IsWetProtocol; }
             set
             {
-                if (this.m_StainModifier != value)
+                if (this.m_IsWetProtocol != value)
                 {
-                    this.m_StainModifier = value;
-                    this.NotifyPropertyChanged("StainModifier");
+                    this.m_IsWetProtocol = value;
+                    this.NotifyPropertyChanged("IsWetProtocol");
                 }
             }
         }
 
         [PersistentProperty()]
         [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
-        public bool UseWetProtocol
+        public bool IsDualProtocol
         {
-            get { return this.m_UseWetProtocol; }
+            get { return this.m_IsDualProtocol; }
             set
             {
-                if (this.m_UseWetProtocol != value)
+                if (this.m_IsDualProtocol != value)
                 {
-                    this.m_UseWetProtocol = value;
-                    this.NotifyPropertyChanged("UseWetProtocol");
+                    this.m_IsDualProtocol = value;
+                    this.NotifyPropertyChanged("IsDualProtocol");
                 }
             }
-        }        
+        }
 
         public void NotifyPropertyChanged(String info)
         {

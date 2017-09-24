@@ -14,6 +14,7 @@ namespace YellowstonePathology.Business.Test.Model
             this.m_TestAbbreviation = "Oil Red O";
 			this.m_Active = true;
 			this.m_NeedsAcknowledgement = true;
-		}
+            this.m_PerformedByHand = true;
+        }
 	}
 }

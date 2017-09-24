@@ -13,8 +13,7 @@ namespace YellowstonePathology.Business.Test.Model
 			this.m_TestName = "SOX10";
             this.m_TestAbbreviation = "SOX10";
 			this.m_Active = true;
-			this.m_NeedsAcknowledgement = true;
-            this.m_ProtocolColor = "RED";
+			this.m_NeedsAcknowledgement = true;            
         }
 	}
 }

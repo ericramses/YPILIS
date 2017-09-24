@@ -2031,41 +2031,7 @@
 								<TemplateName>StandardCheckBoxTemplate</TemplateName>
 								<OrderItems>
 								</OrderItems>
-							</OrderItem>
-							<OrderItem>
-								<Id>113</Id>
-								<ParentId>19</ParentId>
-								<ChildId>0</ChildId>
-								<Name>Ig Kappa</Name>
-								<Orderable>True</Orderable>
-								<Order>False</Order>
-								<ItemType>Test</ItemType>
-								<OrderPriority>40</OrderPriority>
-								<NotListedName></NotListedName>
-								<NotListedNameVisible>False</NotListedNameVisible>
-								<Comment></Comment>
-								<CommentVisible>False</CommentVisible>
-								<TemplateName>StandardCheckBoxTemplate</TemplateName>
-								<OrderItems>
-								</OrderItems>
-							</OrderItem>
-							<OrderItem>
-								<Id>114</Id>
-								<ParentId>19</ParentId>
-								<ChildId>0</ChildId>
-								<Name>Ig Lambda</Name>
-								<Orderable>True</Orderable>
-								<Order>False</Order>
-								<ItemType>Test</ItemType>
-								<OrderPriority>40</OrderPriority>
-								<NotListedName></NotListedName>
-								<NotListedNameVisible>False</NotListedNameVisible>
-								<Comment></Comment>
-								<CommentVisible>False</CommentVisible>
-								<TemplateName>StandardCheckBoxTemplate</TemplateName>
-								<OrderItems>
-								</OrderItems>
-							</OrderItem>
+							</OrderItem>													
               <OrderItem>
                 <Id>360</Id>
                 <ParentId>19</ParentId>

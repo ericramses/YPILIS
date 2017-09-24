@@ -24,7 +24,7 @@
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Procedure}" Header="Procedure" Width="240"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=ProtocolName}" Header="Protocol" Width="170"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=YPITestId}" Header="YPI Test Id" Width="85"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=StainModifier}" Header="Modifier" Width="100"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=BarcodeNumber}" Header="Ventana Id" Width="85"/>
                 </GridView>
                 
                </ListView.View>

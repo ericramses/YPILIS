@@ -20,7 +20,8 @@ namespace YellowstonePathology.Business.Test.Model
         protected string m_Comment;
         protected bool m_OrderedAsDual;
         protected bool m_NoCharge;
-        protected bool m_UseWetProtocol;        
+        protected bool m_UseWetProtocol;
+        protected bool m_PerformedByHand;      
 
         public TestOrder_Base()
         {
@@ -203,6 +204,21 @@ namespace YellowstonePathology.Business.Test.Model
                 {
                     this.m_UseWetProtocol = value;
                     this.NotifyPropertyChanged("UseWetProtocol");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
+        public bool PerformedByHand
+        {
+            get { return this.m_PerformedByHand; }
+            set
+            {
+                if (this.m_PerformedByHand != value)
+                {
+                    this.m_PerformedByHand = value;
+                    this.NotifyPropertyChanged("PerformedByHand");
                 }
             }
         }

@@ -15,10 +15,9 @@ namespace YellowstonePathology.Business.SpecialStain
         private string m_StainName;
         private string m_Procedure;
         private string m_ProtocolName;
-        private string m_YPITestId;
-        private string m_StainModifier;
-        private bool m_UseWetProtocol;
-        private bool m_UseBrownProtocol;
+        private string m_YPITestId;        
+        private bool m_IsWetProtocol;
+        private bool m_IsDualProtocol;
 
         public VentanaBenchMark()
         { }
@@ -105,46 +104,32 @@ namespace YellowstonePathology.Business.SpecialStain
                     this.NotifyPropertyChanged("YPITestId");
                 }
             }
-        }
+        }        
 
         [PersistentProperty(false)]
-        public string StainModifier
+        public bool IsWetProtocol
         {
-            get { return this.m_StainModifier; }
+            get { return this.m_IsWetProtocol; }
             set
             {
-                if (this.m_StainModifier != value)
+                if (this.m_IsWetProtocol != value)
                 {
-                    this.m_StainModifier = value;
-                    this.NotifyPropertyChanged("StainModifier");
+                    this.m_IsWetProtocol = value;
+                    this.NotifyPropertyChanged("IsWetProtocol");
                 }
             }
         }
 
         [PersistentProperty(false)]
-        public bool UseWetProtocol
+        public bool IsDualProtocol
         {
-            get { return this.m_UseWetProtocol; }
+            get { return this.m_IsDualProtocol; }
             set
             {
-                if (this.m_UseWetProtocol != value)
+                if (this.m_IsDualProtocol != value)
                 {
-                    this.m_UseWetProtocol = value;
-                    this.NotifyPropertyChanged("UseWetProtocol");
-                }
-            }
-        }
-
-        [PersistentProperty(false)]
-        public bool UseBrownProtocol
-        {
-            get { return this.m_UseBrownProtocol; }
-            set
-            {
-                if (this.m_UseBrownProtocol != value)
-                {
-                    this.m_UseBrownProtocol = value;
-                    this.NotifyPropertyChanged("UseBrownProtocol");
+                    this.m_IsDualProtocol = value;
+                    this.NotifyPropertyChanged("IsDualProtocol");
                 }
             }
         }

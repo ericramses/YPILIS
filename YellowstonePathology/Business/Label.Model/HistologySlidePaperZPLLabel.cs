@@ -27,14 +27,14 @@ namespace YellowstonePathology.Business.Label.Model
 
         public void AppendCommands(StringBuilder result, int xOffset)
         {                        
-            string truncatedtestName = null;
+            string truncatedTestName = null;
             if (this.m_TestName.Length > 16)
             {
-                truncatedtestName = this.m_TestName.Substring(0, 16);
+                truncatedTestName = this.m_TestName.Substring(0, 16);
             }
             else
             {
-                truncatedtestName = this.m_TestName;
+                truncatedTestName = this.m_TestName;
             }
 
             string truncatedLastName = null;
@@ -49,12 +49,13 @@ namespace YellowstonePathology.Business.Label.Model
             
             result.Append("^PW440");
             result.Append("^FWR");
-            result.Append("^FO0,0^AO,15,10^FD" + this.m_Location + "^FS");            
-            result.Append("^FO110,0^AO,25,10^FD" + truncatedLastName + "^FS");
-            result.Append("^FO80,0^AO,30,15^FD" + truncatedtestName + "^FS");
-            result.Append("^FO50,0^AO,30,15^FD" + this.m_SlideLabel + "^FS");
-            result.Append("^FO0,190^BXN,04,200^FD" + "HSLD" + this.m_SlideOrderId + "^FS");            
             result.Append("^FO140,0^AO,35,15^FD" + this.m_ReportNo + "^FS");            
+            result.Append("^FO110,0^AO,25,10^FD" + truncatedLastName + "^FS");
+            result.Append("^FO80,0^AO,30,15^FD" + truncatedTestName + "^FS");
+            result.Append("^FO50,0^AO,30,15^FD" + this.m_SlideLabel + "^FS");
+            result.Append("^FO0,0^AO,15,10^FD" + this.m_Location + "^FS");
+            result.Append("^FO0,190^BXN,04,200^FD" + "HSLD" + this.m_SlideOrderId + "^FS");            
+            
         }
     }
 }
