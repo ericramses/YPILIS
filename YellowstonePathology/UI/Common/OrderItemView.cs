@@ -56,17 +56,17 @@ namespace YellowstonePathology.UI.Common
             YellowstonePathology.Business.Test.Model.TestCollection result = new YellowstonePathology.Business.Test.Model.TestCollection();
             foreach (XElement element in this.m_OrderItemElementList)
             {
-                if (element.Element("ItemType").Value == "Test")
-                {
+                //if (element.Element("ItemType").Value == "Test" )
+                //{
                     if (element.Element("Order").Value == "True")
                     {                        
-                        int testId = Convert.ToInt32(element.Element("Id").Value);
+                        string testId = element.Element("Id").Value;
                         YellowstonePathology.Business.Test.Model.Test test = testCollection.GetTest(testId);
                         string testOrderComment = element.Element("Comment").Value;
                         test.OrderComment = testOrderComment;
                         result.Add(test);
                     }
-                }
+                //}
             }
             return result;
         }
@@ -83,7 +83,7 @@ namespace YellowstonePathology.UI.Common
                 {
                     if (element.Element("Order").Value == "True")
                     {
-                        int testId = Convert.ToInt32(element.Element("Id").Value);
+                        string testId = element.Element("Id").Value;
                         YellowstonePathology.Business.Test.Model.DualStain dualStain = dualStainCollection.Get(testId);
                         string testOrderComment = element.Element("Comment").Value;
                         dualStain.OrderComment = testOrderComment;

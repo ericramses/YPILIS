@@ -583,7 +583,7 @@ namespace YellowstonePathology.Business.Test
         /// <param name="adding"></param>
         public void SetLabelPrefix(YellowstonePathology.Business.Test.Model.TestOrder testOrder, bool adding)
         {
-            if (testOrder.TestId == 45)
+            if (testOrder.TestId == "45")
             {
                 if (adding)
                 {
@@ -594,7 +594,7 @@ namespace YellowstonePathology.Business.Test
                     this.LabelPrefix = string.Empty;
                 }
             }
-            else if (testOrder.TestId == 195)
+            else if (testOrder.TestId == "195")
             {
                 if (adding)
                 {
@@ -774,7 +774,7 @@ namespace YellowstonePathology.Business.Test
 
         public void HandleAddFrozen(YellowstonePathology.Business.Test.Model.TestOrder testOrder)
         {
-            if (testOrder.TestId == 45)
+            if (testOrder.TestId == "45")
             {
                 this.AliquotType = "FrozenBlock";
             }

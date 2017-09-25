@@ -130,7 +130,7 @@ namespace YellowstonePathology.Business.Visitor
         public void RemoveTestOrder(YellowstonePathology.Business.Test.Model.TestOrder testOrder)
         {            
             
-            if (this.m_AddedTestOrderCollection.Exists(testOrder.TestOrderId) == true)
+            if (this.m_AddedTestOrderCollection.ExistsByTestOrderId(testOrder.TestOrderId) == true)
             {
                 this.m_AddedTestOrderCollection.Remove(testOrder.TestOrderId);
             }

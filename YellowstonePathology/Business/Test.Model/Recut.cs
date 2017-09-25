@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Test.Model
 	{
 		public Recut()
 		{
-			this.m_TestId = 150;
+			this.m_TestId = "150";
 			this.m_TestName = "Recut";
             this.m_TestAbbreviation = "Recut";
 			this.m_Active = true;

@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Test.Model
 	{
 		public GFAP()
 		{
-			this.m_TestId = 104;
+			this.m_TestId = "104";
 			this.m_TestName = "GFAP";
             this.m_TestAbbreviation = "GFAP";
 			this.m_Active = true;

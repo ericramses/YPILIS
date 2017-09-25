@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Test.Model
 	{
 		public Iron()
 		{
-			this.m_TestId = 115;
+			this.m_TestId = "115";
 			this.m_TestName = "Iron";
             this.m_TestAbbreviation = "Iron";
 			this.m_Active = true;

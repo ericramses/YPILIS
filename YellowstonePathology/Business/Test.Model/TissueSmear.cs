@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Test.Model
 	{
 		public TissueSmear()
 		{
-			this.m_TestId = 47;
+			this.m_TestId = "47";
 			this.m_TestName = "Tissue Smear";
             this.m_TestAbbreviation = "Tissue Smear";
 			this.m_Active = true;

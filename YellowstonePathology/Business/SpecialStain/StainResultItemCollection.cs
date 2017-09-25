@@ -204,6 +204,19 @@ namespace YellowstonePathology.Business.SpecialStain
             return result;
         }
 
+        public List<StainResultItem> GetStainResults(string testOrderId)
+        {
+            List<StainResultItem> result = new List<StainResultItem>();
+            foreach (StainResultItem stainresult in this)
+            {
+                if (stainresult.TestOrderId == testOrderId)
+                {
+                    result.Add(stainresult);                    
+                }
+            }
+            return result;
+        }
+
         public int GetGradedStainCount()
         {
             int result = 0;

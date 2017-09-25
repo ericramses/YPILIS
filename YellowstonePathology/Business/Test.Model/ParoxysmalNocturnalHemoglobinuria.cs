@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Test.Model
 	{
         public ParoxysmalNocturnalHemoglobinuria()
 		{
-			this.m_TestId = 198;
+			this.m_TestId = "198";
             this.m_TestName = "Paroxysmal Nocturnal Hemoglobinuria";
 			this.m_Active = true;
 			this.m_NeedsAcknowledgement = false;

@@ -50,11 +50,11 @@ namespace YellowstonePathology.Business.Test.InvasiveBreastPanel
 				YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder panelSetOrderSurgical = (YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetSurgical.PanelSetId);
 				this.m_SurgicalSpecimen = panelSetOrderSurgical.SurgicalSpecimenCollection.GetBySpecimenOrderId(this.m_SpecimenOrder.SpecimenOrderId);
 
-                YellowstonePathology.Business.Test.Model.TestOrder testOrderER = this.m_AccessionOrder.PanelSetOrderCollection.GetTestOrderByTestId(99);
+                YellowstonePathology.Business.Test.Model.TestOrder testOrderER = this.m_AccessionOrder.PanelSetOrderCollection.GetTestOrderByTestId("99");
 				this.m_StainResultER = panelSetOrderSurgical.GetStainResult(testOrderER.TestOrderId);
                 this.m_ERResultString = this.m_StainResultER.Result;
 
-                YellowstonePathology.Business.Test.Model.TestOrder testOrderPR = this.m_AccessionOrder.PanelSetOrderCollection.GetTestOrderByTestId(145);
+                YellowstonePathology.Business.Test.Model.TestOrder testOrderPR = this.m_AccessionOrder.PanelSetOrderCollection.GetTestOrderByTestId("145");
 				this.m_StainResultPR = panelSetOrderSurgical.GetStainResult(testOrderPR.TestOrderId);
                 this.m_PRResultString = this.m_StainResultPR.Result;
 

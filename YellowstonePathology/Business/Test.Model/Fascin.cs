@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Test.Model
 	{
 		public Fascin()
 		{
-			this.m_TestId = 102;
+			this.m_TestId = "102";
 			this.m_TestName = "Fascin";
             this.m_TestAbbreviation = "Fascin";
 			this.m_Active = true;

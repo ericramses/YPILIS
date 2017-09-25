@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Test.Model
 	{
 		public PanMelanomaCocktail()
 		{
-			this.m_TestId = 181;
+			this.m_TestId = "181";
 			this.m_TestName = "Pan-melanoma cocktail";
             this.m_TestAbbreviation = "Pan-melanoma cocktail";
 			this.m_Active = true;

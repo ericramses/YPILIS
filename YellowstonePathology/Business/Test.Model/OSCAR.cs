@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Test.Model
 	{
 		public OSCAR()
         {
-            this.m_TestId = 170;
+            this.m_TestId = "170";
 			this.m_TestName = "OSCAR";
             this.m_TestAbbreviation = "OSCAR";
 			this.m_Active = true;

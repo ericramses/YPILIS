@@ -10,7 +10,7 @@ namespace YellowstonePathology.Business.Test.Model
     {
         public KappaByISH()
         {
-            this.m_TestId = 360;
+            this.m_TestId = "360";
             this.m_TestName = "Kappa by ISH";
             this.m_TestAbbreviation = "Kappa";
             this.m_Active = true;

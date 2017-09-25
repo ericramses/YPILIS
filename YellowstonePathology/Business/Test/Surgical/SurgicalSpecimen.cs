@@ -62,7 +62,7 @@ namespace YellowstonePathology.Business.Test.Surgical
             string result = string.Empty;
             foreach (YellowstonePathology.Business.Test.AliquotOrder aliquotOrder in this.SpecimenOrder.AliquotOrderCollection)
             {
-                if (aliquotOrder.TestOrderCollection.Exists(testOrderId) == true)
+                if (aliquotOrder.TestOrderCollection.ExistsByTestOrderId(testOrderId) == true)
                 {
                     result = aliquotOrder.Label;
                 }                

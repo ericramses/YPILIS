@@ -13,7 +13,7 @@ namespace YellowstonePathology.Business.Test.Model
         protected string m_TestOrderId;
         protected string m_PanelOrderId;
         protected string m_AliquotOrderId;
-        protected int m_TestId;
+        protected string m_TestId;
         protected string m_TestName;
         protected string m_TestAbbreviation;
         protected string m_Result;
@@ -90,7 +90,7 @@ namespace YellowstonePathology.Business.Test.Model
 
         [PersistentProperty()]
         [PersistentDataColumnProperty(true, "11", "null", "int")]
-        public int TestId
+        public string TestId
         {
             get { return this.m_TestId; }
             set

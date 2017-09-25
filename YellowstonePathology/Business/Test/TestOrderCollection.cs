@@ -36,7 +36,7 @@ namespace YellowstonePathology.Business.Test.Model
             }
         }
 
-        public TestOrder GetTestOrder(int testId)
+        public TestOrder GetTestOrder(string testId)
         {
             foreach (TestOrder item in this)
             {
@@ -193,7 +193,7 @@ namespace YellowstonePathology.Business.Test.Model
             int result = 0;
             foreach (TestOrder item in this)
             {
-                if (item.TestId == 49)
+                if (item.TestId == "49")
                 {
                     result++;
                 }
@@ -272,7 +272,7 @@ namespace YellowstonePathology.Business.Test.Model
 
                 TestOrder testOrder = null;
 
-                if (this.Exists(testOrderId) == true)
+                if (this.ExistsByTestOrderId(testOrderId) == true)
                 {
                     testOrder = this.Get(testOrderId);
                 }

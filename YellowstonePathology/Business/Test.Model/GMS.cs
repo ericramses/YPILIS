@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Test.Model
 	{
 		public GMS()
 		{
-			this.m_TestId = 106;
+			this.m_TestId = "106";
 			this.m_TestName = "GMS";
             this.m_TestAbbreviation = "GMS";
 			this.m_Active = true;

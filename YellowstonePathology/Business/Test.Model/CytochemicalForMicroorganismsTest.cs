@@ -14,7 +14,7 @@ namespace YellowstonePathology.Business.Test.Model
 			this.m_HasCptCodeLevels = false;            
 		}
 
-		public CytochemicalForMicroorganisms(int testId, string testName)  
+		public CytochemicalForMicroorganisms(string testId, string testName)  
             : base(testId, testName)
         {
             this.m_IsBillable = true;

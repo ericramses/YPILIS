@@ -21,7 +21,7 @@ namespace YellowstonePathology.Business.Test.Model
         protected string m_OrderedOn;
         protected bool m_IsDualOrder;        
 
-        protected int m_TestId;
+        protected string m_TestId;
         protected string m_TestName;
         protected string m_TestAbbreviation;
         protected bool m_Active;
@@ -40,7 +40,7 @@ namespace YellowstonePathology.Business.Test.Model
             this.m_PerformedByHand = false;      
 		}
 
-        public Test(int testId, string testName)
+        public Test(string testId, string testName)
         {
             this.m_TestId = testId;
             this.m_TestName = testName;
@@ -113,7 +113,7 @@ namespace YellowstonePathology.Business.Test.Model
             set { this.m_HasCptCodeLevels = value; }
         }             
 		
-		public int TestId
+		public string TestId
 		{
 			get { return this.m_TestId; }
 			set

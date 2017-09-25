@@ -150,7 +150,7 @@ namespace YellowstonePathology.UI.Cutting
         private void SlideOptionsPage_PrintPaperLabel(object sender, CustomEventArgs.SlideOrderReturnEventArgs eventArgs)
         {
             this.HandleVentanaOrder(this.m_AccessionOrder, eventArgs.SlideOrder);
-            this.PrintPaperLabel(eventArgs.SlideOrder);            
+            //this.PrintPaperLabel(eventArgs.SlideOrder);            
             this.m_PageNavigator.Navigate(this);
         }
 
@@ -340,6 +340,13 @@ namespace YellowstonePathology.UI.Cutting
             this.m_AccessionOrder.TakeATrip(addSlideOrderVisitor);            
         }
 
+        private void ButtonAddHandSlide_Click(object sender, RoutedEventArgs e)
+        {
+            this.m_TestOrder.PerformedByHand = true;
+            YellowstonePathology.Business.Visitor.AddSlideOrderVisitor addSlideOrderVisitor = new Business.Visitor.AddSlideOrderVisitor(this.m_AliquotOrder, this.m_TestOrder);
+            this.m_AccessionOrder.TakeATrip(addSlideOrderVisitor);
+        }
+
         private void ButtonFinished_Click(object sender, RoutedEventArgs e)
         {
             if (this.Finished != null) this.Finished(this, new YellowstonePathology.UI.CustomEventArgs.MasterAccessionNoReturnEventArgs(this.m_AccessionOrder.MasterAccessionNo));
@@ -364,6 +371,6 @@ namespace YellowstonePathology.UI.Cutting
         public override void BeforeNavigatingAway()
         {
             
-        }
+        }        
     }
 }

@@ -146,7 +146,7 @@
 						<TemplateName>StainGroupTemplate</TemplateName>
 						<OrderItems>
 							<OrderItem>
-								<Id>116</Id>
+								<Id>KI67MA</Id>
 								<ParentId>19</ParentId>
 								<ChildId>0</ChildId>
 								<Name>Ki-67, Semi-quantitative/Melan A</Name>
@@ -163,7 +163,7 @@
 								</OrderItems>
 							</OrderItem>
 							<OrderItem>
-								<Id>88</Id>
+								<Id>CK34P504RM</Id>
 								<ParentId>19</ParentId>
 								<ChildId>0</ChildId>
 								<Name>Cytokeratin 34/P504s racemase</Name>
@@ -180,7 +180,7 @@
 								</OrderItems>
 							</OrderItem>
 							<OrderItem>
-								<Id>68</Id>
+								<Id>CD30CD20</Id>
 								<ParentId>19</ParentId>
 								<ChildId>0</ChildId>
 								<Name>CD3/CD20</Name>
@@ -197,7 +197,7 @@
 								</OrderItems>
 							</OrderItem>																								
 							<OrderItem> 
-								<Id>170</Id>
+								<Id>OSCRSMM</Id>
 								<ParentId>19</ParentId>
 								<ChildId>0</ChildId>
 								<Name>OSCAR/Smooth Muscle Myosin</Name>
@@ -214,7 +214,7 @@
 								</OrderItems>
 							</OrderItem>
 							<OrderItem>
-								<Id>161</Id>
+								<Id>TTFNPSNA</Id>
 								<ParentId>19</ParentId>
 								<ChildId>0</ChildId>
 								<Name>TTF-1/Napsin A</Name>

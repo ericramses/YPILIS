@@ -35,7 +35,7 @@ namespace YellowstonePathology.Business.Test.Model
             }
         }
 
-        public TestOrder_Base GetTestOrderBase(int testId)
+        public TestOrder_Base GetTestOrderBase(string testId)
         {
             foreach (TestOrder item in this)
             {
@@ -78,7 +78,7 @@ namespace YellowstonePathology.Business.Test.Model
             {
                 foreach (TestOrder testOrder in this)
                 {
-                    if (testOrder.TestId == 49)
+                    if (testOrder.TestId == "49")
                     {
                         result = true;
                         break;
@@ -93,7 +93,7 @@ namespace YellowstonePathology.Business.Test.Model
             TestOrderCollection testOrderCollection = new TestOrderCollection();
             foreach (TestOrder testOrder in this)
             {
-                if (testOrderCollection.Exists(testOrder.TestId) == false)
+                if (testOrderCollection.ExistsByTestId(testOrder.TestId) == false)
                 {
                     testOrderCollection.Add(testOrder);
                 }
@@ -195,7 +195,7 @@ namespace YellowstonePathology.Business.Test.Model
             return null;
         }
 
-        public bool Exists(int testId)
+        public bool ExistsByTestId(string testId)
         {
             bool result = false;
             foreach (TestOrder_Base item in this)
@@ -209,7 +209,7 @@ namespace YellowstonePathology.Business.Test.Model
             return result;
         }
 
-        public bool Exists(string testOrderId)
+        public bool ExistsByTestOrderId(string testOrderId)
         {
             bool result = false;
             foreach (TestOrder_Base testOrder in this)
@@ -223,7 +223,7 @@ namespace YellowstonePathology.Business.Test.Model
             return result;
         }                
 
-        public bool HasTestBeenOrdered(int testId)
+        public bool HasTestBeenOrdered(string testId)
         {
             bool result = false;
             foreach (TestOrder_Base item in this)
@@ -253,7 +253,7 @@ namespace YellowstonePathology.Business.Test.Model
 
                 TestOrder_Base testOrder = null;
 
-                if (this.Exists(testOrderId) == true)
+                if (this.ExistsByTestOrderId(testOrderId) == true)
                 {
                     testOrder = this.GetBase(testOrderId);
                 }
@@ -282,7 +282,7 @@ namespace YellowstonePathology.Business.Test.Model
 
                 TestOrder testOrder = null;
 
-                if (this.Exists(testOrderId) == true)
+                if (this.ExistsByTestOrderId(testOrderId) == true)
                 {
                     testOrder = this.GetTestOrder(testOrderId);
                 }

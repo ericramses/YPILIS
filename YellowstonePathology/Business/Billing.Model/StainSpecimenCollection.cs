@@ -19,7 +19,7 @@ namespace YellowstonePathology.Business.Billing.Model
             {
                 if (stainSpecimen.TestOrderCollection != null)
                 {
-                    if (stainSpecimen.TestOrderCollection.Exists(278) == true || stainSpecimen.TestOrderCollection.Exists(145) == true)
+                    if (stainSpecimen.TestOrderCollection.ExistsByTestId("278") == true || stainSpecimen.TestOrderCollection.ExistsByTestId("145") == true)
                     {
                         result = true;
                         break;

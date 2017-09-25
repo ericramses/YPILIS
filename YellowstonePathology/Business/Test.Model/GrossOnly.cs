@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Test.Model
 	{
 		public GrossOnly()
 		{
-			this.m_TestId = 48;
+			this.m_TestId = "48";
 			this.m_TestName = "Gross Only";
 			this.m_Active = true;
 			this.m_NeedsAcknowledgement = false;

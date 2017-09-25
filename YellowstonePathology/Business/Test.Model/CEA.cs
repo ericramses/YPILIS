@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Test.Model
 	{
 		public CEA()
 		{
-			this.m_TestId = 82;
+			this.m_TestId = "82";
 			this.m_TestName = "CEA";
             this.m_TestAbbreviation = "CEA";
 			this.m_Active = true;

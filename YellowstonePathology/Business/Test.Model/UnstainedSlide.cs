@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Test.Model
 	{
         public UnstainedSlide()
 		{
-            this.m_TestId = 352;
+            this.m_TestId = "352";
 			this.m_TestName = "Unstained Slide";
             this.m_TestAbbreviation = "Unstained";            
 			this.m_Active = true;

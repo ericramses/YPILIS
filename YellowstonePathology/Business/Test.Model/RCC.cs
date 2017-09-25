@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Test.Model
 	{
 		public RCC()
 		{
-			this.m_TestId = 149;
+			this.m_TestId = "149";
 			this.m_TestName = "RCC";
             this.m_TestAbbreviation = "RCC";
 			this.m_Active = true;

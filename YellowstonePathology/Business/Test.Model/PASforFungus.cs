@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Test.Model
 	{
 		public PASforFungus()
 		{
-			this.m_TestId = 139;
+			this.m_TestId = "139";
 			this.m_TestName = "PAS for fungus";
             this.m_TestAbbreviation = "PASF";
 			this.m_Active = true;

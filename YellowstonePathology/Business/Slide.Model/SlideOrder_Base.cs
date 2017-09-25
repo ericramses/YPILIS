@@ -39,7 +39,7 @@ namespace YellowstonePathology.Business.Slide.Model
         protected Nullable<DateTime> m_PrintDate;
 
         protected string m_Status;
-        protected int m_TestId;
+        protected string m_TestId;
         protected string m_TestName;
         protected string m_TestAbbreviation;
         protected string m_TestOrderId;
@@ -500,7 +500,7 @@ namespace YellowstonePathology.Business.Slide.Model
 
         [PersistentProperty()]
         [PersistentDataColumnProperty(true, "11", "null", "int")]
-        public int TestId
+        public string TestId
         {
             get
             {
@@ -795,7 +795,7 @@ namespace YellowstonePathology.Business.Slide.Model
             if (xml.Element("PrintedById") != null) m_PrintedById = Convert.ToInt32(xml.Element("PrintedById").Value);
             if (xml.Element("PrintedBy") != null) m_PrintedBy = xml.Element("PrintedBy").Value;
             if (xml.Element("PrintDate") != null) m_PrintDate = DateTime.Parse(xml.Element("PrintDate").Value);
-            if (xml.Element("TestId") != null) m_TestId = Convert.ToInt32(xml.Element("TestId").Value);
+            if (xml.Element("TestId") != null) m_TestId = xml.Element("TestId").Value;
             if (xml.Element("TestName") != null) m_TestName = xml.Element("TestName").Value;
             if (xml.Element("TestAbbreviation") != null) m_TestAbbreviation = xml.Element("TestAbbreviation").Value;
             if (xml.Element("TestOrderId") != null) m_TestOrderId = xml.Element("TestOrderId").Value;

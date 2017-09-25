@@ -13,7 +13,7 @@ namespace YellowstonePathology.Business.Test.Model
 			this.m_IsBillable = true;            
 		}
 		
-		public CytochemicalTest(int testId, string testName)
+		public CytochemicalTest(string testId, string testName)
             : base(testId, testName)
         {
             this.m_IsBillable = true;            

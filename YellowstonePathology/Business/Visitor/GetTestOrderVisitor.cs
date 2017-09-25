@@ -20,7 +20,7 @@ namespace YellowstonePathology.Business.Visitor
 
         public override void Visit(YellowstonePathology.Business.Test.Model.TestOrderCollection testOrderCollection)
         {
-            if (testOrderCollection.Exists(this.m_Test.TestId) == true)
+            if (testOrderCollection.ExistsByTestId(this.m_Test.TestId) == true)
             {
                 this.m_TestOrder = testOrderCollection.GetTestOrder(this.m_Test.TestId);
             }

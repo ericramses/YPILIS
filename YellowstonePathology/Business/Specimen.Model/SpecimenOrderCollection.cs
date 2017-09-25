@@ -366,14 +366,14 @@ namespace YellowstonePathology.Business.Specimen.Model
 			return null;
 		}
 
-        public SpecimenOrder GetSpecimenOrderByTestId(int testId)
+        public SpecimenOrder GetSpecimenOrderByTestId(string testId)
         {
             SpecimenOrder result = null;
             foreach (SpecimenOrder specimenOrder in this)
             {
 				foreach (YellowstonePathology.Business.Test.AliquotOrder aliquotOrder in specimenOrder.AliquotOrderCollection)
                 {
-                    if (aliquotOrder.TestOrderCollection.Exists(testId) == true)
+                    if (aliquotOrder.TestOrderCollection.ExistsByTestId(testId) == true)
                     {
                         result = specimenOrder;
                         break;
@@ -534,7 +534,7 @@ namespace YellowstonePathology.Business.Specimen.Model
 			{
 				foreach (YellowstonePathology.Business.Test.AliquotOrder aliquotOrder in specimenOrder.AliquotOrderCollection)
 				{
-                    if (aliquotOrder.TestOrderCollection.Exists(testOrderId) == true)
+                    if (aliquotOrder.TestOrderCollection.ExistsByTestOrderId(testOrderId) == true)
                     {
                         result = specimenOrder;
                         break;
@@ -703,7 +703,7 @@ namespace YellowstonePathology.Business.Specimen.Model
             {
                 foreach (YellowstonePathology.Business.Test.AliquotOrder aliquotOrder in specimenOrder.AliquotOrderCollection)
                 {                    
-                    if (aliquotOrder.TestOrderCollection.Exists(testOrderId) == true)
+                    if (aliquotOrder.TestOrderCollection.ExistsByTestOrderId(testOrderId) == true)
                     {
                         result = aliquotOrder;
                         break;

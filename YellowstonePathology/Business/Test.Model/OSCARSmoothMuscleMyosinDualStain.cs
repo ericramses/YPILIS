@@ -11,8 +11,10 @@ namespace YellowstonePathology.Business.Test.Model
 		{
             this.m_TestId = "OSCRSMM";
 			this.m_TestName = "OSCAR/Smooth Muscle Myosin";
-			this.m_FirstTest = new OSCAR();
+            this.m_TestName = "OSCAR/SMM";
+            this.m_FirstTest = new OSCAR();
 			this.m_SecondTest = new SmoothMuscleMyosin();
+            this.m_IsDualOrder = true;
 		}
 	}
 }

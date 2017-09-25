@@ -100,13 +100,13 @@ namespace YellowstonePathology.Business.Test.InvasiveBreastPanel
                 YellowstonePathology.Business.Test.Model.EstrogenReceptorSemiquant er = new YellowstonePathology.Business.Test.Model.EstrogenReceptorSemiquant();
                 YellowstonePathology.Business.Test.Model.ProgesteroneReceptorSemiquant pr = new YellowstonePathology.Business.Test.Model.ProgesteroneReceptorSemiquant();
 				YellowstonePathology.Business.Test.Model.TestOrderCollection testOrders = panelSetOrderSurgical.GetTestOrders();
-				if(testOrders.Exists(er.TestId) == true)
+				if(testOrders.ExistsByTestId(er.TestId) == true)
 				{
 					YellowstonePathology.Business.Test.Model.TestOrder testOrder = testOrders.GetTestOrder(er.TestId);
 					YellowstonePathology.Business.SpecialStain.StainResultItem stainResultItem = panelSetOrderSurgical.GetStainResult(testOrder.TestOrderId);
 					result.AppendLine(stainResultItem.Result);
 				}
-				if(testOrders.Exists(pr.TestId) == true)
+				if(testOrders.ExistsByTestId(pr.TestId) == true)
 				{
 					YellowstonePathology.Business.Test.Model.TestOrder testOrder = testOrders.GetTestOrder(pr.TestId);
 					YellowstonePathology.Business.SpecialStain.StainResultItem stainResultItem = panelSetOrderSurgical.GetStainResult(testOrder.TestOrderId);

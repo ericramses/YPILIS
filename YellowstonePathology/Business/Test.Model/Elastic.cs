@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Test.Model
 	{
 		public Elastic()
 		{
-			this.m_TestId = 96;
+			this.m_TestId = "96";
 			this.m_TestName = "Elastic";
             this.m_TestAbbreviation = "Elastic";
 			this.m_Active = true;

@@ -149,13 +149,11 @@ namespace YellowstonePathology.UI.Common
             YellowstonePathology.Business.Test.AliquotOrderCollection selectedAliquots = this.m_AliquotAndStainOrderView.GetSelectedAliquots();
             if (selectedAliquots.Count > 0)
             {
-                YellowstonePathology.Business.Test.Model.TestCollection selectedTests = this.m_OrderItemView.GetSelectedTests();
-                List<YellowstonePathology.Business.Test.Model.DualStain> selectedDualStains = this.m_OrderItemView.GetSelectedDualStains();
+                YellowstonePathology.Business.Test.Model.TestCollection selectedTests = this.m_OrderItemView.GetSelectedTests();                
 
-                if (selectedTests.Count > 0 || selectedDualStains.Count > 0)
+                if (selectedTests.Count > 0)
                 {                    
-                    this.HandleOrderingTests(selectedAliquots, selectedTests);
-                    this.HandleOrderingDualStains(selectedAliquots, selectedDualStains);
+                    this.HandleOrderingTests(selectedAliquots, selectedTests);                                        
 
                     this.m_StainAcknowledgementTaskOrderVisitor.TaskOrderDetailComment = this.m_PanelOrderComment;
                     this.m_AccessionOrder.TakeATrip(this.m_StainAcknowledgementTaskOrderVisitor);                    
@@ -179,7 +177,8 @@ namespace YellowstonePathology.UI.Common
                 MessageBox.Show("There are no aliquots selected.");
             }
         }       
-
+        
+        /*
         private void HandleOrderingDualStains(YellowstonePathology.Business.Test.AliquotOrderCollection selectedAliquots, List<YellowstonePathology.Business.Test.Model.DualStain> selectedDualStains)
         {            
             foreach (YellowstonePathology.Business.Test.AliquotOrder aliquotOrder in selectedAliquots)
@@ -199,6 +198,7 @@ namespace YellowstonePathology.UI.Common
                 }
             }                
         }
+        */
 
         private void HandleOrderingTests(YellowstonePathology.Business.Test.AliquotOrderCollection selectedAliquots, YellowstonePathology.Business.Test.Model.TestCollection selectedTests)
         {            

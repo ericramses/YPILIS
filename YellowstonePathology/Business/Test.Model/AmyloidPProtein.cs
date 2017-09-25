@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Test.Model
 	{
 		public AmyloidPProtein()
 		{
-			this.m_TestId = 54;
+			this.m_TestId = "54";
 			this.m_TestName = "Amyloid P Protein";
             this.m_TestAbbreviation = "Amyloid P Protein";
 			this.m_Active = true;

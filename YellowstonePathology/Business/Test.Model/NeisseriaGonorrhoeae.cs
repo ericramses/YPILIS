@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Test.Model
 	{
         public NeisseriaGonorrhoeae()
 		{
-			this.m_TestId = 25;
+			this.m_TestId = "25";
             this.m_TestName = "Neisseria gonorrhoeae";
             this.m_NeedsAcknowledgement = false;
 		}

@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Test.Model
 	{
 		public EstrogenReceptorSemiquant()
 		{
-			this.m_TestId = 99;
+			this.m_TestId = "99";
 			this.m_TestName = "Estrogen Receptor, Semi-quantitative";
             this.m_TestAbbreviation = "ER";
 			this.m_Active = true;

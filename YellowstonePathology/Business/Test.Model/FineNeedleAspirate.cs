@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Test.Model
 	{
 		public FineNeedleAspirate()
 		{
-			this.m_TestId = 204;
+			this.m_TestId = "204";
 			this.m_TestName = "Fine Needle Aspirate";
             this.m_TestAbbreviation = "FNA";
 			this.m_Active = true;

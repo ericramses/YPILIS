@@ -39,7 +39,7 @@ namespace YellowstonePathology.Business.Visitor
 
         public override void Visit(Test.PanelOrder panelOrder)
         {
-            if (panelOrder.TestOrderCollection.Exists(this.m_TestOrder.TestOrderId) == true)
+            if (panelOrder.TestOrderCollection.ExistsByTestOrderId(this.m_TestOrder.TestOrderId) == true)
             {
                 this.m_TestOrderRightSideIsRemoved = false;
             }
@@ -47,7 +47,7 @@ namespace YellowstonePathology.Business.Visitor
 
         public override void Visit(Test.AliquotOrder aliquotOrder)
         {
-            if (aliquotOrder.TestOrderCollection.Exists(this.m_TestOrder.TestOrderId) == true)
+            if (aliquotOrder.TestOrderCollection.ExistsByTestOrderId(this.m_TestOrder.TestOrderId) == true)
             {
                 this.m_TestOrderLeftSideIsRemoved = false;
             }

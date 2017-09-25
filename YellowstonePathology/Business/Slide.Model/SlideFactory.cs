@@ -7,18 +7,18 @@ namespace YellowstonePathology.Business.Slide.Model
 {
     public class SlideFactory
     {        
-        public static Slide Get(int testId)
+        public static Slide Get(string testId)
         {
             Slide result = null;
-            if (testId == 49 || testId == 150 || testId == 45 || testId == 46 || testId == 48 || testId == 195 || testId == 267)
+            if (testId == "49" || testId == "150" || testId == "45" || testId == "46" || testId == "48" || testId == "195" || testId == "267")
             {
                 result = new HAndESlide();
             }
-            else if (testId == 348)
+            else if (testId == "348")
             {
                 result = new HAndEAfterSlide();
             }
-            else if (testId == 352)
+            else if (testId == "352")
             {
                 result = new UnstainedSlide();
             }

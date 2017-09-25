@@ -134,7 +134,7 @@ namespace YellowstonePathology.UI.Gross
                 this.m_SecondaryWindow.PageNavigator.Navigate(dictationTemplatePage);
             }            
 
-            if (this.m_AccessionOrder.PrintMateColumnNumber == 0 && this.m_AccessionOrder.PanelSetOrderCollection.HasTestBeenOrdered(48) == false)
+            if (this.m_AccessionOrder.PrintMateColumnNumber == 0 && this.m_AccessionOrder.PanelSetOrderCollection.HasTestBeenOrdered("48") == false)
             {
                 this.ShowBlockColorSelectionPage(specimenOrder);
             }

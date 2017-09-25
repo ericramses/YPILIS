@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Test.Model
 	{
 		public IgLambda()
         {
-            this.m_TestId = 114;
+            this.m_TestId = "114";
 			this.m_TestName = "Ig Lambda";
             this.m_TestAbbreviation = "Ig Lambda";
 			this.m_Active = true;

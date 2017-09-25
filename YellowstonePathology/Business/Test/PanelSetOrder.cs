@@ -1622,12 +1622,12 @@ namespace YellowstonePathology.Business.Test
             set { this.m_TestOrderReportDistributionLogCollection = value; }
         }
 
-		public string GetAliquotIdFromTestId(int testId)
+		public string GetAliquotIdFromTestId(string testId)
 		{
 			string result = string.Empty;
 			foreach (PanelOrder panelOrder in this.PanelOrderCollection)
 			{
-                if (panelOrder.TestOrderCollection.Exists(testId) == true)
+                if (panelOrder.TestOrderCollection.ExistsByTestId(testId) == true)
                 {
                     YellowstonePathology.Business.Test.Model.TestOrder testOrder = panelOrder.TestOrderCollection.GetTestOrder(testId);
                     result = testOrder.AliquotOrderId;

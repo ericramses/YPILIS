@@ -409,7 +409,7 @@ namespace YellowstonePathology.Business.Test
 
         public bool HasGrossBeenOrdered()
         {
-            return this.HasTestBeenOrdered(48);
+            return this.HasTestBeenOrdered("48");
         }
 
         public bool HasUnassignedPanelSetOrder(int panelSetId)
@@ -429,7 +429,7 @@ namespace YellowstonePathology.Business.Test
             return result;
         }
 
-        public bool HasTestBeenOrdered(int testId)
+        public bool HasTestBeenOrdered(string testId)
         {
             bool result = false;
             foreach (YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder in this)
@@ -497,7 +497,7 @@ namespace YellowstonePathology.Business.Test
             return result;
         }
 
-        public YellowstonePathology.Business.Test.PanelSetOrder GetPanelSetOrderByTestId(int testId)
+        public YellowstonePathology.Business.Test.PanelSetOrder GetPanelSetOrderByTestId(string testId)
         {
             YellowstonePathology.Business.Test.PanelSetOrder result = null;
             foreach (YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder in this)
@@ -537,7 +537,7 @@ namespace YellowstonePathology.Business.Test
             return result;
         }
 
-        public YellowstonePathology.Business.Test.Model.TestOrder GetTestOrderByTestId(int testId)
+        public YellowstonePathology.Business.Test.Model.TestOrder GetTestOrderByTestId(string testId)
         {
             YellowstonePathology.Business.Test.Model.TestOrder result = null;
             foreach (YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder in this)

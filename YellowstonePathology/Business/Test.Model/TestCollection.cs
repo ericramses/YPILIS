@@ -27,7 +27,7 @@ namespace YellowstonePathology.Business.Test.Model
             return result;
         }
 
-		public Test GetTest(int testId)
+		public Test GetTest(string testId)
         {
 			Test result = null;
 			foreach (Test test in this)
@@ -41,7 +41,7 @@ namespace YellowstonePathology.Business.Test.Model
             return result;
         }
 
-        public bool Exists(int testId)
+        public bool Exists(string testId)
         {
             bool result = false;
             foreach (Test test in this)
@@ -309,8 +309,16 @@ namespace YellowstonePathology.Business.Test.Model
             result.Add(new ERV3CT());
 
             result.Add(new ParoxysmalNocturnalHemoglobinuria());
-            result.Add(new Tryptase());            
-            
+            result.Add(new Tryptase());
+
+            result.Add(new CD3CD20DualStain());
+            result.Add(new CDX2VillinDualStain());
+            result.Add(new Cytokeratin34P504sRacemaseDualStain());
+            result.Add(new IgKappaIgLambdaDualStain());
+            result.Add(new Ki67MelanADualStain());
+            result.Add(new OSCARSmoothMuscleMyosinDualStain());
+            result.Add(new TTF1NapsinADualStain());
+
             return result;
         }
 

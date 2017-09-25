@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Test.Model
 	{
 		public PlacentalAlkalinePhosphatase()
 		{
-			this.m_TestId = 142;
+			this.m_TestId = "142";
 			this.m_TestName = "Placental Alkaline Phosphatase";
             this.m_TestAbbreviation = "PAP";
 			this.m_Active = true;

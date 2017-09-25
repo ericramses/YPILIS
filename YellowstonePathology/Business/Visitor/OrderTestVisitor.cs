@@ -75,7 +75,7 @@ namespace YellowstonePathology.Business.Visitor
         {            
             if (this.m_SurgicalSpecimen.IntraoperativeConsultationResultCollection.Count == 0) // don't add one if one already exists.
             {
-                if (this.m_TestOrder.TestId == 45 || this.m_TestOrder.TestId == 194)
+                if (this.m_TestOrder.TestId == "45" || this.m_TestOrder.TestId == "194")
                 {
                     YellowstonePathology.Business.Test.Surgical.IntraoperativeConsultationResult intraoperativeConsultationResult = this.m_SurgicalSpecimen.IntraoperativeConsultationResultCollection.GetNextItem(this.m_SurgicalSpecimen.SurgicalSpecimenId);
                     intraoperativeConsultationResult.TestOrderId = this.m_TestOrder.TestOrderId;
@@ -84,19 +84,18 @@ namespace YellowstonePathology.Business.Visitor
             }            
         }
 
-        private void HandleStainResult()
-        {            
-            YellowstonePathology.Business.Test.Model.StainTest stainTest = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetStainTestByTestId(this.m_TestOrder.TestId);
+        private void AddStainResult(YellowstonePathology.Business.Test.Model.Test test)
+        {
+            YellowstonePathology.Business.Test.Model.StainTest stainTest = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetStainTestByTestId(test.TestId);
             if (stainTest != null && !string.IsNullOrEmpty(stainTest.CptCode))
             {
                 YellowstonePathology.Business.SpecialStain.StainResultItem stainResultItem = this.m_SurgicalSpecimen.StainResultItemCollection.GetNextItem(this.m_SurgicalSpecimen.SurgicalSpecimenId);
                 stainResultItem.TestOrderId = this.m_TestOrder.TestOrderId;
-                stainResultItem.ProcedureName = this.m_TestOrder.TestName;
+                stainResultItem.ProcedureName = test.TestName;
                 stainResultItem.CptCode = stainTest.CptCode;
                 stainResultItem.CptCodeQuantity = stainTest.CptCodeQuantity;
                 stainResultItem.ControlComment = stainTest.ControlComment;
                 stainResultItem.StainType = stainTest.StainType;
-
                 stainResultItem.Billable = true;
                 stainResultItem.Reportable = true;
 
@@ -106,7 +105,22 @@ namespace YellowstonePathology.Business.Visitor
                     stainResultItem.ImmunoComment = immunoComment.Comment;
                 }
                 this.m_SurgicalSpecimen.StainResultItemCollection.Add(stainResultItem);
-            }             
+            }
+        }
+
+        private void HandleStainResult()
+        {            
+            if(this.m_Test.IsDualOrder == true)
+            {
+                Business.Test.Model.DualStainCollection dualStains = Business.Test.Model.DualStainCollection.GetAll();
+                Business.Test.Model.DualStain dualStain = dualStains.Get(this.m_Test.TestId);
+                this.AddStainResult(dualStain.FirstTest);
+                this.AddStainResult(dualStain.SecondTest);
+            }
+            else
+            {
+                this.AddStainResult(this.m_Test);
+            }
         }
 
         private void HandlePanelOrder()

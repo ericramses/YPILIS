@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Test.Model
 	{
         public ERV3NG()
 		{
-			this.m_TestId = 32;
+			this.m_TestId = "32";
             this.m_TestName = "ERV3 NG";
             this.m_TestAbbreviation = "ERV3 NG";
 			this.m_Active = true;

@@ -14,7 +14,7 @@ namespace YellowstonePathology.Business.Test.Model
             this.m_HasCptCodeLevels = true;            
         }
 
-        public ImmunoHistochemistryTest(int testId, string testName)
+        public ImmunoHistochemistryTest(string testId, string testName)
             : base(testId, testName)
         {
             this.m_IsBillable = true;

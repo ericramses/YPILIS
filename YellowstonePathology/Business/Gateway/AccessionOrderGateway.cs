@@ -2373,7 +2373,7 @@ namespace YellowstonePathology.Business.Gateway
             return result;
         }        
 
-		public static YellowstonePathology.Business.Test.Model.StainTest GetStainTestByTestId(int testId)
+		public static YellowstonePathology.Business.Test.Model.StainTest GetStainTestByTestId(string testId)
 		{
 			YellowstonePathology.Business.Test.Model.StainTest result = null;
 			MySqlCommand cmd = new MySqlCommand("SELECT * from tblStainTest where tblStainTest.TestId = @TestId;");

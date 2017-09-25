@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Test.Model
 	{
 		public CD117()
 		{
-			this.m_TestId = 62;
+			this.m_TestId = "62";
 			this.m_TestName = "CD117";
             this.m_TestAbbreviation = "CD117";
 			this.m_Active = true;

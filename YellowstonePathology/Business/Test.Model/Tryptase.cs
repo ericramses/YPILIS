@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Test.Model
 	{
         public Tryptase()
         {
-            this.m_TestId = 353;
+            this.m_TestId = "353";
             this.m_TestName = "Tryptase";
             this.m_TestAbbreviation = "Tryptase";
             this.m_Active = true;

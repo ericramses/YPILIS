@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Test.Model
 	{
 		public BetaCatenin()
 		{
-			this.m_TestId = 299;
+			this.m_TestId = "299";
 			this.m_TestName = "Beta-Catenin";
             this.m_TestAbbreviation = "Beta-Catenin";
 			this.m_Active = true;

@@ -18,8 +18,7 @@ namespace YellowstonePathology.Business.Persistence
         {           
             switch (databaseName)
             {
-                case "YPIDATA":
-                    //this.m_ConnectionString = @"Data Source=TestSQL;Initial Catalog=YPIData;Integrated Security=True";
+                case "YPIDATA":                    
                     this.m_ConnectionString = YellowstonePathology.Properties.Settings.Default.CurrentConnectionString;
                     break;
                 //case "YPILocalData":

@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Test.Model
 	{
 		public CytomegaloVirus()
         {
-            this.m_TestId = 350;
+            this.m_TestId = "350";
 			this.m_TestName = "Cytomegalovirus";
             this.m_TestAbbreviation = "Cytomegalovirus";
 			this.m_Active = true;

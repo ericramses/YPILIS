@@ -149,7 +149,7 @@ namespace YellowstonePathology.Business.Test
 			AliquotOrder result = null;			
 			foreach (AliquotOrder aliquotOrder in this)
 			{
-                if (aliquotOrder.TestOrderCollection.Exists(testOrderId) == true)
+                if (aliquotOrder.TestOrderCollection.ExistsByTestOrderId(testOrderId) == true)
                 {
                     result = aliquotOrder;
                     break;

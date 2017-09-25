@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Test.Model
 	{
 		public SmoothMuscleActin()
 		{
-			this.m_TestId = 153;
+			this.m_TestId = "153";
 			this.m_TestName = "Smooth Muscle Actin";
             this.m_TestAbbreviation = "SMA";
 			this.m_Active = true;

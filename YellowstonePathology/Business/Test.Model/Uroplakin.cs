@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Test.Model
 	{
 		public Uroplakin()
 		{
-			this.m_TestId = 169;
+			this.m_TestId = "169";
 			this.m_TestName = "Uroplakin";
             this.m_TestAbbreviation = "Uroplakin";
 			this.m_Active = true;
