@@ -1104,7 +1104,7 @@
     <Compile Include="Business\MaterialTracking.Model\MaterialTrackingScannedItemView.cs" />
     <Compile Include="Business\MaterialTracking.Model\MaterialTrackingScannedItemViewCollection.cs" />
     <Compile Include="Business\MolecularTesting\CaseList.cs" />
-    <Compile Include="Business\Monitor.Model\BlockCount.cs" />
+    <Compile Include="Business\Monitor.Model\Dashboard.cs" />
     <Compile Include="Business\Monitor.Model\CytologyScreening.cs" />
     <Compile Include="Business\Monitor.Model\CytologyScreeningCollection.cs" />
     <Compile Include="Business\Monitor.Model\Distribution.cs" />
@@ -1145,8 +1145,6 @@
     <Compile Include="Business\Reports\SurgicalSpecimenDisposalReportV2.xaml.cs">
       <DependentUpon>SurgicalSpecimenDisposalReportV2.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Business\SpecialStain\VentanaBenchMark.cs" />
-    <Compile Include="Business\SpecialStain\VentanaBenchMarkCollection.cs" />
     <Compile Include="Business\Specimen.Model\WashAliquot.cs" />
     <Compile Include="Business\Surgical\VentanaBenchMark.cs" />
     <Compile Include="Business\Surgical\VentanaBenchMarkCollection.cs" />

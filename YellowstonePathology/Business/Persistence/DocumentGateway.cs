@@ -296,7 +296,7 @@ namespace YellowstonePathology.Business.Persistence
             }
         }
 
-        public YellowstonePathology.Business.SpecialStain.VentanaBenchMark PullVentanaBenchMark(int barcodeNumber, object writer)
+        public YellowstonePathology.Business.Surgical.VentanaBenchMark PullVentanaBenchMark(int barcodeNumber, object writer)
         {
             lock (locker)
             {
@@ -304,11 +304,11 @@ namespace YellowstonePathology.Business.Persistence
                 cmd.CommandText = "Select * from tblVentanaBenchMark m where m.BarcodeNumber = @BarcodeNumber;";
                 cmd.CommandType = CommandType.Text;
                 cmd.Parameters.AddWithValue("@BarcodeNumber", barcodeNumber);
-                GenericDocumentBuilder builder = new GenericDocumentBuilder(cmd, typeof(YellowstonePathology.Business.SpecialStain.VentanaBenchMark));
+                GenericDocumentBuilder builder = new GenericDocumentBuilder(cmd, typeof(YellowstonePathology.Business.Surgical.VentanaBenchMark));
 
-                DocumentId documentId = new DocumentId(typeof(YellowstonePathology.Business.SpecialStain.VentanaBenchMark), writer, barcodeNumber);
+                DocumentId documentId = new DocumentId(typeof(YellowstonePathology.Business.Surgical.VentanaBenchMark), writer, barcodeNumber);
                 Document document = this.m_Stack.Pull(documentId, builder);
-                return (YellowstonePathology.Business.SpecialStain.VentanaBenchMark)document.Value;
+                return (YellowstonePathology.Business.Surgical.VentanaBenchMark)document.Value;
             }
         }
     }

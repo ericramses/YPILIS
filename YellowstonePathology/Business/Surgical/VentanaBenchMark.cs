@@ -8,7 +8,8 @@ using YellowstonePathology.Business.Persistence;
 
 namespace YellowstonePathology.Business.Surgical
 {
-    [PersistentClass("tblTaskOrder", "YPIDATA")]
+    [PersistentClass("tblVentanaBenchMark", true, "YPIDATA")]
+    //[PersistentClass("tblTaskOrder", "YPIDATA")]
     public class VentanaBenchMark : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
@@ -27,7 +28,7 @@ namespace YellowstonePathology.Business.Surgical
 
         }
 
-        [PersistentProperty()]
+        [PersistentPrimaryKeyProperty(false)]
         [PersistentDataColumnProperty(true, "11", "null", "int")]
         public int BarcodeNumber
         {

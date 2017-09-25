@@ -23,7 +23,7 @@ namespace YellowstonePathology.UI.Monitor
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private YellowstonePathology.Business.Monitor.Model.BlockCount m_BlockCount;
+        private YellowstonePathology.Business.Monitor.Model.Dashboard m_Dashboard;
 
         private Login.Receiving.LoginPageWindow m_LoginPageWindow;
 
@@ -35,8 +35,8 @@ namespace YellowstonePathology.UI.Monitor
 
         private void LoadData()
         {
-            this.m_BlockCount = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetBlockCount();
-            this.m_BlockCount.SetBozemanBlockCount();
+            this.m_Dashboard = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetBlockCount();
+            this.m_Dashboard.SetBozemanBlockCount();
             this.NotifyPropertyChanged("");
         }
 
@@ -45,9 +45,9 @@ namespace YellowstonePathology.UI.Monitor
             this.LoadData();
         }
 
-        public YellowstonePathology.Business.Monitor.Model.BlockCount BlockCount
+        public YellowstonePathology.Business.Monitor.Model.Dashboard Dashboard
         {
-            get { return this.m_BlockCount; }
+            get { return this.m_Dashboard; }
         }
 
         public DateTime DashboardDate

@@ -12,7 +12,7 @@ namespace YellowstonePathology.UI
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private Business.SpecialStain.VentanaBenchMarkCollection m_VentanaBenchMarkCollection;
+        private Business.Surgical.VentanaBenchMarkCollection m_VentanaBenchMarkCollection;
         public VentanaStainMappingDialog()
         {
             this.m_VentanaBenchMarkCollection = Business.Gateway.SlideAccessionGateway.GetVentanaBenchMarks();
@@ -20,7 +20,7 @@ namespace YellowstonePathology.UI
             DataContext = this;
         }
 
-        public Business.SpecialStain.VentanaBenchMarkCollection VentanaBenchMarkCollection
+        public Business.Surgical.VentanaBenchMarkCollection VentanaBenchMarkCollection
         {
             get { return this.m_VentanaBenchMarkCollection; }
             set { this.m_VentanaBenchMarkCollection = value; }
@@ -30,7 +30,7 @@ namespace YellowstonePathology.UI
         {
             if(this.ListViewStains.SelectedItem != null)
             {
-                Business.SpecialStain.VentanaBenchMark ventanaBenchMark = (Business.SpecialStain.VentanaBenchMark)this.ListViewStains.SelectedItem;
+                Business.Surgical.VentanaBenchMark ventanaBenchMark = (Business.Surgical.VentanaBenchMark)this.ListViewStains.SelectedItem;
                 VentanaStainEditDialog dialog = new UI.VentanaStainEditDialog(ventanaBenchMark.BarcodeNumber);
                 dialog.Accept += VentanaStainEditDialog_Accept;
                 dialog.ShowDialog();
