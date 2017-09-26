@@ -18,6 +18,7 @@ namespace YellowstonePathology.Business.Monitor.Model
         private Microsoft.Office.Interop.Outlook.MAPIFolder m_MAPIFolder;
         private Microsoft.Office.Interop.Outlook._Explorer m_Explorer;
 
+        private DateTime m_DashboardDate;
         private string m_YPIBlockCount;
         private int m_YPIBlocks;
         private string m_BozemanBlockCount;
@@ -26,11 +27,21 @@ namespace YellowstonePathology.Business.Monitor.Model
 
         public Dashboard()
         {
-            this.m_YPIBlockCount = "0";
-            this.m_YPIBlocks = 0;
-            this.m_BozemanBlockCount = "Unknown";
-            this.m_BozemanBlocks = 0;
             this.m_State = MonitorStateEnum.Normal;
+        }
+
+        [PersistentPrimaryKeyProperty(false)]
+        public DateTime DashboardDate
+        {
+            get { return this.m_DashboardDate; }
+            set
+            {
+                if (this.m_DashboardDate != value)
+                {
+                    this.m_DashboardDate = value;
+                    this.NotifyPropertyChanged("DashboardDate");
+                }
+            }
         }
 
         [PersistentProperty()]
@@ -45,7 +56,6 @@ namespace YellowstonePathology.Business.Monitor.Model
                     {
                         this.m_BozemanBlockCount = "Unknown";
                         this.m_BozemanBlocks = 0;
-
                     }
                     else
                     {
@@ -74,7 +84,11 @@ namespace YellowstonePathology.Business.Monitor.Model
         public int YPIBlocks
         {
             get { return this.m_YPIBlocks; }
-            set { this.m_YPIBlocks = value; }
+            set
+            {
+                this.m_YPIBlocks = value;
+                this.YPIBlockCount = this.m_YPIBlocks.ToString();
+            }
         }
 
         public int TotalBlockCount
