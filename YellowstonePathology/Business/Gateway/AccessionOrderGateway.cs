@@ -2962,41 +2962,5 @@ namespace YellowstonePathology.Business.Gateway
             }
             return result;
         }
-
-        public static Business.Monitor.Model.Dashboard GetBlockCount()
-        {
-            Business.Monitor.Model.Dashboard result = new Monitor.Model.Dashboard();
-
-            MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "select count(*) YPIBlocks from tblAliquotOrder ao join tblSpecimenOrder so on ao.specimenOrderId = so.SpecimenOrderId " +
-            "join tblAccessionOrder a on so.MasterAccessionNo = a.MasterAccessionNo " +
-            "where a.ClientId not in (1260, 1446, 1511) and ao.GrossVerified = 1 and ao.GrossVerifiedDate > curdate(); " +
-            "Select * from tblDashboard where DashboardDate = curdate();";
-
-            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-            {
-                cn.Open();
-                cmd.Connection = cn;
-                using (MySqlDataReader dr = cmd.ExecuteReader())
-                {
-                    while (dr.Read())
-                    {
-                        string s = dr[0].ToString();
-                        result.YPIBlocks = Convert.ToInt32(dr[0].ToString());
-                    }
-
-                    dr.NextResult();
-
-                    while (dr.Read())
-                    {
-                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(result, dr);
-                        sqlDataReaderPropertyWriter.WriteProperties();
-                    }
-                }
-            }
-
-            return result;
-        }
     }
 }
