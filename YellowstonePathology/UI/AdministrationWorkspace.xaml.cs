@@ -985,7 +985,7 @@ namespace YellowstonePathology.UI
         {
             //this.GetSlideNumberTest();
             //Business.Label.Model.ZPLPrinterUSB usbPrinter = new Business.Label.Model.ZPLPrinterUSB();
-            //usbPrinter.Print("HSLD17-12123", "17-12345.F2", "FRANKENSTEIN", "Oscar", "1A2", "YPI Blgs");         
+            //usbPrinter.Print("HSLD17-123", "17-123.F2", "FRANKENSTEIN", "Oscar", "1A2", "YPI Blgs", "DAS");
 
             //Business.Label.Model.ZPLPrinterTCP printer = new Business.Label.Model.ZPLPrinterTCP("10.1.1.19");
             //printer.Print(result.ToString());
@@ -1006,7 +1006,7 @@ namespace YellowstonePathology.UI
             for(int x = 1; x<lines.Length; x++)
             {
                 string[] fields = lines[x].Split(',');
-                if(fields[0] == "1")
+                if(fields[1] == "220")
                 {
                     StringBuilder sql = new StringBuilder("Insert tblVentanaBenchMark ");
                     sql.Append("(BarcodeNumber, StainerType, StainName, `Procedure`, ProtocolName, YPITestId, IsWetProtocol, IsDualProtocol) values (");
@@ -1022,7 +1022,7 @@ namespace YellowstonePathology.UI
                     Console.WriteLine(sql.ToString());
                 }                
             } 
-            */
+            */            
         }
 
         private void GetSlideNumberTest()

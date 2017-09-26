@@ -14,8 +14,9 @@ namespace YellowstonePathology.Business.Label.Model
         private string m_TestName;
         private string m_SlideLabel;
         private string m_Location;
+        private string m_PathologistInitials;
 
-        public HistologySlidePaperZPLLabel(string slideOrderId, string reportNo, string lastName, string testName, string slideLabel, string location)
+        public HistologySlidePaperZPLLabel(string slideOrderId, string reportNo, string lastName, string testName, string slideLabel, string location, string pathologistInitials)
         {
             this.m_SlideOrderId = slideOrderId;
             this.m_ReportNo = reportNo;
@@ -23,6 +24,7 @@ namespace YellowstonePathology.Business.Label.Model
             this.m_TestName = testName;
             this.m_SlideLabel = slideLabel;
             this.m_Location = location;
+            this.m_PathologistInitials = pathologistInitials;
         }
 
         public void AppendCommands(StringBuilder result, int xOffset)
@@ -45,16 +47,17 @@ namespace YellowstonePathology.Business.Label.Model
             else
             {
                 truncatedLastName = this.m_LastName;
-            }            
-            
+            }
+
             result.Append("^PW440");
-            result.Append("^FWR");
-            result.Append("^FO140,0^AO,35,15^FD" + this.m_ReportNo + "^FS");            
-            result.Append("^FO110,0^AO,25,10^FD" + truncatedLastName + "^FS");
-            result.Append("^FO80,0^AO,30,15^FD" + truncatedTestName + "^FS");
-            result.Append("^FO50,0^AO,30,15^FD" + this.m_SlideLabel + "^FS");
-            result.Append("^FO0,0^AO,15,10^FD" + this.m_Location + "^FS");
-            result.Append("^FO10,190^BXN,04,200^FD" + "HSLD" + this.m_SlideOrderId + "^FS");                        
+            result.Append("^FWB");
+            result.Append("^A0,30,30^FO10,60^FB210,1,,^FD" + this.m_ReportNo + "^FS");
+            result.Append("^A0,25,25^FO45,60^FB210,1,,^FD" + truncatedLastName + "^FS");
+            result.Append("^A0,30,30^FO80,60^FB210,1,,^FD" + truncatedTestName + "^FS");
+            string slideLabelInitials = this.m_SlideLabel + " (" + this.m_PathologistInitials + ")";
+            result.Append("^A0,30,30^FO115,60^FB210,1,,^FD" + slideLabelInitials + "^FS");
+            result.Append("^A0,20,20^FO160,60^FB210,1,,^FD" + this.m_Location + "^FS");
+            result.Append("^FO115,10^BXN,04,200^FD" + "HSLD" + this.m_SlideOrderId + "^FS");                                    
         }
     }
 }

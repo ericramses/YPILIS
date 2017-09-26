@@ -114,33 +114,27 @@ namespace YellowstonePathology.Business.Billing.Model
             string icd10Code = string.Empty;
 
             if (YellowstonePathology.Business.Cytology.Model.CytologyResultCode.IsResultCodeReactive(resultCode) == true)
-            {
-                icd9Code = "795.09";
+            {                
                 icd10Code = "R87.820";
             }
             else if (YellowstonePathology.Business.Cytology.Model.CytologyResultCode.IsDiagnosisASCUS(resultCode) == true)
-            {
-                icd9Code = "795.01";
+            {             
                 icd10Code = "R87.610";
             }
             else if (YellowstonePathology.Business.Cytology.Model.CytologyResultCode.IsDiagnosisASCH(resultCode) == true)
-            {
-                icd9Code = "795.02";
+            {             
                 icd10Code = "R87.611";
             }
             else if (YellowstonePathology.Business.Cytology.Model.CytologyResultCode.IsDiagnosisLSIL(resultCode) == true)
-            {
-                icd9Code = "795.03";
+            {                
                 icd10Code = "R87.612";
             }
             else if (YellowstonePathology.Business.Cytology.Model.CytologyResultCode.IsDiagnosisHGSIL(resultCode) == true)
-            {
-                icd9Code = "795.04";
+            {             
                 icd10Code = "R87.613";
             }
             else if (YellowstonePathology.Business.Cytology.Model.CytologyResultCode.IsDiagnosisAGUS(resultCode) == true)
-            {
-                icd9Code = "795.00";
+            {                
                 icd10Code = "R87.619";
             }            
 
@@ -149,7 +143,7 @@ namespace YellowstonePathology.Business.Billing.Model
                 if (this.m_AccessionOrder.ICD9BillingCodeCollection.CodeExists(icd9Code) == false)
                 {
                     YellowstonePathology.Business.Billing.Model.ICD9BillingCode icd9BillingCode = this.m_AccessionOrder.ICD9BillingCodeCollection.GetNextItem(this.m_PanelSetOrder.ReportNo,
-                        this.m_AccessionOrder.MasterAccessionNo, this.m_AccessionOrder.SpecimenOrderCollection[0].SpecimenOrderId, icd9Code, icd10Code, 1);
+                        this.m_AccessionOrder.MasterAccessionNo, this.m_AccessionOrder.SpecimenOrderCollection[0].SpecimenOrderId, icd10Code, 1);
                     icd9BillingCode.DesignatedFor = "Signing Physician";
                     icd9BillingCode.Source = "Cytology";
                     this.m_AccessionOrder.ICD9BillingCodeCollection.Add(icd9BillingCode);

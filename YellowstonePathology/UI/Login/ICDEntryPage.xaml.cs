@@ -106,19 +106,18 @@ namespace YellowstonePathology.UI.Login
         private void ListBoxCodes_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
 			ListBox listBox = (ListBox)sender;
-			XmlElement element = (XmlElement)listBox.SelectedItem;
-			string icd9Code = element.GetAttribute("ICD9");
+			XmlElement element = (XmlElement)listBox.SelectedItem;			
             string icd10Code = element.GetAttribute("ICD10");
 
 			int quantity = Convert.ToInt32(element.GetAttribute("Quantity"));
-            this.AddICD9Code(icd9Code, icd10Code, quantity);
+            this.AddICD9Code(icd10Code, quantity);
         }		
 
-		private void AddICD9Code(string icd9Code, string icd10Code, int quantity)
+		private void AddICD9Code(string icd10Code, int quantity)
 		{
 			string specimenOrderId = this.m_AccessionOrder.SpecimenOrderCollection[0].SpecimenOrderId;
 			YellowstonePathology.Business.Billing.Model.ICD9BillingCode icd9BillingCode = this.m_AccessionOrder.ICD9BillingCodeCollection.GetNextItem(this.m_ReportNo,
-                this.m_AccessionOrder.MasterAccessionNo, specimenOrderId, icd9Code, icd10Code, quantity);
+                this.m_AccessionOrder.MasterAccessionNo, specimenOrderId, icd10Code, quantity);
 			this.m_AccessionOrder.ICD9BillingCodeCollection.Add(icd9BillingCode);
 		}		
 
@@ -126,7 +125,7 @@ namespace YellowstonePathology.UI.Login
         {
             if (string.IsNullOrEmpty(this.TextBoxICD10Code.Text) == false)
             {
-                this.AddICD9Code(null, this.TextBoxICD10Code.Text, 1);
+                this.AddICD9Code(this.TextBoxICD10Code.Text, 1);
             }            
         }
 
@@ -153,7 +152,7 @@ namespace YellowstonePathology.UI.Login
                         {
                             if (this.m_AccessionOrder.ICD9BillingCodeCollection.CodeExists(code) == false)
                             {
-                                this.AddICD9Code(null, code, 1);
+                                this.AddICD9Code(code, 1);
                             }
                         }
                     }
