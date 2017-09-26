@@ -24,7 +24,7 @@ namespace YellowstonePathology.Business.Label.Model
             this.m_TestName = testName;
             this.m_SlideLabel = slideLabel;
             this.m_Location = location;
-            this.m_PathologistInitials = pathologistInitials;
+            this.m_PathologistInitials = pathologistInitials;        
         }
 
         public void AppendCommands(StringBuilder result, int xOffset)
@@ -57,7 +57,7 @@ namespace YellowstonePathology.Business.Label.Model
             string slideLabelInitials = this.m_SlideLabel + " (" + this.m_PathologistInitials + ")";
             result.Append("^A0,30,30^FO115,60^FB210,1,,^FD" + slideLabelInitials + "^FS");
             result.Append("^A0,20,20^FO160,60^FB210,1,,^FD" + this.m_Location + "^FS");
-            result.Append("^FO115,10^BXN,04,200^FD" + "HSLD" + this.m_SlideOrderId + "^FS");                                    
+            result.Append("^FO120,20^BXR,04,200^FD" + "HSLD" + this.m_SlideOrderId + "^FS");              
         }
     }
 }

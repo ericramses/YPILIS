@@ -21,7 +21,8 @@ namespace YellowstonePathology.Business.Test.Model
         protected bool m_OrderedAsDual;
         protected bool m_NoCharge;
         protected bool m_UseWetProtocol;
-        protected bool m_PerformedByHand;      
+        protected bool m_PerformedByHand;
+        protected string m_OrderedBy;
 
         public TestOrder_Base()
         {
@@ -219,6 +220,21 @@ namespace YellowstonePathology.Business.Test.Model
                 {
                     this.m_PerformedByHand = value;
                     this.NotifyPropertyChanged("PerformedByHand");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
+        public string OrderedBy
+        {
+            get { return this.m_OrderedBy; }
+            set
+            {
+                if (this.m_OrderedBy != value)
+                {
+                    this.m_OrderedBy = value;
+                    this.NotifyPropertyChanged("OrderedBy");
                 }
             }
         }

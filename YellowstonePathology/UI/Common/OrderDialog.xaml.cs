@@ -128,19 +128,7 @@ namespace YellowstonePathology.UI.Common
 			IInputElement focusedElement = Keyboard.FocusedElement;
 			FrameworkElement element = (FrameworkElement)focusedElement;
 			element.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
-		}		
-
-		private void CheckBoxStainColor_Checked(object sender, RoutedEventArgs e)
-		{
-            this.m_PanelOrderComment += "Melanoma stains are to be brown. ";
-            this.NotifyPropertyChanged("TestOrderComment");
-		}
-
-		private void CheckBoxStainColor_Unchecked(object sender, RoutedEventArgs e)
-		{
-            this.m_PanelOrderComment = this.m_PanelOrderComment.Replace("Melanoma stains are to be brown. ", string.Empty);
-            this.NotifyPropertyChanged("TestOrderComment");
-		}		        
+		}						        
 
         private void ButtonOrder_Click(object sender, RoutedEventArgs e)
         {
