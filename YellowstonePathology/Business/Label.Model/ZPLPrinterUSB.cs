@@ -14,10 +14,10 @@ namespace YellowstonePathology.Business.Label.Model
             
         }
 
-        public void Print(string slideOrderId, string reportNo, string patientLastName, string testName, string label, string location)
+        public void Print(string slideOrderId, string reportNo, string patientLastName, string testName, string label, string location, string pathologistInitials)
         {
             string printerName = "ZDesigner GX430t";
-            Business.Label.Model.HistologySlidePaperZPLLabel histologySlidePaperZPLLabel = new Business.Label.Model.HistologySlidePaperZPLLabel(slideOrderId, reportNo, patientLastName, testName, label, location);
+            Business.Label.Model.HistologySlidePaperZPLLabel histologySlidePaperZPLLabel = new Business.Label.Model.HistologySlidePaperZPLLabel(slideOrderId, reportNo, patientLastName, testName, label, location, pathologistInitials);
             StringBuilder zpl = new StringBuilder();
             histologySlidePaperZPLLabel.AppendCommands(zpl, 20);                        
             RawPrinterHelper.SendStringToPrinter(printerName, "^XA" + zpl.ToString() + "^XZ");

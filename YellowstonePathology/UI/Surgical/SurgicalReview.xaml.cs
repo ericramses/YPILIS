@@ -193,7 +193,7 @@ namespace YellowstonePathology.UI.Surgical
         {
             YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen = (YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen)((Button)sender).Tag;
             YellowstonePathology.Business.Billing.Model.ICD9BillingCode icd9BillingCode = this.AccessionOrder.ICD9BillingCodeCollection.GetNextItem(this.PanelSetOrderSurgical.ReportNo,
-                this.AccessionOrder.MasterAccessionNo, surgicalSpecimen.SpecimenOrderId, null, null, 1);
+                this.AccessionOrder.MasterAccessionNo, surgicalSpecimen.SpecimenOrderId, null, 1);
             icd9BillingCode.SurgicalSpecimenId = surgicalSpecimen.SurgicalSpecimenId;
             this.AccessionOrder.ICD9BillingCodeCollection.Add(icd9BillingCode);
             this.RefreshBillingSpecimenViewCollection();

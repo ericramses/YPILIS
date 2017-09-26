@@ -757,7 +757,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             YellowstonePathology.Business.Slide.Model.SlideOrderCollection slideOrderCollection = this.m_AliquotAndStainOrderView.GetSelectedSlideOrders();            
             foreach(YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder in slideOrderCollection)
             {                
-                Business.Label.Model.HistologySlidePaperZPLLabel label = new Business.Label.Model.HistologySlidePaperZPLLabel(slideOrder.SlideOrderId, slideOrder.ReportNo, slideOrder.PatientLastName, slideOrder.TestAbbreviation, slideOrder.Label, slideOrder.Location);
+                Business.Label.Model.HistologySlidePaperZPLLabel label = new Business.Label.Model.HistologySlidePaperZPLLabel(slideOrder.SlideOrderId, slideOrder.ReportNo, slideOrder.PatientLastName, slideOrder.TestAbbreviation, slideOrder.Label, slideOrder.Location, slideOrder.OrderedBy);
                 queue.Enqueue(label);
             }
 

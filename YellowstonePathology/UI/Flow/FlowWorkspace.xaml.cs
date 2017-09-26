@@ -200,7 +200,7 @@ namespace YellowstonePathology.UI.Flow
             if (this.ListViewICDCodes.SelectedItem != null)
             {
                 YellowstonePathology.Business.Billing.Model.ICDCode item = (YellowstonePathology.Business.Billing.Model.ICDCode)ListViewICDCodes.SelectedItem;                
-                this.m_FlowUI.AddICD9Code(item.ICD9Code, item.ICD10Code);
+                this.m_FlowUI.AddICD10Code(item.ICD10Code);
             }
         }
 
@@ -962,10 +962,9 @@ namespace YellowstonePathology.UI.Flow
             if (this.ListViewICDCodes.SelectedItem != null)
             {
                 ListBox listBox = (ListBox)sender;
-                XmlElement element = (XmlElement)listBox.SelectedItem;
-                string icd9Code = element.GetAttribute("ICD9");
+                XmlElement element = (XmlElement)listBox.SelectedItem;                
                 string icd10Code = element.GetAttribute("ICD10");
-                this.m_FlowUI.AddICD9Code(icd9Code, icd10Code);
+                this.m_FlowUI.AddICD10Code(icd10Code);
             }            
         }
 

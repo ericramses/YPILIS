@@ -150,7 +150,7 @@ namespace YellowstonePathology.UI.Cutting
         private void SlideOptionsPage_PrintPaperLabel(object sender, CustomEventArgs.SlideOrderReturnEventArgs eventArgs)
         {
             this.HandleVentanaOrder(this.m_AccessionOrder, eventArgs.SlideOrder);
-            //this.PrintPaperLabel(eventArgs.SlideOrder);            
+            this.PrintPaperLabel(eventArgs.SlideOrder);            
             this.m_PageNavigator.Navigate(this);
         }
 
@@ -291,7 +291,7 @@ namespace YellowstonePathology.UI.Cutting
         }
 
         private void HandleVentanaOrder(Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder)
-        {                        
+        {                                    
             if (slideOrder.LabelType == YellowstonePathology.Business.Slide.Model.SlideLabelTypeEnum.PaperLabel.ToString())
             {
                 try
@@ -303,17 +303,19 @@ namespace YellowstonePathology.UI.Cutting
                         slideOrder.OrderSentToVentana = true;
 
                         string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-                        System.IO.File.WriteAllText(@"\\10.1.2.31\ChannelData\Outgoing\Ventana\" + objectId + ".hl7", result);                     
+                        System.IO.File.WriteAllText(@"\\10.1.2.31\ChannelData\Outgoing\Ventana\" + objectId + ".hl7", result);
+
+                        Business.Logging.EmailExceptionHandler.HandleException("Ventana Order Sent: " + slideOrder.Label);
                     }                                     
 
                     Business.Label.Model.ZPLPrinterUSB zplPrinterUSB = new Business.Label.Model.ZPLPrinterUSB();
-                    zplPrinterUSB.Print(slideOrder.SlideOrderId, slideOrder.ReportNo, slideOrder.PatientLastName, slideOrder.TestAbbreviation, slideOrder.Label, slideOrder.Location);
+                    zplPrinterUSB.Print(slideOrder.SlideOrderId, slideOrder.ReportNo, slideOrder.PatientLastName, slideOrder.TestAbbreviation, slideOrder.Label, slideOrder.Location, slideOrder.OrderedBy);
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.InnerException.ToString());
                 }
-            }                               
+            }                                      
         }
 
         private void PrintSlide(YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder)
