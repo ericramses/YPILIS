@@ -19,7 +19,8 @@ namespace YellowstonePathology.Business.Test
         {            
             foreach (Business.Test.AccessionLock accessionLock in this)
             {
-                if (accessionLock.Address == UI.AppMessaging.AccessionLockMessage.GetMyAddress())
+                //if (accessionLock.Address == UI.AppMessaging.AccessionLockMessage.GetMyAddress())
+                if (accessionLock.IsLockAquiredByMe == true)
                 {
                     accessionLock.ReleaseLock();
                 }
