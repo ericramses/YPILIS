@@ -648,9 +648,9 @@ namespace YellowstonePathology.Business.Gateway
             return result;
         }
 
-        public static SpecialStain.VentanaBenchMarkCollection GetVentanaBenchMarks()
+        public static Surgical.VentanaBenchMarkCollection GetVentanaBenchMarks()
         {
-            SpecialStain.VentanaBenchMarkCollection result = new SpecialStain.VentanaBenchMarkCollection();
+            Surgical.VentanaBenchMarkCollection result = new Surgical.VentanaBenchMarkCollection();
 
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = "select * from tblVentanaBenchMark order by StainName;";
@@ -664,7 +664,7 @@ namespace YellowstonePathology.Business.Gateway
                 {
                     while (dr.Read())
                     {
-                        SpecialStain.VentanaBenchMark ventanaBenchMark = new SpecialStain.VentanaBenchMark();
+                        Surgical.VentanaBenchMark ventanaBenchMark = new Surgical.VentanaBenchMark();
                         YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter propertyWriter = new Persistence.SqlDataReaderPropertyWriter(ventanaBenchMark, dr);
                         propertyWriter.WriteProperties();
                         result.Add(ventanaBenchMark);

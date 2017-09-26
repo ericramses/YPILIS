@@ -154,6 +154,8 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.Test.NeoTYPELungTumorProfile.NeoTYPELungTumorProfileTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.NeoTYPEMDSCMMLProfile.NeoTYPEMDSCMMLProfileTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.NeoTYPEColorectalTumorProfile.NeoTYPEColorectalTumorProfileTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.BCellMemoryNaivePanel.BCellMemoryNaivePanelTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.LymphocyteSubsetPanel5.LymphocyteSubsetPanel5Test());
 
             //ARUP
             panelSetCollection.Add(new YellowstonePathology.Business.Test.HPV1618.HPV1618Test());

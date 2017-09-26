@@ -22,7 +22,7 @@ namespace YellowstonePathology.UI
         public delegate void AcceptEventHandler(object sender, EventArgs e);
         public event AcceptEventHandler Accept;
 
-        private Business.SpecialStain.VentanaBenchMark m_VentanaBenchMark;
+        private Business.Surgical.VentanaBenchMark m_VentanaBenchMark;
         public VentanaStainEditDialog(int barcodeNumber)
         {
             this.m_VentanaBenchMark = Business.Persistence.DocumentGateway.Instance.PullVentanaBenchMark(barcodeNumber, this);
@@ -30,7 +30,7 @@ namespace YellowstonePathology.UI
             DataContext = this;
         }
 
-        public Business.SpecialStain.VentanaBenchMark VentanaBenchMark
+        public Business.Surgical.VentanaBenchMark VentanaBenchMark
         {
             get { return this.m_VentanaBenchMark; }
             set { this.m_VentanaBenchMark = value; }

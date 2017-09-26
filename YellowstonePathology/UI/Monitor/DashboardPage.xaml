@@ -34,13 +34,13 @@
             </Grid.RowDefinitions>
 
             <TextBlock Grid.Column="0" Grid.Row="0" Margin ="5, 5, 5, 5" FontSize="70" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Right">YPI:</TextBlock>
-            <TextBlock Grid.Column="1" Grid.Row="0" Margin ="5, 5, 5, 5" FontSize="70" TextAlignment="Center" Text="{Binding Path=BlockCount.YPIBlockCount}"></TextBlock>
+            <TextBlock Grid.Column="1" Grid.Row="0" Margin ="5, 5, 5, 5" FontSize="70" TextAlignment="Center" Text="{Binding Path=Dashboard.YPIBlockCount}"></TextBlock>
 
             <TextBlock Grid.Column="0" Grid.Row="1" Margin ="5, 5, 5, 5" FontSize="70" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Right">Bozeman:</TextBlock>
-            <TextBlock Grid.Column="1" Grid.Row="1" Margin ="5, 5, 5, 5" FontSize="70" TextAlignment="Center" Text="{Binding Path=BlockCount.BozemanBlockCount}"></TextBlock>
+            <TextBlock Grid.Column="1" Grid.Row="1" Margin ="5, 5, 5, 5" FontSize="70" TextAlignment="Center" Text="{Binding Path=Dashboard.BozemanBlockCount}"></TextBlock>
 
             <TextBlock Grid.Column="0" Grid.Row="3" Margin ="5, 5, 5, 5" FontSize="70" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Right">Total:</TextBlock>
-            <TextBlock Grid.Column="1" Grid.Row="3" Margin ="5, 5, 5, 5" FontSize="70" TextAlignment="Center" Text="{Binding Path=BlockCount.TotalBlockCount}"></TextBlock>
+            <TextBlock Grid.Column="1" Grid.Row="3" Margin ="5, 5, 5, 5" FontSize="70" TextAlignment="Center" Text="{Binding Path=Dashboard.TotalBlockCount}"></TextBlock>
         </Grid>
     </Grid>
 </UserControl>

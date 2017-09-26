@@ -1104,7 +1104,7 @@
     <Compile Include="Business\MaterialTracking.Model\MaterialTrackingScannedItemView.cs" />
     <Compile Include="Business\MaterialTracking.Model\MaterialTrackingScannedItemViewCollection.cs" />
     <Compile Include="Business\MolecularTesting\CaseList.cs" />
-    <Compile Include="Business\Monitor.Model\BlockCount.cs" />
+    <Compile Include="Business\Monitor.Model\Dashboard.cs" />
     <Compile Include="Business\Monitor.Model\CytologyScreening.cs" />
     <Compile Include="Business\Monitor.Model\CytologyScreeningCollection.cs" />
     <Compile Include="Business\Monitor.Model\Distribution.cs" />
@@ -1145,8 +1145,6 @@
     <Compile Include="Business\Reports\SurgicalSpecimenDisposalReportV2.xaml.cs">
       <DependentUpon>SurgicalSpecimenDisposalReportV2.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Business\SpecialStain\VentanaBenchMark.cs" />
-    <Compile Include="Business\SpecialStain\VentanaBenchMarkCollection.cs" />
     <Compile Include="Business\Specimen.Model\WashAliquot.cs" />
     <Compile Include="Business\Surgical\VentanaBenchMark.cs" />
     <Compile Include="Business\Surgical\VentanaBenchMarkCollection.cs" />
@@ -1164,6 +1162,7 @@
     <Compile Include="Business\Test\AmyloidProteinIDParLCMS\AmyloidProteinIDParLCMSTest.cs" />
     <Compile Include="Business\Test\ATRXIHC\ATRXIHCTest.cs" />
     <Compile Include="Business\Test\BartonellaSpeciesByPCR\BartonellaSpeciesByPCRTest.cs" />
+    <Compile Include="Business\Test\BCellMemoryNaivePanel\BCellMemoryNaivePanelTest.cs" />
     <Compile Include="Business\Test\BCellSubsetAnalysis\BCellSubsetAnalysisEPICOBXView.cs" />
     <Compile Include="Business\Test\BCellSubsetAnalysis\BCellSubsetAnalysisTest.cs" />
     <Compile Include="Business\Test\BCellSubsetAnalysis\BCellSubsetAnalysisWordDocument.cs" />
@@ -1235,6 +1234,7 @@
     <Compile Include="Business\Test\LiposarcomaFusionProfile\LiposarcomaFusionProfileTest.cs" />
     <Compile Include="Business\Test\LiposarcomaFusionProfile\LiposarcomaFusionProfileTestOrder.cs" />
     <Compile Include="Business\Test\LiposarcomaFusionProfile\LiposarcomaFusionProfileWordDocument.cs" />
+    <Compile Include="Business\Test\LymphocyteSubsetPanel5\LymphocyteSubsetPanel5Test.cs" />
     <Compile Include="Business\Test\LymphocyteSubsetPanel7\LymphocyteSubsetPanel7Test.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult12B.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult1A.cs" />
