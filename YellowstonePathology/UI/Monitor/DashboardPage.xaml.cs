@@ -35,8 +35,9 @@ namespace YellowstonePathology.UI.Monitor
 
         private void LoadData()
         {
-            this.m_Dashboard = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetBlockCount();
+            this.m_Dashboard = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullDashboard(this);
             this.m_Dashboard.SetBozemanBlockCount();
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
             this.NotifyPropertyChanged("");
         }
 
