@@ -56,8 +56,8 @@ namespace YellowstonePathology.UI.Common
             YellowstonePathology.Business.Test.Model.TestCollection result = new YellowstonePathology.Business.Test.Model.TestCollection();
             foreach (XElement element in this.m_OrderItemElementList)
             {
-                //if (element.Element("ItemType").Value == "Test" )
-                //{
+                if (element.Element("ItemType").Value != "Group" )
+                {
                     if (element.Element("Order").Value == "True")
                     {                        
                         string testId = element.Element("Id").Value;
@@ -66,7 +66,7 @@ namespace YellowstonePathology.UI.Common
                         test.OrderComment = testOrderComment;
                         result.Add(test);
                     }
-                //}
+                }
             }
             return result;
         }
