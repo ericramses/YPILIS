@@ -134,31 +134,26 @@ namespace YellowstonePathology.Business.Monitor.Model
             this.m_Explorer = this.m_MAPIFolder.GetExplorer(false);
             this.m_OutlookNameSpace.Logon(System.Reflection.Missing.Value, System.Reflection.Missing.Value, false, true);
 
+            System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex("\\d{1,3}(?=\\D*$)");
+
             Microsoft.Office.Interop.Outlook.Items items = this.m_MAPIFolder.Items;
             foreach (object item in items)
             {
                 if (item is Microsoft.Office.Interop.Outlook.MailItem)
                 {
                     Microsoft.Office.Interop.Outlook.MailItem mailItem = (Microsoft.Office.Interop.Outlook.MailItem)item;
-                    if (mailItem.UnRead)
+                    if (mailItem.SentOn.ToShortDateString() == DateTime.Today.ToShortDateString() && mailItem.To =="blockcount")
                     {
-                        if (mailItem.SentOn.ToShortDateString() == DateTime.Today.ToShortDateString() && mailItem.Subject.Contains("Block Count"))
+                        string count = string.Empty;
+                        System.Text.RegularExpressions.Match match = regex.Match(mailItem.Subject);
+                        if (match.Captures.Count != 0)
                         {
-                            string subject = mailItem.Subject;
-                            int idx = subject.IndexOf("Block Count") + 12;
-                            string countString = subject.Substring(idx);
-                            string count = string.Empty;
-                            for (int x = 0; x < countString.Length; x++)
-                            {
-                                if (char.IsDigit(countString[x]))
-                                {
-                                    count = count + countString[x];
-                                }
-                            }
-                            if (string.IsNullOrEmpty(count) == false)
-                            {
-                                this.BozemanBlockCount = count;
-                            }
+                            count = match.Value;
+                        }
+
+                        if (string.IsNullOrEmpty(count) == false)
+                        {
+                            this.BozemanBlockCount = count;
                         }
                     }
                     System.Runtime.InteropServices.Marshal.FinalReleaseComObject(mailItem);
