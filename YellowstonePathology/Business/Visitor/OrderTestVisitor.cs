@@ -62,12 +62,15 @@ namespace YellowstonePathology.Business.Visitor
         }
 
         public override void Visit(YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen)
-        {            
-            if (surgicalSpecimen.SpecimenOrderId == this.m_AliquotOrder.SpecimenOrderId)
+        {
+            if (surgicalSpecimen.ReportNo == this.m_ReportNo)
             {
-                this.m_SurgicalSpecimen = surgicalSpecimen;
-                this.HandleIC();
-                this.HandleStainResult();
+                if (surgicalSpecimen.SpecimenOrderId == this.m_AliquotOrder.SpecimenOrderId)
+                {
+                    this.m_SurgicalSpecimen = surgicalSpecimen;
+                    this.HandleIC();
+                    this.HandleStainResult();
+                }
             }
         }
 

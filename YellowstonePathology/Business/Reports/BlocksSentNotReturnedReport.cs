@@ -44,12 +44,13 @@ namespace YellowstonePathology.Business.Reports
 
             foreach (MaterialTracking.Model.BlockSentNotReturned blockSentNotReturned in blockSentNotReturnedCollection)
             {
-                string facilityName = string.Empty;
+                string facilityName = blockSentNotReturned.FacilityId;
                 Facility.Model.Facility facility = facilityCollection.GetByFacilityId(blockSentNotReturned.FacilityId);
                 if (facility != null)
                 {
                     facilityName = string.IsNullOrEmpty(facility.FacilityName) ? blockSentNotReturned.FacilityId : facility.FacilityName;
                 }
+
                 XmlNode nodeNew = nodeTemplate.Clone();
                 this.ReplaceTextInRowNode(nodeNew, "facility_id", facilityName);
                 this.ReplaceTextInRowNode(nodeNew, "aliquot_id", blockSentNotReturned.AliquotId);
