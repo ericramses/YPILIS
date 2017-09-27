@@ -10,7 +10,7 @@ namespace YellowstonePathology.Business.Slide.Model
         public static Slide Get(string testId)
         {
             Slide result = null;
-            if (testId == "49" || testId == "150" || testId == "45" || testId == "46" || testId == "48" || testId == "195" || testId == "267")
+            if (testId == "49" || testId == "150" || testId == "45" || testId == "46" || testId == "48" || testId == "195")
             {
                 result = new HAndESlide();
             }

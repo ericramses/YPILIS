@@ -19,7 +19,6 @@ namespace YellowstonePathology.Business.Visitor
             this.m_SystemIdentity = YellowstonePathology.Business.User.SystemIdentity.Instance;
         }
 
-
         public override void Visit(Test.AccessionOrder accessionOrder)
         {
             YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = accessionOrder.PanelSetOrderCollection.GetPanelSetOrderByTestOrderId(this.m_TestOrder.TestOrderId);
@@ -49,7 +48,7 @@ namespace YellowstonePathology.Business.Visitor
             slideOrder.AliquotType = "Slide";
             slideOrder.OrderedById = this.m_SystemIdentity.User.UserId;
             slideOrder.OrderDate = DateTime.Now;
-            slideOrder.OrderedBy = this.m_SystemIdentity.User.UserName;
+            slideOrder.OrderedBy = string.IsNullOrEmpty(this.m_TestOrder.OrderedBy) ? "NONE" : this.m_TestOrder.OrderedBy;
             slideOrder.OrderedFrom = System.Environment.MachineName;
             slideOrder.Status = Business.Slide.Model.SlideStatusEnum.Created.ToString();
             slideOrder.Location = accessioningFacility.LocationAbbreviation;

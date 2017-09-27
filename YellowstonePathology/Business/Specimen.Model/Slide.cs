@@ -27,7 +27,7 @@ namespace YellowstonePathology.Business.Specimen.Model
                 }
                 else
                 {
-                    string pattern = "([1-9]+)([A-Z]+)([1-9]+)";
+                    string pattern = "([1-9]+)([A-Z]+)([0-9]+)";
                     System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex(pattern);
                     System.Text.RegularExpressions.Match match = regex.Match(slideLabel);
                     if (match.Captures.Count != 0)

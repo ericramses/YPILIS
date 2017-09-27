@@ -84,12 +84,9 @@
 		</DataTemplate>
 
 		<DataTemplate x:Key="MelanomaStainGroupTemplate" DataType="OrderItem">
-			<StackPanel>
-				<StackPanel Orientation="Horizontal">
-					<TextBlock Margin="1" TextDecorations="Underline" FontSize="12" FontWeight="Bold" Text="{Binding Path=Element[Name].Value}"/>
-					<CheckBox Margin="5,1,0,1" VerticalAlignment="Center" Checked="CheckBoxStainColor_Checked" Unchecked="CheckBoxStainColor_Unchecked">Brown</CheckBox>
-				</StackPanel>
-				<ItemsControl Name="ItemsControlStain" ItemsSource="{Binding Path=Element[OrderItems].Elements}" KeyboardNavigation.IsTabStop="False"
+            <StackPanel>
+                <TextBlock Margin="1" TextDecorations="Underline" FontSize="12" FontWeight="Bold" Text="{Binding Path=Element[Name].Value}"/>
+                <ItemsControl Name="ItemsControlStain" ItemsSource="{Binding Path=Element[OrderItems].Elements}" KeyboardNavigation.IsTabStop="False"
 							  Template="{StaticResource OrderControlTemplate}" ItemTemplateSelector="{StaticResource OrderItemTemplateSelector}">
 					<ItemsControl.ItemsPanel>
 						<ItemsPanelTemplate>
