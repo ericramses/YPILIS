@@ -123,9 +123,9 @@ namespace YellowstonePathology.UI.Gross
             this.NotifyPropertyChanged("TestOrderCollection");
         }
 
-        private void ButtonOrderMITF_Click(object sender, RoutedEventArgs e)
+        private void ButtonOrderSOX10_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Test.Model.MITF test = new YellowstonePathology.Business.Test.Model.MITF();
+            YellowstonePathology.Business.Test.Model.SOX10 test = new YellowstonePathology.Business.Test.Model.SOX10();
 			YellowstonePathology.Business.Visitor.OrderTestVisitor orderTestVisitor = new Business.Visitor.OrderTestVisitor(this.m_PanelSetOrder.ReportNo, test, test.OrderComment, null, false, this.m_AliquotOrder, false, false, this.m_AccessionOrder.TaskOrderCollection);
             this.m_AccessionOrder.TakeATrip(orderTestVisitor);
 

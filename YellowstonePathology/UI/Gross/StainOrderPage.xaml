@@ -49,7 +49,7 @@
             <Button Height="50" Width="200" Click="ButtonOrderHPylori_Click" Margin="2,2,2,2">H-Pylori</Button>
             <Button Height="50" Width="200" Click="ButtonOrderHMB45_Click" Margin="2,2,2,2">HMB-45</Button>
             <Button Height="50" Width="200" Click="ButtonOrderMelanA_Click" Margin="2,2,2,2">Melan A</Button>
-            <Button Height="50" Width="200" Click="ButtonOrderMITF_Click" Margin="2,2,2,2">MITF</Button>
+            <Button Height="50" Width="200" Click="ButtonOrderSOX10_Click" Margin="2,2,2,2">SOX10</Button>
             <Button Height="50" Width="200" Click="ButtonOrderPancytokeratin_Click" Margin="2,2,2,2">Pancytokeratin</Button>
         </WrapPanel>
                 

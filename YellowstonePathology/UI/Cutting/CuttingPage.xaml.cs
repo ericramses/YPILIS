@@ -291,7 +291,7 @@ namespace YellowstonePathology.UI.Cutting
         }
 
         private void HandleVentanaOrder(Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder)
-        {                                    
+        {                                                
             if (slideOrder.LabelType == YellowstonePathology.Business.Slide.Model.SlideLabelTypeEnum.PaperLabel.ToString())
             {
                 if(slideOrder.PerformedByHand == false && slideOrder.OrderSentToVentana == false)
@@ -308,7 +308,7 @@ namespace YellowstonePathology.UI.Cutting
 
                 Business.Label.Model.ZPLPrinterUSB zplPrinterUSB = new Business.Label.Model.ZPLPrinterUSB();
                 zplPrinterUSB.Print(slideOrder.SlideOrderId, slideOrder.ReportNo, slideOrder.PatientLastName, slideOrder.TestAbbreviation, slideOrder.Label, slideOrder.Location, slideOrder.OrderedBy);                
-            }                                      
+            }                                                  
         }
 
         private void PrintSlide(YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder)
