@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Specimen.Model
             string result = slideLabel;
             if (string.IsNullOrEmpty(slideLabel) == false)
             {
-                if(slideLabel.Contains("CE") == true)
+                if(slideLabel.Contains(".") == true)
                 {
                     string[] dotSplit = slideLabel.Split('.');
                     if(dotSplit.Length == 2)

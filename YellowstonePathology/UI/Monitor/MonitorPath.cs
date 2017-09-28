@@ -25,8 +25,7 @@ namespace YellowstonePathology.UI.Monitor
         private DateTime m_LastReportDistributionHeartBeat;
 
         public MonitorPath()
-		{
-            System.Windows.MessageBox.Show("the monitor is starting");
+		{            
             this.m_OutlookApp = OutlookAddIn.GetApplicationObject();
             this.m_OutlookNameSpace = (Microsoft.Office.Interop.Outlook._NameSpace)this.m_OutlookApp.GetNamespace("MAPI");
             this.m_MAPIFolder = this.m_OutlookNameSpace.GetDefaultFolder(Microsoft.Office.Interop.Outlook.OlDefaultFolders.olFolderInbox);

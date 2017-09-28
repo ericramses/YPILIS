@@ -337,7 +337,7 @@ namespace YellowstonePathology.UI.Cutting
 
         private void ButtonAddHandSlide_Click(object sender, RoutedEventArgs e)
         {
-            this.m_TestOrder.PerformedByHand = true;
+            this.m_TestOrder.PerformedByHand = true;            
             YellowstonePathology.Business.Visitor.AddSlideOrderVisitor addSlideOrderVisitor = new Business.Visitor.AddSlideOrderVisitor(this.m_AliquotOrder, this.m_TestOrder);
             this.m_AccessionOrder.TakeATrip(addSlideOrderVisitor);
         }

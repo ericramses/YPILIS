@@ -17,13 +17,21 @@ namespace YellowstonePathology.Business.Specimen.Model
             string result = blockLabel;            
             if(string.IsNullOrEmpty(blockLabel) == false)
             {
-                string pattern = "([A-Z]+)";
-                System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex(pattern);
-                System.Text.RegularExpressions.Match match = regex.Match(blockLabel);
-                if (match.Captures.Count != 0)
-                {                   
-                    result = match.Value;
+                if(blockLabel.Contains(".") == true)
+                {
+                    string[] dotSplit = blockLabel.Split('.');
+                    result = dotSplit[1];
                 }
+                else
+                {
+                    string pattern = "([A-Z]+)";
+                    System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex(pattern);
+                    System.Text.RegularExpressions.Match match = regex.Match(blockLabel);
+                    if (match.Captures.Count != 0)
+                    {
+                        result = match.Value;
+                    }
+                }                
             }
             return result;
         }

@@ -37,11 +37,25 @@ namespace YellowstonePathology.Business.Surgical
 
             if(Array.Exists(erTestIds, element => element == ypiTestId))
             {
-                result = this.GetByVentanaTestId("280");
+                if (useWetProtocol == false)
+                {
+                    result = this.GetByVentanaTestId("259");
+                }
+                else
+                {
+                    result = this.GetByVentanaTestId("280");
+                }
             }
             else if(Array.Exists(prTestIds, element => element == ypiTestId))
             {
-                result = this.GetByVentanaTestId("265");
+                if(useWetProtocol == false)
+                {
+                    result = this.GetByVentanaTestId("265");
+                }
+                else
+                {
+                    result = this.GetByVentanaTestId("281");
+                }                
             }
             else
             {
