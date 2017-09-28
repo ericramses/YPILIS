@@ -1,11 +1,11 @@
-﻿<Window x:Class="YellowstonePathology.UI.VentanaStainEditDialog"
+﻿<Window x:Class="YellowstonePathology.UI.VentanaStainAddDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YellowstonePathology.UI"
         mc:Ignorable="d"
-        Title="Ventana Stain Edit" WindowStyle="ToolWindow" WindowStartupLocation="CenterScreen" SizeToContent="Height" Width="500">
+        Title="Add Ventana Stain" WindowStyle="ToolWindow" WindowStartupLocation="CenterScreen" SizeToContent="Height" Width="500">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
@@ -27,7 +27,7 @@
 
         <TextBlock Grid.Row="0" Grid.Column="0" Margin="5,5,5,5" FontSize="14" FontWeight="Bold" TextAlignment="Right">Stainer Type:</TextBlock>
         <TextBox Grid.Row="0" Grid.Column="1" Margin="5,5,5,5" FontSize="14" TextAlignment="Left" Text="{Binding Path=VentanaBenchMark.StainerType}" />
-        
+
         <TextBlock Grid.Row="1" Grid.Column="0" Margin="5,5,5,5" FontSize="14" FontWeight="Bold" TextAlignment="Right">Stain Name:</TextBlock>
         <TextBox Grid.Row="1" Grid.Column="1" Margin="5,5,5,5" FontSize="14" TextAlignment="Left" Text="{Binding Path=VentanaBenchMark.StainName}" />
 
@@ -46,7 +46,10 @@
         <TextBlock Grid.Row="7" Grid.Column="0" Margin="5,5,5,5" FontSize="14" FontWeight="Bold" TextAlignment="Right">Is Wet Protocol:</TextBlock>
         <TextBox Grid.Row="7" Grid.Column="1" Margin="5,5,5,5" FontSize="14" TextAlignment="Left" Text="{Binding Path=VentanaBenchMark.IsWetProtocol}" />
 
-        <Button Name="ButtonClose" Grid.Column="1" Grid.Row="8" Width="100" Height="40" HorizontalAlignment="Right" Margin="5,5,5,5" Click="ButtonClose_Click">Close</Button>
+        <StackPanel Grid.Column="1" Grid.Row="8" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Name="ButtonAdd" Width="100" Height="40" HorizontalAlignment="left" Margin="5,5,5,5" Click="ButtonAdd_Click">Add</Button>
+            <Button Name="ButtonClose" Grid.Column="1" Grid.Row="8" Width="100" Height="40" HorizontalAlignment="Right" Margin="5,5,5,5" Click="ButtonClose_Click">Close</Button>
+        </StackPanel>
 
     </Grid>
 </Window>
