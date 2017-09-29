@@ -14,12 +14,12 @@ namespace YellowstonePathology.Business.Billing.Model
 
 		}
 
-        public BillingRule GetMatch(string patientType, string primaryInsurance, string secondaryInsurance, bool postDischarge, int panelSetId)
+        public BillingRule GetMatch(string patientType, string primaryInsurance, string secondaryInsurance, bool postDischarge, int panelSetId, bool referenceLab)
         {            
             BillingRuleCollection matchedBillingRules = new BillingRuleCollection();
             foreach (BillingRule billingRule in this)
             {
-                if (billingRule.IsMatch(patientType, primaryInsurance, secondaryInsurance, postDischarge, panelSetId) == true)
+                if (billingRule.IsMatch(patientType, primaryInsurance, secondaryInsurance, postDischarge, panelSetId, referenceLab) == true)
                 {
                     matchedBillingRules.Add(billingRule);
                 }

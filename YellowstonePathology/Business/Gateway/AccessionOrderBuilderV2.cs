@@ -346,8 +346,7 @@ namespace YellowstonePathology.Business.Gateway
         }
 
         private void HandleTestOrder(DataTable dataTable)
-        {
-            //this.m_TestOrderDataTable = dataTable;
+        {            
             foreach (Test.PanelSetOrder panelSetOrder in this.m_AccessionOrder.PanelSetOrderCollection)
             {
                 foreach (Test.PanelOrder panelOrder in panelSetOrder.PanelOrderCollection)

@@ -5,13 +5,13 @@ using System.Text;
 
 namespace YellowstonePathology.Business.Billing.Model
 {
-    public class HospitalSplitProfessionalBillingRuleSet : BillingRuleSet
+    public class HospitalSplitSurgicalAndReferenceLabBillingRuleSet : BillingRuleSet
     {
-        public HospitalSplitProfessionalBillingRuleSet()
+        public HospitalSplitSurgicalAndReferenceLabBillingRuleSet()
         {            
-            this.m_BillingRuleSetId = "HSPRFSNL";
-            this.m_BillingRuleSetIdOld = "334DDC95-CF41-4C13-9326-A2C85B20BCCB";
-            this.m_BillingRuleSetName = "Hospital Split Professional Rule Set";
+            this.m_BillingRuleSetId = "HSSRGCLRL";
+            this.m_BillingRuleSetIdOld = "ceb64127-9d7e-4f61-be5e-3fec67e00fb9";
+            this.m_BillingRuleSetName = "Hospital Split Surgical And Reference Lab Rule Set";
 
             CptCodeCollection allCptCodes = CptCodeCollection.GetAll();
             CptCodeCollection clinicalFeeScheduleCodes = CptCodeCollection.GetCptCodeCollection(FeeScheduleEnum.Clinical);
@@ -37,7 +37,7 @@ namespace YellowstonePathology.Business.Billing.Model
             billingRule01.SecondaryInsurance = new RuleValueAny();
             billingRule01.PostDischarge = new RuleValueAny();
             billingRule01.BillingType = BillingTypeEnum.Split;
-            billingRule01.ReferenceLab = new RuleValueBoolean(true);
+            billingRule01.ReferenceLab = new RuleValueBoolean(true);            
             this.m_BillingRuleCollection.Add(billingRule01);
 
             BillingRule billingRule1 = new BillingRule();
@@ -48,7 +48,7 @@ namespace YellowstonePathology.Business.Billing.Model
             billingRule1.SecondaryInsurance = new RuleValueAny();
             billingRule1.PostDischarge = new RuleValueAny();
             billingRule1.BillingType = BillingTypeEnum.Global;
-            billingRule1.ReferenceLab = new RuleValueAny();
+            billingRule1.ReferenceLab = new RuleValueBoolean(false);
             billingRule1.PanelSetExcludeList.Add(13);
             this.m_BillingRuleCollection.Add(billingRule1);
 

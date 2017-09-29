@@ -269,14 +269,14 @@ namespace YellowstonePathology.UI.Cutting
                     {
                         this.PrintSlide(slideOrder);
                         slideOrder.Status = YellowstonePathology.Business.Slide.Model.SlideStatusEnum.Printed.ToString();
-                        
+                        slideOrder.Printed = true;
                     }
                     else if (slideOrder.LabelType == YellowstonePathology.Business.Slide.Model.SlideLabelTypeEnum.PaperLabel.ToString())
                     {
                         slideOrder.Status = YellowstonePathology.Business.Slide.Model.SlideStatusEnum.Printed.ToString();
+                        slideOrder.Printed = true;
                         YellowstonePathology.Business.Label.Model.HistologySlidePaperLabel histologySlidePaperLabel = new Business.Label.Model.HistologySlidePaperLabel(slideOrder.SlideOrderId, slideOrder.ReportNo, slideOrder.Label, slideOrder.PatientLastName, slideOrder.TestAbbreviation, slideOrder.Location);
-                        this.m_HistologySlidePaperLabelPrinter.Queue.Enqueue(histologySlidePaperLabel);                        
-                                                
+                        this.m_HistologySlidePaperLabelPrinter.Queue.Enqueue(histologySlidePaperLabel);                                                                  
                         this.ShowTestOrderSelectionPage(this, new CustomEventArgs.AliquotOrderReturnEventArgs(this.m_AliquotOrder));
                     }                    
                 }
@@ -297,13 +297,20 @@ namespace YellowstonePathology.UI.Cutting
                 if(slideOrder.PerformedByHand == false && slideOrder.OrderSentToVentana == false)
                 {                        
                     Business.HL7View.VentanaStainOrder ventanaStainOrder = new Business.HL7View.VentanaStainOrder();
-                    string result = ventanaStainOrder.Build(this.m_AccessionOrder, slideOrder.TestOrderId, slideOrder.SlideOrderId);
-                    slideOrder.OrderSentToVentana = true;
+                    if(ventanaStainOrder.CanBuild(this.m_AccessionOrder, slideOrder.TestOrderId, slideOrder.SlideOrderId) == true)
+                    {
+                        string result = ventanaStainOrder.Build(this.m_AccessionOrder, slideOrder.TestOrderId, slideOrder.SlideOrderId);
+                        slideOrder.OrderSentToVentana = true;
 
-                    string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-                    System.IO.File.WriteAllText(@"\\10.1.2.31\ChannelData\Outgoing\Ventana\" + objectId + ".hl7", result);
+                        string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
+                        System.IO.File.WriteAllText(@"\\10.1.2.31\ChannelData\Outgoing\Ventana\" + objectId + ".hl7", result);
 
-                    Business.Logging.EmailExceptionHandler.HandleException("Ventana Order Sent: " + slideOrder.Label);
+                        Business.Logging.EmailExceptionHandler.HandleException("Ventana Order Sent: " + accessionOrder.MasterAccessionNo + ":" + slideOrder.Label);
+                    }
+                    else
+                    {
+                        Business.Logging.EmailExceptionHandler.HandleException("Unable to build Ventana Order: " + accessionOrder.MasterAccessionNo + ":" + slideOrder.Label);
+                    }
                 }                                     
 
                 Business.Label.Model.ZPLPrinterUSB zplPrinterUSB = new Business.Label.Model.ZPLPrinterUSB();

@@ -24,6 +24,7 @@ namespace YellowstonePathology.Business.Billing.Model
             result.Add(new HospitalSplitProfessionalBillingRuleSet());
             result.Add(new NonProviderBasedClinicBillingRuleSet());                        
             result.Add(new YellowstoneParkBillingRuleSet());
+            result.Add(new HospitalSplitSurgicalAndReferenceLabBillingRuleSet());
             return result;
         }
 
