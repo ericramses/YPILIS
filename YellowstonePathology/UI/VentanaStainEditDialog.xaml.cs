@@ -27,6 +27,13 @@ namespace YellowstonePathology.UI
         {
             this.m_VentanaBenchMark = Business.Persistence.DocumentGateway.Instance.PullVentanaBenchMark(barcodeNumber, this);
             InitializeComponent();
+            this.ButtonAdd.Content = "Save";
+            DataContext = this;
+        }
+        public VentanaStainEditDialog()
+        {
+            this.m_VentanaBenchMark = new Business.Surgical.VentanaBenchMark();
+            InitializeComponent();
             DataContext = this;
         }
 
@@ -38,9 +45,36 @@ namespace YellowstonePathology.UI
 
         private void ButtonClose_Click(object sender, RoutedEventArgs e)
         {
-            Business.Persistence.DocumentGateway.Instance.Push(this);
-            this.Accept(this, new EventArgs());
-            Close();
+                Business.Persistence.DocumentGateway.Instance.Push(this);
+                this.Accept(this, new EventArgs());
+                Close();
+        }
+
+        private void ButtonAdd_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Rules.MethodResult methodResult = this.CanSave();
+            if (methodResult.Success == true)
+            {
+                if (this.ButtonAdd.Content.ToString() == "Add")
+                {
+                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(this.m_VentanaBenchMark, this);
+                }
+            }
+            else
+            {
+                MessageBox.Show(methodResult.Message);
+            }
+        }
+
+        private YellowstonePathology.Business.Rules.MethodResult CanSave()
+        {
+            YellowstonePathology.Business.Rules.MethodResult result = new Business.Rules.MethodResult();
+            if (this.m_VentanaBenchMark.BarcodeNumber == 0)
+            {
+                result.Success = false;
+                result.Message = "The VentanaId must be a number greater than 0.";
+            }
+            return result;
         }
     }
 }
