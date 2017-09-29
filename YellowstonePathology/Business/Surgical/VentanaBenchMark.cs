@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Surgical
         protected int m_BarcodeNumber;
         protected string m_StainerType;
         protected string m_StainName;
-        protected string m_Procedure;
+        //protected string m_Procedure;
         protected string m_ProtocolName;
         protected string m_YPITestId;
         protected bool m_IsWetProtocol;
@@ -69,21 +69,6 @@ namespace YellowstonePathology.Business.Surgical
                 {
                     this.m_StainName = value;
                     this.NotifyPropertyChanged("StainName");
-                }
-            }
-        }
-
-        [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "100", "null", "varchar")]
-        public string Procedure
-        {
-            get { return this.m_Procedure; }
-            set
-            {
-                if (this.m_Procedure != value)
-                {
-                    this.m_Procedure = value;
-                    this.NotifyPropertyChanged("Procedure");
                 }
             }
         }

@@ -48,6 +48,33 @@ namespace YellowstonePathology.UI
             this.Close();
         }
 
+        private void ButtonAdd_Click(object sender, RoutedEventArgs e)
+        {
+            VentanaStainAddDialog dialog = new UI.VentanaStainAddDialog();
+            dialog.Accept += VentanaStainAddDialog_Accept;
+            dialog.ShowDialog();
+        }
+
+        private void VentanaStainAddDialog_Accept(object sender, EventArgs e)
+        {
+            this.m_VentanaBenchMarkCollection = Business.Gateway.SlideAccessionGateway.GetVentanaBenchMarks();
+            this.NotifyPropertyChanged("VentanaBenchMarkCollection");
+        }
+
+        private void MenuItemDeleteStain_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.ListViewStains.SelectedItems.Count != 0)
+            {
+                foreach (YellowstonePathology.Business.Surgical.VentanaBenchMark ventanaBenchMark in this.ListViewStains.SelectedItems)
+                {
+                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.DeleteDocument(ventanaBenchMark, this);
+                }
+
+                this.m_VentanaBenchMarkCollection = Business.Gateway.SlideAccessionGateway.GetVentanaBenchMarks();
+                this.NotifyPropertyChanged("VentanaBenchMarkCollection");
+            }
+        }
+
         public void NotifyPropertyChanged(String info)
         {
             if (PropertyChanged != null)
