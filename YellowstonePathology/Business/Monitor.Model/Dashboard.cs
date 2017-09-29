@@ -154,7 +154,7 @@ namespace YellowstonePathology.Business.Monitor.Model
                 if (item is Microsoft.Office.Interop.Outlook.MailItem)
                 {
                     Microsoft.Office.Interop.Outlook.MailItem mailItem = (Microsoft.Office.Interop.Outlook.MailItem)item;
-                    if (mailItem.SentOn.ToShortDateString() == DateTime.Today.ToShortDateString() && mailItem.To =="blockcount")
+                    if (mailItem.SentOn.ToShortDateString() == DateTime.Today.ToShortDateString() && mailItem.Sender.Address.Contains("nancy") == true)
                     {
                         string count = string.Empty;
                         System.Text.RegularExpressions.Match match = regex.Match(mailItem.Subject);
@@ -167,12 +167,9 @@ namespace YellowstonePathology.Business.Monitor.Model
                         {
                             this.BozemanBlockCount = count;
                         }
-                    }
-                    System.Runtime.InteropServices.Marshal.FinalReleaseComObject(mailItem);
-                }
-                System.Runtime.InteropServices.Marshal.FinalReleaseComObject(item);
-            }
-            System.Runtime.InteropServices.Marshal.FinalReleaseComObject(items);           
+                    }                    
+                }                             
+            }            
         }
 
         public void NotifyPropertyChanged(String info)

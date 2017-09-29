@@ -981,8 +981,23 @@ namespace YellowstonePathology.UI
             //Console.WriteLine("CRC: " + crc);            
         }
 
+        private void MailBoxTest()
+        {
+            Microsoft.Office.Interop.Outlook.Application outlookApp = UI.Monitor.OutlookAddIn.GetApplicationObject();
+            Microsoft.Office.Interop.Outlook._NameSpace outlookNameSpace = (Microsoft.Office.Interop.Outlook._NameSpace)outlookApp.GetNamespace("MAPI");
+
+            string recipientName = "histology@ypii.com";
+            Microsoft.Office.Interop.Outlook.Recipient recipient = outlookNameSpace.CreateRecipient(recipientName);
+
+            Microsoft.Office.Interop.Outlook.MAPIFolder mapiFolder = outlookNameSpace.GetSharedDefaultFolder(recipient, Microsoft.Office.Interop.Outlook.OlDefaultFolders.olFolderInbox);
+            Microsoft.Office.Interop.Outlook._Explorer explorer = mapiFolder.GetExplorer(false);
+
+            Microsoft.Office.Interop.Outlook.Items items = mapiFolder.Items;
+        }
+
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
+            this.MailBoxTest();
             //this.GetSlideNumberTest();
             //Business.Label.Model.ZPLPrinterUSB usbPrinter = new Business.Label.Model.ZPLPrinterUSB();
             //usbPrinter.Print("HSLD17-123", "17-123333.F2", "FRANKENSTEINSS", "Oscar", "1A2", "YPI Blgs", "DAS");

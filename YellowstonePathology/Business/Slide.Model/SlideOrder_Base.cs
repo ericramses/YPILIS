@@ -761,6 +761,10 @@ namespace YellowstonePathology.Business.Slide.Model
                 case "CellBlock":
                     slideOrderLabel.Append("CB" + blockLabel + slideNumber.ToString());
                     break;
+                case "Wash":
+                case "Slide":
+                    slideOrderLabel.Append(blockLabel);
+                    break;
                 default:
                     slideOrderLabel.Append(blockLabel + slideNumber.ToString());
                     break;
