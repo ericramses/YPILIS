@@ -4612,6 +4612,9 @@
     </Compile>
     <Compile Include="UI\Ventana.cs" />
     <Compile Include="UI\VentanaGrpc.cs" />
+    <Compile Include="UI\VentanaStainAddDialog.xaml.cs">
+      <DependentUpon>VentanaStainAddDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\VentanaStainEditDialog.xaml.cs">
       <DependentUpon>VentanaStainEditDialog.xaml</DependentUpon>
     </Compile>
@@ -6723,6 +6726,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Test\TestResultEditDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\VentanaStainAddDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
