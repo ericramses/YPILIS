@@ -122,14 +122,15 @@ namespace YellowstonePathology.Business.Monitor.Model
         }
 
         public void SetBozemanBlockCount()
-        {                                     
+        {                        
             Microsoft.Office.Interop.Outlook.Application outlookApp = new Microsoft.Office.Interop.Outlook.Application();
-            Microsoft.Office.Interop.Outlook._NameSpace outlookNameSpace = (Microsoft.Office.Interop.Outlook._NameSpace)outlookApp.GetNamespace("MAPI");
-            Microsoft.Office.Interop.Outlook.MAPIFolder mapiFolder = outlookNameSpace.GetDefaultFolder(Microsoft.Office.Interop.Outlook.OlDefaultFolders.olFolderInbox);
+            Microsoft.Office.Interop.Outlook._NameSpace outlookNameSpace = (Microsoft.Office.Interop.Outlook._NameSpace)outlookApp.GetNamespace("MAPI");            
 
             string recipientName = "blockcount@ypii.com";
             Microsoft.Office.Interop.Outlook.Recipient recipient = outlookNameSpace.CreateRecipient(recipientName);
-            Microsoft.Office.Interop.Outlook._Explorer explorer = mapiFolder.GetExplorer(false);            
+            
+            Microsoft.Office.Interop.Outlook.MAPIFolder mapiFolder = outlookNameSpace.GetSharedDefaultFolder(recipient, Microsoft.Office.Interop.Outlook.OlDefaultFolders.olFolderInbox);
+            Microsoft.Office.Interop.Outlook._Explorer explorer = mapiFolder.GetExplorer(false);           
 
             System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex("\\d{1,3}(?=\\D*$)");
 
