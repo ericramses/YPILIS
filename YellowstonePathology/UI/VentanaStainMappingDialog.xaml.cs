@@ -50,15 +50,9 @@ namespace YellowstonePathology.UI
 
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
-            VentanaStainAddDialog dialog = new UI.VentanaStainAddDialog();
-            dialog.Accept += VentanaStainAddDialog_Accept;
+            VentanaStainEditDialog dialog = new UI.VentanaStainEditDialog();
+            dialog.Accept += VentanaStainEditDialog_Accept;
             dialog.ShowDialog();
-        }
-
-        private void VentanaStainAddDialog_Accept(object sender, EventArgs e)
-        {
-            this.m_VentanaBenchMarkCollection = Business.Gateway.SlideAccessionGateway.GetVentanaBenchMarks();
-            this.NotifyPropertyChanged("VentanaBenchMarkCollection");
         }
 
         private void MenuItemDeleteStain_Click(object sender, RoutedEventArgs e)
