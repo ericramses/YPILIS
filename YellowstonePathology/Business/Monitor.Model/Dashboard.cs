@@ -11,12 +11,7 @@ namespace YellowstonePathology.Business.Monitor.Model
     [PersistentClass("tblDashboard", "YPIDATA")]
     public class Dashboard : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private Microsoft.Office.Interop.Outlook.Application m_OutlookApp;
-        private Microsoft.Office.Interop.Outlook._NameSpace m_OutlookNameSpace;
-        private Microsoft.Office.Interop.Outlook.MAPIFolder m_MAPIFolder;
-        private Microsoft.Office.Interop.Outlook._Explorer m_Explorer;
+        public event PropertyChangedEventHandler PropertyChanged;        
 
         private DateTime m_DashboardDate;
         private string m_YPIBlockCount;
@@ -127,16 +122,18 @@ namespace YellowstonePathology.Business.Monitor.Model
         }
 
         public void SetBozemanBlockCount()
-        {            
-            this.m_OutlookApp = new Microsoft.Office.Interop.Outlook.Application();
-            this.m_OutlookNameSpace = (Microsoft.Office.Interop.Outlook._NameSpace)this.m_OutlookApp.GetNamespace("MAPI");
-            this.m_MAPIFolder = this.m_OutlookNameSpace.GetDefaultFolder(Microsoft.Office.Interop.Outlook.OlDefaultFolders.olFolderInbox);
-            this.m_Explorer = this.m_MAPIFolder.GetExplorer(false);
-            this.m_OutlookNameSpace.Logon(System.Reflection.Missing.Value, System.Reflection.Missing.Value, false, true);
+        {                                     
+            Microsoft.Office.Interop.Outlook.Application outlookApp = new Microsoft.Office.Interop.Outlook.Application();
+            Microsoft.Office.Interop.Outlook._NameSpace outlookNameSpace = (Microsoft.Office.Interop.Outlook._NameSpace)outlookApp.GetNamespace("MAPI");
+            Microsoft.Office.Interop.Outlook.MAPIFolder mapiFolder = outlookNameSpace.GetDefaultFolder(Microsoft.Office.Interop.Outlook.OlDefaultFolders.olFolderInbox);
+
+            string recipientName = "blockcount@ypii.com";
+            Microsoft.Office.Interop.Outlook.Recipient recipient = outlookNameSpace.CreateRecipient(recipientName);
+            Microsoft.Office.Interop.Outlook._Explorer explorer = mapiFolder.GetExplorer(false);            
 
             System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex("\\d{1,3}(?=\\D*$)");
 
-            Microsoft.Office.Interop.Outlook.Items items = this.m_MAPIFolder.Items;
+            Microsoft.Office.Interop.Outlook.Items items = mapiFolder.Items;
             foreach (object item in items)
             {
                 if (item is Microsoft.Office.Interop.Outlook.MailItem)

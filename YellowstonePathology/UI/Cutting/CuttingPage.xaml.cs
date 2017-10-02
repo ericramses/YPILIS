@@ -149,7 +149,9 @@ namespace YellowstonePathology.UI.Cutting
 
         private void SlideOptionsPage_PrintPaperLabel(object sender, CustomEventArgs.SlideOrderReturnEventArgs eventArgs)
         {
-            this.HandleVentanaOrder(this.m_AccessionOrder, eventArgs.SlideOrder);
+            Business.HL7View.VentanaStainOrder ventanaStainOrder = new Business.HL7View.VentanaStainOrder();
+            ventanaStainOrder.HandleOrder(this.m_AccessionOrder, eventArgs.SlideOrder);   
+                     
             this.PrintPaperLabel(eventArgs.SlideOrder);            
             this.m_PageNavigator.Navigate(this);
         }
@@ -275,6 +277,7 @@ namespace YellowstonePathology.UI.Cutting
                     {
                         slideOrder.Status = YellowstonePathology.Business.Slide.Model.SlideStatusEnum.Printed.ToString();
                         slideOrder.Printed = true;
+
                         YellowstonePathology.Business.Label.Model.HistologySlidePaperLabel histologySlidePaperLabel = new Business.Label.Model.HistologySlidePaperLabel(slideOrder.SlideOrderId, slideOrder.ReportNo, slideOrder.Label, slideOrder.PatientLastName, slideOrder.TestAbbreviation, slideOrder.Location);
                         this.m_HistologySlidePaperLabelPrinter.Queue.Enqueue(histologySlidePaperLabel);                                                                  
                         this.ShowTestOrderSelectionPage(this, new CustomEventArgs.AliquotOrderReturnEventArgs(this.m_AliquotOrder));
@@ -285,38 +288,11 @@ namespace YellowstonePathology.UI.Cutting
                     MessageBox.Show("This is a client accessioned slide and cannot be printed.");
                 }
 
-                this.HandleVentanaOrder(this.m_AccessionOrder, slideOrder);
+                Business.HL7View.VentanaStainOrder ventanaStainOrder = new Business.HL7View.VentanaStainOrder();
+                ventanaStainOrder.HandleOrder(this.m_AccessionOrder, slideOrder);
                 this.NotifyPropertyChanged(string.Empty);
             }
-        }
-
-        private void HandleVentanaOrder(Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder)
-        {                                                
-            if (slideOrder.LabelType == YellowstonePathology.Business.Slide.Model.SlideLabelTypeEnum.PaperLabel.ToString())
-            {
-                if(slideOrder.PerformedByHand == false && slideOrder.OrderSentToVentana == false)
-                {                        
-                    Business.HL7View.VentanaStainOrder ventanaStainOrder = new Business.HL7View.VentanaStainOrder();
-                    if(ventanaStainOrder.CanBuild(this.m_AccessionOrder, slideOrder.TestOrderId, slideOrder.SlideOrderId) == true)
-                    {
-                        string result = ventanaStainOrder.Build(this.m_AccessionOrder, slideOrder.TestOrderId, slideOrder.SlideOrderId);
-                        slideOrder.OrderSentToVentana = true;
-
-                        string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-                        System.IO.File.WriteAllText(@"\\10.1.2.31\ChannelData\Outgoing\Ventana\" + objectId + ".hl7", result);
-
-                        Business.Logging.EmailExceptionHandler.HandleException("Ventana Order Sent: " + accessionOrder.MasterAccessionNo + ":" + slideOrder.Label);
-                    }
-                    else
-                    {
-                        Business.Logging.EmailExceptionHandler.HandleException("Unable to build Ventana Order: " + accessionOrder.MasterAccessionNo + ":" + slideOrder.Label);
-                    }
-                }                                     
-
-                Business.Label.Model.ZPLPrinterUSB zplPrinterUSB = new Business.Label.Model.ZPLPrinterUSB();
-                zplPrinterUSB.Print(slideOrder.SlideOrderId, slideOrder.ReportNo, slideOrder.PatientLastName, slideOrder.TestAbbreviation, slideOrder.Label, slideOrder.Location, slideOrder.OrderedBy);                
-            }                                                  
-        }
+        }        
 
         private void PrintSlide(YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder)
         {			            

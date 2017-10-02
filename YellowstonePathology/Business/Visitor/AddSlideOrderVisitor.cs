@@ -9,7 +9,8 @@ namespace YellowstonePathology.Business.Visitor
     {
         private YellowstonePathology.Business.Test.AliquotOrder m_AliquotOrder;
         private YellowstonePathology.Business.Test.Model.TestOrder m_TestOrder;
-        private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;        
+        private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
+        private Business.Slide.Model.SlideOrder m_NewSlideOrder;      
 
         public AddSlideOrderVisitor(YellowstonePathology.Business.Test.AliquotOrder aliquotOrder, YellowstonePathology.Business.Test.Model.TestOrder testOrder)
             : base(true, false)
@@ -17,6 +18,11 @@ namespace YellowstonePathology.Business.Visitor
             this.m_AliquotOrder = aliquotOrder;
             this.m_TestOrder = testOrder;            
             this.m_SystemIdentity = YellowstonePathology.Business.User.SystemIdentity.Instance;
+        }
+
+        public Business.Slide.Model.SlideOrder NewSlideOrder
+        {
+            get { return this.m_NewSlideOrder; }
         }
 
         public override void Visit(Test.AccessionOrder accessionOrder)
@@ -55,8 +61,9 @@ namespace YellowstonePathology.Business.Visitor
             slideOrder.Location = accessioningFacility.LocationAbbreviation;
             slideOrder.LabelType = slide.LabelType.ToString();
             slideOrder.UseWetProtocol = this.m_TestOrder.UseWetProtocol;
-            slideOrder.PerformedByHand = this.m_TestOrder.PerformedByHand;         
+            slideOrder.PerformedByHand = this.m_TestOrder.PerformedByHand;
 
+            this.m_NewSlideOrder = slideOrder;
             this.m_TestOrder.SlideOrderCollection.Add(slideOrder);
             this.m_AliquotOrder.SlideOrderCollection.Add(slideOrder);
         }

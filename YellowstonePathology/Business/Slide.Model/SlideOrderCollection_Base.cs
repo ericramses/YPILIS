@@ -151,7 +151,7 @@ namespace YellowstonePathology.Business.Slide.Model
             return result;
         }
 
-        public int PrintedSlideCount()
+        public int GetPrintedSlideCount()
         {
             int result = 0;
             foreach (YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder in this)

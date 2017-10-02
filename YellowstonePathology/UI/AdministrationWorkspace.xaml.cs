@@ -997,10 +997,10 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            this.MailBoxTest();
+            //this.MailBoxTest();
             //this.GetSlideNumberTest();
-            //Business.Label.Model.ZPLPrinterUSB usbPrinter = new Business.Label.Model.ZPLPrinterUSB();
-            //usbPrinter.Print("HSLD17-123", "17-123333.F2", "FRANKENSTEINSS", "Oscar", "1A2", "YPI Blgs", "DAS");
+            Business.Label.Model.ZPLPrinterUSB usbPrinter = new Business.Label.Model.ZPLPrinterUSB();
+            usbPrinter.Print("HSLD17-123", "17-12333.F2", "FRANKENSTEINSS", "Oscar", "1A2", "YPI Blgs", "DAS");
 
             //Business.Label.Model.ZPLPrinterTCP printer = new Business.Label.Model.ZPLPrinterTCP("10.1.1.19");
             //printer.Print(result.ToString());

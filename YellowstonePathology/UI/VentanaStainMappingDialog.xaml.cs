@@ -50,9 +50,9 @@ namespace YellowstonePathology.UI
 
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
-            VentanaStainAddDialog dialog = new UI.VentanaStainAddDialog();
-            dialog.Accept += VentanaStainAddDialog_Accept;
-            dialog.ShowDialog();
+            //VentanaStainAddDialog dialog = new UI.VentanaStainAddDialog();
+            //dialog.Accept += VentanaStainAddDialog_Accept;
+            //dialog.ShowDialog();
         }
 
         private void VentanaStainAddDialog_Accept(object sender, EventArgs e)

@@ -33,8 +33,7 @@ namespace YellowstonePathology.Business.BarcodeScanning
             this.m_DateScanned = DateTime.Parse(hashEntries[3].Value);
             this.m_ScannedById = Convert.ToInt32(hashEntries[4].Value);
             this.m_ScannedBy = hashEntries[5].Value;
-            this.m_Updated = Convert.ToBoolean(hashEntries[6].Value);
-            
+            this.m_Updated = Convert.ToBoolean(hashEntries[6].Value);           
         }
 
         public EmbeddingScan(string aliquotOrderId, DateTime processorStartTime, TimeSpan processorFixationDuration)
