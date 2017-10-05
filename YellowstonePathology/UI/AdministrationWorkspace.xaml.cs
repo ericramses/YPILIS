@@ -997,10 +997,13 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
+            //string l = Business.Specimen.Model.Slide.GetSlideNumber("1A2");
+            //MessageBox.Show(l);
             //this.MailBoxTest();
             //this.GetSlideNumberTest();
-            Business.Label.Model.ZPLPrinterUSB usbPrinter = new Business.Label.Model.ZPLPrinterUSB();
-            usbPrinter.Print("HSLD17-123", "17-12333.F2", "FRANKENSTEINSS", "Oscar", "1A2", "YPI Blgs", "DAS");
+
+            //Business.Label.Model.ZPLPrinterUSB usbPrinter = new Business.Label.Model.ZPLPrinterUSB();
+            //usbPrinter.Print("17-123.1A2", "17-12333.F2", "BOB", "FRANKENSTEIN", "Oscar", "1A2", "YPI Blgs", true, true);
 
             //Business.Label.Model.ZPLPrinterTCP printer = new Business.Label.Model.ZPLPrinterTCP("10.1.1.19");
             //printer.Print(result.ToString());
@@ -1021,7 +1024,7 @@ namespace YellowstonePathology.UI
             for(int x = 1; x<lines.Length; x++)
             {
                 string[] fields = lines[x].Split(',');
-                if(fields[1] == "220")
+                if(fields[1] == "299")
                 {
                     StringBuilder sql = new StringBuilder("Insert tblVentanaBenchMark ");
                     sql.Append("(BarcodeNumber, StainerType, StainName, `Procedure`, ProtocolName, YPITestId, IsWetProtocol, IsDualProtocol) values (");

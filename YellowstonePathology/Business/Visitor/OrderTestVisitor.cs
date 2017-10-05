@@ -158,9 +158,9 @@ namespace YellowstonePathology.Business.Visitor
             YellowstonePathology.Business.Test.Model.TestOrder testOrder = this.m_PanelOrder.TestOrderCollection.GetNextItem(this.m_PanelOrder.PanelOrderId, objectId, this.m_AliquotOrder.AliquotOrderId, this.m_Test, this.m_TestOrderComment);                        
             testOrder.OrderedAsDual = this.m_OrderedAsDual;
             testOrder.AliquotOrder = this.m_AliquotOrder;
-            testOrder.PerformedByHand = this.m_Test.PerformedByHand;            
+            testOrder.PerformedByHand = this.m_Test.PerformedByHand;
 
-            if(this.m_AliquotOrder.Label.Contains(".CE") == true) this.m_Test.SetWetProtocol();            
+            if (this.m_AliquotOrder.Label.Contains(".CE") == true) this.m_Test.UseWetProtocol = true;   
 
             this.m_PanelOrder.TestOrderCollection.Add(testOrder);
             this.m_TestOrder = testOrder;            

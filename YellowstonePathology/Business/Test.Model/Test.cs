@@ -254,19 +254,22 @@ namespace YellowstonePathology.Business.Test.Model
 					this.NotifyPropertyChanged("RequestForAdditionalReport");
 				}
 			}
-		}
-
-        public void SetWetProtocol()
-        {
-            this.m_UseWetProtocol = true;
-            this.m_TestName = this.m_TestName + "(Wet)";
-            this.m_TestAbbreviation = this.m_TestAbbreviation + "W";
-        }        
+		}              
 
         public virtual string GetCodeableType(bool orderedAsDual)
         {
             string result = null;
             return result;
+        }
+
+        public string HistologyDisplayString        
+        {
+            get
+            {
+                string result = this.m_TestAbbreviation;
+                if (this.m_UseWetProtocol == true) result = result + "(W)";
+                return result;
+            }            
         }
 
         public void NotifyPropertyChanged(String info)

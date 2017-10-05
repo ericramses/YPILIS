@@ -26,18 +26,12 @@ namespace YellowstonePathology.Business.HL7View
                         slideOrder.OrderSentToVentana = true;
 
                         string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-                        System.IO.File.WriteAllText(@"\\10.1.2.31\ChannelData\Outgoing\Ventana\" + objectId + ".hl7", result);
-
-                        Business.Logging.EmailExceptionHandler.HandleException("Ventana Order Sent: " + accessionOrder.MasterAccessionNo + ":" + slideOrder.Label);
-                    }
-                    else
-                    {
-                        Business.Logging.EmailExceptionHandler.HandleException("Unable to build Ventana Order: " + accessionOrder.MasterAccessionNo + ":" + slideOrder.Label);
-                    }
+                        System.IO.File.WriteAllText(@"\\10.1.2.31\ChannelData\Outgoing\Ventana\" + objectId + ".hl7", result);                     
+                    }                    
                 }
 
                 Business.Label.Model.ZPLPrinterUSB zplPrinterUSB = new Business.Label.Model.ZPLPrinterUSB();
-                zplPrinterUSB.Print(slideOrder.SlideOrderId, slideOrder.ReportNo, slideOrder.PatientLastName, slideOrder.TestAbbreviation, slideOrder.Label, slideOrder.Location, slideOrder.OrderedBy);
+                zplPrinterUSB.Print(slideOrder.SlideOrderId, slideOrder.ReportNo, slideOrder.PatientFirstName, slideOrder.PatientLastName, slideOrder.TestAbbreviation, slideOrder.Label, slideOrder.Location, slideOrder.UseWetProtocol, slideOrder.PerformedByHand);
                 slideOrder.Printed = true;
             }
         }
@@ -76,7 +70,7 @@ namespace YellowstonePathology.Business.HL7View
             Business.Test.AliquotOrder aliquotOrder = accessionOrder.SpecimenOrderCollection.GetAliquotOrderByTestOrderId(testOrderId);
             Business.Test.Model.TestOrder testOrder = panelOrder.TestOrderCollection.Get(testOrderId);            
 
-            Business.Slide.Model.SlideOrder slideOrder = aliquotOrder.SlideOrderCollection.GetSlideOrderByTestOrderId(testOrderId);
+            Business.Slide.Model.SlideOrder slideOrder = aliquotOrder.SlideOrderCollection.Get(slideOrderId);
             Business.Specimen.Model.SpecimenOrder specimenOrder = accessionOrder.SpecimenOrderCollection.GetSpecimenOrderByAliquotOrderId(aliquotOrder.AliquotOrderId);
 
             Business.Surgical.VentanaBenchMarkCollection ventanaBenchMarkCollection = Business.Gateway.AccessionOrderGateway.GetVentanaBenchMarkCollection();

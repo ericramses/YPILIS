@@ -44,6 +44,7 @@ namespace YellowstonePathology.Business.Slide.Model
         protected string m_TestAbbreviation;
         protected string m_TestOrderId;
         protected string m_PatientLastName;
+        protected string m_PatientFirstName;
         protected string m_Location;
         protected string m_ReportNo;
         protected string m_LabelType;
@@ -584,6 +585,24 @@ namespace YellowstonePathology.Business.Slide.Model
                 {
                     this.m_PatientLastName = value;
                     this.NotifyPropertyChanged("PatientLastName");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "500", "null", "varchar")]
+        public string PatientFirstName
+        {
+            get
+            {
+                return this.m_PatientFirstName;
+            }
+            set
+            {
+                if (this.m_PatientFirstName != value)
+                {
+                    this.m_PatientFirstName = value;
+                    this.NotifyPropertyChanged("PatientFirstName");
                 }
             }
         }

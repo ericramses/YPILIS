@@ -164,29 +164,7 @@ namespace YellowstonePathology.UI.Common
             {
                 MessageBox.Show("There are no aliquots selected.");
             }
-        }       
-        
-        /*
-        private void HandleOrderingDualStains(YellowstonePathology.Business.Test.AliquotOrderCollection selectedAliquots, List<YellowstonePathology.Business.Test.Model.DualStain> selectedDualStains)
-        {            
-            foreach (YellowstonePathology.Business.Test.AliquotOrder aliquotOrder in selectedAliquots)
-            {
-                foreach (YellowstonePathology.Business.Test.Model.DualStain dualStain in selectedDualStains)
-                {
-                    bool orderAsDual = true;
-                    bool acknowledgeOnOrder = false;
-
-                    YellowstonePathology.Business.Visitor.OrderTestVisitor orderTestVisitorFirstTest = new Business.Visitor.OrderTestVisitor(this.m_PanelSetOrder.ReportNo, dualStain.FirstTest, dualStain.FirstTest.OrderComment, this.m_PanelOrderComment, orderAsDual, aliquotOrder, acknowledgeOnOrder, false, this.m_AccessionOrder.TaskOrderCollection);
-                    this.m_AccessionOrder.TakeATrip(orderTestVisitorFirstTest);
-                    this.m_StainAcknowledgementTaskOrderVisitor.AddTestOrder(orderTestVisitorFirstTest.TestOrder);
-
-                    YellowstonePathology.Business.Visitor.OrderTestVisitor orderTestVisitorSecondTest = new Business.Visitor.OrderTestVisitor(this.m_PanelSetOrder.ReportNo, dualStain.SecondTest, dualStain.SecondTest.OrderComment, this.m_PanelOrderComment, orderAsDual, aliquotOrder, acknowledgeOnOrder, false, this.m_AccessionOrder.TaskOrderCollection);
-                    this.m_AccessionOrder.TakeATrip(orderTestVisitorSecondTest);
-                    this.m_StainAcknowledgementTaskOrderVisitor.AddTestOrder(orderTestVisitorSecondTest.TestOrder);
-                }
-            }                
-        }
-        */
+        }                      
 
         private void HandleOrderingTests(YellowstonePathology.Business.Test.AliquotOrderCollection selectedAliquots, YellowstonePathology.Business.Test.Model.TestCollection selectedTests)
         {            

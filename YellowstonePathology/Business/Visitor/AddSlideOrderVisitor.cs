@@ -42,8 +42,7 @@ namespace YellowstonePathology.Business.Visitor
             slideOrder.ObjectId = objectId;
             slideOrder.SlideOrderId = slideOrderId;
             slideOrder.AliquotOrderId = this.m_AliquotOrder.AliquotOrderId;            
-            slideOrder.Label = YellowstonePathology.Business.Slide.Model.SlideOrder.GetSlideLabel(nextSlideNumber, this.m_AliquotOrder.Label, this.m_AliquotOrder.AliquotType);
-            if (m_TestOrder.PerformedByHand == true) slideOrder.TestAbbreviation = slideOrder.TestAbbreviation + "H";
+            slideOrder.Label = YellowstonePathology.Business.Slide.Model.SlideOrder.GetSlideLabel(nextSlideNumber, this.m_AliquotOrder.Label, this.m_AliquotOrder.AliquotType);            
             slideOrder.TestOrder = this.m_TestOrder;
             slideOrder.ReportNo = panelSetOrder.ReportNo;
             slideOrder.TestOrderId = this.m_TestOrder.TestOrderId;
@@ -51,6 +50,7 @@ namespace YellowstonePathology.Business.Visitor
             slideOrder.TestName = this.m_TestOrder.TestName;
             slideOrder.TestAbbreviation = this.m_TestOrder.TestAbbreviation;
             slideOrder.PatientLastName = accessionOrder.PLastName;
+            slideOrder.PatientFirstName = accessionOrder.PFirstName;
             slideOrder.Description = "Histology Slide";
             slideOrder.AliquotType = "Slide";
             slideOrder.OrderedById = this.m_SystemIdentity.User.UserId;

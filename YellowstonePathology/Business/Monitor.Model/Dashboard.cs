@@ -62,6 +62,7 @@ namespace YellowstonePathology.Business.Monitor.Model
                 }
             }
         }
+
         public string YPIBlockCount
         {
             get { return this.m_YPIBlockCount; }
@@ -89,37 +90,7 @@ namespace YellowstonePathology.Business.Monitor.Model
         public int TotalBlockCount
         {
             get { return this.m_YPIBlocks + this.m_BozemanBlocks; }
-        }
-
-        public MonitorStateEnum State
-        {
-            get { return this.m_State; }
-            set
-            {
-                if (this.m_State != value)
-                {
-                    this.m_State = value;
-                    this.NotifyPropertyChanged("State");
-                }
-            }
-        }
-
-        public void SetState()
-        {
-            /*TimeSpan diff = DateTime.Now - this.m_OrderTime;
-            if (diff.TotalHours > 72)
-            {
-                this.m_State = MonitorStateEnum.Critical;
-            }
-            else if (diff.TotalHours > 24)
-            {
-                this.m_State = MonitorStateEnum.Warning;
-            }
-            else
-            {
-                this.m_State = MonitorStateEnum.Warning;
-            }*/
-        }
+        }             
 
         public void SetBozemanBlockCount()
         {                        
@@ -134,27 +105,37 @@ namespace YellowstonePathology.Business.Monitor.Model
 
             System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex("\\d{1,3}(?=\\D*$)");
 
-            Microsoft.Office.Interop.Outlook.Items items = mapiFolder.Items;
-            foreach (object item in items)
+            try
             {
-                if (item is Microsoft.Office.Interop.Outlook.MailItem)
+                Microsoft.Office.Interop.Outlook.Items items = mapiFolder.Items;
+                foreach (object item in items)
                 {
-                    Microsoft.Office.Interop.Outlook.MailItem mailItem = (Microsoft.Office.Interop.Outlook.MailItem)item;
-                    if (mailItem.SentOn.ToShortDateString() == DateTime.Today.ToShortDateString() && mailItem.Sender.Address.Contains("nancy") == true)
-                    {
-                        string count = string.Empty;
-                        System.Text.RegularExpressions.Match match = regex.Match(mailItem.Subject);
-                        if (match.Captures.Count != 0)
+                    if (item is Microsoft.Office.Interop.Outlook.MailItem)
+                    {                        
+                        Microsoft.Office.Interop.Outlook.MailItem mailItem = (Microsoft.Office.Interop.Outlook.MailItem)item;
+                        if(mailItem.UnRead)
                         {
-                            count = match.Value;
-                        }
+                            if (mailItem.SentOn.ToShortDateString() == DateTime.Today.ToShortDateString() == true)
+                            {
+                                System.Text.RegularExpressions.Match match = regex.Match(mailItem.Subject);
+                                if (match.Captures.Count != 0)
+                                {
+                                    this.m_BozemanBlockCount = match.Value;
+                                    this.m_BozemanBlocks = Convert.ToInt32(match.Value);
+                                    this.NotifyPropertyChanged(string.Empty);
 
-                        if (string.IsNullOrEmpty(count) == false)
-                        {
-                            this.BozemanBlockCount = count;
-                        }
-                    }                    
-                }                             
+                                    mailItem.UnRead = false;
+                                    mailItem.Save();                                    
+                                }
+                            }
+                        }                        
+                    }
+                    System.Runtime.InteropServices.Marshal.FinalReleaseComObject(item);
+                }
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
             }            
         }
 

@@ -124,6 +124,7 @@ namespace YellowstonePathology.Business.Facility.Model
             result.Add(new WilliamsPorterDayLaw());
             result.Add(new EasternColoradoHealthcare());
             result.Add(new MyriadGeneticsLab());
+            result.Add(new UCDavisMedicalCenter());
             return Sort(result);
         }
 

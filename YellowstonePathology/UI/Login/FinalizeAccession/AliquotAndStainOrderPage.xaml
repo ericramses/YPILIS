@@ -106,7 +106,7 @@
                 <Grid>
                     <TextBlock Margin="5,5,5,5">
                         <Hyperlink Click="HyperlinkTestItem_Click" Tag="{Binding}">
-                            <TextBlock Text="{Binding Path=TestName}"></TextBlock>
+                            <TextBlock Text="{Binding Path=HistologyDisplayString}"></TextBlock>
                         </Hyperlink>
                     </TextBlock>
                 </Grid>                       
