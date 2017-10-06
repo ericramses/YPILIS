@@ -711,7 +711,7 @@ namespace YellowstonePathology.Business.Test.LLP
             result.AppendLine(this.m_Impression);
             result.AppendLine();
 
-            result.AppendLine("Interpetive Comment:");
+            result.AppendLine("Interpretive Comment:");
             result.AppendLine(this.m_InterpretiveComment);
 
             return result.ToString().Trim();

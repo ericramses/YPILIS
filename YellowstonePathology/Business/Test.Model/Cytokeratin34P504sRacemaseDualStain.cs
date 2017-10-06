@@ -15,6 +15,7 @@ namespace YellowstonePathology.Business.Test.Model
             this.m_FirstTest = new Cytokeratin34();
 			this.m_SecondTest = new P504sRacemase();
             this.m_IsDualOrder = true;
+            this.m_NeedsAcknowledgement = true;
 
 			this.m_DepricatedFirstTestId = "227";
 			this.m_DepricatedSecondTestId = "228";

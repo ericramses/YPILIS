@@ -11,7 +11,7 @@ namespace YellowstonePathology.Business.Test.Model
         {
             this.m_TestId = "133";
 			this.m_TestName = "P504s racemase";
-            this.m_TestAbbreviation = "P504s racemase";
+            this.m_TestAbbreviation = "P504s";
 			this.m_Active = true;
 			this.m_NeedsAcknowledgement = true;            
         }

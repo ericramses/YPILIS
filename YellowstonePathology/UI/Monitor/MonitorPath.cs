@@ -15,24 +15,13 @@ namespace YellowstonePathology.UI.Monitor
 
         private Queue<System.Windows.Controls.UserControl> m_PageQueue;
         private System.Timers.Timer m_Timer;
-		private YellowstonePathology.UI.Monitor.MonitorPageWindow m_MonitorPageWindow;    
-
-		private Microsoft.Office.Interop.Outlook.Application m_OutlookApp;
-        private Microsoft.Office.Interop.Outlook._NameSpace m_OutlookNameSpace;
-        private Microsoft.Office.Interop.Outlook.MAPIFolder m_MAPIFolder;
-        private Microsoft.Office.Interop.Outlook._Explorer m_Explorer;
+		private YellowstonePathology.UI.Monitor.MonitorPageWindow m_MonitorPageWindow;    		
 
         private DateTime m_LastReportDistributionHeartBeat;
 
         public MonitorPath()
-		{            
-            this.m_OutlookApp = OutlookAddIn.GetApplicationObject();
-            this.m_OutlookNameSpace = (Microsoft.Office.Interop.Outlook._NameSpace)this.m_OutlookApp.GetNamespace("MAPI");
-            this.m_MAPIFolder = this.m_OutlookNameSpace.GetDefaultFolder(Microsoft.Office.Interop.Outlook.OlDefaultFolders.olFolderInbox);
-            this.m_Explorer = this.m_MAPIFolder.GetExplorer(false);            
-
+		{                        
             this.m_LastReportDistributionHeartBeat = DateTime.Now.AddMinutes(-5);
-
             ISubscriber subscriber = Business.RedisConnection.Instance.GetSubscriber();
             subscriber.Subscribe("ReportDistributionHeartBeat", (channel, message) =>
             {
@@ -83,7 +72,7 @@ namespace YellowstonePathology.UI.Monitor
         }
 
         public void LoadAllPages()
-        {
+        {            
             CytologyScreeningMonitorPage cytologyScreeningMonitorPage = new CytologyScreeningMonitorPage();            
             this.m_PageQueue.Enqueue(cytologyScreeningMonitorPage);
 
@@ -94,7 +83,7 @@ namespace YellowstonePathology.UI.Monitor
             this.m_PageQueue.Enqueue(pendingTestMonitorPage);
 
             MissingInformationMonitorPage missingInformationPage = new MissingInformationMonitorPage();
-            this.m_PageQueue.Enqueue(missingInformationPage);
+            this.m_PageQueue.Enqueue(missingInformationPage);                     
 
             DashboardPage dashboardPage = new Monitor.DashboardPage();
             this.m_PageQueue.Enqueue(dashboardPage);
@@ -122,12 +111,12 @@ namespace YellowstonePathology.UI.Monitor
                         if (DateTime.Now >= timerDailyStartTime && DateTime.Now <= timerDailyEndTime)
                         {
                         	this.m_Timer.Interval = TimerInterval;
-                        	if(this.UnreadAutopsyRequestExist() == true)
-                        	{
-                                this.ShowUnhandledAutopsyRequestPage();
-                                
-                        	}
-                            else if(this.m_LastReportDistributionHeartBeat < DateTime.Now.AddMinutes(-15))
+                        	//if(this.UnreadAutopsyRequestExist() == true)
+                        	//{
+                            //    this.ShowUnhandledAutopsyRequestPage();
+                            //   
+                        	//}
+                            if(this.m_LastReportDistributionHeartBeat < DateTime.Now.AddMinutes(-15))
                             {
                                 this.ShowReportDistributionDownPage();
                             }
@@ -161,8 +150,9 @@ namespace YellowstonePathology.UI.Monitor
             }            
         }
         
+        /*
         private bool UnreadAutopsyRequestExist()
-        {      
+        {                  
         	bool result = false;
             			     	
             Microsoft.Office.Interop.Outlook.Items items = this.m_MAPIFolder.Items;
@@ -186,7 +176,8 @@ namespace YellowstonePathology.UI.Monitor
             System.Runtime.InteropServices.Marshal.FinalReleaseComObject(items);            			
 			
             return result;
-        }  
+        } 
+        */ 
         
         private void ShowUnhandledAutopsyRequestPage()
         {            

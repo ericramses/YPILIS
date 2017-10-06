@@ -11,12 +11,7 @@ namespace YellowstonePathology.Business.Monitor.Model
     [PersistentClass("tblDashboard", "YPIDATA")]
     public class Dashboard : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private Microsoft.Office.Interop.Outlook.Application m_OutlookApp;
-        private Microsoft.Office.Interop.Outlook._NameSpace m_OutlookNameSpace;
-        private Microsoft.Office.Interop.Outlook.MAPIFolder m_MAPIFolder;
-        private Microsoft.Office.Interop.Outlook._Explorer m_Explorer;
+        public event PropertyChangedEventHandler PropertyChanged;        
 
         private DateTime m_DashboardDate;
         private string m_YPIBlockCount;
@@ -67,6 +62,7 @@ namespace YellowstonePathology.Business.Monitor.Model
                 }
             }
         }
+
         public string YPIBlockCount
         {
             get { return this.m_YPIBlockCount; }
@@ -94,81 +90,52 @@ namespace YellowstonePathology.Business.Monitor.Model
         public int TotalBlockCount
         {
             get { return this.m_YPIBlocks + this.m_BozemanBlocks; }
-        }
-
-        public MonitorStateEnum State
-        {
-            get { return this.m_State; }
-            set
-            {
-                if (this.m_State != value)
-                {
-                    this.m_State = value;
-                    this.NotifyPropertyChanged("State");
-                }
-            }
-        }
-
-        public void SetState()
-        {
-            /*TimeSpan diff = DateTime.Now - this.m_OrderTime;
-            if (diff.TotalHours > 72)
-            {
-                this.m_State = MonitorStateEnum.Critical;
-            }
-            else if (diff.TotalHours > 24)
-            {
-                this.m_State = MonitorStateEnum.Warning;
-            }
-            else
-            {
-                this.m_State = MonitorStateEnum.Warning;
-            }*/
-        }
+        }             
 
         public void SetBozemanBlockCount()
-        {
-            this.m_OutlookApp = new Microsoft.Office.Interop.Outlook.Application();
-            this.m_OutlookNameSpace = (Microsoft.Office.Interop.Outlook._NameSpace)this.m_OutlookApp.GetNamespace("MAPI");
-            //this.m_MAPIFolder = this.m_OutlookNameSpace.GetDefaultFolder(Microsoft.Office.Interop.Outlook.OlDefaultFolders.olFolderInbox);
-            //this.m_Explorer = this.m_MAPIFolder.GetExplorer(false);
+        {                        
+            Microsoft.Office.Interop.Outlook.Application outlookApp = new Microsoft.Office.Interop.Outlook.Application();
+            Microsoft.Office.Interop.Outlook._NameSpace outlookNameSpace = (Microsoft.Office.Interop.Outlook._NameSpace)outlookApp.GetNamespace("MAPI");            
 
-            string recipientName = "Histology@ypii.com";
-            Microsoft.Office.Interop.Outlook.Recipient recip = this.m_OutlookNameSpace.CreateRecipient(recipientName);
-            recip.Resolve();
-
-            if (recip.Resolved)
-            {
-                this.m_MAPIFolder = this.m_OutlookNameSpace.GetSharedDefaultFolder(recip, Microsoft.Office.Interop.Outlook.OlDefaultFolders.olFolderInbox);
-            }
-            this.m_Explorer = this.m_MAPIFolder.GetExplorer(false);
-
+            string recipientName = "blockcount@ypii.com";
+            Microsoft.Office.Interop.Outlook.Recipient recipient = outlookNameSpace.CreateRecipient(recipientName);
             
-            this.m_OutlookNameSpace.Logon(System.Reflection.Missing.Value, System.Reflection.Missing.Value, false, true);
+            Microsoft.Office.Interop.Outlook.MAPIFolder mapiFolder = outlookNameSpace.GetSharedDefaultFolder(recipient, Microsoft.Office.Interop.Outlook.OlDefaultFolders.olFolderInbox);
+            Microsoft.Office.Interop.Outlook._Explorer explorer = mapiFolder.GetExplorer(false);           
 
             System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex("\\d{1,3}(?=\\D*$)");
 
-            Microsoft.Office.Interop.Outlook.Items items = this.m_MAPIFolder.Items;
-            foreach (object item in items)
+            try
             {
-                if (item is Microsoft.Office.Interop.Outlook.MailItem)
+                Microsoft.Office.Interop.Outlook.Items items = mapiFolder.Items;
+                foreach (object item in items)
                 {
-                    Microsoft.Office.Interop.Outlook.MailItem mailItem = (Microsoft.Office.Interop.Outlook.MailItem)item;
-                    if (mailItem.SentOn.ToShortDateString() == DateTime.Today.ToShortDateString() && mailItem.Sender.Address.Contains("nancy") == true)
-                    {
-                        string count = string.Empty;
-                        System.Text.RegularExpressions.Match match = regex.Match(mailItem.Subject);
-                        if (match.Captures.Count != 0)
+                    if (item is Microsoft.Office.Interop.Outlook.MailItem)
+                    {                        
+                        Microsoft.Office.Interop.Outlook.MailItem mailItem = (Microsoft.Office.Interop.Outlook.MailItem)item;
+                        if(mailItem.UnRead)
                         {
-                            count = match.Value;
-                        }
+                            if (mailItem.SentOn.ToShortDateString() == DateTime.Today.ToShortDateString() == true)
+                            {
+                                System.Text.RegularExpressions.Match match = regex.Match(mailItem.Subject);
+                                if (match.Captures.Count != 0)
+                                {
+                                    this.m_BozemanBlockCount = match.Value;
+                                    this.m_BozemanBlocks = Convert.ToInt32(match.Value);
+                                    this.NotifyPropertyChanged(string.Empty);
 
-                        if (string.IsNullOrEmpty(count) == false)
-                        {
-                            this.BozemanBlockCount = count;
-                        }
-                    }                    
-                }                             
+                                    mailItem.UnRead = false;
+                                    mailItem.Save();                                    
+                                }
+                            }
+                        }                        
+                    }
+                    System.Runtime.InteropServices.Marshal.FinalReleaseComObject(item);
+                }
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
             }            
         }
 

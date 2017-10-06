@@ -11,13 +11,12 @@ namespace YellowstonePathology.Business.BarcodeScanning
     public class EmbeddingScanCollection : ObservableCollection<EmbeddingScan>
     {
         public EmbeddingScanCollection()
-        {
-
+        {            
         }        
 
         public void UpdateStatus(EmbeddingScan scan)
         {
-            IDatabase db = Business.RedisConnection.Instance.GetDatabase();
+            IDatabase db = Business.RedisConnection.Instance.GetDatabase();             
             if (db.KeyExists(scan.HashKey) == true)
             {
                 HashEntry[] hashEntries = scan.GetHasEntries();
