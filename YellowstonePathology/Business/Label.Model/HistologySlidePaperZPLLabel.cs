@@ -10,21 +10,25 @@ namespace YellowstonePathology.Business.Label.Model
     {
         private string m_SlideOrderId;
         private string m_ReportNo;
-        private string m_LastName;        
+        private string m_LastName;
+        private string m_FirstName;      
         private string m_TestName;
         private string m_SlideLabel;
-        private string m_Location;
-        private string m_PathologistInitials;
+        private string m_Location;        
+        private bool m_UseWetProtocol;
+        private bool m_PerformedByHand;
 
-        public HistologySlidePaperZPLLabel(string slideOrderId, string reportNo, string lastName, string testName, string slideLabel, string location, string pathologistInitials)
+        public HistologySlidePaperZPLLabel(string slideOrderId, string reportNo, string firstName, string lastName, string testName, string slideLabel, string location, bool useWetProtocol, bool performedByHand)
         {
             this.m_SlideOrderId = slideOrderId;
             this.m_ReportNo = reportNo;
-            this.m_LastName = lastName;            
+            this.m_LastName = lastName;
+            this.m_FirstName = firstName;         
             this.m_TestName = testName;
             this.m_SlideLabel = slideLabel;
-            this.m_Location = location;
-            this.m_PathologistInitials = pathologistInitials;        
+            this.m_Location = location;        
+            this.m_UseWetProtocol = useWetProtocol;
+            this.m_PerformedByHand = performedByHand;
         }
 
         public void AppendCommands(StringBuilder result, int xOffset)
@@ -39,25 +43,32 @@ namespace YellowstonePathology.Business.Label.Model
                 truncatedTestName = this.m_TestName;
             }
 
-            string truncatedLastName = null;
-            if (this.m_LastName.Length > 13)
+            if (this.m_UseWetProtocol == true) truncatedTestName = truncatedTestName + "W";
+            if (this.m_PerformedByHand == true) truncatedTestName = truncatedTestName + "H";
+
+            string patientname = null;
+            if (this.m_LastName.Length > 10)
             {
-                truncatedLastName = this.m_LastName.Substring(0, 13);
+                patientname = this.m_LastName.Substring(0, 10);
             }
             else
             {
-                truncatedLastName = this.m_LastName;
+                patientname = this.m_LastName;
             }
 
-            result.Append("^PW440");
+            if(string.IsNullOrEmpty(this.m_FirstName) == false)
+            {
+                patientname = patientname + " " + this.m_FirstName.Substring(0, 1);
+            }                       
+
+            result.Append("^PW420");
             result.Append("^FWB");
-            result.Append("^FO10,60^BXB,04,200^FD" + "HSLD" + this.m_SlideOrderId + "^FS");
-            result.Append("^A0,30,30^FO10,120^FB210,1,,^FD" + this.m_ReportNo + "^FS");
-            result.Append("^A0,25,25^FO45,120^FB210,1,,^FD" + truncatedLastName + "^FS");
-            result.Append("^A0,30,30^FO80,120^FB210,1,,^FD" + truncatedTestName + "^FS");
-            string slideLabelInitials = this.m_SlideLabel + " (" + this.m_PathologistInitials + ")";
-            result.Append("^A0,30,30^FO115,120^FB210,1,,^FD" + slideLabelInitials + "^FS");
-            result.Append("^A0,20,20^FO160,120^FB210,1,,^FD" + this.m_Location + "^FS");            
+            result.Append("^A0,35,35^FO0,0^FB335,1,,^FD" + this.m_ReportNo + "^FS");            
+            result.Append("^FO40,256^BXB,04,200^FD" + "HSLD" + this.m_SlideOrderId + "^FS");            
+            result.Append("^A0,35,35^FO43,0^FB246,1,,^FD" + this.m_SlideLabel + "^FS");
+            result.Append("^A0,35,35^FO75,0^FB246,1,,^FD" + truncatedTestName + "^FS");            
+            result.Append("^A0,30,30^FO120,0^FB330,1,,^FD" + patientname + "^FS");
+            result.Append("^A0,25,25^FO155,0^FB330,1,,^FD" + this.m_Location + "^FS");            
         }
     }
 }

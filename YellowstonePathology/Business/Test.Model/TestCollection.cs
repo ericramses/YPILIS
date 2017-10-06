@@ -96,7 +96,7 @@ namespace YellowstonePathology.Business.Test.Model
         public static Iron GetWetIron()
         {
             Iron wetIron = new Iron();
-            wetIron.SetWetProtocol();
+            wetIron.UseWetProtocol = true;
             return wetIron;
         }
 

@@ -14,6 +14,48 @@ namespace YellowstonePathology.Business.HL7View
 
         }
 
+        public void HandleOrder(Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder)
+        {
+            if (slideOrder.LabelType == YellowstonePathology.Business.Slide.Model.SlideLabelTypeEnum.PaperLabel.ToString())
+            {
+                if (slideOrder.PerformedByHand == false && slideOrder.OrderSentToVentana == false)
+                {                    
+                    if (this.CanBuild(accessionOrder, slideOrder.TestOrderId, slideOrder.SlideOrderId) == true)
+                    {
+                        string result = this.Build(accessionOrder, slideOrder.TestOrderId, slideOrder.SlideOrderId);
+                        slideOrder.OrderSentToVentana = true;
+
+                        string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
+                        System.IO.File.WriteAllText(@"\\10.1.2.31\ChannelData\Outgoing\Ventana\" + objectId + ".hl7", result);                     
+                    }                    
+                }
+
+                Business.Label.Model.ZPLPrinterUSB zplPrinterUSB = new Business.Label.Model.ZPLPrinterUSB();
+                zplPrinterUSB.Print(slideOrder.SlideOrderId, slideOrder.ReportNo, slideOrder.PatientFirstName, slideOrder.PatientLastName, slideOrder.TestAbbreviation, slideOrder.Label, slideOrder.Location, slideOrder.UseWetProtocol, slideOrder.PerformedByHand);
+                slideOrder.Printed = true;
+            }
+        }
+
+        public bool CanBuild(Business.Test.AccessionOrder accessionOrder, string testOrderId, string slideOrderId)
+        {
+            bool result = false;
+
+            Business.Test.PanelOrder panelOrder = accessionOrder.PanelSetOrderCollection.GetPanelOrderByTestOrderId(testOrderId);
+            Business.User.SystemUser orderedBy = Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetSystemUserById(panelOrder.OrderedById);
+
+            Business.Test.AliquotOrder aliquotOrder = accessionOrder.SpecimenOrderCollection.GetAliquotOrderByTestOrderId(testOrderId);
+            Business.Test.Model.TestOrder testOrder = panelOrder.TestOrderCollection.Get(testOrderId);
+
+            Business.Slide.Model.SlideOrder slideOrder = aliquotOrder.SlideOrderCollection.GetSlideOrderByTestOrderId(testOrderId);
+            Business.Specimen.Model.SpecimenOrder specimenOrder = accessionOrder.SpecimenOrderCollection.GetSpecimenOrderByAliquotOrderId(aliquotOrder.AliquotOrderId);
+
+            Business.Surgical.VentanaBenchMarkCollection ventanaBenchMarkCollection = Business.Gateway.AccessionOrderGateway.GetVentanaBenchMarkCollection();
+            Business.Surgical.VentanaBenchMark ventanaBenchMark = ventanaBenchMarkCollection.GetByYPITestId(testOrder.TestId.ToString(), slideOrder.UseWetProtocol);
+
+            if (ventanaBenchMark != null) result = true;
+            return result;
+        }
+
         public string Build(Business.Test.AccessionOrder accessionOrder, string testOrderId, string slideOrderId)
         {
             //protoc -I d:/protogen --csharp_out d:/protogen/result d:/protogen/ventana.proto --grpc_out d:/protogen/result --plugin=protoc-gen-grpc=grpc_csharp_plugin.exe            
@@ -28,7 +70,7 @@ namespace YellowstonePathology.Business.HL7View
             Business.Test.AliquotOrder aliquotOrder = accessionOrder.SpecimenOrderCollection.GetAliquotOrderByTestOrderId(testOrderId);
             Business.Test.Model.TestOrder testOrder = panelOrder.TestOrderCollection.Get(testOrderId);            
 
-            Business.Slide.Model.SlideOrder slideOrder = aliquotOrder.SlideOrderCollection.GetSlideOrderByTestOrderId(testOrderId);
+            Business.Slide.Model.SlideOrder slideOrder = aliquotOrder.SlideOrderCollection.Get(slideOrderId);
             Business.Specimen.Model.SpecimenOrder specimenOrder = accessionOrder.SpecimenOrderCollection.GetSpecimenOrderByAliquotOrderId(aliquotOrder.AliquotOrderId);
 
             Business.Surgical.VentanaBenchMarkCollection ventanaBenchMarkCollection = Business.Gateway.AccessionOrderGateway.GetVentanaBenchMarkCollection();

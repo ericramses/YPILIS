@@ -17,6 +17,7 @@ namespace YellowstonePathology.Business.Billing.Model
         private RuleValue m_PrimaryInsurance;
         private RuleValue m_SecondaryInsurance;
         private RuleValue m_PostDischarge;
+        private RuleValue m_ReferenceLab;
         private BillingTypeEnum m_BillingType;
 
         private PanelSetIdList m_PanelSetIncludeOnlyList;
@@ -26,6 +27,7 @@ namespace YellowstonePathology.Business.Billing.Model
 		{
             this.m_PanelSetIncludeOnlyList = new PanelSetIdList();
             this.m_PanelSetExcludeList = new PanelSetIdList();
+            this.m_ReferenceLab = new RuleValueAny();
 		}
 
         public PanelSetIdList PanelSetIncludeOnlyList
@@ -129,6 +131,19 @@ namespace YellowstonePathology.Business.Billing.Model
             }
         }
 
+        public RuleValue ReferenceLab
+        {
+            get { return this.m_ReferenceLab; }
+            set
+            {
+                if (this.m_ReferenceLab != value)
+                {
+                    this.m_ReferenceLab = value;
+                    this.NotifyPropertyChanged("ReferenceLab");
+                }
+            }
+        }
+
         public BillingTypeEnum BillingType
         {
             get { return this.m_BillingType; }
@@ -142,13 +157,14 @@ namespace YellowstonePathology.Business.Billing.Model
             }
         }            			
 
-        public virtual bool IsMatch(string patientType, string primaryInsurance, string secondaryInsurance, bool postDischarge, int panelSetId)
+        public virtual bool IsMatch(string patientType, string primaryInsurance, string secondaryInsurance, bool postDischarge, int panelSetId, bool referenceLab)
         {
             bool result = true;
             if (this.m_PatientType.IsMatch(patientType) == false) result = false;
             if (this.m_PrimaryInsurance.IsMatch(primaryInsurance) == false) result = false;
             if (this.m_SecondaryInsurance.IsMatch(secondaryInsurance) == false) result = false;
             if (this.m_PostDischarge.IsMatch(postDischarge) == false) result = false;
+            if (this.m_ReferenceLab.IsMatch(referenceLab) == false) result = false;
             if (this.m_PanelSetExcludeList.Exists(panelSetId) == true) result = false;
             if (this.m_PanelSetIncludeOnlyList.Count != 0 && this.m_PanelSetIncludeOnlyList.Exists(panelSetId) == false) result = false;
             return result;

@@ -26,6 +26,7 @@ namespace YellowstonePathology.Business.Test.Model
             this.m_TestAbbreviation = test.TestAbbreviation;
 			this.m_Result = null;
             this.m_Comment = comment;
+            this.m_OrderedBy = Business.User.SystemIdentity.Instance.User.Initials;
 
             this.m_SlideOrderCollection = new Business.Slide.Model.SlideOrderCollection();
 		}		
