@@ -176,7 +176,7 @@ namespace YellowstonePathology.Business.Logging
             }
         }
 
-        protected virtual string ToJSON()
+        public virtual string ToJSON()
         {
             string result = JsonConvert.SerializeObject(this, Newtonsoft.Json.Formatting.Indented, new JsonSerializerSettings
             {
@@ -186,7 +186,7 @@ namespace YellowstonePathology.Business.Logging
             return result;
         }
 
-        protected virtual ScanLog DeserializeJSON(RedisValue json)
+        public virtual ScanLog DeserializeJSON(RedisValue json)
         {
             ScanLog result = null;
             result = JsonConvert.DeserializeObject<Business.Logging.ScanLog>(json, new JsonSerializerSettings
