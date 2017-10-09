@@ -93,20 +93,20 @@ namespace YellowstonePathology.Business.Monitor.Model
         }             
 
         public void SetBozemanBlockCount()
-        {                        
-            Microsoft.Office.Interop.Outlook.Application outlookApp = new Microsoft.Office.Interop.Outlook.Application();
-            Microsoft.Office.Interop.Outlook._NameSpace outlookNameSpace = (Microsoft.Office.Interop.Outlook._NameSpace)outlookApp.GetNamespace("MAPI");            
-
-            string recipientName = "blockcount@ypii.com";
-            Microsoft.Office.Interop.Outlook.Recipient recipient = outlookNameSpace.CreateRecipient(recipientName);
-            
-            Microsoft.Office.Interop.Outlook.MAPIFolder mapiFolder = outlookNameSpace.GetSharedDefaultFolder(recipient, Microsoft.Office.Interop.Outlook.OlDefaultFolders.olFolderInbox);
-            Microsoft.Office.Interop.Outlook._Explorer explorer = mapiFolder.GetExplorer(false);           
-
-            System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex("\\d{1,3}(?=\\D*$)");
-
+        {
             try
             {
+                Microsoft.Office.Interop.Outlook.Application outlookApp = new Microsoft.Office.Interop.Outlook.Application();
+                Microsoft.Office.Interop.Outlook._NameSpace outlookNameSpace = (Microsoft.Office.Interop.Outlook._NameSpace)outlookApp.GetNamespace("MAPI");            
+
+                string recipientName = "blockcount@ypii.com";
+                Microsoft.Office.Interop.Outlook.Recipient recipient = outlookNameSpace.CreateRecipient(recipientName);
+            
+                Microsoft.Office.Interop.Outlook.MAPIFolder mapiFolder = outlookNameSpace.GetSharedDefaultFolder(recipient, Microsoft.Office.Interop.Outlook.OlDefaultFolders.olFolderInbox);
+                Microsoft.Office.Interop.Outlook._Explorer explorer = mapiFolder.GetExplorer(false);           
+
+                System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex("\\d{1,3}(?=\\D*$)");
+            
                 Microsoft.Office.Interop.Outlook.Items items = mapiFolder.Items;
                 foreach (object item in items)
                 {
@@ -133,9 +133,9 @@ namespace YellowstonePathology.Business.Monitor.Model
                     System.Runtime.InteropServices.Marshal.FinalReleaseComObject(item);
                 }
             }
-            catch(Exception e)
+            catch(Exception)
             {
-                Console.WriteLine(e.Message);
+                //don't need to do anything
             }            
         }
 
