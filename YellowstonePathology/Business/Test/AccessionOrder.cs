@@ -1751,6 +1751,41 @@ namespace YellowstonePathology.Business.Test
             dataTableReader.Read();
             Persistence.SqlDataTableReaderPropertyWriter sqlDataTableReaderPropertyWriter = new SqlDataTableReaderPropertyWriter(this, dataTableReader);
             sqlDataTableReaderPropertyWriter.WriteProperties();
-        }        
+        }
+        
+        public void SetCaseOwnerId()
+        {
+            if (this.m_CaseOwnerId == 0)
+            {
+                int id = 0;
+                if (this.m_PanelSetOrderCollection.HasSurgical() == true)
+                {
+                    id = this.m_PanelSetOrderCollection.GetSurgical().AssignedToId;
+                }
+
+                if (id == 0)
+                {
+                    LLP.LeukemiaLymphomaTest leukemiaLymphomaTest = new LLP.LeukemiaLymphomaTest();
+                    foreach (PanelSetOrder panelSetOrder in this.m_PanelSetOrderCollection)
+                    {
+                        if (panelSetOrder.PanelSetId == leukemiaLymphomaTest.PanelSetId && panelSetOrder.AssignedToId != 0)
+                        {
+                            id = panelSetOrder.AssignedToId;
+                            break;
+                        }
+                    }
+                }
+
+                if (id == 0)
+                {
+                    if (User.SystemIdentity.Instance.User.IsUserInRole(User.SystemUserRoleDescriptionEnum.Pathologist) == true)
+                    {
+                        id = User.SystemIdentity.Instance.User.UserId;
+                    }
+                }
+
+                this.m_CaseOwnerId = id;
+            }
+        }
     }
 }

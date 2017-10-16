@@ -1116,5 +1116,29 @@ namespace YellowstonePathology.Business.Test
 
             return result;
         }
+
+        public bool IsLastReportInSummaryToFinal(List<int> exclusionList, int panelSetId)
+        {
+            bool result = true;
+            if (exclusionList.IndexOf(panelSetId) == -1)
+            {
+                foreach (Test.PanelSetOrder panelSetOrder in this)
+                {
+                    if (exclusionList.IndexOf(panelSetOrder.PanelSetId) == -1)
+                    {
+                        if (panelSetOrder.Final == false)
+                        {
+                            result = false;
+                            break;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                result = false;
+            }
+            return result;
+        }
     }
 }

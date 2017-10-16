@@ -50,6 +50,14 @@ namespace YellowstonePathology.UI.Test
             if (this.m_DisableRequired) DisableContents(this.Content);
         }
 
+        protected void HandleFinalizeTestResult(YellowstonePathology.Business.Test.FinalizeTestResult finalizeTestResult)
+        {
+            if (finalizeTestResult.BoneMarrowSummaryIsSuggested == true)
+            {
+                MessageBox.Show("A Bone Marrow Summary is suggested.");
+            }
+        }
+
         private void DisableContents(object o)
         {
         	if(this.m_ControlsNotDisabledOnFinal.Contains(o))
