@@ -130,9 +130,10 @@ namespace YellowstonePathology.UI.Test
 		{
 			if (this.m_PanelSetOrderLynchSyndromeIHC.Final == false)
 			{
-				this.m_PanelSetOrderLynchSyndromeIHC.Finish(this.m_AccessionOrder);
-			}
-			else
+                YellowstonePathology.Business.Test.FinalizeTestResult finalizeTestResult = this.m_PanelSetOrderLynchSyndromeIHC.Finish(this.m_AccessionOrder);
+                this.HandleFinalizeTestResult(finalizeTestResult);
+            }
+            else
 			{
 				MessageBox.Show("This case cannot be finalized because it is already final.");
 			}
