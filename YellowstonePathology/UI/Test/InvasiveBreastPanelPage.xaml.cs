@@ -126,9 +126,10 @@ namespace YellowstonePathology.UI.Test
 		{
 			if (this.m_InvasiveBreastPanel.Final == false)
 			{
-				this.m_InvasiveBreastPanel.Finish(this.m_AccessionOrder);				
-			}
-		}
+                YellowstonePathology.Business.Test.FinalizeTestResult finalizeTestResult = this.m_InvasiveBreastPanel.Finish(this.m_AccessionOrder);
+                this.HandleFinalizeTestResult(finalizeTestResult);
+            }
+        }
 
 		private void HyperLinkUnfinalResults_Click(object sender, RoutedEventArgs e)
 		{

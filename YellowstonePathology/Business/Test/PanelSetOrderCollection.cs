@@ -1106,7 +1106,7 @@ namespace YellowstonePathology.Business.Test
         public List<int> GetBoneMarrowSummaryExclusionList()
         {
             List<int> result = new List<int>();
-            result.Add(13);
+            //result.Add(13);
             result.Add(31);   // Technical Only
             result.Add(66);   // Test Cancelled
             result.Add(197);
