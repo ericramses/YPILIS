@@ -105,9 +105,10 @@ namespace YellowstonePathology.UI.Test
 		{
 			if (this.m_PanelSetOrder.Final == false)
 			{
-				this.m_PanelSetOrder.Finish(this.m_AccessionOrder);
-			}
-			else
+                YellowstonePathology.Business.Test.FinalizeTestResult finalizeTestResult = this.m_PanelSetOrder.Finish(this.m_AccessionOrder);
+                this.HandleFinalizeTestResult(finalizeTestResult);
+            }
+            else
 			{
 				MessageBox.Show("This case cannot be finalized because it is already final.");
 			}

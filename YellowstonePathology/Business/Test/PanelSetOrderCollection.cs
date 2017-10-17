@@ -1106,7 +1106,7 @@ namespace YellowstonePathology.Business.Test
         public List<int> GetBoneMarrowSummaryExclusionList()
         {
             List<int> result = new List<int>();
-            result.Add(13);
+            //result.Add(13);
             result.Add(31);   // Technical Only
             result.Add(66);   // Test Cancelled
             result.Add(197);
@@ -1117,6 +1117,30 @@ namespace YellowstonePathology.Business.Test
             result.Add(189);
             result.Add(190);
 
+            return result;
+        }
+
+        public bool IsLastReportInSummaryToFinal(List<int> exclusionList, int panelSetId)
+        {
+            bool result = true;
+            if (exclusionList.IndexOf(panelSetId) == -1)
+            {
+                foreach (Test.PanelSetOrder panelSetOrder in this)
+                {
+                    if (exclusionList.IndexOf(panelSetOrder.PanelSetId) == -1)
+                    {
+                        if (panelSetOrder.Final == false)
+                        {
+                            result = false;
+                            break;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                result = false;
+            }
             return result;
         }
     }

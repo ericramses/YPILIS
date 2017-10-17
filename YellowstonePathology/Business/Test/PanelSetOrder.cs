@@ -10,7 +10,7 @@ namespace YellowstonePathology.Business.Test
     [PersistentClass("tblPanelSetOrder", "YPIDATA")]
     public class PanelSetOrder : INotifyPropertyChanged, Interface.IPanelSetOrder
 	{
-		public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
 
 		protected PanelOrderCollection m_PanelOrderCollection;
         protected YellowstonePathology.Business.Amendment.Model.AmendmentCollection m_AmendmentCollection;
@@ -1376,11 +1376,12 @@ namespace YellowstonePathology.Business.Test
                 result.Message = "This case cannot be finalized because the results have not been accepted.";
             }
             return result;
-        }                
+        }
 
-		public virtual void Finish(Business.Test.AccessionOrder accessionOrder)
-		{            			
-			YellowstonePathology.Business.PanelSet.Model.PanelSetCollection panelSetCollection = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetAll();
+        public virtual FinalizeTestResult Finish(Business.Test.AccessionOrder accessionOrder)
+        //public virtual void Finish(Business.Test.AccessionOrder accessionOrder)
+        {
+            YellowstonePathology.Business.PanelSet.Model.PanelSetCollection panelSetCollection = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetAll();
 			YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet = panelSetCollection.GetPanelSet(this.PanelSetId);
 
             this.m_Final = true;
@@ -1401,7 +1402,12 @@ namespace YellowstonePathology.Business.Test
             YellowstonePathology.Business.Client.Model.PhysicianClientDistributionList physicianClientDistributionCollection = YellowstonePathology.Business.Gateway.ReportDistributionGateway.GetPhysicianClientDistributionCollection(accessionOrder.PhysicianId, accessionOrder.ClientId);
             physicianClientDistributionCollection.SetDistribution(this, accessionOrder);
 
+            accessionOrder.SetCaseOwnerId();
+
+            FinalizeTestResult result = this.HandleBoneMarrowSummaryOnFinal(accessionOrder);
+
             this.NotifyPropertyChanged(string.Empty);
+            return result;
 		}
 
 		public virtual void Unfinalize()
@@ -1883,6 +1889,24 @@ namespace YellowstonePathology.Business.Test
 
         protected virtual void CheckResults(AccessionOrder accessionOrder, object clone)
         {
+        }
+
+        private FinalizeTestResult HandleBoneMarrowSummaryOnFinal(AccessionOrder accessionOrder)
+        {
+            FinalizeTestResult result = new FinalizeTestResult();
+            YellowstonePathology.Business.Audit.Model.HandleBoneMarrowOnFinalAudit audit = new Audit.Model.HandleBoneMarrowOnFinalAudit(accessionOrder, this);
+            audit.Run();
+            if (audit.Status == Audit.Model.AuditStatusEnum.Failure)
+            {
+                result.BoneMarrowSummaryIsSuggested = true;
+            }
+            else
+            {
+                Rules.RuleAcceptBoneMarrowSummaryOnLastFinal rule = new Rules.RuleAcceptBoneMarrowSummaryOnLastFinal();
+                rule.Execute(accessionOrder, this);
+                result.BoneMarrowSummaryIsSuggested = false;
+            }
+            return result;
         }
     }
 }

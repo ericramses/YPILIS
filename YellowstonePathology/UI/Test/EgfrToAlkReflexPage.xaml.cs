@@ -169,7 +169,8 @@ namespace YellowstonePathology.UI.Test
             {
                 if (this.m_EGFRToALKReflexAnalysisTestOrder.Final == false)
                 {
-                    this.m_EGFRToALKReflexAnalysisTestOrder.Finish(this.m_AccessionOrder);
+                    YellowstonePathology.Business.Test.FinalizeTestResult finalizeTestResult = this.m_EGFRToALKReflexAnalysisTestOrder.Finish(this.m_AccessionOrder);
+                    this.HandleFinalizeTestResult(finalizeTestResult);
                 }
             }			
 		}

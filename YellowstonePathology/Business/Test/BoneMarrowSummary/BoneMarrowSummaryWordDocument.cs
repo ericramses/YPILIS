@@ -61,21 +61,25 @@ namespace YellowstonePathology.Business.Test.BoneMarrowSummary
             List<Business.Test.PanelSetOrder> testingSummaryList = this.m_AccessionOrder.PanelSetOrderCollection.GetBoneMarrowAccessionSummaryList(this.m_PanelSetOrder.ReportNo, true);
             //this.GetOtherCases(testingSummaryList);
 
+            int surgicalPanelSetId = new Test.Surgical.SurgicalTest().PanelSetId;
             foreach (Business.Test.PanelSetOrder pso in testingSummaryList)
             {
-                string result = pso.ToResultString(this.m_AccessionOrder);
-                if (result == "The result string for this test has not been implemented.")
+                if (pso.PanelSetId != surgicalPanelSetId)
                 {
-                    result = "Result reported separately.";
+                    string result = pso.ToResultString(this.m_AccessionOrder);
+                    if (result == "The result string for this test has not been implemented.")
+                    {
+                        result = "Result reported separately.";
+                    }
+
+                    XmlNode rowTestNodeClone = rowTestNode.Clone();
+                    rowTestNodeClone.SelectSingleNode("descendant::w:r[w:t='test_name']/w:t", this.m_NameSpaceManager).InnerText = pso.PanelSetName;
+                    rowTestNodeClone.SelectSingleNode("descendant::w:r[w:t='test_report_no']/w:t", this.m_NameSpaceManager).InnerText = pso.ReportNo;
+
+                    this.SetXMLNodeParagraphDataNode(rowTestNodeClone, "test_result", result);
+
+                    testTableNode.InsertAfter(rowTestNodeClone, rowTestNode);
                 }
-
-                XmlNode rowTestNodeClone = rowTestNode.Clone();
-                rowTestNodeClone.SelectSingleNode("descendant::w:r[w:t='test_name']/w:t", this.m_NameSpaceManager).InnerText = pso.PanelSetName;
-                rowTestNodeClone.SelectSingleNode("descendant::w:r[w:t='test_report_no']/w:t", this.m_NameSpaceManager).InnerText = pso.ReportNo;
-
-                this.SetXMLNodeParagraphDataNode(rowTestNodeClone, "test_result", result);
-
-                testTableNode.InsertAfter(rowTestNodeClone, rowTestNode);                    
             }
 
             testTableNode.RemoveChild(rowTestNode);

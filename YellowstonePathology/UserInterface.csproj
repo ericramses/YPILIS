@@ -244,6 +244,7 @@
     <Compile Include="Business\Audit.Model\FinalizedAudit.cs" />
     <Compile Include="Business\Audit.Model\FNAHasIntraOpAudit.cs" />
     <Compile Include="Business\Audit.Model\GradedStainsAreHandledAudit.cs" />
+    <Compile Include="Business\Audit.Model\HandleBoneMarrowOnFinalAudit.cs" />
     <Compile Include="Business\Audit.Model\HasColorForDirectPrintBlocksAudit.cs" />
     <Compile Include="Business\Audit.Model\HER2OKToAcceptAudit.cs" />
     <Compile Include="Business\Audit.Model\HPV1618ForSiteAudit.cs" />
@@ -1152,6 +1153,7 @@
     <Compile Include="Business\Reports\SurgicalSpecimenDisposalReportV2.xaml.cs">
       <DependentUpon>SurgicalSpecimenDisposalReportV2.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Business\Rules\RuleAcceptBoneMarrowSummaryOnLastFinal.cs" />
     <Compile Include="Business\Specimen.Model\WashAliquot.cs" />
     <Compile Include="Business\Surgical\VentanaBenchMark.cs" />
     <Compile Include="Business\Surgical\VentanaBenchMarkCollection.cs" />
@@ -1210,6 +1212,7 @@
     <Compile Include="Business\Test\ETV6RUNX1ByFish\ETV6RUNX1ByFishTest.cs" />
     <Compile Include="Business\Test\ETV6RUNX1ByPCR\ETV6RUNX1ByPCRTest.cs" />
     <Compile Include="Business\Test\EWSR1\EWSR1Test.cs" />
+    <Compile Include="Business\Test\FinalizeTestResult.cs" />
     <Compile Include="Business\Test\FISH5p159q2215p22\FISH5p159q2215p22EPICOBXView.cs" />
     <Compile Include="Business\Test\FISH5p159q2215p22\FISH5p159q2215p22Test.cs" />
     <Compile Include="Business\Test\FISH5p159q2215p22\FISH5p159q2215p22TestOrder.cs" />
