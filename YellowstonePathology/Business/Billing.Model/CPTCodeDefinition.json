@@ -2897,6 +2897,25 @@
       "MedicareQuantityLimit": 0,
       "SVHCDMCode": null,
       "SVHCDMDescription": null
+    },
+    {
+      "$type": "YellowstonePathology.Business.Billing.Model.PQRSCodeDefinitions.PQRSG9431, UserInterface",
+      "ReportingDefinition": "Specimen site other than anatomic cutaneous location.",
+      "Header": null,
+      "FormattedReportingDefinition": "G9431:  Specimen site other than anatomic cutaneous location.",
+      "Code": "G9431",
+      "Description": null,
+      "Modifier": null,
+      "FeeSchedule": 2,
+      "HasTechnicalComponent": false,
+      "HasProfessionalComponent": false,
+      "CodeType": 0,
+      "IsBillable": false,
+      "GCode": null,
+      "HasMedicareQuantityLimit": false,
+      "MedicareQuantityLimit": 0,
+      "SVHCDMCode": null,
+      "SVHCDMDescription": null
     }
   ]
 }

@@ -96,7 +96,16 @@ namespace YellowstonePathology.Business.Monitor.Model
         {
             try
             {
-                Microsoft.Office.Interop.Outlook.Application outlookApp = new Microsoft.Office.Interop.Outlook.Application();
+                Microsoft.Office.Interop.Outlook.Application outlookApp = null;
+                if (System.Diagnostics.Process.GetProcessesByName("OUTLOOK").Count() > 0)
+                {
+                    outlookApp = System.Runtime.InteropServices.Marshal.GetActiveObject("Outlook.Application") as Microsoft.Office.Interop.Outlook.Application;
+                }
+                else
+                {
+                    outlookApp = new Microsoft.Office.Interop.Outlook.Application();
+                }
+
                 Microsoft.Office.Interop.Outlook._NameSpace outlookNameSpace = (Microsoft.Office.Interop.Outlook._NameSpace)outlookApp.GetNamespace("MAPI");            
 
                 string recipientName = "blockcount@ypii.com";
@@ -132,6 +141,14 @@ namespace YellowstonePathology.Business.Monitor.Model
                     }
                     System.Runtime.InteropServices.Marshal.FinalReleaseComObject(item);
                 }
+
+                System.Runtime.InteropServices.Marshal.FinalReleaseComObject(items);
+                System.Runtime.InteropServices.Marshal.FinalReleaseComObject(explorer);
+                System.Runtime.InteropServices.Marshal.FinalReleaseComObject(mapiFolder);
+                System.Runtime.InteropServices.Marshal.FinalReleaseComObject(recipient);
+                System.Runtime.InteropServices.Marshal.FinalReleaseComObject(outlookNameSpace);
+                System.Runtime.InteropServices.Marshal.FinalReleaseComObject(outlookApp);
+
             }
             catch(Exception)
             {

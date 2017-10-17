@@ -14,47 +14,31 @@
                     <ICDCode ICD10="C93.00" Description="Acute monoblastic/monocytic leukemia, not having achieved remission" />
                     <ICDCode ICD10="C92.00" Description="Acute myeloblastic leukemia, not having achieved remission" />
                     <ICDCode ICD10="C92.50" Description="Acute myelomonocytic leukemia, not having achieved remission" />
-                    <ICDCode ICD10="C95.00" Description="Acute leukemia of unspecified cell type not having achieved remission" />
                     <ICDCode ICD10="C91.00" Description="Acute lymphoblastic leukemia not having achieved remission" />
                     <ICDCode ICD10="C92.40" Description="Acute promyelocytic leukemia, not having achieved remission" />
                     <ICDCode ICD10="D64.9" Description="Anemia, unspecified" />
-                    <ICDCode ICD10="D61.9" Description="Aplastic anemia, unspecified" />
                     <ICDCode ICD10="C83.79" Description="Burkitt lymphoma, extranodal and solid organ sites" />
-                    <ICDCode ICD10="C83.70" Description="Burkitt lymphoma, site unspecified" />
                     <ICDCode ICD10="C92.10" Description="Chronic myeloid leukemia, BCR/ABL-positive, not having achieved remission" />
                     <ICDCode ICD10="C93.10" Description="Chronic myelomonocytic leukemia not having achieved remission" />
                     <ICDCode ICD10="D47.1" Description="Chronic myeloproliferative disease" />
                     <ICDCode ICD10="C91.10" Description="Chronic lymphocytic leukemia of B-cell type not having achieved remission" />
                     <ICDCode ICD10="C91.40" Description="Harry cell leukemia not having achieved remission" />
-                    <ICDCode ICD10="D74.819" Description="Decreased white blood cell count, unspecified" /> ease" />
                     <ICDCode ICD10="C83.39" Description="Diffuse large B-cell lymphoma, extranodal and solid organ sites" />
                     <ICDCode ICD10="D72.829" Description="Elevated white blood cell count, unspecified" />
-                    <ICDCode ICD10="R59.9" Description="Enlargement of lymph nodes, unspecified" />
-                    <ICDCode ICD10="C82.99" Description="Follicular lymphoma, unspecified, extranodal and solid organ sites" />
-                    <ICDCode ICD10="C82.90" Description="Follicular lymphoma, unspecified, unspecified site" />
-                    <ICDCode ICD10="C81.99" Description="Hodgkin lymphoma, unspecified, extranodal and solid organ sites" />
-                    <ICDCode ICD10="C81.90" Description="Hodgkin lymphoma, unspecified, unspecified site" />
                     <ICDCode ICD10="D72.820" Description="Lymphocytosis (symptomatic)" />
                     <ICDCode ICD10="C83.19" Description="Mantle cell lymphoma, extranodal and solid organ sites" />
-                    <ICDCode ICD10="C83.10" Description="Mantle cell lymphoma, unspecified site" />
-                    <ICDCode ICD10="Q82.2" Description="Mastocytosis" />
                     <ICDCode ICD10="D47.2" Description="Monoclonal gammopathy" />
                     <ICDCode ICD10="D72.821" Description="Monocytosis (symptomatic)" />
                     <ICDCode ICD10="C90.00" Description="Multiple myeloma not having achieved remission" />
                     <ICDCode ICD10="D46.9" Description="Myelodysplastic syndrome, unspecified" />
                     <ICDCode ICD10="D70.9" Description="Neutropenia, NOS" />
-                    <ICDCode ICD10="R71.8" Description="Other abnormality of red blood cells" />
-                    <ICDCode ICD10="R19.09" Description="Other intra-abdominal and pelvic swelling, mass and lump" />
                     <ICDCode ICD10="C91.Z0" Description="Other lymphoid leukemia not having achieved remission" />
                     <ICDCode ICD10="C83.89" Description="Other non-follicular lymphoma, extranodal and solid organ sites" />
-                    <ICDCode ICD10="C83.80" Description="Other non-follicular lymphoma, unspecified site" />
                     <ICDCode ICD10="D61.818" Description="Other pancytopenia" />
                     <ICDCode ICD10="D69.49" Description="Other primary thrombocytopenia" />
                     <ICDCode ICD10="D72.89" Description="Other specified disorders of white blood cells" />
                     <ICDCode ICD10="C85.89" Description="Other specified types of non-Hodgkin lymphoma, extranodal and solid organ sites" />
-                    <ICDCode ICD10="C85.80" Description="Other specified types of non-Hodgkin lymphoma, unspecified site" />
                     <ICDCode ICD10="D72.822" Description="Plasmacytosis" />
-                    <ICDCode ICD10="J91.8" Description="Pleural effusion in other conditions classified elsewhere" />
                     <ICDCode ICD10="D45" Description="Polycythemia vera" />
                     <ICDCode ICD10="D46.21" Description="Refractory anemia with excess of blasts 1" />
                     <ICDCode ICD10="D46.22" Description="Refractory anemia with excess of blasts 2" />
@@ -62,14 +46,8 @@
                     <ICDCode ICD10="D46.0" Description="Refractory anemia without ring sideroblasts, so stated" />
                     <ICDCode ICD10="D46.1" Description="Refractory anemia with ring sideroblasts" />
                     <ICDCode ICD10="D46.A" Description="Refractory cytopenia with multilineage dysplasia" />
-                    <ICDCode ICD10="D46.B" Description="Refractory cytopenia with multilineage dysplasia and ring sideroblasts" />                    
-                    <ICDCode ICD10="C77.9" Description="Secondary and unspecified malignant neoplasm of lymph node, unspecified" />
+                    <ICDCode ICD10="D46.B" Description="Refractory cytopenia with multilineage dysplasia and ring sideroblasts" />
                     <ICDCode ICD10="C84.19" Description="Sezary disease, extranodal and solid organ sites" />
-                    <ICDCode ICD10="C84.10" Description="Sezary disease, unspecified site" />
-                    <ICDCode ICD10="D69.6" Description="Thrombocytopenia, unspecified" />
-                    <ICDCode ICD10="R53.1" Description="Weakness" />
-                    <ICDCode ICD10="R22.1" Description="Localized swelling, mass, or lump in neck." />
-                    <ICDCode ICD10="Q82.1" Description="Xeroderma pigmentosum" />
                 </ICDCodeCollection>
             </x:XData>
         </XmlDataProvider>

@@ -278,8 +278,8 @@ namespace YellowstonePathology.UI.Cutting
                         slideOrder.Status = YellowstonePathology.Business.Slide.Model.SlideStatusEnum.Printed.ToString();
                         slideOrder.Printed = true;
 
-                        YellowstonePathology.Business.Label.Model.HistologySlidePaperLabel histologySlidePaperLabel = new Business.Label.Model.HistologySlidePaperLabel(slideOrder.SlideOrderId, slideOrder.ReportNo, slideOrder.Label, slideOrder.PatientLastName, slideOrder.TestAbbreviation, slideOrder.Location);
-                        this.m_HistologySlidePaperLabelPrinter.Queue.Enqueue(histologySlidePaperLabel);                                                                  
+                        //YellowstonePathology.Business.Label.Model.HistologySlidePaperLabel histologySlidePaperLabel = new Business.Label.Model.HistologySlidePaperLabel(slideOrder.SlideOrderId, slideOrder.ReportNo, slideOrder.Label, slideOrder.PatientLastName, slideOrder.TestAbbreviation, slideOrder.Location);
+                        //this.m_HistologySlidePaperLabelPrinter.Queue.Enqueue(histologySlidePaperLabel);                                                                  
                         this.ShowTestOrderSelectionPage(this, new CustomEventArgs.AliquotOrderReturnEventArgs(this.m_AliquotOrder));
                     }                    
                 }
@@ -295,21 +295,12 @@ namespace YellowstonePathology.UI.Cutting
         }        
 
         private void PrintSlide(YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder)
-        {			            
-            if (slideOrder.LabelType == YellowstonePathology.Business.Slide.Model.SlideLabelTypeEnum.PaperLabel.ToString())
-            {
-                //Business.Label.Model.ZPLPrinterUSB zplPrinterUSB = new Business.Label.Model.ZPLPrinterUSB();
-                //zplPrinterUSB.Print(slideOrder.SlideOrderId, slideOrder.ReportNo, slideOrder.Label, slideOrder.PatientLastName, slideOrder.TestAbbreviation, slideOrder.Location);
-            }
-            else
-            {
-                YellowstonePathology.Business.Label.Model.HistologySlideLabel histologySlideLabel = new Business.Label.Model.HistologySlideLabel(slideOrder.SlideOrderId, slideOrder.ReportNo, slideOrder.Label, slideOrder.PatientLastName, slideOrder.TestAbbreviation, slideOrder.Location, this.m_AccessionOrder);
-                YellowstonePathology.Business.Label.Model.ThermoFisherHistologySlidePrinter thermoFisherSlidePrinter = new Business.Label.Model.ThermoFisherHistologySlidePrinter();
-                thermoFisherSlidePrinter.Queue.Enqueue(histologySlideLabel);
-                thermoFisherSlidePrinter.Print();
-            }
-
-            slideOrder.SetAsPrinted(this.m_SystemIdentity);
+        {			                        
+            YellowstonePathology.Business.Label.Model.HistologySlideLabel histologySlideLabel = new Business.Label.Model.HistologySlideLabel(slideOrder.SlideOrderId, slideOrder.ReportNo, slideOrder.Label, slideOrder.PatientLastName, slideOrder.TestAbbreviation, slideOrder.Location, this.m_AccessionOrder);
+            YellowstonePathology.Business.Label.Model.ThermoFisherHistologySlidePrinter thermoFisherSlidePrinter = new Business.Label.Model.ThermoFisherHistologySlidePrinter();
+            thermoFisherSlidePrinter.Queue.Enqueue(histologySlideLabel);
+            thermoFisherSlidePrinter.Print();
+            slideOrder.SetAsPrinted(this.m_SystemIdentity);            
         }
 
         private void ButtonAddSlide_Click(object sender, RoutedEventArgs e)

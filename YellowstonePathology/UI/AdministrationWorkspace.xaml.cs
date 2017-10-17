@@ -983,7 +983,8 @@ namespace YellowstonePathology.UI
 
         private void MailBoxTest()
         {
-            Microsoft.Office.Interop.Outlook.Application outlookApp = UI.Monitor.OutlookAddIn.GetApplicationObject();
+            /*
+            Microsoft.Office.Interop.Outlook.Application outlookApp = Business.Monitor.Model.OutlookAddIn.GetApplicationObject();
             Microsoft.Office.Interop.Outlook._NameSpace outlookNameSpace = (Microsoft.Office.Interop.Outlook._NameSpace)outlookApp.GetNamespace("MAPI");
 
             string recipientName = "histology@ypii.com";
@@ -993,6 +994,7 @@ namespace YellowstonePathology.UI
             Microsoft.Office.Interop.Outlook._Explorer explorer = mapiFolder.GetExplorer(false);
 
             Microsoft.Office.Interop.Outlook.Items items = mapiFolder.Items;
+            */
         }
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
@@ -1002,8 +1004,9 @@ namespace YellowstonePathology.UI
             //this.MailBoxTest();
             //this.GetSlideNumberTest();
 
-            //Business.Label.Model.ZPLPrinterUSB usbPrinter = new Business.Label.Model.ZPLPrinterUSB();
-            //usbPrinter.Print("17-123.1A2", "17-12333.F2", "BOB", "FRANKENSTEIN", "Oscar", "1A2", "YPI Blgs", true, true);
+            Business.Label.Model.ZPLPrinterUSB usbPrinter = new Business.Label.Model.ZPLPrinterUSB();
+            Business.Label.Model.HistologySlidePaperZPLLabel zplCommand = new Business.Label.Model.HistologySlidePaperZPLLabel("17-123.1A2", "17-12333.F2", "BOB", "FRANKENSTEIN", "Oscar", "1A2", "YPI Blgs", false, false);
+            usbPrinter.Print(zplCommand);
 
             //Business.Label.Model.ZPLPrinterTCP printer = new Business.Label.Model.ZPLPrinterTCP("10.1.1.19");
             //printer.Print(result.ToString());

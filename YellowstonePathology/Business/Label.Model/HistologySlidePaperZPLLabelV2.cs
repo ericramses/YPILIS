@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace YellowstonePathology.Business.Label.Model
 {
-    public class HistologySlidePaperZPLLabel : ZPLCommand
+    public class HistologySlidePaperZPLLabelV2 : ZPLCommand
     {
         private string m_SlideOrderId;
         private string m_ReportNo;
@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.Label.Model
         private bool m_UseWetProtocol;
         private bool m_PerformedByHand;
 
-        public HistologySlidePaperZPLLabel(string slideOrderId, string reportNo, string firstName, string lastName, string testName, string slideLabel, string location, bool useWetProtocol, bool performedByHand)
+        public HistologySlidePaperZPLLabelV2(string slideOrderId, string reportNo, string firstName, string lastName, string testName, string slideLabel, string location, bool useWetProtocol, bool performedByHand)
         {
             this.m_SlideOrderId = slideOrderId;
             this.m_ReportNo = reportNo;
@@ -31,7 +31,7 @@ namespace YellowstonePathology.Business.Label.Model
             this.m_PerformedByHand = performedByHand;
         }
 
-        public override string GetCommand()            
+        public override string GetCommand()
         {
             StringBuilder result = new StringBuilder();
             string truncatedTestName = null;
@@ -65,13 +65,13 @@ namespace YellowstonePathology.Business.Label.Model
             result.Append("~SD20");
             result.Append("^PW420");
             result.Append("^FWB");
-            result.Append("^A0,35,35^FO0,0^FB335,1,,^FD" + this.m_ReportNo + "^FS");
-            result.Append("^FO40,250^BXB,04,200^FD" + "HSLD" + this.m_SlideOrderId + "^FS");
-            result.Append("^A0,35,35^FO43,0^FB235,1,,^FD" + this.m_SlideLabel + "^FS");
-            result.Append("^A0,35,35^FO75,0^FB235,1,,^FD" + truncatedTestName + "^FS");
-            result.Append("^A0,30,30^FO120,0^FB330,1,,^FD" + patientname + "^FS");
-            result.Append("^A0,25,25^FO155,0^FB330,1,,^FD" + this.m_Location + "^FS");
-            return result.ToString();         
+            result.Append("^A0,35,35^FO0,0^FB335,1,,^FD" + this.m_SlideOrderId + "^FS");
+            result.Append("^FO50,180^BXB,04,200^FD" + "HSLD" + this.m_SlideOrderId + "^FS");
+            result.Append("^A0,25,25^FO150,0^FB330,1,,^FD" + patientname + "^FS");
+            
+            result.Append("^A0N,35,35^FO5,60^FD" + truncatedTestName + "^FS");            
+            //result.Append("^A0N,30,30^FO120,0^FB330,1,,^FD" + patientname + "^FS");    
+            return result.ToString();        
         }
     }
 }

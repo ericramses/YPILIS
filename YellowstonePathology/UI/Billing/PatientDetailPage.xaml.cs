@@ -64,7 +64,14 @@ namespace YellowstonePathology.UI.Billing
         {
             YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_MasterAccessionNo);
             YellowstonePathology.Business.Document.SVHBillingDocument svhBillingDocument = new Business.Document.SVHBillingDocument(this.m_SVHBillingData);
-            svhBillingDocument.SaveAsTIF(orderIdParser);
+            //svhBillingDocument.SaveAsTIF(orderIdParser);
+
+            PrintDialog dialog = new PrintDialog();
+            var doc = svhBillingDocument.Document.DocumentPaginator;
+            for(int i=0; i< doc.PageCount; i++)
+            {
+                dialog.PrintVisual(doc.GetPage(i).Visual, "Page " + i);
+            }
         }
     }
 }
