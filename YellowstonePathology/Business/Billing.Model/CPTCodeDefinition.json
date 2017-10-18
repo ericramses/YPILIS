@@ -2211,6 +2211,22 @@
       "SVHCDMDescription": null
     },
     {
+      "$type": "YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88344TC, UserInterface",
+      "Code": "88344",
+      "Description": null,
+      "Modifier": "TC",
+      "FeeSchedule": 1,
+      "HasTechnicalComponent": true,
+      "HasProfessionalComponent": true,
+      "CodeType": 0,
+      "IsBillable": true,
+      "GCode": null,
+      "HasMedicareQuantityLimit": false,
+      "MedicareQuantityLimit": 0,
+      "SVHCDMCode": null,
+      "SVHCDMDescription": null
+    },
+    {
       "$type": "YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88346, UserInterface",
       "Code": "88346",
       "Description": null,
