@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace YellowstonePathology.Business.Test.AmyloidProteinIDParLCMS
+namespace YellowstonePathology.Business.Test.COL1A1PDGFB
 {
-    public class AmyloidProteinIDParLCMSTest : YellowstonePathology.Business.PanelSet.Model.PanelSet
+    public class COL1A1PDGFBTest : PanelSet.Model.PanelSetMolecularTest
     {
-        public AmyloidProteinIDParLCMSTest()
+        public COL1A1PDGFBTest()
         {
-            this.m_PanelSetId = 257;
-            this.m_PanelSetName = "Amyloid Protein ID, Par, LC-MS";
-            this.m_Abbreviation = "Amyloid Protein ID, Par, LC-MS";
+            this.m_PanelSetId = 285;
+            this.m_PanelSetName = "COL1A1-PDGFB";
+            this.m_Abbreviation = "COL1A1-PDGFB";
             this.m_CaseType = YellowstonePathology.Business.CaseType.Molecular;
             this.m_HasTechnicalComponent = true;
             this.m_HasProfessionalComponent = true;
@@ -34,7 +34,7 @@ namespace YellowstonePathology.Business.Test.AmyloidProteinIDParLCMS
             this.m_ProfessionalComponentFacility = new YellowstonePathology.Business.Facility.Model.MayoClinic();
             this.m_ProfessionalComponentBillingFacility = new YellowstonePathology.Business.Facility.Model.MayoClinic();
 
-            //this.m_HasSplitCPTCode = false;
+            this.m_HasSplitCPTCode = false;
             this.m_RequireAssignmentOnOrder = true;
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMiscellaneous());
