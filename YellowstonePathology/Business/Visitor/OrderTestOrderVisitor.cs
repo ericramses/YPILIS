@@ -247,9 +247,10 @@ namespace YellowstonePathology.Business.Visitor
 
         public override void Visit(YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder)
         {
+            Test.Surgical.SurgicalTest surgicalTest = new Test.Surgical.SurgicalTest();
 			foreach (YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder in this.m_AccessionOrder.SpecimenOrderCollection)
             {
-                if (this.m_PanelSet.OrderTargetTypeCollectionExclusions.Exists(specimenOrder) == false)
+                if (surgicalTest.OrderTargetTypeCollectionExclusions.Exists(specimenOrder) == false)
                 {
                     if (surgicalTestOrder.SurgicalSpecimenCollection.SpecimenOrderExists(specimenOrder.SpecimenOrderId) == false)
                     {
