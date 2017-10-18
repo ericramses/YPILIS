@@ -36,19 +36,30 @@ namespace YellowstonePathology.Business.Test.BoneMarrowSummary
             this.AddNextObxElement("TESTING SUMMARY:", document, "F");
 
             List<Business.Test.PanelSetOrder> testingSummaryList = this.m_AccessionOrder.PanelSetOrderCollection.GetBoneMarrowAccessionSummaryList(panelSetOrder.ReportNo, true);
+            int surgicalPanelSetId = new Test.Surgical.SurgicalTest().PanelSetId;
 
             for (int idx = testingSummaryList.Count - 1;  idx > -1; idx--)
             {
                 Business.Test.PanelSetOrder pso = testingSummaryList[idx];
-                this.AddNextObxElement("Reference Report No: " + pso.ReportNo, document, "F");
-                this.AddNextObxElement("Test Name: " + pso.PanelSetName, document, "F");
-                string result = pso.ToResultString(this.m_AccessionOrder);
-                if(result == "The result string for this test has not been implemented.")
+                if (pso.PanelSetId != surgicalPanelSetId)
                 {
-                    result = "Result reported separately.";
+                    this.AddNextObxElement("Reference Report No: " + pso.ReportNo, document, "F");
+                    this.AddNextObxElement("Test Name: " + pso.PanelSetName, document, "F");
+                    string result = pso.ToResultString(this.m_AccessionOrder);
+                    if (result == "The result string for this test has not been implemented.")
+                    {
+                        if (string.IsNullOrEmpty(pso.SummaryComment) == false)
+                        {
+                            result = pso.SummaryComment;
+                        }
+                        else
+                        {
+                            result = "Result reported separately.";
+                        }
+                    }
+                    this.AddNextObxElement(result, document, "F");
+                    this.AddNextObxElement("", document, "F");
                 }
-                this.AddNextObxElement(result, document, "F");
-                this.AddNextObxElement("", document, "F");
             }
 
             this.AddNextObxElement("", document, "F");

@@ -92,6 +92,7 @@ namespace YellowstonePathology.Business.Test
         protected string m_ReportReferences;
         protected bool m_ResearchTesting;
         protected string m_SummaryReportNo;
+        protected string m_SummaryComment;
 
         protected YellowstonePathology.Business.Document.CaseDocumentCollection m_CaseDocumentCollection;
 
@@ -1314,6 +1315,21 @@ namespace YellowstonePathology.Business.Test
                 {
                     this.m_SummaryReportNo = value;
                     this.NotifyPropertyChanged("SummaryReportNo");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "1000", "null", "varchar")]
+        public string SummaryComment
+        {
+            get { return this.m_SummaryComment; }
+            set
+            {
+                if (this.m_SummaryComment != value)
+                {
+                    this.m_SummaryComment = value;
+                    this.NotifyPropertyChanged("SummaryComment");
                 }
             }
         }
