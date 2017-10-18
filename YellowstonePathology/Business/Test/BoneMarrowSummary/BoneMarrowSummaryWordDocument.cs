@@ -69,7 +69,14 @@ namespace YellowstonePathology.Business.Test.BoneMarrowSummary
                     string result = pso.ToResultString(this.m_AccessionOrder);
                     if (result == "The result string for this test has not been implemented.")
                     {
-                        result = "Result reported separately.";
+                        if (string.IsNullOrEmpty(pso.SummaryComment) == false)
+                        {
+                            result = pso.SummaryComment;
+                        }
+                        else
+                        {
+                            result = "Result reported separately.";
+                        }
                     }
 
                     XmlNode rowTestNodeClone = rowTestNode.Clone();
