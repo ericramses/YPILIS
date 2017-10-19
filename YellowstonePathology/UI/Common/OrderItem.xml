@@ -230,7 +230,24 @@
 								<OrderItems>
 								</OrderItems>
 							</OrderItem>
-						</OrderItems>
+              <OrderItem>
+                <Id>PAX5CD5</Id>
+                <ParentId>19</ParentId>
+                <ChildId>0</ChildId>
+                <Name>PAX5/CD25</Name>
+                <Orderable>True</Orderable>
+                <Order>False</Order>
+                <ItemType>DualStain</ItemType>
+                <OrderPriority>40</OrderPriority>
+                <NotListedName></NotListedName>
+                <NotListedNameVisible>False</NotListedNameVisible>
+                <Comment></Comment>
+                <CommentVisible>False</CommentVisible>
+                <TemplateName>StandardCheckBoxTemplate</TemplateName>
+                <OrderItems>
+                </OrderItems>
+              </OrderItem>
+            </OrderItems>
 					</OrderItem>
 					<OrderItem>
 						<Id>0</Id>

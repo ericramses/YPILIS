@@ -81,7 +81,8 @@ namespace YellowstonePathology.Business.Test.Model
 			List<DualStain> stainList = new List<DualStain>();
 
 			stainList.Add(new CD3CD20DualStain());
-			stainList.Add(new CDX2VillinDualStain());
+            stainList.Add(new PAX5CD5DualStain());
+            stainList.Add(new CDX2VillinDualStain());
 			stainList.Add(new Cytokeratin34P504sRacemaseDualStain());
 			stainList.Add(new IgKappaIgLambdaDualStain());
 			stainList.Add(new Ki67MelanADualStain());

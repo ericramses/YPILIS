@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>357</ApplicationRevision>
+    <ApplicationRevision>387</ApplicationRevision>
     <ApplicationVersion>10.1.7.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -314,6 +314,7 @@
     <Compile Include="Business\Billing.Model\MonitoredObjectCollection.cs" />
     <Compile Include="Business\Billing.Model\PropertyChanges.cs" />
     <Compile Include="Business\Client.Model\HPV1618CompoundStandingOrderRule1.cs" />
+    <Compile Include="Business\Client.Model\HPV1618ReflexOrderPAPNormalHPVPositive.cs" />
     <Compile Include="Business\Client.Model\HPVCompoundStandingOrderRule6.cs" />
     <Compile Include="Business\Client.Model\IdahoClientIdList.cs" />
     <Compile Include="Business\Facility.Model\UCDavisMedicalCenter.cs" />
@@ -464,7 +465,6 @@
     <Compile Include="Business\Client.Model\EPICPhysicianClientDistribution.cs" />
     <Compile Include="Business\Client.Model\FaxPhysicianClientDistribution.cs" />
     <Compile Include="Business\Client.Model\HPV1618ReflexOrderHPVPositive.cs" />
-    <Compile Include="Business\Client.Model\HPV1618ReflexOrderPAPNormalHPVPositive.cs" />
     <Compile Include="Business\Client.Model\HPV1618StandingOrderHPVPositive.cs" />
     <Compile Include="Business\Client.Model\HPV1618StandingOrderPAPNormalHPVPositive.cs" />
     <Compile Include="Business\Client.Model\HPVCompoundStandingOrderRule1.cs" />
@@ -1047,6 +1047,7 @@
     <Compile Include="Business\Label.Model\ContainerPaperLabel.cs" />
     <Compile Include="Business\Label.Model\ContainerPaperLabelPrinter.cs" />
     <Compile Include="Business\Label.Model\AliquotPaperZPLLabel.cs" />
+    <Compile Include="Business\Label.Model\HistologySlidePaperZPLLabelV2.cs" />
     <Compile Include="Business\Label.Model\UrineZPLLabel.cs" />
     <Compile Include="Business\Label.Model\IFEZPLLabel.cs" />
     <Compile Include="Business\Label.Model\FormalinAddedZPLLabel.cs" />
@@ -1079,6 +1080,7 @@
     <Compile Include="Business\Label.Model\ThinPrepSlide.cs" />
     <Compile Include="Business\Label.Model\ThinPrepSlideDirectPrintLabel.cs" />
     <Compile Include="Business\Label.Model\ThinPrepSlidePrinter.cs" />
+    <Compile Include="Business\Label.Model\ZPLCommand.cs" />
     <Compile Include="Business\Label.Model\ZPLPrinterUSB.cs" />
     <Compile Include="Business\Label.Model\ZPLPrinterTCP.cs" />
     <Compile Include="Business\Label.Model\RawPrinterHelper.cs" />
@@ -1161,6 +1163,7 @@
     <Compile Include="Business\Task.Model\TaskFedexShipment.cs" />
     <Compile Include="Business\Task.Model\TaskOrderDetailFactory.cs" />
     <Compile Include="Business\Task.Model\TaskOrderDetailFedexShipment.cs" />
+    <Compile Include="Business\Test.Model\PAX5CD5DualStain.cs" />
     <Compile Include="Business\Test.Model\LambdaByISH.cs" />
     <Compile Include="Business\Test.Model\KappaByISH.cs" />
     <Compile Include="Business\Test\AMLFavorableRisk\AMLFavorableRiskTest.cs" />
@@ -1295,6 +1298,7 @@
     <Compile Include="Business\Test\ROS1ByFISH\ROS1ByFISHPositiveResult.cs" />
     <Compile Include="Business\Test\IRF4F\IRF4FTest.cs" />
     <Compile Include="Business\Test\SoftTissueTumorProfile\SoftTissueTumorProfileTest.cs" />
+    <Compile Include="Business\Test\Spirochete\Spirochete.cs" />
     <Compile Include="Business\Test\SS18SYT\SS18SYTTest.cs" />
     <Compile Include="Business\Test\STAT3MutationAnalysis\STAT3MutationAnalysisTest.cs" />
     <Compile Include="Business\Test\TcellLeukemia1\TcellLeukemia1Test.cs" />
@@ -3291,7 +3295,6 @@
     <Compile Include="UI\Monitor\DashboardPage.xaml.cs">
       <DependentUpon>DashboardPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Monitor\OutlookAddIn.cs" />
     <Compile Include="UI\RetrospectiveReviewListItem.cs" />
     <Compile Include="UI\RetrospectiveReviewList.cs" />
     <Compile Include="UI\RetrospectiveReviewReport.cs" />
@@ -7147,6 +7150,7 @@
     <Resource Include="UI\XMLFile1.xml" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\redhand.png" />
     <Content Include="UI\CEFSharp\avcodec-54.dll" />
     <Content Include="UI\CEFSharp\avformat-54.dll" />
     <Content Include="UI\CEFSharp\avutil-51.dll" />

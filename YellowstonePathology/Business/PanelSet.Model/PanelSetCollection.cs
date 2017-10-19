@@ -156,6 +156,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.Test.NeoTYPEColorectalTumorProfile.NeoTYPEColorectalTumorProfileTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.BCellMemoryNaivePanel.BCellMemoryNaivePanelTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.LymphocyteSubsetPanel5.LymphocyteSubsetPanel5Test());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.Spirochete.SpirocheteTest());
 
             //ARUP
             panelSetCollection.Add(new YellowstonePathology.Business.Test.HPV1618.HPV1618Test());
@@ -444,8 +445,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
         {
             PanelSetCollection panelSetCollection = new PanelSetCollection();
             panelSetCollection.Add(new YellowstonePathology.Business.Test.Surgical.SurgicalTest());
-            panelSetCollection.Add(new YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTest());
-			panelSetCollection.Add(new YellowstonePathology.Business.Test.BCellClonalityByPCR.BCellClonalityByPCRTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTest());			
 			panelSetCollection.Add(new YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile.ComprehensiveColonCancerProfileTest());
             panelSetCollection.Add(new PanelSetERPRForDCIS());
 			panelSetCollection.Add(new YellowstonePathology.Business.Test.ErPrSemiQuantitative.ErPrSemiQuantitativeTest());

@@ -111,12 +111,11 @@ namespace YellowstonePathology.UI.Monitor
                         if (DateTime.Now >= timerDailyStartTime && DateTime.Now <= timerDailyEndTime)
                         {
                         	this.m_Timer.Interval = TimerInterval;
-                        	//if(this.UnreadAutopsyRequestExist() == true)
-                        	//{
-                            //    this.ShowUnhandledAutopsyRequestPage();
-                            //   
-                        	//}
-                            if(this.m_LastReportDistributionHeartBeat < DateTime.Now.AddMinutes(-15))
+                        	if(this.UnreadAutopsyRequestExist() == true)
+                        	{
+                                this.ShowUnhandledAutopsyRequestPage();                               
+                        	}
+                            else if(this.m_LastReportDistributionHeartBeat < DateTime.Now.AddMinutes(-15))
                             {
                                 this.ShowReportDistributionDownPage();
                             }
@@ -149,35 +148,61 @@ namespace YellowstonePathology.UI.Monitor
                 this.m_Timer.Start();
             }            
         }
-        
-        /*
+               
         private bool UnreadAutopsyRequestExist()
         {                  
         	bool result = false;
-            			     	
-            Microsoft.Office.Interop.Outlook.Items items = this.m_MAPIFolder.Items;
-            foreach (object item in items)
+
+            try
             {
-                if(item is Microsoft.Office.Interop.Outlook.MailItem)
+                Microsoft.Office.Interop.Outlook.Application outlookApp = null;
+                if (System.Diagnostics.Process.GetProcessesByName("OUTLOOK").Count() > 0)
                 {
-                    Microsoft.Office.Interop.Outlook.MailItem mailItem = (Microsoft.Office.Interop.Outlook.MailItem)item;
-                    if (mailItem.UnRead)
+                    outlookApp = System.Runtime.InteropServices.Marshal.GetActiveObject("Outlook.Application") as Microsoft.Office.Interop.Outlook.Application;
+                }
+                else
+                {
+                    outlookApp = new Microsoft.Office.Interop.Outlook.Application();
+                }
+
+                Microsoft.Office.Interop.Outlook._NameSpace outlookNameSpace = (Microsoft.Office.Interop.Outlook._NameSpace)outlookApp.GetNamespace("MAPI");
+
+                string recipientName = "histology@ypii.com";
+                Microsoft.Office.Interop.Outlook.Recipient recipient = outlookNameSpace.CreateRecipient(recipientName);
+
+                Microsoft.Office.Interop.Outlook.MAPIFolder mapiFolder = outlookNameSpace.GetSharedDefaultFolder(recipient, Microsoft.Office.Interop.Outlook.OlDefaultFolders.olFolderInbox);
+                Microsoft.Office.Interop.Outlook._Explorer explorer = mapiFolder.GetExplorer(false);
+
+                Microsoft.Office.Interop.Outlook.Items items = mapiFolder.Items;
+                foreach (object item in items)
+                {
+                    if (item is Microsoft.Office.Interop.Outlook.MailItem)
                     {
-                        if (mailItem.To == "autopsyrequest" || mailItem.SenderEmailAddress == "RKurtzman@mt.gov" || mailItem.SenderEmailAddress == "HBeeler@mt.gov")
+                        Microsoft.Office.Interop.Outlook.MailItem mailItem = (Microsoft.Office.Interop.Outlook.MailItem)item;
+                        if (mailItem.UnRead)
                         {
                             result = true;
                             System.Runtime.InteropServices.Marshal.FinalReleaseComObject(item);
                             break;
                         }
                     }
-                }                
-                System.Runtime.InteropServices.Marshal.FinalReleaseComObject(item);
+                    System.Runtime.InteropServices.Marshal.FinalReleaseComObject(item);
+                }
+
+                System.Runtime.InteropServices.Marshal.FinalReleaseComObject(items);
+                System.Runtime.InteropServices.Marshal.FinalReleaseComObject(explorer);
+                System.Runtime.InteropServices.Marshal.FinalReleaseComObject(mapiFolder);
+                System.Runtime.InteropServices.Marshal.FinalReleaseComObject(recipient);
+                System.Runtime.InteropServices.Marshal.FinalReleaseComObject(outlookNameSpace);
+                System.Runtime.InteropServices.Marshal.FinalReleaseComObject(outlookApp);
             }
-            System.Runtime.InteropServices.Marshal.FinalReleaseComObject(items);            			
-			
+            catch(System.Exception)
+            {
+
+            }            
+
             return result;
-        } 
-        */ 
+        }         
         
         private void ShowUnhandledAutopsyRequestPage()
         {            

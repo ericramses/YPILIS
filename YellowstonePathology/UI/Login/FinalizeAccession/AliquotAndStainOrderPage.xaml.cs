@@ -776,7 +776,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 if (queue.Count != 0)
                 {
                     Business.Label.Model.HistologySlidePaperZPLLabel label = queue.Dequeue();
-                    label.AppendCommands(result, xOffset);
+                    //label.AppendCommands(result, xOffset);
                     xOffset += 325;
                 }
             }
