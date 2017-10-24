@@ -19,7 +19,9 @@ namespace YellowstonePathology.Business.Test.InformalConsult
             this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\InformalConsult.1.xml";
             base.OpenTemplate();
 
-            base.SetDemographicsV2();            
+            base.SetDemographicsV2();
+
+            this.ReplaceText("amendment_title", string.Empty);
 
             InformalConsultTestOrder panelSetOrder = (InformalConsultTestOrder)this.m_PanelSetOrder;
 
