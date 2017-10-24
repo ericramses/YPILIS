@@ -5,6 +5,7 @@ using System.Text;
 using System.IO;
 using System.Reflection;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using StackExchange.Redis;
 
 namespace YellowstonePathology.Business.Billing.Model
@@ -23,7 +24,8 @@ namespace YellowstonePathology.Business.Billing.Model
                     lock (syncRoot)
                     {
                         if (instance == null)
-                            instance = FromJSON();                            
+                            //instance = FromJSON();
+                            instance = FromRedis();
                     }
                 }
 
@@ -343,6 +345,41 @@ namespace YellowstonePathology.Business.Billing.Model
                 TypeNameHandling = TypeNameHandling.All,
                 ObjectCreationHandling = ObjectCreationHandling.Replace
             });
+
+            return result;
+        }
+        public static CptCodeCollection FromRedis()
+        {
+            YellowstonePathology.Business.Billing.Model.CptCodeCollection result = new Model.CptCodeCollection();
+            IDatabase db = Business.RedisConnection.Instance.GetDatabase();
+
+            RedisResult redisResult = db.Execute("json.get", new object[] { "cptcodes" });
+            if (redisResult.IsNull == true)
+            {
+                string jsonString = string.Empty;
+                Assembly assembly = Assembly.GetExecutingAssembly();
+                using (StreamReader sr = new StreamReader(assembly.GetManifestResourceStream("YellowstonePathology.Business.Billing.Model.CptCodeDef2.json")))
+                {
+                    jsonString = sr.ReadToEnd();
+                }
+                db.Execute("json.set", new object[] { "cptcodes", ".", jsonString });
+                redisResult = db.Execute("json.get", new object[] { "cptcodes" });
+            }
+
+            JArray jsonCptCodes = JArray.Parse((string)redisResult);
+            foreach (JObject jObject in jsonCptCodes.Children<JObject>())
+            {
+                CptCode code = CptCodeFactory.FromJson(jObject);
+                result.Add(code);
+            }
+            /*if (redisResult.IsNull == false)
+            {
+                result = JsonConvert.DeserializeObject<Business.Billing.Model.CptCodeCollection>((string)redisResult, new JsonSerializerSettings
+                {
+                    TypeNameHandling = TypeNameHandling.All,
+                    ObjectCreationHandling = ObjectCreationHandling.Replace
+                });
+            }*/
 
             return result;
         }

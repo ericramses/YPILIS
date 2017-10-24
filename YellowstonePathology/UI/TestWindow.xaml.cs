@@ -50,7 +50,7 @@ namespace YellowstonePathology.UI
 
         private void Button_GetTestClick(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Logging.ScanLog resultLog = null;
+            /*YellowstonePathology.Business.Logging.ScanLog resultLog = null;
             YellowstonePathology.Business.Logging.ScanLog scanlog = new Business.Logging.ScanLog("123", "Aliquot", "111", "Bubba Blat", "222", "Bubba TV", false);
             string sjson = scanlog.ToJSON();
             RedisResult putResult = this.m_DB.Execute("json.set", new object[] { "scanLog", ".", sjson });
@@ -60,7 +60,9 @@ namespace YellowstonePathology.UI
             if (redisResult.IsNull == false)
             {
                 resultLog = scanlog.DeserializeJSON((string)redisResult);
-            }
+            }*/
+
+            YellowstonePathology.Business.Billing.Model.CptCodeCollection collection = Business.Billing.Model.CptCodeCollection.Instance;
         }
     }
 }

@@ -308,6 +308,7 @@
     <Compile Include="Business\BaseData.cs" />
     <Compile Include="Business\BaseItem.cs" />
     <Compile Include="Business\BaseListItem.cs" />
+    <Compile Include="Business\Billing.Model\CptCodeFactory.cs" />
     <Compile Include="Business\Billing.Model\HospitalSplitSurgicalAndReferenceLabBillingRuleSet.cs" />
     <Compile Include="Business\Billing.Model\MonitoredObject.cs" />
     <Compile Include="Business\Billing.Model\MonitoredObjectCollection.cs" />
@@ -4855,6 +4856,7 @@
     <EmbeddedResource Include="Business\XmlSchema\BarcodeScanSchema.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Business\Billing.Model\CptCodeDef2.json" />
     <None Include="Business\XmlSchema\ComplexTypes.xsd">
       <SubType>Designer</SubType>
     </None>
