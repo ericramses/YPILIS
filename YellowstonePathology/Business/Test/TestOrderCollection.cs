@@ -99,8 +99,13 @@ namespace YellowstonePathology.Business.Test.Model
         public int GetBillableDualStainCount(bool includeDualsWithGradedStains)
         {
             int result = 0;
-            YellowstonePathology.Business.Test.Model.DualStainCollection dualStainCollection = YellowstonePathology.Business.Test.Model.DualStainCollection.GetCollection(this);
-            result = dualStainCollection.StainCount(includeDualsWithGradedStains);
+            foreach(TestOrder testOrder in this)
+            {
+                if(testOrder.OrderedAsDual == true && testOrder.NoCharge == false)
+                {
+                    result += 1;
+                }
+            }            
             return result;
         }
 

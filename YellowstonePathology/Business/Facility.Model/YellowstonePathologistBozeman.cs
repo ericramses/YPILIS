@@ -21,6 +21,7 @@ namespace YellowstonePathology.Business.Facility.Model
             this.m_IsReferenceLab = false;
             this.m_AccessioningLocation = "Billings";
             this.m_LocationAbbreviation = "YPI Bzmn, Mt";
+            this.m_ClientId = 1613;
 
             this.Locations.Add(new YellowstonePathology.Business.Facility.Model.LocationDefinitions.DrEmerickOffice());
             this.Locations.Add(new YellowstonePathology.Business.Facility.Model.LocationDefinitions.DrNeroOffice());

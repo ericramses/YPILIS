@@ -24,11 +24,30 @@ namespace YellowstonePathology.Business.Test.Model
 
         public override YellowstonePathology.Business.Billing.Model.CptCode GetCptCode(bool isTechnicalOnly)
         {
-            YellowstonePathology.Business.Billing.Model.CptCode result = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88342();
-            if (isTechnicalOnly == true)
+            YellowstonePathology.Business.Billing.Model.CptCode result = null;
+            if(this.IsDualOrder == true)
             {
-                result = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88342TC();
+                if(isTechnicalOnly == true)
+                {
+                    result = new Business.Billing.Model.CptCodeDefinition.CPT88344TC();
+                }
+                else
+                {
+                    result = new Business.Billing.Model.CptCodeDefinition.CPT88344();
+                }                
             }
+            else
+            {
+                if (isTechnicalOnly == true)
+                {
+                    result = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88342TC();
+                }
+                else
+                {
+                    result = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88342();
+                }
+            }
+            
             return result;  
         }
 

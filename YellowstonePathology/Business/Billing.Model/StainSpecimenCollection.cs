@@ -118,11 +118,22 @@ namespace YellowstonePathology.Business.Billing.Model
             {
                 int perSpecimenCount = 0;
                 perSpecimenCount = stainSpecimen.GetBillableSinglePlexIHCTestOrderCount();
-                perSpecimenCount = perSpecimenCount + stainSpecimen.GetBillableDualStainCount(true);
+                //perSpecimenCount = perSpecimenCount + stainSpecimen.GetBillableDualStainCount(true);
                 if (perSpecimenCount > 0)
                 {
                     result += 1;
                 }
+            }
+            return result;
+        }
+
+        public int GetBillable88344Count()
+        {
+            int result = 0;
+            foreach (StainSpecimen stainSpecimen in this)
+            {                
+                int dualStainCount = stainSpecimen.GetBillableDualStainCount(true);
+                result += dualStainCount;            
             }
             return result;
         }

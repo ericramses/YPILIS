@@ -1556,7 +1556,7 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
     public class CPT88364 : CptCode
     {
         public CPT88364()
-        {
+        {            
             this.m_Code = "88364";
             this.m_FeeSchedule = FeeScheduleEnum.Physician;
             this.m_HasProfessionalComponent = true;
@@ -1591,8 +1591,8 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
             this.m_HasTechnicalComponent = true;
             this.m_IsBillable = true;
             this.m_CodeType = CPTCodeTypeEnum.Global;
-            this.m_SVHCDMCode = "760805981";
-            this.m_SVHCDMDescription = "IMMUNOHISTO/CYTO CHEM, EACH ADDITIONAL AB";
+            this.m_SVHCDMCode = null;
+            this.m_SVHCDMDescription = null;
         }
     }
 
@@ -2056,7 +2056,21 @@ namespace YellowstonePathology.Business.Billing.Model.CptCodeDefinition
 		}
 	}
 
-	public class CPT88312TC : CptCode
+    public class CPT88344TC : CptCode
+    {
+        public CPT88344TC()
+        {
+            this.m_Code = "88344";
+            this.m_Modifier = "TC";
+            this.m_FeeSchedule = FeeScheduleEnum.Clinical;
+            this.m_HasProfessionalComponent = true;
+            this.m_HasTechnicalComponent = true;
+            this.m_IsBillable = true;
+            this.m_CodeType = CPTCodeTypeEnum.Global;
+        }
+    }
+
+    public class CPT88312TC : CptCode
 	{
 		public CPT88312TC()
 		{

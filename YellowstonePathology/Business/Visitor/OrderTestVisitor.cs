@@ -155,8 +155,8 @@ namespace YellowstonePathology.Business.Visitor
         private void HandleTestOrder()
         {
             string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();            
-            YellowstonePathology.Business.Test.Model.TestOrder testOrder = this.m_PanelOrder.TestOrderCollection.GetNextItem(this.m_PanelOrder.PanelOrderId, objectId, this.m_AliquotOrder.AliquotOrderId, this.m_Test, this.m_TestOrderComment);                        
-            testOrder.OrderedAsDual = this.m_OrderedAsDual;
+            YellowstonePathology.Business.Test.Model.TestOrder testOrder = this.m_PanelOrder.TestOrderCollection.GetNextItem(this.m_PanelOrder.PanelOrderId, objectId, this.m_AliquotOrder.AliquotOrderId, this.m_Test, this.m_TestOrderComment);
+            testOrder.OrderedAsDual = this.m_Test.IsDualOrder;
             testOrder.AliquotOrder = this.m_AliquotOrder;
             testOrder.PerformedByHand = this.m_Test.PerformedByHand;
 

@@ -35,6 +35,7 @@ namespace YellowstonePathology.Business.Facility.Model
             FacilityCollection result = new FacilityCollection();
             result.Add(new NullFacility());
             result.Add(new YellowstonePathologistBillings());
+            result.Add(new YellowstonePathologistBozeman());
             result.Add(new ButtePathology());
             result.Add(new PathologyAssociatesOfIdahoFalls());
             result.Add(new PathologyConsultantsOfWesternMontana());
