@@ -39,7 +39,7 @@ namespace YellowstonePathology.Business.Test.MDSCMMLProfile
             this.m_PanelSetCptCodeCollection.Add(panelSetCptCode);
 
             this.m_HasSplitCPTCode = false;
-            this.m_RequireAssignmentOnOrder = true;            
+            //this.m_RequiresAssignment = true;            
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMiscellaneous());                        
 		}

@@ -35,7 +35,7 @@ namespace YellowstonePathology.Business.Test.NGCT
             this.m_TechnicalComponentBillingFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();
 
             this.m_HasSplitCPTCode = false;
-            this.m_RequireAssignmentOnOrder = true;
+            //this.m_RequiresAssignment = true;
 
             this.m_EpicDistributionIsImplemented = true;
             this.m_CMMCDistributionIsImplemented = true;

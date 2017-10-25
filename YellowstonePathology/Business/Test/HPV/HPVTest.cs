@@ -25,7 +25,7 @@ namespace YellowstonePathology.Business.Test.HPV
 			this.m_AllowMultiplePerAccession = true;
             this.m_ExpectedDuration = new TimeSpan(4, 0, 0, 0);
             this.m_AttemptOrderTargetLookup = true;
-            this.m_RequireAssignmentOnOrder = false;
+            this.m_RequiresAssignment = false;
             this.m_EpicDistributionIsImplemented = true;
 
             this.m_AddAliquotOnOrder = true;

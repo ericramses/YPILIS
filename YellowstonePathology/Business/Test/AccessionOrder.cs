@@ -1547,9 +1547,12 @@ namespace YellowstonePathology.Business.Test
                     panelSetOrder.ProfessionalComponentBillingFacilityId = ypi.FacilityId;
                 }                
             }
-            else
+            else if (this.m_CaseOwnerId != 0)
             {
-                if (this.m_CaseOwnerId != 0)
+                PanelSet.Model.PanelSetCollection collection = PanelSet.Model.PanelSetCollection.GetAll();
+                PanelSet.Model.PanelSet panelSet = collection.GetPanelSet(panelSetOrder.PanelSetId);
+
+                if (panelSet.RequiresAssignment == true)
                 {
                     panelSetOrder.AssignedToId = this.m_CaseOwnerId;
                 }

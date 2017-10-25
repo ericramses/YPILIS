@@ -34,7 +34,7 @@ namespace YellowstonePathology.Business.Test.IRF4F
             this.m_ProfessionalComponentBillingFacility = new YellowstonePathology.Business.Facility.Model.MayoClinic();                       
 
             this.m_HasSplitCPTCode = false;
-            this.m_RequireAssignmentOnOrder = true;            
+            //this.m_RequiresAssignment = true;            
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMiscellaneous());                        
 		}
