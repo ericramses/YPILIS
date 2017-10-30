@@ -117,8 +117,7 @@ namespace YellowstonePathology.Business.Billing.Model
             foreach (StainSpecimen stainSpecimen in this)
             {
                 int perSpecimenCount = 0;
-                perSpecimenCount = stainSpecimen.GetBillableSinglePlexIHCTestOrderCount();
-                //perSpecimenCount = perSpecimenCount + stainSpecimen.GetBillableDualStainCount(true);
+                perSpecimenCount = stainSpecimen.GetBillableSinglePlexIHCTestOrderCount();                
                 if (perSpecimenCount > 0)
                 {
                     result += 1;
@@ -144,8 +143,7 @@ namespace YellowstonePathology.Business.Billing.Model
             foreach (StainSpecimen stainSpecimen in this)
             {
                 int perSpecimenCount = 0;
-                perSpecimenCount = stainSpecimen.GetBillableSinglePlexIHCTestOrderCount();
-                perSpecimenCount = perSpecimenCount + stainSpecimen.GetBillableDualStainCount(true);
+                perSpecimenCount = stainSpecimen.GetBillableSinglePlexIHCTestOrderCount();                
                 if (perSpecimenCount > 1)
                 {
                     result += perSpecimenCount - 1;

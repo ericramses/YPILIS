@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.HL7View
         public void HandleOrder(Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder)
         {
             if (slideOrder.LabelType == YellowstonePathology.Business.Slide.Model.SlideLabelTypeEnum.PaperLabel.ToString())
-            {
+            {                
                 if (slideOrder.PerformedByHand == false && slideOrder.OrderSentToVentana == false)
                 {                    
                     if (this.CanBuild(accessionOrder, slideOrder.TestOrderId, slideOrder.SlideOrderId) == true)
@@ -28,7 +28,7 @@ namespace YellowstonePathology.Business.HL7View
                         string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
                         System.IO.File.WriteAllText(@"\\10.1.2.31\ChannelData\Outgoing\Ventana\" + objectId + ".hl7", result);                     
                     }                    
-                }
+                }             
 
                 Business.Label.Model.ZPLPrinterUSB zplPrinterUSB = new Business.Label.Model.ZPLPrinterUSB();
                 Business.Label.Model.HistologySlidePaperZPLLabel zplCommand = new Label.Model.HistologySlidePaperZPLLabel(slideOrder.SlideOrderId, slideOrder.ReportNo, slideOrder.PatientFirstName, slideOrder.PatientLastName, slideOrder.TestAbbreviation, slideOrder.Label, slideOrder.Location, slideOrder.UseWetProtocol, slideOrder.PerformedByHand);
@@ -61,7 +61,8 @@ namespace YellowstonePathology.Business.HL7View
         {
             //protoc -I d:/protogen --csharp_out d:/protogen/result d:/protogen/ventana.proto --grpc_out d:/protogen/result --plugin=protoc-gen-grpc=grpc_csharp_plugin.exe            
 
-            Channel channel = new Channel("10.1.2.70:32222", ChannelCredentials.Insecure);
+            //Channel channel = new Channel("10.1.2.70:32222", ChannelCredentials.Insecure);
+            Channel channel = new Channel("10.1.1.54:50051", ChannelCredentials.Insecure);
             Ventana.VentanaService.VentanaServiceClient ventanaServiceClient = new Ventana.VentanaService.VentanaServiceClient(channel);
             Ventana.OrderRequest orderRequest = new Ventana.OrderRequest();
 

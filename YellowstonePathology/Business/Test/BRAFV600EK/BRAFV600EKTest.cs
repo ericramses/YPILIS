@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Test.BRAFV600EK
 			this.m_HasProfessionalComponent = true;			
 			this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterM();
-            this.m_Active = true;
+            this.m_Active = false;
             
 			this.m_SurgicalAmendmentRequired = true;
 

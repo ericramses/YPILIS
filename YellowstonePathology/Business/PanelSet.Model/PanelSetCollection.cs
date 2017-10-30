@@ -445,8 +445,8 @@ namespace YellowstonePathology.Business.PanelSet.Model
         {
             PanelSetCollection panelSetCollection = new PanelSetCollection();
             panelSetCollection.Add(new YellowstonePathology.Business.Test.Surgical.SurgicalTest());
-            panelSetCollection.Add(new YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTest());			
-			panelSetCollection.Add(new YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile.ComprehensiveColonCancerProfileTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile.ComprehensiveColonCancerProfileTest());
             panelSetCollection.Add(new PanelSetERPRForDCIS());
 			panelSetCollection.Add(new YellowstonePathology.Business.Test.ErPrSemiQuantitative.ErPrSemiQuantitativeTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisTest());
