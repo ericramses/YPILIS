@@ -377,7 +377,6 @@
     <Compile Include="Business\Billing.Model\CPTCodeBZPrice.cs" />
     <Compile Include="Business\Billing.Model\CPTCodeCMMCPrice.cs" />
     <Compile Include="Business\Billing.Model\CptCodeCollection.cs" />
-    <Compile Include="Business\Billing.Model\CptCodeDefinitions.cs" />
     <Compile Include="Business\Billing.Model\CPTCodeEIRMCPrice.cs" />
     <Compile Include="Business\Billing.Model\CPTCodeFMPrice.cs" />
     <Compile Include="Business\Billing.Model\CPTCodeGFPrice.cs" />
@@ -404,7 +403,6 @@
     <Compile Include="Business\Billing.Model\FeeScheduleCollection.cs" />
     <Compile Include="Business\Billing.Model\FeeScheduleCosmetic.cs" />
     <Compile Include="Business\Billing.Model\FeeScheduleEnum.cs" />
-    <Compile Include="Business\Billing.Model\GCodeDefinitions.cs" />
     <Compile Include="Business\Billing.Model\GlobalBillingRule.cs" />
     <Compile Include="Business\Billing.Model\GlobalBillingRuleSet.cs" />
     <Compile Include="Business\Billing.Model\HospitalGlobalBillingRuleSet.cs" />
@@ -424,7 +422,6 @@
     <Compile Include="Business\Billing.Model\PanelSetOrderCPTCodeEntryType.cs" />
     <Compile Include="Business\Billing.Model\PQRSCode.cs" />
     <Compile Include="Business\Billing.Model\PQRSCodeCollection.cs" />
-    <Compile Include="Business\Billing.Model\PQRSCodeDefinitions.cs" />
     <Compile Include="Business\Billing.Model\PSABillingDocument.cs" />
     <Compile Include="Business\Billing.Model\RuleValue.cs" />
     <Compile Include="Business\Billing.Model\RuleValueAny.cs" />
@@ -1133,6 +1130,7 @@
     <Compile Include="Business\Persistence\MonitorProperty.cs" />
     <Compile Include="Business\Persistence\ProtobufWriter.cs" />
     <Compile Include="Business\Persistence\SqlDataRowReaderPropertyWriter.cs" />
+    <Compile Include="Business\RedisConnection2.cs" />
     <Compile Include="Business\Reports\BlocksSentNotReturnedReport.cs" />
     <Compile Include="Business\Reports\RetrospectiveReviewReport.xaml.cs">
       <DependentUpon>RetrospectiveReviewReport.xaml</DependentUpon>
@@ -4856,7 +4854,6 @@
     <EmbeddedResource Include="Business\XmlSchema\BarcodeScanSchema.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Business\Billing.Model\CptCodeDef2.json" />
     <None Include="Business\XmlSchema\ComplexTypes.xsd">
       <SubType>Designer</SubType>
     </None>

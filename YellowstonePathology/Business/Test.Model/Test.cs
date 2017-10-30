@@ -55,11 +55,11 @@ namespace YellowstonePathology.Business.Test.Model
         {
             if (isTechnicalOnly == false)
             {
-                return new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88360();
+                return Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("CPT88360");
             }
             else
             {
-                return new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88360TC();
+                return Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("CPT88360TC");
             }
         }
 

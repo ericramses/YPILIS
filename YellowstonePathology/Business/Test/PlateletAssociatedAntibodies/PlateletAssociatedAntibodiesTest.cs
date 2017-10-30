@@ -22,7 +22,7 @@ namespace YellowstonePathology.Business.Test.PlateletAssociatedAntibodies
             this.m_HasProfessionalComponent = false;
             this.m_ProfessionalComponentFacility = null;
 
-            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode1 = new Business.Billing.Model.PanelSetCptCode(new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT86023(), 2);
+            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode1 = new Business.Billing.Model.PanelSetCptCode(Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("CPT86023"), 2);
             this.m_PanelSetCptCodeCollection.Add(panelSetCptCode1);                  
 		}
     }

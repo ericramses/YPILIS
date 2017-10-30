@@ -1,29 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using StackExchange.Redis;
 
 namespace YellowstonePathology.Business
 {
-    public class RedisConnection
+    public class RedisConnection2
     {
-        private static volatile RedisConnection instance;
+        private static volatile RedisConnection2 instance;
         private static object syncRoot = new Object();
 
         private ConnectionMultiplexer m_Connection;
         private IServer m_Server;
 
-        static RedisConnection()
+        static RedisConnection2()
         {
-            
+
         }
 
-        private RedisConnection()
+        private RedisConnection2()
         {
-            this.m_Connection = ConnectionMultiplexer.Connect("10.1.2.25, ConnectTimeout=5000, SyncTimeout=5000");
-            this.m_Server = this.m_Connection.GetServer("10.1.2.25:6379");
+            this.m_Connection = ConnectionMultiplexer.Connect("localhost, ConnectTimeout=5000, SyncTimeout=5000, AbortConnect=false");
+            this.m_Server = this.m_Connection.GetServer("localhost:6379");
         }
 
         public IDatabase GetDatabase()
@@ -41,7 +37,7 @@ namespace YellowstonePathology.Business
             get { return this.m_Server; }
         }
 
-        public static RedisConnection Instance
+        public static RedisConnection2 Instance
         {
             get
             {
@@ -50,7 +46,7 @@ namespace YellowstonePathology.Business
                     lock (syncRoot)
                     {
                         if (instance == null)
-                            instance = new RedisConnection();
+                            instance = new RedisConnection2();
                     }
                 }
 

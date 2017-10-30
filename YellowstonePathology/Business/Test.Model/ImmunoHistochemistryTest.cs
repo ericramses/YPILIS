@@ -24,10 +24,10 @@ namespace YellowstonePathology.Business.Test.Model
 
         public override YellowstonePathology.Business.Billing.Model.CptCode GetCptCode(bool isTechnicalOnly)
         {
-            YellowstonePathology.Business.Billing.Model.CptCode result = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88342();
+            YellowstonePathology.Business.Billing.Model.CptCode result = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("CPT88342");
             if (isTechnicalOnly == true)
             {
-                result = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88342TC();
+                result = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("CPT88342TC");
             }
             return result;  
         }
@@ -40,22 +40,22 @@ namespace YellowstonePathology.Business.Test.Model
                 case CptCodeLevelEnum.Initial:
                     if (isTechnicalOnly == true)
                     {
-                        result = new YellowstonePathology.Business.Billing.Model.GCodeDefinitions.CPTG0461();
+                        result = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("CPTG0461");
                     }
                     else
                     {
-                        result = new YellowstonePathology.Business.Billing.Model.GCodeDefinitions.CPTG0461TC();
-                    }                    
+                        result = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("CPTG0461TC");
+                    }
                     break;
                 case CptCodeLevelEnum.Subsequent:
                     if (isTechnicalOnly == true)
                     {
-                        result = new YellowstonePathology.Business.Billing.Model.GCodeDefinitions.CPTG0462();
+                        result = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("CPTG0462");
                     }
                     else
                     {
-                        result = new YellowstonePathology.Business.Billing.Model.GCodeDefinitions.CPTG0462TC();
-                    }     
+                        result = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("CPTG0462TC");
+                    }
                     break;
             }            
             return result;
@@ -69,22 +69,22 @@ namespace YellowstonePathology.Business.Test.Model
                 case CptCodeLevelEnum.Initial:
                     if (isTechnicalOnly == true)
                     {
-                        result = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88342TC();
+                        result = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("CPT88342TC");
                     }
                     else
                     {
-                        result = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88342();
+                        result = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("CPT88342");
                     }
                     break;
                 case CptCodeLevelEnum.Subsequent:
                     if (isTechnicalOnly == true)
                     {
-                        result = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88343TC();
+                        result = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("CPT88343TC");
                     }
                     else
                     {
-                        result = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88343();
-                    }                    
+                        result = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("CPT88343");
+                    }
                     break;
             }            
 
