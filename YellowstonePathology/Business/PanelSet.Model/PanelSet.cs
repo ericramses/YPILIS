@@ -33,7 +33,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
         protected bool m_ShowResultPageOnOrder;                
         protected bool m_CanHaveMultipleOrderTargets;
         protected bool m_HasNoOrderTarget;
-        protected bool m_RequireAssignmentOnOrder;
+        protected bool m_RequiresAssignment;
         protected bool m_AttemptOrderTargetLookup;
         protected bool m_IsClientAccessioned;
         protected bool m_AddAliquotOnOrder;
@@ -80,7 +80,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
             this.m_CanHaveMultipleOrderTargets = false;
             this.m_HasNoOrderTarget = false;
             this.m_AttemptOrderTargetLookup = false;
-            this.m_RequireAssignmentOnOrder = true;
+            this.m_RequiresAssignment = true;
             this.m_IsClientAccessioned = false;
 
             this.m_EpicDistributionIsImplemented = false;
@@ -494,15 +494,15 @@ namespace YellowstonePathology.Business.PanelSet.Model
         }
 
         [PersistentProperty()]
-        public bool RequireAssignmentOnOrder
+        public bool RequiresAssignment
         {
-            get { return this.m_RequireAssignmentOnOrder; }
+            get { return this.m_RequiresAssignment; }
             set
             {
-                if (this.m_RequireAssignmentOnOrder != value)
+                if (this.m_RequiresAssignment != value)
                 {
-                    this.m_RequireAssignmentOnOrder = value;
-                    this.NotifyPropertyChanged("RequireAssignmentOnOrder");
+                    this.m_RequiresAssignment = value;
+                    this.NotifyPropertyChanged("RequiresAssignment");
                 }
             }
         }

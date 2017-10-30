@@ -35,7 +35,7 @@ namespace YellowstonePathology.Business.Test.METMutationAnalysis
             this.m_ProfessionalComponentBillingFacility = new YellowstonePathology.Business.Facility.Model.NeogenomicsIrvine();
 
             //this.m_HasSplitCPTCode = false;
-            this.m_RequireAssignmentOnOrder = true;
+            //this.m_RequiresAssignment = true;
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMiscellaneous());
         }
