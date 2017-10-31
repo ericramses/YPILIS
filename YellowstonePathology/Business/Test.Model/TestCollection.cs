@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using Newtonsoft.Json;
 
 namespace YellowstonePathology.Business.Test.Model
 {
@@ -377,5 +378,17 @@ namespace YellowstonePathology.Business.Test.Model
             }
             return result;
         }
+
+
+        public string ToJSON()
+        {
+            string result = JsonConvert.SerializeObject(this, Newtonsoft.Json.Formatting.Indented, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.All
+            });
+
+            return result;
+        }
+
     }
 }
