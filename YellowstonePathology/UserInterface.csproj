@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>407</ApplicationRevision>
+    <ApplicationRevision>410</ApplicationRevision>
     <ApplicationVersion>10.1.7.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -317,6 +317,7 @@
     <Compile Include="Business\Client.Model\HPV1618ReflexOrderPAPNormalHPVPositive.cs" />
     <Compile Include="Business\Client.Model\HPVCompoundStandingOrderRule6.cs" />
     <Compile Include="Business\Client.Model\IdahoClientIdList.cs" />
+    <Compile Include="Business\Facility.Model\VirginiaMason.cs" />
     <Compile Include="Business\Facility.Model\UCDavisMedicalCenter.cs" />
     <Compile Include="Business\Facility.Model\MyriadGeneticsLab.cs" />
     <Compile Include="Business\Facility.Model\EasternColoradoHealthcare.cs" />

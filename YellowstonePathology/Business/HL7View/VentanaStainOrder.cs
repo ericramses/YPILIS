@@ -61,8 +61,8 @@ namespace YellowstonePathology.Business.HL7View
         {
             //protoc -I d:/protogen --csharp_out d:/protogen/result d:/protogen/ventana.proto --grpc_out d:/protogen/result --plugin=protoc-gen-grpc=grpc_csharp_plugin.exe            
 
-            //Channel channel = new Channel("10.1.2.70:32222", ChannelCredentials.Insecure);
-            Channel channel = new Channel("10.1.1.54:50051", ChannelCredentials.Insecure);
+            Channel channel = new Channel("10.1.2.70:30360", ChannelCredentials.Insecure);
+            //Channel channel = new Channel("10.1.1.54:50051", ChannelCredentials.Insecure);
             Ventana.VentanaService.VentanaServiceClient ventanaServiceClient = new Ventana.VentanaService.VentanaServiceClient(channel);
             Ventana.OrderRequest orderRequest = new Ventana.OrderRequest();
 
