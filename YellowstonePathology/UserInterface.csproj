@@ -5130,7 +5130,6 @@
     <Resource Include="Business\XMLTemplates\CytologyOrderInstructions.xml" />
     <Resource Include="Business\XMLTemplates\DNADefaultExtension.xml" />
     <Resource Include="Business\XPSDocument\Xps\ReportLogo.jpg" />
-    <EmbeddedResource Include="Business\Billing.Model\CPTCodeDefinition.json" />
     <EmbeddedResource Include="Business\MaterialTracking.Model\FedexProcessShipmentRequest.v15.xml" />
     <EmbeddedResource Include="Business\MaterialTracking.Model\FedexDeleteShipmentRequest.v19.xml" />
     <EmbeddedResource Include="Business\MaterialTracking.Model\FedexTrackingRequest.v9.xml" />
