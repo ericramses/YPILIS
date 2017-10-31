@@ -132,7 +132,7 @@ namespace YellowstonePathology.Business.Billing.Model
 
         public void Post88344(YellowstonePathology.Business.Billing.Model.BillingComponentEnum billingComponent, string billTo, string billBy)
         {
-            YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88344 cpt88344 = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88344();
+            YellowstonePathology.Business.Billing.Model.CptCode cpt88344 = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("CPT88344");
             string modifier = cpt88344.GetModifier(billingComponent);
             int cpt88344Count = this.m_StainSpecimenCollection.GetBillable88344Count() - this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.GetBilledCount(cpt88344.Code, modifier);
 

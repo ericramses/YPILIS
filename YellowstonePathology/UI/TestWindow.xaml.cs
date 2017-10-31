@@ -63,14 +63,8 @@ namespace YellowstonePathology.UI
                 resultLog = scanlog.DeserializeJSON((string)redisResult);
             }*/
 
-            //YellowstonePathology.Business.Billing.Model.CptCodeCollection collection = Business.Billing.Model.CptCodeCollection.Instance;
-            YellowstonePathology.Business.Test.Model.TestCollection collection = Business.Test.Model.TestCollection.GetAllTests(true);
-            string jstring = collection.ToJSON();
-
-            using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"C:\Test\Test.json"))
-            {
-                file.WriteLine(jstring);
-            }
+            YellowstonePathology.Business.Billing.Model.CptCodeCollection collection = Business.Billing.Model.CptCodeCollection.Instance;
+            //YellowstonePathology.Business.Test.Model.TestCollection collection = Business.Test.Model.TestCollection.Instance;
         }
     }
 }
