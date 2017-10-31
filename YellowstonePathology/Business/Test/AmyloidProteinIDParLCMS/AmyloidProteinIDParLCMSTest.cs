@@ -26,7 +26,7 @@ namespace YellowstonePathology.Business.Test.AmyloidProteinIDParLCMS
             this.m_ExpectedDuration = new TimeSpan(7, 0, 0, 0);
 
             string taskDescription = "Gather materials and send out to Mayo Clinic.";
-            this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskFedexShipment(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, taskDescription, new Facility.Model.NeogenomicsIrvine()));
+            this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskFedexShipment(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, taskDescription, new Facility.Model.MayoClinic()));
 
             this.m_TechnicalComponentFacility = new YellowstonePathology.Business.Facility.Model.MayoClinic();
             this.m_TechnicalComponentBillingFacility = new YellowstonePathology.Business.Facility.Model.MayoClinic();

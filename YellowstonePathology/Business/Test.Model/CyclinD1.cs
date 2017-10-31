@@ -11,7 +11,7 @@ namespace YellowstonePathology.Business.Test.Model
 		{
 			this.m_TestId = "85";
 			this.m_TestName = "Cyclin D1";
-            this.m_TestAbbreviation = "Cyclin D1";
+            this.m_TestAbbreviation = "CyclinD1";
 			this.m_Active = true;
 			this.m_NeedsAcknowledgement = true;
 		}

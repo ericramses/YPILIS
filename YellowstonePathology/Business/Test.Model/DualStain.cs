@@ -5,7 +5,7 @@ using System.Text;
 
 namespace YellowstonePathology.Business.Test.Model
 {
-    public class DualStain : Test
+    public class DualStain : ImmunoHistochemistryTest
     {        
 		protected Test m_FirstTest;
 		protected Test m_SecondTest;

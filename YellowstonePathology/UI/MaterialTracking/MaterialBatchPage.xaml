@@ -71,7 +71,7 @@
                 <TextBox Grid.Column="2" Grid.Row="1" Grid.RowSpan="4" Margin="2,2,2,2" Text="{Binding Path=MaterialTrackingBatch.TrackingInformation}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="Wrap" AcceptsReturn="True"></TextBox>
 
                 <TextBlock Grid.Column="2" Grid.Row="5" Margin="2,2,2,2">
-				    <Hyperlink Click="HyperlinkViewFedXTrackingPage_Click">FedX Tracking Page</Hyperlink>
+				    <Hyperlink Click="HyperlinkSendEmail_Click">SendEmail</Hyperlink>
                 </TextBlock>
 
 

@@ -37,7 +37,7 @@ namespace YellowstonePathology.Business.Test.BRAFMutationAnalysis
             this.m_HasSplitCPTCode = true;
 
             string taskDescription = "Collect paraffin block from Histology and send to Neo.";
-            this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.Task(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, taskDescription));
+            this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskFedexShipment(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, taskDescription, new Facility.Model.NeogenomicsIrvine()));
 
             YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("CPT81210"), 1);
             this.m_PanelSetCptCodeCollection.Add(panelSetCptCode);

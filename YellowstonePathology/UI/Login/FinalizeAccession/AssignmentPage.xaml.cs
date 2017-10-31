@@ -179,9 +179,9 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                             panelSetOrder.ProfessionalComponentFacilityId = null;
                             panelSetOrder.ProfessionalComponentBillingFacilityId = null;
                         }                        
-                    }                    
+                    }
                 }
             }
         }
-	}
+    }
 }

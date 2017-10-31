@@ -11,7 +11,8 @@ namespace YellowstonePathology.Business.Test.Model
 		{
 			this.m_TestId = "219";
 			this.m_TestName = "Non-Gyn Cytology Stain";
-			this.m_Active = true;
+            this.m_TestAbbreviation = "Non-Gyn Cytology Stain";
+            this.m_Active = true;
 			this.m_NeedsAcknowledgement = false;
 		}
 	}

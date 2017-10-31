@@ -263,7 +263,8 @@ namespace YellowstonePathology.UI.Test
             {
                 if (this.m_PanelSetOrderLynchSyndromeEvaluation.Final == false)
                 {
-                    this.m_PanelSetOrderLynchSyndromeEvaluation.Finish(this.m_AccessionOrder);
+                    YellowstonePathology.Business.Test.FinalizeTestResult finalizeTestResult = this.m_PanelSetOrderLynchSyndromeEvaluation.Finish(this.m_AccessionOrder);
+                    this.HandleFinalizeTestResult(finalizeTestResult);
                 }
                 else
                 {

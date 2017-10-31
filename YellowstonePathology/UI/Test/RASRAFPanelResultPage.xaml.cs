@@ -114,6 +114,8 @@ namespace YellowstonePathology.UI.Test
             if (this.m_RASRAFPanelTestOrder.Final == false)
             {
                 this.m_RASRAFPanelTestOrder.Finish(this.m_AccessionOrder);
+                YellowstonePathology.Business.Test.FinalizeTestResult finalizeTestResult = this.m_RASRAFPanelTestOrder.Finish(this.m_AccessionOrder);
+                this.HandleFinalizeTestResult(finalizeTestResult);
             }
             else
             {

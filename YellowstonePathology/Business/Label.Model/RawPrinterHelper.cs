@@ -111,16 +111,10 @@ namespace YellowstonePathology.Business.Label.Model
         {
             IntPtr pBytes;
             Int32 dwCount;
-
-            // How many characters are in the string?
-            // Fix from Nicholas Piasecki:
-            // dwCount = szString.Length;
+            
             dwCount = (szString.Length + 1) * Marshal.SystemMaxDBCSCharSize;
-
-            // Assume that the printer is expecting ANSI text, and then convert
-            // the string to ANSI text.
             pBytes = Marshal.StringToCoTaskMemAnsi(szString);
-            // Send the converted ANSI string to the printer.
+            
             SendBytesToPrinter(szPrinterName, pBytes, dwCount);
             Marshal.FreeCoTaskMem(pBytes);
             return true;

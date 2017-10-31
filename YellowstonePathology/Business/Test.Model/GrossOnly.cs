@@ -11,7 +11,8 @@ namespace YellowstonePathology.Business.Test.Model
 		{
 			this.m_TestId = "48";
 			this.m_TestName = "Gross Only";
-			this.m_Active = true;
+            this.m_TestAbbreviation = "Gross Only";
+            this.m_Active = true;
 			this.m_NeedsAcknowledgement = false;
 		}
 	}

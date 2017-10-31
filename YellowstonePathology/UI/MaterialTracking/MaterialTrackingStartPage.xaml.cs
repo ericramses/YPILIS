@@ -283,6 +283,41 @@ namespace YellowstonePathology.UI.MaterialTracking
             this.ViewBatch(this, new YellowstonePathology.UI.CustomEventArgs.MaterialTrackingBatchEventArgs(materialTrackingBatch, materialTrackingLogCollection));
         }
 
+        private void HyperlinkSendMaterialFromBillingsToBozeman_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Facility.Model.FacilityCollection facilityCollection = Business.Facility.Model.FacilityCollection.GetAllFacilities();
+
+            YellowstonePathology.Business.Facility.Model.Facility fromFacility = facilityCollection.GetByFacilityId(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId);
+            YellowstonePathology.Business.Facility.Model.Location fromLocation = fromFacility.Locations.GetLocation(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.LocationId);
+
+            YellowstonePathology.Business.Facility.Model.Facility toFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologistBozeman();
+            YellowstonePathology.Business.Facility.Model.Location toLocation = new YellowstonePathology.Business.Facility.Model.LocationDefinitions.NullLocation();
+
+            string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
+            YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch materialTrackingBatch = new YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch(objectId, "Send material to Dr. Shannon", fromFacility, fromLocation, toFacility, toLocation, this.m_MasterAccessionNo);
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(materialTrackingBatch, Window.GetWindow(this));
+
+            YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection materialTrackingLogCollection = new Business.MaterialTracking.Model.MaterialTrackingLogCollection();
+            this.ViewBatch(this, new YellowstonePathology.UI.CustomEventArgs.MaterialTrackingBatchEventArgs(materialTrackingBatch, materialTrackingLogCollection));
+        }
+
+        private void HyperlinkReceiveMaterialFromBozeman_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Facility.Model.FacilityCollection facilityCollection = Business.Facility.Model.FacilityCollection.GetAllFacilities();
+
+            YellowstonePathology.Business.Facility.Model.Facility fromFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologistBozeman();
+            YellowstonePathology.Business.Facility.Model.Location fromLocation = new YellowstonePathology.Business.Facility.Model.LocationDefinitions.NullLocation();
+
+            YellowstonePathology.Business.Facility.Model.Facility toFacility = facilityCollection.GetByFacilityId(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId);
+            YellowstonePathology.Business.Facility.Model.Location toLocation = toFacility.Locations.GetLocation(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.LocationId);
+
+            string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
+            YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch materialTrackingBatch = new YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch(objectId, "Receive material from Dr. Matthews", fromFacility, fromLocation, toFacility, toLocation, this.m_MasterAccessionNo);
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(materialTrackingBatch, Window.GetWindow(this));
+
+            YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection materialTrackingLogCollection = new Business.MaterialTracking.Model.MaterialTrackingLogCollection();
+            this.ViewBatch(this, new YellowstonePathology.UI.CustomEventArgs.MaterialTrackingBatchEventArgs(materialTrackingBatch, materialTrackingLogCollection));
+        }
 
         private void HyperlinkNewInbound_Click(object sender, RoutedEventArgs e)
 		{
