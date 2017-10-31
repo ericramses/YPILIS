@@ -24,7 +24,7 @@ namespace YellowstonePathology.Business.Test.Model
 
         public override YellowstonePathology.Business.Billing.Model.CptCode GetCptCode(bool isTechnicalOnly)
         {
-            return new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88360();
+            return Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("CPT88360");
         }
 
         public override string GetCodeableType(bool orderedAsDual)

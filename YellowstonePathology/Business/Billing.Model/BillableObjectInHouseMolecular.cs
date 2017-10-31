@@ -84,14 +84,13 @@ namespace YellowstonePathology.Business.Billing.Model
                 YellowstonePathology.Business.PanelSet.Model.PanelSetCollection allPanelSets = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetAll();
                 YellowstonePathology.Business.PanelSet.Model.PanelSetMolecularTest panelSet = (YellowstonePathology.Business.PanelSet.Model.PanelSetMolecularTest)allPanelSets.GetPanelSet(this.m_PanelSetOrder.PanelSetId);
 
-				YellowstonePathology.Business.Billing.Model.CptCodeCollection cptCodeCollection = YellowstonePathology.Business.Billing.Model.CptCodeCollection.GetAll();
 				YellowstonePathology.Business.Test.PanelSetOrderCPTCodeCollection panelSetOrderCPTCodeSummaryCollection = this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.GetSummaryCollection();
 
                 if (panelSet.HasSplitCPTCode == true)
                 {
                     foreach (YellowstonePathology.Business.Test.PanelSetOrderCPTCode panelSetOrderCPTCode in panelSetOrderCPTCodeSummaryCollection)
                     {
-                        YellowstonePathology.Business.Billing.Model.CptCode cptCode = cptCodeCollection.GetCptCode(panelSetOrderCPTCode.CPTCode);
+                        YellowstonePathology.Business.Billing.Model.CptCode cptCode = CptCodeCollection.Instance.GetCptCode(panelSetOrderCPTCode.CPTCode);
                         if (cptCode.HasTechnicalComponent == true)
                         {
                             YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill item = this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.GetNextItem(this.m_PanelSetOrder.ReportNo);
@@ -117,14 +116,13 @@ namespace YellowstonePathology.Business.Billing.Model
                 YellowstonePathology.Business.PanelSet.Model.PanelSetCollection allPanelSets = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetAll();
                 YellowstonePathology.Business.PanelSet.Model.PanelSetMolecularTest panelSet = (YellowstonePathology.Business.PanelSet.Model.PanelSetMolecularTest)allPanelSets.GetPanelSet(this.m_PanelSetOrder.PanelSetId);
 
-                YellowstonePathology.Business.Billing.Model.CptCodeCollection cptCodeCollection = YellowstonePathology.Business.Billing.Model.CptCodeCollection.GetAll();
                 YellowstonePathology.Business.Test.PanelSetOrderCPTCodeCollection panelSetOrderCPTCodeSummaryCollection = this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.GetSummaryCollection();
 
                 if (panelSet.HasSplitCPTCode == true)
                 {
                     foreach (YellowstonePathology.Business.Test.PanelSetOrderCPTCode panelSetOrderCPTCode in panelSetOrderCPTCodeSummaryCollection)
                     {
-                        YellowstonePathology.Business.Billing.Model.CptCode cptCode = cptCodeCollection.GetCptCode(panelSetOrderCPTCode.CPTCode);
+                        YellowstonePathology.Business.Billing.Model.CptCode cptCode = CptCodeCollection.Instance.GetCptCode(panelSetOrderCPTCode.CPTCode);
                         if (cptCode.HasProfessionalComponent == true)
                         {
                             YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill item = this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.GetNextItem(this.m_PanelSetOrder.ReportNo);

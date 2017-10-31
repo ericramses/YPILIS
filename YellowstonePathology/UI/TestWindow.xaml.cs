@@ -47,5 +47,22 @@ namespace YellowstonePathology.UI
             string messageJSON = message.ToJSON();
             this.m_SUB.Publish(masterAccessionno, messageJSON);        
         }
+
+        private void Button_GetTestClick(object sender, RoutedEventArgs e)
+        {
+            /*YellowstonePathology.Business.Logging.ScanLog resultLog = null;
+            YellowstonePathology.Business.Logging.ScanLog scanlog = new Business.Logging.ScanLog("123", "Aliquot", "111", "Bubba Blat", "222", "Bubba TV", false);
+            string sjson = scanlog.ToJSON();
+            RedisResult putResult = this.m_DB.Execute("json.set", new object[] { "scanLog", ".", sjson });
+
+            RedisResult redisResult = this.m_DB.Execute("json.get", new object[] { "scanLog" });
+
+            if (redisResult.IsNull == false)
+            {
+                resultLog = scanlog.DeserializeJSON((string)redisResult);
+            }*/
+
+            YellowstonePathology.Business.Billing.Model.CptCodeCollection collection = Business.Billing.Model.CptCodeCollection.Instance;
+        }
     }
 }

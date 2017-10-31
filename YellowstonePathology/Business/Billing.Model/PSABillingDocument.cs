@@ -96,11 +96,10 @@ namespace YellowstonePathology.Business.Billing.Model
 		private void SetCptCodeNodes()
 		{
 			XElement cptListElement = new XElement("CPTCodes");
-            YellowstonePathology.Business.Billing.Model.CptCodeCollection cptCodeCollection = YellowstonePathology.Business.Billing.Model.CptCodeCollection.GetAll();
 
 			foreach(YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill in this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection)
 			{
-                YellowstonePathology.Business.Billing.Model.CptCode cptCode = cptCodeCollection.GetCptCode(panelSetOrderCPTCodeBill.CPTCode);
+                YellowstonePathology.Business.Billing.Model.CptCode cptCode = Business.Billing.Model.CptCodeCollection.Instance.GetCptCode(panelSetOrderCPTCodeBill.CPTCode);
                 if (panelSetOrderCPTCodeBill.BillTo == "Patient" && panelSetOrderCPTCodeBill.BillBy != "CLNT" 
                     || cptCode is YellowstonePathology.Business.Billing.Model.PQRSCode == true)
                 {

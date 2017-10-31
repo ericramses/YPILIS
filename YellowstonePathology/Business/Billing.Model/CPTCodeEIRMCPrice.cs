@@ -12,13 +12,13 @@ namespace YellowstonePathology.Business.Billing.Model
         public CPTCodeEIRMCPrice()
         {
             this.m_CPTCodePriceList = new List<CPTCodePrice>();            
-            this.m_CPTCodePriceList.Add(new CPTCodePrice(new CptCodeDefinition.CPT81270(), "YPI", "Client", 237.00));
-            this.m_CPTCodePriceList.Add(new CPTCodePrice(new CptCodeDefinition.CPT85055(), "YPI", "Client", 41.71));
-            this.m_CPTCodePriceList.Add(new CPTCodePrice(new CptCodeDefinition.CPT86023(), "YPI", "Client", 19.40));
-            this.m_CPTCodePriceList.Add(new CPTCodePrice(new CptCodeDefinition.CPT86361(), "YPI", "Client", 41.71));
-            this.m_CPTCodePriceList.Add(new CPTCodePrice(new CptCodeDefinition.CPT88184(), "YPI", "Client", 91.03));
-            this.m_CPTCodePriceList.Add(new CPTCodePrice(new CptCodeDefinition.CPT88185(), "YPI", "Client", 55.08));
-            this.m_CPTCodePriceList.Add(new CPTCodePrice(new CptCodeDefinition.CPT88368(), "YPI", "Client", 224.00));
+            this.m_CPTCodePriceList.Add(new CPTCodePrice(Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("CPT81270"), "YPI", "Client", 237.00));
+            this.m_CPTCodePriceList.Add(new CPTCodePrice(Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("CPT85055"), "YPI", "Client", 41.71));
+            this.m_CPTCodePriceList.Add(new CPTCodePrice(Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("CPT86023"), "YPI", "Client", 19.40));
+            this.m_CPTCodePriceList.Add(new CPTCodePrice(Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("CPT86361"), "YPI", "Client", 41.71));
+            this.m_CPTCodePriceList.Add(new CPTCodePrice(Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("CPT88184"), "YPI", "Client", 91.03));
+            this.m_CPTCodePriceList.Add(new CPTCodePrice(Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("CPT88185"), "YPI", "Client", 55.08));
+            this.m_CPTCodePriceList.Add(new CPTCodePrice(Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("CPT88368"), "YPI", "Client", 224.00));
         }
     }
 }

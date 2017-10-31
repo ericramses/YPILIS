@@ -35,8 +35,9 @@ namespace YellowstonePathology.Business.Test.KRASExon4Mutation
 			YellowstonePathology.Business.Task.Model.TaskSendBlockToNeogenomics taskSendBlockToNeogenomics = new YellowstonePathology.Business.Task.Model.TaskSendBlockToNeogenomics();
 			this.m_TaskCollection.Add(taskSendBlockToNeogenomics);
 
-            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT81276(), 1);
-			this.m_PanelSetCptCodeCollection.Add(panelSetCptCode);
+            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("CPT81276"), 1);
+
+            this.m_PanelSetCptCodeCollection.Add(panelSetCptCode);
 
 			this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMiscellaneous());
 		}

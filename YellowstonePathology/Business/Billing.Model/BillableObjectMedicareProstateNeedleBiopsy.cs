@@ -51,7 +51,8 @@ namespace YellowstonePathology.Business.Billing.Model
 
         public void Post88305(YellowstonePathology.Business.Billing.Model.BillingComponentEnum billingComponent, string billTo, string billBy)
         {
-            YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88305 cpt88305 = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88305();
+            CptCode cpt88305 = CptCodeCollection.Instance.GetCPTCodeById("CPT88305");
+
             int cpt88305Count = this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.GetCodeQuantity(cpt88305.Code);
 
             if (cpt88305Count > 0)
@@ -74,7 +75,7 @@ namespace YellowstonePathology.Business.Billing.Model
 
         public void PostG0416(YellowstonePathology.Business.Billing.Model.BillingComponentEnum billingComponent, string billTo, string billBy)
         {
-            YellowstonePathology.Business.Billing.Model.GCodeDefinitions.CPTG0416 cptG0416 = new YellowstonePathology.Business.Billing.Model.GCodeDefinitions.CPTG0416();
+            YellowstonePathology.Business.Billing.Model.CptCode cptG0416 = CptCodeCollection.Instance.GetCPTCodeById("CPTG0416");
 
             string modifier = cptG0416.GetModifier(billingComponent);
             if (this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.Exists(cptG0416.Code, modifier) == false)

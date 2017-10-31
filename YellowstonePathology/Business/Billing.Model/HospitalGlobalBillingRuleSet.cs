@@ -13,8 +13,6 @@ namespace YellowstonePathology.Business.Billing.Model
             this.m_BillingRuleSetIdOld = "20FC3546-B829-4F35-9571-D6EFE7A9954C";
             this.m_BillingRuleSetName = "Hospital Global Rule Set";
 
-            CptCodeCollection allCptCodes = CptCodeCollection.GetAll();
-
             BillingRule billingRule0 = new BillingRule();
             billingRule0.BillingRuleSetId = this.m_BillingRuleSetId;
             billingRule0.Priority = 0;            
