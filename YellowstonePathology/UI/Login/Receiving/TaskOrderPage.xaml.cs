@@ -17,25 +17,25 @@ using Newtonsoft.Json;
 
 namespace YellowstonePathology.UI.Login.Receiving
 {
-	/// <summary>
-	/// Interaction logic for TaskOrderPage.xaml
-	/// </summary>
-	public partial class TaskOrderPage : UserControl, INotifyPropertyChanged 
-	{
-		public event PropertyChangedEventHandler PropertyChanged;
+    /// <summary>
+    /// Interaction logic for TaskOrderPage.xaml
+    /// </summary>
+    public partial class TaskOrderPage : UserControl, INotifyPropertyChanged
+    {
+        public event PropertyChangedEventHandler PropertyChanged;
 
-		public delegate void NextEventHandler(object sender, EventArgs e);
-		public event NextEventHandler Next;
+        public delegate void NextEventHandler(object sender, EventArgs e);
+        public event NextEventHandler Next;
 
-		public delegate void BackEventHandler(object sender, EventArgs e);
-		public event BackEventHandler Back;
+        public delegate void BackEventHandler(object sender, EventArgs e);
+        public event BackEventHandler Back;
 
-		public delegate void CloseEventHandler(object sender, EventArgs e);
-		public event CloseEventHandler Close;		
-				
-		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;		
-		private YellowstonePathology.Business.Task.Model.TaskOrder m_TaskOrder;
-		private PageNavigationModeEnum m_PageNavigationMode;
+        public delegate void CloseEventHandler(object sender, EventArgs e);
+        public event CloseEventHandler Close;
+
+        private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
+        private YellowstonePathology.Business.Task.Model.TaskOrder m_TaskOrder;
+        private PageNavigationModeEnum m_PageNavigationMode;
         private List<string> m_TaskAssignmentList;
         private YellowstonePathology.Business.Facility.Model.FacilityCollection m_FacilityCollection;
 
@@ -43,12 +43,12 @@ namespace YellowstonePathology.UI.Login.Receiving
         private List<string> m_PaymentTypeList;
 
         public TaskOrderPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
-			YellowstonePathology.Business.Task.Model.TaskOrder taskOrder,
-			PageNavigationModeEnum pageNavigationMode)
-		{
-			this.m_AccessionOrder = accessionOrder;
-			this.m_TaskOrder = taskOrder;
-			this.m_PageNavigationMode = pageNavigationMode;
+            YellowstonePathology.Business.Task.Model.TaskOrder taskOrder,
+            PageNavigationModeEnum pageNavigationMode)
+        {
+            this.m_AccessionOrder = accessionOrder;
+            this.m_TaskOrder = taskOrder;
+            this.m_PageNavigationMode = pageNavigationMode;
 
             this.m_FacilityCollection = Business.Facility.Model.FacilityCollection.GetAllFacilities();
             this.m_TaskAssignmentList = YellowstonePathology.Business.Task.Model.TaskAssignment.GetTaskAssignmentList();
@@ -61,21 +61,21 @@ namespace YellowstonePathology.UI.Login.Receiving
 
             InitializeComponent();
 
-			this.SetButtonVisibility();
-			DataContext = this;
+            this.SetButtonVisibility();
+            DataContext = this;
 
             Loaded += TaskOrderPage_Loaded;
             Unloaded += TaskOrderPage_Unloaded;
-		}
+        }
 
         private void TaskOrderPage_Loaded(object sender, RoutedEventArgs e)
-        {            
+        {
             this.m_BarcodeScanPort.FedexOvernightScanReceived += BarcodeScanPort_FedexOvernightScanReceived;
-        }        
+        }
 
         private void TaskOrderPage_Unloaded(object sender, RoutedEventArgs e)
         {
-             
+
         }
 
         public Business.Test.AccessionOrder AccessionOrder
@@ -91,42 +91,42 @@ namespace YellowstonePathology.UI.Login.Receiving
         private void BarcodeScanPort_FedexOvernightScanReceived(string scanData)
         {
             this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
-            {                                    
-                if(this.m_TaskOrder.TaskOrderDetailCollection.FedexShipmentExists() == true)
+            {
+                if (this.m_TaskOrder.TaskOrderDetailCollection.FedexShipmentExists() == true)
                 {
                     Business.Task.Model.TaskOrderDetailFedexShipment taskOrderDetailFedexShipment = this.m_TaskOrder.TaskOrderDetailCollection.GetFedexShipment();
-                    if(string.IsNullOrEmpty(taskOrderDetailFedexShipment.TrackingNumber) == true)
+                    if (string.IsNullOrEmpty(taskOrderDetailFedexShipment.TrackingNumber) == true)
                     {
                         taskOrderDetailFedexShipment.TrackingNumber = scanData.Substring(22, 12);
-                    }                    
+                    }
                 }
-            }));            
+            }));
         }
 
         public void NotifyPropertyChanged(String info)
-		{
-			if (PropertyChanged != null)
-			{
-				PropertyChanged(this, new PropertyChangedEventArgs(info));
-			}
-		}
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
+        }
 
-		private void SetButtonVisibility()
-		{
-			switch (this.m_PageNavigationMode)
-			{
-				case PageNavigationModeEnum.Inline:
-					this.ButtonBack.Visibility = System.Windows.Visibility.Visible;
-					this.ButtonClose.Visibility = System.Windows.Visibility.Collapsed;
-					this.ButtonNext.Visibility = System.Windows.Visibility.Visible;
-					break;
-				case PageNavigationModeEnum.Standalone:
-					this.ButtonBack.Visibility = System.Windows.Visibility.Collapsed;
-					this.ButtonClose.Visibility = System.Windows.Visibility.Visible;
-					this.ButtonNext.Visibility = System.Windows.Visibility.Collapsed;
-					break;
-			}
-		}
+        private void SetButtonVisibility()
+        {
+            switch (this.m_PageNavigationMode)
+            {
+                case PageNavigationModeEnum.Inline:
+                    this.ButtonBack.Visibility = System.Windows.Visibility.Visible;
+                    this.ButtonClose.Visibility = System.Windows.Visibility.Collapsed;
+                    this.ButtonNext.Visibility = System.Windows.Visibility.Visible;
+                    break;
+                case PageNavigationModeEnum.Standalone:
+                    this.ButtonBack.Visibility = System.Windows.Visibility.Collapsed;
+                    this.ButtonClose.Visibility = System.Windows.Visibility.Visible;
+                    this.ButtonNext.Visibility = System.Windows.Visibility.Collapsed;
+                    break;
+            }
+        }
 
         public YellowstonePathology.Business.Facility.Model.FacilityCollection FacilityCollection
         {
@@ -138,16 +138,16 @@ namespace YellowstonePathology.UI.Login.Receiving
             get { return this.m_TaskAssignmentList; }
         }
 
-		public YellowstonePathology.Business.Task.Model.TaskOrder TaskOrder
-		{
-			get { return this.m_TaskOrder; }
-		}		
+        public YellowstonePathology.Business.Task.Model.TaskOrder TaskOrder
+        {
+            get { return this.m_TaskOrder; }
+        }
 
         private void ButtonNext_Click(object sender, RoutedEventArgs e)
         {
             if (this.Next != null)
             {
-                if(this.ValidateFedXTaskOrderDetail() == true)
+                if (this.ValidateFedXTaskOrderDetail() == true)
                 {
                     YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
                     this.Next(this, new EventArgs());
@@ -155,18 +155,18 @@ namespace YellowstonePathology.UI.Login.Receiving
             }
         }
 
-		private void ButtonBack_Click(object sender, RoutedEventArgs e)
-		{
-			if (this.Back != null) this.Back(this, new EventArgs());
-		}
+        private void ButtonBack_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.Back != null) this.Back(this, new EventArgs());
+        }
 
-		private void ButtonClose_Click(object sender, RoutedEventArgs e)
-		{
+        private void ButtonClose_Click(object sender, RoutedEventArgs e)
+        {
             if (this.Close != null)
             {
-                if(this.ValidateFedXTaskOrderDetail() == true) this.Close(this, new EventArgs());
+                if (this.ValidateFedXTaskOrderDetail() == true) this.Close(this, new EventArgs());
             }
-		}
+        }
 
         private bool ValidateFedXTaskOrderDetail()
         {
@@ -178,7 +178,7 @@ namespace YellowstonePathology.UI.Login.Receiving
                 taskOrderDetailFedexShipment.ValidateObject();
                 if (taskOrderDetailFedexShipment.ValidationErrors.Count > 0)
                 {
-                    MessageBoxResult messageBoxResult = MessageBox.Show(taskOrderDetailFedexShipment.Errors + Environment.NewLine + 
+                    MessageBoxResult messageBoxResult = MessageBox.Show(taskOrderDetailFedexShipment.Errors + Environment.NewLine +
                         "One or more FedX issues need to handled.  Are you sure you want to continue?", "FedX Issues", MessageBoxButton.YesNo,
                         MessageBoxImage.Exclamation, MessageBoxResult.No);
                     if (messageBoxResult == MessageBoxResult.Yes)
@@ -212,7 +212,7 @@ namespace YellowstonePathology.UI.Login.Receiving
             string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
             YellowstonePathology.Business.Task.Model.TaskOrderDetail taskOrderDetail = new Business.Task.Model.TaskOrderDetail(taskOrderDetailId, this.m_TaskOrder.TaskOrderId, objectId, task, this.m_AccessionOrder.ClientId);
             this.m_TaskOrder.TaskOrderDetailCollection.Add(taskOrderDetail);
-        }		      
+        }
 
         private void HyperlingPrintTaskOrder_Click(object sender, RoutedEventArgs e)
         {
@@ -243,7 +243,7 @@ namespace YellowstonePathology.UI.Login.Receiving
         private void HyperLinkAcknowledge_Click(object sender, RoutedEventArgs e)
         {
             Hyperlink hyperLink = (Hyperlink)e.Source;
-			YellowstonePathology.Business.Task.Model.TaskOrderDetail taskOrderDetail = (YellowstonePathology.Business.Task.Model.TaskOrderDetail)hyperLink.Tag;
+            YellowstonePathology.Business.Task.Model.TaskOrderDetail taskOrderDetail = (YellowstonePathology.Business.Task.Model.TaskOrderDetail)hyperLink.Tag;
             taskOrderDetail.Acknowledged = true;
             taskOrderDetail.AcknowledgedById = Business.User.SystemIdentity.Instance.User.UserId;
             taskOrderDetail.AcknowledgedDate = DateTime.Now;
@@ -254,12 +254,12 @@ namespace YellowstonePathology.UI.Login.Receiving
                 this.m_TaskOrder.Acknowledged = true;
                 this.m_TaskOrder.AcknowledgedDate = DateTime.Now;
             }
-        }        
+        }
 
         private void HyperLinkDelete_Click(object sender, RoutedEventArgs e)
         {
             Hyperlink control = (Hyperlink)sender;
-			YellowstonePathology.Business.Task.Model.TaskOrderDetail taskOrderDetail = (YellowstonePathology.Business.Task.Model.TaskOrderDetail)control.Tag;
+            YellowstonePathology.Business.Task.Model.TaskOrderDetail taskOrderDetail = (YellowstonePathology.Business.Task.Model.TaskOrderDetail)control.Tag;
             MessageBoxResult result = MessageBox.Show("Delete the selected Task", "Confirm Delete", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes);
             if (result == MessageBoxResult.Yes)
             {
@@ -270,7 +270,7 @@ namespace YellowstonePathology.UI.Login.Receiving
         private void HyperLinkUnacknowledge_Click(object sender, RoutedEventArgs e)
         {
             Hyperlink hyperLink = (Hyperlink)e.Source;
-			YellowstonePathology.Business.Task.Model.TaskOrderDetail taskOrderDetail = (YellowstonePathology.Business.Task.Model.TaskOrderDetail)hyperLink.Tag;
+            YellowstonePathology.Business.Task.Model.TaskOrderDetail taskOrderDetail = (YellowstonePathology.Business.Task.Model.TaskOrderDetail)hyperLink.Tag;
             taskOrderDetail.Acknowledged = false;
             taskOrderDetail.AcknowledgedById = null;
             taskOrderDetail.AcknowledgedDate = null;
@@ -316,7 +316,7 @@ namespace YellowstonePathology.UI.Login.Receiving
             {
                 string message = "We are unable to get the tracking number at this point because" + Environment.NewLine + taskOrderDetail.Errors;
                 MessageBox.Show(message);
-            }       
+            }
         }
 
         private bool IsOKToGetTrackingNumber(Business.Task.Model.TaskOrderDetailFedexShipment taskOrderDetail)
@@ -333,10 +333,10 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         private void HyperLinkPrintLabel_Click(object sender, RoutedEventArgs e)
         {
-            Business.Task.Model.TaskOrderDetailFedexShipment taskOrderDetail = this.m_TaskOrder.TaskOrderDetailCollection.GetFedexShipment();      
-            if(string.IsNullOrEmpty(taskOrderDetail.ZPLII) == false)
+            Business.Task.Model.TaskOrderDetailFedexShipment taskOrderDetail = this.m_TaskOrder.TaskOrderDetailCollection.GetFedexShipment();
+            if (string.IsNullOrEmpty(taskOrderDetail.ZPLII) == false)
             {
-                if(string.IsNullOrEmpty(Business.User.UserPreferenceInstance.Instance.UserPreference.FedExLabelPrinter) == false)
+                if (string.IsNullOrEmpty(Business.User.UserPreferenceInstance.Instance.UserPreference.FedExLabelPrinter) == false)
                 {
                     Business.Label.Model.ZPLPrinterTCP zplPrinter = new Business.Label.Model.ZPLPrinterTCP(Business.User.UserPreferenceInstance.Instance.UserPreference.FedExLabelPrinter);
                     zplPrinter.Print(taskOrderDetail.ZPLII);
@@ -345,7 +345,7 @@ namespace YellowstonePathology.UI.Login.Receiving
                 else
                 {
                     MessageBox.Show("You need to go into User Preferences and choose your FedEx label printer before your label can be printed.");
-                }                
+                }
             }
             else
             {
@@ -356,13 +356,13 @@ namespace YellowstonePathology.UI.Login.Receiving
         private void HyperLinkCancelShipment_Click(object sender, RoutedEventArgs e)
         {
             Business.Task.Model.TaskOrderDetailFedexShipment taskOrderDetail = this.m_TaskOrder.TaskOrderDetailCollection.GetFedexShipment();
-            if(string.IsNullOrEmpty(taskOrderDetail.TrackingNumber) == false)
+            if (string.IsNullOrEmpty(taskOrderDetail.TrackingNumber) == false)
             {
                 Business.MaterialTracking.Model.FedexAccountProduction fedExAccount = new Business.MaterialTracking.Model.FedexAccountProduction();
                 Business.MaterialTracking.Model.FedexDeleteShipmentRequest deleteShipmentRequest = new Business.MaterialTracking.Model.FedexDeleteShipmentRequest(fedExAccount, taskOrderDetail.TrackingNumber);
                 Business.MaterialTracking.Model.FedexDeleteShipmentReply result = deleteShipmentRequest.Post();
 
-                if(result.RequestWasSuccessful == true)
+                if (result.RequestWasSuccessful == true)
                 {
                     taskOrderDetail.ZPLII = null;
                     taskOrderDetail.TrackingNumber = null;
@@ -372,7 +372,7 @@ namespace YellowstonePathology.UI.Login.Receiving
                 {
                     MessageBox.Show("There was a problem with this Request.");
                 }
-            }            
+            }
         }
 
         private void HyperLinkSendAddGenericTask_Click(object sender, RoutedEventArgs e)
@@ -386,20 +386,34 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         private void ComboboxShipToFacility_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(this.IsLoaded == true)
+            if (this.IsLoaded == true)
             {
                 ComboBox comboBox = (ComboBox)sender;
-                if(comboBox.SelectionBoxItem != null)
+                if (comboBox.SelectionBoxItem != null)
                 {
                     Business.Facility.Model.Facility facility = (Business.Facility.Model.Facility)comboBox.SelectedItem;
-                    if(facility != null)
+                    if (facility != null)
                     {
                         Business.Task.Model.TaskOrderDetailFedexShipment taskOrderDetail = this.m_TaskOrder.TaskOrderDetailCollection.GetFedexShipment();
                         taskOrderDetail.SetShipTo(facility);
-                    }                    
-                }                
+                    }
+                }
                 this.NotifyPropertyChanged(string.Empty);
-            }            
+            }
+        }
+
+        private void HyperLinkSendFax_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Trying to send fax to ");
+        }
+
+        private void HyperLinkAddSendFaxTask_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Task.Model.TaskFax task = new Business.Task.Model.TaskFax(string.Empty, string.Empty);
+            string taskOrderDetailId = YellowstonePathology.Business.OrderIdParser.GetNextTaskOrderDetailId(this.m_TaskOrder.TaskOrderDetailCollection, this.m_TaskOrder.TaskOrderId);
+            string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
+            YellowstonePathology.Business.Task.Model.TaskOrderDetailFax taskOrderDetail = new Business.Task.Model.TaskOrderDetailFax(taskOrderDetailId, this.m_TaskOrder.TaskOrderId, objectId, task, this.m_AccessionOrder.ClientId);
+            this.m_TaskOrder.TaskOrderDetailCollection.Add(taskOrderDetail);
         }
     }
 }
