@@ -1204,6 +1204,7 @@
     <Compile Include="Business\Test\BRAFMutationAnalysis\BRAFMutationAnalysisWordDocument.cs" />
     <Compile Include="Business\Test\BRAFMutationAnalysis\BRAFMutationAnalysisWPHOBXView.cs" />
     <Compile Include="Business\Test\BRAFV600EK\BRAFV600EKWPHOBXView.cs" />
+    <Compile Include="Business\Test\CalcitoninByImmunohistochemistry\CalcitoninByImmunohistochemistryTest.cs" />
     <Compile Include="Business\Test\CalreticulinMutationAnalysis\CalreticulinMutationAnalysisWPHOBXView.cs" />
     <Compile Include="Business\Test\ChromosomeAnalysisBreakage\ChromosomeAnalysisBreakageTest.cs" />
     <Compile Include="Business\Test\CKIT\CKITWPHOBXView.cs" />
