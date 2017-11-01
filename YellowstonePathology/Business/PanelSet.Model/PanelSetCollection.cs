@@ -186,6 +186,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.Test.LymphocyteSubsetPanel7.LymphocyteSubsetPanel7Test());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.BartonellaSpeciesByPCR.BartonellaSpeciesByPCRTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.ChromosomeAnalysisBreakage.ChromosomeAnalysisBreakageTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.CalcitoninByImmunohistochemistry.CalcitoninByImmunohistochemistryTest());
 
             //YPII
             panelSetCollection.Add(new YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisTest());
