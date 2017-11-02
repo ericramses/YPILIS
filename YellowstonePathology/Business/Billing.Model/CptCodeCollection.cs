@@ -127,7 +127,7 @@ namespace YellowstonePathology.Business.Billing.Model
             IDatabase db = Business.RedisConnection2.Instance.GetDatabase();
 
             RedisResult redisResult = db.Execute("json.get", new object[] { "cptcodes" });
-            if (redisResult.IsNull == true)
+            /*if (redisResult.IsNull == true)
             {
                 string jsonString = string.Empty;
                 Assembly assembly = Assembly.GetExecutingAssembly();
@@ -137,7 +137,7 @@ namespace YellowstonePathology.Business.Billing.Model
                 }
                 db.Execute("json.set", new object[] { "cptcodes", ".", jsonString });
                 redisResult = db.Execute("json.get", new object[] { "cptcodes" });
-            }
+            }*/
 
             JArray jsonCptCodes = JArray.Parse((string)redisResult);
             foreach (JObject jObject in jsonCptCodes.Children<JObject>())
