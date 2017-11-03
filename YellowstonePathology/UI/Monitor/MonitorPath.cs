@@ -4,6 +4,10 @@ using System.Linq;
 using System.Text;
 using Microsoft.Office.Interop.Outlook;
 using StackExchange.Redis;
+using System.Net;
+using System.Net.Security;
+using System.Security.Cryptography.X509Certificates;
+using Microsoft.Exchange.WebServices.Data;
 
 namespace YellowstonePathology.UI.Monitor
 {
@@ -153,54 +157,25 @@ namespace YellowstonePathology.UI.Monitor
         {                  
         	bool result = false;
 
-            try
-            {
-                Microsoft.Office.Interop.Outlook.Application outlookApp = null;
-                if (System.Diagnostics.Process.GetProcessesByName("OUTLOOK").Count() > 0)
-                {
-                    outlookApp = System.Runtime.InteropServices.Marshal.GetActiveObject("Outlook.Application") as Microsoft.Office.Interop.Outlook.Application;
-                }
-                else
-                {
-                    outlookApp = new Microsoft.Office.Interop.Outlook.Application();
-                }
+            ServicePointManager.ServerCertificateValidationCallback = CertificateValidationCallBack;
+            ExchangeService service = new ExchangeService(ExchangeVersion.Exchange2007_SP1);
+            service.Credentials = new WebCredentials("ypiilab\\histology", "Let'sMakeSlides");            
 
-                Microsoft.Office.Interop.Outlook._NameSpace outlookNameSpace = (Microsoft.Office.Interop.Outlook._NameSpace)outlookApp.GetNamespace("MAPI");
+            service.TraceEnabled = true;
+            service.TraceFlags = TraceFlags.All;
 
-                string recipientName = "histology@ypii.com";
-                Microsoft.Office.Interop.Outlook.Recipient recipient = outlookNameSpace.CreateRecipient(recipientName);
+            service.AutodiscoverUrl("sid.harder@ypii.com", RedirectionUrlValidationCallback);
+            SearchFilter searchFilter = new SearchFilter.IsEqualTo(EmailMessageSchema.IsRead, false);
 
-                Microsoft.Office.Interop.Outlook.MAPIFolder mapiFolder = outlookNameSpace.GetSharedDefaultFolder(recipient, Microsoft.Office.Interop.Outlook.OlDefaultFolders.olFolderInbox);
-                Microsoft.Office.Interop.Outlook._Explorer explorer = mapiFolder.GetExplorer(false);
-
-                Microsoft.Office.Interop.Outlook.Items items = mapiFolder.Items;
-                foreach (object item in items)
-                {
-                    if (item is Microsoft.Office.Interop.Outlook.MailItem)
-                    {
-                        Microsoft.Office.Interop.Outlook.MailItem mailItem = (Microsoft.Office.Interop.Outlook.MailItem)item;
-                        if (mailItem.UnRead)
-                        {
-                            result = true;
-                            System.Runtime.InteropServices.Marshal.FinalReleaseComObject(item);
-                            break;
-                        }
-                    }
-                    System.Runtime.InteropServices.Marshal.FinalReleaseComObject(item);
-                }
-
-                System.Runtime.InteropServices.Marshal.FinalReleaseComObject(items);
-                System.Runtime.InteropServices.Marshal.FinalReleaseComObject(explorer);
-                System.Runtime.InteropServices.Marshal.FinalReleaseComObject(mapiFolder);
-                System.Runtime.InteropServices.Marshal.FinalReleaseComObject(recipient);
-                System.Runtime.InteropServices.Marshal.FinalReleaseComObject(outlookNameSpace);
-                System.Runtime.InteropServices.Marshal.FinalReleaseComObject(outlookApp);
-            }
-            catch(System.Exception)
-            {
-
-            }            
-
+            List<SearchFilter> searchFilterCollection = new List<SearchFilter>();
+            searchFilterCollection.Add(searchFilter);
+            ItemView view = new ItemView(50);
+            view.PropertySet = new PropertySet(BasePropertySet.IdOnly, ItemSchema.Subject, ItemSchema.DateTimeReceived);
+            view.OrderBy.Add(ItemSchema.DateTimeReceived, SortDirection.Descending);
+            view.Traversal = ItemTraversal.Shallow;
+            FindItemsResults<Item> findResults = service.FindItems(WellKnownFolderName.Inbox, searchFilter, view);
+            if (findResults.Items.Count > 0) result = true;    
+                    
             return result;
         }         
         
@@ -216,6 +191,72 @@ namespace YellowstonePathology.UI.Monitor
             ReportDistributionDownMonitorPage reportDistributionDownMonitorPage = new ReportDistributionDownMonitorPage();
             this.m_MonitorPageWindow.PageNavigator.Navigate(reportDistributionDownMonitorPage);
             this.m_Timer.Start();
+        }
+
+        private static bool RedirectionUrlValidationCallback(string redirectionUrl)
+        {
+            // The default for the validation callback is to reject the URL.
+            bool result = false;
+
+            Uri redirectionUri = new Uri(redirectionUrl);
+
+            // Validate the contents of the redirection URL. In this simple validation
+            // callback, the redirection URL is considered valid if it is using HTTPS
+            // to encrypt the authentication credentials. 
+            if (redirectionUri.Scheme == "https")
+            {
+                result = true;
+            }
+            return result;
+        }
+
+        private static bool CertificateValidationCallBack(
+            object sender,
+            System.Security.Cryptography.X509Certificates.X509Certificate certificate,
+            System.Security.Cryptography.X509Certificates.X509Chain chain,
+            System.Net.Security.SslPolicyErrors sslPolicyErrors)
+        {
+            // If the certificate is a valid, signed certificate, return true.
+            if (sslPolicyErrors == System.Net.Security.SslPolicyErrors.None)
+            {
+                return true;
+            }
+
+            // If there are errors in the certificate chain, look at each error to determine the cause.
+            if ((sslPolicyErrors & System.Net.Security.SslPolicyErrors.RemoteCertificateChainErrors) != 0)
+            {
+                if (chain != null && chain.ChainStatus != null)
+                {
+                    foreach (System.Security.Cryptography.X509Certificates.X509ChainStatus status in chain.ChainStatus)
+                    {
+                        if ((certificate.Subject == certificate.Issuer) &&
+                           (status.Status == System.Security.Cryptography.X509Certificates.X509ChainStatusFlags.UntrustedRoot))
+                        {
+                            // Self-signed certificates with an untrusted root are valid. 
+                            continue;
+                        }
+                        else
+                        {
+                            if (status.Status != System.Security.Cryptography.X509Certificates.X509ChainStatusFlags.NoError)
+                            {
+                                // If there are any other errors in the certificate chain, the certificate is invalid,
+                                // so the method returns false.
+                                return false;
+                            }
+                        }
+                    }
+                }
+
+                // When processing reaches this line, the only errors in the certificate chain are 
+                // untrusted root errors for self-signed certificates. These certificates are valid
+                // for default Exchange server installations, so return true.
+                return true;
+            }
+            else
+            {
+                // In all other cases, return false.
+                return false;
+            }
         }
     }
 }

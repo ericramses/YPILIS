@@ -36,7 +36,23 @@ namespace YellowstonePathology.Business.Test.MPNExtendedReflex
                 YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Visitor.OrderTestOrderVisitor(testOrderInfo);
                 accessionOrder.TakeATrip(orderTestOrderVisitor);
 			}
-		}
+
+            YellowstonePathology.Business.Test.MPL.MPLTest mplTest = new MPL.MPLTest();
+            if (accessionOrder.PanelSetOrderCollection.Exists(mplTest.PanelSetId) == false)
+            {
+                YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new TestOrderInfo(mplTest, orderTarget, false);
+                YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Visitor.OrderTestOrderVisitor(testOrderInfo);
+                accessionOrder.TakeATrip(orderTestOrderVisitor);
+            }
+
+            YellowstonePathology.Business.Test.CalreticulinMutationAnalysis.CalreticulinMutationAnalysisTest calreticulinTest = new CalreticulinMutationAnalysis.CalreticulinMutationAnalysisTest();
+            if (accessionOrder.PanelSetOrderCollection.Exists(calreticulinTest.PanelSetId) == false)
+            {
+                YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new TestOrderInfo(calreticulinTest, orderTarget, false);
+                YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Visitor.OrderTestOrderVisitor(testOrderInfo);
+                accessionOrder.TakeATrip(orderTestOrderVisitor);
+            }
+        }
 
 		[PersistentProperty()]
 		[PersistentDataColumnProperty(true, "500", "null", "varchar")]

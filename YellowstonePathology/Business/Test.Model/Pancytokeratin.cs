@@ -11,7 +11,7 @@ namespace YellowstonePathology.Business.Test.Model
 		{
 			this.m_TestId = "136";
 			this.m_TestName = "Pancytokeratin";
-            this.m_TestAbbreviation = "Pancytokeratin";
+            this.m_TestAbbreviation = "Panker";
 			this.m_Active = true;
 			this.m_NeedsAcknowledgement = true;
 		}

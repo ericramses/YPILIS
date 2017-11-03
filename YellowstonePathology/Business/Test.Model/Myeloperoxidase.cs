@@ -11,7 +11,7 @@ namespace YellowstonePathology.Business.Test.Model
 		{
 			this.m_TestId = "126";
 			this.m_TestName = "Myeloperoxidase";
-            this.m_TestAbbreviation = "Myeloperoxidase";
+            this.m_TestAbbreviation = "Myelop";
 			this.m_Active = true;
 			this.m_NeedsAcknowledgement = true;
 		}
