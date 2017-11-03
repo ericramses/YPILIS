@@ -64,26 +64,13 @@ namespace YellowstonePathology.UI
             }*/
 
             //YellowstonePathology.Business.Billing.Model.CptCodeCollection collection = Business.Billing.Model.CptCodeCollection.Instance;
-            //YellowstonePathology.Business.Test.Model.TestCollection collection = Business.Test.Model.TestCollection.Instance;
+            YellowstonePathology.Business.Test.Model.TestCollection collection = Business.Test.Model.TestCollection.Instance;
 
-            /*string jsonString = string.Empty;
-            System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
-            using (StreamReader sr = new StreamReader(assembly.GetManifestResourceStream("YellowstonePathology.Business.Billing.Model.CPTCodeDefinition.json")))
+            /*YellowstonePathology.Business.Test.Model.TestCollection collection = Business.Test.Model.TestCollection.GetAllTests(true);
+            string jsonString = collection.ToJSON();
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"C:\Test\TestCamelCase.json", true))
             {
-                jsonString = sr.ReadToEnd();
-            }
-
-
-            var jsonSerializerSettings = new Newtonsoft.Json.JsonSerializerSettings
-            {
-                ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver()
-            };
-            var interimObject = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Object>>(jsonString);
-            string myJsonOutput = Newtonsoft.Json.JsonConvert.SerializeObject(interimObject, jsonSerializerSettings);
-
-            using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"C:\Test\CptCodeDefinitionCamelCase.json", true))
-            {
-                file.WriteLine(myJsonOutput);
+                file.WriteLine(jsonString);
             }*/
         }
     }

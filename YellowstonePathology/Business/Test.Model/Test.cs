@@ -12,8 +12,17 @@ namespace YellowstonePathology.Business.Test.Model
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		protected YellowstonePathology.Test.Model.ResultItemCollection m_ResultItemCollection;
-        
+        public const string TestBase = "Test";
+        public const string DualStainBase = "DualStain";
+        public const string NoCptCodeBase = "NoCptCode";
+        public const string CytochemicalForMicroorganismsBase = "CytochemicalForMicroorganisms";
+        public const string CytochemicalBase = "Cytochemical";
+        public const string ImmunoHistochemistryBase = "IHC";
+        public const string GradedBase = "Graded";
+
+        protected YellowstonePathology.Test.Model.ResultItemCollection m_ResultItemCollection;
+
+        protected string m_TestNameId;
         protected string m_OrderComment;
         protected bool m_IsBillable;
         protected bool m_HasGCode;
@@ -254,7 +263,20 @@ namespace YellowstonePathology.Business.Test.Model
 					this.NotifyPropertyChanged("RequestForAdditionalReport");
 				}
 			}
-		}              
+		}
+
+        public string TestNameId
+        {
+            get { return this.m_TestNameId; }
+            set
+            {
+                if (this.m_TestNameId != value)
+                {
+                    this.m_TestNameId = value;
+                    this.NotifyPropertyChanged("TestNameId");
+                }
+            }
+        }
 
         public virtual string GetCodeableType(bool orderedAsDual)
         {
