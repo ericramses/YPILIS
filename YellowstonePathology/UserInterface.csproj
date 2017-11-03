@@ -1162,6 +1162,8 @@
     <Compile Include="Business\Specimen.Model\WashAliquot.cs" />
     <Compile Include="Business\Surgical\VentanaBenchMark.cs" />
     <Compile Include="Business\Surgical\VentanaBenchMarkCollection.cs" />
+    <Compile Include="Business\Task.Model\TaskFax.cs" />
+    <Compile Include="Business\Task.Model\TaskOrderDetailFax.cs" />
     <Compile Include="Business\Task.Model\TaskOrderDetailFedexShipment.Validation.cs" />
     <Compile Include="Business\Task.Model\TaskOrderRetrospectiveReview.cs" />
     <Compile Include="Business\Task.Model\TaskRetrospectiveReview.cs" />
