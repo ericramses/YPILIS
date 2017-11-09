@@ -74,14 +74,17 @@ namespace YellowstonePathology.Business.Document
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
             switch (this.m_ReportSaveMode)
             {
-                case YellowstonePathology.Business.Document.ReportSaveModeEnum.Draft:
+                case ReportSaveModeEnum.Draft:
 					this.m_SaveFileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + this.m_PanelSetOrder.ReportNo + ".draft.xml";
                     break;
-                case YellowstonePathology.Business.Document.ReportSaveModeEnum.Normal:
+                case ReportSaveModeEnum.Normal:
 					this.m_SaveFileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + this.m_PanelSetOrder.ReportNo + ".xml";                
                     break;
-                case YellowstonePathology.Business.Document.ReportSaveModeEnum.Test:
+                case ReportSaveModeEnum.Test:
                     this.m_SaveFileName = @"c:\test.xml";
+                    break;
+                case ReportSaveModeEnum.Notification:
+                    this.m_SaveFileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + this.m_PanelSetOrder.ReportNo + ".notify.xml";
                     break;
             }            
         }
@@ -394,18 +397,21 @@ namespace YellowstonePathology.Business.Document
         {            
             switch (this.m_ReportSaveMode)
             {
-                case YellowstonePathology.Business.Document.ReportSaveModeEnum.Draft:                                        
+                case ReportSaveModeEnum.Notification:
+                    this.m_ReportXml.Save(this.m_SaveFileName);                    
+                    break;
+                case ReportSaveModeEnum.Draft:                
                     this.m_ReportXml.Save(this.m_SaveFileName);
                     break;
-                case YellowstonePathology.Business.Document.ReportSaveModeEnum.Normal:                
+                case ReportSaveModeEnum.Normal:                
                     this.m_ReportXml.Save(this.m_SaveFileName);
 					YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
 					CaseDocument.SaveXMLAsDoc(orderIdParser);
-					CaseDocument.SaveDocAsXPS(orderIdParser);
+					CaseDocument.SaveDocAsXPS(orderIdParser);                    
                     break;
-                case YellowstonePathology.Business.Document.ReportSaveModeEnum.Test:
+                case ReportSaveModeEnum.Test:
                     this.m_ReportXml.Save(@"c:\Testing\Test.xml");
-                    break;
+                    break;                
             }            
         }        
 

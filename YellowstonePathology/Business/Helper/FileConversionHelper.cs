@@ -126,9 +126,9 @@ namespace YellowstonePathology.Business.Helper
 			{
 				tiffBitmapEncoder.Save(stream);
 			}
-		}
+		}        
 
-		public static void SaveFixedDocumentAsTiff(FixedDocument document, string outputFileName)
+        public static void SaveFixedDocumentAsTiff(FixedDocument document, string outputFileName)
 		{
 			int pages = document.DocumentPaginator.PageCount;
 

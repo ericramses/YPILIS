@@ -404,7 +404,17 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         private void HyperLinkSendFax_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Trying to send fax to ");
+            YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_TaskOrder.ReportNo);
+            YellowstonePathology.Business.Test.AdditionalTestingNotification.AdditionalTestingNotificationWordDocument report = 
+                new YellowstonePathology.Business.Test.AdditionalTestingNotification.AdditionalTestingNotificationWordDocument(this.m_AccessionOrder, panelSetOrder, Business.Document.ReportSaveModeEnum.Notification);
+            report.Render();
+
+            YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(panelSetOrder.ReportNo);
+            string fileName = YellowstonePathology.Business.Document.CaseDocument.GetNotificationDocumentFilePath(orderIdParser);
+            YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(fileName);
+
+            Business.Document.CaseDocument.SaveDocAsXPS(orderIdParser);
+            //Business.ReportDistribution.Model.FaxSubmission.Submit("92386361", false, "hello", fileName);
         }
 
         private void HyperLinkAddSendFaxTask_Click(object sender, RoutedEventArgs e)

@@ -127,76 +127,10 @@ namespace YellowstonePathology.Business.Monitor.Model
                         this.m_BozemanBlockCount = match.Value;
                         this.m_BozemanBlocks = Convert.ToInt32(match.Value);
                         this.NotifyPropertyChanged(string.Empty);
-                        mailItem.Delete(DeleteMode.MoveToDeletedItems);
-
-                        //mailItem.UnRead = false;
-                        //mailItem.Save();
+                        mailItem.Delete(DeleteMode.MoveToDeletedItems);                        
                     }                    
                 }                
-            }
-
-            /*
-            try
-            {
-                Microsoft.Office.Interop.Outlook.Application outlookApp = null;
-                if (System.Diagnostics.Process.GetProcessesByName("OUTLOOK").Count() > 0)
-                {
-                    outlookApp = System.Runtime.InteropServices.Marshal.GetActiveObject("Outlook.Application") as Microsoft.Office.Interop.Outlook.Application;
-                }
-                else
-                {
-                    outlookApp = new Microsoft.Office.Interop.Outlook.Application();
-                }
-
-                Microsoft.Office.Interop.Outlook._NameSpace outlookNameSpace = (Microsoft.Office.Interop.Outlook._NameSpace)outlookApp.GetNamespace("MAPI");            
-
-                string recipientName = "blockcount@ypii.com";
-                Microsoft.Office.Interop.Outlook.Recipient recipient = outlookNameSpace.CreateRecipient(recipientName);
-            
-                Microsoft.Office.Interop.Outlook.MAPIFolder mapiFolder = outlookNameSpace.GetSharedDefaultFolder(recipient, Microsoft.Office.Interop.Outlook.OlDefaultFolders.olFolderInbox);
-                Microsoft.Office.Interop.Outlook._Explorer explorer = mapiFolder.GetExplorer(false);           
-
-                System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex("\\d{1,3}(?=\\D*$)");
-            
-                Microsoft.Office.Interop.Outlook.Items items = mapiFolder.Items;
-                foreach (object item in items)
-                {
-                    if (item is Microsoft.Office.Interop.Outlook.MailItem)
-                    {                        
-                        Microsoft.Office.Interop.Outlook.MailItem mailItem = (Microsoft.Office.Interop.Outlook.MailItem)item;
-                        if(mailItem.UnRead)
-                        {
-                            if (mailItem.SentOn.ToShortDateString() == DateTime.Today.ToShortDateString() == true)
-                            {
-                                System.Text.RegularExpressions.Match match = regex.Match(mailItem.Subject);
-                                if (match.Captures.Count != 0)
-                                {
-                                    this.m_BozemanBlockCount = match.Value;
-                                    this.m_BozemanBlocks = Convert.ToInt32(match.Value);
-                                    this.NotifyPropertyChanged(string.Empty);
-
-                                    mailItem.UnRead = false;
-                                    mailItem.Save();                                    
-                                }
-                            }
-                        }                        
-                    }
-                    System.Runtime.InteropServices.Marshal.FinalReleaseComObject(item);
-                }
-
-                System.Runtime.InteropServices.Marshal.FinalReleaseComObject(items);
-                System.Runtime.InteropServices.Marshal.FinalReleaseComObject(explorer);
-                System.Runtime.InteropServices.Marshal.FinalReleaseComObject(mapiFolder);
-                System.Runtime.InteropServices.Marshal.FinalReleaseComObject(recipient);
-                System.Runtime.InteropServices.Marshal.FinalReleaseComObject(outlookNameSpace);
-                System.Runtime.InteropServices.Marshal.FinalReleaseComObject(outlookApp);
-
-            }
-            catch(Exception)
-            {
-                //don't need to do anything
-            }  
-            */
+            }            
         }
 
         public void NotifyPropertyChanged(String info)

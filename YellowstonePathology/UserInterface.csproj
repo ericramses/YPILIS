@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>428</ApplicationRevision>
+    <ApplicationRevision>440</ApplicationRevision>
     <ApplicationVersion>10.1.7.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -1173,6 +1173,7 @@
     <Compile Include="Business\Test.Model\PAX5CD5DualStain.cs" />
     <Compile Include="Business\Test.Model\LambdaByISH.cs" />
     <Compile Include="Business\Test.Model\KappaByISH.cs" />
+    <Compile Include="Business\Test\AdditionalTestingNotification\AdditionalTestingNotificationWordDocument.cs" />
     <Compile Include="Business\Test\AMLFavorableRisk\AMLFavorableRiskTest.cs" />
     <Compile Include="Business\Test\AMLPrognosticProfile\AMLPrognosticProfileTest.cs" />
     <Compile Include="Business\Test\AMLStandardByFish\AMLStandardByFishWPHOBXView.cs" />

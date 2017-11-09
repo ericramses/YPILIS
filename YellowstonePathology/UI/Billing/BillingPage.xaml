@@ -199,6 +199,7 @@
                         <MenuItem Header="Reverse Bill By Client" Click="MenuItemReverseBillByClient_Click"></MenuItem>
                         <MenuItem Header="Reverse" Click="MenuItemReverse_Click"></MenuItem>                                                
                         <MenuItem Header="Add With Current Client" Click="MenuItemAddWithCurrentClient_Click"></MenuItem>
+                        <MenuItem Header="Update Client" Click="MenuItemUpdateClient_Click"></MenuItem>
                     </ContextMenu>
                 </ListView.ContextMenu>
                 <ListView.View>

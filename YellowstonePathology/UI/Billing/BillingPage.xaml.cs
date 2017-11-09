@@ -423,5 +423,16 @@ namespace YellowstonePathology.UI.Billing
                 MessageBox.Show("No ADT information was found.");
             }            
         }
+
+        private void MenuItemUpdateClient_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.ListViewPanelSetOrderCPTCodeBill.SelectedItems.Count != 0)
+            {
+                foreach (YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill in this.ListViewPanelSetOrderCPTCodeBill.SelectedItems)
+                {
+                    panelSetOrderCPTCodeBill.ClientId = AccessionOrder.ClientId;
+                }
+            }
+        }
     }
 }

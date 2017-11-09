@@ -47,13 +47,16 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
             foreach (YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen in comprehensiveColonCancerProfileResult.SurgicalSpecimenCollection)
             {
                 YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(surgicalSpecimen.SpecimenOrderId);
-                StringBuilder specimenDescription = new StringBuilder();
-                specimenDescription.Append(specimenOrder.Description + ": ");
-                foreach (YellowstonePathology.Business.Test.AliquotOrder aliquotOrder in specimenOrder.AliquotOrderCollection)
-                {
-                    specimenDescription.Append(aliquotOrder.Label + ", ");
-                }
-                specimenDescription.Remove(specimenDescription.Length - 2, 2);
+                StringBuilder specimenDescription = new StringBuilder();                
+                specimenDescription.Append(specimenOrder.Description);
+
+                //Removed by SH 11/7/2017 may need to put it back.
+                //foreach (YellowstonePathology.Business.Test.AliquotOrder aliquotOrder in specimenOrder.AliquotOrderCollection)
+                //{
+                //    specimenDescription.Append(aliquotOrder.Label + ", ");
+                //}
+                //specimenDescription.Remove(specimenDescription.Length - 2, 2);
+
                 XmlNode rowSpecimenNodeClone = rowSpecimenNode.Clone();
                 rowSpecimenNodeClone.SelectSingleNode("descendant::w:r[w:t='specimen_description']/w:t", this.m_NameSpaceManager).InnerText = specimenDescription.ToString();
                 rowSpecimenNodeClone.SelectSingleNode("descendant::w:r[w:t='surgical_reportno']/w:t", this.m_NameSpaceManager).InnerText = comprehensiveColonCancerProfileResult.PanelSetOrderSurgical.ReportNo;

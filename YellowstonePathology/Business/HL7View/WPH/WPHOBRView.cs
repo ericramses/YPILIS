@@ -96,7 +96,7 @@ namespace YellowstonePathology.Business.HL7View.WPH
             obrElement.Add(obr16Element);
 
             XElement obr20Element = new XElement("OBR.20");
-            YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("OBR.20.1", "OM", obr20Element);
+            YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("OBR.20.1", "PATH", obr20Element);
             obrElement.Add(obr20Element);
 
             XElement obr21Element = new XElement("OBR.21");

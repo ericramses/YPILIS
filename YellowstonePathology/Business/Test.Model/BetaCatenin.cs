@@ -11,7 +11,7 @@ namespace YellowstonePathology.Business.Test.Model
 		{
 			this.m_TestId = "299";
 			this.m_TestName = "Beta-Catenin";
-            this.m_TestAbbreviation = "Beta-Catenin";
+            this.m_TestAbbreviation = "BetaCat";
 			this.m_Active = true;
 			this.m_NeedsAcknowledgement = true;
 		}
