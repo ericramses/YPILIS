@@ -16,9 +16,9 @@ namespace YellowstonePathology.Business.Facility.Model
             this.m_City = "Phoenix";
             this.m_State = "AZ";
             this.m_ZipCode = "85040";
-            this.m_PhoneNumber = null;
-            this.m_FedexAccountNo = null;
-            this.m_FedexPaymentType = null;
+            this.m_PhoneNumber = "888-979- 8669";
+            this.m_FedexAccountNo = "310178438";
+            this.m_FedexPaymentType = "RECIPIENT";
             this.m_IsReferenceLab = true;
 
 			this.m_CliaLicense = new CLIALicense(this, string.Empty);

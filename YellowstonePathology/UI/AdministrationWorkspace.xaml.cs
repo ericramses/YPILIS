@@ -1000,10 +1000,10 @@ namespace YellowstonePathology.UI
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
 
-            string x1 = @"\\CFileServer\AccessionDocuments\2017\26000-26999\17-26810\17-26810.S.notify.xml";
-            string x2 = @"\\CFileServer\AccessionDocuments\2017\26000-26999\17-26810\17-26810.S.notify.xps";
+            //string x1 = @"\\CFileServer\AccessionDocuments\2017\26000-26999\17-26810\17-26810.S.notify.xml";
+           // string x2 = @"\\CFileServer\AccessionDocuments\2017\26000-26999\17-26810\17-26810.S.notify.xps";
 
-            Business.Document.CaseDocument.SaveDocAsXPS2(x1, x2);
+            //Business.Document.CaseDocument.SaveDocAsXPS2(x1, x2);
             //Business.Helper.FileConversionHelper.SaveXpsAsMultiPageTif()
 
             //string l = Business.Specimen.Model.Slide.GetSlideNumber("1A2");
@@ -1011,9 +1011,9 @@ namespace YellowstonePathology.UI
             //this.MailBoxTest();
             //this.GetSlideNumberTest();
 
-            //Business.Label.Model.ZPLPrinterUSB usbPrinter = new Business.Label.Model.ZPLPrinterUSB();
-            //Business.Label.Model.HistologySlidePaperZPLLabel zplCommand = new Business.Label.Model.HistologySlidePaperZPLLabel("17-123.1A2", "17-12333.F2", "BOB", "FRANKENSTEIN", "Oscar", "1A2", "YPI Blgs", false, false);
-            //usbPrinter.Print(zplCommand);
+            Business.Label.Model.ZPLPrinterUSB usbPrinter = new Business.Label.Model.ZPLPrinterUSB();
+            Business.Label.Model.HistologySlidePaperZPLLabel zplCommand = new Business.Label.Model.HistologySlidePaperZPLLabel("17-123.1A2", "17-12333.F2", "BOB", "FRANKENSTEIN", "Oscar", "1A2", "YPI Blgs", false, false);
+            usbPrinter.Print(zplCommand);
 
             //Business.Test.Model.TestCollection tc = Business.Test.Model.TestCollection.GetAllTests(false);
             //foreach(Business.Test.Model.Test t in tc)

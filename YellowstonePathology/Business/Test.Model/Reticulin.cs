@@ -11,7 +11,7 @@ namespace YellowstonePathology.Business.Test.Model
 		{
 			this.m_TestId = "151";
 			this.m_TestName = "Reticulin";
-            this.m_TestAbbreviation = "Reticulin";
+            this.m_TestAbbreviation = "Retic";
 			this.m_Active = true;
 			this.m_NeedsAcknowledgement = true;
 		}

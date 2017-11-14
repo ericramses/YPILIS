@@ -27,21 +27,16 @@ namespace YellowstonePathology.Business.Test.BRAFMutationAnalysis
             BRAFMutationAnalysisResult result = new BRAFMutationAnalysisResult();
             foreach (BRAFMutationAnalysisResult brafResult in this)
             {
-                if (brafResult is BRAFMutationAnalysisIndeterminateResult && brafResult.ResultCode == resultCode)
+                if (brafResult.ResultCode == "BRAFMTTNANLDTCTD")
+                {
+                    result = new BRAFMutationAnalysisDetectedResult();
+                    break;
+                }
+                else if (brafResult.ResultCode == resultCode && brafResult.Indication == indication)
                 {
                     result = brafResult;
                     break;
-                }
-                if (brafResult is BRAFMutationAnalysisInsufficientResult && brafResult.ResultCode == resultCode)
-                {
-                    result = brafResult;
-                    break;
-                }
-                if (brafResult.ResultCode == resultCode && brafResult.Indication == indication)
-                {
-                    result = brafResult;
-                    break;
-                }
+                }                
             }
             return result;
         }
@@ -49,20 +44,15 @@ namespace YellowstonePathology.Business.Test.BRAFMutationAnalysis
         public static BRAFMutationAnalysisResultCollection GetUniqueResultChoices()
         {
             BRAFMutationAnalysisResultCollection result = new BRAFMutationAnalysisResultCollection();
-            //result.Add(new BRAFMutationAnalysisDetectedResult());
-            result.Add(new BRAFMutationAnalysisNotDetectedResult());
-            //result.Add(new BRAFMutationAnalysisIndeterminateResult());
-            //result.Add(new BRAFMutationAnalysisInsufficientResult());
+            result.Add(new BRAFMutationAnalysisDetectedResult());
+            result.Add(new BRAFMutationAnalysisNotDetectedResult());            
             return result;
         }
 
         public static BRAFMutationAnalysisResultCollection GetDetectedResults()
         {
             BRAFMutationAnalysisResultCollection result = new BRAFMutationAnalysisResultCollection();
-            //result.Add(new BRAFMutationAnalysisDetectedCRCResult());
-            //result.Add(new BRAFMutationAnalysisDetectedLynchSyndromeResult());
-            //result.Add(new BRAFMutationAnalysisDetectedMetastaticMelanomaResult());
-            //result.Add(new BRAFMutationAnalysisDetectedPapillaryThyroidResult());
+            result.Add(new BRAFMutationAnalysisDetectedResult());            
             return result;
         }
 
@@ -83,12 +73,7 @@ namespace YellowstonePathology.Business.Test.BRAFMutationAnalysis
             result.Add(new BRAFMutationAnalysisNotDetectedLynchSyndromeResult());
             result.Add(new BRAFMutationAnalysisNotDetectedMetastaticMelanomaResult());
             result.Add(new BRAFMutationAnalysisNotDetectedPapillaryThyroidResult());
-            //result.Add(new BRAFMutationAnalysisDetectedCRCResult());
-            //result.Add(new BRAFMutationAnalysisDetectedLynchSyndromeResult());
-            //result.Add(new BRAFMutationAnalysisDetectedMetastaticMelanomaResult());
-            //result.Add(new BRAFMutationAnalysisDetectedPapillaryThyroidResult());
-            //result.Add(new BRAFMutationAnalysisIndeterminateResult());
-            //result.Add(new BRAFMutationAnalysisInsufficientResult());
+            result.Add(new BRAFMutationAnalysisDetectedResult());            
             return result;
         }
     }
