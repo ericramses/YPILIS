@@ -31,11 +31,11 @@ namespace YellowstonePathology.Business.Test.BRAFMutationAnalysis
             this.AddBlankNteElement(document);
 
             this.AddNextNteElement("Finaled By: ", document);
-            this.AddNextNteElement(testOrder.Signature, document);
+            this.AddNextNteElement(testOrder.ReferenceLabSignature, document);
 
-            if (testOrder.FinalDate.HasValue == true)
+            if (testOrder.ReferenceLabFinalDate.HasValue == true)
             {
-                this.AddNextNteElement("*** E-Signed " + testOrder.FinalTime.Value.ToString("MM/dd/yyyy HH:mm") + " ***", document);
+                this.AddNextNteElement("*** E-Signed " + testOrder.ReferenceLabFinalDate.Value.ToString("MM/dd/yyyy HH:mm") + " ***", document);
             }
             this.AddBlankNteElement(document);
 
