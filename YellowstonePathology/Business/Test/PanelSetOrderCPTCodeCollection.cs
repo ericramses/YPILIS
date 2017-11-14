@@ -444,7 +444,7 @@ namespace YellowstonePathology.Business.Test
             {                
                 if (this.Exists("88305", specimenOrder.SpecimenOrderId) == false)
                 {
-                    YellowstonePathology.Business.Billing.Model.CptCode cpt88305 = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("CPT88305");
+                    YellowstonePathology.Business.Billing.Model.CptCode cpt88305 = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("cpt:88305");
                     YellowstonePathology.Business.Test.PanelSetOrderCPTCode panelSetOrderCPTCode = this.GetNextItem(reportNo);
                     panelSetOrderCPTCode.Quantity = 1;
                     panelSetOrderCPTCode.CPTCode = cpt88305.Code;

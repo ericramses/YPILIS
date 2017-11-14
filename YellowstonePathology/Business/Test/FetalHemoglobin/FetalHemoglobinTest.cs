@@ -22,7 +22,7 @@ namespace YellowstonePathology.Business.Test.FetalHemoglobin
             string taskDescription = "Perform fetal hemoglobin testing.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.Task(YellowstonePathology.Business.Task.Model.TaskAssignment.Flow, taskDescription));
 
-            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode1 = new Business.Billing.Model.PanelSetCptCode(Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("CPT86356"), 1);
+            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode1 = new Business.Billing.Model.PanelSetCptCode(Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("cpt:86356"), 1);
             this.m_PanelSetCptCodeCollection.Add(panelSetCptCode1);                  
 		}
     }

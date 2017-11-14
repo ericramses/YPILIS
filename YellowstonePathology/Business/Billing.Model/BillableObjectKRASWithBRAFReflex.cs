@@ -13,12 +13,12 @@ namespace YellowstonePathology.Business.Billing.Model
             : base(accessionOrder, reportNo)
         {
             this.m_PanelSetCptCodeCollection = new YellowstonePathology.Business.Billing.Model.PanelSetCptCodeCollection();
-            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCodeCPT81275 = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("CPT81275"), 1);
+            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCodeCPT81275 = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("cpt:81275"), 1);
             this.m_PanelSetCptCodeCollection.Add(panelSetCptCodeCPT81275);
 
             if (this.m_PanelSetOrder.PanelOrderCollection.PanelIdExists(24) == true)
             {                
-                YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCodeCPT81210 = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("CPT81210"), 1);
+                YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCodeCPT81210 = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("cpt:81210"), 1);
                 this.m_PanelSetCptCodeCollection.Add(panelSetCptCodeCPT81210);   
             }            
         }

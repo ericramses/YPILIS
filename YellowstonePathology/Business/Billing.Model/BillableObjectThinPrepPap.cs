@@ -160,11 +160,11 @@ namespace YellowstonePathology.Business.Billing.Model
 				
 				if (panelOrderCytology.ImagerError == false)
 				{
-                    cptCode = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("CPT88175");                    
+                    cptCode = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("cpt:88175");                    
 				}
 				else
 				{
-                    cptCode = Billing.Model.CptCodeCollection.Instance.GetClone("CPT88142", "52");
+                    cptCode = Billing.Model.CptCodeCollection.Instance.GetClone("cpt:88142", "52");
 				}
 
 				YellowstonePathology.Business.Test.PanelSetOrderCPTCode panelSetOrderCPTCode = this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.GetNextItem(this.m_PanelSetOrder.ReportNo);
@@ -183,7 +183,7 @@ namespace YellowstonePathology.Business.Billing.Model
 
         private void SetPhysicianInterpretationCode()
         {
-            YellowstonePathology.Business.Billing.Model.CptCode cptCode = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("CPT88141");
+            YellowstonePathology.Business.Billing.Model.CptCode cptCode = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("cpt:88141");
 			if (this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.Exists(cptCode.Code, 1) == false)
 			{
 				YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology panelOrderCytology = ((YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology)this.m_PanelSetOrder).GetPhysicianInterp();

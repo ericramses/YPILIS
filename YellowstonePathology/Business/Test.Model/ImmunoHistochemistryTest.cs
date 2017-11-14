@@ -27,18 +27,18 @@ namespace YellowstonePathology.Business.Test.Model
             YellowstonePathology.Business.Billing.Model.CptCode result = null;
             if (this.IsDualOrder == true)
             {
-                result = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("CPT88344");
+                result = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("cpt:88344");
                 if (isTechnicalOnly == true)
                 {                    
-                    result = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("CPT88344TC");
+                    result = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("cpt:88344tc");
                 }                
             }
             else
             {
-                result = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("CPT88342");
+                result = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("cpt:88342");
                 if (isTechnicalOnly == true)
                 {
-                    result = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("CPT88342TC");
+                    result = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("cpt:88342tc");
                 }
             }                                        
             return result;  
@@ -52,21 +52,21 @@ namespace YellowstonePathology.Business.Test.Model
                 case CptCodeLevelEnum.Initial:
                     if (isTechnicalOnly == true)
                     {
-                        result = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("CPTG0461");
+                        result = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("cpt:g0461");
                     }
                     else
                     {
-                        result = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("CPTG0461TC");
+                        result = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("cpt:g0461tc");
                     }
                     break;
                 case CptCodeLevelEnum.Subsequent:
                     if (isTechnicalOnly == true)
                     {
-                        result = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("CPTG0462");
+                        result = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("cpt:gG0462");
                     }
                     else
                     {
-                        result = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("CPTG0462TC");
+                        result = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("cpt:g0462tc");
                     }
                     break;
             }            
@@ -81,21 +81,21 @@ namespace YellowstonePathology.Business.Test.Model
                 case CptCodeLevelEnum.Initial:
                     if (isTechnicalOnly == true)
                     {
-                        result = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("CPT88342TC");
+                        result = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("cpt:88342tc");
                     }
                     else
                     {
-                        result = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("CPT88342");
+                        result = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("cpt:88342");
                     }
                     break;
                 case CptCodeLevelEnum.Subsequent:
                     if (isTechnicalOnly == true)
                     {
-                        result = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("CPT88343TC");
+                        result = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("cpt:88343tc");
                     }
                     else
                     {
-                        result = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("CPT88343");
+                        result = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("cpt:88343");
                     }
                     break;
             }            

@@ -4863,7 +4863,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Business\Test.Model\TestDefinition.json" />
-    <EmbeddedResource Include="Business\Billing.Model\CPTCodeDefinition.json" />
     <None Include="Business\XmlSchema\ComplexTypes.xsd">
       <SubType>Designer</SubType>
     </None>

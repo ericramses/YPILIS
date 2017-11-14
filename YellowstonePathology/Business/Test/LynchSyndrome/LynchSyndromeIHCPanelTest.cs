@@ -38,10 +38,10 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 			this.m_ProfessionalComponentFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologistBillings();
 			this.m_ProfessionalComponentBillingFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologistBillings();
 
-			YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode88342 = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("CPT88342"), 1);
+			YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode88342 = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("cpt:88342"), 1);
             this.m_PanelSetCptCodeCollection.Add(panelSetCptCode88342);
 
-			YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode88341 = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("CPT88341"), 3);
+			YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode88341 = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("cpt:88341"), 3);
             this.m_PanelSetCptCodeCollection.Add(panelSetCptCode88341);
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServicePathSummary());

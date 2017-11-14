@@ -24,7 +24,7 @@ namespace YellowstonePathology.Business.Billing.Model
 					YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByOrderTarget(this.m_PanelSetOrder.OrderedOnId);
 					Test.LLP.PanelSetOrderLeukemiaLymphoma panelSetOrder = (Test.LLP.PanelSetOrderLeukemiaLymphoma)this.m_PanelSetOrder;
 
-                    YellowstonePathology.Business.Billing.Model.CptCode cpt88184 = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("CPT88184");
+                    YellowstonePathology.Business.Billing.Model.CptCode cpt88184 = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("cpt:88184");
 					YellowstonePathology.Business.Test.PanelSetOrderCPTCode panelSetOrderCPTCode88184 = this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.GetNextItem(this.m_PanelSetOrder.ReportNo);
 					panelSetOrderCPTCode88184.Quantity = 1;
                     panelSetOrderCPTCode88184.CPTCode = cpt88184.Code;
@@ -38,7 +38,7 @@ namespace YellowstonePathology.Business.Billing.Model
 
 					int markerCount = panelSetOrder.FlowMarkerCollection.CountOfBillableMarkers();
 
-                    YellowstonePathology.Business.Billing.Model.CptCode cpt88185 = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("CPT88185");
+                    YellowstonePathology.Business.Billing.Model.CptCode cpt88185 = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("cpt:88185");
 					YellowstonePathology.Business.Test.PanelSetOrderCPTCode panelSetOrderCPTCode88185 = this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.GetNextItem(this.m_PanelSetOrder.ReportNo);
 					panelSetOrderCPTCode88185.Quantity = markerCount - 1;
                     panelSetOrderCPTCode88185.CPTCode = cpt88185.Code;
@@ -52,7 +52,7 @@ namespace YellowstonePathology.Business.Billing.Model
 
 					if (markerCount >= 2 && markerCount <= 8)
 					{
-                        YellowstonePathology.Business.Billing.Model.CptCode cpt88187 = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("CPT88187");
+                        YellowstonePathology.Business.Billing.Model.CptCode cpt88187 = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("cpt:88187");
 						YellowstonePathology.Business.Test.PanelSetOrderCPTCode panelSetOrderCPTCode88187 = this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.GetNextItem(this.m_PanelSetOrder.ReportNo);
 						panelSetOrderCPTCode88187.Quantity = 1;
                         panelSetOrderCPTCode88187.CPTCode = cpt88187.Code;
@@ -66,7 +66,7 @@ namespace YellowstonePathology.Business.Billing.Model
 					}
 					else if (markerCount >= 9 && markerCount <= 15)
 					{
-                        YellowstonePathology.Business.Billing.Model.CptCode cpt88188 = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("CPT88188");
+                        YellowstonePathology.Business.Billing.Model.CptCode cpt88188 = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("cpt:88188");
 						YellowstonePathology.Business.Test.PanelSetOrderCPTCode panelSetOrderCPTCode88188 = this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.GetNextItem(this.m_PanelSetOrder.ReportNo);
 						panelSetOrderCPTCode88188.Quantity = 1;
                         panelSetOrderCPTCode88188.CPTCode = cpt88188.Code;
@@ -80,7 +80,7 @@ namespace YellowstonePathology.Business.Billing.Model
 					}
 					else if (markerCount >= 16)
 					{
-                        YellowstonePathology.Business.Billing.Model.CptCode cpt88189 = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("CPT88189");
+                        YellowstonePathology.Business.Billing.Model.CptCode cpt88189 = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("cpt:88189");
 						YellowstonePathology.Business.Test.PanelSetOrderCPTCode panelSetOrderCPTCode88189 = this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.GetNextItem(this.m_PanelSetOrder.ReportNo);
 						panelSetOrderCPTCode88189.Quantity = 1;
                         panelSetOrderCPTCode88189.CPTCode = cpt88189.Code;

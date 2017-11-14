@@ -25,11 +25,11 @@ namespace YellowstonePathology.Business.Billing.Model
         public static MedicareCodeCollection GetAll()
         {
             MedicareCodeCollection result = new MedicareCodeCollection();
-            result.Add(CptCodeCollection.Instance.GetCPTCodeById("CPTG0123"));
-            result.Add(CptCodeCollection.Instance.GetCPTCodeById("CPTG0124"));
-            result.Add(CptCodeCollection.Instance.GetCPTCodeById("CPTG0145"));
-            result.Add(CptCodeCollection.Instance.GetCPTCodeById("CPTG0461"));
-            result.Add(CptCodeCollection.Instance.GetCPTCodeById("CPTG0462"));
+            result.Add(CptCodeCollection.Instance.GetCPTCodeById("cpt:g0123"));
+            result.Add(CptCodeCollection.Instance.GetCPTCodeById("cpt:g0124"));
+            result.Add(CptCodeCollection.Instance.GetCPTCodeById("cpt:g0145"));
+            result.Add(CptCodeCollection.Instance.GetCPTCodeById("cpt:g0461"));
+            result.Add(CptCodeCollection.Instance.GetCPTCodeById("cpt:g0462"));
 
             return result;
         }
