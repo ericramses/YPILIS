@@ -183,5 +183,27 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 }
             }
         }
+
+        private void ButtonSetInvalidFinal_Click(object sender, RoutedEventArgs e)
+        {
+            if(this.ListViewPanelSets.SelectedItem != null)
+            {
+                Business.Test.PanelSetOrder panelSetOrder = (Business.Test.PanelSetOrder)this.ListViewPanelSets.SelectedItem;
+                if (panelSetOrder.Final == true && panelSetOrder.FinaledById == 0 && panelSetOrder.Signature == null && panelSetOrder.AssignedToId != 0)
+                {
+                    Business.User.SystemUser systemUser = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetSystemUserById(panelSetOrder.AssignedToId);
+                    panelSetOrder.FinaledById = systemUser.UserId;
+                    panelSetOrder.Signature = systemUser.Signature;
+                }
+                else
+                {
+                    MessageBox.Show("Select AssignedTo.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Select the report.");
+            }
+        }
     }
 }
