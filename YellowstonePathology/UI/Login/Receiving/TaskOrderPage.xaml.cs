@@ -413,7 +413,9 @@ namespace YellowstonePathology.UI.Login.Receiving
             string fileName = YellowstonePathology.Business.Document.CaseDocument.GetNotificationDocumentFilePath(orderIdParser);
             YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(fileName);
 
-            Business.Document.CaseDocument.SaveDocAsXPS(orderIdParser);
+            Business.OrderIdParser orderIdParse = new Business.OrderIdParser(panelSetOrder.ReportNo);
+            string xmlDocName = Business.Document.CaseDocument.GetCaseDocumentFullPath(orderIdParse);
+            Business.Document.CaseDocument.SaveXMLAsXPS(xmlDocName);
             //Business.ReportDistribution.Model.FaxSubmission.Submit("92386361", false, "hello", fileName);
         }
 

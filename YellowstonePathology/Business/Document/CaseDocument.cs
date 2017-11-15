@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using System.Text;
 using System.Diagnostics;
 using System.IO;
+using System.IO.Packaging;
 using System.Xml.Serialization;
+using System.Windows.Xps;
 using System.Windows.Xps.Packaging;
 using System.ComponentModel;
 using YellowstonePathology.Business.Persistence;
+using System.Windows.Media.Imaging;
+using System.Windows.Documents;
 
 namespace YellowstonePathology.Business.Document
 {
@@ -436,6 +440,35 @@ namespace YellowstonePathology.Business.Document
 			CaseDocument.ReleaseComObject(oWord);
 		}
 
+        public static void SaveXPSAsTIF(string fileName)
+        {
+            XpsDocument xd = new XpsDocument(fileName, System.IO.FileAccess.Read);
+            FixedDocumentSequence fds = xd.GetFixedDocumentSequence();
+            DocumentPaginator paginator = fds.DocumentPaginator;
+            System.Windows.Media.Visual visual = paginator.GetPage(0).Visual;
+
+            System.Windows.FrameworkElement fe = (System.Windows.FrameworkElement)visual;
+
+            int multiplyFactor = 4;
+            string outputPath = fileName.Replace(".xps", ".tif");
+
+            RenderTargetBitmap bmp = new RenderTargetBitmap(
+                (int)fe.ActualWidth * multiplyFactor,
+                (int)fe.ActualHeight * multiplyFactor,
+                96d * multiplyFactor,
+                96d * multiplyFactor,
+                System.Windows.Media.PixelFormats.Default);
+            bmp.Render(fe);
+
+            TiffBitmapEncoder tff = new TiffBitmapEncoder();
+            tff.Frames.Add(BitmapFrame.Create(bmp));
+
+            using (Stream stream = File.Create(outputPath))
+            {
+                tff.Save(stream);
+            }
+        }
+
 		public static void SaveDocAsXPS(YellowstonePathology.Business.OrderIdParser orderIdParser)
         {
             Microsoft.Office.Interop.Word.Application oWord;
@@ -471,6 +504,41 @@ namespace YellowstonePathology.Business.Document
 			oWord.ActivePrinter = currentPrinter;
             oWord.Quit(ref oFalse, ref oMissing, ref oMissing);
 			CaseDocument.ReleaseComObject(oWord);                			
+        }
+
+        public static void SaveXMLAsXPS(object xmlFileName)
+        {
+            Microsoft.Office.Interop.Word.Application oWord;
+            Object oMissing = System.Reflection.Missing.Value;
+            Object oTrue = true;
+            Object oFalse = false;
+
+            oWord = new Microsoft.Office.Interop.Word.Application();
+            oWord.Visible = false;
+
+            string currentPrinter = oWord.ActivePrinter;
+            oWord.ActivePrinter = "Microsoft XPS Document Writer";
+
+            Object xpsFileName = xmlFileName.ToString().Replace(".xml", ".tif");
+            Object fileFormat = "wdFormatDocument";
+
+            if (System.IO.File.Exists(xmlFileName.ToString()) == true)
+            {
+
+                Microsoft.Office.Interop.Word.Document doc = oWord.Documents.Open(ref xmlFileName, ref oMissing, ref oMissing,
+                        ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing,
+                        ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing);
+
+                object oOutputFile = xpsFileName;
+                doc.PrintOut(ref oFalse, ref oFalse, ref oMissing, ref oOutputFile, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing,
+                    ref oTrue, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing);
+
+                CaseDocument.ReleaseComObject(doc);
+            }
+
+            oWord.ActivePrinter = currentPrinter;
+            oWord.Quit(ref oFalse, ref oMissing, ref oMissing);
+            CaseDocument.ReleaseComObject(oWord);
         }
 
         public static void SaveDocAsXPS2(object docFileName, object xpsFileName)

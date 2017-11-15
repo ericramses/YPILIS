@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>449</ApplicationRevision>
+    <ApplicationRevision>450</ApplicationRevision>
     <ApplicationVersion>10.1.7.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -1321,6 +1321,7 @@
     <Compile Include="Business\Test\TP63F\TP63FTest.cs" />
     <Compile Include="Business\Test\WomensHealthProfile\WomensHealthProfileWPHOBXView.cs" />
     <Compile Include="Business\XPSDocument\ClientBillingDetailReportV2.cs" />
+    <Compile Include="Business\XPSDocument\ImageType.cs" />
     <Compile Include="Business\XPSDocument\PlacentalPathologyQuestionnaireV2.cs" />
     <Compile Include="Business\XPSDocument\Result\ClientBillingDetailReportResult\ClientBillingDetailReportData.cs" />
     <Compile Include="Business\XPSDocument\Result\ClientBillingDetailReportResult\ClientBillingDetailReportDataAccessionOrder.cs" />
@@ -1333,6 +1334,8 @@
     <Compile Include="Business\XPSDocument\Result\Data\PlacentalPathologyQuestionnaireDataV2.cs" />
     <Compile Include="Business\XPSDocument\Result\Xps\AccessionOrderDataSheetV2.cs" />
     <Compile Include="Business\XPSDocument\Result\Xps\ClientSupplyOrderReportV2.cs" />
+    <Compile Include="Business\XPSDocument\XpsDetails.cs" />
+    <Compile Include="Business\XPSDocument\XPSTemplate.cs" />
     <Compile Include="MySQLMigration\DataRowComparer.cs" />
     <Compile Include="MySQLMigration\DataRowRefreshComparer.cs" />
     <Compile Include="MySQLMigration\IndexedColumn.cs" />
