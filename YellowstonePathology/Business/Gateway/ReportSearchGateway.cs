@@ -473,5 +473,20 @@ namespace YellowstonePathology.Business.Gateway
             }
             return result;
         }
+
+        public static YellowstonePathology.Business.Search.ReportSearchList GetReportSearchListByInvalidFinal()
+        {
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT pso.MasterAccessionNo, pso.ReportNo, a.AccessionTime AccessionDate,  pso.PanelSetId, " +
+                "concat(a.PFirstName, ' ', a.PLastName) AS PatientName, " +
+                "a.PLastName, a.PFirstName, a.ClientName, a.PhysicianName, a.PBirthdate,  pso.FinalDate, pso.PanelSetName, su.UserName as OrderedBy, " +
+                "'' ForeignAccessionNo " +
+                "FROM tblAccessionOrder a JOIN tblPanelSetOrder pso ON a.MasterAccessionNo = pso.MasterAccessionNo " +
+                "Left Outer Join tblSystemUser su on pso.OrderedById = su.UserId " +
+                "WHERE pso.Final = 1 and pso.FinaledById = 0 and pso.Signature is null order by pso.PanelSetId, pso.ReportNo;";
+            Search.ReportSearchList reportSearchList = BuildReportSearchList(cmd);
+            return reportSearchList;
+        }
     }
 }

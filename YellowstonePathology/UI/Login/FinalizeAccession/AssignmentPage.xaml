@@ -73,18 +73,11 @@
 				<TextBlock Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" TextAlignment="Left" Text="{Binding Path=AccessionOrder.MasterAccessionNo}" />
 
                 <TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" TextAlignment="Right" Text="Patient Name:" FontWeight="Bold" />
+                <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
 				<TextBlock Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" TextAlignment="Left" Text="{Binding Path=AccessionOrder.PatientDisplayName}" />
-			</Grid>
-
-            <!--
-			<ListBox Name="ListBoxPanelSets" Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" ItemsSource="{Binding Path=AccessionOrder.PanelSetOrderCollection}" ItemTemplate="{StaticResource PanelSetTemplate}">
-				<ListBox.ItemsPanel>
-					<ItemsPanelTemplate>
-						<StackPanel />
-					</ItemsPanelTemplate>
-				</ListBox.ItemsPanel>
-			</ListBox>
-            -->
+                    <Button Margin="2,2,2,2" Click="ButtonSetInvalidFinal_Click" Background="Crimson" Foreground="White">Temp Use: Set Finaled By</Button>
+                </StackPanel>
+            </Grid>
 
             <ListView Name="ListViewPanelSets" Grid.Column="0" Grid.Row="1" Margin="2,2,2,2"  ItemsSource="{Binding Path=AccessionOrder.PanelSetOrderCollection}">
                 <ListView.View>

@@ -213,6 +213,12 @@ namespace YellowstonePathology.UI.Login
             this.NotifyPropertyChanged("ReportSearchList");
         }
 
+        public void GetReportSearchListByInvalidFinal()
+        {
+            this.m_ReportSearchList = YellowstonePathology.Business.Gateway.ReportSearchGateway.GetReportSearchListByInvalidFinal();
+            this.NotifyPropertyChanged("ReportSearchList");
+        }
+
         public void GetAccessionOrder(string masterAccessionNo, string reportNo)
 		{
 			this.AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this.m_Writer);
