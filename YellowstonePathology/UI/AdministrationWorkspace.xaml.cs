@@ -998,12 +998,14 @@ namespace YellowstonePathology.UI
         }
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
-        {
-            Business.XPSDocument.XPSTemplate template = new Business.XPSDocument.XPSTemplate();
-            string source = @"d:\testing\hello.xps";
-            string destination = @"d:\testing\hello.new.xps";
-            template.CreateNewXPSFromSource(source, destination);
-            template.SaveToTIF(destination);
+        {                       
+            Business.Test.AccessionOrder ao = Business.Persistence.DocumentGateway.Instance.GetAccessionOrderByMasterAccessionNo("17-26810");
+            Business.Test.PanelSetOrder pso = ao.PanelSetOrderCollection.GetPanelSetOrder(13);
+            Business.XPSDocument.XpsAdditionalTesting template = new Business.XPSDocument.XpsAdditionalTesting(ao, pso);
+            template.CreateXPS();
+
+            //template.CreateNewXPSFromSource(source, destination);
+            //template.SaveToTIF(destination);
 
            //string x1 = @"\\CFileServer\AccessionDocuments\2017\26000-26999\17-26810\17-26810.S.notify.xml";
            // string x2 = @"\\CFileServer\AccessionDocuments\2017\26000-26999\17-26810\17-26810.S.notify.xps";

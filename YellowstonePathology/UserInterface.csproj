@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>450</ApplicationRevision>
+    <ApplicationRevision>453</ApplicationRevision>
     <ApplicationVersion>10.1.7.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -1334,6 +1334,7 @@
     <Compile Include="Business\XPSDocument\Result\Data\PlacentalPathologyQuestionnaireDataV2.cs" />
     <Compile Include="Business\XPSDocument\Result\Xps\AccessionOrderDataSheetV2.cs" />
     <Compile Include="Business\XPSDocument\Result\Xps\ClientSupplyOrderReportV2.cs" />
+    <Compile Include="Business\XPSDocument\XpsAdditionalTesting.cs" />
     <Compile Include="Business\XPSDocument\XpsDetails.cs" />
     <Compile Include="Business\XPSDocument\XPSTemplate.cs" />
     <Compile Include="MySQLMigration\DataRowComparer.cs" />

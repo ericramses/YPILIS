@@ -9,14 +9,22 @@ using System.Windows.Media.Imaging;
 
 namespace YellowstonePathology.Business.XPSDocument
 {
+    public delegate void ReplaceCallBackType(XmlNode node, XmlAttribute attribute);
+
     public class XPSTemplate
-    {
-        string newStringToReplace = "This is a test of the emergency broadcast system.";
+    {        
         List<XpsDetails> xpsImages = new List<XpsDetails>();
         List<XpsDetails> xpsFonts = new List<XpsDetails>();
+        ReplaceCallBackType m_CallBack;
 
-        public bool CreateNewXPSFromSource(string sourceXpsPath, string destinationXpsPath)
+        public XPSTemplate()
         {
+
+        }
+
+        public bool CreateNewXPSFromSource(string sourceXpsPath, string destinationXpsPath, ReplaceCallBackType cb)
+        {
+            this.m_CallBack = cb;
             bool blnResult = false;
 
             try
@@ -27,7 +35,8 @@ namespace YellowstonePathology.Business.XPSDocument
 
                 // Creating the output XPS file.
                 XpsDocument document = new XpsDocument(destinationXpsPath,
-                    FileAccess.ReadWrite, System.IO.Packaging.CompressionOption.Maximum);
+                    FileAccess.ReadWrite, System.IO.Packaging.CompressionOption.NotCompressed);
+                
                 IXpsFixedDocumentSequenceWriter docSeqWriter = document.AddFixedDocumentSequence();
 
                 // Loading the source xps files to list to read them for edit.
@@ -81,7 +90,6 @@ namespace YellowstonePathology.Business.XPSDocument
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-
             }
 
             return blnResult;
@@ -189,10 +197,7 @@ namespace YellowstonePathology.Business.XPSDocument
             return IsFontAdded;
         }
 
-        private void WriteObfuscatedStream(
-            string resourceName,
-            Stream destStream,
-            Stream sourceStream)
+        private void WriteObfuscatedStream(string resourceName, Stream destStream, Stream sourceStream)
         {
             int bufSize = 0x1000;
             int guidByteSize = 16;
@@ -239,9 +244,7 @@ namespace YellowstonePathology.Business.XPSDocument
             //}
         }
 
-        private void WriteToStream(
-            Stream destStream,
-            Stream sourceStream)
+        private void WriteToStream(Stream destStream, Stream sourceStream)
         {
             const int bufSize = 0x1000;
             byte[] buf = new byte[bufSize];
@@ -254,9 +257,7 @@ namespace YellowstonePathology.Business.XPSDocument
 
         }
 
-        private void AddFonts(
-            IXpsFixedPageReader fixedPageReader,
-            IXpsFixedPageWriter pageWriter)
+        private void AddFonts(IXpsFixedPageReader fixedPageReader, IXpsFixedPageWriter pageWriter)
         {
             // Adding font from source to resources.
             foreach (XpsFont font in fixedPageReader.Fonts)
@@ -293,15 +294,9 @@ namespace YellowstonePathology.Business.XPSDocument
 
         private void AddContent(IXpsFixedPageReader fixedPageReader, IXpsFixedPageWriter pageWriter)
         {
-            XmlDocument xmlDoc = new XmlDocument();
-
-            // Loading XPS content.
+            XmlDocument xmlDoc = new XmlDocument();            
             xmlDoc.Load(fixedPageReader.XmlReader);
-
-            // Find and replace text to edit the XPS.
-            EditXPSContent(xmlDoc.ChildNodes);
-
-            // Writing the modified XML content to a new XPS doc.
+            EditXPSContent(xmlDoc.ChildNodes);            
             xmlDoc.Save(pageWriter.XmlWriter);
         }
 
@@ -325,16 +320,7 @@ namespace YellowstonePathology.Business.XPSDocument
                         {
                             if (attribute.Name == "UnicodeString")
                             {
-                                //Compare String and replace.
-                                if (attribute.Value.Contains("additional_testing"))
-                                {
-                                    node.Attributes["UnicodeString"].Value =
-                                    node.Attributes["UnicodeString"].Value.Replace(
-                                    "additional_testing", newStringToReplace);
-                                    //= newStringToReplace;
-
-                                    node.Attributes["Indices"].Value = "";
-                                }
+                                this.m_CallBack(node, attribute);                                                                
                             }
 
                             if (attribute.Name == "FontUri")
@@ -357,7 +343,7 @@ namespace YellowstonePathology.Business.XPSDocument
                     }
                 }
             }
-        }
+        }        
 
         private string GetNewImageUri(string oldUri)
         {

@@ -266,7 +266,7 @@ namespace YellowstonePathology.Business.Document
         public static string GetNotificationDocumentFilePath(YellowstonePathology.Business.OrderIdParser orderIdParser)
         {
             string path = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser);
-            path = path + orderIdParser.ReportNo + ".NOTIFY.XML";
+            path = path + orderIdParser.ReportNo + ".notify.xps";
             return path;
         }
 
