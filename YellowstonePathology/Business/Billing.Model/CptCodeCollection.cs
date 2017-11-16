@@ -124,8 +124,8 @@ namespace YellowstonePathology.Business.Billing.Model
         public static CptCodeCollection FromRedis()
         {
             YellowstonePathology.Business.Billing.Model.CptCodeCollection result = new Model.CptCodeCollection();
-            IServer server = Business.RedisConnection2.Instance.Server;
-            IDatabase db = Business.RedisConnection2.Instance.GetDatabase();
+            IServer server = Business.RedisConnection2.Instance.LocalServer;
+            IDatabase db = Business.RedisConnection2.Instance.GetLocalDatabase();
 
             RedisKey[] keyResult = server.Keys(0,"cpt:*").ToArray<RedisKey>();
             foreach (RedisKey key in keyResult)
