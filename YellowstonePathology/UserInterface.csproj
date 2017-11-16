@@ -102,7 +102,7 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Exchange.WebServices, Version=15.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Program Files\Microsoft\Exchange\Web Services\2.2\Microsoft.Exchange.WebServices.dll</HintPath>
+      <HintPath>..\..\..\..\Program Files\Microsoft\Exchange\Web Services\2.0\Microsoft.Exchange.WebServices.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -1616,7 +1616,6 @@
     <Compile Include="Business\ReportDistribution.Model\TestOrderReportDistributionLogCollection.cs" />
     <Compile Include="Business\ReportDistribution.Model\WebServiceDistribution.cs" />
     <Compile Include="Business\ReportDistribution.Model\WebServiceFaxDistribution.cs" />
-    <Compile Include="Business\ReportDistribution.Model\WHPHoldList.cs" />
     <Compile Include="Business\ReportDistribution.Model\WYDOHDistribution.cs" />
     <Compile Include="Business\ReportNo.cs" />
     <Compile Include="Business\ReportNoCollection.cs" />
