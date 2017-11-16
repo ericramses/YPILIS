@@ -12,8 +12,8 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
             MultiTestDistributionHandler result = null;
             if (accessionOrder.PanelSetOrderCollection.HasWomensHealthProfileOrder() == true)
             {
-                WHPHoldList holdList = new WHPHoldList();
-                if (holdList.Exists(accessionOrder.PhysicianId) == true)
+                YellowstonePathology.Business.Domain.Physician physician = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianByPhysicianId(accessionOrder.PhysicianId);
+                if (physician.HoldForWHP == true)
                 {
                     result = new MultiTestDistributionHandlerWHPHold(accessionOrder);
                 }
