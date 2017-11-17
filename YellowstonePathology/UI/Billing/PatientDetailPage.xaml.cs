@@ -72,6 +72,8 @@ namespace YellowstonePathology.UI.Billing
             {
                 dialog.PrintVisual(doc.GetPage(i).Visual, "Page " + i);
             }
+
+            MessageBox.Show("Your document has been sent to the printer.");
         }
     }
 }
