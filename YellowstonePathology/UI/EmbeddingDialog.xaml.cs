@@ -31,6 +31,7 @@ namespace YellowstonePathology.UI
         private YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort m_BarcodeScanPort;
         private YellowstonePathology.Business.Surgical.ProcessorRunCollection m_ProcessorRunCollection;
         private EmbeddingBreastCaseList m_EmbeddingBreastCaseList;
+        private EmbeddingAutopsyCaseList m_EmbeddingAutopsyCaseList;
         private string m_StatusMessage;
         private string m_ScanCount;
 
@@ -82,6 +83,7 @@ namespace YellowstonePathology.UI
 
                 this.m_EmbeddingNotScannedList = Business.Gateway.AccessionOrderGateway.GetEmbeddingNotScannedCollection(this.GetWorkingAccessionDate());
                 this.m_EmbeddingBreastCaseList = Business.Gateway.AccessionOrderGateway.GetEmbeddingBreastCasesCollection();
+                this.m_EmbeddingAutopsyCaseList = Business.Gateway.AccessionOrderGateway.GetEmbeddingAutopsyCasesCollection();
                 this.CalculateEstimatedFixationDuration();
 
                 this.NotifyPropertyChanged(string.Empty);
@@ -231,6 +233,11 @@ namespace YellowstonePathology.UI
         public YellowstonePathology.UI.EmbeddingBreastCaseList EmbeddingBreastCaseList
         {
             get { return this.m_EmbeddingBreastCaseList; }
+        }
+
+        public YellowstonePathology.UI.EmbeddingAutopsyCaseList EmbeddingAutopsyCaseList
+        {
+            get { return this.m_EmbeddingAutopsyCaseList; }
         }
 
         public YellowstonePathology.Business.Surgical.ProcessorRunCollection ProcessorRunCollection
@@ -387,6 +394,7 @@ namespace YellowstonePathology.UI
             this.m_AliquotOrderHoldCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAliquotOrderHoldCollection();            
             this.m_EmbeddingNotScannedList = Business.Gateway.AccessionOrderGateway.GetEmbeddingNotScannedCollection(this.GetWorkingAccessionDate());
             this.m_EmbeddingBreastCaseList = Business.Gateway.AccessionOrderGateway.GetEmbeddingBreastCasesCollection();
+            this.m_EmbeddingAutopsyCaseList = Business.Gateway.AccessionOrderGateway.GetEmbeddingAutopsyCasesCollection();
             this.CalculateEstimatedFixationDuration();
 
             this.NotifyPropertyChanged(string.Empty);

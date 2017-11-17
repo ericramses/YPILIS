@@ -128,6 +128,38 @@ namespace YellowstonePathology.Business.Gateway
             return result;
         }
 
+        public static YellowstonePathology.UI.EmbeddingAutopsyCaseList GetEmbeddingAutopsyCasesCollection()
+        {
+            YellowstonePathology.UI.EmbeddingAutopsyCaseList result = new UI.EmbeddingAutopsyCaseList();
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "select ao.MasterAccessionNo, ao.PFirstName, ao.PLastName, so.CollectionDate, so.ProcessorRun, " +
+                "so.FixationStartTime, so.FixationEndTime, FixationDuration, so.Description " +
+                "from tblAccessionOrder ao " +
+                "join tblSpecimenOrder so on ao.MasterAccessionNo = so.MasterAccessionNo " +
+                "join tblPanelSetOrder pso on ao.MasterAccessionNo = pso.MasterAccessionNo " +
+                "where pso.PanelSetId = 35 " +
+                "and ao.AccessionDate >= date_add(now(), interval -360 day) and so.ClientAccessioned = 0 " +
+                "order by ao.AccessionTime desc;";
+            cmd.CommandType = CommandType.Text;
+
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.UI.EmbeddingAutopsyCaseListItem item = new UI.EmbeddingAutopsyCaseListItem();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(item, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(item);
+                    }
+                }
+            }
+            return result;
+        }
+
         public static YellowstonePathology.UI.EmbeddingNotScannedList GetEmbeddingNotScannedCollection(DateTime accessionDate)
         {
             YellowstonePathology.UI.EmbeddingNotScannedList result = new UI.EmbeddingNotScannedList();

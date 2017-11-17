@@ -3306,6 +3306,8 @@
     <Compile Include="UI\BrowserWindow.xaml.cs">
       <DependentUpon>BrowserWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\EmbeddingAutopsyCaseList.cs" />
+    <Compile Include="UI\EmbeddingAutopsyCaseListItem.cs" />
     <Compile Include="UI\Monitor\DashboardPage.xaml.cs">
       <DependentUpon>DashboardPage.xaml</DependentUpon>
     </Compile>
