@@ -31,7 +31,7 @@ namespace YellowstonePathology.UI
         private YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort m_BarcodeScanPort;
         private YellowstonePathology.Business.Surgical.ProcessorRunCollection m_ProcessorRunCollection;
         private EmbeddingBreastCaseList m_EmbeddingBreastCaseList;
-        private EmbeddingAutopsyCaseList m_EmbeddingAutopsyCaseList;
+        private EmbeddingAutopsyList m_EmbeddingAutopsyList;
         private string m_StatusMessage;
         private string m_ScanCount;
 
@@ -48,7 +48,7 @@ namespace YellowstonePathology.UI
             this.m_EmbeddingScanCollection = Business.BarcodeScanning.EmbeddingScanCollection.GetByScanDate(this.m_WorkDate);                       
             
             this.m_StatusMessage = "Status: OK";
-            this.m_ScanCount = "Block Count: " + this.m_EmbeddingScanCollection.Count.ToString();            
+            this.m_ScanCount = "Block Count: " + this.m_EmbeddingScanCollection.Count.ToString();
 
             InitializeComponent();
 
@@ -83,7 +83,7 @@ namespace YellowstonePathology.UI
 
                 this.m_EmbeddingNotScannedList = Business.Gateway.AccessionOrderGateway.GetEmbeddingNotScannedCollection(this.GetWorkingAccessionDate());
                 this.m_EmbeddingBreastCaseList = Business.Gateway.AccessionOrderGateway.GetEmbeddingBreastCasesCollection();
-                this.m_EmbeddingAutopsyCaseList = Business.Gateway.AccessionOrderGateway.GetEmbeddingAutopsyCasesCollection();
+                this.m_EmbeddingAutopsyList = Business.Gateway.AccessionOrderGateway.GetEmbeddingAutopsyUnverifiedList();
                 this.CalculateEstimatedFixationDuration();
 
                 this.NotifyPropertyChanged(string.Empty);
@@ -235,9 +235,9 @@ namespace YellowstonePathology.UI
             get { return this.m_EmbeddingBreastCaseList; }
         }
 
-        public YellowstonePathology.UI.EmbeddingAutopsyCaseList EmbeddingAutopsyCaseList
+        public EmbeddingAutopsyList EmbeddingAutopsyList
         {
-            get { return this.m_EmbeddingAutopsyCaseList; }
+            get { return this.m_EmbeddingAutopsyList; }
         }
 
         public YellowstonePathology.Business.Surgical.ProcessorRunCollection ProcessorRunCollection
@@ -394,10 +394,20 @@ namespace YellowstonePathology.UI
             this.m_AliquotOrderHoldCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAliquotOrderHoldCollection();            
             this.m_EmbeddingNotScannedList = Business.Gateway.AccessionOrderGateway.GetEmbeddingNotScannedCollection(this.GetWorkingAccessionDate());
             this.m_EmbeddingBreastCaseList = Business.Gateway.AccessionOrderGateway.GetEmbeddingBreastCasesCollection();
-            this.m_EmbeddingAutopsyCaseList = Business.Gateway.AccessionOrderGateway.GetEmbeddingAutopsyCasesCollection();
+            this.m_EmbeddingAutopsyList = Business.Gateway.AccessionOrderGateway.GetEmbeddingAutopsyUnverifiedList();
             this.CalculateEstimatedFixationDuration();
 
             this.NotifyPropertyChanged(string.Empty);
+        }
+
+        private void ContextMenuAutopsyManualScan_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.ListViewAutopsyScans.SelectedItem != null)
+            {
+                EmbeddingAutopsyItem item = (EmbeddingAutopsyItem)this.ListViewAutopsyScans.SelectedItem;
+                this.RecieveScan(item.AliquotOrderId);
+                this.NotifyPropertyChanged("EmbeddingAutopsyList");
+            }
         }
     }
 }
