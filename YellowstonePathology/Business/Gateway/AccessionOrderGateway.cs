@@ -128,18 +128,15 @@ namespace YellowstonePathology.Business.Gateway
             return result;
         }
 
-        public static YellowstonePathology.UI.EmbeddingAutopsyCaseList GetEmbeddingAutopsyCasesCollection()
+        public static List<string> GetEmbeddingAutopsyAliquotIdList()
         {
-            YellowstonePathology.UI.EmbeddingAutopsyCaseList result = new UI.EmbeddingAutopsyCaseList();
+            List<string> result = new List<string>();
             MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "select ao.MasterAccessionNo, ao.PFirstName, ao.PLastName, so.CollectionDate, so.ProcessorRun, " +
-                "so.FixationStartTime, so.FixationEndTime, FixationDuration, so.Description " +
-                "from tblAccessionOrder ao " +
-                "join tblSpecimenOrder so on ao.MasterAccessionNo = so.MasterAccessionNo " +
-                "join tblPanelSetOrder pso on ao.MasterAccessionNo = pso.MasterAccessionNo " +
-                "where pso.PanelSetId = 35 " +
-                "and ao.AccessionDate >= date_add(now(), interval -360 day) and so.ClientAccessioned = 0 " +
-                "order by ao.AccessionTime desc;";
+            cmd.CommandText = "Select ao.AliquotOrderId from tblAliquotOrder ao join tblSpecimenOrder so on ao.SpecimenOrderId = so.SpecimenOrderId " +
+                "join tblAccessionOrder a on so.MasterAccessionNo = a.MasterAccessionNo " +
+                "join tblPanelSetOrder pso on a.MasterAccessionNo = pso.MasterAccessionNo " +
+                "where a.clientId = 1520  and so.ClientAccessioned = 0  and pso.PanelSetId = 31 " +
+                "and a.AccessionDate >= date_add(now(), interval - 30 day)  order by 1; ";
             cmd.CommandType = CommandType.Text;
 
             using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
@@ -150,10 +147,7 @@ namespace YellowstonePathology.Business.Gateway
                 {
                     while (dr.Read())
                     {
-                        YellowstonePathology.UI.EmbeddingAutopsyCaseListItem item = new UI.EmbeddingAutopsyCaseListItem();
-                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(item, dr);
-                        sqlDataReaderPropertyWriter.WriteProperties();
-                        result.Add(item);
+                        result.Add(dr[0].ToString());
                     }
                 }
             }
