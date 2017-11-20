@@ -50,8 +50,6 @@ namespace YellowstonePathology.UI
             this.m_StatusMessage = "Status: OK";
             this.m_ScanCount = "Block Count: " + this.m_EmbeddingScanCollection.Count.ToString();
 
-            this.m_EmbeddingAutopsyList = new UI.EmbeddingAutopsyList();
-
             InitializeComponent();
 
             
@@ -85,7 +83,7 @@ namespace YellowstonePathology.UI
 
                 this.m_EmbeddingNotScannedList = Business.Gateway.AccessionOrderGateway.GetEmbeddingNotScannedCollection(this.GetWorkingAccessionDate());
                 this.m_EmbeddingBreastCaseList = Business.Gateway.AccessionOrderGateway.GetEmbeddingBreastCasesCollection();
-                this.m_EmbeddingAutopsyList.FillList();
+                this.m_EmbeddingAutopsyList = Business.Gateway.AccessionOrderGateway.GetEmbeddingAutopsyUnverifiedList();
                 this.CalculateEstimatedFixationDuration();
 
                 this.NotifyPropertyChanged(string.Empty);
@@ -396,10 +394,20 @@ namespace YellowstonePathology.UI
             this.m_AliquotOrderHoldCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAliquotOrderHoldCollection();            
             this.m_EmbeddingNotScannedList = Business.Gateway.AccessionOrderGateway.GetEmbeddingNotScannedCollection(this.GetWorkingAccessionDate());
             this.m_EmbeddingBreastCaseList = Business.Gateway.AccessionOrderGateway.GetEmbeddingBreastCasesCollection();
-            this.m_EmbeddingAutopsyList.FillList();
+            this.m_EmbeddingAutopsyList = Business.Gateway.AccessionOrderGateway.GetEmbeddingAutopsyUnverifiedList();
             this.CalculateEstimatedFixationDuration();
 
             this.NotifyPropertyChanged(string.Empty);
+        }
+
+        private void ContextMenuAutopsyManualScan_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.ListViewAutopsyScans.SelectedItem != null)
+            {
+                EmbeddingAutopsyItem item = (EmbeddingAutopsyItem)this.ListViewAutopsyScans.SelectedItem;
+                this.RecieveScan(item.AliquotOrderId);
+                this.NotifyPropertyChanged("EmbeddingAutopsyList");
+            }
         }
     }
 }

@@ -108,16 +108,20 @@
                 </ListView>
             </TabItem>
 
-            <TabItem Header="Autopsy Cases">
-                <ListView Name="ListViewAutopsyScans" Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" ItemsSource="{Binding Path=EmbeddingAutopsyList}">
+            <TabItem Header="Unverified Autopsy Blocks">
+                <ListView Name="ListViewAutopsyScans" Grid.Column="0" Grid.Row="1" Margin="10,6,-6,-1.6" ItemsSource="{Binding Path=EmbeddingAutopsyList}">
+                    <ListView.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Tag="{Binding}" Header="Manual Scan" Click="ContextMenuAutopsyManualScan_Click"></MenuItem>
+                        </ContextMenu>
+                    </ListView.ContextMenu>
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Block" Width="100" DisplayMemberBinding="{Binding Path=AliquotOrderId}" />
-                            <GridViewColumn Header="Scanned" Width="130" DisplayMemberBinding="{Binding Path=DateScanned, Converter={StaticResource MilitaryDateTimeConverter}}" />
-                            <GridViewColumn Header="Started" Width="200" DisplayMemberBinding="{Binding Path=ProcessorStartTime, Converter={StaticResource MilitaryDateTimeConverter}}" />
-                            <GridViewColumn Header="Duration" Width="150" DisplayMemberBinding="{Binding Path=ProcessorFixationDuration}" />
-                            <GridViewColumn Header="By" Width="150" DisplayMemberBinding="{Binding Path=ScannedBy}" />
-                            <GridViewColumn Header="By" Width="150" DisplayMemberBinding="{Binding Path=Updated}" />
+                            <GridViewColumn Header="First" Width="130" DisplayMemberBinding="{Binding Path=PFirstName}" />
+                            <GridViewColumn Header="Last" Width="130" DisplayMemberBinding="{Binding Path=PLastName}" />
+                            <GridViewColumn Header="Accession Time" Width="130" DisplayMemberBinding="{Binding Path=AccessionTime, Converter={StaticResource MilitaryDateTimeConverter} }" />
+                            <GridViewColumn Header="Description" Width="230" DisplayMemberBinding="{Binding Path=Description}" />
                         </GridView>
                     </ListView.View>
                 </ListView>

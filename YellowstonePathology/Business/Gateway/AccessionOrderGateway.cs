@@ -128,15 +128,16 @@ namespace YellowstonePathology.Business.Gateway
             return result;
         }
 
-        public static List<string> GetEmbeddingAutopsyAliquotIdList()
+        public static UI.EmbeddingAutopsyList GetEmbeddingAutopsyUnverifiedList()
         {
-            List<string> result = new List<string>();
+            UI.EmbeddingAutopsyList result = new UI.EmbeddingAutopsyList();
             MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "Select ao.AliquotOrderId from tblAliquotOrder ao join tblSpecimenOrder so on ao.SpecimenOrderId = so.SpecimenOrderId " +
+            cmd.CommandText = "Select ao.AliquotOrderId, a.PFirstName, a.PlastName, a.AccessionTime, so.Description " +
+                "from tblAliquotOrder ao join tblSpecimenOrder so on ao.SpecimenOrderId = so.SpecimenOrderId " +
                 "join tblAccessionOrder a on so.MasterAccessionNo = a.MasterAccessionNo " +
                 "join tblPanelSetOrder pso on a.MasterAccessionNo = pso.MasterAccessionNo " +
                 "where a.clientId = 1520  and so.ClientAccessioned = 0  and pso.PanelSetId = 31 " +
-                "and a.AccessionDate >= date_add(now(), interval - 30 day)  order by 1; ";
+                "and ao.EmbeddingVerified = 0 order by a.AccessionTime, ao.AliquotOrderId; ";
             cmd.CommandType = CommandType.Text;
 
             using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
@@ -147,7 +148,10 @@ namespace YellowstonePathology.Business.Gateway
                 {
                     while (dr.Read())
                     {
-                        result.Add(dr[0].ToString());
+                        UI.EmbeddingAutopsyItem item = new UI.EmbeddingAutopsyItem();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(item, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(item);
                     }
                 }
             }

@@ -1,88 +1,55 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using YellowstonePathology.Business.Persistence;
+
 
 namespace YellowstonePathology.UI
 {
     public class EmbeddingAutopsyItem
     {
         private string m_AliquotOrderId;
-        private Nullable<DateTime> m_ProcessorStartTime;
-        private Nullable<TimeSpan> m_ProcessorFixationDuration;
-        private DateTime? m_DateScanned;
-        private string m_ScannedBy;
-        private int? m_ScannedById;
-        private bool m_Updated;
+        private string m_PFirstName;
+        private string m_PLastName;
+        private DateTime m_AccessionTime;
+        private string m_Description;
 
         public EmbeddingAutopsyItem()
         {
 
         }
 
-        public EmbeddingAutopsyItem(string aliquotOrderId)
-        {
-            this.m_AliquotOrderId = aliquotOrderId;
-        }
-
-        public EmbeddingAutopsyItem(string aliquotOrderId,
-            Nullable<DateTime> processorStartTime,
-            Nullable<TimeSpan> processorFixationDuration,
-            DateTime? dateScanned,
-            string scannedBy,
-            int? scannedById,
-            bool updated)
-        {
-            this.m_AliquotOrderId = aliquotOrderId;
-            this.m_ProcessorStartTime = processorStartTime;
-            this.m_ProcessorFixationDuration = processorFixationDuration;
-            this.m_DateScanned = dateScanned;
-            this.m_ScannedBy = scannedBy;
-            this.m_ScannedById = scannedById;
-            this.m_Updated = updated;
-        }
-
+        [PersistentProperty()]
         public string AliquotOrderId
         {
             get { return this.m_AliquotOrderId; }
+            set { this.m_AliquotOrderId = value; }
         }
 
-        public string ScannedBy
+        [PersistentProperty()]
+        public string PFirstName
         {
-            get { return this.m_ScannedBy; }
+            get { return this.m_PFirstName; }
+            set { this.m_PFirstName = value; }
         }
 
-        public int? ScannedById
+        [PersistentProperty()]
+        public string PLastName
         {
-            get { return this.m_ScannedById; }
+            get { return this.m_PLastName; }
+            set { this.m_PLastName = value; }
         }
 
-        public DateTime? DateScanned
+        [PersistentProperty()]
+        public DateTime AccessionTime
         {
-            get { return this.m_DateScanned; }
+            get { return this.m_AccessionTime; }
+            set { this.m_AccessionTime = value; }
         }
 
-        public Nullable<DateTime> ProcessorStartTime
+        [PersistentProperty()]
+        public string Description
         {
-            get { return this.m_ProcessorStartTime; }
-        }
-
-        public Nullable<TimeSpan> ProcessorFixationDuration
-        {
-            get { return this.m_ProcessorFixationDuration; }
-        }
-
-        public bool Updated
-        {
-            get { return this.m_Updated; }
-            set
-            {
-                if (this.m_Updated != value)
-                {
-                    this.m_Updated = true;
-                }
-            }
+            get { return this.m_Description; }
+            set { this.m_Description = value; }
         }
     }
 }
