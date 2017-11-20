@@ -132,7 +132,7 @@ namespace YellowstonePathology.Business.Gateway
         {
             UI.EmbeddingAutopsyList result = new UI.EmbeddingAutopsyList();
             MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "Select ao.AliquotOrderId, a.PFirstName, a.PlastName, a.AccessionTime, so.Description " +
+            cmd.CommandText = "Select ao.AliquotOrderId, a.PFirstName, a.PLastName, a.AccessionTime, so.Description " +
                 "from tblAliquotOrder ao join tblSpecimenOrder so on ao.SpecimenOrderId = so.SpecimenOrderId " +
                 "join tblAccessionOrder a on so.MasterAccessionNo = a.MasterAccessionNo " +
                 "join tblPanelSetOrder pso on a.MasterAccessionNo = pso.MasterAccessionNo " +
