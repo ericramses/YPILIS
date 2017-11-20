@@ -108,7 +108,7 @@
                 </ListView>
             </TabItem>
 
-            <TabItem Header="Unverified Autopsy Blocks">
+            <TabItem Header="Autopsies">
                 <ListView Name="ListViewAutopsyScans" Grid.Column="0" Grid.Row="1" Margin="10,6,-6,-1.6" ItemsSource="{Binding Path=EmbeddingAutopsyList}">
                     <ListView.ContextMenu>
                         <ContextMenu>

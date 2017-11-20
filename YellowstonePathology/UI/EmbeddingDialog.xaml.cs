@@ -402,11 +402,9 @@ namespace YellowstonePathology.UI
 
         private void ContextMenuAutopsyManualScan_Click(object sender, RoutedEventArgs e)
         {
-            if (this.ListViewAutopsyScans.SelectedItem != null)
+            foreach(EmbeddingAutopsyItem item in this.ListViewAutopsyScans.SelectedItems)
             {
-                EmbeddingAutopsyItem item = (EmbeddingAutopsyItem)this.ListViewAutopsyScans.SelectedItem;
                 this.RecieveScan(item.AliquotOrderId);
-                this.NotifyPropertyChanged("EmbeddingAutopsyList");
             }
         }
     }
