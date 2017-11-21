@@ -22,17 +22,20 @@ namespace YellowstonePathology.UI
         public delegate void AcceptEventHandler(object sender, EventArgs e);
         public event AcceptEventHandler Accept;
 
+        private bool m_AddingVentanaBenchMark;
+
         private Business.Surgical.VentanaBenchMark m_VentanaBenchMark;
         public VentanaStainEditDialog(int barcodeNumber)
         {
             this.m_VentanaBenchMark = Business.Persistence.DocumentGateway.Instance.PullVentanaBenchMark(barcodeNumber, this);
+            this.m_AddingVentanaBenchMark = false;
             InitializeComponent();
             DataContext = this;
-            this.ButtonAdd.Visibility = Visibility.Collapsed;
         }
         public VentanaStainEditDialog()
         {
             this.m_VentanaBenchMark = new Business.Surgical.VentanaBenchMark();
+            this.m_AddingVentanaBenchMark = true;
             InitializeComponent();
             DataContext = this;
         }
@@ -45,22 +48,20 @@ namespace YellowstonePathology.UI
 
         private void ButtonClose_Click(object sender, RoutedEventArgs e)
         {
-                Business.Persistence.DocumentGateway.Instance.Push(this);
-                this.Accept(this, new EventArgs());
-                Close();
-        }
-
-        private void ButtonAdd_Click(object sender, RoutedEventArgs e)
-        {
             YellowstonePathology.Business.Rules.MethodResult methodResult = this.CanSave();
             if (methodResult.Success == true)
             {
-                if (this.ButtonAdd.Content.ToString() == "Add")
+                if (this.m_AddingVentanaBenchMark == true)
                 {
                     YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(this.m_VentanaBenchMark, this);
-                    this.Accept(this, new EventArgs());
-                    Close();
                 }
+                else
+                {
+                    Business.Persistence.DocumentGateway.Instance.Push(this);
+                }
+
+                this.Accept(this, new EventArgs());
+                Close();
             }
             else
             {
