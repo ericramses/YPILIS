@@ -37,12 +37,9 @@ namespace YellowstonePathology.Business.Billing.Model
             YellowstonePathology.Business.PanelSet.Model.PanelSetCollection panelSetCollection = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetAll();
             YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet = panelSetCollection.GetPanelSet(panelSetOrder.PanelSetId);
 
-            if (panelSet is YellowstonePathology.Business.Test.TechnicalOnly.TechnicalOnlyTest == true)
+            if (panelSet is YellowstonePathology.Business.Test.AutopsyTechnicalOnly.AutopsyTechnicalOnlyTest == true)
             {
-                if(accessionOrder.ClientId == 1520) //Montana Department of Justice Forensic Science Division
-                {
-                    result = true;
-                }
+                result = true;
             }
             return result;
         }
