@@ -1179,6 +1179,7 @@
     <Compile Include="Business\Test\AMLStandardByFish\AMLStandardByFishWPHOBXView.cs" />
     <Compile Include="Business\Test\AmyloidProteinIDParLCMS\AmyloidProteinIDParLCMSTest.cs" />
     <Compile Include="Business\Test\ATRXIHC\ATRXIHCTest.cs" />
+    <Compile Include="Business\Test\AutopsyTechnicalOnly\AutopsyTechnicalOnlyTest.cs" />
     <Compile Include="Business\Test\BartonellaSpeciesByPCR\BartonellaSpeciesByPCRTest.cs" />
     <Compile Include="Business\Test\BCellMemoryNaivePanel\BCellMemoryNaivePanelTest.cs" />
     <Compile Include="Business\Test\BCellSubsetAnalysis\BCellSubsetAnalysisEPICOBXView.cs" />
