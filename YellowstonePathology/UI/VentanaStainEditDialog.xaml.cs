@@ -27,8 +27,8 @@ namespace YellowstonePathology.UI
         {
             this.m_VentanaBenchMark = Business.Persistence.DocumentGateway.Instance.PullVentanaBenchMark(barcodeNumber, this);
             InitializeComponent();
-            this.ButtonAdd.Content = "Save";
             DataContext = this;
+            this.ButtonAdd.Visibility = Visibility.Collapsed;
         }
         public VentanaStainEditDialog()
         {
@@ -58,6 +58,8 @@ namespace YellowstonePathology.UI
                 if (this.ButtonAdd.Content.ToString() == "Add")
                 {
                     YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(this.m_VentanaBenchMark, this);
+                    this.Accept(this, new EventArgs());
+                    Close();
                 }
             }
             else
