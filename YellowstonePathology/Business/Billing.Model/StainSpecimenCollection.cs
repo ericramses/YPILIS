@@ -60,10 +60,12 @@ namespace YellowstonePathology.Business.Billing.Model
             {
                 if (stainSpecimen is SurgicalStainSpecimen)
                 {
-                    SurgicalStainSpecimen surgicalStainSpecimen = (SurgicalStainSpecimen)stainSpecimen;
-                    result = result + surgicalStainSpecimen.GetBillableGradedISHCount();
+                    SurgicalStainSpecimen surgicalStainSpecimen = (SurgicalStainSpecimen)stainSpecimen;                    
+                    result = result + surgicalStainSpecimen.GetBillableISHCount();
                 }
             }
+
+            if (result > 1) result = result - 1;
             return result;
         }
 
@@ -78,6 +80,8 @@ namespace YellowstonePathology.Business.Billing.Model
                     result = result + surgicalStainSpecimen.GetBillableISHCount();
                 }                
             }
+
+            if (result > 1) result = 1;
             return result;
         }
 

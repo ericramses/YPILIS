@@ -135,12 +135,8 @@ namespace YellowstonePathology.Business.Billing.Model
                 if (testOrder.NoCharge == false)
                 {
                     if (testOrder.TestId == "360" || testOrder.TestId == "361") //Kappa and Lambda by ISH
-                    {
-                        Business.SpecialStain.StainResultItem stainResult = this.m_StainResultCollection.GetStainResult(testOrder.TestOrderId);
-                        if (stainResult.IsGraded == false)
-                        {
-                            result += 1;
-                        }
+                    {                        
+                        result += 1;                     
                     }
                 }
             }

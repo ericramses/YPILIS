@@ -159,6 +159,10 @@ namespace YellowstonePathology.Business.Test.Model
 
         public YellowstonePathology.Business.Test.Model.TestOrderCollection GetBillableSinglePlexIHCTestOrders()
         {
+            List<string> exclusions = new List<string>();
+            exclusions.Add("360"); //Kappa ISH
+            exclusions.Add("361"); //Lambda ISH
+
             YellowstonePathology.Business.Test.Model.TestOrderCollection result = new TestOrderCollection();
             YellowstonePathology.Business.Test.Model.TestCollection ihcTestCollection = YellowstonePathology.Business.Test.Model.TestCollection.GetIHCTests();
 
@@ -168,10 +172,13 @@ namespace YellowstonePathology.Business.Test.Model
                 {
                     if (testOrder.NoCharge == false)
                     {
-                        if (ihcTestCollection.Exists(testOrder.TestId) == true)
+                        if(!exclusions.Contains(testOrder.TestId))
                         {
-                            result.Add(testOrder);                            
-                        }
+                            if (ihcTestCollection.Exists(testOrder.TestId) == true)
+                            {
+                                result.Add(testOrder);
+                            }
+                        }                        
                     }
                 }                
             }
