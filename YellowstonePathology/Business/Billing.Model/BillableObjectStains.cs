@@ -75,7 +75,7 @@ namespace YellowstonePathology.Business.Billing.Model
 
         public void Post88360(YellowstonePathology.Business.Billing.Model.BillingComponentEnum billingComponent, string billTo, string billBy)
         {            
-            YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88360 cpt88360 = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88360();
+            YellowstonePathology.Business.Billing.Model.CptCode cpt88360 = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("cpt:88360");
             string modifier = cpt88360.GetModifier(billingComponent);
             int cpt88360Count = this.m_StainSpecimenCollection.GetBillable88360Count() - this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.GetBilledCount(cpt88360.Code, modifier);
             if (cpt88360Count > 0)
@@ -94,7 +94,7 @@ namespace YellowstonePathology.Business.Billing.Model
 
         public void Post88313(YellowstonePathology.Business.Billing.Model.BillingComponentEnum billingComponent, string billTo, string billBy)
         {
-            YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88313 cpt88313 = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88313();
+            YellowstonePathology.Business.Billing.Model.CptCode cpt88313 = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("cpt:88313");
             string modifier = cpt88313.GetModifier(billingComponent);
             int cpt88313Count = this.m_StainSpecimenCollection.GetBillable88313Count() - this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.GetBilledCount(cpt88313.Code, modifier);
             if (cpt88313Count > 0)
@@ -113,7 +113,7 @@ namespace YellowstonePathology.Business.Billing.Model
 
         public void Post88312(YellowstonePathology.Business.Billing.Model.BillingComponentEnum billingComponent, string billTo, string billBy)
         {
-            YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88312 cpt88312 = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88312();
+            YellowstonePathology.Business.Billing.Model.CptCode cpt88312 = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("cpt:88312");
             string modifier = cpt88312.GetModifier(billingComponent);
             int cpt88312Count = this.m_StainSpecimenCollection.GetBillable88312Count() - this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.GetBilledCount(cpt88312.Code, modifier);
             if (cpt88312Count > 0)
@@ -132,7 +132,7 @@ namespace YellowstonePathology.Business.Billing.Model
 
         public void Post88344(YellowstonePathology.Business.Billing.Model.BillingComponentEnum billingComponent, string billTo, string billBy)
         {
-            YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88344 cpt88344 = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88344();
+            YellowstonePathology.Business.Billing.Model.CptCode cpt88344 = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("cpt:88344");
             string modifier = cpt88344.GetModifier(billingComponent);
             int cpt88344Count = this.m_StainSpecimenCollection.GetBillable88344Count() - this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.GetBilledCount(cpt88344.Code, modifier);
 
@@ -152,7 +152,7 @@ namespace YellowstonePathology.Business.Billing.Model
 
         public void Post88342(YellowstonePathology.Business.Billing.Model.BillingComponentEnum billingComponent, string billTo, string billBy)
         {
-            YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88342 cpt88342 = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88342();
+            YellowstonePathology.Business.Billing.Model.CptCode cpt88342 = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("cpt:88342");
             string modifier = cpt88342.GetModifier(billingComponent);
             int cpt88342Count = this.m_StainSpecimenCollection.GetBillable88342Count() - this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.GetBilledCount(cpt88342.Code, modifier);
             
@@ -172,7 +172,7 @@ namespace YellowstonePathology.Business.Billing.Model
 
         public void Post88341(YellowstonePathology.Business.Billing.Model.BillingComponentEnum billingComponent, string billTo, string billBy)
         {
-            YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88341 cpt88341 = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88341();
+            YellowstonePathology.Business.Billing.Model.CptCode cpt88341 = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("cpt:88341");
             string modifier = cpt88341.GetModifier(billingComponent);
             int cpt88341Count = this.m_StainSpecimenCollection.GetBillable88341Count() - this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.GetBilledCount(cpt88341.Code, modifier);            
 
@@ -196,7 +196,7 @@ namespace YellowstonePathology.Business.Billing.Model
             {
                 if (this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.Exists("3395F") == false)
                 {
-                    YellowstonePathology.Business.Billing.Model.PQRSCodeDefinitions.PQRS3395F pqrs3395F = new YellowstonePathology.Business.Billing.Model.PQRSCodeDefinitions.PQRS3395F();
+                    YellowstonePathology.Business.Billing.Model.PQRSCode pqrs3395F = (PQRSCode)Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("pqrs:3395F");
                     YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill = this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.GetNextItem(this.m_PanelSetOrder.ReportNo);
                     panelSetOrderCPTCodeBill.ClientId = this.m_AccessionOrder.ClientId;
                     panelSetOrderCPTCodeBill.BillTo = null;
@@ -285,7 +285,7 @@ namespace YellowstonePathology.Business.Billing.Model
             {
                 if (this.m_AccessionOrder.PrimaryInsurance == "Medicare")
                 {
-                    YellowstonePathology.Business.Billing.Model.PQRSCodeDefinitions.PQRS3395F pqrs3395 = new YellowstonePathology.Business.Billing.Model.PQRSCodeDefinitions.PQRS3395F();
+                    YellowstonePathology.Business.Billing.Model.PQRSCode pqrs3395 = (PQRSCode)Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("pqrs:3395F");
                     YellowstonePathology.Business.Test.PanelSetOrderCPTCode panelSetOrderCPTCode = this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.GetNextItem(this.m_PanelSetOrder.ReportNo);                    
                     panelSetOrderCPTCode.Quantity = 1;
                     panelSetOrderCPTCode.CPTCode = pqrs3395.Code;
@@ -301,7 +301,7 @@ namespace YellowstonePathology.Business.Billing.Model
 
         public void Post88365(YellowstonePathology.Business.Billing.Model.BillingComponentEnum billingComponent, string billTo, string billBy)
         {
-            YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88365 cpt88365 = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88365();
+            YellowstonePathology.Business.Billing.Model.CptCode cpt88365 = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("cpt:88365");
             string modifier = cpt88365.GetModifier(billingComponent);            
 
             int cpt88365Count = this.m_StainSpecimenCollection.GetBillable88365Count() - this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.GetBilledCount(cpt88365.Code, modifier);
@@ -321,7 +321,7 @@ namespace YellowstonePathology.Business.Billing.Model
 
         public void Post88364(YellowstonePathology.Business.Billing.Model.BillingComponentEnum billingComponent, string billTo, string billBy)
         {
-            YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88364 cpt88364 = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88364();
+            YellowstonePathology.Business.Billing.Model.CptCode cpt88364 = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("cpt:88364");
             string modifier = cpt88364.GetModifier(billingComponent);
 
             int cpt88364Count = this.m_StainSpecimenCollection.GetBillable88364Count() - this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.GetBilledCount(cpt88364.Code, modifier);

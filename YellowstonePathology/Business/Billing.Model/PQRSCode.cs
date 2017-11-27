@@ -9,7 +9,8 @@ namespace YellowstonePathology.Business.Billing.Model
     public class PQRSCode : CptCode
     {
         protected string m_ReportingDefinition;
-		protected string m_Header;
+        protected string m_FormattedReportingDefinition;
+        protected string m_Header;
 
         public PQRSCode()
         {
@@ -34,12 +35,14 @@ namespace YellowstonePathology.Business.Billing.Model
 		{
 			get
 			{
-				StringBuilder result = new StringBuilder(this.m_Code);
+                return this.m_FormattedReportingDefinition;
+				/*StringBuilder result = new StringBuilder(this.m_Code);
 				if (this.m_Modifier != null) result.Append("-" + this.m_Modifier);
 				result.Append(":  ");
 				result.Append(this.m_ReportingDefinition);
-				return result.ToString();
+				return result.ToString();*/
 			}
+            set { this.m_FormattedReportingDefinition = value; }
 		}
 
         public override string GetModifier(BillingComponentEnum billingComponent)

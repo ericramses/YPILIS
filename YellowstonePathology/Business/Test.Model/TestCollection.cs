@@ -3,11 +3,32 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using Newtonsoft.Json.Linq;
+using StackExchange.Redis;
 
 namespace YellowstonePathology.Business.Test.Model
 {
 	public class TestCollection : ObservableCollection<Test>
     {
+        private static volatile TestCollection instance;
+        private static object syncRoot = new Object();
+
+        public static TestCollection Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    lock (syncRoot)
+                    {
+                        if (instance == null)
+                            instance = FromRedis();
+                    }
+                }
+
+                return instance;
+            }
+        }
         public TestCollection()
         {
 
@@ -33,6 +54,20 @@ namespace YellowstonePathology.Business.Test.Model
 			foreach (Test test in this)
             {
                 if (test.TestId == testId)
+                {
+                    result = test;
+                    break;
+                }
+            }
+            return result;
+        }
+
+        public Test GetTestByTestNameId(string testNameId)
+        {
+            Test result = null;
+            foreach (Test test in this)
+            {
+                if (test.TestNameId == testNameId)
                 {
                     result = test;
                     break;
@@ -375,6 +410,46 @@ namespace YellowstonePathology.Business.Test.Model
                     result.Add(test);
                 }
             }
+            return result;
+        }
+
+        /*public string ToJSON()
+        {
+            string result = Newtonsoft.Json.JsonConvert.SerializeObject(this, Newtonsoft.Json.Formatting.Indented, new Newtonsoft.Json.JsonSerializerSettings
+            {
+                TypeNameHandling = Newtonsoft.Json.TypeNameHandling.All,
+                ObjectCreationHandling = Newtonsoft.Json.ObjectCreationHandling.Replace,
+                ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver()
+            });
+
+            return result;
+        }*/
+
+        private static TestCollection FromRedis()
+        {
+            YellowstonePathology.Business.Test.Model.TestCollection result = new TestCollection();
+            IDatabase db = Business.RedisConnection2.Instance.GetDatabase();
+
+            RedisResult redisResult = db.Execute("json.get", new object[] { "tests" });
+            if (redisResult.IsNull == true)
+            {
+                string jsonString = string.Empty;
+                System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+                using (System.IO.StreamReader sr = new System.IO.StreamReader(assembly.GetManifestResourceStream("YellowstonePathology.Business.Test.Model.TestDefinition.json")))
+                {
+                    jsonString = sr.ReadToEnd();
+                }
+                db.Execute("json.set", new object[] { "cptcodes", ".", jsonString });
+                redisResult = db.Execute("json.get", new object[] { "cptcodes" });
+            }
+
+            JArray jsonCptCodes = JArray.Parse((string)redisResult);
+            foreach (JObject jObject in jsonCptCodes.Children<JObject>())
+            {
+                Test test = JsonTestFactory.FromJson(jObject);
+                result.Add(test);
+            }
+
             return result;
         }
     }

@@ -776,13 +776,12 @@ namespace YellowstonePathology.UI
 
         private void CreateCPTCodeTypeListForSQL()
         {
-            YellowstonePathology.Business.Billing.Model.CptCodeCollection cptCodeCollection = YellowstonePathology.Business.Billing.Model.CptCodeCollection.GetAll();
             StringBuilder technicalOnly = new StringBuilder();
             StringBuilder professionalOnly = new StringBuilder();
             StringBuilder global = new StringBuilder();
             StringBuilder pqrs = new StringBuilder();
 
-            foreach (YellowstonePathology.Business.Billing.Model.CptCode cptCode in cptCodeCollection)
+            foreach (YellowstonePathology.Business.Billing.Model.CptCode cptCode in Business.Billing.Model.CptCodeCollection.Instance)
             {                
                 switch (cptCode.CodeType)
                 {

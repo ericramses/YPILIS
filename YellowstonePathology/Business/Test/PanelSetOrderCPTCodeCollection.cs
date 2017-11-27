@@ -68,10 +68,9 @@ namespace YellowstonePathology.Business.Test
         public bool HasCodesWithMedicareQuantityLimit()
         {
             bool result = false;
-            YellowstonePathology.Business.Billing.Model.CptCodeCollection allCptCodes = YellowstonePathology.Business.Billing.Model.CptCodeCollection.GetAll();
             foreach (YellowstonePathology.Business.Test.PanelSetOrderCPTCode panelSetOrderCPTCode in this)
             {
-                YellowstonePathology.Business.Billing.Model.CptCode cptCode = allCptCodes.GetCptCode(panelSetOrderCPTCode.CPTCode);
+                YellowstonePathology.Business.Billing.Model.CptCode cptCode = Business.Billing.Model.CptCodeCollection.Instance.GetCptCode(panelSetOrderCPTCode.CPTCode);
                 if (cptCode.HasMedicareQuantityLimit == true)
                 {
                     result = true;
@@ -445,7 +444,7 @@ namespace YellowstonePathology.Business.Test
             {                
                 if (this.Exists("88305", specimenOrder.SpecimenOrderId) == false)
                 {
-                    YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88305 cpt88305 = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88305();
+                    YellowstonePathology.Business.Billing.Model.CptCode cpt88305 = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("cpt:88305");
                     YellowstonePathology.Business.Test.PanelSetOrderCPTCode panelSetOrderCPTCode = this.GetNextItem(reportNo);
                     panelSetOrderCPTCode.Quantity = 1;
                     panelSetOrderCPTCode.CPTCode = cpt88305.Code;
