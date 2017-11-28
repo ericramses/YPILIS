@@ -199,7 +199,8 @@ namespace YellowstonePathology.Business.Logging
 
         public void WriteToRedis()
         {
-            IDatabase db = Business.RedisConnection.Instance.GetDatabase();
+            Business.RedisLocksConnection redis = new RedisLocksConnection();
+            IDatabase db = redis.GetDatabase();
             string result = this.ToJSON();
             db.ListRightPush("scanLogs", result);
         }
@@ -207,7 +208,8 @@ namespace YellowstonePathology.Business.Logging
         public ScanLog BuildFromRedis()
         {
             ScanLog result = null;
-            IDatabase db = Business.RedisConnection.Instance.GetDatabase();
+            Business.RedisLocksConnection redis = new RedisLocksConnection();
+            IDatabase db = redis.GetDatabase();
             RedisValue item = db.ListLeftPop("scanLogs");
             if(item != RedisValue.Null)
             {

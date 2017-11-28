@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using StackExchange.Redis;
 
@@ -428,24 +429,16 @@ namespace YellowstonePathology.Business.Test.Model
         private static TestCollection FromRedis()
         {
             YellowstonePathology.Business.Test.Model.TestCollection result = new TestCollection();
-            IDatabase db = Business.RedisConnection2.Instance.GetDatabase();
+            Business.RedisReferenceDataConnection redis = new RedisReferenceDataConnection();
+            IDatabase db = redis.GetDatabase();
+            IServer server = redis.Server;
 
-            RedisResult redisResult = db.Execute("json.get", new object[] { "tests" });
-            if (redisResult.IsNull == true)
-            {
-                string jsonString = string.Empty;
-                System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
-                using (System.IO.StreamReader sr = new System.IO.StreamReader(assembly.GetManifestResourceStream("YellowstonePathology.Business.Test.Model.TestDefinition.json")))
-                {
-                    jsonString = sr.ReadToEnd();
-                }
-                db.Execute("json.set", new object[] { "cptcodes", ".", jsonString });
-                redisResult = db.Execute("json.get", new object[] { "cptcodes" });
-            }
 
-            JArray jsonCptCodes = JArray.Parse((string)redisResult);
-            foreach (JObject jObject in jsonCptCodes.Children<JObject>())
+            RedisKey[] keyResult = server.Keys(0, "stain:*").ToArray<RedisKey>();
+            foreach (RedisKey key in keyResult)
             {
+                RedisResult redisResult = db.Execute("json.get", new object[] { key.ToString(), "." });
+                JObject jObject = JsonConvert.DeserializeObject<JObject>((string)redisResult);
                 Test test = JsonTestFactory.FromJson(jObject);
                 result.Add(test);
             }

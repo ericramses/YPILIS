@@ -38,11 +38,8 @@ namespace YellowstonePathology.Business.Billing.Model
 
         }
 
-        public bool IsMedicareCode(string cptCode)
+        /*public void WriteToRedis()
         {
-<<<<<<< HEAD
-            bool result = false;
-=======
             Business.RedisLocksConnection redis = new RedisLocksConnection();
             IDatabase db = redis.GetDatabase();
             db.KeyDelete("cptcodes");
@@ -55,24 +52,45 @@ namespace YellowstonePathology.Business.Billing.Model
                 {
                     TypeNameHandling = TypeNameHandling.All
                 });
->>>>>>> e220cbb327bf3f05e83761bc2caece9e76773247
+
+                db.ListRightPush("cptcodes", "cptcode:" + cptCode.Code);
+                db.StringSet("cptcode:" + cptCode.Code, result);
+            }
+        }
+
+        public static CptCodeCollection BuildFromRedis()
+        {
+            CptCodeCollection result = new CptCodeCollection();
+            Business.RedisLocksConnection redis = new RedisLocksConnection();
+            IDatabase db = redis.GetDatabase();
+            RedisValue[] items = db.ListRange("cptcodes", 0, -1);
+
+            for (int i = 0; i < items.Length; i++)
+            {
+                RedisValue json = db.StringGet(items[i].ToString());
+                YellowstonePathology.Business.Billing.Model.CptCode cptCode = JsonConvert.DeserializeObject<Business.Billing.Model.CptCode>(json, new JsonSerializerSettings
+                {
+                    TypeNameHandling = TypeNameHandling.All,
+                    ObjectCreationHandling = ObjectCreationHandling.Replace
+                });
+
+                result.Add(cptCode);
+            }
+
+            return result;
+        }*/
+
+        public bool IsMedicareCode(string cptCode)
+        {
+            bool result = false;
 
             return result;
         }
 
         public CptCode GetCptCode(string code)
         {
-<<<<<<< HEAD
-            CptCode result = null;                        
+            CptCode result = null;
             foreach (CptCode cptCode in this)
-=======
-            CptCodeCollection result = new CptCodeCollection();
-            Business.RedisLocksConnection redis = new RedisLocksConnection();
-            IDatabase db = redis.GetDatabase();
-            RedisValue[] items = db.ListRange("cptcodes", 0, -1);
-
-            for(int i=0; i<items.Length; i++)
->>>>>>> e220cbb327bf3f05e83761bc2caece9e76773247
             {
                 if (cptCode.Code.ToUpper() == code.ToUpper())
                 {
@@ -149,8 +167,9 @@ namespace YellowstonePathology.Business.Billing.Model
         public static CptCodeCollection FromRedis()
         {
             YellowstonePathology.Business.Billing.Model.CptCodeCollection result = new Model.CptCodeCollection();
-            IServer server = Business.RedisConnection2.Instance.LocalServer;
-            IDatabase db = Business.RedisConnection2.Instance.GetLocalDatabase();
+            Business.RedisReferenceDataConnection redis = new RedisReferenceDataConnection();
+            IDatabase db = redis.GetDatabase();
+            IServer server = redis.Server;
 
             RedisKey[] keyResult = server.Keys(0,"cpt:*").ToArray<RedisKey>();
             foreach (RedisKey key in keyResult)
