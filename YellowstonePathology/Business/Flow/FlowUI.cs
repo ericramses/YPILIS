@@ -20,7 +20,7 @@ namespace YellowstonePathology.Business.Flow
         private Flow.Marker m_Marker;
         
         private Flow.FlowCaseValidation m_FlowCaseValidation;
-        private Billing.Model.ICDCodeList m_ICDCodeList;
+        private Billing.Model.ICDCodeCollection m_ICDCodeList;
         private Flow.FlowPanelList m_FlowPanelList;
 		private bool m_IsEnabled = true;
 		private string m_ReportNo;
@@ -64,9 +64,7 @@ namespace YellowstonePathology.Business.Flow
 
             this.m_FlowCaseValidation = new FlowCaseValidation();
 
-            this.m_ICDCodeList = new YellowstonePathology.Business.Billing.Model.ICDCodeList();
-            this.m_ICDCodeList.SetFillCommandByFlowCodes();
-            this.m_ICDCodeList.Fill();           
+            this.m_ICDCodeList = YellowstonePathology.Business.Billing.Model.ICDCodeCollection.GetFlowCodeList();
 
             this.m_FlowPanelList = new FlowPanelList();
             this.m_FlowPanelList.SetFillCommandByAll();
@@ -86,7 +84,7 @@ namespace YellowstonePathology.Business.Flow
 			this.m_FlowLogSearch.Search();
         }		
 
-        public YellowstonePathology.Business.Billing.Model.ICDCodeList ICDCodeList
+        public YellowstonePathology.Business.Billing.Model.ICDCodeCollection ICDCodeList
         {
             get { return this.m_ICDCodeList; }
         }

@@ -315,6 +315,8 @@
     <Compile Include="Business\BaseListItem.cs" />
     <Compile Include="Business\Billing.Model\CptCodeFactory.cs" />
     <Compile Include="Business\Billing.Model\HospitalSplitSurgicalAndReferenceLabBillingRuleSet.cs" />
+    <Compile Include="Business\Billing.Model\ICDCode.cs" />
+    <Compile Include="Business\Billing.Model\ICDCodeFactory.cs" />
     <Compile Include="Business\Billing.Model\MonitoredObject.cs" />
     <Compile Include="Business\Billing.Model\MonitoredObjectCollection.cs" />
     <Compile Include="Business\Billing.Model\PropertyChanges.cs" />
@@ -417,7 +419,7 @@
     <Compile Include="Business\Billing.Model\HospitalSplitProfessionalBillingRuleSet.cs" />
     <Compile Include="Business\Billing.Model\ICD9BillingCode.cs" />
     <Compile Include="Business\Billing.Model\ICD9BillingCodeCollection.cs" />
-    <Compile Include="Business\Billing.Model\ICDCodeList.cs" />
+    <Compile Include="Business\Billing.Model\ICDCodeCollection.cs" />
     <Compile Include="Business\Billing.Model\InsuranceType.cs" />
     <Compile Include="Business\Billing.Model\InsuranceTypeCollection.cs" />
     <Compile Include="Business\Billing.Model\LSEIHCStainSpecimen.cs" />

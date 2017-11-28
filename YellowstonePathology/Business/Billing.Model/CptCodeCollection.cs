@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.IO;
@@ -10,7 +11,7 @@ using StackExchange.Redis;
 
 namespace YellowstonePathology.Business.Billing.Model
 {
-    public class CptCodeCollection : List<CptCode>
+    public class CptCodeCollection : ObservableCollection<CptCode>
     {
         private static volatile CptCodeCollection instance;
         private static object syncRoot = new Object();

@@ -21,65 +21,6 @@
 
 		<Grid Grid.Row="1" Margin="5">
             <Grid.Resources>
-                
-                <XmlDataProvider x:Key="ICDCodes" XPath="Codes/Code">
-                    <x:XData>
-                        <Codes xmlns="">
-                            <Code ICD10="Z11.3" Description="Encounter for screening for infections with a predominantly sexual mode of transmission" Test="NGCT" Quantity="1"/>
-                            <Code ICD10="Z11.51" Description="Encounter for screening for human papillomavirus (HPV)" Test="Routine HPV" Quantity="1"/>
-                            <Code ICD10="Z12.4" Description="Encounter for screening for malignant neoplasm of cervix" Test="Cytology" Quantity="1"/>
-                            <Code ICD10="Z01.411" Description="Encounter for gynecological examination (general) (routine) with abnormal findings" Test="Cytology" Quantity="1"/>
-                            <Code ICD10="Z01.419" Description="Encounter for gynecological examination (general) (routine) without abnormal findings" Test="Cytology" Quantity="1"/>
-                            <Code ICD10="Z12.72" Description="Encounter for screening for malignant neoplasm of vagina" Test="Cytology" Quantity="1"/>
-                            <Code ICD10="Z77.9" Description="Other contact with and (suspected) exposures hazardous to health" Test="Cytology" Quantity="1"/>
-                            <Code ICD10="Z79.3" Description="Long term (current) use of hormonal contraceptives" Test="Cytology" Quantity="1"/>
-                            <Code ICD10="Z92.89" Description="Personal history of other medical treatment" Test="Cytology" Quantity="1"/>
-                            <Code ICD10="Z12.89" Description="Encounter for screening for malignant neoplasm of other sites" Test="Cytology" Quantity="1"/>
-                            <Code ICD10="Z13.288" Description="Encounter for screening for other metabolic disorders" Test="Cytology" Quantity="1"/>
-                            <Code ICD10="Z00.00" Description="Encounter for general adult medical examination without abnormal findings" Test="Cytology" Quantity="1"/>
-                            <Code ICD10="R87.61" Description="Abnormal cytological findings in specimens from cervix uteri" Test="Cytology" Quantity="1"/>
-                            <Code ICD10="R87.610" Description="Atypical squamous cells of undetermined significance on cytologic smear of cervix (ASC-US)" Test="Cytology" Quantity="1"/>
-                            <Code ICD10="R87.611" Description="Atypical squamous cells cannot exclude high grade squamous intraepithelial lesion on cytologic smear of cervix (ASC-H)" Test="Cytology" Quantity="1"/>
-                            <Code ICD10="R87.612" Description="Low grade squamous intraepithelial lesion on cytologic smear of cervix (LGSIL)" Test="Cytology" Quantity="1"/>
-                            <Code ICD10="R87.613" Description="High grade squamous intraepithelial lesion on cytologic smear of cervix (HGSIL)" Test="Cytology" Quantity="1"/>
-                            <Code ICD10="R87.810" Description="Cervical high risk human papillomavirus (HPV) DNA test positive" Test="Cytology" Quantity="1"/>
-                            <Code ICD10="R87.820" Description="Cervical low risk human papillomavirus (HPV) DNA test positive" Test="Cytology" Quantity="1"/>
-                            <Code ICD10="Z34.00" Description="Encounter for supervision of normal first pregnancy, unspecified trimester" Test="Cytology" Quantity="1"/>
-                            <Code ICD10="Z34.01" Description="Encounter for supervision of normal first pregnancy, first trimester" Test="Cytology" Quantity="1"/>
-                            <Code ICD10="Z34.02" Description="Encounter for supervision of normal first pregnancy, second trimester" Test="Cytology" Quantity="1"/>
-                            <Code ICD10="Z34.80" Description="Encounter for supervision of other normal pregnancy, unspecified trimester" Test="Cytology" Quantity="1"/>
-                            <Code ICD10="Z34.81" Description="Encounter for supervision of other normal pregnancy, first trimester" Test="Cytology" Quantity="1"/>
-                            <Code ICD10="Z34.82" Description="Encounter for supervision of other normal pregnancy, second trimester" Test="Cytology" Quantity="1"/>
-                            <Code ICD10="Z34.90" Description="Encounter for supervision of normal pregnancy, unspecified, unspecified trimester" Test="Cytology" Quantity="1"/>                            
-                            <Code ICD10="Z39.1" Description="Encounter for care and examination of lactating mother" Test="Cytology" Quantity="1"/>
-                            <Code ICD10="Z39.2" Description="Encounter for routine postpartum follow-up" Test="Cytology" Quantity="1"/>
-                            <Code ICD10="Z20.2" Description="Contact with and (suspected) exposure to infections with a predominantly sexual mode of transmission" Test="NGCT" Quantity="1"/>
-                            <Code ICD10="Z11.8" Description="Encounter for screening for other infectious and parasitic diseases" Test="NGCT" Quantity="1"/>
-                            <Code ICD10="Z11.8" Description="Encounter for screening for other infectious and parasitic diseases" Test="NGCT" Quantity="1"/>
-                            <Code ICD10="Z11.59" Description="Encounter for screening for other viral diseases" Test="NGCT" Quantity="1"/>                                                        
-                            <Code ICD10="A59.09" Description="Other urogenital trichomoniasis" Test="Trichomonas/Cervx" Quantity="1"/>
-                            <Code ICD10="A59.9" Description=" Trichomoniasis, unspecified" Test="Trichomonas" Quantity="1"/>
-                            <Code ICD10="C43.9" Description="Malignant melanoma of skin, unspecified" Quantity="1"/>
-                            <Code ICD10="D03.9" Description="Melanoma in situ, unspecified" Quantity="1"/>
-                            <Code ICD10="D06.0" Description="Carcinoma in situ of endocervix" Quantity="1"/>
-                            <Code ICD10="C73" Description="Malignant neoplasm of thyroid gland" Quantity="1"/>
-                            <Code ICD10="D47.3" Description="Essential (hemorrhagic) thrombocythemia" Quantity="1"/>
-                            <Code ICD10="C50.919" Description="Malignant neoplasm of unspecified site of unspecified female breast" Quantity="1"/>
-                            <Code ICD10="C39.9" Description="Malignant neoplasm of lower respiratory tract, part unspecified" Quantity="1"/>
-                            <Code ICD10="C18.9" Description="Malignant neoplasm of colon, unspecified" Quantity="1"/>
-                            <Code ICD10="D69.6" Description="Thrombocytopenia, unspecified" Quantity="1"/>
-                            <Code ICD10="I82.91" Description="Chronic embolism and thrombosis of unspecified vein" Quantity="1"/>
-                            <Code ICD10="N91.2" Description="Amenorrhea, unspecified" Test="Cytology" Quantity="1"/>
-                            <Code ICD10="N92.0" Description="Excessive and frequent menstruation (heavy)" Test="Cytology" Quantity="1"/>
-                            <Code ICD10="N92.1" Description="Excessive and frequent menstruation (irregular)" Test="Cytology" Quantity="1"/>
-                            <Code ICD10="N92.4" Description="Excessive bleeding in the premenopausal period" Test="Cytology" Quantity="1"/>
-                            <Code ICD10="N93.8" Description="Other specified abnormal uterine and vaginal bleeding" Test="Cytology" Quantity="1"/>
-                            <Code ICD10="N93.9" Description="Abnormal uterine and vaginal bleeding, unspecified" Test="Cytology" Quantity="1"/>
-                            <Code ICD10="N94.6" Description="Dysmenorrhea, unspecified (painful menstruation)" Test="Cytology" Quantity="1"/>
-
-                        </Codes>
-                    </x:XData>
-                </XmlDataProvider>
 
                 <DataTemplate x:Key="CodeListBoxTemplate">
                     <Grid>
@@ -89,9 +30,9 @@
                             <ColumnDefinition Width="70"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         
-                        <TextBlock Grid.Column="0" Text="{Binding XPath=@ICD10}" Margin="2,2,2,2" FontWeight="Bold"/>
-                        <TextBlock Grid.Column="1" Text="{Binding XPath=@Description}" Margin="2,2,2,2" Width="300" TextWrapping="Wrap"/>
-                        <TextBlock Grid.Column="2" Text="{Binding XPath=@Test}" Margin="2,2,2,2"/>
+                        <TextBlock Grid.Column="0" Text="{Binding Path=Code}" Margin="2,2,2,2" FontWeight="Bold"/>
+                        <TextBlock Grid.Column="1" Text="{Binding Path=Description}" Margin="2,2,2,2" Width="300" TextWrapping="Wrap"/>
+                        <TextBlock Grid.Column="2" Text="{Binding Path=Category}" Margin="2,2,2,2"/>
                     </Grid>
                 </DataTemplate>                              
 
@@ -131,7 +72,7 @@
 
 			<Grid Grid.Column="0">
                 <ListBox Name="ListBoxCodeCategories" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Margin="2,2,2,2" ItemTemplate="{StaticResource CodeListBoxTemplate}"
-					ItemsSource="{Binding Source={StaticResource ICDCodes}}" 
+					ItemsSource="{Binding Path=ICDCodeList}" 
                          ToolTip="Double click to add" SelectedIndex="0" MouseDoubleClick="ListBoxCodes_MouseDoubleClick">
                 </ListBox>                
             </Grid>
