@@ -40,15 +40,39 @@ namespace YellowstonePathology.Business.Billing.Model
 
         public bool IsMedicareCode(string cptCode)
         {
+<<<<<<< HEAD
             bool result = false;
+=======
+            Business.RedisLocksConnection redis = new RedisLocksConnection();
+            IDatabase db = redis.GetDatabase();
+            db.KeyDelete("cptcodes");
+
+            foreach (CptCode cptCode in this)
+            {
+                db.KeyDelete("cptcode:" + cptCode.Code);
+
+                string result = JsonConvert.SerializeObject(cptCode, Newtonsoft.Json.Formatting.Indented, new JsonSerializerSettings
+                {
+                    TypeNameHandling = TypeNameHandling.All
+                });
+>>>>>>> e220cbb327bf3f05e83761bc2caece9e76773247
 
             return result;
         }
 
         public CptCode GetCptCode(string code)
         {
+<<<<<<< HEAD
             CptCode result = null;                        
             foreach (CptCode cptCode in this)
+=======
+            CptCodeCollection result = new CptCodeCollection();
+            Business.RedisLocksConnection redis = new RedisLocksConnection();
+            IDatabase db = redis.GetDatabase();
+            RedisValue[] items = db.ListRange("cptcodes", 0, -1);
+
+            for(int i=0; i<items.Length; i++)
+>>>>>>> e220cbb327bf3f05e83761bc2caece9e76773247
             {
                 if (cptCode.Code.ToUpper() == code.ToUpper())
                 {

@@ -297,8 +297,6 @@ namespace YellowstonePathology.Business.Billing.Model
             }
         }
 
-
-
         public void Post88365(YellowstonePathology.Business.Billing.Model.BillingComponentEnum billingComponent, string billTo, string billBy)
         {
             YellowstonePathology.Business.Billing.Model.CptCode cpt88365 = Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("cpt:88365");

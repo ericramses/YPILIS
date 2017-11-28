@@ -997,17 +997,17 @@ namespace YellowstonePathology.UI
         }
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
-        {                       
-            Business.Test.AccessionOrder ao = Business.Persistence.DocumentGateway.Instance.GetAccessionOrderByMasterAccessionNo("17-26810");
-            Business.Test.PanelSetOrder pso = ao.PanelSetOrderCollection.GetPanelSetOrder(13);
-            Business.XPSDocument.XpsAdditionalTesting template = new Business.XPSDocument.XpsAdditionalTesting(ao, pso);
-            template.CreateXPS();
+        {
+
+            Business.RedisAppDataConnection redis = new Business.RedisAppDataConnection();
+            IDatabase db = redis.GetDatabase();
+            db.KeyExists("asdlkfjasdlkfj");
 
             //template.CreateNewXPSFromSource(source, destination);
             //template.SaveToTIF(destination);
 
-           //string x1 = @"\\CFileServer\AccessionDocuments\2017\26000-26999\17-26810\17-26810.S.notify.xml";
-           // string x2 = @"\\CFileServer\AccessionDocuments\2017\26000-26999\17-26810\17-26810.S.notify.xps";
+            //string x1 = @"\\CFileServer\AccessionDocuments\2017\26000-26999\17-26810\17-26810.S.notify.xml";
+            // string x2 = @"\\CFileServer\AccessionDocuments\2017\26000-26999\17-26810\17-26810.S.notify.xps";
 
             //Business.Document.CaseDocument.SaveDocAsXPS2(x1, x2);
             //Business.Helper.FileConversionHelper.SaveXpsAsMultiPageTif()
@@ -1024,24 +1024,18 @@ namespace YellowstonePathology.UI
             //Business.Test.Model.TestCollection tc = Business.Test.Model.TestCollection.GetAllTests(false);
             //foreach(Business.Test.Model.Test t in tc)
             //{
-                //if(string.IsNullOrEmpty(t.HistologyDisplayString))
-                //{
-                    //Console.WriteLine(t.TestName);
-                //}
+            //if(string.IsNullOrEmpty(t.HistologyDisplayString))
+            //{
+            //Console.WriteLine(t.TestName);
+            //}
             //}
 
             //Business.Label.Model.ZPLPrinterTCP printer = new Business.Label.Model.ZPLPrinterTCP("10.1.1.19");
             //printer.Print(result.ToString());
 
-            /*
-            IDatabase db = Business.RedisConnection.Instance.GetDatabase();
-            RedisValue[] members = db.SetMembers("AccessionLocks");
-            for(int i=0; i<members.Length; i++)
-            {
-                string x = members[i].ToString();
-                db.SetRemove("AccessionLocks", members[i].ToString());
-            }
-            */
+            //Business.RedisLocksConnection redis = new Business.RedisLocksConnection();
+            //IDatabase db = redis.GetDatabase();
+            
 
             /*
             string path = @"C:\temp\stains.csv";

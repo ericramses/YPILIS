@@ -108,7 +108,8 @@ namespace YellowstonePathology.Business.Test
             this.m_Address = null;
             this.m_TimeAquired = null;
 
-            IDatabase db = Business.RedisConnection.Instance.GetDatabase();            
+            Business.RedisLocksConnection redis = new RedisLocksConnection();
+            IDatabase db = redis.GetDatabase();
             var transaction = db.CreateTransaction();
             transaction.AddCondition(Condition.HashExists(this.HashKey, "MasterAccessionNo"));            
             transaction.KeyDeleteAsync(this.HashKey);
@@ -120,7 +121,9 @@ namespace YellowstonePathology.Business.Test
 
         public void TransferLock(string address)
         {
-            IDatabase db = Business.RedisConnection.Instance.GetDatabase();
+            Business.RedisLocksConnection redis = new RedisLocksConnection();
+            IDatabase db = redis.GetDatabase();
+                        
             HashEntry[] hashFields = new HashEntry[3];
             hashFields[0] = new HashEntry("MasterAccessionNo", this.MasterAccessionNo);
             hashFields[1] = new HashEntry("Address", address);
@@ -140,7 +143,9 @@ namespace YellowstonePathology.Business.Test
 
         private void GetHash()
         {
-            IDatabase db = Business.RedisConnection.Instance.GetDatabase();                        
+            Business.RedisLocksConnection redis = new RedisLocksConnection();
+            IDatabase db = redis.GetDatabase();
+
             HashEntry[] hashFields = db.HashGetAll(this.HashKey);
 
             this.m_MasterAccessionNo = hashFields[0].Value;
@@ -151,13 +156,16 @@ namespace YellowstonePathology.Business.Test
 
         public bool IsLockStillAquired()
         {
-            IDatabase db = Business.RedisConnection.Instance.GetDatabase();
+            Business.RedisLocksConnection redis = new RedisLocksConnection();
+            IDatabase db = redis.GetDatabase();
             return db.KeyExists(this.HashKey);
         }
 
         private void TryHashSet()
         {
-            IDatabase db = Business.RedisConnection.Instance.GetDatabase();
+            Business.RedisLocksConnection redis = new RedisLocksConnection();
+            IDatabase db = redis.GetDatabase();
+
             HashEntry[] hashFields = new HashEntry[3];
             hashFields[0] = new HashEntry("MasterAccessionNo", this.m_MasterAccessionNo);
             hashFields[1] = new HashEntry("Address", UI.AppMessaging.AccessionLockMessage.GetMyAddress());            

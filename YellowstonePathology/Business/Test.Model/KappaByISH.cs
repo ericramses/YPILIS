@@ -17,9 +17,15 @@ namespace YellowstonePathology.Business.Test.Model
             this.m_NeedsAcknowledgement = true;
         }
 
+        public override YellowstonePathology.Business.Billing.Model.CptCode GetCptCode(bool isTechnicalOnly)
+        {
+            YellowstonePathology.Business.Billing.Model.CptCode code = new Business.Billing.Model.CptCodeDefinition.CPT88364();
+            return code;
+        }
+
         public override YellowstonePathology.Business.Billing.Model.CptCode GetCptCode(CptCodeLevelEnum cptCodeLevel, bool isTechnicalOnly)
         {
-            YellowstonePathology.Business.Billing.Model.CptCode code = null;
+            YellowstonePathology.Business.Billing.Model.CptCode code = new Business.Billing.Model.CptCodeDefinition.CPT88364();
             return code;
         }
     }

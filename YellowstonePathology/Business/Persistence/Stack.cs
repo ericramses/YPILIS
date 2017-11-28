@@ -109,8 +109,9 @@ namespace YellowstonePathology.Business.Persistence
 
                     if (document.Value is YellowstonePathology.Business.Test.AccessionOrder)
                     {
-                        Business.Test.AccessionOrder accessionOrder = (Business.Test.AccessionOrder)document.Value;                        
-                        ISubscriber subscriber = Business.RedisConnection.Instance.GetSubscriber();
+                        Business.Test.AccessionOrder accessionOrder = (Business.Test.AccessionOrder)document.Value;
+                        Business.RedisLocksConnection redis = new RedisLocksConnection();                        
+                        ISubscriber subscriber = redis.GetSubscriber();
                         subscriber.Unsubscribe(accessionOrder.MasterAccessionNo);
                     }
                 }                
@@ -197,7 +198,8 @@ namespace YellowstonePathology.Business.Persistence
 
         public void SubscribeToChannel(Business.Test.AccessionOrder accessionOrder)
         {
-            ISubscriber subscriber = Business.RedisConnection.Instance.GetSubscriber();
+            Business.RedisLocksConnection redis = new RedisLocksConnection();            
+            ISubscriber subscriber = redis.GetSubscriber();
             subscriber.Subscribe(accessionOrder.MasterAccessionNo, (channel, message) =>
             {
                 System.Windows.Application.Current.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
