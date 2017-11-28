@@ -16,7 +16,8 @@ namespace YellowstonePathology.Business.BarcodeScanning
 
         public void UpdateStatus(EmbeddingScan scan)
         {
-            IDatabase db = Business.RedisConnection.Instance.GetDatabase();            
+            Business.RedisLocksConnection redis = new RedisLocksConnection();
+            IDatabase db = redis.GetDatabase();
             if (db.KeyExists(scan.HashKey) == true)
             {
                 HashEntry[] hashEntries = scan.GetHasEntries();
@@ -26,7 +27,8 @@ namespace YellowstonePathology.Business.BarcodeScanning
 
         public EmbeddingScan HandleScan(string aliquotOrderId, DateTime processorStartTime, TimeSpan processorFixationDuration)
         {
-            IDatabase db = Business.RedisConnection.Instance.GetDatabase();
+            Business.RedisLocksConnection redis = new RedisLocksConnection();
+            IDatabase db = redis.GetDatabase();
             EmbeddingScan scan = new EmbeddingScan(aliquotOrderId, processorStartTime, processorFixationDuration);
 
             if (db.KeyExists("EmbeddingScan:" + aliquotOrderId) == true)
@@ -56,7 +58,8 @@ namespace YellowstonePathology.Business.BarcodeScanning
         {
             EmbeddingScanCollection result = new EmbeddingScanCollection();
 
-            IDatabase db = Business.RedisConnection.Instance.GetDatabase();
+            Business.RedisLocksConnection redis = new RedisLocksConnection();
+            IDatabase db = redis.GetDatabase();
             RedisValue[] members = db.SetMembers("EmbeddingScans:" + scanDate.ToShortDateString());
 
             List<EmbeddingScan> list = new List<EmbeddingScan>();
@@ -92,9 +95,10 @@ namespace YellowstonePathology.Business.BarcodeScanning
         public static EmbeddingScanCollection GetAll()
         {
             EmbeddingScanCollection result = new EmbeddingScanCollection();
-            IDatabase db = Business.RedisConnection.Instance.GetDatabase();            
+            Business.RedisLocksConnection redis = new RedisLocksConnection();
+            IDatabase db = redis.GetDatabase();
 
-            foreach (var key in Business.RedisConnection.Instance.Server.Keys(pattern: "EmbeddingScans:*"))
+            foreach (var key in redis.Server.Keys(pattern: "EmbeddingScans:*"))
             {
                 RedisValue[] members = db.SetMembers(key);                
                 for (int i = 0; i < members.Length; i++)

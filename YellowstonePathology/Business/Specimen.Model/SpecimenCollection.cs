@@ -136,7 +136,8 @@ namespace YellowstonePathology.Business.Specimen.Model
 
         public void WriteToRedis()
         {
-            IDatabase db = Business.RedisConnection.Instance.GetDatabase();
+            Business.RedisLocksConnection redis = new RedisLocksConnection();
+            IDatabase db = redis.GetDatabase();            
             db.KeyDelete("specimens");
 
             foreach (Specimen specimen in this)
@@ -156,7 +157,8 @@ namespace YellowstonePathology.Business.Specimen.Model
         public static SpecimenCollection BuildFromRedis()
         {
             SpecimenCollection result = new SpecimenCollection();
-            IDatabase db = Business.RedisConnection.Instance.GetDatabase();
+            Business.RedisLocksConnection redis = new RedisLocksConnection();
+            IDatabase db = redis.GetDatabase();
             RedisValue[] items = db.ListRange("specimens", 0, -1);
 
             for (int i = 0; i < items.Length; i++)

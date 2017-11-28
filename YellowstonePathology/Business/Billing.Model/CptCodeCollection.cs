@@ -38,7 +38,8 @@ namespace YellowstonePathology.Business.Billing.Model
 
         public void WriteToRedis()
         {
-            IDatabase db = Business.RedisConnection.Instance.GetDatabase();
+            Business.RedisLocksConnection redis = new RedisLocksConnection();
+            IDatabase db = redis.GetDatabase();
             db.KeyDelete("cptcodes");
 
             foreach (CptCode cptCode in this)
@@ -58,7 +59,8 @@ namespace YellowstonePathology.Business.Billing.Model
         public static CptCodeCollection BuildFromRedis()
         {
             CptCodeCollection result = new CptCodeCollection();
-            IDatabase db = Business.RedisConnection.Instance.GetDatabase();
+            Business.RedisLocksConnection redis = new RedisLocksConnection();
+            IDatabase db = redis.GetDatabase();
             RedisValue[] items = db.ListRange("cptcodes", 0, -1);
 
             for(int i=0; i<items.Length; i++)

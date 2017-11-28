@@ -174,5 +174,23 @@ namespace YellowstonePathology.Business.Test.BRAFMutationAnalysis
             result.AppendLine(this.m_TumorNucleiPercentage);
             return result.ToString();
         }
+
+        public void SetSummaryResult(YellowstonePathology.Business.Test.LynchSyndrome.LSEResult lSEResult)
+        {
+            if (string.IsNullOrEmpty(this.Result) == false)
+            {
+                YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisNotDetectedResult notDetectedResult = new BRAFMutationAnalysisNotDetectedResult();
+                YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisDetectedResult detectedResult = new BRAFMutationAnalysisDetectedResult();
+
+                if (this.ResultCode == notDetectedResult.ResultCode)
+                {
+                    lSEResult.BrafResult = YellowstonePathology.Business.Test.LynchSyndrome.LSEResultEnum.Negative;
+                }
+                else if (this.ResultCode == detectedResult.ResultCode)
+                {
+                    lSEResult.BrafResult = YellowstonePathology.Business.Test.LynchSyndrome.LSEResultEnum.Positive;
+                }
+            }
+        }
     }
 }

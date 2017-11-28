@@ -27,8 +27,9 @@ namespace YellowstonePathology.UI
             InitializeComponent();
             this.DataContext = this;
 
-            this.m_DB = YellowstonePathology.Business.RedisConnection.Instance.GetDatabase();
-            this.m_SUB = YellowstonePathology.Business.RedisConnection.Instance.GetSubscriber();
+            Business.RedisLocksConnection redis = new Business.RedisLocksConnection();            
+            this.m_DB = redis.GetDatabase();
+            this.m_SUB = redis.GetSubscriber();
         }                
 
         private void Button_SubscribeClick(object sender, RoutedEventArgs e)
