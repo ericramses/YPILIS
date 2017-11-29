@@ -1445,10 +1445,10 @@
     <Compile Include="Business\PanelSet.Model\PanelSetIGVH.cs" />
     <Compile Include="Business\PanelSet.Model\PanelSetIHCHerpesVirus.cs" />
     <Compile Include="Business\PanelSet.Model\PanelSetImmunohistochemistry.cs" />
-    <Compile Include="Business\PanelSet.Model\PanelSetJAK2EssentialThrombocythemiaReflex.cs" />
+    <Compile Include="Business\PanelSet.Model\JAK2EssentialThrombocythemiaTest.cs" />
     <Compile Include="Business\PanelSet.Model\PanelSetJAK2Exon1214Retired.cs" />
     <Compile Include="Business\PanelSet.Model\PanelSetJAK2PolycythemiaVeraReflex.cs" />
-    <Compile Include="Business\PanelSet.Model\PanelSetJAK2PrimaryMyelofibrosisReflex.cs" />
+    <Compile Include="Business\PanelSet.Model\JAK2PrimaryMyelofibrosisTest.cs" />
     <Compile Include="Business\PanelSet.Model\PanelSetMDSByFishRetired.cs" />
     <Compile Include="Business\PanelSet.Model\PanelSetMLH1Retired.cs" />
     <Compile Include="Business\PanelSet.Model\PanelSetMolecularTest.cs" />
