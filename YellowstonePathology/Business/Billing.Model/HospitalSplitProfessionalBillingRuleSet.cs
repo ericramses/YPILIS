@@ -13,7 +13,6 @@ namespace YellowstonePathology.Business.Billing.Model
             this.m_BillingRuleSetIdOld = "334DDC95-CF41-4C13-9326-A2C85B20BCCB";
             this.m_BillingRuleSetName = "Hospital Split Professional Rule Set";
 
-            CptCodeCollection allCptCodes = CptCodeCollection.GetAll();
             CptCodeCollection clinicalFeeScheduleCodes = CptCodeCollection.GetCptCodeCollection(FeeScheduleEnum.Clinical);
             CptCodeCollection professionalFeeScheduleCodes = CptCodeCollection.GetCptCodeCollection(FeeScheduleEnum.Physician);
 

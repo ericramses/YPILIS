@@ -31,6 +31,6 @@ namespace YellowstonePathology.Business
         public IServer Server
         {
             get { return this.m_Server; }
-        }        
+        }
     }
 }

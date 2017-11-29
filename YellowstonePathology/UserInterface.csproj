@@ -313,7 +313,10 @@
     <Compile Include="Business\BaseData.cs" />
     <Compile Include="Business\BaseItem.cs" />
     <Compile Include="Business\BaseListItem.cs" />
+    <Compile Include="Business\Billing.Model\CptCodeFactory.cs" />
     <Compile Include="Business\Billing.Model\HospitalSplitSurgicalAndReferenceLabBillingRuleSet.cs" />
+    <Compile Include="Business\Billing.Model\ICDCode.cs" />
+    <Compile Include="Business\Billing.Model\ICDCodeFactory.cs" />
     <Compile Include="Business\Billing.Model\MonitoredObject.cs" />
     <Compile Include="Business\Billing.Model\MonitoredObjectCollection.cs" />
     <Compile Include="Business\Billing.Model\PropertyChanges.cs" />
@@ -384,7 +387,6 @@
     <Compile Include="Business\Billing.Model\CPTCodeBZPrice.cs" />
     <Compile Include="Business\Billing.Model\CPTCodeCMMCPrice.cs" />
     <Compile Include="Business\Billing.Model\CptCodeCollection.cs" />
-    <Compile Include="Business\Billing.Model\CptCodeDefinitions.cs" />
     <Compile Include="Business\Billing.Model\CPTCodeEIRMCPrice.cs" />
     <Compile Include="Business\Billing.Model\CPTCodeFMPrice.cs" />
     <Compile Include="Business\Billing.Model\CPTCodeGFPrice.cs" />
@@ -411,7 +413,6 @@
     <Compile Include="Business\Billing.Model\FeeScheduleCollection.cs" />
     <Compile Include="Business\Billing.Model\FeeScheduleCosmetic.cs" />
     <Compile Include="Business\Billing.Model\FeeScheduleEnum.cs" />
-    <Compile Include="Business\Billing.Model\GCodeDefinitions.cs" />
     <Compile Include="Business\Billing.Model\GlobalBillingRule.cs" />
     <Compile Include="Business\Billing.Model\GlobalBillingRuleSet.cs" />
     <Compile Include="Business\Billing.Model\HospitalGlobalBillingRuleSet.cs" />
@@ -419,7 +420,7 @@
     <Compile Include="Business\Billing.Model\HospitalSplitProfessionalBillingRuleSet.cs" />
     <Compile Include="Business\Billing.Model\ICD9BillingCode.cs" />
     <Compile Include="Business\Billing.Model\ICD9BillingCodeCollection.cs" />
-    <Compile Include="Business\Billing.Model\ICDCodeList.cs" />
+    <Compile Include="Business\Billing.Model\ICDCodeCollection.cs" />
     <Compile Include="Business\Billing.Model\InsuranceType.cs" />
     <Compile Include="Business\Billing.Model\InsuranceTypeCollection.cs" />
     <Compile Include="Business\Billing.Model\LSEIHCStainSpecimen.cs" />
@@ -431,7 +432,6 @@
     <Compile Include="Business\Billing.Model\PanelSetOrderCPTCodeEntryType.cs" />
     <Compile Include="Business\Billing.Model\PQRSCode.cs" />
     <Compile Include="Business\Billing.Model\PQRSCodeCollection.cs" />
-    <Compile Include="Business\Billing.Model\PQRSCodeDefinitions.cs" />
     <Compile Include="Business\Billing.Model\PSABillingDocument.cs" />
     <Compile Include="Business\Billing.Model\RuleValue.cs" />
     <Compile Include="Business\Billing.Model\RuleValueAny.cs" />
@@ -1093,6 +1093,8 @@
     <Compile Include="Business\LevenshteinDistance.cs" />
     <Compile Include="Business\ListItem.cs" />
     <Compile Include="Business\Logging\EmailExceptionHandler.cs" />
+    <Compile Include="Business\Logging\ScanLog.cs" />
+    <Compile Include="Business\Logging\ScanLogCollection.cs" />
     <Compile Include="Business\Logging\ScanLogger.cs" />
     <Compile Include="Business\MasterAccessionNo.cs" />
     <Compile Include="Business\MaterialTracking.Model\BlockSentNotReturned.cs" />
@@ -1141,6 +1143,7 @@
     <Compile Include="Business\Persistence\SqlDataRowReaderPropertyWriter.cs" />
     <Compile Include="Business\RedisAppDataConnection.cs" />
     <Compile Include="Business\RedisLocksConnection.cs" />
+    <Compile Include="Business\RedisLocalConnection.cs" />
     <Compile Include="Business\Reports\BlocksSentNotReturnedReport.cs" />
     <Compile Include="Business\Reports\RetrospectiveReviewReport.xaml.cs">
       <DependentUpon>RetrospectiveReviewReport.xaml</DependentUpon>
@@ -1173,6 +1176,7 @@
     <Compile Include="Business\Task.Model\TaskFedexShipment.cs" />
     <Compile Include="Business\Task.Model\TaskOrderDetailFactory.cs" />
     <Compile Include="Business\Task.Model\TaskOrderDetailFedexShipment.cs" />
+    <Compile Include="Business\Test.Model\JsonTestFactory.cs" />
     <Compile Include="Business\Test.Model\PAX5CD5DualStain.cs" />
     <Compile Include="Business\Test.Model\LambdaByISH.cs" />
     <Compile Include="Business\Test.Model\KappaByISH.cs" />
@@ -1442,10 +1446,10 @@
     <Compile Include="Business\PanelSet.Model\PanelSetIGVH.cs" />
     <Compile Include="Business\PanelSet.Model\PanelSetIHCHerpesVirus.cs" />
     <Compile Include="Business\PanelSet.Model\PanelSetImmunohistochemistry.cs" />
-    <Compile Include="Business\PanelSet.Model\PanelSetJAK2EssentialThrombocythemiaReflex.cs" />
+    <Compile Include="Business\PanelSet.Model\JAK2EssentialThrombocythemiaTest.cs" />
     <Compile Include="Business\PanelSet.Model\PanelSetJAK2Exon1214Retired.cs" />
     <Compile Include="Business\PanelSet.Model\PanelSetJAK2PolycythemiaVeraReflex.cs" />
-    <Compile Include="Business\PanelSet.Model\PanelSetJAK2PrimaryMyelofibrosisReflex.cs" />
+    <Compile Include="Business\PanelSet.Model\JAK2PrimaryMyelofibrosisTest.cs" />
     <Compile Include="Business\PanelSet.Model\PanelSetMDSByFishRetired.cs" />
     <Compile Include="Business\PanelSet.Model\PanelSetMLH1Retired.cs" />
     <Compile Include="Business\PanelSet.Model\PanelSetMolecularTest.cs" />
@@ -4880,6 +4884,7 @@
     <EmbeddedResource Include="Business\XmlSchema\BarcodeScanSchema.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Business\Test.Model\TestDefinition.json" />
     <None Include="Business\XmlSchema\ComplexTypes.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -5149,7 +5154,6 @@
     <Resource Include="Business\XMLTemplates\CytologyOrderInstructions.xml" />
     <Resource Include="Business\XMLTemplates\DNADefaultExtension.xml" />
     <Resource Include="Business\XPSDocument\Xps\ReportLogo.jpg" />
-    <EmbeddedResource Include="Business\Billing.Model\CPTCodeDefinition.json" />
     <EmbeddedResource Include="Business\MaterialTracking.Model\FedexProcessShipmentRequest.v15.xml" />
     <EmbeddedResource Include="Business\MaterialTracking.Model\FedexDeleteShipmentRequest.v19.xml" />
     <EmbeddedResource Include="Business\MaterialTracking.Model\FedexTrackingRequest.v9.xml" />
