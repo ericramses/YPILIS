@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace YellowstonePathology.Business
 {
-    public class RedisReferenceDataConnection : RedisConnection
+    public class RedisLocalConnection : RedisConnection
     {
-        public RedisReferenceDataConnection() : base("localhost", "6379")
+        public RedisLocalConnection() : base("localhost", "6379")
         { }
     }
 }

@@ -1142,7 +1142,7 @@
     <Compile Include="Business\Persistence\SqlDataRowReaderPropertyWriter.cs" />
     <Compile Include="Business\RedisAppDataConnection.cs" />
     <Compile Include="Business\RedisLocksConnection.cs" />
-    <Compile Include="Business\RedisReferenceDataConnection.cs" />
+    <Compile Include="Business\RedisLocalConnection.cs" />
     <Compile Include="Business\Reports\BlocksSentNotReturnedReport.cs" />
     <Compile Include="Business\Reports\RetrospectiveReviewReport.xaml.cs">
       <DependentUpon>RetrospectiveReviewReport.xaml</DependentUpon>

@@ -429,7 +429,8 @@ namespace YellowstonePathology.Business.Test.Model
         private static TestCollection FromRedis()
         {
             YellowstonePathology.Business.Test.Model.TestCollection result = new TestCollection();
-            Business.RedisReferenceDataConnection redis = new RedisReferenceDataConnection();
+            Business.RedisLocalConnection redis = new RedisLocalConnection();
+            //Business.RedisAppDataConnection redis = new RedisAppDataConnection();
             IDatabase db = redis.GetDatabase();
             IServer server = redis.Server;
 
