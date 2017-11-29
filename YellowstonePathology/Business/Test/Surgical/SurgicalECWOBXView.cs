@@ -25,10 +25,10 @@ namespace YellowstonePathology.Business.Test.Surgical
 
             foreach (SurgicalSpecimen surgicalSpecimen in panelSetOrderSurgical.SurgicalSpecimenCollection)
             {
-                this.HandleLongString(surgicalSpecimen.SpecimenOrder.SpecimenNumber.ToString() + ".) " + surgicalSpecimen.SpecimenOrder.Description, document, "F");
-                this.AddNextObxElement("", document, "C");
+                this.HandleLongString(surgicalSpecimen.SpecimenOrder.SpecimenNumber.ToString() + ".) " + surgicalSpecimen.SpecimenOrder.Description, document, "F");                
                 this.AddNextObxElement("Diagnosis: ", document, "F");
                 this.HandleLongString(surgicalSpecimen.Diagnosis, document, "F");
+                this.AddNextObxElement("", document, "C");
             }
 
             this.AddNextObxElement("", document, "F");

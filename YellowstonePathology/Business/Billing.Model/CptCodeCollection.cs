@@ -81,7 +81,6 @@ namespace YellowstonePathology.Business.Billing.Model
         public bool IsMedicareCode(string cptCode)
         {
             bool result = false;
-
             return result;
         }
 

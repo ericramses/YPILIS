@@ -127,6 +127,7 @@ namespace YellowstonePathology.Business.Facility.Model
             result.Add(new MyriadGeneticsLab());
             result.Add(new UCDavisMedicalCenter());
             result.Add(new VirginiaMason());
+            result.Add(new UCHLoneTreeBreastCenter());
             return Sort(result);
         }
 
