@@ -13,8 +13,6 @@ namespace YellowstonePathology.Business.Billing.Model
             this.m_BillingRuleSetIdOld = "6040FB9A-6D25-4E3E-9922-A48BB8CEC8E3";
             this.m_BillingRuleSetName = "Hospital Split All Rule Set";
 
-            CptCodeCollection allCptCodes = CptCodeCollection.GetAll();
-
             BillingRule billingRule0 = new BillingRule();
             billingRule0.BillingRuleSetId = this.m_BillingRuleSetId;
             billingRule0.Priority = 0;            

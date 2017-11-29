@@ -8,6 +8,11 @@ namespace YellowstonePathology.Business.Billing.Model
 {
     public class CptCode
     {
+        public const string CptTypeNormal = "Normal";
+        public const string CptTypePQRS = "PQRS";
+        public const string CptTypeGCode = "GCode";
+
+        protected string m_CPTCodeId;
         protected string m_Code;        
         protected string m_Description;
         protected FeeScheduleEnum m_FeeSchedule;
@@ -25,6 +30,13 @@ namespace YellowstonePathology.Business.Billing.Model
         public CptCode()
         {
             this.m_HasMedicareQuantityLimit = false;            
+        }
+
+        [PersistentProperty()]
+        public string CPTCodeId
+        {
+            get { return this.m_CPTCodeId; }
+            set { this.m_CPTCodeId = value; }
         }
 
         [PersistentProperty()]

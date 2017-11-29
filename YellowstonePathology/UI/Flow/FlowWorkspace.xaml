@@ -7,114 +7,6 @@
 			 xmlns:validationRules="clr-namespace:YellowstonePathology.UI.ValidationRules"
 			 xmlns:converter="clr-namespace:YellowstonePathology.UI.Converter"
              xmlns:CustomControls="clr-namespace:YellowstonePathology.UI.CustomControls">
-    <UserControl.Resources>
-        <XmlDataProvider x:Key="ICDCodes" XPath="/ICDCodeCollection">
-            <x:XData>
-                <ICDCodeCollection xmlns="">
-                    <ICDCode ICD10="R89.7" Description="Abnormal histological findings in specimens from other organs, systems and tissues" />
-                    <ICDCode ICD10="C91.00" Description="Acute lymphoblastic leukemia not having achieved remission" />
-                    <ICDCode ICD10="C91.01" Description="Acute lymphoblastic leukemia, in remission" />
-                    <ICDCode ICD10="C93.01" Description="Acute monoblastic/monocytic leukemia, in remission" />
-                    <ICDCode ICD10="C93.00" Description="Acute monoblastic/monocytic leukemia, not having achieved remission" />
-                    <ICDCode ICD10="C92.01" Description="Acute myeloblastic leukemia, in remission" />
-                    <ICDCode ICD10="C92.00" Description="Acute myeloblastic leukemia, not having achieved remission" />
-                    <ICDCode ICD10="C92.51" Description="Acute myelomonocytic leukemia, in remission" />
-                    <ICDCode ICD10="C92.50" Description="Acute myelomonocytic leukemia, not having achieved remission" />
-                    <ICDCode ICD10="C94.40" Description="Acute panmyelosis with myelofibrosis, not having achieved remission" />
-                    <ICDCode ICD10="C92.41" Description="Acute promyelocytic leukemia, in remission" />
-                    <ICDCode ICD10="C92.40" Description="Acute promyelocytic leukemia, not having achieved remission" />
-                    <ICDCode ICD10="C84.78" Description="Anaplastic large cell lymphoma, ALK-negative, lymph nodes of multiple sites" />
-                    <ICDCode ICD10="D64.9" Description="Anemia, unspecified" />
-                    <ICDCode ICD10="D64.89" Description="Anemias, other specified" />
-                    <ICDCode ICD10="D61.3" Description="Aplastic anemia, idiopathic" />
-                    <ICDCode ICD10="D61.2" Description="Aplastic anemia due to other external agents" />
-                    <ICDCode ICD10="C83.79" Description="Burkitt lymphoma, extranodal and solid organ sites" />
-                    <ICDCode ICD10="C83.78" Description="Burkitt lymphoma, lymph nodes of multiple sites" />
-                    <ICDCode ICD10="D47.Z2" Description="Castleman disease" />
-                    <ICDCode ICD10="C91.11" Description="Chronic lymphocytic leukemia of B-cell type in remission" />
-                    <ICDCode ICD10="C91.10" Description="Chronic lymphocytic leukemia of B-cell type not having achieved remission" />
-                    <ICDCode ICD10="C92.11" Description="Chronic myeloid leukemia, BCR/ABL-positive, in remission" />
-                    <ICDCode ICD10="C92.10" Description="Chronic myeloid leukemia, BCR/ABL-positive, not having achieved remission" />
-                    <ICDCode ICD10="C93.10" Description="Chronic myelomonocytic leukemia, not having achieved remission" />
-                    <ICDCode ICD10="D47.1" Description="Chronic myeloproliferative disease" />
-                    <ICDCode ICD10="D72.819" Description="Decreased white blood count, unspecified" />
-                    <ICDCode ICD10="C83.39" Description="Diffuse large B-cell lymphoma, extranodal and solid organ sites" />
-                    <ICDCode ICD10="C83.38" Description="Diffuse large B-cell lymphoma, lymph nodes of multiple sites" />
-                    <ICDCode ICD10="D75.9" Description="Disease of blood and blood-forming organs, unspecified" />
-                    <ICDCode ICD10="D72.89" Description="Disorders of white blood cells, other specified" />
-                    <ICDCode ICD10="D72.829" Description="Elevated white blood cell count, unspecified" />
-                    <ICDCode ICD10="R59.1" Description="Enlarged lymph nodes, generalized" />
-                    <ICDCode ICD10="R59.0" Description="Enlarged lymph nodes, localized" />
-                    <ICDCode ICD10="D72.1" Description="Eosinophilia" />
-                    <ICDCode ICD10="D47.3" Description="Essential (hemorrhagic) thrombocythemia" />
-                    <ICDCode ICD10="C82.08" Description="Follicular lymphoma grade I, lymph nodes of multiple sites" />
-                    <ICDCode ICD10="C82.18" Description="Follicular lymphoma grade II, lymph nodes of multiple sites" />
-                    <ICDCode ICD10="R19.07" Description="Generalized intra-abdominal and pelvic swelling, mass and lump" />
-                    <ICDCode ICD10="C91.40" Description="Harry cell leukemia not having achieved remission" />
-                    <ICDCode ICD10="C91.41" Description="Hairy cell leukemia, in remission" />
-                    <ICDCode ICD10="C81.79" Description="Hodgkin lymphoma, other, extranodal and solid organ sites" />
-                    <ICDCode ICD10="R19.09" Description="Intra-abdominal and pelvic swelling, other, mass and lump" />
-                    <ICDCode ICD10="C94.80" Description="Leukemias, other specified, not having achieved remission" />
-                    <ICDCode ICD10="C83.59" Description="Lymphoblastic (diffuse) lymphoma, extranodal and solid organ sites" />
-                    <ICDCode ICD10="C83.58" Description="Lymphoblastic (diffuse) lymphoma, lymph nodes of multiple sites" />
-                    <ICDCode ICD10="C81.49" Description="Lymphocyte-rich Hodgkin lymphoma, extranodal and solid organ sites" />
-                    <ICDCode ICD10="D72.810" Description="Lymphocytopenia" />
-                    <ICDCode ICD10="D72.820" Description="Lymphocytosis (symptomatic)" />
-                    <ICDCode ICD10="C91.Z0" Description="Lymphoid leukemia, other, not having achieved remission" />
-                    <ICDCode ICD10="C96.2" Description="Malignant mast cell tumor" />
-                    <ICDCode ICD10="C83.19" Description="Mantle cell lymphoma, extranodal and solid organ sites" />
-                    <ICDCode ICD10="C83.18" Description="Mantle cell lymphoma, lymph nodes of multiple sites" />
-                    <ICDCode ICD10="C94.30" Description="Mast cell leukemia, not having achieved remission" />
-                    <ICDCode ICD10="C84.Z9" Description="Mature T/NK-cell lymphomas, other, extranodal and solid organ sites" />
-                    <ICDCode ICD10="C85.22" Description="Mediastinal (thymic) large B-cell lymphoma, intrathoracic lymph nodes" />
-                    <ICDCode ICD10="C81.29" Description="Mixed cellularity Hodgkin lymphoma, extranodal and solid organ sites" />
-                    <ICDCode ICD10="D47.2" Description="Monoclonal gammopathy" />
-                    <ICDCode ICD10="C93.Z0" Description="Monocytic leukemia, other, not having achieved remission" />
-                    <ICDCode ICD10="D72.821" Description="Monocytosis (symptomatic)" />
-                    <ICDCode ICD10="C90.01" Description="Multiple myeloma in remission" />
-                    <ICDCode ICD10="C90.00" Description="Multiple myeloma not having achieved remission" />
-                    <ICDCode ICD10="C84.09" Description="Mycosis fungoides, extranodal and solid organ sites" />
-                    <ICDCode ICD10="C94.6" Description="Myelodysplastic disease, not classified" />
-                    <ICDCode ICD10="D46.9" Description="Myelodysplastic syndrome, unspecified" />
-                    <ICDCode ICD10="D75.81" Description="Myelofibrosis" />
-                    <ICDCode ICD10="C92.Z0" Description="Myeloid leukemia, other, not having achieved remission" />
-                    <ICDCode ICD10="C92.30" Description="Myeloid sarcoma, not having achieved remission" />
-                    <ICDCode ICD10="D70.9" Description="Neutropenia, unspecified" />
-                    <ICDCode ICD10="C81.09" Description="Nodular lymphocyte predominant Hodgkin lymphoma, extranodal and solid organ sites" />
-                    <ICDCode ICD10="C81.08" Description="Nodular lymphocyte predominant Hodgkin lymphoma, lymph nodes of multiple sites" />
-                    <ICDCode ICD10="C81.19" Description="Nodular sclerosis Hodgkin lymphoma, extranodal and solid organ sites" />
-                    <ICDCode ICD10="C83.89" Description="Non-follicular lymphoma, other, extranodal and solid organ sites" />
-                    <ICDCode ICD10="C83.88" Description="Non-follicular lymphoma, other, lymph nodes of multiple sites" />
-                    <ICDCode ICD10="C85.99" Description="Non-Hodgkin lymphoma, unspecified, extranodal and solid organ sites" />
-                    <ICDCode ICD10="C85.98" Description="Non-Hodgkin lymphoma, unspecified, lymph nodes of multiple sites" />
-                    <ICDCode ICD10="C91.Z0" Description="Other lymphoid leukemia not having achieved remission" />
-                    <ICDCode ICD10="C83.89" Description="Other non-follicular lymphoma, extranodal and solid organ sites" />
-                    <ICDCode ICD10="D61.818" Description="Other pancytopenia" />
-                    <ICDCode ICD10="D69.49" Description="Other primary thrombocytopenia" />
-                    <ICDCode ICD10="D72.89" Description="Other specified disorders of white blood cells" />
-                    <ICDCode ICD10="C85.89" Description="Other specified types of non-Hodgkin lymphoma, extranodal and solid organ sites" />
-                    <ICDCode ICD10="D61.818" Description="Pancytopenia, other" />
-                    <ICDCode ICD10="C84.48" Description="Peripheral T-cell lymphoma, not classified, lymph nodes of multiple sites" />
-                    <ICDCode ICD10="D72.822" Description="Plasmacytosis" />
-                    <ICDCode ICD10="D45" Description="Polycythemia vera" />
-                    <ICDCode ICD10="C91.61" Description="Prolymphocytic leukemia of T-cell type , in remission" />
-                    <ICDCode ICD10="C91.60" Description="Prolymphocytic leukemia of T-cell type not having achieved remission" />
-                    <ICDCode ICD10="D46.21" Description="Refractory anemia with excess of blasts 1" />
-                    <ICDCode ICD10="D46.22" Description="Refractory anemia with excess of blasts 2" />
-                    <ICDCode ICD10="D46.20" Description="Refractory anemia with excess of blasts, unspecified" />
-                    <ICDCode ICD10="D46.0" Description="Refractory anemia without ring sideroblasts, so stated" />
-                    <ICDCode ICD10="D46.1" Description="Refractory anemia with ring sideroblasts" />
-                    <ICDCode ICD10="D46.4" Description="Refractory anemia, unspecified" />
-                    <ICDCode ICD10="D46.A" Description="Refractory cytopenia with multilineage dysplasia" />
-                    <ICDCode ICD10="D46.B" Description="Refractory cytopenia with multilineage dysplasia and ring sideroblasts" />
-                    <ICDCode ICD10="C84.19" Description="Sezary disease, extranodal and solid organ sites" />
-                    <ICDCode ICD10="C83.08" Description="Small cell B-cell lymphoma, lymph nodes of multiple sites" />
-                    <ICDCode ICD10="D69.6" Description="Thrombocytopenia, unspecified" />
-                    <ICDCode ICD10="C85.19" Description="Unspecified B-cell lymphoma, extranodal and solid organ sites" />
-                </ICDCodeCollection>
-            </x:XData>
-        </XmlDataProvider>
-    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5*"></ColumnDefinition>
@@ -580,7 +472,7 @@
                         </StackPanel>
                     </StackPanel>
                 </TabItem>
-                <TabItem Header="ICD10 Codes">
+                <TabItem Header="ICD10 Codes" Height="22" Margin="-1.8,-2,-2.2,0" VerticalAlignment="Top">
                     <Grid Background="White">
                         <Grid.ContextMenu>
                             <ContextMenu>
@@ -606,11 +498,11 @@
                                     </GridView>
                                 </ListView.View>
                             </ListView>
-                            <ListView Name="ListViewICDCodes" ItemsSource="{Binding Source={StaticResource ICDCodes}, XPath=ICDCode}" MouseDoubleClick="ListICDCode_MouseDoubleClick">
+                            <ListView Name="ListViewICDCodes" ItemsSource="{Binding Path=ICDCodeList}" MouseDoubleClick="ListICDCode_MouseDoubleClick">
                                 <ListView.View>
                                     <GridView>
-                                        <GridViewColumn DisplayMemberBinding="{Binding XPath=@ICD10}" Header="ICD10 Code" Width="100"/>
-                                        <GridViewColumn DisplayMemberBinding="{Binding XPath=@Description}" Header="Description" Width="400"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Path=Code}" Header="ICD10 Code" Width="100"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Path=Description}" Header="Description" Width="400"/>
                                     </GridView>
                                 </ListView.View>
                             </ListView>
