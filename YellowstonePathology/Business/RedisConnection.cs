@@ -14,7 +14,7 @@ namespace YellowstonePathology.Business
 
         public RedisConnection(string ipAddress, string port)
         {
-            this.m_Connection = ConnectionMultiplexer.Connect(ipAddress + ", ConnectTimeout=5000, SyncTimeout=5000");
+            this.m_Connection = ConnectionMultiplexer.Connect(ipAddress + ":" + port + ", ConnectTimeout=5000, SyncTimeout=5000");
             this.m_Server = this.m_Connection.GetServer(ipAddress + ":" + port);
         }
 

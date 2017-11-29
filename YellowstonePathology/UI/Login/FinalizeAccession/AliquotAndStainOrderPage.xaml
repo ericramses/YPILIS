@@ -131,7 +131,7 @@
 			</Style>
 
 			<DataTemplate x:Key="DataTemplateCaseTreeSlideOrder">
-				<StackPanel Orientation="Horizontal" Margin="2,2,2,2">
+                <StackPanel Orientation="Horizontal" Margin="2,2,2,2">
                     <Image Source="/Resources/out2.png" Width="17" Height="17" Visibility="{Binding Path=Element[ClientAccessioned].Value, Converter={StaticResource BooleanVisibilityConverter}}"></Image>
                     <CheckBox Margin="2,2,2,2" VerticalAlignment="Center" IsChecked="{Binding Path=Element[IsSelected].Value, Converter={StaticResource BooleanStringConverter}}" />                    
 					<TextBlock FontWeight="Bold" Margin="2,2,0,2" VerticalAlignment="Center" Text="{Binding Path=Element[Label].Value}"></TextBlock>
@@ -142,7 +142,7 @@
 				<StackPanel Orientation="Horizontal" Margin="2,2,2,2">
                     <StackPanel.ContextMenu>
                         <ContextMenu>
-                            <MenuItem Header="Send Order To Ventana" Click="MenuItemSendOrderToVentana_Click" Tag="{Binding}"></MenuItem>
+                            <MenuItem Header="Show Ventana Order" Click="MenuItemShowVentanaOrder_Click" Tag="{Binding}"></MenuItem>
                         </ContextMenu>
                     </StackPanel.ContextMenu>
                     <CheckBox Margin="2,2,2,2" VerticalAlignment="Center" IsChecked="{Binding Path=Element[IsSelected].Value, Converter={StaticResource BooleanStringConverter}}" />

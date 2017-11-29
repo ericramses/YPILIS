@@ -995,14 +995,13 @@ namespace YellowstonePathology.UI
 
             Microsoft.Office.Interop.Outlook.Items items = mapiFolder.Items;
             */
-        }
+        }        
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
-        {
-
-            Business.RedisAppDataConnection redis = new Business.RedisAppDataConnection();
-            IDatabase db = redis.GetDatabase();
-            db.KeyExists("asdlkfjasdlkfj");
+        {                        
+            //Business.RedisAppDataConnection redis = new Business.RedisAppDataConnection();
+            //IDatabase db = redis.GetDatabase();
+            //db.KeyExists("asdlkfjasdlkfj");
 
             //template.CreateNewXPSFromSource(source, destination);
             //template.SaveToTIF(destination);
@@ -1036,7 +1035,7 @@ namespace YellowstonePathology.UI
 
             //Business.RedisLocksConnection redis = new Business.RedisLocksConnection();
             //IDatabase db = redis.GetDatabase();
-            
+
 
             /*
             string path = @"C:\temp\stains.csv";
@@ -1060,7 +1059,7 @@ namespace YellowstonePathology.UI
                     Console.WriteLine(sql.ToString());
                 }                
             } 
-            */            
+            */
         }
 
         private void GetSlideNumberTest()
