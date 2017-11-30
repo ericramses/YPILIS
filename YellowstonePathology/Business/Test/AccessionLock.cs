@@ -108,9 +108,8 @@ namespace YellowstonePathology.Business.Test
             this.m_Address = null;
             this.m_TimeAquired = null;
 
-            Business.RedisLocksConnection redis = new RedisLocksConnection();
-            IDatabase db = redis.GetDatabase();
-            var transaction = db.CreateTransaction();
+            Business.RedisLocksConnection redis = new RedisLocksConnection("default");            
+            var transaction = redis.Db.CreateTransaction();
             transaction.AddCondition(Condition.HashExists(this.HashKey, "MasterAccessionNo"));            
             transaction.KeyDeleteAsync(this.HashKey);
             transaction.SetRemoveAsync("AccessionLocks", this.HashKey);
@@ -121,14 +120,13 @@ namespace YellowstonePathology.Business.Test
 
         public void TransferLock(string address)
         {
-            Business.RedisLocksConnection redis = new RedisLocksConnection();
-            IDatabase db = redis.GetDatabase();
+            Business.RedisLocksConnection redis = new RedisLocksConnection("default");            
                         
             HashEntry[] hashFields = new HashEntry[3];
             hashFields[0] = new HashEntry("MasterAccessionNo", this.MasterAccessionNo);
             hashFields[1] = new HashEntry("Address", address);
             hashFields[2] = new HashEntry("TimeAquired", DateTime.Now.ToString());
-            db.HashSet(this.HashKey, hashFields);
+            redis.Db.HashSet(this.HashKey, hashFields);
 
             this.m_Address = address;
             this.m_TimeAquired = DateTime.Now;
@@ -143,10 +141,8 @@ namespace YellowstonePathology.Business.Test
 
         private void GetHash()
         {
-            Business.RedisLocksConnection redis = new RedisLocksConnection();
-            IDatabase db = redis.GetDatabase();
-
-            HashEntry[] hashFields = db.HashGetAll(this.HashKey);
+            Business.RedisLocksConnection redis = new RedisLocksConnection("default");            
+            HashEntry[] hashFields = redis.Db.HashGetAll(this.HashKey);
 
             this.m_MasterAccessionNo = hashFields[0].Value;
             this.m_Address = hashFields[1].Value;                        
@@ -156,22 +152,19 @@ namespace YellowstonePathology.Business.Test
 
         public bool IsLockStillAquired()
         {
-            Business.RedisLocksConnection redis = new RedisLocksConnection();
-            IDatabase db = redis.GetDatabase();
-            return db.KeyExists(this.HashKey);
+            Business.RedisLocksConnection redis = new RedisLocksConnection("default");            
+            return redis.Db.KeyExists(this.HashKey);
         }
 
         private void TryHashSet()
         {
-            Business.RedisLocksConnection redis = new RedisLocksConnection();
-            IDatabase db = redis.GetDatabase();
-
+            Business.RedisLocksConnection redis = new RedisLocksConnection("default");            
             HashEntry[] hashFields = new HashEntry[3];
             hashFields[0] = new HashEntry("MasterAccessionNo", this.m_MasterAccessionNo);
             hashFields[1] = new HashEntry("Address", UI.AppMessaging.AccessionLockMessage.GetMyAddress());            
             hashFields[2] = new HashEntry("TimeAquired", DateTime.Now.ToString());
 
-            var transaction = db.CreateTransaction();
+            var transaction = redis.Db.CreateTransaction();
             transaction.AddCondition(Condition.HashNotExists(this.HashKey, "MasterAccessionNo"));
             transaction.HashSetAsync(this.HashKey, hashFields);
             transaction.SetAddAsync("AccessionLocks", this.HashKey);

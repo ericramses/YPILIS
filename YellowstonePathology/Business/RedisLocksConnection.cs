@@ -8,7 +8,7 @@ namespace YellowstonePathology.Business
 {
     public class RedisLocksConnection : RedisConnection
     {
-        public RedisLocksConnection() : base("10.1.2.25", "6379")
+        public RedisLocksConnection(string database) : base("10.1.2.25", "6379", database)
         {
 
         }

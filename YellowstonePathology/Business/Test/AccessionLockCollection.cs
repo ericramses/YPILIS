@@ -18,8 +18,7 @@ namespace YellowstonePathology.Business.Test
         public void ClearLocks()
         {            
             foreach (Business.Test.AccessionLock accessionLock in this)
-            {
-                //if (accessionLock.Address == UI.AppMessaging.AccessionLockMessage.GetMyAddress())
+            {                
                 if (accessionLock.IsLockAquiredByMe == true)
                 {
                     accessionLock.ReleaseLock();
@@ -35,16 +34,15 @@ namespace YellowstonePathology.Business.Test
 
         private void Build()
         {
-            Business.RedisLocksConnection redis = new RedisLocksConnection();
-            IDatabase db = redis.GetDatabase();
-            RedisValue[] members = db.SetMembers("AccessionLocks");
+            Business.RedisLocksConnection redis = new RedisLocksConnection("default");            
+            RedisValue[] members = redis.Db.SetMembers("AccessionLocks");
 
             List<AccessionLock> list = new List<AccessionLock>();
             for (int i = 0; i < members.Length; i++)
             {
-                if(db.KeyExists(members[i].ToString()) == true)
+                if(redis.Db.KeyExists(members[i].ToString()) == true)
                 {
-                    HashEntry[] hashEntries = db.HashGetAll(members[i].ToString());
+                    HashEntry[] hashEntries = redis.Db.HashGetAll(members[i].ToString());
                     AccessionLock item = new AccessionLock(hashEntries);
                     list.Add(item);
                 }                

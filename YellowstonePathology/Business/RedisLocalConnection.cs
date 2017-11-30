@@ -8,7 +8,7 @@ namespace YellowstonePathology.Business
 {
     public class RedisLocalConnection : RedisConnection
     {
-        public RedisLocalConnection() : base("localhost", "6379")
+        public RedisLocalConnection(string database) : base("localhost", "6379", database)
         { }
     }
 }

@@ -138,16 +138,14 @@ namespace YellowstonePathology.Business.Billing.Model
 
         private static ICDCodeCollection FromRedis()
         {
-            ICDCodeCollection result = new ICDCodeCollection();
-            Business.RedisLocalConnection redis = new RedisLocalConnection();
-            //Business.RedisAppDataConnection redis = new RedisAppDataConnection();
-            IDatabase db = redis.GetDatabase();
+            ICDCodeCollection result = new ICDCodeCollection();            
+            Business.RedisAppDataConnection redis = new RedisAppDataConnection("icdCodes");            
             IServer server = redis.Server;
 
             RedisKey[] keyResult = server.Keys(0, "icd:*").ToArray<RedisKey>();
             foreach (RedisKey key in keyResult)
             {
-                RedisResult redisResult = db.Execute("json.get", new object[] { key.ToString(), "." });
+                RedisResult redisResult = redis.Db.Execute("json.get", new object[] { key.ToString(), "." });
                 JObject jObject = JsonConvert.DeserializeObject<JObject>((string)redisResult);
                 ICDCode code = ICDCodeFactory.FromJson(jObject);
                 result.Add(code);

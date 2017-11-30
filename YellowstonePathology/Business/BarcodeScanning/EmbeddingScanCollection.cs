@@ -16,22 +16,20 @@ namespace YellowstonePathology.Business.BarcodeScanning
 
         public void UpdateStatus(EmbeddingScan scan)
         {
-            Business.RedisLocksConnection redis = new RedisLocksConnection();
-            IDatabase db = redis.GetDatabase();
-            if (db.KeyExists(scan.HashKey) == true)
+            Business.RedisLocksConnection redis = new RedisLocksConnection("default");            
+            if (redis.Db.KeyExists(scan.HashKey) == true)
             {
                 HashEntry[] hashEntries = scan.GetHasEntries();
-                db.HashSet(scan.HashKey, "Updated", scan.Updated.ToString());
+                redis.Db.HashSet(scan.HashKey, "Updated", scan.Updated.ToString());
             }
         }
 
         public EmbeddingScan HandleScan(string aliquotOrderId, DateTime processorStartTime, TimeSpan processorFixationDuration)
         {
-            Business.RedisLocksConnection redis = new RedisLocksConnection();
-            IDatabase db = redis.GetDatabase();
+            Business.RedisLocksConnection redis = new RedisLocksConnection("default");            
             EmbeddingScan scan = new EmbeddingScan(aliquotOrderId, processorStartTime, processorFixationDuration);
 
-            if (db.KeyExists("EmbeddingScan:" + aliquotOrderId) == true)
+            if (redis.Db.KeyExists("EmbeddingScan:" + aliquotOrderId) == true)
             {
                 foreach (EmbeddingScan item in this)
                 {
@@ -44,11 +42,11 @@ namespace YellowstonePathology.Business.BarcodeScanning
             }
             else
             {
-                db.SetAdd("EmbeddingScans:" + DateTime.Today.ToShortDateString(), scan.HashKey);
+                redis.Db.SetAdd("EmbeddingScans:" + DateTime.Today.ToShortDateString(), scan.HashKey);
             }
 
             HashEntry[] hashEntries = scan.GetHasEntries();
-            db.HashSet(scan.HashKey, hashEntries);
+            redis.Db.HashSet(scan.HashKey, hashEntries);
             this.InsertItem(0, scan);
 
             return scan;
@@ -58,14 +56,13 @@ namespace YellowstonePathology.Business.BarcodeScanning
         {
             EmbeddingScanCollection result = new EmbeddingScanCollection();
 
-            Business.RedisLocksConnection redis = new RedisLocksConnection();
-            IDatabase db = redis.GetDatabase();
-            RedisValue[] members = db.SetMembers("EmbeddingScans:" + scanDate.ToShortDateString());
+            Business.RedisLocksConnection redis = new RedisLocksConnection("default");            
+            RedisValue[] members = redis.Db.SetMembers("EmbeddingScans:" + scanDate.ToShortDateString());
 
             List<EmbeddingScan> list = new List<EmbeddingScan>();
             for (int i = 0; i < members.Length; i++)
             {
-                HashEntry[] hashEntries = db.HashGetAll(members[i].ToString());
+                HashEntry[] hashEntries = redis.Db.HashGetAll(members[i].ToString());
                 EmbeddingScan item = new EmbeddingScan(hashEntries);
                 list.Add(item);
             }
@@ -95,15 +92,14 @@ namespace YellowstonePathology.Business.BarcodeScanning
         public static EmbeddingScanCollection GetAll()
         {
             EmbeddingScanCollection result = new EmbeddingScanCollection();
-            Business.RedisLocksConnection redis = new RedisLocksConnection();
-            IDatabase db = redis.GetDatabase();
+            Business.RedisLocksConnection redis = new RedisLocksConnection("default");            
 
             foreach (var key in redis.Server.Keys(pattern: "EmbeddingScans:*"))
             {
-                RedisValue[] members = db.SetMembers(key);                
+                RedisValue[] members = redis.Db.SetMembers(key);                
                 for (int i = 0; i < members.Length; i++)
                 {
-                    HashEntry[] hashEntries = db.HashGetAll(members[i].ToString());
+                    HashEntry[] hashEntries = redis.Db.HashGetAll(members[i].ToString());
                     EmbeddingScan item = new EmbeddingScan(hashEntries);
                     result.Add(item);
                 }

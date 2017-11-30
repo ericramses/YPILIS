@@ -998,9 +998,8 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {                        
-            Business.RedisAppDataConnection redis = new Business.RedisAppDataConnection();
-            IDatabase db = redis.GetDatabase();
-            db.KeyExists("asdlkfjasdlkfj");
+            Business.RedisAppDataConnection redis = new Business.RedisAppDataConnection("default");            
+            redis.Db.KeyExists("asdlkfjasdlkfj");
 
             //template.CreateNewXPSFromSource(source, destination);
             //template.SaveToTIF(destination);

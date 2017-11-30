@@ -429,16 +429,15 @@ namespace YellowstonePathology.Business.Test.Model
         private static TestCollection FromRedis()
         {
             YellowstonePathology.Business.Test.Model.TestCollection result = new TestCollection();
-            Business.RedisLocalConnection redis = new RedisLocalConnection();
-            //Business.RedisAppDataConnection redis = new RedisAppDataConnection();
-            IDatabase db = redis.GetDatabase();
+            Business.RedisLocalConnection redis = new RedisLocalConnection("default");
+            //Business.RedisAppDataConnection redis = new RedisAppDataConnection();            
             IServer server = redis.Server;
 
 
             RedisKey[] keyResult = server.Keys(0, "stain:*").ToArray<RedisKey>();
             foreach (RedisKey key in keyResult)
             {
-                RedisResult redisResult = db.Execute("json.get", new object[] { key.ToString(), "." });
+                RedisResult redisResult = redis.Db.Execute("json.get", new object[] { key.ToString(), "." });
                 JObject jObject = JsonConvert.DeserializeObject<JObject>((string)redisResult);
                 Test test = JsonTestFactory.FromJson(jObject);
                 result.Add(test);
