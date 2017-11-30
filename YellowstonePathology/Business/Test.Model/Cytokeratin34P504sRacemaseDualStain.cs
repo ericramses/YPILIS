@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.Test.Model
             this.m_NeedsAcknowledgement = true;
 
 			this.m_DepricatedFirstTestId = "227";
-			this.m_DepricatedSecondTestId = "228";
+			this.m_DepricatedSecondTestId = "228";            
 		}
 	}
 }
