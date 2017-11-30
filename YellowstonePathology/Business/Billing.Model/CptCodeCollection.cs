@@ -166,7 +166,7 @@ namespace YellowstonePathology.Business.Billing.Model
         public static CptCodeCollection FromRedis()
         {
             YellowstonePathology.Business.Billing.Model.CptCodeCollection result = new Model.CptCodeCollection();            
-            Business.RedisAppDataConnection redis = new RedisAppDataConnection("cptCodes");            
+            Business.RedisAppDataConnection redis = new RedisAppDataConnection("default");            
             IServer server = redis.Server;
 
             RedisKey[] keyResult = server.Keys(0,"cpt:*").ToArray<RedisKey>();
