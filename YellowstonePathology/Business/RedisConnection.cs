@@ -16,7 +16,8 @@ namespace YellowstonePathology.Business
         private Dictionary<string, int> m_DatabaseMap;
 
         public RedisConnection(string ipAddress, string port, string database)
-        {            
+        {
+            this.SetupMap();
             this.m_Connection = ConnectionMultiplexer.Connect(ipAddress + ":" + port + ", ConnectTimeout=5000, SyncTimeout=5000");
             this.m_Server = this.m_Connection.GetServer(ipAddress + ":" + port);
             this.m_Database = this.m_Connection.GetDatabase(this.m_DatabaseMap[database]);
