@@ -139,7 +139,7 @@ namespace YellowstonePathology.Business.Billing.Model
         private static ICDCodeCollection FromRedis()
         {
             ICDCodeCollection result = new ICDCodeCollection();            
-            Business.RedisAppDataConnection redis = new RedisAppDataConnection("icdCodes");            
+            Business.RedisAppDataConnection redis = new RedisAppDataConnection("default");            
             IServer server = redis.Server;
 
             RedisKey[] keyResult = server.Keys(0, "icd:*").ToArray<RedisKey>();
