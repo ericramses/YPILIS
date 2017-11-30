@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business.BarcodeScanning
 
         public void UpdateStatus(EmbeddingScan scan)
         {
-            Business.RedisLocksConnection redis = new RedisLocksConnection("default");            
+            Business.RedisLocksConnection redis = new RedisLocksConnection(RedisDatabaseEnum.Default);            
             if (redis.Db.KeyExists(scan.HashKey) == true)
             {
                 HashEntry[] hashEntries = scan.GetHasEntries();
@@ -26,7 +26,7 @@ namespace YellowstonePathology.Business.BarcodeScanning
 
         public EmbeddingScan HandleScan(string aliquotOrderId, DateTime processorStartTime, TimeSpan processorFixationDuration)
         {
-            Business.RedisLocksConnection redis = new RedisLocksConnection("default");            
+            Business.RedisLocksConnection redis = new RedisLocksConnection(RedisDatabaseEnum.Default);            
             EmbeddingScan scan = new EmbeddingScan(aliquotOrderId, processorStartTime, processorFixationDuration);
 
             if (redis.Db.KeyExists("EmbeddingScan:" + aliquotOrderId) == true)
@@ -56,7 +56,7 @@ namespace YellowstonePathology.Business.BarcodeScanning
         {
             EmbeddingScanCollection result = new EmbeddingScanCollection();
 
-            Business.RedisLocksConnection redis = new RedisLocksConnection("default");            
+            Business.RedisLocksConnection redis = new RedisLocksConnection(RedisDatabaseEnum.Default);            
             RedisValue[] members = redis.Db.SetMembers("EmbeddingScans:" + scanDate.ToShortDateString());
 
             List<EmbeddingScan> list = new List<EmbeddingScan>();
@@ -92,7 +92,7 @@ namespace YellowstonePathology.Business.BarcodeScanning
         public static EmbeddingScanCollection GetAll()
         {
             EmbeddingScanCollection result = new EmbeddingScanCollection();
-            Business.RedisLocksConnection redis = new RedisLocksConnection("default");            
+            Business.RedisLocksConnection redis = new RedisLocksConnection(Business.RedisDatabaseEnum.Default);            
 
             foreach (var key in redis.Server.Keys(pattern: "EmbeddingScans:*"))
             {
