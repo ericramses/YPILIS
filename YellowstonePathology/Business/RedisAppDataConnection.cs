@@ -70,7 +70,7 @@ namespace YellowstonePathology.Business
 
         public IDatabase StainDb
         {
-            get { return this.m_StainDatabase; }
+            get { return this.m_DefaultDatabase; }
         }
 
         public ISubscriber Subscriber
