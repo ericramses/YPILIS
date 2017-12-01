@@ -135,15 +135,6 @@ namespace YellowstonePathology.Business.Billing.Model
                 result.Add(code);
             }
 
-            /*keyResult = server.Keys(0, "pqrs:*").ToArray<RedisKey>();
-            foreach (RedisKey key in keyResult)
-            {
-                RedisResult redisResult = redis.Db.Execute("json.get", new object[] { key.ToString(), "." });
-                JObject jObject = JsonConvert.DeserializeObject<JObject>((string)redisResult);
-                CptCode code = CptCodeFactory.FromJson(jObject);
-                result.Add(code);
-            }*/
-
             return result;
         }
     }

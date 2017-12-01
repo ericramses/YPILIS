@@ -139,10 +139,10 @@ namespace YellowstonePathology.Business.Billing.Model
         private static ICDCodeCollection FromRedis()
         {
             ICDCodeCollection result = new ICDCodeCollection();            
-            Business.RedisAppDataConnection redis = new RedisAppDataConnection(RedisDatabaseEnum.Default);            
+            Business.RedisAppDataConnection redis = new RedisAppDataConnection(RedisDatabaseEnum.IcdCodes);            
             IServer server = redis.Server;
 
-            RedisKey[] keyResult = server.Keys(0, "icd:*").ToArray<RedisKey>();
+            RedisKey[] keyResult = server.Keys((int)RedisDatabaseEnum.IcdCodes, "*").ToArray<RedisKey>();
             foreach (RedisKey key in keyResult)
             {
                 RedisResult redisResult = redis.Db.Execute("json.get", new object[] { key.ToString(), "." });

@@ -429,12 +429,12 @@ namespace YellowstonePathology.Business.Test.Model
         private static TestCollection FromRedis()
         {
             YellowstonePathology.Business.Test.Model.TestCollection result = new TestCollection();
-            Business.RedisLocalConnection redis = new RedisLocalConnection(RedisDatabaseEnum.Default);
+            Business.RedisLocalConnection redis = new RedisLocalConnection(RedisDatabaseEnum.Stains);
             //Business.RedisAppDataConnection redis = new RedisAppDataConnection();            
             IServer server = redis.Server;
 
 
-            RedisKey[] keyResult = server.Keys(0, "stain:*").ToArray<RedisKey>();
+            RedisKey[] keyResult = server.Keys((int)RedisDatabaseEnum.Stains, "*").ToArray<RedisKey>();
             foreach (RedisKey key in keyResult)
             {
                 RedisResult redisResult = redis.Db.Execute("json.get", new object[] { key.ToString(), "." });

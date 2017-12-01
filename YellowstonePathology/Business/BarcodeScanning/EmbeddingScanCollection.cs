@@ -94,7 +94,7 @@ namespace YellowstonePathology.Business.BarcodeScanning
             EmbeddingScanCollection result = new EmbeddingScanCollection();
             Business.RedisLocksConnection redis = new RedisLocksConnection(Business.RedisDatabaseEnum.Default);            
 
-            foreach (var key in redis.Server.Keys(pattern: "EmbeddingScans:*"))
+            foreach (var key in redis.Server.Keys((int)Business.RedisDatabaseEnum.Default, pattern: "EmbeddingScans:*"))
             {
                 RedisValue[] members = redis.Db.SetMembers(key);                
                 for (int i = 0; i < members.Length; i++)
