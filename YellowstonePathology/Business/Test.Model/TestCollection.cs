@@ -412,32 +412,17 @@ namespace YellowstonePathology.Business.Test.Model
                 }
             }
             return result;
-        }
-
-        /*public string ToJSON()
-        {
-            string result = Newtonsoft.Json.JsonConvert.SerializeObject(this, Newtonsoft.Json.Formatting.Indented, new Newtonsoft.Json.JsonSerializerSettings
-            {
-                TypeNameHandling = Newtonsoft.Json.TypeNameHandling.All,
-                ObjectCreationHandling = Newtonsoft.Json.ObjectCreationHandling.Replace,
-                ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver()
-            });
-
-            return result;
-        }*/
+        }       
 
         private static TestCollection FromRedis()
         {
-            YellowstonePathology.Business.Test.Model.TestCollection result = new TestCollection();
-            Business.RedisLocalConnection redis = new RedisLocalConnection(RedisDatabaseEnum.Default);
-            //Business.RedisAppDataConnection redis = new RedisAppDataConnection();            
-            IServer server = redis.Server;
-
+            YellowstonePathology.Business.Test.Model.TestCollection result = new TestCollection();            
+            IServer server = RedisAppDataConnection.Instance.Server;
 
             RedisKey[] keyResult = server.Keys(0, "stain:*").ToArray<RedisKey>();
             foreach (RedisKey key in keyResult)
             {
-                RedisResult redisResult = redis.Db.Execute("json.get", new object[] { key.ToString(), "." });
+                RedisResult redisResult = RedisAppDataConnection.Instance.Db.Execute("json.get", new object[] { key.ToString(), "." });
                 JObject jObject = JsonConvert.DeserializeObject<JObject>((string)redisResult);
                 Test test = JsonTestFactory.FromJson(jObject);
                 result.Add(test);

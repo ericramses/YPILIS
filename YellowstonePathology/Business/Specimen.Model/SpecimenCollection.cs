@@ -136,32 +136,28 @@ namespace YellowstonePathology.Business.Specimen.Model
 
         public void WriteToRedis()
         {
-            Business.RedisLocksConnection redis = new RedisLocksConnection(RedisDatabaseEnum.Default);            
-            redis.Db.KeyDelete("specimens");
-
+            RedisLocksConnection.Instance.Db.KeyDelete("specimens");
             foreach (Specimen specimen in this)
             {
-                redis.Db.KeyDelete("specimen:" + specimen.SpecimenId);
-
+                RedisLocksConnection.Instance.Db.KeyDelete("specimen:" + specimen.SpecimenId);
                 string result = JsonConvert.SerializeObject(specimen, Newtonsoft.Json.Formatting.Indented, new JsonSerializerSettings
                 {
                     TypeNameHandling = TypeNameHandling.All
                 });
 
-                redis.Db.ListRightPush("specimens", "specimen:" + specimen.SpecimenId);
-                redis.Db.StringSet("specimen:" + specimen.SpecimenId, result);
-            }
+                RedisLocksConnection.Instance.Db.ListRightPush("specimens", "specimen:" + specimen.SpecimenId);
+                RedisLocksConnection.Instance.Db.StringSet("specimen:" + specimen.SpecimenId, result);
+            }            
         }
 
         public static SpecimenCollection BuildFromRedis()
         {
-            SpecimenCollection result = new SpecimenCollection();
-            Business.RedisLocksConnection redis = new RedisLocksConnection(Business.RedisDatabaseEnum.Default);            
-            RedisValue[] items = redis.Db.ListRange("specimens", 0, -1);
+            SpecimenCollection result = new SpecimenCollection();            
+            RedisValue[] items = RedisLocksConnection.Instance.Db.ListRange("specimens", 0, -1);
 
             for (int i = 0; i < items.Length; i++)
             {
-                RedisValue json = redis.Db.StringGet(items[i].ToString());
+                RedisValue json = RedisLocksConnection.Instance.Db.StringGet(items[i].ToString());
                 Business.Specimen.Model.Specimen specimen = JsonConvert.DeserializeObject<Business.Specimen.Model.Specimen>(json, new JsonSerializerSettings
                 {
                     TypeNameHandling = TypeNameHandling.All,
@@ -169,8 +165,7 @@ namespace YellowstonePathology.Business.Specimen.Model
                 });
 
                 result.Add(specimen);
-            }
-
+            }            
             return result;
         }
     }

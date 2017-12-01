@@ -7,9 +7,9 @@ using StackExchange.Redis;
 
 namespace YellowstonePathology.Business
 {
-    public sealed class RedisAppDataConnection
+    public sealed class RedisSingleton
     {
-        private static RedisAppDataConnection instance = null;
+        private static RedisSingleton instance = null;
         private static readonly object padlock = new object();
 
         private ConnectionMultiplexer m_Connection;
@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business
         private IDatabase m_Database;
         private ISubscriber m_Subscriber;
 
-        RedisAppDataConnection()
+        RedisSingleton()
         {
             this.m_Connection = ConnectionMultiplexer.Connect("10.1.2.70:31578, ConnectTimeout=5000, SyncTimeout=5000");
             this.m_Server = this.m_Connection.GetServer("10.1.2.70:31578");
@@ -25,7 +25,7 @@ namespace YellowstonePathology.Business
             this.m_Subscriber = this.m_Connection.GetSubscriber();
         }
 
-        public static RedisAppDataConnection Instance
+        public static RedisSingleton Instance
         {
             get
             {
@@ -33,12 +33,17 @@ namespace YellowstonePathology.Business
                 {
                     if (instance == null)
                     {
-                        instance = new RedisAppDataConnection();
+                        instance = new RedisSingleton();
                     }
                     return instance;
                 }
             }
-        }        
+        }
+
+        public void CloseConnection()
+        {
+            this.m_Connection.Close();
+        }
 
         public IDatabase Db
         {

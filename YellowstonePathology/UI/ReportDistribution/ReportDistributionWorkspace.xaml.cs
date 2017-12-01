@@ -79,9 +79,7 @@ namespace YellowstonePathology.UI.ReportDistribution
 
             DateTime dailyStartTime = DateTime.Parse(DateTime.Today.ToShortDateString() + " 05:00");
             DateTime dailyEndTime = DateTime.Parse(DateTime.Today.ToShortDateString() + " 20:00");
-
-            Business.RedisLocksConnection redis = new Business.RedisLocksConnection(Business.RedisDatabaseEnum.Default);                        
-            redis.Subscriber.Publish("ReportDistributionHeartBeat", "Hello");
+            Business.RedisLocksConnection.Instance.Subscriber.Publish("ReportDistributionHeartBeat", "Hello");            
 
             if (DateTime.Now >= dailyStartTime && DateTime.Now <= dailyEndTime)
             {                
