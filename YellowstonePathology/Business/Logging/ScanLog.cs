@@ -198,23 +198,20 @@ namespace YellowstonePathology.Business.Logging
         }
 
         public void WriteToRedis()
-        {
-            Business.RedisLocksConnection redis = new RedisLocksConnection(RedisDatabaseEnum.Default);            
+        {            
             string result = this.ToJSON();
-            redis.Db.ListRightPush("scanLogs", result);
+            RedisLocksConnection.Instance.Db.ListRightPush("scanLogs", result);            
         }
 
         public ScanLog BuildFromRedis()
         {
-            ScanLog result = null;
-            Business.RedisLocksConnection redis = new RedisLocksConnection(RedisDatabaseEnum.Default);            
-            RedisValue item = redis.Db.ListLeftPop("scanLogs");
+            ScanLog result = null;            
+            RedisValue item = RedisLocksConnection.Instance.Db.ListLeftPop("scanLogs");
             if(item != RedisValue.Null)
             {
                 RedisValue json = item.ToString();
                 result = this.DeserializeJSON(json);
-            }
-
+            }            
             return result;
         }
     }

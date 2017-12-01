@@ -118,8 +118,7 @@ namespace YellowstonePathology.UI.AppMessaging
             if (this.m_AlwaysHoldList.Exists(e => e == System.Environment.MachineName.ToUpper()))
             {
                 UI.AppMessaging.AccessionLockMessage holdMessage = new AccessionLockMessage(message.MasterAccessionNo, AccessionLockMessage.GetMyAddress(), message.From, AccessionLockMessageIdEnum.HOLD);
-                Business.RedisLocksConnection redis = new Business.RedisLocksConnection(Business.RedisDatabaseEnum.Default);                                
-                redis.Subscriber.Publish(holdMessage.MasterAccessionNo, JsonConvert.SerializeObject(holdMessage));
+                Business.RedisLocksConnection.Instance.Subscriber.Publish(holdMessage.MasterAccessionNo, JsonConvert.SerializeObject(holdMessage));                
             }
             else
             {
@@ -138,9 +137,8 @@ namespace YellowstonePathology.UI.AppMessaging
 
         private void LockRequestReceivedPage_Hold(object sender, CustomEventArgs.AccessionLockMessageReturnEventArgs e)
         {
-            UI.AppMessaging.AccessionLockMessage message = new AccessionLockMessage(e.Message.MasterAccessionNo, AccessionLockMessage.GetMyAddress(), e.Message.From, AccessionLockMessageIdEnum.HOLD);
-            Business.RedisLocksConnection redis = new Business.RedisLocksConnection(Business.RedisDatabaseEnum.Default);                        
-            redis.Subscriber.Publish(message.MasterAccessionNo, JsonConvert.SerializeObject(message));
+            UI.AppMessaging.AccessionLockMessage message = new AccessionLockMessage(e.Message.MasterAccessionNo, AccessionLockMessage.GetMyAddress(), e.Message.From, AccessionLockMessageIdEnum.HOLD);            
+            Business.RedisLocksConnection.Instance.Subscriber.Publish(message.MasterAccessionNo, JsonConvert.SerializeObject(message));            
             this.m_MessagingDialog.Close();
         }
 
@@ -153,8 +151,7 @@ namespace YellowstonePathology.UI.AppMessaging
             e.AccessionOrder.AccessionLock.TransferLock(e.Message.From);
 
             UI.AppMessaging.AccessionLockMessage message = new AccessionLockMessage(e.Message.MasterAccessionNo, AccessionLockMessage.GetMyAddress(), e.Message.From, AccessionLockMessageIdEnum.GIVE);
-            Business.RedisLocksConnection redis = new Business.RedisLocksConnection(Business.RedisDatabaseEnum.Default);                        
-            redis.Subscriber.Publish(message.MasterAccessionNo, JsonConvert.SerializeObject(message));
+            Business.RedisLocksConnection.Instance.Subscriber.Publish(message.MasterAccessionNo, JsonConvert.SerializeObject(message));            
         }
 
         public void StartSendRequest(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, Navigation.PageNavigator pageNavigator)
@@ -165,9 +162,7 @@ namespace YellowstonePathology.UI.AppMessaging
                 this.m_PageNavigatorWasPassedIn = true;
 
                 UI.AppMessaging.AccessionLockMessage message = new AccessionLockMessage(accessionOrder.MasterAccessionNo, AccessionLockMessage.GetMyAddress(), accessionOrder.AccessionLock.Address, AccessionLockMessageIdEnum.ASK);
-                Business.RedisLocksConnection redis = new Business.RedisLocksConnection(Business.RedisDatabaseEnum.Default);                                
-                redis.Subscriber.Publish(message.MasterAccessionNo, JsonConvert.SerializeObject(message));
-
+                Business.RedisLocksConnection.Instance.Subscriber.Publish(message.MasterAccessionNo, JsonConvert.SerializeObject(message));                
                 this.ShowLockRequestSentPage(accessionOrder);
             }
             else
@@ -206,8 +201,7 @@ namespace YellowstonePathology.UI.AppMessaging
             if(e.AccessionOrder.AccessionLock.IsLockStillAquired() == true)
             {
                 UI.AppMessaging.AccessionLockMessage message = new AccessionLockMessage(e.AccessionOrder.MasterAccessionNo, AppMessaging.AccessionLockMessage.GetMyAddress(), e.AccessionOrder.AccessionLock.Address, AccessionLockMessageIdEnum.ASK);
-                Business.RedisLocksConnection redis = new Business.RedisLocksConnection(Business.RedisDatabaseEnum.Default);                                
-                redis.Subscriber.Publish(message.MasterAccessionNo, JsonConvert.SerializeObject(message));
+                Business.RedisLocksConnection.Instance.Subscriber.Publish(message.MasterAccessionNo, JsonConvert.SerializeObject(message));                
                 this.ShowLockRequestSentPage(e.AccessionOrder);
             }
             else

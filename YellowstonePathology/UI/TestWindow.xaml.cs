@@ -28,9 +28,9 @@ namespace YellowstonePathology.UI
             InitializeComponent();
             this.DataContext = this;
 
-            Business.RedisLocksConnection redis = new Business.RedisLocksConnection(Business.RedisDatabaseEnum.Default);
-            this.m_DB = redis.Db;
-            this.m_SUB = redis.Subscriber;
+            //Business.RedisLocksConnection redis = new Business.RedisLocksConnection(Business.RedisDatabaseEnum.Default);
+            //this.m_DB = redis.Db;
+            //this.m_SUB = redis.Subscriber;
         }                
 
         private void Button_SubscribeClick(object sender, RoutedEventArgs e)

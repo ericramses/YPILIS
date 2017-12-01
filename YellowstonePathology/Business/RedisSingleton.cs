@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 using StackExchange.Redis;
 
 namespace YellowstonePathology.Business
-{    
-    public sealed class RedisLocksConnection
+{
+    public sealed class RedisSingleton
     {
-        private static RedisLocksConnection instance = null;
+        private static RedisSingleton instance = null;
         private static readonly object padlock = new object();
 
         private ConnectionMultiplexer m_Connection;
@@ -17,15 +17,15 @@ namespace YellowstonePathology.Business
         private IDatabase m_Database;
         private ISubscriber m_Subscriber;
 
-        RedisLocksConnection()
-        {            
-            this.m_Connection = ConnectionMultiplexer.Connect("10.1.2.25:6379, ConnectTimeout=5000, SyncTimeout=5000");
-            this.m_Server = this.m_Connection.GetServer("10.1.2.25:6379");
+        RedisSingleton()
+        {
+            this.m_Connection = ConnectionMultiplexer.Connect("10.1.2.70:31578, ConnectTimeout=5000, SyncTimeout=5000");
+            this.m_Server = this.m_Connection.GetServer("10.1.2.70:31578");
             this.m_Database = this.m_Connection.GetDatabase();
             this.m_Subscriber = this.m_Connection.GetSubscriber();
         }
 
-        public static RedisLocksConnection Instance
+        public static RedisSingleton Instance
         {
             get
             {
@@ -33,12 +33,17 @@ namespace YellowstonePathology.Business
                 {
                     if (instance == null)
                     {
-                        instance = new RedisLocksConnection();
+                        instance = new RedisSingleton();
                     }
                     return instance;
                 }
             }
-        }        
+        }
+
+        public void CloseConnection()
+        {
+            this.m_Connection.Close();
+        }
 
         public IDatabase Db
         {
@@ -56,5 +61,3 @@ namespace YellowstonePathology.Business
         }
     }
 }
-
-
