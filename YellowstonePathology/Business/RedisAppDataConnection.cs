@@ -29,6 +29,13 @@ namespace YellowstonePathology.Business
             this.m_IcdCodeDatabase = this.m_Connection.GetDatabase((int)RedisDatabaseEnum.IcdCodes);
             this.m_StainDatabase = this.m_Connection.GetDatabase((int)RedisDatabaseEnum.Stains);
             this.m_Subscriber = this.m_Connection.GetSubscriber();
+
+            System.Windows.Application.Current.Exit += Current_Exit;
+        }
+
+        private void Current_Exit(object sender, System.Windows.ExitEventArgs e)
+        {
+            this.m_Connection.Close();
         }
 
         public static RedisAppDataConnection Instance
