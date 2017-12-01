@@ -35,7 +35,7 @@ namespace YellowstonePathology.Business.Billing.Model
 
         public CptCodeCollection()
         {
-            Business.RedisSingleton redis = Business.RedisSingleton.Instance;
+            //Business.RedisSingleton redis = Business.RedisSingleton.Instance;
         }        
 
         public bool IsMedicareCode(string cptCode)
@@ -126,19 +126,10 @@ namespace YellowstonePathology.Business.Billing.Model
             YellowstonePathology.Business.Billing.Model.CptCodeCollection result = new Model.CptCodeCollection();                        
             IServer server = Business.RedisAppDataConnection.Instance.Server;
 
-            RedisKey[] keyResult = server.Keys((int)Business.RedisDatabaseEnum.Default,"cpt:*").ToArray<RedisKey>();
+            RedisKey[] keyResult = server.Keys((int)Business.RedisDatabaseEnum.CptCodes, "*").ToArray<RedisKey>();
             foreach (RedisKey key in keyResult)
             {
-                RedisResult redisResult = Business.RedisAppDataConnection.Instance.Db.Execute("json.get", new object[] { key.ToString(), "." });
-                JObject jObject = JsonConvert.DeserializeObject<JObject>((string)redisResult);
-                CptCode code = CptCodeFactory.FromJson(jObject);
-                result.Add(code);
-            }
-
-            keyResult = server.Keys(0, "pqrs:*").ToArray<RedisKey>();
-            foreach (RedisKey key in keyResult)
-            {
-                RedisResult redisResult = RedisAppDataConnection.Instance.Db.Execute("json.get", new object[] { key.ToString(), "." });
+                RedisResult redisResult = Business.RedisAppDataConnection.Instance.CptCodeDb.Execute("json.get", new object[] { key.ToString(), "." });
                 JObject jObject = JsonConvert.DeserializeObject<JObject>((string)redisResult);
                 CptCode code = CptCodeFactory.FromJson(jObject);
                 result.Add(code);
