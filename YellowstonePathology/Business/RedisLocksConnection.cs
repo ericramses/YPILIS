@@ -23,6 +23,13 @@ namespace YellowstonePathology.Business
             this.m_Server = this.m_Connection.GetServer("10.1.2.25:6379");
             this.m_Database = this.m_Connection.GetDatabase();
             this.m_Subscriber = this.m_Connection.GetSubscriber();
+
+            System.Windows.Application.Current.Exit += Current_Exit;          
+        }
+
+        private void Current_Exit(object sender, System.Windows.ExitEventArgs e)
+        {
+            this.m_Connection.Close();
         }
 
         public static RedisLocksConnection Instance
@@ -53,7 +60,7 @@ namespace YellowstonePathology.Business
         public IServer Server
         {
             get { return this.m_Server; }
-        }
+        }        
     }
 }
 
