@@ -34,7 +34,7 @@ namespace YellowstonePathology.Business.Test
 
         private void Build()
         {
-            Business.RedisLocksConnection redis = new RedisLocksConnection("default");            
+            Business.RedisLocksConnection redis = new RedisLocksConnection(RedisDatabaseEnum.Default);            
             RedisValue[] members = redis.Db.SetMembers("AccessionLocks");
 
             List<AccessionLock> list = new List<AccessionLock>();

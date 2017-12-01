@@ -39,7 +39,7 @@ namespace YellowstonePathology.UI.Test
         private bool ShowReflexTestPage()
         {
             bool result = false;
-            if (this.m_AccessionOrder.PanelSetOrderCollection.HasReflexTestingPlan() == true)
+            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(137) == true)
             {
                 result = true;
 				YellowstonePathology.Business.Test.MPNExtendedReflex.MPNExtendedReflexTest panelSetMPNExtendedReflex = new YellowstonePathology.Business.Test.MPNExtendedReflex.MPNExtendedReflexTest();

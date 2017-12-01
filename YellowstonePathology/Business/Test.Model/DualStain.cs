@@ -35,7 +35,8 @@ namespace YellowstonePathology.Business.Test.Model
 		public string DepricatedSecondTestId
 		{
 			get { return this.m_DepricatedSecondTestId; }
-		}        
+		} 
+                
 
         public YellowstonePathology.Business.Test.Model.TestOrder GetTestOrder(YellowstonePathology.Business.Test.Model.TestOrderCollection testOrderCollection, int stainNumber)
         {

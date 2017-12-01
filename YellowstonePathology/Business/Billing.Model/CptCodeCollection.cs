@@ -35,8 +35,7 @@ namespace YellowstonePathology.Business.Billing.Model
 
         public CptCodeCollection()
         {
-
-        }
+        }        
 
         public bool IsMedicareCode(string cptCode)
         {
@@ -119,15 +118,15 @@ namespace YellowstonePathology.Business.Billing.Model
                 result.Add(cptCode);
             }
             return result;
-        }
+        }        
 
         public static CptCodeCollection FromRedis()
         {
             YellowstonePathology.Business.Billing.Model.CptCodeCollection result = new Model.CptCodeCollection();            
-            Business.RedisAppDataConnection redis = new RedisAppDataConnection("default");            
+            Business.RedisAppDataConnection redis = new RedisAppDataConnection(Business.RedisDatabaseEnum.CptCodes);            
             IServer server = redis.Server;
 
-            RedisKey[] keyResult = server.Keys(0,"cpt:*").ToArray<RedisKey>();
+            RedisKey[] keyResult = server.Keys((int)Business.RedisDatabaseEnum.CptCodes,"*").ToArray<RedisKey>();
             foreach (RedisKey key in keyResult)
             {
                 RedisResult redisResult = redis.Db.Execute("json.get", new object[] { key.ToString(), "." });
@@ -136,14 +135,14 @@ namespace YellowstonePathology.Business.Billing.Model
                 result.Add(code);
             }
 
-            keyResult = server.Keys(0, "pqrs:*").ToArray<RedisKey>();
+            /*keyResult = server.Keys(0, "pqrs:*").ToArray<RedisKey>();
             foreach (RedisKey key in keyResult)
             {
                 RedisResult redisResult = redis.Db.Execute("json.get", new object[] { key.ToString(), "." });
                 JObject jObject = JsonConvert.DeserializeObject<JObject>((string)redisResult);
                 CptCode code = CptCodeFactory.FromJson(jObject);
                 result.Add(code);
-            }
+            }*/
 
             return result;
         }

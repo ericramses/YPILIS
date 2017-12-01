@@ -6,9 +6,12 @@ using System.Threading.Tasks;
 
 namespace YellowstonePathology.Business
 {
-    public class RedisLocalConnection : RedisConnection
+    public enum RedisDatabaseEnum
     {
-        public RedisLocalConnection(RedisDatabaseEnum redisDb) : base("localhost", "6379", redisDb)
-        { }
+        Default = 0,
+        CptCodes = 1,
+        IcdCodes = 2,
+        Stains = 3
     }
 }
+
