@@ -13,29 +13,8 @@ namespace YellowstonePathology.Business.Billing.Model
 {
     public class CptCodeCollection : ObservableCollection<CptCode>
     {
-        private static volatile CptCodeCollection instance;
-        private static object syncRoot = new Object();
-
-        public static CptCodeCollection Instance
-        {
-            get
-            {
-                if (instance == null)
-                {
-                    lock (syncRoot)
-                    {
-                        if (instance == null)
-                            instance = FromRedis();
-                    }
-                }
-
-                return instance;
-            }
-        }        
-
         public CptCodeCollection()
         {
-            //Business.RedisSingleton redis = Business.RedisSingleton.Instance;
         }        
 
         public bool IsMedicareCode(string cptCode)
@@ -44,49 +23,39 @@ namespace YellowstonePathology.Business.Billing.Model
             return result;
         }
 
-        public CptCode GetCptCode(string code)
+        public static CptCode GetCptCode(string code)
         {
-            CptCode result = null;
-            foreach (CptCode cptCode in this)
+            string key = "cpt:" + code.ToLower();
+            if (Business.RedisAppDataConnection.Instance.CptCodeDb.KeyExists(key) == false)
             {
-                if (cptCode.Code.ToUpper() == code.ToUpper())
-                {
-                    result = cptCode;
-                }
+                key = "pqrs:" + code.ToLower();
             }
+
+            CptCode result = CptCodeCollection.GetCPTCodeById(key);
             return result;
         }
 
-        public CptCode GetCPTCodeById(string cptCodeId)
+        public static CptCode GetCPTCodeById(string cptCodeId)
         {
             CptCode result = null;
-            foreach (CptCode cptCode in this)
-            {
-                if (cptCode.CPTCodeId.ToUpper() == cptCodeId.ToUpper())
-                {
-                    result = cptCode;
-                }
-            }
+            RedisResult redisResult = Business.RedisAppDataConnection.Instance.CptCodeDb.Execute("json.get", new object[] { cptCodeId, "." });
+            JObject jObject = JsonConvert.DeserializeObject<JObject>((string)redisResult);
+            result = CptCodeFactory.FromJson(jObject);
+
             return result;
         }
 
-        public CptCodeCollection GetCptCodes(FeeScheduleEnum feeSchedule)
+        public static CptCodeCollection GetCptCodes(FeeScheduleEnum feeSchedule)
         {
-            CptCodeCollection result = new CptCodeCollection();
-            foreach (CptCode cptCode in this)
-            {
-                if (cptCode.FeeSchedule == feeSchedule)
-                {
-                    result.Add(cptCode);
-                }
-            }
+            CptCodeCollection result = CptCodeCollection.GetCptCodeCollection(feeSchedule);
             return result;
         }        
 
         public static CptCodeCollection GetCptCodeCollection(FeeScheduleEnum feeSchedule)
         {
             CptCodeCollection result = new CptCodeCollection();
-            foreach (CptCode cptCode in CptCodeCollection.Instance)
+            CptCodeCollection allCodes = CptCodeCollection.GetAll();
+            foreach (CptCode cptCode in allCodes)
             {
                 if (cptCode.FeeSchedule == feeSchedule)
                 {
@@ -96,16 +65,16 @@ namespace YellowstonePathology.Business.Billing.Model
             return result;
         }
 
-        public CptCode GetNewInstance(string cptCode, string modifier)
+        public static CptCode GetNewInstance(string cptCode, string modifier)
         {
-            CptCode result = CptCode.Clone(this.GetCptCode(cptCode));
+            CptCode result = CptCode.Clone(CptCodeCollection.GetCptCode(cptCode));
             result.Modifier = modifier;
             return result;         
         }
 
-        public CptCode GetClone(string cptCodeId, string modifier)
+        public static CptCode GetClone(string cptCodeId, string modifier)
         {
-            CptCode result = CptCode.Clone(this.GetCPTCodeById(cptCodeId));
+            CptCode result = CptCode.Clone(CptCodeCollection.GetCPTCodeById(cptCodeId));
             result.Modifier = modifier;
             return result;
         }
@@ -121,7 +90,7 @@ namespace YellowstonePathology.Business.Billing.Model
             return result;
         }        
 
-        public static CptCodeCollection FromRedis()
+        public static CptCodeCollection GetAll()
         {
             YellowstonePathology.Business.Billing.Model.CptCodeCollection result = new Model.CptCodeCollection();                        
             IServer server = Business.RedisAppDataConnection.Instance.Server;

@@ -12,36 +12,36 @@ namespace YellowstonePathology.Business.Billing.Model
         {
             PQRSCodeCollection result = new PQRSCodeCollection();
             
-            result.Add((PQRSCode)Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("pqrs:3125f"));
-            result.Add((PQRSCode)Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("pqrs:3125f1p"));
-            result.Add((PQRSCode)Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("pqrs:3125f8p"));
+            result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCodeById("pqrs:3125f"));
+            result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCodeById("pqrs:3125f1p"));
+            result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCodeById("pqrs:3125f8p"));
 
-            result.Add((PQRSCode)Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("pqrs:3126f"));
-            result.Add((PQRSCode)Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("pqrs:3126f1p"));
-            result.Add((PQRSCode)Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("pqrs:3126f8p"));
-            result.Add((PQRSCode)Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("pqrs:g8797"));
+            result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCodeById("pqrs:3126f"));
+            result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCodeById("pqrs:3126f1p"));
+            result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCodeById("pqrs:3126f8p"));
+            result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCodeById("pqrs:g8797"));
 
-            result.Add((PQRSCode)Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("pqrs:3250f"));
-            result.Add((PQRSCode)Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("pqrs:3260"));
-            result.Add((PQRSCode)Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("pqrs:3260f"));
-            result.Add((PQRSCode)Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("pqrs:3260f1p"));
-            result.Add((PQRSCode)Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("pqrs:3260f8p"));
-            result.Add((PQRSCode)Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("pqrs:3267f"));
-            result.Add((PQRSCode)Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("pqrs:3267f1p"));
-            result.Add((PQRSCode)Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("pqrs:3267f8p"));
-            result.Add((PQRSCode)Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("pqrs:g8721"));
-            result.Add((PQRSCode)Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("pqrs:g8722"));
-            result.Add((PQRSCode)Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("pqrs:g8723"));            
-			result.Add((PQRSCode)Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("pqrs:g8798"));
-            result.Add((PQRSCode)Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("pqrs:3394f"));
-            result.Add((PQRSCode)Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("pqrs:3394f8p"));
-            result.Add((PQRSCode)Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("pqrs:3395f"));
+            result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCodeById("pqrs:3250f"));
+            result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCodeById("pqrs:3260"));
+            result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCodeById("pqrs:3260f"));
+            result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCodeById("pqrs:3260f1p"));
+            result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCodeById("pqrs:3260f8p"));
+            result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCodeById("pqrs:3267f"));
+            result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCodeById("pqrs:3267f1p"));
+            result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCodeById("pqrs:3267f8p"));
+            result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCodeById("pqrs:g8721"));
+            result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCodeById("pqrs:g8722"));
+            result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCodeById("pqrs:g8723"));            
+			result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCodeById("pqrs:g8798"));
+            result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCodeById("pqrs:3394f"));
+            result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCodeById("pqrs:3394f8p"));
+            result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCodeById("pqrs:3395f"));
 
-            result.Add((PQRSCode)Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("pqrs:g9418"));
-            result.Add((PQRSCode)Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("pqrs:g9419"));
-            result.Add((PQRSCode)Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("pqrs:g9420"));
-            result.Add((PQRSCode)Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("pqrs:g9421"));
-            result.Add((PQRSCode)Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("pqrs:g9428"));
+            result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCodeById("pqrs:g9418"));
+            result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCodeById("pqrs:g9419"));
+            result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCodeById("pqrs:g9420"));
+            result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCodeById("pqrs:g9421"));
+            result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCodeById("pqrs:g9428"));
 
             return result;
         }
@@ -49,38 +49,38 @@ namespace YellowstonePathology.Business.Billing.Model
         public static PQRSCodeCollection GetBreastPQRSCodes()
         {            
             PQRSCodeCollection result = new PQRSCodeCollection();
-            result.Add((PQRSCode)Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("pqrs:3260f"));
-            result.Add((PQRSCode)Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("pqrs:3260f1p"));
-            result.Add((PQRSCode)Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("pqrs:3260f8p"));
+            result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCodeById("pqrs:3260f"));
+            result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCodeById("pqrs:3260f1p"));
+            result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCodeById("pqrs:3260f8p"));
             return result;
         }
 
 		public static PQRSCodeCollection GetBarrettsEsophagusPQRSCodes()
 		{
 			PQRSCodeCollection result = new PQRSCodeCollection();
-			result.Add((PQRSCode)Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("pqrs:3126f"));
-			result.Add((PQRSCode)Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("pqrs:3126f1p"));
-			result.Add((PQRSCode)Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("pqrs:3126f8p"));
-			result.Add((PQRSCode)Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("pqrs:g8797"));
+			result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCodeById("pqrs:3126f"));
+			result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCodeById("pqrs:3126f1p"));
+			result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCodeById("pqrs:3126f8p"));
+			result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCodeById("pqrs:g8797"));
 			return result;
 		}
 
 		public static PQRSCodeCollection GetColorectalPQRSCodes()
 		{
 			PQRSCodeCollection result = new PQRSCodeCollection();
-			result.Add((PQRSCode)Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("pqrs:g8721"));
-			result.Add((PQRSCode)Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("pqrs:g8722"));
-			result.Add((PQRSCode)Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("pqrs:g8723"));
+			result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCodeById("pqrs:g8721"));
+			result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCodeById("pqrs:g8722"));
+			result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCodeById("pqrs:g8723"));
 			return result;
 		}
 
 		public static PQRSCodeCollection GetRadicalProstatectomyPQRSCodes()
 		{
 			PQRSCodeCollection result = new PQRSCodeCollection();
-			result.Add((PQRSCode)Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("pqrs:3267f"));
-			result.Add((PQRSCode)Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("pqrs:3267f1p"));
-			result.Add((PQRSCode)Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("pqrs:3267f8p"));
-			result.Add((PQRSCode)Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("pqrs:g8798"));
+			result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCodeById("pqrs:3267f"));
+			result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCodeById("pqrs:3267f1p"));
+			result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCodeById("pqrs:3267f8p"));
+			result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCodeById("pqrs:g8798"));
 			return result;
 		}
 		

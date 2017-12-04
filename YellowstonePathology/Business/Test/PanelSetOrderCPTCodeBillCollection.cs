@@ -173,7 +173,7 @@ namespace YellowstonePathology.Business.Test
             bool result = false;
             foreach (PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill in this)
             {
-                YellowstonePathology.Business.Billing.Model.CptCode cptCode = Business.Billing.Model.CptCodeCollection.Instance.GetCptCode(panelSetOrderCPTCodeBill.CPTCode);    
+                YellowstonePathology.Business.Billing.Model.CptCode cptCode = Business.Billing.Model.CptCodeCollection.GetCptCode(panelSetOrderCPTCodeBill.CPTCode);    
                 if (cptCode is YellowstonePathology.Business.Billing.Model.PQRSCode == true)
                 {
                     result = true;
