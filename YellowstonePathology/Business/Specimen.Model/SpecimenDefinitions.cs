@@ -119,7 +119,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_LabFixation = null;
             this.m_ClientFixation = null;
             this.m_RequiresGrossExamination = true;
-            this.m_CPTCode = Billing.Model.CptCodeCollection.GetCPTCodeById("CPT88112");
+            this.m_CPTCode = Billing.Model.CptCodeCollection.GetCPTCodeById("cpt:88112");
         }
     }
 
