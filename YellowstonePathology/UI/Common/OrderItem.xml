@@ -2371,12 +2371,12 @@
 						<Comment></Comment>
 						<CommentVisible>False</CommentVisible>
 						<TemplateName>StainGroupTemplate</TemplateName>
-						<OrderItems>							
-							<OrderItem>
-								<Id>173</Id>
+						<OrderItems>	
+              <OrderItem>
+								<Id>362</Id>
 								<ParentId>19</ParentId>
 								<ChildId>0</ChildId>
-								<Name>WT-1</Name>
+								<Name>c-Myc</Name>
 								<Orderable>True</Orderable>
 								<Order>False</Order>
 								<ItemType>Test</ItemType>
@@ -2388,7 +2388,7 @@
 								<TemplateName>StandardCheckBoxTemplate</TemplateName>
 								<OrderItems>
 								</OrderItems>
-							</OrderItem>
+							</OrderItem>							
 							<OrderItem>
 								<Id>224</Id>
 								<ParentId>19</ParentId>
@@ -2406,6 +2406,23 @@
 								<OrderItems>
 								</OrderItems>
 							</OrderItem>
+              <OrderItem>
+                <Id>173</Id>
+                <ParentId>19</ParentId>
+                <ChildId>0</ChildId>
+                <Name>WT-1</Name>
+                <Orderable>True</Orderable>
+                <Order>False</Order>
+                <ItemType>Test</ItemType>
+                <OrderPriority>40</OrderPriority>
+                <NotListedName></NotListedName>
+                <NotListedNameVisible>False</NotListedNameVisible>
+                <Comment></Comment>
+                <CommentVisible>False</CommentVisible>
+                <TemplateName>StandardCheckBoxTemplate</TemplateName>
+                <OrderItems>
+                </OrderItems>
+              </OrderItem>
 						</OrderItems>
 					</OrderItem>										
 				</OrderItems>

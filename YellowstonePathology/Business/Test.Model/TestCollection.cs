@@ -118,7 +118,7 @@ namespace YellowstonePathology.Business.Test.Model
 
             foreach (Test test in allTests)
             {
-                if (test.TestName.Substring(0, 1) == firstLetter) tests.Add(test);
+                if (test.TestName.ToUpper().Substring(0, 1) == firstLetter.ToUpper()) tests.Add(test);
             }
 
             tests.Sort(Test.CompareByTestName);
@@ -354,6 +354,7 @@ namespace YellowstonePathology.Business.Test.Model
             result.Add(new Ki67MelanADualStain());
             result.Add(new OSCARSmoothMuscleMyosinDualStain());
             result.Add(new TTF1NapsinADualStain());
+            result.Add(new CMyc());
 
             return result;
         }

@@ -1080,7 +1080,7 @@
   {
     "testBase": "IHC",
     "testNameId": "Bcl6",
-    "resultItemCollection": [],
+    "resultItemCollection": [ ],
     "orderComment": null,
     "isBillable": true,
     "hasGCode": true,
@@ -1098,6 +1098,28 @@
     "defaultResult": null,
     "requestForAdditionalReport": false,
     "histologyDisplayString": "Bcl-6"
+  },
+  {
+    "testBase": "IHC",
+    "testNameId": "c-Myc",
+    "resultItemCollection": [],
+    "orderComment": null,
+    "isBillable": true,
+    "hasGCode": true,
+    "isDualOrder": false,
+    "hasCptCodeLevels": true,
+    "testId": "362",
+    "testName": "c-Myc",
+    "testAbbreviation": "c-Myc",
+    "active": true,
+    "stainResultGroupId": 0,
+    "aliquotType": null,
+    "needsAcknowledgement": true,
+    "useWetProtocol": false,
+    "performedByHand": false,
+    "defaultResult": null,
+    "requestForAdditionalReport": false,
+    "histologyDisplayString": "c-Myc"
   },
   {
     "testBase": "IHC",
