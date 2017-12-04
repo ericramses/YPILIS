@@ -14,7 +14,7 @@ namespace YellowstonePathology.Business.Billing.Model
 
         public override void Run(Domain.CptBillingCode cptBillingCode)
         {
-            YellowstonePathology.Business.Billing.Model.CptCode cptCode = Business.Billing.Model.CptCodeCollection.Instance.GetCptCode(cptBillingCode.CptCode);
+            YellowstonePathology.Business.Billing.Model.CptCode cptCode = Business.Billing.Model.CptCodeCollection.GetCptCode(cptBillingCode.CptCode);
             if (cptCode.FeeSchedule == YellowstonePathology.Business.Billing.Model.FeeScheduleEnum.Clinical)
             {
                 cptBillingCode.BillTo = YellowstonePathology.Business.Billing.Model.BillingTypeEnum.Global.ToString();
@@ -28,7 +28,7 @@ namespace YellowstonePathology.Business.Billing.Model
 
         private void SetModifier(Domain.CptBillingCode cptBillingCode)
         {
-            YellowstonePathology.Business.Billing.Model.CptCode cptCode = Business.Billing.Model.CptCodeCollection.Instance.GetCptCode(cptBillingCode.CptCode);
+            YellowstonePathology.Business.Billing.Model.CptCode cptCode = Business.Billing.Model.CptCodeCollection.GetCptCode(cptBillingCode.CptCode);
             if (cptBillingCode.BillTo == YellowstonePathology.Business.Billing.Model.BillingTypeEnum.Client.ToString())
             {
                 if (cptCode.HasTechnicalComponent == true)
