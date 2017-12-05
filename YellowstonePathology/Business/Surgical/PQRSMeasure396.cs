@@ -10,13 +10,13 @@ namespace YellowstonePathology.Business.Surgical
         public PQRSMeasure396()
         {            
 			this.m_Header = "Lung Cancer Reporting #396";
-            this.m_CptCodeCollection.Add(Billing.Model.CptCodeCollection.GetCPTCodeById("cpt:88309"));            
+            this.m_CptCodeCollection.Add(Billing.Model.CptCodeCollection.GetCPTCode("88309"));            
             this.m_PQRSAgeDefinition = PQRSAgeDefinitionEnum.Patients18To75;
 
-            this.m_PQRSCodeCollection.Add((Billing.Model.PQRSCode)Billing.Model.CptCodeCollection.GetCPTCodeById("pqrs:g9422"));
-			this.m_PQRSCodeCollection.Add((Billing.Model.PQRSCode)Billing.Model.CptCodeCollection.GetCPTCodeById("pqrs:g9423"));
-			this.m_PQRSCodeCollection.Add((Billing.Model.PQRSCode)Billing.Model.CptCodeCollection.GetCPTCodeById("pqrs:g9424"));
-            this.m_PQRSCodeCollection.Add((Billing.Model.PQRSCode)Billing.Model.CptCodeCollection.GetCPTCodeById("pqrs:g9425"));
+            this.m_PQRSCodeCollection.Add((Billing.Model.PQRSCode)Billing.Model.CptCodeCollection.GetCPTCode("pqrs:g9422"));
+			this.m_PQRSCodeCollection.Add((Billing.Model.PQRSCode)Billing.Model.CptCodeCollection.GetCPTCode("pqrs:g9423"));
+			this.m_PQRSCodeCollection.Add((Billing.Model.PQRSCode)Billing.Model.CptCodeCollection.GetCPTCode("pqrs:g9424"));
+            this.m_PQRSCodeCollection.Add((Billing.Model.PQRSCode)Billing.Model.CptCodeCollection.GetCPTCode("pqrs:g9425"));
         }
 
         public override bool DoesMeasureApply(YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder,

@@ -387,7 +387,7 @@ namespace YellowstonePathology.UI.Billing
                 epicFT1ResultView.CanSend(methodResult);
                 if (methodResult.Success == true)
                 {
-                    Business.Billing.Model.CptCode cptCode = Business.Billing.Model.CptCodeCollection.GetCptCode(panelSetOrderCPTCodeBill.CPTCode);
+                    Business.Billing.Model.CptCode cptCode = Business.Billing.Model.CptCodeCollection.GetCptCode(panelSetOrderCPTCodeBill.CPTCode, panelSetOrderCPTCodeBill.Modifier);
                     Business.Rules.MethodResult sendResult = new Business.Rules.MethodResult();
                     epicFT1ResultView.Send(sendResult);
                 }

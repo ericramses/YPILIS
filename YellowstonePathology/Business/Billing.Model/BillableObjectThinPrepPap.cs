@@ -30,7 +30,7 @@ namespace YellowstonePathology.Business.Billing.Model
 			{
 				foreach (YellowstonePathology.Business.Test.PanelSetOrderCPTCode panelSetOrderCPTCode in this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection)
 				{
-					YellowstonePathology.Business.Billing.Model.CptCode cptCode = Business.Billing.Model.CptCodeCollection.GetCptCode(panelSetOrderCPTCode.CPTCode);
+					YellowstonePathology.Business.Billing.Model.CptCode cptCode = Business.Billing.Model.CptCodeCollection.GetCptCode(panelSetOrderCPTCode.CPTCode, panelSetOrderCPTCode.Modifier);
 					if (cptCode.IsBillable == true)
 					{
 						bool okToPost = true;
@@ -160,11 +160,11 @@ namespace YellowstonePathology.Business.Billing.Model
 				
 				if (panelOrderCytology.ImagerError == false)
 				{
-                    cptCode = Billing.Model.CptCodeCollection.GetCPTCodeById("cpt:88175");                    
+                    cptCode = Billing.Model.CptCodeCollection.GetCPTCode("88175");                    
 				}
 				else
 				{
-                    cptCode = Billing.Model.CptCodeCollection.GetClone("cpt:88142", "52");
+                    cptCode = Billing.Model.CptCodeCollection.GetClone("88142", "52");
 				}
 
 				YellowstonePathology.Business.Test.PanelSetOrderCPTCode panelSetOrderCPTCode = this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.GetNextItem(this.m_PanelSetOrder.ReportNo);
@@ -183,7 +183,7 @@ namespace YellowstonePathology.Business.Billing.Model
 
         private void SetPhysicianInterpretationCode()
         {
-            YellowstonePathology.Business.Billing.Model.CptCode cptCode = Billing.Model.CptCodeCollection.GetCPTCodeById("cpt:88141");
+            YellowstonePathology.Business.Billing.Model.CptCode cptCode = Billing.Model.CptCodeCollection.GetCPTCode("88141");
 			if (this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.Exists(cptCode.Code, 1) == false)
 			{
 				YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology panelOrderCytology = ((YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology)this.m_PanelSetOrder).GetPhysicianInterp();

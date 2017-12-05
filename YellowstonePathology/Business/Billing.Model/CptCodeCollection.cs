@@ -23,27 +23,15 @@ namespace YellowstonePathology.Business.Billing.Model
             return result;
         }
 
-        public static CptCode GetCptCode(string code)
-        {
-            string key = "cpt:" + code.ToLower();
-            if (Business.RedisAppDataConnection.Instance.CptCodeDb.KeyExists(key) == false)
-            {
-                key = "pqrs:" + code.ToLower();
-            }
-
-            CptCode result = CptCodeCollection.GetCPTCodeById(key);
-            return result;
-        }
-
-        public static CptCode GetCPTCodeById(string cptCodeId)
+        public static CptCode GetCPTCode(string code, string modifier)
         {
             CptCode result = null;
-            RedisResult redisResult = Business.RedisAppDataConnection.Instance.CptCodeDb.Execute("json.get", new object[] { cptCodeId, "." });
+            RedisResult redisResult = Business.RedisAppDataConnection.Instance.CptCodeDb.Execute("json.get", new object[] { code, "." });
             JObject jObject = JsonConvert.DeserializeObject<JObject>((string)redisResult);
             result = CptCodeFactory.FromJson(jObject);
-
+            result.Modifier = modifier;
             return result;
-        }
+        }       
 
         public static CptCodeCollection GetCptCodes(FeeScheduleEnum feeSchedule)
         {
@@ -63,21 +51,7 @@ namespace YellowstonePathology.Business.Billing.Model
                 }
             }
             return result;
-        }
-
-        public static CptCode GetNewInstance(string cptCode, string modifier)
-        {
-            CptCode result = CptCode.Clone(CptCodeCollection.GetCptCode(cptCode));
-            result.Modifier = modifier;
-            return result;         
-        }
-
-        public static CptCode GetClone(string cptCodeId, string modifier)
-        {
-            CptCode result = CptCode.Clone(CptCodeCollection.GetCPTCodeById(cptCodeId));
-            result.Modifier = modifier;
-            return result;
-        }
+        }        
 
         public static CptCodeCollection GetSorted(CptCodeCollection cptCodeCollection)
         {

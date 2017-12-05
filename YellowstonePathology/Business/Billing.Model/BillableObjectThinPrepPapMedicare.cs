@@ -19,7 +19,7 @@ namespace YellowstonePathology.Business.Billing.Model
 			{
 				foreach (YellowstonePathology.Business.Test.PanelSetOrderCPTCode panelSetOrderCPTCode in this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection)
 				{
-					YellowstonePathology.Business.Billing.Model.CptCode cptCode = CptCodeCollection.GetCptCode(panelSetOrderCPTCode.CPTCode);
+					YellowstonePathology.Business.Billing.Model.CptCode cptCode = CptCodeCollection.GetCptCode(panelSetOrderCPTCode.CPTCode, panelSetOrderCPTCode.Modifier);
 					if (cptCode.IsBillable == true)
 					{
 						if (cptCode.HasTechnicalComponent == true)
@@ -122,7 +122,7 @@ namespace YellowstonePathology.Business.Billing.Model
 		{
 			if (this.IsOkToPost() == true)
 			{
-                CptCode cpt88175 = CptCodeCollection.GetCPTCodeById("cpt:88175");
+                CptCode cpt88175 = CptCodeCollection.GetCPTCode("88175");
                 if (this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.CPTCodeExists(cpt88175.Code) == true)
                 {
                     YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill = this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.GetByCPTCode(cpt88175.Code);
@@ -132,7 +132,7 @@ namespace YellowstonePathology.Business.Billing.Model
                     }
                 }
 
-                CptCode cpt88142 = CptCodeCollection.GetCPTCodeById("cpt:88142");
+                CptCode cpt88142 = CptCodeCollection.GetCPTCode("88142");
                 if (this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.CPTCodeExists(cpt88142.Code) == true)
                 {
                     YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill = this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.GetByCPTCode(cpt88142.Code);
@@ -165,7 +165,7 @@ namespace YellowstonePathology.Business.Billing.Model
 
 		private void SetG0145(YellowstonePathology.Business.Billing.Model.BillingComponentEnum billingComponent, string billTo, string billBy, string modifier)
 		{
-            CptCode cptG0145 = CptCodeCollection.GetCPTCodeById("cpt:g0145");
+            CptCode cptG0145 = CptCodeCollection.GetCPTCode("cpt:g0145");
             YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill = this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.GetNextItem(this.m_PanelSetOrder.ReportNo);
 			panelSetOrderCPTCodeBill.ClientId = this.m_AccessionOrder.ClientId;
 			panelSetOrderCPTCodeBill.BillTo = billTo;
@@ -188,7 +188,7 @@ namespace YellowstonePathology.Business.Billing.Model
 
         private void SetG0123(YellowstonePathology.Business.Billing.Model.BillingComponentEnum billingComponent, string billTo, string billBy, string modifier)
 		{
-            CptCode cptG0123 = CptCodeCollection.GetCPTCodeById("cpt:g0123");
+            CptCode cptG0123 = CptCodeCollection.GetCPTCode("cpt:g0123");
             YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill = this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.GetNextItem(this.m_PanelSetOrder.ReportNo);
 			panelSetOrderCPTCodeBill.ClientId = this.m_AccessionOrder.ClientId;
 			panelSetOrderCPTCodeBill.BillTo = billTo;
@@ -206,7 +206,7 @@ namespace YellowstonePathology.Business.Billing.Model
 
         private void SetG0124(YellowstonePathology.Business.Billing.Model.BillingComponentEnum billingComponent, string billTo, string billBy, string modifier)
 		{
-            CptCode cptG0124 = CptCodeCollection.GetCPTCodeById("cpt:g0124");
+            CptCode cptG0124 = CptCodeCollection.GetCPTCode("cpt:g0124");
             YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill = this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.GetNextItem(this.m_PanelSetOrder.ReportNo);
 			panelSetOrderCPTCodeBill.ClientId = this.m_AccessionOrder.ClientId;
 			panelSetOrderCPTCodeBill.BillTo = billTo;

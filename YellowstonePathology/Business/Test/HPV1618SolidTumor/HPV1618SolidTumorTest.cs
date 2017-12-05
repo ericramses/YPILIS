@@ -39,7 +39,7 @@ namespace YellowstonePathology.Business.Test.HPV1618SolidTumor
 
             this.m_HasSplitCPTCode = false;            
 
-            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Billing.Model.CptCodeCollection.GetCPTCodeById("cpt:87625"), 1);
+            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Billing.Model.CptCodeCollection.GetCPTCode("87625"), 1);
             this.m_PanelSetCptCodeCollection.Add(panelSetCptCode);
 
             string task1Description = "Cut curls and an after H&E. Give to molecular";
