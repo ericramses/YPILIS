@@ -997,7 +997,9 @@ namespace YellowstonePathology.UI
         }        
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
-        {                                    
+        {
+            Business.RedisLocksConnection.Instance.KillOrphanedConnections();
+
             //Business.RedisAppDataConnection.Instance.Db.KeyExists("asdlkfjasdlkfj");
 
             //template.CreateNewXPSFromSource(source, destination);
