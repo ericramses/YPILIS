@@ -16,12 +16,12 @@ namespace YellowstonePathology.Business.Surgical
             this.m_KeyWords.Add("Intestinal Metaplasia");
 			
 			this.m_Header = "Barretts Esophagus Pathology Reporting";
-            this.m_CptCodeCollection.Add(Billing.Model.CptCodeCollection.GetCPTCode("88305"));
+            this.m_CptCodeCollection.Add(Billing.Model.CptCodeCollection.GetCPTCode("88305", null));
 
-			this.m_PQRSCodeCollection.Add((Billing.Model.PQRSCode)Billing.Model.CptCodeCollection.GetCPTCode("pqrs:3126f"));
-            this.m_PQRSCodeCollection.Add((Billing.Model.PQRSCode)Billing.Model.CptCodeCollection.GetCPTCode("pqrs:3126f1p"));
-            this.m_PQRSCodeCollection.Add((Billing.Model.PQRSCode)Billing.Model.CptCodeCollection.GetCPTCode("pqrs:g8797"));			
-			this.m_PQRSCodeCollection.Add((Billing.Model.PQRSCode)Billing.Model.CptCodeCollection.GetCPTCode("pqrs:3126f8p"));			
+			this.m_PQRSCodeCollection.Add((Billing.Model.PQRSCode)Billing.Model.CptCodeCollection.GetCPTCode("3126F", null));
+            this.m_PQRSCodeCollection.Add((Billing.Model.PQRSCode)Billing.Model.CptCodeCollection.GetCPTCode("3126F", "1P"));
+            this.m_PQRSCodeCollection.Add((Billing.Model.PQRSCode)Billing.Model.CptCodeCollection.GetCPTCode("G8797", null));			
+			this.m_PQRSCodeCollection.Add((Billing.Model.PQRSCode)Billing.Model.CptCodeCollection.GetCPTCode("3126F", "8P"));			
 		}
 
         public override bool DoesMeasureApply(YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder,

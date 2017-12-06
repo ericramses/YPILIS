@@ -34,7 +34,7 @@ namespace YellowstonePathology.Business.Test.STAT3MutationAnalysis
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMOLEGEN());
 
-            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode1 = new Business.Billing.Model.PanelSetCptCode(Billing.Model.CptCodeCollection.GetCPTCode("81405"), 1);
+            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode1 = new Business.Billing.Model.PanelSetCptCode(Billing.Model.CptCodeCollection.GetCPTCode("81405", null), 1);
             this.m_PanelSetCptCodeCollection.Add(panelSetCptCode1);
         }
     }

@@ -12,14 +12,14 @@ namespace YellowstonePathology.Business.Billing.Model
         public CPTCodeLibPrice()
         {
             this.m_CPTCodePriceList = new List<CPTCodePrice>();            
-            this.m_CPTCodePriceList.Add(new CPTCodePrice(Billing.Model.CptCodeCollection.GetCPTCode("87621"), "YPI", "Client", 51.10));
-            this.m_CPTCodePriceList.Add(new CPTCodePrice(Billing.Model.CptCodeCollection.GetCPTCode("88112"), "YPI", "Client", 47.63));
-            this.m_CPTCodePriceList.Add(new CPTCodePrice(Billing.Model.CptCodeCollection.GetCPTCode("88175"), "YPI", "Client", 38.57));
-            this.m_CPTCodePriceList.Add(new CPTCodePrice(Billing.Model.CptCodeCollection.GetCPTCode("88304"), "YPI", "Client", 52.52));
-            this.m_CPTCodePriceList.Add(new CPTCodePrice(Billing.Model.CptCodeCollection.GetCPTCode("88305"), "YPI", "Client", 71.76));
-            this.m_CPTCodePriceList.Add(new CPTCodePrice(Billing.Model.CptCodeCollection.GetCPTCode("88312"), "YPI", "Client", 69.67));
-            this.m_CPTCodePriceList.Add(new CPTCodePrice(Billing.Model.CptCodeCollection.GetCPTCode("88313"), "YPI", "Client", 55.67));
-            this.m_CPTCodePriceList.Add(new CPTCodePrice(Billing.Model.CptCodeCollection.GetCPTCode("88342"), "YPI", "Client", 66.52));
+            this.m_CPTCodePriceList.Add(new CPTCodePrice(Billing.Model.CptCodeCollection.GetCPTCode("87621", null), "YPI", "Client", 51.10));
+            this.m_CPTCodePriceList.Add(new CPTCodePrice(Billing.Model.CptCodeCollection.GetCPTCode("88112", null), "YPI", "Client", 47.63));
+            this.m_CPTCodePriceList.Add(new CPTCodePrice(Billing.Model.CptCodeCollection.GetCPTCode("88175", null), "YPI", "Client", 38.57));
+            this.m_CPTCodePriceList.Add(new CPTCodePrice(Billing.Model.CptCodeCollection.GetCPTCode("88304", null), "YPI", "Client", 52.52));
+            this.m_CPTCodePriceList.Add(new CPTCodePrice(Billing.Model.CptCodeCollection.GetCPTCode("88305", null), "YPI", "Client", 71.76));
+            this.m_CPTCodePriceList.Add(new CPTCodePrice(Billing.Model.CptCodeCollection.GetCPTCode("88312", null), "YPI", "Client", 69.67));
+            this.m_CPTCodePriceList.Add(new CPTCodePrice(Billing.Model.CptCodeCollection.GetCPTCode("88313", null), "YPI", "Client", 55.67));
+            this.m_CPTCodePriceList.Add(new CPTCodePrice(Billing.Model.CptCodeCollection.GetCPTCode("88342", null), "YPI", "Client", 66.52));
         }
     }
 }
