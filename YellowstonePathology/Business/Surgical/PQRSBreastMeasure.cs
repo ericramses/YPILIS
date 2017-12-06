@@ -11,12 +11,12 @@ namespace YellowstonePathology.Business.Surgical
         {
             this.m_PQRIKeyWordCollection.Add("Breast");
 			this.m_Header = "Breast Cancer Resection Pathology Reporting";
-            this.m_CptCodeCollection.Add(Billing.Model.CptCodeCollection.GetCPTCode("88307"));
-            this.m_CptCodeCollection.Add(Billing.Model.CptCodeCollection.GetCPTCode("88309"));
+            this.m_CptCodeCollection.Add(Billing.Model.CptCodeCollection.GetCPTCode("88307", null));
+            this.m_CptCodeCollection.Add(Billing.Model.CptCodeCollection.GetCPTCode("88309", null));
 
-            this.m_PQRSCodeCollection.Add((Billing.Model.PQRSCode)Billing.Model.CptCodeCollection.GetCPTCode("pqrs:3260f"));
-			this.m_PQRSCodeCollection.Add((Billing.Model.PQRSCode)Billing.Model.CptCodeCollection.GetCPTCode("pqrs:3260f1p"));
-			this.m_PQRSCodeCollection.Add((Billing.Model.PQRSCode)Billing.Model.CptCodeCollection.GetCPTCode("pqrs:3260f8p"));
+            this.m_PQRSCodeCollection.Add((Billing.Model.PQRSCode)Billing.Model.CptCodeCollection.GetCPTCode("3260F", null));
+			this.m_PQRSCodeCollection.Add((Billing.Model.PQRSCode)Billing.Model.CptCodeCollection.GetCPTCode("3260F", "1P"));
+			this.m_PQRSCodeCollection.Add((Billing.Model.PQRSCode)Billing.Model.CptCodeCollection.GetCPTCode("3260F", "8P"));
         }        
     }
 }
