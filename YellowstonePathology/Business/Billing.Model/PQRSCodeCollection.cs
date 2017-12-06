@@ -3,16 +3,31 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using StackExchange.Redis;
 
 namespace YellowstonePathology.Business.Billing.Model
 {
     public class PQRSCodeCollection : ObservableCollection<PQRSCode>
     {
+        public PQRSCodeCollection() { }
+
         public static PQRSCodeCollection GetAll()
         {
             PQRSCodeCollection result = new PQRSCodeCollection();
+            IServer server = Business.RedisAppDataConnection.Instance.Server;
+
+            RedisKey[] keyResult = server.Keys((int)Business.RedisDatabaseEnum.PqrsCodes, "*").ToArray<RedisKey>();
+            foreach (RedisKey key in keyResult)
+            {
+                RedisResult redisResult = Business.RedisAppDataConnection.Instance.PqrsCodeDb.Execute("json.get", new object[] { key.ToString(), "." });
+                JObject jObject = JsonConvert.DeserializeObject<JObject>((string)redisResult);
+                PQRSCode pqrsCode = PQRSCodeFactory.FromJson(jObject);
+                result.Add(pqrsCode);
+            }
             
-            result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCode("3125F", null));
+            /*result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCode("3125F", null));
             result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCode("3125F", "1P"));
             result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCode("3125F", "8P"));
 
@@ -41,12 +56,22 @@ namespace YellowstonePathology.Business.Billing.Model
             result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCode("G9419", null));
             result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCode("G9420", null));
             result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCode("G9421", null));
-            result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCode("G9428", null));
+            result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCode("G9428", null));*/
 
             return result;
         }
 
-        public static PQRSCodeCollection GetBreastPQRSCodes()
+        public static PQRSCode GetPQRSCode(string code, string modifier)
+        {
+            PQRSCode result = null;
+            RedisResult redisResult = Business.RedisAppDataConnection.Instance.PqrsCodeDb.Execute("json.get", new object[] { code, "." });
+            JObject jObject = JsonConvert.DeserializeObject<JObject>((string)redisResult);
+            result = PQRSCodeFactory.FromJson(jObject);
+            result.Modifier = modifier;
+            return result;
+        }
+
+        /*public static PQRSCodeCollection GetBreastPQRSCodes()
         {            
             PQRSCodeCollection result = new PQRSCodeCollection();
             result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCode("3260F", null));
@@ -82,7 +107,7 @@ namespace YellowstonePathology.Business.Billing.Model
 			result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCode("3267F", "8P"));
 			result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCode("G8798", null));
 			return result;
-		}
+		}*/
 		
 		public PQRSCode GetPQRSCode(string pqrsCode)
         {
