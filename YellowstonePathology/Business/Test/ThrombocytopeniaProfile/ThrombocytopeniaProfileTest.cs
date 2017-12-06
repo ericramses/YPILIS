@@ -22,8 +22,8 @@ namespace YellowstonePathology.Business.Test.ThrombocytopeniaProfile
             this.m_HasProfessionalComponent = false;
             this.m_ProfessionalComponentFacility = null;
 
-            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode1 = new Business.Billing.Model.PanelSetCptCode(Billing.Model.CptCodeCollection.GetCPTCode("86023"), 2);
-            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode2 = new Business.Billing.Model.PanelSetCptCode(Billing.Model.CptCodeCollection.GetCPTCode("85055"), 1);
+            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode1 = new Business.Billing.Model.PanelSetCptCode(Billing.Model.CptCodeCollection.GetCPTCode("86023", null), 2);
+            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode2 = new Business.Billing.Model.PanelSetCptCode(Billing.Model.CptCodeCollection.GetCPTCode("85055", null), 1);
             this.m_PanelSetCptCodeCollection.Add(panelSetCptCode1);
             this.m_PanelSetCptCodeCollection.Add(panelSetCptCode2);            
 		}
