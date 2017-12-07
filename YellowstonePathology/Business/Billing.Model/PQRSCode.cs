@@ -10,10 +10,17 @@ namespace YellowstonePathology.Business.Billing.Model
     {
         protected string m_ReportingDefinition;
         protected string m_FormattedReportingDefinition;
+        protected List<CptCodeModifier> m_CptCodeModifiers;
 
         public PQRSCode()
         {
+            this.m_CptCodeModifiers = new List<Model.CptCodeModifier>();
+        }
 
+        public List<CptCodeModifier> CptCodeModifiers
+        {
+            get { return this.m_CptCodeModifiers; }
+            set { this.m_CptCodeModifiers = value; }
         }
 
         [PersistentProperty()]
