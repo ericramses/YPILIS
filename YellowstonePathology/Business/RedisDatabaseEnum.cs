@@ -11,7 +11,8 @@ namespace YellowstonePathology.Business
         Default = 0,
         CptCodes = 1,
         IcdCodes = 2,
-        Stains = 3
+        Stains = 3,
+        PqrsCodes = 4
     }
 }
 

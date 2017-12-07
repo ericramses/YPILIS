@@ -10,7 +10,6 @@ namespace YellowstonePathology.Business.Billing.Model
     {
         protected string m_ReportingDefinition;
         protected string m_FormattedReportingDefinition;
-        protected string m_Header;
 
         public PQRSCode()
         {
@@ -22,13 +21,6 @@ namespace YellowstonePathology.Business.Billing.Model
         {
             get { return this.m_ReportingDefinition; }
             set { this.m_ReportingDefinition = value; }
-        }
-
-        [PersistentProperty()]
-        public string Header
-		{
-			get { return this.m_Header; }
-            set { this.m_Header = value; }
         }
 
         public string FormattedReportingDefinition

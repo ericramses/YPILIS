@@ -18,6 +18,7 @@ namespace YellowstonePathology.Business
         private IDatabase m_CptCodeDatabase;
         private IDatabase m_IcdCodeDatabase;
         private IDatabase m_StainDatabase;
+        private IDatabase m_PqrsCodeDatabase;
         private ISubscriber m_Subscriber;
 
         RedisAppDataConnection()
@@ -30,6 +31,7 @@ namespace YellowstonePathology.Business
             this.m_CptCodeDatabase = this.m_Connection.GetDatabase((int)RedisDatabaseEnum.CptCodes);
             this.m_IcdCodeDatabase = this.m_Connection.GetDatabase((int)RedisDatabaseEnum.IcdCodes);
             this.m_StainDatabase = this.m_Connection.GetDatabase((int)RedisDatabaseEnum.Stains);
+            this.m_PqrsCodeDatabase = this.m_Connection.GetDatabase((int)RedisDatabaseEnum.PqrsCodes);
             this.m_Subscriber = this.m_Connection.GetSubscriber();
 
             System.Windows.Application.Current.Exit += Current_Exit;
@@ -72,7 +74,12 @@ namespace YellowstonePathology.Business
 
         public IDatabase StainDb
         {
-            get { return this.m_DefaultDatabase; }
+            get { return this.m_StainDatabase; }
+        }
+
+        public IDatabase PqrsCodeDb
+        {
+            get { return this.m_PqrsCodeDatabase; }
         }
 
         public ISubscriber Subscriber
