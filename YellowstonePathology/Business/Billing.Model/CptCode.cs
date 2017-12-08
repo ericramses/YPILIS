@@ -21,11 +21,13 @@ namespace YellowstonePathology.Business.Billing.Model
         protected CPTCodeTypeEnum m_CodeType;
         protected string m_SVHCDMCode;
         protected string m_SVHCDMDescription;
+        protected List<CptCodeModifier> m_Modifiers;
 
         public CptCode()
         {
-            this.m_HasMedicareQuantityLimit = false;            
-        }        
+            this.m_HasMedicareQuantityLimit = false;
+            this.m_Modifiers = new List<Model.CptCodeModifier>();
+        }
 
         [PersistentProperty()]
         public string Code
@@ -116,6 +118,13 @@ namespace YellowstonePathology.Business.Billing.Model
         {
             get { return this.m_SVHCDMDescription; }
             set { this.m_SVHCDMDescription = value; }
+        }
+
+        [PersistentProperty()]
+        public List<CptCodeModifier> Modifiers
+        {
+            get { return this.m_Modifiers; }
+            set { this.m_Modifiers = value; }
         }
 
         public bool HasBillableProfessionalComponent()
