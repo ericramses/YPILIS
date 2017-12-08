@@ -17,10 +17,10 @@ namespace YellowstonePathology.Business.Surgical
             this.m_CptCodeCollection.Add(Billing.Model.CptCodeCollection.GetCPTCode("88305", null));
             this.m_PQRSAgeDefinition = PQRSAgeDefinitionEnum.Patients18To75;
 
-            this.m_PQRSCodeCollection.Add((Billing.Model.PQRSCode)Billing.Model.CptCodeCollection.GetCPTCode("G9428", null));
-			this.m_PQRSCodeCollection.Add((Billing.Model.PQRSCode)Billing.Model.CptCodeCollection.GetCPTCode("G9429", null));
-			this.m_PQRSCodeCollection.Add((Billing.Model.PQRSCode)Billing.Model.CptCodeCollection.GetCPTCode("G9430", null));
-            this.m_PQRSCodeCollection.Add((Billing.Model.PQRSCode)Billing.Model.CptCodeCollection.GetCPTCode("G9431", null));
+            this.m_PQRSCodeCollection.Add(Billing.Model.PQRSCodeCollection.GetPQRSCode("G9428", null));
+			this.m_PQRSCodeCollection.Add(Billing.Model.PQRSCodeCollection.GetPQRSCode("G9429", null));
+			this.m_PQRSCodeCollection.Add(Billing.Model.PQRSCodeCollection.GetPQRSCode("G9430", null));
+            this.m_PQRSCodeCollection.Add(Billing.Model.PQRSCodeCollection.GetPQRSCode("G9431", null));
         }
 
 		public override bool DoesMeasureApply(YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder, 

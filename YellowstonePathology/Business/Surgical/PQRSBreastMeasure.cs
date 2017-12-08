@@ -14,9 +14,9 @@ namespace YellowstonePathology.Business.Surgical
             this.m_CptCodeCollection.Add(Billing.Model.CptCodeCollection.GetCPTCode("88307", null));
             this.m_CptCodeCollection.Add(Billing.Model.CptCodeCollection.GetCPTCode("88309", null));
 
-            this.m_PQRSCodeCollection.Add((Billing.Model.PQRSCode)Billing.Model.CptCodeCollection.GetCPTCode("3260F", null));
-			this.m_PQRSCodeCollection.Add((Billing.Model.PQRSCode)Billing.Model.CptCodeCollection.GetCPTCode("3260F", "1P"));
-			this.m_PQRSCodeCollection.Add((Billing.Model.PQRSCode)Billing.Model.CptCodeCollection.GetCPTCode("3260F", "8P"));
+            this.m_PQRSCodeCollection.Add(Billing.Model.PQRSCodeCollection.GetPQRSCode("3260F", null));
+			this.m_PQRSCodeCollection.Add(Billing.Model.PQRSCodeCollection.GetPQRSCode("3260F", "1P"));
+			this.m_PQRSCodeCollection.Add(Billing.Model.PQRSCodeCollection.GetPQRSCode("3260F", "8P"));
         }        
     }
 }
