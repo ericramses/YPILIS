@@ -66,7 +66,7 @@ namespace YellowstonePathology.Business.Billing.Model
             PQRSCode result = null;
             RedisResult redisResult = Business.RedisAppDataConnection.Instance.PqrsCodeDb.Execute("json.get", new object[] { code, "." });
             JObject jObject = JsonConvert.DeserializeObject<JObject>((string)redisResult);
-            result = PQRSCodeFactory.FromJson(jObject);
+            result = PQRSCodeFactory.FromJson(jObject, modifier);
             result.Modifier = modifier;
             return result;
         }
@@ -109,7 +109,7 @@ namespace YellowstonePathology.Business.Billing.Model
 			return result;
 		}*/
 		
-		public PQRSCode GetPQRSCode(string pqrsCode)
+		/*public PQRSCode Get(string pqrsCode)
         {
             PQRSCode result = null;
 			string[] splitString = pqrsCode.Split(new char[] { '-' });
@@ -130,6 +130,6 @@ namespace YellowstonePathology.Business.Billing.Model
 				}
             }
             return result;
-        }
+        }*/
     }
 }

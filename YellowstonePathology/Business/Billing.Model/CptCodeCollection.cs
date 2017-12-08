@@ -23,12 +23,22 @@ namespace YellowstonePathology.Business.Billing.Model
             return result;
         }
 
-        public static CptCode GetCPTCode(string code, string modifier)
+        /*public static CptCode Get(string code, string modifier)
         {
             CptCode result = null;
             RedisResult redisResult = Business.RedisAppDataConnection.Instance.CptCodeDb.Execute("json.get", new object[] { code, "." });
             JObject jObject = JsonConvert.DeserializeObject<JObject>((string)redisResult);
             result = CptCodeFactory.FromJson(jObject);
+            result.Modifier = modifier;
+            return result;
+        }*/
+
+        public static CptCode GetCPTCode(string code, string modifier)
+        {
+            CptCode result = null;
+            RedisResult redisResult = Business.RedisAppDataConnection.Instance.CptCodeDb.Execute("json.get", new object[] { code, "." });
+            JObject jObject = JsonConvert.DeserializeObject<JObject>((string)redisResult);
+            result = CptCodeFactory.FromJson(jObject, modifier);
             result.Modifier = modifier;
             return result;
         }       

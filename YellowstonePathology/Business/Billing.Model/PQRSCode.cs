@@ -10,17 +10,9 @@ namespace YellowstonePathology.Business.Billing.Model
     {
         protected string m_ReportingDefinition;
         protected string m_FormattedReportingDefinition;
-        protected List<CptCodeModifier> m_CptCodeModifiers;
 
         public PQRSCode()
         {
-            this.m_CptCodeModifiers = new List<Model.CptCodeModifier>();
-        }
-
-        public List<CptCodeModifier> CptCodeModifiers
-        {
-            get { return this.m_CptCodeModifiers; }
-            set { this.m_CptCodeModifiers = value; }
         }
 
         [PersistentProperty()]
@@ -34,12 +26,12 @@ namespace YellowstonePathology.Business.Billing.Model
 		{
 			get
 			{
-                return this.m_FormattedReportingDefinition;
-				/*StringBuilder result = new StringBuilder(this.m_Code);
+                //return this.m_FormattedReportingDefinition;
+				StringBuilder result = new StringBuilder(this.m_Code);
 				if (this.m_Modifier != null) result.Append("-" + this.m_Modifier);
 				result.Append(":  ");
 				result.Append(this.m_ReportingDefinition);
-				return result.ToString();*/
+				return result.ToString();
 			}
             set { this.m_FormattedReportingDefinition = value; }
 		}
