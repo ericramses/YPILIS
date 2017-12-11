@@ -39,7 +39,6 @@ namespace YellowstonePathology.Business.Billing.Model
             RedisResult redisResult = Business.RedisAppDataConnection.Instance.CptCodeDb.Execute("json.get", new object[] { code, "." });
             JObject jObject = JsonConvert.DeserializeObject<JObject>((string)redisResult);
             result = CptCodeFactory.FromJson(jObject, modifier);
-            result.Modifier = modifier;
             return result;
         }       
 

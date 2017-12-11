@@ -16,13 +16,13 @@ namespace YellowstonePathology.Business.Billing.Model
         public override void SetPanelSetOrderCPTCodes()
         {        
             int blockCount = this.m_AccessionOrder.SpecimenOrderCollection.GetBlockCount();
-            YellowstonePathology.Business.Billing.Model.CptCode autopsyBlock = Billing.Model.CptCodeCollection.GetCPTCode("AUTOPSYBLOCK", "TC");
+            YellowstonePathology.Business.Billing.Model.CptCode autopsyBlock = Billing.Model.CptCodeCollection.GetCPTCode("AUTOPSYBLOCK", null);
             if (this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.Exists(autopsyBlock.Code, blockCount) == false)
             {
                 YellowstonePathology.Business.Test.PanelSetOrderCPTCode panelSetOrderCPTCode = this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.GetNextItem(this.m_PanelSetOrder.ReportNo);
                 panelSetOrderCPTCode.Quantity = blockCount;
                 panelSetOrderCPTCode.CPTCode = autopsyBlock.Code;
-                panelSetOrderCPTCode.Modifier = autopsyBlock.Modifier;
+                panelSetOrderCPTCode.Modifier = CptCodeModifier.TechnicalComponent;
                 panelSetOrderCPTCode.CodeableDescription = "Autopsy Block";
                 panelSetOrderCPTCode.CodeableType = "BillableTest";
                 panelSetOrderCPTCode.EntryType = YellowstonePathology.Business.Billing.Model.PanelSetOrderCPTCodeEntryType.SystemGenerated;                
@@ -39,7 +39,7 @@ namespace YellowstonePathology.Business.Billing.Model
 		public override void PostTechnical(string billTo, string billBy)
 		{
             int blockCount = this.m_AccessionOrder.SpecimenOrderCollection.GetBlockCount();
-            YellowstonePathology.Business.Billing.Model.CptCode autopsyBlock = Billing.Model.CptCodeCollection.GetCPTCode("AUTOPSYBLOCK", "TC");
+            YellowstonePathology.Business.Billing.Model.CptCode autopsyBlock = Billing.Model.CptCodeCollection.GetCPTCode("AUTOPSYBLOCK", null);
             foreach (YellowstonePathology.Business.Test.PanelSetOrderCPTCode panelSetOrderCPTCode in this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection)
             {                              
                 if(panelSetOrderCPTCode.CPTCode == autopsyBlock.Code)
@@ -49,7 +49,7 @@ namespace YellowstonePathology.Business.Billing.Model
                     item.BillTo = billTo;
                     item.BillBy = billBy;
                     item.Quantity = blockCount;
-                    item.Modifier = autopsyBlock.Modifier;
+                    item.Modifier = CptCodeModifier.TechnicalComponent;
                     this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.Add(item);
                 }                 
             }

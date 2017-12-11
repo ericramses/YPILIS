@@ -127,7 +127,7 @@ namespace YellowstonePathology.UI.Billing
 			{
 				YellowstonePathology.Business.Billing.Model.CptCode cptCode = (YellowstonePathology.Business.Billing.Model.CptCode)this.ListViewCptCodes.SelectedItem;
 				this.m_PanelSetOrderCPTCode.CPTCode = cptCode.Code;
-				this.m_PanelSetOrderCPTCode.Modifier = cptCode.Modifier;
+				this.m_PanelSetOrderCPTCode.Modifier = cptCode.Modifier.Modifier;
 				this.m_PanelSetOrderCPTCode.CodeType = cptCode.CodeType.ToString();
 			}
 		}		
