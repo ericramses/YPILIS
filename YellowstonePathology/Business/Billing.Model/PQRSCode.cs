@@ -38,7 +38,9 @@ namespace YellowstonePathology.Business.Billing.Model
 
         public override string GetModifier(BillingComponentEnum billingComponent)
         {
-            return this.m_Modifier;
+            string result = null;
+            if (this.m_Modifier != null) result = this.m_Modifier.Modifier;
+            return result;
         }
     }
 }
