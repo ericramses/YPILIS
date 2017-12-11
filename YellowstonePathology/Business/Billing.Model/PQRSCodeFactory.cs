@@ -60,13 +60,10 @@ namespace YellowstonePathology.Business.Billing.Model
             });
 
             result.ReportingDefinition = result.Description;
-            result.Modifiers.Clear();
 
             if (cptCodeModifier != null)
             {
-                result.Modifiers.Add(cptCodeModifier);
-                result.Description = cptCodeModifier.Description;
-                result.ReportingDefinition = cptCodeModifier.Description;
+                result.Modifier = cptCodeModifier;
             }
 
             return result;

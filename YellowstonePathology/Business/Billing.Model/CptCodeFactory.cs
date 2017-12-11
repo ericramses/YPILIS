@@ -49,12 +49,7 @@ namespace YellowstonePathology.Business.Billing.Model
                     ObjectCreationHandling = ObjectCreationHandling.Replace,
                 });
 
-            result.Modifiers.Clear();
-
-            if (cptCodeModifier != null)
-            {
-                result.Modifiers.Add(cptCodeModifier);
-            }
+            result.Modifier = cptCodeModifier;
 
             return result;
         }

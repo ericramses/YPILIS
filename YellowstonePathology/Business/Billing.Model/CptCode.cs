@@ -13,7 +13,7 @@ namespace YellowstonePathology.Business.Billing.Model
         protected FeeScheduleEnum m_FeeSchedule;
         protected bool m_HasTechnicalComponent;
         protected bool m_HasProfessionalComponent;
-        protected string m_Modifier;
+        protected CptCodeModifier m_Modifier;
         protected bool m_IsBillable;
         protected string m_GCode;
         protected bool m_HasMedicareQuantityLimit;
@@ -21,12 +21,11 @@ namespace YellowstonePathology.Business.Billing.Model
         protected CPTCodeTypeEnum m_CodeType;
         protected string m_SVHCDMCode;
         protected string m_SVHCDMDescription;
-        protected List<CptCodeModifier> m_Modifiers;
 
         public CptCode()
         {
+            this.m_Modifier = new CptCodeModifier();
             this.m_HasMedicareQuantityLimit = false;
-            this.m_Modifiers = new List<Model.CptCodeModifier>();
         }
 
         [PersistentProperty()]
@@ -44,7 +43,7 @@ namespace YellowstonePathology.Business.Billing.Model
         }
 
         [PersistentProperty()]
-        public string Modifier
+        public CptCodeModifier Modifier
         {
             get { return this.m_Modifier; }
             set { this.m_Modifier = value; }
@@ -120,18 +119,11 @@ namespace YellowstonePathology.Business.Billing.Model
             set { this.m_SVHCDMDescription = value; }
         }
 
-        [PersistentProperty()]
-        public List<CptCodeModifier> Modifiers
-        {
-            get { return this.m_Modifiers; }
-            set { this.m_Modifiers = value; }
-        }
-
         public bool HasBillableProfessionalComponent()
         {
             bool result = true;
-            if (this.Modifier == "26") result = true;
-            if (string.IsNullOrEmpty(this.Modifier) == true)
+            if (this.Modifier != null && this.Modifier.Modifier == "26") result = true;
+            if (this.Modifier == null)
             {
                 if (this.m_HasProfessionalComponent == true)
                 {
@@ -144,8 +136,8 @@ namespace YellowstonePathology.Business.Billing.Model
         public bool HasBillableTechnicalComponent()
         {
             bool result = false;
-            if (this.Modifier == "TC") result = true;
-            if (string.IsNullOrEmpty(this.Modifier) == true)
+            if (this.Modifier != null && this.Modifier.Modifier == "TC") result = true;
+            if (this.Modifier == null)
             {
                 if (this.m_HasTechnicalComponent == true)
                 {

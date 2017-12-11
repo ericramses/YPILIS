@@ -1090,7 +1090,7 @@ namespace YellowstonePathology.UI.Surgical
                         if (panelSetOrder.PanelSetOrderCPTCodeCollection.Exists(specimen.CPTCode.Code, specimenOrder.SpecimenOrderId) == false)
                         {
                             string comment = "Specimen " + specimenOrder.SpecimenNumber + ": " + specimen.SpecimenName;
-                            AddCPTCode(specimenOrder, specimen.CPTCode.Code, specimen.CPTCode.Modifier, specimen.CPTCode.CodeType.ToString(), panelSetOrder, specimen.CPTCodeQuantity, comment);
+                            AddCPTCode(specimenOrder, specimen.CPTCode.Code, specimen.CPTCode.Modifier.Modifier, specimen.CPTCode.CodeType.ToString(), panelSetOrder, specimen.CPTCodeQuantity, comment);
                         }
                     }
                 }
