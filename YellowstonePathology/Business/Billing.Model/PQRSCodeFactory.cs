@@ -7,7 +7,7 @@ namespace YellowstonePathology.Business.Billing.Model
 {
     public class PQRSCodeFactory
     {
-        public static PQRSCode FromJson(JObject jObject)
+        private static PQRSCode FromJson(JObject jObject)
         {
             string jsonString = jObject.ToString();
             PQRSCode result = JsonConvert.DeserializeObject<Business.Billing.Model.PQRSCode>(jsonString, new JsonSerializerSettings
@@ -41,7 +41,7 @@ namespace YellowstonePathology.Business.Billing.Model
 
         public static PQRSCode FromJson(JObject jObject, string modifier)
         {
-            PQRSCode result = null;
+            PQRSCode result = FromJson(jObject);
             CptCodeModifier cptCodeModifier = null;
             if (string.IsNullOrEmpty(modifier) == false)
             {
@@ -51,13 +51,6 @@ namespace YellowstonePathology.Business.Billing.Model
                     throw new Exception("trying to get PQRS Code " + jObject["code"].ToString() + " with modifier " + modifier + " not available for the code.");
                 }
             }
-
-            string jsonString = jObject.ToString();
-            result = JsonConvert.DeserializeObject<Business.Billing.Model.PQRSCode>(jsonString, new JsonSerializerSettings
-            {
-                TypeNameHandling = TypeNameHandling.All,
-                ObjectCreationHandling = ObjectCreationHandling.Replace,
-            });
 
             result.ReportingDefinition = result.Description;
 
