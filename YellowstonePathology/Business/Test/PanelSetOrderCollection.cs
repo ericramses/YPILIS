@@ -14,18 +14,12 @@ namespace YellowstonePathology.Business.Test
 {
 	public class PanelSetOrderCollection : ObservableCollection<PanelSetOrder>
 	{
-		private PathologistTestOrderItemList m_PathologistTestOrderItemList;
-        //private PanelSetOrder m_CurrentPanelSetOrder;
+		private PathologistTestOrderItemList m_PathologistTestOrderItemList;        
 
 		public PanelSetOrderCollection()
 		{
 			m_PathologistTestOrderItemList = new PathologistTestOrderItemList();
-		}
-
-        /*public PanelSetOrder CurrentPanelSetOrder
-        {
-            get { return this.m_CurrentPanelSetOrder; }
-        }*/ 
+		}        
 
         public string GetAdditionalTestingString(string currentReportNo)
         {
@@ -1105,8 +1099,7 @@ namespace YellowstonePathology.Business.Test
 
         public List<int> GetBoneMarrowSummaryExclusionList()
         {
-            List<int> result = new List<int>();
-            //result.Add(13);
+            List<int> result = new List<int>();            
             result.Add(31);   // Technical Only
             result.Add(66);   // Test Cancelled
             result.Add(197);

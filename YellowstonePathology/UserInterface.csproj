@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>30</ApplicationRevision>
+    <ApplicationRevision>43</ApplicationRevision>
     <ApplicationVersion>10.1.8.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -1201,6 +1201,7 @@
     <Compile Include="Business\Test\BCellSubsetAnalysis\ReferenceRangeValue.cs" />
     <Compile Include="Business\Test\BoneMarrowSummary\OtherReportViewCollection.cs" />
     <Compile Include="Business\Test\BoneMarrowSummary\OtherReportView.cs" />
+    <Compile Include="Business\Test\BozemanCase\BozemanCaseTest.cs" />
     <Compile Include="Business\Test\BRAFMutationAnalysis\BRAFMutationAnalysisDetectedPapillaryThyroidResult.cs" />
     <Compile Include="Business\Test\BRAFMutationAnalysis\BRAFMutationAnalysisCMMCNTEView.cs" />
     <Compile Include="Business\Test\BRAFMutationAnalysis\BRAFMutationAnalysisDetectedCRCResult.cs" />
@@ -7134,12 +7135,12 @@
   <ItemGroup>
     <PublishFile Include="Microsoft.Exchange.WebServices">
       <Visible>False</Visible>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
   </ItemGroup>
