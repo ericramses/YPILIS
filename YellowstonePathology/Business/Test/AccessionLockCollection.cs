@@ -38,9 +38,9 @@ namespace YellowstonePathology.Business.Test
             List<AccessionLock> list = new List<AccessionLock>();
             foreach(RedisKey key in keys)
             {
-                if(RedisLocksConnection.Instance.Db.KeyExists(key) == true)
+                if(RedisLocksConnection.Instance.LocksDb.KeyExists(key) == true)
                 {
-                    HashEntry[] hashEntries = RedisLocksConnection.Instance.Db.HashGetAll(key);
+                    HashEntry[] hashEntries = RedisLocksConnection.Instance.LocksDb.HashGetAll(key);
                     AccessionLock item = new AccessionLock(hashEntries);
                     list.Add(item);
                 }                
