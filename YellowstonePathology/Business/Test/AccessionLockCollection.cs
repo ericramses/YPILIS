@@ -33,15 +33,15 @@ namespace YellowstonePathology.Business.Test
         }
 
         private void Build()
-        {            
-            RedisValue[] members = RedisLocksConnection.Instance.Db.SetMembers("AccessionLocks");
+        {
+            List<RedisKey> keys = RedisLocksConnection.Instance.Server.Keys((int)RedisDatabaseEnum.Default, "AccessionLock:*", 10, CommandFlags.None).ToList<RedisKey>();
 
             List<AccessionLock> list = new List<AccessionLock>();
-            for (int i = 0; i < members.Length; i++)
+            foreach(RedisKey key in keys)
             {
-                if(RedisLocksConnection.Instance.Db.KeyExists(members[i].ToString()) == true)
+                if(RedisLocksConnection.Instance.Db.KeyExists(key) == true)
                 {
-                    HashEntry[] hashEntries = RedisLocksConnection.Instance.Db.HashGetAll(members[i].ToString());
+                    HashEntry[] hashEntries = RedisLocksConnection.Instance.Db.HashGetAll(key);
                     AccessionLock item = new AccessionLock(hashEntries);
                     list.Add(item);
                 }                
