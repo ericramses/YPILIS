@@ -83,9 +83,11 @@ namespace YellowstonePathology.Business.Billing.Model
             {
                 RedisResult redisResult = Business.RedisAppDataConnection.Instance.CptCodeDb.Execute("json.get", new object[] { key.ToString(), "." });
                 JObject jObject = JsonConvert.DeserializeObject<JObject>((string)redisResult);
-                CptCode code = CptCodeFactory.FromJson(jObject, null);
-                result.Add(code);
-                ExpandCodeObject(jObject, result);
+                if (ExpandCodeObject(jObject, result) == false)
+                {
+                    CptCode code = CptCodeFactory.FromJson(jObject, null);
+                    result.Add(code);
+                }
             }
 
             if(includePqrs == true)
@@ -100,14 +102,17 @@ namespace YellowstonePathology.Business.Billing.Model
             return result;
         }
 
-        private static void ExpandCodeObject(JObject jObject, CptCodeCollection cptCodeCollection)
+        private static bool ExpandCodeObject(JObject jObject, CptCodeCollection cptCodeCollection)
         {
+            bool result = false;
             foreach (JObject codeModifier in jObject["modifiers"])
             {
-                string modifierString = codeModifier.ToString();
-                CptCode code = CptCodeFactory.FromJson(jObject, null);
+                string modifierString = codeModifier["modifier"].ToString();
+                CptCode code = CptCodeFactory.FromJson(jObject, modifierString);
                 cptCodeCollection.Add(code);
+                result = true;
             }
+            return result;
         }
     }
 }

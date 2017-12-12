@@ -66,8 +66,8 @@ namespace YellowstonePathology.Business.Billing.Model
         {
             foreach (JObject codeModifier in jObject["modifiers"])
             {
-                string modifierString = codeModifier.ToString();
-                PQRSCode code = PQRSCodeFactory.FromJson(jObject, null);
+                string modifierString = codeModifier["modifier"].ToString();
+                PQRSCode code = PQRSCodeFactory.FromJson(jObject, modifierString);
                 pqrsCodeCollection.Add(code);
             }
         }

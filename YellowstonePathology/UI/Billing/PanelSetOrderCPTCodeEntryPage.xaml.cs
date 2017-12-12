@@ -39,8 +39,7 @@ namespace YellowstonePathology.UI.Billing
             this.m_PanelSetOrderCPTCode.EntryType = "Manual Entry";
             this.m_PanelSetOrderCPTCode.CodeableType = "Billable Test";
 
-            this.m_CptCodeCollection = YellowstonePathology.Business.Billing.Model.CptCodeCollection.GetSorted(Business.Billing.Model.CptCodeCollection.GetAll(false));
-
+            this.m_CptCodeCollection = YellowstonePathology.Business.Billing.Model.CptCodeCollection.GetSorted(Business.Billing.Model.CptCodeCollection.GetAll(true));
 
             InitializeComponent();			
 			DataContext = this;
@@ -127,7 +126,7 @@ namespace YellowstonePathology.UI.Billing
 			{
 				YellowstonePathology.Business.Billing.Model.CptCode cptCode = (YellowstonePathology.Business.Billing.Model.CptCode)this.ListViewCptCodes.SelectedItem;
 				this.m_PanelSetOrderCPTCode.CPTCode = cptCode.Code;
-				this.m_PanelSetOrderCPTCode.Modifier = cptCode.Modifier.Modifier;
+				this.m_PanelSetOrderCPTCode.Modifier = cptCode.Modifier == null ? null : cptCode.Modifier.Modifier;
 				this.m_PanelSetOrderCPTCode.CodeType = cptCode.CodeType.ToString();
 			}
 		}		

@@ -28,6 +28,22 @@ namespace YellowstonePathology.Business.Billing.Model
             this.m_HasMedicareQuantityLimit = false;
         }
 
+        public string DisplayCode
+        {
+            get
+            {
+                string result = this.m_Code;
+                if(this.m_Modifier != null)
+                {
+                    if(string.IsNullOrEmpty(this.m_Modifier.Modifier) == false)
+                    {
+                        result += " - " + this.m_Modifier.Modifier;
+                    }
+                }
+                return result;
+            }
+        }
+
         [PersistentProperty()]
         public string Code
         {
