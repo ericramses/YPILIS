@@ -126,7 +126,7 @@ namespace YellowstonePathology.Business.Billing.Model
             YellowstonePathology.Business.Billing.Model.CptCodeCollection result = new Model.CptCodeCollection();                        
             IServer server = Business.RedisAppDataConnection.Instance.Server;
 
-            RedisKey[] keyResult = server.Keys((int)Business.RedisDatabaseEnum.CptCodes, "cpt:*").ToArray<RedisKey>();
+            RedisKey[] keyResult = server.Keys(Business.RedisAppDataConnection.CPTCODEDBNUM, "cpt:*").ToArray<RedisKey>();
             foreach (RedisKey key in keyResult)
             {
                 RedisResult redisResult = Business.RedisAppDataConnection.Instance.CptCodeDb.Execute("json.get", new object[] { key.ToString(), "." });
@@ -135,7 +135,7 @@ namespace YellowstonePathology.Business.Billing.Model
                 result.Add(code);
             }
 
-            RedisKey[] keyResult2 = server.Keys((int)Business.RedisDatabaseEnum.CptCodes, "pqrs:*").ToArray<RedisKey>();
+            RedisKey[] keyResult2 = server.Keys(Business.RedisAppDataConnection.PQRSDBNUM, "pqrs:*").ToArray<RedisKey>();
             foreach (RedisKey key in keyResult2)
             {
                 RedisResult redisResult2 = Business.RedisAppDataConnection.Instance.CptCodeDb.Execute("json.get", new object[] { key.ToString(), "." });

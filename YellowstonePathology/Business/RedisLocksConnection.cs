@@ -12,6 +12,9 @@ namespace YellowstonePathology.Business
         private static RedisLocksConnection instance = null;
         private static readonly object padlock = new object();
 
+        public const int LOCKSDBNUM = 0;
+        public const int SCANSDBNUM = 1;
+
         private ConnectionMultiplexer m_Connection;
         private IServer m_Server;
         private IDatabase m_Database;
