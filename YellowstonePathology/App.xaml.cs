@@ -45,8 +45,8 @@ namespace YellowstonePathology.UI
 
         private void App_Exit(object sender, ExitEventArgs e)
         {
-            Business.Test.AccessionLockCollection accessionLockCollection = new Business.Test.AccessionLockCollection();
-            accessionLockCollection.ClearLocks();
+            //Business.Test.AccessionLockCollection accessionLockCollection = new Business.Test.AccessionLockCollection();
+            //accessionLockCollection.ClearLocks();
         }
 
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
@@ -56,8 +56,8 @@ namespace YellowstonePathology.UI
 
         protected override void OnStartup(StartupEventArgs e)
         {            
-            Business.Test.AccessionLockCollection accessionLockCollection = new Business.Test.AccessionLockCollection();
-            accessionLockCollection.ClearLocks();
+            //Business.Test.AccessionLockCollection accessionLockCollection = new Business.Test.AccessionLockCollection();
+            //accessionLockCollection.ClearLocks();
 
             string startUpWindow = string.Empty;
 
