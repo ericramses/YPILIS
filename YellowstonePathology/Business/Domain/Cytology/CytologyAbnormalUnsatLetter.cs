@@ -58,7 +58,8 @@ namespace YellowstonePathology.Reports.Cytology
 
                 this.m_ReportSaveFileName = @"\\CFileServer\Documents\Reports\Cytology\CytologyAbnormalUnsatLetter\" + item.PhysicianClientId.ToString() + ".xml";
 
-                string openingStatement = "Below is a list of your patient(s) who have had an abnormal or unsatisfactory Pap Test between report_start_date and report_end_date.";
+                //string openingStatement = "Below is a list of your patient(s) who have had an abnormal or unsatisfactory Pap Test between report_start_date and report_end_date.";
+                string openingStatement = "We recently found an error in the abnormal/unsatisfactory Pap Test Reports that we have been sending you. The reports that we have sent you since May of 2017 have not been accurate.  To make sure you have the correct information, below is a list of your patient(s) who have had an abnormal or unsatisfactory Pap Test between May 1st, 2017 and November 31, 2017. ";
 
                 XmlNode nodeTable = this.FindXmlTableInDetail("letter_date");
                 XmlNode nodeLetterDate = this.FindXmlTableRowInDetail("letter_date", nodeTable);
