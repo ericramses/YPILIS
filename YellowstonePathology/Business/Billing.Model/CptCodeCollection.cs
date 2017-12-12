@@ -90,15 +90,14 @@ namespace YellowstonePathology.Business.Billing.Model
                 }
             }
 
-            if(includePqrs == true)
+            if (includePqrs == true)
             {
                 PQRSCodeCollection pqrsCodeCollection = PQRSCodeCollection.GetAll();
-                foreach(PQRSCode pqrsCode in pqrsCodeCollection)
+                foreach (PQRSCode pqrsCode in pqrsCodeCollection)
                 {
                     result.Add(pqrsCode);
                 }
             }
-            
             return result;
         }
 

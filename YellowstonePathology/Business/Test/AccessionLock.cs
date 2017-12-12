@@ -111,7 +111,6 @@ namespace YellowstonePathology.Business.Test
             var transaction = RedisLocksConnection.Instance.Db.CreateTransaction();
             transaction.AddCondition(Condition.HashExists(this.HashKey, "MasterAccessionNo"));            
             transaction.KeyDeleteAsync(this.HashKey);
-            transaction.SetRemoveAsync("AccessionLocks", this.HashKey);
             bool committed = transaction.Execute();            
             this.NotifyPropertyChanged(string.Empty);
         }
@@ -161,7 +160,6 @@ namespace YellowstonePathology.Business.Test
             var transaction = RedisLocksConnection.Instance.Db.CreateTransaction();
             transaction.AddCondition(Condition.HashNotExists(this.HashKey, "MasterAccessionNo"));
             transaction.HashSetAsync(this.HashKey, hashFields);
-            transaction.SetAddAsync("AccessionLocks", this.HashKey);
             bool committed = transaction.Execute();            
         }
 

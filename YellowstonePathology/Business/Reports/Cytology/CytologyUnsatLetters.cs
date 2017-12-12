@@ -55,15 +55,13 @@ namespace YellowstonePathology.Business.Reports.Cytology
                 cmd.Connection = cn;                
 
                 using (MySqlDataReader dr = cmd.ExecuteReader())
-                {
-                    //int currentPhysicianClientId = 0;
+                {                    
 					string currentPhysicianClientId = "0";
                     CytologyUnsatLetterItem item = new CytologyUnsatLetterItem();
                     CytologyUnsatLetterDetailItem detailItem = new CytologyUnsatLetterDetailItem();
 
                     while (dr.Read())
-                    {
-                        //int thisPhysicianClientId = BaseData.GetIntValue("PhysicianClientId", dr);
+                    {                        
 						string thisPhysicianClientId = BaseData.GetStringValue("PhysicianClientId", dr);
 						if (thisPhysicianClientId != currentPhysicianClientId)
                         {
