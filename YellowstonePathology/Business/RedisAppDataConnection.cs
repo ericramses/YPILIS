@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business
         public const int CPTCODEDBNUM = 1;
         public const int ICDCODEDBNUM = 2;
         public const int STAINDBNUM = 3;
-        public const int PQRSDBNUM = 4;
+        public const int PQRSDBNUM = 1;
 
         private ConnectionMultiplexer m_Connection;
         private IServer m_Server;
