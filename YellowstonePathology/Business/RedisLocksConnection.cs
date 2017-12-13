@@ -18,9 +18,9 @@ namespace YellowstonePathology.Business
         private ISubscriber m_Subscriber;
 
         RedisLocksConnection()
-        {            
+        {
             this.m_Connection = ConnectionMultiplexer.Connect("10.1.2.25:6379, ConnectTimeout=5000, SyncTimeout=5000, allowAdmin=true");
-            this.m_Server = this.m_Connection.GetServer("10.1.2.25:6379");            
+            this.m_Server = this.m_Connection.GetServer("10.1.2.25:6379");
             this.m_Database = this.m_Connection.GetDatabase();
             this.m_Subscriber = this.m_Connection.GetSubscriber();
 

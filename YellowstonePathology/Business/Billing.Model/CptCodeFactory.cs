@@ -42,19 +42,12 @@ namespace YellowstonePathology.Business.Billing.Model
                 }
             }
 
-            string jsonString = jObject.ToString();
-            result = JsonConvert.DeserializeObject<Business.Billing.Model.CptCode>(jsonString, new JsonSerializerSettings
-                {
-                    TypeNameHandling = TypeNameHandling.All,
-                    ObjectCreationHandling = ObjectCreationHandling.Replace,
-                });
-
             result.Modifier = cptCodeModifier;
 
             return result;
         }
 
-        public static CptCode FromJson(JObject jObject)
+        private static CptCode FromJson(JObject jObject)
         {
             string jsonString = jObject.ToString();
             CptCode result = JsonConvert.DeserializeObject<Business.Billing.Model.CptCode>(jsonString, new JsonSerializerSettings

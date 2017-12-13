@@ -7,14 +7,14 @@ namespace YellowstonePathology.Business.Billing.Model
 {
     public class BillableObjectTechnicalOnlyAutopsy : BillableObject
     {
-        public BillableObjectTechnicalOnlyAutopsy(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo) 
+        public BillableObjectTechnicalOnlyAutopsy(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo)
             : base(accessionOrder, reportNo)
         {
 
-        }        
+        }
 
         public override void SetPanelSetOrderCPTCodes()
-        {        
+        {
             int blockCount = this.m_AccessionOrder.SpecimenOrderCollection.GetBlockCount();
             int billedCount = this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.GetCodeQuantity("AUTOPSYBLOCK");            
             YellowstonePathology.Business.Billing.Model.CptCode autopsyBlock = Billing.Model.CptCodeCollection.GetCPTCode("AUTOPSYBLOCK", null);
@@ -27,7 +27,7 @@ namespace YellowstonePathology.Business.Billing.Model
                 panelSetOrderCPTCode.Modifier = CptCodeModifier.TechnicalComponent;
                 panelSetOrderCPTCode.CodeableDescription = "Autopsy Block";
                 panelSetOrderCPTCode.CodeableType = "BillableTest";
-                panelSetOrderCPTCode.EntryType = YellowstonePathology.Business.Billing.Model.PanelSetOrderCPTCodeEntryType.SystemGenerated;                
+                panelSetOrderCPTCode.EntryType = YellowstonePathology.Business.Billing.Model.PanelSetOrderCPTCodeEntryType.SystemGenerated;
                 panelSetOrderCPTCode.ClientId = this.m_AccessionOrder.ClientId;
                 this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.Add(panelSetOrderCPTCode);
             }
@@ -38,8 +38,8 @@ namespace YellowstonePathology.Business.Billing.Model
             this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.UpdateCodeType();
         }
 
-		public override void PostTechnical(string billTo, string billBy)
-		{
+        public override void PostTechnical(string billTo, string billBy)
+        {
             int blockCount = this.m_AccessionOrder.SpecimenOrderCollection.GetBlockCount();
             int billedCount = this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.GetBilledCount("AUTOPSYBLOCK", "TC");
 
@@ -61,18 +61,18 @@ namespace YellowstonePathology.Business.Billing.Model
             this.m_PanelSetOrder.TechnicalComponentBillingFacilityId = "YPIBLGS";
         }
 
-		public override void PostProfessional(string billTo, string billBy)
-		{
-			//Do nothing
-		}
+        public override void PostProfessional(string billTo, string billBy)
+        {
+            //Do nothing
+        }
 
-		public override void PostGlobal(string billTo, string billBy)
-		{
-			// Do nothing
-		}
+        public override void PostGlobal(string billTo, string billBy)
+        {
+            // Do nothing
+        }
 
-		public override void PostClientGCodes(YellowstonePathology.Business.Billing.Model.BillingComponentEnum billingComponent)
-		{
+        public override void PostClientGCodes(YellowstonePathology.Business.Billing.Model.BillingComponentEnum billingComponent)
+        {
             // Do nothing
         }
     }

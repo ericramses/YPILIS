@@ -51,7 +51,7 @@ namespace YellowstonePathology.Business.Billing.Model
         public static CptCodeCollection GetCptCodeCollection(FeeScheduleEnum feeSchedule)
         {
             CptCodeCollection result = new CptCodeCollection();
-            CptCodeCollection allCodes = CptCodeCollection.GetAll();
+            CptCodeCollection allCodes = CptCodeCollection.GetAll(true);
             foreach (CptCode cptCode in allCodes)
             {
                 if (cptCode.FeeSchedule == feeSchedule)
@@ -71,9 +71,9 @@ namespace YellowstonePathology.Business.Billing.Model
                 result.Add(cptCode);
             }
             return result;
-        }        
+        }
 
-        public static CptCodeCollection GetAll()
+        public static CptCodeCollection GetAll(bool includePqrs)
         {
             YellowstonePathology.Business.Billing.Model.CptCodeCollection result = new Model.CptCodeCollection();                        
             IServer server = Business.RedisAppDataConnection.Instance.Server;
@@ -83,19 +83,35 @@ namespace YellowstonePathology.Business.Billing.Model
             {
                 RedisResult redisResult = Business.RedisAppDataConnection.Instance.CptCodeDb.Execute("json.get", new object[] { key.ToString(), "." });
                 JObject jObject = JsonConvert.DeserializeObject<JObject>((string)redisResult);
-                CptCode code = CptCodeFactory.FromJson(jObject);                
-                result.Add(code);
+
+                if (ExpandCodeObject(jObject, result) == false)
+                {
+                    CptCode code = CptCodeFactory.FromJson(jObject, null);
+                    result.Add(code);
+                }
             }
 
-            RedisKey[] keyResult2 = server.Keys((int)Business.RedisDatabaseEnum.CptCodes, "pqrs:*").ToArray<RedisKey>();
-            foreach (RedisKey key in keyResult2)
+            if (includePqrs == true)
             {
-                RedisResult redisResult2 = Business.RedisAppDataConnection.Instance.CptCodeDb.Execute("json.get", new object[] { key.ToString(), "." });
-                JObject jObject2 = JsonConvert.DeserializeObject<JObject>((string)redisResult2);
-                CptCode code2 = CptCodeFactory.FromJson(jObject2);
-                result.Add(code2);
+                PQRSCodeCollection pqrsCodeCollection = PQRSCodeCollection.GetAll();
+                foreach (PQRSCode pqrsCode in pqrsCodeCollection)
+                {
+                    result.Add(pqrsCode);
+                }
             }
+            return result;
+        }
 
+        private static bool ExpandCodeObject(JObject jObject, CptCodeCollection cptCodeCollection)
+        {
+            bool result = false;
+            foreach (JObject codeModifier in jObject["modifiers"])
+            {
+                string modifierString = codeModifier["modifier"].ToString();
+                CptCode code = CptCodeFactory.FromJson(jObject, modifierString);
+                cptCodeCollection.Add(code);
+                result = true;
+            }
             return result;
         }        
     }
