@@ -423,7 +423,7 @@ namespace YellowstonePathology.Business.Test.Model
             RedisKey[] keyResult = server.Keys(Business.RedisAppDataConnection.STAINDBNUM, "*").ToArray<RedisKey>();
             foreach (RedisKey key in keyResult)
             {
-                RedisResult redisResult = RedisAppDataConnection.Instance.StainDb.Execute("json.get", new object[] { key.ToString(), "." });
+                RedisResult redisResult = RedisAppDataConnection.Instance.GetDB(RedisAppDataConnection.STAINDBNUM).Execute("json.get", new object[] { key.ToString(), "." });
                 JObject jObject = JsonConvert.DeserializeObject<JObject>((string)redisResult);
                 Test test = JsonTestFactory.FromJson(jObject);
                 result.Add(test);

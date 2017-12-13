@@ -1146,6 +1146,7 @@
     <Compile Include="Business\RedisAppDataConnection.cs" />
     <Compile Include="Business\RedisLocksConnection.cs" />
     <Compile Include="Business\RedisSingleton.cs" />
+    <Compile Include="Business\RedisStore.cs" />
     <Compile Include="Business\Reports\BlocksSentNotReturnedReport.cs" />
     <Compile Include="Business\Reports\RetrospectiveReviewReport.xaml.cs">
       <DependentUpon>RetrospectiveReviewReport.xaml</DependentUpon>

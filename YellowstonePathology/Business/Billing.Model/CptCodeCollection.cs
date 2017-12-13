@@ -36,7 +36,7 @@ namespace YellowstonePathology.Business.Billing.Model
         public static CptCode GetCPTCode(string code, string modifier)
         {
             CptCode result = null;
-            RedisResult redisResult = Business.RedisAppDataConnection.Instance.CptCodeDb.Execute("json.get", new object[] { code, "." });
+            RedisResult redisResult = Business.RedisAppDataConnection.Instance.GetDB(RedisAppDataConnection.CPTCODEDBNUM).Execute("json.get", new object[] { code, "." });
             JObject jObject = JsonConvert.DeserializeObject<JObject>((string)redisResult);
             result = CptCodeFactory.FromJson(jObject, modifier);
             return result;
@@ -75,7 +75,7 @@ namespace YellowstonePathology.Business.Billing.Model
             RedisKey[] keyResult = server.Keys(Business.RedisAppDataConnection.CPTCODEDBNUM, "*").ToArray<RedisKey>();
             foreach (RedisKey key in keyResult)
             {
-                RedisResult redisResult = Business.RedisAppDataConnection.Instance.CptCodeDb.Execute("json.get", new object[] { key.ToString(), "." });
+                RedisResult redisResult = Business.RedisAppDataConnection.Instance.GetDB(RedisAppDataConnection.CPTCODEDBNUM).Execute("json.get", new object[] { key.ToString(), "." });
                 JObject jObject = JsonConvert.DeserializeObject<JObject>((string)redisResult);
                 CptCode code = CptCodeFactory.FromJson(jObject, null);
                 result.Add(code);

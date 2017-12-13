@@ -21,7 +21,7 @@ namespace YellowstonePathology.Business.Billing.Model
             RedisKey[] keyResult = server.Keys(Business.RedisAppDataConnection.PQRSDBNUM, "*").ToArray<RedisKey>();
             foreach (RedisKey key in keyResult)
             {
-                RedisResult redisResult = Business.RedisAppDataConnection.Instance.PqrsCodeDb.Execute("json.get", new object[] { key.ToString(), "." });
+                RedisResult redisResult = Business.RedisAppDataConnection.Instance.GetDB(RedisAppDataConnection.PQRSDBNUM).Execute("json.get", new object[] { key.ToString(), "." });
                 JObject jObject = JsonConvert.DeserializeObject<JObject>((string)redisResult);
                 PQRSCode pqrsCode = PQRSCodeFactory.FromJson(jObject, null);
                 result.Add(pqrsCode);
@@ -78,7 +78,7 @@ namespace YellowstonePathology.Business.Billing.Model
         public static PQRSCode GetPQRSCode(string code, string modifier)
         {
             PQRSCode result = null;
-            RedisResult redisResult = Business.RedisAppDataConnection.Instance.PqrsCodeDb.Execute("json.get", new object[] { code, "." });
+            RedisResult redisResult = Business.RedisAppDataConnection.Instance.GetDB(RedisAppDataConnection.PQRSDBNUM).Execute("json.get", new object[] { code, "." });
             JObject jObject = JsonConvert.DeserializeObject<JObject>((string)redisResult);
             result = PQRSCodeFactory.FromJson(jObject, modifier);
             return result;
