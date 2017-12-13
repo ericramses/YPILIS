@@ -78,11 +78,12 @@ namespace YellowstonePathology.Business.Billing.Model
             YellowstonePathology.Business.Billing.Model.CptCodeCollection result = new Model.CptCodeCollection();                        
             IServer server = Business.RedisAppDataConnection.Instance.Server;
 
-            RedisKey[] keyResult = server.Keys((int)Business.RedisDatabaseEnum.CptCodes, "*").ToArray<RedisKey>();
+            RedisKey[] keyResult = server.Keys((int)Business.RedisDatabaseEnum.CptCodes, "cpt:*").ToArray<RedisKey>();
             foreach (RedisKey key in keyResult)
             {
                 RedisResult redisResult = Business.RedisAppDataConnection.Instance.CptCodeDb.Execute("json.get", new object[] { key.ToString(), "." });
                 JObject jObject = JsonConvert.DeserializeObject<JObject>((string)redisResult);
+
                 if (ExpandCodeObject(jObject, result) == false)
                 {
                     CptCode code = CptCodeFactory.FromJson(jObject, null);
@@ -112,6 +113,6 @@ namespace YellowstonePathology.Business.Billing.Model
                 result = true;
             }
             return result;
-        }
+        }        
     }
 }
