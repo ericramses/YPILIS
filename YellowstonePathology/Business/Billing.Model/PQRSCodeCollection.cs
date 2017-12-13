@@ -13,7 +13,7 @@ namespace YellowstonePathology.Business.Billing.Model
     {
         public PQRSCodeCollection() { }
 
-        public static PQRSCodeCollection GetAll()
+        public static PQRSCodeCollection GetAll(bool expandModifiers)
         {
             PQRSCodeCollection result = new PQRSCodeCollection();
             IServer server = Business.RedisAppDataConnection.Instance.Server;
@@ -24,8 +24,11 @@ namespace YellowstonePathology.Business.Billing.Model
                 RedisResult redisResult = Business.RedisAppDataConnection.Instance.PqrsCodeDb.Execute("json.get", new object[] { key.ToString(), "." });
                 JObject jObject = JsonConvert.DeserializeObject<JObject>((string)redisResult);
                 PQRSCode pqrsCode = PQRSCodeFactory.FromJson(jObject, null);
-                ExpandCodeObject(jObject, result);
                 result.Add(pqrsCode);
+                if (expandModifiers == true)
+                {
+                    ExpandModifiers(jObject, result);
+                }
             }
             
             /*result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCode("3125F", null));
@@ -62,7 +65,7 @@ namespace YellowstonePathology.Business.Billing.Model
             return result;
         }
 
-        private static void ExpandCodeObject(JObject jObject, PQRSCodeCollection pqrsCodeCollection)
+        private static void ExpandModifiers(JObject jObject, PQRSCodeCollection pqrsCodeCollection)
         {
             foreach (JObject codeModifier in jObject["modifiers"])
             {
