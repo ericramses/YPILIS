@@ -42,16 +42,10 @@ namespace YellowstonePathology.Business.Billing.Model
             return result;
         }       
 
-        public static CptCodeCollection GetCptCodes(FeeScheduleEnum feeSchedule)
-        {
-            CptCodeCollection result = CptCodeCollection.GetCptCodeCollection(feeSchedule);
-            return result;
-        }        
-
         public static CptCodeCollection GetCptCodeCollection(FeeScheduleEnum feeSchedule)
         {
             CptCodeCollection result = new CptCodeCollection();
-            CptCodeCollection allCodes = CptCodeCollection.GetAll(true);
+            CptCodeCollection allCodes = CptCodeCollection.GetAll(true, true);
             foreach (CptCode cptCode in allCodes)
             {
                 if (cptCode.FeeSchedule == feeSchedule)
@@ -60,7 +54,7 @@ namespace YellowstonePathology.Business.Billing.Model
                 }
             }
             return result;
-        }        
+        }
 
         public static CptCodeCollection GetSorted(CptCodeCollection cptCodeCollection)
         {
@@ -73,51 +67,45 @@ namespace YellowstonePathology.Business.Billing.Model
             return result;
         }
 
-        public static CptCodeCollection GetAll(bool includePqrs)
+        public static CptCodeCollection GetAll(bool includePqrs, bool expandModifiers)
         {
             YellowstonePathology.Business.Billing.Model.CptCodeCollection result = new Model.CptCodeCollection();                        
             IServer server = Business.RedisAppDataConnection.Instance.Server;
 
-            RedisKey[] keyResult = server.Keys(Business.RedisAppDataConnection.CPTCODEDBNUM, "cpt:*").ToArray<RedisKey>();
+            RedisKey[] keyResult = server.Keys(Business.RedisAppDataConnection.CPTCODEDBNUM, "*").ToArray<RedisKey>();
             foreach (RedisKey key in keyResult)
             {
                 RedisResult redisResult = Business.RedisAppDataConnection.Instance.CptCodeDb.Execute("json.get", new object[] { key.ToString(), "." });
                 JObject jObject = JsonConvert.DeserializeObject<JObject>((string)redisResult);
+                CptCode code = CptCodeFactory.FromJson(jObject, null);
+                result.Add(code);
 
-                if (ExpandCodeObject(jObject, result) == false)
+                if (expandModifiers == true)
                 {
-                    CptCode code = CptCodeFactory.FromJson(jObject, null);
-                    result.Add(code);
+                    ExpandModifiers(jObject, result);
                 }
             }
 
             if (includePqrs == true)
             {
-                RedisKey[] keyResult2 = server.Keys(Business.RedisAppDataConnection.PQRSDBNUM, "pqrs:*").ToArray<RedisKey>();
-                foreach (RedisKey key in keyResult2)
+                PQRSCodeCollection pqrsCodeCollection = PQRSCodeCollection.GetAll(expandModifiers);
+                foreach (PQRSCode pqrsCode in pqrsCodeCollection)
                 {
-                    PQRSCodeCollection pqrsCodeCollection = PQRSCodeCollection.GetAll();
-                    foreach (PQRSCode pqrsCode in pqrsCodeCollection)
-                    {
-                        result.Add(pqrsCode);
-                    }
+                    result.Add(pqrsCode);
                 }
             }
             
             return result;
         }
 
-        private static bool ExpandCodeObject(JObject jObject, CptCodeCollection cptCodeCollection)
+        private static void ExpandModifiers(JObject jObject, CptCodeCollection cptCodeCollection)
         {
-            bool result = false;
             foreach (JObject codeModifier in jObject["modifiers"])
             {
                 string modifierString = codeModifier["modifier"].ToString();
                 CptCode code = CptCodeFactory.FromJson(jObject, modifierString);
                 cptCodeCollection.Add(code);
-                result = true;
             }
-            return result;
         }        
     }
 }
