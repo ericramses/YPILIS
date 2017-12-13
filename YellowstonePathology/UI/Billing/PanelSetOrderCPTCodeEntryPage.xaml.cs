@@ -31,7 +31,7 @@ namespace YellowstonePathology.UI.Billing
 		private YellowstonePathology.Business.Billing.Model.CptCodeCollection m_CptCodeCollection;
 
         public PanelSetOrderCPTCodeEntryPage(YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder, int clientId)
-		{
+        {
             this.m_PanelSetOrder = panelSetOrder;
             this.m_PanelSetOrderCPTCode = this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.GetNextItem(panelSetOrder.ReportNo);
             this.m_PanelSetOrderCPTCode.Quantity = 1;
@@ -39,8 +39,7 @@ namespace YellowstonePathology.UI.Billing
             this.m_PanelSetOrderCPTCode.EntryType = "Manual Entry";
             this.m_PanelSetOrderCPTCode.CodeableType = "Billable Test";
 
-            this.m_CptCodeCollection = YellowstonePathology.Business.Billing.Model.CptCodeCollection.GetSorted(Business.Billing.Model.CptCodeCollection.Instance);
-
+            this.m_CptCodeCollection = YellowstonePathology.Business.Billing.Model.CptCodeCollection.GetSorted(Business.Billing.Model.CptCodeCollection.GetAll(true, true));
 
             InitializeComponent();			
 			DataContext = this;
@@ -127,7 +126,7 @@ namespace YellowstonePathology.UI.Billing
 			{
 				YellowstonePathology.Business.Billing.Model.CptCode cptCode = (YellowstonePathology.Business.Billing.Model.CptCode)this.ListViewCptCodes.SelectedItem;
 				this.m_PanelSetOrderCPTCode.CPTCode = cptCode.Code;
-				this.m_PanelSetOrderCPTCode.Modifier = cptCode.Modifier;
+				this.m_PanelSetOrderCPTCode.Modifier = cptCode.Modifier == null ? null : cptCode.Modifier.Modifier;
 				this.m_PanelSetOrderCPTCode.CodeType = cptCode.CodeType.ToString();
 			}
 		}		

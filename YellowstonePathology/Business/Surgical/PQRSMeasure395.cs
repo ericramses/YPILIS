@@ -15,18 +15,18 @@ namespace YellowstonePathology.Business.Surgical
             this.m_PQRIKeyWordCollection.Add("Bronch");
             this.m_PQRIKeyWordCollection.Add("Pleural");
 
-            this.m_CptCodeCollection.Add(Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("cpt:88104"));
-            this.m_CptCodeCollection.Add(Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("cpt:88108"));
-            this.m_CptCodeCollection.Add(Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("cpt:88112"));
-            this.m_CptCodeCollection.Add(Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("cpt:88173"));
-            this.m_CptCodeCollection.Add(Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("cpt:88305"));
+            this.m_CptCodeCollection.Add(Billing.Model.CptCodeCollection.GetCPTCode("88104", null));
+            this.m_CptCodeCollection.Add(Billing.Model.CptCodeCollection.GetCPTCode("88108", null));
+            this.m_CptCodeCollection.Add(Billing.Model.CptCodeCollection.GetCPTCode("88112", null));
+            this.m_CptCodeCollection.Add(Billing.Model.CptCodeCollection.GetCPTCode("88173", null));
+            this.m_CptCodeCollection.Add(Billing.Model.CptCodeCollection.GetCPTCode("88305", null));
 
             this.m_PQRSAgeDefinition = PQRSAgeDefinitionEnum.Patients18AndOlder;            
 
-            this.m_PQRSCodeCollection.Add((Billing.Model.PQRSCode)Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("pqrs:g9418"));
-			this.m_PQRSCodeCollection.Add((Billing.Model.PQRSCode)Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("pqrs:g9419"));
-			this.m_PQRSCodeCollection.Add((Billing.Model.PQRSCode)Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("pqrs:g9420"));
-            this.m_PQRSCodeCollection.Add((Billing.Model.PQRSCode)Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("pqrs:g9421"));
+            this.m_PQRSCodeCollection.Add(Billing.Model.PQRSCodeCollection.GetPQRSCode("G9418", null));
+			this.m_PQRSCodeCollection.Add(Billing.Model.PQRSCodeCollection.GetPQRSCode("G9419", null));
+			this.m_PQRSCodeCollection.Add(Billing.Model.PQRSCodeCollection.GetPQRSCode("G9420", null));
+            this.m_PQRSCodeCollection.Add(Billing.Model.PQRSCodeCollection.GetPQRSCode("G9421", null));
         }
 
         public override bool DoesMeasureApply(YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder,

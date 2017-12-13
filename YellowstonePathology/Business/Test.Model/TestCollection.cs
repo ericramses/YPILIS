@@ -420,7 +420,7 @@ namespace YellowstonePathology.Business.Test.Model
             YellowstonePathology.Business.Test.Model.TestCollection result = new TestCollection();            
             IServer server = RedisAppDataConnection.Instance.Server;
 
-            RedisKey[] keyResult = server.Keys((int)RedisDatabaseEnum.Stains, "*").ToArray<RedisKey>();
+            RedisKey[] keyResult = server.Keys(Business.RedisAppDataConnection.STAINDBNUM, "*").ToArray<RedisKey>();
             foreach (RedisKey key in keyResult)
             {
                 RedisResult redisResult = RedisAppDataConnection.Instance.StainDb.Execute("json.get", new object[] { key.ToString(), "." });
