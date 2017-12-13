@@ -29,19 +29,12 @@ namespace YellowstonePathology.Business
 
         RedisAppDataConnection()
         {
-<<<<<<< HEAD
             //this.m_Connection = ConnectionMultiplexer.Connect("10.1.2.70:31578, ConnectTimeout=5000, SyncTimeout=5000");
             //this.m_Server = this.m_Connection.GetServer("10.1.2.70:31578");
 
             this.m_Connection = ConnectionMultiplexer.Connect("10.1.2.70:30075, ConnectTimeout=5000, SyncTimeout=5000");
             this.m_Server = this.m_Connection.GetServer("10.1.2.70:30075");
 
-=======
-            //this.m_Connection = ConnectionMultiplexer.Connect("10.1.2.70:30075, ConnectTimeout=5000, SyncTimeout=5000"); //dev
-            //this.m_Server = this.m_Connection.GetServer("10.1.2.70:30075");
-            this.m_Connection = ConnectionMultiplexer.Connect("10.1.2.70:31578, ConnectTimeout=5000, SyncTimeout=5000"); //app-data
-            this.m_Server = this.m_Connection.GetServer("10.1.2.70:31578");
->>>>>>> 327244bdd7971cdfdeee090117c8849e12dbef39
             this.m_DefaultDatabase = this.m_Connection.GetDatabase(DEFAULTDBNUM);
             this.m_CptCodeDatabase = this.m_Connection.GetDatabase(CPTCODEDBNUM);
             this.m_IcdCodeDatabase = this.m_Connection.GetDatabase(ICDCODEDBNUM);
