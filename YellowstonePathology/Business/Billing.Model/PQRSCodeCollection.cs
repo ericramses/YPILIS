@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.Billing.Model
             PQRSCodeCollection result = new PQRSCodeCollection();
             IServer server = Business.RedisAppDataConnection.Instance.Server;
 
-            RedisKey[] keyResult = server.Keys((int)Business.RedisDatabaseEnum.PqrsCodes, "*").ToArray<RedisKey>();
+            RedisKey[] keyResult = server.Keys(Business.RedisAppDataConnection.PQRSDBNUM, "*").ToArray<RedisKey>();
             foreach (RedisKey key in keyResult)
             {
                 RedisResult redisResult = Business.RedisAppDataConnection.Instance.PqrsCodeDb.Execute("json.get", new object[] { key.ToString(), "." });

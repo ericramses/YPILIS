@@ -91,19 +91,19 @@ namespace YellowstonePathology.Business.Billing.Model
                 }
             }
 
-<<<<<<< HEAD
             if (includePqrs == true)
-=======
-            RedisKey[] keyResult2 = server.Keys(Business.RedisAppDataConnection.PQRSDBNUM, "pqrs:*").ToArray<RedisKey>();
-            foreach (RedisKey key in keyResult2)
->>>>>>> movescans
             {
-                PQRSCodeCollection pqrsCodeCollection = PQRSCodeCollection.GetAll();
-                foreach (PQRSCode pqrsCode in pqrsCodeCollection)
+                RedisKey[] keyResult2 = server.Keys(Business.RedisAppDataConnection.PQRSDBNUM, "pqrs:*").ToArray<RedisKey>();
+                foreach (RedisKey key in keyResult2)
                 {
-                    result.Add(pqrsCode);
+                    PQRSCodeCollection pqrsCodeCollection = PQRSCodeCollection.GetAll();
+                    foreach (PQRSCode pqrsCode in pqrsCodeCollection)
+                    {
+                        result.Add(pqrsCode);
+                    }
                 }
             }
+            
             return result;
         }
 
