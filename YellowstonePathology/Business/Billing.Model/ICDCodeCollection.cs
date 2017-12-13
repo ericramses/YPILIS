@@ -141,7 +141,7 @@ namespace YellowstonePathology.Business.Billing.Model
             ICDCodeCollection result = new ICDCodeCollection();                        
             IServer server = RedisAppDataConnection.Instance.Server;
 
-            RedisKey[] keyResult = server.Keys((int)RedisDatabaseEnum.IcdCodes, "*").ToArray<RedisKey>();
+            RedisKey[] keyResult = server.Keys(Business.RedisAppDataConnection.ICDCODEDBNUM, "*").ToArray<RedisKey>();
             foreach (RedisKey key in keyResult)
             {
                 RedisResult redisResult = RedisAppDataConnection.Instance.IcdCodeDb.Execute("json.get", new object[] { key.ToString(), "." });

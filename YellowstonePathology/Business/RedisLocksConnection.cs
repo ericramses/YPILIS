@@ -12,16 +12,26 @@ namespace YellowstonePathology.Business
         private static RedisLocksConnection instance = null;
         private static readonly object padlock = new object();
 
+        public const int DEFAULTDBNUM = 0;
+        public const int LOCKSDBNUM = 1;
+        public const int SCANSDBNUM = 2;
+
         private ConnectionMultiplexer m_Connection;
         private IServer m_Server;
-        private IDatabase m_Database;
+        private IDatabase m_DefaultDatabase;
+        private IDatabase m_ScansDatabase;
+        private IDatabase m_LocksDatabase;
         private ISubscriber m_Subscriber;
 
         RedisLocksConnection()
         {
             this.m_Connection = ConnectionMultiplexer.Connect("10.1.2.25:6379, ConnectTimeout=5000, SyncTimeout=5000, allowAdmin=true");
             this.m_Server = this.m_Connection.GetServer("10.1.2.25:6379");
-            this.m_Database = this.m_Connection.GetDatabase();
+
+            this.m_DefaultDatabase = this.m_Connection.GetDatabase(DEFAULTDBNUM);
+            this.m_ScansDatabase = this.m_Connection.GetDatabase(SCANSDBNUM);
+            this.m_LocksDatabase = this.m_Connection.GetDatabase(LOCKSDBNUM);
+
             this.m_Subscriber = this.m_Connection.GetSubscriber();
 
             System.Windows.Application.Current.Exit += Current_Exit;          
@@ -58,11 +68,21 @@ namespace YellowstonePathology.Business
                     return instance;
                 }
             }
-        }        
+        }
 
-        public IDatabase Db
+        public IDatabase DefaultDb
         {
-            get { return this.m_Database; }
+            get { return this.m_DefaultDatabase; }
+        }
+
+        public IDatabase LocksDb
+        {
+            get { return this.m_LocksDatabase; }
+        }
+
+        public IDatabase ScansDb
+        {
+            get { return this.m_ScansDatabase; }
         }
 
         public ISubscriber Subscriber
