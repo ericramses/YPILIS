@@ -29,7 +29,7 @@ namespace YellowstonePathology.Business.Test
             }
         }
 
-        public List<PanelSetOrderCPTCode> FindUnrecognizedCodes()
+        /*public List<PanelSetOrderCPTCode> FindUnrecognizedCodes()
         {
             List<PanelSetOrderCPTCode> result = new List<PanelSetOrderCPTCode>();
             foreach (Business.Test.PanelSetOrderCPTCode panelSetCptCode in this)
@@ -41,7 +41,7 @@ namespace YellowstonePathology.Business.Test
                 }
             }
             return result;
-        }
+        }*/
 
         public void RemoveDeleted(IEnumerable<XElement> elements)
         {

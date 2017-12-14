@@ -18,10 +18,10 @@ namespace YellowstonePathology.Business.Billing.Model
             PQRSCodeCollection result = new PQRSCodeCollection();
             IServer server = Business.RedisAppDataConnection.Instance.Server;
 
-            RedisKey[] keyResult = server.Keys(Business.RedisAppDataConnection.PQRSDBNUM, "*").ToArray<RedisKey>();
+            RedisKey[] keyResult = server.Keys(Business.RedisAppDataConnection.CPTCODEDBNUM, "pqrs:*").ToArray<RedisKey>();
             foreach (RedisKey key in keyResult)
             {
-                RedisResult redisResult = Business.RedisAppDataConnection.Instance.PqrsCodeDb.Execute("json.get", new object[] { key.ToString(), "." });
+                RedisResult redisResult = Business.RedisAppDataConnection.Instance.CptCodeDb.Execute("json.get", new object[] { key.ToString(), "." });
                 JObject jObject = JsonConvert.DeserializeObject<JObject>((string)redisResult);
                 PQRSCode pqrsCode = PQRSCodeFactory.FromJson(jObject, null);
                 result.Add(pqrsCode);
@@ -78,71 +78,11 @@ namespace YellowstonePathology.Business.Billing.Model
         public static PQRSCode GetPQRSCode(string code, string modifier)
         {
             PQRSCode result = null;
-            RedisResult redisResult = Business.RedisAppDataConnection.Instance.PqrsCodeDb.Execute("json.get", new object[] { code, "." });
+            string key = "pqrs:" + code;
+            RedisResult redisResult = Business.RedisAppDataConnection.Instance.CptCodeDb.Execute("json.get", new object[] { key, "." });
             JObject jObject = JsonConvert.DeserializeObject<JObject>((string)redisResult);
             result = PQRSCodeFactory.FromJson(jObject, modifier);
             return result;
         }
-
-        /*public static PQRSCodeCollection GetBreastPQRSCodes()
-        {            
-            PQRSCodeCollection result = new PQRSCodeCollection();
-            result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCode("3260F", null));
-            result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCode("3260F", "1P"));
-            result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCode("3260F" ,"8P"));
-            return result;
-        }
-
-		public static PQRSCodeCollection GetBarrettsEsophagusPQRSCodes()
-		{
-			PQRSCodeCollection result = new PQRSCodeCollection();
-			result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCode("3126F", null));
-			result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCode("3126F", "1P"));
-			result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCode("3126F", "8P"));
-			result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCode("G8797", null));
-			return result;
-		}
-
-		public static PQRSCodeCollection GetColorectalPQRSCodes()
-		{
-			PQRSCodeCollection result = new PQRSCodeCollection();
-			result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCode("G8721", null));
-			result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCode("G8722", null));
-			result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCode("G8723", null));
-			return result;
-		}
-
-		public static PQRSCodeCollection GetRadicalProstatectomyPQRSCodes()
-		{
-			PQRSCodeCollection result = new PQRSCodeCollection();
-			result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCode("3267F", null));
-			result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCode("3267F", "1P"));
-			result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCode("3267F", "8P"));
-			result.Add((PQRSCode)Billing.Model.CptCodeCollection.GetCPTCode("G8798", null));
-			return result;
-		}*/
-		
-		/*public PQRSCode Get(string pqrsCode)
-        {
-            PQRSCode result = null;
-			string[] splitString = pqrsCode.Split(new char[] { '-' });
-            foreach (PQRSCode item in this)
-            {
-				if (splitString.Length > 1)
-				{
-					if (item.Code == splitString[0] && item.Modifier == splitString[1])
-					{
-						result = item;
-						break;
-					}
-				}
-				else if (item.Code == splitString[0])
-                {
-					result = item;
-					break;
-				}
-            }
-            return result;
-        }*/
     }
 }

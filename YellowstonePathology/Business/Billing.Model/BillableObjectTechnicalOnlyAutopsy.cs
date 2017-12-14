@@ -43,7 +43,7 @@ namespace YellowstonePathology.Business.Billing.Model
             int blockCount = this.m_AccessionOrder.SpecimenOrderCollection.GetBlockCount();
             int billedCount = this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.GetBilledCount("AUTOPSYBLOCK", "TC");
 
-            YellowstonePathology.Business.Billing.Model.CptCode autopsyBlock = Billing.Model.CptCodeCollection.GetCPTCode("AUTOPSYBLOCK", "TC");
+            YellowstonePathology.Business.Billing.Model.CptCode autopsyBlock = Billing.Model.CptCodeCollection.GetCPTCode("AUTOPSYBLOCK", null);
             if(billedCount < blockCount)
             {
                 YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill item = this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.GetNextItem(this.m_PanelSetOrder.ReportNo);
@@ -51,7 +51,7 @@ namespace YellowstonePathology.Business.Billing.Model
                 item.BillTo = billTo;
                 item.BillBy = billBy;
                 item.Quantity = blockCount - billedCount;
-                item.Modifier = autopsyBlock.Modifier.Modifier;
+                item.Modifier = autopsyBlock.Modifier == null ? null : autopsyBlock.Modifier.Modifier;
                 this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.Add(item);
             }                                
             

@@ -171,7 +171,7 @@ namespace YellowstonePathology.Business.Billing.Model
 				panelSetOrderCPTCode.Quantity = 1;
 				panelSetOrderCPTCode.CPTCode = cptCode.Code;
                 panelSetOrderCPTCode.CodeType = cptCode.CodeType.ToString();
-				panelSetOrderCPTCode.Modifier = cptCode.Modifier.Modifier;
+				panelSetOrderCPTCode.Modifier = cptCode.Modifier == null ? null : cptCode.Modifier.Modifier;
 				panelSetOrderCPTCode.CodeableDescription = "Primary Screening (" + panelOrderCytology.ScreenedByName + ")";
 				panelSetOrderCPTCode.CodeableType = "CytologyPrimaryScreening";
 				panelSetOrderCPTCode.EntryType = YellowstonePathology.Business.Billing.Model.PanelSetOrderCPTCodeEntryType.SystemGenerated;

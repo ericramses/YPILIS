@@ -28,7 +28,7 @@ namespace YellowstonePathology.Business.Billing.Model
 			{
                 //return this.m_FormattedReportingDefinition;
 				StringBuilder result = new StringBuilder(this.m_Code);
-				if (this.m_Modifier != null) result.Append("-" + this.m_Modifier);
+				if (this.m_Modifier != null) result.Append("-" + this.m_Modifier.Modifier);
 				result.Append(":  ");
 				result.Append(this.m_ReportingDefinition);
 				return result.ToString();

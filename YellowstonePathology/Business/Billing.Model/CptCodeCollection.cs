@@ -23,20 +23,12 @@ namespace YellowstonePathology.Business.Billing.Model
             return result;
         }
 
-        /*public static CptCode Get(string code, string modifier)
-        {
-            CptCode result = null;
-            RedisResult redisResult = Business.RedisAppDataConnection.Instance.CptCodeDb.Execute("json.get", new object[] { code, "." });
-            JObject jObject = JsonConvert.DeserializeObject<JObject>((string)redisResult);
-            result = CptCodeFactory.FromJson(jObject);
-            result.Modifier = modifier;
-            return result;
-        }*/
-
         public static CptCode GetCPTCode(string code, string modifier)
         {
             CptCode result = null;
-            RedisResult redisResult = Business.RedisAppDataConnection.Instance.CptCodeDb.Execute("json.get", new object[] { code, "." });
+            string tryKey = "*" + code;
+            IEnumerable<RedisKey> keys = Business.RedisAppDataConnection.Instance.Server.Keys(RedisAppDataConnection.CPTCODEDBNUM, tryKey);
+            RedisResult redisResult = Business.RedisAppDataConnection.Instance.CptCodeDb.Execute("json.get", new object[] { keys.ElementAt(0), "." });
             JObject jObject = JsonConvert.DeserializeObject<JObject>((string)redisResult);
             result = CptCodeFactory.FromJson(jObject, modifier);
             return result;
@@ -72,7 +64,7 @@ namespace YellowstonePathology.Business.Billing.Model
             YellowstonePathology.Business.Billing.Model.CptCodeCollection result = new Model.CptCodeCollection();                        
             IServer server = Business.RedisAppDataConnection.Instance.Server;
 
-            RedisKey[] keyResult = server.Keys(Business.RedisAppDataConnection.CPTCODEDBNUM, "*").ToArray<RedisKey>();
+            RedisKey[] keyResult = server.Keys(Business.RedisAppDataConnection.CPTCODEDBNUM, "cpt:*").ToArray<RedisKey>();
             foreach (RedisKey key in keyResult)
             {
                 RedisResult redisResult = Business.RedisAppDataConnection.Instance.CptCodeDb.Execute("json.get", new object[] { key.ToString(), "." });
