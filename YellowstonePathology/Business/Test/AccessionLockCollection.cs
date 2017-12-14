@@ -33,8 +33,9 @@ namespace YellowstonePathology.Business.Test
         }
 
         private void Build()
-        {
-            List<RedisKey> keys = Store.AppDataStore.Instance.RedisStore.GetServer(Store.AppDBNameEnum.Lock).Keys(Business.RedisLocksConnection.LOCKSDBNUM, "AccessionLock:*", 10, CommandFlags.None).ToList<RedisKey>();
+        {            
+            List<RedisKey> keys = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.Lock).HashGet()
+                //BNUM, "AccessionLock:*", 10, CommandFlags.None).ToList<RedisKey>();
             List<AccessionLock> list = new List<AccessionLock>();
             foreach(RedisKey key in keys)
             {
