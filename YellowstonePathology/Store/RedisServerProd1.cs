@@ -7,9 +7,9 @@ using StackExchange.Redis;
 
 namespace YellowstonePathology.Store
 {
-    public class RedisServerKub : IRedisServer
+    public class RedisServerProd1 : IRedisServer
     {
-        private static RedisServerKub instance = null;
+        private static RedisServerProd1 instance = null;
         private static readonly object padlock = new object();
 
         protected string m_IPAddress;
@@ -20,10 +20,10 @@ namespace YellowstonePathology.Store
         private IServer m_Server;
         private ISubscriber m_Subscriber;
 
-        RedisServerKub()
+        RedisServerProd1()
         {
             this.m_IPAddress = "10.1.2.70";
-            this.m_Port = "30075";
+            this.m_Port = "31578";
             this.m_ConnectionArgs = "ConnectTimeout=5000, SyncTimeout=5000";
 
             this.m_Connection = ConnectionMultiplexer.Connect(this.ConnectionString);
@@ -31,7 +31,7 @@ namespace YellowstonePathology.Store
             this.m_Subscriber = this.m_Connection.GetSubscriber();
         }
 
-        public static RedisServerKub Instance
+        public static RedisServerProd1 Instance
         {
             get
             {
@@ -39,7 +39,7 @@ namespace YellowstonePathology.Store
                 {
                     if (instance == null)
                     {
-                        instance = new RedisServerKub();
+                        instance = new RedisServerProd1();
                     }
                     return instance;
                 }

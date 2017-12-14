@@ -1143,9 +1143,6 @@
     <Compile Include="Business\Persistence\MonitorProperty.cs" />
     <Compile Include="Business\Persistence\ProtobufWriter.cs" />
     <Compile Include="Business\Persistence\SqlDataRowReaderPropertyWriter.cs" />
-    <Compile Include="Business\RedisAppDataConnection.cs" />
-    <Compile Include="Business\RedisLocksConnection.cs" />
-    <Compile Include="Business\RedisSingleton.cs" />
     <Compile Include="Store\AppDataStore.cs" />
     <Compile Include="Business\Reports\BlocksSentNotReturnedReport.cs" />
     <Compile Include="Business\Reports\RetrospectiveReviewReport.xaml.cs">
@@ -3273,7 +3270,10 @@
     <Compile Include="Store\AppDBNameEnum.cs" />
     <Compile Include="Store\IRedisServer.cs" />
     <Compile Include="Store\RedisDB.cs" />
-    <Compile Include="Store\RedisServerKub.cs" />
+    <Compile Include="Store\RedisServerDev.cs" />
+    <Compile Include="Store\RedisServerDeprecated.cs" />
+    <Compile Include="Store\RedisServerProd1.cs" />
+    <Compile Include="Store\RedisStoreDev.cs" />
     <Compile Include="Store\RedisStoreProd.cs" />
     <Compile Include="Store\RedisStore.cs" />
     <Compile Include="Store\RedisStoreDefinition.cs" />

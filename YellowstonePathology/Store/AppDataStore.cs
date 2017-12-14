@@ -7,20 +7,46 @@ using System.Threading.Tasks;
 namespace YellowstonePathology.Store
 {
     public class AppDataStore
-    {        
-        //private static string MODE = "DEV";
-        private static string MODE = "PROD";     
+    {
+        private static AppDataStore instance = null;
+        private static readonly object padlock = new object();
 
-        public AppDataStore()
+        private static string MODE = "DEV";
+        //private static string MODE = "PROD";                
+
+        private RedisStore m_RedisStore;
+
+        AppDataStore()
         {
-            if(MODE == "PROD")
+            if (MODE == "PROD")
             {
-               
+                this.m_RedisStore = new RedisStoreProd();
             }
             else
             {
-
+                this.m_RedisStore = new RedisStoreDev();
             }
-        }        
+        }
+
+        public static AppDataStore Instance
+        {
+            get
+            {
+                lock (padlock)
+                {
+                    if (instance == null)
+                    {
+                        instance = new AppDataStore();
+                    }
+                    return instance;
+                }
+            }
+        }
+
+        public RedisStore RedisStore
+        {
+            get { return this.m_RedisStore; }
+        }
+
     }
 }

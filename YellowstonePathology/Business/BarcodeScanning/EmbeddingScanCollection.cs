@@ -16,6 +16,7 @@ namespace YellowstonePathology.Business.BarcodeScanning
 
         public void UpdateStatus(EmbeddingScan scan)
         {            
+            Store.AppDataStore.RedisStore().GetDB(Store.AppDBNameEnum.Lock).key
             if (Business.RedisLocksConnection.Instance.DefaultDb.KeyExists(scan.HashKey) == true)
             {
                 HashEntry[] hashEntries = scan.GetHasEntries();
@@ -26,7 +27,7 @@ namespace YellowstonePathology.Business.BarcodeScanning
         public EmbeddingScan HandleScan(string aliquotOrderId, DateTime processorStartTime, TimeSpan processorFixationDuration)
         {            
             EmbeddingScan scan = new EmbeddingScan(aliquotOrderId, processorStartTime, processorFixationDuration);
-
+            
             if (Business.RedisLocksConnection.Instance.DefaultDb.KeyExists("EmbeddingScan:" + aliquotOrderId) == true)
             {
                 foreach (EmbeddingScan item in this)

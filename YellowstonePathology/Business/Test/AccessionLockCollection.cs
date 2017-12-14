@@ -34,13 +34,13 @@ namespace YellowstonePathology.Business.Test
 
         private void Build()
         {
-            List<RedisKey> keys = RedisLocksConnection.Instance.Server.Keys(Business.RedisLocksConnection.LOCKSDBNUM, "AccessionLock:*", 10, CommandFlags.None).ToList<RedisKey>();
+            List<RedisKey> keys = Store.AppDataStore.Instance.RedisStore.GetServer(Store.AppDBNameEnum.Lock).Keys(Business.RedisLocksConnection.LOCKSDBNUM, "AccessionLock:*", 10, CommandFlags.None).ToList<RedisKey>();
             List<AccessionLock> list = new List<AccessionLock>();
             foreach(RedisKey key in keys)
             {
-                if(RedisLocksConnection.Instance.LocksDb.KeyExists(key) == true)
+                if(Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.Lock).KeyExists(key) == true)
                 {
-                    HashEntry[] hashEntries = RedisLocksConnection.Instance.LocksDb.HashGetAll(key);
+                    HashEntry[] hashEntries = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.Lock).HashGetAll(key);
                     AccessionLock item = new AccessionLock(hashEntries);
                     list.Add(item);
                 }                
