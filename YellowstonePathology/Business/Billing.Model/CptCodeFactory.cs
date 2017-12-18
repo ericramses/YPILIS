@@ -29,9 +29,9 @@ namespace YellowstonePathology.Business.Billing.Model
             return result;
         }
 
-        public static CptCode FromJson(JObject jObject, string modifier)
+        public static CptCode CptFromJson(JObject jObject, string modifier)
         {
-            CptCode result = FromJson(jObject);
+            CptCode result = CptFromJson(jObject);
             CptCodeModifier cptCodeModifier = null;
             if (string.IsNullOrEmpty(modifier) == false)
             {
@@ -47,13 +47,45 @@ namespace YellowstonePathology.Business.Billing.Model
             return result;
         }
 
-        private static CptCode FromJson(JObject jObject)
+        private static CptCode CptFromJson(JObject jObject)
         {
             string jsonString = jObject.ToString();
             CptCode result = JsonConvert.DeserializeObject<Business.Billing.Model.CptCode>(jsonString, new JsonSerializerSettings
             {
                 TypeNameHandling = TypeNameHandling.All,
                 ObjectCreationHandling = ObjectCreationHandling.Replace,
+            });
+
+            return result;
+        }
+
+        public static PQRSCode PQRSFromJson(JObject jObject, string modifier)
+        {
+            PQRSCode result = PQRSFromJson(jObject);
+            CptCodeModifier cptCodeModifier = null;
+            if (string.IsNullOrEmpty(modifier) == false)
+            {
+                cptCodeModifier = GetModifier(jObject, modifier);
+                if (cptCodeModifier == null)
+                {
+                    throw new Exception("trying to get PQRS Code " + jObject["code"].ToString() + " with modifier " + modifier + " not available for the code.");
+                }
+            }
+
+            result.ReportingDefinition = result.Description;
+
+            result.Modifier = cptCodeModifier;
+
+            return result;
+        }
+
+        private static PQRSCode PQRSFromJson(JObject jObject)
+        {
+            string jsonString = jObject.ToString();
+            PQRSCode result = JsonConvert.DeserializeObject<Business.Billing.Model.PQRSCode>(jsonString, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.All,
+                ObjectCreationHandling = ObjectCreationHandling.Replace
             });
 
             return result;

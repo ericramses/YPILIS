@@ -34,7 +34,7 @@ namespace YellowstonePathology.Business.Test.JAK2V617F
 
             this.m_HasSplitCPTCode = true;            
 
-            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Billing.Model.CptCodeCollection.GetCPTCode("81270", null), 1);
+            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Billing.Model.CptCodeCollection.Instance.Get("81270", null), 1);
             this.m_PanelSetCptCodeCollection.Add(panelSetCptCode);
 			
             string taskDescription = "Gather materials and semd to Neo.";

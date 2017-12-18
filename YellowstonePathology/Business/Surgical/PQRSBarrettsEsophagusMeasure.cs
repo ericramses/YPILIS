@@ -16,12 +16,12 @@ namespace YellowstonePathology.Business.Surgical
             this.m_KeyWords.Add("Intestinal Metaplasia");
 			
 			this.m_Header = "Barretts Esophagus Pathology Reporting";
-            this.m_CptCodeCollection.Add(Billing.Model.CptCodeCollection.GetCPTCode("88305", null));
+            this.m_CptCodeCollection.Add(Billing.Model.CptCodeCollection.Instance.Get("88305", null));
 
-			this.m_PQRSCodeCollection.Add(Billing.Model.PQRSCodeCollection.GetPQRSCode("3126F", null));
-            this.m_PQRSCodeCollection.Add(Billing.Model.PQRSCodeCollection.GetPQRSCode("3126F", "1P"));
-            this.m_PQRSCodeCollection.Add(Billing.Model.PQRSCodeCollection.GetPQRSCode("G8797", null));			
-			this.m_PQRSCodeCollection.Add(Billing.Model.PQRSCodeCollection.GetPQRSCode("3126F", "8P"));			
+			this.m_PQRSCodeCollection.Add(Billing.Model.PQRSCodeCollection.Get("3126F", null));
+            this.m_PQRSCodeCollection.Add(Billing.Model.PQRSCodeCollection.Get("3126F", "1P"));
+            this.m_PQRSCodeCollection.Add(Billing.Model.PQRSCodeCollection.Get("G8797", null));			
+			this.m_PQRSCodeCollection.Add(Billing.Model.PQRSCodeCollection.Get("3126F", "8P"));			
 		}
 
         public override bool DoesMeasureApply(YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder,
