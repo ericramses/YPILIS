@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using StackExchange.Redis;
 
 namespace YellowstonePathology.Store
 {
@@ -32,6 +33,30 @@ namespace YellowstonePathology.Store
         public IRedisServer Server
         {
             get { return this.m_Server; }
+        }
+
+        public static LuaScript LuaScriptJsonGet(string keys)
+        {
+            string script = "local data = redis.call('keys', '" + keys + "') " +
+                            "local result = {} " +
+                            "for i, item in ipairs(data) do " +
+                            "result[i] = redis.call('json.get', data[i]) " +
+                            "end " +
+                            "return result ";
+            LuaScript result = LuaScript.Prepare(script);
+            return result;
+        }
+
+        public static LuaScript LuaScriptHGetAll(string keys)
+        {
+            string script = "local data = redis.call('keys', '" + keys + "') " +
+                            "local result = {} " +
+                            "for i, item in ipairs(data) do " +
+                            "result[i] = redis.call('HGetAll', data[i]) " +
+                            "end " +
+                            "return result ";
+            LuaScript result = LuaScript.Prepare(script);
+            return result;
         }
     }
 }
