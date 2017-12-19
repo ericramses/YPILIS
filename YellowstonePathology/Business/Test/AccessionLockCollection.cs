@@ -35,13 +35,7 @@ namespace YellowstonePathology.Business.Test
         private void Build()
         {
             List<AccessionLock> list = new List<AccessionLock>();
-            string script = "local data = redis.call('keys', 'AccessionLock*') " +
-                            "local result = {} " +
-                            "for i, item in ipairs(data) do " +
-                            "result[i] = redis.call('HGetAll', data[i]) " +
-                            "end " +
-                            "return result ";
-            var prepared = LuaScript.Prepare(script);
+            LuaScript prepared = YellowstonePathology.Store.RedisDB.LuaScriptHGetAll("*");
 
             foreach(RedisValue[] r in (RedisResult[])Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.Lock).ScriptEvaluate(prepared))
             {
