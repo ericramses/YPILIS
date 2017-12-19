@@ -781,8 +781,8 @@ namespace YellowstonePathology.UI
             StringBuilder global = new StringBuilder();
             StringBuilder pqrs = new StringBuilder();
 
-            Business.Billing.Model.CptCodeCollection cptCodeCollection = Business.Billing.Model.CptCodeCollection.GetAll(false, false);
-            foreach (YellowstonePathology.Business.Billing.Model.CptCode cptCode in cptCodeCollection)
+            //Business.Billing.Model.CptCodeCollection cptCodeCollection = Business.Billing.Model.CptCodeCollection.GetAll(false, false);
+            foreach (YellowstonePathology.Business.Billing.Model.CptCode cptCode in Business.Billing.Model.CptCodeCollection.Instance)
             {                
                 switch (cptCode.CodeType)
                 {
@@ -999,7 +999,7 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            Business.RedisLocksConnection.Instance.KillOrphanedConnections();
+            //Business.RedisLocksConnection.Instance.KillOrphanedConnections();
 
             //Business.RedisAppDataConnection.Instance.Db.KeyExists("asdlkfjasdlkfj");
 

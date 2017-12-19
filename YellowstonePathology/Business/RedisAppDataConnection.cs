@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business
         public const int CPTCODEDBNUM = 1;
         public const int ICDCODEDBNUM = 2;
         public const int STAINDBNUM = 3;
-        public const int PQRSDBNUM = 4;
+        //public const int PQRSDBNUM = 4;
         public const int LOCKSDBNUM = 5;
         public const int VANTAGESLIDESCANSDBNUM = 6;
 
@@ -26,9 +26,8 @@ namespace YellowstonePathology.Business
 
         RedisAppDataConnection()
         {
-            //this.m_Connection = ConnectionMultiplexer.Connect("10.1.2.70:31578, ConnectTimeout=5000, SyncTimeout=5000");
+            //this.m_Connection = ConnectionMultiplexer.Connect("10.1.2.70:31578, ConnectTimeout=5000, SyncTimeout=5000"); //app-data
             //this.m_Server = this.m_Connection.GetServer("10.1.2.70:31578");
-
             this.m_Connection = ConnectionMultiplexer.Connect("10.1.2.70:30075, ConnectTimeout=5000, SyncTimeout=5000");
             this.m_Server = this.m_Connection.GetServer("10.1.2.70:30075");            
             this.m_Subscriber = this.m_Connection.GetSubscriber();

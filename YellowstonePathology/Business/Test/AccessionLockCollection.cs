@@ -33,18 +33,24 @@ namespace YellowstonePathology.Business.Test
         }
 
         private void Build()
-        {            
-            List<RedisKey> keys = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.Lock).HashGet()
-                //BNUM, "AccessionLock:*", 10, CommandFlags.None).ToList<RedisKey>();
+        {
+
             List<AccessionLock> list = new List<AccessionLock>();
-            foreach(RedisKey key in keys)
+            string script = "local data = redis.call('keys', 'AccessionLock*') " +
+                            "local result = {} " +
+                            "for i, item in ipairs(data) do " +
+                            "result[i] = redis.call('HGetAll', data[i]) " +
+                            "end " +
+                            "return result ";
+            var prepared = LuaScript.Prepare(script);
+
+            foreach(RedisValue[] r in (RedisResult[])Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.Lock).ScriptEvaluate(prepared))
             {
-                if(Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.Lock).KeyExists(key) == true)
-                {
-                    HashEntry[] hashEntries = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.Lock).HashGetAll(key);
-                    AccessionLock item = new AccessionLock(hashEntries);
-                    list.Add(item);
-                }                
+                HashEntry he1 = new HashEntry(r[0], r[1]);
+                HashEntry he2 = new HashEntry(r[2], r[3]);
+                HashEntry he3 = new HashEntry(r[4], r[5]);
+                AccessionLock item = new AccessionLock(new HashEntry[] { he1, he2, he3 });
+                list.Add(item);
             }
 
             list.Sort(delegate(AccessionLock x, AccessionLock y) 

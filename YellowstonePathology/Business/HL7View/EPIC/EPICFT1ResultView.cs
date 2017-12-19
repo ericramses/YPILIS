@@ -21,7 +21,7 @@ namespace YellowstonePathology.Business.HL7View.EPIC
             this.m_AccessionOrder = accessionOrder;
             this.m_PanelSetOrderCPTCodeBill = panelSetOrderCPTCodeBill;
 
-            this.m_CptCode = Business.Billing.Model.CptCodeCollection.GetCPTCode(this.m_PanelSetOrderCPTCodeBill.CPTCode, this.m_PanelSetOrderCPTCodeBill.Modifier);
+            this.m_CptCode = Business.Billing.Model.CptCodeCollection.Instance.Get(this.m_PanelSetOrderCPTCodeBill.CPTCode, this.m_PanelSetOrderCPTCodeBill.Modifier);
             this.m_OrderingPhysician = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianByPhysicianId(this.m_AccessionOrder.PhysicianId);           
 
         }

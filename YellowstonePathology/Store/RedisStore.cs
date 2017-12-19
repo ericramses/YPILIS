@@ -26,5 +26,11 @@ namespace YellowstonePathology.Store
         {
             return null;
         }
+
+        public IRedisServer GetRedisServer(AppDBNameEnum dbName)
+        {
+            RedisDB redisDb = this.m_Databases.Find(x => x.Name == dbName.ToString());
+            return redisDb.Server;
+        }
     }
 }

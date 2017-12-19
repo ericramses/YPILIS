@@ -54,10 +54,7 @@ namespace YellowstonePathology.Business.Billing.Model
 
             result.ReportingDefinition = result.Description;
 
-            if (cptCodeModifier != null)
-            {
-                result.Modifier = cptCodeModifier;
-            }
+            result.Modifier = cptCodeModifier;
 
             return result;
         }

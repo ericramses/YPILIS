@@ -21,7 +21,7 @@ namespace YellowstonePathology.Store
 
         public string Name
         {
-            get { return this.Name; }
+            get { return this.m_Name; }
         }
 
         public int Index
