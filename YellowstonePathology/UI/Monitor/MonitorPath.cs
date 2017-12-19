@@ -26,14 +26,11 @@ namespace YellowstonePathology.UI.Monitor
         public MonitorPath()
 		{                        
             this.m_LastReportDistributionHeartBeat = DateTime.Now.AddMinutes(-5);
-            YellowstonePathology.Store.RedisServerDeprecated.Instance.Subscriber.Subscribe("ReportDistributionHeartBeat", (channel, message) =>
+            //YellowstonePathology.Store.RedisServerDeprecated.Instance.Subscriber.Subscribe("ReportDistributionHeartBeat", (channel, message) =>
+            YellowstonePathology.Store.RedisServerDev.Instance.Subscriber.Subscribe("ReportDistributionHeartBeat", (channel, message) =>
             {
                 this.m_LastReportDistributionHeartBeat = DateTime.Now;
             });
-            /*Business.RedisLocksConnection.Instance.Subscriber.Subscribe("ReportDistributionHeartBeat", (channel, message) =>
-            {
-                this.m_LastReportDistributionHeartBeat = DateTime.Now;
-            });*/
             
             this.m_PageQueue = new Queue<System.Windows.Controls.UserControl>();            
             this.m_MonitorPageWindow = new MonitorPageWindow();            
