@@ -47,7 +47,7 @@
         <CheckBox Grid.Row="7" Grid.Column="1" Margin="5,5,5,5" FontSize="14" IsChecked="{Binding Path=VentanaBenchMark.IsWetProtocol}" />
 
         <StackPanel Grid.Column="1" Grid.Row="8" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Name="ButtonClose" Grid.Column="1" Grid.Row="8" Width="100" Height="40" HorizontalAlignment="Right" Margin="5,5,5,5" Click="ButtonClose_Click">Close</Button>
+            <Button Name="ButtonClose" Grid.Column="1" Grid.Row="8" Width="100" Height="40" HorizontalAlignment="Right" Margin="5,5,5,5" Click="ButtonClose_Click">OK</Button>
         </StackPanel>
 
     </Grid>
