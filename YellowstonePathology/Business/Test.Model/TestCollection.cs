@@ -418,16 +418,30 @@ namespace YellowstonePathology.Business.Test.Model
         private static TestCollection FromRedis()
         {
             YellowstonePathology.Business.Test.Model.TestCollection result = new TestCollection();            
-            IServer server = RedisAppDataConnection.Instance.Server;
+            string script = "local data = redis.call('keys', '*') " +
+                            "local result = {} " +
+                            "for i, item in ipairs(data) do " +
+                            "result[i] = redis.call('json.get', data[i]) " +
+                            "end " +
+                            "return result ";
+            var prepared = LuaScript.Prepare(script);
+
+            foreach (string jString in (string[])YellowstonePathology.Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.Stain).ScriptEvaluate(prepared))
+            {
+                JObject jObject = JsonConvert.DeserializeObject<JObject>(jString);
+                Test  test = JsonTestFactory.FromJson(jObject);
+                result.Add(test);
+            }
+            /*IServer server = RedisAppDataConnection.Instance.Server;
 
             RedisKey[] keyResult = server.Keys(Business.RedisAppDataConnection.STAINDBNUM, "*").ToArray<RedisKey>();
             foreach (RedisKey key in keyResult)
             {
-                RedisResult redisResult = RedisAppDataConnection.Instance.StainDb.Execute("json.get", new object[] { key.ToString(), "." });
+                RedisResult redisResult = RedisAppDataConnection.Instance.GetDB(RedisAppDataConnection.STAINDBNUM).Execute("json.get", new object[] { key.ToString(), "." });
                 JObject jObject = JsonConvert.DeserializeObject<JObject>((string)redisResult);
                 Test test = JsonTestFactory.FromJson(jObject);
                 result.Add(test);
-            }
+            }*/
 
             return result;
         }

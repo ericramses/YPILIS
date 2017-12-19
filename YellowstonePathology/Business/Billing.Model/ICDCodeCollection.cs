@@ -138,17 +138,33 @@ namespace YellowstonePathology.Business.Billing.Model
 
         private static ICDCodeCollection FromRedis()
         {
-            ICDCodeCollection result = new ICDCodeCollection();                        
-            IServer server = RedisAppDataConnection.Instance.Server;
+            ICDCodeCollection result = new ICDCodeCollection();
+
+            string script = "local data = redis.call('keys', '*') " +
+                            "local result = {} " +
+                            "for i, item in ipairs(data) do " +
+                            "result[i] = redis.call('json.get', data[i]) " +
+                            "end " +
+                            "return result ";
+            var prepared = LuaScript.Prepare(script);
+
+            foreach (string jString in (string[])YellowstonePathology.Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.ICDCode).ScriptEvaluate(prepared))
+            {
+                JObject jObject = JsonConvert.DeserializeObject<JObject>(jString);
+                ICDCode icdCode = ICDCodeFactory.FromJson(jObject);
+                result.Add(icdCode);
+            }
+
+            /*IServer server = RedisAppDataConnection.Instance.Server;
 
             RedisKey[] keyResult = server.Keys(Business.RedisAppDataConnection.ICDCODEDBNUM, "*").ToArray<RedisKey>();
             foreach (RedisKey key in keyResult)
             {
-                RedisResult redisResult = RedisAppDataConnection.Instance.IcdCodeDb.Execute("json.get", new object[] { key.ToString(), "." });
+                RedisResult redisResult = RedisAppDataConnection.Instance.GetDB(RedisAppDataConnection.ICDCODEDBNUM).Execute("json.get", new object[] { key.ToString(), "." });
                 JObject jObject = JsonConvert.DeserializeObject<JObject>((string)redisResult);
                 ICDCode code = ICDCodeFactory.FromJson(jObject);
                 result.Add(code);
-            }
+            }*/
 
             return result;
         }

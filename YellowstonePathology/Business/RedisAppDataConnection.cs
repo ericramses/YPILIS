@@ -17,28 +17,19 @@ namespace YellowstonePathology.Business
         public const int ICDCODEDBNUM = 2;
         public const int STAINDBNUM = 3;
         //public const int PQRSDBNUM = 4;
+        public const int LOCKSDBNUM = 5;
+        public const int VANTAGESLIDESCANSDBNUM = 6;
 
         private ConnectionMultiplexer m_Connection;
-        private IServer m_Server;
-        private IDatabase m_DefaultDatabase;
-        private IDatabase m_CptCodeDatabase;
-        private IDatabase m_IcdCodeDatabase;
-        private IDatabase m_StainDatabase;
-        //private IDatabase m_PqrsCodeDatabase;
+        private IServer m_Server;        
         private ISubscriber m_Subscriber;
 
         RedisAppDataConnection()
         {
-            this.m_Connection = ConnectionMultiplexer.Connect("10.1.2.70:30075, ConnectTimeout=5000, SyncTimeout=5000"); //dev
-            this.m_Server = this.m_Connection.GetServer("10.1.2.70:30075");
             //this.m_Connection = ConnectionMultiplexer.Connect("10.1.2.70:31578, ConnectTimeout=5000, SyncTimeout=5000"); //app-data
             //this.m_Server = this.m_Connection.GetServer("10.1.2.70:31578");
-            this.m_DefaultDatabase = this.m_Connection.GetDatabase(DEFAULTDBNUM);
-            this.m_CptCodeDatabase = this.m_Connection.GetDatabase(CPTCODEDBNUM);
-            this.m_IcdCodeDatabase = this.m_Connection.GetDatabase(ICDCODEDBNUM);
-            this.m_StainDatabase = this.m_Connection.GetDatabase(STAINDBNUM);
-            //this.m_PqrsCodeDatabase = this.m_Connection.GetDatabase(PQRSDBNUM);
-
+            this.m_Connection = ConnectionMultiplexer.Connect("10.1.2.70:30075, ConnectTimeout=5000, SyncTimeout=5000");
+            this.m_Server = this.m_Connection.GetServer("10.1.2.70:30075");            
             this.m_Subscriber = this.m_Connection.GetSubscriber();
 
             System.Windows.Application.Current.Exit += Current_Exit;
@@ -62,32 +53,12 @@ namespace YellowstonePathology.Business
                     return instance;
                 }
             }
+        }
+
+        public IDatabase GetDB(int databaseNumber)
+        {            
+            return this.m_Connection.GetDatabase(databaseNumber);
         }        
-
-        public IDatabase DefaultDb
-        {
-            get { return this.m_DefaultDatabase; }
-        }
-
-        public IDatabase CptCodeDb
-        {
-            get { return this.m_CptCodeDatabase; }
-        }
-
-        public IDatabase IcdCodeDb
-        {
-            get { return this.m_IcdCodeDatabase; }
-        }
-
-        public IDatabase StainDb
-        {
-            get { return this.m_StainDatabase; }
-        }
-
-        //public IDatabase PqrsCodeDb
-        //{
-        //    get { return this.m_PqrsCodeDatabase; }
-        //}
 
         public ISubscriber Subscriber
         {

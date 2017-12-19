@@ -120,9 +120,15 @@
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>            
             </Grid.RowDefinitions>
-            
-            <Button Grid.Column="0" Grid.Row="0" Width="200" Height="40" HorizontalAlignment="Right" Margin="2,2,2,2" Click="ButtonBarcodeWontScan_Click">Barcode Won't Scan</Button>
-            
+
+            <TextBlock Name="TextBlockSlideTracking" Grid.Column="0" Grid.Row="0" Margin="5,3,0,0" HorizontalAlignment="Left">
+                <Hyperlink Click="ButtonAddSlideTrackingSpecimen_Click">Add Slide Tracking Specimen</Hyperlink>
+            </TextBlock>
+
+            <TextBlock Name="TextBlockShowDocument" Grid.Column="0" Grid.Row="0" Margin="5,3,0,0" HorizontalAlignment="Right">
+                <Hyperlink Click="ButtonBarcodeWontScan_Click">Barcode Won't Scan</Hyperlink>
+            </TextBlock>
+
             <ListBox Name="ListBoxClientOrderMedia" Grid.Row="1" SelectiveScrollingGrid.SelectiveScrollingOrientation="Vertical" ItemsSource="{Binding Path=ClientOrderMediaCollection}" MouseDoubleClick="ListBoxContainers_DoubleClick"
 				 ItemTemplate="{StaticResource SpecimenTemplate}" ItemContainerStyle="{StaticResource ClientOrderMediaContainerStyle}">
                 <ListBox.ItemsPanel>

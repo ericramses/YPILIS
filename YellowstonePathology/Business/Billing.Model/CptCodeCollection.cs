@@ -90,8 +90,6 @@ namespace YellowstonePathology.Business.Billing.Model
         private static CptCodeCollection GetAll()
         {
             YellowstonePathology.Business.Billing.Model.CptCodeCollection result = new Model.CptCodeCollection();                        
-            IServer server = Business.RedisAppDataConnection.Instance.Server;
-
             string script = "local data = redis.call('keys', '*') " +
                             "local result = {} " +
                             "for i, item in ipairs(data) do " +
@@ -100,7 +98,7 @@ namespace YellowstonePathology.Business.Billing.Model
                             "return result ";
             var prepared = LuaScript.Prepare(script);
 
-            foreach(string jString in (string[])Business.RedisAppDataConnection.Instance.CptCodeDb.ScriptEvaluate(prepared))
+            foreach(string jString in (string[])YellowstonePathology.Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.CPTCode).ScriptEvaluate(prepared))
             {
                 JObject jObject = JsonConvert.DeserializeObject<JObject>(jString);
                 string c = jObject["code"].ToString();
