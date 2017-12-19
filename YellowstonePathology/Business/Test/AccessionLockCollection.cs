@@ -34,6 +34,7 @@ namespace YellowstonePathology.Business.Test
 
         private void Build()
         {
+
             List<AccessionLock> list = new List<AccessionLock>();
             string script = "local data = redis.call('keys', 'AccessionLock*') " +
                             "local result = {} " +
