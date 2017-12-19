@@ -319,6 +319,7 @@
     <Compile Include="Business\Billing.Model\ICDCodeFactory.cs" />
     <Compile Include="Business\Billing.Model\MonitoredObject.cs" />
     <Compile Include="Business\Billing.Model\MonitoredObjectCollection.cs" />
+    <Compile Include="Business\Billing.Model\PQRSCodeFactory.cs" />
     <Compile Include="Business\Billing.Model\PropertyChanges.cs" />
     <Compile Include="Business\Client.Model\HPV1618CompoundStandingOrderRule1.cs" />
     <Compile Include="Business\Client.Model\HPV1618ReflexOrderPAPNormalHPVPositive.cs" />
@@ -1142,9 +1143,7 @@
     <Compile Include="Business\Persistence\MonitorProperty.cs" />
     <Compile Include="Business\Persistence\ProtobufWriter.cs" />
     <Compile Include="Business\Persistence\SqlDataRowReaderPropertyWriter.cs" />
-    <Compile Include="Business\RedisAppDataConnection.cs" />
-    <Compile Include="Business\RedisLocksConnection.cs" />
-    <Compile Include="Business\RedisSingleton.cs" />
+    <Compile Include="Store\AppDataStore.cs" />
     <Compile Include="Business\Reports\BlocksSentNotReturnedReport.cs" />
     <Compile Include="Business\Reports\RetrospectiveReviewReport.xaml.cs">
       <DependentUpon>RetrospectiveReviewReport.xaml</DependentUpon>
@@ -3268,6 +3267,16 @@
     <Compile Include="MySQLMigration\TableForeignKeyCollection.cs" />
     <Compile Include="MySQLMigration\TableIndex.cs" />
     <Compile Include="MySQLMigration\TableIndexCollection.cs" />
+    <Compile Include="Store\AppDBNameEnum.cs" />
+    <Compile Include="Store\IRedisServer.cs" />
+    <Compile Include="Store\RedisDB.cs" />
+    <Compile Include="Store\RedisServerDev.cs" />
+    <Compile Include="Store\RedisServerDeprecated.cs" />
+    <Compile Include="Store\RedisServerProd1.cs" />
+    <Compile Include="Store\RedisStoreDev.cs" />
+    <Compile Include="Store\RedisStoreProd.cs" />
+    <Compile Include="Store\RedisStore.cs" />
+    <Compile Include="Store\RedisStoreDefinition.cs" />
     <Compile Include="UI\AmendmentPage.xaml.cs">
       <DependentUpon>AmendmentPage.xaml</DependentUpon>
     </Compile>

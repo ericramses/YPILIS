@@ -46,7 +46,10 @@ namespace YellowstonePathology.Business.BarcodeScanning
         public event AliquotOrderIdReceivedHandler AliquotOrderIdReceived;
         public delegate void AliquotOrderIdReceivedHandler(string scanData);
 
-		private static BarcodeScanPort m_Instance;				
+        public event VantageScanReceivedHandler VantageSlideScanReceived;
+        public delegate void VantageScanReceivedHandler(string scanData);
+
+        private static BarcodeScanPort m_Instance;				
 		private SerialPort m_SerialPort;		
  
 		private BarcodeScanPort()
@@ -172,6 +175,10 @@ namespace YellowstonePathology.Business.BarcodeScanning
             else if(scanData.Trim().Length == 34 && scanData.StartsWith("100"))
             {
                 if (FedexOvernightScanReceived != null) this.FedexOvernightScanReceived(scanData);
+            }
+            else if (scanData.Count(x => x == ';') == 3)
+            {
+                if (VantageSlideScanReceived != null) this.VantageSlideScanReceived(scanData);
             }
             else
             {

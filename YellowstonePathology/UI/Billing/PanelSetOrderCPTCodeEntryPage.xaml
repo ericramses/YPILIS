@@ -95,8 +95,8 @@
                                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
 
-                                <TextBlock Grid.Column="0" FontSize="14" Text="{Binding Path=Code}" Margin="2,2,2,2"/>
-                                <TextBlock Grid.Column="1" FontSize="14" Text="{Binding Path=Modifier}" Margin="2,2,2,2"/>
+                                <TextBlock Grid.Column="0" FontSize="14" Text="{Binding Path=DisplayCode}" Margin="2,2,2,2"/>
+                                <!--<TextBlock Grid.Column="1" FontSize="14" Text="{Binding Path=Modifier}" Margin="2,2,2,2"/>-->
 
                             </Grid>
                         </Border>

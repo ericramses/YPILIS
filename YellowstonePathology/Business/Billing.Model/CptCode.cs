@@ -7,18 +7,13 @@ using YellowstonePathology.Business.Persistence;
 namespace YellowstonePathology.Business.Billing.Model
 {
     public class CptCode
-    {
-        public const string CptTypeNormal = "Normal";
-        public const string CptTypePQRS = "PQRS";
-        public const string CptTypeGCode = "GCode";
-
-        protected string m_CPTCodeId;
+    {                
         protected string m_Code;        
         protected string m_Description;
         protected FeeScheduleEnum m_FeeSchedule;
         protected bool m_HasTechnicalComponent;
         protected bool m_HasProfessionalComponent;
-        protected string m_Modifier;
+        protected CptCodeModifier m_Modifier;
         protected bool m_IsBillable;
         protected string m_GCode;
         protected bool m_HasMedicareQuantityLimit;
@@ -29,14 +24,24 @@ namespace YellowstonePathology.Business.Billing.Model
 
         public CptCode()
         {
-            this.m_HasMedicareQuantityLimit = false;            
+            this.m_Modifier = new CptCodeModifier();
+            this.m_HasMedicareQuantityLimit = false;
         }
 
-        [PersistentProperty()]
-        public string CPTCodeId
+        public string DisplayCode
         {
-            get { return this.m_CPTCodeId; }
-            set { this.m_CPTCodeId = value; }
+            get
+            {
+                string result = this.m_Code;
+                if(this.m_Modifier != null)
+                {
+                    if(string.IsNullOrEmpty(this.m_Modifier.Modifier) == false)
+                    {
+                        result += " - " + this.m_Modifier.Modifier;
+                    }
+                }
+                return result;
+            }
         }
 
         [PersistentProperty()]
@@ -54,7 +59,7 @@ namespace YellowstonePathology.Business.Billing.Model
         }
 
         [PersistentProperty()]
-        public string Modifier
+        public CptCodeModifier Modifier
         {
             get { return this.m_Modifier; }
             set { this.m_Modifier = value; }
@@ -133,8 +138,8 @@ namespace YellowstonePathology.Business.Billing.Model
         public bool HasBillableProfessionalComponent()
         {
             bool result = true;
-            if (this.Modifier == "26") result = true;
-            if (string.IsNullOrEmpty(this.Modifier) == true)
+            if (this.Modifier != null && this.Modifier.Modifier == "26") result = true;
+            if (this.Modifier == null)
             {
                 if (this.m_HasProfessionalComponent == true)
                 {
@@ -147,8 +152,8 @@ namespace YellowstonePathology.Business.Billing.Model
         public bool HasBillableTechnicalComponent()
         {
             bool result = false;
-            if (this.Modifier == "TC") result = true;
-            if (string.IsNullOrEmpty(this.Modifier) == true)
+            if (this.Modifier != null && this.Modifier.Modifier == "TC") result = true;
+            if (this.Modifier == null)
             {
                 if (this.m_HasTechnicalComponent == true)
                 {
