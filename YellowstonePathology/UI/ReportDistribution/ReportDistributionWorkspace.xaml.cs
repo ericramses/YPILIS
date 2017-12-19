@@ -459,8 +459,8 @@ namespace YellowstonePathology.UI.ReportDistribution
         {
             YellowstonePathology.Business.ReportDistribution.Model.DistributionResult result = null;                        
 
-            //try
-            //{
+            try
+            {
                 switch (testOrderReportDistribution.DistributionType)
                 {
                     case YellowstonePathology.Business.ReportDistribution.Model.DistributionType.FAX:
@@ -494,12 +494,12 @@ namespace YellowstonePathology.UI.ReportDistribution
                         result = this.HandleNoImplemented(testOrderReportDistribution);
                         break;
                 }
-            //}
-            //catch(Exception e)
-            //{
-            //    Business.Logging.EmailExceptionHandler.HandleException(panelSetOrder, e.Message);
-            //    App.Current.Shutdown();
-            //}
+            }
+            catch(Exception e)
+            {
+                Business.Logging.EmailExceptionHandler.HandleException(panelSetOrder, e.Message);
+                App.Current.Shutdown();
+            }
             
             return result;
         }
