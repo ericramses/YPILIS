@@ -37,7 +37,7 @@ namespace YellowstonePathology.Business.Billing.Model
                 result = CptCodeFactory.CptFromJson(jObject, modifier);
             }
             return result;
-        }       
+        }
 
         public static CptCodeCollection GetCptCodeCollection(FeeScheduleEnum feeSchedule)
         {
@@ -59,6 +59,29 @@ namespace YellowstonePathology.Business.Billing.Model
             foreach (CptCode cptCode in orderedResult)
             {
                 result.Add(cptCode);
+            }
+            return result;
+        }
+
+        public static CptCodeCollection GetCollection(Collection<CPTCodeWithModifier> codesAndModifiers)
+        {
+            CptCodeCollection result = new Model.CptCodeCollection();
+            LuaScript prepared = YellowstonePathology.Store.RedisDB.LuaScriptJsonGetKeys(codesAndModifiers);
+            string[] redisResults = (string[])YellowstonePathology.Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.CPTCode).ScriptEvaluate(prepared);
+            for (int idx = 0; idx < redisResults.Length; idx ++)
+            {
+                CPTCodeWithModifier cptCodeWithModifier = codesAndModifiers[idx];
+                JObject jObject = JsonConvert.DeserializeObject<JObject>(redisResults[idx]);
+                if (jObject["codeType"].ToString() == "PQRS")
+                {
+                    PQRSCode pqrsCode = CptCodeFactory.PQRSFromJson(jObject, cptCodeWithModifier.Modifier);
+                    result.Add(pqrsCode);
+                }
+                else
+                {
+                    CptCode cptCode = CptCodeFactory.CptFromJson(jObject, cptCodeWithModifier.Modifier);
+                    result.Add(cptCode);
+                }
             }
             return result;
         }

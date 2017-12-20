@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -47,15 +47,14 @@ namespace YellowstonePathology.Store
             return result;
         }
 
-        public static LuaScript LuaScriptJsonGetKeys(string keys)
+        public static LuaScript LuaScriptJsonGetKeys(Collection<YellowstonePathology.Business.Billing.Model.CPTCodeWithModifier> codesAndModifiers)
         {
-            string[] splitKeys = keys.Split(new char[] { ',' });
             StringBuilder script = new StringBuilder();
             script.Append("local ids = {} ");
             int idx = 1;
-            foreach(string individualKey in splitKeys)
+            foreach(YellowstonePathology.Business.Billing.Model.CPTCodeWithModifier codeWithModifier in codesAndModifiers)
             {
-                string value = "ids[" + idx.ToString() + "] = " + individualKey + " ";
+                string value = "ids[" + idx.ToString() + "] = '" + codeWithModifier.Code + "' ";
                 script.Append(value);
                 idx++;
             }

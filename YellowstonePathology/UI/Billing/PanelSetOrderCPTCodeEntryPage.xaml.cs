@@ -39,7 +39,7 @@ namespace YellowstonePathology.UI.Billing
             this.m_PanelSetOrderCPTCode.EntryType = "Manual Entry";
             this.m_PanelSetOrderCPTCode.CodeableType = "Billable Test";
 
-            this.m_CptCodeCollection = YellowstonePathology.Business.Billing.Model.CptCodeCollection.GetSorted(YellowstonePathology.Business.Billing.Model.CptCodeCollection.GetAll(true, false));
+            this.GetCptCodeCollection();
 
             InitializeComponent();			
 			DataContext = this;
@@ -129,6 +129,43 @@ namespace YellowstonePathology.UI.Billing
 				this.m_PanelSetOrderCPTCode.Modifier = cptCode.Modifier == null ? null : cptCode.Modifier.Modifier;
 				this.m_PanelSetOrderCPTCode.CodeType = cptCode.CodeType.ToString();
 			}
-		}		
-	}
+		}
+        
+        private void GetCptCodeCollection()
+        {
+            this.m_CptCodeCollection = YellowstonePathology.Business.Billing.Model.CptCodeCollection.GetAll(true, false);
+            Collection<Business.Billing.Model.CPTCodeWithModifier> codesToAdd = new Collection<Business.Billing.Model.CPTCodeWithModifier>();
+            codesToAdd.Add(new Business.Billing.Model.CPTCodeWithModifier("3126F", "1P"));
+            codesToAdd.Add(new Business.Billing.Model.CPTCodeWithModifier("3126F", "8P"));
+            codesToAdd.Add(new Business.Billing.Model.CPTCodeWithModifier("3260F", "1P"));
+            codesToAdd.Add(new Business.Billing.Model.CPTCodeWithModifier("3260F", "8P"));
+            codesToAdd.Add(new Business.Billing.Model.CPTCodeWithModifier("3267F", "1P"));
+            codesToAdd.Add(new Business.Billing.Model.CPTCodeWithModifier("3267F", "8P"));
+            codesToAdd.Add(new Business.Billing.Model.CPTCodeWithModifier("3394F", "8P"));
+            //codesToAdd.Add(new Business.Billing.Model.CPTCodeWithModifier("81210", "26"));
+            //codesToAdd.Add(new Business.Billing.Model.CPTCodeWithModifier("81220", "26"));
+            codesToAdd.Add(new Business.Billing.Model.CPTCodeWithModifier("81240", "26"));
+            //codesToAdd.Add(new Business.Billing.Model.CPTCodeWithModifier("81241", "26"));
+            //codesToAdd.Add(new Business.Billing.Model.CPTCodeWithModifier("81261", "26"));
+            //codesToAdd.Add(new Business.Billing.Model.CPTCodeWithModifier("81270", "26"));
+            //codesToAdd.Add(new Business.Billing.Model.CPTCodeWithModifier("81275", "26"));
+            //codesToAdd.Add(new Business.Billing.Model.CPTCodeWithModifier("81291", "26"));
+            codesToAdd.Add(new Business.Billing.Model.CPTCodeWithModifier("88312", "TC"));
+            codesToAdd.Add(new Business.Billing.Model.CPTCodeWithModifier("88313", "TC"));
+            codesToAdd.Add(new Business.Billing.Model.CPTCodeWithModifier("88342", "TC"));
+            codesToAdd.Add(new Business.Billing.Model.CPTCodeWithModifier("88343", "TC"));
+            codesToAdd.Add(new Business.Billing.Model.CPTCodeWithModifier("88344", "TC"));
+            codesToAdd.Add(new Business.Billing.Model.CPTCodeWithModifier("88360", "TC"));
+            codesToAdd.Add(new Business.Billing.Model.CPTCodeWithModifier("G0461", "TC"));
+            codesToAdd.Add(new Business.Billing.Model.CPTCodeWithModifier("G0462", "TC"));
+
+            Business.Billing.Model.CptCodeCollection additionalCodes = Business.Billing.Model.CptCodeCollection.GetCollection(codesToAdd);
+            Business.Billing.Model.CptCodeCollection allCodes = YellowstonePathology.Business.Billing.Model.CptCodeCollection.GetSorted(YellowstonePathology.Business.Billing.Model.CptCodeCollection.GetAll(true, false));
+            foreach (Business.Billing.Model.CptCode cptCode in additionalCodes)
+            {
+                allCodes.Add(cptCode);
+            }
+            this.m_CptCodeCollection = Business.Billing.Model.CptCodeCollection.GetSorted(allCodes);
+        }
+    }
 }
