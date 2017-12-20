@@ -47,6 +47,27 @@ namespace YellowstonePathology.Store
             return result;
         }
 
+        public static LuaScript LuaScriptJsonGetKeys(string keys)
+        {
+            string[] splitKeys = keys.Split(new char[] { ',' });
+            StringBuilder script = new StringBuilder();
+            script.Append("local ids = {} ");
+            int idx = 1;
+            foreach(string individualKey in splitKeys)
+            {
+                string value = "ids[" + idx.ToString() + "] = " + individualKey + " ";
+                script.Append(value);
+                idx++;
+            }
+            script.Append("local result = {} ");
+            script.Append("for i, item in ipairs(ids) do ");
+            script.Append("result[i] = redis.call('json.get', ids[i]) ");
+            script.Append("end ");
+            script.Append("return result ");
+            LuaScript result = LuaScript.Prepare(script.ToString());
+            return result;
+        }
+
         public static LuaScript LuaScriptHGetAll(string keys)
         {
             string script = "local data = redis.call('keys', '" + keys + "') " +

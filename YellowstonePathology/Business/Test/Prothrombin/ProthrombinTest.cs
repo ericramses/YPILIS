@@ -37,7 +37,7 @@ namespace YellowstonePathology.Business.Test.Prothrombin
 
             this.m_HasSplitCPTCode = true;
 
-            YellowstonePathology.Business.Billing.Model.CptCode cpt81240 = Billing.Model.CptCodeCollection.Instance.Get("81240", "26");
+            YellowstonePathology.Business.Billing.Model.CptCode cpt81240 = Billing.Model.CptCodeCollection.Get("81240", "26");
 
             YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode1 = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(cpt81240, 1);
             this.m_PanelSetCptCodeCollection.Add(panelSetCptCode1);            

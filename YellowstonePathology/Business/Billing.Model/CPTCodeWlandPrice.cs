@@ -12,7 +12,7 @@ namespace YellowstonePathology.Business.Billing.Model
         public CPTCodeWlandPrice()
         {
             this.m_CPTCodePriceList = new List<CPTCodePrice>();            
-            this.m_CPTCodePriceList.Add(new CPTCodePrice(Billing.Model.CptCodeCollection.Instance.Get("88175", null), "YPI", "Client", 42.43));
+            this.m_CPTCodePriceList.Add(new CPTCodePrice(Billing.Model.CptCodeCollection.Get("88175", null), "YPI", "Client", 42.43));
         }
     }
 }

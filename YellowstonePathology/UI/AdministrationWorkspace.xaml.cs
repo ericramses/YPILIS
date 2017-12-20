@@ -781,8 +781,7 @@ namespace YellowstonePathology.UI
             StringBuilder global = new StringBuilder();
             StringBuilder pqrs = new StringBuilder();
 
-            //Business.Billing.Model.CptCodeCollection cptCodeCollection = Business.Billing.Model.CptCodeCollection.GetAll(false, false);
-            foreach (YellowstonePathology.Business.Billing.Model.CptCode cptCode in Business.Billing.Model.CptCodeCollection.Instance)
+            foreach (YellowstonePathology.Business.Billing.Model.CptCode cptCode in Business.Billing.Model.CptCodeCollection.GetAll(false, false))
             {                
                 switch (cptCode.CodeType)
                 {

@@ -64,11 +64,11 @@ namespace YellowstonePathology.Business.Test.Model
         {
             if (isTechnicalOnly == false)
             {
-                return Billing.Model.CptCodeCollection.Instance.Get("88360", null);
+                return Billing.Model.CptCodeCollection.Get("88360", null);
             }
             else
             {
-                return Billing.Model.CptCodeCollection.Instance.Get("88360", "TC");
+                return Billing.Model.CptCodeCollection.Get("88360", "TC");
             }
         }
 

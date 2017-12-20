@@ -39,7 +39,7 @@ namespace YellowstonePathology.UI.Billing
             this.m_PanelSetOrderCPTCode.EntryType = "Manual Entry";
             this.m_PanelSetOrderCPTCode.CodeableType = "Billable Test";
 
-            this.m_CptCodeCollection = YellowstonePathology.Business.Billing.Model.CptCodeCollection.Instance.GetSorted(YellowstonePathology.Business.Billing.Model.CptCodeCollection.Instance);
+            this.m_CptCodeCollection = YellowstonePathology.Business.Billing.Model.CptCodeCollection.GetSorted(YellowstonePathology.Business.Billing.Model.CptCodeCollection.GetAll(true, false));
 
             InitializeComponent();			
 			DataContext = this;
