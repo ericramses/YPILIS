@@ -19,13 +19,13 @@ namespace YellowstonePathology.Business.Test.Model
 
         public override YellowstonePathology.Business.Billing.Model.CptCode GetCptCode(bool isTechnicalOnly)
         {
-            YellowstonePathology.Business.Billing.Model.CptCode code =  Business.Billing.Model.CptCodeCollection.Instance.GetCptCode("CPT88364");
+            YellowstonePathology.Business.Billing.Model.CptCode code =  Business.Billing.Model.CptCodeCollection.Instance.GetCptCode("88364");
             return code;
         }
 
         public override YellowstonePathology.Business.Billing.Model.CptCode GetCptCode(CptCodeLevelEnum cptCodeLevel, bool isTechnicalOnly)
         {
-            YellowstonePathology.Business.Billing.Model.CptCode code = Business.Billing.Model.CptCodeCollection.Instance.GetCptCode("CPT88364");
+            YellowstonePathology.Business.Billing.Model.CptCode code = Business.Billing.Model.CptCodeCollection.Instance.GetCptCode("88364");
             return code;
         }
     }

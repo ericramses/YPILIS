@@ -133,6 +133,11 @@ namespace YellowstonePathology.Business.Billing.Model
                 JObject jObject = JsonConvert.DeserializeObject<JObject>((string)redisResult);
                 CptCode code = CptCodeFactory.FromJson(jObject);                
                 result.Add(code);
+
+                if(code.CPTCodeId == "cpt:88364")
+                {
+                    Console.Write("alsdkfjalsdkfjalsdkfjasldkfj");
+                }
             }
 
             RedisKey[] keyResult2 = server.Keys(Business.RedisAppDataConnection.PQRSDBNUM, "pqrs:*").ToArray<RedisKey>();
