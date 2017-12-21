@@ -91,12 +91,12 @@ namespace YellowstonePathology.Business.Billing.Model
         public static CptCodeCollection GetAll(bool includePqrs, bool expandModifiers)
         {
             YellowstonePathology.Business.Billing.Model.CptCodeCollection result = new Model.CptCodeCollection();                        
-            LuaScript prepared = YellowstonePathology.Store.RedisDB.LuaScriptJsonGet("*");
-
+            
             Store.RedisDB cptDb = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.CPTCode);
-            foreach (string jString in (string[])cptDb.DataBase.ScriptEvaluate(prepared))
+            foreach (RedisResult redisResult in (RedisResult[])cptDb.GetAllJSONKeys())
             {
-                JObject jObject = JsonConvert.DeserializeObject<JObject>(jString);
+                /*
+                JObject jObject = JsonConvert.DeserializeObject<JObject>(redisResult);
                 if (jObject["codeType"].ToString() == "PQRS")
                 {
                     if (includePqrs == true)
@@ -112,6 +112,7 @@ namespace YellowstonePathology.Business.Billing.Model
                     result.Add(cptCode);
                     if (expandModifiers == true) ExpandCptModifiers(jObject, result);
                 }
+                */
             }
 
             return result;

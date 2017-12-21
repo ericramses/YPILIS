@@ -43,9 +43,9 @@ namespace YellowstonePathology.Store
             get { return this.m_DataBase; }
         }    
 
-        public RedisResult[] GetKeys(Dictionary<string, string> keys)
+        public RedisResult[] GetAllJSONKeys()
         {
-            string script = "local data = redis.call('keys', '" + keys + "') " +
+            string script = "local data = redis.call('keys', '*') " +
                             "local result = {} " +
                             "for i, item in ipairs(data) do " +
                             "result[i] = redis.call('json.get', data[i]) " +
@@ -67,6 +67,7 @@ namespace YellowstonePathology.Store
             return (RedisResult[])this.m_DataBase.ScriptEvaluate(prepared);            
         }
 
+        /*
         public static LuaScript LuaScriptJsonGet(string keys)
         {
             string script = "local data = redis.call('keys', '" + keys + "') " +
@@ -78,6 +79,7 @@ namespace YellowstonePathology.Store
             LuaScript result = LuaScript.Prepare(script);
             return result;
         }
+        */
 
         public static LuaScript LuaScriptJsonGetKeys(Collection<YellowstonePathology.Business.Billing.Model.CPTCodeWithModifier> codesAndModifiers)
         {

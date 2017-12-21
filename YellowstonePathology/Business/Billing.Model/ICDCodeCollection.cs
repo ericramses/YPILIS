@@ -139,6 +139,8 @@ namespace YellowstonePathology.Business.Billing.Model
         private static ICDCodeCollection FromRedis()
         {
             ICDCodeCollection result = new ICDCodeCollection();
+
+            /*
             LuaScript prepared = YellowstonePathology.Store.RedisDB.LuaScriptJsonGet("*");
 
             Store.RedisDB cptDb = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.CPTCode);
@@ -148,6 +150,7 @@ namespace YellowstonePathology.Business.Billing.Model
                 ICDCode icdCode = ICDCodeFactory.FromJson(jObject);
                 result.Add(icdCode);
             }
+            */
 
             return result;
         }

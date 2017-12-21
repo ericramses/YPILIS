@@ -419,6 +419,8 @@ namespace YellowstonePathology.Business.Test.Model
         private static TestCollection FromRedis()
         {
             YellowstonePathology.Business.Test.Model.TestCollection result = new TestCollection();
+
+            /*
             LuaScript prepared = YellowstonePathology.Store.RedisDB.LuaScriptJsonGet("*");
 
             Store.RedisDB stainDb = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.Stain);
@@ -428,6 +430,7 @@ namespace YellowstonePathology.Business.Test.Model
                 Test  test = JsonTestFactory.FromJson(jObject);
                 result.Add(test);
             }
+            */
 
             return result;
         }
