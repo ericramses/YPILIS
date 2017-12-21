@@ -19,7 +19,7 @@ namespace YellowstonePathology.Store
         public IDatabase GetDB(AppDBNameEnum dbName)
         {
             RedisDB redisDb = this.m_Databases.Find(x => x.Name == dbName.ToString());
-            return redisDb.Server.GetDB((int)dbName);            
+            return redisDb.Server.GetDB(redisDb.Index);            
         }
 
         public IServer GetServer(AppDBNameEnum dbName)
