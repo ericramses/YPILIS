@@ -11,8 +11,8 @@ namespace YellowstonePathology.Store
         private static AppDataStore instance = null;
         private static readonly object padlock = new object();
 
-        private static string MODE = "DEV";
-        //private static string MODE = "PROD";                
+        //private static string MODE = "DEV";
+        private static string MODE = "PROD";                
 
         private RedisStore m_RedisStore;
 
