@@ -118,21 +118,9 @@ namespace YellowstonePathology.Business.Billing.Model
         {
             foreach (JObject codeModifier in jObject["modifiers"])
             {
-<<<<<<< HEAD
-                RedisResult redisResult = Business.RedisAppDataConnection.Instance.CptCodeDb.Execute("json.get", new object[] { key.ToString(), "." });
-                JObject jObject = JsonConvert.DeserializeObject<JObject>((string)redisResult);
-                CptCode code = CptCodeFactory.FromJson(jObject);                
-                result.Add(code);
-
-                if(code.CPTCodeId == "cpt:88364")
-                {
-                    Console.Write("alsdkfjalsdkfjalsdkfjasldkfj");
-                }
-=======
                 string modifierString = codeModifier["modifier"].ToString();
                 CptCode code = CptCodeFactory.CptFromJson(jObject, modifierString);
                 cptCodeCollection.Add(code);
->>>>>>> redis-refactor
             }
         }
 

@@ -998,24 +998,6 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-<<<<<<< HEAD
-            //string lua = "eval 'return ARGV[1]' 0 \"Hello World\"";
-            //RedisResult result = Business.RedisAppDataConnection.Instance.DefaultDb.Execute("eval", "'return ARGV[1]' 0 \"Hello World\"");
-
-            //string script = "return redis.call('keys', 'cpt:88*')";
-            //string script = "return redis.call('json.get', 'cpt:88305')";
-
-            string script = "local data = redis.call('keys', 'cpt:88*') " +
-                "local result = {} " +
-                "for i, item in ipairs(data) do " + 
-                "result[i] = redis.call('json.get', data[i]) " +
-                "end " +
-                "return result ";
-            var prepared = LuaScript.Prepare(script);
-            RedisResult result = Business.RedisAppDataConnection.Instance.DefaultDb.ScriptEvaluate(prepared);
-            Console.WriteLine("The Result Is: " + result.ToString());
-            
-=======
             //Business.RedisLocksConnection.Instance.KillOrphanedConnections();
 
             //Business.RedisAppDataConnection.Instance.Db.KeyExists("asdlkfjasdlkfj");
@@ -1077,7 +1059,6 @@ namespace YellowstonePathology.UI
                 }                
             } 
             */
->>>>>>> redis-refactor
         }
 
         private void GetSlideNumberTest()

@@ -43,13 +43,8 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-<<<<<<< HEAD
-    <ApplicationRevision>67</ApplicationRevision>
-    <ApplicationVersion>10.1.8.%2a</ApplicationVersion>
-=======
     <ApplicationRevision>1</ApplicationRevision>
     <ApplicationVersion>10.1.9.%2a</ApplicationVersion>
->>>>>>> redis-refactor
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
