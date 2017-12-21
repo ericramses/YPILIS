@@ -26,7 +26,8 @@ namespace YellowstonePathology.Business.Billing.Model
         public static CptCode Get(string code, string modifier)
         {
             CptCode result = null;
-            RedisResult redisResult = YellowstonePathology.Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.CPTCode).Execute("json.get", new object[] { code, "." });
+            Store.RedisDB cptDb = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.CPTCode);
+            RedisResult redisResult = cptDb.DataBase.Execute("json.get", new object[] { code, "." });
             JObject jObject = JsonConvert.DeserializeObject<JObject>((string)redisResult);
             if (jObject["codeType"].ToString() == "PQRS")
             {
@@ -67,7 +68,8 @@ namespace YellowstonePathology.Business.Billing.Model
         {
             CptCodeCollection result = new Model.CptCodeCollection();
             LuaScript prepared = YellowstonePathology.Store.RedisDB.LuaScriptJsonGetKeys(codesAndModifiers);
-            string[] redisResults = (string[])YellowstonePathology.Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.CPTCode).ScriptEvaluate(prepared);
+            Store.RedisDB cptDb = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.CPTCode);
+            string[] redisResults = (string[])cptDb.DataBase.ScriptEvaluate(prepared);
             for (int idx = 0; idx < redisResults.Length; idx ++)
             {
                 CPTCodeWithModifier cptCodeWithModifier = codesAndModifiers[idx];
@@ -91,7 +93,8 @@ namespace YellowstonePathology.Business.Billing.Model
             YellowstonePathology.Business.Billing.Model.CptCodeCollection result = new Model.CptCodeCollection();                        
             LuaScript prepared = YellowstonePathology.Store.RedisDB.LuaScriptJsonGet("*");
 
-            foreach (string jString in (string[])YellowstonePathology.Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.CPTCode).ScriptEvaluate(prepared))
+            Store.RedisDB cptDb = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.CPTCode);
+            foreach (string jString in (string[])cptDb.DataBase.ScriptEvaluate(prepared))
             {
                 JObject jObject = JsonConvert.DeserializeObject<JObject>(jString);
                 if (jObject["codeType"].ToString() == "PQRS")

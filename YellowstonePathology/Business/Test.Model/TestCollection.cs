@@ -421,7 +421,8 @@ namespace YellowstonePathology.Business.Test.Model
             YellowstonePathology.Business.Test.Model.TestCollection result = new TestCollection();
             LuaScript prepared = YellowstonePathology.Store.RedisDB.LuaScriptJsonGet("*");
 
-            foreach (string jString in (string[])YellowstonePathology.Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.Stain).ScriptEvaluate(prepared))
+            Store.RedisDB stainDb = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.Stain);
+            foreach (string jString in (string[])stainDb.DataBase.ScriptEvaluate(prepared))
             {
                 JObject jObject = JsonConvert.DeserializeObject<JObject>(jString);
                 Test  test = JsonTestFactory.FromJson(jObject);

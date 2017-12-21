@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,12 +13,14 @@ namespace YellowstonePathology.Store
         protected string m_Name;
         protected int m_Index;
         protected IRedisServer m_Server;
+        protected IDatabase m_DataBase;
 
         public RedisDB(AppDBNameEnum dbNameEnum, int index, IRedisServer server)
         {
             this.m_Name = dbNameEnum.ToString();
             this.m_Index = index;
             this.m_Server = server;
+            this.m_DataBase = server.GetDB(index);
         }
 
         public string Name
@@ -33,7 +36,36 @@ namespace YellowstonePathology.Store
         public IRedisServer Server
         {
             get { return this.m_Server; }
-        }        
+        }    
+        
+        public IDatabase DataBase
+        {
+            get { return this.m_DataBase; }
+        }    
+
+        public RedisResult[] GetKeys(Dictionary<string, string> keys)
+        {
+            string script = "local data = redis.call('keys', '" + keys + "') " +
+                            "local result = {} " +
+                            "for i, item in ipairs(data) do " +
+                            "result[i] = redis.call('json.get', data[i]) " +
+                            "end " +
+                            "return result ";
+            LuaScript prepared = LuaScript.Prepare(script);
+            return (RedisResult[])this.m_DataBase.ScriptEvaluate(prepared);
+        }
+
+        public RedisResult[] GetAllHashes()
+        {
+            string script = "local data = redis.call('keys', '*') " +
+                            "local result = {} " +
+                            "for i, item in ipairs(data) do " +
+                            "result[i] = redis.call('HGetAll', data[i]) " +
+                            "end " +
+                            "return result ";
+            LuaScript prepared = LuaScript.Prepare(script);
+            return (RedisResult[])this.m_DataBase.ScriptEvaluate(prepared);            
+        }
 
         public static LuaScript LuaScriptJsonGet(string keys)
         {
@@ -65,18 +97,6 @@ namespace YellowstonePathology.Store
             script.Append("return result ");
             LuaScript result = LuaScript.Prepare(script.ToString());
             return result;
-        }
-
-        public static LuaScript LuaScriptHGetAll(string keys)
-        {
-            string script = "local data = redis.call('keys', '" + keys + "') " +
-                            "local result = {} " +
-                            "for i, item in ipairs(data) do " +
-                            "result[i] = redis.call('HGetAll', data[i]) " +
-                            "end " +
-                            "return result ";
-            LuaScript result = LuaScript.Prepare(script);
-            return result;
-        }
+        }       
     }
 }
