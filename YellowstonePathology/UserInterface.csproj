@@ -314,6 +314,7 @@
     <Compile Include="Business\BaseItem.cs" />
     <Compile Include="Business\BaseListItem.cs" />
     <Compile Include="Business\Billing.Model\CptCodeFactory.cs" />
+    <Compile Include="Business\Billing.Model\CPTCodeWithModifier.cs" />
     <Compile Include="Business\Billing.Model\HospitalSplitSurgicalAndReferenceLabBillingRuleSet.cs" />
     <Compile Include="Business\Billing.Model\ICDCode.cs" />
     <Compile Include="Business\Billing.Model\ICDCodeFactory.cs" />
@@ -1142,6 +1143,10 @@
     <Compile Include="Business\Persistence\MonitorProperty.cs" />
     <Compile Include="Business\Persistence\ProtobufWriter.cs" />
     <Compile Include="Business\Persistence\SqlDataRowReaderPropertyWriter.cs" />
+    <Compile Include="Business\Test\IgHMFABByFish\IgHMFABByFishEPICOBXView.cs" />
+    <Compile Include="Business\Test\IgHMFABByFish\IgHMFABByFishTest.cs" />
+    <Compile Include="Business\Test\IgHMFABByFish\IgHMFABByFishTestOrder.cs" />
+    <Compile Include="Business\Test\IgHMFABByFish\IgHMFABByFishWordDocument.cs" />
     <Compile Include="Store\AppDataStore.cs" />
     <Compile Include="Business\Reports\BlocksSentNotReturnedReport.cs" />
     <Compile Include="Business\Reports\RetrospectiveReviewReport.xaml.cs">
@@ -1259,7 +1264,7 @@
     <Compile Include="Business\Test\HPV1618SolidTumor\HPV1618SolidTumorNoResult.cs" />
     <Compile Include="Business\Test\HPV1618SolidTumor\HPV16NegativeHPV18PositiveResult.cs" />
     <Compile Include="Business\Test\HPV1618SolidTumor\HPV16PositiveHPV18NegativeResult.cs" />
-    <Compile Include="Business\Test\IDH1byIHC\IDH1byIHCTest.cs" />
+    <Compile Include="Business\Test\LiposarcomaFusionProfile\IDH1byIHC\IDH1byIHCTest.cs" />
     <Compile Include="Business\Test\IgHClonalityMRDByNGS\IgHClonalityMRDByNGSTest.cs" />
     <Compile Include="Business\Test\LiposarcomaFusionProfile\LiposarcomaFusionProfileEPICOBXView.cs" />
     <Compile Include="Business\Test\LiposarcomaFusionProfile\LiposarcomaFusionProfileTest.cs" />
@@ -1442,7 +1447,6 @@
     <Compile Include="Business\PanelSet.Model\PanelSetHPV16.cs" />
     <Compile Include="Business\PanelSet.Model\PanelSetHPVLowRiskByInSituHybridization.cs" />
     <Compile Include="Business\PanelSet.Model\PanelSetIgHBCL2ByFish.cs" />
-    <Compile Include="Business\PanelSet.Model\PanelSetIgHMAFBByFish.cs" />
     <Compile Include="Business\PanelSet.Model\PanelSetIgHMAFByFish.cs" />
     <Compile Include="Business\PanelSet.Model\PanelSetIGVH.cs" />
     <Compile Include="Business\PanelSet.Model\PanelSetIHCHerpesVirus.cs" />

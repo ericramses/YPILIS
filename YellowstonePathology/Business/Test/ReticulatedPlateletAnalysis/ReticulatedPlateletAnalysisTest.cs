@@ -23,7 +23,7 @@ namespace YellowstonePathology.Business.Test.ReticulatedPlateletAnalysis
             this.m_HasProfessionalComponent = false;
             this.m_ProfessionalComponentFacility = null;
 
-            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode1 = new Business.Billing.Model.PanelSetCptCode(Billing.Model.CptCodeCollection.Instance.Get("85055", null), 1);
+            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode1 = new Business.Billing.Model.PanelSetCptCode(Billing.Model.CptCodeCollection.Get("85055", null), 1);
             this.m_PanelSetCptCodeCollection.Add(panelSetCptCode1);               
 		}
     }

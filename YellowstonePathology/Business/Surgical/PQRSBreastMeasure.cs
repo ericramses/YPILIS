@@ -11,8 +11,8 @@ namespace YellowstonePathology.Business.Surgical
         {
             this.m_PQRIKeyWordCollection.Add("Breast");
 			this.m_Header = "Breast Cancer Resection Pathology Reporting";
-            this.m_CptCodeCollection.Add(Billing.Model.CptCodeCollection.Instance.Get("88307", null));
-            this.m_CptCodeCollection.Add(Billing.Model.CptCodeCollection.Instance.Get("88309", null));
+            this.m_CptCodeCollection.Add(Billing.Model.CptCodeCollection.Get("88307", null));
+            this.m_CptCodeCollection.Add(Billing.Model.CptCodeCollection.Get("88309", null));
 
             this.m_PQRSCodeCollection.Add(Billing.Model.PQRSCodeCollection.Get("3260F", null));
 			this.m_PQRSCodeCollection.Add(Billing.Model.PQRSCodeCollection.Get("3260F", "1P"));
