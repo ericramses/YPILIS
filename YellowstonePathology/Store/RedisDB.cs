@@ -33,7 +33,7 @@ namespace YellowstonePathology.Store
         public IRedisServer Server
         {
             get { return this.m_Server; }
-        }
+        }        
 
         public static LuaScript LuaScriptJsonGet(string keys)
         {
