@@ -217,7 +217,10 @@ namespace YellowstonePathology.Business.HL7View.EPIC
 				case 179:
 					view = new YellowstonePathology.Business.Test.NRASMutationAnalysis.NRASMutationAnalysisEPICObxView(accessionOrder, reportNo, obxCount);
 					break;
-				case 181:
+                case 180:
+                    view = new YellowstonePathology.Business.Test.IgHMFABByFish.IgHMFABByFishEPICOBXView(accessionOrder, reportNo, obxCount);
+                    break;
+                case 181:
 					view = new YellowstonePathology.Business.Test.CKIT.CKITEPICObxView(accessionOrder, reportNo, obxCount);
 					break;
 				case 183:
