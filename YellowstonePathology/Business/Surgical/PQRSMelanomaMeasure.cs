@@ -14,13 +14,13 @@ namespace YellowstonePathology.Business.Surgical
             this.m_KeyWords = new List<string>();
             this.m_KeyWords.Add("MELANOMA");            
 			this.m_Header = "Melanoma Reporting";
-            this.m_CptCodeCollection.Add(Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("cpt:88305"));
+            this.m_CptCodeCollection.Add(Billing.Model.CptCodeCollection.Get("88305", null));
             this.m_PQRSAgeDefinition = PQRSAgeDefinitionEnum.Patients18To75;
 
-            this.m_PQRSCodeCollection.Add((Billing.Model.PQRSCode)Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("pqrs:g9428"));
-			this.m_PQRSCodeCollection.Add((Billing.Model.PQRSCode)Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("pqrs:g9429"));
-			this.m_PQRSCodeCollection.Add((Billing.Model.PQRSCode)Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("pqrs:g9430"));
-            this.m_PQRSCodeCollection.Add((Billing.Model.PQRSCode)Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("pqrs:g9431"));
+            this.m_PQRSCodeCollection.Add(Billing.Model.PQRSCodeCollection.Get("G9428", null));
+			this.m_PQRSCodeCollection.Add(Billing.Model.PQRSCodeCollection.Get("G9429", null));
+			this.m_PQRSCodeCollection.Add(Billing.Model.PQRSCodeCollection.Get("G9430", null));
+            this.m_PQRSCodeCollection.Add(Billing.Model.PQRSCodeCollection.Get("G9431", null));
         }
 
 		public override bool DoesMeasureApply(YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder, 

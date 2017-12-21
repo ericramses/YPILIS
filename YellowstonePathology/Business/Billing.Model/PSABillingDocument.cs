@@ -99,7 +99,7 @@ namespace YellowstonePathology.Business.Billing.Model
 
 			foreach(YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill in this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection)
 			{
-                YellowstonePathology.Business.Billing.Model.CptCode cptCode = Business.Billing.Model.CptCodeCollection.Instance.GetCptCode(panelSetOrderCPTCodeBill.CPTCode);
+                YellowstonePathology.Business.Billing.Model.CptCode cptCode = Business.Billing.Model.CptCodeCollection.Get(panelSetOrderCPTCodeBill.CPTCode, panelSetOrderCPTCodeBill.Modifier);
                 if (panelSetOrderCPTCodeBill.BillTo == "Patient" && panelSetOrderCPTCodeBill.BillBy != "CLNT" 
                     || cptCode is YellowstonePathology.Business.Billing.Model.PQRSCode == true)
                 {

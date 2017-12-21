@@ -17,11 +17,11 @@ namespace YellowstonePathology.Business.Surgical
             this.m_PQRIKeyWordCollection.Add("Appendix");
 
             this.m_Header = "Colorectal Cancer Pathology Reporting";
-            this.m_CptCodeCollection.Add(Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("cpt:88309"));
+            this.m_CptCodeCollection.Add(Billing.Model.CptCodeCollection.Get("88309", null));
 
-			this.m_PQRSCodeCollection.Add((Billing.Model.PQRSCode)Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("pqrs:g8721"));
-			this.m_PQRSCodeCollection.Add((Billing.Model.PQRSCode)Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("pqrs:g8722"));
-			this.m_PQRSCodeCollection.Add((Billing.Model.PQRSCode)Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("pqrs:g8723"));
+			this.m_PQRSCodeCollection.Add(Billing.Model.PQRSCodeCollection.Get("G8721", null));
+			this.m_PQRSCodeCollection.Add(Billing.Model.PQRSCodeCollection.Get("G8722", null));
+			this.m_PQRSCodeCollection.Add(Billing.Model.PQRSCodeCollection.Get("G8723", null));
 		}        
 	}
 }

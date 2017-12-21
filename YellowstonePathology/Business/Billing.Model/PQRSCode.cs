@@ -10,11 +10,9 @@ namespace YellowstonePathology.Business.Billing.Model
     {
         protected string m_ReportingDefinition;
         protected string m_FormattedReportingDefinition;
-        protected string m_Header;
 
         public PQRSCode()
         {
-
         }
 
         [PersistentProperty()]
@@ -24,30 +22,25 @@ namespace YellowstonePathology.Business.Billing.Model
             set { this.m_ReportingDefinition = value; }
         }
 
-        [PersistentProperty()]
-        public string Header
-		{
-			get { return this.m_Header; }
-            set { this.m_Header = value; }
-        }
-
         public string FormattedReportingDefinition
 		{
 			get
 			{
-                return this.m_FormattedReportingDefinition;
-				/*StringBuilder result = new StringBuilder(this.m_Code);
-				if (this.m_Modifier != null) result.Append("-" + this.m_Modifier);
+                //return this.m_FormattedReportingDefinition;
+				StringBuilder result = new StringBuilder(this.m_Code);
+				if (this.m_Modifier != null) result.Append("-" + this.m_Modifier.Modifier);
 				result.Append(":  ");
 				result.Append(this.m_ReportingDefinition);
-				return result.ToString();*/
+				return result.ToString();
 			}
             set { this.m_FormattedReportingDefinition = value; }
 		}
 
         public override string GetModifier(BillingComponentEnum billingComponent)
         {
-            return this.m_Modifier;
+            string result = null;
+            if (this.m_Modifier != null) result = this.m_Modifier.Modifier;
+            return result;
         }
     }
 }

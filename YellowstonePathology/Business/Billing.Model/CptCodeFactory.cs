@@ -10,41 +10,83 @@ namespace YellowstonePathology.Business.Billing.Model
     {
         public CptCodeFactory() { }
 
-        public static CptCode FromJson(JObject jObject)
+        private static CptCodeModifier GetModifier(JObject jObject, string modifier)
         {
-            CptCode result = new Model.CptCode();
-            string cptType = jObject["cptType"].ToString();
-            string jsonString = jObject.ToString();
-            switch(cptType)
+            CptCodeModifier result = null;
+            foreach(JObject codeModifier in jObject["modifiers"])
             {
-                case CptCode.CptTypeNormal:
+                if(codeModifier["modifier"].ToString() == modifier)
+                {
+                    string modifierString = codeModifier.ToString();
+                    result = JsonConvert.DeserializeObject<Business.Billing.Model.CptCodeModifier>(modifierString, new JsonSerializerSettings
                     {
-                         result = JsonConvert.DeserializeObject<Business.Billing.Model.CptCode>(jsonString, new JsonSerializerSettings
-                        {
-                            TypeNameHandling = TypeNameHandling.All,
-                            ObjectCreationHandling = ObjectCreationHandling.Replace,
-                        });
-                        break;
-                    }
-                case CptCode.CptTypePQRS:
-                    {
-                        result = JsonConvert.DeserializeObject<Business.Billing.Model.PQRSCode>(jsonString, new JsonSerializerSettings
-                        {
-                            TypeNameHandling = TypeNameHandling.All,
-                            ObjectCreationHandling = ObjectCreationHandling.Replace
-                        });
-                        break;
-                    }
-                case CptCode.CptTypeGCode:
-                    {
-                        result = JsonConvert.DeserializeObject<Business.Billing.Model.CptCode>(jsonString, new JsonSerializerSettings
-                        {
-                            TypeNameHandling = TypeNameHandling.All,
-                            ObjectCreationHandling = ObjectCreationHandling.Replace
-                        });
-                        break;
-                    }
+                        TypeNameHandling = TypeNameHandling.All,
+                        ObjectCreationHandling = ObjectCreationHandling.Replace,
+                    });
+                    break;
+                }
             }
+            return result;
+        }
+
+        public static CptCode CptFromJson(JObject jObject, string modifier)
+        {
+            CptCode result = CptFromJson(jObject);
+            CptCodeModifier cptCodeModifier = null;
+            if (string.IsNullOrEmpty(modifier) == false)
+            {
+                cptCodeModifier = GetModifier(jObject, modifier);
+                if(cptCodeModifier == null)
+                {
+                    throw new Exception("trying to get Cpt Code " + jObject["code"].ToString() + " with modifier " + modifier + " not available for the code.");
+                }
+            }
+
+            result.Modifier = cptCodeModifier;
+
+            return result;
+        }
+
+        private static CptCode CptFromJson(JObject jObject)
+        {
+            string jsonString = jObject.ToString();
+            CptCode result = JsonConvert.DeserializeObject<Business.Billing.Model.CptCode>(jsonString, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.All,
+                ObjectCreationHandling = ObjectCreationHandling.Replace,
+            });
+
+            return result;
+        }
+
+        public static PQRSCode PQRSFromJson(JObject jObject, string modifier)
+        {
+            PQRSCode result = PQRSFromJson(jObject);
+            CptCodeModifier cptCodeModifier = null;
+            if (string.IsNullOrEmpty(modifier) == false)
+            {
+                cptCodeModifier = GetModifier(jObject, modifier);
+                if (cptCodeModifier == null)
+                {
+                    throw new Exception("trying to get PQRS Code " + jObject["code"].ToString() + " with modifier " + modifier + " not available for the code.");
+                }
+            }
+
+            result.ReportingDefinition = result.Description;
+
+            result.Modifier = cptCodeModifier;
+
+            return result;
+        }
+
+        private static PQRSCode PQRSFromJson(JObject jObject)
+        {
+            string jsonString = jObject.ToString();
+            PQRSCode result = JsonConvert.DeserializeObject<Business.Billing.Model.PQRSCode>(jsonString, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.All,
+                ObjectCreationHandling = ObjectCreationHandling.Replace
+            });
 
             return result;
         }

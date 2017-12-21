@@ -12,8 +12,8 @@ namespace YellowstonePathology.Business.Billing.Model
         public CPTCodeRBPrice()
         {
             this.m_CPTCodePriceList = new List<CPTCodePrice>();            
-            this.m_CPTCodePriceList.Add(new CPTCodePrice(Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("cpt:88112"), "YPI", "Client", 52.39));
-            this.m_CPTCodePriceList.Add(new CPTCodePrice(Billing.Model.CptCodeCollection.Instance.GetCPTCodeById("cpt:88305"), "YPI", "Client", 78.94));
+            this.m_CPTCodePriceList.Add(new CPTCodePrice(Billing.Model.CptCodeCollection.Get("88112", null), "YPI", "Client", 52.39));
+            this.m_CPTCodePriceList.Add(new CPTCodePrice(Billing.Model.CptCodeCollection.Get("88305", null), "YPI", "Client", 78.94));
         }
     }
 }

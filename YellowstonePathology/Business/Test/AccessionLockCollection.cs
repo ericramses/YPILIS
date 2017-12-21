@@ -34,16 +34,16 @@ namespace YellowstonePathology.Business.Test
 
         private void Build()
         {
-            List<RedisKey> keys = RedisLocksConnection.Instance.Server.Keys(Business.RedisLocksConnection.LOCKSDBNUM, "AccessionLock:*", 10, CommandFlags.None).ToList<RedisKey>();
             List<AccessionLock> list = new List<AccessionLock>();
-            foreach(RedisKey key in keys)
+            LuaScript prepared = YellowstonePathology.Store.RedisDB.LuaScriptHGetAll("*");
+
+            foreach(RedisValue[] r in (RedisResult[])Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.Lock).ScriptEvaluate(prepared))
             {
-                if(RedisLocksConnection.Instance.LocksDb.KeyExists(key) == true)
-                {
-                    HashEntry[] hashEntries = RedisLocksConnection.Instance.LocksDb.HashGetAll(key);
-                    AccessionLock item = new AccessionLock(hashEntries);
-                    list.Add(item);
-                }                
+                HashEntry he1 = new HashEntry(r[0], r[1]);
+                HashEntry he2 = new HashEntry(r[2], r[3]);
+                HashEntry he3 = new HashEntry(r[4], r[5]);
+                AccessionLock item = new AccessionLock(new HashEntry[] { he1, he2, he3 });
+                list.Add(item);
             }
 
             list.Sort(delegate(AccessionLock x, AccessionLock y) 

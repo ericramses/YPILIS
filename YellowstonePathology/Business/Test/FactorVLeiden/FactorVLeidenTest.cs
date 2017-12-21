@@ -35,7 +35,8 @@ namespace YellowstonePathology.Business.Test.FactorVLeiden
 
             this.m_HasSplitCPTCode = true;
 
-            YellowstonePathology.Business.Billing.Model.CptCode cpt81241 = Billing.Model.CptCodeCollection.Instance.GetClone("cpt:81241", "26");
+            YellowstonePathology.Business.Billing.Model.CptCode cpt81241 = Billing.Model.CptCodeCollection.Get("81241", null);
+            //cpt81241.Modifier = "26";
             YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode1 = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(cpt81241, 1);            
             this.m_PanelSetCptCodeCollection.Add(panelSetCptCode1);            
 

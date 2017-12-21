@@ -781,7 +781,7 @@ namespace YellowstonePathology.UI
             StringBuilder global = new StringBuilder();
             StringBuilder pqrs = new StringBuilder();
 
-            foreach (YellowstonePathology.Business.Billing.Model.CptCode cptCode in Business.Billing.Model.CptCodeCollection.Instance)
+            foreach (YellowstonePathology.Business.Billing.Model.CptCode cptCode in Business.Billing.Model.CptCodeCollection.GetAll(false, false))
             {                
                 switch (cptCode.CodeType)
                 {
@@ -998,6 +998,7 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
+<<<<<<< HEAD
             //string lua = "eval 'return ARGV[1]' 0 \"Hello World\"";
             //RedisResult result = Business.RedisAppDataConnection.Instance.DefaultDb.Execute("eval", "'return ARGV[1]' 0 \"Hello World\"");
 
@@ -1014,6 +1015,69 @@ namespace YellowstonePathology.UI
             RedisResult result = Business.RedisAppDataConnection.Instance.DefaultDb.ScriptEvaluate(prepared);
             Console.WriteLine("The Result Is: " + result.ToString());
             
+=======
+            //Business.RedisLocksConnection.Instance.KillOrphanedConnections();
+
+            //Business.RedisAppDataConnection.Instance.Db.KeyExists("asdlkfjasdlkfj");
+
+            //template.CreateNewXPSFromSource(source, destination);
+            //template.SaveToTIF(destination);
+
+            //string x1 = @"\\CFileServer\AccessionDocuments\2017\26000-26999\17-26810\17-26810.S.notify.xml";
+            // string x2 = @"\\CFileServer\AccessionDocuments\2017\26000-26999\17-26810\17-26810.S.notify.xps";
+
+            //Business.Document.CaseDocument.SaveDocAsXPS2(x1, x2);
+            //Business.Helper.FileConversionHelper.SaveXpsAsMultiPageTif()
+
+            //string l = Business.Specimen.Model.Slide.GetSlideNumber("1A2");
+            //MessageBox.Show(l);
+            //this.MailBoxTest();
+            //this.GetSlideNumberTest();
+
+            //Business.Label.Model.ZPLPrinterUSB usbPrinter = new Business.Label.Model.ZPLPrinterUSB();
+            //Business.Label.Model.HistologySlidePaperZPLLabel zplCommand = new Business.Label.Model.HistologySlidePaperZPLLabel("17-123.1A2", "17-12333.F2", "BOB", "FRANKENSTEIN", "Oscar", "1A2", "YPI Blgs", false, false);
+            //usbPrinter.Print(zplCommand);
+
+            //Business.Test.Model.TestCollection tc = Business.Test.Model.TestCollection.GetAllTests(false);
+            //foreach(Business.Test.Model.Test t in tc)
+            //{
+            //if(string.IsNullOrEmpty(t.HistologyDisplayString))
+            //{
+            //Console.WriteLine(t.TestName);
+            //}
+            //}
+
+            //Business.Label.Model.ZPLPrinterTCP printer = new Business.Label.Model.ZPLPrinterTCP("10.1.1.19");
+            //printer.Print(result.ToString());
+
+            //Business.RedisLocksConnection redis = new Business.RedisLocksConnection();
+            //IDatabase db = redis.GetDatabase();
+
+
+            /*
+            string path = @"C:\temp\stains.csv";
+            string[] lines = System.IO.File.ReadAllLines(path);
+            for(int x = 1; x<lines.Length; x++)
+            {
+                string[] fields = lines[x].Split(',');
+                if(fields[1] == "299")
+                {
+                    StringBuilder sql = new StringBuilder("Insert tblVentanaBenchMark ");
+                    sql.Append("(BarcodeNumber, StainerType, StainName, `Procedure`, ProtocolName, YPITestId, IsWetProtocol, IsDualProtocol) values (");
+                    sql.Append("'" + fields[1] + "', ");
+                    sql.Append("'" + fields[2] + "', ");
+                    sql.Append("'" + fields[3] + "', ");
+                    sql.Append("'" + fields[4] + "', ");
+                    sql.Append("'" + fields[5] + "', ");
+                    sql.Append("'" + fields[6] + "', ");                    
+                    sql.Append(fields[7] + ", ");
+                    sql.Append(fields[8]);
+                    sql.Append(");");
+                    Console.WriteLine(sql.ToString());
+                }                
+            } 
+            */
+>>>>>>> redis-refactor
         }
 
         private void GetSlideNumberTest()

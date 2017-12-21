@@ -138,16 +138,14 @@ namespace YellowstonePathology.Business.Billing.Model
 
         private static ICDCodeCollection FromRedis()
         {
-            ICDCodeCollection result = new ICDCodeCollection();                        
-            IServer server = RedisAppDataConnection.Instance.Server;
+            ICDCodeCollection result = new ICDCodeCollection();
+            LuaScript prepared = YellowstonePathology.Store.RedisDB.LuaScriptJsonGet("*");
 
-            RedisKey[] keyResult = server.Keys(Business.RedisAppDataConnection.ICDCODEDBNUM, "*").ToArray<RedisKey>();
-            foreach (RedisKey key in keyResult)
+            foreach (string jString in (string[])YellowstonePathology.Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.ICDCode).ScriptEvaluate(prepared))
             {
-                RedisResult redisResult = RedisAppDataConnection.Instance.IcdCodeDb.Execute("json.get", new object[] { key.ToString(), "." });
-                JObject jObject = JsonConvert.DeserializeObject<JObject>((string)redisResult);
-                ICDCode code = ICDCodeFactory.FromJson(jObject);
-                result.Add(code);
+                JObject jObject = JsonConvert.DeserializeObject<JObject>(jString);
+                ICDCode icdCode = ICDCodeFactory.FromJson(jObject);
+                result.Add(icdCode);
             }
 
             return result;
