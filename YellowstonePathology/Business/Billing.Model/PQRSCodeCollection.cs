@@ -24,36 +24,36 @@ namespace YellowstonePathology.Business.Billing.Model
                 }
             }
             
-            result.Add((PQRSCode)Billing.Model.CptCodeCollection.Get("3125F", null));
-            result.Add((PQRSCode)Billing.Model.CptCodeCollection.Get("3125F", "1P"));
-            result.Add((PQRSCode)Billing.Model.CptCodeCollection.Get("3125F", "8P"));
+            result.Add((PQRSCode)Business.Billing.Model.CptCodeCollection.Instance.GetClone("3125F", null));
+            result.Add((PQRSCode)Business.Billing.Model.CptCodeCollection.Instance.GetClone("3125F", "1P"));
+            result.Add((PQRSCode)Business.Billing.Model.CptCodeCollection.Instance.GetClone("3125F", "8P"));
 
-            result.Add((PQRSCode)Billing.Model.CptCodeCollection.Get("3126F", null));
-            result.Add((PQRSCode)Billing.Model.CptCodeCollection.Get("3126F", "1P"));
-            result.Add((PQRSCode)Billing.Model.CptCodeCollection.Get("3126F", "8P"));
-            result.Add((PQRSCode)Billing.Model.CptCodeCollection.Get("G8797", null));
+            result.Add((PQRSCode)Business.Billing.Model.CptCodeCollection.Instance.GetClone("3126F", null));
+            result.Add((PQRSCode)Business.Billing.Model.CptCodeCollection.Instance.GetClone("3126F", "1P"));
+            result.Add((PQRSCode)Business.Billing.Model.CptCodeCollection.Instance.GetClone("3126F", "8P"));
+            result.Add((PQRSCode)Business.Billing.Model.CptCodeCollection.Instance.GetClone("G8797", null));
 
-            result.Add((PQRSCode)Billing.Model.CptCodeCollection.Get("3250F", null));
-            result.Add((PQRSCode)Billing.Model.CptCodeCollection.Get("3260", null));
-            result.Add((PQRSCode)Billing.Model.CptCodeCollection.Get("3260F", null));
-            result.Add((PQRSCode)Billing.Model.CptCodeCollection.Get("3260F", "1P"));
-            result.Add((PQRSCode)Billing.Model.CptCodeCollection.Get("3260F", "8P"));
-            result.Add((PQRSCode)Billing.Model.CptCodeCollection.Get("3267F", null));
-            result.Add((PQRSCode)Billing.Model.CptCodeCollection.Get("3267F", "1P"));
-            result.Add((PQRSCode)Billing.Model.CptCodeCollection.Get("3267F", "8P"));
-            result.Add((PQRSCode)Billing.Model.CptCodeCollection.Get("G8721", null));
-            result.Add((PQRSCode)Billing.Model.CptCodeCollection.Get("G8722", null));
-            result.Add((PQRSCode)Billing.Model.CptCodeCollection.Get("G8723", null));            
-			result.Add((PQRSCode)Billing.Model.CptCodeCollection.Get("G8798", null));
-            result.Add((PQRSCode)Billing.Model.CptCodeCollection.Get("3394F", null));
-            result.Add((PQRSCode)Billing.Model.CptCodeCollection.Get("3394F", "8P"));
-            result.Add((PQRSCode)Billing.Model.CptCodeCollection.Get("3395F", null));
+            result.Add((PQRSCode)Business.Billing.Model.CptCodeCollection.Instance.GetClone("3250F", null));
+            result.Add((PQRSCode)Business.Billing.Model.CptCodeCollection.Instance.GetClone("3260", null));
+            result.Add((PQRSCode)Business.Billing.Model.CptCodeCollection.Instance.GetClone("3260F", null));
+            result.Add((PQRSCode)Business.Billing.Model.CptCodeCollection.Instance.GetClone("3260F", "1P"));
+            result.Add((PQRSCode)Business.Billing.Model.CptCodeCollection.Instance.GetClone("3260F", "8P"));
+            result.Add((PQRSCode)Business.Billing.Model.CptCodeCollection.Instance.GetClone("3267F", null));
+            result.Add((PQRSCode)Business.Billing.Model.CptCodeCollection.Instance.GetClone("3267F", "1P"));
+            result.Add((PQRSCode)Business.Billing.Model.CptCodeCollection.Instance.GetClone("3267F", "8P"));
+            result.Add((PQRSCode)Business.Billing.Model.CptCodeCollection.Instance.GetClone("G8721", null));
+            result.Add((PQRSCode)Business.Billing.Model.CptCodeCollection.Instance.GetClone("G8722", null));
+            result.Add((PQRSCode)Business.Billing.Model.CptCodeCollection.Instance.GetClone("G8723", null));            
+			result.Add((PQRSCode)Business.Billing.Model.CptCodeCollection.Instance.GetClone("G8798", null));
+            result.Add((PQRSCode)Business.Billing.Model.CptCodeCollection.Instance.GetClone("3394F", null));
+            result.Add((PQRSCode)Business.Billing.Model.CptCodeCollection.Instance.GetClone("3394F", "8P"));
+            result.Add((PQRSCode)Business.Billing.Model.CptCodeCollection.Instance.GetClone("3395F", null));
 
-            result.Add((PQRSCode)Billing.Model.CptCodeCollection.Get("G9418", null));
-            result.Add((PQRSCode)Billing.Model.CptCodeCollection.Get("G9419", null));
-            result.Add((PQRSCode)Billing.Model.CptCodeCollection.Get("G9420", null));
-            result.Add((PQRSCode)Billing.Model.CptCodeCollection.Get("G9421", null));
-            result.Add((PQRSCode)Billing.Model.CptCodeCollection.Get("G9428", null));
+            result.Add((PQRSCode)Business.Billing.Model.CptCodeCollection.Instance.GetClone("G9418", null));
+            result.Add((PQRSCode)Business.Billing.Model.CptCodeCollection.Instance.GetClone("G9419", null));
+            result.Add((PQRSCode)Business.Billing.Model.CptCodeCollection.Instance.GetClone("G9420", null));
+            result.Add((PQRSCode)Business.Billing.Model.CptCodeCollection.Instance.GetClone("G9421", null));
+            result.Add((PQRSCode)Business.Billing.Model.CptCodeCollection.Instance.GetClone("G9428", null));
 
             return result;
         }*/
@@ -70,7 +70,7 @@ namespace YellowstonePathology.Business.Billing.Model
 
         public static PQRSCode Get(string code, string modifier)
         {
-            PQRSCode result = (PQRSCode)CptCodeCollection.Get(code, modifier);
+            PQRSCode result = (PQRSCode)Business.Billing.Model.CptCodeCollection.Instance.GetClone(code, modifier);
             return result;
         }
     }

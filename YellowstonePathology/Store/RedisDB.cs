@@ -43,7 +43,7 @@ namespace YellowstonePathology.Store
             get { return this.m_DataBase; }
         }    
 
-        public RedisResult[] GetAllJSONKeys()
+        public string[] GetAllJSONKeys()
         {
             string script = "local data = redis.call('keys', '*') " +
                             "local result = {} " +
@@ -52,8 +52,8 @@ namespace YellowstonePathology.Store
                             "end " +
                             "return result ";
             LuaScript prepared = LuaScript.Prepare(script);
-            return (RedisResult[])this.m_DataBase.ScriptEvaluate(prepared);
-        }
+            return (string[])this.m_DataBase.ScriptEvaluate(prepared);
+        }        
 
         public RedisResult[] GetAllHashes()
         {
@@ -65,40 +65,6 @@ namespace YellowstonePathology.Store
                             "return result ";
             LuaScript prepared = LuaScript.Prepare(script);
             return (RedisResult[])this.m_DataBase.ScriptEvaluate(prepared);            
-        }
-
-        /*
-        public static LuaScript LuaScriptJsonGet(string keys)
-        {
-            string script = "local data = redis.call('keys', '" + keys + "') " +
-                            "local result = {} " +
-                            "for i, item in ipairs(data) do " +
-                            "result[i] = redis.call('json.get', data[i]) " +
-                            "end " +
-                            "return result ";
-            LuaScript result = LuaScript.Prepare(script);
-            return result;
-        }
-        */
-
-        public static LuaScript LuaScriptJsonGetKeys(Collection<YellowstonePathology.Business.Billing.Model.CPTCodeWithModifier> codesAndModifiers)
-        {
-            StringBuilder script = new StringBuilder();
-            script.Append("local ids = {} ");
-            int idx = 1;
-            foreach(YellowstonePathology.Business.Billing.Model.CPTCodeWithModifier codeWithModifier in codesAndModifiers)
-            {
-                string value = "ids[" + idx.ToString() + "] = '" + codeWithModifier.Code + "' ";
-                script.Append(value);
-                idx++;
-            }
-            script.Append("local result = {} ");
-            script.Append("for i, item in ipairs(ids) do ");
-            script.Append("result[i] = redis.call('json.get', ids[i]) ");
-            script.Append("end ");
-            script.Append("return result ");
-            LuaScript result = LuaScript.Prepare(script.ToString());
-            return result;
-        }       
+        }               
     }
 }

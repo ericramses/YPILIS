@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.Audit.Model
             this.m_DescriptionKeyWords = new YellowstonePathology.Business.Surgical.KeyWordCollection { "colon", "cecum", "appendix", "rectum" };
             this.m_DiagnosisKeyWords = new YellowstonePathology.Business.Surgical.KeyWordCollection { "carcinoma", "adenocarcinoma" };
             this.m_CptCodeCollection = new Billing.Model.CptCodeCollection();
-            this.m_CptCodeCollection.Add(Billing.Model.CptCodeCollection.Get("88309", null));
+            this.m_CptCodeCollection.Add(Business.Billing.Model.CptCodeCollection.Instance.GetClone("88309", null));
         }
 
         public override void Run()

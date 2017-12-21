@@ -36,7 +36,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 
             this.m_CMMCDistributionIsImplemented = true;
 
-            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Billing.Model.CptCodeCollection.Get("88377", null), 1);
+            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Business.Billing.Model.CptCodeCollection.Instance.GetClone("88377", null), 1);
             this.m_PanelSetCptCodeCollection.Add(panelSetCptCode);
 
             string task1Description = "Cut 2 unstained slides and an after H&E. Give to molecular.";

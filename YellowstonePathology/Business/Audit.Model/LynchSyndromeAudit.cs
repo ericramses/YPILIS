@@ -26,17 +26,17 @@ namespace YellowstonePathology.Business.Audit.Model
             this.m_ColorectalDescriptionKeyWords = new YellowstonePathology.Business.Surgical.KeyWordCollection { "colon", "cecum", "appendix", "rectum" };
             this.m_ColorectalDiagnosisKeyWords = new YellowstonePathology.Business.Surgical.KeyWordCollection { "carcinoma", "adenocarcinoma" };
             this.m_ColorectalCptCodeCollection = new Billing.Model.CptCodeCollection();
-            this.m_ColorectalCptCodeCollection.Add(Billing.Model.CptCodeCollection.Get("88309", null));
+            this.m_ColorectalCptCodeCollection.Add(Business.Billing.Model.CptCodeCollection.Instance.Get("88309"));
 
             this.m_EndometrialDescriptionKeyWords = new YellowstonePathology.Business.Surgical.KeyWordCollection { "endometrium" };
             this.m_EndometrialDiagnosisKeyWords = new YellowstonePathology.Business.Surgical.KeyWordCollection { "endometrioid carcinoma", "endometrioid adenocarcinoma" };
             this.m_EndometrialCptCodeCollection = new Billing.Model.CptCodeCollection();
-            this.m_EndometrialCptCodeCollection.Add(Billing.Model.CptCodeCollection.Get("88305", null));
+            this.m_EndometrialCptCodeCollection.Add(Business.Billing.Model.CptCodeCollection.Instance.Get("88305"));
 
             this.m_UterineDescriptionKeyWords = new YellowstonePathology.Business.Surgical.KeyWordCollection { "uterus" };
             this.m_UterineDiagnosisKeyWords = new YellowstonePathology.Business.Surgical.KeyWordCollection { "endometrioid carcinoma", "endometrioid adenocarcinoma" };
             this.m_UterineCptCodeCollection = new Billing.Model.CptCodeCollection();
-            this.m_UterineCptCodeCollection.Add(Billing.Model.CptCodeCollection.Get("88309", null));
+            this.m_UterineCptCodeCollection.Add(Business.Billing.Model.CptCodeCollection.Instance.Get("88309"));
         }
 
         public override void Run()
