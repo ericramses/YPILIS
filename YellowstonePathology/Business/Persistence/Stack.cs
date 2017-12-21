@@ -197,8 +197,7 @@ namespace YellowstonePathology.Business.Persistence
 
         public void SubscribeToChannel(Business.Test.AccessionOrder accessionOrder)
         {
-            //Store.RedisServerDeprecated.Instance.Subscriber.Subscribe(accessionOrder.MasterAccessionNo, (channel, message) =>
-            Store.RedisServerDev.Instance.Subscriber.Subscribe(accessionOrder.MasterAccessionNo, (channel, message) =>
+            Store.RedisServerDeprecated.Instance.Subscriber.Subscribe(accessionOrder.MasterAccessionNo, (channel, message) =>
             {
                 System.Windows.Application.Current.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
                 {

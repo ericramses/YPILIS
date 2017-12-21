@@ -35,7 +35,7 @@ namespace YellowstonePathology.Business.Test
         private void Build()
         {
             List<AccessionLock> list = new List<AccessionLock>();
-            LuaScript prepared = YellowstonePathology.Store.RedisDB.LuaScriptHGetAll("*");
+            LuaScript prepared = YellowstonePathology.Store.RedisDB.LuaScriptHGetAll("AccessionLock*");
 
             foreach(RedisValue[] r in (RedisResult[])Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.Lock).ScriptEvaluate(prepared))
             {
