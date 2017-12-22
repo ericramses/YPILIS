@@ -3894,6 +3894,10 @@
     <Compile Include="UI\Test\HPV1618ByPCRResultPage.xaml.cs">
       <DependentUpon>HPV1618ByPCRResultPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Test\IgHMFABByFishResultPage.xaml.cs">
+      <DependentUpon>IgHMFABByFishResultPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Test\IgHMFABByFishResultPath.cs" />
     <Compile Include="UI\Test\InformalConsultResultPage.xaml.cs">
       <DependentUpon>InformalConsultResultPage.xaml</DependentUpon>
     </Compile>
@@ -5838,6 +5842,10 @@
     <Page Include="UI\Test\HPV1618ByPCRResultPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Test\IgHMFABByFishResultPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Test\InformalConsultResultPage.xaml">
       <SubType>Designer</SubType>

@@ -12,7 +12,7 @@ namespace YellowstonePathology.Business.Test.IgHMFABByFish
     {
         private string m_Result;
         private string m_Interpretation;
-        private string m_ProbeSet;
+        private string m_ProbeSetDetail;
         private string m_Method;
         private string m_ASRComment;
         private string m_NucleiScored;
@@ -70,15 +70,15 @@ namespace YellowstonePathology.Business.Test.IgHMFABByFish
 
         [PersistentProperty()]
         [PersistentDataColumnProperty(true, "2000", "null", "varchar")]
-        public string ProbeSet
+        public string ProbeSetDetail
         {
-            get { return this.m_ProbeSet; }
+            get { return this.m_ProbeSetDetail; }
             set
             {
-                if (this.m_ProbeSet != value)
+                if (this.m_ProbeSetDetail != value)
                 {
-                    this.m_ProbeSet = value;
-                    this.NotifyPropertyChanged("ProbeSet");
+                    this.m_ProbeSetDetail = value;
+                    this.NotifyPropertyChanged("ProbeSetDetail");
                 }
             }
         }

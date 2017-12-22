@@ -30,7 +30,7 @@ namespace YellowstonePathology.Business.Test.IgHMFABByFish
 
             this.ReplaceText("report_result", panelSetOrder.Result);
             this.ReplaceText("report_interpretation", panelSetOrder.Interpretation);
-            this.ReplaceText("probe_set", panelSetOrder.ProbeSet);
+            this.ReplaceText("probe_set", panelSetOrder.ProbeSetDetail);
             this.ReplaceText("nuclei_scored", panelSetOrder.NucleiScored);
             this.ReplaceText("report_method", panelSetOrder.Method);
             this.ReplaceText("report_reference", panelSetOrder.ReportReferences);

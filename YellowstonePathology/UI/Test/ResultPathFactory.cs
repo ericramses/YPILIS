@@ -210,7 +210,10 @@ namespace YellowstonePathology.UI.Test
 				case 179:
 					result = new NRASMutationAnalysisResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
-				case 181:
+                case 180:
+                    result = new IgHMFABByFishResultPath(reportNo, accessionOrder, pageNavigator, window);
+                    break;
+                case 181:
 					result = new CKITResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
 				case 183:
