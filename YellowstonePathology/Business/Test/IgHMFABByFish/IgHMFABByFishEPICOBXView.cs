@@ -39,12 +39,6 @@ namespace YellowstonePathology.Business.Test.IgHMFABByFish
             this.AddNextObxElement("Nuclei Scored: " + testOrder.NucleiScored, document, "F");
             this.AddNextObxElement("", document, "F");
 
-            this.HandleLongString("Method: " + testOrder.Method, document, "F");
-            this.AddNextObxElement("", document, "F");
-
-            this.HandleLongString("References: " + testOrder.ReportReferences, document, "F");
-            this.AddNextObxElement("", document, "F");
-
             string locationPerformed = testOrder.GetLocationPerformedComment();
             this.HandleLongString(locationPerformed, document, "F");
             this.AddNextObxElement(string.Empty, document, "F");

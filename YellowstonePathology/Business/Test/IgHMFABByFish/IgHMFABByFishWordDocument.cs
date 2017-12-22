@@ -32,8 +32,8 @@ namespace YellowstonePathology.Business.Test.IgHMFABByFish
             this.ReplaceText("report_interpretation", panelSetOrder.Interpretation);
             this.ReplaceText("probe_set", panelSetOrder.ProbeSetDetail);
             this.ReplaceText("nuclei_scored", panelSetOrder.NucleiScored);
-            this.ReplaceText("report_method", panelSetOrder.Method);
-            this.ReplaceText("report_reference", panelSetOrder.ReportReferences);
+            //this.ReplaceText("report_method", panelSetOrder.Method);
+            //this.ReplaceText("report_reference", panelSetOrder.ReportReferences);
             this.ReplaceText("asr_comment", panelSetOrder.ASRComment);
 
             YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);
