@@ -110,7 +110,6 @@ namespace YellowstonePathology.Business.Test
 
             Store.RedisDB scanDb = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.Lock);
             var transaction = scanDb.DataBase.CreateTransaction();
-            //var transaction = RedisLocksConnection.Instance.LocksDb.CreateTransaction();
             transaction.AddCondition(Condition.HashExists(this.HashKey, "MasterAccessionNo"));            
             transaction.KeyDeleteAsync(this.HashKey);
             bool committed = transaction.Execute();            
@@ -123,9 +122,8 @@ namespace YellowstonePathology.Business.Test
             hashFields[0] = new HashEntry("MasterAccessionNo", this.MasterAccessionNo);
             hashFields[1] = new HashEntry("Address", address);
             hashFields[2] = new HashEntry("TimeAquired", DateTime.Now.ToString());
-            Store.RedisDB lockDb = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.EmbeddingScan);
+            Store.RedisDB lockDb = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.Lock);
             lockDb.DataBase.HashSet(this.HashKey, hashFields);
-            //RedisLocksConnection.Instance.LocksDb.HashSet(this.HashKey, hashFields);
 
             this.m_Address = address;
             this.m_TimeAquired = DateTime.Now;            
@@ -142,7 +140,6 @@ namespace YellowstonePathology.Business.Test
         {
             Store.RedisDB lockDb = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.Lock);
             HashEntry[] hashFields = lockDb.DataBase.HashGetAll(this.HashKey);
-            //HashEntry[] hashFields = RedisLocksConnection.Instance.LocksDb.HashGetAll(this.HashKey);
 
             this.m_MasterAccessionNo = hashFields[0].Value;
             this.m_Address = hashFields[1].Value;                        
@@ -154,7 +151,6 @@ namespace YellowstonePathology.Business.Test
         {
             Store.RedisDB lockDb = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.Lock);
             bool result = lockDb.DataBase.KeyExists(this.HashKey);
-            //bool result = RedisLocksConnection.Instance.LocksDb.KeyExists(this.HashKey);            
             return result;
         }
 
@@ -167,7 +163,6 @@ namespace YellowstonePathology.Business.Test
 
             Store.RedisDB lockDb = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.Lock);
             var transaction = lockDb.DataBase.CreateTransaction();
-            //var transaction = RedisLocksConnection.Instance.LocksDb.CreateTransaction();
             transaction.AddCondition(Condition.HashNotExists(this.HashKey, "MasterAccessionNo"));
             transaction.HashSetAsync(this.HashKey, hashFields);
             bool committed = transaction.Execute();            

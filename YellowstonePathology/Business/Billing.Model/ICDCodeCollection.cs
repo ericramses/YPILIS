@@ -140,7 +140,7 @@ namespace YellowstonePathology.Business.Billing.Model
         {
             ICDCodeCollection result = new ICDCodeCollection();
                         
-            Store.RedisDB cptDb = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.CPTCode);
+            Store.RedisDB cptDb = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.ICDCode);
             foreach (string jString in (string[])cptDb.GetAllJSONKeys())
             {
                 JObject jObject = JsonConvert.DeserializeObject<JObject>(jString);
