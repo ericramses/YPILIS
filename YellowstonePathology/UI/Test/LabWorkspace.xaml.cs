@@ -793,10 +793,11 @@ namespace YellowstonePathology.UI.Test
 				YellowstonePathology.Business.Search.ReportSearchList selectedItemList = new Business.Search.ReportSearchList();
 				foreach (YellowstonePathology.Business.Search.ReportSearchItem item in ListViewCaseList.SelectedItems)
 				{
-					selectedItemList.Add(item);
+					selectedItemList.Add(item);                    
 				}
 
-                this.m_LabUI.PrintCaseList(panelSet.PanelSetName, DateTime.Today, selectedItemList);
+                YellowstonePathology.Business.Search.ReportSearchItem firstItem = (YellowstonePathology.Business.Search.ReportSearchItem)ListViewCaseList.SelectedItems[0];
+                this.m_LabUI.PrintCaseList(firstItem.PanelSetName, DateTime.Today, selectedItemList);
             }
 			else
 			{

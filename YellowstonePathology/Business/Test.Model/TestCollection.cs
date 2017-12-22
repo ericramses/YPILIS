@@ -418,16 +418,14 @@ namespace YellowstonePathology.Business.Test.Model
 
         private static TestCollection FromRedis()
         {
-            YellowstonePathology.Business.Test.Model.TestCollection result = new TestCollection();
-            LuaScript prepared = YellowstonePathology.Store.RedisDB.LuaScriptJsonGet("*");
-
-            foreach (string jString in (string[])YellowstonePathology.Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.Stain).ScriptEvaluate(prepared))
+            YellowstonePathology.Business.Test.Model.TestCollection result = new TestCollection();                        
+            Store.RedisDB stainDb = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.Stain);
+            foreach (string jString in (string[])stainDb.GetAllJSONKeys())
             {
                 JObject jObject = JsonConvert.DeserializeObject<JObject>(jString);
                 Test  test = JsonTestFactory.FromJson(jObject);
                 result.Add(test);
-            }
-
+            }            
             return result;
         }
     }

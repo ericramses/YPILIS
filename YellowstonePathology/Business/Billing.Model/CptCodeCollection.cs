@@ -13,8 +13,27 @@ namespace YellowstonePathology.Business.Billing.Model
 {
     public class CptCodeCollection : ObservableCollection<CptCode>
     {
+        private static CptCodeCollection instance = null;
+        private static readonly object padlock = new object();
+
         public CptCodeCollection()
         {
+
+        }
+
+        public static CptCodeCollection Instance
+        {
+            get
+            {
+                lock (padlock)
+                {
+                    if (instance == null)
+                    {
+                        instance = GetAllCodes();
+                    }
+                    return instance;
+                }
+            }
         }
 
         public bool IsMedicareCode(string cptCode)
@@ -23,26 +42,67 @@ namespace YellowstonePathology.Business.Billing.Model
             return result;
         }
 
-        public static CptCode Get(string code, string modifier)
+        public void AddCloneWithModifier(string code, string modifier)
+        {            
+            foreach(CptCode cptCode in this)
+            {
+                if(cptCode.Code == code)
+                {
+                    CptCode result = CptCode.Clone(cptCode);
+                    CptCodeModifier cptCodeModifier = new CptCodeModifier();
+                    cptCodeModifier.Modifier = modifier;
+                    result.Modifier = cptCodeModifier;
+                    this.Add(result);
+                    break;
+                }
+            }                        
+        }        
+
+        public CptCode GetClone(string code, string modifier)
         {
             CptCode result = null;
-            RedisResult redisResult = YellowstonePathology.Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.CPTCode).Execute("json.get", new object[] { code, "." });
-            JObject jObject = JsonConvert.DeserializeObject<JObject>((string)redisResult);
-            if (jObject["codeType"].ToString() == "PQRS")
+            foreach(CptCode cptCode in this)
             {
-                result = CptCodeFactory.PQRSFromJson(jObject, modifier);
-            }
-            else
-            {
-                result = CptCodeFactory.CptFromJson(jObject, modifier);
+                if(cptCode.Code == code)
+                {
+                    result = CptCode.Clone(cptCode);
+                    CptCodeModifier cptCodeModifier = new CptCodeModifier();
+                    cptCodeModifier.Modifier = modifier;
+                    result.Modifier = cptCodeModifier;
+                    break;
+                }
             }
             return result;
         }
 
-        public static CptCodeCollection GetCptCodeCollection(FeeScheduleEnum feeSchedule)
+        public CptCode Get(string code)
+        {
+            CptCode result = null;
+            foreach (CptCode cptCode in this)
+            {
+                if (cptCode.Code == code)
+                {
+                    result = cptCode;                    
+                    break;
+                }
+            }
+            return result;
+        }
+
+        public CptCodeCollection Clone()
         {
             CptCodeCollection result = new CptCodeCollection();
-            foreach (CptCode cptCode in GetAll(true, true))
+            foreach(CptCode cptCode in this)
+            {
+                result.Add(CptCode.Clone(cptCode));
+            }
+            return result;
+        }
+
+        public CptCodeCollection GetCptCodeCollection(FeeScheduleEnum feeSchedule)
+        {
+            CptCodeCollection result = new CptCodeCollection();
+            foreach (CptCode cptCode in this)
             {
                 if (cptCode.FeeSchedule == feeSchedule)
                 {
@@ -61,60 +121,32 @@ namespace YellowstonePathology.Business.Billing.Model
                 result.Add(cptCode);
             }
             return result;
-        }
+        }        
 
-        public static CptCodeCollection GetCollection(Collection<CPTCodeWithModifier> codesAndModifiers)
-        {
-            CptCodeCollection result = new Model.CptCodeCollection();
-            LuaScript prepared = YellowstonePathology.Store.RedisDB.LuaScriptJsonGetKeys(codesAndModifiers);
-            string[] redisResults = (string[])YellowstonePathology.Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.CPTCode).ScriptEvaluate(prepared);
-            for (int idx = 0; idx < redisResults.Length; idx ++)
-            {
-                CPTCodeWithModifier cptCodeWithModifier = codesAndModifiers[idx];
-                JObject jObject = JsonConvert.DeserializeObject<JObject>(redisResults[idx]);
-                if (jObject["codeType"].ToString() == "PQRS")
-                {
-                    PQRSCode pqrsCode = CptCodeFactory.PQRSFromJson(jObject, cptCodeWithModifier.Modifier);
-                    result.Add(pqrsCode);
-                }
-                else
-                {
-                    CptCode cptCode = CptCodeFactory.CptFromJson(jObject, cptCodeWithModifier.Modifier);
-                    result.Add(cptCode);
-                }
-            }
-            return result;
-        }
-
-        public static CptCodeCollection GetAll(bool includePqrs, bool expandModifiers)
+        public static CptCodeCollection GetAllCodes()
         {
             YellowstonePathology.Business.Billing.Model.CptCodeCollection result = new Model.CptCodeCollection();                        
-            LuaScript prepared = YellowstonePathology.Store.RedisDB.LuaScriptJsonGet("*");
-
-            foreach (string jString in (string[])YellowstonePathology.Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.CPTCode).ScriptEvaluate(prepared))
-            {
+            
+            Store.RedisDB cptDb = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.CPTCode);
+            foreach (string jString in (string[])cptDb.GetAllJSONKeys())
+            {                
                 JObject jObject = JsonConvert.DeserializeObject<JObject>(jString);
                 if (jObject["codeType"].ToString() == "PQRS")
-                {
-                    if (includePqrs == true)
-                    {
-                        PQRSCode pqrsCode = CptCodeFactory.PQRSFromJson(jObject, null);
-                        result.Add(pqrsCode);
-                        if (expandModifiers == true) ExpandPQRSModifiers(jObject, result);
-                    }
+                {                    
+                    PQRSCode pqrsCode = CptCodeFactory.PQRSFromJson(jObject, null);
+                    result.Add(pqrsCode);                    
                 }
                 else
                 {
                     CptCode cptCode = CptCodeFactory.CptFromJson(jObject, null);
-                    result.Add(cptCode);
-                    if (expandModifiers == true) ExpandCptModifiers(jObject, result);
-                }
+                    result.Add(cptCode);                
+                }             
             }
 
             return result;
         }
 
-        private static void ExpandCptModifiers(JObject jObject, CptCodeCollection cptCodeCollection)
+        private void ExpandCptModifiers(JObject jObject, CptCodeCollection cptCodeCollection)
         {
             foreach (JObject codeModifier in jObject["modifiers"])
             {
@@ -124,7 +156,7 @@ namespace YellowstonePathology.Business.Billing.Model
             }
         }
 
-        private static void ExpandPQRSModifiers(JObject jObject, CptCodeCollection cptCodeCollection)
+        private void ExpandPQRSModifiers(JObject jObject, CptCodeCollection cptCodeCollection)
         {
             foreach (JObject codeModifier in jObject["modifiers"])
             {

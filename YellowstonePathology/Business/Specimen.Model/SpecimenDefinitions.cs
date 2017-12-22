@@ -64,7 +64,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_LabFixation = null;
             this.m_ClientFixation = null;
             this.m_RequiresGrossExamination = false;
-            this.m_CPTCode = Billing.Model.CptCodeCollection.Get("88112", null);
+            this.m_CPTCode = Business.Billing.Model.CptCodeCollection.Instance.GetClone("88112", null);
         }
     }
 
@@ -78,7 +78,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_LabFixation = null;
             this.m_ClientFixation = null;
             this.m_RequiresGrossExamination = false;
-            this.m_CPTCode = Billing.Model.CptCodeCollection.Get("85060", null);
+            this.m_CPTCode = Business.Billing.Model.CptCodeCollection.Instance.GetClone("85060", null);
         }
     }
 
@@ -105,7 +105,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_LabFixation = null;
             this.m_ClientFixation = null;
             this.m_RequiresGrossExamination = false;
-            this.m_CPTCode = Billing.Model.CptCodeCollection.Get("88300", null);
+            this.m_CPTCode = Business.Billing.Model.CptCodeCollection.Instance.GetClone("88300", null);
         }
     }
 
@@ -119,7 +119,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_LabFixation = null;
             this.m_ClientFixation = null;
             this.m_RequiresGrossExamination = true;
-            this.m_CPTCode = Billing.Model.CptCodeCollection.Get("88112", null);
+            this.m_CPTCode = Business.Billing.Model.CptCodeCollection.Instance.GetClone("88112", null);
         }
     }
 
@@ -133,7 +133,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_LabFixation = null;
             this.m_ClientFixation = null;
             this.m_RequiresGrossExamination = true;
-            this.m_CPTCode = Billing.Model.CptCodeCollection.Get("88173", null);
+            this.m_CPTCode = Business.Billing.Model.CptCodeCollection.Instance.GetClone("88173", null);
         }
     }
 
@@ -160,7 +160,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = "Formalin";
             this.m_RequiresGrossExamination = true;
-            this.m_CPTCode = Billing.Model.CptCodeCollection.Get("88305", null);
+            this.m_CPTCode = Business.Billing.Model.CptCodeCollection.Instance.GetClone("88305", null);
         }
     }
 
@@ -187,7 +187,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = "Formalin";
             this.m_RequiresGrossExamination = true;
-            this.m_CPTCode = Billing.Model.CptCodeCollection.Get("88305", null);
+            this.m_CPTCode = Business.Billing.Model.CptCodeCollection.Instance.GetClone("88305", null);
         }
     }
 
@@ -201,7 +201,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = "Formalin";
             this.m_RequiresGrossExamination = true;
-            this.m_CPTCode = Billing.Model.CptCodeCollection.Get("88305", null);
+            this.m_CPTCode = Business.Billing.Model.CptCodeCollection.Instance.GetClone("88305", null);
         }
     }
 
@@ -215,7 +215,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = null;
             this.m_RequiresGrossExamination = true;
-            this.m_CPTCode = Billing.Model.CptCodeCollection.Get("88304", null);
+            this.m_CPTCode = Business.Billing.Model.CptCodeCollection.Instance.GetClone("88304", null);
         }
     }
     
@@ -229,7 +229,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = "Formalin";
             this.m_RequiresGrossExamination = true;
-            this.m_CPTCode = Billing.Model.CptCodeCollection.Get("88305", null);
+            this.m_CPTCode = Business.Billing.Model.CptCodeCollection.Instance.GetClone("88305", null);
         }
     }
     public class SkinExcisionUnorientedBiopsy : Specimen
@@ -242,7 +242,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = "Formalin";
             this.m_RequiresGrossExamination = true;
-            this.m_CPTCode = Billing.Model.CptCodeCollection.Get("88305", null);
+            this.m_CPTCode = Business.Billing.Model.CptCodeCollection.Instance.GetClone("88305", null);
         }
     }
     
@@ -256,7 +256,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = "Formalin";
             this.m_RequiresGrossExamination = true;
-            this.m_CPTCode = Billing.Model.CptCodeCollection.Get("88305", null);
+            this.m_CPTCode = Business.Billing.Model.CptCodeCollection.Instance.GetClone("88305", null);
         }
     }
     public class SkinExcisionUnorientedwithCurettingsBiopsy : Specimen
@@ -269,7 +269,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = "Formalin";
             this.m_RequiresGrossExamination = true;
-            this.m_CPTCode = Billing.Model.CptCodeCollection.Get("88305", null);
+            this.m_CPTCode = Business.Billing.Model.CptCodeCollection.Instance.GetClone("88305", null);
         }
     }
 
@@ -280,7 +280,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_SpecimenId = "SPCMNPRSTTTUR";
             this.m_SpecimenName = "Prostate TUR";
             this.m_Description = "Prostate, transurethral resection";
-            this.m_CPTCode = Billing.Model.CptCodeCollection.Get("88305", null);
+            this.m_CPTCode = Business.Billing.Model.CptCodeCollection.Instance.GetClone("88305", null);
         }
     }
 
@@ -291,7 +291,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_SpecimenId = "SPCMNBLDDRTTUR";
             this.m_SpecimenName = "Bladder TUR";
             this.m_Description = "Bladder, transurethral resection";
-            this.m_CPTCode = Billing.Model.CptCodeCollection.Get("88307", null);
+            this.m_CPTCode = Business.Billing.Model.CptCodeCollection.Instance.GetClone("88307", null);
         }
     }
 
@@ -302,7 +302,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_SpecimenId = "SPCMNPRSTTRDCLRSCTN";
             this.m_SpecimenName = "Prostate Radical Resection";
             this.m_Description = "Prostate, radical resection";
-            this.m_CPTCode = Billing.Model.CptCodeCollection.Get("88309", null);
+            this.m_CPTCode = Business.Billing.Model.CptCodeCollection.Instance.GetClone("88309", null);
         }
     }
 
@@ -313,7 +313,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_SpecimenId = "SPCMNPRSTTXRDCLRSCTN";
             this.m_SpecimenName = "Prostate Except Radical Resection";
             this.m_Description = "Prostate, except radical resection";
-            this.m_CPTCode = Billing.Model.CptCodeCollection.Get("88307", null);
+            this.m_CPTCode = Business.Billing.Model.CptCodeCollection.Instance.GetClone("88307", null);
         }
     }
 
@@ -326,7 +326,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_Description = "Prostate, [right/left/base], needle biopsy";
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = "B+ Fixative";
-            this.m_CPTCode = Billing.Model.CptCodeCollection.Get("88305", null);
+            this.m_CPTCode = Business.Billing.Model.CptCodeCollection.Instance.GetClone("88305", null);
         }
     }
 
@@ -339,7 +339,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_Description = "Appendix, excision";
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = null;
-            this.m_CPTCode = Billing.Model.CptCodeCollection.Get("88304", null);
+            this.m_CPTCode = Business.Billing.Model.CptCodeCollection.Instance.GetClone("88304", null);
         }
     }
 
@@ -392,7 +392,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = null;
             this.m_RequiresGrossExamination = true;
-            this.m_CPTCode = Billing.Model.CptCodeCollection.Get("88305", null);
+            this.m_CPTCode = Business.Billing.Model.CptCodeCollection.Instance.GetClone("88305", null);
         }
     }
 
@@ -406,7 +406,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = null;
             this.m_RequiresGrossExamination = true;
-            this.m_CPTCode = Billing.Model.CptCodeCollection.Get("88305", null);
+            this.m_CPTCode = Business.Billing.Model.CptCodeCollection.Instance.GetClone("88305", null);
         }
     }
 
@@ -420,7 +420,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = null;
             this.m_RequiresGrossExamination = true;
-            this.m_CPTCode = Billing.Model.CptCodeCollection.Get("88305", null);
+            this.m_CPTCode = Business.Billing.Model.CptCodeCollection.Instance.GetClone("88305", null);
         }
     }
 
@@ -434,7 +434,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = null;
             this.m_RequiresGrossExamination = true;
-            this.m_CPTCode = Billing.Model.CptCodeCollection.Get("88305", null);
+            this.m_CPTCode = Business.Billing.Model.CptCodeCollection.Instance.GetClone("88305", null);
         }
     }
 
@@ -448,7 +448,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = null;
             this.m_RequiresGrossExamination = true;
-            this.m_CPTCode = Billing.Model.CptCodeCollection.Get("88305", null);
+            this.m_CPTCode = Business.Billing.Model.CptCodeCollection.Instance.GetClone("88305", null);
         }
     }
 
@@ -462,7 +462,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = null;
             this.m_RequiresGrossExamination = true;
-            this.m_CPTCode = Billing.Model.CptCodeCollection.Get("88305", null);
+            this.m_CPTCode = Business.Billing.Model.CptCodeCollection.Instance.GetClone("88305", null);
         }
     }
 
@@ -477,7 +477,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
                 this.m_LabFixation = "Formalin";
                 this.m_ClientFixation = null;
                 this.m_RequiresGrossExamination = true;
-                this.m_CPTCode = Billing.Model.CptCodeCollection.Get("88307", null);
+                this.m_CPTCode = Business.Billing.Model.CptCodeCollection.Instance.GetClone("88307", null);
             }
         }
         
@@ -491,7 +491,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
                 this.m_LabFixation = "Formalin";
                 this.m_ClientFixation = null;
                 this.m_RequiresGrossExamination = true;
-                this.m_CPTCode = Billing.Model.CptCodeCollection.Get("88305", null);
+                this.m_CPTCode = Business.Billing.Model.CptCodeCollection.Instance.GetClone("88305", null);
                 this.m_CPTCodeQuantity = 2;
             }
         }
@@ -598,7 +598,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
                 this.m_LabFixation = "Formalin";
                 this.m_ClientFixation = null;
                 this.m_RequiresGrossExamination = true;
-                this.m_CPTCode = Billing.Model.CptCodeCollection.Get("88305", null);
+                this.m_CPTCode = Business.Billing.Model.CptCodeCollection.Instance.GetClone("88305", null);
             }
         }
         
@@ -651,7 +651,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
                 this.m_LabFixation = "Formalin";
                 this.m_ClientFixation = null;
                 this.m_RequiresGrossExamination = true;
-                this.m_CPTCode = Billing.Model.CptCodeCollection.Get("88305", null);
+                this.m_CPTCode = Business.Billing.Model.CptCodeCollection.Instance.GetClone("88305", null);
             }
         }
 
@@ -665,7 +665,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
                 this.m_LabFixation = "Formalin";
                 this.m_ClientFixation = null;
                 this.m_RequiresGrossExamination = true;
-                this.m_CPTCode = Billing.Model.CptCodeCollection.Get("88305", null);
+                this.m_CPTCode = Business.Billing.Model.CptCodeCollection.Instance.GetClone("88305", null);
             }
         }
     public class Consult : Specimen

@@ -34,10 +34,12 @@ namespace YellowstonePathology.Business.Test
 
         private void Build()
         {
-            List<AccessionLock> list = new List<AccessionLock>();
-            LuaScript prepared = YellowstonePathology.Store.RedisDB.LuaScriptHGetAll("*");
+            List<AccessionLock> list = new List<AccessionLock>();            
 
-            foreach(RedisValue[] r in (RedisResult[])Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.Lock).ScriptEvaluate(prepared))
+            Store.RedisDB locksDb = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.Lock);
+            RedisResult[] redisResult = (RedisResult[])locksDb.GetAllHashes();
+
+            foreach (RedisValue[] r in redisResult)
             {
                 HashEntry he1 = new HashEntry(r[0], r[1]);
                 HashEntry he2 = new HashEntry(r[2], r[3]);
