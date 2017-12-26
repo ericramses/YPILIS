@@ -14,7 +14,7 @@ namespace YellowstonePathology.Store
         //private static string MODE = "DEV";
         private static string MODE = "PROD";                
 
-        private RedisStore m_RedisStore;
+        private RedisStore m_RedisStore;        
 
         AppDataStore()
         {
