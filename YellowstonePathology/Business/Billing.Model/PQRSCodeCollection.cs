@@ -71,6 +71,7 @@ namespace YellowstonePathology.Business.Billing.Model
         public static PQRSCode Get(string code, string modifier)
         {
             PQRSCode result = (PQRSCode)Store.AppDataStore.Instance.CPTCodeCollection.GetClone(code, modifier);
+            result.SetModifier(modifier);
             return result;
         }
     }

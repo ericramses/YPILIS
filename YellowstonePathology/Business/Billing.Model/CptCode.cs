@@ -22,9 +22,12 @@ namespace YellowstonePathology.Business.Billing.Model
         protected string m_SVHCDMCode;
         protected string m_SVHCDMDescription;
 
+        protected List<CptCodeModifier> m_Modifiers;
+
+
         public CptCode()
         {
-            this.m_Modifier = new CptCodeModifier();
+            //this.m_Modifier = new CptCodeModifier();
             this.m_HasMedicareQuantityLimit = false;
         }
 
@@ -135,6 +138,13 @@ namespace YellowstonePathology.Business.Billing.Model
             set { this.m_SVHCDMDescription = value; }
         }
 
+        [PersistentProperty()]
+        public List<CptCodeModifier> Modifiers
+        {
+            get { return this.m_Modifiers; }
+            set { this.m_Modifiers = value; }
+        }
+
         public bool HasBillableProfessionalComponent()
         {
             bool result = true;
@@ -197,9 +207,19 @@ namespace YellowstonePathology.Business.Billing.Model
             return result;
         }
 
-        public static CptCode Clone(CptCode cptCodeIn)
+        public virtual CptCode Clone(CptCode cptCodeIn)
         {
             return (CptCode)cptCodeIn.MemberwiseClone();
+        }
+
+        public virtual void SetModifier(string modifier)
+        {
+            if (string.IsNullOrEmpty(modifier) == false)
+            {
+                CptCodeModifier cptCodeModifier = new CptCodeModifier();
+                cptCodeModifier.Modifier = modifier;
+                this.Modifier = cptCodeModifier;
+            }
         }
     }
 }

@@ -31,10 +31,8 @@ namespace YellowstonePathology.Business.Billing.Model
             {
                 if (cptCode.Code == code)
                 {
-                    CptCode result = CptCode.Clone(cptCode);
-                    CptCodeModifier cptCodeModifier = new CptCodeModifier();
-                    cptCodeModifier.Modifier = modifier;
-                    result.Modifier = cptCodeModifier;
+                    CptCode result = cptCode.Clone(cptCode);
+                    result.SetModifier(modifier);
                     this.Add(result);
                     break;
                 }
@@ -48,10 +46,8 @@ namespace YellowstonePathology.Business.Billing.Model
             {
                 if(cptCode.Code == code)
                 {
-                    result = CptCode.Clone(cptCode);
-                    CptCodeModifier cptCodeModifier = new CptCodeModifier();
-                    cptCodeModifier.Modifier = modifier;
-                    result.Modifier = cptCodeModifier;
+                    result = cptCode.Clone(cptCode);
+                    result.SetModifier(modifier);
                     break;
                 }
             }
@@ -79,7 +75,7 @@ namespace YellowstonePathology.Business.Billing.Model
             CptCodeCollection result = new CptCodeCollection();
             foreach(CptCode cptCode in this)
             {
-                result.Add(CptCode.Clone(cptCode));
+                result.Add(cptCode.Clone(cptCode));
             }
             return result;
         }
