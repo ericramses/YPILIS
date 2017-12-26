@@ -109,6 +109,22 @@ namespace YellowstonePathology.Business.Test.Model
             return result;
         }
 
+        public int GetBillableGradedDualStainCount()
+        {
+            int result = 0;            
+            YellowstonePathology.Business.Test.Model.TestCollection gradedTestCollection = YellowstonePathology.Business.Test.Model.TestCollection.GetGradedTests();
+
+            foreach (YellowstonePathology.Business.Test.Model.TestOrder testOrder in this)
+            {
+                if (gradedTestCollection.Exists(testOrder.TestId) == true && testOrder.OrderedAsDual == true)
+                {
+                    result += 1;
+                }
+            }
+
+            return result;
+        }
+
         public YellowstonePathology.Business.Test.Model.TestOrderCollection GetBillableGradeStains(bool includeOrderedAsDual)
         {
             YellowstonePathology.Business.Test.Model.TestOrderCollection result = new TestOrderCollection();

@@ -135,7 +135,7 @@ namespace YellowstonePathology.Business.Billing.Model
             int result = 0;
             foreach (StainSpecimen stainSpecimen in this)
             {                
-                int dualStainCount = stainSpecimen.GetBillableDualStainCount(true);
+                int dualStainCount = stainSpecimen.GetBillableGradedDualStainCount(true);
                 result += dualStainCount;            
             }
             return result;

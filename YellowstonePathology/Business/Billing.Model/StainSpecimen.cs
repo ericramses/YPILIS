@@ -78,7 +78,13 @@ namespace YellowstonePathology.Business.Billing.Model
 			return result;
 		}
 
-		public virtual int GetBillableSinglePlexIHCTestOrderCount()
+        public virtual int GetBillableGradedDualStainCount(bool includeDualsWithGradedStains)
+        {
+            int result = this.TestOrderCollection.GetBillableGradedDualStainCount();
+            return result;
+        }
+
+        public virtual int GetBillableSinglePlexIHCTestOrderCount()
 		{            
             YellowstonePathology.Business.Test.Model.TestOrderCollection testOrderCollection = this.TestOrderCollection.GetBillableSinglePlexIHCTestOrders();
             int result = testOrderCollection.GetUniqueTestCount();
