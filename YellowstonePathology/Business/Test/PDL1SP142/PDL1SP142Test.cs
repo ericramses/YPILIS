@@ -29,7 +29,7 @@ namespace YellowstonePathology.Business.Test.PDL1SP142
             string taskDescription = "Collect paraffin block from Histology and send to Neo.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskFedexShipment(YellowstonePathology.Business.Task.Model.TaskAssignment.Flow, taskDescription, new Facility.Model.NeogenomicsIrvine()));
 
-            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Business.Billing.Model.CptCodeCollection.Instance.GetClone("88342", null), 1);
+            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88342", null), 1);
             this.m_PanelSetCptCodeCollection.Add(panelSetCptCode);
 
             this.m_TechnicalComponentFacility = new YellowstonePathology.Business.Facility.Model.NeogenomicsIrvine();

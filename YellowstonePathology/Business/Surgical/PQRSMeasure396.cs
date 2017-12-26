@@ -10,7 +10,7 @@ namespace YellowstonePathology.Business.Surgical
         public PQRSMeasure396()
         {            
 			this.m_Header = "Lung Cancer Reporting #396";
-            this.m_CptCodeCollection.Add(Business.Billing.Model.CptCodeCollection.Instance.GetClone("88309", null));            
+            this.m_CptCodeCollection.Add(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88309", null));            
             this.m_PQRSAgeDefinition = PQRSAgeDefinitionEnum.Patients18To75;
 
             this.m_PQRSCodeCollection.Add(Billing.Model.PQRSCodeCollection.Get("G9422", null));

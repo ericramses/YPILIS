@@ -772,44 +772,7 @@ namespace YellowstonePathology.UI
             sql.Remove(sql.Length - 2, 2);
             sql.Append(")");
             Console.WriteLine(sql.ToString());
-        }
-
-        private void CreateCPTCodeTypeListForSQL()
-        {
-            StringBuilder technicalOnly = new StringBuilder();
-            StringBuilder professionalOnly = new StringBuilder();
-            StringBuilder global = new StringBuilder();
-            StringBuilder pqrs = new StringBuilder();
-
-            foreach (YellowstonePathology.Business.Billing.Model.CptCode cptCode in Business.Billing.Model.CptCodeCollection.Instance)
-            {                
-                switch (cptCode.CodeType)
-                {
-                    case Business.Billing.Model.CPTCodeTypeEnum.TechnicalOnly:
-                        technicalOnly.Append("'" + cptCode.Code + "', ");
-                        break;
-                    case Business.Billing.Model.CPTCodeTypeEnum.ProfessionalOnly:
-                        professionalOnly.Append("'" + cptCode.Code + "', ");
-                        break;
-                    case Business.Billing.Model.CPTCodeTypeEnum.Global:
-                        global.Append("'" + cptCode.Code + "', ");
-                        break;
-                    case Business.Billing.Model.CPTCodeTypeEnum.PQRS:
-                        pqrs.Append("'" + cptCode.Code + "', ");
-                        break;
-                }
-            }
-
-            technicalOnly = technicalOnly.Remove(technicalOnly.Length - 2, 2);
-            professionalOnly = professionalOnly.Remove(professionalOnly.Length - 2, 2);
-            global = global.Remove(global.Length - 2, 2);
-            pqrs = pqrs.Remove(pqrs.Length - 2, 2);
-
-            Console.WriteLine("Update tblPanelSetOrderCPTCodeBill Set CodeType = 'TechnicalOnly' where Cptcode in (" + technicalOnly.ToString() + ") and CodeType <> 'TechnicalOnly'");
-            Console.WriteLine("Update tblPanelSetOrderCPTCodeBill Set CodeType = 'ProfessionalOnly' where Cptcode in (" + professionalOnly.ToString() + ") and CodeType <> 'ProfessionalOnly'");
-            Console.WriteLine("Update tblPanelSetOrderCPTCodeBill Set CodeType = 'Global' where Cptcode in (" + global.ToString() + ") and CodeType <> 'Global'");
-            Console.WriteLine("Update tblPanelSetOrderCPTCodeBill Set CodeType = 'PQRS' where Cptcode in (" + pqrs.ToString() + ") and CodeType <> 'PQRS'");
-        }
+        }       
 
         private void CreateCaseTypeListForSQL()
         {
@@ -826,8 +789,7 @@ namespace YellowstonePathology.UI
             this.SendTestFax();
 
             //this.DoMongoMove();
-
-            this.CreateCPTCodeTypeListForSQL();
+            
             //this.CRC();
             //this.WriteAssemblyQualifiedTypeSQL();
             //this.BuildObjectsTesting();

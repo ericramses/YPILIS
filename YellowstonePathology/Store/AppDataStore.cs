@@ -14,7 +14,8 @@ namespace YellowstonePathology.Store
         //private static string MODE = "DEV";
         private static string MODE = "PROD";                
 
-        private RedisStore m_RedisStore;        
+        private RedisStore m_RedisStore;
+        private Business.Billing.Model.CptCodeCollection m_CPTCodeCollection;      
 
         AppDataStore()
         {
@@ -43,9 +44,20 @@ namespace YellowstonePathology.Store
             }
         }
 
+        public void LoadData()
+        {
+            this.m_CPTCodeCollection = new Business.Billing.Model.CptCodeCollection();
+            this.m_CPTCodeCollection.Load();
+        }
+
         public RedisStore RedisStore
         {
             get { return this.m_RedisStore; }
+        }        
+
+        public Business.Billing.Model.CptCodeCollection CPTCodeCollection
+        {
+            get { return this.m_CPTCodeCollection; }
         }
 
     }

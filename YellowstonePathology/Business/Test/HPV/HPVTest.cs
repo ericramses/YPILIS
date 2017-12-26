@@ -41,7 +41,7 @@ namespace YellowstonePathology.Business.Test.HPV
             this.m_HasSplitCPTCode = false;
             this.m_CMMCDistributionIsImplemented = true;
 
-            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Business.Billing.Model.CptCodeCollection.Instance.GetClone("87624", null), 1);
+            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("87624", null), 1);
             this.m_PanelSetCptCodeCollection.Add(panelSetCptCode);
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceHRHPVTEST());

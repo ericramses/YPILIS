@@ -55,7 +55,9 @@ namespace YellowstonePathology.UI
         }
 
         protected override void OnStartup(StartupEventArgs e)
-        {            
+        {
+            Store.AppDataStore.Instance.LoadData();
+
             Business.Test.AccessionLockCollection accessionLockCollection = new Business.Test.AccessionLockCollection();
             accessionLockCollection.ClearLocks();
 

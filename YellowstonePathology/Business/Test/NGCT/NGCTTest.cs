@@ -40,8 +40,8 @@ namespace YellowstonePathology.Business.Test.NGCT
             this.m_EpicDistributionIsImplemented = true;
             this.m_CMMCDistributionIsImplemented = true;
 
-            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode1 = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Business.Billing.Model.CptCodeCollection.Instance.GetClone("87491", null), 1);
-            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode2 = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Business.Billing.Model.CptCodeCollection.Instance.GetClone("87591", null), 1);
+            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode1 = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("87491", null), 1);
+            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode2 = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("87591", null), 1);
             this.m_PanelSetCptCodeCollection.Add(panelSetCptCode1);
             this.m_PanelSetCptCodeCollection.Add(panelSetCptCode2);
 

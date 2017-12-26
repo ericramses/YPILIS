@@ -26,9 +26,9 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterF();
             this.m_Active = true;
 
-            YellowstonePathology.Business.Billing.Model.PanelSetCptCode cpt86356 = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Business.Billing.Model.CptCodeCollection.Instance.GetClone("86356", null), 1);
-            YellowstonePathology.Business.Billing.Model.PanelSetCptCode cpt86355 = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Business.Billing.Model.CptCodeCollection.Instance.GetClone("86355", null), 1);
-            YellowstonePathology.Business.Billing.Model.PanelSetCptCode cpt88184 = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Business.Billing.Model.CptCodeCollection.Instance.GetClone("88184", null), 1);
+            YellowstonePathology.Business.Billing.Model.PanelSetCptCode cpt86356 = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("86356", null), 1);
+            YellowstonePathology.Business.Billing.Model.PanelSetCptCode cpt86355 = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("86355", null), 1);
+            YellowstonePathology.Business.Billing.Model.PanelSetCptCode cpt88184 = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88184", null), 1);
             this.m_PanelSetCptCodeCollection.Add(cpt86356);
             this.m_PanelSetCptCodeCollection.Add(cpt86355);
             this.m_PanelSetCptCodeCollection.Add(cpt88184);

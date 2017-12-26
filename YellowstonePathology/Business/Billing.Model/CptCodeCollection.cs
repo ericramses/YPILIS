@@ -12,29 +12,12 @@ using StackExchange.Redis;
 namespace YellowstonePathology.Business.Billing.Model
 {
     public class CptCodeCollection : ObservableCollection<CptCode>
-    {
-        private static CptCodeCollection instance = null;
-        private static readonly object padlock = new object();
+    {        
 
         public CptCodeCollection()
         {
 
-        }
-
-        public static CptCodeCollection Instance
-        {
-            get
-            {
-                lock (padlock)
-                {
-                    if (instance == null)
-                    {
-                        instance = GetAllCodes();
-                    }
-                    return instance;
-                }
-            }
-        }
+        }        
 
         public bool IsMedicareCode(string cptCode)
         {
@@ -43,10 +26,10 @@ namespace YellowstonePathology.Business.Billing.Model
         }
 
         public void AddCloneWithModifier(string code, string modifier)
-        {            
-            foreach(CptCode cptCode in this)
+        {
+            foreach (CptCode cptCode in this)
             {
-                if(cptCode.Code == code)
+                if (cptCode.Code == code)
                 {
                     CptCode result = CptCode.Clone(cptCode);
                     CptCodeModifier cptCodeModifier = new CptCodeModifier();
@@ -55,8 +38,8 @@ namespace YellowstonePathology.Business.Billing.Model
                     this.Add(result);
                     break;
                 }
-            }                        
-        }        
+            }
+        }
 
         public CptCode GetClone(string code, string modifier)
         {
@@ -75,6 +58,7 @@ namespace YellowstonePathology.Business.Billing.Model
             return result;
         }
 
+        /*
         public CptCode Get(string code)
         {
             CptCode result = null;
@@ -88,6 +72,7 @@ namespace YellowstonePathology.Business.Billing.Model
             }
             return result;
         }
+        */
 
         public CptCodeCollection Clone()
         {
@@ -123,10 +108,9 @@ namespace YellowstonePathology.Business.Billing.Model
             return result;
         }        
 
-        public static CptCodeCollection GetAllCodes()
+        public void Load()
         {
-            YellowstonePathology.Business.Billing.Model.CptCodeCollection result = new Model.CptCodeCollection();                        
-            
+            this.ClearItems();              
             Store.RedisDB cptDb = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.CPTCode);
             foreach (string jString in (string[])cptDb.GetAllJSONKeys())
             {                
@@ -134,16 +118,14 @@ namespace YellowstonePathology.Business.Billing.Model
                 if (jObject["codeType"].ToString() == "PQRS")
                 {                    
                     PQRSCode pqrsCode = CptCodeFactory.PQRSFromJson(jObject, null);
-                    result.Add(pqrsCode);                    
+                    this.Add(pqrsCode);                    
                 }
                 else
                 {
                     CptCode cptCode = CptCodeFactory.CptFromJson(jObject, null);
-                    result.Add(cptCode);                
+                    this.Add(cptCode);                
                 }             
-            }
-
-            return result;
+            }            
         }
 
         private void ExpandCptModifiers(JObject jObject, CptCodeCollection cptCodeCollection)
