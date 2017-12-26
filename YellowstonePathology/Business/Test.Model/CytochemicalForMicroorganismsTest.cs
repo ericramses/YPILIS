@@ -24,10 +24,10 @@ namespace YellowstonePathology.Business.Test.Model
 
         public override YellowstonePathology.Business.Billing.Model.CptCode GetCptCode(bool isTechnicalOnly)
         {
-            YellowstonePathology.Business.Billing.Model.CptCode result = Business.Billing.Model.CptCodeCollection.Instance.GetClone("88312", null);
+            YellowstonePathology.Business.Billing.Model.CptCode result = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88312", null);
             if (isTechnicalOnly == true)
             {
-                result = Business.Billing.Model.CptCodeCollection.Instance.GetClone("88312", "TC");
+                result = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88312", "TC");
             }
             return result;   
         }

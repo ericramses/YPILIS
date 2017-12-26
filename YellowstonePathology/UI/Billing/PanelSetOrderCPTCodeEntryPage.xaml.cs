@@ -133,7 +133,7 @@ namespace YellowstonePathology.UI.Billing
         
         private void GetCptCodeCollection()
         {
-            this.m_CptCodeCollection = Business.Billing.Model.CptCodeCollection.Instance.Clone();
+            this.m_CptCodeCollection = Store.AppDataStore.Instance.CPTCodeCollection.Clone();
             var codes = new[] {
                 new { code = "3126F", modifier="1P" },
                 new { code = "3126F", modifier="8P" },

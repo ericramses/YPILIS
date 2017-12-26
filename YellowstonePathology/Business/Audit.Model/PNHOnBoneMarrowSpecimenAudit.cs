@@ -15,8 +15,8 @@ namespace YellowstonePathology.Business.Audit.Model
         {
             this.m_AccessionOrder = accessionOrder;
             this.m_KeyWords = new Surgical.KeyWordCollection { "anemia", "pancytopenia" };
-            this.m_CptCodeCollection = new Billing.Model.CptCodeCollection{ Business.Billing.Model.CptCodeCollection.Instance.Get("85060"),
-                Business.Billing.Model.CptCodeCollection.Instance.Get("85097") };
+            this.m_CptCodeCollection = new Billing.Model.CptCodeCollection{ Store.AppDataStore.Instance.CPTCodeCollection.GetClone("85060", null),
+                Store.AppDataStore.Instance.CPTCodeCollection.GetClone("85097", null) };
         }
 
         public override void Run()
