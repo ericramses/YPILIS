@@ -139,12 +139,9 @@ namespace YellowstonePathology.Business.Billing.Model
         {
             bool result = true;
             if (this.Modifier != null && this.Modifier.Modifier == "26") result = true;
-            if (this.Modifier == null)
+            else if (this.m_HasProfessionalComponent == true)
             {
-                if (this.m_HasProfessionalComponent == true)
-                {
-                    result = true;
-                }
+                result = true;
             }
             return result;
         }
@@ -153,12 +150,9 @@ namespace YellowstonePathology.Business.Billing.Model
         {
             bool result = false;
             if (this.Modifier != null && this.Modifier.Modifier == "TC") result = true;
-            if (this.Modifier == null)
+            else if (this.m_HasTechnicalComponent == true)
             {
-                if (this.m_HasTechnicalComponent == true)
-                {
-                    result = true;
-                }
+                result = true;
             }
             return result;
         }
