@@ -239,6 +239,7 @@
     <Compile Include="Business\Audit.Model\CaseHasNotFoundProviderAudit.cs" />
     <Compile Include="Business\Audit.Model\CaseHasUnfinaledPeerReviewAudit.cs" />
     <Compile Include="Business\Audit.Model\CCCPAudit.cs" />
+    <Compile Include="Business\Audit.Model\CheckSuggestedOrdersOnFlowFinalAudit.cs" />
     <Compile Include="Business\Audit.Model\ClientNotSetAudit.cs" />
     <Compile Include="Business\Audit.Model\CodyCassetteColorAudit.cs" />
     <Compile Include="Business\Audit.Model\ComprehensiveColonCancerProfileFinalAudit.cs" />

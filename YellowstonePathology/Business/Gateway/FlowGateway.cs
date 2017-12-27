@@ -144,5 +144,35 @@ namespace YellowstonePathology.Business.Gateway
 			}
 			return result;
 		}
-	}
+
+        public static int PreviousFlowCasesAbnormalCLL(string masterAccessionNo, string patientId)
+        {
+            int result = 0;
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT count(*) " +
+                "FROM tblAccessionOrder ao JOIN tblPanelSetOrder pso ON ao.MasterAccessionNo = pso.MasterAccessionNo " +
+                "join tblFlowLeukemia f on pso.ReportNo = f.ReportNo " +
+                "WHERE ao.MasterAccessionno <> @MasterAccessionNo and ao.PatientId = @PatientId and f.TestResult = 'Abnormal' and " +
+                "instr(f.Impression, 'chronic lymphocytic leukemia') > 0 order by 1;";
+            cmd.Parameters.AddWithValue("@MasterAccessionNo", masterAccessionNo);
+            cmd.Parameters.AddWithValue("@PatientId", patientId);
+
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        result = Convert.ToInt32(dr[0].ToString());
+                    }
+                }
+            }
+            return result;
+        }
+
+
+    }
 }
