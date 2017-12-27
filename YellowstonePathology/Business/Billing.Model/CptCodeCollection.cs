@@ -54,22 +54,6 @@ namespace YellowstonePathology.Business.Billing.Model
             return result;
         }
 
-        /*
-        public CptCode Get(string code)
-        {
-            CptCode result = null;
-            foreach (CptCode cptCode in this)
-            {
-                if (cptCode.Code == code)
-                {
-                    result = cptCode;                    
-                    break;
-                }
-            }
-            return result;
-        }
-        */
-
         public CptCodeCollection Clone()
         {
             CptCodeCollection result = new CptCodeCollection();
@@ -110,38 +94,9 @@ namespace YellowstonePathology.Business.Billing.Model
             Store.RedisDB cptDb = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.CPTCode);
             foreach (string jString in (string[])cptDb.GetAllJSONKeys())
             {                
-                /*JObject jObject = JsonConvert.DeserializeObject<JObject>(jString);
-                if (jObject["codeType"].ToString() == "PQRS")
-                {                    
-                    PQRSCode pqrsCode = CptCodeFactory.PQRSFromJson(jObject, null);
-                    this.Add(pqrsCode);                    
-                }
-                else
-                {*/
-                    CptCode cptCode = CptCodeFactory.FromJson(jString);
-                    this.Add(cptCode);                
-                //}             
+                CptCode cptCode = CptCodeFactory.FromJson(jString);
+                this.Add(cptCode);                
             }            
         }
-
-        /*private void ExpandCptModifiers(JObject jObject, CptCodeCollection cptCodeCollection)
-        {
-            foreach (JObject codeModifier in jObject["modifiers"])
-            {
-                string modifierString = codeModifier["modifier"].ToString();
-                CptCode code = CptCodeFactory.CptFromJson(jObject, modifierString);
-                cptCodeCollection.Add(code);
-            }
-        }
-
-        private void ExpandPQRSModifiers(JObject jObject, CptCodeCollection cptCodeCollection)
-        {
-            foreach (JObject codeModifier in jObject["modifiers"])
-            {
-                string modifierString = codeModifier["modifier"].ToString();
-                PQRSCode code = CptCodeFactory.PQRSFromJson(jObject, modifierString);
-                cptCodeCollection.Add(code);
-            }
-        }*/
     }
 }

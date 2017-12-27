@@ -34,7 +34,6 @@ namespace YellowstonePathology.Business.Billing.Model
                 });
             }
 
-
             return result;
         }
     }
