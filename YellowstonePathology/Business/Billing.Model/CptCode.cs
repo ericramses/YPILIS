@@ -26,8 +26,7 @@ namespace YellowstonePathology.Business.Billing.Model
 
 
         public CptCode()
-        {
-            //this.m_Modifier = new CptCodeModifier();
+        {            
             this.m_HasMedicareQuantityLimit = false;
         }
 

@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace YellowstonePathology.Business.Test.BozemanCase
+namespace YellowstonePathology.Business.Test.SlideTracking
 {
-    public class BozemanCaseTest : YellowstonePathology.Business.PanelSet.Model.PanelSet
+    public class SlideTrackingTest : YellowstonePathology.Business.PanelSet.Model.PanelSet
     {
-        public BozemanCaseTest()
+        public SlideTrackingTest()
         {
             this.m_PanelSetId = 290;
-            this.m_PanelSetName = "Bozeman Case";
-            this.m_Abbreviation = "Bozeman Case";
+            this.m_PanelSetName = "Slide Tracking";
+            this.m_Abbreviation = "Slide Tracking";
             this.m_CaseType = YellowstonePathology.Business.CaseType.Technical;
             this.m_HasTechnicalComponent = true;
             this.m_HasProfessionalComponent = false;
@@ -22,6 +22,7 @@ namespace YellowstonePathology.Business.Test.BozemanCase
             this.m_EnforceOrderTarget = false;
             this.m_HasNoOrderTarget = true;
             this.m_IsClientAccessioned = true;
+            this.m_ShowResultPageOnOrder = true;
 
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.PanelSetOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Document.ReferenceLabReport).AssemblyQualifiedName;

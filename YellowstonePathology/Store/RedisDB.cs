@@ -53,7 +53,19 @@ namespace YellowstonePathology.Store
                             "return result ";
             LuaScript prepared = LuaScript.Prepare(script);
             return (string[])this.m_DataBase.ScriptEvaluate(prepared);
-        }        
+        }
+
+        public string[] GetAllJSONKeys(string arg)
+        {
+            string script = "local data = redis.call('keys', '" + arg + "*') " +
+                            "local result = {} " +
+                            "for i, item in ipairs(data) do " +
+                            "result[i] = redis.call('json.get', data[i]) " +
+                            "end " +
+                            "return result ";
+            LuaScript prepared = LuaScript.Prepare(script);
+            return (string[])this.m_DataBase.ScriptEvaluate(prepared);
+        }
 
         public RedisResult[] GetAllHashes()
         {

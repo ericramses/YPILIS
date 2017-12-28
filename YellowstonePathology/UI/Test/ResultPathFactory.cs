@@ -327,6 +327,9 @@ namespace YellowstonePathology.UI.Test
                 case 274:
                     result = new BRAFMutationAnalysisResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
+                case 290:
+                    result = new SlideTrackingResultPath(reportNo, accessionOrder, pageNavigator, window);
+                    break;
             }
             return result;
         }

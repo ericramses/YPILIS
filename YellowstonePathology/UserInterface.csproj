@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>6</ApplicationRevision>
+    <ApplicationRevision>7</ApplicationRevision>
     <ApplicationVersion>10.1.9.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -1144,6 +1144,9 @@
     <Compile Include="Business\Persistence\MonitorProperty.cs" />
     <Compile Include="Business\Persistence\ProtobufWriter.cs" />
     <Compile Include="Business\Persistence\SqlDataRowReaderPropertyWriter.cs" />
+    <Compile Include="Business\Slide.Model\VantageSlide.cs" />
+    <Compile Include="Business\Slide.Model\VantageSlideCollection.cs" />
+    <Compile Include="Business\Slide.Model\VantageSlideScan.cs" />
     <Compile Include="Business\Test\IgHMFABByFish\IgHMFABByFishEPICOBXView.cs" />
     <Compile Include="Business\Test\IgHMFABByFish\IgHMFABByFishTest.cs" />
     <Compile Include="Business\Test\IgHMFABByFish\IgHMFABByFishTestOrder.cs" />
@@ -1204,7 +1207,7 @@
     <Compile Include="Business\Test\BCellSubsetAnalysis\ReferenceRangeValue.cs" />
     <Compile Include="Business\Test\BoneMarrowSummary\OtherReportViewCollection.cs" />
     <Compile Include="Business\Test\BoneMarrowSummary\OtherReportView.cs" />
-    <Compile Include="Business\Test\BozemanCase\BozemanCaseTest.cs" />
+    <Compile Include="Business\Test\SlideTracking\SlideTrackingTest.cs" />
     <Compile Include="Business\Test\BRAFMutationAnalysis\BRAFMutationAnalysisDetectedPapillaryThyroidResult.cs" />
     <Compile Include="Business\Test\BRAFMutationAnalysis\BRAFMutationAnalysisCMMCNTEView.cs" />
     <Compile Include="Business\Test\BRAFMutationAnalysis\BRAFMutationAnalysisDetectedCRCResult.cs" />
@@ -3875,6 +3878,10 @@
       <DependentUpon>FISH5p159q2215p22ResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Test\FISH5p159q2215p22ResultPath.cs" />
+    <Compile Include="UI\Test\SlideTrackingResultPage.xaml.cs">
+      <DependentUpon>SlideTrackingResultPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Test\SlideTrackingResultPath.cs" />
     <Compile Include="UI\Test\GrossOnlyResultPage.xaml.cs">
       <DependentUpon>GrossOnlyResultPage.xaml</DependentUpon>
     </Compile>
@@ -5822,6 +5829,10 @@
     <Page Include="UI\Test\FISH5p159q2215p22ResultPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Test\SlideTrackingResultPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\Test\GrossOnlyResultPage.xaml">
       <Generator>MSBuild:Compile</Generator>

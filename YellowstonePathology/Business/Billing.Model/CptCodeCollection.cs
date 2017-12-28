@@ -52,23 +52,7 @@ namespace YellowstonePathology.Business.Billing.Model
                 }
             }
             return result;
-        }
-
-        /*
-        public CptCode Get(string code)
-        {
-            CptCode result = null;
-            foreach (CptCode cptCode in this)
-            {
-                if (cptCode.Code == code)
-                {
-                    result = cptCode;                    
-                    break;
-                }
-            }
-            return result;
-        }
-        */
+        }       
 
         public CptCodeCollection Clone()
         {

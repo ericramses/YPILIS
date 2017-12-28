@@ -13,7 +13,7 @@ namespace YellowstonePathology.Store
         ICDCode,
         PQRS,
         Stain,
-        VantageSlideScan,
+        VantageSlide,
         EmbeddingScan
     }
 }

@@ -565,7 +565,7 @@ namespace YellowstonePathology.UI.Surgical
         private void ButtonSetCPTCodes_Click(object sender, RoutedEventArgs e)
         {
             this.m_PathologistUI.PanelSetOrder.PanelSetOrderCPTCodeCollection.SetCPTCodes(this.m_PathologistUI.AccessionOrder.SpecimenOrderCollection, this.m_PathologistUI.PanelSetOrder.ReportNo, this.m_PathologistUI.AccessionOrder.ClientId);
-            this.RefreshBillingSpecimenViewCollection();
+            this.RefreshBillingSpecimenViewCollection();            
         }
     }
 }
