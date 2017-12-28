@@ -10,83 +10,29 @@ namespace YellowstonePathology.Business.Billing.Model
     {
         public CptCodeFactory() { }
 
-        private static CptCodeModifier GetModifier(JObject jObject, string modifier)
+        public static CptCode FromJson(string jString)
         {
-            CptCodeModifier result = null;
-            foreach(JObject codeModifier in jObject["modifiers"])
+            CptCode result = null;
+            JObject jObject = JsonConvert.DeserializeObject<JObject>(jString);
+            if (jObject["codeType"].ToString() == "PQRS")
             {
-                if(codeModifier["modifier"].ToString() == modifier)
+                PQRSCode pqrsCode = JsonConvert.DeserializeObject<Business.Billing.Model.PQRSCode>(jString, new JsonSerializerSettings
                 {
-                    string modifierString = codeModifier.ToString();
-                    result = JsonConvert.DeserializeObject<Business.Billing.Model.CptCodeModifier>(modifierString, new JsonSerializerSettings
-                    {
-                        TypeNameHandling = TypeNameHandling.All,
-                        ObjectCreationHandling = ObjectCreationHandling.Replace,
-                    });
-                    break;
-                }
-            }
-            return result;
-        }
+                    TypeNameHandling = TypeNameHandling.All,
+                    ObjectCreationHandling = ObjectCreationHandling.Replace
+                });
 
-        public static CptCode CptFromJson(JObject jObject, string modifier)
-        {
-            CptCode result = CptFromJson(jObject);
-            CptCodeModifier cptCodeModifier = null;
-            if (string.IsNullOrEmpty(modifier) == false)
+                pqrsCode.ReportingDefinition = pqrsCode.Description;
+                result = pqrsCode;
+            }
+            else
             {
-                cptCodeModifier = GetModifier(jObject, modifier);
-                if(cptCodeModifier == null)
+                result = JsonConvert.DeserializeObject<Business.Billing.Model.CptCode>(jString, new JsonSerializerSettings
                 {
-                    throw new Exception("trying to get Cpt Code " + jObject["code"].ToString() + " with modifier " + modifier + " not available for the code.");
-                }
+                    TypeNameHandling = TypeNameHandling.All,
+                    ObjectCreationHandling = ObjectCreationHandling.Replace,
+                });
             }
-
-            result.Modifier = cptCodeModifier;
-
-            return result;
-        }
-
-        private static CptCode CptFromJson(JObject jObject)
-        {
-            string jsonString = jObject.ToString();
-            CptCode result = JsonConvert.DeserializeObject<Business.Billing.Model.CptCode>(jsonString, new JsonSerializerSettings
-            {
-                TypeNameHandling = TypeNameHandling.All,
-                ObjectCreationHandling = ObjectCreationHandling.Replace,
-            });
-
-            return result;
-        }
-
-        public static PQRSCode PQRSFromJson(JObject jObject, string modifier)
-        {
-            PQRSCode result = PQRSFromJson(jObject);
-            CptCodeModifier cptCodeModifier = null;
-            if (string.IsNullOrEmpty(modifier) == false)
-            {
-                cptCodeModifier = GetModifier(jObject, modifier);
-                if (cptCodeModifier == null)
-                {
-                    throw new Exception("trying to get PQRS Code " + jObject["code"].ToString() + " with modifier " + modifier + " not available for the code.");
-                }
-            }
-
-            result.ReportingDefinition = result.Description;
-
-            result.Modifier = cptCodeModifier;
-
-            return result;
-        }
-
-        private static PQRSCode PQRSFromJson(JObject jObject)
-        {
-            string jsonString = jObject.ToString();
-            PQRSCode result = JsonConvert.DeserializeObject<Business.Billing.Model.PQRSCode>(jsonString, new JsonSerializerSettings
-            {
-                TypeNameHandling = TypeNameHandling.All,
-                ObjectCreationHandling = ObjectCreationHandling.Replace
-            });
 
             return result;
         }
