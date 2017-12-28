@@ -558,6 +558,12 @@ namespace YellowstonePathology.UI.Flow
                         if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.OK)
                         {
                             this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.Finish(this.m_FlowUI.AccessionOrder);
+                            YellowstonePathology.Business.Audit.Model.CheckSuggestedOrdersOnFlowFinalAudit checkAudit = new Business.Audit.Model.CheckSuggestedOrdersOnFlowFinalAudit(this.m_FlowUI.AccessionOrder, this.m_FlowUI.PanelSetOrderLeukemiaLymphoma);
+                            checkAudit.Run();
+                            if(checkAudit.Status == Business.Audit.Model.AuditStatusEnum.Failure)
+                            {
+                                MessageBox.Show(checkAudit.Message.ToString());
+                            }
                         }
                         else
                         {

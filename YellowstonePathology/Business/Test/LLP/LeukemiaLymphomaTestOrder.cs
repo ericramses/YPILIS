@@ -716,5 +716,5 @@ namespace YellowstonePathology.Business.Test.LLP
 
             return result.ToString().Trim();
         }
-	}
+    }
 }
