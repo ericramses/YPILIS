@@ -47,7 +47,7 @@ namespace YellowstonePathology.UI.Login
             this.Children.Add(md);
 
             TextBlock date = new TextBlock();
-            date.Text = "  /    /17";
+            date.Text = "  /    /18";
             date.TextAlignment = TextAlignment.Center;
             date.FontWeight = FontWeights.Bold;
             date.Margin = new Thickness(2, 7, 2, 2);

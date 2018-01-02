@@ -136,7 +136,7 @@ namespace YellowstonePathology.Business.Task.Model
             DateTime actionDate = DateTime.Today;
             YellowstonePathology.Business.User.SystemIdentity systemIdentity = Business.User.SystemIdentity.Instance;
 
-            DateTime finalDate = DateTime.Parse("12/31/2017");
+            DateTime finalDate = DateTime.Parse("12/31/2018");
 
             while (actionDate < finalDate)
             {
