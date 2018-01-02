@@ -35,7 +35,7 @@ namespace YellowstonePathology.Business.Label.Model
             result.Append("^FO" + (xOffset + 30) + ",070^ARN,50^FD" + "86334-26 x1" + "^FS");
             //result.Append("^FO" + (xOffset + 30) + ",100^ARN,50^FD" + "82784-26 x3" + "^FS");
             result.Append("^FO" + (xOffset + 170) + ",150^ATN,50^FD" + "MD" + "^FS");
-            result.Append("^FO" + (xOffset + 30) + ",210^ATN,50^FD" + "    /    /17" + "^FS");
+            result.Append("^FO" + (xOffset + 30) + ",210^ATN,50^FD" + "    /    /18" + "^FS");
         }
     }
 }

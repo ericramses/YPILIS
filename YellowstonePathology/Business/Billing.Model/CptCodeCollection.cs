@@ -52,11 +52,7 @@ namespace YellowstonePathology.Business.Billing.Model
                 }
             }
             return result;
-<<<<<<< HEAD
-        }       
-=======
         }
->>>>>>> 9e6d81c1144e90e62f9fa15d34f86457136f49df
 
         public CptCodeCollection Clone()
         {

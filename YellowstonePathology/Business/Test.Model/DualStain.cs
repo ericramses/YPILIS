@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using YellowstonePathology.Business.Billing.Model;
 
 namespace YellowstonePathology.Business.Test.Model
 {
@@ -35,8 +36,12 @@ namespace YellowstonePathology.Business.Test.Model
 		public string DepricatedSecondTestId
 		{
 			get { return this.m_DepricatedSecondTestId; }
-		} 
-                
+		}
+
+        public override CptCode GetGradedCptCode(bool isTechnicalOnly)
+        {
+            return Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88344", null);
+        }
 
         public YellowstonePathology.Business.Test.Model.TestOrder GetTestOrder(YellowstonePathology.Business.Test.Model.TestOrderCollection testOrderCollection, int stainNumber)
         {
