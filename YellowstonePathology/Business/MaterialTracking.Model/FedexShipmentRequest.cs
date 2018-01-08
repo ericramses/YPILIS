@@ -136,7 +136,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
                 throw new Exception("Payment Type not supported.");
             }   
             
-            if(DateTime.Today.DayOfWeek == DayOfWeek.Friday)
+            if(DateTime.Today.DayOfWeek == DayOfWeek.Friday && this.m_PaymentType.Contains("OVERNIGHT") == true)
             {
                 XNamespace v19 ="http://fedex.com/ws/ship/v19";                                
                 this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:ShippingChargesPayment", namespaces)

@@ -25,7 +25,13 @@ namespace YellowstonePathology.Business.Audit.Model
         {
             this.m_AccessionOrder = accessionOrder;
             this.m_PanelSetOrder = panelSetOrder;
-            this.m_HasIndication = this.m_PanelSetOrder.Impression.Contains("chronic lymphocytic leukemia");
+
+            this.m_HasIndication = false;
+            if(string.IsNullOrEmpty(this.m_PanelSetOrder.Impression) == false)
+            {
+                this.m_HasIndication = this.m_PanelSetOrder.Impression.Contains("chronic lymphocytic leukemia");
+            }
+            
             this.m_FCCPhysicians = new List<int>();
             this.m_FCCPhysicians.Add(83);
             this.m_FCCPhysicians.Add(2337);
@@ -67,11 +73,15 @@ namespace YellowstonePathology.Business.Audit.Model
 
         private void HasIndication()
         {
-            if(this.m_PanelSetOrder.Impression.Contains("chronic lymphocytic leukemia") == true || 
-                this.m_PanelSetOrder.InterpretiveComment.Contains("chronic lymphocytic leukemia") == true)
+            this.m_HasIndication = false;
+            if (string.IsNullOrEmpty(this.m_PanelSetOrder.Impression) == false)
             {
-                this.m_HasIndication = true;
-            }
+                if (this.m_PanelSetOrder.Impression.Contains("chronic lymphocytic leukemia") == true ||
+                this.m_PanelSetOrder.InterpretiveComment.Contains("chronic lymphocytic leukemia") == true)
+                {
+                    this.m_HasIndication = true;
+                }
+            }            
         }
 
         private void CaseForClient()

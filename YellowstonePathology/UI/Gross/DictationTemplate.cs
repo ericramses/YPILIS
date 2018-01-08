@@ -200,7 +200,6 @@ namespace YellowstonePathology.UI.Gross
         {
             string result = text;
             string initials = null;
-
             
             if (specimenOrder.AliquotOrderCollection.Count != 0)
             {
@@ -219,18 +218,12 @@ namespace YellowstonePathology.UI.Gross
                         grossedByInitials = grossedBy.Initials.ToUpper();
                     }
 
-                    string supervisedByInitials = "[??]";
-
-                    YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteCody ypiCody = new Business.Facility.Model.YellowstonePathologyInstituteCody();
-                    if (accessionOrder.AccessioningFacilityId == ypiCody.FacilityId)
-                    {
-                        supervisedByInitials = "PPC";
-                    }
-                    else if (YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.GPathologistId.HasValue == true)
+                    string supervisedByInitials = "[??]";         
+                    if(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.GPathologistId.HasValue == true)
                     {
                         YellowstonePathology.Business.User.SystemUser supervisedBy = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetSystemUserById(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.GPathologistId.Value);
                         supervisedByInitials = supervisedBy.Initials.ToUpper();
-                    }
+                    }                               
 
                     string typedByInitials = systemIdentity.User.Initials.ToLower();
 
@@ -245,8 +238,7 @@ namespace YellowstonePathology.UI.Gross
                     
                     result = result + initials;
                 }
-            }
-
+            }            
             return result;
         }
 
