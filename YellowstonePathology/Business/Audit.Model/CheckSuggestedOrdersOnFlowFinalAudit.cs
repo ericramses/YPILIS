@@ -108,10 +108,16 @@ namespace YellowstonePathology.Business.Audit.Model
 
         private void CreateFCCResult()
         {
-            if (this.m_HasCLLByFish == false)
+            this.IsNewDiagnosis();
+            if (this.m_IsNewDiagnosis == true)
             {
-                this.m_Status = AuditStatusEnum.Failure;
-                this.m_Message.AppendLine("A CLL By Fish is suggested.");
+                if (this.m_HasCLLByFish == false)
+                {
+                    this.m_Status = AuditStatusEnum.Failure;
+                    this.m_Message.AppendLine("The client has requested that all new diagnoses of CLL have a CLL Panel by FISH reflexively ordered.");
+                    this.m_Message.AppendLine();
+                    this.m_Message.AppendLine("Please order CLL Panel by FISH, and document in the interpretive comment in the flow report.");
+                }
             }
         }
 
@@ -123,17 +129,23 @@ namespace YellowstonePathology.Business.Audit.Model
                 if(this.m_HasCLLByFish == false && this.m_HasIGVH == false)
                 {
                     this.m_Status = AuditStatusEnum.Failure;
-                    this.m_Message.AppendLine("A CLL By Fish and an IgVH Mutation Analysis are suggested.");
+                    this.m_Message.AppendLine("The client has requested that all new diagnoses of CLL have a CLL Panel by FISH and IgVH mutation analysis reflexively ordered.");
+                    this.m_Message.AppendLine();
+                    this.Message.AppendLine("Please order CLL Panel by FISH, IgVH mutation analysis, and document in the interpretive comment in the flow report.");
                 }
-                else if(this.m_HasCLLByFish == false)
+                else if(this.m_HasCLLByFish == false && this.m_HasIGVH == true)
                 {
                     this.m_Status = AuditStatusEnum.Failure;
-                    this.m_Message.AppendLine("A CLL By Fish is suggested.");
+                    this.m_Message.AppendLine("The client has requested that all new diagnoses of CLL have a CLL Panel by FISH and IgVH mutation analysis reflexively ordered.");
+                    this.m_Message.AppendLine();
+                    this.Message.AppendLine("Please order CLL Panel by FISH as there is an IgVH mutation analysis, and document in the interpretive comment in the flow report.");
                 }
-                else if (this.m_HasIGVH == false)
+                else if (this.m_HasCLLByFish == true && this.m_HasIGVH == false)
                 {
                     this.m_Status = AuditStatusEnum.Failure;
-                    this.m_Message.AppendLine("An IgVH Mutation Analysis is suggested.");
+                    this.m_Message.AppendLine("The client has requested that all new diagnoses of CLL have a CLL Panel by FISH and IgVH mutation analysis reflexively ordered.");
+                    this.m_Message.AppendLine();
+                    this.Message.AppendLine("Please order IgVH mutation analysis as here is a CLL Panel by FISH, and document in the interpretive comment in the flow report.");
                 }
             }
         }
