@@ -25,8 +25,8 @@ namespace YellowstonePathology.Business.Slide.Model
                 slide = new VantageSlide();
                 slide.MasterAccessionNo = this.m_MasterAccessionNo;
                 slide.VantageSlideId = vantageSlideId;
-                if (scanType == "Receiving") slide.CurrentLocation = "YPIBLGS";
-                if (scanType == "Shipping") slide.CurrentLocation = "YPBZM";
+                if (scanType == "Receive") slide.CurrentLocation = "YPIBLGS";
+                if (scanType == "Send Out") slide.CurrentLocation = "YPBZM";
                 this.Add(slide);
             }
             else

@@ -5,6 +5,7 @@ namespace YellowstonePathology.Business.BarcodeScanning
 {
     public class VantageBarcode
     {
+        private string m_ScanData;
         private string m_ReportNo;
         private string m_Specimen;
         private string m_Block;
@@ -32,28 +33,29 @@ namespace YellowstonePathology.Business.BarcodeScanning
             this.m_Slide = splits[3];
         }
 
+        public string ScanData
+        {
+            get { return this.m_ReportNo; }
+        }
+
         public string ReportNo
         {
             get { return this.m_ReportNo; }
-            set { this.m_ReportNo = value; }
         }
 
         public string Specimen
         {
             get { return this.m_Specimen; }
-            set { this.m_Specimen = value; }
         }
 
         public string Block
         {
             get { return this.m_Block; }
-            set { this.m_Block = value; }
         }
 
         public string Slide
         {
             get { return this.m_Slide; }
-            set { this.m_Slide = value; }
         }
 
         public string GetFormated()
@@ -70,12 +72,23 @@ namespace YellowstonePathology.Business.BarcodeScanning
             return result.ToString();
         }
 
-        public static void SimulateSavingSlideTrackingSpecimen()
+        public static string SimulateScan()
         {
-            VantageBarcode vantageBarcode = new BarcodeScanning.VantageBarcode("18-1234.S", "18-1234.1", "18-1234.1.1", "1");
-            string key = vantageBarcode.GetFormated();
-            Store.RedisDB vantageDb = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.VantageSlide);
-            vantageDb.DataBase.SetAdd("vantageSlideScan", key);
+            StringBuilder result = new StringBuilder();
+            DateTime date = DateTime.Now;
+            result.Append("R");
+            result.Append(date.Day.ToString());
+            result.Append(";");
+            result.Append("Sp");
+            result.Append(date.Hour.ToString());
+            result.Append(";");
+            result.Append("B");
+            result.Append(date.Minute.ToString());
+            result.Append(";");
+            result.Append("S");
+            result.Append(date.Second.ToString());
+
+            return result.ToString();
         }
     }
 }

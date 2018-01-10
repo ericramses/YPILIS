@@ -107,6 +107,12 @@ namespace YellowstonePathology.UI.Test
         private void HyperLinkUnfinalResults_Click(object sender, RoutedEventArgs e)
         {
 
-        }        
+        }
+
+        private void HyperLinkSimulateScan_Click(object sender, RoutedEventArgs e)
+        {
+            string data = YellowstonePathology.Business.BarcodeScanning.VantageBarcode.SimulateScan();
+            this.BarcodeScanPort_VantageSlideScanReceived(data);
+        }
     }
 }
