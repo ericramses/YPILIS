@@ -948,5 +948,18 @@ namespace YellowstonePathology.UI
             VentanaStainMappingDialog dialog = new UI.VentanaStainMappingDialog();
             dialog.Show();
         }
+
+        private void MenuItemSimulateVantageScan_Click(object sender, RoutedEventArgs e)
+        {
+            string key = null;
+
+            foreach(string s in Store.RedisServerProd1.Instance.Server.Keys(6, "18-*"))
+            {
+                key = s;
+                break;
+            }
+
+            YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort.Instance.SimulateScanReceived(key);
+        }
     }
 }
