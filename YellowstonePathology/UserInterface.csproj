@@ -311,6 +311,7 @@
     <Compile Include="Business\BarcodeScanning\HistologyBlock.cs" />
     <Compile Include="Business\BarcodeScanning\HistologySlide.cs" />
     <Compile Include="Business\BarcodeScanning\ThinPrepSlide.cs" />
+    <Compile Include="Business\BarcodeScanning\VantageBarcode.cs" />
     <Compile Include="Business\BaseData.cs" />
     <Compile Include="Business\BaseItem.cs" />
     <Compile Include="Business\BaseListItem.cs" />
