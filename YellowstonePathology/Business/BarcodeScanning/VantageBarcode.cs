@@ -74,7 +74,7 @@ namespace YellowstonePathology.Business.BarcodeScanning
         {
             VantageBarcode vantageBarcode = new BarcodeScanning.VantageBarcode("18-1234.S", "18-1234.1", "18-1234.1.1", "1");
             string key = vantageBarcode.GetFormated();
-            Store.RedisDB vantageDb = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.VantageSlideScan);
+            Store.RedisDB vantageDb = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.VantageSlide);
             vantageDb.DataBase.SetAdd("vantageSlideScan", key);
         }
     }
