@@ -17,14 +17,15 @@ namespace YellowstonePathology.Business.Audit.Model
         private bool m_UseFCCRule;
         private bool m_UseTCIRule;
 
-        private List<int> m_FCCPhysicians;
-        private List<int> m_TCIPhysicians;
+        private List<int> m_FCCClients;
+        private List<int> m_TCIClients;
 
         public CheckSuggestedOrdersOnFlowFinalAudit(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
             YellowstonePathology.Business.Test.LLP.PanelSetOrderLeukemiaLymphoma panelSetOrder)
         {
             this.m_AccessionOrder = accessionOrder;
             this.m_PanelSetOrder = panelSetOrder;
+<<<<<<< HEAD
 
             this.m_HasIndication = false;
             if(string.IsNullOrEmpty(this.m_PanelSetOrder.Impression) == false)
@@ -47,20 +48,27 @@ namespace YellowstonePathology.Business.Audit.Model
             this.m_FCCPhysicians.Add(2623);
             this.m_FCCPhysicians.Add(4294);
             this.m_FCCPhysicians.Add(2045);
+=======
+            this.m_HasIndication = this.m_PanelSetOrder.Impression.Contains("chronic lymphocytic leukemia");
+>>>>>>> 010686c73bb5a0ab0e7d83cb7faabeac3fe7d21c
 
-            this.m_TCIPhysicians = new List<int>();
-            this.m_TCIPhysicians.Add(999);
-            this.m_TCIPhysicians.Add(3258);
-            this.m_TCIPhysicians.Add(3359);
-            this.m_TCIPhysicians.Add(3227);
-            this.m_TCIPhysicians.Add(2135);
-            this.m_TCIPhysicians.Add(2736);
-            this.m_TCIPhysicians.Add(2558);
-            this.m_TCIPhysicians.Add(618);
-            this.m_TCIPhysicians.Add(3866);
-            this.m_TCIPhysicians.Add(3641);
-            this.m_TCIPhysicians.Add(3980);
-            this.m_TCIPhysicians.Add(4204);
+            this.m_FCCClients = new List<int>();
+            this.m_FCCClients.Add(67);
+
+            this.m_TCIClients = new List<int>();
+            this.m_TCIClients.Add(658);
+            this.m_TCIClients.Add(879);
+            this.m_TCIClients.Add(936);
+            this.m_TCIClients.Add(1123);
+            this.m_TCIClients.Add(1132);
+            this.m_TCIClients.Add(1201);
+            this.m_TCIClients.Add(1311);
+            this.m_TCIClients.Add(1316);
+            this.m_TCIClients.Add(1457);
+            this.m_TCIClients.Add(1478);
+            this.m_TCIClients.Add(1552);
+            this.m_TCIClients.Add(1558);
+            this.m_TCIClients.Add(1615);
         }
 
         public override void Run()
@@ -88,8 +96,8 @@ namespace YellowstonePathology.Business.Audit.Model
         {
             if (this.m_HasIndication == true)
             {
-                if (this.m_FCCPhysicians.IndexOf(this.m_AccessionOrder.PhysicianId) > -1) this.m_UseFCCRule = true;
-                else if (this.m_TCIPhysicians.IndexOf(this.m_AccessionOrder.PhysicianId) > -1) this.m_UseTCIRule = true;
+                if (this.m_FCCClients.IndexOf(this.m_AccessionOrder.ClientId) > -1) this.m_UseFCCRule = true;
+                else if (this.m_TCIClients.IndexOf(this.m_AccessionOrder.ClientId) > -1) this.m_UseTCIRule = true;
             }
         }
 
@@ -118,10 +126,16 @@ namespace YellowstonePathology.Business.Audit.Model
 
         private void CreateFCCResult()
         {
-            if (this.m_HasCLLByFish == false)
+            this.IsNewDiagnosis();
+            if (this.m_IsNewDiagnosis == true)
             {
-                this.m_Status = AuditStatusEnum.Failure;
-                this.m_Message.AppendLine("A CLL By Fish is suggested.");
+                if (this.m_HasCLLByFish == false)
+                {
+                    this.m_Status = AuditStatusEnum.Failure;
+                    this.m_Message.AppendLine("The client has requested that all new diagnoses of CLL have a CLL Panel by FISH reflexively ordered.");
+                    this.m_Message.AppendLine();
+                    this.m_Message.AppendLine("Please order CLL Panel by FISH, and document in the interpretive comment in the flow report.");
+                }
             }
         }
 
@@ -133,17 +147,23 @@ namespace YellowstonePathology.Business.Audit.Model
                 if(this.m_HasCLLByFish == false && this.m_HasIGVH == false)
                 {
                     this.m_Status = AuditStatusEnum.Failure;
-                    this.m_Message.AppendLine("A CLL By Fish and an IgVH Mutation Analysis are suggested.");
+                    this.m_Message.AppendLine("The client has requested that all new diagnoses of CLL have a CLL Panel by FISH and IgVH mutation analysis reflexively ordered.");
+                    this.m_Message.AppendLine();
+                    this.Message.AppendLine("Please order CLL Panel by FISH, IgVH mutation analysis, and document in the interpretive comment in the flow report.");
                 }
-                else if(this.m_HasCLLByFish == false)
+                else if(this.m_HasCLLByFish == false && this.m_HasIGVH == true)
                 {
                     this.m_Status = AuditStatusEnum.Failure;
-                    this.m_Message.AppendLine("A CLL By Fish is suggested.");
+                    this.m_Message.AppendLine("The client has requested that all new diagnoses of CLL have a CLL Panel by FISH and IgVH mutation analysis reflexively ordered.");
+                    this.m_Message.AppendLine();
+                    this.Message.AppendLine("Please order CLL Panel by FISH as there is an IgVH mutation analysis, and document in the interpretive comment in the flow report.");
                 }
-                else if (this.m_HasIGVH == false)
+                else if (this.m_HasCLLByFish == true && this.m_HasIGVH == false)
                 {
                     this.m_Status = AuditStatusEnum.Failure;
-                    this.m_Message.AppendLine("An IgVH Mutation Analysis is suggested.");
+                    this.m_Message.AppendLine("The client has requested that all new diagnoses of CLL have a CLL Panel by FISH and IgVH mutation analysis reflexively ordered.");
+                    this.m_Message.AppendLine();
+                    this.Message.AppendLine("Please order IgVH mutation analysis as here is a CLL Panel by FISH, and document in the interpretive comment in the flow report.");
                 }
             }
         }
