@@ -17,8 +17,8 @@ namespace YellowstonePathology.Business.Audit.Model
         private bool m_UseFCCRule;
         private bool m_UseTCIRule;
 
-        private List<int> m_FCCPhysicians;
-        private List<int> m_TCIPhysicians;
+        private List<int> m_FCCClients;
+        private List<int> m_TCIClients;
 
         public CheckSuggestedOrdersOnFlowFinalAudit(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
             YellowstonePathology.Business.Test.LLP.PanelSetOrderLeukemiaLymphoma panelSetOrder)
@@ -26,35 +26,24 @@ namespace YellowstonePathology.Business.Audit.Model
             this.m_AccessionOrder = accessionOrder;
             this.m_PanelSetOrder = panelSetOrder;
             this.m_HasIndication = this.m_PanelSetOrder.Impression.Contains("chronic lymphocytic leukemia");
-            this.m_FCCPhysicians = new List<int>();
-            this.m_FCCPhysicians.Add(83);
-            this.m_FCCPhysicians.Add(2337);
-            this.m_FCCPhysicians.Add(20);
-            this.m_FCCPhysicians.Add(3124);
-            this.m_FCCPhysicians.Add(2610);
-            this.m_FCCPhysicians.Add(3345);
-            this.m_FCCPhysicians.Add(574);
-            this.m_FCCPhysicians.Add(3386);
-            this.m_FCCPhysicians.Add(3537);
-            this.m_FCCPhysicians.Add(3446);
-            this.m_FCCPhysicians.Add(3939);
-            this.m_FCCPhysicians.Add(2623);
-            this.m_FCCPhysicians.Add(4294);
-            this.m_FCCPhysicians.Add(2045);
 
-            this.m_TCIPhysicians = new List<int>();
-            this.m_TCIPhysicians.Add(999);
-            this.m_TCIPhysicians.Add(3258);
-            this.m_TCIPhysicians.Add(3359);
-            this.m_TCIPhysicians.Add(3227);
-            this.m_TCIPhysicians.Add(2135);
-            this.m_TCIPhysicians.Add(2736);
-            this.m_TCIPhysicians.Add(2558);
-            this.m_TCIPhysicians.Add(618);
-            this.m_TCIPhysicians.Add(3866);
-            this.m_TCIPhysicians.Add(3641);
-            this.m_TCIPhysicians.Add(3980);
-            this.m_TCIPhysicians.Add(4204);
+            this.m_FCCClients = new List<int>();
+            this.m_FCCClients.Add(67);
+
+            this.m_TCIClients = new List<int>();
+            this.m_TCIClients.Add(658);
+            this.m_TCIClients.Add(879);
+            this.m_TCIClients.Add(936);
+            this.m_TCIClients.Add(1123);
+            this.m_TCIClients.Add(1132);
+            this.m_TCIClients.Add(1201);
+            this.m_TCIClients.Add(1311);
+            this.m_TCIClients.Add(1316);
+            this.m_TCIClients.Add(1457);
+            this.m_TCIClients.Add(1478);
+            this.m_TCIClients.Add(1552);
+            this.m_TCIClients.Add(1558);
+            this.m_TCIClients.Add(1615);
         }
 
         public override void Run()
@@ -78,8 +67,8 @@ namespace YellowstonePathology.Business.Audit.Model
         {
             if (this.m_HasIndication == true)
             {
-                if (this.m_FCCPhysicians.IndexOf(this.m_AccessionOrder.PhysicianId) > -1) this.m_UseFCCRule = true;
-                else if (this.m_TCIPhysicians.IndexOf(this.m_AccessionOrder.PhysicianId) > -1) this.m_UseTCIRule = true;
+                if (this.m_FCCClients.IndexOf(this.m_AccessionOrder.ClientId) > -1) this.m_UseFCCRule = true;
+                else if (this.m_TCIClients.IndexOf(this.m_AccessionOrder.ClientId) > -1) this.m_UseTCIRule = true;
             }
         }
 
