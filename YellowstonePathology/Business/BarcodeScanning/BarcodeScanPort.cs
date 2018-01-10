@@ -205,5 +205,21 @@ namespace YellowstonePathology.Business.BarcodeScanning
             }
             return result.ToString();
         }
-	}	
+
+        public void SimulateScanReceived(string scanData)
+        {
+            BarcodeScanVersionEnum version = BarcodeScan.GetVersion(scanData);
+
+            switch (version)
+            {
+                case BarcodeScanVersionEnum.V1:
+                    this.HandleVersion1Scans(scanData.Trim());
+                    break;
+                case BarcodeScanVersionEnum.V2:
+                    this.HandleVersion2Scans(scanData.Trim());
+                    break;
+            }
+
+        }
+    }	
 }
