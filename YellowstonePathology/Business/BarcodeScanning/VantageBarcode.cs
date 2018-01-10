@@ -16,16 +16,9 @@ namespace YellowstonePathology.Business.BarcodeScanning
 
         }
 
-        public VantageBarcode(string reportNo, string specimen, string block, string slide)
-        {
-            this.m_ReportNo = reportNo;
-            this.m_Specimen = specimen;
-            this.m_Block = block;
-            this.m_Slide = slide;
-        }
-
         public VantageBarcode(string scanData)
         {
+            this.m_ScanData = scanData;
             string [] splits = scanData.Split(new char[] { ';' });
             this.m_ReportNo = splits[0];
             this.m_Specimen = splits[1];
@@ -35,7 +28,7 @@ namespace YellowstonePathology.Business.BarcodeScanning
 
         public string ScanData
         {
-            get { return this.m_ReportNo; }
+            get { return this.m_ScanData; }
         }
 
         public string ReportNo
@@ -56,20 +49,6 @@ namespace YellowstonePathology.Business.BarcodeScanning
         public string Slide
         {
             get { return this.m_Slide; }
-        }
-
-        public string GetFormated()
-        {
-            StringBuilder result = new StringBuilder();
-            result.Append(this.m_ReportNo);
-            result.Append(";");
-            result.Append(this.m_Specimen);
-            result.Append(";");
-            result.Append(this.m_Block);
-            result.Append(";");
-            result.Append(this.m_Slide);
-
-            return result.ToString();
         }
 
         public static string SimulateScan()
