@@ -11,7 +11,16 @@ namespace YellowstonePathology.Business.Facility.Model.LocationDefinitions
         {
         }
     }
-    
+
+    public class GrossTechs : Location
+    {
+        public GrossTechs()
+        {
+            this.LocationId = "BLGSGRSSTCHS";
+            this.m_Description = "GrossTechs";
+        }
+    }
+
     public class Sandra : Location
     {
         public Sandra()

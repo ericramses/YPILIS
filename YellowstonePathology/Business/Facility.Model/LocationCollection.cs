@@ -95,6 +95,8 @@ namespace YellowstonePathology.Business.Facility.Model
             result.Add(new YellowstonePathology.Business.Facility.Model.LocationDefinitions.CodyAccessionStation());
             result.Add(new YellowstonePathology.Business.Facility.Model.LocationDefinitions.CodyGrossStation());
 
+            result.Add(new YellowstonePathology.Business.Facility.Model.LocationDefinitions.GrossTechs());
+
             return Sort(result);
         }
 
