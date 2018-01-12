@@ -51,7 +51,7 @@ namespace YellowstonePathology.Business.HL7View.WPH
             obrElement.Add(obr01Element);
             
 
-            if(this.m_SendUnsolicited == false)
+            if(string.IsNullOrEmpty(this.m_ExternalOrderId) == false)
             {
                 XElement obr02Element = new XElement("OBR.2");
                 YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("OBR.2.1", this.m_ExternalOrderId, obr02Element);

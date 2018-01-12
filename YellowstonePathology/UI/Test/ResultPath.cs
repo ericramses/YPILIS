@@ -57,7 +57,6 @@ namespace YellowstonePathology.UI.Test
             if (this.Finish != null) this.Finish(this, new EventArgs());
         }
 
-
         protected virtual void ShowResultPage()
         {
             throw new NotImplementedException("ShowResultPage not implemented in result path base.");

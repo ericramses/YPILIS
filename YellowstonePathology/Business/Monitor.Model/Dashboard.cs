@@ -96,8 +96,16 @@ namespace YellowstonePathology.Business.Monitor.Model
             get { return this.m_YPIBlocks + this.m_BozemanBlocks; }
         }             
 
-        public void SetBozemanBlockCount()
+        public void SetBozemanBlockCount(int blockCount)
+        {            
+            this.m_BozemanBlockCount = blockCount.ToString();
+            this.m_BozemanBlocks = blockCount;
+            this.NotifyPropertyChanged(string.Empty);            
+        }
+
+        public Nullable<int> GetBozemanBlockCount()
         {
+            Nullable<int> blockCount = null;
             ServicePointManager.ServerCertificateValidationCallback = CertificateValidationCallBack;
             ExchangeService service = new ExchangeService(ExchangeVersion.Exchange2007_SP1);
             service.Credentials = new WebCredentials("ypiilab\\blockcount", "blockorama");
@@ -124,13 +132,12 @@ namespace YellowstonePathology.Business.Monitor.Model
                     System.Text.RegularExpressions.Match match = regex.Match(mailItem.Subject);
                     if (match.Captures.Count != 0)
                     {
-                        this.m_BozemanBlockCount = match.Value;
-                        this.m_BozemanBlocks = Convert.ToInt32(match.Value);
-                        this.NotifyPropertyChanged(string.Empty);
-                        mailItem.Delete(DeleteMode.MoveToDeletedItems);                        
-                    }                    
-                }                
-            }            
+                        blockCount = Convert.ToInt32(match.Value);
+                        mailItem.Delete(DeleteMode.MoveToDeletedItems);
+                    }
+                }
+            }
+            return blockCount;
         }
 
         public void NotifyPropertyChanged(String info)

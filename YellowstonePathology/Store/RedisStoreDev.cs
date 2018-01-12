@@ -18,6 +18,7 @@ namespace YellowstonePathology.Store
             this.m_Databases.Add(new RedisDB(AppDBNameEnum.Lock, 5, RedisServerDev.Instance));
             this.m_Databases.Add(new RedisDB(AppDBNameEnum.VantageSlide, 5, RedisServerDev.Instance));
             this.m_Databases.Add(new RedisDB(AppDBNameEnum.EmbeddingScan, 6, RedisServerDev.Instance));
+            this.m_Databases.Add(new RedisDB(AppDBNameEnum.BozemanBlockCount, 7, RedisServerDev.Instance));
         }
     }
 }
