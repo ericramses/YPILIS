@@ -951,11 +951,13 @@ namespace YellowstonePathology.UI
 
         private void MenuItemSimulateVantageScan_Click(object sender, RoutedEventArgs e)
         {
-            string key = null;
+            string key = "18-787";
 
-            foreach(string s in Store.RedisServerProd1.Instance.Server.Keys(6, "18-*"))
+            string[] results = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.VantageSlide).GetAllJSONKeys(key);
+            foreach (string result in results)
             {
-                key = s;
+                Business.Slide.Model.VantageSlide vantageSlide = Business.Slide.Model.VantageSlide.FromJson(result);
+                key += ":" + vantageSlide.VantageSlideId;
                 break;
             }
 

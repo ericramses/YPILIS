@@ -28,6 +28,10 @@
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=ScanDate}" Header="Date" Width="100"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Path=ClientReportNo}" Header="Report" Width="100" />
+                                <GridViewColumn DisplayMemberBinding="{Binding Path=ClientSpecimen}" Header="Specimen" Width="100"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Path=ClientBlock}" Header="Block" Width="100"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Path=ClientSlide}" Header="Slide"  Width="100"/>
                             </GridView>
                         </ListView.View>
                     </ListView>
