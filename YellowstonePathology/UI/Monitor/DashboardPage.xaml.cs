@@ -31,13 +31,21 @@ namespace YellowstonePathology.UI.Monitor
         {
             InitializeComponent();
             this.DataContext = this;
-        }
+        }        
 
         private void LoadData()
         {
-            this.m_Dashboard = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullDashboard(this);
-            this.m_Dashboard.SetBozemanBlockCount();
+            this.m_Dashboard = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullDashboard(this);            
             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
+
+            Nullable<int> blockCount = this.m_Dashboard.GetBozemanBlockCount();
+            if(blockCount.HasValue == true)
+            {
+                this.m_Dashboard.SetBozemanBlockCount(blockCount.Value);
+                Store.RedisDB db = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.BozemanBlockCount);
+                db.DataBase.StringSet(DateTime.Today.ToString("yyyyMMdd"), blockCount.Value);
+            }
+
             this.NotifyPropertyChanged("");
         }
 

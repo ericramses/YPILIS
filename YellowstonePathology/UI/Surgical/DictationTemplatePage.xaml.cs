@@ -127,8 +127,20 @@ namespace YellowstonePathology.UI.Surgical
         
         private void HyperLinkAddDicationToGross_Click(object sender, RoutedEventArgs e)
         {
+            if (this.m_AccessionOrder.PanelSetOrderCollection.HasSurgical() == true)
+            {
+                this.AddToSurgical();
+            }
+            else if(this.m_AccessionOrder.PanelSetOrderCollection.Exists(238) == true)
+            {
+                AddToGrossOnly();
+            }
+        }
+
+        private void AddToSurgical()
+        {
             if (this.m_SurgicalTestOrder.GrossX == "???") this.m_SurgicalTestOrder.GrossX = null;
-            if(string.IsNullOrEmpty(this.m_SurgicalTestOrder.GrossX) == true)
+            if (string.IsNullOrEmpty(this.m_SurgicalTestOrder.GrossX) == true)
             {
                 this.m_SurgicalTestOrder.GrossX = this.m_GrossDescription;
             }
@@ -140,7 +152,28 @@ namespace YellowstonePathology.UI.Surgical
             this.m_GrossDescription = null;
             this.NotifyPropertyChanged("GrossDescription");
 
-            if(this.ListBoxSpecimenOrders.SelectedIndex != this.ListBoxSpecimenOrders.Items.Count - 1)
+            if (this.ListBoxSpecimenOrders.SelectedIndex != this.ListBoxSpecimenOrders.Items.Count - 1)
+            {
+                this.ListBoxSpecimenOrders.SelectedIndex = this.ListBoxSpecimenOrders.SelectedIndex + 1;
+            }
+        }
+
+        private void AddToGrossOnly()
+        {
+            Business.Test.GrossOnly.GrossOnlyTestOrder grossOnlyTestOrder = (Business.Test.GrossOnly.GrossOnlyTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(238);
+            if (string.IsNullOrEmpty(grossOnlyTestOrder.GrossX) == true)
+            {
+                grossOnlyTestOrder.GrossX = this.m_GrossDescription;
+            }
+            else
+            {
+                grossOnlyTestOrder.GrossX = grossOnlyTestOrder.GrossX + Environment.NewLine + Environment.NewLine + this.m_GrossDescription;
+            }
+
+            this.m_GrossDescription = null;
+            this.NotifyPropertyChanged("GrossDescription");
+
+            if (this.ListBoxSpecimenOrders.SelectedIndex != this.ListBoxSpecimenOrders.Items.Count - 1)
             {
                 this.ListBoxSpecimenOrders.SelectedIndex = this.ListBoxSpecimenOrders.SelectedIndex + 1;
             }
