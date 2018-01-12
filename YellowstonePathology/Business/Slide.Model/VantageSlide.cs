@@ -15,6 +15,8 @@ namespace YellowstonePathology.Business.Slide.Model
         string m_CurrentLocation;
         List<VantageSlideScan> m_SlideScans;
 
+        private BarcodeScanning.VantageBarcode m_VantageBarcode;
+
         public VantageSlide()
         {
             this.m_SlideScans = new List<VantageSlideScan>();
@@ -28,7 +30,11 @@ namespace YellowstonePathology.Business.Slide.Model
         public string VantageSlideId
         {
             get { return this.m_VantageSlideId; }
-            set { this.m_VantageSlideId = value; }
+            set
+            {
+                this.m_VantageSlideId = value;
+                this.m_VantageBarcode = new BarcodeScanning.VantageBarcode(this.m_VantageSlideId);
+            }
         }
 
         public string MasterAccessionNo
@@ -46,6 +52,11 @@ namespace YellowstonePathology.Business.Slide.Model
         public string GetRedisKey()
         {
             return this.m_MasterAccessionNo + ":" + this.m_VantageSlideId;
+        }
+
+        public BarcodeScanning.VantageBarcode VantageBarcode
+        {
+            get { return this.m_VantageBarcode; }
         }
 
         public string ToJson()

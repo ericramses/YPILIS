@@ -34,25 +34,5 @@ namespace YellowstonePathology.Business.Slide.Model
             get { return this.m_Location; }
             set { this.m_Location = value; }
         }
-
-        public string ClientReportNo
-        {
-            get { return new BarcodeScanning.VantageBarcode(this.m_SlideId).ReportNo; }
-        }
-
-        public string ClientSpecimen
-        {
-            get { return new BarcodeScanning.VantageBarcode(this.m_SlideId).Specimen; }
-        }
-
-        public string ClientBlock
-        {
-            get { return new BarcodeScanning.VantageBarcode(this.m_SlideId).Block; }
-        }
-
-        public string ClientSlide
-        {
-            get { return new BarcodeScanning.VantageBarcode(this.m_SlideId).Slide; }
-        }
     }
 }
