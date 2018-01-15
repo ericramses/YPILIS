@@ -8,7 +8,7 @@
     <Grid>
         <Grid.Resources>
 
-            <HierarchicalDataTemplate x:Key="DataTemplateVantageSlide" ItemsSource="{Binding Path=VantageSlide}">
+            <HierarchicalDataTemplate x:Key="DataTemplateVantageSlide" ItemsSource="{Binding Path=.}">
                 <Grid Margin="2,2,2,2">
 
                     <Grid.ColumnDefinitions>
@@ -23,15 +23,21 @@
                     </Grid.RowDefinitions>
                     
                     <TextBlock Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=MasterAccessionNo}" Width="100"></TextBlock>
-                    <TextBlock Grid.Column="2" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=VantageSlideId}" Width="100"></TextBlock>
-                    <ListView Name="ListViewSlideScans"  Grid.Column="3" Grid.Row="0" Margin="3" ItemsSource="{Binding Path=SlideScans}">
+                    <StackPanel Grid.Column="2" Grid.Row="0" Grid.ColumnSpan="2" Orientation="Horizontal">
+                        <TextBlock Margin="2,2,2,2">ReportNo:</TextBlock>
+                        <TextBlock Margin="2,2,2,2" Text="{Binding Path=VantageBarcode.ReportNo}" />
+                        <TextBlock Margin="10,2,2,2" >Specimen:</TextBlock>
+                        <TextBlock Margin="2,2,2,2" Text="{Binding Path=VantageBarcode.Specimen}" />
+                        <TextBlock Margin="10,2,2,2" >Block:</TextBlock>
+                        <TextBlock Margin="2,2,2,2" Text="{Binding Path=VantageBarcode.Block}" />
+                        <TextBlock Margin="10,2,2,2" >Slide:</TextBlock>
+                        <TextBlock Margin="2,2,2,2" Text="{Binding Path=VantageBarcode.Slide}" />
+                    </StackPanel>
+
+                    <ListView Name="ListViewSlideScans"  Grid.Column="3" Grid.Row="1" Margin="3" ItemsSource="{Binding Path=SlideScans}">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=ScanDate}" Header="Date" Width="100"/>
-                                <GridViewColumn DisplayMemberBinding="{Binding Path=ClientReportNo}" Header="Report" Width="100" />
-                                <GridViewColumn DisplayMemberBinding="{Binding Path=ClientSpecimen}" Header="Specimen" Width="100"/>
-                                <GridViewColumn DisplayMemberBinding="{Binding Path=ClientBlock}" Header="Block" Width="100"/>
-                                <GridViewColumn DisplayMemberBinding="{Binding Path=ClientSlide}" Header="Slide"  Width="100"/>
                             </GridView>
                         </ListView.View>
                     </ListView>

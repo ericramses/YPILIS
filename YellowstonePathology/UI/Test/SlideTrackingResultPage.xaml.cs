@@ -62,7 +62,11 @@ namespace YellowstonePathology.UI.Test
 
         private void BarcodeScanPort_VantageSlideScanReceived(string scanData)
         {
-            this.m_VantageSlideCollection.HandleSlideScan(scanData, this.m_ScanIntent, "YPIBLGS");
+            this.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
+            {
+                this.m_VantageSlideCollection.HandleSlideScan(scanData, this.m_ScanIntent, "YPIBLGS");
+            }
+            ));
         }
 
         public string ScanIntent
