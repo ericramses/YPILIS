@@ -951,7 +951,7 @@ namespace YellowstonePathology.UI
 
         private void MenuItemSimulateVantageScan_Click(object sender, RoutedEventArgs e)
         {
-            string key = "R10;Sp11;B17;S4";
+            string key = "R15;Sp9;B57;S27";
             string[] results = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.VantageSlide).GetAllJSONKeysBySlideId(key);
             foreach (string result in results)
             {

@@ -1149,6 +1149,7 @@
     <Compile Include="Business\Slide.Model\VantageSlide.cs" />
     <Compile Include="Business\Slide.Model\VantageSlideCollection.cs" />
     <Compile Include="Business\Slide.Model\VantageSlideScan.cs" />
+    <Compile Include="Business\Slide.Model\VantageSlideScanCollection.cs" />
     <Compile Include="Business\Test\IgHMFABByFish\IgHMFABByFishEPICOBXView.cs" />
     <Compile Include="Business\Test\IgHMFABByFish\IgHMFABByFishTest.cs" />
     <Compile Include="Business\Test\IgHMFABByFish\IgHMFABByFishTestOrder.cs" />

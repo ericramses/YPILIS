@@ -53,21 +53,19 @@ namespace YellowstonePathology.Business.BarcodeScanning
 
         public static string SimulateScan()
         {
-            StringBuilder result = new StringBuilder();
+            /*StringBuilder result = new StringBuilder();
             DateTime date = DateTime.Now;
             result.Append("R");
             result.Append(date.Day.ToString());
-            result.Append(";");
-            result.Append("Sp");
+            result.Append(";Sp");
             result.Append(date.Hour.ToString());
-            result.Append(";");
-            result.Append("B");
+            result.Append(";B");
             result.Append(date.Minute.ToString());
-            result.Append(";");
-            result.Append("S");
+            result.Append(";S");
             result.Append(date.Second.ToString());
 
-            return result.ToString();
+            return result.ToString();*/
+            return "R15;Sp9;B57;S27";
         }
     }
 }
