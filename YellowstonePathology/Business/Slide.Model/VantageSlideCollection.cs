@@ -9,6 +9,8 @@ namespace YellowstonePathology.Business.Slide.Model
 {
     public class VantageSlideCollection : ObservableCollection<VantageSlide>
     {
+
+
         private string m_MasterAccessionNo;
 
         public VantageSlideCollection(string masterAccessionNo)
@@ -81,6 +83,16 @@ namespace YellowstonePathology.Business.Slide.Model
             {
                 VantageSlide vantageSlide = VantageSlide.FromJson(result);
                 this.Add(vantageSlide);
+            }
+        }
+
+        public void SetLocation(string location)
+        {
+            foreach(VantageSlide slide in this)
+            {
+                slide.CurrentLocation = location;
+                string jsonSlide = slide.ToJson();
+                Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.VantageSlide).DataBase.Execute("json.set", new string[] { slide.GetRedisKey(), ".", jsonSlide });
             }
         }
     }
