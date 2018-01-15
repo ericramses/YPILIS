@@ -1,28 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using System.ComponentModel;
 
 namespace YellowstonePathology.Business.Slide.Model
 {
-    public class VantageSlide
+    public class VantageSlide : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
         string m_VantageSlideId;
         string m_MasterAccessionNo;
         string m_CurrentLocation;
-        List<VantageSlideScan> m_SlideScans;
+        VantageSlideScanCollection m_SlideScans;
 
         private BarcodeScanning.VantageBarcode m_VantageBarcode;
 
         public VantageSlide()
         {
-            this.m_SlideScans = new List<VantageSlideScan>();
+            this.m_SlideScans = new VantageSlideScanCollection();
         }
 
-        public List<VantageSlideScan> SlideScans
+        public void NotifyPropertyChanged(String info)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
+        }
+
+        public VantageSlideScanCollection SlideScans
         {
             get { return this.m_SlideScans; }
         }

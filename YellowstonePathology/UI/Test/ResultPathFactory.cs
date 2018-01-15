@@ -330,6 +330,9 @@ namespace YellowstonePathology.UI.Test
                 case 290:
                     result = new SlideTrackingResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
+                case 291:
+                    result = new TechnicalOnlyResultPath(reportNo, accessionOrder, pageNavigator, window);
+                    break;
             }
             return result;
         }

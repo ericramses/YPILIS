@@ -65,6 +65,7 @@ namespace YellowstonePathology.UI.Test
             this.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
             {
                 this.m_VantageSlideCollection.HandleSlideScan(scanData, this.m_ScanIntent, "YPIBLGS");
+                this.NotifyPropertyChanged(string.Empty);
             }
             ));
         }
@@ -117,6 +118,15 @@ namespace YellowstonePathology.UI.Test
         {
             string data = YellowstonePathology.Business.BarcodeScanning.VantageBarcode.SimulateScan();
             this.BarcodeScanPort_VantageSlideScanReceived(data);
+        }
+
+        private void HyperLinkSendToBozeman_Click(object sender, RoutedEventArgs e)
+        {
+            foreach(Business.Slide.Model.VantageSlide vantageSlide in this.m_VantageSlideCollection)
+            {
+                this.m_VantageSlideCollection.SetLocation("YPBZM");
+                this.NotifyPropertyChanged(string.Empty);
+            }
         }
     }
 }
