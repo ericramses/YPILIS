@@ -130,18 +130,23 @@ namespace YellowstonePathology.UI.Login
 
         private void BarcodeScanPort_VantageSlideScanReceived(string scanData)
         {
-            string masterAccessionNo = null;
-            string[] results = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.VantageSlide).GetAllJSONKeys(scanData);
-            foreach (string result in results)
+            this.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
             {
-                YellowstonePathology.Business.Slide.Model.VantageSlide vantageSlide = Business.Slide.Model.VantageSlide.FromJson(result);
-                masterAccessionNo = vantageSlide.MasterAccessionNo;
-                break;
-            }
+                string masterAccessionNo = null;
 
-            this.m_LoginUI.GetReportSearchListByMasterAccessionNo(masterAccessionNo);
-            this.ListViewAccessionOrders.SelectedIndex = 0;
-            this.ShowResultsPage();
+                string[] results = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.VantageSlide).GetAllJSONKeysBySlideId(scanData);
+                foreach (string result in results)
+                {
+                    Business.Slide.Model.VantageSlide vantageSlide = Business.Slide.Model.VantageSlide.FromJson(result);
+                    masterAccessionNo = vantageSlide.MasterAccessionNo;
+                    break;
+                }
+
+                this.m_LoginUI.GetReportSearchListByMasterAccessionNo(masterAccessionNo);
+                this.ListViewAccessionOrders.SelectedIndex = 0;
+                this.ShowResultsPage();
+            }
+            ));
         }
 
         private void MainWindowCommandButtonHandler_StartProviderDistributionPath(object sender, EventArgs e)
