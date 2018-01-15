@@ -132,19 +132,7 @@ namespace YellowstonePathology.UI.Login
         {
             this.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
             {
-                string masterAccessionNo = null;
-
-                string[] results = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.VantageSlide).GetAllJSONKeysBySlideId(scanData);
-                foreach (string result in results)
-                {
-                    Business.Slide.Model.VantageSlide vantageSlide = Business.Slide.Model.VantageSlide.FromJson(result);
-                    masterAccessionNo = vantageSlide.MasterAccessionNo;
-                    break;
-                }
-
-                this.m_LoginUI.GetReportSearchListByMasterAccessionNo(masterAccessionNo);
-                this.ListViewAccessionOrders.SelectedIndex = 0;
-                this.ShowResultsPage();
+                this.HandleVantageSlideScan(scanData);
             }
             ));
         }
@@ -968,6 +956,26 @@ namespace YellowstonePathology.UI.Login
                 resultView.Send(result);
                 MessageBox.Show(result.Message);
             }
+        }
+
+        private void HandleVantageSlideScan(string scanData)
+        {
+            string masterAccessionNo = null;
+
+            string[] results = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.VantageSlide).GetAllJSONKeysBySlideId(scanData);
+            foreach (string result in results)
+            {
+                Business.Slide.Model.VantageSlide vantageSlide = Business.Slide.Model.VantageSlide.FromJson(result);
+                masterAccessionNo = vantageSlide.MasterAccessionNo;
+                break;
+            }
+
+            Business.Slide.Model.VantageSlideCollection vantageSlideCollection = new Business.Slide.Model.VantageSlideCollection(masterAccessionNo);
+            vantageSlideCollection.HandleSlideScan(scanData, "Receive", "YPIBLGS");
+
+            this.m_LoginUI.GetReportSearchListByMasterAccessionNo(masterAccessionNo);
+            this.ListViewAccessionOrders.SelectedIndex = 0;
+            this.ShowResultsPage();
         }
     }
 }

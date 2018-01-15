@@ -21,23 +21,29 @@
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
                     </Grid.RowDefinitions>
-                    
-                    <TextBlock Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=MasterAccessionNo}" Width="100"></TextBlock>
-                    <StackPanel Grid.Column="2" Grid.Row="0" Grid.ColumnSpan="2" Orientation="Horizontal">
-                        <TextBlock Margin="2,2,2,2">ReportNo:</TextBlock>
-                        <TextBlock Margin="2,2,2,2" Text="{Binding Path=VantageBarcode.ReportNo}" />
-                        <TextBlock Margin="10,2,2,2" >Specimen:</TextBlock>
-                        <TextBlock Margin="2,2,2,2" Text="{Binding Path=VantageBarcode.Specimen}" />
-                        <TextBlock Margin="10,2,2,2" >Block:</TextBlock>
-                        <TextBlock Margin="2,2,2,2" Text="{Binding Path=VantageBarcode.Block}" />
-                        <TextBlock Margin="10,2,2,2" >Slide:</TextBlock>
-                        <TextBlock Margin="2,2,2,2" Text="{Binding Path=VantageBarcode.Slide}" />
-                    </StackPanel>
+
+                    <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=MasterAccessionNo}" FontSize="14" FontWeight="Bold" Width="100"></TextBlock>
+
+                    <Grid Grid.Column="0" Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        
+                        <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=VantageBarcode.ReportNo}" HorizontalAlignment="Left" />
+                        <TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" Text="{Binding Path=VantageBarcode.Specimen}" HorizontalAlignment="Left" />
+                        <TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" Text="{Binding Path=VantageBarcode.Block}" HorizontalAlignment="Left" />
+                        <TextBlock Grid.Column="0" Grid.Row="3" Margin="2,2,2,2" Text="{Binding Path=VantageBarcode.Slide}" HorizontalAlignment="Left" />
+                    </Grid>
 
                     <ListView Name="ListViewSlideScans"  Grid.Column="3" Grid.Row="1" Margin="3" ItemsSource="{Binding Path=SlideScans}">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn DisplayMemberBinding="{Binding Path=ScanDate}" Header="Date" Width="100"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Path=ScanDate, Converter={StaticResource MilitaryDateTimeConverterV2}}" Header="Date" Width="120"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Path=Location}" Header="Location" Width="100"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Path=ScannedBy}" Header="Scanned By" Width="200"/>
                             </GridView>
                         </ListView.View>
                     </ListView>
