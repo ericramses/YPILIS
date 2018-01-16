@@ -960,6 +960,7 @@ namespace YellowstonePathology.UI.Login
 
         private void HandleVantageSlideScan(string scanData)
         {
+            this.m_BarcodeScanPort.VantageSlideScanReceived -= BarcodeScanPort_VantageSlideScanReceived;
             string masterAccessionNo = null;
 
             string[] results = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.VantageSlide).GetAllJSONKeysBySlideId(scanData);
@@ -971,11 +972,12 @@ namespace YellowstonePathology.UI.Login
             }
 
             Business.Slide.Model.VantageSlideCollection vantageSlideCollection = new Business.Slide.Model.VantageSlideCollection(masterAccessionNo);
-            vantageSlideCollection.HandleSlideScan(scanData, "Receive", "YPIBLGS");
+            vantageSlideCollection.HandleSlideScan(scanData);
 
             this.m_LoginUI.GetReportSearchListByMasterAccessionNo(masterAccessionNo);
             this.ListViewAccessionOrders.SelectedIndex = 0;
             this.ShowResultsPage();
+            this.m_BarcodeScanPort.VantageSlideScanReceived += BarcodeScanPort_VantageSlideScanReceived;
         }
     }
 }

@@ -69,11 +69,10 @@ namespace YellowstonePathology.Store
 
         public string[] GetAllJSONKeysBySlideId(string value)
         {
-            string script = "local data = redis.call('keys', '*" + value + ") " +
+            string script = "local data = redis.call('keys', '*" + value + "') " +
                             "local result = {} " +
                             "for i, item in ipairs(data) do " +
                             "result[i] = redis.call('json.get', data[i])  end " +
-                            "end " +
                             "return result ";
             LuaScript prepared = LuaScript.Prepare(script);
             return (string[])this.m_DataBase.ScriptEvaluate(prepared);
