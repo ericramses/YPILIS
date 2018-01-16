@@ -11,6 +11,7 @@ namespace YellowstonePathology.Business.Slide.Model
         string m_SlideId;
         DateTime m_ScanDate;
         string m_Location;
+        string m_ScannedBy;
 
         public VantageSlideScan()
         {
@@ -33,6 +34,12 @@ namespace YellowstonePathology.Business.Slide.Model
         {
             get { return this.m_Location; }
             set { this.m_Location = value; }
+        }
+
+        public string ScannedBy
+        {
+            get { return this.m_ScannedBy; }
+            set { this.m_ScannedBy = value; }
         }
     }
 }

@@ -951,13 +951,7 @@ namespace YellowstonePathology.UI
 
         private void MenuItemSimulateVantageScan_Click(object sender, RoutedEventArgs e)
         {
-            string key = "R15;Sp9;B57;S27";
-            string[] results = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.VantageSlide).GetAllJSONKeysBySlideId(key);
-            foreach (string result in results)
-            {
-                Business.Slide.Model.VantageSlide vantageSlide = Business.Slide.Model.VantageSlide.FromJson(result);
-                break;
-            }
+            string key = "17Z07235S;C;1;1";
 
             YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort.Instance.SimulateScanReceived(key);
         }
