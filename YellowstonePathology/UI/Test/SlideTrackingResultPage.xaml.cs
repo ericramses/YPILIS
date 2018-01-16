@@ -29,7 +29,6 @@ namespace YellowstonePathology.UI.Test
 		private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
         private Business.Slide.Model.VantageSlideCollection m_VantageSlideCollection;
         private YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort m_BarcodeScanPort;
-        private string m_ScanIntent;
 
         public SlideTrackingResultPage(YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
@@ -38,7 +37,6 @@ namespace YellowstonePathology.UI.Test
 			this.m_PanelSetOrder = panelSetOrder;
 			this.m_AccessionOrder = accessionOrder;
 			this.m_SystemIdentity = systemIdentity;
-            this.m_ScanIntent = "Receive";
 
             this.m_VantageSlideCollection = new Business.Slide.Model.VantageSlideCollection(this.m_AccessionOrder.MasterAccessionNo);
             this.m_BarcodeScanPort = YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort.Instance;
@@ -64,16 +62,10 @@ namespace YellowstonePathology.UI.Test
         {
             this.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
             {
-                this.m_VantageSlideCollection.HandleSlideScan(scanData, this.m_ScanIntent, "YPIBLGS");
+                this.m_VantageSlideCollection.HandleSlideScan(scanData);
                 this.NotifyPropertyChanged(string.Empty);
             }
             ));
-        }
-
-        public string ScanIntent
-        {
-            get { return this.m_ScanIntent; }
-            set { this.m_ScanIntent = value; }
         }
 
         public Business.Slide.Model.VantageSlideCollection VantageSlideCollection
