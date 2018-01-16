@@ -40,6 +40,7 @@ namespace YellowstonePathology.Business.Slide.Model
             slideScan.Location = location;
             slideScan.ScanDate = DateTime.Now;
             slideScan.SlideId = vantageSlideId;
+            slideScan.ScannedBy = Business.User.SystemIdentity.Instance.User.DisplayName;
             slide.SlideScans.Add(slideScan);
 
             string jsonSlide = slide.ToJson();

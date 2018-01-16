@@ -65,7 +65,7 @@ namespace YellowstonePathology.Business.BarcodeScanning
             result.Append(date.Second.ToString());
 
             return result.ToString();*/
-            return "R15;Sp9;B57;S27";
+            return "17Z07235S;C;1;1";
         }
     }
 }
