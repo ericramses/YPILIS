@@ -948,12 +948,5 @@ namespace YellowstonePathology.UI
             VentanaStainMappingDialog dialog = new UI.VentanaStainMappingDialog();
             dialog.Show();
         }
-
-        private void MenuItemSimulateVantageScan_Click(object sender, RoutedEventArgs e)
-        {
-            string key = "17Z07235S;C;1;1";
-
-            YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort.Instance.SimulateScanReceived(key);
-        }
     }
 }

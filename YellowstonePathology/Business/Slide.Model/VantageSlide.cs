@@ -57,7 +57,11 @@ namespace YellowstonePathology.Business.Slide.Model
         public string CurrentLocation
         {
             get { return this.m_CurrentLocation; }
-            set { this.m_CurrentLocation = value; }
+            set
+            {
+                this.m_CurrentLocation = value;
+                this.NotifyPropertyChanged("CurrentLocation");
+            }
         }
 
         public string GetRedisKey()
