@@ -26,8 +26,8 @@ namespace YellowstonePathology.UI.Test
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private string m_PageHeaderText;
 
-		private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
-        private Business.Slide.Model.VantageSlideCollection m_VantageSlideCollection;
+        private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
+        private Business.Slide.Model.VantageSlideViewCollection m_VantageSlideViewCollection;
         private YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort m_BarcodeScanPort;
 
         public SlideTrackingResultPage(YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder,
@@ -38,12 +38,12 @@ namespace YellowstonePathology.UI.Test
 			this.m_AccessionOrder = accessionOrder;
 			this.m_SystemIdentity = systemIdentity;
 
-            this.m_VantageSlideCollection = new Business.Slide.Model.VantageSlideCollection(this.m_AccessionOrder.MasterAccessionNo);
+            this.m_VantageSlideViewCollection = new Business.Slide.Model.VantageSlideViewCollection(this.m_AccessionOrder.MasterAccessionNo);
             this.m_BarcodeScanPort = YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort.Instance;
 
-            this.m_PageHeaderText = "Slide Tracking Result For: " + this.m_AccessionOrder.PatientDisplayName;			
+            this.m_PageHeaderText = "Slide Tracking Result For: " + this.m_AccessionOrder.PatientDisplayName;
 
-			InitializeComponent();
+            InitializeComponent();
 
 			DataContext = this;
 
@@ -62,15 +62,15 @@ namespace YellowstonePathology.UI.Test
         {
             this.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
             {
-                this.m_VantageSlideCollection.HandleSlideScan(scanData);
+                this.m_VantageSlideViewCollection.HandleSlideScan(scanData);
                 this.NotifyPropertyChanged(string.Empty);
             }
             ));
         }
 
-        public Business.Slide.Model.VantageSlideCollection VantageSlideCollection
+        public Business.Slide.Model.VantageSlideViewCollection VantageSlideViewCollection
         {
-            get { return this.m_VantageSlideCollection; }
+            get { return this.m_VantageSlideViewCollection; }
         }
 
         public YellowstonePathology.Business.Test.PanelSetOrder PanelSetOrder
@@ -114,11 +114,16 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkSendToBozeman_Click(object sender, RoutedEventArgs e)
         {
-            foreach(Business.Slide.Model.VantageSlide vantageSlide in this.m_VantageSlideCollection)
-            {
-                this.m_VantageSlideCollection.SetLocation("YPBZM");
-                this.NotifyPropertyChanged(string.Empty);
-            }
+            YellowstonePathology.Business.Facility.Model.YellowstonePathologistBozeman facility = new Business.Facility.Model.YellowstonePathologistBozeman();
+            this.m_VantageSlideViewCollection.SetLocation(facility.FacilityId);
+            this.NotifyPropertyChanged(string.Empty);
+        }
+
+        private void HyperLinkSendToBillings_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings facility = new Business.Facility.Model.YellowstonePathologyInstituteBillings();
+            this.m_VantageSlideViewCollection.SetLocation(facility.FacilityId);
+            this.NotifyPropertyChanged(string.Empty);
         }
     }
 }

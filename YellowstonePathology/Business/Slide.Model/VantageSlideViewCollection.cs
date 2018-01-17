@@ -1,19 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Collections.ObjectModel;
+
 
 namespace YellowstonePathology.Business.Slide.Model
 {
-    public class VantageSlideCollection : ObservableCollection<VantageSlide>
+    public class VantageSlideViewCollection : ObservableCollection<VantageSlideView>
     {
-
-
         private string m_MasterAccessionNo;
 
-        public VantageSlideCollection(string masterAccessionNo)
+        public VantageSlideViewCollection(string masterAccessionNo)
         {
             this.m_MasterAccessionNo = masterAccessionNo;
             this.Load();
@@ -21,7 +16,7 @@ namespace YellowstonePathology.Business.Slide.Model
 
         public void HandleSlideScan(string vantageSlideId)
         {
-            VantageSlide slide = null;
+            VantageSlideView view = null;
 
             YellowstonePathology.Business.Facility.Model.FacilityCollection facilityCollection = Business.Facility.Model.FacilityCollection.GetAllFacilities();
             YellowstonePathology.Business.Facility.Model.LocationCollection locationCollection = YellowstonePathology.Business.Facility.Model.LocationCollection.GetAllLocations();
@@ -30,38 +25,40 @@ namespace YellowstonePathology.Business.Slide.Model
 
             if (this.Exists(vantageSlideId) == false)
             {
-                slide = new VantageSlide();
+                VantageSlide slide = new VantageSlide();
                 slide.MasterAccessionNo = this.m_MasterAccessionNo;
                 slide.VantageSlideId = vantageSlideId;
                 slide.CurrentLocation = thisFacility.FacilityId;
-                this.Add(slide);
+
+                view = new VantageSlideView(slide, System.Windows.Media.Brushes.LightGreen);
+                this.Add(view);
             }
             else
             {
-                slide = this.Get(vantageSlideId);
-            }
+                view = this.Get(vantageSlideId);
+                view.ScanStatusColor = System.Windows.Media.Brushes.LightGreen;            }
 
             VantageSlideScan slideScan = new VantageSlideScan();
             slideScan.Location = thisLocation.LocationId;
             slideScan.ScanDate = DateTime.Now;
             slideScan.SlideId = vantageSlideId;
             slideScan.ScannedBy = Business.User.SystemIdentity.Instance.User.UserName;
-            slide.SlideScans.Add(slideScan);
+            view.VantageSlide.SlideScans.Add(slideScan);
 
-            string jsonSlide = slide.ToJson();
+            string jsonSlide = view.VantageSlide.ToJson();
 
-            Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.VantageSlide).DataBase.Execute("json.set", new string[] { slide.GetRedisKey(), ".", jsonSlide });
-            
+            Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.VantageSlide).DataBase.Execute("json.set", new string[] { view.VantageSlide.GetRedisKey(), ".", jsonSlide });
+
         }
 
-        public VantageSlide Get(string vantageSlideId)
+        public VantageSlideView Get(string vantageSlideId)
         {
-            VantageSlide result = null; ;
-            foreach (VantageSlide slide in this)
+            VantageSlideView result = null; ;
+            foreach (VantageSlideView view in this)
             {
-                if (slide.VantageSlideId == vantageSlideId)
+                if (view.VantageSlide.VantageSlideId == vantageSlideId)
                 {
-                    result = slide;
+                    result = view;
                     break;
                 }
             }
@@ -71,9 +68,9 @@ namespace YellowstonePathology.Business.Slide.Model
         public bool Exists(string vantageSlideId)
         {
             bool result = false;
-            foreach(VantageSlide slide in this)
+            foreach (VantageSlideView view in this)
             {
-                if(slide.VantageSlideId == vantageSlideId)
+                if (view.VantageSlide.VantageSlideId == vantageSlideId)
                 {
                     result = true;
                     break;
@@ -85,20 +82,21 @@ namespace YellowstonePathology.Business.Slide.Model
         private void Load()
         {
             string[] results = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.VantageSlide).GetAllJSONKeys(this.m_MasterAccessionNo);
-            foreach(string result in results)
+            foreach (string result in results)
             {
                 VantageSlide vantageSlide = VantageSlide.FromJson(result);
-                this.Add(vantageSlide);
+                VantageSlideView view = new Model.VantageSlideView(vantageSlide, System.Windows.Media.Brushes.White);
+                this.Add(view);
             }
         }
 
         public void SetLocation(string location)
         {
-            foreach(VantageSlide slide in this)
+            foreach (VantageSlideView view in this)
             {
-                slide.CurrentLocation = location;
-                string jsonSlide = slide.ToJson();
-                Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.VantageSlide).DataBase.Execute("json.set", new string[] { slide.GetRedisKey(), ".", jsonSlide });
+                view.VantageSlide.CurrentLocation = location;
+                string jsonSlide = view.VantageSlide.ToJson();
+                Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.VantageSlide).DataBase.Execute("json.set", new string[] { view.VantageSlide.GetRedisKey(), ".", jsonSlide });
             }
         }
     }

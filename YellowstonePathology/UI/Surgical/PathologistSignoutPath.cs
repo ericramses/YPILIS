@@ -200,6 +200,7 @@ namespace YellowstonePathology.UI.Surgical
             YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new Business.Test.TestOrderInfo();
             testOrderInfo.PanelSet = panelSet;
             testOrderInfo.OrderTargetIsKnown = false;
+            testOrderInfo.Distribute = panelSet.NeverDistribute == true ? false : true;
 
             YellowstonePathology.UI.Login.Receiving.ReportOrderPath reportOrderPath = new Login.Receiving.ReportOrderPath(this.m_AccessionOrder, this.m_PathologistSignoutDialog.PageNavigator, PageNavigationModeEnum.Inline, m_PathologistSignoutDialog);
             reportOrderPath.Finish += ReportOrderPath_Finish;
