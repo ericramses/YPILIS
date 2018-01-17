@@ -5,6 +5,7 @@ namespace YellowstonePathology.Business.BarcodeScanning
 {
     public class VantageBarcode
     {
+        private static int idNo = 0;
         private string m_ScanData;
         private string m_ReportNo;
         private string m_Specimen;
@@ -53,19 +54,30 @@ namespace YellowstonePathology.Business.BarcodeScanning
 
         public static string SimulateScan()
         {
-            /*StringBuilder result = new StringBuilder();
-            DateTime date = DateTime.Now;
-            result.Append("R");
-            result.Append(date.Day.ToString());
-            result.Append(";Sp");
-            result.Append(date.Hour.ToString());
-            result.Append(";B");
-            result.Append(date.Minute.ToString());
-            result.Append(";S");
-            result.Append(date.Second.ToString());
+            string first = "17Z07235S;A;1;1";
+            string second = "17Z07235S;B;2;2";
+            string third = "17Z07235S;C;2;1";
+            string result = string.Empty;
 
-            return result.ToString();*/
-            return "17Z07235S;C;1;1";
+            idNo++;
+            switch (idNo)
+            {
+                case 1:
+                    result = first;
+                    break;
+                case 2:
+                    result = second;
+                    break;
+                case 3:
+                    result = third;
+                    break;
+                default:
+                    idNo = 1;
+                    result = first;
+                    break;
+            }
+
+            return result;
         }
     }
 }

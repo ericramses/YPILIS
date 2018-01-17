@@ -971,8 +971,8 @@ namespace YellowstonePathology.UI.Login
                 break;
             }
 
-            Business.Slide.Model.VantageSlideCollection vantageSlideCollection = new Business.Slide.Model.VantageSlideCollection(masterAccessionNo);
-            vantageSlideCollection.HandleSlideScan(scanData);
+            //Business.Slide.Model.VantageSlideCollection vantageSlideCollection = new Business.Slide.Model.VantageSlideCollection(masterAccessionNo);
+            //vantageSlideCollection.HandleSlideScan(scanData);
 
             this.m_LoginUI.GetReportSearchListByMasterAccessionNo(masterAccessionNo);
             this.ListViewAccessionOrders.SelectedIndex = 0;
