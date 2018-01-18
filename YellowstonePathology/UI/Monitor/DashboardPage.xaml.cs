@@ -29,6 +29,7 @@ namespace YellowstonePathology.UI.Monitor
 
         public DashboardPage()
         {
+            this.m_Dashboard = new Business.Monitor.Model.Dashboard();
             InitializeComponent();
             this.DataContext = this;
         }        
@@ -51,7 +52,7 @@ namespace YellowstonePathology.UI.Monitor
 
         public void Refresh()
         {
-            this.LoadData();
+            this.m_Dashboard.LoadData();
         }
 
         public YellowstonePathology.Business.Monitor.Model.Dashboard Dashboard
