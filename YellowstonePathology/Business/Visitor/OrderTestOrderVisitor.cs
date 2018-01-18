@@ -151,8 +151,12 @@ namespace YellowstonePathology.Business.Visitor
             this.m_ReportNo = this.m_AccessionOrder.GetNextReportNo(this.m_PanelSet);
             string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 
-            bool distribute = this.m_TestOrderInfo.Distribute;
-            if (this.m_PanelSet.NeverDistribute == true)
+            bool distribute = true;
+            if(this.m_TestOrderInfo.Distribute.HasValue == true)
+            {
+                distribute = this.m_TestOrderInfo.Distribute.Value;
+            }
+            else if (this.m_PanelSet.NeverDistribute == true)
             {
                 distribute = false;
             }
