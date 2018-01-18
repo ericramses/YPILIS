@@ -279,9 +279,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 			YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet = (YellowstonePathology.Business.PanelSet.Model.PanelSet)hyperLink.Tag;
             panelSet.ResearchTesting = this.m_OrderAsResearchTesting;
             
-            YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new Business.Test.TestOrderInfo();
-            testOrderInfo.PanelSet = panelSet;
-            testOrderInfo.Distribute = true;
+            YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new Business.Test.TestOrderInfo(panelSet);
 
             YellowstonePathology.UI.CustomEventArgs.TestOrderInfoEventArgs reportOrderInfoEventArgs = new CustomEventArgs.TestOrderInfoEventArgs(testOrderInfo);
 			if (this.OrderPanelSet != null) this.OrderPanelSet(this, reportOrderInfoEventArgs);

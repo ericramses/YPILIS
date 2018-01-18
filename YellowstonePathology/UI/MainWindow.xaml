@@ -58,6 +58,7 @@
                 <MenuItem Header="Embedding" Click="MenuItemEmbedding_Click" />
                 <MenuItem Header="Retrospective Reviews" Click="MenuItemRetrospectiveReviews_Click" />
                 <MenuItem Header="Ventana Stain Mapping" Click="MenuItemVentanaStainMapping_Click" />
+                <MenuItem Header="Simulate Vantage Scan" Click="MenuItemSimulateVantageScan_Click" />
             </MenuItem>
 
             <MenuItem Header="_Client" Name="MenuItemClient">
