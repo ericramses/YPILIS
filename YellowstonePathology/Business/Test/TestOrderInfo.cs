@@ -10,13 +10,15 @@ namespace YellowstonePathology.Business.Test
 		private YellowstonePathology.Business.PanelSet.Model.PanelSet m_PanelSet;
         private YellowstonePathology.Business.Interface.IOrderTarget m_OrderTarget;        
         private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
-        private bool m_Distribute;
+        private bool? m_Distribute;
         private bool m_OrderTargetIsKnown;        
 
-		public TestOrderInfo()
+		public TestOrderInfo(YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet)
 		{
-            
-		}
+            this.m_PanelSet = panelSet;
+            this.m_Distribute = null;
+            this.m_OrderTargetIsKnown = false;
+        }
 
         public TestOrderInfo(YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet, YellowstonePathology.Business.Interface.IOrderTarget orderTarget, bool distribute)
 		{
@@ -44,7 +46,7 @@ namespace YellowstonePathology.Business.Test
 			set { this.m_PanelSetOrder = value; }
 		}
 
-		public bool Distribute
+		public bool? Distribute
 		{
 			get { return this.m_Distribute; }
 			set { this.m_Distribute = value; }
