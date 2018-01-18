@@ -446,7 +446,7 @@
                             </Button>
                             <Button Margin="2,2,2,2" Width="115" Height="50" Click="ButtonOrderIronBlock_Click">
 								<StackPanel>
-									<TextBlock FontSize="12">Iron</TextBlock>
+									<TextBlock FontSize="12">Iron-W</TextBlock>
 									<TextBlock FontSize="8">on a block</TextBlock>
 								</StackPanel>
 							</Button>
@@ -467,7 +467,7 @@
 
 							<Button Margin="2,2,2,2" Width="115" Height="50" Click="ButtonOrderIronSlide_Click">
 								<StackPanel>
-									<TextBlock FontSize="12">Iron</TextBlock>
+									<TextBlock FontSize="12">Iron-W</TextBlock>
 									<TextBlock FontSize="8">on a slide</TextBlock>
 								</StackPanel>
 							</Button>

@@ -257,7 +257,7 @@ namespace YellowstonePathology.UI.Billing
         private void ButtonPost_Click(object sender, RoutedEventArgs e)
         {
             YellowstonePathology.Business.Billing.Model.BillableObject billableObject = Business.Billing.Model.BillableObjectFactory.GetBillableObject(this.m_AccessionOrder, this.m_ReportNo);
-            YellowstonePathology.Business.Rules.MethodResult methodResult = billableObject.Post();                        
+            YellowstonePathology.Business.Rules.MethodResult methodResult = billableObject.Post();
             if (methodResult.Success == false)
             {
                 MessageBox.Show(methodResult.Message);

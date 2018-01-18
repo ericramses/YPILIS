@@ -22,7 +22,7 @@ namespace YellowstonePathology.Business.Test.ErPrSemiQuantitative
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.ErPrSemiQuantitative.ErPrSemiQuantitativeTestOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.ErPrSemiQuantitative.ErPrSemiQuantitativeWordDocument).AssemblyQualifiedName;
             
-			this.m_AllowMultiplePerAccession = false;
+			this.m_AllowMultiplePerAccession = true;
             this.m_EpicDistributionIsImplemented = true;
 
             string taskDescription = "Gather materials and perform testing.";
