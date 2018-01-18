@@ -33,7 +33,7 @@ namespace YellowstonePathology.Business.Persistence
                     while (dr.Read())
                     {
                         string s = dr[0].ToString();
-                        dashboard.YPIBlocks = Convert.ToInt32(dr[0].ToString());
+                        //dashboard.YPIBlocks = Convert.ToInt32(dr[0].ToString());
                     }
 
                     dr.NextResult();

@@ -1124,6 +1124,8 @@
     <Compile Include="Business\MaterialTracking.Model\MaterialTrackingScannedItemView.cs" />
     <Compile Include="Business\MaterialTracking.Model\MaterialTrackingScannedItemViewCollection.cs" />
     <Compile Include="Business\MolecularTesting\CaseList.cs" />
+    <Compile Include="Business\Monitor.Model\BlockCount.cs" />
+    <Compile Include="Business\Monitor.Model\BlockCountCollection.cs" />
     <Compile Include="Business\Monitor.Model\Dashboard.cs" />
     <Compile Include="Business\Monitor.Model\CytologyScreening.cs" />
     <Compile Include="Business\Monitor.Model\CytologyScreeningCollection.cs" />
