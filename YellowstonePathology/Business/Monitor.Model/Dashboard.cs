@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using YellowstonePathology.Business.Persistence;
 using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
@@ -12,24 +11,19 @@ using Microsoft.Exchange.WebServices.Data;
 
 namespace YellowstonePathology.Business.Monitor.Model
 {
-    [PersistentClass("tblDashboard", "YPIDATA")]
     public class Dashboard : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;        
+        public event PropertyChangedEventHandler PropertyChanged;
 
         private DateTime m_DashboardDate;
-        private string m_YPIBlockCount;
-        private int m_YPIBlocks;
-        private string m_BozemanBlockCount;
-        private int m_BozemanBlocks;
         private MonitorStateEnum m_State;
+        private BlockCountCollection m_BlockCountCollection;
 
         public Dashboard()
         {
             this.m_State = MonitorStateEnum.Normal;
         }
 
-        [PersistentPrimaryKeyProperty(false)]
         public DateTime DashboardDate
         {
             get { return this.m_DashboardDate; }
@@ -43,63 +37,44 @@ namespace YellowstonePathology.Business.Monitor.Model
             }
         }
 
-        [PersistentProperty()]
-        public string BozemanBlockCount
+        public BlockCountCollection BlockCountCollection
         {
-            get { return this.m_BozemanBlockCount; }
+            get { return this.m_BlockCountCollection; }
             set
             {
-                if (this.m_BozemanBlockCount != value)
+                this.m_BlockCountCollection = value;
+                if (this.m_BlockCountCollection != value)
                 {
-                    if (value == null || value == "Unknown")
-                    {
-                        this.m_BozemanBlockCount = "Unknown";
-                        this.m_BozemanBlocks = 0;
-                    }
-                    else
-                    {
-                        this.m_BozemanBlockCount = value;
-                        this.m_BozemanBlocks = Convert.ToInt32(value);
-                    }
-                    this.NotifyPropertyChanged("BozemanBlockCount");
-                    this.NotifyPropertyChanged("TotalBlockCount");
+                    this.m_BlockCountCollection = value;
+                    this.NotifyPropertyChanged("BlockCountCollection");
                 }
             }
         }
 
-        public string YPIBlockCount
+        public void LoadData()
         {
-            get { return this.m_YPIBlockCount; }
-            set
+            Nullable<int> bozemanCount = this.GetBozemanBlockCount();
+            string count = "Unknown";
+            if (bozemanCount.HasValue == true) count = bozemanCount.Value.ToString();
+                
+            Store.RedisDB db = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.BozemanBlockCount);
+            db.DataBase.StringSet(DateTime.Today.ToString("yyyyMMdd"), count);
+            string[] results = db.GetAllStrings();
+            foreach(string result in results)
             {
-                if (this.m_YPIBlockCount != value)
-                {
-                    this.m_YPIBlockCount = value;
-                    this.NotifyPropertyChanged("YPIBlockCount");
-                    this.NotifyPropertyChanged("TotalBlockCount");
-                }
+                BlockCount block = new Model.BlockCount(result);
+                this.m_BlockCountCollection.Add(block);
             }
-        }
 
-        public int YPIBlocks
-        {
-            get { return this.m_YPIBlocks; }
-            set
-            {
-                this.m_YPIBlocks = value;
-                this.YPIBlockCount = this.m_YPIBlocks.ToString();
-            }
-        }
 
-        public int TotalBlockCount
-        {
-            get { return this.m_YPIBlocks + this.m_BozemanBlocks; }
-        }             
+            this.NotifyPropertyChanged("");
+
+        }
 
         public void SetBozemanBlockCount(int blockCount)
         {            
-            this.m_BozemanBlockCount = blockCount.ToString();
-            this.m_BozemanBlocks = blockCount;
+            //this.m_BozemanBlockCount = blockCount.ToString();
+            //this.m_BozemanBlocks = blockCount;
             this.NotifyPropertyChanged(string.Empty);            
         }
 
