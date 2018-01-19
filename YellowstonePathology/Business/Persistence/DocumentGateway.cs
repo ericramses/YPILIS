@@ -310,18 +310,6 @@ namespace YellowstonePathology.Business.Persistence
                 Document document = this.m_Stack.Pull(documentId, builder);
                 return (YellowstonePathology.Business.Surgical.VentanaBenchMark)document.Value;
             }
-        }
-
-        public YellowstonePathology.Business.Monitor.Model.Dashboard PullDashboard(object writer)
-        {
-            lock (locker)
-            {
-
-                DashboardDocumentBuilder builder = new DashboardDocumentBuilder();
-                DocumentId documentId = new DocumentId(typeof(YellowstonePathology.Business.Monitor.Model.Dashboard), writer, DateTime.Today);
-                Document document = this.m_Stack.Pull(documentId, builder);
-                return (YellowstonePathology.Business.Monitor.Model.Dashboard)document.Value;
-            }
-        }
+        }        
     }
 }

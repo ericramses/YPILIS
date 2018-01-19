@@ -21,26 +21,28 @@
 
         <Grid Grid.Column="0" Grid.Row="1" Background="#e5fee7" Margin ="5, 5, 5, 5" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Column="0" Grid.Row="0" Margin ="5, 5, 5, 5" FontSize="70" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Right">YPI:</TextBlock>
-            <TextBlock Grid.Column="1" Grid.Row="0" Margin ="5, 5, 5, 5" FontSize="70" TextAlignment="Center" Text="{Binding Path=Dashboard.YPIBlockCount}"></TextBlock>
+            <ListView Margin="10" Grid.Column="0" Grid.Row="0" ItemsSource="{Binding Path=BlockCountCollection}">
+                <ListView.Resources>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="FontSize" Value="36" />
+                    </Style>
+                </ListView.Resources>
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=DateDisplayString}" Header="Date" Width="400"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=YPIBlocks}" Header="YPI" Width="100"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=BozemanBlocks}" Header="Bozeman" Width="100"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
 
-            <TextBlock Grid.Column="0" Grid.Row="1" Margin ="5, 5, 5, 5" FontSize="70" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Right">Bozeman:</TextBlock>
-            <TextBlock Grid.Column="1" Grid.Row="1" Margin ="5, 5, 5, 5" FontSize="70" TextAlignment="Center" Text="{Binding Path=Dashboard.BozemanBlockCount}"></TextBlock>
-
-            <TextBlock Grid.Column="0" Grid.Row="3" Margin ="5, 5, 5, 5" FontSize="70" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Right">Total:</TextBlock>
-            <TextBlock Grid.Column="1" Grid.Row="3" Margin ="5, 5, 5, 5" FontSize="70" TextAlignment="Center" Text="{Binding Path=Dashboard.TotalBlockCount}"></TextBlock>
         </Grid>
     </Grid>
 </UserControl>

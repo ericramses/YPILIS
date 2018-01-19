@@ -13,6 +13,33 @@ namespace YellowstonePathology.Business.Gateway
 {
 	public class AccessionOrderGateway
 	{
+        public static Business.Monitor.Model.BlockCountCollection GetMonitorBlockCount()
+        {
+            Business.Monitor.Model.BlockCountCollection result = new Monitor.Model.BlockCountCollection();
+
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "prcGetMonitorBlockCount";
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        Business.Monitor.Model.BlockCount blockCount = new Monitor.Model.BlockCount();
+                        blockCount.Date = DateTime.Parse(dr["Date"].ToString());
+                        blockCount.YPIBlocks = Convert.ToInt32(dr["Count"]);
+                        result.Add(blockCount);
+                    }
+                }
+            }
+
+            return result;
+        }
+
         public static Business.Surgical.VentanaBenchMarkCollection GetVentanaBenchMarkCollection()
         {
             Business.Surgical.VentanaBenchMarkCollection result = new Surgical.VentanaBenchMarkCollection();
