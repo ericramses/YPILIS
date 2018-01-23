@@ -737,10 +737,27 @@ namespace YellowstonePathology.UI
             */            
         }
 
-        private void ButtonInsertTesting_Click(object sender, RoutedEventArgs e)
+        private void ButtonMoveRedisPQRS_Click(object sender, RoutedEventArgs e)
         {
-            
-        }                		
+            /*Store.RedisDB sourceDb = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.PQRS);
+            Store.RedisDB targetDb = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.TempPQRS);
+             
+            string[] jObjs = sourceDb.GetAllJSONKeys();
+            foreach (string jString in jObjs)
+            {
+                string key = YellowstonePathology.Business.Billing.Model.CptCodeFactory.FromJson(jString).Code;
+                //targetDb.DataBase.Execute("json.set", new string[] { key, ".", jString });
+                sourceDb.DataBase.KeyDelete(key);
+            }*/
+
+            /*
+            string[] jObjs = targetDb.GetAllJSONKeys();
+            foreach (string jString in jObjs)
+            {
+                string key = YellowstonePathology.Business.Billing.Model.CptCodeFactory.FromJson(jString).Code;
+                sourceDb.DataBase.Execute("json.set", new string[] { key, ".", jString });
+            }*/
+        }
 
         private void ButtonStartMessageHost_Click(object sender, RoutedEventArgs e)
         {

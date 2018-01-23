@@ -15,6 +15,7 @@ namespace YellowstonePathology.Store
         Stain,
         VantageSlide,
         EmbeddingScan,
-        BozemanBlockCount
+        BozemanBlockCount,
+        TempPQRS
     }
 }
