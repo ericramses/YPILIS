@@ -26,7 +26,7 @@ namespace YellowstonePathology.UI.Monitor
         public MonitorPath()
 		{                        
             this.m_LastReportDistributionHeartBeat = DateTime.Now.AddMinutes(-5);
-            YellowstonePathology.Store.RedisServerDeprecated.Instance.Subscriber.Subscribe("ReportDistributionHeartBeat", (channel, message) =>
+            YellowstonePathology.Store.RedisServerProd1.Instance.Subscriber.Subscribe("ReportDistributionHeartBeat", (channel, message) =>
             {
                 this.m_LastReportDistributionHeartBeat = DateTime.Now;
             });
