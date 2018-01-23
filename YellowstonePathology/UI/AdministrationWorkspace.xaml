@@ -75,7 +75,7 @@
         <Button Click="ButtonCDCPrep_Click" Width="200" Height="30" Margin="5,5,5,5">CDC Prep</Button>
 
         <Button Click="ButtonSVHTesting_Click" Width="200" Height="30" Margin="5,5,5,5">SVH Testing</Button>
-        <Button Click="ButtonInsertTesting_Click" Width="200" Height="30" Margin="5,5,5,5">Insert Testing</Button>
+        <Button Click="ButtonMoveRedisPQRS_Click" Width="200" Height="30" Margin="5,5,5,5">Move Redis PQRS</Button>
         
         <Button Click="ButtonStartMessageHost_Click" Width="200" Height="30" Margin="5,5,5,5">Start Message Host</Button>
         <Button Click="ButtonSendMessageToSid_Click" Width="200" Height="30" Margin="5,5,5,5">Send Message To Sid</Button>
