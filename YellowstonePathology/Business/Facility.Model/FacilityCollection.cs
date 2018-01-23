@@ -130,6 +130,7 @@ namespace YellowstonePathology.Business.Facility.Model
             result.Add(new UCHLoneTreeBreastCenter());
             result.Add(new Cellnetix());
             result.Add(new UniversityOfUtahHealthCare());
+            result.Add(new NathionalJewishHealth());
             return Sort(result);
         }
 
