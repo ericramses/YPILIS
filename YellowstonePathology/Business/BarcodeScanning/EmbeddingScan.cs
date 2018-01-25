@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using StackExchange.Redis;
 using System.ComponentModel;
+using Newtonsoft.Json;
 
 namespace YellowstonePathology.Business.BarcodeScanning
 {
@@ -50,6 +51,7 @@ namespace YellowstonePathology.Business.BarcodeScanning
         public string AliquotOrderId
         {
             get { return this.m_AliquotOrderId; }
+            set { this.m_AliquotOrderId = value; }
         }
 
         public EmbeddingScan(string processorId)
@@ -60,26 +62,31 @@ namespace YellowstonePathology.Business.BarcodeScanning
         public string ScannedBy
         {
             get { return this.m_ScannedBy; }
+            set { this.m_ScannedBy = value; }
         }
 
         public int ScannedById
         {
             get { return this.m_ScannedById; }
+            set { this.m_ScannedById = value; }
         }
 
         public DateTime DateScanned
         {
             get { return this.m_DateScanned; }
+            set { this.m_DateScanned = value; }
         }
 
         public Nullable<DateTime> ProcessorStartTime
         {
             get { return this.m_ProcessorStartTime; }
+            set { this.m_ProcessorStartTime = value; }
         }
 
         public Nullable<TimeSpan> ProcessorFixationDuration
         {
             get { return this.m_ProcessorFixationDuration; }
+            set { this.m_ProcessorFixationDuration = value; }
         }
 
         public bool Updated
@@ -95,10 +102,10 @@ namespace YellowstonePathology.Business.BarcodeScanning
             }
         }
 
-        public string HashKey
+        /*public string HashKey
         {
             get { return "EmbeddingScan:" + this.m_AliquotOrderId; }
-        }
+        }*/
 
         public HashEntry[] GetHasEntries()
         {
@@ -143,6 +150,20 @@ namespace YellowstonePathology.Business.BarcodeScanning
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
+        }
+
+        public string ToJson()
+        {
+            return JsonConvert.SerializeObject(this);
+        }
+
+        public static EmbeddingScan FromJson(string json)
+        {
+            return JsonConvert.DeserializeObject<EmbeddingScan>(json, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.All,
+                ObjectCreationHandling = ObjectCreationHandling.Replace
+            });
         }
     }
 }

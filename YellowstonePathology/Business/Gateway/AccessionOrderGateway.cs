@@ -3019,5 +3019,112 @@ namespace YellowstonePathology.Business.Gateway
             }
             return result;
         }
+
+        public static void SetEmbeddingScan(Business.BarcodeScanning.EmbeddingScan embeddingScan, DateTime scanDate)
+        {
+            string aliquotOrderId = embeddingScan.AliquotOrderId;
+            string data = embeddingScan.ToJson();
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "insert tblEmbeddingScan(EmbeddingScan, DateScanned, AliquotOrderId) values (@Data, @ScanDate, @AliquotOrderId);";
+            cmd.CommandType = System.Data.CommandType.Text;
+            cmd.CommandType = System.Data.CommandType.Text;
+            cmd.Parameters.AddWithValue("@Data", data);
+            cmd.Parameters.AddWithValue("@ScanDate", scanDate);
+            cmd.Parameters.AddWithValue("@AliquotOrderId", aliquotOrderId);
+
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public static YellowstonePathology.Business.BarcodeScanning.EmbeddingScanCollection GetEmbeddingScanCollectionByScanDate(DateTime scanDate)
+        {
+            Business.BarcodeScanning.EmbeddingScanCollection result = new BarcodeScanning.EmbeddingScanCollection();
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "select EmbeddingScan from tblEmbeddingScan where DateScanned = @ScanDate;";
+            cmd.CommandType = System.Data.CommandType.Text;
+            cmd.CommandType = System.Data.CommandType.Text;
+            cmd.Parameters.AddWithValue("@ScanDate", scanDate);
+
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        BarcodeScanning.EmbeddingScan scan = BarcodeScanning.EmbeddingScan.FromJson(dr[0].ToString());
+                        result.Add(scan);
+                    }
+                }
+            }
+            return result;
+        }
+
+        public static YellowstonePathology.Business.BarcodeScanning.EmbeddingScanCollection GetAllEmbeddingScans()
+        {
+            Business.BarcodeScanning.EmbeddingScanCollection result = new BarcodeScanning.EmbeddingScanCollection();
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "select EmbeddingScan from tblEmbeddingScan;";
+            cmd.CommandType = System.Data.CommandType.Text;
+            cmd.CommandType = System.Data.CommandType.Text;
+
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        BarcodeScanning.EmbeddingScan scan = BarcodeScanning.EmbeddingScan.FromJson(dr[0].ToString());
+                        result.Add(scan);
+                    }
+                }
+            }
+            return result;
+        }
+
+        public static bool EmbeddingScanExists(string aliquotOrderId)
+        {
+            bool result = false;
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "select count(*) from tblEmbeddingScan where tblEmbeddingScan.AliquotOrderId = @AliquotOrderId;";
+            cmd.CommandType = System.Data.CommandType.Text;
+            cmd.CommandType = System.Data.CommandType.Text;
+            cmd.Parameters.AddWithValue("@AliquotOrderId", aliquotOrderId);
+
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                int cnt = Convert.ToInt32(cmd.ExecuteScalar().ToString());
+                if (cnt > 0) result = true;
+            }
+            return result;
+        }
+
+        public static void UpdateEmbeddingScan(Business.BarcodeScanning.EmbeddingScan embeddingScan)
+        {
+            string aliquotOrderId = embeddingScan.AliquotOrderId;
+            string data = embeddingScan.ToJson();
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "update tblEmbeddingScan set EmbeddingScan = @Data where tblEmbeddingScan.AliquotOrderId = @AliquotOrderId;";
+            cmd.CommandType = System.Data.CommandType.Text;
+            cmd.CommandType = System.Data.CommandType.Text;
+            cmd.Parameters.AddWithValue("@Data", data);
+            cmd.Parameters.AddWithValue("@AliquotOrderId", aliquotOrderId);
+
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                cmd.ExecuteNonQuery();
+            }
+        }
     }
 }
