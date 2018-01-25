@@ -72,7 +72,7 @@
 		<Button Click="ButtonFLowSpecimenOrder_Click" Width="200" Height="30" Margin="5,5,5,5">Flow Specimen Order Create</Button>
 		<Button Click="ButtonTestEGFRAccession_Click" Width="200" Height="30" Margin="5,5,5,5">Test EGFR Accession</Button>
 
-        <Button Click="ButtonCDCPrep_Click" Width="200" Height="30" Margin="5,5,5,5">CDC Prep</Button>
+        <Button Click="ButtonEmbeddingScanstoMysql_Click" Width="200" Height="30" Margin="5,5,5,5">Embedding Scans to Mysql</Button>
 
         <Button Click="ButtonSVHTesting_Click" Width="200" Height="30" Margin="5,5,5,5">SVH Testing</Button>
         <Button Click="ButtonMoveRedisPQRS_Click" Width="200" Height="30" Margin="5,5,5,5">Move Redis PQRS</Button>

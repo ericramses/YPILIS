@@ -1098,8 +1098,6 @@
     <Compile Include="Business\LevenshteinDistance.cs" />
     <Compile Include="Business\ListItem.cs" />
     <Compile Include="Business\Logging\EmailExceptionHandler.cs" />
-    <Compile Include="Business\Logging\ScanLog.cs" />
-    <Compile Include="Business\Logging\ScanLogCollection.cs" />
     <Compile Include="Business\Logging\ScanLogger.cs" />
     <Compile Include="Business\MasterAccessionNo.cs" />
     <Compile Include="Business\MaterialTracking.Model\BlockSentNotReturned.cs" />
