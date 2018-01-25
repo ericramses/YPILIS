@@ -46,15 +46,16 @@ namespace YellowstonePathology.Business.BarcodeScanning
                         break;
                     }
                 }
+                YellowstonePathology.Business.Gateway.AccessionOrderGateway.UpdateEmbeddingScan(scan);
             }
-            /*else
+            else
             {
-                embeddingDb.DataBase.SetAdd("EmbeddingScans:" + DateTime.Today.ToShortDateString(), scan.HashKey);
+                //embeddingDb.DataBase.SetAdd("EmbeddingScans:" + DateTime.Today.ToShortDateString(), scan.HashKey);
+                YellowstonePathology.Business.Gateway.AccessionOrderGateway.SetEmbeddingScan(scan, DateTime.Today);
             }
 
-            HashEntry[] hashEntries = scan.GetHasEntries();
-            embeddingDb.DataBase.HashSet(scan.HashKey, hashEntries);*/
-            YellowstonePathology.Business.Gateway.AccessionOrderGateway.SetEmbeddingScan(scan, DateTime.Today);
+            //HashEntry[] hashEntries = scan.GetHasEntries();
+            //embeddingDb.DataBase.HashSet(scan.HashKey, hashEntries);
             this.InsertItem(0, scan);
 
             return scan;

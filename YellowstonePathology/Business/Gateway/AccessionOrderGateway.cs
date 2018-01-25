@@ -3113,7 +3113,7 @@ namespace YellowstonePathology.Business.Gateway
             string aliquotOrderId = embeddingScan.AliquotOrderId;
             string data = embeddingScan.ToJson();
             MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "update tblEmbeddingScan set EmbeddingScan = @Data where tblEmbeddingScan.AliquotOrderId = @AliquotOrderId);";
+            cmd.CommandText = "update tblEmbeddingScan set EmbeddingScan = @Data where tblEmbeddingScan.AliquotOrderId = @AliquotOrderId;";
             cmd.CommandType = System.Data.CommandType.Text;
             cmd.CommandType = System.Data.CommandType.Text;
             cmd.Parameters.AddWithValue("@Data", data);
