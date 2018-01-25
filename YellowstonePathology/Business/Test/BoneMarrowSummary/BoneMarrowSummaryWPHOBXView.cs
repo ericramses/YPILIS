@@ -57,7 +57,7 @@ namespace YellowstonePathology.Business.Test.BoneMarrowSummary
                             result = "Result reported separately.";
                         }
                     }
-                    this.AddNextObxElement(result, document, "F");
+                    this.HandleLongString(result, document, "F");
                     this.AddNextObxElement("", document, "F");
                 }
             }
