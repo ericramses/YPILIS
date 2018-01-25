@@ -82,7 +82,15 @@ namespace YellowstonePathology.UI.Converter
             {
                 clinical = clinical.Replace("cp ", "Cervix present. ");
             }
-			value = PutSlashes(clinical);
+            if (clinical.IndexOf("hr ") != -1)
+            {
+                clinical = clinical.Replace("hr ", "High Risk. ");
+            }
+            if (clinical.IndexOf("r ") != -1)
+            {
+                clinical = clinical.Replace("r ", "Routine. ");
+            }
+            value = PutSlashes(clinical);
 			return value;
 		}
 
