@@ -4,7 +4,7 @@
     xmlns:LocalUI="clr-namespace:YellowstonePathology.UI">        
     <WrapPanel Grid.Column="0" Grid.Row="0">
         <Button Click="ButtonBuildJson_Click" Width="200" Height="30" Margin="5,5,5,5">Build JSON</Button>
-        <Button Name="ButtonPOCRetension" Click="ButtonPOCRetension_Click" Width="200" Height="30" Margin="5,5,5,5">POC Retension</Button>
+        <Button Name="ButtonBlocksSentNotReturned" Click="ButtonBlocksSentNotReturned_Click" Width="200" Height="30" Margin="5,5,5,5">Blocks Sent Not Returned</Button>
         <Button Name="ButtonCytologyUnsatLetters" Click="ButtonCytologyUnsatLetters_Click" Width="200" Height="30" Margin="5,5,5,5">Cytology Unsat Letters</Button>
         <Button Name="ButtonConvertXPSToPDF" Click="ButtonConvertXPSToPDF_Click" Width="200" Height="30" Margin="5,5,5,5">Convert XPS To PDF</Button>                        
         <Button Click="ButtonShowCuttingStationWindow_Click" Width="200" Height="30" Margin="5,5,5,5">Show Cutting Station Window</Button>        
@@ -75,7 +75,7 @@
         <Button Click="ButtonCDCPrep_Click" Width="200" Height="30" Margin="5,5,5,5">CDC Prep</Button>
 
         <Button Click="ButtonSVHTesting_Click" Width="200" Height="30" Margin="5,5,5,5">SVH Testing</Button>
-        <Button Click="ButtonInsertTesting_Click" Width="200" Height="30" Margin="5,5,5,5">Insert Testing</Button>
+        <Button Click="ButtonMoveRedisPQRS_Click" Width="200" Height="30" Margin="5,5,5,5">Move Redis PQRS</Button>
         
         <Button Click="ButtonStartMessageHost_Click" Width="200" Height="30" Margin="5,5,5,5">Start Message Host</Button>
         <Button Click="ButtonSendMessageToSid_Click" Width="200" Height="30" Margin="5,5,5,5">Send Message To Sid</Button>

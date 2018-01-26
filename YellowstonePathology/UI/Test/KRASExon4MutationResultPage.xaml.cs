@@ -106,9 +106,10 @@ namespace YellowstonePathology.UI.Test
 		{
 			if (this.m_KRASExon4MutationTestOrder.Final == false)
 			{
-				this.m_KRASExon4MutationTestOrder.Finish(this.m_AccessionOrder);    
-			}
-			else
+                YellowstonePathology.Business.Test.FinalizeTestResult finalizeTestResult = this.m_KRASExon4MutationTestOrder.Finish(this.m_AccessionOrder);
+                this.HandleFinalizeTestResult(finalizeTestResult);
+            }
+            else
 			{
 				MessageBox.Show("This case cannot be finalized because it is already final.");
 			}

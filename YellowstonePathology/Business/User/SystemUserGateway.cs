@@ -1,33 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Xml.Linq;
-using System.Data.SqlClient;
 using System.Reflection;
+using MySql.Data.MySqlClient;
 
 namespace YellowstonePathology.Business.User
 {
     public class SystemUserGateway
     {
 		public static YellowstonePathology.Business.User.SystemUserCollection GetSystemUserCollection()
-        {            
+        {
             Type t = typeof(YellowstonePathology.Business.User.SystemUserCollection);
             ConstructorInfo ci = t.GetConstructor(BindingFlags.Instance | BindingFlags.NonPublic, null, new Type[0], null);
             YellowstonePathology.Business.User.SystemUserCollection systemUserCollection = (YellowstonePathology.Business.User.SystemUserCollection)ci.Invoke(null);
 
-            SqlCommand cmd = new SqlCommand();
+            MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = "select UserId, Active, UserName, FirstName, LastName, Initials, Signature, DisplayName, " +
-                "EmailAddress, NationalProviderId from tblSystemUser order by UserName " +
-                "select * from tblSystemUserRole";
+                "EmailAddress, NationalProviderId from tblSystemUser order by UserName; " +
+                "select * from tblSystemUserRole;";
             cmd.CommandType = System.Data.CommandType.Text;
-            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;
-                using (SqlDataReader dr = cmd.ExecuteReader())
+                using (MySqlDataReader dr = cmd.ExecuteReader())
                 {
                     while (dr.Read())
                     {

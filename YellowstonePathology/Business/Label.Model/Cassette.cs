@@ -205,7 +205,7 @@ namespace YellowstonePathology.Business.Label.Model
             {
                 if(string.IsNullOrEmpty(this.m_EmbeddingInstructions) == false)
                 {
-                    result.Append(this.m_EmbeddingInstructions + this.m_LaserDelimeter);
+                    result.Append(this.m_CompanyId + ":" + this.m_EmbeddingInstructions + this.m_LaserDelimeter);
                 }
                 else
                 {

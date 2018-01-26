@@ -14,7 +14,7 @@ namespace YellowstonePathology.Business.Test.Model
             this.m_HasCptCodeLevels = true;            
         }
 
-        public ImmunoHistochemistryTest(int testId, string testName)
+        public ImmunoHistochemistryTest(string testId, string testName)
             : base(testId, testName)
         {
             this.m_IsBillable = true;
@@ -23,12 +23,24 @@ namespace YellowstonePathology.Business.Test.Model
         }
 
         public override YellowstonePathology.Business.Billing.Model.CptCode GetCptCode(bool isTechnicalOnly)
-        {
-            YellowstonePathology.Business.Billing.Model.CptCode result = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88342();
-            if (isTechnicalOnly == true)
+        {            
+            YellowstonePathology.Business.Billing.Model.CptCode result = null;
+            if (this.IsDualOrder == true)
             {
-                result = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88342TC();
+                result = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88344", null);
+                if (isTechnicalOnly == true)
+                {                    
+                    result = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88344", "TC");
+                }                
             }
+            else
+            {
+                result = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88342", null);
+                if (isTechnicalOnly == true)
+                {
+                    result = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88342", "TC");
+                }
+            }                                        
             return result;  
         }
 
@@ -40,22 +52,22 @@ namespace YellowstonePathology.Business.Test.Model
                 case CptCodeLevelEnum.Initial:
                     if (isTechnicalOnly == true)
                     {
-                        result = new YellowstonePathology.Business.Billing.Model.GCodeDefinitions.CPTG0461();
+                        result = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("G0461", null);
                     }
                     else
                     {
-                        result = new YellowstonePathology.Business.Billing.Model.GCodeDefinitions.CPTG0461TC();
-                    }                    
+                        result = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("G0461", "TC");
+                    }
                     break;
                 case CptCodeLevelEnum.Subsequent:
                     if (isTechnicalOnly == true)
                     {
-                        result = new YellowstonePathology.Business.Billing.Model.GCodeDefinitions.CPTG0462();
+                        result = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("G0462", null);
                     }
                     else
                     {
-                        result = new YellowstonePathology.Business.Billing.Model.GCodeDefinitions.CPTG0462TC();
-                    }     
+                        result = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("G0462", "TC");
+                    }
                     break;
             }            
             return result;
@@ -69,22 +81,22 @@ namespace YellowstonePathology.Business.Test.Model
                 case CptCodeLevelEnum.Initial:
                     if (isTechnicalOnly == true)
                     {
-                        result = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88342TC();
+                        result = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88342", "TC");
                     }
                     else
                     {
-                        result = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88342();
+                        result = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88342", null);
                     }
                     break;
                 case CptCodeLevelEnum.Subsequent:
                     if (isTechnicalOnly == true)
                     {
-                        result = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88343TC();
+                        result = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88343", "TC");
                     }
                     else
                     {
-                        result = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88343();
-                    }                    
+                        result = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88343", null);
+                    }
                     break;
             }            
 

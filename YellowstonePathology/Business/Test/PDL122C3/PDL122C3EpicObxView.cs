@@ -19,10 +19,20 @@ namespace YellowstonePathology.Business.Test.PDL122C3
             this.AddHeader(document, panelSetOrder, "PD-L1 (22C3) Analysis");
 
             this.AddNextObxElement("", document, "F");
-            this.AddNextObxElement("Stain Percent: " + panelSetOrder.StainPercent, document, "F");            
+            this.AddNextObxElement("Stain Percent: " + panelSetOrder.StainPercent, document, "F");
 
             this.AddNextObxElement("", document, "F");
-            string comment = "Comment: " + panelSetOrder.Comment;
+            this.AddNextObxElement("Reference Ranges", document, "F");
+            this.AddNextObxElement("High Expression: >/= 50 % TPS", document, "F");
+            this.AddNextObxElement("Expressed: 1 – 49 % TPS", document, "F");
+            this.AddNextObxElement("No Expression: < 1 % TPS", document, "F");
+
+            if (string.IsNullOrEmpty(panelSetOrder.Comment) == false)
+            {
+                this.AddNextObxElement("", document, "F");
+                this.AddNextObxElement("Comment: ", document, "F");
+                this.HandleLongString(panelSetOrder.Comment, document, "F");
+            }
 
             this.AddNextObxElement("", document, "F");
             this.AddNextObxElement("Pathologist: " + panelSetOrder.Signature, document, "F");

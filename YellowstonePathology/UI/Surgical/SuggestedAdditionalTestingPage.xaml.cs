@@ -157,5 +157,14 @@ namespace YellowstonePathology.UI.Surgical
                 this.OrderTest(this, new CustomEventArgs.PanelSetReturnEventArgs(pdl1Test));
             }
         }
+
+        private void HyperLinkBoneMarrowSummary_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Test.BoneMarrowSummary.BoneMarrowSummaryTest bmsTest = new Business.Test.BoneMarrowSummary.BoneMarrowSummaryTest();
+            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(bmsTest.PanelSetId) == false)
+            {
+                this.OrderTest(this, new CustomEventArgs.PanelSetReturnEventArgs(bmsTest));
+            }
+        }
     }
 }

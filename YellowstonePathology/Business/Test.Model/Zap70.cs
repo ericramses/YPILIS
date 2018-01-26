@@ -9,10 +9,10 @@ namespace YellowstonePathology.Business.Test.Model
 	{
 		public Zap70()
         {
-            this.m_TestId = 165;
+            this.m_TestId = "165";
 			this.m_TestName = "ZAP 70";
             this.m_TestAbbreviation = "ZAP 70";
-			this.m_Active = true;
+			this.m_Active = false;
 			this.m_NeedsAcknowledgement = true;
         }
 	}

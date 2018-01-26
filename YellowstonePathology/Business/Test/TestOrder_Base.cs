@@ -1,13 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Collections.ObjectModel;
-using System.Text;
-using System.Data;
-using System.Linq;
-using System.Data.SqlClient;
-using System.Xml.Linq;
-using System.Xml.Serialization;
 using YellowstonePathology.Business.Persistence;
 
 namespace YellowstonePathology.Business.Test.Model
@@ -21,13 +13,16 @@ namespace YellowstonePathology.Business.Test.Model
         protected string m_TestOrderId;
         protected string m_PanelOrderId;
         protected string m_AliquotOrderId;
-        protected int m_TestId;
+        protected string m_TestId;
         protected string m_TestName;
         protected string m_TestAbbreviation;
         protected string m_Result;
         protected string m_Comment;
         protected bool m_OrderedAsDual;
         protected bool m_NoCharge;
+        protected bool m_UseWetProtocol;
+        protected bool m_PerformedByHand;
+        protected string m_OrderedBy;
 
         public TestOrder_Base()
         {
@@ -96,7 +91,7 @@ namespace YellowstonePathology.Business.Test.Model
 
         [PersistentProperty()]
         [PersistentDataColumnProperty(true, "11", "null", "int")]
-        public int TestId
+        public string TestId
         {
             get { return this.m_TestId; }
             set
@@ -195,6 +190,51 @@ namespace YellowstonePathology.Business.Test.Model
                 {
                     this.m_NoCharge = value;
                     this.NotifyPropertyChanged("NoCharge");
+                }
+            }
+        }        
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
+        public bool UseWetProtocol
+        {
+            get { return this.m_UseWetProtocol; }
+            set
+            {
+                if (this.m_UseWetProtocol != value)
+                {
+                    this.m_UseWetProtocol = value;
+                    this.NotifyPropertyChanged("UseWetProtocol");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
+        public bool PerformedByHand
+        {
+            get { return this.m_PerformedByHand; }
+            set
+            {
+                if (this.m_PerformedByHand != value)
+                {
+                    this.m_PerformedByHand = value;
+                    this.NotifyPropertyChanged("PerformedByHand");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
+        public string OrderedBy
+        {
+            get { return this.m_OrderedBy; }
+            set
+            {
+                if (this.m_OrderedBy != value)
+                {
+                    this.m_OrderedBy = value;
+                    this.NotifyPropertyChanged("OrderedBy");
                 }
             }
         }

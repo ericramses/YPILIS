@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
-using System.Data;
-using System.Data.SqlClient;
-using System.Xml.Serialization;
 
 namespace YellowstonePathology.Business.Billing.Model
 {
@@ -295,7 +291,7 @@ namespace YellowstonePathology.Business.Billing.Model
 			}
 		}
 
-		public void Add(int testId, CptBillingCodeItem cptBillingCodeItem)
+		public void Add(string testId, CptBillingCodeItem cptBillingCodeItem)
 		{
 			YellowstonePathology.Business.Test.Model.StainTest stainTest = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetStainTestByTestId(testId);
 			if (stainTest != null)

@@ -13,7 +13,7 @@ namespace YellowstonePathology.Business.Search
 		public DateLimitField(int numberOfDaysBackFromToday, string dateFieldName)
         {
 			this.m_SqlFieldName = dateFieldName;
-			this.m_Condition = " > DateAdd(d, -" + numberOfDaysBackFromToday.ToString() + ", getdate())";            
+			this.m_Condition = " > Date_Add(curdate(), Interval -" + numberOfDaysBackFromToday.ToString() + " Day)";            
         }
 
         public string Condition

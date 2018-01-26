@@ -1,31 +1,27 @@
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
 using System.Data;
-using System.Data.SqlClient;
-using System.Windows;
-using System.Windows.Data;
+using MySql.Data.MySqlClient;
 
 namespace YellowstonePathology.Business.Flow
 {
     public class FlowMarkerPanelList : ObservableCollection<FlowMarkerPanelListItem>
     {
-        private SqlCommand m_Cmd;
+        private MySqlCommand m_Cmd;
 
         public FlowMarkerPanelList()
         {
-            this.m_Cmd = new SqlCommand();
+            this.m_Cmd = new MySqlCommand();
         }
 
         public void Fill()
         {
             this.Clear();
-            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 this.m_Cmd.Connection = cn;
-                using (SqlDataReader dr = this.m_Cmd.ExecuteReader())
+                using (MySqlDataReader dr = this.m_Cmd.ExecuteReader())
                 {
                     while (dr.Read())
                     {
@@ -40,8 +36,8 @@ namespace YellowstonePathology.Business.Flow
         public void SetFillCommandByPanelId(int panelId)
         {
             this.m_Cmd.Parameters.Clear();
-            string sql = "Select * from tblFlowMarkerPanel where PanelId = @PanelId";
-            this.m_Cmd.Parameters.Add("@PanelId", SqlDbType.Int).Value = panelId;            
+            string sql = "Select * from tblFlowMarkerPanel where PanelId = @PanelId;";
+            this.m_Cmd.Parameters.AddWithValue("@PanelId", panelId);
             this.m_Cmd.CommandText = sql;
             this.m_Cmd.CommandType = CommandType.Text;
         }
@@ -100,7 +96,7 @@ namespace YellowstonePathology.Business.Flow
             }
         }
 
-        public override void Fill(SqlDataReader dr)
+        public override void Fill(MySqlDataReader dr)
         {
             this.m_PanelId = BaseData.GetIntValue("PanelId", dr);
             this.m_MarkerName = BaseData.GetStringValue("MarkerName", dr);

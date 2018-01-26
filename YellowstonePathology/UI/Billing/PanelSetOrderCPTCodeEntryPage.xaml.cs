@@ -31,7 +31,7 @@ namespace YellowstonePathology.UI.Billing
 		private YellowstonePathology.Business.Billing.Model.CptCodeCollection m_CptCodeCollection;
 
         public PanelSetOrderCPTCodeEntryPage(YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder, int clientId)
-		{
+        {
             this.m_PanelSetOrder = panelSetOrder;
             this.m_PanelSetOrderCPTCode = this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.GetNextItem(panelSetOrder.ReportNo);
             this.m_PanelSetOrderCPTCode.Quantity = 1;
@@ -39,9 +39,7 @@ namespace YellowstonePathology.UI.Billing
             this.m_PanelSetOrderCPTCode.EntryType = "Manual Entry";
             this.m_PanelSetOrderCPTCode.CodeableType = "Billable Test";
 
-			this.m_CptCodeCollection = YellowstonePathology.Business.Billing.Model.CptCodeCollection.GetAll();
-            this.m_CptCodeCollection = YellowstonePathology.Business.Billing.Model.CptCodeCollection.GetSorted(this.m_CptCodeCollection);
-
+            this.GetCptCodeCollection();
 
             InitializeComponent();			
 			DataContext = this;
@@ -128,9 +126,45 @@ namespace YellowstonePathology.UI.Billing
 			{
 				YellowstonePathology.Business.Billing.Model.CptCode cptCode = (YellowstonePathology.Business.Billing.Model.CptCode)this.ListViewCptCodes.SelectedItem;
 				this.m_PanelSetOrderCPTCode.CPTCode = cptCode.Code;
-				this.m_PanelSetOrderCPTCode.Modifier = cptCode.Modifier;
+				this.m_PanelSetOrderCPTCode.Modifier = cptCode.Modifier == null ? null : cptCode.Modifier.Modifier;
 				this.m_PanelSetOrderCPTCode.CodeType = cptCode.CodeType.ToString();
 			}
-		}		
-	}
+		}
+        
+        private void GetCptCodeCollection()
+        {
+            this.m_CptCodeCollection = Store.AppDataStore.Instance.CPTCodeCollection.Clone();
+            var codes = new[] {
+                new { code = "3126F", modifier="1P" },
+                new { code = "3126F", modifier="8P" },
+                new { code = "3260F", modifier="1P" },
+                new { code = "3260F", modifier="8P" },
+                new { code = "3267F", modifier="1P" },
+                new { code = "3267F", modifier="8P" },
+                new { code = "3394F", modifier="8P" },
+                new { code = "81210", modifier="26" },
+                new { code = "81220", modifier="26" },
+                new { code = "81240", modifier="26" },
+                new { code = "81241", modifier="26" },
+                new { code = "81261", modifier="26" },
+                new { code = "81270", modifier="26" },
+                new { code = "81275", modifier="26" },
+                new { code = "81291", modifier="26" },                
+                new { code = "88312", modifier="TC" },
+                new { code = "88313", modifier="TC" },
+                new { code = "88342", modifier="TC" },
+                new { code = "88343", modifier="TC" },
+                new { code = "88344", modifier="TC" },
+                new { code = "88360", modifier="TC" },
+                new { code = "G0461", modifier="TC" },
+                new { code = "G0462", modifier="TC" }
+            };            
+            
+            foreach (var item in codes)
+            {
+                this.m_CptCodeCollection.AddCloneWithModifier(item.code, item.modifier);
+            }
+            this.m_CptCodeCollection = Business.Billing.Model.CptCodeCollection.GetSorted(this.m_CptCodeCollection);
+        }
+    }
 }

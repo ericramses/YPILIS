@@ -33,7 +33,7 @@ namespace YellowstonePathology.Business.User
             this.m_BarcodeScanPort.SecurityBadgeScanReceived += new Business.BarcodeScanning.BarcodeScanPort.SecurityBadgeScanReceivedHandler(BarcodeScanPort_SecurityBadgeScanReceived);
         }
 
-        private void BarcodeScanPort_SecurityBadgeScanReceived(BarcodeScanning.Barcode barcode)
+        public void BarcodeScanPort_SecurityBadgeScanReceived(BarcodeScanning.Barcode barcode)
         {
             int systemUserId = Convert.ToInt32(barcode.ID);
 
@@ -82,6 +82,11 @@ namespace YellowstonePathology.Business.User
             this.m_IsKnown = true;
             this.NotifyPropertyChanged("");            
         }             
+
+        public void EnableManualSecurityBadgeScan()
+        {
+            this.m_BarcodeScanPort.SecurityBadgeScanReceived -= BarcodeScanPort_SecurityBadgeScanReceived;
+        }
 
         public void NotifyPropertyChanged(String info)
         {

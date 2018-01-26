@@ -16,9 +16,9 @@ namespace YellowstonePathology.Business.Surgical
         public ProcessorRun Get(string name)
         {
             ProcessorRun result = null;
-            foreach(ProcessorRun run in this)
+            foreach (ProcessorRun run in this)
             {
-                if(run.Name == name)
+                if (run.Name == name)
                 {
                     result = run;
                     break;
@@ -36,7 +36,7 @@ namespace YellowstonePathology.Business.Surgical
             {
                 lastFriday = lastFriday.AddDays(-1);
             }
-                
+
 
             DateTime yesterdayAt550 = DateTime.Parse(DateTime.Today.AddDays(-1).ToString("yyyy-MM-dd") + "T17:50");
             DateTime yesterdayAt500 = DateTime.Parse(DateTime.Today.AddDays(-1).ToString("yyyy-MM-dd") + "T17:00");

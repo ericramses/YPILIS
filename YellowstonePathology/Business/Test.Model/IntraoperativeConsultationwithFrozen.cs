@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Test.Model
 	{
 		public IntraoperativeConsultationwithFrozen()
 		{
-			this.m_TestId = 45;
+			this.m_TestId = "45";
 			this.m_TestName = "Intraoperative Consultation with Frozen";
             this.m_TestAbbreviation = "IC/F";
 			this.m_Active = true;

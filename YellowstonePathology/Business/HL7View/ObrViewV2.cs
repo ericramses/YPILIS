@@ -42,7 +42,11 @@ namespace YellowstonePathology.Business.HL7View
             XElement obr0101Element = new XElement("OBR.1.1", "1");
             obr01Element.Add(obr0101Element);
             obrElement.Add(obr01Element);
-            
+
+            XElement obr02Element = new XElement("OBR.2");
+            XElement obr0201Element = new XElement("OBR.2.1", this.m_AccessionOrder.ExternalOrderId);
+            obr02Element.Add(obr0201Element);
+            obrElement.Add(obr02Element);
 
             XElement obr03Element = new XElement("OBR.3");
             XElement obr0301Element = new XElement("OBR.3.1", this.m_ReportNo);

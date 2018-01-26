@@ -128,19 +128,7 @@ namespace YellowstonePathology.UI.Common
 			IInputElement focusedElement = Keyboard.FocusedElement;
 			FrameworkElement element = (FrameworkElement)focusedElement;
 			element.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
-		}		
-
-		private void CheckBoxStainColor_Checked(object sender, RoutedEventArgs e)
-		{
-            this.m_PanelOrderComment += "Melanoma stains are to be brown. ";
-            this.NotifyPropertyChanged("TestOrderComment");
-		}
-
-		private void CheckBoxStainColor_Unchecked(object sender, RoutedEventArgs e)
-		{
-            this.m_PanelOrderComment = this.m_PanelOrderComment.Replace("Melanoma stains are to be brown. ", string.Empty);
-            this.NotifyPropertyChanged("TestOrderComment");
-		}		        
+		}						        
 
         private void ButtonOrder_Click(object sender, RoutedEventArgs e)
         {
@@ -149,18 +137,14 @@ namespace YellowstonePathology.UI.Common
             YellowstonePathology.Business.Test.AliquotOrderCollection selectedAliquots = this.m_AliquotAndStainOrderView.GetSelectedAliquots();
             if (selectedAliquots.Count > 0)
             {
-                YellowstonePathology.Business.Test.Model.TestCollection selectedTests = this.m_OrderItemView.GetSelectedTests();
-                List<YellowstonePathology.Business.Test.Model.DualStain> selectedDualStains = this.m_OrderItemView.GetSelectedDualStains();
+                YellowstonePathology.Business.Test.Model.TestCollection selectedTests = this.m_OrderItemView.GetSelectedTests();                
 
-                if (selectedTests.Count > 0 || selectedDualStains.Count > 0)
+                if (selectedTests.Count > 0)
                 {                    
-                    this.HandleOrderingTests(selectedAliquots, selectedTests);
-                    this.HandleOrderingDualStains(selectedAliquots, selectedDualStains);
+                    this.HandleOrderingTests(selectedAliquots, selectedTests);                                        
 
                     this.m_StainAcknowledgementTaskOrderVisitor.TaskOrderDetailComment = this.m_PanelOrderComment;
-                    this.m_AccessionOrder.TakeATrip(this.m_StainAcknowledgementTaskOrderVisitor);
-
-                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
+                    this.m_AccessionOrder.TakeATrip(this.m_StainAcknowledgementTaskOrderVisitor);                    
 
                     this.m_OrderItemView.ClearSelectedItems();
                     this.NotifyPropertyChanged("OrderItemView");
@@ -180,27 +164,7 @@ namespace YellowstonePathology.UI.Common
             {
                 MessageBox.Show("There are no aliquots selected.");
             }
-        }       
-
-        private void HandleOrderingDualStains(YellowstonePathology.Business.Test.AliquotOrderCollection selectedAliquots, List<YellowstonePathology.Business.Test.Model.DualStain> selectedDualStains)
-        {            
-            foreach (YellowstonePathology.Business.Test.AliquotOrder aliquotOrder in selectedAliquots)
-            {
-                foreach (YellowstonePathology.Business.Test.Model.DualStain dualStain in selectedDualStains)
-                {
-                    bool orderAsDual = true;
-                    bool acknowledgeOnOrder = false;
-
-                    YellowstonePathology.Business.Visitor.OrderTestVisitor orderTestVisitorFirstTest = new Business.Visitor.OrderTestVisitor(this.m_PanelSetOrder.ReportNo, dualStain.FirstTest, dualStain.FirstTest.OrderComment, this.m_PanelOrderComment, orderAsDual, aliquotOrder, acknowledgeOnOrder, false, this.m_AccessionOrder.TaskOrderCollection);
-                    this.m_AccessionOrder.TakeATrip(orderTestVisitorFirstTest);
-                    this.m_StainAcknowledgementTaskOrderVisitor.AddTestOrder(orderTestVisitorFirstTest.TestOrder);
-
-                    YellowstonePathology.Business.Visitor.OrderTestVisitor orderTestVisitorSecondTest = new Business.Visitor.OrderTestVisitor(this.m_PanelSetOrder.ReportNo, dualStain.SecondTest, dualStain.SecondTest.OrderComment, this.m_PanelOrderComment, orderAsDual, aliquotOrder, acknowledgeOnOrder, false, this.m_AccessionOrder.TaskOrderCollection);
-                    this.m_AccessionOrder.TakeATrip(orderTestVisitorSecondTest);
-                    this.m_StainAcknowledgementTaskOrderVisitor.AddTestOrder(orderTestVisitorSecondTest.TestOrder);
-                }
-            }                
-        }
+        }                      
 
         private void HandleOrderingTests(YellowstonePathology.Business.Test.AliquotOrderCollection selectedAliquots, YellowstonePathology.Business.Test.Model.TestCollection selectedTests)
         {            

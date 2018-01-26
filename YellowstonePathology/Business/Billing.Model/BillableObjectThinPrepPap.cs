@@ -28,10 +28,9 @@ namespace YellowstonePathology.Business.Billing.Model
 		{
 			if (this.IsOkToPost() == true)
 			{
-				YellowstonePathology.Business.Billing.Model.CptCodeCollection cptCodeCollection = YellowstonePathology.Business.Billing.Model.CptCodeCollection.GetAll();
 				foreach (YellowstonePathology.Business.Test.PanelSetOrderCPTCode panelSetOrderCPTCode in this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection)
 				{
-					YellowstonePathology.Business.Billing.Model.CptCode cptCode = cptCodeCollection.GetCptCode(panelSetOrderCPTCode.CPTCode);
+					YellowstonePathology.Business.Billing.Model.CptCode cptCode = Store.AppDataStore.Instance.CPTCodeCollection.GetClone(panelSetOrderCPTCode.CPTCode, panelSetOrderCPTCode.Modifier);
 					if (cptCode.IsBillable == true)
 					{
 						bool okToPost = true;
@@ -53,10 +52,9 @@ namespace YellowstonePathology.Business.Billing.Model
 		{
 			if (this.IsOkToPost() == true)
 			{
-				YellowstonePathology.Business.Billing.Model.CptCodeCollection cptCodeCollection = YellowstonePathology.Business.Billing.Model.CptCodeCollection.GetAll();
 				foreach (YellowstonePathology.Business.Test.PanelSetOrderCPTCode panelSetOrderCPTCode in this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection)
 				{
-					YellowstonePathology.Business.Billing.Model.CptCode cptCode = cptCodeCollection.GetCptCode(panelSetOrderCPTCode.CPTCode);
+					YellowstonePathology.Business.Billing.Model.CptCode cptCode = Store.AppDataStore.Instance.CPTCodeCollection.GetClone(panelSetOrderCPTCode.CPTCode, panelSetOrderCPTCode.Modifier);
 					if (cptCode.IsBillable == true)
 					{
 						if (cptCode.HasTechnicalComponent == true)
@@ -80,11 +78,9 @@ namespace YellowstonePathology.Business.Billing.Model
 			{
 				if (this.CanPostProfessionalCode() == true)
 				{
-					YellowstonePathology.Business.Billing.Model.CptCodeCollection cptCodeCollection = YellowstonePathology.Business.Billing.Model.CptCodeCollection.GetAll();
-
 					foreach (YellowstonePathology.Business.Test.PanelSetOrderCPTCode panelSetOrderCPTCode in this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection)
 					{
-						YellowstonePathology.Business.Billing.Model.CptCode cptCode = cptCodeCollection.GetCptCode(panelSetOrderCPTCode.CPTCode);
+						YellowstonePathology.Business.Billing.Model.CptCode cptCode = Store.AppDataStore.Instance.CPTCodeCollection.GetClone(panelSetOrderCPTCode.CPTCode, panelSetOrderCPTCode.Modifier);
 						if (cptCode.IsBillable == true)
 						{
 							if (cptCode.HasProfessionalComponent == true)
@@ -114,33 +110,27 @@ namespace YellowstonePathology.Business.Billing.Model
             string icd10Code = string.Empty;
 
             if (YellowstonePathology.Business.Cytology.Model.CytologyResultCode.IsResultCodeReactive(resultCode) == true)
-            {
-                icd9Code = "795.09";
+            {                
                 icd10Code = "R87.820";
             }
             else if (YellowstonePathology.Business.Cytology.Model.CytologyResultCode.IsDiagnosisASCUS(resultCode) == true)
-            {
-                icd9Code = "795.01";
+            {             
                 icd10Code = "R87.610";
             }
             else if (YellowstonePathology.Business.Cytology.Model.CytologyResultCode.IsDiagnosisASCH(resultCode) == true)
-            {
-                icd9Code = "795.02";
+            {             
                 icd10Code = "R87.611";
             }
             else if (YellowstonePathology.Business.Cytology.Model.CytologyResultCode.IsDiagnosisLSIL(resultCode) == true)
-            {
-                icd9Code = "795.03";
+            {                
                 icd10Code = "R87.612";
             }
             else if (YellowstonePathology.Business.Cytology.Model.CytologyResultCode.IsDiagnosisHGSIL(resultCode) == true)
-            {
-                icd9Code = "795.04";
+            {             
                 icd10Code = "R87.613";
             }
             else if (YellowstonePathology.Business.Cytology.Model.CytologyResultCode.IsDiagnosisAGUS(resultCode) == true)
-            {
-                icd9Code = "795.00";
+            {                
                 icd10Code = "R87.619";
             }            
 
@@ -149,7 +139,7 @@ namespace YellowstonePathology.Business.Billing.Model
                 if (this.m_AccessionOrder.ICD9BillingCodeCollection.CodeExists(icd9Code) == false)
                 {
                     YellowstonePathology.Business.Billing.Model.ICD9BillingCode icd9BillingCode = this.m_AccessionOrder.ICD9BillingCodeCollection.GetNextItem(this.m_PanelSetOrder.ReportNo,
-                        this.m_AccessionOrder.MasterAccessionNo, this.m_AccessionOrder.SpecimenOrderCollection[0].SpecimenOrderId, icd9Code, icd10Code, 1);
+                        this.m_AccessionOrder.MasterAccessionNo, this.m_AccessionOrder.SpecimenOrderCollection[0].SpecimenOrderId, icd10Code, 1);
                     icd9BillingCode.DesignatedFor = "Signing Physician";
                     icd9BillingCode.Source = "Cytology";
                     this.m_AccessionOrder.ICD9BillingCodeCollection.Add(icd9BillingCode);
@@ -170,19 +160,18 @@ namespace YellowstonePathology.Business.Billing.Model
 				
 				if (panelOrderCytology.ImagerError == false)
 				{
-                    cptCode = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88175();                    
+                    cptCode = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88175", null);                    
 				}
 				else
 				{
-                    cptCode = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88142();
-                    cptCode.Modifier = "52";					
+                    cptCode = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88142", "52");
 				}
 
 				YellowstonePathology.Business.Test.PanelSetOrderCPTCode panelSetOrderCPTCode = this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.GetNextItem(this.m_PanelSetOrder.ReportNo);
 				panelSetOrderCPTCode.Quantity = 1;
 				panelSetOrderCPTCode.CPTCode = cptCode.Code;
                 panelSetOrderCPTCode.CodeType = cptCode.CodeType.ToString();
-				panelSetOrderCPTCode.Modifier = cptCode.Modifier;
+				panelSetOrderCPTCode.Modifier = cptCode.Modifier == null ? null : cptCode.Modifier.Modifier;
 				panelSetOrderCPTCode.CodeableDescription = "Primary Screening (" + panelOrderCytology.ScreenedByName + ")";
 				panelSetOrderCPTCode.CodeableType = "CytologyPrimaryScreening";
 				panelSetOrderCPTCode.EntryType = YellowstonePathology.Business.Billing.Model.PanelSetOrderCPTCodeEntryType.SystemGenerated;
@@ -194,7 +183,7 @@ namespace YellowstonePathology.Business.Billing.Model
 
         private void SetPhysicianInterpretationCode()
         {
-            YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88141 cptCode = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88141();
+            YellowstonePathology.Business.Billing.Model.CptCode cptCode = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88141", null);
 			if (this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.Exists(cptCode.Code, 1) == false)
 			{
 				YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology panelOrderCytology = ((YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology)this.m_PanelSetOrder).GetPhysicianInterp();

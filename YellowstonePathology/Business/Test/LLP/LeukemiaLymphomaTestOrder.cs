@@ -28,7 +28,7 @@ namespace YellowstonePathology.Business.Test.LLP
 		private string m_InterpretiveComment;
 		private string m_Impression;
 		private int m_SpecimenViability;
-		private double m_SpecimenViabilityPercent;
+		private string m_SpecimenViabilityPercent;
 		private string m_CellPopulationOfInterest;
 		private string m_TestResult;
 		private string m_CellDescription;
@@ -362,8 +362,8 @@ namespace YellowstonePathology.Business.Test.LLP
 		}
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "", "0", "float")]
-        public double SpecimenViabilityPercent
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
+        public string SpecimenViabilityPercent
 		{
 			get { return this.m_SpecimenViabilityPercent; }
 			set
@@ -706,17 +706,15 @@ namespace YellowstonePathology.Business.Test.LLP
 		public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
             StringBuilder result = new StringBuilder();
-            result.AppendLine("Test: " + this.m_PanelSetName);
-            result.AppendLine();
-
+                        
             result.AppendLine("Impression:");
             result.AppendLine(this.m_Impression);
             result.AppendLine();
 
-            result.AppendLine("Interpetive Comment:");
+            result.AppendLine("Interpretive Comment:");
             result.AppendLine(this.m_InterpretiveComment);
 
-            return result.ToString();
+            return result.ToString().Trim();
         }
-	}
+    }
 }

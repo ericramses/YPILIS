@@ -9,9 +9,9 @@ namespace YellowstonePathology.Business.Test.Model
 	{
 		public Cytokeratin20()
 		{
-			this.m_TestId = 87;
+			this.m_TestId = "87";
 			this.m_TestName = "Cytokeratin 20";
-            this.m_TestAbbreviation = "Cytokeratin 20";
+            this.m_TestAbbreviation = "CK20";
 			this.m_Active = true;
 			this.m_NeedsAcknowledgement = true;
 		}

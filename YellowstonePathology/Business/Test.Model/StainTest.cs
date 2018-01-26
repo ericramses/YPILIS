@@ -12,8 +12,7 @@ namespace YellowstonePathology.Business.Test.Model
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		private string m_ObjectId;
-		private int m_StainTestId;
+		private string m_StainTestId;
         private int m_TestId;
         private string m_CptCode;
         private int m_CptCodeQuantity;
@@ -26,24 +25,9 @@ namespace YellowstonePathology.Business.Test.Model
 
 		}
 
-		[PersistentDocumentIdProperty()]
-		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
-		public string ObjectId
-		{
-			get { return this.m_ObjectId; }
-			set
-			{
-				if (this.m_ObjectId != value)
-				{
-					this.m_ObjectId = value;
-					this.NotifyPropertyChanged("ObjectId");
-				}
-			}
-		}
-
         [PersistentPrimaryKeyProperty(false)]
-        [PersistentDataColumnProperty(false, "11", "null", "int")]
-		public int StainTestId
+        [PersistentDataColumnProperty(false, "50", "null", "varchar")]
+		public string StainTestId
 		{
 			get { return this.m_StainTestId; }
 			set

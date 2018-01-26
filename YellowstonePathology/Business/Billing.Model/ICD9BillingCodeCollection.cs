@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
 using System.Data;
-using System.Data.SqlClient;
 using System.Xml.Serialization;
 using System.Xml.Linq;
 
@@ -49,10 +47,10 @@ namespace YellowstonePathology.Business.Billing.Model
 			}
         }
 
-        public ICD9BillingCode GetNextItem(string reportNo, string masterAccessionNo, string specimenOrderId, string icd9Code, string icd10Code, int quantity)
+        public ICD9BillingCode GetNextItem(string reportNo, string masterAccessionNo, string specimenOrderId, string icd10Code, int quantity)
 		{
 			string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-			ICD9BillingCode icd9BillingCode = new ICD9BillingCode(objectId, reportNo, masterAccessionNo, specimenOrderId, icd9Code, icd10Code, objectId, quantity);
+			ICD9BillingCode icd9BillingCode = new ICD9BillingCode(objectId, reportNo, masterAccessionNo, specimenOrderId, icd10Code, objectId, quantity);
 			return icd9BillingCode;
 		}
 

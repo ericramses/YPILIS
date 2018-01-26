@@ -149,7 +149,13 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 		}				
 
         private void ButtonDelete_Click(object sender, RoutedEventArgs e)
-        {            
+        {
+            foreach (UIElement element in this.m_ImageList)
+            {
+                this.StackPanelImages.Children.Remove(element);
+            }
+            this.m_ImageList.Clear();
+
             if (string.IsNullOrEmpty(this.m_FileName) == false)
             {
                 if (System.IO.File.Exists(this.m_FileName) == true)
@@ -157,11 +163,6 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                     try
                     {
                         System.IO.File.Delete(this.m_FileName);
-                        foreach (UIElement element in this.m_ImageList)
-                        {
-                            this.StackPanelImages.Children.Remove(element);
-                        }
-                        this.m_ImageList.Clear();
                     }
                     catch (Exception ioerror)
                     {

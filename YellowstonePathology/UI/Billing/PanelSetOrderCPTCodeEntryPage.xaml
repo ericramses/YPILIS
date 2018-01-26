@@ -57,6 +57,8 @@
 					<ComboBoxItem>52</ComboBoxItem>
                     <ComboBoxItem>59</ComboBoxItem>
 					<ComboBoxItem>1P</ComboBoxItem>
+                    <ComboBoxItem>2659</ComboBoxItem>
+                    <ComboBoxItem>TC59</ComboBoxItem>
 				</ComboBox>
 
 				<TextBlock Grid.Column="0" Grid.Row="3" Margin="2,2,2,2" TextAlignment="Right" FontWeight="Bold" VerticalAlignment="Center" FontSize="14">Type:</TextBlock>
@@ -93,8 +95,8 @@
                                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
 
-                                <TextBlock Grid.Column="0" FontSize="14" Text="{Binding Path=Code}" Margin="2,2,2,2"/>
-                                <TextBlock Grid.Column="1" FontSize="14" Text="{Binding Path=Modifier}" Margin="2,2,2,2"/>
+                                <TextBlock Grid.Column="0" FontSize="14" Text="{Binding Path=DisplayCode}" Margin="2,2,2,2"/>
+                                <!--<TextBlock Grid.Column="1" FontSize="14" Text="{Binding Path=Modifier}" Margin="2,2,2,2"/>-->
 
                             </Grid>
                         </Border>

@@ -1,12 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Text;
-using System.Data;
-using System.Data.SqlClient;
-using System.Windows;
-using System.Windows.Data;
-using System.Xml.Serialization;
 using System.ComponentModel;
 using YellowstonePathology.Business.Persistence;
 
@@ -25,8 +17,7 @@ namespace YellowstonePathology.Business.Search
 		private string m_PFirstName;
 		private string m_ClientName;
 		private string m_PhysicianName;
-		private string m_ForeignAccessionNo;
-		//private string m_ColorCode;
+		private string m_ForeignAccessionNo;		
 		private Nullable<DateTime> m_FinalDate;
 		private string m_PanelSetName;
         private string m_SpecimenDescription;

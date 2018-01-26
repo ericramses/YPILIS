@@ -28,6 +28,32 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
         }
     }
 
+    public class ExplantedDevices : Specimen
+    {
+        public ExplantedDevices()
+        {
+            this.m_SpecimenId = "XPLNTDDVCS";
+            this.m_SpecimenName = "Explanted Devices";
+            this.m_Description = null;
+            this.m_LabFixation = null;
+            this.m_ClientFixation = null;
+            this.m_RequiresGrossExamination = false;
+        }
+    }
+
+    public class BoneBiopsy : Specimen
+    {
+        public BoneBiopsy()
+        {
+            this.m_SpecimenId = "BNBPSY";
+            this.m_SpecimenName = "Bone Biopsy";
+            this.m_Description = null;
+            this.m_LabFixation = null;
+            this.m_ClientFixation = null;
+            this.m_RequiresGrossExamination = false;
+        }
+    }
+
     public class Urine : Specimen
     {
         public Urine()
@@ -38,6 +64,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_LabFixation = null;
             this.m_ClientFixation = null;
             this.m_RequiresGrossExamination = false;
+            this.m_CPTCode = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88112", null);
         }
     }
 
@@ -51,6 +78,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_LabFixation = null;
             this.m_ClientFixation = null;
             this.m_RequiresGrossExamination = false;
+            this.m_CPTCode = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("85060", null);
         }
     }
 
@@ -61,8 +89,8 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_SpecimenId = "SPCMGENERICGRWBLCKS";
             this.m_SpecimenName = "Generic Specimen, Gross Required With Blocks";
             this.m_Description = null;
-            this.m_LabFixation = "Formalin";
-            this.m_ClientFixation = "Formalin";
+            this.m_LabFixation = null;
+            this.m_ClientFixation = null;
             this.m_RequiresGrossExamination = true;
         }
     }
@@ -74,9 +102,10 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_SpecimenId = "SPCMGENERICGO";
             this.m_SpecimenName = "Generic Specimen, Gross Only";
             this.m_Description = null;
-            this.m_LabFixation = "Fomalin";
-            this.m_ClientFixation = "Formalin";
+            this.m_LabFixation = null;
+            this.m_ClientFixation = null;
             this.m_RequiresGrossExamination = false;
+            this.m_CPTCode = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88300", null);
         }
     }
 
@@ -90,6 +119,21 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_LabFixation = null;
             this.m_ClientFixation = null;
             this.m_RequiresGrossExamination = true;
+            this.m_CPTCode = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88112", null);
+        }
+    }
+
+    public class FNA : Specimen
+    {
+        public FNA()
+        {
+            this.m_SpecimenId = "SPCMFNA";
+            this.m_SpecimenName = "FNA";
+            this.m_Description = "FNA";
+            this.m_LabFixation = null;
+            this.m_ClientFixation = null;
+            this.m_RequiresGrossExamination = true;
+            this.m_CPTCode = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88173", null);
         }
     }
 
@@ -116,6 +160,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = "Formalin";
             this.m_RequiresGrossExamination = true;
+            this.m_CPTCode = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88305", null);
         }
     }
 
@@ -142,6 +187,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = "Formalin";
             this.m_RequiresGrossExamination = true;
+            this.m_CPTCode = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88305", null);
         }
     }
 
@@ -155,6 +201,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = "Formalin";
             this.m_RequiresGrossExamination = true;
+            this.m_CPTCode = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88305", null);
         }
     }
 
@@ -168,6 +215,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = null;
             this.m_RequiresGrossExamination = true;
+            this.m_CPTCode = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88304", null);
         }
     }
     
@@ -181,6 +229,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = "Formalin";
             this.m_RequiresGrossExamination = true;
+            this.m_CPTCode = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88305", null);
         }
     }
     public class SkinExcisionUnorientedBiopsy : Specimen
@@ -193,6 +242,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = "Formalin";
             this.m_RequiresGrossExamination = true;
+            this.m_CPTCode = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88305", null);
         }
     }
     
@@ -206,6 +256,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = "Formalin";
             this.m_RequiresGrossExamination = true;
+            this.m_CPTCode = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88305", null);
         }
     }
     public class SkinExcisionUnorientedwithCurettingsBiopsy : Specimen
@@ -218,6 +269,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = "Formalin";
             this.m_RequiresGrossExamination = true;
+            this.m_CPTCode = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88305", null);
         }
     }
 
@@ -228,7 +280,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_SpecimenId = "SPCMNPRSTTTUR";
             this.m_SpecimenName = "Prostate TUR";
             this.m_Description = "Prostate, transurethral resection";
-            this.m_CPTCode = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88309();            
+            this.m_CPTCode = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88305", null);
         }
     }
 
@@ -239,7 +291,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_SpecimenId = "SPCMNBLDDRTTUR";
             this.m_SpecimenName = "Bladder TUR";
             this.m_Description = "Bladder, transurethral resection";
-            this.m_CPTCode = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88309();
+            this.m_CPTCode = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88307", null);
         }
     }
 
@@ -250,7 +302,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_SpecimenId = "SPCMNPRSTTRDCLRSCTN";
             this.m_SpecimenName = "Prostate Radical Resection";
             this.m_Description = "Prostate, radical resection";
-            this.m_CPTCode = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88309();
+            this.m_CPTCode = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88309", null);
         }
     }
 
@@ -261,7 +313,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_SpecimenId = "SPCMNPRSTTXRDCLRSCTN";
             this.m_SpecimenName = "Prostate Except Radical Resection";
             this.m_Description = "Prostate, except radical resection";
-            this.m_CPTCode = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88307();
+            this.m_CPTCode = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88307", null);
         }
     }
 
@@ -274,7 +326,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_Description = "Prostate, [right/left/base], needle biopsy";
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = "B+ Fixative";
-            this.m_CPTCode = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88305();
+            this.m_CPTCode = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88305", null);
         }
     }
 
@@ -287,7 +339,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_Description = "Appendix, excision";
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = null;
-            this.m_CPTCode = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88304();
+            this.m_CPTCode = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88304", null);
         }
     }
 
@@ -340,6 +392,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = null;
             this.m_RequiresGrossExamination = true;
+            this.m_CPTCode = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88305", null);
         }
     }
 
@@ -353,6 +406,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = null;
             this.m_RequiresGrossExamination = true;
+            this.m_CPTCode = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88305", null);
         }
     }
 
@@ -366,6 +420,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = null;
             this.m_RequiresGrossExamination = true;
+            this.m_CPTCode = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88305", null);
         }
     }
 
@@ -379,6 +434,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = null;
             this.m_RequiresGrossExamination = true;
+            this.m_CPTCode = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88305", null);
         }
     }
 
@@ -392,6 +448,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = null;
             this.m_RequiresGrossExamination = true;
+            this.m_CPTCode = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88305", null);
         }
     }
 
@@ -405,6 +462,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = null;
             this.m_RequiresGrossExamination = true;
+            this.m_CPTCode = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88305", null);
         }
     }
 
@@ -419,6 +477,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
                 this.m_LabFixation = "Formalin";
                 this.m_ClientFixation = null;
                 this.m_RequiresGrossExamination = true;
+                this.m_CPTCode = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88307", null);
             }
         }
         
@@ -432,6 +491,8 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
                 this.m_LabFixation = "Formalin";
                 this.m_ClientFixation = null;
                 this.m_RequiresGrossExamination = true;
+                this.m_CPTCode = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88305", null);
+                this.m_CPTCodeQuantity = 2;
             }
         }
 
@@ -497,6 +558,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
                 this.m_LabFixation = "Formalin";
                 this.m_ClientFixation = null;
                 this.m_RequiresGrossExamination = true;
+
             }
         }
 
@@ -536,6 +598,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
                 this.m_LabFixation = "Formalin";
                 this.m_ClientFixation = null;
                 this.m_RequiresGrossExamination = true;
+                this.m_CPTCode = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88305", null);
             }
         }
         
@@ -588,6 +651,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
                 this.m_LabFixation = "Formalin";
                 this.m_ClientFixation = null;
                 this.m_RequiresGrossExamination = true;
+                this.m_CPTCode = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88305", null);
             }
         }
 
@@ -601,6 +665,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
                 this.m_LabFixation = "Formalin";
                 this.m_ClientFixation = null;
                 this.m_RequiresGrossExamination = true;
+                this.m_CPTCode = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88305", null);
             }
         }
     public class Consult : Specimen

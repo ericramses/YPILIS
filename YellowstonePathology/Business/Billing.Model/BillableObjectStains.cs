@@ -30,10 +30,13 @@ namespace YellowstonePathology.Business.Billing.Model
 			if (this.IsOkToPost() == true)
 			{
 				this.Post88360(YellowstonePathology.Business.Billing.Model.BillingComponentEnum.Global, billTo, billBy);
-				this.Post88313(YellowstonePathology.Business.Billing.Model.BillingComponentEnum.Global, billTo, billBy);
+                this.Post88364(YellowstonePathology.Business.Billing.Model.BillingComponentEnum.Global, billTo, billBy);
+                this.Post88365(YellowstonePathology.Business.Billing.Model.BillingComponentEnum.Global, billTo, billBy);
+                this.Post88313(YellowstonePathology.Business.Billing.Model.BillingComponentEnum.Global, billTo, billBy);
 				this.Post88312(YellowstonePathology.Business.Billing.Model.BillingComponentEnum.Global, billTo, billBy);
 				this.Post88342(YellowstonePathology.Business.Billing.Model.BillingComponentEnum.Global, billTo, billBy);
-				this.Post88341(YellowstonePathology.Business.Billing.Model.BillingComponentEnum.Global, billTo, billBy);                
+				this.Post88341(YellowstonePathology.Business.Billing.Model.BillingComponentEnum.Global, billTo, billBy);
+                this.Post88344(YellowstonePathology.Business.Billing.Model.BillingComponentEnum.Global, billTo, billBy);
                 this.Post3395F();
 			}
         }
@@ -43,10 +46,13 @@ namespace YellowstonePathology.Business.Billing.Model
 			if (this.IsOkToPost() == true)
 			{
 				this.Post88360(YellowstonePathology.Business.Billing.Model.BillingComponentEnum.Professional, billTo, billBy);
-				this.Post88313(YellowstonePathology.Business.Billing.Model.BillingComponentEnum.Professional, billTo, billBy);
+                this.Post88364(YellowstonePathology.Business.Billing.Model.BillingComponentEnum.Professional, billTo, billBy);
+                this.Post88365(YellowstonePathology.Business.Billing.Model.BillingComponentEnum.Professional, billTo, billBy);
+                this.Post88313(YellowstonePathology.Business.Billing.Model.BillingComponentEnum.Professional, billTo, billBy);
 				this.Post88312(YellowstonePathology.Business.Billing.Model.BillingComponentEnum.Professional, billTo, billBy);
 				this.Post88342(YellowstonePathology.Business.Billing.Model.BillingComponentEnum.Professional, billTo, billBy);
-				this.Post88341(YellowstonePathology.Business.Billing.Model.BillingComponentEnum.Professional, billTo, billBy);                
+				this.Post88341(YellowstonePathology.Business.Billing.Model.BillingComponentEnum.Professional, billTo, billBy);
+                this.Post88344(YellowstonePathology.Business.Billing.Model.BillingComponentEnum.Professional, billTo, billBy);
                 this.Post3395F();
 			}
         }
@@ -56,17 +62,20 @@ namespace YellowstonePathology.Business.Billing.Model
 			if (this.IsOkToPost() == true)
 			{
 				this.Post88360(YellowstonePathology.Business.Billing.Model.BillingComponentEnum.Technical, billTo, billBy);
-				this.Post88313(YellowstonePathology.Business.Billing.Model.BillingComponentEnum.Technical, billTo, billBy);
+                this.Post88364(YellowstonePathology.Business.Billing.Model.BillingComponentEnum.Technical, billTo, billBy);
+                this.Post88365(YellowstonePathology.Business.Billing.Model.BillingComponentEnum.Technical, billTo, billBy);
+                this.Post88313(YellowstonePathology.Business.Billing.Model.BillingComponentEnum.Technical, billTo, billBy);
 				this.Post88312(YellowstonePathology.Business.Billing.Model.BillingComponentEnum.Technical, billTo, billBy);
 				this.Post88342(YellowstonePathology.Business.Billing.Model.BillingComponentEnum.Technical, billTo, billBy);
-				this.Post88341(YellowstonePathology.Business.Billing.Model.BillingComponentEnum.Technical, billTo, billBy);                
+				this.Post88341(YellowstonePathology.Business.Billing.Model.BillingComponentEnum.Technical, billTo, billBy);
+                this.Post88344(YellowstonePathology.Business.Billing.Model.BillingComponentEnum.Technical, billTo, billBy);
                 this.Post3395F();
 			}
         }        
 
         public void Post88360(YellowstonePathology.Business.Billing.Model.BillingComponentEnum billingComponent, string billTo, string billBy)
         {            
-            YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88360 cpt88360 = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88360();
+            YellowstonePathology.Business.Billing.Model.CptCode cpt88360 = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88360", null);
             string modifier = cpt88360.GetModifier(billingComponent);
             int cpt88360Count = this.m_StainSpecimenCollection.GetBillable88360Count() - this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.GetBilledCount(cpt88360.Code, modifier);
             if (cpt88360Count > 0)
@@ -85,7 +94,7 @@ namespace YellowstonePathology.Business.Billing.Model
 
         public void Post88313(YellowstonePathology.Business.Billing.Model.BillingComponentEnum billingComponent, string billTo, string billBy)
         {
-            YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88313 cpt88313 = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88313();
+            YellowstonePathology.Business.Billing.Model.CptCode cpt88313 = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88313", null);
             string modifier = cpt88313.GetModifier(billingComponent);
             int cpt88313Count = this.m_StainSpecimenCollection.GetBillable88313Count() - this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.GetBilledCount(cpt88313.Code, modifier);
             if (cpt88313Count > 0)
@@ -104,7 +113,7 @@ namespace YellowstonePathology.Business.Billing.Model
 
         public void Post88312(YellowstonePathology.Business.Billing.Model.BillingComponentEnum billingComponent, string billTo, string billBy)
         {
-            YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88312 cpt88312 = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88312();
+            YellowstonePathology.Business.Billing.Model.CptCode cpt88312 = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88312", null);
             string modifier = cpt88312.GetModifier(billingComponent);
             int cpt88312Count = this.m_StainSpecimenCollection.GetBillable88312Count() - this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.GetBilledCount(cpt88312.Code, modifier);
             if (cpt88312Count > 0)
@@ -121,9 +130,29 @@ namespace YellowstonePathology.Business.Billing.Model
             }
         }
 
+        public void Post88344(YellowstonePathology.Business.Billing.Model.BillingComponentEnum billingComponent, string billTo, string billBy)
+        {
+            YellowstonePathology.Business.Billing.Model.CptCode cpt88344 = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88344", null);
+            string modifier = cpt88344.GetModifier(billingComponent);
+            int cpt88344Count = this.m_StainSpecimenCollection.GetBillable88344Count() - this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.GetBilledCount(cpt88344.Code, modifier);
+
+            if (cpt88344Count > 0)
+            {
+                YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill = this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.GetNextItem(this.m_PanelSetOrder.ReportNo);
+                panelSetOrderCPTCodeBill.ClientId = this.m_AccessionOrder.ClientId;
+                panelSetOrderCPTCodeBill.BillTo = billTo;
+                panelSetOrderCPTCodeBill.BillBy = billBy;
+                panelSetOrderCPTCodeBill.CPTCode = cpt88344.Code;
+                panelSetOrderCPTCodeBill.CodeType = cpt88344.CodeType.ToString();
+                panelSetOrderCPTCodeBill.Modifier = modifier;
+                panelSetOrderCPTCodeBill.Quantity = cpt88344Count;
+                this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.Add(panelSetOrderCPTCodeBill);
+            }
+        }
+
         public void Post88342(YellowstonePathology.Business.Billing.Model.BillingComponentEnum billingComponent, string billTo, string billBy)
         {
-            YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88342 cpt88342 = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88342();
+            YellowstonePathology.Business.Billing.Model.CptCode cpt88342 = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88342", null);
             string modifier = cpt88342.GetModifier(billingComponent);
             int cpt88342Count = this.m_StainSpecimenCollection.GetBillable88342Count() - this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.GetBilledCount(cpt88342.Code, modifier);
             
@@ -143,7 +172,7 @@ namespace YellowstonePathology.Business.Billing.Model
 
         public void Post88341(YellowstonePathology.Business.Billing.Model.BillingComponentEnum billingComponent, string billTo, string billBy)
         {
-            YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88341 cpt88341 = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88341();
+            YellowstonePathology.Business.Billing.Model.CptCode cpt88341 = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88341", null);
             string modifier = cpt88341.GetModifier(billingComponent);
             int cpt88341Count = this.m_StainSpecimenCollection.GetBillable88341Count() - this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.GetBilledCount(cpt88341.Code, modifier);            
 
@@ -167,7 +196,7 @@ namespace YellowstonePathology.Business.Billing.Model
             {
                 if (this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.Exists("3395F") == false)
                 {
-                    YellowstonePathology.Business.Billing.Model.PQRSCodeDefinitions.PQRS3395F pqrs3395F = new YellowstonePathology.Business.Billing.Model.PQRSCodeDefinitions.PQRS3395F();
+                    YellowstonePathology.Business.Billing.Model.PQRSCode pqrs3395F = (PQRSCode)Store.AppDataStore.Instance.CPTCodeCollection.GetClone("3395F", null);
                     YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill = this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.GetNextItem(this.m_PanelSetOrder.ReportNo);
                     panelSetOrderCPTCodeBill.ClientId = this.m_AccessionOrder.ClientId;
                     panelSetOrderCPTCodeBill.BillTo = null;
@@ -187,7 +216,7 @@ namespace YellowstonePathology.Business.Billing.Model
 			{
                 this.SetERPRPQRSCodes();
 
-				YellowstonePathology.Business.Test.Model.TestCollection testCollection = YellowstonePathology.Business.Test.Model.TestCollection.GetAllTests();
+				YellowstonePathology.Business.Test.Model.TestCollection testCollection = YellowstonePathology.Business.Test.Model.TestCollection.GetAllTests(false);
 				foreach (StainSpecimen stainSpecimen in this.m_StainSpecimenCollection)
 				{
 					foreach (YellowstonePathology.Business.Test.Model.TestOrder testOrder in stainSpecimen.TestOrderCollection)
@@ -256,7 +285,7 @@ namespace YellowstonePathology.Business.Billing.Model
             {
                 if (this.m_AccessionOrder.PrimaryInsurance == "Medicare")
                 {
-                    YellowstonePathology.Business.Billing.Model.PQRSCodeDefinitions.PQRS3395F pqrs3395 = new YellowstonePathology.Business.Billing.Model.PQRSCodeDefinitions.PQRS3395F();
+                    YellowstonePathology.Business.Billing.Model.PQRSCode pqrs3395 = (PQRSCode)Store.AppDataStore.Instance.CPTCodeCollection.GetClone("3395F", null);
                     YellowstonePathology.Business.Test.PanelSetOrderCPTCode panelSetOrderCPTCode = this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.GetNextItem(this.m_PanelSetOrder.ReportNo);                    
                     panelSetOrderCPTCode.Quantity = 1;
                     panelSetOrderCPTCode.CPTCode = pqrs3395.Code;
@@ -266,6 +295,46 @@ namespace YellowstonePathology.Business.Billing.Model
                     this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.Add(panelSetOrderCPTCode);
                 }
             }
-        }                                         
+        }
+
+        public void Post88365(YellowstonePathology.Business.Billing.Model.BillingComponentEnum billingComponent, string billTo, string billBy)
+        {
+            YellowstonePathology.Business.Billing.Model.CptCode cpt88365 = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88365", null);
+            string modifier = cpt88365.GetModifier(billingComponent);            
+
+            int cpt88365Count = this.m_StainSpecimenCollection.GetBillable88365Count() - this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.GetBilledCount(cpt88365.Code, modifier);
+            if (cpt88365Count > 0)
+            {
+                YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill = this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.GetNextItem(this.m_PanelSetOrder.ReportNo);
+                panelSetOrderCPTCodeBill.ClientId = this.m_AccessionOrder.ClientId;
+                panelSetOrderCPTCodeBill.BillTo = billTo;
+                panelSetOrderCPTCodeBill.BillBy = billBy;
+                panelSetOrderCPTCodeBill.CPTCode = cpt88365.Code;
+                panelSetOrderCPTCodeBill.CodeType = cpt88365.CodeType.ToString();
+                panelSetOrderCPTCodeBill.Modifier = modifier;
+                panelSetOrderCPTCodeBill.Quantity = cpt88365Count;
+                this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.Add(panelSetOrderCPTCodeBill);
+            }
+        }
+
+        public void Post88364(YellowstonePathology.Business.Billing.Model.BillingComponentEnum billingComponent, string billTo, string billBy)
+        {
+            YellowstonePathology.Business.Billing.Model.CptCode cpt88364 = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88364", null);
+            string modifier = cpt88364.GetModifier(billingComponent);
+
+            int cpt88364Count = this.m_StainSpecimenCollection.GetBillable88364Count() - this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.GetBilledCount(cpt88364.Code, modifier);
+            if (cpt88364Count > 0)
+            {
+                YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill = this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.GetNextItem(this.m_PanelSetOrder.ReportNo);
+                panelSetOrderCPTCodeBill.ClientId = this.m_AccessionOrder.ClientId;
+                panelSetOrderCPTCodeBill.BillTo = billTo;
+                panelSetOrderCPTCodeBill.BillBy = billBy;
+                panelSetOrderCPTCodeBill.CPTCode = cpt88364.Code;
+                panelSetOrderCPTCodeBill.CodeType = cpt88364.CodeType.ToString();
+                panelSetOrderCPTCodeBill.Modifier = modifier;
+                panelSetOrderCPTCodeBill.Quantity = cpt88364Count;
+                this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.Add(panelSetOrderCPTCodeBill);
+            }
+        }
     }
 }

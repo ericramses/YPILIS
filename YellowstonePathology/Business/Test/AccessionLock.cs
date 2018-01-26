@@ -108,29 +108,25 @@ namespace YellowstonePathology.Business.Test
             this.m_Address = null;
             this.m_TimeAquired = null;
 
-            IDatabase db = Business.RedisConnection.Instance.GetDatabase();
-            db.KeyDelete(this.HashKey);            
-
-            var transaction = db.CreateTransaction();
-            transaction.AddCondition(Condition.HashNotExists(this.HashKey, "MasterAccessionNo"));
+            Store.RedisDB scanDb = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.Lock);
+            var transaction = scanDb.DataBase.CreateTransaction();
+            transaction.AddCondition(Condition.HashExists(this.HashKey, "MasterAccessionNo"));            
             transaction.KeyDeleteAsync(this.HashKey);
-            transaction.SetRemoveAsync("AccessionLocks", this.HashKey);
-            bool committed = transaction.Execute();
-
+            bool committed = transaction.Execute();            
             this.NotifyPropertyChanged(string.Empty);
         }
 
         public void TransferLock(string address)
-        {
-            IDatabase db = Business.RedisConnection.Instance.GetDatabase();
+        {                                    
             HashEntry[] hashFields = new HashEntry[3];
             hashFields[0] = new HashEntry("MasterAccessionNo", this.MasterAccessionNo);
             hashFields[1] = new HashEntry("Address", address);
             hashFields[2] = new HashEntry("TimeAquired", DateTime.Now.ToString());
-            db.HashSet(this.HashKey, hashFields);
+            Store.RedisDB lockDb = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.Lock);
+            lockDb.DataBase.HashSet(this.HashKey, hashFields);
 
             this.m_Address = address;
-            this.m_TimeAquired = DateTime.Now;
+            this.m_TimeAquired = DateTime.Now;            
             this.NotifyPropertyChanged(string.Empty);
         }
 
@@ -142,34 +138,34 @@ namespace YellowstonePathology.Business.Test
 
         private void GetHash()
         {
-            IDatabase db = Business.RedisConnection.Instance.GetDatabase();                        
-            HashEntry[] hashFields = db.HashGetAll(this.HashKey);
+            Store.RedisDB lockDb = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.Lock);
+            HashEntry[] hashFields = lockDb.DataBase.HashGetAll(this.HashKey);
 
             this.m_MasterAccessionNo = hashFields[0].Value;
             this.m_Address = hashFields[1].Value;                        
-            this.m_TimeAquired = DateTime.Parse(hashFields[2].Value);
+            this.m_TimeAquired = DateTime.Parse(hashFields[2].Value);            
             this.NotifyPropertyChanged(string.Empty);
         }
 
         public bool IsLockStillAquired()
         {
-            IDatabase db = Business.RedisConnection.Instance.GetDatabase();
-            return db.KeyExists(this.HashKey);
+            Store.RedisDB lockDb = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.Lock);
+            bool result = lockDb.DataBase.KeyExists(this.HashKey);
+            return result;
         }
 
         private void TryHashSet()
-        {
-            IDatabase db = Business.RedisConnection.Instance.GetDatabase();
+        {            
             HashEntry[] hashFields = new HashEntry[3];
             hashFields[0] = new HashEntry("MasterAccessionNo", this.m_MasterAccessionNo);
             hashFields[1] = new HashEntry("Address", UI.AppMessaging.AccessionLockMessage.GetMyAddress());            
             hashFields[2] = new HashEntry("TimeAquired", DateTime.Now.ToString());
 
-            var transaction = db.CreateTransaction();
+            Store.RedisDB lockDb = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.Lock);
+            var transaction = lockDb.DataBase.CreateTransaction();
             transaction.AddCondition(Condition.HashNotExists(this.HashKey, "MasterAccessionNo"));
             transaction.HashSetAsync(this.HashKey, hashFields);
-            transaction.SetAddAsync("AccessionLocks", this.HashKey);
-            bool committed = transaction.Execute();
+            bool committed = transaction.Execute();            
         }
 
         public void NotifyPropertyChanged(String info)

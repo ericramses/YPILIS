@@ -21,9 +21,9 @@ namespace YellowstonePathology.Business.Test.MPNExtendedReflex
 			this.AddHeader(document, mpnExtendedReflexResult.PanelSetOrderMPNExtendedReflex, mpnExtendedReflexResult.PanelSetOrderMPNExtendedReflex.PanelSetName);
 			this.AddNextObxElement("", document, "F");
 
-			this.AddNextObxElement("JAK2 V617F Mutation Analysis: " + mpnExtendedReflexResult.JAK2V617FResult, document, "F");
-			this.AddNextObxElement("Calreticulin Mutation Analysis: " + mpnExtendedReflexResult.CALRResult, document, "F");
-			this.AddNextObxElement("MPL Mutation Analysis: " + mpnExtendedReflexResult.MPLResult, document, "F");
+			this.AddNextObxElement("JAK2 V617F Mutation Analysis: " + mpnExtendedReflexResult.JAK2V617FResult.Result, document, "F");
+			this.AddNextObxElement("Calreticulin Mutation Analysis: " + mpnExtendedReflexResult.CALRResult.Result, document, "F");
+			this.AddNextObxElement("MPL Mutation Analysis: " + mpnExtendedReflexResult.MPLResult.Result, document, "F");
 			this.AddNextObxElement(string.Empty, document, "F");
 
 			this.AddNextObxElement("Pathologist: " + mpnExtendedReflexResult.PanelSetOrderMPNExtendedReflex.Signature, document, "F");

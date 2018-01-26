@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Test.Model
 	{
 		public Mammaglobin()
 		{
-			this.m_TestId = 118;
+			this.m_TestId = "118";
 			this.m_TestName = "Mammaglobin";
             this.m_TestAbbreviation = "Mammaglobin";
 			this.m_Active = true;

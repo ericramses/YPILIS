@@ -76,9 +76,7 @@ namespace YellowstonePathology.UI
         private void CreateSurgicalTestOrder()
         {
             YellowstonePathology.Business.Test.Surgical.SurgicalTest surgicalTest = new Business.Test.Surgical.SurgicalTest();
-            YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new Business.Test.TestOrderInfo();
-            testOrderInfo.PanelSet = surgicalTest;
-            testOrderInfo.Distribute = true;
+            YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new Business.Test.TestOrderInfo(surgicalTest);
 
             YellowstonePathology.UI.CustomEventArgs.TestOrderInfoEventArgs reportOrderInfoEventArgs = new CustomEventArgs.TestOrderInfoEventArgs(testOrderInfo);
             Login.Receiving.ReportOrderPath reportOrderPath = new Login.Receiving.ReportOrderPath(this.m_ClientOrderReceivingHandler.AccessionOrder, this.m_ClientOrderReceivingHandler.ClientOrder, null, PageNavigationModeEnum.Standalone, null);

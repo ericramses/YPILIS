@@ -99,7 +99,24 @@ namespace YellowstonePathology.UI.Gross
             identifier = identifier.Replace("Formalin", "formalin");
             identifier = identifier.Replace("B+ Fixative", "B+ fixative");
             return text.Replace("[identifier]", identifier);
-        }        
+        }
+
+        protected string ReplaceIdentifierNoDescription(string text, YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
+        {
+            string identifier = "Specimen " + specimenOrder.SpecimenNumber + " ";
+            if (string.IsNullOrEmpty(specimenOrder.ClientFixation) == false && specimenOrder.ClientFixation != YellowstonePathology.Business.Specimen.Model.FixationType.Fresh)
+            {
+                identifier += "is received in a " + specimenOrder.ClientFixation + " filled container labeled \"" + accessionOrder.PatientDisplayName + "\"";
+            }
+            else if (specimenOrder.ClientFixation == YellowstonePathology.Business.Specimen.Model.FixationType.Fresh)
+            {
+                identifier += "is received fresh in a container labeled \"" + accessionOrder.PatientDisplayName + "\"";
+            }
+
+            identifier = identifier.Replace("Formalin", "formalin");
+            identifier = identifier.Replace("B+ Fixative", "B+ fixative");
+            return text.Replace("[identifier]", identifier);
+        }
 
         protected string ReplaceCassetteLabel(string text, YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder)
         {
@@ -183,13 +200,16 @@ namespace YellowstonePathology.UI.Gross
         {
             string result = text;
             string initials = null;
-
             
             if (specimenOrder.AliquotOrderCollection.Count != 0)
             {
                 if (accessionOrder.SpecimenOrderCollection.IsLastNonPAPSpecimen(specimenOrder.SpecimenOrderId) == true)
                 {
-                    int grossVerifiedById = specimenOrder.AliquotOrderCollection[0].GrossVerifiedById.Value;
+                    int grossVerifiedById = 0;
+                    if(specimenOrder.AliquotOrderCollection[0].GrossVerifiedById.HasValue == true)
+                    {
+                        grossVerifiedById = specimenOrder.AliquotOrderCollection[0].GrossVerifiedById.Value;
+                    }
                     string grossedByInitials = "[??]";
 
                     if (grossVerifiedById != 0)
@@ -198,18 +218,12 @@ namespace YellowstonePathology.UI.Gross
                         grossedByInitials = grossedBy.Initials.ToUpper();
                     }
 
-                    string supervisedByInitials = "[??]";
-
-                    YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteCody ypiCody = new Business.Facility.Model.YellowstonePathologyInstituteCody();
-                    if (accessionOrder.AccessioningFacilityId == ypiCody.FacilityId)
-                    {
-                        supervisedByInitials = "PPC";
-                    }
-                    else if (YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.GPathologistId.HasValue == true)
+                    string supervisedByInitials = "[??]";         
+                    if(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.GPathologistId.HasValue == true)
                     {
                         YellowstonePathology.Business.User.SystemUser supervisedBy = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetSystemUserById(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.GPathologistId.Value);
                         supervisedByInitials = supervisedBy.Initials.ToUpper();
-                    }
+                    }                               
 
                     string typedByInitials = systemIdentity.User.Initials.ToLower();
 
@@ -224,8 +238,7 @@ namespace YellowstonePathology.UI.Gross
                     
                     result = result + initials;
                 }
-            }
-
+            }            
             return result;
         }
 

@@ -30,24 +30,12 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
 		}
 
         public override void OrderInitialTests(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Interface.IOrderTarget orderTarget)
-        {
-            //int[] idahoClientIds = new int[] { 658, 1116, 879, 1123, 1505, 1469, 1558, 313, 1311, 294, 1487 };
-            Business.Client.Model.IdahoClientIdList idahoClientIds = new Client.Model.IdahoClientIdList();
-
-            if (idahoClientIds.Contains(accessionOrder.ClientId) == true)
-            {
-                YellowstonePathology.Business.Test.PDL122C3.PDL122C3Test pdl122C3Test = new PDL122C3.PDL122C3Test();
-                YellowstonePathology.Business.Test.TestOrderInfo testOrderInfoPDL122C3 = new TestOrderInfo(pdl122C3Test, orderTarget, false);
-                YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitorPDL122C3 = new Visitor.OrderTestOrderVisitor(testOrderInfoPDL122C3);
-                accessionOrder.TakeATrip(orderTestOrderVisitorPDL122C3);
-            }
-            else
-            {
-                YellowstonePathology.Business.Test.PDL1SP142.PDL1SP142Test pdl1SP142Test = new PDL1SP142.PDL1SP142Test();
-                YellowstonePathology.Business.Test.TestOrderInfo testOrderInfoPDL1SP142 = new TestOrderInfo(pdl1SP142Test, orderTarget, false);
-                YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitorPDL1SP142 = new Visitor.OrderTestOrderVisitor(testOrderInfoPDL1SP142);
-                accessionOrder.TakeATrip(orderTestOrderVisitorPDL1SP142);                
-            }
+        {                        
+            YellowstonePathology.Business.Test.PDL122C3.PDL122C3Test pdl122C3Test = new PDL122C3.PDL122C3Test();
+            YellowstonePathology.Business.Test.TestOrderInfo testOrderInfoPDL122C3 = new TestOrderInfo(pdl122C3Test, orderTarget, false);
+            YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitorPDL122C3 = new Visitor.OrderTestOrderVisitor(testOrderInfoPDL122C3);
+            accessionOrder.TakeATrip(orderTestOrderVisitorPDL122C3);
+            
             
             YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisTest egfrMutationAnalysisTest = new YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisTest();
             YellowstonePathology.Business.Test.TestOrderInfo testOrderInfoEGFR = new TestOrderInfo(egfrMutationAnalysisTest, orderTarget, false);

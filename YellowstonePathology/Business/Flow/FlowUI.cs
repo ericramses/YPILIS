@@ -1,10 +1,5 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows;
-using System.Windows.Data;
-using System.Data;
-using System.Data.SqlClient;
 using System.ComponentModel;
 
 namespace YellowstonePathology.Business.Flow
@@ -25,7 +20,7 @@ namespace YellowstonePathology.Business.Flow
         private Flow.Marker m_Marker;
         
         private Flow.FlowCaseValidation m_FlowCaseValidation;
-        private Billing.Model.ICDCodeList m_ICDCodeList;
+        private Billing.Model.ICDCodeCollection m_ICDCodeList;
         private Flow.FlowPanelList m_FlowPanelList;
 		private bool m_IsEnabled = true;
 		private string m_ReportNo;
@@ -69,9 +64,7 @@ namespace YellowstonePathology.Business.Flow
 
             this.m_FlowCaseValidation = new FlowCaseValidation();
 
-            this.m_ICDCodeList = new YellowstonePathology.Business.Billing.Model.ICDCodeList();
-            this.m_ICDCodeList.SetFillCommandByFlowCodes();
-            this.m_ICDCodeList.Fill();           
+            this.m_ICDCodeList = YellowstonePathology.Business.Billing.Model.ICDCodeCollection.GetFlowCodeList();
 
             this.m_FlowPanelList = new FlowPanelList();
             this.m_FlowPanelList.SetFillCommandByAll();
@@ -91,7 +84,7 @@ namespace YellowstonePathology.Business.Flow
 			this.m_FlowLogSearch.Search();
         }		
 
-        public YellowstonePathology.Business.Billing.Model.ICDCodeList ICDCodeList
+        public YellowstonePathology.Business.Billing.Model.ICDCodeCollection ICDCodeList
         {
             get { return this.m_ICDCodeList; }
         }
@@ -404,13 +397,13 @@ namespace YellowstonePathology.Business.Flow
 			}
 		}
 
-		public void AddICD9Code(string icd9Code, string icd10Code)
+		public void AddICD10Code(string icd10Code)
 		{
             int quantity = 1;
             string specimenOrderId = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.PanelSetOrderLeukemiaLymphoma.OrderedOn, this.PanelSetOrderLeukemiaLymphoma.OrderedOnId).SpecimenOrderId;
 
 			YellowstonePathology.Business.Billing.Model.ICD9BillingCode icd9BillingCode = this.m_AccessionOrder.ICD9BillingCodeCollection.GetNextItem(this.PanelSetOrderLeukemiaLymphoma.ReportNo,
-                this.m_AccessionOrder.MasterAccessionNo, specimenOrderId, icd9Code, icd10Code, quantity);
+                this.m_AccessionOrder.MasterAccessionNo, specimenOrderId, icd10Code, quantity);
 			this.m_AccessionOrder.ICD9BillingCodeCollection.Add(icd9BillingCode);
             this.m_ICD9BillingCodeCollection = this.m_AccessionOrder.ICD9BillingCodeCollection.GetReportCollection(this.PanelSetOrderLeukemiaLymphoma.ReportNo);
 			this.NotifyPropertyChanged("ICD9BillingCodeCollection");

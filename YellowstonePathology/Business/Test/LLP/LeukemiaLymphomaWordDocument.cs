@@ -1,11 +1,5 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Data;
-using System.Data.SqlClient;
-using System.Windows.Forms;
 using System.Xml;
-using System.Drawing;
 
 namespace YellowstonePathology.Business.Test.LLP
 {
@@ -21,7 +15,7 @@ namespace YellowstonePathology.Business.Test.LLP
 		{			
 			PanelSetOrderLeukemiaLymphoma panelSetOrderLeukemiaLymphoma = (PanelSetOrderLeukemiaLymphoma)this.m_PanelSetOrder;
 
-			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\LeukemiaLymphoma.9.xml";
+			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\LeukemiaLymphoma.12.xml";
 
 			base.OpenTemplate();
 
@@ -86,12 +80,26 @@ namespace YellowstonePathology.Business.Test.LLP
 				this.SetXmlNodeData("blast_cd34_percent", panelSetOrderLeukemiaLymphoma.EGateCD34Percent);
 				this.SetXmlNodeData("blast_cd117_percent", panelSetOrderLeukemiaLymphoma.EGateCD117Percent);
 			}
-                
+
+
+            if (string.IsNullOrEmpty(panelSetOrderLeukemiaLymphoma.SpecimenViabilityPercent) == true || panelSetOrderLeukemiaLymphoma.SpecimenViabilityPercent == "0")
+            {
+                this.SetXmlNodeData("llp_specimen_viability", "");
+                this.SetXmlNodeData("llp_specimen_viability_percent", "");
+            }
+            else
+            {
+                this.SetXmlNodeData("llp_specimen_viability", "Specimen Viability Percent");
+                this.SetXmlNodeData("llp_specimen_viability_percent", panelSetOrderLeukemiaLymphoma.SpecimenViabilityPercent);
+            }
+
             this.HandleMarkers(panelSetOrderLeukemiaLymphoma);
 			this.SetXmlNodeData("clinical_history", this.m_AccessionOrder.ClinicalHistory);
 			this.SetXmlNodeData("specimen_description", specimenOrder.Description);
 
-			string dateTimeCollected = string.Empty;
+            this.SetXMLNodeParagraphData("additional_testing", this.m_AccessionOrder.PanelSetOrderCollection.GetAdditionalTestingString(this.m_PanelSetOrder.ReportNo));
+
+            string dateTimeCollected = string.Empty;
 			if (specimenOrder.CollectionTime.HasValue == true)
 			{
 				dateTimeCollected = specimenOrder.CollectionTime.Value.ToString("MM/dd/yyyy HH:mm");

@@ -170,7 +170,7 @@ namespace YellowstonePathology.Business.Test.TCellNKProfile
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "500", "null", "varchar")]
+        [PersistentDataColumnProperty(true, "1000", "null", "varchar")]
         public string ASRComment
         {
             get { return this.m_ASRComment; }

@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.Billing.Model
 		public StainSpecimen(YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder, YellowstonePathology.Business.Test.Model.TestOrderCollection testOrderCollection)
         {
             this.m_SpecimenOrder = specimenOrder;
-            this.m_TestOrderCollection = testOrderCollection;            
+            this.m_TestOrderCollection = testOrderCollection;        
         }
 
         public YellowstonePathology.Business.Test.Model.TestOrderCollection TestOrderCollection
@@ -29,7 +29,7 @@ namespace YellowstonePathology.Business.Billing.Model
 		public YellowstonePathology.Business.Specimen.Model.SpecimenOrder SpecimenOrder
         {
             get { return this.m_SpecimenOrder; }
-        }        
+        }                  
 
         public virtual void BillSplit()
         {
@@ -40,7 +40,7 @@ namespace YellowstonePathology.Business.Billing.Model
 		{
 			int result = this.TestOrderCollection.GetBillableGradeStainCount(includeOrderedAsDual);
 			return result;
-		}
+		}        
 
         public virtual int GetBillableHANDECount()
         {
@@ -76,9 +76,9 @@ namespace YellowstonePathology.Business.Billing.Model
 		{
 			int result = this.TestOrderCollection.GetBillableDualStainCount(includeDualsWithGradedStains);
 			return result;
-		}
+		}      
 
-		public virtual int GetBillableSinglePlexIHCTestOrderCount()
+        public virtual int GetBillableSinglePlexIHCTestOrderCount()
 		{            
             YellowstonePathology.Business.Test.Model.TestOrderCollection testOrderCollection = this.TestOrderCollection.GetBillableSinglePlexIHCTestOrders();
             int result = testOrderCollection.GetUniqueTestCount();

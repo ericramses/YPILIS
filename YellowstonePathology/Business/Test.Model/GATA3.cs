@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Test.Model
 	{
 		public GATA3()
 		{
-			this.m_TestId = 346;
+			this.m_TestId = "346";
 			this.m_TestName = "GATA-3";
             this.m_TestAbbreviation = "GATA-3";
 			this.m_Active = true;

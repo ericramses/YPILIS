@@ -1,10 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Text;
-using System.Data;
-using System.Data.SqlClient;
-using System.Xml.Serialization;
 using YellowstonePathology.Business.Persistence;
 
 namespace YellowstonePathology.Business.Test.Surgical
@@ -14,7 +10,6 @@ namespace YellowstonePathology.Business.Test.Surgical
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		private string m_ObjectId;
 		private string m_IntraoperativeConsultationResultId;
 		private string m_SurgicalSpecimenId;
 		private Nullable<DateTime> m_StartDate;
@@ -38,28 +33,12 @@ namespace YellowstonePathology.Business.Test.Surgical
 			this.m_ValidationErrors = new Dictionary<string, string>();
 		}
 
-		public IntraoperativeConsultationResult(string intraoperativeConsultationResultId, string objectId, string surgicalSpecimenId)
+		public IntraoperativeConsultationResult(string intraoperativeConsultationResultId, string surgicalSpecimenId)
 		{
 			this.m_IntraoperativeConsultationResultId = intraoperativeConsultationResultId;
-			this.m_ObjectId = objectId;
 			this.m_SurgicalSpecimenId = surgicalSpecimenId;
 			this.m_ValidationErrors = new Dictionary<string, string>();
             this.m_Final = false;
-		}
-
-		[PersistentDocumentIdProperty()]
-		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
-		public string ObjectId
-		{
-			get { return this.m_ObjectId; }
-			set
-			{
-				if (this.m_ObjectId != value)
-				{
-					this.m_ObjectId = value;
-					this.NotifyPropertyChanged("ObjectId");
-				}
-			}
 		}
 
 		[PersistentPrimaryKeyProperty(false)]

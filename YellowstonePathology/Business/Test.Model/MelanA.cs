@@ -9,11 +9,11 @@ namespace YellowstonePathology.Business.Test.Model
     {
         public MelanA()
         {
-            this.m_TestId = 119;
+            this.m_TestId = "119";
             this.m_TestName = "Melan A";
             this.m_TestAbbreviation = "Melan A";
 			this.m_Active = true;
-			this.m_NeedsAcknowledgement = true;
+			this.m_NeedsAcknowledgement = true;                        
         }
     }
 }

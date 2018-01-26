@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Test.HPV1618ByPCR
 			this.m_HasProfessionalComponent = true;
 			this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterM();
-            this.m_Active = true;            
+            this.m_Active = false;            
 
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.HPV1618ByPCR.HPV1618ByPCRTestOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.HPV1618ByPCR.HPV1618ByPCRWordDocument).AssemblyQualifiedName;
@@ -35,7 +35,7 @@ namespace YellowstonePathology.Business.Test.HPV1618ByPCR
 
             this.m_HasSplitCPTCode = false;            
 
-            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT87625(), 1);
+            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("87625", null), 1);
             this.m_PanelSetCptCodeCollection.Add(panelSetCptCode);
 
             string task1Description = "Cut curls and an after H&E. Give to molecular";

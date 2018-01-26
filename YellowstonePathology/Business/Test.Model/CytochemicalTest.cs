@@ -6,31 +6,32 @@ using System.Text;
 namespace YellowstonePathology.Business.Test.Model
 {
 	public class CytochemicalTest : Test
-    {
+    {        
+
 		public CytochemicalTest()
 		{
 			this.m_IsBillable = true;            
 		}
 		
-		public CytochemicalTest(int testId, string testName)
+		public CytochemicalTest(string testId, string testName)
             : base(testId, testName)
         {
             this.m_IsBillable = true;            
-        }
+        }        
 
         public override YellowstonePathology.Business.Billing.Model.CptCode GetCptCode(bool isTechnicalOnly)
         {
-            YellowstonePathology.Business.Billing.Model.CptCode result = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88313();
+            YellowstonePathology.Business.Billing.Model.CptCode result = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88313", null);
             if (isTechnicalOnly == true)
             {
-                result = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88313TC();
+                result = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88313", "TC");
             }
             return result;            
-        }
+        }        
 
         public override string GetCodeableType(bool orderedAsDual)
         {
             return YellowstonePathology.Business.Billing.Model.CodeableType.CYTOCHMCL;
-        }
+        }       
     }
 }

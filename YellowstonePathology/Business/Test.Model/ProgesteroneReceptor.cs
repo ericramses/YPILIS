@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Test.Model
 	{
 		public ProgesteroneReceptor()
 		{
-			this.m_TestId = 144;
+			this.m_TestId = "144";
 			this.m_TestName = "Progesterone Receptor";
             this.m_TestAbbreviation = "PR";
 			this.m_Active = true;

@@ -89,10 +89,13 @@ namespace YellowstonePathology.Business.Facility.Model
             result.Add(new YellowstonePathology.Business.Facility.Model.LocationDefinitions.YolandaHuttonOffice());
             result.Add(new YellowstonePathology.Business.Facility.Model.LocationDefinitions.Compile());
             result.Add(new YellowstonePathology.Business.Facility.Model.LocationDefinitions.Sandra());
+            result.Add(new YellowstonePathology.Business.Facility.Model.LocationDefinitions.AshleeBrown());
 
             //YellowstonePathologyInstituteCody
             result.Add(new YellowstonePathology.Business.Facility.Model.LocationDefinitions.CodyAccessionStation());
             result.Add(new YellowstonePathology.Business.Facility.Model.LocationDefinitions.CodyGrossStation());
+
+            result.Add(new YellowstonePathology.Business.Facility.Model.LocationDefinitions.GrossTechs());
 
             return Sort(result);
         }

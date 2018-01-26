@@ -52,8 +52,8 @@ namespace YellowstonePathology.UI.Test
 
 		private void LynchSyndromeEvaluationResultPage_OrderBraf(object sender, EventArgs e)
 		{
-            YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTest brafV600EKTest = new YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTest();
-            this.StartReportOrderPath(brafV600EKTest);
+            YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTest brafTest = new YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTest();
+            this.StartReportOrderPath(brafTest);
 			this.m_PanelSetOrderLynchSyndromeEvaluation.BRAFIsIndicated = true;            
 		}
 

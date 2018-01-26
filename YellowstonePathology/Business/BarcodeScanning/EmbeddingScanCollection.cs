@@ -11,26 +11,24 @@ namespace YellowstonePathology.Business.BarcodeScanning
     public class EmbeddingScanCollection : ObservableCollection<EmbeddingScan>
     {
         public EmbeddingScanCollection()
-        {
-
+        {            
         }        
 
         public void UpdateStatus(EmbeddingScan scan)
         {
-            IDatabase db = Business.RedisConnection.Instance.GetDatabase();
-            if (db.KeyExists(scan.HashKey) == true)
+            Store.RedisDB embeddingDb = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.EmbeddingScan);
+            if (embeddingDb.DataBase.KeyExists(scan.HashKey) == true)
             {
                 HashEntry[] hashEntries = scan.GetHasEntries();
-                db.HashSet(scan.HashKey, "Updated", scan.Updated.ToString());
-            }
+                embeddingDb.DataBase.HashSet(scan.HashKey, "Updated", scan.Updated.ToString());
+            }            
         }
 
         public EmbeddingScan HandleScan(string aliquotOrderId, DateTime processorStartTime, TimeSpan processorFixationDuration)
-        {
-            IDatabase db = Business.RedisConnection.Instance.GetDatabase();
+        {            
             EmbeddingScan scan = new EmbeddingScan(aliquotOrderId, processorStartTime, processorFixationDuration);
-
-            if (db.KeyExists("EmbeddingScan:" + aliquotOrderId) == true)
+            Store.RedisDB embeddingDb = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.EmbeddingScan);
+            if (embeddingDb.DataBase.KeyExists("EmbeddingScan:" + aliquotOrderId) == true)
             {
                 foreach (EmbeddingScan item in this)
                 {
@@ -43,27 +41,26 @@ namespace YellowstonePathology.Business.BarcodeScanning
             }
             else
             {
-                db.SetAdd("EmbeddingScans:" + DateTime.Today.ToShortDateString(), scan.HashKey);
+                embeddingDb.DataBase.SetAdd("EmbeddingScans:" + DateTime.Today.ToShortDateString(), scan.HashKey);
             }
 
             HashEntry[] hashEntries = scan.GetHasEntries();
-            db.HashSet(scan.HashKey, hashEntries);
-            this.InsertItem(0, scan);
-
+            embeddingDb.DataBase.HashSet(scan.HashKey, hashEntries);
+            this.InsertItem(0, scan);            
             return scan;
         }
 
         public static EmbeddingScanCollection GetByScanDate(DateTime scanDate)
         {
             EmbeddingScanCollection result = new EmbeddingScanCollection();
-
-            IDatabase db = Business.RedisConnection.Instance.GetDatabase();
-            RedisValue[] members = db.SetMembers("EmbeddingScans:" + scanDate.ToShortDateString());
+            Store.RedisDB embeddingDb = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.EmbeddingScan);
+            RedisValue[] members = embeddingDb.DataBase.SetMembers("EmbeddingScans:" + scanDate.ToShortDateString());
 
             List<EmbeddingScan> list = new List<EmbeddingScan>();
             for (int i = 0; i < members.Length; i++)
             {
-                HashEntry[] hashEntries = db.HashGetAll(members[i].ToString());
+
+                HashEntry[] hashEntries = embeddingDb.DataBase.HashGetAll(members[i].ToString());
                 EmbeddingScan item = new EmbeddingScan(hashEntries);
                 list.Add(item);
             }
@@ -86,26 +83,25 @@ namespace YellowstonePathology.Business.BarcodeScanning
             {
                 result.InsertItem(0, item);
             }
-
+            
             return result;
         }
 
         public static EmbeddingScanCollection GetAll()
         {
             EmbeddingScanCollection result = new EmbeddingScanCollection();
-            IDatabase db = Business.RedisConnection.Instance.GetDatabase();            
-
-            foreach (var key in Business.RedisConnection.Instance.Server.Keys(pattern: "EmbeddingScans:*"))
+            Store.RedisDB embeddingDb = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.EmbeddingScan);
+            foreach (var key in Store.AppDataStore.Instance.RedisStore.GetServer(Store.AppDBNameEnum.EmbeddingScan).Keys(pattern: "EmbeddingScans:*"))
             {
-                RedisValue[] members = db.SetMembers(key);                
+                RedisValue[] members = embeddingDb.DataBase.SetMembers(key);                
                 for (int i = 0; i < members.Length; i++)
                 {
-                    HashEntry[] hashEntries = db.HashGetAll(members[i].ToString());
+                    HashEntry[] hashEntries = embeddingDb.DataBase.HashGetAll(members[i].ToString());
                     EmbeddingScan item = new EmbeddingScan(hashEntries);
                     result.Add(item);
                 }
             }
-
+            
             return result;
         }
     }

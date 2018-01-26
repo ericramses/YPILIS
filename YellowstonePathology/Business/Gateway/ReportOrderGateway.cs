@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Data;
-using System.Data.SqlClient;
+﻿using System.Data;
+using MySql.Data.MySqlClient;
 
 namespace YellowstonePathology.Business.Gateway
 {
@@ -29,18 +25,21 @@ namespace YellowstonePathology.Business.Gateway
 
 		public static void UpdateReportOrderAbsoluteCD4Count(YellowstonePathology.Business.Test.AbsoluteCD4Count.AbsoluteCD4CountTestOrder reportOrderAbsoluteCD4Count)
         {
-            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
-                SqlCommand cmd = new SqlCommand();
-				cmd.CommandText = "Update tblMolecularAnalysisTestOrder set ReportNo = @ReportNo, CD3Result = @CD3Result, CD4Result = @CD4Result, CD8Result = @CD8Result, CD4CD8Ratio = @CD4CD8Ratio, Interpretation = @Interpretation where ReportOrderAbsoluteCD4CountId = @ReportOrderAbsoluteCD4CountId";
+                MySqlCommand cmd = new MySqlCommand();
+				cmd.CommandText = "Update tblMolecularAnalysisTestOrder set ReportNo = @ReportNo, CD3Result = @CD3Result, CD4Result = @CD4Result, " +
+                    "CD8Result = @CD8Result, CD4CD8Ratio = @CD4CD8Ratio, Interpretation = @Interpretation " +
+                    "where ReportOrderAbsoluteCD4CountId = @ReportOrderAbsoluteCD4CountId;";
                 cmd.CommandType = CommandType.Text;
-                cmd.Parameters.Add("@ReportNo", SqlDbType.VarChar).Value = reportOrderAbsoluteCD4Count.ReportNo;
-                cmd.Parameters.Add("@CD3Result", SqlDbType.VarChar).Value = reportOrderAbsoluteCD4Count.CD3Result;
-                cmd.Parameters.Add("@CD4Result", SqlDbType.VarChar).Value = reportOrderAbsoluteCD4Count.CD4Result;
-                cmd.Parameters.Add("@CD8Result", SqlDbType.VarChar).Value = reportOrderAbsoluteCD4Count.CD8Result;
-                cmd.Parameters.Add("@CD4CD8Ratio", SqlDbType.VarChar).Value = reportOrderAbsoluteCD4Count.CD4CD8Ratio;
-                cmd.Parameters.Add("@Interpretation", SqlDbType.VarChar).Value = reportOrderAbsoluteCD4Count.Interpretation;
+                cmd.Parameters.AddWithValue("@ReportNo", reportOrderAbsoluteCD4Count.ReportNo);
+                cmd.Parameters.AddWithValue("@CD3Result", reportOrderAbsoluteCD4Count.CD3Result);
+                cmd.Parameters.AddWithValue("@CD4Result", reportOrderAbsoluteCD4Count.CD4Result);
+                cmd.Parameters.AddWithValue("@CD8Result", reportOrderAbsoluteCD4Count.CD8Result);
+                cmd.Parameters.AddWithValue("@CD4CD8Ratio", reportOrderAbsoluteCD4Count.CD4CD8Ratio);
+                cmd.Parameters.AddWithValue("@Interpretation", reportOrderAbsoluteCD4Count.Interpretation);
+                cmd.Parameters.AddWithValue("@ReportOrderAbsoluteCD4CountId", reportOrderAbsoluteCD4Count.ReportOrderAbsoluteCD4CountId);
                 cmd.Connection = cn;
                 cmd.ExecuteNonQuery();
             }
@@ -49,19 +48,19 @@ namespace YellowstonePathology.Business.Gateway
 		private static YellowstonePathology.Business.Test.MolecularAnalysis.MolecularAnalysisTestOrder BuildReportOrderMolecularAnalysis(string reportNo)
         {
 			YellowstonePathology.Business.Test.MolecularAnalysis.MolecularAnalysisTestOrder reportMolecularAnalysis = null;
-            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
-                SqlCommand cmd = new SqlCommand();
+                MySqlCommand cmd = new MySqlCommand();
                 cmd.CommandText = "Select * " +
                 	"from tblMolecularAnalysisTestOrder ro " +
                     "join tblPanelSetOrder pso on rm.ReportNo = pso.ReportNo " +
-	                "where ro.ReportNo = @ReportNo";
+	                "where ro.ReportNo = @ReportNo;";
                 cmd.CommandType = CommandType.Text;
-                cmd.Parameters.Add("@ReportNo", SqlDbType.VarChar).Value = reportNo;
+                cmd.Parameters.AddWithValue("@ReportNo", reportNo);
                 cmd.Connection = cn;
 
-                using (SqlDataReader dr = cmd.ExecuteReader())
+                using (MySqlDataReader dr = cmd.ExecuteReader())
                 {
                     while (dr.Read())
                     {
@@ -77,19 +76,19 @@ namespace YellowstonePathology.Business.Gateway
 		private static YellowstonePathology.Business.Test.FishAnalysis.FishAnalysisTestOrder BuildReportOrderFishAnalysis(string reportNo)
         {
 			YellowstonePathology.Business.Test.FishAnalysis.FishAnalysisTestOrder reportFishAnalysis = null;
-            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
-                SqlCommand cmd = new SqlCommand();
+                MySqlCommand cmd = new MySqlCommand();
                 cmd.CommandText = "Select * " +
                     "from tblFishAnalysisTestOrder ro " +
                     "join tblPanelSetOrder pso on ro.ReportNo = pso.ReportNo " +
-                    "where ro.ReportNo = @ReportNo";
+                    "where ro.ReportNo = @ReportNo;";
                 cmd.CommandType = CommandType.Text;
-                cmd.Parameters.Add("@ReportNo", SqlDbType.VarChar).Value = reportNo;
+                cmd.Parameters.AddWithValue("@ReportNo", reportNo);
                 cmd.Connection = cn;
 
-                using (SqlDataReader dr = cmd.ExecuteReader())
+                using (MySqlDataReader dr = cmd.ExecuteReader())
                 {
                     while (dr.Read())
                     {
@@ -105,19 +104,19 @@ namespace YellowstonePathology.Business.Gateway
 		private static YellowstonePathology.Business.Test.AbsoluteCD4Count.AbsoluteCD4CountTestOrder BuildReportOrderAbsoluteCD4Count(string reportNo)
         {
 			YellowstonePathology.Business.Test.AbsoluteCD4Count.AbsoluteCD4CountTestOrder reportAbsoluteCD4Count = null;
-            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
-                SqlCommand cmd = new SqlCommand();
+                MySqlCommand cmd = new MySqlCommand();
                 cmd.CommandText = "Select * " +
                     "from tblAbsoluteCD4CountTestOrder ro " +
                     "join tblPanelSetOrder pso on ro.ReportNo = pso.ReportNo " +
-                    "where ro.ReportNo = @ReportNo";
+                    "where ro.ReportNo = @ReportNo;";
                 cmd.CommandType = CommandType.Text;
-                cmd.Parameters.Add("@ReportNo", SqlDbType.VarChar).Value = reportNo;
+                cmd.Parameters.AddWithValue("@ReportNo", reportNo);
                 cmd.Connection = cn;
 
-                using (SqlDataReader dr = cmd.ExecuteReader())
+                using (MySqlDataReader dr = cmd.ExecuteReader())
                 {
                     while (dr.Read())
                     {

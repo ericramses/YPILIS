@@ -1,12 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Text;
 using System.Data;
-using System.Windows.Data;
-using System.Data.SqlClient;
-using System.Xml.Serialization;
 using System.Linq;
 using System.Xml.Linq;
 
@@ -42,7 +36,7 @@ namespace YellowstonePathology.Business.Test.Model
             }
         }
 
-        public TestOrder GetTestOrder(int testId)
+        public TestOrder GetTestOrder(string testId)
         {
             foreach (TestOrder item in this)
             {
@@ -105,8 +99,29 @@ namespace YellowstonePathology.Business.Test.Model
         public int GetBillableDualStainCount(bool includeDualsWithGradedStains)
         {
             int result = 0;
-            YellowstonePathology.Business.Test.Model.DualStainCollection dualStainCollection = YellowstonePathology.Business.Test.Model.DualStainCollection.GetCollection(this);
-            result = dualStainCollection.StainCount(includeDualsWithGradedStains);
+            foreach(TestOrder testOrder in this)
+            {
+                if(testOrder.OrderedAsDual == true && testOrder.NoCharge == false)
+                {
+                    result += 1;
+                }
+            }            
+            return result;
+        }
+
+        public int GetBillableGradedDualStainCount()
+        {
+            int result = 0;            
+            YellowstonePathology.Business.Test.Model.TestCollection gradedTestCollection = YellowstonePathology.Business.Test.Model.TestCollection.GetGradedTests();
+
+            foreach (YellowstonePathology.Business.Test.Model.TestOrder testOrder in this)
+            {
+                if (gradedTestCollection.Exists(testOrder.TestId) == true && testOrder.OrderedAsDual == true)
+                {
+                    result += 1;
+                }
+            }
+
             return result;
         }
 
@@ -160,6 +175,10 @@ namespace YellowstonePathology.Business.Test.Model
 
         public YellowstonePathology.Business.Test.Model.TestOrderCollection GetBillableSinglePlexIHCTestOrders()
         {
+            List<string> exclusions = new List<string>();
+            exclusions.Add("360"); //Kappa ISH
+            exclusions.Add("361"); //Lambda ISH
+
             YellowstonePathology.Business.Test.Model.TestOrderCollection result = new TestOrderCollection();
             YellowstonePathology.Business.Test.Model.TestCollection ihcTestCollection = YellowstonePathology.Business.Test.Model.TestCollection.GetIHCTests();
 
@@ -169,10 +188,13 @@ namespace YellowstonePathology.Business.Test.Model
                 {
                     if (testOrder.NoCharge == false)
                     {
-                        if (ihcTestCollection.Exists(testOrder.TestId) == true)
+                        if(!exclusions.Contains(testOrder.TestId))
                         {
-                            result.Add(testOrder);                            
-                        }
+                            if (ihcTestCollection.Exists(testOrder.TestId) == true)
+                            {
+                                result.Add(testOrder);
+                            }
+                        }                        
                     }
                 }                
             }
@@ -199,7 +221,7 @@ namespace YellowstonePathology.Business.Test.Model
             int result = 0;
             foreach (TestOrder item in this)
             {
-                if (item.TestId == 49)
+                if (item.TestId == "49")
                 {
                     result++;
                 }
@@ -224,7 +246,7 @@ namespace YellowstonePathology.Business.Test.Model
         public bool HasTestRequiringAcknowledgement()
         {
             bool result = false;
-            YellowstonePathology.Business.Test.Model.TestCollection testCollection = YellowstonePathology.Business.Test.Model.TestCollection.GetAllTests();
+            YellowstonePathology.Business.Test.Model.TestCollection testCollection = YellowstonePathology.Business.Test.Model.TestCollection.GetAllTests(false);
             foreach (TestOrder testOrder in this)
             {
                 YellowstonePathology.Business.Test.Model.Test test = testCollection.GetTest(testOrder.TestId);
@@ -278,7 +300,7 @@ namespace YellowstonePathology.Business.Test.Model
 
                 TestOrder testOrder = null;
 
-                if (this.Exists(testOrderId) == true)
+                if (this.ExistsByTestOrderId(testOrderId) == true)
                 {
                     testOrder = this.Get(testOrderId);
                 }

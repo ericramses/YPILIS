@@ -9,9 +9,9 @@ namespace YellowstonePathology.Business.Test.Model
 	{
 		public PASAlcianBlue()
 		{
-			this.m_TestId = 138;
+			this.m_TestId = "138";
             this.m_TestName = "PAS alcian blue";
-			this.m_TestAbbreviation = "PAS alcian blue";
+			this.m_TestAbbreviation = "PASAB";
 			this.m_Active = true;
 			this.m_NeedsAcknowledgement = true;
 		}

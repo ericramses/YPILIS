@@ -4,8 +4,6 @@ using System.Text;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Data.SqlClient;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -82,7 +80,7 @@ namespace YellowstonePathology.UI.Surgical
             this.m_MainWindowCommandButtonHandler.ShowMessagingDialog += MainWindowCommandButtonHandler_ShowMessagingDialog;
 
             UI.AppMessaging.MessagingPath.Instance.LockReleasedActionList.Add(this.ReleaseLock);
-            UI.AppMessaging.MessagingPath.Instance.LockAquiredActionList.Add(this.m_PathologistUI.RunWorkspaceEnableRules);
+            UI.AppMessaging.MessagingPath.Instance.LockAquiredActionList.Add(this.m_PathologistUI.CheckEnabled);
 
             if (this.m_PathologistUI.AccessionOrder != null) this.m_PathologistUI.RunWorkspaceEnableRules();
             this.m_PathologistUI.PropertyChanged += PathologistUI_PropertyChanged;
@@ -238,6 +236,11 @@ namespace YellowstonePathology.UI.Surgical
             if (this.m_PathologistUI.PanelSetOrder.PanelSetId == 216)  //Informal Consult
             {
                 MessageBox.Show("Stains cannot be ordered on an Informal Consult.");
+                return;
+            }
+            if (this.m_PathologistUI.PanelSetOrder.PanelSetId == 262)  //Retrospective Review
+            {
+                MessageBox.Show("Stains cannot be ordered on a Retrospective Review.");
                 return;
             }
 
@@ -551,22 +554,33 @@ namespace YellowstonePathology.UI.Surgical
 
 		private void GridPathologist_KeyUp(object sender, KeyEventArgs e)
 		{
-			if (e.Key == Key.F7)
-			{
-				TraversalRequest traversalRequestNext = new TraversalRequest(FocusNavigationDirection.Next);				
-				UIElement keyboardFocus = Keyboard.FocusedElement as UIElement;
-				
-				if(keyboardFocus != null)
-				{
-					keyboardFocus.MoveFocus(traversalRequestNext);
-				}						
-				
-				this.m_PathologistUI.SpellCheckCurrentItem();										
-				e.Handled = true;
-			}
-		}
+            if (e.Key == Key.F7)
+            {
+                TraversalRequest traversalRequestNext = new TraversalRequest(FocusNavigationDirection.Next);
+                UIElement keyboardFocus = Keyboard.FocusedElement as UIElement;
 
-		private void PathologistUserControl_Loaded(object sender, RoutedEventArgs e)
+                if (keyboardFocus != null)
+                {
+                    keyboardFocus.MoveFocus(traversalRequestNext);
+                }
+
+                this.m_PathologistUI.SpellCheckCurrentItem();
+                e.Handled = true;
+            }
+            else if ((e.Key == Key.D2 || e.Key == Key.NumPad2) && Keyboard.Modifiers == ModifierKeys.Control)
+            {
+                if (this.m_PathologistsReview != null)
+                {
+                    if (this.m_PathologistsReview.ContentControlReview.Content is SurgicalReview)
+                    {
+                        this.HandleQuestionMarkSearch();
+                    }
+                }
+            }
+            
+        }
+
+        private void PathologistUserControl_Loaded(object sender, RoutedEventArgs e)
 		{
 			if (this.m_PathologistUI != null)
 			{
@@ -757,6 +771,122 @@ namespace YellowstonePathology.UI.Surgical
             else
             {
                 MessageBox.Show("Only cases with Surgical Pathology can have Peer Review");
+            }
+        }
+
+        private int GetQuestionMarkIndex(string text)
+        {
+            int result = -1;
+            if (text.Length > 3)
+            {
+                text = text.Substring(3);
+                result = text.IndexOf("???");
+            }
+            return result;
+        }
+
+        private void FindQuestionMarkTextBoxes(DependencyObject parent, List<TextBox> questionMarkTextBoxes)
+        {
+            if (parent == null) return;
+
+            int childrenCount = VisualTreeHelper.GetChildrenCount(parent);
+            for (int i = 0; i < childrenCount; i++)
+            {
+                object child = VisualTreeHelper.GetChild(parent, i);
+                if (child is TextBox)
+                {
+                    TextBox tmp = child as TextBox;
+                    if (tmp.Text.Contains("???"))
+                    {
+                        questionMarkTextBoxes.Add(tmp);
+                    }
+                }
+                else
+                {
+                    FindQuestionMarkTextBoxes((DependencyObject)child, questionMarkTextBoxes);
+                }
+            }
+        }
+
+        private TextBox SelectQuestionMarkTextBox(List<TextBox> questionMarkTextBoxes)
+        {
+            TextBox textBox = Keyboard.FocusedElement as TextBox;
+
+            int offset = -1;
+            int idx = 0;
+            bool findNextOffset = false;
+
+            if (questionMarkTextBoxes.Count > 0)
+            {
+                if (textBox != null)
+                {
+                    idx = questionMarkTextBoxes.IndexOf(textBox);
+                    int nextIdx = idx < questionMarkTextBoxes.Count - 1 ? idx + 1 : 0;
+                    offset = textBox.SelectionStart;
+                    if (offset == -1)
+                    {
+                        offset = textBox.CaretIndex;
+                        if (offset == -1)
+                        {
+                            textBox = questionMarkTextBoxes[nextIdx];
+                            offset = textBox.Text.IndexOf("???");
+                        }
+                        else
+                        {
+                            offset += 3;
+                            findNextOffset = true;
+                        }
+                    }
+                    else
+                    {
+                        findNextOffset = true;
+                    }
+
+                    if (findNextOffset == true)
+                    {
+                        string txt = textBox.Text.Substring(offset);
+                        int nextoffset = this.GetQuestionMarkIndex(txt);
+                        if (nextoffset > -1)
+                        {
+                            offset = offset + nextoffset + 3;
+                        }
+                        else
+                        {
+                            textBox = questionMarkTextBoxes[nextIdx];
+                            offset = textBox.Text.IndexOf("???");
+                        }
+                    }
+                }
+                else
+                {
+                    textBox = questionMarkTextBoxes[0];
+                    offset = textBox.Text.IndexOf("???");
+                }
+
+                textBox.Focus();
+                textBox.Select(offset, 3);         
+            }
+            return textBox;
+        }
+
+        private void HandleQuestionMarkSearch()
+        {
+            List<TextBox> questionMarkTextBoxes = new List<TextBox>();
+
+            TabControl tabControl = this.m_PathologistsReview.RightTabControl;
+            tabControl.SelectedIndex = tabControl.Items.IndexOf(this.m_PathologistsReview.TabItemReview);
+            SurgicalReview surgicalReview = this.m_PathologistsReview.ContentControlReview.Content as SurgicalReview;
+            ScrollViewer scrollViewer = surgicalReview.MainScrollViewer;
+            scrollViewer.ScrollToTop();
+            scrollViewer.UpdateLayout();
+            this.FindQuestionMarkTextBoxes(scrollViewer, questionMarkTextBoxes);
+            TextBox textBox = this.SelectQuestionMarkTextBox(questionMarkTextBoxes);
+            if (textBox != null)
+            {
+                Point a = scrollViewer.TranslatePoint(new Point(), this);
+                Point b = textBox.TranslatePoint(new Point(), this);
+                Point c = new Point(b.X, b.Y - a.Y - 100);
+                scrollViewer.ScrollToVerticalOffset(c.Y);
             }
         }
     }

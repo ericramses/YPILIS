@@ -24,7 +24,7 @@
       <v19:RequestedShipment>
         <v19:ShipTimestamp></v19:ShipTimestamp>
         <v19:DropoffType>REGULAR_PICKUP</v19:DropoffType>
-        <v19:ServiceType>PRIORITY_OVERNIGHT</v19:ServiceType>
+        <v19:ServiceType></v19:ServiceType>
         <v19:PackagingType>YOUR_PACKAGING</v19:PackagingType>
         <v19:Shipper>
           <v19:AccountNumber>235542196</v19:AccountNumber>

@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Test.Model
 	{
         public ParaffinCurls()
 		{
-			this.m_TestId = 183;
+			this.m_TestId = "183";
 			this.m_TestName = "Paraffin Curls for Molecular";
             this.m_TestAbbreviation = "Curls";
 			this.m_Active = true;

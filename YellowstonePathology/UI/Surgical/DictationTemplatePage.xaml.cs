@@ -127,8 +127,20 @@ namespace YellowstonePathology.UI.Surgical
         
         private void HyperLinkAddDicationToGross_Click(object sender, RoutedEventArgs e)
         {
+            if (this.m_AccessionOrder.PanelSetOrderCollection.HasSurgical() == true)
+            {
+                this.AddToSurgical();
+            }
+            else if(this.m_AccessionOrder.PanelSetOrderCollection.Exists(238) == true)
+            {
+                AddToGrossOnly();
+            }
+        }
+
+        private void AddToSurgical()
+        {
             if (this.m_SurgicalTestOrder.GrossX == "???") this.m_SurgicalTestOrder.GrossX = null;
-            if(string.IsNullOrEmpty(this.m_SurgicalTestOrder.GrossX) == true)
+            if (string.IsNullOrEmpty(this.m_SurgicalTestOrder.GrossX) == true)
             {
                 this.m_SurgicalTestOrder.GrossX = this.m_GrossDescription;
             }
@@ -140,7 +152,28 @@ namespace YellowstonePathology.UI.Surgical
             this.m_GrossDescription = null;
             this.NotifyPropertyChanged("GrossDescription");
 
-            if(this.ListBoxSpecimenOrders.SelectedIndex != this.ListBoxSpecimenOrders.Items.Count - 1)
+            if (this.ListBoxSpecimenOrders.SelectedIndex != this.ListBoxSpecimenOrders.Items.Count - 1)
+            {
+                this.ListBoxSpecimenOrders.SelectedIndex = this.ListBoxSpecimenOrders.SelectedIndex + 1;
+            }
+        }
+
+        private void AddToGrossOnly()
+        {
+            Business.Test.GrossOnly.GrossOnlyTestOrder grossOnlyTestOrder = (Business.Test.GrossOnly.GrossOnlyTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(238);
+            if (string.IsNullOrEmpty(grossOnlyTestOrder.GrossX) == true)
+            {
+                grossOnlyTestOrder.GrossX = this.m_GrossDescription;
+            }
+            else
+            {
+                grossOnlyTestOrder.GrossX = grossOnlyTestOrder.GrossX + Environment.NewLine + Environment.NewLine + this.m_GrossDescription;
+            }
+
+            this.m_GrossDescription = null;
+            this.NotifyPropertyChanged("GrossDescription");
+
+            if (this.ListBoxSpecimenOrders.SelectedIndex != this.ListBoxSpecimenOrders.Items.Count - 1)
             {
                 this.ListBoxSpecimenOrders.SelectedIndex = this.ListBoxSpecimenOrders.SelectedIndex + 1;
             }
@@ -176,6 +209,22 @@ namespace YellowstonePathology.UI.Surgical
                         this.TextBoxGrossDescription.SelectionLength = selectedTextLength - 4;
                     }
                 }                
+            }
+            else if(e.Key == Key.Delete)
+            {
+                StringBuilder text = new StringBuilder(this.TextBoxGrossDescription.Text);                
+                int cursorPosition = this.TextBoxGrossDescription.SelectionStart;
+                int selectedTextLength = this.TextBoxGrossDescription.SelectionLength;                
+                text.Remove(cursorPosition, selectedTextLength);
+
+                if (text.Length > cursorPosition && text.ToString(cursorPosition, 1) == "." && text.ToString(cursorPosition - 1, 1) == " ")
+                {
+                    text.Remove(cursorPosition - 1, 1);
+                }
+
+                this.TextBoxGrossDescription.Text = text.ToString();
+                this.TextBoxGrossDescription.SelectionStart = cursorPosition;
+                e.Handled = true;
             }
         }        
 

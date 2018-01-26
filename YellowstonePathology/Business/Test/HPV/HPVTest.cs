@@ -25,7 +25,7 @@ namespace YellowstonePathology.Business.Test.HPV
 			this.m_AllowMultiplePerAccession = true;
             this.m_ExpectedDuration = new TimeSpan(4, 0, 0, 0);
             this.m_AttemptOrderTargetLookup = true;
-            this.m_RequireAssignmentOnOrder = false;
+            this.m_RequiresAssignment = false;
             this.m_EpicDistributionIsImplemented = true;
 
             this.m_AddAliquotOnOrder = true;
@@ -41,7 +41,7 @@ namespace YellowstonePathology.Business.Test.HPV
             this.m_HasSplitCPTCode = false;
             this.m_CMMCDistributionIsImplemented = true;
 
-            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT87624(), 1);
+            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("87624", null), 1);
             this.m_PanelSetCptCodeCollection.Add(panelSetCptCode);
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceHRHPVTEST());

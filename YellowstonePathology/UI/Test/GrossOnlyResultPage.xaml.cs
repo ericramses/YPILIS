@@ -26,19 +26,18 @@ namespace YellowstonePathology.UI.Test
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private string m_PageHeaderText;
 
-		private YellowstonePathology.Business.Test.GrossOnly.GrossOnlyTestOrder m_PanelSetOrder;		
+		private YellowstonePathology.Business.Test.GrossOnly.GrossOnlyTestOrder m_PanelSetOrder;        
 
-		public GrossOnlyResultPage(YellowstonePathology.Business.Test.GrossOnly.GrossOnlyTestOrder grossOnlyTestOrder,
+        public GrossOnlyResultPage(YellowstonePathology.Business.Test.GrossOnly.GrossOnlyTestOrder grossOnlyTestOrder,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity) : base(grossOnlyTestOrder, accessionOrder)
 		{
-			this.m_PanelSetOrder = grossOnlyTestOrder;
-			this.m_AccessionOrder = accessionOrder;
-			this.m_SystemIdentity = systemIdentity;
 
-			this.m_PageHeaderText = "Gross Only Result For: " + this.m_AccessionOrder.PatientDisplayName;
+            this.m_SystemIdentity = Business.User.SystemIdentity.Instance;
+            this.m_PanelSetOrder = grossOnlyTestOrder;
+			this.m_AccessionOrder = accessionOrder;			
 
-			
+			this.m_PageHeaderText = "Gross Only Result For: " + this.m_AccessionOrder.PatientDisplayName;			
 
 			InitializeComponent();
 
@@ -81,9 +80,10 @@ namespace YellowstonePathology.UI.Test
 		{
 			if (this.m_PanelSetOrder.Final == false)
 			{
-				this.m_PanelSetOrder.Finish(this.m_AccessionOrder);
-			}
-			else
+                YellowstonePathology.Business.Test.FinalizeTestResult finalizeTestResult = this.m_PanelSetOrder.Finish(this.m_AccessionOrder);
+                this.HandleFinalizeTestResult(finalizeTestResult);
+            }
+            else
 			{
 				MessageBox.Show("This case cannot be finalized because it is already final.");
 			}
@@ -131,5 +131,34 @@ namespace YellowstonePathology.UI.Test
 		{
 			if (this.Next != null) this.Next(this, new EventArgs());
 		}
-	}
+
+        private void HyperLinkShowGossTemplate_Click(object sender, RoutedEventArgs e)
+        {                        
+            YellowstonePathology.UI.Surgical.DictationTemplatePage dictationTemplatePage = new YellowstonePathology.UI.Surgical.DictationTemplatePage(this.m_AccessionOrder, this.m_SystemIdentity);
+            TryShowSecondMonitorWindow(dictationTemplatePage);
+            //this.m_SecondMonitorWindow.PageNavigator.Navigate(dictationTemplatePage);            
+        }
+
+        private void TryShowSecondMonitorWindow(YellowstonePathology.UI.Surgical.DictationTemplatePage dictationTemplatePage)
+        {
+            PageNavigationWindow pageNavigationWindow = null;
+
+            if (System.Windows.Forms.Screen.AllScreens.Length == 2)
+            {
+                pageNavigationWindow = new PageNavigationWindow(this.m_SystemIdentity);
+
+                System.Windows.Forms.Screen screen2 = System.Windows.Forms.Screen.AllScreens[1];
+                System.Drawing.Rectangle screen2Rectangle = screen2.WorkingArea;
+
+                pageNavigationWindow.WindowStartupLocation = System.Windows.WindowStartupLocation.Manual;
+                pageNavigationWindow.Width = 1500;
+                pageNavigationWindow.Height = 800;
+                pageNavigationWindow.Left = screen2Rectangle.Left + (screen2Rectangle.Width - pageNavigationWindow.Width) / 2;
+                pageNavigationWindow.Top = screen2Rectangle.Top + (screen2Rectangle.Height - pageNavigationWindow.Height) / 2;
+                pageNavigationWindow.Show();
+
+                pageNavigationWindow.PageNavigator.Navigate(dictationTemplatePage);
+            }            
+        }
+    }
 }

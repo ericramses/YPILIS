@@ -9,10 +9,10 @@ namespace YellowstonePathology.Business.Test.Model
 	{
 		public Thyroglobulin()
 		{
-			this.m_TestId = 158;
+			this.m_TestId = "158";
 			this.m_TestName = "Thyroglobulin";
             this.m_TestAbbreviation = "Thyroglobulin";            
-			this.m_Active = true;
+			this.m_Active = false;
 			this.m_NeedsAcknowledgement = true;
 		}
 	}

@@ -14,7 +14,7 @@ namespace YellowstonePathology.Business.Test.Model
 			this.m_HasCptCodeLevels = false;            
 		}
 
-		public CytochemicalForMicroorganisms(int testId, string testName)  
+		public CytochemicalForMicroorganisms(string testId, string testName)  
             : base(testId, testName)
         {
             this.m_IsBillable = true;
@@ -24,10 +24,10 @@ namespace YellowstonePathology.Business.Test.Model
 
         public override YellowstonePathology.Business.Billing.Model.CptCode GetCptCode(bool isTechnicalOnly)
         {
-            YellowstonePathology.Business.Billing.Model.CptCode result = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88312();
+            YellowstonePathology.Business.Billing.Model.CptCode result = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88312", null);
             if (isTechnicalOnly == true)
             {
-                result = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88312TC();
+                result = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88312", "TC");
             }
             return result;   
         }

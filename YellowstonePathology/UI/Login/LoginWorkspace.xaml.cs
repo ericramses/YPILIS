@@ -63,6 +63,7 @@ namespace YellowstonePathology.UI.Login
                 this.m_BarcodeScanPort.ContainerScanReceived += ContainerScanReceived;
                 this.m_BarcodeScanPort.HistologySlideScanReceived += new Business.BarcodeScanning.BarcodeScanPort.HistologySlideScanReceivedHandler(BarcodeScanPort_HistologySlideScanReceived);
                 this.m_BarcodeScanPort.AliquotOrderIdReceived += BarcodeScanPort_AliquotOrderIdReceived;
+                this.m_BarcodeScanPort.VantageSlideScanReceived += BarcodeScanPort_VantageSlideScanReceived;
 
                 this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath += MainWindowCommandButtonHandler_StartProviderDistributionPath;
                 this.m_MainWindowCommandButtonHandler.Save += MainWindowCommandButtonHandler_Save;
@@ -75,7 +76,7 @@ namespace YellowstonePathology.UI.Login
             }
 
             this.m_LoadedHasRun = true;
-        }                       
+        }
 
         private void MainWindowCommandButtonHandler_RemoveTab(object sender, EventArgs e)
         {
@@ -127,6 +128,15 @@ namespace YellowstonePathology.UI.Login
             ));
         }
 
+        private void BarcodeScanPort_VantageSlideScanReceived(string scanData)
+        {
+            this.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
+            {
+                this.HandleVantageSlideScan(scanData);
+            }
+            ));
+        }
+
         private void MainWindowCommandButtonHandler_StartProviderDistributionPath(object sender, EventArgs e)
         {
             if (this.ListViewAccessionOrders.SelectedItem != null)
@@ -157,6 +167,7 @@ namespace YellowstonePathology.UI.Login
             this.m_BarcodeScanPort.ContainerScanReceived -= ContainerScanReceived;
             this.m_BarcodeScanPort.HistologySlideScanReceived -= BarcodeScanPort_HistologySlideScanReceived;
             this.m_BarcodeScanPort.AliquotOrderIdReceived -= BarcodeScanPort_AliquotOrderIdReceived;
+            this.m_BarcodeScanPort.VantageSlideScanReceived -= BarcodeScanPort_VantageSlideScanReceived;
 
             this.m_MainWindowCommandButtonHandler.StartProviderDistributionPath -= MainWindowCommandButtonHandler_StartProviderDistributionPath;
             this.m_MainWindowCommandButtonHandler.Save -= MainWindowCommandButtonHandler_Save;
@@ -542,6 +553,12 @@ namespace YellowstonePathology.UI.Login
 
         private void TileResult_MouseUp(object sender, MouseButtonEventArgs e)
         {
+            this.ShowResultsPage();
+        }
+
+        private void ShowResultsPage()
+        {
+
             if (this.ListViewAccessionOrders.SelectedItem != null)
             {
                 YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_LoginUI.AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_LoginUI.ReportNo);
@@ -589,13 +606,16 @@ namespace YellowstonePathology.UI.Login
         {
             if (this.ListViewAccessionOrders.SelectedItem != null)
             {
-                YellowstonePathology.UI.Login.FinalizeAccession.GrossEntryPage grossEntryPage = new FinalizeAccession.GrossEntryPage(this.m_LoginUI.AccessionOrder);
-                grossEntryPage.Next += new FinalizeAccession.GrossEntryPage.NextEventHandler(GrossEntryPage_Next);
-                grossEntryPage.Back += new FinalizeAccession.GrossEntryPage.BackEventHandler(GrossEntryPage_Back);
-                
-                this.m_LoginPageWindow = new Login.Receiving.LoginPageWindow();
-                this.m_LoginPageWindow.PageNavigator.Navigate(grossEntryPage);
-                this.m_LoginPageWindow.ShowDialog();
+                if (this.m_LoginUI.AccessionOrder.PanelSetOrderCollection.HasSurgical() == true)
+                {
+                    YellowstonePathology.UI.Login.FinalizeAccession.GrossEntryPage grossEntryPage = new FinalizeAccession.GrossEntryPage(this.m_LoginUI.AccessionOrder);
+                    grossEntryPage.Next += new FinalizeAccession.GrossEntryPage.NextEventHandler(GrossEntryPage_Next);
+                    grossEntryPage.Back += new FinalizeAccession.GrossEntryPage.BackEventHandler(GrossEntryPage_Back);
+
+                    this.m_LoginPageWindow = new Login.Receiving.LoginPageWindow();
+                    this.m_LoginPageWindow.PageNavigator.Navigate(grossEntryPage);
+                    this.m_LoginPageWindow.ShowDialog();
+                }
             }
         }
 
@@ -936,6 +956,28 @@ namespace YellowstonePathology.UI.Login
                 resultView.Send(result);
                 MessageBox.Show(result.Message);
             }
+        }
+
+        private void HandleVantageSlideScan(string scanData)
+        {
+            this.m_BarcodeScanPort.VantageSlideScanReceived -= BarcodeScanPort_VantageSlideScanReceived;
+            string masterAccessionNo = null;
+
+            string[] results = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.VantageSlide).GetAllJSONKeysBySlideId(scanData);
+            foreach (string result in results)
+            {
+                Business.Slide.Model.VantageSlide vantageSlide = Business.Slide.Model.VantageSlide.FromJson(result);
+                masterAccessionNo = vantageSlide.MasterAccessionNo;
+                break;
+            }
+
+            //Business.Slide.Model.VantageSlideCollection vantageSlideCollection = new Business.Slide.Model.VantageSlideCollection(masterAccessionNo);
+            //vantageSlideCollection.HandleSlideScan(scanData);
+
+            this.m_LoginUI.GetReportSearchListByMasterAccessionNo(masterAccessionNo);
+            this.ListViewAccessionOrders.SelectedIndex = 0;
+            this.ShowResultsPage();
+            this.m_BarcodeScanPort.VantageSlideScanReceived += BarcodeScanPort_VantageSlideScanReceived;
         }
     }
 }

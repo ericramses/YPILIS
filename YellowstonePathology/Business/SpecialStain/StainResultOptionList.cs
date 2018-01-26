@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
-using System.Data;
-using System.Data.SqlClient;
-using System.Xml.Serialization;
 using YellowstonePathology.Business.Persistence;
 
 namespace YellowstonePathology.Business.SpecialStain
@@ -18,7 +13,7 @@ namespace YellowstonePathology.Business.SpecialStain
 
 	public class StainResultOption : ListItem
 	{
-		private int m_StainResultOptionId;
+		private string m_StainResultOptionId;
 		private string m_StainResult;
 
 		public StainResultOption()
@@ -26,7 +21,7 @@ namespace YellowstonePathology.Business.SpecialStain
 		}
 
 		[PersistentProperty()]
-		public int StainResultOptionId
+		public string StainResultOptionId
 		{
 			get
 			{

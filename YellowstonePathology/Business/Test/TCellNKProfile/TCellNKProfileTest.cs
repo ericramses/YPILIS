@@ -24,12 +24,11 @@ namespace YellowstonePathology.Business.Test.TCellNKProfile
 
             this.m_AllowMultiplePerAccession = true;
             this.m_EpicDistributionIsImplemented = true;
+            
+            YellowstonePathology.Business.Billing.Model.PanelSetCptCode cpt86357 = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("86357", null), 1);
+            YellowstonePathology.Business.Billing.Model.PanelSetCptCode cpt86359 = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("86359", null), 1);
+            YellowstonePathology.Business.Billing.Model.PanelSetCptCode cpt86360 = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("86360", null), 1);
 
-            YellowstonePathology.Business.Billing.Model.PanelSetCptCode cpt88184 = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88184(), 1);
-            YellowstonePathology.Business.Billing.Model.PanelSetCptCode cpt86357 = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT86357(), 1);
-            YellowstonePathology.Business.Billing.Model.PanelSetCptCode cpt86359 = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT86359(), 1);
-            YellowstonePathology.Business.Billing.Model.PanelSetCptCode cpt86360 = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT86360(), 1);
-            this.m_PanelSetCptCodeCollection.Add(cpt88184);
             this.m_PanelSetCptCodeCollection.Add(cpt86357);
             this.m_PanelSetCptCodeCollection.Add(cpt86359);
             this.m_PanelSetCptCodeCollection.Add(cpt86360);

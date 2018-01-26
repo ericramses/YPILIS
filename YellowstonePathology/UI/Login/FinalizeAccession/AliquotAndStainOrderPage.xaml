@@ -106,7 +106,7 @@
                 <Grid>
                     <TextBlock Margin="5,5,5,5">
                         <Hyperlink Click="HyperlinkTestItem_Click" Tag="{Binding}">
-                            <TextBlock Text="{Binding Path=TestName}"></TextBlock>
+                            <TextBlock Text="{Binding Path=HistologyDisplayString}"></TextBlock>
                         </Hyperlink>
                     </TextBlock>
                 </Grid>                       
@@ -131,7 +131,7 @@
 			</Style>
 
 			<DataTemplate x:Key="DataTemplateCaseTreeSlideOrder">
-				<StackPanel Orientation="Horizontal" Margin="2,2,2,2">
+                <StackPanel Orientation="Horizontal" Margin="2,2,2,2">
                     <Image Source="/Resources/out2.png" Width="17" Height="17" Visibility="{Binding Path=Element[ClientAccessioned].Value, Converter={StaticResource BooleanVisibilityConverter}}"></Image>
                     <CheckBox Margin="2,2,2,2" VerticalAlignment="Center" IsChecked="{Binding Path=Element[IsSelected].Value, Converter={StaticResource BooleanStringConverter}}" />                    
 					<TextBlock FontWeight="Bold" Margin="2,2,0,2" VerticalAlignment="Center" Text="{Binding Path=Element[Label].Value}"></TextBlock>
@@ -140,6 +140,11 @@
 
 			<HierarchicalDataTemplate x:Key="DataTemplateCaseTreeTestListOrder" ItemsSource="{Binding Path=Elements[SlideOrder]}" ItemTemplate="{StaticResource DataTemplateCaseTreeSlideOrder}">
 				<StackPanel Orientation="Horizontal" Margin="2,2,2,2">
+                    <StackPanel.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Show Ventana Order" Click="MenuItemShowVentanaOrder_Click" Tag="{Binding}"></MenuItem>
+                        </ContextMenu>
+                    </StackPanel.ContextMenu>
                     <CheckBox Margin="2,2,2,2" VerticalAlignment="Center" IsChecked="{Binding Path=Element[IsSelected].Value, Converter={StaticResource BooleanStringConverter}}" />
 					<TextBlock Margin="2,2,2,2" VerticalAlignment="Center" Text="{Binding Path=Element[TestName].Value}" Width="200"></TextBlock>
 				</StackPanel>
@@ -174,7 +179,7 @@
 
                     <ComboBox Grid.Column="6" Margin="10,2,2,2" HorizontalAlignment="Stretch"
 							BorderBrush="LightGray" BorderThickness="1" Width="100"
-							ItemsSource="{Binding Path=EmbeddingInstructionList, RelativeSource={RelativeSource AncestorType=UserControl}}" Text="{Binding Path=Element[EmbeddingInstructions].Value}" IsEditable="True">
+							ItemsSource="{Binding Path=EmbeddingInstructionList, RelativeSource={RelativeSource AncestorType=UserControl}}" Text="{Binding Path=Element[EmbeddingInstructions].Value, UpdateSourceTrigger=PropertyChanged}" IsEditable="True">
                     </ComboBox>
                     <TextBlock Grid.Column="7" Margin="2,2,2,2" VerticalAlignment="Center" Text="{Binding Path=Element[GrossVerifiedDate].Value}"></TextBlock>
                 </Grid>                				
@@ -441,7 +446,7 @@
                             </Button>
                             <Button Margin="2,2,2,2" Width="115" Height="50" Click="ButtonOrderIronBlock_Click">
 								<StackPanel>
-									<TextBlock FontSize="12">Iron</TextBlock>
+									<TextBlock FontSize="12">Iron-W</TextBlock>
 									<TextBlock FontSize="8">on a block</TextBlock>
 								</StackPanel>
 							</Button>
@@ -462,7 +467,7 @@
 
 							<Button Margin="2,2,2,2" Width="115" Height="50" Click="ButtonOrderIronSlide_Click">
 								<StackPanel>
-									<TextBlock FontSize="12">Iron</TextBlock>
+									<TextBlock FontSize="12">Iron-W</TextBlock>
 									<TextBlock FontSize="8">on a slide</TextBlock>
 								</StackPanel>
 							</Button>
@@ -485,31 +490,34 @@
 					<TextBlock Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Text="Aliquot Type" />
 
 					<StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal" >
-						<Button Margin="2,2,2,2" Width="120" Height="30" Click="ButtonAliquotTypeBlock_Click">
+						<Button Margin="2,2,2,2" Width="100" Height="30" Click="ButtonAliquotTypeBlock_Click">
 							<TextBlock FontSize="12">Block</TextBlock>
 						</Button>
-						<Button Margin="2,2,2,2" Width="120" Height="30" Click="ButtonAliquotTypeFrozen_Click">
+						<Button Margin="2,2,2,2" Width="100" Height="30" Click="ButtonAliquotTypeFrozen_Click">
 							<TextBlock FontSize="12">Frozen Block</TextBlock>
 						</Button>
-						<Button Margin="2,2,2,2" Width="120" Height="30" Click="ButtonAliquotTypeCellBlock_Click">
+						<Button Margin="2,2,2,2" Width="100" Height="30" Click="ButtonAliquotTypeCellBlock_Click">
 							<TextBlock FontSize="12">Cell Block</TextBlock>
 						</Button>
-						<Button Margin="2,2,2,2" Width="120" Height="30" Click="ButtonAliquotTypeSpecimen_Click">
+						<Button Margin="2,2,2,2" Width="100" Height="30" Click="ButtonAliquotTypeSpecimen_Click">
 							<TextBlock FontSize="12">Specimen</TextBlock>
-						</Button>						
+						</Button>
+                        <Button Margin="2,2,2,2" Width="100" Height="30" Click="ButtonAliquotTypeWash_Click">
+                            <TextBlock FontSize="12">Wash</TextBlock>
+                        </Button>
                     </StackPanel>
 
                     <StackPanel Grid.Column="0" Grid.Row="2" Orientation="Horizontal" >                        
-                        <Button Margin="2,2,2,2" Width="120" Height="30" Click="ButtonAliquotTypeSlide_Click">
+                        <Button Margin="2,2,2,2" Width="100" Height="30" Click="ButtonAliquotTypeSlide_Click">
                             <TextBlock FontSize="12">Slide</TextBlock>
                         </Button>
-                        <Button Margin="2,2,2,2" Width="120" Height="30" Click="ButtonAliquotTypeFNASlide_Click">
+                        <Button Margin="2,2,2,2" Width="100" Height="30" Click="ButtonAliquotTypeFNASlide_Click">
                             <TextBlock FontSize="12">FNA Slide</TextBlock>
                         </Button>                        
-                        <Button Margin="2,2,2,2" Width="120" Height="30" Click="ButtonAliquotTypeCESlide_Click">
+                        <Button Margin="2,2,2,2" Width="100" Height="30" Click="ButtonAliquotTypeCESlide_Click">
                             <TextBlock FontSize="12">CE Slide</TextBlock>
                         </Button>
-                        <Button Margin="2,2,2,2" Width="120" Height="30" Click="ButtonAddHESlide_Click">
+                        <Button Margin="2,2,2,2" Width="100" Height="30" Click="ButtonAddHESlide_Click">
                             <TextBlock FontSize="12">H&amp;E with Slide</TextBlock>
                         </Button>
                     </StackPanel>
@@ -651,9 +659,11 @@
 						    <Hyperlink Click="HyperlinkDualStains_Click" Style="{StaticResource HyperLinkStyle1}">Dual Stains</Hyperlink>
                         </TextBlock>                                                    
                     </StackPanel>
-                    
-                    <Button Grid.Column="1" Grid.Row="3" Margin="2,2,2,2" Height="30" Width="100" Content="Order" Click="ButtonOrder_Click" HorizontalAlignment="Right" VerticalAlignment="Top"/>
-                    
+
+                    <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button Margin="2,2,2,2" Height="30" Width="100" Content="Order" Click="ButtonOrder_Click"/>
+                    </StackPanel>
+
                 </Grid>				
                 
 			</Grid>

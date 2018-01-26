@@ -24,10 +24,7 @@ namespace YellowstonePathology.UI.Test
 		public event FinishEventHandler Finish;
 
         public delegate void BackEventHandler(object sender, EventArgs e);
-        public event BackEventHandler Back;
-
-        public delegate void OrderPDL1SP142EventHandler(object sender, EventArgs e);
-        public event OrderPDL1SP142EventHandler OrderPDL1SP142;
+        public event BackEventHandler Back;        
 
         public delegate void OrderPDL122C3EventHandler(object sender, EventArgs e);
         public event OrderPDL122C3EventHandler OrderPDL122C3;
@@ -130,12 +127,7 @@ namespace YellowstonePathology.UI.Test
 		public string PageHeaderText
 		{
             get { return this.m_PageHeaderText; }
-		}        
-
-        private void HyperLinkOrderPDL1SP142_Click(object sender, RoutedEventArgs e)
-        {
-            this.OrderPDL1SP142(this, new EventArgs());
-        }
+		}                
 
         private void HyperLinkOrderPDL122C3_Click(object sender, RoutedEventArgs e)
         {
@@ -177,7 +169,8 @@ namespace YellowstonePathology.UI.Test
             {
                 if (this.m_EGFRToALKReflexAnalysisTestOrder.Final == false)
                 {
-                    this.m_EGFRToALKReflexAnalysisTestOrder.Finish(this.m_AccessionOrder);
+                    YellowstonePathology.Business.Test.FinalizeTestResult finalizeTestResult = this.m_EGFRToALKReflexAnalysisTestOrder.Finish(this.m_AccessionOrder);
+                    this.HandleFinalizeTestResult(finalizeTestResult);
                 }
             }			
 		}

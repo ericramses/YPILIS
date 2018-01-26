@@ -2,33 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using YellowstonePathology.Business.Billing.Model;
 
 namespace YellowstonePathology.Business.Test.Model
 {
-    public class DualStain
-    {
-        protected string m_TestId;
-        protected string m_TestName;
+    public class DualStain : ImmunoHistochemistryTest
+    {        
 		protected Test m_FirstTest;
 		protected Test m_SecondTest;
-		protected int m_DepricatedFirstTestId;
-		protected int m_DepricatedSecondTestId;
-        private string m_OrderComment;
+		protected string m_DepricatedFirstTestId;
+		protected string m_DepricatedSecondTestId;        
 
         public DualStain()
         {
             
-        }
-
-        public string TestId
-        {
-            get { return this.m_TestId; }
-        }
-
-        public string TestName
-        {
-            get { return this.m_TestName; }
-        }
+        }        
 
 		public Test FirstTest
         {
@@ -40,20 +28,19 @@ namespace YellowstonePathology.Business.Test.Model
             get { return this.m_SecondTest; }
         }        
 
-		public int DepricatedFirstTestId
+		public string DepricatedFirstTestId
 		{
 			get { return this.m_DepricatedFirstTestId; }
 		}
 
-		public int DepricatedSecondTestId
+		public string DepricatedSecondTestId
 		{
 			get { return this.m_DepricatedSecondTestId; }
 		}
 
-        public string OrderComment
+        public override CptCode GetGradedCptCode(bool isTechnicalOnly)
         {
-            get { return this.m_OrderComment; }
-            set { this.m_OrderComment = value; }
+            return Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88344", null);
         }
 
         public YellowstonePathology.Business.Test.Model.TestOrder GetTestOrder(YellowstonePathology.Business.Test.Model.TestOrderCollection testOrderCollection, int stainNumber)

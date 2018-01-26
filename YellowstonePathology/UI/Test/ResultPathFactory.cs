@@ -74,6 +74,9 @@ namespace YellowstonePathology.UI.Test
                 case 213:
                     result = new HPV1618ByPCRResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
+                case 269:
+                    result = new HPV1618SolidTumorResultPath(reportNo, accessionOrder, pageNavigator, window);
+                    break;
                 case 66:
 					result = new TestCancelledResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;				
@@ -207,7 +210,10 @@ namespace YellowstonePathology.UI.Test
 				case 179:
 					result = new NRASMutationAnalysisResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
-				case 181:
+                case 180:
+                    result = new IgHMFABByFishResultPath(reportNo, accessionOrder, pageNavigator, window);
+                    break;
+                case 181:
 					result = new CKITResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
 				case 183:
@@ -314,6 +320,18 @@ namespace YellowstonePathology.UI.Test
                     break;
                 case 263:
                     result = new BCellSubsetAnalysisResultPath(reportNo, accessionOrder, pageNavigator, window);
+                    break;
+                case 268:
+                    result = new BoneMarrowSummaryResultPath(reportNo, accessionOrder, pageNavigator, window);
+                    break;
+                case 274:
+                    result = new BRAFMutationAnalysisResultPath(reportNo, accessionOrder, pageNavigator, window);
+                    break;
+                case 290:
+                    result = new SlideTrackingResultPath(reportNo, accessionOrder, pageNavigator, window);
+                    break;
+                case 291:
+                    result = new TechnicalOnlyResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
             }
             return result;

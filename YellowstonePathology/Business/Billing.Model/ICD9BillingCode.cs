@@ -1,10 +1,5 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Text;
-using System.Data;
-using System.Data.SqlClient;
-using System.Xml.Serialization;
 using YellowstonePathology.Business.Persistence;
 
 namespace YellowstonePathology.Business.Billing.Model
@@ -40,13 +35,12 @@ namespace YellowstonePathology.Business.Billing.Model
 
 		}
 
-		public ICD9BillingCode(string icd9BillingId, string reportNo, string masterAccessionNo, string specimenOrderId, string icd9Code, string icd10Code, string objectId, int quantity)
+		public ICD9BillingCode(string icd9BillingId, string reportNo, string masterAccessionNo, string specimenOrderId, string icd10Code, string objectId, int quantity)
 		{
 			this.m_Icd9BillingId = icd9BillingId;
             this.m_ReportNo = reportNo;
             this.m_MasterAccessionNo = masterAccessionNo;
-            this.m_SpecimenOrderId = specimenOrderId;
-            this.m_ICD9Code = icd9Code;
+            this.m_SpecimenOrderId = specimenOrderId;            
             this.m_ICD10Code = icd10Code;
 			this.m_ObjectId = objectId;
             this.m_Quantity = quantity;

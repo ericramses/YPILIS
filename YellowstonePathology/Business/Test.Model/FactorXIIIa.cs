@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Test.Model
 	{
 		public FactorXIIIa()
 		{
-			this.m_TestId = 101;
+			this.m_TestId = "101";
 			this.m_TestName = "Factor XIIIa";
             this.m_TestAbbreviation = "Factor XIIIa";
 			this.m_Active = true;

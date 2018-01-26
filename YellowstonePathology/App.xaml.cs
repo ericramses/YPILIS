@@ -55,13 +55,15 @@ namespace YellowstonePathology.UI
         }
 
         protected override void OnStartup(StartupEventArgs e)
-        {            
+        {
+            Store.AppDataStore.Instance.LoadData();
+
             Business.Test.AccessionLockCollection accessionLockCollection = new Business.Test.AccessionLockCollection();
-            accessionLockCollection.ClearLocks();
+            //accessionLockCollection.ClearLocks();
 
             string startUpWindow = string.Empty;
 
-			if (System.Environment.MachineName.ToUpper() == "CUTTINGA" || System.Environment.MachineName.ToUpper() == "CUTTINGB" ) //|| System.Environment.MachineName.ToUpper() == "COMPILE")
+			if (System.Environment.MachineName.ToUpper() == "CUTTINGA" || System.Environment.MachineName.ToUpper() == "CUTTINGB") // || System.Environment.MachineName.ToUpper() == "COMPILE")
             {                
                 YellowstonePathology.UI.Cutting.CuttingStationPath cuttingStationPath = new Cutting.CuttingStationPath();
                 cuttingStationPath.Start();

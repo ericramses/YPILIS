@@ -11,7 +11,16 @@ namespace YellowstonePathology.Business.Facility.Model.LocationDefinitions
         {
         }
     }
-    
+
+    public class GrossTechs : Location
+    {
+        public GrossTechs()
+        {
+            this.LocationId = "BLGSGRSSTCHS";
+            this.m_Description = "GrossTechs";
+        }
+    }
+
     public class Sandra : Location
     {
         public Sandra()
@@ -407,4 +416,22 @@ namespace YellowstonePathology.Business.Facility.Model.LocationDefinitions
 			this.m_Description = "Cytology Slide Printing Station";
 		}
 	}
+
+    public class AshleeBrown : Location
+    {
+        public AshleeBrown()
+        {
+            this.LocationId = "ASHLBRWN";
+            this.m_Description = "Ashlee Brown";
+        }
+    }
+
+    public class DrMorrisonOffice : Location
+    {
+        public DrMorrisonOffice()
+        {
+            this.m_LocationId = "AMORRISONOFFC";
+            this.m_Description = "Dr. Morrison";
+        }
+    }
 }

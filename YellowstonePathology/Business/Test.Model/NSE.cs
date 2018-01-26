@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Test.Model
 	{
 		public NSE()
 		{
-			this.m_TestId = 130;
+			this.m_TestId = "130";
 			this.m_TestName = "NSE";
             this.m_TestAbbreviation = "NSE";
 			this.m_Active = true;

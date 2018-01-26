@@ -200,7 +200,7 @@ namespace YellowstonePathology.UI.Flow
             if (this.ListViewICDCodes.SelectedItem != null)
             {
                 YellowstonePathology.Business.Billing.Model.ICDCode item = (YellowstonePathology.Business.Billing.Model.ICDCode)ListViewICDCodes.SelectedItem;                
-                this.m_FlowUI.AddICD9Code(item.ICD9Code, item.ICD10Code);
+                this.m_FlowUI.AddICD10Code(item.Code);
             }
         }
 
@@ -558,6 +558,12 @@ namespace YellowstonePathology.UI.Flow
                         if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.OK)
                         {
                             this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.Finish(this.m_FlowUI.AccessionOrder);
+                            YellowstonePathology.Business.Audit.Model.CheckSuggestedOrdersOnFlowFinalAudit checkAudit = new Business.Audit.Model.CheckSuggestedOrdersOnFlowFinalAudit(this.m_FlowUI.AccessionOrder, this.m_FlowUI.PanelSetOrderLeukemiaLymphoma);
+                            checkAudit.Run();
+                            if(checkAudit.Status == Business.Audit.Model.AuditStatusEnum.Failure)
+                            {
+                                MessageBox.Show(checkAudit.Message.ToString());
+                            }
                         }
                         else
                         {
@@ -710,17 +716,20 @@ namespace YellowstonePathology.UI.Flow
 
         private void ButtonAuditComplete_Click(object sender, RoutedEventArgs e)
         {
-            if (this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.Audited == true)
+            if (this.listViewCaseFileList.SelectedItem != null)
             {
-                this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.Audited = false;
-                this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.AuditedDate = null;
-                this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.AuditedById = 0;
-            }
-            else
-            {
-                this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.Audited = true;
-                this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.AuditedDate = DateTime.Now;
-                this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.AuditedById = this.m_SystemIdentity.User.UserId;
+                if (this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.Audited == true)
+                {
+                    this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.Audited = false;
+                    this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.AuditedDate = null;
+                    this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.AuditedById = 0;
+                }
+                else
+                {
+                    this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.Audited = true;
+                    this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.AuditedDate = DateTime.Now;
+                    this.m_FlowUI.PanelSetOrderLeukemiaLymphoma.AuditedById = this.m_SystemIdentity.User.UserId;
+                }
             }
         }
 
@@ -959,10 +968,8 @@ namespace YellowstonePathology.UI.Flow
             if (this.ListViewICDCodes.SelectedItem != null)
             {
                 ListBox listBox = (ListBox)sender;
-                XmlElement element = (XmlElement)listBox.SelectedItem;
-                string icd9Code = element.GetAttribute("ICD9");
-                string icd10Code = element.GetAttribute("ICD10");
-                this.m_FlowUI.AddICD9Code(icd9Code, icd10Code);
+                Business.Billing.Model.ICDCode icdCode = (Business.Billing.Model.ICDCode)listBox.SelectedItem;                
+                this.m_FlowUI.AddICD10Code(icdCode.Code);
             }            
         }
 

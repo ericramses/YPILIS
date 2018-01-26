@@ -1,17 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Data;
-using System.Data.SqlClient;
-using System.Xml;
-using System.Xml.Linq;
+using MySql.Data.MySqlClient;
 
 namespace YellowstonePathology.Business.Persistence
 {
     public class SpecimenOrderDocumentBuilder : DocumentBuilder
     {
-        SqlCommand m_SQLCommand;
+        MySqlCommand m_SQLCommand;
 
         public SpecimenOrderDocumentBuilder()
         {
@@ -20,23 +15,26 @@ namespace YellowstonePathology.Business.Persistence
 
         public void SetSqlByContainerId(string containerId)
         {
-            this.m_SQLCommand = new SqlCommand("select * from tblSpecimenOrder where ContainerId = @ContainerId; Select * from tblAliquotOrder where specimenOrderId in (select specimenOrderId from tblSpecimenOrder where ContainerId = @ContainerId)");
+            this.m_SQLCommand = new MySqlCommand("select * from tblSpecimenOrder where ContainerId = @ContainerId; Select * from tblAliquotOrder " +
+                "where specimenOrderId in (select specimenOrderId from tblSpecimenOrder where ContainerId = @ContainerId);");
             this.m_SQLCommand.CommandType = CommandType.Text;
-            this.m_SQLCommand.Parameters.Add("@ContainerId", SqlDbType.VarChar).Value = containerId;
+            this.m_SQLCommand.Parameters.AddWithValue("@ContainerId", containerId);
         }
 
         public void SetSqlByAliquotOrderId(string aliquotOrderId)
         {
-            this.m_SQLCommand = new SqlCommand("select * from tblSpecimenOrder where SpecimenOrderId in (Select SpecimenOrderId from tblAliquotOrder where aliquotOrderId = @AliquotOrderId); Select * from tblAliquotOrder where AliquotOrderid = @AliquotOrderId");
+            this.m_SQLCommand = new MySqlCommand("select * from tblSpecimenOrder where SpecimenOrderId in (Select SpecimenOrderId from " +
+                "tblAliquotOrder where aliquotOrderId = @AliquotOrderId); Select * from tblAliquotOrder where AliquotOrderid = @AliquotOrderId;");
             this.m_SQLCommand.CommandType = CommandType.Text;
-            this.m_SQLCommand.Parameters.Add("@AliquotOrderId", SqlDbType.VarChar).Value = aliquotOrderId;
+            this.m_SQLCommand.Parameters.AddWithValue("@AliquotOrderId", aliquotOrderId);
         }
 
         public void SetSqlBySpecimenOrderId(string specimenOrderId)
         {
-            this.m_SQLCommand = new SqlCommand("select * from tblSpecimenOrder where SpecimenOrderId = @SpecimenOrderId; Select * from tblAliquotOrder where specimenOrderId in (select specimenOrderId from tblSpecimenOrder where SpecimenOrderId = @SpecimenOrderId)");
+            this.m_SQLCommand = new MySqlCommand("select * from tblSpecimenOrder where SpecimenOrderId = @SpecimenOrderId; Select * from " +
+                "tblAliquotOrder where specimenOrderId = @SpecimenOrderId;");
             this.m_SQLCommand.CommandType = CommandType.Text;
-            this.m_SQLCommand.Parameters.Add("@SpecimenOrderId", SqlDbType.VarChar).Value = specimenOrderId;
+            this.m_SQLCommand.Parameters.AddWithValue("@SpecimenOrderId", specimenOrderId);
         }
 
         public override object BuildNew()
@@ -48,11 +46,11 @@ namespace YellowstonePathology.Business.Persistence
 
         private void Build(YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder)
         {            
-            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 this.m_SQLCommand.Connection = cn;
-                using (SqlDataReader dr = this.m_SQLCommand.ExecuteReader())
+                using (MySqlDataReader dr = this.m_SQLCommand.ExecuteReader())
                 {
                     while (dr.Read())
                     {                        

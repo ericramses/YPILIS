@@ -31,8 +31,7 @@ namespace YellowstonePathology.UI.Test
         {
             this.m_EGFRToALKReflexPage = new EGFRToALKReflexPage(this.m_EGFRToALKReflexAnalysisTestOrder, this.m_AccessionOrder, this.m_SystemIdentity, this.m_BackButtonVisibility);
             this.m_EGFRToALKReflexPage.OrderALK += new EGFRToALKReflexPage.OrderALKEventHandler(EGFRToALKReflexPage_OrderALK);
-            this.m_EGFRToALKReflexPage.OrderROS1 += new EGFRToALKReflexPage.OrderROS1EventHandler(EGFRToALKReflexPage_OrderROS1);
-            this.m_EGFRToALKReflexPage.OrderPDL1SP142 += new EGFRToALKReflexPage.OrderPDL1SP142EventHandler(EGFRToALKReflexPage_OrderPDL1SP142);
+            this.m_EGFRToALKReflexPage.OrderROS1 += new EGFRToALKReflexPage.OrderROS1EventHandler(EGFRToALKReflexPage_OrderROS1);            
             this.m_EGFRToALKReflexPage.OrderPDL122C3 += new EGFRToALKReflexPage.OrderPDL122C3EventHandler(EGFRToALKReflexPage_OrderPDL122C3);
             this.m_EGFRToALKReflexPage.Finish +=new EGFRToALKReflexPage.FinishEventHandler(EGFRToALKReflexPage_Finish);
             this.m_EGFRToALKReflexPage.Back += new EGFRToALKReflexPage.BackEventHandler(EGFRToALKReflexPage_Back);
@@ -52,22 +51,7 @@ namespace YellowstonePathology.UI.Test
             this.m_AccessionOrder.TaskOrderCollection.Add(taskOrder);
 
             this.m_AccessionOrder.PanelSetOrderCollection.UpdateTumorNucleiPercentage(this.m_EGFRToALKReflexAnalysisTestOrder);
-        }
-
-        private void EGFRToALKReflexPage_OrderPDL1SP142(object sender, EventArgs e)
-        {
-            YellowstonePathology.Business.Test.PDL1SP142.PDL1SP142Test pdl1SP142Test = new Business.Test.PDL1SP142.PDL1SP142Test();
-            YellowstonePathology.Business.Interface.IOrderTarget orderTarget = this.m_AccessionOrder.SpecimenOrderCollection.GetOrderTarget(this.m_EGFRToALKReflexAnalysisTestOrder.OrderedOnId);
-            YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new YellowstonePathology.Business.Test.TestOrderInfo(pdl1SP142Test, orderTarget, false);
-            YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfo);
-            this.m_AccessionOrder.TakeATrip(orderVisitor);
-            orderVisitor.PanelSetOrder.Distribute = false;
-
-            YellowstonePathology.Business.Task.Model.TaskOrder taskOrder = this.m_AccessionOrder.CreateTask(testOrderInfo);
-            this.m_AccessionOrder.TaskOrderCollection.Add(taskOrder);
-
-            this.m_AccessionOrder.PanelSetOrderCollection.UpdateTumorNucleiPercentage(this.m_EGFRToALKReflexAnalysisTestOrder);
-        }
+        }        
 
         private void EGFRToALKReflexPage_OrderALK(object sender, EventArgs e)
         {

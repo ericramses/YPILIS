@@ -9,33 +9,34 @@ namespace YellowstonePathology.Business.Billing.Model
 	{
 		public TypingCptCodeList()
 		{
-            this.Add(new TypingCptCodeListItem(CptCodeCollection.Instance.GetCptCode("85060")));
-            this.Add(new TypingCptCodeListItem(CptCodeCollection.Instance.GetCptCode("85097")));
-            this.Add(new TypingCptCodeListItem(CptCodeCollection.Instance.GetCptCode("88300")));
-            this.Add(new TypingCptCodeListItem(CptCodeCollection.Instance.GetCptCode("88302")));
-            this.Add(new TypingCptCodeListItem(CptCodeCollection.Instance.GetCptCode("88304")));
-            this.Add(new TypingCptCodeListItem(CptCodeCollection.Instance.GetCptCode("88305")));
-            this.Add(new TypingCptCodeListItem(CptCodeCollection.Instance.GetCptCode("88307")));
-            this.Add(new TypingCptCodeListItem(CptCodeCollection.Instance.GetCptCode("88309")));
-            this.Add(new TypingCptCodeListItem(CptCodeCollection.Instance.GetCptCode("88104")));
-            this.Add(new TypingCptCodeListItem(CptCodeCollection.Instance.GetCptCode("88112")));
-            this.Add(new TypingCptCodeListItem(CptCodeCollection.Instance.GetCptCode("88160")));
-            this.Add(new TypingCptCodeListItem(CptCodeCollection.Instance.GetCptCode("88161")));
-            this.Add(new TypingCptCodeListItem(CptCodeCollection.Instance.GetCptCode("88172")));
-            this.Add(new TypingCptCodeListItem(CptCodeCollection.Instance.GetCptCode("88173")));
-            this.Add(new TypingCptCodeListItem(CptCodeCollection.Instance.GetCptCode("88177")));
-            this.Add(new TypingCptCodeListItem(CptCodeCollection.Instance.GetCptCode("88311")));
-            this.Add(new TypingCptCodeListItem(CptCodeCollection.Instance.GetCptCode("88321")));
-            this.Add(new TypingCptCodeListItem(CptCodeCollection.Instance.GetCptCode("88323")));
-            this.Add(new TypingCptCodeListItem(CptCodeCollection.Instance.GetCptCode("88325")));
-            this.Add(new TypingCptCodeListItem(CptCodeCollection.Instance.GetCptCode("88329")));
-            this.Add(new TypingCptCodeListItem(CptCodeCollection.Instance.GetCptCode("88331")));
-            this.Add(new TypingCptCodeListItem(CptCodeCollection.Instance.GetCptCode("88332")));
-            this.Add(new TypingCptCodeListItem(CptCodeCollection.Instance.GetCptCode("88333")));
-            this.Add(new TypingCptCodeListItem(CptCodeCollection.Instance.GetCptCode("88334")));
-            this.Add(new TypingCptCodeListItem(CptCodeCollection.Instance.GetCptCode("88342")));
-            this.Add(new TypingCptCodeListItem(CptCodeCollection.Instance.GetCptCode("88363")));
-            this.Add(new TypingCptCodeListItem(CptCodeCollection.Instance.GetCptCode("99000")));
+            this.Add(new TypingCptCodeListItem(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("85060", null)));
+            this.Add(new TypingCptCodeListItem(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("85097", null)));
+            this.Add(new TypingCptCodeListItem(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88300", null)));
+            this.Add(new TypingCptCodeListItem(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88302", null)));
+            this.Add(new TypingCptCodeListItem(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88304", null)));
+            this.Add(new TypingCptCodeListItem(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88305", null)));   
+            this.Add(new TypingCptCodeListItem(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88305", "26")));
+            this.Add(new TypingCptCodeListItem(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88307", null)));
+            this.Add(new TypingCptCodeListItem(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88309", null)));
+            this.Add(new TypingCptCodeListItem(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88104", null)));
+            this.Add(new TypingCptCodeListItem(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88112", null)));
+            this.Add(new TypingCptCodeListItem(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88160", null)));
+            this.Add(new TypingCptCodeListItem(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88161", null)));
+            this.Add(new TypingCptCodeListItem(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88172", null)));
+            this.Add(new TypingCptCodeListItem(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88173", null)));
+            this.Add(new TypingCptCodeListItem(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88177", null)));
+            this.Add(new TypingCptCodeListItem(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88311", null)));
+            this.Add(new TypingCptCodeListItem(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88321", null)));
+            this.Add(new TypingCptCodeListItem(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88323", null)));
+            this.Add(new TypingCptCodeListItem(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88325", null)));
+            this.Add(new TypingCptCodeListItem(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88329", null)));
+            this.Add(new TypingCptCodeListItem(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88331", null)));
+            this.Add(new TypingCptCodeListItem(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88332", null)));
+            this.Add(new TypingCptCodeListItem(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88333", null)));
+            this.Add(new TypingCptCodeListItem(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88334", null)));
+            this.Add(new TypingCptCodeListItem(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88342", null)));
+            this.Add(new TypingCptCodeListItem(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88363", null)));
+            this.Add(new TypingCptCodeListItem(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("99000", null)));
         }
     }
 }

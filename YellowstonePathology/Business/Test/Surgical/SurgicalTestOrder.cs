@@ -119,10 +119,10 @@ namespace YellowstonePathology.Business.Test.Surgical
 				result.AppendLine(surgicalSpecimenResult.Diagnosis);
 			}
 
-			return result.ToString();
-		}
+			return result.ToString().Trim();
+		}        
 
-		public YellowstonePathology.Business.Specimen.Model.SpecimenOrderCollection SpecimenOrderCollection
+        public YellowstonePathology.Business.Specimen.Model.SpecimenOrderCollection SpecimenOrderCollection
 		{
 			get { return m_SpecimenOrderCollection; }
 			set { m_SpecimenOrderCollection = value; }
@@ -629,10 +629,11 @@ namespace YellowstonePathology.Business.Test.Surgical
             return auditResult;
         }
 
-        public override void Finish(Business.Test.AccessionOrder accessionOrder)
+        //public override void Finish(Business.Test.AccessionOrder accessionOrder)
+        public override FinalizeTestResult Finish(Business.Test.AccessionOrder accessionOrder)
         {
             this.m_ProfessionalComponentFacilityId = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId;
-            base.Finish(accessionOrder);
+            return base.Finish(accessionOrder);
         }
     }
 }

@@ -37,7 +37,7 @@ namespace YellowstonePathology.UI.Test
             {
                 if (this.TextBlockRowCount.Text.Length > 0)
                 {
-                    Business.Label.Model.ZPLPrinter printer = new Business.Label.Model.ZPLPrinter("10.1.1.21");
+                    Business.Label.Model.ZPLPrinterTCP printer = new Business.Label.Model.ZPLPrinterTCP("10.1.1.21");
                     int pageCount = this.GetPageCount();
                     for (int x=0; x<pageCount; x++)
                     {                        

@@ -93,7 +93,7 @@ namespace YellowstonePathology.UI.Gross
 
 		private void AddIC()
 		{
-			YellowstonePathology.Business.Test.Model.Test iCTest = YellowstonePathology.Business.Test.Model.TestCollection.GetAllTests().GetTest(194);
+			YellowstonePathology.Business.Test.Model.Test iCTest = YellowstonePathology.Business.Test.Model.TestCollection.GetAllTests(false).GetTest("194");
 			string patientInitials = YellowstonePathology.Business.Helper.PatientHelper.GetPatientInitials(this.m_AccessionOrder.PFirstName, this.m_AccessionOrder.PLastName);
 
             YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = this.m_SpecimenOrder.AliquotOrderCollection.AddBlock(this.m_SpecimenOrder, YellowstonePathology.Business.Specimen.Model.AliquotLabelType.DirectPrint, this.m_AccessionOrder.AccessionDate.Value);
@@ -142,6 +142,20 @@ namespace YellowstonePathology.UI.Gross
             {
                 this.m_AliquotOrder.Status = "Hold";
             }            
+            CustomEventArgs.SpecimenOrderReturnEventArgs specimenOrderReturnEventArgs = new CustomEventArgs.SpecimenOrderReturnEventArgs(this.m_SpecimenOrder);
+            this.Next(this, specimenOrderReturnEventArgs);
+        }
+
+        private void ButtonDecal_Click(object sender, RoutedEventArgs e)
+        {
+            if(this.m_AliquotOrder.Decal == true)
+            {
+                this.m_AliquotOrder.Decal = false;
+            }
+            else
+            {
+                this.m_AliquotOrder.Decal = true;
+            }
             CustomEventArgs.SpecimenOrderReturnEventArgs specimenOrderReturnEventArgs = new CustomEventArgs.SpecimenOrderReturnEventArgs(this.m_SpecimenOrder);
             this.Next(this, specimenOrderReturnEventArgs);
         }

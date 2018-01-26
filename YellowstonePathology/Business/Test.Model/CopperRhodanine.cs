@@ -9,11 +9,12 @@ namespace YellowstonePathology.Business.Test.Model
 	{
 		public CopperRhodanine()
 		{
-			this.m_TestId = 213;
+			this.m_TestId = "213";
 			this.m_TestName = "Copper rhodanine";
-            this.m_TestAbbreviation = "Copper rhodanine";
+            this.m_TestAbbreviation = "Copper";
 			this.m_Active = true;
 			this.m_NeedsAcknowledgement = true;
+            this.m_PerformedByHand = true;
 		}
 	}
 }

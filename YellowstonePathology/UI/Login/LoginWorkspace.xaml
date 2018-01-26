@@ -81,7 +81,7 @@
                         </StackPanel>
                     </Button>                            
 
-                    <TextBox Name="TextBoxMasterAccessionNo" Margin="2" KeyUp="TextBoxMasterAccessionNo_KeyUp" Width="150" BorderBrush="AliceBlue" BorderThickness="1" />
+                    <TextBox Name="TextBoxMasterAccessionNo" Margin="2" KeyUp="TextBoxMasterAccessionNo_KeyUp" Width="100" BorderBrush="AliceBlue" BorderThickness="1" />
 
                 </ToolBar>
             </ToolBarTray>

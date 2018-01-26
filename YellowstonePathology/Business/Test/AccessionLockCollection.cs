@@ -16,10 +16,10 @@ namespace YellowstonePathology.Business.Test
         }
 
         public void ClearLocks()
-        {
+        {            
             foreach (Business.Test.AccessionLock accessionLock in this)
-            {
-                if (accessionLock.Address == UI.AppMessaging.AccessionLockMessage.GetMyAddress())
+            {                
+                if (accessionLock.IsLockAquiredByMe == true)
                 {
                     accessionLock.ReleaseLock();
                 }
@@ -33,19 +33,19 @@ namespace YellowstonePathology.Business.Test
         }
 
         private void Build()
-        {            
-            IDatabase db = Business.RedisConnection.Instance.GetDatabase();
-            RedisValue[] members = db.SetMembers("AccessionLocks");
+        {
+            List<AccessionLock> list = new List<AccessionLock>();            
 
-            List<AccessionLock> list = new List<AccessionLock>();
-            for (int i = 0; i < members.Length; i++)
+            Store.RedisDB locksDb = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.Lock);
+            RedisResult[] redisResult = (RedisResult[])locksDb.GetAllHashes();
+
+            foreach (RedisValue[] r in redisResult)
             {
-                if(db.KeyExists(members[i].ToString()) == true)
-                {
-                    HashEntry[] hashEntries = db.HashGetAll(members[i].ToString());
-                    AccessionLock item = new AccessionLock(hashEntries);
-                    list.Add(item);
-                }                
+                HashEntry he1 = new HashEntry(r[0], r[1]);
+                HashEntry he2 = new HashEntry(r[2], r[3]);
+                HashEntry he3 = new HashEntry(r[4], r[5]);
+                AccessionLock item = new AccessionLock(new HashEntry[] { he1, he2, he3 });
+                list.Add(item);
             }
 
             list.Sort(delegate(AccessionLock x, AccessionLock y) 

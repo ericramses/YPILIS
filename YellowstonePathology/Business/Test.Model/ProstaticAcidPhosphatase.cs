@@ -9,9 +9,9 @@ namespace YellowstonePathology.Business.Test.Model
 	{
 		public ProstaticAcidPhosphatase()
 		{
-			this.m_TestId = 147;
+			this.m_TestId = "147";
 			this.m_TestName = "Prostatic Acid Phosphatase";
-            this.m_TestAbbreviation = "Prostatic Acid Phosphatase";
+            this.m_TestAbbreviation = "PAP";
 			this.m_Active = true;
 			this.m_NeedsAcknowledgement = true;
 		}

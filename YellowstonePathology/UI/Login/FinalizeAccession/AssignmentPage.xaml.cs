@@ -85,7 +85,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 			YellowstonePathology.Business.Test.TechnicalOnly.TechnicalOnlyTest panelSetTechnicalOnly = new Business.Test.TechnicalOnly.TechnicalOnlyTest();
             if (this.m_AccessionOrder.PanelSetOrderCollection.HasGrossBeenOrdered() == true)
             {
-                YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrderByTestId(48);
+                YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrderByTestId("48");
                 if (panelSetOrder.AssignedToId == 0)
                 {
                     MessageBoxResult messageBoxResult = MessageBox.Show("A Gross Only has been ordered but the case has not been assigned.  Are you sure you want to continue?", "Assignement", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
@@ -179,9 +179,31 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                             panelSetOrder.ProfessionalComponentFacilityId = null;
                             panelSetOrder.ProfessionalComponentBillingFacilityId = null;
                         }                        
-                    }                    
+                    }
                 }
             }
         }
-	}
+
+        private void ButtonSetInvalidFinal_Click(object sender, RoutedEventArgs e)
+        {
+            if(this.ListViewPanelSets.SelectedItem != null)
+            {
+                Business.Test.PanelSetOrder panelSetOrder = (Business.Test.PanelSetOrder)this.ListViewPanelSets.SelectedItem;
+                if (panelSetOrder.Final == true && panelSetOrder.FinaledById == 0 && panelSetOrder.Signature == null && panelSetOrder.AssignedToId != 0)
+                {
+                    Business.User.SystemUser systemUser = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetSystemUserById(panelSetOrder.AssignedToId);
+                    panelSetOrder.FinaledById = systemUser.UserId;
+                    panelSetOrder.Signature = systemUser.Signature;
+                }
+                else
+                {
+                    MessageBox.Show("Select AssignedTo.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Select the report.");
+            }
+        }
+    }
 }

@@ -79,9 +79,7 @@ namespace YellowstonePathology.UI.ReportDistribution
 
             DateTime dailyStartTime = DateTime.Parse(DateTime.Today.ToShortDateString() + " 05:00");
             DateTime dailyEndTime = DateTime.Parse(DateTime.Today.ToShortDateString() + " 20:00");
-
-            ISubscriber subscriber = Business.RedisConnection.Instance.GetSubscriber();
-            subscriber.Publish("ReportDistributionHeartBeat", "Hello");
+            YellowstonePathology.Store.RedisServerProd1.Instance.Subscriber.Publish("ReportDistributionHeartBeat", "Hello");
 
             if (DateTime.Now >= dailyStartTime && DateTime.Now <= dailyEndTime)
             {                
@@ -103,7 +101,7 @@ namespace YellowstonePathology.UI.ReportDistribution
                 this.SetStatus("Idle After Hours");
             }
             
-            this.m_Timer.Start();            
+            //this.m_Timer.Start();            
         }
 
         private void HandleUnscheduledAmendments()
@@ -376,8 +374,8 @@ namespace YellowstonePathology.UI.ReportDistribution
                                             YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistributionLog testOrderReportDistributionLog = new YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistributionLog(testOrderReportDistributionLogId, objectId);
                                             testOrderReportDistributionLog.FromTestOrderReportDistribution(testOrderReportDistribution);
                                             testOrderReportDistributionLog.TimeDistributed = DateTime.Now;
-                                            panelSetOrder.TestOrderReportDistributionLogCollection.Add(testOrderReportDistributionLog);                                            
-
+                                            panelSetOrder.TestOrderReportDistributionLogCollection.Add(testOrderReportDistributionLog);
+                                            
                                             this.m_ReportDistributionLogEntryCollection.AddEntry("INFO", "Publish Next", testOrderReportDistribution.DistributionType, panelSetOrder.ReportNo, panelSetOrder.MasterAccessionNo,
                                                 testOrderReportDistribution.PhysicianName, testOrderReportDistribution.ClientName, "TestOrderReportDistribution Distributed");
                                         }
@@ -460,8 +458,8 @@ namespace YellowstonePathology.UI.ReportDistribution
         {
             YellowstonePathology.Business.ReportDistribution.Model.DistributionResult result = null;                        
 
-            try
-            {
+            //try
+            //{
                 switch (testOrderReportDistribution.DistributionType)
                 {
                     case YellowstonePathology.Business.ReportDistribution.Model.DistributionType.FAX:
@@ -495,12 +493,12 @@ namespace YellowstonePathology.UI.ReportDistribution
                         result = this.HandleNoImplemented(testOrderReportDistribution);
                         break;
                 }
-            }
-            catch(Exception e)
-            {
-                Business.Logging.EmailExceptionHandler.HandleException(panelSetOrder, e.Message);
-                App.Current.Shutdown();
-            }
+            //}
+            //catch(Exception e)
+            //{
+            //    Business.Logging.EmailExceptionHandler.HandleException(panelSetOrder, e.Message);
+            //    App.Current.Shutdown();
+            //}
             
             return result;
         }

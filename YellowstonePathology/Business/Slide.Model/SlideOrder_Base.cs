@@ -39,22 +39,28 @@ namespace YellowstonePathology.Business.Slide.Model
         protected Nullable<DateTime> m_PrintDate;
 
         protected string m_Status;
-        protected int m_TestId;
+        protected string m_TestId;
         protected string m_TestName;
         protected string m_TestAbbreviation;
         protected string m_TestOrderId;
         protected string m_PatientLastName;
+        protected string m_PatientFirstName;
         protected string m_Location;
         protected string m_ReportNo;
         protected string m_LabelType;
-        protected bool m_OrderedAsDual;        
+        protected bool m_OrderedAsDual;
+        protected bool m_UseWetProtocol;        
+        protected bool m_OrderSentToVentana;
+        protected bool m_PerformedByHand;
 
         private string m_LocationId;
-        private string m_FacilityId;
+        private string m_FacilityId;        
+
+        private bool m_Combined;
 
         public SlideOrder_Base()
         {
-
+            this.m_Combined = false;
         }
 
         public SlideOrder_Base(string objectId, string slideOrderId, YellowstonePathology.Business.Test.AliquotOrder aliquotOrder, YellowstonePathology.Business.Test.Model.TestOrder testOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity, int slideNumber)
@@ -70,7 +76,7 @@ namespace YellowstonePathology.Business.Slide.Model
             this.m_OrderedBy = systemIdentity.User.UserName;
             this.m_OrderedById = systemIdentity.User.UserId;
             this.m_OrderedFrom = Environment.MachineName;
-            this.m_OrderedAsDual = testOrder.OrderedAsDual;        
+            this.m_OrderedAsDual = testOrder.OrderedAsDual;               
         }
 
         public void Validate(YellowstonePathology.Business.User.SystemIdentity systemIdentity)
@@ -495,7 +501,7 @@ namespace YellowstonePathology.Business.Slide.Model
 
         [PersistentProperty()]
         [PersistentDataColumnProperty(true, "11", "null", "int")]
-        public int TestId
+        public string TestId
         {
             get
             {
@@ -579,6 +585,24 @@ namespace YellowstonePathology.Business.Slide.Model
                 {
                     this.m_PatientLastName = value;
                     this.NotifyPropertyChanged("PatientLastName");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "500", "null", "varchar")]
+        public string PatientFirstName
+        {
+            get
+            {
+                return this.m_PatientFirstName;
+            }
+            set
+            {
+                if (this.m_PatientFirstName != value)
+                {
+                    this.m_PatientFirstName = value;
+                    this.NotifyPropertyChanged("PatientFirstName");
                 }
             }
         }
@@ -685,6 +709,66 @@ namespace YellowstonePathology.Business.Slide.Model
             }
         }
 
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
+        public bool Combined
+        {
+            get { return this.m_Combined; }
+            set
+            {
+                if (this.m_Combined != value)
+                {
+                    this.m_Combined = value;
+                    this.NotifyPropertyChanged("Combined");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
+        public bool UseWetProtocol
+        {
+            get { return this.m_UseWetProtocol; }
+            set
+            {
+                if (this.m_UseWetProtocol != value)
+                {
+                    this.m_UseWetProtocol = value;
+                    this.NotifyPropertyChanged("UseWetProtocol");
+                }
+            }
+        }        
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
+        public bool OrderSentToVentana
+        {
+            get { return this.m_OrderSentToVentana; }
+            set
+            {
+                if (this.m_OrderSentToVentana != value)
+                {
+                    this.m_OrderSentToVentana = value;
+                    this.NotifyPropertyChanged("OrderSentToVentana");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
+        public bool PerformedByHand
+        {
+            get { return this.m_PerformedByHand; }
+            set
+            {
+                if (this.m_PerformedByHand != value)
+                {
+                    this.m_PerformedByHand = value;
+                    this.NotifyPropertyChanged("PerformedByHand");
+                }
+            }
+        }
+
         public static string GetSlideLabel(int slideNumber, string blockLabel, string aliquotType)
         {
             StringBuilder slideOrderLabel = new StringBuilder();
@@ -695,6 +779,10 @@ namespace YellowstonePathology.Business.Slide.Model
                     break;
                 case "CellBlock":
                     slideOrderLabel.Append("CB" + blockLabel + slideNumber.ToString());
+                    break;
+                case "Wash":
+                case "Slide":
+                    slideOrderLabel.Append(blockLabel);
                     break;
                 default:
                     slideOrderLabel.Append(blockLabel + slideNumber.ToString());
@@ -730,7 +818,7 @@ namespace YellowstonePathology.Business.Slide.Model
             if (xml.Element("PrintedById") != null) m_PrintedById = Convert.ToInt32(xml.Element("PrintedById").Value);
             if (xml.Element("PrintedBy") != null) m_PrintedBy = xml.Element("PrintedBy").Value;
             if (xml.Element("PrintDate") != null) m_PrintDate = DateTime.Parse(xml.Element("PrintDate").Value);
-            if (xml.Element("TestId") != null) m_TestId = Convert.ToInt32(xml.Element("TestId").Value);
+            if (xml.Element("TestId") != null) m_TestId = xml.Element("TestId").Value;
             if (xml.Element("TestName") != null) m_TestName = xml.Element("TestName").Value;
             if (xml.Element("TestAbbreviation") != null) m_TestAbbreviation = xml.Element("TestAbbreviation").Value;
             if (xml.Element("TestOrderId") != null) m_TestOrderId = xml.Element("TestOrderId").Value;

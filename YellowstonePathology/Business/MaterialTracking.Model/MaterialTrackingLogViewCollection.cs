@@ -13,7 +13,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
         public MaterialTrackingLogViewCollection()
         {
 
-        }
+        }        
 
         public List<string> GetDistinctMaterialTypes()
         {

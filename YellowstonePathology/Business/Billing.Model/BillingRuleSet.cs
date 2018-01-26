@@ -65,9 +65,9 @@ namespace YellowstonePathology.Business.Billing.Model
             }
         }
 
-        public YellowstonePathology.Business.Billing.Model.BillingTypeEnum GetBillingType(string patientType, string primaryInsurance, string secondaryInsurance, bool postDischarge, int panelSetId)
+        public YellowstonePathology.Business.Billing.Model.BillingTypeEnum GetBillingType(string patientType, string primaryInsurance, string secondaryInsurance, bool postDischarge, int panelSetId, bool referenceLab)
         {            
-            BillingRule matchedBillingRule = this.m_BillingRuleCollection.GetMatch(patientType, primaryInsurance, secondaryInsurance, postDischarge, panelSetId);
+            BillingRule matchedBillingRule = this.m_BillingRuleCollection.GetMatch(patientType, primaryInsurance, secondaryInsurance, postDischarge, panelSetId, referenceLab);
             return matchedBillingRule.BillingType;
         }
 

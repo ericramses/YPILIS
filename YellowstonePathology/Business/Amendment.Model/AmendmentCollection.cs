@@ -1,10 +1,6 @@
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
 using System.Data;
-using System.Data.SqlClient;
-using System.Xml.Serialization;
 
 namespace YellowstonePathology.Business.Amendment.Model
 {
@@ -16,9 +12,9 @@ namespace YellowstonePathology.Business.Amendment.Model
         {
         }
 
-		public Amendment GetNextItem(string reportNo, string objectId, string amendmentId)
+		public Amendment GetNextItem(string reportNo, string amendmentId)
 		{
-			Amendment amendment = new Amendment(reportNo, objectId, amendmentId);
+			Amendment amendment = new Amendment(reportNo, amendmentId);
 			amendment.AmendmentId = amendmentId;
 			return amendment;
 		}

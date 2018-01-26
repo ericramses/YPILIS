@@ -20,7 +20,7 @@ namespace YellowstonePathology.Business.Test.Model
             this.m_List.Add(new Cytokeratin34());
             this.m_List.Add(new EMA());
             this.m_List.Add(new Ecadherin());
-            this.m_List.Add(new P63());
+            this.m_List.Add(new P40());
             this.m_List.Add(new MOC31());
         }
     }

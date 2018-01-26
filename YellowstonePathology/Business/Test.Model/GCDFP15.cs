@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Test.Model
 	{
 		public GCDFP15()
 		{
-			this.m_TestId = 103;
+			this.m_TestId = "103";
 			this.m_TestName = "GCDFP-15";
             this.m_TestAbbreviation = "GCDFP-15";
 			this.m_Active = true;

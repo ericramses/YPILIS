@@ -20,7 +20,7 @@ namespace YellowstonePathology.Business.Visitor
         {
             foreach (YellowstonePathology.Business.Test.PanelOrder panelOrder in panelSetOrder.PanelOrderCollection)
             {
-                if (panelOrder.TestOrderCollection.Exists(this.m_TestOrderId) == true)
+                if (panelOrder.TestOrderCollection.ExistsByTestOrderId(this.m_TestOrderId) == true)
                 {
                     this.m_PanelOrder = panelOrder;
                     this.m_PanelOrder.TestOrderCollection.Remove(this.m_TestOrderId);
@@ -35,7 +35,7 @@ namespace YellowstonePathology.Business.Visitor
 
         public override void Visit(Test.AliquotOrder aliquotOrder)
         {
-            if (aliquotOrder.TestOrderCollection.Exists(this.m_TestOrderId) == true)
+            if (aliquotOrder.TestOrderCollection.ExistsByTestOrderId(this.m_TestOrderId) == true)
             {
                 aliquotOrder.TestOrderCollection.Remove(this.m_TestOrderId);
             }
@@ -45,8 +45,11 @@ namespace YellowstonePathology.Business.Visitor
         {
             if (surgicalSpecimen.StainResultItemCollection.TestOrderExists(this.m_TestOrderId) == true)
             {
-                YellowstonePathology.Business.SpecialStain.StainResultItem stainResult = surgicalSpecimen.StainResultItemCollection.GetStainResult(this.m_TestOrderId);
-                surgicalSpecimen.StainResultItemCollection.Remove(stainResult);
+                List<YellowstonePathology.Business.SpecialStain.StainResultItem> stainResults = surgicalSpecimen.StainResultItemCollection.GetStainResults(this.m_TestOrderId);
+                for(int i=stainResults.Count-1; i>=0; i--)
+                {
+                    surgicalSpecimen.StainResultItemCollection.Remove(stainResults[i]);
+                }                
             }
 
             if (surgicalSpecimen.IntraoperativeConsultationResultCollection.TestOrderIdExists(this.m_TestOrderId) == true)

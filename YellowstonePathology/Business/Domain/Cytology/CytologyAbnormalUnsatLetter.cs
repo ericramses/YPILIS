@@ -43,7 +43,6 @@ namespace YellowstonePathology.Reports.Cytology
             }            
         }
 
-
         public void CreateReports()
         {            
             this.ClearFolder();

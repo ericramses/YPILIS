@@ -193,7 +193,7 @@ namespace YellowstonePathology.UI.Surgical
         {
             YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen = (YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen)((Button)sender).Tag;
             YellowstonePathology.Business.Billing.Model.ICD9BillingCode icd9BillingCode = this.AccessionOrder.ICD9BillingCodeCollection.GetNextItem(this.PanelSetOrderSurgical.ReportNo,
-                this.AccessionOrder.MasterAccessionNo, surgicalSpecimen.SpecimenOrderId, null, null, 1);
+                this.AccessionOrder.MasterAccessionNo, surgicalSpecimen.SpecimenOrderId, null, 1);
             icd9BillingCode.SurgicalSpecimenId = surgicalSpecimen.SurgicalSpecimenId;
             this.AccessionOrder.ICD9BillingCodeCollection.Add(icd9BillingCode);
             this.RefreshBillingSpecimenViewCollection();
@@ -353,7 +353,7 @@ namespace YellowstonePathology.UI.Surgical
 
         private void ButtonCAPLink_Click(object sender, RoutedEventArgs args)
         {
-            System.Diagnostics.Process.Start(@"http://www.cap.org/web/home/resources/cancer-reporting-tools/cancer-protocol-templates?_afrLoop=290486100518829#%40%3F_afrLoop%3D290486100518829%26_adf.ctrl-state%3Ddqakeocns_55");
+            System.Diagnostics.Process.Start(@"http://www.cap.org/web/oracle/webcenter/portalapp/pagehierarchy/cancer_protocol_templates.jspx?_afrLoop=36229252016954#!%40%40%3F_afrLoop%3D36229252016954%26_adf.ctrl-state%3Dgfs5he3rf_4");
         }
 
         private void CheckPendingStudies(bool isFinal)
@@ -565,7 +565,7 @@ namespace YellowstonePathology.UI.Surgical
         private void ButtonSetCPTCodes_Click(object sender, RoutedEventArgs e)
         {
             this.m_PathologistUI.PanelSetOrder.PanelSetOrderCPTCodeCollection.SetCPTCodes(this.m_PathologistUI.AccessionOrder.SpecimenOrderCollection, this.m_PathologistUI.PanelSetOrder.ReportNo, this.m_PathologistUI.AccessionOrder.ClientId);
-            this.RefreshBillingSpecimenViewCollection();
+            this.RefreshBillingSpecimenViewCollection();            
         }
     }
 }

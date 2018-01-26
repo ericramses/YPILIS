@@ -92,8 +92,11 @@ namespace YellowstonePathology.UI.Client
 
             foreach (YellowstonePathology.Business.Test.Model.ImmunoHistochemistryTest immunoHistochemistryTest in displayGroupSiteSpecificTumorMarkers.List)
             {
-                e.Graphics.DrawString("[ ] " + immunoHistochemistryTest.TestName, new System.Drawing.Font("Tahoma", 8), System.Drawing.Brushes.Black, new System.Drawing.PointF(x, y));
-                y += 12;
+                if(immunoHistochemistryTest.Active == true)
+                {
+                    e.Graphics.DrawString("[ ] " + immunoHistochemistryTest.TestName, new System.Drawing.Font("Tahoma", 8), System.Drawing.Brushes.Black, new System.Drawing.PointF(x, y));
+                    y += 12;
+                }                
             }
             
             x = 225;

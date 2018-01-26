@@ -10,13 +10,13 @@ namespace YellowstonePathology.Business.Surgical
         public PQRSMeasure396()
         {            
 			this.m_Header = "Lung Cancer Reporting #396";
-            this.m_CptCodeCollection.Add(new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88309());            
+            this.m_CptCodeCollection.Add(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88309", null));            
             this.m_PQRSAgeDefinition = PQRSAgeDefinitionEnum.Patients18To75;
 
-            this.m_PQRSCodeCollection.Add(new YellowstonePathology.Business.Billing.Model.PQRSCodeDefinitions.PQRSG9422());
-			this.m_PQRSCodeCollection.Add(new YellowstonePathology.Business.Billing.Model.PQRSCodeDefinitions.PQRSG9423());
-			this.m_PQRSCodeCollection.Add(new YellowstonePathology.Business.Billing.Model.PQRSCodeDefinitions.PQRSG9424());
-            this.m_PQRSCodeCollection.Add(new YellowstonePathology.Business.Billing.Model.PQRSCodeDefinitions.PQRSG9425());
+            this.m_PQRSCodeCollection.Add(Billing.Model.PQRSCodeCollection.Get("G9422", null));
+			this.m_PQRSCodeCollection.Add(Billing.Model.PQRSCodeCollection.Get("G9423", null));
+			this.m_PQRSCodeCollection.Add(Billing.Model.PQRSCodeCollection.Get("G9424", null));
+            this.m_PQRSCodeCollection.Add(Billing.Model.PQRSCodeCollection.Get("G9425", null));
         }
 
         public override bool DoesMeasureApply(YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder,

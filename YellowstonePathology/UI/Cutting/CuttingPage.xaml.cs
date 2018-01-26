@@ -23,10 +23,7 @@ namespace YellowstonePathology.UI.Cutting
         public event FinishedEventHandler Finished;
 
         public delegate void ShowTestOrderSelectionPageEventHandler(object sender, YellowstonePathology.UI.CustomEventArgs.AliquotOrderReturnEventArgs eventArgs);
-        public event ShowTestOrderSelectionPageEventHandler ShowTestOrderSelectionPage;        
-
-        //public delegate void PageTimedOutEventHandler(object sender, EventArgs eventArgs);
-        //public event PageTimedOutEventHandler PageTimedOut;
+        public event ShowTestOrderSelectionPageEventHandler ShowTestOrderSelectionPage;                
 
         private System.Windows.Threading.DispatcherTimer m_ListBoxSlidesMouseDownTimer;        
 
@@ -39,8 +36,7 @@ namespace YellowstonePathology.UI.Cutting
 
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort m_BarcodeScanPort;
-
-        //private System.Windows.Threading.DispatcherTimer m_PageTimeoutTimer;
+        
         private YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;
         private YellowstonePathology.Business.Label.Model.HistologySlidePaperLabelPrinter m_HistologySlidePaperLabelPrinter;
 
@@ -69,13 +65,7 @@ namespace YellowstonePathology.UI.Cutting
 			this.m_BarcodeScanPort = YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort.Instance;            
             
 			InitializeComponent();
-			DataContext = this;
-
-            /*this.m_PageTimeoutTimer = new System.Windows.Threading.DispatcherTimer();
-            this.m_PageTimeoutTimer.Interval = TimeSpan.FromMinutes(15);
-            //this.m_PageTimeoutTimer.Interval = TimeSpan.FromMinutes(2);
-            this.m_PageTimeoutTimer.Tick += new EventHandler(PageTimeoutTimer_Tick);
-            this.m_PageTimeoutTimer.Start();*/
+			DataContext = this;            
 
             this.Loaded += new RoutedEventHandler(CuttingPage_Loaded);
             this.Unloaded += new RoutedEventHandler(CuttingPage_Unloaded);            
@@ -88,13 +78,12 @@ namespace YellowstonePathology.UI.Cutting
 
         private void CuttingPage_Unloaded(object sender, RoutedEventArgs e)
         {
-            this.m_BarcodeScanPort.HistologySlideScanReceived -= BarcodeScanPort_HistologySlideScanReceived;
-            //this.m_PageTimeoutTimer.Stop();            
+            this.m_BarcodeScanPort.HistologySlideScanReceived -= BarcodeScanPort_HistologySlideScanReceived;            
         }
 
         private void PageTimeoutTimer_Tick(object sender, EventArgs e)
         {            
-            //this.PageTimedOut(this, new EventArgs());
+            
         }
 
 		public YellowstonePathology.Business.User.SystemIdentity SystemIdentity
@@ -141,13 +130,60 @@ namespace YellowstonePathology.UI.Cutting
             slideOptionsPage.DeleteSlideOrder += new SlideOptionsPage.DeleteSlideOrderEventHandler(SlideOptionsPage_DeleteSlideOrder);
             slideOptionsPage.PrintSlide += new SlideOptionsPage.PrintSlideEventHandler(SlideOptionsPage_PrintSlide);
             slideOptionsPage.PrintPaperLabel += new SlideOptionsPage.PrintPaperLabelEventHandler(SlideOptionsPage_PrintPaperLabel);
+            slideOptionsPage.CombineNextSlide += new SlideOptionsPage.CombineNextSlideEventHandler(SlideOptionsPage_CombineNextSlide);
+            slideOptionsPage.Uncombine += new SlideOptionsPage.UncombineEventHandler(SlideOptionsPage_Uncombine);
             slideOptionsPage.Close += new SlideOptionsPage.CloseEventHandler(SlideOptionsPage_Close);
-            this.m_PageNavigator.Navigate(slideOptionsPage);            
+            this.m_PageNavigator.Navigate(slideOptionsPage);
+        }
+
+        private void SlideOptionsPage_Uncombine(object sender, CustomEventArgs.SlideOrderReturnEventArgs eventArgs)
+        {
+            eventArgs.SlideOrder.Combined = false;
+            int positionOfSlash = eventArgs.SlideOrder.Label.IndexOf("/");
+            if(positionOfSlash > 0)
+            {
+                eventArgs.SlideOrder.Label = eventArgs.SlideOrder.Label.Substring(0, positionOfSlash);
+                this.m_PageNavigator.Navigate(this);
+            }            
         }
 
         private void SlideOptionsPage_PrintPaperLabel(object sender, CustomEventArgs.SlideOrderReturnEventArgs eventArgs)
         {
-            this.PrintPaperLabel(eventArgs.SlideOrder);
+            Business.HL7View.VentanaStainOrder ventanaStainOrder = new Business.HL7View.VentanaStainOrder();
+            ventanaStainOrder.HandleOrder(this.m_AccessionOrder, eventArgs.SlideOrder);   
+                     
+            this.PrintPaperLabel(eventArgs.SlideOrder);            
+            this.m_PageNavigator.Navigate(this);
+        }
+
+        private void SlideOptionsPage_CombineNextSlide(object sender, CustomEventArgs.SlideOrderReturnEventArgs eventArgs)
+        {
+            bool thisTestWasFound = false;
+            foreach(Business.Test.PanelOrder panelOrder in this.m_PanelSetOrder.PanelOrderCollection)
+            {
+                foreach(Business.Test.Model.TestOrder testOrder in panelOrder.TestOrderCollection)
+                {
+                    if(thisTestWasFound == true)
+                    {
+                        if(testOrder.TestId == eventArgs.SlideOrder.TestId)
+                        {                            
+                            if(eventArgs.SlideOrder.Combined == false)
+                            {
+                                eventArgs.SlideOrder.Combined = true;
+                                eventArgs.SlideOrder.Label += '/' + testOrder.AliquotOrder.Label;
+                                break;
+                            }                                                            
+                        }
+                    }
+                    else
+                    {
+                        if (testOrder.TestOrderId == eventArgs.SlideOrder.TestOrderId)
+                        {                            
+                            thisTestWasFound = true;
+                        }
+                    }                    
+                }
+            }
             this.m_PageNavigator.Navigate(this);
         }
 
@@ -198,7 +234,7 @@ namespace YellowstonePathology.UI.Cutting
         }
 
         private void AddMaterialTrackingLog(YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder)
-        {
+        {           
             YellowstonePathology.Business.Facility.Model.FacilityCollection facilityCollection = Business.Facility.Model.FacilityCollection.GetAllFacilities();
             YellowstonePathology.Business.Facility.Model.LocationCollection locationCollection = YellowstonePathology.Business.Facility.Model.LocationCollection.GetAllLocations();
 			YellowstonePathology.Business.Facility.Model.Facility thisFacility = facilityCollection.GetByFacilityId(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId);
@@ -207,7 +243,7 @@ namespace YellowstonePathology.UI.Cutting
             string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 			YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog = new Business.MaterialTracking.Model.MaterialTrackingLog(objectId, slideOrder.SlideOrderId, null, thisFacility.FacilityId, thisFacility.FacilityName,
                 thisLocation.LocationId, thisLocation.Description, "Slide Scanned", "Slide Scanned At Cutting", "SlideOrder", this.m_AccessionOrder.MasterAccessionNo, slideOrder.Label, slideOrder.ClientAccessioned);
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(materialTrackingLog, Window.GetWindow(this));            
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(materialTrackingLog, Window.GetWindow(this));                    
         }		         
 
         public void NotifyPropertyChanged(String info)
@@ -235,13 +271,15 @@ namespace YellowstonePathology.UI.Cutting
                     {
                         this.PrintSlide(slideOrder);
                         slideOrder.Status = YellowstonePathology.Business.Slide.Model.SlideStatusEnum.Printed.ToString();
-                        
+                        slideOrder.Printed = true;
                     }
                     else if (slideOrder.LabelType == YellowstonePathology.Business.Slide.Model.SlideLabelTypeEnum.PaperLabel.ToString())
                     {
                         slideOrder.Status = YellowstonePathology.Business.Slide.Model.SlideStatusEnum.Printed.ToString();
+                        slideOrder.Printed = true;
+
                         YellowstonePathology.Business.Label.Model.HistologySlidePaperLabel histologySlidePaperLabel = new Business.Label.Model.HistologySlidePaperLabel(slideOrder.SlideOrderId, slideOrder.ReportNo, slideOrder.Label, slideOrder.PatientLastName, slideOrder.TestAbbreviation, slideOrder.Location);
-                        this.m_HistologySlidePaperLabelPrinter.Queue.Enqueue(histologySlidePaperLabel);
+                        this.m_HistologySlidePaperLabelPrinter.Queue.Enqueue(histologySlidePaperLabel);                                                                  
                         this.ShowTestOrderSelectionPage(this, new CustomEventArgs.AliquotOrderReturnEventArgs(this.m_AliquotOrder));
                     }                    
                 }
@@ -250,18 +288,19 @@ namespace YellowstonePathology.UI.Cutting
                     MessageBox.Show("This is a client accessioned slide and cannot be printed.");
                 }
 
+                Business.HL7View.VentanaStainOrder ventanaStainOrder = new Business.HL7View.VentanaStainOrder();
+                ventanaStainOrder.HandleOrder(this.m_AccessionOrder, slideOrder);
                 this.NotifyPropertyChanged(string.Empty);
             }
-        }
+        }        
 
         private void PrintSlide(YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder)
-        {			
+        {			                        
             YellowstonePathology.Business.Label.Model.HistologySlideLabel histologySlideLabel = new Business.Label.Model.HistologySlideLabel(slideOrder.SlideOrderId, slideOrder.ReportNo, slideOrder.Label, slideOrder.PatientLastName, slideOrder.TestAbbreviation, slideOrder.Location, this.m_AccessionOrder);
             YellowstonePathology.Business.Label.Model.ThermoFisherHistologySlidePrinter thermoFisherSlidePrinter = new Business.Label.Model.ThermoFisherHistologySlidePrinter();
             thermoFisherSlidePrinter.Queue.Enqueue(histologySlideLabel);
             thermoFisherSlidePrinter.Print();
-
-            slideOrder.SetAsPrinted(this.m_SystemIdentity);
+            slideOrder.SetAsPrinted(this.m_SystemIdentity);            
         }
 
         private void ButtonAddSlide_Click(object sender, RoutedEventArgs e)
@@ -270,13 +309,20 @@ namespace YellowstonePathology.UI.Cutting
             this.m_AccessionOrder.TakeATrip(addSlideOrderVisitor);            
         }
 
+        private void ButtonAddHandSlide_Click(object sender, RoutedEventArgs e)
+        {
+            this.m_TestOrder.PerformedByHand = true;            
+            YellowstonePathology.Business.Visitor.AddSlideOrderVisitor addSlideOrderVisitor = new Business.Visitor.AddSlideOrderVisitor(this.m_AliquotOrder, this.m_TestOrder);
+            this.m_AccessionOrder.TakeATrip(addSlideOrderVisitor);
+        }
+
         private void ButtonFinished_Click(object sender, RoutedEventArgs e)
         {
             if (this.Finished != null) this.Finished(this, new YellowstonePathology.UI.CustomEventArgs.MasterAccessionNoReturnEventArgs(this.m_AccessionOrder.MasterAccessionNo));
         }
        
         private void PrintPaperLabel(YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder)
-        {
+        {                        
             System.Windows.Controls.PrintDialog printDialog = new System.Windows.Controls.PrintDialog();
             System.Printing.PrintServer printServer = new System.Printing.LocalPrintServer();
 
@@ -288,11 +334,12 @@ namespace YellowstonePathology.UI.Cutting
             YellowstonePathology.Business.Label.Model.HistologySlidePaperLabelPrinter histologySlidePaperLabelPrinter = new Business.Label.Model.HistologySlidePaperLabelPrinter();
             histologySlidePaperLabelPrinter.Queue.Enqueue(histologySlidePaperLabel);
             histologySlidePaperLabelPrinter.Print();
+            
         }
 
         public override void BeforeNavigatingAway()
         {
-            //this.m_PageTimeoutTimer.Stop();
-        }
+            
+        }        
     }
 }

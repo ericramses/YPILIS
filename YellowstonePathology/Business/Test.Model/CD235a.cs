@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Test.Model
 	{
 		public CD235a()
 		{
-			this.m_TestId = 175;
+			this.m_TestId = "175";
 			this.m_TestName = "CD235a (Glycophorin A)";
             this.m_TestAbbreviation = "CD235a";
 			this.m_Active = true;

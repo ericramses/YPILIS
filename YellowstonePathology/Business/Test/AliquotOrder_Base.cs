@@ -43,7 +43,8 @@ namespace YellowstonePathology.Business.Test
         protected string m_ValidatedBy;
         protected Nullable<DateTime> m_ValidationDate;
         protected string m_Status;
-        protected string m_EmbeddingInstructions;    
+        protected string m_EmbeddingInstructions;
+        protected bool m_Decal;
 
         public AliquotOrder_Base()
         {
@@ -482,6 +483,21 @@ namespace YellowstonePathology.Business.Test
             }
         }
 
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
+        public bool Decal
+        {
+            get { return this.m_Decal; }
+            set
+            {
+                if (this.m_Decal != value)
+                {
+                    this.m_Decal = value;
+                    this.NotifyPropertyChanged("Decal");
+                }
+            }
+        }
+
         public bool IsNotIntraoperative
         {
             get
@@ -567,7 +583,7 @@ namespace YellowstonePathology.Business.Test
         /// <param name="adding"></param>
         public void SetLabelPrefix(YellowstonePathology.Business.Test.Model.TestOrder testOrder, bool adding)
         {
-            if (testOrder.TestId == 45)
+            if (testOrder.TestId == "45")
             {
                 if (adding)
                 {
@@ -578,7 +594,7 @@ namespace YellowstonePathology.Business.Test
                     this.LabelPrefix = string.Empty;
                 }
             }
-            else if (testOrder.TestId == 195)
+            else if (testOrder.TestId == "195")
             {
                 if (adding)
                 {
@@ -671,6 +687,16 @@ namespace YellowstonePathology.Business.Test
             return result;
         }
 
+        public bool IsWash()
+        {
+            bool result = false;
+            if (this.m_AliquotType == "Wash")
+            {
+                result = true;
+            }
+            return result;
+        }
+
         public bool IsSlide()
         {
             bool result = false;
@@ -748,7 +774,7 @@ namespace YellowstonePathology.Business.Test
 
         public void HandleAddFrozen(YellowstonePathology.Business.Test.Model.TestOrder testOrder)
         {
-            if (testOrder.TestId == 45)
+            if (testOrder.TestId == "45")
             {
                 this.AliquotType = "FrozenBlock";
             }

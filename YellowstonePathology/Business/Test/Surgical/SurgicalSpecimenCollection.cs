@@ -3,10 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 using System.Data;
-using System.Data.SqlClient;
-using System.Data.Linq;
 using System.Linq;
-using System.Xml.Serialization;
 using System.Xml.Linq;
 
 namespace YellowstonePathology.Business.Test.Surgical
@@ -153,7 +150,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 		public SurgicalSpecimen GetNextItem(string reportNo)
 		{
 			string surgicalSpecimenId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-			SurgicalSpecimen result = new SurgicalSpecimen(reportNo, surgicalSpecimenId, surgicalSpecimenId);
+			SurgicalSpecimen result = new SurgicalSpecimen(reportNo, surgicalSpecimenId);
 			return result;
 		}
 

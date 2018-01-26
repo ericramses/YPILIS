@@ -38,6 +38,7 @@ namespace YellowstonePathology.UI.Login
 
 			DataContext = this;
 
+            YellowstonePathology.Business.User.SystemIdentity.Instance.EnableManualSecurityBadgeScan();
             Business.User.SystemIdentity.Instance.SetToLoggedInUser();
 			this.m_BarcodeScanPort = YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort.Instance;
 			this.m_BarcodeScanPort.SecurityBadgeScanReceived += new Business.BarcodeScanning.BarcodeScanPort.SecurityBadgeScanReceivedHandler(BarcodeScanPort_SecurityBadgeScanReceived);            
@@ -59,8 +60,8 @@ namespace YellowstonePathology.UI.Login
 		private void BarcodeScanPort_SecurityBadgeScanReceived(Business.BarcodeScanning.Barcode barcode)
 		{
 			this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate()
-			{				
-                int scannedUserId = Convert.ToInt32(barcode.ID);                
+			{				                
+                Business.User.SystemIdentity.Instance.BarcodeScanPort_SecurityBadgeScanReceived(barcode);
 				this.m_BarcodeScanPort.SecurityBadgeScanReceived -= BarcodeScanPort_SecurityBadgeScanReceived;
 				this.AuthentificationSuccessful(this, new EventArgs());				
 			}

@@ -1,19 +1,15 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Data;
-using System.Data.SqlClient;
-using System.Windows;
 
 namespace YellowstonePathology.Business.Flow
 {
-	[YellowstonePathology.Business.CustomAttributes.SqlTableAttribute("tblFlowMarkerPanel", "MarkerPanelId", SqlDbType.Int, 4, false)]
+	[YellowstonePathology.Business.CustomAttributes.SqlTableAttribute("tblFlowMarkerPanel", "MarkerPanelId", SqlDbType.VarChar, 50, false)]
 	public partial class FlowMarkerPanelItem : BaseItem
 	{
 		string m_Intensity = string.Empty;
 		string m_Interpretation = string.Empty;
 		string m_MarkerName = string.Empty;
-		int m_MarkerPanelId;
+		string m_MarkerPanelId;
 		int m_PanelId;
 		string m_PanelName = string.Empty;
 		string m_Reference = string.Empty;
@@ -63,8 +59,8 @@ namespace YellowstonePathology.Business.Flow
 			}
 		}
 
-		[YellowstonePathology.Business.CustomAttributes.SqlFieldAttribute("MarkerPanelId", 4, SqlDbType.Int, false)]
-		public int MarkerPanelId
+		[YellowstonePathology.Business.CustomAttributes.SqlFieldAttribute("MarkerPanelId", 50, SqlDbType.VarChar, false)]
+		public string MarkerPanelId
 		{
 			get { return this.m_MarkerPanelId; }
 			set

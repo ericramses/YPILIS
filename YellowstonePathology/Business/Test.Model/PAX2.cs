@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Test.Model
 	{
 		public PAX2()
 		{
-			this.m_TestId = 174;
+			this.m_TestId = "174";
 			this.m_TestName = "PAX-2";
             this.m_TestAbbreviation = "PAX-2";
 			this.m_Active = true;

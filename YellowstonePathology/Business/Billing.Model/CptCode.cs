@@ -7,13 +7,13 @@ using YellowstonePathology.Business.Persistence;
 namespace YellowstonePathology.Business.Billing.Model
 {
     public class CptCode
-    {
+    {                
         protected string m_Code;        
         protected string m_Description;
         protected FeeScheduleEnum m_FeeSchedule;
         protected bool m_HasTechnicalComponent;
         protected bool m_HasProfessionalComponent;
-        protected string m_Modifier;
+        protected CptCodeModifier m_Modifier;
         protected bool m_IsBillable;
         protected string m_GCode;
         protected bool m_HasMedicareQuantityLimit;
@@ -22,9 +22,28 @@ namespace YellowstonePathology.Business.Billing.Model
         protected string m_SVHCDMCode;
         protected string m_SVHCDMDescription;
 
+        protected List<CptCodeModifier> m_Modifiers;
+
+
         public CptCode()
+        {            
+            this.m_HasMedicareQuantityLimit = false;
+        }
+
+        public string DisplayCode
         {
-            this.m_HasMedicareQuantityLimit = false;            
+            get
+            {
+                string result = this.m_Code;
+                if(this.m_Modifier != null)
+                {
+                    if(string.IsNullOrEmpty(this.m_Modifier.Modifier) == false)
+                    {
+                        result += " - " + this.m_Modifier.Modifier;
+                    }
+                }
+                return result;
+            }
         }
 
         [PersistentProperty()]
@@ -42,7 +61,7 @@ namespace YellowstonePathology.Business.Billing.Model
         }
 
         [PersistentProperty()]
-        public string Modifier
+        public CptCodeModifier Modifier
         {
             get { return this.m_Modifier; }
             set { this.m_Modifier = value; }
@@ -118,16 +137,20 @@ namespace YellowstonePathology.Business.Billing.Model
             set { this.m_SVHCDMDescription = value; }
         }
 
+        [PersistentProperty()]
+        public List<CptCodeModifier> Modifiers
+        {
+            get { return this.m_Modifiers; }
+            set { this.m_Modifiers = value; }
+        }
+
         public bool HasBillableProfessionalComponent()
         {
             bool result = true;
-            if (this.Modifier == "26") result = true;
-            if (string.IsNullOrEmpty(this.Modifier) == true)
+            if (this.Modifier != null && this.Modifier.Modifier == "26") result = true;
+            else if (this.m_HasProfessionalComponent == true)
             {
-                if (this.m_HasProfessionalComponent == true)
-                {
-                    result = true;
-                }
+                result = true;
             }
             return result;
         }
@@ -135,13 +158,10 @@ namespace YellowstonePathology.Business.Billing.Model
         public bool HasBillableTechnicalComponent()
         {
             bool result = false;
-            if (this.Modifier == "TC") result = true;
-            if (string.IsNullOrEmpty(this.Modifier) == true)
+            if (this.Modifier != null && this.Modifier.Modifier == "TC") result = true;
+            else if (this.m_HasTechnicalComponent == true)
             {
-                if (this.m_HasTechnicalComponent == true)
-                {
-                    result = true;
-                }
+                result = true;
             }
             return result;
         }
@@ -186,9 +206,19 @@ namespace YellowstonePathology.Business.Billing.Model
             return result;
         }
 
-        public static CptCode Clone(CptCode cptCodeIn)
+        public virtual CptCode Clone(CptCode cptCodeIn)
         {
             return (CptCode)cptCodeIn.MemberwiseClone();
+        }
+
+        public virtual void SetModifier(string modifier)
+        {
+            if (string.IsNullOrEmpty(modifier) == false)
+            {
+                CptCodeModifier cptCodeModifier = new CptCodeModifier();
+                cptCodeModifier.Modifier = modifier;
+                this.Modifier = cptCodeModifier;
+            }
         }
     }
 }

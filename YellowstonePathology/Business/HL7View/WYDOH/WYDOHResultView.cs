@@ -41,8 +41,10 @@ namespace YellowstonePathology.Business.HL7View.WYDOH
                 this.m_AccessionOrder.PSex, this.m_AccessionOrder.SvhAccount, this.m_AccessionOrder.PSSN, this.m_AccessionOrder.PAddress1, this.m_AccessionOrder.PAddress2,
                 this.m_AccessionOrder.PCity, this.m_AccessionOrder.PState, this.m_AccessionOrder.PZipCode);
             pid.ToXml(this.m_Document);
-            
-            WYDOHORCView orc = new WYDOHORCView(this.m_AccessionOrder.ExternalOrderId, this.m_OrderingPhysician, this.m_PanelSetOrder.ReportNo, OrderStatusEnum.Complete, this.m_AccessionOrder.SystemInitiatingOrder);
+
+
+            Business.Client.Model.Client clnt = Business.Gateway.PhysicianClientGateway.GetClientByClientId(this.m_AccessionOrder.ClientId);
+            WYDOHORCView orc = new WYDOHORCView(this.m_AccessionOrder.ExternalOrderId, clnt, this.m_OrderingPhysician, this.m_PanelSetOrder.ReportNo, OrderStatusEnum.Complete, this.m_AccessionOrder.SystemInitiatingOrder);
             orc.ToXml(this.m_Document);
 
             YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_PanelSetOrder.ReportNo);

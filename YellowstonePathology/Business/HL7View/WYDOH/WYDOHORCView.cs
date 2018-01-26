@@ -14,10 +14,12 @@ namespace YellowstonePathology.Business.HL7View.WYDOH
         private OrderStatus m_OrderStatus;
         private string m_ExternalOrderId;
         private string m_SystemInitiatingOrder;
+        private Business.Client.Model.Client m_Client;
 
-		public WYDOHORCView(string externalOrderId, YellowstonePathology.Business.Domain.Physician orderingPhysician, string reportNo, OrderStatus orderStatus, string systemInitiatingOrder)
-        {
+		public WYDOHORCView(string externalOrderId, Business.Client.Model.Client client, YellowstonePathology.Business.Domain.Physician orderingPhysician, string reportNo, OrderStatus orderStatus, string systemInitiatingOrder)
+        {            
             this.m_ExternalOrderId = externalOrderId;
+            this.m_Client = client;
             this.m_OrderingPhysician = orderingPhysician;
             this.m_ReportNo = reportNo;
             this.m_OrderStatus = orderStatus;
@@ -61,10 +63,14 @@ namespace YellowstonePathology.Business.HL7View.WYDOH
             YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("ORC.12.9","NPI" , orc12Element);            
             YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElementIfNotEmpty(orcElement, orc12Element);
 
-			XElement orc21Element = new XElement("ORC.21");
-            YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("ORC.21.1", "2900 12th Avenue North, Suite 295W", orc21Element);
-            YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("ORC.21.3", "Billings", orc21Element);
-			YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElementIfNotEmpty(orcElement, orc21Element);
+		    XElement orc21Element = new XElement("ORC.21");
+            //YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("ORC.21.1", "2900 12th Avenue North, Suite 295W", orc21Element);
+            //YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("ORC.21.3", "Billings", orc21Element);
+
+            YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("ORC.21.1", this.m_Client.Address, orc21Element);
+            YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("ORC.21.2", this.m_Client.City, orc21Element);
+            YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElement("ORC.21.3", this.m_Client.State, orc21Element);
+            YellowstonePathology.Business.Helper.XmlDocumentHelper.AddElementIfNotEmpty(orcElement, orc21Element);
 		}
 	}
 }

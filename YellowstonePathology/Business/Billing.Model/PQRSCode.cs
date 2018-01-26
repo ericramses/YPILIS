@@ -9,11 +9,10 @@ namespace YellowstonePathology.Business.Billing.Model
     public class PQRSCode : CptCode
     {
         protected string m_ReportingDefinition;
-		protected string m_Header;
+        protected string m_FormattedReportingDefinition;
 
         public PQRSCode()
         {
-
         }
 
         [PersistentProperty()]
@@ -23,28 +22,52 @@ namespace YellowstonePathology.Business.Billing.Model
             set { this.m_ReportingDefinition = value; }
         }
 
-        [PersistentProperty()]
-        public string Header
-		{
-			get { return this.m_Header; }
-            set { this.m_Header = value; }
-        }
-
         public string FormattedReportingDefinition
-		{
-			get
-			{
-				StringBuilder result = new StringBuilder(this.m_Code);
-				if (this.m_Modifier != null) result.Append("-" + this.m_Modifier);
-				result.Append(":  ");
-				result.Append(this.m_ReportingDefinition);
-				return result.ToString();
-			}
-		}
+        {
+            get
+            {
+                //return this.m_FormattedReportingDefinition;
+                StringBuilder result = new StringBuilder(this.m_Code);
+                if (this.m_Modifier != null) result.Append("-" + this.m_Modifier.Modifier);
+                result.Append(":  ");
+                result.Append(this.m_ReportingDefinition);
+                return result.ToString();
+            }
+            set { this.m_FormattedReportingDefinition = value; }
+        }
 
         public override string GetModifier(BillingComponentEnum billingComponent)
         {
-            return this.m_Modifier;
+            string result = null;
+            if (this.m_Modifier != null) result = this.m_Modifier.Modifier;
+            return result;
+        }
+
+        public override CptCode Clone(CptCode cptCodeIn)
+        {
+            PQRSCode codeIn = (PQRSCode)cptCodeIn;
+            return (CptCode)codeIn.MemberwiseClone();
+        }
+
+        public override void SetModifier(string modifier)
+        {
+            if (string.IsNullOrEmpty(modifier) == false)
+            {
+                foreach (CptCodeModifier codeModifier in this.Modifiers)
+                {
+                    if (codeModifier.Modifier == modifier)
+                    {
+                        this.ReportingDefinition = codeModifier.Description;
+                        this.Modifier = codeModifier;
+                        break;
+                    }
+                }
+                if (this.Modifier == null)
+                {
+                    throw new Exception("trying to get PQRS Code " + this.Code + " with modifier " + modifier + " not available for the code.");
+                }
+
+            }
         }
     }
 }

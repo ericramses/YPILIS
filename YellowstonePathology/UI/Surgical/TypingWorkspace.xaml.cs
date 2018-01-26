@@ -669,7 +669,7 @@ namespace YellowstonePathology.UI.Surgical
 
         private void ButtonCAPLink_Click(object sender, RoutedEventArgs e)
         {
-            System.Diagnostics.Process.Start(@"http://www.cap.org/web/home/resources/cancer-reporting-tools/cancer-protocol-templates?_adf.ctrl-state=dqakeocns_55&_afrLoop=977071090428152#!%40%40%3F_afrLoop%3D977071090428152%26_adf.ctrl-state%3Djmv67olsb_30");
+            System.Diagnostics.Process.Start(@"http://www.cap.org/web/oracle/webcenter/portalapp/pagehierarchy/cancer_protocol_templates.jspx?_afrLoop=36229252016954#!%40%40%3F_afrLoop%3D36229252016954%26_adf.ctrl-state%3Dgfs5he3rf_4");
         }
 
         private void MenuItemShowRequisition_Click(object sender, RoutedEventArgs e)
@@ -851,14 +851,120 @@ namespace YellowstonePathology.UI.Surgical
                 BindingExpression bindingExpression = this.TextBoxClinical.GetBindingExpression(TextBox.TextProperty);
                 bindingExpression.UpdateSource();
 
-                YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = clientOrderCollection[0];
-				this.m_TypingUI.AccessionOrder.ClinicalHistory += clientOrder.SpecialInstructions;
+                YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = clientOrderCollection[0];                               
+                this.m_TypingUI.AccessionOrder.ClinicalHistory += this.CleanWPHClinicalHistory(clientOrder.SpecialInstructions);
             }
             else
             {
                 MessageBox.Show("Client order not found.");
             }
         }
+
+        private string CleanWPHClinicalHistory(string specialInstructions)
+        {
+            string clinicalHistory = specialInstructions;
+            if(string.IsNullOrEmpty(clinicalHistory) == false)
+            {
+                if (specialInstructions.Contains("PATH.CLINICALHX") == true)
+                {
+                    clinicalHistory = this.GetWHPSpecialInstructions(specialInstructions);
+                    clinicalHistory = this.FixCase(clinicalHistory.Trim());
+                }
+            }            
+            return clinicalHistory;
+        }
+        
+        private string FixCase(string specialInstructions)
+        {
+            string result = specialInstructions.ToLower();
+            return char.ToUpper(result[0]) + result.Substring(1);            
+        }
+
+        public string GetWHPSpecialInstructions(string specialInstructions)
+        {            
+            StringBuilder result = new StringBuilder();
+            string[] rowSplit = specialInstructions.Split('\n');
+            foreach (string str in rowSplit)
+            {
+                string clnclhstry = "PATH.CLINICALHX: Clinical History:";
+                if (str.Contains(clnclhstry) == true)
+                {
+                    string newStr = str.Substring(clnclhstry.Length);
+                    result.AppendLine(newStr);                    
+                }
+
+                string apgar1 = "PATH.P.APGAR1: ";
+                if (str.Contains(apgar1) == true)
+                {
+                    string newStr = str.Substring(apgar1.Length);
+                    result.AppendLine(newStr);
+                }
+
+                string apgar2 = "PATH.P.APGAR2: ";
+                if (str.Contains(apgar2) == true)
+                {
+                    string newStr = str.Substring(apgar2.Length);
+                    result.AppendLine(newStr);
+                }
+
+                string gstge = "PATH.P.GESTAGE: ";
+                if (str.Contains(gstge) == true)
+                {
+                    string newStr = str.Substring(gstge.Length);
+                    result.AppendLine(newStr);
+                }
+
+                string grvd = "PATH.P.GRAVIDA: ";
+                if (str.Contains(grvd) == true)
+                {
+                    string newStr = str.Substring(grvd.Length);
+                    result.AppendLine(newStr);
+                }
+
+                string nfwght = "PATH.P.INFWGHT: ";
+                if (str.Contains(nfwght) == true)
+                {
+                    string newStr = str.Substring(nfwght.Length);
+                    result.AppendLine(newStr);
+                }
+
+                string thr = "PATH.P.OTHER: ";
+                if (str.Contains(thr) == true)
+                {
+                    string newStr = str.Substring(thr.Length);
+                    result.AppendLine(newStr);
+                }
+
+                string thr2 = "PATH.P.OTHER2: ";
+                if (str.Contains(thr2) == true)
+                {
+                    string newStr = str.Substring(thr2.Length);
+                    result.AppendLine(newStr);
+                }
+
+                string qstn = "PATH.P.QUESTION: ";
+                if (str.Contains(qstn) == true)
+                {
+                    string newStr = str.Substring(qstn.Length);
+                    result.AppendLine(newStr);
+                }
+
+                string tob = "PATH.P.TOB: ";
+                if (str.Contains(tob) == true)
+                {
+                    string newStr = str.Substring(tob.Length);
+                    result.AppendLine(newStr);
+                }
+
+                string topd = "PATH.P.TOPD: ";
+                if (str.Contains(topd) == true)
+                {
+                    string newStr = str.Substring(topd.Length);
+                    result.AppendLine(newStr);
+                }
+            }
+            return result.ToString();
+        }        
 
         private void ListViewSurgicalCaseList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {            
@@ -961,5 +1067,115 @@ namespace YellowstonePathology.UI.Surgical
                 }                
             }            
         }
+
+        private void HyperLinkSetCPTCodes_Click(object sender, RoutedEventArgs e)
+        {
+            this.SetCPTCodesFromSpecimen();
+            this.SetCPTCodesCellBlock();
+            this.SetCPTCodesFrozen();
+            this.m_TypingUI.RefreshBillingSpecimenViewCollection();
+        }
+
+        private void SetCPTCodesFromSpecimen()
+        {
+            Business.Specimen.Model.SpecimenCollection specimenCollection = Business.Specimen.Model.SpecimenCollection.GetAll();
+            foreach (Business.Specimen.Model.SpecimenOrder specimenOrder in this.m_TypingUI.AccessionOrder.SpecimenOrderCollection)
+            {
+                if (string.IsNullOrEmpty(specimenOrder.SpecimenId) != true)
+                {
+                    Business.Specimen.Model.Specimen specimen = specimenCollection.GetSpecimen(specimenOrder.SpecimenId);
+                    if (specimen.CPTCode != null)
+                    {
+                        Business.Test.PanelSetOrder panelSetOrder = this.m_TypingUI.AccessionOrder.PanelSetOrderCollection.GetSurgical();
+                        if (panelSetOrder.PanelSetOrderCPTCodeCollection.Exists(specimen.CPTCode.Code, specimenOrder.SpecimenOrderId) == false)
+                        {
+                            string comment = "Specimen " + specimenOrder.SpecimenNumber + ": " + specimen.SpecimenName;
+                            string modifier = specimen.CPTCode.Modifier == null ? null : specimen.CPTCode.Modifier.Modifier;
+                            AddCPTCode(specimenOrder, specimen.CPTCode.Code, modifier, specimen.CPTCode.CodeType.ToString(), panelSetOrder, specimen.CPTCodeQuantity, comment);
+                        }
+                    }
+                }
+            }
+        }
+
+        private void SetCPTCodesCellBlock()
+        {
+            Business.Specimen.Model.SpecimenCollection specimenCollection = Business.Specimen.Model.SpecimenCollection.GetAll();            
+            Business.Test.PanelSetOrder panelSetOrder = this.m_TypingUI.AccessionOrder.PanelSetOrderCollection.GetSurgical();
+            foreach (Business.Specimen.Model.SpecimenOrder specimenOrder in this.m_TypingUI.AccessionOrder.SpecimenOrderCollection)
+            {
+                if(specimenOrder.AliquotOrderCollection.HasCellBlock() == true)
+                {
+                    if (panelSetOrder.PanelSetOrderCPTCodeCollection.Exists("88305", specimenOrder.SpecimenOrderId) == false)
+                    {
+                        Business.Specimen.Model.Specimen specimen = specimenCollection.GetSpecimen(specimenOrder.SpecimenId);                        
+                        string comment = "Specimen " + specimenOrder.SpecimenNumber + ": Cell Block";
+                        AddCPTCode(specimenOrder, "88305", null, "Global", panelSetOrder, specimenOrder.AliquotOrderCollection.CellBlockCount(), comment);
+                    }                    
+                }                
+            }
+        }
+
+        private void SetCPTCodesDecal()
+        {
+            Business.Specimen.Model.SpecimenCollection specimenCollection = Business.Specimen.Model.SpecimenCollection.GetAll();
+            Business.Test.PanelSetOrder panelSetOrder = this.m_TypingUI.AccessionOrder.PanelSetOrderCollection.GetSurgical();
+            foreach (Business.Specimen.Model.SpecimenOrder specimenOrder in this.m_TypingUI.AccessionOrder.SpecimenOrderCollection)
+            {
+                if (specimenOrder.AliquotOrderCollection.HasDecal() == true)
+                {
+                    if (panelSetOrder.PanelSetOrderCPTCodeCollection.Exists("88311", specimenOrder.SpecimenOrderId) == false)
+                    {
+                        Business.Specimen.Model.Specimen specimen = specimenCollection.GetSpecimen(specimenOrder.SpecimenId);
+                        string comment = "Specimen " + specimenOrder.SpecimenNumber + ": Decal";
+                        AddCPTCode(specimenOrder, "88311", null, "Global", panelSetOrder, specimenOrder.AliquotOrderCollection.DecalCount(), comment);
+                    }
+                }
+            }
+        }
+
+        private void SetCPTCodesFrozen()
+        {
+            Business.Specimen.Model.SpecimenCollection specimenCollection = Business.Specimen.Model.SpecimenCollection.GetAll();
+            Business.Test.PanelSetOrder panelSetOrder = this.m_TypingUI.AccessionOrder.PanelSetOrderCollection.GetSurgical();
+            foreach (Business.Specimen.Model.SpecimenOrder specimenOrder in this.m_TypingUI.AccessionOrder.SpecimenOrderCollection)
+            {
+                int frozenBlockCount = specimenOrder.AliquotOrderCollection.FrozenBlockCount();
+                if(frozenBlockCount >= 1)
+                {
+                    if (panelSetOrder.PanelSetOrderCPTCodeCollection.Exists("88331", specimenOrder.SpecimenOrderId) == false)
+                    {
+                        Business.Specimen.Model.Specimen specimen = specimenCollection.GetSpecimen(specimenOrder.SpecimenId);
+                        string comment = "Specimen " + specimenOrder.SpecimenNumber + ": Frozen Block";
+                        AddCPTCode(specimenOrder, "88331", null, "Global", panelSetOrder, 1, comment);
+                    }                    
+                }
+
+                if(frozenBlockCount > 1)
+                {
+                    if (panelSetOrder.PanelSetOrderCPTCodeCollection.Exists("88332", specimenOrder.SpecimenOrderId) == false)
+                    {
+                        Business.Specimen.Model.Specimen specimen = specimenCollection.GetSpecimen(specimenOrder.SpecimenId);
+                        string comment = "Specimen " + specimenOrder.SpecimenNumber + ": Frozen Block";
+                        AddCPTCode(specimenOrder, "88332", null, "Global", panelSetOrder, frozenBlockCount - 1, comment);
+                    }
+                }                
+            }
+        }
+
+        private void AddCPTCode(Business.Specimen.Model.SpecimenOrder specimenOrder, string cptCode, string cptCodeModifier, string cptCodeType, Business.Test.PanelSetOrder panelSetOrder, int quantity, string comment)
+        {
+            YellowstonePathology.Business.Test.PanelSetOrderCPTCode panelSetOrderCPTCode = panelSetOrder.PanelSetOrderCPTCodeCollection.GetNextItem(panelSetOrder.ReportNo);
+            panelSetOrderCPTCode.Quantity = quantity;
+            panelSetOrderCPTCode.CPTCode = cptCode;
+            panelSetOrderCPTCode.Modifier = cptCodeModifier;
+            panelSetOrderCPTCode.CodeableDescription = comment;
+            panelSetOrderCPTCode.CodeableType = "Surgical Diagnosis";
+            panelSetOrderCPTCode.EntryType = YellowstonePathology.Business.Billing.Model.PanelSetOrderCPTCodeEntryType.ManualEntry;
+            panelSetOrderCPTCode.SpecimenOrderId = specimenOrder.SpecimenOrderId;
+            panelSetOrderCPTCode.CodeType = cptCodeType;
+            panelSetOrderCPTCode.ClientId = this.m_TypingUI.AccessionOrder.ClientId;
+            panelSetOrder.PanelSetOrderCPTCodeCollection.Add(panelSetOrderCPTCode);
+        }        
     }    
 }

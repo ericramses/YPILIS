@@ -10,9 +10,10 @@ namespace YellowstonePathology.UI.Common
 		private YellowstonePathology.Business.Rules.Surgical.WordSearchList m_WordSearchList;
 		private const string CheckPatientHistoryMessage = "Check patient history.";
 		private const string AlopeciaMessage = "Check for alopecia.";
-        private const string CervixMessage = "Please check to see if PAP slides need to be pulled.";        
+        private const string CervixMessage = "Please check to see if PAP slides need to be pulled.";
+        private const string OvaryMessage = "A specimen with an Ovary was found please check the patient history.";
 
-		public PatientHistoryReview()
+        public PatientHistoryReview()
 		{
 			this.m_WordSearchList = new YellowstonePathology.Business.Rules.Surgical.WordSearchList();
 
@@ -24,9 +25,12 @@ namespace YellowstonePathology.UI.Common
 
             YellowstonePathology.Business.Rules.Surgical.WordSearchListItem cervixItem = new YellowstonePathology.Business.Rules.Surgical.WordSearchListItem("CERVIX", true, CervixMessage);
             this.m_WordSearchList.Add(cervixItem);
-		}
 
-		public YellowstonePathology.Business.Rules.ExecutionStatus ExecutionStatus
+            YellowstonePathology.Business.Rules.Surgical.WordSearchListItem ovaryItem = new YellowstonePathology.Business.Rules.Surgical.WordSearchListItem("OVARY", true, OvaryMessage);
+            this.m_WordSearchList.Add(ovaryItem);
+        }
+
+        public YellowstonePathology.Business.Rules.ExecutionStatus ExecutionStatus
 		{
 			get { return this.m_WordSearchList.ExecutionStatus; }
 		}

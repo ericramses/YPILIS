@@ -25,7 +25,7 @@ namespace YellowstonePathology.Business.HL7View
         protected string m_AccountNo;
         protected string m_MedicalRecordNo;
         protected string m_MessageType;
-        protected Business.Patient.Model.Address m_Address;
+        protected Business.Patient.Model.Address m_Address;        
 
         public ADTMessage()
         {            
@@ -57,6 +57,11 @@ namespace YellowstonePathology.Business.HL7View
             get { return this.m_IN2Segments; }
         }
 
+        public Business.HL7View.PV1 PV1Segment
+        {
+            get { return this.m_PV1Segment; }
+        }
+
         public void ParseHL7()
         {            
             string[] lines = this.m_Message.Split('\r');
@@ -84,7 +89,7 @@ namespace YellowstonePathology.Business.HL7View
 
                 if (fields[0] == "PV1")
                 {
-                    this.m_PV1Segment.FromHL7(lines[i]);
+                    this.m_PV1Segment.FromHL7(lines[i]);                    
                 }
 
                 if (fields[0] == "PID")

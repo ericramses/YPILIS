@@ -102,7 +102,5 @@ namespace YellowstonePathology.Business.Slide.Model
             }
             return result;
         }        
-
-        
     }
 }

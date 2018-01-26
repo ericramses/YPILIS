@@ -10,15 +10,20 @@ namespace YellowstonePathology.Business.Specimen.Model
         protected string m_SpecimenId;
         protected string m_SpecimenName;
         protected string m_Description;
+
         protected YellowstonePathology.Business.Billing.Model.CptCode m_CPTCode;
+        protected int m_CPTCodeQuantity;
+
         protected string m_ClientFixation;
         protected string m_LabFixation;        
         protected string m_ProcessorRunId;
         protected bool m_RequiresGrossExamination;
+        
 
         public Specimen()
         {
             this.m_RequiresGrossExamination = true;
+            this.m_CPTCodeQuantity = 1;
         }
 
         public string TypeId
@@ -48,6 +53,12 @@ namespace YellowstonePathology.Business.Specimen.Model
         {
             get { return this.m_CPTCode; }
             set { this.m_CPTCode = value; }
+        }
+
+        public int CPTCodeQuantity
+        {
+            get { return this.m_CPTCodeQuantity; }
+            set { this.m_CPTCodeQuantity = value; }
         }
 
         public string ClientFixation

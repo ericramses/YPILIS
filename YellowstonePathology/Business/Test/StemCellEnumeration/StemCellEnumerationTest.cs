@@ -22,7 +22,7 @@ namespace YellowstonePathology.Business.Test.StemCellEnumeration
             this.m_HasProfessionalComponent = false;
             this.m_ProfessionalComponentFacility = null;
 
-            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode1 = new Business.Billing.Model.PanelSetCptCode(new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT86367(), 1);            
+            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode1 = new Business.Billing.Model.PanelSetCptCode(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("86367", null), 1);            
             this.m_PanelSetCptCodeCollection.Add(panelSetCptCode1);                        
 		}
     }

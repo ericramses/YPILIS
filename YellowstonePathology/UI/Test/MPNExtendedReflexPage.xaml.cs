@@ -27,11 +27,7 @@ namespace YellowstonePathology.UI.Test
 		public event FinishEventHandler Finish;
 
 		public delegate void BackEventHandler(object sender, EventArgs e);
-		public event BackEventHandler Back;
-
-		public delegate void OrderTestEventHandler(object sender, CustomEventArgs.TestOrderInfoEventArgs panelSetReturnEventArgs);
-		public event OrderTestEventHandler OrderTest;
-		
+		public event BackEventHandler Back;		
 
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
@@ -84,40 +80,6 @@ namespace YellowstonePathology.UI.Test
 		{
 			get { return this.m_OrderedOnDescription; }
 		}
-		
-        private void HyperLinkOrderMLP_Click(object sender, RoutedEventArgs e)
-        {
-			YellowstonePathology.Business.Test.MPL.MPLTest panelSet = new Business.Test.MPL.MPLTest();
-            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(panelSet.PanelSetId) == false)
-            {
-                YellowstonePathology.Business.Interface.IOrderTarget orderTarget = this.m_AccessionOrder.SpecimenOrderCollection.GetOrderTarget(this.m_MPNExtendedReflexResult.PanelSetOrderMPNExtendedReflex.OrderedOnId);
-                YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new YellowstonePathology.Business.Test.TestOrderInfo(panelSet, orderTarget, false);                
-                this.OrderTest(this, new CustomEventArgs.TestOrderInfoEventArgs(testOrderInfo));
-				this.m_MPNExtendedReflexResult = new Business.Test.MPNExtendedReflex.MPNExtendedReflexResult(this.m_AccessionOrder);
-                this.NotifyPropertyChanged("");
-            }
-            else
-            {
-                MessageBox.Show("MPL has already been ordered.", "Order exists");
-            }
-        }
-
-		private void HyperLinkOrderCalreticulinMutationAnalysis_Click(object sender, RoutedEventArgs e)
-		{
-			YellowstonePathology.Business.Test.CalreticulinMutationAnalysis.CalreticulinMutationAnalysisTest panelSet = new YellowstonePathology.Business.Test.CalreticulinMutationAnalysis.CalreticulinMutationAnalysisTest();
-			if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(panelSet.PanelSetId) == false)
-			{
-				YellowstonePathology.Business.Interface.IOrderTarget orderTarget = this.m_AccessionOrder.SpecimenOrderCollection.GetOrderTarget(this.m_MPNExtendedReflexResult.PanelSetOrderMPNExtendedReflex.OrderedOnId);
-                YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new YellowstonePathology.Business.Test.TestOrderInfo(panelSet, orderTarget, false);                
-                this.OrderTest(this, new CustomEventArgs.TestOrderInfoEventArgs(testOrderInfo));
-				this.m_MPNExtendedReflexResult = new Business.Test.MPNExtendedReflex.MPNExtendedReflexResult(this.m_AccessionOrder);
-                this.NotifyPropertyChanged("");
-			}
-			else
-			{
-				MessageBox.Show("Calreticulin Mutation Analysis has already been ordered.", "Order exists");
-			}
-		}
 
 		private void HyperLinkSetResult_Click(object sender, RoutedEventArgs e)
 		{
@@ -139,9 +101,10 @@ namespace YellowstonePathology.UI.Test
             Business.Audit.Model.AuditResult auditResult = this.m_MPNExtendedReflexResult.IsOkToFinalize();
             if(auditResult.Status == Business.Audit.Model.AuditStatusEnum.OK)
 			{
-				this.m_MPNExtendedReflexResult.PanelSetOrderMPNExtendedReflex.Finish(this.m_AccessionOrder);
-			}
-			else
+                YellowstonePathology.Business.Test.FinalizeTestResult finalizeTestResult = this.m_MPNExtendedReflexResult.PanelSetOrderMPNExtendedReflex.Finish(this.m_AccessionOrder);
+                this.HandleFinalizeTestResult(finalizeTestResult);
+            }
+            else
 			{
                 MessageBox.Show(auditResult.Message);
             }

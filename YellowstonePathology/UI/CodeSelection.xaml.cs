@@ -110,12 +110,12 @@ namespace YellowstonePathology.UI
 					{
 						foreach (YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen in this.m_SurgicalTestOrder.SurgicalSpecimenCollection)
 						{
-							this.AddICDCode(icd9Code, null, surgicalSpecimen);
+							this.AddICDCode(null, surgicalSpecimen);
 						}
 					}
 					else
 					{
-						this.AddICDCode(icd9Code, null, this.m_SurgicalSpecimen);
+						this.AddICDCode(null, this.m_SurgicalSpecimen);
 					}
 				}
 			}
@@ -126,7 +126,7 @@ namespace YellowstonePathology.UI
 			YellowstonePathology.Business.Test.PanelSetOrderCPTCode panelSetOrderCPTCode = this.m_SurgicalTestOrder.PanelSetOrderCPTCodeCollection.GetNextItem(this.m_SurgicalTestOrder.ReportNo);
 			panelSetOrderCPTCode.Quantity = cptItem.Quantity;
 			panelSetOrderCPTCode.CPTCode = cptItem.CptCode.Code;
-			panelSetOrderCPTCode.Modifier = null;
+			panelSetOrderCPTCode.Modifier = cptItem.CptCode.Modifier == null ? null : cptItem.CptCode.Modifier.Modifier;
 			panelSetOrderCPTCode.CodeableDescription = "Specimen " + specimenOrder.SpecimenNumber + ": " + this.m_SurgicalTestOrder.PanelSetName;
 			panelSetOrderCPTCode.CodeableType = "Surgical Diagnosis";
 			panelSetOrderCPTCode.EntryType = YellowstonePathology.Business.Billing.Model.PanelSetOrderCPTCodeEntryType.ManualEntry;
@@ -136,10 +136,10 @@ namespace YellowstonePathology.UI
 			this.m_SurgicalTestOrder.PanelSetOrderCPTCodeCollection.Add(panelSetOrderCPTCode);
 		}
 
-		public void AddICDCode(string icd9Code, string icd10Code, YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen)
+		public void AddICDCode(string icd10Code, YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen)
 		{
 			YellowstonePathology.Business.Billing.Model.ICD9BillingCode icd9BillingCode = this.m_AccessionOrder.ICD9BillingCodeCollection.GetNextItem(this.m_SurgicalTestOrder.ReportNo,
-							this.m_AccessionOrder.MasterAccessionNo, surgicalSpecimen.SpecimenOrderId, icd9Code, icd10Code, 1);
+							this.m_AccessionOrder.MasterAccessionNo, surgicalSpecimen.SpecimenOrderId, icd10Code, 1);
 			icd9BillingCode.SurgicalSpecimenId = surgicalSpecimen.SurgicalSpecimenId;
 			this.m_AccessionOrder.ICD9BillingCodeCollection.Add(icd9BillingCode);
 		}

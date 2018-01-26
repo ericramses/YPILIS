@@ -11,11 +11,14 @@ namespace YellowstonePathology.Business.Test.Model
 		{
             this.m_TestId = "CD30CD20";
 			this.m_TestName = "CD3/CD20";
+            this.m_TestAbbreviation = "CD3/20";
 			this.m_FirstTest = new CD3();
 			this.m_SecondTest = new CD20();
+            this.m_IsDualOrder = true;
+            this.m_NeedsAcknowledgement = true;
 
-			this.m_DepricatedFirstTestId = 229;
-			this.m_DepricatedSecondTestId = 230;
+			this.m_DepricatedFirstTestId = "229";
+			this.m_DepricatedSecondTestId = "230";
 		}
 	}
 }

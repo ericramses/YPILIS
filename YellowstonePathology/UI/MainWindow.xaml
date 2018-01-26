@@ -56,6 +56,9 @@
                 <MenuItem Header="Panther Storage" Click="MenuItemPantherStorage_Click" />
                 <MenuItem Header="Acid Wash Orders" Click="MenuItemAcidWashOrders_Click" />
                 <MenuItem Header="Embedding" Click="MenuItemEmbedding_Click" />
+                <MenuItem Header="Retrospective Reviews" Click="MenuItemRetrospectiveReviews_Click" />
+                <MenuItem Header="Ventana Stain Mapping" Click="MenuItemVentanaStainMapping_Click" />
+                <MenuItem Header="Simulate Vantage Scan" Click="MenuItemSimulateVantageScan_Click" />
             </MenuItem>
 
             <MenuItem Header="_Client" Name="MenuItemClient">
@@ -96,6 +99,7 @@
                 <MenuItem Name="MenuItemMonitorCytologyScreening" Header="Cytology Screening" Click="MenuItemShowCytologyScreeningMonitor_Click"></MenuItem>
                 <MenuItem Name="MenuItemMonitorPendingTests" Header="Pending Tests" Click="MenuItemShowPendingTestMonitor_Click"></MenuItem>
                 <MenuItem Name="MenuItemMonitorMissingInformation" Header="Missing Information" Click="MenuItemShowMissingInformationMonitor_Click"></MenuItem>
+                <MenuItem Name="MenuItemDashboard" Header="Dashboard" Click="MenuItemShowDashboardMonitor_Click"></MenuItem>
             </MenuItem>
                 
             </Menu>

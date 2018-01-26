@@ -43,7 +43,7 @@ namespace YellowstonePathology.Business.HL7View
                         
             string [] subNameOfInsuredFields = split[16].Split('^');
             this.m_NameOfInsured = subNameOfInsuredFields[0];
-            if(subNameOfInsuredFields.Length == 2)
+            if(subNameOfInsuredFields.Length >= 2)
             {
                 this.m_NameOfInsured = this.m_NameOfInsured + ", " + subNameOfInsuredFields[1];
             }

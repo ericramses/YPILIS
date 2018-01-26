@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using System.Text;
 using System.Diagnostics;
 using System.IO;
+using System.IO.Packaging;
 using System.Xml.Serialization;
+using System.Windows.Xps;
 using System.Windows.Xps.Packaging;
 using System.ComponentModel;
 using YellowstonePathology.Business.Persistence;
+using System.Windows.Media.Imaging;
+using System.Windows.Documents;
 
 namespace YellowstonePathology.Business.Document
 {
@@ -259,7 +263,14 @@ namespace YellowstonePathology.Business.Document
             return path;
         }
 
-		public static string GetDraftDocumentFilePathDOCX(YellowstonePathology.Business.OrderIdParser orderIdParser)
+        public static string GetNotificationDocumentFilePath(YellowstonePathology.Business.OrderIdParser orderIdParser)
+        {
+            string path = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser);
+            path = path + orderIdParser.ReportNo + ".notify.xps";
+            return path;
+        }
+
+        public static string GetDraftDocumentFilePathDOCX(YellowstonePathology.Business.OrderIdParser orderIdParser)
         {
 			string path = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser);
 			path = path + orderIdParser.ReportNo + ".DRAFT.DOCX";
@@ -429,6 +440,35 @@ namespace YellowstonePathology.Business.Document
 			CaseDocument.ReleaseComObject(oWord);
 		}
 
+        public static void SaveXPSAsTIF(string fileName)
+        {
+            XpsDocument xd = new XpsDocument(fileName, System.IO.FileAccess.Read);
+            FixedDocumentSequence fds = xd.GetFixedDocumentSequence();
+            DocumentPaginator paginator = fds.DocumentPaginator;
+            System.Windows.Media.Visual visual = paginator.GetPage(0).Visual;
+
+            System.Windows.FrameworkElement fe = (System.Windows.FrameworkElement)visual;
+
+            int multiplyFactor = 4;
+            string outputPath = fileName.Replace(".xps", ".tif");
+
+            RenderTargetBitmap bmp = new RenderTargetBitmap(
+                (int)fe.ActualWidth * multiplyFactor,
+                (int)fe.ActualHeight * multiplyFactor,
+                96d * multiplyFactor,
+                96d * multiplyFactor,
+                System.Windows.Media.PixelFormats.Default);
+            bmp.Render(fe);
+
+            TiffBitmapEncoder tff = new TiffBitmapEncoder();
+            tff.Frames.Add(BitmapFrame.Create(bmp));
+
+            using (Stream stream = File.Create(outputPath))
+            {
+                tff.Save(stream);
+            }
+        }
+
 		public static void SaveDocAsXPS(YellowstonePathology.Business.OrderIdParser orderIdParser)
         {
             Microsoft.Office.Interop.Word.Application oWord;
@@ -466,7 +506,79 @@ namespace YellowstonePathology.Business.Document
 			CaseDocument.ReleaseComObject(oWord);                			
         }
 
-		public static int WriteTiffPages(YellowstonePathology.Business.OrderIdParser orderIdParser, long reportDistributionLogId)
+        public static void SaveXMLAsXPS(object xmlFileName)
+        {
+            Microsoft.Office.Interop.Word.Application oWord;
+            Object oMissing = System.Reflection.Missing.Value;
+            Object oTrue = true;
+            Object oFalse = false;
+
+            oWord = new Microsoft.Office.Interop.Word.Application();
+            oWord.Visible = false;
+
+            string currentPrinter = oWord.ActivePrinter;
+            oWord.ActivePrinter = "Microsoft XPS Document Writer";
+
+            Object xpsFileName = xmlFileName.ToString().Replace(".xml", ".tif");
+            Object fileFormat = "wdFormatDocument";
+
+            if (System.IO.File.Exists(xmlFileName.ToString()) == true)
+            {
+
+                Microsoft.Office.Interop.Word.Document doc = oWord.Documents.Open(ref xmlFileName, ref oMissing, ref oMissing,
+                        ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing,
+                        ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing);
+
+                object oOutputFile = xpsFileName;
+                doc.PrintOut(ref oFalse, ref oFalse, ref oMissing, ref oOutputFile, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing,
+                    ref oTrue, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing);
+
+                CaseDocument.ReleaseComObject(doc);
+            }
+
+            oWord.ActivePrinter = currentPrinter;
+            oWord.Quit(ref oFalse, ref oMissing, ref oMissing);
+            CaseDocument.ReleaseComObject(oWord);
+        }
+
+        public static void SaveDocAsXPS2(object docFileName, object xpsFileName)
+        {
+            Microsoft.Office.Interop.Word.Application oWord;
+            Object oMissing = System.Reflection.Missing.Value;
+            Object oTrue = true;
+            Object oFalse = false;
+
+            oWord = new Microsoft.Office.Interop.Word.Application();
+            oWord.Visible = false;
+
+            string currentPrinter = oWord.ActivePrinter;
+            oWord.ActivePrinter = "Microsoft XPS Document Writer";
+
+            //Object docFileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + orderIdParser.ReportNo + ".doc";
+            //Object xpsFileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + orderIdParser.ReportNo + ".xps";
+
+            Object fileFormat = "wdFormatDocument";
+
+            if (System.IO.File.Exists(docFileName.ToString()) == true)
+            {
+
+                Microsoft.Office.Interop.Word.Document doc = oWord.Documents.Open(ref docFileName, ref oMissing, ref oMissing,
+                        ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing,
+                        ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing);
+
+                object oOutputFile = xpsFileName;
+                doc.PrintOut(ref oFalse, ref oFalse, ref oMissing, ref oOutputFile, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing,
+                    ref oTrue, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing);
+
+                CaseDocument.ReleaseComObject(doc);
+            }
+
+            oWord.ActivePrinter = currentPrinter;
+            oWord.Quit(ref oFalse, ref oMissing, ref oMissing);
+            CaseDocument.ReleaseComObject(oWord);
+        }
+
+        public static int WriteTiffPages(YellowstonePathology.Business.OrderIdParser orderIdParser, long reportDistributionLogId)
         {
             Microsoft.Office.Interop.Word.Application oWord;
             Object oMissing = System.Reflection.Missing.Value;
@@ -509,7 +621,50 @@ namespace YellowstonePathology.Business.Document
             return pages;
         }
 
-		public static string GetCaseDocumentFullPath(YellowstonePathology.Business.OrderIdParser orderIdParser)
+        public static string WriteTiffPages(string wordDoc, OrderIdParser orderIdParser)
+        {
+            Microsoft.Office.Interop.Word.Application oWord;
+            Object oMissing = System.Reflection.Missing.Value;
+            Object oTrue = true;
+            Object oFalse = false;
+
+            oWord = new Microsoft.Office.Interop.Word.Application();
+            oWord.Visible = true;
+
+            string currentPrinter = oWord.ActivePrinter;
+            oWord.ActivePrinter = "Microsoft Office Document Image Writer";
+
+            Object docFileName = wordDoc;
+            Object fileFormat = "wdFormatDocument";
+
+            Microsoft.Office.Interop.Word.Document doc = oWord.Documents.Open(ref docFileName, ref oMissing, ref oMissing,
+                 ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing,
+                 ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing);
+
+            object oOutputFile = null;
+            object oPages;
+            object oRange = Microsoft.Office.Interop.Word.WdPrintOutRange.wdPrintRangeOfPages;
+            
+            int pages = doc.ComputeStatistics(Microsoft.Office.Interop.Word.WdStatistic.wdStatisticPages, ref oTrue);
+            for (int i = 1; i <= pages; i++)
+            {
+                oPages = i.ToString();
+                oOutputFile = GetCaseFileNameAdditionalTestingNotifyTif(orderIdParser);
+                doc.PrintOut(ref oFalse, ref oFalse, ref oRange, ref oOutputFile, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oPages, ref oMissing,
+                    ref oTrue, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing);
+            }
+
+            oWord.ActivePrinter = currentPrinter;
+
+            CaseDocument.ReleaseComObject(oRange);
+            CaseDocument.ReleaseComObject(doc);
+            oWord.Quit(ref oFalse, ref oMissing, ref oMissing);
+            CaseDocument.ReleaseComObject(oWord);
+
+            return oOutputFile.ToString();
+        }
+
+        public static string GetCaseDocumentFullPath(YellowstonePathology.Business.OrderIdParser orderIdParser)
         {
 			string filePath = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser);
             string[] files = Directory.GetFiles(filePath);
@@ -602,7 +757,13 @@ namespace YellowstonePathology.Business.Document
             return fileName;
         }
 
-		public static string GetCaseFileNamePatientTif(YellowstonePathology.Business.OrderIdParser orderIdParser)
+        public static string GetCaseFileNameAdditionalTestingNotifyTif(YellowstonePathology.Business.OrderIdParser orderIdParser)
+        {
+            string fileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + orderIdParser.ReportNo + "notify.tif";
+            return fileName;
+        }
+
+        public static string GetCaseFileNamePatientTif(YellowstonePathology.Business.OrderIdParser orderIdParser)
         {
 			string fileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + orderIdParser.ReportNo + ".Patient.tif";
             return fileName;

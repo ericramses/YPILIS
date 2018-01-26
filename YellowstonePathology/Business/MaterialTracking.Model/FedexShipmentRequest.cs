@@ -70,6 +70,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
             this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:ClientDetail/v19:AccountNumber", namespaces).Value = this.m_FedexAccount.AccountNo;
             this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:ClientDetail/v19:MeterNumber", namespaces).Value = this.m_FedexAccount.MeterNo;
 
+            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:ServiceType", namespaces).Value = this.m_TaskOrderDetail.ServiceType;
             this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:ShipTimestamp", namespaces).Value = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss"); //2016-08-25T16:30:12
 
             this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:Recipient/v19:Contact/v19:PersonName", namespaces).Value = string.Empty;
@@ -88,7 +89,13 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
             this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:Recipient/v19:Address/v19:CountryCode", namespaces).Value = "US";
 
             string masterAccessionNo = this.m_TaskOrderDetail.TaskOrderDetailId.Split('.')[0];            
-            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:RequestedPackageLineItems/v19:CustomerReferences/v19:Value", namespaces).Value = YellowstonePathology.Business.User.SystemIdentity.Instance.User.UserName + ": " + masterAccessionNo;
+            string userName = YellowstonePathology.Business.User.SystemIdentity.Instance.User.UserName;
+            if(userName.Length > 6)
+            {
+                userName = userName.Substring(0, 6);
+            }
+
+            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:RequestedPackageLineItems/v19:CustomerReferences/v19:Value", namespaces).Value = userName + ": " + masterAccessionNo;
 
             this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:ShippingChargesPayment/v19:PaymentType", namespaces).Value = this.m_PaymentType;
             if (this.m_PaymentType == "THIRD_PARTY" || this.m_PaymentType == "RECIPIENT")
@@ -129,7 +136,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
                 throw new Exception("Payment Type not supported.");
             }   
             
-            if(DateTime.Today.DayOfWeek == DayOfWeek.Friday)
+            if(DateTime.Today.DayOfWeek == DayOfWeek.Friday && this.m_PaymentType.Contains("OVERNIGHT") == true)
             {
                 XNamespace v19 ="http://fedex.com/ws/ship/v19";                                
                 this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:ShippingChargesPayment", namespaces)

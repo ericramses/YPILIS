@@ -114,6 +114,9 @@ namespace YellowstonePathology.Business.HL7View.CMMC
                 case 228:
                     view = new YellowstonePathology.Business.Test.API2MALT1ByPCR.API2MALT1ByPCRCMMCNTEView(accessionOrder, reportNo);
                     break;
+                case 274:
+                    view = new YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisCMMCNTEView(accessionOrder, reportNo);
+                    break;
             }
             return view;
         }        

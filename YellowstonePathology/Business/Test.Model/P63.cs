@@ -9,10 +9,10 @@ namespace YellowstonePathology.Business.Test.Model
 	{
 		public P63()
 		{
-			this.m_TestId = 135;
+			this.m_TestId = "135";
 			this.m_TestName = "P63";
             this.m_TestAbbreviation = "P63";
-			this.m_Active = true;
+			this.m_Active = false;
 			this.m_NeedsAcknowledgement = true;
 		}
 	}

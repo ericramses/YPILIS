@@ -54,10 +54,17 @@ namespace YellowstonePathology.UI.Login
             {
                 int clientId = Convert.ToInt32(barcode.ID);
 				this.m_Client = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientByClientId(clientId);
-                this.m_Client.ClientLocationCollection.SetCurrentLocationToMedicalRecordsOrFirst();
+                if (this.m_Client.ClientLocationCollection.Count > 0)
+                {
+                    this.m_Client.ClientLocationCollection.SetCurrentLocationToMedicalRecordsOrFirst();
 
-                UI.Navigation.PageNavigationReturnEventArgs args = new UI.Navigation.PageNavigationReturnEventArgs(UI.Navigation.PageNavigationDirectionEnum.Next, this.m_Client);
-                this.Return(this, args);	
+                    UI.Navigation.PageNavigationReturnEventArgs args = new UI.Navigation.PageNavigationReturnEventArgs(UI.Navigation.PageNavigationDirectionEnum.Next, this.m_Client);
+                    this.Return(this, args);
+                }
+                else
+                {
+                    MessageBox.Show("This client does not have a location entered.  Please tell Sid.", "No Locations", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                }
             }
             ));
         }

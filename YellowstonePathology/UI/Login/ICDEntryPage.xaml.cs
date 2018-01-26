@@ -33,12 +33,14 @@ namespace YellowstonePathology.UI.Login
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private string m_PageHeaderText;
 		private string m_ReportNo;
-		
+        private Business.Billing.Model.ICDCodeCollection m_ICDCodeList;
 
         public ICDEntryPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo)
 		{			
 			this.m_AccessionOrder = accessionOrder;
 			this.m_ReportNo = reportNo;
+
+            this.m_ICDCodeList = Business.Billing.Model.ICDCodeCollection.GetBillingCodeList();
 
 			this.m_PageHeaderText = "ICD Entry for: " + this.m_AccessionOrder.PatientDisplayName;
 			
@@ -64,6 +66,11 @@ namespace YellowstonePathology.UI.Login
 		{
 			get { return this.m_AccessionOrder; }
 		}		
+
+        public Business.Billing.Model.ICDCodeCollection ICDCodeList
+        {
+            get { return this.m_ICDCodeList; }
+        }
 
         private void ButtonNext_Click(object sender, RoutedEventArgs e)
         {
@@ -106,19 +113,15 @@ namespace YellowstonePathology.UI.Login
         private void ListBoxCodes_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
 			ListBox listBox = (ListBox)sender;
-			XmlElement element = (XmlElement)listBox.SelectedItem;
-			string icd9Code = element.GetAttribute("ICD9");
-            string icd10Code = element.GetAttribute("ICD10");
-
-			int quantity = Convert.ToInt32(element.GetAttribute("Quantity"));
-            this.AddICD9Code(icd9Code, icd10Code, quantity);
+            Business.Billing.Model.ICDCode icdCode = (Business.Billing.Model.ICDCode)listBox.SelectedItem;
+            this.AddICD9Code(icdCode.Code, 1);
         }		
 
-		private void AddICD9Code(string icd9Code, string icd10Code, int quantity)
+		private void AddICD9Code(string icd10Code, int quantity)
 		{
 			string specimenOrderId = this.m_AccessionOrder.SpecimenOrderCollection[0].SpecimenOrderId;
 			YellowstonePathology.Business.Billing.Model.ICD9BillingCode icd9BillingCode = this.m_AccessionOrder.ICD9BillingCodeCollection.GetNextItem(this.m_ReportNo,
-                this.m_AccessionOrder.MasterAccessionNo, specimenOrderId, icd9Code, icd10Code, quantity);
+                this.m_AccessionOrder.MasterAccessionNo, specimenOrderId, icd10Code, quantity);
 			this.m_AccessionOrder.ICD9BillingCodeCollection.Add(icd9BillingCode);
 		}		
 
@@ -126,7 +129,7 @@ namespace YellowstonePathology.UI.Login
         {
             if (string.IsNullOrEmpty(this.TextBoxICD10Code.Text) == false)
             {
-                this.AddICD9Code(null, this.TextBoxICD10Code.Text, 1);
+                this.AddICD9Code(this.TextBoxICD10Code.Text, 1);
             }            
         }
 
@@ -145,15 +148,14 @@ namespace YellowstonePathology.UI.Login
             {
                 for (int i = 0; i < this.ListBoxCodeCategories.Items.Count; i++)
                 {
-                    System.Xml.XmlElement xmlElement = (System.Xml.XmlElement)this.ListBoxCodeCategories.Items[i];
-                    string code = xmlElement.GetAttribute("ICD10");
-                    if (string.IsNullOrEmpty(code) == false)
+                    Business.Billing.Model.ICDCode icdCode = (Business.Billing.Model.ICDCode)this.ListBoxCodeCategories.Items[i];
+                    if (string.IsNullOrEmpty(icdCode.Code) == false)
                     {
-                        if (this.AccessionOrder.SpecialInstructions.Contains(code))
+                        if (this.AccessionOrder.SpecialInstructions.Contains(icdCode.Code))
                         {
-                            if (this.m_AccessionOrder.ICD9BillingCodeCollection.CodeExists(code) == false)
+                            if (this.m_AccessionOrder.ICD9BillingCodeCollection.CodeExists(icdCode.Code) == false)
                             {
-                                this.AddICD9Code(null, code, 1);
+                                this.AddICD9Code(icdCode.Code, 1);
                             }
                         }
                     }

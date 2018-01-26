@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Test.Model
 	{
 		public PAX8()
 		{
-			this.m_TestId = 253;
+			this.m_TestId = "253";
 			this.m_TestName = "PAX-8";
             this.m_TestAbbreviation = "PAX-8";
 			this.m_Active = true;

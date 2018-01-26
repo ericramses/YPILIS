@@ -3,107 +3,75 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using StackExchange.Redis;
 
 namespace YellowstonePathology.Business.Billing.Model
 {
     public class PQRSCodeCollection : ObservableCollection<PQRSCode>
     {
-        public static PQRSCodeCollection GetAll()
+        public PQRSCodeCollection() { }
+
+        /*public static PQRSCodeCollection GetAll(bool expandModifiers)
         {
             PQRSCodeCollection result = new PQRSCodeCollection();
-            
-            result.Add(new PQRSCodeDefinitions.PQRS3125F());
-            result.Add(new PQRSCodeDefinitions.PQRS3125F1P());
-            result.Add(new PQRSCodeDefinitions.PQRS3125F8P());
-
-            result.Add(new PQRSCodeDefinitions.PQRS3126F());
-            result.Add(new PQRSCodeDefinitions.PQRS3126F1P());
-            result.Add(new PQRSCodeDefinitions.PQRS3126F8P());
-            result.Add(new PQRSCodeDefinitions.PQRSG8797());
-
-            result.Add(new PQRSCodeDefinitions.PQRS3250F());
-            result.Add(new PQRSCodeDefinitions.PQRS3260());
-            result.Add(new PQRSCodeDefinitions.PQRS3260F());
-            result.Add(new PQRSCodeDefinitions.PQRS3260F1P());
-            result.Add(new PQRSCodeDefinitions.PQRS3260F8P());
-            result.Add(new PQRSCodeDefinitions.PQRS3267F());
-            result.Add(new PQRSCodeDefinitions.PQRS3267F1P());
-            result.Add(new PQRSCodeDefinitions.PQRS3267F8P());
-            result.Add(new PQRSCodeDefinitions.PQRSG8721());
-            result.Add(new PQRSCodeDefinitions.PQRSG8722());
-            result.Add(new PQRSCodeDefinitions.PQRSG8723());            
-			result.Add(new PQRSCodeDefinitions.PQRSG8798());
-            result.Add(new PQRSCodeDefinitions.PQRS3394F());
-            result.Add(new PQRSCodeDefinitions.PQRS3394F8P());
-            result.Add(new PQRSCodeDefinitions.PQRS3395F());
-
-            result.Add(new PQRSCodeDefinitions.PQRSG9418());
-            result.Add(new PQRSCodeDefinitions.PQRSG9419());
-            result.Add(new PQRSCodeDefinitions.PQRSG9420());
-            result.Add(new PQRSCodeDefinitions.PQRSG9421());
-            result.Add(new PQRSCodeDefinitions.PQRSG9428());
-
-            return result;
-        }
-
-        public static PQRSCodeCollection GetBreastPQRSCodes()
-        {            
-            PQRSCodeCollection result = new PQRSCodeCollection();
-            result.Add(new PQRSCodeDefinitions.PQRS3260F());
-            result.Add(new PQRSCodeDefinitions.PQRS3260F1P());
-            result.Add(new PQRSCodeDefinitions.PQRS3260F8P());
-            return result;
-        }
-
-		public static PQRSCodeCollection GetBarrettsEsophagusPQRSCodes()
-		{
-			PQRSCodeCollection result = new PQRSCodeCollection();
-			result.Add(new PQRSCodeDefinitions.PQRS3126F());
-			result.Add(new PQRSCodeDefinitions.PQRS3126F1P());
-			result.Add(new PQRSCodeDefinitions.PQRS3126F8P());
-			result.Add(new PQRSCodeDefinitions.PQRSG8797());
-			return result;
-		}
-
-		public static PQRSCodeCollection GetColorectalPQRSCodes()
-		{
-			PQRSCodeCollection result = new PQRSCodeCollection();
-			result.Add(new PQRSCodeDefinitions.PQRSG8721());
-			result.Add(new PQRSCodeDefinitions.PQRSG8722());
-			result.Add(new PQRSCodeDefinitions.PQRSG8723());
-			return result;
-		}
-
-		public static PQRSCodeCollection GetRadicalProstatectomyPQRSCodes()
-		{
-			PQRSCodeCollection result = new PQRSCodeCollection();
-			result.Add(new PQRSCodeDefinitions.PQRS3267F());
-			result.Add(new PQRSCodeDefinitions.PQRS3267F1P());
-			result.Add(new PQRSCodeDefinitions.PQRS3267F8P());
-			result.Add(new PQRSCodeDefinitions.PQRSG8798());
-			return result;
-		}
-		
-		public PQRSCode GetPQRSCode(string pqrsCode)
-        {
-            PQRSCode result = null;
-			string[] splitString = pqrsCode.Split(new char[] { '-' });
-            foreach (PQRSCode item in this)
+            foreach(object o in CptCodeCollection.GetAll(true, true))
             {
-				if (splitString.Length > 1)
-				{
-					if (item.Code == splitString[0] && item.Modifier == splitString[1])
-					{
-						result = item;
-						break;
-					}
-				}
-				else if (item.Code == splitString[0])
+                if(o is PQRSCode)
                 {
-					result = item;
-					break;
-				}
+                   result.Add((PQRSCode)o);
+                }
             }
+            
+            result.Add((PQRSCode)Store.AppDataStore.Instance.CPTCodeCollection.GetClone("3125F", null));
+            result.Add((PQRSCode)Store.AppDataStore.Instance.CPTCodeCollection.GetClone("3125F", "1P"));
+            result.Add((PQRSCode)Store.AppDataStore.Instance.CPTCodeCollection.GetClone("3125F", "8P"));
+
+            result.Add((PQRSCode)Store.AppDataStore.Instance.CPTCodeCollection.GetClone("3126F", null));
+            result.Add((PQRSCode)Store.AppDataStore.Instance.CPTCodeCollection.GetClone("3126F", "1P"));
+            result.Add((PQRSCode)Store.AppDataStore.Instance.CPTCodeCollection.GetClone("3126F", "8P"));
+            result.Add((PQRSCode)Store.AppDataStore.Instance.CPTCodeCollection.GetClone("G8797", null));
+
+            result.Add((PQRSCode)Store.AppDataStore.Instance.CPTCodeCollection.GetClone("3250F", null));
+            result.Add((PQRSCode)Store.AppDataStore.Instance.CPTCodeCollection.GetClone("3260", null));
+            result.Add((PQRSCode)Store.AppDataStore.Instance.CPTCodeCollection.GetClone("3260F", null));
+            result.Add((PQRSCode)Store.AppDataStore.Instance.CPTCodeCollection.GetClone("3260F", "1P"));
+            result.Add((PQRSCode)Store.AppDataStore.Instance.CPTCodeCollection.GetClone("3260F", "8P"));
+            result.Add((PQRSCode)Store.AppDataStore.Instance.CPTCodeCollection.GetClone("3267F", null));
+            result.Add((PQRSCode)Store.AppDataStore.Instance.CPTCodeCollection.GetClone("3267F", "1P"));
+            result.Add((PQRSCode)Store.AppDataStore.Instance.CPTCodeCollection.GetClone("3267F", "8P"));
+            result.Add((PQRSCode)Store.AppDataStore.Instance.CPTCodeCollection.GetClone("G8721", null));
+            result.Add((PQRSCode)Store.AppDataStore.Instance.CPTCodeCollection.GetClone("G8722", null));
+            result.Add((PQRSCode)Store.AppDataStore.Instance.CPTCodeCollection.GetClone("G8723", null));            
+			result.Add((PQRSCode)Store.AppDataStore.Instance.CPTCodeCollection.GetClone("G8798", null));
+            result.Add((PQRSCode)Store.AppDataStore.Instance.CPTCodeCollection.GetClone("3394F", null));
+            result.Add((PQRSCode)Store.AppDataStore.Instance.CPTCodeCollection.GetClone("3394F", "8P"));
+            result.Add((PQRSCode)Store.AppDataStore.Instance.CPTCodeCollection.GetClone("3395F", null));
+
+            result.Add((PQRSCode)Store.AppDataStore.Instance.CPTCodeCollection.GetClone("G9418", null));
+            result.Add((PQRSCode)Store.AppDataStore.Instance.CPTCodeCollection.GetClone("G9419", null));
+            result.Add((PQRSCode)Store.AppDataStore.Instance.CPTCodeCollection.GetClone("G9420", null));
+            result.Add((PQRSCode)Store.AppDataStore.Instance.CPTCodeCollection.GetClone("G9421", null));
+            result.Add((PQRSCode)Store.AppDataStore.Instance.CPTCodeCollection.GetClone("G9428", null));
+
+            return result;
+        }*/
+
+        /*private static void ExpandModifiers(JObject jObject, PQRSCodeCollection pqrsCodeCollection)
+        {
+            foreach (JObject codeModifier in jObject["modifiers"])
+            {
+                string modifierString = codeModifier["modifier"].ToString();
+                PQRSCode code = PQRSCodeFactory.FromJson(jObject, modifierString);
+                pqrsCodeCollection.Add(code);
+            }
+        }*/
+
+        public static PQRSCode Get(string code, string modifier)
+        {
+            PQRSCode result = (PQRSCode)Store.AppDataStore.Instance.CPTCodeCollection.GetClone(code, modifier);
+            result.SetModifier(modifier);
             return result;
         }
     }

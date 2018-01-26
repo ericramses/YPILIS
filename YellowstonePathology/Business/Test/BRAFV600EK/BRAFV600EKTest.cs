@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Test.BRAFV600EK
 			this.m_HasProfessionalComponent = true;			
 			this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterM();
-            this.m_Active = true;
+            this.m_Active = false;
             
 			this.m_SurgicalAmendmentRequired = true;
 
@@ -39,13 +39,13 @@ namespace YellowstonePathology.Business.Test.BRAFV600EK
             string taskDescription = "Collect paraffin block from Histology and send to Neo.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.Task(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, taskDescription));
 
-            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT81210(), 1);
+            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("81210", null), 1);
             this.m_PanelSetCptCodeCollection.Add(panelSetCptCode);
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceBRAFMANAL());
 
-            BRAFV600EKPanel brafV600EKPanel = new BRAFV600EKPanel();
-            this.m_PanelCollection.Add(brafV600EKPanel);
+            //BRAFV600EKPanel brafV600EKPanel = new BRAFV600EKPanel();
+            //this.m_PanelCollection.Add(brafV600EKPanel);
 		}
 	}
 }

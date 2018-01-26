@@ -37,6 +37,7 @@ using MongoDB.Driver.GridFS;
 using Newtonsoft.Json;
 using MySql.Data.MySqlClient;
 using Grpc.Core;
+using StackExchange.Redis;
 
 namespace YellowstonePathology.UI
 {    
@@ -88,12 +89,11 @@ namespace YellowstonePathology.UI
             MessageBox.Show("Done");
         }
 
-        private void ButtonPOCRetension_Click(object sender, RoutedEventArgs e)
+        private void ButtonBlocksSentNotReturned_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Reports.POCRetensionReport report = new Business.Reports.POCRetensionReport(DateTime.Parse("3/26/2011"), DateTime.Parse("5/04/2011"));
-            System.Windows.Controls.PrintDialog printDialog = new System.Windows.Controls.PrintDialog();
-            printDialog.ShowDialog();
-            printDialog.PrintDocument(report.DocumentPaginator, "POC Retention Report for: ");
+            YellowstonePathology.Business.Reports.BlocksSentNotReturnedReport report = new Business.Reports.BlocksSentNotReturnedReport();
+            report.CreateReport(DateTime.Today);
+            report.OpenReport();
         }
 
         private void ButtonCytologyUnsatLetters_Click(object sender, RoutedEventArgs e)
@@ -323,7 +323,7 @@ namespace YellowstonePathology.UI
 
         private void ButtonSerumLabels_Click(object sender, RoutedEventArgs e)
         {
-            Business.Label.Model.ZPLPrinter printer = new Business.Label.Model.ZPLPrinter("10.1.1.21");
+            Business.Label.Model.ZPLPrinterTCP printer = new Business.Label.Model.ZPLPrinterTCP("10.1.1.21");
             int pageCount = 50;
             for (int x = 0; x < pageCount; x++)
             {
@@ -334,7 +334,7 @@ namespace YellowstonePathology.UI
 
         private void ButtonFormalinAddedLabels_Click(object sender, RoutedEventArgs e)
         {
-            Business.Label.Model.ZPLPrinter printer = new Business.Label.Model.ZPLPrinter("10.1.1.21");
+            Business.Label.Model.ZPLPrinterTCP printer = new Business.Label.Model.ZPLPrinterTCP("10.1.1.21");
             int pageCount = 50;
             for (int x = 0; x < pageCount; x++)
             {
@@ -345,7 +345,7 @@ namespace YellowstonePathology.UI
 
         private void ButtonIFLabels_Click(object sender, RoutedEventArgs e)
         {
-            Business.Label.Model.ZPLPrinter printer = new Business.Label.Model.ZPLPrinter("10.1.1.21");
+            Business.Label.Model.ZPLPrinterTCP printer = new Business.Label.Model.ZPLPrinterTCP("10.1.1.21");
             int pageCount = 50;
             for (int x = 0; x < pageCount; x++)
             {
@@ -356,7 +356,7 @@ namespace YellowstonePathology.UI
 
         private void ButtonUrineLabels_Click(object sender, RoutedEventArgs e)
         {
-            Business.Label.Model.ZPLPrinter printer = new Business.Label.Model.ZPLPrinter("10.1.1.21");
+            Business.Label.Model.ZPLPrinterTCP printer = new Business.Label.Model.ZPLPrinterTCP("10.1.1.21");
             int pageCount = 50;
             for (int x = 0; x < pageCount; x++)
             {
@@ -737,10 +737,27 @@ namespace YellowstonePathology.UI
             */            
         }
 
-        private void ButtonInsertTesting_Click(object sender, RoutedEventArgs e)
+        private void ButtonMoveRedisPQRS_Click(object sender, RoutedEventArgs e)
         {
-            
-        }                		
+            /*Store.RedisDB sourceDb = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.PQRS);
+            Store.RedisDB targetDb = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.TempPQRS);
+             
+            string[] jObjs = sourceDb.GetAllJSONKeys();
+            foreach (string jString in jObjs)
+            {
+                string key = YellowstonePathology.Business.Billing.Model.CptCodeFactory.FromJson(jString).Code;
+                //targetDb.DataBase.Execute("json.set", new string[] { key, ".", jString });
+                sourceDb.DataBase.KeyDelete(key);
+            }*/
+
+            /*
+            string[] jObjs = targetDb.GetAllJSONKeys();
+            foreach (string jString in jObjs)
+            {
+                string key = YellowstonePathology.Business.Billing.Model.CptCodeFactory.FromJson(jString).Code;
+                sourceDb.DataBase.Execute("json.set", new string[] { key, ".", jString });
+            }*/
+        }
 
         private void ButtonStartMessageHost_Click(object sender, RoutedEventArgs e)
         {
@@ -772,45 +789,7 @@ namespace YellowstonePathology.UI
             sql.Remove(sql.Length - 2, 2);
             sql.Append(")");
             Console.WriteLine(sql.ToString());
-        }
-
-        private void CreateCPTCodeTypeListForSQL()
-        {
-            YellowstonePathology.Business.Billing.Model.CptCodeCollection cptCodeCollection = YellowstonePathology.Business.Billing.Model.CptCodeCollection.GetAll();
-            StringBuilder technicalOnly = new StringBuilder();
-            StringBuilder professionalOnly = new StringBuilder();
-            StringBuilder global = new StringBuilder();
-            StringBuilder pqrs = new StringBuilder();
-
-            foreach (YellowstonePathology.Business.Billing.Model.CptCode cptCode in cptCodeCollection)
-            {                
-                switch (cptCode.CodeType)
-                {
-                    case Business.Billing.Model.CPTCodeTypeEnum.TechnicalOnly:
-                        technicalOnly.Append("'" + cptCode.Code + "', ");
-                        break;
-                    case Business.Billing.Model.CPTCodeTypeEnum.ProfessionalOnly:
-                        professionalOnly.Append("'" + cptCode.Code + "', ");
-                        break;
-                    case Business.Billing.Model.CPTCodeTypeEnum.Global:
-                        global.Append("'" + cptCode.Code + "', ");
-                        break;
-                    case Business.Billing.Model.CPTCodeTypeEnum.PQRS:
-                        pqrs.Append("'" + cptCode.Code + "', ");
-                        break;
-                }
-            }
-
-            technicalOnly = technicalOnly.Remove(technicalOnly.Length - 2, 2);
-            professionalOnly = professionalOnly.Remove(professionalOnly.Length - 2, 2);
-            global = global.Remove(global.Length - 2, 2);
-            pqrs = pqrs.Remove(pqrs.Length - 2, 2);
-
-            Console.WriteLine("Update tblPanelSetOrderCPTCodeBill Set CodeType = 'TechnicalOnly' where Cptcode in (" + technicalOnly.ToString() + ") and CodeType <> 'TechnicalOnly'");
-            Console.WriteLine("Update tblPanelSetOrderCPTCodeBill Set CodeType = 'ProfessionalOnly' where Cptcode in (" + professionalOnly.ToString() + ") and CodeType <> 'ProfessionalOnly'");
-            Console.WriteLine("Update tblPanelSetOrderCPTCodeBill Set CodeType = 'Global' where Cptcode in (" + global.ToString() + ") and CodeType <> 'Global'");
-            Console.WriteLine("Update tblPanelSetOrderCPTCodeBill Set CodeType = 'PQRS' where Cptcode in (" + pqrs.ToString() + ") and CodeType <> 'PQRS'");
-        }
+        }       
 
         private void CreateCaseTypeListForSQL()
         {
@@ -827,8 +806,7 @@ namespace YellowstonePathology.UI
             this.SendTestFax();
 
             //this.DoMongoMove();
-
-            this.CreateCPTCodeTypeListForSQL();
+            
             //this.CRC();
             //this.WriteAssemblyQualifiedTypeSQL();
             //this.BuildObjectsTesting();
@@ -979,124 +957,63 @@ namespace YellowstonePathology.UI
         {
             //string crc = YellowstonePathology.Business.BarcodeScanning.CRC32V.CRC32("15-1234.1.1");
             //Console.WriteLine("CRC: " + crc);            
+        }
+
+        private void MailBoxTest()
+        {
+            /*
+            Microsoft.Office.Interop.Outlook.Application outlookApp = Business.Monitor.Model.OutlookAddIn.GetApplicationObject();
+            Microsoft.Office.Interop.Outlook._NameSpace outlookNameSpace = (Microsoft.Office.Interop.Outlook._NameSpace)outlookApp.GetNamespace("MAPI");
+
+            string recipientName = "histology@ypii.com";
+            Microsoft.Office.Interop.Outlook.Recipient recipient = outlookNameSpace.CreateRecipient(recipientName);
+
+            Microsoft.Office.Interop.Outlook.MAPIFolder mapiFolder = outlookNameSpace.GetSharedDefaultFolder(recipient, Microsoft.Office.Interop.Outlook.OlDefaultFolders.olFolderInbox);
+            Microsoft.Office.Interop.Outlook._Explorer explorer = mapiFolder.GetExplorer(false);
+
+            Microsoft.Office.Interop.Outlook.Items items = mapiFolder.Items;
+            */
         }        
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            WriteSchema();            
+            
         }
 
-        private void UpdateTypingShortcut()
+        private void GetSlideNumberTest()
         {
-            List<int> list = new List<int>();
-            list.Add(2084);
-            list.Add(2085);
-            list.Add(2086);
-            list.Add(2087);
-            list.Add(2088);
-            list.Add(2089);
-            list.Add(2090);
-            list.Add(2091);
-            list.Add(2092);
-            list.Add(2093);
-            list.Add(2094);
-            list.Add(2095);
-            list.Add(2096);
-            list.Add(2097);
-            list.Add(2098);
-            list.Add(2099);
-            list.Add(2100);
-            list.Add(2101);
-            list.Add(2102);
-            list.Add(2103);
-            list.Add(2104);
-            list.Add(2105);
-            list.Add(2106);
-            list.Add(2107);
-            list.Add(2108);
-            list.Add(2109);
-            list.Add(2110);
-            list.Add(2111);
-            list.Add(2112);
-            list.Add(2113);
-            list.Add(2114);
-            list.Add(2115);
-            list.Add(2116);
-            list.Add(2117);
-            list.Add(2118);
-            list.Add(2119);
-            list.Add(2120);
-            list.Add(2121);
-            list.Add(2122);
-            list.Add(2123);
-            list.Add(2124);
-            list.Add(2125);
-            list.Add(2126);
-            list.Add(2127);
-            list.Add(2128);
-            list.Add(2129);
-            list.Add(2130);
-            list.Add(2131);
-            list.Add(2133);
-            list.Add(2134);
-            list.Add(2135);
-            list.Add(2136);
-            list.Add(2137);
-            list.Add(2138);
-            list.Add(2139);
-            list.Add(2140);
-            list.Add(2142);
-            list.Add(2143);
-            list.Add(2144);
-            list.Add(2145);
-            list.Add(2146);
-            list.Add(2147);
-            list.Add(2148);
-            list.Add(2149);
-            list.Add(2150);
-            list.Add(2151);
-            list.Add(2152);
-            list.Add(2153);
-            list.Add(2154);
-            list.Add(2155);
-            list.Add(2156);
-            list.Add(2157);
-            list.Add(2158);
-            list.Add(2159);
-            list.Add(2160);
-            list.Add(2161);
-            list.Add(2162);
-            list.Add(2163);
-            list.Add(2164);
-            list.Add(2165);
-            list.Add(2166);
-            list.Add(2167);
-            list.Add(2168);
-            list.Add(2169);
-            list.Add(2170);
-            list.Add(2172);
-            list.Add(2173);
-            list.Add(2174);
-            list.Add(2175);
-            list.Add(2176);
-            list.Add(2178);
-            list.Add(2182);
-            list.Add(2183);
-            list.Add(2184);
-            list.Add(2185);
-            list.Add(2186);
-            list.Add(2187);
-            list.Add(2188);
-            list.Add(2189);
-            list.Add(2190);
-            list.Add(2191);
-            list.Add(2192);
-            list.Add(2193);
-            list.Add(2194);
+            string t1 = Business.Specimen.Model.Slide.GetSlideNumber("1A1");
+            string t2 = Business.Specimen.Model.Slide.GetSlideNumber("12A1");
+            string t3 = Business.Specimen.Model.Slide.GetSlideNumber("1.CE");
+            string t4 = Business.Specimen.Model.Slide.GetSlideNumber("12.CE");
+        }
 
-            foreach(int id in list)
+        private void InsertBenchMarkData()
+        {
+            using (StreamReader sr = new StreamReader(@"c:\users\sid.harder\downloads\BenchMarkSpecialStains.txt"))
             {
-                Console.WriteLine("Update tblTypingShortcut set ObjectId = '" + MongoDB.Bson.ObjectId.GenerateNewId().ToString() + "' where ShortcutId = " + id.ToString());
+                string line = null;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    string[] fields = line.Split('\t');
+                    string sql = "Insert tblVentanaBenchMark (StainerType, BarcodeNumber, Stainname, `Procedure`, ProtocolName)" +
+                        " values " +
+                        "('" + fields[0] + "', " + fields[1] + ", '" + fields[2] + "', '" + fields[3] + "', '" + fields[4] + "');";
+                    Console.WriteLine(sql);
+                }
+            }
+
+            using (StreamReader sr = new StreamReader(@"c:\users\sid.harder\downloads\BenchMarkULTRA.txt"))
+            {
+                string line = null;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    string[] fields = line.Split('\t');
+                    string sql = "Insert tblVentanaBenchMark (StainerType, BarcodeNumber, Stainname, `Procedure`, ProtocolName)" +
+                        " values " +
+                        "('" + fields[0] + "', " + fields[1] + ", '" + fields[2] + "', '" + fields[3] + "', '" + fields[4] + "');";
+                    Console.WriteLine(sql);
+                }
             }
         }
 
@@ -1185,17 +1102,102 @@ namespace YellowstonePathology.UI
         {
             //protoc -I d:/protogen --csharp_out d:/protogen/result d:/protogen/ventana.proto --grpc_out d:/protogen/result --plugin=protoc-gen-grpc=grpc_csharp_plugin.exe
 
-            Channel channel = new Channel("127.0.0.1:49165", ChannelCredentials.Insecure);
-            Ventana.StainOrder.StainOrderClient stainOrderClient = new Ventana.StainOrder.StainOrderClient(channel);
-
+            Channel channel = new Channel("127.0.0.1:50051", ChannelCredentials.Insecure);            
+            Ventana.VentanaService.VentanaServiceClient ventanaServiceClient = new Ventana.VentanaService.VentanaServiceClient(channel);
             Ventana.OrderRequest orderRequest = new Ventana.OrderRequest();
 
-            orderRequest.Pid = new Ventana.pid();
-            orderRequest.Pid.FirstName = "George";
-            orderRequest.Pid.LastName = "Washington";
+            orderRequest.Msh = new Ventana.msh();
+            orderRequest.Msh.SendingApplication = "YPILIS";
+            orderRequest.Msh.SendingFacility = "YPI";
+            orderRequest.Msh.ReceivingApplication = "Ventana";
+            orderRequest.Msh.ReceivingFacility = "YPI";
+            orderRequest.Msh.DateTimeOfMessage = DateTime.Now.ToString("yyyyMMddhhmm");
+            orderRequest.Msh.MessageType = "OML^O21";
+            orderRequest.Msh.MessageControlId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 
-            Ventana.OrderReply orderReply = stainOrderClient.getOrder(orderRequest);
-            Console.WriteLine(orderReply.Hl7);
+            orderRequest.Pid = new Ventana.pid();
+            orderRequest.Pid.FirstName = "MICKEY";
+            orderRequest.Pid.LastName = "MOUSE";
+            orderRequest.Pid.MiddleInitial = "E";
+            orderRequest.Pid.Birthdate = "08/10/1966";
+            orderRequest.Pid.Sex = "M";
+            
+            orderRequest.Pv1 = new Ventana.pv1();
+            orderRequest.Pv1.RequestingPhysicianFirstname = "DUCK";
+            orderRequest.Pv1.RequestingPhysicianLastname = "DONALD";
+            orderRequest.Pv1.RequestingPhysicianNpi = "NPI12345";
+
+            orderRequest.Sac = new Ventana.sac();
+            orderRequest.Sac.RegistrationDateTime = "06/20/2017";
+
+            Ventana.stain_order stainOrder1 = new Ventana.stain_order();
+            Ventana.orc orc1 = new Ventana.orc();
+            orc1.OrderControl = "1";
+            orc1.PlacerOrderNumber = "17-1234.S.1";
+            orc1.SiteName = "YPI";
+            orc1.SiteDescription = "Yellowstone Pathology";
+            orc1.FacilityCode = "YPI";
+            orc1.FacilityName = "Yellowstone Pathology";
+            stainOrder1.Orc = orc1;
+
+            Ventana.obr obr1 = new Ventana.obr();
+            obr1.OrderSequenceId = "1";
+            obr1.PlacerOrderNumber = "123123123";
+            obr1.ProtocolNumber = "3";
+            obr1.ProtocolName = "D K/L-Titration";
+            obr1.OrderType = "????";
+            obr1.ObservationDateTime = "6/1/2017 13:56";
+            obr1.SpecimenName = "Biopsy";
+            obr1.SpecimenDescription = "Left ear, biopsy";
+            obr1.SurgicalProcedureName = "Surgical Pathology";
+            obr1.PathologistNpi = "NPI123123";
+            obr1.PathologistLastname = "DUCK";
+            obr1.PathologistFirstname = "DONALD";
+            obr1.SlideId = "17-123.1A1";
+            obr1.SlideSequence = "1";
+            obr1.Blockid = "17-123.1A";
+            obr1.BlockSequence = "A";
+            obr1.SpecimenId = "17-123.1";
+            obr1.SpecimenSequence = "1";
+            stainOrder1.Obr = obr1;            
+            orderRequest.StainOrders.Add(stainOrder1);
+
+            Ventana.stain_order stainOrder2 = new Ventana.stain_order();
+
+            Ventana.orc orc2 = new Ventana.orc();
+            orc2.OrderControl = "2";
+            orc2.PlacerOrderNumber = "17-1234.S.2";
+            orc2.SiteName = "YPI";
+            orc2.SiteDescription = "Yellowstone Pathology";
+            orc2.FacilityCode = "YPI";
+            orc2.FacilityName = "Yellowstone Pathology";
+            stainOrder2.Orc = orc2;
+
+            Ventana.obr obr2 = new Ventana.obr();
+            obr2.OrderSequenceId = "2";
+            obr2.PlacerOrderNumber = "123123123";
+            obr2.ProtocolNumber = "3";
+            obr2.ProtocolName = "D K/L-Titration";
+            obr2.OrderType = "STAIN";
+            obr2.ObservationDateTime = "6/1/2017 13:56";
+            obr2.SpecimenName = "Biopsy";
+            obr2.SpecimenDescription = "Left ear, biopsy";
+            obr2.SurgicalProcedureName = "Surgical Pathology";
+            obr2.PathologistNpi = "NPI123123";
+            obr2.PathologistLastname = "DUCK";
+            obr2.PathologistFirstname = "DONALD";
+            obr2.SlideId = "17-123.2A1";
+            obr2.SlideSequence = "1";
+            obr2.Blockid = "17-123.1A";
+            obr2.BlockSequence = "A";
+            obr2.SpecimenId = "17-123.2";
+            obr2.SpecimenSequence = "2";
+            stainOrder2.Obr = obr2;
+
+            orderRequest.StainOrders.Add(stainOrder2);
+           
+            Ventana.OrderReply orderReply = ventanaServiceClient.buildOrder(orderRequest);
+            Console.WriteLine(orderReply.Message);
 
             /*
             var client = new Greeter.GreeterClient(channel);

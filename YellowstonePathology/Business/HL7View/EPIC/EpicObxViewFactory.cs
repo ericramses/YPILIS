@@ -217,7 +217,10 @@ namespace YellowstonePathology.Business.HL7View.EPIC
 				case 179:
 					view = new YellowstonePathology.Business.Test.NRASMutationAnalysis.NRASMutationAnalysisEPICObxView(accessionOrder, reportNo, obxCount);
 					break;
-				case 181:
+                case 180:
+                    view = new YellowstonePathology.Business.Test.IgHMFABByFish.IgHMFABByFishEPICOBXView(accessionOrder, reportNo, obxCount);
+                    break;
+                case 181:
 					view = new YellowstonePathology.Business.Test.CKIT.CKITEPICObxView(accessionOrder, reportNo, obxCount);
 					break;
 				case 183:
@@ -235,6 +238,9 @@ namespace YellowstonePathology.Business.HL7View.EPIC
 				case 192:
 					view = new YellowstonePathology.Business.Test.ALLAdultByFISH.ALLAdultByFISHEPICObxView(accessionOrder, reportNo, obxCount);
 					break;
+                case 203:
+                    view = new YellowstonePathology.Business.Test.ReviewForAdditionalTesting.ReviewForAdditionalTestingEPICObxView(accessionOrder, reportNo, obxCount);
+                    break;
                 case 204:
                     view = new YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHEPICOBXView(accessionOrder, reportNo, obxCount);
                     break;
@@ -297,6 +303,15 @@ namespace YellowstonePathology.Business.HL7View.EPIC
                     break;
                 case 263:
                     view = new YellowstonePathology.Business.Test.BCellSubsetAnalysis.BCellSubsetAnalysisEPICOBXView(accessionOrder, reportNo, obxCount);
+                    break;
+                case 268:
+                    view = new YellowstonePathology.Business.Test.BoneMarrowSummary.BoneMarrowSummaryEPICOBXView(accessionOrder, reportNo, obxCount);
+                    break;
+                case 269:
+                    view = new YellowstonePathology.Business.Test.HPV1618SolidTumor.HPV1618SolidTumorEPICOBXView(accessionOrder, reportNo, obxCount);
+                    break;
+                case 274:
+                    view = new YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisEPICOBXView(accessionOrder, reportNo, obxCount);
                     break;
             }
             return view;

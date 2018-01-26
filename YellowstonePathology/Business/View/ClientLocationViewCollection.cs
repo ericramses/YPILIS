@@ -67,6 +67,12 @@ namespace YellowstonePathology.Business.View
             YellowstonePathology.Business.View.ClientLocationView bigskyOBGYN = new Business.View.ClientLocationView(1565, 750, "Midwifery and Womens Health - SVH Clinic", "Medical Records");
             result.Add(bigskyOBGYN);
 
+            YellowstonePathology.Business.View.ClientLocationView autopsy = new Business.View.ClientLocationView(1520, 736, "Montana Department of Justice Forensic Science Division", "Medical Records");
+            result.Add(autopsy);
+
+            YellowstonePathology.Business.View.ClientLocationView ypi = new Business.View.ClientLocationView(280, 137, "Yellowstone Pathologists, P.C.", "Medical Records");
+            result.Add(ypi);
+
             return Sort(result);
         }
 

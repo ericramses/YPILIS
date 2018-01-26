@@ -71,7 +71,7 @@
                 <TextBox Grid.Column="2" Grid.Row="1" Grid.RowSpan="4" Margin="2,2,2,2" Text="{Binding Path=MaterialTrackingBatch.TrackingInformation}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="Wrap" AcceptsReturn="True"></TextBox>
 
                 <TextBlock Grid.Column="2" Grid.Row="5" Margin="2,2,2,2">
-				    <Hyperlink Click="HyperlinkViewFedXTrackingPage_Click">FedX Tracking Page</Hyperlink>
+				    <Hyperlink Click="HyperlinkSendEmail_Click">SendEmail</Hyperlink>
                 </TextBlock>
 
 
@@ -90,7 +90,7 @@
                         <GridViewColumn Header="Last Name" DisplayMemberBinding="{Binding Path=PLastName}" Width="150"/>
                         <GridViewColumn Header="First Name" DisplayMemberBinding="{Binding Path=PFirstName}" Width="150"/>
                         <GridViewColumn Header="Type" DisplayMemberBinding="{Binding Path=MaterialType}" Width="150"/>
-                        <GridViewColumn Header="Label" DisplayMemberBinding="{Binding Path=MaterialLabel}" Width="150"/>
+                        <GridViewColumn Header="Label" DisplayMemberBinding="{Binding Path=MaterialLabel}" Width="200"/>
                         <GridViewColumn Header="Date" DisplayMemberBinding="{Binding Path=LogDate}" Width="150"/>
                         <GridViewColumn Header="By" DisplayMemberBinding="{Binding Path=LoggedBy}" Width="150"/>
                     </GridView>

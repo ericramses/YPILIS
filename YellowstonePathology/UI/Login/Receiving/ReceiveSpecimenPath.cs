@@ -114,8 +114,9 @@ namespace YellowstonePathology.UI.Login.Receiving
             itemsReceivedPage.BarcodeWontScan += new ItemsReceivedPage.BarcodeWontScanEventHandler(ItemsReceivedPage_BarcodeWontScan);            
             itemsReceivedPage.ContainerScannedReceived += new ItemsReceivedPage.ContainScanReceivedEventHandler(ItemsReceivedPage_ContainerScannedReceived);
 			itemsReceivedPage.ShowClientOrderDetailsPage += new ItemsReceivedPage.ShowClientOrderDetailsPageEventHandler(ItemsReceivedPage_ShowClientOrderDetailsPage);
+            itemsReceivedPage.AddSlideTrackingSpecimen += ItemsReceivedPage_AddSlideTrackingSpecimen;
             this.m_LoginPageWindow.PageNavigator.Navigate(itemsReceivedPage);
-		}
+		}        
 
         private void ItemsReceivedPage_Back(object sender, EventArgs e)
         {
@@ -175,7 +176,16 @@ namespace YellowstonePathology.UI.Login.Receiving
 			}
 		}
 
-		private void ShowClientOrderDetailsPage(YellowstonePathology.Business.ClientOrder.Model.ClientOrderDetail clientOrderDetail)
+        private void ItemsReceivedPage_AddSlideTrackingSpecimen(object sender, Business.BarcodeScanning.ContainerBarcode containerBarcode)
+        {
+            YellowstonePathology.UI.Login.Receiving.IFoundAContainerResult result = this.m_ClientOrderReceivingHandler.IFoundAContainer(containerBarcode.ID);            
+            result.ClientOrderDetail.Description = "Slide Tracking Specimen";
+            result.ClientOrderDetail.DescriptionToAccession = "Slide Tracking Specimen";
+            result.ClientOrderDetail.CollectionDate = DateTime.Now;
+            this.StartReviewClientOrderPath();
+        }
+
+        private void ShowClientOrderDetailsPage(YellowstonePathology.Business.ClientOrder.Model.ClientOrderDetail clientOrderDetail)
 		{            
             Receiving.ClientOrderDetailsPage clientOrderDetailsPage = new Receiving.ClientOrderDetailsPage(this.m_LoginPageWindow.PageNavigator, clientOrderDetail, this.m_ClientOrderReceivingHandler.ClientOrder.SpecialInstructions);
             clientOrderDetailsPage.Next += new ClientOrderDetailsPage.NextEventHandler(ClientOrderDetailsPage_Next);

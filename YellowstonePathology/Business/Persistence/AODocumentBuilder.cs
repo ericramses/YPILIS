@@ -1,29 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Data;
-using System.Data.SqlClient;
+﻿using System.Data;
+using MySql.Data.MySqlClient;
 
 namespace YellowstonePathology.Business.Persistence
 {
     public class AODocumentBuilder : DocumentBuilder
     {        
-        private SqlCommand m_SQLCommand;
+        private MySqlCommand m_SQLCommand;
 
         public AODocumentBuilder(string masterAccessionNo, bool obtainLock)
         {                        
             YellowstonePathology.Business.User.SystemIdentity systemIdentity = YellowstonePathology.Business.User.SystemIdentity.Instance;
 
-            this.m_SQLCommand = new SqlCommand();            
-            this.m_SQLCommand.CommandText = "prcGetAccessionOrder_2";
+            this.m_SQLCommand = new MySqlCommand();
+            this.m_SQLCommand.CommandText = "prcGetAccessionOrder_3";
             m_SQLCommand.CommandType = CommandType.StoredProcedure;
-            m_SQLCommand.Parameters.Add("@MasterAccessionNo", SqlDbType.VarChar).Value = masterAccessionNo;            
+            m_SQLCommand.Parameters.AddWithValue("MasterAccessionNo", masterAccessionNo);
         }
 
         public override object BuildNew()
         {         
-            YellowstonePathology.Business.Test.AccessionOrder result = new Test.AccessionOrder();            
+            YellowstonePathology.Business.Test.AccessionOrder result = new Test.AccessionOrder();
             YellowstonePathology.Business.Gateway.AccessionOrderBuilderV2 builder = new YellowstonePathology.Business.Gateway.AccessionOrderBuilderV2();
             builder.Build(this.m_SQLCommand, result);
             return result;            

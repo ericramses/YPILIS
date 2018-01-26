@@ -46,6 +46,7 @@
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=PLastName}" Header="Last" Width="120"/>
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=AccountNo}" Header="MRN" Width="120"/>
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=MessageTypeComment}" Header="Type" Width="200"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Path=PV1Segment.ConvertedPatientType}" Header="Patient Type" Width="120"/>
                             </GridView>
                         </ListView.View>
                     </ListView>

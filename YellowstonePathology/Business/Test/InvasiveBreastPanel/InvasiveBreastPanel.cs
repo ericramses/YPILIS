@@ -36,7 +36,7 @@ namespace YellowstonePathology.Business.Test.InvasiveBreastPanel
                 string surgicalReportNo = accessionOrder.PanelSetOrderCollection.GetSurgical().ReportNo;
                 YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(surgicalReportNo);
 
-                if (panelSetOrder.AssignedToId != 5132)
+                if (panelSetOrder.AssignedToId != 5132 && panelSetOrder.AssignedToId != 5133)
                 {
                     YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = (YellowstonePathology.Business.Test.AliquotOrder)orderTarget;
 
@@ -50,7 +50,7 @@ namespace YellowstonePathology.Business.Test.InvasiveBreastPanel
                 }
                 else
                 {
-                    //If Dr Shannon order separte ERPR
+                    //If Dr Shannon/Smirnow order separte ERPR
                     YellowstonePathology.Business.Test.ErPrSemiQuantitative.ErPrSemiQuantitativeTest erPrSemiQuantitativeTest = new YellowstonePathology.Business.Test.ErPrSemiQuantitative.ErPrSemiQuantitativeTest();
                     YellowstonePathology.Business.Test.TestOrderInfo testOrderInfoERPR = new TestOrderInfo(erPrSemiQuantitativeTest, orderTarget, true);
                     YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitorERPR = new Visitor.OrderTestOrderVisitor(testOrderInfoERPR);
@@ -100,13 +100,13 @@ namespace YellowstonePathology.Business.Test.InvasiveBreastPanel
                 YellowstonePathology.Business.Test.Model.EstrogenReceptorSemiquant er = new YellowstonePathology.Business.Test.Model.EstrogenReceptorSemiquant();
                 YellowstonePathology.Business.Test.Model.ProgesteroneReceptorSemiquant pr = new YellowstonePathology.Business.Test.Model.ProgesteroneReceptorSemiquant();
 				YellowstonePathology.Business.Test.Model.TestOrderCollection testOrders = panelSetOrderSurgical.GetTestOrders();
-				if(testOrders.Exists(er.TestId) == true)
+				if(testOrders.ExistsByTestId(er.TestId) == true)
 				{
 					YellowstonePathology.Business.Test.Model.TestOrder testOrder = testOrders.GetTestOrder(er.TestId);
 					YellowstonePathology.Business.SpecialStain.StainResultItem stainResultItem = panelSetOrderSurgical.GetStainResult(testOrder.TestOrderId);
 					result.AppendLine(stainResultItem.Result);
 				}
-				if(testOrders.Exists(pr.TestId) == true)
+				if(testOrders.ExistsByTestId(pr.TestId) == true)
 				{
 					YellowstonePathology.Business.Test.Model.TestOrder testOrder = testOrders.GetTestOrder(pr.TestId);
 					YellowstonePathology.Business.SpecialStain.StainResultItem stainResultItem = panelSetOrderSurgical.GetStainResult(testOrder.TestOrderId);

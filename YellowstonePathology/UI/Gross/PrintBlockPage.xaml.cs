@@ -79,11 +79,11 @@ namespace YellowstonePathology.UI.Gross
 
 			this.m_BarcodeScanPort = YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort.Instance;
 
-			this.m_TestCollection = YellowstonePathology.Business.Test.Model.TestCollection.GetAllTests();
-			this.m_HandETest = this.m_TestCollection.GetTest(49);
-			this.m_IronTest = this.m_TestCollection.GetTest(115);
-			this.m_HPyloriTest = this.m_TestCollection.GetTest(107);
-			this.m_FrozenTest = this.m_TestCollection.GetTest(45);
+			this.m_TestCollection = YellowstonePathology.Business.Test.Model.TestCollection.GetAllTests(false);
+			this.m_HandETest = this.m_TestCollection.GetTest("49");
+			this.m_IronTest = this.m_TestCollection.GetTest("115");
+			this.m_HPyloriTest = this.m_TestCollection.GetTest("107");
+			this.m_FrozenTest = this.m_TestCollection.GetTest("45");
 			this.Aliquots = 1;
 
 			this.m_ListBoxBlocksMouseDownTimer = new System.Windows.Threading.DispatcherTimer();
@@ -196,7 +196,7 @@ namespace YellowstonePathology.UI.Gross
 					string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 					YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog = new Business.MaterialTracking.Model.MaterialTrackingLog(objectId, barcode.ID, null, thisFacility.FacilityId, thisFacility.FacilityName,
                         thisLocation.LocationId, thisLocation.Description, "Block Scanned", "Block Scanned At Gross", "Aliquot", this.m_AccessionOrder.MasterAccessionNo, aliquotOrder.Label, aliquotOrder.ClientAccessioned);
-                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(materialTrackingLog, Window.GetWindow(this));					
+                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(materialTrackingLog, Window.GetWindow(this));					                    
 
                     aliquotOrder.GrossVerify(this.m_SystemIdentity.User);
 					this.GrossBlockManagementView = new Business.View.GrossBlockManagementView(this.m_AccessionOrder, this.m_CaseNotesDocument, this.m_SpecimenOrder);
@@ -417,17 +417,22 @@ namespace YellowstonePathology.UI.Gross
 
 			foreach (YellowstonePathology.Business.Test.AliquotOrder aliquotOrder in this.m_SpecimenOrder.AliquotOrderCollection)
 			{
-				XElement aliquotElement = new XElement("AliquotOrder");
+                string decal = null;
+                if (aliquotOrder.Decal == true) decal = "Decal";
+
+                XElement aliquotElement = new XElement("AliquotOrder");
 				XElement aliquotIdElement = new XElement("AliquotOrderId", aliquotOrder.AliquotOrderId);
 				XElement aliquotLabelElement = new XElement("Label", aliquotOrder.Display);
-				XElement aliquotTypeElement = new XElement("Type", aliquotOrder.AliquotType);
+                XElement aliquotDecalElement = new XElement("Decal", decal);
+                XElement aliquotTypeElement = new XElement("Type", aliquotOrder.AliquotType);
                 XElement embeddingInstructionsElement = new XElement("EmbeddingInstructions", aliquotOrder.EmbeddingInstructions);
-                XElement aliquotIsSelectedElement = new XElement("IsSelected", false);
+                XElement aliquotIsSelectedElement = new XElement("IsSelected", false);                
 
-				aliquotElement.Add(aliquotLabelElement);
+                aliquotElement.Add(aliquotLabelElement);
 				aliquotElement.Add(aliquotIdElement);
 				aliquotElement.Add(aliquotTypeElement);
-				aliquotElement.Add(aliquotIsSelectedElement);
+                aliquotElement.Add(aliquotDecalElement);
+                aliquotElement.Add(aliquotIsSelectedElement);
                 aliquotElement.Add(embeddingInstructionsElement);
                 specimenElement.Add(aliquotElement);
 				
@@ -437,7 +442,7 @@ namespace YellowstonePathology.UI.Gross
 					{
 						foreach (YellowstonePathology.Business.Test.Model.TestOrder testOrder in panelOrder.TestOrderCollection)
 						{
-							if (aliquotOrder.TestOrderCollection.Exists(testOrder.TestOrderId) == true)
+							if (aliquotOrder.TestOrderCollection.ExistsByTestOrderId(testOrder.TestOrderId) == true)
 							{
 								XElement testElement = new XElement("TestOrder");
 								XElement testOrderIdElement = new XElement("TestOrderId", testOrder.TestOrderId.ToString());
@@ -546,6 +551,6 @@ namespace YellowstonePathology.UI.Gross
             }
             this.GrossBlockManagementView = new Business.View.GrossBlockManagementView(this.m_AccessionOrder, this.m_CaseNotesDocument, this.m_SpecimenOrder);
             this.SetupSpecimenView();
-        }
+        }        
     }
 }

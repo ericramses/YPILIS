@@ -118,6 +118,9 @@ namespace YellowstonePathology.Business.Specimen.Model
             result.Add(new SpecimenDefinition.Urine());
             result.Add(new SpecimenDefinition.Consult());
             result.Add(new SpecimenDefinition.InitialReading());
+            result.Add(new SpecimenDefinition.BoneBiopsy());
+            result.Add(new SpecimenDefinition.ExplantedDevices());
+            result.Add(new SpecimenDefinition.FNA());
             return Sort(result);
         }
 
@@ -133,32 +136,34 @@ namespace YellowstonePathology.Business.Specimen.Model
 
         public void WriteToRedis()
         {
-            IDatabase db = Business.RedisConnection.Instance.GetDatabase();
-            db.KeyDelete("specimens");
-
+            Store.RedisServerDeprecated.Instance.GetDB(0).KeyDelete("specimens");
+            //RedisLocksConnection.Instance.DefaultDb.KeyDelete("specimens");
             foreach (Specimen specimen in this)
             {
-                db.KeyDelete("specimen:" + specimen.SpecimenId);
-
+                Store.RedisServerDeprecated.Instance.GetDB(0).KeyDelete("specimen:" + specimen.SpecimenId);
+                //RedisLocksConnection.Instance.DefaultDb.KeyDelete("specimen:" + specimen.SpecimenId);
                 string result = JsonConvert.SerializeObject(specimen, Newtonsoft.Json.Formatting.Indented, new JsonSerializerSettings
                 {
                     TypeNameHandling = TypeNameHandling.All
                 });
 
-                db.ListRightPush("specimens", "specimen:" + specimen.SpecimenId);
-                db.StringSet("specimen:" + specimen.SpecimenId, result);
-            }
+                Store.RedisServerDeprecated.Instance.GetDB(0).ListRightPush("specimens", "specimen:" + specimen.SpecimenId);
+                Store.RedisServerDeprecated.Instance.GetDB(0).StringSet("specimen:" + specimen.SpecimenId, result);
+                //RedisLocksConnection.Instance.DefaultDb.ListRightPush("specimens", "specimen:" + specimen.SpecimenId);
+                //RedisLocksConnection.Instance.DefaultDb.StringSet("specimen:" + specimen.SpecimenId, result);
+            }            
         }
 
         public static SpecimenCollection BuildFromRedis()
         {
             SpecimenCollection result = new SpecimenCollection();
-            IDatabase db = Business.RedisConnection.Instance.GetDatabase();
-            RedisValue[] items = db.ListRange("specimens", 0, -1);
+            RedisValue[] items = Store.RedisServerDeprecated.Instance.GetDB(0).ListRange("specimens", 0, -1);
+            //RedisValue[] items = RedisLocksConnection.Instance.DefaultDb.ListRange("specimens", 0, -1);
 
             for (int i = 0; i < items.Length; i++)
             {
-                RedisValue json = db.StringGet(items[i].ToString());
+                RedisValue json = Store.RedisServerDeprecated.Instance.GetDB(0).StringGet(items[i].ToString());
+                //RedisValue json = RedisLocksConnection.Instance.DefaultDb.StringGet(items[i].ToString());
                 Business.Specimen.Model.Specimen specimen = JsonConvert.DeserializeObject<Business.Specimen.Model.Specimen>(json, new JsonSerializerSettings
                 {
                     TypeNameHandling = TypeNameHandling.All,
@@ -166,8 +171,7 @@ namespace YellowstonePathology.Business.Specimen.Model
                 });
 
                 result.Add(specimen);
-            }
-
+            }            
             return result;
         }
     }

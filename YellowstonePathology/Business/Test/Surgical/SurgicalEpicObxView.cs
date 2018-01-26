@@ -21,6 +21,8 @@ namespace YellowstonePathology.Business.Test.Surgical
 			this.AddHeader(document, panelSetOrderSurgical, "Surgical Pathology Report");
 			this.AddNextObxElement("", document, "F");
 
+            this.InformRevisedDiagnosis(document, panelSetOrderSurgical.AmendmentCollection);
+
 			foreach (SurgicalSpecimen surgicalSpecimen in panelSetOrderSurgical.SurgicalSpecimenCollection)
 			{
 				this.AddNextObxElement("Specimen: " + surgicalSpecimen.SpecimenOrder.SpecimenNumber.ToString(), document, "F");
@@ -128,5 +130,68 @@ namespace YellowstonePathology.Business.Test.Surgical
 			this.AddNextObxElement(locationPerformed, document, "F");
 			this.AddNextObxElement(string.Empty, document, "F");
 		}
-	}
+
+        public override void AddAmendments(XElement document)
+        {
+            SurgicalTestOrder panelSetOrder = (SurgicalTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
+            foreach (YellowstonePathology.Business.Amendment.Model.Amendment amendment in panelSetOrder.AmendmentCollection)
+            {
+                if (amendment.Final == true)
+                {
+                    this.AddNextObxElement(amendment.AmendmentType + ": " + amendment.AmendmentDate.Value.ToString("MM/dd/yyyy"), document, "C");
+                    this.HandleLongString(amendment.Text, document, "C");
+                    if (amendment.RequirePathologistSignature == true)
+                    {
+                        this.AddNextObxElement("Signature: " + amendment.PathologistSignature, document, "C");
+                    }
+                    this.AddNextObxElement("", document, "C");
+
+                    if (amendment.RevisedDiagnosis == true || amendment.ShowPreviousDiagnosis == true)
+                    {
+                        string amendmentId = amendment.AmendmentId;
+                        foreach (YellowstonePathology.Business.Test.Surgical.SurgicalAudit surgicalAudit in panelSetOrder.SurgicalAuditCollection)
+                        {
+                            if (surgicalAudit.AmendmentId == amendmentId)
+                            {
+                                string finalDateP = YellowstonePathology.Business.BaseData.GetShortDateString(panelSetOrder.FinalDate);
+                                finalDateP += " " + YellowstonePathology.Business.BaseData.GetMillitaryTimeString(panelSetOrder.FinalTime);
+
+                                string previousDiagnosisHeader = "Previous diagnosis on " + finalDateP;
+                                this.AddNextObxElement(previousDiagnosisHeader, document, "C");
+
+                                foreach (YellowstonePathology.Business.Test.Surgical.SurgicalSpecimenAudit specimenAudit in surgicalAudit.SurgicalSpecimenAuditCollection)
+                                {
+                                    if (specimenAudit.AmendmentId == amendmentId)
+                                    {
+                                        string diagnosisIDP = specimenAudit.DiagnosisId + ".";
+                                        string specimenTypeP = specimenAudit.SpecimenOrder.Description + ":";
+                                        this.AddNextObxElement(diagnosisIDP + specimenTypeP, document, "C");
+
+                                        this.HandleLongString(specimenAudit.Diagnosis, document, "C");
+                                    }
+                                }
+
+                                YellowstonePathology.Business.User.SystemUser pathologistUser = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetSystemUserById(surgicalAudit.PathologistId);
+                                this.AddNextObxElement(pathologistUser.Signature, document, "C");
+                                this.AddNextObxElement("", document, "F");
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void InformRevisedDiagnosis(XElement document, YellowstonePathology.Business.Amendment.Model.AmendmentCollection amendmentCollection)
+        {
+            foreach (YellowstonePathology.Business.Amendment.Model.Amendment amendment in amendmentCollection)
+            {
+                if (amendment.Final == true && (amendment.RevisedDiagnosis == true || amendment.ShowPreviousDiagnosis == true))
+                {
+                    this.AddNextObxElement("Showing Revised Diagnosis", document, "F");
+                    this.AddNextObxElement("", document, "F");
+                    break;
+                }
+            }
+        }
+    }
 }

@@ -19,13 +19,13 @@ namespace YellowstonePathology.Business.Test.RetrospectiveReview
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterQ();
             this.m_Active = true;
             this.m_ReportAsAdditionalTesting = false;
-            
-			this.m_AllowMultiplePerAccession = true;
+            this.m_HasNoOrderTarget = true;
+            this.m_AllowMultiplePerAccession = true;
 
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.RetrospectiveReview.RetrospectiveReviewTestOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Document.NothingToPublishReport).AssemblyQualifiedName;
 
-            this.m_ExpectedDuration = new TimeSpan(3, 0, 0, 0);
+            this.m_ExpectedDuration = new TimeSpan(14, 0, 0, 0);
             this.m_NeverDistribute = true;
             this.m_IsBillable = false;
 

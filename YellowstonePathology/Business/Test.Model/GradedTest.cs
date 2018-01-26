@@ -14,7 +14,7 @@ namespace YellowstonePathology.Business.Test.Model
 			this.m_HasCptCodeLevels = false;            
 		}
 
-		public GradedTest(int testId, string testName)
+		public GradedTest(string testId, string testName)
             : base(testId, testName)
         {
             this.m_IsBillable = true;
@@ -24,7 +24,7 @@ namespace YellowstonePathology.Business.Test.Model
 
         public override YellowstonePathology.Business.Billing.Model.CptCode GetCptCode(bool isTechnicalOnly)
         {
-            return new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88360();
+            return Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88360", null);
         }
 
         public override string GetCodeableType(bool orderedAsDual)

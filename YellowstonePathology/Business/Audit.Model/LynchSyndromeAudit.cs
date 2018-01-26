@@ -26,17 +26,17 @@ namespace YellowstonePathology.Business.Audit.Model
             this.m_ColorectalDescriptionKeyWords = new YellowstonePathology.Business.Surgical.KeyWordCollection { "colon", "cecum", "appendix", "rectum" };
             this.m_ColorectalDiagnosisKeyWords = new YellowstonePathology.Business.Surgical.KeyWordCollection { "carcinoma", "adenocarcinoma" };
             this.m_ColorectalCptCodeCollection = new Billing.Model.CptCodeCollection();
-            this.m_ColorectalCptCodeCollection.Add(new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88309());
+            this.m_ColorectalCptCodeCollection.Add(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88309", null));
 
             this.m_EndometrialDescriptionKeyWords = new YellowstonePathology.Business.Surgical.KeyWordCollection { "endometrium" };
             this.m_EndometrialDiagnosisKeyWords = new YellowstonePathology.Business.Surgical.KeyWordCollection { "endometrioid carcinoma", "endometrioid adenocarcinoma" };
             this.m_EndometrialCptCodeCollection = new Billing.Model.CptCodeCollection();
-            this.m_EndometrialCptCodeCollection.Add(new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88305());
+            this.m_EndometrialCptCodeCollection.Add(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88305", null));
 
             this.m_UterineDescriptionKeyWords = new YellowstonePathology.Business.Surgical.KeyWordCollection { "uterus" };
             this.m_UterineDiagnosisKeyWords = new YellowstonePathology.Business.Surgical.KeyWordCollection { "endometrioid carcinoma", "endometrioid adenocarcinoma" };
             this.m_UterineCptCodeCollection = new Billing.Model.CptCodeCollection();
-            this.m_UterineCptCodeCollection.Add(new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88309());
+            this.m_UterineCptCodeCollection.Add(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88309", null));
         }
 
         public override void Run()

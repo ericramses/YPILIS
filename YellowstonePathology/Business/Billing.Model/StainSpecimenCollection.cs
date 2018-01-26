@@ -19,7 +19,7 @@ namespace YellowstonePathology.Business.Billing.Model
             {
                 if (stainSpecimen.TestOrderCollection != null)
                 {
-                    if (stainSpecimen.TestOrderCollection.Exists(278) == true || stainSpecimen.TestOrderCollection.Exists(145) == true)
+                    if (stainSpecimen.TestOrderCollection.ExistsByTestId("278") == true || stainSpecimen.TestOrderCollection.ExistsByTestId("145") == true)
                     {
                         result = true;
                         break;
@@ -48,8 +48,40 @@ namespace YellowstonePathology.Business.Billing.Model
             int result = 0;
             foreach (StainSpecimen stainSpecimen in this)
             {
-                result = result + stainSpecimen.GetBillableGradeStainCount(true);
+                result = result + stainSpecimen.GetBillableGradeStainCount(false);
             }
+            return result;
+        }
+
+        public int GetBillable88365Count()
+        {
+            int result = 0;
+            foreach (StainSpecimen stainSpecimen in this)
+            {
+                if (stainSpecimen is SurgicalStainSpecimen)
+                {
+                    SurgicalStainSpecimen surgicalStainSpecimen = (SurgicalStainSpecimen)stainSpecimen;                    
+                    result = result + surgicalStainSpecimen.GetBillableISHCount();
+                }
+            }
+
+            if (result > 1) result = result - 1;
+            return result;
+        }
+
+        public int GetBillable88364Count()
+        {
+            int result = 0;
+            foreach (StainSpecimen stainSpecimen in this)
+            {
+                if(stainSpecimen is SurgicalStainSpecimen)
+                {
+                    SurgicalStainSpecimen surgicalStainSpecimen = (SurgicalStainSpecimen)stainSpecimen;
+                    result = result + surgicalStainSpecimen.GetBillableISHCount();
+                }                
+            }
+
+            if (result > 1) result = 1;
             return result;
         }
 
@@ -89,12 +121,22 @@ namespace YellowstonePathology.Business.Billing.Model
             foreach (StainSpecimen stainSpecimen in this)
             {
                 int perSpecimenCount = 0;
-                perSpecimenCount = stainSpecimen.GetBillableSinglePlexIHCTestOrderCount();
-                perSpecimenCount = perSpecimenCount + stainSpecimen.GetBillableDualStainCount(true);
+                perSpecimenCount = stainSpecimen.GetBillableSinglePlexIHCTestOrderCount();                
                 if (perSpecimenCount > 0)
                 {
                     result += 1;
                 }
+            }
+            return result;
+        }
+
+        public int GetBillable88344Count()
+        {
+            int result = 0;
+            foreach (StainSpecimen stainSpecimen in this)
+            {                
+                int dualStainCount = stainSpecimen.GetBillableDualStainCount(true);
+                result += dualStainCount;            
             }
             return result;
         }
@@ -105,8 +147,7 @@ namespace YellowstonePathology.Business.Billing.Model
             foreach (StainSpecimen stainSpecimen in this)
             {
                 int perSpecimenCount = 0;
-                perSpecimenCount = stainSpecimen.GetBillableSinglePlexIHCTestOrderCount();
-                perSpecimenCount = perSpecimenCount + stainSpecimen.GetBillableDualStainCount(true);
+                perSpecimenCount = stainSpecimen.GetBillableSinglePlexIHCTestOrderCount();                
                 if (perSpecimenCount > 1)
                 {
                     result += perSpecimenCount - 1;
@@ -177,7 +218,7 @@ namespace YellowstonePathology.Business.Billing.Model
             StainSpecimenCollection result = new StainSpecimenCollection();
             YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 			foreach (YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder in accessionOrder.SpecimenOrderCollection)
-            {
+            {                
                 YellowstonePathology.Business.Test.Model.TestOrderCollection testOrderCollection = panelSetOrder.GetTestOrderCollection(specimenOrder.AliquotOrderCollection);
 
                 if (panelSetOrder.PanelSetId == 13)

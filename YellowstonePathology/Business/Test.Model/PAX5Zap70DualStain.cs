@@ -14,8 +14,8 @@ namespace YellowstonePathology.Business.Test.Model
 			this.m_FirstTest = new PAX5();
 			this.m_SecondTest = new Zap70();
 
-			this.m_DepricatedFirstTestId = 235;
-			this.m_DepricatedSecondTestId = 236;
+			this.m_DepricatedFirstTestId = "235";
+			this.m_DepricatedSecondTestId = "236";
 		}
 	}
 }

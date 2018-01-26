@@ -20,6 +20,10 @@ namespace YellowstonePathology.UI.TemplateSelector
                 {
                     return element.FindResource("FedexShipmentTaskOrderDetailDataTemplate") as DataTemplate;
                 }
+                else if(taskOrderDetail.TaskId == "TSKFAX")
+                {
+                    return element.FindResource("FaxTaskOrderDetailDataTemplate") as DataTemplate;
+                }
                 else
                 {
                     return element.FindResource("GenericTaskOrderDetailDataTemplate") as DataTemplate;

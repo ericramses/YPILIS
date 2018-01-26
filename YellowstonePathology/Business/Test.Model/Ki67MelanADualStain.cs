@@ -11,10 +11,12 @@ namespace YellowstonePathology.Business.Test.Model
         {
             this.m_TestId = "KI67MA";
 			this.m_TestName = "Ki-67, Semi-quantitative/Melan A";
+            this.m_TestAbbreviation = "Ki67Mel";
             this.m_FirstTest = new Ki67SemiQuantitative();
-            this.m_SecondTest = new MelanA();            
-
-			this.m_DepricatedFirstTestId = 225;
+            this.m_SecondTest = new MelanA();
+            this.m_IsDualOrder = true;
+            this.m_NeedsAcknowledgement = true;
+			this.m_DepricatedFirstTestId = "225";
         }     
     } 
 }

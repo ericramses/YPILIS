@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
 using System.Data;
-using System.Data.SqlClient;
-using System.Xml.Serialization;
-using System.Data.Linq;
 using System.Linq;
 using System.Xml.Linq;
 
@@ -184,7 +180,7 @@ namespace YellowstonePathology.Business.SpecialStain
 		public StainResultItemCollection GetGradedStains(YellowstonePathology.Business.Test.Model.TestOrderCollection testOrderCollection)
 		{
 			StainResultItemCollection result = new StainResultItemCollection();
-			YellowstonePathology.Business.Test.Model.TestCollection allTests = YellowstonePathology.Business.Test.Model.TestCollection.GetAllTests();
+			YellowstonePathology.Business.Test.Model.TestCollection allTests = YellowstonePathology.Business.Test.Model.TestCollection.GetAllTests(false);
 			foreach (StainResultItem stainresult in this)
 			{
 				YellowstonePathology.Business.Test.Model.TestOrder testOrder = testOrderCollection.Get(stainresult.TestOrderId);
@@ -203,6 +199,19 @@ namespace YellowstonePathology.Business.SpecialStain
                 {
                     result = stainresult;
                     break;
+                }
+            }
+            return result;
+        }
+
+        public List<StainResultItem> GetStainResults(string testOrderId)
+        {
+            List<StainResultItem> result = new List<StainResultItem>();
+            foreach (StainResultItem stainresult in this)
+            {
+                if (stainresult.TestOrderId == testOrderId)
+                {
+                    result.Add(stainresult);                    
                 }
             }
             return result;

@@ -25,7 +25,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
             this.m_ExpectedDuration = new TimeSpan(30, 0, 0);
 			this.m_AcceptOnFinal = true;
             this.m_AttemptOrderTargetLookup = true;
-            this.m_RequireAssignmentOnOrder = false;
+            this.m_RequiresAssignment = false;
             this.m_CMMCDistributionIsImplemented = true;
 
             this.m_AddAliquotOnOrder = true;

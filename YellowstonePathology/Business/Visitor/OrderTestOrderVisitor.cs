@@ -52,9 +52,14 @@ namespace YellowstonePathology.Business.Visitor
                 foreach(Business.Specimen.Model.SpecimenOrder specimenOrder in this.m_AccessionOrder.SpecimenOrderCollection)
                 {
                     string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-                    Business.Test.RetrospectiveReview.RetrospectiveReviewTestOrderDetail rrtod = new Test.RetrospectiveReview.RetrospectiveReviewTestOrderDetail(objectId);
+                    Business.Test.RetrospectiveReview.RetrospectiveReviewTestOrderDetail rrtod = new Test.RetrospectiveReview.RetrospectiveReviewTestOrderDetail(objectId, rrto.ReportNo);                    
                     rrtod.SpecimenDescription = specimenOrder.Description;
                     rrtod.SpecimenNumber = specimenOrder.SpecimenNumber;
+
+                    Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetSurgical();
+                    Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen = surgicalTestOrder.SurgicalSpecimenCollection.GetBySpecimenOrderId(specimenOrder.SpecimenOrderId);
+                    rrtod.Diagnosis = surgicalSpecimen.Diagnosis;
+
                     rrto.RetrospectiveReviewTestOrderDetailCollection.Add(rrtod);
                 }
             }
@@ -77,11 +82,12 @@ namespace YellowstonePathology.Business.Visitor
                         pantherAssay = new Business.HL7View.Panther.PantherAssayNGCT();
                         break;
                     case 62:
+                    case 269:
                         pantherAssay = new Business.HL7View.Panther.PantherAssayHPV1618();
                         break;
                     case 61:
                         pantherAssay = new Business.HL7View.Panther.PantherAssayTrich();
-                        break;
+                        break;                    
                     default:
                         throw new Exception(this.m_PanelSetOrder.PanelSetName +  " is mot implemented yet.");
                 }
@@ -97,8 +103,18 @@ namespace YellowstonePathology.Business.Visitor
         private void HandleAddAliquotOnOrder()
         {
             if (this.m_PanelSet.AddAliquotOnOrder == true)
-            {                
-                YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = (YellowstonePathology.Business.Specimen.Model.SpecimenOrder)this.m_TestOrderInfo.OrderTarget;
+            {
+                YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = null;
+                if (this.m_TestOrderInfo.OrderTarget is Business.Specimen.Model.SpecimenOrder)
+                {
+                    specimenOrder = (YellowstonePathology.Business.Specimen.Model.SpecimenOrder)this.m_OrderTarget;
+                }
+                else
+                {
+                    YellowstonePathology.Business.Test.AliquotOrder aliquotOrderOrderedOn = (YellowstonePathology.Business.Test.AliquotOrder)this.m_TestOrderInfo.OrderTarget;
+                    specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByAliquotOrderId(aliquotOrderOrderedOn.AliquotOrderId);
+                }                
+                 
                 YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = null;
 
                 if (specimenOrder.AliquotOrderCollection.Exists(this.m_PanelSet.AliquotToAddOnOrder) == false)
@@ -135,8 +151,12 @@ namespace YellowstonePathology.Business.Visitor
             this.m_ReportNo = this.m_AccessionOrder.GetNextReportNo(this.m_PanelSet);
             string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 
-            bool distribute = this.m_TestOrderInfo.Distribute;
-            if (this.m_PanelSet.NeverDistribute == true)
+            bool distribute = true;
+            if(this.m_TestOrderInfo.Distribute.HasValue == true)
+            {
+                distribute = this.m_TestOrderInfo.Distribute.Value;
+            }
+            else if (this.m_PanelSet.NeverDistribute == true)
             {
                 distribute = false;
             }
@@ -189,7 +209,7 @@ namespace YellowstonePathology.Business.Visitor
                 {
                     string testOrderObjectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
                     YellowstonePathology.Business.Test.Model.TestOrder testOrder = panelOrder.TestOrderCollection.Add(panelOrder.PanelOrderId, testOrderObjectId, aliquotOrder.AliquotOrderId, test, test.OrderComment);                    
-
+                    
                     aliquotOrder.TestOrderCollection.Add(testOrder);
                     aliquotOrder.SetLabelPrefix(testOrder, true);
                 }
@@ -231,9 +251,10 @@ namespace YellowstonePathology.Business.Visitor
 
         public override void Visit(YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder)
         {
+            Test.Surgical.SurgicalTest surgicalTest = new Test.Surgical.SurgicalTest();
 			foreach (YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder in this.m_AccessionOrder.SpecimenOrderCollection)
             {
-                if (this.m_PanelSet.OrderTargetTypeCollectionExclusions.Exists(specimenOrder) == false)
+                if (surgicalTest.OrderTargetTypeCollectionExclusions.Exists(specimenOrder) == false)
                 {
                     if (surgicalTestOrder.SurgicalSpecimenCollection.SpecimenOrderExists(specimenOrder.SpecimenOrderId) == false)
                     {

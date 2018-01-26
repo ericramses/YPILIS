@@ -171,10 +171,9 @@ namespace YellowstonePathology.Business.Test
         public bool HasPQRSCodes()
         {
             bool result = false;
-            YellowstonePathology.Business.Billing.Model.CptCodeCollection cptCodeCollection = YellowstonePathology.Business.Billing.Model.CptCodeCollection.GetAll();
             foreach (PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill in this)
             {
-                YellowstonePathology.Business.Billing.Model.CptCode cptCode = cptCodeCollection.GetCptCode(panelSetOrderCPTCodeBill.CPTCode);    
+                YellowstonePathology.Business.Billing.Model.CptCode cptCode = Store.AppDataStore.Instance.CPTCodeCollection.GetClone(panelSetOrderCPTCodeBill.CPTCode, panelSetOrderCPTCodeBill.Modifier);    
                 if (cptCode is YellowstonePathology.Business.Billing.Model.PQRSCode == true)
                 {
                     result = true;

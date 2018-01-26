@@ -43,7 +43,7 @@ namespace YellowstonePathology.Business.Test.BCL2t1418ByFISH
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1000", "null", "varchar")]
+        [PersistentDataColumnProperty(true, "5000", "null", "varchar")]
         public string Interpretation
         {
             get { return this.m_Interpretation; }
@@ -73,7 +73,7 @@ namespace YellowstonePathology.Business.Test.BCL2t1418ByFISH
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
+        [PersistentDataColumnProperty(true, "5000", "null", "varchar")]
         public string ReportDisclaimer
         {
             get { return this.m_ReportDisclaimer; }
@@ -97,8 +97,8 @@ namespace YellowstonePathology.Business.Test.BCL2t1418ByFISH
             result.AppendLine("Interpretation: " + this.m_Interpretation);
             result.AppendLine();
 
-            return result.ToString();
-        }
+            return result.ToString().Trim();
+        }        
     }
 }
 

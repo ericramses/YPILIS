@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Test.Model
 	{
 		public WrightsStain()
 		{
-			this.m_TestId = 205;
+			this.m_TestId = "205";
 			this.m_TestName = "Wrights Stain";
             this.m_TestAbbreviation = "Wrights Stain";
 			this.m_Active = true;

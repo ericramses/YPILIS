@@ -1,10 +1,5 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Text;
-using System.Data;
-using System.Data.SqlClient;
-using System.Xml.Serialization;
 using YellowstonePathology.Business.Persistence;
 
 namespace YellowstonePathology.Business.Test.Surgical
@@ -14,7 +9,6 @@ namespace YellowstonePathology.Business.Test.Surgical
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		private string m_ObjectId;
 		private string m_SurgicalSpecimenAuditId;
 		private string m_SurgicalAuditId;
 		private string m_ReportNo;
@@ -39,10 +33,10 @@ namespace YellowstonePathology.Business.Test.Surgical
         {
 		}
 
-		public SurgicalSpecimenAudit(string objectId, string surgicalSpecimenAuditId, string surgicalAuditId, YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen, string amendmentId)
-		{
-			this.m_ObjectId = objectId;
-			this.m_SurgicalSpecimenAuditId = surgicalSpecimenAuditId;
+        public SurgicalSpecimenAudit(string surgicalSpecimenAuditId, string surgicalAuditId, YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen, string amendmentId)
+        {
+            //this.m_ObjectId = objectId;
+            this.m_SurgicalSpecimenAuditId = surgicalSpecimenAuditId;
 			this.m_SurgicalAuditId = surgicalAuditId;
 			this.m_Report = surgicalSpecimen.Report;
 			this.m_ImmediatePerformed = surgicalSpecimen.ImmediatePerformed;
@@ -77,21 +71,6 @@ namespace YellowstonePathology.Business.Test.Surgical
 		public string DiagnosisIdFormatted
 		{
 			get { return DiagnosisId.ToString() + "."; }
-		}
-
-		[PersistentDocumentIdProperty()]
-		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
-		public string ObjectId
-		{
-			get { return this.m_ObjectId; }
-			set
-			{
-				if (this.m_ObjectId != value)
-				{
-					this.m_ObjectId = value;
-					this.NotifyPropertyChanged("ObjectId");
-				}
-			}
 		}
 
 		[PersistentPrimaryKeyProperty(false)]

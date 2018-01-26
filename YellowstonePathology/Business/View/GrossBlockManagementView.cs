@@ -98,14 +98,18 @@ namespace YellowstonePathology.Business.View
             
 			string status = "Created";
 			if(aliquotOrder.StatusDepricated == YellowstonePathology.Business.Slide.Model.SlideStatusEnum.Printed) status = "Printed";
-            if (aliquotOrder.StatusDepricated == YellowstonePathology.Business.Slide.Model.SlideStatusEnum.Validated) status = "Validated";
+            if(aliquotOrder.StatusDepricated == YellowstonePathology.Business.Slide.Model.SlideStatusEnum.Validated) status = "Validated";
+
+            string decal = null;
+            if (aliquotOrder.Decal == true) decal = "Decal";
 
 			XElement result = new XElement("AliquotOrder",
 					new XElement("AliquotType",aliquotOrder.AliquotType),
 					new XElement("AliquotOrderId",aliquotOrder.AliquotOrderId),
 					new XElement("Description", aliquotOrder.Description),
 					new XElement("Label", aliquotOrder.PrintLabel),
-					new XElement("GrossVerified", aliquotOrder.GrossVerified.ToString()),
+                    new XElement("Decal", decal),
+                    new XElement("GrossVerified", aliquotOrder.GrossVerified.ToString()),
 					new XElement("BlockColor", blockColor),
                     new XElement("EmbeddingInstructions", aliquotOrder.EmbeddingInstructions),                    
                     new XElement("StatusDepricated", status));

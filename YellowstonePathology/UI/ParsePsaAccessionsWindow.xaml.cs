@@ -56,7 +56,7 @@ namespace YellowstonePathology.UI
                             reportNo = reportNo.Insert(indexOfFirstChar, ".");
                             DateTime postDate = DateTime.Parse(cols[1].Trim());
                             importList.Add(new PsaImport(reportNo, postDate));
-                            string insert = "Insert tblPsaImport (ReportNo, PostDate) values ('" + reportNo + "', '" + postDate.ToShortDateString() + "');";
+                            string insert = "Insert tblPsaImport (ReportNo, PostDate) values ('" + reportNo + "', '" + postDate.ToString("yyyy-MM-dd") + "');";
                             insertStatements.AppendLine(insert);
                         }						                        
                     }

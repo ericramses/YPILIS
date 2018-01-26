@@ -6,53 +6,74 @@ using System.Threading.Tasks;
 
 namespace YellowstonePathology.Business.Label.Model
 {
-    public class HistologySlidePaperZPLLabel
+    public class HistologySlidePaperZPLLabel : ZPLCommand
     {
         private string m_SlideOrderId;
         private string m_ReportNo;
         private string m_LastName;
+        private string m_FirstName;      
         private string m_TestName;
         private string m_SlideLabel;
-        private string m_Location;
+        private string m_Location;        
+        private bool m_UseWetProtocol;
+        private bool m_PerformedByHand;
 
-        public HistologySlidePaperZPLLabel(string slideOrderId, string reportNo, string lastName, string testName, string slideLabel, string location)
+        public HistologySlidePaperZPLLabel(string slideOrderId, string reportNo, string firstName, string lastName, string testName, string slideLabel, string location, bool useWetProtocol, bool performedByHand)
         {
             this.m_SlideOrderId = slideOrderId;
             this.m_ReportNo = reportNo;
             this.m_LastName = lastName;
+            this.m_FirstName = firstName;         
             this.m_TestName = testName;
             this.m_SlideLabel = slideLabel;
-            this.m_Location = location;
+            this.m_Location = location;        
+            this.m_UseWetProtocol = useWetProtocol;
+            this.m_PerformedByHand = performedByHand;
         }
 
-        public void AppendCommands(StringBuilder result, int xOffset)
-        {                        
-            string truncatedtestName = null;
-            if (this.m_TestName.Length > 13)
+        public override string GetCommand()            
+        {
+            StringBuilder result = new StringBuilder();
+            string truncatedTestName = null;
+            if (this.m_TestName.Length > 16)
             {
-                truncatedtestName = this.m_TestName.Substring(0, 13);
+                truncatedTestName = this.m_TestName.Substring(0, 16);
             }
             else
             {
-                truncatedtestName = this.m_TestName;
+                truncatedTestName = this.m_TestName;
             }
 
-            string truncatedLastName = null;
-            if (this.m_LastName.Length > 13)
+            if (this.m_UseWetProtocol == true) truncatedTestName = truncatedTestName + "W";
+            if (this.m_PerformedByHand == true) truncatedTestName = truncatedTestName + "H";
+
+            string patientname = null;
+            if (this.m_LastName.Length > 10)
             {
-                truncatedLastName = this.m_LastName.Substring(0, 13);
+                patientname = this.m_LastName.Substring(0, 10);
             }
             else
             {
-                truncatedLastName = this.m_LastName;
+                patientname = this.m_LastName;
             }
-                 
-            result.Append("^FO" + (28 + xOffset) + ",090^BXN,04,200^FD" + "HSLD" + this.m_SlideOrderId + "^FS");
-            result.Append("^FO" + (28 + xOffset) + ",030^ATN,40,40^FD" + this.m_ReportNo + "^FS");
-            result.Append("^FO" + (28 + xOffset) + ",180^ARN,25,25^FD" + truncatedLastName + "^FS");
-            result.Append("^FO" + (28 + xOffset) + ",210^ARN,25,25^FD" + truncatedtestName + "^FS");
-            result.Append("^FO" + (140 + xOffset) + ",118^ATN,25,25^FD" + this.m_SlideLabel + "^FS");
-            result.Append("^FO" + (100 + xOffset) + ",240^AQN,25,25^FD" + this.m_Location + "^FS");            
-        }        
+
+            if(string.IsNullOrEmpty(this.m_FirstName) == false)
+            {
+                patientname = patientname + " " + this.m_FirstName.Substring(0, 1);
+            }
+
+            result.Append("~SD25");
+            result.Append("^PR2");
+            result.Append("^PW420");
+            result.Append("^FWB");
+            result.Append("^A0,35,35^FO0,0^FB335,1,,^FD" + this.m_ReportNo + "^FS");
+            result.Append("^FO40,248^BXI,03,200,24,24^FD" + "HSLD" + this.m_SlideOrderId + "^FS");            
+            //result.Append("^FO40,200^BXI,3,200,24,24^FDVE02F170000218^FS");
+            result.Append("^A0,35,35^FO43,0^FB235,1,,^FD" + this.m_SlideLabel + "^FS");
+            result.Append("^A0,35,35^FO75,0^FB235,1,,^FD" + truncatedTestName + "^FS");
+            result.Append("^A0,30,30^FO126,0^FB330,1,,^FD" + patientname + "^FS");
+            result.Append("^A0,25,25^FO159,0^FB330,1,,^FD" + this.m_Location + "^FS");
+            return result.ToString();         
+        }
     }
 }

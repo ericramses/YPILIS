@@ -1,22 +1,20 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
-using System.Windows;
 using System.Data;
-using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 
 namespace YellowstonePathology.Business.Flow
 {
     public partial class FlowCommentCollection : ObservableCollection<FlowCommentItem>
     {
-        protected SqlCommand m_Cmd;
-        protected List<SqlParameter> m_ParameterList;
+        protected MySqlCommand m_Cmd;
+        protected List<MySqlParameter> m_ParameterList;
 
         public FlowCommentCollection()
         {
-            this.m_Cmd = new SqlCommand();
-            this.m_ParameterList = new List<SqlParameter>();
+            this.m_Cmd = new MySqlCommand();
+            this.m_ParameterList = new List<MySqlParameter>();
         }
 
         public void SetFillCommandAll()
@@ -27,9 +25,9 @@ namespace YellowstonePathology.Business.Flow
             this.m_Cmd.CommandType = CommandType.Text;
         }
 
-        public void SetFillCommandByStainId(int commentId)
+        public void SetFillCommandByStainId(string commentId)
         {
-            string sql = "select * from tblFlowCommentV2 where CommentId = " + commentId;            
+            string sql = "select * from tblFlowCommentV2 where CommentId = '" + commentId + "'";            
             this.m_ParameterList.Clear();
             this.m_Cmd.CommandText = sql;
             this.m_Cmd.CommandType = CommandType.Text;
@@ -38,11 +36,11 @@ namespace YellowstonePathology.Business.Flow
         public void Fill()
         {
             this.Clear();
-            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 this.m_Cmd.Connection = cn;
-                using (SqlDataReader dr = m_Cmd.ExecuteReader())
+                using (MySqlDataReader dr = m_Cmd.ExecuteReader())
                 {
                     while (dr.Read())
                     {

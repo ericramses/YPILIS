@@ -13,6 +13,7 @@ namespace YellowstonePathology.Business.Test.RetrospectiveReview
         public event PropertyChangedEventHandler PropertyChanged;
 
         private string m_RetrospectiveReviewTestOrderDetailId;
+        private string m_ReportNo;
         private string m_Result;
         private string m_Comment;
         private string m_Type;
@@ -20,19 +21,21 @@ namespace YellowstonePathology.Business.Test.RetrospectiveReview
         private string m_Impact;
         private string m_SpecimenDescription;
         private int m_SpecimenNumber;
+        private string m_Diagnosis;
 
         public RetrospectiveReviewTestOrderDetail()
         {
 
         }
 
-        public RetrospectiveReviewTestOrderDetail(string retrospectiveReviewTestOrderDetailId)
+        public RetrospectiveReviewTestOrderDetail(string retrospectiveReviewTestOrderDetailId, string reportNo)
         {
-            this.m_RetrospectiveReviewTestOrderDetailId = retrospectiveReviewTestOrderDetailId;            
+            this.m_RetrospectiveReviewTestOrderDetailId = retrospectiveReviewTestOrderDetailId;
+            this.m_ReportNo = reportNo;
         }
 
         [PersistentPrimaryKeyProperty(false)]
-        [PersistentDataColumnProperty(false, "50", "null", "varchar")]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
         public string RetrospectiveReviewTestOrderDetailId
         {
             get { return this.m_RetrospectiveReviewTestOrderDetailId; }
@@ -42,6 +45,21 @@ namespace YellowstonePathology.Business.Test.RetrospectiveReview
                 {
                     this.m_RetrospectiveReviewTestOrderDetailId = value;
                     this.NotifyPropertyChanged("RetrospectiveReviewTestOrderDetailId");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(false, "50", "null", "varchar")]
+        public string ReportNo
+        {
+            get { return this.m_ReportNo; }
+            set
+            {
+                if (this.m_ReportNo != value)
+                {
+                    this.m_ReportNo = value;
+                    this.NotifyPropertyChanged("ReportNo");
                 }
             }
         }
@@ -147,6 +165,21 @@ namespace YellowstonePathology.Business.Test.RetrospectiveReview
                 {
                     this.m_SpecimenNumber = value;
                     this.NotifyPropertyChanged("SpecimenNumber");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "5000", "null", "varchar")]
+        public string Diagnosis
+        {
+            get { return this.m_Diagnosis; }
+            set
+            {
+                if (this.m_Diagnosis != value)
+                {
+                    this.m_Diagnosis = value;
+                    this.NotifyPropertyChanged("Diagnosis");
                 }
             }
         }

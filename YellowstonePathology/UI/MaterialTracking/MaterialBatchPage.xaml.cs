@@ -157,6 +157,8 @@ namespace YellowstonePathology.UI.MaterialTracking
 			this.m_BarcodeScanPort.HistologySlideScanReceived -= HistologySlideScanReceived;
             this.m_BarcodeScanPort.USPostalServiceCertifiedMailReceived -= BarcodeScanPort_USPostalServiceCertifiedMailReceived;
             this.m_BarcodeScanPort.ContainerScanReceived -= BarcodeScanPort_ContainerScanReceived;
+
+            
 		}
 
         public YellowstonePathology.Business.Facility.Model.FacilityCollection FacilityCollection
@@ -335,6 +337,29 @@ namespace YellowstonePathology.UI.MaterialTracking
                     result = false;
                 }
             }
+
+            bool butteERPRSlidesFound = false;
+            if(this.m_MaterialTrackingBatch.ToFacilityId == "BTTPTHLGY")
+            {
+                foreach(Business.MaterialTracking.Model.MaterialTrackingLogView item in this.m_MaterialTrackingLogViewCollection)
+                {
+                    if(item.MaterialLabel.ToLower().Contains("receptor") == true)
+                    {
+                        butteERPRSlidesFound = true;
+                        break;       
+                    }
+                }                                               
+            }                                               
+            if(butteERPRSlidesFound == true)
+            {
+                MessageBoxResult messageBoxResult = MessageBox.Show("This batch has Butte ER/PR slides that may need to be held. Are you sure you want to continue.", "Continue?", MessageBoxButton.YesNo);
+                if (messageBoxResult == MessageBoxResult.No)
+                {
+                    result = false;
+
+                }
+            }
+
             return result;
         }
 		
@@ -434,6 +459,30 @@ namespace YellowstonePathology.UI.MaterialTracking
         private void FedXTrackingPage_Next(object sender, EventArgs e)
         {
             this.m_PageNavigator.Navigate(this);
+        }
+
+        private void HyperlinkSendEmail_Click(object sender, RoutedEventArgs e)
+        {
+            if(this.m_MaterialTrackingBatch.ToFacilityId == "YPBZMN")
+            {
+                if(this.m_MaterialTrackingLogCollection.Count > 0)
+                {
+                    System.Net.Mail.MailMessage message = new System.Net.Mail.MailMessage("histology@ypii.com", "kerrie.emerick@ypii.com", System.Windows.Forms.SystemInformation.UserName, "There are slides that are being sent to you.");
+                    message.To.Add("christopher.nero@ypii.com");
+                    System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient("10.1.2.111");
+
+                    Uri uri = new Uri("http://tempuri.org/");
+                    System.Net.ICredentials credentials = System.Net.CredentialCache.DefaultCredentials;
+                    System.Net.NetworkCredential credential = credentials.GetCredential(uri, "Basic");
+
+                    client.Credentials = credential;
+                    client.Send(message);
+                }
+            }
+            else
+            {
+                MessageBox.Show("This function currently only works for Bozeman.");
+            }
         }
     }
 }

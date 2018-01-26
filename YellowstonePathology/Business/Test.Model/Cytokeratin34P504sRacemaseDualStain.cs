@@ -11,11 +11,14 @@ namespace YellowstonePathology.Business.Test.Model
 		{
             this.m_TestId = "CK34P504RM";
 			this.m_TestName = "Cytokeratin 34/P504s racemase";
-			this.m_FirstTest = new Cytokeratin34();
+            this.m_TestAbbreviation = "CK34/P504";
+            this.m_FirstTest = new Cytokeratin34();
 			this.m_SecondTest = new P504sRacemase();
+            this.m_IsDualOrder = true;
+            this.m_NeedsAcknowledgement = true;
 
-			this.m_DepricatedFirstTestId = 227;
-			this.m_DepricatedSecondTestId = 228;
+			this.m_DepricatedFirstTestId = "227";
+			this.m_DepricatedSecondTestId = "228";            
 		}
 	}
 }

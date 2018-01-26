@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 using System.Data;
-using System.Data.SqlClient;
 using System.Xml.Serialization;
 using System.Xml.Linq;
+using MySql.Data.MySqlClient;
 
 namespace YellowstonePathology.Business.Test.Surgical
 {
@@ -42,7 +42,7 @@ namespace YellowstonePathology.Business.Test.Surgical
         public SurgicalSpecimenAudit GetNextItem(string surgicalAuditId, YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen, string amendmentId)
 		{
 			string surgicalSpecimenAuditId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-			SurgicalSpecimenAudit surgicalSpecimenAudit = new SurgicalSpecimenAudit(surgicalSpecimenAuditId, surgicalSpecimenAuditId, surgicalAuditId, surgicalSpecimen, amendmentId);
+			SurgicalSpecimenAudit surgicalSpecimenAudit = new SurgicalSpecimenAudit(surgicalSpecimenAuditId, surgicalAuditId, surgicalSpecimen, amendmentId);
 
 			return surgicalSpecimenAudit;
 		}

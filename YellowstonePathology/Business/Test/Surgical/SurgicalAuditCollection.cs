@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
 using System.Data;
-using System.Data.SqlClient;
-using System.Xml.Serialization;
 using System.Xml.Linq;
 
 namespace YellowstonePathology.Business.Test.Surgical
@@ -70,7 +67,7 @@ namespace YellowstonePathology.Business.Test.Surgical
         public SurgicalAudit GetNextItem(string amendmentId, YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder panelSetOrderSurgical, int pathologistId, int assignedToId)
 		{
 			string surgicalAuditId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-			SurgicalAudit surgicalAudit = new Surgical.SurgicalAudit(surgicalAuditId, surgicalAuditId, amendmentId, panelSetOrderSurgical, pathologistId, assignedToId);
+			SurgicalAudit surgicalAudit = new Surgical.SurgicalAudit(surgicalAuditId, amendmentId, panelSetOrderSurgical, pathologistId, assignedToId);
 			return surgicalAudit;
 		}
 

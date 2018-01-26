@@ -146,7 +146,7 @@
 						<TemplateName>StainGroupTemplate</TemplateName>
 						<OrderItems>
 							<OrderItem>
-								<Id>116</Id>
+								<Id>KI67MA</Id>
 								<ParentId>19</ParentId>
 								<ChildId>0</ChildId>
 								<Name>Ki-67, Semi-quantitative/Melan A</Name>
@@ -163,7 +163,7 @@
 								</OrderItems>
 							</OrderItem>
 							<OrderItem>
-								<Id>88</Id>
+								<Id>CK34P504RM</Id>
 								<ParentId>19</ParentId>
 								<ChildId>0</ChildId>
 								<Name>Cytokeratin 34/P504s racemase</Name>
@@ -180,7 +180,7 @@
 								</OrderItems>
 							</OrderItem>
 							<OrderItem>
-								<Id>68</Id>
+								<Id>CD30CD20</Id>
 								<ParentId>19</ParentId>
 								<ChildId>0</ChildId>
 								<Name>CD3/CD20</Name>
@@ -195,43 +195,9 @@
 								<TemplateName>StandardCheckBoxTemplate</TemplateName>
 								<OrderItems>
 								</OrderItems>
-							</OrderItem>
-							<OrderItem>
-								<Id>113</Id>
-								<ParentId>19</ParentId>
-								<ChildId>0</ChildId>
-								<Name>Ig Kappa/Ig Lambda</Name>
-								<Orderable>True</Orderable>
-								<Order>False</Order>
-								<ItemType>DualStain</ItemType>
-								<OrderPriority>40</OrderPriority>
-								<NotListedName></NotListedName>
-								<NotListedNameVisible>False</NotListedNameVisible>
-								<Comment></Comment>
-								<CommentVisible>False</CommentVisible>
-								<TemplateName>StandardCheckBoxTemplate</TemplateName>
-								<OrderItems>
-								</OrderItems>
-							</OrderItem>							
-							<OrderItem>
-								<Id>141</Id>
-								<ParentId>19</ParentId>
-								<ChildId>0</ChildId>
-								<Name>PAX-5/ZAP 70</Name>
-								<Orderable>True</Orderable>
-								<Order>False</Order>
-								<ItemType>DualStain</ItemType>
-								<OrderPriority>40</OrderPriority>
-								<NotListedName></NotListedName>
-								<NotListedNameVisible>False</NotListedNameVisible>
-								<Comment></Comment>
-								<CommentVisible>False</CommentVisible>
-								<TemplateName>StandardCheckBoxTemplate</TemplateName>
-								<OrderItems>
-								</OrderItems>
-							</OrderItem>											
+							</OrderItem>																								
 							<OrderItem> 
-								<Id>170</Id>
+								<Id>OSCRSMM</Id>
 								<ParentId>19</ParentId>
 								<ChildId>0</ChildId>
 								<Name>OSCAR/Smooth Muscle Myosin</Name>
@@ -248,7 +214,7 @@
 								</OrderItems>
 							</OrderItem>
 							<OrderItem>
-								<Id>161</Id>
+								<Id>TTFNPSNA</Id>
 								<ParentId>19</ParentId>
 								<ChildId>0</ChildId>
 								<Name>TTF-1/Napsin A</Name>
@@ -264,7 +230,24 @@
 								<OrderItems>
 								</OrderItems>
 							</OrderItem>
-						</OrderItems>
+              <OrderItem>
+                <Id>PAX5CD5</Id>
+                <ParentId>19</ParentId>
+                <ChildId>0</ChildId>
+                <Name>PAX5/CD25</Name>
+                <Orderable>True</Orderable>
+                <Order>False</Order>
+                <ItemType>DualStain</ItemType>
+                <OrderPriority>40</OrderPriority>
+                <NotListedName></NotListedName>
+                <NotListedNameVisible>False</NotListedNameVisible>
+                <Comment></Comment>
+                <CommentVisible>False</CommentVisible>
+                <TemplateName>StandardCheckBoxTemplate</TemplateName>
+                <OrderItems>
+                </OrderItems>
+              </OrderItem>
+            </OrderItems>
 					</OrderItem>
 					<OrderItem>
 						<Id>0</Id>
@@ -846,7 +829,7 @@
                 <Id>356</Id>
                 <ParentId>19</ParentId>
                 <ChildId>0</ChildId>
-                <Name>SOX10</Name>
+                <Name>SOX10</Name>                
                 <Orderable>True</Orderable>
                 <Order>False</Order>
                 <ItemType>Test</ItemType>
@@ -863,7 +846,7 @@
 								<Id>152</Id>
 								<ParentId>19</ParentId>
 								<ChildId>0</ChildId>
-								<Name>S100</Name>
+								<Name>S100</Name>                
 								<Orderable>True</Orderable>
 								<Order>False</Order>
 								<ItemType>Test</ItemType>
@@ -880,7 +863,7 @@
 								<Id>119</Id>
 								<ParentId>19</ParentId>
 								<ChildId>0</ChildId>
-								<Name>Melan A</Name>
+								<Name>Melan A</Name>                
 								<Orderable>True</Orderable>
 								<Order>False</Order>
 								<ItemType>Test</ItemType>
@@ -897,7 +880,7 @@
 								<Id>111</Id>
 								<ParentId>19</ParentId>
 								<ChildId>0</ChildId>
-								<Name>HMB-45</Name>
+								<Name>HMB-45</Name>                
 								<Orderable>True</Orderable>
 								<Order>False</Order>
 								<ItemType>Test</ItemType>
@@ -1033,7 +1016,7 @@
 								<Id>154</Id>
 								<ParentId>19</ParentId>
 								<ChildId>0</ChildId>
-								<Name>Smooth Muscle Myosin</Name>
+								<Name>Smooth Muscle Myosin</Name>                
 								<Orderable>True</Orderable>
 								<Order>False</Order>
 								<ItemType>Test</ItemType>
@@ -1130,24 +1113,7 @@
 								<TemplateName>StandardCheckBoxTemplate</TemplateName>
 								<OrderItems>
 								</OrderItems>
-							</OrderItem>							
-							<OrderItem>
-								<Id>103</Id>
-								<ParentId>19</ParentId>
-								<ChildId>0</ChildId>
-								<Name>GCDFP-15</Name>
-								<Orderable>True</Orderable>
-								<Order>False</Order>
-								<ItemType>Test</ItemType>
-								<OrderPriority>40</OrderPriority>
-								<NotListedName></NotListedName>
-								<NotListedNameVisible>False</NotListedNameVisible>
-								<Comment></Comment>
-								<CommentVisible>False</CommentVisible>
-								<TemplateName>StandardCheckBoxTemplate</TemplateName>
-								<OrderItems>
-								</OrderItems>
-							</OrderItem>																					
+							</OrderItem>																																
 						</OrderItems>
 					</OrderItem>          
 					<OrderItem>
@@ -1470,24 +1436,7 @@
                 <TemplateName>StandardCheckBoxTemplate</TemplateName>
                 <OrderItems>
                 </OrderItems>
-              </OrderItem>
-              <OrderItem>
-                <Id>158</Id>
-                <ParentId>19</ParentId>
-                <ChildId>0</ChildId>
-                <Name>Thyroglobulin</Name>
-                <Orderable>True</Orderable>
-                <Order>False</Order>
-                <ItemType>Test</ItemType>
-                <OrderPriority>40</OrderPriority>
-                <NotListedName></NotListedName>
-                <NotListedNameVisible>False</NotListedNameVisible>
-                <Comment></Comment>
-                <CommentVisible>False</CommentVisible>
-                <TemplateName>StandardCheckBoxTemplate</TemplateName>
-                <OrderItems>
-                </OrderItems>
-              </OrderItem>
+              </OrderItem>              
               <OrderItem>
                 <Id>161</Id>
                 <ParentId>19</ParentId>
@@ -1641,8 +1590,7 @@
                 <OrderItems>
                 </OrderItems>
               </OrderItem>
-              <OrderItem>
-                <!--Added 6/18/2012 WHC-->
+              <OrderItem>                
                 <Id>276</Id>
                 <ParentId>19</ParentId>
                 <ChildId>0</ChildId>
@@ -1675,7 +1623,7 @@
                 <TemplateName>StandardCheckBoxTemplate</TemplateName>
                 <OrderItems>
                 </OrderItems>
-              </OrderItem>
+              </OrderItem>              
               <OrderItem>
                 <Id>359</Id>
                 <ParentId>19</ParentId>
@@ -2100,42 +2048,59 @@
 								<TemplateName>StandardCheckBoxTemplate</TemplateName>
 								<OrderItems>
 								</OrderItems>
-							</OrderItem>
-							<OrderItem>
-								<Id>113</Id>
-								<ParentId>19</ParentId>
-								<ChildId>0</ChildId>
-								<Name>Ig Kappa</Name>
-								<Orderable>True</Orderable>
-								<Order>False</Order>
-								<ItemType>Test</ItemType>
-								<OrderPriority>40</OrderPriority>
-								<NotListedName></NotListedName>
-								<NotListedNameVisible>False</NotListedNameVisible>
-								<Comment></Comment>
-								<CommentVisible>False</CommentVisible>
-								<TemplateName>StandardCheckBoxTemplate</TemplateName>
-								<OrderItems>
-								</OrderItems>
-							</OrderItem>
-							<OrderItem>
-								<Id>114</Id>
-								<ParentId>19</ParentId>
-								<ChildId>0</ChildId>
-								<Name>Ig Lambda</Name>
-								<Orderable>True</Orderable>
-								<Order>False</Order>
-								<ItemType>Test</ItemType>
-								<OrderPriority>40</OrderPriority>
-								<NotListedName></NotListedName>
-								<NotListedNameVisible>False</NotListedNameVisible>
-								<Comment></Comment>
-								<CommentVisible>False</CommentVisible>
-								<TemplateName>StandardCheckBoxTemplate</TemplateName>
-								<OrderItems>
-								</OrderItems>
-							</OrderItem>							
-							<OrderItem>
+							</OrderItem>													
+              <OrderItem>
+                <Id>360</Id>
+                <ParentId>19</ParentId>
+                <ChildId>0</ChildId>
+                <Name>Kappa by ISH</Name>
+                <Orderable>True</Orderable>
+                <Order>False</Order>
+                <ItemType>Test</ItemType>
+                <OrderPriority>40</OrderPriority>
+                <NotListedName></NotListedName>
+                <NotListedNameVisible>False</NotListedNameVisible>
+                <Comment></Comment>
+                <CommentVisible>False</CommentVisible>
+                <TemplateName>StandardCheckBoxTemplate</TemplateName>
+                <OrderItems>
+                </OrderItems>
+              </OrderItem>
+              <OrderItem>
+                <Id>361</Id>
+                <ParentId>19</ParentId>
+                <ChildId>0</ChildId>
+                <Name>Lambda by ISH</Name>
+                <Orderable>True</Orderable>
+                <Order>False</Order>
+                <ItemType>Test</ItemType>
+                <OrderPriority>40</OrderPriority>
+                <NotListedName></NotListedName>
+                <NotListedNameVisible>False</NotListedNameVisible>
+                <Comment></Comment>
+                <CommentVisible>False</CommentVisible>
+                <TemplateName>StandardCheckBoxTemplate</TemplateName>
+                <OrderItems>
+                </OrderItems>
+              </OrderItem>
+              <OrderItem>
+                <Id>124</Id>
+                <ParentId>19</ParentId>
+                <ChildId>0</ChildId>
+                <Name>MUM-1</Name>
+                <Orderable>True</Orderable>
+                <Order>False</Order>
+                <ItemType>Test</ItemType>
+                <OrderPriority>40</OrderPriority>
+                <NotListedName></NotListedName>
+                <NotListedNameVisible>False</NotListedNameVisible>
+                <Comment></Comment>
+                <CommentVisible>False</CommentVisible>
+                <TemplateName>StandardCheckBoxTemplate</TemplateName>
+                <OrderItems>
+                </OrderItems>
+              </OrderItem>
+              <OrderItem>
 								<Id>126</Id>
 								<ParentId>19</ParentId>
 								<ChildId>0</ChildId>
@@ -2168,24 +2133,7 @@
 								<TemplateName>StandardCheckBoxTemplate</TemplateName>
 								<OrderItems>
 								</OrderItems>
-							</OrderItem>
-							<OrderItem>
-								<Id>165</Id>
-								<ParentId>19</ParentId>
-								<ChildId>0</ChildId>
-								<Name>ZAP 70</Name>
-								<Orderable>True</Orderable>
-								<Order>False</Order>
-								<ItemType>Test</ItemType>
-								<OrderPriority>40</OrderPriority>
-								<NotListedName></NotListedName>
-								<NotListedNameVisible>False</NotListedNameVisible>
-								<Comment></Comment>
-								<CommentVisible>False</CommentVisible>
-								<TemplateName>StandardCheckBoxTemplate</TemplateName>
-								<OrderItems>
-								</OrderItems>
-							</OrderItem>
+							</OrderItem>							
 							<OrderItem>
 								<Id>141</Id>
 								<ParentId>19</ParentId>
@@ -2440,12 +2388,12 @@
 						<Comment></Comment>
 						<CommentVisible>False</CommentVisible>
 						<TemplateName>StainGroupTemplate</TemplateName>
-						<OrderItems>							
-							<OrderItem>
-								<Id>173</Id>
+						<OrderItems>	
+              <OrderItem>
+								<Id>362</Id>
 								<ParentId>19</ParentId>
 								<ChildId>0</ChildId>
-								<Name>WT-1</Name>
+								<Name>c-Myc</Name>
 								<Orderable>True</Orderable>
 								<Order>False</Order>
 								<ItemType>Test</ItemType>
@@ -2457,7 +2405,7 @@
 								<TemplateName>StandardCheckBoxTemplate</TemplateName>
 								<OrderItems>
 								</OrderItems>
-							</OrderItem>
+							</OrderItem>							
 							<OrderItem>
 								<Id>224</Id>
 								<ParentId>19</ParentId>
@@ -2475,6 +2423,23 @@
 								<OrderItems>
 								</OrderItems>
 							</OrderItem>
+              <OrderItem>
+                <Id>173</Id>
+                <ParentId>19</ParentId>
+                <ChildId>0</ChildId>
+                <Name>WT-1</Name>
+                <Orderable>True</Orderable>
+                <Order>False</Order>
+                <ItemType>Test</ItemType>
+                <OrderPriority>40</OrderPriority>
+                <NotListedName></NotListedName>
+                <NotListedNameVisible>False</NotListedNameVisible>
+                <Comment></Comment>
+                <CommentVisible>False</CommentVisible>
+                <TemplateName>StandardCheckBoxTemplate</TemplateName>
+                <OrderItems>
+                </OrderItems>
+              </OrderItem>
 						</OrderItems>
 					</OrderItem>										
 				</OrderItems>

@@ -37,12 +37,9 @@ namespace YellowstonePathology.Business.Billing.Model
             YellowstonePathology.Business.PanelSet.Model.PanelSetCollection panelSetCollection = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetAll();
             YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet = panelSetCollection.GetPanelSet(panelSetOrder.PanelSetId);
 
-            if (panelSet is YellowstonePathology.Business.Test.TechnicalOnly.TechnicalOnlyTest == true)
+            if (panelSet is YellowstonePathology.Business.Test.AutopsyTechnicalOnly.AutopsyTechnicalOnlyTest == true)
             {
-                if(accessionOrder.ClientId == 1520) //Montana Department of Justice Forensic Science Division
-                {
-                    result = true;
-                }
+                result = true;
             }
             return result;
         }
@@ -73,7 +70,7 @@ namespace YellowstonePathology.Business.Billing.Model
         {
             bool result = false;
             YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
-            YellowstonePathology.Business.Client.Model.ClientGroupClientCollection mountainViewGroup = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientGroupClientCollectionByClientGroupId(44);
+            YellowstonePathology.Business.Client.Model.ClientGroupClientCollection mountainViewGroup = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientGroupClientCollectionByClientGroupId("44");
             if(mountainViewGroup.ClientIdExists(accessionOrder.ClientId) == true)
             {
                 YellowstonePathology.Business.Facility.Model.NeogenomicsIrvine neogenomicsIrvine = new YellowstonePathology.Business.Facility.Model.NeogenomicsIrvine();

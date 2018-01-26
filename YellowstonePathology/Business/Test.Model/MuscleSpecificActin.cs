@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Test.Model
 	{
 		public MuscleSpecificActin()
 		{
-			this.m_TestId = 125;
+			this.m_TestId = "125";
 			this.m_TestName = "Muscle Specific Actin";
             this.m_TestAbbreviation = "MSA";
 			this.m_Active = true;

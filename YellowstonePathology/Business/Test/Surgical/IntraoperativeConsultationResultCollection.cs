@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
 using System.Data;
-using System.Data.SqlClient;
-using System.Xml.Serialization;
 using System.Xml.Linq;
 
 namespace YellowstonePathology.Business.Test.Surgical
@@ -42,7 +39,7 @@ namespace YellowstonePathology.Business.Test.Surgical
         public IntraoperativeConsultationResult GetNextItem(string surgicalSpecimenId)
 		{
 			string intraoperativeConsultationResultId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-			IntraoperativeConsultationResult intraoperativeConsultationResult = new IntraoperativeConsultationResult(intraoperativeConsultationResultId, intraoperativeConsultationResultId, surgicalSpecimenId);
+			IntraoperativeConsultationResult intraoperativeConsultationResult = new IntraoperativeConsultationResult(intraoperativeConsultationResultId, surgicalSpecimenId);
 
 			return intraoperativeConsultationResult;
 		}

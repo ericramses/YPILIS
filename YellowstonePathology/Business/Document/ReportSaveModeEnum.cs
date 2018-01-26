@@ -7,6 +7,6 @@ namespace YellowstonePathology.Business.Document
 {
     public enum ReportSaveModeEnum
     {
-        Normal, Draft, Test
+        Normal, Draft, Test, Notification
     }
 }

@@ -14,18 +14,12 @@ namespace YellowstonePathology.Business.Test
 {
 	public class PanelSetOrderCollection : ObservableCollection<PanelSetOrder>
 	{
-		private PathologistTestOrderItemList m_PathologistTestOrderItemList;
-        private PanelSetOrder m_CurrentPanelSetOrder;
+		private PathologistTestOrderItemList m_PathologistTestOrderItemList;        
 
 		public PanelSetOrderCollection()
 		{
 			m_PathologistTestOrderItemList = new PathologistTestOrderItemList();
-		}
-
-        public PanelSetOrder CurrentPanelSetOrder
-        {
-            get { return this.m_CurrentPanelSetOrder; }
-        } 
+		}        
 
         public string GetAdditionalTestingString(string currentReportNo)
         {
@@ -409,7 +403,7 @@ namespace YellowstonePathology.Business.Test
 
         public bool HasGrossBeenOrdered()
         {
-            return this.HasTestBeenOrdered(48);
+            return this.HasTestBeenOrdered("48");
         }
 
         public bool HasUnassignedPanelSetOrder(int panelSetId)
@@ -429,7 +423,7 @@ namespace YellowstonePathology.Business.Test
             return result;
         }
 
-        public bool HasTestBeenOrdered(int testId)
+        public bool HasTestBeenOrdered(string testId)
         {
             bool result = false;
             foreach (YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder in this)
@@ -497,7 +491,7 @@ namespace YellowstonePathology.Business.Test
             return result;
         }
 
-        public YellowstonePathology.Business.Test.PanelSetOrder GetPanelSetOrderByTestId(int testId)
+        public YellowstonePathology.Business.Test.PanelSetOrder GetPanelSetOrderByTestId(string testId)
         {
             YellowstonePathology.Business.Test.PanelSetOrder result = null;
             foreach (YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder in this)
@@ -537,7 +531,7 @@ namespace YellowstonePathology.Business.Test
             return result;
         }
 
-        public YellowstonePathology.Business.Test.Model.TestOrder GetTestOrderByTestId(int testId)
+        public YellowstonePathology.Business.Test.Model.TestOrder GetTestOrderByTestId(string testId)
         {
             YellowstonePathology.Business.Test.Model.TestOrder result = null;
             foreach (YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder in this)
@@ -587,6 +581,20 @@ namespace YellowstonePathology.Business.Test
                     result = true;
                     break;
                 }                
+            }
+            return result;
+        }
+
+        public bool HasPanelSetBeenOrdered(List<int> panelSetIdList)
+        {
+            bool result = false;
+            foreach(int id in panelSetIdList)
+            {
+                if(HasPanelSetBeenOrdered(id) == true)
+                {
+                    result = true;
+                    break;
+                }
             }
             return result;
         }
@@ -1039,6 +1047,92 @@ namespace YellowstonePathology.Business.Test
             foreach (PanelSetOrder panelSetOrder in orderedResult)
             {
                 result.Add(panelSetOrder);
+            }
+            return result;
+        }
+
+        public List<Business.Test.PanelSetOrder> GetBoneMarrowAccessionSummaryList(string summaryReportNo, bool includeOtherReports)
+        {
+            List<Business.Test.PanelSetOrder> result = new List<PanelSetOrder>();
+            YellowstonePathology.Business.PanelSet.Model.PanelSetCollection panelSets = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetAll();
+
+            Business.Test.PanelSetOrderCollection flow = new PanelSetOrderCollection();
+            Business.Test.PanelSetOrderCollection cyto = new PanelSetOrderCollection();
+            Business.Test.PanelSetOrderCollection fish = new PanelSetOrderCollection();
+            Business.Test.PanelSetOrderCollection molecular = new PanelSetOrderCollection();
+            Business.Test.PanelSetOrderCollection other = new PanelSetOrderCollection();
+
+            List<int> exclusionList = this.GetBoneMarrowSummaryExclusionList();
+
+            foreach (Business.Test.PanelSetOrder pso in this)
+            {
+                if (exclusionList.IndexOf(pso.PanelSetId) == -1)
+                {
+                    YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet = panelSets.GetPanelSet(pso.PanelSetId);
+                    if (panelSet.CaseType == YellowstonePathology.Business.CaseType.FlowCytometry) flow.Insert(0, pso);
+                    else if (panelSet.CaseType == YellowstonePathology.Business.CaseType.Cytogenetics) cyto.Insert(0, pso);
+                    else if (panelSet.CaseType == YellowstonePathology.Business.CaseType.FISH) fish.Insert(0, pso);
+                    else if (panelSet.CaseType == YellowstonePathology.Business.CaseType.Molecular) molecular.Insert(0, pso);
+                    else other.Insert(0, pso);
+                }
+            }
+
+            if (includeOtherReports == true)
+            {
+                BoneMarrowSummary.OtherReportViewCollection otherReports = Gateway.AccessionOrderGateway.GetOtherReportViewsForSummary(summaryReportNo);
+                foreach (BoneMarrowSummary.OtherReportView otherReportView in otherReports)
+                {
+                    AccessionOrder ao = Persistence.DocumentGateway.Instance.PullAccessionOrder(otherReportView.MasterAccessionNo, this);
+                    Business.Test.PanelSetOrder pso = ao.PanelSetOrderCollection.GetPanelSetOrder(otherReportView.ReportNo);
+                    other.Insert(0, pso);
+                }
+            }
+
+            result.AddRange(other);
+            result.AddRange(molecular);
+            result.AddRange(fish);
+            result.AddRange(cyto);
+            result.AddRange(flow);
+
+            return result;
+        }
+
+        public List<int> GetBoneMarrowSummaryExclusionList()
+        {
+            List<int> result = new List<int>();            
+            result.Add(31);   // Technical Only
+            result.Add(66);   // Test Cancelled
+            result.Add(197);
+            result.Add(244);  // Ship Material
+            result.Add(262);
+            result.Add(268);
+            result.Add(211);
+            result.Add(189);
+            result.Add(190);
+            result.Add(212);
+            return result;
+        }
+
+        public bool IsLastReportInSummaryToFinal(List<int> exclusionList, int panelSetId)
+        {
+            bool result = true;
+            if (exclusionList.IndexOf(panelSetId) == -1)
+            {
+                foreach (Test.PanelSetOrder panelSetOrder in this)
+                {
+                    if (exclusionList.IndexOf(panelSetOrder.PanelSetId) == -1)
+                    {
+                        if (panelSetOrder.Final == false)
+                        {
+                            result = false;
+                            break;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                result = false;
             }
             return result;
         }

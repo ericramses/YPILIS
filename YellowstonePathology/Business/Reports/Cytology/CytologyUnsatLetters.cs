@@ -1,27 +1,26 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
 using System.Data;
-using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 
 namespace YellowstonePathology.Business.Reports.Cytology
 {
     public class CytologyUnsatLetters : ObservableCollection<CytologyUnsatLetterItem>
     {
-        SqlCommand cmd;
+        MySqlCommand cmd;
 
         public CytologyUnsatLetters()
         {
-            this.cmd = new SqlCommand();
+            this.cmd = new MySqlCommand();
         }
 
         public void FillByPhysicianId(int physicianId, DateTime startDate, DateTime endDate)
         {            
             string sql = "prcReportGetCytologyUnsatLettersByPhysician";
-            cmd.Parameters.Add("@PhysicianId", SqlDbType.Int, 10).Value = physicianId;
-            cmd.Parameters.Add("@StartDate", SqlDbType.VarChar, 10).Value = startDate.ToShortDateString();
-            cmd.Parameters.Add("@EndDate", SqlDbType.VarChar, 10).Value = endDate.ToShortDateString();
+            cmd.Parameters.AddWithValue("PhysicianId", physicianId);
+            cmd.Parameters.AddWithValue("StartDate", startDate.ToShortDateString());
+            cmd.Parameters.AddWithValue("EndDate", endDate.ToShortDateString());
             cmd.CommandText = sql;
             cmd.CommandType = CommandType.StoredProcedure;
             this.FillData();
@@ -30,9 +29,9 @@ namespace YellowstonePathology.Business.Reports.Cytology
         public void FillByClientId(int clientId, DateTime startDate, DateTime endDate)
         {
             string sql = "prcReportGetCytologyUnsatLettersByClient";
-            cmd.Parameters.Add("@ClientId", SqlDbType.Int, 10).Value = clientId;
-            cmd.Parameters.Add("@StartDate", SqlDbType.VarChar, 10).Value = startDate.ToShortDateString();
-            cmd.Parameters.Add("@EndDate", SqlDbType.VarChar, 10).Value = endDate.ToShortDateString();
+            cmd.Parameters.AddWithValue("ClientId", clientId);
+            cmd.Parameters.AddWithValue("StartDate", startDate.ToShortDateString());
+            cmd.Parameters.AddWithValue("EndDate", endDate.ToShortDateString());
             cmd.CommandText = sql;
             cmd.CommandType = CommandType.StoredProcedure;
             this.FillData();
@@ -41,8 +40,8 @@ namespace YellowstonePathology.Business.Reports.Cytology
         public void FillByDate(DateTime startDate, DateTime endDate)
         {            
             string sql = "prcReportGetCytologyUnsatLetters";
-            cmd.Parameters.Add("@StartDate", SqlDbType.VarChar, 10).Value = startDate.ToShortDateString();
-            cmd.Parameters.Add("@EndDate", SqlDbType.VarChar, 10).Value = endDate.ToShortDateString();
+            cmd.Parameters.AddWithValue("StartDate", startDate.ToString("yyyy-MM-dd"));
+            cmd.Parameters.AddWithValue("EndDate", endDate.ToString("yyyy-MM-dd"));
             cmd.CommandText = sql;
             cmd.CommandType = CommandType.StoredProcedure;
             this.FillData();
@@ -50,21 +49,19 @@ namespace YellowstonePathology.Business.Reports.Cytology
 
         private void FillData()
         {
-            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;                
 
-                using (SqlDataReader dr = cmd.ExecuteReader())
-                {
-                    //int currentPhysicianClientId = 0;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {                    
 					string currentPhysicianClientId = "0";
                     CytologyUnsatLetterItem item = new CytologyUnsatLetterItem();
                     CytologyUnsatLetterDetailItem detailItem = new CytologyUnsatLetterDetailItem();
 
                     while (dr.Read())
-                    {
-                        //int thisPhysicianClientId = BaseData.GetIntValue("PhysicianClientId", dr);
+                    {                        
 						string thisPhysicianClientId = BaseData.GetStringValue("PhysicianClientId", dr);
 						if (thisPhysicianClientId != currentPhysicianClientId)
                         {
@@ -163,7 +160,7 @@ namespace YellowstonePathology.Business.Reports.Cytology
             set { this.m_LongDistance = value; }
         }
 
-        public void Fill(SqlDataReader dr)
+        public void Fill(MySqlDataReader dr)
         {
             this.PhysicianClientId = BaseData.GetStringValue("PhysicianClientId", dr);
             this.ClientId = BaseData.GetIntValue("ClientId", dr);
@@ -238,7 +235,7 @@ namespace YellowstonePathology.Business.Reports.Cytology
             set { this.m_ScreeningImpression = value; }
         }
 
-        public void Fill(SqlDataReader dr)
+        public void Fill(MySqlDataReader dr)
         {
             this.PhysicianClientId = BaseData.GetStringValue("PhysicianClientId", dr);
             this.ClientId = BaseData.GetIntValue("ClientId", dr);

@@ -22,10 +22,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.LynchSyndrome.MLH1MethylationAnalysisWordDocument).AssemblyQualifiedName;
             
 			this.m_AllowMultiplePerAccession = true;
-            this.m_EpicDistributionIsImplemented = true;
-
-            string task1Description = "Give block to Transcritpion for sendout to Neo.";
-			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.Task(YellowstonePathology.Business.Task.Model.TaskAssignment.Histology, task1Description));
+            this.m_EpicDistributionIsImplemented = true;            
 
             string task3Description = "Receive materials from Histo and send out to Neo.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskFedexShipment(YellowstonePathology.Business.Task.Model.TaskAssignment.Transcription, task3Description, new Facility.Model.NeogenomicsIrvine()));
@@ -36,7 +33,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 			YellowstonePathology.Business.Task.Model.TaskSendBlockToNeogenomics taskSendBlockToNeogenomics = new YellowstonePathology.Business.Task.Model.TaskSendBlockToNeogenomics();
             this.m_TaskCollection.Add(taskSendBlockToNeogenomics);
 
-			YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT81288(), 1);
+			YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("81288", null), 1);
             this.m_PanelSetCptCodeCollection.Add(panelSetCptCode);
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMiscellaneous());

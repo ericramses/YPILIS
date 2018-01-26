@@ -29,10 +29,12 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             {
                 this.m_IsMatch = true;
                 if (accessionOrder.PanelSetOrderCollection.Exists(18, orderedOnId, true) ||
-                    accessionOrder.PanelSetOrderCollection.Exists(30, orderedOnId, true) == true)
+                    accessionOrder.PanelSetOrderCollection.Exists(30, orderedOnId, true)  ||
+                    accessionOrder.PanelSetOrderCollection.Exists(218, orderedOnId, true) == true)
                 {
                     YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(30, orderedOnId, true);
                     if (panelSetOrder == null) panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(18, orderedOnId, true);
+                    if (panelSetOrder == null) panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(218, orderedOnId, true);
 
                     if (panelSetOrder.Final == true)
                     {

@@ -314,7 +314,8 @@ namespace YellowstonePathology.Business.Test.ErPrSemiQuantitative
             return auditResult;
         }
 
-        public override void Finish(Business.Test.AccessionOrder accessionOrder)
+        //public override void Finish(Business.Test.AccessionOrder accessionOrder)
+        public override FinalizeTestResult Finish(Business.Test.AccessionOrder accessionOrder)
         {
             YellowstonePathology.Business.Test.PanelOrder panelOrder = this.PanelOrderCollection.GetPanelByPanelId(62);
             if (panelOrder.Accepted == false)
@@ -325,7 +326,7 @@ namespace YellowstonePathology.Business.Test.ErPrSemiQuantitative
                 panelOrder.AcceptedTime = DateTime.Now;
             }
 
-            base.Finish(accessionOrder);
+            return base.Finish(accessionOrder);
         }
     }
 }

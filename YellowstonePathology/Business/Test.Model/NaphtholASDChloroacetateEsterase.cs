@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Test.Model
 	{
 		public NaphtholASDChloroacetateEsterase()
 		{
-			this.m_TestId = 192;
+			this.m_TestId = "192";
 			this.m_TestName = "Naphthol AS-D chloroacetate esterase";
             this.m_TestAbbreviation = "Naphthol AS-D chloroacetate esterase";
 			this.m_Active = true;

@@ -80,11 +80,11 @@
 						<RowDefinition Height="*"></RowDefinition>
 					</Grid.RowDefinitions>
 
-                    <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold" FontSize="20">Genotype 16 Result:</TextBlock>
+                    <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold" FontSize="20">HPV 16 Result:</TextBlock>
                     <ComboBox Name="ComboBoxGenotype16Result" Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" FontSize="20" ItemsSource="{Binding Path=Genotype16ResultCollection}" DisplayMemberPath="Result" 
 							  SelectedValue="{Binding Path=PanelSetOrder.HPV16Result}" SelectedValuePath="Result" HorizontalAlignment="Stretch" />
 
-                    <TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold" FontSize="20">Genotype 18 Result:</TextBlock>
+                    <TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold" FontSize="20">HPV 18/45 Result:</TextBlock>
                     <ComboBox Name="ComboBoxGenotype18Result" Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" FontSize="20" ItemsSource="{Binding Path=Genotype18ResultCollection}" DisplayMemberPath="Result" 
 							  SelectedValue="{Binding Path=PanelSetOrder.HPV18Result}" SelectedValuePath="Result" HorizontalAlignment="Stretch" />
 

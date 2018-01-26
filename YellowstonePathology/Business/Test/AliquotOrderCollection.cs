@@ -149,7 +149,7 @@ namespace YellowstonePathology.Business.Test
 			AliquotOrder result = null;			
 			foreach (AliquotOrder aliquotOrder in this)
 			{
-                if (aliquotOrder.TestOrderCollection.Exists(testOrderId) == true)
+                if (aliquotOrder.TestOrderCollection.ExistsByTestOrderId(testOrderId) == true)
                 {
                     result = aliquotOrder;
                     break;
@@ -215,7 +215,21 @@ namespace YellowstonePathology.Business.Test
             return aliquotOrder;
         }
 
-		public AliquotOrder AddCESlide(YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder, DateTime accessionDate)
+        public AliquotOrder AddWash(YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder, DateTime accessionDate)
+        {
+            AliquotOrder aliquotOrder = this.GetNextItem(specimenOrder, AliquotType.Wash, accessionDate);
+            aliquotOrder.SpecimenOrderId = specimenOrder.SpecimenOrderId;
+            aliquotOrder.Description = string.Empty;
+            aliquotOrder.AliquotType = "Wash";
+            aliquotOrder.LabelPrefix = string.Empty;
+            aliquotOrder.Label = specimenOrder.SpecimenNumber.ToString() + ".1";
+            aliquotOrder.LabelType = YellowstonePathology.Business.Specimen.Model.AliquotLabelType.PaperLabel;
+            this.Add(aliquotOrder);
+            this.SetBlockLabels(specimenOrder.SpecimenNumber);
+            return aliquotOrder;
+        }
+
+        public AliquotOrder AddCESlide(YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder, DateTime accessionDate)
         {
             AliquotOrder aliquotOrder = this.GetNextItem(specimenOrder, AliquotType.Slide, accessionDate);
             aliquotOrder.SpecimenOrderId = specimenOrder.SpecimenOrderId;
@@ -493,6 +507,73 @@ namespace YellowstonePathology.Business.Test
                 {
                     result = true;
                     break;
+                }
+            }
+            return result;
+        }
+
+        public bool HasDecal()
+        {
+            bool result = false;
+            foreach (AliquotOrder aliquotOrder in this)
+            {
+                if (aliquotOrder.Decal == true)
+                {
+                    result = true;
+                    break;
+                }
+            }
+            return result;
+        }
+
+        public bool HasFrozenBlock()
+        {
+            bool result = false;
+            foreach (AliquotOrder aliquotOrder in this)
+            {
+                if (aliquotOrder.AliquotType == "FrozenBlock")
+                {
+                    result = true;
+                    break;
+                }
+            }
+            return result;
+        }
+
+        public int CellBlockCount()
+        {
+            int result = 0;
+            foreach (AliquotOrder aliquotOrder in this)
+            {
+                if (aliquotOrder.AliquotType == "CellBlock")
+                {
+                    result += 1;                    
+                }
+            }
+            return result;
+        }
+
+        public int FrozenBlockCount()
+        {
+            int result = 0;
+            foreach (AliquotOrder aliquotOrder in this)
+            {
+                if (aliquotOrder.AliquotType == "FrozenBlock")
+                {
+                    result += 1;
+                }
+            }
+            return result;
+        }
+
+        public int DecalCount()
+        {
+            int result = 0;
+            foreach (AliquotOrder aliquotOrder in this)
+            {
+                if (aliquotOrder.Decal == true)
+                {
+                    result += 1;
                 }
             }
             return result;

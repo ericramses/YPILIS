@@ -14,7 +14,7 @@ namespace YellowstonePathology.Business.Domain.Cytology
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		private int m_CommentId;
+		private string m_CommentId;
 		private string m_Comment;
 		private string m_AbbreviatedComment;
 
@@ -32,7 +32,7 @@ namespace YellowstonePathology.Business.Domain.Cytology
 		}
 
 		[PersistentProperty()]
-		public int CommentId
+		public string CommentId
 		{
 			get { return this.m_CommentId; }
 			set

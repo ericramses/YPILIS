@@ -12,8 +12,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Threading;
 using System.IO;
-using System.Data;
-using System.Data.SqlClient;
 using System.ComponentModel;
 using Microsoft.Win32;
 
@@ -662,7 +660,7 @@ namespace YellowstonePathology.UI
 		private void MenuItemMasterLog_Click(object sender, RoutedEventArgs e)
 		{
 			YellowstonePathology.Business.Reports.Surgical.SurgicalMasterLog report = new YellowstonePathology.Business.Reports.Surgical.SurgicalMasterLog();
-			report.CreateReport(DateTime.Today);
+			report.CreateReport(DateTime.Today);            
             report.PrintReport();
 		}		
 
@@ -853,6 +851,12 @@ namespace YellowstonePathology.UI
             monitorPath.Show(YellowstonePathology.UI.Monitor.MonitorPageLoadEnum.MissingInformationMonitor);            
         }
 
+        private void MenuItemShowDashboardMonitor_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.UI.Monitor.MonitorPath monitorPath = new Monitor.MonitorPath();
+            monitorPath.Show(YellowstonePathology.UI.Monitor.MonitorPageLoadEnum.DashboardMonitor);
+        }
+
         private void MenuItemAcidWashOrders_Click(object sender, RoutedEventArgs e)
         {
             Test.AcidWashOrdersDialog acidWashOrdersDialog = new Test.AcidWashOrdersDialog();
@@ -931,6 +935,24 @@ namespace YellowstonePathology.UI
         {
             UI.MySql.SqlServerRefreshDialog sqlServerRefreshDialog = new MySql.SqlServerRefreshDialog();
             sqlServerRefreshDialog.ShowDialog();
+        }
+
+        private void MenuItemRetrospectiveReviews_Click(object sender, RoutedEventArgs e)
+        {
+            RetrospectiveReviews retrospectiveReviews = new RetrospectiveReviews();
+            retrospectiveReviews.Show();
+        }
+
+        private void MenuItemVentanaStainMapping_Click(object sender, RoutedEventArgs e)
+        {
+            VentanaStainMappingDialog dialog = new UI.VentanaStainMappingDialog();
+            dialog.Show();
+        }
+
+        private void MenuItemSimulateVantageScan_Click(object sender, RoutedEventArgs e)
+        {
+            string key = YellowstonePathology.Business.BarcodeScanning.VantageBarcode.SimulateScan();
+            YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort.Instance.SimulateScanReceived(key);
         }
     }
 }

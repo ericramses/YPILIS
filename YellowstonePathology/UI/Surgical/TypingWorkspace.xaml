@@ -96,7 +96,7 @@
             <TextBlock Grid.Column="2" Grid.Row="6" HorizontalAlignment="Right" VerticalAlignment="Center"  Margin="2,2,2,2" FontWeight="Bold">Hold Billing/Audited</TextBlock>
 
             <StackPanel Grid.Column="3" Grid.Row="0" Orientation="Horizontal">
-                <TextBox Name="TextBoxReportNoSearch" Width="100" HorizontalAlignment="Left" KeyDown="TextBoxReportNoSearch_KeyDown" TabIndex="0" Margin="2,2,2,2" VerticalAlignment="Center">17-</TextBox>
+                <TextBox Name="TextBoxReportNoSearch" Width="100" HorizontalAlignment="Left" KeyDown="TextBoxReportNoSearch_KeyDown" TabIndex="0" Margin="2,2,2,2" VerticalAlignment="Center">18-</TextBox>
                 <Button Click="ButtonRefresh_Click" Margin="2,2,2,2" VerticalAlignment="Center">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="/Resources/Refresh.ico" Margin="2" Height="16"></Image>
@@ -291,9 +291,15 @@
                         </Grid.RowDefinitions>
 
                         <TextBlock Grid.Column="0" Grid.Row="0" FontWeight="Bold">Clinical Information:</TextBlock>
-                        <TextBlock Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" Margin="0,0,2,0">                    
+
+                        <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right">
+                            <TextBlock Margin="0,0,10,0">                    
+                            <Hyperlink Click="HyperLinkSetCPTCodes_Click">Set CPT Codes</Hyperlink>
+                            </TextBlock>
+                            <TextBlock Margin="0,0,2,0">                    
                             <Hyperlink Click="HyperLinkCleanClinicalInformation_Click">Clean</Hyperlink>
-                        </TextBlock>
+                            </TextBlock>
+                        </StackPanel>
 
                         <TextBox Name="TextBoxClinical"  Grid.Column="0" Grid.Row="1" TextWrapping="Wrap" AcceptsReturn="True"
 									Text="{Binding Path=AccessionOrder.ClinicalHistory, UpdateSourceTrigger=PropertyChanged}"
@@ -532,7 +538,10 @@
                                                         </TextBox>
                                                         <TextBox Text="{Binding Path=CPTCode, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" FontWeight="Bold" Margin="2" Width="70"
 																	ToolTip="CPT Code" IsEnabled="False"></TextBox>
+                                                        <TextBox Text="{Binding Path=Modifier, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" FontWeight="Bold" Margin="2" Width="70"
+																	ToolTip="Modifier" IsEnabled="False"></TextBox>
                                                         <TextBlock Text="{Binding Path=PostDateProxy}" VerticalAlignment="Center" Margin="2" Width="80" ToolTip="Post Date"/>
+                                                        <TextBlock Text="{Binding Path=CodeableDescription}" VerticalAlignment="Center" Margin="2"></TextBlock>
 
                                                     </StackPanel>
                                                 </DataTemplate>

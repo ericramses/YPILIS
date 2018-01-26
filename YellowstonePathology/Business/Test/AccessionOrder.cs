@@ -1,12 +1,13 @@
 using System;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
+
 using System.Linq;
 using System.Xml.Linq;
 using System.Text;
 using YellowstonePathology.Business.Persistence;
 using System.Collections.Generic;
+using MySql.Data.MySqlClient;
 
 namespace YellowstonePathology.Business.Test
 {
@@ -1539,16 +1540,19 @@ namespace YellowstonePathology.Business.Test
                 }
                 else
                 {
-                    panelSetOrder.AssignedToId = 5088; //Assign to Dr. Emerick
+                    panelSetOrder.AssignedToId = 5143; //Assign to Dr. Morrison
                     YellowstonePathology.Business.Facility.Model.YellowstonePathologistBillings yp = new Facility.Model.YellowstonePathologistBillings();
                     YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings ypi = new Facility.Model.YellowstonePathologyInstituteBillings();
                     panelSetOrder.ProfessionalComponentFacilityId = yp.FacilityId;
                     panelSetOrder.ProfessionalComponentBillingFacilityId = ypi.FacilityId;
                 }                
             }
-            else
+            else if (this.m_CaseOwnerId != 0)
             {
-                if (this.m_CaseOwnerId != 0)
+                PanelSet.Model.PanelSetCollection collection = PanelSet.Model.PanelSetCollection.GetAll();
+                PanelSet.Model.PanelSet panelSet = collection.GetPanelSet(panelSetOrder.PanelSetId);
+
+                if (panelSet.RequiresAssignment == true)
                 {
                     panelSetOrder.AssignedToId = this.m_CaseOwnerId;
                 }
@@ -1750,6 +1754,41 @@ namespace YellowstonePathology.Business.Test
             dataTableReader.Read();
             Persistence.SqlDataTableReaderPropertyWriter sqlDataTableReaderPropertyWriter = new SqlDataTableReaderPropertyWriter(this, dataTableReader);
             sqlDataTableReaderPropertyWriter.WriteProperties();
-        }        
+        }
+        
+        public void SetCaseOwnerId()
+        {
+            if (this.m_CaseOwnerId == 0)
+            {
+                int id = 0;
+                if (this.m_PanelSetOrderCollection.HasSurgical() == true)
+                {
+                    id = this.m_PanelSetOrderCollection.GetSurgical().AssignedToId;
+                }
+
+                if (id == 0)
+                {
+                    LLP.LeukemiaLymphomaTest leukemiaLymphomaTest = new LLP.LeukemiaLymphomaTest();
+                    foreach (PanelSetOrder panelSetOrder in this.m_PanelSetOrderCollection)
+                    {
+                        if (panelSetOrder.PanelSetId == leukemiaLymphomaTest.PanelSetId && panelSetOrder.AssignedToId != 0)
+                        {
+                            id = panelSetOrder.AssignedToId;
+                            break;
+                        }
+                    }
+                }
+
+                if (id == 0)
+                {
+                    if (User.SystemIdentity.Instance.User.IsUserInRole(User.SystemUserRoleDescriptionEnum.Pathologist) == true)
+                    {
+                        id = User.SystemIdentity.Instance.User.UserId;
+                    }
+                }
+
+                this.m_CaseOwnerId = id;
+            }
+        }
     }
 }

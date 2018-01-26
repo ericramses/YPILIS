@@ -19,7 +19,7 @@ namespace YellowstonePathology.Business.Rules.PanelOrder
 
 		public Accept()
         {			
-			this.m_TestCollection = YellowstonePathology.Business.Test.Model.TestCollection.GetAllTests();
+			this.m_TestCollection = YellowstonePathology.Business.Test.Model.TestCollection.GetAllTests(false);
 			this.m_Rule = new YellowstonePathology.Business.Rules.Rule();
 
             this.m_Rule.ActionList.Add(DoesUserHavePermission);

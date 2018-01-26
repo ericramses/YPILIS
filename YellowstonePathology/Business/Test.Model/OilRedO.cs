@@ -9,11 +9,12 @@ namespace YellowstonePathology.Business.Test.Model
 	{
 		public OilRedO()
 		{
-			this.m_TestId = 131;
+			this.m_TestId = "131";
 			this.m_TestName = "Oil Red O";
             this.m_TestAbbreviation = "Oil Red O";
 			this.m_Active = true;
 			this.m_NeedsAcknowledgement = true;
-		}
+            this.m_PerformedByHand = true;
+        }
 	}
 }

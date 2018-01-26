@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Test.Model
 	{
 		public BerEP4()
 		{
-			this.m_TestId = 216;
+			this.m_TestId = "216";
 			this.m_TestName = "Ber-EP4";
             this.m_TestAbbreviation = "Ber-EP4";
 			this.m_Active = true;

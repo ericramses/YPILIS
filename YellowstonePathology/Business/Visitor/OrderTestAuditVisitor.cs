@@ -34,7 +34,7 @@ namespace YellowstonePathology.Business.Visitor
 
         private void HandleItemsWhereVisitingIsNotNecessary()
         {            
-            if (this.m_AliquotOrder.TestOrderCollection.Exists(this.m_TestOrder.TestOrderId) == true)
+            if (this.m_AliquotOrder.TestOrderCollection.ExistsByTestOrderId(this.m_TestOrder.TestOrderId) == true)
             {
                 this.m_TestOrderHasBeenAddedToLeftSide = true;
             }            
@@ -44,7 +44,7 @@ namespace YellowstonePathology.Business.Visitor
         {
             foreach (YellowstonePathology.Business.Test.PanelOrder panelOrder in panelOrderCollection)
             {
-                if (panelOrder.TestOrderCollection.Exists(this.m_TestOrder.TestOrderId) == true)
+                if (panelOrder.TestOrderCollection.ExistsByTestOrderId(this.m_TestOrder.TestOrderId) == true)
                 {
                     this.m_TestOrderHasBeenAddedToRightSide = true;
                     if (panelOrder.Acknowledged == false)

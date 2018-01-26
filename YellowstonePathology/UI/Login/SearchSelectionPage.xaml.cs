@@ -260,5 +260,11 @@ namespace YellowstonePathology.UI.Login
             this.m_LoginUI.GetReportSearchListByDrKurtzman();
             Window.GetWindow(this).Close();   
         }
+
+        private void ButtonInvalidFinal_Click(object sender, RoutedEventArgs e)
+        {
+            this.m_LoginUI.GetReportSearchListByInvalidFinal();
+            Window.GetWindow(this).Close();
+        }
     }
 }

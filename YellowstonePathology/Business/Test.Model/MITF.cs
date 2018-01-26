@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Test.Model
 	{
 		public MITF()
 		{
-			this.m_TestId = 178;
+			this.m_TestId = "178";
 			this.m_TestName = "MITF";
             this.m_TestAbbreviation = "MITF";
 			this.m_Active = true;

@@ -12,14 +12,15 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
             MultiTestDistributionHandler result = null;
             if (accessionOrder.PanelSetOrderCollection.HasWomensHealthProfileOrder() == true)
             {
-                WHPHoldList holdList = new WHPHoldList();
-                if (holdList.Exists(accessionOrder.PhysicianId) == true)
+                
+                YellowstonePathology.Business.Domain.Physician physician = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianByPhysicianId(accessionOrder.PhysicianId);
+                if (physician != null && physician.HoldForWHP == true)
                 {
                     result = new MultiTestDistributionHandlerWHPHold(accessionOrder);
                 }
                 else
                 {
-                    YellowstonePathology.Business.Client.Model.ClientGroupClientCollection clientGroupStVincent = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientGroupClientCollectionByClientGroupId(1);
+                    YellowstonePathology.Business.Client.Model.ClientGroupClientCollection clientGroupStVincent = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientGroupClientCollectionByClientGroupId("1");
                     if (clientGroupStVincent.ClientIdExists(accessionOrder.ClientId) == true)
                     {
                         result = new MultiTestDistributionHandlerWHPSVH(accessionOrder);

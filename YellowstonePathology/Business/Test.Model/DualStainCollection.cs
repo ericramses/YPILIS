@@ -47,7 +47,7 @@ namespace YellowstonePathology.Business.Test.Model
             return result;
         }
 
-        public bool Exists(int testId)
+        public bool Exists(string testId)
         {
             bool result = false;
             foreach (DualStain dualStain in this)
@@ -61,13 +61,12 @@ namespace YellowstonePathology.Business.Test.Model
             return result;
         }
 
-        public DualStain Get(int testId)
+        public DualStain Get(string testId)
         {
             DualStain result = null;
             foreach (DualStain dualStain in this)
             {
-                if (dualStain.FirstTest.TestId == testId || dualStain.SecondTest.TestId == testId ||
-                    dualStain.DepricatedFirstTestId == testId || dualStain.DepricatedSecondTestId == testId)
+                if (dualStain.TestId == testId)
                 {
                     result = dualStain;
                     break;
@@ -82,12 +81,12 @@ namespace YellowstonePathology.Business.Test.Model
 			List<DualStain> stainList = new List<DualStain>();
 
 			stainList.Add(new CD3CD20DualStain());
-			stainList.Add(new CDX2VillinDualStain());
+            stainList.Add(new PAX5CD5DualStain());
+            stainList.Add(new CDX2VillinDualStain());
 			stainList.Add(new Cytokeratin34P504sRacemaseDualStain());
 			stainList.Add(new IgKappaIgLambdaDualStain());
 			stainList.Add(new Ki67MelanADualStain());
-			stainList.Add(new OSCARSmoothMuscleMyosinDualStain());
-			stainList.Add(new PAX5Zap70DualStain());
+			stainList.Add(new OSCARSmoothMuscleMyosinDualStain());			
 			stainList.Add(new TTF1NapsinADualStain());
 
 			stainList.Sort(DualStain.CompareByTestName);
@@ -116,7 +115,7 @@ namespace YellowstonePathology.Business.Test.Model
 
             foreach (DualStain ds in allDualStains)
             {
-                if (testOrderCollection.Exists(ds.FirstTest.TestId) == true && testOrderCollection.Exists(ds.SecondTest.TestId) == true)
+                if (testOrderCollection.ExistsByTestId(ds.FirstTest.TestId) == true && testOrderCollection.ExistsByTestId(ds.SecondTest.TestId) == true)
                 {
                     TestOrder firstTestOrder = testOrderCollection.GetTestOrder(ds.FirstTest.TestId);
                     TestOrder secondTestOrder = testOrderCollection.GetTestOrder(ds.SecondTest.TestId);

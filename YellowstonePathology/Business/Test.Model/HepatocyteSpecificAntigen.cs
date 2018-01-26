@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Test.Model
 	{
 		public HepatocyteSpecificAntigen()
 		{
-			this.m_TestId = 197;
+			this.m_TestId = "197";
 			this.m_TestName = "Hepatocyte Specific Antigen";
             this.m_TestAbbreviation = "HSA";
 			this.m_Active = true;

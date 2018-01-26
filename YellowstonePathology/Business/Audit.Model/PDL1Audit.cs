@@ -27,8 +27,8 @@ namespace YellowstonePathology.Business.Audit.Model
             this.m_Status = AuditStatusEnum.OK;
             this.m_Message.Clear();
 
-            YellowstonePathology.Business.Test.PDL1SP142.PDL1SP142Test pdl1Test = new Test.PDL1SP142.PDL1SP142Test();
-            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(pdl1Test.PanelSetId) == false)
+            YellowstonePathology.Business.Test.PDL122C3.PDL122C3Test pdl = new Test.PDL122C3.PDL122C3Test();
+            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(pdl.PanelSetId) == false)
             {
                 YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetSurgical();
                 foreach (YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen in surgicalTestOrder.SurgicalSpecimenCollection)
@@ -37,7 +37,7 @@ namespace YellowstonePathology.Business.Audit.Model
                     if (this.IndicatorExists(surgicalSpecimen.SpecimenOrder.Description, surgicalSpecimen.Diagnosis, panelSetOrderCPTCodeCollectionForThisSpecimen) == true)
                     {
                         this.m_Status = AuditStatusEnum.Failure;
-                        this.m_Message.Append(pdl1Test.PanelSetName);
+                        this.m_Message.Append(pdl.PanelSetName);
                         break;
                     }
                 }

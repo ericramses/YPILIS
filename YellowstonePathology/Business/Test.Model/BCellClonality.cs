@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Test.Model
 	{
 		public BCellClonality()
 		{
-			this.m_TestId = 259;
+			this.m_TestId = "259";
 			this.m_TestName = "B-Cell Clonality";
             this.m_TestAbbreviation = "B-Cell";
 			this.m_Active = true;

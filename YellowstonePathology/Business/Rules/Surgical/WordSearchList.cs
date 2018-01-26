@@ -14,6 +14,14 @@ namespace YellowstonePathology.Business.Rules.Surgical
 			this.m_ExecutionStatus = new ExecutionStatus();
 		}
 
+        public WordSearchList(List<string> words)
+        {
+            foreach(string word in words)
+            {
+                this.Add(new WordSearchListItem(word, true, ""));
+            }            
+        }
+
 		public bool Search(string sourceString)
 		{
 			bool result = false;

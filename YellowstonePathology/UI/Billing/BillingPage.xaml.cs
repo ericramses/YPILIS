@@ -60,7 +60,7 @@ namespace YellowstonePathology.UI.Billing
         private string m_ReportNo;
         private YellowstonePathology.Business.Facility.Model.FacilityCollection m_FacilityCollection;
 
-        private Business.Billing.Model.MonitoredObjectCollection m_MonitoredObjectCollection;
+        //private Business.Billing.Model.MonitoredObjectCollection m_MonitoredObjectCollection;
 
         public BillingPage(string reportNo, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{			
@@ -92,14 +92,14 @@ namespace YellowstonePathology.UI.Billing
                 this.ShowTIFDocument(this, new CustomEventArgs.FileNameReturnEventArgs(firstRequisition.FullFileName));
             }
 
-            this.m_MonitoredObjectCollection = new Business.Billing.Model.MonitoredObjectCollection();
-            this.m_MonitoredObjectCollection.Load(typeof(Business.Test.PanelSetOrder), this.m_PanelSetOrder, this.m_PanelSetOrder.ReportNo);
+            //this.m_MonitoredObjectCollection = new Business.Billing.Model.MonitoredObjectCollection();
+            //this.m_MonitoredObjectCollection.Load(typeof(Business.Test.PanelSetOrder), this.m_PanelSetOrder, this.m_PanelSetOrder.ReportNo);
         }
 
         private void BillingPage_Unloaded(object sender, RoutedEventArgs e)
         {
             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
-            this.m_MonitoredObjectCollection.WriteChanges();
+            //this.m_MonitoredObjectCollection.WriteChanges();
         }
 
         public YellowstonePathology.Business.Facility.Model.FacilityCollection FacilityCollection
@@ -187,8 +187,8 @@ namespace YellowstonePathology.UI.Billing
                 return;
             }
 
-            try
-            {
+            //try
+            //{
                 if (this.IsTechnicalBillingFacilityValid() == true)
                 {
                     if (this.IsProfessionalBillingFacilityValid() == true)
@@ -201,13 +201,13 @@ namespace YellowstonePathology.UI.Billing
                         }
                     }
                 }
-            }
-            catch(Exception exc)
-            {
-                Business.Logging.EmailExceptionHandler.HandleException("ButtonSet_Click: ReportNo - " + this.m_PanelSetOrder.ReportNo + " - " + exc.Message);
-                MessageBox.Show("Oops! An error occurred that I cannot recover from.  I sent and email to IT and I am going to shut the application down.");
-                Application.Current.Shutdown();
-            }            
+            //}
+            //catch(Exception exc)
+            //{
+            //    Business.Logging.EmailExceptionHandler.HandleException("ButtonSet_Click: ReportNo - " + this.m_PanelSetOrder.ReportNo + " - " + exc.Message);
+            //    MessageBox.Show("Oops! An error occurred that I cannot recover from.  I sent and email to IT and I am going to shut the application down.");
+            //    Application.Current.Shutdown();
+            //}            
         }
 
         private bool IsTechnicalBillingFacilityValid()
@@ -257,7 +257,7 @@ namespace YellowstonePathology.UI.Billing
         private void ButtonPost_Click(object sender, RoutedEventArgs e)
         {
             YellowstonePathology.Business.Billing.Model.BillableObject billableObject = Business.Billing.Model.BillableObjectFactory.GetBillableObject(this.m_AccessionOrder, this.m_ReportNo);
-            YellowstonePathology.Business.Rules.MethodResult methodResult = billableObject.Post();                        
+            YellowstonePathology.Business.Rules.MethodResult methodResult = billableObject.Post();
             if (methodResult.Success == false)
             {
                 MessageBox.Show(methodResult.Message);
@@ -387,7 +387,7 @@ namespace YellowstonePathology.UI.Billing
                 epicFT1ResultView.CanSend(methodResult);
                 if (methodResult.Success == true)
                 {
-                    Business.Billing.Model.CptCode cptCode = Business.Billing.Model.CptCodeCollection.Instance.GetCptCode(panelSetOrderCPTCodeBill.CPTCode);
+                    Business.Billing.Model.CptCode cptCode = Store.AppDataStore.Instance.CPTCodeCollection.GetClone(panelSetOrderCPTCodeBill.CPTCode, panelSetOrderCPTCodeBill.Modifier);
                     Business.Rules.MethodResult sendResult = new Business.Rules.MethodResult();
                     epicFT1ResultView.Send(sendResult);
                 }
@@ -422,6 +422,17 @@ namespace YellowstonePathology.UI.Billing
             {
                 MessageBox.Show("No ADT information was found.");
             }            
+        }
+
+        private void MenuItemUpdateClient_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.ListViewPanelSetOrderCPTCodeBill.SelectedItems.Count != 0)
+            {
+                foreach (YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill in this.ListViewPanelSetOrderCPTCodeBill.SelectedItems)
+                {
+                    panelSetOrderCPTCodeBill.ClientId = AccessionOrder.ClientId;
+                }
+            }
         }
     }
 }

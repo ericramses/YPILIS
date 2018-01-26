@@ -19,30 +19,29 @@ namespace YellowstonePathology.Business.Test
 
         public void UpdateCodeType()
         {
-            Business.Billing.Model.CptCodeCollection cptCodeCollection = Business.Billing.Model.CptCodeCollection.Instance;
             foreach (Business.Test.PanelSetOrderCPTCode panelSetCptCode in this)
             {
                 if (string.IsNullOrEmpty(panelSetCptCode.CodeType) == true)
                 {
-                    Business.Billing.Model.CptCode cptCode = cptCodeCollection.GetCptCode(panelSetCptCode.CPTCode);
+                    Business.Billing.Model.CptCode cptCode = Store.AppDataStore.Instance.CPTCodeCollection.GetClone(panelSetCptCode.CPTCode, panelSetCptCode.Modifier);
                     panelSetCptCode.CodeType = cptCode.CodeType.ToString();
                 }
             }
         }
 
-        public List<PanelSetOrderCPTCode> FindUnrecognizedCodes()
+        /*public List<PanelSetOrderCPTCode> FindUnrecognizedCodes()
         {
             List<PanelSetOrderCPTCode> result = new List<PanelSetOrderCPTCode>();
-            Business.Billing.Model.CptCodeCollection cptCodeCollection = Business.Billing.Model.CptCodeCollection.Instance;
             foreach (Business.Test.PanelSetOrderCPTCode panelSetCptCode in this)
             {
-                if(cptCodeCollection.GetCptCode(panelSetCptCode.CPTCode) == null)
+                Business.Billing.Model.CptCode cptCode = Store.AppDataStore.Instance.CPTCodeCollection.GetClone(panelSetCptCode.CPTCode, panelSetCptCode.Modifier);
+                if (cptCode == null)
                 {
                     result.Add(panelSetCptCode);
                 }
             }
             return result;
-        }
+        }*/
 
         public void RemoveDeleted(IEnumerable<XElement> elements)
         {
@@ -68,10 +67,9 @@ namespace YellowstonePathology.Business.Test
         public bool HasCodesWithMedicareQuantityLimit()
         {
             bool result = false;
-            YellowstonePathology.Business.Billing.Model.CptCodeCollection allCptCodes = YellowstonePathology.Business.Billing.Model.CptCodeCollection.GetAll();
             foreach (YellowstonePathology.Business.Test.PanelSetOrderCPTCode panelSetOrderCPTCode in this)
             {
-                YellowstonePathology.Business.Billing.Model.CptCode cptCode = allCptCodes.GetCptCode(panelSetOrderCPTCode.CPTCode);
+                Business.Billing.Model.CptCode cptCode = Store.AppDataStore.Instance.CPTCodeCollection.GetClone(panelSetOrderCPTCode.CPTCode, panelSetOrderCPTCode.Modifier);
                 if (cptCode.HasMedicareQuantityLimit == true)
                 {
                     result = true;
@@ -121,7 +119,7 @@ namespace YellowstonePathology.Business.Test
             bool result = false;
             foreach (PanelSetOrderCPTCode panelSetOrderCPTCode in this)
             {
-                if (panelSetOrderCPTCode.SpecimenOrderId == specimenOrderId && panelSetOrderCPTCode.SpecimenOrderId == specimenOrderId)
+                if (panelSetOrderCPTCode.CPTCode == cptCode && panelSetOrderCPTCode.SpecimenOrderId == specimenOrderId)
                 {
                     result = true;
                 }
@@ -445,7 +443,7 @@ namespace YellowstonePathology.Business.Test
             {                
                 if (this.Exists("88305", specimenOrder.SpecimenOrderId) == false)
                 {
-                    YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88305 cpt88305 = new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88305();
+                    YellowstonePathology.Business.Billing.Model.CptCode cpt88305 = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88305", null);
                     YellowstonePathology.Business.Test.PanelSetOrderCPTCode panelSetOrderCPTCode = this.GetNextItem(reportNo);
                     panelSetOrderCPTCode.Quantity = 1;
                     panelSetOrderCPTCode.CPTCode = cpt88305.Code;

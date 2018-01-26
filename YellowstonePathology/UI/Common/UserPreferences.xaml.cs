@@ -67,10 +67,8 @@ namespace YellowstonePathology.UI.Common
             }
             else
             {
-                this.m_PageScannerCollection = new Business.Common.PageScannerCollection();
-                MessageBox.Show("Unable to initialize the TWAIN Scanner Collection.");
-            }
-			
+                this.m_PageScannerCollection = new Business.Common.PageScannerCollection();                
+            }			
 		}        
 
         public YellowstonePathology.Business.Label.Model.LabelFormatCollection MolecularLabelFormatCollection

@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Test.Model
 	{
 		public DiffQuik()
 		{
-			this.m_TestId = 279;
+			this.m_TestId = "279";
 			this.m_TestName = "Diff-Quik";
             this.m_TestAbbreviation = "Diff-Quik";
 			this.m_Active = true;

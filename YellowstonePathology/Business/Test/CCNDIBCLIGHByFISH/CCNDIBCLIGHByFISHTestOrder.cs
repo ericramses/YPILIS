@@ -96,7 +96,7 @@ namespace YellowstonePathology.Business.Test.CCNDIBCLIGHByFISH
             result.AppendLine("Interpretation: " + this.m_Interpretation);
             result.AppendLine();
 
-            return result.ToString();
+            return result.ToString().Trim();
         }
 	}
 }

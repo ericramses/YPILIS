@@ -9,11 +9,11 @@ namespace YellowstonePathology.Business.Test.Model
 	{
 		public HelicobacterPylori()
 		{
-			this.m_TestId = 107;
+			this.m_TestId = "107";
 			this.m_TestName = "Helicobacter pylori";
-            this.m_TestAbbreviation = "Helicobacter pylori";
+            this.m_TestAbbreviation = "HPylori";
 			this.m_Active = true;
-			this.m_NeedsAcknowledgement = true;
+			this.m_NeedsAcknowledgement = true;            
 		}
 	}
 }

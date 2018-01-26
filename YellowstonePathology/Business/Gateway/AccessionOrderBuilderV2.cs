@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data;
-using System.Data.SqlClient;
 using MySql.Data.MySqlClient;
 
 namespace YellowstonePathology.Business.Gateway
@@ -25,17 +22,17 @@ namespace YellowstonePathology.Business.Gateway
             this.m_PanelSetCollection = PanelSet.Model.PanelSetCollection.GetAll();
         }
 
-        public void Build(SqlCommand cmd, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
+        public void Build(MySqlCommand cmd, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
             this.m_PanelSetOrderReportNumbers = new List<string>();
             this.m_PanelOrderIds = new List<string>();
             this.m_AccessionOrder = accessionOrder;
                         
-            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;
-                using (SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.KeyInfo))
+                using (MySqlDataReader dr = cmd.ExecuteReader(CommandBehavior.KeyInfo))
                 {
                     HandleDataSets(dr);
                 }
@@ -62,9 +59,7 @@ namespace YellowstonePathology.Business.Gateway
                 this.SetSurgicalSpecimenAuditSpecimenOrder(surgicalTestOrder);
                 this.SetSurgicalSpecimenOrderItemCollection(surgicalTestOrder);
                 this.SetTypingStainCollection(surgicalTestOrder);
-            }
-
-            //if(this.m_AccessionOrder.PanelSetOrderCollection.has)
+            }            
 
             foreach(Test.PanelSetOrder panelSetOrder in this.m_AccessionOrder.PanelSetOrderCollection)
             {
@@ -72,7 +67,7 @@ namespace YellowstonePathology.Business.Gateway
             }
         }
 
-        private void HandleDataSets(SqlDataReader dr)
+        private void HandleDataSets(MySqlDataReader dr)
         {
             DataSet dataSet = new DataSet();
             dataSet.EnforceConstraints = false;
@@ -154,6 +149,9 @@ namespace YellowstonePathology.Business.Gateway
                     case "tblFlowMarkers":
                         this.HandleFlowMarker(dataTable);
                         break;
+                    case "tblRetrospectiveReviewTestOrderDetail":
+                        this.HandleRetrospectiveReview(dataTable);
+                        break;
                 }
             }
             
@@ -163,7 +161,7 @@ namespace YellowstonePathology.Business.Gateway
             }
         }
 
-        public void BuildMySql(MySqlCommand cmd, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
+        /*public void BuildMySql(MySqlCommand cmd, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
             this.m_PanelSetOrderReportNumbers = new List<string>();
             this.m_PanelOrderIds = new List<string>();
@@ -209,7 +207,7 @@ namespace YellowstonePathology.Business.Gateway
             dataTable.Load(dr, LoadOption.OverwriteChanges);
             if (dataTable.Rows.Count > 0)
             {
-                string tablename = dataTable.Rows[0][0].ToString();
+                string tablename = dataTable.Rows[0][0].ToString();                
                 switch (tablename)
                 {
                     case "tblAccessionOrder":
@@ -288,7 +286,7 @@ namespace YellowstonePathology.Business.Gateway
             {
                 HandleMySqlDataSets(dr);
             }
-        }
+        }*/
 
         private void HandleAccessionOrder(DataTable dataTable)
         {
@@ -348,8 +346,7 @@ namespace YellowstonePathology.Business.Gateway
         }
 
         private void HandleTestOrder(DataTable dataTable)
-        {
-            //this.m_TestOrderDataTable = dataTable;
+        {            
             foreach (Test.PanelSetOrder panelSetOrder in this.m_AccessionOrder.PanelSetOrderCollection)
             {
                 foreach (Test.PanelOrder panelOrder in panelSetOrder.PanelOrderCollection)
@@ -599,8 +596,8 @@ namespace YellowstonePathology.Business.Gateway
             {
                 if (panelSetOrder is Test.RetrospectiveReview.RetrospectiveReviewTestOrder)
                 {
-                    Test.RetrospectiveReview.RetrospectiveReviewTestOrder rrto = (Test.RetrospectiveReview.RetrospectiveReviewTestOrder)panelSetOrder;
-                    rrto.RetrospectiveReviewTestOrderDetailCollection.Sync(dataTable);                    
+                    Test.RetrospectiveReview.RetrospectiveReviewTestOrder rrto = (Test.RetrospectiveReview.RetrospectiveReviewTestOrder)panelSetOrder;                    
+                    rrto.RetrospectiveReviewTestOrderDetailCollection.Sync(dataTable, rrto.ReportNo);                    
                 }
             }
         }

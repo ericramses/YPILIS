@@ -19,7 +19,7 @@ namespace YellowstonePathology.Business.Facility.Model
             this.m_ZipCode = "59101";
             this.m_IsReferenceLab = false;
             this.m_AccessioningLocation = "Billings";
-            this.m_LocationAbbreviation = "YPI Blgs, Mt";
+            this.m_LocationAbbreviation = "YPI Blgs, Mt";            
 
             this.Locations.Add(new YellowstonePathology.Business.Facility.Model.LocationDefinitions.DrBrownOffice());
             this.Locations.Add(new YellowstonePathology.Business.Facility.Model.LocationDefinitions.DrDurdenOffice());

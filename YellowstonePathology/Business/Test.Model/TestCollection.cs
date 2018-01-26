@@ -3,11 +3,33 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using StackExchange.Redis;
 
 namespace YellowstonePathology.Business.Test.Model
 {
 	public class TestCollection : ObservableCollection<Test>
     {
+        private static volatile TestCollection instance;
+        private static object syncRoot = new Object();
+
+        public static TestCollection Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    lock (syncRoot)
+                    {
+                        if (instance == null)
+                            instance = FromRedis();
+                    }
+                }
+
+                return instance;
+            }
+        }
         public TestCollection()
         {
 
@@ -27,7 +49,7 @@ namespace YellowstonePathology.Business.Test.Model
             return result;
         }
 
-		public Test GetTest(int testId)
+		public Test GetTest(string testId)
         {
 			Test result = null;
 			foreach (Test test in this)
@@ -41,7 +63,21 @@ namespace YellowstonePathology.Business.Test.Model
             return result;
         }
 
-        public bool Exists(int testId)
+        public Test GetTestByTestNameId(string testNameId)
+        {
+            Test result = null;
+            foreach (Test test in this)
+            {
+                if (test.TestNameId == testNameId)
+                {
+                    result = test;
+                    break;
+                }
+            }
+            return result;
+        }
+
+        public bool Exists(string testId)
         {
             bool result = false;
             foreach (Test test in this)
@@ -59,7 +95,7 @@ namespace YellowstonePathology.Business.Test.Model
 		{
 			TestCollection result = new TestCollection();
 			List<Test> tests = new List<Test>();
-			TestCollection allTests = TestCollection.GetAllTests();
+			TestCollection allTests = TestCollection.GetAllTests(false);
 			foreach (Test test in allTests)
 			{
 				if (test.TestName.Substring(0, 1) == firstLetter) tests.Add(test);
@@ -73,14 +109,16 @@ namespace YellowstonePathology.Business.Test.Model
 			return result;
 		}
 
-        public ObservableCollection<object> GetTestsStartingWithToObjectCollection(string firstLetter)
+        public ObservableCollection<object> GetTestsStartingWithToObjectCollection(string firstLetter, bool includeWetProtocols)
         {
             ObservableCollection<object> result = new ObservableCollection<object>();
             List<Test> tests = new List<Test>();
-            TestCollection allTests = TestCollection.GetAllTests();
+            TestCollection allTests = TestCollection.GetAllTests(includeWetProtocols);
+            allTests.Add(Business.Test.Model.TestCollection.GetWetIron());
+
             foreach (Test test in allTests)
             {
-                if (test.TestName.Substring(0, 1) == firstLetter) tests.Add(test);
+                if (test.TestName.ToUpper().Substring(0, 1) == firstLetter.ToUpper()) tests.Add(test);
             }
 
             tests.Sort(Test.CompareByTestName);
@@ -89,9 +127,16 @@ namespace YellowstonePathology.Business.Test.Model
                 result.Add(test);
             }
             return result;
+        }               
+
+        public static Iron GetWetIron()
+        {
+            Iron wetIron = new Iron();
+            wetIron.UseWetProtocol = true;
+            return wetIron;
         }
 
-        public static TestCollection GetAllTests()
+        public static TestCollection GetAllTests(bool includeWetProtocols)
         {
             TestCollection result = new TestCollection();
             
@@ -202,6 +247,8 @@ namespace YellowstonePathology.Business.Test.Model
 
 			result.Add(new IgKappa());
 			result.Add(new IgLambda());
+            result.Add(new KappaByISH());
+            result.Add(new LambdaByISH());
             result.Add(new Ki67());            
 
             result.Add(new Lysozyme());
@@ -220,8 +267,7 @@ namespace YellowstonePathology.Business.Test.Model
 
 			result.Add(new P504sRacemase());
 
-			result.Add(new P53());
-            result.Add(new P63());
+			result.Add(new P53());            
             result.Add(new Pancytokeratin());
 
 			result.Add(new PAX5());
@@ -237,8 +283,7 @@ namespace YellowstonePathology.Business.Test.Model
 			result.Add(new SmoothMuscleMyosin());
 
 			result.Add(new Synaptophysin());
-            result.Add(new TdT());
-            result.Add(new Thyroglobulin());
+            result.Add(new TdT());            
             result.Add(new TRAP());
 
 			result.Add(new TTF1());
@@ -249,7 +294,7 @@ namespace YellowstonePathology.Business.Test.Model
 
 			result.Add(new Vimentin());
 
-			result.Add(new Zap70());
+			//result.Add(new Zap70());
 
 			result.Add(new BartonellaHenselae());
             result.Add(new Uroplakin());
@@ -302,14 +347,23 @@ namespace YellowstonePathology.Business.Test.Model
 
             result.Add(new ParoxysmalNocturnalHemoglobinuria());
             result.Add(new Tryptase());
-            
+
+            result.Add(new CD3CD20DualStain());
+            result.Add(new CDX2VillinDualStain());
+            result.Add(new Cytokeratin34P504sRacemaseDualStain());
+            result.Add(new IgKappaIgLambdaDualStain());
+            result.Add(new Ki67MelanADualStain());
+            result.Add(new OSCARSmoothMuscleMyosinDualStain());
+            result.Add(new TTF1NapsinADualStain());
+            result.Add(new CMyc());
+
             return result;
         }
 
         public static TestCollection GetIHCTests()
         {
             TestCollection result = new TestCollection();
-            TestCollection allTests = TestCollection.GetAllTests();
+            TestCollection allTests = TestCollection.GetAllTests(false);
             foreach (Test test in allTests)
             {
                 if (test is ImmunoHistochemistryTest == true)
@@ -323,7 +377,7 @@ namespace YellowstonePathology.Business.Test.Model
         public static TestCollection GetGradedTests()
         {
             TestCollection result = new TestCollection();
-            TestCollection allTests = TestCollection.GetAllTests();
+            TestCollection allTests = TestCollection.GetAllTests(false);
             foreach (Test test in allTests)
             {
                 if (test is GradedTest == true)
@@ -337,7 +391,7 @@ namespace YellowstonePathology.Business.Test.Model
         public static TestCollection GetCytochemicalTests()
         {
             TestCollection result = new TestCollection();
-            TestCollection allTests = TestCollection.GetAllTests();
+            TestCollection allTests = TestCollection.GetAllTests(false);
             foreach (Test test in allTests)
             {
                 if (test is CytochemicalTest == true)
@@ -351,7 +405,7 @@ namespace YellowstonePathology.Business.Test.Model
         public static TestCollection GetCytochemicalForMicroorganismsTests()
         {
             TestCollection result = new TestCollection();
-            TestCollection allTests = TestCollection.GetAllTests();
+            TestCollection allTests = TestCollection.GetAllTests(false);
             foreach (Test test in allTests)
             {
                 if (test is CytochemicalForMicroorganisms)
@@ -359,6 +413,19 @@ namespace YellowstonePathology.Business.Test.Model
                     result.Add(test);
                 }
             }
+            return result;
+        }       
+
+        private static TestCollection FromRedis()
+        {
+            YellowstonePathology.Business.Test.Model.TestCollection result = new TestCollection();                        
+            Store.RedisDB stainDb = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.Stain);
+            foreach (string jString in (string[])stainDb.GetAllJSONKeys())
+            {
+                JObject jObject = JsonConvert.DeserializeObject<JObject>(jString);
+                Test  test = JsonTestFactory.FromJson(jObject);
+                result.Add(test);
+            }            
             return result;
         }
     }

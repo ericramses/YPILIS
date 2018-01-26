@@ -22,43 +22,44 @@ namespace Ventana {
     static VentanaReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "Cg12ZW50YW5hLnByb3RvEgd2ZW50YW5hIhkKCk9yZGVyUmVwbHkSCwoDaGw3",
-            "GAEgASgJIqYBCgxPcmRlclJlcXVlc3QSGQoDbXNoGAEgASgLMgwudmVudGFu",
-            "YS5tc2gSGQoDcGlkGAIgASgLMgwudmVudGFuYS5waWQSGQoDcHYxGAMgASgL",
-            "MgwudmVudGFuYS5wdjESGQoDc2FjGAQgASgLMgwudmVudGFuYS5zYWMSKgoM",
-            "c3RhaW5fb3JkZXJzGAUgAygLMhQudmVudGFuYS5zdGFpbl9vcmRlciJDCgtz",
-            "dGFpbl9vcmRlchIZCgNvcmMYASABKAsyDC52ZW50YW5hLm9yYxIZCgNvYnIY",
-            "AiABKAsyDC52ZW50YW5hLm9iciLHAQoDbXNoEhsKE3NlbmRpbmdfYXBwbGlj",
-            "YXRpb24YASABKAkSGAoQc2VuZGluZ19mYWNpbGl0eRgCIAEoCRIdChVyZWNl",
-            "aXZpbmdfYXBwbGljYXRpb24YAyABKAkSGgoScmVjZWl2aW5nX2ZhY2lsaXR5",
-            "GAQgASgJEhwKFGRhdGVfdGltZV9vZl9tZXNzYWdlGAUgASgJEhQKDG1lc3Nh",
-            "Z2VfdHlwZRgGIAEoCRIaChJtZXNzYWdlX2NvbnRyb2xfaWQYByABKAkigwEK",
-            "A3BpZBIdChVtZWRpY2FsX3JlY29yZF9udW1iZXIYASABKAkSEQoJbGFzdF9u",
-            "YW1lGAIgASgJEhIKCmZpcnN0X25hbWUYAyABKAkSFgoObWlkZGxlX2luaXRp",
-            "YWwYBCABKAkSEQoJYmlydGhkYXRlGAUgASgJEgsKA3NleBgGIAEoCSJ2CgNw",
-            "djESIAoYcmVxdWVzdGluZ19waHlzaWNpYW5fbnBpGAEgASgJEiUKHXJlcXVl",
-            "c3RpbmdfcGh5c2ljaWFuX2xhc3RuYW1lGAIgASgJEiYKHnJlcXVlc3Rpbmdf",
-            "cGh5c2ljaWFuX2ZpcnN0bmFtZRgDIAEoCSIlCgNzYWMSHgoWcmVnaXN0cmF0",
-            "aW9uX2RhdGVfdGltZRgBIAEoCSKUAQoDb3JjEhUKDW9yZGVyX2NvbnRyb2wY",
-            "ASABKAkSGwoTcGxhY2VyX29yZGVyX251bWJlchgCIAEoCRIRCglzaXRlX25h",
-            "bWUYAyABKAkSGAoQc2l0ZV9kZXNjcmlwdGlvbhgEIAEoCRIVCg1mYWNpbGl0",
-            "eV9jb2RlGAUgASgJEhUKDWZhY2lsaXR5X25hbWUYBiABKAkizwMKA29ichIZ",
-            "ChFvcmRlcl9zZXF1ZW5jZV9pZBgBIAEoCRIbChNwbGFjZXJfb3JkZXJfbnVt",
-            "YmVyGAIgASgJEhcKD3Byb3RvY29sX251bWJlchgDIAEoCRIVCg1wcm90b2Nv",
-            "bF9uYW1lGAQgASgJEhIKCm9yZGVyX3R5cGUYBSABKAkSHQoVb2JzZXJ2YXRp",
-            "b25fZGF0ZV90aW1lGAYgASgJEhUKDXNwZWNpbWVuX25hbWUYByABKAkSHAoU",
-            "c3BlY2ltZW5fZGVzY3JpcHRpb24YCCABKAkSHwoXc3VyZ2ljYWxfcHJvY2Vk",
-            "dXJlX25hbWUYCSABKAkSFwoPcGF0aG9sb2dpc3RfbnBpGAogASgJEhwKFHBh",
-            "dGhvbG9naXN0X2xhc3RuYW1lGAsgASgJEh0KFXBhdGhvbG9naXN0X2ZpcnN0",
-            "bmFtZRgMIAEoCRIQCghzbGlkZV9pZBgNIAEoCRIWCg5zbGlkZV9zZXF1ZW5j",
-            "ZRgOIAEoCRIPCgdibG9ja2lkGA8gASgJEhYKDmJsb2NrX3NlcXVlbmNlGBAg",
-            "ASgJEhMKC3NwZWNpbWVuX2lkGBEgASgJEhkKEXNwZWNpbWVuX3NlcXVlbmNl",
-            "GBIgASgJMkYKClN0YWluT3JkZXISOAoIZ2V0T3JkZXISFS52ZW50YW5hLk9y",
-            "ZGVyUmVxdWVzdBoTLnZlbnRhbmEuT3JkZXJSZXBseSIAYgZwcm90bzM="));
+            "Cg12ZW50YW5hLnByb3RvEgd2ZW50YW5hIh0KCk9yZGVyUmVwbHkSDwoHbWVz",
+            "c2FnZRgBIAEoCSKmAQoMT3JkZXJSZXF1ZXN0EhkKA21zaBgBIAEoCzIMLnZl",
+            "bnRhbmEubXNoEhkKA3BpZBgCIAEoCzIMLnZlbnRhbmEucGlkEhkKA3B2MRgD",
+            "IAEoCzIMLnZlbnRhbmEucHYxEhkKA3NhYxgEIAEoCzIMLnZlbnRhbmEuc2Fj",
+            "EioKDHN0YWluX29yZGVycxgFIAMoCzIULnZlbnRhbmEuc3RhaW5fb3JkZXIi",
+            "QwoLc3RhaW5fb3JkZXISGQoDb3JjGAEgASgLMgwudmVudGFuYS5vcmMSGQoD",
+            "b2JyGAIgASgLMgwudmVudGFuYS5vYnIixwEKA21zaBIbChNzZW5kaW5nX2Fw",
+            "cGxpY2F0aW9uGAEgASgJEhgKEHNlbmRpbmdfZmFjaWxpdHkYAiABKAkSHQoV",
+            "cmVjZWl2aW5nX2FwcGxpY2F0aW9uGAMgASgJEhoKEnJlY2VpdmluZ19mYWNp",
+            "bGl0eRgEIAEoCRIcChRkYXRlX3RpbWVfb2ZfbWVzc2FnZRgFIAEoCRIUCgxt",
+            "ZXNzYWdlX3R5cGUYBiABKAkSGgoSbWVzc2FnZV9jb250cm9sX2lkGAcgASgJ",
+            "IoMBCgNwaWQSHQoVbWVkaWNhbF9yZWNvcmRfbnVtYmVyGAEgASgJEhEKCWxh",
+            "c3RfbmFtZRgCIAEoCRISCgpmaXJzdF9uYW1lGAMgASgJEhYKDm1pZGRsZV9p",
+            "bml0aWFsGAQgASgJEhEKCWJpcnRoZGF0ZRgFIAEoCRILCgNzZXgYBiABKAki",
+            "dgoDcHYxEiAKGHJlcXVlc3RpbmdfcGh5c2ljaWFuX25waRgBIAEoCRIlCh1y",
+            "ZXF1ZXN0aW5nX3BoeXNpY2lhbl9sYXN0bmFtZRgCIAEoCRImCh5yZXF1ZXN0",
+            "aW5nX3BoeXNpY2lhbl9maXJzdG5hbWUYAyABKAkiJQoDc2FjEh4KFnJlZ2lz",
+            "dHJhdGlvbl9kYXRlX3RpbWUYASABKAkilAEKA29yYxIVCg1vcmRlcl9jb250",
+            "cm9sGAEgASgJEhsKE3BsYWNlcl9vcmRlcl9udW1iZXIYAiABKAkSEQoJc2l0",
+            "ZV9uYW1lGAMgASgJEhgKEHNpdGVfZGVzY3JpcHRpb24YBCABKAkSFQoNZmFj",
+            "aWxpdHlfY29kZRgFIAEoCRIVCg1mYWNpbGl0eV9uYW1lGAYgASgJIs8DCgNv",
+            "YnISGQoRb3JkZXJfc2VxdWVuY2VfaWQYASABKAkSGwoTcGxhY2VyX29yZGVy",
+            "X251bWJlchgCIAEoCRIXCg9wcm90b2NvbF9udW1iZXIYAyABKAkSFQoNcHJv",
+            "dG9jb2xfbmFtZRgEIAEoCRISCgpvcmRlcl90eXBlGAUgASgJEh0KFW9ic2Vy",
+            "dmF0aW9uX2RhdGVfdGltZRgGIAEoCRIVCg1zcGVjaW1lbl9uYW1lGAcgASgJ",
+            "EhwKFHNwZWNpbWVuX2Rlc2NyaXB0aW9uGAggASgJEh8KF3N1cmdpY2FsX3By",
+            "b2NlZHVyZV9uYW1lGAkgASgJEhcKD3BhdGhvbG9naXN0X25waRgKIAEoCRIc",
+            "ChRwYXRob2xvZ2lzdF9sYXN0bmFtZRgLIAEoCRIdChVwYXRob2xvZ2lzdF9m",
+            "aXJzdG5hbWUYDCABKAkSEAoIc2xpZGVfaWQYDSABKAkSFgoOc2xpZGVfc2Vx",
+            "dWVuY2UYDiABKAkSDwoHYmxvY2tpZBgPIAEoCRIWCg5ibG9ja19zZXF1ZW5j",
+            "ZRgQIAEoCRITCgtzcGVjaW1lbl9pZBgRIAEoCRIZChFzcGVjaW1lbl9zZXF1",
+            "ZW5jZRgSIAEoCTJMCg5WZW50YW5hU2VydmljZRI6CgpidWlsZE9yZGVyEhUu",
+            "dmVudGFuYS5PcmRlclJlcXVlc3QaEy52ZW50YW5hLk9yZGVyUmVwbHkiAGIG",
+            "cHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Ventana.OrderReply), global::Ventana.OrderReply.Parser, new[]{ "Hl7" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Ventana.OrderReply), global::Ventana.OrderReply.Parser, new[]{ "Message" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Ventana.OrderRequest), global::Ventana.OrderRequest.Parser, new[]{ "Msh", "Pid", "Pv1", "Sac", "StainOrders" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Ventana.stain_order), global::Ventana.stain_order.Parser, new[]{ "Orc", "Obr" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Ventana.msh), global::Ventana.msh.Parser, new[]{ "SendingApplication", "SendingFacility", "ReceivingApplication", "ReceivingFacility", "DateTimeOfMessage", "MessageType", "MessageControlId" }, null, null, null),
@@ -97,7 +98,7 @@ namespace Ventana {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public OrderReply(OrderReply other) : this() {
-      hl7_ = other.hl7_;
+      message_ = other.message_;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -105,14 +106,14 @@ namespace Ventana {
       return new OrderReply(this);
     }
 
-    /// <summary>Field number for the "hl7" field.</summary>
-    public const int Hl7FieldNumber = 1;
-    private string hl7_ = "";
+    /// <summary>Field number for the "message" field.</summary>
+    public const int MessageFieldNumber = 1;
+    private string message_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public string Hl7 {
-      get { return hl7_; }
+    public string Message {
+      get { return message_; }
       set {
-        hl7_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        message_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
@@ -129,14 +130,14 @@ namespace Ventana {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (Hl7 != other.Hl7) return false;
+      if (Message != other.Message) return false;
       return true;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
-      if (Hl7.Length != 0) hash ^= Hl7.GetHashCode();
+      if (Message.Length != 0) hash ^= Message.GetHashCode();
       return hash;
     }
 
@@ -147,17 +148,17 @@ namespace Ventana {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
-      if (Hl7.Length != 0) {
+      if (Message.Length != 0) {
         output.WriteRawTag(10);
-        output.WriteString(Hl7);
+        output.WriteString(Message);
       }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
-      if (Hl7.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Hl7);
+      if (Message.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Message);
       }
       return size;
     }
@@ -167,8 +168,8 @@ namespace Ventana {
       if (other == null) {
         return;
       }
-      if (other.Hl7.Length != 0) {
-        Hl7 = other.Hl7;
+      if (other.Message.Length != 0) {
+        Message = other.Message;
       }
     }
 
@@ -181,7 +182,7 @@ namespace Ventana {
             input.SkipLastField();
             break;
           case 10: {
-            Hl7 = input.ReadString();
+            Message = input.ReadString();
             break;
           }
         }

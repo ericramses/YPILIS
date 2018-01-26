@@ -19,11 +19,11 @@ namespace YellowstonePathology.Business.Audit.Model
             this.m_SpecimenDescriptionKeyWords = new Surgical.KeyWordCollection { "head", "neck" };
             this.m_ExcludeWords = new Surgical.KeyWordCollection { "skin" };
             this.m_DiagnosisKeyWords = new Surgical.KeyWordCollection { "squamous cell carcinoma" };
-            this.m_CptCodeCollection = new Billing.Model.CptCodeCollection { new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88304(),
-                new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88305(),
-                new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88307(),
-                new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88309(),
-                new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88173() };
+            this.m_CptCodeCollection = new Billing.Model.CptCodeCollection { Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88304", null),
+                Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88305", null),
+                Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88307", null),
+                Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88309", null),
+                Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88173", null) };
         }
 
         public override void Run()

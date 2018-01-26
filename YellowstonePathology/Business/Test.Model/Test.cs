@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
-using System.Data;
-using System.Data.SqlClient;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using System.ComponentModel;
@@ -14,8 +12,17 @@ namespace YellowstonePathology.Business.Test.Model
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		protected YellowstonePathology.Test.Model.ResultItemCollection m_ResultItemCollection;
-        
+        public const string TestBase = "Test";
+        public const string DualStainBase = "DualStain";
+        public const string NoCptCodeBase = "NoCptCode";
+        public const string CytochemicalForMicroorganismsBase = "CytochemicalForMicroorganisms";
+        public const string CytochemicalBase = "Cytochemical";
+        public const string ImmunoHistochemistryBase = "IHC";
+        public const string GradedBase = "Graded";
+
+        protected YellowstonePathology.Test.Model.ResultItemCollection m_ResultItemCollection;
+
+        protected string m_TestNameId;
         protected string m_OrderComment;
         protected bool m_IsBillable;
         protected bool m_HasGCode;
@@ -23,7 +30,7 @@ namespace YellowstonePathology.Business.Test.Model
         protected string m_OrderedOn;
         protected bool m_IsDualOrder;        
 
-        protected int m_TestId;
+        protected string m_TestId;
         protected string m_TestName;
         protected string m_TestAbbreviation;
         protected bool m_Active;
@@ -31,14 +38,18 @@ namespace YellowstonePathology.Business.Test.Model
         protected string m_AliquotType;
         protected bool m_NeedsAcknowledgement;
         protected string m_DefaultResult;
-        protected bool m_RequestForAdditionalReport;        
+        protected bool m_RequestForAdditionalReport;
+        protected bool m_UseWetProtocol;
+        protected bool m_PerformedByHand;
 
-		public Test()
+        public Test()
 		{
 			this.m_ResultItemCollection = new YellowstonePathology.Test.Model.ResultItemCollection();
+            this.m_UseWetProtocol = false;
+            this.m_PerformedByHand = false;      
 		}
 
-        public Test(int testId, string testName)
+        public Test(string testId, string testName)
         {
             this.m_TestId = testId;
             this.m_TestName = testName;
@@ -53,11 +64,11 @@ namespace YellowstonePathology.Business.Test.Model
         {
             if (isTechnicalOnly == false)
             {
-                return new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88360();
+                return Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88360", null);
             }
             else
             {
-                return new YellowstonePathology.Business.Billing.Model.CptCodeDefinition.CPT88360TC();
+                return Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88360", "TC");
             }
         }
 
@@ -111,7 +122,7 @@ namespace YellowstonePathology.Business.Test.Model
             set { this.m_HasCptCodeLevels = value; }
         }             
 		
-		public int TestId
+		public string TestId
 		{
 			get { return this.m_TestId; }
 			set
@@ -202,7 +213,33 @@ namespace YellowstonePathology.Business.Test.Model
 			}
 		}
 
-		public string DefaultResult
+        public bool UseWetProtocol
+        {
+            get { return this.m_UseWetProtocol; }
+            set
+            {
+                if (this.m_UseWetProtocol != value)
+                {
+                    this.m_UseWetProtocol = value;
+                    this.NotifyPropertyChanged("UseWetProtocol");
+                }
+            }
+        }
+
+        public bool PerformedByHand
+        {
+            get { return this.m_PerformedByHand; }
+            set
+            {
+                if (this.m_PerformedByHand != value)
+                {
+                    this.m_PerformedByHand = value;
+                    this.NotifyPropertyChanged("PerformedByHand");
+                }
+            }
+        }
+
+        public string DefaultResult
 		{
 			get { return this.m_DefaultResult; }
 			set
@@ -228,10 +265,33 @@ namespace YellowstonePathology.Business.Test.Model
 			}
 		}
 
+        public string TestNameId
+        {
+            get { return this.m_TestNameId; }
+            set
+            {
+                if (this.m_TestNameId != value)
+                {
+                    this.m_TestNameId = value;
+                    this.NotifyPropertyChanged("TestNameId");
+                }
+            }
+        }
+
         public virtual string GetCodeableType(bool orderedAsDual)
         {
             string result = null;
             return result;
+        }
+
+        public string HistologyDisplayString        
+        {
+            get
+            {
+                string result = this.m_TestAbbreviation;
+                if (this.m_UseWetProtocol == true) result = result + "(W)";
+                return result;
+            }            
         }
 
         public void NotifyPropertyChanged(String info)

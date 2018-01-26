@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Test.Model
 	{
 		public Calretinin()
 		{
-			this.m_TestId = 60;
+			this.m_TestId = "60";
 			this.m_TestName = "Calretinin";
             this.m_TestAbbreviation = "Calretinin";
 			this.m_Active = true;

@@ -8,7 +8,7 @@ using YellowstonePathology.Business.Persistence;
 namespace YellowstonePathology.Business.Task.Model
 {
     [PersistentClass("tblTaskOrderDetailFedexShipment", "tblTaskOrderDetail", "YPIDATA")]
-    public class TaskOrderDetailFedexShipment : TaskOrderDetail
+    public partial class TaskOrderDetailFedexShipment : TaskOrderDetail
     {
         private string m_TrackingNumber;
         private string m_ShipToFacilityId;
@@ -23,15 +23,17 @@ namespace YellowstonePathology.Business.Task.Model
         private string m_ShipToZip;
         private string m_PaymentType;
         private string m_AccountNo;
+        private string m_ServiceType;
 
         public TaskOrderDetailFedexShipment()
         {
-            
+            this.m_ValidationErrors = new Dictionary<string, string>();
         }
 
         public TaskOrderDetailFedexShipment(string taskOrderDetailId, string taskOrderId, string objectId, Task task, int clientId) 
             : base(taskOrderDetailId, taskOrderId, objectId, task, clientId)
         {
+            this.m_ValidationErrors = new Dictionary<string, string>();
             TaskFedexShipment fedexShipment = (TaskFedexShipment)task;
             this.m_ShipToFacilityId = fedexShipment.ShipToFacility.FacilityId;
             this.m_ShipToName = fedexShipment.ShipToFacility.FacilityName;
@@ -43,6 +45,7 @@ namespace YellowstonePathology.Business.Task.Model
             this.m_ShipToPhone = fedexShipment.ShipToFacility.PhoneNumber;
             this.m_PaymentType = fedexShipment.ShipToFacility.FedexPaymentType;
             this.m_AccountNo = fedexShipment.ShipToFacility.FedexAccountNo;
+            this.m_ServiceType = "PRIORITY_OVERNIGHT";
             this.m_LabelHasBeenPrinted = false;
         }
 
@@ -252,6 +255,21 @@ namespace YellowstonePathology.Business.Task.Model
                 {
                     this.m_AccountNo = value;
                     this.NotifyPropertyChanged("AccountNo");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "500", "null", "varchar")]
+        public string ServiceType
+        {
+            get { return this.m_ServiceType; }
+            set
+            {
+                if (this.m_ServiceType != value)
+                {
+                    this.m_ServiceType = value;
+                    this.NotifyPropertyChanged("ServiceType");
                 }
             }
         }

@@ -28,15 +28,35 @@ namespace YellowstonePathology.Business.Test.BCellSubsetAnalysis
             YellowstonePathology.Business.Document.AmendmentSection amendmentSection = new YellowstonePathology.Business.Document.AmendmentSection();
             amendmentSection.SetAmendment(m_PanelSetOrder.AmendmentCollection, this.m_ReportXml, this.m_NameSpaceManager, true);
 
-            this.ReplaceText("report_mature", testOrder.MatureBCellsPlusPercent);
-            this.ReplaceText("report_mm", testOrder.MatureBCellsMinusPercent);
-            this.ReplaceText("report_memory", testOrder.MemoryBCellPercent);
-            this.ReplaceText("report_nonswitched", testOrder.NonSwitchedMemoryBCellPercent);
-            this.ReplaceText("report_marginal_zone", testOrder.MarginalZoneBCellPercent);
-            this.ReplaceText("report_class_switched", testOrder.ClassSwitchedMemoryBCellPercent);
-            this.ReplaceText("report_naive", testOrder.NaiveBCellPercent);
-            this.ReplaceText("report_transitional", testOrder.TransitionalBCellPercent);
-            this.ReplaceText("report_plasmablasts", testOrder.PlasmaBlastsPercent);            
+            ReferenceRanges referenceRanges = new ReferenceRanges();
+
+            ReferenceRangeValue cellType0 = referenceRanges.Get(0);
+            this.ReplaceText("report_mature", cellType0.GetResultString(testOrder.MatureBCellsPlusPercent));
+
+            ReferenceRangeValue cellType1 = referenceRanges.Get(1);
+            this.ReplaceText("report_mm", cellType1.GetResultString(testOrder.MatureBCellsMinusPercent));
+
+            ReferenceRangeValue cellType2 = referenceRanges.Get(2);
+            this.ReplaceText("report_memory", cellType2.GetResultString(testOrder.MemoryBCellPercent));
+
+            ReferenceRangeValue cellType3 = referenceRanges.Get(3);
+            this.ReplaceText("report_nonswitched", cellType3.GetResultString(testOrder.NonSwitchedMemoryBCellPercent));
+
+            ReferenceRangeValue cellType4 = referenceRanges.Get(4);
+            this.ReplaceText("report_marginal_zone", cellType4.GetResultString(testOrder.MarginalZoneBCellPercent));
+
+            ReferenceRangeValue cellType5 = referenceRanges.Get(5);
+            this.ReplaceText("report_class_switched", cellType5.GetResultString(testOrder.ClassSwitchedMemoryBCellPercent));
+
+            ReferenceRangeValue cellType6 = referenceRanges.Get(6);
+            this.ReplaceText("report_naive", cellType6.GetResultString(testOrder.NaiveBCellPercent));
+
+            ReferenceRangeValue cellType7 = referenceRanges.Get(7);
+            this.ReplaceText("report_transitional", cellType7.GetResultString(testOrder.TransitionalBCellPercent));
+
+            ReferenceRangeValue cellType8 = referenceRanges.Get(8);
+            this.ReplaceText("report_plasmablasts", cellType8.GetResultString(testOrder.PlasmaBlastsPercent));       
+                 
             this.ReplaceText("report_total_nucleated", testOrder.TotalNucleatedPercent);
             this.ReplaceText("report_total_lymphocytes", testOrder.TotalLymphocytesPercent);            
             this.ReplaceText("report_method", testOrder.Method);
