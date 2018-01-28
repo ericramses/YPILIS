@@ -3885,6 +3885,10 @@
       <DependentUpon>FISH5p159q2215p22ResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Test\FISH5p159q2215p22ResultPath.cs" />
+    <Compile Include="UI\Test\FLT3ResultPage.xaml.cs">
+      <DependentUpon>FLT3ResultPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Test\FLT3ResultPath.cs" />
     <Compile Include="UI\Test\SlideTrackingResultPage.xaml.cs">
       <DependentUpon>SlideTrackingResultPage.xaml</DependentUpon>
     </Compile>
@@ -4040,10 +4044,6 @@
       <DependentUpon>NeoARRAYSNPCytogeneticProfileResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Test\NeoARRAYSNPCytogeneticProfileResultPath.cs" />
-    <Compile Include="UI\Test\FLT3ResultPage.xaml.cs">
-      <DependentUpon>FLT3ResultPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Test\FLT3ResultPath.cs" />
     <Compile Include="UI\Test\HighGradeLargeBCellLymphomaResultPage.xaml.cs">
       <DependentUpon>HighGradeLargeBCellLymphomaResultPage.xaml</DependentUpon>
     </Compile>
@@ -5837,6 +5837,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UI\Test\FLT3ResultPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\Test\SlideTrackingResultPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -5986,10 +5990,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Test\NeoARRAYSNPCytogeneticProfileResultPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\Test\FLT3ResultPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
