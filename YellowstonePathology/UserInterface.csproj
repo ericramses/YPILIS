@@ -31,7 +31,7 @@
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <PublishUrl>\\ypiidc\YPIILIS\Test\</PublishUrl>
+    <PublishUrl>\\ypiidc\YPIILIS\Application\</PublishUrl>
     <Install>false</Install>
     <InstallFrom>Unc</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -1064,7 +1064,7 @@
     <Compile Include="Business\Label.Model\IFEZPLLabel.cs" />
     <Compile Include="Business\Label.Model\FormalinAddedZPLLabel.cs" />
     <Compile Include="Business\Label.Model\SerumZPLLabel.cs" />
-    <Compile Include="Business\Label.Model\HistologySlidePaperZPLLabel.cs" />
+    <Compile Include="Business\Label.Model\HistologySlidePaperZPLLabelV1.cs" />
     <Compile Include="Business\Label.Model\HistologyBlockPaperZPLLabel.cs" />
     <Compile Include="Business\Label.Model\HistologySlideDirectPrintLabel.cs" />
     <Compile Include="Business\Label.Model\HistologySlideLabel.cs" />
@@ -3883,6 +3883,10 @@
       <DependentUpon>FISH5p159q2215p22ResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Test\FISH5p159q2215p22ResultPath.cs" />
+    <Compile Include="UI\Test\FLT3ResultPage.xaml.cs">
+      <DependentUpon>FLT3ResultPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Test\FLT3ResultPath.cs" />
     <Compile Include="UI\Test\SlideTrackingResultPage.xaml.cs">
       <DependentUpon>SlideTrackingResultPage.xaml</DependentUpon>
     </Compile>
@@ -4038,10 +4042,6 @@
       <DependentUpon>NeoARRAYSNPCytogeneticProfileResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Test\NeoARRAYSNPCytogeneticProfileResultPath.cs" />
-    <Compile Include="UI\Test\FLT3ResultPage.xaml.cs">
-      <DependentUpon>FLT3ResultPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Test\FLT3ResultPath.cs" />
     <Compile Include="UI\Test\HighGradeLargeBCellLymphomaResultPage.xaml.cs">
       <DependentUpon>HighGradeLargeBCellLymphomaResultPage.xaml</DependentUpon>
     </Compile>
@@ -5835,6 +5835,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UI\Test\FLT3ResultPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\Test\SlideTrackingResultPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -5984,10 +5988,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Test\NeoARRAYSNPCytogeneticProfileResultPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\Test\FLT3ResultPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -7171,12 +7171,12 @@
   <ItemGroup>
     <PublishFile Include="Microsoft.Exchange.WebServices">
       <Visible>False</Visible>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
   </ItemGroup>
