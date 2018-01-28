@@ -744,11 +744,11 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
         private void PrintSelectedSlides()
         {
-            Queue<Business.Label.Model.HistologySlidePaperZPLLabel> queue = new Queue<Business.Label.Model.HistologySlidePaperZPLLabel>();
+            Queue<Business.Label.Model.HistologySlidePaperZPLLabelV2> queue = new Queue<Business.Label.Model.HistologySlidePaperZPLLabelV2>();
             YellowstonePathology.Business.Slide.Model.SlideOrderCollection slideOrderCollection = this.m_AliquotAndStainOrderView.GetSelectedSlideOrders();            
             foreach(YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder in slideOrderCollection)
             {                
-                Business.Label.Model.HistologySlidePaperZPLLabel label = new Business.Label.Model.HistologySlidePaperZPLLabel(slideOrder.SlideOrderId, slideOrder.ReportNo, slideOrder.PatientFirstName, slideOrder.PatientLastName, 
+                Business.Label.Model.HistologySlidePaperZPLLabelV2 label = new Business.Label.Model.HistologySlidePaperZPLLabelV2(slideOrder.SlideOrderId, slideOrder.ReportNo, slideOrder.PatientFirstName, slideOrder.PatientLastName, 
                     slideOrder.TestAbbreviation, slideOrder.Label, slideOrder.Location, slideOrder.UseWetProtocol, slideOrder.PerformedByHand);
                 queue.Enqueue(label);
             }
@@ -756,7 +756,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             while (queue.Count != 0) PrintRowOfSlides(queue);            
         }
 
-        private void PrintRowOfSlides(Queue<Business.Label.Model.HistologySlidePaperZPLLabel> queue)
+        private void PrintRowOfSlides(Queue<Business.Label.Model.HistologySlidePaperZPLLabelV2> queue)
         {
             StringBuilder result = new StringBuilder();
             int xOffset = 0;
@@ -766,8 +766,9 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             {
                 if (queue.Count != 0)
                 {
-                    Business.Label.Model.HistologySlidePaperZPLLabel label = queue.Dequeue();
-                    //label.AppendCommands(result, xOffset);
+                    Business.Label.Model.HistologySlidePaperZPLLabelV2 label = queue.Dequeue();
+                    //result.AppendCommands(result, xOffset);
+                    result.Append(label.GetCommandWithOffset(xOffset));
                     xOffset += 325;
                 }
             }

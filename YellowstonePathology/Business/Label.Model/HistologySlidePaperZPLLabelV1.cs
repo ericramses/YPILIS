@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace YellowstonePathology.Business.Label.Model
 {
-    public class HistologySlidePaperZPLLabel : ZPLCommand
+    public class HistologySlidePaperZPLLabelV1 : ZPLCommand
     {
         private string m_SlideOrderId;
         private string m_ReportNo;
@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.Label.Model
         private bool m_UseWetProtocol;
         private bool m_PerformedByHand;
 
-        public HistologySlidePaperZPLLabel(string slideOrderId, string reportNo, string firstName, string lastName, string testName, string slideLabel, string location, bool useWetProtocol, bool performedByHand)
+        public HistologySlidePaperZPLLabelV1(string slideOrderId, string reportNo, string firstName, string lastName, string testName, string slideLabel, string location, bool useWetProtocol, bool performedByHand)
         {
             this.m_SlideOrderId = slideOrderId;
             this.m_ReportNo = reportNo;

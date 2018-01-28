@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>44</ApplicationRevision>
+    <ApplicationRevision>45</ApplicationRevision>
     <ApplicationVersion>10.1.9.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -1064,7 +1064,7 @@
     <Compile Include="Business\Label.Model\IFEZPLLabel.cs" />
     <Compile Include="Business\Label.Model\FormalinAddedZPLLabel.cs" />
     <Compile Include="Business\Label.Model\SerumZPLLabel.cs" />
-    <Compile Include="Business\Label.Model\HistologySlidePaperZPLLabel.cs" />
+    <Compile Include="Business\Label.Model\HistologySlidePaperZPLLabelV1.cs" />
     <Compile Include="Business\Label.Model\HistologyBlockPaperZPLLabel.cs" />
     <Compile Include="Business\Label.Model\HistologySlideDirectPrintLabel.cs" />
     <Compile Include="Business\Label.Model\HistologySlideLabel.cs" />
@@ -7173,12 +7173,12 @@
   <ItemGroup>
     <PublishFile Include="Microsoft.Exchange.WebServices">
       <Visible>False</Visible>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
   </ItemGroup>
