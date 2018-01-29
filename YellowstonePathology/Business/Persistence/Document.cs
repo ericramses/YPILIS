@@ -76,7 +76,8 @@ namespace YellowstonePathology.Business.Persistence
             {
                 YellowstonePathology.Business.Test.AccessionOrder accessionOrder = (YellowstonePathology.Business.Test.AccessionOrder)this.m_Value;
                 accessionOrder.AccessionLock.Address = UI.AppMessaging.AccessionLockMessage.GetMyAddress();                
-                accessionOrder.AccessionLock.TimeAquired = DateTime.Now;             
+                accessionOrder.AccessionLock.TimeAquired = DateTime.Now;
+                accessionOrder.AccessionLock.MasterAccessionNo = accessionOrder.MasterAccessionNo;
             }
         } 
         
