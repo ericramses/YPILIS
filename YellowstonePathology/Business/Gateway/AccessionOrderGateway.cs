@@ -3089,35 +3089,17 @@ namespace YellowstonePathology.Business.Gateway
             return result;
         }
 
-        public static bool EmbeddingScanExists(string aliquotOrderId)
-        {
-            bool result = false;
-            MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "select count(*) from tblEmbeddingScan where tblEmbeddingScan.AliquotOrderId = @AliquotOrderId;";
-            cmd.CommandType = System.Data.CommandType.Text;
-            cmd.CommandType = System.Data.CommandType.Text;
-            cmd.Parameters.AddWithValue("@AliquotOrderId", aliquotOrderId);
-
-            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-            {
-                cn.Open();
-                cmd.Connection = cn;
-                int cnt = Convert.ToInt32(cmd.ExecuteScalar().ToString());
-                if (cnt > 0) result = true;
-            }
-            return result;
-        }
-
-        public static void UpdateEmbeddingScan(Business.BarcodeScanning.EmbeddingScan embeddingScan)
+        public static void UpdateEmbeddingScan(Business.BarcodeScanning.EmbeddingScan embeddingScan, DateTime scanDate)
         {
             string aliquotOrderId = embeddingScan.AliquotOrderId;
             string data = embeddingScan.ToJson();
             MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "update tblEmbeddingScan set EmbeddingScan = @Data where tblEmbeddingScan.AliquotOrderId = @AliquotOrderId;";
+            cmd.CommandText = "update tblEmbeddingScan set EmbeddingScan = @Data where tblEmbeddingScan.AliquotOrderId = @AliquotOrderId and DateScanned = @ScanDate;";
             cmd.CommandType = System.Data.CommandType.Text;
             cmd.CommandType = System.Data.CommandType.Text;
             cmd.Parameters.AddWithValue("@Data", data);
             cmd.Parameters.AddWithValue("@AliquotOrderId", aliquotOrderId);
+            cmd.Parameters.AddWithValue("@ScanDate", scanDate);
 
             using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
