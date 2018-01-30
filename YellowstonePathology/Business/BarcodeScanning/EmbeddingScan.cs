@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using StackExchange.Redis;
 using System.ComponentModel;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace YellowstonePathology.Business.BarcodeScanning
 {
@@ -159,11 +160,18 @@ namespace YellowstonePathology.Business.BarcodeScanning
 
         public static EmbeddingScan FromJson(string json)
         {
-            return JsonConvert.DeserializeObject<EmbeddingScan>(json, new JsonSerializerSettings
-            {
-                TypeNameHandling = TypeNameHandling.All,
-                ObjectCreationHandling = ObjectCreationHandling.Replace
-            });
+            JObject jObject = JsonConvert.DeserializeObject<JObject>(json);
+            EmbeddingScan result = new BarcodeScanning.EmbeddingScan();
+
+            result.m_AliquotOrderId = jObject["AliquotOrderId"].ToString();
+            result.m_ProcessorStartTime = Business.Helper.DateTimeExtensions.NullableDateTimeFromString(jObject["ProcessorStartTime"].ToString());
+            result.m_ProcessorFixationDuration = Business.Helper.DateTimeExtensions.NullableTimeSpanFromString(jObject["ProcessorFixationDuration"].ToString());
+            result.m_DateScanned = DateTime.Parse(jObject["DateScanned"].ToString());
+            result.m_ScannedById = Convert.ToInt32(jObject["ScannedById"].ToString());
+            result.m_ScannedBy = jObject["ScannedBy"].ToString();
+            result.m_Updated = Convert.ToBoolean(jObject["Updated"].ToString());
+
+            return result;
         }
     }
 }

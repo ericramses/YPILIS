@@ -701,7 +701,7 @@ namespace YellowstonePathology.UI
 
         private void ButtonEmbeddingScanstoMysql_Click(object sender, RoutedEventArgs e)
         {
-            for (DateTime scanDate = DateTime.Parse("1/12/2017"); scanDate < DateTime.Parse("2/1/2017"); scanDate = scanDate.AddDays(1))
+            /*for (DateTime scanDate = DateTime.Parse("1/12/2017"); scanDate < DateTime.Parse("2/1/2017"); scanDate = scanDate.AddDays(1))
             {
                 YellowstonePathology.Business.BarcodeScanning.EmbeddingScanCollection embeddingScanCollection = Business.BarcodeScanning.EmbeddingScanCollection.GetByScanDateOld(scanDate);
                 foreach (Business.BarcodeScanning.EmbeddingScan embeddingScan in embeddingScanCollection)
@@ -709,7 +709,7 @@ namespace YellowstonePathology.UI
                     Business.Gateway.AccessionOrderGateway.SetEmbeddingScan(embeddingScan, scanDate);
                 }
             }
-            MessageBox.Show("Done");
+            MessageBox.Show("Done");*/
         }
 
         private void ButtonSVHTesting_Click(object sender, RoutedEventArgs e)
