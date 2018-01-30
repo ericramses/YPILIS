@@ -1110,6 +1110,7 @@ namespace YellowstonePathology.Business.Test
             result.Add(189);
             result.Add(190);
             result.Add(212);
+            result.Add(137); // JAK2 Myleofibrosys
             return result;
         }
 
