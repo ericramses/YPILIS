@@ -18,6 +18,7 @@ namespace YellowstonePathology.Business.Test.FLT3Preliminary
             this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.None;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterT();
             this.m_Active = true;
+            this.m_IsBillable = false;
 
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.PanelSetOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.TechnicalOnly.TechnicalOnlyWordDocument).AssemblyQualifiedName;
