@@ -49,8 +49,7 @@ namespace YellowstonePathology.UI.AppMessaging
             this.m_AlwaysHoldList.Add("GROSSA");
             this.m_AlwaysHoldList.Add("GROSSB-PC");
             this.m_AlwaysHoldList.Add("GROSS2-PC");
-            this.m_AlwaysHoldList.Add("CODYHISTOLOGY01");
-            //this.m_AlwaysHoldList.Add("COMPILE");          
+            this.m_AlwaysHoldList.Add("CODYHISTOLOGY01");            
         }
 
         public static MessagingPath Instance
