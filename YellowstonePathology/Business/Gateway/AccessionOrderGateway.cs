@@ -1929,7 +1929,7 @@ namespace YellowstonePathology.Business.Gateway
                 "from tblPanelSetOrder pso " +
                 "join tblWomensHealthProfileTestOrder psowhp on pso.ReportNo = psowhp.ReportNo " +
                 "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
-                "where pso.Final = 1 and pso.FinalDate >= date_Add(curdate(), interval -1, Month) order by pso.FinalTime desc;";
+                "where pso.Final = 1 and pso.FinalDate >= date_Add(curdate(), interval -1 Month) order by pso.FinalTime desc;";
 
             using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
