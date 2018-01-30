@@ -1111,16 +1111,6 @@ namespace YellowstonePathology.Business.Test
             result.Add(190);
             result.Add(212);
 
-            result.Add(30);  // KRAS Standard Reflex
-            result.Add(78);  // Summary Report
-            result.Add(106);  // Lynch Syndrome Evaluation
-            result.Add(111);  // Breast Cancer Analysis
-            result.Add(112);  // Comprehensive Colon Cancer Profile
-            result.Add(113);  // Hematopathology Analysis
-            result.Add(114);  // JAK2 Reflex Analysis
-            result.Add(116);  // Womens Health Profile
-            result.Add(124);  // EGFR, ALK, ROS1, PD-L1 Analysis
-            result.Add(125);  // Invasive Breast Panel
             result.Add(136);  // MPN Standard Reflex
             result.Add(137);  // MPN Extended Reflex
             return result;
