@@ -100,19 +100,15 @@ namespace YellowstonePathology.Business.Test
 
         public void ReleaseLock()
         {           
-            //this code is not acceptable and needs to be removed.
-            if(string.IsNullOrEmpty(this.m_MasterAccessionNo) == false)
-            {
-                this.m_Address = null;
-                this.m_TimeAquired = null;
+            this.m_Address = null;
+            this.m_TimeAquired = null;
 
-                Store.RedisDB scanDb = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.Lock);
-                var transaction = scanDb.DataBase.CreateTransaction();
-                transaction.AddCondition(Condition.HashExists(this.m_MasterAccessionNo, "MasterAccessionNo"));
-                transaction.KeyDeleteAsync(this.m_MasterAccessionNo);
-                bool committed = transaction.Execute();
-                this.NotifyPropertyChanged(string.Empty);
-            }            
+            Store.RedisDB scanDb = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.Lock);
+            var transaction = scanDb.DataBase.CreateTransaction();
+            transaction.AddCondition(Condition.HashExists(this.m_MasterAccessionNo, "MasterAccessionNo"));
+            transaction.KeyDeleteAsync(this.m_MasterAccessionNo);
+            bool committed = transaction.Execute();
+            this.NotifyPropertyChanged(string.Empty);
         }
 
         public void TransferLock(string address)
