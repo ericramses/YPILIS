@@ -43,11 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-<<<<<<< HEAD
-    <ApplicationRevision>46</ApplicationRevision>
-=======
     <ApplicationRevision>55</ApplicationRevision>
->>>>>>> master
     <ApplicationVersion>10.1.9.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
