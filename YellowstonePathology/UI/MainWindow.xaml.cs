@@ -587,9 +587,12 @@ namespace YellowstonePathology.UI
             this.AddFlowWorkspace();
         }                
         
-        public void ToolBarButtonLabWorkspace_Click(object sender, RoutedEventArgs args)
+        public void ToolBarButtonLoginWorkspace_Click(object sender, RoutedEventArgs args)
         {
-            this.AddLabWorkspace();
+            //this.AddLabWorkspace();
+            this.ShowTaskWorkspace();
+            this.ShowClientOrderWorkspace();
+            this.ShowLoginWorkspace();
         }
 
         private void ToolBarButtonCytologyWorkspace_Click(object sender, RoutedEventArgs e)
@@ -627,8 +630,8 @@ namespace YellowstonePathology.UI
         public void MenuItemLabWorkspace_Click(object sender, RoutedEventArgs args)
         {
             this.AddLabWorkspace();
-        }              
-        
+        }
+
         public void MenuItemReportDistributionMonitor_Click(object sender, RoutedEventArgs args)
         {
             YellowstonePathology.UI.Monitor.MonitorPath monitorPath = new Monitor.MonitorPath();            
