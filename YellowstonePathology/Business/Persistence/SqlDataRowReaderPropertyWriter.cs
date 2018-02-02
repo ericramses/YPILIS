@@ -92,11 +92,12 @@ namespace YellowstonePathology.Business.Persistence
 
         private void WriteString(PropertyInfo property)
         {
+            string sqlValue = null;
             if (this.m_DataTableReader[property.Name] != DBNull.Value)
             {
-                string sqlValue = this.m_DataTableReader[property.Name].ToString();
-                property.SetValue(this.m_ObjectToWriteTo, sqlValue, null);
+                sqlValue = this.m_DataTableReader[property.Name].ToString();
             }
+            property.SetValue(this.m_ObjectToWriteTo, sqlValue, null);
         }
 
         private void WriteInt(PropertyInfo property)
