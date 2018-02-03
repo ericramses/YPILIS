@@ -16,13 +16,15 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
         private FedexAccount m_FedexAccount;
         private XDocument m_ProcessShipmentRequest;
         private string m_PaymentType;
+        private string m_ServiceType;
         private Business.Task.Model.TaskOrderDetailFedexShipment m_TaskOrderDetail;
 
-        public FedexShipmentRequest(Business.Facility.Model.Facility shipTofacility, FedexAccount fedexAccount, string paymentType, Business.Task.Model.TaskOrderDetailFedexShipment taskOrderDetail)
+        public FedexShipmentRequest(Business.Facility.Model.Facility shipTofacility, FedexAccount fedexAccount, string paymentType, string serviceType, Business.Task.Model.TaskOrderDetailFedexShipment taskOrderDetail)
         {
             this.m_ShipToFacility = shipTofacility;
             this.m_FedexAccount = fedexAccount;
             this.m_PaymentType = paymentType;
+            this.m_ServiceType = serviceType;
             this.m_TaskOrderDetail = taskOrderDetail;
 
             this.OpenShipmentRequestFile();
@@ -136,7 +138,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
                 throw new Exception("Payment Type not supported.");
             }   
             
-            if(DateTime.Today.DayOfWeek == DayOfWeek.Friday && this.m_PaymentType.Contains("OVERNIGHT") == true)
+            if(DateTime.Today.DayOfWeek == DayOfWeek.Friday && this.m_ServiceType.Contains("OVERNIGHT") == true)
             {
                 XNamespace v19 ="http://fedex.com/ws/ship/v19";                                
                 this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:ShippingChargesPayment", namespaces)

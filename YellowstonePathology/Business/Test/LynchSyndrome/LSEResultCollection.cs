@@ -98,6 +98,16 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
                     lSEResult.PMS2Result == evalResult.PMS2Result)
                 {
                     bool brafResultIsEqual = false;
+                    if(evalResult.BRAFIsIndicated == true)
+                    {
+                        brafResultIsEqual = (lSEResult.BrafResult == evalResult.BrafResult);
+                    }
+                    else
+                    {
+                        brafResultIsEqual = true;
+                    }
+
+                    /*
                     if (lSEResult.BrafResult == LSEResultEnum.NotApplicable)
                     {
                         brafResultIsEqual = true;
@@ -106,6 +116,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
                     {
                         brafResultIsEqual = (lSEResult.BrafResult == evalResult.BrafResult);
                     }
+                    */
 
                     bool methResultIsEqual = false;
                     if (lSEResult.MethResult == LSEResultEnum.NotApplicable)
