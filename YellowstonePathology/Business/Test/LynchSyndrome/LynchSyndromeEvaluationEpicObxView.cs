@@ -49,9 +49,11 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
                 this.AddNextObxElement("", document, "F");
             }
 
+            YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTest brafMutationAnalysis = new YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTest();
             YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTest brafV600EKTest = new YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTest();
             YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelTest rasRAFPanelTest = new YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelTest();
             YellowstonePathology.Business.Test.LynchSyndrome.MLH1MethylationAnalysisTest panelSetMLH1 = new YellowstonePathology.Business.Test.LynchSyndrome.MLH1MethylationAnalysisTest();
+
             if (((this.m_AccessionOrder.PanelSetOrderCollection.Exists(brafV600EKTest.PanelSetId, panelSetOrderLynchSyndromeEvaluation.OrderedOnId, false) == true ||
                 this.m_AccessionOrder.PanelSetOrderCollection.Exists(rasRAFPanelTest.PanelSetId, panelSetOrderLynchSyndromeEvaluation.OrderedOnId, false) == true) &&
                 panelSetOrderLynchSyndromeEvaluation.BRAFIsIndicated == true) ||
@@ -71,6 +73,14 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 					this.AddNextObxElement("BRAF V600E Mutation by PCR: " + panelSetOrderBraf.ReportNo, document, "F");
 					this.AddNextObxElement("Result: " + panelSetOrderBraf.Result, document, "F");
                     this.AddNextObxElement("", document, "F");   
+                }
+                else if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(brafMutationAnalysis.PanelSetId, panelSetOrderLynchSyndromeEvaluation.OrderedOnId, false) == true)
+                {
+                    YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTestOrder panelSetOrderBraf = (YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(brafMutationAnalysis.PanelSetId, panelSetOrderLynchSyndromeEvaluation.OrderedOnId, false);
+
+                    this.AddNextObxElement("BRAF Mutation Analsysis: " + panelSetOrderBraf.ReportNo, document, "F");
+                    this.AddNextObxElement("Result: " + panelSetOrderBraf.Result, document, "F");
+                    this.AddNextObxElement("", document, "F");
                 }
                 else if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(rasRAFPanelTest.PanelSetId, panelSetOrderLynchSyndromeEvaluation.OrderedOnId, false) == true)
                 {

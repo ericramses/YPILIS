@@ -74,6 +74,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
         public bool BRAFIsIndicated
         {
             get { return this.m_BRAFIsIndicated; }
+            set { this.m_BRAFIsIndicated = value; }
         }
 
 		public string Interpretation
@@ -110,8 +111,9 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 			LSEResult result = new LSEResult();
 			YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeIHCPanelTest panelSetLynchSyndromeIHCPanel = new YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeIHCPanelTest();
 			YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC panelSetOrderLynchSyndromeIHC = (YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetLynchSyndromeIHCPanel.PanelSetId, panelSetOrderLynchSyndromEvaluation.OrderedOnId, true);
-			if (panelSetOrderLynchSyndromeIHC != null) panelSetOrderLynchSyndromeIHC.SetSummaryResult(result);			
+			if (panelSetOrderLynchSyndromeIHC != null) panelSetOrderLynchSyndromeIHC.SetSummaryResult(result);
 
+            result.BRAFIsIndicated = panelSetOrderLynchSyndromEvaluation.BRAFIsIndicated;
             if (panelSetOrderLynchSyndromEvaluation.BRAFIsIndicated == true)
 			{
                 YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTest brafV600EKTest = new YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTest();

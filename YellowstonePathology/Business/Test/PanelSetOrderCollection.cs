@@ -1105,11 +1105,14 @@ namespace YellowstonePathology.Business.Test
             result.Add(197);
             result.Add(244);  // Ship Material
             result.Add(262);
-            result.Add(268);
+            result.Add(268);  // Bone Marrow Summary
             result.Add(211);
             result.Add(189);
             result.Add(190);
             result.Add(212);
+
+            result.Add(136);  // MPN Standard Reflex
+            result.Add(137);  // MPN Extended Reflex
             return result;
         }
 

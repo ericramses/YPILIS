@@ -30,7 +30,7 @@ namespace YellowstonePathology.UI.Test
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
         private YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;
-        private List<string> m_AccessionReportsIncluded;
+        private YellowstonePathology.Business.Test.BoneMarrowSummary.OtherReportViewCollection m_AccessionReportsIncluded;
         private YellowstonePathology.Business.Test.BoneMarrowSummary.OtherReportViewCollection m_OtherReportViewCollection;
         private string m_PageHeaderText;
 
@@ -82,7 +82,7 @@ namespace YellowstonePathology.UI.Test
             get { return this.m_PageHeaderText; }
         }
 
-        public List<string> AccessionReportsIncluded
+        public YellowstonePathology.Business.Test.BoneMarrowSummary.OtherReportViewCollection AccessionReportsIncluded
         {
             get { return this.m_AccessionReportsIncluded; }
         }
@@ -313,11 +313,14 @@ namespace YellowstonePathology.UI.Test
 
         private void SetAccessionReportsIncluded()
         {
-            this.m_AccessionReportsIncluded = new List<string>();
+            this.m_AccessionReportsIncluded = new YellowstonePathology.Business.Test.BoneMarrowSummary.OtherReportViewCollection();
             List<YellowstonePathology.Business.Test.PanelSetOrder> panelSetOrders = this.m_AccessionOrder.PanelSetOrderCollection.GetBoneMarrowAccessionSummaryList(this.m_PanelSetOrder.ReportNo, false);
             foreach (Business.Test.PanelSetOrder pso in panelSetOrders)
             {
-                this.m_AccessionReportsIncluded.Add(pso.ReportNo + '\t' + pso.PanelSetName);
+                YellowstonePathology.Business.Test.BoneMarrowSummary.OtherReportView view = new Business.Test.BoneMarrowSummary.OtherReportView();
+                view.ReportNo = pso.ReportNo;
+                view.PanelSetName = pso.PanelSetName;
+                this.m_AccessionReportsIncluded.Add(view);
             }
         }
     }

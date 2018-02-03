@@ -88,7 +88,14 @@
                     </Grid.RowDefinitions>
 
                     <TextBlock Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Margin="2,2,2,2" FontWeight="Bold">Reports included from this accession:</TextBlock>
-                    <ListBox Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Width="400" HorizontalAlignment="Left" ItemsSource="{Binding Path=AccessionReportsIncluded}" />
+                    <ListView Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Margin="2,2,2,2" Width="300" HorizontalAlignment="Left" ItemsSource="{Binding Path=AccessionReportsIncluded}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn DisplayMemberBinding="{Binding Path=ReportNo}" Header="Report No" Width="80"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Path=PanelSetName}" Header="Report Type" Width="200"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
 
                     <TextBlock Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Margin="2,2,2,2" FontWeight="Bold">Previous Accessions:</TextBlock>
                     <Grid Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2">
