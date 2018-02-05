@@ -228,8 +228,11 @@ namespace YellowstonePathology.UI
                 case "Typing Workspace":                    
                     this.AddTypingWorkspace();                    
                     break;
-            }               
-		}
+                case "Report Distribution Workspace":
+                    this.ShowReportDistributionWorkspace();
+                    break;
+            }
+        }
 
         private PageNavigationWindow ShowSecondMonitorWindowForTyping()
         {
@@ -551,10 +554,7 @@ namespace YellowstonePathology.UI
 
         private void MenuItemReportDistributionWorkspace_Click(object sender, RoutedEventArgs e)
         {            
-            this.m_ReportDistributionWorkspace = new ReportDistribution.ReportDistributionWorkspace();            
-            this.m_TabItemReportDistribution.Content = this.m_ReportDistributionWorkspace;            
-            this.TabControlLeftWorkspace.Items.Add(this.m_TabItemReportDistribution);
-            this.m_TabItemReportDistribution.Focus();   
+            this.ShowReportDistributionWorkspace();
         }   
 
         public void onFileExit_Click(object sender, RoutedEventArgs args)
@@ -587,9 +587,12 @@ namespace YellowstonePathology.UI
             this.AddFlowWorkspace();
         }                
         
-        public void ToolBarButtonLabWorkspace_Click(object sender, RoutedEventArgs args)
+        public void ToolBarButtonLoginWorkspace_Click(object sender, RoutedEventArgs args)
         {
-            this.AddLabWorkspace();
+            //this.AddLabWorkspace();
+            this.ShowTaskWorkspace();
+            this.ShowClientOrderWorkspace();
+            this.ShowLoginWorkspace();
         }
 
         private void ToolBarButtonCytologyWorkspace_Click(object sender, RoutedEventArgs e)
@@ -627,8 +630,8 @@ namespace YellowstonePathology.UI
         public void MenuItemLabWorkspace_Click(object sender, RoutedEventArgs args)
         {
             this.AddLabWorkspace();
-        }              
-        
+        }
+
         public void MenuItemReportDistributionMonitor_Click(object sender, RoutedEventArgs args)
         {
             YellowstonePathology.UI.Monitor.MonitorPath monitorPath = new Monitor.MonitorPath();            
@@ -752,6 +755,21 @@ namespace YellowstonePathology.UI
                 this.m_TabItemTask.Content = this.m_TaskWorkspace;
                 this.TabControlLeftWorkspace.Items.Add(this.m_TabItemTask);
                 this.m_TabItemTask.Focus();
+            }
+        }
+
+        private void ShowReportDistributionWorkspace()
+        {
+            if (m_TabItemReportDistribution.Parent != null)
+            {
+                m_TabItemReportDistribution.Focus();
+            }
+            else
+            {
+                this.m_ReportDistributionWorkspace = new ReportDistribution.ReportDistributionWorkspace();
+                this.m_TabItemReportDistribution.Content = this.m_ReportDistributionWorkspace;
+                this.TabControlLeftWorkspace.Items.Add(this.m_TabItemReportDistribution);
+                this.m_TabItemReportDistribution.Focus();
             }
         }
 

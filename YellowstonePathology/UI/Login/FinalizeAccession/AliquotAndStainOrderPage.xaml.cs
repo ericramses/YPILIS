@@ -744,6 +744,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
         private void PrintSelectedSlides()
         {
+            /*
             Queue<Business.Label.Model.HistologySlidePaperZPLLabelV2> queue = new Queue<Business.Label.Model.HistologySlidePaperZPLLabelV2>();
             YellowstonePathology.Business.Slide.Model.SlideOrderCollection slideOrderCollection = this.m_AliquotAndStainOrderView.GetSelectedSlideOrders();            
             foreach(YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder in slideOrderCollection)
@@ -754,6 +755,18 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             }
 
             while (queue.Count != 0) PrintRowOfSlides(queue);            
+            */
+
+            YellowstonePathology.Business.Slide.Model.SlideOrderCollection slideOrderCollection = this.m_AliquotAndStainOrderView.GetSelectedSlideOrders();
+            foreach (YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder in slideOrderCollection)
+            {
+                YellowstonePathology.Business.Label.Model.HistologySlidePaperLabel paperLabel = new Business.Label.Model.HistologySlidePaperLabel(slideOrder.SlideOrderId,
+                                        this.m_AccessionOrder.MasterAccessionNo, slideOrder.Label, slideOrder.PatientLastName, slideOrder.TestAbbreviation, slideOrder.Location);
+
+                YellowstonePathology.Business.Label.Model.HistologySlidePaperLabelPrinter printer = new Business.Label.Model.HistologySlidePaperLabelPrinter();
+                printer.Queue.Enqueue(paperLabel);
+                printer.Print();
+            }            
         }
 
         private void PrintRowOfSlides(Queue<Business.Label.Model.HistologySlidePaperZPLLabelV2> queue)
