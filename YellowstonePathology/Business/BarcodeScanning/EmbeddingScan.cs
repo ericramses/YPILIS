@@ -155,7 +155,25 @@ namespace YellowstonePathology.Business.BarcodeScanning
 
         public string ToJson()
         {
-            return JsonConvert.SerializeObject(this);
+            StringBuilder result = new StringBuilder();
+            result.Append("{");
+            result.Append("\"Updated\": ");
+            result.Append("\"" + this.m_Updated.ToString() + "\"");
+            result.Append(",\"ScannedBy\": ");
+            result.Append("\"" + this.m_ScannedBy + "\"");
+            result.Append(",\"DateScanned\": ");
+            result.Append("\"" + this.m_DateScanned.ToString() + "\"");
+            result.Append(",\"ScannedById\": ");
+            result.Append("\"" + this.m_ScannedById.ToString() + "\"");
+            result.Append(",\"AliquotOrderId\": ");
+            result.Append("\"" + this.m_AliquotOrderId + "\"");
+            result.Append(",\"ProcessorStartTime\": ");
+            result.Append("\"" + this.GetProcessorStartTimeHashString() + "\"");
+            result.Append(",\"ProcessorFixationDuration\": ");
+            result.Append("\"" + GetProcessorFixationDurationHashString() + "\"");
+            result.Append("}");
+
+            return result.ToString();
         }
 
         public static EmbeddingScan FromJson(string json)
