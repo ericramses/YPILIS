@@ -174,7 +174,6 @@ namespace YellowstonePathology.Business.BarcodeScanning
             result.Append("}");
 
             return result.ToString();
-            return JsonConvert.SerializeObject(this);
         }
 
         public static EmbeddingScan FromJson(string json)
