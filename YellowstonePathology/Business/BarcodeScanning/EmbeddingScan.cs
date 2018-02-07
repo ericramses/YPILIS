@@ -191,5 +191,10 @@ namespace YellowstonePathology.Business.BarcodeScanning
 
             return result;
         }
+
+        public void UpdateFromExistingScan(EmbeddingScan scan)
+        {
+            this.m_Updated = scan.Updated;
+        }
     }
 }
