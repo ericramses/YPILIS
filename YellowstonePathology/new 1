@@ -1,0 +1,16 @@
+MSH|^~\&|||||201801311636||ORM^O01|53002812|P|2.4|||AL|NE||||||
+PID|1|L00048886|W0114888^^^^MR^WPH~405-43-0608^^^^SS^WPH~W38188^^^^PI^WPH~L00048886^^^^HUB^WPH||BELL^JANE^V||19920204|F||CA|4216 PAT OHARA MT DR^^CODY^WY^82414||307-587-8368|||S||A03409836||||||||||||||||||||||
+PV1|1|P|PATHOLOGY|EL|||1265571046^Chisholm^Andrea^^^^MD|||||||||||REF||BC|||||||||||||||||||WPH||PRE|||201801311633|||||||||
+AL1|1|DA|F001900388^No Known Allergies^^No Known Allergies^^allergy.id|||20130807|
+DG1|1||ICD10^Z12.4|||||||||||||||||||
+DG1|2||ICD9^V76.2|||||||||||||||||||
+DG1|3||SNOMED_CT^243877001|||||||||||||||||||
+ORC|NW|PATH20180131-0003~18-95|||L|N|||201801311635|CHIAN||CHIAN^Chisholm^Andrea^^^^MD|PATHOLOGY||||||||||||||||||
+OBR|1|PATH20180131-0003||PATH^PATH.WH^Womens Health Pathology||201801311633|||||||WPH|||CHIAN^Chisholm^Andrea^^^^MD|307-578-2770^^PH^^^307^578-2770|PATH^20180131-0003|||||||||1^^^201801311633^^R||||OMREASON^Z12.4 Encounter for screening for mali...|CHIAN|||||||||||||||||||
+OBX|1|TX|OMREASON^Reason for exam/Clinical hx||^Z12.4 Encounter for screening for mali...|||||||||||||||||||||
+OBX|2|TX|PATH.F.COLLDATE^Collection Date||^20180131|||||||||||||||||||||
+OBX|3|TX|PATH.LMP*^Last Menstrual Period (enter UNK for unknown)||^1/27/2018|||||||||||||||||||||
+OBX|4|TX|PATH.PABNP*^Previous Abnormal Pap (enter UNK for unknown)||^no|||||||||||||||||||||
+OBX|5|TX|PATH.PAP^Is this for a Pap Smear?||^Y|||||||||||||||||||||
+OBX|6|TX|PATH.PNP*^Previous Normal Pap (enter UNK for unknown)||^3 years ago|||||||||||||||||||||
+OBX|7|CE|PATH.WH.SCRN/DX^Purpose:||S^Screening^Purpose|||||||||||||||||||||

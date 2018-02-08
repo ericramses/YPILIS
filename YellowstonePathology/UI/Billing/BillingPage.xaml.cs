@@ -185,29 +185,19 @@ namespace YellowstonePathology.UI.Billing
             {
                 MessageBox.Show("This test has been marked as research testing.  Please contact Sid.");
                 return;
-            }
-
-            //try
-            //{
-                if (this.IsTechnicalBillingFacilityValid() == true)
+            }            
+            if (this.IsTechnicalBillingFacilityValid() == true)
+            {
+                if (this.IsProfessionalBillingFacilityValid() == true)
                 {
-                    if (this.IsProfessionalBillingFacilityValid() == true)
+                    YellowstonePathology.Business.Billing.Model.BillableObject billableObject = Business.Billing.Model.BillableObjectFactory.GetBillableObject(this.m_AccessionOrder, this.m_ReportNo);
+                    YellowstonePathology.Business.Rules.MethodResult methodResult = billableObject.Set();
+                    if (methodResult.Success == false)
                     {
-                        YellowstonePathology.Business.Billing.Model.BillableObject billableObject = Business.Billing.Model.BillableObjectFactory.GetBillableObject(this.m_AccessionOrder, this.m_ReportNo);
-                        YellowstonePathology.Business.Rules.MethodResult methodResult = billableObject.Set();
-                        if (methodResult.Success == false)
-                        {
-                            MessageBox.Show(methodResult.Message);
-                        }
+                        MessageBox.Show(methodResult.Message);
                     }
                 }
-            //}
-            //catch(Exception exc)
-            //{
-            //    Business.Logging.EmailExceptionHandler.HandleException("ButtonSet_Click: ReportNo - " + this.m_PanelSetOrder.ReportNo + " - " + exc.Message);
-            //    MessageBox.Show("Oops! An error occurred that I cannot recover from.  I sent and email to IT and I am going to shut the application down.");
-            //    Application.Current.Shutdown();
-            //}            
+            }            
         }
 
         private bool IsTechnicalBillingFacilityValid()

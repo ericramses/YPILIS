@@ -245,6 +245,7 @@ namespace YellowstonePathology.Business.Test
                               CPTCode = i.CPTCode,
                               Modifier = i.Modifier,                              
                               ClientId = i.ClientId,
+                              CodeType = i.CodeType,
                               Quantity = i.Quantity                              
                           }
                           group i by j into l
@@ -252,8 +253,9 @@ namespace YellowstonePathology.Business.Test
                          {
                               ReportNo = l.Key.ReportNo,
                               CPTCode = l.Key.CPTCode,
-                              Modifier = l.Key.Modifier,                              
+                              Modifier = l.Key.Modifier,                                                                                          
                               Clientid = l.Key.ClientId,
+                              CodeType = l.Key.CodeType,
                               Quantity = l.Sum(q => q.Quantity)
                           };
 
@@ -264,6 +266,7 @@ namespace YellowstonePathology.Business.Test
                 panelSetOrderCPTCode.CPTCode = item.CPTCode;
                 panelSetOrderCPTCode.Modifier = item.Modifier;                
                 panelSetOrderCPTCode.ClientId = item.Clientid;
+                panelSetOrderCPTCode.CodeType = item.CodeType;
                 panelSetOrderCPTCode.Quantity = item.Quantity;
                 result.Add(panelSetOrderCPTCode);
             }                
