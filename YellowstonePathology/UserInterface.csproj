@@ -327,6 +327,8 @@
     <Compile Include="Business\Client.Model\HPV1618ReflexOrderPAPNormalHPVPositive.cs" />
     <Compile Include="Business\Client.Model\HPVCompoundStandingOrderRule6.cs" />
     <Compile Include="Business\Client.Model\IdahoClientIdList.cs" />
+    <Compile Include="Business\ClientOrder.Model\AccessionOrderIds.cs" />
+    <Compile Include="Business\ClientOrder.Model\AccessionOrderIdsCollection.cs" />
     <Compile Include="Business\Facility.Model\CommunityHospitalAnaconda.cs" />
     <Compile Include="Business\Facility.Model\NationalJewishHealth.cs" />
     <Compile Include="Business\Facility.Model\UniversityOfUtahHealthCare.cs" />

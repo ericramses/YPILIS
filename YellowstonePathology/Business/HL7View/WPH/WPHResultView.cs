@@ -24,8 +24,8 @@ namespace YellowstonePathology.Business.HL7View.WPH
             this.m_Testing = testing;
             this.m_AccessionOrder = accessionOrder;
             this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
-            //this.m_ClientOrder = Business.Gateway.ClientOrderGateway.GetClientOrderByExternalOrderId(this.m_AccessionOrder.ExternalOrderId);
-            YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection clientOrders = Business.Gateway.ClientOrderGateway.GetClientOrdersByExternalOrderId(this.m_AccessionOrder.ExternalOrderId);
+            //this.m_ClientOrder = Business.Gateway.ClientOrderGateway.GetClientOrderByExternalOrderId(this.this.m_PanelSetOrder.ExternalOrderId);
+            YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection clientOrders = Business.Gateway.ClientOrderGateway.GetClientOrdersByExternalOrderId(this.m_PanelSetOrder.ExternalOrderId);
             if (clientOrders.Count > 0)
             {
                 this.m_ClientOrder = clientOrders[0];
@@ -70,7 +70,7 @@ namespace YellowstonePathology.Business.HL7View.WPH
                 this.m_AccessionOrder.PSex, this.m_AccessionOrder.SvhAccount, this.m_AccessionOrder.PSSN);
             pid.ToXml(document);
 
-            WPHORCView orc = new WPHORCView(this.m_AccessionOrder.ExternalOrderId, this.m_OrderingPhysician, this.m_AccessionOrder.MasterAccessionNo, OrderStatusEnum.Complete, this.m_AccessionOrder.SystemInitiatingOrder, this.m_SendUnsolicited);
+            WPHORCView orc = new WPHORCView(this.m_PanelSetOrder.ExternalOrderId, this.m_OrderingPhysician, this.m_AccessionOrder.MasterAccessionNo, OrderStatusEnum.Complete, this.m_AccessionOrder.SystemInitiatingOrder, this.m_SendUnsolicited);
             orc.ToXml(document);
 
             YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_PanelSetOrder.ReportNo);                                   
@@ -78,7 +78,7 @@ namespace YellowstonePathology.Business.HL7View.WPH
             YellowstonePathology.Business.ClientOrder.Model.UniversalServiceCollection universalServiceIdCollection = YellowstonePathology.Business.ClientOrder.Model.UniversalServiceCollection.GetAll();
             YellowstonePathology.Business.ClientOrder.Model.UniversalService universalService = universalServiceIdCollection.GetByUniversalServiceId(panelSetOrder.UniversalServiceId);
 
-            WPHOBRView obr = new WPHOBRView(this.m_AccessionOrder.ExternalOrderId, this.m_AccessionOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, this.m_AccessionOrder.SpecimenOrderCollection[0].CollectionDate, this.m_AccessionOrder.SpecimenOrderCollection[0].CollectionTime, this.m_AccessionOrder.AccessionDateTime,
+            WPHOBRView obr = new WPHOBRView(this.m_PanelSetOrder.ExternalOrderId, this.m_AccessionOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, this.m_AccessionOrder.SpecimenOrderCollection[0].CollectionDate, this.m_AccessionOrder.SpecimenOrderCollection[0].CollectionTime, this.m_AccessionOrder.AccessionDateTime,
                 panelSetOrder.FinalTime, this.m_OrderingPhysician, this.m_SigningPathologist, WPHResultStatsusEnum.S.ToString(), universalService, this.m_SendUnsolicited);
             obr.ToXml(document);
 
