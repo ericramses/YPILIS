@@ -70,11 +70,8 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         private void ButtonViewClientOrder_Click(object sender, RoutedEventArgs e)
         {
-            
             if (this.ListViewClientOrders.SelectedItem != null)
             {
-                this.CreateJsonIdList();
-
                 YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = (YellowstonePathology.Business.ClientOrder.Model.ClientOrder)this.ListViewClientOrders.SelectedItem;
                 ViewClientOrderPage viewClientOrderPage = new ViewClientOrderPage(clientOrder);
                 viewClientOrderPage.UseThisClientOrder += new ViewClientOrderPage.UseThisClientOrderEventHandler(ViewClientOrderPage_UseThisClientOrder);
@@ -85,18 +82,6 @@ namespace YellowstonePathology.UI.Login.Receiving
             {
                 System.Windows.MessageBox.Show("You must select an order to view.");
             }
-        }
-        
-        private void CreateJsonIdList()
-        {
-            YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection clientOrders = new Business.ClientOrder.Model.ClientOrderCollection();
-            foreach (YellowstonePathology.Business.ClientOrder.Model.ClientOrder order in this.ListViewClientOrders.SelectedItems)
-            {
-                clientOrders.Add(order);
-            }
-            YellowstonePathology.Business.ClientOrder.Model.AccessionOrderIdsCollection accessionOrderIdsCollection = new Business.ClientOrder.Model.AccessionOrderIdsCollection(clientOrders);
-            string resultString = accessionOrderIdsCollection.ToJSONString();
-            MessageBox.Show(resultString);
         }
     }
 }

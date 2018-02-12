@@ -221,7 +221,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 			this.m_CurrentClientOrderDetail.Receive();            
         }		
 
-		public void CreateNewAccessionOrder(YellowstonePathology.Business.Test.AccessionTypeEnum accessionType)
+		public void CreateNewAccessionOrder(YellowstonePathology.Business.Test.AccessionTypeEnum accessionType, YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection clientOrders)
 		{
             string masterAccessionNo = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetNextMasterAccessionNo();            
             string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
@@ -235,8 +235,9 @@ namespace YellowstonePathology.UI.Login.Receiving
 					break;
 			}
 
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(this.m_AccessionOrder, this.m_Writer);			
-			this.m_AccessionOrder.FromClientOrder(this.m_ClientOrder, this.m_SystemIdentity.User.UserId);                                   			
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(this.m_AccessionOrder, this.m_Writer);
+            string externalOrderId = this.GetExternalOrderIds(clientOrders);
+			this.m_AccessionOrder.FromClientOrder(this.m_ClientOrder, this.m_SystemIdentity.User.UserId, externalOrderId);                                   			
 
 			this.m_AnAccessionOrderHasBeenAquired = true;
 		}
@@ -267,7 +268,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
 		private void SendStatusMessage()
 		{
-			if (this.m_ClientOrder.SystemInitiatingOrder == "EPIC")
+			/*if (this.m_ClientOrder.SystemInitiatingOrder == "EPIC")
 			{
 				if (this.m_ClientOrder.Acknowledged == false)
 				{
@@ -282,18 +283,19 @@ namespace YellowstonePathology.UI.Login.Receiving
                         YellowstonePathology.Business.Logging.EmailExceptionHandler.HandleException(result.Message);
 					}
 					else
-					{
+					{*/
 						this.m_ClientOrder.Acknowledged = true;
 						this.m_ClientOrder.AcknowledgedById = this.m_SystemIdentity.User.UserId;
 						this.m_ClientOrder.AcknowledgedDate = DateTime.Now;
-					}
-				}
-			}
+					//}
+				//}
+			//}
 		}
 
 		public void UseThisMasterAccessionNoToGetTheAccessionOrder(string masterAccessionNo)
 		{
-			this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this.m_Writer);			
+			this.m_AccessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this.m_Writer);
+            this.SetExternalOrderIds();
 			this.m_AnAccessionOrderHasBeenAquired = true;
 		}
 
@@ -327,5 +329,34 @@ namespace YellowstonePathology.UI.Login.Receiving
 		{
 			this.m_CurrentClientOrderDetail = clientOrderDetail;
 		}
-	}
+
+        private void SetExternalOrderIds()
+        {
+            YellowstonePathology.Business.ClientOrder.Model.ExternalOrderIdsCollection externalOrderIdsCollection = YellowstonePathology.Business.ClientOrder.Model.ExternalOrderIdsCollection.FromJSONstring(this.m_AccessionOrder.ExternalOrderId);
+            if (string.IsNullOrEmpty(this.m_ClientOrder.ExternalOrderId) == false)
+            {
+                YellowstonePathology.Business.ClientOrder.Model.ExternalOrderIds externalOrderIds = new Business.ClientOrder.Model.ExternalOrderIds(this.m_ClientOrder);
+                if (externalOrderIdsCollection.Exists(externalOrderIds.PanelSetId) == false)
+                {
+                    externalOrderIdsCollection.Add(externalOrderIds);
+                }
+            }
+
+            if(externalOrderIdsCollection.Count > 0)
+            {
+                this.m_AccessionOrder.ExternalOrderId = externalOrderIdsCollection.ToJSONString();
+            }
+        }
+
+        private string GetExternalOrderIds(YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection clientOrders)
+        {
+            string result = null;
+            YellowstonePathology.Business.ClientOrder.Model.ExternalOrderIdsCollection externalOrderIdsCollection = new Business.ClientOrder.Model.ExternalOrderIdsCollection(clientOrders);
+            if (externalOrderIdsCollection.Count > 0)
+            {
+                result = externalOrderIdsCollection.ToJSONString();
+            }
+            return result;
+        }
+    }
 }

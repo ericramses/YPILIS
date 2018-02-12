@@ -74,11 +74,11 @@ namespace YellowstonePathology.UI.Login.Receiving
 			if (this.Back != null) this.Back(this, e);
 		}
 
-		private void ReviewClientOrderPage_CreateNewAccessionOrder(object sender, EventArgs e)
+		private void ReviewClientOrderPage_CreateNewAccessionOrder(object sender, CustomEventArgs.ClientOrderCollectionReturnEventArgs e)
         {
 			if (this.m_ClientOrderReceivingHandler.AnAccessionOrderHasBeenAquired == false)
 			{
-				this.m_ClientOrderReceivingHandler.CreateNewAccessionOrder(Business.Test.AccessionTypeEnum.Surgical);
+				this.m_ClientOrderReceivingHandler.CreateNewAccessionOrder(Business.Test.AccessionTypeEnum.Surgical, e.ClientOrderCollection);
 				this.m_ClientOrderReceivingHandler.AccessionClientOrder();
 				this.SendAcknowledgements();
                 YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
@@ -117,7 +117,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         private void SendAcknowledgements()
         {			
-            if (this.m_ClientOrderReceivingHandler.ClientOrder.SystemInitiatingOrder == "EPIC")
+            /*if (this.m_ClientOrderReceivingHandler.ClientOrder.SystemInitiatingOrder == "EPIC")
             {
                 if (this.m_ClientOrderReceivingHandler.ClientOrder.Acknowledged == false)
                 {
@@ -132,13 +132,13 @@ namespace YellowstonePathology.UI.Login.Receiving
                         YellowstonePathology.Business.Logging.EmailExceptionHandler.HandleException(result.Message);                        
 					}
 					else
-					{
+					{*/
                         this.m_ClientOrderReceivingHandler.ClientOrder.Acknowledged = true;
                         this.m_ClientOrderReceivingHandler.ClientOrder.AcknowledgedById = YellowstonePathology.Business.User.SystemIdentity.Instance.User.UserId;
                         this.m_ClientOrderReceivingHandler.ClientOrder.AcknowledgedDate = DateTime.Now;
-					}
-                }
-            }
+					//}
+                //}
+            //}
 
             this.m_ClientOrderReceivingHandler.Save(false);
             this.StartAccessionOrderPath();
