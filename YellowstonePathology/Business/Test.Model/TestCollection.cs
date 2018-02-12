@@ -290,6 +290,8 @@ namespace YellowstonePathology.Business.Test.Model
 
 			result.Add(new Tyrosinase());
 
+            result.Add(new U6());
+
 			result.Add(new Villin());
 
 			result.Add(new Vimentin());
