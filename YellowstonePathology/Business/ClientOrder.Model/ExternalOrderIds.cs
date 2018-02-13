@@ -17,22 +17,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 
         public ExternalOrderIds(ClientOrder clientOrder)
         {
-            switch (clientOrder.OrderType)
-            {
-                case "Routine Surgical Pathology":
-                    this.m_PanelSetId = 13;
-                    break;
-                case "CFYPI":
-                    this.m_PanelSetId = 20;
-                    break;
-                case "THINPREP":
-                    this.m_PanelSetId = 15;
-                    break;
-                default:
-                    this.m_PanelSetId = 13;
-                    break;
-            }
-
+            this.m_PanelSetId = clientOrder.PanelSetId.Value;
             this.m_ExternalOrderId = clientOrder.ExternalOrderId;
         }
 

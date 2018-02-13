@@ -129,12 +129,12 @@ namespace YellowstonePathology.Business.ClientOrder.Model
             return result;
         }
 
-        public bool OrderTypeExists(string orderType)
+        public bool PanelSetIdExists(int panelSetId)
         {
             bool result = false;
             foreach (ClientOrder clientOrder in this)
             {
-                if (clientOrder.OrderType == orderType)
+                if (clientOrder.PanelSetId.HasValue && clientOrder.PanelSetId.Value == panelSetId)
                 {
                     result = true;
                     break;

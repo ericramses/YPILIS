@@ -345,7 +345,7 @@ namespace YellowstonePathology.UI.Login.Receiving
                 {
                     if (string.IsNullOrEmpty(clientOrder.ExternalOrderId) == false)
                     {
-                        if (result.OrderTypeExists(clientOrder.OrderType) == true)
+                        if (clientOrder.PanelSetId.HasValue && result.PanelSetIdExists(clientOrder.PanelSetId.Value) == true)
                         {
                             MessageBox.Show("Only one Client Order for " + clientOrder.OrderType + "may be used.  Choose one of the Client Orders to use.");
                             result = null;
