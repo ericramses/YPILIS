@@ -55,8 +55,8 @@
 					<TextBlock Grid.Column="0" Grid.Row="7" Margin="2,2,2,2" HorizontalAlignment="Right" VerticalAlignment="Center">Active:</TextBlock>
 					<CheckBox Grid.Column="1" Grid.Row="7" IsChecked="{Binding Path=Physician.Active}" Margin="2,2,2,2" VerticalAlignment="Center"></CheckBox>
 
-                    <TextBlock Grid.Column="0" Grid.Row="8" Margin="2,2,2,2" HorizontalAlignment="Right" VerticalAlignment="Center">Hold For WHP:</TextBlock>
-                    <CheckBox Grid.Column="1" Grid.Row="8" IsChecked="{Binding Path=Physician.HoldForWHP}" Margin="2,2,2,2" VerticalAlignment="Center"></CheckBox>
+                    <TextBlock Grid.Column="0" Grid.Row="8" Margin="2,2,2,2" HorizontalAlignment="Right" VerticalAlignment="Center">Distribute WHP only:</TextBlock>
+                    <CheckBox Grid.Column="1" Grid.Row="8" IsChecked="{Binding Path=Physician.DistributeWHPOnly}" Margin="2,2,2,2" VerticalAlignment="Center"></CheckBox>
 
                     <TextBlock Grid.Column="0" Grid.Row="9" Margin="2,2,2,2" HorizontalAlignment="Right" VerticalAlignment="Center">KRAS/BRAF Standing Order:</TextBlock>
 					<CheckBox Grid.Column="1" Grid.Row="9" IsChecked="{Binding Path=Physician.KRASBRAFStandingOrder}" Margin="2,2,2,2" VerticalAlignment="Center"></CheckBox>
