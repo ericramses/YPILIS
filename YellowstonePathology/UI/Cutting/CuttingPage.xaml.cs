@@ -265,6 +265,7 @@ namespace YellowstonePathology.UI.Cutting
             if (this.ListBoxSlideOrderCollection.SelectedItems.Count != 0)
             {
                 YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder = (YellowstonePathology.Business.Slide.Model.SlideOrder)this.ListBoxSlideOrderCollection.SelectedItem;
+                //this.HandleKappaLambda(slideOrder);
                 if (slideOrder.Status == YellowstonePathology.Business.Slide.Model.SlideStatusEnum.Created.ToString())
                 {
                     if (slideOrder.LabelType == YellowstonePathology.Business.Slide.Model.SlideLabelTypeEnum.DirectPrint.ToString())
@@ -292,7 +293,28 @@ namespace YellowstonePathology.UI.Cutting
                 ventanaStainOrder.HandleOrder(this.m_AccessionOrder, slideOrder);
                 this.NotifyPropertyChanged(string.Empty);
             }
-        }        
+        }    
+        
+        private void HandleKappaLambda(YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder)
+        {            
+            Business.Test.Model.KappaByISH kappa = new Business.Test.Model.KappaByISH();
+            Business.Test.Model.LambdaByISH lambda = new Business.Test.Model.LambdaByISH();
+            Business.Test.Model.U6 u6 = new Business.Test.Model.U6();
+
+            if (slideOrder.TestId == kappa.TestId || slideOrder.TestId == lambda.TestId)
+            {                
+                bool u6Exists = this.m_AliquotOrder.SlideOrderCollection.TestOrderExists(u6.TestId);
+                if (u6Exists == false)
+                {
+                    //add a testorder and a slide order
+                    YellowstonePathology.Business.Visitor.OrderTestVisitor orderTestVisitor = new Business.Visitor.OrderTestVisitor(this.m_PanelOrder.ReportNo, u6, null, null, false, this.m_AliquotOrder, false, false, this.m_AccessionOrder.TaskOrderCollection);
+                    this.m_AccessionOrder.TakeATrip(orderTestVisitor);
+
+                    YellowstonePathology.Business.Visitor.AddSlideOrderVisitor addSlideOrderVisitor = new Business.Visitor.AddSlideOrderVisitor(this.m_AliquotOrder, orderTestVisitor.TestOrder);
+                    this.m_AccessionOrder.TakeATrip(addSlideOrderVisitor);
+                }             
+            }            
+        }    
 
         private void PrintSlide(YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder)
         {			                        

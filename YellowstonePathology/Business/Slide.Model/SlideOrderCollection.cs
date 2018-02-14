@@ -52,6 +52,20 @@ namespace YellowstonePathology.Business.Slide.Model
             return result;
         }
 
+        public bool TestExists(string testId)
+        {
+            bool result = false;
+            foreach (YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder in this)
+            {
+                if (slideOrder.TestId == testId)
+                {
+                    result = true;
+                    break;
+                }
+            }
+            return result;
+        }
+
         public YellowstonePathology.Business.Test.Model.TestOrder_Base GetTestOrder(string testOrderId)
         {
             YellowstonePathology.Business.Test.Model.TestOrder_Base result = null;
