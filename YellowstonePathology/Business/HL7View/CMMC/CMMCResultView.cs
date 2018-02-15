@@ -59,7 +59,7 @@ namespace YellowstonePathology.Business.HL7View.CMMC
             orc.ToXml(this.m_Document);
 
 			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection[0];
-            CMMCObrView obr = new CMMCObrView(this.m_PanelSetOrder.ExternalOrderId, this.m_PanelSetOrder.ReportNo, specimenOrder.CollectionTime, this.m_AccessionOrder.AccessionDateTime, this.m_AccessionOrder.AccessionDate, this.m_OrderingPhysician, ResultStatusEnum.Final.Value);
+            CMMCObrView obr = new CMMCObrView(this.m_AccessionOrder.ExternalOrderId, this.m_PanelSetOrder.ReportNo, specimenOrder.CollectionTime, this.m_AccessionOrder.AccessionDateTime, this.m_AccessionOrder.AccessionDate, this.m_OrderingPhysician, ResultStatusEnum.Final.Value);
             obr.ToXml(this.m_Document);
 
             YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_PanelSetOrder.ReportNo);            

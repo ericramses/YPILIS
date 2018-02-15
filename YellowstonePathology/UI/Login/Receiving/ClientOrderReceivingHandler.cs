@@ -336,7 +336,7 @@ namespace YellowstonePathology.UI.Login.Receiving
             if (string.IsNullOrEmpty(this.m_ClientOrder.ExternalOrderId) == false)
             {
                 YellowstonePathology.Business.ClientOrder.Model.ExternalOrderIds externalOrderIds = new Business.ClientOrder.Model.ExternalOrderIds(this.m_ClientOrder);
-                if (externalOrderIdsCollection.Exists(externalOrderIds.PanelSetId) == false)
+                if (externalOrderIdsCollection.Exists(externalOrderIds.PanelSetId) == false && this.m_ClientOrder.PanelSetId.HasValue)
                 {
                     externalOrderIdsCollection.Add(externalOrderIds);
                 }
@@ -344,7 +344,10 @@ namespace YellowstonePathology.UI.Login.Receiving
 
             if(externalOrderIdsCollection.Count > 0)
             {
-                this.m_AccessionOrder.ExternalOrderId = externalOrderIdsCollection.ToFormattedValue();
+                if (this.m_ClientOrder.SystemInitiatingOrder == "EPIC")
+                {
+                    this.m_AccessionOrder.ExternalOrderId = externalOrderIdsCollection.ToFormattedValue();
+                }
             }
         }
 

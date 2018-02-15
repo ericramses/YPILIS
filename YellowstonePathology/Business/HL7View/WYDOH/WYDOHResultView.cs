@@ -44,7 +44,7 @@ namespace YellowstonePathology.Business.HL7View.WYDOH
 
 
             Business.Client.Model.Client clnt = Business.Gateway.PhysicianClientGateway.GetClientByClientId(this.m_AccessionOrder.ClientId);
-            WYDOHORCView orc = new WYDOHORCView(this.m_PanelSetOrder.ExternalOrderId, clnt, this.m_OrderingPhysician, this.m_PanelSetOrder.ReportNo, OrderStatusEnum.Complete, this.m_AccessionOrder.SystemInitiatingOrder);
+            WYDOHORCView orc = new WYDOHORCView(this.m_AccessionOrder.ExternalOrderId, clnt, this.m_OrderingPhysician, this.m_PanelSetOrder.ReportNo, OrderStatusEnum.Complete, this.m_AccessionOrder.SystemInitiatingOrder);
             orc.ToXml(this.m_Document);
 
             YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_PanelSetOrder.ReportNo);

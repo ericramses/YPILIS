@@ -1308,8 +1308,14 @@ namespace YellowstonePathology.Business.Test
 			this.AccessionedById = orderingUserId;
 			this.LoggedById = orderingUserId;
 			this.ClientOrderId = clientOrder.ClientOrderId;
-			//this.ExternalOrderId = clientOrder.ExternalOrderId;
-            this.ExternalOrderId = accessionOrderIds;
+            if (clientOrder.SystemInitiatingOrder == "EPIC")
+            {
+                this.ExternalOrderId = accessionOrderIds;
+            }
+            else
+            {
+                this.ExternalOrderId = clientOrder.ExternalOrderId;
+            }
             this.IncomingHL7 = clientOrder.IncomingHL7;
 			this.OrderedByFirstName = clientOrder.OrderedByFirstName;
 			this.OrderedByLastName = clientOrder.OrderedByLastName;
