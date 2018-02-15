@@ -264,8 +264,7 @@ namespace YellowstonePathology.UI.Cutting
             this.m_ListBoxSlidesMouseDownTimer.Stop();
             if (this.ListBoxSlideOrderCollection.SelectedItems.Count != 0)
             {
-                YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder = (YellowstonePathology.Business.Slide.Model.SlideOrder)this.ListBoxSlideOrderCollection.SelectedItem;
-                //this.HandleKappaLambda(slideOrder);
+                YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder = (YellowstonePathology.Business.Slide.Model.SlideOrder)this.ListBoxSlideOrderCollection.SelectedItem;                
                 if (slideOrder.Status == YellowstonePathology.Business.Slide.Model.SlideStatusEnum.Created.ToString())
                 {
                     if (slideOrder.LabelType == YellowstonePathology.Business.Slide.Model.SlideLabelTypeEnum.DirectPrint.ToString())
@@ -303,7 +302,7 @@ namespace YellowstonePathology.UI.Cutting
 
             if (slideOrder.TestId == kappa.TestId || slideOrder.TestId == lambda.TestId)
             {                
-                bool u6Exists = this.m_AliquotOrder.SlideOrderCollection.TestOrderExists(u6.TestId);
+                bool u6Exists = this.m_AliquotOrder.SlideOrderCollection.TestExists(u6.TestId);
                 if (u6Exists == false)
                 {
                     //add a testorder and a slide order
@@ -327,8 +326,9 @@ namespace YellowstonePathology.UI.Cutting
 
         private void ButtonAddSlide_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Visitor.AddSlideOrderVisitor addSlideOrderVisitor = new Business.Visitor.AddSlideOrderVisitor(this.m_AliquotOrder, this.m_TestOrder);
-            this.m_AccessionOrder.TakeATrip(addSlideOrderVisitor);            
+            YellowstonePathology.Business.Visitor.AddSlideOrderVisitor addSlideOrderVisitor = new Business.Visitor.AddSlideOrderVisitor(this.m_AliquotOrder, this.m_TestOrder);            
+            this.m_AccessionOrder.TakeATrip(addSlideOrderVisitor);
+            this.HandleKappaLambda(addSlideOrderVisitor.NewSlideOrder);
         }
 
         private void ButtonAddHandSlide_Click(object sender, RoutedEventArgs e)
