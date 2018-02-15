@@ -45,8 +45,8 @@ namespace YellowstonePathology.Business.HL7View
                 PidView pid = new PidView(this.m_AccessionOrder.SvhMedicalRecord, this.m_AccessionOrder.PLastName, this.m_AccessionOrder.PFirstName, this.m_AccessionOrder.PBirthdate,
                     this.m_AccessionOrder.PSex, this.m_AccessionOrder.SvhAccount, this.m_AccessionOrder.PSSN);
                 pid.ToXml(this.m_Document);
-                
-                //OrcView orc = new OrcView(this.m_AccessionOrder.ExternalOrderId, this.m_OrderingPhysician, this.m_ReportNo, this.m_OrderStatus);
+
+                //OrcView orc = new OrcView(this.m_PanelSetOrder.ExternalOrderId, this.m_OrderingPhysician, this.m_ReportNo, this.m_OrderStatus);
                 //orc.ToXml(this.m_Document);
 
                 //ObrView obr = new ObrView(this.m_AccessionOrder, this.m_ReportNo);

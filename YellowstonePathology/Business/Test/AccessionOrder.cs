@@ -1262,7 +1262,7 @@ namespace YellowstonePathology.Business.Test
             }
         }
 
-        public void FromClientOrder(YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder, int orderingUserId)
+        public void FromClientOrder(YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder, int orderingUserId, string accessionOrderIds)
         {            
 			this.ClientId = clientOrder.ClientId;
 			this.ClientName = clientOrder.ClientName;
@@ -1308,8 +1308,9 @@ namespace YellowstonePathology.Business.Test
 			this.AccessionedById = orderingUserId;
 			this.LoggedById = orderingUserId;
 			this.ClientOrderId = clientOrder.ClientOrderId;
-			this.ExternalOrderId = clientOrder.ExternalOrderId;			
-			this.IncomingHL7 = clientOrder.IncomingHL7;
+			//this.ExternalOrderId = clientOrder.ExternalOrderId;
+            this.ExternalOrderId = accessionOrderIds;
+            this.IncomingHL7 = clientOrder.IncomingHL7;
 			this.OrderedByFirstName = clientOrder.OrderedByFirstName;
 			this.OrderedByLastName = clientOrder.OrderedByLastName;
 			this.OrderedById = clientOrder.OrderedById;

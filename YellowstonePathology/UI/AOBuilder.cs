@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace YellowstonePathology.UI
 {
-    public class AOBuilder
+    /*public class AOBuilder
     {
         private YellowstonePathology.UI.Login.Receiving.ClientOrderReceivingHandler m_ClientOrderReceivingHandler;
 
@@ -104,5 +104,5 @@ namespace YellowstonePathology.UI
                 this.m_ClientOrderReceivingHandler.AccessionOrder.TakeATrip(addSlideOrderVisitor);
             }
         }      
-    }
+    }*/
 }

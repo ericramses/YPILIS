@@ -82,6 +82,6 @@ namespace YellowstonePathology.UI.Login.Receiving
             {
                 System.Windows.MessageBox.Show("You must select an order to view.");
             }
-        }        
-	}
+        }
+    }
 }
