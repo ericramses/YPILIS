@@ -148,8 +148,8 @@ namespace YellowstonePathology.Business.Visitor
 
         private void HandlePanelSetOrder()
         {
-            ClientOrder.Model.ExternalOrderIdsCollection accessionOrderIdsCollection = ClientOrder.Model.ExternalOrderIdsCollection.FromJSONstring(this.m_AccessionOrder.ExternalOrderId);
-            string externalOrderId = accessionOrderIdsCollection.GetExternalOrderId(this.m_PanelSet.PanelSetId);
+            ClientOrder.Model.ExternalOrderIdsCollection externalOrderIdsCollection = ClientOrder.Model.ExternalOrderIdsCollection.FromFormattedValue(this.m_AccessionOrder.ExternalOrderId);
+            string externalOrderId = externalOrderIdsCollection.GetExternalOrderId(this.m_PanelSet.PanelSetId);
 
             this.m_ReportNo = this.m_AccessionOrder.GetNextReportNo(this.m_PanelSet);
             string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();

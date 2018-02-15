@@ -273,7 +273,7 @@ namespace YellowstonePathology.Business.Persistence
             lock (locker)
             {
                 MySqlCommand cmd = new MySqlCommand();
-                cmd.CommandText = "gwGetClientOrderByClientOrderId";
+                cmd.CommandText = "gwGetClientOrderByClientOrderId_1";
                 cmd.Parameters.AddWithValue("ClientOrderId", clientOrderId);
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 ClientOrderDocumentBuilder builder = new ClientOrderDocumentBuilder(cmd);

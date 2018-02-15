@@ -268,7 +268,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
 		private void SendStatusMessage()
 		{
-			/*if (this.m_ClientOrder.SystemInitiatingOrder == "EPIC")
+			if (this.m_ClientOrder.SystemInitiatingOrder == "EPIC")
 			{
 				if (this.m_ClientOrder.Acknowledged == false)
 				{
@@ -283,13 +283,13 @@ namespace YellowstonePathology.UI.Login.Receiving
                         YellowstonePathology.Business.Logging.EmailExceptionHandler.HandleException(result.Message);
 					}
 					else
-					{*/
+					{
 						this.m_ClientOrder.Acknowledged = true;
 						this.m_ClientOrder.AcknowledgedById = this.m_SystemIdentity.User.UserId;
 						this.m_ClientOrder.AcknowledgedDate = DateTime.Now;
-					//}
-				//}
-			//}
+					}
+				}
+			}
 		}
 
 		public void UseThisMasterAccessionNoToGetTheAccessionOrder(string masterAccessionNo)
@@ -332,7 +332,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         private void SetExternalOrderIds()
         {
-            YellowstonePathology.Business.ClientOrder.Model.ExternalOrderIdsCollection externalOrderIdsCollection = YellowstonePathology.Business.ClientOrder.Model.ExternalOrderIdsCollection.FromJSONstring(this.m_AccessionOrder.ExternalOrderId);
+            YellowstonePathology.Business.ClientOrder.Model.ExternalOrderIdsCollection externalOrderIdsCollection = YellowstonePathology.Business.ClientOrder.Model.ExternalOrderIdsCollection.FromFormattedValue(this.m_AccessionOrder.ExternalOrderId);
             if (string.IsNullOrEmpty(this.m_ClientOrder.ExternalOrderId) == false)
             {
                 YellowstonePathology.Business.ClientOrder.Model.ExternalOrderIds externalOrderIds = new Business.ClientOrder.Model.ExternalOrderIds(this.m_ClientOrder);
@@ -344,7 +344,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
             if(externalOrderIdsCollection.Count > 0)
             {
-                this.m_AccessionOrder.ExternalOrderId = externalOrderIdsCollection.ToJSONString();
+                this.m_AccessionOrder.ExternalOrderId = externalOrderIdsCollection.ToFormattedValue();
             }
         }
 
@@ -354,7 +354,7 @@ namespace YellowstonePathology.UI.Login.Receiving
             YellowstonePathology.Business.ClientOrder.Model.ExternalOrderIdsCollection externalOrderIdsCollection = new Business.ClientOrder.Model.ExternalOrderIdsCollection(clientOrders);
             if (externalOrderIdsCollection.Count > 0)
             {
-                result = externalOrderIdsCollection.ToJSONString();
+                result = externalOrderIdsCollection.ToFormattedValue();
             }
             return result;
         }

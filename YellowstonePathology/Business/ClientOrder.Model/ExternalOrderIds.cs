@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace YellowstonePathology.Business.ClientOrder.Model
 {
@@ -21,6 +19,13 @@ namespace YellowstonePathology.Business.ClientOrder.Model
             this.m_ExternalOrderId = clientOrder.ExternalOrderId;
         }
 
+        public ExternalOrderIds(string formattedValue)
+        {
+            string[] values = formattedValue.Split(new char[] { ',' });
+            this.m_ExternalOrderId = values[0];
+            this.m_PanelSetId = Convert.ToInt32(values[1]);
+        }
+
         public string ExternalOrderId
         {
             get { return this.m_ExternalOrderId; }
@@ -31,6 +36,11 @@ namespace YellowstonePathology.Business.ClientOrder.Model
         {
             get { return this.m_PanelSetId; }
             set { this.m_PanelSetId = value; }
+        }
+
+        public string FormattedValue
+        {
+            get { return this.m_ExternalOrderId + "," + this.m_PanelSetId.ToString(); }
         }
     }
 }

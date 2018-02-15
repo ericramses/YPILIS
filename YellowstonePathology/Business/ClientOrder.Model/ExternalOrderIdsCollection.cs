@@ -4,8 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace YellowstonePathology.Business.ClientOrder.Model
 {
@@ -19,43 +17,51 @@ namespace YellowstonePathology.Business.ClientOrder.Model
             {
                 if (string.IsNullOrEmpty(clientOrder.ExternalOrderId) == false)
                 {
-                    ExternalOrderIds accessionOrderIds = new Model.ExternalOrderIds(clientOrder);
-                    this.Add(accessionOrderIds);
+                    ExternalOrderIds externalOrderIds = new Model.ExternalOrderIds(clientOrder);
+                    this.Add(externalOrderIds);
                 }
             }
         }
 
-        public static ExternalOrderIdsCollection FromJSONstring(string jString)
+        public static ExternalOrderIdsCollection FromFormattedValue(string formattedValue)
         {
             ExternalOrderIdsCollection result = new Model.ExternalOrderIdsCollection();
-            if (string.IsNullOrEmpty(jString) == false)
+            if (string.IsNullOrEmpty(formattedValue) == false)
             {
-                if (jString[0] == '[')
+                string[] values = formattedValue.Split(new char[] { '|' });
+                foreach(string value in values)
                 {
-                    result = JsonConvert.DeserializeObject<ExternalOrderIdsCollection>(jString, new JsonSerializerSettings
+                    if (formattedValue.IndexOf(',') > 0)
                     {
-                        TypeNameHandling = TypeNameHandling.All,
-                        ObjectCreationHandling = ObjectCreationHandling.Replace
-                    });
+                        ExternalOrderIds externalOrderIds = new ExternalOrderIds(value);
+                        result.Add(externalOrderIds);
+                    }
                 }
             }
 
             return result;
         }
 
-        public string ToJSONString()
+        public string ToFormattedValue()
         {
-            string result = JsonConvert.SerializeObject(this);
-            return result;
+            StringBuilder result = new StringBuilder();
+            foreach (ExternalOrderIds externalOrderIds in this)
+            {
+                result.Append(externalOrderIds.FormattedValue);
+                result.Append("|");
+            }
+
+            result.Remove(result.Length - 1, 1);
+            return result.ToString();
         }
 
 
         public bool Exists(int panelSetId)
         {
             bool result = false;
-            foreach (ExternalOrderIds accessionOrderIds in this)
+            foreach (ExternalOrderIds externalOrderIds in this)
             {
-                if (accessionOrderIds.PanelSetId == panelSetId)
+                if (externalOrderIds.PanelSetId == panelSetId)
                 {
                     result = true;
                     break;
@@ -67,11 +73,11 @@ namespace YellowstonePathology.Business.ClientOrder.Model
         public string GetExternalOrderId(int panelSetId)
         {
             string result = null;
-            foreach (ExternalOrderIds accessionOrderIds in this)
+            foreach (ExternalOrderIds externalOrderIds in this)
             {
-                if (accessionOrderIds.PanelSetId == panelSetId)
+                if (externalOrderIds.PanelSetId == panelSetId)
                 {
-                    result = accessionOrderIds.ExternalOrderId;
+                    result = externalOrderIds.ExternalOrderId;
                     break;
                 }
             }
