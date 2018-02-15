@@ -26,7 +26,7 @@ namespace YellowstonePathology.UI.Login.Receiving
         public delegate void ViewAccessionOrderEventHandler(object sender, YellowstonePathology.UI.CustomEventArgs.MasterAccessionNoReturnEventArgs e);
         public event ViewAccessionOrderEventHandler ViewAccessionOrder;
 
-        public delegate void CreateNewAccessionEventHandler(object sender, EventArgs e);
+        public delegate void CreateNewAccessionEventHandler(object sender, CustomEventArgs.ClientOrderCollectionReturnEventArgs e);
         public event CreateNewAccessionEventHandler CreateNewAccessionOrder;
 
         public delegate void NextEventHandler(object sender, EventArgs e);
@@ -37,6 +37,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 		private string m_PageHeaderText = "Review Client Order Page";
 		private UI.Navigation.PageNavigator m_PageNavigator;        
 		private YellowstonePathology.Business.Domain.Physician m_Physician;
+        private YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection m_ClientOrderCollection;
 
         private Visibility m_CloseButtonVisibility;
         private Visibility m_NextButtonVisibility;
@@ -47,9 +48,11 @@ namespace YellowstonePathology.UI.Login.Receiving
 		{
 			this.m_PatientRecentAccessions = patientRecentAccessions;
 			this.m_ClientOrder = clientOrder;            			
-			this.m_PageNavigator = pageNavigator;            
+			this.m_PageNavigator = pageNavigator;
 
-			InitializeComponent();
+            this.SetClientOrderCollection();
+
+            InitializeComponent();
 
 			this.DataContext = this;
 
@@ -70,6 +73,14 @@ namespace YellowstonePathology.UI.Login.Receiving
 		private void ReviewClientOrderPage_Loaded(object sender, RoutedEventArgs e)
 		{
             this.HandleProviderMapping();
+            foreach(YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder in this.ListViewClientOrders.Items)
+            {
+                if(clientOrder.ClientOrderId == this.m_ClientOrder.ClientOrderId)
+                {
+                    this.ListViewClientOrders.SelectedItem = clientOrder;
+                    break;
+                }
+            }
         }
 
         private void HandleProviderMapping()
@@ -124,6 +135,11 @@ namespace YellowstonePathology.UI.Login.Receiving
 			}
 		}
 
+        public YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection ClientOrderCollection
+        {
+            get { return this.m_ClientOrderCollection; }
+        }
+
         private void ButtonNext_Click(object sender, RoutedEventArgs e)
         {
             if (this.Next != null) this.Next(this, new EventArgs());
@@ -153,7 +169,11 @@ namespace YellowstonePathology.UI.Login.Receiving
                     {
                         if (this.CreateNewAccessionOrder != null)
                         {
-                            this.CreateNewAccessionOrder(this, new EventArgs());
+                            YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection clientOrders = this.GetClientOrdersForExternalOrderIds();
+                            if (clientOrders != null)
+                            {
+                                this.CreateNewAccessionOrder(this, new CustomEventArgs.ClientOrderCollectionReturnEventArgs(clientOrders));
+                            }
                         }
                     }
                 }                
@@ -161,7 +181,11 @@ namespace YellowstonePathology.UI.Login.Receiving
                 {
                     if (this.CreateNewAccessionOrder != null)
                     {
-                        this.CreateNewAccessionOrder(this, new EventArgs());
+                        YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection clientOrders = this.GetClientOrdersForExternalOrderIds();
+                        if (clientOrders != null)
+                        {
+                            this.CreateNewAccessionOrder(this, new CustomEventArgs.ClientOrderCollectionReturnEventArgs(clientOrders));
+                        }
                     }
                 }
             }
@@ -286,8 +310,55 @@ namespace YellowstonePathology.UI.Login.Receiving
         {
             if (this.CreateNewAccessionOrder != null)
             {
-                this.CreateNewAccessionOrder(this, new EventArgs());
+                YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection clientOrders = this.GetClientOrdersForExternalOrderIds();
+                if(clientOrders != null)
+                {
+                    this.CreateNewAccessionOrder(this, new CustomEventArgs.ClientOrderCollectionReturnEventArgs(clientOrders));
+                }
             }
+        }
+
+        private void SetClientOrderCollection()
+        {
+            if (string.IsNullOrEmpty(this.m_ClientOrder.SvhAccountNo) == false)
+            {
+                this.m_ClientOrderCollection = YellowstonePathology.Business.Gateway.ClientOrderGateway.GetRecentClientOrdersBySvhAccountNo(this.m_ClientOrder.SvhAccountNo);
+            }
+            else
+            {
+                this.m_ClientOrderCollection = new Business.ClientOrder.Model.ClientOrderCollection();
+                this.m_ClientOrderCollection.Add(this.m_ClientOrder);
+            }
+        }
+
+        private YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection GetClientOrdersForExternalOrderIds()
+        {
+            YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection result = null;
+            if(this.ListViewClientOrders.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Select one or more Client Orders from the Recent Client Orders List.");
+            }
+            else
+            {
+                result = new Business.ClientOrder.Model.ClientOrderCollection();
+                foreach (YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder in this.ListViewClientOrders.SelectedItems)
+                {
+                    if (string.IsNullOrEmpty(clientOrder.ExternalOrderId) == false)
+                    {
+                        if (clientOrder.PanelSetId.HasValue && result.PanelSetIdExists(clientOrder.PanelSetId.Value) == true)
+                        {
+                            MessageBox.Show("Only one Client Order for " + clientOrder.OrderType + "may be used.  Choose one of the Client Orders to use.");
+                            result = null;
+                            break;
+                        }
+                        else if (result.ExternalOrderIdExists(clientOrder.ExternalOrderId) == false)
+                        {
+                            result.Add(clientOrder);
+                        }
+                    }
+                }
+            }
+            return result;
         }
     }
 }

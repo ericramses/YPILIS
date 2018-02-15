@@ -327,6 +327,8 @@
     <Compile Include="Business\Client.Model\HPV1618ReflexOrderPAPNormalHPVPositive.cs" />
     <Compile Include="Business\Client.Model\HPVCompoundStandingOrderRule6.cs" />
     <Compile Include="Business\Client.Model\IdahoClientIdList.cs" />
+    <Compile Include="Business\ClientOrder.Model\ExternalOrderIds.cs" />
+    <Compile Include="Business\ClientOrder.Model\ExternalOrderIdsCollection.cs" />
     <Compile Include="Business\Facility.Model\CommunityHospitalAnaconda.cs" />
     <Compile Include="Business\Facility.Model\NationalJewishHealth.cs" />
     <Compile Include="Business\Facility.Model\UniversityOfUtahHealthCare.cs" />
@@ -3341,6 +3343,7 @@
     <Compile Include="UI\BrowserWindow.xaml.cs">
       <DependentUpon>BrowserWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\CustomEventArgs\AccessionOrderIdsReturnEventArgs.cs" />
     <Compile Include="UI\EmbeddingAutopsyItem.cs" />
     <Compile Include="UI\EmbeddingAutopsyList.cs" />
     <Compile Include="UI\Monitor\DashboardPage.xaml.cs">

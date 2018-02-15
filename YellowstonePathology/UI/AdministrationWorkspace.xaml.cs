@@ -684,9 +684,9 @@ namespace YellowstonePathology.UI
 
         private void ButtonAccessionMickyMouseCreate_Click(object sender, RoutedEventArgs e)
         {
-            AOBuilder aoBuilder = new AOBuilder();
-            Business.Test.AccessionOrder accessionOrder = aoBuilder.Build();
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(aoBuilder);
+            //AOBuilder aoBuilder = new AOBuilder();
+            //Business.Test.AccessionOrder accessionOrder = aoBuilder.Build();
+            //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(aoBuilder);
         }
 
         private void ButtonAccessionMickyMouseRemove_Click(object sender, RoutedEventArgs e)

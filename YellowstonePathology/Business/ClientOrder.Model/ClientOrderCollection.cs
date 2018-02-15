@@ -113,6 +113,34 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 			{
 				clientOrder.Received = true;
 			}
-		}		
-	}
+		}
+        
+        public bool ExternalOrderIdExists(string externalOrderId)
+        {
+            bool result = false;
+            foreach (ClientOrder clientOrder in this)
+            {
+                if (clientOrder.ExternalOrderId == externalOrderId)
+                {
+                    result = true;
+                    break;
+                }
+            }
+            return result;
+        }
+
+        public bool PanelSetIdExists(int panelSetId)
+        {
+            bool result = false;
+            foreach (ClientOrder clientOrder in this)
+            {
+                if (clientOrder.PanelSetId.HasValue && clientOrder.PanelSetId.Value == panelSetId)
+                {
+                    result = true;
+                    break;
+                }
+            }
+            return result;
+        }
+    }
 }

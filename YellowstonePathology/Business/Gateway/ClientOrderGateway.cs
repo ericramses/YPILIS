@@ -292,6 +292,28 @@ namespace YellowstonePathology.Business.Gateway
             return clientOrderCollection;
         }
 
+        public static YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection GetRecentClientOrdersBySvhAccountNo(string svhAccountNo)
+        {
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "gwGetRecentClientOrdersBySvhAccount";
+            cmd.Parameters.AddWithValue("SvhAccount", svhAccountNo);
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+            YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection clientOrderCollection = new YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection();
+
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    BuildClientOrderCollection(dr, clientOrderCollection);
+                }
+            }
+
+            return clientOrderCollection;
+        }
+
         public static YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection GetClientOrdersByExternalOrderId(string externalOrderId)
         {
             MySqlCommand cmd = new MySqlCommand();
