@@ -23,12 +23,17 @@ namespace YellowstonePathology.Business.HL7View.EPIC
             this.m_AccessionOrder = accessionOrder;
             this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);            
 
-            if (this.m_AccessionOrder.UniversalServiceId.ToUpper() != this.m_PanelSetOrder.UniversalServiceId.ToUpper())
+            //if (this.m_AccessionOrder.UniversalServiceId.ToUpper() != this.m_PanelSetOrder.UniversalServiceId.ToUpper())
+            //{
+            //    this.m_SendUnsolicited = true;
+            //}
+
+            if(string.IsNullOrEmpty(this.m_PanelSetOrder.ExternalOrderId) == true)
             {
                 this.m_SendUnsolicited = true;
             }
 
-			this.m_OrderingPhysician = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianByPhysicianId(this.m_AccessionOrder.PhysicianId);           
+            this.m_OrderingPhysician = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianByPhysicianId(this.m_AccessionOrder.PhysicianId);           
 		}        
 
         public XElement GetDocument()
