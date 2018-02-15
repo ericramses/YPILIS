@@ -42,7 +42,7 @@ namespace YellowstonePathology.Business.HL7View.CDC
                 this.m_AccessionOrder.PCity, this.m_AccessionOrder.PState, this.m_AccessionOrder.PZipCode);
             pid.ToXml(this.m_Document);
             
-            MTDohOrcView orc = new MTDohOrcView(this.m_AccessionOrder.ExternalOrderId, this.m_OrderingPhysician, this.m_PanelSetOrder.ReportNo, OrderStatusEnum.Complete, this.m_AccessionOrder.SystemInitiatingOrder);
+            MTDohOrcView orc = new MTDohOrcView(this.m_PanelSetOrder.ExternalOrderId, this.m_OrderingPhysician, this.m_PanelSetOrder.ReportNo, OrderStatusEnum.Complete, this.m_AccessionOrder.SystemInitiatingOrder);
             orc.ToXml(this.m_Document);
 
             YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_PanelSetOrder.ReportNo);

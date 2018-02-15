@@ -11,6 +11,7 @@ namespace YellowstonePathology.Business.HL7View
         private YellowstonePathology.Business.User.SystemUser m_SigningPathologist;
 
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
+        private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
         private string m_DateFormat = "yyyyMMddHHmm";
         private string m_ReportNo;
         private string m_ObservationResultStatus;
@@ -20,10 +21,10 @@ namespace YellowstonePathology.Business.HL7View
 			this.m_AccessionOrder = accessionOrder;
 			this.m_ReportNo = reportNo;
 
-            YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(13);
-            this.m_SigningPathologist = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetSystemUserById(panelSetOrder.AssignedToId);
+            this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(13);
+            this.m_SigningPathologist = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetSystemUserById(this.m_PanelSetOrder.AssignedToId);
 
-            if (panelSetOrder.AmendmentCollection.Count == 0)
+            if (this.m_PanelSetOrder.AmendmentCollection.Count == 0)
             {
                 this.m_ObservationResultStatus = "F";
             }
@@ -44,7 +45,7 @@ namespace YellowstonePathology.Business.HL7View
             obrElement.Add(obr01Element);
 
             XElement obr02Element = new XElement("OBR.2");
-            XElement obr0201Element = new XElement("OBR.2.1", this.m_AccessionOrder.ExternalOrderId);
+            XElement obr0201Element = new XElement("OBR.2.1", this.m_PanelSetOrder.ExternalOrderId);
             obr02Element.Add(obr0201Element);
             obrElement.Add(obr02Element);
 

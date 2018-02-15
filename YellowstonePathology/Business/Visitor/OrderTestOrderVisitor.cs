@@ -148,6 +148,9 @@ namespace YellowstonePathology.Business.Visitor
 
         private void HandlePanelSetOrder()
         {
+            ClientOrder.Model.ExternalOrderIdsCollection externalOrderIdsCollection = ClientOrder.Model.ExternalOrderIdsCollection.FromFormattedValue(this.m_AccessionOrder.ExternalOrderId);
+            string externalOrderId = externalOrderIdsCollection.GetExternalOrderId(this.m_PanelSet.PanelSetId);
+
             this.m_ReportNo = this.m_AccessionOrder.GetNextReportNo(this.m_PanelSet);
             string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 
@@ -173,8 +176,9 @@ namespace YellowstonePathology.Business.Visitor
                     this.m_OrderTarget = this.m_AccessionOrder.SpecimenOrderCollection.GetOrderTarget(this.m_PanelSet.OrderTargetTypeCollectionRestrictions);
                 }
                 this.m_PanelSetOrder = YellowstonePathology.Business.Test.PanelSetOrderFactory.CreatePanelSetOrder(this.m_AccessionOrder.MasterAccessionNo, this.m_ReportNo, objectId, this.m_PanelSet, this.m_OrderTarget, distribute);
-            }            
+            }
 
+            this.m_PanelSetOrder.ExternalOrderId = externalOrderId;
             this.m_AccessionOrder.PanelSetOrderCollection.Add(this.m_PanelSetOrder);
             this.m_AccessionOrder.UpdateCaseAssignment(this.m_PanelSetOrder);
 			this.m_TestOrderInfo.PanelSetOrder = this.m_PanelSetOrder;            
@@ -263,6 +267,6 @@ namespace YellowstonePathology.Business.Visitor
                     }
                 }
             }
-        }        
+        }
     }
 }
