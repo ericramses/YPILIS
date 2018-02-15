@@ -3343,7 +3343,6 @@
     <Compile Include="UI\BrowserWindow.xaml.cs">
       <DependentUpon>BrowserWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\CustomEventArgs\AccessionOrderIdsReturnEventArgs.cs" />
     <Compile Include="UI\EmbeddingAutopsyItem.cs" />
     <Compile Include="UI\EmbeddingAutopsyList.cs" />
     <Compile Include="UI\Monitor\DashboardPage.xaml.cs">
