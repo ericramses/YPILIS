@@ -15,7 +15,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
         {
             foreach (YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder in clientOrders)
             {
-                if (string.IsNullOrEmpty(clientOrder.ExternalOrderId) == false)
+                if (string.IsNullOrEmpty(clientOrder.ExternalOrderId) == false && clientOrder.PanelSetId.HasValue)
                 {
                     ExternalOrderIds externalOrderIds = new Model.ExternalOrderIds(clientOrder);
                     this.Add(externalOrderIds);
@@ -31,7 +31,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
                 string[] values = formattedValue.Split(new char[] { '|' });
                 foreach(string value in values)
                 {
-                    if (formattedValue.IndexOf(',') > 0)
+                    if (value.IndexOf(',') > 0)
                     {
                         ExternalOrderIds externalOrderIds = new ExternalOrderIds(value);
                         result.Add(externalOrderIds);
