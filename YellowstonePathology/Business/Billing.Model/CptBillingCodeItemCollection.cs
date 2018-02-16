@@ -128,41 +128,7 @@ namespace YellowstonePathology.Business.Billing.Model
 					}
 				}
 			}
-		}        
-
-		/*public void UpdateFromAccession(string patientType, string primaryInsurance, string secondaryInsurance, string professionalComponentFacilityId, string technicalComponentFacility, int clientId, YellowstonePathology.Business.Persistence.ObjectTracker objectTracker)
-		{
-			int cnt = this.Count;
-			for (int idx = 0; idx < cnt; idx++) 
-			{
-				CptBillingCodeItem cptBillingCodeItem = this[idx];
-				if (cptBillingCodeItem.MatchesAccession(patientType, primaryInsurance, secondaryInsurance, professionalComponentFacilityId, technicalComponentFacility, clientId) == false)
-				{
-					if (cptBillingCodeItem.IsOktoUpdate() == true)
-					{
-						cptBillingCodeItem.UpdateFromAccession(patientType, primaryInsurance, secondaryInsurance, professionalComponentFacilityId, technicalComponentFacility, clientId);
-					}
-					else
-					{
-                        System.Windows.MessageBoxResult result = System.Windows.MessageBox.Show("Would you like to reverse these changes.", "Reverse", System.Windows.MessageBoxButton.YesNo);
-                        if (result == System.Windows.MessageBoxResult.Yes)
-                        {
-							string cloneId = this.GetNextId(cptBillingCodeItem.MasterAccessionNo);
-                            CptBillingCodeItem newCptBillingCodeItem = cptBillingCodeItem.CloneForReversal(cloneId);
-                            newCptBillingCodeItem.Locked = false;
-                            newCptBillingCodeItem.BillingType = null;
-							newCptBillingCodeItem.UpdateFromAccession(patientType, primaryInsurance, secondaryInsurance, professionalComponentFacilityId, technicalComponentFacility, clientId);
-                            this.Reverse(cptBillingCodeItem, newCptBillingCodeItem, objectTracker);
-                            cptBillingCodeItem.Locked = true;
-                        }
-                        else
-                        {
-							cptBillingCodeItem.UpdateFromAccession(patientType, primaryInsurance, secondaryInsurance, technicalComponentFacility, professionalComponentFacilityId, clientId);
-                        }
-					}
-				}
-			}
-		}*/
+		}        		
 
 		public void Reverse(CptBillingCodeItem cptBillingCodeToReverse)
 		{

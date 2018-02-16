@@ -26,7 +26,7 @@ namespace YellowstonePathology.Business.Billing.Model
             billingRule0.BillingType = BillingTypeEnum.Split;
             billingRule0.ReferenceLab = new RuleValueAny();
             billingRule0.PanelSetIncludeOnlyList.Add(13);
-            this.m_BillingRuleCollection.Add(billingRule0);
+            this.m_BillingRuleCollection.Add(billingRule0);            
 
             BillingRule billingRule01 = new BillingRule();
             billingRule01.BillingRuleSetId = this.m_BillingRuleSetId;
@@ -106,9 +106,21 @@ namespace YellowstonePathology.Business.Billing.Model
             billingRule6.ReferenceLab = new RuleValueAny();
             this.m_BillingRuleCollection.Add(billingRule6);
 
+            BillingRule billingRule10 = new BillingRule();
+            billingRule10.BillingRuleSetId = this.m_BillingRuleSetId;
+            billingRule10.Priority = 10;
+            billingRule10.PatientType = new RuleValueAny();
+            billingRule10.PrimaryInsurance = new RuleValueAny();
+            billingRule10.SecondaryInsurance = new RuleValueAny();
+            billingRule10.PostDischarge = new RuleValueAny();
+            billingRule10.BillingType = BillingTypeEnum.Global;
+            billingRule10.ReferenceLab = new RuleValueAny();
+            billingRule10.PanelSetIncludeOnlyList.Add(248); //Flow Cytometry Analysis sent to NEO
+            this.m_BillingRuleCollection.Add(billingRule10);
+
             BillingRule billingRule9 = new BillingRule();
             billingRule9.BillingRuleSetId = this.m_BillingRuleSetId;
-            billingRule9.Priority = 9;            
+            billingRule9.Priority = 11;            
             billingRule9.PatientType = new RuleValueAny();
             billingRule9.PrimaryInsurance = new RuleValueAny();
             billingRule9.SecondaryInsurance = new RuleValueAny();
