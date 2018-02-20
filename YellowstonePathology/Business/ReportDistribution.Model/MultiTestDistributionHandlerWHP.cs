@@ -24,6 +24,13 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
         protected bool m_DistributeTrich;
         protected bool m_DistributeHWP;
 
+        protected bool m_HoldPap;
+        protected bool m_HoldHPV;
+        protected bool m_HoldHPV1618;
+        protected bool m_HoldNGCT;
+        protected bool m_HoldTrich;
+        protected bool m_HoldHWP;
+
         public MultiTestDistributionHandlerWHP(YellowstonePathology.Business.Test.AccessionOrder accessionOrder) 
             : base(accessionOrder)
         {
@@ -83,26 +90,32 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
                     if (panelSetOrder.PanelSetId == this.m_PanelSetThinPrepPap.PanelSetId)
                     {
                         panelSetOrder.Distribute = this.m_DistributePap;
+                        panelSetOrder.HoldDistribution = this.m_HoldPap;
                     }
                     else if (panelSetOrder.PanelSetId == this.m_PanelSetHPV.PanelSetId)
                     {
                         panelSetOrder.Distribute = this.m_DistributeHPV;
+                        panelSetOrder.HoldDistribution = this.m_HoldHPV;
                     }
                     else if (panelSetOrder.PanelSetId == this.m_PanelSetHPV1618.PanelSetId)
                     {
                         panelSetOrder.Distribute = this.m_DistributeHPV1618;
+                        panelSetOrder.HoldDistribution = this.m_HoldHPV1618;
                     }
                     else if (panelSetOrder.PanelSetId == this.m_NGCTTest.PanelSetId)
                     {
                         panelSetOrder.Distribute = this.m_DistributeNGCT;
+                        panelSetOrder.HoldDistribution = this.m_HoldNGCT;
                     }
                     else if (panelSetOrder.PanelSetId == this.m_TrichomonasTest.PanelSetId)
                     {
                         panelSetOrder.Distribute = this.m_DistributeTrich;
+                        panelSetOrder.HoldDistribution = this.m_HoldTrich;
                     }
                     else if (panelSetOrder.PanelSetId == this.m_WomensHealthProfileTest.PanelSetId)
                     {
                         panelSetOrder.Distribute = this.m_DistributeHWP;
+                        panelSetOrder.HoldDistribution = this.m_HoldHWP;
                     }
                 }                
             }

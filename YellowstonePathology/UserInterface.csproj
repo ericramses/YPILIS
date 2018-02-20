@@ -1149,6 +1149,7 @@
     <Compile Include="Business\Persistence\MonitorProperty.cs" />
     <Compile Include="Business\Persistence\ProtobufWriter.cs" />
     <Compile Include="Business\Persistence\SqlDataRowReaderPropertyWriter.cs" />
+    <Compile Include="Business\ReportDistribution.Model\MultiTestDistributionHandlerWHPHold.cs" />
     <Compile Include="Business\Slide.Model\VantageSlide.cs" />
     <Compile Include="Business\Slide.Model\VantageSlideScan.cs" />
     <Compile Include="Business\Slide.Model\VantageSlideScanCollection.cs" />
@@ -1634,7 +1635,7 @@
     <Compile Include="Business\ReportDistribution.Model\MultiTestDistributionHandler.cs" />
     <Compile Include="Business\ReportDistribution.Model\MultiTestDistributionHandlerFactory.cs" />
     <Compile Include="Business\ReportDistribution.Model\MultiTestDistributionHandlerWHP.cs" />
-    <Compile Include="Business\ReportDistribution.Model\MultiTestDistributionHandlerWHPHold.cs" />
+    <Compile Include="Business\ReportDistribution.Model\MultiTestDistributionHandlerWHPOnly.cs" />
     <Compile Include="Business\ReportDistribution.Model\MultiTestDistributionHandlerWHPStandard.cs" />
     <Compile Include="Business\ReportDistribution.Model\MultiTestDistributionHandlerWHPSVH.cs" />
     <Compile Include="Business\ReportDistribution.Model\PHINMSDistribution.cs" />
