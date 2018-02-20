@@ -16,6 +16,10 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
                 YellowstonePathology.Business.Domain.Physician physician = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianByPhysicianId(accessionOrder.PhysicianId);
                 if (physician != null && physician.DistributeWHPOnly == true)
                 {
+                    result = new MultiTestDistributionHandlerWHPOnly(accessionOrder);
+                }
+                else if(physician != null && physician.HoldForWHP == true)
+                {
                     result = new MultiTestDistributionHandlerWHPHold(accessionOrder);
                 }
                 else
