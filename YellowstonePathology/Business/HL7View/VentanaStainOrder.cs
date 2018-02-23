@@ -25,6 +25,8 @@ namespace YellowstonePathology.Business.HL7View
                         string result = this.Build(accessionOrder, slideOrder.TestOrderId, slideOrder.SlideOrderId);
                         slideOrder.OrderSentToVentana = true;
 
+                        accessionOrder.PanelSetOrderCollection.GetTestOrderByTestOrderId(slideOrder.TestOrderId).StainStatus = "BenchMark_Initiated";
+
                         string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
                         System.IO.File.WriteAllText(@"\\10.1.2.31\ChannelData\Outgoing\Ventana\" + objectId + ".hl7", result);                     
                     }                    

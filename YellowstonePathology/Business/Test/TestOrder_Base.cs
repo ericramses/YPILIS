@@ -23,6 +23,7 @@ namespace YellowstonePathology.Business.Test.Model
         protected bool m_UseWetProtocol;
         protected bool m_PerformedByHand;
         protected string m_OrderedBy;
+        protected string m_StainStatus;
 
         public TestOrder_Base()
         {
@@ -235,6 +236,20 @@ namespace YellowstonePathology.Business.Test.Model
                 {
                     this.m_OrderedBy = value;
                     this.NotifyPropertyChanged("OrderedBy");
+                }
+            }
+        }
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "100", "null", "varchar")]
+        public string StainStatus
+        {
+            get { return this.m_StainStatus; }
+            set
+            {
+                if (this.m_StainStatus != value)
+                {
+                    this.m_StainStatus = value;
+                    this.NotifyPropertyChanged("StainStatus");
                 }
             }
         }

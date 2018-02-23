@@ -1,0 +1,28 @@
+﻿<Window x:Class="YellowstonePathology.UI.Surgical.StainStatusDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:YellowstonePathology.UI.Surgical"
+        mc:Ignorable="d"
+        Title="Stain Status" Width="640" Height="350" WindowStyle="ToolWindow" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height ="*" />
+            <RowDefinition Height ="Auto" />
+        </Grid.RowDefinitions>
+
+        <ListView Name="ListViewTestOrders" Grid.Column="0" Grid.Row="0"
+					  ItemsSource="{Binding Path=TestOrderStatusViewCollection}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=ReportNo}" Header="Report No" Width="100"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=TestName}" Header="Test Name" Width="250"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=StainStatus}" Header="Status" Width="250"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <Button Name="ButonOk" Grid.Row="1" Margin="5,5,5,5" Height="30" Width="100" Click="ButonOk_Click" HorizontalAlignment="Right">OK</Button>
+    </Grid>
+</Window>
