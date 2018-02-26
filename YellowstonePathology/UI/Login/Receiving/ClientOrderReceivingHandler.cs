@@ -342,6 +342,7 @@ namespace YellowstonePathology.UI.Login.Receiving
                 }
             }
 
+
             if(externalOrderIdsCollection.Count > 0)
             {
                 if (this.m_ClientOrder.SystemInitiatingOrder == "EPIC")
