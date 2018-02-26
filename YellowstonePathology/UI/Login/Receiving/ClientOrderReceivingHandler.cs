@@ -333,10 +333,10 @@ namespace YellowstonePathology.UI.Login.Receiving
         private void SetExternalOrderIds()
         {
             YellowstonePathology.Business.ClientOrder.Model.ExternalOrderIdsCollection externalOrderIdsCollection = YellowstonePathology.Business.ClientOrder.Model.ExternalOrderIdsCollection.FromFormattedValue(this.m_AccessionOrder.ExternalOrderId);
-            if (string.IsNullOrEmpty(this.m_ClientOrder.ExternalOrderId) == false)
+            if (string.IsNullOrEmpty(this.m_ClientOrder.ExternalOrderId) == false && this.m_ClientOrder.PanelSetId.HasValue)
             {
                 YellowstonePathology.Business.ClientOrder.Model.ExternalOrderIds externalOrderIds = new Business.ClientOrder.Model.ExternalOrderIds(this.m_ClientOrder);
-                if (externalOrderIdsCollection.Exists(externalOrderIds.PanelSetId) == false && this.m_ClientOrder.PanelSetId.HasValue)
+                if (externalOrderIdsCollection.Exists(externalOrderIds.PanelSetId) == false)
                 {
                     externalOrderIdsCollection.Add(externalOrderIds);
                 }
