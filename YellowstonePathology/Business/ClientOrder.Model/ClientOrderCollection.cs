@@ -142,5 +142,19 @@ namespace YellowstonePathology.Business.ClientOrder.Model
             }
             return result;
         }
+
+        public ClientOrder GetClientOrderByPanelSetId(int panelSetId)
+        {
+            ClientOrder result = null;
+            foreach (ClientOrder clientOrder in this)
+            {
+                if (clientOrder.PanelSetId.HasValue && clientOrder.PanelSetId.Value == panelSetId)
+                {
+                    result = clientOrder;
+                    break;
+                }
+            }
+            return result;
+        }
     }
 }

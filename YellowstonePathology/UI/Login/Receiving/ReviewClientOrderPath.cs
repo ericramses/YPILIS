@@ -79,7 +79,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 			if (this.m_ClientOrderReceivingHandler.AnAccessionOrderHasBeenAquired == false)
 			{
 				this.m_ClientOrderReceivingHandler.CreateNewAccessionOrder(Business.Test.AccessionTypeEnum.Surgical, e.ClientOrderCollection);
-				this.m_ClientOrderReceivingHandler.AccessionClientOrder();
+				this.m_ClientOrderReceivingHandler.AccessionClientOrders(e.ClientOrderCollection);
 				this.SendAcknowledgements();
                 YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
 			}
@@ -117,7 +117,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         private void SendAcknowledgements()
         {			
-            if (this.m_ClientOrderReceivingHandler.ClientOrder.SystemInitiatingOrder == "EPIC")
+            /*if (this.m_ClientOrderReceivingHandler.ClientOrder.SystemInitiatingOrder == "EPIC")
             {
                 if (this.m_ClientOrderReceivingHandler.ClientOrder.Acknowledged == false)
                 {
@@ -138,7 +138,7 @@ namespace YellowstonePathology.UI.Login.Receiving
                         this.m_ClientOrderReceivingHandler.ClientOrder.AcknowledgedDate = DateTime.Now;
 					}
                 }
-            }
+            }*/
 
             this.m_ClientOrderReceivingHandler.Save(false);
             this.StartAccessionOrderPath();
