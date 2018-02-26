@@ -86,9 +86,9 @@ namespace YellowstonePathology.UI.Converter
             {
                 clinical = clinical.Replace("hr ", "High Risk. ");
             }
-            if (clinical.IndexOf("r ") != -1)
+            if (clinical.IndexOf("rt ") != -1)
             {
-                clinical = clinical.Replace("r ", "Routine. ");
+                clinical = clinical.Replace("rt ", "Routine. ");
             }
             value = PutSlashes(clinical);
 			return value;

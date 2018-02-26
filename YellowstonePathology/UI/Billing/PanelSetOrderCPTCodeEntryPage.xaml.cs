@@ -141,7 +141,7 @@ namespace YellowstonePathology.UI.Billing
                 new { code = "3260F", modifier="8P" },
                 new { code = "3267F", modifier="1P" },
                 new { code = "3267F", modifier="8P" },
-                new { code = "3394F", modifier="8P" },                
+                new { code = "3394F", modifier="8P" },
                 new { code = "81220", modifier="26" },
                 new { code = "81240", modifier="26" },
                 new { code = "81241", modifier="26" },
