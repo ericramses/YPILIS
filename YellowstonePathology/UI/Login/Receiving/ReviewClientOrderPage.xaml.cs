@@ -356,6 +356,10 @@ namespace YellowstonePathology.UI.Login.Receiving
                             result.Add(clientOrder);
                         }
                     }
+                    else
+                    {
+                        result.Add(clientOrder);
+                    }
                 }
             }
             return result;
