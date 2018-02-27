@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>44</ApplicationRevision>
+    <ApplicationRevision>118</ApplicationRevision>
     <ApplicationVersion>10.1.9.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -315,6 +315,7 @@
     <Compile Include="Business\BaseData.cs" />
     <Compile Include="Business\BaseItem.cs" />
     <Compile Include="Business\BaseListItem.cs" />
+    <Compile Include="Business\Billing.Model\BillableObjectNeoFlowCytometry.cs" />
     <Compile Include="Business\Billing.Model\CptCodeFactory.cs" />
     <Compile Include="Business\Billing.Model\CPTCodeWithModifier.cs" />
     <Compile Include="Business\Billing.Model\HospitalSplitSurgicalAndReferenceLabBillingRuleSet.cs" />
@@ -325,8 +326,12 @@
     <Compile Include="Business\Billing.Model\PropertyChanges.cs" />
     <Compile Include="Business\Client.Model\HPV1618CompoundStandingOrderRule1.cs" />
     <Compile Include="Business\Client.Model\HPV1618ReflexOrderPAPNormalHPVPositive.cs" />
+    <Compile Include="Business\Client.Model\HPVCompoundStandingOrderRule7.cs" />
     <Compile Include="Business\Client.Model\HPVCompoundStandingOrderRule6.cs" />
     <Compile Include="Business\Client.Model\IdahoClientIdList.cs" />
+    <Compile Include="Business\ClientOrder.Model\ExternalOrderIds.cs" />
+    <Compile Include="Business\ClientOrder.Model\ExternalOrderIdsCollection.cs" />
+    <Compile Include="Business\Facility.Model\CommunityHospitalAnaconda.cs" />
     <Compile Include="Business\Facility.Model\NationalJewishHealth.cs" />
     <Compile Include="Business\Facility.Model\UniversityOfUtahHealthCare.cs" />
     <Compile Include="Business\Facility.Model\Cellnetix.cs" />
@@ -1064,7 +1069,7 @@
     <Compile Include="Business\Label.Model\IFEZPLLabel.cs" />
     <Compile Include="Business\Label.Model\FormalinAddedZPLLabel.cs" />
     <Compile Include="Business\Label.Model\SerumZPLLabel.cs" />
-    <Compile Include="Business\Label.Model\HistologySlidePaperZPLLabel.cs" />
+    <Compile Include="Business\Label.Model\HistologySlidePaperZPLLabelV1.cs" />
     <Compile Include="Business\Label.Model\HistologyBlockPaperZPLLabel.cs" />
     <Compile Include="Business\Label.Model\HistologySlideDirectPrintLabel.cs" />
     <Compile Include="Business\Label.Model\HistologySlideLabel.cs" />
@@ -1099,8 +1104,6 @@
     <Compile Include="Business\LevenshteinDistance.cs" />
     <Compile Include="Business\ListItem.cs" />
     <Compile Include="Business\Logging\EmailExceptionHandler.cs" />
-    <Compile Include="Business\Logging\ScanLog.cs" />
-    <Compile Include="Business\Logging\ScanLogCollection.cs" />
     <Compile Include="Business\Logging\ScanLogger.cs" />
     <Compile Include="Business\MasterAccessionNo.cs" />
     <Compile Include="Business\MaterialTracking.Model\BlockSentNotReturned.cs" />
@@ -1147,17 +1150,21 @@
     <Compile Include="Business\Persistence\MonitorProperty.cs" />
     <Compile Include="Business\Persistence\ProtobufWriter.cs" />
     <Compile Include="Business\Persistence\SqlDataRowReaderPropertyWriter.cs" />
+    <Compile Include="Business\ReportDistribution.Model\MultiTestDistributionHandlerWHPHold.cs" />
     <Compile Include="Business\Slide.Model\VantageSlide.cs" />
     <Compile Include="Business\Slide.Model\VantageSlideScan.cs" />
     <Compile Include="Business\Slide.Model\VantageSlideScanCollection.cs" />
     <Compile Include="Business\Slide.Model\VantageSlideView.cs" />
     <Compile Include="Business\Slide.Model\VantageSlideViewCollection.cs" />
+    <Compile Include="Business\Test.Model\U6.cs" />
     <Compile Include="Business\Test\AMLPrognosticProfile\AMLPrognosticProfileTestOrder.cs" />
     <Compile Include="Business\Test\FLT3Preliminary\FLT3PreliminaryTest.cs" />
     <Compile Include="Business\Test\IgHMFABByFish\IgHMFABByFishEPICOBXView.cs" />
     <Compile Include="Business\Test\IgHMFABByFish\IgHMFABByFishTest.cs" />
     <Compile Include="Business\Test\IgHMFABByFish\IgHMFABByFishTestOrder.cs" />
     <Compile Include="Business\Test\IgHMFABByFish\IgHMFABByFishWordDocument.cs" />
+    <Compile Include="Business\Test\LowGradeSmallBCellLymphomaFishPanel\LowGradeSmallBCellLymphomaFishPanelTest.cs" />
+    <Compile Include="Business\Test\NeoTYPEGISTProfile\NeoTYPEGISTProfileTest.cs" />
     <Compile Include="Store\AppDataStore.cs" />
     <Compile Include="Business\Reports\BlocksSentNotReturnedReport.cs" />
     <Compile Include="Business\Reports\RetrospectiveReviewReport.xaml.cs">
@@ -1629,7 +1636,7 @@
     <Compile Include="Business\ReportDistribution.Model\MultiTestDistributionHandler.cs" />
     <Compile Include="Business\ReportDistribution.Model\MultiTestDistributionHandlerFactory.cs" />
     <Compile Include="Business\ReportDistribution.Model\MultiTestDistributionHandlerWHP.cs" />
-    <Compile Include="Business\ReportDistribution.Model\MultiTestDistributionHandlerWHPHold.cs" />
+    <Compile Include="Business\ReportDistribution.Model\MultiTestDistributionHandlerWHPOnly.cs" />
     <Compile Include="Business\ReportDistribution.Model\MultiTestDistributionHandlerWHPStandard.cs" />
     <Compile Include="Business\ReportDistribution.Model\MultiTestDistributionHandlerWHPSVH.cs" />
     <Compile Include="Business\ReportDistribution.Model\PHINMSDistribution.cs" />
@@ -3885,6 +3892,10 @@
       <DependentUpon>FISH5p159q2215p22ResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Test\FISH5p159q2215p22ResultPath.cs" />
+    <Compile Include="UI\Test\FLT3ResultPage.xaml.cs">
+      <DependentUpon>FLT3ResultPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Test\FLT3ResultPath.cs" />
     <Compile Include="UI\Test\SlideTrackingResultPage.xaml.cs">
       <DependentUpon>SlideTrackingResultPage.xaml</DependentUpon>
     </Compile>
@@ -4040,10 +4051,6 @@
       <DependentUpon>NeoARRAYSNPCytogeneticProfileResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Test\NeoARRAYSNPCytogeneticProfileResultPath.cs" />
-    <Compile Include="UI\Test\FLT3ResultPage.xaml.cs">
-      <DependentUpon>FLT3ResultPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Test\FLT3ResultPath.cs" />
     <Compile Include="UI\Test\HighGradeLargeBCellLymphomaResultPage.xaml.cs">
       <DependentUpon>HighGradeLargeBCellLymphomaResultPage.xaml</DependentUpon>
     </Compile>
@@ -5837,6 +5844,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UI\Test\FLT3ResultPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\Test\SlideTrackingResultPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -5986,10 +5997,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Test\NeoARRAYSNPCytogeneticProfileResultPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\Test\FLT3ResultPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -185,29 +185,19 @@ namespace YellowstonePathology.UI.Billing
             {
                 MessageBox.Show("This test has been marked as research testing.  Please contact Sid.");
                 return;
-            }
-
-            //try
-            //{
-                if (this.IsTechnicalBillingFacilityValid() == true)
+            }            
+            if (this.IsTechnicalBillingFacilityValid() == true)
+            {
+                if (this.IsProfessionalBillingFacilityValid() == true)
                 {
-                    if (this.IsProfessionalBillingFacilityValid() == true)
+                    YellowstonePathology.Business.Billing.Model.BillableObject billableObject = Business.Billing.Model.BillableObjectFactory.GetBillableObject(this.m_AccessionOrder, this.m_ReportNo);
+                    YellowstonePathology.Business.Rules.MethodResult methodResult = billableObject.Set();
+                    if (methodResult.Success == false)
                     {
-                        YellowstonePathology.Business.Billing.Model.BillableObject billableObject = Business.Billing.Model.BillableObjectFactory.GetBillableObject(this.m_AccessionOrder, this.m_ReportNo);
-                        YellowstonePathology.Business.Rules.MethodResult methodResult = billableObject.Set();
-                        if (methodResult.Success == false)
-                        {
-                            MessageBox.Show(methodResult.Message);
-                        }
+                        MessageBox.Show(methodResult.Message);
                     }
                 }
-            //}
-            //catch(Exception exc)
-            //{
-            //    Business.Logging.EmailExceptionHandler.HandleException("ButtonSet_Click: ReportNo - " + this.m_PanelSetOrder.ReportNo + " - " + exc.Message);
-            //    MessageBox.Show("Oops! An error occurred that I cannot recover from.  I sent and email to IT and I am going to shut the application down.");
-            //    Application.Current.Shutdown();
-            //}            
+            }            
         }
 
         private bool IsTechnicalBillingFacilityValid()
@@ -218,16 +208,16 @@ namespace YellowstonePathology.UI.Billing
             YellowstonePathology.Business.Facility.Model.Facility technicalComponentFacility = facilityCollection.GetByFacilityId(this.m_PanelSetOrder.TechnicalComponentFacilityId);
 
             YellowstonePathology.Business.Facility.Model.ClientBillingFacilityCollection clientBillingFacilityCollection = new YellowstonePathology.Business.Facility.Model.ClientBillingFacilityCollection();
-            YellowstonePathology.Business.Rules.MethodResult technicalResult = clientBillingFacilityCollection.FindMatch(this.m_PanelSetOrder.TechnicalComponentFacilityId, this.m_PanelSetOrder.TechnicalComponentBillingFacilityId, this.m_AccessionOrder.ClientId, "Technical");
+            //YellowstonePathology.Business.Rules.MethodResult technicalResult = clientBillingFacilityCollection.FindMatch(this.m_PanelSetOrder.TechnicalComponentFacilityId, this.m_PanelSetOrder.TechnicalComponentBillingFacilityId, this.m_AccessionOrder.ClientId, "Technical");
 
-            if (technicalResult.Success == false)
-            {
-                MessageBoxResult messageBoxResult = MessageBox.Show(technicalResult.Message, "Are you sure you want to continue?", MessageBoxButton.YesNo);
-                if (messageBoxResult == MessageBoxResult.No)
-                {
-                    result = false;
-                }
-            }
+            //if (technicalResult.Success == false)
+            //{
+            //    MessageBoxResult messageBoxResult = MessageBox.Show(technicalResult.Message, "Are you sure you want to continue?", MessageBoxButton.YesNo);
+            //    if (messageBoxResult == MessageBoxResult.No)
+            //    {
+            //        result = false;
+            //    }
+            //}
 
             return result;
         }
@@ -240,16 +230,16 @@ namespace YellowstonePathology.UI.Billing
             YellowstonePathology.Business.Facility.Model.Facility professionalComponentFacility = facilityCollection.GetByFacilityId(this.m_PanelSetOrder.ProfessionalComponentFacilityId);
 
             YellowstonePathology.Business.Facility.Model.ClientBillingFacilityCollection clientBillingFacilityCollection = new YellowstonePathology.Business.Facility.Model.ClientBillingFacilityCollection();
-            YellowstonePathology.Business.Rules.MethodResult professionalResult = clientBillingFacilityCollection.FindMatch(this.m_PanelSetOrder.ProfessionalComponentFacilityId, this.m_PanelSetOrder.ProfessionalComponentBillingFacilityId, this.m_AccessionOrder.ClientId, "Professional");
+            //YellowstonePathology.Business.Rules.MethodResult professionalResult = clientBillingFacilityCollection.FindMatch(this.m_PanelSetOrder.ProfessionalComponentFacilityId, this.m_PanelSetOrder.ProfessionalComponentBillingFacilityId, this.m_AccessionOrder.ClientId, "Professional");
 
-            if (professionalResult.Success == false)
-            {
-                MessageBoxResult messageBoxResult = MessageBox.Show(professionalResult.Message, "Are you sure you want to continue?", MessageBoxButton.YesNo);
-                if (messageBoxResult == MessageBoxResult.No)
-                {
-                    result = false;
-                }
-            }
+            //if (professionalResult.Success == false)
+            //{
+            //    MessageBoxResult messageBoxResult = MessageBox.Show(professionalResult.Message, "Are you sure you want to continue?", MessageBoxButton.YesNo);
+            //    if (messageBoxResult == MessageBoxResult.No)
+            //    {
+            //        result = false;
+            //    }
+            //}
 
             return result;
         }

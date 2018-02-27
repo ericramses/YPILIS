@@ -29,6 +29,17 @@ namespace YellowstonePathology.Business.Billing.Model
             return result;
         }
 
+        public static bool IsNeoFlowCytometry(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo)
+        {
+            bool result = false;
+            YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
+            if(panelSetOrder.PanelSetId == 248)
+            {
+                result = true;
+            }
+            return result;
+        }
+
         public static bool IsAutopsyTechnicalOnly(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo)
         {
             bool result = false;
@@ -76,10 +87,13 @@ namespace YellowstonePathology.Business.Billing.Model
                 YellowstonePathology.Business.Facility.Model.NeogenomicsIrvine neogenomicsIrvine = new YellowstonePathology.Business.Facility.Model.NeogenomicsIrvine();
                 if(panelSetOrder.TechnicalComponentFacilityId == neogenomicsIrvine.FacilityId)
                 {
-                    result = true;
+                    //exclude flow performed by NEO
+                    if(panelSetOrder.PanelSetId != 248)
+                    {
+                        result = true;
+                    }
                 }
             }
-            
             return result;
         }        
 

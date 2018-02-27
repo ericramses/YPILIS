@@ -1415,6 +1415,11 @@ namespace YellowstonePathology.Business.Test
 				this.m_AcceptedBy = Business.User.SystemIdentity.Instance.User.DisplayName;
 			}
 
+            if(this.m_AssignedToId != 0)
+            {
+                this.m_AssignedToId = Business.User.SystemIdentity.Instance.User.UserId;
+            }
+
             YellowstonePathology.Business.Client.Model.PhysicianClientDistributionList physicianClientDistributionCollection = YellowstonePathology.Business.Gateway.ReportDistributionGateway.GetPhysicianClientDistributionCollection(accessionOrder.PhysicianId, accessionOrder.ClientId);
             physicianClientDistributionCollection.SetDistribution(this, accessionOrder);
 

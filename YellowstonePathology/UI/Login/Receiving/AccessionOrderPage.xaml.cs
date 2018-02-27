@@ -26,6 +26,9 @@ namespace YellowstonePathology.UI.Login.Receiving
         public delegate void ShowSurgicalDiagnosisEventHandler(object sender, EventArgs e);
         public event ShowSurgicalDiagnosisEventHandler ShowSurgicalDiagnosis;
 
+        public delegate void ShowAliquotsAndStainsEventHandler(object sender, EventArgs e);
+        public event ShowAliquotsAndStainsEventHandler ShowAliquotsAndStains;
+
         public delegate void ShowSurgicalGrossDescriptionEventHandler(object sender, EventArgs e);
         public event ShowSurgicalGrossDescriptionEventHandler ShowSurgicalGrossDescription;        
 
@@ -416,6 +419,6 @@ namespace YellowstonePathology.UI.Login.Receiving
             {
                 MessageBox.Show("You must order something before the data sheet can be printed out.");
             }
-        }
+        }        
     }
 }

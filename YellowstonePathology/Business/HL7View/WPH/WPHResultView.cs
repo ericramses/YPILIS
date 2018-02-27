@@ -24,7 +24,7 @@ namespace YellowstonePathology.Business.HL7View.WPH
             this.m_Testing = testing;
             this.m_AccessionOrder = accessionOrder;
             this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
-            //this.m_ClientOrder = Business.Gateway.ClientOrderGateway.GetClientOrderByExternalOrderId(this.m_AccessionOrder.ExternalOrderId);
+            //this.m_ClientOrder = Business.Gateway.ClientOrderGateway.GetClientOrderByExternalOrderId(this.this.m_AccessionOrder.ExternalOrderId);
             YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection clientOrders = Business.Gateway.ClientOrderGateway.GetClientOrdersByExternalOrderId(this.m_AccessionOrder.ExternalOrderId);
             if (clientOrders.Count > 0)
             {

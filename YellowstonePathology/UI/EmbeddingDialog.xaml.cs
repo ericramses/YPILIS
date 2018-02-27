@@ -51,7 +51,6 @@ namespace YellowstonePathology.UI
             this.m_ScanCount = "Block Count: " + this.m_EmbeddingScanCollection.Count.ToString();
 
             InitializeComponent();
-
             
             this.DataContext = this;
             this.Loaded += EmbeddingDialog_Loaded;

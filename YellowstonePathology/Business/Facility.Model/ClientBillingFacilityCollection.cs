@@ -27,6 +27,7 @@ namespace YellowstonePathology.Business.Facility.Model
             this.Add(new ClientBillingFacility(ypii, ypii, clientGroupAllClients, "Professional"));
         }
 
+        /*
         public YellowstonePathology.Business.Rules.MethodResult FindMatch(string performingFacilityId, string billingFacilityId, int clientId, string facilityComponent)
         {
             YellowstonePathology.Business.Rules.MethodResult result = new Business.Rules.MethodResult();
@@ -47,5 +48,6 @@ namespace YellowstonePathology.Business.Facility.Model
             }
             return result;
         }
+        */
     }
 }

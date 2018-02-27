@@ -18,9 +18,10 @@ namespace YellowstonePathology.Business.Test.HPV
 		public static string HighCVResult = "High %CV";
 		public static string LowFamFozResult = "LowFamFoz";
 		public static string Unsatisfactory = "Unsatisfactory";
-        public static string InsuficientDNA = "Insufficient DNA to perform analysis";        
+        public static string InsuficientDNA = "Insufficient DNA to perform analysis";
+        public static string UnsatSpecimenComment = "HPV testing of unsatisfactory specimens may yield false negative results.  Recommend repeat HPV testing.";
 
-		public static string CytologyReportNoPlaceHolder = "cytology_accessionno";
+        public static string CytologyReportNoPlaceHolder = "cytology_accessionno";
 
         public static string TestInformation = "The Aptima HPV assay is an in vitro nucleic acid amplification test for the qualitative detection of E6/E7 viral " +
             "messenger RNA (mRNA) from 14 high-risk types of human papillomavirus (HPV) in cervical specimens. The high-risk HPV types detected by the assay " +

@@ -10,7 +10,7 @@ namespace YellowstonePathology.Business.Test.HPV
 		public HPVPositiveResult()
 		{            
             this.m_ResultCode = HPVResult.OveralResultCodePositive;
-            this.m_Result = HPVResult.PositiveResult; 
-		}
+            this.m_Result = HPVResult.PositiveResult;                        
+        }
 	}
 }

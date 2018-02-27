@@ -74,6 +74,8 @@
                 <RowDefinition Height="Auto"></RowDefinition>
 				<RowDefinition Height="Auto"></RowDefinition>
 				<RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
 
 			<Grid Name="ClientOrderGrid" Grid.Column="0" Grid.Row="0" Margin="5,10,5,10">
@@ -145,10 +147,26 @@
                 <TextBox Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="8" Margin="2,2,2,2" Text="{Binding Path=ClientOrder.HoldMessage}"></TextBox>
 
             </Grid>
-			
-            <TextBlock Grid.Column="0" Grid.Row="1" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center">Recent Accessions</TextBlock>
 
-			<ListView Name="ListViewAccessionOrders" Grid.Column="0" Grid.Row="2" Margin="5" BorderBrush="black" ItemsSource="{Binding Path=RecentAccessionViewCollection}">
+
+            <TextBlock Grid.Column="0" Grid.Row="1" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center">Recent Client Orders</TextBlock>
+
+            <ListView Name="ListViewClientOrders" Margin="5" Grid.Column="0" Grid.Row="2" ItemsSource="{Binding Path=ClientOrderCollection}">
+                <ListView.View>
+                    <GridView AllowsColumnReorder="True" ColumnHeaderToolTip="Client Order List">
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=OrderStatus}" Header="Status" Width="100"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=PLastName}" Header="Last Name" Width="110"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=PFirstName}" Header="First Name" Width="110"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=OrderDate, Converter={StaticResource ShortDateConverter}}" Header="Order Date" Width="150"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=OrderedBy}" Header="Ordered By" Width="100"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=OrderType}" Header="Order Type" Width="100"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+            <TextBlock Grid.Column="0" Grid.Row="3" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center">Recent Accessions</TextBlock>
+
+			<ListView Name="ListViewAccessionOrders" Grid.Column="0" Grid.Row="4" Margin="5" BorderBrush="black" ItemsSource="{Binding Path=RecentAccessionViewCollection}">
 				<ListView.View>
 					<GridView>
 						<GridView.Columns>
@@ -165,7 +183,7 @@
 				</ListView.View>
 			</ListView>
 
-		    <StackPanel Grid.Column="1" Grid.Row="0" Grid.RowSpan="3" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,100,0,0">
+		    <StackPanel Grid.Column="1" Grid.Row="0" Grid.RowSpan="5" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,100,0,0">
 				<Button Name="ButtonNewAccession" Margin="10" Height="50" Width="150" Click="ButtonNewAccession_Click" Content="Create New Accession" />
 				<Button Name="ButtonViewSelectedAccession" Margin="10" Height="50" Width="150" Click="ButtonViewSelectedAccession_Click" Content="View Selected Accession" />
 				<Button Name="ButtonShowFaxPage" Margin="10,40,10,10" Height="50" Width="150" Click="ButtonShowFaxPage_Click" Content="Create Fax to Client" />

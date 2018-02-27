@@ -43,9 +43,10 @@ namespace YellowstonePathology.Business.Domain
         private string m_MDLastName;
         private bool m_SendPublishNotifications;
         private string m_PublishNotificationEmailAddress;
+        private bool m_DistributeWHPOnly;
         private bool m_HoldForWHP;
 
-		public Physician()
+        public Physician()
 		{
 
 		}
@@ -505,6 +506,21 @@ namespace YellowstonePathology.Business.Domain
                 {
                     this.m_PublishNotificationEmailAddress = value;
                     this.NotifyPropertyChanged("PublishNotificationEmailAddress");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(false, "1", "0", "tinyint")]
+        public bool DistributeWHPOnly
+        {
+            get { return this.m_DistributeWHPOnly; }
+            set
+            {
+                if (this.m_DistributeWHPOnly != value)
+                {
+                    this.m_DistributeWHPOnly = value;
+                    this.NotifyPropertyChanged("DistributeWHPOnly");
                 }
             }
         }

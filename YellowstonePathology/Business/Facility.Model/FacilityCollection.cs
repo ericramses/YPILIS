@@ -131,6 +131,7 @@ namespace YellowstonePathology.Business.Facility.Model
             result.Add(new Cellnetix());
             result.Add(new UniversityOfUtahHealthCare());
             result.Add(new NathionalJewishHealth());
+            result.Add(new CommunityHospitalAnaconda());
             return Sort(result);
         }
 

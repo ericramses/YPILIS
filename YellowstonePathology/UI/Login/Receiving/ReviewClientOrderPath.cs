@@ -74,11 +74,11 @@ namespace YellowstonePathology.UI.Login.Receiving
 			if (this.Back != null) this.Back(this, e);
 		}
 
-		private void ReviewClientOrderPage_CreateNewAccessionOrder(object sender, EventArgs e)
+		private void ReviewClientOrderPage_CreateNewAccessionOrder(object sender, CustomEventArgs.ClientOrderCollectionReturnEventArgs e)
         {
 			if (this.m_ClientOrderReceivingHandler.AnAccessionOrderHasBeenAquired == false)
 			{
-				this.m_ClientOrderReceivingHandler.CreateNewAccessionOrder(Business.Test.AccessionTypeEnum.Surgical);
+				this.m_ClientOrderReceivingHandler.CreateNewAccessionOrder(Business.Test.AccessionTypeEnum.Surgical, e.ClientOrderCollection);
 				this.m_ClientOrderReceivingHandler.AccessionClientOrder();
 				this.SendAcknowledgements();
                 YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();

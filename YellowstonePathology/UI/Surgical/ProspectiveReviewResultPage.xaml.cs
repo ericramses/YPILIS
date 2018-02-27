@@ -197,6 +197,11 @@ namespace YellowstonePathology.UI.Surgical
         {
             YellowstonePathology.UI.CaseDocumentViewer caseDocumentViewer = new CaseDocumentViewer();
             caseDocumentViewer.View(this.m_AccessionOrder, this.m_PanelSetOrder);
-        }        
+        }
+
+        private void HyperLinkAddDrSmirnow_Click(object sender, RoutedEventArgs e)
+        {
+            this.AddPeerReview(5133);
+        }
     }
 }

@@ -237,7 +237,7 @@ namespace YellowstonePathology.Business.Billing.Model
 								panelSetOrderCPTCode.ReferenceId = testOrder.TestOrderId;
 
 
-                                if (this.m_PanelSetOrder.PanelSetId != 31 &&  this.m_PanelSetOrder.PanelSetId != 201) //Not technical only
+                                if (this.m_PanelSetOrder.PanelSetId != 31 && this.m_PanelSetOrder.PanelSetId != 201 && this.m_PanelSetOrder.PanelSetId != 289) //Not technical only
                                 {
 									YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder panelSetOrderSurgical = (YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder)this.m_PanelSetOrder;
                                     if (panelSetOrderSurgical.SurgicalSpecimenCollection.HasStainResult(testOrder.TestOrderId) == true)

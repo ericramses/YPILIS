@@ -684,9 +684,9 @@ namespace YellowstonePathology.UI
 
         private void ButtonAccessionMickyMouseCreate_Click(object sender, RoutedEventArgs e)
         {
-            AOBuilder aoBuilder = new AOBuilder();
-            Business.Test.AccessionOrder accessionOrder = aoBuilder.Build();
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(aoBuilder);
+            //AOBuilder aoBuilder = new AOBuilder();
+            //Business.Test.AccessionOrder accessionOrder = aoBuilder.Build();
+            //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(aoBuilder);
         }
 
         private void ButtonAccessionMickyMouseRemove_Click(object sender, RoutedEventArgs e)
@@ -699,9 +699,17 @@ namespace YellowstonePathology.UI
 
 		}
 
-        private void ButtonCDCPrep_Click(object sender, RoutedEventArgs e)
+        private void ButtonEmbeddingScanstoMysql_Click(object sender, RoutedEventArgs e)
         {
-			                                            
+            /*for (DateTime scanDate = DateTime.Parse("1/12/2017"); scanDate < DateTime.Parse("2/1/2017"); scanDate = scanDate.AddDays(1))
+            {
+                YellowstonePathology.Business.BarcodeScanning.EmbeddingScanCollection embeddingScanCollection = Business.BarcodeScanning.EmbeddingScanCollection.GetByScanDateOld(scanDate);
+                foreach (Business.BarcodeScanning.EmbeddingScan embeddingScan in embeddingScanCollection)
+                {
+                    Business.Gateway.AccessionOrderGateway.SetEmbeddingScan(embeddingScan, scanDate);
+                }
+            }
+            MessageBox.Show("Done");*/
         }
 
         private void ButtonSVHTesting_Click(object sender, RoutedEventArgs e)

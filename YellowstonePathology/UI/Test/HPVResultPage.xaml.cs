@@ -55,7 +55,7 @@ namespace YellowstonePathology.UI.Test
             this.m_ControlsNotDisabledOnFinal.Add(this.ButtonNext);
             this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockShowDocument);
             this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockNext);
-            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalResults);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalResults);            
         }
 
         private void HPVResultPage_Loaded(object sender, RoutedEventArgs e)
@@ -179,6 +179,20 @@ namespace YellowstonePathology.UI.Test
             {
                 YellowstonePathology.Business.Test.TestResult testResult = (YellowstonePathology.Business.Test.TestResult)this.ComboBoxResult.SelectedItem;
                 this.m_HPVTestOrder.ResultCode = testResult.ResultCode;
+                if(testResult.Result == "Negative")
+                {
+                    if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(15) == true)
+                    {
+                        Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPAP();
+                        if (PanelSetOrder.Final == true)
+                        {
+                            if (panelSetOrder.ResultCode.Substring(0, 2) == "52")
+                            {
+                                this.m_HPVTestOrder.Comment = Business.Test.HPV.HPVResult.UnsatSpecimenComment;
+                            }
+                        }
+                    }
+                }                
             }
         }
     }
