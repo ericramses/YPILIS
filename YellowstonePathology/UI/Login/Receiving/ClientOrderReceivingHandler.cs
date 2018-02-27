@@ -266,7 +266,53 @@ namespace YellowstonePathology.UI.Login.Receiving
             this.m_AccessionOrder.PanelSetOrderCollection.HandleReflexTestingFromClientOrder(this.m_ClientOrder, this.m_AccessionOrder, this.m_SystemIdentity);            
         }
 
-		private void SendStatusMessage()
+        public void AccessionClientOrders(YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection clientOrders)
+        {
+            YellowstonePathology.Business.ClientOrder.Model.ClientOrder thinPrepClientOrder = null;
+            if (clientOrders.PanelSetIdExists(15) == true)
+            {
+                thinPrepClientOrder = clientOrders.GetClientOrderByPanelSetId(15);
+            }
+
+            foreach (YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder in clientOrders)
+            {
+                clientOrder.Accession(this.m_AccessionOrder.MasterAccessionNo);
+                this.SendStatusMessage();
+                this.m_AccessionOrder.AccessionSpecimen(this.m_ClientOrder.ClientOrderDetailCollection);
+
+                YellowstonePathology.Business.ClientOrder.Model.EPICClinicalHistoryExtractor epicClinicalHistoryConverter = new Business.ClientOrder.Model.EPICClinicalHistoryExtractor();
+                string clinicalhistory = epicClinicalHistoryConverter.ExctractClinicalHistory(this.m_AccessionOrder.SpecialInstructions);
+                if (string.IsNullOrEmpty(clinicalhistory) == false)
+                {
+                    if (string.IsNullOrEmpty(this.m_AccessionOrder.ClinicalHistory) == true)
+                    {
+                        this.m_AccessionOrder.ClinicalHistory = clinicalhistory;
+                    }
+                    else
+                    {
+                        this.m_AccessionOrder.ClinicalHistory = this.m_AccessionOrder.ClinicalHistory + " " + clinicalhistory;
+                    }
+                }
+
+                if(string.IsNullOrEmpty(this.m_AccessionOrder.SpecialInstructions) == true)
+                {
+                    this.m_AccessionOrder.SpecialInstructions = clientOrder.SpecialInstructions;
+                }
+                else
+                {
+                    this.m_AccessionOrder.SpecialInstructions += Environment.NewLine + clientOrder.SpecialInstructions;
+                }
+
+                this.m_AccessionOrder.PanelSetOrderCollection.FromClientOrder(clientOrder, this.m_AccessionOrder, this.m_SystemIdentity);
+            }
+
+            if(thinPrepClientOrder != null)
+            {
+                this.m_AccessionOrder.PanelSetOrderCollection.HandleReflexTestingFromClientOrder(thinPrepClientOrder, this.m_AccessionOrder, this.m_SystemIdentity);
+            }
+        }
+
+        private void SendStatusMessage()
 		{
 			if (this.m_ClientOrder.SystemInitiatingOrder == "EPIC")
 			{
