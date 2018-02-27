@@ -314,7 +314,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         private void SendStatusMessage()
 		{
-			/*if (this.m_ClientOrder.SystemInitiatingOrder == "EPIC")
+			if (this.m_ClientOrder.SystemInitiatingOrder == "EPIC")
 			{
 				if (this.m_ClientOrder.Acknowledged == false)
 				{
@@ -335,7 +335,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 						this.m_ClientOrder.AcknowledgedDate = DateTime.Now;
 					}
 				}
-			}*/
+			}
 		}
 
 		public void UseThisMasterAccessionNoToGetTheAccessionOrder(string masterAccessionNo)

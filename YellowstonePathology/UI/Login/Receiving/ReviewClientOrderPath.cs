@@ -117,7 +117,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         private void SendAcknowledgements()
         {			
-            /*if (this.m_ClientOrderReceivingHandler.ClientOrder.SystemInitiatingOrder == "EPIC")
+            if (this.m_ClientOrderReceivingHandler.ClientOrder.SystemInitiatingOrder == "EPIC")
             {
                 if (this.m_ClientOrderReceivingHandler.ClientOrder.Acknowledged == false)
                 {
@@ -138,7 +138,7 @@ namespace YellowstonePathology.UI.Login.Receiving
                         this.m_ClientOrderReceivingHandler.ClientOrder.AcknowledgedDate = DateTime.Now;
 					}
                 }
-            }*/
+            }
 
             this.m_ClientOrderReceivingHandler.Save(false);
             this.StartAccessionOrderPath();
