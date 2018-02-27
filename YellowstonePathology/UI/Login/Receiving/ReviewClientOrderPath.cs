@@ -79,7 +79,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 			if (this.m_ClientOrderReceivingHandler.AnAccessionOrderHasBeenAquired == false)
 			{
 				this.m_ClientOrderReceivingHandler.CreateNewAccessionOrder(Business.Test.AccessionTypeEnum.Surgical, e.ClientOrderCollection);
-				this.m_ClientOrderReceivingHandler.AccessionClientOrder();
+				this.m_ClientOrderReceivingHandler.AccessionClientOrders(e.ClientOrderCollection);
 				this.SendAcknowledgements();
                 YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
 			}
