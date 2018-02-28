@@ -294,11 +294,11 @@ namespace YellowstonePathology.UI.Login.Receiving
                     }
                 }
 
-                if(string.IsNullOrEmpty(this.m_AccessionOrder.SpecialInstructions) == true)
+                if (string.IsNullOrEmpty(this.m_AccessionOrder.SpecialInstructions) == true)
                 {
                     this.m_AccessionOrder.SpecialInstructions = clientOrder.SpecialInstructions;
                 }
-                else
+                else if (this.m_AccessionOrder.SpecialInstructions.Contains(clientOrder.SpecialInstructions) == false)
                 {
                     this.m_AccessionOrder.SpecialInstructions += Environment.NewLine + clientOrder.SpecialInstructions;
                 }
