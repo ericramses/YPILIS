@@ -274,6 +274,7 @@ namespace YellowstonePathology.UI.Login.Receiving
                 thinPrepClientOrder = clientOrders.GetClientOrderByPanelSetId(15);
             }
 
+            this.m_ClientOrder.Accession(this.m_AccessionOrder.MasterAccessionNo);
             foreach (YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder in clientOrders)
             {
                 clientOrder.Accession(this.m_AccessionOrder.MasterAccessionNo);
