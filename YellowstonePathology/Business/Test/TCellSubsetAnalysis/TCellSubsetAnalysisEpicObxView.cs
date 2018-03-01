@@ -26,7 +26,7 @@ namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
 		public override void ToXml(XElement document)
 		{
 			TCellSubsetAnalysisTestOrder panelSetOrder = (TCellSubsetAnalysisTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
-			this.AddHeader(document, panelSetOrder, "B-Cell Enumeration");
+			this.AddHeader(document, panelSetOrder, "BAL T-Cell Subset Analysis");
 
 			this.AddNextObxElement("", document, "F");
 			string result = "CD3 Percent: " + panelSetOrder.CD3Percent.ToString().StringAsPercent();
@@ -40,15 +40,8 @@ namespace YellowstonePathology.Business.Test.TCellSubsetAnalysis
 			result = "CD4/CD8 Ratio: " + value;
 			this.AddNextObxElement(result, document, "F");
             this.AddNextObxElement("Reference Range: " + panelSetOrder.ReferenceRange, document, "F");
-			this.AddNextObxElement("", document, "F");
-
-            this.AddNextObxElement("Pathologist: " + panelSetOrder.Signature, document, "F");
-			if (panelSetOrder.FinalTime.HasValue == true)
-			{
-				this.AddNextObxElement("E-signed " + panelSetOrder.FinalDate.Value.ToString("MM/dd/yyyy HH:mm"), document, "F");
-			}
-
-			this.AddNextObxElement("", document, "F");
+			this.AddNextObxElement("", document, "F");            
+			
             this.AddAmendments(document);
 
             this.AddNextObxElement("Specimen Information:", document, "F");
