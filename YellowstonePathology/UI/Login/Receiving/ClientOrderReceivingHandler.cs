@@ -248,15 +248,6 @@ namespace YellowstonePathology.UI.Login.Receiving
 			this.SendStatusMessage();            
 			this.m_AccessionOrder.AccessionSpecimen(this.m_ClientOrder.ClientOrderDetailCollection);
 
-            if (string.IsNullOrEmpty(this.m_AccessionOrder.SpecialInstructions) == true)
-            {
-                this.m_AccessionOrder.SpecialInstructions = this.m_ClientOrder.SpecialInstructions;
-            }
-            else if (string.IsNullOrEmpty(this.m_ClientOrder.SpecialInstructions) == false && this.m_AccessionOrder.SpecialInstructions.Contains(this.m_ClientOrder.SpecialInstructions) == false)
-            {
-                this.m_AccessionOrder.SpecialInstructions += Environment.NewLine + this.m_ClientOrder.SpecialInstructions;
-            }
-
             YellowstonePathology.Business.ClientOrder.Model.EPICClinicalHistoryExtractor epicClinicalHistoryConverter = new Business.ClientOrder.Model.EPICClinicalHistoryExtractor();
             string clinicalhistory = epicClinicalHistoryConverter.ExctractClinicalHistory(this.m_AccessionOrder.SpecialInstructions);
             if (string.IsNullOrEmpty(clinicalhistory) == false)
@@ -289,15 +280,6 @@ namespace YellowstonePathology.UI.Login.Receiving
                 this.SendStatusMessage();
                 this.m_AccessionOrder.AccessionSpecimen(clientOrder.ClientOrderDetailCollection);
 
-                if (string.IsNullOrEmpty(this.m_AccessionOrder.SpecialInstructions) == true)
-                {
-                    this.m_AccessionOrder.SpecialInstructions = clientOrder.SpecialInstructions;
-                }
-                else if (string.IsNullOrEmpty(clientOrder.SpecialInstructions) == false && this.m_AccessionOrder.SpecialInstructions.Contains(clientOrder.SpecialInstructions) == false)
-                {
-                    this.m_AccessionOrder.SpecialInstructions += Environment.NewLine + clientOrder.SpecialInstructions;
-                }
-
                 YellowstonePathology.Business.ClientOrder.Model.EPICClinicalHistoryExtractor epicClinicalHistoryConverter = new Business.ClientOrder.Model.EPICClinicalHistoryExtractor();
                 string clinicalhistory = epicClinicalHistoryConverter.ExctractClinicalHistory(this.m_AccessionOrder.SpecialInstructions);
                 if (string.IsNullOrEmpty(clinicalhistory) == false)
@@ -310,6 +292,15 @@ namespace YellowstonePathology.UI.Login.Receiving
                     {
                         this.m_AccessionOrder.ClinicalHistory = this.m_AccessionOrder.ClinicalHistory + " " + clinicalhistory;
                     }
+                }
+
+                if (string.IsNullOrEmpty(this.m_AccessionOrder.SpecialInstructions) == true)
+                {
+                    this.m_AccessionOrder.SpecialInstructions = clientOrder.SpecialInstructions;
+                }
+                else if (string.IsNullOrEmpty(clientOrder.SpecialInstructions) == false && this.m_AccessionOrder.SpecialInstructions.Contains(clientOrder.SpecialInstructions) == false)
+                {
+                    this.m_AccessionOrder.SpecialInstructions += Environment.NewLine + clientOrder.SpecialInstructions;
                 }
 
                 this.m_AccessionOrder.PanelSetOrderCollection.FromClientOrder(clientOrder, this.m_AccessionOrder, this.m_SystemIdentity);
