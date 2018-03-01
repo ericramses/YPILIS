@@ -1301,8 +1301,9 @@ namespace YellowstonePathology.Business.Test
             {
                 this.ClinicalHistory = "???";
             }
-            
-			this.SpecialInstructions = clientOrder.SpecialInstructions;
+
+            // SpecialInstructions are being set when the clientOrder is accessioned as multiple CO's may be used
+            //this.SpecialInstructions = clientOrder.SpecialInstructions;
             this.UniversalServiceId = clientOrder.UniversalServiceId;
 
 			this.AccessionedById = orderingUserId;
