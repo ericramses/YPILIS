@@ -256,11 +256,19 @@ namespace YellowstonePathology.UI.Login.Receiving
 			this.m_AnAccessionOrderHasBeenAquired = true;
 		}
 
+
 		/*public void AccessionClientOrder()
 		{
 			this.ClientOrder.Accession(this.m_AccessionOrder.MasterAccessionNo);
 			this.SendStatusMessage(this.ClientOrder);            
 			this.m_AccessionOrder.AccessionSpecimen(this.ClientOrder.ClientOrderDetailCollection);
+
+
+		public void AccessionClientOrder()
+		{			
+			this.SendStatusMessage();
+            this.m_ClientOrder.Accession(this.m_AccessionOrder.MasterAccessionNo);
+            this.m_AccessionOrder.AccessionSpecimen(this.m_ClientOrder.ClientOrderDetailCollection);            
 
 
             YellowstonePathology.Business.ClientOrder.Model.EPICClinicalHistoryExtractor epicClinicalHistoryConverter = new Business.ClientOrder.Model.EPICClinicalHistoryExtractor();
@@ -289,6 +297,7 @@ namespace YellowstonePathology.UI.Login.Receiving
                 thinPrepClientOrder = this.m_ClientOrderCollection.GetClientOrderByPanelSetId(15);
             }
 
+
             foreach (YellowstonePathology.Business.ClientOrder.Model.ClientOrder order in this.m_ClientOrderCollection)
             {
                 YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullClientOrder(order.ClientOrderId, this.m_Writer);
@@ -302,6 +311,15 @@ namespace YellowstonePathology.UI.Login.Receiving
 
                 this.SendStatusMessage(clientOrder);
                 this.m_AccessionOrder.AccessionSpecimen(clientOrder.ClientOrderDetailCollection);
+
+            this.m_ClientOrder.Accession(this.m_AccessionOrder.MasterAccessionNo);
+            this.m_AccessionOrder.AccessionSpecimen(this.m_ClientOrder.ClientOrderDetailCollection);
+
+            foreach (YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder in clientOrders)
+            {
+                clientOrder.Accession(this.m_AccessionOrder.MasterAccessionNo);                                
+                this.SendStatusMessage();
+
 
                 if (string.IsNullOrEmpty(this.m_AccessionOrder.SpecialInstructions) == true)
                 {
