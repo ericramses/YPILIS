@@ -156,5 +156,33 @@ namespace YellowstonePathology.Business.ClientOrder.Model
             }
             return result;
         }
+
+        public ClientOrder GetClientOrder(string clientOrderId)
+        {
+            ClientOrder result = null;
+            foreach (ClientOrder clientOrder in this)
+            {
+                if (clientOrder.ClientOrderId == clientOrderId)
+                {
+                    result = clientOrder;
+                    break;
+                }
+            }
+            return result;
+        }
+
+        public bool Exists(string clientOrderId)
+        {
+            bool result = false;
+            foreach (ClientOrder clientOrder in this)
+            {
+                if (clientOrder.ClientOrderId == clientOrderId)
+                {
+                    result = true;
+                    break;
+                }
+            }
+            return result;
+        }
     }
 }
