@@ -1302,7 +1302,7 @@ namespace YellowstonePathology.Business.Test
                 this.ClinicalHistory = "???";
             }
 
-            this.SpecialInstructions = clientOrder.SpecialInstructions;
+            //this.SpecialInstructions = clientOrder.SpecialInstructions;
             this.UniversalServiceId = clientOrder.UniversalServiceId;
 
 			this.AccessionedById = orderingUserId;
