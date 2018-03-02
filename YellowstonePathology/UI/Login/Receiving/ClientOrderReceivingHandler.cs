@@ -258,13 +258,6 @@ namespace YellowstonePathology.UI.Login.Receiving
 
 
 		/*public void AccessionClientOrder()
-		{
-			this.ClientOrder.Accession(this.m_AccessionOrder.MasterAccessionNo);
-			this.SendStatusMessage(this.ClientOrder);            
-			this.m_AccessionOrder.AccessionSpecimen(this.ClientOrder.ClientOrderDetailCollection);
-
-
-		public void AccessionClientOrder()
 		{			
 			this.SendStatusMessage();
             this.m_ClientOrder.Accession(this.m_AccessionOrder.MasterAccessionNo);
@@ -291,35 +284,23 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         public void AccessionClientOrders()
         {
-            YellowstonePathology.Business.ClientOrder.Model.ClientOrder thinPrepClientOrder = null;
-            if (this.m_ClientOrderCollection.PanelSetIdExists(15) == true)
-            {
-                thinPrepClientOrder = this.m_ClientOrderCollection.GetClientOrderByPanelSetId(15);
-            }
-
-
             foreach (YellowstonePathology.Business.ClientOrder.Model.ClientOrder order in this.m_ClientOrderCollection)
             {
                 YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullClientOrder(order.ClientOrderId, this.m_Writer);
-                clientOrder.Accession(this.m_AccessionOrder.MasterAccessionNo);
 
-                /***************/
-                clientOrder.Acknowledged = true;
-                clientOrder.AcknowledgedById = this.m_SystemIdentity.User.UserId;
-                clientOrder.AcknowledgedDate = DateTime.Now;
-                /***************/
+                if (this.m_ClientOrderId == clientOrder.ClientOrderId)
+                {
+                    clientOrder.Accession(this.m_AccessionOrder.MasterAccessionNo);
+                    this.m_AccessionOrder.AccessionSpecimen(clientOrder.ClientOrderDetailCollection);
 
-                this.SendStatusMessage(clientOrder);
-                this.m_AccessionOrder.AccessionSpecimen(clientOrder.ClientOrderDetailCollection);
+                    /************** this is here only for testing so we do not send status */
+                    clientOrder.Acknowledged = true;
+                    clientOrder.AcknowledgedById = this.m_SystemIdentity.User.UserId;
+                    clientOrder.AcknowledgedDate = DateTime.Now;
+                    /***************/
 
-            this.m_ClientOrder.Accession(this.m_AccessionOrder.MasterAccessionNo);
-            this.m_AccessionOrder.AccessionSpecimen(this.m_ClientOrder.ClientOrderDetailCollection);
-
-            foreach (YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder in clientOrders)
-            {
-                clientOrder.Accession(this.m_AccessionOrder.MasterAccessionNo);                                
-                this.SendStatusMessage();
-
+                    this.SendStatusMessage(clientOrder);
+                }
 
                 if (string.IsNullOrEmpty(this.m_AccessionOrder.SpecialInstructions) == true)
                 {
@@ -345,11 +326,11 @@ namespace YellowstonePathology.UI.Login.Receiving
                 }
 
                 this.m_AccessionOrder.PanelSetOrderCollection.FromClientOrder(clientOrder, this.m_AccessionOrder, this.m_SystemIdentity);
-                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
             }
 
-            if(thinPrepClientOrder != null)
+            if (this.m_ClientOrderCollection.PanelSetIdExists(15) == true)
             {
+                YellowstonePathology.Business.ClientOrder.Model.ClientOrder thinPrepClientOrder = this.m_ClientOrderCollection.GetClientOrderByPanelSetId(15);
                 this.m_AccessionOrder.PanelSetOrderCollection.HandleReflexTestingFromClientOrder(thinPrepClientOrder, this.m_AccessionOrder, this.m_SystemIdentity);
             }
         }
@@ -450,7 +431,7 @@ namespace YellowstonePathology.UI.Login.Receiving
             return result;
         }
 
-        public void PullClientOrders(YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection clientOrders)
+        public void AddClientOrders(YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection clientOrders)
         {
             foreach (YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder in clientOrders)
             {
