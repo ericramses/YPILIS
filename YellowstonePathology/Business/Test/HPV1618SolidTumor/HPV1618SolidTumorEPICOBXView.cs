@@ -25,9 +25,9 @@ namespace YellowstonePathology.Business.Test.HPV1618SolidTumor
             this.AddNextObxElement("HPV-16 Reference: Negative", document, "F");
             this.AddNextObxElement("", document, "F");
 
-            string hpv18ResultText = "HPV-18 Result: " + panelSetOrder.HPV18Result;
+            string hpv18ResultText = "HPV-18/45 Result: " + panelSetOrder.HPV18Result;
             this.AddNextObxElement(hpv18ResultText, document, "F");            
-            this.AddNextObxElement("HPV-18 Reference: Negative", document, "F");
+            this.AddNextObxElement("HPV-18/45 Reference: Negative", document, "F");
             this.AddNextObxElement("", document, "F");
 
             if (string.IsNullOrEmpty(panelSetOrder.Comment) == false)

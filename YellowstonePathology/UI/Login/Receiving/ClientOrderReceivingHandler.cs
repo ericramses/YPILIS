@@ -243,10 +243,10 @@ namespace YellowstonePathology.UI.Login.Receiving
 		}
 
 		public void AccessionClientOrder()
-		{
-			this.m_ClientOrder.Accession(this.m_AccessionOrder.MasterAccessionNo);
-			this.SendStatusMessage();            
-			this.m_AccessionOrder.AccessionSpecimen(this.m_ClientOrder.ClientOrderDetailCollection);
+		{			
+			this.SendStatusMessage();
+            this.m_ClientOrder.Accession(this.m_AccessionOrder.MasterAccessionNo);
+            this.m_AccessionOrder.AccessionSpecimen(this.m_ClientOrder.ClientOrderDetailCollection);            
 
             YellowstonePathology.Business.ClientOrder.Model.EPICClinicalHistoryExtractor epicClinicalHistoryConverter = new Business.ClientOrder.Model.EPICClinicalHistoryExtractor();
             string clinicalhistory = epicClinicalHistoryConverter.ExctractClinicalHistory(this.m_AccessionOrder.SpecialInstructions);
@@ -274,11 +274,13 @@ namespace YellowstonePathology.UI.Login.Receiving
                 thinPrepClientOrder = clientOrders.GetClientOrderByPanelSetId(15);
             }
 
+            this.m_ClientOrder.Accession(this.m_AccessionOrder.MasterAccessionNo);
+            this.m_AccessionOrder.AccessionSpecimen(this.m_ClientOrder.ClientOrderDetailCollection);
+
             foreach (YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder in clientOrders)
             {
-                clientOrder.Accession(this.m_AccessionOrder.MasterAccessionNo);
+                clientOrder.Accession(this.m_AccessionOrder.MasterAccessionNo);                                
                 this.SendStatusMessage();
-                this.m_AccessionOrder.AccessionSpecimen(clientOrder.ClientOrderDetailCollection);
 
                 YellowstonePathology.Business.ClientOrder.Model.EPICClinicalHistoryExtractor epicClinicalHistoryConverter = new Business.ClientOrder.Model.EPICClinicalHistoryExtractor();
                 string clinicalhistory = epicClinicalHistoryConverter.ExctractClinicalHistory(this.m_AccessionOrder.SpecialInstructions);
