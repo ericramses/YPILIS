@@ -66,7 +66,6 @@ namespace YellowstonePathology.UI.Login.Receiving
             }
 
             this.m_ClientOrderReceivingHandler.AccessionClientOrders();
-            //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
             this.StartAccessionOrderPath();
         }
 
@@ -92,7 +91,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         private void ReviewClientOrderPage_SelectedClientOrders(object sender, CustomEventArgs.ClientOrderCollectionReturnEventArgs e)
         {
-            this.m_ClientOrderReceivingHandler.PullClientOrders(e.ClientOrderCollection);
+            this.m_ClientOrderReceivingHandler.AddClientOrders(e.ClientOrderCollection);
         }
 
         private void ReviewClientOrderPage_ViewAccessionOrder(object sender, CustomEventArgs.MasterAccessionNoReturnEventArgs e)
@@ -146,13 +145,11 @@ namespace YellowstonePathology.UI.Login.Receiving
                 }
             }
 
-            //this.m_ClientOrderReceivingHandler.Save(false);
             this.StartAccessionOrderPath();
         }
 
 		private void StartAccessionOrderPath()
 		{
-            //this.m_ClientOrderReceivingHandler.Save(false);
             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
             AccessionOrderPath accessionOrderPath = new AccessionOrderPath(this.m_ClientOrderReceivingHandler, this.m_PageNavigator, PageNavigationModeEnum.Inline);
 			accessionOrderPath.Back += new AccessionOrderPath.BackEventHandler(AccessionOrderPath_Back);
