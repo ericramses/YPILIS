@@ -287,20 +287,14 @@ namespace YellowstonePathology.UI.Login.Receiving
             foreach (YellowstonePathology.Business.ClientOrder.Model.ClientOrder order in this.m_ClientOrderCollection)
             {
                 YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullClientOrder(order.ClientOrderId, this.m_Writer);
+                clientOrder.Accession(this.m_AccessionOrder.MasterAccessionNo);
 
                 if (this.m_ClientOrderId == clientOrder.ClientOrderId)
                 {
-                    clientOrder.Accession(this.m_AccessionOrder.MasterAccessionNo);
                     this.m_AccessionOrder.AccessionSpecimen(clientOrder.ClientOrderDetailCollection);
-
-                    /************** this is here only for testing so we do not send status */
-                    clientOrder.Acknowledged = true;
-                    clientOrder.AcknowledgedById = this.m_SystemIdentity.User.UserId;
-                    clientOrder.AcknowledgedDate = DateTime.Now;
-                    /***************/
-
-                    this.SendStatusMessage(clientOrder);
                 }
+
+                this.SendStatusMessage(clientOrder);
 
                 if (string.IsNullOrEmpty(this.m_AccessionOrder.SpecialInstructions) == true)
                 {
