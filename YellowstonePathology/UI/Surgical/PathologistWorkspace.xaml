@@ -229,8 +229,7 @@
                         </Button>
 
                         <Button Name="ButtonStainStatus" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center"
-							HorizontalAlignment="Center" Click="ButtonStainStatus_Click" Background="Gainsboro"
-							IsEnabled="{Binding Path=FieldEnabler.IsUnprotectedEnabled}">
+							HorizontalAlignment="Center" Click="ButtonStainStatus_Click" Background="Gainsboro">
                             <StackPanel Orientation="Horizontal">
                                 <Image Margin="2" Height="16" Source="/UserInterface;component/Resources/Order.ico"></Image>
                                 <TextBlock Margin="2" VerticalAlignment="Center">Stain Status ...</TextBlock>

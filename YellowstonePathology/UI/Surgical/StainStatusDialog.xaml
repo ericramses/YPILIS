@@ -5,21 +5,25 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YellowstonePathology.UI.Surgical"
         mc:Ignorable="d"
-        Title="Stain Status" Width="640" Height="350" WindowStyle="ToolWindow" WindowStartupLocation="CenterScreen">
+        Title="Stain Status" Width="770" Height="350" WindowStyle="ToolWindow" WindowStartupLocation="CenterScreen">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        
         <Grid.RowDefinitions>
             <RowDefinition Height ="*" />
             <RowDefinition Height ="Auto" />
         </Grid.RowDefinitions>
 
-        <ListView Name="ListViewTestOrders" Grid.Column="0" Grid.Row="0"
-					  ItemsSource="{Binding Path=TestOrderStatusViewCollection}">
+        <ListView Name="ListViewTestOrders" Grid.Column="0" Grid.Row="0" ItemsSource="{Binding Path=TestOrderStatusViewCollection}" Width="Auto">
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=ReportNo}" Header="Report No" Width="100"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=TestName}" Header="Test Name" Width="250"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=TestStatus}" Header="Status" Width="100"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=TestStatusUpdateTime,  Converter={StaticResource MilitaryDateTimeConverterV2}}" Header="Updated" Width="150"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=OrderTime, Converter={StaticResource MilitaryDateTimeConverterV2}}" Header="Ordered" Width="120"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=TestStatus}" Header="Status" Width="120"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=TestStatusUpdateTime, Converter={StaticResource MilitaryDateTimeConverterV2}}" Header="Updated" Width="120"/>
                 </GridView>
             </ListView.View>
         </ListView>
