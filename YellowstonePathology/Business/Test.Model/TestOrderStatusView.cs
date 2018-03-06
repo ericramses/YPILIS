@@ -14,7 +14,8 @@ namespace YellowstonePathology.Business.Test.Model
 
         private string m_ReportNo;
         private string m_TestName;
-        private string m_StainStatus;
+        private string m_TestStatus;
+        private DateTime? m_TestStatusUpdateTime;
 
         public TestOrderStatusView() { }
 
@@ -55,15 +56,29 @@ namespace YellowstonePathology.Business.Test.Model
         }
 
         [PersistentProperty()]
-        public string StainStatus
+        public string TestStatus
         {
-            get { return this.m_StainStatus; }
+            get { return this.m_TestStatus; }
             set
             {
-                if (this.m_StainStatus != value)
+                if (this.m_TestStatus != value)
                 {
-                    this.m_StainStatus = value;
-                    this.NotifyPropertyChanged("StainStatus");
+                    this.m_TestStatus = value;
+                    this.NotifyPropertyChanged("TestStatus");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public DateTime? TestStatusUpdateTime
+        {
+            get { return this.m_TestStatusUpdateTime; }
+            set
+            {
+                if (this.m_TestStatusUpdateTime != value)
+                {
+                    this.m_TestStatusUpdateTime = value;
+                    this.NotifyPropertyChanged("TestStatusUpdateTime");
                 }
             }
         }

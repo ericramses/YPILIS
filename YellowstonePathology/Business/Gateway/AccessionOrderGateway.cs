@@ -3114,9 +3114,9 @@ namespace YellowstonePathology.Business.Gateway
             Test.Model.TestOrderStatusViewCollection result = new Test.Model.TestOrderStatusViewCollection();
 
             MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "select pso.ReportNo, ot.TestName, ot.StainStatus from tblPanelSetOrder pso join tblPanelOrder po on " +
+            cmd.CommandText = "select pso.ReportNo, ot.TestName, ot.TestStatus, ot.TestStatusUpdateTime from tblPanelSetOrder pso join tblPanelOrder po on " +
                 "pso.ReportNo = po.ReportNo join tblTestOrder ot on po.PanelOrderId = ot.PanelOrderId " +
-                "where pso.Final = 0 and ot.TestId <> 49 and pso.AssignedToId = @PathologistId " +
+                "where pso.Final = 0 and ot.TestId <> 49 " + //and pso.AssignedToId = @PathologistId " +
                 "order by pso.ReportNo, ot.TestName;";
 
             cmd.CommandType = CommandType.Text;

@@ -18,7 +18,8 @@
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=ReportNo}" Header="Report No" Width="100"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=TestName}" Header="Test Name" Width="250"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=StainStatus}" Header="Status" Width="250"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=TestStatus}" Header="Status" Width="100"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=TestStatusUpdateTime,  Converter={StaticResource MilitaryDateTimeConverterV2}}" Header="Updated" Width="150"/>
                 </GridView>
             </ListView.View>
         </ListView>

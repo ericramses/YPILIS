@@ -166,11 +166,13 @@ namespace YellowstonePathology.Business.Visitor
             this.m_TestOrder = testOrder;            
             this.m_TestOrder.UseWetProtocol = this.m_Test.UseWetProtocol;
 
-            this.m_TestOrder.StainStatus = "Ordered";
+            this.m_TestOrder.TestStatus = "ORDERED";
+            this.m_TestOrder.TestStatusUpdateTime = DateTime.Now;
+
             Surgical.VentanaBenchMarkCollection ventanaBenchMarkCollection = Gateway.AccessionOrderGateway.GetVentanaBenchMarkCollection();
             if(ventanaBenchMarkCollection.YPITestIdExists(this.m_TestOrder.TestId) == true)
             {
-                this.m_TestOrder.StainStatus = "BenchMark_Ordered";
+                this.m_TestOrder.TestStatus = "BENCHMARK_ORDERED";
             }
 
             this.m_AliquotOrder.SetLabelPrefix(testOrder, true);
