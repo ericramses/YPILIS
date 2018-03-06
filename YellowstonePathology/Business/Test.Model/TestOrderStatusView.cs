@@ -13,6 +13,7 @@ namespace YellowstonePathology.Business.Test.Model
         public event PropertyChangedEventHandler PropertyChanged;
 
         private string m_ReportNo;
+        private string m_SlideOrderId;
         private string m_TestName;
         private string m_TestStatus;
         private DateTime? m_TestStatusUpdateTime;
@@ -38,6 +39,20 @@ namespace YellowstonePathology.Business.Test.Model
                 {
                     this.m_ReportNo = value;
                     this.NotifyPropertyChanged("ReportNo");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string SlideOrderId
+        {
+            get { return this.m_SlideOrderId; }
+            set
+            {
+                if (this.m_SlideOrderId != value)
+                {
+                    this.m_SlideOrderId = value;
+                    this.NotifyPropertyChanged("SlideOrderId");
                 }
             }
         }
