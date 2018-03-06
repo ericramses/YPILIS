@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YellowstonePathology.UI.Surgical"
         mc:Ignorable="d"
-        Title="Stain Status" Width="900" Height="350" WindowStyle="ToolWindow" WindowStartupLocation="CenterScreen">
+        Title="Stain Status" Width="800" Height="350" WindowStyle="ToolWindow" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -19,7 +19,6 @@
         <ListView Name="ListViewTestOrders" Grid.Column="0" Grid.Row="0" ItemsSource="{Binding Path=TestOrderStatusViewCollection}" Width="Auto">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=ReportNo}" Header="Report No" Width="100"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=SlideOrderId}" Header="Stain Order Id" Width="100"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=TestName}" Header="Test Name" Width="250"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=OrderTime, Converter={StaticResource MilitaryDateTimeConverterV2}}" Header="Ordered" Width="120"/>
