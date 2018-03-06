@@ -3108,5 +3108,36 @@ namespace YellowstonePathology.Business.Gateway
                 cmd.ExecuteNonQuery();
             }
         }
+
+        public static Test.Model.TestOrderStatusViewCollection GetTestOrderStatusViewCollection(int pathologistId)
+        {
+            Test.Model.TestOrderStatusViewCollection result = new Test.Model.TestOrderStatusViewCollection();
+
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "select pso.ReportNo, ot.TestName, ot.TestStatus, ot.TestStatusUpdateTime from tblPanelSetOrder pso join tblPanelOrder po on " +
+                "pso.ReportNo = po.ReportNo join tblTestOrder ot on po.PanelOrderId = ot.PanelOrderId " +
+                "where pso.Final = 0 and ot.TestId <> 49 " + //and pso.AssignedToId = @PathologistId " +
+                "order by pso.ReportNo, ot.TestName;";
+
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.AddWithValue("@PathologistId", pathologistId);
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        Business.Test.Model.TestOrderStatusView testOrderStatusView = new Test.Model.TestOrderStatusView();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(testOrderStatusView, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(testOrderStatusView);
+                    }
+                }
+            }
+
+            return result;
+        }
     }
 }

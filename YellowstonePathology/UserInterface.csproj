@@ -1156,6 +1156,8 @@
     <Compile Include="Business\Slide.Model\VantageSlideScanCollection.cs" />
     <Compile Include="Business\Slide.Model\VantageSlideView.cs" />
     <Compile Include="Business\Slide.Model\VantageSlideViewCollection.cs" />
+    <Compile Include="Business\Test.Model\TestOrderStatusView.cs" />
+    <Compile Include="Business\Test.Model\TestOrderStatusViewCollection.cs" />
     <Compile Include="Business\Test.Model\U6.cs" />
     <Compile Include="Business\Test\AMLPrognosticProfile\AMLPrognosticProfileTestOrder.cs" />
     <Compile Include="Business\Test\FLT3Preliminary\FLT3PreliminaryTest.cs" />
@@ -3680,6 +3682,9 @@
     <Compile Include="UI\SortDirectionAdorner.cs" />
     <Compile Include="UI\SpellCheckAccessionOrder.cs" />
     <Compile Include="UI\SpellCheckProperty.cs" />
+    <Compile Include="UI\Surgical\StainStatusDialog.xaml.cs">
+      <DependentUpon>StainStatusDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Surgical\SuggestedAdditionalTestingPage.xaml.cs">
       <DependentUpon>SuggestedAdditionalTestingPage.xaml</DependentUpon>
     </Compile>
@@ -5640,6 +5645,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\RetrospectiveReviews.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Surgical\StainStatusDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

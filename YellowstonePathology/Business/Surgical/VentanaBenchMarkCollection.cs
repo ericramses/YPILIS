@@ -71,5 +71,19 @@ namespace YellowstonePathology.Business.Surgical
             
             return result;
         }
+
+        public bool YPITestIdExists(string ypiTestId)
+        {
+            bool result = false;
+            foreach(VentanaBenchMark ventanaBenchMark in this)
+            {
+                if(ventanaBenchMark.YPITestId == ypiTestId)
+                {
+                    result = true;
+                    break;
+                }
+            }
+            return result;
+        }
     }
 }
