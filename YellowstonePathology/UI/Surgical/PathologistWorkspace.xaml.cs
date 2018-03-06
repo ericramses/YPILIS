@@ -889,5 +889,11 @@ namespace YellowstonePathology.UI.Surgical
                 scrollViewer.ScrollToVerticalOffset(c.Y);
             }
         }
+
+        private void ButtonStainStatus_Click(object sender, RoutedEventArgs e)
+        {
+            StainStatusDialog stainStatusDialog = new Surgical.StainStatusDialog(5143); // this.m_SystemIdentity.User.UserId);
+            stainStatusDialog.ShowDialog();
+        }
     }
 }
