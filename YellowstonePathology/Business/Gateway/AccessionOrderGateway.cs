@@ -3114,10 +3114,11 @@ namespace YellowstonePathology.Business.Gateway
             Test.Model.TestOrderStatusViewCollection result = new Test.Model.TestOrderStatusViewCollection();
 
             MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "select pso.ReportNo, ot.TestName, ot.TestStatus, ot.TestStatusUpdateTime, po.OrderTime " +
+            cmd.CommandText = "select distinct pso.ReportNo, so.SlideOrderId, ot.TestName, ot.TestStatus, ot.TestStatusUpdateTime, po.OrderTime " +
                 "from tblPanelSetOrder pso join tblPanelOrder po on pso.ReportNo = po.ReportNo " +
                 "join tblTestOrder ot on po.PanelOrderId = ot.PanelOrderId " +
                 "join tblVentanaBenchMark v on ot.TestId = v.YPITestId " +
+                "join tblSlideOrder so on ot.TestOrderId = so.TestOrderId " +
                 "where pso.Final = 0 order by ot.TestStatusUpdateTime, pso.ReportNo, ot.TestName;";
 
             cmd.CommandType = CommandType.Text;
