@@ -18,6 +18,7 @@ namespace YellowstonePathology.Business.Test.Model
         private string m_TestStatus;
         private DateTime? m_TestStatusUpdateTime;
         private DateTime m_OrderTime;
+        private string m_Pathologist;
 
         public TestOrderStatusView() { }
 
@@ -109,6 +110,20 @@ namespace YellowstonePathology.Business.Test.Model
                 {
                     this.m_OrderTime = value;
                     this.NotifyPropertyChanged("OrderTime");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string Pathologist
+        {
+            get { return this.m_Pathologist; }
+            set
+            {
+                if (this.m_Pathologist != value)
+                {
+                    this.m_Pathologist = value;
+                    this.NotifyPropertyChanged("Pathologist");
                 }
             }
         }
