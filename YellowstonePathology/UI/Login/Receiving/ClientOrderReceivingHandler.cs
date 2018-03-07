@@ -290,7 +290,7 @@ namespace YellowstonePathology.UI.Login.Receiving
                     {
                         this.m_AccessionOrder.ClinicalHistory = clinicalhistory;
                     }
-                    else
+                    else if(this.m_AccessionOrder.ClinicalHistory.Contains(clinicalhistory) == false)
                     {
                         this.m_AccessionOrder.ClinicalHistory = this.m_AccessionOrder.ClinicalHistory + " " + clinicalhistory;
                     }
@@ -300,7 +300,7 @@ namespace YellowstonePathology.UI.Login.Receiving
                 {
                     this.m_AccessionOrder.SpecialInstructions = clientOrder.SpecialInstructions;
                 }
-                else if (string.IsNullOrEmpty(clientOrder.SpecialInstructions) == false && this.m_AccessionOrder.SpecialInstructions.Contains(clientOrder.SpecialInstructions) == false)
+                else if (this.m_AccessionOrder.SpecialInstructions.Contains(clientOrder.SpecialInstructions) == false)
                 {
                     this.m_AccessionOrder.SpecialInstructions += Environment.NewLine + clientOrder.SpecialInstructions;
                 }
