@@ -29,7 +29,22 @@ namespace YellowstonePathology.Business.Test.ErPrSemiQuantitative
 			get { return this.m_PrResult; }
 		}
 
-		public void SetResults(ErPrSemiQuantitativeTestOrder panelSetOrderErPrSemiQuantitative)
+        public string ReportReferences
+        {
+            get { return this.m_ReportReferences; }
+        }
+
+        public string Method
+        {
+            get { return this.m_Method; }
+        }
+
+        public string Interpretation
+        {
+            get { return this.m_Interpretation; }
+        }
+
+        public void SetResults(ErPrSemiQuantitativeTestOrder panelSetOrderErPrSemiQuantitative)
 		{
 			panelSetOrderErPrSemiQuantitative.ResultCode = this.m_ResultCode;
 			panelSetOrderErPrSemiQuantitative.ReportReferences = this.m_ReportReferences;
