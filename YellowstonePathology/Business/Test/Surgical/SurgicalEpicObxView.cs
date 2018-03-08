@@ -67,7 +67,23 @@ namespace YellowstonePathology.Business.Test.Surgical
 			this.HandleLongString(panelSetOrderSurgical.MicroscopicX, document, "F");
 			this.AddNextObxElement(string.Empty, document, "F");
 
-			if (panelSetOrderSurgical.TypingStainCollection.Count > 0)
+            if(panelSetOrderSurgical.SurgicalSpecimenCollection.HasIC() == true)
+            {
+                foreach (SurgicalSpecimen surgicalSpecimen in panelSetOrderSurgical.SurgicalSpecimenCollection)
+                {
+                    if (surgicalSpecimen.IntraoperativeConsultationResultCollection.Count != 0)
+                    {                        
+                        foreach (IntraoperativeConsultationResult icItem in surgicalSpecimen.IntraoperativeConsultationResultCollection)
+                        {
+                            this.AddNextObxElement(surgicalSpecimen.DiagnosisId + ". " + surgicalSpecimen.SpecimenOrder.Description, document, "F");
+                            this.AddNextObxElement(icItem.Result, document, "F");                            
+                        }
+                    }
+                }
+                this.AddNextObxElement(string.Empty, document, "F");
+            }            
+
+            if (panelSetOrderSurgical.TypingStainCollection.Count > 0)
 			{
 				this.AddNextObxElement("Ancillary Studies:", document, "F");
 				string ancillaryComment = panelSetOrderSurgical.GetAncillaryStudyComment();
@@ -143,6 +159,7 @@ namespace YellowstonePathology.Business.Test.Surgical
                     if (amendment.RequirePathologistSignature == true)
                     {
                         this.AddNextObxElement("Signature: " + amendment.PathologistSignature, document, "C");
+                        this.AddNextObxElement("E-signed " + amendment.FinalTime.Value.ToString("MM/dd/yyyy HH:mm"), document, "C");
                     }
                     this.AddNextObxElement("", document, "C");
 

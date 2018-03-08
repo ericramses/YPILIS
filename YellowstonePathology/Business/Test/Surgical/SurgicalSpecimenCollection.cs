@@ -38,6 +38,20 @@ namespace YellowstonePathology.Business.Test.Surgical
             }
         }
 
+        public bool HasIC()
+        {
+            bool result = false;
+            foreach (SurgicalSpecimen surgicalSpecimen in this)
+            {
+                if(surgicalSpecimen.IntraoperativeConsultationResultCollection.Count != 0)
+                {
+                    result = true;
+                    break;
+                }
+            }
+            return result;
+        }
+
         public bool HasStainResult(string testOrderId)
         {
             bool result = false;

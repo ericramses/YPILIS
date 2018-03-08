@@ -34,8 +34,9 @@ namespace YellowstonePathology.Business.Test.CalreticulinMutationAnalysis
                 "directions.The resulting sequence is compared to Genebank Acce# NM_005373 reference sequence. This is a sequencing-based assay " +
                 "which has a typical sensitivity of 10 - 15 % for detecting mutated MPL in the wild - type background.Various factors including quantity and " +
                 "quality of nucleic acid, sample preparation and sample age can affect assay performance.";
-            this.m_ReportReferences = "1. Pikman Y, et al. MPL W515L is a novel somatic activating mutation in myelofibrosis with myeloid metaplasia. PLoS Med. " +
-                "2006; 3:1140 - 1151.";
+            this.m_ReportReferences = "Nangalia J, et al. Somatic CALR mutations in myeloproliferative neoplasms with nonmutated JAK2, " + Environment.NewLine +
+                "N Engl J Med. 2013 Dec 19; 369(25):2391 - 405. " + Environment.NewLine +
+                "Klampfl T, et al. Somatic mutations of calreticulin in myeloproliferative neoplasms. N Engl J Med. 2013 Dec 19; 369(25):2379 - 90.";
         }
 
         [PersistentProperty()]

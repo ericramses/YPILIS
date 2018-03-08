@@ -83,6 +83,9 @@ namespace YellowstonePathology.Business.HL7View
                 case 1338:
                     resultView = new HL7View.WPH.WPHResultView(reportNo, accessionOrder, testing);
                     break;
+                case 1622:
+                    resultView = new HL7View.CMMC.CMMCResultView(reportNo, accessionOrder);
+                    break;
             }       
             return resultView;
         }

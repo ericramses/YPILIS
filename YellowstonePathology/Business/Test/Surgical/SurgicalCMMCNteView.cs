@@ -137,6 +137,14 @@ namespace YellowstonePathology.Business.Test.Surgical
 
             this.AddNextNteElement("Clinical Information: ", document);
 			this.HandleLongString(this.m_AccessionOrder.ClinicalHistory, document);
-		}
+            this.AddBlankNteElement(document);
+
+            string immunoComment = panelSetOrderSurgical.GetImmunoComment();
+            if (immunoComment.Length > 0)
+            {
+                this.HandleLongString(immunoComment, document);
+                this.AddBlankNteElement(document);
+            }            
+        }
 	}
 }

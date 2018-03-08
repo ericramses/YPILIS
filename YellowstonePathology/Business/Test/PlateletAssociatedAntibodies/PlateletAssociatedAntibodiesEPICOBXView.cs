@@ -43,14 +43,7 @@ namespace YellowstonePathology.Business.Test.PlateletAssociatedAntibodies
                         break;
                     }
                 }
-            }
-
-            this.AddNextObxElement("", document, "F");
-            this.AddNextObxElement("Pathologist: " + testOrder.Signature, document, "F");
-            if (testOrder.FinalTime.HasValue == true)
-            {
-                this.AddNextObxElement("E-signed " + testOrder.FinalTime.Value.ToString("MM/dd/yyyy HH:mm"), document, "F");
-            }
+            }            
 
             this.AddAmendments(document);
 
@@ -59,7 +52,7 @@ namespace YellowstonePathology.Business.Test.PlateletAssociatedAntibodies
 
             this.AddNextObxElement("Specimen Information:", document, "F");
             YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(testOrder.OrderedOn, testOrder.OrderedOnId);
-            this.AddNextObxElement("Specimen Identification: " + specimenOrder.Description, document, "F");
+            this.AddNextObxElement("Specimen Description: " + specimenOrder.Description, document, "F");
             string collectionDateTimeString = YellowstonePathology.Business.Helper.DateTimeExtensions.CombineDateAndTime(specimenOrder.CollectionDate, specimenOrder.CollectionTime);
             this.AddNextObxElement("Collection Date/Time: " + collectionDateTimeString, document, "F");
 
@@ -69,12 +62,21 @@ namespace YellowstonePathology.Business.Test.PlateletAssociatedAntibodies
                 "* Weakly Positive: The moderately elevated IgG and / or IgM value suggests that immune mechanisms could be involved in the thrombocytopenia.  Other etiologies should also be considered." + Environment.NewLine +
                 "* Positive: The elevated IgG and/ or IgM value suggests that immune mechanisms are involved in the thrombocytopenia." + Environment.NewLine +
                 "* Strongly Positive: The IgG and / or IgM value is greatly elevated and indicates that immune mechanisms are involved in the thrombocytopenia.";
-            this.HandleLongString(interpretation, document, "F");
-
+            this.HandleLongString(interpretation, document, "F");            
             this.AddNextObxElement("", document, "F");
+
             this.AddNextObxElement("Method:", document, "F");
             string method = "Qualitative Flow Cytometry";
             this.HandleLongString(method, document, "F");
+            this.AddNextObxElement("", document, "F");
+
+            string asrStatement = "Tests utilizing Analytic Specific Reagents (ASR's) were developed and performance characteristics determined by Yellowstone Pathology Institute, Inc.  They have not been cleared or approved by the U.S. Food and Drug Administration.  The FDA has determined that such clearance or approval is not necessary.  ASR's may be used for clinical purposes and should not be regarded as investigational or for research.  This laboratory is certified under the Clinical Laboratory Improvement Amendments of 1988 (CLIA-88) as qualified to perform high complexity clinical laboratory testing.";
+            this.HandleLongString(asrStatement, document, "F");
+            this.AddNextObxElement(string.Empty, document, "F");            
+
+            string locationPerformed = testOrder.GetLocationPerformedComment();
+            this.AddNextObxElement(locationPerformed, document, "F");
+            this.AddNextObxElement(string.Empty, document, "F");
         }
     }
 }

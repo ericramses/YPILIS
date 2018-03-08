@@ -95,8 +95,8 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
 			}
 
 			string cytoTechFinal = YellowstonePathology.Business.Helper.DateTimeExtensions.DateStringFromNullable(screeningPanelOrder.AcceptedDate);
-			this.AddNextNteElement("Date Finalized: " + cytoTechFinal, document);
-			this.AddBlankNteElement(document);
+			this.AddNextNteElement("*** E-Signed " + cytoTechFinal + " ***", document);            
+            this.AddBlankNteElement(document);
 
 			if (reviewPanelOrder != null)
 			{
