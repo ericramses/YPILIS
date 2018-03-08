@@ -256,32 +256,6 @@ namespace YellowstonePathology.UI.Login.Receiving
 			this.m_AnAccessionOrderHasBeenAquired = true;
 		}
 
-
-		/*public void AccessionClientOrder()
-		{			
-			this.SendStatusMessage();
-            this.m_ClientOrder.Accession(this.m_AccessionOrder.MasterAccessionNo);
-            this.m_AccessionOrder.AccessionSpecimen(this.m_ClientOrder.ClientOrderDetailCollection);            
-
-
-            YellowstonePathology.Business.ClientOrder.Model.EPICClinicalHistoryExtractor epicClinicalHistoryConverter = new Business.ClientOrder.Model.EPICClinicalHistoryExtractor();
-            string clinicalhistory = epicClinicalHistoryConverter.ExctractClinicalHistory(this.m_AccessionOrder.SpecialInstructions);
-            if (string.IsNullOrEmpty(clinicalhistory) == false)
-            {
-                if (string.IsNullOrEmpty(this.m_AccessionOrder.ClinicalHistory) == true)
-                {
-                    this.m_AccessionOrder.ClinicalHistory = clinicalhistory;
-                }
-                else
-                {
-                    this.m_AccessionOrder.ClinicalHistory = this.m_AccessionOrder.ClinicalHistory + " " + clinicalhistory;
-                }                
-            }
-
-            this.m_AccessionOrder.PanelSetOrderCollection.FromClientOrder(this.ClientOrder, this.m_AccessionOrder, this.m_SystemIdentity);
-            this.m_AccessionOrder.PanelSetOrderCollection.HandleReflexTestingFromClientOrder(this.ClientOrder, this.m_AccessionOrder, this.m_SystemIdentity);            
-        }*/
-
         public void AccessionClientOrders()
         {
             foreach (YellowstonePathology.Business.ClientOrder.Model.ClientOrder order in this.m_ClientOrderCollection)
@@ -313,7 +287,7 @@ namespace YellowstonePathology.UI.Login.Receiving
                     {
                         this.m_AccessionOrder.ClinicalHistory = clinicalhistory;
                     }
-                    else
+                    else if (this.m_AccessionOrder.ClinicalHistory.Contains(clinicalhistory) == false)
                     {
                         this.m_AccessionOrder.ClinicalHistory = this.m_AccessionOrder.ClinicalHistory + " " + clinicalhistory;
                     }
