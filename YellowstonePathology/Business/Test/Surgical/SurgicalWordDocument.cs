@@ -14,7 +14,7 @@ namespace YellowstonePathology.Business.Test.Surgical
         public override void Render()
 		{						
 			SurgicalTestOrder panelSetOrderSurgical = (SurgicalTestOrder)this.m_PanelSetOrder;
-			this.m_TemplateName = @"\\Cfileserver\Documents\ReportTemplates\XmlTemplates\Surgical.10.xml";
+			this.m_TemplateName = @"\\Cfileserver\Documents\ReportTemplates\XmlTemplates\Surgical.11.xml";
 
 			base.OpenTemplate();
 
@@ -371,6 +371,29 @@ namespace YellowstonePathology.Business.Test.Surgical
 
 
             this.SetXMLNodeParagraphData("additional_testing", this.m_AccessionOrder.PanelSetOrderCollection.GetAdditionalTestingString(this.m_PanelSetOrder.ReportNo));
+
+            YellowstonePathology.Business.Test.Model.TestOrderCollection testOrders = panelSetOrderSurgical.GetTestOrders();
+            YellowstonePathology.Business.Test.Model.TestOrder testOrder = testOrders.GetTestOrder("99");
+            if (testOrder != null)
+            {
+
+                YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetByTestOrderId(testOrder.TestOrderId);
+                string collectionDateTimeString = YellowstonePathology.Business.Helper.DateTimeExtensions.CombineDateAndTime(specimenOrder.CollectionDate, specimenOrder.CollectionTime);
+                this.ReplaceText("specimen_fixation_type", specimenOrder.LabFixation);
+                this.ReplaceText("time_to_fixation", specimenOrder.TimeToFixationHourString);
+                this.ReplaceText("duration_of_fixation", specimenOrder.FixationDurationString);
+                this.ReplaceText("specimen_adequacy", specimenOrder.SpecimenAdequacy);
+                this.ReplaceText("date_time_collected", collectionDateTimeString);
+            }
+            else
+            {
+                this.DeleteRow("specimen_fixation_type");
+                this.DeleteRow("time_to_fixation");
+                this.DeleteRow("duration_of_fixation");
+                this.DeleteRow("specimen_adequacy");
+                this.DeleteRow("date_time_collected");
+            }
+
 
             this.SaveReport();
 		}
