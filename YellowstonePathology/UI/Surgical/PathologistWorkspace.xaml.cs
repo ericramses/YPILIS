@@ -892,7 +892,7 @@ namespace YellowstonePathology.UI.Surgical
 
         private void ButtonStainStatus_Click(object sender, RoutedEventArgs e)
         {
-            StainStatusDialog stainStatusDialog = new Surgical.StainStatusDialog(5143); // this.m_SystemIdentity.User.UserId);
+            StainStatusDialog stainStatusDialog = new Surgical.StainStatusDialog(this.m_PathologistUI.Search.SelectedPathologistId);
             stainStatusDialog.ShowDialog();
         }
     }

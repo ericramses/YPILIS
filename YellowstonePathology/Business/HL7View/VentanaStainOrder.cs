@@ -26,7 +26,7 @@ namespace YellowstonePathology.Business.HL7View
                         slideOrder.OrderSentToVentana = true;
 
                         YellowstonePathology.Business.Test.Model.TestOrder testOrder = accessionOrder.PanelSetOrderCollection.GetTestOrderByTestOrderId(slideOrder.TestOrderId);
-                        testOrder.TestStatus = "BENCHMARK_INITIATED";
+                        testOrder.TestStatus = "CUTTING";
                         testOrder.TestStatusUpdateTime = DateTime.Now;
 
                         string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();

@@ -3109,20 +3109,25 @@ namespace YellowstonePathology.Business.Gateway
             }
         }
 
-        public static Test.Model.TestOrderStatusViewCollection GetTestOrderStatusViewCollection(int pathologistId)
+        public static Test.Model.TestOrderStatusViewCollection GetTestOrderStatusViewCollection(DateTime orderDate, int pathologistId, string status)
         {
             Test.Model.TestOrderStatusViewCollection result = new Test.Model.TestOrderStatusViewCollection();
-
+            string pathologistClause = pathologistId == -1 ? string.Empty : "and pso.AssignedToId = " + pathologistId + " ";
+            string statusClause = status == "ALL" ? string.Empty : "and ot.TestStatus = '" + status + "' ";
             MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "select distinct pso.ReportNo, so.SlideOrderId, ot.TestName, ot.TestStatus, ot.TestStatusUpdateTime, po.OrderTime " +
+            cmd.CommandText = "select distinct pso.ReportNo, so.SlideOrderId, ot.TestName, ot.TestStatus, " +
+                "ot.TestStatusUpdateTime, po.OrderTime, su.UserName `Pathologist` " +
                 "from tblPanelSetOrder pso join tblPanelOrder po on pso.ReportNo = po.ReportNo " +
                 "join tblTestOrder ot on po.PanelOrderId = ot.PanelOrderId " +
                 "join tblVentanaBenchMark v on ot.TestId = v.YPITestId " +
                 "join tblSlideOrder so on ot.TestOrderId = so.TestOrderId " +
-                "where pso.Final = 0 order by ot.TestStatusUpdateTime, pso.ReportNo, ot.TestName;";
+                "join tblSystemUser su on pso.AssignedToId = su.UserId " +
+                "where po.OrderDate = @OrderDate " + pathologistClause + statusClause +
+                "order by ot.TestStatusUpdateTime, pso.ReportNo, ot.TestName;";
 
             cmd.CommandType = CommandType.Text;
             cmd.Parameters.AddWithValue("@PathologistId", pathologistId);
+            cmd.Parameters.AddWithValue("@OrderDate", orderDate);
             using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
