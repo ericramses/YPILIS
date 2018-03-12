@@ -258,9 +258,10 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         public void AccessionClientOrders()
         {
-            foreach (YellowstonePathology.Business.ClientOrder.Model.ClientOrder order in this.m_ClientOrderCollection)
+            for(int idx = 0; idx < this.m_ClientOrderCollection.Count; idx++)
             {
-                YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullClientOrder(order.ClientOrderId, this.m_Writer);
+                this.m_ClientOrderCollection[idx] = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullClientOrder(this.m_ClientOrderCollection[idx].ClientOrderId, this.m_Writer);
+                YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder = this.m_ClientOrderCollection[idx];
                 clientOrder.Accession(this.m_AccessionOrder.MasterAccessionNo);
 
                 if (this.m_ClientOrderId == clientOrder.ClientOrderId)
