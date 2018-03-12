@@ -373,10 +373,10 @@ namespace YellowstonePathology.Business.Test.Surgical
             this.SetXMLNodeParagraphData("additional_testing", this.m_AccessionOrder.PanelSetOrderCollection.GetAdditionalTestingString(this.m_PanelSetOrder.ReportNo));
 
             this.HandleERPR();
-<<<<<<< HEAD
             this.SaveReport(false);
 		}
 
+        /*
 		private XmlNode SetStains(XmlNode tableNodeSS,
 			XmlNode rowStainHeaderNode,
 			XmlNode rowTestHeaderNode,
@@ -392,7 +392,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 			XmlNode rowTestHeaderNodeClone = rowTestHeaderNode.Clone();
 			tableNodeSS.InsertAfter(rowTestHeaderNodeClone, insertAfterRowSS);
 			insertAfterRowSS = rowTestHeaderNodeClone;
-
+            
 			foreach (YellowstonePathology.Business.SpecialStain.StainResultItem stainResultItem in stainResultCollection)
 			{
 				XmlNode rowSpecialStainClone = rowSpecialStainNode.Clone();
@@ -428,12 +428,8 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 
 			return insertAfterRowSS;
-		}
-=======
-
-
-            this.SaveReport();
-        }
+		} 
+        */
 
         private XmlNode SetStains(XmlNode tableNodeSS,
             XmlNode rowStainHeaderNode,
@@ -487,7 +483,6 @@ namespace YellowstonePathology.Business.Test.Surgical
 
             return insertAfterRowSS;
         }
->>>>>>> 59e83cbfae04bc98e3a7cdac8faf11c729a11dd3
 
         private void HandleERPR()
         {
