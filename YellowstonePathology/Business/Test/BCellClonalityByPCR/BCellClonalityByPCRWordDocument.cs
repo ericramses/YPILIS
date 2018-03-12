@@ -53,14 +53,14 @@ namespace YellowstonePathology.Business.Test.BCellClonalityByPCR
 			YellowstonePathology.Business.Document.AmendmentSection amendment = new YellowstonePathology.Business.Document.AmendmentSection();
 			amendment.SetAmendment(m_PanelSetOrder.AmendmentCollection, this.m_ReportXml, this.m_NameSpaceManager, true);
 
-			this.SaveReport();
+			this.SaveReport(false);
 		}
 
-        public override void Publish()
+        public override void Publish(bool notify)
         {
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
-			YellowstonePathology.Business.Document.CaseDocument.SaveXMLAsPDF(orderIdParser);
-            YellowstonePathology.Business.Helper.FileConversionHelper.SaveXpsReportToTiff(this.m_PanelSetOrder.ReportNo);
+			YellowstonePathology.Business.Document.CaseDocument.SaveXMLAsPDF(orderIdParser, false);
+            YellowstonePathology.Business.Helper.FileConversionHelper.SaveXpsReportToTiff(this.m_PanelSetOrder.ReportNo, false);
         }		
 	}
 }

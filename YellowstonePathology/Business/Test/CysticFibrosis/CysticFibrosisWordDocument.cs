@@ -60,12 +60,12 @@ namespace YellowstonePathology.Business.Test.CysticFibrosis
 			YellowstonePathology.Business.Document.AmendmentSection amendment = new YellowstonePathology.Business.Document.AmendmentSection();
 			amendment.SetAmendment(m_PanelSetOrder.AmendmentCollection, this.m_ReportXml, this.m_NameSpaceManager, true);            
 
-            this.SaveReport();
+            this.SaveReport(false);
         }
 
-        public override void Publish()
+        public override void Publish(bool notify)
         {
-            base.Publish();
+            base.Publish(notify);
         }
     }
 }

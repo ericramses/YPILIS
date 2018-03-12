@@ -20,7 +20,7 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
 
             string printDistributionFolderPath = @"\\cfileserver\Documents\Distribution\Print\";
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(reportNo);
-			string caseDocumentFileName = YellowstonePathology.Business.Document.CaseDocument.GetCaseFileNameXPS(orderIdParser);
+			string caseDocumentFileName = YellowstonePathology.Business.Document.CaseDocument.GetCaseFileNameXPS(orderIdParser, false);
 
             string fileName = System.IO.Path.GetFileName(caseDocumentFileName);
             string newFileName = System.IO.Path.Combine(printDistributionFolderPath, fileName);

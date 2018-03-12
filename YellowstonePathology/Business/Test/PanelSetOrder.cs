@@ -1352,7 +1352,7 @@ namespace YellowstonePathology.Business.Test
 				if (this.m_PublishedDocument == null)
 				{
 					YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_ReportNo);
-					string publishedDocumentName = YellowstonePathology.Business.Document.CaseDocument.GetCaseFileNameXPS(orderIdParser);
+					string publishedDocumentName = YellowstonePathology.Business.Document.CaseDocument.GetCaseFileNameXPS(orderIdParser, false);
 					if (System.IO.File.Exists(publishedDocumentName) == true)
 					{
 						XpsDocument xpsDocument = new XpsDocument(publishedDocumentName, System.IO.FileAccess.Read);

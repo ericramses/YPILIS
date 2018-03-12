@@ -404,19 +404,19 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         private void HyperLinkSendFax_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_TaskOrder.ReportNo);
-            YellowstonePathology.Business.Test.AdditionalTestingNotification.AdditionalTestingNotificationWordDocument report = 
-                new YellowstonePathology.Business.Test.AdditionalTestingNotification.AdditionalTestingNotificationWordDocument(this.m_AccessionOrder, panelSetOrder, Business.Document.ReportSaveModeEnum.Notification);
-            report.Render();
+            if(this.ListBoxTaskDetails.SelectedItem != null)
+            {
+                YellowstonePathology.Business.Task.Model.TaskOrderDetailFax taskOrderDetailFax = (YellowstonePathology.Business.Task.Model.TaskOrderDetailFax)this.ListBoxTaskDetails.SelectedItem;
+                YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_TaskOrder.ReportNo);
+                YellowstonePathology.Business.Test.AdditionalTestingNotification.AdditionalTestingNotificationWordDocument report =
+                    new YellowstonePathology.Business.Test.AdditionalTestingNotification.AdditionalTestingNotificationWordDocument(this.m_AccessionOrder, panelSetOrder, Business.Document.ReportSaveModeEnum.Normal);
+                report.Render();
+                report.Publish(true);
 
-            YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(panelSetOrder.ReportNo);
-            string fileName = YellowstonePathology.Business.Document.CaseDocument.GetNotificationDocumentFilePath(orderIdParser);
-            YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(fileName);
-
-            Business.OrderIdParser orderIdParse = new Business.OrderIdParser(panelSetOrder.ReportNo);
-            string xmlDocName = Business.Document.CaseDocument.GetCaseDocumentFullPath(orderIdParse);
-            Business.Document.CaseDocument.SaveXMLAsXPS(xmlDocName);
-            //Business.ReportDistribution.Model.FaxSubmission.Submit("92386361", false, "hello", fileName);
+                Business.OrderIdParser orderIdParser = new Business.OrderIdParser(panelSetOrder.ReportNo);
+                string tifFileName = Business.Document.CaseDocument.GetCaseFileNameTif(orderIdParser, true);
+                Business.ReportDistribution.Model.FaxSubmission.Submit(taskOrderDetailFax.FaxNumber, false, "Additional Testing Notification", tifFileName);                
+            }            
         }
 
         private void HyperLinkAddSendFaxTask_Click(object sender, RoutedEventArgs e)
@@ -424,7 +424,11 @@ namespace YellowstonePathology.UI.Login.Receiving
             YellowstonePathology.Business.Task.Model.TaskFax task = new Business.Task.Model.TaskFax(string.Empty, string.Empty);
             string taskOrderDetailId = YellowstonePathology.Business.OrderIdParser.GetNextTaskOrderDetailId(this.m_TaskOrder.TaskOrderDetailCollection, this.m_TaskOrder.TaskOrderId);
             string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-            YellowstonePathology.Business.Task.Model.TaskOrderDetailFax taskOrderDetail = new Business.Task.Model.TaskOrderDetailFax(taskOrderDetailId, this.m_TaskOrder.TaskOrderId, objectId, task, this.m_AccessionOrder.ClientId);
+
+            Business.Client.Model.Client client = Business.Gateway.PhysicianClientGateway.GetClientByClientId(this.m_AccessionOrder.ClientId);
+            YellowstonePathology.Business.Task.Model.TaskOrderDetailFax taskOrderDetail = new Business.Task.Model.TaskOrderDetailFax(taskOrderDetailId, this.m_TaskOrder.TaskOrderId, objectId, task, this.m_AccessionOrder.ClientId);            
+            taskOrderDetail.FaxNumber = client.Fax;
+            if (client.LongDistance == true) taskOrderDetail.FaxNumber = "1" + taskOrderDetail.FaxNumber;
             this.m_TaskOrder.TaskOrderDetailCollection.Add(taskOrderDetail);
         }
     }

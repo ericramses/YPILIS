@@ -49,12 +49,12 @@ namespace YellowstonePathology.Business.Test.MPNStandardReflex
             this.ReplaceText("pathologist_signature", panelSetOrderMPNStandardReflex.Signature);
             this.ReplaceText("global_location_performed", this.m_AccessionOrder.GetLocationPerformedComment());
 
-			this.SaveReport();
+			this.SaveReport(false);
 		}
 
-		public override void Publish()
+		public override void Publish(bool notify)
 		{
-			base.Publish();
+			base.Publish(notify);
 		}
 	}
 }

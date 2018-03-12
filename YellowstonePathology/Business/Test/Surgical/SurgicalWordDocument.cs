@@ -373,9 +373,7 @@ namespace YellowstonePathology.Business.Test.Surgical
             this.SetXMLNodeParagraphData("additional_testing", this.m_AccessionOrder.PanelSetOrderCollection.GetAdditionalTestingString(this.m_PanelSetOrder.ReportNo));
 
             this.HandleERPR();
-
-
-            this.SaveReport();
+            this.SaveReport(false);
 		}
 
 		private XmlNode SetStains(XmlNode tableNodeSS,

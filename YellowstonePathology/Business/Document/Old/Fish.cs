@@ -78,14 +78,14 @@ namespace YellowstonePathology.Business.Document.Old
             }
 
             this.SetXmlNodeData("result_comment", resultComment);			
-            this.SaveReport();
+            this.SaveReport(false);
         }
 
-        public void Publish()
+        public void Publish(bool notify)
         {
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
-			YellowstonePathology.Business.Document.CaseDocument.SaveXMLAsPDF(orderIdParser);
-            YellowstonePathology.Business.Helper.FileConversionHelper.SaveXpsReportToTiff(this.m_PanelSetOrder.ReportNo);
+			YellowstonePathology.Business.Document.CaseDocument.SaveXMLAsPDF(orderIdParser, notify);
+            YellowstonePathology.Business.Helper.FileConversionHelper.SaveXpsReportToTiff(this.m_PanelSetOrder.ReportNo, notify);
         }        
     }
 }

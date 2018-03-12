@@ -39,12 +39,12 @@ namespace YellowstonePathology.Business.Test.InvasiveBreastPanel
 			this.ReplaceText("report_date", BaseData.GetShortDateString(invasiveBreastPanel.FinalDate));
 			this.ReplaceText("pathologist_signature", invasiveBreastPanel.Signature);
 
-            this.SaveReport();
+            this.SaveReport(false);
         }
         
-        public override void Publish()
+        public override void Publish(bool notify)
         {
-            base.Publish();
+            base.Publish(notify);
         }        
 	}
 }

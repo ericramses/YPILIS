@@ -38,12 +38,12 @@ namespace YellowstonePathology.Business.Test.Trichomonas
             string collectionDateTimeString = YellowstonePathology.Business.Helper.DateTimeExtensions.CombineDateAndTime(specimenOrder.CollectionDate, specimenOrder.CollectionTime);
             this.SetXmlNodeData("date_time_collected", collectionDateTimeString);
 
-            this.SaveReport();
+            this.SaveReport(false);
         }
 
-        public override void Publish()
+        public override void Publish(bool notify)
         {
-            base.Publish();
+            base.Publish(notify);
         }
     }
 }

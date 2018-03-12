@@ -180,11 +180,11 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
             this.SaveReport();
         }
 
-        public void Publish()
+        public void Publish(bool notify)
         {
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_PanelSetOrderCytology.ReportNo);
-            YellowstonePathology.Business.Document.CaseDocument.SaveXMLAsPDF(orderIdParser);
-            YellowstonePathology.Business.Helper.FileConversionHelper.SaveXpsReportToTiff(this.m_PanelSetOrderCytology.ReportNo);
+            YellowstonePathology.Business.Document.CaseDocument.SaveXMLAsPDF(orderIdParser, false);
+            YellowstonePathology.Business.Helper.FileConversionHelper.SaveXpsReportToTiff(this.m_PanelSetOrderCytology.ReportNo, notify);
         }
 
         public void OpenTemplate()
@@ -476,8 +476,8 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
                 case YellowstonePathology.Business.Document.ReportSaveModeEnum.Normal:
                     this.m_ReportXml.Save(this.m_SaveFileName);
 					YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_PanelSetOrderCytology.ReportNo);
-					YellowstonePathology.Business.Document.CaseDocument.SaveXMLAsDoc(orderIdParser);
-					YellowstonePathology.Business.Document.CaseDocument.SaveDocAsXPS(orderIdParser);
+					YellowstonePathology.Business.Document.CaseDocument.SaveXMLAsDoc(orderIdParser, false);
+					YellowstonePathology.Business.Document.CaseDocument.SaveDocAsXPS(orderIdParser, false);
                     break;
                 case YellowstonePathology.Business.Document.ReportSaveModeEnum.Test:
                     this.m_ReportXml.Save(@"c:\Testing\Test.xml");
@@ -495,7 +495,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
                 case YellowstonePathology.Business.Document.ReportSaveModeEnum.Normal:
 					YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_PanelSetOrderCytology.ReportNo);
                     this.m_ReportXml.Save(this.m_SaveFileName);
-					YellowstonePathology.Business.Document.CaseDocument.SaveXMLAsDoc(orderIdParser);
+					YellowstonePathology.Business.Document.CaseDocument.SaveXMLAsDoc(orderIdParser, false);
                     break;
                 case YellowstonePathology.Business.Document.ReportSaveModeEnum.Test:
                     this.m_ReportXml.Save(@"c:\Testing\Test.xml");

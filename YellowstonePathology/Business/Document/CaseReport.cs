@@ -48,11 +48,11 @@ namespace YellowstonePathology.Business.Document
 			throw new NotImplementedException("Not Implemented Here");
 		}
 
-        public virtual void Publish()
+        public virtual void Publish(bool notify)
         {
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
-			YellowstonePathology.Business.Document.CaseDocument.SaveXMLAsPDF(orderIdParser);
-            YellowstonePathology.Business.Helper.FileConversionHelper.SaveXpsReportToTiff(this.m_PanelSetOrder.ReportNo);
+			YellowstonePathology.Business.Document.CaseDocument.SaveXMLAsPDF(orderIdParser, notify);
+            YellowstonePathology.Business.Helper.FileConversionHelper.SaveXpsReportToTiff(this.m_PanelSetOrder.ReportNo, notify);
         }
 
         public void OpenTemplate(string templateName)
@@ -363,15 +363,15 @@ namespace YellowstonePathology.Business.Document
             parentNode.RemoveChild(childNode);
         }
 
-        public void SaveReport()
+        public void SaveReport(bool notify)
         {
             switch (this.m_ReportSaveMode)
             {
                 case YellowstonePathology.Business.Document.ReportSaveModeEnum.Normal:                
                     this.m_ReportXml.Save(this.m_SaveFileName);
 					YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
-					CaseDocument.SaveXMLAsDoc(orderIdParser);
-					CaseDocument.SaveDocAsXPS(orderIdParser);
+					CaseDocument.SaveXMLAsDoc(orderIdParser, notify);
+					CaseDocument.SaveDocAsXPS(orderIdParser, notify);
                     break;                                   
                 case YellowstonePathology.Business.Document.ReportSaveModeEnum.Test:
                 case YellowstonePathology.Business.Document.ReportSaveModeEnum.Draft:

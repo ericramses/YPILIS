@@ -34,12 +34,12 @@ namespace YellowstonePathology.Business.Test.GrossOnly
             this.SetReportDistribution();
             this.SetCaseHistory();            
 
-            this.SaveReport();
+            this.SaveReport(false);
         }
 
-        public override void Publish()
+        public override void Publish(bool notify)
         {
-            base.Publish();
+            base.Publish(notify);
         }
 
 		public YellowstonePathology.Business.Rules.MethodResult DeleteCaseFiles(YellowstonePathology.Business.OrderIdParser orderIdParser)

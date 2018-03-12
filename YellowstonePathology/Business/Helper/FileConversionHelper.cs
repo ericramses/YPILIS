@@ -54,8 +54,8 @@ namespace YellowstonePathology.Business.Helper
             bool result = true;
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(reportNo);
-			string inputFileName = YellowstonePathology.Business.Document.CaseDocument.GetCaseFileNameXPS(orderIdParser);
-			string outputFileName = YellowstonePathology.Business.Document.CaseDocument.GetCaseFileNamePDF(orderIdParser);
+			string inputFileName = YellowstonePathology.Business.Document.CaseDocument.GetCaseFileNameXPS(orderIdParser, false);
+			string outputFileName = YellowstonePathology.Business.Document.CaseDocument.GetCaseFileNamePDF(orderIdParser, false);
             string gxpsFilePath = "C:\\Program Files\\Yellowstone Pathology Institute\\gxps.exe";
             string arguments =  " -sDEVICE=pdfwrite -sOutputFile=" + outputFileName + " -dNOPAUSE " + inputFileName;
 
@@ -71,11 +71,11 @@ namespace YellowstonePathology.Business.Helper
             return result;
         }       
 
-        static public void SaveXpsReportToTiff(string reportNo)
+        static public void SaveXpsReportToTiff(string reportNo, bool notify)
         {
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(reportNo);
-			string inputFileName = YellowstonePathology.Business.Document.CaseDocument.GetCaseFileNameXPS(orderIdParser);
-			string outputFileName = YellowstonePathology.Business.Document.CaseDocument.GetCaseFileNameTif(orderIdParser);
+			string inputFileName = YellowstonePathology.Business.Document.CaseDocument.GetCaseFileNameXPS(orderIdParser, notify);            
+			string outputFileName = YellowstonePathology.Business.Document.CaseDocument.GetCaseFileNameTif(orderIdParser, notify);
 
             if (File.Exists(inputFileName) == true)
             {                
@@ -112,7 +112,7 @@ namespace YellowstonePathology.Business.Helper
 		public static void SaveXpsAsMultiPageTif(string reportNo, object visual)
 		{
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(reportNo);
-			string outputFileName = YellowstonePathology.Business.Document.CaseDocument.GetCaseFileNameTif(orderIdParser);
+			string outputFileName = YellowstonePathology.Business.Document.CaseDocument.GetCaseFileNameTif(orderIdParser, false);
 			FrameworkElement frameworkElement = (FrameworkElement)visual;
 
 			RenderTargetBitmap renderTargetBitmap = new RenderTargetBitmap((int)frameworkElement.ActualWidth,

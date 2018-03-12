@@ -52,7 +52,7 @@ namespace YellowstonePathology.Business.Test.StemCellEnumeration
                         break;                
                 }
             }            
-            this.SaveReport();
+            this.SaveReport(false);
         }        
     }
 }

@@ -113,7 +113,7 @@ namespace YellowstonePathology.Business.Test.LLP
 			this.SetXmlNodeData("specimen_adequacy", specimenOrder.SpecimenAdequacy);
 			this.SetXmlNodeData("location_performed", "Technical and professional component(s) performed at Yellowstone Pathology Institute Billings, 2900 12th Avenue North, Suite 295W, Billings, MT 59101 (CLIA:27D0946844).");
 
-			this.SaveReport();
+			this.SaveReport(false);
 		}
 
         private void HandleMarkers(PanelSetOrderLeukemiaLymphoma panelSetOrderLeukemiaLymphoma)
@@ -212,9 +212,9 @@ namespace YellowstonePathology.Business.Test.LLP
 			return result;
 		}
 
-		public override void Publish()
+		public override void Publish(bool notify)
 		{
-			base.Publish();
+			base.Publish(notify);
 		}
 	}
 }

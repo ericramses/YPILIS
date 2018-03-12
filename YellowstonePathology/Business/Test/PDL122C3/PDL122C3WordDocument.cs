@@ -56,12 +56,12 @@ namespace YellowstonePathology.Business.Test.PDL122C3
                 this.ReplaceText("pathologist_signature", this.m_PanelSetOrder.Signature);
             }
 
-            this.SaveReport();
+            this.SaveReport(false);
         }
 
-        public override void Publish()
+        public override void Publish(bool notify)
         {
-            base.Publish();
+            base.Publish(notify);
         }
     }
 }

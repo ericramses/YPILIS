@@ -922,7 +922,7 @@ namespace YellowstonePathology.UI.Test
                 if (methodResult.Success == true)
                 {
                     caseDocument.Render();
-                    caseDocument.Publish();
+                    caseDocument.Publish(false);
                     MessageBox.Show("The document has been published");
                 }
                 else
