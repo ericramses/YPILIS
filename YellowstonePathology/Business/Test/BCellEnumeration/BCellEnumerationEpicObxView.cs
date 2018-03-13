@@ -30,7 +30,7 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
 			this.AddHeader(document, panelSetOrder, "B-Cell Enumeration");
 
 			this.AddNextObxElement("", document, "F");
-			StringBuilder result = new StringBuilder("WBC: " + panelSetOrder.WBC.ToString() + "/uL");
+			StringBuilder result = new StringBuilder("WBC: " + panelSetOrder.WBC.ToString() + "/uL (from client)");
 			this.AddNextObxElement(result.ToString(), document, "F");
 			result = new StringBuilder("Lymphocyte Percentage: " + panelSetOrder.LymphocytePercentage.ToString().StringAsPercent());
 			this.AddNextObxElement(result.ToString(), document, "F");			
@@ -38,9 +38,9 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
 			this.AddNextObxElement(result.ToString(), document, "F");			
 			result = new StringBuilder("CD20 B-Cell Positive Percent: " + panelSetOrder.CD20BCellPositivePercent.ToString().StringAsPercent());
 			this.AddNextObxElement(result.ToString(), document, "F");
-			result = new StringBuilder("CD19 Absolute Count: " + panelSetOrder.CD19AbsoluteCount.ToString());
+			result = new StringBuilder("CD19 Absolute Count: " + panelSetOrder.CD19AbsoluteCount.ToString() + "/uL");
 			this.AddNextObxElement(result.ToString(), document, "F");
-			result = new StringBuilder("CD20 Absolute Count: " + panelSetOrder.CD20AbsoluteCount.ToString());
+			result = new StringBuilder("CD20 Absolute Count: " + panelSetOrder.CD20AbsoluteCount.ToString() + "/uL");
 			this.AddNextObxElement(result.ToString(), document, "F");			
 
 			this.AddNextObxElement("", document, "F");
