@@ -14,7 +14,7 @@ namespace YellowstonePathology.Business.Test.Surgical
         public override void Render()
         {
             SurgicalTestOrder panelSetOrderSurgical = (SurgicalTestOrder)this.m_PanelSetOrder;
-            this.m_TemplateName = @"\\Cfileserver\Documents\ReportTemplates\XmlTemplates\Surgical.11.xml";
+            this.m_TemplateName = @"\\Cfileserver\Documents\ReportTemplates\XmlTemplates\Surgical.12.xml";
 
             base.OpenTemplate();
 
@@ -338,6 +338,9 @@ namespace YellowstonePathology.Business.Test.Surgical
             mainTableNode.RemoveChild(rowICTextNode);
 
             XmlNode rowSpecimenDescriptionNode = mainTableNode.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='specimen_description']", this.m_NameSpaceManager);
+            XmlNode rowFixationTypeNode = mainTableNode.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='specimen_fixation_type']", this.m_NameSpaceManager);
+            XmlNode rowTimeToFixationNode = mainTableNode.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='time_to_fixation']", this.m_NameSpaceManager);
+            XmlNode rowFixationDurationNode = mainTableNode.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='duration_of_fixation']", this.m_NameSpaceManager);
             XmlNode rowInsertSpecimenDescriptionAfterNode = rowSpecimenDescriptionNode;
 
             foreach (YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder in this.m_AccessionOrder.SpecimenOrderCollection)
@@ -349,8 +352,30 @@ namespace YellowstonePathology.Business.Test.Surgical
                 rowSpecimenDescriptionClone.SelectSingleNode("descendant::w:r[w:t='date_time_collected']/w:t", this.m_NameSpaceManager).InnerText = collectionDateTimeJoiner.DisplayString;
                 mainTableNode.InsertAfter(rowSpecimenDescriptionClone, rowInsertSpecimenDescriptionAfterNode);
                 rowInsertSpecimenDescriptionAfterNode = rowSpecimenDescriptionClone;
+
+                bool specimenHasERPR = this.SpecimenHasERPR(specimenOrder);
+                if(specimenHasERPR == true)
+                {
+                    XmlNode rowFixationTypeNodeClone = rowFixationTypeNode.Clone();
+                    rowFixationTypeNodeClone.SelectSingleNode("descendant::w:r[w:t='specimen_fixation_type']/w:t", this.m_NameSpaceManager).InnerText = specimenOrder.LabFixation;
+                    mainTableNode.InsertAfter(rowFixationTypeNodeClone, rowInsertSpecimenDescriptionAfterNode);
+                    rowInsertSpecimenDescriptionAfterNode = rowFixationTypeNodeClone;
+
+                    XmlNode rowTimeToFixationNodeClone = rowTimeToFixationNode.Clone();
+                    rowTimeToFixationNodeClone.SelectSingleNode("descendant::w:r[w:t='time_to_fixation']/w:t", this.m_NameSpaceManager).InnerText = specimenOrder.TimeToFixationHourString;
+                    mainTableNode.InsertAfter(rowTimeToFixationNodeClone, rowInsertSpecimenDescriptionAfterNode);
+                    rowInsertSpecimenDescriptionAfterNode = rowTimeToFixationNodeClone;
+
+                    XmlNode rowFixationDurationNodeClone = rowFixationDurationNode.Clone();
+                    rowFixationDurationNodeClone.SelectSingleNode("descendant::w:r[w:t='duration_of_fixation']/w:t", this.m_NameSpaceManager).InnerText = specimenOrder.FixationDurationString;
+                    mainTableNode.InsertAfter(rowFixationDurationNodeClone, rowInsertSpecimenDescriptionAfterNode);
+                    rowInsertSpecimenDescriptionAfterNode = rowFixationDurationNodeClone;
+                }
             }
             mainTableNode.RemoveChild(rowSpecimenDescriptionNode);
+            mainTableNode.RemoveChild(rowFixationTypeNode);
+            mainTableNode.RemoveChild(rowTimeToFixationNode);
+            mainTableNode.RemoveChild(rowFixationDurationNode);
 
             this.SetXMLNodeParagraphData("gross_description", panelSetOrderSurgical.GrossX);
             this.SetXMLNodeParagraphData("client_name", this.m_AccessionOrder.ClientName);
@@ -372,64 +397,9 @@ namespace YellowstonePathology.Business.Test.Surgical
 
             this.SetXMLNodeParagraphData("additional_testing", this.m_AccessionOrder.PanelSetOrderCollection.GetAdditionalTestingString(this.m_PanelSetOrder.ReportNo));
 
-            this.HandleERPR();
             this.SaveReport(false);
 		}
 
-        /*
-		private XmlNode SetStains(XmlNode tableNodeSS,
-			XmlNode rowStainHeaderNode,
-			XmlNode rowTestHeaderNode,
-			XmlNode insertAfterRowSS,
-			XmlNode rowSpecialStainNode,
-			SurgicalSpecimen surgicalSpecimen,
-			YellowstonePathology.Business.SpecialStain.StainResultItemCollection stainResultCollection)
-		{
-			XmlNode rowStainHeaderNodeClone = rowStainHeaderNode.Clone();
-			tableNodeSS.InsertAfter(rowStainHeaderNodeClone, insertAfterRowSS);
-			insertAfterRowSS = rowStainHeaderNodeClone;
-
-			XmlNode rowTestHeaderNodeClone = rowTestHeaderNode.Clone();
-			tableNodeSS.InsertAfter(rowTestHeaderNodeClone, insertAfterRowSS);
-			insertAfterRowSS = rowTestHeaderNodeClone;
-            
-			foreach (YellowstonePathology.Business.SpecialStain.StainResultItem stainResultItem in stainResultCollection)
-			{
-				XmlNode rowSpecialStainClone = rowSpecialStainNode.Clone();
-				string stainDescription = stainResultItem.ProcedureName;
-				string stainResult = stainResultItem.Result;
-                
-				if (string.IsNullOrEmpty(stainResult) == true)
-				{
-					stainResult = "Pending";
-				}
-				else if (stainResult.ToUpper() == "SEE COMMENT")
-				{
-					stainResult = stainResultItem.ReportComment;
-				}
-				else
-				{
-					string specialStainReportComment = stainResultItem.ReportComment;
-
-					if (!string.IsNullOrEmpty(specialStainReportComment))
-					{
-						stainResult += " - " + specialStainReportComment;
-					}
-				}
-
-				rowSpecialStainClone.SelectSingleNode("descendant::w:r[w:t='stain_description']/w:t", this.m_NameSpaceManager).InnerText = stainDescription;
-				rowSpecialStainClone.SelectSingleNode("descendant::w:r[w:t='stain_result']/w:t", this.m_NameSpaceManager).InnerText = stainResult;
-
-				string block = surgicalSpecimen.GetBlockFromTestOrderId(stainResultItem.TestOrderId);
-				rowSpecialStainClone.SelectSingleNode("descendant::w:r[w:t='block_description']/w:t", this.m_NameSpaceManager).InnerText = block;
-
-				tableNodeSS.InsertAfter(rowSpecialStainClone, insertAfterRowSS);
-				insertAfterRowSS = rowSpecialStainClone;
-			}
-
-			return insertAfterRowSS;
-		} 
-        */
 
         private XmlNode SetStains(XmlNode tableNodeSS,
             XmlNode rowStainHeaderNode,
@@ -484,80 +454,16 @@ namespace YellowstonePathology.Business.Test.Surgical
             return insertAfterRowSS;
         }
 
-        private void HandleERPR()
+        private bool SpecimenHasERPR(YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder)
         {
-            YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder = (YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder)this.m_PanelSetOrder;
-            YellowstonePathology.Business.Test.Model.TestOrderCollection testOrders = surgicalTestOrder.GetTestOrders();
-            YellowstonePathology.Business.Test.Model.TestOrder testOrderER = testOrders.GetTestOrder("99");
-            YellowstonePathology.Business.Test.Model.TestOrder testOrderPR = testOrders.GetTestOrder("145");
+            bool result = false;
 
-            if (testOrderER != null)
+            YellowstonePathology.Business.Test.Model.TestOrderCollection testOrders = specimenOrder.GetTestOrders(this.m_PanelSetOrder.GetTestOrders());
+            if (testOrders.ExistsByTestId("99") == true)
             {
-                YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetByTestOrderId(testOrderER.TestOrderId);
-                YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen = surgicalTestOrder.SurgicalSpecimenCollection.GetBySpecimenOrderId(specimenOrder.SpecimenOrderId);
-
-                SpecialStain.StainResultItem erResultItem = surgicalSpecimen.StainResultItemCollection.GetStainResult(testOrderER.TestOrderId);
-                SpecialStain.StainResultItem prResultItem = surgicalSpecimen.StainResultItemCollection.GetStainResult(testOrderPR.TestOrderId);
-                bool performed = true;
-                if (erResultItem.Result == "???" || erResultItem.Result == "Pending" || prResultItem.Result == "???" || prResultItem.Result == "Pending") performed = false;
-
-                if (performed == true)
-                {
-                    bool erPositive = erResultItem.Result.ToUpper().Contains("POSITIVE") ? true : false;
-                    bool prPositive = prResultItem.Result.ToUpper().Contains("POSITIVE") ? true : false;
-
-                    YellowstonePathology.Business.Test.ErPrSemiQuantitative.ErPrSemiQuantitativeResult erprResult = null;
-                    if (erPositive == true && prPositive == true)
-                    {
-                        erprResult = new ErPrSemiQuantitative.ErPrSemiQuantitativeErPosPrPosResult();
-                    }
-                    else if (erPositive == false && prPositive == true)
-                    {
-                        erprResult = new ErPrSemiQuantitative.ErPrSemiQuantitativeErNegPrPosResult();
-                    }
-                    else if (erPositive == true && prPositive == false)
-                    {
-                        erprResult = new ErPrSemiQuantitative.ErPrSemiQuantitativeErPosPrNegResult();
-                    }
-                    else if (erPositive == false && prPositive == false)
-                    {
-                        erprResult = new ErPrSemiQuantitative.ErPrSemiQuantitativeErNegPrNegResult();
-                    }
-
-                    string collectionDateTimeString = YellowstonePathology.Business.Helper.DateTimeExtensions.CombineDateAndTime(specimenOrder.CollectionDate, specimenOrder.CollectionTime);
-                    this.ReplaceText("specimen_fixation_type", specimenOrder.LabFixation);
-                    this.ReplaceText("time_to_fixation", specimenOrder.TimeToFixationHourString);
-                    this.ReplaceText("duration_of_fixation", specimenOrder.FixationDurationString);
-
-                    this.ReplaceText("er_pr_interpretation_header", "ER/PR Interpretation");
-                    this.ReplaceText("er_pr_interpretation", erprResult.Interpretation);
-                    this.ReplaceText("er_pr_method_header", "ER/PR Method");
-                    this.ReplaceText("er_pr_method", erprResult.Method);
-                    this.ReplaceText("er_pr_references_header", "ER/PR References");
-                    this.ReplaceText("er_pr_references", erprResult.ReportReferences);
-                }
-                else
-                {
-                    this.DeleteEPPRRows();
-                }
+                result = true;
             }
-            else
-            {
-                this.DeleteEPPRRows();
-            }
-        }
-
-        private void DeleteEPPRRows()
-        {
-            this.DeleteRow("specimen_fixation_type");
-            this.DeleteRow("time_to_fixation");
-            this.DeleteRow("duration_of_fixation");
-            this.DeleteRow("er_pr_interpretation_header");
-            this.DeleteRow("er_pr_interpretation");
-            this.DeleteRow("er_pr_method_header");
-            this.DeleteRow("er_pr_method");
-            this.DeleteRow("er_pr_references_header");
-            this.DeleteRow("er_pr_references");
+            return result;
         }
     }
 }
