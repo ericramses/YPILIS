@@ -30,8 +30,8 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
 			this.ReplaceText("lymphocyte_percentage", testOrder.LymphocytePercentage.ToString().StringAsPercent());			
 			this.ReplaceText("cd19_bcell_positive_percent", testOrder.CD19BCellPositivePercent.ToString().StringAsPercent());			
 			this.ReplaceText("cd20_bcell_positive_percent", testOrder.CD20BCellPositivePercent.ToString().StringAsPercent());
-			this.ReplaceText("cd19_absolute_count", testOrder.CD19AbsoluteCount.ToString());
-			this.ReplaceText("cd20_absolute_count", testOrder.CD20AbsoluteCount.ToString());
+			this.ReplaceText("cd19_absolute_count", testOrder.CD19AbsoluteCount.ToString() + "/uL");
+			this.ReplaceText("cd20_absolute_count", testOrder.CD20AbsoluteCount.ToString() + "/uL");
 
 			this.ReplaceText("report_method", testOrder.Method);
 			this.ReplaceText("report_references", testOrder.ReportReferences);
