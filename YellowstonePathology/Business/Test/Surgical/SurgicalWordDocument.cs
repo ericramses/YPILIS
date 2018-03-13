@@ -14,7 +14,7 @@ namespace YellowstonePathology.Business.Test.Surgical
         public override void Render()
         {
             SurgicalTestOrder panelSetOrderSurgical = (SurgicalTestOrder)this.m_PanelSetOrder;
-            this.m_TemplateName = @"\\Cfileserver\Documents\ReportTemplates\XmlTemplates\Surgical.12.xml";
+            this.m_TemplateName = @"\\Cfileserver\Documents\ReportTemplates\XmlTemplates\Surgical.13.xml";
 
             base.OpenTemplate();
 
@@ -394,8 +394,9 @@ namespace YellowstonePathology.Business.Test.Surgical
                 this.DeleteRow("immuno_comment");
             }
 
-
             this.SetXMLNodeParagraphData("additional_testing", this.m_AccessionOrder.PanelSetOrderCollection.GetAdditionalTestingString(this.m_PanelSetOrder.ReportNo));
+
+            this.HandleERPRStatements();
 
             this.SaveReport(false);
 		}
@@ -464,6 +465,35 @@ namespace YellowstonePathology.Business.Test.Surgical
                 result = true;
             }
             return result;
+        }
+        private void HandleERPRStatements()
+        {
+            bool hasERPR = false;
+            foreach (YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder in this.m_AccessionOrder.SpecimenOrderCollection)
+            {
+                if (this.SpecimenHasERPR(specimenOrder) == true)
+                {
+                    hasERPR = true;
+                    break;
+                }
+            }
+
+            if(hasERPR == true)
+            {
+                YellowstonePathology.Business.Test.ErPrSemiQuantitative.ErPrSemiQuantitativeResult result = new ErPrSemiQuantitative.ErPrSemiQuantitativeResult();
+                this.ReplaceText("er_pr_method_header", "ER/PR Method");
+                this.ReplaceText("er_pr_method", result.Method);
+                this.ReplaceText("er_pr_references_header", "ER/PR References");
+                this.ReplaceText("er_pr_references", result.ReportReferences);
+            }
+            else
+            {
+                this.DeleteRow("er_pr_method_header");
+                this.DeleteRow("er_pr_method");
+                this.DeleteRow("er_pr_references_header");
+                this.DeleteRow("er_pr_references");
+            }
+
         }
     }
 }
