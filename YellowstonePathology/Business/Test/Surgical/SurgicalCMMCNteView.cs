@@ -35,7 +35,14 @@ namespace YellowstonePathology.Business.Test.Surgical
 				this.AddNextNteElement("Specimen: " + surgicalSpecimen.SpecimenOrder.SpecimenNumber.ToString(), document);
 				this.HandleLongString(surgicalSpecimen.SpecimenOrder.Description, document);
 
-				this.AddBlankNteElement(document);
+                if (this.SpecimenHasERPR(surgicalSpecimen.SpecimenOrder, panelSetOrderSurgical) == true)
+                {
+                    this.AddNextNteElement("Fixation type: " + surgicalSpecimen.SpecimenOrder.LabFixation, document);
+                    this.AddNextNteElement("Time to fixation: " + surgicalSpecimen.SpecimenOrder.TimeToFixationHourString, document);
+                    this.AddNextNteElement("Duration of Fixation: " + surgicalSpecimen.SpecimenOrder.FixationDurationString, document);
+                }
+
+                this.AddBlankNteElement(document);
 
 				this.AddNextNteElement("Diagnosis: ", document);
 				this.HandleLongString(surgicalSpecimen.Diagnosis, document);
@@ -146,5 +153,17 @@ namespace YellowstonePathology.Business.Test.Surgical
                 this.AddBlankNteElement(document);
             }            
         }
-	}
+
+        private bool SpecimenHasERPR(YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder, SurgicalTestOrder panelSetOrder)
+        {
+            bool result = false;
+
+            YellowstonePathology.Business.Test.Model.TestOrderCollection testOrders = specimenOrder.GetTestOrders(panelSetOrder.GetTestOrders());
+            if (testOrders.ExistsByTestId("99") == true)
+            {
+                result = true;
+            }
+            return result;
+        }
+    }
 }
