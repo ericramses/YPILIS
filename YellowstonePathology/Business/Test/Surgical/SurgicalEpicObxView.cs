@@ -30,7 +30,8 @@ namespace YellowstonePathology.Business.Test.Surgical
                 YellowstonePathology.Business.Helper.DateTimeJoiner collectionDateTimeJoiner = new YellowstonePathology.Business.Helper.DateTimeJoiner(surgicalSpecimen.SpecimenOrder.CollectionDate.Value, surgicalSpecimen.SpecimenOrder.CollectionTime);
                 this.AddNextObxElement("Collection Date/Time: " + collectionDateTimeJoiner.DisplayString, document, "F");
 
-                if (this.SpecimenHasERPR(surgicalSpecimen.SpecimenOrder, panelSetOrderSurgical) == true)
+                YellowstonePathology.Business.Test.Model.TestOrderCollection specimenTestOrders = surgicalSpecimen.SpecimenOrder.GetTestOrders(panelSetOrderSurgical.GetTestOrders());
+                if (this.ERPRExistsInCollection(specimenTestOrders) == true)
                 {
                     this.AddNextObxElement("Fixation type: " + surgicalSpecimen.SpecimenOrder.LabFixation, document, "F");
                     this.AddNextObxElement("Time to fixation: " + surgicalSpecimen.SpecimenOrder.TimeToFixationHourString, document, "F");
@@ -155,7 +156,6 @@ namespace YellowstonePathology.Business.Test.Surgical
             this.HandleLongString(this.m_AccessionOrder.PanelSetOrderCollection.GetAdditionalTestingString(panelSetOrderSurgical.ReportNo), document, "F");
             this.AddNextObxElement("", document, "F");
 
-
             string immunoComment = panelSetOrderSurgical.GetImmunoComment();
 			if (immunoComment.Length > 0)
 			{
@@ -163,8 +163,8 @@ namespace YellowstonePathology.Business.Test.Surgical
 				this.AddNextObxElement(string.Empty, document, "F");
 			}
 
-            YellowstonePathology.Business.Test.Model.TestOrder testOrder = panelSetOrderSurgical.GetTestOrders().GetTestOrder("99");
-            if (testOrder != null)
+            YellowstonePathology.Business.Test.Model.TestOrderCollection testOrders = panelSetOrderSurgical.GetTestOrders();
+            if (this.ERPRExistsInCollection(testOrders) == true)
             {
                 YellowstonePathology.Business.Test.ErPrSemiQuantitative.ErPrSemiQuantitativeResult result = new ErPrSemiQuantitative.ErPrSemiQuantitativeResult();
                 this.AddNextObxElement("ER/PR References:", document, "F");
@@ -241,12 +241,14 @@ namespace YellowstonePathology.Business.Test.Surgical
             }
         }
 
-        private bool SpecimenHasERPR(YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder, SurgicalTestOrder panelSetOrder)
+        private bool ERPRExistsInCollection(YellowstonePathology.Business.Test.Model.TestOrderCollection testOrders)
         {
             bool result = false;
-
-            YellowstonePathology.Business.Test.Model.TestOrderCollection testOrders = specimenOrder.GetTestOrders(panelSetOrder.GetTestOrders());
-            if (testOrders.ExistsByTestId("99") == true)
+            if (testOrders.ExistsByTestId("98") == true ||
+                testOrders.ExistsByTestId("99") == true ||
+                testOrders.ExistsByTestId("144") == true ||
+                testOrders.ExistsByTestId("145") == true ||
+                testOrders.ExistsByTestId("278") == true)
             {
                 result = true;
             }
