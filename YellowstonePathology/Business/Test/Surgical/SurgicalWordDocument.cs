@@ -460,7 +460,11 @@ namespace YellowstonePathology.Business.Test.Surgical
             bool result = false;
 
             YellowstonePathology.Business.Test.Model.TestOrderCollection testOrders = specimenOrder.GetTestOrders(this.m_PanelSetOrder.GetTestOrders());
-            if (testOrders.ExistsByTestId("99") == true)
+            if (testOrders.ExistsByTestId("98") == true ||
+                testOrders.ExistsByTestId("99") == true ||
+                testOrders.ExistsByTestId("144") == true ||
+                testOrders.ExistsByTestId("145") == true ||
+                testOrders.ExistsByTestId("278") == true)
             {
                 result = true;
             }
