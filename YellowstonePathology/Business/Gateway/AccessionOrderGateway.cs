@@ -194,7 +194,7 @@ namespace YellowstonePathology.Business.Gateway
                 "join tblPanelSetOrder pso on ao.MasterAccessionNo = pso.MasterAccessionNo " +
                 "join tblSpecimenOrder so on ao.MasterAccessionno = so.MasterAccessionNo " +
                 "join tblAliquotOrder a on so.SpecimenOrderId = a.SpecimenOrderId " +
-                "where ao.AccessionDate = @AccessionDate and a.AliquotType = 'Block' and a.EmbeddingVerified = 0 and a.ClientAccessioned = 0;";                
+                "where ao.AccessionDate = @AccessionDate and a.AliquotType = 'Block' and a.EmbeddingVerified = 0 and a.ClientAccessioned = 0 and a.Status<>'Hold';";                
 
             cmd.CommandType = CommandType.Text;
             cmd.Parameters.AddWithValue("@AccessionDate", accessionDate); 
