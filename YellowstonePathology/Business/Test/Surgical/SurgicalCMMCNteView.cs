@@ -30,12 +30,15 @@ namespace YellowstonePathology.Business.Test.Surgical
 
 			this.AddBlankNteElement(document);
 
-			foreach (SurgicalSpecimen surgicalSpecimen in panelSetOrderSurgical.SurgicalSpecimenCollection)
+            this.InformRevisedDiagnosis(document, panelSetOrderSurgical.AmendmentCollection);
+
+            foreach (SurgicalSpecimen surgicalSpecimen in panelSetOrderSurgical.SurgicalSpecimenCollection)
 			{
 				this.AddNextNteElement("Specimen: " + surgicalSpecimen.SpecimenOrder.SpecimenNumber.ToString(), document);
 				this.HandleLongString(surgicalSpecimen.SpecimenOrder.Description, document);
 
-                if (this.SpecimenHasERPR(surgicalSpecimen.SpecimenOrder, panelSetOrderSurgical) == true)
+                YellowstonePathology.Business.Test.Model.TestOrderCollection specimenTestOrders = surgicalSpecimen.SpecimenOrder.GetTestOrders(panelSetOrderSurgical.GetTestOrders());
+                if (this.ERPRExistsInCollection(specimenTestOrders) == true)
                 {
                     this.AddNextNteElement("Fixation type: " + surgicalSpecimen.SpecimenOrder.LabFixation, document);
                     this.AddNextNteElement("Time to fixation: " + surgicalSpecimen.SpecimenOrder.TimeToFixationHourString, document);
@@ -71,27 +74,37 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 
 			this.AddNextNteElement("Pathologist: " + panelSetOrderSurgical.Signature, document);
-			this.AddNextNteElement("*** E-signed: " + panelSetOrderSurgical.FinalTime.Value.ToString("MM/dd/yyyy HH:mm") + " ***", document);
+            if (panelSetOrderSurgical.FinalTime.HasValue == true)
+            {
+                this.AddNextNteElement("*** E-signed: " + panelSetOrderSurgical.FinalTime.Value.ToString("MM/dd/yyyy HH:mm") + " ***", document);
+            }
 
-			this.AddBlankNteElement(document);
+            this.AddBlankNteElement(document);
 
-            foreach (YellowstonePathology.Business.Amendment.Model.Amendment amendment in panelSetOrderSurgical.AmendmentCollection)
-			{
-				this.AddNextNteElement(amendment.AmendmentType + ": " + amendment.AmendmentDate.Value.ToString("MM/dd/yyyy"), document);
-				this.HandleLongString(amendment.Text, document);
-				if (amendment.RequirePathologistSignature == true)
-				{
-					this.AddNextNteElement("Signature: " + amendment.PathologistSignature, document);
-				}
-				this.AddBlankNteElement(document);
-			}
+            this.AddAmendments(document);
 
-			this.AddNextNteElement("Microscopic Description: ", document);
+            this.AddNextNteElement("Microscopic Description: ", document);
 			this.HandleLongString(panelSetOrderSurgical.MicroscopicX, document);
 
 			this.AddBlankNteElement(document);
 
-			if (panelSetOrderSurgical.TypingStainCollection.Count > 0)
+            if (panelSetOrderSurgical.SurgicalSpecimenCollection.HasIC() == true)
+            {
+                foreach (SurgicalSpecimen surgicalSpecimen in panelSetOrderSurgical.SurgicalSpecimenCollection)
+                {
+                    if (surgicalSpecimen.IntraoperativeConsultationResultCollection.Count != 0)
+                    {
+                        foreach (IntraoperativeConsultationResult icItem in surgicalSpecimen.IntraoperativeConsultationResultCollection)
+                        {
+                            this.AddNextNteElement(surgicalSpecimen.DiagnosisId + ". " + surgicalSpecimen.SpecimenOrder.Description, document);
+                            this.AddNextNteElement(icItem.Result, document);
+                        }
+                    }
+                }
+                this.AddBlankNteElement(document);
+            }
+
+            if (panelSetOrderSurgical.TypingStainCollection.Count > 0)
 			{
 				this.AddNextNteElement("Ancillary Studies:", document);
 				string ancillaryComment = panelSetOrderSurgical.GetAncillaryStudyComment();
@@ -134,7 +147,19 @@ namespace YellowstonePathology.Business.Test.Surgical
 				this.AddBlankNteElement(document);
 			}
 
-			this.AddNextNteElement("Gross Description: ", document);
+            this.AddNextNteElement("Clinical Information: ", document);
+            if (string.IsNullOrEmpty(this.m_AccessionOrder.ClinicalHistory) == false)
+            {
+                this.HandleLongString(this.m_AccessionOrder.ClinicalHistory, document);
+            }
+            else
+            {
+                this.AddNextNteElement("none", document);
+
+            }
+            this.AddBlankNteElement(document);
+
+            this.AddNextNteElement("Gross Description: ", document);
 			this.HandleLongString(panelSetOrderSurgical.GrossX, document);
 			this.AddBlankNteElement(document);
 
@@ -142,24 +167,99 @@ namespace YellowstonePathology.Business.Test.Surgical
             this.HandleLongString(this.m_AccessionOrder.PanelSetOrderCollection.GetAdditionalTestingString(panelSetOrderSurgical.ReportNo), document);
             this.AddBlankNteElement(document);
 
-            this.AddNextNteElement("Clinical Information: ", document);
-			this.HandleLongString(this.m_AccessionOrder.ClinicalHistory, document);
-            this.AddBlankNteElement(document);
-
             string immunoComment = panelSetOrderSurgical.GetImmunoComment();
             if (immunoComment.Length > 0)
             {
                 this.HandleLongString(immunoComment, document);
                 this.AddBlankNteElement(document);
-            }            
+            }
+
+            YellowstonePathology.Business.Test.Model.TestOrderCollection testOrders = panelSetOrderSurgical.GetTestOrders();
+            if (this.ERPRExistsInCollection(testOrders) == true)
+            {
+                YellowstonePathology.Business.Test.ErPrSemiQuantitative.ErPrSemiQuantitativeResult result = new ErPrSemiQuantitative.ErPrSemiQuantitativeResult();
+                this.AddNextNteElement("ER/PR References:", document);
+                this.HandleLongString(result.ReportReferences, document);
+                this.AddBlankNteElement(document);
+            }
+
+            string locationPerformed = panelSetOrderSurgical.GetLocationPerformedComment();
+            this.AddNextNteElement(locationPerformed, document);
+            this.AddBlankNteElement(document);
         }
 
-        private bool SpecimenHasERPR(YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder, SurgicalTestOrder panelSetOrder)
+        public void AddAmendments(XElement document)
+        {
+            SurgicalTestOrder panelSetOrder = (SurgicalTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
+            foreach (YellowstonePathology.Business.Amendment.Model.Amendment amendment in panelSetOrder.AmendmentCollection)
+            {
+                if (amendment.Final == true)
+                {
+                    this.AddNextNteElement(amendment.AmendmentType + ": " + amendment.AmendmentDate.Value.ToString("MM/dd/yyyy"), document);
+                    this.HandleLongString(amendment.Text, document);
+                    if (amendment.RequirePathologistSignature == true)
+                    {
+                        this.AddNextNteElement("Signature: " + amendment.PathologistSignature, document);
+                        this.AddNextNteElement("E-signed " + amendment.FinalTime.Value.ToString("MM/dd/yyyy HH:mm"), document);
+                    }
+                    this.AddBlankNteElement(document);
+
+                    if (amendment.RevisedDiagnosis == true || amendment.ShowPreviousDiagnosis == true)
+                    {
+                        string amendmentId = amendment.AmendmentId;
+                        foreach (YellowstonePathology.Business.Test.Surgical.SurgicalAudit surgicalAudit in panelSetOrder.SurgicalAuditCollection)
+                        {
+                            if (surgicalAudit.AmendmentId == amendmentId)
+                            {
+                                string finalDateP = YellowstonePathology.Business.BaseData.GetShortDateString(panelSetOrder.FinalDate);
+                                finalDateP += " " + YellowstonePathology.Business.BaseData.GetMillitaryTimeString(panelSetOrder.FinalTime);
+
+                                string previousDiagnosisHeader = "Previous diagnosis on " + finalDateP;
+                                this.AddNextNteElement(previousDiagnosisHeader, document);
+
+                                foreach (YellowstonePathology.Business.Test.Surgical.SurgicalSpecimenAudit specimenAudit in surgicalAudit.SurgicalSpecimenAuditCollection)
+                                {
+                                    if (specimenAudit.AmendmentId == amendmentId)
+                                    {
+                                        string diagnosisIDP = specimenAudit.DiagnosisId + ".";
+                                        string specimenTypeP = specimenAudit.SpecimenOrder.Description + ":";
+                                        this.AddNextNteElement(diagnosisIDP + specimenTypeP, document);
+
+                                        this.HandleLongString(specimenAudit.Diagnosis, document);
+                                    }
+                                }
+
+                                YellowstonePathology.Business.User.SystemUser pathologistUser = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetSystemUserById(surgicalAudit.PathologistId);
+                                this.AddNextNteElement(pathologistUser.Signature, document);
+                                this.AddBlankNteElement(document);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void InformRevisedDiagnosis(XElement document, YellowstonePathology.Business.Amendment.Model.AmendmentCollection amendmentCollection)
+        {
+            foreach (YellowstonePathology.Business.Amendment.Model.Amendment amendment in amendmentCollection)
+            {
+                if (amendment.Final == true && (amendment.RevisedDiagnosis == true || amendment.ShowPreviousDiagnosis == true))
+                {
+                    this.AddNextNteElement("Showing Revised Diagnosis", document);
+                    this.AddBlankNteElement(document);
+                    break;
+                }
+            }
+        }
+
+        private bool ERPRExistsInCollection(YellowstonePathology.Business.Test.Model.TestOrderCollection testOrders)
         {
             bool result = false;
-
-            YellowstonePathology.Business.Test.Model.TestOrderCollection testOrders = specimenOrder.GetTestOrders(panelSetOrder.GetTestOrders());
-            if (testOrders.ExistsByTestId("99") == true)
+            if (testOrders.ExistsByTestId("98") == true ||
+                testOrders.ExistsByTestId("99") == true ||
+                testOrders.ExistsByTestId("144") == true ||
+                testOrders.ExistsByTestId("145") == true ||
+                testOrders.ExistsByTestId("278") == true)
             {
                 result = true;
             }
