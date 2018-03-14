@@ -114,7 +114,9 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
 				this.AddBlankNteElement(document);
 			}
 
-			this.AddNextNteElement("CURRENT MOLECULAR TEST SUMMARY", document);
+            this.AddAmendments(document);
+
+            this.AddNextNteElement("CURRENT MOLECULAR TEST SUMMARY", document);
 
 			YellowstonePathology.Business.Test.HPV.HPVTest panelSetHPV = new YellowstonePathology.Business.Test.HPV.HPVTest();
 			YellowstonePathology.Business.Test.HPV1618.HPV1618Test panelSetHPV1618 = new YellowstonePathology.Business.Test.HPV1618.HPV1618Test();
@@ -245,5 +247,23 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
             this.AddNextNteElement(disclaimer, document);
             this.AddBlankNteElement(document);
         }
-	}
+
+        public void AddAmendments(XElement document)
+        {
+            Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
+            foreach (YellowstonePathology.Business.Amendment.Model.Amendment amendment in panelSetOrder.AmendmentCollection)
+            {
+                if (amendment.Final == true)
+                {
+                    this.AddNextNteElement(amendment.AmendmentType + ": " + amendment.AmendmentDate.Value.ToString("MM/dd/yyyy"), document);
+                    this.HandleLongString(amendment.Text, document);
+                    if (amendment.RequirePathologistSignature == true)
+                    {
+                        this.AddNextNteElement("Signature: " + amendment.PathologistSignature, document);
+                    }
+                    this.AddBlankNteElement(document);
+                }
+            }
+        }
+    }
 }
