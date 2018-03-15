@@ -1165,6 +1165,8 @@
     <Compile Include="Business\Test\IgHMFABByFish\IgHMFABByFishTest.cs" />
     <Compile Include="Business\Test\IgHMFABByFish\IgHMFABByFishTestOrder.cs" />
     <Compile Include="Business\Test\IgHMFABByFish\IgHMFABByFishWordDocument.cs" />
+    <Compile Include="Business\Test\JAK2Exon1214\JAK2Exon1214CMMCNteView.cs" />
+    <Compile Include="Business\Test\JAK2V617F\JAK2V617FCMMCNteView.cs" />
     <Compile Include="Business\Test\LowGradeSmallBCellLymphomaFishPanel\LowGradeSmallBCellLymphomaFishPanelTest.cs" />
     <Compile Include="Business\Test\NeoTYPEGISTProfile\NeoTYPEGISTProfileTest.cs" />
     <Compile Include="Store\AppDataStore.cs" />

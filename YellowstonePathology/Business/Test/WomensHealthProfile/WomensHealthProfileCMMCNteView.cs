@@ -114,7 +114,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
 				this.AddBlankNteElement(document);
 			}
 
-            this.AddAmendments(document);
+            this.AddAmendments(document, womensHealthProfileTestOrder);
 
             this.AddNextNteElement("CURRENT MOLECULAR TEST SUMMARY", document);
 
@@ -246,24 +246,6 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
             string disclaimer = "This Pap test is only a screening test. A negative result does not definitively rule out the presence of disease. Women should, therefore, in consultation with their physician, have this test performed at mutually agreed intervals.";
             this.AddNextNteElement(disclaimer, document);
             this.AddBlankNteElement(document);
-        }
-
-        public void AddAmendments(XElement document)
-        {
-            Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
-            foreach (YellowstonePathology.Business.Amendment.Model.Amendment amendment in panelSetOrder.AmendmentCollection)
-            {
-                if (amendment.Final == true)
-                {
-                    this.AddNextNteElement(amendment.AmendmentType + ": " + amendment.AmendmentDate.Value.ToString("MM/dd/yyyy"), document);
-                    this.HandleLongString(amendment.Text, document);
-                    if (amendment.RequirePathologistSignature == true)
-                    {
-                        this.AddNextNteElement("Signature: " + amendment.PathologistSignature, document);
-                    }
-                    this.AddBlankNteElement(document);
-                }
-            }
         }
     }
 }
