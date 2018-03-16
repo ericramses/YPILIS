@@ -177,7 +177,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
 			this.AddNextObxElement("Specimen Description: Thin Prep Fluid", document, "F");
 			this.AddNextObxElement("Specimen Source: " + this.m_AccessionOrder.SpecimenOrderCollection[0].SpecimenSource, document, "F");
 			string collectionDateTimeString = this.m_AccessionOrder.SpecimenOrderCollection[0].GetCollectionDateTimeString();
-			this.AddNextObxElement("Result: " + collectionDateTimeString, document, "F");
+			this.AddNextObxElement("Collection Date/Time: " + collectionDateTimeString, document, "F");
 			this.AddNextObxElement("", document, "F");
 
 			this.AddNextObxElement("Clinical History: ", document, "F");

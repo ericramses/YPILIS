@@ -185,7 +185,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
 			this.AddNextNteElement("Specimen Description: Thin Prep Fluid", document);
 			this.AddNextNteElement("Specimen Source: " + this.m_AccessionOrder.SpecimenOrderCollection[0].SpecimenSource, document);
 			string collectionDateTimeString = this.m_AccessionOrder.SpecimenOrderCollection[0].GetCollectionDateTimeString();
-			this.AddNextNteElement("Collection Time: " + collectionDateTimeString, document);
+			this.AddNextNteElement("Collection Date/Time: " + collectionDateTimeString, document);
 			this.AddBlankNteElement(document);
 
 			this.AddNextNteElement("Clinical History: ", document);

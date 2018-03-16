@@ -36,6 +36,8 @@ namespace YellowstonePathology.Business.Test.Surgical
 			{
 				this.AddNextNteElement("Specimen: " + surgicalSpecimen.SpecimenOrder.SpecimenNumber.ToString(), document);
 				this.HandleLongString(surgicalSpecimen.SpecimenOrder.Description, document);
+                YellowstonePathology.Business.Helper.DateTimeJoiner collectionDateTimeJoiner = new YellowstonePathology.Business.Helper.DateTimeJoiner(surgicalSpecimen.SpecimenOrder.CollectionDate.Value, surgicalSpecimen.SpecimenOrder.CollectionTime);
+                this.AddNextNteElement("Collection Date/Time: " + collectionDateTimeJoiner.DisplayString, document);
 
                 YellowstonePathology.Business.Test.Model.TestOrderCollection specimenTestOrders = surgicalSpecimen.SpecimenOrder.GetTestOrders(panelSetOrderSurgical.GetTestOrders());
                 if (this.ERPRExistsInCollection(specimenTestOrders) == true)
