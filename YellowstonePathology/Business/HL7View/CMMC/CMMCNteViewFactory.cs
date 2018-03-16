@@ -13,7 +13,7 @@ namespace YellowstonePathology.Business.HL7View.CMMC
             switch (panelSetId)
             {
                 case 1:
-                    //view = new CMMCJak2MutationNteView(accessionOrder, reportNo);
+                    view = new YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FCMMCNteView(accessionOrder, reportNo);
                     break;
                 case 2:
                     //view = new CMMCCFNteView(accessionOrder, reportNo);
@@ -96,6 +96,9 @@ namespace YellowstonePathology.Business.HL7View.CMMC
 				case 116:
 					view = new YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileCMMCNteView(accessionOrder, reportNo);
 					break;
+                case 141:
+                    view = new YellowstonePathology.Business.Test.JAK2Exon1214.JAK2Exon1214CMMCNteView(accessionOrder, reportNo);
+                    break;
                 case 186:
                     view = new YellowstonePathology.Business.Test.API2MALT1ByFISH.API2MALT1ByFISHCMMCNteView(accessionOrder, reportNo);
                     break;
