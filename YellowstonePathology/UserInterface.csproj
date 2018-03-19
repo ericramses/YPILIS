@@ -1160,7 +1160,10 @@
     <Compile Include="Business\Test.Model\TestOrderStatusViewCollection.cs" />
     <Compile Include="Business\Test.Model\U6.cs" />
     <Compile Include="Business\Test\AMLPrognosticProfile\AMLPrognosticProfileTestOrder.cs" />
+    <Compile Include="Business\Test\ChromosomeAnalysisForFetalAnomaly\ChromosomeAnalysisForFetalAnomalCMMCNteView.cs" />
+    <Compile Include="Business\Test\ChromosomeAnalysisForFetalAnomaly\ChromosomeAnalysisForFetalAnomalyWPHOBXView.cs" />
     <Compile Include="Business\Test\FLT3Preliminary\FLT3PreliminaryTest.cs" />
+    <Compile Include="Business\Test\HPV1618SolidTumor\HPV1618SolidTumorWPHOBXView.cs" />
     <Compile Include="Business\Test\IgHMFABByFish\IgHMFABByFishEPICOBXView.cs" />
     <Compile Include="Business\Test\IgHMFABByFish\IgHMFABByFishTest.cs" />
     <Compile Include="Business\Test\IgHMFABByFish\IgHMFABByFishTestOrder.cs" />

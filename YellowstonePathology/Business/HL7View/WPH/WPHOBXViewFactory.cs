@@ -180,7 +180,7 @@ namespace YellowstonePathology.Business.HL7View.WPH
 					view = new YellowstonePathology.Business.Test.AMLStandardByFish.AMLStandardByFishWPHOBXView(accessionOrder, reportNo, obxCount);
 					break;
 				case 169:
-					//view = new YellowstonePathology.Business.Test.ChromosomeAnalysisForFetalAnomaly.ChromosomeAnalysisForFetalAnomalyWPHOBXView(accessionOrder, reportNo, obxCount);
+					view = new YellowstonePathology.Business.Test.ChromosomeAnalysisForFetalAnomaly.ChromosomeAnalysisForFetalAnomalyWPHOBXView(accessionOrder, reportNo, obxCount);
 					break;
 				case 170:
 					//view = new YellowstonePathology.Business.Test.NonHodgkinsLymphomaFISHPanel.NonHodgkinsLymphomaFISHPanelWPHOBXView(accessionOrder, reportNo, obxCount);
@@ -280,6 +280,9 @@ namespace YellowstonePathology.Business.HL7View.WPH
                     break;
                 case 268:
                     view = new YellowstonePathology.Business.Test.BoneMarrowSummary.BoneMarrowSummaryWPHOBXView(accessionOrder, reportNo, obxCount);
+                    break;
+                case 269:
+                    view = new YellowstonePathology.Business.Test.HPV1618SolidTumor.HPV1618SolidTumorWPHOBXView(accessionOrder, reportNo, obxCount);
                     break;
                 case 274:
                     view = new YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisWPHOBXView(accessionOrder, reportNo, obxCount);

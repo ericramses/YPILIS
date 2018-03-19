@@ -1765,6 +1765,13 @@ namespace YellowstonePathology.Business.Test
 				}
 			}
 
+            if(this.Final == true && this.FinaledById == 5132) //Finaled by Dr. Shannon only
+            {
+                result.AppendLine();
+                result.AppendLine();
+                result.Append("Randall Shannon, M.D. is not affiliated with Yellowstone Pathology Institute, Inc.  Dr. Shannon is an independent provider who is not an employee or agent of Yellowstone Pathology Institute, Inc. Yellowstone Pathology Institute, Inc. shall not be liable for any action taken by or service provided by Dr. Shannon.");
+            }
+
 			return result.ToString();
 		}
         
