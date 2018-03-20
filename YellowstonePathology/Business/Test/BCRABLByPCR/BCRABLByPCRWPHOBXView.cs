@@ -5,34 +5,43 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace YellowstonePathology.Business.Test.ChromosomeAnalysisForFetalAnomaly
+namespace YellowstonePathology.Business.Test.BCRABLByPCR
 {
-    public class ChromosomeAnalysisForFetalAnomalyWPHOBXView : YellowstonePathology.Business.HL7View.WPH.WPHOBXView
+    public class BCRABLByPCRWPHOBXView : YellowstonePathology.Business.HL7View.WPH.WPHOBXView
     {
-        public ChromosomeAnalysisForFetalAnomalyWPHOBXView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount)
+        public BCRABLByPCRWPHOBXView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount)
 			: base(accessionOrder, reportNo, obxCount)
 		{
         }
 
         public override void ToXml(XElement document)
         {
-            ChromosomeAnalysisForFetalAnomalyTestOrder panelSetOrder = (ChromosomeAnalysisForFetalAnomalyTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
-            this.AddHeader(document, panelSetOrder, "Cytogenetic Chromosome Analysis For Fetal Anomaly");
+            BCRABLByPCRTestOrder panelSetOrder = (BCRABLByPCRTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
+            this.AddHeader(document, panelSetOrder, "BCR-ABL1 Translocation t(9;22)");
 
             this.AddNextObxElement("", document, "F");
             string result = "Result: " + panelSetOrder.Result;
             this.AddNextObxElement(result, document, "F");
-            result = "  Karyotype : " + panelSetOrder.Karyotype;
+            if (string.IsNullOrEmpty(panelSetOrder.DetectedLogReduction) == false)
+            {
+                result = "Detected Log Reduction: " + panelSetOrder.DetectedLogReduction;
+                this.AddNextObxElement(result, document, "F");
+            }
+
+            result = "Fusion Transcript Type: " + panelSetOrder.FusionTranscriptType;
+            this.AddNextObxElement(result, document, "F");
+
+            result = "% BCR - ABL1 / ABL1(IS): " + panelSetOrder.PercentBCRABL;
             this.AddNextObxElement(result, document, "F");
 
             this.AddNextObxElement("", document, "F");
-            this.AddNextObxElement("Pathologist: " + panelSetOrder.Signature, document, "F");
+            this.AddNextObxElement("Pathologist: " + panelSetOrder.ReferenceLabSignature, document, "F");
             if (panelSetOrder.FinalTime.HasValue == true)
             {
-                this.AddNextObxElement("E-signed " + panelSetOrder.FinalTime.Value.ToString("MM/dd/yyyy HH:mm"), document, "F");
+                this.AddNextObxElement("E-signed " + panelSetOrder.ReferenceLabFinalDate.Value.ToString("MM/dd/yyyy HH:mm"), document, "F");
             }
-
             this.AddNextObxElement("", document, "F");
+
             this.AddAmendments(document);
 
             this.AddNextObxElement("Specimen Information:", document, "F");
@@ -46,8 +55,12 @@ namespace YellowstonePathology.Business.Test.ChromosomeAnalysisForFetalAnomaly
             this.HandleLongString(panelSetOrder.Interpretation, document, "F");
 
             this.AddNextObxElement("", document, "F");
-            this.AddNextObxElement("Test Details:", document, "F");
-            this.HandleLongString(panelSetOrder.TestDetails, document, "F");
+            this.AddNextObxElement("Method:", document, "F");
+            this.HandleLongString(panelSetOrder.Method, document, "F");
+
+            this.AddNextObxElement("", document, "F");
+            this.AddNextObxElement("References:", document, "F");
+            this.HandleLongString(panelSetOrder.ReportReferences, document, "F");
 
             this.AddNextObxElement("", document, "F");
             string locationPerformed = panelSetOrder.GetLocationPerformedComment();

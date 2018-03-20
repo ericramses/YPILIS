@@ -4,15 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-namespace YellowstonePathology.Business.Test.ChromosomeAnalysisForFetalAnomaly
+
+namespace YellowstonePathology.Business.Test.BCRABLByPCR
 {
-    public class ChromosomeAnalysisForFetalAnomalCMMCNteView : YellowstonePathology.Business.HL7View.CMMC.CMMCNteView
+    class BCRABLByPCRCMMCNTEView : YellowstonePathology.Business.HL7View.CMMC.CMMCNteView
     {
         protected YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         protected string m_DateFormat = "yyyyMMddHHmm";
         protected string m_ReportNo;
 
-        public ChromosomeAnalysisForFetalAnomalCMMCNteView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo)
+        public BCRABLByPCRCMMCNTEView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo)
         {
             this.m_AccessionOrder = accessionOrder;
             this.m_ReportNo = reportNo;
@@ -20,28 +21,38 @@ namespace YellowstonePathology.Business.Test.ChromosomeAnalysisForFetalAnomaly
 
         public override void ToXml(XElement document)
         {
-            ChromosomeAnalysisForFetalAnomalyTestOrder panelSetOrder = (ChromosomeAnalysisForFetalAnomalyTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
+            BCRABLByPCRTestOrder panelSetOrder = (BCRABLByPCRTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
+
             this.AddCompanyHeader(document);
             this.AddBlankNteElement(document);
 
-            this.AddNextNteElement("HPV-16/18 Genotyping By PCR", document);
+            this.AddNextNteElement("BCR-ABL1 Translocation t(9;22)", document);
             this.AddNextNteElement("Master Accession #: " + panelSetOrder.MasterAccessionNo, document);
             this.AddNextNteElement("Report #: " + panelSetOrder.ReportNo, document);
-
             this.AddBlankNteElement(document);
+
             string result = "Result: " + panelSetOrder.Result;
             this.AddNextNteElement(result, document);
-            result = "  Karyotype : " + panelSetOrder.Karyotype;
+            if (string.IsNullOrEmpty(panelSetOrder.DetectedLogReduction) == false)
+            {
+                result = "Detected Log Reduction: " + panelSetOrder.DetectedLogReduction;
+                this.AddNextNteElement(result, document);
+            }
+
+            result = "Fusion Transcript Type: " + panelSetOrder.FusionTranscriptType;
+            this.AddNextNteElement(result, document);
+
+            result = "% BCR - ABL1 / ABL1(IS): " + panelSetOrder.PercentBCRABL;
             this.AddNextNteElement(result, document);
 
             this.AddBlankNteElement(document);
-            this.AddNextNteElement("Pathologist: " + panelSetOrder.Signature, document);
+            this.AddNextNteElement("Pathologist: " + panelSetOrder.ReferenceLabSignature, document);
             if (panelSetOrder.FinalTime.HasValue == true)
             {
-                this.AddNextNteElement("E-signed " + panelSetOrder.FinalTime.Value.ToString("MM/dd/yyyy HH:mm"), document);
+                this.AddNextNteElement("E-signed " + panelSetOrder.ReferenceLabFinalDate.Value.ToString("MM/dd/yyyy HH:mm"), document);
             }
-
             this.AddBlankNteElement(document);
+
             this.AddAmendments(document, panelSetOrder);
 
             this.AddNextNteElement("Specimen Information:", document);
@@ -55,8 +66,12 @@ namespace YellowstonePathology.Business.Test.ChromosomeAnalysisForFetalAnomaly
             this.HandleLongString(panelSetOrder.Interpretation, document);
 
             this.AddBlankNteElement(document);
-            this.AddNextNteElement("Test Details:", document);
-            this.HandleLongString(panelSetOrder.TestDetails, document);
+            this.AddNextNteElement("Method:", document);
+            this.HandleLongString(panelSetOrder.Method, document);
+
+            this.AddBlankNteElement(document);
+            this.AddNextNteElement("References:", document);
+            this.HandleLongString(panelSetOrder.ReportReferences, document);
 
             this.AddBlankNteElement(document);
             string locationPerformed = panelSetOrder.GetLocationPerformedComment();

@@ -77,13 +77,13 @@ namespace YellowstonePathology.Business.Test.HPV1618SolidTumor
             this.AddBlankNteElement(document);
 
 			this.AddNextNteElement("References:", document);
-			this.AddNextNteElement("Highly Effective Detection of Human Papillomavirus 16 and 18 DNA by a Testing Algorithm Combining Broad - Spectrum and Type - Specific PCR J Clin Microbiol. 2006 September; 44(9): 3292–3298", document);
+			this.HandleLongString(panelSetOrder.ReportReferences, document);
 			this.AddBlankNteElement(document);
 
 			this.AddNextNteElement("This test was developed and its performance characteristics determined by Yellowstone Pathology Institute, Inc.  It has not been cleared or approved by the U.S. Food and Drug Administration. The FDA has determined that such clearance or approval is not necessary.  This test is used for clinical purposes.  It should not be regarded as investigational or for research.  This laboratory is certified under the Clinical Laboratory Improvement Amendments of 1988 (CLIA-88) as qualified to perform high complexity clinical laboratory testing.", document);
 
 			string locationPerformed = panelSetOrder.GetLocationPerformedComment();
-			this.AddNextNteElement(locationPerformed, document);
+			this.HandleLongString(locationPerformed, document);
 			this.AddBlankNteElement(document);
 		}
 	}
