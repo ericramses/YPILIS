@@ -1173,6 +1173,7 @@
     <Compile Include="Business\Test\BCRABLByPCR\BCRABLByPCRWPHOBXView.cs" />
     <Compile Include="Business\Test\CCNDIBCLIGHByFISH\CCNDIBCLIGHByFISHCMMCNTEView.cs" />
     <Compile Include="Business\Test\CCNDIBCLIGHByFISH\CCNDIBCLIGHByFISHWPHOBXView.cs" />
+    <Compile Include="Business\Test\CDKN2ADeletionFISHforALL\CDKN2ADeletionFISHforALLTest.cs" />
     <Compile Include="Business\Test\CEBPA\CEBPACMMCNTEView.cs" />
     <Compile Include="Business\Test\CEBPA\CEBPAWPHOBXView.cs" />
     <Compile Include="Business\Test\ChromosomeAnalysisForFetalAnomaly\ChromosomeAnalysisForFetalAnomalCMMCNteView.cs" />
