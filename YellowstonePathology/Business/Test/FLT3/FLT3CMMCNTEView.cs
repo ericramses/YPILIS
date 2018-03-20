@@ -4,15 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-namespace YellowstonePathology.Business.Test.ChromosomeAnalysisForFetalAnomaly
+
+namespace YellowstonePathology.Business.Test.FLT3
 {
-    public class ChromosomeAnalysisForFetalAnomalCMMCNteView : YellowstonePathology.Business.HL7View.CMMC.CMMCNteView
+    public class FLT3CMMCNTEView : YellowstonePathology.Business.HL7View.CMMC.CMMCNteView
     {
         protected YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         protected string m_DateFormat = "yyyyMMddHHmm";
         protected string m_ReportNo;
 
-        public ChromosomeAnalysisForFetalAnomalCMMCNteView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo)
+        public FLT3CMMCNTEView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo)
         {
             this.m_AccessionOrder = accessionOrder;
             this.m_ReportNo = reportNo;
@@ -20,18 +21,23 @@ namespace YellowstonePathology.Business.Test.ChromosomeAnalysisForFetalAnomaly
 
         public override void ToXml(XElement document)
         {
-            ChromosomeAnalysisForFetalAnomalyTestOrder panelSetOrder = (ChromosomeAnalysisForFetalAnomalyTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
+            PanelSetOrderFLT3 panelSetOrder = (PanelSetOrderFLT3)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
+
             this.AddCompanyHeader(document);
             this.AddBlankNteElement(document);
 
-            this.AddNextNteElement("HPV-16/18 Genotyping By PCR", document);
+            this.AddNextNteElement("FLT3 Mutation Analysis", document);
             this.AddNextNteElement("Master Accession #: " + panelSetOrder.MasterAccessionNo, document);
             this.AddNextNteElement("Report #: " + panelSetOrder.ReportNo, document);
-
             this.AddBlankNteElement(document);
+
             string result = "Result: " + panelSetOrder.Result;
             this.AddNextNteElement(result, document);
-            result = "  Karyotype : " + panelSetOrder.Karyotype;
+            result = "  ITD Mutation " + panelSetOrder.ITDMutation;
+            this.AddNextNteElement(result, document);
+            result = "  ITD Percentage " + panelSetOrder.ITDPercentage;
+            this.AddNextNteElement(result, document);
+            result = "  TKD Mutation " + panelSetOrder.TKDMutation;
             this.AddNextNteElement(result, document);
 
             this.AddBlankNteElement(document);
@@ -55,8 +61,12 @@ namespace YellowstonePathology.Business.Test.ChromosomeAnalysisForFetalAnomaly
             this.HandleLongString(panelSetOrder.Interpretation, document);
 
             this.AddBlankNteElement(document);
-            this.AddNextNteElement("Test Details:", document);
-            this.HandleLongString(panelSetOrder.TestDetails, document);
+            this.AddNextNteElement("Method:", document);
+            this.HandleLongString(panelSetOrder.Method, document);
+
+            this.AddBlankNteElement(document);
+            this.AddNextNteElement("References:", document);
+            this.HandleLongString(panelSetOrder.ReportReferences, document);
 
             this.AddBlankNteElement(document);
             string locationPerformed = panelSetOrder.GetLocationPerformedComment();

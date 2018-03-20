@@ -2,17 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace YellowstonePathology.Business.Test.PNH
 {
-	public class PNHEPICObxView : YellowstonePathology.Business.HL7View.EPIC.EPICObxView
+    public class PNHWPHOBXView : YellowstonePathology.Business.HL7View.WPH.WPHOBXView
     {
-		public PNHEPICObxView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount) 
+        public PNHWPHOBXView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount) 
             : base(accessionOrder, reportNo, obxCount)
 		{
-			
-		}
+
+        }
 
         public override void ToXml(XElement document)
         {
@@ -35,16 +36,16 @@ namespace YellowstonePathology.Business.Test.PNH
             this.AddHeader(document, testOrder, "PNH, Highly Sensitive(FLAER)");
             this.AddNextObxElement("", document, "F");
 
-			this.AddNextObxElement("Result: Negative (No evidence of paroxysmal nocturnal hemoglobinuria)", document, "F");
+            this.AddNextObxElement("Result: Negative (No evidence of paroxysmal nocturnal hemoglobinuria)", document, "F");
             this.AddNextObxElement("", document, "F");
             this.AddNextObxElement("Comment:", document, "F");
             this.HandleLongString("Flow cytometric analysis does not identify any evidence of a PNH clone, based on analysis of several different GPI-linked antibodies on 3 separate cell populations (red blood cells, monocytes and granulocytes).  These findings do not support the diagnosis of PNH.", document, "F");
             this.AddNextObxElement("", document, "F");
 
-			this.AddNextObxElement("Pathologist: " + testOrder.Signature, document, "F");
-			if (testOrder.FinalTime.HasValue == true)
+            this.AddNextObxElement("Pathologist: " + testOrder.Signature, document, "F");
+            if (testOrder.FinalTime.HasValue == true)
             {
-				this.AddNextObxElement("E-signed " + testOrder.FinalTime.Value.ToString("MM/dd/yyyy HH:mm"), document, "F");
+                this.AddNextObxElement("E-signed " + testOrder.FinalTime.Value.ToString("MM/dd/yyyy HH:mm"), document, "F");
             }
             this.AddNextObxElement("", document, "F");
             this.AddAmendments(document);
@@ -70,7 +71,7 @@ namespace YellowstonePathology.Business.Test.PNH
             this.AddNextObxElement("References: ", document, "F");
             this.HandleLongString(testOrder.ReportReferences, document, "F");
             this.AddNextObxElement("", document, "F");
-            
+
             this.HandleLongString(testOrder.ASRComment, document, "F");
             this.AddNextObxElement("", document, "F");
 

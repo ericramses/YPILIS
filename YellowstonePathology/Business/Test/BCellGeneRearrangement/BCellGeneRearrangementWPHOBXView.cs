@@ -5,31 +5,29 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace YellowstonePathology.Business.Test.ChromosomeAnalysisForFetalAnomaly
+namespace YellowstonePathology.Business.Test.BCellGeneRearrangement
 {
-    public class ChromosomeAnalysisForFetalAnomalyWPHOBXView : YellowstonePathology.Business.HL7View.WPH.WPHOBXView
+    public class BCellGeneRearrangementWPHOBXView : YellowstonePathology.Business.HL7View.WPH.WPHOBXView
     {
-        public ChromosomeAnalysisForFetalAnomalyWPHOBXView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount)
+        public BCellGeneRearrangementWPHOBXView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount)
 			: base(accessionOrder, reportNo, obxCount)
 		{
         }
 
         public override void ToXml(XElement document)
         {
-            ChromosomeAnalysisForFetalAnomalyTestOrder panelSetOrder = (ChromosomeAnalysisForFetalAnomalyTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
-            this.AddHeader(document, panelSetOrder, "Cytogenetic Chromosome Analysis For Fetal Anomaly");
+            BCellGeneRearrangementTestOrder panelSetOrder = (BCellGeneRearrangementTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
+            this.AddHeader(document, panelSetOrder, "B-Cell Gene Rearrangement");
 
             this.AddNextObxElement("", document, "F");
             string result = "Result: " + panelSetOrder.Result;
             this.AddNextObxElement(result, document, "F");
-            result = "  Karyotype : " + panelSetOrder.Karyotype;
-            this.AddNextObxElement(result, document, "F");
 
             this.AddNextObxElement("", document, "F");
-            this.AddNextObxElement("Pathologist: " + panelSetOrder.Signature, document, "F");
+            this.AddNextObxElement("Pathologist: " + panelSetOrder.ReferenceLabSignature, document, "F");
             if (panelSetOrder.FinalTime.HasValue == true)
             {
-                this.AddNextObxElement("E-signed " + panelSetOrder.FinalTime.Value.ToString("MM/dd/yyyy HH:mm"), document, "F");
+                this.AddNextObxElement("E-signed " + panelSetOrder.ReferenceLabFinalDate.Value.ToString("MM/dd/yyyy HH:mm"), document, "F");
             }
 
             this.AddNextObxElement("", document, "F");
@@ -46,12 +44,15 @@ namespace YellowstonePathology.Business.Test.ChromosomeAnalysisForFetalAnomaly
             this.HandleLongString(panelSetOrder.Interpretation, document, "F");
 
             this.AddNextObxElement("", document, "F");
-            this.AddNextObxElement("Test Details:", document, "F");
-            this.HandleLongString(panelSetOrder.TestDetails, document, "F");
+            this.AddNextObxElement("Method:", document, "F");
+            this.HandleLongString(panelSetOrder.Method, document, "F");
 
             this.AddNextObxElement("", document, "F");
-            string locationPerformed = panelSetOrder.GetLocationPerformedComment();
-            this.HandleLongString(locationPerformed, document, "F");
+            this.AddNextObxElement("References:", document, "F");
+            this.HandleLongString(panelSetOrder.ReportReferences, document, "F");
+            this.AddNextObxElement("", document, "F");
+
+            this.HandleLongString(panelSetOrder.ReportDisclaimer, document, "F");
             this.AddNextObxElement(string.Empty, document, "F");
         }
     }
