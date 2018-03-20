@@ -51,7 +51,7 @@ namespace YellowstonePathology.Business.Test.BCellGeneRearrangement
 			this.HandleLongString(panelSetOrder.ReportReferences, document, "F");
 			this.AddNextObxElement("", document, "F");
 
-			this.AddNextObxElement(panelSetOrder.ReportDisclaimer, document, "F");
+			this.HandleLongString(panelSetOrder.ReportDisclaimer, document, "F");
 			this.AddNextObxElement(string.Empty, document, "F");
 		}
 	}

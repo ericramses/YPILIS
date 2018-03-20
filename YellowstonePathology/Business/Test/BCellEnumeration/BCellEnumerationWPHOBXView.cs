@@ -51,10 +51,10 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
             this.HandleLongString(panelSetOrder.ReportReferences, document, "F");
             this.AddNextObxElement("", document, "F");
 
-            this.AddNextObxElement(panelSetOrder.ASRComment, document, "F");
+            this.HandleLongString(panelSetOrder.ASRComment, document, "F");
             this.AddNextObxElement(string.Empty, document, "F");
 
-            this.AddNextObxElement(panelSetOrder.GetLocationPerformedComment(), document, "F");
+            this.HandleLongString(panelSetOrder.GetLocationPerformedComment(), document, "F");
             this.AddNextObxElement(string.Empty, document, "F");
         }
     }

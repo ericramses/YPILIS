@@ -4,15 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-namespace YellowstonePathology.Business.Test.ChromosomeAnalysisForFetalAnomaly
+
+namespace YellowstonePathology.Business.Test.BCRABLByFish
 {
-    public class ChromosomeAnalysisForFetalAnomalCMMCNteView : YellowstonePathology.Business.HL7View.CMMC.CMMCNteView
+    class BCRABLByFishCMMCNTEView : YellowstonePathology.Business.HL7View.CMMC.CMMCNteView
     {
         protected YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         protected string m_DateFormat = "yyyyMMddHHmm";
         protected string m_ReportNo;
 
-        public ChromosomeAnalysisForFetalAnomalCMMCNteView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo)
+        public BCRABLByFishCMMCNTEView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo)
         {
             this.m_AccessionOrder = accessionOrder;
             this.m_ReportNo = reportNo;
@@ -20,18 +21,17 @@ namespace YellowstonePathology.Business.Test.ChromosomeAnalysisForFetalAnomaly
 
         public override void ToXml(XElement document)
         {
-            ChromosomeAnalysisForFetalAnomalyTestOrder panelSetOrder = (ChromosomeAnalysisForFetalAnomalyTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
+            BCRABLByFishTestOrder panelSetOrder = (BCRABLByFishTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
+
             this.AddCompanyHeader(document);
             this.AddBlankNteElement(document);
 
-            this.AddNextNteElement("HPV-16/18 Genotyping By PCR", document);
+            this.AddNextNteElement("BCR/ABL1/ASS1 Fish Analysis", document);
             this.AddNextNteElement("Master Accession #: " + panelSetOrder.MasterAccessionNo, document);
             this.AddNextNteElement("Report #: " + panelSetOrder.ReportNo, document);
-
             this.AddBlankNteElement(document);
+
             string result = "Result: " + panelSetOrder.Result;
-            this.AddNextNteElement(result, document);
-            result = "  Karyotype : " + panelSetOrder.Karyotype;
             this.AddNextNteElement(result, document);
 
             this.AddBlankNteElement(document);
@@ -55,8 +55,12 @@ namespace YellowstonePathology.Business.Test.ChromosomeAnalysisForFetalAnomaly
             this.HandleLongString(panelSetOrder.Interpretation, document);
 
             this.AddBlankNteElement(document);
-            this.AddNextNteElement("Test Details:", document);
-            this.HandleLongString(panelSetOrder.TestDetails, document);
+            this.AddNextNteElement("Probe Set Details:", document);
+            this.HandleLongString(panelSetOrder.ProbeSetDetail, document);
+
+            this.AddBlankNteElement(document);
+            this.AddNextNteElement("Nuclei Scored:", document);
+            this.HandleLongString(panelSetOrder.NucleiScored, document);
 
             this.AddBlankNteElement(document);
             string locationPerformed = panelSetOrder.GetLocationPerformedComment();

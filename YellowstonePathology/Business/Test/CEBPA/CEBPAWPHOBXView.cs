@@ -55,7 +55,7 @@ namespace YellowstonePathology.Business.Test.CEBPA
 
         this.AddNextObxElement("", document, "F");
         string locationPerformed = panelSetOrder.GetLocationPerformedComment();
-        this.AddNextObxElement(locationPerformed, document, "F");
+        this.HandleLongString(locationPerformed, document, "F");
         this.AddNextObxElement(string.Empty, document, "F");
     }
 }

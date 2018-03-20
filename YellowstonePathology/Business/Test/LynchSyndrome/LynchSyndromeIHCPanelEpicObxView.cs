@@ -43,7 +43,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             this.AddNextObxElement(specimenOrder.Description, document, "F");
 
             string locationPerformed = panelSetOrder.GetLocationPerformedComment();
-            this.AddNextObxElement(locationPerformed, document, "F");
+            this.HandleLongString(locationPerformed, document, "F");
             this.AddNextObxElement(string.Empty, document, "F");
         }
     }
