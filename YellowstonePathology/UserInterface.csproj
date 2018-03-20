@@ -1161,6 +1161,7 @@
     <Compile Include="Business\Test.Model\U6.cs" />
     <Compile Include="Business\Test\AMLPrognosticProfile\AMLPrognosticProfileTestOrder.cs" />
     <Compile Include="Business\Test\API2MALT1ByFISH\API2MALT1ByFISHWPHOBXView.cs" />
+    <Compile Include="Business\Test\BCellEnumeration\BCellEnumerationCMMCNTEView.cs" />
     <Compile Include="Business\Test\BCellEnumeration\BCellEnumerationWPHOBXView.cs" />
     <Compile Include="Business\Test\BCellGeneRearrangement\BCellGeneRearrangementWPHOBXView.cs" />
     <Compile Include="Business\Test\BCL2t1418ByFISH\BCL2t1418ByFISHWPHOBXView.cs" />
