@@ -972,5 +972,11 @@ namespace YellowstonePathology.UI
             string key = YellowstonePathology.Business.BarcodeScanning.VantageBarcode.SimulateScan();
             YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort.Instance.SimulateScanReceived(key);
         }
+
+        private void MenuItemStainStatus_Click(object sender, RoutedEventArgs e)
+        {
+            Surgical.StainStatusDialog stainStatusDialog = new Surgical.StainStatusDialog(-1);
+            stainStatusDialog.ShowDialog();
+        }
     }
 }

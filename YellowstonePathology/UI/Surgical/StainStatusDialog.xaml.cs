@@ -39,11 +39,11 @@ namespace YellowstonePathology.UI.Surgical
             this.m_Status = "ALL";
             this.m_StatusList = new List<string>();
             this.m_StatusList.Add("ALL");
-            this.m_StatusList.Add("ORDERED");
-            this.m_StatusList.Add("BENCHMARK_ORDERED");
+            this.m_StatusList.Add("ORDERED");            
             this.m_StatusList.Add("CUTTING");
             this.m_StatusList.Add("STAINING");
             this.m_StatusList.Add("STAINED");
+            this.m_StatusList.Add("PERFORMEDBYHAND");
 
             InitializeComponent();
 

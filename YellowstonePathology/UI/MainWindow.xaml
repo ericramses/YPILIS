@@ -57,8 +57,9 @@
                 <MenuItem Header="Acid Wash Orders" Click="MenuItemAcidWashOrders_Click" />
                 <MenuItem Header="Embedding" Click="MenuItemEmbedding_Click" />
                 <MenuItem Header="Retrospective Reviews" Click="MenuItemRetrospectiveReviews_Click" />
-                    <MenuItem Header="Ventana Stain Mapping" Click="MenuItemVentanaStainMapping_Click" />
-                </MenuItem>
+                <MenuItem Header="Ventana Stain Mapping" Click="MenuItemVentanaStainMapping_Click" />
+                <MenuItem Header="Stain Status" Click="MenuItemStainStatus_Click" />
+            </MenuItem>
 
             <MenuItem Header="_Client" Name="MenuItemClient">
                 <MenuItem Header="Provider Lookup" Click="MenuItemProviderLookup_Click"></MenuItem>

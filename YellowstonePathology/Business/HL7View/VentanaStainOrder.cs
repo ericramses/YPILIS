@@ -17,22 +17,31 @@ namespace YellowstonePathology.Business.HL7View
         public void HandleOrder(Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder)
         {
             if (slideOrder.LabelType == YellowstonePathology.Business.Slide.Model.SlideLabelTypeEnum.PaperLabel.ToString())
-            {                
-                if (slideOrder.PerformedByHand == false && slideOrder.OrderSentToVentana == false)
-                {                    
-                    if (this.CanBuild(accessionOrder, slideOrder.TestOrderId, slideOrder.SlideOrderId) == true)
+            {
+                if (slideOrder.PerformedByHand == false)
+                {
+                    if (slideOrder.OrderSentToVentana == false)
                     {
-                        string result = this.Build(accessionOrder, slideOrder.TestOrderId, slideOrder.SlideOrderId);
-                        slideOrder.OrderSentToVentana = true;
+                        if (this.CanBuild(accessionOrder, slideOrder.TestOrderId, slideOrder.SlideOrderId) == true)
+                        {
+                            string result = this.Build(accessionOrder, slideOrder.TestOrderId, slideOrder.SlideOrderId);
+                            slideOrder.OrderSentToVentana = true;
 
-                        YellowstonePathology.Business.Test.Model.TestOrder testOrder = accessionOrder.PanelSetOrderCollection.GetTestOrderByTestOrderId(slideOrder.TestOrderId);
-                        testOrder.TestStatus = "CUTTING";
-                        testOrder.TestStatusUpdateTime = DateTime.Now;
+                            YellowstonePathology.Business.Test.Model.TestOrder testOrder = accessionOrder.PanelSetOrderCollection.GetTestOrderByTestOrderId(slideOrder.TestOrderId);
+                            testOrder.TestStatus = "CUTTING";
+                            testOrder.TestStatusUpdateTime = DateTime.Now;
 
-                        string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-                        System.IO.File.WriteAllText(@"\\10.1.2.31\ChannelData\Outgoing\Ventana\" + objectId + ".hl7", result);                     
-                    }                    
-                }             
+                            string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
+                            System.IO.File.WriteAllText(@"\\10.1.2.31\ChannelData\Outgoing\Ventana\" + objectId + ".hl7", result);
+                        }
+                    }
+                }
+                else
+                {
+                    YellowstonePathology.Business.Test.Model.TestOrder testOrder = accessionOrder.PanelSetOrderCollection.GetTestOrderByTestOrderId(slideOrder.TestOrderId);
+                    testOrder.TestStatus = "PERFORMEDBYHAND";
+                    testOrder.TestStatusUpdateTime = DateTime.Now;
+                }                
 
                 Business.Label.Model.ZPLPrinterUSB zplPrinterUSB = new Business.Label.Model.ZPLPrinterUSB();
                 Business.Label.Model.HistologySlidePaperZPLLabelV1 zplCommand = new Label.Model.HistologySlidePaperZPLLabelV1(slideOrder.SlideOrderId, slideOrder.ReportNo, slideOrder.PatientFirstName, slideOrder.PatientLastName, slideOrder.TestAbbreviation, slideOrder.Label, slideOrder.Location, slideOrder.UseWetProtocol, slideOrder.PerformedByHand);

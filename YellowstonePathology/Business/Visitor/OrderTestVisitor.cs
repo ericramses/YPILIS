@@ -172,7 +172,7 @@ namespace YellowstonePathology.Business.Visitor
             Surgical.VentanaBenchMarkCollection ventanaBenchMarkCollection = Gateway.AccessionOrderGateway.GetVentanaBenchMarkCollection();
             if(ventanaBenchMarkCollection.YPITestIdExists(this.m_TestOrder.TestId) == true)
             {
-                this.m_TestOrder.TestStatus = "BENCHMARK_ORDERED";
+                this.m_TestOrder.TestStatus = "ORDERED";
             }
 
             this.m_AliquotOrder.SetLabelPrefix(testOrder, true);

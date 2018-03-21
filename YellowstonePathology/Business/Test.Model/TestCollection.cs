@@ -350,8 +350,7 @@ namespace YellowstonePathology.Business.Test.Model
 
             result.Add(new CD3CD20DualStain());
             result.Add(new CDX2VillinDualStain());
-            result.Add(new Cytokeratin34P504sRacemaseDualStain());
-            //result.Add(new IgKappaIgLambdaDualStain());
+            result.Add(new Cytokeratin34P504sRacemaseDualStain());            
             result.Add(new Ki67MelanADualStain());
             result.Add(new OSCARSmoothMuscleMyosinDualStain());
             result.Add(new TTF1NapsinADualStain());
