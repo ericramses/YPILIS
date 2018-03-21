@@ -168,7 +168,7 @@ namespace YellowstonePathology.UI
         {
             if (barcode.ID.Contains("ALQ") == true)
             {
-                MessageBox.Show("The scan for this block was read correctly. Please try again.");
+                MessageBox.Show("The scan for this block was not read correctly. Please try again.");
             }
             else
             {
@@ -405,6 +405,13 @@ namespace YellowstonePathology.UI
             {
                 this.RecieveScan(item.AliquotOrderId);
             }
+        }
+
+        private void ButtonScanId_Click(object sender, RoutedEventArgs e)
+        {
+            Business.BarcodeScanning.Barcode barcode = new Business.BarcodeScanning.Barcode();
+            barcode.ID = "18-7486.1A";
+            this.HistologyBlockScanReceived(barcode);
         }
     }
 }

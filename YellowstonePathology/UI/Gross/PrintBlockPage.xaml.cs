@@ -551,6 +551,13 @@ namespace YellowstonePathology.UI.Gross
             }
             this.GrossBlockManagementView = new Business.View.GrossBlockManagementView(this.m_AccessionOrder, this.m_CaseNotesDocument, this.m_SpecimenOrder);
             this.SetupSpecimenView();
-        }        
+        }
+
+        private void ButtonEnterAliquotOrderId_Click(object sender, RoutedEventArgs e)
+        {
+            Business.BarcodeScanning.Barcode block = new Business.BarcodeScanning.Barcode();
+            block.ID = "18-7486.1A";
+            this.HistologyBlockScanReceived(block);
+        }
     }
 }
