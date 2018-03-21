@@ -40,6 +40,15 @@
             <ComboBox  Name="ComboBoxProcessorRuns" ItemsSource="{Binding Path=ProcessorRunCollection}" DisplayMemberPath="Name" Margin="2,2,2,2" Width="200" SelectionChanged="ComboBoxProcessorRun_SelectionChanged"></ComboBox>
             <TextBox Name="TextBoxProcessorStartTime" Margin="2" Width="120" Text="{Binding Path=ProcessorStartTime, Converter={StaticResource MilitaryDateTimeConverter}}" />
             <TextBox Name="TextBoxProcessorFixationDuration" Margin="2" Width="120" Text="{Binding Path=ProcessorFixationDuration.TotalMinutes, Mode=OneWay}" />
+
+            <!--<Button Content="●" Background="Transparent" Foreground="Black" Click="ButtonScanId_Click"  HorizontalAlignment="Center" VerticalAlignment="Center"
+								FontFamily="Tw Cen MT Condensed" Margin="5,5,2,2" Width="20" Height="20" BorderBrush="Transparent" BorderThickness="0">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <ContentPresenter Content="{TemplateBinding Content}"/>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>-->
         </StackPanel>
 
         <ListView Name="ListViewEmbeddingScans" Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" ItemsSource="{Binding Path=EmbeddingScanCollection}">

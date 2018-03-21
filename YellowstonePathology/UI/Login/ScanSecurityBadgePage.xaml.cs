@@ -51,10 +51,8 @@ namespace YellowstonePathology.UI.Login
 
         private void ButtonAutoScan_Click(object sender, RoutedEventArgs e)
         {			
-			//systemIdentity.SetUser(5001);
-			//CustomEventArgs.SystemIdentityReturnEventArgs args = new CustomEventArgs.SystemIdentityReturnEventArgs(systemIdentity);
             //this.m_BarcodeScanPort.SecurityBadgeScanReceived -= BarcodeScanPort_SecurityBadgeScanReceived;
-			//this.AuthentificationSuccessful(this, args);
+			//this.AuthentificationSuccessful(this, new EventArgs());
         }
 
 		private void BarcodeScanPort_SecurityBadgeScanReceived(Business.BarcodeScanning.Barcode barcode)

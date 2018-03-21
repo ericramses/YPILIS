@@ -645,6 +645,7 @@ namespace YellowstonePathology.Business.Test
                 this.GrossVerifiedById = systemUser.UserId;
                 this.GrossVerifiedDate = DateTime.Now;
                 this.GrossVerifiedBy = systemUser.UserName;
+                this.Status = "Grossed";
             }
         }
 
@@ -656,7 +657,8 @@ namespace YellowstonePathology.Business.Test
                 this.EmbeddingVerifiedById = systemUser.UserId;
                 this.EmbeddingVerifiedDate = DateTime.Now;
                 this.EmbeddingVerifiedBy = systemUser.UserName;
-                this.Status = "Validated";
+                //this.Status = "Validated";
+                this.Status = "Embedded";
             }
         }
 

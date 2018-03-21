@@ -52,7 +52,8 @@ namespace YellowstonePathology.Business.Test
 			}
 
 			AliquotOrder aliquotOrder = new AliquotOrder(aliquotOrderId, objectId, specimenOrder.SpecimenOrderId);
-			return aliquotOrder;
+            aliquotOrder.Status = YellowstonePathology.Business.TrackedItemStatusEnum.Created.ToString();
+            return aliquotOrder;
 		}
 
 		public string GetNextId(string specimenOrderId, string aliquotType)
@@ -305,7 +306,7 @@ namespace YellowstonePathology.Business.Test
             aliquotOrder.AliquotType = thinPrepSlide.Name;
             aliquotOrder.LabelPrefix = string.Empty;
             aliquotOrder.LabelType = thinPrepSlide.AliquotType;
-            aliquotOrder.Status = YellowstonePathology.Business.TrackedItemStatusEnum.Created.ToString();
+            //aliquotOrder.Status = YellowstonePathology.Business.TrackedItemStatusEnum.Created.ToString();
             this.Add(aliquotOrder);
             this.SetSlideLabels(specimenOrder.SpecimenNumber);
             return aliquotOrder;
@@ -318,7 +319,7 @@ namespace YellowstonePathology.Business.Test
             aliquotOrder.Description = string.Empty;
             aliquotOrder.AliquotType = aliquot.AliquotType;
             aliquotOrder.LabelPrefix = string.Empty;        
-            aliquotOrder.Status = YellowstonePathology.Business.TrackedItemStatusEnum.Created.ToString();
+            //aliquotOrder.Status = YellowstonePathology.Business.TrackedItemStatusEnum.Created.ToString();
             this.Add(aliquotOrder);
             this.SetSlideLabels(specimenOrder.SpecimenNumber);
             return aliquotOrder;
