@@ -180,6 +180,11 @@ namespace YellowstonePathology.UI.Cytology
             YellowstonePathology.Business.Audit.Model.AuditResult auditResult = this.m_PanelSetOrderCytology.IsOkToFinalize(this.m_AccessionOrder, panelOrderToFinal, this.m_SystemIdentity, executionStatus);
             if (this.m_PanelSetOrderCytology.Final == true)
             {
+                Business.Audit.Model.AuditResult result = this.m_PanelSetOrderCytology.CheckFinaledUnsatResultWithAssociatedCases(this.m_AccessionOrder);
+                if(result.Status == Business.Audit.Model.AuditStatusEnum.Failure)
+                {
+                    MessageBox.Show(result.Message);
+                }
                 YellowstonePathology.Business.ReportDistribution.Model.MultiTestDistributionHandler multiTestDistributionHandler = YellowstonePathology.Business.ReportDistribution.Model.MultiTestDistributionHandlerFactory.GetHandler(this.m_AccessionOrder);
                 multiTestDistributionHandler.Set();
 
