@@ -90,5 +90,21 @@ namespace YellowstonePathology.Business.Billing.Model
 			int result = this.TestOrderCollection.Count;
 			return result;
 		}
-	}
+
+        public int GetBillableISHCount()
+        {
+            int result = 0;
+            foreach (Business.Test.Model.TestOrder testOrder in this.m_TestOrderCollection)
+            {
+                if (testOrder.NoCharge == false)
+                {
+                    if (testOrder.TestId == "360" || testOrder.TestId == "361") //Kappa and Lambda by ISH
+                    {
+                        result += 1;
+                    }
+                }
+            }
+            return result;
+        }
+    }
 }

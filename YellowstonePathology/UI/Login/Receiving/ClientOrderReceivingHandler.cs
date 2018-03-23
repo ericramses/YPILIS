@@ -12,8 +12,7 @@ namespace YellowstonePathology.UI.Login.Receiving
         private bool m_AClientOrderHasBeenConfirmed;
 		private bool m_AnAccessionOrderHasBeenAquired;
 		
-		private YellowstonePathology.Business.Client.Model.Client m_Client;
-        //private YellowstonePathology.Business.ClientOrder.Model.ClientOrder m_ClientOrder;
+		private YellowstonePathology.Business.Client.Model.Client m_Client;        
         private YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection m_ClientOrderCollection;
         private string m_ClientOrderId;
         private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;

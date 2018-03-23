@@ -58,9 +58,7 @@ namespace YellowstonePathology.UI.Billing
         private YellowstonePathology.Business.Document.CaseDocumentCollection m_CaseDocumentCollection;
                 
         private string m_ReportNo;
-        private YellowstonePathology.Business.Facility.Model.FacilityCollection m_FacilityCollection;
-
-        //private Business.Billing.Model.MonitoredObjectCollection m_MonitoredObjectCollection;
+        private YellowstonePathology.Business.Facility.Model.FacilityCollection m_FacilityCollection;        
 
         public BillingPage(string reportNo, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{			

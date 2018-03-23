@@ -305,8 +305,7 @@ namespace YellowstonePathology.Business.Test
             aliquotOrder.Description = string.Empty;
             aliquotOrder.AliquotType = thinPrepSlide.Name;
             aliquotOrder.LabelPrefix = string.Empty;
-            aliquotOrder.LabelType = thinPrepSlide.AliquotType;
-            //aliquotOrder.Status = YellowstonePathology.Business.TrackedItemStatusEnum.Created.ToString();
+            aliquotOrder.LabelType = thinPrepSlide.AliquotType;            
             this.Add(aliquotOrder);
             this.SetSlideLabels(specimenOrder.SpecimenNumber);
             return aliquotOrder;
@@ -318,8 +317,7 @@ namespace YellowstonePathology.Business.Test
             aliquotOrder.SpecimenOrderId = specimenOrder.SpecimenOrderId;
             aliquotOrder.Description = string.Empty;
             aliquotOrder.AliquotType = aliquot.AliquotType;
-            aliquotOrder.LabelPrefix = string.Empty;        
-            //aliquotOrder.Status = YellowstonePathology.Business.TrackedItemStatusEnum.Created.ToString();
+            aliquotOrder.LabelPrefix = string.Empty;                    
             this.Add(aliquotOrder);
             this.SetSlideLabels(specimenOrder.SpecimenNumber);
             return aliquotOrder;

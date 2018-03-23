@@ -36,6 +36,7 @@ namespace YellowstonePathology.Business.Test.Surgical
                     this.AddNextObxElement("Time to fixation: " + surgicalSpecimen.SpecimenOrder.TimeToFixationHourString, document, "F");
                     this.AddNextObxElement("Duration of Fixation: " + surgicalSpecimen.SpecimenOrder.FixationDurationString, document, "F");
                 }
+
                 this.AddNextObxElement("", document, "F");
 				this.AddNextObxElement("Diagnosis: ", document, "F");
 				this.HandleLongString(surgicalSpecimen.Diagnosis, document, "F");

@@ -1301,8 +1301,7 @@ namespace YellowstonePathology.Business.Test
             {
                 this.ClinicalHistory = "???";
             }
-
-            //this.SpecialInstructions = clientOrder.SpecialInstructions;
+            
             this.UniversalServiceId = clientOrder.UniversalServiceId;
 
 			this.AccessionedById = orderingUserId;
@@ -1316,6 +1315,7 @@ namespace YellowstonePathology.Business.Test
             {
                 this.ExternalOrderId = clientOrder.ExternalOrderId;
             }
+
             this.IncomingHL7 = clientOrder.IncomingHL7;
 			this.OrderedByFirstName = clientOrder.OrderedByFirstName;
 			this.OrderedByLastName = clientOrder.OrderedByLastName;

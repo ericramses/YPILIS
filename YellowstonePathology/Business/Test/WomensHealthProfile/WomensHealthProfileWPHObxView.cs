@@ -141,7 +141,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
                     this.AddNextObxElement("HPV type 16: " + panelSetOrderHPV1618.HPV16Result, document, "F");
                     this.AddNextObxElement("Reference: Negative", document, "F");
 
-                    this.AddNextObxElement("HPV type 18: " + panelSetOrderHPV1618.HPV18Result, document, "F");
+                    this.AddNextObxElement("HPV type 18/45: " + panelSetOrderHPV1618.HPV18Result, document, "F");
                     this.AddNextObxElement("Reference: Negative", document, "F");
                     string hpvFinal = YellowstonePathology.Business.Helper.DateTimeExtensions.DateStringFromNullable(panelSetOrderHPV1618.FinalDate);
                     this.AddNextObxElement("Date Finalized: " + hpvFinal, document, "F");
@@ -192,9 +192,13 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
             this.HandleLongString(womensHealthProfileResult.References, document, "F");
             this.AddNextObxElement("", document, "F");
 
+            string papComment = "This Pap test is only a screening test. A negative result does not definitively rule out the presence of disease. Women should, therefore, in consultation with their physician, have this test performed at mutually agreed intervals.";
+            this.HandleLongString(papComment, document, "F");
+            this.AddNextObxElement(string.Empty, document, "F");
+
             string locationPerformed = womensHealthProfileTestOrder.GetLocationPerformedComment();
             this.HandleLongString(locationPerformed, document, "F");
-            this.AddNextObxElement(string.Empty, document, "F");
+            this.AddNextObxElement(string.Empty, document, "F");            
 
             this.AddNextObxElement("PRIOR PAP AND GYN MOLECULAR TESTS", document, "F");
             YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapTest panelSetThinPrepPap = new YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapTest();
@@ -233,7 +237,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
                     }
                 }
             }
-            this.AddNextObxElement("", document, "F");
+            this.AddNextObxElement("", document, "F");            
         }
     }
 }

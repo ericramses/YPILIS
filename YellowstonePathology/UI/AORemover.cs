@@ -29,6 +29,21 @@ namespace YellowstonePathology.UI
             if(accessionOrder.PanelSetOrderCollection.Count > 1)
             {
                 Business.Test.PanelSetOrder panelSetOrder = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
+
+                if(panelSetOrder.PanelSetId == 15)
+                {
+                    //delete the thinprep slide;
+                    if(accessionOrder.SpecimenOrderCollection.HasThinPrepFluidSpecimen() == true)
+                    {
+                        Business.Specimen.Model.SpecimenOrder specimenOrder = accessionOrder.SpecimenOrderCollection.GetThinPrep();
+                        if(specimenOrder.AliquotOrderCollection.HasThinPrepSlide() == true)
+                        {
+                            Business.Test.AliquotOrder aliquotOrder = specimenOrder.AliquotOrderCollection.GetThinPrepSlide();
+                            specimenOrder.AliquotOrderCollection.Remove(aliquotOrder);
+                        }
+                    }
+                }
+
                 if ((accessionOrder.PLastName.ToUpper() == "MOUSE" && accessionOrder.PFirstName.ToUpper() == "MICKEY") ||
                     panelSetOrder.Final == false)
                 {

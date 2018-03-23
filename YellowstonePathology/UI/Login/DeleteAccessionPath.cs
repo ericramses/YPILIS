@@ -17,7 +17,6 @@ namespace YellowstonePathology.UI.Login
         public DeleteAccessionPath(int openTabCount)
         {
             this.m_LoginPageWindow = new Receiving.LoginPageWindow();
-
             this.m_OpenTabCount = openTabCount;
         }
 
