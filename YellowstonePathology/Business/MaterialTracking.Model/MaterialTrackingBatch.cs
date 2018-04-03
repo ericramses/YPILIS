@@ -31,9 +31,11 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
         private string m_TrackingInformation;
         private string m_MasterAccessionNo;
 
+        private MaterialTrackingLogCollection m_MaterialTrackingLogCollection;
+
         public MaterialTrackingBatch()
         {
-            
+            this.m_MaterialTrackingLogCollection = new Model.MaterialTrackingLogCollection();
         }
 
         public MaterialTrackingBatch(string objectId, string description, YellowstonePathology.Business.Facility.Model.Facility fromFacility, YellowstonePathology.Business.Facility.Model.Location fromLocation,
@@ -55,9 +57,10 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
             this.m_ToLocationName = toLocation.Description;
 			this.m_IsOpen = true;
             this.m_MasterAccessionNo = masterAccessionNo;
+            this.m_MaterialTrackingLogCollection = new Model.MaterialTrackingLogCollection();
         }
 
-		[PersistentDocumentIdProperty()]
+        [PersistentDocumentIdProperty()]
 		[PersistentDataColumnProperty(true, "50", "null", "varchar")]
 		public string ObjectId
 		{
@@ -310,6 +313,17 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
                     this.m_MasterAccessionNo = value;
                     this.NotifyPropertyChanged("MasterAccessionNo");
                 }
+            }
+        }
+
+        [PersistentCollection()]
+        public MaterialTrackingLogCollection MaterialTrackingLogCollection
+        {
+            get { return this.m_MaterialTrackingLogCollection; }
+            set
+            {
+                this.m_MaterialTrackingLogCollection = value;
+                this.NotifyPropertyChanged("MaterialTrackingLogCollection");
             }
         }
 

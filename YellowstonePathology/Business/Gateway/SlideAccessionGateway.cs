@@ -205,15 +205,6 @@ namespace YellowstonePathology.Business.Gateway
             return result;
         }
 
-        public static YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection GetMaterialTrackingLogCollectionByBatchDate(DateTime batchDate)
-        {
-            MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "Select * from tblMaterialTrackingLog where tblMaterialTrackingLog.LogDate = @LogDate;";
-            cmd.CommandType = System.Data.CommandType.Text;
-            cmd.Parameters.AddWithValue("@LogDate", batchDate);
-            return BuildMaterialTrackingLogCollection(cmd);
-        }
-
         public static YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection GetMaterialTrackingLogCollectionByBatchId(string batchId)
         {
             MySqlCommand cmd = new MySqlCommand();

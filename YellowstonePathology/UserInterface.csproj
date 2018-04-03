@@ -1145,6 +1145,7 @@
     <Compile Include="Business\PanelSet.Model\ShipMaterialTest.cs" />
     <Compile Include="Business\ParseSpecimenOrderIdResult.cs" />
     <Compile Include="Business\Patient.Model\Address.cs" />
+    <Compile Include="Business\Persistence\BatchMaterialTrackingLogDocumentBuilder.cs" />
     <Compile Include="Business\Persistence\DocumentTestBuilders.cs" />
     <Compile Include="Business\Persistence\PersistentDataColumnProperty.cs" />
     <Compile Include="Business\Persistence\MonitorProperty.cs" />
