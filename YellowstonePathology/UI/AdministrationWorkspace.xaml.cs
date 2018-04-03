@@ -985,7 +985,9 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            
+            Business.Test.AccessionOrder ao = Business.Persistence.DocumentGateway.Instance.PullAccessionOrder("18-4103", this);
+            Business.Audit.Model.GICenterAdenomaAudit audit = new Business.Audit.Model.GICenterAdenomaAudit(ao);
+            audit.Run();
         }
 
         private void GetSlideNumberTest()

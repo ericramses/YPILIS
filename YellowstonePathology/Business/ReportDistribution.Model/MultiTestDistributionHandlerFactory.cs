@@ -11,8 +11,7 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
         {
             MultiTestDistributionHandler result = null;
             if (accessionOrder.PanelSetOrderCollection.HasWomensHealthProfileOrder() == true)
-            {
-                
+            {                
                 YellowstonePathology.Business.Domain.Physician physician = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianByPhysicianId(accessionOrder.PhysicianId);
                 if (physician != null && physician.DistributeWHPOnly == true)
                 {

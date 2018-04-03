@@ -935,25 +935,13 @@ namespace YellowstonePathology.UI
                 this.TabControlLeftWorkspace.Items.Remove(tabItem);
             }
             return true;
-        }
-
-        private void MenuItemMySqlMigration_Click(object sender, RoutedEventArgs e)
-        {
-            UI.MySql.MySqlMigrationDialog mySqlMigrationDialog = new MySql.MySqlMigrationDialog();
-            mySqlMigrationDialog.ShowDialog();
-        }
+        }        
 
         private void MenuItemSVHCDMResults_Click(object sender, RoutedEventArgs e)
         {
             Billing.SVHCDMResultDialog dialog = new Billing.SVHCDMResultDialog();
             dialog.ShowDialog();
-        }
-
-        private void MenuItemRefreshFromMySql_Click(object sender, RoutedEventArgs e)
-        {
-            UI.MySql.SqlServerRefreshDialog sqlServerRefreshDialog = new MySql.SqlServerRefreshDialog();
-            sqlServerRefreshDialog.ShowDialog();
-        }
+        }        
 
         private void MenuItemRetrospectiveReviews_Click(object sender, RoutedEventArgs e)
         {
