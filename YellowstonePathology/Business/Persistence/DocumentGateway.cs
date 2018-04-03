@@ -296,6 +296,17 @@ namespace YellowstonePathology.Business.Persistence
             }
         }
 
+        public YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch PullMaterialTrackingBatchWithMasterAccessionNo(string materialTrackingBatchId, string masterAccessionNo, object writer)
+        {
+            lock (locker)
+            {
+                MaterialTrackingBatchDocumentBuilder builder = new MaterialTrackingBatchDocumentBuilder(materialTrackingBatchId, masterAccessionNo);
+                DocumentId documentId = new DocumentId(typeof(YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch), writer, materialTrackingBatchId);
+                Document document = this.m_Stack.Pull(documentId, builder);
+                return (YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch)document.Value;
+            }
+        }
+
         public YellowstonePathology.Business.Surgical.VentanaBenchMark PullVentanaBenchMark(int barcodeNumber, object writer)
         {
             lock (locker)

@@ -37,7 +37,6 @@ namespace YellowstonePathology.UI.MaterialTracking
 
 		YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort m_BarcodeScanPort;		
 
-		YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection m_MaterialTrackingLogCollection;
 		YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch m_MaterialTrackingBatch;        
 		YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogViewCollection m_MaterialTrackingLogViewCollection;        
 
@@ -55,7 +54,6 @@ namespace YellowstonePathology.UI.MaterialTracking
 
 
         public MaterialBatchPage(YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch materialTrackingBatch,
-			YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection materialTrackingLogCollection,
             bool backButtonVisible, bool nextButtonVisible, bool finishButtonVisible, 
 			bool useMasterAccessionNo, string masterAccessionNo, YellowstonePathology.UI.Navigation.PageNavigator pageNavigator)
 		{                        
@@ -65,7 +63,6 @@ namespace YellowstonePathology.UI.MaterialTracking
             this.m_PageNavigator = pageNavigator;
 
 			this.m_MaterialTrackingBatch = materialTrackingBatch;
-            this.m_MaterialTrackingLogCollection = materialTrackingLogCollection;            
             
             this.m_UserMasterAccessionNo = useMasterAccessionNo;
             this.m_MasterAccessionNo = masterAccessionNo;
@@ -206,7 +203,7 @@ namespace YellowstonePathology.UI.MaterialTracking
 
 		public YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection MaterialTrackingLogCollection
         {
-            get { return this.m_MaterialTrackingLogCollection; }
+            get { return this.m_MaterialTrackingBatch.MaterialTrackingLogCollection; }
         }
 
 
@@ -276,8 +273,8 @@ namespace YellowstonePathology.UI.MaterialTracking
 
 			string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 			YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog = new Business.MaterialTracking.Model.MaterialTrackingLog(objectId, materialId, materialTrackingBatchId, thisFacility.FacilityId, thisFacility.FacilityName, thisLocation.LocationId, thisLocation.Description, materialType);
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(materialTrackingLog, this.m_PageNavigator.PrimaryMonitorWindow);
-            this.m_MaterialTrackingLogCollection.Add(materialTrackingLog);
+            //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(materialTrackingLog, this.m_PageNavigator.PrimaryMonitorWindow);
+            this.m_MaterialTrackingBatch.MaterialTrackingLogCollection.Add(materialTrackingLog);
             return materialTrackingLog;
         }		
 
@@ -320,7 +317,7 @@ namespace YellowstonePathology.UI.MaterialTracking
         {
             bool result = true;
             bool updateIsRun = true;
-			foreach (YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog in this.m_MaterialTrackingLogCollection)
+			foreach (YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog in this.m_MaterialTrackingBatch.MaterialTrackingLogCollection)
             {
                 if (string.IsNullOrEmpty(materialTrackingLog.MasterAccessionNo) == true)
                 {
@@ -381,10 +378,10 @@ namespace YellowstonePathology.UI.MaterialTracking
             if (this.ListViewMaterialTrackingLog.SelectedItems.Count > 0)
             {
 				YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogView materialTrackingLogView = (YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogView)this.ListViewMaterialTrackingLog.SelectedItem;
-				YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog = this.m_MaterialTrackingLogCollection.Get(materialTrackingLogView.MaterialTrackingLogId);
-                this.m_MaterialTrackingLogCollection.Remove(materialTrackingLog);                
+				YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog = this.m_MaterialTrackingBatch.MaterialTrackingLogCollection.Get(materialTrackingLogView.MaterialTrackingLogId);
+                this.m_MaterialTrackingBatch.MaterialTrackingLogCollection.Remove(materialTrackingLog);                
                 this.m_MaterialTrackingLogViewCollection.Remove(materialTrackingLogView);
-                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.DeleteDocument(materialTrackingLog, this.m_PageNavigator.PrimaryMonitorWindow);
+                //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.DeleteDocument(materialTrackingLog, this.m_PageNavigator.PrimaryMonitorWindow);
             }
         }		
 
@@ -403,7 +400,7 @@ namespace YellowstonePathology.UI.MaterialTracking
             this.m_MaterialTrackingLogViewCollection.Clear();
             bool anItemCouldNotBeFound = false;
 
-			foreach (YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog in this.m_MaterialTrackingLogCollection)
+			foreach (YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog in this.m_MaterialTrackingBatch.MaterialTrackingLogCollection)
             {
 				YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingScannedItemView materialTrackingScannedItemView = null; 
                 switch (materialTrackingLog.MaterialType)
@@ -465,7 +462,7 @@ namespace YellowstonePathology.UI.MaterialTracking
         {
             if(this.m_MaterialTrackingBatch.ToFacilityId == "YPBZMN")
             {
-                if(this.m_MaterialTrackingLogCollection.Count > 0)
+                if(this.m_MaterialTrackingBatch.MaterialTrackingLogCollection.Count > 0)
                 {
                     System.Net.Mail.MailMessage message = new System.Net.Mail.MailMessage("histology@ypii.com", "kerrie.emerick@ypii.com", System.Windows.Forms.SystemInformation.UserName, "There are slides that are being sent to you.");
                     message.To.Add("christopher.nero@ypii.com");

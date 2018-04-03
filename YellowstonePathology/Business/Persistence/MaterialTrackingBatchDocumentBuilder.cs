@@ -11,9 +11,20 @@ namespace YellowstonePathology.Business.Persistence
         public MaterialTrackingBatchDocumentBuilder(string materialTrackingBatchId)
         {
             this.m_SQLCommand = new MySqlCommand();
-            this.m_SQLCommand.CommandText = "Select * from tblMaterialTrackingBatch where MaterialTrackingBatchId = @MaterialTrackingBatchId;";
+            this.m_SQLCommand.CommandText = "Select * from tblMaterialTrackingBatch where MaterialTrackingBatchId = @MaterialTrackingBatchId;" +
+                "Select * from tblMaterialTrackingLog where MaterialTrackingBatchId = @MaterialTrackingBatchId;";
             this.m_SQLCommand.CommandType = CommandType.Text;
             this.m_SQLCommand.Parameters.AddWithValue("@MaterialTrackingBatchId", materialTrackingBatchId);
+        }
+
+        public MaterialTrackingBatchDocumentBuilder(string materialTrackingBatchId, string masterAccessionNo)
+        {
+            this.m_SQLCommand = new MySqlCommand();
+            this.m_SQLCommand.CommandText = "Select * from tblMaterialTrackingBatch where MaterialTrackingBatchId = @MaterialTrackingBatchId;" +
+                "Select * from tblMaterialTrackingLog where MaterialTrackingBatchId = @MaterialTrackingBatchId and MasterAccessionNo = @MasterAccessionNo;";
+            this.m_SQLCommand.CommandType = CommandType.Text;
+            this.m_SQLCommand.Parameters.AddWithValue("@MaterialTrackingBatchId", materialTrackingBatchId);
+            this.m_SQLCommand.Parameters.AddWithValue("@MasterAccessionNo", masterAccessionNo);
         }
 
         public override object BuildNew()
@@ -36,6 +47,15 @@ namespace YellowstonePathology.Business.Persistence
                     {
                         YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(materialTrackingBatch, dr);
                         sqlDataReaderPropertyWriter.WriteProperties();
+                    }
+                    dr.NextResult();
+
+                    while(dr.Read())
+                    {
+                        YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog = new MaterialTracking.Model.MaterialTrackingLog();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(materialTrackingLog, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        materialTrackingBatch.MaterialTrackingLogCollection.Add(materialTrackingLog);
                     }
                 }
             }
