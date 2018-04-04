@@ -23,96 +23,102 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
 			WomensHealthProfileTestOrder womensHealthProfileTestOrder = (WomensHealthProfileTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
 			WomensHealthProfileResult womensHealthProfileResult = new WomensHealthProfileResult(this.m_AccessionOrder);
 
-			this.AddCompanyHeader(document);
+            ThinPrepPap.ThinPrepPapTest thinPrepPapTest = new ThinPrepPap.ThinPrepPapTest();
+            bool hasPap = this.m_AccessionOrder.PanelSetOrderCollection.Exists(thinPrepPapTest.PanelSetId);
+
+            this.AddCompanyHeader(document);
 			this.AddBlankNteElement(document);
 
 			this.AddNextNteElement("Women's Health Profile", document);
 			this.AddNextNteElement("Report #: " + womensHealthProfileTestOrder.ReportNo, document);
 			this.AddBlankNteElement(document);
 
-			this.AddNextNteElement("PAP TEST RESULT: ", document);
+            if (hasPap == true)
+            {
+                this.AddNextNteElement("PAP TEST RESULT: ", document);
 
-			YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology panelSetOrderCytology = (YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(15);
-			if (string.IsNullOrEmpty(panelSetOrderCytology.ScreeningImpression) == false)
-			{
-				this.AddNextNteElement("Epithelial Cell Description: ", document);
-				this.AddNextNteElement(panelSetOrderCytology.ScreeningImpression, document);
-				this.AddBlankNteElement(document);
-			}
+                YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology panelSetOrderCytology = (YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(15);
+                if (string.IsNullOrEmpty(panelSetOrderCytology.ScreeningImpression) == false)
+                {
+                    this.AddNextNteElement("Epithelial Cell Description: ", document);
+                    this.AddNextNteElement(panelSetOrderCytology.ScreeningImpression, document);
+                    this.AddBlankNteElement(document);
+                }
 
-			this.AddNextNteElement("Specimen Adequacy:", document);
-			this.AddNextNteElement(panelSetOrderCytology.SpecimenAdequacy, document);
-			this.AddBlankNteElement(document);
+                this.AddNextNteElement("Specimen Adequacy:", document);
+                this.AddNextNteElement(panelSetOrderCytology.SpecimenAdequacy, document);
+                this.AddBlankNteElement(document);
 
-			if (string.IsNullOrEmpty(panelSetOrderCytology.OtherConditions) == false)
-			{
-				this.AddNextNteElement("Other Conditions:", document);
-				this.AddNextNteElement(panelSetOrderCytology.OtherConditions, document);
-				this.AddBlankNteElement(document);
-			}
+                if (string.IsNullOrEmpty(panelSetOrderCytology.OtherConditions) == false)
+                {
+                    this.AddNextNteElement("Other Conditions:", document);
+                    this.AddNextNteElement(panelSetOrderCytology.OtherConditions, document);
+                    this.AddBlankNteElement(document);
+                }
 
-			if (string.IsNullOrEmpty(panelSetOrderCytology.ReportComment) == false)
-			{
-				this.AddNextNteElement("Comment:", document);
-				this.AddNextNteElement(panelSetOrderCytology.ReportComment, document);
-				this.AddBlankNteElement(document);
-			}
+                if (string.IsNullOrEmpty(panelSetOrderCytology.ReportComment) == false)
+                {
+                    this.AddNextNteElement("Comment:", document);
+                    this.AddNextNteElement(panelSetOrderCytology.ReportComment, document);
+                    this.AddBlankNteElement(document);
+                }
 
-            YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology screeningPanelOrder = null;
-            YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology reviewPanelOrder = null;
+                YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology screeningPanelOrder = null;
+                YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology reviewPanelOrder = null;
 
-			foreach (YellowstonePathology.Business.Interface.IPanelOrder panelOrder in panelSetOrderCytology.PanelOrders)
-			{
-				Type objectType = panelOrder.GetType();
-                if (typeof(YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology).IsAssignableFrom(objectType) == true)
-				{
-                    YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology cytologyPanelOrder = (YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology)panelOrder;
-					if (cytologyPanelOrder.PanelId == 38)
-					{
-						if (cytologyPanelOrder.ScreeningType == "Primary Screening")
-						{
-							screeningPanelOrder = cytologyPanelOrder;
-						}
-						else if (cytologyPanelOrder.ScreeningType == "Pathologist Review")
-						{
-							reviewPanelOrder = cytologyPanelOrder;
-						}
-						else if (cytologyPanelOrder.ScreeningType == "Cytotech Review")
-						{
-							if (reviewPanelOrder == null || reviewPanelOrder.ScreeningType != "Pathologist Review")
-							{
-								reviewPanelOrder = cytologyPanelOrder;
-							}
-						}
-					}
-				}
-			}
+                foreach (YellowstonePathology.Business.Interface.IPanelOrder panelOrder in panelSetOrderCytology.PanelOrders)
+                {
+                    Type objectType = panelOrder.GetType();
+                    if (typeof(YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology).IsAssignableFrom(objectType) == true)
+                    {
+                        YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology cytologyPanelOrder = (YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology)panelOrder;
+                        if (cytologyPanelOrder.PanelId == 38)
+                        {
+                            if (cytologyPanelOrder.ScreeningType == "Primary Screening")
+                            {
+                                screeningPanelOrder = cytologyPanelOrder;
+                            }
+                            else if (cytologyPanelOrder.ScreeningType == "Pathologist Review")
+                            {
+                                reviewPanelOrder = cytologyPanelOrder;
+                            }
+                            else if (cytologyPanelOrder.ScreeningType == "Cytotech Review")
+                            {
+                                if (reviewPanelOrder == null || reviewPanelOrder.ScreeningType != "Pathologist Review")
+                                {
+                                    reviewPanelOrder = cytologyPanelOrder;
+                                }
+                            }
+                        }
+                    }
+                }
 
-			YellowstonePathology.Business.User.SystemUser systemUser = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetSystemUserById(screeningPanelOrder.ScreenedById);
-			if (string.IsNullOrEmpty(systemUser.Signature) == false)
-			{
-				this.AddNextNteElement("Screened By: " + systemUser.Signature, document);
-			}
+                YellowstonePathology.Business.User.SystemUser systemUser = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetSystemUserById(screeningPanelOrder.ScreenedById);
+                if (string.IsNullOrEmpty(systemUser.Signature) == false)
+                {
+                    this.AddNextNteElement("Screened By: " + systemUser.Signature, document);
+                }
 
-			string cytoTechFinal = YellowstonePathology.Business.Helper.DateTimeExtensions.DateStringFromNullable(screeningPanelOrder.AcceptedDate);
-			this.AddNextNteElement("*** E-Signed " + cytoTechFinal + " ***", document);            
-            this.AddBlankNteElement(document);
+                string cytoTechFinal = YellowstonePathology.Business.Helper.DateTimeExtensions.DateStringFromNullable(screeningPanelOrder.AcceptedDate);
+                this.AddNextNteElement("*** E-Signed " + cytoTechFinal + " ***", document);
+                this.AddBlankNteElement(document);
 
-			if (reviewPanelOrder != null)
-			{
-				string reviewedBy = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetSystemUserById(reviewPanelOrder.ScreenedById).Signature;
-				string reviewedByFinal = YellowstonePathology.Business.Helper.DateTimeExtensions.DateStringFromNullable(reviewPanelOrder.AcceptedDate);
+                if (reviewPanelOrder != null)
+                {
+                    string reviewedBy = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetSystemUserById(reviewPanelOrder.ScreenedById).Signature;
+                    string reviewedByFinal = YellowstonePathology.Business.Helper.DateTimeExtensions.DateStringFromNullable(reviewPanelOrder.AcceptedDate);
 
-				if (reviewedBy.IndexOf("MD") >= 0)
-				{
-					this.AddNextNteElement("Interpreted By: " + reviewedBy + " " + reviewedByFinal, document);
-				}
-				else
-				{
-					this.AddNextNteElement("Reviewed By: " + reviewedBy + " " + reviewedByFinal, document);
-				}
-				this.AddBlankNteElement(document);
-			}
+                    if (reviewedBy.IndexOf("MD") >= 0)
+                    {
+                        this.AddNextNteElement("Interpreted By: " + reviewedBy + " " + reviewedByFinal, document);
+                    }
+                    else
+                    {
+                        this.AddNextNteElement("Reviewed By: " + reviewedBy + " " + reviewedByFinal, document);
+                    }
+                    this.AddBlankNteElement(document);
+                }
+            }
 
             this.AddAmendments(document, womensHealthProfileTestOrder);
 
