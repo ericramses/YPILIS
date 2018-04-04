@@ -16,29 +16,39 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
         }
 
         public override void Render()
-		{			
-			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\WomensHealthProfile.4.xml";
-			this.OpenTemplate();
+		{
+            ThinPrepPap.ThinPrepPapTest thinPrepPapTest = new ThinPrepPap.ThinPrepPapTest();
+            bool hasPap = this.m_AccessionOrder.PanelSetOrderCollection.Exists(thinPrepPapTest.PanelSetId);
+            if (hasPap)
+            {
+                this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\WomensHealthProfile.4.xml";
+                this.OpenTemplate();
+                this.SetCurrentPapResults();
+            }
+            else
+            {
+                this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\WomensHealthProfileNoPap.xml";
+                this.OpenTemplate();
+            }
 
-			this.SetCurrentPapResults();
-			this.SetCurrentMolecularResults();
-			this.SetPriorResults();            
+            this.SetCurrentMolecularResults();
+            this.SetPriorResults();
 
             WomensHealthProfileTestOrder womensHealthProfileTestOrder = (WomensHealthProfileTestOrder)this.m_PanelSetOrder;
-			WomensHealthProfileResult womensHealthProfileResult = new WomensHealthProfileResult(this.m_AccessionOrder);
+            WomensHealthProfileResult womensHealthProfileResult = new WomensHealthProfileResult(this.m_AccessionOrder);
 
             YellowstonePathology.Business.Document.AmendmentSection amendmentSection = new YellowstonePathology.Business.Document.AmendmentSection();
             amendmentSection.SetAmendment(womensHealthProfileTestOrder.AmendmentCollection, this.m_ReportXml, this.m_NameSpaceManager, true);
 
             YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByOrderTarget(womensHealthProfileTestOrder.OrderedOnId);
-			this.SetXmlNodeData("specimen_source", specimenOrder.SpecimenSource);
-			string collectionDateTimeString = specimenOrder.GetCollectionDateTimeString();
-			this.SetXmlNodeData("collection_date_time", collectionDateTimeString);
-			this.SetXmlNodeData("specimen_description", specimenOrder.Description);
+            this.SetXmlNodeData("specimen_source", specimenOrder.SpecimenSource);
+            string collectionDateTimeString = specimenOrder.GetCollectionDateTimeString();
+            this.SetXmlNodeData("collection_date_time", collectionDateTimeString);
+            this.SetXmlNodeData("specimen_description", specimenOrder.Description);
 
             if (this.m_PanelSetOrder.FinalTime.HasValue == true)
             {
-				string finalDateTime = YellowstonePathology.Business.Document.CaseReportV2.ReportDateTimeFormat(this.m_PanelSetOrder.FinalTime.Value);
+                string finalDateTime = YellowstonePathology.Business.Document.CaseReportV2.ReportDateTimeFormat(this.m_PanelSetOrder.FinalTime.Value);
                 this.SetXmlNodeData("final_date", finalDateTime);
             }
             else
@@ -46,17 +56,17 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
                 this.SetXmlNodeData("final_date", string.Empty);
             }
 
-			string clinicalHistory = this.m_AccessionOrder.ClinicalHistory;
-			this.SetXMLNodeParagraphData("clinical_history", clinicalHistory);
-			this.SetXMLNodeParagraphData("report_method", womensHealthProfileResult.Method);
-			this.SetXMLNodeParagraphData("report_references", womensHealthProfileResult.References);            
+            string clinicalHistory = this.m_AccessionOrder.ClinicalHistory;
+            this.SetXMLNodeParagraphData("clinical_history", clinicalHistory);
+            this.SetXMLNodeParagraphData("report_method", womensHealthProfileResult.Method);
+            this.SetXMLNodeParagraphData("report_references", womensHealthProfileResult.References);
 
-			this.SetDemographicsV2();
-			this.SetReportDistribution();
-			this.SetCaseHistory();
+            this.SetDemographicsV2();
+            this.SetReportDistribution();
+            this.SetCaseHistory();
 
-			this.SaveReport(false);
-		}
+            this.SaveReport(false);
+        }
 
 		private void SetCurrentPapResults()
 		{
