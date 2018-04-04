@@ -27,6 +27,7 @@ namespace YellowstonePathology.Business.Test.BRAFMutationAnalysis
             this.m_ExpectedDuration = new TimeSpan(120, 0, 0);
             this.m_EpicDistributionIsImplemented = true;
             this.m_CMMCDistributionIsImplemented = true;
+            this.m_EnforceOrderTarget = true;
 
             this.m_TechnicalComponentFacility = new YellowstonePathology.Business.Facility.Model.NeogenomicsIrvine();
             this.m_TechnicalComponentBillingFacility = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();
@@ -43,6 +44,20 @@ namespace YellowstonePathology.Business.Test.BRAFMutationAnalysis
             this.m_PanelSetCptCodeCollection.Add(panelSetCptCode);
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceBRAFMANAL());
+        }
+
+        public override YellowstonePathology.Business.Rules.MethodResult OrderTargetIsOk(YellowstonePathology.Business.Interface.IOrderTarget orderTarget)
+        {
+            YellowstonePathology.Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
+            methodResult.Success = true;
+
+            if (orderTarget.GetType().Name != "AliquotOrder")
+            {
+                methodResult.Success = false;
+                methodResult.Message = "BRAF Mutation Analysis must be ordered on an aliquot.";
+            }
+
+            return methodResult;
         }
     }
 }
