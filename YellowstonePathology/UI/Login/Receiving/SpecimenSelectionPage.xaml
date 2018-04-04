@@ -72,10 +72,20 @@
             </Grid.Resources>
 
             <Grid.RowDefinitions>                
-                <RowDefinition Height="*"></RowDefinition>                
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
 
-            <TreeView Name="TreeViewAccession" Grid.Column="0" Grid.Row="0" Margin="10" MinWidth="250" ItemsSource="{Binding Path=AccessionOrderList}"
+            <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
+                <TextBlock Margin="12,2,2,2">Test Order:</TextBlock>
+                <TextBlock Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.PanelSetName}" />
+                <TextBlock Margin="20,2,2,2">Ordered on:</TextBlock>
+                <TextBlock Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.OrderedOn}" />
+                <TextBlock Margin="20,2,2,2">Id:</TextBlock>
+                <TextBlock Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.OrderedOnId}" />
+            </StackPanel>
+            
+            <TreeView Name="TreeViewAccession" Grid.Column="0" Grid.Row="1" Margin="10,0,10,10" MinWidth="250" ItemsSource="{Binding Path=AccessionOrderList}"
 						  ItemTemplate="{StaticResource AccessionOrderTemplate}"/>
 
         </Grid>
