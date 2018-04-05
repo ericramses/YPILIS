@@ -28,6 +28,7 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
             this.m_IsBillable = false;
             this.m_ExpectedDuration = TimeSpan.FromDays(14);            
             this.m_EpicDistributionIsImplemented = true;
+            this.m_EnforceOrderTarget = true;
 
             string task1Description = "Cut H&E slide and give to pathologist to circle tumor for tech only. Give the paraffin block to Flow so they can send to NEO.";
             string task1ClientSpecificDescription = "Give provided slides to pathologist to circle tumor for tech only. Give the paraffin block to Flow so they can send to NEO.";
@@ -44,5 +45,19 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServicePathSummary());
 		}
-	}
+
+        public override YellowstonePathology.Business.Rules.MethodResult OrderTargetIsOk(YellowstonePathology.Business.Interface.IOrderTarget orderTarget)
+        {
+            YellowstonePathology.Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
+            methodResult.Success = true;
+
+            if (orderTarget.GetType().Name != "AliquotOrder")
+            {
+                methodResult.Success = false;
+                methodResult.Message = "EGFR, ALK, ROS1, PD-L1 Analysis must be ordered on an aliquot.";
+            }
+
+            return methodResult;
+        }
+    }
 }
