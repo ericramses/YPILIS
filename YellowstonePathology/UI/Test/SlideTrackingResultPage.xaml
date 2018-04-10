@@ -18,7 +18,7 @@
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"></RowDefinition>
-                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
                     </Grid.RowDefinitions>
 
@@ -79,27 +79,27 @@
         
         <TextBlock Grid.Column="0" Grid.Row="0" Margin="20,2,2,2" Text="{Binding Path=PageHeaderText}" VerticalAlignment="Center" Foreground="White" FontSize="16" FontWeight="Bold"></TextBlock>
 
-		<Grid Grid.Row="1" Margin="5">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="Auto"></ColumnDefinition>
-				<ColumnDefinition Width="*"></ColumnDefinition>
-			</Grid.ColumnDefinitions>
+        <Grid Grid.Row="1" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
 
-			<Border Grid.Row="0" Grid.Column="0" BorderBrush="Transparent" BorderThickness="0" Background="{DynamicResource {x:Static SystemColors.InactiveCaptionBrushKey}}"></Border>
+            <Border Grid.Row="0" Grid.Column="0" BorderBrush="Transparent" BorderThickness="0" Background="{DynamicResource {x:Static SystemColors.InactiveCaptionBrushKey}}"></Border>
 
-			<Grid Grid.Column="0" Margin="10" Width="140">
-				<Grid.RowDefinitions>
-					<RowDefinition Height="Auto"></RowDefinition>
-					<RowDefinition Height="Auto"></RowDefinition>
-					<RowDefinition Height="Auto"></RowDefinition>
-					<RowDefinition Height="Auto"></RowDefinition>
-					<RowDefinition Height="20"></RowDefinition>
-					<RowDefinition Height="Auto"></RowDefinition>
-					<RowDefinition Height="Auto"></RowDefinition>
-					<RowDefinition Height="*"></RowDefinition>
-					<RowDefinition Height="Auto"></RowDefinition>
-					<RowDefinition Height="Auto"></RowDefinition>
-				</Grid.RowDefinitions>
+            <Grid Grid.Column="0" Margin="10" Width="140">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="20"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
 
                 <TextBlock Grid.Column="0" Grid.Row="0" Margin="0,3,0,0" FontWeight="Bold" FontSize="14">Results</TextBlock>
 
@@ -117,32 +117,49 @@
 
                 <TextBlock Name="TextBlockUnfinalResults" Grid.Column="0" Grid.Row="9" Margin="5,3,0,0">                    
                     <Hyperlink Click="HyperLinkUnfinalResults_Click">Unfinalize Results</Hyperlink>
-				</TextBlock>
+                </TextBlock>
 
-			</Grid>
+            </Grid>
 
-			<ScrollViewer Grid.Column="1" Margin="10">
-				<Grid Grid.Column="1" Margin="10">
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="Auto"></ColumnDefinition>
-						<ColumnDefinition Width="*"></ColumnDefinition>
-					</Grid.ColumnDefinitions>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Column="0" Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
                     </Grid.RowDefinitions>
 
-                    <TreeView Name="TreeViewVantageSlides" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" ItemsSource="{Binding Path=VantageSlideViewCollection}"
+                    <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" FontWeight="Bold">Final:</TextBlock>
+                    <CheckBox Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" IsChecked="{Binding Path=PanelSetOrder.Final}" IsEnabled="False"></CheckBox>
+
+                    <TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" FontWeight="Bold">Date Finaled:</TextBlock>
+                    <TextBox Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.FinalTime}" IsEnabled="False"></TextBox>
+
+                    <TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" FontWeight="Bold">Finaled By:</TextBlock>
+                    <TextBox Grid.Column="1" Grid.Row="2" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.Signature}" IsEnabled="False"></TextBox>
+                </Grid>
+                
+                <ScrollViewer Grid.Column="0" Grid.Row="1" Margin="10">
+
+                    <TreeView Name="TreeViewVantageSlides" VerticalAlignment="Stretch" ItemsSource="{Binding Path=VantageSlideViewCollection}"
 							ItemTemplate="{StaticResource DataTemplateVantageSlide}" Margin="2,10,2,2" BorderThickness="1">
                     </TreeView>
-                </Grid>
 
-			</ScrollViewer>
+                </ScrollViewer>
 
-		</Grid>
+            </Grid>
+        </Grid>
 
-		<Border Grid.Column="0" Grid.Row="2" BorderBrush="Transparent" BorderThickness="0" Background="{DynamicResource {x:Static SystemColors.InactiveCaptionBrushKey}}"></Border>
+        <Border Grid.Column="0" Grid.Row="2" BorderBrush="Transparent" BorderThickness="0" Background="{DynamicResource {x:Static SystemColors.InactiveCaptionBrushKey}}"></Border>
         <Button Name="ButtonNext" Grid.Column="0" Grid.Row="2" Width="100" Height="40" HorizontalAlignment="Right" Margin="5,5,5,5" Click="ButtonNext_Click">Next ></Button>
 
 	</Grid>
