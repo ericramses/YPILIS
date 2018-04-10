@@ -462,9 +462,16 @@ namespace YellowstonePathology.UI.Surgical
         public void TextBox_KeyUp(object sender, KeyEventArgs args)
         {
             if (args.Key == Key.Space)
-            {                
+            {                                
                 TextBox textBox = (TextBox)args.Source;
-                this.m_TypingShortcutUserControl.SetShortcut(textBox);
+                if (textBox.Name == "TextBoxMicroscopic")
+                {
+                    this.m_TypingShortcutUserControl.SetShortcut(textBox, this.m_TypingUI.SurgicalTestOrder);
+                }
+                else
+                {
+                    this.m_TypingShortcutUserControl.SetShortcut(textBox);
+                }                
             }
         }        
 
