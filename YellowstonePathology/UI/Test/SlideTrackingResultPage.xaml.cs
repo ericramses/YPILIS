@@ -98,12 +98,26 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkFinalizeResults_Click(object sender, RoutedEventArgs e)
         {
-
+            if (this.m_PanelSetOrder.Final == true)
+            {
+               MessageBox.Show("This case cannot be finalized because it is already finalized.");
+            }
+            else
+            {
+                this.m_PanelSetOrder.Finish(this.m_AccessionOrder);
+            }
         }
 
         private void HyperLinkUnfinalResults_Click(object sender, RoutedEventArgs e)
         {
-
+            if (this.m_PanelSetOrder.Final == false)
+            {
+                MessageBox.Show("This case cannot be unfinalized because it is not final.");
+            }
+            else
+            {
+                this.m_PanelSetOrder.Unfinalize();
+            }
         }
 
         private void HyperLinkSimulateScan_Click(object sender, RoutedEventArgs e)
