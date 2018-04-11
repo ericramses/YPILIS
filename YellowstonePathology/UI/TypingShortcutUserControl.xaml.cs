@@ -131,6 +131,10 @@ namespace YellowstonePathology.UI
                         }
                     }
                 }                
+            }
+            else
+            {
+                this.SetShortcut(microscopix);
             }           
         }
         
