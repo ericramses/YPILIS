@@ -16,13 +16,10 @@ namespace YellowstonePathology.Business.Facility.Model
             this.m_Address2 = null;
             this.m_City = "Bozeman";
             this.m_State = "MT";
-            this.m_ZipCode = "58715";
-            this.m_PhoneNumber = null;
-            this.m_FedexAccountNo = null;
-            this.m_FedexPaymentType = null;
-
-			
-			//this.m_CliaLicense = new CLIALicense(this, "05D1065194");            
+            this.m_ZipCode = "59715";
+            this.m_PhoneNumber = "4065874432";
+            this.m_FedexAccountNo = "174761051";
+            this.m_FedexPaymentType = "RECIPIENT";					
         }
     }
 }

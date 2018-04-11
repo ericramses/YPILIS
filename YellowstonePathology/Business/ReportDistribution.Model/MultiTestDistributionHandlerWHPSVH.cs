@@ -15,7 +15,7 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
             this.m_DistributeHPV1618 = true;
             this.m_DistributeNGCT = true;
             this.m_DistributeTrich = true;
-            this.m_DistributeWHP = false;
+            this.m_DistributeWHP = true;
         }       
     }
 }
