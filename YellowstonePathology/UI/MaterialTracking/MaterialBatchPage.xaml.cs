@@ -451,11 +451,12 @@ namespace YellowstonePathology.UI.MaterialTracking
 
         private void UpdateLocation()
         {
+            YellowstonePathology.Business.Facility.Model.Facility facility = this.m_FacilityCollection.GetByFacilityId(this.m_MaterialTrackingBatch.ToFacilityId);
+            string facilityName = facility.FacilityName;
             string locationId = null;
             string locationName = null;
             if (this.m_MaterialTrackingBatch.ToLocationId != null)
             {
-                YellowstonePathology.Business.Facility.Model.Facility facility = this.m_FacilityCollection.GetByFacilityId(this.m_MaterialTrackingBatch.ToFacilityId);
                 YellowstonePathology.Business.Facility.Model.Location location = facility.Locations.GetLocation(this.m_MaterialTrackingBatch.ToLocationId);
                 locationId = this.m_MaterialTrackingBatch.ToLocationId;
                 locationName = location.Description;
@@ -466,6 +467,18 @@ namespace YellowstonePathology.UI.MaterialTracking
 
                 switch (materialTrackingLog.MaterialType)
                 {
+                    case "PSLD":
+                    case "NGYNSLD":
+                    case "FNASLD":
+                    case "Aliquot":
+                    case "Block":
+                    case "FrozenBlock":
+                        YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAliquotOrder(materialTrackingLog.MaterialId, this);
+                        aliquotOrder.FacilityId = this.m_MaterialTrackingBatch.ToFacilityId;
+                        aliquotOrder.FacilityName = facilityName;
+                        aliquotOrder.LocationId = locationId;
+                        YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
+                        break;
                     case "Slide":
                         YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullSlideOrder(materialTrackingLog.MaterialId, this);
                         slideOrder.FacilityId = this.m_MaterialTrackingBatch.ToFacilityId;
@@ -520,9 +533,10 @@ namespace YellowstonePathology.UI.MaterialTracking
 
         private void ButtonNewScan_Click(object sender, RoutedEventArgs e)
         {
-            //YellowstonePathology.Business.BarcodeScanning.Barcode barcode = new Business.BarcodeScanning.Barcode();
-            //barcode.ID = "18-9387.1A1"; // 18-9387.1B1
+            /*YellowstonePathology.Business.BarcodeScanning.Barcode barcode = new Business.BarcodeScanning.Barcode();
+            barcode.ID = "18-9407.1A";
             //this.HistologySlideScanReceived(barcode);
+            this.BarcodeScanPort_HistologyBlockScanReceived(barcode);*/
         }
     }
 }

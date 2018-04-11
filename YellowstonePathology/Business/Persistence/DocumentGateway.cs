@@ -218,7 +218,7 @@ namespace YellowstonePathology.Business.Persistence
             lock (locker)
             {
                 AliquotOrderDocumentBuilder aliquotOrderDocumentBuilder = new AliquotOrderDocumentBuilder(aliquotOrderId);
-                DocumentId documentId = new DocumentId(typeof(YellowstonePathology.Business.Task.Model.TaskOrder), writer, aliquotOrderId);
+                DocumentId documentId = new DocumentId(typeof(YellowstonePathology.Business.Test.AliquotOrder), writer, aliquotOrderId);
                 Document document = this.m_Stack.Pull(documentId, aliquotOrderDocumentBuilder);
                 return (YellowstonePathology.Business.Test.AliquotOrder)document.Value;
             }
