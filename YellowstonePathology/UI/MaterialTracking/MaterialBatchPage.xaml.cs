@@ -273,7 +273,6 @@ namespace YellowstonePathology.UI.MaterialTracking
 
 			string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 			YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog = new Business.MaterialTracking.Model.MaterialTrackingLog(objectId, materialId, materialTrackingBatchId, thisFacility.FacilityId, thisFacility.FacilityName, thisLocation.LocationId, thisLocation.Description, materialType);
-            //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(materialTrackingLog, this.m_PageNavigator.PrimaryMonitorWindow);
             this.m_MaterialTrackingBatch.MaterialTrackingLogCollection.Add(materialTrackingLog);
             return materialTrackingLog;
         }		
@@ -381,7 +380,6 @@ namespace YellowstonePathology.UI.MaterialTracking
 				YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog = this.m_MaterialTrackingBatch.MaterialTrackingLogCollection.Get(materialTrackingLogView.MaterialTrackingLogId);
                 this.m_MaterialTrackingBatch.MaterialTrackingLogCollection.Remove(materialTrackingLog);                
                 this.m_MaterialTrackingLogViewCollection.Remove(materialTrackingLogView);
-                //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.DeleteDocument(materialTrackingLog, this.m_PageNavigator.PrimaryMonitorWindow);
             }
         }		
 
@@ -397,12 +395,76 @@ namespace YellowstonePathology.UI.MaterialTracking
 
         private void ButtonPrintUpdateScans_Click(object sender, RoutedEventArgs e)
         {
-            this.m_MaterialTrackingLogViewCollection.Clear();
-            bool anItemCouldNotBeFound = false;
-
-			foreach (YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog in this.m_MaterialTrackingBatch.MaterialTrackingLogCollection)
+            if (this.m_MaterialTrackingBatch.ToFacilityId != null)
             {
-				YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingScannedItemView materialTrackingScannedItemView = null; 
+                this.m_MaterialTrackingLogViewCollection.Clear();
+                bool anItemCouldNotBeFound = false;
+
+                foreach (YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog in this.m_MaterialTrackingBatch.MaterialTrackingLogCollection)
+                {
+                    YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingScannedItemView materialTrackingScannedItemView = null;
+                    switch (materialTrackingLog.MaterialType)
+                    {
+                        case "PSLD":
+                        case "NGYNSLD":
+                        case "FNASLD":
+                        case "Aliquot":
+                        case "Block":
+                        case "FrozenBlock":
+                            materialTrackingScannedItemView = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMaterialTrackingScannedItemViewByAliquotOrderId(materialTrackingLog.MaterialId);
+                            break;
+                        case "Slide":
+                            materialTrackingScannedItemView = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMaterialTrackingScannedItemViewBySlideOrderId(materialTrackingLog.MaterialId);
+                            break;
+                        case "Container":
+                            materialTrackingScannedItemView = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMaterialTrackingScannedItemViewByContainerId(materialTrackingLog.MaterialId);
+                            break;
+                    }
+
+                    YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogView materialTrackingLogView = new Business.MaterialTracking.Model.MaterialTrackingLogView();
+                    if (materialTrackingScannedItemView != null)
+                    {
+                        materialTrackingLogView.FromScannedItemView(materialTrackingScannedItemView, materialTrackingLog);
+                        materialTrackingLog.Update(materialTrackingScannedItemView);
+                    }
+                    else
+                    {
+                        anItemCouldNotBeFound = true;
+                        materialTrackingLogView.PFirstName = "Not Found";
+                        materialTrackingLogView.PLastName = "Not Found";
+                    }
+
+                    this.m_MaterialTrackingLogViewCollection.Add(materialTrackingLogView);
+                }
+
+                if (anItemCouldNotBeFound == true)
+                {
+                    MessageBox.Show("One or more scanned items could not be found in the database.");
+                }
+                this.UpdateLocation();
+            }
+            else
+            {
+                MessageBox.Show("A To Facility is required.");
+            }
+        }
+
+        private void UpdateLocation()
+        {
+            YellowstonePathology.Business.Facility.Model.Facility facility = this.m_FacilityCollection.GetByFacilityId(this.m_MaterialTrackingBatch.ToFacilityId);
+            string facilityName = facility.FacilityName;
+            string locationId = null;
+            string locationName = null;
+            if (this.m_MaterialTrackingBatch.ToLocationId != null)
+            {
+                YellowstonePathology.Business.Facility.Model.Location location = facility.Locations.GetLocation(this.m_MaterialTrackingBatch.ToLocationId);
+                locationId = this.m_MaterialTrackingBatch.ToLocationId;
+                locationName = location.Description;
+            }
+
+            foreach (YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog in this.m_MaterialTrackingBatch.MaterialTrackingLogCollection)
+            {
+
                 switch (materialTrackingLog.MaterialType)
                 {
                     case "PSLD":
@@ -411,35 +473,22 @@ namespace YellowstonePathology.UI.MaterialTracking
                     case "Aliquot":
                     case "Block":
                     case "FrozenBlock":
-						materialTrackingScannedItemView = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMaterialTrackingScannedItemViewByAliquotOrderId(materialTrackingLog.MaterialId);                
+                        YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAliquotOrder(materialTrackingLog.MaterialId, this);
+                        aliquotOrder.FacilityId = this.m_MaterialTrackingBatch.ToFacilityId;
+                        aliquotOrder.FacilityName = facilityName;
+                        aliquotOrder.LocationId = locationId;
+                        YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
                         break;
                     case "Slide":
-						materialTrackingScannedItemView = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMaterialTrackingScannedItemViewBySlideOrderId(materialTrackingLog.MaterialId);
+                        YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullSlideOrder(materialTrackingLog.MaterialId, this);
+                        slideOrder.FacilityId = this.m_MaterialTrackingBatch.ToFacilityId;
+                        slideOrder.LocationId = locationId;
+                        slideOrder.Location = locationName;
+                        YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
                         break;
-                    case "Container":
-                        materialTrackingScannedItemView = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMaterialTrackingScannedItemViewByContainerId(materialTrackingLog.MaterialId);
+                    default:
                         break;
                 }
-
-				YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogView materialTrackingLogView = new Business.MaterialTracking.Model.MaterialTrackingLogView();
-                if (materialTrackingScannedItemView != null)
-                {
-                    materialTrackingLogView.FromScannedItemView(materialTrackingScannedItemView, materialTrackingLog);
-                    materialTrackingLog.Update(materialTrackingScannedItemView);
-                }
-                else
-                {
-                    anItemCouldNotBeFound = true;
-                    materialTrackingLogView.PFirstName = "Not Found";
-                    materialTrackingLogView.PLastName = "Not Found";                    
-                }
-                                               
-                this.m_MaterialTrackingLogViewCollection.Add(materialTrackingLogView);
-            }
-
-            if (anItemCouldNotBeFound == true)
-            {
-                MessageBox.Show("One or more scanned items could not be found in the database.");
             }
         }
 
@@ -480,6 +529,14 @@ namespace YellowstonePathology.UI.MaterialTracking
             {
                 MessageBox.Show("This function currently only works for Bozeman.");
             }
+        }
+
+        private void ButtonNewScan_Click(object sender, RoutedEventArgs e)
+        {
+            /*YellowstonePathology.Business.BarcodeScanning.Barcode barcode = new Business.BarcodeScanning.Barcode();
+            barcode.ID = "18-9407.1A";
+            //this.HistologySlideScanReceived(barcode);
+            this.BarcodeScanPort_HistologyBlockScanReceived(barcode);*/
         }
     }
 }
