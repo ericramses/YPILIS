@@ -108,6 +108,15 @@
 				<TextBlock Grid.Column="0" Margin="2" HorizontalAlignment="Left">Scan material to add to list.</TextBlock>                
 
                 <StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal">
+                    <!--<Button Content="●" Background="Transparent" Foreground="Black" Click="ButtonNewScan_Click" HorizontalAlignment="Left" VerticalAlignment="Center"
+                            FontFamily="Tw Cen MT Condensed" Margin="5,5,2,2" Width="20" Height="20" BorderBrush="Transparent" BorderThickness="0">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <ContentPresenter Content="{TemplateBinding Content}"/>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>-->
+
                     <TextBlock Margin="2,2,2,2" VerticalAlignment="Center">Count:</TextBlock>
 					<TextBlock Margin="2,2,2,2" MinWidth="20" VerticalAlignment="Center" Text="{Binding Path=MaterialCount}"></TextBlock>
 				</StackPanel>
