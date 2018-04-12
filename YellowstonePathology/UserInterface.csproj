@@ -1163,6 +1163,7 @@
     <Compile Include="Business\Test.Model\TestOrderStatusView.cs" />
     <Compile Include="Business\Test.Model\TestOrderStatusViewCollection.cs" />
     <Compile Include="Business\Test.Model\U6.cs" />
+    <Compile Include="Business\Test\ALLPediatricFISHPanel\ALLPediatricFISHPanelTest.cs" />
     <Compile Include="Business\Test\AMLPrognosticProfile\AMLPrognosticProfileTestOrder.cs" />
     <Compile Include="Business\Test\API2MALT1ByFISH\API2MALT1ByFISHWPHOBXView.cs" />
     <Compile Include="Business\Test\BCellEnumeration\BCellEnumerationCMMCNTEView.cs" />
