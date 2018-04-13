@@ -43,8 +43,8 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>173</ApplicationRevision>
-    <ApplicationVersion>10.1.9.%2a</ApplicationVersion>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>10.1.10.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -7249,8 +7249,6 @@
     <Content Include="UI\CEFSharp\libGLESv2.dll" />
     <Content Include="UI\CEFSharp\nunit.framework.dll" />
     <Content Include="dll\MongoDB.Bson.dll" />
-    <Content Include="dll\MongoDB.Bson.pdb" />
-    <Content Include="dll\MongoDB.Driver.pdb" />
     <Content Include="dll\WPFToolkit.dll" />
     <Content Include="dll\WPFToolkit.Extended.dll" />
     <Content Include="dll\Xceed.Wpf.DataGrid.dll" />

@@ -855,7 +855,7 @@ namespace YellowstonePathology.UI.Login
             this.m_BarcodeScanPort.ContainerScanReceived += ContainerScanReceived;
         }
 
-        private void TileTesting_MouseUp(object sender, MouseButtonEventArgs e)
+        private void TileTracking_MouseUp(object sender, MouseButtonEventArgs e)
         {
             YellowstonePathology.UI.MaterialTracking.MaterialTrackingPath materialTrackingPath = new MaterialTracking.MaterialTrackingPath(this.m_LoginUI.AccessionOrder);
             materialTrackingPath.Start();
