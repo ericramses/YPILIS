@@ -26,6 +26,9 @@ namespace YellowstonePathology.UI.Surgical
 		private YellowstonePathology.Business.Common.FieldEnabler m_FieldEnabler;
         private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 
+        private YellowstonePathology.Business.Facility.Model.Facility m_Facility;
+        private YellowstonePathology.Business.Facility.Model.Location m_Location;
+
         private string m_SignatureButtonText;
         private bool m_SignatureButtonIsEnabled;
 
@@ -58,6 +61,11 @@ namespace YellowstonePathology.UI.Surgical
             this.m_PanelSetIdsThatCanOrderStains.Add(technicalOnlyTest.PanelSetId);
             YellowstonePathology.Business.Test.ReviewForAdditionalTesting.ReviewForAdditionalTestingTest reviewForAdditionalTestingTest = new Business.Test.ReviewForAdditionalTesting.ReviewForAdditionalTestingTest();
             this.m_PanelSetIdsThatCanOrderStains.Add(reviewForAdditionalTestingTest.PanelSetId);
+
+            YellowstonePathology.Business.Facility.Model.FacilityCollection facilityCollection = Business.Facility.Model.FacilityCollection.GetAllFacilities();
+            YellowstonePathology.Business.Facility.Model.LocationCollection locationCollection = YellowstonePathology.Business.Facility.Model.LocationCollection.GetAllLocations();
+            this.m_Facility = facilityCollection.GetByFacilityId(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId);
+            this.m_Location = locationCollection.GetLocation(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.LocationId);
         }
 
         public Business.User.SystemIdentity SystemIdentity
@@ -413,6 +421,24 @@ namespace YellowstonePathology.UI.Surgical
                 return this.m_FieldEnabler.IsUnprotectedEnabled &&
                     this.m_PanelSetOrder != null && this.m_PanelSetIdsThatCanOrderStains.Contains(this.m_PanelSetOrder.PanelSetId);
             }
-        }      		
-	}
+        }
+
+        public void UpdateSlideLocation(string slideOrderId)
+        {
+            YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSlideOrder(slideOrderId);
+            if(slideOrder != null)
+            {
+                slideOrder.SetLocation(this.m_Facility, this.m_Location);
+            }
+        }
+
+        public void UpdateAliquotLocation(string aliquotOrderId)
+        {
+            YellowstonePathology.Business.Test.AliquotOrder aliiquotOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetAliquotOrder(aliquotOrderId);
+            if (aliiquotOrder != null)
+            {
+                aliiquotOrder.SetLocation(this.m_Facility, this.m_Location);
+            }
+        }
+    }
 }

@@ -45,6 +45,7 @@ namespace YellowstonePathology.Business.Test
         protected string m_Status;
         protected string m_EmbeddingInstructions;
         protected bool m_Decal;
+        protected DateTime? m_LocationTime;
 
         public AliquotOrder_Base()
         {
@@ -498,6 +499,21 @@ namespace YellowstonePathology.Business.Test
             }
         }
 
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(false, "3", "null", "datetime")]
+        public DateTime? LocationTime
+        {
+            get { return this.m_LocationTime; }
+            set
+            {
+                if (this.m_LocationTime != value)
+                {
+                    this.m_LocationTime = value;
+                    this.NotifyPropertyChanged("LocationTime");
+                }
+            }
+        }
+
         public bool IsNotIntraoperative
         {
             get
@@ -779,6 +795,21 @@ namespace YellowstonePathology.Business.Test
             if (testOrder.TestId == "45")
             {
                 this.AliquotType = "FrozenBlock";
+            }
+        }
+
+        public void SetLocation(YellowstonePathology.Business.Facility.Model.Facility facility, YellowstonePathology.Business.Facility.Model.Location location)
+        {
+            this.FacilityId = facility.FacilityId;
+            this.FacilityName = facility.FacilityName;
+            this.m_LocationTime = DateTime.Now;
+            if (location == null)
+            {
+                this.LocationId = null;
+            }
+            else
+            {
+                this.LocationId = location.LocationId;
             }
         }
     }
