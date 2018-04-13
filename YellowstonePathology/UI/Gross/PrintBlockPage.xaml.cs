@@ -199,8 +199,7 @@ namespace YellowstonePathology.UI.Gross
                     YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(materialTrackingLog, Window.GetWindow(this));					                    
 
                     aliquotOrder.GrossVerify(this.m_SystemIdentity.User);
-
-                    this.UpdateBlockLocation(aliquotOrder);
+                    aliquotOrder.SetLocation(thisFacility, thisLocation);
 
 					this.GrossBlockManagementView = new Business.View.GrossBlockManagementView(this.m_AccessionOrder, this.m_CaseNotesDocument, this.m_SpecimenOrder);
 					this.SetupSpecimenView();
@@ -218,18 +217,6 @@ namespace YellowstonePathology.UI.Gross
 			}
 			));
 		}
-
-        private void UpdateBlockLocation(YellowstonePathology.Business.Test.AliquotOrder aliquotOrder)
-        {
-            YellowstonePathology.Business.Facility.Model.FacilityCollection facilityCollection = Business.Facility.Model.FacilityCollection.GetAllFacilities();
-            YellowstonePathology.Business.Facility.Model.LocationCollection locationCollection = YellowstonePathology.Business.Facility.Model.LocationCollection.GetAllLocations();
-            YellowstonePathology.Business.Facility.Model.Facility thisFacility = facilityCollection.GetByFacilityId(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId);
-            YellowstonePathology.Business.Facility.Model.Location thisLocation = locationCollection.GetLocation(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.LocationId);
-
-            aliquotOrder.FacilityId = thisFacility.FacilityId;
-            aliquotOrder.FacilityName = thisFacility.FacilityName;
-            aliquotOrder.LocationId = thisLocation.LocationId;
-        }
 
         private bool CheckForUnorderedTestRequest()
 		{

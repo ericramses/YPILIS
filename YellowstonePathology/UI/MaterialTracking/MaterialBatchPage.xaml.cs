@@ -452,15 +452,7 @@ namespace YellowstonePathology.UI.MaterialTracking
         private void UpdateLocation()
         {
             YellowstonePathology.Business.Facility.Model.Facility facility = this.m_FacilityCollection.GetByFacilityId(this.m_MaterialTrackingBatch.ToFacilityId);
-            string facilityName = facility.FacilityName;
-            string locationId = null;
-            string locationName = null;
-            if (this.m_MaterialTrackingBatch.ToLocationId != null)
-            {
-                YellowstonePathology.Business.Facility.Model.Location location = facility.Locations.GetLocation(this.m_MaterialTrackingBatch.ToLocationId);
-                locationId = this.m_MaterialTrackingBatch.ToLocationId;
-                locationName = location.Description;
-            }
+            YellowstonePathology.Business.Facility.Model.Location location = facility.Locations.GetLocation(this.m_MaterialTrackingBatch.ToLocationId);
 
             foreach (YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog in this.m_MaterialTrackingBatch.MaterialTrackingLogCollection)
             {
@@ -474,16 +466,12 @@ namespace YellowstonePathology.UI.MaterialTracking
                     case "Block":
                     case "FrozenBlock":
                         YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAliquotOrder(materialTrackingLog.MaterialId, this);
-                        aliquotOrder.FacilityId = this.m_MaterialTrackingBatch.ToFacilityId;
-                        aliquotOrder.FacilityName = facilityName;
-                        aliquotOrder.LocationId = locationId;
+                        aliquotOrder.SetLocation(facility, location);
                         YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
                         break;
                     case "Slide":
                         YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullSlideOrder(materialTrackingLog.MaterialId, this);
-                        slideOrder.FacilityId = this.m_MaterialTrackingBatch.ToFacilityId;
-                        slideOrder.LocationId = locationId;
-                        slideOrder.Location = locationName;
+                        slideOrder.SetLocation(facility, location);
                         YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
                         break;
                     default:

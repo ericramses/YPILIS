@@ -781,5 +781,19 @@ namespace YellowstonePathology.Business.Test
                 this.AliquotType = "FrozenBlock";
             }
         }
+
+        public void SetLocation(YellowstonePathology.Business.Facility.Model.Facility facility, YellowstonePathology.Business.Facility.Model.Location location)
+        {
+            this.FacilityId = facility.FacilityId;
+            this.FacilityName = facility.FacilityName;
+            if (location == null)
+            {
+                this.LocationId = null;
+            }
+            else
+            {
+                this.LocationId = location.LocationId;
+            }
+        }
     }
 }

@@ -9,7 +9,7 @@ using YellowstonePathology.Business.Persistence;
 namespace YellowstonePathology.Business.Slide.Model
 {
     [PersistentClass("tblSlideOrder", "YPIDATA")]
-    public class SlideOrder_Base: INotifyPropertyChanged
+    public class SlideOrder_Base : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -25,7 +25,7 @@ namespace YellowstonePathology.Business.Slide.Model
 
         protected int m_OrderedById;
         protected string m_OrderedBy;
-        protected string m_OrderedFrom;        
+        protected string m_OrderedFrom;
         protected bool m_Validated;
         protected string m_ValidationStation;
         protected int m_ValidatedById;
@@ -49,12 +49,12 @@ namespace YellowstonePathology.Business.Slide.Model
         protected string m_ReportNo;
         protected string m_LabelType;
         protected bool m_OrderedAsDual;
-        protected bool m_UseWetProtocol;        
+        protected bool m_UseWetProtocol;
         protected bool m_OrderSentToVentana;
         protected bool m_PerformedByHand;
 
         private string m_LocationId;
-        private string m_FacilityId;        
+        private string m_FacilityId;
 
         private bool m_Combined;
 
@@ -64,9 +64,9 @@ namespace YellowstonePathology.Business.Slide.Model
         }
 
         public SlideOrder_Base(string objectId, string slideOrderId, YellowstonePathology.Business.Test.AliquotOrder aliquotOrder, YellowstonePathology.Business.Test.Model.TestOrder testOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity, int slideNumber)
-        {            
-			this.m_ObjectId = objectId;
-			this.m_SlideOrderId = slideOrderId;
+        {
+            this.m_ObjectId = objectId;
+            this.m_SlideOrderId = slideOrderId;
             this.m_AliquotOrderId = aliquotOrder.AliquotOrderId;
             this.m_OrderDate = DateTime.Now;
             this.m_AliquotType = "Slide";
@@ -76,7 +76,7 @@ namespace YellowstonePathology.Business.Slide.Model
             this.m_OrderedBy = systemIdentity.User.UserName;
             this.m_OrderedById = systemIdentity.User.UserId;
             this.m_OrderedFrom = Environment.MachineName;
-            this.m_OrderedAsDual = testOrder.OrderedAsDual;               
+            this.m_OrderedAsDual = testOrder.OrderedAsDual;
         }
 
         public void Validate(YellowstonePathology.Business.User.SystemIdentity systemIdentity)
@@ -151,7 +151,7 @@ namespace YellowstonePathology.Business.Slide.Model
                     this.NotifyPropertyChanged("ClientAccessioned");
                 }
             }
-        }        
+        }
 
         [PersistentProperty()]
         [PersistentDataColumnProperty(false, "50", "0", "varchar")]
@@ -737,7 +737,7 @@ namespace YellowstonePathology.Business.Slide.Model
                     this.NotifyPropertyChanged("UseWetProtocol");
                 }
             }
-        }        
+        }
 
         [PersistentProperty()]
         [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
@@ -789,7 +789,7 @@ namespace YellowstonePathology.Business.Slide.Model
                     break;
             }
             return slideOrderLabel.ToString();
-        }     
+        }
 
         public void FromXml(XElement xml)
         {
@@ -853,6 +853,21 @@ namespace YellowstonePathology.Business.Slide.Model
             if (PropertyChanged != null)
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
+        }
+
+        public void SetLocation(YellowstonePathology.Business.Facility.Model.Facility facility, YellowstonePathology.Business.Facility.Model.Location location)
+        {
+            this.m_FacilityId = facility.FacilityId;
+            if (location == null)
+            {
+                this.m_LocationId = null;
+                this.m_Location = null;
+            }
+            else
+            {
+                this.m_LocationId = location.LocationId;
+                this.m_Location = location.Description;
             }
         }
     }

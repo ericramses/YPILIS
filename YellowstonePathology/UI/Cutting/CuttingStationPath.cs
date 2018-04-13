@@ -223,8 +223,14 @@ namespace YellowstonePathology.UI.Cutting
         private void HandleLockAquiredByMe()
         {
             Business.Test.AliquotOrder aliquotOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetAliquotOrder(this.m_AliquotOrderId);
-            this.AddMaterialTrackingLog(aliquotOrder);
-            this.UpdateAliquotOrderLocation(aliquotOrder);
+            YellowstonePathology.Business.Facility.Model.FacilityCollection facilityCollection = Business.Facility.Model.FacilityCollection.GetAllFacilities();
+            YellowstonePathology.Business.Facility.Model.LocationCollection locationCollection = YellowstonePathology.Business.Facility.Model.LocationCollection.GetAllLocations();
+            YellowstonePathology.Business.Facility.Model.Facility thisFacility = facilityCollection.GetByFacilityId(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId);
+            YellowstonePathology.Business.Facility.Model.Location thisLocation = locationCollection.GetLocation(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.LocationId);
+
+
+            this.AddMaterialTrackingLog(aliquotOrder, thisFacility, thisLocation);
+            aliquotOrder.SetLocation(thisFacility, thisLocation);
             this.HandleAliquotOrderFound(aliquotOrder);
         }
 
@@ -236,18 +242,13 @@ namespace YellowstonePathology.UI.Cutting
             this.m_CuttingWorkspaceWindow.PageNavigator.Navigate(caseLockedPage);
         }
 
-        private void AddMaterialTrackingLog(YellowstonePathology.Business.Test.AliquotOrder aliquotOrder)
+        private void AddMaterialTrackingLog(YellowstonePathology.Business.Test.AliquotOrder aliquotOrder, YellowstonePathology.Business.Facility.Model.Facility thisFacility, YellowstonePathology.Business.Facility.Model.Location thisLocation)
         {            
             if(aliquotOrder == null)
             {
                 Business.Logging.EmailExceptionHandler.HandleException("Attention Sid, The AliquotOrder is null in the cutting path.");
                 return;
             }
-
-            YellowstonePathology.Business.Facility.Model.FacilityCollection facilityCollection = Business.Facility.Model.FacilityCollection.GetAllFacilities();
-            YellowstonePathology.Business.Facility.Model.LocationCollection locationCollection = YellowstonePathology.Business.Facility.Model.LocationCollection.GetAllLocations();
-            YellowstonePathology.Business.Facility.Model.Facility thisFacility = facilityCollection.GetByFacilityId(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId);
-            YellowstonePathology.Business.Facility.Model.Location thisLocation = locationCollection.GetLocation(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.LocationId);
 
             string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
             YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog = new Business.MaterialTracking.Model.MaterialTrackingLog(objectId, aliquotOrder.AliquotOrderId, null, thisFacility.FacilityId, thisFacility.FacilityName,
@@ -261,18 +262,6 @@ namespace YellowstonePathology.UI.Cutting
             {
                 YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(materialTrackingLog, this.m_CuttingWorkspaceWindow);
             }                        
-        }
-
-        private void UpdateAliquotOrderLocation(YellowstonePathology.Business.Test.AliquotOrder aliquotOrder)
-        {
-            YellowstonePathology.Business.Facility.Model.FacilityCollection facilityCollection = Business.Facility.Model.FacilityCollection.GetAllFacilities();
-            YellowstonePathology.Business.Facility.Model.LocationCollection locationCollection = YellowstonePathology.Business.Facility.Model.LocationCollection.GetAllLocations();
-            YellowstonePathology.Business.Facility.Model.Facility thisFacility = facilityCollection.GetByFacilityId(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId);
-            YellowstonePathology.Business.Facility.Model.Location thisLocation = locationCollection.GetLocation(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.LocationId);
-
-            aliquotOrder.FacilityId = thisFacility.FacilityId;
-            aliquotOrder.FacilityName = thisFacility.FacilityName;
-            aliquotOrder.LocationId = thisLocation.LocationId;
         }
 
         private void HandleAliquotOrderFound(YellowstonePathology.Business.Test.AliquotOrder aliquotOrder)
