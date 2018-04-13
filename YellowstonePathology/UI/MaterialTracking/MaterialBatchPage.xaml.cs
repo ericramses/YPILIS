@@ -522,9 +522,9 @@ namespace YellowstonePathology.UI.MaterialTracking
         private void ButtonNewScan_Click(object sender, RoutedEventArgs e)
         {
             /*YellowstonePathology.Business.BarcodeScanning.Barcode barcode = new Business.BarcodeScanning.Barcode();
-            barcode.ID = "18-9407.1A";
-            //this.HistologySlideScanReceived(barcode);
-            this.BarcodeScanPort_HistologyBlockScanReceived(barcode);*/
+            barcode.ID = "18-9675.1A1";
+            this.HistologySlideScanReceived(barcode);
+            //this.BarcodeScanPort_HistologyBlockScanReceived(barcode);*/
         }
     }
 }

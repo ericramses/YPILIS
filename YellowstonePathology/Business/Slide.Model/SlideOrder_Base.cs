@@ -54,6 +54,7 @@ namespace YellowstonePathology.Business.Slide.Model
         protected bool m_PerformedByHand;
 
         private string m_LocationId;
+        private DateTime? m_LocationTime;
         private string m_FacilityId;
 
         private bool m_Combined;
@@ -695,6 +696,21 @@ namespace YellowstonePathology.Business.Slide.Model
         }
 
         [PersistentProperty()]
+        [PersistentDataColumnProperty(false, "3", "null", "datetime")]
+        public DateTime? LocationTime
+        {
+            get { return this.m_LocationTime; }
+            set
+            {
+                if (this.m_LocationTime != value)
+                {
+                    this.m_LocationTime = value;
+                    this.NotifyPropertyChanged("LocationTime");
+                }
+            }
+        }
+
+        [PersistentProperty()]
         [PersistentDataColumnProperty(true, "50", "null", "varchar")]
         public string FacilityId
         {
@@ -859,6 +875,7 @@ namespace YellowstonePathology.Business.Slide.Model
         public void SetLocation(YellowstonePathology.Business.Facility.Model.Facility facility, YellowstonePathology.Business.Facility.Model.Location location)
         {
             this.m_FacilityId = facility.FacilityId;
+            this.m_LocationTime = DateTime.Now;
             if (location == null)
             {
                 this.m_LocationId = null;
