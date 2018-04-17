@@ -47,7 +47,7 @@ namespace YellowstonePathology.Business.Test.TCellNKProfile
 
             string wbcCount = string.Empty;
             if (testOrder.WBC.HasValue == true) wbcCount = testOrder.WBC.Value.ToString();
-            this.SetXmlNodeData("wbc_count", wbcCount + "/uL");
+            this.SetXmlNodeData("wbc_count", wbcCount + "/uL (from client)");
             this.SetXmlNodeData("lymphocyte_percentage", testOrder.LymphocytePercentage.ToString().StringAsPercent());
             this.SetXmlNodeData("tcell_percent", testOrder.CD3TPercent.ToString());
             this.SetXmlNodeData("tcell_count", testOrder.CD3TCount);

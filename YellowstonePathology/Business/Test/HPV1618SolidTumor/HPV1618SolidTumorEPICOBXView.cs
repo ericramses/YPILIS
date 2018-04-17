@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Test.HPV1618SolidTumor
         public override void ToXml(XElement document)
         {
 			HPV1618SolidTumorTestOrder panelSetOrder = (HPV1618SolidTumorTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
-            this.AddHeader(document, panelSetOrder, "HPV-16/18 Genotyping By PCR");
+            this.AddHeader(document, panelSetOrder, "HPV Genotypes 16 and 18 Solid Tumor");
             this.AddNextObxElement("", document, "F");
 
             string hpv16ResultText = "HPV-16 Result: " + panelSetOrder.HPV16Result;

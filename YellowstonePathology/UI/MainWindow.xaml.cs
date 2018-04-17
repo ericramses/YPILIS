@@ -676,13 +676,7 @@ namespace YellowstonePathology.UI
 		{
 			YellowstonePathology.UI.Common.UserPreferences dlg = new YellowstonePathology.UI.Common.UserPreferences();
 			dlg.ShowDialog();
-		}
-
-		private void MenuItemDatabase_Click(object sender, RoutedEventArgs e)
-		{
-			//YellowstonePathology.UI.Common.DatabaseSelection dlg = new YellowstonePathology.UI.Common.DatabaseSelection();
-			//dlg.ShowDialog();
-		}
+		}		
 
 		private void MenuItemValidate_Click(object sender, RoutedEventArgs e)
 		{
