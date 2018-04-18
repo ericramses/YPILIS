@@ -11,8 +11,15 @@ namespace YellowstonePathology.Business.Billing.Model
             : base(accessionOrder, reportNo)
         {
             
-        }        
-        
+        }
+
+        public override void SetPanelSetOrderCPTCodes()
+        {
+            BillableObjectStains billableObjectStains = new BillableObjectStains(this.m_AccessionOrder, this.m_PanelSetOrder.ReportNo);
+            billableObjectStains.SetPanelSetOrderCPTCodes();
+            this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.UpdateCodeType();
+        }
+
         public override void PostTechnical(string billTo, string billBy)
         {
             if (billTo == "Client")
@@ -22,7 +29,10 @@ namespace YellowstonePathology.Business.Billing.Model
             else
             {
                 this.PostG0416(YellowstonePathology.Business.Billing.Model.BillingComponentEnum.Technical, billTo, billBy);
-            }            
+            }
+
+            BillableObjectStains billableObjectStains = new BillableObjectStains(this.m_AccessionOrder, this.m_PanelSetOrder.ReportNo);
+            billableObjectStains.PostTechnical(billTo, billBy);
         }
 
         public override void PostProfessional(string billTo, string billBy)
@@ -34,7 +44,10 @@ namespace YellowstonePathology.Business.Billing.Model
             else
             {
                 this.PostG0416(YellowstonePathology.Business.Billing.Model.BillingComponentEnum.Professional, billTo, billBy);
-            }  
+            }
+
+            BillableObjectStains billableObjectStains = new BillableObjectStains(this.m_AccessionOrder, this.m_PanelSetOrder.ReportNo);
+            billableObjectStains.PostTechnical(billTo, billBy);
         }
 
         public override void PostGlobal(string billTo, string billBy)
@@ -46,7 +59,10 @@ namespace YellowstonePathology.Business.Billing.Model
             else
             {
                 this.PostG0416(YellowstonePathology.Business.Billing.Model.BillingComponentEnum.Global, billTo, billBy);
-            }  
+            }
+
+            BillableObjectStains billableObjectStains = new BillableObjectStains(this.m_AccessionOrder, this.m_PanelSetOrder.ReportNo);
+            billableObjectStains.PostTechnical(billTo, billBy);
         }
 
         public void Post88305(YellowstonePathology.Business.Billing.Model.BillingComponentEnum billingComponent, string billTo, string billBy)
@@ -70,7 +86,7 @@ namespace YellowstonePathology.Business.Billing.Model
                     panelSetOrderCPTCodeBill.Quantity = cpt88305Count;
                     this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.Add(panelSetOrderCPTCodeBill);
                 }
-            }
+            }            
         }
 
         public void PostG0416(YellowstonePathology.Business.Billing.Model.BillingComponentEnum billingComponent, string billTo, string billBy)

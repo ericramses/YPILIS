@@ -214,8 +214,8 @@ namespace YellowstonePathology.UI.Login.Receiving
                     {
                         if(this.m_ClientOrderDetail.FixationStartTime.HasValue == true)
                         {
-                            DateTime todayAt550 = DateTime.Parse(DateTime.Today.ToString("yyyy-MM-dd") + "T17:50");
-                            Business.Surgical.ProcessorRun run = new Business.Surgical.ProcessorRun("This Afternoon", todayAt550, new TimeSpan(2, 30, 0));
+                            DateTime todayAt500 = DateTime.Parse(DateTime.Today.ToString("yyyy-MM-dd") + "T17:00");
+                            Business.Surgical.ProcessorRun run = new Business.Surgical.ProcessorRun("This Afternoon", todayAt500, new TimeSpan(2, 30, 0));
                             DateTime fixationEndTime = run.GetFixationEndTime(this.m_ClientOrderDetail.FixationStartTime.Value);
                             TimeSpan fixationDuration = fixationEndTime.Subtract(this.m_ClientOrderDetail.FixationStartTime.Value);
                             if (fixationDuration.TotalHours < 6)
