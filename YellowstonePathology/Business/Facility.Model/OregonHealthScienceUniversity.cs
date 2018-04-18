@@ -20,7 +20,7 @@ namespace YellowstonePathology.Business.Facility.Model
             this.m_FedexAccountNo = "37105001";
             this.m_FedexPaymentType = "SENDER";            
 			
-			this.m_CliaLicense = new CLIALicense(this, null);
+			//this.m_CliaLicense = new CLIALicense(this, null);
         }
     }
 }

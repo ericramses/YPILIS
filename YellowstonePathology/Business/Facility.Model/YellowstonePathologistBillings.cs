@@ -21,14 +21,14 @@ namespace YellowstonePathology.Business.Facility.Model
             this.m_AccessioningLocation = "Billings";
             this.m_LocationAbbreviation = "YPI Blgs, Mt";            
 
-            this.Locations.Add(new YellowstonePathology.Business.Facility.Model.LocationDefinitions.DrBrownOffice());
+            /*this.Locations.Add(new YellowstonePathology.Business.Facility.Model.LocationDefinitions.DrBrownOffice());
             this.Locations.Add(new YellowstonePathology.Business.Facility.Model.LocationDefinitions.DrDurdenOffice());
             this.Locations.Add(new YellowstonePathology.Business.Facility.Model.LocationDefinitions.DrEmerickOffice());
             this.Locations.Add(new YellowstonePathology.Business.Facility.Model.LocationDefinitions.DrNeroOffice());
             this.Locations.Add(new YellowstonePathology.Business.Facility.Model.LocationDefinitions.DrSchultzOffice());
-            this.Locations.Add(new YellowstonePathology.Business.Facility.Model.LocationDefinitions.SvhPathologistOffice());
+            this.Locations.Add(new YellowstonePathology.Business.Facility.Model.LocationDefinitions.SvhPathologistOffice());*/
 
-            this.m_CliaLicense = new CLIALicense(new YellowstonePathologyInstituteBillings(), "27D0946844");
+            //this.m_CliaLicense = new CLIALicense(new YellowstonePathologyInstituteBillings(), "27D0946844");
 		}
     }
 }

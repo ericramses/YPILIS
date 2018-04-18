@@ -32,7 +32,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 		{
             this.m_IsLoaded = false;
 			this.m_AccessionOrder = accessionOrder;
-            this.m_FacilityCollection = Business.Facility.Model.FacilityCollection.GetAllFacilities();
+            this.m_FacilityCollection = Business.Facility.Model.FacilityCollection.Instance;
 
 			this.m_PathologistUsers = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetUsersByRole(YellowstonePathology.Business.User.SystemUserRoleDescriptionEnum.Pathologist, true);
 			
@@ -128,10 +128,10 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 ComboBox comboBox = (ComboBox)sender;
                 YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = (YellowstonePathology.Business.Test.PanelSetOrder)comboBox.Tag;
                 YellowstonePathology.Business.User.SystemUser systemUser = (YellowstonePathology.Business.User.SystemUser)comboBox.SelectedItem;
-                YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings ypiBLGS = new Business.Facility.Model.YellowstonePathologyInstituteBillings();
-                YellowstonePathology.Business.Facility.Model.ButtePathology buttePathology = new Business.Facility.Model.ButtePathology();
+                YellowstonePathology.Business.Facility.Model.Facility ypiBLGS = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
+                YellowstonePathology.Business.Facility.Model.Facility buttePathology = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("BTTPTHLGY");
 
-                YellowstonePathology.Business.Facility.Model.YellowstonePathologistBillings ypBLGS = new YellowstonePathology.Business.Facility.Model.YellowstonePathologistBillings();                
+                YellowstonePathology.Business.Facility.Model.Facility ypBLGS = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPBLGS");
 
                 if (systemUser.UserId == 5132 || systemUser.UserId == 5133) //Dr Shannon and Dr Smirnoff
                 {
@@ -153,10 +153,10 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 {                         
                     if(systemUser.UserId == 5061) //Dr Clegg
                     {
-                        YellowstonePathology.Business.Facility.Model.YellowstonePathologistCody ypCody = new Business.Facility.Model.YellowstonePathologistCody();
-                        YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteCody ypiCody = new Business.Facility.Model.YellowstonePathologyInstituteCody();
+                        YellowstonePathology.Business.Facility.Model.Facility ypCody = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPCDY");
+                        YellowstonePathology.Business.Facility.Model.Facility ypiCody = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPICDY");
 
-                        if(panelSetOrder.HasProfessionalComponent == true)
+                        if (panelSetOrder.HasProfessionalComponent == true)
                         {
                             panelSetOrder.ProfessionalComponentFacilityId = ypCody.FacilityId;
                             panelSetOrder.ProfessionalComponentBillingFacilityId = ypiCody.FacilityId;

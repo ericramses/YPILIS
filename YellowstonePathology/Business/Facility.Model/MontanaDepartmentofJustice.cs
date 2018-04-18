@@ -13,7 +13,7 @@ namespace YellowstonePathology.Business.Facility.Model
             this.m_FacilityName = "Montana Department of Justice";
             this.m_IsReferenceLab = false;
 
-            this.m_CliaLicense = new CLIALicense(this, null);
+            //this.m_CliaLicense = new CLIALicense(this, null);
         }
     }
 }

@@ -332,6 +332,22 @@ namespace YellowstonePathology.Business.Persistence
                 Document document = this.m_Stack.Pull(documentId, builder);
                 return (YellowstonePathology.Business.Surgical.VentanaBenchMark)document.Value;
             }
-        }        
+        }
+
+        public YellowstonePathology.Business.Facility.Model.Facility PullFacility(string facilityId, object writer)
+        {
+            lock (locker)
+            {
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.CommandText = "Select * from tblFacility f where f.FacilityId = @FacilityId;";
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("@FacilityId", facilityId);
+                GenericDocumentBuilder builder = new GenericDocumentBuilder(cmd, typeof(YellowstonePathology.Business.Facility.Model.Facility));
+
+                DocumentId documentId = new DocumentId(typeof(YellowstonePathology.Business.Facility.Model.Facility), writer, facilityId);
+                Document document = this.m_Stack.Pull(documentId, builder);
+                return (YellowstonePathology.Business.Facility.Model.Facility)document.Value;
+            }
+        }
     }
 }

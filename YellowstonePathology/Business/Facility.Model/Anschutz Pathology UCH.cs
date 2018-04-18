@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Facility.Model
     {
         public AnschutzPathologyUCH()
         {
-            this.m_FacilityId = "UOCH";
+            this.m_FacilityId = "APUCH";
             this.m_FacilityIdOLD = null;
             this.m_FacilityName = "Anschutz Inpatient Pavilion - Pathology; University Of Colorado Hospital";
             this.m_Address1 = "12605 Aurora Court";

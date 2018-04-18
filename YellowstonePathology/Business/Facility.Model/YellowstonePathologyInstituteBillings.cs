@@ -22,7 +22,7 @@ namespace YellowstonePathology.Business.Facility.Model
             this.m_AccessioningLocation = "Billings";
             this.m_LocationAbbreviation = "YPI Blgs, Mt";
 
-            this.Locations.Add(new YellowstonePathology.Business.Facility.Model.LocationDefinitions.BlgsCaseCompilationStation());
+            /*this.Locations.Add(new YellowstonePathology.Business.Facility.Model.LocationDefinitions.BlgsCaseCompilationStation());
             this.Locations.Add(new YellowstonePathology.Business.Facility.Model.LocationDefinitions.BlgsCuttingStationCaptain());
             this.Locations.Add(new YellowstonePathology.Business.Facility.Model.LocationDefinitions.BlgsCuttingStationTenille());
             this.Locations.Add(new YellowstonePathology.Business.Facility.Model.LocationDefinitions.BlgsCytologyLoginStation());
@@ -54,9 +54,9 @@ namespace YellowstonePathology.Business.Facility.Model
             this.Locations.Add(new YellowstonePathology.Business.Facility.Model.LocationDefinitions.WilliamCoplandOffice());
             this.Locations.Add(new YellowstonePathology.Business.Facility.Model.LocationDefinitions.YolandaHuttonOffice());
             this.Locations.Add(new YellowstonePathology.Business.Facility.Model.LocationDefinitions.Sandra());
-            this.Locations.Add(new YellowstonePathology.Business.Facility.Model.LocationDefinitions.AshleeBrown());
+            this.Locations.Add(new YellowstonePathology.Business.Facility.Model.LocationDefinitions.AshleeBrown());*/
 
-            this.m_CliaLicense = new CLIALicense(this, "27D0946844");
+            //this.m_CliaLicense = new CLIALicense(this, "27D0946844");
 		}
     }
 }

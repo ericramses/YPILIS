@@ -14,7 +14,6 @@ namespace YellowstonePathology.UI
         {
             this.m_PrintDocument = new System.Drawing.Printing.PrintDocument();
 			this.m_HistologySlideQueue = new Queue<Business.BarcodeScanning.HistologySlide>();
-            YellowstonePathology.Business.Facility.Model.FacilityCollection facilityCollection = YellowstonePathology.Business.Facility.Model.FacilityCollection.GetAllFacilities();         
 
             foreach (YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder in slideOrderCollection)
             {

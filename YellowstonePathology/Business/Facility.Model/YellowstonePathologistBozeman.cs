@@ -23,10 +23,10 @@ namespace YellowstonePathology.Business.Facility.Model
             this.m_LocationAbbreviation = "YPI Bzmn, Mt";
             this.m_ClientId = 1613;
 
-            this.Locations.Add(new YellowstonePathology.Business.Facility.Model.LocationDefinitions.DrEmerickOffice());
-            this.Locations.Add(new YellowstonePathology.Business.Facility.Model.LocationDefinitions.DrNeroOffice());
+            //this.Locations.Add(new YellowstonePathology.Business.Facility.Model.LocationDefinitions.DrEmerickOffice());
+            //this.Locations.Add(new YellowstonePathology.Business.Facility.Model.LocationDefinitions.DrNeroOffice());
 
-            this.m_CliaLicense = new CLIALicense(this, "27D0410647");
+            //this.m_CliaLicense = new CLIALicense(this, "27D0410647");
         }
     }
 }

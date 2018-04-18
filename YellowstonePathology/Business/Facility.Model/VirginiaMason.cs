@@ -19,7 +19,7 @@ namespace YellowstonePathology.Business.Facility.Model
             this.m_PhoneNumber = "(206)223-6861";
             this.m_FedexAccountNo = "986497";
             this.m_FedexPaymentType = "RECIPIENT";
-			this.m_CliaLicense = new CLIALicense(this, null);
+			//this.m_CliaLicense = new CLIALicense(this, null);
         }
     }
 }

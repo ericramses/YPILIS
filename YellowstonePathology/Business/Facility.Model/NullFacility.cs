@@ -11,7 +11,7 @@ namespace YellowstonePathology.Business.Facility.Model
     {
         public NullFacility()
         {
-            this.m_CliaLicense = new CLIALicense(this, null);
+            //this.m_CliaLicense = new CLIALicense(this, null);
         }
 
     }

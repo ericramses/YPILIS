@@ -22,7 +22,7 @@ namespace YellowstonePathology.Business.Facility.Model
             this.m_FedexPaymentType = null;
             this.m_IsReferenceLab = true;
 
-			this.m_CliaLicense = new CLIALicense(this, null);            
+			//this.m_CliaLicense = new CLIALicense(this, null);            
         }
     }
 }

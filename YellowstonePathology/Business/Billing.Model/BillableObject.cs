@@ -29,8 +29,7 @@ namespace YellowstonePathology.Business.Billing.Model
 			YellowstonePathology.Business.Client.Model.Client client = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientByClientId(this.m_AccessionOrder.ClientId);
             YellowstonePathology.Business.Billing.Model.BillingRuleSet billingRuleSet = YellowstonePathology.Business.Billing.Model.BillingRuleSetCollection.GetRuleSetByRuleSetId(client.BillingRuleSetId2);
 
-            Business.Facility.Model.FacilityCollection facilityCollection = Business.Facility.Model.FacilityCollection.GetAllFacilities();
-            Business.Facility.Model.Facility technicalComponentFacility = facilityCollection.GetByFacilityId(this.m_PanelSetOrder.TechnicalComponentFacilityId);
+            Business.Facility.Model.Facility technicalComponentFacility = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId(this.m_PanelSetOrder.TechnicalComponentFacilityId);
 
 			YellowstonePathology.Business.Billing.Model.BillingTypeEnum billingType = billingRuleSet.GetBillingType(this.m_AccessionOrder.PatientType, this.m_AccessionOrder.PrimaryInsurance, this.m_AccessionOrder.SecondaryInsurance, this.m_PanelSetOrder.Ordered14DaysPostDischarge, this.m_PanelSetOrder.PanelSetId, technicalComponentFacility.IsReferenceLab);
 			this.m_PanelSetOrder.BillingType = billingType.ToString();			

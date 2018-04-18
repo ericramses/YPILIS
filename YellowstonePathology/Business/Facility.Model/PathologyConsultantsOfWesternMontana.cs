@@ -23,7 +23,7 @@ namespace YellowstonePathology.Business.Facility.Model
             this.m_IsReferenceLab = false;
             this.m_ClientId = 1282;
 	
-            this.m_CliaLicense = new CLIALicense(this, string.Empty);            
+            //this.m_CliaLicense = new CLIALicense(this, string.Empty);            
         }
     }
 }

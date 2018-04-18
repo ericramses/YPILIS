@@ -29,8 +29,7 @@ namespace YellowstonePathology.Business.Visitor
         {
             YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = accessionOrder.PanelSetOrderCollection.GetPanelSetOrderByTestOrderId(this.m_TestOrder.TestOrderId);
 
-            YellowstonePathology.Business.Facility.Model.FacilityCollection allFacilities = YellowstonePathology.Business.Facility.Model.FacilityCollection.GetAllFacilities();
-            YellowstonePathology.Business.Facility.Model.Facility accessioningFacility = allFacilities.GetByFacilityId(accessionOrder.AccessioningFacilityId);
+            YellowstonePathology.Business.Facility.Model.Facility accessioningFacility = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId(accessionOrder.AccessioningFacilityId);
 
             Slide.Model.Slide slide = Slide.Model.SlideFactory.Get(this.m_TestOrder.TestId);
 

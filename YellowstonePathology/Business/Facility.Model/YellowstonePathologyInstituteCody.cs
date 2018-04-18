@@ -19,10 +19,10 @@ namespace YellowstonePathology.Business.Facility.Model
             this.m_AccessioningLocation = "Cody";
             this.m_LocationAbbreviation = "YPI Cody, Wy";
 
-            this.Locations.Add(new YellowstonePathology.Business.Facility.Model.LocationDefinitions.CodyAccessionStation());
-            this.Locations.Add(new YellowstonePathology.Business.Facility.Model.LocationDefinitions.CodyGrossStation());
+            //this.Locations.Add(new YellowstonePathology.Business.Facility.Model.LocationDefinitions.CodyAccessionStation());
+            //this.Locations.Add(new YellowstonePathology.Business.Facility.Model.LocationDefinitions.CodyGrossStation());
 
-            this.m_CliaLicense = new CLIALicense(this, "53D1091161");
+            ////this.m_CliaLicense = new CLIALicense(this, "53D1091161");
         }
     }
 }

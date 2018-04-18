@@ -32,8 +32,7 @@ namespace YellowstonePathology.Business.Label.Model
             this.m_TruncatedLastName = patient.GetTruncatedLastName(12);
             this.m_SlideId = aliquotOrder.Label;
 
-            YellowstonePathology.Business.Facility.Model.FacilityCollection facilityCollection = YellowstonePathology.Business.Facility.Model.FacilityCollection.GetAllFacilities();
-            YellowstonePathology.Business.Facility.Model.Facility facility = facilityCollection.GetByFacilityId(accessionOrder.AccessioningFacilityId);
+            YellowstonePathology.Business.Facility.Model.Facility facility = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId(accessionOrder.AccessioningFacilityId);
 
             this.m_LocationDescription = facility.LocationAbbreviation;
         }
