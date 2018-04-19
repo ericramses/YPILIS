@@ -23,13 +23,15 @@ namespace YellowstonePathology.Business.PanelSet.Model
             this.m_AllowMultiplePerAccession = true;
 
             string taskDescription = "Gather materials and send to U of W.";
-			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskFedexShipment(YellowstonePathology.Business.Task.Model.TaskAssignment.Histology, taskDescription, new Facility.Model.UniversityOfWashington()));
 
-            this.m_TechnicalComponentFacility = new YellowstonePathology.Business.Facility.Model.UniversityOfWashington();
-            this.m_ProfessionalComponentFacility = new YellowstonePathology.Business.Facility.Model.UniversityOfWashington();
+            YellowstonePathology.Business.Facility.Model.Facility universityOfWashington = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("UWRLS");
+            this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskFedexShipment(YellowstonePathology.Business.Task.Model.TaskAssignment.Histology, taskDescription, universityOfWashington));
 
-            this.m_TechnicalComponentBillingFacility = new YellowstonePathology.Business.Facility.Model.UniversityOfWashington();
-            this.m_ProfessionalComponentBillingFacility = new YellowstonePathology.Business.Facility.Model.UniversityOfWashington();
+            this.m_TechnicalComponentFacility = universityOfWashington;
+            this.m_ProfessionalComponentFacility = universityOfWashington;
+
+            this.m_TechnicalComponentBillingFacility = universityOfWashington;
+            this.m_ProfessionalComponentBillingFacility = universityOfWashington;
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMiscellaneous());
 		}

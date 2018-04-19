@@ -254,7 +254,7 @@ namespace YellowstonePathology.UI.Login.Receiving
                         this.m_PanelSetCollectionView = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetByCaseType("FISH");
                         break;
                     case "Neogenomics":
-                        YellowstonePathology.Business.Facility.Model.NeogenomicsIrvine neo = new Business.Facility.Model.NeogenomicsIrvine();
+                        YellowstonePathology.Business.Facility.Model.Facility neo = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("NEOGNMCIRVN");
                         this.m_PanelSetCollectionView = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetByFacility(neo);
                         break;
                     case "ARUP":

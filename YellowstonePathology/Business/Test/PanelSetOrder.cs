@@ -1716,8 +1716,8 @@ namespace YellowstonePathology.Business.Test
 		{
 			StringBuilder result = new StringBuilder();
 
-			YellowstonePathology.Business.Facility.Model.Facility technicalComponentFacility = new YellowstonePathology.Business.Facility.Model.NullFacility();
-			YellowstonePathology.Business.Facility.Model.Facility professionalComponentFacility = new YellowstonePathology.Business.Facility.Model.NullFacility();
+			YellowstonePathology.Business.Facility.Model.Facility technicalComponentFacility = new YellowstonePathology.Business.Facility.Model.Facility();
+			YellowstonePathology.Business.Facility.Model.Facility professionalComponentFacility = new YellowstonePathology.Business.Facility.Model.Facility();
 
 			if (this.HasTechnicalComponent == true)
 			{

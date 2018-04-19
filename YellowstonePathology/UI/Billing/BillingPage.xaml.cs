@@ -66,7 +66,7 @@ namespace YellowstonePathology.UI.Billing
             this.m_ReportNo = reportNo;
 
             this.m_FacilityCollection = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance;
-            this.m_FacilityCollection.Insert(0, new Business.Facility.Model.NullFacility());
+            this.m_FacilityCollection.Insert(0, new Business.Facility.Model.Facility());
 
             this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
             this.m_PanelSetOrderCPTCodeCollection = this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection;

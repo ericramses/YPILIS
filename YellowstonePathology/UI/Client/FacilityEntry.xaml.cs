@@ -35,6 +35,7 @@ namespace YellowstonePathology.UI.Client
         private void FacilityEntry_Closing(object sender, CancelEventArgs e)
         {
             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
+            YellowstonePathology.Business.Facility.Model.FacilityCollection.Refresh();
         }
 
         public void NotifyPropertyChanged(String info)

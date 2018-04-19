@@ -429,12 +429,8 @@ namespace YellowstonePathology.UI.Client
 
         private void DeleteFacility(YellowstonePathology.Business.Facility.Model.Facility facility)
         {
-            /*YellowstonePathology.Business.Client.Model.ClientLocationCollection clientLocationCollection = client.ClientLocationCollection;
-            for (int i = clientLocationCollection.Count - 1; i > -1; i--)
-            {
-                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.DeleteDocument(clientLocationCollection[i], this);
-            }
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.DeleteDocument(client, this);*/
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.DeleteDocument(facility, this);
+            YellowstonePathology.Business.Facility.Model.FacilityCollection.Refresh();
         }
 
         private void ListViewClientGroups_MouseDoubleClick(object sender, MouseButtonEventArgs e)

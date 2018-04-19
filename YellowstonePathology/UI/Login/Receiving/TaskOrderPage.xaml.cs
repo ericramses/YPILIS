@@ -196,8 +196,8 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         private void HyperLinkSendToNeogenomics_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Facility.Model.NeogenomicsIrvine neo = new YellowstonePathology.Business.Facility.Model.NeogenomicsIrvine();
-            YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings ypi = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();
+            YellowstonePathology.Business.Facility.Model.Facility neo = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("NEOGNMCIRVN");
+            YellowstonePathology.Business.Facility.Model.Facility ypi = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
 
             this.m_TaskOrder.TaskOrderDetailCollection.Clear();
             YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_TaskOrder.ReportNo);
