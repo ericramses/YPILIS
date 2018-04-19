@@ -47,7 +47,7 @@ namespace YellowstonePathology.Business.Billing.Model
             }
 
             BillableObjectStains billableObjectStains = new BillableObjectStains(this.m_AccessionOrder, this.m_PanelSetOrder.ReportNo);
-            billableObjectStains.PostTechnical(billTo, billBy);
+            billableObjectStains.PostProfessional(billTo, billBy);
         }
 
         public override void PostGlobal(string billTo, string billBy)
@@ -62,7 +62,7 @@ namespace YellowstonePathology.Business.Billing.Model
             }
 
             BillableObjectStains billableObjectStains = new BillableObjectStains(this.m_AccessionOrder, this.m_PanelSetOrder.ReportNo);
-            billableObjectStains.PostTechnical(billTo, billBy);
+            billableObjectStains.PostGlobal(billTo, billBy);            
         }
 
         public void Post88305(YellowstonePathology.Business.Billing.Model.BillingComponentEnum billingComponent, string billTo, string billBy)

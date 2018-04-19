@@ -17,6 +17,7 @@ namespace YellowstonePathology.Business.Test.AMLStandardByFish
 			this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterR();
             this.m_Active = true;
+            this.m_ExpectedDuration = TimeSpan.FromDays(5);
 
             this.m_SurgicalAmendmentRequired = true;
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.AMLStandardByFish.AMLStandardByFishTestOrder).AssemblyQualifiedName;

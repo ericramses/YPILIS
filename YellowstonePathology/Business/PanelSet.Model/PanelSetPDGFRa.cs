@@ -21,7 +21,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
 
 
             this.m_AllowMultiplePerAccession = true;
-            this.m_ExpectedDuration = new TimeSpan(5,0, 0, 0);
+            this.m_ExpectedDuration = TimeSpan.FromDays(4);
 
             string taskDescription = "Gather materials (Bone Marrow Aspirate: 1-2 mL sodium heparin tube. EDTA tube is acceptable. " +
                 "Peripheral Blood: 2-5 mL sodium heparin tube. EDTA tube is acceptable." + 
