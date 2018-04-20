@@ -133,31 +133,28 @@ namespace YellowstonePathology.UI.Client
 
         private void ButtonNewFacility_Click(object sender, RoutedEventArgs e)
         {
-            string id = "NewFacility";
-            YellowstonePathology.Business.Facility.Model.Facility facility = new Business.Facility.Model.Facility();
-            facility.FacilityId = id;
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(facility, this);
-
-            FacilityEntry facilityEntry = new FacilityEntry(facility);
+            FacilityEntry facilityEntry = new FacilityEntry(null, true);
             facilityEntry.ShowDialog();
+            this.DoFacilitySearch(this.TextBoxFacilityName.Text);
         }
 
         private void ButtonDeleteFacility_Click(object sender, RoutedEventArgs e)
         {
-            /*if (this.ListViewProviders.SelectedItem != null)
+            if (this.ListViewFacilities.SelectedItem != null)
             {
-                YellowstonePathology.Business.Client.Model.ProviderClient providerClient = (YellowstonePathology.Business.Client.Model.ProviderClient)this.ListViewProviders.SelectedItem;
-                YellowstonePathology.Business.Rules.MethodResult methodResult = this.CanDeleteProvider(providerClient.Physician);
+                YellowstonePathology.Business.Facility.Model.Facility facility = (YellowstonePathology.Business.Facility.Model.Facility)this.ListViewFacilities.SelectedItem;
+                YellowstonePathology.Business.Rules.MethodResult methodResult = this.CanDeleteFacililty(facility);
                 if (methodResult.Success == true)
                 {
-                    this.DeleteProvider(providerClient.Physician);
-                    this.DoProviderSearch();
+                    this.DeleteFacility(facility);
+                    YellowstonePathology.Business.Facility.Model.FacilityCollection.Refresh();
+                    this.DoFacilitySearch(this.TextBoxFacilityName.Text);
                 }
                 else
                 {
-                    MessageBox.Show(methodResult.Message, "Unable to delete provider.", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    MessageBox.Show(methodResult.Message, "Unable to delete at this time", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 }
-            }*/
+            }
         }
 
         private void ButtonEnvelope_Click(object sender, RoutedEventArgs e)
@@ -297,7 +294,7 @@ namespace YellowstonePathology.UI.Client
                 YellowstonePathology.Business.Facility.Model.Facility listFacility = (YellowstonePathology.Business.Facility.Model.Facility)this.ListViewFacilities.SelectedItem;
                 YellowstonePathology.Business.Facility.Model.Facility pulledFacility = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullFacility (listFacility.FacilityId, this);
 
-                FacilityEntry facilityEntry = new FacilityEntry(pulledFacility);
+                FacilityEntry facilityEntry = new FacilityEntry(pulledFacility, false);
                 facilityEntry.ShowDialog();
             }
         }
@@ -393,7 +390,7 @@ namespace YellowstonePathology.UI.Client
         {
             YellowstonePathology.Business.Rules.MethodResult result = new Business.Rules.MethodResult();
             result.Success = false;
-            result.Message = "Not Implemented Yet!";
+            result.Message = "See Sid";
             /*int accessionCount = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetAccessionCountByClientId(client.ClientId);
             if (accessionCount > 0)
             {
@@ -430,7 +427,6 @@ namespace YellowstonePathology.UI.Client
         private void DeleteFacility(YellowstonePathology.Business.Facility.Model.Facility facility)
         {
             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.DeleteDocument(facility, this);
-            YellowstonePathology.Business.Facility.Model.FacilityCollection.Refresh();
         }
 
         private void ListViewClientGroups_MouseDoubleClick(object sender, MouseButtonEventArgs e)

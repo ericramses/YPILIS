@@ -23,9 +23,19 @@ namespace YellowstonePathology.UI.Client
         public event PropertyChangedEventHandler PropertyChanged;
 
         private YellowstonePathology.Business.Facility.Model.Facility m_Facility;
-        public FacilityEntry(YellowstonePathology.Business.Facility.Model.Facility facility)
+        private bool m_NewButtonEnabled;
+
+        public FacilityEntry(YellowstonePathology.Business.Facility.Model.Facility facility, bool isNewFacility)
         {
-            this.m_Facility = facility;
+            if (isNewFacility == true)
+            {
+                this.m_Facility = new Business.Facility.Model.Facility();
+            }
+            else
+            {
+                this.m_Facility = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullFacility(facility.FacilityId, this);
+            }
+            this.m_NewButtonEnabled = isNewFacility;
 
             InitializeComponent();
             this.DataContext = this;
@@ -51,6 +61,11 @@ namespace YellowstonePathology.UI.Client
             get { return this.m_Facility; }
         }
 
+        public bool NewButtonEnabled
+        {
+            get { return this.m_NewButtonEnabled; }
+        }
+
         private void ButtonOK_Click(object sender, RoutedEventArgs e)
         {
             if (this.CanSave() == true)
@@ -59,24 +74,52 @@ namespace YellowstonePathology.UI.Client
             }
         }
 
-        private bool CanSave()
+        private void ButtonNew_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.CanAdd() == true)
+            {
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(this.m_Facility, this);
+            }
+        }
+        
+        private bool CanAdd()
         {
             bool result = true;
-
-            /*Business.Audit.Model.AuditCollection auditCollection = new Business.Audit.Model.AuditCollection { new Business.Audit.Model.ProviderDisplayNameAudit(this.m_Physician.DisplayName),
-                new YellowstonePathology.Business.Audit.Model.ProviderNpiAudit(this.m_Physician),
-                new Business.Audit.Model.ProviderHomeBaseAudit(this.m_Physician),
-                new Business.Audit.Model.ProviderClientsHaveDistributionSetAudit(this.m_Physician.ObjectId, this.m_PhysicianClientView) };
-
-            YellowstonePathology.Business.Audit.Model.AuditResult auditResult = auditCollection.Run2();
-            if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.Failure)
+            if (string.IsNullOrEmpty(m_Facility.FacilityName) == false)
             {
-                MessageBoxResult messageBoxResult = MessageBox.Show(auditResult.Message + "  Do you want to continue?", "Missing Information", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
-                if (messageBoxResult == MessageBoxResult.No)
+                this.m_Facility.FacilityId = YellowstonePathology.Business.Helper.IdHelper.CapitalConsonantsInString(m_Facility.FacilityName);
+                if (string.IsNullOrEmpty(this.m_Facility.FacilityId) == true)
                 {
                     result = false;
                 }
-            }*/
+                else if (YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.Exists(this.m_Facility.FacilityId) == true)
+                {
+                    result = false;
+                }
+
+                if(result == false)
+                {
+                    MessageBox.Show("The name did not create a valid Id." + Environment.NewLine + "You can add consonants to the name then change the name when a valid id is created.");
+                }
+            }
+            else
+            {
+                result = false;
+                MessageBox.Show("You need to enter a facility name.");
+            }
+            return result;
+        }
+
+        private bool CanSave()
+        {
+            bool result = true;
+            YellowstonePathology.Business.Audit.Model.CanSaveFacilityAudit canSaveFacilityAudit = new Business.Audit.Model.CanSaveFacilityAudit(this.m_Facility);
+            canSaveFacilityAudit.Run();
+            if(canSaveFacilityAudit.Status == Business.Audit.Model.AuditStatusEnum.Failure)
+            {
+                result = false;
+                MessageBox.Show(canSaveFacilityAudit.Message.ToString());
+            }
             return result;
         }
     }

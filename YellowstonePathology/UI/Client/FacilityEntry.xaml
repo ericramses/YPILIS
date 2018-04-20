@@ -34,7 +34,7 @@
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" HorizontalAlignment="Right" VerticalAlignment="Center">Facility Id:</TextBlock>
-        <TextBox Grid.Column="1" Grid.Row="1" Name="TextBoxFacilityId" Text="{Binding Path=Facility.FacilityId}" Margin="2,2,2,2"></TextBox>
+        <TextBlock Grid.Column="1" Grid.Row="1" Name="TextBoxFacilityId" Text="{Binding Path=Facility.FacilityId}" Margin="2,2,2,2"></TextBlock>
 
         <TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" HorizontalAlignment="Right" VerticalAlignment="Center">Facility Name:</TextBlock>
         <TextBox Grid.Column="1" Grid.Row="2" Name="TextBoxFacilityName" Text="{Binding Path=Facility.FacilityName}" Margin="2,2,2,2" ></TextBox>
@@ -84,9 +84,8 @@
         <TextBlock Grid.Column="0" Grid.Row="17" Margin="2,2,2,2" HorizontalAlignment="Right" VerticalAlignment="Center">CLIALicenseNumber:</TextBlock>
         <TextBox Grid.Column="1" Grid.Row="17" Text="{Binding Path=Facility.CLIALicenseNumber}" Margin="2,2,2,2"></TextBox>
 
-        <StackPanel Grid.Column="0" Grid.Row="18" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-            <Button Margin="5" Width="100" Height="30" Content="OK" Click="ButtonOK_Click"></Button>
-        </StackPanel>
+        <Button Grid.Column="0" Grid.Row="18" Margin="5" Width="100" Height="30" Content="New" Click="ButtonNew_Click"  IsEnabled="{Binding Path=NewButtonEnabled}"/>
+        <Button Grid.Column="1" Grid.Row="18" Margin="5" Width="100" Height="30" HorizontalAlignment="Right" Content="OK" Click="ButtonOK_Click" />
 
     </Grid>
 </Window>
