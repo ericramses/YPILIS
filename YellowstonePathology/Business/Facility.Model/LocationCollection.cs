@@ -22,6 +22,12 @@ namespace YellowstonePathology.Business.Facility.Model
             }
         }
 
+        public static LocationCollection Refresh()
+        {
+            instance = null;
+            return Instance;
+        }
+
         public LocationCollection()
         {			
 			
