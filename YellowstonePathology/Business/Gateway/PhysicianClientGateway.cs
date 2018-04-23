@@ -5,8 +5,8 @@ using MySql.Data.MySqlClient;
 
 namespace YellowstonePathology.Business.Gateway
 {
-	public class PhysicianClientGateway
-	{
+    public class PhysicianClientGateway
+    {
         public static Domain.Physician GetPhysicianByMasterAccessionNo(string masterAccessionNo)
         {
             MySqlCommand cmd = new MySqlCommand();
@@ -17,121 +17,121 @@ namespace YellowstonePathology.Business.Gateway
 
             cmd.CommandType = CommandType.Text;
             cmd.Parameters.AddWithValue("@MasterAccessionNo", masterAccessionNo);
-			Domain.Physician result = PhysicianClientGateway.GetPhysicianFromCommand(cmd);
-			return result;
-		}        
+            Domain.Physician result = PhysicianClientGateway.GetPhysicianFromCommand(cmd);
+            return result;
+        }
 
         public static Domain.Physician GetPhysicianByNpi(string npi)
-		{
-			Domain.Physician result = null;
-			if (string.IsNullOrEmpty(npi) == false && npi != "0")
-			{
-				MySqlCommand cmd = new MySqlCommand();
-				cmd.CommandText = "SELECT * FROM tblPhysician where Npi = @npi;";
-				cmd.CommandType = CommandType.Text;
-				cmd.Parameters.AddWithValue("@npi", npi);
-				result = PhysicianClientGateway.GetPhysicianFromCommand(cmd);
-			}
-			return result;
-		}
+        {
+            Domain.Physician result = null;
+            if (string.IsNullOrEmpty(npi) == false && npi != "0")
+            {
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.CommandText = "SELECT * FROM tblPhysician where Npi = @npi;";
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("@npi", npi);
+                result = PhysicianClientGateway.GetPhysicianFromCommand(cmd);
+            }
+            return result;
+        }
 
-		public static Domain.Physician GetPhysicianByPhysicianId(int physicianId)
-		{
-			MySqlCommand cmd = new MySqlCommand();
-			cmd.CommandText = "SELECT * FROM tblPhysician where tblPhysician.PhysicianId = @PhysicianId;";
-			cmd.CommandType = CommandType.Text;
-			cmd.Parameters.AddWithValue("@PhysicianId", physicianId);
-			Domain.Physician result = PhysicianClientGateway.GetPhysicianFromCommand(cmd);
-			return result;
-		}
+        public static Domain.Physician GetPhysicianByPhysicianId(int physicianId)
+        {
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "SELECT * FROM tblPhysician where tblPhysician.PhysicianId = @PhysicianId;";
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.AddWithValue("@PhysicianId", physicianId);
+            Domain.Physician result = PhysicianClientGateway.GetPhysicianFromCommand(cmd);
+            return result;
+        }
 
-		private static Domain.Physician GetPhysicianFromCommand(MySqlCommand cmd)
-		{
-			Domain.Physician result = null;
-			using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-			{
-				cn.Open();
-				cmd.Connection = cn;
-				using (MySqlDataReader dr = cmd.ExecuteReader())
-				{                    
+        private static Domain.Physician GetPhysicianFromCommand(MySqlCommand cmd)
+        {
+            Domain.Physician result = null;
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
                     while (dr.Read())
                     {
                         result = new Domain.Physician();
                         YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(result, dr);
                         sqlDataReaderPropertyWriter.WriteProperties();
 
-                    }                    
-				}
-			}
-			return result;
-		}
-        
-		public static Domain.PhysicianCollection GetPhysiciansByName(string firstName, string lastName)
-		{
-			MySqlCommand cmd = new MySqlCommand();
-			cmd.CommandType = CommandType.Text;
-			if(string.IsNullOrEmpty(firstName))
-			{
-				cmd.CommandText = "SELECT * FROM tblPhysician where tblPhysician.LastName like concat(@LastName, '%') " +
+                    }
+                }
+            }
+            return result;
+        }
+
+        public static Domain.PhysicianCollection GetPhysiciansByName(string firstName, string lastName)
+        {
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandType = CommandType.Text;
+            if (string.IsNullOrEmpty(firstName))
+            {
+                cmd.CommandText = "SELECT * FROM tblPhysician where tblPhysician.LastName like concat(@LastName, '%') " +
                     "order by tblPhysician.LastName, tblPhysician.FirstName;";
-			}
-			else
-			{
-				cmd.CommandText = "SELECT * FROM tblPhysician where tblPhysician.FirstName like concat(@FirstName, '%') " +
+            }
+            else
+            {
+                cmd.CommandText = "SELECT * FROM tblPhysician where tblPhysician.FirstName like concat(@FirstName, '%') " +
                     "and tblPhysician.LastName like concat(@LastName, '%') order by tblPhysician.LastName, tblPhysician.FirstName;";
                 cmd.Parameters.AddWithValue("@FirstName", firstName);
-			}
-			cmd.Parameters.AddWithValue("@LastName", lastName);
-			Domain.PhysicianCollection result = PhysicianClientGateway.GetPhysicianCollectionFromCommand(cmd);
+            }
+            cmd.Parameters.AddWithValue("@LastName", lastName);
+            Domain.PhysicianCollection result = PhysicianClientGateway.GetPhysicianCollectionFromCommand(cmd);
 
-			if (result.Count == 0)
-			{
-				cmd = new MySqlCommand();
-				if(string.IsNullOrEmpty(firstName))
-				{
-					cmd.CommandText = "SELECT * " +
+            if (result.Count == 0)
+            {
+                cmd = new MySqlCommand();
+                if (string.IsNullOrEmpty(firstName))
+                {
+                    cmd.CommandText = "SELECT * " +
                         "FROM tblPhysician where tblPhysician.LastName like concat(@LastName, '%') order by tblPhysician.LastName, " +
                         "tblPhysician.FirstName;";
-				}
-				else
-				{
-					cmd.CommandText = "SELECT * " + 
+                }
+                else
+                {
+                    cmd.CommandText = "SELECT * " +
                         "FROM tblPhysician where tblPhysician.FirstName like concat(@FirstName, '%') and tblPhysician.LastName like " +
                         "concat(@LastName, '%') order by tblPhysician.LastName, tblPhysician.FirstName;";
-					cmd.Parameters.AddWithValue("@FirstName", firstName);
-				}
-				cmd.Parameters.AddWithValue("@LastName", lastName);
-				result = PhysicianClientGateway.GetPhysicianCollectionFromCommand(cmd);
-			}
-			return result;
-		}        		
+                    cmd.Parameters.AddWithValue("@FirstName", firstName);
+                }
+                cmd.Parameters.AddWithValue("@LastName", lastName);
+                result = PhysicianClientGateway.GetPhysicianCollectionFromCommand(cmd);
+            }
+            return result;
+        }
 
-		private static Domain.PhysicianCollection GetPhysicianCollectionFromCommand(MySqlCommand cmd)
-		{
-			Domain.PhysicianCollection result = new Domain.PhysicianCollection();
-			using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-			{
-				cn.Open();
-				cmd.Connection = cn;
-				using (MySqlDataReader dr = cmd.ExecuteReader())
-				{
-					while (dr.Read())
-					{
-						YellowstonePathology.Business.Domain.Physician physician = new Domain.Physician();
-						YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(physician, dr);
-						sqlDataReaderPropertyWriter.WriteProperties();
-						result.Add(physician);
-					}
-				}
-			}
-			return result;
-		}
+        private static Domain.PhysicianCollection GetPhysicianCollectionFromCommand(MySqlCommand cmd)
+        {
+            Domain.PhysicianCollection result = new Domain.PhysicianCollection();
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.Business.Domain.Physician physician = new Domain.Physician();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(physician, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(physician);
+                    }
+                }
+            }
+            return result;
+        }
 
         public static YellowstonePathology.Business.Client.Model.ClientGroupCollection GetClientGroupCollection()
         {
             YellowstonePathology.Business.Client.Model.ClientGroupCollection result = new Client.Model.ClientGroupCollection();
             MySqlCommand cmd = new MySqlCommand("select * from tblClientGroup order by GroupName;");
-            cmd.CommandType = CommandType.Text;            
+            cmd.CommandType = CommandType.Text;
 
             using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
@@ -152,7 +152,7 @@ namespace YellowstonePathology.Business.Gateway
         }
 
         public static YellowstonePathology.Business.Client.Model.Client GetClientByClientId(int clientId)
-		{
+        {
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = "SELECT * FROM tblClient where tblClient.ClientId = @ClientId; " +
                 "SELECT * from tblClientLocation where tblClientLocation.ClientId = @ClientId;";
@@ -162,9 +162,9 @@ namespace YellowstonePathology.Business.Gateway
             clientBuilderV2.Build(cmd);
             Client.Model.Client result = clientBuilderV2.Client;
             return result;
-		}
+        }
 
-		public static YellowstonePathology.Business.Client.Model.ClientCollection GetClientsByClientName(string clientName)
+        public static YellowstonePathology.Business.Client.Model.ClientCollection GetClientsByClientName(string clientName)
         {
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = "SELECT * FROM tblClient where tblClient.ClientName like concat(@ClientName, '%') order by tblClient.ClientName; " +
@@ -179,16 +179,16 @@ namespace YellowstonePathology.Business.Gateway
         public static YellowstonePathology.Business.Client.Model.ClientCollection GetAllClients()
         {
             MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "SELECT * FROM tblClient;";                
-            cmd.CommandType = CommandType.Text;            
+            cmd.CommandText = "SELECT * FROM tblClient;";
+            cmd.CommandType = CommandType.Text;
             Client.Model.ClientCollection result = BuildClientCollection(cmd);
             return result;
         }
 
         public static View.ClientLocationViewCollection GetClientLocationViewByClientName(string clientName)
-		{
+        {
             MySqlCommand cmd = new MySqlCommand();
-			cmd.CommandText = "select c.ClientId, c.ClientName, cl.ClientLocationId, cl.Location from tblClientLocation cl " +
+            cmd.CommandText = "select c.ClientId, c.ClientName, cl.ClientLocationId, cl.Location from tblClientLocation cl " +
                 "join tblClient c on cl.ClientId = c.ClientId where c.ClientName like concat(@ClientName, '%') Order By 2, 4;";
             cmd.CommandType = CommandType.Text;
             cmd.Parameters.AddWithValue("@ClientName", clientName);
@@ -211,32 +211,32 @@ namespace YellowstonePathology.Business.Gateway
             }
 
             return result;
-		}
+        }
 
         public static Domain.Physician GetPhysicianById(string objectId)
-		{
-			MySqlCommand cmd = new MySqlCommand();
-			cmd.CommandText = "SELECT * FROM tblPhysician where tblPhysician.ObjectId = @ObjectId;";
-			cmd.CommandType = CommandType.Text;
-			cmd.Parameters.AddWithValue("@ObjectId", objectId);
-			Domain.Physician result = PhysicianClientGateway.GetPhysicianFromCommand(cmd);
-			return result;
-		}
+        {
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "SELECT * FROM tblPhysician where tblPhysician.ObjectId = @ObjectId;";
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.AddWithValue("@ObjectId", objectId);
+            Domain.Physician result = PhysicianClientGateway.GetPhysicianFromCommand(cmd);
+            return result;
+        }
 
-		public static Domain.PhysicianCollection GetPhysiciansByClientIdV2(int clientId)
-		{
-			Domain.PhysicianCollection result = new Domain.PhysicianCollection();
+        public static Domain.PhysicianCollection GetPhysiciansByClientIdV2(int clientId)
+        {
+            Domain.PhysicianCollection result = new Domain.PhysicianCollection();
 
-			MySqlCommand cmd = new MySqlCommand();
-			cmd.CommandText = "select ph.* " +
-			   "from tblPhysician ph " +
-			   "join tblPhysicianClient pc on ph.ObjectId = pc.ProviderId " +
-			   "where pc.ClientId = @ClientId order by ph.LastName;";
-			cmd.Parameters.AddWithValue("@ClientId", clientId);
-			cmd.CommandType = CommandType.Text;
-			result = PhysicianClientGateway.GetPhysicianCollectionFromCommand(cmd);
-			return result;
-		}
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "select ph.* " +
+               "from tblPhysician ph " +
+               "join tblPhysicianClient pc on ph.ObjectId = pc.ProviderId " +
+               "where pc.ClientId = @ClientId order by ph.LastName;";
+            cmd.Parameters.AddWithValue("@ClientId", clientId);
+            cmd.CommandType = CommandType.Text;
+            result = PhysicianClientGateway.GetPhysicianCollectionFromCommand(cmd);
+            return result;
+        }
 
         public static YellowstonePathology.Business.Client.Model.ClientCollection GetClientCollectionByClientGroupId(string clientGroupId)
         {
@@ -293,37 +293,37 @@ namespace YellowstonePathology.Business.Gateway
         }
 
         public static Domain.PhysicianClient GetPhysicianClient(string providerId, int clientId)
-		{
-			Domain.PhysicianClient result = null;
-			MySqlCommand cmd = new MySqlCommand();
-			cmd.CommandText = "Select * from tblPhysicianClient where tblPhysicianClient.ProviderId = @ProviderId and " +
+        {
+            Domain.PhysicianClient result = null;
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "Select * from tblPhysicianClient where tblPhysicianClient.ProviderId = @ProviderId and " +
                 "tblPhysicianClient.ClientId = @ClientId;";
-			cmd.CommandType = CommandType.Text;
-			cmd.Parameters.AddWithValue("@ProviderId", providerId);
-			cmd.Parameters.AddWithValue("@ClientId", clientId);
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.AddWithValue("@ProviderId", providerId);
+            cmd.Parameters.AddWithValue("@ClientId", clientId);
 
-			using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-			{
-				cn.Open();
-				cmd.Connection = cn;
-				using (MySqlDataReader dr = cmd.ExecuteReader())
-				{
-					while (dr.Read())
-					{
-						result = new Domain.PhysicianClient();
-						YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(result, dr);
-						sqlDataReaderPropertyWriter.WriteProperties();
-					}
-				}
-			}
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        result = new Domain.PhysicianClient();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(result, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                    }
+                }
+            }
 
-			return result;
-		}
+            return result;
+        }
 
-		public static View.ClientPhysicianView GetClientPhysicianViewByClientIdV2(int clientId)
-		{
+        public static View.ClientPhysicianView GetClientPhysicianViewByClientIdV2(int clientId)
+        {
             View.ClientPhysicianView result = null;
-			MySqlCommand cmd = new MySqlCommand();
+            MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = "select * from tblClient c where c.ClientId = @ClientId; " +
                 "select p.* from tblPhysician p join tblPhysicianClient pc on p.ObjectId = pc.ProviderId where pc.ClientId = @ClientId " +
                 "order by p.FirstName;";
@@ -355,144 +355,144 @@ namespace YellowstonePathology.Business.Gateway
                 }
             }
             return result;
-		}
+        }
 
-		public static YellowstonePathology.Business.Client.Model.PhysicianClientNameCollection GetPhysicianClientNameCollectionV2(string clientName, string physicianName)
-		{
-			YellowstonePathology.Business.Client.Model.PhysicianClientNameCollection result = new YellowstonePathology.Business.Client.Model.PhysicianClientNameCollection();
-			MySqlCommand cmd = new MySqlCommand();
-			cmd.CommandText = "select pc.PhysicianClientId, pc.ClientId, pc.PhysicianId, pc.ProviderId, c.ClientName, p.FirstName, " +
+        public static YellowstonePathology.Business.Client.Model.PhysicianClientNameCollection GetPhysicianClientNameCollectionV2(string clientName, string physicianName)
+        {
+            YellowstonePathology.Business.Client.Model.PhysicianClientNameCollection result = new YellowstonePathology.Business.Client.Model.PhysicianClientNameCollection();
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "select pc.PhysicianClientId, pc.ClientId, pc.PhysicianId, pc.ProviderId, c.ClientName, p.FirstName, " +
                 "p.LastName, c.Telephone, c.Fax " +
-				"from tblPhysicianClient pc join tblClient c on pc.ClientId = c.ClientId " +
-				"join tblPhysician p on pc.ProviderId = p.ObjectId " +
-				"where p.LastName like concat(@PhysicianName, '%') and c.ClientName like concat(@ClientName, '%') order by c.ClientName, p.FirstName;";
-			cmd.CommandType = CommandType.Text;
-			cmd.Parameters.AddWithValue("@ClientName",clientName);
-			cmd.Parameters.AddWithValue("@PhysicianName", physicianName);
+                "from tblPhysicianClient pc join tblClient c on pc.ClientId = c.ClientId " +
+                "join tblPhysician p on pc.ProviderId = p.ObjectId " +
+                "where p.LastName like concat(@PhysicianName, '%') and c.ClientName like concat(@ClientName, '%') order by c.ClientName, p.FirstName;";
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.AddWithValue("@ClientName", clientName);
+            cmd.Parameters.AddWithValue("@PhysicianName", physicianName);
 
-			using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-			{
-				cn.Open();
-				cmd.Connection = cn;
-				using (MySqlDataReader dr = cmd.ExecuteReader())
-				{
-					while (dr.Read())
-					{
-						YellowstonePathology.Business.Client.Model.PhysicianClientName physicianClientName = new YellowstonePathology.Business.Client.Model.PhysicianClientName();
-						YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(physicianClientName, dr);
-						sqlDataReaderPropertyWriter.WriteProperties();
-						result.Add(physicianClientName);
-					}
-				}
-			}
-			return result;
-		}
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.Business.Client.Model.PhysicianClientName physicianClientName = new YellowstonePathology.Business.Client.Model.PhysicianClientName();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(physicianClientName, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(physicianClientName);
+                    }
+                }
+            }
+            return result;
+        }
 
-		public static YellowstonePathology.Business.Client.Model.PhysicianClientNameCollection GetPhysicianClientNameCollectionV2(string physicianClientId)
-		{
-			YellowstonePathology.Business.Client.Model.PhysicianClientNameCollection result = new YellowstonePathology.Business.Client.Model.PhysicianClientNameCollection();
-			MySqlCommand cmd = new MySqlCommand();
-			cmd.CommandText = "select pc.PhysicianClientId, pc.ClientId, pc.PhysicianId, pc.ProviderId, c.ClientName, " +
+        public static YellowstonePathology.Business.Client.Model.PhysicianClientNameCollection GetPhysicianClientNameCollectionV2(string physicianClientId)
+        {
+            YellowstonePathology.Business.Client.Model.PhysicianClientNameCollection result = new YellowstonePathology.Business.Client.Model.PhysicianClientNameCollection();
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "select pc.PhysicianClientId, pc.ClientId, pc.PhysicianId, pc.ProviderId, c.ClientName, " +
                 "p.FirstName, p.LastName, c.Telephone, c.Fax " +
-				"from tblPhysicianClient pc join tblClient c on pc.ClientId = c.ClientId " +
-				"join tblPhysician p on pc.ProviderId = p.ObjectId " +
+                "from tblPhysicianClient pc join tblClient c on pc.ClientId = c.ClientId " +
+                "join tblPhysician p on pc.ProviderId = p.ObjectId " +
                 "where p.ObjectId = (select ProviderId from tblPhysicianClient where tblPhysicianClient.PhysicianClientId = @PhysicianClientId) " +
                 "order by c.ClientName;";
-			cmd.CommandType = CommandType.Text;
-			cmd.Parameters.AddWithValue("@PhysicianClientId", physicianClientId);
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.AddWithValue("@PhysicianClientId", physicianClientId);
 
-			using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-			{
-				cn.Open();
-				cmd.Connection = cn;
-				using (MySqlDataReader dr = cmd.ExecuteReader())
-				{
-					while (dr.Read())
-					{
-						YellowstonePathology.Business.Client.Model.PhysicianClientName physicianClientName = new YellowstonePathology.Business.Client.Model.PhysicianClientName();
-						YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(physicianClientName, dr);
-						sqlDataReaderPropertyWriter.WriteProperties();
-						result.Add(physicianClientName);
-					}
-				}
-			}
-			return result;
-		}
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.Business.Client.Model.PhysicianClientName physicianClientName = new YellowstonePathology.Business.Client.Model.PhysicianClientName();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(physicianClientName, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(physicianClientName);
+                    }
+                }
+            }
+            return result;
+        }
 
-		public static YellowstonePathology.Business.Client.Model.PhysicianNameViewCollection GetPhysicianNameViewCollectionByPhysicianLastNameV2(string physicianLastName)
-		{
-			YellowstonePathology.Business.Client.Model.PhysicianNameViewCollection result = new YellowstonePathology.Business.Client.Model.PhysicianNameViewCollection();
-			MySqlCommand cmd = new MySqlCommand();
-			cmd.CommandText = "Select ph.PhysicianId, ph.ObjectId as ProviderId, ph.FirstName, ph.LastName, c.Telephone HomeBasePhone, c.Fax HomeBaseFax " +
-				"from tblPhysician ph " +
-				"left outer join tblClient c on ph.HomeBaseClientId = c.ClientId " +
-				"where ph.LastName like concat(@LastName, '%') order by ph.FirstName;";
+        public static YellowstonePathology.Business.Client.Model.PhysicianNameViewCollection GetPhysicianNameViewCollectionByPhysicianLastNameV2(string physicianLastName)
+        {
+            YellowstonePathology.Business.Client.Model.PhysicianNameViewCollection result = new YellowstonePathology.Business.Client.Model.PhysicianNameViewCollection();
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "Select ph.PhysicianId, ph.ObjectId as ProviderId, ph.FirstName, ph.LastName, c.Telephone HomeBasePhone, c.Fax HomeBaseFax " +
+                "from tblPhysician ph " +
+                "left outer join tblClient c on ph.HomeBaseClientId = c.ClientId " +
+                "where ph.LastName like concat(@LastName, '%') order by ph.FirstName;";
 
-			cmd.CommandType = CommandType.Text;
-			cmd.Parameters.AddWithValue("@LastName", physicianLastName);
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.AddWithValue("@LastName", physicianLastName);
 
-			using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-			{
-				cn.Open();
-				cmd.Connection = cn;
-				using (MySqlDataReader dr = cmd.ExecuteReader())
-				{
-					while (dr.Read())
-					{
-						YellowstonePathology.Business.Client.Model.PhysicianNameView physicianNameView = new YellowstonePathology.Business.Client.Model.PhysicianNameView();
-						YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(physicianNameView, dr);
-						sqlDataReaderPropertyWriter.WriteProperties();
-						result.Add(physicianNameView);
-					}
-				}
-			}
-			return result;
-		}
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.Business.Client.Model.PhysicianNameView physicianNameView = new YellowstonePathology.Business.Client.Model.PhysicianNameView();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(physicianNameView, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(physicianNameView);
+                    }
+                }
+            }
+            return result;
+        }
 
-		public static List<YellowstonePathology.Business.Client.Model.PhysicianClientDistributionView> GetPhysicianClientDistributionsV2(string physicianClientId)
-		{
-			List<YellowstonePathology.Business.Client.Model.PhysicianClientDistributionView> result = new List<YellowstonePathology.Business.Client.Model.PhysicianClientDistributionView>();
-			MySqlCommand cmd = new MySqlCommand();
-			cmd.CommandText = "Select pcd.*, c.ClientId, c.ClientName, ph.PhysicianId, ph.ObjectId as ProviderId, ph.DisplayName " +
+        public static List<YellowstonePathology.Business.Client.Model.PhysicianClientDistributionView> GetPhysicianClientDistributionsV2(string physicianClientId)
+        {
+            List<YellowstonePathology.Business.Client.Model.PhysicianClientDistributionView> result = new List<YellowstonePathology.Business.Client.Model.PhysicianClientDistributionView>();
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "Select pcd.*, c.ClientId, c.ClientName, ph.PhysicianId, ph.ObjectId as ProviderId, ph.DisplayName " +
                 "PhysicianName, c.DistributionType " +
-				"from tblPhysicianClient pc " +
-				"join tblPhysicianClientDistribution pcd on pc.PhysicianClientId = pcd.PhysicianClientId " +
-				"join tblPhysicianClient pc2 on pcd.DistributionId = pc2.PhysicianClientId " +
-				"join tblClient c on pc2.ClientId = c.ClientId " +
-				"join tblPhysician ph on pc2.ProviderId = ph.ObjectId " +
-				"where pc.PhysicianClientId = @PhysicianClientId;";
-			cmd.CommandType = CommandType.Text;
-			cmd.Parameters.AddWithValue("@PhysicianClientId", physicianClientId);
+                "from tblPhysicianClient pc " +
+                "join tblPhysicianClientDistribution pcd on pc.PhysicianClientId = pcd.PhysicianClientId " +
+                "join tblPhysicianClient pc2 on pcd.DistributionId = pc2.PhysicianClientId " +
+                "join tblClient c on pc2.ClientId = c.ClientId " +
+                "join tblPhysician ph on pc2.ProviderId = ph.ObjectId " +
+                "where pc.PhysicianClientId = @PhysicianClientId;";
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.AddWithValue("@PhysicianClientId", physicianClientId);
 
-			using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-			{
-				cn.Open();
-				cmd.Connection = cn;
-				using (MySqlDataReader dr = cmd.ExecuteReader())
-				{
-					while (dr.Read())
-					{
-						YellowstonePathology.Business.Client.Model.PhysicianClientDistribution physicianClientDistribution = new YellowstonePathology.Business.Client.Model.PhysicianClientDistribution();
-						YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(physicianClientDistribution, dr);
-						sqlDataReaderPropertyWriter.WriteProperties();
-						YellowstonePathology.Business.Client.Model.PhysicianClientDistributionView physicianClientDistributionView = new YellowstonePathology.Business.Client.Model.PhysicianClientDistributionView(physicianClientDistribution);
-						sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(physicianClientDistributionView, dr);
-						sqlDataReaderPropertyWriter.WriteProperties();
-						result.Add(physicianClientDistributionView);
-					}
-				}
-			}
-			return result;
-		}
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.Business.Client.Model.PhysicianClientDistribution physicianClientDistribution = new YellowstonePathology.Business.Client.Model.PhysicianClientDistribution();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(physicianClientDistribution, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        YellowstonePathology.Business.Client.Model.PhysicianClientDistributionView physicianClientDistributionView = new YellowstonePathology.Business.Client.Model.PhysicianClientDistributionView(physicianClientDistribution);
+                        sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(physicianClientDistributionView, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(physicianClientDistributionView);
+                    }
+                }
+            }
+            return result;
+        }
 
-		public static View.PhysicianClientView GetPhysicianClientView(string physicianId)
-		{
+        public static View.PhysicianClientView GetPhysicianClientView(string physicianId)
+        {
             View.PhysicianClientView result = new View.PhysicianClientView();
             MySqlCommand cmd = new MySqlCommand();
-			cmd.CommandText = "select * from tblPhysician where tblPhysician.ObjectId = @ObjectId;" +
-				" select c.* from tblClient c join tblPhysicianClient pc on c.ClientId = pc.ClientId where pc.ProviderId = @ObjectId order by ClientName;";
-			cmd.CommandType = CommandType.Text;
-			cmd.Parameters.AddWithValue("@ObjectId", physicianId);
+            cmd.CommandText = "select * from tblPhysician where tblPhysician.ObjectId = @ObjectId;" +
+                " select c.* from tblClient c join tblPhysicianClient pc on c.ClientId = pc.ClientId where pc.ProviderId = @ObjectId order by ClientName;";
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.AddWithValue("@ObjectId", physicianId);
             using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
@@ -517,276 +517,276 @@ namespace YellowstonePathology.Business.Gateway
                 }
             }
             return result;
-		}
+        }
 
-		public static YellowstonePathology.Business.Client.Model.PhysicianClientCollection GetPhysicianClientListByPhysicianLastNameV2(string physicianLastName)
-		{
-			YellowstonePathology.Business.Client.Model.PhysicianClientCollection result = new Client.Model.PhysicianClientCollection();
-			MySqlCommand cmd = new MySqlCommand();
-			cmd.CommandText = "Select pp.PhysicianClientId, c.ClientId, c.ClientName, ph.PhysicianId, ph.ObjectId ProviderId, " +
+        public static YellowstonePathology.Business.Client.Model.PhysicianClientCollection GetPhysicianClientListByPhysicianLastNameV2(string physicianLastName)
+        {
+            YellowstonePathology.Business.Client.Model.PhysicianClientCollection result = new Client.Model.PhysicianClientCollection();
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "Select pp.PhysicianClientId, c.ClientId, c.ClientName, ph.PhysicianId, ph.ObjectId ProviderId, " +
                 "ph.DisplayName PhysicianName, c.DistributionType, c.Fax FaxNumber, c.Telephone, c.LongDistance, c.FacilityType, ph.NPI " +
-				 "from tblClient c " +
-				 "join tblPhysicianClient pp on c.ClientId = pp.ClientId " +
-				 "Join tblPhysician ph on pp.ProviderId = ph.ObjectId " +
-				 "where ph.LastName like concat(@LastName, '%') order by ph.LastName, ph.FirstName, c.ClientName;";
-			cmd.CommandType = CommandType.Text;
-			cmd.Parameters.AddWithValue("@LastName", physicianLastName);
+                 "from tblClient c " +
+                 "join tblPhysicianClient pp on c.ClientId = pp.ClientId " +
+                 "Join tblPhysician ph on pp.ProviderId = ph.ObjectId " +
+                 "where ph.LastName like concat(@LastName, '%') order by ph.LastName, ph.FirstName, c.ClientName;";
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.AddWithValue("@LastName", physicianLastName);
 
-			using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-			{
-				cn.Open();
-				cmd.Connection = cn;
-				using (MySqlDataReader dr = cmd.ExecuteReader())
-				{
-					while (dr.Read())
-					{
-						YellowstonePathology.Business.Client.Model.PhysicianClient physicianClient = new Client.Model.PhysicianClient();
-						YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(physicianClient, dr);
-						sqlDataReaderPropertyWriter.WriteProperties();
-						result.Add(physicianClient);
-					}
-				}
-			}
-			return result;
-		}
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.Business.Client.Model.PhysicianClient physicianClient = new Client.Model.PhysicianClient();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(physicianClient, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(physicianClient);
+                    }
+                }
+            }
+            return result;
+        }
 
-		public static YellowstonePathology.Business.Client.Model.PhysicianClientCollection GetPhysicianClientListByClientPhysicianLastNameV2(string clientName, string physicianLastName)
-		{
-			YellowstonePathology.Business.Client.Model.PhysicianClientCollection result = new Client.Model.PhysicianClientCollection();
-			MySqlCommand cmd = new MySqlCommand();
-			cmd.CommandText = "Select pp.PhysicianClientId, c.ClientId, c.ClientName, ph.PhysicianId, ph.ObjectId ProviderId, " +
+        public static YellowstonePathology.Business.Client.Model.PhysicianClientCollection GetPhysicianClientListByClientPhysicianLastNameV2(string clientName, string physicianLastName)
+        {
+            YellowstonePathology.Business.Client.Model.PhysicianClientCollection result = new Client.Model.PhysicianClientCollection();
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "Select pp.PhysicianClientId, c.ClientId, c.ClientName, ph.PhysicianId, ph.ObjectId ProviderId, " +
                 "ph.DisplayName PhysicianName, c.DistributionType, c.Fax FaxNumber, c.Telephone, c.LongDistance, c.FacilityType, ph.NPI " +
-				 "from tblClient c " +
-				 "join tblPhysicianClient pp on c.ClientId = pp.ClientId " +
-				 "Join tblPhysician ph on pp.ProviderId = ph.ObjectId " +
-				 "where c.ClientName like concat(@ClientName, '%') and ph.LastName like concat(@PhysicianLastName, '%') order by " +
+                 "from tblClient c " +
+                 "join tblPhysicianClient pp on c.ClientId = pp.ClientId " +
+                 "Join tblPhysician ph on pp.ProviderId = ph.ObjectId " +
+                 "where c.ClientName like concat(@ClientName, '%') and ph.LastName like concat(@PhysicianLastName, '%') order by " +
                  "ph.LastName, ph.FirstName, c.ClientName;";
-			cmd.CommandType = CommandType.Text;
-			cmd.Parameters.AddWithValue("@ClientName", clientName);
-			cmd.Parameters.AddWithValue("@PhysicianLastName", physicianLastName);
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.AddWithValue("@ClientName", clientName);
+            cmd.Parameters.AddWithValue("@PhysicianLastName", physicianLastName);
 
-			using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-			{
-				cn.Open();
-				cmd.Connection = cn;
-				using (MySqlDataReader dr = cmd.ExecuteReader())
-				{
-					while (dr.Read())
-					{
-						YellowstonePathology.Business.Client.Model.PhysicianClient physicianClient = new Client.Model.PhysicianClient();
-						YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(physicianClient, dr);
-						sqlDataReaderPropertyWriter.WriteProperties();
-						result.Add(physicianClient);
-					}
-				}
-			}
-			return result;
-		}
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.Business.Client.Model.PhysicianClient physicianClient = new Client.Model.PhysicianClient();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(physicianClient, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(physicianClient);
+                    }
+                }
+            }
+            return result;
+        }
 
-		public static YellowstonePathology.Business.Client.Model.PhysicianClientCollection GetPhysicianClientListByClientIdV2(int clientId)
-		{
-			YellowstonePathology.Business.Client.Model.PhysicianClientCollection result = new Client.Model.PhysicianClientCollection();
-			MySqlCommand cmd = new MySqlCommand();
-			cmd.CommandText = "Select pp.PhysicianClientId, c.ClientId, c.ClientName, ph.PhysicianId, ph.ObjectId ProviderId, " +
+        public static YellowstonePathology.Business.Client.Model.PhysicianClientCollection GetPhysicianClientListByClientIdV2(int clientId)
+        {
+            YellowstonePathology.Business.Client.Model.PhysicianClientCollection result = new Client.Model.PhysicianClientCollection();
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "Select pp.PhysicianClientId, c.ClientId, c.ClientName, ph.PhysicianId, ph.ObjectId ProviderId, " +
                 "ph.DisplayName PhysicianName, c.FacilityType, c.DistributionType, c.Fax FaxNumber, c.Telephone, c.LongDistance, ph.NPI " +
-				 "from tblClient c " +
-				 "join tblPhysicianClient pp on c.ClientId = pp.ClientId " +
-				 "Join tblPhysician ph on pp.ProviderId = ph.ObjectId " +
-				 "where c.ClientId = @ClientId order by ph.LastName, ph.FirstName, c.ClientName;";
-			cmd.CommandType = CommandType.Text;
-			cmd.Parameters.AddWithValue("@ClientId", clientId);
+                 "from tblClient c " +
+                 "join tblPhysicianClient pp on c.ClientId = pp.ClientId " +
+                 "Join tblPhysician ph on pp.ProviderId = ph.ObjectId " +
+                 "where c.ClientId = @ClientId order by ph.LastName, ph.FirstName, c.ClientName;";
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.AddWithValue("@ClientId", clientId);
 
-			using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-			{
-				cn.Open();
-				cmd.Connection = cn;
-				using (MySqlDataReader dr = cmd.ExecuteReader())
-				{
-					while (dr.Read())
-					{
-						YellowstonePathology.Business.Client.Model.PhysicianClient physicianClient = new Client.Model.PhysicianClient();
-						YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(physicianClient, dr);
-						sqlDataReaderPropertyWriter.WriteProperties();
-						result.Add(physicianClient);
-					}
-				}
-			}
-			return result;
-		}
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.Business.Client.Model.PhysicianClient physicianClient = new Client.Model.PhysicianClient();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(physicianClient, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(physicianClient);
+                    }
+                }
+            }
+            return result;
+        }
 
-		public static Business.Client.Model.PhysicianClientDistributionList GetPhysicianClientDistributionByClientIdV2(int clientId)
-		{
-			Business.Client.Model.PhysicianClientDistributionList result = new Client.Model.PhysicianClientDistributionList();
-			MySqlCommand cmd = new MySqlCommand();
-			cmd.CommandText = "Select c.ClientId, c.ClientName, ph.PhysicianId, ph.DisplayName PhysicianName, c.DistributionType, " +
+        public static Business.Client.Model.PhysicianClientDistributionList GetPhysicianClientDistributionByClientIdV2(int clientId)
+        {
+            Business.Client.Model.PhysicianClientDistributionList result = new Client.Model.PhysicianClientDistributionList();
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "Select c.ClientId, c.ClientName, ph.PhysicianId, ph.DisplayName PhysicianName, c.DistributionType, " +
                 "c.Fax FaxNumber, c.LongDistance " +
-				 "from tblClient c " +
-				 "join tblPhysicianClient pp on c.ClientId = pp.ClientId " +
-				 "Join tblPhysician ph on pp.ProviderId = ph.ObjectId " +
-				 "where c.ClientId = @ClientId order by ph.LastName, ph.FirstName, c.ClientName;";
-			cmd.CommandType = CommandType.Text;
-			cmd.Parameters.AddWithValue("@ClientId", clientId);
+                 "from tblClient c " +
+                 "join tblPhysicianClient pp on c.ClientId = pp.ClientId " +
+                 "Join tblPhysician ph on pp.ProviderId = ph.ObjectId " +
+                 "where c.ClientId = @ClientId order by ph.LastName, ph.FirstName, c.ClientName;";
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.AddWithValue("@ClientId", clientId);
 
-			using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-			{
-				cn.Open();
-				cmd.Connection = cn;
-				using (MySqlDataReader dr = cmd.ExecuteReader())
-				{
-					while (dr.Read())
-					{
-						Business.Client.Model.PhysicianClientDistributionListItem physicianClientDistribution = new Client.Model.PhysicianClientDistributionListItem();
-						YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(physicianClientDistribution, dr);
-						sqlDataReaderPropertyWriter.WriteProperties();
-						result.Add(physicianClientDistribution);
-					}
-				}
-			}
-			return result;
-		}
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        Business.Client.Model.PhysicianClientDistributionListItem physicianClientDistribution = new Client.Model.PhysicianClientDistributionListItem();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(physicianClientDistribution, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(physicianClientDistribution);
+                    }
+                }
+            }
+            return result;
+        }
 
-		public static Business.Client.Model.PhysicianClientDistributionList GetPhysicianClientDistributionByClientPhysicianLastNameV2(string clientName, string physicianLastName)
-		{
-			Business.Client.Model.PhysicianClientDistributionList result = new Client.Model.PhysicianClientDistributionList();
-			MySqlCommand cmd = new MySqlCommand();
-			cmd.CommandText = "Select c.ClientId, c.ClientName, ph.PhysicianId, ph.DisplayName PhysicianName, c.DistributionType, " +
+        public static Business.Client.Model.PhysicianClientDistributionList GetPhysicianClientDistributionByClientPhysicianLastNameV2(string clientName, string physicianLastName)
+        {
+            Business.Client.Model.PhysicianClientDistributionList result = new Client.Model.PhysicianClientDistributionList();
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "Select c.ClientId, c.ClientName, ph.PhysicianId, ph.DisplayName PhysicianName, c.DistributionType, " +
                 "c.Fax FaxNumber, c.LongDistance " +
-				 "from tblClient c " +
-				 "join tblPhysicianClient pp on c.ClientId = pp.ClientId " +
-				 "Join tblPhysician ph on pp.ProviderId = ph.ObjectId " +
-				 "where c.ClientName like concat(@ClientName, '%') and ph.LastName like concat(@PhysicianLastName, '%') " +
+                 "from tblClient c " +
+                 "join tblPhysicianClient pp on c.ClientId = pp.ClientId " +
+                 "Join tblPhysician ph on pp.ProviderId = ph.ObjectId " +
+                 "where c.ClientName like concat(@ClientName, '%') and ph.LastName like concat(@PhysicianLastName, '%') " +
                  "order by ph.LastName, ph.FirstName, c.ClientName;";
-			cmd.CommandType = CommandType.Text;
-			cmd.Parameters.AddWithValue("@ClientName",clientName);
-			cmd.Parameters.AddWithValue("@PhysicianLastName", physicianLastName);
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.AddWithValue("@ClientName", clientName);
+            cmd.Parameters.AddWithValue("@PhysicianLastName", physicianLastName);
 
-			using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-			{
-				cn.Open();
-				cmd.Connection = cn;
-				using (MySqlDataReader dr = cmd.ExecuteReader())
-				{
-					while (dr.Read())
-					{
-						Business.Client.Model.PhysicianClientDistributionListItem physicianClientDistribution = new Business.Client.Model.PhysicianClientDistributionListItem();
-						YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(physicianClientDistribution, dr);
-						sqlDataReaderPropertyWriter.WriteProperties();
-						result.Add(physicianClientDistribution);
-					}
-				}
-			}
-			return result;
-		}
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        Business.Client.Model.PhysicianClientDistributionListItem physicianClientDistribution = new Business.Client.Model.PhysicianClientDistributionListItem();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(physicianClientDistribution, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(physicianClientDistribution);
+                    }
+                }
+            }
+            return result;
+        }
 
-		public static Business.Client.Model.PhysicianClientDistributionList GetPhysicianClientDistributionByPhysicianFirstLastNameV2(string firstName, string lastName)
-		{
-			Business.Client.Model.PhysicianClientDistributionList result = new Client.Model.PhysicianClientDistributionList();
-			MySqlCommand cmd = new MySqlCommand();
-			cmd.CommandText = "Select c.ClientId, c.ClientName, ph.PhysicianId, ph.DisplayName PhysicianName, c.DistributionType, " +
+        public static Business.Client.Model.PhysicianClientDistributionList GetPhysicianClientDistributionByPhysicianFirstLastNameV2(string firstName, string lastName)
+        {
+            Business.Client.Model.PhysicianClientDistributionList result = new Client.Model.PhysicianClientDistributionList();
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "Select c.ClientId, c.ClientName, ph.PhysicianId, ph.DisplayName PhysicianName, c.DistributionType, " +
                 "c.Fax FaxNumber, c.LongDistance " +
-				 "from tblClient c " +
-				 "join tblPhysicianClient pp on c.ClientId = pp.ClientId " +
-				 "Join tblPhysician ph on pp.ProviderId = ph.ObjectId " +
-				 "where ph.FirstName like concat(@FirstName, '%') and ph.LastName like concat(@LastName, '%') order by " +
+                 "from tblClient c " +
+                 "join tblPhysicianClient pp on c.ClientId = pp.ClientId " +
+                 "Join tblPhysician ph on pp.ProviderId = ph.ObjectId " +
+                 "where ph.FirstName like concat(@FirstName, '%') and ph.LastName like concat(@LastName, '%') order by " +
                  "ph.LastName, ph.FirstName, c.ClientName;";
-			cmd.CommandType = CommandType.Text;
-			cmd.Parameters.AddWithValue("@FirstName", firstName);
-			cmd.Parameters.AddWithValue("@LastName", lastName);
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.AddWithValue("@FirstName", firstName);
+            cmd.Parameters.AddWithValue("@LastName", lastName);
 
-			using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-			{
-				cn.Open();
-				cmd.Connection = cn;
-				using (MySqlDataReader dr = cmd.ExecuteReader())
-				{
-					while (dr.Read())
-					{
-						Business.Client.Model.PhysicianClientDistributionListItem physicianClientDistribution = new Business.Client.Model.PhysicianClientDistributionListItem();
-						YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(physicianClientDistribution, dr);
-						sqlDataReaderPropertyWriter.WriteProperties();
-						result.Add(physicianClientDistribution);
-					}
-				}
-			}
-			return result;
-		}
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        Business.Client.Model.PhysicianClientDistributionListItem physicianClientDistribution = new Business.Client.Model.PhysicianClientDistributionListItem();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(physicianClientDistribution, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(physicianClientDistribution);
+                    }
+                }
+            }
+            return result;
+        }
 
-		public static Business.Client.Model.PhysicianClientDistributionList GetPhysicianClientDistributionByPhysicianLastNameV2(string lastName)
-		{
-			Business.Client.Model.PhysicianClientDistributionList result = new Client.Model.PhysicianClientDistributionList();
-			MySqlCommand cmd = new MySqlCommand();
-			cmd.CommandText = "Select c.ClientId, c.ClientName, ph.PhysicianId, ph.DisplayName PhysicianName, c.DistributionType, " +
+        public static Business.Client.Model.PhysicianClientDistributionList GetPhysicianClientDistributionByPhysicianLastNameV2(string lastName)
+        {
+            Business.Client.Model.PhysicianClientDistributionList result = new Client.Model.PhysicianClientDistributionList();
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "Select c.ClientId, c.ClientName, ph.PhysicianId, ph.DisplayName PhysicianName, c.DistributionType, " +
                 "c.Fax FaxNumber, c.LongDistance " +
-				 "from tblClient c " +
-				 "join tblPhysicianClient pp on c.ClientId = pp.ClientId " +
-				 "Join tblPhysician ph on pp.ProviderId = ph.ObjectId " +
-				 "where ph.LastName like concat(@LastName, '%') order by ph.LastName, ph.FirstName, c.ClientName;";
-			cmd.CommandType = CommandType.Text;
-			cmd.Parameters.AddWithValue("@LastName", lastName);
+                 "from tblClient c " +
+                 "join tblPhysicianClient pp on c.ClientId = pp.ClientId " +
+                 "Join tblPhysician ph on pp.ProviderId = ph.ObjectId " +
+                 "where ph.LastName like concat(@LastName, '%') order by ph.LastName, ph.FirstName, c.ClientName;";
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.AddWithValue("@LastName", lastName);
 
-			using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-			{
-				cn.Open();
-				cmd.Connection = cn;
-				using (MySqlDataReader dr = cmd.ExecuteReader())
-				{
-					while (dr.Read())
-					{
-						Business.Client.Model.PhysicianClientDistributionListItem physicianClientDistribution = new Business.Client.Model.PhysicianClientDistributionListItem();
-						YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(physicianClientDistribution, dr);
-						sqlDataReaderPropertyWriter.WriteProperties();
-						result.Add(physicianClientDistribution);
-					}
-				}
-			}
-			return result;
-		}
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        Business.Client.Model.PhysicianClientDistributionListItem physicianClientDistribution = new Business.Client.Model.PhysicianClientDistributionListItem();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(physicianClientDistribution, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(physicianClientDistribution);
+                    }
+                }
+            }
+            return result;
+        }
 
-		public static int GetLargestPhysicianId()
-		{
-			int result = 0;
-			MySqlCommand cmd = new MySqlCommand();
-			cmd.CommandText = "Select max(PhysicianId) from tblPhysician;";
-			cmd.CommandType = CommandType.Text;
+        public static int GetLargestPhysicianId()
+        {
+            int result = 0;
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "Select max(PhysicianId) from tblPhysician;";
+            cmd.CommandType = CommandType.Text;
 
-			using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-			{
-				cn.Open();
-				cmd.Connection = cn;
-				using (MySqlDataReader dr = cmd.ExecuteReader())
-				{
-					while (dr.Read())
-					{
-						result = (Int32)dr[0];
-					}
-				}
-			}
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        result = (Int32)dr[0];
+                    }
+                }
+            }
 
-			return result;
-		}
+            return result;
+        }
 
-		public static int GetLargestClientId()
-		{
-			int result = 0;
-			MySqlCommand cmd = new MySqlCommand();
-			cmd.CommandText = "Select max(ClientId) from tblClient;";
-			cmd.CommandType = CommandType.Text;
+        public static int GetLargestClientId()
+        {
+            int result = 0;
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "Select max(ClientId) from tblClient;";
+            cmd.CommandType = CommandType.Text;
 
-			using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-			{
-				cn.Open();
-				cmd.Connection = cn;
-				using (MySqlDataReader dr = cmd.ExecuteReader())
-				{
-					while (dr.Read())
-					{
-						result = (Int32)dr[0];
-					}
-				}
-			}
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        result = (Int32)dr[0];
+                    }
+                }
+            }
 
-			return result;
-		}
+            return result;
+        }
 
         public static int GetLargestClientLocationId()
         {
@@ -813,7 +813,7 @@ namespace YellowstonePathology.Business.Gateway
 
         public static void DeleteClientGroupClient(int clientid, string clientGroupId)
         {
-            
+
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = "delete from tblClientGroupClient where tblClientGroupClient.ClientGroupId = @ClientGroupId and " +
                 "tblClientGroupClient.ClientId = @ClientId;";
@@ -825,39 +825,39 @@ namespace YellowstonePathology.Business.Gateway
             {
                 cn.Open();
                 cmd.Connection = cn;
-                cmd.ExecuteNonQuery();   
-            }            
+                cmd.ExecuteNonQuery();
+            }
         }
 
         public static YellowstonePathology.Business.Client.Model.ClientSupplyCollection GetClientSupplyCollection(string supplyCategory)
-		{
-			YellowstonePathology.Business.Client.Model.ClientSupplyCollection result = new Client.Model.ClientSupplyCollection();
-			MySqlCommand cmd = new MySqlCommand();
-			cmd.CommandText = "Select * from tblClientSupply where tblClientSupply.supplycategory = @SupplyCategory order by tblClientSupply.supplyname;";
-			cmd.CommandType = CommandType.Text;
-			cmd.Parameters.AddWithValue("@SupplyCategory", supplyCategory);
+        {
+            YellowstonePathology.Business.Client.Model.ClientSupplyCollection result = new Client.Model.ClientSupplyCollection();
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "Select * from tblClientSupply where tblClientSupply.supplycategory = @SupplyCategory order by tblClientSupply.supplyname;";
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.AddWithValue("@SupplyCategory", supplyCategory);
 
-			using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-			{
-				cn.Open();
-				cmd.Connection = cn;
-				using (MySqlDataReader dr = cmd.ExecuteReader())
-				{
-					while (dr.Read())
-					{
-						YellowstonePathology.Business.Client.Model.ClientSupply clientSupply = new Client.Model.ClientSupply();
-						YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(clientSupply, dr);
-						sqlDataReaderPropertyWriter.WriteProperties();
-						result.Add(clientSupply);
-					}
-				}
-			}
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.Business.Client.Model.ClientSupply clientSupply = new Client.Model.ClientSupply();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(clientSupply, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(clientSupply);
+                    }
+                }
+            }
 
-			return result;
-		}
+            return result;
+        }
 
-		public static YellowstonePathology.Business.Client.Model.ClientSupplyOrderCollection GetClientSupplyOrderCollectionByClientId(int clientId)
-		{
+        public static YellowstonePathology.Business.Client.Model.ClientSupplyOrderCollection GetClientSupplyOrderCollectionByClientId(int clientId)
+        {
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = "SELECT * from tblClientSupplyOrder where tblClientSupplyOrder.ClientId = @ClientId order by OrderDate desc; " +
                 "Select * from tblClientSupplyOrderDetail where ClientSupplyOrderId in (SELECT ClientSupplyOrderId from " +
@@ -866,7 +866,7 @@ namespace YellowstonePathology.Business.Gateway
             cmd.Parameters.AddWithValue("@ClientId", clientId);
             YellowstonePathology.Business.Client.Model.ClientSupplyOrderCollection result = BuildClientSupplyOrderCollection(cmd);
             return result;
-		}
+        }
 
         private static YellowstonePathology.Business.Client.Model.ClientSupplyOrderCollection BuildClientSupplyOrderCollection(MySqlCommand cmd)
         {
@@ -961,7 +961,7 @@ namespace YellowstonePathology.Business.Gateway
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = "Select count(*) from tblAccessionOrder where tblAccessionOrder.ClientId = @ClientId;";
             cmd.CommandType = CommandType.Text;
-            cmd.Parameters.AddWithValue("@ClientId",clientId);
+            cmd.Parameters.AddWithValue("@ClientId", clientId);
 
             using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
@@ -1119,9 +1119,9 @@ namespace YellowstonePathology.Business.Gateway
                     {
                         string providerClientId = dr["PhysicianClientId"].ToString();
                         string physicianObjectId = dr["ProviderId"].ToString();
-                        foreach(Client.Model.ProviderClient providerClient in result)
+                        foreach (Client.Model.ProviderClient providerClient in result)
                         {
-                            if(providerClient.Physician.ObjectId == physicianObjectId)
+                            if (providerClient.Physician.ObjectId == physicianObjectId)
                             {
                                 providerClient.PhysicianClientId = providerClientId;
                                 break;
@@ -1151,7 +1151,7 @@ namespace YellowstonePathology.Business.Gateway
             YellowstonePathology.Business.Client.Model.ClientGroupClientCollection result = new Client.Model.ClientGroupClientCollection();
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = "Select * from tblClientGroupClient;";
-            cmd.CommandType = CommandType.Text;            
+            cmd.CommandType = CommandType.Text;
 
             using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
@@ -1177,7 +1177,7 @@ namespace YellowstonePathology.Business.Gateway
             YellowstonePathology.Business.Client.Model.ClientGroupClientCollection result = new Client.Model.ClientGroupClientCollection();
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = "Select * from tblClientGroupClient where ClientGroupId in (" + inClause + ");";
-            cmd.CommandType = CommandType.Text;            
+            cmd.CommandType = CommandType.Text;
 
             using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
@@ -1223,5 +1223,88 @@ namespace YellowstonePathology.Business.Gateway
             return result;
         }
 
+        public static YellowstonePathology.Business.Facility.Model.FacilityCollection GetAllFacilities()
+        {
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "Select * from tblFacility order by FacilityName;";
+            cmd.CommandType = CommandType.Text;
+
+            YellowstonePathology.Business.Facility.Model.FacilityCollection result = BuildFacilityCollection(cmd);
+            return result;
+        }
+
+        public static YellowstonePathology.Business.Facility.Model.FacilityCollection GetFacilitiesByFacilityName(string facilityName)
+        {
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "Select * from tblFacility where FacilityName like concat(@FacilityName, '%') order by tblFacility.FacilityName;";
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.AddWithValue("@FacilityName", facilityName);
+
+            YellowstonePathology.Business.Facility.Model.FacilityCollection result = BuildFacilityCollection(cmd);
+            return result;
+        }
+
+        public static YellowstonePathology.Business.Facility.Model.FacilityCollection BuildFacilityCollection(MySqlCommand cmd)
+        {
+            YellowstonePathology.Business.Facility.Model.FacilityCollection result = new Facility.Model.FacilityCollection();
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.Business.Facility.Model.Facility facility = new Facility.Model.Facility();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(facility, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(facility);
+                    }
+                }
+            }
+            return result;
+        }
+
+        public static YellowstonePathology.Business.Facility.Model.LocationCollection GetAllLocations()
+        {
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "Select * from tblLocation order by Description;";
+            cmd.CommandType = CommandType.Text;
+
+            YellowstonePathology.Business.Facility.Model.LocationCollection result = BuildLocationCollection(cmd);
+            return result;
+        }
+
+        public static YellowstonePathology.Business.Facility.Model.LocationCollection GetLocationsByDescription(string description)
+        {
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "Select * from tblLocation where Description like concat(@Description, '%') order by tblLocation.Description;";
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.AddWithValue("@Description", description);
+
+            YellowstonePathology.Business.Facility.Model.LocationCollection result = BuildLocationCollection(cmd);
+            return result;
+        }
+
+        public static YellowstonePathology.Business.Facility.Model.LocationCollection BuildLocationCollection(MySqlCommand cmd)
+        {
+            YellowstonePathology.Business.Facility.Model.LocationCollection result = new Facility.Model.LocationCollection();
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.Business.Facility.Model.Location location = new Facility.Model.Location();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(location, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(location);
+                    }
+                }
+            }
+            return result;
+        }
     }
 }

@@ -22,9 +22,8 @@ namespace YellowstonePathology.Business.Billing.Model
         public static BillingComponent GetBillingComponent(YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder)
         {
             BillingComponent result = null;
-            YellowstonePathology.Business.Facility.Model.FacilityCollection facilityCollection = YellowstonePathology.Business.Facility.Model.FacilityCollection.GetAllFacilities();
-            YellowstonePathology.Business.Facility.Model.Facility technicalComponentBillingFacility = facilityCollection.GetByFacilityId(panelSetOrder.TechnicalComponentBillingFacilityId);
-            YellowstonePathology.Business.Facility.Model.Facility professionalComponentBillingFacility = facilityCollection.GetByFacilityId(panelSetOrder.ProfessionalComponentBillingFacilityId);
+            YellowstonePathology.Business.Facility.Model.Facility technicalComponentBillingFacility = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId(panelSetOrder.TechnicalComponentBillingFacilityId);
+            YellowstonePathology.Business.Facility.Model.Facility professionalComponentBillingFacility = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId(panelSetOrder.ProfessionalComponentBillingFacilityId);
             
             if (panelSetOrder.HasTechnicalComponent == true && panelSetOrder.HasProfessionalComponent == true)
             {

@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using YellowstonePathology.Business.Persistence;
 
 namespace YellowstonePathology.Business.Facility.Model
-{    
+{
+    [PersistentClass("tblLocation", "YPIDATA")]
     public class Location
     {
         protected string m_LocationId;        
@@ -20,13 +22,15 @@ namespace YellowstonePathology.Business.Facility.Model
             this.m_LocationId = locationId;
             this.m_Description = description;
         }
-        
+
+        [PersistentPrimaryKeyProperty(false)]
         public string LocationId
         {
             get { return this.m_LocationId; }
             set { this.m_LocationId = value; }
         }        
 
+        [PersistentProperty()]
 		public string Description
         {
 			get { return this.m_Description; }

@@ -40,12 +40,10 @@ namespace YellowstonePathology.Business.Reports
             XmlNode nodeTable = this.FindXmlTableInDetail("facility_id");
             XmlNode nodeTemplate = this.FindXmlTableRowInDetail("facility_id", nodeTable);
 
-            YellowstonePathology.Business.Facility.Model.FacilityCollection facilityCollection = YellowstonePathology.Business.Facility.Model.FacilityCollection.GetAllFacilities();
-
             foreach (MaterialTracking.Model.BlockSentNotReturned blockSentNotReturned in blockSentNotReturnedCollection)
             {
                 string facilityName = blockSentNotReturned.FacilityId;
-                Facility.Model.Facility facility = facilityCollection.GetByFacilityId(blockSentNotReturned.FacilityId);
+                Facility.Model.Facility facility = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId(blockSentNotReturned.FacilityId);
                 if (facility != null)
                 {
                     facilityName = string.IsNullOrEmpty(facility.FacilityName) ? blockSentNotReturned.FacilityId : facility.FacilityName;

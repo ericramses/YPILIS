@@ -22,14 +22,15 @@ namespace YellowstonePathology.Business.PanelSet.Model
 			this.m_AllowMultiplePerAccession = true;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Document.ReferenceLabReport).AssemblyQualifiedName;
 
+            YellowstonePathology.Business.Facility.Model.Facility facility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("GNMCHLTH");
             string taskDescription = "Gather materials and send to Genomic Health.";
-			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskFedexShipment(YellowstonePathology.Business.Task.Model.TaskAssignment.Transcription, taskDescription, new Facility.Model.GenomicHealth()));
+			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskFedexShipment(YellowstonePathology.Business.Task.Model.TaskAssignment.Transcription, taskDescription, facility));
 
-            this.m_TechnicalComponentFacility = new YellowstonePathology.Business.Facility.Model.GenomicHealth();
-            this.m_ProfessionalComponentFacility = new YellowstonePathology.Business.Facility.Model.GenomicHealth();
+            this.m_TechnicalComponentFacility = facility;
+            this.m_ProfessionalComponentFacility = facility;
 
-            this.m_TechnicalComponentBillingFacility = new YellowstonePathology.Business.Facility.Model.GenomicHealth();
-            this.m_ProfessionalComponentBillingFacility = new YellowstonePathology.Business.Facility.Model.GenomicHealth();
+            this.m_TechnicalComponentBillingFacility = facility;
+            this.m_ProfessionalComponentBillingFacility = facility;
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMOLEGEN());
 

@@ -23,14 +23,15 @@ namespace YellowstonePathology.Business.PanelSet.Model
 
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.PanelSetOrder).AssemblyQualifiedName;
 			this.m_AllowMultiplePerAccession = true;
-            
-			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskFedexShipment(Business.Task.Model.TaskAssignment.Molecular, "Gather materials and send to ARUP for testing.", new Facility.Model.ARUP()));
 
-            this.m_TechnicalComponentFacility = new YellowstonePathology.Business.Facility.Model.ARUP();
-            this.m_ProfessionalComponentFacility = new YellowstonePathology.Business.Facility.Model.ARUP();
+            YellowstonePathology.Business.Facility.Model.Facility facility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("ARUPSPD");
+            this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskFedexShipment(Business.Task.Model.TaskAssignment.Molecular, "Gather materials and send to ARUP for testing.", facility));
 
-            this.m_TechnicalComponentBillingFacility = new YellowstonePathology.Business.Facility.Model.ARUP();
-            this.m_ProfessionalComponentBillingFacility = new YellowstonePathology.Business.Facility.Model.ARUP();
+            this.m_TechnicalComponentFacility = facility;
+            this.m_ProfessionalComponentFacility = facility;
+
+            this.m_TechnicalComponentBillingFacility = facility;
+            this.m_ProfessionalComponentBillingFacility = facility;
             
             this.m_HasSplitCPTCode = true;
 

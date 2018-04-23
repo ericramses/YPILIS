@@ -108,7 +108,7 @@ namespace YellowstonePathology.Business.Test.KRASStandardReflex
         public static YellowstonePathology.Business.Rules.MethodResult IsOkToFinal(KRASStandardReflexResult krasStandardReflexResult)
 		{
             YellowstonePathology.Business.Rules.MethodResult result = new YellowstonePathology.Business.Rules.MethodResult();
-            YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings ypi = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();
+            YellowstonePathology.Business.Facility.Model.Facility ypi = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
             if (krasStandardReflexResult.KRASStandardReflexTestOrder.Final == false)
 			{
                 if (krasStandardReflexResult.KRASStandardTestOrder.Final == false)

@@ -1432,9 +1432,8 @@ namespace YellowstonePathology.UI
 
         private void WriteFacilitySql()
         {
-            YellowstonePathology.Business.Facility.Model.FacilityCollection fc = YellowstonePathology.Business.Facility.Model.FacilityCollection.GetAllFacilities();
             StringBuilder sql = new StringBuilder();
-            foreach (YellowstonePathology.Business.Facility.Model.Facility f in fc)
+            foreach (YellowstonePathology.Business.Facility.Model.Facility f in Business.Facility.Model.FacilityCollection.Instance)
             {
                 //sql.Append(f.
             }
