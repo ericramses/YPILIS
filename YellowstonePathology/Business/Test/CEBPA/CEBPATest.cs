@@ -22,7 +22,7 @@ namespace YellowstonePathology.Business.Test.CEBPA
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.CEBPA.CEBPAWordDocument).AssemblyQualifiedName;
             
 			this.m_AllowMultiplePerAccession = true;
-            //Changed by MS and TK;
+            this.m_ExpectedDuration = TimeSpan.FromDays(10);
             this.m_EpicDistributionIsImplemented = true;
 
             string task2Description = "Collect (Peripheral blood: 5 mL in EDTA tube ONLY; Bone marrow: 2 mL in EDTA tube ONLY) and send to Neogenomics.";

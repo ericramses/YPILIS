@@ -341,11 +341,10 @@ namespace YellowstonePathology.UI.ReportDistribution
 
             foreach (YellowstonePathology.Business.Test.PanelSetOrderView view in caseList)
             {
-                YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(view.MasterAccessionNo, this);
-
-                this.HandleWHP(accessionOrder);
-
+                YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(view.MasterAccessionNo, this);                
                 YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(view.ReportNo);
+
+                if (panelSetOrder.PanelSetId == 116) this.HandleWHP(accessionOrder, panelSetOrder);
 
                 YellowstonePathology.Business.PanelSet.Model.PanelSetCollection panelSetCollection = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetAll();
                 YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet = panelSetCollection.GetPanelSet(panelSetOrder.PanelSetId);
@@ -461,8 +460,8 @@ namespace YellowstonePathology.UI.ReportDistribution
         {
             YellowstonePathology.Business.ReportDistribution.Model.DistributionResult result = null;                        
 
-            //try
-            //{
+            try
+            {
                 switch (testOrderReportDistribution.DistributionType)
                 {
                     case YellowstonePathology.Business.ReportDistribution.Model.DistributionType.FAX:
@@ -496,12 +495,12 @@ namespace YellowstonePathology.UI.ReportDistribution
                         result = this.HandleNoImplemented(testOrderReportDistribution);
                         break;
                 }
-            //}
-            //catch(Exception e)
-            //{
-            //    Business.Logging.EmailExceptionHandler.HandleException(panelSetOrder, e.Message);
-            //    App.Current.Shutdown();
-            //}
+            }
+            catch(Exception e)
+            {
+                Business.Logging.EmailExceptionHandler.HandleException(panelSetOrder, e.Message);
+                App.Current.Shutdown();
+            }
             
             return result;
         }
@@ -603,46 +602,17 @@ namespace YellowstonePathology.UI.ReportDistribution
             return result;
         }
 
-        private void HandleWHP(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
-        {
-            if(accessionOrder.PanelSetOrderCollection.WomensHealthProfileExists())
+        private void HandleWHP(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder)
+        {            
+            Business.PanelSet.Model.PanelSetCollection womensHealthTests = Business.PanelSet.Model.PanelSetCollection.GetWomensHealthTests();
+            foreach(Business.PanelSet.Model.PanelSet ps in womensHealthTests)
             {
-                YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapTest panelSetThinPrepPap = new YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapTest();
-                YellowstonePathology.Business.Test.HPV.HPVTest panelSetHPV = new YellowstonePathology.Business.Test.HPV.HPVTest();
-                YellowstonePathology.Business.Test.HPV1618.HPV1618Test panelSetHPV1618 = new YellowstonePathology.Business.Test.HPV1618.HPV1618Test();
-                YellowstonePathology.Business.Test.NGCT.NGCTTest ngctTest = new YellowstonePathology.Business.Test.NGCT.NGCTTest();
-                YellowstonePathology.Business.Test.Trichomonas.TrichomonasTest trichomonasTest = new YellowstonePathology.Business.Test.Trichomonas.TrichomonasTest();
-
-                if (accessionOrder.PanelSetOrderCollection.Exists(panelSetThinPrepPap.PanelSetId) == true)
+                if(accessionOrder.PanelSetOrderCollection.Exists(ps.PanelSetId))
                 {
-                    YellowstonePathology.Business.Test.PanelSetOrder pso = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetThinPrepPap.PanelSetId);
+                    Business.Test.PanelSetOrder pso = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(ps.PanelSetId);
                     pso.HoldDistribution = false;
-                }
-
-                if (accessionOrder.PanelSetOrderCollection.Exists(panelSetHPV.PanelSetId) == true)
-                {
-                    YellowstonePathology.Business.Test.PanelSetOrder pso = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetHPV.PanelSetId);
-                    pso.HoldDistribution = false;
-                }
-
-                if (accessionOrder.PanelSetOrderCollection.Exists(panelSetHPV1618.PanelSetId) == true)
-                {
-                    YellowstonePathology.Business.Test.PanelSetOrder pso = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetHPV1618.PanelSetId);
-                    pso.HoldDistribution = false;
-                }
-
-                if (accessionOrder.PanelSetOrderCollection.Exists(ngctTest.PanelSetId) == true)
-                {
-                    YellowstonePathology.Business.Test.PanelSetOrder pso = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(ngctTest.PanelSetId);
-                    pso.HoldDistribution = false;
-                }
-
-                if (accessionOrder.PanelSetOrderCollection.Exists(trichomonasTest.PanelSetId) == true)
-                {
-                    YellowstonePathology.Business.Test.PanelSetOrder pso = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(trichomonasTest.PanelSetId);
-                    pso.HoldDistribution = false;
-                }
-            }
+                }                    
+            }                           
         }
 
         protected void NotifyPropertyChanged(String info)

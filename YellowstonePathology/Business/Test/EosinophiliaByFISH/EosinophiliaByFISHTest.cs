@@ -17,7 +17,8 @@ namespace YellowstonePathology.Business.Test.EosinophiliaByFISH
             this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterR();
             this.m_Active = true;
-            
+            this.m_ExpectedDuration = TimeSpan.FromDays(4);
+
             this.m_AllowMultiplePerAccession = true;
             this.m_EpicDistributionIsImplemented = true;
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.EosinophiliaByFISH.EosinophiliaByFISHTestOrder).AssemblyQualifiedName;

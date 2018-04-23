@@ -23,13 +23,17 @@ namespace YellowstonePathology.Business.Test.METMutationAnalysis
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.PanelSetOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Document.ReferenceLabReport).AssemblyQualifiedName;
             this.m_AllowMultiplePerAccession = true;
-            this.m_ExpectedDuration = new TimeSpan(5, 0, 0, 0);
+            this.m_ExpectedDuration = TimeSpan.FromDays(10);
 
             string taskDescription = "Gather materials and send out to Neo.";
 
             YellowstonePathology.Business.Facility.Model.Facility neogenomicsIrvine = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("NEOGNMCIRVN");
             this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskFedexShipment(YellowstonePathology.Business.Task.Model.TaskAssignment.Flow, taskDescription, neogenomicsIrvine));
 
+<<<<<<< HEAD
+            this.m_ProfessionalComponentFacility = new YellowstonePathology.Business.Facility.Model.NeogenomicsIrvine();
+            this.m_ProfessionalComponentBillingFacility = new YellowstonePathology.Business.Facility.Model.NeogenomicsIrvine();            
+=======
             this.m_TechnicalComponentFacility = neogenomicsIrvine;
             this.m_TechnicalComponentBillingFacility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
 
@@ -38,6 +42,7 @@ namespace YellowstonePathology.Business.Test.METMutationAnalysis
 
             //this.m_HasSplitCPTCode = false;
             //this.m_RequiresAssignment = true;
+>>>>>>> bae496821306aaa2e48de874cf5262ab5b695e29
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMiscellaneous());
         }

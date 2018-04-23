@@ -43,8 +43,8 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>155</ApplicationRevision>
-    <ApplicationVersion>10.1.9.%2a</ApplicationVersion>
+    <ApplicationRevision>5</ApplicationRevision>
+    <ApplicationVersion>10.1.10.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -245,6 +245,7 @@
     <Compile Include="Business\Audit.Model\CodyCassetteColorAudit.cs" />
     <Compile Include="Business\Audit.Model\ComprehensiveColonCancerProfileFinalAudit.cs" />
     <Compile Include="Business\Audit.Model\CouldBenefitFromCCCPAudit.cs" />
+    <Compile Include="Business\Audit.Model\GICenterAdenomaAudit.cs" />
     <Compile Include="Business\Audit.Model\DistributionCanBeSetAudit.cs" />
     <Compile Include="Business\Audit.Model\DistributionNotSetAudit.cs" />
     <Compile Include="Business\Audit.Model\FinalizedAudit.cs" />
@@ -1062,6 +1063,7 @@
     <Compile Include="Business\Persistence\ProtobufWriter.cs" />
     <Compile Include="Business\Persistence\SlideOrderDocumentBuilder.cs" />
     <Compile Include="Business\Persistence\SqlDataRowReaderPropertyWriter.cs" />
+    <Compile Include="Business\ReportDistribution.Model\MultiTestDistributionHandlerNoWHP.cs" />
     <Compile Include="Business\ReportDistribution.Model\MultiTestDistributionHandlerWHPHold.cs" />
     <Compile Include="Business\Slide.Model\VantageSlide.cs" />
     <Compile Include="Business\Slide.Model\VantageSlideScan.cs" />
@@ -1106,6 +1108,7 @@
     <Compile Include="Business\Test\JAK2Exon1214\JAK2Exon1214CMMCNteView.cs" />
     <Compile Include="Business\Test\JAK2V617F\JAK2V617FCMMCNteView.cs" />
     <Compile Include="Business\Test\LowGradeSmallBCellLymphomaFishPanel\LowGradeSmallBCellLymphomaFishPanelTest.cs" />
+    <Compile Include="Business\Test\LynchSyndrome\LSEGYNResult3a.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LynchSyndromeIHCPanelCMMCNTEView.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LynchSyndromeIHCPanelWPHOBXView.cs" />
     <Compile Include="Business\Test\MDSExtendedByFish\MDSExtendedByFishCMMCNTEView.cs" />
@@ -1230,7 +1233,7 @@
     <Compile Include="Business\Test\HPV1618SolidTumor\HPV1618SolidTumorNoResult.cs" />
     <Compile Include="Business\Test\HPV1618SolidTumor\HPV16NegativeHPV18PositiveResult.cs" />
     <Compile Include="Business\Test\HPV1618SolidTumor\HPV16PositiveHPV18NegativeResult.cs" />
-    <Compile Include="Business\Test\LiposarcomaFusionProfile\IDH1byIHC\IDH1byIHCTest.cs" />
+    <Compile Include="Business\Test\IDH1byIHC\IDH1byIHCTest.cs" />
     <Compile Include="Business\Test\IgHClonalityMRDByNGS\IgHClonalityMRDByNGSTest.cs" />
     <Compile Include="Business\Test\LiposarcomaFusionProfile\LiposarcomaFusionProfileEPICOBXView.cs" />
     <Compile Include="Business\Test\LiposarcomaFusionProfile\LiposarcomaFusionProfileTest.cs" />
@@ -1318,14 +1321,6 @@
     <Compile Include="Business\XPSDocument\XpsAdditionalTesting.cs" />
     <Compile Include="Business\XPSDocument\XpsDetails.cs" />
     <Compile Include="Business\XPSDocument\XPSTemplate.cs" />
-    <Compile Include="MySQLMigration\DataRowComparer.cs" />
-    <Compile Include="MySQLMigration\DataRowRefreshComparer.cs" />
-    <Compile Include="MySQLMigration\IndexedColumn.cs" />
-    <Compile Include="MySQLMigration\IndexedColumnCollection.cs" />
-    <Compile Include="MySQLMigration\MigrationStatus.cs" />
-    <Compile Include="MySQLMigration\MigrationStatusCollection.cs" />
-    <Compile Include="MySQLMigration\MySqlAODocumentBuilder.cs" />
-    <Compile Include="MySQLMigration\MySQLDatabaseBuilder.cs" />
     <Compile Include="Business\NeogenomicsResult.cs" />
     <Compile Include="Business\NeogenomicsResultCollection.cs" />
     <Compile Include="Business\nodejs\HelloWorld.cs" />
@@ -3201,41 +3196,6 @@
     <Compile Include="DomainPersistence\SqlXmlPropertyWriter.cs" />
     <Compile Include="DomainPersistence\XmlPropertyReader.cs" />
     <Compile Include="DomainPersistence\XmlPropertyWriter.cs" />
-    <Compile Include="MySQLMigration\MySqlDataReaderPropertyWriter.cs" />
-    <Compile Include="MySQLMigration\NonpersistentColumnDef.cs" />
-    <Compile Include="MySQLMigration\NonpersistentTableDef.cs" />
-    <Compile Include="MySQLMigration\NonpersistentTableDefADT.cs" />
-    <Compile Include="MySQLMigration\NonpersistentTableDefCollection.cs" />
-    <Compile Include="MySQLMigration\NonpersistentTableDefCytologyDiagnosis.cs" />
-    <Compile Include="MySQLMigration\NonpersistentTableDefCytologyOtherConditions.cs" />
-    <Compile Include="MySQLMigration\NonpersistentTableDefCytologyReportComment.cs" />
-    <Compile Include="MySQLMigration\NonpersistentTableDefCytologySAComments.cs" />
-    <Compile Include="MySQLMigration\NonpersistentTableDefCytologyScreeningImpression.cs" />
-    <Compile Include="MySQLMigration\NonpersistentTableDefFlowCommentV2.cs" />
-    <Compile Include="MySQLMigration\NonpersistentTableDefFlowMarkerPanel.cs" />
-    <Compile Include="MySQLMigration\NonpersistentTableDefFlowPanel.cs" />
-    <Compile Include="MySQLMigration\NonpersistentTableDefICD9Code.cs" />
-    <Compile Include="MySQLMigration\NonpersistentTableDefImmunoComment.cs" />
-    <Compile Include="MySQLMigration\NonpersistentTableDefMarkers.cs" />
-    <Compile Include="MySQLMigration\NonpersistentTableDefMasterAccessionNo.cs" />
-    <Compile Include="MySQLMigration\NonpersistentTableDefMaterialLocation.cs" />
-    <Compile Include="MySQLMigration\NonpersistentTableDefOrderComment.cs" />
-    <Compile Include="MySQLMigration\NonpersistentTableDefPanel.cs" />
-    <Compile Include="MySQLMigration\NonpersistentTableDefPanelSet.cs" />
-    <Compile Include="MySQLMigration\NonpersistentTableDefPatient.cs" />
-    <Compile Include="MySQLMigration\NonpersistentTableDefPsaImport.cs" />
-    <Compile Include="MySQLMigration\NonpersistentTableDefSpecimenAdequacy.cs" />
-    <Compile Include="MySQLMigration\NonpersistentTableDefStainResultOption.cs" />
-    <Compile Include="MySQLMigration\NonpersistentTableDefStainResultOptionGroup.cs" />
-    <Compile Include="MySQLMigration\NonpersistentTableDefStVincent.cs" />
-    <Compile Include="MySQLMigration\NonpersistentTableDefTest.cs" />
-    <Compile Include="MySQLMigration\NonpersistentTableDefWebServiceAccount.cs" />
-    <Compile Include="MySQLMigration\NonpersistentTableDefWebServiceAccountClient.cs" />
-    <Compile Include="MySQLMigration\SqlServerFromMySqlRefresher.cs" />
-    <Compile Include="MySQLMigration\TableForeignKey.cs" />
-    <Compile Include="MySQLMigration\TableForeignKeyCollection.cs" />
-    <Compile Include="MySQLMigration\TableIndex.cs" />
-    <Compile Include="MySQLMigration\TableIndexCollection.cs" />
     <Compile Include="Store\AppDBNameEnum.cs" />
     <Compile Include="Store\IRedisServer.cs" />
     <Compile Include="Store\RedisDB.cs" />
@@ -3508,15 +3468,6 @@
     </Compile>
     <Compile Include="UI\Monitor\ReportDistributionDownMonitorPage.xaml.cs">
       <DependentUpon>ReportDistributionDownMonitorPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\MySql\MySqlMigrationDialog.xaml.cs">
-      <DependentUpon>MySqlMigrationDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\MySql\NonpersistentTableDialog.xaml.cs">
-      <DependentUpon>NonpersistentTableDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\MySql\SqlServerRefreshDialog.xaml.cs">
-      <DependentUpon>SqlServerRefreshDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\NHunspell.xaml.cs">
       <DependentUpon>NHunspell.xaml</DependentUpon>
@@ -5480,18 +5431,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\MySql\MySqlMigrationDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\MySql\NonpersistentTableDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\MySql\SqlServerRefreshDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="UI\NHunspell.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -7235,8 +7174,6 @@
     <Content Include="UI\CEFSharp\libGLESv2.dll" />
     <Content Include="UI\CEFSharp\nunit.framework.dll" />
     <Content Include="dll\MongoDB.Bson.dll" />
-    <Content Include="dll\MongoDB.Bson.pdb" />
-    <Content Include="dll\MongoDB.Driver.pdb" />
     <Content Include="dll\WPFToolkit.dll" />
     <Content Include="dll\WPFToolkit.Extended.dll" />
     <Content Include="dll\Xceed.Wpf.DataGrid.dll" />

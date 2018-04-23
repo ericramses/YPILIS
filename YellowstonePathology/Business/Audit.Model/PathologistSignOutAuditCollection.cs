@@ -35,6 +35,7 @@ namespace YellowstonePathology.Business.Audit.Model
             this.Add(new PNHOnBoneMarrowSpecimenAudit(accessionOrder));
             this.Add(new PDL1Audit(accessionOrder));
             this.Add(new BoneMarrowSummaryAudit(accessionOrder));
+            this.Add(new GICenterAdenomaAudit(accessionOrder));
         }
 
         public AuditCollection GetAuditMessageCollection()

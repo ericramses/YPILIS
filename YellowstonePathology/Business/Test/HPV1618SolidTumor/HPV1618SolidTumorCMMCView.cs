@@ -25,7 +25,7 @@ namespace YellowstonePathology.Business.Test.HPV1618SolidTumor
             this.AddCompanyHeader(document);
             this.AddBlankNteElement(document);
 
-			this.AddNextNteElement("HPV - 16 / 18 Genotyping By PCR", document);
+			this.AddNextNteElement("HPV Genotypes 16 and 18 Solid Tumor", document);
             this.AddNextNteElement("Master Accession #: " + panelSetOrder.MasterAccessionNo, document);
             this.AddNextNteElement("Report #: " + panelSetOrder.ReportNo, document);
             this.AddBlankNteElement(document);
@@ -35,9 +35,9 @@ namespace YellowstonePathology.Business.Test.HPV1618SolidTumor
 			this.AddNextNteElement("HPV-16 Reference: Negative", document);
 			this.AddBlankNteElement(document);
 
-			string hpv18ResultText = "HPV-18 Result: " + panelSetOrder.HPV18Result;
+			string hpv18ResultText = "HPV-18/45 Result: " + panelSetOrder.HPV18Result;
 			this.AddNextNteElement(hpv18ResultText, document);
-			this.AddNextNteElement("HPV-18 Reference: Negative", document);
+			this.AddNextNteElement("HPV-18/45 Reference: Negative", document);
 			this.AddBlankNteElement(document);
 
             if (string.IsNullOrEmpty(panelSetOrder.Comment) == false)

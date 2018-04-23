@@ -20,7 +20,7 @@ namespace YellowstonePathology.Business.Test.MPL
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.MPL.PanelSetOrderMPL).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.MPL.MPLWordDocument).AssemblyQualifiedName;            
 			this.m_AllowMultiplePerAccession = true;
-            //Changed by MS and TK;
+            this.m_ExpectedDuration = TimeSpan.FromDays(10);
             this.m_EpicDistributionIsImplemented = true;
 
             string taskDescription = "Collect (Peripheral blood: 2-5 mL in EDTA tube ONLY; " +

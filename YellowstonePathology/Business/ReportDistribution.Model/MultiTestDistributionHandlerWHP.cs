@@ -22,14 +22,14 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
         protected bool m_DistributeHPV1618;
         protected bool m_DistributeNGCT;
         protected bool m_DistributeTrich;
-        protected bool m_DistributeHWP;
+        protected bool m_DistributeWHP;
 
         protected bool m_HoldPap;
         protected bool m_HoldHPV;
         protected bool m_HoldHPV1618;
         protected bool m_HoldNGCT;
         protected bool m_HoldTrich;
-        protected bool m_HoldHWP;
+        protected bool m_HoldWHP;
 
         public MultiTestDistributionHandlerWHP(YellowstonePathology.Business.Test.AccessionOrder accessionOrder) 
             : base(accessionOrder)
@@ -114,8 +114,8 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
                     }
                     else if (panelSetOrder.PanelSetId == this.m_WomensHealthProfileTest.PanelSetId)
                     {
-                        panelSetOrder.Distribute = this.m_DistributeHWP;
-                        panelSetOrder.HoldDistribution = this.m_HoldHWP;
+                        panelSetOrder.Distribute = this.m_DistributeWHP;
+                        panelSetOrder.HoldDistribution = this.m_HoldWHP;
                     }
                 }                
             }

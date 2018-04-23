@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.Test.MDSExtendedByFish
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterR();
             this.m_Active = true;
 
-            this.m_ExpectedDuration = TimeSpan.FromDays(5);
+            this.m_ExpectedDuration = TimeSpan.FromDays(4);
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.MDSExtendedByFish.PanelSetOrderMDSExtendedByFish).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.MDSExtendedByFish.MDSExtendedByFishWordDocument).AssemblyQualifiedName;
             

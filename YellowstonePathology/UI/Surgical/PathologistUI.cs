@@ -424,19 +424,25 @@ namespace YellowstonePathology.UI.Surgical
 
         public void UpdateSlideLocation(string slideOrderId)
         {
-            YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSlideOrder(slideOrderId);
-            if(slideOrder != null)
+            if (this.m_AccessionOrder.AccessionLock.IsLockAquiredByMe == true)
             {
-                slideOrder.SetLocation(this.m_Facility, this.m_Location);
+                YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSlideOrder(slideOrderId);
+                if (slideOrder != null)
+                {
+                    slideOrder.SetLocation(this.m_Facility, this.m_Location);
+                }
             }
         }
 
         public void UpdateAliquotLocation(string aliquotOrderId)
         {
-            YellowstonePathology.Business.Test.AliquotOrder aliiquotOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetAliquotOrder(aliquotOrderId);
-            if (aliiquotOrder != null)
+            if (this.m_AccessionOrder.AccessionLock.IsLockAquiredByMe == true)
             {
-                aliiquotOrder.SetLocation(this.m_Facility, this.m_Location);
+                YellowstonePathology.Business.Test.AliquotOrder aliiquotOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetAliquotOrder(aliquotOrderId);
+                if (aliiquotOrder != null)
+                {
+                    aliiquotOrder.SetLocation(this.m_Facility, this.m_Location);
+                }
             }
         }
     }

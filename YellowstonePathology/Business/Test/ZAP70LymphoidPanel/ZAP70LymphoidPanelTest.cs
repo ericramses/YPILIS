@@ -17,8 +17,9 @@ namespace YellowstonePathology.Business.Test.ZAP70LymphoidPanel
 			this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterR();
             this.m_Active = true;
+            this.m_ExpectedDuration = TimeSpan.FromDays(1);
 
-			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.ZAP70LymphoidPanel.ZAP70LymphoidPanelTestOrder).AssemblyQualifiedName;
+            this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.ZAP70LymphoidPanel.ZAP70LymphoidPanelTestOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.ZAP70LymphoidPanel.ZAP70LymphoidPanelWordDocument).AssemblyQualifiedName;
 			this.m_AllowMultiplePerAccession = true;
             

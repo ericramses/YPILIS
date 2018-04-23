@@ -17,9 +17,9 @@ namespace YellowstonePathology.Business.Test.MDSByFish
 			this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterR();
             this.m_Active = true;
+            this.m_ExpectedDuration = TimeSpan.FromDays(4);
 
-
-			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.MDSByFish.PanelSetOrderMDSByFish).AssemblyQualifiedName;
+            this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.MDSByFish.PanelSetOrderMDSByFish).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.MDSByFish.MDSByFishWordDocument).AssemblyQualifiedName;
             
 			this.m_AllowMultiplePerAccession = true;
