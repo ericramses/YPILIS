@@ -84,8 +84,8 @@ namespace YellowstonePathology.Business.Billing.Model
             YellowstonePathology.Business.Client.Model.ClientGroupClientCollection mountainViewGroup = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientGroupClientCollectionByClientGroupId("44");
             if(mountainViewGroup.ClientIdExists(accessionOrder.ClientId) == true)
             {
-                YellowstonePathology.Business.Facility.Model.NeogenomicsIrvine neogenomicsIrvine = new YellowstonePathology.Business.Facility.Model.NeogenomicsIrvine();
-                if(panelSetOrder.TechnicalComponentFacilityId == neogenomicsIrvine.FacilityId)
+                YellowstonePathology.Business.Facility.Model.Facility neogenomicsIrvine = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("NEOGNMCIRVN");
+                if (panelSetOrder.TechnicalComponentFacilityId == neogenomicsIrvine.FacilityId)
                 {
                     //exclude flow performed by NEO
                     if(panelSetOrder.PanelSetId != 248)

@@ -50,7 +50,7 @@ namespace YellowstonePathology.UI.Login.Receiving
             this.m_TaskOrder = taskOrder;
             this.m_PageNavigationMode = pageNavigationMode;
 
-            this.m_FacilityCollection = Business.Facility.Model.FacilityCollection.GetAllFacilities();
+            this.m_FacilityCollection = Business.Facility.Model.FacilityCollection.Instance;
             this.m_TaskAssignmentList = YellowstonePathology.Business.Task.Model.TaskAssignment.GetTaskAssignmentList();
             this.m_BarcodeScanPort = YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort.Instance;
 
@@ -196,8 +196,8 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         private void HyperLinkSendToNeogenomics_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Facility.Model.NeogenomicsIrvine neo = new YellowstonePathology.Business.Facility.Model.NeogenomicsIrvine();
-            YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings ypi = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();
+            YellowstonePathology.Business.Facility.Model.Facility neo = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("NEOGNMCIRVN");
+            YellowstonePathology.Business.Facility.Model.Facility ypi = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
 
             this.m_TaskOrder.TaskOrderDetailCollection.Clear();
             YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_TaskOrder.ReportNo);
@@ -291,8 +291,7 @@ namespace YellowstonePathology.UI.Login.Receiving
             {
                 if (this.IsOKToGetTrackingNumber(taskOrderDetail) == true)
                 {
-                    Business.Facility.Model.FacilityCollection allFacilities = Business.Facility.Model.FacilityCollection.GetAllFacilities();
-                    Business.Facility.Model.Facility facility = allFacilities.GetByFacilityId(taskOrderDetail.ShipToFacilityId);
+                    Business.Facility.Model.Facility facility = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId(taskOrderDetail.ShipToFacilityId);
                     Business.MaterialTracking.Model.FedexAccountProduction fedExAccount = new Business.MaterialTracking.Model.FedexAccountProduction();
                     Business.MaterialTracking.Model.FedexShipmentRequest shipmentRequest = new Business.MaterialTracking.Model.FedexShipmentRequest(facility, fedExAccount, taskOrderDetail.PaymentType, taskOrderDetail.ServiceType, taskOrderDetail);
                     Business.MaterialTracking.Model.FedexProcessShipmentReply result = shipmentRequest.RequestShipment();

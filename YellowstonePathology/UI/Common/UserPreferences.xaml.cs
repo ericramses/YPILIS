@@ -35,8 +35,8 @@ namespace YellowstonePathology.UI.Common
             this.m_MolecularLabelFormatCollection = YellowstonePathology.Business.Label.Model.LabelFormatCollection.GetMolecularLabelCollection();        
 			this.m_UserPreference = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference;			
 
-            this.m_FacilityCollection = Business.Facility.Model.FacilityCollection.GetAllFacilities();
-            this.m_LocationCollection = new Business.Facility.Model.LocationCollection();
+            this.m_FacilityCollection = Business.Facility.Model.FacilityCollection.Instance;
+            this.m_LocationCollection = Business.Facility.Model.LocationCollection.GetAllLocations();
 
             System.Printing.LocalPrintServer printServer = new System.Printing.LocalPrintServer();            
             this.m_PrintQueueCollection = printServer.GetPrintQueues(new[] { System.Printing.EnumeratedPrintQueueTypes.Local, System.Printing.EnumeratedPrintQueueTypes.Connections });
@@ -153,12 +153,12 @@ namespace YellowstonePathology.UI.Common
 
 		private void ComboBoxFacility_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			if (this.ComboBoxFacility.SelectedItem != null)
+			/*if (this.ComboBoxFacility.SelectedItem != null)
 			{                
 				YellowstonePathology.Business.Facility.Model.Facility facility = (YellowstonePathology.Business.Facility.Model.Facility)this.ComboBoxFacility.SelectedItem;
                 this.m_LocationCollection = facility.Locations;
                 this.NotifyPropertyChanged("LocationCollection");
-			}
+			}*/
 		}				
 
         private void ButtonAlertWaveFileNameBrowse_Click(object sender, RoutedEventArgs e)

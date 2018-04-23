@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace YellowstonePathology.Business.Helper
 {
@@ -40,6 +41,15 @@ namespace YellowstonePathology.Business.Helper
                     result = result + ("', '");
                 }
             }
+            return result;
+        }
+
+        public static string CapitalConsonantsInString(string source)
+        {
+            string upper = source.ToUpper();
+            string pattern = @"[^BCDFGHJ-NP-TVWXZ]";
+            Regex regex = new Regex(pattern);
+            string result = regex.Replace(upper, "");
             return result;
         }
     }

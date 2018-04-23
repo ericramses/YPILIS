@@ -97,8 +97,73 @@
                     </ListView>
                 </Grid>
             </TabItem>
-            
-		</TabControl>
+
+            <TabItem Header="Facility">
+                <Grid Margin="2,2,2,2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" HorizontalAlignment="Right" VerticalAlignment="Center" Text="Facility Name:" />
+                    <TextBox Grid.Column="1" Grid.Row="0" Name="TextBoxFacilityName" Margin="2,2,2,2" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" KeyUp="TextBoxFacilityName_KeyUp" />
+
+                    <ListView Name="ListViewFacilities" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Margin="2,2,2,2" MouseDoubleClick="ListBoxFacility_MouseDoubleClick"
+							 ItemsSource="{Binding Path=FacilityCollection}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Name" Width="350" DisplayMemberBinding="{Binding Path=FacilityName}" />
+                                <GridViewColumn Header="Phone" Width="130" DisplayMemberBinding="{Binding Path=PhoneNumber}" />
+                                <GridViewColumn Header="Email" Width="350" DisplayMemberBinding="{Binding Path=EmailAddress}" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+
+                    <Button Name="ButtonNewFacility" Grid.Row="2" Grid.Column="0" Margin="5" Height="30" Width="100" HorizontalAlignment="Left" Content="New" Click="ButtonNewFacility_Click" />
+                    <Button Grid.Row="2" Grid.Column="1" Margin="5" Height="30" Width="100" HorizontalAlignment="Left" Content="Delete" Click="ButtonDeleteFacility_Click" />
+                    <Button Grid.Row="2" Grid.Column="1" Margin="5" Height="30" Width="100" HorizontalAlignment="Right" Content="OK" Click="ButtonOK_Click" />
+                </Grid>
+            </TabItem>
+
+
+            <TabItem Header="Location">
+                <Grid Margin="2,2,2,2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" HorizontalAlignment="Right" VerticalAlignment="Center" Text="Location Name:" />
+                    <TextBox Grid.Column="1" Grid.Row="0" Name="TextBoxLocationName" Margin="2,2,2,2" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" KeyUp="TextBoxLocationName_KeyUp" />
+
+                    <ListView Name="ListViewLocations" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Margin="2,2,2,2" MouseDoubleClick="ListViewLocations_MouseDoubleClick"
+							 ItemsSource="{Binding Path=FacilityCollection}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Name" Width="100" DisplayMemberBinding="{Binding Path=LocationId}" />
+                                <GridViewColumn Header="Phone" Width="250" DisplayMemberBinding="{Binding Path=Description}" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+
+                    <Button Name="ButtonNewLocation" Grid.Row="2" Grid.Column="0" Margin="5" Height="30" Width="100" HorizontalAlignment="Left" Content="New" Click="ButtonNewLocation_Click" />
+                    <Button Grid.Row="2" Grid.Column="1" Margin="5" Height="30" Width="100" HorizontalAlignment="Left" Content="Delete" Click="ButtonDeleteLocation_Click" />
+                    <Button Grid.Row="2" Grid.Column="1" Margin="5" Height="30" Width="100" HorizontalAlignment="Right" Content="OK" Click="ButtonOK_Click" />
+                </Grid>
+            </TabItem>
+        </TabControl>
 
 	</Grid>
 </Window>

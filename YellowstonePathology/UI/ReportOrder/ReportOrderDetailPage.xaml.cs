@@ -33,7 +33,7 @@ namespace YellowstonePathology.UI.ReportOrder
             this.m_PanelSetOrder = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
             this.m_SystemIdentity = systemIdentity;
 			this.m_UserCollection = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection;
-            this.m_FacilityCollection = Business.Facility.Model.FacilityCollection.GetAllFacilities();            
+            this.m_FacilityCollection = Business.Facility.Model.FacilityCollection.Instance;            
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
 			this.m_ReportDocumentPath = YellowstonePathology.Business.Document.CaseDocument.GetCaseFileNamePDF(orderIdParser, false);
