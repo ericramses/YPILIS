@@ -29,7 +29,6 @@ namespace YellowstonePathology.UI.Client
 
         public ProviderLookupDialog()
 		{
-            this.m_LocationCollection = YellowstonePathology.Business.Facility.Model.LocationCollection.GetAllLocations();
             this.m_ClientGroupCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientGroupCollection();
 			InitializeComponent();
 			DataContext = this;
@@ -166,11 +165,28 @@ namespace YellowstonePathology.UI.Client
 
         private void ButtonNewLocation_Click(object sender, RoutedEventArgs e)
         {
+            LocationEntry locationEntry = new LocationEntry(null, true);
+            locationEntry.ShowDialog();
+            this.DoLocationSearch(this.TextBoxLocationName.Text);
         }
 
         private void ButtonDeleteLocation_Click(object sender, RoutedEventArgs e)
         {
-
+            if (this.ListViewLocations.SelectedItem != null)
+            {
+                YellowstonePathology.Business.Facility.Model.Location location = (YellowstonePathology.Business.Facility.Model.Location)this.ListViewLocations.SelectedItem;
+                YellowstonePathology.Business.Rules.MethodResult methodResult = this.CanDeleteLocation(location);
+                if (methodResult.Success == true)
+                {
+                    this.DeleteLocation(location);
+                    YellowstonePathology.Business.Facility.Model.LocationCollection.Refresh();
+                    this.DoLocationSearch(this.TextBoxLocationName.Text);
+                }
+                else
+                {
+                    MessageBox.Show(methodResult.Message, "Unable to delete at this time", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                }
+            }
         }
 
         private void ButtonEnvelope_Click(object sender, RoutedEventArgs e)
@@ -236,7 +252,10 @@ namespace YellowstonePathology.UI.Client
 
         private void TextBoxLocationName_KeyUp(object sender, KeyEventArgs e)
         {
-
+            if (!string.IsNullOrEmpty(this.TextBoxLocationName.Text))
+            {
+                this.DoLocationSearch(this.TextBoxLocationName.Text);
+            }
         }
 
         private void ListBoxProviders_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -285,7 +304,14 @@ namespace YellowstonePathology.UI.Client
         {
             this.m_FacilityCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetFacilitiesByFacilityName(facilityName);
             NotifyPropertyChanged("FacilityCollection");
-            this.ListViewProviders.SelectedIndex = -1;
+            this.ListViewFacilities.SelectedIndex = -1;
+        }
+
+        private void DoLocationSearch(string description)
+        {
+            this.m_LocationCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetLocationsByDescription(description);
+            NotifyPropertyChanged("LocationCollection");
+            this.ListViewLocations.SelectedIndex = -1;
         }
 
         public void NotifyPropertyChanged(String info)
@@ -322,7 +348,14 @@ namespace YellowstonePathology.UI.Client
 
         private void ListViewLocations_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            if (this.ListViewLocations.SelectedItem != null)
+            {
+                YellowstonePathology.Business.Facility.Model.Location listLocation = (YellowstonePathology.Business.Facility.Model.Location)this.ListViewLocations.SelectedItem;
+                YellowstonePathology.Business.Facility.Model.Location pulledLocation = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullLocation(listLocation.LocationId, this);
 
+                LocationEntry locationEntry = new LocationEntry(pulledLocation, false);
+                locationEntry.ShowDialog();
+            }
         }
 
         private YellowstonePathology.Business.Rules.MethodResult CanDeleteProvider(YellowstonePathology.Business.Domain.Physician physician)
@@ -453,6 +486,49 @@ namespace YellowstonePathology.UI.Client
         private void DeleteFacility(YellowstonePathology.Business.Facility.Model.Facility facility)
         {
             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.DeleteDocument(facility, this);
+        }
+
+        private YellowstonePathology.Business.Rules.MethodResult CanDeleteLocation(YellowstonePathology.Business.Facility.Model.Location location)
+        {
+            YellowstonePathology.Business.Rules.MethodResult result = new Business.Rules.MethodResult();
+            result.Success = false;
+            result.Message = "See Sid";
+            /*int accessionCount = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetAccessionCountByClientId(client.ClientId);
+            if (accessionCount > 0)
+            {
+                result.Success = false;
+                result.Message = client.ClientName + " has accessions and can not be deleted.";
+            }
+            else
+            {
+                StringBuilder msg = new StringBuilder();
+                msg.AppendLine(client.ClientName);
+                YellowstonePathology.Business.Domain.PhysicianClientCollection physicianClientCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClientCollectionByClientId(client.ClientId);
+                foreach (YellowstonePathology.Business.Domain.PhysicianClient physicianClient in physicianClientCollection)
+                {
+                    YellowstonePathology.Business.Client.Model.PhysicianClientDistributionCollection physicianClientDistributionCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClientDistributionByPhysicianClientId(physicianClient.PhysicianClientId);
+                    if (physicianClientDistributionCollection.Count > 0)
+                    {
+                        result.Success = false;
+                        msg.AppendLine("- has distributions.  The distributions must be removed before the client can be deleted.");
+                        break;
+                    }
+                }
+
+                if (physicianClientCollection.Count > 0)
+                {
+                    result.Success = false;
+                    msg.AppendLine("- has membereship.  The membership must be removed before the client can be deleted.");
+                }
+                result.Message = msg.ToString();
+            }*/
+
+            return result;
+        }
+
+        private void DeleteLocation(YellowstonePathology.Business.Facility.Model.Location location)
+        {
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.DeleteDocument(location, this);
         }
 
         private void ListViewClientGroups_MouseDoubleClick(object sender, MouseButtonEventArgs e)

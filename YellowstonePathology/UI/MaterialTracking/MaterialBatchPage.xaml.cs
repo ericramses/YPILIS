@@ -44,9 +44,6 @@ namespace YellowstonePathology.UI.MaterialTracking
 		private bool m_NextButtonVisible;
 		private bool m_FinishButtonVisible;
 
-        private YellowstonePathology.Business.Facility.Model.FacilityCollection m_FacilityCollection;
-        private YellowstonePathology.Business.Facility.Model.LocationCollection m_LocationCollection;
-
         private bool m_UserMasterAccessionNo;
         private string m_MasterAccessionNo;
 
@@ -57,9 +54,6 @@ namespace YellowstonePathology.UI.MaterialTracking
             bool backButtonVisible, bool nextButtonVisible, bool finishButtonVisible, 
 			bool useMasterAccessionNo, string masterAccessionNo, YellowstonePathology.UI.Navigation.PageNavigator pageNavigator)
 		{                        
-            this.m_FacilityCollection = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance;
-            this.m_LocationCollection = YellowstonePathology.Business.Facility.Model.LocationCollection.GetAllLocations();
-
             this.m_PageNavigator = pageNavigator;
 
 			this.m_MaterialTrackingBatch = materialTrackingBatch;
@@ -160,12 +154,12 @@ namespace YellowstonePathology.UI.MaterialTracking
 
         public YellowstonePathology.Business.Facility.Model.FacilityCollection FacilityCollection
         {
-            get { return this.m_FacilityCollection; }
+            get { return Business.Facility.Model.FacilityCollection.Instance; }
         }
 
         public YellowstonePathology.Business.Facility.Model.LocationCollection LocationCollection
         {
-            get { return this.m_LocationCollection; }
+            get { return Business.Facility.Model.LocationCollection.Instance; }
         }
 
 		public YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogViewCollection MaterialTrackingLogViewCollection
@@ -265,10 +259,8 @@ namespace YellowstonePathology.UI.MaterialTracking
 
 		private YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog AddMaterialTrackingLogScan(string materialId, string materialType, string materialTrackingBatchId)
         {
-            YellowstonePathology.Business.Facility.Model.LocationCollection locationCollection = Business.Facility.Model.LocationCollection.GetAllLocations();
-
 			YellowstonePathology.Business.Facility.Model.Facility thisFacility = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId);
-			YellowstonePathology.Business.Facility.Model.Location thisLocation = locationCollection.GetLocation(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.LocationId);
+			YellowstonePathology.Business.Facility.Model.Location thisLocation = Business.Facility.Model.LocationCollection.Instance.GetLocation(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.LocationId);
 
 			string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 			YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog = new Business.MaterialTracking.Model.MaterialTrackingLog(objectId, materialId, materialTrackingBatchId, thisFacility.FacilityId, thisFacility.FacilityName, thisLocation.LocationId, thisLocation.Description, materialType);
@@ -450,8 +442,8 @@ namespace YellowstonePathology.UI.MaterialTracking
 
         private void UpdateLocation()
         {
-            YellowstonePathology.Business.Facility.Model.Facility facility = this.m_FacilityCollection.GetByFacilityId(this.m_MaterialTrackingBatch.ToFacilityId);
-            YellowstonePathology.Business.Facility.Model.Location location = this.m_LocationCollection.GetLocation(this.m_MaterialTrackingBatch.ToLocationId);
+            YellowstonePathology.Business.Facility.Model.Facility facility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId(this.m_MaterialTrackingBatch.ToFacilityId);
+            YellowstonePathology.Business.Facility.Model.Location location = YellowstonePathology.Business.Facility.Model.LocationCollection.Instance.GetLocation(this.m_MaterialTrackingBatch.ToLocationId);
 
             foreach (YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog in this.m_MaterialTrackingBatch.MaterialTrackingLogCollection)
             {

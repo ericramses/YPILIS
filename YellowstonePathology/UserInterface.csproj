@@ -757,7 +757,6 @@
     <Compile Include="Business\Facility.Model\HostCollection.cs" />
     <Compile Include="Business\Facility.Model\Location.cs" />
     <Compile Include="Business\Facility.Model\LocationCollection.cs" />
-    <Compile Include="Business\Facility.Model\LocationDefinitions.cs" />
     <Compile Include="Business\FileList.cs" />
     <Compile Include="Business\FileListItem.cs" />
     <Compile Include="Business\Flow\CellPopulationOfInterest.cs" />

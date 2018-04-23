@@ -78,6 +78,7 @@ namespace YellowstonePathology.UI.Client
         {
             if (this.CanAdd() == true)
             {
+                this.NotifyPropertyChanged("Location");
                 YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(this.m_Location, this);
             }
         }
