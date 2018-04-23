@@ -8,6 +8,20 @@ namespace YellowstonePathology.Business.Facility.Model
 {
     public class LocationCollection : ObservableCollection<Location>
     {
+        private static LocationCollection instance;
+        public static LocationCollection Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetAllLocations();
+                    instance.Insert(0, new Location());
+                }
+                return instance;
+            }
+        }
+
         public LocationCollection()
         {			
 			
@@ -41,12 +55,13 @@ namespace YellowstonePathology.Business.Facility.Model
         public static LocationCollection GetAllLocations()
         {
             LocationCollection result = new LocationCollection();
-            result.Add(new YellowstonePathology.Business.Facility.Model.LocationDefinitions.NullLocation());
+            //result.Add(new YellowstonePathology.Business.Facility.Model.LocationDefinitions.NullLocation());
 
             // YellowstonePathologistBillings
             result.Add(new YellowstonePathology.Business.Facility.Model.LocationDefinitions.DrBrownOffice());
             result.Add(new YellowstonePathology.Business.Facility.Model.LocationDefinitions.DrDurdenOffice());
             result.Add(new YellowstonePathology.Business.Facility.Model.LocationDefinitions.DrEmerickOffice());
+            result.Add(new YellowstonePathology.Business.Facility.Model.LocationDefinitions.DrMorrisonOffice());
             result.Add(new YellowstonePathology.Business.Facility.Model.LocationDefinitions.DrNeroOffice());
             result.Add(new YellowstonePathology.Business.Facility.Model.LocationDefinitions.DrSchultzOffice());
             result.Add(new YellowstonePathology.Business.Facility.Model.LocationDefinitions.SvhPathologistOffice());

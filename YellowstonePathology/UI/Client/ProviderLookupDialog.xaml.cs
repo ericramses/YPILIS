@@ -25,9 +25,11 @@ namespace YellowstonePathology.UI.Client
 		private YellowstonePathology.Business.Client.Model.ClientCollection m_ClientCollection;
         private YellowstonePathology.Business.Client.Model.ClientGroupCollection m_ClientGroupCollection;
         private YellowstonePathology.Business.Facility.Model.FacilityCollection m_FacilityCollection;
+        private YellowstonePathology.Business.Facility.Model.LocationCollection m_LocationCollection;
 
         public ProviderLookupDialog()
 		{
+            this.m_LocationCollection = YellowstonePathology.Business.Facility.Model.LocationCollection.GetAllLocations();
             this.m_ClientGroupCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientGroupCollection();
 			InitializeComponent();
 			DataContext = this;
@@ -64,6 +66,11 @@ namespace YellowstonePathology.UI.Client
         public YellowstonePathology.Business.Facility.Model.FacilityCollection FacilityCollection
         {
             get { return this.m_FacilityCollection; }
+        }
+
+        public YellowstonePathology.Business.Facility.Model.LocationCollection LocationCollection
+        {
+            get { return this.m_LocationCollection; }
         }
 
         private void ButtonNewProvider_Click(object sender, RoutedEventArgs e)
@@ -157,6 +164,15 @@ namespace YellowstonePathology.UI.Client
             }
         }
 
+        private void ButtonNewLocation_Click(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void ButtonDeleteLocation_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         private void ButtonEnvelope_Click(object sender, RoutedEventArgs e)
 		{
 			if (this.ListViewClients.SelectedItems.Count != 0)
@@ -216,6 +232,11 @@ namespace YellowstonePathology.UI.Client
             {
                 this.DoFacilitySearch(this.TextBoxFacilityName.Text);
             }
+        }
+
+        private void TextBoxLocationName_KeyUp(object sender, KeyEventArgs e)
+        {
+
         }
 
         private void ListBoxProviders_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -297,6 +318,11 @@ namespace YellowstonePathology.UI.Client
                 FacilityEntry facilityEntry = new FacilityEntry(pulledFacility, false);
                 facilityEntry.ShowDialog();
             }
+        }
+
+        private void ListViewLocations_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+
         }
 
         private YellowstonePathology.Business.Rules.MethodResult CanDeleteProvider(YellowstonePathology.Business.Domain.Physician physician)
