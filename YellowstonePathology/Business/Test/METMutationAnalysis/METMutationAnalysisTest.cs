@@ -30,13 +30,6 @@ namespace YellowstonePathology.Business.Test.METMutationAnalysis
             YellowstonePathology.Business.Facility.Model.Facility neogenomicsIrvine = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("NEOGNMCIRVN");
             this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskFedexShipment(YellowstonePathology.Business.Task.Model.TaskAssignment.Flow, taskDescription, neogenomicsIrvine));
 
-<<<<<<< HEAD
-
-            this.m_ProfessionalComponentFacility = new YellowstonePathology.Business.Facility.Model.NeogenomicsIrvine();
-            this.m_ProfessionalComponentBillingFacility = new YellowstonePathology.Business.Facility.Model.NeogenomicsIrvine();            
-
-=======
->>>>>>> 20d68bc7fc06e9d65bc8bafe9575ec107a7d5e7b
             this.m_TechnicalComponentFacility = neogenomicsIrvine;
             this.m_TechnicalComponentBillingFacility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
 
@@ -45,10 +38,6 @@ namespace YellowstonePathology.Business.Test.METMutationAnalysis
 
             //this.m_HasSplitCPTCode = false;
             //this.m_RequiresAssignment = true;
-<<<<<<< HEAD
-
-=======
->>>>>>> 20d68bc7fc06e9d65bc8bafe9575ec107a7d5e7b
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMiscellaneous());
         }
