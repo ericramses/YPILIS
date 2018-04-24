@@ -258,6 +258,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
             //UniversityofWashington
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetUniversalOrganismByPCR());
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetRenalBiopsyPanel());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.MicrobiologyByPCR.MicrobiologyByPCRTest());
 
             //Billings Clinic
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetDirectImmunoFluorescence());
