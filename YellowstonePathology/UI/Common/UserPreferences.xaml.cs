@@ -36,7 +36,7 @@ namespace YellowstonePathology.UI.Common
 			this.m_UserPreference = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference;			
 
             this.m_FacilityCollection = Business.Facility.Model.FacilityCollection.Instance;
-            this.m_LocationCollection = Business.Facility.Model.LocationCollection.GetAllLocations();
+            this.m_LocationCollection = Business.Facility.Model.LocationCollection.Instance;
 
             System.Printing.LocalPrintServer printServer = new System.Printing.LocalPrintServer();            
             this.m_PrintQueueCollection = printServer.GetPrintQueues(new[] { System.Printing.EnumeratedPrintQueueTypes.Local, System.Printing.EnumeratedPrintQueueTypes.Connections });

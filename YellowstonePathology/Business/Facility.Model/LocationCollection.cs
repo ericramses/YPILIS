@@ -9,6 +9,7 @@ namespace YellowstonePathology.Business.Facility.Model
     public class LocationCollection : ObservableCollection<Location>
     {
         private static LocationCollection instance;
+
         public static LocationCollection Instance
         {
             get
@@ -22,6 +23,12 @@ namespace YellowstonePathology.Business.Facility.Model
             }
         }
 
+        public static LocationCollection Refresh()
+        {
+            instance = null;
+            return Instance;
+        }
+
         public LocationCollection()
         {			
 			
@@ -29,9 +36,8 @@ namespace YellowstonePathology.Business.Facility.Model
 
         public static LocationCollection GetFromHostCollection(HostCollection hostCollection)
         {
-            LocationCollection allLocations = LocationCollection.GetAllLocations();
             LocationCollection result = new LocationCollection();
-            foreach (Location location in allLocations)
+            foreach (Location location in LocationCollection.Instance)
             {
                 if (hostCollection.LocationIdExists(location.LocationId) == true)
                 {
@@ -52,7 +58,7 @@ namespace YellowstonePathology.Business.Facility.Model
             return result;
         }
 
-        public static LocationCollection GetAllLocations()
+        /*public static LocationCollection GetAllLocations()
         {
             LocationCollection result = new LocationCollection();
             //result.Add(new YellowstonePathology.Business.Facility.Model.LocationDefinitions.NullLocation());
@@ -113,7 +119,7 @@ namespace YellowstonePathology.Business.Facility.Model
             result.Add(new YellowstonePathology.Business.Facility.Model.LocationDefinitions.GrossTechs());
 
             return Sort(result);
-        }
+        }*/
 
         public Location GetLocation(string locationId)
         {

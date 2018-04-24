@@ -214,9 +214,8 @@ namespace YellowstonePathology.UI.Cutting
                         if (this.m_AliquotOrder.SlideOrderCollection.Exists(barcode.ID) == true)
                         {                                
                             YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder = this.m_AliquotOrder.SlideOrderCollection.Get(barcode.ID);
-                            YellowstonePathology.Business.Facility.Model.LocationCollection locationCollection = YellowstonePathology.Business.Facility.Model.LocationCollection.GetAllLocations();
                             YellowstonePathology.Business.Facility.Model.Facility thisFacility = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId);
-                            YellowstonePathology.Business.Facility.Model.Location thisLocation = locationCollection.GetLocation(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.LocationId);
+                            YellowstonePathology.Business.Facility.Model.Location thisLocation = Business.Facility.Model.LocationCollection.Instance.GetLocation(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.LocationId);
 
                             this.AddMaterialTrackingLog(slideOrder, thisFacility, thisLocation);
                             slideOrder.SetLocation(thisFacility, thisLocation);
