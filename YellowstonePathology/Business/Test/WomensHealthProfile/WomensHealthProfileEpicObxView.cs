@@ -33,25 +33,25 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
                 if (string.IsNullOrEmpty(panelSetOrderCytology.ScreeningImpression) == false)
                 {
                     this.AddNextObxElement("Epithelial Cell Description: ", document, "F");
-                    this.AddNextObxElement(panelSetOrderCytology.ScreeningImpression, document, "F");
+                    this.HandleLongString(panelSetOrderCytology.ScreeningImpression, document, "F");
                     this.AddNextObxElement("", document, "F");
                 }
 
                 this.AddNextObxElement("Specimen Adequacy:", document, "F");
-                this.AddNextObxElement(panelSetOrderCytology.SpecimenAdequacy, document, "F");
+                this.HandleLongString(panelSetOrderCytology.SpecimenAdequacy, document, "F");
                 this.AddNextObxElement("", document, "F");
 
                 if (string.IsNullOrEmpty(panelSetOrderCytology.OtherConditions) == false)
                 {
                     this.AddNextObxElement("Other Conditions:", document, "F");
-                    this.AddNextObxElement(panelSetOrderCytology.OtherConditions, document, "F");
+                    this.HandleLongString(panelSetOrderCytology.OtherConditions, document, "F");
                     this.AddNextObxElement("", document, "F");
                 }
 
                 if (string.IsNullOrEmpty(panelSetOrderCytology.ReportComment) == false)
                 {
                     this.AddNextObxElement("Comment:", document, "F");
-                    this.AddNextObxElement(panelSetOrderCytology.ReportComment, document, "F");
+                    this.HandleLongString(panelSetOrderCytology.ReportComment, document, "F");
                     this.AddNextObxElement("", document, "F");
                 }
 

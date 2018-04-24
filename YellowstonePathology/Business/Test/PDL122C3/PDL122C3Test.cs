@@ -18,6 +18,7 @@ namespace YellowstonePathology.Business.Test.PDL122C3
             this.m_ResultDocumentSource = PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterR();
             this.m_Active = true;
+            this.m_ExpectedDuration = TimeSpan.FromDays(2);
 
             this.m_SurgicalAmendmentRequired = true;
             this.m_AllowMultiplePerAccession = true;
