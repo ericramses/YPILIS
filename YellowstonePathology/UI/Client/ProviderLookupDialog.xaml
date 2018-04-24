@@ -153,7 +153,8 @@
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Location Id" Width="250" DisplayMemberBinding="{Binding Path=LocationId}" />
-                                <GridViewColumn Header="Description" Width="450" DisplayMemberBinding="{Binding Path=Description}" />
+                                <GridViewColumn Header="Description" Width="250" DisplayMemberBinding="{Binding Path=Description}" />
+                                <GridViewColumn Header="Friendly Name" Width="250" DisplayMemberBinding="{Binding Path=FriendlyName}" />
                             </GridView>
                         </ListView.View>
                     </ListView>

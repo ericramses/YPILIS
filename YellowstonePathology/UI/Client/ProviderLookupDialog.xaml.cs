@@ -274,7 +274,7 @@ namespace YellowstonePathology.UI.Client
         {            
 			this.m_ClientCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientsByClientName(clientName);
             NotifyPropertyChanged("ClientCollection");
-			this.ListViewProviders.SelectedIndex = -1;
+			this.ListViewClients.SelectedIndex = -1;
         }
 
 		private void DoProviderSearch()
@@ -343,6 +343,7 @@ namespace YellowstonePathology.UI.Client
 
                 FacilityEntry facilityEntry = new FacilityEntry(pulledFacility, false);
                 facilityEntry.ShowDialog();
+                this.DoFacilitySearch(TextBoxFacilityName.Text);
             }
         }
 
@@ -355,6 +356,7 @@ namespace YellowstonePathology.UI.Client
 
                 LocationEntry locationEntry = new LocationEntry(pulledLocation, false);
                 locationEntry.ShowDialog();
+                this.DoLocationSearch(TextBoxLocationName.Text);
             }
         }
 
