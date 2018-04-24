@@ -17,6 +17,8 @@ using System.ServiceModel.Description;
 using Microsoft.Win32;
 using System.Diagnostics;
 //using LibGit2Sharp;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace YellowstonePathology.UI
 {
@@ -56,6 +58,12 @@ namespace YellowstonePathology.UI
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            /*string path = System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\ypilis.json";
+            string jString = System.IO.File.ReadAllText(path);
+            JObject jObject = JsonConvert.DeserializeObject<JObject>(jString);
+            string location = jObject["location"].ToString();
+            Console.Write(location);*/
+
             Store.AppDataStore.Instance.LoadData();
 
             Business.Test.AccessionLockCollection accessionLockCollection = new Business.Test.AccessionLockCollection();

@@ -9,18 +9,13 @@ namespace YellowstonePathology.Business.Facility.Model
     [PersistentClass("tblLocation", "YPIDATA")]
     public class Location
     {
-        protected string m_LocationId;        
-		protected string m_Description;        
+        private string m_LocationId;
+        private string m_Description;
+        private string m_FriendlyName;
 
         public Location()
         {
             
-        }
-
-        public Location(string locationId, string description)
-        {
-            this.m_LocationId = locationId;
-            this.m_Description = description;
         }
 
         [PersistentPrimaryKeyProperty(false)]
@@ -35,6 +30,13 @@ namespace YellowstonePathology.Business.Facility.Model
         {
 			get { return this.m_Description; }
 			set { this.m_Description = value; }
-        }        
-	}
+        }
+
+        [PersistentProperty()]
+        public string FriendlyName
+        {
+            get { return this.m_FriendlyName; }
+            set { this.m_FriendlyName = value; }
+        }
+    }
 }
