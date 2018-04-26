@@ -30,7 +30,8 @@ namespace YellowstonePathology.UI.Client
         public ProviderLookupDialog()
 		{
             this.m_ClientGroupCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientGroupCollection();
-			InitializeComponent();
+            this.DoLocationSearch();
+            InitializeComponent();
 			DataContext = this;
             this.TextBoxProviderName.Focus();
 
@@ -167,7 +168,8 @@ namespace YellowstonePathology.UI.Client
         {
             LocationEntry locationEntry = new LocationEntry(null, true);
             locationEntry.ShowDialog();
-            this.DoLocationSearch(this.TextBoxLocationName.Text);
+            this.DoLocationSearch();
+            this.ListViewLocations.SelectedIndex = -1;
         }
 
         private void ButtonDeleteLocation_Click(object sender, RoutedEventArgs e)
@@ -180,7 +182,8 @@ namespace YellowstonePathology.UI.Client
                 {
                     this.DeleteLocation(location);
                     YellowstonePathology.Business.Facility.Model.LocationCollection.Refresh();
-                    this.DoLocationSearch(this.TextBoxLocationName.Text);
+                    this.DoLocationSearch();
+                    this.ListViewLocations.SelectedIndex = -1;
                 }
                 else
                 {
@@ -250,14 +253,6 @@ namespace YellowstonePathology.UI.Client
             }
         }
 
-        private void TextBoxLocationName_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (!string.IsNullOrEmpty(this.TextBoxLocationName.Text))
-            {
-                this.DoLocationSearch(this.TextBoxLocationName.Text);
-            }
-        }
-
         private void ListBoxProviders_MouseDoubleClick(object sender, MouseButtonEventArgs e)
 		{
 			if (this.ListViewProviders.SelectedItem != null)
@@ -304,14 +299,12 @@ namespace YellowstonePathology.UI.Client
         {
             this.m_FacilityCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetFacilitiesByFacilityName(facilityName);
             NotifyPropertyChanged("FacilityCollection");
-            this.ListViewFacilities.SelectedIndex = -1;
         }
 
-        private void DoLocationSearch(string description)
+        private void DoLocationSearch()
         {
-            this.m_LocationCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetLocationsByDescription(description);
+            this.m_LocationCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetAllLocations();
             NotifyPropertyChanged("LocationCollection");
-            this.ListViewLocations.SelectedIndex = -1;
         }
 
         public void NotifyPropertyChanged(String info)
@@ -356,7 +349,8 @@ namespace YellowstonePathology.UI.Client
 
                 LocationEntry locationEntry = new LocationEntry(pulledLocation, false);
                 locationEntry.ShowDialog();
-                this.DoLocationSearch(TextBoxLocationName.Text);
+                this.DoLocationSearch();
+                this.ListViewLocations.SelectedIndex = -1;
             }
         }
 

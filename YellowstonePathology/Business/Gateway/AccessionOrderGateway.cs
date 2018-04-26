@@ -3146,5 +3146,31 @@ namespace YellowstonePathology.Business.Gateway
 
             return result;
         }
+
+        public static List<User.UserPreference> GetAllUserPreferences()
+        {
+            List<User.UserPreference> result = new List<User.UserPreference>();
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "select * from tblUserPreference order by Location;";
+
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        User.UserPreference userPreference = new User.UserPreference();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(userPreference, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(userPreference);
+                    }
+                }
+            }
+
+            return result;
+        }
     }
 }
