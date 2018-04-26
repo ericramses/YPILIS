@@ -3258,6 +3258,9 @@
     <Compile Include="UI\Client\LocationEntry.xaml.cs">
       <DependentUpon>LocationEntry.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Common\UserPreferencesList.xaml.cs">
+      <DependentUpon>UserPreferencesList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\EmbeddingAutopsyItem.cs" />
     <Compile Include="UI\EmbeddingAutopsyList.cs" />
     <Compile Include="UI\Monitor\DashboardPage.xaml.cs">
@@ -5267,6 +5270,10 @@
     <Page Include="UI\CodeSelection.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Common\UserPreferencesList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Cutting\AliquotOrderSelectionPage.xaml">
       <Generator>MSBuild:Compile</Generator>

@@ -17,8 +17,6 @@ using System.ServiceModel.Description;
 using Microsoft.Win32;
 using System.Diagnostics;
 //using LibGit2Sharp;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace YellowstonePathology.UI
 {
@@ -58,42 +56,46 @@ namespace YellowstonePathology.UI
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            /*string path = System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\ypilis.json";
-            string jString = System.IO.File.ReadAllText(path);
-            JObject jObject = JsonConvert.DeserializeObject<JObject>(jString);
-            string location = jObject["location"].ToString();
-            Console.Write(location);*/
-
-            Store.AppDataStore.Instance.LoadData();
-
-            Business.Test.AccessionLockCollection accessionLockCollection = new Business.Test.AccessionLockCollection();
-            //accessionLockCollection.ClearLocks();
-
-            string startUpWindow = string.Empty;
-
-			if (System.Environment.MachineName.ToUpper() == "CUTTINGA" || System.Environment.MachineName.ToUpper() == "CUTTINGB")// || System.Environment.MachineName.ToUpper() == "COMPILE")
-            {                
-                YellowstonePathology.UI.Cutting.CuttingStationPath cuttingStationPath = new Cutting.CuttingStationPath();
-                cuttingStationPath.Start();
-            }                        
-            else if (System.Environment.MachineName.ToUpper() == "CYTOLOG2") // || System.Environment.MachineName.ToUpper() == "COMPILE")
+            string path = System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\ypilis.json";
+            if (File.Exists(path) == false)
             {
-				YellowstonePathology.UI.Cytology.ThinPrepPapSlidePrintingPath thinPrepPapSlidePrintingPath = new Cytology.ThinPrepPapSlidePrintingPath();
-				thinPrepPapSlidePrintingPath.Start();
-			}             
-			else
-			{
-				startUpWindow = @"UI\MainWindow.xaml";
-				this.StartupUri = new System.Uri(startUpWindow, System.UriKind.Relative);
-			}
+                this.StartupUri = new System.Uri(@"UI\Common\UserPreferencesList.xaml", System.UriKind.Relative);
+                this.StartTimer();
+                base.OnStartup(e);
+            }
+            else
+            {
 
-            EventManager.RegisterClassHandler(typeof(TextBox), TextBox.GotFocusEvent, new RoutedEventHandler(TextBox_GotFocus));
-            base.OnStartup(e);
-            
+                Store.AppDataStore.Instance.LoadData();
 
-            this.StartTimer();            
-            this.SetupApplicationFolders();
+                Business.Test.AccessionLockCollection accessionLockCollection = new Business.Test.AccessionLockCollection();
+                //accessionLockCollection.ClearLocks();
 
+                string startUpWindow = string.Empty;
+
+                if (System.Environment.MachineName.ToUpper() == "CUTTINGA" || System.Environment.MachineName.ToUpper() == "CUTTINGB")// || System.Environment.MachineName.ToUpper() == "COMPILE")
+                {
+                    YellowstonePathology.UI.Cutting.CuttingStationPath cuttingStationPath = new Cutting.CuttingStationPath();
+                    cuttingStationPath.Start();
+                }
+                else if (System.Environment.MachineName.ToUpper() == "CYTOLOG2") // || System.Environment.MachineName.ToUpper() == "COMPILE")
+                {
+                    YellowstonePathology.UI.Cytology.ThinPrepPapSlidePrintingPath thinPrepPapSlidePrintingPath = new Cytology.ThinPrepPapSlidePrintingPath();
+                    thinPrepPapSlidePrintingPath.Start();
+                }
+                else
+                {
+                    startUpWindow = @"UI\MainWindow.xaml";
+                    this.StartupUri = new System.Uri(startUpWindow, System.UriKind.Relative);
+                }
+
+                EventManager.RegisterClassHandler(typeof(TextBox), TextBox.GotFocusEvent, new RoutedEventHandler(TextBox_GotFocus));
+                base.OnStartup(e);
+
+
+                this.StartTimer();
+                this.SetupApplicationFolders();
+            }
         }        
 
         public static bool HandledictionarySetup()
