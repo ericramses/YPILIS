@@ -51,9 +51,8 @@
                     <TextBlock Grid.Column="0" Grid.Row="3" Margin="2,2,2,2" VerticalAlignment="Center" TextAlignment="Right">Location:</TextBlock>
                     <ComboBox Grid.Column="1" Grid.Row="2" Name="ComboBoxLocation" ItemsSource="{Binding Path=LocationCollection}" Margin="3,24.8,1.2,5.6"
                               HorizontalAlignment="Stretch" SelectedValue="{Binding Path=UserPreference.LocationId}" SelectedValuePath="LocationId"
-                              DisplayMemberPath="Friendly" IsEnabled="True" Grid.RowSpan="2">
+                              DisplayMemberPath="FriendlyName" IsEnabled="True" Grid.RowSpan="2">
                     </ComboBox>
-                    <Button Grid.Column="2" Grid.Row="3" Width="30" Margin="2,2,2,2" Click="ButtonAddLocation_Click" Visibility="{Binding Path=NewButtonVisibility}">Add</Button>
 
                     <TextBlock Grid.Column="0" Grid.Row="4" Margin="2,2,2,2" VerticalAlignment="Center" TextAlignment="Right">Lock Mode:</TextBlock>
                     <ComboBox Grid.Column="1" Grid.Row="4" Margin="2,2,2,2" Text="{Binding Path=UserPreference.LockMode}" IsEditable="True">
