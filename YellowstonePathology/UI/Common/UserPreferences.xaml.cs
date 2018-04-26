@@ -36,7 +36,6 @@ namespace YellowstonePathology.UI.Common
         public UserPreferences()
 		{
             this.m_MolecularLabelFormatCollection = YellowstonePathology.Business.Label.Model.LabelFormatCollection.GetMolecularLabelCollection();
-            this.m_UserPreference = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference;
             string path = System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\ypilis.json";
             if (File.Exists(path) == false)
             {
@@ -236,6 +235,15 @@ namespace YellowstonePathology.UI.Common
             if(this.ComboBoxLocation.SelectedIndex > 0)
             {
                 YellowstonePathology.Business.Facility.Model.Location location = (Business.Facility.Model.Location)this.ComboBoxLocation.SelectedItem;
+                List<Business.User.UserPreference> preferences = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAllUserPreferences();
+                foreach(Business.User.UserPreference userPreference in preferences)
+                {
+                    if(userPreference.Location == location.FriendlyName)
+                    {
+                        MessageBox.Show("A User Preference already exists for that location.  Choose another Location.");
+                        return;
+                    }
+                }
                 this.m_UserPreference.Location = location.FriendlyName;
                 this.m_UserPreference.LocationId = location.LocationId;
                 this.m_UserPreference.HostName = location.LocationId;
@@ -243,17 +251,8 @@ namespace YellowstonePathology.UI.Common
             }
             else
             {
-                MessageBox.Show("Select a location or add a location using the Add button next to Location.");
+                MessageBox.Show("Select a location.");
             }
-        }
-
-        private void ButtonAddLocation_Click(object sender, RoutedEventArgs e)
-        {
-            Client.ProviderLookupDialog dlg = new Client.ProviderLookupDialog();
-            dlg.MainTabControl.SelectedIndex = 4;
-            dlg.ShowDialog();
-            this.m_LocationCollection = YellowstonePathology.Business.Facility.Model.LocationCollection.Instance;
-            this.NotifyPropertyChanged("LocationCollection");
         }
     }
 }

@@ -12,14 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.IO;
+using System.ComponentModel;
 
 namespace YellowstonePathology.UI.Common
 {
     /// <summary>
     /// Interaction logic for UserPreferencesList.xaml
     /// </summary>
-    public partial class UserPreferencesList : Window
+    public partial class UserPreferencesList : Window, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
         private List<YellowstonePathology.Business.User.UserPreference> m_UserPreferenceList;
         public UserPreferencesList()
         {
@@ -33,11 +36,21 @@ namespace YellowstonePathology.UI.Common
             get { return this.m_UserPreferenceList; }
         }
 
+        public void NotifyPropertyChanged(String info)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
+        }
+
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
             UserPreferences dlg = new Common.UserPreferences();
             dlg.ShowDialog();
-            Close();
+            this.m_UserPreferenceList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAllUserPreferences();
+            NotifyPropertyChanged("UserPreferenceList");
+            MessageBox.Show("Select the User Preference you just added and click on OK.");
         }
 
         private void ButtonOK_Click(object sender, RoutedEventArgs e)
