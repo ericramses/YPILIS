@@ -5,11 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YellowstonePathology.UI.Common"
         mc:Ignorable="d"
-<<<<<<< HEAD
-        Title="User Preferences Selection" Height="500" Width="00" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow">
-=======
-        Title="User Preferences Selection" Height="500" Width="500">
->>>>>>> 04ace5bfbde98b0ffa1cfbc7fa165589eee55bad
+        Title="User Preferences Selection" Height="500" Width="500" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
