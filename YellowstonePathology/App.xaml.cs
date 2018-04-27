@@ -27,6 +27,7 @@ namespace YellowstonePathology.UI
     public partial class App : Application
     {
 		System.Timers.Timer m_Timer;
+        bool SetLoc;
 
 		public App()
 		{            
@@ -47,6 +48,10 @@ namespace YellowstonePathology.UI
         {
             Business.Test.AccessionLockCollection accessionLockCollection = new Business.Test.AccessionLockCollection();
             accessionLockCollection.ClearLocks();
+            if (this.SetLoc == true)
+            {
+                System.Windows.Forms.Application.Restart();
+            }
         }
 
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
@@ -59,13 +64,14 @@ namespace YellowstonePathology.UI
             string path = System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\ypilis.json";
             if (File.Exists(path) == false)
             {
+                this.SetLoc = true;
                 this.StartupUri = new System.Uri(@"UI\Common\UserPreferencesList.xaml", System.UriKind.Relative);
                 this.StartTimer();
                 base.OnStartup(e);
             }
             else
             {
-
+                this.SetLoc = false;
                 Store.AppDataStore.Instance.LoadData();
 
                 Business.Test.AccessionLockCollection accessionLockCollection = new Business.Test.AccessionLockCollection();
