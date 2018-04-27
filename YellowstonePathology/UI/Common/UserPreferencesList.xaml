@@ -5,7 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YellowstonePathology.UI.Common"
         mc:Ignorable="d"
+<<<<<<< HEAD
         Title="User Preferences Selection" Height="500" Width="00" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow">
+=======
+        Title="User Preferences Selection" Height="500" Width="500">
+>>>>>>> 04ace5bfbde98b0ffa1cfbc7fa165589eee55bad
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -20,6 +24,8 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Location" Width="200" DisplayMemberBinding="{Binding Path=Location}" />
+                    <GridViewColumn Header="Startup" Width="150" DisplayMemberBinding="{Binding Path=StartupPage}" />
+                    <GridViewColumn Header="Port" Width="100" DisplayMemberBinding="{Binding Path=BarcodeScanPort}" />
                 </GridView>
             </ListView.View>
         </ListView>
