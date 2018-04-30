@@ -27,7 +27,7 @@ namespace YellowstonePathology.UI.Surgical
         private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 
         private YellowstonePathology.Business.Facility.Model.Facility m_Facility;
-        private YellowstonePathology.Business.Facility.Model.Location m_Location;
+        private string m_Location;
 
         private string m_SignatureButtonText;
         private bool m_SignatureButtonIsEnabled;
@@ -63,7 +63,7 @@ namespace YellowstonePathology.UI.Surgical
             this.m_PanelSetIdsThatCanOrderStains.Add(reviewForAdditionalTestingTest.PanelSetId);
 
             this.m_Facility = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId);
-            this.m_Location = Business.Facility.Model.LocationCollection.Instance.GetLocation(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.LocationId);
+            this.m_Location = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.Location;
         }
 
         public Business.User.SystemIdentity SystemIdentity

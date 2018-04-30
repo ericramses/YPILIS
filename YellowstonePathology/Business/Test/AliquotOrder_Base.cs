@@ -798,18 +798,18 @@ namespace YellowstonePathology.Business.Test
             }
         }
 
-        public void SetLocation(YellowstonePathology.Business.Facility.Model.Facility facility, YellowstonePathology.Business.Facility.Model.Location location)
+        public void SetLocation(YellowstonePathology.Business.Facility.Model.Facility facility, string location)
         {
             this.FacilityId = facility.FacilityId;
             this.FacilityName = facility.FacilityName;
             this.m_LocationTime = DateTime.Now;
-            if (location == null)
+            if (string.IsNullOrEmpty(location) == true)
             {
                 this.LocationId = null;
             }
             else
             {
-                this.LocationId = location.LocationId;
+                this.LocationId = location;
             }
         }
     }

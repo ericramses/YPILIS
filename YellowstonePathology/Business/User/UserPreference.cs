@@ -10,14 +10,13 @@ using YellowstonePathology.Business.Persistence;
 
 namespace YellowstonePathology.Business.User
 {
-    [PersistentClass("tblUserPreference", "YPIDATA")]
+    [PersistentClass("tblUserPreference1", "YPIDATA")]
 	public class UserPreference : INotifyPropertyChanged
     {
         protected delegate void PropertyChangedNotificationHandler(String info);
         public event PropertyChangedEventHandler PropertyChanged;
 
-		private string m_HostName;
-		private string m_LocationId;
+        private string m_UserPreferenceId;
 		private bool m_BarcodeScanEnabled;
         private string m_BarcodeScanPort;
         private Nullable<DateTime> m_LastLocalDataUpdate;
@@ -58,39 +57,23 @@ namespace YellowstonePathology.Business.User
         {
             bool result = true;
             if (string.IsNullOrEmpty(this.m_FacilityId) == true) result = false;
-            if (string.IsNullOrEmpty(this.m_LocationId) == true) result = false;
             return result;
         }
 
-		[PersistentPrimaryKeyProperty(false)]
-		[PersistentDataColumnProperty(false, "200", "null", "varchar")]
-		public string HostName
-		{
-			get { return this.m_HostName; }
-			set
-			{
-				if (this.m_HostName != value)
-				{
-					this.m_HostName = value;
-					this.NotifyPropertyChanged("HostName");
-				}
-			}
-		}
-
-		[PersistentProperty()]
-		[PersistentDataColumnProperty(false, "50", "null", "varchar")]
-		public string LocationId
-		{
-			get { return this.m_LocationId; }
-			set
-			{
-				if (this.m_LocationId != value)
-				{
-					this.m_LocationId = value;
-					this.NotifyPropertyChanged("LocationId");
-				}
-			}
-		}
+        [PersistentPrimaryKeyProperty(false)]
+        [PersistentDataColumnProperty(false, "150", "null", "varchar")]
+        public string UserPreferenceId
+        {
+            get { return this.m_UserPreferenceId; }
+            set
+            {
+                if (this.m_UserPreferenceId != value)
+                {
+                    this.m_UserPreferenceId = value;
+                    this.NotifyPropertyChanged("UserPreferenceId");
+                }
+            }
+        }
 
         [PersistentProperty()]
         [PersistentDataColumnProperty(true, "1", "0", "tinyint")]

@@ -102,12 +102,12 @@ namespace YellowstonePathology.UI.MaterialTracking
 		private void AddMaterialTrackingLog(YellowstonePathology.Business.Test.AliquotOrder aliquotOrder)
 		{
 			YellowstonePathology.Business.Facility.Model.Facility thisFacility = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId);
-			YellowstonePathology.Business.Facility.Model.Location thisLocation = Business.Facility.Model.LocationCollection.Instance.GetLocation(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.LocationId);
-			string scanLocation = "Block Scanned At " + YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.HostName;
+			string thisLocation = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.Location;
+			string scanLocation = "Block Scanned At " + thisLocation;
 
 			string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 			YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog = new Business.MaterialTracking.Model.MaterialTrackingLog(objectId, aliquotOrder.AliquotOrderId, null, thisFacility.FacilityId, thisFacility.FacilityName,
-				thisLocation.LocationId, thisLocation.Description, "Block Scanned", scanLocation, "Aliquot", this.m_AccessionOrder.MasterAccessionNo, aliquotOrder.Label, aliquotOrder.ClientAccessioned);
+				thisLocation, thisLocation, "Block Scanned", scanLocation, "Aliquot", this.m_AccessionOrder.MasterAccessionNo, aliquotOrder.Label, aliquotOrder.ClientAccessioned);
 
             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(materialTrackingLog, Window.GetWindow(this));			
 			this.m_MaterialTrackingLogCollection.Insert(0, materialTrackingLog);
@@ -138,12 +138,12 @@ namespace YellowstonePathology.UI.MaterialTracking
 		private void AddMaterialTrackingLog(YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder)
 		{
 			YellowstonePathology.Business.Facility.Model.Facility thisFacility = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId);
-			YellowstonePathology.Business.Facility.Model.Location thisLocation = Business.Facility.Model.LocationCollection.Instance.GetLocation(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.LocationId);
-			string scanLocation = "Slide Scanned At " + YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.HostName;
+			string thisLocation = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.Location;
+			string scanLocation = "Slide Scanned At " + thisLocation;
 
 			string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 			YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog = new Business.MaterialTracking.Model.MaterialTrackingLog(objectId, slideOrder.SlideOrderId, null, thisFacility.FacilityId, thisFacility.FacilityName,
-				thisLocation.LocationId, thisLocation.Description, "Slide Scan", scanLocation, "SlideOrder", this.m_AccessionOrder.MasterAccessionNo, slideOrder.Label, slideOrder.ClientAccessioned);
+				thisLocation, thisLocation, "Slide Scan", scanLocation, "SlideOrder", this.m_AccessionOrder.MasterAccessionNo, slideOrder.Label, slideOrder.ClientAccessioned);
 
             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(materialTrackingLog, Window.GetWindow(this));			
 			this.m_MaterialTrackingLogCollection.Insert(0, materialTrackingLog);

@@ -85,14 +85,14 @@ namespace YellowstonePathology.UI.Cytology
                         if (this.m_SpecimenOrder.AliquotOrderCollection.Exists(scanData) == true)
                         {
                             YellowstonePathology.Business.Facility.Model.Facility thisFacility = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId);
-                            YellowstonePathology.Business.Facility.Model.Location thisLocation = Business.Facility.Model.LocationCollection.Instance.GetLocation(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.LocationId);
+                            string thisLocation = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.Location;
 
                             YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = this.m_SpecimenOrder.AliquotOrderCollection.GetByAliquotOrderId(scanData);
                             aliquotOrder.Validate();
 
                             string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
                             YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog = new Business.MaterialTracking.Model.MaterialTrackingLog(objectId, scanData, null, thisFacility.FacilityId, thisFacility.FacilityName,
-                                thisLocation.LocationId, thisLocation.Description, "Panther Aliquot Scanned", "Panther aliquot scanned at cytology aliquoting", "Aliquot", this.m_AccessionOrder.MasterAccessionNo, aliquotOrder.Label, aliquotOrder.ClientAccessioned);
+                                thisLocation, thisLocation, "Panther Aliquot Scanned", "Panther aliquot scanned at cytology aliquoting", "Aliquot", this.m_AccessionOrder.MasterAccessionNo, aliquotOrder.Label, aliquotOrder.ClientAccessioned);
                             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(materialTrackingLog, Window.GetWindow(this));
 
                             if (this.m_SpecimenOrder.AliquotOrderCollection.HasUnvalidatedItems() == false)
@@ -118,14 +118,14 @@ namespace YellowstonePathology.UI.Cytology
                             if (this.m_SpecimenOrder.AliquotOrderCollection.Exists(barcode.ID) == true)
                             {
                                 YellowstonePathology.Business.Facility.Model.Facility thisFacility = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId);
-                                YellowstonePathology.Business.Facility.Model.Location thisLocation = Business.Facility.Model.LocationCollection.Instance.GetLocation(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.LocationId);                                
+                                string thisLocation = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.Location;
 
                                 YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = this.m_SpecimenOrder.AliquotOrderCollection.GetByAliquotOrderId(barcode.ID);
                                 aliquotOrder.Validate();
 
                                 string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
                                 YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog = new Business.MaterialTracking.Model.MaterialTrackingLog(objectId, barcode.ID, null, thisFacility.FacilityId, thisFacility.FacilityName,
-                                    thisLocation.LocationId, thisLocation.Description, "Slide Scanned", "Slide scanned at cytology aliquoting", "Aliquot", this.m_AccessionOrder.MasterAccessionNo, aliquotOrder.Label, aliquotOrder.ClientAccessioned);
+                                    thisLocation, thisLocation, "Slide Scanned", "Slide scanned at cytology aliquoting", "Aliquot", this.m_AccessionOrder.MasterAccessionNo, aliquotOrder.Label, aliquotOrder.ClientAccessioned);
                                 YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(materialTrackingLog, Window.GetWindow(this));
 
                                 if (this.m_SpecimenOrder.AliquotOrderCollection.HasUnvalidatedItems() == false)

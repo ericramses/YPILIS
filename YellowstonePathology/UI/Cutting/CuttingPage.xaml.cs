@@ -215,7 +215,7 @@ namespace YellowstonePathology.UI.Cutting
                         {                                
                             YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder = this.m_AliquotOrder.SlideOrderCollection.Get(barcode.ID);
                             YellowstonePathology.Business.Facility.Model.Facility thisFacility = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId);
-                            YellowstonePathology.Business.Facility.Model.Location thisLocation = Business.Facility.Model.LocationCollection.Instance.GetLocation(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.LocationId);
+                            string thisLocation = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.Location;
 
                             this.AddMaterialTrackingLog(slideOrder, thisFacility, thisLocation);
                             slideOrder.SetLocation(thisFacility, thisLocation);
@@ -237,11 +237,11 @@ namespace YellowstonePathology.UI.Cutting
                     }));
         }
 
-        private void AddMaterialTrackingLog(YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder, YellowstonePathology.Business.Facility.Model.Facility thisFacility, YellowstonePathology.Business.Facility.Model.Location thisLocation)
+        private void AddMaterialTrackingLog(YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder, YellowstonePathology.Business.Facility.Model.Facility thisFacility, string thisLocation)
         {           
             string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 			YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog = new Business.MaterialTracking.Model.MaterialTrackingLog(objectId, slideOrder.SlideOrderId, null, thisFacility.FacilityId, thisFacility.FacilityName,
-                thisLocation.LocationId, thisLocation.Description, "Slide Scanned", "Slide Scanned At Cutting", "SlideOrder", this.m_AccessionOrder.MasterAccessionNo, slideOrder.Label, slideOrder.ClientAccessioned);
+                thisLocation, thisLocation, "Slide Scanned", "Slide Scanned At Cutting", "SlideOrder", this.m_AccessionOrder.MasterAccessionNo, slideOrder.Label, slideOrder.ClientAccessioned);
             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(materialTrackingLog, Window.GetWindow(this));
         }
 

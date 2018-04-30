@@ -47,10 +47,12 @@ namespace YellowstonePathology.UI.Common
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
             UserPreferences dlg = new Common.UserPreferences();
-            dlg.ShowDialog();
-            this.m_UserPreferenceList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAllUserPreferences();
-            NotifyPropertyChanged("UserPreferenceList");
-            MessageBox.Show("Select the User Preference you just added and click on OK.");
+            bool? result = dlg.ShowDialog();
+            if (result.HasValue && result.Value == true)
+            {
+                MessageBox.Show("The new User Preference has been added.");
+                Close();
+            }
         }
 
         private void ButtonOK_Click(object sender, RoutedEventArgs e)

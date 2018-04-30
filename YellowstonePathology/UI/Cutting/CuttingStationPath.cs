@@ -224,7 +224,7 @@ namespace YellowstonePathology.UI.Cutting
         {
             Business.Test.AliquotOrder aliquotOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetAliquotOrder(this.m_AliquotOrderId);
             YellowstonePathology.Business.Facility.Model.Facility thisFacility = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId);
-            YellowstonePathology.Business.Facility.Model.Location thisLocation = Business.Facility.Model.LocationCollection.Instance.GetLocation(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.LocationId);
+            string thisLocation = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.Location;
 
 
             this.AddMaterialTrackingLog(aliquotOrder, thisFacility, thisLocation);
@@ -240,7 +240,7 @@ namespace YellowstonePathology.UI.Cutting
             this.m_CuttingWorkspaceWindow.PageNavigator.Navigate(caseLockedPage);
         }
 
-        private void AddMaterialTrackingLog(YellowstonePathology.Business.Test.AliquotOrder aliquotOrder, YellowstonePathology.Business.Facility.Model.Facility thisFacility, YellowstonePathology.Business.Facility.Model.Location thisLocation)
+        private void AddMaterialTrackingLog(YellowstonePathology.Business.Test.AliquotOrder aliquotOrder, YellowstonePathology.Business.Facility.Model.Facility thisFacility, string thisLocation)
         {            
             if(aliquotOrder == null)
             {
@@ -250,7 +250,7 @@ namespace YellowstonePathology.UI.Cutting
 
             string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
             YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog = new Business.MaterialTracking.Model.MaterialTrackingLog(objectId, aliquotOrder.AliquotOrderId, null, thisFacility.FacilityId, thisFacility.FacilityName,
-                thisLocation.LocationId, thisLocation.Description, "Block Scanned", "Block Scanned At Cutting", "Aliquot", this.m_AccessionOrder.MasterAccessionNo, aliquotOrder.Label, aliquotOrder.ClientAccessioned);
+                thisLocation, thisLocation, "Block Scanned", "Block Scanned At Cutting", "Aliquot", this.m_AccessionOrder.MasterAccessionNo, aliquotOrder.Label, aliquotOrder.ClientAccessioned);
 
             if(this.m_CuttingWorkspaceWindow == null)
             {

@@ -38,8 +38,8 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
             this.m_MaterialTrackingLogCollection = new Model.MaterialTrackingLogCollection();
         }
 
-        public MaterialTrackingBatch(string objectId, string description, YellowstonePathology.Business.Facility.Model.Facility fromFacility, YellowstonePathology.Business.Facility.Model.Location fromLocation,
-            YellowstonePathology.Business.Facility.Model.Facility toFacility, YellowstonePathology.Business.Facility.Model.Location toLocation, string masterAccessionNo)
+        public MaterialTrackingBatch(string objectId, string description, YellowstonePathology.Business.Facility.Model.Facility fromFacility, string fromLocation,
+            YellowstonePathology.Business.Facility.Model.Facility toFacility, string toLocation, string masterAccessionNo)
         {
             this.m_MaterialTrackingBatchId = Guid.NewGuid().ToString();
 			this.m_ObjectId = objectId;
@@ -49,12 +49,12 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
 			this.m_OpenDate = DateTime.Now;
             this.m_FromFacilityId = fromFacility.FacilityId;
             this.m_FromFacilityName = fromFacility.FacilityName;
-            this.m_FromLocationId = fromLocation.LocationId;
-            this.m_FromLocationName = fromLocation.Description;
+            this.m_FromLocationId = fromLocation;
+            this.m_FromLocationName = fromLocation;
             this.m_ToFacilityId = toFacility.FacilityId;
             this.m_ToFacilityName = toFacility.FacilityName;
-            this.m_ToLocationId = toLocation.LocationId;
-            this.m_ToLocationName = toLocation.Description;
+            this.m_ToLocationId = toLocation;
+            this.m_ToLocationName = toLocation;
 			this.m_IsOpen = true;
             this.m_MasterAccessionNo = masterAccessionNo;
             this.m_MaterialTrackingLogCollection = new Model.MaterialTrackingLogCollection();

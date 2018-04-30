@@ -253,7 +253,7 @@ namespace YellowstonePathology.Business.Persistence
             lock (locker)
             {
                 string hostName = Environment.MachineName;
-                MySqlCommand cmd = new MySqlCommand("Select * from tblUserPreference where tblUserPreference.Location = @Location;");
+                MySqlCommand cmd = new MySqlCommand("Select * from tblUserPreference1 where tblUserPreference1.Location = @Location;");
                 cmd.CommandType = System.Data.CommandType.Text;
                 cmd.Parameters.AddWithValue("@Location", location);
                 GenericDocumentBuilder builder = new GenericDocumentBuilder(cmd, typeof(YellowstonePathology.Business.User.UserPreference));
@@ -347,22 +347,6 @@ namespace YellowstonePathology.Business.Persistence
                 DocumentId documentId = new DocumentId(typeof(YellowstonePathology.Business.Facility.Model.Facility), writer, facilityId);
                 Document document = this.m_Stack.Pull(documentId, builder);
                 return (YellowstonePathology.Business.Facility.Model.Facility)document.Value;
-            }
-        }
-
-        public YellowstonePathology.Business.Facility.Model.Location PullLocation(string locationId, object writer)
-        {
-            lock (locker)
-            {
-                MySqlCommand cmd = new MySqlCommand();
-                cmd.CommandText = "Select * from tblLocation l where l.LocationId = @LocationId;";
-                cmd.CommandType = CommandType.Text;
-                cmd.Parameters.AddWithValue("@LocationId", locationId);
-                GenericDocumentBuilder builder = new GenericDocumentBuilder(cmd, typeof(YellowstonePathology.Business.Facility.Model.Location));
-
-                DocumentId documentId = new DocumentId(typeof(YellowstonePathology.Business.Facility.Model.Location), writer, locationId);
-                Document document = this.m_Stack.Pull(documentId, builder);
-                return (YellowstonePathology.Business.Facility.Model.Location)document.Value;
             }
         }
     }
