@@ -872,19 +872,19 @@ namespace YellowstonePathology.Business.Slide.Model
             }
         }
 
-        public void SetLocation(YellowstonePathology.Business.Facility.Model.Facility facility, YellowstonePathology.Business.Facility.Model.Location location)
+        public void SetLocation(YellowstonePathology.Business.Facility.Model.Facility facility, string location)
         {
             this.m_FacilityId = facility.FacilityId;
             this.m_LocationTime = DateTime.Now;
-            if (location == null)
+            if (string.IsNullOrEmpty(location) == true)
             {
                 this.m_LocationId = null;
                 this.m_Location = null;
             }
             else
             {
-                this.m_LocationId = location.LocationId;
-                this.m_Location = location.Description;
+                this.m_LocationId = location;
+                this.m_Location = location;
             }
         }
     }

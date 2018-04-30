@@ -85,7 +85,6 @@ namespace YellowstonePathology.UI
             {
                 sw.Write(resultString);
             }
-
             MessageBox.Show("Done");
         }
 

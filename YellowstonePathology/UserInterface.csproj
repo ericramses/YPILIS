@@ -755,8 +755,6 @@
     <Compile Include="Business\Facility.Model\FacilityCollection.cs" />
     <Compile Include="Business\Facility.Model\Host.cs" />
     <Compile Include="Business\Facility.Model\HostCollection.cs" />
-    <Compile Include="Business\Facility.Model\Location.cs" />
-    <Compile Include="Business\Facility.Model\LocationCollection.cs" />
     <Compile Include="Business\FileList.cs" />
     <Compile Include="Business\FileListItem.cs" />
     <Compile Include="Business\Flow\CellPopulationOfInterest.cs" />
@@ -3255,9 +3253,6 @@
     <Compile Include="UI\Client\FacilityEntry.xaml.cs">
       <DependentUpon>FacilityEntry.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Client\LocationEntry.xaml.cs">
-      <DependentUpon>LocationEntry.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UI\Common\UserPreferencesList.xaml.cs">
       <DependentUpon>UserPreferencesList.xaml</DependentUpon>
     </Compile>
@@ -5260,10 +5255,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\Client\FacilityEntry.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\Client\LocationEntry.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

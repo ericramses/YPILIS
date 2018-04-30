@@ -1264,47 +1264,5 @@ namespace YellowstonePathology.Business.Gateway
             }
             return result;
         }
-
-        public static YellowstonePathology.Business.Facility.Model.LocationCollection GetAllLocations()
-        {
-            MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "Select * from tblLocation order by Description;";
-            cmd.CommandType = CommandType.Text;
-
-            YellowstonePathology.Business.Facility.Model.LocationCollection result = BuildLocationCollection(cmd);
-            return result;
-        }
-
-        public static YellowstonePathology.Business.Facility.Model.LocationCollection GetLocationsByDescription(string description)
-        {
-            MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "Select * from tblLocation where Description like concat(@Description, '%') order by tblLocation.Description;";
-            cmd.CommandType = CommandType.Text;
-            cmd.Parameters.AddWithValue("@Description", description);
-
-            YellowstonePathology.Business.Facility.Model.LocationCollection result = BuildLocationCollection(cmd);
-            return result;
-        }
-
-        public static YellowstonePathology.Business.Facility.Model.LocationCollection BuildLocationCollection(MySqlCommand cmd)
-        {
-            YellowstonePathology.Business.Facility.Model.LocationCollection result = new Facility.Model.LocationCollection();
-            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-            {
-                cn.Open();
-                cmd.Connection = cn;
-                using (MySqlDataReader dr = cmd.ExecuteReader())
-                {
-                    while (dr.Read())
-                    {
-                        YellowstonePathology.Business.Facility.Model.Location location = new Facility.Model.Location();
-                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(location, dr);
-                        sqlDataReaderPropertyWriter.WriteProperties();
-                        result.Add(location);
-                    }
-                }
-            }
-            return result;
-        }
     }
 }

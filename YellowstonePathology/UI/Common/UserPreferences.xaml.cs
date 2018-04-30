@@ -24,7 +24,7 @@ namespace YellowstonePathology.UI.Common
 		private YellowstonePathology.Business.Twain.Twain m_Twain;
 		private YellowstonePathology.Business.Common.PageScannerCollection m_PageScannerCollection;
         private YellowstonePathology.Business.Facility.Model.FacilityCollection m_FacilityCollection;
-        private YellowstonePathology.Business.Facility.Model.LocationCollection m_LocationCollection;		
+        private List<YellowstonePathology.Business.User.UserPreference> m_UserPreferenceList;
 
         private YellowstonePathology.Business.Label.Model.LabelFormatCollection m_MolecularLabelFormatCollection;
         private System.Printing.PrintQueueCollection m_PrintQueueCollection;
@@ -35,6 +35,7 @@ namespace YellowstonePathology.UI.Common
 
         public UserPreferences()
 		{
+            this.m_UserPreferenceList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAllUserPreferences();
             this.m_MolecularLabelFormatCollection = YellowstonePathology.Business.Label.Model.LabelFormatCollection.GetMolecularLabelCollection();
             string path = System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\ypilis.json";
             if (File.Exists(path) == false)
@@ -49,7 +50,6 @@ namespace YellowstonePathology.UI.Common
             }			
 
             this.m_FacilityCollection = Business.Facility.Model.FacilityCollection.Instance;
-            this.m_LocationCollection = Business.Facility.Model.LocationCollection.Instance;
 
             System.Printing.LocalPrintServer printServer = new System.Printing.LocalPrintServer();            
             this.m_PrintQueueCollection = printServer.GetPrintQueues(new[] { System.Printing.EnumeratedPrintQueueTypes.Local, System.Printing.EnumeratedPrintQueueTypes.Connections });
@@ -65,7 +65,8 @@ namespace YellowstonePathology.UI.Common
 
         private void UserPreferences_Closing(object sender, CancelEventArgs e)
         {
-            if(this.m_Save == true)
+            this.DialogResult = false;
+            if (this.m_Save == true)
             {
                 if (this.m_NewButtonVisibility == Visibility.Collapsed)
                 {
@@ -78,6 +79,7 @@ namespace YellowstonePathology.UI.Common
 
                 string path = System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\ypilis.json";
                 File.WriteAllText(path, "{'location': '" + this.m_UserPreference.Location +"'}");
+                this.DialogResult = true;
             }
         }
 
@@ -104,12 +106,7 @@ namespace YellowstonePathology.UI.Common
             get { return this.m_FacilityCollection; }
         }
 
-        public YellowstonePathology.Business.Facility.Model.LocationCollection LocationCollection
-        {
-            get { return this.m_LocationCollection; }
-        }
-
-		public YellowstonePathology.Business.User.UserPreference UserPreference
+        public YellowstonePathology.Business.User.UserPreference UserPreference
         {
             get { return this.m_UserPreference; }
         }
@@ -146,10 +143,24 @@ namespace YellowstonePathology.UI.Common
 
         private bool CanSave()
         {
-            bool result = false;
-            if (this.ComboBoxLocation.SelectedIndex > 0)
+            bool result = true;
+            if (string.IsNullOrEmpty(this.m_UserPreference.Location) == true)
             {
-                result = true;
+                result = false;
+            }
+            else
+            {
+                foreach (Business.User.UserPreference userPreference in this.m_UserPreferenceList)
+                {
+                    if (this.m_UserPreference.Location != userPreference.Location)
+                    {
+                        if (this.m_UserPreference.Location == userPreference.Location)
+                        {
+                            result = false;
+                            break;
+                        }
+                    }
+                }
             }
             return result;
         }
@@ -160,6 +171,10 @@ namespace YellowstonePathology.UI.Common
             {
                 this.m_Save = true;
                 this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Enter a unique location.");
             }
         }
 
@@ -232,21 +247,9 @@ namespace YellowstonePathology.UI.Common
 
         private void ButtonNew_Click(object sender, RoutedEventArgs e)
         {
-            if(this.ComboBoxLocation.SelectedIndex > 0)
+            if(this.CanSave() == true)
             {
-                YellowstonePathology.Business.Facility.Model.Location location = (Business.Facility.Model.Location)this.ComboBoxLocation.SelectedItem;
-                List<Business.User.UserPreference> preferences = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAllUserPreferences();
-                foreach(Business.User.UserPreference userPreference in preferences)
-                {
-                    if(userPreference.Location == location.FriendlyName)
-                    {
-                        MessageBox.Show("A User Preference already exists for that location.  Choose another Location.");
-                        return;
-                    }
-                }
-                this.m_UserPreference.Location = location.FriendlyName;
-                this.m_UserPreference.LocationId = location.LocationId;
-                this.m_UserPreference.HostName = location.LocationId;
+                this.m_UserPreference.UserPreferenceId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
                 YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(this.m_UserPreference, this);
             }
             else
