@@ -130,7 +130,11 @@ namespace YellowstonePathology.UI
                             microscopix.SelectionStart = microscopix.Text.Length;
                         }
                     }
-                }                
+                }
+                else
+                {
+                    this.SetShortcut(microscopix);
+                }
             }
             else
             {
