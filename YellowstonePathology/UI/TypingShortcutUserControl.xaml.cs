@@ -109,33 +109,37 @@ namespace YellowstonePathology.UI
         }
 
         public void SetShortcut(TextBox microscopix, Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder)
-        {
-            System.Text.RegularExpressions.MatchCollection matches = System.Text.RegularExpressions.Regex.Matches(microscopix.Text.Substring(0, microscopix.SelectionStart), @"(@[A-za-z]+)([0-9]+) ");
-            if(matches.Count > 0)
+        {            
+            System.Text.RegularExpressions.MatchCollection matches = System.Text.RegularExpressions.Regex.Matches(microscopix.Text.Substring(0, microscopix.SelectionStart), @"([A-za-z]+)([0-9]+) ");
+            if (matches.Count > 0)
             {
                 string shortcutName = matches[0].Groups[1].Value;
-                string specimenNumber = matches[0].Groups[2].Value;
+                string specimenNumber = matches[0].Groups[2].Value;                
+                                
                 if (this.m_TypingShortcutCollection.Exists(shortcutName) == true)
                 {
-                    string shortcutText = this.m_TypingShortcutCollection.Find(shortcutName);                    
-                    System.Text.RegularExpressions.MatchCollection shortcutMatches = System.Text.RegularExpressions.Regex.Matches(shortcutText, @"(MICRO:)([\s\S]+)(DX:)([\s\S]+)");
-                    if (shortcutMatches.Count > 0)
+                    Business.Typing.TypingShortcut typingShortcut = this.m_TypingShortcutCollection.FindItem(shortcutName);
+                    if(typingShortcut.MicroDX == true)
                     {
-                        if (matches[0].Groups.Count == 3)
+                        System.Text.RegularExpressions.MatchCollection shortcutMatches = System.Text.RegularExpressions.Regex.Matches(typingShortcut.Text, @"(MICRO:)([\s\S]+)(DX:)([\s\S]+)");
+                        if (shortcutMatches.Count > 0)
                         {
-                            microscopix.Text = microscopix.Text.Replace(matches[0].Value, "Specimen " + specimenNumber + " - ");
-                            microscopix.Text += shortcutMatches[0].Groups[2].Value.Trim();
-                            Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen = surgicalTestOrder.SurgicalSpecimenCollection.GetBySpecimenNumber(specimenNumber);
-                            surgicalSpecimen.Diagnosis += shortcutMatches[0].Groups[4].Value;
-                            microscopix.SelectionStart = microscopix.Text.Length;
+                            if (matches[0].Groups.Count == 3)
+                            {
+                                microscopix.Text = microscopix.Text.Replace(matches[0].Value, "Specimen " + specimenNumber + " - ");
+                                microscopix.Text += shortcutMatches[0].Groups[2].Value.Trim();
+                                Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen = surgicalTestOrder.SurgicalSpecimenCollection.GetBySpecimenNumber(specimenNumber);
+                                surgicalSpecimen.Diagnosis += shortcutMatches[0].Groups[4].Value;
+                                microscopix.SelectionStart = microscopix.Text.Length;
+                            }
                         }
-                    }
+                    }                    
                 }                
             }
             else
             {
                 this.SetShortcut(microscopix);
-            }           
+            }            
         }
         
         public void NotifyPropertyChanged(String info)
