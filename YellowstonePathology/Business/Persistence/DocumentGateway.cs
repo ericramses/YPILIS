@@ -252,8 +252,7 @@ namespace YellowstonePathology.Business.Persistence
         {
             lock (locker)
             {
-                string hostName = Environment.MachineName;
-                MySqlCommand cmd = new MySqlCommand("Select * from tblUserPreference1 where tblUserPreference1.Location = @Location;");
+                MySqlCommand cmd = new MySqlCommand("Select * from tblUserPreference where tblUserPreference.Location = @Location;");
                 cmd.CommandType = System.Data.CommandType.Text;
                 cmd.Parameters.AddWithValue("@Location", location);
                 GenericDocumentBuilder builder = new GenericDocumentBuilder(cmd, typeof(YellowstonePathology.Business.User.UserPreference));

@@ -44,7 +44,7 @@ namespace YellowstonePathology.UI.Common
             }
         }
 
-        private void ButtonAdd_Click(object sender, RoutedEventArgs e)
+        /*private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
             UserPreferences dlg = new Common.UserPreferences();
             bool? result = dlg.ShowDialog();
@@ -53,7 +53,7 @@ namespace YellowstonePathology.UI.Common
                 MessageBox.Show("The new User Preference has been added.");
                 Close();
             }
-        }
+        }*/
 
         private void ButtonOK_Click(object sender, RoutedEventArgs e)
         {
