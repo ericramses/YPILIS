@@ -3172,5 +3172,28 @@ namespace YellowstonePathology.Business.Gateway
 
             return result;
         }
+
+        public static string GetUserPreferenceLocation(string hostName)
+        {
+            string result = null;
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "select Location from tblUserPreference1 where HostName = @HostName;";
+            cmd.Parameters.AddWithValue("@HostName", hostName);
+
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        result = dr[0].ToString();
+                    }
+                }
+            }
+            return result;
+        }
     }
 }
