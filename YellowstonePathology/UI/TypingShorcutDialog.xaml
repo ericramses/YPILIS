@@ -14,6 +14,7 @@
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
@@ -51,11 +52,14 @@
             <ComboBoxItem>Placenta</ComboBoxItem>
         </ComboBox>
 
-        <TextBlock Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Margin="2,2,2,2" HorizontalAlignment="Left" FontWeight="Bold">Text:</TextBlock>
-        <TextBox Name="TextBoxText" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Text="{Binding Path=Text}" Margin="2,2,2,2" TextWrapping="Wrap" 
+        <TextBlock Grid.Column="0" Grid.Row="4" Margin="2,2,2,2" HorizontalAlignment="Left" FontWeight="Bold">Micro/DX:</TextBlock>
+        <CheckBox Grid.Column="1" Grid.Row="4" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Left" IsChecked="{Binding Path=MicroDX}" />
+        
+        <TextBlock Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Margin="2,2,2,2" HorizontalAlignment="Left" FontWeight="Bold">Text:</TextBlock>
+        <TextBox Name="TextBoxText" Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Text="{Binding Path=Text}" Margin="2,2,2,2" TextWrapping="Wrap" 
                  ScrollViewer.VerticalScrollBarVisibility="Auto" AcceptsReturn="True"></TextBox>
 
-        <StackPanel Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="2" HorizontalAlignment="Right" Orientation="Horizontal">
+        <StackPanel Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="2" HorizontalAlignment="Right" Orientation="Horizontal">
             <Button Width="75" Height="30" Margin="2,2,2,2" Click="ButtonOk_Click" HorizontalAlignment="Left">Ok</Button>
             <Button Width="75" Height="30" Margin="2,2,2,2" Click="ButtonCancel_Click" HorizontalAlignment="Right">Cancel</Button>
         </StackPanel>

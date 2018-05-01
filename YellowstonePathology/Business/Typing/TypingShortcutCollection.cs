@@ -53,6 +53,18 @@ namespace YellowstonePathology.Business.Typing
             return string.Empty;
         }
 
+        public TypingShortcut FindItem(string shortcut)
+        {
+            foreach (TypingShortcut typingShortcut in this)
+            {
+                if (typingShortcut.Shortcut.ToUpper().Trim() == shortcut.ToUpper().Trim())
+                {
+                    return typingShortcut;
+                }
+            }
+            return null;
+        }
+
         public bool Exists(string shortcut)
         {
             bool result = false;
