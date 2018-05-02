@@ -960,5 +960,11 @@ namespace YellowstonePathology.UI
             Surgical.StainStatusDialog stainStatusDialog = new Surgical.StainStatusDialog(-1);
             stainStatusDialog.ShowDialog();
         }
+
+        private void MenuItemSystemUser_Click(object sender, RoutedEventArgs e)
+        {
+            SystemUserDialog dlg = new SystemUserDialog();
+            dlg.ShowDialog();
+        }
     }
 }
