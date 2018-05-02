@@ -3735,6 +3735,9 @@
       <DependentUpon>SurgicalHistory.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Surgical\TextSearchHandler.cs" />
+    <Compile Include="UI\SystemUserDialog.xaml.cs">
+      <DependentUpon>SystemUserDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\TaskNotifier.cs" />
     <Compile Include="UI\Surgical\SurgicalReview.xaml.cs">
       <DependentUpon>SurgicalReview.xaml</DependentUpon>
@@ -5687,6 +5690,10 @@
     <Page Include="UI\Surgical\SurgicalReview.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\SystemUserDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\TaskWorkspace.xaml">
       <SubType>Designer</SubType>

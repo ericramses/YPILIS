@@ -31,5 +31,10 @@ namespace YellowstonePathology.Business.User
 		{
 			get { return m_SystemUserCollection; }
 		}
+
+        public static void Refresh()
+        {
+            instance = null;
+        }
 	}
 }
