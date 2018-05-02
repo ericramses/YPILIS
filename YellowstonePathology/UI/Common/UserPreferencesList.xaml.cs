@@ -24,9 +24,20 @@ namespace YellowstonePathology.UI.Common
         public event PropertyChangedEventHandler PropertyChanged;
 
         private List<YellowstonePathology.Business.User.UserPreference> m_UserPreferenceList;
+        private bool m_NeedRestart;
+
         public UserPreferencesList()
         {
             this.m_UserPreferenceList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAllUserPreferences();
+            this.m_NeedRestart = true;
+            InitializeComponent();
+            this.DataContext = this;
+        }
+
+        public UserPreferencesList(bool needRestart)
+        {
+            this.m_UserPreferenceList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAllUserPreferences();
+            this.m_NeedRestart = needRestart;
             InitializeComponent();
             this.DataContext = this;
         }
@@ -44,29 +55,37 @@ namespace YellowstonePathology.UI.Common
             }
         }
 
-        /*private void ButtonAdd_Click(object sender, RoutedEventArgs e)
+        private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
-            UserPreferences dlg = new Common.UserPreferences();
+            UserPreferences dlg = new Common.UserPreferences(null);
             bool? result = dlg.ShowDialog();
             if (result.HasValue && result.Value == true)
             {
-                MessageBox.Show("The new User Preference has been added.");
-                Close();
+                this.m_UserPreferenceList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAllUserPreferences();
+                this.NotifyPropertyChanged("UserPreferenceList");
+                if (this.m_NeedRestart == true)
+                {
+                    MessageBox.Show("The new User Preference has been added.");
+                    Close();
+                }
             }
-        }*/
+        }
 
         private void ButtonOK_Click(object sender, RoutedEventArgs e)
         {
-            if(this.ListViewUserPreferences.SelectedItem != null)
+            Close();
+        }
+
+        private void ListViewUserPreferences_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (this.ListViewUserPreferences.SelectedItem != null)
             {
                 YellowstonePathology.Business.User.UserPreference userPreference = (YellowstonePathology.Business.User.UserPreference)this.ListViewUserPreferences.SelectedItem;
-                string path = System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\ypilis.json";
-                File.WriteAllText(path, "{'location': '" + userPreference.Location + "'}");
-                Close();
-            }
-            else
-            {
-                MessageBox.Show("Select a User Preference for a location or add a new User Preference.");
+                UserPreferences dlg = new Common.UserPreferences(userPreference);
+                dlg.ShowDialog();
+
+                this.m_UserPreferenceList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAllUserPreferences();
+                this.NotifyPropertyChanged("UserPreferenceList");
             }
         }
     }

@@ -216,7 +216,6 @@
         </TabControl>
 
 
-        <Button Name="ButtonNew" Grid.Column="0" Grid.Row="1" Margin="5,5,5,5" HorizontalAlignment="Left" Click="ButtonNew_Click"  Width="50" Height="30" Visibility="{Binding Path=NewButtonVisibility}">New</Button>
         <StackPanel Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Orientation="Horizontal">
             <Button Name="ButtonOK" Margin="5,5,5,5" HorizontalAlignment="Center" Click="ButtonOK_Click" Width="50" Height="30">OK</Button>
             <Button Name="ButtonCancel" Margin="5,5,5,5" HorizontalAlignment="Center" Click="ButtonCancel_Click" Width="50" Height="30">Cancel</Button>
