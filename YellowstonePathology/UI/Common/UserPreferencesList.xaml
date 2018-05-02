@@ -26,7 +26,7 @@
             </ListView.View>
         </ListView>
 
-        <Button Name="ButtonAdd" Grid.Column="0" Grid.Row="1" Height="35" Width="100" Margin="5,5,5,5" HorizontalAlignment="Left" Click="ButtonAdd_Click">Add</Button>
+        <!--<Button Name="ButtonAdd" Grid.Column="0" Grid.Row="1" Height="35" Width="100" Margin="5,5,5,5" HorizontalAlignment="Left" Click="ButtonAdd_Click">Add</Button>-->
         <Button Name="ButtonOK" Grid.Column="0" Grid.Row="1" Height="35" Width="100" Margin="5,5,5,5" HorizontalAlignment="Right" Click="ButtonOK_Click">OK</Button>
 
     </Grid>

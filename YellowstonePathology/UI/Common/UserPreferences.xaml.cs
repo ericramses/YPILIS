@@ -247,7 +247,8 @@ namespace YellowstonePathology.UI.Common
 
         private void ButtonNew_Click(object sender, RoutedEventArgs e)
         {
-            if(this.CanSave() == true)
+            MessageBox.Show("Not Implemented.");
+            /*if(this.CanSave() == true)
             {
                 this.m_UserPreference.UserPreferenceId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
                 YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(this.m_UserPreference, this);
@@ -255,7 +256,7 @@ namespace YellowstonePathology.UI.Common
             else
             {
                 MessageBox.Show("Select a location.");
-            }
+            }*/
         }
     }
 }

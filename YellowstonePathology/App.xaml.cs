@@ -61,6 +61,7 @@ namespace YellowstonePathology.UI
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            this.SetupJsonFile();
             string path = System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\ypilis.json";
             if (File.Exists(path) == false)
             {
@@ -193,6 +194,13 @@ namespace YellowstonePathology.UI
                 p.StartInfo = info;
                 p.Start();
             }
+        }
+
+        private void SetupJsonFile()
+        {
+            string location = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetUserPreferenceLocation(Environment.MachineName);
+            string path = System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\ypilis.json";
+            File.WriteAllText(path, "{'location': '" + location + "'}");
         }
     }
 }

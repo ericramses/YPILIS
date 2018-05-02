@@ -3152,7 +3152,7 @@ namespace YellowstonePathology.Business.Gateway
             List<User.UserPreference> result = new List<User.UserPreference>();
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "select * from tblUserPreference1 order by Location;";
+            cmd.CommandText = "select * from tblUserPreference order by Location;";
 
             using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
@@ -3170,6 +3170,29 @@ namespace YellowstonePathology.Business.Gateway
                 }
             }
 
+            return result;
+        }
+
+        public static string GetUserPreferenceLocation(string hostName)
+        {
+            string result = null;
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "select Location from tblUserPreference where HostName = @HostName;";
+            cmd.Parameters.AddWithValue("@HostName", hostName);
+
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        result = dr[0].ToString();
+                    }
+                }
+            }
             return result;
         }
     }

@@ -10,14 +10,16 @@ using YellowstonePathology.Business.Persistence;
 
 namespace YellowstonePathology.Business.User
 {
-    [PersistentClass("tblUserPreference1", "YPIDATA")]
+    [PersistentClass("tblUserPreference", "YPIDATA")]
 	public class UserPreference : INotifyPropertyChanged
     {
         protected delegate void PropertyChangedNotificationHandler(String info);
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private string m_UserPreferenceId;
-		private bool m_BarcodeScanEnabled;
+        //private string m_UserPreferenceId;
+        private string m_HostName;
+        private string m_LocationId;
+        private bool m_BarcodeScanEnabled;
         private string m_BarcodeScanPort;
         private Nullable<DateTime> m_LastLocalDataUpdate;
 		private string m_LockMode;
@@ -61,7 +63,36 @@ namespace YellowstonePathology.Business.User
         }
 
         [PersistentPrimaryKeyProperty(false)]
-        [PersistentDataColumnProperty(false, "150", "null", "varchar")]
+        [PersistentDataColumnProperty(false, "200", "null", "varchar")]
+        public string HostName
+        {
+            get { return this.m_HostName; }
+            set
+            {
+                if (this.m_HostName != value)
+                {
+                    this.m_HostName = value;
+                    this.NotifyPropertyChanged("HostName");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(false, "50", "null", "varchar")]
+        public string LocationId
+        {
+            get { return this.m_LocationId; }
+            set
+            {
+                if (this.m_LocationId != value)
+                {
+                    this.m_LocationId = value;
+                    this.NotifyPropertyChanged("LocationId");
+                }
+            }
+        }
+
+        /*[PersistentDataColumnProperty(false, "150", "null", "varchar")]
         public string UserPreferenceId
         {
             get { return this.m_UserPreferenceId; }
@@ -73,7 +104,7 @@ namespace YellowstonePathology.Business.User
                     this.NotifyPropertyChanged("UserPreferenceId");
                 }
             }
-        }
+        }*/
 
         [PersistentProperty()]
         [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
