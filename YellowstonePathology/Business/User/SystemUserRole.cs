@@ -26,7 +26,7 @@ namespace YellowstonePathology.Business.User
 
 		[PersistentPrimaryKeyProperty(false)]
 		[PersistentDataColumnProperty(false, "11", "null", "int")]
-		public int SystemUserRoleID
+		public int SystemUserRoleId
 		{
 			get { return this.m_SystemUserRoleId; }
 			set

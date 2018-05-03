@@ -270,14 +270,9 @@ namespace YellowstonePathology.Business.Persistence
         {
             lock (locker)
             {
-                MySqlCommand cmd = new MySqlCommand("Select * from tblSystemUser where UserId = @UserId;");
-                cmd.CommandType = System.Data.CommandType.Text;
-                cmd.Parameters.AddWithValue("@UserId", userId);
-                GenericDocumentBuilder builder = new GenericDocumentBuilder(cmd, typeof(YellowstonePathology.Business.User.SystemUser));
-
+                SystemUserDocumentBuilder builder = new Persistence.SystemUserDocumentBuilder(userId);
                 DocumentId documentId = new DocumentId(typeof(YellowstonePathology.Business.User.SystemUser), writer, userId);
                 Document document = this.m_Stack.Pull(documentId, builder);
-
                 return (YellowstonePathology.Business.User.SystemUser)document.Value;
             }
         }

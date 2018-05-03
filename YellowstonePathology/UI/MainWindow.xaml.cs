@@ -963,7 +963,7 @@ namespace YellowstonePathology.UI
 
         private void MenuItemSystemUser_Click(object sender, RoutedEventArgs e)
         {
-            SystemUserDialog dlg = new SystemUserDialog();
+            SystemUserListDialog dlg = new SystemUserListDialog();
             dlg.ShowDialog();
         }
     }

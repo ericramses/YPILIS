@@ -13,7 +13,7 @@ namespace YellowstonePathology.Business.User
             YellowstonePathology.Business.User.SystemUserCollection systemUserCollection = (YellowstonePathology.Business.User.SystemUserCollection)ci.Invoke(null);
 
             MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "select UserId, Active, UserName, FirstName, LastName, Initials, Signature, DisplayName, " +
+            cmd.CommandText = "select UserId, Active, UserName, FirstName, LastName, MiddleInitial, Initials, Signature, DisplayName, " +
                 "EmailAddress, NationalProviderId from tblSystemUser order by UserName; " +
                 "select * from tblSystemUserRole;";
             cmd.CommandType = System.Data.CommandType.Text;
@@ -49,5 +49,50 @@ namespace YellowstonePathology.Business.User
             }
             return systemUserCollection;
 		}
+
+        public static SystemRoleCollection GetAllSystemRoles()
+        {
+            SystemRoleCollection result = new User.SystemRoleCollection();
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "select * from tblSystemRole Order by RoleName;";
+            cmd.CommandType = System.Data.CommandType.Text;
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        SystemRole role = new SystemRole();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(role, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(role);
+                    }
+                }
+            }
+            return result;
+        }
+
+        public static int GetMaxSystemUserRoleId()
+        {
+            int result = 0;
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "select Max(SystemUserRoleId) from tblSystemUserRole;";
+            cmd.CommandType = System.Data.CommandType.Text;
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        result = (int)dr[0];
+                    }
+                }
+            }
+            return result;
+        }
     }
 }
