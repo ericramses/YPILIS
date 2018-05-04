@@ -22,7 +22,6 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
         private string m_MasterAccessionNo;
         private string m_FacilityId;
         private string m_FacilityName;
-		private string m_LocationId;
 		private string m_LocationName;
 		private DateTime m_LogDate;
 		private int m_LoggedById;
@@ -30,6 +29,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
 		private string m_Description;
         private string m_Action;
         private bool m_ClientAccessioned;
+        private string m_Location;
 
         public MaterialTrackingLog()
         {
@@ -37,7 +37,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
         }
 
         public MaterialTrackingLog(string objectId, string materialId, string materialTrackingBatchId, string facilityId, string facilityName, 
-            string locationId, string locationName, string action, string description, string materialType, string masterAccessionNo, string materialLabel, bool clientAccessioned)
+           string locationName, string action, string description, string materialType, string masterAccessionNo, string materialLabel, bool clientAccessioned)
         {
             this.m_MaterialTrackingLogId = Guid.NewGuid().ToString();
 			this.m_ObjectId = objectId;
@@ -45,7 +45,6 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
             this.m_MaterialTrackingBatchId = materialTrackingBatchId;
             this.m_FacilityId = facilityId;
             this.m_FacilityName = facilityName;
-            this.m_LocationId = locationId;
             this.m_LocationName = locationName;
             this.m_LogDate = DateTime.Now;
             this.m_LoggedById = Business.User.SystemIdentity.Instance.User.UserId;
@@ -58,7 +57,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
             this.m_ClientAccessioned = clientAccessioned;
         }
 
-        public MaterialTrackingLog(string objectId, string materialId, string materialTrackingBatchId, string facilityId, string facilityName, string locationId, string locationName, string materialType)
+        public MaterialTrackingLog(string objectId, string materialId, string materialTrackingBatchId, string facilityId, string facilityName, string locationName, string materialType)
         {
             this.m_MaterialTrackingLogId = Guid.NewGuid().ToString();
 			this.m_ObjectId = objectId;
@@ -66,7 +65,6 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
             this.m_MaterialTrackingBatchId = materialTrackingBatchId;
             this.m_FacilityId = facilityId;
             this.m_FacilityName = facilityName;
-            this.m_LocationId = locationId;
             this.m_LocationName = locationName;
             this.m_LogDate = DateTime.Now;
             this.m_LoggedById = Business.User.SystemIdentity.Instance.User.UserId;
@@ -188,21 +186,6 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
                 }
             }
         }
-
-        [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
-		public string LocationId
-		{
-			get { return this.m_LocationId; }
-			set
-			{
-				if(this.m_LocationId != value)
-				{
-					this.m_LocationId = value;
-					this.NotifyPropertyChanged("LocationId");					
-				}
-			}
-		}
 
         [PersistentProperty()]
         [PersistentDataColumnProperty(true, "500", "null", "varchar")]
@@ -335,6 +318,21 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
                 {
                     this.m_ClientAccessioned = value;
                     this.NotifyPropertyChanged("ClientAccessioned");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "150", "null", "varchar")]
+        public string Location
+        {
+            get { return this.m_Location; }
+            set
+            {
+                if (this.m_Location != value)
+                {
+                    this.m_Location = value;
+                    this.NotifyPropertyChanged("Location");
                 }
             }
         }

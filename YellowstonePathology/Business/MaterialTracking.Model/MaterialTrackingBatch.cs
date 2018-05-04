@@ -19,12 +19,10 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
 		private string m_Description;		
 		private string m_FromFacilityId;
 		private string m_FromFacilityName;
-        private string m_FromLocationId;
-        private string m_FromLocationName;
+        private string m_FromLocation;
         private string m_ToFacilityId;
         private string m_ToFacilityName;
-        private string m_ToLocationId;
-        private string m_ToLocationName;
+        private string m_ToLocation;
 		private DateTime m_OpenDate;
 		private DateTime? m_ClosedDate;
 		private bool m_IsOpen;
@@ -49,12 +47,10 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
 			this.m_OpenDate = DateTime.Now;
             this.m_FromFacilityId = fromFacility.FacilityId;
             this.m_FromFacilityName = fromFacility.FacilityName;
-            this.m_FromLocationId = fromLocation;
-            this.m_FromLocationName = fromLocation;
+            this.m_FromLocation = fromLocation;
             this.m_ToFacilityId = toFacility.FacilityId;
             this.m_ToFacilityName = toFacility.FacilityName;
-            this.m_ToLocationId = toLocation;
-            this.m_ToLocationName = toLocation;
+            this.m_ToLocation = toLocation;
 			this.m_IsOpen = true;
             this.m_MasterAccessionNo = masterAccessionNo;
             this.m_MaterialTrackingLogCollection = new Model.MaterialTrackingLogCollection();
@@ -153,30 +149,15 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
 
         [PersistentProperty()]
         [PersistentDataColumnProperty(true, "50", "null", "varchar")]
-		public string FromLocationId
+		public string FromLocation
 		{
-			get { return this.m_FromLocationId; }
+			get { return this.m_FromLocation; }
 			set
 			{
-				if(this.m_FromLocationId != value)
+				if(this.m_FromLocation != value)
 				{
-					this.m_FromLocationId = value;
-                    this.NotifyPropertyChanged("FromLocationId");
-				}
-			}
-		}
-
-        [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "500", "null", "varchar")]
-		public string FromLocationName
-		{
-			get { return this.m_FromLocationName; }
-			set
-			{
-				if(this.m_FromLocationName != value)
-				{
-					this.m_FromLocationName = value;
-					this.NotifyPropertyChanged("FromLocationName");
+					this.m_FromLocation = value;
+                    this.NotifyPropertyChanged("FromLocation");
 				}
 			}
 		}
@@ -213,30 +194,15 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
 
         [PersistentProperty()]
         [PersistentDataColumnProperty(true, "50", "null", "varchar")]
-        public string ToLocationId
+        public string ToLocation
         {
-            get { return this.m_ToLocationId; }
+            get { return this.m_ToLocation; }
             set
             {
-                if (this.m_ToLocationId != value)
+                if (this.m_ToLocation != value)
                 {
-                    this.m_ToLocationId = value;
-                    this.NotifyPropertyChanged("ToLocationId");
-                }
-            }
-        }
-
-        [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "500", "null", "varchar")]
-        public string ToLocationName
-        {
-            get { return this.m_ToLocationName; }
-            set
-            {
-                if (this.m_ToLocationName != value)
-                {
-                    this.m_ToLocationName = value;
-                    this.NotifyPropertyChanged("ToLocationName");
+                    this.m_ToLocation = value;
+                    this.NotifyPropertyChanged("ToLocation");
                 }
             }
         }

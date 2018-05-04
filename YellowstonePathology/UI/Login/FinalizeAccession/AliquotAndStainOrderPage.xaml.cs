@@ -750,7 +750,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             foreach(YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder in slideOrderCollection)
             {                
                 Business.Label.Model.HistologySlidePaperZPLLabelV2 label = new Business.Label.Model.HistologySlidePaperZPLLabelV2(slideOrder.SlideOrderId, slideOrder.ReportNo, slideOrder.PatientFirstName, slideOrder.PatientLastName, 
-                    slideOrder.TestAbbreviation, slideOrder.Label, slideOrder.Location, slideOrder.UseWetProtocol, slideOrder.PerformedByHand);
+                    slideOrder.TestAbbreviation, slideOrder.Label, slideOrder.AccessioningFacility, slideOrder.UseWetProtocol, slideOrder.PerformedByHand);
                 queue.Enqueue(label);
             }
 
@@ -761,7 +761,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             foreach (YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder in slideOrderCollection)
             {
                 YellowstonePathology.Business.Label.Model.HistologySlidePaperLabel paperLabel = new Business.Label.Model.HistologySlidePaperLabel(slideOrder.SlideOrderId,
-                                        this.m_AccessionOrder.MasterAccessionNo, slideOrder.Label, slideOrder.PatientLastName, slideOrder.TestAbbreviation, slideOrder.Location);
+                                        this.m_AccessionOrder.MasterAccessionNo, slideOrder.Label, slideOrder.PatientLastName, slideOrder.TestAbbreviation, slideOrder.AccessioningFacility);
 
                 YellowstonePathology.Business.Label.Model.HistologySlidePaperLabelPrinter printer = new Business.Label.Model.HistologySlidePaperLabelPrinter();
                 printer.Queue.Enqueue(paperLabel);
@@ -787,9 +787,9 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             }
             result.Append("^XZ");
 
-            string locationId = Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId;
+            string facilityId = Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId;
             Business.Label.Model.ZPLPrinterTCP printer = new Business.Label.Model.ZPLPrinterTCP("10.1.1.21");
-            if (locationId == "YPICDY" || locationId == "YPCDY")
+            if (facilityId == "YPICDY" || facilityId == "YPCDY")
             {
                 printer = new Business.Label.Model.ZPLPrinterTCP("10.33.33.56");
             }
