@@ -132,6 +132,7 @@ namespace YellowstonePathology.Business.Facility.Model
             result.Add(new UniversityOfUtahHealthCare());
             result.Add(new NathionalJewishHealth());
             result.Add(new CommunityHospitalAnaconda());
+            result.Add(new MarshfieldClinic());
             return Sort(result);
         }
 

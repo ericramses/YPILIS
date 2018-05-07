@@ -91,7 +91,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
                     this.AddNextObxElement("Screened By: " + systemUser.Signature, document, "F");
                 }
 
-                string cytoTechFinal = YellowstonePathology.Business.Helper.DateTimeExtensions.DateStringFromNullable(screeningPanelOrder.AcceptedDate);
+                string cytoTechFinal = YellowstonePathology.Business.Helper.DateTimeExtensions.DateAndTimeStringFromNullable(screeningPanelOrder.AcceptedTime);
                 this.AddNextObxElement("***E - Signed " + cytoTechFinal + " * **", document, "F");
                 this.AddNextObxElement("", document, "F");
 
@@ -136,7 +136,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
                     YellowstonePathology.Business.Test.HPV.HPVTestOrder hpvTestOrder = (YellowstonePathology.Business.Test.HPV.HPVTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetHPV.PanelSetId);
                     this.AddNextObxElement("High Risk HPV: " + hpvTestOrder.Result, document, "F");
                     this.AddNextObxElement("Reference: Negative", document, "F");
-                    string hpvFinal = YellowstonePathology.Business.Helper.DateTimeExtensions.DateStringFromNullable(hpvTestOrder.FinalDate);
+                    string hpvFinal = YellowstonePathology.Business.Helper.DateTimeExtensions.DateAndTimeStringFromNullable(hpvTestOrder.FinalTime);
                     this.AddNextObxElement("Date Finalized: " + hpvFinal, document, "F");
                     this.AddNextObxElement("", document, "F");
                 }
@@ -149,7 +149,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
 
                     this.AddNextObxElement("HPV type 18/45: " + panelSetOrderHPV1618.HPV18Result, document, "F");
                     this.AddNextObxElement("Reference: Negative", document, "F");
-                    string hpvFinal = YellowstonePathology.Business.Helper.DateTimeExtensions.DateStringFromNullable(panelSetOrderHPV1618.FinalDate);
+                    string hpvFinal = YellowstonePathology.Business.Helper.DateTimeExtensions.DateAndTimeStringFromNullable(panelSetOrderHPV1618.FinalTime);
                     this.AddNextObxElement("Date Finalized: " + hpvFinal, document, "F");
                     this.AddNextObxElement("", document, "F");
                 }
@@ -163,7 +163,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
 
                     this.AddNextObxElement("Neisseria gonorrhoeae: " + panelSetOrderNGCT.NeisseriaGonorrhoeaeResult, document, "F");
                     this.AddNextObxElement("Reference: Negative", document, "F");
-                    string hpvFinal = YellowstonePathology.Business.Helper.DateTimeExtensions.DateStringFromNullable(panelSetOrderNGCT.FinalDate);
+                    string hpvFinal = YellowstonePathology.Business.Helper.DateTimeExtensions.DateAndTimeStringFromNullable(panelSetOrderNGCT.FinalTime);
                     this.AddNextObxElement("Date Finalized: " + hpvFinal, document, "F");
                     this.AddNextObxElement("", document, "F");
                 }
@@ -174,7 +174,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
                     YellowstonePathology.Business.Test.Trichomonas.TrichomonasTestOrder reportOrderTrichomonas = (YellowstonePathology.Business.Test.Trichomonas.TrichomonasTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetTrichomonas.PanelSetId);
                     this.AddNextObxElement("Trichomonas vaginalis: " + reportOrderTrichomonas.Result, document, "F");
                     this.AddNextObxElement("Reference: Negative", document, "F");
-                    string hpvFinal = YellowstonePathology.Business.Helper.DateTimeExtensions.DateStringFromNullable(reportOrderTrichomonas.FinalDate);
+                    string hpvFinal = YellowstonePathology.Business.Helper.DateTimeExtensions.DateAndTimeStringFromNullable(reportOrderTrichomonas.FinalTime);
                     this.AddNextObxElement("Date Finalized: " + hpvFinal, document, "F");
                     this.AddNextObxElement("", document, "F");
                 }

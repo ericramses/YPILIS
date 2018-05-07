@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Test.MultipleMyelomaMGUSByFish
 		{			
 			MultipleMyelomaMGUSByFishTestOrder panelSetOrderMultipleMyelomaMGUSByFish = (MultipleMyelomaMGUSByFishTestOrder)this.m_PanelSetOrder;
 
-			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\MultipleMyelomaMGUSByFish.1.xml";
+			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\PlasmaCellMyelomaFISHPanel.1.xml";
 			base.OpenTemplate();
 
 			this.SetDemographicsV2();

@@ -64,7 +64,8 @@ namespace YellowstonePathology.Business.HL7View.EPIC
             this.AddNextObxElement("MRN: " + this.m_AccessionOrder.SvhMedicalRecord, document, "F");
             this.AddNextObxElement("Encounter: " + this.m_AccessionOrder.SvhAccount, document, "F");
             this.AddNextObxElement("DOB: " + this.m_AccessionOrder.PBirthdate.Value.ToString("MM/dd/yyyy"), document, "F");
-            this.AddNextObxElement("Provider: " + this.m_AccessionOrder.PhysicianName, document, "F");            
+            this.AddNextObxElement("Provider: " + this.m_AccessionOrder.PhysicianName, document, "F");
+            this.AddNextObxElement("Location: " + this.m_AccessionOrder.ClientName, document, "F");
         }        
 
         protected void AddNextObxElement(string value, XElement document, string observationResultStatus)

@@ -110,11 +110,11 @@ namespace YellowstonePathology.UI
 
         public void SetShortcut(TextBox microscopix, Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder)
         {            
-            System.Text.RegularExpressions.MatchCollection matches = System.Text.RegularExpressions.Regex.Matches(microscopix.Text.Substring(0, microscopix.SelectionStart), @"([A-za-z]+)([0-9]+) ");
+            System.Text.RegularExpressions.MatchCollection matches = System.Text.RegularExpressions.Regex.Matches(microscopix.Text.Substring(0, microscopix.SelectionStart), @"([0-9]+)([A-za-z]+) ");
             if (matches.Count > 0)
             {
-                string shortcutName = matches[0].Groups[1].Value;
-                string specimenNumber = matches[0].Groups[2].Value;                
+                string specimenNumber = matches[0].Groups[1].Value;
+                string shortcutName = matches[0].Groups[2].Value;                
                                 
                 if (this.m_TypingShortcutCollection.Exists(shortcutName) == true)
                 {

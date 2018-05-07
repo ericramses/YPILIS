@@ -99,7 +99,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
                     this.AddNextNteElement("Screened By: " + systemUser.Signature, document);
                 }
 
-                string cytoTechFinal = YellowstonePathology.Business.Helper.DateTimeExtensions.DateStringFromNullable(screeningPanelOrder.AcceptedDate);
+                string cytoTechFinal = YellowstonePathology.Business.Helper.DateTimeExtensions.DateAndTimeStringFromNullable(screeningPanelOrder.AcceptedTime);
                 this.AddNextNteElement("*** E-Signed " + cytoTechFinal + " ***", document);
                 this.AddBlankNteElement(document);
 
@@ -144,7 +144,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
 					YellowstonePathology.Business.Test.HPV.HPVTestOrder hpvTestOrder = (YellowstonePathology.Business.Test.HPV.HPVTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetHPV.PanelSetId);
 					this.AddNextNteElement("High Risk HPV: " + hpvTestOrder.Result, document);
 					this.AddNextNteElement("Reference: Negative", document);
-					string hpvFinal = YellowstonePathology.Business.Helper.DateTimeExtensions.DateStringFromNullable(hpvTestOrder.FinalDate);
+					string hpvFinal = YellowstonePathology.Business.Helper.DateTimeExtensions.DateAndTimeStringFromNullable(hpvTestOrder.FinalTime);
 					this.AddNextNteElement("Date Finalized: " + hpvFinal, document);
 					this.AddBlankNteElement(document);
 				}
@@ -157,7 +157,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
 
 					this.AddNextNteElement("HPV type 18: " + panelSetOrderHPV1618.HPV18Result, document);
 					this.AddNextNteElement("Reference: Negative", document);
-					string hpvFinal = YellowstonePathology.Business.Helper.DateTimeExtensions.DateStringFromNullable(panelSetOrderHPV1618.FinalDate);
+					string hpvFinal = YellowstonePathology.Business.Helper.DateTimeExtensions.DateAndTimeStringFromNullable(panelSetOrderHPV1618.FinalTime);
 					this.AddNextNteElement("Date Finalized: " + hpvFinal, document);
 					this.AddBlankNteElement(document);
 				}
@@ -171,7 +171,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
 
 					this.AddNextNteElement("Neisseria gonorrhoeae: " + panelSetOrderNGCT.NeisseriaGonorrhoeaeResult, document);
 					this.AddNextNteElement("Reference: Negative", document);
-					string hpvFinal = YellowstonePathology.Business.Helper.DateTimeExtensions.DateStringFromNullable(panelSetOrderNGCT.FinalDate);
+					string hpvFinal = YellowstonePathology.Business.Helper.DateTimeExtensions.DateAndTimeStringFromNullable(panelSetOrderNGCT.FinalTime);
 					this.AddNextNteElement("Date Finalized: " + hpvFinal, document);
 					this.AddBlankNteElement(document);
 				}
@@ -182,7 +182,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
 					YellowstonePathology.Business.Test.Trichomonas.TrichomonasTestOrder reportOrderTrichomonas = (YellowstonePathology.Business.Test.Trichomonas.TrichomonasTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetTrichomonas.PanelSetId);
 					this.AddNextNteElement("Trichomonas vaginalis: " + reportOrderTrichomonas.Result, document);
 					this.AddNextNteElement("Reference: Negative", document);
-					string hpvFinal = YellowstonePathology.Business.Helper.DateTimeExtensions.DateStringFromNullable(reportOrderTrichomonas.FinalDate);
+					string hpvFinal = YellowstonePathology.Business.Helper.DateTimeExtensions.DateAndTimeStringFromNullable(reportOrderTrichomonas.FinalTime);
 					this.AddNextNteElement("Date Finalized: " + hpvFinal, document);
 					this.AddBlankNteElement(document);
 				}
