@@ -51,7 +51,6 @@ namespace YellowstonePathology.UI.Common
             else
             {
                 this.m_UserPreference = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullUserPreference(userPreference.Location, this);
-                this.TextBoxLocation.IsEnabled = false;
             }
 
             this.DataContext = this;
@@ -155,9 +154,10 @@ namespace YellowstonePathology.UI.Common
 		{
             if(this.CanSave() == true)
             {
-                Business.User.UserPreference userPreference = this.m_UserPreferenceList.SingleOrDefault(item => item.Location == this.m_UserPreference.Location);
+                Business.User.UserPreference userPreference = this.m_UserPreferenceList.SingleOrDefault(item => item.UserPreferenceId == this.m_UserPreference.UserPreferenceId);
                 if(userPreference == null)
                 {
+                    this.m_UserPreference.UserPreferenceId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
                     this.m_UserPreference.HostName = this.m_UserPreference.Location;
                     this.m_UserPreference.LocationId = this.m_UserPreference.Location;
                     YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(this.m_UserPreference, this);

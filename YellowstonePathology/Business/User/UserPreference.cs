@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business.User
         protected delegate void PropertyChangedNotificationHandler(String info);
         public event PropertyChangedEventHandler PropertyChanged;
 
-        //private string m_UserPreferenceId;
+        private string m_UserPreferenceId;
         private string m_HostName;
         private string m_LocationId;
         private bool m_BarcodeScanEnabled;
@@ -92,7 +92,8 @@ namespace YellowstonePathology.Business.User
             }
         }
 
-        /*[PersistentDataColumnProperty(false, "150", "null", "varchar")]
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(false, "50", "null", "varchar")]
         public string UserPreferenceId
         {
             get { return this.m_UserPreferenceId; }
@@ -104,7 +105,7 @@ namespace YellowstonePathology.Business.User
                     this.NotifyPropertyChanged("UserPreferenceId");
                 }
             }
-        }*/
+        }
 
         [PersistentProperty()]
         [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
