@@ -19,6 +19,7 @@ namespace YellowstonePathology.Business.Typing
         private int m_UserId;
         private string m_UserName;
         private string m_Category;
+        private bool m_MicroDX;
 
 		public TypingShortcut()
 		{
@@ -150,6 +151,21 @@ namespace YellowstonePathology.Business.Typing
             }
         }
 
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(false, "1", "0", "tinyint")]
+        public bool MicroDX
+        {
+            get { return this.m_MicroDX; }
+            set
+            {
+                if (value != this.m_MicroDX)
+                {
+                    this.m_MicroDX = value;
+                    this.NotifyPropertyChanged("MicroDX");
+                }
+            }
+        }
+
         public string ShortText
         {
             get
@@ -177,6 +193,7 @@ namespace YellowstonePathology.Business.Typing
             this.m_Type = typingShortcut.Type;
             this.m_UserId = typingShortcut.UserId;
             this.m_Category = typingShortcut.Category;
+            this.m_MicroDX = typingShortcut.m_MicroDX;
             this.NotifyPropertyChanged(string.Empty);
         }
 

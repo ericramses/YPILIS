@@ -495,6 +495,7 @@ namespace YellowstonePathology.UI.Surgical
 							break;
 						case 1:
 						case 2:
+                        case 3:
 							this.m_CytologyResultsWorkspace.CytologyUI.ClientOrder = clientOrderCollection[0];
 							this.m_CytologyResultsWorkspace.CytologyUI.DataLoaded();
 							break;

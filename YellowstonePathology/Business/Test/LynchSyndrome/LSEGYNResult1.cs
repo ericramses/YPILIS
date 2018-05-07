@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 			this.m_MethResult = LSEResultEnum.Positive;
             this.m_BRAFIsIndicated = false;
 
-            this.m_Interpretation = "Loss of nuclear expression of MLH1 and PMS2 mismatch repair proteins." + Environment.NewLine + "MLH1 Methylation Analysis detected.";
+            this.m_Interpretation = "Loss of nuclear expression of MLH1 and PMS2 mismatch repair proteins." + Environment.NewLine + "MLH1 methylation detected.";
             this.m_Comment = "The results are compatible with a sporadic tumor and further genetic evaluation is not indicated.";            
 		}
 

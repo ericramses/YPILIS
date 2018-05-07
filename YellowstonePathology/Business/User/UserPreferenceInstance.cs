@@ -44,5 +44,10 @@ namespace YellowstonePathology.Business.User
         {
             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
         }
+
+        public void Refresh()
+        {
+            instance = null;
+        }
 	}
 }

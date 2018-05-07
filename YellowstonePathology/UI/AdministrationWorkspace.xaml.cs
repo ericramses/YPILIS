@@ -980,29 +980,13 @@ namespace YellowstonePathology.UI
 
             Microsoft.Office.Interop.Outlook.Items items = mapiFolder.Items;
             */
-        }        
+        }
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            List<string> li = new List<string>();
-            li.Add("18-8699.S");
-            li.Add("18-9077.S");
-            li.Add("18-9219.S");
-
-            foreach (string s in li)
-            {
-                Business.OrderIdParser orderIdParser = new Business.OrderIdParser(s);
-                string path = Business.Document.CaseDocument.GetCaseFileNamePDF(orderIdParser, false);
-
-                Process p = new Process();
-                p.StartInfo = new ProcessStartInfo()
-                {
-                    CreateNoWindow = true,
-                    Verb = "print",
-                    FileName = path //put the correct path here
-                };
-                p.Start();
-            }
+            string path = System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\hello.txt";
+            System.IO.File.WriteAllText(path, "hello world");
+            MessageBox.Show(path);
         }
 
         private void GetSlideNumberTest()

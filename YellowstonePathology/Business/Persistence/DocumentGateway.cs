@@ -265,6 +265,17 @@ namespace YellowstonePathology.Business.Persistence
             }
         }
 
+        public YellowstonePathology.Business.User.SystemUser PullSystemUser(int userId, object writer)
+        {
+            lock (locker)
+            {
+                SystemUserDocumentBuilder builder = new Persistence.SystemUserDocumentBuilder(userId);
+                DocumentId documentId = new DocumentId(typeof(YellowstonePathology.Business.User.SystemUser), writer, userId);
+                Document document = this.m_Stack.Pull(documentId, builder);
+                return (YellowstonePathology.Business.User.SystemUser)document.Value;
+            }
+        }
+
         public YellowstonePathology.Business.ApplicationVersion GetApplicationVersion(object writer)
         {
             lock (locker)

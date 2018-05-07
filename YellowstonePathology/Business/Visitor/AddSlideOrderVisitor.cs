@@ -57,7 +57,7 @@ namespace YellowstonePathology.Business.Visitor
             slideOrder.OrderedBy = string.IsNullOrEmpty(this.m_TestOrder.OrderedBy) ? "NONE" : this.m_TestOrder.OrderedBy;
             slideOrder.OrderedFrom = System.Environment.MachineName;
             slideOrder.Status = Business.Slide.Model.SlideStatusEnum.Created.ToString();
-            slideOrder.Location = accessioningFacility.LocationAbbreviation;
+            slideOrder.AccessioningFacility = accessioningFacility.LocationAbbreviation;
             slideOrder.LabelType = slide.LabelType.ToString();
             slideOrder.UseWetProtocol = this.m_TestOrder.UseWetProtocol;
             slideOrder.PerformedByHand = this.m_TestOrder.PerformedByHand;
