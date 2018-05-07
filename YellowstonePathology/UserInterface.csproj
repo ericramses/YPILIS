@@ -1154,6 +1154,7 @@
     <Compile Include="Business\Persistence\ProtobufWriter.cs" />
     <Compile Include="Business\Persistence\SlideOrderDocumentBuilder.cs" />
     <Compile Include="Business\Persistence\SqlDataRowReaderPropertyWriter.cs" />
+    <Compile Include="Business\Persistence\SystemUserDocumentBuilder.cs" />
     <Compile Include="Business\ReportDistribution.Model\MultiTestDistributionHandlerNoWHP.cs" />
     <Compile Include="Business\ReportDistribution.Model\MultiTestDistributionHandlerWHPHold.cs" />
     <Compile Include="Business\Slide.Model\VantageSlide.cs" />
@@ -1208,6 +1209,8 @@
     <Compile Include="Business\Test\NeoTYPEGISTProfile\NeoTYPEGISTProfileTest.cs" />
     <Compile Include="Business\Test\PNH\PNHWPHOBXView.cs" />
     <Compile Include="Business\Test\RASRAFPanel\RASRAFPanelWPHOBXView.cs" />
+    <Compile Include="Business\User\SystemRoleView.cs" />
+    <Compile Include="Business\User\SystemRoleViewCollection.cs" />
     <Compile Include="Store\AppDataStore.cs" />
     <Compile Include="Business\Reports\BlocksSentNotReturnedReport.cs" />
     <Compile Include="Business\Reports\RetrospectiveReviewReport.xaml.cs">
@@ -3739,6 +3742,9 @@
     <Compile Include="UI\SystemUserDialog.xaml.cs">
       <DependentUpon>SystemUserDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\SystemUserListDialog.xaml.cs">
+      <DependentUpon>SystemUserListDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\TaskNotifier.cs" />
     <Compile Include="UI\Surgical\SurgicalReview.xaml.cs">
       <DependentUpon>SurgicalReview.xaml</DependentUpon>
@@ -5693,6 +5699,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\SystemUserDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\SystemUserListDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
