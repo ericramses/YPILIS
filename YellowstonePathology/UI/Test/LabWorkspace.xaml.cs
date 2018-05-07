@@ -746,11 +746,11 @@ namespace YellowstonePathology.UI.Test
                     result = null;
                     break;
                 case "Billings":
-                    YellowstonePathology.Business.Facility.Model.YellowstonePathologistBillings ypBlgs = new Business.Facility.Model.YellowstonePathologistBillings();
+                    YellowstonePathology.Business.Facility.Model.Facility ypBlgs = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPBLGS");
                     result = ypBlgs.FacilityId;
                     break;
                 case "Cody":
-                    YellowstonePathology.Business.Facility.Model.YellowstonePathologistCody ypCdy = new Business.Facility.Model.YellowstonePathologistCody();
+                    YellowstonePathology.Business.Facility.Model.Facility ypCdy = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPCDY");
                     result = ypCdy.FacilityId;
                     break;
             }

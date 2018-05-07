@@ -33,7 +33,6 @@ namespace YellowstonePathology.Business.Billing.Model
 		{
 			string assignedTo = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetSystemUserById(this.m_PanelSetOrder.AssignedToId).DisplayName;
 
-            YellowstonePathology.Business.Facility.Model.FacilityCollection facilityCollection = YellowstonePathology.Business.Facility.Model.FacilityCollection.GetAllFacilities();
             YellowstonePathology.Business.PanelSet.Model.PanelSetCollection panelSetCollection = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetAll();
 			YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet = panelSetCollection.GetPanelSet(this.m_PanelSetOrder.PanelSetId);
 
@@ -44,16 +43,16 @@ namespace YellowstonePathology.Business.Billing.Model
 
             if (panelSet.HasProfessionalComponent == true)
             {
-				YellowstonePathology.Business.Facility.Model.Facility professionalComponentFacility = facilityCollection.GetByFacilityId(this.m_PanelSetOrder.ProfessionalComponentFacilityId);
+				YellowstonePathology.Business.Facility.Model.Facility professionalComponentFacility = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId(this.m_PanelSetOrder.ProfessionalComponentFacilityId);
                 professionalComponentFacilityName = professionalComponentFacility.FacilityName;
-                professionalComponentFacilityCLIA = professionalComponentFacility.CLIALicense.LicenseNumber;
+                professionalComponentFacilityCLIA = professionalComponentFacility.CLIALicenseNumber;
             }
 
             if (panelSet.HasTechnicalComponent == true)
             {
-				YellowstonePathology.Business.Facility.Model.Facility technicalComponentFacility = facilityCollection.GetByFacilityId(this.m_PanelSetOrder.TechnicalComponentFacilityId);
+				YellowstonePathology.Business.Facility.Model.Facility technicalComponentFacility = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId(this.m_PanelSetOrder.TechnicalComponentFacilityId);
                 technicalComponentFacilityName = technicalComponentFacility.FacilityName;
-                technicalComponentFacilityCLIA = technicalComponentFacility.CLIALicense.LicenseNumber;
+                technicalComponentFacilityCLIA = technicalComponentFacility.CLIALicenseNumber;
             }                       
 
 			this.Add(new XElement("MasterAccessionNo", this.m_AccessionOrder.MasterAccessionNo),

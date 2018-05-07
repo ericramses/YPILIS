@@ -14,12 +14,11 @@ namespace YellowstonePathology.UI
         {
             this.m_PrintDocument = new System.Drawing.Printing.PrintDocument();
 			this.m_HistologySlideQueue = new Queue<Business.BarcodeScanning.HistologySlide>();
-            YellowstonePathology.Business.Facility.Model.FacilityCollection facilityCollection = YellowstonePathology.Business.Facility.Model.FacilityCollection.GetAllFacilities();         
 
             foreach (YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder in slideOrderCollection)
             {
 				YellowstonePathology.Business.BarcodeScanning.HistologySlide histologySlide = new Business.BarcodeScanning.HistologySlide(slideOrder.SlideOrderId,
-                    slideOrder.ReportNo, slideOrder.Label, slideOrder.PatientLastName, slideOrder.TestName, slideOrder.Location);
+                    slideOrder.ReportNo, slideOrder.Label, slideOrder.PatientLastName, slideOrder.TestName, slideOrder.AccessioningFacility);
                 this.m_HistologySlideQueue.Enqueue(histologySlide);
             }            
         }
@@ -30,7 +29,7 @@ namespace YellowstonePathology.UI
 			this.m_HistologySlideQueue = new Queue<Business.BarcodeScanning.HistologySlide>();
 
 			YellowstonePathology.Business.BarcodeScanning.HistologySlide histologySlide = new Business.BarcodeScanning.HistologySlide(slideOrder.SlideOrderId,
-                    slideOrder.ReportNo, slideOrder.Label, slideOrder.PatientLastName, slideOrder.TestName, slideOrder.Location);
+                    slideOrder.ReportNo, slideOrder.Label, slideOrder.PatientLastName, slideOrder.TestName, slideOrder.AccessioningFacility);
             this.m_HistologySlideQueue.Enqueue(histologySlide);
         }
 

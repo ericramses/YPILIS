@@ -48,7 +48,7 @@ namespace YellowstonePathology.Business.Specimen.Model
         private string m_LocationFacilityId;
         private string m_OwnerFacilityId;
         private bool m_RequiresGrossExamination;
-        private string m_LocationId;
+        private string m_Location;
         private string m_FacilityId;
                 
         private Nullable<DateTime> m_ProcessorStartTime;
@@ -910,15 +910,15 @@ namespace YellowstonePathology.Business.Specimen.Model
 
         [PersistentProperty()]
         [PersistentDataColumnProperty(true, "50", "null", "varchar")]
-        public string LocationId
+        public string Location
         {
-            get { return this.m_LocationId; }
+            get { return this.m_Location; }
             set
             {
-                if (this.m_LocationId != value)
+                if (this.m_Location != value)
                 {
-                    this.m_LocationId = value;
-                    this.NotifyPropertyChanged("LocationId");
+                    this.m_Location = value;
+                    this.NotifyPropertyChanged("Location");
                 }
             }
         }
@@ -1203,7 +1203,7 @@ namespace YellowstonePathology.Business.Specimen.Model
             this.m_RequiresGrossExamination = propertyWriter.WriteBoolean("RequiresGrossExamination");
             this.m_ClientAccessioned = propertyWriter.WriteBoolean("ClientAccessioned");
             this.m_FacilityId = propertyWriter.WriteString("FacilityId");
-            this.m_LocationId = propertyWriter.WriteString("LocationId");            
+            this.m_Location = propertyWriter.WriteString("Location");            
             this.m_ProcessorStartTime = propertyWriter.WriteNullableDateTime("ProcessorStartTime");
             this.m_ProcessorFixationTime = propertyWriter.WriteNullableInt("ProcessorFixationTime");
             this.m_TimeToFixation = propertyWriter.WriteNullableInt("TimeToFixation");
@@ -1249,7 +1249,7 @@ namespace YellowstonePathology.Business.Specimen.Model
 			propertyReader.ReadString("ObjectId", ObjectId);
             propertyReader.ReadBoolean("RequiresGrossExamination", RequiresGrossExamination);
             propertyReader.ReadBoolean("ClientAccessioned", ClientAccessioned);
-            propertyReader.ReadString("LocationId", LocationId);
+            propertyReader.ReadString("Location", Location);
             propertyReader.ReadString("FacilityId", FacilityId);            
             propertyReader.ReadNullableDateTime("ProcessorStartTime", ProcessorStartTime);
             propertyReader.ReadNullableInt("ProcessorFixationTime", ProcessorFixationTime);            

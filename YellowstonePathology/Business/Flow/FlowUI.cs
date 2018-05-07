@@ -70,7 +70,7 @@ namespace YellowstonePathology.Business.Flow
             this.m_FlowPanelList.SetFillCommandByAll();
             this.m_FlowPanelList.Fill();
 
-            this.m_FacilityCollection = YellowstonePathology.Business.Facility.Model.FacilityCollection.GetAllFacilities();
+            this.m_FacilityCollection = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance;
 
 			this.m_CaseDocumentCollection = new Document.CaseDocumentCollection();
 			this.m_PatientHistoryList = new YellowstonePathology.Business.Patient.Model.PatientHistoryList();

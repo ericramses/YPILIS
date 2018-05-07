@@ -64,7 +64,11 @@
                     <MenuItem Header="Cytology Unsat Letter Dialog" Click="MenuItemCytologyUnsatLetterDialog_Click"></MenuItem>
                 </MenuItem>
 
+<<<<<<< HEAD
     			<MenuItem Header="_Billing" Name="MenuItemBilling">
+=======
+			    <MenuItem Header="_Billing" Name="MenuItemBilling">
+>>>>>>> facility
                     <MenuItem Header="SVH CDM/Results" Click="MenuItemSVHCDMResults_Click"></MenuItem>
                     <MenuItem Header="Billing Reports" Click="MenuItemBillingReports_Click"></MenuItem>
                     <MenuItem Header="PSA Transfer" Click="MenuItemPSATransder_Click"></MenuItem>
@@ -84,7 +88,11 @@
 			    <MenuItem Header="_Admin" Name="MenuItemAdmin">				
                     <MenuItem Name="MenuItemReportDistribution" Header="Report Distribution" Click="MenuItemReportDistributionWorkspace_Click"></MenuItem>
                     <MenuItem Name="MenuItemAdministration" Header="Administration" Click="MenuItemAdministrationWorkspace_Click"></MenuItem>
+<<<<<<< HEAD
                     <MenuItem Name="MenuItemSystemUser" Header="System User" Click="MenuItemSystemUser_Click"></MenuItem>
+=======
+                    <MenuItem Name="MenuItemUserPreferences" Header="User Preferences" Click="MenuItemUserPreferences_Click"></MenuItem>
+>>>>>>> facility
                 </MenuItem>
 
                 <MenuItem Header="_Monitor" Name="MenuItemMonitor">

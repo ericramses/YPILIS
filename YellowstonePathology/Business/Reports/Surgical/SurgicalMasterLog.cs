@@ -50,8 +50,6 @@ namespace YellowstonePathology.Business.Reports.Surgical
             accessioningLocations.Add("Billings");
             accessioningLocations.Add("Cody");
 
-            YellowstonePathology.Business.Facility.Model.FacilityCollection facilityCollection = YellowstonePathology.Business.Facility.Model.FacilityCollection.GetAllFacilities();
-
 			foreach(string location in accessioningLocations)
 			{
                 XmlNode nodeNewLocation = nodeTemplateFacility.Clone();
@@ -60,7 +58,7 @@ namespace YellowstonePathology.Business.Reports.Surgical
 
 				foreach (Business.Surgical.SurgicalMasterLogItem surgicalMasterLogItem in surgicalMasterLogList)
 				{
-                    YellowstonePathology.Business.Facility.Model.Facility accessioningFacility = facilityCollection.GetByFacilityId(surgicalMasterLogItem.AccessioningFacilityId);
+                    YellowstonePathology.Business.Facility.Model.Facility accessioningFacility = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId(surgicalMasterLogItem.AccessioningFacilityId);
                     if (accessioningFacility.AccessioningLocation == location)
 					{
 						string reportNo = surgicalMasterLogItem.ReportNo;

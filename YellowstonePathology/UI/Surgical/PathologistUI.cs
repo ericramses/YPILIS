@@ -27,7 +27,7 @@ namespace YellowstonePathology.UI.Surgical
         private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 
         private YellowstonePathology.Business.Facility.Model.Facility m_Facility;
-        private YellowstonePathology.Business.Facility.Model.Location m_Location;
+        private string m_Location;
 
         private string m_SignatureButtonText;
         private bool m_SignatureButtonIsEnabled;
@@ -62,10 +62,8 @@ namespace YellowstonePathology.UI.Surgical
             YellowstonePathology.Business.Test.ReviewForAdditionalTesting.ReviewForAdditionalTestingTest reviewForAdditionalTestingTest = new Business.Test.ReviewForAdditionalTesting.ReviewForAdditionalTestingTest();
             this.m_PanelSetIdsThatCanOrderStains.Add(reviewForAdditionalTestingTest.PanelSetId);
 
-            YellowstonePathology.Business.Facility.Model.FacilityCollection facilityCollection = Business.Facility.Model.FacilityCollection.GetAllFacilities();
-            YellowstonePathology.Business.Facility.Model.LocationCollection locationCollection = YellowstonePathology.Business.Facility.Model.LocationCollection.GetAllLocations();
-            this.m_Facility = facilityCollection.GetByFacilityId(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId);
-            this.m_Location = locationCollection.GetLocation(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.LocationId);
+            this.m_Facility = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId);
+            this.m_Location = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.Location;
         }
 
         public Business.User.SystemIdentity SystemIdentity

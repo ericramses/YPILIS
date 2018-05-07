@@ -22,16 +22,17 @@ namespace YellowstonePathology.Business.Test.IRF4F
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.PanelSetOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Document.ReferenceLabReport).AssemblyQualifiedName;
             this.m_AllowMultiplePerAccession = true;
-            this.m_ExpectedDuration = new TimeSpan(7, 0, 0, 0);            
+            this.m_ExpectedDuration = new TimeSpan(7, 0, 0, 0);
 
+            YellowstonePathology.Business.Facility.Model.Facility facility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("MAYO");
             string taskDescription = "Gather materials and send out to Mayo Clinic.";
-			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskFedexShipment(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, taskDescription, new Facility.Model.MayoClinic()));
+			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskFedexShipment(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, taskDescription, facility));
 
-            this.m_TechnicalComponentFacility = new YellowstonePathology.Business.Facility.Model.MayoClinic();
-            this.m_TechnicalComponentBillingFacility = new YellowstonePathology.Business.Facility.Model.MayoClinic();
+            this.m_TechnicalComponentFacility = facility;
+            this.m_TechnicalComponentBillingFacility = facility;
 
-            this.m_ProfessionalComponentFacility = new YellowstonePathology.Business.Facility.Model.MayoClinic();
-            this.m_ProfessionalComponentBillingFacility = new YellowstonePathology.Business.Facility.Model.MayoClinic();                       
+            this.m_ProfessionalComponentFacility = facility;
+            this.m_ProfessionalComponentBillingFacility = facility;
 
             this.m_HasSplitCPTCode = false;
             //this.m_RequiresAssignment = true;            

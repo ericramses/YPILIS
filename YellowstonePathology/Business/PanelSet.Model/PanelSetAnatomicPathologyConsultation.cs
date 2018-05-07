@@ -22,13 +22,16 @@ namespace YellowstonePathology.Business.PanelSet.Model
             this.m_AllowMultiplePerAccession = true;           			
 
             string taskDescription = "Gather materials and send out to consulting pathologist.";
-			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskFedexShipment(YellowstonePathology.Business.Task.Model.TaskAssignment.Transcription, taskDescription, new Facility.Model.NeogenomicsIrvine()));
 
-            this.m_TechnicalComponentFacility = new YellowstonePathology.Business.Facility.Model.UniversityOfMichigan();
-            this.m_ProfessionalComponentFacility = new YellowstonePathology.Business.Facility.Model.UniversityOfMichigan();
+            YellowstonePathology.Business.Facility.Model.Facility neogenomicsIrvine = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("NEOGNMCIRVN");
+            YellowstonePathology.Business.Facility.Model.Facility universityOfMichigan = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("UOMHS");
+            this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskFedexShipment(YellowstonePathology.Business.Task.Model.TaskAssignment.Transcription, taskDescription, neogenomicsIrvine));
 
-            this.m_TechnicalComponentBillingFacility = new YellowstonePathology.Business.Facility.Model.UniversityOfMichigan();
-            this.m_ProfessionalComponentBillingFacility = new YellowstonePathology.Business.Facility.Model.UniversityOfMichigan();
+            this.m_TechnicalComponentFacility = universityOfMichigan;
+            this.m_ProfessionalComponentFacility = universityOfMichigan;
+
+            this.m_TechnicalComponentBillingFacility = universityOfMichigan;
+            this.m_ProfessionalComponentBillingFacility = universityOfMichigan;
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMiscellaneous());
 		}

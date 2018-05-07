@@ -55,16 +55,14 @@
 				                SelectedValue="{Binding Path=MaterialTrackingBatch.FromFacilityId}" />
 
                 <TextBlock Grid.Column="0" Grid.Row="3" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" Text="From Location:" />
-                <ComboBox Grid.Column="1" Grid.Row="3" Margin="2,2,2,2" HorizontalAlignment="Stretch" ItemsSource="{Binding Path=LocationCollection}" SelectedValuePath="LocationId" DisplayMemberPath="Description"
-				                SelectedValue="{Binding Path=MaterialTrackingBatch.FromLocationId}" />
+                <ComboBox Grid.Column="1" Grid.Row="3" Margin="2,2,2,2" HorizontalAlignment="Stretch" ItemsSource="{Binding Path=LocationList}" SelectedValue="{Binding Path=MaterialTrackingBatch.FromLocation}" />
 
                 <TextBlock Grid.Column="0" Grid.Row="4" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" Text="To Facility:" />
                 <ComboBox Grid.Column="1" Grid.Row="4" Margin="2,2,2,2" HorizontalAlignment="Stretch" ItemsSource="{Binding Path=FacilityCollection}" SelectedValuePath="FacilityId" DisplayMemberPath="FacilityName"
 				                SelectedValue="{Binding Path=MaterialTrackingBatch.ToFacilityId}" />
 
                 <TextBlock Grid.Column="0" Grid.Row="5" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" Text="To Location:" />
-                <ComboBox Grid.Column="1" Grid.Row="5" Margin="2,2,2,2" HorizontalAlignment="Stretch" ItemsSource="{Binding Path=LocationCollection}" SelectedValuePath="LocationId" DisplayMemberPath="Description"
-				                SelectedValue="{Binding Path=MaterialTrackingBatch.ToLocationId}" />
+                <ComboBox Grid.Column="1" Grid.Row="5" Margin="2,2,2,2" HorizontalAlignment="Stretch" ItemsSource="{Binding Path=LocationList}" SelectedValue="{Binding Path=MaterialTrackingBatch.ToLocation}" />
 
 
                 <TextBlock Grid.Column="2" Grid.Row="0" Margin="2,2,2,2" TextAlignment="Left" FontWeight="Bold">Tracking Information:</TextBlock>
