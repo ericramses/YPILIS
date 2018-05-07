@@ -24,10 +24,24 @@ namespace YellowstonePathology.UI
 
         private YellowstonePathology.Business.User.SystemUserCollection m_SystemUserCollection;
         private YellowstonePathology.Business.User.SystemUser m_SystemUser;
+        private YellowstonePathology.Business.User.SystemRoleViewCollection m_SystemRoleViewCollection;
 
-        public SystemUserDialog()
+        public SystemUserDialog(YellowstonePathology.Business.User.SystemUser systemUser)
         {
             this.m_SystemUserCollection = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection;
+            if(systemUser == null)
+            {
+                YellowstonePathology.Business.User.SystemUser user = this.m_SystemUserCollection.OrderByDescending(item => item.UserId).First();
+                this.m_SystemUser = new Business.User.SystemUser();
+                this.m_SystemUser.UserId = user.UserId + 1;
+            }
+            else
+            {
+                this.m_SystemUser = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullSystemUser(systemUser.UserId, this);
+            }
+
+            this.m_SystemRoleViewCollection = new Business.User.SystemRoleViewCollection(this.m_SystemUser);
+
             InitializeComponent();
             this.DataContext = this;
             this.Closed += SystemUserDialog_Closed;
@@ -67,12 +81,27 @@ namespace YellowstonePathology.UI
             }
         }
 
+        public YellowstonePathology.Business.User.SystemRoleViewCollection SystemRoleViewCollection
+        {
+            get { return this.m_SystemRoleViewCollection; }
+        }
+
         private bool CanSave()
         {
             bool result = true;
-            if(this.m_SystemUser != null)
+            if (string.IsNullOrEmpty(this.m_SystemUser.UserName) == true)
             {
-                if (string.IsNullOrEmpty(this.m_SystemUser.UserName) == true) result = false;
+                result = false;
+            }
+            else
+            {
+                foreach(YellowstonePathology.Business.User.SystemUser user in this.m_SystemUserCollection)
+                {
+                    if(user.UserId != this.m_SystemUser.UserId && user.UserName == this.m_SystemUser.UserName)
+                    {
+                        result = false;
+                    }
+                }
             }
             return result;
         }
@@ -81,7 +110,13 @@ namespace YellowstonePathology.UI
         {
             if (this.CanSave() == true)
             {
-                Close();
+                YellowstonePathology.Business.User.SystemUser user = this.m_SystemUserCollection.SingleOrDefault(item => item.UserId == this.m_SystemUser.UserId);
+                if(user == null)
+                {
+                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(this.m_SystemUser, this);
+                }
+                this.SetUserRoles();
+                this.Close();
             }
             else
             {
@@ -89,24 +124,32 @@ namespace YellowstonePathology.UI
             }
         }
 
-        private void ButtonNew_Click(object sender, RoutedEventArgs e)
+        private void SetUserRoles()
         {
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
-
-            YellowstonePathology.Business.User.SystemUser user = this.m_SystemUserCollection.OrderByDescending(item => item.UserId).First();
-            this.m_SystemUser = new Business.User.SystemUser();
-            this.m_SystemUser.UserId = user.UserId + 1;
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(this.m_SystemUser, this);
-            this.m_SystemUserCollection.Add(this.m_SystemUser);
-            this.NotifyPropertyChanged(string.Empty);
-            this.ComboBoxUser.SelectedIndex = this.m_SystemUserCollection.Count - 1;
-        }
-
-        private void ComboBoxUser_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (this.ComboBoxUser.SelectedItem != null)
+            int systemUserRoleId = YellowstonePathology.Business.User.SystemUserGateway.GetMaxSystemUserRoleId();
+            foreach(YellowstonePathology.Business.User.SystemRoleView roleView in this.m_SystemRoleViewCollection)
             {
-                this.SystemUser = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullSystemUser(((YellowstonePathology.Business.User.SystemUser)this.ComboBoxUser.SelectedItem).UserId, this);
+                if(roleView.IsAMember == true)
+                {
+                    YellowstonePathology.Business.User.SystemUserRole role = this.m_SystemUser.SystemUserRoleCollection.SingleOrDefault(item => item.RoleID == roleView.SystemRole.SystemRoleId);
+                    if(role == null)
+                    {
+                        systemUserRoleId += 1;
+                        YellowstonePathology.Business.User.SystemUserRole roleToAdd = new Business.User.SystemUserRole();
+                        roleToAdd.SystemUserRoleId = systemUserRoleId;
+                        roleToAdd.RoleID = roleView.SystemRole.SystemRoleId;
+                        roleToAdd.UserID = this.m_SystemUser.UserId;
+                        this.m_SystemUser.SystemUserRoleCollection.Add(roleToAdd);
+                    }
+                }
+                else
+                {
+                    YellowstonePathology.Business.User.SystemUserRole role = this.m_SystemUser.SystemUserRoleCollection.SingleOrDefault(item => item.RoleID == roleView.SystemRole.SystemRoleId);
+                    if(role != null)
+                    {
+                        this.m_SystemUser.SystemUserRoleCollection.Remove(role);
+                    }
+                }
             }
         }
     }
