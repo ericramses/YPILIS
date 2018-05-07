@@ -961,15 +961,15 @@ namespace YellowstonePathology.UI
             stainStatusDialog.ShowDialog();
         }
 
-<<<<<<< HEAD
         private void MenuItemSystemUser_Click(object sender, RoutedEventArgs e)
         {
             SystemUserListDialog dlg = new SystemUserListDialog();
-=======
+            dlg.ShowDialog();
+        }
+
         private void MenuItemUserPreferences_Click(object sender, RoutedEventArgs e)
         {
             Common.UserPreferencesList dlg = new Common.UserPreferencesList(false);
->>>>>>> facility
             dlg.ShowDialog();
         }
     }
