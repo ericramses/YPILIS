@@ -109,22 +109,13 @@ namespace YellowstonePathology.UI
         }
 
         public void SetShortcut(TextBox microscopix, Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder)
-<<<<<<< HEAD
-        {            
-=======
         {
->>>>>>> facility
             System.Text.RegularExpressions.MatchCollection matches = System.Text.RegularExpressions.Regex.Matches(microscopix.Text.Substring(0, microscopix.SelectionStart), @"([0-9]+)([A-za-z]+) ");
             if (matches.Count > 0)
             {
                 string specimenNumber = matches[0].Groups[1].Value;
-<<<<<<< HEAD
-                string shortcutName = matches[0].Groups[2].Value;                
-                                
-=======
                 string shortcutName = matches[0].Groups[2].Value;
 
->>>>>>> facility
                 if (this.m_TypingShortcutCollection.Exists(shortcutName) == true)
                 {
                     Business.Typing.TypingShortcut typingShortcut = this.m_TypingShortcutCollection.FindItem(shortcutName);
@@ -142,11 +133,7 @@ namespace YellowstonePathology.UI
                                 microscopix.SelectionStart = microscopix.Text.Length;
                             }
                         }
-<<<<<<< HEAD
-                    }                    
-=======
                     }
->>>>>>> facility
                 }
                 else
                 {

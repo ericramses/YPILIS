@@ -43,13 +43,9 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-<<<<<<< HEAD
+
     <ApplicationRevision>55</ApplicationRevision>
     <ApplicationVersion>10.1.10.%2a</ApplicationVersion>
-=======
-    <ApplicationRevision>3</ApplicationRevision>
-    <ApplicationVersion>10.1.11.%2a</ApplicationVersion>
->>>>>>> facility
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -338,36 +334,6 @@
     <Compile Include="Business\Client.Model\IdahoClientIdList.cs" />
     <Compile Include="Business\ClientOrder.Model\ExternalOrderIds.cs" />
     <Compile Include="Business\ClientOrder.Model\ExternalOrderIdsCollection.cs" />
-<<<<<<< HEAD
-    <Compile Include="Business\Facility.Model\MarshfieldClinic.cs" />
-    <Compile Include="Business\Facility.Model\CommunityHospitalAnaconda.cs" />
-    <Compile Include="Business\Facility.Model\NationalJewishHealth.cs" />
-    <Compile Include="Business\Facility.Model\UniversityOfUtahHealthCare.cs" />
-    <Compile Include="Business\Facility.Model\Cellnetix.cs" />
-    <Compile Include="Business\Facility.Model\UCHLoneTreeBreastCenter.cs" />
-    <Compile Include="Business\Facility.Model\VirginiaMason.cs" />
-    <Compile Include="Business\Facility.Model\UCDavisMedicalCenter.cs" />
-    <Compile Include="Business\Facility.Model\MyriadGeneticsLab.cs" />
-    <Compile Include="Business\Facility.Model\EasternColoradoHealthcare.cs" />
-    <Compile Include="Business\Facility.Model\BeneifsHealthSystem.cs" />
-    <Compile Include="Business\Facility.Model\WilliamsPorterDayLaw.cs" />
-    <Compile Include="Business\Facility.Model\CastleBiosciences.cs" />
-    <Compile Include="Business\Facility.Model\PathologyConsultantsOfWesternMontana.cs" />
-    <Compile Include="Business\Facility.Model\UniversityOfArizonaCancerCenter.cs" />
-    <Compile Include="Business\Facility.Model\UniversityOfMississippi.cs" />
-    <Compile Include="Business\Facility.Model\NorthernMtHealthcare.cs" />
-    <Compile Include="Business\Facility.Model\FortHarrisonVA.cs" />
-    <Compile Include="Business\Facility.Model\CasperDermatologyClinic.cs" />
-    <Compile Include="Business\Facility.Model\OregonHealthScienceUniversity.cs" />
-    <Compile Include="Business\Facility.Model\MadisonMemorialHospital.cs" />
-    <Compile Include="Business\Facility.Model\StanfordUniversityMedicalCenter.cs" />
-    <Compile Include="Business\Facility.Model\StLukesMagicValley.cs" />
-    <Compile Include="Business\Facility.Model\VAEasternColorado.cs" />
-    <Compile Include="Business\Facility.Model\CBCI.cs" />
-    <Compile Include="Business\Facility.Model\AssociatedDermatology.cs" />
-    <Compile Include="Business\Facility.Model\YellowstonePathologistBozeman.cs" />
-=======
->>>>>>> facility
     <Compile Include="Business\Flow\CytoplasmicMarkerMapping.cs" />
     <Compile Include="Business\Flow\CytoplasmicMarkerMappingCollection.cs" />
     <Compile Include="Business\HL7View\ADTMessage.cs" />
