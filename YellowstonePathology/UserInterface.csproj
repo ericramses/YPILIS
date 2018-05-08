@@ -43,7 +43,6 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-
     <ApplicationRevision>55</ApplicationRevision>
     <ApplicationVersion>10.1.10.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
@@ -1106,6 +1105,7 @@
     <Compile Include="Business\Test\JAK2Exon1214\JAK2Exon1214CMMCNteView.cs" />
     <Compile Include="Business\Test\JAK2V617F\JAK2V617FCMMCNteView.cs" />
     <Compile Include="Business\Test\LowGradeSmallBCellLymphomaFishPanel\LowGradeSmallBCellLymphomaFishPanelTest.cs" />
+    <Compile Include="Business\Test\LymphocyteSubsetPanel4\LymphocyteSubsetPanel4Test.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEGYNResult3a.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LynchSyndromeIHCPanelCMMCNTEView.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LynchSyndromeIHCPanelWPHOBXView.cs" />
