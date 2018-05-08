@@ -27,6 +27,11 @@ namespace YellowstonePathology.Business.Test
 			this.m_ObjectId = objectId;
 			this.m_SpecimenOrderId = specimenOrderId;
             this.m_Decal = false;
+            this.Status = YellowstonePathology.Business.TrackedItemStatusEnum.Created.ToString();
+
+            YellowstonePathology.Business.Facility.Model.Facility facility = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId);
+            string location = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.Location;
+            this.SetLocation(facility, location);
 
             this.m_TestOrderCollection = new YellowstonePathology.Business.Test.Model.TestOrderCollection_Base();			
 			this.m_SlideOrderCollection = new YellowstonePathology.Business.Slide.Model.SlideOrderCollection();

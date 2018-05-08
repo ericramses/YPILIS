@@ -37,10 +37,7 @@ namespace YellowstonePathology.Business.Visitor
             string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();            
             string slideOrderId = YellowstonePathology.Business.OrderIdParser.GetNextSlideOrderId(this.m_AliquotOrder.SlideOrderCollection, this.m_AliquotOrder.AliquotOrderId);            
 
-            YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder = new Business.Slide.Model.SlideOrder();                        
-            slideOrder.ObjectId = objectId;
-            slideOrder.SlideOrderId = slideOrderId;
-            slideOrder.AliquotOrderId = this.m_AliquotOrder.AliquotOrderId;            
+            YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder = new Business.Slide.Model.SlideOrder(objectId, slideOrderId, this.m_AliquotOrder, this.m_TestOrder, this.m_SystemIdentity, nextSlideNumber);
             slideOrder.Label = YellowstonePathology.Business.Slide.Model.SlideOrder.GetSlideLabel(nextSlideNumber, this.m_AliquotOrder.Label, this.m_AliquotOrder.AliquotType);            
             slideOrder.TestOrder = this.m_TestOrder;
             slideOrder.ReportNo = panelSetOrder.ReportNo;
@@ -50,21 +47,11 @@ namespace YellowstonePathology.Business.Visitor
             slideOrder.TestAbbreviation = this.m_TestOrder.TestAbbreviation;
             slideOrder.PatientLastName = accessionOrder.PLastName;
             slideOrder.PatientFirstName = accessionOrder.PFirstName;
-            slideOrder.Description = "Histology Slide";
-            slideOrder.AliquotType = "Slide";
-            slideOrder.OrderedById = this.m_SystemIdentity.User.UserId;
-            slideOrder.OrderDate = DateTime.Now;
             slideOrder.OrderedBy = string.IsNullOrEmpty(this.m_TestOrder.OrderedBy) ? "NONE" : this.m_TestOrder.OrderedBy;
-            slideOrder.OrderedFrom = System.Environment.MachineName;
-            slideOrder.Status = Business.Slide.Model.SlideStatusEnum.Created.ToString();
             slideOrder.AccessioningFacility = accessioningFacility.LocationAbbreviation;
             slideOrder.LabelType = slide.LabelType.ToString();
             slideOrder.UseWetProtocol = this.m_TestOrder.UseWetProtocol;
             slideOrder.PerformedByHand = this.m_TestOrder.PerformedByHand;
-
-            YellowstonePathology.Business.Facility.Model.Facility facility = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId);
-            string location = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.Location;
-            slideOrder.SetLocation(facility, location);
 
             this.m_NewSlideOrder = slideOrder;
             this.m_TestOrder.SlideOrderCollection.Add(slideOrder);

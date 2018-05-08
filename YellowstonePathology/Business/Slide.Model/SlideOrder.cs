@@ -19,8 +19,14 @@ namespace YellowstonePathology.Business.Slide.Model
 		public SlideOrder()
 		{            
             
-		}        
-        
+		}
+
+        public SlideOrder(string objectId, string slideOrderId, YellowstonePathology.Business.Test.AliquotOrder aliquotOrder,
+            YellowstonePathology.Business.Test.Model.TestOrder testOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity,
+            int slideNumber)
+            : base(objectId, slideOrderId, aliquotOrder, testOrder, systemIdentity, slideNumber)
+        {}
+
         public YellowstonePathology.Business.Test.Model.TestOrder_Base TestOrder
         {
             get { return this.m_TestOrder; }
