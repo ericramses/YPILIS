@@ -396,7 +396,7 @@ namespace YellowstonePathology.Business.Rules.Cytology
             {
 				this.m_PanelSetOrderCytology.HasProfessionalComponent = true;
 				this.m_PanelSetOrderCytology.ProfessionalComponentFacilityId = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId;
-                this.m_PanelSetOrderCytology.ProfessionalComponentBillingFacilityId = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings().FacilityId;
+                this.m_PanelSetOrderCytology.ProfessionalComponentBillingFacilityId = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS").FacilityId;
 			}
             else
             {

@@ -109,17 +109,17 @@ namespace YellowstonePathology.UI
         }
 
         public void SetShortcut(TextBox microscopix, Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder)
-        {            
+        {
             System.Text.RegularExpressions.MatchCollection matches = System.Text.RegularExpressions.Regex.Matches(microscopix.Text.Substring(0, microscopix.SelectionStart), @"([0-9]+)([A-za-z]+) ");
             if (matches.Count > 0)
             {
                 string specimenNumber = matches[0].Groups[1].Value;
-                string shortcutName = matches[0].Groups[2].Value;                
-                                
+                string shortcutName = matches[0].Groups[2].Value;
+
                 if (this.m_TypingShortcutCollection.Exists(shortcutName) == true)
                 {
                     Business.Typing.TypingShortcut typingShortcut = this.m_TypingShortcutCollection.FindItem(shortcutName);
-                    if(typingShortcut.MicroDX == true)
+                    if (typingShortcut.MicroDX == true)
                     {
                         System.Text.RegularExpressions.MatchCollection shortcutMatches = System.Text.RegularExpressions.Regex.Matches(typingShortcut.Text, @"(MICRO:)([\s\S]+)(DX:)([\s\S]+)");
                         if (shortcutMatches.Count > 0)
@@ -129,11 +129,11 @@ namespace YellowstonePathology.UI
                                 microscopix.Text = microscopix.Text.Replace(matches[0].Value, "Specimen " + specimenNumber + " - ");
                                 microscopix.Text += shortcutMatches[0].Groups[2].Value.Trim();
                                 Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen = surgicalTestOrder.SurgicalSpecimenCollection.GetBySpecimenNumber(specimenNumber);
-                                surgicalSpecimen.Diagnosis += shortcutMatches[0].Groups[4].Value;
+                                surgicalSpecimen.Diagnosis += shortcutMatches[0].Groups[4].Value.Trim();
                                 microscopix.SelectionStart = microscopix.Text.Length;
                             }
                         }
-                    }                    
+                    }
                 }
                 else
                 {
@@ -143,7 +143,7 @@ namespace YellowstonePathology.UI
             else
             {
                 this.SetShortcut(microscopix);
-            }            
+            }
         }
         
         public void NotifyPropertyChanged(String info)

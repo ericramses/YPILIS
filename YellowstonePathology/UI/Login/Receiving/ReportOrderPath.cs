@@ -234,7 +234,7 @@ namespace YellowstonePathology.UI.Login.Receiving
             bool result = false;
             if (this.m_TestOrderInfo.PanelSet.HasTechnicalComponent == true)
             {
-                if (this.m_TestOrderInfo.PanelSet.TechnicalComponentFacility.GetType() != typeof(YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings))
+                if (this.m_TestOrderInfo.PanelSet.TechnicalComponentFacility.FacilityId != YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS").FacilityId)
                 {
                     if (this.m_AccessionOrder.PanelSetOrderCollection.Count > 1 && this.m_AccessionOrder.PhysicianId != 0)
                     {

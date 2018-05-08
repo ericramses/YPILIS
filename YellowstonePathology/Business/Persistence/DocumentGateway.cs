@@ -246,19 +246,18 @@ namespace YellowstonePathology.Business.Persistence
                 Document document = this.m_Stack.Pull(documentId, specimenOrderDocumentBuilder);
                 return (YellowstonePathology.Business.Specimen.Model.SpecimenOrder)document.Value;
             }
-        }        
+        }
 
-        public YellowstonePathology.Business.User.UserPreference PullUserPreference(object writer)
+        public YellowstonePathology.Business.User.UserPreference PullUserPreference(string location, object writer)
         {
             lock (locker)
             {
-                string hostName = Environment.MachineName;
-                MySqlCommand cmd = new MySqlCommand("Select * from tblUserPreference where tblUserPreference.HostName = @HostName;");
+                MySqlCommand cmd = new MySqlCommand("Select * from tblUserPreference where tblUserPreference.Location = @Location;");
                 cmd.CommandType = System.Data.CommandType.Text;
-                cmd.Parameters.AddWithValue("@HostName", hostName);
+                cmd.Parameters.AddWithValue("@Location", location);
                 GenericDocumentBuilder builder = new GenericDocumentBuilder(cmd, typeof(YellowstonePathology.Business.User.UserPreference));
 
-                DocumentId documentId = new DocumentId(typeof(YellowstonePathology.Business.User.UserPreference), writer, hostName);
+                DocumentId documentId = new DocumentId(typeof(YellowstonePathology.Business.User.UserPreference), writer, location);
                 documentId.IsGlobal = true;
                 Document document = this.m_Stack.Pull(documentId, builder);
 
@@ -343,6 +342,22 @@ namespace YellowstonePathology.Business.Persistence
                 Document document = this.m_Stack.Pull(documentId, builder);
                 return (YellowstonePathology.Business.Surgical.VentanaBenchMark)document.Value;
             }
-        }        
+        }
+
+        public YellowstonePathology.Business.Facility.Model.Facility PullFacility(string facilityId, object writer)
+        {
+            lock (locker)
+            {
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.CommandText = "Select * from tblFacility f where f.FacilityId = @FacilityId;";
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("@FacilityId", facilityId);
+                GenericDocumentBuilder builder = new GenericDocumentBuilder(cmd, typeof(YellowstonePathology.Business.Facility.Model.Facility));
+
+                DocumentId documentId = new DocumentId(typeof(YellowstonePathology.Business.Facility.Model.Facility), writer, facilityId);
+                Document document = this.m_Stack.Pull(documentId, builder);
+                return (YellowstonePathology.Business.Facility.Model.Facility)document.Value;
+            }
+        }
     }
 }

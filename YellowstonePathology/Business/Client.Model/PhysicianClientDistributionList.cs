@@ -28,8 +28,7 @@ namespace YellowstonePathology.Business.Client.Model
             Business.Client.Model.Client client = Business.Gateway.PhysicianClientGateway.GetClientByClientId(accessionOrder.ClientId);
             if(client.PathologyGroupId != "YPBLGS")
             {
-                Business.Facility.Model.FacilityCollection facilities = Business.Facility.Model.FacilityCollection.GetAllFacilities();
-                Business.Facility.Model.Facility pathFacility = facilities.GetByFacilityId(client.PathologyGroupId);
+                Business.Facility.Model.Facility pathFacility = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId(client.PathologyGroupId);
                 Business.Client.Model.Client pathClient = Business.Gateway.PhysicianClientGateway.GetClientByClientId(pathFacility.ClientId);
 
                 PhysicianClientDistributionListItem physicianClientDistribution = YellowstonePathology.Business.Client.Model.PhysicianClientDistributionFactory.GetPhysicianClientDistribution(client.DistributionType);

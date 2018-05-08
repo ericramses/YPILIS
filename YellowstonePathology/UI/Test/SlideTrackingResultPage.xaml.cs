@@ -128,14 +128,14 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkSendToBozeman_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Facility.Model.YellowstonePathologistBozeman facility = new Business.Facility.Model.YellowstonePathologistBozeman();
+            YellowstonePathology.Business.Facility.Model.Facility facility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPBZMN");
             this.m_VantageSlideViewCollection.SetLocation(facility.FacilityId);
             this.NotifyPropertyChanged(string.Empty);
         }
 
         private void HyperLinkSendToBillings_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings facility = new Business.Facility.Model.YellowstonePathologyInstituteBillings();
+            YellowstonePathology.Business.Facility.Model.Facility facility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
             this.m_VantageSlideViewCollection.SetLocation(facility.FacilityId);
             this.NotifyPropertyChanged(string.Empty);
         }
