@@ -22,7 +22,7 @@
                 <CheckBox Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" Checked="CheckBoxSlideOrder_Checked" Unchecked="CheckBoxSlideOrder_Unchecked" Tag="{Binding}"></CheckBox>
                 <TextBlock Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" Text="Slide"></TextBlock>
                 <TextBlock Grid.Column="2" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=Label}"></TextBlock>
-                <TextBlock Grid.Column="3" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=LocationId}" FontSize="7"></TextBlock>
+                <TextBlock Grid.Column="3" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=Location}" FontSize="7"></TextBlock>
 
             </Grid>
         </HierarchicalDataTemplate>
@@ -44,7 +44,7 @@
                 <CheckBox Grid.Column="0" Grid.Row="0" Margin="2,4,2,2" Checked="CheckBoxAliquotOrder_Checked" Unchecked="CheckBoxAliquotOrder_Unchecked" Tag="{Binding}"></CheckBox>
                 <TextBlock Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=AliquotType}"></TextBlock>
 				<TextBlock Grid.Column="2" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=Label}" MaxWidth="160" TextWrapping="Wrap"></TextBlock>
-                <TextBlock Grid.Column="3" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=LocationId}" MaxWidth="160" TextWrapping="Wrap" FontSize="7"></TextBlock>
+                <TextBlock Grid.Column="3" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=Location}" MaxWidth="160" TextWrapping="Wrap" FontSize="7"></TextBlock>
 
             </Grid>
         </HierarchicalDataTemplate>

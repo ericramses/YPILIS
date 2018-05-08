@@ -1716,37 +1716,36 @@ namespace YellowstonePathology.Business.Test
 		{
 			StringBuilder result = new StringBuilder();
 
-			YellowstonePathology.Business.Facility.Model.FacilityCollection facilityCollection = YellowstonePathology.Business.Facility.Model.FacilityCollection.GetAllFacilities();
-			YellowstonePathology.Business.Facility.Model.Facility technicalComponentFacility = new YellowstonePathology.Business.Facility.Model.NullFacility();
-			YellowstonePathology.Business.Facility.Model.Facility professionalComponentFacility = new YellowstonePathology.Business.Facility.Model.NullFacility();
+			YellowstonePathology.Business.Facility.Model.Facility technicalComponentFacility = new YellowstonePathology.Business.Facility.Model.Facility();
+			YellowstonePathology.Business.Facility.Model.Facility professionalComponentFacility = new YellowstonePathology.Business.Facility.Model.Facility();
 
 			if (this.HasTechnicalComponent == true)
 			{
-				technicalComponentFacility = facilityCollection.GetByFacilityId(this.m_TechnicalComponentFacilityId);
+				technicalComponentFacility = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId(this.m_TechnicalComponentFacilityId);
 			}
 
 			if (this.HasProfessionalComponent == true)
 			{
-				professionalComponentFacility = facilityCollection.GetByFacilityId(this.m_ProfessionalComponentFacilityId);
+				professionalComponentFacility = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId(this.m_ProfessionalComponentFacilityId);
 			}
 
-			if (technicalComponentFacility.CLIALicense.LicenseNumber == professionalComponentFacility.CLIALicense.LicenseNumber)
+			if (technicalComponentFacility.CLIALicenseNumber == professionalComponentFacility.CLIALicenseNumber)
 			{
 				if (this.HasTechnicalComponent == true && this.HasProfessionalComponent == false)
 				{
 					result.Append("Technical component(s) performed at ");
-					result.Append(technicalComponentFacility.CLIALicense.GetAddressString());
+					result.Append(technicalComponentFacility.GetCLIAAddressString());
 				}
 				else if (this.HasProfessionalComponent == true && this.HasTechnicalComponent == false)
 				{
 					if (result.Length != 0) result.Append(" ");
 					result.Append("Professional component(s) performed at ");
-					result.Append(professionalComponentFacility.CLIALicense.GetAddressString());
+					result.Append(professionalComponentFacility.GetCLIAAddressString());
 				}
 				else if (this.HasProfessionalComponent == true && this.HasTechnicalComponent == true)
 				{
 					result.Append("Technical and professional component(s) performed at ");
-					result.Append(professionalComponentFacility.CLIALicense.GetAddressString());
+					result.Append(professionalComponentFacility.GetCLIAAddressString());
 				}
 			}
 			else
@@ -1754,14 +1753,14 @@ namespace YellowstonePathology.Business.Test
 				if (this.HasTechnicalComponent == true)
 				{
 					result.Append("Technical component(s) performed at ");
-					result.Append(technicalComponentFacility.CLIALicense.GetAddressString());
+					result.Append(technicalComponentFacility.GetCLIAAddressString());
 				}
 
 				if (this.HasProfessionalComponent == true)
 				{
 					if (result.Length != 0) result.Append(" ");
 					result.Append("Professional component(s) performed at ");
-					result.Append(professionalComponentFacility.CLIALicense.GetAddressString());
+					result.Append(professionalComponentFacility.GetCLIAAddressString());
 				}
 			}
 

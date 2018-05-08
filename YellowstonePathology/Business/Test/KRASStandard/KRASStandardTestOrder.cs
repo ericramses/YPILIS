@@ -229,7 +229,7 @@ namespace YellowstonePathology.Business.Test.KRASStandard
                     YellowstonePathology.Business.Test.KRASStandardReflex.KRASStandardReflexTest krasStandardReflexTest = new KRASStandardReflex.KRASStandardReflexTest();
                     if (accessionOrder.PanelSetOrderCollection.Exists(krasStandardReflexTest.PanelSetId, this.OrderedOnId, true) == false)
                     {
-                        YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings ypi = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();
+                        YellowstonePathology.Business.Facility.Model.Facility ypi = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
                         if (this.TechnicalComponentFacilityId == ypi.FacilityId)
                         {
                             if (string.IsNullOrEmpty(this.TumorNucleiPercentage) == true)

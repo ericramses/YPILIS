@@ -34,7 +34,6 @@ namespace YellowstonePathology.Business.Test
         protected Nullable<DateTime> m_EmbeddingVerifiedDate;
         protected bool m_Printed;
         protected string m_LabelType;
-        private string m_LocationId;
         private string m_FacilityId;
         private string m_FacilityName;
         protected bool m_Validated;
@@ -46,6 +45,7 @@ namespace YellowstonePathology.Business.Test
         protected string m_EmbeddingInstructions;
         protected bool m_Decal;
         protected DateTime? m_LocationTime;
+        private string m_Location;
 
         public AliquotOrder_Base()
         {
@@ -279,21 +279,6 @@ namespace YellowstonePathology.Business.Test
 
         [PersistentProperty()]
         [PersistentDataColumnProperty(true, "50", "null", "varchar")]
-        public string LocationId
-        {
-            get { return this.m_LocationId; }
-            set
-            {
-                if (this.m_LocationId != value)
-                {
-                    this.m_LocationId = value;
-                    this.NotifyPropertyChanged("LocationId");
-                }
-            }
-        }
-
-        [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
         public string FacilityId
         {
             get { return this.m_FacilityId; }
@@ -510,6 +495,21 @@ namespace YellowstonePathology.Business.Test
                 {
                     this.m_LocationTime = value;
                     this.NotifyPropertyChanged("LocationTime");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
+        public string Location
+        {
+            get { return this.m_Location; }
+            set
+            {
+                if (this.m_Location != value)
+                {
+                    this.m_Location = value;
+                    this.NotifyPropertyChanged("Location");
                 }
             }
         }
@@ -798,19 +798,12 @@ namespace YellowstonePathology.Business.Test
             }
         }
 
-        public void SetLocation(YellowstonePathology.Business.Facility.Model.Facility facility, YellowstonePathology.Business.Facility.Model.Location location)
+        public void SetLocation(YellowstonePathology.Business.Facility.Model.Facility facility, string location)
         {
             this.FacilityId = facility.FacilityId;
             this.FacilityName = facility.FacilityName;
             this.m_LocationTime = DateTime.Now;
-            if (location == null)
-            {
-                this.LocationId = null;
-            }
-            else
-            {
-                this.LocationId = location.LocationId;
-            }
+            this.Location = location;
         }
     }
 }

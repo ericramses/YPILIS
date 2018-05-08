@@ -29,8 +29,7 @@ namespace YellowstonePathology.Business.Visitor
         {
             YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = accessionOrder.PanelSetOrderCollection.GetPanelSetOrderByTestOrderId(this.m_TestOrder.TestOrderId);
 
-            YellowstonePathology.Business.Facility.Model.FacilityCollection allFacilities = YellowstonePathology.Business.Facility.Model.FacilityCollection.GetAllFacilities();
-            YellowstonePathology.Business.Facility.Model.Facility accessioningFacility = allFacilities.GetByFacilityId(accessionOrder.AccessioningFacilityId);
+            YellowstonePathology.Business.Facility.Model.Facility accessioningFacility = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId(accessionOrder.AccessioningFacilityId);
 
             Slide.Model.Slide slide = Slide.Model.SlideFactory.Get(this.m_TestOrder.TestId);
 
@@ -58,7 +57,7 @@ namespace YellowstonePathology.Business.Visitor
             slideOrder.OrderedBy = string.IsNullOrEmpty(this.m_TestOrder.OrderedBy) ? "NONE" : this.m_TestOrder.OrderedBy;
             slideOrder.OrderedFrom = System.Environment.MachineName;
             slideOrder.Status = Business.Slide.Model.SlideStatusEnum.Created.ToString();
-            slideOrder.Location = accessioningFacility.LocationAbbreviation;
+            slideOrder.AccessioningFacility = accessioningFacility.LocationAbbreviation;
             slideOrder.LabelType = slide.LabelType.ToString();
             slideOrder.UseWetProtocol = this.m_TestOrder.UseWetProtocol;
             slideOrder.PerformedByHand = this.m_TestOrder.PerformedByHand;

@@ -4,10 +4,12 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.ComponentModel;
+using YellowstonePathology.Business.Persistence;
 
 namespace YellowstonePathology.Business.Facility.Model
 {
-	public class Facility : INotifyPropertyChanged
+    [PersistentClass("tblFacility", "YPIDATA")]
+    public class Facility : INotifyPropertyChanged
 	{        
 		public event PropertyChangedEventHandler PropertyChanged;
        
@@ -28,22 +30,20 @@ namespace YellowstonePathology.Business.Facility.Model
         protected string m_FedexPaymentType;
         protected int m_ClientId;
         protected string m_EmailAddress;
-
-		protected LocationCollection m_Locations;
-        protected CLIALicense m_CliaLicense;        
+        protected string m_CLIALicenseNumber;
 
 		public Facility()
 		{            
-            this.m_Locations = new LocationCollection();            
 		}
 
         public Facility GetDefaultBillingFacility(int clientId)
         {
             Facility result = null;
             return result;
-        }        
-		
-		public string FacilityId
+        }
+
+        [PersistentPrimaryKeyProperty(false)]
+        public string FacilityId
 		{
 			get { return this.m_FacilityId; }
 			set
@@ -56,6 +56,7 @@ namespace YellowstonePathology.Business.Facility.Model
 			}
 		}
 
+        [PersistentProperty()]
         public string FacilityIdOLD
         {
             get { return this.m_FacilityIdOLD; }
@@ -68,8 +69,9 @@ namespace YellowstonePathology.Business.Facility.Model
                 }
             }
         }
-        
-		public string FacilityName
+
+        [PersistentProperty()]
+        public string FacilityName
 		{
 			get { return this.m_FacilityName; }
 			set
@@ -81,8 +83,9 @@ namespace YellowstonePathology.Business.Facility.Model
 				}
 			}
 		}
-        
-		public string Address1
+
+        [PersistentProperty()]
+        public string Address1
 		{
 			get { return this.m_Address1; }
 			set
@@ -94,8 +97,9 @@ namespace YellowstonePathology.Business.Facility.Model
 				}
 			}
 		}
-        
-		public string Address2
+
+        [PersistentProperty()]
+        public string Address2
 		{
 			get { return this.m_Address2; }
 			set
@@ -107,8 +111,9 @@ namespace YellowstonePathology.Business.Facility.Model
 				}
 			}
 		}
-        
-		public string City
+
+        [PersistentProperty()]
+        public string City
 		{
 			get { return this.m_City; }
 			set
@@ -120,8 +125,9 @@ namespace YellowstonePathology.Business.Facility.Model
 				}
 			}
 		}
-        
-		public string State
+
+        [PersistentProperty()]
+        public string State
 		{
 			get { return this.m_State; }
 			set
@@ -133,8 +139,9 @@ namespace YellowstonePathology.Business.Facility.Model
 				}
 			}
 		}
-        
-		public string ZipCode
+
+        [PersistentProperty()]
+        public string ZipCode
 		{
 			get { return this.m_ZipCode; }
 			set
@@ -145,9 +152,10 @@ namespace YellowstonePathology.Business.Facility.Model
 					this.NotifyPropertyChanged("ZipCode");					
 				}
 			}
-		}       		
-        
-		public string PhoneNumber
+		}
+
+        [PersistentProperty()]
+        public string PhoneNumber
 		{
 			get { return this.m_PhoneNumber; }
 			set
@@ -159,8 +167,9 @@ namespace YellowstonePathology.Business.Facility.Model
 				}
 			}
 		}
-        
-		public string TollFreePhoneNumber
+
+        [PersistentProperty()]
+        public string TollFreePhoneNumber
 		{
 			get { return this.m_TollFreePhoneNumber; }
 			set
@@ -173,6 +182,7 @@ namespace YellowstonePathology.Business.Facility.Model
 			}
 		}
 
+        [PersistentProperty()]
         public bool IsReferenceLab
         {
             get { return this.m_IsReferenceLab; }
@@ -186,6 +196,7 @@ namespace YellowstonePathology.Business.Facility.Model
             }
         }
 
+        [PersistentProperty()]
         public string AccessioningLocation
         {
             get { return this.m_AccessioningLocation; }
@@ -199,6 +210,7 @@ namespace YellowstonePathology.Business.Facility.Model
             }
         }
 
+        [PersistentProperty()]
         public string LocationAbbreviation
         {
             get { return this.m_LocationAbbreviation; }
@@ -212,6 +224,7 @@ namespace YellowstonePathology.Business.Facility.Model
             }
         }
 
+        [PersistentProperty()]
         public string FedexAccountNo
         {
             get { return this.m_FedexAccountNo; }
@@ -225,6 +238,7 @@ namespace YellowstonePathology.Business.Facility.Model
             }
         }
 
+        [PersistentProperty()]
         public string FedexPaymentType
         {
             get { return this.m_FedexPaymentType; }
@@ -238,6 +252,7 @@ namespace YellowstonePathology.Business.Facility.Model
             }
         }
 
+        [PersistentProperty()]
         public int ClientId
         {
             get { return this.m_ClientId; }
@@ -251,6 +266,7 @@ namespace YellowstonePathology.Business.Facility.Model
             }
         }
 
+        [PersistentProperty()]
         public string EmailAddress
         {
             get { return this.m_EmailAddress; }
@@ -264,15 +280,26 @@ namespace YellowstonePathology.Business.Facility.Model
             }
         }
 
-        public LocationCollection Locations
+        [PersistentProperty()]
+        public string CLIALicenseNumber
         {
-            get { return this.m_Locations; }
+            get { return this.m_CLIALicenseNumber; }
+            set
+            {
+                if (this.m_CLIALicenseNumber != value)
+                {
+                    this.m_CLIALicenseNumber = value;
+                    this.NotifyPropertyChanged("CLIALicenseNumber");
+                }
+            }
         }
 
-        public CLIALicense CLIALicense
+        public string GetCLIAAddressString()
         {
-            get { return this.m_CliaLicense; }
-        }        
+            StringBuilder result = new StringBuilder();
+            result.Append(this.GetAddressString() + " (CLIA:" + this.m_CLIALicenseNumber + ").");
+            return result.ToString();
+        }
 
         public string GetAddressString()
         {

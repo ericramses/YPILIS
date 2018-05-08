@@ -43,8 +43,13 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
+<<<<<<< HEAD
     <ApplicationRevision>55</ApplicationRevision>
     <ApplicationVersion>10.1.10.%2a</ApplicationVersion>
+=======
+    <ApplicationRevision>3</ApplicationRevision>
+    <ApplicationVersion>10.1.11.%2a</ApplicationVersion>
+>>>>>>> facility
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -225,6 +230,7 @@
     <Compile Include="Business\Audit.Model\AccountNoAudit.cs" />
     <Compile Include="Business\Audit.Model\AliquotAndStainOrderAuditCollection.cs" />
     <Compile Include="Business\Audit.Model\BoneMarrowSummaryAudit.cs" />
+    <Compile Include="Business\Audit.Model\CanSaveFacilityAudit.cs" />
     <Compile Include="Business\Audit.Model\CellBlockWarningAudit.cs" />
     <Compile Include="Business\Audit.Model\AncillaryStudiesAreHandledAudit.cs" />
     <Compile Include="Business\Audit.Model\AreAllWHPTestsFinalAudit.cs" />
@@ -332,6 +338,7 @@
     <Compile Include="Business\Client.Model\IdahoClientIdList.cs" />
     <Compile Include="Business\ClientOrder.Model\ExternalOrderIds.cs" />
     <Compile Include="Business\ClientOrder.Model\ExternalOrderIdsCollection.cs" />
+<<<<<<< HEAD
     <Compile Include="Business\Facility.Model\MarshfieldClinic.cs" />
     <Compile Include="Business\Facility.Model\CommunityHospitalAnaconda.cs" />
     <Compile Include="Business\Facility.Model\NationalJewishHealth.cs" />
@@ -359,6 +366,8 @@
     <Compile Include="Business\Facility.Model\CBCI.cs" />
     <Compile Include="Business\Facility.Model\AssociatedDermatology.cs" />
     <Compile Include="Business\Facility.Model\YellowstonePathologistBozeman.cs" />
+=======
+>>>>>>> facility
     <Compile Include="Business\Flow\CytoplasmicMarkerMapping.cs" />
     <Compile Include="Business\Flow\CytoplasmicMarkerMappingCollection.cs" />
     <Compile Include="Business\HL7View\ADTMessage.cs" />
@@ -775,81 +784,12 @@
     <Compile Include="Business\Domain\XElementFromSql.cs" />
     <Compile Include="Business\Domain\XmlConversions.cs" />
     <Compile Include="Business\Domain\XmlViewer.cs" />
-    <Compile Include="Business\Facility.Model\AllFacility.cs" />
-    <Compile Include="Business\Facility.Model\ARUP.cs" />
-    <Compile Include="Business\Facility.Model\BigSkyDermatology.cs" />
-    <Compile Include="Business\Facility.Model\ClevelandClinicFoundation.cs" />
-    <Compile Include="Business\Facility.Model\BillingsClinic.cs" />
-    <Compile Include="Business\Facility.Model\BillingsClinicDermatology.cs" />
-    <Compile Include="Business\Facility.Model\BillingsClinicPathology.cs" />
-    <Compile Include="Business\Facility.Model\BozemanDeaconess.cs" />
-    <Compile Include="Business\Facility.Model\BreastPathologyConsultants.cs" />
-    <Compile Include="Business\Facility.Model\ButtePathology.cs" />
-    <Compile Include="Business\Facility.Model\CancerTreatmentCentersOfAmerica.cs" />
-    <Compile Include="Business\Facility.Model\CarisLifeSciences.cs" />
-    <Compile Include="Business\Facility.Model\ChildrensHospitalColorado.cs" />
-    <Compile Include="Business\Facility.Model\CLIALicense.cs" />
     <Compile Include="Business\Facility.Model\ClientBillingFacility.cs" />
     <Compile Include="Business\Facility.Model\ClientBillingFacilityCollection.cs" />
-    <Compile Include="Business\Facility.Model\CMMC.cs" />
-    <Compile Include="Business\Facility.Model\CockerellDermatology.cs" />
-    <Compile Include="Business\Facility.Model\ColoradoGeneticsLaboratory.cs" />
-    <Compile Include="Business\Facility.Model\EmoryUniversity.cs" />
     <Compile Include="Business\Facility.Model\Facility.cs" />
     <Compile Include="Business\Facility.Model\FacilityCollection.cs" />
-    <Compile Include="Business\Facility.Model\FoundationMedicine.cs" />
-    <Compile Include="Business\Facility.Model\GenomicHealth.cs" />
     <Compile Include="Business\Facility.Model\Host.cs" />
     <Compile Include="Business\Facility.Model\HostCollection.cs" />
-    <Compile Include="Business\Facility.Model\HuntsmanCancerInstitute.cs" />
-    <Compile Include="Business\Facility.Model\JohnHopkins.cs" />
-    <Compile Include="Business\Facility.Model\Location.cs" />
-    <Compile Include="Business\Facility.Model\LocationCollection.cs" />
-    <Compile Include="Business\Facility.Model\LocationDefinitions.cs" />
-    <Compile Include="Business\Facility.Model\LoweLawGroup.cs" />
-    <Compile Include="Business\Facility.Model\MontanaDepartmentofJustice.cs" />
-    <Compile Include="Business\Facility.Model\MountainViewHospital.cs" />
-    <Compile Include="Business\Facility.Model\BigHornCountyMemorialHospital.cs" />
-    <Compile Include="Business\Facility.Model\EIRMC.cs" />
-    <Compile Include="Business\Facility.Model\ChristianaCare.cs" />
-    <Compile Include="Business\Facility.Model\NationalCancerInstitue.cs" />
-    <Compile Include="Business\Facility.Model\NeogenomicsNashville.cs" />
-    <Compile Include="Business\Facility.Model\SheridanMemorialHospital.cs" />
-    <Compile Include="Business\Facility.Model\MontanaSkinCancerandDermatologyCenter.cs" />
-    <Compile Include="Business\Facility.Model\SheridanPathologyAssociates.cs" />
-    <Compile Include="Business\Facility.Model\MayoClinic.cs" />
-    <Compile Include="Business\Facility.Model\MDAndersonCancerCenter.cs" />
-    <Compile Include="Business\Facility.Model\MontanaDermatology.cs" />
-    <Compile Include="Business\Facility.Model\MUSC.cs" />
-    <Compile Include="Business\Facility.Model\NationalInstituteOfHealth.cs" />
-    <Compile Include="Business\Facility.Model\NeogenomicsInc.cs" />
-    <Compile Include="Business\Facility.Model\NeogenomicsIrvine.cs" />
-    <Compile Include="Business\Facility.Model\NullFacility.cs" />
-    <Compile Include="Business\Facility.Model\NullLocation.cs" />
-    <Compile Include="Business\Facility.Model\PathologyAssociatesOfIdahoFalls.cs" />
-    <Compile Include="Business\Facility.Model\PhenoPath.cs" />
-    <Compile Include="Business\Facility.Model\ProfessionalPathologyOfWyoming.cs" />
-    <Compile Include="Business\Facility.Model\SeattleCancerCenterAlliance.cs" />
-    <Compile Include="Business\Facility.Model\Shodair.cs" />
-    <Compile Include="Business\Facility.Model\StJamesHealth.cs" />
-    <Compile Include="Business\Facility.Model\StVincentHealthcare.cs" />
-    <Compile Include="Business\Facility.Model\TallmanDermatology.cs" />
-    <Compile Include="Business\Facility.Model\Therapath.cs" />
-    <Compile Include="Business\Facility.Model\TXChildrensHospital.cs" />
-    <Compile Include="Business\Facility.Model\UCSanFrancisco.cs" />
-    <Compile Include="Business\Facility.Model\UCSFDermPathService.cs" />
-    <Compile Include="Business\Facility.Model\UniPath.cs" />
-    <Compile Include="Business\Facility.Model\UniversityOfArkansasMedicalSciences.cs" />
-    <Compile Include="Business\Facility.Model\Anschutz Pathology UCH.cs" />
-    <Compile Include="Business\Facility.Model\UniversityOfColoradoHospital.cs" />
-    <Compile Include="Business\Facility.Model\UniversityOfMiami.cs" />
-    <Compile Include="Business\Facility.Model\UniversityOfMichigan.cs" />
-    <Compile Include="Business\Facility.Model\UniversityOfWashington.cs" />
-    <Compile Include="Business\Facility.Model\WesternMontanaClinic.cs" />
-    <Compile Include="Business\Facility.Model\YellowstonePathologistBillings.cs" />
-    <Compile Include="Business\Facility.Model\YellowstonePathologistCody.cs" />
-    <Compile Include="Business\Facility.Model\YellowstonePathologyInstituteBillings.cs" />
-    <Compile Include="Business\Facility.Model\YellowstonePathologyInstituteCody.cs" />
     <Compile Include="Business\FileList.cs" />
     <Compile Include="Business\FileListItem.cs" />
     <Compile Include="Business\Flow\CellPopulationOfInterest.cs" />
@@ -3349,6 +3289,12 @@
     <Compile Include="UI\BrowserWindow.xaml.cs">
       <DependentUpon>BrowserWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Client\FacilityEntry.xaml.cs">
+      <DependentUpon>FacilityEntry.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Common\UserPreferencesList.xaml.cs">
+      <DependentUpon>UserPreferencesList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\EmbeddingAutopsyItem.cs" />
     <Compile Include="UI\EmbeddingAutopsyList.cs" />
     <Compile Include="UI\Monitor\DashboardPage.xaml.cs">
@@ -5353,9 +5299,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="UI\Client\FacilityEntry.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\CodeSelection.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Common\UserPreferencesList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Cutting\AliquotOrderSelectionPage.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -7183,12 +7137,12 @@
   <ItemGroup>
     <PublishFile Include="Microsoft.Exchange.WebServices">
       <Visible>False</Visible>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
   </ItemGroup>

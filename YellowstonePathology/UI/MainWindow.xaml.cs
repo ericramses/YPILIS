@@ -674,7 +674,7 @@ namespace YellowstonePathology.UI
 
 		private void MenuItemPreferences_Click(object sender, RoutedEventArgs e)
 		{
-			YellowstonePathology.UI.Common.UserPreferences dlg = new YellowstonePathology.UI.Common.UserPreferences();
+			YellowstonePathology.UI.Common.UserPreferences dlg = new YellowstonePathology.UI.Common.UserPreferences(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference);
 			dlg.ShowDialog();
 		}		
 
@@ -964,6 +964,12 @@ namespace YellowstonePathology.UI
         private void MenuItemSystemUser_Click(object sender, RoutedEventArgs e)
         {
             SystemUserListDialog dlg = new SystemUserListDialog();
+            dlg.ShowDialog();
+        }
+
+        private void MenuItemUserPreferences_Click(object sender, RoutedEventArgs e)
+        {
+            Common.UserPreferencesList dlg = new Common.UserPreferencesList(false);
             dlg.ShowDialog();
         }
     }

@@ -9,7 +9,29 @@ namespace YellowstonePathology.Business.Facility.Model
 {	
 	public class FacilityCollection : ObservableCollection<Facility>
 	{
-		public FacilityCollection()
+        private static FacilityCollection instance;
+
+
+        public static FacilityCollection Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetAllFacilities();
+                    instance.Insert(0, new Facility());
+                }
+                return instance;
+            }
+        }
+
+        public static FacilityCollection Refresh()
+        {
+            instance = null;
+            return Instance;
+        }
+
+        public FacilityCollection()
 		{
             
 		}
@@ -33,6 +55,7 @@ namespace YellowstonePathology.Business.Facility.Model
         public static FacilityCollection GetPathGroupFacilities()
         {
             FacilityCollection result = new FacilityCollection();
+<<<<<<< HEAD
             result.Add(new NullFacility());
             result.Add(new YellowstonePathologistBillings());
             result.Add(new YellowstonePathologistBozeman());
@@ -140,22 +163,31 @@ namespace YellowstonePathology.Business.Facility.Model
         {
             Facility result = null;
             foreach (Facility facility in this)
+=======
+            foreach (Facility facility in FacilityCollection.Instance)
+>>>>>>> facility
             {
-                if (facility.FacilityId == facilityId)
+                if( facility.FacilityId == null ||
+                    facility.FacilityId == "YPBLGS" ||       //YellowstonePathologistBillings
+                    facility.FacilityId == "YPBZMN" ||      //YellowstonePathologistBozeman
+                    facility.FacilityId == "BTTPTHLGY" ||   //ButtePathology
+                    facility.FacilityId == "PAOIF" ||       //PathologyAssociatesOfIdahoFalls
+                    facility.FacilityId == "PCOWM" ||       //PathologyConsultantsOfWesternMontana
+                    facility.FacilityId == "PPWY" ||        //ProfessionalPathologyOfWyoming
+                    facility.FacilityId == "SHPTHASS")      //SheridanPathologyAssociates
                 {
-                    result = facility;
-                    break;
+                    result.Add(facility);
                 }
             }
             return result;
         }
 
-        public Facility GetByLocationId(string locationId)
+        public Facility GetByFacilityId(string facilityId)
         {
             Facility result = null;
             foreach (Facility facility in this)
             {
-                if (facility.Locations.Exists(locationId) == true)
+                if (facility.FacilityId == facilityId)
                 {
                     result = facility;
                     break;
@@ -181,20 +213,17 @@ namespace YellowstonePathology.Business.Facility.Model
         public static FacilityCollection GetAllYPFacilities()
         {
             FacilityCollection result = new FacilityCollection();
-
-            YellowstonePathology.Business.Facility.Model.YellowstonePathologistBillings ypBlgs = new YellowstonePathology.Business.Facility.Model.YellowstonePathologistBillings();
-            YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings ypiBlgs = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();
-
-            YellowstonePathology.Business.Facility.Model.YellowstonePathologistCody ypCdy = new YellowstonePathology.Business.Facility.Model.YellowstonePathologistCody();
-            YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteCody ypiCdy = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteCody();
-
-            YellowstonePathology.Business.Facility.Model.YellowstonePathologistBozeman ypBzmn = new YellowstonePathology.Business.Facility.Model.YellowstonePathologistBozeman();
-
-            result.Add(ypBlgs);
-            result.Add(ypiBlgs);
-            result.Add(ypCdy);
-            result.Add(ypiCdy);
-            result.Add(ypBzmn);
+            foreach(Facility facility in FacilityCollection.Instance)
+            {
+                if(facility.FacilityId == "YPBLGS" ||   //YellowstonePathologistBillings
+                    facility.FacilityId == "YPIBLGS" || //YellowstonePathologyInstituteBillings
+                    facility.FacilityId == "YPCDY" ||   //YellowstonePathologistCody
+                    facility.FacilityId == "YPICDY" ||  //YellowstonePathologyInstituteCody
+                    facility.FacilityId == "YPBZMN" )   //YellowstonePathologistBozeman
+                {
+                    result.Add(facility);
+                }
+            }
 
             return result;
         }
@@ -202,11 +231,16 @@ namespace YellowstonePathology.Business.Facility.Model
         public static bool IsAYellowstonePathologyFacility(Facility facility)
         {
             bool result = false;
-            if (facility is YellowstonePathologistBillings == true) result = true;
-            if (facility is YellowstonePathologistCody == true) result = true;
-            if (facility is YellowstonePathologyInstituteBillings == true) result = true;
-            if (facility is YellowstonePathologyInstituteCody == true) result = true;
-            if (facility is YellowstonePathologistBozeman == true) result = true;
+
+            if (facility.FacilityId == "YPBLGS" ||   //YellowstonePathologistBillings
+                facility.FacilityId == "YPIBLGS" || //YellowstonePathologyInstituteBillings
+                facility.FacilityId == "YPCDY" ||   //YellowstonePathologistCody
+                facility.FacilityId == "YPICDY" ||  //YellowstonePathologyInstituteCody
+                facility.FacilityId == "YPBZMN")   //YellowstonePathologistBozeman
+            {
+                result = true;
+            }
+
             return result;
         }        
 
@@ -214,11 +248,10 @@ namespace YellowstonePathology.Business.Facility.Model
         {
             string result = null;
 
-            FacilityCollection allFacilities = FacilityCollection.GetAllFacilities();
-            Facility technicalFacility = allFacilities.GetByFacilityId(technicalComponentBillingFacilityId);
-            Facility professionalFacility = allFacilities.GetByFacilityId(professionalComponentBillingFacilityId);
-            Facility ypiFacility = new YellowstonePathologyInstituteBillings();
-            Facility ypFacility = new YellowstonePathologistBillings();
+            Facility technicalFacility = FacilityCollection.Instance.GetByFacilityId(technicalComponentBillingFacilityId);
+            Facility professionalFacility = FacilityCollection.Instance.GetByFacilityId(professionalComponentBillingFacilityId);
+            Facility ypiFacility = FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
+            Facility ypFacility = FacilityCollection.Instance.GetByFacilityId("YPBLGS");
 
             if (FacilityCollection.IsAYellowstonePathologyFacility(technicalFacility) == true && FacilityCollection.IsAYellowstonePathologyFacility(professionalFacility) == true)
             {

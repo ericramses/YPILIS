@@ -42,7 +42,8 @@ namespace YellowstonePathology.Business.Test.LLP
 		private int m_TechFinaledById;		
 		private string m_ReportComment;
 		private string m_TestCancelledComment;
-		private bool m_TestCancelled;		
+		private bool m_TestCancelled;
+        private string m_GrossX;
 
 		private Flow.FlowMarkerCollection m_FlowMarkerCollection;        
 
@@ -584,9 +585,24 @@ namespace YellowstonePathology.Business.Test.LLP
 					this.NotifyPropertyChanged("TestCancelled");
 				}
 			}
-		}        
+		}
 
-		public void RefreshGatingPercent()
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "5000", "null", "varchar")]
+        public string GrossX
+        {
+            get { return this.m_GrossX; }
+            set
+            {
+                if (this.m_GrossX != value)
+                {
+                    this.m_GrossX = value;
+                    this.NotifyPropertyChanged("GrossX");
+                }
+            }
+        }
+
+        public void RefreshGatingPercent()
 		{
 			this.NotifyPropertyChanged("LymphocyteCountPercent");
 			this.NotifyPropertyChanged("MonocyteCountPercent");

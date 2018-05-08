@@ -39,7 +39,7 @@ namespace YellowstonePathology.UI.Cytology
 
         private void MenuItemPreferences_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.UI.Common.UserPreferences dlg = new YellowstonePathology.UI.Common.UserPreferences();
+            YellowstonePathology.UI.Common.UserPreferences dlg = new YellowstonePathology.UI.Common.UserPreferences(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference);
             dlg.ShowDialog();
         }
     }
