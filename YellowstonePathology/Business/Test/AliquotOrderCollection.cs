@@ -52,10 +52,6 @@ namespace YellowstonePathology.Business.Test
 			}
 
 			AliquotOrder aliquotOrder = new AliquotOrder(aliquotOrderId, objectId, specimenOrder.SpecimenOrderId);
-            aliquotOrder.Status = YellowstonePathology.Business.TrackedItemStatusEnum.Created.ToString();
-            YellowstonePathology.Business.Facility.Model.Facility facility = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId);
-            string location = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.Location;
-            aliquotOrder.SetLocation(facility, location);
             return aliquotOrder;
 		}
 
