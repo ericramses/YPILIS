@@ -57,7 +57,7 @@
                             </TextBox>
 
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal">
+                        <!--<StackPanel Orientation="Horizontal">
                             <TextBlock Style="{StaticResource HeadingTextBlock}">Date/Time Received:</TextBlock>
                             <TextBox Name="textBoxDateTimeReceived" IsEnabled="{Binding Path=IsWorkspaceEnabled}" Style="{StaticResource BoundTextBox}"
                                      Text="{Binding Path=AccessionOrder.SpecimenOrderCollection[0].DateReceived, Converter={StaticResource MilitaryDateTimeConverter}}"></TextBox>
@@ -70,7 +70,7 @@
 
                             <Button Name="ButtonShowSelectSpecimenDialog" Width="100" Height="30" Margin="2,2,2,2" Click="ButtonShowSelectSpecimenDialog_Click">Selection</Button>
 
-                        </StackPanel>
+                        </StackPanel>-->
 
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Style="{StaticResource HeadingTextBlock}">Clinical History:</TextBlock>
@@ -228,6 +228,60 @@
                         <Button Grid.Column="1" Grid.Row="12" Margin="2" Click="ButtonPatientLinking_Click" Width="145" HorizontalAlignment="Left" IsEnabled="{Binding Path=IsWorkspaceEnabled}">Patient Linking</Button>
                     </Grid>
                 </TabItem>
+
+                <TabItem Name="TabItemSpecimen" Header="Specimen">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="20"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Column="0" Grid.Row="1" Style="{StaticResource HeadingTextBlock}">Date/Time Received:</TextBlock>
+                        <TextBox Name="textBoxDateTimeReceived" Grid.Column="1" Grid.Row="1" IsEnabled="{Binding Path=IsWorkspaceEnabled}"
+                                  HorizontalAlignment="Left" Width="150"
+                                 Text="{Binding Path=AccessionOrder.SpecimenOrderCollection[0].DateReceived, Converter={StaticResource MilitaryDateTimeConverter}}">
+                        </TextBox>
+
+
+                        <TextBlock Grid.Column="0" Grid.Row="2" Style="{StaticResource HeadingTextBlock}" VerticalAlignment="Center">Specimen:</TextBlock>
+
+                        <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal">
+                            <Button Name="ButtonShowSpecimenDialog" Width="100" Height="30" Margin="2,2,2,2" Click="ButtonShowSpecimenDialog_Click">Details</Button>
+                            <Button Name="ButtonShowSelectSpecimenDialog" Width="100" Height="30" Margin="2,2,2,2" Click="ButtonShowSelectSpecimenDialog_Click">Selection</Button>
+                        </StackPanel>
+
+                        <TextBlock Grid.Column="0" Grid.Row="3" Style="{StaticResource HeadingTextBlock}">Specimen Viability</TextBlock>
+                        <TextBox Grid.Column="1" Grid.Row="3" IsEnabled="{Binding Path=IsWorkspaceEnabled}"
+                                  HorizontalAlignment="Left" Width="150"
+                                 Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.SpecimenViabilityPercent, UpdateSourceTrigger=PropertyChanged}">
+                        </TextBox>
+
+                        <TextBlock Grid.Column="0" Grid.Row="4" Style="{StaticResource HeadingTextBlock}">Gross Description:</TextBlock>
+                        <TextBox Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" IsEnabled="{Binding Path=IsWorkspaceEnabled}"
+                                 TextWrapping="Wrap" AcceptsReturn="True"
+                                 Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.GrossX, UpdateSourceTrigger=PropertyChanged}">
+                        </TextBox>
+
+                    </Grid>
+                </TabItem>
+
                 <TabItem Name="TabItemPatientHistory" Header="Data">
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -261,14 +315,15 @@
                 <TabItem Header="Gating" Name="tabItemFlowGating">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="133*"></ColumnDefinition>
+                            <ColumnDefinition Width="235*"/>
+                            <ColumnDefinition Width="369*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="200"></RowDefinition>
                             <RowDefinition Height="*"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <StackPanel Grid.Column="0" Grid.Row="0">
+                        <StackPanel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="10">
                                 <TextBlock VerticalAlignment="Top" FontWeight="Bold">Gating Population:</TextBlock>
                                 <ComboBox Name="comboBoxGatingPopulation" Width="150" Height="20" IsEditable="True" Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.GatingPopulationV2}" VerticalAlignment="Top" IsEnabled="{Binding Path=IsWorkspaceEnabled}">
@@ -277,7 +332,7 @@
                                 </ComboBox>
                             </StackPanel>
                         </StackPanel>
-                        <StackPanel HorizontalAlignment="Left" Name="stackPanelGatginPopulation" Grid.Column="0" Grid.Row="1">
+                        <StackPanel HorizontalAlignment="Left" Name="stackPanelGatginPopulation" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Margin="0,0,0,-0.2">
                             <TextBlock Style="{StaticResource GatingTextBlock}" Width="200">E-Gate: (Blast marker percentages)</TextBlock>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Style="{StaticResource GatingTextBlock}">CD34</TextBlock>
@@ -290,7 +345,7 @@
                                          Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.EGateCD117Percent, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                             </StackPanel>
                         </StackPanel>
-                        <StackPanel Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left">
+                        <StackPanel Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Style="{StaticResource GatingTextBlock}">Cell Type</TextBlock>
                                 <TextBlock Style="{StaticResource GatingTextBlock}">Cell Count</TextBlock>
@@ -328,13 +383,13 @@
                                 <TextBlock Style="{StaticResource GatingTextBox}" Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.OtherCountPercent, Converter={StaticResource PercentConverter}}"></TextBlock>
                             </StackPanel>
                         </StackPanel>
-                        <StackPanel HorizontalAlignment="Left" Name="stackPanelSpecimenViaboility" Grid.Column="1" Grid.Row="1">
+                        <!--<StackPanel HorizontalAlignment="Left" Name="stackPanelSpecimenViaboility" Grid.Column="1" Grid.Row="1">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Style="{StaticResource GatingTextBlock}">Specimen Viability</TextBlock>
                                 <TextBox Width="50" IsEnabled="{Binding Path=IsWorkspaceEnabled}" GotFocus="TextBoxSelect_GotFocus"
                                             Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.SpecimenViabilityPercent, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                             </StackPanel>
-                        </StackPanel>
+                        </StackPanel>-->
                     </Grid>
                 </TabItem>
                 <TabItem Header="Markers" Name="tabItemFlowCaseMarkers">
