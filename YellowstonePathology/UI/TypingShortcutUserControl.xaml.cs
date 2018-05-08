@@ -129,7 +129,7 @@ namespace YellowstonePathology.UI
                                 microscopix.Text = microscopix.Text.Replace(matches[0].Value, "Specimen " + specimenNumber + " - ");
                                 microscopix.Text += shortcutMatches[0].Groups[2].Value.Trim();
                                 Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen = surgicalTestOrder.SurgicalSpecimenCollection.GetBySpecimenNumber(specimenNumber);
-                                surgicalSpecimen.Diagnosis += shortcutMatches[0].Groups[4].Value;
+                                surgicalSpecimen.Diagnosis += shortcutMatches[0].Groups[4].Value.Trim();
                                 microscopix.SelectionStart = microscopix.Text.Length;
                             }
                         }
