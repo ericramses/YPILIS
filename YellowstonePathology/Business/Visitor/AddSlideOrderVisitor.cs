@@ -62,6 +62,10 @@ namespace YellowstonePathology.Business.Visitor
             slideOrder.UseWetProtocol = this.m_TestOrder.UseWetProtocol;
             slideOrder.PerformedByHand = this.m_TestOrder.PerformedByHand;
 
+            YellowstonePathology.Business.Facility.Model.Facility facility = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId);
+            string location = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.Location;
+            slideOrder.SetLocation(facility, location);
+
             this.m_NewSlideOrder = slideOrder;
             this.m_TestOrder.SlideOrderCollection.Add(slideOrder);
             this.m_AliquotOrder.SlideOrderCollection.Add(slideOrder);
