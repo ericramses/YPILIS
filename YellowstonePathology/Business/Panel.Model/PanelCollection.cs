@@ -22,7 +22,7 @@ namespace YellowstonePathology.Business.Panel.Model
                 }
             }
             return result;
-        }
+        }        
 
         public static PanelCollection GetAll()
         {

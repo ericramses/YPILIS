@@ -34,7 +34,6 @@ namespace YellowstonePathology.Business.Test
         protected Nullable<DateTime> m_EmbeddingVerifiedDate;
         protected bool m_Printed;
         protected string m_LabelType;
-        private string m_LocationId;
         private string m_FacilityId;
         private string m_FacilityName;
         protected bool m_Validated;
@@ -45,6 +44,8 @@ namespace YellowstonePathology.Business.Test
         protected string m_Status;
         protected string m_EmbeddingInstructions;
         protected bool m_Decal;
+        protected DateTime? m_LocationTime;
+        private string m_Location;
 
         public AliquotOrder_Base()
         {
@@ -278,21 +279,6 @@ namespace YellowstonePathology.Business.Test
 
         [PersistentProperty()]
         [PersistentDataColumnProperty(true, "50", "null", "varchar")]
-        public string LocationId
-        {
-            get { return this.m_LocationId; }
-            set
-            {
-                if (this.m_LocationId != value)
-                {
-                    this.m_LocationId = value;
-                    this.NotifyPropertyChanged("LocationId");
-                }
-            }
-        }
-
-        [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
         public string FacilityId
         {
             get { return this.m_FacilityId; }
@@ -498,6 +484,36 @@ namespace YellowstonePathology.Business.Test
             }
         }
 
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(false, "3", "null", "datetime")]
+        public DateTime? LocationTime
+        {
+            get { return this.m_LocationTime; }
+            set
+            {
+                if (this.m_LocationTime != value)
+                {
+                    this.m_LocationTime = value;
+                    this.NotifyPropertyChanged("LocationTime");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
+        public string Location
+        {
+            get { return this.m_Location; }
+            set
+            {
+                if (this.m_Location != value)
+                {
+                    this.m_Location = value;
+                    this.NotifyPropertyChanged("Location");
+                }
+            }
+        }
+
         public bool IsNotIntraoperative
         {
             get
@@ -645,6 +661,7 @@ namespace YellowstonePathology.Business.Test
                 this.GrossVerifiedById = systemUser.UserId;
                 this.GrossVerifiedDate = DateTime.Now;
                 this.GrossVerifiedBy = systemUser.UserName;
+                this.Status = "Grossed";
             }
         }
 
@@ -656,7 +673,8 @@ namespace YellowstonePathology.Business.Test
                 this.EmbeddingVerifiedById = systemUser.UserId;
                 this.EmbeddingVerifiedDate = DateTime.Now;
                 this.EmbeddingVerifiedBy = systemUser.UserName;
-                this.Status = "Validated";
+                //this.Status = "Validated";
+                this.Status = "Embedded";
             }
         }
 
@@ -778,6 +796,14 @@ namespace YellowstonePathology.Business.Test
             {
                 this.AliquotType = "FrozenBlock";
             }
+        }
+
+        public void SetLocation(YellowstonePathology.Business.Facility.Model.Facility facility, string location)
+        {
+            this.FacilityId = facility.FacilityId;
+            this.FacilityName = facility.FacilityName;
+            this.m_LocationTime = DateTime.Now;
+            this.Location = location;
         }
     }
 }

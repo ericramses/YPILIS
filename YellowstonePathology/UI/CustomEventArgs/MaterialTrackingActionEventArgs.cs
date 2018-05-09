@@ -10,14 +10,14 @@ namespace YellowstonePathology.UI.CustomEventArgs
         string m_TrackingDescription;        
 
         YellowstonePathology.Business.Facility.Model.Facility m_FromFacility;
-        YellowstonePathology.Business.Facility.Model.Location m_FromLocation;
+        string m_FromLocation;
 
         YellowstonePathology.Business.Facility.Model.Facility m_ToFacility;
-        YellowstonePathology.Business.Facility.Model.Location m_ToLocation;
+        string m_ToLocation;
 
         public MaterialTrackingActionEventArgs(string trackingDescription, 
-            YellowstonePathology.Business.Facility.Model.Facility fromFacility, YellowstonePathology.Business.Facility.Model.Location fromLocation,
-            YellowstonePathology.Business.Facility.Model.Facility toFacility, YellowstonePathology.Business.Facility.Model.Location toLocation)
+            YellowstonePathology.Business.Facility.Model.Facility fromFacility, string fromLocation,
+            YellowstonePathology.Business.Facility.Model.Facility toFacility, string toLocation)
         {
             this.m_TrackingDescription = trackingDescription;            
             this.m_FromFacility = fromFacility;
@@ -36,7 +36,7 @@ namespace YellowstonePathology.UI.CustomEventArgs
             get { return this.m_FromFacility; }
         }
 
-        public YellowstonePathology.Business.Facility.Model.Location FromLocation
+        public string FromLocation
         {
 			get { return this.m_FromLocation; }
         }
@@ -46,7 +46,7 @@ namespace YellowstonePathology.UI.CustomEventArgs
             get { return this.m_ToFacility; }
         }
 
-        public YellowstonePathology.Business.Facility.Model.Location ToLocation
+        public string ToLocation
         {
             get { return this.m_ToLocation; }
         }

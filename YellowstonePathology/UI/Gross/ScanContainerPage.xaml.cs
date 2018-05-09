@@ -101,18 +101,9 @@ namespace YellowstonePathology.UI.Gross
 		}
 
 		private void ButtonEnterNewContainerId_Click(object sender, RoutedEventArgs e)
-		{            
-			//YellowstonePathology.Business.BarcodeScanning.Barcode barcode = new Business.BarcodeScanning.Barcode();
-			//barcode.Body = "0CE87EC8-3531-4147-B0B5-0770DE4ED989";
-			//barcode.Prefix = Business.BarcodeScanning.BarcodePrefixEnum.CTNR;
-			//barcode.FromGuid(Business.BarcodeScanning.BarcodePrefixEnum.CTNR);
-
-			//YellowstonePathology.Business.BarcodeScanning.Container container = new Business.BarcodeScanning.Container();
-			//container.FromBarcode(barcode);
-
-            //CustomEventArgs.ContainerReturnEventArgs containerReturnEventArgs = new CustomEventArgs.ContainerReturnEventArgs(container);
-            //this.UseThisContainer(this, containerReturnEventArgs);				
-		}		            
+		{
+            //this.UseThisContainer(this, "CTNR2D7AABC6-5463-451D-89BF-6F08F5DA3B8D");				
+        }
 
         public string SystemUserDisplayText
         {

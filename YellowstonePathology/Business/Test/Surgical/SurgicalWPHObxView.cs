@@ -27,8 +27,17 @@ namespace YellowstonePathology.Business.Test.Surgical
 			{
 				this.AddNextObxElement("Specimen: " + surgicalSpecimen.SpecimenOrder.SpecimenNumber.ToString(), document, "F");
 				this.HandleLongString(surgicalSpecimen.SpecimenOrder.Description, document, "F");
-				this.AddNextObxElement("", document, "F");
+                YellowstonePathology.Business.Helper.DateTimeJoiner collectionDateTimeJoiner = new YellowstonePathology.Business.Helper.DateTimeJoiner(surgicalSpecimen.SpecimenOrder.CollectionDate.Value, surgicalSpecimen.SpecimenOrder.CollectionTime);
+                this.AddNextObxElement("Collection Date/Time: " + collectionDateTimeJoiner.DisplayString, document, "F");
 
+                if (this.SpecimenHasERPR(surgicalSpecimen.SpecimenOrder, panelSetOrderSurgical) == true)
+                {
+                    this.AddNextObxElement("Fixation type: " + surgicalSpecimen.SpecimenOrder.LabFixation, document, "F");
+                    this.AddNextObxElement("Time to fixation: " + surgicalSpecimen.SpecimenOrder.TimeToFixationHourString, document, "F");
+                    this.AddNextObxElement("Duration of Fixation: " + surgicalSpecimen.SpecimenOrder.FixationDurationString, document, "F");
+                }
+
+                this.AddNextObxElement("", document, "F");
 				this.AddNextObxElement("Diagnosis: ", document, "F");
 				this.HandleLongString(surgicalSpecimen.Diagnosis, document, "F");
 				this.AddNextObxElement("", document, "F");
@@ -67,7 +76,23 @@ namespace YellowstonePathology.Business.Test.Surgical
 			this.HandleLongString(panelSetOrderSurgical.MicroscopicX, document, "F");
 			this.AddNextObxElement(string.Empty, document, "F");
 
-			if (panelSetOrderSurgical.TypingStainCollection.Count > 0)
+            if (panelSetOrderSurgical.SurgicalSpecimenCollection.HasIC() == true)
+            {
+                foreach (SurgicalSpecimen surgicalSpecimen in panelSetOrderSurgical.SurgicalSpecimenCollection)
+                {
+                    if (surgicalSpecimen.IntraoperativeConsultationResultCollection.Count != 0)
+                    {
+                        foreach (IntraoperativeConsultationResult icItem in surgicalSpecimen.IntraoperativeConsultationResultCollection)
+                        {
+                            this.AddNextObxElement(surgicalSpecimen.DiagnosisId + ". " + surgicalSpecimen.SpecimenOrder.Description, document, "F");
+                            this.AddNextObxElement(icItem.Result, document, "F");
+                        }
+                    }
+                }
+                this.AddNextObxElement(string.Empty, document, "F");
+            }
+
+            if (panelSetOrderSurgical.TypingStainCollection.Count > 0)
 			{
 				this.AddNextObxElement("Ancillary Studies:", document, "F");
 				string ancillaryComment = panelSetOrderSurgical.GetAncillaryStudyComment();
@@ -110,7 +135,19 @@ namespace YellowstonePathology.Business.Test.Surgical
 				}
 			}
 
-			this.AddNextObxElement("Gross Description: ", document, "F");
+            this.AddNextObxElement("Clinical Information: ", document, "F");
+            if (string.IsNullOrEmpty(this.m_AccessionOrder.ClinicalHistory) == false)
+            {
+                this.HandleLongString(this.m_AccessionOrder.ClinicalHistory, document, "F");
+            }
+            else
+            {
+                this.AddNextObxElement("none", document, "F");
+
+            }
+            this.AddNextObxElement("", document, "F");
+
+            this.AddNextObxElement("Gross Description: ", document, "F");
 			this.HandleLongString(panelSetOrderSurgical.GrossX, document, "F");
 			this.AddNextObxElement("", document, "F");
 
@@ -124,6 +161,15 @@ namespace YellowstonePathology.Business.Test.Surgical
 				this.HandleLongString(immunoComment, document, "F");
 				this.AddNextObxElement(string.Empty, document, "F");
 			}
+
+            YellowstonePathology.Business.Test.Model.TestOrder testOrder =  panelSetOrderSurgical.GetTestOrders().GetTestOrder("99");
+            if(testOrder != null)
+            {
+                YellowstonePathology.Business.Test.ErPrSemiQuantitative.ErPrSemiQuantitativeResult result = new ErPrSemiQuantitative.ErPrSemiQuantitativeResult();
+                this.AddNextObxElement("ER/PR References:", document, "F");
+                this.HandleLongString(result.ReportReferences, document, "F");
+                this.AddNextObxElement("", document, "F");
+            }
 
 			string locationPerformed = panelSetOrderSurgical.GetLocationPerformedComment();
 			this.AddNextObxElement(locationPerformed, document, "F");
@@ -142,6 +188,7 @@ namespace YellowstonePathology.Business.Test.Surgical
                     if (amendment.RequirePathologistSignature == true)
                     {
                         this.AddNextObxElement("Signature: " + amendment.PathologistSignature, document, "C");
+                        this.AddNextObxElement("E-signed " + amendment.FinalTime.Value.ToString("MM/dd/yyyy HH:mm"), document, "C");
                     }
                     this.AddNextObxElement("", document, "C");
 
@@ -191,6 +238,18 @@ namespace YellowstonePathology.Business.Test.Surgical
                     break;
                 }
             }
+        }
+
+        private bool SpecimenHasERPR(YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder, SurgicalTestOrder panelSetOrder)
+        {
+            bool result = false;
+
+            YellowstonePathology.Business.Test.Model.TestOrderCollection testOrders = specimenOrder.GetTestOrders(panelSetOrder.GetTestOrders());
+            if (testOrders.ExistsByTestId("99") == true)
+            {
+                result = true;
+            }
+            return result;
         }
     }
 }

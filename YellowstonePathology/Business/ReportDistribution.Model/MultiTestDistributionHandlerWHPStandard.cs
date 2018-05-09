@@ -21,11 +21,11 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
             YellowstonePathology.Business.Test.NGCT.NGCTTest ngctTTest = new YellowstonePathology.Business.Test.NGCT.NGCTTest();
             YellowstonePathology.Business.Test.Trichomonas.TrichomonasTest trichomonasTest = new YellowstonePathology.Business.Test.Trichomonas.TrichomonasTest();
 
-            this.m_DistributeHWP = false;
-            if (accessionOrder.PanelSetOrderCollection.Exists(panelSetHPV.PanelSetId) == true) this.m_DistributeHWP = true;
-            if (accessionOrder.PanelSetOrderCollection.Exists(panelSetHPV1618.PanelSetId) == true) this.m_DistributeHWP = true;
-            if (accessionOrder.PanelSetOrderCollection.Exists(ngctTTest.PanelSetId) == true) this.m_DistributeHWP = true;
-            if (accessionOrder.PanelSetOrderCollection.Exists(trichomonasTest.PanelSetId) == true) this.m_DistributeHWP = true;
+            this.m_DistributeWHP = false;
+            if (accessionOrder.PanelSetOrderCollection.Exists(panelSetHPV.PanelSetId) == true) this.m_DistributeWHP = true;
+            if (accessionOrder.PanelSetOrderCollection.Exists(panelSetHPV1618.PanelSetId) == true) this.m_DistributeWHP = true;
+            if (accessionOrder.PanelSetOrderCollection.Exists(ngctTTest.PanelSetId) == true) this.m_DistributeWHP = true;
+            if (accessionOrder.PanelSetOrderCollection.Exists(trichomonasTest.PanelSetId) == true) this.m_DistributeWHP = true;
         }        
     }
 }

@@ -59,12 +59,12 @@ namespace YellowstonePathology.Business.Test.BRAFV600EK
 
 			this.SetXmlNodeData("pathologist_signature", m_PanelSetOrder.Signature);
 
-			this.SaveReport();
+			this.SaveReport(false);
 		}		
 
-		public override void Publish()
+		public override void Publish(bool notify)
         {
-            base.Publish();
+            base.Publish(notify);
         }
 	}
 }

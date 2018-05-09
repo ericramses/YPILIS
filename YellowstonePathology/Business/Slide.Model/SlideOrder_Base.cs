@@ -9,7 +9,7 @@ using YellowstonePathology.Business.Persistence;
 namespace YellowstonePathology.Business.Slide.Model
 {
     [PersistentClass("tblSlideOrder", "YPIDATA")]
-    public class SlideOrder_Base: INotifyPropertyChanged
+    public class SlideOrder_Base : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -25,7 +25,7 @@ namespace YellowstonePathology.Business.Slide.Model
 
         protected int m_OrderedById;
         protected string m_OrderedBy;
-        protected string m_OrderedFrom;        
+        protected string m_OrderedFrom;
         protected bool m_Validated;
         protected string m_ValidationStation;
         protected int m_ValidatedById;
@@ -49,12 +49,13 @@ namespace YellowstonePathology.Business.Slide.Model
         protected string m_ReportNo;
         protected string m_LabelType;
         protected bool m_OrderedAsDual;
-        protected bool m_UseWetProtocol;        
+        protected bool m_UseWetProtocol;
         protected bool m_OrderSentToVentana;
         protected bool m_PerformedByHand;
 
-        private string m_LocationId;
-        private string m_FacilityId;        
+        private DateTime? m_LocationTime;
+        private string m_FacilityId;
+        private string m_AccessioningFacility;
 
         private bool m_Combined;
 
@@ -64,19 +65,22 @@ namespace YellowstonePathology.Business.Slide.Model
         }
 
         public SlideOrder_Base(string objectId, string slideOrderId, YellowstonePathology.Business.Test.AliquotOrder aliquotOrder, YellowstonePathology.Business.Test.Model.TestOrder testOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity, int slideNumber)
-        {            
-			this.m_ObjectId = objectId;
-			this.m_SlideOrderId = slideOrderId;
+        {
+            this.m_ObjectId = objectId;
+            this.m_SlideOrderId = slideOrderId;
             this.m_AliquotOrderId = aliquotOrder.AliquotOrderId;
             this.m_OrderDate = DateTime.Now;
             this.m_AliquotType = "Slide";
             this.m_Description = "Histology Slide";
             this.m_Status = SlideStatusEnum.Created.ToString();
-            this.m_Label = aliquotOrder.Label + slideNumber.ToString();
+            this.m_Label = SlideOrder_Base.GetSlideLabel(slideNumber, aliquotOrder.Label, aliquotOrder.AliquotType);
             this.m_OrderedBy = systemIdentity.User.UserName;
             this.m_OrderedById = systemIdentity.User.UserId;
             this.m_OrderedFrom = Environment.MachineName;
-            this.m_OrderedAsDual = testOrder.OrderedAsDual;               
+            this.m_OrderedAsDual = testOrder.OrderedAsDual;
+            this.m_FacilityId = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId).FacilityId;
+            this.m_Location = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.Location;
+            this.m_LocationTime = DateTime.Now;
         }
 
         public void Validate(YellowstonePathology.Business.User.SystemIdentity systemIdentity)
@@ -151,7 +155,7 @@ namespace YellowstonePathology.Business.Slide.Model
                     this.NotifyPropertyChanged("ClientAccessioned");
                 }
             }
-        }        
+        }
 
         [PersistentProperty()]
         [PersistentDataColumnProperty(false, "50", "0", "varchar")]
@@ -680,16 +684,16 @@ namespace YellowstonePathology.Business.Slide.Model
         }
 
         [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "500", "null", "varchar")]
-        public string LocationId
+        [PersistentDataColumnProperty(false, "3", "null", "datetime")]
+        public DateTime? LocationTime
         {
-            get { return this.m_LocationId; }
+            get { return this.m_LocationTime; }
             set
             {
-                if (this.m_LocationId != value)
+                if (this.m_LocationTime != value)
                 {
-                    this.m_LocationId = value;
-                    this.NotifyPropertyChanged("LocationId");
+                    this.m_LocationTime = value;
+                    this.NotifyPropertyChanged("LocationTime");
                 }
             }
         }
@@ -737,7 +741,7 @@ namespace YellowstonePathology.Business.Slide.Model
                     this.NotifyPropertyChanged("UseWetProtocol");
                 }
             }
-        }        
+        }
 
         [PersistentProperty()]
         [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
@@ -769,6 +773,24 @@ namespace YellowstonePathology.Business.Slide.Model
             }
         }
 
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
+        public string AccessioningFacility
+        {
+            get
+            {
+                return this.m_AccessioningFacility;
+            }
+            set
+            {
+                if (this.m_AccessioningFacility != value)
+                {
+                    this.m_AccessioningFacility = value;
+                    this.NotifyPropertyChanged("AccessioningFacility");
+                }
+            }
+        }
+
         public static string GetSlideLabel(int slideNumber, string blockLabel, string aliquotType)
         {
             StringBuilder slideOrderLabel = new StringBuilder();
@@ -789,7 +811,7 @@ namespace YellowstonePathology.Business.Slide.Model
                     break;
             }
             return slideOrderLabel.ToString();
-        }     
+        }
 
         public void FromXml(XElement xml)
         {
@@ -823,11 +845,11 @@ namespace YellowstonePathology.Business.Slide.Model
             if (xml.Element("TestAbbreviation") != null) m_TestAbbreviation = xml.Element("TestAbbreviation").Value;
             if (xml.Element("TestOrderId") != null) m_TestOrderId = xml.Element("TestOrderId").Value;
             if (xml.Element("PatientLastName") != null) m_PatientLastName = xml.Element("PatientLastName").Value;
-            if (xml.Element("Location") != null) m_Location = xml.Element("Location").Value;
+            if (xml.Element("AccessioningFacility") != null) m_Location = xml.Element("AccessioningFacility").Value;
             if (xml.Element("ReportNo") != null) m_ReportNo = xml.Element("ReportNo").Value;
             if (xml.Element("LabelType") != null) m_LabelType = xml.Element("LabelType").Value;
             if (xml.Element("OrderedAsDual") != null) m_OrderedAsDual = Convert.ToBoolean(Convert.ToInt32(xml.Element("OrderedAsDual").Value));
-            if (xml.Element("LocationId") != null) m_LocationId = xml.Element("LocationId").Value;
+            if (xml.Element("Location") != null) m_Location = xml.Element("Location").Value;
             if (xml.Element("FacilityId") != null) m_FacilityId = xml.Element("FacilityId").Value;
         }
 
@@ -854,6 +876,13 @@ namespace YellowstonePathology.Business.Slide.Model
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
+        }
+
+        public void SetLocation(YellowstonePathology.Business.Facility.Model.Facility facility, string location)
+        {
+            this.m_FacilityId = facility.FacilityId;
+            this.m_LocationTime = DateTime.Now;
+            this.m_Location = location;
         }
     }
 }

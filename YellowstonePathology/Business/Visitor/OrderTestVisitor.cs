@@ -164,7 +164,16 @@ namespace YellowstonePathology.Business.Visitor
 
             this.m_PanelOrder.TestOrderCollection.Add(testOrder);
             this.m_TestOrder = testOrder;            
-            this.m_TestOrder.UseWetProtocol = this.m_Test.UseWetProtocol;            
+            this.m_TestOrder.UseWetProtocol = this.m_Test.UseWetProtocol;
+
+            this.m_TestOrder.TestStatus = "ORDERED";
+            this.m_TestOrder.TestStatusUpdateTime = DateTime.Now;
+
+            Surgical.VentanaBenchMarkCollection ventanaBenchMarkCollection = Gateway.AccessionOrderGateway.GetVentanaBenchMarkCollection();
+            if(ventanaBenchMarkCollection.YPITestIdExists(this.m_TestOrder.TestId) == true)
+            {
+                this.m_TestOrder.TestStatus = "ORDERED";
+            }
 
             this.m_AliquotOrder.SetLabelPrefix(testOrder, true);
             this.m_AliquotOrder.HandleAddFrozen(testOrder);

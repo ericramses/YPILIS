@@ -197,7 +197,7 @@
 
                             <CustomControls:Tile x:Name="TilePatient" Grid.Column="0" Grid.Row="1" Title="Patient" Background="#660000" Margin="2,2,2,2" MouseUp="TilePatient_MouseUp"/>
                             <CustomControls:Tile x:Name="TileLinking" Grid.Column="1" Grid.Row="1" Title="Linking" Background="#993333" Margin="2,2,2,2" MouseUp="TileLinking_MouseUp"/>
-                            <CustomControls:Tile x:Name="TileTesting" Grid.Column="2" Grid.Row="1" Title="Testing" Background="#CC6600" Margin="2,2,2,2" MouseUp="TileTesting_MouseUp"/>
+                            <CustomControls:Tile x:Name="TileTracking" Grid.Column="2" Grid.Row="1" Title="Tracking" Background="#CC6600" Margin="2,2,2,2" MouseUp="TileTracking_MouseUp"/>
                             <CustomControls:Tile x:Name="TileAssignment" Grid.Column="3" Grid.Row="1" Title="Assignment" Background="#CC6600" Margin="2,2,2,2" MouseUp="TileAssignment_MouseUp"/>
 
                             <CustomControls:Tile x:Name="TileScanning" Grid.Column="0" Grid.Row="2" Title="Scanning" Background="#666600" Margin="2,2,2,2" MouseUp="TileScanning_MouseUp"/>

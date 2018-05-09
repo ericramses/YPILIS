@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Test.HPV1618SolidTumor
         public override void ToXml(XElement document)
         {
 			HPV1618SolidTumorTestOrder panelSetOrder = (HPV1618SolidTumorTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
-            this.AddHeader(document, panelSetOrder, "HPV-16/18 Genotyping By PCR");
+            this.AddHeader(document, panelSetOrder, "HPV Genotypes 16 and 18 Solid Tumor");
             this.AddNextObxElement("", document, "F");
 
             string hpv16ResultText = "HPV-16 Result: " + panelSetOrder.HPV16Result;
@@ -25,9 +25,9 @@ namespace YellowstonePathology.Business.Test.HPV1618SolidTumor
             this.AddNextObxElement("HPV-16 Reference: Negative", document, "F");
             this.AddNextObxElement("", document, "F");
 
-            string hpv18ResultText = "HPV-18 Result: " + panelSetOrder.HPV18Result;
+            string hpv18ResultText = "HPV-18/45 Result: " + panelSetOrder.HPV18Result;
             this.AddNextObxElement(hpv18ResultText, document, "F");            
-            this.AddNextObxElement("HPV-18 Reference: Negative", document, "F");
+            this.AddNextObxElement("HPV-18/45 Reference: Negative", document, "F");
             this.AddNextObxElement("", document, "F");
 
             if (string.IsNullOrEmpty(panelSetOrder.Comment) == false)
@@ -67,14 +67,14 @@ namespace YellowstonePathology.Business.Test.HPV1618SolidTumor
             this.AddNextObxElement("", document, "F");
 
             this.AddNextObxElement("References:", document, "F");            
-            this.AddNextObxElement(panelSetOrder.ReportReferences, document, "F");
+            this.HandleLongString(panelSetOrder.ReportReferences, document, "F");
             this.AddNextObxElement("", document, "F");
 
-            this.AddNextObxElement("This test was developed and its performance characteristics determined by Yellowstone Pathology Institute, Inc.  It has not been cleared or approved by the U.S. Food and Drug Administration. The FDA has determined that such clearance or approval is not necessary.  This test is used for clinical purposes.  It should not be regarded as investigational or for research.  This laboratory is certified under the Clinical Laboratory Improvement Amendments of 1988 (CLIA-88) as qualified to perform high complexity clinical laboratory testing.", document, "F");
+            this.HandleLongString("This test was developed and its performance characteristics determined by Yellowstone Pathology Institute, Inc.  It has not been cleared or approved by the U.S. Food and Drug Administration. The FDA has determined that such clearance or approval is not necessary.  This test is used for clinical purposes.  It should not be regarded as investigational or for research.  This laboratory is certified under the Clinical Laboratory Improvement Amendments of 1988 (CLIA-88) as qualified to perform high complexity clinical laboratory testing.", document, "F");
             this.AddNextObxElement(string.Empty, document, "F");
 
             string locationPerformed = panelSetOrder.GetLocationPerformedComment();
-            this.AddNextObxElement(locationPerformed, document, "F");
+            this.HandleLongString(locationPerformed, document, "F");
             this.AddNextObxElement(string.Empty, document, "F");
         }
     }

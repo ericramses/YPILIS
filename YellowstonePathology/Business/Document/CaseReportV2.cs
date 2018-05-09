@@ -55,11 +55,11 @@ namespace YellowstonePathology.Business.Document
             throw new NotImplementedException("Not Implemented Here");
         }
 
-        public virtual void Publish()
+        public virtual void Publish(bool notify)
         {
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
-			YellowstonePathology.Business.Document.CaseDocument.SaveXMLAsPDF(orderIdParser);
-            YellowstonePathology.Business.Helper.FileConversionHelper.SaveXpsReportToTiff(this.m_PanelSetOrder.ReportNo);
+            YellowstonePathology.Business.Document.CaseDocument.SaveXMLAsPDF(orderIdParser, notify);
+            YellowstonePathology.Business.Helper.FileConversionHelper.SaveXpsReportToTiff(this.m_PanelSetOrder.ReportNo, notify);
         }
 
         public YellowstonePathology.Business.Document.NativeDocumentFormatEnum NativeDocumentFormat
@@ -82,10 +82,7 @@ namespace YellowstonePathology.Business.Document
                     break;
                 case ReportSaveModeEnum.Test:
                     this.m_SaveFileName = @"c:\test.xml";
-                    break;
-                case ReportSaveModeEnum.Notification:
-                    this.m_SaveFileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + this.m_PanelSetOrder.ReportNo + ".notify.xml";
-                    break;
+                    break;                
             }            
         }
 
@@ -157,7 +154,7 @@ namespace YellowstonePathology.Business.Document
             this.ReplaceText("client_name", this.m_AccessionOrder.ClientName);
             this.ReplaceText("page2_header", this.m_AccessionOrder.PatientName + ", " + reportNumber);
 
-            this.SetXmlNodeData("location_performed", this.m_PanelSetOrder.GetLocationPerformedComment());
+            this.SetXMLNodeParagraphData("location_performed", this.m_PanelSetOrder.GetLocationPerformedComment());
             this.SetClientReportNo();
         }
 
@@ -393,21 +390,19 @@ namespace YellowstonePathology.Business.Document
             parentNode.RemoveChild(childNode);
         }
 
-        public void SaveReport()
-        {            
+        public void SaveReport(bool notify)
+        {
+            if (notify) this.m_SaveFileName = this.m_SaveFileName.Replace(".xml", ".notify.xml");
             switch (this.m_ReportSaveMode)
             {
-                case ReportSaveModeEnum.Notification:
-                    this.m_ReportXml.Save(this.m_SaveFileName);                    
-                    break;
                 case ReportSaveModeEnum.Draft:                
                     this.m_ReportXml.Save(this.m_SaveFileName);
                     break;
                 case ReportSaveModeEnum.Normal:                
                     this.m_ReportXml.Save(this.m_SaveFileName);
 					YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
-					CaseDocument.SaveXMLAsDoc(orderIdParser);
-					CaseDocument.SaveDocAsXPS(orderIdParser);                    
+					CaseDocument.SaveXMLAsDoc(orderIdParser, notify);
+					CaseDocument.SaveDocAsXPS(orderIdParser, notify);                    
                     break;
                 case ReportSaveModeEnum.Test:
                     this.m_ReportXml.Save(@"c:\Testing\Test.xml");

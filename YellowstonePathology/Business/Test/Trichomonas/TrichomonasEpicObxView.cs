@@ -23,11 +23,26 @@ namespace YellowstonePathology.Business.Test.Trichomonas
             this.AddNextObxElement("Result: " +  panelSetOrder.Result, document, "F");
             this.AddNextObxElement("", document, "F");
 
+            this.AddNextObxElement("Reference Range: Negative", document, "F");
+            this.AddNextObxElement("", document, "F");
+
             this.AddAmendments(document);
 
-            string method = "DNA was extracted from the patient's specimen using an automated method.  Real time PCR amplification was performed for organism detection and identification.";
+            this.AddNextObxElement("Specimen Description:", document, "F");
+            YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(panelSetOrder.OrderedOn, panelSetOrder.OrderedOnId);
+            this.AddNextObxElement(specimenOrder.Description, document, "F");
+            this.AddNextObxElement("", document, "F");
+
+            string collectionDateTimeString = YellowstonePathology.Business.Helper.DateTimeExtensions.CombineDateAndTime(specimenOrder.CollectionDate, specimenOrder.CollectionTime);
+            this.AddNextObxElement("Collection Date/Time: " + collectionDateTimeString, document, "F");
+            this.AddNextObxElement(string.Empty, document, "F");
+
             this.AddNextObxElement("Method:", document, "F");
-            this.HandleLongString(method, document, "F");
+            this.HandleLongString(panelSetOrder.Method, document, "F");
+            this.AddNextObxElement("", document, "F");
+
+            this.AddNextObxElement("References:", document, "F");
+            this.HandleLongString("Jordan JA, Lowery D, Trucco M. Taqman-Based Detection of Trichomonas vaginalis DNA from female genitals specimens. J Clin Micro 2001; 3819-22", document, "F");
             this.AddNextObxElement("", document, "F");
 
             string locationPerformed = panelSetOrder.GetLocationPerformedComment();

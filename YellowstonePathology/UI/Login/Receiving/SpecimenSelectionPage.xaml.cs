@@ -31,6 +31,7 @@ namespace YellowstonePathology.UI.Login.Receiving
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private List<YellowstonePathology.Business.Test.AccessionOrder> m_AccessionOrderList;
         private YellowstonePathology.Business.Test.TestOrderInfo m_TestOrderInfo;
+        private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
 
         public SpecimenSelectionPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo)
         {
@@ -39,6 +40,15 @@ namespace YellowstonePathology.UI.Login.Receiving
 
             this.m_AccessionOrderList = new List<Business.Test.AccessionOrder>();
             this.m_AccessionOrderList.Add(accessionOrder);
+
+            if (this.m_TestOrderInfo.OrderTarget == null)
+            {
+                this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_TestOrderInfo.PanelSet.PanelSetId);
+            }
+            else
+            {
+                this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_TestOrderInfo.PanelSet.PanelSetId, this.m_TestOrderInfo.OrderTarget.GetId(), true);
+            }
 
             InitializeComponent();
             
@@ -54,6 +64,11 @@ namespace YellowstonePathology.UI.Login.Receiving
         {
             get { return this.m_AccessionOrderList; }
         }	
+
+        public YellowstonePathology.Business.Test.PanelSetOrder PanelSetOrder
+        {
+            get { return this.m_PanelSetOrder; }
+        }
 
         public bool OkToSaveOnNavigation(Type pageNavigatingTo)
         {

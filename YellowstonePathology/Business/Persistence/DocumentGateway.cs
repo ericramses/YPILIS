@@ -202,12 +202,23 @@ namespace YellowstonePathology.Business.Persistence
             }
         }
 
+        public YellowstonePathology.Business.Slide.Model.SlideOrder PullSlideOrder(string slideOrderId, object writer)
+        {
+            lock (locker)
+            {
+                SlideOrderDocumentBuilder slideOrderDocumentBuilder = new SlideOrderDocumentBuilder(slideOrderId);
+                DocumentId documentId = new DocumentId(typeof(YellowstonePathology.Business.Slide.Model.SlideOrder), writer, slideOrderId);
+                Document document = this.m_Stack.Pull(documentId, slideOrderDocumentBuilder);
+                return (YellowstonePathology.Business.Slide.Model.SlideOrder)document.Value;
+            }
+        }
+
         public YellowstonePathology.Business.Test.AliquotOrder PullAliquotOrder(string aliquotOrderId, object writer)
         {
             lock (locker)
             {
                 AliquotOrderDocumentBuilder aliquotOrderDocumentBuilder = new AliquotOrderDocumentBuilder(aliquotOrderId);
-                DocumentId documentId = new DocumentId(typeof(YellowstonePathology.Business.Task.Model.TaskOrder), writer, aliquotOrderId);
+                DocumentId documentId = new DocumentId(typeof(YellowstonePathology.Business.Test.AliquotOrder), writer, aliquotOrderId);
                 Document document = this.m_Stack.Pull(documentId, aliquotOrderDocumentBuilder);
                 return (YellowstonePathology.Business.Test.AliquotOrder)document.Value;
             }
@@ -235,23 +246,33 @@ namespace YellowstonePathology.Business.Persistence
                 Document document = this.m_Stack.Pull(documentId, specimenOrderDocumentBuilder);
                 return (YellowstonePathology.Business.Specimen.Model.SpecimenOrder)document.Value;
             }
-        }        
+        }
 
-        public YellowstonePathology.Business.User.UserPreference PullUserPreference(object writer)
+        public YellowstonePathology.Business.User.UserPreference PullUserPreference(string location, object writer)
         {
             lock (locker)
             {
-                string hostName = Environment.MachineName;
-                MySqlCommand cmd = new MySqlCommand("Select * from tblUserPreference where tblUserPreference.HostName = @HostName;");
+                MySqlCommand cmd = new MySqlCommand("Select * from tblUserPreference where tblUserPreference.Location = @Location;");
                 cmd.CommandType = System.Data.CommandType.Text;
-                cmd.Parameters.AddWithValue("@HostName", hostName);
+                cmd.Parameters.AddWithValue("@Location", location);
                 GenericDocumentBuilder builder = new GenericDocumentBuilder(cmd, typeof(YellowstonePathology.Business.User.UserPreference));
 
-                DocumentId documentId = new DocumentId(typeof(YellowstonePathology.Business.User.UserPreference), writer, hostName);
+                DocumentId documentId = new DocumentId(typeof(YellowstonePathology.Business.User.UserPreference), writer, location);
                 documentId.IsGlobal = true;
                 Document document = this.m_Stack.Pull(documentId, builder);
 
                 return (YellowstonePathology.Business.User.UserPreference)document.Value;
+            }
+        }
+
+        public YellowstonePathology.Business.User.SystemUser PullSystemUser(int userId, object writer)
+        {
+            lock (locker)
+            {
+                SystemUserDocumentBuilder builder = new Persistence.SystemUserDocumentBuilder(userId);
+                DocumentId documentId = new DocumentId(typeof(YellowstonePathology.Business.User.SystemUser), writer, userId);
+                Document document = this.m_Stack.Pull(documentId, builder);
+                return (YellowstonePathology.Business.User.SystemUser)document.Value;
             }
         }
 
@@ -296,6 +317,17 @@ namespace YellowstonePathology.Business.Persistence
             }
         }
 
+        public YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch PullMaterialTrackingBatchWithMasterAccessionNo(string materialTrackingBatchId, string masterAccessionNo, object writer)
+        {
+            lock (locker)
+            {
+                MaterialTrackingBatchDocumentBuilder builder = new MaterialTrackingBatchDocumentBuilder(materialTrackingBatchId, masterAccessionNo);
+                DocumentId documentId = new DocumentId(typeof(YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch), writer, materialTrackingBatchId);
+                Document document = this.m_Stack.Pull(documentId, builder);
+                return (YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch)document.Value;
+            }
+        }
+
         public YellowstonePathology.Business.Surgical.VentanaBenchMark PullVentanaBenchMark(int barcodeNumber, object writer)
         {
             lock (locker)
@@ -310,6 +342,22 @@ namespace YellowstonePathology.Business.Persistence
                 Document document = this.m_Stack.Pull(documentId, builder);
                 return (YellowstonePathology.Business.Surgical.VentanaBenchMark)document.Value;
             }
-        }        
+        }
+
+        public YellowstonePathology.Business.Facility.Model.Facility PullFacility(string facilityId, object writer)
+        {
+            lock (locker)
+            {
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.CommandText = "Select * from tblFacility f where f.FacilityId = @FacilityId;";
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("@FacilityId", facilityId);
+                GenericDocumentBuilder builder = new GenericDocumentBuilder(cmd, typeof(YellowstonePathology.Business.Facility.Model.Facility));
+
+                DocumentId documentId = new DocumentId(typeof(YellowstonePathology.Business.Facility.Model.Facility), writer, facilityId);
+                Document document = this.m_Stack.Pull(documentId, builder);
+                return (YellowstonePathology.Business.Facility.Model.Facility)document.Value;
+            }
+        }
     }
 }

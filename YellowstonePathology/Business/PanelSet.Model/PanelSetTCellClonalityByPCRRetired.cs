@@ -25,7 +25,9 @@ namespace YellowstonePathology.Business.PanelSet.Model
             string taskDescription = "Gather materials (Peripheral blood: 5 mL in EDTA tube. Bone marrow: 2 mL in EDTA tube. " +
                 "FFPE tissue: Paraffin block is preferred. Alternatively, send 1 H&E slide plus 5-10 unstained slides cut at 5 " +
                 "or more microns. Fresh tissue: Two pieces) and send out to Neo.";
-			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskFedexShipment(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, taskDescription, new Facility.Model.NeogenomicsIrvine()));
+
+            YellowstonePathology.Business.Facility.Model.Facility neogenomicsIrvine = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("NEOGNMCIRVN");
+            this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskFedexShipment(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, taskDescription, neogenomicsIrvine));
 
             Business.Billing.Model.PanelSetCptCode panelSetCptCode = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88342", null), 1);
             this.m_PanelSetCptCodeCollection.Add(panelSetCptCode);

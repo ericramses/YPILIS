@@ -63,6 +63,10 @@ namespace YellowstonePathology.Business.Billing.Model
                     SurgicalStainSpecimen surgicalStainSpecimen = (SurgicalStainSpecimen)stainSpecimen;                    
                     result = result + surgicalStainSpecimen.GetBillableISHCount();
                 }
+                else
+                {
+                    result = result + stainSpecimen.GetBillableISHCount();
+                }
             }
 
             if (result > 1) result = result - 1;
@@ -73,12 +77,16 @@ namespace YellowstonePathology.Business.Billing.Model
         {
             int result = 0;
             foreach (StainSpecimen stainSpecimen in this)
-            {
+            {                
                 if(stainSpecimen is SurgicalStainSpecimen)
                 {
                     SurgicalStainSpecimen surgicalStainSpecimen = (SurgicalStainSpecimen)stainSpecimen;
                     result = result + surgicalStainSpecimen.GetBillableISHCount();
-                }                
+                }
+                else
+                {
+                    result = result + stainSpecimen.GetBillableISHCount();
+                }               
             }
 
             if (result > 1) result = 1;

@@ -41,8 +41,8 @@ namespace YellowstonePathology.Business.Test.MPNExtendedReflex
             "confirmation for the diagnosis of a MPN.   The molecular analysis did not detect mutations in JAK2 V617F, CALR or MPL.  The results do not support the diagnosis " +
             "of a MPN, but do not rule it out. Recommend clinical and pathologic correlation.";
 
-        private static string References = "1.  Tefferi A, Vardiman JW.  Classification and diagnosis of myeloproliferative neoplasms: The 2008 World Health Organization criteria and point-of-care diagnostic algorithms.  Leukemia (2008) 22, 14–22 " + Environment.NewLine +
-            "2.  Levine RL, Gilliland DG.  Myeloproliferative disorders.  Blood. 2008 112: 2190-2198 " + Environment.NewLine +
+        private static string References = "1. Tefferi A, Vardiman JW.  Classification and diagnosis of myeloproliferative neoplasms: The 2008 World Health Organization criteria and point-of-care diagnostic algorithms.  Leukemia (2008) 22, 14–22 " + Environment.NewLine +
+            "2. Levine RL, Gilliland DG.  Myeloproliferative disorders.  Blood. 2008 112: 2190-2198 " + Environment.NewLine +
             "3. Nangalia J, et al. Somatic CALR mutations in myeloproliferative neoplasms with nonmutated JAK2, N Engl J Med. 2013 Dec 19;369(25):2391-405.";
 
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;

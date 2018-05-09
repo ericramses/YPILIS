@@ -193,7 +193,7 @@
                             </TextBlock>
 
                             <TextBlock Margin="2,2,2,2">
-                                <Hyperlink Click="HyperLinkCancelShipment_Click" Tag="{Binding Path=.}">CancelShipment</Hyperlink>
+                                <Hyperlink Click="HyperLinkCancelShipment_Click" Tag="{Binding Path=.}">Cancel Shipment</Hyperlink>
                             </TextBlock>
 
                             <!--

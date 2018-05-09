@@ -194,7 +194,7 @@ namespace YellowstonePathology.Business.Gateway
                 "join tblPanelSetOrder pso on ao.MasterAccessionNo = pso.MasterAccessionNo " +
                 "join tblSpecimenOrder so on ao.MasterAccessionno = so.MasterAccessionNo " +
                 "join tblAliquotOrder a on so.SpecimenOrderId = a.SpecimenOrderId " +
-                "where ao.AccessionDate = @AccessionDate and a.AliquotType = 'Block' and a.EmbeddingVerified = 0 and a.ClientAccessioned = 0;";                
+                "where ao.AccessionDate = @AccessionDate and a.AliquotType = 'Block' and a.EmbeddingVerified = 0 and a.ClientAccessioned = 0 and a.Status<>'Hold';";                
 
             cmd.CommandType = CommandType.Text;
             cmd.Parameters.AddWithValue("@AccessionDate", accessionDate); 
@@ -3107,6 +3107,115 @@ namespace YellowstonePathology.Business.Gateway
                 cmd.Connection = cn;
                 cmd.ExecuteNonQuery();
             }
+        }
+
+        public static Test.Model.TestOrderStatusViewCollection GetTestOrderStatusViewCollection(DateTime orderDate, int pathologistId, string status)
+        {
+            Test.Model.TestOrderStatusViewCollection result = new Test.Model.TestOrderStatusViewCollection();
+            string pathologistClause = pathologistId == -1 ? string.Empty : "and pso.AssignedToId = " + pathologistId + " ";
+            string statusClause = status == "ALL" ? string.Empty : "and ot.TestStatus = '" + status + "' ";
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "select distinct pso.ReportNo, so.SlideOrderId, ot.TestName, ot.TestStatus, " +
+                "ot.TestStatusUpdateTime, po.OrderTime, su.UserName `Pathologist` " +
+                "from tblPanelSetOrder pso join tblPanelOrder po on pso.ReportNo = po.ReportNo " +
+                "join tblTestOrder ot on po.PanelOrderId = ot.PanelOrderId " +
+                "join tblVentanaBenchMark v on ot.TestId = v.YPITestId " +
+                "join tblSlideOrder so on ot.TestOrderId = so.TestOrderId " +
+                "join tblSystemUser su on pso.AssignedToId = su.UserId " +
+                "where po.OrderDate = @OrderDate " + pathologistClause + statusClause +
+                "order by ot.TestStatusUpdateTime, pso.ReportNo, ot.TestName;";
+
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.AddWithValue("@PathologistId", pathologistId);
+            cmd.Parameters.AddWithValue("@OrderDate", orderDate);
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        Business.Test.Model.TestOrderStatusView testOrderStatusView = new Test.Model.TestOrderStatusView();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(testOrderStatusView, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(testOrderStatusView);
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        public static List<User.UserPreference> GetAllUserPreferences()
+        {
+            List<User.UserPreference> result = new List<User.UserPreference>();
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "select * from tblUserPreference order by Location;";
+
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        User.UserPreference userPreference = new User.UserPreference();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(userPreference, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(userPreference);
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        public static string GetUserPreferenceLocation(string hostName)
+        {
+            string result = null;
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "select Location from tblUserPreference where HostName = @HostName;";
+            cmd.Parameters.AddWithValue("@HostName", hostName);
+
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        result = dr[0].ToString();
+                    }
+                }
+            }
+            return result;
+        }
+
+        public static List<string> GetAllLocations()
+        {
+            List<string> result = new List<string>();
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "select Location from tblUserPreference order by 1;";
+
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        result.Add(dr[0].ToString());
+                    }
+                }
+            }
+            return result;
         }
     }
 }

@@ -38,6 +38,20 @@ namespace YellowstonePathology.Business.Test.Surgical
             }
         }
 
+        public bool HasIC()
+        {
+            bool result = false;
+            foreach (SurgicalSpecimen surgicalSpecimen in this)
+            {
+                if(surgicalSpecimen.IntraoperativeConsultationResultCollection.Count != 0)
+                {
+                    result = true;
+                    break;
+                }
+            }
+            return result;
+        }
+
         public bool HasStainResult(string testOrderId)
         {
             bool result = false;
@@ -83,6 +97,24 @@ namespace YellowstonePathology.Business.Test.Surgical
 			}
 			return null;
 		}
+
+        public SurgicalSpecimen GetBySpecimenNumber(string specimenNumber)
+        {
+            SurgicalSpecimen result = null;
+            foreach (SurgicalSpecimen surgicalSpecimen in this)
+            {
+                System.Text.RegularExpressions.MatchCollection matches = System.Text.RegularExpressions.Regex.Matches(surgicalSpecimen.SpecimenOrderId, @"([0-9]{2})-([0-9]+).([0-9]+)");
+                if(matches.Count > 0)
+                {
+                    if(matches[0].Groups[3].Value == specimenNumber)
+                    {
+                        result = surgicalSpecimen;
+                        break;
+                    }
+                }
+            }
+            return result;
+        }
 
         public bool SpecimenOrderExists(string specimenOrderId)
         {

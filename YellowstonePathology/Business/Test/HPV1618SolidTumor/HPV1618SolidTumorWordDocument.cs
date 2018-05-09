@@ -73,12 +73,12 @@ namespace YellowstonePathology.Business.Test.HPV1618SolidTumor
 			this.SetReportDistribution();
 			this.SetCaseHistory();
 
-			this.SaveReport();
+			this.SaveReport(false);
 		}
 
-		public override void Publish()
+		public override void Publish(bool notify)
 		{
-			base.Publish();
+			base.Publish(notify);
 		}
 	}
 }

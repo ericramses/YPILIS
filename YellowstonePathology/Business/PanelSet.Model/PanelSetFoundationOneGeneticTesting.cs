@@ -21,17 +21,18 @@ namespace YellowstonePathology.Business.PanelSet.Model
 
             this.m_AllowMultiplePerAccession = true;
 
-            
-			
 
+
+
+            YellowstonePathology.Business.Facility.Model.Facility facility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("FNDMDCN");
             string taskDescription = "Gather materials and send to Foundation Medicine";
-			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskFedexShipment(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, taskDescription, new Facility.Model.FoundationMedicine()));
+			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskFedexShipment(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, taskDescription, facility));
 
-            this.m_TechnicalComponentFacility = new YellowstonePathology.Business.Facility.Model.FoundationMedicine();
-            this.m_ProfessionalComponentFacility = new YellowstonePathology.Business.Facility.Model.FoundationMedicine();
+            this.m_TechnicalComponentFacility = facility;
+            this.m_ProfessionalComponentFacility = facility;
 
-            this.m_TechnicalComponentBillingFacility = new YellowstonePathology.Business.Facility.Model.FoundationMedicine();
-            this.m_ProfessionalComponentBillingFacility = new YellowstonePathology.Business.Facility.Model.FoundationMedicine();
+            this.m_TechnicalComponentBillingFacility = facility;
+            this.m_ProfessionalComponentBillingFacility = facility;
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMiscellaneous());
 		}

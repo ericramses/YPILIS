@@ -43,8 +43,8 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>118</ApplicationRevision>
-    <ApplicationVersion>10.1.9.%2a</ApplicationVersion>
+    <ApplicationRevision>55</ApplicationRevision>
+    <ApplicationVersion>10.1.10.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -225,6 +225,7 @@
     <Compile Include="Business\Audit.Model\AccountNoAudit.cs" />
     <Compile Include="Business\Audit.Model\AliquotAndStainOrderAuditCollection.cs" />
     <Compile Include="Business\Audit.Model\BoneMarrowSummaryAudit.cs" />
+    <Compile Include="Business\Audit.Model\CanSaveFacilityAudit.cs" />
     <Compile Include="Business\Audit.Model\CellBlockWarningAudit.cs" />
     <Compile Include="Business\Audit.Model\AncillaryStudiesAreHandledAudit.cs" />
     <Compile Include="Business\Audit.Model\AreAllWHPTestsFinalAudit.cs" />
@@ -244,6 +245,7 @@
     <Compile Include="Business\Audit.Model\CodyCassetteColorAudit.cs" />
     <Compile Include="Business\Audit.Model\ComprehensiveColonCancerProfileFinalAudit.cs" />
     <Compile Include="Business\Audit.Model\CouldBenefitFromCCCPAudit.cs" />
+    <Compile Include="Business\Audit.Model\GICenterAdenomaAudit.cs" />
     <Compile Include="Business\Audit.Model\DistributionCanBeSetAudit.cs" />
     <Compile Include="Business\Audit.Model\DistributionNotSetAudit.cs" />
     <Compile Include="Business\Audit.Model\FinalizedAudit.cs" />
@@ -331,32 +333,6 @@
     <Compile Include="Business\Client.Model\IdahoClientIdList.cs" />
     <Compile Include="Business\ClientOrder.Model\ExternalOrderIds.cs" />
     <Compile Include="Business\ClientOrder.Model\ExternalOrderIdsCollection.cs" />
-    <Compile Include="Business\Facility.Model\CommunityHospitalAnaconda.cs" />
-    <Compile Include="Business\Facility.Model\NationalJewishHealth.cs" />
-    <Compile Include="Business\Facility.Model\UniversityOfUtahHealthCare.cs" />
-    <Compile Include="Business\Facility.Model\Cellnetix.cs" />
-    <Compile Include="Business\Facility.Model\UCHLoneTreeBreastCenter.cs" />
-    <Compile Include="Business\Facility.Model\VirginiaMason.cs" />
-    <Compile Include="Business\Facility.Model\UCDavisMedicalCenter.cs" />
-    <Compile Include="Business\Facility.Model\MyriadGeneticsLab.cs" />
-    <Compile Include="Business\Facility.Model\EasternColoradoHealthcare.cs" />
-    <Compile Include="Business\Facility.Model\BeneifsHealthSystem.cs" />
-    <Compile Include="Business\Facility.Model\WilliamsPorterDayLaw.cs" />
-    <Compile Include="Business\Facility.Model\CastleBiosciences.cs" />
-    <Compile Include="Business\Facility.Model\PathologyConsultantsOfWesternMontana.cs" />
-    <Compile Include="Business\Facility.Model\UniversityOfArizonaCancerCenter.cs" />
-    <Compile Include="Business\Facility.Model\UniversityOfMississippi.cs" />
-    <Compile Include="Business\Facility.Model\NorthernMtHealthcare.cs" />
-    <Compile Include="Business\Facility.Model\FortHarrisonVA.cs" />
-    <Compile Include="Business\Facility.Model\CasperDermatologyClinic.cs" />
-    <Compile Include="Business\Facility.Model\OregonHealthScienceUniversity.cs" />
-    <Compile Include="Business\Facility.Model\MadisonMemorialHospital.cs" />
-    <Compile Include="Business\Facility.Model\StanfordUniversityMedicalCenter.cs" />
-    <Compile Include="Business\Facility.Model\StLukesMagicValley.cs" />
-    <Compile Include="Business\Facility.Model\VAEasternColorado.cs" />
-    <Compile Include="Business\Facility.Model\CBCI.cs" />
-    <Compile Include="Business\Facility.Model\AssociatedDermatology.cs" />
-    <Compile Include="Business\Facility.Model\YellowstonePathologistBozeman.cs" />
     <Compile Include="Business\Flow\CytoplasmicMarkerMapping.cs" />
     <Compile Include="Business\Flow\CytoplasmicMarkerMappingCollection.cs" />
     <Compile Include="Business\HL7View\ADTMessage.cs" />
@@ -773,81 +749,12 @@
     <Compile Include="Business\Domain\XElementFromSql.cs" />
     <Compile Include="Business\Domain\XmlConversions.cs" />
     <Compile Include="Business\Domain\XmlViewer.cs" />
-    <Compile Include="Business\Facility.Model\AllFacility.cs" />
-    <Compile Include="Business\Facility.Model\ARUP.cs" />
-    <Compile Include="Business\Facility.Model\BigSkyDermatology.cs" />
-    <Compile Include="Business\Facility.Model\ClevelandClinicFoundation.cs" />
-    <Compile Include="Business\Facility.Model\BillingsClinic.cs" />
-    <Compile Include="Business\Facility.Model\BillingsClinicDermatology.cs" />
-    <Compile Include="Business\Facility.Model\BillingsClinicPathology.cs" />
-    <Compile Include="Business\Facility.Model\BozemanDeaconess.cs" />
-    <Compile Include="Business\Facility.Model\BreastPathologyConsultants.cs" />
-    <Compile Include="Business\Facility.Model\ButtePathology.cs" />
-    <Compile Include="Business\Facility.Model\CancerTreatmentCentersOfAmerica.cs" />
-    <Compile Include="Business\Facility.Model\CarisLifeSciences.cs" />
-    <Compile Include="Business\Facility.Model\ChildrensHospitalColorado.cs" />
-    <Compile Include="Business\Facility.Model\CLIALicense.cs" />
     <Compile Include="Business\Facility.Model\ClientBillingFacility.cs" />
     <Compile Include="Business\Facility.Model\ClientBillingFacilityCollection.cs" />
-    <Compile Include="Business\Facility.Model\CMMC.cs" />
-    <Compile Include="Business\Facility.Model\CockerellDermatology.cs" />
-    <Compile Include="Business\Facility.Model\ColoradoGeneticsLaboratory.cs" />
-    <Compile Include="Business\Facility.Model\EmoryUniversity.cs" />
     <Compile Include="Business\Facility.Model\Facility.cs" />
     <Compile Include="Business\Facility.Model\FacilityCollection.cs" />
-    <Compile Include="Business\Facility.Model\FoundationMedicine.cs" />
-    <Compile Include="Business\Facility.Model\GenomicHealth.cs" />
     <Compile Include="Business\Facility.Model\Host.cs" />
     <Compile Include="Business\Facility.Model\HostCollection.cs" />
-    <Compile Include="Business\Facility.Model\HuntsmanCancerInstitute.cs" />
-    <Compile Include="Business\Facility.Model\JohnHopkins.cs" />
-    <Compile Include="Business\Facility.Model\Location.cs" />
-    <Compile Include="Business\Facility.Model\LocationCollection.cs" />
-    <Compile Include="Business\Facility.Model\LocationDefinitions.cs" />
-    <Compile Include="Business\Facility.Model\LoweLawGroup.cs" />
-    <Compile Include="Business\Facility.Model\MontanaDepartmentofJustice.cs" />
-    <Compile Include="Business\Facility.Model\MountainViewHospital.cs" />
-    <Compile Include="Business\Facility.Model\BigHornCountyMemorialHospital.cs" />
-    <Compile Include="Business\Facility.Model\EIRMC.cs" />
-    <Compile Include="Business\Facility.Model\ChristianaCare.cs" />
-    <Compile Include="Business\Facility.Model\NationalCancerInstitue.cs" />
-    <Compile Include="Business\Facility.Model\NeogenomicsNashville.cs" />
-    <Compile Include="Business\Facility.Model\SheridanMemorialHospital.cs" />
-    <Compile Include="Business\Facility.Model\MontanaSkinCancerandDermatologyCenter.cs" />
-    <Compile Include="Business\Facility.Model\SheridanPathologyAssociates.cs" />
-    <Compile Include="Business\Facility.Model\MayoClinic.cs" />
-    <Compile Include="Business\Facility.Model\MDAndersonCancerCenter.cs" />
-    <Compile Include="Business\Facility.Model\MontanaDermatology.cs" />
-    <Compile Include="Business\Facility.Model\MUSC.cs" />
-    <Compile Include="Business\Facility.Model\NationalInstituteOfHealth.cs" />
-    <Compile Include="Business\Facility.Model\NeogenomicsInc.cs" />
-    <Compile Include="Business\Facility.Model\NeogenomicsIrvine.cs" />
-    <Compile Include="Business\Facility.Model\NullFacility.cs" />
-    <Compile Include="Business\Facility.Model\NullLocation.cs" />
-    <Compile Include="Business\Facility.Model\PathologyAssociatesOfIdahoFalls.cs" />
-    <Compile Include="Business\Facility.Model\PhenoPath.cs" />
-    <Compile Include="Business\Facility.Model\ProfessionalPathologyOfWyoming.cs" />
-    <Compile Include="Business\Facility.Model\SeattleCancerCenterAlliance.cs" />
-    <Compile Include="Business\Facility.Model\Shodair.cs" />
-    <Compile Include="Business\Facility.Model\StJamesHealth.cs" />
-    <Compile Include="Business\Facility.Model\StVincentHealthcare.cs" />
-    <Compile Include="Business\Facility.Model\TallmanDermatology.cs" />
-    <Compile Include="Business\Facility.Model\Therapath.cs" />
-    <Compile Include="Business\Facility.Model\TXChildrensHospital.cs" />
-    <Compile Include="Business\Facility.Model\UCSanFrancisco.cs" />
-    <Compile Include="Business\Facility.Model\UCSFDermPathService.cs" />
-    <Compile Include="Business\Facility.Model\UniPath.cs" />
-    <Compile Include="Business\Facility.Model\UniversityOfArkansasMedicalSciences.cs" />
-    <Compile Include="Business\Facility.Model\Anschutz Pathology UCH.cs" />
-    <Compile Include="Business\Facility.Model\UniversityOfColoradoHospital.cs" />
-    <Compile Include="Business\Facility.Model\UniversityOfMiami.cs" />
-    <Compile Include="Business\Facility.Model\UniversityOfMichigan.cs" />
-    <Compile Include="Business\Facility.Model\UniversityOfWashington.cs" />
-    <Compile Include="Business\Facility.Model\WesternMontanaClinic.cs" />
-    <Compile Include="Business\Facility.Model\YellowstonePathologistBillings.cs" />
-    <Compile Include="Business\Facility.Model\YellowstonePathologistCody.cs" />
-    <Compile Include="Business\Facility.Model\YellowstonePathologyInstituteBillings.cs" />
-    <Compile Include="Business\Facility.Model\YellowstonePathologyInstituteCody.cs" />
     <Compile Include="Business\FileList.cs" />
     <Compile Include="Business\FileListItem.cs" />
     <Compile Include="Business\Flow\CellPopulationOfInterest.cs" />
@@ -1145,26 +1052,71 @@
     <Compile Include="Business\PanelSet.Model\ShipMaterialTest.cs" />
     <Compile Include="Business\ParseSpecimenOrderIdResult.cs" />
     <Compile Include="Business\Patient.Model\Address.cs" />
+    <Compile Include="Business\Persistence\BatchMaterialTrackingLogDocumentBuilder.cs" />
     <Compile Include="Business\Persistence\DocumentTestBuilders.cs" />
     <Compile Include="Business\Persistence\PersistentDataColumnProperty.cs" />
     <Compile Include="Business\Persistence\MonitorProperty.cs" />
     <Compile Include="Business\Persistence\ProtobufWriter.cs" />
+    <Compile Include="Business\Persistence\SlideOrderDocumentBuilder.cs" />
     <Compile Include="Business\Persistence\SqlDataRowReaderPropertyWriter.cs" />
+    <Compile Include="Business\Persistence\SystemUserDocumentBuilder.cs" />
+    <Compile Include="Business\ReportDistribution.Model\MultiTestDistributionHandlerNoWHP.cs" />
     <Compile Include="Business\ReportDistribution.Model\MultiTestDistributionHandlerWHPHold.cs" />
     <Compile Include="Business\Slide.Model\VantageSlide.cs" />
     <Compile Include="Business\Slide.Model\VantageSlideScan.cs" />
     <Compile Include="Business\Slide.Model\VantageSlideScanCollection.cs" />
     <Compile Include="Business\Slide.Model\VantageSlideView.cs" />
     <Compile Include="Business\Slide.Model\VantageSlideViewCollection.cs" />
+    <Compile Include="Business\Test.Model\TestOrderStatusView.cs" />
+    <Compile Include="Business\Test.Model\TestOrderStatusViewCollection.cs" />
     <Compile Include="Business\Test.Model\U6.cs" />
+    <Compile Include="Business\Test\ALLPediatricFISHPanel\ALLPediatricFISHPanelTest.cs" />
     <Compile Include="Business\Test\AMLPrognosticProfile\AMLPrognosticProfileTestOrder.cs" />
+    <Compile Include="Business\Test\API2MALT1ByFISH\API2MALT1ByFISHWPHOBXView.cs" />
+    <Compile Include="Business\Test\BCellEnumeration\BCellEnumerationCMMCNTEView.cs" />
+    <Compile Include="Business\Test\BCellEnumeration\BCellEnumerationWPHOBXView.cs" />
+    <Compile Include="Business\Test\BCellGeneRearrangement\BCellGeneRearrangementCMMCNTEView.cs" />
+    <Compile Include="Business\Test\BCellGeneRearrangement\BCellGeneRearrangementWPHOBXView.cs" />
+    <Compile Include="Business\Test\BCL2t1418ByFISH\BCL2t1418ByFISHCMMCNTEView.cs" />
+    <Compile Include="Business\Test\BCL2t1418ByFISH\BCL2t1418ByFISHWPHOBXView.cs" />
+    <Compile Include="Business\Test\BCRABLByFish\BCRABLByFishCMMCNTEView.cs" />
+    <Compile Include="Business\Test\BCRABLByFish\BCRABLByFishWPHOBXView.cs" />
+    <Compile Include="Business\Test\BCRABLByPCR\BCRABLByPCRCMMCNTEView.cs" />
+    <Compile Include="Business\Test\BCRABLByPCR\BCRABLByPCRWPHOBXView.cs" />
+    <Compile Include="Business\Test\CCNDIBCLIGHByFISH\CCNDIBCLIGHByFISHCMMCNTEView.cs" />
+    <Compile Include="Business\Test\CCNDIBCLIGHByFISH\CCNDIBCLIGHByFISHWPHOBXView.cs" />
+    <Compile Include="Business\Test\CDKN2ADeletionFISHforALL\CDKN2ADeletionFISHforALLTest.cs" />
+    <Compile Include="Business\Test\CEBPA\CEBPACMMCNTEView.cs" />
+    <Compile Include="Business\Test\CEBPA\CEBPAWPHOBXView.cs" />
+    <Compile Include="Business\Test\ChromosomeAnalysisForFetalAnomaly\ChromosomeAnalysisForFetalAnomalCMMCNteView.cs" />
+    <Compile Include="Business\Test\ChromosomeAnalysisForFetalAnomaly\ChromosomeAnalysisForFetalAnomalyWPHOBXView.cs" />
+    <Compile Include="Business\Test\CLLByFish\CLLByFishCMMCNTEView.cs" />
+    <Compile Include="Business\Test\CLLByFish\CLLByFishWPHOBXView.cs" />
+    <Compile Include="Business\Test\EosinophiliaByFISH\EosinophiliaByFISHCMMCNTEView.cs" />
+    <Compile Include="Business\Test\EosinophiliaByFISH\EosinophiliaByFISHWPHOBXView.cs" />
     <Compile Include="Business\Test\FLT3Preliminary\FLT3PreliminaryTest.cs" />
+    <Compile Include="Business\Test\FLT3\FLT3CMMCNTEView.cs" />
+    <Compile Include="Business\Test\FLT3\FLT3WPHOBXView.cs" />
+    <Compile Include="Business\Test\HPV1618SolidTumor\HPV1618SolidTumorWPHOBXView.cs" />
     <Compile Include="Business\Test\IgHMFABByFish\IgHMFABByFishEPICOBXView.cs" />
     <Compile Include="Business\Test\IgHMFABByFish\IgHMFABByFishTest.cs" />
     <Compile Include="Business\Test\IgHMFABByFish\IgHMFABByFishTestOrder.cs" />
     <Compile Include="Business\Test\IgHMFABByFish\IgHMFABByFishWordDocument.cs" />
+    <Compile Include="Business\Test\JAK2Exon1214\JAK2Exon1214CMMCNteView.cs" />
+    <Compile Include="Business\Test\JAK2V617F\JAK2V617FCMMCNteView.cs" />
     <Compile Include="Business\Test\LowGradeSmallBCellLymphomaFishPanel\LowGradeSmallBCellLymphomaFishPanelTest.cs" />
+    <Compile Include="Business\Test\LymphocyteSubsetPanel4\LymphocyteSubsetPanel4Test.cs" />
+    <Compile Include="Business\Test\LynchSyndrome\LSEGYNResult3a.cs" />
+    <Compile Include="Business\Test\LynchSyndrome\LynchSyndromeIHCPanelCMMCNTEView.cs" />
+    <Compile Include="Business\Test\LynchSyndrome\LynchSyndromeIHCPanelWPHOBXView.cs" />
+    <Compile Include="Business\Test\MDSExtendedByFish\MDSExtendedByFishCMMCNTEView.cs" />
+    <Compile Include="Business\Test\MDSExtendedByFish\MDSExtendedByFishWPHOBXView.cs" />
+    <Compile Include="Business\Test\MicrobiologyByPCR\MicrobiologyByPCRTest.cs" />
     <Compile Include="Business\Test\NeoTYPEGISTProfile\NeoTYPEGISTProfileTest.cs" />
+    <Compile Include="Business\Test\PNH\PNHWPHOBXView.cs" />
+    <Compile Include="Business\Test\RASRAFPanel\RASRAFPanelWPHOBXView.cs" />
+    <Compile Include="Business\User\SystemRoleView.cs" />
+    <Compile Include="Business\User\SystemRoleViewCollection.cs" />
     <Compile Include="Store\AppDataStore.cs" />
     <Compile Include="Business\Reports\BlocksSentNotReturnedReport.cs" />
     <Compile Include="Business\Reports\RetrospectiveReviewReport.xaml.cs">
@@ -1282,7 +1234,7 @@
     <Compile Include="Business\Test\HPV1618SolidTumor\HPV1618SolidTumorNoResult.cs" />
     <Compile Include="Business\Test\HPV1618SolidTumor\HPV16NegativeHPV18PositiveResult.cs" />
     <Compile Include="Business\Test\HPV1618SolidTumor\HPV16PositiveHPV18NegativeResult.cs" />
-    <Compile Include="Business\Test\LiposarcomaFusionProfile\IDH1byIHC\IDH1byIHCTest.cs" />
+    <Compile Include="Business\Test\IDH1byIHC\IDH1byIHCTest.cs" />
     <Compile Include="Business\Test\IgHClonalityMRDByNGS\IgHClonalityMRDByNGSTest.cs" />
     <Compile Include="Business\Test\LiposarcomaFusionProfile\LiposarcomaFusionProfileEPICOBXView.cs" />
     <Compile Include="Business\Test\LiposarcomaFusionProfile\LiposarcomaFusionProfileTest.cs" />
@@ -1370,14 +1322,6 @@
     <Compile Include="Business\XPSDocument\XpsAdditionalTesting.cs" />
     <Compile Include="Business\XPSDocument\XpsDetails.cs" />
     <Compile Include="Business\XPSDocument\XPSTemplate.cs" />
-    <Compile Include="MySQLMigration\DataRowComparer.cs" />
-    <Compile Include="MySQLMigration\DataRowRefreshComparer.cs" />
-    <Compile Include="MySQLMigration\IndexedColumn.cs" />
-    <Compile Include="MySQLMigration\IndexedColumnCollection.cs" />
-    <Compile Include="MySQLMigration\MigrationStatus.cs" />
-    <Compile Include="MySQLMigration\MigrationStatusCollection.cs" />
-    <Compile Include="MySQLMigration\MySqlAODocumentBuilder.cs" />
-    <Compile Include="MySQLMigration\MySQLDatabaseBuilder.cs" />
     <Compile Include="Business\NeogenomicsResult.cs" />
     <Compile Include="Business\NeogenomicsResultCollection.cs" />
     <Compile Include="Business\nodejs\HelloWorld.cs" />
@@ -3253,41 +3197,6 @@
     <Compile Include="DomainPersistence\SqlXmlPropertyWriter.cs" />
     <Compile Include="DomainPersistence\XmlPropertyReader.cs" />
     <Compile Include="DomainPersistence\XmlPropertyWriter.cs" />
-    <Compile Include="MySQLMigration\MySqlDataReaderPropertyWriter.cs" />
-    <Compile Include="MySQLMigration\NonpersistentColumnDef.cs" />
-    <Compile Include="MySQLMigration\NonpersistentTableDef.cs" />
-    <Compile Include="MySQLMigration\NonpersistentTableDefADT.cs" />
-    <Compile Include="MySQLMigration\NonpersistentTableDefCollection.cs" />
-    <Compile Include="MySQLMigration\NonpersistentTableDefCytologyDiagnosis.cs" />
-    <Compile Include="MySQLMigration\NonpersistentTableDefCytologyOtherConditions.cs" />
-    <Compile Include="MySQLMigration\NonpersistentTableDefCytologyReportComment.cs" />
-    <Compile Include="MySQLMigration\NonpersistentTableDefCytologySAComments.cs" />
-    <Compile Include="MySQLMigration\NonpersistentTableDefCytologyScreeningImpression.cs" />
-    <Compile Include="MySQLMigration\NonpersistentTableDefFlowCommentV2.cs" />
-    <Compile Include="MySQLMigration\NonpersistentTableDefFlowMarkerPanel.cs" />
-    <Compile Include="MySQLMigration\NonpersistentTableDefFlowPanel.cs" />
-    <Compile Include="MySQLMigration\NonpersistentTableDefICD9Code.cs" />
-    <Compile Include="MySQLMigration\NonpersistentTableDefImmunoComment.cs" />
-    <Compile Include="MySQLMigration\NonpersistentTableDefMarkers.cs" />
-    <Compile Include="MySQLMigration\NonpersistentTableDefMasterAccessionNo.cs" />
-    <Compile Include="MySQLMigration\NonpersistentTableDefMaterialLocation.cs" />
-    <Compile Include="MySQLMigration\NonpersistentTableDefOrderComment.cs" />
-    <Compile Include="MySQLMigration\NonpersistentTableDefPanel.cs" />
-    <Compile Include="MySQLMigration\NonpersistentTableDefPanelSet.cs" />
-    <Compile Include="MySQLMigration\NonpersistentTableDefPatient.cs" />
-    <Compile Include="MySQLMigration\NonpersistentTableDefPsaImport.cs" />
-    <Compile Include="MySQLMigration\NonpersistentTableDefSpecimenAdequacy.cs" />
-    <Compile Include="MySQLMigration\NonpersistentTableDefStainResultOption.cs" />
-    <Compile Include="MySQLMigration\NonpersistentTableDefStainResultOptionGroup.cs" />
-    <Compile Include="MySQLMigration\NonpersistentTableDefStVincent.cs" />
-    <Compile Include="MySQLMigration\NonpersistentTableDefTest.cs" />
-    <Compile Include="MySQLMigration\NonpersistentTableDefWebServiceAccount.cs" />
-    <Compile Include="MySQLMigration\NonpersistentTableDefWebServiceAccountClient.cs" />
-    <Compile Include="MySQLMigration\SqlServerFromMySqlRefresher.cs" />
-    <Compile Include="MySQLMigration\TableForeignKey.cs" />
-    <Compile Include="MySQLMigration\TableForeignKeyCollection.cs" />
-    <Compile Include="MySQLMigration\TableIndex.cs" />
-    <Compile Include="MySQLMigration\TableIndexCollection.cs" />
     <Compile Include="Store\AppDBNameEnum.cs" />
     <Compile Include="Store\IRedisServer.cs" />
     <Compile Include="Store\RedisDB.cs" />
@@ -3345,6 +3254,12 @@
     </Compile>
     <Compile Include="UI\BrowserWindow.xaml.cs">
       <DependentUpon>BrowserWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Client\FacilityEntry.xaml.cs">
+      <DependentUpon>FacilityEntry.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Common\UserPreferencesList.xaml.cs">
+      <DependentUpon>UserPreferencesList.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\EmbeddingAutopsyItem.cs" />
     <Compile Include="UI\EmbeddingAutopsyList.cs" />
@@ -3555,15 +3470,6 @@
     <Compile Include="UI\Monitor\ReportDistributionDownMonitorPage.xaml.cs">
       <DependentUpon>ReportDistributionDownMonitorPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\MySql\MySqlMigrationDialog.xaml.cs">
-      <DependentUpon>MySqlMigrationDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\MySql\NonpersistentTableDialog.xaml.cs">
-      <DependentUpon>NonpersistentTableDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\MySql\SqlServerRefreshDialog.xaml.cs">
-      <DependentUpon>SqlServerRefreshDialog.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UI\NHunspell.xaml.cs">
       <DependentUpon>NHunspell.xaml</DependentUpon>
     </Compile>
@@ -3680,6 +3586,9 @@
     <Compile Include="UI\SortDirectionAdorner.cs" />
     <Compile Include="UI\SpellCheckAccessionOrder.cs" />
     <Compile Include="UI\SpellCheckProperty.cs" />
+    <Compile Include="UI\Surgical\StainStatusDialog.xaml.cs">
+      <DependentUpon>StainStatusDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Surgical\SuggestedAdditionalTestingPage.xaml.cs">
       <DependentUpon>SuggestedAdditionalTestingPage.xaml</DependentUpon>
     </Compile>
@@ -3742,6 +3651,12 @@
       <DependentUpon>SurgicalHistory.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Surgical\TextSearchHandler.cs" />
+    <Compile Include="UI\SystemUserDialog.xaml.cs">
+      <DependentUpon>SystemUserDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\SystemUserListDialog.xaml.cs">
+      <DependentUpon>SystemUserListDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\TaskNotifier.cs" />
     <Compile Include="UI\Surgical\SurgicalReview.xaml.cs">
       <DependentUpon>SurgicalReview.xaml</DependentUpon>
@@ -5350,9 +5265,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="UI\Client\FacilityEntry.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\CodeSelection.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Common\UserPreferencesList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Cutting\AliquotOrderSelectionPage.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -5515,18 +5438,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\MySql\MySqlMigrationDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\MySql\NonpersistentTableDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\MySql\SqlServerRefreshDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="UI\NHunspell.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -5643,6 +5554,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UI\Surgical\StainStatusDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\Surgical\SuggestedAdditionalTestingPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -5702,6 +5617,14 @@
     <Page Include="UI\Surgical\SurgicalReview.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\SystemUserDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\SystemUserListDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\TaskWorkspace.xaml">
       <SubType>Designer</SubType>
@@ -7180,12 +7103,12 @@
   <ItemGroup>
     <PublishFile Include="Microsoft.Exchange.WebServices">
       <Visible>False</Visible>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
   </ItemGroup>
@@ -7266,8 +7189,6 @@
     <Content Include="UI\CEFSharp\libGLESv2.dll" />
     <Content Include="UI\CEFSharp\nunit.framework.dll" />
     <Content Include="dll\MongoDB.Bson.dll" />
-    <Content Include="dll\MongoDB.Bson.pdb" />
-    <Content Include="dll\MongoDB.Driver.pdb" />
     <Content Include="dll\WPFToolkit.dll" />
     <Content Include="dll\WPFToolkit.Extended.dll" />
     <Content Include="dll\Xceed.Wpf.DataGrid.dll" />

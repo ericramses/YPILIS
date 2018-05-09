@@ -674,15 +674,9 @@ namespace YellowstonePathology.UI
 
 		private void MenuItemPreferences_Click(object sender, RoutedEventArgs e)
 		{
-			YellowstonePathology.UI.Common.UserPreferences dlg = new YellowstonePathology.UI.Common.UserPreferences();
+			YellowstonePathology.UI.Common.UserPreferences dlg = new YellowstonePathology.UI.Common.UserPreferences(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference);
 			dlg.ShowDialog();
-		}
-
-		private void MenuItemDatabase_Click(object sender, RoutedEventArgs e)
-		{
-			//YellowstonePathology.UI.Common.DatabaseSelection dlg = new YellowstonePathology.UI.Common.DatabaseSelection();
-			//dlg.ShowDialog();
-		}
+		}		
 
 		private void MenuItemValidate_Click(object sender, RoutedEventArgs e)
 		{
@@ -935,25 +929,13 @@ namespace YellowstonePathology.UI
                 this.TabControlLeftWorkspace.Items.Remove(tabItem);
             }
             return true;
-        }
-
-        private void MenuItemMySqlMigration_Click(object sender, RoutedEventArgs e)
-        {
-            UI.MySql.MySqlMigrationDialog mySqlMigrationDialog = new MySql.MySqlMigrationDialog();
-            mySqlMigrationDialog.ShowDialog();
-        }
+        }        
 
         private void MenuItemSVHCDMResults_Click(object sender, RoutedEventArgs e)
         {
             Billing.SVHCDMResultDialog dialog = new Billing.SVHCDMResultDialog();
             dialog.ShowDialog();
-        }
-
-        private void MenuItemRefreshFromMySql_Click(object sender, RoutedEventArgs e)
-        {
-            UI.MySql.SqlServerRefreshDialog sqlServerRefreshDialog = new MySql.SqlServerRefreshDialog();
-            sqlServerRefreshDialog.ShowDialog();
-        }
+        }        
 
         private void MenuItemRetrospectiveReviews_Click(object sender, RoutedEventArgs e)
         {
@@ -971,6 +953,24 @@ namespace YellowstonePathology.UI
         {
             string key = YellowstonePathology.Business.BarcodeScanning.VantageBarcode.SimulateScan();
             YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort.Instance.SimulateScanReceived(key);
+        }
+
+        private void MenuItemStainStatus_Click(object sender, RoutedEventArgs e)
+        {
+            Surgical.StainStatusDialog stainStatusDialog = new Surgical.StainStatusDialog(-1);
+            stainStatusDialog.ShowDialog();
+        }
+
+        private void MenuItemSystemUser_Click(object sender, RoutedEventArgs e)
+        {
+            SystemUserListDialog dlg = new SystemUserListDialog();
+            dlg.ShowDialog();
+        }
+
+        private void MenuItemUserPreferences_Click(object sender, RoutedEventArgs e)
+        {
+            Common.UserPreferencesList dlg = new Common.UserPreferencesList(false);
+            dlg.ShowDialog();
         }
     }
 }

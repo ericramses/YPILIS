@@ -54,12 +54,12 @@ namespace YellowstonePathology.Business.Test.CalreticulinMutationAnalysis
 			this.ReplaceText("report_date", YellowstonePathology.Business.BaseData.GetShortDateString(this.m_PanelSetOrder.ReferenceLabFinalDate));
 			this.ReplaceText("pathologist_signature", reportOrderCalreticulinMutationAnalysis.ReferenceLabSignature);
 
-			this.SaveReport();
+			this.SaveReport(false);
 		}
 
-		public override void Publish()
+		public override void Publish(bool notify)
 		{
-			base.Publish();
+			base.Publish(notify);
 		}
 	}
 }

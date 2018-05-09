@@ -12,7 +12,7 @@ namespace YellowstonePathology.Business.Gateway
             YellowstonePathology.Business.ClientOrder.Model.OrderBrowserListItemCollection resultCollection = new YellowstonePathology.Business.ClientOrder.Model.OrderBrowserListItemCollection();
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = "Select ClientOrderId, OrderStatus, PanelSetId, PLastName, PFirstName, ProviderName, ClientName, " +
-                "OrderedBy, OrderTime, Submitted, Received, OrderType " +
+                "OrderedBy, OrderTime, Submitted, Received, OrderType, ExternalOrderId " +
                 "from tblClientOrder " +
                 "Where tblClientOrder.OrderDate = @OrderDate " + 
                 "Order by OrderTime desc;";
@@ -44,7 +44,7 @@ namespace YellowstonePathology.Business.Gateway
             YellowstonePathology.Business.ClientOrder.Model.OrderBrowserListItemCollection resultCollection = new YellowstonePathology.Business.ClientOrder.Model.OrderBrowserListItemCollection();
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = "Select ClientOrderId, OrderStatus, PanelSetId, PLastName, PFirstName, ProviderName, ClientName, " +
-                "OrderedBy, OrderTime, Submitted, Received, OrderType " +
+                "OrderedBy, OrderTime, Submitted, Received, OrderType, ExternalOrderId " +
                 "from tblClientOrder " +
                 "Where Hold = 1 " +
                 "Order by OrderTime desc;";
@@ -86,7 +86,7 @@ namespace YellowstonePathology.Business.Gateway
             YellowstonePathology.Business.ClientOrder.Model.OrderBrowserListItemCollection resultCollection = new YellowstonePathology.Business.ClientOrder.Model.OrderBrowserListItemCollection();
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = "Select ClientOrderId, OrderStatus, ClientName, PanelSetId, PLastName, PFirstName, ProviderName, " +
-                "OrderedBy, OrderTime, Submitted, Received, OrderType " +
+                "OrderedBy, OrderTime, Submitted, Received, OrderType, ExternalOrderId " +
                 "from tblClientOrder " +
                 "Where ClientId in (" + clientIdString + ") and " +
                 "OrderTime >  date_add(curdate(), Interval -7 Day) and " +
@@ -120,7 +120,7 @@ namespace YellowstonePathology.Business.Gateway
 			MySqlCommand cmd = new MySqlCommand();
 			cmd.Parameters.AddWithValue("@MasterAccessionNo", masterAccessionNo);
 			cmd.CommandText = "Select ClientOrderId, OrderStatus, PanelSetId, PLastName, PFirstName, ProviderName, ClientName, " +
-                "OrderedBy, OrderTime, Submitted, Received, OrderType " +
+                "OrderedBy, OrderTime, Submitted, Received, OrderType, ExternalOrderId " +
 				"from tblClientOrder " +
                 "Where tblClientOrder.MasterAccessionNo = @MasterAccessionNo " +
 				"Order by OrderTime desc;";
@@ -154,14 +154,14 @@ namespace YellowstonePathology.Business.Gateway
 			if (string.IsNullOrEmpty(firstName) == true)
 			{
 				cmd.CommandText = "Select ClientOrderId, OrderStatus, PanelSetId, PLastName, PFirstName, ProviderName, " +
-                    "ClientName, OrderedBy, OrderTime, Submitted, Received, OrderType " +
+                    "ClientName, OrderedBy, OrderTime, Submitted, Received, OrderType, ExternalOrderId " +
                     "from tblClientOrder Where tblClientOrder.PLastName like concat(@PLastName, '%') Order by OrderTime desc;";
 			}
 			else
 			{
 				cmd.Parameters.AddWithValue("@PFirstName", firstName);
 				cmd.CommandText = "Select ClientOrderId, OrderStatus, PanelSetId, PLastName, PFirstName, ProviderName, " +
-                    "ClientName, OrderedBy, OrderTime, Submitted, Received, OrderType " +
+                    "ClientName, OrderedBy, OrderTime, Submitted, Received, OrderType, ExternalOrderId " +
                     "from tblClientOrder Where tblClientOrder.PLastName like concat(@PLastName, '%') and PFirstName like " +
                     "concat(@PFirstName, '%') Order by OrderTime desc;";
 			}

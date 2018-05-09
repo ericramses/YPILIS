@@ -112,12 +112,12 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
 
             this.ReplaceText("tumor_nuclei_percentage", egfrToALKReflexAnalysisTestOrder.TumorNucleiPercentage);
 
-            this.SaveReport();
+            this.SaveReport(false);
         }
         
-        public override void Publish()
+        public override void Publish(bool notify)
         {
-            base.Publish();
+            base.Publish(notify);
         }        
 
     }

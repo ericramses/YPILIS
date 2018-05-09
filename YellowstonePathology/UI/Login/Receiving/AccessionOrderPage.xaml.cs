@@ -80,7 +80,7 @@ namespace YellowstonePathology.UI.Login.Receiving
                 this.m_PanelSetCollectionView = Business.PanelSet.Model.PanelSetCollection.GetHistologyPanelSets();
             }
 
-            this.m_FacilityCollection = Business.Facility.Model.FacilityCollection.GetAllFacilities();
+            this.m_FacilityCollection = Business.Facility.Model.FacilityCollection.Instance;
             this.m_CaseTypeList = new OrderPageCaseTypeList();
             this.m_OrderAsResearchTesting = false;
 
@@ -100,7 +100,7 @@ namespace YellowstonePathology.UI.Login.Receiving
             this.m_ClientOrder = clientOrderReceivingHandler.ClientOrder;            
 
             this.m_PanelSetCollectionView = Business.PanelSet.Model.PanelSetCollection.GetHistologyPanelSets();
-            this.m_FacilityCollection = YellowstonePathology.Business.Facility.Model.FacilityCollection.GetAllFacilities();
+            this.m_FacilityCollection = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance;
 
             this.m_CaseTypeList = new OrderPageCaseTypeList();
             this.m_OrderAsResearchTesting = false;
@@ -254,11 +254,11 @@ namespace YellowstonePathology.UI.Login.Receiving
                         this.m_PanelSetCollectionView = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetByCaseType("FISH");
                         break;
                     case "Neogenomics":
-                        YellowstonePathology.Business.Facility.Model.NeogenomicsIrvine neo = new Business.Facility.Model.NeogenomicsIrvine();
+                        YellowstonePathology.Business.Facility.Model.Facility neo = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("NEOGNMCIRVN");
                         this.m_PanelSetCollectionView = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetByFacility(neo);
                         break;
                     case "ARUP":
-                        YellowstonePathology.Business.Facility.Model.ARUP arup = new Business.Facility.Model.ARUP();
+                        YellowstonePathology.Business.Facility.Model.Facility arup = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("ARUPSPD");
                         this.m_PanelSetCollectionView = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetByFacility(arup);
                         break;
 					case "Reflex Testing":

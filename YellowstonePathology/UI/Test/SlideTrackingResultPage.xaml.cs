@@ -98,12 +98,26 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkFinalizeResults_Click(object sender, RoutedEventArgs e)
         {
-
+            if (this.m_PanelSetOrder.Final == true)
+            {
+               MessageBox.Show("This case cannot be finalized because it is already finalized.");
+            }
+            else
+            {
+                this.m_PanelSetOrder.Finish(this.m_AccessionOrder);
+            }
         }
 
         private void HyperLinkUnfinalResults_Click(object sender, RoutedEventArgs e)
         {
-
+            if (this.m_PanelSetOrder.Final == false)
+            {
+                MessageBox.Show("This case cannot be unfinalized because it is not final.");
+            }
+            else
+            {
+                this.m_PanelSetOrder.Unfinalize();
+            }
         }
 
         private void HyperLinkSimulateScan_Click(object sender, RoutedEventArgs e)
@@ -114,14 +128,14 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkSendToBozeman_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Facility.Model.YellowstonePathologistBozeman facility = new Business.Facility.Model.YellowstonePathologistBozeman();
+            YellowstonePathology.Business.Facility.Model.Facility facility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPBZMN");
             this.m_VantageSlideViewCollection.SetLocation(facility.FacilityId);
             this.NotifyPropertyChanged(string.Empty);
         }
 
         private void HyperLinkSendToBillings_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings facility = new Business.Facility.Model.YellowstonePathologyInstituteBillings();
+            YellowstonePathology.Business.Facility.Model.Facility facility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
             this.m_VantageSlideViewCollection.SetLocation(facility.FacilityId);
             this.NotifyPropertyChanged(string.Empty);
         }

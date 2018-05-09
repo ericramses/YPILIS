@@ -13,7 +13,7 @@ namespace YellowstonePathology.Business.HL7View.CMMC
             switch (panelSetId)
             {
                 case 1:
-                    //view = new CMMCJak2MutationNteView(accessionOrder, reportNo);
+                    view = new YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FCMMCNteView(accessionOrder, reportNo);
                     break;
                 case 2:
                     //view = new CMMCCFNteView(accessionOrder, reportNo);
@@ -90,12 +90,48 @@ namespace YellowstonePathology.Business.HL7View.CMMC
 				case 62:                
                     view = new YellowstonePathology.Business.Test.HPV1618.HPV1618CMMCNteView(accessionOrder, reportNo);
 					break;
+                case 102:
+                    view = new YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeIHCPanelCMMCNTEView(accessionOrder, reportNo);
+                    break;
                 case 106:
 					view = new YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeEvaluationCMMCNteView(accessionOrder, reportNo);
 					break;
 				case 116:
 					view = new YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileCMMCNteView(accessionOrder, reportNo);
 					break;
+                case 141:
+                    view = new YellowstonePathology.Business.Test.JAK2Exon1214.JAK2Exon1214CMMCNteView(accessionOrder, reportNo);
+                    break;
+                case 148:
+                    view = new YellowstonePathology.Business.Test.CCNDIBCLIGHByFISH.CCNDIBCLIGHByFISHCMMCNTEView(accessionOrder, reportNo);
+                    break;
+                case 150:
+                    view = new YellowstonePathology.Business.Test.CEBPA.CEBPACMMCNTEView(accessionOrder, reportNo);
+                    break;
+                case 151:
+                    view = new YellowstonePathology.Business.Test.CLLByFish.CLLByFishCMMCNTEView(accessionOrder, reportNo);
+                    break;
+                case 153:
+                    view = new YellowstonePathology.Business.Test.FLT3.FLT3CMMCNTEView(accessionOrder, reportNo);
+                    break;
+                case 156:
+                    view = new YellowstonePathology.Business.Test.BCRABLByFish.BCRABLByFishCMMCNTEView(accessionOrder, reportNo);
+                    break;
+                case 162:
+                    view = new YellowstonePathology.Business.Test.BCRABLByPCR.BCRABLByPCRCMMCNTEView(accessionOrder, reportNo);
+                    break;
+                case 164:
+                    view = new YellowstonePathology.Business.Test.MDSExtendedByFish.MDSExtendedByFishCMMCNTEView(accessionOrder, reportNo);
+                    break;
+                case 169:
+                    view = new YellowstonePathology.Business.Test.ChromosomeAnalysisForFetalAnomaly.ChromosomeAnalysisForFetalAnomalCMMCNteView(accessionOrder, reportNo);
+                    break;
+                case 172:
+                    view = new YellowstonePathology.Business.Test.EosinophiliaByFISH.EosinophiliaByFISHCMMCNTEView(accessionOrder, reportNo);
+                    break;
+                case 177:
+                    view = new YellowstonePathology.Business.Test.BCellGeneRearrangement.BCellGeneRearrangementCMMCNTEView(accessionOrder, reportNo);
+                    break;
                 case 186:
                     view = new YellowstonePathology.Business.Test.API2MALT1ByFISH.API2MALT1ByFISHCMMCNteView(accessionOrder, reportNo);
                     break;
@@ -111,8 +147,17 @@ namespace YellowstonePathology.Business.HL7View.CMMC
                 case 218:
                     view = new YellowstonePathology.Business.Test.RASRAFPanel.RASRAFCMMCNTEView(accessionOrder, reportNo);
                     break;
+                case 222:
+                    view = new YellowstonePathology.Business.Test.BCellEnumeration.BCellEnumerationCMMCNTEView(accessionOrder, reportNo);
+                    break;
+                case 226:
+                    view = new YellowstonePathology.Business.Test.BCL2t1418ByFISH.BCL2t1418ByFISHCMMCNTEView(accessionOrder, reportNo);
+                    break;
                 case 228:
                     view = new YellowstonePathology.Business.Test.API2MALT1ByPCR.API2MALT1ByPCRCMMCNTEView(accessionOrder, reportNo);
+                    break;
+                case 269:
+                    view = new YellowstonePathology.Business.Test.HPV1618SolidTumor.HPV1618SolidTumorCMMCView(accessionOrder, reportNo);
                     break;
                 case 274:
                     view = new YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisCMMCNTEView(accessionOrder, reportNo);

@@ -48,12 +48,12 @@ namespace YellowstonePathology.Business.Test.AMLNonFavorableRisk
 
             this.ReplaceText("report_disclaimer", testOrder.ReportDisclaimer);
 
-            this.SaveReport();
+            this.SaveReport(false);
         }
 
-        public override void Publish()
+        public override void Publish(bool notify)
         {
-            base.Publish();
+            base.Publish(notify);
         }
     }
 }

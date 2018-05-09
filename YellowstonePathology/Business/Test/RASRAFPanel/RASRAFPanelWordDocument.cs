@@ -67,12 +67,12 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
             this.ReplaceText("referencelab_finaldate", BaseData.GetShortDateTimeString(this.m_PanelSetOrder.ReferenceLabFinalDate));
             this.ReplaceText("pathologist_signature", this.m_PanelSetOrder.ReferenceLabSignature);
 
-            this.SaveReport();
+            this.SaveReport(false);
         }
 
-        public override void Publish()
+        public override void Publish(bool notify)
         {
-            base.Publish();
+            base.Publish(notify);
         }
     }
 }

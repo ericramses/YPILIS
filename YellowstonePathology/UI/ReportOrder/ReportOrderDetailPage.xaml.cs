@@ -33,10 +33,10 @@ namespace YellowstonePathology.UI.ReportOrder
             this.m_PanelSetOrder = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
             this.m_SystemIdentity = systemIdentity;
 			this.m_UserCollection = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection;
-            this.m_FacilityCollection = Business.Facility.Model.FacilityCollection.GetAllFacilities();            
+            this.m_FacilityCollection = Business.Facility.Model.FacilityCollection.Instance;            
 
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
-			this.m_ReportDocumentPath = YellowstonePathology.Business.Document.CaseDocument.GetCaseFileNamePDF(orderIdParser);
+			this.m_ReportDocumentPath = YellowstonePathology.Business.Document.CaseDocument.GetCaseFileNamePDF(orderIdParser, false);
 
 			InitializeComponent();
 
@@ -162,7 +162,7 @@ namespace YellowstonePathology.UI.ReportOrder
             {
                 YellowstonePathology.Business.Interface.ICaseDocument caseDocument = YellowstonePathology.Business.Document.DocumentFactory.GetDocument(this.m_AccessionOrder, this.m_PanelSetOrder, Business.Document.ReportSaveModeEnum.Normal);
                 caseDocument.Render();
-                caseDocument.Publish();
+                caseDocument.Publish(false);
                 MessageBox.Show("The case was successfully published.");
             }
             else
@@ -201,7 +201,7 @@ namespace YellowstonePathology.UI.ReportOrder
         {
             bool result = true;
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
-            string xpsFileName = YellowstonePathology.Business.Document.CaseDocument.GetCaseFileNameXPS(orderIdParser);
+            string xpsFileName = YellowstonePathology.Business.Document.CaseDocument.GetCaseFileNameXPS(orderIdParser, false);
             if (System.IO.File.Exists(xpsFileName) == false)
             {                
                 result = false;
@@ -213,7 +213,7 @@ namespace YellowstonePathology.UI.ReportOrder
         {
             bool result = true;
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
-            string tifFileName = YellowstonePathology.Business.Document.CaseDocument.GetCaseFileNameTif(orderIdParser);
+            string tifFileName = YellowstonePathology.Business.Document.CaseDocument.GetCaseFileNameTif(orderIdParser, false);
             if (System.IO.File.Exists(tifFileName) == false)
             {
                 result = false;

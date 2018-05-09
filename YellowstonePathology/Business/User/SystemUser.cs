@@ -42,7 +42,7 @@ namespace YellowstonePathology.Business.User
 			set { this.m_SystemUserRoleCollection = value; }
 		}
 
-		[PersistentPrimaryKeyProperty(true)]
+		[PersistentPrimaryKeyProperty(false)]
 		[PersistentDataColumnProperty(false, "11", "null", "int")]
 		public int UserId
 		{

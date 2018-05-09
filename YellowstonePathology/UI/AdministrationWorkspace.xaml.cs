@@ -85,7 +85,6 @@ namespace YellowstonePathology.UI
             {
                 sw.Write(resultString);
             }
-
             MessageBox.Show("Done");
         }
 
@@ -165,10 +164,10 @@ namespace YellowstonePathology.UI
 			foreach (YellowstonePathology.Business.ReportNo reportNo in reportNumbers)
             {
 				YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(reportNo.Value);
-				string xpsDoc = YellowstonePathology.Business.Document.CaseDocument.GetCaseFileNameXPS(orderIdParser);
+				string xpsDoc = YellowstonePathology.Business.Document.CaseDocument.GetCaseFileNameXPS(orderIdParser, false);
                 if (System.IO.File.Exists(xpsDoc) == false)
                 {
-					YellowstonePathology.Business.Document.CaseDocument.SaveDocAsXPS(orderIdParser);
+					YellowstonePathology.Business.Document.CaseDocument.SaveDocAsXPS(orderIdParser, false);
                 }
             }
         }
@@ -213,7 +212,7 @@ namespace YellowstonePathology.UI
 			YellowstonePathology.Business.ReportNoCollection reportNoCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetReportNumbers();
 			foreach (YellowstonePathology.Business.ReportNo reportNo in reportNoCollection)
 			{
-                YellowstonePathology.Business.Helper.FileConversionHelper.SaveXpsReportToTiff(reportNo.Value);
+                YellowstonePathology.Business.Helper.FileConversionHelper.SaveXpsReportToTiff(reportNo.Value, false);
 			}
        }
 
@@ -241,7 +240,7 @@ namespace YellowstonePathology.UI
 
         private void XpsToTiff_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Helper.FileConversionHelper.SaveXpsReportToTiff("S11-11826");
+            YellowstonePathology.Business.Helper.FileConversionHelper.SaveXpsReportToTiff("S11-11826", false);
         }       		
 
         private void TestBillingData_Click(object sender, RoutedEventArgs e)
@@ -981,11 +980,13 @@ namespace YellowstonePathology.UI
 
             Microsoft.Office.Interop.Outlook.Items items = mapiFolder.Items;
             */
-        }        
+        }
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            
+            string path = System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\hello.txt";
+            System.IO.File.WriteAllText(path, "hello world");
+            MessageBox.Show(path);
         }
 
         private void GetSlideNumberTest()
@@ -1414,9 +1415,8 @@ namespace YellowstonePathology.UI
 
         private void WriteFacilitySql()
         {
-            YellowstonePathology.Business.Facility.Model.FacilityCollection fc = YellowstonePathology.Business.Facility.Model.FacilityCollection.GetAllFacilities();
             StringBuilder sql = new StringBuilder();
-            foreach (YellowstonePathology.Business.Facility.Model.Facility f in fc)
+            foreach (YellowstonePathology.Business.Facility.Model.Facility f in Business.Facility.Model.FacilityCollection.Instance)
             {
                 //sql.Append(f.
             }

@@ -318,7 +318,7 @@ namespace YellowstonePathology.Business.Document
 			CaseDocument.ReleaseComObject(oWord);
 		}
 
-		public static void SaveXMLAsDoc(YellowstonePathology.Business.OrderIdParser orderIdParser)
+		public static void SaveXMLAsDoc(YellowstonePathology.Business.OrderIdParser orderIdParser, bool notify)
         {
             Microsoft.Office.Interop.Word.Application oWord;
             Object oMissing = System.Reflection.Missing.Value;
@@ -329,8 +329,10 @@ namespace YellowstonePathology.Business.Document
             oWord.Visible = false;
 
 			Object xmlFileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + orderIdParser.ReportNo + ".xml";
+            if (notify) xmlFileName = xmlFileName.ToString().Replace(".xml", ".notify.xml");
 			Object docFileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + orderIdParser.ReportNo + ".doc";
-            
+            if (notify) docFileName = docFileName.ToString().Replace(".doc", ".notify.doc");
+
             try
             {
                 File.Delete(docFileName.ToString());
@@ -358,7 +360,7 @@ namespace YellowstonePathology.Business.Document
 			CaseDocument.ReleaseComObject(oWord);
 		}
 
-		public static void SaveXMLAsPDF(YellowstonePathology.Business.OrderIdParser orderIdParser)
+		public static void SaveXMLAsPDF(YellowstonePathology.Business.OrderIdParser orderIdParser, bool notify)
         {
             Microsoft.Office.Interop.Word.Application oWord;
             Object oMissing = System.Reflection.Missing.Value;
@@ -369,7 +371,9 @@ namespace YellowstonePathology.Business.Document
             oWord.Visible = false;
 
 			Object xmlFileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + orderIdParser.ReportNo + ".xml";
+            if (notify) xmlFileName = xmlFileName.ToString().Replace(".xml", ".notify.xml");
 			Object docFileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + orderIdParser.ReportNo + ".pdf";
+            if (notify) docFileName = docFileName.ToString().Replace(".pdf", ".notify.pdf");
 
             try
             {
@@ -469,7 +473,7 @@ namespace YellowstonePathology.Business.Document
             }
         }
 
-		public static void SaveDocAsXPS(YellowstonePathology.Business.OrderIdParser orderIdParser)
+		public static void SaveDocAsXPS(YellowstonePathology.Business.OrderIdParser orderIdParser, bool notify)
         {
             Microsoft.Office.Interop.Word.Application oWord;
             Object oMissing = System.Reflection.Missing.Value;
@@ -481,15 +485,16 @@ namespace YellowstonePathology.Business.Document
 
             string currentPrinter = oWord.ActivePrinter;
             oWord.ActivePrinter = "Microsoft XPS Document Writer";
-
-			Object docFileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + orderIdParser.ReportNo + ".doc";
-			Object xpsFileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + orderIdParser.ReportNo + ".xps";
+            
+            Object docFileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + orderIdParser.ReportNo + ".doc";
+            if (notify) docFileName = docFileName.ToString().Replace(".doc", ".notify.doc");
+            Object xpsFileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + orderIdParser.ReportNo + ".xps";
+            if (notify) xpsFileName = xpsFileName.ToString().Replace(".xps", ".notify.xps");
 
             Object fileFormat = "wdFormatDocument";
 			            
             if (System.IO.File.Exists(docFileName.ToString()) == true)
             {
-
                 Microsoft.Office.Interop.Word.Document doc = oWord.Documents.Open(ref docFileName, ref oMissing, ref oMissing,
                         ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing,
                         ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing);
@@ -739,21 +744,24 @@ namespace YellowstonePathology.Business.Document
             return fileName;
         }
 
-		public static string GetCaseFileNameXPS(YellowstonePathology.Business.OrderIdParser orderIdParser)
+		public static string GetCaseFileNameXPS(YellowstonePathology.Business.OrderIdParser orderIdParser, bool notify)
         {
 			string fileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + orderIdParser.ReportNo + ".xps";
+            if (notify) fileName = fileName.Replace(".xps", ".notify.xps");
             return fileName;
         }
 
-		public static string GetCaseFileNamePDF(YellowstonePathology.Business.OrderIdParser orderIdParser)
+		public static string GetCaseFileNamePDF(YellowstonePathology.Business.OrderIdParser orderIdParser, bool notify)
         {
 			string fileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + orderIdParser.ReportNo + ".pdf";
+            if (notify) fileName = fileName.Replace(".pdf", ".notify.pdf");
             return fileName;
         }
 
-		public static string GetCaseFileNameTif(YellowstonePathology.Business.OrderIdParser orderIdParser)
+		public static string GetCaseFileNameTif(YellowstonePathology.Business.OrderIdParser orderIdParser, bool notify)
         {
 			string fileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + orderIdParser.ReportNo + ".tif";
+            if (notify) fileName = fileName.Replace(".tif", ".notify.tif");
             return fileName;
         }
 
@@ -801,9 +809,9 @@ namespace YellowstonePathology.Business.Document
 
 			string xmlFile = GetCaseFileNameXml(orderIdParser);
 			string docFile = GetCaseFileNameDoc(orderIdParser);
-			string xpsFile = GetCaseFileNameXPS(orderIdParser);
-			string tifFile = GetCaseFileNameTif(orderIdParser);
-			string pdfFile = GetCaseFileNamePDF(orderIdParser);
+			string xpsFile = GetCaseFileNameXPS(orderIdParser, false);
+			string tifFile = GetCaseFileNameTif(orderIdParser, false);
+			string pdfFile = GetCaseFileNamePDF(orderIdParser, false);
 
             try
             {

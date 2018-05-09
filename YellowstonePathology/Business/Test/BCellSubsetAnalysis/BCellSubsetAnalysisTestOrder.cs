@@ -40,7 +40,7 @@ namespace YellowstonePathology.Business.Test.BCellSubsetAnalysis
             this.m_Method = "Quantitative Flow Cytometry.";
             this.m_ReportReferences = "A. S. Bradley, B Ford, A.S. Bansal.  Altered functional B cell subset populations in patients with chronic fatigue syndrome compared to healthy controls.  British Society for Immunology, Clinical and Experimental Immunology, 172: 73-80. " + Environment.NewLine +
                 "F.Mensah, A Bansal, S. Berkovitz, A.Sharma, V Reddy, M J.Leandro and G.Cambridge.Extended B cell phenotype in patients with myalgic encephalomyelitis/ chronic fatigue syndrome: a cross-sectional study.British Society for Immunology, Clinical and Experimental Immunology, 184: 237 - 247." + Environment.NewLine +
-                "Ramos S, Brenu E, Nuyen T, Ng J, Staines D, et al.Characterisation of B cell Subsets and Receptors in Chronic Fatigue Syndrom Paqtients.J Clin Cell Immunol 6: 288.";            
+                "Ramos S, Brenu E, Nuyen T, Ng J, Staines D, et al.Characterization of B cell Subsets and Receptors in Chronic Fatigue Syndrome Patients. J Clin Cell Immunol 6: 288.";            
         }
 
         [PersistentProperty()]

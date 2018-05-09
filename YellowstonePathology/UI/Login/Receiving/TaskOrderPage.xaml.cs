@@ -50,7 +50,7 @@ namespace YellowstonePathology.UI.Login.Receiving
             this.m_TaskOrder = taskOrder;
             this.m_PageNavigationMode = pageNavigationMode;
 
-            this.m_FacilityCollection = Business.Facility.Model.FacilityCollection.GetAllFacilities();
+            this.m_FacilityCollection = Business.Facility.Model.FacilityCollection.Instance;
             this.m_TaskAssignmentList = YellowstonePathology.Business.Task.Model.TaskAssignment.GetTaskAssignmentList();
             this.m_BarcodeScanPort = YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort.Instance;
 
@@ -196,8 +196,8 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         private void HyperLinkSendToNeogenomics_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Facility.Model.NeogenomicsIrvine neo = new YellowstonePathology.Business.Facility.Model.NeogenomicsIrvine();
-            YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings ypi = new YellowstonePathology.Business.Facility.Model.YellowstonePathologyInstituteBillings();
+            YellowstonePathology.Business.Facility.Model.Facility neo = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("NEOGNMCIRVN");
+            YellowstonePathology.Business.Facility.Model.Facility ypi = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
 
             this.m_TaskOrder.TaskOrderDetailCollection.Clear();
             YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_TaskOrder.ReportNo);
@@ -291,8 +291,7 @@ namespace YellowstonePathology.UI.Login.Receiving
             {
                 if (this.IsOKToGetTrackingNumber(taskOrderDetail) == true)
                 {
-                    Business.Facility.Model.FacilityCollection allFacilities = Business.Facility.Model.FacilityCollection.GetAllFacilities();
-                    Business.Facility.Model.Facility facility = allFacilities.GetByFacilityId(taskOrderDetail.ShipToFacilityId);
+                    Business.Facility.Model.Facility facility = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId(taskOrderDetail.ShipToFacilityId);
                     Business.MaterialTracking.Model.FedexAccountProduction fedExAccount = new Business.MaterialTracking.Model.FedexAccountProduction();
                     Business.MaterialTracking.Model.FedexShipmentRequest shipmentRequest = new Business.MaterialTracking.Model.FedexShipmentRequest(facility, fedExAccount, taskOrderDetail.PaymentType, taskOrderDetail.ServiceType, taskOrderDetail);
                     Business.MaterialTracking.Model.FedexProcessShipmentReply result = shipmentRequest.RequestShipment();
@@ -404,19 +403,19 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         private void HyperLinkSendFax_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_TaskOrder.ReportNo);
-            YellowstonePathology.Business.Test.AdditionalTestingNotification.AdditionalTestingNotificationWordDocument report = 
-                new YellowstonePathology.Business.Test.AdditionalTestingNotification.AdditionalTestingNotificationWordDocument(this.m_AccessionOrder, panelSetOrder, Business.Document.ReportSaveModeEnum.Notification);
-            report.Render();
+            if(this.ListBoxTaskDetails.SelectedItem != null)
+            {
+                YellowstonePathology.Business.Task.Model.TaskOrderDetailFax taskOrderDetailFax = (YellowstonePathology.Business.Task.Model.TaskOrderDetailFax)this.ListBoxTaskDetails.SelectedItem;
+                YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_TaskOrder.ReportNo);
+                YellowstonePathology.Business.Test.AdditionalTestingNotification.AdditionalTestingNotificationWordDocument report =
+                    new YellowstonePathology.Business.Test.AdditionalTestingNotification.AdditionalTestingNotificationWordDocument(this.m_AccessionOrder, panelSetOrder, Business.Document.ReportSaveModeEnum.Normal);
+                report.Render();
+                report.Publish(true);
 
-            YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(panelSetOrder.ReportNo);
-            string fileName = YellowstonePathology.Business.Document.CaseDocument.GetNotificationDocumentFilePath(orderIdParser);
-            YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(fileName);
-
-            Business.OrderIdParser orderIdParse = new Business.OrderIdParser(panelSetOrder.ReportNo);
-            string xmlDocName = Business.Document.CaseDocument.GetCaseDocumentFullPath(orderIdParse);
-            Business.Document.CaseDocument.SaveXMLAsXPS(xmlDocName);
-            //Business.ReportDistribution.Model.FaxSubmission.Submit("92386361", false, "hello", fileName);
+                Business.OrderIdParser orderIdParser = new Business.OrderIdParser(panelSetOrder.ReportNo);
+                string tifFileName = Business.Document.CaseDocument.GetCaseFileNameTif(orderIdParser, true);
+                Business.ReportDistribution.Model.FaxSubmission.Submit(taskOrderDetailFax.FaxNumber, false, "Additional Testing Notification", tifFileName);                
+            }            
         }
 
         private void HyperLinkAddSendFaxTask_Click(object sender, RoutedEventArgs e)
@@ -424,7 +423,11 @@ namespace YellowstonePathology.UI.Login.Receiving
             YellowstonePathology.Business.Task.Model.TaskFax task = new Business.Task.Model.TaskFax(string.Empty, string.Empty);
             string taskOrderDetailId = YellowstonePathology.Business.OrderIdParser.GetNextTaskOrderDetailId(this.m_TaskOrder.TaskOrderDetailCollection, this.m_TaskOrder.TaskOrderId);
             string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-            YellowstonePathology.Business.Task.Model.TaskOrderDetailFax taskOrderDetail = new Business.Task.Model.TaskOrderDetailFax(taskOrderDetailId, this.m_TaskOrder.TaskOrderId, objectId, task, this.m_AccessionOrder.ClientId);
+
+            Business.Client.Model.Client client = Business.Gateway.PhysicianClientGateway.GetClientByClientId(this.m_AccessionOrder.ClientId);
+            YellowstonePathology.Business.Task.Model.TaskOrderDetailFax taskOrderDetail = new Business.Task.Model.TaskOrderDetailFax(taskOrderDetailId, this.m_TaskOrder.TaskOrderId, objectId, task, this.m_AccessionOrder.ClientId);            
+            taskOrderDetail.FaxNumber = client.Fax;
+            if (client.LongDistance == true) taskOrderDetail.FaxNumber = "1" + taskOrderDetail.FaxNumber;
             this.m_TaskOrder.TaskOrderDetailCollection.Add(taskOrderDetail);
         }
     }

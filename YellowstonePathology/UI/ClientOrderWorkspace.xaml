@@ -71,6 +71,7 @@
                         <GridViewColumn DisplayMemberBinding="{Binding Path=ClientName}" Header="Client Name" Width="200"/>
                         <GridViewColumn DisplayMemberBinding="{Binding Path=OrderType}" Header="Type" Width="100"/>
                         <GridViewColumn DisplayMemberBinding="{Binding Path=OrderedBy}" Header="Ordered By" Width="120"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=ExternalOrderId}" Header="External" Width="120"/>
                     </GridView>
                 </ListView.View>
             </ListView>

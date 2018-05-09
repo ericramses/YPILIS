@@ -60,6 +60,7 @@ namespace YellowstonePathology.UI.Surgical
 						if (barcode.IsValidated == true)
 						{							
 							this.DoAliquotOrderIdSearch(barcode.ID, 15);
+                            this.m_PathologistUI.UpdateAliquotLocation(barcode.ID);
                         }
 						else
 						{
@@ -342,6 +343,7 @@ namespace YellowstonePathology.UI.Surgical
 
                             if (this.m_PathologistsReview.ReviewContent is SurgicalReview)
                             {
+                                this.m_PathologistUI.UpdateSlideLocation(barcode.ID);
                                 SurgicalReview surgicalReview = (SurgicalReview)this.m_PathologistsReview.ReviewContent;
                                 surgicalReview.BillingSpecimenViewCollection.SetSelectedBySlideOrderid(barcode.ID);
                                 surgicalReview.SetFocusOnDiagnosis();
@@ -360,7 +362,8 @@ namespace YellowstonePathology.UI.Surgical
 				new Action(
 					delegate()
 					{						
-						this.DoAliquotOrderIdSearch(barcode.ID, 13);                        
+						this.DoAliquotOrderIdSearch(barcode.ID, 13);
+                        this.m_PathologistUI.UpdateAliquotLocation(barcode.ID);                      
                         //this.path
                         //this.m_PathologistUI.AccessionOrder.SpecimenOrderCollection.SetIsSelectedFromSlideOrderId(barcode.ID);                        
                     }));
@@ -492,6 +495,7 @@ namespace YellowstonePathology.UI.Surgical
 							break;
 						case 1:
 						case 2:
+                        case 3:
 							this.m_CytologyResultsWorkspace.CytologyUI.ClientOrder = clientOrderCollection[0];
 							this.m_CytologyResultsWorkspace.CytologyUI.DataLoaded();
 							break;
@@ -888,6 +892,23 @@ namespace YellowstonePathology.UI.Surgical
                 Point c = new Point(b.X, b.Y - a.Y - 100);
                 scrollViewer.ScrollToVerticalOffset(c.Y);
             }
+        }
+
+        private void ButtonStainStatus_Click(object sender, RoutedEventArgs e)
+        {
+            StainStatusDialog stainStatusDialog = new Surgical.StainStatusDialog(this.m_PathologistUI.Search.SelectedPathologistId);
+            stainStatusDialog.ShowDialog();
+        }
+
+        private void ButtonNewScan_Click(object sender, RoutedEventArgs e)
+        {
+            /*//string data = "9336,2018211";
+            YellowstonePathology.Business.BarcodeScanning.Barcode barcode = new Business.BarcodeScanning.Barcode();
+            barcode.ID = "18-9672.1.1";
+            //this.BarcodeScanPort_HistologyBlockScanReceived(barcode);
+            barcode.IsValidated = true;
+            //this.HistologySlideScanReceived(barcode);
+            this.BarcodeScanPort_ThinPrepSlideScanReceived(barcode);*/
         }
     }
 }

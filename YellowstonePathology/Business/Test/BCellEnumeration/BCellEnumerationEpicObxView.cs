@@ -30,7 +30,7 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
 			this.AddHeader(document, panelSetOrder, "B-Cell Enumeration");
 
 			this.AddNextObxElement("", document, "F");
-			StringBuilder result = new StringBuilder("WBC: " + panelSetOrder.WBC.ToString());
+			StringBuilder result = new StringBuilder("WBC: " + panelSetOrder.WBC.ToString() + "/uL (from client)");
 			this.AddNextObxElement(result.ToString(), document, "F");
 			result = new StringBuilder("Lymphocyte Percentage: " + panelSetOrder.LymphocytePercentage.ToString().StringAsPercent());
 			this.AddNextObxElement(result.ToString(), document, "F");			
@@ -38,24 +38,16 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
 			this.AddNextObxElement(result.ToString(), document, "F");			
 			result = new StringBuilder("CD20 B-Cell Positive Percent: " + panelSetOrder.CD20BCellPositivePercent.ToString().StringAsPercent());
 			this.AddNextObxElement(result.ToString(), document, "F");
-			result = new StringBuilder("CD19 Absolute Count: " + panelSetOrder.CD19AbsoluteCount.ToString());
+			result = new StringBuilder("CD19 Absolute Count: " + panelSetOrder.CD19AbsoluteCount.ToString() + "/uL");
 			this.AddNextObxElement(result.ToString(), document, "F");
-			result = new StringBuilder("CD20 Absolute Count: " + panelSetOrder.CD20AbsoluteCount.ToString());
-			this.AddNextObxElement(result.ToString(), document, "F");
-
-			this.AddNextObxElement("", document, "F");
-			this.AddNextObxElement("Pathologist: " + panelSetOrder.Signature, document, "F");
-			if (panelSetOrder.FinalTime.HasValue == true)
-			{
-				this.AddNextObxElement("E-signed " + panelSetOrder.FinalDate.Value.ToString("MM/dd/yyyy HH:mm"), document, "F");
-			}
+			result = new StringBuilder("CD20 Absolute Count: " + panelSetOrder.CD20AbsoluteCount.ToString() + "/uL");
+			this.AddNextObxElement(result.ToString(), document, "F");			
 
 			this.AddNextObxElement("", document, "F");
             this.AddAmendments(document);
-
-            this.AddNextObxElement("Specimen Information:", document, "F");
+            
 			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(panelSetOrder.OrderedOn, panelSetOrder.OrderedOnId);
-			this.AddNextObxElement("Specimen Identification: " + specimenOrder.Description, document, "F");
+			this.AddNextObxElement("Specimen Description: " + specimenOrder.Description, document, "F");
 			string collectionDateTimeString = YellowstonePathology.Business.Helper.DateTimeExtensions.CombineDateAndTime(specimenOrder.CollectionDate, specimenOrder.CollectionTime);
 			this.AddNextObxElement("Collection Date/Time: " + collectionDateTimeString, document, "F");
 
@@ -68,10 +60,10 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
 			this.HandleLongString(panelSetOrder.ReportReferences, document, "F");
 			this.AddNextObxElement("", document, "F");
 
-			this.AddNextObxElement(panelSetOrder.ASRComment, document, "F");
+			this.HandleLongString(panelSetOrder.ASRComment, document, "F");
 			this.AddNextObxElement(string.Empty, document, "F");
 
-			this.AddNextObxElement(panelSetOrder.GetLocationPerformedComment(), document, "F");
+			this.HandleLongString(panelSetOrder.GetLocationPerformedComment(), document, "F");
 			this.AddNextObxElement(string.Empty, document, "F");
 		}
 	}

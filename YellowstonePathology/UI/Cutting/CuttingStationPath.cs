@@ -223,7 +223,12 @@ namespace YellowstonePathology.UI.Cutting
         private void HandleLockAquiredByMe()
         {
             Business.Test.AliquotOrder aliquotOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetAliquotOrder(this.m_AliquotOrderId);
-            this.AddMaterialTrackingLog(aliquotOrder);
+            YellowstonePathology.Business.Facility.Model.Facility thisFacility = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId);
+            string thisLocation = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.Location;
+
+
+            this.AddMaterialTrackingLog(aliquotOrder, thisFacility, thisLocation);
+            aliquotOrder.SetLocation(thisFacility, thisLocation);
             this.HandleAliquotOrderFound(aliquotOrder);
         }
 
@@ -235,7 +240,7 @@ namespace YellowstonePathology.UI.Cutting
             this.m_CuttingWorkspaceWindow.PageNavigator.Navigate(caseLockedPage);
         }
 
-        private void AddMaterialTrackingLog(YellowstonePathology.Business.Test.AliquotOrder aliquotOrder)
+        private void AddMaterialTrackingLog(YellowstonePathology.Business.Test.AliquotOrder aliquotOrder, YellowstonePathology.Business.Facility.Model.Facility thisFacility, string thisLocation)
         {            
             if(aliquotOrder == null)
             {
@@ -243,14 +248,9 @@ namespace YellowstonePathology.UI.Cutting
                 return;
             }
 
-            YellowstonePathology.Business.Facility.Model.FacilityCollection facilityCollection = Business.Facility.Model.FacilityCollection.GetAllFacilities();
-            YellowstonePathology.Business.Facility.Model.LocationCollection locationCollection = YellowstonePathology.Business.Facility.Model.LocationCollection.GetAllLocations();
-            YellowstonePathology.Business.Facility.Model.Facility thisFacility = facilityCollection.GetByFacilityId(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId);
-            YellowstonePathology.Business.Facility.Model.Location thisLocation = locationCollection.GetLocation(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.LocationId);
-
             string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
             YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog = new Business.MaterialTracking.Model.MaterialTrackingLog(objectId, aliquotOrder.AliquotOrderId, null, thisFacility.FacilityId, thisFacility.FacilityName,
-                thisLocation.LocationId, thisLocation.Description, "Block Scanned", "Block Scanned At Cutting", "Aliquot", this.m_AccessionOrder.MasterAccessionNo, aliquotOrder.Label, aliquotOrder.ClientAccessioned);
+                thisLocation, "Block Scanned", "Block Scanned At Cutting", "Aliquot", this.m_AccessionOrder.MasterAccessionNo, aliquotOrder.Label, aliquotOrder.ClientAccessioned);
 
             if(this.m_CuttingWorkspaceWindow == null)
             {

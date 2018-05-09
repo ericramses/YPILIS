@@ -184,9 +184,13 @@ namespace YellowstonePathology.Business.Test
 
 					YellowstonePathology.Business.Specimen.Model.SpecimenOrder hpvSpecimen = accessionOrder.SpecimenOrderCollection.GetThinPrep();
 					YellowstonePathology.Business.Test.HPV.HPVTest panelSetHPV = new YellowstonePathology.Business.Test.HPV.HPVTest();
-                    YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new TestOrderInfo(panelSetHPV, hpvSpecimen, true);
-                    YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Visitor.OrderTestOrderVisitor(testOrderInfo);
-                    accessionOrder.TakeATrip(orderTestOrderVisitor);                     
+
+                    if (Exists(panelSetHPV.PanelSetId) == false)
+                    {
+                        YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new TestOrderInfo(panelSetHPV, hpvSpecimen, true);
+                        YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Visitor.OrderTestOrderVisitor(testOrderInfo);
+                        accessionOrder.TakeATrip(orderTestOrderVisitor);
+                    }
                 }
 
                 string reflexInstruction2 = "Test->Pap Test with High Risk HPV DNA reflex testing if diagnosis is ASCUS";
@@ -233,9 +237,13 @@ namespace YellowstonePathology.Business.Test
 
                     YellowstonePathology.Business.Specimen.Model.SpecimenOrder hpvSpecimen = accessionOrder.SpecimenOrderCollection.GetThinPrep();
 					YellowstonePathology.Business.Test.HPV.HPVTest panelSetHPV = new YellowstonePathology.Business.Test.HPV.HPVTest();
-                    YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new TestOrderInfo(panelSetHPV, hpvSpecimen, true);
-                    YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Visitor.OrderTestOrderVisitor(testOrderInfo);
-                    accessionOrder.TakeATrip(orderTestOrderVisitor);                     
+
+                    if (Exists(panelSetHPV.PanelSetId) == false)
+                    {
+                        YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new TestOrderInfo(panelSetHPV, hpvSpecimen, true);
+                        YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Visitor.OrderTestOrderVisitor(testOrderInfo);
+                        accessionOrder.TakeATrip(orderTestOrderVisitor);
+                    }
                 }
             }
         }
@@ -794,7 +802,7 @@ namespace YellowstonePathology.Business.Test
                 }
             }
             return result;
-        }
+        }        
 
         public YellowstonePathology.Business.Test.PanelSetOrder GetPAP()
         {

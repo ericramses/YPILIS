@@ -187,18 +187,18 @@ namespace YellowstonePathology.UI.Gross
 			{
                 if (this.m_SpecimenOrder.AliquotOrderCollection.Exists(barcode.ID))
 				{
-                    YellowstonePathology.Business.Facility.Model.FacilityCollection facilityCollection = Business.Facility.Model.FacilityCollection.GetAllFacilities();
-                    YellowstonePathology.Business.Facility.Model.LocationCollection locationCollection = YellowstonePathology.Business.Facility.Model.LocationCollection.GetAllLocations();
-					YellowstonePathology.Business.Facility.Model.Facility thisFacility = facilityCollection.GetByFacilityId(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId);
-					YellowstonePathology.Business.Facility.Model.Location thisLocation = locationCollection.GetLocation(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.LocationId);                    
+					YellowstonePathology.Business.Facility.Model.Facility thisFacility = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId);
+					string thisLocation = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.Location;
 
                     YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = this.m_SpecimenOrder.AliquotOrderCollection.GetByAliquotOrderId(barcode.ID);
 					string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 					YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog = new Business.MaterialTracking.Model.MaterialTrackingLog(objectId, barcode.ID, null, thisFacility.FacilityId, thisFacility.FacilityName,
-                        thisLocation.LocationId, thisLocation.Description, "Block Scanned", "Block Scanned At Gross", "Aliquot", this.m_AccessionOrder.MasterAccessionNo, aliquotOrder.Label, aliquotOrder.ClientAccessioned);
+                        thisLocation, "Block Scanned", "Block Scanned At Gross", "Aliquot", this.m_AccessionOrder.MasterAccessionNo, aliquotOrder.Label, aliquotOrder.ClientAccessioned);
                     YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(materialTrackingLog, Window.GetWindow(this));					                    
 
                     aliquotOrder.GrossVerify(this.m_SystemIdentity.User);
+                    aliquotOrder.SetLocation(thisFacility, thisLocation);
+
 					this.GrossBlockManagementView = new Business.View.GrossBlockManagementView(this.m_AccessionOrder, this.m_CaseNotesDocument, this.m_SpecimenOrder);
 					this.SetupSpecimenView();
 
@@ -216,7 +216,7 @@ namespace YellowstonePathology.UI.Gross
 			));
 		}
 
-		private bool CheckForUnorderedTestRequest()
+        private bool CheckForUnorderedTestRequest()
 		{
 			//Checking for Iron, OrderCommentId = 6030, TestId = 115 and for H Pylori OrderCommentId = 6040, TestId = 107
 			bool result = this.HasTestRequest(6030);
@@ -551,6 +551,13 @@ namespace YellowstonePathology.UI.Gross
             }
             this.GrossBlockManagementView = new Business.View.GrossBlockManagementView(this.m_AccessionOrder, this.m_CaseNotesDocument, this.m_SpecimenOrder);
             this.SetupSpecimenView();
-        }        
+        }
+
+        private void ButtonEnterAliquotOrderId_Click(object sender, RoutedEventArgs e)
+        {
+            Business.BarcodeScanning.Barcode block = new Business.BarcodeScanning.Barcode();
+            block.ID = "18-7486.1A";
+            this.HistologyBlockScanReceived(block);
+        }
     }
 }

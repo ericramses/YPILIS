@@ -13,34 +13,6 @@ namespace YellowstonePathology.Business.Gateway
             return result;
         }
 
-        public static YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch GetOpenBatchForFacilityLocation(string facilityId, string locationId)
-        {
-            YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch result = null;
-
-            MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "select * from tblMaterialTrackingBatch where IsOpen = 1 and tblMaterialTrackingBatch.FromFacilityId = @FacilityId " +
-                "and tblMaterialTrackingBatch.FromLocationId = @LocationId;";
-            cmd.CommandType = CommandType.Text;
-            cmd.Parameters.AddWithValue("@FacilityId", facilityId);
-            cmd.Parameters.AddWithValue("@LocationId", locationId);
-
-            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-            {
-                cn.Open();
-                cmd.Connection = cn;
-                using (MySqlDataReader dr = cmd.ExecuteReader())
-                {
-                    while (dr.Read())
-                    {
-                        result = new YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch();
-                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(result, dr);
-                        sqlDataReaderPropertyWriter.WriteProperties();
-                    }
-                }
-            }
-            return result;
-        }
-
         public static YellowstonePathology.Business.Slide.Model.SlideOrderCollection_Base GetSlideOrdersWithPrintRequest()
         {
             YellowstonePathology.Business.Slide.Model.SlideOrderCollection_Base result = new Slide.Model.SlideOrderCollection_Base();
@@ -205,15 +177,6 @@ namespace YellowstonePathology.Business.Gateway
             return result;
         }
 
-        public static YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection GetMaterialTrackingLogCollectionByBatchDate(DateTime batchDate)
-        {
-            MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "Select * from tblMaterialTrackingLog where tblMaterialTrackingLog.LogDate = @LogDate;";
-            cmd.CommandType = System.Data.CommandType.Text;
-            cmd.Parameters.AddWithValue("@LogDate", batchDate);
-            return BuildMaterialTrackingLogCollection(cmd);
-        }
-
         public static YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection GetMaterialTrackingLogCollectionByBatchId(string batchId)
         {
             MySqlCommand cmd = new MySqlCommand();
@@ -277,17 +240,6 @@ namespace YellowstonePathology.Business.Gateway
                 "order by OpenDate desc;";
             cmd.CommandType = System.Data.CommandType.Text;
             cmd.Parameters.AddWithValue("@MasterAccessionNo", masterAccessionNo);
-            return BuildMaterialTrackingBatchCollection(cmd);
-        }
-
-        public static YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatchCollection GetMaterialTrackingBatchCollection(string facilityId, string locationId)
-        {
-            MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "Select * from tblMaterialTrackingBatch where FromFacilityId = @FacilityId and " +
-                "FromLocationId = @LocationId order by OpenDate desc limit 100;";
-            cmd.CommandType = System.Data.CommandType.Text;
-            cmd.Parameters.AddWithValue("@FacilityId", facilityId);
-            cmd.Parameters.AddWithValue("@LocationId", locationId);
             return BuildMaterialTrackingBatchCollection(cmd);
         }
 

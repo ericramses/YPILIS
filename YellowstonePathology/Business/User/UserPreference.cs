@@ -16,9 +16,10 @@ namespace YellowstonePathology.Business.User
         protected delegate void PropertyChangedNotificationHandler(String info);
         public event PropertyChangedEventHandler PropertyChanged;
 
-		private string m_HostName;
-		private string m_LocationId;
-		private bool m_BarcodeScanEnabled;
+        private string m_UserPreferenceId;
+        private string m_HostName;
+        private string m_LocationId;
+        private bool m_BarcodeScanEnabled;
         private string m_BarcodeScanPort;
         private Nullable<DateTime> m_LastLocalDataUpdate;
 		private string m_LockMode;
@@ -46,7 +47,8 @@ namespace YellowstonePathology.Business.User
         private string m_LaserCassettePrinter;
         private bool m_UseLaserCassettePrinter;
         private Nullable<int> m_GPathologistId;
-        private string m_FedExLabelPrinter;     
+        private string m_FedExLabelPrinter;
+        private string m_Location;
 
         public UserPreference()
         {
@@ -57,39 +59,53 @@ namespace YellowstonePathology.Business.User
         {
             bool result = true;
             if (string.IsNullOrEmpty(this.m_FacilityId) == true) result = false;
-            if (string.IsNullOrEmpty(this.m_LocationId) == true) result = false;
             return result;
         }
 
-		[PersistentPrimaryKeyProperty(false)]
-		[PersistentDataColumnProperty(false, "200", "null", "varchar")]
-		public string HostName
-		{
-			get { return this.m_HostName; }
-			set
-			{
-				if (this.m_HostName != value)
-				{
-					this.m_HostName = value;
-					this.NotifyPropertyChanged("HostName");
-				}
-			}
-		}
+        [PersistentPrimaryKeyProperty(false)]
+        [PersistentDataColumnProperty(false, "200", "null", "varchar")]
+        public string HostName
+        {
+            get { return this.m_HostName; }
+            set
+            {
+                if (this.m_HostName != value)
+                {
+                    this.m_HostName = value;
+                    this.NotifyPropertyChanged("HostName");
+                }
+            }
+        }
 
-		[PersistentProperty()]
-		[PersistentDataColumnProperty(false, "50", "null", "varchar")]
-		public string LocationId
-		{
-			get { return this.m_LocationId; }
-			set
-			{
-				if (this.m_LocationId != value)
-				{
-					this.m_LocationId = value;
-					this.NotifyPropertyChanged("LocationId");
-				}
-			}
-		}
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(false, "50", "null", "varchar")]
+        public string LocationId
+        {
+            get { return this.m_LocationId; }
+            set
+            {
+                if (this.m_LocationId != value)
+                {
+                    this.m_LocationId = value;
+                    this.NotifyPropertyChanged("LocationId");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(false, "50", "null", "varchar")]
+        public string UserPreferenceId
+        {
+            get { return this.m_UserPreferenceId; }
+            set
+            {
+                if (this.m_UserPreferenceId != value)
+                {
+                    this.m_UserPreferenceId = value;
+                    this.NotifyPropertyChanged("UserPreferenceId");
+                }
+            }
+        }
 
         [PersistentProperty()]
         [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
@@ -522,6 +538,21 @@ namespace YellowstonePathology.Business.User
                 {
                     this.m_FedExLabelPrinter = value;
                     this.NotifyPropertyChanged("FedExLabelPrinter");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "150", "null", "varchar")]
+        public string Location
+        {
+            get { return this.m_Location; }
+            set
+            {
+                if (this.m_Location != value)
+                {
+                    this.m_Location = value;
+                    this.NotifyPropertyChanged("Location");
                 }
             }
         }

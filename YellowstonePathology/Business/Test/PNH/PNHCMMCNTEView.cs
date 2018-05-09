@@ -45,7 +45,7 @@ namespace YellowstonePathology.Business.Test.PNH
             this.AddNextNteElement("Result: Negative (No evidence of paroxysmal nocturnal hemoglobinuria)", document);
             this.AddBlankNteElement(document);
             this.AddNextNteElement("Comment:", document);
-            this.AddNextNteElement("Flow cytometric analysis does not identify any evidence of a PNH clone, based on analysis of several different GPI-linked antibodies on 3 separate cell populations (red blood cells, monocytes and granulocytes).  These findings do not support the diagnosis of PNH.", document);
+            this.HandleLongString("Flow cytometric analysis does not identify any evidence of a PNH clone, based on analysis of several different GPI-linked antibodies on 3 separate cell populations (red blood cells, monocytes and granulocytes).  These findings do not support the diagnosis of PNH.", document);
             this.AddBlankNteElement(document);
 
             this.AddNextNteElement("Pathologist: " + testOrder.Signature, document);
@@ -95,7 +95,7 @@ namespace YellowstonePathology.Business.Test.PNH
             if (string.IsNullOrEmpty(testOrder.Comment) == false)
             {
                 this.AddNextNteElement("Comment: ", document);
-                this.AddNextNteElement(testOrder.Comment, document);
+                this.HandleLongString(testOrder.Comment, document);
                 this.AddBlankNteElement(document);
             }
 

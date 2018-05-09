@@ -19,7 +19,7 @@ namespace YellowstonePathology.Business.Test.AdditionalTestingNotification
 			base.OpenTemplate();
 			this.SetDemographicsV2();
 			this.SetXmlNodeData("additional_testing", this.m_PanelSetOrder.PanelSetName);			            
-			this.SaveReport();            
+			this.SaveReport(true);            
 		}				
 	}
 }

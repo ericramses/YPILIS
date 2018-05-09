@@ -78,14 +78,13 @@ namespace YellowstonePathology.UI.MaterialTracking
 		}        
 
         private void MaterialTrackingStartPage_ViewBatch(object sender, YellowstonePathology.UI.CustomEventArgs.MaterialTrackingBatchEventArgs e)
-        {            
-            this.ShowMaterialBatchPage(e.MaterialTrackingBatch, e.MaterialTrackingLogCollection);            
+        {
+            this.ShowMaterialBatchPage(e.MaterialTrackingBatch);            
         }
 
-		private void ShowMaterialBatchPage(YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch materialTrackingBatch,
-			YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLogCollection materialTrackingLogCollection)
+		private void ShowMaterialBatchPage(YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch materialTrackingBatch)
         {            
-            this.m_MaterialBatchPage = new MaterialBatchPage(materialTrackingBatch, materialTrackingLogCollection, true, true, false, this.m_UseMasterAccessionNo, this.m_MasterAccessionNo, this.m_LoginPageWindow.PageNavigator);
+            this.m_MaterialBatchPage = new MaterialBatchPage(materialTrackingBatch, true, true, false, this.m_UseMasterAccessionNo, this.m_MasterAccessionNo, this.m_LoginPageWindow.PageNavigator);
             this.m_MaterialBatchPage.Back += new MaterialBatchPage.BackEventHandler(MaterialBatchPage_Back);
             this.m_MaterialBatchPage.Next += new MaterialBatchPage.NextEventHandler(MaterialBatchPage_Next);
             this.m_MaterialBatchPage.ShowTrackingDocument += new MaterialBatchPage.ShowTrackingDocumentEventHandler(MaterialBatchPage_ShowTrackingDocument);            

@@ -18,10 +18,8 @@ namespace YellowstonePathology.Business.Slide.Model
         {
             VantageSlideView view = null;
 
-            YellowstonePathology.Business.Facility.Model.FacilityCollection facilityCollection = Business.Facility.Model.FacilityCollection.GetAllFacilities();
-            YellowstonePathology.Business.Facility.Model.LocationCollection locationCollection = YellowstonePathology.Business.Facility.Model.LocationCollection.GetAllLocations();
-            YellowstonePathology.Business.Facility.Model.Facility thisFacility = facilityCollection.GetByFacilityId(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId);
-            YellowstonePathology.Business.Facility.Model.Location thisLocation = locationCollection.GetLocation(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.LocationId);
+            YellowstonePathology.Business.Facility.Model.Facility thisFacility = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId);
+            string thisLocation = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.Location;
 
             if (this.Exists(vantageSlideId) == false)
             {
@@ -39,7 +37,7 @@ namespace YellowstonePathology.Business.Slide.Model
                 view.ScanStatusColor = System.Windows.Media.Brushes.LightGreen;            }
 
             VantageSlideScan slideScan = new VantageSlideScan();
-            slideScan.Location = thisLocation.LocationId;
+            slideScan.Location = thisLocation;
             slideScan.ScanDate = DateTime.Now;
             slideScan.SlideId = vantageSlideId;
             slideScan.ScannedBy = Business.User.SystemIdentity.Instance.User.UserName;

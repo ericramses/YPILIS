@@ -244,9 +244,7 @@ namespace YellowstonePathology.Business.Test.Model
             result.Add(new HelicobacterPylori());
             result.Add(new HER2Neu());
             result.Add(new HMB45());
-
-			result.Add(new IgKappa());
-			result.Add(new IgLambda());
+			
             result.Add(new KappaByISH());
             result.Add(new LambdaByISH());
             result.Add(new Ki67());            
@@ -352,8 +350,7 @@ namespace YellowstonePathology.Business.Test.Model
 
             result.Add(new CD3CD20DualStain());
             result.Add(new CDX2VillinDualStain());
-            result.Add(new Cytokeratin34P504sRacemaseDualStain());
-            result.Add(new IgKappaIgLambdaDualStain());
+            result.Add(new Cytokeratin34P504sRacemaseDualStain());            
             result.Add(new Ki67MelanADualStain());
             result.Add(new OSCARSmoothMuscleMyosinDualStain());
             result.Add(new TTF1NapsinADualStain());

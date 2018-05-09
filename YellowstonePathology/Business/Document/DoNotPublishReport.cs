@@ -32,7 +32,7 @@ namespace YellowstonePathology.Business.Document
             
         }
 
-        public override void Publish()
+        public override void Publish(bool notify)
         {
         }
 	}

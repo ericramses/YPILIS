@@ -12,6 +12,7 @@
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
@@ -21,6 +22,7 @@
                 <CheckBox Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" Checked="CheckBoxSlideOrder_Checked" Unchecked="CheckBoxSlideOrder_Unchecked" Tag="{Binding}"></CheckBox>
                 <TextBlock Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" Text="Slide"></TextBlock>
                 <TextBlock Grid.Column="2" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=Label}"></TextBlock>
+                <TextBlock Grid.Column="3" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=Location}" FontSize="7"></TextBlock>
 
             </Grid>
         </HierarchicalDataTemplate>
@@ -41,7 +43,8 @@
 
                 <CheckBox Grid.Column="0" Grid.Row="0" Margin="2,4,2,2" Checked="CheckBoxAliquotOrder_Checked" Unchecked="CheckBoxAliquotOrder_Unchecked" Tag="{Binding}"></CheckBox>
                 <TextBlock Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=AliquotType}"></TextBlock>
-				<TextBlock Grid.Column="2" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=Label}" MaxWidth="160" TextWrapping="Wrap"></TextBlock>                
+				<TextBlock Grid.Column="2" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=Label}" MaxWidth="160" TextWrapping="Wrap"></TextBlock>
+                <TextBlock Grid.Column="3" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=Location}" MaxWidth="160" TextWrapping="Wrap" FontSize="7"></TextBlock>
 
             </Grid>
         </HierarchicalDataTemplate>
@@ -89,22 +92,22 @@
 				<ColumnDefinition Width="*"></ColumnDefinition>
 			</Grid.ColumnDefinitions>
 
-			<TreeView Name="TreeViewSpecimenOrder" Grid.Column="0"  Grid.Row="0" Margin="2,2,2,2" Width="270" ItemsSource="{Binding Path=AccessionOrder.SpecimenOrderCollection}"
+			<TreeView Name="TreeViewSpecimenOrder" Grid.Column="0"  Grid.Row="0" Margin="2,2,2,2" Width="370" ItemsSource="{Binding Path=AccessionOrder.SpecimenOrderCollection}"
 								ItemTemplate="{StaticResource DataTemplateSpecimenOrder}" BorderThickness="1">
 			</TreeView>
 
 			<TabControl Grid.Column="1" Grid.Row="0" Margin="2,2,2,2">
-				<TabItem Header="Log">
-					<Grid Grid.Row="0" Margin="5">
-						<Grid.RowDefinitions>
-							<RowDefinition Height="*"></RowDefinition>
-						</Grid.RowDefinitions>
+                <TabItem Header="Log">
+                    <Grid Grid.Row="0" Margin="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
 
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="*"></ColumnDefinition>
-						</Grid.ColumnDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
 
-						<ListView Name="ListViewMaterialTrackingLog" Grid.Column="1" Grid.Row="0" Margin="2,2,2,2"
+                        <ListView Name="ListViewMaterialTrackingLog" Grid.Column="1" Grid.Row="0" Margin="2,2,2,2"
 								  ItemsSource="{Binding Path=MaterialTrackingLogList}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                             <ListView.Resources>
                                 <Style TargetType="{x:Type ListViewItem}">
@@ -114,29 +117,22 @@
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
-                            </ListView.Resources>                            
+                            </ListView.Resources>
                             <ListView.View>
-								<GridView>
-									<GridViewColumn Header="Log Date" DisplayMemberBinding="{Binding Path=LogDate, Converter={StaticResource MilitaryDateTimeConverter}}" Width="120" />
-									<GridViewColumn Header="Action" DisplayMemberBinding="{Binding Path=Action}" Width="150" />
-									<GridViewColumn Header="Label" DisplayMemberBinding="{Binding Path=MaterialLabel}" Width="150" />
-									<GridViewColumn Header="Facility" DisplayMemberBinding="{Binding Path=FacilityId}" Width="80" />
-									<GridViewColumn Header="Location" DisplayMemberBinding="{Binding Path=LocationName}" Width="225" />
-								</GridView>
-							</ListView.View>
-						</ListView>
+                                <GridView>
+                                    <GridViewColumn Header="Log Date" DisplayMemberBinding="{Binding Path=LogDate, Converter={StaticResource MilitaryDateTimeConverter}}" Width="120" />
+                                    <GridViewColumn Header="Action" DisplayMemberBinding="{Binding Path=Action}" Width="150" />
+                                    <GridViewColumn Header="Label" DisplayMemberBinding="{Binding Path=MaterialLabel}" Width="150" />
+                                    <GridViewColumn Header="Facility" DisplayMemberBinding="{Binding Path=FacilityId}" Width="80" />
+                                    <GridViewColumn Header="Location" DisplayMemberBinding="{Binding Path=LocationName}" Width="225" />
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
 
-					</Grid>
-					
-				</TabItem>
-				
-				<TabItem Header="Send">
-                
-				</TabItem>
-				<TabItem Header="Receive">
+                    </Grid>
 
-				</TabItem>
-			</TabControl>
+                </TabItem>
+            </TabControl>
 
 		</Grid>
 

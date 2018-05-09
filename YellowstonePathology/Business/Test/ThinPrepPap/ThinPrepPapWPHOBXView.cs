@@ -41,11 +41,13 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
             this.AddNextObxElement("##############################################", document, "F");
             this.AddNextObxElement(string.Empty, document, "F");
 
-            this.AddAmendments(document);
+            this.AddAmendments(document);            
 
-            this.AddNextObxElement("Specimen Description:", document, "F");
-			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(panelSetOrderCytology.OrderedOn, panelSetOrderCytology.OrderedOnId);
-            this.AddNextObxElement(specimenOrder.Description, document, "F");
+            YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(panelSetOrderCytology.OrderedOn, panelSetOrderCytology.OrderedOnId);
+            this.AddNextObxElement("Specimen: " + specimenOrder.SpecimenNumber.ToString(), document, "F");
+            this.HandleLongString(specimenOrder.Description, document, "F");
+            YellowstonePathology.Business.Helper.DateTimeJoiner collectionDateTimeJoiner = new YellowstonePathology.Business.Helper.DateTimeJoiner(specimenOrder.CollectionDate.Value, specimenOrder.CollectionTime);
+            this.AddNextObxElement("Collection Date/Time: " + collectionDateTimeJoiner.DisplayString, document, "F");
             this.AddNextObxElement(string.Empty, document, "F");
 
             this.AddNextObxElement("Specimen Adequacy:", document, "F");

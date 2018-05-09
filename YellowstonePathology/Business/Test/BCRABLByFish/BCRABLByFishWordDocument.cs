@@ -41,12 +41,12 @@ namespace YellowstonePathology.Business.Test.BCRABLByFish
 			this.ReplaceText("report_date", YellowstonePathology.Business.BaseData.GetShortDateString(this.m_PanelSetOrder.FinalDate));
 			this.ReplaceText("pathologist_signature", this.m_PanelSetOrder.Signature);
 
-			this.SaveReport();
+			this.SaveReport(false);
 		}
 
-		public override void Publish()
+		public override void Publish(bool notify)
 		{
-			base.Publish();
+			base.Publish(notify);
 		}
 	}
 }

@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Test.MultipleMyelomaMGUSByFish
 		{			
 			MultipleMyelomaMGUSByFishTestOrder panelSetOrderMultipleMyelomaMGUSByFish = (MultipleMyelomaMGUSByFishTestOrder)this.m_PanelSetOrder;
 
-			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\MultipleMyelomaMGUSByFish.1.xml";
+			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\PlasmaCellMyelomaFISHPanel.1.xml";
 			base.OpenTemplate();
 
 			this.SetDemographicsV2();
@@ -52,12 +52,12 @@ namespace YellowstonePathology.Business.Test.MultipleMyelomaMGUSByFish
 			this.ReplaceText("report_date", YellowstonePathology.Business.BaseData.GetShortDateString(this.m_PanelSetOrder.ReferenceLabFinalDate));
 			this.ReplaceText("pathologist_signature", this.m_PanelSetOrder.ReferenceLabSignature);
 
-			this.SaveReport();
+			this.SaveReport(false);
 		}
 
-		public override void Publish()
+		public override void Publish(bool notify)
 		{
-			base.Publish();
+			base.Publish(notify);
 		}
 	}
 }

@@ -26,8 +26,11 @@ namespace YellowstonePathology.UI.Login.Receiving
         public delegate void ViewAccessionOrderEventHandler(object sender, YellowstonePathology.UI.CustomEventArgs.MasterAccessionNoReturnEventArgs e);
         public event ViewAccessionOrderEventHandler ViewAccessionOrder;
 
-        public delegate void CreateNewAccessionEventHandler(object sender, CustomEventArgs.ClientOrderCollectionReturnEventArgs e);
+        public delegate void CreateNewAccessionEventHandler(object sender, EventArgs e);
         public event CreateNewAccessionEventHandler CreateNewAccessionOrder;
+
+        public delegate void SelectedClientOrdersEventHandler(object sender, CustomEventArgs.ClientOrderCollectionReturnEventArgs e);
+        public event SelectedClientOrdersEventHandler SelectedClientOrders;
 
         public delegate void NextEventHandler(object sender, EventArgs e);
         public event NextEventHandler Next;
@@ -172,7 +175,7 @@ namespace YellowstonePathology.UI.Login.Receiving
                             YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection clientOrders = this.GetClientOrdersForExternalOrderIds();
                             if (clientOrders != null)
                             {
-                                this.CreateNewAccessionOrder(this, new CustomEventArgs.ClientOrderCollectionReturnEventArgs(clientOrders));
+                                this.CreateNewAccessionOrder(this, new EventArgs());
                             }
                         }
                     }
@@ -184,7 +187,7 @@ namespace YellowstonePathology.UI.Login.Receiving
                         YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection clientOrders = this.GetClientOrdersForExternalOrderIds();
                         if (clientOrders != null)
                         {
-                            this.CreateNewAccessionOrder(this, new CustomEventArgs.ClientOrderCollectionReturnEventArgs(clientOrders));
+                            this.CreateNewAccessionOrder(this, new EventArgs());
                         }
                     }
                 }
@@ -203,9 +206,13 @@ namespace YellowstonePathology.UI.Login.Receiving
                 {
                     if (this.ViewAccessionOrder != null)
                     {
-                        YellowstonePathology.Business.View.RecentAccessionView recentAccessionView = (YellowstonePathology.Business.View.RecentAccessionView)this.ListViewAccessionOrders.SelectedItem;
-                        YellowstonePathology.UI.CustomEventArgs.MasterAccessionNoReturnEventArgs args = new CustomEventArgs.MasterAccessionNoReturnEventArgs(recentAccessionView.MasterAccessionNo);
-                        this.ViewAccessionOrder(this, args);
+                        YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection clientOrders = this.GetClientOrdersForExternalOrderIds();
+                        if (clientOrders != null)
+                        {
+                            YellowstonePathology.Business.View.RecentAccessionView recentAccessionView = (YellowstonePathology.Business.View.RecentAccessionView)this.ListViewAccessionOrders.SelectedItem;
+                            YellowstonePathology.UI.CustomEventArgs.MasterAccessionNoReturnEventArgs args = new CustomEventArgs.MasterAccessionNoReturnEventArgs(recentAccessionView.MasterAccessionNo);
+                            this.ViewAccessionOrder(this, args);
+                        }
                     }
                 }
                 else
@@ -313,7 +320,7 @@ namespace YellowstonePathology.UI.Login.Receiving
                 YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection clientOrders = this.GetClientOrdersForExternalOrderIds();
                 if(clientOrders != null)
                 {
-                    this.CreateNewAccessionOrder(this, new CustomEventArgs.ClientOrderCollectionReturnEventArgs(clientOrders));
+                    this.CreateNewAccessionOrder(this, new EventArgs());
                 }
             }
         }
@@ -356,7 +363,15 @@ namespace YellowstonePathology.UI.Login.Receiving
                             result.Add(clientOrder);
                         }
                     }
+                    else
+                    {
+                        result.Add(clientOrder);
+                    }
                 }
+            }
+            if(result != null && this.SelectedClientOrders != null)
+            {
+                this.SelectedClientOrders(this, new CustomEventArgs.ClientOrderCollectionReturnEventArgs(result));
             }
             return result;
         }

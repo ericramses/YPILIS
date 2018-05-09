@@ -11,7 +11,35 @@ namespace YellowstonePathology.Business.Typing
         public TypingShortcutCollection()
         {
             this.m_Cmd = new MySqlCommand();
-        }        
+        }       
+        
+        public static string GetMicroText(string text)
+        {
+            string result = null;
+            System.Text.RegularExpressions.MatchCollection matches = System.Text.RegularExpressions.Regex.Matches(text, @"(MICRO:)([A-za-z0-9\s\r\n]+)");
+            if(matches.Count > 0)
+            {
+                if(matches[0].Groups.Count == 3)
+                {
+                    result = matches[0].Groups[1].Value;
+                }
+            }
+            return result;
+        }
+
+        public string GetDxText(string text)
+        {
+            string result = null;
+            System.Text.RegularExpressions.MatchCollection matches = System.Text.RegularExpressions.Regex.Matches(text, @"(MICRO:)([A-za-z0-9\s\r\n]+)");
+            if (matches.Count > 0)
+            {
+                if (matches[0].Groups.Count == 3)
+                {
+                    result = matches[0].Groups[1].Value;
+                }
+            }
+            return result;
+        }
 
         public string Find(string shortcut)
         {
@@ -23,8 +51,34 @@ namespace YellowstonePathology.Business.Typing
                 }
             }
             return string.Empty;
-        }       
-        
+        }
+
+        public TypingShortcut FindItem(string shortcut)
+        {
+            foreach (TypingShortcut typingShortcut in this)
+            {
+                if (typingShortcut.Shortcut.ToUpper().Trim() == shortcut.ToUpper().Trim())
+                {
+                    return typingShortcut;
+                }
+            }
+            return null;
+        }
+
+        public bool Exists(string shortcut)
+        {
+            bool result = false;
+            foreach (TypingShortcut typingShortcut in this)
+            {
+                if (typingShortcut.Shortcut.ToUpper().Trim() == shortcut.ToUpper().Trim())
+                {
+                    result = true;
+                    break;
+                }
+            }
+            return result;
+        }
+
         public void UpdateItem(TypingShortcut typingShortcut)
         {
             foreach(TypingShortcut item in this)

@@ -26,12 +26,12 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
 			YellowstonePathology.Business.Document.AmendmentSection amendmentSection = new YellowstonePathology.Business.Document.AmendmentSection();
 			amendmentSection.SetAmendment(m_PanelSetOrder.AmendmentCollection, this.m_ReportXml, this.m_NameSpaceManager, true);
 
-			this.ReplaceText("wbc_count", testOrder.WBC.ToString());
+			this.ReplaceText("wbc_count", testOrder.WBC.ToString() + "/uL");
 			this.ReplaceText("lymphocyte_percentage", testOrder.LymphocytePercentage.ToString().StringAsPercent());			
 			this.ReplaceText("cd19_bcell_positive_percent", testOrder.CD19BCellPositivePercent.ToString().StringAsPercent());			
 			this.ReplaceText("cd20_bcell_positive_percent", testOrder.CD20BCellPositivePercent.ToString().StringAsPercent());
-			this.ReplaceText("cd19_absolute_count", testOrder.CD19AbsoluteCount.ToString());
-			this.ReplaceText("cd20_absolute_count", testOrder.CD20AbsoluteCount.ToString());
+			this.ReplaceText("cd19_absolute_count", testOrder.CD19AbsoluteCount.ToString() + "/uL");
+			this.ReplaceText("cd20_absolute_count", testOrder.CD20AbsoluteCount.ToString() + "/uL");
 
 			this.ReplaceText("report_method", testOrder.Method);
 			this.ReplaceText("report_references", testOrder.ReportReferences);
@@ -46,12 +46,12 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
 			this.ReplaceText("report_date", BaseData.GetShortDateString(this.m_PanelSetOrder.FinalDate));
 			this.ReplaceText("pathologist_signature", this.m_PanelSetOrder.Signature);
 
-			this.SaveReport();
+			this.SaveReport(false);
 		}
 
-		public override void Publish()
+		public override void Publish(bool notify)
 		{
-			base.Publish();
+			base.Publish(notify);
 		}
 	}
 }

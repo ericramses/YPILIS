@@ -92,23 +92,12 @@ namespace YellowstonePathology.Business.Test.BoneMarrowSummary
             testTableNode.RemoveChild(rowTestNode);
             this.ReplaceText("disclosure_statement", string.Empty);
 
-            this.SaveReport();
-        }
+            this.SaveReport(false);
+        }        
 
-        /*private void GetOtherCases(List<Business.Test.PanelSetOrder> testingSummaryList)
+        public override void Publish(bool notify)
         {
-            OtherReportViewCollection otherReports = Gateway.AccessionOrderGateway.GetOtherReportViewsForSummary(this.m_PanelSetOrder.ReportNo);
-            foreach(OtherReportView otherReportView in otherReports)
-            {
-                AccessionOrder ao = Persistence.DocumentGateway.Instance.PullAccessionOrder(otherReportView.MasterAccessionNo, this);
-                Business.Test.PanelSetOrder pso = ao.PanelSetOrderCollection.GetPanelSetOrder(otherReportView.ReportNo);
-                testingSummaryList.Insert(0, pso);
-            }
-        }*/
-
-        public override void Publish()
-        {
-            base.Publish();
+            base.Publish(notify);
         }
     }
 }

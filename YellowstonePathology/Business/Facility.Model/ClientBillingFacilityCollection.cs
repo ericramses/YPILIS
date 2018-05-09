@@ -10,10 +10,10 @@ namespace YellowstonePathology.Business.Facility.Model
     {
         public ClientBillingFacilityCollection()
         {
-            NeogenomicsIrvine neogenomicsIrvine = new NeogenomicsIrvine();
-            NeogenomicsInc neogenomicsFlorida = new NeogenomicsInc();
+            Facility neogenomicsIrvine = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("NEOGNMCIRVN");
+            Facility neogenomicsFlorida = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("NEOGNMCINC");
 
-            YellowstonePathologyInstituteBillings ypii = new YellowstonePathologyInstituteBillings();
+            Facility ypii = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
             YellowstonePathology.Business.Client.Model.ClientGroupClientCollection clientGroupStVincent = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientGroupClientCollectionByClientGroupId("1");
             YellowstonePathology.Business.Client.Model.ClientGroupClientCollection clientGroupAllClients = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientGroupClientCollection();
 

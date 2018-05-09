@@ -67,7 +67,6 @@ namespace YellowstonePathology.Business.Label.Model
             result.Append("^FO" + (xOffset + 10) + ",155^A0,25,25^FD" + truncatedTestName + "^FS");
             result.Append("^FO" + (xOffset + 10) + ",185^A0,25,25^FD" + patientname + "^FS");
             result.Append("^FO" + (xOffset + 10) + ",220^A0,25,25^FDYPI-Blgs^FS");
-
             result.Append("^FO" + (xOffset + 80) + ",90^A0,35,35^FD" + this.m_SlideLabel + "^FS");            
             return result.ToString();        
         }

@@ -20,13 +20,13 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
         private string m_ShipToState;
         private string m_ShipToZip;
 
-        private Business.Facility.Model.YellowstonePathologyInstituteBillings m_ShipFromFacility;
+        private Business.Facility.Model.Facility m_ShipFromFacility;
         private FedexAccount m_FedexAccount;
         private XDocument m_ProcessShipmentRequest;                
 
         public FedexReturnLabelRequest(string shipToName, string shipToPhone, string shipToAddress1, string shipToAddress2, string shipToCity, string shipToState, string shipToZip, FedexAccount fedexAccount)
         {
-            this.m_ShipFromFacility = new Facility.Model.YellowstonePathologyInstituteBillings();
+            this.m_ShipFromFacility = Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
 
             this.m_ShipToName = shipToName;
             this.m_ShipToPhone = shipToPhone;
