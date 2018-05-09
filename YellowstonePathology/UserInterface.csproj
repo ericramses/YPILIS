@@ -43,8 +43,8 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>55</ApplicationRevision>
-    <ApplicationVersion>10.1.10.%2a</ApplicationVersion>
+    <ApplicationRevision>4</ApplicationRevision>
+    <ApplicationVersion>10.1.12.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -1106,6 +1106,8 @@
     <Compile Include="Business\Test\JAK2V617F\JAK2V617FCMMCNteView.cs" />
     <Compile Include="Business\Test\LowGradeSmallBCellLymphomaFishPanel\LowGradeSmallBCellLymphomaFishPanelTest.cs" />
     <Compile Include="Business\Test\LymphocyteSubsetPanel4\LymphocyteSubsetPanel4Test.cs" />
+    <Compile Include="Business\Test\LynchSyndrome\LSEProstateResult2.cs" />
+    <Compile Include="Business\Test\LynchSyndrome\LSEProstateResult1.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEGYNResult3a.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LynchSyndromeIHCPanelCMMCNTEView.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LynchSyndromeIHCPanelWPHOBXView.cs" />
@@ -7103,12 +7105,12 @@
   <ItemGroup>
     <PublishFile Include="Microsoft.Exchange.WebServices">
       <Visible>False</Visible>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
   </ItemGroup>
