@@ -73,7 +73,7 @@ namespace YellowstonePathology.Business.Slide.Model
             this.m_AliquotType = "Slide";
             this.m_Description = "Histology Slide";
             this.m_Status = SlideStatusEnum.Created.ToString();
-            this.m_Label = aliquotOrder.Label + slideNumber.ToString();
+            this.m_Label = SlideOrder_Base.GetSlideLabel(slideNumber, aliquotOrder.Label, aliquotOrder.AliquotType);
             this.m_OrderedBy = systemIdentity.User.UserName;
             this.m_OrderedById = systemIdentity.User.UserId;
             this.m_OrderedFrom = Environment.MachineName;

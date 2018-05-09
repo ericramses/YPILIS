@@ -38,7 +38,6 @@ namespace YellowstonePathology.Business.Visitor
             string slideOrderId = YellowstonePathology.Business.OrderIdParser.GetNextSlideOrderId(this.m_AliquotOrder.SlideOrderCollection, this.m_AliquotOrder.AliquotOrderId);            
 
             YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder = new Business.Slide.Model.SlideOrder(objectId, slideOrderId, this.m_AliquotOrder, this.m_TestOrder, this.m_SystemIdentity, nextSlideNumber);
-            slideOrder.Label = YellowstonePathology.Business.Slide.Model.SlideOrder.GetSlideLabel(nextSlideNumber, this.m_AliquotOrder.Label, this.m_AliquotOrder.AliquotType);            
             slideOrder.TestOrder = this.m_TestOrder;
             slideOrder.ReportNo = panelSetOrder.ReportNo;
             slideOrder.TestOrderId = this.m_TestOrder.TestOrderId;
