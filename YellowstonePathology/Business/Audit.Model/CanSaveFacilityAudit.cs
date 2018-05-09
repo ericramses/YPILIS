@@ -22,7 +22,12 @@ namespace YellowstonePathology.Business.Audit.Model
             StringBuilder msg = new StringBuilder();
             msg.Append("The facility requires");
 
-            if(string.IsNullOrEmpty(this.m_Facility.FacilityName)== true)
+            if (string.IsNullOrEmpty(this.m_Facility.FacilityId) == true)
+            {
+                this.m_Status = AuditStatusEnum.Failure;
+                msg.Append(" an id (from the name),");
+            }
+            if (string.IsNullOrEmpty(this.m_Facility.FacilityName)== true)
             {
                 this.m_Status = AuditStatusEnum.Failure;
                 msg.Append(" a name,");

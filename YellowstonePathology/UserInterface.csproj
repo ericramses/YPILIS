@@ -3255,6 +3255,9 @@
     <Compile Include="UI\BrowserWindow.xaml.cs">
       <DependentUpon>BrowserWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Client\ClientLookupDialog.xaml.cs">
+      <DependentUpon>ClientLookupDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Client\FacilityEntry.xaml.cs">
       <DependentUpon>FacilityEntry.xaml</DependentUpon>
     </Compile>
@@ -5250,6 +5253,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\ClientOrderWorkspace.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Client\ClientLookupDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
