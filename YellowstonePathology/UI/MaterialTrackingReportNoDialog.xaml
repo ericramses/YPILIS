@@ -47,9 +47,9 @@
 			<ListView Name="ListBoxLog" Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" ItemsSource="{Binding Path=SlideTrackingLogCollection}" HorizontalAlignment="Stretch">
 				<ListView.View>
 					<GridView>
-						<GridViewColumn Header="Location" DisplayMemberBinding="{Binding Path=LocationName}" Width="150" />
+						<GridViewColumn Header="Location" DisplayMemberBinding="{Binding Path=Location}" Width="150" />
 						<GridViewColumn Header="Date" DisplayMemberBinding="{Binding Path=LogDate, Converter={StaticResource ShortDateTimeConverter}}" Width="150" />
-                        <GridViewColumn Header="Location" DisplayMemberBinding="{Binding Path=LocationName}" Width="200" />
+                        <GridViewColumn Header="Location" DisplayMemberBinding="{Binding Path=Location}" Width="200" />
                         <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Path=Description}" Width="300" />                        
 					</GridView>
 				</ListView.View>
