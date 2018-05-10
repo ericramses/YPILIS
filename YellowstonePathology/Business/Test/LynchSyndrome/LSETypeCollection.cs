@@ -13,6 +13,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             this.Add(LSEType.NOTSET);
             this.Add(LSEType.COLON);
             this.Add(LSEType.GYN);
+            this.Add(LSEType.PROSTATE);
         }
     }
 }

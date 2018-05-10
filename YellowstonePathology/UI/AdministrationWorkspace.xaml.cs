@@ -984,9 +984,12 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            string path = System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\hello.txt";
-            System.IO.File.WriteAllText(path, "hello world");
-            MessageBox.Show(path);
+            //string path = System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\hello.txt";
+            //System.IO.File.WriteAllText(path, "hello world");
+            //MessageBox.Show(path);
+
+            //Business.Label.Model.HistologySlideDirectPrintLabel l = new Business.Label.Model.HistologySlideDirectPrintLabel("18-12043.S", "1A1", "MOUSE", new Business.BarcodeScanning.BarcodeVersion2("^2205HSLD18-12043.1A1"), "YPI Blgs, Mt");
+            //string line = l.GetLine();
         }
 
         private void GetSlideNumberTest()

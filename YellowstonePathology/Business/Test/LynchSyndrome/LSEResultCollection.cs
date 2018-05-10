@@ -38,6 +38,9 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             result.Add(new LSEGYNResult3());
             result.Add(new LSEGYNResult3a());
 
+            result.Add(new LSEProstateResult1());
+            result.Add(new LSEProstateResult2());
+
             return result;
         }
 
@@ -74,7 +77,15 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             return result;
         }
 
-		public static LSEResult GetResult(LSEResult evalResult, string lseType)
+        public static LSEResultCollection GetProstateResults()
+        {
+            LSEResultCollection result = new LSEResultCollection();
+            result.Add(new LSEProstateResult1());
+            result.Add(new LSEProstateResult2());
+            return result;
+        }
+
+        public static LSEResult GetResult(LSEResult evalResult, string lseType)
 		{
 			LSEResult result = null;
             LSEResultCollection collection = null;
@@ -87,45 +98,68 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             {
                 collection = LSEResultCollection.GetGYNResults();
             }
+            else if (lseType == YellowstonePathology.Business.Test.LynchSyndrome.LSEType.PROSTATE)
+            {
+                collection = LSEResultCollection.GetProstateResults();
+            }
             else if (lseType == YellowstonePathology.Business.Test.LynchSyndrome.LSEType.NOTSET)
             {
                 collection = new LSEResultCollection();
             }
-            
-            foreach (LSEResult lSEResult in collection)
-            {                
-                if (lSEResult.MLH1Result == evalResult.MLH1Result &&
-                    lSEResult.MSH2Result == evalResult.MSH2Result &&
-                    lSEResult.MSH6Result == evalResult.MSH6Result &&
-                    lSEResult.PMS2Result == evalResult.PMS2Result)
+
+            if (lseType == YellowstonePathology.Business.Test.LynchSyndrome.LSEType.PROSTATE)
+            {
+                if(evalResult.AreAllIntact() == true)
                 {
-                    bool brafResultIsEqual = false;
-                    if(evalResult.BRAFIsIndicated == true)
-                    {
-                        brafResultIsEqual = (lSEResult.BrafResult == evalResult.BrafResult);
-                    }
-                    else
-                    {
-                        brafResultIsEqual = true;
-                    }
-
-                    bool methResultIsEqual = false;
-                    if (lSEResult.MethResult == LSEResultEnum.NotApplicable)
-                    {
-                        methResultIsEqual = true;
-                    }
-                    else
-                    {
-                        methResultIsEqual = (lSEResult.MethResult == evalResult.MethResult);
-                    }
-
-                    if (brafResultIsEqual == true && methResultIsEqual == true)
-                    {
-                        result = lSEResult;
-                        break;
-                    }                                       
+                    result = new Business.Test.LynchSyndrome.LSEProstateResult1();
                 }
-            }                      			            
+                else if(evalResult.AreAnyLoss() == true)
+                {
+                    result = new Business.Test.LynchSyndrome.LSEProstateResult2();
+                }
+
+                result.MLH1Result = evalResult.MLH1Result;
+                result.MSH2Result = evalResult.MSH2Result;
+                result.MSH6Result = evalResult.MSH6Result;
+                result.PMS2Result = evalResult.PMS2Result;
+            }
+            else
+            {
+                foreach (LSEResult lSEResult in collection)
+                {
+                    if (lSEResult.MLH1Result == evalResult.MLH1Result &&
+                        lSEResult.MSH2Result == evalResult.MSH2Result &&
+                        lSEResult.MSH6Result == evalResult.MSH6Result &&
+                        lSEResult.PMS2Result == evalResult.PMS2Result)
+                    {
+                        bool brafResultIsEqual = false;
+                        if (evalResult.BRAFIsIndicated == true)
+                        {
+                            brafResultIsEqual = (lSEResult.BrafResult == evalResult.BrafResult);
+                        }
+                        else
+                        {
+                            brafResultIsEqual = true;
+                        }
+
+                        bool methResultIsEqual = false;
+                        if (lSEResult.MethResult == LSEResultEnum.NotApplicable)
+                        {
+                            methResultIsEqual = true;
+                        }
+                        else
+                        {
+                            methResultIsEqual = (lSEResult.MethResult == evalResult.MethResult);
+                        }
+
+                        if (brafResultIsEqual == true && methResultIsEqual == true)
+                        {
+                            result = lSEResult;
+                            break;
+                        }
+                    }
+                }
+            }                          			            
 
 			return result;
 		}
