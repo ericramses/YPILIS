@@ -12,11 +12,15 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 
         public const string LSEGYNReferences = "Meyer L, Broaddus R, Lu K. Endometrial cancer and Lynch syndrome: clinical and pathologic considerations. Cancer Control. 2009;16(1):14–22";
 
+        public const string LSEPROSReferences = "Giri VN, Knudsen KE, Kelly WK et al.  Role of Genetic Testing for Inherited Prostate Cancer Risk: Philadelphia Prostate Cancer Consensus Conference 2017.  Journal of Clinical Oncology, 1 February 2018: 36(4): 414-424.";
+
         public static string IHCMethod = YellowstonePathology.Business.Test.LynchSyndrome.LSEIHCResult.Method;
 		public static string IHCBRAFMethod = "IHC: " + YellowstonePathology.Business.Test.LynchSyndrome.LSEIHCResult.Method + " BRAF: " + YellowstonePathology.Business.Test.BRAFV600EK.BRAFResult.Method;
 		public static string IHCBRAFMLHMethod = "IHC: " + YellowstonePathology.Business.Test.LynchSyndrome.LSEIHCResult.Method + " BRAF: " + YellowstonePathology.Business.Test.BRAFV600EK.BRAFResult.Method + " MLH: " + YellowstonePathology.Business.Test.LynchSyndrome.MLH1MethylationAnalysisResult.Method;
 
-		protected LSEResultEnum m_PMS2Result;
+        public static string PROSIndication = "Prostatic (acinar) adenocarcinoma.";
+
+        protected LSEResultEnum m_PMS2Result;
 		protected LSEResultEnum m_MSH6Result;
 		protected LSEResultEnum m_MSH2Result;
 		protected LSEResultEnum m_MLH1Result;        
@@ -97,13 +101,54 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             get { return this.m_References; }
         }
 
-		public virtual void SetResults(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromEvaluation)
+        public bool AreAllIntact()
+        {
+            bool result = true;
+            if (this.m_PMS2Result != LSEResultEnum.Intact) result = false;
+            if (this.m_MSH6Result != LSEResultEnum.Intact) result = false;
+            if (this.m_MSH2Result != LSEResultEnum.Intact) result = false;
+            if (this.m_MLH1Result != LSEResultEnum.Intact) result = false;
+            return result;
+        }
+
+        public bool AreAnyLoss()
+        {
+            bool result = false;
+            if (this.m_PMS2Result != LSEResultEnum.Loss) result = true;
+            if (this.m_MSH6Result != LSEResultEnum.Loss) result = true;
+            if (this.m_MSH2Result != LSEResultEnum.Loss) result = true;
+            if (this.m_MLH1Result != LSEResultEnum.Loss) result = true;
+            return result;
+        }
+
+        public virtual void SetResults(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromEvaluation)
         {            
             panelSetOrderLynchSyndromEvaluation.Interpretation = this.m_Interpretation;
             panelSetOrderLynchSyndromEvaluation.Comment = this.m_Comment;
             panelSetOrderLynchSyndromEvaluation.BRAFIsIndicated = this.m_BRAFIsIndicated;
             panelSetOrderLynchSyndromEvaluation.Method = this.m_Method;
             panelSetOrderLynchSyndromEvaluation.ReportReferences = this.m_References;			
+        }
+
+        public string BuildLossInterpretation()
+        {
+            string result = "Loss of nuclear expression of ";            
+            List<string> results = new List<string>();
+            if (this.m_MLH1Result == LSEResultEnum.Loss) results.Add("MLH1");
+            if (this.m_MSH2Result == LSEResultEnum.Loss) results.Add("MSH2");
+            if (this.m_MSH6Result == LSEResultEnum.Loss) results.Add("MSH6");
+            if (this.m_PMS2Result == LSEResultEnum.Loss) results.Add("PMS2");
+
+            var joinedResults = string.Join(", ", results);
+            if(results.Count > 1)
+            {
+                int posOfLastComma = joinedResults.LastIndexOf(",");
+                joinedResults = joinedResults.Remove(posOfLastComma, 1);
+                joinedResults = joinedResults.Insert(posOfLastComma, " and");
+            }
+            
+            result = result + joinedResults + " mismatch repair proteins";
+            return result;
         }
 
 		public static LSEResult GetResult(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromEvaluation)

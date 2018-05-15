@@ -25,7 +25,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             this.AddCompanyHeader(document);
             this.AddBlankNteElement(document);
 
-			this.AddNextNteElement("Lynch Syndrome Evaluation", document);
+			this.AddNextNteElement("Mismatch Repair (MMR)/Lynch Syndrome Evaluation", document);
             this.AddNextNteElement("Master Accession #: " + panelSetOrder.MasterAccessionNo, document);
             this.AddNextNteElement("Report #: " + panelSetOrder.ReportNo, document);
             this.AddBlankNteElement(document);

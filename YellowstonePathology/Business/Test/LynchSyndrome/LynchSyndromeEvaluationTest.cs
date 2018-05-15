@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             this.m_PanelSetIDList.Add(144); //MLH1
 
             this.m_PanelSetId = 106;
-			this.m_PanelSetName = "Lynch Syndrome Evaluation";
+			this.m_PanelSetName = "Mismatch Repair (MMR)/Lynch Syndrome Evaluation";
 			this.m_CaseType = YellowstonePathology.Business.CaseType.ReflexTesting;
 			this.m_HasTechnicalComponent = true;
 			this.m_HasProfessionalComponent = true;

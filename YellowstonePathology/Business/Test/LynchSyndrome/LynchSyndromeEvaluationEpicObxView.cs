@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
         {
 			YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation = (YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
 
-            this.AddHeader(document, panelSetOrderLynchSyndromeEvaluation, "Lynch Syndrome Evaluation");
+            this.AddHeader(document, panelSetOrderLynchSyndromeEvaluation, "Mismatch Repair (MMR)/Lynch Syndrome Evaluation");
             this.AddNextObxElement("", document, "F");
 
             this.AddNextObxElement("Interpretation:", document, "F");
