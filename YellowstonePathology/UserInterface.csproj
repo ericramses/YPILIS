@@ -1106,8 +1106,8 @@
     <Compile Include="Business\Test\JAK2V617F\JAK2V617FCMMCNteView.cs" />
     <Compile Include="Business\Test\LowGradeSmallBCellLymphomaFishPanel\LowGradeSmallBCellLymphomaFishPanelTest.cs" />
     <Compile Include="Business\Test\LymphocyteSubsetPanel4\LymphocyteSubsetPanel4Test.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEProstateResult2.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEProstateResult1.cs" />
+    <Compile Include="Business\Test\LynchSyndrome\LSEGeneralResult2.cs" />
+    <Compile Include="Business\Test\LynchSyndrome\LSEGeneralResult1.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEGYNResult3a.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LynchSyndromeIHCPanelCMMCNTEView.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LynchSyndromeIHCPanelWPHOBXView.cs" />

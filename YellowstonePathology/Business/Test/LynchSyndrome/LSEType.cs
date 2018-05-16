@@ -10,6 +10,6 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
         public static string NOTSET = "NOTSET";
         public static string GYN = "LSEGYN";
         public static string COLON = "LSECOLON";
-        public static string PROSTATE = "LSEPROS";
+        public static string GENERAL = "LSEGEN";
     }
 }
