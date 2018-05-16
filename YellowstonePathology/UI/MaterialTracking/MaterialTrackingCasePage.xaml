@@ -124,7 +124,7 @@
                                     <GridViewColumn Header="Action" DisplayMemberBinding="{Binding Path=Action}" Width="150" />
                                     <GridViewColumn Header="Label" DisplayMemberBinding="{Binding Path=MaterialLabel}" Width="150" />
                                     <GridViewColumn Header="Facility" DisplayMemberBinding="{Binding Path=FacilityId}" Width="80" />
-                                    <GridViewColumn Header="Location" DisplayMemberBinding="{Binding Path=LocationName}" Width="225" />
+                                    <GridViewColumn Header="Location" DisplayMemberBinding="{Binding Path=Location}" Width="225" />
                                 </GridView>
                             </ListView.View>
                         </ListView>

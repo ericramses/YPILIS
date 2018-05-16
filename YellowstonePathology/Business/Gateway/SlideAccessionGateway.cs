@@ -404,14 +404,14 @@ namespace YellowstonePathology.Business.Gateway
             return result;
         }
 
-        public static YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog GetMaterialTrackingLog(int materialId, string locationName, DateTime logDate)
+        public static YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog GetMaterialTrackingLog(int materialId, string location, DateTime logDate)
         {
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = "Select * from tblMaterialTrackingLog where tblMaterialTrackingLog.MaterialId = @ViewMaterialTrackingLogMaterialId and " +
-                "tblMaterialTrackingLog.LocationName = @ViewMaterialTrackingLogLocationName and tblMaterialTrackingLog.LogDate = @ViewMaterialTrackingLogLogDate;";
+                "tblMaterialTrackingLog.Location = @ViewMaterialTrackingLogLocation and tblMaterialTrackingLog.LogDate = @ViewMaterialTrackingLogLogDate;";
             cmd.CommandType = System.Data.CommandType.Text;
             cmd.Parameters.AddWithValue("@ViewMaterialTrackingLogMaterialId", materialId);
-            cmd.Parameters.AddWithValue("@ViewMaterialTrackingLogLocationName", locationName);
+            cmd.Parameters.AddWithValue("@ViewMaterialTrackingLogLocation", location);
             cmd.Parameters.AddWithValue("@ViewMaterialTrackingLogLogDate", logDate);
             return BuildMaterialTrackingLog(cmd);
         }
