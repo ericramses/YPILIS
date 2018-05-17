@@ -48,10 +48,6 @@ namespace YellowstonePathology.UI
         {
             Business.Test.AccessionLockCollection accessionLockCollection = new Business.Test.AccessionLockCollection();
             accessionLockCollection.ClearLocks();
-            if (this.SetLoc == true)
-            {
-                System.Windows.Forms.Application.Restart();
-            }
         }
 
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
@@ -125,7 +121,11 @@ namespace YellowstonePathology.UI
 			this.m_Timer.Dispose();
             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Flush();
             base.OnExit(e);
-		}
+            if (this.SetLoc == true)
+            {
+                System.Windows.Forms.Application.Restart();
+            }
+        }
 
         private void SetupApplicationFolders()
         {            
