@@ -9,11 +9,11 @@ using YellowstonePathology.Business.Persistence;
 namespace YellowstonePathology.Business.Surgical
 {
     [PersistentClass("tblVentanaBenchMark", true, "YPIDATA")]
-    //[PersistentClass("tblTaskOrder", "YPIDATA")]
     public class VentanaBenchMark : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        protected string m_VentanaBenchMarkId;
         protected int m_BarcodeNumber;
         protected string m_StainerType;
         protected string m_StainName;
@@ -29,6 +29,21 @@ namespace YellowstonePathology.Business.Surgical
         }
 
         [PersistentPrimaryKeyProperty(false)]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
+        public string VentanaBenchMarkId
+        {
+            get { return this.m_VentanaBenchMarkId; }
+            set
+            {
+                if (this.m_VentanaBenchMarkId != value)
+                {
+                    this.m_VentanaBenchMarkId = value;
+                    this.NotifyPropertyChanged("VentanaBenchMarkId");
+                }
+            }
+        }
+
+        [PersistentProperty()]
         [PersistentDataColumnProperty(true, "11", "null", "int")]
         public int BarcodeNumber
         {
