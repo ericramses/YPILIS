@@ -48,10 +48,6 @@ namespace YellowstonePathology.UI
         {
             Business.Test.AccessionLockCollection accessionLockCollection = new Business.Test.AccessionLockCollection();
             accessionLockCollection.ClearLocks();
-            if (this.SetLoc == true)
-            {
-                System.Windows.Forms.Application.Restart();
-            }
         }
 
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
@@ -61,7 +57,6 @@ namespace YellowstonePathology.UI
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            this.SetupJsonFile();
             string path = System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\ypilis.json";
             if (File.Exists(path) == false)
             {
@@ -126,7 +121,11 @@ namespace YellowstonePathology.UI
 			this.m_Timer.Dispose();
             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Flush();
             base.OnExit(e);
-		}
+            if (this.SetLoc == true)
+            {
+                System.Windows.Forms.Application.Restart();
+            }
+        }
 
         private void SetupApplicationFolders()
         {            

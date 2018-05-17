@@ -73,6 +73,12 @@ namespace YellowstonePathology.UI.Common
 
         private void ButtonOK_Click(object sender, RoutedEventArgs e)
         {
+            if(this.ListViewUserPreferences.SelectedItem != null)
+            {
+                YellowstonePathology.Business.User.UserPreference userPreference = (YellowstonePathology.Business.User.UserPreference)this.ListViewUserPreferences.SelectedItem;
+                string path = System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\ypilis.json";
+                File.WriteAllText(path, "{'location': '" + userPreference.Location + "'}");
+            }
             Close();
         }
 
