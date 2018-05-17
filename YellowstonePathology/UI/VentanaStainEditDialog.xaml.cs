@@ -23,10 +23,13 @@ namespace YellowstonePathology.UI
         public event AcceptEventHandler Accept;
 
         private bool m_AddingVentanaBenchMark;
+        private int m_BarcodeNumber;
 
         private Business.Surgical.VentanaBenchMark m_VentanaBenchMark;
+
         public VentanaStainEditDialog(int barcodeNumber)
         {
+            this.m_BarcodeNumber = barcodeNumber;
             this.m_VentanaBenchMark = Business.Persistence.DocumentGateway.Instance.PullVentanaBenchMark(barcodeNumber, this);
             this.m_AddingVentanaBenchMark = false;
             InitializeComponent();
@@ -57,6 +60,13 @@ namespace YellowstonePathology.UI
                 }
                 else
                 {
+                    if(this.m_VentanaBenchMark.BarcodeNumber != this.m_BarcodeNumber)
+                    {
+                        // since the barcode is the key, changing it requires an insert of the new and then a delete of the old
+                        YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(this.m_VentanaBenchMark, this);
+                        this.m_VentanaBenchMark.BarcodeNumber = this.m_BarcodeNumber;
+                        YellowstonePathology.Business.Persistence.DocumentGateway.Instance.DeleteDocument(this.m_VentanaBenchMark, this);
+                    }
                     Business.Persistence.DocumentGateway.Instance.Push(this);
                 }
 
