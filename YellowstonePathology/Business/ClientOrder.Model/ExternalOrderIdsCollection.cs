@@ -81,7 +81,6 @@ namespace YellowstonePathology.Business.ClientOrder.Model
                     break;
                 }
             }
-
             return result;
         }
     }
