@@ -414,8 +414,13 @@ namespace YellowstonePathology.UI.Login.Receiving
 
                 Business.OrderIdParser orderIdParser = new Business.OrderIdParser(panelSetOrder.ReportNo);
                 string tifFileName = Business.Document.CaseDocument.GetCaseFileNameTif(orderIdParser, true);
-                Business.ReportDistribution.Model.FaxSubmission.Submit(taskOrderDetailFax.FaxNumber, false, "Additional Testing Notification", tifFileName);                
-            }            
+                Business.ReportDistribution.Model.FaxSubmission.Submit(taskOrderDetailFax.FaxNumber, false, "Additional Testing Notification", tifFileName);
+                MessageBox.Show("The fax was successfully submitted.");
+            }
+            else
+            {
+                MessageBox.Show("You must select the item that you want to fax.");
+            }         
         }
 
         private void HyperLinkAddSendFaxTask_Click(object sender, RoutedEventArgs e)

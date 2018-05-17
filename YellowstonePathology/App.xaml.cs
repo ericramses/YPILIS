@@ -61,6 +61,7 @@ namespace YellowstonePathology.UI
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            this.SetupJsonFile();
             string path = System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\ypilis.json";
             if (File.Exists(path) == false)
             {
