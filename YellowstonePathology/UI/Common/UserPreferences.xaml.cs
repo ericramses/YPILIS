@@ -64,11 +64,11 @@ namespace YellowstonePathology.UI.Common
             {
                 YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
 
-                if (YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.Location == this.m_UserPreference.Location)
-                {
+                //if (YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.Location == this.m_UserPreference.Location)
+                //{
                     string path = System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\ypilis.json";
                     File.WriteAllText(path, "{'location': '" + this.m_UserPreference.Location + "'}");
-                }
+                //}
             }
             YellowstonePathology.Business.User.UserPreferenceInstance.Instance.Refresh();
         }

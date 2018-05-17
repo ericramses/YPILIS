@@ -31,7 +31,7 @@ namespace YellowstonePathology.UI
             if(this.ListViewStains.SelectedItem != null)
             {
                 Business.Surgical.VentanaBenchMark ventanaBenchMark = (Business.Surgical.VentanaBenchMark)this.ListViewStains.SelectedItem;
-                VentanaStainEditDialog dialog = new UI.VentanaStainEditDialog(ventanaBenchMark.BarcodeNumber);
+                VentanaStainEditDialog dialog = new UI.VentanaStainEditDialog(ventanaBenchMark.VentanaBenchMarkId);
                 dialog.Accept += VentanaStainEditDialog_Accept;
                 dialog.ShowDialog();
             }
