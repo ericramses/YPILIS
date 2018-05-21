@@ -72,7 +72,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         private void ItemsReceivedPage_Next(object sender, EventArgs e)
         {
-			this.m_ClientOrderReceivingHandler.Save(false);
+			//this.m_ClientOrderReceivingHandler.Save(false);
 			this.StartReviewClientOrderPath();
         }
 
@@ -107,15 +107,9 @@ namespace YellowstonePathology.UI.Login.Receiving
 		{
             Receiving.ClientOrderDetailsPage clientOrderDetailsPage = new Receiving.ClientOrderDetailsPage(this.m_LoginPageWindow.PageNavigator, this.m_ClientOrderReceivingHandler.CurrentClientOrderDetail, this.m_ClientOrderReceivingHandler.ClientOrder.SpecialInstructions);
             clientOrderDetailsPage.Next += new ClientOrderDetailsPage.NextEventHandler(ClientOrderDetailsPage_Next);
-            clientOrderDetailsPage.Back += new ClientOrderDetailsPage.BackEventHandler(ClientOrderDetailsPage_Back);
-            clientOrderDetailsPage.SaveClientOrderDetail += new ClientOrderDetailsPage.SaveClientOrderDetailEventHandler(ClientOrderDetailsPage_SaveClientOrderDetail);            
+            clientOrderDetailsPage.Back += new ClientOrderDetailsPage.BackEventHandler(ClientOrderDetailsPage_Back);            
 			this.m_LoginPageWindow.PageNavigator.Navigate(clientOrderDetailsPage);            
-		}
-
-        private void ClientOrderDetailsPage_SaveClientOrderDetail(object sender, EventArgs e)
-        {
-            this.m_ClientOrderReceivingHandler.Save(false);
-        }        
+		}        
 
         private void ClientOrderDetailsPage_Back(object sender, EventArgs e)
         {

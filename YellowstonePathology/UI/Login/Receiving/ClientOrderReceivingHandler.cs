@@ -355,12 +355,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 			}
 
 			return result;
-		}
-
-		public void Save(bool releaseLock)
-		{
-			
-        }
+		}		
 
 		public void ResetTheSelectedClientOrderDetailToThisOne(YellowstonePathology.Business.ClientOrder.Model.ClientOrderDetail clientOrderDetail)
 		{

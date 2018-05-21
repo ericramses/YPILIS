@@ -26,8 +26,8 @@ namespace YellowstonePathology.UI.Login.Receiving
         public delegate void BackEventHandler(object sender, EventArgs e);
         public event BackEventHandler Back;
 
-        public delegate void SaveClientOrderDetailEventHandler(object sender, EventArgs e);
-        public event SaveClientOrderDetailEventHandler SaveClientOrderDetail;        
+        //public delegate void SaveClientOrderDetailEventHandler(object sender, EventArgs e);
+        //public event SaveClientOrderDetailEventHandler SaveClientOrderDetail;        
 		
 		private YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;
         private YellowstonePathology.Business.ClientOrder.Model.ClientOrderDetail m_ClientOrderDetail;		

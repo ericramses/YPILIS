@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>9</ApplicationRevision>
+    <ApplicationRevision>15</ApplicationRevision>
     <ApplicationVersion>10.1.12.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -6937,7 +6937,7 @@
     <Resource Include="Resources\Add.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\Delete.ico">
+    <Resource Include="Resources\delete.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Printer.ico">
@@ -7112,12 +7112,12 @@
   <ItemGroup>
     <PublishFile Include="Microsoft.Exchange.WebServices">
       <Visible>False</Visible>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
   </ItemGroup>
@@ -7166,6 +7166,7 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\redhand.png" />
+    <Resource Include="Resources\delete.png" />
     <Content Include="UI\CEFSharp\avcodec-54.dll" />
     <Content Include="UI\CEFSharp\avformat-54.dll" />
     <Content Include="UI\CEFSharp\avutil-51.dll" />

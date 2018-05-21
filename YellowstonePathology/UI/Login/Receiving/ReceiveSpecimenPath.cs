@@ -127,7 +127,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         private void ItemsReceivedPage_Next(object sender, EventArgs e)
         {
-            this.m_ClientOrderReceivingHandler.Save(false);
+            //this.m_ClientOrderReceivingHandler.Save(false);
             this.StartReviewClientOrderPath();
         }
 
@@ -182,6 +182,8 @@ namespace YellowstonePathology.UI.Login.Receiving
             result.ClientOrderDetail.Description = "Slide Tracking Specimen";
             result.ClientOrderDetail.DescriptionToAccession = "Slide Tracking Specimen";
             result.ClientOrderDetail.CollectionDate = DateTime.Now;
+            result.ClientOrderDetail.Receive();
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
             this.StartReviewClientOrderPath();
         }
 
@@ -189,15 +191,9 @@ namespace YellowstonePathology.UI.Login.Receiving
 		{            
             Receiving.ClientOrderDetailsPage clientOrderDetailsPage = new Receiving.ClientOrderDetailsPage(this.m_LoginPageWindow.PageNavigator, clientOrderDetail, this.m_ClientOrderReceivingHandler.ClientOrder.SpecialInstructions);
             clientOrderDetailsPage.Next += new ClientOrderDetailsPage.NextEventHandler(ClientOrderDetailsPage_Next);
-            clientOrderDetailsPage.Back += new ClientOrderDetailsPage.BackEventHandler(ClientOrderDetailsPage_Back);
-            clientOrderDetailsPage.SaveClientOrderDetail += new ClientOrderDetailsPage.SaveClientOrderDetailEventHandler(ClientOrderDetailsPage_SaveClientOrderDetail);            
+            clientOrderDetailsPage.Back += new ClientOrderDetailsPage.BackEventHandler(ClientOrderDetailsPage_Back);            
 			this.m_LoginPageWindow.PageNavigator.Navigate(clientOrderDetailsPage);
-		}
-
-        private void ClientOrderDetailsPage_SaveClientOrderDetail(object sender, EventArgs e)
-        {
-            this.m_ClientOrderReceivingHandler.Save(false);
-        }        
+		}        
 
         private void ClientOrderDetailsPage_Back(object sender, EventArgs e)
         {

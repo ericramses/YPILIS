@@ -11,7 +11,7 @@ namespace YellowstonePathology.Business.Test.BCellSubsetAnalysis
         public BCellSubsetAnalysisTest()
         {
             this.m_PanelSetId = 263;
-            this.m_PanelSetName = "B-Cell Subset Analysis";
+            this.m_PanelSetName = "B-Cell Lymphocyte Subset Analysis";
             this.m_CaseType = YellowstonePathology.Business.CaseType.FlowCytometry;
             this.m_HasTechnicalComponent = true;
             this.m_HasProfessionalComponent = false;
@@ -25,10 +25,10 @@ namespace YellowstonePathology.Business.Test.BCellSubsetAnalysis
             this.m_AllowMultiplePerAccession = true;
             this.m_EpicDistributionIsImplemented = true;
 
-            YellowstonePathology.Business.Billing.Model.PanelSetCptCode cpt86359 = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("86359", null), 1);
-            YellowstonePathology.Business.Billing.Model.PanelSetCptCode cpt86360 = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("86360", null), 1);            
-            this.m_PanelSetCptCodeCollection.Add(cpt86359);
-            this.m_PanelSetCptCodeCollection.Add(cpt86360);            
+            YellowstonePathology.Business.Billing.Model.PanelSetCptCode cpt86355 = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("86355", null), 1);
+            YellowstonePathology.Business.Billing.Model.PanelSetCptCode cpt86356 = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("86356", null), 7);            
+            this.m_PanelSetCptCodeCollection.Add(cpt86355);
+            this.m_PanelSetCptCodeCollection.Add(cpt86356);            
 
             string taskDescription = "Gather materials and perform test.";
             this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.Task(YellowstonePathology.Business.Task.Model.TaskAssignment.Flow, taskDescription));

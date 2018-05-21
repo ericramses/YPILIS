@@ -323,4 +323,14 @@ namespace YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefini
             this.m_ApplicationName = UniversalServiceApplicationNameEnum.EPIC;
         }
 	}
+
+    public class UniversalServicePlacenta : UniversalService
+    {
+        public UniversalServicePlacenta()
+        {
+            this.m_UniversalServiceId = "PSPYP";
+            this.m_ServiceName = "PLACENTA SURGICAL PATHOLOGY - YPI ONLY";
+            this.m_ApplicationName = UniversalServiceApplicationNameEnum.EPIC;
+        }
+    }
 }

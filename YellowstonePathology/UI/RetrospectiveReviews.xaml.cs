@@ -132,6 +132,12 @@ namespace YellowstonePathology.UI
             }
         }
 
+        private void ButtonKillList_Click(object sender, RoutedEventArgs e)
+        {
+            this.m_RetrospectiveReviewList = YellowstonePathology.Business.Gateway.ReportSearchGateway.GetRetrospectiveReviewKillList();
+            this.NotifyPropertyChanged("RetrospectiveReviewList");
+        }
+
         private void ButtonAccessionOrderBack_Click(object sender, RoutedEventArgs e)
         {
             this.m_WorkDate = this.m_WorkDate.AddDays(-1);

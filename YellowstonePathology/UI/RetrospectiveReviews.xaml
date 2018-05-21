@@ -53,6 +53,13 @@
                     </StackPanel>
                 </Button>
 
+                <Button Margin="2" Click="ButtonKillList_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Margin="2" Height="16" Source="/UserInterface;component/Resources/delete.ico"></Image>
+                        <TextBlock Margin="2,0,0,0">Kill List</TextBlock>
+                    </StackPanel>
+                </Button>
+
             </ToolBar>
         </ToolBarTray>
 
