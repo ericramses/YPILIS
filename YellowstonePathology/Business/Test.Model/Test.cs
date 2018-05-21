@@ -12,14 +12,6 @@ namespace YellowstonePathology.Business.Test.Model
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
-        public const string TestBase = "Test";
-        public const string DualStainBase = "DualStain";
-        public const string NoCptCodeBase = "NoCptCode";
-        public const string CytochemicalForMicroorganismsBase = "CytochemicalForMicroorganisms";
-        public const string CytochemicalBase = "Cytochemical";
-        public const string ImmunoHistochemistryBase = "IHC";
-        public const string GradedBase = "Graded";
-
         protected YellowstonePathology.Test.Model.ResultItemCollection m_ResultItemCollection;
 
         protected string m_TestNameId;

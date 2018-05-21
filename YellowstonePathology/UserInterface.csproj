@@ -1067,6 +1067,8 @@
     <Compile Include="Business\Slide.Model\VantageSlideScanCollection.cs" />
     <Compile Include="Business\Slide.Model\VantageSlideView.cs" />
     <Compile Include="Business\Slide.Model\VantageSlideViewCollection.cs" />
+    <Compile Include="Business\Test.Model\Stain.cs" />
+    <Compile Include="Business\Test.Model\StainCollection.cs" />
     <Compile Include="Business\Test.Model\TestOrderStatusView.cs" />
     <Compile Include="Business\Test.Model\TestOrderStatusViewCollection.cs" />
     <Compile Include="Business\Test.Model\U6.cs" />
@@ -1153,7 +1155,7 @@
     <Compile Include="Business\Task.Model\TaskOrderDetailFactory.cs" />
     <Compile Include="Business\Task.Model\TaskOrderDetailFedexShipment.cs" />
     <Compile Include="Business\Test.Model\CMyc.cs" />
-    <Compile Include="Business\Test.Model\JsonTestFactory.cs" />
+    <Compile Include="Business\Test.Model\JsonStainFactory.cs" />
     <Compile Include="Business\Test.Model\PAX5CD5DualStain.cs" />
     <Compile Include="Business\Test.Model\LambdaByISH.cs" />
     <Compile Include="Business\Test.Model\KappaByISH.cs" />
