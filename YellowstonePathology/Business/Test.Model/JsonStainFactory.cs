@@ -8,74 +8,74 @@ using Newtonsoft.Json.Linq;
 
 namespace YellowstonePathology.Business.Test.Model
 {
-    public class JsonTestFactory
+    public class JsonStainFactory
     {
-        public JsonTestFactory() { }
+        public JsonStainFactory() { }
 
-        public static Test FromJson(JObject jObject)
+        public static Stain FromJson(JObject jObject)
         {
-            Test result = null;
-            string testBase = jObject["testBase"].ToString();
+            Stain result = null;
+            string stainType = jObject["stainType"].ToString();
             string jsonString = jObject.ToString();
-            switch (testBase)
+            switch (stainType)
             {
-                case Test.TestBase:
+                case Stain.SpecialStainBase:
                     {
-                        result = JsonConvert.DeserializeObject<Business.Test.Model.Test>(jsonString, new JsonSerializerSettings
+                        result = JsonConvert.DeserializeObject<Stain>(jsonString, new JsonSerializerSettings
                         {
                             TypeNameHandling = TypeNameHandling.All,
                             ObjectCreationHandling = ObjectCreationHandling.Replace,
                         });
                         break;
                     }
-                case Test.GradedBase:
+                case Stain.GradedBase:
                     {
-                        result = JsonConvert.DeserializeObject<Business.Test.Model.GradedTest>(jsonString, new JsonSerializerSettings
+                        result = JsonConvert.DeserializeObject<Stain>(jsonString, new JsonSerializerSettings
                         {
                             TypeNameHandling = TypeNameHandling.All,
                             ObjectCreationHandling = ObjectCreationHandling.Replace,
                         });
                         break;
                     }
-                case Test.ImmunoHistochemistryBase:
+                case Stain.ImmunoHistochemistryBase:
                     {
-                        result = JsonConvert.DeserializeObject<Business.Test.Model.ImmunoHistochemistryTest>(jsonString, new JsonSerializerSettings
+                        result = JsonConvert.DeserializeObject<Stain>(jsonString, new JsonSerializerSettings
                         {
                             TypeNameHandling = TypeNameHandling.All,
                             ObjectCreationHandling = ObjectCreationHandling.Replace,
                         });
                         break;
                     }
-                case Test.CytochemicalBase:
+                case Stain.CytochemicalBase:
                     {
-                        result = JsonConvert.DeserializeObject<Business.Test.Model.CytochemicalTest>(jsonString, new JsonSerializerSettings
+                        result = JsonConvert.DeserializeObject<Stain>(jsonString, new JsonSerializerSettings
                         {
                             TypeNameHandling = TypeNameHandling.All,
                             ObjectCreationHandling = ObjectCreationHandling.Replace,
                         });
                         break;
                     }
-                case Test.CytochemicalForMicroorganismsBase:
+                case Stain.CytochemicalForMicroorganismsBase:
                     {
-                        result = JsonConvert.DeserializeObject<Business.Test.Model.CytochemicalForMicroorganisms>(jsonString, new JsonSerializerSettings
+                        result = JsonConvert.DeserializeObject<Stain>(jsonString, new JsonSerializerSettings
                         {
                             TypeNameHandling = TypeNameHandling.All,
                             ObjectCreationHandling = ObjectCreationHandling.Replace,
                         });
                         break;
                     }
-                case Test.NoCptCodeBase:
+                case Stain.UnknownBase:
                     {
-                        result = JsonConvert.DeserializeObject<Business.Test.Model.NoCptCodeTest>(jsonString, new JsonSerializerSettings
+                        result = JsonConvert.DeserializeObject<Stain>(jsonString, new JsonSerializerSettings
                         {
                             TypeNameHandling = TypeNameHandling.All,
                             ObjectCreationHandling = ObjectCreationHandling.Replace,
                         });
                         break;
                     }
-                case Test.DualStainBase:
+                case Stain.DualStainBase:
                     {
-                        result = JsonConvert.DeserializeObject<Business.Test.Model.DualStain>(jsonString, new JsonSerializerSettings
+                        result = JsonConvert.DeserializeObject<Stain>(jsonString, new JsonSerializerSettings
                         {
                             TypeNameHandling = TypeNameHandling.All,
                             ObjectCreationHandling = ObjectCreationHandling.Replace,
@@ -83,7 +83,6 @@ namespace YellowstonePathology.Business.Test.Model
                         break;
                     }
             }
-
             return result;
         }
     }

@@ -210,7 +210,7 @@ namespace YellowstonePathology.Business.Gateway
         {
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT a.MasterAccessionNo, pso.ReportNo, pso.PanelSetId, pso.FinalDate, pso.PanelSetName, psos.ReportNo as SurgicalReportNo, sus.DisplayName as SurgicalFinaledBy, psos.FinalDate as SurgicalFinalDate " +
+            cmd.CommandText = "SELECT a.MasterAccessionNo, pso.ReportNo, pso.PanelSetId, pso.OrderDate, pso.FinalDate, pso.PanelSetName, psos.ReportNo as SurgicalReportNo, sus.DisplayName as SurgicalFinaledBy, psos.FinalDate as SurgicalFinalDate " +
                 "FROM tblAccessionOrder a " +
                 "JOIN tblPanelSetOrder pso ON a.MasterAccessionNo = pso.MasterAccessionNo " +
                 "join tblPanelSetOrder psos on a.MasterAccessionNo = psos.MasterAccessionNo " +

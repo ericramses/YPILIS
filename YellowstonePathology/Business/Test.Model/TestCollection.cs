@@ -11,25 +11,8 @@ namespace YellowstonePathology.Business.Test.Model
 {
 	public class TestCollection : ObservableCollection<Test>
     {
-        private static volatile TestCollection instance;
         private static object syncRoot = new Object();
 
-        public static TestCollection Instance
-        {
-            get
-            {
-                if (instance == null)
-                {
-                    lock (syncRoot)
-                    {
-                        if (instance == null)
-                            instance = FromRedis();
-                    }
-                }
-
-                return instance;
-            }
-        }
         public TestCollection()
         {
 
@@ -414,18 +397,5 @@ namespace YellowstonePathology.Business.Test.Model
             }
             return result;
         }       
-
-        private static TestCollection FromRedis()
-        {
-            YellowstonePathology.Business.Test.Model.TestCollection result = new TestCollection();                        
-            Store.RedisDB stainDb = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.Stain);
-            foreach (string jString in (string[])stainDb.GetAllJSONKeys())
-            {
-                JObject jObject = JsonConvert.DeserializeObject<JObject>(jString);
-                Test  test = JsonTestFactory.FromJson(jObject);
-                result.Add(test);
-            }            
-            return result;
-        }
     }
 }
