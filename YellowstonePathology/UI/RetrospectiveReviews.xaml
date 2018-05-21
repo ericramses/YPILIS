@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YellowstonePathology.UI"
         mc:Ignorable="d"
-        Title="RetrospectiveReviews" Height="300" Width="900">
+        Title="Retrospective Reviews" Height="300" Width="900">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -65,9 +65,10 @@
             <ListView.View>
                 <GridView AllowsColumnReorder="True" ColumnHeaderToolTip="Retrospective Reviews">
                     <GridViewColumn DisplayMemberBinding="{Binding Path=ReportNo}" Header="Report No" Width="85"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=OrderDate,Converter={StaticResource ShortDateConverter}}" Header="Order Date" Width="90"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=PanelSetName}" Header="Report" Width="170"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=FinalDate, Converter={StaticResource ShortDateConverter}}" Header="Final" Width="150"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=SurgicalFinaledBy}" Header="Surgical Final" Width="170"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=FinalDate, Converter={StaticResource ShortDateConverter}}" Header="Surgical Final" Width="150"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=SurgicalFinaledBy}" Header="Surgical Finaled By" Width="170"/>
                 </GridView>
             </ListView.View>
         </ListView>
