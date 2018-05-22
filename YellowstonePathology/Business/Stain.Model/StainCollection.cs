@@ -1,19 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace YellowstonePathology.Business.Test.Model
+namespace YellowstonePathology.Business.Stain.Model
 {
     public class StainCollection : ObservableCollection<Stain>
     {
+        private static StainCollection instance;
+
         StainCollection() { }
 
-        public static StainCollection GetAll()
+        public static StainCollection Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = LoadFromRedis();
+                }
+                return instance;
+            }
+        }
+
+        private static StainCollection LoadFromRedis()
         {
             StainCollection result = new Model.StainCollection();
             Store.RedisDB stainDb = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.Stain);
@@ -27,3 +37,4 @@ namespace YellowstonePathology.Business.Test.Model
         }
     }
 }
+
