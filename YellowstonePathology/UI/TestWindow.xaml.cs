@@ -52,7 +52,7 @@ namespace YellowstonePathology.UI
 
         private void Button_GetTestClick(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Test.Model.StainCollection stainCollection = YellowstonePathology.Business.Test.Model.StainCollection.GetAll();
+            YellowstonePathology.Business.Stain.Model.StainCollection stainCollection = YellowstonePathology.Business.Stain.Model.StainCollection.Instance;
         }
     }
 }

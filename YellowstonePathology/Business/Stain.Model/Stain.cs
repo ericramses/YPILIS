@@ -1,19 +1,11 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace YellowstonePathology.Business.Test.Model
+namespace YellowstonePathology.Business.Stain.Model
 {
     public class Stain : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-
-        public const string DualStainBase = "DualStain";
-        public const string UnknownBase = "Unknown";
-        public const string CytochemicalForMicroorganismsBase = "CytochemicalForMicroorganisms";
-        public const string CytochemicalBase = "Cytochemical";
-        public const string ImmunoHistochemistryBase = "IHC";
-        public const string GradedBase = "GradedStain";
-        public const string SpecialStainBase = "SpecialStain";
 
         private string m_StainId;
         private string m_StainType;
