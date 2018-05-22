@@ -48,7 +48,16 @@ namespace YellowstonePathology.Business.Test.ErPrSemiQuantitative
 			this.ReplaceText("specimen_adequacy", panelSetOrderErPrSemiQuantitative.SpecimenAdequacy);
             this.ReplaceText("date_time_collected", collectionDateTimeString);
 
-			this.ReplaceText("report_interpretation", panelSetOrderErPrSemiQuantitative.Interpretation);
+            if (string.IsNullOrEmpty(specimenOrder.FixationComment) == false)
+            {
+                this.SetXmlNodeData("fixation_comment", specimenOrder.FixationComment);
+            }
+            else
+            {
+                this.SetXmlNodeData("fixation_comment", string.Empty);
+            }
+
+            this.ReplaceText("report_interpretation", panelSetOrderErPrSemiQuantitative.Interpretation);
 
 			if (string.IsNullOrEmpty(panelSetOrderErPrSemiQuantitative.ResultComment) == true)
 			{

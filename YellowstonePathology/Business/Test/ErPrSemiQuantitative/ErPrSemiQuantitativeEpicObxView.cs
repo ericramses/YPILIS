@@ -54,7 +54,12 @@ namespace YellowstonePathology.Business.Test.ErPrSemiQuantitative
 			this.AddNextObxElement("Duration of fixation: " + specimenOrder.FixationDuration, document, "F");
 			this.AddNextObxElement("Sample adequacy: " + panelSetOrder.SpecimenAdequacy, document, "F");
 			string collectionDateTimeString = YellowstonePathology.Business.Helper.DateTimeExtensions.CombineDateAndTime(specimenOrder.CollectionDate, specimenOrder.CollectionTime);
-			this.AddNextObxElement("Collection Date/Time: " + collectionDateTimeString, document, "F");            
+			this.AddNextObxElement("Collection Date/Time: " + collectionDateTimeString, document, "F");
+
+            if (string.IsNullOrEmpty(specimenOrder.FixationComment) == false)
+            {
+                this.AddNextObxElement(specimenOrder.FixationComment, document, "F");             
+            }            
 
             this.AddNextObxElement("", document, "F");
             this.AddNextObxElement("Interpretation:", document, "F");

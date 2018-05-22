@@ -9,8 +9,9 @@ namespace YellowstonePathology.Business.Test.ErPrSemiQuantitative
 	{
 		private string m_ReportReferences = "Hammond et al., ASCO/CAP Guideline Recommendations for testing ER/PR in breast cancer, Arch Path Lab Med 2010, 134:907-22.";
 		private string m_Method = "The estrogen (ER) and progesterone (PR) immunohistochemical assays were performed on paraffin embedded tissue with the ER (SP1) and PR (SP42) rabbit monoclonal antibodies.  The test was performed according to ASCO/CAP guidelines.";
+        protected string m_FixationOutOfBoundsComment = "The specimen fixation time does not meet ASCO CAP guidelines (6 to 72 hours), which may cause false negative results.  Repeat testing on an alternate specimen that meets fixation time guidelines is recommended, if available.";
 
-		protected string m_ErResult;
+        protected string m_ErResult;
 		protected string m_PrResult;
 		protected string m_Interpretation;
 
@@ -44,12 +45,17 @@ namespace YellowstonePathology.Business.Test.ErPrSemiQuantitative
             get { return this.m_Interpretation; }
         }
 
-        public void SetResults(ErPrSemiQuantitativeTestOrder panelSetOrderErPrSemiQuantitative)
+        public void SetResults(ErPrSemiQuantitativeTestOrder panelSetOrderErPrSemiQuantitative, Business.Specimen.Model.SpecimenOrder specimenOrder)
 		{
 			panelSetOrderErPrSemiQuantitative.ResultCode = this.m_ResultCode;
 			panelSetOrderErPrSemiQuantitative.ReportReferences = this.m_ReportReferences;
 			panelSetOrderErPrSemiQuantitative.Method = this.m_Method;
 			panelSetOrderErPrSemiQuantitative.Interpretation = this.m_Interpretation;
-		}
+
+            if (specimenOrder.FixationDuration > 72 || specimenOrder.FixationDuration < 6)
+            {
+                specimenOrder.FixationComment = m_FixationOutOfBoundsComment;
+            }
+        }
 	}
 }

@@ -41,7 +41,7 @@
 
 				<TextBlock Grid.Column="0" Grid.Row="0" Margin="0,3,0,0" FontWeight="Bold" FontSize="14">Options</TextBlock>
 
-				<TextBlock Grid.Column="0" Grid.Row="1" Margin="5,3,0,0">                    
+                <TextBlock Name="TextBlockSetResults" Grid.Column="0" Grid.Row="1" Margin="5,3,0,0">                    
                     <Hyperlink Click="HyperLinkSetResults_Click">Set Results</Hyperlink>
 				</TextBlock>
 
@@ -87,7 +87,9 @@
 						<RowDefinition Height="Auto"></RowDefinition>
 						<RowDefinition Height="Auto"></RowDefinition>
 						<RowDefinition Height="Auto"></RowDefinition>
-						<RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
 						<RowDefinition Height="Auto"></RowDefinition>
 						<RowDefinition Height="Auto"></RowDefinition>
 						<RowDefinition Height="Auto"></RowDefinition>
@@ -176,16 +178,19 @@
 					<TextBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="18" Margin="3" VerticalAlignment="Center" Text="{Binding Path=PanelSetOrder.Method}" 
 												 TextWrapping="Wrap" AcceptsReturn="True"/>
 
-					<TextBlock Grid.Column="0" Grid.Row="19" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left">References:</TextBlock>
-					<TextBox Grid.Column="0" Grid.Row="20" Grid.ColumnSpan="2" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.ReportReferences}" TextWrapping="Wrap" AcceptsReturn="True" />
+                    <TextBlock Grid.Column="0" Grid.Row="19" FontWeight="Bold" Margin="2" VerticalAlignment="Center">Fixation Comment:</TextBlock>
+                    <TextBox Grid.Column="0" Grid.Row="20" Grid.ColumnSpan="2" TextWrapping="Wrap" Margin="2" AcceptsReturn="True" VerticalAlignment="Center" Text="{Binding Path=SpecimenOrder.FixationComment}" />
 
-					<TextBlock Grid.Column="0" Grid.Row="21" Margin="2,2,2,2" FontWeight="Bold">Distribute:</TextBlock>
-					<CheckBox Grid.Column="1" Grid.Row="21" Margin="2,2,2,2" IsChecked="{Binding Path=PanelSetOrder.Distribute}"></CheckBox>
+                    <TextBlock Grid.Column="0" Grid.Row="21" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left">References:</TextBlock>
+					<TextBox Grid.Column="0" Grid.Row="22" Grid.ColumnSpan="2" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.ReportReferences}" TextWrapping="Wrap" AcceptsReturn="True" />
 
-					<TextBlock Grid.Column="0" Grid.Row="22" Margin="2,2,2,2" FontWeight="Bold">No Charge:</TextBlock>
-					<CheckBox Grid.Column="1" Grid.Row="22" Margin="2,2,2,2" IsChecked="{Binding Path=PanelSetOrder.NoCharge}"></CheckBox>
+					<TextBlock Grid.Column="0" Grid.Row="23" Margin="2,2,2,2" FontWeight="Bold">Distribute:</TextBlock>
+					<CheckBox Grid.Column="1" Grid.Row="23" Margin="2,2,2,2" IsChecked="{Binding Path=PanelSetOrder.Distribute}"></CheckBox>
 
-					<Grid Grid.Column="0" Grid.Row="23" Grid.ColumnSpan="2">
+					<TextBlock Grid.Column="0" Grid.Row="24" Margin="2,2,2,2" FontWeight="Bold">No Charge:</TextBlock>
+					<CheckBox Grid.Column="1" Grid.Row="24" Margin="2,2,2,2" IsChecked="{Binding Path=PanelSetOrder.NoCharge}"></CheckBox>
+
+					<Grid Grid.Column="0" Grid.Row="25" Grid.ColumnSpan="2">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="Auto"></ColumnDefinition>
 							<ColumnDefinition Width="*"></ColumnDefinition>
