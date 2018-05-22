@@ -1,15 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace YellowstonePathology.Business.Test.Model
+namespace YellowstonePathology.Business.Stain.Model
 {
     public class JsonStainFactory
     {
+        public const string DualStainBase = "DualStain";
+        public const string UnknownBase = "Unknown";
+        public const string CytochemicalForMicroorganismsBase = "CytochemicalForMicroorganisms";
+        public const string CytochemicalBase = "Cytochemical";
+        public const string ImmunoHistochemistryBase = "IHC";
+        public const string GradedBase = "GradedStain";
+        public const string SpecialStainBase = "SpecialStain";
+
         public JsonStainFactory() { }
 
         public static Stain FromJson(JObject jObject)
@@ -19,7 +23,7 @@ namespace YellowstonePathology.Business.Test.Model
             string jsonString = jObject.ToString();
             switch (stainType)
             {
-                case Stain.SpecialStainBase:
+                case SpecialStainBase:
                     {
                         result = JsonConvert.DeserializeObject<Stain>(jsonString, new JsonSerializerSettings
                         {
@@ -28,7 +32,7 @@ namespace YellowstonePathology.Business.Test.Model
                         });
                         break;
                     }
-                case Stain.GradedBase:
+                case GradedBase:
                     {
                         result = JsonConvert.DeserializeObject<Stain>(jsonString, new JsonSerializerSettings
                         {
@@ -37,7 +41,7 @@ namespace YellowstonePathology.Business.Test.Model
                         });
                         break;
                     }
-                case Stain.ImmunoHistochemistryBase:
+                case ImmunoHistochemistryBase:
                     {
                         result = JsonConvert.DeserializeObject<Stain>(jsonString, new JsonSerializerSettings
                         {
@@ -46,7 +50,7 @@ namespace YellowstonePathology.Business.Test.Model
                         });
                         break;
                     }
-                case Stain.CytochemicalBase:
+                case CytochemicalBase:
                     {
                         result = JsonConvert.DeserializeObject<Stain>(jsonString, new JsonSerializerSettings
                         {
@@ -55,7 +59,7 @@ namespace YellowstonePathology.Business.Test.Model
                         });
                         break;
                     }
-                case Stain.CytochemicalForMicroorganismsBase:
+                case CytochemicalForMicroorganismsBase:
                     {
                         result = JsonConvert.DeserializeObject<Stain>(jsonString, new JsonSerializerSettings
                         {
@@ -64,7 +68,7 @@ namespace YellowstonePathology.Business.Test.Model
                         });
                         break;
                     }
-                case Stain.UnknownBase:
+                case UnknownBase:
                     {
                         result = JsonConvert.DeserializeObject<Stain>(jsonString, new JsonSerializerSettings
                         {
@@ -73,7 +77,7 @@ namespace YellowstonePathology.Business.Test.Model
                         });
                         break;
                     }
-                case Stain.DualStainBase:
+                case DualStainBase:
                     {
                         result = JsonConvert.DeserializeObject<Stain>(jsonString, new JsonSerializerSettings
                         {
