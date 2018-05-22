@@ -39,7 +39,62 @@ namespace YellowstonePathology.UI.Test
 
         private void ResultPage_Next(object sender, EventArgs e)
         {
-            this.Finished();
+            if (this.ShowReflexTestPage() == false)
+            {
+                this.Finished();
+            }
+        }
+
+        private bool ShowReflexTestPage()
+        {
+            bool result = false;
+            YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeEvaluationTest panelSetLse = new YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeEvaluationTest();
+            YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile.ComprehensiveColonCancerProfileTest panelSetcccp = new YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile.ComprehensiveColonCancerProfileTest();
+            YellowstonePathology.Business.Test.KRASStandardReflex.KRASStandardReflexTest krasStandardReflexTest = new YellowstonePathology.Business.Test.KRASStandardReflex.KRASStandardReflexTest();
+            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(krasStandardReflexTest.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true) == true)
+            {
+                result = true;
+                string reportNo = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(krasStandardReflexTest.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true).ReportNo;
+                YellowstonePathology.UI.Test.KRASStandardReflexResultPath resultPath = new YellowstonePathology.UI.Test.KRASStandardReflexResultPath(reportNo,
+                    this.m_AccessionOrder, this.m_PageNavigator, this.m_Window, System.Windows.Visibility.Visible);
+
+                resultPath.Finish += new Test.ResultPath.FinishEventHandler(ResultPath_Finish);
+                resultPath.Back += new KRASStandardReflexResultPath.BackEventHandler(ResultPath_Back);
+                resultPath.Start();
+            }
+            else if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(panelSetLse.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true) == true)
+            {
+                result = true;
+                string reportNo = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetLse.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true).ReportNo;
+                YellowstonePathology.UI.Test.LynchSyndromeEvaluationResultPath resultPath = new YellowstonePathology.UI.Test.LynchSyndromeEvaluationResultPath(reportNo,
+                    this.m_AccessionOrder, this.m_PageNavigator, this.m_Window, System.Windows.Visibility.Visible);
+
+                resultPath.Finish += new Test.ResultPath.FinishEventHandler(ResultPath_Finish);
+                resultPath.Back += new LynchSyndromeEvaluationResultPath.BackEventHandler(ResultPath_Back);
+                resultPath.Start();
+            }
+            else if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(panelSetcccp.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true) == true)
+            {
+                result = true;
+                string reportNo = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetcccp.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true).ReportNo;
+                YellowstonePathology.UI.Test.ComprehensiveColonCancerProfilePath resultPath = new YellowstonePathology.UI.Test.ComprehensiveColonCancerProfilePath(reportNo,
+                    this.m_AccessionOrder, this.m_PageNavigator, this.m_Window, System.Windows.Visibility.Collapsed);
+
+                resultPath.Finish += new Test.ResultPath.FinishEventHandler(ResultPath_Finish);
+                resultPath.Back += new ComprehensiveColonCancerProfilePath.BackEventHandler(ResultPath_Back);
+                resultPath.Start();
+            }
+            return result;
+        }
+
+        private void ResultPath_Back(object sender, EventArgs e)
+        {
+            this.ShowResultPage();
+        }
+
+        private void ResultPath_Finish(object sender, EventArgs e)
+        {
+            base.Finished();
         }
     }
 }
