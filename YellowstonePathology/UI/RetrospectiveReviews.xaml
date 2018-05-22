@@ -67,8 +67,9 @@
                     <GridViewColumn DisplayMemberBinding="{Binding Path=ReportNo}" Header="Report No" Width="85"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=OrderDate,Converter={StaticResource ShortDateConverter}}" Header="Order Date" Width="90"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=PanelSetName}" Header="Report" Width="170"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=FinalDate, Converter={StaticResource ShortDateConverter}}" Header="Surgical Final" Width="150"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=SurgicalFinalDate, Converter={StaticResource ShortDateConverter}}" Header="Surgical Final" Width="150"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=SurgicalFinaledBy}" Header="Surgical Finaled By" Width="170"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=FinalDate, Converter={StaticResource ShortDateConverter}}" Header="Review Final" Width="150"/>
                 </GridView>
             </ListView.View>
         </ListView>
