@@ -29,11 +29,7 @@ namespace YellowstonePathology.Business.Stain.Model
             Store.RedisDB stainDb = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.Stain);
             foreach (string jString in stainDb.GetAllJSONKeys())
             {
-                Stain stain = JsonConvert.DeserializeObject<Stain>(jString, new JsonSerializerSettings
-                {
-                    TypeNameHandling = TypeNameHandling.All,
-                    ObjectCreationHandling = ObjectCreationHandling.Replace,
-                });
+                Stain stain = JsonStainFactory.FromJson(jString);
                 result.Add(stain);
             }
             return result;
