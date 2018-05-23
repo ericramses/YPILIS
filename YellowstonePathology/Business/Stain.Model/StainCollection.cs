@@ -27,10 +27,9 @@ namespace YellowstonePathology.Business.Stain.Model
         {
             StainCollection result = new Model.StainCollection();
             Store.RedisDB stainDb = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.Stain);
-            foreach (string jString in (string[])stainDb.GetAllJSONKeys())
+            foreach (string jString in stainDb.GetAllJSONKeys())
             {
-                JObject jObject = JsonConvert.DeserializeObject<JObject>(jString);
-                Stain stain = JsonStainFactory.FromJson(jObject);
+                Stain stain = JsonStainFactory.FromJson(jString);
                 result.Add(stain);
             }
             return result;
