@@ -330,6 +330,10 @@ namespace YellowstonePathology.Business.Test.Model
 
             result.Add(new ParoxysmalNocturnalHemoglobinuria());
             result.Add(new Tryptase());
+            result.Add(new CMyc());
+            result.Add(new HER2DISH());
+            result.Add(new IgKappa());
+            result.Add(new IgLambda());
 
             result.Add(new CD3CD20DualStain());
             result.Add(new CDX2VillinDualStain());
@@ -337,7 +341,7 @@ namespace YellowstonePathology.Business.Test.Model
             result.Add(new Ki67MelanADualStain());
             result.Add(new OSCARSmoothMuscleMyosinDualStain());
             result.Add(new TTF1NapsinADualStain());
-            result.Add(new CMyc());
+            result.Add(new PAX5CD5DualStain());
 
             return result;
         }

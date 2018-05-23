@@ -5,6 +5,7 @@ using System.Text;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using System.ComponentModel;
+using Newtonsoft.Json;
 
 namespace YellowstonePathology.Business.Test.Model
 {
@@ -327,5 +328,15 @@ namespace YellowstonePathology.Business.Test.Model
 				}
 			}
 		}
-	}
+
+        public string ToJSON()
+        {
+            string result = JsonConvert.SerializeObject(this, Newtonsoft.Json.Formatting.Indented, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.None
+            });
+
+            return result;
+        }
+    }
 }
