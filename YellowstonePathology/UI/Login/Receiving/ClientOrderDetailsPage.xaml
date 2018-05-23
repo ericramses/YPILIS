@@ -249,7 +249,17 @@
                 </TextBox>
 
                 <TextBlock Grid.Column="0" Grid.Row="10" Margin="2" FontSize="14" HorizontalAlignment="Right">Received:</TextBlock>
-                <TextBox Name="TextBoxDateReceived" Grid.Column="1" Grid.Row="10" Margin="2,2,2,2" Text="{Binding Path=ClientOrderDetail.DateReceived, Converter={StaticResource MilitaryDateTimeConverter}}" IsEnabled="True" FontSize="14"></TextBox>
+                <Grid Grid.Column="1" Grid.Row="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBox Grid.Column="0" Grid.Row="0" Name="TextBoxDateReceived" Margin="2,2,2,2" Text="{Binding Path=ClientOrderDetail.DateReceived, Converter={StaticResource MilitaryDateTimeConverter}}" IsEnabled="True" FontSize="14"></TextBox>
+                    <Button Grid.Column="1" Grid.Row="0" Width="30" Height="22" Click="ButtonSetReceiveDate_Click">^</Button>
+                </Grid>
 
                 <TextBlock Grid.Column="0" Grid.Row="11" Margin="2" FontSize="14" HorizontalAlignment="Right">Time To Fixation:</TextBlock>
                 <TextBox Grid.Column="1" Grid.Row="11" Margin="2,2,2,2" Text="{Binding Path=ClientOrderDetail.TimeToFixationString, Mode=OneWay}" IsEnabled="False" FontSize="14"></TextBox>

@@ -24,10 +24,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 		public event NextEventHandler Next;
 
         public delegate void BackEventHandler(object sender, EventArgs e);
-        public event BackEventHandler Back;
-
-        //public delegate void SaveClientOrderDetailEventHandler(object sender, EventArgs e);
-        //public event SaveClientOrderDetailEventHandler SaveClientOrderDetail;        
+        public event BackEventHandler Back;        
 		
 		private YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;
         private YellowstonePathology.Business.ClientOrder.Model.ClientOrderDetail m_ClientOrderDetail;		
@@ -39,14 +36,16 @@ namespace YellowstonePathology.UI.Login.Receiving
 		private YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort m_BarcodeScanPort;
         private ObservableCollection<string> m_TimeToFixationTypeCollection;
         private YellowstonePathology.Business.Specimen.Model.SpecimenCollection m_SpecimenCollection;
+        private Business.ClientOrder.Model.ClientOrder m_ClientOrder;
 
 		public ClientOrderDetailsPage(YellowstonePathology.UI.Navigation.PageNavigator pageNavigator, 
             YellowstonePathology.Business.ClientOrder.Model.ClientOrderDetail clientOrderDetail,
-            string specialInstructions)
+            Business.ClientOrder.Model.ClientOrder clientOrder)
 		{
 			this.m_PageNavigator = pageNavigator;
             this.m_ClientOrderDetail = clientOrderDetail;
-            this.m_SpecialInstructions = specialInstructions;            
+            this.m_SpecialInstructions = clientOrderDetail.SpecialInstructions;
+            this.m_ClientOrder = clientOrder;        
 
             this.m_TimeToFixationTypeCollection = YellowstonePathology.Business.Specimen.Model.TimeToFixationType.GetTimeToFixationTypeCollection();
             this.m_FixationTypeCollection = YellowstonePathology.Business.Specimen.Model.FixationType.GetFixationTypeCollection();
@@ -435,6 +434,21 @@ namespace YellowstonePathology.UI.Login.Receiving
                 this.m_ClientOrderDetail.ClientFixationBinding = specimen.ClientFixation;
                 this.m_ClientOrderDetail.RequiresGrossExamination = specimen.RequiresGrossExamination;
                 this.NotifyPropertyChanged("");
+            }
+        }
+
+        private void ButtonSetReceiveDate_Click(object sender, RoutedEventArgs e)
+        {
+            if(this.m_ClientOrder.ClientOrderDetailCollection.Count > 1)
+            {
+                if(this.m_ClientOrder.ClientOrderDetailCollection.IndexOf(this.m_ClientOrderDetail) != 0)
+                {
+                    Business.ClientOrder.Model.ClientOrderDetail firstClientOrderDetail = this.m_ClientOrder.ClientOrderDetailCollection[0];
+                    if(firstClientOrderDetail.DateReceived.HasValue == true)
+                    {
+                        this.m_ClientOrderDetail.DateReceived = firstClientOrderDetail.DateReceived;
+                    }
+                }
             }
         }
     }

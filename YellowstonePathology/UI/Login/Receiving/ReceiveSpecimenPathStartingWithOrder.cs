@@ -105,7 +105,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
 		private void ShowClientOrderDetailsPage()
 		{
-            Receiving.ClientOrderDetailsPage clientOrderDetailsPage = new Receiving.ClientOrderDetailsPage(this.m_LoginPageWindow.PageNavigator, this.m_ClientOrderReceivingHandler.CurrentClientOrderDetail, this.m_ClientOrderReceivingHandler.ClientOrder.SpecialInstructions);
+            Receiving.ClientOrderDetailsPage clientOrderDetailsPage = new Receiving.ClientOrderDetailsPage(this.m_LoginPageWindow.PageNavigator, this.m_ClientOrderReceivingHandler.CurrentClientOrderDetail, this.m_ClientOrderReceivingHandler.ClientOrder);
             clientOrderDetailsPage.Next += new ClientOrderDetailsPage.NextEventHandler(ClientOrderDetailsPage_Next);
             clientOrderDetailsPage.Back += new ClientOrderDetailsPage.BackEventHandler(ClientOrderDetailsPage_Back);            
 			this.m_LoginPageWindow.PageNavigator.Navigate(clientOrderDetailsPage);            

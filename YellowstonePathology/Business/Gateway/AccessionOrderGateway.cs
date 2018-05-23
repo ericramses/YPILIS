@@ -2374,7 +2374,7 @@ namespace YellowstonePathology.Business.Gateway
 				"from tblPanelSetOrder pso " +
 				"join tblAccessionOrder ao on pso.MasterAccessionNo = ao.MasterAccessionNo	" +
 				"join tblSystemUser su on pso.AssignedToId = su.UserId " +
-				"where Final = 0 and panelSetId <> 212 " +  //Will not show Missing Information Tests!
+				"where Final = 0 and panelSetId <> 212 " +  
 				"order by ExpectedFinalTime;";
 			cmd.CommandType = CommandType.Text;
 
