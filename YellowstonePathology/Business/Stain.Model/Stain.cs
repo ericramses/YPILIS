@@ -16,6 +16,10 @@ namespace YellowstonePathology.Business.Stain.Model
         private string m_AliquotType;
         private string m_DefaultResult;
         private string m_HistologyDisplayString;
+        private string m_StainerType;
+        private string m_VentanaBenchMarkId;
+        private string m_VentanaBenchMarkWetId;
+        private string m_VentanaBenchMarkProtocolName;
         private int m_StainResultGroupId;
         private bool m_IsBillable;
         private bool m_HasGCode;
@@ -26,7 +30,12 @@ namespace YellowstonePathology.Business.Stain.Model
         private bool m_UseWetProtocol;
         private bool m_PerformedByHand;
         private bool m_RequestForAdditionalReport;
+        private bool m_HasWetProtocol;
 
+        protected Stain m_FirstStain;
+        protected Stain m_SecondStain;
+        protected string m_DepricatedFirstTestId;
+        protected string m_DepricatedSecondTestId;
 
         public Stain() { }
 
@@ -151,6 +160,58 @@ namespace YellowstonePathology.Business.Stain.Model
                 {
                     this.m_HistologyDisplayString = value;
                     this.NotifyPropertyChanged("HistologyDisplayString");
+                }
+            }
+        }
+
+        public string StainerType
+        {
+            get { return this.m_StainerType; }
+            set
+            {
+                if (this.m_StainerType != value)
+                {
+                    this.m_StainerType = value;
+                    this.NotifyPropertyChanged("StainerType");
+                }
+            }
+        }
+
+        public string VentanaBenchMarkId
+        {
+            get { return this.m_VentanaBenchMarkId; }
+            set
+            {
+                if (this.m_VentanaBenchMarkId != value)
+                {
+                    this.m_VentanaBenchMarkId = value;
+                    this.NotifyPropertyChanged("VentanaBenchMarkId");
+                }
+            }
+        }
+
+        public string VentanaBenchMarkWetId
+        {
+            get { return this.m_VentanaBenchMarkWetId; }
+            set
+            {
+                if (this.m_VentanaBenchMarkWetId != value)
+                {
+                    this.m_VentanaBenchMarkWetId = value;
+                    this.NotifyPropertyChanged("VentanaBenchMarkWetId");
+                }
+            }
+        }
+
+        public string VentanaBenchMarkProtocolName
+        {
+            get { return this.m_VentanaBenchMarkProtocolName; }
+            set
+            {
+                if (this.m_VentanaBenchMarkProtocolName != value)
+                {
+                    this.m_VentanaBenchMarkProtocolName = value;
+                    this.NotifyPropertyChanged("VentanaBenchMarkProtocolName");
                 }
             }
         }
@@ -284,5 +345,74 @@ namespace YellowstonePathology.Business.Stain.Model
                 }
             }
         }
+
+        public bool HasWetProtocol
+        {
+            get { return this.m_HasWetProtocol; }
+            set
+            {
+                if (this.m_HasWetProtocol != value)
+                {
+                    this.m_HasWetProtocol = value;
+                    this.NotifyPropertyChanged("HasWetProtocol");
+                }
+            }
+        }
+
+
+
+
+        public Stain FirstStain
+        {
+            get { return this.m_FirstStain; }
+            set
+            {
+                if (this.m_FirstStain != value)
+                {
+                    this.m_FirstStain = value;
+                    this.NotifyPropertyChanged("FirstStain");
+                }
+            }
+        }
+
+        public Stain SecondStain
+        {
+            get { return this.m_SecondStain; }
+            set
+            {
+                if (this.m_SecondStain != value)
+                {
+                    this.m_SecondStain = value;
+                    this.NotifyPropertyChanged("SecondStain");
+                }
+            }
+        }
+
+        public string DepricatedFirstTestId
+        {
+            get { return this.m_DepricatedFirstTestId; }
+            set
+            {
+                if (this.m_DepricatedFirstTestId != value)
+                {
+                    this.m_DepricatedFirstTestId = value;
+                    this.NotifyPropertyChanged("DepricatedFirstTestId");
+                }
+            }
+        }
+
+        public string DepricatedSecondTestId
+        {
+            get { return this.m_DepricatedSecondTestId; }
+            set
+            {
+                if (this.m_DepricatedSecondTestId != value)
+                {
+                    this.m_DepricatedSecondTestId = value;
+                    this.NotifyPropertyChanged("DepricatedSecondTestId");
+                }
+            }
+        }
+
     }
 }
