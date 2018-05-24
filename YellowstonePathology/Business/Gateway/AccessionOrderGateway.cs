@@ -1481,7 +1481,7 @@ namespace YellowstonePathology.Business.Gateway
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "select pso.MasterAccessionNo, pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, " +
-                "a.PFirstName, pso.ResultCode, pso.AcceptedTime, pso.FinalTime, psoh.Result, pso.HoldDistribution " +
+                "a.PFirstName, pso.ResultCode, pso.AcceptedTime, pso.FinalTime, psoh.Result, pso.HoldDistribution, pso.InstrumentOrderDate " +
                 "from tblPanelSetOrder pso " +
                 "join tblHPVTestOrder psoh on pso.ReportNo = psoh.ReportNo " +
                 "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +                 
@@ -1514,7 +1514,7 @@ namespace YellowstonePathology.Business.Gateway
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "select pso.MasterAccessionNo, pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, " +
                 "a.PFirstName, pso.AcceptedTime, pso.FinalTime, null as Result, ngct.NeisseriaGonorrhoeaeResult, " +
-                "ngct.ChlamydiaTrachomatisResult, pso.HoldDistribution " +
+                "ngct.ChlamydiaTrachomatisResult, pso.HoldDistribution, pso.InstrumentOrderDate " +
                 "from tblPanelSetOrder pso " +
                 "join tblNGCTTestOrder ngct on pso.ReportNo = ngct.ReportNo " +
                 "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
@@ -1547,7 +1547,7 @@ namespace YellowstonePathology.Business.Gateway
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "select pso.MasterAccessionNo, pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, " +
                 "a.PFirstName, pso.AcceptedTime, pso.FinalTime, null as Result, ngct.NeisseriaGonorrhoeaeResult, " +
-                "ngct.ChlamydiaTrachomatisResult, pso.HoldDistribution " +
+                "ngct.ChlamydiaTrachomatisResult, pso.HoldDistribution, pso.InstrumentOrderDate " +
                 "from tblPanelSetOrder pso " +
                 "join tblNGCTTestOrder ngct on pso.ReportNo = ngct.ReportNo " +
                 "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
@@ -1580,7 +1580,7 @@ namespace YellowstonePathology.Business.Gateway
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "select pso.MasterAccessionNo, pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, " +
                 "a.PFirstName, pso.AcceptedTime, pso.FinalTime, null as Result, ngct.NeisseriaGonorrhoeaeResult, " +
-                "ngct.ChlamydiaTrachomatisResult, pso.HoldDistribution " +
+                "ngct.ChlamydiaTrachomatisResult, pso.HoldDistribution, pso.InstrumentOrderDate " +
                 "from tblPanelSetOrder pso " +
                 "join tblNGCTTestOrder ngct on pso.ReportNo = ngct.ReportNo " +
                 "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
@@ -1612,7 +1612,7 @@ namespace YellowstonePathology.Business.Gateway
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "select pso.MasterAccessionNo, pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, " +
-                "a.PFirstName, pso.ResultCode, pso.AcceptedTime, pso.FinalTime, psoh.Result, pso.HoldDistribution " +
+                "a.PFirstName, pso.ResultCode, pso.AcceptedTime, pso.FinalTime, psoh.Result, pso.HoldDistribution, pso.InstrumentOrderDate " +
                 "from tblPanelSetOrder pso " +
                 "join tblHPVTestOrder psoh on pso.ReportNo = psoh.ReportNo " +
                 "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
@@ -1644,7 +1644,7 @@ namespace YellowstonePathology.Business.Gateway
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "select pso.MasterAccessionNo, pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, " +
-                "a.PFirstName, pso.ResultCode, pso.AcceptedTime, pso.FinalTime, psoh.Result, pso.HoldDistribution " +
+                "a.PFirstName, pso.ResultCode, pso.AcceptedTime, pso.FinalTime, psoh.Result, pso.HoldDistribution, pso.InstrumentOrderDate " +
                 "from tblPanelSetOrder pso " +
                 "join tblHPVTestOrder psoh on pso.ReportNo = psoh.ReportNo " +
                 "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
@@ -1677,14 +1677,14 @@ namespace YellowstonePathology.Business.Gateway
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "select pso.MasterAccessionNo, pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, " +
-                "a.PFirstName, pso.AcceptedTime, pso.FinalTime, null as Result, hpv.HPV16Result, hpv.HPV18Result, pso.HoldDistribution " +                 
+                "a.PFirstName, pso.AcceptedTime, pso.FinalTime, null as Result, hpv.HPV16Result, hpv.HPV18Result, pso.HoldDistribution, pso.InstrumentOrderDate " +                 
                 "from tblPanelSetOrder pso " +
                 "join tblPanelSetOrderHPV1618 hpv on pso.ReportNo = hpv.ReportNo " +
                 "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
                 "where TechnicalComponentInstrumentId = 'PNTHR' and pso.Accepted = 0 " +        
                 "union " +
                 "select pso.MasterAccessionNo, pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, " +
-	            "a.PFirstName, pso.AcceptedTime, pso.FinalTime, null as Result, hpv.HPV16Result, hpv.HPV18Result, pso.HoldDistribution " +
+                "a.PFirstName, pso.AcceptedTime, pso.FinalTime, null as Result, hpv.HPV16Result, hpv.HPV18Result, pso.HoldDistribution, pso.InstrumentOrderDate " +
                 "from tblPanelSetOrder pso " +
                 "join tblHPV1618SolidTumorTestOrder hpv on pso.ReportNo = hpv.ReportNo " +
                 "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
@@ -1717,7 +1717,7 @@ namespace YellowstonePathology.Business.Gateway
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "select pso.MasterAccessionNo, pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, " +
-                "a.PFirstName, pso.AcceptedTime, pso.FinalTime, null as Result, t.Result, null, pso.HoldDistribution " +
+                "a.PFirstName, pso.AcceptedTime, pso.FinalTime, null as Result, t.Result, null, pso.HoldDistribution, pso.InstrumentOrderDate " +
                 "from tblPanelSetOrder pso " +
                 "join tblTrichomonasTestOrder t on pso.ReportNo = t.ReportNo " +
                 "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
@@ -1748,7 +1748,7 @@ namespace YellowstonePathology.Business.Gateway
 
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "select a.MasterAccessionNo, pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, a.PFirstName, pso.AcceptedTime, pso.FinalTime, null as Result, null, null, pso.HoldDistribution " +
+            cmd.CommandText = "select a.MasterAccessionNo, pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, a.PFirstName, pso.AcceptedTime, pso.FinalTime, null as Result, null, null, pso.HoldDistribution, pso.InstrumentOrderDate " +
                 "from tblPanelSetOrder pso " +
                 "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " + 
                 "where Accepted = 0 and PanelSetId in (14, 62, 61, 3) " +
@@ -1782,14 +1782,14 @@ namespace YellowstonePathology.Business.Gateway
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.Text;            
             cmd.CommandText = "select pso.MasterAccessionNo, pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, " +
-                "a.PFirstName, pso.AcceptedTime, pso.FinalTime, null as Result, hpv.HPV16Result, hpv.HPV18Result, pso.HoldDistribution " +
+                "a.PFirstName, pso.AcceptedTime, pso.FinalTime, null as Result, hpv.HPV16Result, hpv.HPV18Result, pso.HoldDistribution, pso.InstrumentOrderDate " +
                 "from tblPanelSetOrder pso " +
                 "join tblPanelSetOrderHPV1618 hpv on pso.ReportNo = hpv.ReportNo " +
                 "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
                 "where TechnicalComponentInstrumentId = 'PNTHR' and pso.Accepted = 1 and pso.Final = 0 " +
                 "union " +
                 "select pso.MasterAccessionNo, pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, " +
-                "a.PFirstName, pso.AcceptedTime, pso.FinalTime, null as Result, hpv.HPV16Result, hpv.HPV18Result, pso.HoldDistribution " +
+                "a.PFirstName, pso.AcceptedTime, pso.FinalTime, null as Result, hpv.HPV16Result, hpv.HPV18Result, pso.HoldDistribution, pso.InstrumentOrderDate " +
                 "from tblPanelSetOrder pso " +
                 "join tblHPV1618SolidTumorTestOrder hpv on pso.ReportNo = hpv.ReportNo " +
                 "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
@@ -1822,7 +1822,7 @@ namespace YellowstonePathology.Business.Gateway
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "select pso.MasterAccessionNo, pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, " +
-                "a.PFirstName, pso.AcceptedTime, pso.FinalTime, t.Result, pso.HoldDistribution " +
+                "a.PFirstName, pso.AcceptedTime, pso.FinalTime, t.Result, pso.HoldDistribution, pso.InstrumentOrderDate " +
                 "from tblPanelSetOrder pso " +
                 "join tblTrichomonasTestOrder t on pso.ReportNo = t.ReportNo " +                
                 "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
@@ -1854,14 +1854,14 @@ namespace YellowstonePathology.Business.Gateway
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.Text;            
             cmd.CommandText = "select pso.MasterAccessionNo, pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, " +
-                "a.PFirstName, pso.AcceptedTime, pso.FinalTime, null as Result, hpv.HPV16Result, hpv.HPV18Result, pso.HoldDistribution " +
+                "a.PFirstName, pso.AcceptedTime, pso.FinalTime, null as Result, hpv.HPV16Result, hpv.HPV18Result, pso.HoldDistribution, pso.InstrumentOrderDate " +
                 "from tblPanelSetOrder pso " +
                 "join tblPanelSetOrderHPV1618 hpv on pso.ReportNo = hpv.ReportNo " +
                 "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
                 "where TechnicalComponentInstrumentId = 'PNTHR' and pso.Final = 1 " +
                 "union " +
                 "select pso.MasterAccessionNo, pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, " +
-                "a.PFirstName, pso.AcceptedTime, pso.FinalTime, null as Result, hpv.HPV16Result, hpv.HPV18Result, pso.HoldDistribution " +
+                "a.PFirstName, pso.AcceptedTime, pso.FinalTime, null as Result, hpv.HPV16Result, hpv.HPV18Result, pso.HoldDistribution, pso.InstrumentOrderDate " +
                 "from tblPanelSetOrder pso " +
                 "join tblHPV1618SolidTumorTestOrder hpv on pso.ReportNo = hpv.ReportNo " +
                 "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
@@ -1893,7 +1893,7 @@ namespace YellowstonePathology.Business.Gateway
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.Text;            
             cmd.CommandText = "select pso.MasterAccessionNo, pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, " +
-                "a.PFirstName, pso.AcceptedTime, pso.FinalTime, t.Result, pso.HoldDistribution " +
+                "a.PFirstName, pso.AcceptedTime, pso.FinalTime, t.Result, pso.HoldDistribution, pso.InstrumentOrderDate " +
                 "from tblPanelSetOrder pso " +
                 "join tblTrichomonasTestOrder t on pso.ReportNo = t.ReportNo " +                
                 "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
@@ -1925,7 +1925,7 @@ namespace YellowstonePathology.Business.Gateway
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "select pso.MasterAccessionNo, pso.ReportNo, pso.OrderTime, pso.PanelSetName, a.PLastName, " +
-                "a.PFirstName, pso.ResultCode, pso.AcceptedTime, pso.FinalTime, null as Result, pso.HoldDistribution " +
+                "a.PFirstName, pso.ResultCode, pso.AcceptedTime, pso.FinalTime, null as Result, pso.HoldDistribution, pso.InstrumentOrderDate " +
                 "from tblPanelSetOrder pso " +
                 "join tblWomensHealthProfileTestOrder psowhp on pso.ReportNo = psowhp.ReportNo " +
                 "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
@@ -1957,7 +1957,7 @@ namespace YellowstonePathology.Business.Gateway
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "select pso.MasterAccessionNo, pso.MasterAccessionNo, pso.ReportNo, pso.OrderTime, " +
-                "pso.PanelSetName, a.PLastName, a.PFirstName, pso.ResultCode, pso.AcceptedTime, pso.FinalTime, null as Result, pso.HoldDistribution " +
+                "pso.PanelSetName, a.PLastName, a.PFirstName, pso.ResultCode, pso.AcceptedTime, pso.FinalTime, null as Result, pso.HoldDistribution, pso.InstrumentOrderDate " +
                 "from tblPanelSetOrder pso " +
                 "join tblWomensHealthProfileTestOrder psowhp on pso.ReportNo = psowhp.ReportNo " +
                 "join tblAccessionOrder a on pso.MasterAccessionNo = a.MasterAccessionNo " +
@@ -2004,8 +2004,7 @@ namespace YellowstonePathology.Business.Gateway
 	            "and Acknowledged = 0 " +
 	            "and TaskDate <= now() order by TaskDate desc;";
             MySqlCommand cmd = new MySqlCommand(sql);	
-			cmd.CommandType = CommandType.Text;
-			//cmd.Parameters.AddWithValue("AcknowledgementType", Task.Model.TaskAcknowledgementType.Daily);
+			cmd.CommandType = CommandType.Text;			
 
 			using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{

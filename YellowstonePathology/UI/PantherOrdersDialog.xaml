@@ -72,10 +72,10 @@
                             <GridView>
                                 <GridViewColumn Header="Report No" DisplayMemberBinding="{Binding Path=ReportNo}" Width="100" />
                                 <GridViewColumn Header="Order Time" DisplayMemberBinding="{Binding Path=OrderTime, Converter={StaticResource MilitaryDateTimeConverter}}" Width="150" />
-                                <GridViewColumn Header="Test" DisplayMemberBinding="{Binding Path=PanelSetName}" Width="150" />
+                                <GridViewColumn Header="Test" DisplayMemberBinding="{Binding Path=PanelSetName}" Width="120" />
                                 <GridViewColumn Header="Accepted" DisplayMemberBinding="{Binding Path=AcceptedTime, Converter={StaticResource MilitaryDateTimeConverter}}" Width="150" />
                                 <GridViewColumn Header="Finaled" DisplayMemberBinding="{Binding Path=FinalTime, Converter={StaticResource MilitaryDateTimeConverter}}" Width="150" />
-                                <GridViewColumn Header="Result" DisplayMemberBinding="{Binding Path=Result}" Width="150" />
+                                <GridViewColumn Header="Result" DisplayMemberBinding="{Binding Path=Result}" Width="120" />
                                 <GridViewColumn Header="Hold Distribution" Width="100">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
@@ -83,6 +83,7 @@
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
+                                <GridViewColumn Header="Instrument Order" DisplayMemberBinding="{Binding Path=InstrumentOrderDate, Converter={StaticResource MilitaryDateTimeConverter}}" Width="150" />
                             </GridView>
                         </ListView.View>
                     </ListView>
@@ -117,11 +118,11 @@
                             <GridView>
                                 <GridViewColumn Header="Report No" DisplayMemberBinding="{Binding Path=ReportNo}" Width="100" />
                                 <GridViewColumn Header="Order Time" DisplayMemberBinding="{Binding Path=OrderTime, Converter={StaticResource MilitaryDateTimeConverter}}" Width="130" />
-                                <GridViewColumn Header="Test" DisplayMemberBinding="{Binding Path=PanelSetName}" Width="150" />
+                                <GridViewColumn Header="Test" DisplayMemberBinding="{Binding Path=PanelSetName}" Width="120" />
                                 <GridViewColumn Header="Accepted" DisplayMemberBinding="{Binding Path=AcceptedTime, Converter={StaticResource MilitaryDateTimeConverter}}" Width="130" />
                                 <GridViewColumn Header="Finaled" DisplayMemberBinding="{Binding Path=FinalTime, Converter={StaticResource MilitaryDateTimeConverter}}" Width="150" />
-                                <GridViewColumn Header="NG Result" DisplayMemberBinding="{Binding Path=NeisseriaGonorrhoeaeResult}" Width="150" />
-                                <GridViewColumn Header="CT Result" DisplayMemberBinding="{Binding Path=ChlamydiaTrachomatisResult}" Width="150" />
+                                <GridViewColumn Header="NG Result" DisplayMemberBinding="{Binding Path=NeisseriaGonorrhoeaeResult}" Width="100" />
+                                <GridViewColumn Header="CT Result" DisplayMemberBinding="{Binding Path=ChlamydiaTrachomatisResult}" Width="100" />
                                 <GridViewColumn Header="Hold Distribution" Width="100">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
@@ -129,6 +130,7 @@
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
+                                <GridViewColumn Header="Instrument Order" DisplayMemberBinding="{Binding Path=InstrumentOrderDate, Converter={StaticResource MilitaryDateTimeConverter}}" Width="150" />
                             </GridView>
                         </ListView.View>
                     </ListView>
@@ -164,11 +166,11 @@
                             <GridView>
                                 <GridViewColumn Header="Report No" DisplayMemberBinding="{Binding Path=ReportNo}" Width="100" />
                                 <GridViewColumn Header="Order Time" DisplayMemberBinding="{Binding Path=OrderTime, Converter={StaticResource MilitaryDateTimeConverter}}" Width="130" />
-                                <GridViewColumn Header="Test" DisplayMemberBinding="{Binding Path=PanelSetName}" Width="150" />
+                                <GridViewColumn Header="Test" DisplayMemberBinding="{Binding Path=PanelSetName}" Width="120" />
                                 <GridViewColumn Header="Accepted" DisplayMemberBinding="{Binding Path=AcceptedTime, Converter={StaticResource MilitaryDateTimeConverter}}" Width="130" />
                                 <GridViewColumn Header="Finaled" DisplayMemberBinding="{Binding Path=FinalTime, Converter={StaticResource MilitaryDateTimeConverter}}" Width="150" />
-                                <GridViewColumn Header="HPV 16 Result" DisplayMemberBinding="{Binding Path=HPV16Result}" Width="150" />
-                                <GridViewColumn Header="HPV 18 Result" DisplayMemberBinding="{Binding Path=HPV18Result}" Width="150" />
+                                <GridViewColumn Header="HPV 16 Result" DisplayMemberBinding="{Binding Path=HPV16Result}" Width="100" />
+                                <GridViewColumn Header="HPV 18 Result" DisplayMemberBinding="{Binding Path=HPV18Result}" Width="100" />
                                 <GridViewColumn Header="Hold Distribution" Width="100">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
@@ -176,6 +178,7 @@
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
+                                <GridViewColumn Header="Instrument Order" DisplayMemberBinding="{Binding Path=InstrumentOrderDate, Converter={StaticResource MilitaryDateTimeConverter}}" Width="150" />
                             </GridView>
                         </ListView.View>
                     </ListView>
@@ -211,10 +214,10 @@
                             <GridView>
                                 <GridViewColumn Header="Report No" DisplayMemberBinding="{Binding Path=ReportNo}" Width="100" />
                                 <GridViewColumn Header="Order Time" DisplayMemberBinding="{Binding Path=OrderTime, Converter={StaticResource MilitaryDateTimeConverter}}" Width="130" />
-                                <GridViewColumn Header="Test" DisplayMemberBinding="{Binding Path=PanelSetName}" Width="150" />
+                                <GridViewColumn Header="Test" DisplayMemberBinding="{Binding Path=PanelSetName}" Width="120" />
                                 <GridViewColumn Header="Accepted" DisplayMemberBinding="{Binding Path=AcceptedTime, Converter={StaticResource MilitaryDateTimeConverter}}" Width="130" />
                                 <GridViewColumn Header="Finaled" DisplayMemberBinding="{Binding Path=FinalTime, Converter={StaticResource MilitaryDateTimeConverter}}" Width="150" />
-                                <GridViewColumn Header="Result" DisplayMemberBinding="{Binding Path=Result}" Width="150" />
+                                <GridViewColumn Header="Result" DisplayMemberBinding="{Binding Path=Result}" Width="120" />
                                 <GridViewColumn Header="Hold Distribution" Width="100">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
@@ -222,6 +225,7 @@
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
+                                <GridViewColumn Header="Instrument Order" DisplayMemberBinding="{Binding Path=InstrumentOrderDate, Converter={StaticResource MilitaryDateTimeConverter}}" Width="150" />
                             </GridView>
                         </ListView.View>
                     </ListView>
@@ -240,6 +244,7 @@
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
                     </Grid.RowDefinitions>
 
                     <ListView Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" ItemsSource="{Binding Path=PantherPreviouslyRunList}">
@@ -247,10 +252,10 @@
                             <GridView>
                                 <GridViewColumn Header="Report No" DisplayMemberBinding="{Binding Path=ReportNo}" Width="100" />
                                 <GridViewColumn Header="Order Time" DisplayMemberBinding="{Binding Path=OrderTime, Converter={StaticResource MilitaryDateTimeConverter}}" Width="150" />
-                                <GridViewColumn Header="Test" DisplayMemberBinding="{Binding Path=PanelSetName}" Width="150" />
+                                <GridViewColumn Header="Test" DisplayMemberBinding="{Binding Path=PanelSetName}" Width="120" />
                                 <GridViewColumn Header="Accepted" DisplayMemberBinding="{Binding Path=AcceptedTime, Converter={StaticResource MilitaryDateTimeConverter}}" Width="150" />
                                 <GridViewColumn Header="Finaled" DisplayMemberBinding="{Binding Path=FinalTime, Converter={StaticResource MilitaryDateTimeConverter}}" Width="150" />
-                                <GridViewColumn Header="Result" DisplayMemberBinding="{Binding Path=Result}" Width="150" />
+                                <GridViewColumn Header="Result" DisplayMemberBinding="{Binding Path=Result}" Width="120" />
                                 <GridViewColumn Header="Hold Distribution" Width="100">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
@@ -258,10 +263,13 @@
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
+                                <GridViewColumn Header="Instrument Order" DisplayMemberBinding="{Binding Path=InstrumentOrderDate, Converter={StaticResource MilitaryDateTimeConverter}}" Width="150" />
                             </GridView>
                         </ListView.View>
                     </ListView>
 
+                    <Button Grid.Column="0" Grid.Row="2" Width="90" Height="30" Click="ButtonPrintPreviouslyRun_Click" HorizontalAlignment="Left" Margin="2,2,2,2">Print</Button>
+                    
                 </Grid>
 
             </TabItem>
@@ -286,7 +294,7 @@
                             <GridView>
                                 <GridViewColumn Header="Report No" DisplayMemberBinding="{Binding Path=ReportNo}" Width="100" />
                                 <GridViewColumn Header="Order Time" DisplayMemberBinding="{Binding Path=OrderTime, Converter={StaticResource MilitaryDateTimeConverter}}" Width="130" />
-                                <GridViewColumn Header="Test" DisplayMemberBinding="{Binding Path=PanelSetName}" Width="150" />
+                                <GridViewColumn Header="Test" DisplayMemberBinding="{Binding Path=PanelSetName}" Width="120" />
                                 <GridViewColumn Header="Accepted" DisplayMemberBinding="{Binding Path=AcceptedTime, Converter={StaticResource MilitaryDateTimeConverter}}" Width="130" />
                                 <GridViewColumn Header="Finaled" DisplayMemberBinding="{Binding Path=FinalTime, Converter={StaticResource MilitaryDateTimeConverter}}" Width="150" />
                             </GridView>

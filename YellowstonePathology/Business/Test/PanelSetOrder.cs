@@ -55,6 +55,7 @@ namespace YellowstonePathology.Business.Test
         protected string m_TechnicalComponentFacilityId;
         protected string m_TechnicalComponentBillingFacilityId;
         protected string m_TechnicalComponentInstrumentId;
+        protected Nullable<DateTime> m_InstrumentOrderDate;
         protected bool m_HasTechnicalComponent;
         protected string m_ProfessionalComponentFacilityId;
         protected string m_ProfessionalComponentBillingFacilityId;
@@ -770,6 +771,21 @@ namespace YellowstonePathology.Business.Test
                 {
                     this.m_TechnicalComponentInstrumentId = value;
                     this.NotifyPropertyChanged("TechnicalComponentInstrumentId");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "3", "null", "datetime")]
+        public Nullable<DateTime> InstrumentOrderDate
+        {
+            get { return this.m_InstrumentOrderDate; }
+            set
+            {
+                if (this.m_InstrumentOrderDate != value)
+                {
+                    this.m_InstrumentOrderDate = value;
+                    this.NotifyPropertyChanged("InstrumentOrderDate");
                 }
             }
         }

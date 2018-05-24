@@ -447,6 +447,7 @@ namespace YellowstonePathology.UI.Login.Receiving
                     if(firstClientOrderDetail.DateReceived.HasValue == true)
                     {
                         this.m_ClientOrderDetail.DateReceived = firstClientOrderDetail.DateReceived;
+                        this.m_ClientOrderDetail.SetFixationStartTime();
                     }
                 }
             }
