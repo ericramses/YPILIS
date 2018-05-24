@@ -164,6 +164,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.Test.CDKN2ADeletionFISHforALL.CDKN2ADeletionFISHforALLTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.ALLPediatricFISHPanel.ALLPediatricFISHPanelTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.WholeExomeSequencing.WholeExomeSequencingTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.NeoTYPEBreastTumorProfile.NeoTYPEBreastTumorProfileTest());
 
             //ARUP
             panelSetCollection.Add(new YellowstonePathology.Business.Test.HPV1618.HPV1618Test());
