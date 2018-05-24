@@ -14,7 +14,7 @@ namespace YellowstonePathology.Business.HL7View.EPIC
             this.Add("CTGC", "Chlamydia trachomatis/ Neisseria gonorrhoeae Screen by PCR");
             this.Add("HERAMP", "HER2 Gene Amplification");
             this.Add("YPI", "Pathology Procedure/Specimen");
-            this.Add("PSPYP", "PLACENTA SURGICAL PATHOLOGY - YPI ONLY");
+            this.Add("PSPYPI", "PLACENTA SURGICAL PATHOLOGY - YPI ONLY");
             this.Add("HRHPVTEST", "High Risk HPV Testing");            
             this.Add("BRAFMANAL", "BRAF V600E Mutation Analysis");
             this.Add("PNHHS", "PNH, Highly Sensitive");
