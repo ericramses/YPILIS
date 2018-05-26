@@ -235,7 +235,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.Test.HoldForFlow.HoldForFlowTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.TechInitiatedPeripheralSmear.TechInitiatedPeripheralSmearTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.ExtractAndHoldForMolecular.ExtractAndHoldForMolecularTest());
-
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.ExtractAndHoldForPreauthorization.ExtractAndHoldForPreauthorizationTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeIHCPanelTest());
 
             panelSetCollection.Add(new YellowstonePathology.Business.Test.PNH.PNHTest());

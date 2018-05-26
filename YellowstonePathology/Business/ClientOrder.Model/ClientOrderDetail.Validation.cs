@@ -284,13 +284,13 @@ namespace YellowstonePathology.Business.ClientOrder.Model
                     }
                 }
 
-                if (this.m_DateReceived.HasValue == true)
-                {
-                    if (fixationStartTime > this.m_DateReceived)
-                    {
-                        this.m_ValidationErrors.Add("FixationStartTimeBinding", "The Fixation Start Time cannot be after the Date Received.");
-                    }
-                }
+                //if (this.m_DateReceived.HasValue == true)
+                //{
+                //    if (fixationStartTime > this.m_DateReceived)
+                //    {
+                //        this.m_ValidationErrors.Add("FixationStartTimeBinding", "The Fixation Start Time cannot be after the Date Received.");
+                //    }
+                //}
             }
             else
             {

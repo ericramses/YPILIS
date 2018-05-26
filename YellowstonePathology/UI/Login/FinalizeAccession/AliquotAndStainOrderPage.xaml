@@ -161,6 +161,7 @@
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
                         <ColumnDefinition Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
 
@@ -173,15 +174,37 @@
                     <Image Grid.Column="0" Source="/Resources/out2.png" Width="17" Height="17" Visibility="{Binding Path=Element[ClientAccessioned].Value, Converter={StaticResource BooleanVisibilityConverter}}"></Image>
                     <CheckBox Grid.Column="1" Margin="2,2,2,2" VerticalAlignment="Center" IsChecked="{Binding Path=Element[IsSelected].Value, Converter={StaticResource BooleanStringConverter}}" />                    
                     <TextBlock Grid.Column="2" Margin="2,2,2,2" VerticalAlignment="Center" Text="{Binding Path=Element[LabelType].Value}"></TextBlock>                    
-                    <TextBlock Grid.Column="3" FontWeight="Bold" Margin="2,2,0,2" VerticalAlignment="Center" Text="{Binding Path=Element[Type].Value}"></TextBlock>                    
+                    <TextBlock Grid.Column="3" FontWeight="Bold" Margin="2,2,0,2" VerticalAlignment="Center" Text="{Binding Path=Element[Type].Value}">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=Text, ElementName=TextBoxStatus}" Value="Hold">
+                                        <Setter Property="Foreground" Value="Red"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>                    
                     <TextBlock Grid.Column="4" FontWeight="Bold" Margin="0,2,2,2" VerticalAlignment="Center">:</TextBlock>
-                    <TextBlock Grid.Column="5" Margin="2,2,2,2" VerticalAlignment="Center" Text="{Binding Path=Element[Label].Value}"></TextBlock>
+                    
+                    <TextBlock Grid.Column="5" Margin="2,2,2,2" VerticalAlignment="Center" Text="{Binding Path=Element[Label].Value}">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=Text, ElementName=TextBoxStatus}" Value="Hold">
+                                        <Setter Property="Foreground" Value="Red"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
 
                     <ComboBox Grid.Column="6" Margin="10,2,2,2" HorizontalAlignment="Stretch"
 							BorderBrush="LightGray" BorderThickness="1" Width="100"
 							ItemsSource="{Binding Path=EmbeddingInstructionList, RelativeSource={RelativeSource AncestorType=UserControl}}" Text="{Binding Path=Element[EmbeddingInstructions].Value, UpdateSourceTrigger=PropertyChanged}" IsEditable="True">
                     </ComboBox>
                     <TextBlock Grid.Column="7" Margin="2,2,2,2" VerticalAlignment="Center" Text="{Binding Path=Element[GrossVerifiedDate].Value}"></TextBlock>
+                    <TextBlock Name="TextBoxStatus" Grid.Column="8" Margin="2,2,2,2" VerticalAlignment="Center" Text="{Binding Path=Element[Status].Value}" Visibility="Collapsed"></TextBlock>
                 </Grid>                				
 			</HierarchicalDataTemplate>
 
@@ -278,14 +301,16 @@
                         <ColumnDefinition Width="*"></ColumnDefinition>
                         <ColumnDefinition Width="*"></ColumnDefinition>
                         <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
 
                     <Button Grid.Column="0" Height="30" Width="100" Content="Print Labels" Click="ButtonPrintLabels_Click" HorizontalAlignment="Left" Margin="2,2,2,2"/>
-                    <Button Grid.Column="1" Height="30" Width="150" Content="Add Slide To Test" Click="ButtonAddSlideOrder_Click" HorizontalAlignment="Center" Margin="2,2,2,2"/>
-                    <Button Grid.Column="2" Height="30" Width="100" Content="Delete" Click="ButtonDelete_Click" HorizontalAlignment="Right" Margin="2,2,2,2"/>
+                    <Button Grid.Column="1" Height="30" Width="120" Content="Add Slide To Test" Click="ButtonAddSlideOrder_Click" HorizontalAlignment="Center" Margin="2,2,2,2"/>
+                    <Button Grid.Column="2" Height="30" Width="100" Content="Hold" Click="ButtonPutBlockOnHold_Click" HorizontalAlignment="Center" Margin="2,2,2,2"/>
+                    <Button Grid.Column="3" Height="30" Width="100" Content="Delete" Click="ButtonDelete_Click" HorizontalAlignment="Right" Margin="2,2,2,2"/>
                     
                 </Grid>                
                 

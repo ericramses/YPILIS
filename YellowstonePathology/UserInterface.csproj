@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>23</ApplicationRevision>
+    <ApplicationRevision>25</ApplicationRevision>
     <ApplicationVersion>10.1.12.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -1097,6 +1097,8 @@
     <Compile Include="Business\Test\CLLByFish\CLLByFishWPHOBXView.cs" />
     <Compile Include="Business\Test\EosinophiliaByFISH\EosinophiliaByFISHCMMCNTEView.cs" />
     <Compile Include="Business\Test\EosinophiliaByFISH\EosinophiliaByFISHWPHOBXView.cs" />
+    <Compile Include="Business\Test\ExtractAndHoldForPreauthorization\ExtractAndHoldForPreauthorizationTest.cs" />
+    <Compile Include="Business\Test\ExtractAndHoldForPreauthorization\ExtractAndHoldForPreauthorizationTestOrder.cs" />
     <Compile Include="Business\Test\FLT3Preliminary\FLT3PreliminaryTest.cs" />
     <Compile Include="Business\Test\FLT3\FLT3CMMCNTEView.cs" />
     <Compile Include="Business\Test\FLT3\FLT3WPHOBXView.cs" />

@@ -407,10 +407,11 @@ namespace YellowstonePathology.UI.Login.Receiving
             {
                 YellowstonePathology.Business.Task.Model.TaskOrderDetailFax taskOrderDetailFax = (YellowstonePathology.Business.Task.Model.TaskOrderDetailFax)this.ListBoxTaskDetails.SelectedItem;
                 YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_TaskOrder.ReportNo);
+                
                 YellowstonePathology.Business.Test.AdditionalTestingNotification.AdditionalTestingNotificationWordDocument report =
                     new YellowstonePathology.Business.Test.AdditionalTestingNotification.AdditionalTestingNotificationWordDocument(this.m_AccessionOrder, panelSetOrder, Business.Document.ReportSaveModeEnum.Normal);
                 report.Render();
-                report.Publish(true);
+                report.Publish(true);                        
 
                 Business.OrderIdParser orderIdParser = new Business.OrderIdParser(panelSetOrder.ReportNo);
                 string tifFileName = Business.Document.CaseDocument.GetCaseFileNameTif(orderIdParser, true);

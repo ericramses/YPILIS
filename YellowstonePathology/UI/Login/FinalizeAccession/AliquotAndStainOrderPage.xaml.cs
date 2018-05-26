@@ -529,6 +529,25 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             }
         }
 
+        private void ButtonPutBlockOnHold_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Test.AliquotOrderCollection selectedAliquots = this.m_AliquotAndStainOrderView.GetSelectedAliquots();
+            foreach (YellowstonePathology.Business.Test.AliquotOrder aliquotOrder in selectedAliquots)
+            {
+                if (aliquotOrder.Status == "Hold")
+                {
+                    aliquotOrder.Status = null;
+                }
+                else
+                {
+                    aliquotOrder.Status = "Hold";
+                }
+            }
+
+            this.m_AliquotAndStainOrderView.Refresh(true, this.m_PanelSetOrder);
+            this.NotifyPropertyChanged("AliquotAndStainOrderView");
+        }
+
         private void ButtonDelete_Click(object sender, RoutedEventArgs e)
 		{
             List<string> selectedSlideOrderIds = this.m_AliquotAndStainOrderView.GetSelectedSlideOrderIds();
@@ -561,8 +580,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 this.m_AccessionOrder.TakeATrip(removeAliquotOrderVisitor);
                 this.m_AccessionOrder.SpecimenOrderCollection.SetAliquotRequestCount();
             }
-
-            //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
+            
             this.m_AliquotAndStainOrderView.Refresh(true, this.m_PanelSetOrder);            
 			this.NotifyPropertyChanged("AliquotAndStainOrderView");
 		}        		
@@ -887,6 +905,6 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             //System.IO.File.WriteAllText(@"\\10.1.2.31\ChannelData\Outgoing\Ventana\" + objectId + ".hl7", result);
 
             MessageBox.Show(result);
-        }
+        }        
     }
 }
