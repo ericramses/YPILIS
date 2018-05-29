@@ -42,12 +42,12 @@ namespace YellowstonePathology.Business.Test.HPV
             this.SetReportDistribution();
 			this.SetCaseHistory();            
 
-			this.SaveReport(false);
+			this.SaveReport();
 		}
 
-        public override void Publish(bool notify)
+        public override void Publish()
         {
-            base.Publish(notify);
+            base.Publish();
         }
 	}
 }

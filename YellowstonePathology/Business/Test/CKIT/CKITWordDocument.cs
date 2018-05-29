@@ -44,12 +44,12 @@ namespace YellowstonePathology.Business.Test.CKIT
 
             this.ReplaceText("report_disclaimer", this.m_PanelSetOrder.GetLocationPerformedComment());
 
-			this.SaveReport(false);
+			this.SaveReport();
 		}
 
-		public override void Publish(bool notify)
+		public override void Publish()
 		{
-			base.Publish(notify);
+			base.Publish();
 		}
 	}
 }

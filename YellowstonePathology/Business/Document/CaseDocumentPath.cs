@@ -86,7 +86,7 @@ namespace YellowstonePathology.Document
             }
             strPath += @"\" + reportNo + @"\";
             return strPath;
-        }
+        }        
 
         public static string GetPath(YellowstonePathology.Business.OrderIdParser orderIdParser)
         {

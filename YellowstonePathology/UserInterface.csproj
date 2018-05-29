@@ -333,6 +333,8 @@
     <Compile Include="Business\Client.Model\IdahoClientIdList.cs" />
     <Compile Include="Business\ClientOrder.Model\ExternalOrderIds.cs" />
     <Compile Include="Business\ClientOrder.Model\ExternalOrderIdsCollection.cs" />
+    <Compile Include="Business\Document\CaseDocumentFileTypeEnnum.cs" />
+    <Compile Include="Business\Document\CaseDocumentTypeEnum.cs" />
     <Compile Include="Business\Flow\CytoplasmicMarkerMapping.cs" />
     <Compile Include="Business\Flow\CytoplasmicMarkerMappingCollection.cs" />
     <Compile Include="Business\HL7View\ADTMessage.cs" />

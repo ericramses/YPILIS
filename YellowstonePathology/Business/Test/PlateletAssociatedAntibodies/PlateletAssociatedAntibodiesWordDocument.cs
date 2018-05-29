@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Xml;
+using YellowstonePathology.Business.Document;
 
 namespace YellowstonePathology.Business.Test.PlateletAssociatedAntibodies
 {
@@ -83,14 +84,16 @@ namespace YellowstonePathology.Business.Test.PlateletAssociatedAntibodies
 
             tableNode.RemoveChild(rowMarkerNode);            
                     
-            this.SaveReport(false);
+            this.SaveReport();
         }
 
-        public override void Publish(bool notify)
+        public override void Publish()
         {
-			YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
-			YellowstonePathology.Business.Document.CaseDocument.SaveXMLAsPDF(orderIdParser, false);
-            YellowstonePathology.Business.Helper.FileConversionHelper.SaveXpsReportToTiff(this.m_PanelSetOrder.ReportNo, false);
+			YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);            
+            YellowstonePathology.Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, CaseDocumentTypeEnum.CaseReport, CaseDocumentFileTypeEnnum.xml, CaseDocumentFileTypeEnnum.pdf);
+            YellowstonePathology.Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, CaseDocumentTypeEnum.CaseReport, CaseDocumentFileTypeEnnum.xps, CaseDocumentFileTypeEnnum.tif);
+            //YellowstonePathology.Business.Document.CaseDocument.SaveXMLAsPDF(orderIdParser);
+            //YellowstonePathology.Business.Helper.FileConversionHelper.SaveXpsReportToTiff(this.m_PanelSetOrder.ReportNo);
         }
     }
 }

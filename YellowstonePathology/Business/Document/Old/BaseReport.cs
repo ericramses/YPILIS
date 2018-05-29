@@ -345,7 +345,7 @@ namespace YellowstonePathology.Business.Document.Old
             parentNode.RemoveChild(childNode);
         }
 
-        public void SaveReport(bool notify)
+        public void SaveReport()
         {
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
             switch (this.m_ReportSaveMode)
@@ -359,9 +359,9 @@ namespace YellowstonePathology.Business.Document.Old
                     break;
                 case YellowstonePathology.Business.Document.ReportSaveModeEnum.Normal:
                     this.m_ReportXml.Save(this.m_SaveFileName);
-					CaseDocument.SaveXMLAsDoc(orderIdParser, notify);
-					CaseDocument.SaveDocAsXPS(orderIdParser, notify);
-					break;
+                    Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, CaseDocumentTypeEnum.CaseReport, CaseDocumentFileTypeEnnum.xml, CaseDocumentFileTypeEnnum.doc);
+                    Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, CaseDocumentTypeEnum.CaseReport, CaseDocumentFileTypeEnnum.doc, CaseDocumentFileTypeEnnum.xps);
+                    break;
             }            
         }        
     }

@@ -398,7 +398,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 
             this.HandleERPRStatements();
 
-            this.SaveReport(false);
+            this.SaveReport();
 		}
 
 

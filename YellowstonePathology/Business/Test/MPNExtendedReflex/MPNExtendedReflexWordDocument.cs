@@ -45,12 +45,12 @@ namespace YellowstonePathology.Business.Test.MPNExtendedReflex
 			this.ReplaceText("report_date", BaseData.GetShortDateString(this.m_PanelSetOrder.FinalDate));
             this.ReplaceText("pathologist_signature", mpnExtendedReflexResult.PanelSetOrderMPNExtendedReflex.Signature);
 
-			this.SaveReport(false);
+			this.SaveReport();
 		}
 
-		public override void Publish(bool notify)
+		public override void Publish()
 		{
-			base.Publish(notify);
+			base.Publish();
 		}
 	}
 }

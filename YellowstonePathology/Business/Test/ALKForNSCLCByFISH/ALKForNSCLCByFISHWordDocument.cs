@@ -52,12 +52,12 @@ namespace YellowstonePathology.Business.Test.ALKForNSCLCByFISH
             string locationPerformed = this.m_PanelSetOrder.GetLocationPerformedComment();
             this.ReplaceText("report_disclaimer", locationPerformed);
 
-			this.SaveReport(false);
+			this.SaveReport();
 		}
 
-		public override void Publish(bool notify)
+		public override void Publish()
 		{
-			base.Publish(notify);
+			base.Publish();
 		}
 	}
 }

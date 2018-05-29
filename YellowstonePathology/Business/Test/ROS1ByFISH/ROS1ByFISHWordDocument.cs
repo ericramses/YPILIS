@@ -59,12 +59,12 @@ namespace YellowstonePathology.Business.Test.ROS1ByFISH
             
             this.ReplaceText("report_disclaimer", ros1ByFISHTestOrder.ReportDisclaimer);
 
-			this.SaveReport(false);
+			this.SaveReport();
 		}
 
-		public override void Publish(bool notify)
+		public override void Publish()
 		{
-			base.Publish(notify);
+			base.Publish();
 		}
 	}
 }

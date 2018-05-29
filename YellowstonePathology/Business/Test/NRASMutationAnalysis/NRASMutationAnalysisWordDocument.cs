@@ -43,12 +43,12 @@ namespace YellowstonePathology.Business.Test.NRASMutationAnalysis
 			this.ReplaceText("report_time", YellowstonePathology.Business.Helper.DateTimeExtensions.ShortTimeStringFromNullable(this.m_PanelSetOrder.ReferenceLabFinalDate));
 			this.ReplaceText("pathologist_signature", this.m_PanelSetOrder.ReferenceLabSignature);
 
-			this.SaveReport(false);
+			this.SaveReport();
 		}
 
-		public override void Publish(bool notify)
+		public override void Publish()
 		{
-			base.Publish(notify);
+			base.Publish();
 		}
 	}
 }

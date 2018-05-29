@@ -29,16 +29,18 @@ namespace YellowstonePathology.Business.Document
 			this.ReplaceText("current_date", DateTime.Today.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
 			this.ReplaceText("patient_name", patientName);
 
-
 			this.ReplaceText("patient_name", patientName);
 			this.ReplaceText("provider_name", providerName);
 			this.SetXMLNodeParagraphData("letter_body", letterBody);
 
-			string xmlDocumentFileName = YellowstonePathology.Properties.Settings.Default.ClientMissingInformationLetterFileName.ToUpper().Replace("DOC", "XML");
+			string xmlDocumentFileName = YellowstonePathology.Properties.Settings.Default.ClientMissingInformationLetterFileName.Replace("doc", "xml");
 			xmlDocument.Save(xmlDocumentFileName);
-            
-            YellowstonePathology.Business.Document.CaseDocument.SaveXMLAsDocFromFileName(xmlDocumentFileName);
-            YellowstonePathology.Business.Helper.FileConversionHelper.SaveDocAsXPS(xmlDocumentFileName.Replace(".DOC", ".XPS"));
+
+            Business.Helper.FileConversionHelper.ConvertXMLToDoc(xmlDocumentFileName, xmlDocumentFileName.Replace(".xml", ".doc"));
+            Business.Helper.FileConversionHelper.ConvertDocToXPS(xmlDocumentFileName, xmlDocumentFileName.Replace(".xml", ".xps"));
+
+            //YellowstonePathology.Business.Document.CaseDocument.SaveXMLAsDocFromFileName(xmlDocumentFileName);
+            //YellowstonePathology.Business.Helper.FileConversionHelper.SaveDocAsXPS(xmlDocumentFileName.Replace(".DOC", ".XPS"));
         }
 	}
 }

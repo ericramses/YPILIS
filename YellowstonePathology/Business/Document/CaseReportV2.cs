@@ -55,11 +55,15 @@ namespace YellowstonePathology.Business.Document
             throw new NotImplementedException("Not Implemented Here");
         }
 
-        public virtual void Publish(bool notify)
+        public virtual void Publish()
         {
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
-            YellowstonePathology.Business.Document.CaseDocument.SaveXMLAsPDF(orderIdParser, notify);
-            YellowstonePathology.Business.Helper.FileConversionHelper.SaveXpsReportToTiff(this.m_PanelSetOrder.ReportNo, notify);
+
+            YellowstonePathology.Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, CaseDocumentTypeEnum.CaseReport, CaseDocumentFileTypeEnnum.xml, CaseDocumentFileTypeEnnum.pdf);
+            YellowstonePathology.Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, CaseDocumentTypeEnum.CaseReport, CaseDocumentFileTypeEnnum.xps, CaseDocumentFileTypeEnnum.tif);
+
+            //YellowstonePathology.Business.Document.CaseDocument.SaveXMLAsPDF(orderIdParser);
+            //YellowstonePathology.Business.Helper.FileConversionHelper.SaveXpsReportToTiff(this.m_PanelSetOrder.ReportNo);
         }
 
         public YellowstonePathology.Business.Document.NativeDocumentFormatEnum NativeDocumentFormat
@@ -390,9 +394,8 @@ namespace YellowstonePathology.Business.Document
             parentNode.RemoveChild(childNode);
         }
 
-        public void SaveReport(bool notify)
-        {
-            if (notify) this.m_SaveFileName = this.m_SaveFileName.Replace(".xml", ".notify.xml");
+        public void SaveReport()
+        {            
             switch (this.m_ReportSaveMode)
             {
                 case ReportSaveModeEnum.Draft:                
@@ -401,8 +404,8 @@ namespace YellowstonePathology.Business.Document
                 case ReportSaveModeEnum.Normal:                
                     this.m_ReportXml.Save(this.m_SaveFileName);
 					YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
-					CaseDocument.SaveXMLAsDoc(orderIdParser, notify);
-					CaseDocument.SaveDocAsXPS(orderIdParser, notify);                    
+                    Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, CaseDocumentTypeEnum.CaseReport, CaseDocumentFileTypeEnnum.xml, CaseDocumentFileTypeEnnum.doc);
+                    Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, CaseDocumentTypeEnum.CaseReport, CaseDocumentFileTypeEnnum.doc, CaseDocumentFileTypeEnnum.xps);
                     break;
                 case ReportSaveModeEnum.Test:
                     this.m_ReportXml.Save(@"c:\Testing\Test.xml");

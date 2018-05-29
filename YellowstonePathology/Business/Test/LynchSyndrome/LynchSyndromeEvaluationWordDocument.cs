@@ -100,12 +100,12 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             
             base.ReplaceText("summary_location_performed", this.m_AccessionOrder.PanelSetOrderCollection.GetLocationPerformedSummary(lynchSyndromeEvaluationTest.PanelSetIDList));
 
-            this.SaveReport(false);
+            this.SaveReport();
         }
         
-        public override void Publish(bool notify)
+        public override void Publish()
         {
-            base.Publish(notify);
+            base.Publish();
         }        
     }
 }

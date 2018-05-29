@@ -123,7 +123,7 @@ namespace YellowstonePathology.Business.Document
 			 */
 		}
 
-        public void Publish(bool notify)
+        public void Publish()
         {
             //YellowstonePathology.Business.Document.CaseDocument.SaveXMLAsPDF(this.m_PanelSetOrderItem.ReportNo);
             //YellowstonePathology.Business.Helper.FileConversionHelper.SaveXpsReportToTiff(this.m_PanelSetOrderItem.ReportNo, false);

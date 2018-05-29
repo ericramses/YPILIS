@@ -110,7 +110,9 @@ namespace YellowstonePathology.UI
 			YellowstonePathology.Business.ReportNoCollection reportNos = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetReportNumbers();
             foreach (YellowstonePathology.Business.ReportNo reportNo in reportNos)
             {
-                bool result = YellowstonePathology.Business.Helper.FileConversionHelper.ConvertXpsDocumentToPdf(reportNo.Value);
+                //bool result = YellowstonePathology.Business.Helper.FileConversionHelper.ConvertXPSToPDF(reportNo.Value);
+                Business.OrderIdParser orderIdParser = new Business.OrderIdParser(reportNo.Value);
+                YellowstonePathology.Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, Business.Document.CaseDocumentTypeEnum.CaseReport, Business.Document.CaseDocumentFileTypeEnnum.xps, Business.Document.CaseDocumentFileTypeEnnum.pdf);
                 YellowstonePathology.Business.DataContext.YpiData dataContext = new Business.DataContext.YpiData();                
             }
         }        
@@ -164,10 +166,10 @@ namespace YellowstonePathology.UI
 			foreach (YellowstonePathology.Business.ReportNo reportNo in reportNumbers)
             {
 				YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(reportNo.Value);
-				string xpsDoc = YellowstonePathology.Business.Document.CaseDocument.GetCaseFileNameXPS(orderIdParser, false);
+				string xpsDoc = YellowstonePathology.Business.Document.CaseDocument.GetCaseFileNameXPS(orderIdParser);
                 if (System.IO.File.Exists(xpsDoc) == false)
                 {
-					YellowstonePathology.Business.Document.CaseDocument.SaveDocAsXPS(orderIdParser, false);
+                    Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, Business.Document.CaseDocumentTypeEnum.CaseReport, Business.Document.CaseDocumentFileTypeEnnum.doc, Business.Document.CaseDocumentFileTypeEnnum.xps);
                 }
             }
         }
@@ -209,11 +211,11 @@ namespace YellowstonePathology.UI
 				YellowstonePathology.Business.Helper.FileConversionHelper.SaveXpsReportToTiff(reportNo.Number, false);
 			}*/
 
-			YellowstonePathology.Business.ReportNoCollection reportNoCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetReportNumbers();
-			foreach (YellowstonePathology.Business.ReportNo reportNo in reportNoCollection)
-			{
-                YellowstonePathology.Business.Helper.FileConversionHelper.SaveXpsReportToTiff(reportNo.Value, false);
-			}
+			//YellowstonePathology.Business.ReportNoCollection reportNoCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetReportNumbers();
+			//foreach (YellowstonePathology.Business.ReportNo reportNo in reportNoCollection)
+			//{
+            //    YellowstonePathology.Business.Helper.FileConversionHelper.SaveXpsReportToTiff(reportNo.Value);
+			//}
        }
 
         private void ComprehensiveCareReports_Click(object sender, RoutedEventArgs e)
@@ -240,7 +242,7 @@ namespace YellowstonePathology.UI
 
         private void XpsToTiff_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Helper.FileConversionHelper.SaveXpsReportToTiff("S11-11826", false);
+            //YellowstonePathology.Business.Helper.FileConversionHelper.SaveXpsReportToTiff("S11-11826");
         }       		
 
         private void TestBillingData_Click(object sender, RoutedEventArgs e)
@@ -984,12 +986,9 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            //string path = System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\hello.txt";
-            //System.IO.File.WriteAllText(path, "hello world");
-            //MessageBox.Show(path);
-
-            //Business.Label.Model.HistologySlideDirectPrintLabel l = new Business.Label.Model.HistologySlideDirectPrintLabel("18-12043.S", "1A1", "MOUSE", new Business.BarcodeScanning.BarcodeVersion2("^2205HSLD18-12043.1A1"), "YPI Blgs, Mt");
-            //string line = l.GetLine();
+            Business.OrderIdParser id = new Business.OrderIdParser("18-123.S");
+            Business.Helper.FileConversionHelper.ConvertDocumentTo(id, Business.Document.CaseDocumentTypeEnum.CaseReport, Business.Document.CaseDocumentFileTypeEnnum.xml, Business.Document.CaseDocumentFileTypeEnnum.doc);
+            Business.Helper.FileConversionHelper.ConvertDocumentTo(id, Business.Document.CaseDocumentTypeEnum.CaseReport, Business.Document.CaseDocumentFileTypeEnnum.doc, Business.Document.CaseDocumentFileTypeEnnum.xps);
         }
 
         private void GetSlideNumberTest()

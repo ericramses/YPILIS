@@ -51,12 +51,12 @@ namespace YellowstonePathology.Business.Test.NGCT
 			base.ReplaceText("report_references", testOrder.ReportReferences);
 			base.ReplaceText("test_information", testOrder.TestInformation);
 				
-            this.SaveReport(false);
+            this.SaveReport();
         }
 
-        public override void Publish(bool notify)
+        public override void Publish()
         {
-            base.Publish(notify);
+            base.Publish();
         }
     }
 }

@@ -92,12 +92,12 @@ namespace YellowstonePathology.Business.Test.BoneMarrowSummary
             testTableNode.RemoveChild(rowTestNode);
             this.ReplaceText("disclosure_statement", string.Empty);
 
-            this.SaveReport(false);
+            this.SaveReport();
         }        
 
-        public override void Publish(bool notify)
+        public override void Publish()
         {
-            base.Publish(notify);
+            base.Publish();
         }
     }
 }

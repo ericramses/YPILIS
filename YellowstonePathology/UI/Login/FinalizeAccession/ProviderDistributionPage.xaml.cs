@@ -402,7 +402,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 if (methodResult.Success == true)
                 {
                     caseDocument.Render();
-                    caseDocument.Publish(false);
+                    caseDocument.Publish();
                     MessageBox.Show("The document has been published.");
                 }
                 else

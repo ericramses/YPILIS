@@ -91,8 +91,8 @@ namespace YellowstonePathology.Reports.Cytology
                 nodeTable.RemoveChild(nodeTemplateR1);
                 this.SaveReport();
 
-				YellowstonePathology.Business.Document.CaseDocument.SaveXMLAsDocFromFileName(this.m_ReportSaveFileName);
-                //YellowstonePathology.Business.Document.Old.Routines.CommonRoutines.SaveXMLDocAsWordDoc(this.m_ReportSaveFileName);                
+				//YellowstonePathology.Business.Document.CaseDocument.SaveXMLAsDocFromFileName(this.m_ReportSaveFileName);
+                Business.Helper.FileConversionHelper.ConvertXMLToDoc(this.m_ReportSaveFileName, this.m_ReportSaveFileName.Replace(".xml", ".doc"));                
             }          
         }
 

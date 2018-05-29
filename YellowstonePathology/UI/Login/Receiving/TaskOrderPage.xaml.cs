@@ -411,10 +411,10 @@ namespace YellowstonePathology.UI.Login.Receiving
                 YellowstonePathology.Business.Test.AdditionalTestingNotification.AdditionalTestingNotificationWordDocument report =
                     new YellowstonePathology.Business.Test.AdditionalTestingNotification.AdditionalTestingNotificationWordDocument(this.m_AccessionOrder, panelSetOrder, Business.Document.ReportSaveModeEnum.Normal);
                 report.Render();
-                report.Publish(true);                        
+                report.Publish();                        
 
                 Business.OrderIdParser orderIdParser = new Business.OrderIdParser(panelSetOrder.ReportNo);
-                string tifFileName = Business.Document.CaseDocument.GetCaseFileNameTif(orderIdParser, true);
+                string tifFileName = Business.Document.CaseDocument.GetCaseFileNameTif(orderIdParser);
                 Business.ReportDistribution.Model.FaxSubmission.Submit(taskOrderDetailFax.FaxNumber, false, "Additional Testing Notification", tifFileName);
                 MessageBox.Show("The fax was successfully submitted.");
             }

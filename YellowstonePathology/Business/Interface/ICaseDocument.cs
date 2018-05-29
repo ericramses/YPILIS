@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Interface
 	{
 		YellowstonePathology.Business.Rules.MethodResult DeleteCaseFiles(YellowstonePathology.Business.OrderIdParser orderIdParser);
 		void Render();
-        void Publish(bool notify);
+        void Publish();
         YellowstonePathology.Business.Document.NativeDocumentFormatEnum NativeDocumentFormat { get; set; }
 	}
 }

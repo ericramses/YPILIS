@@ -103,12 +103,12 @@ namespace YellowstonePathology.Business.Test.Her2AmplificationByFish
 				this.SetXmlNodeData("final_date", BaseData.GetShortDateString(this.m_PanelSetOrder.ReferenceLabFinalDate));
 			}
 
-			this.SaveReport(false);
+			this.SaveReport();
 		}
 
-		public override void Publish(bool notify)
+		public override void Publish()
 		{
-			base.Publish(notify);
+			base.Publish();
 		}
 	}
 }

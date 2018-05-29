@@ -31,9 +31,10 @@ namespace YellowstonePathology.Business.Document
             //DO Nothing
         }
 
-        public override void Publish(bool notify)
+        public override void Publish()
         {
-			YellowstonePathology.Business.Helper.FileConversionHelper.SaveXpsReportToTiff(this.m_PanelSetOrder.ReportNo, false);
+            Business.OrderIdParser orderIdParser = new OrderIdParser(this.m_PanelSetOrder.ReportNo);
+            YellowstonePathology.Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, CaseDocumentTypeEnum.CaseReport, CaseDocumentFileTypeEnnum.xps, CaseDocumentFileTypeEnnum.tif);
         }
     }
 }
