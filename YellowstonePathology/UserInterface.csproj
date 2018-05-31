@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>25</ApplicationRevision>
+    <ApplicationRevision>36</ApplicationRevision>
     <ApplicationVersion>10.1.12.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -1078,6 +1078,8 @@
     <Compile Include="Business\Test\ALLPediatricFISHPanel\ALLPediatricFISHPanelTest.cs" />
     <Compile Include="Business\Test\AMLPrognosticProfile\AMLPrognosticProfileTestOrder.cs" />
     <Compile Include="Business\Test\API2MALT1ByFISH\API2MALT1ByFISHWPHOBXView.cs" />
+    <Compile Include="Business\Test\ExtractAndHoldForPreauthorization\ExtractAndHoldForPreauthorizationWordDocument.cs" />
+    <Compile Include="Business\Test\MPNExtendedReflexPanel\MPNExtendedReflexPanelTest.cs" />
     <Compile Include="Business\Test\BCellEnumeration\BCellEnumerationCMMCNTEView.cs" />
     <Compile Include="Business\Test\BCellEnumeration\BCellEnumerationWPHOBXView.cs" />
     <Compile Include="Business\Test\BCellGeneRearrangement\BCellGeneRearrangementCMMCNTEView.cs" />
@@ -3812,6 +3814,7 @@
     <Compile Include="UI\Test\ExtractAndHoldForMolecularResultPage.xaml.cs">
       <DependentUpon>ExtractAndHoldForMolecularResultPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Test\ExtractAndHoldForPreauthorizationResultPath.cs" />
     <Compile Include="UI\Test\ExtractAndHoldForMolecularResultPath.cs" />
     <Compile Include="UI\Test\FGFR1ResultPage.xaml.cs">
       <DependentUpon>FGFR1ResultPage.xaml</DependentUpon>
@@ -3825,6 +3828,9 @@
       <DependentUpon>FLT3ResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Test\FLT3ResultPath.cs" />
+    <Compile Include="UI\Test\ExtractAndHoldForPreauthorizationResultPage.xaml.cs">
+      <DependentUpon>ExtractAndHoldForPreauthorizationResultPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Test\SlideTrackingResultPage.xaml.cs">
       <DependentUpon>SlideTrackingResultPage.xaml</DependentUpon>
     </Compile>
@@ -5788,6 +5794,10 @@
     <Page Include="UI\Test\FLT3ResultPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Test\ExtractAndHoldForPreauthorizationResultPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\Test\SlideTrackingResultPage.xaml">
       <Generator>MSBuild:Compile</Generator>

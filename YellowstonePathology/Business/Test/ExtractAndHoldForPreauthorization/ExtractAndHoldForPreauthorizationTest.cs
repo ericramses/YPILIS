@@ -20,14 +20,16 @@ namespace YellowstonePathology.Business.Test.ExtractAndHoldForPreauthorization
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterT();
             this.m_Active = true;
             this.m_NeverDistribute = true;
-            this.m_ExpectedDuration = new TimeSpan(2, 0, 0, 0);
+            this.m_ExpectedDuration = new TimeSpan(7, 0, 0, 0);
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.ExtractAndHoldForPreauthorization.ExtractAndHoldForPreauthorizationTestOrder).AssemblyQualifiedName;
             this.m_RequiresPathologistSignature = false;
             this.m_AcceptOnFinal = false;
-            this.m_AllowMultiplePerAccession = false;
+            this.m_AllowMultiplePerAccession = true;
+            this.m_ShowResultPageOnOrder = true;
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMiscellaneous());
 
-            this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskFax(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, "Preauthorization Fax"));
+            YellowstonePathology.Business.Task.Model.TaskFax taskFax = new YellowstonePathology.Business.Task.Model.TaskFax(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, "Preauthorization Fax", "PreauthorizationNotification");
+            this.m_TaskCollection.Add(taskFax);
         }
     }
 }

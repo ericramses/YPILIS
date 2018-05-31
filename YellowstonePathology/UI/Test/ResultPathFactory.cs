@@ -333,6 +333,9 @@ namespace YellowstonePathology.UI.Test
                 case 291:
                     result = new TechnicalOnlyResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
+                case 300:
+                    result = new ExtractAndHoldForPreauthorizationResultPath(reportNo, accessionOrder, pageNavigator, window);
+                    break;
             }
             return result;
         }

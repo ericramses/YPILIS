@@ -11,6 +11,7 @@ namespace YellowstonePathology.Business
         PrintRequested,
         Printed,
         Validated,
-        ClientAccessioned
+        ClientAccessioned,
+        Embedded
     }
 }

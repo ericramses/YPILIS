@@ -45,11 +45,11 @@ namespace YellowstonePathology.Business.Helper
             }
             else if (fromType == CaseDocumentFileTypeEnnum.xps && toType == CaseDocumentFileTypeEnnum.tif)
             {
-                ConvertDocToXPS(filePath + ".xps", filePath + ".tif");
+                ConvertXPSToTIF(filePath + ".xps", filePath + ".tif");
             }
             else if (fromType == CaseDocumentFileTypeEnnum.xml && toType == CaseDocumentFileTypeEnnum.pdf)
             {
-                ConvertDocToXPS(filePath + ".xml", filePath + ".pdf");
+                ConvertXMLToPDF(filePath + ".xml", filePath + ".pdf");
             }
         }
 
@@ -180,7 +180,7 @@ namespace YellowstonePathology.Business.Helper
         {			
             if (File.Exists(xpsFileName) == true)
             {                
-                XpsDocument xpsDoc = new XpsDocument(tifFileName, System.IO.FileAccess.Read);                
+                XpsDocument xpsDoc = new XpsDocument(xpsFileName, System.IO.FileAccess.Read);                
                 FixedDocumentSequence docSeq = xpsDoc.GetFixedDocumentSequence();
                 int pages = docSeq.DocumentPaginator.PageCount;
 

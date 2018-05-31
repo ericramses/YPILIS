@@ -14,11 +14,12 @@ namespace YellowstonePathology.Business.Task.Model
         {
         }
 
-        public TaskOrderDetailFax(string taskOrderDetailId, string taskOrderId, string objectId, Task task, int clientId) 
+        public TaskOrderDetailFax(string taskOrderDetailId, string taskOrderId, string objectId, TaskFax task, int clientId) 
             : base(taskOrderDetailId, taskOrderId, objectId, task, clientId)
         {
             TaskFax taskFax = (Model.TaskFax)task;
             this.TaskId = taskFax.TaskId;
+            this.m_DocumentName = task.DocumentName;
         }
 
         [PersistentProperty()]

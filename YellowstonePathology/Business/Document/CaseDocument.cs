@@ -787,7 +787,31 @@ namespace YellowstonePathology.Business.Document
         {
 			string fileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + orderIdParser.ReportNo + ".tif";            
             return fileName;
-        }        
+        }
+
+        public static string GetCaseFileNameTifNotify(YellowstonePathology.Business.OrderIdParser orderIdParser)
+        {
+            string fileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + orderIdParser.ReportNo + ".notify.tif";
+            return fileName;
+        }
+
+        public static string GetCaseFileNameXMLNotify(YellowstonePathology.Business.OrderIdParser orderIdParser)
+        {
+            string fileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + orderIdParser.ReportNo + ".notify.xml";
+            return fileName;
+        }
+
+        public static string GetCaseFileNameTifPreAuth(YellowstonePathology.Business.OrderIdParser orderIdParser)
+        {
+            string fileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + orderIdParser.ReportNo + ".preauth.tif";
+            return fileName;
+        }
+
+        public static string GetCaseFileNameXMLPreAuth(YellowstonePathology.Business.OrderIdParser orderIdParser)
+        {
+            string fileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + orderIdParser.ReportNo + ".preauth.xml";
+            return fileName;
+        }
 
         public static string GetCaseFileNamePatientTif(YellowstonePathology.Business.OrderIdParser orderIdParser)
         {

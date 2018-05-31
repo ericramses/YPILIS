@@ -24,7 +24,6 @@ namespace YellowstonePathology.Business.Flow
         private Flow.FlowPanelList m_FlowPanelList;
 		private bool m_IsEnabled = true;
 		private string m_ReportNo;
-
         
         private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
         private YellowstonePathology.Business.Facility.Model.FacilityCollection m_FacilityCollection;

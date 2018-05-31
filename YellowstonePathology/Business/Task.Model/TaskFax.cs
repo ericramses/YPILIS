@@ -8,11 +8,19 @@ namespace YellowstonePathology.Business.Task.Model
 {
     public class TaskFax : Task
     {
-        public TaskFax(string assignedTo, string description) 
+        private string m_DocumentName;
+
+        public TaskFax(string assignedTo, string description, string documentName) 
             : base(assignedTo, description)
         {
             this.m_TaskId = "TSKFAX";
             this.m_TaskName = "Fax";
+            this.m_DocumentName = documentName;
+        }        
+
+        public string DocumentName
+        {
+            get { return this.m_DocumentName; }
         }
     }
 }

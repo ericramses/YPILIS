@@ -35,7 +35,7 @@ namespace YellowstonePathology.Business.Task.Model
                     result = new TaskOrderDetailFedexShipment(taskOrderDetailId, taskOrderId, objectId, task, clientId);
                     break;
                 case "TSKFAX":
-                    result = new TaskOrderDetailFax(taskOrderDetailId, taskOrderId, objectId, task, clientId);
+                    result = new TaskOrderDetailFax(taskOrderDetailId, taskOrderId, objectId, task as TaskFax, clientId);
                     break;
                 default:
                     result = new TaskOrderDetail(taskOrderDetailId, taskOrderId, objectId, task, clientId);

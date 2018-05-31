@@ -54,18 +54,23 @@
                         <TextBlock Grid.Column="0" Grid.Row="3" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right" IsEnabled="False">Atention:</TextBlock>
                         <TextBox Grid.Column="1" Grid.Row="3" Margin="2,2,2,2" Text="{Binding Path=SendToName}"/>
 
-                        <TextBlock Grid.Column="0" Grid.Row="4" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right">Assigned To:</TextBlock>
-                        <ComboBox Name="ComboBoxTaskAssignment" Grid.Column="1" Grid.Row="4" Margin="2,2,2,2" SelectedValue="{Binding Path=AssignedTo}"
+                        <TextBlock Grid.Column="0" Grid.Row="4" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right">DocumentName:</TextBlock>
+                        <ComboBox Name="ComboBoxFaxDocumentName" Grid.Column="1" Grid.Row="4" Margin="2,2,2,2" SelectedValue="{Binding Path=DocumentName}"
+                                ItemsSource="{Binding DataContext.FaxDocumentNameList, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}">
+                        </ComboBox>
+
+                        <TextBlock Grid.Column="0" Grid.Row="5" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right">Assigned To:</TextBlock>
+                        <ComboBox Name="ComboBoxTaskAssignment" Grid.Column="1" Grid.Row="5" Margin="2,2,2,2" SelectedValue="{Binding Path=AssignedTo}"
                                 ItemsSource="{Binding DataContext.TaskAssignmentList, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}">
                         </ComboBox>
 
-                        <TextBlock Grid.Column="0" Grid.Row="5" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right">Acknowledged By:</TextBlock>
-                        <TextBlock Grid.Column="1" Grid.Row="5" Margin="2,2,2,2" Text="{Binding Path=AcknowledgedByInitials}" />
+                        <TextBlock Grid.Column="0" Grid.Row="6" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right">Acknowledged By:</TextBlock>
+                        <TextBlock Grid.Column="1" Grid.Row="6" Margin="2,2,2,2" Text="{Binding Path=AcknowledgedByInitials}" />
 
-                        <TextBlock Grid.Column="0" Grid.Row="6" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right">Acknowledged Date:</TextBlock>
-                        <TextBlock Grid.Column="1" Grid.Row="6" Margin="2,2,2,2" Text="{Binding Path=AcknowledgedDate}" />
+                        <TextBlock Grid.Column="0" Grid.Row="7" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right">Acknowledged Date:</TextBlock>
+                        <TextBlock Grid.Column="1" Grid.Row="7" Margin="2,2,2,2" Text="{Binding Path=AcknowledgedDate}" />
 
-                        <StackPanel Grid.Column="2" Grid.Row="0" Grid.RowSpan="4" Margin="10,10,10,10">
+                        <StackPanel Grid.Column="2" Grid.Row="0" Grid.RowSpan="5" Margin="10,10,10,10">
 
                             <TextBlock Margin="2,2,2,2">
                                 <Hyperlink Click="HyperLinkSendFax_Click" Tag="{Binding Path=.}">Send Fax</Hyperlink>
@@ -317,6 +322,7 @@
 					<RowDefinition Height="Auto"></RowDefinition>
 					<RowDefinition Height="Auto"></RowDefinition>
 					<RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
@@ -331,12 +337,15 @@
                     <Hyperlink Click="HyperLinkSendAddGenericTask_Click">Add Generic Task</Hyperlink>
                 </TextBlock>
                 <TextBlock Grid.Column="0" Grid.Row="3" Margin="5,3,0,5">
-                    <Hyperlink Click="HyperLinkAddSendFaxTask_Click">Add Send Fax Task</Hyperlink>
+                    <Hyperlink Click="HyperLinkAddSendAdditionalTestingFaxTask_Click">Additional Testing Fax</Hyperlink>
                 </TextBlock>
-                <TextBlock Grid.Column="0" Grid.Row="5" Margin="5,3,0,5" VerticalAlignment="Bottom">
-                    <Hyperlink Click="HyperlingPrintTaskOrder_Click">Print (1 copy)</Hyperlink>
+                <TextBlock Grid.Column="0" Grid.Row="4" Margin="5,3,0,5">
+                    <Hyperlink Click="HyperLinkAddSendPreauthFaxTask_Click">Preauthorization Fax</Hyperlink>
                 </TextBlock>
                 <TextBlock Grid.Column="0" Grid.Row="6" Margin="5,3,0,5" VerticalAlignment="Bottom">
+                    <Hyperlink Click="HyperlingPrintTaskOrder_Click">Print (1 copy)</Hyperlink>
+                </TextBlock>
+                <TextBlock Grid.Column="0" Grid.Row="7" Margin="5,3,0,5" VerticalAlignment="Bottom">
                     <Hyperlink Click="HyperlingPrint2CopiesTaskOrder_Click">Print (2 copies)</Hyperlink>
                 </TextBlock>
 
