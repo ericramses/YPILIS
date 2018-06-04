@@ -127,7 +127,7 @@ namespace YellowstonePathology.Business.Stain.Model
 
         private void SetWetProtocol(Stain stain, Surgical.VentanaBenchMark benchmark)
         {
-            stain.VentanaBenchMarkWetId = benchmark.VentanaBenchMarkId;
+            stain.VentanaBenchMarkWetId = benchmark.BarcodeNumber;
             stain.HasWetProtocol = true;
         }
 
@@ -143,7 +143,7 @@ namespace YellowstonePathology.Business.Stain.Model
             stain.DefaultResult = test.DefaultResult;
             stain.HistologyDisplayString = test.HistologyDisplayString;
             stain.StainerType = benchmark.StainerType;
-            stain.VentanaBenchMarkId = benchmark.VentanaBenchMarkId;
+            stain.VentanaBenchMarkId = benchmark.BarcodeNumber;
             stain.VentanaBenchMarkProtocolName = benchmark.ProtocolName;
             stain.StainResultGroupId = test.StainResultGroupId;
             stain.IsBillable = test.IsBillable;
@@ -156,8 +156,77 @@ namespace YellowstonePathology.Business.Stain.Model
             stain.PerformedByHand = test.PerformedByHand;
             stain.RequestForAdditionalReport = test.RequestForAdditionalReport;
 
+            this.SetCodes(stain, test);
             return stain;
         }
+
+        private void SetCodes(Stain stain, Business.Test.Model.Test test)
+        {
+            Business.Billing.Model.CptCode cptCode = null;
+            if (test is Business.Test.Model.DualStain == true)
+            {
+                cptCode = ((Test.Model.DualStain)test).GetCptCode(Test.Model.CptCodeLevelEnum.Initial, false);
+                stain.CPTCode = cptCode.Code;
+                cptCode = ((Test.Model.DualStain)test).GetCptCode(Test.Model.CptCodeLevelEnum.Subsequent, false);
+                stain.SubsequentCPTCode = cptCode.Code;
+                if (test.HasGCode == true)
+                {
+                    cptCode = ((Test.Model.ImmunoHistochemistryTest)test).GetGCode(Test.Model.CptCodeLevelEnum.Initial, false);
+                    stain.GCode = cptCode.Code;
+                }
+            }
+            else if (test is Business.Test.Model.ImmunoHistochemistryTest == true)
+            {
+                cptCode = ((Test.Model.ImmunoHistochemistryTest)test).GetCptCode(false);
+                stain.CPTCode = cptCode.Code;
+                cptCode = ((Test.Model.ImmunoHistochemistryTest)test).GetCptCode(Test.Model.CptCodeLevelEnum.Subsequent, false);
+                stain.SubsequentCPTCode = cptCode.Code;
+                if (test.HasGCode == true)
+                {
+                    cptCode = ((Test.Model.ImmunoHistochemistryTest)test).GetGCode(Test.Model.CptCodeLevelEnum.Initial, false);
+                    stain.GCode = cptCode.Code;
+                }
+            }
+            else if (test is Business.Test.Model.CytochemicalTest == true)
+            {
+                cptCode = ((Test.Model.CytochemicalTest)test).GetCptCode(false);
+                stain.CPTCode = cptCode.Code;
+                if (test.HasGCode == true)
+                {
+                    cptCode = ((Test.Model.CytochemicalTest)test).GetGCode(false);
+                    stain.GCode = cptCode.Code;
+                }
+            }
+            else if (test is Business.Test.Model.GradedTest == true)
+            {
+                cptCode = ((Test.Model.GradedTest)test).GetCptCode(false);
+                stain.CPTCode = cptCode.Code;
+                if (test.HasGCode == true)
+                {
+                    cptCode = ((Test.Model.GradedTest)test).GetGCode(false);
+                    stain.GCode = cptCode.Code;
+                }
+            }
+            else if (test is Business.Test.Model.CytochemicalForMicroorganisms == true)
+            {
+                cptCode = ((Test.Model.CytochemicalForMicroorganisms)test).GetCptCode(false);
+                stain.CPTCode = cptCode.Code;
+                if (test.HasGCode == true)
+                {
+                    cptCode = ((Test.Model.CytochemicalForMicroorganisms)test).GetGCode(false);
+                    stain.GCode = cptCode.Code;
+                }
+            }
+            else if (test is Business.Test.Model.NoCptCodeTest == true)
+            {
+                if (test.HasGCode == true)
+                {
+                    cptCode = ((Test.Model.NoCptCodeTest)test).GetGCode(false);
+                    stain.GCode = cptCode.Code;
+                }
+            }
+        }
+
         private void BuildStains()
         {
             foreach (Business.Test.Model.Test test in this.m_TestsToUse)
@@ -179,8 +248,21 @@ namespace YellowstonePathology.Business.Stain.Model
                                 {
                                     Business.Test.Model.Test firstTest = this.m_AllTests.GetTest(((Business.Test.Model.DualStain)test).FirstTest.TestId);
                                     stain.FirstStain = this.CreateStain(firstTest, benchmark);
+                                    stain.FirstStain.CPTCode = stain.CPTCode;
+                                    stain.FirstStain.SubsequentCPTCode = stain.SubsequentCPTCode;
+                                    stain.FirstStain.GCode = stain.GCode;
+
                                     Business.Test.Model.Test secondTest = this.m_AllTests.GetTest(((Business.Test.Model.DualStain)test).SecondTest.TestId);
                                     stain.SecondStain = this.CreateStain(secondTest, benchmark);
+                                    stain.SecondStain.CPTCode = stain.CPTCode;
+                                    stain.SecondStain.GCode = stain.GCode;
+                                    stain.SecondStain.SubsequentCPTCode = stain.SubsequentCPTCode;
+
+                                    stain.DepricatedFirstTestId = ((Business.Test.Model.DualStain)test).DepricatedFirstTestId;
+                                    stain.DepricatedSecondTestId = ((Business.Test.Model.DualStain)test).DepricatedSecondTestId;
+                                    stain.CPTCode = null;
+                                    stain.SubsequentCPTCode = null;
+                                    stain.GCode = null;
                                 }
                                 if (this.m_Stains.ExistsByTestid(stain.TestId) == false) this.m_Stains.Add(stain);
                             }
@@ -214,7 +296,7 @@ namespace YellowstonePathology.Business.Stain.Model
                 {
                     if (testid == stain.TestId)
                     {
-                        if (stain.VentanaBenchMarkId != benchmark.VentanaBenchMarkId)
+                        if (stain.VentanaBenchMarkId != benchmark.BarcodeNumber)
                             this.SetWetProtocol(stain, benchmark);
                     }
                 }
@@ -243,165 +325,3 @@ namespace YellowstonePathology.Business.Stain.Model
         }
     }
 }
-
-/*
-Business.Test.Model.TestCollection tests = Business.Test.Model.TestCollection.GetAllTests(true);
-Business.Test.Model.TestCollection testsToUse = new Business.Test.Model.TestCollection();
-
-Business.Surgical.VentanaBenchMarkCollection ventanaBenchMarkCollection = Business.Gateway.SlideAccessionGateway.GetVentanaBenchMarks();
-            foreach (Business.Surgical.VentanaBenchMark benchmark in ventanaBenchMarkCollection)
-            {
-                string[] ids = new string[2];
-ids[0] = benchmark.YPITestId;
-                if (ids[0].Contains('/'))
-                {
-                    string id = ids[0];
-ids = id.Split('/');
-                }
-
-                for (int idx = 0; idx< 2; idx++)
-                {
-                    string testid = ids[idx];
-                    if (string.IsNullOrEmpty(testid) == false)
-                    {
-                        Business.Test.Model.Test test = tests.GetTest(testid);
-                        if (test != null)
-                        {
-                            if (testsToUse.Exists(test.TestId) == false) testsToUse.Add(test);
-                        }
-                        else
-                        {
-                            //MessageBox.Show("Missing testid " + testid);
-                        }
-                    }
-                }
-            }
-
-            int cnt = testsToUse.Count;
-            for (int idx = 0; idx<cnt; idx++)
-            {
-                Business.Test.Model.Test dualTest = testsToUse[idx];
-                if (dualTest is Business.Test.Model.DualStain)
-                {
-                    string id = ((Business.Test.Model.DualStain)dualTest).FirstTest.TestId;
-                    if (testsToUse.Exists(id) == false)
-                    {
-                        Business.Test.Model.Test test = tests.GetTest(id);
-                        if (test != null) testsToUse.Add(test);
-                        else
-                        {
-                            //MessageBox.Show("Missing " + test.TestName + " - " + test.TestId);
-                            return;
-                        }
-                    }
-                    id = ((Business.Test.Model.DualStain)dualTest).SecondTest.TestId;
-                    if (testsToUse.Exists(id) == false)
-                    {
-                        Business.Test.Model.Test test = tests.GetTest(id);
-                        if (test != null) testsToUse.Add(test);
-                        else
-                        {
-                            //MessageBox.Show("Missing " + test.TestName + " - " + test.TestId);
-                            return;
-                        }
-                    }
-                }
-            }
-///////////
-            int num = 0;
-int numb = 0;
-StringBuilder names = new StringBuilder();
-            using (StreamWriter sw = new StreamWriter(@"C:\ProgramData\ypi\lisdata\StainCollection2.json", false))
-            {
-                sw.WriteLine("{\"root\": [");
-                foreach (Business.Test.Model.Test test in testsToUse)
-                {
-                    names.Append(test.TestName);
-                    numb++;
-                    foreach (Business.Surgical.VentanaBenchMark benchmark in ventanaBenchMarkCollection)
-                    {
-                        bool found = false;
-string[] ids = new string[2];
-ids[0] = benchmark.YPITestId;
-                        if (ids[0].Contains('/'))
-                        {
-                            string id = ids[0];
-ids = id.Split('/');
-                        }
-                        for (int idx = 0; idx< 2; idx++)
-                        {
-                            string testid = ids[idx];
-                            if (string.IsNullOrEmpty(testid) == false)
-                            {
-                                if (test.TestId == testid)
-                                {
-                                    sw.Write("{  \"stainType\": \"");
-                                    if (test is Business.Test.Model.DualStain == true) sw.Write("DualStain");
-                                    else if (test is Business.Test.Model.CytochemicalTest == true) sw.Write("CytochemicalStain");
-                                    else if (test is Business.Test.Model.GradedTest == true) sw.Write("GradedStain");
-                                    else if (test is Business.Test.Model.CytochemicalForMicroorganisms == true) sw.Write("CytochemicalForMicroorganisms");
-                                    else if (test is Business.Test.Model.ImmunoHistochemistryTest == true) sw.Write("IHC");
-                                    else if (test is Business.Test.Model.NoCptCodeTest == true) sw.Write("Unknown");
-                                    else sw.Write("Stain");
-                                    sw.WriteLine("\",");
-                                    if (benchmark.StainerType == "BenchMark Special Stains")
-                                    {
-                                        sw.WriteLine("  \"isSpecialStain\": true,");
-                                    }
-                                    else sw.WriteLine("  \"isSpecialStain\": false,");
-
-                                    if (test is Business.Test.Model.DualStain)
-                                    {
-                                        Business.Test.Model.Test ftest = tests.GetTest(((Business.Test.Model.DualStain)test).FirstTest.TestId);
-sw.WriteLine("  \"FirstTestName\": \"" + ((Business.Test.Model.DualStain)test).FirstTest.TestName + "\",");
-                                        sw.Write("  \"stainType\": \"");
-                                        if (ftest is Business.Test.Model.DualStain == true) sw.Write("DualStain");
-                                        else if (ftest is Business.Test.Model.CytochemicalTest == true) sw.Write("CytochemicalStain");
-                                        else if (ftest is Business.Test.Model.GradedTest == true) sw.Write("GradedStain");
-                                        else if (ftest is Business.Test.Model.CytochemicalForMicroorganisms == true) sw.Write("CytochemicalForMicroorganisms");
-                                        else if (ftest is Business.Test.Model.ImmunoHistochemistryTest == true) sw.Write("IHC");
-                                        else if (ftest is Business.Test.Model.NoCptCodeTest == true) sw.Write("Unknown");
-                                        else sw.Write("Stain");
-                                        sw.WriteLine("\",");
-                                        sw.WriteLine("  \"isSpecialStain\": \"find out\",");
-                                        Business.Test.Model.Test stest = tests.GetTest(((Business.Test.Model.DualStain)test).SecondTest.TestId);
-sw.WriteLine("  \"SecondTestName\": \"" + ((Business.Test.Model.DualStain)test).SecondTest.TestName + "\",");
-                                        sw.Write("  \"stainType\": \"");
-                                        if (stest is Business.Test.Model.DualStain == true) sw.Write("DualStain");
-                                        else if (stest is Business.Test.Model.CytochemicalTest == true) sw.Write("CytochemicalStain");
-                                        else if (stest is Business.Test.Model.GradedTest == true) sw.Write("GradedStain");
-                                        else if (stest is Business.Test.Model.CytochemicalForMicroorganisms == true) sw.Write("CytochemicalForMicroorganisms");
-                                        else if (stest is Business.Test.Model.ImmunoHistochemistryTest == true) sw.Write("IHC");
-                                        else if (stest is Business.Test.Model.NoCptCodeTest == true) sw.Write("Unknown");
-                                        else sw.Write("Stain");
-                                        sw.WriteLine("\",");
-                                        sw.WriteLine("  \"isSpecialStain\": \"find out\",");
-                                    }
-                                    sw.Write(test.ToJSON());
-                                    sw.WriteLine(",");
-                                    found = true;
-                                    names.AppendLine(" wrote " + test.TestName);
-                                    num++;
-                                }
-                                else if (test.TestId == "116")
-                                {
-                                    sw.WriteLine("{  \"stainType\": \"GradedStain\",");
-                                    sw.WriteLine("  \"isSpecialStain\": false,");
-                                    sw.Write(test.ToJSON());
-                                    found = true;
-                                    names.AppendLine(" wrote " + test.TestName);
-                                    num++;
-                                }
-                            }
-                        }
-                        if (found) break;
-                    }
-                }
-                sw.WriteLine("]}");
-            }
-
-            using (StreamWriter nsw = new StreamWriter(@"C:\ProgramData\ypi\lisdata\StainsWritten.txt", false))
-            {
-                nsw.WriteLine(names.ToString());
-            }
-*/

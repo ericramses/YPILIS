@@ -17,9 +17,12 @@ namespace YellowstonePathology.Business.Stain.Model
         private string m_DefaultResult;
         private string m_HistologyDisplayString;
         private string m_StainerType;
-        private string m_VentanaBenchMarkId;
-        private string m_VentanaBenchMarkWetId;
         private string m_VentanaBenchMarkProtocolName;
+        private string m_CPTCode;
+        private string m_SubsequentCPTCode;
+        private string m_GCode;
+        private int m_VentanaBenchMarkId;
+        private int? m_VentanaBenchMarkWetId;
         private int m_StainResultGroupId;
         private bool m_IsBillable;
         private bool m_HasGCode;
@@ -177,7 +180,59 @@ namespace YellowstonePathology.Business.Stain.Model
             }
         }
 
-        public string VentanaBenchMarkId
+        public string VentanaBenchMarkProtocolName
+        {
+            get { return this.m_VentanaBenchMarkProtocolName; }
+            set
+            {
+                if (this.m_VentanaBenchMarkProtocolName != value)
+                {
+                    this.m_VentanaBenchMarkProtocolName = value;
+                    this.NotifyPropertyChanged("VentanaBenchMarkProtocolName");
+                }
+            }
+        }
+
+        public string CPTCode
+        {
+            get { return this.m_CPTCode; }
+            set
+            {
+                if (this.m_CPTCode != value)
+                {
+                    this.m_CPTCode = value;
+                    this.NotifyPropertyChanged("CPTCode");
+                }
+            }
+        }
+
+        public string SubsequentCPTCode
+        {
+            get { return this.m_SubsequentCPTCode; }
+            set
+            {
+                if (this.m_SubsequentCPTCode != value)
+                {
+                    this.m_SubsequentCPTCode = value;
+                    this.NotifyPropertyChanged("SubsequentCPTCode");
+                }
+            }
+        }
+
+        public string GCode
+        {
+            get { return this.m_GCode; }
+            set
+            {
+                if (this.m_GCode != value)
+                {
+                    this.m_GCode = value;
+                    this.NotifyPropertyChanged("GCode");
+                }
+            }
+        }
+
+        public int VentanaBenchMarkId
         {
             get { return this.m_VentanaBenchMarkId; }
             set
@@ -190,7 +245,7 @@ namespace YellowstonePathology.Business.Stain.Model
             }
         }
 
-        public string VentanaBenchMarkWetId
+        public int? VentanaBenchMarkWetId
         {
             get { return this.m_VentanaBenchMarkWetId; }
             set
@@ -199,19 +254,6 @@ namespace YellowstonePathology.Business.Stain.Model
                 {
                     this.m_VentanaBenchMarkWetId = value;
                     this.NotifyPropertyChanged("VentanaBenchMarkWetId");
-                }
-            }
-        }
-
-        public string VentanaBenchMarkProtocolName
-        {
-            get { return this.m_VentanaBenchMarkProtocolName; }
-            set
-            {
-                if (this.m_VentanaBenchMarkProtocolName != value)
-                {
-                    this.m_VentanaBenchMarkProtocolName = value;
-                    this.NotifyPropertyChanged("VentanaBenchMarkProtocolName");
                 }
             }
         }
