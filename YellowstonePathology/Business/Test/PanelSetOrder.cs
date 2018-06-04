@@ -1443,7 +1443,6 @@ namespace YellowstonePathology.Business.Test
 
             FinalizeTestResult result = this.HandleBoneMarrowSummaryOnFinal(accessionOrder);
 
-            accessionOrder.PanelSetOrderCollection.UpdateWHPExpectedFinalTimeOnFinal(this);
             this.NotifyPropertyChanged(string.Empty);
             return result;
 		}

@@ -1179,48 +1179,5 @@ namespace YellowstonePathology.Business.Test
                 }
             }
         }
-
-        public void UpdateWHPExpectedFinalTimeOnFinal(PanelSetOrder panelSetOrder)
-        {
-            if (this.HasWomensHealthProfileOrder() == true)
-            {
-                WomensHealthProfile.WomensHealthProfileTestOrder womensHealthProfileTestOrder = this.GetWomensHealthProfile();
-                if (womensHealthProfileTestOrder.Final == false)
-                {
-                    DateTime expectedFinalTime = DateTime.Now;
-
-                    YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapTest thinPrepPapTest = new YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapTest();
-                    YellowstonePathology.Business.Test.HPV.HPVTest panelSetHPV = new YellowstonePathology.Business.Test.HPV.HPVTest();
-                    YellowstonePathology.Business.Test.HPV1618.HPV1618Test hpv1618Test = new YellowstonePathology.Business.Test.HPV1618.HPV1618Test();
-                    YellowstonePathology.Business.Test.NGCT.NGCTTest ngctTest = new YellowstonePathology.Business.Test.NGCT.NGCTTest();
-                    YellowstonePathology.Business.Test.Trichomonas.TrichomonasTest trichomonasTest = new YellowstonePathology.Business.Test.Trichomonas.TrichomonasTest();
-
-                    if (panelSetOrder.PanelSetId == thinPrepPapTest.PanelSetId ||
-                        panelSetOrder.PanelSetId == panelSetHPV.PanelSetId ||
-                        panelSetOrder.PanelSetId == hpv1618Test.PanelSetId ||
-                        panelSetOrder.PanelSetId == ngctTest.PanelSetId ||
-                        panelSetOrder.PanelSetId == trichomonasTest.PanelSetId)
-                    {
-                        expectedFinalTime = this.SetLargestDate(thinPrepPapTest.PanelSetId, expectedFinalTime);
-                        expectedFinalTime = this.SetLargestDate(panelSetHPV.PanelSetId, expectedFinalTime);
-                        expectedFinalTime = this.SetLargestDate(hpv1618Test.PanelSetId, expectedFinalTime);
-                        expectedFinalTime = this.SetLargestDate(ngctTest.PanelSetId, expectedFinalTime);
-                        expectedFinalTime = this.SetLargestDate(trichomonasTest.PanelSetId, expectedFinalTime);
-                    }
-                    womensHealthProfileTestOrder.ExpectedFinalTime = expectedFinalTime;
-                }
-            }
-        }
-
-        private DateTime SetLargestDate(int panelSetId, DateTime expectedFinalTime)
-        {
-            DateTime result = expectedFinalTime;
-            if (this.Exists(panelSetId) == true)
-            {
-                PanelSetOrder panelSetOrder = this.GetPanelSetOrder(panelSetId);
-                if (panelSetOrder.Final == false && panelSetOrder.ExpectedFinalTime.Value > result) result = panelSetOrder.ExpectedFinalTime.Value;
-            }
-            return result;
-        }
     }
 }
