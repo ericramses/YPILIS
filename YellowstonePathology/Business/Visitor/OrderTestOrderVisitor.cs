@@ -181,6 +181,7 @@ namespace YellowstonePathology.Business.Visitor
 
             this.m_PanelSetOrder.ExternalOrderId = externalOrderId;
             this.m_AccessionOrder.PanelSetOrderCollection.Add(this.m_PanelSetOrder);
+            this.m_AccessionOrder.PanelSetOrderCollection.UpdateWHPExpectedFinalTimeOnOrder(this.m_PanelSetOrder);
             this.m_AccessionOrder.UpdateCaseAssignment(this.m_PanelSetOrder);
 			this.m_TestOrderInfo.PanelSetOrder = this.m_PanelSetOrder;            
         }
