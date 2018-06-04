@@ -607,7 +607,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.HPV.HPVTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.HPV1618.HPV1618Test());
-            panelSetCollection.Add(new YellowstonePathology.Business.Test.HPV1618ByPCR.HPV1618ByPCRTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.HPV1618SolidTumor.HPV1618SolidTumorTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.KRASStandardReflex.KRASStandardReflexTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.KRASStandard.KRASStandardTest());
