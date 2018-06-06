@@ -151,6 +151,7 @@ namespace YellowstonePathology.Business.Visitor
         {
             ClientOrder.Model.ExternalOrderIdsCollection externalOrderIdsCollection = ClientOrder.Model.ExternalOrderIdsCollection.FromFormattedValue(this.m_AccessionOrder.ExternalOrderId);
             string externalOrderId = externalOrderIdsCollection.GetExternalOrderId(this.m_PanelSet.PanelSetId);
+            string universalServiceId = externalOrderIdsCollection.GetUniversalServiceId(this.m_PanelSet.PanelSetId);
 
             this.m_ReportNo = this.m_AccessionOrder.GetNextReportNo(this.m_PanelSet);
             string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
@@ -180,6 +181,7 @@ namespace YellowstonePathology.Business.Visitor
             }
 
             this.m_PanelSetOrder.ExternalOrderId = externalOrderId;
+            if (string.IsNullOrEmpty(universalServiceId) == false) this.m_PanelSetOrder.UniversalServiceId = universalServiceId;
             this.m_AccessionOrder.PanelSetOrderCollection.Add(this.m_PanelSetOrder);
             this.m_AccessionOrder.PanelSetOrderCollection.UpdateWHPExpectedFinalTimeOnOrder(this.m_PanelSetOrder);
             this.m_AccessionOrder.UpdateCaseAssignment(this.m_PanelSetOrder);
