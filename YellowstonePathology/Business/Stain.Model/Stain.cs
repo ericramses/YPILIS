@@ -1,5 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace YellowstonePathology.Business.Stain.Model
 {
@@ -21,6 +23,7 @@ namespace YellowstonePathology.Business.Stain.Model
         private string m_CPTCode;
         private string m_SubsequentCPTCode;
         private string m_GCode;
+        private string m_VentanaBenchMarkWetProtocolName;
         private int m_VentanaBenchMarkId;
         private int? m_VentanaBenchMarkWetId;
         private int m_StainResultGroupId;
@@ -48,6 +51,14 @@ namespace YellowstonePathology.Business.Stain.Model
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
+        }
+
+        public string ToJSON()
+        {
+            var camelCaseFormatter = new JsonSerializerSettings();
+            camelCaseFormatter.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            string result = JsonConvert.SerializeObject(this, Formatting.Indented, camelCaseFormatter);
+            return result;
         }
 
         public string StainId
@@ -228,6 +239,19 @@ namespace YellowstonePathology.Business.Stain.Model
                 {
                     this.m_GCode = value;
                     this.NotifyPropertyChanged("GCode");
+                }
+            }
+        }
+
+        public string VentanaBenchMarkWetProtocolName
+        {
+            get { return this.m_VentanaBenchMarkWetProtocolName; }
+            set
+            {
+                if (this.m_VentanaBenchMarkWetProtocolName != value)
+                {
+                    this.m_VentanaBenchMarkWetProtocolName = value;
+                    this.NotifyPropertyChanged("VentanaBenchMarkWetProtocolName");
                 }
             }
         }

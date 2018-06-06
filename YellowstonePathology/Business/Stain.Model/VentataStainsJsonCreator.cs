@@ -128,6 +128,7 @@ namespace YellowstonePathology.Business.Stain.Model
         private void SetWetProtocol(Stain stain, Surgical.VentanaBenchMark benchmark)
         {
             stain.VentanaBenchMarkWetId = benchmark.BarcodeNumber;
+            stain.VentanaBenchMarkWetProtocolName = benchmark.ProtocolName;
             stain.HasWetProtocol = true;
         }
 
@@ -285,6 +286,9 @@ namespace YellowstonePathology.Business.Stain.Model
             {
                 this.SetWetForStain(stain);
             }
+            Stain NKX31 = this.m_Stains.GetStainByTestId("355");
+            Surgical.VentanaBenchMark benchmark = this.m_WetStains.GetByVentanaTestId("999");
+            this.SetWetProtocol(NKX31, benchmark);
         }
 
         private void SetWetForStain(Stain stain)

@@ -3594,6 +3594,12 @@
     <Compile Include="UI\SortDirectionAdorner.cs" />
     <Compile Include="UI\SpellCheckAccessionOrder.cs" />
     <Compile Include="UI\SpellCheckProperty.cs" />
+    <Compile Include="UI\Stain\StainEditDialog.xaml.cs">
+      <DependentUpon>StainEditDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Stain\StainListDialog.xaml.cs">
+      <DependentUpon>StainListDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Surgical\StainStatusDialog.xaml.cs">
       <DependentUpon>StainStatusDialog.xaml</DependentUpon>
     </Compile>
@@ -5563,6 +5569,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\RetrospectiveReviews.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Stain\StainEditDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Stain\StainListDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

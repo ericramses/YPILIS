@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using System.Linq;
 
 namespace YellowstonePathology.Business.Stain.Model
 {
@@ -25,57 +26,25 @@ namespace YellowstonePathology.Business.Stain.Model
 
         public bool Exists(string stainId)
         {
-            bool result = false;
-            foreach (Stain stain in this)
-            {
-                if (stain.StainId == stainId)
-                {
-                    result = true;
-                    break;
-                }
-            }
-            return result;
+            Stain stain = this.FirstOrDefault(s => s.StainId == stainId);
+            return stain != null ? true : false;
         }
 
         public Stain GetStain(string stainId)
         {
-            Stain result = null;
-            foreach (Stain stain in this)
-            {
-                if (stain.StainId == stainId)
-                {
-                    result = stain;
-                    break;
-                }
-            }
+            Stain result = this.FirstOrDefault(s => s.StainId == stainId);
             return result;
         }
 
         public bool ExistsByTestid(string testId)
         {
-            bool result = false;
-            foreach (Stain stain in this)
-            {
-                if (stain.TestId == testId)
-                {
-                    result = true;
-                    break;
-                }
-            }
-            return result;
+            Stain stain = this.FirstOrDefault(s => s.TestId == testId);
+            return stain != null ? true : false;
         }
 
         public Stain GetStainByTestId(string testId)
         {
-            Stain result = null;
-            foreach (Stain stain in this)
-            {
-                if (stain.TestId == testId)
-                {
-                    result = stain;
-                    break;
-                }
-            }
+            Stain result = this.FirstOrDefault(s => s.TestId == testId);
             return result;
         }
 
@@ -97,6 +66,22 @@ namespace YellowstonePathology.Business.Stain.Model
                 result.Add(stain);
             }
             return result;
+        }
+
+        public static void SetInRedis(Stain stain)
+        {
+            Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.Stain).DataBase.Execute("json.set", new string[] { stain.StainId, ".", stain.ToJSON() });
+
+        }
+
+        public void DeleteStain(Stain stain)
+        {
+
+        }
+
+        public static void Reload()
+        {
+            instance = null;
         }
     }
 }
