@@ -1147,5 +1147,37 @@ namespace YellowstonePathology.Business.Test
             }
             return result;
         }
+
+        public void UpdateWHPExpectedFinalTimeOnOrder(PanelSetOrder panelSetOrder)
+        {
+            if(this.HasWomensHealthProfileOrder() == true)
+            {
+                WomensHealthProfile.WomensHealthProfileTestOrder womensHealthProfileTestOrder = this.GetWomensHealthProfile();
+                if (womensHealthProfileTestOrder.Final == false)
+                {
+                    DateTime expectedFinalTime = DateTime.Now;
+                    if (womensHealthProfileTestOrder.ExpectedFinalTime.HasValue) expectedFinalTime = womensHealthProfileTestOrder.ExpectedFinalTime.Value;
+
+                    YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapTest thinPrepPapTest = new YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapTest();
+                    YellowstonePathology.Business.Test.HPV.HPVTest panelSetHPV = new YellowstonePathology.Business.Test.HPV.HPVTest();
+                    YellowstonePathology.Business.Test.HPV1618.HPV1618Test hpv1618Test = new YellowstonePathology.Business.Test.HPV1618.HPV1618Test();
+                    YellowstonePathology.Business.Test.NGCT.NGCTTest ngctTest = new YellowstonePathology.Business.Test.NGCT.NGCTTest();
+                    YellowstonePathology.Business.Test.Trichomonas.TrichomonasTest trichomonasTest = new YellowstonePathology.Business.Test.Trichomonas.TrichomonasTest();
+
+                    if (panelSetOrder.PanelSetId == thinPrepPapTest.PanelSetId ||
+                        panelSetOrder.PanelSetId == panelSetHPV.PanelSetId ||
+                        panelSetOrder.PanelSetId == hpv1618Test.PanelSetId ||
+                        panelSetOrder.PanelSetId == ngctTest.PanelSetId ||
+                        panelSetOrder.PanelSetId == trichomonasTest.PanelSetId)
+                    {
+                        DateTime? orderExpectedFinalTime = panelSetOrder.ExpectedFinalTime;
+                        if (orderExpectedFinalTime.HasValue && orderExpectedFinalTime.Value > expectedFinalTime)
+                        {
+                            womensHealthProfileTestOrder.ExpectedFinalTime = orderExpectedFinalTime;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
