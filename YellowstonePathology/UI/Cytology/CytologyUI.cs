@@ -45,6 +45,9 @@ namespace YellowstonePathology.UI.Cytology
         private YellowstonePathology.UI.PageNavigationWindow m_PageNavigationWindow;
         private System.Windows.Controls.TabItem m_Writer;
 
+        private YellowstonePathology.Business.Facility.Model.Facility m_Facility;
+        private string m_Location;
+
         public CytologyUI(System.Windows.Controls.TabItem writer)
         {
             this.m_SystemIdentity = YellowstonePathology.Business.User.SystemIdentity.Instance;
@@ -61,9 +64,12 @@ namespace YellowstonePathology.UI.Cytology
 			this.m_OtherConditionCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetOtherConditions();
             this.m_HpvRequisitionInstructions = new Business.Domain.HpvRequisitionInstructionCollection();
 			this.m_DataLoadResult = new Business.Domain.DataLoadResult();
-		}
 
-		public void AssignScreenings(List<YellowstonePathology.Business.Search.CytologyScreeningSearchResult> cytologyScreeningSearchResults, YellowstonePathology.Business.User.SystemUser systemUser)
+            this.m_Facility = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId);
+            this.m_Location = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.Location;
+        }
+
+        public void AssignScreenings(List<YellowstonePathology.Business.Search.CytologyScreeningSearchResult> cytologyScreeningSearchResults, YellowstonePathology.Business.User.SystemUser systemUser)
 		{			
 			YellowstonePathology.Business.Rules.ExecutionStatus executionStatus = new Business.Rules.ExecutionStatus();            
             foreach (YellowstonePathology.Business.Search.CytologyScreeningSearchResult cytologyScreeningSearchResult in cytologyScreeningSearchResults)
@@ -534,6 +540,18 @@ namespace YellowstonePathology.UI.Cytology
             if (this.WHPClosed != null)
             {
                 this.WHPClosed(this, new EventArgs());
+            }
+        }
+
+        public void UpdateAliquotLocation(string aliquotOrderId)
+        {
+            if (this.m_AccessionOrder.AccessionLock.IsLockAquiredByMe == true)
+            {
+                YellowstonePathology.Business.Test.AliquotOrder aliiquotOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetAliquotOrder(aliquotOrderId);
+                if (aliiquotOrder != null)
+                {
+                    aliiquotOrder.SetLocation(this.m_Facility, this.m_Location);
+                }
             }
         }
     }
