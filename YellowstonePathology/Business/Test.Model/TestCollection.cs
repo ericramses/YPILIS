@@ -163,7 +163,6 @@ namespace YellowstonePathology.Business.Test.Model
             result.Add(new HuckerTwort()); //x
 
             //Cytochemical
-            result.Add(new Elastic());
             result.Add(new Melanin()); //x
             result.Add(new Mucin()); //x
             result.Add(new OilRedO()); //x
@@ -209,8 +208,6 @@ namespace YellowstonePathology.Business.Test.Model
             result.Add(new NotListed2());
             result.Add(new NotListed3());
 
-			result.Add(new Ki67SemiQuantitative()); //x
-
             //NG CT
             result.Add(new NeisseriaGonorrhoeae()); //x
             result.Add(new ChlamydiaTrachomatis()); //x
@@ -223,6 +220,8 @@ namespace YellowstonePathology.Business.Test.Model
             result.Add(new CDX2VillinDualStain()); //x
 
             /*
+			result.Add(new Ki67SemiQuantitative());
+            result.Add(new Elastic());
             result.Add(new AcidFast());
             result.Add(new GMS());
             result.Add(new PASforFungus());
