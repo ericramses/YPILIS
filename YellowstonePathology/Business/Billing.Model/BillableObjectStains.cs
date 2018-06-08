@@ -216,12 +216,12 @@ namespace YellowstonePathology.Business.Billing.Model
 			{
                 this.SetERPRPQRSCodes();
 
-				YellowstonePathology.Business.Test.Model.TestCollection testCollection = YellowstonePathology.Business.Test.Model.TestCollection.GetAllTests(false);
+				//YellowstonePathology.Business.Test.Model.TestCollection testCollection = YellowstonePathology.Business.Test.Model.TestCollection.GetAllTests(false);
 				foreach (StainSpecimen stainSpecimen in this.m_StainSpecimenCollection)
 				{
 					foreach (YellowstonePathology.Business.Test.Model.TestOrder testOrder in stainSpecimen.TestOrderCollection)
 					{						
-						YellowstonePathology.Business.Test.Model.Test test = testCollection.GetTest(testOrder.TestId);
+						YellowstonePathology.Business.Test.Model.Test test = Test.Model.TestCollection.Instance.GetTest(testOrder.TestId);
 						if (test.IsBillable == true)
 						{
 							if (this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.SystemGeneratedReferenceIdExists(testOrder.TestOrderId) == false)

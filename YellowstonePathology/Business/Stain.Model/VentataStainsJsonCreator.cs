@@ -19,7 +19,7 @@ namespace YellowstonePathology.Business.Stain.Model
 
         public VentataStainsJsonCreator()
         {
-            this.m_AllTests = Business.Test.Model.TestCollection.GetAllTests(true);
+            this.m_AllTests = Business.Test.Model.TestCollection.Instance;
             this.m_TestsToUse = new Test.Model.TestCollection();
             this.m_Stains = new StainCollection();
             this.m_VentanaBenchMarkCollection = Business.Gateway.SlideAccessionGateway.GetVentanaBenchMarks();
@@ -259,8 +259,8 @@ namespace YellowstonePathology.Business.Stain.Model
                                     stain.SecondStain.GCode = stain.GCode;
                                     stain.SecondStain.SubsequentCPTCode = stain.SubsequentCPTCode;
 
-                                    stain.DepricatedFirstTestId = ((Business.Test.Model.DualStain)test).DepricatedFirstTestId;
-                                    stain.DepricatedSecondTestId = ((Business.Test.Model.DualStain)test).DepricatedSecondTestId;
+                                    stain.DepricatedFirstStainId = ((Business.Test.Model.DualStain)test).DepricatedFirstTestId;
+                                    stain.DepricatedSecondStainId = ((Business.Test.Model.DualStain)test).DepricatedSecondTestId;
                                     stain.CPTCode = null;
                                     stain.SubsequentCPTCode = null;
                                     stain.GCode = null;

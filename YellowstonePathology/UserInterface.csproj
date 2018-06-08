@@ -1070,6 +1070,7 @@
     <Compile Include="Business\Stain.Model\JsonStainFactory.cs" />
     <Compile Include="Business\Stain.Model\Stain.cs" />
     <Compile Include="Business\Stain.Model\StainCollection.cs" />
+    <Compile Include="Business\Stain.Model\TestFactory.cs" />
     <Compile Include="Business\Stain.Model\VentataStainsJsonCreator.cs" />
     <Compile Include="Business\Test.Model\TestOrderStatusView.cs" />
     <Compile Include="Business\Test.Model\TestOrderStatusViewCollection.cs" />
@@ -4853,7 +4854,6 @@
     <EmbeddedResource Include="Business\XmlSchema\BarcodeScanSchema.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Business\Test.Model\TestDefinition.json" />
     <None Include="Business\XmlSchema\ComplexTypes.xsd">
       <SubType>Designer</SubType>
     </None>

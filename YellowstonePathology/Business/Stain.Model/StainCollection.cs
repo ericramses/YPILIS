@@ -63,6 +63,10 @@ namespace YellowstonePathology.Business.Stain.Model
             foreach (string jString in stainDb.GetAllJSONKeys())
             {
                 Stain stain = JsonStainFactory.FromJson(jString);
+                if(stain.IsDualOrder == true)
+                {
+                    int a = 1;
+                }
                 result.Add(stain);
             }
             return result;

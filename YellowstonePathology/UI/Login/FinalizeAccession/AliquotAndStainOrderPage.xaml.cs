@@ -52,7 +52,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 		public AliquotAndStainOrderPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
 			YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder)
 		{
-			this.m_AllTests = YellowstonePathology.Business.Test.Model.TestCollection.GetAllTests(false);            
+			this.m_AllTests = YellowstonePathology.Business.Test.Model.TestCollection.Instance;            
 
             this.m_AccessionOrder = accessionOrder;
 			this.m_PanelSetOrder = panelSetOrder;
@@ -540,7 +540,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             }    
 
             YellowstonePathology.Business.Test.Model.TestOrderCollection selectedTestOrders = this.m_AliquotAndStainOrderView.GetSelectedTestOrders();
-			YellowstonePathology.Business.Test.Model.TestCollection allTests = YellowstonePathology.Business.Test.Model.TestCollection.GetAllTests(false);
+			YellowstonePathology.Business.Test.Model.TestCollection allTests = YellowstonePathology.Business.Test.Model.TestCollection.Instance;
             foreach (YellowstonePathology.Business.Test.Model.TestOrder testOrder in selectedTestOrders)
             {
                 YellowstonePathology.Business.Visitor.RemoveTestOrderVisitor removeTestOrderVisitor = new Business.Visitor.RemoveTestOrderVisitor(testOrder.TestOrderId);

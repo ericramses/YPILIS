@@ -40,8 +40,8 @@ namespace YellowstonePathology.Business.Stain.Model
 
         protected Stain m_FirstStain;
         protected Stain m_SecondStain;
-        protected string m_DepricatedFirstTestId;
-        protected string m_DepricatedSecondTestId;
+        protected string m_DepricatedFirstStainId;
+        protected string m_DepricatedSecondStainId;
 
         public Stain() { }
 
@@ -454,28 +454,28 @@ namespace YellowstonePathology.Business.Stain.Model
             }
         }
 
-        public string DepricatedFirstTestId
+        public string DepricatedFirstStainId
         {
-            get { return this.m_DepricatedFirstTestId; }
+            get { return this.m_DepricatedFirstStainId; }
             set
             {
-                if (this.m_DepricatedFirstTestId != value)
+                if (this.m_DepricatedFirstStainId != value)
                 {
-                    this.m_DepricatedFirstTestId = value;
-                    this.NotifyPropertyChanged("DepricatedFirstTestId");
+                    this.m_DepricatedFirstStainId = value;
+                    this.NotifyPropertyChanged("DepricatedFirstStainId");
                 }
             }
         }
 
-        public string DepricatedSecondTestId
+        public string DepricatedSecondStainId
         {
-            get { return this.m_DepricatedSecondTestId; }
+            get { return this.m_DepricatedSecondStainId; }
             set
             {
-                if (this.m_DepricatedSecondTestId != value)
+                if (this.m_DepricatedSecondStainId != value)
                 {
-                    this.m_DepricatedSecondTestId = value;
-                    this.NotifyPropertyChanged("DepricatedSecondTestId");
+                    this.m_DepricatedSecondStainId = value;
+                    this.NotifyPropertyChanged("DepricatedSecondStainId");
                 }
             }
         }

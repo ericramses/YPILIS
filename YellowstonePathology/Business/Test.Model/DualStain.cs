@@ -16,9 +16,17 @@ namespace YellowstonePathology.Business.Test.Model
         public DualStain()
         {
             
-        }        
+        }
 
-		public Test FirstTest
+        public DualStain(Test firstTest, Test secondTest, string depricatedFirstTestId, string depricatedSecondTestId)
+        {
+            this.m_FirstTest = firstTest;
+            this.m_SecondTest = secondTest;
+            this.m_DepricatedFirstTestId = depricatedFirstTestId;
+            this.m_DepricatedSecondTestId = depricatedSecondTestId;
+        }
+
+        public Test FirstTest
         {
             get { return this.m_FirstTest; }            
         }

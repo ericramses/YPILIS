@@ -52,7 +52,7 @@ namespace YellowstonePathology.UI.Common
 
         public YellowstonePathology.Business.Test.Model.TestCollection GetSelectedTests()
         {
-            YellowstonePathology.Business.Test.Model.TestCollection testCollection = YellowstonePathology.Business.Test.Model.TestCollection.GetAllTests(false);
+            //YellowstonePathology.Business.Test.Model.TestCollection testCollection = YellowstonePathology.Business.Test.Model.TestCollection.GetAllTests(false);
             YellowstonePathology.Business.Test.Model.TestCollection result = new YellowstonePathology.Business.Test.Model.TestCollection();
             foreach (XElement element in this.m_OrderItemElementList)
             {
@@ -61,7 +61,7 @@ namespace YellowstonePathology.UI.Common
                     if (element.Element("Order").Value == "True")
                     {                        
                         string testId = element.Element("Id").Value;
-                        YellowstonePathology.Business.Test.Model.Test test = testCollection.GetTest(testId);
+                        YellowstonePathology.Business.Test.Model.Test test = Business.Test.Model.TestCollection.Instance.GetTest(testId);
                         string testOrderComment = element.Element("Comment").Value;
                         test.OrderComment = testOrderComment;
                         result.Add(test);
@@ -73,7 +73,7 @@ namespace YellowstonePathology.UI.Common
 
         public List<YellowstonePathology.Business.Test.Model.DualStain> GetSelectedDualStains()
         {
-            YellowstonePathology.Business.Test.Model.TestCollection testCollection = YellowstonePathology.Business.Test.Model.TestCollection.GetAllTests(false);
+            //YellowstonePathology.Business.Test.Model.TestCollection testCollection = YellowstonePathology.Business.Test.Model.TestCollection.GetAllTests(false);
             List<YellowstonePathology.Business.Test.Model.DualStain> result = new List<YellowstonePathology.Business.Test.Model.DualStain>();
             YellowstonePathology.Business.Test.Model.DualStainCollection dualStainCollection = YellowstonePathology.Business.Test.Model.DualStainCollection.GetAll();
 
