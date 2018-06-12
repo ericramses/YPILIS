@@ -63,7 +63,7 @@ namespace YellowstonePathology.Business.Test.Model
             ObservableCollection<object> result = new ObservableCollection<object>();
             TestCollection allTests = TestCollection.GetAllTests(false);
             List<Test> tests = new List<Test>();
-            Test wetIron = allTests.GetTest("115");
+            Test wetIron = TestCollection.GetWetIron();
             wetIron.UseWetProtocol = true;
             allTests.Add(wetIron);
 
@@ -80,12 +80,13 @@ namespace YellowstonePathology.Business.Test.Model
             return result;
         }               
 
-        /*public static Test GetWetIron()
+        public static Test GetWetIron()
         {
-            Test wetIron = Instance.GetTest("115");
+            TestCollection allTests = TestCollection.GetAllTests(false);
+            Test wetIron = allTests.GetTest("115");
             wetIron.UseWetProtocol = true;
             return wetIron;
-        }*/
+        }
 
         public static TestCollection GetAllTests(bool includeWetProtocols)
         {
