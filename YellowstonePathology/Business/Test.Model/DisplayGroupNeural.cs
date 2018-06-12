@@ -11,11 +11,11 @@ namespace YellowstonePathology.Business.Test.Model
         {
             this.m_GroupName = "Neural";
             
-            this.m_List.Add(new CD56());
-            this.m_List.Add(new S100());            
-            this.m_List.Add(new Chromogranin());
-            this.m_List.Add(new Synaptophysin());
-            this.m_List.Add(new GFAP());            
+            this.m_List.Add((ImmunoHistochemistryTest)TestCollection.Instance.GetTest("77")); // CD56());
+            this.m_List.Add((ImmunoHistochemistryTest)TestCollection.Instance.GetTest("152")); // S100());            
+            this.m_List.Add((ImmunoHistochemistryTest)TestCollection.Instance.GetTest("83")); // Chromogranin());
+            this.m_List.Add((ImmunoHistochemistryTest)TestCollection.Instance.GetTest("156")); // Synaptophysin());
+            this.m_List.Add((ImmunoHistochemistryTest)TestCollection.Instance.GetTest("104")); // GFAP());            
         }
     }
 }

@@ -11,17 +11,17 @@ namespace YellowstonePathology.Business.Test.Model
         {
             this.m_GroupName = "Epithelial";            
 
-            this.m_List.Add(new Pancytokeratin());
-            this.m_List.Add(new OSCAR());
-            this.m_List.Add(new Cytokeratin56());
-            this.m_List.Add(new Cytokeratin7());
+            this.m_List.Add((ImmunoHistochemistryTest)TestCollection.Instance.GetTest("136")); // Pancytokeratin());
+            this.m_List.Add((ImmunoHistochemistryTest)TestCollection.Instance.GetTest("170")); // OSCAR());
+            this.m_List.Add((ImmunoHistochemistryTest)TestCollection.Instance.GetTest("89")); // Cytokeratin56());
+            this.m_List.Add((ImmunoHistochemistryTest)TestCollection.Instance.GetTest("90")); // Cytokeratin7());
             this.m_List.Add(new Cytokeratin17());
-            this.m_List.Add(new Cytokeratin20());
-            this.m_List.Add(new Cytokeratin34());
-            this.m_List.Add(new EMA());
-            this.m_List.Add(new Ecadherin());
-            this.m_List.Add(new P40());
-            this.m_List.Add(new MOC31());
+            this.m_List.Add((ImmunoHistochemistryTest)TestCollection.Instance.GetTest("87")); // Cytokeratin20());
+            this.m_List.Add((ImmunoHistochemistryTest)TestCollection.Instance.GetTest("88")); // Cytokeratin34());
+            this.m_List.Add((ImmunoHistochemistryTest)TestCollection.Instance.GetTest("97")); // EMA());
+            this.m_List.Add((ImmunoHistochemistryTest)TestCollection.Instance.GetTest("94")); // Ecadherin());
+            this.m_List.Add((ImmunoHistochemistryTest)TestCollection.Instance.GetTest("359")); // P40());
+            this.m_List.Add((ImmunoHistochemistryTest)TestCollection.Instance.GetTest("215")); // MOC31());
         }
     }
 }
