@@ -73,7 +73,7 @@ namespace YellowstonePathology.UI.Common
 
         public List<YellowstonePathology.Business.Test.Model.DualStain> GetSelectedDualStains()
         {
-            YellowstonePathology.Business.Test.Model.TestCollection testCollection = YellowstonePathology.Business.Test.Model.TestCollection.GetAllTests(false);
+            //YellowstonePathology.Business.Test.Model.TestCollection testCollection = YellowstonePathology.Business.Test.Model.TestCollection.GetAllTests(false);
             List<YellowstonePathology.Business.Test.Model.DualStain> result = new List<YellowstonePathology.Business.Test.Model.DualStain>();
             YellowstonePathology.Business.Test.Model.DualStainCollection dualStainCollection = YellowstonePathology.Business.Test.Model.DualStainCollection.GetAll();
 

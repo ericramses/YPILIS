@@ -1072,9 +1072,10 @@
     <Compile Include="Business\Stain.Model\JsonStainFactory.cs" />
     <Compile Include="Business\Stain.Model\Stain.cs" />
     <Compile Include="Business\Stain.Model\StainCollection.cs" />
+    <Compile Include="Business\Stain.Model\TestFactory.cs" />
+    <Compile Include="Business\Stain.Model\VentataStainsJsonCreator.cs" />
     <Compile Include="Business\Test.Model\TestOrderStatusView.cs" />
     <Compile Include="Business\Test.Model\TestOrderStatusViewCollection.cs" />
-    <Compile Include="Business\Test.Model\U6.cs" />
     <Compile Include="Business\Test\ALLPediatricFISHPanel\ALLPediatricFISHPanelTest.cs" />
     <Compile Include="Business\Test\AMLPrognosticProfile\AMLPrognosticProfileTestOrder.cs" />
     <Compile Include="Business\Test\API2MALT1ByFISH\API2MALT1ByFISHWPHOBXView.cs" />
@@ -1163,10 +1164,6 @@
     <Compile Include="Business\Task.Model\TaskFedexShipment.cs" />
     <Compile Include="Business\Task.Model\TaskOrderDetailFactory.cs" />
     <Compile Include="Business\Task.Model\TaskOrderDetailFedexShipment.cs" />
-    <Compile Include="Business\Test.Model\CMyc.cs" />
-    <Compile Include="Business\Test.Model\PAX5CD5DualStain.cs" />
-    <Compile Include="Business\Test.Model\LambdaByISH.cs" />
-    <Compile Include="Business\Test.Model\KappaByISH.cs" />
     <Compile Include="Business\Test\AdditionalTestingNotification\AdditionalTestingNotificationWordDocument.cs" />
     <Compile Include="Business\Test\AMLFavorableRisk\AMLFavorableRiskTest.cs" />
     <Compile Include="Business\Test\AMLPrognosticProfile\AMLPrognosticProfileTest.cs" />
@@ -1803,8 +1800,6 @@
     <Compile Include="Business\Task.Model\TaskSendBlockToNeogenomics.cs" />
     <Compile Include="Business\Task.Model\TaskSurgicalSpecimenDisposal.cs" />
     <Compile Include="Business\Task.Model\TaskUnstainedSlideWithAfterSlidePreparation.cs" />
-    <Compile Include="Business\Test.Model\AcidFast.cs" />
-    <Compile Include="Business\Test.Model\AlcianBlue.cs" />
     <Compile Include="Business\Test.Model\Alk.cs" />
     <Compile Include="Business\Test.Model\ALK1.cs" />
     <Compile Include="Business\Test.Model\AlphaNaphthylAcetateEsterase.cs" />
@@ -1812,62 +1807,22 @@
     <Compile Include="Business\Test.Model\AmyloidPProtein.cs" />
     <Compile Include="Business\Test.Model\BartonellaHenselae.cs" />
     <Compile Include="Business\Test.Model\BCellClonality.cs" />
-    <Compile Include="Business\Test.Model\Bcl2.cs" />
-    <Compile Include="Business\Test.Model\Bcl6.cs" />
     <Compile Include="Business\Test.Model\BerEP4.cs" />
-    <Compile Include="Business\Test.Model\BetaCatenin.cs" />
     <Compile Include="Business\Test.Model\BRAF.cs" />
-    <Compile Include="Business\Test.Model\CA125.cs" />
-    <Compile Include="Business\Test.Model\CA199.cs" />
-    <Compile Include="Business\Test.Model\Calretinin.cs" />
-    <Compile Include="Business\Test.Model\CD10.cs" />
-    <Compile Include="Business\Test.Model\CD117.cs" />
-    <Compile Include="Business\Test.Model\CD138.cs" />
     <Compile Include="Business\Test.Model\CD138Quantitative.cs" />
-    <Compile Include="Business\Test.Model\CD15.cs" />
-    <Compile Include="Business\Test.Model\CD19.cs" />
-    <Compile Include="Business\Test.Model\CD20.cs" />
-    <Compile Include="Business\Test.Model\CD23.cs" />
     <Compile Include="Business\Test.Model\CD235a.cs" />
     <Compile Include="Business\Test.Model\CD25.cs" />
-    <Compile Include="Business\Test.Model\CD3.cs" />
-    <Compile Include="Business\Test.Model\CD30.cs" />
-    <Compile Include="Business\Test.Model\CD31.cs" />
-    <Compile Include="Business\Test.Model\CD34.cs" />
     <Compile Include="Business\Test.Model\CD38.cs" />
-    <Compile Include="Business\Test.Model\CD3CD20DualStain.cs" />
-    <Compile Include="Business\Test.Model\CD4.cs" />
-    <Compile Include="Business\Test.Model\CD45.cs" />
-    <Compile Include="Business\Test.Model\CD5.cs" />
     <Compile Include="Business\Test.Model\CD52.cs" />
-    <Compile Include="Business\Test.Model\CD56.cs" />
-    <Compile Include="Business\Test.Model\CD68.cs" />
-    <Compile Include="Business\Test.Model\CD7.cs" />
     <Compile Include="Business\Test.Model\CD79a.cs" />
-    <Compile Include="Business\Test.Model\CD8.cs" />
-    <Compile Include="Business\Test.Model\CD99.cs" />
-    <Compile Include="Business\Test.Model\CDX2.cs" />
-    <Compile Include="Business\Test.Model\CDX2VillinDualStain.cs" />
-    <Compile Include="Business\Test.Model\CEA.cs" />
     <Compile Include="Business\Test.Model\CellBlock.cs" />
     <Compile Include="Business\Test.Model\ChlamydiaTrachomatis.cs" />
-    <Compile Include="Business\Test.Model\Chromogranin.cs" />
-    <Compile Include="Business\Test.Model\CongoRed.cs" />
     <Compile Include="Business\Test.Model\CopperRhodanine.cs" />
     <Compile Include="Business\Test.Model\CptCodeLevelEnum.cs" />
-    <Compile Include="Business\Test.Model\CyclinD1.cs" />
     <Compile Include="Business\Test.Model\CytochemicalForMicroorganismsTest.cs" />
     <Compile Include="Business\Test.Model\CytochemicalTest.cs" />
     <Compile Include="Business\Test.Model\Cytokeratin17.cs" />
-    <Compile Include="Business\Test.Model\Cytokeratin20.cs" />
-    <Compile Include="Business\Test.Model\Cytokeratin34.cs" />
-    <Compile Include="Business\Test.Model\Cytokeratin34P504sRacemaseDualStain.cs" />
-    <Compile Include="Business\Test.Model\Cytokeratin56.cs" />
-    <Compile Include="Business\Test.Model\Cytokeratin7.cs" />
     <Compile Include="Business\Test.Model\Cytokeratin818.cs" />
-    <Compile Include="Business\Test.Model\CytomegaloVirus.cs" />
-    <Compile Include="Business\Test.Model\D240.cs" />
-    <Compile Include="Business\Test.Model\Desmin.cs" />
     <Compile Include="Business\Test.Model\DiffQuik.cs" />
     <Compile Include="Business\Test.Model\DispalyGroupCytochemical.cs" />
     <Compile Include="Business\Test.Model\DispalyGroupIHC.cs" />
@@ -1884,71 +1839,38 @@
     <Compile Include="Business\Test.Model\DisplayGroupSiteSpecificTumorMarkers.cs" />
     <Compile Include="Business\Test.Model\DisplayHematopoietic.cs" />
     <Compile Include="Business\Test.Model\DisplaySoftTissueMesenchymal.cs" />
-    <Compile Include="Business\Test.Model\DOG1.cs" />
     <Compile Include="Business\Test.Model\DualStain.cs" />
     <Compile Include="Business\Test.Model\DualStainCollection.cs" />
-    <Compile Include="Business\Test.Model\Ecadherin.cs" />
     <Compile Include="Business\Test.Model\EGFR.cs" />
-    <Compile Include="Business\Test.Model\Elastic.cs" />
-    <Compile Include="Business\Test.Model\EMA.cs" />
     <Compile Include="Business\Test.Model\ERV3.cs" />
     <Compile Include="Business\Test.Model\ERV3CT.cs" />
     <Compile Include="Business\Test.Model\ERV3NG.cs" />
-    <Compile Include="Business\Test.Model\EstrogenReceptor.cs" />
-    <Compile Include="Business\Test.Model\EstrogenReceptorSemiquant.cs" />
     <Compile Include="Business\Test.Model\FactorVIII.cs" />
-    <Compile Include="Business\Test.Model\FactorXIIIa.cs" />
-    <Compile Include="Business\Test.Model\Fascin.cs" />
     <Compile Include="Business\Test.Model\FineNeedleAspirate.cs" />
     <Compile Include="Business\Test.Model\Fites.cs" />
-    <Compile Include="Business\Test.Model\GATA3.cs" />
     <Compile Include="Business\Test.Model\GCDFP15.cs" />
-    <Compile Include="Business\Test.Model\GFAP.cs" />
     <Compile Include="Business\Test.Model\Giemsa.cs" />
-    <Compile Include="Business\Test.Model\Glypican3.cs" />
-    <Compile Include="Business\Test.Model\GMS.cs" />
     <Compile Include="Business\Test.Model\Gout.cs" />
     <Compile Include="Business\Test.Model\GradedTest.cs" />
     <Compile Include="Business\Test.Model\GrossOnly.cs" />
     <Compile Include="Business\Test.Model\HandE.cs" />
     <Compile Include="Business\Test.Model\HandEAfterSlide.cs" />
-    <Compile Include="Business\Test.Model\HelicobacterPylori.cs" />
-    <Compile Include="Business\Test.Model\HepatocyteSpecificAntigen.cs" />
     <Compile Include="Business\Test.Model\HER2Amplification.cs" />
-    <Compile Include="Business\Test.Model\HER2DISH.cs" />
     <Compile Include="Business\Test.Model\HER2Neu.cs" />
-    <Compile Include="Business\Test.Model\HMB45.cs" />
     <Compile Include="Business\Test.Model\HuckerTwordt.cs" />
-    <Compile Include="Business\Test.Model\IgKappa.cs" />
-    <Compile Include="Business\Test.Model\IgKappaIgLambdaDualStain.cs" />
-    <Compile Include="Business\Test.Model\IgLambda.cs" />
     <Compile Include="Business\Test.Model\ImmunoHistochemistryTest.cs" />
     <Compile Include="Business\Test.Model\IntraoperativeConsultation.cs" />
     <Compile Include="Business\Test.Model\IntraoperativeConsultationwithFrozen.cs" />
-    <Compile Include="Business\Test.Model\Iron.cs" />
-    <Compile Include="Business\Test.Model\Ki67.cs" />
-    <Compile Include="Business\Test.Model\Ki67MelanADualStain.cs" />
-    <Compile Include="Business\Test.Model\Ki67SemiQuantitative.cs" />
     <Compile Include="Business\Test.Model\KRASBRAFReflex.cs" />
     <Compile Include="Business\Test.Model\KRASMutationAnalysis.cs" />
     <Compile Include="Business\Test.Model\Lysozyme.cs" />
-    <Compile Include="Business\Test.Model\Mammaglobin.cs" />
-    <Compile Include="Business\Test.Model\MelanA.cs" />
     <Compile Include="Business\Test.Model\Melanin.cs" />
     <Compile Include="Business\Test.Model\MITF.cs" />
-    <Compile Include="Business\Test.Model\MLH1.cs" />
-    <Compile Include="Business\Test.Model\MOC31.cs" />
-    <Compile Include="Business\Test.Model\MSH2.cs" />
-    <Compile Include="Business\Test.Model\MSH6.cs" />
     <Compile Include="Business\Test.Model\Mucin.cs" />
-    <Compile Include="Business\Test.Model\MUM1.cs" />
     <Compile Include="Business\Test.Model\MuscleSpecificActin.cs" />
-    <Compile Include="Business\Test.Model\Myeloperoxidase.cs" />
     <Compile Include="Business\Test.Model\NaphtholASDChloroacetateEsterase.cs" />
-    <Compile Include="Business\Test.Model\NapsinA.cs" />
     <Compile Include="Business\Test.Model\Negative.cs" />
     <Compile Include="Business\Test.Model\NeisseriaGonorrhoeae.cs" />
-    <Compile Include="Business\Test.Model\NKX31.cs" />
     <Compile Include="Business\Test.Model\NoCptCodeTest.cs" />
     <Compile Include="Business\Test.Model\NonBillableTest.cs" />
     <Compile Include="Business\Test.Model\NonGynCytology.cs" />
@@ -1958,47 +1880,17 @@
     <Compile Include="Business\Test.Model\NotListed3.cs" />
     <Compile Include="Business\Test.Model\NSE.cs" />
     <Compile Include="Business\Test.Model\OilRedO.cs" />
-    <Compile Include="Business\Test.Model\OSCAR.cs" />
-    <Compile Include="Business\Test.Model\OSCARSmoothMuscleMyosinDualStain.cs" />
-    <Compile Include="Business\Test.Model\P16.cs" />
-    <Compile Include="Business\Test.Model\P40.cs" />
-    <Compile Include="Business\Test.Model\P504sRacemase.cs" />
-    <Compile Include="Business\Test.Model\P53.cs" />
     <Compile Include="Business\Test.Model\P63.cs" />
-    <Compile Include="Business\Test.Model\Pancytokeratin.cs" />
     <Compile Include="Business\Test.Model\PanMelanomaCocktail.cs" />
     <Compile Include="Business\Test.Model\ParaffinCurls.cs" />
     <Compile Include="Business\Test.Model\ParoxysmalNocturnalHemoglobinuria.cs" />
-    <Compile Include="Business\Test.Model\PAS.cs" />
-    <Compile Include="Business\Test.Model\PASAlcianBlue.cs" />
-    <Compile Include="Business\Test.Model\PASforFungus.cs" />
-    <Compile Include="Business\Test.Model\PASWithDiastase.cs" />
     <Compile Include="Business\Test.Model\PAX2.cs" />
-    <Compile Include="Business\Test.Model\PAX5.cs" />
-    <Compile Include="Business\Test.Model\PAX5Zap70DualStain.cs" />
-    <Compile Include="Business\Test.Model\PAX8.cs" />
-    <Compile Include="Business\Test.Model\PlacentalAlkalinePhosphatase.cs" />
-    <Compile Include="Business\Test.Model\PMS2.cs" />
-    <Compile Include="Business\Test.Model\ProgesteroneReceptor.cs" />
-    <Compile Include="Business\Test.Model\ProgesteroneReceptorSemiquant.cs" />
-    <Compile Include="Business\Test.Model\ProstateSpecificAntigen.cs" />
-    <Compile Include="Business\Test.Model\ProstaticAcidPhosphatase.cs" />
-    <Compile Include="Business\Test.Model\RCC.cs" />
     <Compile Include="Business\Test.Model\Recut.cs" />
     <Compile Include="Business\Test.Model\ResultItem.cs" />
     <Compile Include="Business\Test.Model\ResultItemCollection.cs" />
-    <Compile Include="Business\Test.Model\Reticulin.cs" />
-    <Compile Include="Business\Test.Model\S100.cs" />
-    <Compile Include="Business\Test.Model\SATB2.cs" />
-    <Compile Include="Business\Test.Model\SmoothMuscleActin.cs" />
-    <Compile Include="Business\Test.Model\SmoothMuscleMyosin.cs" />
-    <Compile Include="Business\Test.Model\SOX10.cs" />
     <Compile Include="Business\Test.Model\StainTest.cs" />
     <Compile Include="Business\Test.Model\StainTestCollection.cs" />
-    <Compile Include="Business\Test.Model\SteinerandSteiner.cs" />
     <Compile Include="Business\Test.Model\Surfactant.cs" />
-    <Compile Include="Business\Test.Model\Synaptophysin.cs" />
-    <Compile Include="Business\Test.Model\TdT.cs" />
     <Compile Include="Business\Test.Model\Test.cs" />
     <Compile Include="Business\Test.Model\TestCollection.cs" />
     <Compile Include="Business\Test.Model\TestItemList.cs" />
@@ -2010,18 +1902,12 @@
     <Compile Include="Business\Test.Model\TissueSmear.cs" />
     <Compile Include="Business\Test.Model\TouchPrep.cs" />
     <Compile Include="Business\Test.Model\TRAP.cs" />
-    <Compile Include="Business\Test.Model\Trichrome.cs" />
-    <Compile Include="Business\Test.Model\Tryptase.cs" />
-    <Compile Include="Business\Test.Model\TTF1.cs" />
-    <Compile Include="Business\Test.Model\TTF1NapsinADualStain.cs" />
     <Compile Include="Business\Test.Model\Tyrosinase.cs" />
     <Compile Include="Business\Test.Model\UnstainedRecut.cs" />
     <Compile Include="Business\Test.Model\UnstainedSlide.cs" />
     <Compile Include="Business\Test.Model\Uroplakin.cs" />
     <Compile Include="Business\Test.Model\Villin.cs" />
-    <Compile Include="Business\Test.Model\Vimentin.cs" />
     <Compile Include="Business\Test.Model\WrightsStain.cs" />
-    <Compile Include="Business\Test.Model\WT1.cs" />
     <Compile Include="Business\Test.Model\Zap70.cs" />
     <Compile Include="Business\Test\ABL1KinaseDomainMutation\ABL1KinaseDomainMutationDetectedResult.cs" />
     <Compile Include="Business\Test\ABL1KinaseDomainMutation\ABL1KinaseDomainMutationEpicObxView.cs" />
@@ -3602,6 +3488,12 @@
     <Compile Include="UI\SortDirectionAdorner.cs" />
     <Compile Include="UI\SpellCheckAccessionOrder.cs" />
     <Compile Include="UI\SpellCheckProperty.cs" />
+    <Compile Include="UI\Stain\StainEditDialog.xaml.cs">
+      <DependentUpon>StainEditDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Stain\StainListDialog.xaml.cs">
+      <DependentUpon>StainListDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Surgical\StainStatusDialog.xaml.cs">
       <DependentUpon>StainStatusDialog.xaml</DependentUpon>
     </Compile>
@@ -4859,7 +4751,6 @@
     <EmbeddedResource Include="Business\XmlSchema\BarcodeScanSchema.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Business\Test.Model\TestDefinition.json" />
     <None Include="Business\XmlSchema\ComplexTypes.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -5575,6 +5466,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\RetrospectiveReviews.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Stain\StainEditDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Stain\StainListDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

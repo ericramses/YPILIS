@@ -943,6 +943,12 @@ namespace YellowstonePathology.UI
             retrospectiveReviews.Show();
         }
 
+        private void MenuItemStains_Click(object sender, RoutedEventArgs e)
+        {
+            Stain.StainListDialog dialog = new Stain.StainListDialog();
+            dialog.Show();
+        }
+
         private void MenuItemVentanaStainMapping_Click(object sender, RoutedEventArgs e)
         {
             VentanaStainMappingDialog dialog = new UI.VentanaStainMappingDialog();

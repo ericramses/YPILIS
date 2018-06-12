@@ -88,6 +88,13 @@ namespace YellowstonePathology.UI
             MessageBox.Show("Done");
         }
 
+        private void ButtonStains_Click(object sender, RoutedEventArgs e)
+        {
+            Business.Stain.Model.VentataStainsJsonCreator stainCreator = new Business.Stain.Model.VentataStainsJsonCreator();
+            stainCreator.CreateStains();
+            MessageBox.Show("Done");
+        }
+
         private void ButtonBlocksSentNotReturned_Click(object sender, RoutedEventArgs e)
         {
             YellowstonePathology.Business.Reports.BlocksSentNotReturnedReport report = new Business.Reports.BlocksSentNotReturnedReport();

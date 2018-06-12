@@ -13,12 +13,13 @@ namespace YellowstonePathology.Business.Test.Model
         public DisplayGroupProstate()
         {
             this.m_GroupName = "Prostate";
+            TestCollection allTests = TestCollection.GetAllTests(false);
 
             this.m_List = new List<Test>();
-            this.m_List.Add(new NKX31());
-            this.m_List.Add(new ProstateSpecificAntigen());
-            this.m_List.Add(new ProstaticAcidPhosphatase());            
-            this.m_List.Add(new P504sRacemase());
+            this.m_List.Add(allTests.GetTest("355")); // NKX31());
+            this.m_List.Add(allTests.GetTest("146")); // ProstateSpecificAntigen());
+            this.m_List.Add(allTests.GetTest("147")); // ProstaticAcidPhosphatase());            
+            this.m_List.Add(allTests.GetTest("133")); // P504sRacemase());
         }
 
         public string GroupName
