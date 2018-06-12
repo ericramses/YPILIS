@@ -11,8 +11,8 @@ namespace YellowstonePathology.Business.Test.Model
         {
             this.m_GroupName = "Miscellaneous";
             
-            this.m_List.Add((Business.Test.Model.ImmunoHistochemistryTest)Business.Test.Model.TestCollection.Instance.GetTest("173"));
-            this.m_List.Add((Business.Test.Model.ImmunoHistochemistryTest)Business.Test.Model.TestCollection.Instance.GetTest("224"));            
+            this.m_List.Add((Business.Test.Model.ImmunoHistochemistryTest)this.m_AllTests.GetTest("173"));
+            this.m_List.Add((Business.Test.Model.ImmunoHistochemistryTest)this.m_AllTests.GetTest("224"));            
         }
     }
 }

@@ -180,11 +180,11 @@ namespace YellowstonePathology.Business.SpecialStain
 		public StainResultItemCollection GetGradedStains(YellowstonePathology.Business.Test.Model.TestOrderCollection testOrderCollection)
 		{
 			StainResultItemCollection result = new StainResultItemCollection();
-			//YellowstonePathology.Business.Test.Model.TestCollection allTests = YellowstonePathology.Business.Test.Model.TestCollection.GetAllTests(false);
+			YellowstonePathology.Business.Test.Model.TestCollection allTests = YellowstonePathology.Business.Test.Model.TestCollection.GetAllTests(false);
 			foreach (StainResultItem stainresult in this)
 			{
 				YellowstonePathology.Business.Test.Model.TestOrder testOrder = testOrderCollection.Get(stainresult.TestOrderId);
-				YellowstonePathology.Business.Test.Model.GradedTest gradedTest = Business.Test.Model.TestCollection.Instance.GetTest(testOrder.TestId) as YellowstonePathology.Business.Test.Model.GradedTest;
+				YellowstonePathology.Business.Test.Model.GradedTest gradedTest = allTests.GetTest(testOrder.TestId) as YellowstonePathology.Business.Test.Model.GradedTest;
 				if (gradedTest != null) result.Add(stainresult);
 			}
 			return result;

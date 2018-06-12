@@ -19,7 +19,7 @@ namespace YellowstonePathology.Business.Stain.Model
 
         public VentataStainsJsonCreator()
         {
-            this.m_AllTests = Business.Test.Model.TestCollection.Instance;
+            this.m_AllTests = Business.Test.Model.TestCollection.GetAllTests(false);
             this.m_TestsToUse = new Test.Model.TestCollection();
             this.m_Stains = new StainCollection();
             this.m_VentanaBenchMarkCollection = Business.Gateway.SlideAccessionGateway.GetVentanaBenchMarks();

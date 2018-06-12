@@ -15,7 +15,6 @@ namespace YellowstonePathology.Business.Test.Model
 
         protected YellowstonePathology.Test.Model.ResultItemCollection m_ResultItemCollection;
 
-        protected string m_TestNameId;
         protected string m_OrderComment;
         protected bool m_IsBillable;
         protected bool m_HasGCode;
@@ -257,19 +256,6 @@ namespace YellowstonePathology.Business.Test.Model
 				}
 			}
 		}
-
-        public string TestNameId
-        {
-            get { return this.m_TestNameId; }
-            set
-            {
-                if (this.m_TestNameId != value)
-                {
-                    this.m_TestNameId = value;
-                    this.NotifyPropertyChanged("TestNameId");
-                }
-            }
-        }
 
         public virtual string GetCodeableType(bool orderedAsDual)
         {

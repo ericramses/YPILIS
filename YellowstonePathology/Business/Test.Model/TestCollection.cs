@@ -11,24 +11,9 @@ namespace YellowstonePathology.Business.Test.Model
 {
 	public class TestCollection : ObservableCollection<Test>
     {
-        private static TestCollection instance;
-        private static object syncRoot = new Object();
-
         public TestCollection()
         {
 
-        }
-
-        public static TestCollection Instance
-        {
-            get
-            {
-                if (instance == null)
-                {
-                    instance = GetAllTests(true);
-                }
-                return instance;
-            }
         }
 
         public bool HasTestRequiringAcknowledgement()
@@ -59,20 +44,6 @@ namespace YellowstonePathology.Business.Test.Model
             return result;
         }
 
-        public Test GetTestByTestNameId(string testNameId)
-        {
-            Test result = null;
-            foreach (Test test in this)
-            {
-                if (test.TestNameId == testNameId)
-                {
-                    result = test;
-                    break;
-                }
-            }
-            return result;
-        }
-
         public bool Exists(string testId)
         {
             bool result = false;
@@ -87,30 +58,16 @@ namespace YellowstonePathology.Business.Test.Model
             return result;
         }
 
-		public TestCollection GetTestsStartingWith(string firstLetter)
-		{
-			TestCollection result = new TestCollection();
-			List<Test> tests = new List<Test>();
-			foreach (Test test in TestCollection.Instance)
-			{
-				if (test.TestName.Substring(0, 1) == firstLetter) tests.Add(test);
-			}
-
-			tests.Sort(Test.CompareByTestName);
-			foreach (Test test in tests)
-			{
-				result.Add(test);
-			}
-			return result;
-		}
-
         public ObservableCollection<object> GetTestsStartingWithToObjectCollection(string firstLetter, bool includeWetProtocols)
         {
             ObservableCollection<object> result = new ObservableCollection<object>();
+            TestCollection allTests = TestCollection.GetAllTests(false);
             List<Test> tests = new List<Test>();
-            //allTests.Add(Business.Test.Model.TestCollection.GetWetIron());
+            Test wetIron = allTests.GetTest("115");
+            wetIron.UseWetProtocol = true;
+            allTests.Add(wetIron);
 
-            foreach (Test test in TestCollection.Instance)
+            foreach (Test test in allTests)
             {
                 if (test.TestName.ToUpper().Substring(0, 1) == firstLetter.ToUpper()) tests.Add(test);
             }
@@ -123,14 +80,14 @@ namespace YellowstonePathology.Business.Test.Model
             return result;
         }               
 
-        public static Test GetWetIron()
+        /*public static Test GetWetIron()
         {
             Test wetIron = Instance.GetTest("115");
             wetIron.UseWetProtocol = true;
             return wetIron;
-        }
+        }*/
 
-        private static TestCollection GetAllTests(bool includeWetProtocols)
+        public static TestCollection GetAllTests(bool includeWetProtocols)
         {
             TestCollection result = new TestCollection();
             
