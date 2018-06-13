@@ -56,7 +56,6 @@ namespace YellowstonePathology.UI.Gross
         private string m_ReportNoToUse;
 
 		private XElement m_SpecimenView;
-		private YellowstonePathology.Business.Test.Model.TestCollection m_TestCollection;
 		private YellowstonePathology.Business.Specimen.Model.SpecimenOrder m_SpecimenOrder;
 
 		public PrintBlockPage(YellowstonePathology.Business.User.SystemIdentity systemIdentity,
@@ -79,11 +78,10 @@ namespace YellowstonePathology.UI.Gross
 
 			this.m_BarcodeScanPort = YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort.Instance;
 
-			this.m_TestCollection = YellowstonePathology.Business.Test.Model.TestCollection.GetAllTests();
-			this.m_HandETest = this.m_TestCollection.GetTest("49");
-			this.m_IronTest = this.m_TestCollection.GetTest("115");
-			this.m_HPyloriTest = this.m_TestCollection.GetTest("107");
-			this.m_FrozenTest = this.m_TestCollection.GetTest("45");
+			this.m_HandETest = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetTest("49");
+			this.m_IronTest = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetTest("115");
+			this.m_HPyloriTest = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetTest("107");
+			this.m_FrozenTest = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetTest("45");
 			this.Aliquots = 1;
 
 			this.m_ListBoxBlocksMouseDownTimer = new System.Windows.Threading.DispatcherTimer();

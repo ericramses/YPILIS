@@ -1073,7 +1073,7 @@
     <Compile Include="Business\Stain.Model\Stain.cs" />
     <Compile Include="Business\Stain.Model\StainCollection.cs" />
     <Compile Include="Business\Stain.Model\TestFactory.cs" />
-    <Compile Include="Business\Stain.Model\VentataStainsJsonCreator.cs" />
+    <Compile Include="Business\Test.Model\TestCollectionInstance.cs" />
     <Compile Include="Business\Test.Model\TestOrderStatusView.cs" />
     <Compile Include="Business\Test.Model\TestOrderStatusViewCollection.cs" />
     <Compile Include="Business\Test\ALLPediatricFISHPanel\ALLPediatricFISHPanelTest.cs" />

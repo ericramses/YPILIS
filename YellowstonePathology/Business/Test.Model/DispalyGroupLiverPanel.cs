@@ -13,13 +13,12 @@ namespace YellowstonePathology.Business.Test.Model
         public DisplayGroupLiverPanel()
         {
             this.m_GroupName = "Liver Panel";
-            TestCollection allTests = TestCollection.GetAllTests();
 
             this.m_List = new List<Test>();
-            this.m_List.Add(allTests.GetTest("160")); // Trichrome());
-            this.m_List.Add(allTests.GetTest("115")); // Iron());
-            this.m_List.Add(allTests.GetTest("140")); // PASWithDiastase());
-            this.m_List.Add(allTests.GetTest("151")); // Reticulin());
+            this.m_List.Add(YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetTest("160")); // Trichrome());
+            this.m_List.Add(YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetTest("115")); // Iron());
+            this.m_List.Add(YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetTest("140")); // PASWithDiastase());
+            this.m_List.Add(YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetTest("151")); // Reticulin());
             this.m_List.Add(new CopperRhodanine());            
         }
 

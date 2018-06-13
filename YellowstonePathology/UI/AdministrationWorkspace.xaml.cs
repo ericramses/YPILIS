@@ -90,9 +90,9 @@ namespace YellowstonePathology.UI
 
         private void ButtonStains_Click(object sender, RoutedEventArgs e)
         {
-            Business.Stain.Model.VentataStainsJsonCreator stainCreator = new Business.Stain.Model.VentataStainsJsonCreator();
-            stainCreator.CreateStains();
-            MessageBox.Show("Done");
+            //Business.Stain.Model.VentataStainsJsonCreator stainCreator = new Business.Stain.Model.VentataStainsJsonCreator();
+            //stainCreator.CreateStains();
+            //MessageBox.Show("Done");
         }
 
         private void ButtonBlocksSentNotReturned_Click(object sender, RoutedEventArgs e)
@@ -796,7 +796,7 @@ namespace YellowstonePathology.UI
                 "join tblTestOrder t on po.panelOrderId = t.panelOrderId " +
                 "where ao.AccessionDate between '1/1/2014' and '12/31/2014' and t.TestId in (");
 
-            YellowstonePathology.Business.Test.Model.TestCollection testCollection = YellowstonePathology.Business.Test.Model.TestCollection.GetIHCTests();
+            YellowstonePathology.Business.Test.Model.TestCollection testCollection = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetIHCTests();
             foreach (YellowstonePathology.Business.Test.Model.Test test in testCollection)
             {
                 sql.Append(test.TestId.ToString() + ", ");

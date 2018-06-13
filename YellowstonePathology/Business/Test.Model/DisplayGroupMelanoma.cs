@@ -11,9 +11,9 @@ namespace YellowstonePathology.Business.Test.Model
         {
             this.m_GroupName = "Melanoma";
             
-            this.m_List.Add((ImmunoHistochemistryTest)this.m_AllTests.GetTest("152")); // S100());
-            this.m_List.Add((ImmunoHistochemistryTest)this.m_AllTests.GetTest("119")); // MelanA());
-            this.m_List.Add((ImmunoHistochemistryTest)this.m_AllTests.GetTest("111")); // HMB45());            
+            this.m_List.Add((ImmunoHistochemistryTest)YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetTest("152")); // S100());
+            this.m_List.Add((ImmunoHistochemistryTest)YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetTest("119")); // MelanA());
+            this.m_List.Add((ImmunoHistochemistryTest)YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetTest("111")); // HMB45());            
         }
     }
 }
