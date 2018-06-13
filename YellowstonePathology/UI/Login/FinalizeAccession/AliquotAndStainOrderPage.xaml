@@ -267,6 +267,7 @@
                 <Grid Grid.Column="0" Grid.Row="1" Margin="2,2,2,2">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
 						<ColumnDefinition Width="*"></ColumnDefinition>
 					</Grid.ColumnDefinitions>
 					<Grid.RowDefinitions>
@@ -275,7 +276,7 @@
 						<RowDefinition Height="Auto"></RowDefinition>
 					</Grid.RowDefinitions>
 
-					<Border Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" Grid.ColumnSpan="2" CornerRadius="5" BorderThickness="1" BorderBrush="Black" />
+					<Border Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" Grid.ColumnSpan="3" CornerRadius="5" BorderThickness="1" BorderBrush="Black" />
 					
 					<CheckBox Grid.Column="0" Grid.Row="0" Margin="10,10,2,2" VerticalAlignment="Center" Checked="CheckBoxSpecimen_Checked" Unchecked="CheckBoxSpecimen_Unchecked" />
 					<TextBlock Grid.Column="1" Grid.Row="0" Margin="2,10,10,2" HorizontalAlignment="Stretch" Text="Specimen" />
@@ -285,7 +286,12 @@
 
 					<CheckBox Grid.Column="0" Grid.Row="2" Margin="10,2,2,10" VerticalAlignment="Center" Checked="CheckBoxTests_Checked" Unchecked="CheckBoxTests_Unchecked" />
 					<TextBlock Grid.Column="1" Grid.Row="2" Margin="2,2,10,10" HorizontalAlignment="Stretch" Text="Tests" />
-				</Grid>
+
+                    <TextBlock Grid.Column="2" Grid.Row="0" Margin="2,2,5,2" HorizontalAlignment="Right">
+                        <Hyperlink Click="HyperLinkUpdateSlides_Click">Update Slides</Hyperlink>
+                    </TextBlock>
+                    
+                </Grid>
 
                 <ListBox Name="ListBoxPanelSetOrders" Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" ItemsSource="{Binding Path=AccessionOrder.PanelSetOrderCollection}" SelectionChanged="ListBoxPanelSetOrders_SelectionChanged"
 				    ItemTemplate="{StaticResource PanelSetOrderTemplate}" ItemContainerStyle="{StaticResource PanelSetOrderStyle}" SelectedItem="{Binding Path=PanelSetOrder, Mode=OneWay}" BorderThickness="0" VerticalAlignment="Stretch">

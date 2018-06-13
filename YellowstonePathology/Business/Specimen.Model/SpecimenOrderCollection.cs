@@ -16,7 +16,22 @@ namespace YellowstonePathology.Business.Specimen.Model
 		public SpecimenOrderCollection()
 		{
 			this.m_IsLoading = false;
-		}        
+		}  
+        
+        public void UpdateSlideInfo(Business.Test.AccessionOrder ao)
+        {
+            foreach(SpecimenOrder specimenOrder in this)
+            {
+                foreach(Business.Test.AliquotOrder aliquotOrder in specimenOrder.AliquotOrderCollection)
+                {
+                    foreach(Business.Slide.Model.SlideOrder slideOrder in aliquotOrder.SlideOrderCollection)
+                    {
+                        slideOrder.PatientFirstName = ao.PFirstName;
+                        slideOrder.PatientLastName = ao.PLastName;                        
+                    }
+                }
+            }
+        }      
 
         public void RemoveDeleted(IEnumerable<XElement> elements)
         {

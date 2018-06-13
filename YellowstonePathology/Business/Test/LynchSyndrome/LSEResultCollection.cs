@@ -139,7 +139,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
                         }
                         else
                         {
-                            //brafResultIsEqual = true;
+                            brafResultIsEqual = true;
                         }
 
                         bool methResultIsEqual = false;
