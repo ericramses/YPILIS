@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using YellowstonePathology.Business.Billing.Model;
+using YellowstonePathology.Business.Persistence;
 
 namespace YellowstonePathology.Business.Test.Model
 {
@@ -26,25 +27,33 @@ namespace YellowstonePathology.Business.Test.Model
             this.m_DepricatedSecondTestId = depricatedSecondTestId;
         }
 
+        [PersistentProperty()]
         public Test FirstTest
         {
-            get { return this.m_FirstTest; }            
+            get { return this.m_FirstTest; }
+            set { this.m_FirstTest = value; }
         }
 
-		public Test SecondTest
+        [PersistentProperty()]
+        public Test SecondTest
         {
             get { return this.m_SecondTest; }
-        }        
+            set { this.m_SecondTest = value; }
+        }
 
-		public string DepricatedFirstTestId
+        [PersistentProperty()]
+        public string DepricatedFirstTestId
 		{
 			get { return this.m_DepricatedFirstTestId; }
+            set { this.m_DepricatedFirstTestId = value; }
 		}
 
-		public string DepricatedSecondTestId
+        [PersistentProperty()]
+        public string DepricatedSecondTestId
 		{
 			get { return this.m_DepricatedSecondTestId; }
-		}
+            set { this.m_DepricatedSecondTestId = value; }
+        }
 
         public override CptCode GetGradedCptCode(bool isTechnicalOnly)
         {

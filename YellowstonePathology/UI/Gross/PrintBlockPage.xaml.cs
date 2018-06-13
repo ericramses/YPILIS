@@ -79,7 +79,7 @@ namespace YellowstonePathology.UI.Gross
 
 			this.m_BarcodeScanPort = YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort.Instance;
 
-			this.m_TestCollection = YellowstonePathology.Business.Test.Model.TestCollection.GetAllTests(false);
+			this.m_TestCollection = YellowstonePathology.Business.Test.Model.TestCollection.GetAllTests();
 			this.m_HandETest = this.m_TestCollection.GetTest("49");
 			this.m_IronTest = this.m_TestCollection.GetTest("115");
 			this.m_HPyloriTest = this.m_TestCollection.GetTest("107");

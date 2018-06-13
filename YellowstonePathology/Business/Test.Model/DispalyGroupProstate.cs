@@ -13,7 +13,7 @@ namespace YellowstonePathology.Business.Test.Model
         public DisplayGroupProstate()
         {
             this.m_GroupName = "Prostate";
-            TestCollection allTests = TestCollection.GetAllTests(false);
+            TestCollection allTests = TestCollection.GetAllTests();
 
             this.m_List = new List<Test>();
             this.m_List.Add(allTests.GetTest("355")); // NKX31());

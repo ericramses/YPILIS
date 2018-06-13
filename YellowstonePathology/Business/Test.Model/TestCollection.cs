@@ -11,9 +11,27 @@ namespace YellowstonePathology.Business.Test.Model
 {
 	public class TestCollection : ObservableCollection<Test>
     {
+        private static TestCollection instance;
+        private static object syncRoot = new Object();
+
         public TestCollection()
         {
 
+        }
+
+        private static TestCollection Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    lock (syncRoot)
+                    {
+                        if (instance == null) instance = Load();
+                    }
+                }
+                return instance;
+            }
         }
 
         public bool HasTestRequiringAcknowledgement()
@@ -61,15 +79,12 @@ namespace YellowstonePathology.Business.Test.Model
         public ObservableCollection<object> GetTestsStartingWithToObjectCollection(string firstLetter, bool includeWetProtocols)
         {
             ObservableCollection<object> result = new ObservableCollection<object>();
-            TestCollection allTests = TestCollection.GetAllTests(false);
             List<Test> tests = new List<Test>();
             Test wetIron = TestCollection.GetWetIron();
-            wetIron.UseWetProtocol = true;
-            allTests.Add(wetIron);
-
-            foreach (Test test in allTests)
+            if (wetIron.TestName.ToUpper().Substring(0, 1) == firstLetter.ToUpper()) tests.Add(wetIron);
+            foreach (Test test in TestCollection.Instance)
             {
-                if (test.TestName.ToUpper().Substring(0, 1) == firstLetter.ToUpper()) tests.Add(test);
+                if (test.TestName.ToUpper().Substring(0, 1) == firstLetter.ToUpper()) tests.Add(TestCollection.GetTestClone(test.TestId));
             }
 
             tests.Sort(Test.CompareByTestName);
@@ -82,13 +97,12 @@ namespace YellowstonePathology.Business.Test.Model
 
         public static Test GetWetIron()
         {
-            TestCollection allTests = TestCollection.GetAllTests(false);
-            Test wetIron = allTests.GetTest("115");
+            Test wetIron = TestCollection.GetTestClone("115");
             wetIron.UseWetProtocol = true;
             return wetIron;
         }
 
-        public static TestCollection GetAllTests(bool includeWetProtocols)
+        private static TestCollection Load()
         {
             TestCollection result = new TestCollection();
             
@@ -187,12 +201,11 @@ namespace YellowstonePathology.Business.Test.Model
         public static TestCollection GetIHCTests()
         {
             TestCollection result = new TestCollection();
-            TestCollection allTests = TestCollection.GetAllTests(false);
-            foreach (Test test in allTests)
+            foreach (Test test in TestCollection.Instance)
             {
                 if (test is ImmunoHistochemistryTest == true)
                 {
-                    result.Add(test);
+                    result.Add(TestCollection.GetTestClone(test));
                 }
             }
             return result;
@@ -201,12 +214,11 @@ namespace YellowstonePathology.Business.Test.Model
         public static TestCollection GetGradedTests()
         {
             TestCollection result = new TestCollection();
-            TestCollection allTests = TestCollection.GetAllTests(false);
-            foreach (Test test in allTests)
+            foreach (Test test in TestCollection.Instance)
             {
                 if (test is GradedTest == true)
                 {
-                    result.Add(test);
+                    result.Add(TestCollection.GetTestClone(test));
                 }
             }
             return result;
@@ -215,12 +227,11 @@ namespace YellowstonePathology.Business.Test.Model
         public static TestCollection GetCytochemicalTests()
         {
             TestCollection result = new TestCollection();
-            TestCollection allTests = TestCollection.GetAllTests(false);
-            foreach (Test test in allTests)
+            foreach (Test test in TestCollection.Instance)
             {
                 if (test is CytochemicalTest == true)
                 {
-                    result.Add(test);
+                    result.Add(TestCollection.GetTestClone(test));
                 }
             }
             return result;
@@ -229,15 +240,42 @@ namespace YellowstonePathology.Business.Test.Model
         public static TestCollection GetCytochemicalForMicroorganismsTests()
         {
             TestCollection result = new TestCollection();
-            TestCollection allTests = TestCollection.GetAllTests(false);
-            foreach (Test test in allTests)
+            foreach (Test test in TestCollection.Instance)
             {
                 if (test is CytochemicalForMicroorganisms)
                 {
-                    result.Add(test);
+                    result.Add(TestCollection.GetTestClone(test));
                 }
             }
             return result;
-        }       
+        }
+
+        public static TestCollection GetAllTests()
+        {
+            TestCollection result = new TestCollection();
+            foreach(Test test in TestCollection.Instance)
+            {
+                result.Add(TestCollection.GetTestClone(test));
+            }
+            return result;
+        }
+
+        private static Test GetTestClone(string testId)
+        {
+            Test test = TestCollection.Instance.GetTest(testId);
+            Test result = TestCollection.GetTestClone(test);
+            return result;
+        }
+
+        private static Test GetTestClone(Test test)
+        {
+            if (test is DualStain)
+            {
+                int a = 1;
+            }
+            YellowstonePathology.Business.Persistence.ObjectCloner objectCloner = new Persistence.ObjectCloner();
+            Test result = (Test)objectCloner.Clone(test);
+            return result;
+        }
     }
 }

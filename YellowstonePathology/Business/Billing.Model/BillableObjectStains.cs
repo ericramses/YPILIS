@@ -216,7 +216,7 @@ namespace YellowstonePathology.Business.Billing.Model
 			{
                 this.SetERPRPQRSCodes();
 
-				YellowstonePathology.Business.Test.Model.TestCollection testCollection = YellowstonePathology.Business.Test.Model.TestCollection.GetAllTests(false);
+				YellowstonePathology.Business.Test.Model.TestCollection testCollection = YellowstonePathology.Business.Test.Model.TestCollection.GetAllTests();
 				foreach (StainSpecimen stainSpecimen in this.m_StainSpecimenCollection)
 				{
 					foreach (YellowstonePathology.Business.Test.Model.TestOrder testOrder in stainSpecimen.TestOrderCollection)

@@ -14,7 +14,7 @@ namespace YellowstonePathology.Business.Test.Model
         public DisplayGroupIHC()
         {
             this.m_List = new List<ImmunoHistochemistryTest>();
-            this.m_AllTests = YellowstonePathology.Business.Test.Model.TestCollection.GetAllTests(false);
+            this.m_AllTests = YellowstonePathology.Business.Test.Model.TestCollection.GetAllTests();
         }
 
         public string GroupName

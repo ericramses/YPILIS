@@ -5,6 +5,7 @@ using System.Text;
 using System.ComponentModel;
 using System.Xml.Linq;
 using System.Xml.Serialization;
+using YellowstonePathology.Business.Persistence;
 
 namespace YellowstonePathology.Test.Model
 {
@@ -45,10 +46,11 @@ namespace YellowstonePathology.Test.Model
 		{
 			throw new NotImplementedException("ToXml not Implemented");
 		}
-		#endregion		
+        #endregion
 
-		#region Properties
-		public int ResultId
+        #region Properties
+        [PersistentPrimaryKeyProperty(false)]
+        public int ResultId
 		{
 			get { return this.m_ResultId; }
 			set
@@ -61,7 +63,8 @@ namespace YellowstonePathology.Test.Model
 			}
 		}
 
-		public string Result
+        [PersistentProperty()]
+        public string Result
 		{
 			get { return this.m_Result; }
 			set

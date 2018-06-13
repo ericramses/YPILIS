@@ -79,7 +79,7 @@ namespace YellowstonePathology.Business.Test.Model
         {
             DualStainCollection result = new DualStainCollection();
 			List<DualStain> stainList = new List<DualStain>();
-            YellowstonePathology.Business.Test.Model.TestCollection allTests = YellowstonePathology.Business.Test.Model.TestCollection.GetAllTests(false);
+            YellowstonePathology.Business.Test.Model.TestCollection allTests = YellowstonePathology.Business.Test.Model.TestCollection.GetAllTests();
 
             stainList.Add((DualStain)allTests.GetTest("CD30CD20")); // CD3CD20DualStain());
             stainList.Add((DualStain)allTests.GetTest("PAX5CD5")); // PAX5CD5DualStain());

@@ -93,7 +93,7 @@ namespace YellowstonePathology.UI.Gross
 
 		private void AddIC()
 		{
-            YellowstonePathology.Business.Test.Model.TestCollection allTests = YellowstonePathology.Business.Test.Model.TestCollection.GetAllTests(false);
+            YellowstonePathology.Business.Test.Model.TestCollection allTests = YellowstonePathology.Business.Test.Model.TestCollection.GetAllTests();
             YellowstonePathology.Business.Test.Model.Test iCTest = allTests.GetTest("194");
 			string patientInitials = YellowstonePathology.Business.Helper.PatientHelper.GetPatientInitials(this.m_AccessionOrder.PFirstName, this.m_AccessionOrder.PLastName);
 

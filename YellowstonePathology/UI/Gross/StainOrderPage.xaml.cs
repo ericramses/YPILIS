@@ -40,7 +40,7 @@ namespace YellowstonePathology.UI.Gross
 
             this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetSurgical();
             this.m_TestOrderCollection = this.m_PanelSetOrder.GetTestOrderCollection(this.m_AliquotOrder.AliquotOrderId);
-            this.m_AllTests = YellowstonePathology.Business.Test.Model.TestCollection.GetAllTests(false);
+            this.m_AllTests = YellowstonePathology.Business.Test.Model.TestCollection.GetAllTests();
 			InitializeComponent();
 			DataContext = this;
 		}

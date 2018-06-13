@@ -39,7 +39,7 @@ namespace YellowstonePathology.Business.Test.InvasiveBreastPanel
                 if (panelSetOrder.AssignedToId != 5132 && panelSetOrder.AssignedToId != 5133)
                 {
                     YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = (YellowstonePathology.Business.Test.AliquotOrder)orderTarget;
-                    YellowstonePathology.Business.Test.Model.TestCollection allTests = YellowstonePathology.Business.Test.Model.TestCollection.GetAllTests(false);
+                    YellowstonePathology.Business.Test.Model.TestCollection allTests = YellowstonePathology.Business.Test.Model.TestCollection.GetAllTests();
                     YellowstonePathology.Business.Test.Model.Test er = allTests.GetTest("99"); // EstrogenReceptorSemiquant();
                     YellowstonePathology.Business.Visitor.OrderTestVisitor orderERTestVisitor = new Visitor.OrderTestVisitor(surgicalReportNo, er, er.OrderComment, null, false, aliquotOrder, false, false, accessionOrder.TaskOrderCollection);
                     accessionOrder.TakeATrip(orderERTestVisitor);
@@ -96,7 +96,7 @@ namespace YellowstonePathology.Business.Test.InvasiveBreastPanel
 			if(accessionOrder.PanelSetOrderCollection.Exists(panelSetSurgical.PanelSetId) == true)
 			{
 				result.Append("Estrogen/Progesterone Receptor, Semi-Quantitative - Estrogen Receptor : ");
-                YellowstonePathology.Business.Test.Model.TestCollection allTests = YellowstonePathology.Business.Test.Model.TestCollection.GetAllTests(false);
+                YellowstonePathology.Business.Test.Model.TestCollection allTests = YellowstonePathology.Business.Test.Model.TestCollection.GetAllTests();
                 YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder panelSetOrderSurgical = (YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetSurgical.PanelSetId);
                 YellowstonePathology.Business.Test.Model.Test er = allTests.GetTest("99"); // EstrogenReceptorSemiquant();
                 YellowstonePathology.Business.Test.Model.Test pr = allTests.GetTest("145"); // ProgesteroneReceptorSemiquant();
