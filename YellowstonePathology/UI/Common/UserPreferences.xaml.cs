@@ -76,6 +76,9 @@ namespace YellowstonePathology.UI.Common
         private void UserPreferences_Loaded(object sender, RoutedEventArgs e)
 		{
             this.m_Twain = new Business.Twain.Twain(new WpfWindowMessageHook(Window.GetWindow(this)));
+            this.m_PageScannerCollection = new Business.Common.PageScannerCollection();
+
+            /*
             if(Environment.OSVersion.VersionString != "Microsoft Windows NT 6.2.9200.0")
             {
                 this.PageScannerCollection = new Business.Common.PageScannerCollection(this.m_Twain);
@@ -83,8 +86,9 @@ namespace YellowstonePathology.UI.Common
             else
             {
                 this.m_PageScannerCollection = new Business.Common.PageScannerCollection();                
-            }			
-		}        
+            }
+            */
+        }        
 
         public YellowstonePathology.Business.Label.Model.LabelFormatCollection MolecularLabelFormatCollection
         {

@@ -905,6 +905,14 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             //System.IO.File.WriteAllText(@"\\10.1.2.31\ChannelData\Outgoing\Ventana\" + objectId + ".hl7", result);
 
             MessageBox.Show(result);
-        }        
+        }
+
+        private void HyperLinkUpdateSlides_Click(object sender, RoutedEventArgs e)
+        {
+            this.m_AccessionOrder.SpecimenOrderCollection.UpdateSlideInfo(this.m_AccessionOrder);
+            this.m_AliquotAndStainOrderView.Refresh(true, this.m_PanelSetOrder);
+            this.NotifyPropertyChanged("AliquotAndStainOrderView");
+            MessageBox.Show("The patient information has been updated for all existing slides.");
+        }
     }
 }
