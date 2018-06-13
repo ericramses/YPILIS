@@ -5,6 +5,8 @@ using System.Text;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using System.ComponentModel;
+using Newtonsoft.Json;
+using YellowstonePathology.Business.Persistence;
 
 namespace YellowstonePathology.Business.Test.Model
 {
@@ -14,12 +16,11 @@ namespace YellowstonePathology.Business.Test.Model
 
         protected YellowstonePathology.Test.Model.ResultItemCollection m_ResultItemCollection;
 
-        protected string m_TestNameId;
         protected string m_OrderComment;
         protected bool m_IsBillable;
         protected bool m_HasGCode;
         protected bool m_HasCptCodeLevels;
-        protected string m_OrderedOn;
+        //protected string m_OrderedOn;
         protected bool m_IsDualOrder;        
 
         protected string m_TestId;
@@ -47,9 +48,16 @@ namespace YellowstonePathology.Business.Test.Model
             this.m_TestName = testName;
         }
 
-		public YellowstonePathology.Test.Model.ResultItemCollection ResultItemCollection
+
+        [PersistentCollection()]
+        public YellowstonePathology.Test.Model.ResultItemCollection ResultItemCollection
 		{
 			get { return m_ResultItemCollection; }
+            set
+            {
+                this.m_ResultItemCollection = value;
+                NotifyPropertyChanged("ResultItemCollection");
+            }
 		}
 
         public virtual YellowstonePathology.Business.Billing.Model.CptCode GetGradedCptCode(bool isTechnicalOnly)
@@ -82,14 +90,16 @@ namespace YellowstonePathology.Business.Test.Model
         public virtual YellowstonePathology.Business.Billing.Model.CptCode GetGCode(CptCodeLevelEnum cptCodeLevel, bool isTechnicalOnly)
         {
             throw new Exception("Not Implemented Here");
-        }               		
+        }
 
-		public string OrderComment
+        [PersistentProperty()]
+        public string OrderComment
 		{
 			get { return this.m_OrderComment; }
 			set { this.m_OrderComment = value; }
 		}
 
+        [PersistentProperty()]
         public bool IsBillable
         {
             get { return this.m_IsBillable; }
@@ -102,19 +112,22 @@ namespace YellowstonePathology.Business.Test.Model
             set { this.m_HasGCode = value; }
         }
 
+        [PersistentProperty()]
         public bool IsDualOrder
         {
             get { return this.m_IsDualOrder; }
             set { this.m_IsDualOrder = value; }
         }
 
+        [PersistentProperty()]
         public bool HasCptCodeLevels
         {
             get { return this.m_HasCptCodeLevels; }
             set { this.m_HasCptCodeLevels = value; }
-        }             
-		
-		public string TestId
+        }
+
+        [PersistentPrimaryKeyProperty(false)]
+        public string TestId
 		{
 			get { return this.m_TestId; }
 			set
@@ -127,7 +140,8 @@ namespace YellowstonePathology.Business.Test.Model
 			}
 		}
 
-		public string TestName
+        [PersistentProperty()]
+        public string TestName
 		{
 			get { return this.m_TestName; }
 			set
@@ -140,6 +154,7 @@ namespace YellowstonePathology.Business.Test.Model
 			}
 		}
 
+        [PersistentProperty()]
         public string TestAbbreviation
         {
             get { return this.m_TestAbbreviation; }
@@ -153,7 +168,8 @@ namespace YellowstonePathology.Business.Test.Model
             }
         }
 
-		public bool Active
+        [PersistentProperty()]
+        public bool Active
 		{
 			get { return this.m_Active; }
 			set
@@ -166,7 +182,8 @@ namespace YellowstonePathology.Business.Test.Model
 			}
 		}
 
-		public int StainResultGroupId
+        [PersistentProperty()]
+        public int StainResultGroupId
 		{
 			get { return this.m_StainResultGroupId; }
 			set
@@ -179,7 +196,8 @@ namespace YellowstonePathology.Business.Test.Model
 			}
 		}
 
-		public string AliquotType
+        [PersistentProperty()]
+        public string AliquotType
 		{
 			get { return this.m_AliquotType; }
 			set
@@ -192,7 +210,8 @@ namespace YellowstonePathology.Business.Test.Model
 			}
 		}
 
-		public bool NeedsAcknowledgement
+        [PersistentProperty()]
+        public bool NeedsAcknowledgement
 		{
 			get { return this.m_NeedsAcknowledgement; }
 			set
@@ -205,6 +224,7 @@ namespace YellowstonePathology.Business.Test.Model
 			}
 		}
 
+        [PersistentProperty()]
         public bool UseWetProtocol
         {
             get { return this.m_UseWetProtocol; }
@@ -218,6 +238,7 @@ namespace YellowstonePathology.Business.Test.Model
             }
         }
 
+        [PersistentProperty()]
         public bool PerformedByHand
         {
             get { return this.m_PerformedByHand; }
@@ -231,6 +252,7 @@ namespace YellowstonePathology.Business.Test.Model
             }
         }
 
+        [PersistentProperty()]
         public string DefaultResult
 		{
 			get { return this.m_DefaultResult; }
@@ -244,7 +266,8 @@ namespace YellowstonePathology.Business.Test.Model
 			}
 		}
 
-		public bool RequestForAdditionalReport
+        [PersistentProperty()]
+        public bool RequestForAdditionalReport
 		{
 			get { return this.m_RequestForAdditionalReport; }
 			set
@@ -256,19 +279,6 @@ namespace YellowstonePathology.Business.Test.Model
 				}
 			}
 		}
-
-        public string TestNameId
-        {
-            get { return this.m_TestNameId; }
-            set
-            {
-                if (this.m_TestNameId != value)
-                {
-                    this.m_TestNameId = value;
-                    this.NotifyPropertyChanged("TestNameId");
-                }
-            }
-        }
 
         public virtual string GetCodeableType(bool orderedAsDual)
         {
@@ -327,5 +337,15 @@ namespace YellowstonePathology.Business.Test.Model
 				}
 			}
 		}
-	}
+
+        public string ToJSON()
+        {
+            string result = JsonConvert.SerializeObject(this, Newtonsoft.Json.Formatting.Indented, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.None
+            });
+
+            return result;
+        }
+    }
 }

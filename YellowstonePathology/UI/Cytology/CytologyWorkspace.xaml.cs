@@ -108,6 +108,7 @@ namespace YellowstonePathology.UI.Cytology
                                 if (this.m_CytologyUI.SetAccessionOrderByAliquotOrderId(barcode.ID))
                                 {
 									this.m_CytologyResultsWorkspace.ReportNo = this.m_CytologyUI.PanelSetOrderCytology.ReportNo;
+                                    this.m_CytologyUI.UpdateAliquotLocation(barcode.ID);
                                 }
                             }
                             else

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace YellowstonePathology.Business.Stain.Model
 {
@@ -16,6 +18,14 @@ namespace YellowstonePathology.Business.Stain.Model
         private string m_AliquotType;
         private string m_DefaultResult;
         private string m_HistologyDisplayString;
+        private string m_StainerType;
+        private string m_VentanaBenchMarkProtocolName;
+        private string m_CPTCode;
+        private string m_SubsequentCPTCode;
+        private string m_GCode;
+        private string m_VentanaBenchMarkWetProtocolName;
+        private int m_VentanaBenchMarkId;
+        private int? m_VentanaBenchMarkWetId;
         private int m_StainResultGroupId;
         private bool m_IsBillable;
         private bool m_HasGCode;
@@ -26,7 +36,12 @@ namespace YellowstonePathology.Business.Stain.Model
         private bool m_UseWetProtocol;
         private bool m_PerformedByHand;
         private bool m_RequestForAdditionalReport;
+        private bool m_HasWetProtocol;
 
+        protected Stain m_FirstStain;
+        protected Stain m_SecondStain;
+        protected string m_DepricatedFirstStainId;
+        protected string m_DepricatedSecondStainId;
 
         public Stain() { }
 
@@ -36,6 +51,14 @@ namespace YellowstonePathology.Business.Stain.Model
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
+        }
+
+        public string ToJSON()
+        {
+            var camelCaseFormatter = new JsonSerializerSettings();
+            camelCaseFormatter.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            string result = JsonConvert.SerializeObject(this, Formatting.Indented, camelCaseFormatter);
+            return result;
         }
 
         public string StainId
@@ -151,6 +174,110 @@ namespace YellowstonePathology.Business.Stain.Model
                 {
                     this.m_HistologyDisplayString = value;
                     this.NotifyPropertyChanged("HistologyDisplayString");
+                }
+            }
+        }
+
+        public string StainerType
+        {
+            get { return this.m_StainerType; }
+            set
+            {
+                if (this.m_StainerType != value)
+                {
+                    this.m_StainerType = value;
+                    this.NotifyPropertyChanged("StainerType");
+                }
+            }
+        }
+
+        public string VentanaBenchMarkProtocolName
+        {
+            get { return this.m_VentanaBenchMarkProtocolName; }
+            set
+            {
+                if (this.m_VentanaBenchMarkProtocolName != value)
+                {
+                    this.m_VentanaBenchMarkProtocolName = value;
+                    this.NotifyPropertyChanged("VentanaBenchMarkProtocolName");
+                }
+            }
+        }
+
+        public string CPTCode
+        {
+            get { return this.m_CPTCode; }
+            set
+            {
+                if (this.m_CPTCode != value)
+                {
+                    this.m_CPTCode = value;
+                    this.NotifyPropertyChanged("CPTCode");
+                }
+            }
+        }
+
+        public string SubsequentCPTCode
+        {
+            get { return this.m_SubsequentCPTCode; }
+            set
+            {
+                if (this.m_SubsequentCPTCode != value)
+                {
+                    this.m_SubsequentCPTCode = value;
+                    this.NotifyPropertyChanged("SubsequentCPTCode");
+                }
+            }
+        }
+
+        public string GCode
+        {
+            get { return this.m_GCode; }
+            set
+            {
+                if (this.m_GCode != value)
+                {
+                    this.m_GCode = value;
+                    this.NotifyPropertyChanged("GCode");
+                }
+            }
+        }
+
+        public string VentanaBenchMarkWetProtocolName
+        {
+            get { return this.m_VentanaBenchMarkWetProtocolName; }
+            set
+            {
+                if (this.m_VentanaBenchMarkWetProtocolName != value)
+                {
+                    this.m_VentanaBenchMarkWetProtocolName = value;
+                    this.NotifyPropertyChanged("VentanaBenchMarkWetProtocolName");
+                }
+            }
+        }
+
+        public int VentanaBenchMarkId
+        {
+            get { return this.m_VentanaBenchMarkId; }
+            set
+            {
+                if (this.m_VentanaBenchMarkId != value)
+                {
+                    this.m_VentanaBenchMarkId = value;
+                    this.NotifyPropertyChanged("VentanaBenchMarkId");
+                }
+            }
+        }
+
+        public int? VentanaBenchMarkWetId
+        {
+            get { return this.m_VentanaBenchMarkWetId; }
+            set
+            {
+                if (this.m_VentanaBenchMarkWetId != value)
+                {
+                    this.m_VentanaBenchMarkWetId = value;
+                    this.NotifyPropertyChanged("VentanaBenchMarkWetId");
                 }
             }
         }
@@ -284,5 +411,74 @@ namespace YellowstonePathology.Business.Stain.Model
                 }
             }
         }
+
+        public bool HasWetProtocol
+        {
+            get { return this.m_HasWetProtocol; }
+            set
+            {
+                if (this.m_HasWetProtocol != value)
+                {
+                    this.m_HasWetProtocol = value;
+                    this.NotifyPropertyChanged("HasWetProtocol");
+                }
+            }
+        }
+
+
+
+
+        public Stain FirstStain
+        {
+            get { return this.m_FirstStain; }
+            set
+            {
+                if (this.m_FirstStain != value)
+                {
+                    this.m_FirstStain = value;
+                    this.NotifyPropertyChanged("FirstStain");
+                }
+            }
+        }
+
+        public Stain SecondStain
+        {
+            get { return this.m_SecondStain; }
+            set
+            {
+                if (this.m_SecondStain != value)
+                {
+                    this.m_SecondStain = value;
+                    this.NotifyPropertyChanged("SecondStain");
+                }
+            }
+        }
+
+        public string DepricatedFirstStainId
+        {
+            get { return this.m_DepricatedFirstStainId; }
+            set
+            {
+                if (this.m_DepricatedFirstStainId != value)
+                {
+                    this.m_DepricatedFirstStainId = value;
+                    this.NotifyPropertyChanged("DepricatedFirstStainId");
+                }
+            }
+        }
+
+        public string DepricatedSecondStainId
+        {
+            get { return this.m_DepricatedSecondStainId; }
+            set
+            {
+                if (this.m_DepricatedSecondStainId != value)
+                {
+                    this.m_DepricatedSecondStainId = value;
+                    this.NotifyPropertyChanged("DepricatedSecondStainId");
+                }
+            }
+        }
+
     }
 }

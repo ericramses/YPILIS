@@ -19,10 +19,10 @@ namespace YellowstonePathology.Business.Billing.Model
         {
             this.m_StainSpecimenCollection = StainSpecimenCollection.GetCollection(accessionOrder, reportNo);
 
-            this.m_IhcTestCollection = YellowstonePathology.Business.Test.Model.TestCollection.GetIHCTests();
-            this.m_GradedTestCollection = YellowstonePathology.Business.Test.Model.TestCollection.GetGradedTests();
-            this.m_CytochemicalTestCollection = YellowstonePathology.Business.Test.Model.TestCollection.GetCytochemicalTests();
-            this.m_CytochemicalForMicroorganismsTestCollection = YellowstonePathology.Business.Test.Model.TestCollection.GetCytochemicalForMicroorganismsTests();            
+            this.m_IhcTestCollection = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetIHCTests();
+            this.m_GradedTestCollection = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetGradedTests();
+            this.m_CytochemicalTestCollection = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetCytochemicalTests();
+            this.m_CytochemicalForMicroorganismsTestCollection = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetCytochemicalForMicroorganismsTests();            
         }                       
 
         public override void PostGlobal(string billTo, string billBy)
@@ -216,12 +216,11 @@ namespace YellowstonePathology.Business.Billing.Model
 			{
                 this.SetERPRPQRSCodes();
 
-				YellowstonePathology.Business.Test.Model.TestCollection testCollection = YellowstonePathology.Business.Test.Model.TestCollection.GetAllTests(false);
 				foreach (StainSpecimen stainSpecimen in this.m_StainSpecimenCollection)
 				{
 					foreach (YellowstonePathology.Business.Test.Model.TestOrder testOrder in stainSpecimen.TestOrderCollection)
 					{						
-						YellowstonePathology.Business.Test.Model.Test test = testCollection.GetTest(testOrder.TestId);
+						YellowstonePathology.Business.Test.Model.Test test = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetTest(testOrder.TestId);
 						if (test.IsBillable == true)
 						{
 							if (this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.SystemGeneratedReferenceIdExists(testOrder.TestOrderId) == false)

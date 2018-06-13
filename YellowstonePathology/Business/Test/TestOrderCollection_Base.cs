@@ -104,7 +104,7 @@ namespace YellowstonePathology.Business.Test.Model
         public int GetBillableCytochemicalStainCount()
         {
             int result = 0;
-            YellowstonePathology.Business.Test.Model.TestCollection cytochemicalTestCollection = YellowstonePathology.Business.Test.Model.TestCollection.GetCytochemicalTests();
+            YellowstonePathology.Business.Test.Model.TestCollection cytochemicalTestCollection = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetCytochemicalTests();
             foreach (YellowstonePathology.Business.Test.Model.TestOrder testOrder in this)
             {
                 if (testOrder.NoCharge == false)
@@ -121,7 +121,7 @@ namespace YellowstonePathology.Business.Test.Model
         public int GetCytochemicalForMicroorganismsStainCount()
         {
             int result = 0;
-            YellowstonePathology.Business.Test.Model.TestCollection cytochemicalForMicroorganismsTestCollection = YellowstonePathology.Business.Test.Model.TestCollection.GetCytochemicalForMicroorganismsTests();
+            YellowstonePathology.Business.Test.Model.TestCollection cytochemicalForMicroorganismsTestCollection = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetCytochemicalForMicroorganismsTests();
             foreach (YellowstonePathology.Business.Test.Model.TestOrder testOrder in this)
             {
                 if (testOrder.NoCharge == false)
@@ -138,7 +138,7 @@ namespace YellowstonePathology.Business.Test.Model
         public int GetBillableGradeStainCount(bool includeOrderedAsDual)
         {
             int result = 0;
-            YellowstonePathology.Business.Test.Model.TestCollection gradedTestCollection = YellowstonePathology.Business.Test.Model.TestCollection.GetGradedTests();
+            YellowstonePathology.Business.Test.Model.TestCollection gradedTestCollection = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetGradedTests();
 
             foreach (YellowstonePathology.Business.Test.Model.TestOrder testOrder in this)
             {

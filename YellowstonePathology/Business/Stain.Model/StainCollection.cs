@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Serialization;
+using System.Linq;
 
 namespace YellowstonePathology.Business.Stain.Model
 {
@@ -9,7 +10,7 @@ namespace YellowstonePathology.Business.Stain.Model
     {
         private static StainCollection instance;
 
-        StainCollection() { }
+        public StainCollection() { }
 
         public static StainCollection Instance
         {
@@ -23,6 +24,38 @@ namespace YellowstonePathology.Business.Stain.Model
             }
         }
 
+        public bool Exists(string stainId)
+        {
+            Stain stain = this.FirstOrDefault(s => s.StainId == stainId);
+            return stain != null ? true : false;
+        }
+
+        public Stain GetStain(string stainId)
+        {
+            Stain result = this.FirstOrDefault(s => s.StainId == stainId);
+            return result;
+        }
+
+        public bool ExistsByTestid(string testId)
+        {
+            Stain stain = this.FirstOrDefault(s => s.TestId == testId);
+            return stain != null ? true : false;
+        }
+
+        public Stain GetStainByTestId(string testId)
+        {
+            Stain result = this.FirstOrDefault(s => s.TestId == testId);
+            return result;
+        }
+
+        public string ToJSON()
+        {
+            var camelCaseFormatter = new JsonSerializerSettings();
+            camelCaseFormatter.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            string result = JsonConvert.SerializeObject(this, Formatting.Indented, camelCaseFormatter);
+            return result;
+        }
+
         private static StainCollection LoadFromRedis()
         {
             StainCollection result = new Model.StainCollection();
@@ -30,9 +63,29 @@ namespace YellowstonePathology.Business.Stain.Model
             foreach (string jString in stainDb.GetAllJSONKeys())
             {
                 Stain stain = JsonStainFactory.FromJson(jString);
+                if(stain.IsDualOrder == true)
+                {
+                    int a = 1;
+                }
                 result.Add(stain);
             }
             return result;
+        }
+
+        public static void SetInRedis(Stain stain)
+        {
+            Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.Stain).DataBase.Execute("json.set", new string[] { stain.StainId, ".", stain.ToJSON() });
+
+        }
+
+        public void DeleteStain(Stain stain)
+        {
+
+        }
+
+        public static void Reload()
+        {
+            instance = null;
         }
     }
 }

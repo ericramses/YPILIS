@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using YellowstonePathology.Business.Billing.Model;
+using YellowstonePathology.Business.Persistence;
 
 namespace YellowstonePathology.Business.Test.Model
 {
@@ -16,27 +17,43 @@ namespace YellowstonePathology.Business.Test.Model
         public DualStain()
         {
             
-        }        
-
-		public Test FirstTest
-        {
-            get { return this.m_FirstTest; }            
         }
 
-		public Test SecondTest
+        public DualStain(Test firstTest, Test secondTest, string depricatedFirstTestId, string depricatedSecondTestId)
+        {
+            this.m_FirstTest = firstTest;
+            this.m_SecondTest = secondTest;
+            this.m_DepricatedFirstTestId = depricatedFirstTestId;
+            this.m_DepricatedSecondTestId = depricatedSecondTestId;
+        }
+
+        [PersistentProperty()]
+        public Test FirstTest
+        {
+            get { return this.m_FirstTest; }
+            set { this.m_FirstTest = value; }
+        }
+
+        [PersistentProperty()]
+        public Test SecondTest
         {
             get { return this.m_SecondTest; }
-        }        
+            set { this.m_SecondTest = value; }
+        }
 
-		public string DepricatedFirstTestId
+        [PersistentProperty()]
+        public string DepricatedFirstTestId
 		{
 			get { return this.m_DepricatedFirstTestId; }
+            set { this.m_DepricatedFirstTestId = value; }
 		}
 
-		public string DepricatedSecondTestId
+        [PersistentProperty()]
+        public string DepricatedSecondTestId
 		{
 			get { return this.m_DepricatedSecondTestId; }
-		}
+            set { this.m_DepricatedSecondTestId = value; }
+        }
 
         public override CptCode GetGradedCptCode(bool isTechnicalOnly)
         {

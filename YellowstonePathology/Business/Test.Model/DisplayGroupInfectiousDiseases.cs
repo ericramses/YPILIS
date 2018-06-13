@@ -11,8 +11,8 @@ namespace YellowstonePathology.Business.Test.Model
         {
             this.m_GroupName = "Infectious Diseases";
             
-            this.m_List.Add(new HelicobacterPylori());
-            this.m_List.Add(new CytomegaloVirus());            
+            this.m_List.Add((ImmunoHistochemistryTest)YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetTest("107")); // HelicobacterPylori());
+            this.m_List.Add((ImmunoHistochemistryTest)YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetTest("350")); // CytomegaloVirus());            
         }
     }
 }

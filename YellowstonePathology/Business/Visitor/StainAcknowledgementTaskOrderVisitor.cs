@@ -148,13 +148,12 @@ namespace YellowstonePathology.Business.Visitor
 
         public void SetTestOrdersAddedComment()
         {
-            YellowstonePathology.Business.Test.Model.TestCollection allTests = YellowstonePathology.Business.Test.Model.TestCollection.GetAllTests(false);            
             StringBuilder taskOrderDetailDescription = new StringBuilder();
             taskOrderDetailDescription.AppendLine("The following stains have been ordered:");
 
             foreach (YellowstonePathology.Business.Test.Model.TestOrder testOrder in this.m_AddedTestOrderCollection)
             {
-                YellowstonePathology.Business.Test.Model.Test test = allTests.GetTest(testOrder.TestId);
+                YellowstonePathology.Business.Test.Model.Test test = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetTest(testOrder.TestId);
                 if (test.NeedsAcknowledgement == true)
                 {
                     taskOrderDetailDescription.AppendLine(testOrder.DisplayString);
@@ -167,13 +166,12 @@ namespace YellowstonePathology.Business.Visitor
 
         public void SetTestOrdersCancelledComment()
         {
-            YellowstonePathology.Business.Test.Model.TestCollection allTests = YellowstonePathology.Business.Test.Model.TestCollection.GetAllTests(false);
             StringBuilder taskOrderDetailDescription = new StringBuilder();            
             taskOrderDetailDescription.AppendLine("The following stains have been cancelled:");
 
             foreach (YellowstonePathology.Business.Test.Model.TestOrder testOrder in this.m_CancelledTestOrderCollection)
             {
-                YellowstonePathology.Business.Test.Model.Test test = allTests.GetTest(testOrder.TestId);
+                YellowstonePathology.Business.Test.Model.Test test = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetTest(testOrder.TestId);
                 if (test.NeedsAcknowledgement == true)
                 {
                     taskOrderDetailDescription.AppendLine(testOrder.DisplayString);
