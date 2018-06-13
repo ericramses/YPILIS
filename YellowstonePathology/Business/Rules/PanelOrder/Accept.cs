@@ -15,11 +15,9 @@ namespace YellowstonePathology.Business.Rules.PanelOrder
         protected YellowstonePathology.Business.Rules.Rule m_Rule;
 		protected YellowstonePathology.Business.User.SystemUser m_OrderingUser;
         protected YellowstonePathology.Business.User.SystemUser m_AcceptingUser;		
-		protected YellowstonePathology.Business.Test.Model.TestCollection m_TestCollection;
 
 		public Accept()
         {			
-			this.m_TestCollection = YellowstonePathology.Business.Test.Model.TestCollection.GetAllTests(false);
 			this.m_Rule = new YellowstonePathology.Business.Rules.Rule();
 
             this.m_Rule.ActionList.Add(DoesUserHavePermission);
