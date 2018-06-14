@@ -220,7 +220,7 @@ namespace YellowstonePathology.Business.Billing.Model
 				{
 					foreach (YellowstonePathology.Business.Test.Model.TestOrder testOrder in stainSpecimen.TestOrderCollection)
 					{						
-						YellowstonePathology.Business.Test.Model.Test test = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetTest(testOrder.TestId);
+						YellowstonePathology.Business.Test.Model.Test test = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone(testOrder.TestId);
 						if (test.IsBillable == true)
 						{
 							if (this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.SystemGeneratedReferenceIdExists(testOrder.TestOrderId) == false)

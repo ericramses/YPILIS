@@ -60,7 +60,7 @@ namespace YellowstonePathology.UI.Common
                     if (element.Element("Order").Value == "True")
                     {                        
                         string testId = element.Element("Id").Value;
-                        YellowstonePathology.Business.Test.Model.Test test = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetTest(testId);
+                        YellowstonePathology.Business.Test.Model.Test test = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone(testId);
                         string testOrderComment = element.Element("Comment").Value;
                         test.OrderComment = testOrderComment;
                         result.Add(test);

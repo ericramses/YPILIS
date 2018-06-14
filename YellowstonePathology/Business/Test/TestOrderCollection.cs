@@ -248,7 +248,7 @@ namespace YellowstonePathology.Business.Test.Model
             bool result = false;
             foreach (TestOrder testOrder in this)
             {
-                YellowstonePathology.Business.Test.Model.Test test = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetTest(testOrder.TestId);
+                YellowstonePathology.Business.Test.Model.Test test = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone(testOrder.TestId);
                 if (test.NeedsAcknowledgement == true)
                 {
                     result = true;
