@@ -17,7 +17,12 @@ namespace YellowstonePathology.Business.Test.Model
             : base(testId, testName)
         {
             this.m_IsBillable = true;            
-        }        
+        }
+
+        public CytochemicalTest(Stain.Model.Stain stain)
+            : base(stain)
+        {
+        }
 
         public override YellowstonePathology.Business.Billing.Model.CptCode GetCptCode(bool isTechnicalOnly)
         {

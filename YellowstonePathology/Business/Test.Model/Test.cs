@@ -20,7 +20,6 @@ namespace YellowstonePathology.Business.Test.Model
         protected bool m_IsBillable;
         protected bool m_HasGCode;
         protected bool m_HasCptCodeLevels;
-        //protected string m_OrderedOn;
         protected bool m_IsDualOrder;        
 
         protected string m_TestId;
@@ -44,8 +43,30 @@ namespace YellowstonePathology.Business.Test.Model
 
         public Test(string testId, string testName)
         {
+            this.m_ResultItemCollection = new YellowstonePathology.Test.Model.ResultItemCollection();
             this.m_TestId = testId;
             this.m_TestName = testName;
+        }
+
+        public Test(Stain.Model.Stain stain)
+        {
+            this.m_ResultItemCollection = new YellowstonePathology.Test.Model.ResultItemCollection();
+            this.m_OrderComment = stain.OrderComment;
+            this.m_IsBillable = stain.IsBillable;
+            this.m_HasGCode = stain.HasGCode;
+            this.m_HasCptCodeLevels = stain.HasCptCodeLevels;
+            this.m_IsDualOrder = stain.IsDualOrder;
+            this.m_TestId = stain.TestId;
+            this.m_TestName = stain.StainName;
+            this.m_TestAbbreviation = stain.StainAbbreviation;
+            this.m_Active = stain.Active;
+            this.m_StainResultGroupId = stain.StainResultGroupId;
+            this.m_AliquotType = stain.AliquotType;
+            this.m_NeedsAcknowledgement = stain.NeedsAcknowledgement;
+            this.m_DefaultResult = stain.DefaultResult;
+            this.m_RequestForAdditionalReport = stain.RequestForAdditionalReport;
+            this.m_UseWetProtocol = stain.UseWetProtocol;
+            this.m_PerformedByHand = stain.PerformedByHand;
         }
 
 

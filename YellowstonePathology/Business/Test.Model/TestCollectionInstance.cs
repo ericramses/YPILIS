@@ -30,7 +30,7 @@ namespace YellowstonePathology.Business.Test.Model
             }
         }
 
-        public static Test GetTest(string testId)
+        public static Test GetClone(string testId)
         {
             Test result = null;
             Test test = TestCollectionInstance.Instance.FirstOrDefault(t => t.TestId == testId);
@@ -52,7 +52,7 @@ namespace YellowstonePathology.Business.Test.Model
             if (wetIron.TestName.ToUpper().Substring(0, 1) == firstLetter.ToUpper()) tests.Add(wetIron);
             foreach (Test test in TestCollectionInstance.Instance)
             {
-                if (test.TestName.ToUpper().Substring(0, 1) == firstLetter.ToUpper()) tests.Add(TestCollectionInstance.GetTest(test.TestId));
+                if (test.TestName.ToUpper().Substring(0, 1) == firstLetter.ToUpper()) tests.Add(TestCollectionInstance.GetClone(test.TestId));
             }
 
             tests.Sort(Test.CompareByTestName);
@@ -153,7 +153,35 @@ namespace YellowstonePathology.Business.Test.Model
 
             foreach (Stain.Model.Stain stain in Stain.Model.StainCollection.Instance)
             {
-                Test test = Stain.Model.TestFactory.CreateTestFromStain(stain);
+                Test test = null;
+                switch (stain.StainType)
+                {
+                    case "IHC":
+                        {
+                            test = new ImmunoHistochemistryTest(stain);
+                            break;
+                        }
+                    case "CytochemicalStain":
+                        {
+                            test = new CytochemicalTest(stain);
+                            break;
+                        }
+                    case "CytochemicalForMicroorganisms":
+                        {
+                            test = new CytochemicalForMicroorganisms(stain);
+                            break;
+                        }
+                    case "GradedStain":
+                        {
+                            test = new GradedTest(stain);
+                            break;
+                        }
+                    case "DualStain":
+                        {
+                            test = new DualStain(stain);
+                            break;
+                        }
+                }
                 result.Add(test);
             }
             return result;
@@ -213,7 +241,7 @@ namespace YellowstonePathology.Business.Test.Model
 
         public static Test GetWetIron()
         {
-            Test wetIron = TestCollectionInstance.GetTest("115");
+            Test wetIron = TestCollectionInstance.GetClone("115");
             wetIron.UseWetProtocol = true;
             return wetIron;
         }

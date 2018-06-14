@@ -153,7 +153,7 @@ namespace YellowstonePathology.Business.Visitor
 
             foreach (YellowstonePathology.Business.Test.Model.TestOrder testOrder in this.m_AddedTestOrderCollection)
             {
-                YellowstonePathology.Business.Test.Model.Test test = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetTest(testOrder.TestId);
+                YellowstonePathology.Business.Test.Model.Test test = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone(testOrder.TestId);
                 if (test.NeedsAcknowledgement == true)
                 {
                     taskOrderDetailDescription.AppendLine(testOrder.DisplayString);
@@ -171,7 +171,7 @@ namespace YellowstonePathology.Business.Visitor
 
             foreach (YellowstonePathology.Business.Test.Model.TestOrder testOrder in this.m_CancelledTestOrderCollection)
             {
-                YellowstonePathology.Business.Test.Model.Test test = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetTest(testOrder.TestId);
+                YellowstonePathology.Business.Test.Model.Test test = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone(testOrder.TestId);
                 if (test.NeedsAcknowledgement == true)
                 {
                     taskOrderDetailDescription.AppendLine(testOrder.DisplayString);

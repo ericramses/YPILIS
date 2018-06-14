@@ -22,6 +22,11 @@ namespace YellowstonePathology.Business.Test.Model
             this.m_HasCptCodeLevels = false;
         }
 
+        public GradedTest(Stain.Model.Stain stain)
+            : base(stain)
+        {
+        }
+
         public override YellowstonePathology.Business.Billing.Model.CptCode GetCptCode(bool isTechnicalOnly)
         {
             return Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88360", null);

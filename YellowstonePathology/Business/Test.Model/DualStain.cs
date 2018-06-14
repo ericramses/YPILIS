@@ -19,12 +19,63 @@ namespace YellowstonePathology.Business.Test.Model
             
         }
 
-        public DualStain(Test firstTest, Test secondTest, string depricatedFirstTestId, string depricatedSecondTestId)
+        public DualStain(Stain.Model.Stain stain)
+            : base(stain)
         {
-            this.m_FirstTest = firstTest;
-            this.m_SecondTest = secondTest;
-            this.m_DepricatedFirstTestId = depricatedFirstTestId;
-            this.m_DepricatedSecondTestId = depricatedSecondTestId;
+            this.m_DepricatedFirstTestId = stain.DepricatedFirstStainId;
+            this.m_DepricatedSecondTestId = stain.DepricatedSecondStainId;
+            switch (stain.FirstStain.StainType)
+            {
+                case "IHC":
+                    {
+                        this.m_FirstTest = new ImmunoHistochemistryTest(stain);
+                        break;
+                    }
+                case "CytochemicalStain":
+                    {
+                        this.m_FirstTest = new CytochemicalTest(stain);
+                        break;
+                    }
+                case "CytochemicalForMicroorganisms":
+                    {
+                        this.m_FirstTest = new CytochemicalForMicroorganisms(stain);
+                        break;
+                    }
+                case "GradedStain":
+                    {
+                        this.m_FirstTest = new GradedTest(stain);
+                        break;
+                    }
+                case "DualStain":
+                    {
+                        this.m_FirstTest = new DualStain(stain);
+                        break;
+                    }
+            }
+
+            switch (stain.SecondStain.StainType)
+            {
+                case "IHC":
+                    {
+                        this.m_SecondTest = new ImmunoHistochemistryTest(stain);
+                        break;
+                    }
+                case "CytochemicalStain":
+                    {
+                        this.m_SecondTest = new CytochemicalTest(stain);
+                        break;
+                    }
+                case "CytochemicalForMicroorganisms":
+                    {
+                        this.m_SecondTest = new CytochemicalForMicroorganisms(stain);
+                        break;
+                    }
+                case "GradedStain":
+                    {
+                        this.m_SecondTest = new GradedTest(stain);
+                        break;
+                    }
+            }
         }
 
         [PersistentProperty()]
