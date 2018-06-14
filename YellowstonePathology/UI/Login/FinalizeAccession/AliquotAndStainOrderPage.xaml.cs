@@ -268,54 +268,54 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
         private void ButtonOrderHEWithSlide_Click(object sender, RoutedEventArgs e)
         {
-            this.Test = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetTest("49"); //H&E            
+            this.Test = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone("49"); //H&E            
         }   
 
         private void ButtonOrderHEBlock_Click(object sender, RoutedEventArgs e)
         {
-            this.Test = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetTest("49"); //H&E
+            this.Test = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone("49"); //H&E
             this.Aliquot = new YellowstonePathology.Business.Specimen.Model.Block(YellowstonePathology.Business.Specimen.Model.AliquotLabelType.DirectPrint);            
         }
 
         private void ButtonAddHESlide_Click(object sender, RoutedEventArgs e)
         {
-            this.Test = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetTest("49"); //H&E
+            this.Test = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone("49"); //H&E
             this.Aliquot = new YellowstonePathology.Business.Specimen.Model.Block(YellowstonePathology.Business.Specimen.Model.AliquotLabelType.DirectPrint);            
         }
 
         private void ButtonOrderHEBlockPaperLabel_Click(object sender, RoutedEventArgs e)
         {
-            this.Test = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetTest("49"); //H&E
+            this.Test = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone("49"); //H&E
             this.Aliquot = new YellowstonePathology.Business.Specimen.Model.Block(YellowstonePathology.Business.Specimen.Model.AliquotLabelType.PaperLabel);            
         }        
 
 		private void ButtonOrderFrozenBlock_Click(object sender, RoutedEventArgs e)
 		{
-            this.Test = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetTest("45"); //Intraoperative Consultation with Frozen
+            this.Test = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone("45"); //Intraoperative Consultation with Frozen
             this.Aliquot = new YellowstonePathology.Business.Specimen.Model.FrozenBlock(YellowstonePathology.Business.Specimen.Model.AliquotLabelType.DirectPrint);            
 		}
 
 		private void ButtonOrderHECellBlock_Click(object sender, RoutedEventArgs e)
 		{
-            this.Test = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetTest("49"); //Cell Block
+            this.Test = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone("49"); //Cell Block
             this.Aliquot = new YellowstonePathology.Business.Specimen.Model.CellBlock(YellowstonePathology.Business.Specimen.Model.AliquotLabelType.DirectPrint);            
 		}
 
 		private void ButtonOrderGrossOnlySpecimen_Click(object sender, RoutedEventArgs e)
 		{
-            this.Test = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetTest("48"); //Gross Only
+            this.Test = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone("48"); //Gross Only
             this.Aliquot = new YellowstonePathology.Business.Specimen.Model.SpecimenAliquot(YellowstonePathology.Business.Specimen.Model.AliquotLabelType.PaperLabel);            
 		}
 
 		private void ButtonOrderhPyloriBlock_Click(object sender, RoutedEventArgs e)
 		{
-            this.Test = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetTest("107"); //Helicobacter pylori			
+            this.Test = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone("107"); //Helicobacter pylori			
             this.Aliquot = new YellowstonePathology.Business.Specimen.Model.Block(YellowstonePathology.Business.Specimen.Model.AliquotLabelType.DirectPrint);            
 		}
 
 		private void ButtonOrderIronBlock_Click(object sender, RoutedEventArgs e)
 		{
-			Business.Test.Model.Test test = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetTest("115"); //Iron
+			Business.Test.Model.Test test = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone("115"); //Iron
             test.UseWetProtocol = true;
             this.Test = test;
             this.Aliquot = new YellowstonePathology.Business.Specimen.Model.Block(YellowstonePathology.Business.Specimen.Model.AliquotLabelType.DirectPrint);            
@@ -323,19 +323,19 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
 		private void ButtonOrderWrightsStainSlide_Click(object sender, RoutedEventArgs e)
 		{
-            this.Test = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetTest("205"); //Wrights Stain
+            this.Test = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone("205"); //Wrights Stain
             this.Aliquot = new YellowstonePathology.Business.Specimen.Model.Slide(YellowstonePathology.Business.Specimen.Model.AliquotLabelType.PaperLabel);            
 		}
         
 		private void ButtonOrderNonGynSlide_Click(object sender, RoutedEventArgs e)
 		{
-            this.Test = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetTest("206"); //NonGyn
+            this.Test = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone("206"); //NonGyn
             this.Aliquot = new YellowstonePathology.Business.Specimen.Model.Slide(YellowstonePathology.Business.Specimen.Model.AliquotLabelType.PaperLabel);            
 		}
 
 		private void ButtonOrderIronSlide_Click(object sender, RoutedEventArgs e)
 		{
-            Business.Test.Model.Test test = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetTest("115"); //Iron
+            Business.Test.Model.Test test = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone("115"); //Iron
             test.UseWetProtocol = true;
             this.Test = test;
             this.Aliquot = new YellowstonePathology.Business.Specimen.Model.Slide(YellowstonePathology.Business.Specimen.Model.AliquotLabelType.PaperLabel);            
@@ -562,7 +562,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 YellowstonePathology.Business.Visitor.RemoveTestOrderVisitor removeTestOrderVisitor = new Business.Visitor.RemoveTestOrderVisitor(testOrder.TestOrderId);
                 this.m_AccessionOrder.TakeATrip(removeTestOrderVisitor);
 
-				YellowstonePathology.Business.Test.Model.Test test = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetTest(testOrder.TestId);
+				YellowstonePathology.Business.Test.Model.Test test = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone(testOrder.TestId);
 				if (test.NeedsAcknowledgement == true)
 				{
 					this.m_StainAcknowledgementTaskOrderVisitor.RemoveTestOrder(testOrder);

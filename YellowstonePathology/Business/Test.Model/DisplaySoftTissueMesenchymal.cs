@@ -11,14 +11,14 @@ namespace YellowstonePathology.Business.Test.Model
         {
             this.m_GroupName = "Soft Tissue Mesenchymal";
 
-            this.m_List.Add((Business.Test.Model.ImmunoHistochemistryTest)YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetTest("164")); // Vimentin());            
-            this.m_List.Add((Business.Test.Model.ImmunoHistochemistryTest)YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetTest("153")); // SmoothMuscleActin());
-            this.m_List.Add((Business.Test.Model.ImmunoHistochemistryTest)YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetTest("92")); // Desmin());
+            this.m_List.Add((Business.Test.Model.ImmunoHistochemistryTest)YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone("164")); // Vimentin());            
+            this.m_List.Add((Business.Test.Model.ImmunoHistochemistryTest)YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone("153")); // SmoothMuscleActin());
+            this.m_List.Add((Business.Test.Model.ImmunoHistochemistryTest)YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone("92")); // Desmin());
             this.m_List.Add(new FactorVIII());
-            this.m_List.Add((Business.Test.Model.ImmunoHistochemistryTest)YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetTest("101")); // FactorXIIIa());
-            this.m_List.Add((Business.Test.Model.ImmunoHistochemistryTest)YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetTest("62")); // CD117());
-            this.m_List.Add((Business.Test.Model.ImmunoHistochemistryTest)YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetTest("298")); // DOG1());
-            this.m_List.Add((Business.Test.Model.ImmunoHistochemistryTest)YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetTest("299")); // BetaCatenin());            
+            this.m_List.Add((Business.Test.Model.ImmunoHistochemistryTest)YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone("101")); // FactorXIIIa());
+            this.m_List.Add((Business.Test.Model.ImmunoHistochemistryTest)YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone("62")); // CD117());
+            this.m_List.Add((Business.Test.Model.ImmunoHistochemistryTest)YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone("298")); // DOG1());
+            this.m_List.Add((Business.Test.Model.ImmunoHistochemistryTest)YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone("299")); // BetaCatenin());            
         }
     }
 }

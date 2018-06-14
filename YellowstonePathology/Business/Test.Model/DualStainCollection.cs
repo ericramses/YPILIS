@@ -80,12 +80,12 @@ namespace YellowstonePathology.Business.Test.Model
             DualStainCollection result = new DualStainCollection();
 			List<DualStain> stainList = new List<DualStain>();
 
-            stainList.Add((DualStain)YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetTest("CD30CD20")); // CD3CD20DualStain());
-            stainList.Add((DualStain)YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetTest("PAX5CD5")); // PAX5CD5DualStain());
-			stainList.Add((DualStain)YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetTest("CK34P504RM")); // Cytokeratin34P504sRacemaseDualStain());
-			stainList.Add((DualStain)YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetTest("KI67MA")); // Ki67MelanADualStain());
-            stainList.Add((DualStain)YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetTest("OSCRSMM")); // OSCARSmoothMuscleMyosinDualStain());			
-            stainList.Add((DualStain)YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetTest("TTFNPSNA")); // TTF1NapsinADualStain());
+            stainList.Add((DualStain)YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone("CD30CD20")); // CD3CD20DualStain());
+            stainList.Add((DualStain)YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone("PAX5CD5")); // PAX5CD5DualStain());
+			stainList.Add((DualStain)YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone("CK34P504RM")); // Cytokeratin34P504sRacemaseDualStain());
+			stainList.Add((DualStain)YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone("KI67MA")); // Ki67MelanADualStain());
+            stainList.Add((DualStain)YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone("OSCRSMM")); // OSCARSmoothMuscleMyosinDualStain());			
+            stainList.Add((DualStain)YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone("TTFNPSNA")); // TTF1NapsinADualStain());
 
             stainList.Sort(DualStain.CompareByTestName);
 			foreach (DualStain stain in stainList)

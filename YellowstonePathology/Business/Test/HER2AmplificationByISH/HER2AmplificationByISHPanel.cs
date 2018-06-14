@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
             YellowstonePathology.Business.Test.Model.HandE handE = new Model.HandE();
             this.m_TestCollection.Add(handE);
 
-            YellowstonePathology.Business.Test.Model.Test her2DISH = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetTest("267"); // Model.HER2DISH();
+            YellowstonePathology.Business.Test.Model.Test her2DISH = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone("267"); // Model.HER2DISH();
             this.m_TestCollection.Add(her2DISH);
 
             YellowstonePathology.Business.Test.Model.UnstainedSlide unstainedSlide2 = new Model.UnstainedSlide();            

@@ -49,14 +49,15 @@ namespace YellowstonePathology.UI.Stain
 
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
-            StainEditDialog dialog = new StainEditDialog();
-            dialog.Accept += StainEditDialog_Accept;
-            dialog.ShowDialog();
+            //StainEditDialog dialog = new StainEditDialog();
+            //dialog.Accept += StainEditDialog_Accept;
+            //dialog.ShowDialog();
+            MessageBox.Show("Not implemented", "Hmmm", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void MenuItemDeleteStain_Click(object sender, RoutedEventArgs e)
         {
-            if (this.ListViewStains.SelectedItems.Count != 0)
+            /*if (this.ListViewStains.SelectedItems.Count != 0)
             {
                 foreach (YellowstonePathology.Business.Stain.Model.Stain stain in this.ListViewStains.SelectedItems)
                 {
@@ -65,7 +66,8 @@ namespace YellowstonePathology.UI.Stain
 
                 Business.Stain.Model.StainCollection.Reload();
                 this.NotifyPropertyChanged("StainCollection");
-            }
+            }*/
+            MessageBox.Show("Not implemented", "Hmmm", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         public void NotifyPropertyChanged(String info)
