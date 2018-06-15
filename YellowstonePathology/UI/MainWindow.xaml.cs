@@ -949,12 +949,6 @@ namespace YellowstonePathology.UI
             dialog.Show();
         }
 
-        private void MenuItemVentanaStainMapping_Click(object sender, RoutedEventArgs e)
-        {
-            VentanaStainMappingDialog dialog = new UI.VentanaStainMappingDialog();
-            dialog.Show();
-        }
-
         private void MenuItemSimulateVantageScan_Click(object sender, RoutedEventArgs e)
         {
             string key = YellowstonePathology.Business.BarcodeScanning.VantageBarcode.SimulateScan();

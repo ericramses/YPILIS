@@ -328,22 +328,6 @@ namespace YellowstonePathology.Business.Persistence
             }
         }
 
-        public YellowstonePathology.Business.Surgical.VentanaBenchMark PullVentanaBenchMark(string ventanaBenchMarkId, object writer)
-        {
-            lock (locker)
-            {
-                MySqlCommand cmd = new MySqlCommand();
-                cmd.CommandText = "Select * from tblVentanaBenchMark m where m.VentanaBenchMarkId = @VentanaBenchMarkId;";
-                cmd.CommandType = CommandType.Text;
-                cmd.Parameters.AddWithValue("@VentanaBenchMarkId", ventanaBenchMarkId);
-                GenericDocumentBuilder builder = new GenericDocumentBuilder(cmd, typeof(YellowstonePathology.Business.Surgical.VentanaBenchMark));
-
-                DocumentId documentId = new DocumentId(typeof(YellowstonePathology.Business.Surgical.VentanaBenchMark), writer, ventanaBenchMarkId);
-                Document document = this.m_Stack.Pull(documentId, builder);
-                return (YellowstonePathology.Business.Surgical.VentanaBenchMark)document.Value;
-            }
-        }
-
         public YellowstonePathology.Business.Facility.Model.Facility PullFacility(string facilityId, object writer)
         {
             lock (locker)

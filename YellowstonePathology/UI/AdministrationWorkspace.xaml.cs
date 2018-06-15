@@ -90,9 +90,14 @@ namespace YellowstonePathology.UI
 
         private void ButtonStains_Click(object sender, RoutedEventArgs e)
         {
-            //Business.Stain.Model.VentataStainsJsonCreator stainCreator = new Business.Stain.Model.VentataStainsJsonCreator();
-            //stainCreator.CreateStains();
-            //MessageBox.Show("Done");
+            YellowstonePathology.Business.Test.AccessionOrder ao = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder("18-15876", this);
+            YellowstonePathology.Business.Test.PanelSetOrder pso = ao.PanelSetOrderCollection.GetPanelSetOrder(13);
+            YellowstonePathology.Business.Test.AliquotOrder alo = ao.SpecimenOrderCollection.GetAliquotOrder("18-15876.1A");
+            YellowstonePathology.Business.Test.Model.TestOrderCollection tests = pso.GetTestOrderCollection("18-15876.1A");
+            YellowstonePathology.UI.Cutting.TestOrderPanelSetOrderViewCollection tov = new Cutting.TestOrderPanelSetOrderViewCollection(tests, ao);
+            tov.PrintLabels(ao, alo);
+
+            MessageBox.Show("Done");
         }
 
         private void ButtonBlocksSentNotReturned_Click(object sender, RoutedEventArgs e)

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Collections.ObjectModel;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
@@ -63,10 +64,6 @@ namespace YellowstonePathology.Business.Stain.Model
             foreach (string jString in stainDb.GetAllJSONKeys())
             {
                 Stain stain = JsonStainFactory.FromJson(jString);
-                if(stain.IsDualOrder == true)
-                {
-                    int a = 1;
-                }
                 result.Add(stain);
             }
             return result;
@@ -86,6 +83,17 @@ namespace YellowstonePathology.Business.Stain.Model
         public static void Reload()
         {
             instance = null;
+        }
+
+        public static string GetQuotedTestIds()
+        {
+            StringBuilder result = new StringBuilder();
+            foreach(Stain stain in Instance)
+            {
+                result.Append("'" + stain.TestId + "',");
+            }
+            result.Remove(result.Length - 1, 1);
+            return result.ToString();
         }
     }
 }
