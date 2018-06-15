@@ -90,14 +90,36 @@ namespace YellowstonePathology.UI
 
         private void ButtonStains_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Test.AccessionOrder ao = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder("18-15876", this);
-            YellowstonePathology.Business.Test.PanelSetOrder pso = ao.PanelSetOrderCollection.GetPanelSetOrder(13);
-            YellowstonePathology.Business.Test.AliquotOrder alo = ao.SpecimenOrderCollection.GetAliquotOrder("18-15876.1A");
-            YellowstonePathology.Business.Test.Model.TestOrderCollection tests = pso.GetTestOrderCollection("18-15876.1A");
-            YellowstonePathology.UI.Cutting.TestOrderPanelSetOrderViewCollection tov = new Cutting.TestOrderPanelSetOrderViewCollection(tests, ao);
-            tov.PrintLabels(ao, alo);
+            /*string[] filesNew = Directory.GetFiles(@"c:\StainTestNew");
+            string[] filesOld = Directory.GetFiles(@"c:\StainTestOld");
+            if(filesNew.Length != filesOld.Length)
+            {
+                MessageBox.Show("File Count not the same!");
+                return;
+            }
 
-            MessageBox.Show("Done");
+            foreach(string fileName in  filesOld)
+            {
+                string name = System.IO.Path.GetFileName(fileName);
+                string[] linesOld = File.ReadAllLines(@"c:\StainTestOld\" + name);
+                string[] linesNew = File.ReadAllLines(@"c:\StainTestNew\" + name);
+                if (linesOld.Length != linesNew.Length)
+                {
+                    MessageBox.Show("Line Count not the same! " + fileName);
+                    return;
+                }
+
+                for(int idx = 0; idx < linesNew.Length; idx++)
+                {
+                    if(linesNew[idx] != linesOld[idx])
+                    {
+                        MessageBox.Show("Mismatched Lines" + Environment.NewLine + linesNew[idx] + Environment.NewLine + linesOld[idx]);
+                        return;
+                    }
+                }
+            }
+
+            MessageBox.Show("Done");*/
         }
 
         private void ButtonBlocksSentNotReturned_Click(object sender, RoutedEventArgs e)

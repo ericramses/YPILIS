@@ -32,9 +32,7 @@ namespace YellowstonePathology.Business.HL7View
                             testOrder.TestStatusUpdateTime = DateTime.Now;
 
                             string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-                            //WHC TEST
-                            //System.IO.File.WriteAllText(@"\\10.1.2.31\ChannelData\Outgoing\Ventana\" + objectId + ".hl7", result);
-                            System.IO.File.WriteAllText(@"C:\StainTestNew\" + slideOrder.TestOrderId + ".hl7", result);
+                            System.IO.File.WriteAllText(@"\\10.1.2.31\ChannelData\Outgoing\Ventana\" + objectId + ".hl7", result);
                         }
                     }
                 }
@@ -45,10 +43,9 @@ namespace YellowstonePathology.Business.HL7View
                     testOrder.TestStatusUpdateTime = DateTime.Now;
                 }
 
-                //WHC TEST
-                //Business.Label.Model.ZPLPrinterUSB zplPrinterUSB = new Business.Label.Model.ZPLPrinterUSB();
-                //Business.Label.Model.HistologySlidePaperZPLLabelV1 zplCommand = new Label.Model.HistologySlidePaperZPLLabelV1(slideOrder.SlideOrderId, slideOrder.ReportNo, slideOrder.PatientFirstName, slideOrder.PatientLastName, slideOrder.TestAbbreviation, slideOrder.Label, slideOrder.AccessioningFacility, slideOrder.UseWetProtocol, slideOrder.PerformedByHand);
-                //zplPrinterUSB.Print(zplCommand);
+                Business.Label.Model.ZPLPrinterUSB zplPrinterUSB = new Business.Label.Model.ZPLPrinterUSB();
+                Business.Label.Model.HistologySlidePaperZPLLabelV1 zplCommand = new Label.Model.HistologySlidePaperZPLLabelV1(slideOrder.SlideOrderId, slideOrder.ReportNo, slideOrder.PatientFirstName, slideOrder.PatientLastName, slideOrder.TestAbbreviation, slideOrder.Label, slideOrder.AccessioningFacility, slideOrder.UseWetProtocol, slideOrder.PerformedByHand);
+                zplPrinterUSB.Print(zplCommand);
                 slideOrder.Printed = true;                
             }
         }
@@ -154,7 +151,7 @@ namespace YellowstonePathology.Business.HL7View
             obr.OrderType = "STAIN";
             obr.ObservationDateTime = DateTime.Now.ToString("yyyyMMddHHmm");
 
-            if(string.IsNullOrEmpty(specimenOrder.SpecimenId) == false)
+            if (string.IsNullOrEmpty(specimenOrder.SpecimenId) == false)
             {
                 obr.SpecimenName = specimenOrder.SpecimenId;
             }
