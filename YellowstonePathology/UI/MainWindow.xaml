@@ -55,7 +55,6 @@
                     <MenuItem Header="Embedding" Click="MenuItemEmbedding_Click" />
                     <MenuItem Header="Retrospective Reviews" Click="MenuItemRetrospectiveReviews_Click" />
                     <MenuItem Header="Stains" Click="MenuItemStains_Click" />
-                    <MenuItem Header="Ventana Stain Mapping" Click="MenuItemVentanaStainMapping_Click" />
                     <MenuItem Header="Stain Status" Click="MenuItemStainStatus_Click" />
                 </MenuItem>
 

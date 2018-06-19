@@ -39,7 +39,7 @@ namespace YellowstonePathology.UI.Cutting
                     
                     Business.HL7View.VentanaStainOrder ventanaStainOrder = new Business.HL7View.VentanaStainOrder();
                     ventanaStainOrder.HandleOrder(accessionOrder, addSlideOrderVisitor.NewSlideOrder);
-                }                
+                }
             }
         }
     }

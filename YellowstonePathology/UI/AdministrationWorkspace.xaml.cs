@@ -90,9 +90,36 @@ namespace YellowstonePathology.UI
 
         private void ButtonStains_Click(object sender, RoutedEventArgs e)
         {
-            //Business.Stain.Model.VentataStainsJsonCreator stainCreator = new Business.Stain.Model.VentataStainsJsonCreator();
-            //stainCreator.CreateStains();
-            //MessageBox.Show("Done");
+            /*string[] filesNew = Directory.GetFiles(@"c:\StainTestNew");
+            string[] filesOld = Directory.GetFiles(@"c:\StainTestOld");
+            if(filesNew.Length != filesOld.Length)
+            {
+                MessageBox.Show("File Count not the same!");
+                return;
+            }
+
+            foreach(string fileName in  filesOld)
+            {
+                string name = System.IO.Path.GetFileName(fileName);
+                string[] linesOld = File.ReadAllLines(@"c:\StainTestOld\" + name);
+                string[] linesNew = File.ReadAllLines(@"c:\StainTestNew\" + name);
+                if (linesOld.Length != linesNew.Length)
+                {
+                    MessageBox.Show("Line Count not the same! " + fileName);
+                    return;
+                }
+
+                for(int idx = 0; idx < linesNew.Length; idx++)
+                {
+                    if(linesNew[idx] != linesOld[idx])
+                    {
+                        MessageBox.Show("Mismatched Lines" + Environment.NewLine + linesNew[idx] + Environment.NewLine + linesOld[idx]);
+                        return;
+                    }
+                }
+            }
+
+            MessageBox.Show("Done");*/
         }
 
         private void ButtonBlocksSentNotReturned_Click(object sender, RoutedEventArgs e)

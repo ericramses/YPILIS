@@ -316,6 +316,9 @@ namespace YellowstonePathology.Business.PanelSet.Model
 
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.ShipMaterialTest());
 
+            //CHILDRENS HOSPITAL COLORADO
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.ChimerismStudyByDNAMarkers.ChimerismStudyByDNAMarkersTest());
+
             PanelSetCollection result = new PanelSetCollection();
             IEnumerable<PanelSet> enumerable = panelSetCollection.OrderBy(i => i.PanelSetName);
             foreach (PanelSet item in enumerable)

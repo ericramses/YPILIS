@@ -41,7 +41,7 @@ namespace YellowstonePathology.Business.HL7View
                     YellowstonePathology.Business.Test.Model.TestOrder testOrder = accessionOrder.PanelSetOrderCollection.GetTestOrderByTestOrderId(slideOrder.TestOrderId);
                     testOrder.TestStatus = "PERFORMEDBYHAND";
                     testOrder.TestStatusUpdateTime = DateTime.Now;
-                }                
+                }
 
                 Business.Label.Model.ZPLPrinterUSB zplPrinterUSB = new Business.Label.Model.ZPLPrinterUSB();
                 Business.Label.Model.HistologySlidePaperZPLLabelV1 zplCommand = new Label.Model.HistologySlidePaperZPLLabelV1(slideOrder.SlideOrderId, slideOrder.ReportNo, slideOrder.PatientFirstName, slideOrder.PatientLastName, slideOrder.TestAbbreviation, slideOrder.Label, slideOrder.AccessioningFacility, slideOrder.UseWetProtocol, slideOrder.PerformedByHand);
@@ -63,10 +63,19 @@ namespace YellowstonePathology.Business.HL7View
             Business.Slide.Model.SlideOrder slideOrder = aliquotOrder.SlideOrderCollection.GetSlideOrderByTestOrderId(testOrderId);
             Business.Specimen.Model.SpecimenOrder specimenOrder = accessionOrder.SpecimenOrderCollection.GetSpecimenOrderByAliquotOrderId(aliquotOrder.AliquotOrderId);
 
-            Business.Surgical.VentanaBenchMarkCollection ventanaBenchMarkCollection = Business.Gateway.AccessionOrderGateway.GetVentanaBenchMarkCollection();
-            Business.Surgical.VentanaBenchMark ventanaBenchMark = ventanaBenchMarkCollection.GetByYPITestId(testOrder.TestId.ToString(), slideOrder.UseWetProtocol);
-
-            if (ventanaBenchMark != null) result = true;
+            Business.Stain.Model.Stain stain = Business.Stain.Model.StainCollection.Instance.GetStainByTestId(testOrder.TestId);
+            if(stain != null)
+            {
+                result = true;
+                if(slideOrder.UseWetProtocol == true)
+                {
+                    result = false;
+                    if(stain.HasWetProtocol == true || stain.UseWetProtocol == true)
+                    {
+                        result = true;
+                    }
+                }
+            }
             return result;
         }
 
@@ -87,8 +96,17 @@ namespace YellowstonePathology.Business.HL7View
             Business.Slide.Model.SlideOrder slideOrder = aliquotOrder.SlideOrderCollection.Get(slideOrderId);
             Business.Specimen.Model.SpecimenOrder specimenOrder = accessionOrder.SpecimenOrderCollection.GetSpecimenOrderByAliquotOrderId(aliquotOrder.AliquotOrderId);
 
-            Business.Surgical.VentanaBenchMarkCollection ventanaBenchMarkCollection = Business.Gateway.AccessionOrderGateway.GetVentanaBenchMarkCollection();
-            Business.Surgical.VentanaBenchMark ventanaBenchMark = ventanaBenchMarkCollection.GetByYPITestId(testOrder.TestId.ToString(), slideOrder.UseWetProtocol);
+            Business.Stain.Model.Stain stain = Business.Stain.Model.StainCollection.Instance.GetStainByTestId(testOrder.TestId);
+            string ventanaBarcode = stain.VentanaBenchMarkId.ToString();
+            string ventanaProtocolName = stain.VentanaBenchMarkProtocolName;
+            if(slideOrder.UseWetProtocol == true)
+            {
+                if(stain.HasWetProtocol == true)
+                {
+                    ventanaBarcode = stain.VentanaBenchMarkWetId.ToString();
+                    ventanaProtocolName = stain.VentanaBenchMarkWetProtocolName;
+                }
+            }
 
             orderRequest.Msh = new Ventana.msh();
             orderRequest.Msh.SendingApplication = "YPILIS";
@@ -128,12 +146,12 @@ namespace YellowstonePathology.Business.HL7View
             Ventana.obr obr = new Ventana.obr();
             obr.OrderSequenceId = "1";
             obr.PlacerOrderNumber = accessionOrder.MasterAccessionNo;
-            obr.ProtocolNumber = ventanaBenchMark.BarcodeNumber.ToString();
-            obr.ProtocolName = ventanaBenchMark.StainName;
+            obr.ProtocolNumber = ventanaBarcode;
+            obr.ProtocolName = ventanaProtocolName;
             obr.OrderType = "STAIN";
             obr.ObservationDateTime = DateTime.Now.ToString("yyyyMMddHHmm");
 
-            if(string.IsNullOrEmpty(specimenOrder.SpecimenId) == false)
+            if (string.IsNullOrEmpty(specimenOrder.SpecimenId) == false)
             {
                 obr.SpecimenName = specimenOrder.SpecimenId;
             }
