@@ -14,21 +14,7 @@ namespace YellowstonePathology.Business.Test.Model
         public TestCollection()
         {
 
-        }
-
-        /*public bool HasTestRequiringAcknowledgement()
-        {
-            bool result = false;
-            foreach (YellowstonePathology.Business.Test.Model.Test test in this)
-            {
-                if (test.NeedsAcknowledgement == true)
-                {
-                    result = true;
-                    break;
-                }
-            }
-            return result;
-        }*/
+        }        
 
 		public Test GetTest(string testId)
         {

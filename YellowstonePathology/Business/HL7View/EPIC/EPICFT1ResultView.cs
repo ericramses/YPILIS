@@ -10,10 +10,7 @@ namespace YellowstonePathology.Business.HL7View.EPIC
     public class EPICFT1ResultView : IResultView
     {
         private Business.Test.AccessionOrder m_AccessionOrder;
-        private List<Business.Test.PanelSetOrderCPTCodeBill> m_PanelSetOrderCPTCodeBillList;
-
-        //private Business.Billing.Model.CptCode m_CptCode;
-        //private YellowstonePathology.Business.Domain.Physician m_OrderingPhysician;
+        private List<Business.Test.PanelSetOrderCPTCodeBill> m_PanelSetOrderCPTCodeBillList;        
 
         private bool m_Testing;
 
