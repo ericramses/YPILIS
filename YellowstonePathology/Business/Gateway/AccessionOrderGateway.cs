@@ -40,32 +40,6 @@ namespace YellowstonePathology.Business.Gateway
             return result;
         }
 
-        public static Business.Surgical.VentanaBenchMarkCollection GetVentanaBenchMarkCollection()
-        {
-            Business.Surgical.VentanaBenchMarkCollection result = new Surgical.VentanaBenchMarkCollection();
-            MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "Select * from tblVentanaBenchMark";                
-            cmd.CommandType = CommandType.Text;                        
-
-            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-            {
-                cn.Open();
-                cmd.Connection = cn;
-                using (MySqlDataReader dr = cmd.ExecuteReader())
-                {
-                    while (dr.Read())
-                    {
-                        Business.Surgical.VentanaBenchMark item = new Surgical.VentanaBenchMark();
-                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(item, dr);
-                        sqlDataReaderPropertyWriter.WriteProperties();
-                        result.Add(item);
-                    }
-                }
-            }
-
-            return result;
-        }
-
         public static Business.ReportNoCollection GetSurgicalFinal(DateTime finalDate)
         {
             Business.ReportNoCollection result = new ReportNoCollection();
@@ -3111,6 +3085,7 @@ namespace YellowstonePathology.Business.Gateway
         public static Test.Model.TestOrderStatusViewCollection GetTestOrderStatusViewCollection(DateTime orderDate, int pathologistId, string status)
         {
             Test.Model.TestOrderStatusViewCollection result = new Test.Model.TestOrderStatusViewCollection();
+            string testIdsClause =  "and ot.TestId in(" + Stain.Model.StainCollection.GetQuotedTestIds() + ")";
             string pathologistClause = pathologistId == -1 ? string.Empty : "and pso.AssignedToId = " + pathologistId + " ";
             string statusClause = status == "ALL" ? string.Empty : "and ot.TestStatus = '" + status + "' ";
             MySqlCommand cmd = new MySqlCommand();
@@ -3118,14 +3093,12 @@ namespace YellowstonePathology.Business.Gateway
                 "ot.TestStatusUpdateTime, po.OrderTime, su.UserName `Pathologist` " +
                 "from tblPanelSetOrder pso join tblPanelOrder po on pso.ReportNo = po.ReportNo " +
                 "join tblTestOrder ot on po.PanelOrderId = ot.PanelOrderId " +
-                "join tblVentanaBenchMark v on ot.TestId = v.YPITestId " +
                 "join tblSlideOrder so on ot.TestOrderId = so.TestOrderId " +
                 "join tblSystemUser su on pso.AssignedToId = su.UserId " +
-                "where po.OrderDate = @OrderDate " + pathologistClause + statusClause +
+                "where po.OrderDate = @OrderDate " + pathologistClause + statusClause + testIdsClause +
                 "order by ot.TestStatusUpdateTime, pso.ReportNo, ot.TestName;";
 
             cmd.CommandType = CommandType.Text;
-            cmd.Parameters.AddWithValue("@PathologistId", pathologistId);
             cmd.Parameters.AddWithValue("@OrderDate", orderDate);
             using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {

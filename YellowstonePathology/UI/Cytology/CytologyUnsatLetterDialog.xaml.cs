@@ -10,19 +10,25 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.ComponentModel;
 
 namespace YellowstonePathology.UI.Cytology
 {
 	/// <summary>
 	/// Interaction logic for CytologyUnsatLetterDdialog.xaml
 	/// </summary>
-	public partial class CytologyUnsatLetterDialog : Window
-	{
-		private DateTime m_StartDate;
+	public partial class CytologyUnsatLetterDialog : Window, INotifyPropertyChanged
+    {
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private DateTime m_StartDate;
 		private DateTime m_EndDate;
 		private int m_OpenCaseCount;
 
-		public CytologyUnsatLetterDialog()
+        private string m_StatusMessage;
+        private BackgroundWorker m_BackgroundWorker;
+
+        public CytologyUnsatLetterDialog()
 		{            
             DateTime firstDayOfThisMonth = DateTime.Parse(DateTime.Today.Month.ToString() + "/1/" + DateTime.Today.Year.ToString());
             this.m_StartDate = firstDayOfThisMonth.AddMonths(-1);
@@ -43,7 +49,20 @@ namespace YellowstonePathology.UI.Cytology
 			set { this.m_EndDate = value;}
 		}
 
-		private void ButtonOk_Click(object sender, RoutedEventArgs e)
+        public string StatusMessage
+        {
+            get { return this.m_StatusMessage; }
+        }
+
+        public void NotifyPropertyChanged(String info)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
+        }
+
+        private void ButtonOk_Click(object sender, RoutedEventArgs e)
 		{
 			Close();
 		}
@@ -66,14 +85,48 @@ namespace YellowstonePathology.UI.Cytology
 
 		private void ButtonCreateLetters_Click(object sender, RoutedEventArgs e)
 		{
-			YellowstonePathology.Reports.Cytology.CytologyAbnormalUnsatLetter unsatLetters = new YellowstonePathology.Reports.Cytology.CytologyAbnormalUnsatLetter(this.m_StartDate, this.m_EndDate);
-			unsatLetters.CreateReports();
+            this.m_BackgroundWorker = new BackgroundWorker();
+            this.m_BackgroundWorker.WorkerReportsProgress = true;
+            this.m_BackgroundWorker.DoWork += BackgroundWorker_DoWork;
+            this.m_BackgroundWorker.ProgressChanged += BackgroundWorker_ProgressChanged;
+            this.m_BackgroundWorker.RunWorkerCompleted += BackgroundWorker_RunWorkerCompleted;
+            this.m_BackgroundWorker.RunWorkerAsync();
 		}
 
-		private void ButtonFaxLetters_Click(object sender, RoutedEventArgs e)
+        private void ButtonFaxLetters_Click(object sender, RoutedEventArgs e)
 		{
 			YellowstonePathology.Reports.Cytology.CytologyAbnormalUnsatLetter unsatLetters = new YellowstonePathology.Reports.Cytology.CytologyAbnormalUnsatLetter(this.m_StartDate, this.m_EndDate);
 			unsatLetters.FaxReports();
 		}
-	}
+
+        private void BackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            YellowstonePathology.Reports.Cytology.CytologyAbnormalUnsatLetter unsatLetters = new YellowstonePathology.Reports.Cytology.CytologyAbnormalUnsatLetter(this.m_StartDate, this.m_EndDate);
+            unsatLetters.ClearFolder();
+            YellowstonePathology.Business.Reports.Cytology.CytologyUnsatLetters cytologyUnsatLetters = unsatLetters.CytologyUnsatLetters;
+            foreach (YellowstonePathology.Business.Reports.Cytology.CytologyUnsatLetterItem item in cytologyUnsatLetters)
+            {
+                this.m_BackgroundWorker.ReportProgress(0, item.ClientName + " - " + item.PhysicianName);
+                unsatLetters.CreateReport(item);
+            }
+        }
+
+        private void BackgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
+            {
+                this.m_StatusMessage = "Creating letter for: " + e.UserState;
+                this.NotifyPropertyChanged("StatusMessage");
+            }));
+        }
+
+        private void BackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
+            {
+                this.m_StatusMessage = "Letters Created.";
+                this.NotifyPropertyChanged("StatusMessage");
+            }));
+        }
+    }
 }

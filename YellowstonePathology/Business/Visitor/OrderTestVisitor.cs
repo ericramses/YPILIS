@@ -169,8 +169,8 @@ namespace YellowstonePathology.Business.Visitor
             this.m_TestOrder.TestStatus = "ORDERED";
             this.m_TestOrder.TestStatusUpdateTime = DateTime.Now;
 
-            Surgical.VentanaBenchMarkCollection ventanaBenchMarkCollection = Gateway.AccessionOrderGateway.GetVentanaBenchMarkCollection();
-            if(ventanaBenchMarkCollection.YPITestIdExists(this.m_TestOrder.TestId) == true)
+            Stain.Model.Stain stain = Stain.Model.StainCollection.Instance.GetStainByTestId(this.m_TestOrder.TestId);
+            if (stain != null)
             {
                 this.m_TestOrder.TestStatus = "ORDERED";
             }
