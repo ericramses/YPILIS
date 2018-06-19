@@ -87,26 +87,20 @@ namespace YellowstonePathology.UI.Cytology
 		{
             this.m_BackgroundWorker = new BackgroundWorker();
             this.m_BackgroundWorker.WorkerReportsProgress = true;
-            this.m_BackgroundWorker.DoWork += BackgroundWorker_DoWork;
+            this.m_BackgroundWorker.DoWork += BackgroundWorker_CreateLetters;
             this.m_BackgroundWorker.ProgressChanged += BackgroundWorker_ProgressChanged;
-            this.m_BackgroundWorker.RunWorkerCompleted += BackgroundWorker_RunWorkerCompleted;
+            this.m_BackgroundWorker.RunWorkerCompleted += BackgroundWorker_CreateLettersRunWorkerCompleted;
             this.m_BackgroundWorker.RunWorkerAsync();
 		}
 
-        private void ButtonFaxLetters_Click(object sender, RoutedEventArgs e)
-		{
-			YellowstonePathology.Reports.Cytology.CytologyAbnormalUnsatLetter unsatLetters = new YellowstonePathology.Reports.Cytology.CytologyAbnormalUnsatLetter(this.m_StartDate, this.m_EndDate);
-			unsatLetters.FaxReports();
-		}
-
-        private void BackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        private void BackgroundWorker_CreateLetters(object sender, DoWorkEventArgs e)
         {
             YellowstonePathology.Reports.Cytology.CytologyAbnormalUnsatLetter unsatLetters = new YellowstonePathology.Reports.Cytology.CytologyAbnormalUnsatLetter(this.m_StartDate, this.m_EndDate);
             unsatLetters.ClearFolder();
             YellowstonePathology.Business.Reports.Cytology.CytologyUnsatLetters cytologyUnsatLetters = unsatLetters.CytologyUnsatLetters;
             foreach (YellowstonePathology.Business.Reports.Cytology.CytologyUnsatLetterItem item in cytologyUnsatLetters)
             {
-                this.m_BackgroundWorker.ReportProgress(0, item.ClientName + " - " + item.PhysicianName);
+                this.m_BackgroundWorker.ReportProgress(0, "Creating letter for: " + item.ClientName + " - " + item.PhysicianName);
                 unsatLetters.CreateReport(item);
             }
         }
@@ -115,16 +109,46 @@ namespace YellowstonePathology.UI.Cytology
         {
             this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
             {
-                this.m_StatusMessage = "Creating letter for: " + e.UserState;
+                this.m_StatusMessage = e.UserState.ToString();
                 this.NotifyPropertyChanged("StatusMessage");
             }));
         }
 
-        private void BackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        private void BackgroundWorker_CreateLettersRunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
             {
                 this.m_StatusMessage = "Letters Created.";
+                this.NotifyPropertyChanged("StatusMessage");
+            }));
+        }
+
+        private void ButtonFaxLetters_Click(object sender, RoutedEventArgs e)
+		{
+            this.m_BackgroundWorker = new BackgroundWorker();
+            this.m_BackgroundWorker.WorkerReportsProgress = true;
+            this.m_BackgroundWorker.DoWork += BackgroundWorker_FaxLetters;
+            this.m_BackgroundWorker.ProgressChanged += BackgroundWorker_ProgressChanged;
+            this.m_BackgroundWorker.RunWorkerCompleted += BackgroundWorker_FaxLettersRunWorkerCompleted;
+            this.m_BackgroundWorker.RunWorkerAsync();
+		}
+
+        private void BackgroundWorker_FaxLetters(object sender, DoWorkEventArgs e)
+        {
+            YellowstonePathology.Reports.Cytology.CytologyAbnormalUnsatLetter unsatLetters = new YellowstonePathology.Reports.Cytology.CytologyAbnormalUnsatLetter(this.m_StartDate, this.m_EndDate);
+            YellowstonePathology.Business.Reports.Cytology.CytologyUnsatLetters cytologyUnsatLetters = unsatLetters.CytologyUnsatLetters;
+            foreach (YellowstonePathology.Business.Reports.Cytology.CytologyUnsatLetterItem item in cytologyUnsatLetters)
+            {
+                this.m_BackgroundWorker.ReportProgress(0, "Faxing letter for: " + item.ClientName + " - " + item.PhysicianName);
+                unsatLetters.FaxReport(item);
+            }
+        }
+
+        private void BackgroundWorker_FaxLettersRunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
+            {
+                this.m_StatusMessage = "Letters Faxed.";
                 this.NotifyPropertyChanged("StatusMessage");
             }));
         }
