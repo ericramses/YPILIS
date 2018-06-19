@@ -25,6 +25,7 @@ namespace YellowstonePathology.UI.Cytology
 		private DateTime m_EndDate;
 		private int m_OpenCaseCount;
 
+        private string m_FolderLocation;
         private string m_StatusMessage;
         private BackgroundWorker m_BackgroundWorker;
 
@@ -33,6 +34,9 @@ namespace YellowstonePathology.UI.Cytology
             DateTime firstDayOfThisMonth = DateTime.Parse(DateTime.Today.Month.ToString() + "/1/" + DateTime.Today.Year.ToString());
             this.m_StartDate = firstDayOfThisMonth.AddMonths(-1);
             this.m_EndDate = firstDayOfThisMonth.AddDays(-1);
+            this.m_OpenCaseCount = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetCountOpenCytologyCasesByCollectionDateRange(this.m_StartDate, this.m_EndDate);
+            this.m_FolderLocation = @"\\CFileServer\Documents\Reports\Cytology\CytologyAbnormalUnsatLetter";
+
             InitializeComponent();
 			DataContext = this;
 		}
@@ -49,6 +53,16 @@ namespace YellowstonePathology.UI.Cytology
 			set { this.m_EndDate = value;}
 		}
 
+        public int OpenCaseCount
+        {
+            get { return this.m_OpenCaseCount; }
+        }
+
+        public string FolderLocation
+        {
+            get { return this.m_FolderLocation; }
+        }
+
         public string StatusMessage
         {
             get { return this.m_StatusMessage; }
@@ -62,26 +76,26 @@ namespace YellowstonePathology.UI.Cytology
             }
         }
 
-        private void ButtonOk_Click(object sender, RoutedEventArgs e)
+        /*private void ButtonOk_Click(object sender, RoutedEventArgs e)
 		{
 			Close();
-		}
+		}*/
 
 		private void ButtonNavigateToFolder_Click(object sender, RoutedEventArgs e)
 		{
-			string reportFolderPath = @"\\CFileServer\Documents\Reports\Cytology\CytologyAbnormalUnsatLetter";
+			//string reportFolderPath = @"\\CFileServer\Documents\Reports\Cytology\CytologyAbnormalUnsatLetter";
 			System.Diagnostics.Process process = new System.Diagnostics.Process();
 			System.Diagnostics.Process p = new System.Diagnostics.Process();
-			System.Diagnostics.ProcessStartInfo info = new System.Diagnostics.ProcessStartInfo("Explorer.exe", reportFolderPath);
+			System.Diagnostics.ProcessStartInfo info = new System.Diagnostics.ProcessStartInfo("Explorer.exe", this.m_FolderLocation);
 			p.StartInfo = info;
 			p.Start();
 		}
 
-		private void ButtonOpenCaseCount_Click(object sender, RoutedEventArgs e)
+		/*private void ButtonOpenCaseCount_Click(object sender, RoutedEventArgs e)
 		{
 			this.m_OpenCaseCount = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetCountOpenCytologyCasesByCollectionDateRange(this.m_StartDate, this.m_EndDate);
 			this.TextBlockOpenCaseCount.Text = this.m_OpenCaseCount.ToString();
-		}
+		}*/
 
 		private void ButtonCreateLetters_Click(object sender, RoutedEventArgs e)
 		{
