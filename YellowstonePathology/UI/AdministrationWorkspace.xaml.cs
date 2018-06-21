@@ -1020,9 +1020,29 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            Business.OrderIdParser id = new Business.OrderIdParser("18-123.S");
-            Business.Helper.FileConversionHelper.ConvertDocumentTo(id, Business.Document.CaseDocumentTypeEnum.CaseReport, Business.Document.CaseDocumentFileTypeEnnum.xml, Business.Document.CaseDocumentFileTypeEnnum.doc);
-            Business.Helper.FileConversionHelper.ConvertDocumentTo(id, Business.Document.CaseDocumentTypeEnum.CaseReport, Business.Document.CaseDocumentFileTypeEnnum.doc, Business.Document.CaseDocumentFileTypeEnnum.xps);
+            Business.Test.AccessionOrder ao = Business.Persistence.DocumentGateway.Instance.GetAccessionOrderByMasterAccessionNo("18-15024");            
+            Business.Test.PanelSetOrder pso = ao.PanelSetOrderCollection.GetSurgical();
+
+            Business.Billing.Model.CptCodeCollection codes = Store.AppDataStore.Instance.CPTCodeCollection;
+            foreach(Business.Billing.Model.CptCode cptCode in codes)
+            {
+                List<Business.Test.PanelSetOrderCPTCodeBill> panelSetOrderCPTCodeBill = new List<Business.Test.PanelSetOrderCPTCodeBill>();
+                if (string.IsNullOrEmpty(cptCode.SVHCDMCode) == false)
+                {                    
+                    Business.Test.PanelSetOrderCPTCodeBill x = pso.PanelSetOrderCPTCodeBillCollection.GetNextItem(pso.ReportNo);                                       
+                    x.ClientId = ao.ClientId;
+                    x.BillTo = "Client";
+                    x.BillBy = "YPIBLGS";
+                    x.CPTCode = cptCode.Code;
+                    x.Quantity = 1;
+                    x.PostDate = DateTime.Now;
+                    panelSetOrderCPTCodeBill.Add(x);
+                }
+
+                Business.Rules.MethodResult result = new Business.Rules.MethodResult();
+                Business.HL7View.EPIC.EPICFT1ResultView hl7 = new Business.HL7View.EPIC.EPICFT1ResultView(ao, panelSetOrderCPTCodeBill, false);
+                hl7.Send(result);
+            }            
         }
 
         private void GetSlideNumberTest()
