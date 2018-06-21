@@ -259,7 +259,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.Test.AutopsyTechnicalOnly.AutopsyTechnicalOnlyTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.SlideTracking.SlideTrackingTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.FLT3Preliminary.FLT3PreliminaryTest());
-            panelSetCollection.Add(new YellowstonePathology.Business.Test.NeoTYPELungTumorProfilePreliminary.NeoTYPELungTumorProfilePreliminaryTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.EGFRMutationAnalysisPreliminary.EGFRMutationAnalysisPreliminaryTest());
 
             //UniversityofWashington
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetUniversalOrganismByPCR());
