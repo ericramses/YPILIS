@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace YellowstonePathology.Business.Test.NeoTYPELungTumorProfilePreliminary
+namespace YellowstonePathology.Business.Test.EGFRMutationAnalysisPreliminary
 {
-    class NeoTYPELungTumorProfilePreliminaryTest : YellowstonePathology.Business.PanelSet.Model.PanelSet
+    public class EGFRMutationAnalysisPreliminaryTest : YellowstonePathology.Business.PanelSet.Model.PanelSet
     {
-        public NeoTYPELungTumorProfilePreliminaryTest()
+        public EGFRMutationAnalysisPreliminaryTest()
         {
             this.m_PanelSetId = 303;
-            this.m_PanelSetName = "Neo TYPE Lung Tumor Profile Preliminary";
+            this.m_PanelSetName = "EGFR Mutation Analysis Preliminary";
             this.m_CaseType = YellowstonePathology.Business.CaseType.Technical;
             this.m_HasTechnicalComponent = false;
             this.m_HasProfessionalComponent = false;

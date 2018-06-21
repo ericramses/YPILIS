@@ -1080,6 +1080,7 @@
     <Compile Include="Business\Test\AMLPrognosticProfile\AMLPrognosticProfileTestOrder.cs" />
     <Compile Include="Business\Test\API2MALT1ByFISH\API2MALT1ByFISHWPHOBXView.cs" />
     <Compile Include="Business\Test\ChimerismStudyByDNAMarkers\ChimerismStudyByDNAMarkersTest.cs" />
+    <Compile Include="Business\Test\EGFRMutationAnalysisPreliminary\EGFRMutationAnalysisPreliminaryTest.cs" />
     <Compile Include="Business\Test\ExtractAndHoldForPreauthorization\ExtractAndHoldForPreauthorizationWordDocument.cs" />
     <Compile Include="Business\Test\MPNExtendedReflexPanel\MPNExtendedReflexPanelTest.cs" />
     <Compile Include="Business\Test\BCellEnumeration\BCellEnumerationCMMCNTEView.cs" />
@@ -1127,7 +1128,7 @@
     <Compile Include="Business\Test\MicrobiologyByPCR\MicrobiologyByPCRTest.cs" />
     <Compile Include="Business\Test\NeoTYPEBreastTumorProfile\NeoTYPEBreastTumorProfileTest.cs" />
     <Compile Include="Business\Test\NeoTYPEGISTProfile\NeoTYPEGISTProfileTest.cs" />
-    <Compile Include="Business\Test\NeoTYPELungTumorProfilePreliminary\NeoTYPELungTumorProfilePreliminaryTest.cs" />
+    <Compile Include="Business\Test\NeoTYPELungTumorProfile\NeoTYPELungTumorProfileTestOrder.cs" />
     <Compile Include="Business\Test\PNH\PNHWPHOBXView.cs" />
     <Compile Include="Business\Test\RASRAFPanel\RASRAFPanelWPHOBXView.cs" />
     <Compile Include="Business\Test\WholeExomeSequencing\WholeExomeSequencingTest.cs" />
