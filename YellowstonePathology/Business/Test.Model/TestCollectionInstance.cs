@@ -153,35 +153,7 @@ namespace YellowstonePathology.Business.Test.Model
 
             foreach (Stain.Model.Stain stain in Stain.Model.StainCollection.Instance)
             {
-                Test test = null;
-                switch (stain.StainType)
-                {
-                    case "IHC":
-                        {
-                            test = new ImmunoHistochemistryTest(stain);
-                            break;
-                        }
-                    case "CytochemicalStain":
-                        {
-                            test = new CytochemicalTest(stain);
-                            break;
-                        }
-                    case "CytochemicalForMicroorganisms":
-                        {
-                            test = new CytochemicalForMicroorganisms(stain);
-                            break;
-                        }
-                    case "GradedStain":
-                        {
-                            test = new GradedTest(stain);
-                            break;
-                        }
-                    case "DualStain":
-                        {
-                            test = new DualStain(stain);
-                            break;
-                        }
-                }
+                Test test = TestFactory.TestFromStain(stain);
                 result.Add(test);
             }
             return result;

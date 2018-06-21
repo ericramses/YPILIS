@@ -24,58 +24,8 @@ namespace YellowstonePathology.Business.Test.Model
         {
             this.m_DepricatedFirstTestId = stain.DepricatedFirstStainId;
             this.m_DepricatedSecondTestId = stain.DepricatedSecondStainId;
-            switch (stain.FirstStain.StainType)
-            {
-                case "IHC":
-                    {
-                        this.m_FirstTest = new ImmunoHistochemistryTest(stain.FirstStain);
-                        break;
-                    }
-                case "CytochemicalStain":
-                    {
-                        this.m_FirstTest = new CytochemicalTest(stain.FirstStain);
-                        break;
-                    }
-                case "CytochemicalForMicroorganisms":
-                    {
-                        this.m_FirstTest = new CytochemicalForMicroorganisms(stain.FirstStain);
-                        break;
-                    }
-                case "GradedStain":
-                    {
-                        this.m_FirstTest = new GradedTest(stain.FirstStain);
-                        break;
-                    }
-                case "DualStain":
-                    {
-                        this.m_FirstTest = new DualStain(stain.FirstStain);
-                        break;
-                    }
-            }
-
-            switch (stain.SecondStain.StainType)
-            {
-                case "IHC":
-                    {
-                        this.m_SecondTest = new ImmunoHistochemistryTest(stain.SecondStain);
-                        break;
-                    }
-                case "CytochemicalStain":
-                    {
-                        this.m_SecondTest = new CytochemicalTest(stain.SecondStain);
-                        break;
-                    }
-                case "CytochemicalForMicroorganisms":
-                    {
-                        this.m_SecondTest = new CytochemicalForMicroorganisms(stain.SecondStain);
-                        break;
-                    }
-                case "GradedStain":
-                    {
-                        this.m_SecondTest = new GradedTest(stain.SecondStain);
-                        break;
-                    }
-            }
+            this.m_FirstTest = TestFactory.TestFromStain(stain.FirstStain);
+            this.m_SecondTest = TestFactory.TestFromStain(stain.SecondStain);
         }
 
         [PersistentProperty()]
