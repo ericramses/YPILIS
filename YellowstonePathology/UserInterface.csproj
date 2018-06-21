@@ -1136,6 +1136,8 @@
     <Compile Include="Business\WebService\WebServiceAccount.cs" />
     <Compile Include="Business\WebService\WebServiceAccountClient.cs" />
     <Compile Include="Business\WebService\WebServiceAccountClientCollection.cs" />
+    <Compile Include="Business\WebService\WebServiceAccountClientView.cs" />
+    <Compile Include="Business\WebService\WebServiceAccountClientViewCollection.cs" />
     <Compile Include="Business\WebService\WebServiceAccountCollection.cs" />
     <Compile Include="Store\AppDataStore.cs" />
     <Compile Include="Business\Reports\BlocksSentNotReturnedReport.cs" />
