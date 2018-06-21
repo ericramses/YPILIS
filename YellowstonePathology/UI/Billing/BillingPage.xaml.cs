@@ -369,15 +369,18 @@ namespace YellowstonePathology.UI.Billing
             List<Business.Test.PanelSetOrderCPTCodeBill> panelSetOrderCPTCodeBillList = new List<Business.Test.PanelSetOrderCPTCodeBill>();
             foreach ( Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill in this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection)
             {
-                if (panelSetOrderCPTCodeBill.BillTo == "Client")
-                {
-                    panelSetOrderCPTCodeBillList.Add(panelSetOrderCPTCodeBill);                    
-                }
+                //if (panelSetOrderCPTCodeBill.BillTo == "Client")
+                //{                
+                    panelSetOrderCPTCodeBillList.Add(panelSetOrderCPTCodeBill);
+                    Business.HL7View.EPIC.EPICFT1ResultView epicFT1ResultView = new Business.HL7View.EPIC.EPICFT1ResultView(this.m_AccessionOrder, panelSetOrderCPTCodeBillList, true);
+                    Business.Rules.MethodResult sendResult = new Business.Rules.MethodResult();
+                    epicFT1ResultView.Send(sendResult);
+                //}
             }
 
-            Business.HL7View.EPIC.EPICFT1ResultView epicFT1ResultView = new Business.HL7View.EPIC.EPICFT1ResultView(this.m_AccessionOrder, panelSetOrderCPTCodeBillList, true);            
-            Business.Rules.MethodResult sendResult = new Business.Rules.MethodResult();
-            epicFT1ResultView.Send(sendResult);
+            //Business.HL7View.EPIC.EPICFT1ResultView epicFT1ResultView = new Business.HL7View.EPIC.EPICFT1ResultView(this.m_AccessionOrder, panelSetOrderCPTCodeBillList, true);            
+            //Business.Rules.MethodResult sendResult = new Business.Rules.MethodResult();
+            //epicFT1ResultView.Send(sendResult);
 
             /*
             Business.HL7View.EPIC.EPICFT1ResultView epicFT1ResultView = new Business.HL7View.EPIC.EPICFT1ResultView(this.m_AccessionOrder, panelSetOrderCPTCodeBill, true);

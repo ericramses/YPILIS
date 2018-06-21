@@ -28,27 +28,27 @@ namespace YellowstonePathology.Business.Test.Model
             {
                 case "IHC":
                     {
-                        this.m_FirstTest = new ImmunoHistochemistryTest(stain);
+                        this.m_FirstTest = new ImmunoHistochemistryTest(stain.FirstStain);
                         break;
                     }
                 case "CytochemicalStain":
                     {
-                        this.m_FirstTest = new CytochemicalTest(stain);
+                        this.m_FirstTest = new CytochemicalTest(stain.FirstStain);
                         break;
                     }
                 case "CytochemicalForMicroorganisms":
                     {
-                        this.m_FirstTest = new CytochemicalForMicroorganisms(stain);
+                        this.m_FirstTest = new CytochemicalForMicroorganisms(stain.FirstStain);
                         break;
                     }
                 case "GradedStain":
                     {
-                        this.m_FirstTest = new GradedTest(stain);
+                        this.m_FirstTest = new GradedTest(stain.FirstStain);
                         break;
                     }
                 case "DualStain":
                     {
-                        this.m_FirstTest = new DualStain(stain);
+                        this.m_FirstTest = new DualStain(stain.FirstStain);
                         break;
                     }
             }
@@ -57,22 +57,22 @@ namespace YellowstonePathology.Business.Test.Model
             {
                 case "IHC":
                     {
-                        this.m_SecondTest = new ImmunoHistochemistryTest(stain);
+                        this.m_SecondTest = new ImmunoHistochemistryTest(stain.SecondStain);
                         break;
                     }
                 case "CytochemicalStain":
                     {
-                        this.m_SecondTest = new CytochemicalTest(stain);
+                        this.m_SecondTest = new CytochemicalTest(stain.SecondStain);
                         break;
                     }
                 case "CytochemicalForMicroorganisms":
                     {
-                        this.m_SecondTest = new CytochemicalForMicroorganisms(stain);
+                        this.m_SecondTest = new CytochemicalForMicroorganisms(stain.SecondStain);
                         break;
                     }
                 case "GradedStain":
                     {
-                        this.m_SecondTest = new GradedTest(stain);
+                        this.m_SecondTest = new GradedTest(stain.SecondStain);
                         break;
                     }
             }
