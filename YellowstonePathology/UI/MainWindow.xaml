@@ -86,6 +86,7 @@
                     <MenuItem Name="MenuItemAdministration" Header="Administration" Click="MenuItemAdministrationWorkspace_Click"></MenuItem>
                     <MenuItem Name="MenuItemUserPreferences" Header="User Preferences" Click="MenuItemUserPreferences_Click"></MenuItem>
                     <MenuItem Name="MenuItemSystemUser" Header="System User" Click="MenuItemSystemUser_Click"></MenuItem>
+                    <MenuItem Name="MenuItemWebServiceAccounts" Header="Web Service Accounts" Click="MenuItemWebServiceAccounts_Click"></MenuItem>
                 </MenuItem>
 
                 <MenuItem Header="_Monitor" Name="MenuItemMonitor">

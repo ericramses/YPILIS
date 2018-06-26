@@ -972,5 +972,11 @@ namespace YellowstonePathology.UI
             Common.UserPreferencesList dlg = new Common.UserPreferencesList(false);
             dlg.ShowDialog();
         }
+
+        private void MenuItemWebServiceAccounts_Click(object sender, RoutedEventArgs e)
+        {
+            WebService.WebServiceAccountSelectionDialog dlg = new WebService.WebServiceAccountSelectionDialog();
+            dlg.ShowDialog();
+        }
     }
 }
