@@ -58,7 +58,8 @@ namespace YellowstonePathology.Business.Test.Model
             tests.Sort(Test.CompareByTestName);
             foreach (Test test in tests)
             {
-                result.Add(test);
+                if(test.Active == true)
+                    result.Add(test);
             }
             return result;
         }

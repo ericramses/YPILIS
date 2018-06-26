@@ -19,6 +19,20 @@ namespace YellowstonePathology.Business.Billing.Model
 
         }        
 
+        public bool Exists(string code)
+        {
+            bool result = false;
+            foreach(CptCode cptCode in this)
+            {
+                if(cptCode.Code == code)
+                {
+                    result = true;
+                    break;
+                }
+            }
+            return result;
+        }
+
         public bool IsMedicareCode(string cptCode)
         {
             bool result = false;

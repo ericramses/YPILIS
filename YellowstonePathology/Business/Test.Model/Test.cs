@@ -49,7 +49,7 @@ namespace YellowstonePathology.Business.Test.Model
         }
 
         public Test(Stain.Model.Stain stain)
-        {
+        {            
             this.m_ResultItemCollection = new YellowstonePathology.Test.Model.ResultItemCollection();
             this.m_OrderComment = stain.OrderComment;
             this.m_IsBillable = stain.IsBillable;
@@ -66,7 +66,7 @@ namespace YellowstonePathology.Business.Test.Model
             this.m_DefaultResult = stain.DefaultResult;
             this.m_RequestForAdditionalReport = stain.RequestForAdditionalReport;
             this.m_UseWetProtocol = stain.UseWetProtocol;
-            this.m_PerformedByHand = stain.PerformedByHand;
+            this.m_PerformedByHand = stain.PerformedByHand;            
         }
 
 

@@ -31,16 +31,18 @@ namespace YellowstonePathology.UI.Stain
             {
                 Business.Stain.Model.Stain stain = (Business.Stain.Model.Stain)this.ListViewStains.SelectedItem;
                 StainEditDialog dialog = new StainEditDialog(stain);
-                dialog.Accept += StainEditDialog_Accept;
+                //dialog.Accept += StainEditDialog_Accept;
                 dialog.ShowDialog();
             }
         }
 
+        /*
         private void StainEditDialog_Accept(object sender, EventArgs e)
         {
             Business.Stain.Model.StainCollection.Reload();
             this.NotifyPropertyChanged("StainCollection");
         }
+        */
 
         private void ButtonClose_Click(object sender, RoutedEventArgs e)
         {
