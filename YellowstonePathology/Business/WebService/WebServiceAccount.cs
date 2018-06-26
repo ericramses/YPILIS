@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
+using System.Data;
 using YellowstonePathology.Business.Persistence;
 
 namespace YellowstonePathology.Business.WebService
@@ -35,7 +36,7 @@ namespace YellowstonePathology.Business.WebService
         private bool m_EnableBillingBrowser;
         private bool m_EnableEmailAlert;
         private string m_VersionCurrentlyUsing;
-        private int? m_SystemUserId;
+        private int m_SystemUserId;
         private string m_Signature;
         private string m_FacilityId;
         private string m_ObjectId;
@@ -360,7 +361,7 @@ namespace YellowstonePathology.Business.WebService
         }
 
         [PersistentProperty()]
-        public int? SystemUserId
+        public int SystemUserId
         {
             get { return this.m_SystemUserId; }
             set
@@ -414,6 +415,5 @@ namespace YellowstonePathology.Business.WebService
                 }
             }
         }
-
     }
 }

@@ -18,6 +18,9 @@ namespace YellowstonePathology.Business.WebService
         private int m_ClientId;
         private string m_ObjectId;
 
+        private string m_ClientName;
+        private WebServiceAccount m_WebServiceAccount;
+
         public WebServiceAccountClient()
         { }
 
@@ -81,6 +84,33 @@ namespace YellowstonePathology.Business.WebService
                 {
                     this.m_ObjectId = value;
                     this.NotifyPropertyChanged("ObjectId");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public WebServiceAccount WebServiceAccount
+        {
+            get { return this.m_WebServiceAccount; }
+            set
+            {
+                if (this.m_WebServiceAccount != value)
+                {
+                    this.m_WebServiceAccount = value;
+                    this.NotifyPropertyChanged("WebServiceAccount");
+                }
+            }
+        }
+
+        public string ClientName
+        {
+            get { return this.m_ClientName; }
+            set
+            {
+                if (this.m_ClientName != value)
+                {
+                    this.m_ClientName = value;
+                    this.NotifyPropertyChanged("ClientName");
                 }
             }
         }

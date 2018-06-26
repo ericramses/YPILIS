@@ -1136,8 +1136,7 @@
     <Compile Include="Business\WebService\WebServiceAccount.cs" />
     <Compile Include="Business\WebService\WebServiceAccountClient.cs" />
     <Compile Include="Business\WebService\WebServiceAccountClientCollection.cs" />
-    <Compile Include="Business\WebService\WebServiceAccountClientView.cs" />
-    <Compile Include="Business\WebService\WebServiceAccountClientViewCollection.cs" />
+    <Compile Include="Business\WebService\WebServiceClientView.cs" />
     <Compile Include="Business\WebService\WebServiceAccountCollection.cs" />
     <Compile Include="Store\AppDataStore.cs" />
     <Compile Include="Business\Reports\BlocksSentNotReturnedReport.cs" />
@@ -4523,6 +4522,12 @@
     <Compile Include="UI\WatchBitmap.xaml.cs">
       <DependentUpon>WatchBitmap.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\WebService\WebServiceAccountEditDialog.xaml.cs">
+      <DependentUpon>WebServiceAccountEditDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\WebService\WebServiceAccountSelectionDialog.xaml.cs">
+      <DependentUpon>WebServiceAccountSelectionDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\WpfWindowMessageHook.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -6663,6 +6668,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UI\WebService\WebServiceAccountEditDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\WebService\WebServiceAccountSelectionDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\Window1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -7121,9 +7134,7 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="UI\WebService\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
