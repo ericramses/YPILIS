@@ -12,8 +12,6 @@ namespace YellowstonePathology.UI.Stain
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        //public YellowstonePathology.Business.Stain.Model.StainCollection m_StainCollection;
-
         public StainListDialog()
         {
             InitializeComponent();
@@ -31,45 +29,30 @@ namespace YellowstonePathology.UI.Stain
             {
                 Business.Stain.Model.Stain stain = (Business.Stain.Model.Stain)this.ListViewStains.SelectedItem;
                 StainEditDialog dialog = new StainEditDialog(stain);
-                //dialog.Accept += StainEditDialog_Accept;
                 dialog.ShowDialog();
             }
         }
-
-        /*
-        private void StainEditDialog_Accept(object sender, EventArgs e)
-        {
-            Business.Stain.Model.StainCollection.Reload();
-            this.NotifyPropertyChanged("StainCollection");
-        }
-        */
 
         private void ButtonClose_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
 
-        private void ButtonAdd_Click(object sender, RoutedEventArgs e)
+        private void ButtonNew_Click(object sender, RoutedEventArgs e)
         {
-            //StainEditDialog dialog = new StainEditDialog();
-            //dialog.Accept += StainEditDialog_Accept;
-            //dialog.ShowDialog();
-            MessageBox.Show("Not implemented", "Hmmm", MessageBoxButton.OK, MessageBoxImage.Information);
+            StainEditDialog dialog = new StainEditDialog();
+            dialog.ShowDialog();
         }
 
         private void MenuItemDeleteStain_Click(object sender, RoutedEventArgs e)
         {
-            /*if (this.ListViewStains.SelectedItems.Count != 0)
+            if (this.ListViewStains.SelectedItem != null)
             {
-                foreach (YellowstonePathology.Business.Stain.Model.Stain stain in this.ListViewStains.SelectedItems)
-                {
-                    YellowstonePathology.Business.Stain.Model.StainCollection.Instance.DeleteStain(stain);
-                }
-
-                Business.Stain.Model.StainCollection.Reload();
-                this.NotifyPropertyChanged("StainCollection");
-            }*/
-            MessageBox.Show("Not implemented", "Hmmm", MessageBoxButton.OK, MessageBoxImage.Information);
+                YellowstonePathology.Business.Stain.Model.Stain stain = (Business.Stain.Model.Stain)this.ListViewStains.SelectedItem;
+                YellowstonePathology.Business.Stain.Model.StainCollection.DeleteStain(stain);
+                //this.NotifyPropertyChanged("StainCollection");
+            }
+            //MessageBox.Show("Not implemented", "Hmmm", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         public void NotifyPropertyChanged(String info)
