@@ -365,12 +365,12 @@ namespace YellowstonePathology.UI.Billing
         }
 
         private void SendFT1ForPanelSet()
-        {
-            List<Business.Test.PanelSetOrderCPTCodeBill> panelSetOrderCPTCodeBillList = new List<Business.Test.PanelSetOrderCPTCodeBill>();
+        {            
             foreach ( Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill in this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection)
             {
                 //if (panelSetOrderCPTCodeBill.BillTo == "Client")
-                //{                
+                //{
+                    List<Business.Test.PanelSetOrderCPTCodeBill> panelSetOrderCPTCodeBillList = new List<Business.Test.PanelSetOrderCPTCodeBill>();
                     panelSetOrderCPTCodeBillList.Add(panelSetOrderCPTCodeBill);
                     Business.HL7View.EPIC.EPICFT1ResultView epicFT1ResultView = new Business.HL7View.EPIC.EPICFT1ResultView(this.m_AccessionOrder, panelSetOrderCPTCodeBillList, true);
                     Business.Rules.MethodResult sendResult = new Business.Rules.MethodResult();

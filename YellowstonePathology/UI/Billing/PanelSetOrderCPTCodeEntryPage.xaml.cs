@@ -86,18 +86,32 @@ namespace YellowstonePathology.UI.Billing
 		}
 
 		private void ButtonNext_Click(object sender, RoutedEventArgs e)
-		{            
+		{           
             if (this.OkToAddPanelSetOrderCPTCode() == true)
             {
                 this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.Add(this.m_PanelSetOrderCPTCode);
                 if (this.Next != null) this.Next(this, new EventArgs());
-            }         
+            }                  
 
             /*
-            foreach(Business.Billing.Model.CptCode cptCode in this.m_CptCodeCollection)
-            {
-                if(string.IsNullOrEmpty(cptCode.SVHCDMCode) == false)
+            List<string> listA = new List<string>();
+            using (var reader = new System.IO.StreamReader(@"D:\git\cdm.csv"))
+            {                
+                while (!reader.EndOfStream)
                 {
+                    var line = reader.ReadLine();
+                    var values = line.Split(',');
+
+                    listA.Add(values[0]);                    
+                }
+            }
+
+            
+            foreach(string cpt in listA)
+            {
+                Business.Billing.Model.CptCode cptCode = this.m_CptCodeCollection.GetClone(cpt, null);
+                if (this.m_CptCodeCollection.Exists(cpt) == true)
+                {                    
                     YellowstonePathology.Business.Test.PanelSetOrderCPTCode panelSetOrderCPTCode = this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.GetNextItem(this.m_PanelSetOrder.ReportNo);
                     panelSetOrderCPTCode.CPTCode = cptCode.Code;
                     panelSetOrderCPTCode.Modifier = cptCode.Modifier == null ? null : cptCode.Modifier.Modifier;
@@ -107,9 +121,9 @@ namespace YellowstonePathology.UI.Billing
                     panelSetOrderCPTCode.EntryType = "Manual Entry";
                     panelSetOrderCPTCode.CodeableType = "Billable Test";
                     this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.Add(panelSetOrderCPTCode);
-                }
+                }                
             }
-            if (this.Next != null) this.Next(this, new EventArgs());
+            if (this.Next != null) this.Next(this, new EventArgs());            
             */
         }
 

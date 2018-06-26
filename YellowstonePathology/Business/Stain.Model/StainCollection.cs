@@ -65,25 +65,14 @@ namespace YellowstonePathology.Business.Stain.Model
             {
                 Stain stain = JsonStainFactory.FromJson(jString);
                 result.Add(stain);
-            }
+            }            
             return result;
         }
 
         public static void SetInRedis(Stain stain)
         {
             Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.Stain).DataBase.Execute("json.set", new string[] { stain.StainId, ".", stain.ToJSON() });
-
-        }
-
-        public void DeleteStain(Stain stain)
-        {
-
-        }
-
-        public static void Reload()
-        {
-            instance = null;
-        }
+        }                
 
         public static string GetQuotedTestIds()
         {

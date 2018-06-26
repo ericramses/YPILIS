@@ -50,7 +50,7 @@ namespace YellowstonePathology.UI.Stain
             if (methodResult.Success == true)
             {
                 Business.Stain.Model.StainCollection.SetInRedis(this.m_Stain);
-                this.Accept(this, new EventArgs());
+                //this.Accept(this, new EventArgs());
                 Close();
             }
             else

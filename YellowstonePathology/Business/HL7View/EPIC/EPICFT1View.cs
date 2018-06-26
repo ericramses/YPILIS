@@ -80,7 +80,7 @@ namespace YellowstonePathology.Business.HL7View.EPIC
             XElement ft123Element = new XElement("FT1.23", this.m_MasterAccessionNo);
             ft1Element.Add(ft123Element);
 
-            XElement ft125Element = new XElement("FT1.25", this.m_CptCode.SVHCDMCode);
+            XElement ft125Element = new XElement("FT1.25", this.m_CptCode.Code);
             ft1Element.Add(ft125Element);
 
             if(this.m_CptCode.Modifier != null)
