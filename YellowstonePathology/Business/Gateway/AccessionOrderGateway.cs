@@ -2635,7 +2635,7 @@ namespace YellowstonePathology.Business.Gateway
 		{
 			YellowstonePathology.Business.Cytology.Model.ScreeningImpressionCollection result = new Cytology.Model.ScreeningImpressionCollection();
 			MySqlCommand cmd = new MySqlCommand();
-			cmd.CommandText = "SELECT * from tblCytologyScreeningImpression order by ResultCode;";
+			cmd.CommandText = "SELECT * from tblCytologyScreeningImpression order by cast(ResultCode as unsigned);";
 			cmd.CommandType = System.Data.CommandType.Text;
 
 			using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
@@ -2692,7 +2692,7 @@ namespace YellowstonePathology.Business.Gateway
 			using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
 			{
 				cn.Open();
-				cmd.Connection = cn;
+				cmd.Connection = cn;                
 				using (MySqlDataReader dr = cmd.ExecuteReader())
 				{
 					while (dr.Read())

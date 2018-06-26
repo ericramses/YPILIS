@@ -1020,6 +1020,10 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
+            Business.Gateway.SearchGateway sg = new Business.Gateway.SearchGateway();
+            Business.Search.PathologistSearchResultCollection psrc = sg.PathologistSlideOrderIdSearch("18-123.1A1");
+            MessageBox.Show(psrc[0].PatientName);
+            /*
             Business.Test.AccessionOrder ao = Business.Persistence.DocumentGateway.Instance.GetAccessionOrderByMasterAccessionNo("18-15024");            
             Business.Test.PanelSetOrder pso = ao.PanelSetOrderCollection.GetSurgical();
 
@@ -1042,7 +1046,8 @@ namespace YellowstonePathology.UI
                 Business.Rules.MethodResult result = new Business.Rules.MethodResult();
                 Business.HL7View.EPIC.EPICFT1ResultView hl7 = new Business.HL7View.EPIC.EPICFT1ResultView(ao, panelSetOrderCPTCodeBill, false);
                 hl7.Send(result);
-            }            
+            } 
+            */           
         }
 
         private void GetSlideNumberTest()

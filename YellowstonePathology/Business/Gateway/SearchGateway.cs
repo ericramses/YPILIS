@@ -47,10 +47,10 @@ namespace YellowstonePathology.Business.Gateway
 
         public YellowstonePathology.Business.Search.PathologistSearchResultCollection PathologistSlideOrderIdSearch(string slideOrderId)
 		{
-            MySqlCommand cmd = new MySqlCommand("pPathologistHistologySlideSearch_3");
-			cmd.CommandType = CommandType.StoredProcedure;
-			cmd.Parameters.AddWithValue("SlideOrderId", slideOrderId);
-			return this.BuildResultList(cmd);
+            MySqlCommand cmd = new MySqlCommand("pPathHistSlideSearch");
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("SlideOrderId", slideOrderId);            
+            return this.BuildResultList(cmd);
 		}
 
         public YellowstonePathology.Business.Search.PathologistSearchResult PathologistAliquotOrderIdSearch(string aliquotOrderId, int panelSetIdHint)
