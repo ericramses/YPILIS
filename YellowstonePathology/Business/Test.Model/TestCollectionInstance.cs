@@ -225,5 +225,10 @@ namespace YellowstonePathology.Business.Test.Model
             Test result = (Test)objectCloner.Clone(test);
             return result;
         }
+
+        public static void Reload()
+        {
+            TestCollectionInstance.instance = TestCollectionInstance.Load();
+        }
     }
 }

@@ -69,9 +69,10 @@ namespace YellowstonePathology.Business.Stain.Model
             return result;
         }
 
-        public static void SetInRedis(Stain stain)
+        public static void Save(Stain stain)
         {
             Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.Stain).DataBase.Execute("json.set", new string[] { stain.StainId, ".", stain.ToJSON() });
+            Test.Model.TestCollectionInstance.Reload();
         }                
 
         public static string GetQuotedTestIds()
@@ -83,6 +84,13 @@ namespace YellowstonePathology.Business.Stain.Model
             }
             result.Remove(result.Length - 1, 1);
             return result.ToString();
+        }
+
+        public static void DeleteStain(Stain stain)
+        {
+            StainCollection.Instance.Remove(stain);
+            Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.Stain).DataBase.Execute("json.del", new string[] { stain.StainId, "." });
+            Test.Model.TestCollectionInstance.Reload();
         }
     }
 }

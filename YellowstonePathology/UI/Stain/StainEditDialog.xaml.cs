@@ -20,20 +20,45 @@ namespace YellowstonePathology.UI.Stain
     /// </summary>
     public partial class StainEditDialog : Window
     {
-        public delegate void AcceptEventHandler(object sender, EventArgs e);
-        public event AcceptEventHandler Accept;
-
         private Business.Stain.Model.Stain m_Stain;
+        private List<string> m_StainerTypes;
+        private List<string> m_StainTypes;
+
 
         public StainEditDialog(Business.Stain.Model.Stain stain)
         {
             this.m_Stain = stain;
+
+            this.m_StainerTypes = new List<string>();
+            this.m_StainerTypes.Add("BenchMark ULTRA");
+            this.m_StainerTypes.Add("BenchMark Special Stains");
+
+            this.m_StainTypes = new List<string>();
+            this.m_StainTypes.Add("IHC");
+            this.m_StainTypes.Add("CytochemicalStain");
+            this.m_StainTypes.Add("CytochemicalForMicroorganisms");
+            this.m_StainTypes.Add("GradedStain");
+            this.m_StainTypes.Add("DualStain");
+
             InitializeComponent();
             DataContext = this;
         }
+
         public StainEditDialog()
         {
             this.m_Stain = new Business.Stain.Model.Stain();
+
+            this.m_StainerTypes = new List<string>();
+            this.m_StainerTypes.Add("BenchMark ULTRA");
+            this.m_StainerTypes.Add("BenchMark Special Stains");
+
+            this.m_StainTypes = new List<string>();
+            this.m_StainTypes.Add("IHC");
+            this.m_StainTypes.Add("CytochemicalStain");
+            this.m_StainTypes.Add("CytochemicalForMicroorganisms");
+            this.m_StainTypes.Add("GradedStain");
+            this.m_StainTypes.Add("DualStain");
+
             InitializeComponent();
             DataContext = this;
         }
@@ -44,13 +69,27 @@ namespace YellowstonePathology.UI.Stain
             set { this.m_Stain = value; }
         }
 
+        public List<string> StainerTypes
+        {
+            get { return this.m_StainerTypes; }
+        }
+
+        public List<string> StainTypes
+        {
+            get { return this.m_StainTypes; }
+        }
+
         public void ButtonOK_Click(object sender, RoutedEventArgs e)
         {
+            bool isNewStain = string.IsNullOrEmpty(this.m_Stain.StainId);
             YellowstonePathology.Business.Rules.MethodResult methodResult = this.CanSave();
             if (methodResult.Success == true)
             {
-                Business.Stain.Model.StainCollection.SetInRedis(this.m_Stain);
-                //this.Accept(this, new EventArgs());
+                if(isNewStain)
+                {
+                    YellowstonePathology.Business.Stain.Model.StainCollection.Instance.Add(this.m_Stain);
+                }
+                Business.Stain.Model.StainCollection.Save(this.m_Stain);
                 Close();
             }
             else

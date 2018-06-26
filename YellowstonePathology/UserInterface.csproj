@@ -337,6 +337,7 @@
     <Compile Include="Business\Document\CaseDocumentTypeEnum.cs" />
     <Compile Include="Business\Flow\CytoplasmicMarkerMapping.cs" />
     <Compile Include="Business\Flow\CytoplasmicMarkerMappingCollection.cs" />
+    <Compile Include="Business\Gateway\WebServiceGateway.cs" />
     <Compile Include="Business\HL7View\ADTMessage.cs" />
     <Compile Include="Business\HL7View\ADTMessages.cs" />
     <Compile Include="Business\Billing.Model\BillableObject.cs" />
@@ -1061,6 +1062,7 @@
     <Compile Include="Business\Persistence\ProtobufWriter.cs" />
     <Compile Include="Business\Persistence\SlideOrderDocumentBuilder.cs" />
     <Compile Include="Business\Persistence\SqlDataRowReaderPropertyWriter.cs" />
+    <Compile Include="Business\Persistence\SqlServerDataReaderPropertyWriter.cs" />
     <Compile Include="Business\Persistence\SystemUserDocumentBuilder.cs" />
     <Compile Include="Business\ReportDistribution.Model\MultiTestDistributionHandlerNoWHP.cs" />
     <Compile Include="Business\ReportDistribution.Model\MultiTestDistributionHandlerWHPHold.cs" />
@@ -1134,6 +1136,11 @@
     <Compile Include="Business\Test\WholeExomeSequencing\WholeExomeSequencingTest.cs" />
     <Compile Include="Business\User\SystemRoleView.cs" />
     <Compile Include="Business\User\SystemRoleViewCollection.cs" />
+    <Compile Include="Business\WebService\WebServiceAccount.cs" />
+    <Compile Include="Business\WebService\WebServiceAccountClient.cs" />
+    <Compile Include="Business\WebService\WebServiceAccountClientCollection.cs" />
+    <Compile Include="Business\WebService\WebServiceClientView.cs" />
+    <Compile Include="Business\WebService\WebServiceAccountCollection.cs" />
     <Compile Include="Store\AppDataStore.cs" />
     <Compile Include="Business\Reports\BlocksSentNotReturnedReport.cs" />
     <Compile Include="Business\Reports\RetrospectiveReviewReport.xaml.cs">
@@ -4518,6 +4525,12 @@
     <Compile Include="UI\WatchBitmap.xaml.cs">
       <DependentUpon>WatchBitmap.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\WebService\WebServiceAccountEditDialog.xaml.cs">
+      <DependentUpon>WebServiceAccountEditDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\WebService\WebServiceAccountSelectionDialog.xaml.cs">
+      <DependentUpon>WebServiceAccountSelectionDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\WpfWindowMessageHook.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -6655,6 +6668,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\WatchBitmap.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\WebService\WebServiceAccountEditDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\WebService\WebServiceAccountSelectionDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

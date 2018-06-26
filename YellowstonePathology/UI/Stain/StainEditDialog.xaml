@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YellowstonePathology.UI.Stain"
         mc:Ignorable="d"
-        Title="StainEditDialog" WindowStyle="ToolWindow" WindowStartupLocation="CenterScreen" SizeToContent="Height" Width="900">
-    <Grid>
+        Title="Stain Edit" WindowStyle="ToolWindow" WindowStartupLocation="CenterScreen" SizeToContent="Height" Width="920">
+    <Grid Margin="5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
@@ -59,7 +59,8 @@
         <TextBox Grid.Row="3" Grid.Column="1" Margin="5,5,5,5" FontSize="14" TextAlignment="Left" Text="{Binding Path=Stain.HistologyDisplayString}" />
 
         <TextBlock Grid.Row="4" Grid.Column="0" Margin="5,5,5,5" FontSize="14" FontWeight="Bold" TextAlignment="Right">Stain Type:</TextBlock>
-        <TextBox Grid.Row="4" Grid.Column="1" Margin="5,5,5,5" FontSize="14" TextAlignment="Left" Text="{Binding Path=Stain.StainType}" />
+        <ComboBox Grid.Row="4" Grid.Column="1" Margin="5,5,5,5" FontSize="14" ItemsSource="{Binding Path=StainTypes}" 
+                  SelectedValue="{Binding Path=Stain.StainType}" />
 
         <TextBlock Grid.Row="5" Grid.Column="0" Margin="5,5,5,5" FontSize="14" FontWeight="Bold" TextAlignment="Right">Aliquot Type:</TextBlock>
         <TextBox Grid.Row="5" Grid.Column="1" Margin="5,5,5,5" FontSize="14" TextAlignment="Left" Text="{Binding Path=Stain.AliquotType}" />
@@ -95,7 +96,8 @@
         <TextBox Grid.Row="1" Grid.Column="3" Margin="5,5,5,5" FontSize="14" TextAlignment="Left" Text="{Binding Path=Stain.VentanaBenchMarkId}" />
 
         <TextBlock Grid.Row="2" Grid.Column="2" Margin="5,5,5,5" FontSize="14" FontWeight="Bold" TextAlignment="Right">Stainer Type:</TextBlock>
-        <TextBox Grid.Row="2" Grid.Column="3" Margin="5,5,5,5" FontSize="14" TextAlignment="Left" Text="{Binding Path=Stain.StainerType}" />
+        <ComboBox Grid.Row="2" Grid.Column="3" Margin="5,5,5,5" FontSize="14" ItemsSource="{Binding Path=StainerTypes}"
+                  SelectedValue="{Binding Path=Stain.StainerType}" />
 
         <TextBlock Grid.Row="3" Grid.Column="2" Margin="5,5,5,5" FontSize="14" FontWeight="Bold" TextAlignment="Right">Ventana Protocol:</TextBlock>
         <TextBox Grid.Row="3" Grid.Column="3" Margin="5,5,5,5" FontSize="14" TextAlignment="Left" Text="{Binding Path=Stain.VentanaBenchMarkProtocolName}" />
@@ -130,7 +132,7 @@
         <TextBlock Grid.Row="13" Grid.Column="2" Margin="5,5,5,5" FontSize="14" FontWeight="Bold" TextAlignment="Right">Order Comment:</TextBlock>
         <TextBox Grid.Row="13" Grid.Column="3" Margin="5,5,5,5" FontSize="14" TextAlignment="Left" Text="{Binding Path=Stain.OrderComment}" />
 
-        <StackPanel Grid.Column="1" Grid.Row="28" Orientation="Horizontal" HorizontalAlignment="Right">
+        <StackPanel Grid.Column="3" Grid.Row="28" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Name="ButtonOK" Width="100" Height="40" HorizontalAlignment="Right" Margin="5,5,5,5" Click="ButtonOK_Click">OK</Button>
         </StackPanel>
 
