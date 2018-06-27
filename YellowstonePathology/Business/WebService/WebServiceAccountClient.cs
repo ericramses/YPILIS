@@ -32,7 +32,7 @@ namespace YellowstonePathology.Business.WebService
             }
         }
 
-        [PersistentPrimaryKeyProperty(true)]
+        [PersistentPrimaryKeyProperty(false)]
         public int WebServiceAccountClientId
         {
             get { return this.m_WebServiceAccountClientId; }

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 
 namespace YellowstonePathology.Business.Gateway
 {
@@ -12,7 +13,7 @@ namespace YellowstonePathology.Business.Gateway
     {
         public static Business.WebService.WebServiceAccountCollection GetWebServiceAccounts()
         {
-           SqlCommand cmd = new SqlCommand();
+            MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = "Select * from tblWebServiceAccount order by DisplayName;";
             cmd.CommandType = CommandType.Text;
 
@@ -22,11 +23,11 @@ namespace YellowstonePathology.Business.Gateway
 
         public static Business.WebService.WebServiceAccountCollection GetWebServiceAccountsByClientId(int clientId)
         {
-            SqlCommand cmd = new SqlCommand();
+            MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = "Select wsa.* from tblWebServiceAccount wsa join tblWebServiceAccountClient wsac on " +
                 "wsa.WebServiceAccountId = wsac.WebServiceAccountId where wsac.ClientId = @ClientId order by DisplayName;";
             cmd.CommandType = CommandType.Text;
-            cmd.Parameters.Add("@ClientId", SqlDbType.Int).Value = clientId;
+            cmd.Parameters.AddWithValue("@ClientId", clientId);
 
             WebService.WebServiceAccountCollection result = BuildWebServiceAccountCollection(cmd);
             return result;
@@ -34,7 +35,7 @@ namespace YellowstonePathology.Business.Gateway
 
         public static Business.WebService.WebServiceAccountCollection GetWebServiceAccountsByDisplayName(string displayName)
         {
-            SqlCommand cmd = new SqlCommand();
+            MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = "Select * from tblWebServiceAccount where DisplayName like '" + displayName + "%' order by DisplayName;";
             cmd.CommandType = CommandType.Text;
 
@@ -42,20 +43,20 @@ namespace YellowstonePathology.Business.Gateway
             return result;
         }
 
-        private static WebService.WebServiceAccountCollection BuildWebServiceAccountCollection(SqlCommand cmd)
+        private static WebService.WebServiceAccountCollection BuildWebServiceAccountCollection(MySqlCommand cmd)
         {
             WebService.WebServiceAccountCollection result = new WebService.WebServiceAccountCollection();
 
-            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.SqlServerConnectionString))
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;
-                using (SqlDataReader dr = cmd.ExecuteReader())
+                using (MySqlDataReader dr = cmd.ExecuteReader())
                 {
                     while (dr.Read())
                     {
                         WebService.WebServiceAccount webServiceAccount = new WebService.WebServiceAccount();
-                        YellowstonePathology.Business.Persistence.SqlServerDataReaderPropertyWriter sqlServerDataReaderPropertyWriter = new Persistence.SqlServerDataReaderPropertyWriter(webServiceAccount, dr);
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlServerDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(webServiceAccount, dr);
                         sqlServerDataReaderPropertyWriter.WriteProperties();
                         result.Add(webServiceAccount);
                     }
@@ -68,20 +69,20 @@ namespace YellowstonePathology.Business.Gateway
         public static List<WebService.WebServiceClientView> GetWebServiceClientViewList()
         {
             List<WebService.WebServiceClientView> result = new List<WebService.WebServiceClientView>();
-            SqlCommand cmd = new SqlCommand();
+            MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = "Select Distinct c.ClientId, c.ClientName from tblClient c join tblWebServiceAccountClient w on c.ClientId = w.ClientId order by c.ClientName;";
             cmd.CommandType = CommandType.Text;
 
-            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.SqlServerConnectionString))
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
                 cmd.Connection = cn;
-                using (SqlDataReader dr = cmd.ExecuteReader())
+                using (MySqlDataReader dr = cmd.ExecuteReader())
                 {
                     while (dr.Read())
                     {
                         WebService.WebServiceClientView webServiceClientView = new WebService.WebServiceClientView();
-                        YellowstonePathology.Business.Persistence.SqlServerDataReaderPropertyWriter sqlServerDataReaderPropertyWriter = new Persistence.SqlServerDataReaderPropertyWriter(webServiceClientView, dr);
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlServerDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(webServiceClientView, dr);
                         sqlServerDataReaderPropertyWriter.WriteProperties();
                         result.Add(webServiceClientView);
                     }
@@ -91,7 +92,7 @@ namespace YellowstonePathology.Business.Gateway
             return result;
         }
 
-        public static void UpdateWebServiceAccount(YellowstonePathology.Business.WebService.WebServiceAccount webServiceAccount)
+        /*public static void UpdateWebServiceAccount(YellowstonePathology.Business.WebService.WebServiceAccount webServiceAccount)
         {
             StringBuilder cmdText = new StringBuilder();
             cmdText.Append("Update tblWebServiceAccount set UserName = @UserName, ");
@@ -157,6 +158,125 @@ namespace YellowstonePathology.Business.Gateway
                     parameter.Value = DBNull.Value;
                 }
             }
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.SqlServerConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                cmd.ExecuteNonQuery();
+            }
+        }*/
+
+        public static int GetNextWebServiceAccountId()
+        {
+            int result = 0;
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "Select max(WebServiceAccountId) + 1 id from tblWebServiceAccount;";
+            cmd.CommandType = CommandType.Text;
+
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        result = (int)dr[0];
+                    }
+                }
+            }
+            return result;
+        }
+
+        public static void UpDateSqlServerFromMySQL()
+        {
+            SqlParameter tableNameParameter = new SqlParameter("@TableName", SqlDbType.VarChar);
+            tableNameParameter.Value = "tblWebServiceAccount";
+            SqlParameter keyFieldParameter = new SqlParameter("@KeyField", SqlDbType.VarChar);
+            keyFieldParameter.Value = "WebServiceAccountId";
+            SqlParameter lastUpdateParameter = new SqlParameter("@LastUpdate", SqlDbType.DateTime);
+            lastUpdateParameter.Value = DateTime.Now.AddHours(-1);
+            SqlParameter currentUpdateParameter = new SqlParameter("@CurrentUpdate", SqlDbType.DateTime);
+            currentUpdateParameter.Value = DateTime.Now;
+            SqlCommand cmd = new SqlCommand();
+
+            cmd.CommandText = "mysqlupdatesstable";
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add(tableNameParameter);
+            cmd.Parameters.Add(keyFieldParameter);
+            cmd.Parameters.Add(lastUpdateParameter);
+            cmd.Parameters.Add(currentUpdateParameter);
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.SqlServerConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                cmd.ExecuteNonQuery();
+            }
+
+            cmd.CommandText = "mysqlinsertsstable";
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add(tableNameParameter);
+            cmd.Parameters.Add(keyFieldParameter);
+            cmd.Parameters.Add(lastUpdateParameter);
+            cmd.Parameters.Add(currentUpdateParameter);
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.SqlServerConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                cmd.ExecuteNonQuery();
+            }
+
+            cmd.CommandText = "mysqldeletesstable";
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add(tableNameParameter);
+            cmd.Parameters.Add(keyFieldParameter);
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.SqlServerConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                cmd.ExecuteNonQuery();
+            }
+
+
+            tableNameParameter.Value = "tblWebServiceAccountClient";
+            keyFieldParameter.Value = "WebServiceAccountClientId";
+
+            cmd.CommandText = "mysqlupdatesstable";
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add(tableNameParameter);
+            cmd.Parameters.Add(keyFieldParameter);
+            cmd.Parameters.Add(lastUpdateParameter);
+            cmd.Parameters.Add(currentUpdateParameter);
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.SqlServerConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                cmd.ExecuteNonQuery();
+            }
+
+            cmd.CommandText = "mysqlinsertsstable";
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add(tableNameParameter);
+            cmd.Parameters.Add(keyFieldParameter);
+            cmd.Parameters.Add(lastUpdateParameter);
+            cmd.Parameters.Add(currentUpdateParameter);
+
+            using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.SqlServerConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                cmd.ExecuteNonQuery();
+            }
+
+            cmd.CommandText = "mysqldeletesstable";
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add(tableNameParameter);
+            cmd.Parameters.Add(keyFieldParameter);
+
             using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.SqlServerConnectionString))
             {
                 cn.Open();
