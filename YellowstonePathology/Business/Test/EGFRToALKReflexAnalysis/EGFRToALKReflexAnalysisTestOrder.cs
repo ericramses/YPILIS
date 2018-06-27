@@ -51,6 +51,11 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
             YellowstonePathology.Business.Test.TestOrderInfo testOrderInfoALK = new TestOrderInfo(alkTest, orderTarget, false);
             YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitorALK = new Visitor.OrderTestOrderVisitor(testOrderInfoALK);
             accessionOrder.TakeATrip(orderTestOrderVisitorALK);
+
+            YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTest brafTest = new BRAFMutationAnalysis.BRAFMutationAnalysisTest();
+            YellowstonePathology.Business.Test.TestOrderInfo testOrderInfoBRAF = new TestOrderInfo(brafTest, orderTarget, false);
+            YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitorBRAF = new Visitor.OrderTestOrderVisitor(testOrderInfoBRAF);
+            accessionOrder.TakeATrip(orderTestOrderVisitorBRAF);
         }		
 
         public void SetResults(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
