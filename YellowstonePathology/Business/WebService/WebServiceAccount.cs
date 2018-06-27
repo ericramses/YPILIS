@@ -52,7 +52,7 @@ namespace YellowstonePathology.Business.WebService
             }
         }
 
-        [PersistentPrimaryKeyProperty(true)]
+        [PersistentPrimaryKeyProperty(false)]
         public int WebServiceAccountId
         {
             get { return this.m_WebServiceAccountId; }

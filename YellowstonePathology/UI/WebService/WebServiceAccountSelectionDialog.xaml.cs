@@ -74,7 +74,7 @@ namespace YellowstonePathology.UI.WebService
             if(this.ListViewWebServiceAccounts.SelectedItem != null)
             {
                 YellowstonePathology.Business.WebService.WebServiceAccount webServiceAccount = (YellowstonePathology.Business.WebService.WebServiceAccount)this.ListViewWebServiceAccounts.SelectedItem;
-                WebServiceAccountEditDialog dlg = new WebService.WebServiceAccountEditDialog(webServiceAccount);
+                WebServiceAccountEditDialog dlg = new WebService.WebServiceAccountEditDialog(webServiceAccount.WebServiceAccountId);
                 dlg.ShowDialog();
             }
         }
