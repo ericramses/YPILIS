@@ -20,10 +20,23 @@ namespace YellowstonePathology.UI.WebService
     public partial class WebServiceAccountEditDialog : Window
     {
         private YellowstonePathology.Business.WebService.WebServiceAccount m_WebServiceAccount;
+        private List<string> m_InitialPages;
+        private List<string> m_DownloadFileTypes;
 
         public WebServiceAccountEditDialog(int webServiceAccountId)
         {
             this.m_WebServiceAccount = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullWebServiceAccount(webServiceAccountId, this);
+            this.m_InitialPages = new List<string>();
+            this.m_InitialPages.Add("OrderBrowser");
+            this.m_InitialPages.Add("ReportBrowser");
+            this.m_InitialPages.Add("BillingBrowser");
+            this.m_InitialPages.Add("FileUpload");
+            this.m_InitialPages.Add("PathologyDashboard");
+
+            this.m_DownloadFileTypes = new List<string>();
+            this.m_DownloadFileTypes.Add("XPS");
+            this.m_DownloadFileTypes.Add("TIF");
+
             DataContext = this;
             InitializeComponent();
         }
@@ -31,6 +44,17 @@ namespace YellowstonePathology.UI.WebService
         public WebServiceAccountEditDialog()
         {
             this.m_WebServiceAccount = new Business.WebService.WebServiceAccount();
+            this.m_InitialPages = new List<string>();
+            this.m_InitialPages.Add("OrderBrowser");
+            this.m_InitialPages.Add("ReportBrowser");
+            this.m_InitialPages.Add("BillingBrowser");
+            this.m_InitialPages.Add("FileUpload");
+            this.m_InitialPages.Add("PathologyDashboard");
+
+            this.m_DownloadFileTypes = new List<string>();
+            this.m_DownloadFileTypes.Add("XPS");
+            this.m_DownloadFileTypes.Add("TIF");
+
             DataContext = this;
             InitializeComponent();
         }
@@ -38,6 +62,16 @@ namespace YellowstonePathology.UI.WebService
         public YellowstonePathology.Business.WebService.WebServiceAccount WebServiceAccount
         {
             get { return this.m_WebServiceAccount; }
+        }
+
+        public List<string> InitialPages
+        {
+            get { return this.m_InitialPages; }
+        }
+
+        public List<string> DownloadFileTypes
+        {
+            get { return this.m_DownloadFileTypes; }
         }
 
         private void ButtonOK_Click(object sender, RoutedEventArgs e)
