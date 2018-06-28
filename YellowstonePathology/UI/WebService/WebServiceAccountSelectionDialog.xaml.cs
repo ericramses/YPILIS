@@ -22,12 +22,10 @@ namespace YellowstonePathology.UI.WebService
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private YellowstonePathology.Business.WebService.WebServiceAccountCollection m_WebServiceAccountCollection;
-        private List<YellowstonePathology.Business.WebService.WebServiceClientView> m_WebServiceClientViewList;
+        private List<YellowstonePathology.Business.WebService.WebServiceAccountView> m_WebServiceAccountViewList;
         public WebServiceAccountSelectionDialog()
         {
-            this.m_WebServiceAccountCollection = new Business.WebService.WebServiceAccountCollection();
-            this.m_WebServiceClientViewList = YellowstonePathology.Business.Gateway.WebServiceGateway.GetWebServiceClientViewList();
+            this.m_WebServiceAccountViewList = YellowstonePathology.Business.Gateway.WebServiceGateway.GetWebServiceAccountViewList();
             DataContext = this;
 
             InitializeComponent();
@@ -41,47 +39,27 @@ namespace YellowstonePathology.UI.WebService
             }
         }
 
-        public YellowstonePathology.Business.WebService.WebServiceAccountCollection WebServiceAccountCollection
+        public List<YellowstonePathology.Business.WebService.WebServiceAccountView> WebServiceAccountViewList
         {
-            get { return this.m_WebServiceAccountCollection; }
-        }
-
-        public List<YellowstonePathology.Business.WebService.WebServiceClientView> WebServiceClientViewList
-        {
-            get { return this.m_WebServiceClientViewList; }
-        }
-
-        private void ComboBoxClientName_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if(this.ComboBoxClientName.SelectedItem != null)
-            {
-                YellowstonePathology.Business.WebService.WebServiceClientView webServiceClientView = (Business.WebService.WebServiceClientView)this.ComboBoxClientName.SelectedItem;
-                this.FillByClientId(webServiceClientView.ClientId);
-            }
-        }
-
-        private void TextBoxDisplayName_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            string displayName = TextBoxDisplayName.Text;
-            if(string.IsNullOrEmpty(displayName) == false)
-            {
-                this.FillByDisplayName(displayName);
-            }
+            get { return this.m_WebServiceAccountViewList; }
         }
 
         private void ListViewWebServiceAccounts_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if(this.ListViewWebServiceAccounts.SelectedItem != null)
             {
-                YellowstonePathology.Business.WebService.WebServiceAccount webServiceAccount = (YellowstonePathology.Business.WebService.WebServiceAccount)this.ListViewWebServiceAccounts.SelectedItem;
-                WebServiceAccountEditDialog dlg = new WebService.WebServiceAccountEditDialog(webServiceAccount.WebServiceAccountId);
+                YellowstonePathology.Business.WebService.WebServiceAccountView webServiceAccountView = (YellowstonePathology.Business.WebService.WebServiceAccountView)this.ListViewWebServiceAccounts.SelectedItem;
+                WebServiceAccountEditDialog dlg = new WebService.WebServiceAccountEditDialog(webServiceAccountView.WebServiceAccountId);
                 dlg.ShowDialog();
             }
         }
 
         private void ButtonNew_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Not implemented.");
+            WebServiceAccountEditDialog dlg = new WebService.WebServiceAccountEditDialog();
+            dlg.ShowDialog();
+            this.m_WebServiceAccountViewList = YellowstonePathology.Business.Gateway.WebServiceGateway.GetWebServiceAccountViewList();
+            NotifyPropertyChanged("WebServiceAccountViewList");
         }
 
         private void ButtonOK_Click(object sender, RoutedEventArgs e)
@@ -89,18 +67,10 @@ namespace YellowstonePathology.UI.WebService
             Close();
         }
 
-        private void FillByDisplayName(string displayName)
+        private void ButtonUpdate_Click(object sender, RoutedEventArgs e)
         {
-            this.m_WebServiceAccountCollection = YellowstonePathology.Business.Gateway.WebServiceGateway.GetWebServiceAccountsByDisplayName(displayName);
-            this.NotifyPropertyChanged("WebServiceAccountCollection");
-            this.ListViewWebServiceAccounts.SelectedIndex = -1;
-        }
-
-        private void FillByClientId(int clientId)
-        {
-            this.m_WebServiceAccountCollection = YellowstonePathology.Business.Gateway.WebServiceGateway.GetWebServiceAccountsByClientId(clientId);
-            this.NotifyPropertyChanged("WebServiceAccountCollection");
-            this.ListViewWebServiceAccounts.SelectedIndex = -1;
+            //YellowstonePathology.Business.Gateway.WebServiceGateway.UpDateSqlServerFromMySQL();
+            MessageBox.Show("Not implemented.");
         }
     }
 }
