@@ -66,11 +66,11 @@ namespace YellowstonePathology.Business.Gateway
             return result;
         }
 
-        public static List<WebService.WebServiceClientView> GetWebServiceClientViewList()
+        public static List<WebService.WebServiceAccountView> GetWebServiceAccountViewList()
         {
-            List<WebService.WebServiceClientView> result = new List<WebService.WebServiceClientView>();
+            List<WebService.WebServiceAccountView> result = new List<WebService.WebServiceAccountView>();
             MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "Select Distinct c.ClientId, c.ClientName from tblClient c join tblWebServiceAccountClient w on c.ClientId = w.ClientId order by c.ClientName;";
+            cmd.CommandText = "Select c.ClientName, w.WebServiceAccountId, w.DisplayName, w.InitialPage from tblClient c join tblWebServiceAccount w on c.ClientId = w.PrimaryClientId order by w.DisplayName;";
             cmd.CommandType = CommandType.Text;
 
             using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
@@ -81,10 +81,10 @@ namespace YellowstonePathology.Business.Gateway
                 {
                     while (dr.Read())
                     {
-                        WebService.WebServiceClientView webServiceClientView = new WebService.WebServiceClientView();
-                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlServerDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(webServiceClientView, dr);
+                        WebService.WebServiceAccountView webServiceAccountView = new WebService.WebServiceAccountView();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlServerDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(webServiceAccountView, dr);
                         sqlServerDataReaderPropertyWriter.WriteProperties();
-                        result.Add(webServiceClientView);
+                        result.Add(webServiceAccountView);
                     }
                 }
             }
@@ -181,7 +181,7 @@ namespace YellowstonePathology.Business.Gateway
                 {
                     while (dr.Read())
                     {
-                        result = (int)dr[0];
+                        result = (int)((Int64)dr[0]);
                     }
                 }
             }
