@@ -69,8 +69,8 @@ namespace YellowstonePathology.UI.WebService
 
         private void ButtonUpdate_Click(object sender, RoutedEventArgs e)
         {
-            //YellowstonePathology.Business.Gateway.WebServiceGateway.UpDateSqlServerFromMySQL();
-            MessageBox.Show("Not implemented.");
+            YellowstonePathology.Business.Gateway.WebServiceGateway.UpDateSqlServerFromMySQL();
+            MessageBox.Show("MS Sql Server Updated from MySql tables WebServiceAccount and WebServiceAccountClient.");
         }
     }
 }
