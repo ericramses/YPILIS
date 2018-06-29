@@ -49,14 +49,21 @@ namespace YellowstonePathology.UI.WebService
             if(this.ListViewWebServiceAccounts.SelectedItem != null)
             {
                 YellowstonePathology.Business.WebService.WebServiceAccountView webServiceAccountView = (YellowstonePathology.Business.WebService.WebServiceAccountView)this.ListViewWebServiceAccounts.SelectedItem;
-                WebServiceAccountEditDialog dlg = new WebService.WebServiceAccountEditDialog(webServiceAccountView.WebServiceAccountId);
+                YellowstonePathology.Business.WebService.WebServiceAccountClient webServiceAccountClient = YellowstonePathology.Business.Gateway.WebServiceGateway.GetWebServiceAccountClient(webServiceAccountView.WebServiceAccountId, webServiceAccountView.PrimaryClientId);
+                int id = 0;
+                if(webServiceAccountClient != null)
+                {
+                    id = webServiceAccountClient.WebServiceAccountClientId;
+                }
+
+                WebServiceAccountEditDialog dlg = new WebService.WebServiceAccountEditDialog(webServiceAccountView.WebServiceAccountId, id);
                 dlg.ShowDialog();
             }
         }
 
         private void ButtonNew_Click(object sender, RoutedEventArgs e)
         {
-            WebServiceAccountEditDialog dlg = new WebService.WebServiceAccountEditDialog();
+            WebServiceAccountEditDialog dlg = new WebService.WebServiceAccountEditDialog(0,0);
             dlg.ShowDialog();
             this.m_WebServiceAccountViewList = YellowstonePathology.Business.Gateway.WebServiceGateway.GetWebServiceAccountViewList();
             NotifyPropertyChanged("WebServiceAccountViewList");
