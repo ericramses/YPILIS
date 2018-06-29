@@ -56,6 +56,11 @@ namespace YellowstonePathology.UI
             this.DataContext = this;            
         }
 
+        private void Touch_FrameReported(object sender, TouchFrameEventArgs e)
+        {
+            
+        }
+
         public Nullable<DateTime> WorkDate
         {
             get { return this.m_WorkDate; }
@@ -990,9 +995,12 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            Business.Gateway.SearchGateway sg = new Business.Gateway.SearchGateway();
-            Business.Search.PathologistSearchResultCollection psrc = sg.PathologistSlideOrderIdSearch("18-123.1A1");
-            MessageBox.Show(psrc[0].PatientName);
+            MessageBox.Show("hello");
+
+            //Business.Gateway.SearchGateway sg = new Business.Gateway.SearchGateway();
+            //Business.Search.PathologistSearchResultCollection psrc = sg.PathologistSlideOrderIdSearch("18-123.1A1");
+            //MessageBox.Show(psrc[0].PatientName);
+
             /*
             Business.Test.AccessionOrder ao = Business.Persistence.DocumentGateway.Instance.GetAccessionOrderByMasterAccessionNo("18-15024");            
             Business.Test.PanelSetOrder pso = ao.PanelSetOrderCollection.GetSurgical();
