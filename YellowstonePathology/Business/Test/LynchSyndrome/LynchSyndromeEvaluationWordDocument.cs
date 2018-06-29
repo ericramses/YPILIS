@@ -20,11 +20,12 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             Business.Test.LynchSyndrome.LynchSyndromeEvaluationTest lynchSyndromeEvaluationTest = new LynchSyndromeEvaluationTest();
 
             int molecularTestCount = 0;            
-            this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\LynchSyndromeEvaluation.8.xml";
+            this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\LynchSyndromeEvaluation.9.xml";
             this.OpenTemplate();
             this.SetDemographicsV2();
             this.SetReportDistribution();
-
+            this.SetAmendments(this.m_PanelSetOrder.AmendmentCollection);
+            
             YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation = (YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation)this.m_PanelSetOrder;
             base.ReplaceText("report_interpretation", panelSetOrderLynchSyndromeEvaluation.Interpretation);
             base.ReplaceText("report_comment", panelSetOrderLynchSyndromeEvaluation.Comment);
@@ -102,7 +103,76 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 
             this.SaveReport();
         }
-        
+
+        public void SetAmendments(YellowstonePathology.Business.Amendment.Model.AmendmentCollection amendments)
+        {
+            XmlNode tableNode = m_ReportXml.SelectSingleNode("descendant::w:tbl[w:tr/w:tc/w:p/w:r/w:t='amendment_text']", this.m_NameSpaceManager);
+            XmlNode AddendumDateTimeNode = tableNode.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='amendment_date_time']", this.m_NameSpaceManager);
+            XmlNode AddendumTextNode = tableNode.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='amendment_text']", this.m_NameSpaceManager);
+            XmlNode AddendumSignatureNode = tableNode.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='amendment_signature']", this.m_NameSpaceManager);
+            XmlNode ElectronicSignatureNode = tableNode.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='signature_title']", this.m_NameSpaceManager);
+
+            XmlNode nodeToInsertAfter = AddendumDateTimeNode;
+
+            string amendmentTitle = string.Empty;
+            if (amendments.Count != 0)
+            {
+                amendmentTitle = "Amendment";
+            }
+            m_ReportXml.SelectSingleNode("descendant::w:r[w:t='amendment_title']/w:t", this.m_NameSpaceManager).InnerText = amendmentTitle;
+
+            foreach (YellowstonePathology.Business.Amendment.Model.Amendment dr in amendments)
+            {
+
+                if (dr.Final == true)
+                {
+                    string addendumText = dr.Text;
+                    string addendumDateTime = dr.FinalDate.Value.ToShortDateString() + " - " + dr.FinalTime.Value.ToString("HH:mm");
+                    string signature = dr.PathologistSignature;
+
+                    XmlNode nodeLine1 = AddendumDateTimeNode.Clone();
+                    XmlNode nodeLine2 = AddendumTextNode.Clone();
+                    XmlNode nodeLine3 = AddendumSignatureNode.Clone();
+                    XmlNode nodeLine4 = ElectronicSignatureNode.Clone();
+
+                    nodeLine1.SelectSingleNode("descendant::w:r[w:t='amendment_date_time']/w:t", this.m_NameSpaceManager).InnerText = addendumDateTime;
+                    this.SetXMLNodeParagraphDataNew(nodeLine2, "amendment_text", addendumText, this.m_NameSpaceManager);
+                    nodeLine3.SelectSingleNode("descendant::w:r[w:t='amendment_signature']/w:t", this.m_NameSpaceManager).InnerText = signature;
+                    nodeLine4.SelectSingleNode("descendant::w:r[w:t='signature_title']/w:t", this.m_NameSpaceManager).InnerText = "*** Electronic Signature ***";
+
+                    tableNode.InsertAfter(nodeLine1, nodeToInsertAfter);
+                    tableNode.InsertAfter(nodeLine2, nodeLine1);
+                    tableNode.InsertAfter(nodeLine3, nodeLine2);
+                    tableNode.InsertAfter(nodeLine4, nodeLine3);
+
+                    nodeToInsertAfter = nodeLine4;
+                }
+            }
+
+            tableNode.RemoveChild(AddendumDateTimeNode);
+            tableNode.RemoveChild(ElectronicSignatureNode);
+            tableNode.RemoveChild(AddendumSignatureNode);
+            tableNode.RemoveChild(AddendumTextNode);
+        }
+
+        public void SetXMLNodeParagraphDataNew(XmlNode inputNode, string field, string data, XmlNamespaceManager nameSpaceManager)
+        {
+            XmlNode parentNode = inputNode.SelectSingleNode("descendant::w:tc[w:p/w:r/w:t='" + field + "']", nameSpaceManager);
+            XmlNode childNode = parentNode.SelectSingleNode("descendant::w:p[w:r/w:t='" + field + "']", nameSpaceManager);
+
+            string paragraphs = data;
+            string[] lineSplit = paragraphs.Split('\n');
+
+            for (int i = 0; i < lineSplit.Length; i++)
+            {
+                XmlNode childNodeClone = childNode.Clone();
+                XmlNode node = childNodeClone.SelectSingleNode("descendant::w:r[w:t='" + field + "']/w:t", nameSpaceManager);
+                node.InnerText = lineSplit[i];
+                parentNode.AppendChild(childNodeClone);
+            }
+            parentNode.RemoveChild(childNode);
+        }
+
         public override void Publish()
         {
             base.Publish();

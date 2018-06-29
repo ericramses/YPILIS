@@ -87,11 +87,13 @@ namespace YellowstonePathology.UI.Billing
 
 		private void ButtonNext_Click(object sender, RoutedEventArgs e)
 		{           
+            
             if (this.OkToAddPanelSetOrderCPTCode() == true)
             {
                 this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.Add(this.m_PanelSetOrderCPTCode);
                 if (this.Next != null) this.Next(this, new EventArgs());
             }                  
+            
 
             /*
             List<string> listA = new List<string>();
@@ -105,7 +107,6 @@ namespace YellowstonePathology.UI.Billing
                     listA.Add(values[0]);                    
                 }
             }
-
             
             foreach(string cpt in listA)
             {
@@ -123,7 +124,7 @@ namespace YellowstonePathology.UI.Billing
                     this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.Add(panelSetOrderCPTCode);
                 }                
             }
-            if (this.Next != null) this.Next(this, new EventArgs());            
+            if (this.Next != null) this.Next(this, new EventArgs());                        
             */
         }
 

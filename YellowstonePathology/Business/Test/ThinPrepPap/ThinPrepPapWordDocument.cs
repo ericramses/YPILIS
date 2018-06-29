@@ -12,7 +12,6 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 {
     public class ThinPrepPapWordDocument : YellowstonePathology.Business.Interface.ICaseDocument
     {        
-
         const string m_ThinPrepTemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\CytologyThinPrep.9.xml";
         const string m_RegularTemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\CytologyRegular.7.xml";
 
@@ -526,7 +525,6 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 
             foreach (YellowstonePathology.Business.Amendment.Model.Amendment dr in amendments)
             {
-
                 if (dr.Final == true)
                 {
                     string addendumText = dr.Text;

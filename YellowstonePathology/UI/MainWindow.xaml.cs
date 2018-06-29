@@ -978,5 +978,11 @@ namespace YellowstonePathology.UI
             WebService.WebServiceAccountSelectionDialog dlg = new WebService.WebServiceAccountSelectionDialog();
             dlg.ShowDialog();
         }
+
+        private void MenuItemTest_Click(object sender, RoutedEventArgs e)
+        {
+            Window2 w = new Window2();
+            w.ShowDialog();
+        }
     }
 }
