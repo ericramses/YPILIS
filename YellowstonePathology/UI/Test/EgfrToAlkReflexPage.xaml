@@ -46,14 +46,17 @@
             
             <TextBlock Grid.Column="0" Grid.Row="0" Margin="0,5,0,0" FontWeight="Bold" FontSize="16">Order</TextBlock>
             
-            <TextBlock Grid.Column="0" Grid.Row="2" Margin="5,3,0,0">
+            <TextBlock Grid.Column="0" Grid.Row="1" Margin="5,3,0,0">
                 <Hyperlink Click="HyperLinkOrderPDL122C3_Click" FontSize="14">PD-L1 (22C3)</Hyperlink>
             </TextBlock>
-            <TextBlock Grid.Column="0" Grid.Row="3" Margin="5,3,0,0">
+            <TextBlock Grid.Column="0" Grid.Row="2" Margin="5,3,0,0">
                 <Hyperlink Click="HyperLinkOrderALK_Click" FontSize="14">ALK</Hyperlink>
             </TextBlock>
-            <TextBlock Grid.Column="0" Grid.Row="4" Margin="5,3,0,0">
+            <TextBlock Grid.Column="0" Grid.Row="3" Margin="5,3,0,0">
                 <Hyperlink Click="HyperLinkOrderROS1_Click" FontSize="14">ROS1</Hyperlink>
+            </TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="4" Margin="5,3,0,0">
+                <Hyperlink Click="HyperLinkOrderBRAF_Click" FontSize="14">BRAF</Hyperlink>
             </TextBlock>
 
             <TextBlock Grid.Column="0" Grid.Row="5" Margin="0,20,0,0" FontWeight="Bold" FontSize="16">Options</TextBlock>
@@ -115,8 +118,9 @@
 					<RowDefinition Height="Auto"></RowDefinition>
 				</Grid.RowDefinitions>
 
-                <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0">
+                <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" HorizontalAlignment="Left">
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
                         <ColumnDefinition Width="*"></ColumnDefinition>
                         <ColumnDefinition Width="*"></ColumnDefinition>
                         <ColumnDefinition Width="*"></ColumnDefinition>
@@ -136,7 +140,7 @@
                                 <Setter Property="Border.Padding" Value="1"/>
                             </Style>
                         </Border.Style>
-                        <Grid Width="200" Height="60" Margin="2,2,2,2">
+                        <Grid MinWidth="140" Height="60" Margin="2,2,2,2">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"></ColumnDefinition>
                                 <ColumnDefinition Width="*"></ColumnDefinition>
@@ -169,7 +173,7 @@
                                 <Setter Property="Border.Padding" Value="1"/>
                             </Style>
                         </Border.Style>
-                        <Grid Width="200" Height="60" Margin="2,2,2,2">
+                        <Grid MinWidth="140" Height="60" Margin="2,2,2,2">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"></ColumnDefinition>
                                 <ColumnDefinition Width="*"></ColumnDefinition>
@@ -202,7 +206,7 @@
                                 <Setter Property="Border.Padding" Value="1"/>
                             </Style>
                         </Border.Style>
-                        <Grid Width="200" Height="60" Margin="2,2,2,2">
+                        <Grid MinWidth="140" Height="60" Margin="2,2,2,2">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"></ColumnDefinition>
                                 <ColumnDefinition Width="*"></ColumnDefinition>
@@ -235,7 +239,7 @@
                                 <Setter Property="Border.Padding" Value="1"/>
                             </Style>
                         </Border.Style>
-                        <Grid Width="200" Height="60" Margin="2,2,2,2">
+                        <Grid MinWidth="140" Height="60" Margin="2,2,2,2">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"></ColumnDefinition>
                                 <ColumnDefinition Width="*"></ColumnDefinition>
@@ -268,7 +272,7 @@
                                 <Setter Property="Border.Padding" Value="1"/>
                             </Style>
                         </Border.Style>
-                        <Grid Width="200" Height="60" Margin="2,2,2,2">
+                        <Grid MinWidth="140" Height="60" Margin="2,2,2,2">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"></ColumnDefinition>
                                 <ColumnDefinition Width="*"></ColumnDefinition>
@@ -291,7 +295,40 @@
 
                         </Grid>
                     </Border>
-                    
+
+                    <Border Grid.Column="5" Grid.Row="1">
+                        <Border.Style>
+                            <Style>
+                                <Setter Property="Border.Background" Value="{Binding Path=EGFRToALKReflexAnalysisResult.EGFRToALKReflexAnalysisBRAFResult.Status, Converter={StaticResource EGFRToALKReflexAnalysisStatusColorConverter}}"/>
+                                <Setter Property="Border.BorderBrush" Value="Gray"/>
+                                <Setter Property="Border.BorderThickness" Value="1"/>
+                                <Setter Property="Border.Padding" Value="1"/>
+                            </Style>
+                        </Border.Style>
+                        <Grid MinWidth="140" Height="60" Margin="2,2,2,2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Column="0" Grid.Row="0" FontWeight="Bold" Margin="2,2,2,2" HorizontalAlignment="Right">Test:</TextBlock>
+                            <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Path=EGFRToALKReflexAnalysisResult.EGFRToALKReflexAnalysisBRAFResult.TestAbbreviation}" Margin="2,2,2,2"/>
+
+                            <TextBlock Grid.Column="0" Grid.Row="1" FontWeight="Bold" Margin="2,2,2,2" HorizontalAlignment="Right">Status:</TextBlock>
+                            <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Path=EGFRToALKReflexAnalysisResult.EGFRToALKReflexAnalysisBRAFResult.Status}" Margin="2,2,2,2"/>
+
+                            <TextBlock Grid.Column="0" Grid.Row="2" FontWeight="Bold" Margin="2,2,2,2" HorizontalAlignment="Right">Result:</TextBlock>
+                            <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding Path=EGFRToALKReflexAnalysisResult.EGFRToALKReflexAnalysisBRAFResult.ResultAbbreviation}" Margin="2,2,2,2"/>
+
+                        </Grid>
+                    </Border>
+
                 </Grid>
                 
                 <TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" FontWeight="Bold">Ordered On:</TextBlock>

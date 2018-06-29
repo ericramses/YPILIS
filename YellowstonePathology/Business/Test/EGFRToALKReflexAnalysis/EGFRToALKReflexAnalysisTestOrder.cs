@@ -117,6 +117,16 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
                 method.AppendLine(pdl122C3TestOrder.PanelSetName + ": " + pdl122C3TestOrder.Method);
             }
 
+            if (accessionOrder.PanelSetOrderCollection.Exists(274) == true)
+            {
+                YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTestOrder brafMutationAnalysisTestOrder = (YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(245);
+                interpretation.AppendLine();
+                interpretation.AppendLine(brafMutationAnalysisTestOrder.PanelSetName + ": " + brafMutationAnalysisTestOrder.Interpretation);
+
+                method.AppendLine();
+                method.AppendLine(brafMutationAnalysisTestOrder.PanelSetName + ": " + brafMutationAnalysisTestOrder.Method);
+            }
+
             char[] lineFeedCharacters = { '\r', '\n' };            
             this.Interpretation = interpretation.ToString().TrimEnd(lineFeedCharacters);
             this.Method = method.ToString().TrimEnd(lineFeedCharacters);

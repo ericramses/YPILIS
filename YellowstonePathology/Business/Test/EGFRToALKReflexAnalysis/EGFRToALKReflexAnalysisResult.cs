@@ -12,6 +12,7 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
         private EGFRToALKReflexAnalysisROS1Result m_EGFRToALKReflexAnalysisROS1RResult;
         private EGFRToALKReflexAnalysisPDL1SP142Result m_EGFRToALKReflexAnalysisPDL1SP142Result;
         private EGFRToALKReflexAnalysisPDL122C3Result m_EGFRToALKReflexAnalysisPDL122C3Result;
+        private EGFRToALKReflexAnalysisBRAFResult m_EGFRToALKReflexAnalysisBRAFResult;
 
         public EGFRToALKReflexAnalysisResult(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, 
             YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisTestOrder egfrToALKReflexAnalysisTestOrder)
@@ -21,6 +22,7 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
             this.m_EGFRToALKReflexAnalysisROS1RResult = new EGFRToALKReflexAnalysisROS1Result(accessionOrder);
             this.m_EGFRToALKReflexAnalysisPDL1SP142Result = new EGFRToALKReflexAnalysisPDL1SP142Result(accessionOrder);
             this.m_EGFRToALKReflexAnalysisPDL122C3Result = new EGFRToALKReflexAnalysisPDL122C3Result(accessionOrder);
+            this.m_EGFRToALKReflexAnalysisBRAFResult = new EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisBRAFResult(accessionOrder);
         }
 
         public EGFRToALKReflexAnalysisEGFRResult EGFRToALKReflexAnalysisEGFRResult
@@ -46,6 +48,11 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
         public EGFRToALKReflexAnalysisPDL122C3Result EGFRToALKReflexAnalysisPDL122C3Result
         {
             get { return this.m_EGFRToALKReflexAnalysisPDL122C3Result; }
+        }
+
+        public EGFRToALKReflexAnalysisBRAFResult EGFRToALKReflexAnalysisBRAFResult
+        {
+            get { return this.m_EGFRToALKReflexAnalysisBRAFResult; }
         }
     }
 }

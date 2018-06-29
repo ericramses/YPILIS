@@ -35,6 +35,9 @@ namespace YellowstonePathology.UI.Test
         public delegate void OrderROS1EventHandler(object sender, EventArgs e);
         public event OrderROS1EventHandler OrderROS1;
 
+        public delegate void OrderBRAFEventHandler(object sender, EventArgs e);
+        public event OrderBRAFEventHandler OrderBRAF;
+
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 
@@ -142,6 +145,11 @@ namespace YellowstonePathology.UI.Test
         private void HyperLinkOrderALK_Click(object sender, RoutedEventArgs e)
         {
             this.OrderALK(this, new EventArgs());
+        }
+
+        private void HyperLinkOrderBRAF_Click(object sender, RoutedEventArgs e)
+        {
+            this.OrderBRAF(this, new EventArgs());
         }
 
         private void HyperLinkSetResults_Click(object sender, RoutedEventArgs e)

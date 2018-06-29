@@ -1083,6 +1083,7 @@
     <Compile Include="Business\Test\API2MALT1ByFISH\API2MALT1ByFISHWPHOBXView.cs" />
     <Compile Include="Business\Test\ChimerismStudyByDNAMarkers\ChimerismStudyByDNAMarkersTest.cs" />
     <Compile Include="Business\Test\EGFRMutationAnalysisPreliminary\EGFRMutationAnalysisPreliminaryTest.cs" />
+    <Compile Include="Business\Test\EGFRToALKReflexAnalysis\EGFRToALKReflexAnalysisBRAFResult.cs" />
     <Compile Include="Business\Test\ExtractAndHoldForPreauthorization\ExtractAndHoldForPreauthorizationWordDocument.cs" />
     <Compile Include="Business\Test\MPNExtendedReflexPanel\MPNExtendedReflexPanelTest.cs" />
     <Compile Include="Business\Test\BCellEnumeration\BCellEnumerationCMMCNTEView.cs" />
