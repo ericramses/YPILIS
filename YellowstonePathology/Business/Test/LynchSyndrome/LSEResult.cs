@@ -19,6 +19,8 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 
         public static string GeneralIndication = "Assess tumor for mismatch repair deficiency to determine eligibility for PD-1 blockade therapy; screening for Lynch Syndrome.";
 
+        protected string m_Indication;
+
         protected LSEResultEnum m_PMS2Result;
 		protected LSEResultEnum m_MSH6Result;
 		protected LSEResultEnum m_MSH2Result;
@@ -36,9 +38,15 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 		public LSEResult()
 		{
             
-		}		
+		}
 
-		public LSEResultEnum PMS2Result
+        public string Indication
+        {
+            get { return this.m_Indication; }
+            set { this.m_Indication = value; }
+        }
+
+        public LSEResultEnum PMS2Result
 		{
 			get { return this.m_PMS2Result; }
 			set { this.m_PMS2Result = value; }

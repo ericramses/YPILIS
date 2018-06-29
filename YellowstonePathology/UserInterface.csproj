@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>90</ApplicationRevision>
+    <ApplicationRevision>96</ApplicationRevision>
     <ApplicationVersion>10.1.12.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -3731,6 +3731,9 @@
     <Compile Include="UI\Test\ExtractAndHoldForPreauthorizationResultPage.xaml.cs">
       <DependentUpon>ExtractAndHoldForPreauthorizationResultPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Test\LynchSyndromeEvaluationMatrixPage.xaml.cs">
+      <DependentUpon>LynchSyndromeEvaluationMatrixPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Test\SlideTrackingResultPage.xaml.cs">
       <DependentUpon>SlideTrackingResultPage.xaml</DependentUpon>
     </Compile>
@@ -5706,6 +5709,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Test\ExtractAndHoldForPreauthorizationResultPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Test\LynchSyndromeEvaluationMatrixPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

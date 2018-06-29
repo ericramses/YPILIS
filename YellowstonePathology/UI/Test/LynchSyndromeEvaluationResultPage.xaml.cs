@@ -27,9 +27,12 @@ namespace YellowstonePathology.UI.Test
 		public event NextEventHandler Next;
 
         public delegate void BackEventHandler(object sender, EventArgs e);
-        public event BackEventHandler Back;		
+        public event BackEventHandler Back;
 
-		public delegate void OrderBrafEventHandler(object sender, EventArgs e);
+        public delegate void MatrixEventHandler(object sender, EventArgs e);
+        public event MatrixEventHandler Matrix;
+
+        public delegate void OrderBrafEventHandler(object sender, EventArgs e);
 		public event OrderBrafEventHandler OrderBraf;
 
 		public delegate void OrderMLH1MethylationAnalysisEventHandler(object sender, EventArgs e);
@@ -75,6 +78,7 @@ namespace YellowstonePathology.UI.Test
 
             this.m_ControlsNotDisabledOnFinal.Add(this.ButtonBack);
             this.m_ControlsNotDisabledOnFinal.Add(this.ButtonNext);
+            this.m_ControlsNotDisabledOnFinal.Add(this.ButtonMatrix);
             this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockShowDocument);
             this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalResults);
         }
@@ -398,6 +402,11 @@ namespace YellowstonePathology.UI.Test
             }
 
             return cloneLSEResult;
+        }
+
+        private void ButtonMatrix_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.Matrix != null) this.Matrix(this, new EventArgs());
         }
     }
 }

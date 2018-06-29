@@ -9,7 +9,8 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 	{
         public LSEGYNResult3a()
 		{
-			this.m_MLH1Result = LSEResultEnum.Intact;
+            this.m_Indication = "LSEGYN";
+            this.m_MLH1Result = LSEResultEnum.Intact;
 			this.m_MSH2Result = LSEResultEnum.Intact;
 			this.m_MSH6Result = LSEResultEnum.Intact;
 			this.m_PMS2Result = LSEResultEnum.Loss;
