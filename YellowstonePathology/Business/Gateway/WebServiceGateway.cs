@@ -195,7 +195,7 @@ namespace YellowstonePathology.Business.Gateway
             SqlParameter keyFieldParameter = new SqlParameter("@KeyField", SqlDbType.VarChar);
             keyFieldParameter.Value = "WebServiceAccountId";
             SqlParameter lastUpdateParameter = new SqlParameter("@LastUpdate", SqlDbType.DateTime);
-            lastUpdateParameter.Value = DateTime.Now.AddHours(-1);
+            lastUpdateParameter.Value = DateTime.Now.AddDays(-1);
             SqlParameter currentUpdateParameter = new SqlParameter("@CurrentUpdate", SqlDbType.DateTime);
             currentUpdateParameter.Value = DateTime.Now;
             SqlCommand cmd = new SqlCommand();
@@ -215,11 +215,6 @@ namespace YellowstonePathology.Business.Gateway
             }
 
             cmd.CommandText = "mysqlinsertsstable";
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.Add(tableNameParameter);
-            cmd.Parameters.Add(keyFieldParameter);
-            cmd.Parameters.Add(lastUpdateParameter);
-            cmd.Parameters.Add(currentUpdateParameter);
 
             using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.SqlServerConnectionString))
             {
@@ -230,8 +225,8 @@ namespace YellowstonePathology.Business.Gateway
 
             cmd.CommandText = "mysqldeletesstable";
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.Add(tableNameParameter);
-            cmd.Parameters.Add(keyFieldParameter);
+            cmd.Parameters.Remove(lastUpdateParameter);
+            cmd.Parameters.Remove(currentUpdateParameter);
 
             using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.SqlServerConnectionString))
             {
@@ -240,10 +235,12 @@ namespace YellowstonePathology.Business.Gateway
                 cmd.ExecuteNonQuery();
             }
 
-
+            cmd.Parameters.Remove(tableNameParameter);
+            cmd.Parameters.Remove(keyFieldParameter);
             tableNameParameter.Value = "tblWebServiceAccountClient";
             keyFieldParameter.Value = "WebServiceAccountClientId";
 
+            cmd = new SqlCommand();
             cmd.CommandText = "mysqlupdatesstable";
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add(tableNameParameter);
@@ -259,11 +256,6 @@ namespace YellowstonePathology.Business.Gateway
             }
 
             cmd.CommandText = "mysqlinsertsstable";
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.Add(tableNameParameter);
-            cmd.Parameters.Add(keyFieldParameter);
-            cmd.Parameters.Add(lastUpdateParameter);
-            cmd.Parameters.Add(currentUpdateParameter);
 
             using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.SqlServerConnectionString))
             {
@@ -274,8 +266,8 @@ namespace YellowstonePathology.Business.Gateway
 
             cmd.CommandText = "mysqldeletesstable";
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.Add(tableNameParameter);
-            cmd.Parameters.Add(keyFieldParameter);
+            cmd.Parameters.Remove(lastUpdateParameter);
+            cmd.Parameters.Remove(currentUpdateParameter);
 
             using (SqlConnection cn = new SqlConnection(YellowstonePathology.Properties.Settings.Default.SqlServerConnectionString))
             {
