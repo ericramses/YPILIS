@@ -11,6 +11,7 @@ namespace YellowstonePathology.Business.WebService
     {
         private string m_ClientName;
         private int m_WebServiceAccountId;
+        private int m_PrimaryClientId;
         private string m_InitialPage;
         private string m_DisplayName;
 
@@ -29,6 +30,13 @@ namespace YellowstonePathology.Business.WebService
         {
             get { return this.m_WebServiceAccountId; }
             set { this.m_WebServiceAccountId = value; }
+        }
+
+        [PersistentProperty()]
+        public int PrimaryClientId
+        {
+            get { return this.m_PrimaryClientId; }
+            set { this.m_PrimaryClientId = value; }
         }
 
         [PersistentProperty()]

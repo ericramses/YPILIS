@@ -20,30 +20,30 @@ namespace YellowstonePathology.UI.WebService
     public partial class WebServiceAccountEditDialog : Window
     {
         private YellowstonePathology.Business.WebService.WebServiceAccount m_WebServiceAccount;
+        private YellowstonePathology.Business.WebService.WebServiceAccountClient m_WebServiceAccountClient;
         private List<string> m_InitialPages;
         private List<string> m_DownloadFileTypes;
 
-        public WebServiceAccountEditDialog(int webServiceAccountId)
+        public WebServiceAccountEditDialog(int webServiceAccountId, int webServiceAccountClientId)
         {
-            this.m_WebServiceAccount = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullWebServiceAccount(webServiceAccountId, this);
-            this.m_InitialPages = new List<string>();
-            this.m_InitialPages.Add("OrderBrowser");
-            this.m_InitialPages.Add("ReportBrowser");
-            this.m_InitialPages.Add("BillingBrowser");
-            this.m_InitialPages.Add("FileUpload");
-            this.m_InitialPages.Add("PathologyDashboard");
+            if (webServiceAccountId == 0)
+            {
+                this.m_WebServiceAccount = new Business.WebService.WebServiceAccount();
+            }
+            else
+            {
+                this.m_WebServiceAccount = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullWebServiceAccount(webServiceAccountId, this);
+            }
 
-            this.m_DownloadFileTypes = new List<string>();
-            this.m_DownloadFileTypes.Add("XPS");
-            this.m_DownloadFileTypes.Add("TIF");
+            if(webServiceAccountClientId == 0)
+            {
+                this.m_WebServiceAccountClient = new Business.WebService.WebServiceAccountClient();
+            }
+            else
+            {
+                this.m_WebServiceAccountClient = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullWebServiceAccountClient(webServiceAccountClientId, this);
+            }
 
-            DataContext = this;
-            InitializeComponent();
-        }
-
-        public WebServiceAccountEditDialog()
-        {
-            this.m_WebServiceAccount = new Business.WebService.WebServiceAccount();
             this.m_InitialPages = new List<string>();
             this.m_InitialPages.Add("OrderBrowser");
             this.m_InitialPages.Add("ReportBrowser");
@@ -62,6 +62,11 @@ namespace YellowstonePathology.UI.WebService
         public YellowstonePathology.Business.WebService.WebServiceAccount WebServiceAccount
         {
             get { return this.m_WebServiceAccount; }
+        }
+
+        public YellowstonePathology.Business.WebService.WebServiceAccountClient WebServiceAccountClient
+        {
+            get { return this.m_WebServiceAccountClient; }
         }
 
         public List<string> InitialPages
