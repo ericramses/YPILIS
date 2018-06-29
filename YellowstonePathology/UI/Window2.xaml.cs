@@ -24,13 +24,10 @@ namespace YellowstonePathology.UI
         private string m_TouchDown;
         private string m_TouchUp;
         private List<string> m_TestList;
-        private System.Windows.Threading.DispatcherTimer m_TouchDownTimer;
-        private bool m_LongTouch;
+        private System.Windows.Threading.DispatcherTimer m_TouchDownTimer;        
 
         public Window2()
-        {
-            this.m_LongTouch = false;
-
+        {            
             this.m_TestList = new List<string>();
             this.m_TestList.Add("aaaaaaaaaaaaaaaaaaaaaaaaa");
             this.m_TestList.Add("bbbbbbbbbbbbbbbbbbbbbbbbb");
@@ -49,7 +46,8 @@ namespace YellowstonePathology.UI
         private void TouchDownTimer_Tick(object sender, EventArgs e)
         {
             this.m_TouchDownTimer.Stop();
-            this.m_LongTouch = true;            
+            string item = (string)this.List.SelectedItem;
+            MessageBox.Show(item);            
         }
 
         public List<string> TestList
@@ -117,13 +115,8 @@ namespace YellowstonePathology.UI
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (this.List.SelectedItem != null)
-            {
-                if(this.m_LongTouch == true)
-                {
-                    this.m_LongTouch = false;
-                    string item = (string)this.List.SelectedItem;
-                    MessageBox.Show(item);                    
-                }                
+            {                             
+                
             }
         }
     }
