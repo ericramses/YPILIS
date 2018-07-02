@@ -348,11 +348,7 @@ namespace YellowstonePathology.Business.Persistence
         {
             lock (locker)
             {
-                MySqlCommand cmd = new MySqlCommand();
-                cmd.CommandText = "Select * from tblWebServiceAccount w where w.WebServiceAccountId = @WebServiceAccountId;";
-                cmd.CommandType = CommandType.Text;
-                cmd.Parameters.AddWithValue("@WebServiceAccountId", webServiceAccountId);
-                GenericDocumentBuilder builder = new GenericDocumentBuilder(cmd, typeof(YellowstonePathology.Business.WebService.WebServiceAccount));
+                WebServiceAccountDocumentBuilder builder = new WebServiceAccountDocumentBuilder(webServiceAccountId);
 
                 DocumentId documentId = new DocumentId(typeof(YellowstonePathology.Business.WebService.WebServiceAccount), writer, webServiceAccountId);
                 Document document = this.m_Stack.Pull(documentId, builder);
