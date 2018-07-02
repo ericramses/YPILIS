@@ -1064,6 +1064,7 @@
     <Compile Include="Business\Persistence\SqlDataRowReaderPropertyWriter.cs" />
     <Compile Include="Business\Persistence\SqlServerDataReaderPropertyWriter.cs" />
     <Compile Include="Business\Persistence\SystemUserDocumentBuilder.cs" />
+    <Compile Include="Business\Persistence\WebServiceAccountDocumentBuilder.cs" />
     <Compile Include="Business\ReportDistribution.Model\MultiTestDistributionHandlerNoWHP.cs" />
     <Compile Include="Business\ReportDistribution.Model\MultiTestDistributionHandlerWHPHold.cs" />
     <Compile Include="Business\Slide.Model\VantageSlide.cs" />
@@ -1140,8 +1141,10 @@
     <Compile Include="Business\WebService\WebServiceAccount.cs" />
     <Compile Include="Business\WebService\WebServiceAccountClient.cs" />
     <Compile Include="Business\WebService\WebServiceAccountClientCollection.cs" />
+    <Compile Include="Business\WebService\WebServiceAccountClientView.cs" />
     <Compile Include="Business\WebService\WebServiceAccountView.cs" />
     <Compile Include="Business\WebService\WebServiceAccountCollection.cs" />
+    <Compile Include="Business\WebService\WebServiceClientView.cs" />
     <Compile Include="Store\AppDataStore.cs" />
     <Compile Include="Business\Reports\BlocksSentNotReturnedReport.cs" />
     <Compile Include="Business\Reports\RetrospectiveReviewReport.xaml.cs">
@@ -4526,6 +4529,9 @@
     <Compile Include="UI\WatchBitmap.xaml.cs">
       <DependentUpon>WatchBitmap.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\WebService\WebServiceAccountClientEditDialog.xaml.cs">
+      <DependentUpon>WebServiceAccountClientEditDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\WebService\WebServiceAccountEditDialog.xaml.cs">
       <DependentUpon>WebServiceAccountEditDialog.xaml</DependentUpon>
     </Compile>
@@ -6669,6 +6675,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\WatchBitmap.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\WebService\WebServiceAccountClientEditDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
