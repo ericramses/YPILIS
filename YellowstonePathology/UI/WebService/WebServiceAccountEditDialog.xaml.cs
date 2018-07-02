@@ -20,28 +20,21 @@ namespace YellowstonePathology.UI.WebService
     public partial class WebServiceAccountEditDialog : Window
     {
         private YellowstonePathology.Business.WebService.WebServiceAccount m_WebServiceAccount;
-        private YellowstonePathology.Business.WebService.WebServiceAccountClient m_WebServiceAccountClient;
+        private List<YellowstonePathology.Business.WebService.WebServiceAccountClientView> m_WebServiceAccountClientViews;
         private List<string> m_InitialPages;
         private List<string> m_DownloadFileTypes;
 
-        public WebServiceAccountEditDialog(int webServiceAccountId, int webServiceAccountClientId)
+        public WebServiceAccountEditDialog(int webServiceAccountId)
         {
             if (webServiceAccountId == 0)
             {
                 this.m_WebServiceAccount = new Business.WebService.WebServiceAccount();
+                this.m_WebServiceAccountClientViews = new List<Business.WebService.WebServiceAccountClientView>();
             }
             else
             {
                 this.m_WebServiceAccount = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullWebServiceAccount(webServiceAccountId, this);
-            }
-
-            if(webServiceAccountClientId == 0)
-            {
-                this.m_WebServiceAccountClient = new Business.WebService.WebServiceAccountClient();
-            }
-            else
-            {
-                this.m_WebServiceAccountClient = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullWebServiceAccountClient(webServiceAccountClientId, this);
+                this.m_WebServiceAccountClientViews = YellowstonePathology.Business.Gateway.WebServiceGateway.GetWebServiceAccountClientViewList(webServiceAccountId);
             }
 
             this.m_InitialPages = new List<string>();
@@ -64,9 +57,9 @@ namespace YellowstonePathology.UI.WebService
             get { return this.m_WebServiceAccount; }
         }
 
-        public YellowstonePathology.Business.WebService.WebServiceAccountClient WebServiceAccountClient
+        public List<YellowstonePathology.Business.WebService.WebServiceAccountClientView> WebServiceAccountClientViews
         {
-            get { return this.m_WebServiceAccountClient; }
+            get { return this.m_WebServiceAccountClientViews; }
         }
 
         public List<string> InitialPages
@@ -114,6 +107,24 @@ namespace YellowstonePathology.UI.WebService
                 methodResult.Message = "A Password is required";
             }
             return methodResult;
+        }
+
+        private void ListViewWebServiceAccountClientViews_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if(this.ListViewWebServiceAccountClientViews.SelectedItem != null)
+            {
+                YellowstonePathology.Business.WebService.WebServiceAccountClientView webServiceAccountClientView = (YellowstonePathology.Business.WebService.WebServiceAccountClientView)this.ListViewWebServiceAccountClientViews.SelectedItem;
+                YellowstonePathology.Business.WebService.WebServiceAccountClient webServiceAccountClient = this.m_WebServiceAccount.WebServiceAccountClientCollection.Get(webServiceAccountClientView.WebServiceAccountClientId);
+                WebServiceAccountClientEditDialog dlg = new WebServiceAccountClientEditDialog(this.m_WebServiceAccount, webServiceAccountClient);
+                dlg.ShowDialog();
+            }
+        }
+
+        private void ButtonNewClient_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.WebService.WebServiceAccountClientView webServiceAccountClientView = (YellowstonePathology.Business.WebService.WebServiceAccountClientView)this.ListViewWebServiceAccountClientViews.SelectedItem;
+            WebServiceAccountClientEditDialog dlg = new WebServiceAccountClientEditDialog(this.m_WebServiceAccount, null);
+            dlg.ShowDialog();
         }
     }
 }
