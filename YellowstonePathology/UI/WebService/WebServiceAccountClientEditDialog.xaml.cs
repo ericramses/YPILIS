@@ -23,12 +23,10 @@ namespace YellowstonePathology.UI.WebService
         private YellowstonePathology.Business.WebService.WebServiceAccount  m_WebServiceAccount;
         private YellowstonePathology.Business.WebService.WebServiceAccountClient m_WebServiceAccountClient;
 
-        public WebServiceAccountClientEditDialog(YellowstonePathology.Business.WebService.WebServiceAccount webServiceAccount,
-            YellowstonePathology.Business.WebService.WebServiceAccountClient webServiceAccountClient)
+        public WebServiceAccountClientEditDialog(YellowstonePathology.Business.WebService.WebServiceAccount webServiceAccount)
         {
             this.m_WebServiceAccount = webServiceAccount;
-            this.m_WebServiceAccountClient = webServiceAccountClient;
-            if (this.m_WebServiceAccountClient == null) this.m_WebServiceAccountClient = new Business.WebService.WebServiceAccountClient();
+            this.m_WebServiceAccountClient = new Business.WebService.WebServiceAccountClient();
             this.m_WebServiceClientViews = YellowstonePathology.Business.Gateway.WebServiceGateway.GetWebServiceClientViews();
 
             InitializeComponent();
@@ -39,20 +37,7 @@ namespace YellowstonePathology.UI.WebService
 
         private void WebServiceAccountClientEditDialog_Loaded(object sender, RoutedEventArgs e)
         {
-            if(this.m_WebServiceAccountClient.WebServiceAccountClientId == 0)
-            {
                 this.ListViewWebServiceClientViews.SelectedIndex = -1;
-            }
-            else
-            {
-                foreach(YellowstonePathology.Business.WebService.WebServiceClientView webServiceClientView in this.m_WebServiceClientViews)
-                {
-                    if(webServiceClientView.ClientId == this.m_WebServiceAccountClient.ClientId)
-                    {
-                        this.ListViewWebServiceClientViews.SelectedItem = webServiceClientView;
-                    }
-                }
-            }
         }
 
         public List<YellowstonePathology.Business.WebService.WebServiceClientView> WebServiceClientViews
@@ -62,24 +47,28 @@ namespace YellowstonePathology.UI.WebService
 
         private void ButtonOK_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.WebService.WebServiceClientView webServiceClientView = (YellowstonePathology.Business.WebService.WebServiceClientView)this.ListViewWebServiceClientViews.SelectedItem;
-            if (webServiceClientView != null)
+            if(this.ListViewWebServiceClientViews.SelectedItems.Count > 0)
+            foreach(YellowstonePathology.Business.WebService.WebServiceClientView webServiceClientView in this.ListViewWebServiceClientViews.SelectedItems)
             {
+                int id = YellowstonePathology.Business.Gateway.WebServiceGateway.GetNextWebServiceAccountClientId();
+                this.m_WebServiceAccountClient.WebServiceAccountClientId = id;
+                this.m_WebServiceAccountClient.WebServiceAccountId = this.m_WebServiceAccount.WebServiceAccountId;
                 this.m_WebServiceAccountClient.ClientId = webServiceClientView.ClientId;
-                if (this.m_WebServiceAccountClient.WebServiceAccountClientId == 0)
-                {
-                    int id = YellowstonePathology.Business.Gateway.WebServiceGateway.GetNextWebServiceAccountClientId();
-                    this.m_WebServiceAccountClient.WebServiceAccountClientId = id;
-                    this.m_WebServiceAccountClient.WebServiceAccountId = this.m_WebServiceAccount.WebServiceAccountId;
-                    this.m_WebServiceAccount.WebServiceAccountClientCollection.Add(this.m_WebServiceAccountClient);
-                }
-
+                this.m_WebServiceAccountClient.ClientName = webServiceClientView.ClientName;
+                this.m_WebServiceAccount.WebServiceAccountClientCollection.Add(this.m_WebServiceAccountClient);
+                this.DialogResult = true;
                 Close();
             }
             else
             {
                 MessageBox.Show("A client must be selected.");
             }
+        }
+
+        private void ButtonCancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.DialogResult = false;
+            Close();
         }
     }
 }

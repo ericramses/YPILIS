@@ -51,6 +51,8 @@ namespace YellowstonePathology.UI.WebService
                 YellowstonePathology.Business.WebService.WebServiceAccountView webServiceAccountView = (YellowstonePathology.Business.WebService.WebServiceAccountView)this.ListViewWebServiceAccounts.SelectedItem;
                 WebServiceAccountEditDialog dlg = new WebService.WebServiceAccountEditDialog(webServiceAccountView.WebServiceAccountId);
                 dlg.ShowDialog();
+                this.m_WebServiceAccountViewList = YellowstonePathology.Business.Gateway.WebServiceGateway.GetWebServiceAccountViewList();
+                NotifyPropertyChanged("WebServiceAccountViewList");
             }
         }
 
@@ -71,6 +73,18 @@ namespace YellowstonePathology.UI.WebService
         {
             YellowstonePathology.Business.Gateway.WebServiceGateway.UpDateSqlServerFromMySQL();
             MessageBox.Show("MS Sql Server Updated from MySql tables WebServiceAccount and WebServiceAccountClient.");
+        }
+
+        private void ButtonDelete_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.ListViewWebServiceAccounts.SelectedItem != null)
+            {
+                YellowstonePathology.Business.WebService.WebServiceAccountView webServiceAccountView = (YellowstonePathology.Business.WebService.WebServiceAccountView)this.ListViewWebServiceAccounts.SelectedItem;
+                YellowstonePathology.Business.WebService.WebServiceAccount webServiceAccount = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullWebServiceAccount(webServiceAccountView.WebServiceAccountId, this);
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.DeleteDocument(webServiceAccount, this);
+                this.m_WebServiceAccountViewList = YellowstonePathology.Business.Gateway.WebServiceGateway.GetWebServiceAccountViewList();
+                NotifyPropertyChanged("WebServiceAccountViewList");
+            }
         }
     }
 }

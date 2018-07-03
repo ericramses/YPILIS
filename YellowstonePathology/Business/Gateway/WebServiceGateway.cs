@@ -59,34 +59,6 @@ namespace YellowstonePathology.Business.Gateway
             return result;
         }
 
-        public static List<WebService.WebServiceAccountClientView> GetWebServiceAccountClientViewList(int webServiceAccountId)
-        {
-            List<WebService.WebServiceAccountClientView> result = new List<WebService.WebServiceAccountClientView>();
-            MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "Select w.*, c.ClientName from tblWebServiceAccountClient w join tblClient c on w.ClientId = c.ClientId where " +
-                "w.WebServiceAccountId = @WebServiceAccountId;";
-            cmd.CommandType = CommandType.Text;
-            cmd.Parameters.AddWithValue("@WebServiceAccountId", webServiceAccountId);
-
-            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-            {
-                cn.Open();
-                cmd.Connection = cn;
-                using (MySqlDataReader dr = cmd.ExecuteReader())
-                {
-                    while (dr.Read())
-                    {
-                        WebService.WebServiceAccountClientView view = new WebService.WebServiceAccountClientView();
-                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlServerDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(view, dr);
-                        sqlServerDataReaderPropertyWriter.WriteProperties();
-                        result.Add(view);
-                    }
-                }
-            }
-
-            return result;
-        }
-
         public static int GetNextWebServiceAccountClientId()
         {
             int result = 0;
