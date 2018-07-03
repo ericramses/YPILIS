@@ -355,21 +355,5 @@ namespace YellowstonePathology.Business.Persistence
                 return (YellowstonePathology.Business.WebService.WebServiceAccount)document.Value;
             }
         }
-
-        public YellowstonePathology.Business.WebService.WebServiceAccountClient PullWebServiceAccountClient(int webServiceAccountClientId, object writer)
-        {
-            lock (locker)
-            {
-                MySqlCommand cmd = new MySqlCommand();
-                cmd.CommandText = "Select * from tblWebServiceAccountClient w where w.WebServiceAccountClientId = @WebServiceAccountClientId;";
-                cmd.CommandType = CommandType.Text;
-                cmd.Parameters.AddWithValue("@WebServiceAccountClientId", webServiceAccountClientId);
-                GenericDocumentBuilder builder = new GenericDocumentBuilder(cmd, typeof(YellowstonePathology.Business.WebService.WebServiceAccountClient));
-
-                DocumentId documentId = new DocumentId(typeof(YellowstonePathology.Business.WebService.WebServiceAccountClient), writer, webServiceAccountClientId);
-                Document document = this.m_Stack.Pull(documentId, builder);
-                return (YellowstonePathology.Business.WebService.WebServiceAccountClient)document.Value;
-            }
-        }
     }
 }

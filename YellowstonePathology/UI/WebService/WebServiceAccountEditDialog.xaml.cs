@@ -11,16 +11,18 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.ComponentModel;
 
 namespace YellowstonePathology.UI.WebService
 {
     /// <summary>
     /// Interaction logic for WebServiceAccountDialog.xaml
     /// </summary>
-    public partial class WebServiceAccountEditDialog : Window
+    public partial class WebServiceAccountEditDialog : Window, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
         private YellowstonePathology.Business.WebService.WebServiceAccount m_WebServiceAccount;
-        private List<YellowstonePathology.Business.WebService.WebServiceAccountClientView> m_WebServiceAccountClientViews;
         private List<string> m_InitialPages;
         private List<string> m_DownloadFileTypes;
 
@@ -29,12 +31,10 @@ namespace YellowstonePathology.UI.WebService
             if (webServiceAccountId == 0)
             {
                 this.m_WebServiceAccount = new Business.WebService.WebServiceAccount();
-                this.m_WebServiceAccountClientViews = new List<Business.WebService.WebServiceAccountClientView>();
             }
             else
             {
                 this.m_WebServiceAccount = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullWebServiceAccount(webServiceAccountId, this);
-                this.m_WebServiceAccountClientViews = YellowstonePathology.Business.Gateway.WebServiceGateway.GetWebServiceAccountClientViewList(webServiceAccountId);
             }
 
             this.m_InitialPages = new List<string>();
@@ -52,14 +52,17 @@ namespace YellowstonePathology.UI.WebService
             InitializeComponent();
         }
 
+        public void NotifyPropertyChanged(String info)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
+        }
+
         public YellowstonePathology.Business.WebService.WebServiceAccount WebServiceAccount
         {
             get { return this.m_WebServiceAccount; }
-        }
-
-        public List<YellowstonePathology.Business.WebService.WebServiceAccountClientView> WebServiceAccountClientViews
-        {
-            get { return this.m_WebServiceAccountClientViews; }
         }
 
         public List<string> InitialPages
@@ -81,6 +84,10 @@ namespace YellowstonePathology.UI.WebService
                 {
                     int id = YellowstonePathology.Business.Gateway.WebServiceGateway.GetNextWebServiceAccountId();
                     this.m_WebServiceAccount.WebServiceAccountId = id;
+                    foreach(YellowstonePathology.Business.WebService.WebServiceAccountClient webServiceAccountClient in this.m_WebServiceAccount.WebServiceAccountClientCollection)
+                    {
+                        if (webServiceAccountClient.WebServiceAccountId == 0) webServiceAccountClient.WebServiceAccountId = id;
+                    }
                     YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(this.m_WebServiceAccount, this);
                 }
 
@@ -109,22 +116,23 @@ namespace YellowstonePathology.UI.WebService
             return methodResult;
         }
 
-        private void ListViewWebServiceAccountClientViews_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void ButtonAddClient_Click(object sender, RoutedEventArgs e)
         {
-            if(this.ListViewWebServiceAccountClientViews.SelectedItem != null)
+            WebServiceAccountClientEditDialog dlg = new WebServiceAccountClientEditDialog(this.m_WebServiceAccount);
+            bool? result = dlg.ShowDialog();
+            if(result.HasValue && result.Value == true)
             {
-                YellowstonePathology.Business.WebService.WebServiceAccountClientView webServiceAccountClientView = (YellowstonePathology.Business.WebService.WebServiceAccountClientView)this.ListViewWebServiceAccountClientViews.SelectedItem;
-                YellowstonePathology.Business.WebService.WebServiceAccountClient webServiceAccountClient = this.m_WebServiceAccount.WebServiceAccountClientCollection.Get(webServiceAccountClientView.WebServiceAccountClientId);
-                WebServiceAccountClientEditDialog dlg = new WebServiceAccountClientEditDialog(this.m_WebServiceAccount, webServiceAccountClient);
-                dlg.ShowDialog();
+                this.NotifyPropertyChanged("WebServiceAccountClientCollection");
             }
         }
 
-        private void ButtonNewClient_Click(object sender, RoutedEventArgs e)
+        private void ButtonDeleteClient_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.WebService.WebServiceAccountClientView webServiceAccountClientView = (YellowstonePathology.Business.WebService.WebServiceAccountClientView)this.ListViewWebServiceAccountClientViews.SelectedItem;
-            WebServiceAccountClientEditDialog dlg = new WebServiceAccountClientEditDialog(this.m_WebServiceAccount, null);
-            dlg.ShowDialog();
+            foreach(YellowstonePathology.Business.WebService.WebServiceAccountClient webServiceAccountClient in this.ListViewWebServiceAccountClientViews.SelectedItems)
+            {
+                this.m_WebServiceAccount.WebServiceAccountClientCollection.Remove(webServiceAccountClient);
+                this.NotifyPropertyChanged("WebServiceAccountClientCollection");
+            }
         }
     }
 }
