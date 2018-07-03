@@ -13,7 +13,8 @@ namespace YellowstonePathology.Business.Persistence
         {
             this.m_SQLCommand = new MySqlCommand();
             this.m_SQLCommand.CommandText = "Select * from tblWebServiceAccount where WebServiceAccountId = @WebServiceAccountId; " +
-                "SELECT * from tblWebServiceAccountClient where WebServiceAccountId = @WebServiceAccountId;";
+                "SELECT w.*, c.ClientName from tblWebServiceAccountClient w join tblClient c on w.ClientId = c.ClientId where " +
+                "w.WebServiceAccountId = @WebServiceAccountId;";
             this.m_SQLCommand.CommandType = CommandType.Text;
             this.m_SQLCommand.Parameters.AddWithValue("@WebServiceAccountId", webServiceAccountId);
         }
@@ -46,6 +47,7 @@ namespace YellowstonePathology.Business.Persistence
                             YellowstonePathology.Business.WebService.WebServiceAccountClient webServiceAccountClient = new YellowstonePathology.Business.WebService.WebServiceAccountClient();
                             Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(webServiceAccountClient, dr);
                             sqlDataReaderPropertyWriter.WriteProperties();
+                            webServiceAccountClient.ClientName = dr["ClientName"].ToString();
                             webServiceAccount.WebServiceAccountClientCollection.Add(webServiceAccountClient);
                         }
                     }
