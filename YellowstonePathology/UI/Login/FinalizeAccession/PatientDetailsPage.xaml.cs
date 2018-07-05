@@ -118,7 +118,11 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 result = false;
             }
             /********/
-            if(this.m_AccessionOrder.PBirthdate.HasValue == false)
+            string eBirthdate = this.TextBoxBirthdate.Text;
+            DateTime checkDate;
+            bool isValidDate = DateTime.TryParse(eBirthdate, out checkDate);
+
+            if (isValidDate == true)
             {
                 MessageBox.Show("Enter a valid Birthdate.");
                 result = false;

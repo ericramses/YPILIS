@@ -67,7 +67,11 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         private void ButtonNext_Click(object sender, RoutedEventArgs e)
         {
-            if (this.m_ClientOrder.PBirthdate.HasValue == true)
+            string eBirthdate = this.TextBoxPBirthdate.Text;
+            DateTime checkDate;
+            bool isValidDate = DateTime.TryParse(eBirthdate, out checkDate);
+
+            if (isValidDate == true)
             {
                 this.m_ClientOrder.OrderedBy = YellowstonePathology.Business.User.SystemIdentity.Instance.User.DisplayName;
                 UI.Navigation.PageNavigationReturnEventArgs args = new UI.Navigation.PageNavigationReturnEventArgs(UI.Navigation.PageNavigationDirectionEnum.Next, null);
