@@ -727,8 +727,7 @@ namespace YellowstonePathology.Business.Test.LLP
             {
                 foreach (YellowstonePathology.Business.Flow.FlowMarkerItem markerItem in this.FlowMarkerCollection)
                 {
-                    result.AppendLine(markerItem.Name + ":");
-                    result.AppendLine(markerItem.Result);
+                    result.AppendLine(markerItem.Name + ":  " + markerItem.Result);
                     result.AppendLine();
                 }
             }

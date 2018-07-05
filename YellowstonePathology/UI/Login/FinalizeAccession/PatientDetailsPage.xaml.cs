@@ -122,7 +122,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             DateTime checkDate;
             bool isValidDate = DateTime.TryParse(eBirthdate, out checkDate);
 
-            if (isValidDate == true)
+            if (isValidDate == false)
             {
                 MessageBox.Show("Enter a valid Birthdate.");
                 result = false;
