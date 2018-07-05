@@ -67,9 +67,16 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         private void ButtonNext_Click(object sender, RoutedEventArgs e)
         {
-			this.m_ClientOrder.OrderedBy = YellowstonePathology.Business.User.SystemIdentity.Instance.User.DisplayName;
-			UI.Navigation.PageNavigationReturnEventArgs args = new UI.Navigation.PageNavigationReturnEventArgs(UI.Navigation.PageNavigationDirectionEnum.Next, null);
-			this.Return(this, args);
+            if (this.m_ClientOrder.PBirthdate.HasValue == true)
+            {
+                this.m_ClientOrder.OrderedBy = YellowstonePathology.Business.User.SystemIdentity.Instance.User.DisplayName;
+                UI.Navigation.PageNavigationReturnEventArgs args = new UI.Navigation.PageNavigationReturnEventArgs(UI.Navigation.PageNavigationDirectionEnum.Next, null);
+                this.Return(this, args);
+            }
+            else
+            {
+                MessageBox.Show("Enter a valid Birthdate.");
+            }
         }
 
         private void ButtonClose_Click(object sender, RoutedEventArgs e)

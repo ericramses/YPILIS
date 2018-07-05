@@ -118,6 +118,11 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 result = false;
             }
             /********/
+            if(this.m_AccessionOrder.PBirthdate.HasValue == false)
+            {
+                MessageBox.Show("Enter a valid Birthdate.");
+                result = false;
+            }
 
             YellowstonePathology.Business.Audit.Model.AuditCollection auditCollection = new Business.Audit.Model.AuditCollection();
             auditCollection.Add(new YellowstonePathology.Business.Audit.Model.TallmanMedicalRecordAudit(this.m_AccessionOrder));

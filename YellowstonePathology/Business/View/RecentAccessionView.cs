@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business.View
 		private string m_MasterAccessionNo;
 		private string m_PFirstName;
 		private string m_PLastName;
-        private DateTime m_PBirthdate;
+        private Nullable<DateTime> m_PBirthdate;
 		private DateTime m_AccessionTime;
 		private string m_ClientName;
 		private string m_PhysicianName;
@@ -91,7 +91,7 @@ namespace YellowstonePathology.Business.View
 		}
 
         [PersistentProperty()]
-        public DateTime PBirthdate
+        public Nullable<DateTime> PBirthdate
         {
             get { return this.m_PBirthdate; }
             set
