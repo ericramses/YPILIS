@@ -31,7 +31,12 @@ namespace YellowstonePathology.UI
 			this.m_ReportNo = reportNo;
 
 			InitializeComponent();
-			this.DataContext = this;            
+			this.DataContext = this;
+
+            if(this.m_AccessionOrder != null && this.m_AccessionOrder.AccessionLock.IsLockAquiredByMe == false)
+            {
+                this.TreeViewAmendment.ContextMenu.IsEnabled = false;
+            }
 		}        
 
         public YellowstonePathology.Business.User.SystemUser CurrentUser
