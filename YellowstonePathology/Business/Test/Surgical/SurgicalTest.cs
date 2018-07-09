@@ -36,7 +36,8 @@ namespace YellowstonePathology.Business.Test.Surgical
             this.m_ProfessionalComponentFacility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPBLGS");
             this.m_ProfessionalComponentBillingFacility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
 
-            this.m_OrderTargetTypeCollectionExclusions.Add(new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ThinPrepFluid());
+            YellowstonePathology.Business.Specimen.Model.Specimen thinPrepSpecimen = YellowstonePathology.Business.Specimen.Model.SpecimenCollection.Instance.GetSpecimen("SPCMNTHNPRPFLD");
+            this.m_OrderTargetTypeCollectionExclusions.Add(thinPrepSpecimen);
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceYPI());
 		}
 	}

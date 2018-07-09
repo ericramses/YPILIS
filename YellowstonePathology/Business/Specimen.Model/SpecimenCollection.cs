@@ -4,15 +4,28 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+using Newtonsoft.Json.Linq;
 using StackExchange.Redis;
 
 namespace YellowstonePathology.Business.Specimen.Model
 {
     public class SpecimenCollection : ObservableCollection<Specimen>
     {
-        public SpecimenCollection()
-        {
+        private static SpecimenCollection instance;
 
+        public SpecimenCollection() { }
+
+        public static SpecimenCollection Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = BuildFromRedis();
+                }
+                return instance;
+            }
         }
 
         public bool Exists(string specimenId)
@@ -57,16 +70,16 @@ namespace YellowstonePathology.Business.Specimen.Model
         public static SpecimenCollection GetSkins()
         {
             SpecimenCollection result = new SpecimenCollection();
-            result.Add(new SpecimenDefinition.SkinExcisionOrientedBiopsy());
-            result.Add(new SpecimenDefinition.SkinExcisionUnorientedBiopsy());
-            result.Add(new SpecimenDefinition.SkinExcisionOrientedwithCurettingsBiopsy());
-            result.Add(new SpecimenDefinition.SkinExcisionUnorientedwithCurettingsBiopsy());
-            result.Add(new SpecimenDefinition.SkinShavePunchMiscBiopsy());
-            result.Add(new SpecimenDefinition.SkinShavewithCurettingsBiopsy());            
+            result.Add(SpecimenCollection.Instance.GetSpecimen("SKEXOSPCMN")); // new SpecimenDefinition.SkinExcisionOrientedBiopsy());
+            result.Add(SpecimenCollection.Instance.GetSpecimen("SKEXUOSPCMN")); // new SpecimenDefinition.SkinExcisionUnorientedBiopsy());
+            result.Add(SpecimenCollection.Instance.GetSpecimen("SKEXOCSPCMN")); // new SpecimenDefinition.SkinExcisionOrientedwithCurettingsBiopsy());
+            result.Add(SpecimenCollection.Instance.GetSpecimen("SKEXUOCSPCMN")); // new SpecimenDefinition.SkinExcisionUnorientedwithCurettingsBiopsy());
+            result.Add(SpecimenCollection.Instance.GetSpecimen("SKSHPHMSSPCMN")); // new SpecimenDefinition.SkinShavePunchMiscBiopsy());
+            result.Add(SpecimenCollection.Instance.GetSpecimen("SKSHCSPCMN")); // new SpecimenDefinition.SkinShavewithCurettingsBiopsy());            
             return Sort(result);
         }
 
-        public static SpecimenCollection GetAll()
+        /*public static SpecimenCollection GetAll()
         {
             SpecimenCollection result = new SpecimenCollection();
             result.Add(new SpecimenDefinition.NullSpecimen());
@@ -122,56 +135,36 @@ namespace YellowstonePathology.Business.Specimen.Model
             result.Add(new SpecimenDefinition.ExplantedDevices());
             result.Add(new SpecimenDefinition.FNA());
             return Sort(result);
-        }
+        }*/
 
         public string ToJSON()
         {
-            string result = JsonConvert.SerializeObject(this, Newtonsoft.Json.Formatting.Indented, new JsonSerializerSettings
-            {
-                TypeNameHandling = TypeNameHandling.All
-            });
-
+            var camelCaseFormatter = new JsonSerializerSettings();
+            camelCaseFormatter.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            string result = JsonConvert.SerializeObject(this, Formatting.Indented, camelCaseFormatter);
             return result;
-        }
-
-        public void WriteToRedis()
-        {
-            Store.RedisServerDeprecated.Instance.GetDB(0).KeyDelete("specimens");
-            //RedisLocksConnection.Instance.DefaultDb.KeyDelete("specimens");
-            foreach (Specimen specimen in this)
-            {
-                Store.RedisServerDeprecated.Instance.GetDB(0).KeyDelete("specimen:" + specimen.SpecimenId);
-                //RedisLocksConnection.Instance.DefaultDb.KeyDelete("specimen:" + specimen.SpecimenId);
-                string result = JsonConvert.SerializeObject(specimen, Newtonsoft.Json.Formatting.Indented, new JsonSerializerSettings
-                {
-                    TypeNameHandling = TypeNameHandling.All
-                });
-
-                Store.RedisServerDeprecated.Instance.GetDB(0).ListRightPush("specimens", "specimen:" + specimen.SpecimenId);
-                Store.RedisServerDeprecated.Instance.GetDB(0).StringSet("specimen:" + specimen.SpecimenId, result);
-                //RedisLocksConnection.Instance.DefaultDb.ListRightPush("specimens", "specimen:" + specimen.SpecimenId);
-                //RedisLocksConnection.Instance.DefaultDb.StringSet("specimen:" + specimen.SpecimenId, result);
-            }            
         }
 
         public static SpecimenCollection BuildFromRedis()
         {
             SpecimenCollection result = new SpecimenCollection();
-            RedisValue[] items = Store.RedisServerDeprecated.Instance.GetDB(0).ListRange("specimens", 0, -1);
-            //RedisValue[] items = RedisLocksConnection.Instance.DefaultDb.ListRange("specimens", 0, -1);
-
-            for (int i = 0; i < items.Length; i++)
+            Store.RedisDB specimenDb = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.Specimen);
+            foreach (string jString in specimenDb.GetAllJSONKeys())
             {
-                RedisValue json = Store.RedisServerDeprecated.Instance.GetDB(0).StringGet(items[i].ToString());
-                //RedisValue json = RedisLocksConnection.Instance.DefaultDb.StringGet(items[i].ToString());
-                Business.Specimen.Model.Specimen specimen = JsonConvert.DeserializeObject<Business.Specimen.Model.Specimen>(json, new JsonSerializerSettings
+                Specimen specimen = JsonConvert.DeserializeObject<Specimen>(jString, new JsonSerializerSettings
                 {
                     TypeNameHandling = TypeNameHandling.All,
-                    ObjectCreationHandling = ObjectCreationHandling.Replace
+                    ObjectCreationHandling = ObjectCreationHandling.Replace,
                 });
 
-                result.Add(specimen);
-            }            
+                JObject jObject = JsonConvert.DeserializeObject<JObject>(jString);
+                string code = jObject["cptCodeId"].ToString();
+                if (string.IsNullOrEmpty(code) == false)
+                {
+                    specimen.CPTCode = Store.AppDataStore.Instance.CPTCodeCollection.GetClone(code, null);
+                }
+                    result.Add(specimen);
+            }
             return result;
         }
     }

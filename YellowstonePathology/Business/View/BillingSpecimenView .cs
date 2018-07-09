@@ -14,7 +14,6 @@ namespace YellowstonePathology.Business.View
 		private YellowstonePathology.Business.Specimen.Model.SpecimenOrder m_SpecimenOrder;
 		private YellowstonePathology.Business.Test.PanelSetOrderCPTCodeCollection m_PanelSetOrderCPTCodeCollection;
 		private YellowstonePathology.Business.Billing.Model.ICD9BillingCodeCollection m_ICD9BillingCodeCollection;
-        private YellowstonePathology.Business.Specimen.Model.SpecimenCollection m_SpecimenCollection;
         private bool m_IsSelected;
 
 		public BillingSpecimenView(YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen,
@@ -26,12 +25,11 @@ namespace YellowstonePathology.Business.View
 			this.m_SpecimenOrder = specimenOrder;
 			this.m_PanelSetOrderCPTCodeCollection = panelSetOrderCPTCodeCollection;
 			this.m_ICD9BillingCodeCollection = icd9BillingCodeCollection;
-            this.m_SpecimenCollection = YellowstonePathology.Business.Specimen.Model.SpecimenCollection.GetAll();
 		}
 
         public YellowstonePathology.Business.Specimen.Model.SpecimenCollection SpecimenCollection
         {
-            get { return this.m_SpecimenCollection; }
+            get { return YellowstonePathology.Business.Specimen.Model.SpecimenCollection.Instance; }
         }
 
 		public YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen SurgicalSpecimen
