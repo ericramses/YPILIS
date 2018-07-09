@@ -30,7 +30,7 @@
 				<RowDefinition Height="*"></RowDefinition>
 			</Grid.RowDefinitions>
 
-			<Grid Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Margin="5">
+			<Grid Name="GridType"  Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Margin="5">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="*"></ColumnDefinition>
 					<ColumnDefinition Width="*"></ColumnDefinition>
@@ -57,7 +57,7 @@
 				</ComboBox>
 			</Grid>
 
-			<StackPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
+			<StackPanel Name="StackPanelCheckBoxes" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
 				<StackPanel Orientation="Horizontal">
 					<CheckBox IsChecked="{Binding Path=SelectedAmendment.RequirePathologistSignature}" Margin="2,2,2,2"/>
 					<TextBlock Margin="2,2,2,2">Require Pathologist Signature</TextBlock>
@@ -80,7 +80,7 @@
 					<TextBlock Margin="2,2,20,2" IsEnabled="False">Finaled</TextBlock>
 				</StackPanel>
 			</StackPanel>
-			<Grid Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="2">
+			<Grid Name="GridDates"  Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="2">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="Auto"></ColumnDefinition>
 					<ColumnDefinition Width="*"></ColumnDefinition>

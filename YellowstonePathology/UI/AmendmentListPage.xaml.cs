@@ -29,6 +29,11 @@ namespace YellowstonePathology.UI
 			this.m_AmendmentUI = amendmentUI;
 			InitializeComponent();
 			DataContext = this;
+            if(this.m_AmendmentUI.AccessionOrder.AccessionLock.IsLockAquiredByMe == false)
+            {
+                this.ButtonAdd.IsEnabled = false;
+                this.ButtonDelete.IsEnabled = false;
+            }
 		}
 
 		public void NotifyPropertyChanged(String info)

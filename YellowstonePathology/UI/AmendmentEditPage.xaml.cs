@@ -33,6 +33,15 @@ namespace YellowstonePathology.UI
 			InitializeComponent();
 
 			DataContext = this;
+
+            if (this.m_AmendmentUI.AccessionOrder.AccessionLock.IsLockAquiredByMe == false)
+            {
+                this.GridType.IsEnabled = false;
+                this.StackPanelCheckBoxes.IsEnabled = false;
+                this.GridDates.IsEnabled = false;
+                this.TextBoxAmendment.IsEnabled = false;
+                this.ButtonFinalize.IsEnabled = false;
+            }
 		}
 
 		public void NotifyPropertyChanged(String info)
