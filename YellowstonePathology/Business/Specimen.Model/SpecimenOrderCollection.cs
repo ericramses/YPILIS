@@ -453,7 +453,7 @@ namespace YellowstonePathology.Business.Specimen.Model
         public SpecimenOrderCollection GetNonPAPSpecimen()
         {
             SpecimenOrderCollection result = new SpecimenOrderCollection();
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ThinPrepFluid thinPrepFluid = new SpecimenDefinition.ThinPrepFluid();
+            YellowstonePathology.Business.Specimen.Model.Specimen thinPrepFluid = SpecimenCollection.Instance.GetSpecimen("SPCMNTHNPRPFLD"); // Definition.ThinPrepFluid();
             foreach (SpecimenOrder specimenOrder in this)
             {
                 if (specimenOrder.SpecimenId != thinPrepFluid.SpecimenId)

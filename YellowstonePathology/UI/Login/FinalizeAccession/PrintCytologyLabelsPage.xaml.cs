@@ -107,7 +107,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             if (string.IsNullOrEmpty(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.MolecularLabelFormat) == false)
             {
                 YellowstonePathology.Business.Label.Model.LabelFormatEnum labelFormat = (YellowstonePathology.Business.Label.Model.LabelFormatEnum)Enum.Parse(typeof(YellowstonePathology.Business.Label.Model.LabelFormatEnum), YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.MolecularLabelFormat);            
-                YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ThinPrepFluid thinPrepFluid = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ThinPrepFluid();
+                YellowstonePathology.Business.Specimen.Model.Specimen thinPrepFluid = YellowstonePathology.Business.Specimen.Model.SpecimenCollection.Instance.GetSpecimen("SPCMNTHNPRPFLD"); // Definition.ThinPrepFluid();
                 YellowstonePathology.Business.Label.Model.MolecularLabelPrinter molecularLabelPrinter = new Business.Label.Model.MolecularLabelPrinter();
                 YellowstonePathology.Business.Label.Model.Label label = YellowstonePathology.Business.Label.Model.LabelFactory.GetMolecularLabel(labelFormat, this.m_AccessionOrder.MasterAccessionNo, this.m_AccessionOrder.PFirstName, this.m_AccessionOrder.PLastName, thinPrepFluid.Description, null, false);
                 molecularLabelPrinter.Queue.Enqueue(label);
