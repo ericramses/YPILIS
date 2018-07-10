@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace YellowstonePathology.Business.Specimen.Model
 {
@@ -83,6 +85,14 @@ namespace YellowstonePathology.Business.Specimen.Model
         {
             get { return this.m_ProcessorRunId; }
             set { this.m_ProcessorRunId = value; }
+        }
+
+        public string ToJSON()
+        {
+            var camelCaseFormatter = new JsonSerializerSettings();
+            camelCaseFormatter.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            string result = JsonConvert.SerializeObject(this, Formatting.Indented, camelCaseFormatter);
+            return result;
         }
     }
 }

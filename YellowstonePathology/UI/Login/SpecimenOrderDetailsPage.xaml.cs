@@ -32,8 +32,6 @@ namespace YellowstonePathology.UI.Login
         private YellowstonePathology.UI.Login.FinalizeAccession.SpecimenAdequacyTypes m_SpecimenAdequacyTypes;        
 		private YellowstonePathology.Business.Specimen.Model.SpecimenOrder m_SpecimenOrder;        
 
-        private YellowstonePathology.Business.Specimen.Model.SpecimenCollection m_SpecimenCollection;
-
         private DateTime m_ProcessorStartTime;
         private TimeSpan m_ProcessFixationDuration;
 
@@ -42,8 +40,6 @@ namespace YellowstonePathology.UI.Login
 		{
 			this.m_AccessionOrder = accessionOrder;
 			this.m_SpecimenOrder = specimenOrder;
-            
-            this.m_SpecimenCollection = YellowstonePathology.Business.Specimen.Model.SpecimenCollection.GetAll();
 
             this.m_FixationTypeCollection = YellowstonePathology.Business.Specimen.Model.FixationType.GetFixationTypeCollection();
             this.m_SpecimenAdequacyTypes = new FinalizeAccession.SpecimenAdequacyTypes();
@@ -95,7 +91,7 @@ namespace YellowstonePathology.UI.Login
 
         public YellowstonePathology.Business.Specimen.Model.SpecimenCollection SpecimenCollection
         {
-            get { return this.m_SpecimenCollection; }
+            get { return YellowstonePathology.Business.Specimen.Model.SpecimenCollection.Instance; }
         }
 
 		public string PageHeaderText
@@ -224,7 +220,7 @@ namespace YellowstonePathology.UI.Login
 
         private void ComboBoxSpecimenId_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (this.ComboBoxSpecimenId.SelectedItem != null && this.ComboBoxSpecimenId.SelectedItem.GetType() != typeof(YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.NullSpecimen))
+            if (this.ComboBoxSpecimenId.SelectedItem != null && ((YellowstonePathology.Business.Specimen.Model.Specimen)this.ComboBoxSpecimenId.SelectedItem).SpecimenId == "NLLSPCMN")
             {
                 if (string.IsNullOrEmpty(this.m_SpecimenOrder.Description) == true)
                 {

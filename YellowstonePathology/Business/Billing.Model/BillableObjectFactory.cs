@@ -63,8 +63,8 @@ namespace YellowstonePathology.Business.Billing.Model
             {
                 if (accessionOrder.PrimaryInsurance == "Medicare")
                 {
-                    YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ProstateNeedleBiopsy prostateNeedleBiopsy = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ProstateNeedleBiopsy();
-					foreach (YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder in accessionOrder.SpecimenOrderCollection)
+                    YellowstonePathology.Business.Specimen.Model.Specimen prostateNeedleBiopsy = YellowstonePathology.Business.Specimen.Model.SpecimenCollection.Instance.GetSpecimen("SPCMNPRSTTNDLBPSY"); // Definition.ProstateNeedleBiopsy();
+                    foreach (YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder in accessionOrder.SpecimenOrderCollection)
                     {
                         if (specimenOrder.SpecimenId == prostateNeedleBiopsy.SpecimenId)
                         {
