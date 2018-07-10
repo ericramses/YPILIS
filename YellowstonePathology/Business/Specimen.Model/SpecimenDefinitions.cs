@@ -5,7 +5,7 @@ using System.Text;
 
 namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
 {
-    /*public class NullSpecimen : Specimen
+    public class NullSpecimen : Specimen
     {
         public NullSpecimen()
         {
@@ -692,5 +692,5 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
             this.m_ClientFixation = null;
             this.m_RequiresGrossExamination = false;
         }
-    }*/
+    }
 }
