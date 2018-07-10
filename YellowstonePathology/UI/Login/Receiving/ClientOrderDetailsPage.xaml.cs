@@ -35,7 +35,6 @@ namespace YellowstonePathology.UI.Login.Receiving
 
 		private YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort m_BarcodeScanPort;
         private ObservableCollection<string> m_TimeToFixationTypeCollection;
-        private YellowstonePathology.Business.Specimen.Model.SpecimenCollection m_SpecimenCollection;
         private Business.ClientOrder.Model.ClientOrder m_ClientOrder;
 
 		public ClientOrderDetailsPage(YellowstonePathology.UI.Navigation.PageNavigator pageNavigator, 
@@ -50,7 +49,6 @@ namespace YellowstonePathology.UI.Login.Receiving
             this.m_TimeToFixationTypeCollection = YellowstonePathology.Business.Specimen.Model.TimeToFixationType.GetTimeToFixationTypeCollection();
             this.m_FixationTypeCollection = YellowstonePathology.Business.Specimen.Model.FixationType.GetFixationTypeCollection();
 			this.m_BarcodeScanPort = YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort.Instance;
-            this.m_SpecimenCollection = YellowstonePathology.Business.Specimen.Model.SpecimenCollection.GetAll();
 
             this.DataContext = this;
 			InitializeComponent();
@@ -133,7 +131,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         public YellowstonePathology.Business.Specimen.Model.SpecimenCollection SpecimenCollection
         {
-            get { return this.m_SpecimenCollection; }
+            get { return YellowstonePathology.Business.Specimen.Model.SpecimenCollection.Instance; }
         }
 
         public string SpecialInstructions
@@ -423,7 +421,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         private void TextBoxInComboBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (this.ComboBoxSpecimenId.SelectedItem != null && this.ComboBoxSpecimenId.SelectedItem.GetType() != typeof(YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.NullSpecimen))
+            if (this.ComboBoxSpecimenId.SelectedItem != null && ((YellowstonePathology.Business.Specimen.Model.Specimen)this.ComboBoxSpecimenId.SelectedItem).SpecimenId == "NLLSPCMN")
             {
                 YellowstonePathology.Business.Specimen.Model.Specimen specimen = (YellowstonePathology.Business.Specimen.Model.Specimen)this.ComboBoxSpecimenId.SelectedItem;
                 if (string.IsNullOrEmpty(this.m_ClientOrderDetail.DescriptionToAccessionBinding) == true)

@@ -1752,7 +1752,6 @@
     <Compile Include="Business\Specimen.Model\Specimen.cs" />
     <Compile Include="Business\Specimen.Model\SpecimenAliquot.cs" />
     <Compile Include="Business\Specimen.Model\SpecimenCollection.cs" />
-    <Compile Include="Business\Specimen.Model\SpecimenDefinitions.cs" />
     <Compile Include="Business\Specimen.Model\SpecimenMedium.cs" />
     <Compile Include="Business\Specimen.Model\SpecimenOrder.cs" />
     <Compile Include="Business\Specimen.Model\SpecimenOrderCollection.cs" />
