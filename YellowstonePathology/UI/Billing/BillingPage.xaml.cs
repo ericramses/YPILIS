@@ -368,34 +368,15 @@ namespace YellowstonePathology.UI.Billing
         {            
             foreach ( Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill in this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection)
             {
-                //if (panelSetOrderCPTCodeBill.BillTo == "Client")
-                //{
+                if (panelSetOrderCPTCodeBill.BillTo == "Client")
+                {
                     List<Business.Test.PanelSetOrderCPTCodeBill> panelSetOrderCPTCodeBillList = new List<Business.Test.PanelSetOrderCPTCodeBill>();
                     panelSetOrderCPTCodeBillList.Add(panelSetOrderCPTCodeBill);
                     Business.HL7View.EPIC.EPICFT1ResultView epicFT1ResultView = new Business.HL7View.EPIC.EPICFT1ResultView(this.m_AccessionOrder, panelSetOrderCPTCodeBillList, true);
                     Business.Rules.MethodResult sendResult = new Business.Rules.MethodResult();
                     epicFT1ResultView.Send(sendResult);
-                //}
-            }
-
-            //Business.HL7View.EPIC.EPICFT1ResultView epicFT1ResultView = new Business.HL7View.EPIC.EPICFT1ResultView(this.m_AccessionOrder, panelSetOrderCPTCodeBillList, true);            
-            //Business.Rules.MethodResult sendResult = new Business.Rules.MethodResult();
-            //epicFT1ResultView.Send(sendResult);
-
-            /*
-            Business.HL7View.EPIC.EPICFT1ResultView epicFT1ResultView = new Business.HL7View.EPIC.EPICFT1ResultView(this.m_AccessionOrder, panelSetOrderCPTCodeBill, true);
-            Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
-            epicFT1ResultView.CanSend(methodResult);
-            if (methodResult.Success == true)
-            {
-                if(panelSetOrderCPTCodeBill.BillTo == "Client")
-                {
-                    Business.Billing.Model.CptCode cptCode = Store.AppDataStore.Instance.CPTCodeCollection.GetClone(panelSetOrderCPTCodeBill.CPTCode, panelSetOrderCPTCodeBill.Modifier);
-                    Business.Rules.MethodResult sendResult = new Business.Rules.MethodResult();
-                    epicFT1ResultView.Send(sendResult);
-                }                    
-            }
-            */
+                }
+            }            
         }
 
         private void ButtonADT_Click(object sender, RoutedEventArgs e)
