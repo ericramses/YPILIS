@@ -128,7 +128,7 @@ namespace YellowstonePathology.UI.Gross
     {
         public InitialReadingTemplate()
         {
-            this.m_TemplateName = "Consult";
+            this.m_TemplateName = "Consult Initial Reading";
             this.m_Text = "Received from [physicianname] ([clientname] - [clientcitystate]) are [slidecount] and [blockcount] labeled [clientaccession] for patient \"[patientname]\" for pathologist interpretation. ";
 
             YellowstonePathology.Business.Specimen.Model.Specimen initialReading = YellowstonePathology.Business.Specimen.Model.SpecimenCollection.Instance.GetSpecimen("NTLRDNG"); // Definition.InitialReading();

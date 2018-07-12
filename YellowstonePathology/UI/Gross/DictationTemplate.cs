@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using YellowstonePathology.Business.Persistence;
 
 namespace YellowstonePathology.UI.Gross
 {
@@ -19,11 +20,20 @@ namespace YellowstonePathology.UI.Gross
         {            
             this.m_SpecimenCollection = new YellowstonePathology.Business.Specimen.Model.SpecimenCollection();
             this.m_FontSize = 20;
-        }        
+        }
 
+        [PersistentCollection()]
         public YellowstonePathology.Business.Specimen.Model.SpecimenCollection SpecimenCollection
         {
             get { return this.m_SpecimenCollection; }
+            set
+            {
+                if (this.m_SpecimenCollection != value)
+                {
+                    this.m_SpecimenCollection = value;
+                    this.NotifyPropertyChanged("SpecimenCollection");
+                }
+            }
         }
 
         public string RemoveLine(string text, int lineIndex)
@@ -51,6 +61,7 @@ namespace YellowstonePathology.UI.Gross
             }
         }
 
+        [PersistentPrimaryKeyProperty(false)]
         public string TemplateName
         {
             get { return this.m_TemplateName; }
@@ -64,6 +75,7 @@ namespace YellowstonePathology.UI.Gross
             }
         }
 
+        [PersistentProperty()]
         public string Text
         {
             get { return this.m_Text; }
@@ -75,7 +87,15 @@ namespace YellowstonePathology.UI.Gross
                     this.NotifyPropertyChanged("Text");
                 }
             }
-        }        
+        }
+
+        public virtual string BuildResultTextNew(YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder, YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        {
+            string result = this.ReplaceIdentifier(this.m_Text, specimenOrder, accessionOrder);
+            result = this.AppendInitials(result, specimenOrder, accessionOrder, systemIdentity);
+            result = this.ReplaceCassetteSummary(result, specimenOrder);
+            return result;
+        }
 
         public virtual string BuildResultText(YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder, YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {            
