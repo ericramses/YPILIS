@@ -46,12 +46,14 @@ namespace YellowstonePathology.UI.Gross
 
         public DictationTemplate GetClone(string specimenId)
         {
-            DictationTemplate result = null;
+            DictationTemplate notFound = DictationTemplateCollection.Instance.FirstOrDefault(t => t.TemplateName == "Template Not Found.");
+            YellowstonePathology.Business.Persistence.ObjectCloner objectCloner = new YellowstonePathology.Business.Persistence.ObjectCloner();
+            DictationTemplate result = (DictationTemplate)objectCloner.Clone(notFound);
+
             foreach (DictationTemplate dictationTemplate in DictationTemplateCollection.Instance)
             {
                 if(dictationTemplate.SpecimenCollection.Exists(specimenId) == true)
                 {
-                    YellowstonePathology.Business.Persistence.ObjectCloner objectCloner = new YellowstonePathology.Business.Persistence.ObjectCloner();
                     result = (DictationTemplate)objectCloner.Clone(dictationTemplate);
                     break;
                 }

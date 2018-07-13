@@ -14,7 +14,8 @@ namespace YellowstonePathology.UI.Gross
         protected string m_TemplateName;        
         protected string m_Text;                               
         protected YellowstonePathology.Business.Specimen.Model.SpecimenCollection m_SpecimenCollection;
-        protected int m_FontSize;        
+        protected int m_FontSize;
+        protected bool m_UseAppendInitials;
 
         public DictationTemplate()
         {            
@@ -89,18 +90,68 @@ namespace YellowstonePathology.UI.Gross
             }
         }
 
-        public virtual string BuildResultTextNew(YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder, YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        [PersistentProperty()]
+        public bool UseAppendInitials
         {
-            string result = this.ReplaceIdentifier(this.m_Text, specimenOrder, accessionOrder);
-            result = this.AppendInitials(result, specimenOrder, accessionOrder, systemIdentity);
-            result = this.ReplaceCassetteSummary(result, specimenOrder);
-            return result;
+            get { return this.m_UseAppendInitials; }
+            set
+            {
+                if (this.m_UseAppendInitials != value)
+                {
+                    this.m_UseAppendInitials = value;
+                    this.NotifyPropertyChanged("UseAppendInitials");
+                }
+            }
         }
 
-        public virtual string BuildResultText(YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder, YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
-        {            
-            string result = this.ReplaceIdentifier(this.m_Text, specimenOrder, accessionOrder);
-            result = this.AppendInitials(result, specimenOrder, accessionOrder, systemIdentity);
+        public string BuildResultText(YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder, YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        {
+            string result = this.m_Text;
+            if(result.Contains("[identifier]") == true)
+            {
+                result = this.ReplaceIdentifier(result, specimenOrder, accessionOrder);
+            }
+            if(result.Contains("[identifiernodescription]") == true)
+            {
+                result = this.ReplaceIdentifierNoDescription(this.m_Text, specimenOrder, accessionOrder);
+            }
+            if (result.Contains("[cassettelabel]") == true)
+            {
+                result = this.ReplaceCassetteLabel(result, specimenOrder);
+            }
+            if (result.Contains("[cassettesummary]") == true)
+            {
+                result = this.ReplaceCassetteSummary(result, specimenOrder);
+            }
+            if (result.Contains("[representativesectionsagerestricted]") == true)
+            {
+                result = this.ReplaceRepresentativeSectionsAgeRestricted(result, specimenOrder, accessionOrder);
+            }
+            if (result.Contains("[representativesections]") == true)
+            {
+                result = this.ReplaceRepresentativeSections(result, specimenOrder);
+            }
+            if (result.Contains("[submitted]") == true)
+            {
+                result = this.ReplaceSubmitted(result, specimenOrder);
+            }
+            if (result.Contains("[tipssubmitted]") == true)
+            {
+                result = this.ReplaceTipsSubmitted(result, specimenOrder);
+            }
+            if (result.Contains("[tipssubmittedwithcurettings]") == true)
+            {
+                result = this.ReplaceTipsSubmittedWithCurettings(result, specimenOrder);
+            }
+            if (result.Contains("[summarysubmission]") == true)
+            {
+                result = this.ReplaceSummarySubmission(result, specimenOrder);
+            }
+            if (this.m_UseAppendInitials == true)
+            {
+                result = this.AppendInitials(result, specimenOrder, accessionOrder, systemIdentity);
+            }
+
             return result;            
         }
 

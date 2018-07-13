@@ -95,12 +95,16 @@ namespace YellowstonePathology.UI
 
         private void ButtonDictationTemplate_Click(object sender, RoutedEventArgs e)
         {
+            Gross.DictationTemplateCollection templates = Gross.DictationTemplateCollection.GetAll();
             List<string> specimenIds = new List<string>();
-            foreach(Gross.DictationTemplate template in Gross.DictationTemplateCollection.Instance)
+            foreach(Gross.DictationTemplate template in templates)
             {
-                foreach(Business.Specimen.Model.Specimen specimen in template.SpecimenCollection)
+                if (template.TemplateName != "Template Not found.")
                 {
-                    if (specimenIds.Exists(s => s == specimen.SpecimenId) == false) specimenIds.Add(specimen.SpecimenId);
+                    foreach (Business.Specimen.Model.Specimen specimen in template.SpecimenCollection)
+                    {
+                        if (specimenIds.Exists(s => s == specimen.SpecimenId) == false) specimenIds.Add(specimen.SpecimenId);
+                    }
                 }
             }
 
@@ -128,21 +132,53 @@ namespace YellowstonePathology.UI
                 foreach(string masterAccessionNo in accessionNos)
                 {
                     YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this);
-                    Gross.DictationTemplateCollection templates = Gross.DictationTemplateCollection.GetAll();
                     StringBuilder result = new StringBuilder();
                     foreach (YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder in accessionOrder.SpecimenOrderCollection)
                     {
                         Gross.DictationTemplate template = templates.GetTemplate(specimenOrder.SpecimenId);
-                        if (template.GetType() != typeof(Gross.TemplateNotFound))
-                            {
+                        if (template.TemplateName != "Template Not Found.")
+                        {
                             result.AppendLine(template.BuildResultText(specimenOrder, accessionOrder, YellowstonePathology.Business.User.SystemIdentity.Instance));
                             result.AppendLine();
                             result.AppendLine();
                         }
                     }
-                    using (StreamWriter sw = new StreamWriter(@"C:\Test\" + id + "_" + accessionOrder.MasterAccessionNo + ".txt", false))
+                    using (StreamWriter sw = new StreamWriter(@"C:\Test\Redis_" + id + "_" + accessionOrder.MasterAccessionNo + ".txt", false))
                     {
                         sw.Write(result.ToString());
+                    }
+                }
+            }
+
+            string [] classFiles = Directory.GetFiles(@"C:\Test", "Class*");
+            using (StreamWriter sw = new StreamWriter(@"C:\Test\AAADiferences.txt", false))
+            {
+                foreach (string fileName in classFiles)
+                {
+                    string redisFileName = fileName.Replace("Class", "Redis");
+                    if (File.Exists(redisFileName) == true)
+                    {
+                        string[] classLines = File.ReadAllLines(fileName);
+                        string[] redisLines = File.ReadAllLines(redisFileName);
+                        if (classLines.Count() == redisLines.Count())
+                        {
+                            for (int idx = 0; idx < classLines.Count(); idx++)
+                            {
+                                if (classLines[idx] != redisLines[idx])
+                                {
+                                    sw.WriteLine(fileName + " - " + redisFileName + "mismatch");
+                                    break;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            sw.WriteLine(fileName + " count " + classLines.Count().ToString() + " - " + redisFileName + " count " + redisLines.Count().ToString());
+                        }
+                    }
+                    else
+                    {
+                        sw.WriteLine(fileName + " - No Redis file");
                     }
                 }
             }
