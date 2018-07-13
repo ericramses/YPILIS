@@ -1126,7 +1126,7 @@ namespace YellowstonePathology.UI.Gross
         public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
-            result = this.ReplaceRepresentativeSections(this.m_Text, specimenOrder);
+            result = this.ReplaceRepresentativeSections(result, specimenOrder);
             return result;
         }
     }
