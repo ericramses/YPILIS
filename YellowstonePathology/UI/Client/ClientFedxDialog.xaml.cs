@@ -30,6 +30,7 @@ namespace YellowstonePathology.UI.Client
         {
             this.m_TaskOrderDetailFedexShipment = new Business.Task.Model.TaskOrderDetailFedexShipment();
             this.m_TaskOrderDetailFedexShipment.TaskId = "FDXSHPMNT";
+            this.m_TaskOrderDetailFedexShipment.TaskOrderDetailId = "FromClnt.1";
             if(facility != null)
             {
                 this.m_TaskOrderDetailFedexShipment.SetShipTo(facility);
