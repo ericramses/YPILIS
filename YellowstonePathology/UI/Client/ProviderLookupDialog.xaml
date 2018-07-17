@@ -60,6 +60,11 @@
 
                     <ListView Name="ListViewClients" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Margin="2,2,2,2" MouseDoubleClick="ListBoxClients_MouseDoubleClick" 
                               ItemsSource="{Binding Path=ClientCollection}">
+                        <ListView.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Delete" Click="MenuItemDeleteClient_Click" />
+                            </ContextMenu>
+                        </ListView.ContextMenu>
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Client Name" Width="300" DisplayMemberBinding="{Binding Path=ClientName}" />
@@ -69,14 +74,20 @@
                         </ListView.View>
                     </ListView>
 
-					<Button Name="ButtonNewClient" Grid.Row="2" Grid.Column="0" Margin="5,5,5,5" Height="30" Width="100" HorizontalAlignment="Left" Content="New" Click="ButtonNewClient_Click" />
-					<StackPanel Grid.Row="2" Grid.Column="1" Margin="150,0,0,0" Orientation="Horizontal" HorizontalAlignment="Left">
-                        <Button Grid.Row="2" Grid.Column="1" Margin="5,5,25,5" Height="30" Width="100" HorizontalAlignment="Left" Content="Delete" Click="ButtonDeleteClient_Click" />
-						<Button Name="ButtonEnvelope" Margin="5,5,5,5" Height="30" Width="100" HorizontalAlignment="Center" Content="Envelope" Click="ButtonEnvelope_Click" />
-						<Button Name="ButtonRequisition" Grid.Row="2" Grid.Column="1" Margin="5" Height="30" Width="100" HorizontalAlignment="Right" Content="Requisition" Click="ButtonRequisition_Click" />
-					</StackPanel>
-					<Button Grid.Row="2" Grid.Column="1" Margin="5" Height="30" Width="100" HorizontalAlignment="Right" Content="OK" Click="ButtonOK_Click" />
-				</Grid>
+                    <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch">
+
+                        <Button Name="ButtonNewClient" Margin="5,5,5,5" Height="30" Width="100" HorizontalAlignment="Left" Content="New" Click="ButtonNewClient_Click" />
+					    
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button Name="ButtonClientFedx" Margin="5,5,5,5" Height="30" Width="100" HorizontalAlignment="Left" Content="FedX" Click="ButtonClientFedX_Click" />
+						    <Button Name="ButtonEnvelope" Margin="5,5,5,5" Height="30" Width="100" HorizontalAlignment="Center" Content="Envelope" Click="ButtonEnvelope_Click" />
+						    <Button Name="ButtonRequisition" Margin="5" Height="30" Width="100" HorizontalAlignment="Right" Content="Requisition" Click="ButtonRequisition_Click" />
+					    </StackPanel>
+					    
+                        <Button Margin="5" Height="30" Width="100" HorizontalAlignment="Right" Content="OK" Click="ButtonOK_Click" />
+                    
+                    </Grid>
+                </Grid>
             </TabItem>
 
             <TabItem Header="Client Groups">

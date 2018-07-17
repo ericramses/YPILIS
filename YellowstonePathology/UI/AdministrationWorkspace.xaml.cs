@@ -93,8 +93,60 @@ namespace YellowstonePathology.UI
             MessageBox.Show("Done");*/
         }
 
-        private void ButtonStains_Click(object sender, RoutedEventArgs e)
+        private void ButtonDictationTemplates_Click(object sender, RoutedEventArgs e)
         {
+            List<string> specimenIds = new List<string>();
+            Gross.DictationTemplateCollection templates = Gross.DictationTemplateCollection.GetAll();
+            foreach (Gross.DictationTemplate template in templates)
+            {
+                foreach (Business.Specimen.Model.Specimen specimen in template.SpecimenCollection)
+                {
+                    if (specimenIds.Exists(s => s == specimen.SpecimenId) == false) specimenIds.Add(specimen.SpecimenId);
+                }
+            }
+
+            foreach (string id in specimenIds)
+            {
+                List<string> accessionNos = new List<string>();
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.CommandText = "select Distinct MasterAccessionNo, CollectionDate from tblSpecimenOrder where SpecimenId = @SpecimenId and CollectionDate between '2017-1-1' and '2018-6-21' order by CollectionDate desc limit 3;";
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("@SpecimenId", id);
+
+                using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+                {
+                    cn.Open();
+                    cmd.Connection = cn;
+                    using (MySqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            accessionNos.Add(dr[0].ToString());
+                        }
+                    }
+                }
+
+                foreach (string masterAccessionNo in accessionNos)
+                {
+                    YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this);
+                    StringBuilder result = new StringBuilder();
+                    foreach (YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder in accessionOrder.SpecimenOrderCollection)
+                    {
+                        Gross.DictationTemplate template = templates.GetTemplate(specimenOrder.SpecimenId);
+                        if (template.GetType() != typeof(Gross.TemplateNotFound))
+                        {
+                            result.AppendLine(template.BuildResultText(specimenOrder, accessionOrder, YellowstonePathology.Business.User.SystemIdentity.Instance));
+                            result.AppendLine();
+                            result.AppendLine();
+                        }
+                    }
+                    using (StreamWriter sw = new StreamWriter(@"C:\Test\Class_" + id + "_" + accessionOrder.MasterAccessionNo + ".txt", false))
+                    {
+                        sw.Write(result.ToString());
+                    }
+                }
+            }
+            MessageBox.Show("Done");
         }
 
         private void ButtonBlocksSentNotReturned_Click(object sender, RoutedEventArgs e)
