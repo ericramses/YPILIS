@@ -113,14 +113,20 @@ namespace YellowstonePathology.UI.Client
             this.m_ClientCollection.Insert(0, client);
         }
 
-        private void ButtonDeleteClient_Click(object sender, RoutedEventArgs e)
+        private void ButtonClientFedX_Click(object sender, RoutedEventArgs e)
+        {
+            ClientFedxDialog dlg = new Client.ClientFedxDialog();
+            dlg.ShowDialog();
+        }
+
+        private void MenuItemDeleteClient_Click(object sender, RoutedEventArgs e)
         {
             if (this.ListViewClients.SelectedItem != null)
             {
 
                 YellowstonePathology.Business.Client.Model.Client client = (YellowstonePathology.Business.Client.Model.Client)this.ListViewClients.SelectedItem;
                 YellowstonePathology.Business.Rules.MethodResult methodResult = this.CanDeleteClient(client);
-                if(methodResult.Success == true)
+                if (methodResult.Success == true)
                 {
                     this.DeleteClient(client);
                     this.DoClientSearch(this.TextBoxClientName.Text);
