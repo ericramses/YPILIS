@@ -110,7 +110,7 @@ namespace YellowstonePathology.UI.Gross
         public ConsultTemplate()
         {
             this.m_TemplateName = "Consult";
-            this.m_Text = "Received in consultation from [physicianname] ([clientname] - [clientcitystate]) are [slidecount] and [blockcount] labeled [clientaccession] for patient \"[patientname]\".  ";
+            this.m_Text = "Received in consultation from [physicianname] ([clientname] - [clientcitystate]) are [clientaccessionedslidecount] and [blockcount] labeled [clientaccession] for patient \"[patientname]\".  ";
 
             YellowstonePathology.Business.Specimen.Model.Specimen consult = YellowstonePathology.Business.Specimen.Model.SpecimenCollection.Instance.GetSpecimen("CNSLT"); // Definition.Consult();
             this.m_SpecimenCollection.Add(consult);
@@ -122,7 +122,7 @@ namespace YellowstonePathology.UI.Gross
             result = result.Replace("[clientaccession]", accessionOrder.ClientAccessionNo);
             result = result.Replace("[patientname]", accessionOrder.PatientDisplayName);
             result = result.Replace("[blockcount]", specimenOrder.AliquotOrderCollection.GetBlockCountString().ToString());
-            result = result.Replace("[slidecount]", specimenOrder.AliquotOrderCollection.GetClientAccessionedSlideOrderCountString());
+            result = result.Replace("[clientaccessionedslidecount]", specimenOrder.AliquotOrderCollection.GetClientAccessionedSlideOrderCountString());
             result = base.ReplaceIdentifier(result, specimenOrder, accessionOrder);
 
             YellowstonePathology.Business.Client.Model.Client client = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientByClientId(accessionOrder.ClientId);
@@ -137,7 +137,7 @@ namespace YellowstonePathology.UI.Gross
         public InitialReadingTemplate()
         {
             this.m_TemplateName = "Consult Initial Reading";
-            this.m_Text = "Received from [physicianname] ([clientname] - [clientcitystate]) are [slidecount] and [blockcount] labeled [clientaccession] for patient \"[patientname]\" for pathologist interpretation. ";
+            this.m_Text = "Received from [physicianname] ([clientname] - [clientcitystate]) are [clientaccessionedslidecount] and [blockcount] labeled [clientaccession] for patient \"[patientname]\" for pathologist interpretation. ";
 
             YellowstonePathology.Business.Specimen.Model.Specimen initialReading = YellowstonePathology.Business.Specimen.Model.SpecimenCollection.Instance.GetSpecimen("NTLRDNG"); // Definition.InitialReading();
             this.m_SpecimenCollection.Add(initialReading);
@@ -149,7 +149,7 @@ namespace YellowstonePathology.UI.Gross
             result = result.Replace("[clientaccession]", accessionOrder.ClientAccessionNo);
             result = result.Replace("[patientname]", accessionOrder.PatientDisplayName);
             result = result.Replace("[blockcount]", specimenOrder.AliquotOrderCollection.GetBlockCountString().ToString());
-            result = result.Replace("[slidecount]", specimenOrder.AliquotOrderCollection.GetClientAccessionedSlideOrderCountString().ToString());
+            result = result.Replace("[clientaccessionedslidecount]", specimenOrder.AliquotOrderCollection.GetClientAccessionedSlideOrderCountString().ToString());
             result = base.ReplaceIdentifier(result, specimenOrder, accessionOrder);
 
             YellowstonePathology.Business.Client.Model.Client client = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientByClientId(accessionOrder.ClientId);
@@ -170,7 +170,7 @@ namespace YellowstonePathology.UI.Gross
             this.m_SpecimenCollection.Add(peripheral);
         }
 
-        /*public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        /*WHC NEEDS WORK public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             string result = this.m_Text.Replace("[patientname]", accessionOrder.PatientDisplayName);
             result = result.Replace("[slidecount]", specimenOrder.AliquotOrderCollection.GetSlideCount().ToString());
@@ -205,7 +205,7 @@ namespace YellowstonePathology.UI.Gross
         public FluidTemplate()
         {
             this.m_TemplateName = "Fluid Specimen";
-            this.m_Text = "[Specimen] is received in CytoLyt in a container labeled \"[fluididentifier]\" and consists of [Quantity] ml of [Color] fluid [?with particulate?].  The specimen is submitted for selective cellular enhancement processing.";
+            this.m_Text = "[Specimen] is received in CytoLyt in a container labeled \"[patientname]\" and consists of [Quantity] ml of [Color] fluid [?with particulate?].  The specimen is submitted for selective cellular enhancement processing.[cellblock]";
             
             YellowstonePathology.Business.Specimen.Model.Specimen fluid = Business.Specimen.Model.SpecimenCollection.Instance.GetSpecimen("SPCMFLUID"); // Definition.Fluid();
             YellowstonePathology.Business.Specimen.Model.Specimen urine = Business.Specimen.Model.SpecimenCollection.Instance.GetSpecimen("SPCMNURINE"); // Definition.Urine();
@@ -385,7 +385,7 @@ namespace YellowstonePathology.UI.Gross
             this.m_Text = "[identifier]." + Environment.NewLine +
                 "Gross Description:  [description]" + Environment.NewLine +
                 "Measurements:  [measurements]; Curettings: [measurement]" + Environment.NewLine +
-                "Submitted:  [submitted].  ";
+                "Submitted:  [curettingssubmitted].  ";
 
             YellowstonePathology.Business.Specimen.Model.Specimen skinShavewithCurettingsBiopsy = YellowstonePathology.Business.Specimen.Model.SpecimenCollection.Instance.GetSpecimen("SKSHCSPCMN"); // Definition.SkinShavewithCurettingsBiopsy();
             this.m_SpecimenCollection.Add(skinShavewithCurettingsBiopsy);
@@ -400,11 +400,11 @@ namespace YellowstonePathology.UI.Gross
             string result = this.ReplaceIdentifier(this.m_Text, specimenOrder, accessionOrder);
             if (specimenOrder.AliquotOrderCollection.Count == 1)
             {
-                result = result.Replace("[submitted]", "Entirely submitted in cassette \"" + specimenOrder.AliquotOrderCollection[0].Label + "\"");
+                result = result.Replace("[curettingssubmitted]", "Entirely submitted in cassette \"" + specimenOrder.AliquotOrderCollection[0].Label + "\"");
             }
             else if(specimenOrder.AliquotOrderCollection.Count == 2)
             {
-                result = result.Replace("[submitted]", "Shave [procedure] and submitted in cassette \"" + specimenOrder.SpecimenNumber + "A\".  " + "The curettings are filtered through a fine mesh bag and entirely submitted in cassette \"" + specimenOrder.AliquotOrderCollection.GetLastBlock().Label + "\"");                              
+                result = result.Replace("[curettingssubmitted]", "Shave [procedure] and submitted in cassette \"" + specimenOrder.SpecimenNumber + "A\".  " + "The curettings are filtered through a fine mesh bag and entirely submitted in cassette \"" + specimenOrder.AliquotOrderCollection.GetLastBlock().Label + "\"");                              
             }
             else
             {

@@ -95,9 +95,9 @@ namespace YellowstonePathology.UI
 
         private void ButtonDictationTemplate_Click(object sender, RoutedEventArgs e)
         {
-            Gross.DictationTemplateCollection templates = Gross.DictationTemplateCollection.GetAll();
+            //Gross.DictationTemplateCollection templates = Gross.DictationTemplateCollection.GetAll();
             List<string> specimenIds = new List<string>();
-            foreach(Gross.DictationTemplate template in templates)
+            foreach(Gross.DictationTemplate template in Gross.DictationTemplateCollection.Instance)
             {
                 if (template.TemplateName != "Template Not found.")
                 {
@@ -135,7 +135,7 @@ namespace YellowstonePathology.UI
                     StringBuilder result = new StringBuilder();
                     foreach (YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder in accessionOrder.SpecimenOrderCollection)
                     {
-                        Gross.DictationTemplate template = templates.GetTemplate(specimenOrder.SpecimenId);
+                        Gross.DictationTemplate template = Gross.DictationTemplateCollection.Instance.GetClone(specimenOrder.SpecimenId);
                         if (template.TemplateName != "Template Not Found.")
                         {
                             result.AppendLine(template.BuildResultText(specimenOrder, accessionOrder, YellowstonePathology.Business.User.SystemIdentity.Instance));

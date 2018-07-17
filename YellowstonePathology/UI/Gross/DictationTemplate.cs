@@ -143,10 +143,55 @@ namespace YellowstonePathology.UI.Gross
             {
                 result = this.ReplaceTipsSubmittedWithCurettings(result, specimenOrder);
             }
+            if (result.Contains("[curettingssubmitted]") == true)
+            {
+                result = this.ReplaceCurettingsSubmitted(result, specimenOrder);
+            }
             if (result.Contains("[summarysubmission]") == true)
             {
                 result = this.ReplaceSummarySubmission(result, specimenOrder);
             }
+            if (result.Contains("[Specimen]") == true)
+            {
+                result = this.ReplaceSpecimen(result, specimenOrder);
+            }
+            if (result.Contains("[patientname]") == true)
+            {
+                result = this.ReplacePatientName(result, accessionOrder);
+            }
+            if (result.Contains("[cellblock]") == true)
+            {
+                result = this.ReplaceCellBlock(result, specimenOrder);
+            }
+            if (result.Contains("[physicianname]") == true)
+            {
+                result = this.ReplacePhysicianName(result, accessionOrder);
+            }
+            if(result.Contains("[clientaccession]") == true)
+            {
+                result = this.ReplaceClientAccession(result, accessionOrder);
+            }
+            if (result.Contains("[blockcount]") == true)
+            {
+                result = this.ReplaceBlockCount(result, specimenOrder);
+            }
+            if (result.Contains("[slidecount]") == true)
+            {
+                result = this.ReplaceSlideCount(result, specimenOrder);
+            }
+            if (result.Contains("[clientaccessionedslidecount]") == true)
+            {
+                result = this.ReplaceClientAccessionedSlideCount(result, specimenOrder);
+            }
+            if (result.Contains("[clientname]") || result.Contains("[clientcitystate]") == true)
+            {
+                result = this.ReplaceClientNameAddress(result, accessionOrder);
+            }
+            if(result.Contains("tonsils") == true)
+            {
+                result = this.ReplaceTonsils(result, accessionOrder, specimenOrder);
+            }
+
             if (this.m_UseAppendInitials == true)
             {
                 result = this.AppendInitials(result, specimenOrder, accessionOrder, systemIdentity);
@@ -186,7 +231,7 @@ namespace YellowstonePathology.UI.Gross
 
             identifier = identifier.Replace("Formalin", "formalin");
             identifier = identifier.Replace("B+ Fixative", "B+ fixative");
-            return text.Replace("[identifier]", identifier);
+            return text.Replace("[identifiernodescription]", identifier);
         }
 
         protected string ReplaceCassetteLabel(string text, YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder)
@@ -262,9 +307,103 @@ namespace YellowstonePathology.UI.Gross
             return text.Replace("[tipssubmittedwithcurettings]", statement);
         }
 
+        protected string ReplaceCurettingsSubmitted(string text, YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder)
+        {
+            string result = text;
+            if (specimenOrder.AliquotOrderCollection.Count == 1)
+            {
+                result = result.Replace("[curettingssubmitted]", "Entirely submitted in cassette \"" + specimenOrder.AliquotOrderCollection[0].Label + "\"");
+            }
+            else if (specimenOrder.AliquotOrderCollection.Count == 2)
+            {
+                result = result.Replace("[curettingssubmitted]", "Shave [procedure] and submitted in cassette \"" + specimenOrder.SpecimenNumber + "A\".  " + "The curettings are filtered through a fine mesh bag and entirely submitted in cassette \"" + specimenOrder.AliquotOrderCollection.GetLastBlock().Label + "\"");
+            }
+            else
+            {
+                result = "This template only works with 2 blocks.";
+            }
+            return result;
+        }
+
         protected string ReplaceSummarySubmission(string text, YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder)
         {
             return text.Replace("[summarysubmission]", specimenOrder.GetSummarySubmissionString());
+        }
+
+        protected string ReplaceSpecimen(string text, YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder)
+        {
+            return text.Replace("[Specimen]", "Specimen " + specimenOrder.SpecimenNumber.ToString());
+        }
+
+        protected string ReplacePatientName(string text, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
+        {
+            return text.Replace("[patientname]", accessionOrder.PatientDisplayName);
+        }
+
+        protected string ReplaceCellBlock(string text, YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder)
+        {
+            string result = null;
+            if (specimenOrder.AliquotOrderCollection.HasCellBlock() == true)
+            {
+                result = text.Replace("[cellblock]"," A cell block was made.");
+            }
+            else
+            {
+                result = text.Replace("[cellblock]", string.Empty);
+            }
+            return result;
+        }
+
+        protected string ReplacePhysicianName(string text, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
+        {
+            return text.Replace("[physicianname]", accessionOrder.PhysicianName);
+        }
+
+        protected string ReplaceClientAccession(string text, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
+        {
+            return text.Replace("[clientaccession]", accessionOrder.ClientAccessionNo);
+        }
+
+        protected string ReplaceBlockCount(string text, YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder)
+        {
+            return text.Replace("[blockcount]", specimenOrder.AliquotOrderCollection.GetBlockCountString().ToString());
+        }
+
+        protected string ReplaceSlideCount(string text, YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder)
+        {
+            return text.Replace("[slidecount]", specimenOrder.AliquotOrderCollection.GetSlideCount().ToString());
+        }
+
+        protected string ReplaceClientAccessionedSlideCount(string text, YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder)
+        {
+            return text.Replace("[clientaccessionedslidecount]", specimenOrder.AliquotOrderCollection.GetClientAccessionedSlideOrderCountString().ToString());
+        }
+
+        protected string ReplaceClientNameAddress(string text, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
+        {            
+            YellowstonePathology.Business.Client.Model.Client client = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientByClientId(accessionOrder.ClientId);
+            string result = text.Replace("[clientname]", client.ClientName);
+            result = result.Replace("[clientcitystate]", client.City + ", " + client.State);
+            return result;
+        }
+
+        protected string ReplaceTonsils(string text, YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder)
+        {
+            string result = text;
+            if (accessionOrder.SpecimenOrderCollection.SpecimenIdCount(specimenOrder.SpecimenId) != 1)
+            {
+                result = result.Replace("[quantity]", "One");
+                result = result.Replace("[tonsils]", "tonsil");
+                result = result.Replace("[measurementstring]", "Measurement:  [measurement]");
+            }
+            else
+            {
+                string measurementString = "Measurement Tonsil 1:  [measurement]" + Environment.NewLine + "Measurement Tonsil 2:  [measurement]";
+                result = result.Replace("[tonsils]", "tonsils");
+                result = result.Replace("[quantity]", "Two");
+                result = result.Replace("[measurementstring]", measurementString);
+            }
+            return result;
         }
 
         protected string AppendInitials(string text, YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder, YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
