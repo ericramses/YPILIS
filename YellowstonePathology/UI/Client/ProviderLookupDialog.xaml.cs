@@ -115,7 +115,14 @@ namespace YellowstonePathology.UI.Client
 
         private void ButtonClientFedX_Click(object sender, RoutedEventArgs e)
         {
-            ClientFedxDialog dlg = new Client.ClientFedxDialog();
+            YellowstonePathology.Business.Facility.Model.Facility facility = null;
+            if (this.ListViewClients.SelectedItem != null)
+            {
+                YellowstonePathology.Business.Client.Model.Client client = (YellowstonePathology.Business.Client.Model.Client)this.ListViewClients.SelectedItem;
+                facility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByClientId(client.ClientId);
+            }
+
+            ClientFedxDialog dlg = new Client.ClientFedxDialog(facility);
             dlg.ShowDialog();
         }
 
@@ -433,6 +440,18 @@ namespace YellowstonePathology.UI.Client
                 ClientGroupEntry clientGroupEntry = new ClientGroupEntry(clientGroup);
                 clientGroupEntry.ShowDialog();
             }
+        }
+
+        private void ButtonFacilityFedx_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Facility.Model.Facility facility = null;
+            if (this.ListViewFacilities.SelectedItem != null)
+            {
+                facility = (YellowstonePathology.Business.Facility.Model.Facility)this.ListViewFacilities.SelectedItem;
+            }
+
+            ClientFedxDialog dlg = new Client.ClientFedxDialog(facility);
+            dlg.ShowDialog();
         }
     }
 }
