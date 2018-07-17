@@ -22,17 +22,19 @@ namespace YellowstonePathology.UI.Client
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private Business.Task.Model.TaskOrder m_TaskOrder;
         private Business.Task.Model.TaskOrderDetailFedexShipment m_TaskOrderDetailFedexShipment;
         private YellowstonePathology.Business.Facility.Model.FacilityCollection m_FacilityCollection;
         private List<string> m_PaymentTypeList;
 
-        public ClientFedxDialog()
+        public ClientFedxDialog(YellowstonePathology.Business.Facility.Model.Facility facility)
         {
-            this.m_TaskOrder = new Business.Task.Model.TaskOrder();
             this.m_TaskOrderDetailFedexShipment = new Business.Task.Model.TaskOrderDetailFedexShipment();
             this.m_TaskOrderDetailFedexShipment.TaskId = "FDXSHPMNT";
-            this.m_TaskOrder.TaskOrderDetailCollection.Add(this.m_TaskOrderDetailFedexShipment);
+            this.m_TaskOrderDetailFedexShipment.TaskOrderDetailId = "FromClnt.1";
+            if(facility != null)
+            {
+                this.m_TaskOrderDetailFedexShipment.SetShipTo(facility);
+            }
 
             this.m_FacilityCollection = Business.Facility.Model.FacilityCollection.Instance;
 
@@ -46,9 +48,9 @@ namespace YellowstonePathology.UI.Client
             DataContext = this;
         }
 
-        public Business.Task.Model.TaskOrder TaskOrder
+        public Business.Task.Model.TaskOrderDetailFedexShipment TaskOrderDetailFedexShipment
         {
-            get { return this.m_TaskOrder; }
+            get { return this.m_TaskOrderDetailFedexShipment; }
         }
 
         public YellowstonePathology.Business.Facility.Model.FacilityCollection FacilityCollection

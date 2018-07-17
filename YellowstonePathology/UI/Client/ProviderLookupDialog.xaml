@@ -133,9 +133,14 @@
                         </ListView.View>
                     </ListView>
 
-                    <Button Name="ButtonNewFacility" Grid.Row="2" Grid.Column="0" Margin="5" Height="30" Width="100" HorizontalAlignment="Left" Content="New" Click="ButtonNewFacility_Click" />
-                    <Button Grid.Row="2" Grid.Column="1" Margin="5" Height="30" Width="100" HorizontalAlignment="Left" Content="Delete" Click="ButtonDeleteFacility_Click" />
-                    <Button Grid.Row="2" Grid.Column="1" Margin="5" Height="30" Width="100" HorizontalAlignment="Right" Content="OK" Click="ButtonOK_Click" />
+                    <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
+                        <Button Name="ButtonNewFacility" Margin="5" Height="30" Width="100" HorizontalAlignment="Left" Content="New" Click="ButtonNewFacility_Click" />
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button Name="ButtonFacilityFedx" Margin="5,5,5,5" Height="30" Width="100" HorizontalAlignment="Left" Content="FedX" Click="ButtonFacilityFedx_Click" />
+                            <Button Margin="5" Height="30" Width="100" HorizontalAlignment="Right" Content="Delete" Click="ButtonDeleteFacility_Click" />
+                        </StackPanel>
+                        <Button Margin="5" Height="30" Width="100" HorizontalAlignment="Right" Content="OK" Click="ButtonOK_Click" />
+                    </Grid>
                 </Grid>
             </TabItem>
         </TabControl>
