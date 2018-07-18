@@ -174,7 +174,7 @@ namespace YellowstonePathology.UI.Client
                 if (this.IsOKToGetTrackingNumber() == true)
                 {
                     Business.MaterialTracking.Model.FedexAccountProduction fedExAccount = new Business.MaterialTracking.Model.FedexAccountProduction();
-                    Business.MaterialTracking.Model.FedexShipmentRequest shipmentRequest = new Business.MaterialTracking.Model.FedexShipmentRequest(this.m_Facility, fedExAccount,
+                    Business.MaterialTracking.Model.FedexShipmentRequest shipmentRequest = new Business.MaterialTracking.Model.FedexShipmentRequest(fedExAccount,
                         this.m_FakeAccessionNo, this.m_PaymentType, this.m_ServiceType, this.m_TrackingNumber, 
                         this.m_ShipToName, this.m_ShipToPhone, this.m_ShipToAddress1,
                         this.m_ShipToAddress2, this.m_ShipToCity, this.m_ShipToState,

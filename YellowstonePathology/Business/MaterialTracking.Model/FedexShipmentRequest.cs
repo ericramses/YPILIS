@@ -12,7 +12,6 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
 {
     public class FedexShipmentRequest
     {
-        private Business.Facility.Model.Facility m_ShipToFacility;
         private FedexAccount m_FedexAccount;
         private XDocument m_ProcessShipmentRequest;
         private string m_MasterAccessionNo;
@@ -29,11 +28,10 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
         private string m_AccountNo;
         private string m_ServiceType;
 
-        public FedexShipmentRequest(Business.Facility.Model.Facility shipTofacility, FedexAccount fedexAccount, string masterAccessionNo,
-            string paymentType, string serviceType, string trackingNumber, string shipToName, string shipToPhone, string shipToAddress1,
+        public FedexShipmentRequest(FedexAccount fedexAccount, string masterAccessionNo, string paymentType, 
+            string serviceType, string trackingNumber, string shipToName, string shipToPhone, string shipToAddress1,
             string shipToAddress2, string shipToCity, string shipToState, string shipToZip, string accountNo)
         {
-            this.m_ShipToFacility = shipTofacility;
             this.m_FedexAccount = fedexAccount;
             this.m_PaymentType = paymentType;
             this.m_ServiceType = serviceType;
