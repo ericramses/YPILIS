@@ -22,18 +22,33 @@ namespace YellowstonePathology.UI.Client
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private Business.Task.Model.TaskOrderDetailFedexShipment m_TaskOrderDetailFedexShipment;
+        private string m_FakeAccessionNo;
+        private string m_ZPLII;
+
+        private string m_TrackingNumber;
+        private string m_ShipToName;
+        private string m_ShipToPhone;
+        private string m_ShipToAddress1;
+        private string m_ShipToAddress2;
+        private string m_ShipToCity;
+        private string m_ShipToState;
+        private string m_ShipToZip;
+        private string m_PaymentType;
+        private string m_AccountNo;
+        private string m_ServiceType;
+
+        private YellowstonePathology.Business.Facility.Model.Facility m_Facility;
+
         private YellowstonePathology.Business.Facility.Model.FacilityCollection m_FacilityCollection;
         private List<string> m_PaymentTypeList;
 
         public ClientFedxDialog(YellowstonePathology.Business.Facility.Model.Facility facility)
         {
-            this.m_TaskOrderDetailFedexShipment = new Business.Task.Model.TaskOrderDetailFedexShipment();
-            this.m_TaskOrderDetailFedexShipment.TaskId = "FDXSHPMNT";
-            this.m_TaskOrderDetailFedexShipment.TaskOrderDetailId = "FromClnt.1";
-            if(facility != null)
+            this.m_FakeAccessionNo = "FromClnt";
+            this.m_Facility = facility;
+            if(this.m_Facility != null)
             {
-                this.m_TaskOrderDetailFedexShipment.SetShipTo(facility);
+                this.SetShipTo(this.m_Facility);
             }
 
             this.m_FacilityCollection = Business.Facility.Model.FacilityCollection.Instance;
@@ -48,9 +63,75 @@ namespace YellowstonePathology.UI.Client
             DataContext = this;
         }
 
-        public Business.Task.Model.TaskOrderDetailFedexShipment TaskOrderDetailFedexShipment
+        public string TrackingNumber
         {
-            get { return this.m_TaskOrderDetailFedexShipment; }
+            get { return this.m_TrackingNumber; }
+            set { this.m_TrackingNumber = value; }
+        }
+
+        public string ShipToName
+        {
+            get { return this.m_ShipToName; }
+            set { this.m_ShipToName = value; }
+        }
+
+        public string ShipToPhone
+        {
+            get { return this.m_ShipToPhone; }
+            set { this.m_ShipToPhone = value; }
+        }
+
+        public string ShipToAddress1
+        {
+            get { return this.m_ShipToAddress1; }
+            set { this.m_ShipToAddress1 = value; }
+        }
+
+        public string ShipToAddress2
+        {
+            get { return this.m_ShipToAddress2; }
+            set { this.m_ShipToAddress2 = value; }
+        }
+
+        public string ShipToCity
+        {
+            get { return this.m_ShipToCity; }
+            set { this.m_ShipToCity = value; }
+        }
+
+        public string ShipToState
+        {
+            get { return this.m_ShipToState; }
+            set { this.m_ShipToState = value; }
+        }
+
+        public string ShipToZip
+        {
+            get { return this.m_ShipToZip; }
+            set { this.m_ShipToZip = value; }
+        }
+
+        public string PaymentType
+        {
+            get { return this.m_PaymentType; }
+            set { this.m_PaymentType = value; }
+        }
+
+        public string AccountNo
+        {
+            get { return this.m_AccountNo; }
+            set { this.m_AccountNo = value; }
+        }
+
+        public string ServiceType
+        {
+            get { return this.m_ServiceType; }
+            set { this.m_ServiceType = value; }
+        }
+
+        public YellowstonePathology.Business.Facility.Model.Facility Facility
+        {
+            get { return this.m_Facility; }
         }
 
         public YellowstonePathology.Business.Facility.Model.FacilityCollection FacilityCollection
@@ -78,10 +159,10 @@ namespace YellowstonePathology.UI.Client
                 ComboBox comboBox = (ComboBox)sender;
                 if (comboBox.SelectionBoxItem != null)
                 {
-                    Business.Facility.Model.Facility facility = (Business.Facility.Model.Facility)comboBox.SelectedItem;
-                    if (facility != null)
+                    this.m_Facility = (Business.Facility.Model.Facility)comboBox.SelectedItem;
+                    if (this.m_Facility != null)
                     {
-                        this.m_TaskOrderDetailFedexShipment.SetShipTo(facility);
+                        this.SetShipTo(this.m_Facility);
                     }
                 }
                 this.NotifyPropertyChanged(string.Empty);
@@ -90,20 +171,21 @@ namespace YellowstonePathology.UI.Client
 
         private void HyperLinkGetTrackingNumber_Click(object sender, RoutedEventArgs e)
         {
-            this.m_TaskOrderDetailFedexShipment.ValidateObject();
-            if (this.m_TaskOrderDetailFedexShipment.ValidationErrors.Count == 0)
-            {
-                if (this.IsOKToGetTrackingNumber(this.m_TaskOrderDetailFedexShipment) == true)
+                if (this.IsOKToGetTrackingNumber() == true)
                 {
-                    Business.Facility.Model.Facility facility = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId(this.m_TaskOrderDetailFedexShipment.ShipToFacilityId);
                     Business.MaterialTracking.Model.FedexAccountProduction fedExAccount = new Business.MaterialTracking.Model.FedexAccountProduction();
-                    Business.MaterialTracking.Model.FedexShipmentRequest shipmentRequest = new Business.MaterialTracking.Model.FedexShipmentRequest(facility, fedExAccount, this.m_TaskOrderDetailFedexShipment.PaymentType, this.m_TaskOrderDetailFedexShipment.ServiceType, this.m_TaskOrderDetailFedexShipment);
+                    Business.MaterialTracking.Model.FedexShipmentRequest shipmentRequest = new Business.MaterialTracking.Model.FedexShipmentRequest(this.m_Facility, fedExAccount,
+                        this.m_FakeAccessionNo, this.m_PaymentType, this.m_ServiceType, this.m_TrackingNumber, 
+                        this.m_ShipToName, this.m_ShipToPhone, this.m_ShipToAddress1,
+                        this.m_ShipToAddress2, this.m_ShipToCity, this.m_ShipToState,
+                        this.m_ShipToZip, this.m_AccountNo);
                     Business.MaterialTracking.Model.FedexProcessShipmentReply result = shipmentRequest.RequestShipment();
 
                     if (result.RequestWasSuccessful == true)
                     {
-                        this.m_TaskOrderDetailFedexShipment.TrackingNumber = result.TrackingNumber;
-                        this.m_TaskOrderDetailFedexShipment.ZPLII = Business.Label.Model.ZPLPrinterTCP.DecodeZPLFromBase64(result.ZPLII);
+                        this.m_TrackingNumber = result.TrackingNumber;
+                        this.m_ZPLII = Business.Label.Model.ZPLPrinterTCP.DecodeZPLFromBase64(result.ZPLII);
+                        this.NotifyPropertyChanged(string.Empty);
                     }
                     else
                     {
@@ -114,35 +196,35 @@ namespace YellowstonePathology.UI.Client
                 {
                     MessageBox.Show("We are unable to get the tracking number at this point because there are problems with the data.");
                 }
-            }
-            else
-            {
-                string message = "We are unable to get the tracking number at this point because" + Environment.NewLine + this.m_TaskOrderDetailFedexShipment.Errors;
-                MessageBox.Show(message);
-            }
         }
 
-        private bool IsOKToGetTrackingNumber(Business.Task.Model.TaskOrderDetailFedexShipment taskOrderDetail)
+        private bool IsOKToGetTrackingNumber()
         {
             bool result = true;
-            if (string.IsNullOrEmpty(taskOrderDetail.TrackingNumber) == false) result = false;
-            if (string.IsNullOrEmpty(taskOrderDetail.ShipToAddress1) == true) result = false;
-            if (string.IsNullOrEmpty(taskOrderDetail.ShipToCity) == true) result = false;
-            if (string.IsNullOrEmpty(taskOrderDetail.ShipToState) == true) result = false;
-            if (string.IsNullOrEmpty(taskOrderDetail.ShipToZip) == true) result = false;
-            if (string.IsNullOrEmpty(taskOrderDetail.PaymentType) == true) result = false;
+            if (string.IsNullOrEmpty(this.m_TrackingNumber) == false) result = false;
+            if (string.IsNullOrEmpty(this.m_ShipToAddress1) == true) result = false;
+            if (string.IsNullOrEmpty(this.m_ShipToCity) == true) result = false;
+            if (string.IsNullOrEmpty(this.m_ShipToState) == true) result = false;
+            if (string.IsNullOrEmpty(this.m_ShipToZip) == true) result = false;
+            if (string.IsNullOrEmpty(this.m_PaymentType) == true) result = false;
+
+            if (string.IsNullOrEmpty(this.m_ShipToName) == true) result = false;
+            if (string.IsNullOrEmpty(this.m_ShipToPhone) == true) result = false;
+            if (string.IsNullOrEmpty(this.m_AccountNo) == true) result = false;
+            if (string.IsNullOrEmpty(this.m_ServiceType) == true) result = false;
+            if (string.IsNullOrEmpty(this.m_AccountNo) == false && this.m_AccountNo.Contains("-") == true) result = false;
+
             return result;
         }
 
         private void HyperLinkPrintLabel_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(this.m_TaskOrderDetailFedexShipment.ZPLII) == false)
+            if (string.IsNullOrEmpty(this.m_ZPLII) == false)
             {
                 if (string.IsNullOrEmpty(Business.User.UserPreferenceInstance.Instance.UserPreference.FedExLabelPrinter) == false)
                 {
                     Business.Label.Model.ZPLPrinterTCP zplPrinter = new Business.Label.Model.ZPLPrinterTCP(Business.User.UserPreferenceInstance.Instance.UserPreference.FedExLabelPrinter);
-                    zplPrinter.Print(this.m_TaskOrderDetailFedexShipment.ZPLII);
-                    this.m_TaskOrderDetailFedexShipment.LabelHasBeenPrinted = true;
+                    zplPrinter.Print(this.m_ZPLII);
                 }
                 else
                 {
@@ -157,23 +239,37 @@ namespace YellowstonePathology.UI.Client
 
         private void HyperLinkCancelShipment_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(this.m_TaskOrderDetailFedexShipment.TrackingNumber) == false)
+            if (string.IsNullOrEmpty(this.m_TrackingNumber) == false)
             {
                 Business.MaterialTracking.Model.FedexAccountProduction fedExAccount = new Business.MaterialTracking.Model.FedexAccountProduction();
-                Business.MaterialTracking.Model.FedexDeleteShipmentRequest deleteShipmentRequest = new Business.MaterialTracking.Model.FedexDeleteShipmentRequest(fedExAccount, this.m_TaskOrderDetailFedexShipment.TrackingNumber);
+                Business.MaterialTracking.Model.FedexDeleteShipmentRequest deleteShipmentRequest = new Business.MaterialTracking.Model.FedexDeleteShipmentRequest(fedExAccount, this.m_TrackingNumber);
                 Business.MaterialTracking.Model.FedexDeleteShipmentReply result = deleteShipmentRequest.Post();
 
                 if (result.RequestWasSuccessful == true)
                 {
-                    this.m_TaskOrderDetailFedexShipment.ZPLII = null;
-                    this.m_TaskOrderDetailFedexShipment.TrackingNumber = null;
-                    this.m_TaskOrderDetailFedexShipment.LabelHasBeenPrinted = false;
+                    this.m_ZPLII = null;
+                    this.m_TrackingNumber = null;
+                    this.NotifyPropertyChanged(string.Empty);
                 }
                 else
                 {
                     MessageBox.Show("There was a problem with this Request.");
                 }
             }
+        }
+
+        private void SetShipTo(Business.Facility.Model.Facility facility)
+        {
+            this.m_ShipToName = facility.FacilityName;
+            this.m_ShipToAddress1 = facility.Address1;
+            this.m_ShipToAddress2 = facility.Address2;
+            this.m_ShipToCity = facility.City;
+            this.m_ShipToState = facility.State;
+            this.m_ShipToZip = facility.ZipCode;
+            this.m_ShipToPhone = facility.PhoneNumber;
+            this.m_PaymentType = facility.FedexPaymentType;
+            this.m_AccountNo = facility.FedexAccountNo;
+            this.NotifyPropertyChanged(string.Empty);
         }
 
         private void ButtonOK_Click(object sender, RoutedEventArgs e)
