@@ -301,9 +301,13 @@ namespace YellowstonePathology.UI.Login.Receiving
             {
                 if (this.IsOKToGetTrackingNumber(taskOrderDetail) == true)
                 {
+                    string masterAccessionNo = taskOrderDetail.TaskOrderDetailId.Split(new char[] { '.' })[0];
                     Business.Facility.Model.Facility facility = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId(taskOrderDetail.ShipToFacilityId);
                     Business.MaterialTracking.Model.FedexAccountProduction fedExAccount = new Business.MaterialTracking.Model.FedexAccountProduction();
-                    Business.MaterialTracking.Model.FedexShipmentRequest shipmentRequest = new Business.MaterialTracking.Model.FedexShipmentRequest(facility, fedExAccount, taskOrderDetail.PaymentType, taskOrderDetail.ServiceType, taskOrderDetail);
+                    Business.MaterialTracking.Model.FedexShipmentRequest shipmentRequest = new Business.MaterialTracking.Model.FedexShipmentRequest(facility, fedExAccount,
+                        masterAccessionNo, taskOrderDetail.PaymentType, taskOrderDetail.ServiceType, taskOrderDetail.TrackingNumber, taskOrderDetail.ShipToName, 
+                        taskOrderDetail.ShipToPhone, taskOrderDetail.ShipToAddress1, taskOrderDetail.ShipToAddress2, taskOrderDetail.ShipToCity, 
+                        taskOrderDetail.ShipToState, taskOrderDetail.ShipToZip, taskOrderDetail.AccountNo);
                     Business.MaterialTracking.Model.FedexProcessShipmentReply result = shipmentRequest.RequestShipment();
 
                     if (result.RequestWasSuccessful == true)
