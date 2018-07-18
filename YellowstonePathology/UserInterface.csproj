@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>89</ApplicationRevision>
+    <ApplicationRevision>105</ApplicationRevision>
     <ApplicationVersion>10.1.12.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -3282,7 +3282,6 @@
       <DependentUpon>StainOrderPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Gross\DictationTemplateCollection.cs" />
-    <Compile Include="UI\Gross\DictationTemplateDefinition.cs" />
     <Compile Include="UI\Gross\DictationTemplatePage.xaml.cs">
       <DependentUpon>DictationTemplatePage.xaml</DependentUpon>
     </Compile>
@@ -4538,9 +4537,6 @@
     </Compile>
     <Compile Include="UI\WebService\WebServiceAccountSelectionDialog.xaml.cs">
       <DependentUpon>WebServiceAccountSelectionDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Window2.xaml.cs">
-      <DependentUpon>Window2.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\WpfWindowMessageHook.cs">
       <SubType>Code</SubType>
@@ -6841,10 +6837,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\Window2.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\XpsDocumentViewer.xaml">
       <SubType>Designer</SubType>

@@ -11,8 +11,7 @@ namespace YellowstonePathology.Business.Test.Model
         {
             this.m_GroupName = "Colon";
             
-            this.m_List.Add((ImmunoHistochemistryTest)YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone("81")); // CDX2());
-            this.m_List.Add(new Villin());            
+            this.m_List.Add((ImmunoHistochemistryTest)YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone("81")); // CDX2());            
         }
     }
 }
