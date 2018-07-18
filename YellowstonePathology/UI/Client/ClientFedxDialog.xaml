@@ -45,13 +45,13 @@
                         <ComboBox Name="ComboboxShipToFacility" Grid.Column="1" Grid.Row="2" Margin="2,2,2,2" HorizontalAlignment="Stretch" IsEditable="True" 
                             ItemsSource="{Binding Path=FacilityCollection}" 
                             SelectedValuePath="FacilityId" DisplayMemberPath="FacilityName"
-							SelectedValue="{Binding Path=TaskOrderDetailFedexShipment.ShipToFacilityId}" SelectionChanged="ComboboxShipToFacility_SelectionChanged"/>
+							SelectedValue="{Binding Path=Facility.FacilityId}" SelectionChanged="ComboboxShipToFacility_SelectionChanged"/>
 
                         <TextBlock Grid.Column="0" Grid.Row="3" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right" IsEnabled="False">Address 1:</TextBlock>
-                    <TextBox Grid.Column="1" Grid.Row="3" Margin="2,2,2,2" Text="{Binding Path=TaskOrderDetailFedexShipment.ShipToAddress1}"/>
+                    <TextBox Grid.Column="1" Grid.Row="3" Margin="2,2,2,2" Text="{Binding Path=ShipToAddress1}"/>
 
                         <TextBlock Grid.Column="0" Grid.Row="4" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right" IsEnabled="False">Address 2:</TextBlock>
-                    <TextBox Grid.Column="1" Grid.Row="4" Margin="2,2,2,2" Text="{Binding Path=TaskOrderDetailFedexShipment.ShipToAddress2}"/>
+                    <TextBox Grid.Column="1" Grid.Row="4" Margin="2,2,2,2" Text="{Binding Path=ShipToAddress2}"/>
 
                         <TextBlock Grid.Column="0" Grid.Row="5" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right" IsEnabled="False">City/State/Zip:</TextBlock>
                         <Grid Grid.Column="1" Grid.Row="5">
@@ -61,24 +61,24 @@
                                 <ColumnDefinition Width="2*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
 
-                        <TextBox Grid.Column="0" Margin="2,2,2,2" Text="{Binding Path=TaskOrderDetailFedexShipment.ShipToCity}"/>
-                        <TextBox Grid.Column="1" Margin="2,2,2,2" Text="{Binding Path=TaskOrderDetailFedexShipment.ShipToState}"/>
-                        <TextBox Grid.Column="2" Margin="2,2,2,2" Text="{Binding Path=TaskOrderDetailFedexShipment.ShipToZip}"/>
+                        <TextBox Grid.Column="0" Margin="2,2,2,2" Text="{Binding Path=ShipToCity}"/>
+                        <TextBox Grid.Column="1" Margin="2,2,2,2" Text="{Binding Path=ShipToState}"/>
+                        <TextBox Grid.Column="2" Margin="2,2,2,2" Text="{Binding Path=ShipToZip}"/>
                         </Grid>
 
                         <TextBlock Grid.Column="0" Grid.Row="6" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right" IsEnabled="False">Phone Number:</TextBlock>
-                    <TextBox Grid.Column="1" Grid.Row="6" Margin="2,2,2,2" Text="{Binding Path=TaskOrderDetailFedexShipment.ShipToPhoneBinding}"/>
+                    <TextBox Grid.Column="1" Grid.Row="6" Margin="2,2,2,2" Text="{Binding Path=ShipToPhone}"/>
 
                         <TextBlock Grid.Column="0" Grid.Row="7" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right" IsEnabled="False">Payment Type:</TextBlock>
-                    <ComboBox Name="ComboBoxPaymentType" Grid.Column="1" Grid.Row="7" Margin="2,2,2,2" SelectedValue="{Binding Path=TaskOrderDetailFedexShipment.PaymentType}"
+                    <ComboBox Name="ComboBoxPaymentType" Grid.Column="1" Grid.Row="7" Margin="2,2,2,2" SelectedValue="{Binding Path=PaymentType}"
                                         ItemsSource="{Binding DataContext.PaymentTypeList}">
                         </ComboBox>
 
                         <TextBlock Grid.Column="0" Grid.Row="8" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right">FedEx Tracking No:</TextBlock>
-                    <TextBox Grid.Column="1" Grid.Row="8" Margin="2,2,2,2" Text="{Binding Path=TaskOrderDetailFedexShipment.TrackingNumber}"/>
+                    <TextBox Grid.Column="1" Grid.Row="8" Margin="2,2,2,2" Text="{Binding Path=TrackingNumber}"/>
 
                         <TextBlock Grid.Column="0" Grid.Row="9" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right">Service Type:</TextBlock>
-                    <ComboBox Name="ComboBoxServiceType" Grid.Column="1" Grid.Row="9" Margin="2,2,2,2" IsEditable="True" Text="{Binding Path=TaskOrderDetailFedexShipment.ServiceType}" HorizontalAlignment="Stretch">
+                    <ComboBox Name="ComboBoxServiceType" Grid.Column="1" Grid.Row="9" Margin="2,2,2,2" IsEditable="True" Text="{Binding Path=ServiceType}" HorizontalAlignment="Stretch">
                             <ComboBoxItem>PRIORITY_OVERNIGHT</ComboBoxItem>
                             <ComboBoxItem>STANDARD_OVERNIGHT</ComboBoxItem>
                             <ComboBoxItem>FEDEX_2_DAY</ComboBoxItem>
@@ -87,7 +87,7 @@
                         </ComboBox>
 
                         <TextBlock Grid.Column="0" Grid.Row="10" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right">Account No:</TextBlock>
-                    <TextBox Grid.Column="1" Grid.Row="10" Margin="2,2,2,2" Text="{Binding Path=TaskOrderDetailFedexShipment.AccountNoBinding}" />
+                    <TextBox Grid.Column="1" Grid.Row="10" Margin="2,2,2,2" Text="{Binding Path=AccountNo}" />
 
                         <StackPanel Grid.Column="2" Grid.Row="0" Grid.RowSpan="4" Margin="10,10,10,10">
 
