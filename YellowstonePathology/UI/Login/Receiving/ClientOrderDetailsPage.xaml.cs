@@ -421,7 +421,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         private void TextBoxInComboBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (this.ComboBoxSpecimenId.SelectedItem != null && ((YellowstonePathology.Business.Specimen.Model.Specimen)this.ComboBoxSpecimenId.SelectedItem).SpecimenId == "NLLSPCMN")
+            if (this.ComboBoxSpecimenId.SelectedItem != null)
             {
                 YellowstonePathology.Business.Specimen.Model.Specimen specimen = (YellowstonePathology.Business.Specimen.Model.Specimen)this.ComboBoxSpecimenId.SelectedItem;
                 if (string.IsNullOrEmpty(this.m_ClientOrderDetail.DescriptionToAccessionBinding) == true)

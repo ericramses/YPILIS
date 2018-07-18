@@ -981,8 +981,7 @@ namespace YellowstonePathology.UI
 
         private void MenuItemTest_Click(object sender, RoutedEventArgs e)
         {
-            Window2 w = new Window2();
-            w.ShowDialog();
+            
         }
     }
 }

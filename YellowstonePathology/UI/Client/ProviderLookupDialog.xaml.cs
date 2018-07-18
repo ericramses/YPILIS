@@ -120,10 +120,20 @@ namespace YellowstonePathology.UI.Client
             {
                 YellowstonePathology.Business.Client.Model.Client client = (YellowstonePathology.Business.Client.Model.Client)this.ListViewClients.SelectedItem;
                 facility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByClientId(client.ClientId);
+                if (facility != null)
+                {
+                    ClientFedxDialog dlg = new Client.ClientFedxDialog(facility);
+                    dlg.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("The selected client is not associated with a facility.  Select from the facility tab.");
+                }
             }
-
-            ClientFedxDialog dlg = new Client.ClientFedxDialog(facility);
-            dlg.ShowDialog();
+            else
+            {
+                MessageBox.Show("No client is selected.");
+            }
         }
 
         private void MenuItemDeleteClient_Click(object sender, RoutedEventArgs e)
@@ -448,10 +458,13 @@ namespace YellowstonePathology.UI.Client
             if (this.ListViewFacilities.SelectedItem != null)
             {
                 facility = (YellowstonePathology.Business.Facility.Model.Facility)this.ListViewFacilities.SelectedItem;
+                ClientFedxDialog dlg = new Client.ClientFedxDialog(facility);
+                dlg.ShowDialog();
             }
-
-            ClientFedxDialog dlg = new Client.ClientFedxDialog(facility);
-            dlg.ShowDialog();
+            else
+            {
+                MessageBox.Show("No Facility is selected.");
+            }
         }
     }
 }

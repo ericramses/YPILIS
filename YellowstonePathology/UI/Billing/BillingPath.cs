@@ -71,6 +71,7 @@ namespace YellowstonePathology.UI.Billing
             YellowstonePathology.UI.Billing.ADTPage adtPage = new ADTPage(this.m_AccessionOrder);
             if (this.m_BillingWindowPrimary.PageNavigator.HasDualMonitors() == false)
             {
+                this.m_BillingWindowSecondary = new BillingWindowSecondary();
                 this.m_BillingWindowSecondary.Show();
             }
             this.m_BillingWindowSecondary.PageNavigator.Navigate(adtPage);
