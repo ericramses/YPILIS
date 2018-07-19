@@ -309,8 +309,7 @@ namespace YellowstonePathology.Business.Specimen.Model
 
         public YellowstonePathology.Business.Interface.IOrderTargetType GetTargetType()
         {
-            YellowstonePathology.Business.Specimen.Model.SpecimenCollection specimenCollection = YellowstonePathology.Business.Specimen.Model.SpecimenCollection.GetAll();
-            return specimenCollection.GetSpecimen(this.m_SpecimenId);
+            return YellowstonePathology.Business.Specimen.Model.SpecimenCollection.Instance.GetSpecimen(this.m_SpecimenId);
         }
 
         public string GetOrderedOnType()

@@ -21,18 +21,20 @@ namespace YellowstonePathology.UI.Gross
         {
             this.m_TemplateName = "Prostate Needle Core";
             this.m_Text = "[identifier] and consists of [number] tan-pink cylindrical tissue fragments measuring [measurement] in aggregate.  " +
-                "The specimen is [cassettesummary].  ";            
+                "The specimen is [cassettesummary].  ";
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ProstateNeedleBiopsy nb = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ProstateNeedleBiopsy();
+            YellowstonePathology.Business.Specimen.Model.Specimen nb = YellowstonePathology.Business.Specimen.Model.SpecimenCollection.Instance.GetSpecimen("SPCMNPRSTTNDLBPSY"); // Definition.ProstateNeedleBiopsy();
             this.m_SpecimenCollection.Add(nb);
+
+            this.m_UseAppendInitials = true;
         }
 
-        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        /*public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
             result = this.ReplaceCassetteSummary(result, specimenOrder);
             return result;
-        }
+        }*/
     }
 
     public class ProstateTURTemplate : DictationTemplate
@@ -40,20 +42,22 @@ namespace YellowstonePathology.UI.Gross
         public ProstateTURTemplate()
         {
             this.m_TemplateName = "Prostate TUR";
-            this.m_Text = "[identifier] and consists of [number] irregular ragged tan-pink tissue fragment[?s?] " +
+            this.m_Text = "[identifiernodescription] and consists of [number] irregular ragged tan-pink tissue fragment[?s?] " +
                 "weighing [weight] grams and measuring [measurement] [?in aggregate?].  [representativesections].  ";                
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ProstateTUR tur = new Business.Specimen.Model.SpecimenDefinition.ProstateTUR();
+            YellowstonePathology.Business.Specimen.Model.Specimen tur = Business.Specimen.Model.SpecimenCollection.Instance.GetSpecimen("SPCMNPRSTTTUR"); // Definition.ProstateTUR();
             this.m_SpecimenCollection.Add(tur);
+
+            this.m_UseAppendInitials = true;
         }
 
-        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        /*public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {            
             string result = base.ReplaceIdentifierNoDescription(this.m_Text, specimenOrder, accessionOrder);
             result = base.AppendInitials(result, specimenOrder, accessionOrder, systemIdentity);
             result = this.ReplaceRepresentativeSections(result, specimenOrder);
             return result;
-        }
+        }*/
     }
 
     public class BladderTURTemplate : DictationTemplate
@@ -61,20 +65,22 @@ namespace YellowstonePathology.UI.Gross
         public BladderTURTemplate()
         {
             this.m_TemplateName = "Bladder TUR";
-            this.m_Text = "[identifier] and consists of [number] irregular ragged tan-pink tissue fragment[?s?] " +
+            this.m_Text = "[identifiernodescription] and consists of [number] irregular ragged tan-pink tissue fragment[?s?] " +
                 "measuring [measurement] [?in aggregate?]. The specimen is filtered through a fine mesh bag and [cassettesummary].  ";
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.BladderTUR turb = new Business.Specimen.Model.SpecimenDefinition.BladderTUR();
+            YellowstonePathology.Business.Specimen.Model.Specimen turb = Business.Specimen.Model.SpecimenCollection.Instance.GetSpecimen("SPCMNBLDDRTTUR"); // Definition.BladderTUR();
             this.m_SpecimenCollection.Add(turb);
+
+            this.m_UseAppendInitials = true;
         }
 
-        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        /*public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {            
             string result = base.ReplaceIdentifierNoDescription(this.m_Text, specimenOrder, accessionOrder);
             result = base.AppendInitials(result, specimenOrder, accessionOrder, systemIdentity);
             result = this.ReplaceCassetteSummary(result, specimenOrder);
             return result;
-        }
+        }*/
     }
 
     public class GITemplate : DictationTemplate
@@ -85,16 +91,18 @@ namespace YellowstonePathology.UI.Gross
             this.m_Text = "[identifier] and consists of [number] tan-pink tissue fragment[?s?] measuring [measurement] [?in aggregate?].  " +
                 "The specimen is filtered through a fine mesh bag and [cassettesummary].  ";            
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.GIBiopsy gi = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.GIBiopsy();
+            YellowstonePathology.Business.Specimen.Model.Specimen gi = YellowstonePathology.Business.Specimen.Model.SpecimenCollection.Instance.GetSpecimen("GISPCMN"); // Definition.GIBiopsy();
             this.m_SpecimenCollection.Add(gi);
+
+            this.m_UseAppendInitials = true;
         }
 
-        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        /*public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
             result = this.ReplaceCassetteSummary(result, specimenOrder);
             return result;
-        }
+        }*/
     }
 
     public class ConsultTemplate : DictationTemplate
@@ -102,53 +110,53 @@ namespace YellowstonePathology.UI.Gross
         public ConsultTemplate()
         {
             this.m_TemplateName = "Consult";
-            this.m_Text = "Received in consultation from [physicianname] ([clientname] - [clientcitystate]) are [slidecount] and [blockcount] labeled [clientaccession] for patient \"[patientname]\".  ";
+            this.m_Text = "Received in consultation from [physicianname] ([clientname] - [clientcitystate]) are [clientaccessionedslidecount] and [blockcount] labeled [clientaccession] for patient \"[patientname]\".  ";
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Consult consult = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Consult();
+            YellowstonePathology.Business.Specimen.Model.Specimen consult = YellowstonePathology.Business.Specimen.Model.SpecimenCollection.Instance.GetSpecimen("CNSLT"); // Definition.Consult();
             this.m_SpecimenCollection.Add(consult);
         }
 
-        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        /* WHC NEEDS WORK public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {            
             string result = this.m_Text.Replace("[physicianname]", accessionOrder.PhysicianName);
             result = result.Replace("[clientaccession]", accessionOrder.ClientAccessionNo);
             result = result.Replace("[patientname]", accessionOrder.PatientDisplayName);
             result = result.Replace("[blockcount]", specimenOrder.AliquotOrderCollection.GetBlockCountString().ToString());
-            result = result.Replace("[slidecount]", specimenOrder.AliquotOrderCollection.GetClientAccessionedSlideOrderCountString());
+            result = result.Replace("[clientaccessionedslidecount]", specimenOrder.AliquotOrderCollection.GetClientAccessionedSlideOrderCountString());
             result = base.ReplaceIdentifier(result, specimenOrder, accessionOrder);
 
             YellowstonePathology.Business.Client.Model.Client client = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientByClientId(accessionOrder.ClientId);
             result = result.Replace("[clientname]", client.ClientName);
             result = result.Replace("[clientcitystate]", client.City + ", " + client.State);
             return result;
-        }
+        }*/
     }
 
     public class InitialReadingTemplate : DictationTemplate
     {
         public InitialReadingTemplate()
         {
-            this.m_TemplateName = "Consult";
-            this.m_Text = "Received from [physicianname] ([clientname] - [clientcitystate]) are [slidecount] and [blockcount] labeled [clientaccession] for patient \"[patientname]\" for pathologist interpretation. ";
+            this.m_TemplateName = "Consult Initial Reading";
+            this.m_Text = "Received from [physicianname] ([clientname] - [clientcitystate]) are [clientaccessionedslidecount] and [blockcount] labeled [clientaccession] for patient \"[patientname]\" for pathologist interpretation. ";
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.InitialReading initialReading = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.InitialReading();
+            YellowstonePathology.Business.Specimen.Model.Specimen initialReading = YellowstonePathology.Business.Specimen.Model.SpecimenCollection.Instance.GetSpecimen("NTLRDNG"); // Definition.InitialReading();
             this.m_SpecimenCollection.Add(initialReading);
         }
 
-        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        /* WHC NEEDS WORK public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             string result = this.m_Text.Replace("[physicianname]", accessionOrder.PhysicianName);
             result = result.Replace("[clientaccession]", accessionOrder.ClientAccessionNo);
             result = result.Replace("[patientname]", accessionOrder.PatientDisplayName);
             result = result.Replace("[blockcount]", specimenOrder.AliquotOrderCollection.GetBlockCountString().ToString());
-            result = result.Replace("[slidecount]", specimenOrder.AliquotOrderCollection.GetClientAccessionedSlideOrderCountString().ToString());
+            result = result.Replace("[clientaccessionedslidecount]", specimenOrder.AliquotOrderCollection.GetClientAccessionedSlideOrderCountString().ToString());
             result = base.ReplaceIdentifier(result, specimenOrder, accessionOrder);
 
             YellowstonePathology.Business.Client.Model.Client client = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientByClientId(accessionOrder.ClientId);
             result = result.Replace("[clientname]", client.ClientName);
             result = result.Replace("[clientcitystate]", client.City + ", " + client.State);
             return result;
-        }
+        }*/
     }
 
     public class PeripheralBloodTemplate : DictationTemplate
@@ -158,16 +166,16 @@ namespace YellowstonePathology.UI.Gross
             this.m_TemplateName = "Peripheral Blood Smear";
             this.m_Text = "Received are [slidecount] [unstained/stained] peripheral blood smear[?s?] labeled \"[patientname]\" for pathologist review.  ";
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Peripheral peripheral = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Peripheral();
+            YellowstonePathology.Business.Specimen.Model.Specimen peripheral = YellowstonePathology.Business.Specimen.Model.SpecimenCollection.Instance.GetSpecimen("SPCPBS"); // Definition.Peripheral();
             this.m_SpecimenCollection.Add(peripheral);
         }
 
-        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        /*WHC NEEDS WORK public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             string result = this.m_Text.Replace("[patientname]", accessionOrder.PatientDisplayName);
             result = result.Replace("[slidecount]", specimenOrder.AliquotOrderCollection.GetSlideCount().ToString());
             return result;
-        }
+        }*/
     }
 
     public class BXTemplate : DictationTemplate
@@ -178,16 +186,18 @@ namespace YellowstonePathology.UI.Gross
             this.m_Text = "[identifier] and consists of [number] tan-pink tissue fragment[?s?] measuring [measurement] [?in aggregate?].  " +
                 "The specimen is filtered through a fine mesh bag and [cassettesummary].  ";            
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Biopsy bx = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Biopsy();
+            YellowstonePathology.Business.Specimen.Model.Specimen bx = YellowstonePathology.Business.Specimen.Model.SpecimenCollection.Instance.GetSpecimen("BXSPCMN"); // Definition.Biopsy();
             this.m_SpecimenCollection.Add(bx);
+
+            this.m_UseAppendInitials = true;
         }
 
-        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        /*public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
             result = this.ReplaceCassetteSummary(result, specimenOrder);
             return result;
-        }
+        }*/
     }
 
     public class FluidTemplate : DictationTemplate
@@ -195,18 +205,19 @@ namespace YellowstonePathology.UI.Gross
         public FluidTemplate()
         {
             this.m_TemplateName = "Fluid Specimen";
-            this.m_Text = "[Specimen] is received in CytoLyt in a container labeled \"[identifier]\" and consists of [Quantity] ml of [Color] fluid [?with particulate?].  The specimen is submitted for selective cellular enhancement processing.";
+            this.m_Text = "[Specimen] is received in CytoLyt in a container labeled \"[patientname]\" and consists of [Quantity] ml of [Color] fluid [?with particulate?].  The specimen is submitted for selective cellular enhancement processing.[cellblock]";
             
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Fluid fluid = new Business.Specimen.Model.SpecimenDefinition.Fluid();
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Urine urine = new Business.Specimen.Model.SpecimenDefinition.Urine();
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.FNA fna = new Business.Specimen.Model.SpecimenDefinition.FNA();
+            YellowstonePathology.Business.Specimen.Model.Specimen fluid = Business.Specimen.Model.SpecimenCollection.Instance.GetSpecimen("SPCMFLUID"); // Definition.Fluid();
+            YellowstonePathology.Business.Specimen.Model.Specimen urine = Business.Specimen.Model.SpecimenCollection.Instance.GetSpecimen("SPCMNURINE"); // Definition.Urine();
+            YellowstonePathology.Business.Specimen.Model.Specimen fna = Business.Specimen.Model.SpecimenCollection.Instance.GetSpecimen("SPCMFNA"); // Definition.FNA();
 
             this.m_SpecimenCollection.Add(fluid);
             this.m_SpecimenCollection.Add(urine);
             this.m_SpecimenCollection.Add(fna);
+
         }
 
-        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        /* WHC NEEDS WORK public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             string identifier = accessionOrder.PatientDisplayName;            
             if(specimenOrder.AliquotOrderCollection.HasCellBlock() == true)
@@ -215,8 +226,8 @@ namespace YellowstonePathology.UI.Gross
             }
 
             this.m_Text = this.m_Text.Replace("[Specimen]", "Specimen " + specimenOrder.SpecimenNumber);
-            return this.m_Text.Replace("[identifier]", identifier);
-        }
+            return this.m_Text.Replace("[fluididentifier]", identifier);
+        }*/
     }
 
     public class FallopianTubeTemplate : DictationTemplate
@@ -235,16 +246,18 @@ namespace YellowstonePathology.UI.Gross
                 "  Inked:  [color]" + Environment.NewLine +
                 "Submitted:  [representativesections].  ";
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.FallopianTube fallopianTube = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.FallopianTube();
+            YellowstonePathology.Business.Specimen.Model.Specimen fallopianTube = YellowstonePathology.Business.Specimen.Model.SpecimenCollection.Instance.GetSpecimen("FTSPCMN"); // Definition.FallopianTube();
             this.m_SpecimenCollection.Add(fallopianTube);
+
+            this.m_UseAppendInitials = true;
         }
 
-        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        /*public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
             result = this.ReplaceRepresentativeSections(result, specimenOrder);
             return result;
-        }
+        }*/
     }
 
     public class FallopianTubeAndOvariesTemplate : DictationTemplate
@@ -273,16 +286,18 @@ namespace YellowstonePathology.UI.Gross
                 Environment.NewLine +
                 "[summarysubmission].  ";
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.FallopianTubeAndOvaries fallopianTubeAndOvaries = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.FallopianTubeAndOvaries();
+            YellowstonePathology.Business.Specimen.Model.Specimen fallopianTubeAndOvaries = YellowstonePathology.Business.Specimen.Model.SpecimenCollection.Instance.GetSpecimen("FTOSPCMN"); // Definition.FallopianTubeAndOvaries();
             this.m_SpecimenCollection.Add(fallopianTubeAndOvaries);
+
+            this.m_UseAppendInitials = true;
         }
 
-        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        /*public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
             result = this.ReplaceSummarySubmission(result, specimenOrder);
             return result;
-        }
+        }*/
     }
 
 
@@ -294,17 +309,19 @@ namespace YellowstonePathology.UI.Gross
             this.m_Text = "[identifier] and consists of multiple fragments of tan-pink tissue and bone aggregating to [measurement].  " +
                 "They are filtered through a fine mesh bag and [cassettesummary] [?for decalcification prior to processing?].  ";
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SinusContent sinusContent = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SinusContent();
+            YellowstonePathology.Business.Specimen.Model.Specimen sinusContent = YellowstonePathology.Business.Specimen.Model.SpecimenCollection.Instance.GetSpecimen("SCSPCMN"); // Definition.SinusContent();
             this.m_SpecimenCollection.Add(sinusContent);
+
+            this.m_UseAppendInitials = true;
         }
 
-        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        /*public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {            
             string result = base.ReplaceIdentifier(this.m_Text, specimenOrder, accessionOrder);
             result = base.AppendInitials(result, specimenOrder, accessionOrder, systemIdentity);
             result = this.ReplaceCassetteSummary(result, specimenOrder);
             return result;
-        }
+        }*/
     }
 
     public class AppendixExcisionTemplate : DictationTemplate
@@ -322,16 +339,18 @@ namespace YellowstonePathology.UI.Gross
                 "Fecaliths:  [description] [measurement], [description]" + Environment.NewLine +
                 "Submitted:  [representativesections].  ";
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.AppendixExcision appendixExcision = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.AppendixExcision();
+            YellowstonePathology.Business.Specimen.Model.Specimen appendixExcision = YellowstonePathology.Business.Specimen.Model.SpecimenCollection.Instance.GetSpecimen("APPNDXXCSN"); // Definition.AppendixExcision();
             this.m_SpecimenCollection.Add(appendixExcision);
+
+            this.m_UseAppendInitials = true;
         }
 
-        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        /*public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
             result = this.ReplaceRepresentativeSections(result, specimenOrder);
             return result;
-        }
+        }*/
     }
 
     public class SkinShavePunchMiscTemplate : DictationTemplate
@@ -344,16 +363,18 @@ namespace YellowstonePathology.UI.Gross
                 "Measurements:  [measurements]" + Environment.NewLine +
                 "Submitted:  [submitted].  ";            
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinShavePunchMiscBiopsy skinShavePunchMiscBiopsy = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinShavePunchMiscBiopsy();
+            YellowstonePathology.Business.Specimen.Model.Specimen skinShavePunchMiscBiopsy = YellowstonePathology.Business.Specimen.Model.SpecimenCollection.Instance.GetSpecimen("SKSHPHMSSPCMN"); // Definition.SkinShavePunchMiscBiopsy();
             this.m_SpecimenCollection.Add(skinShavePunchMiscBiopsy);
+
+            this.m_UseAppendInitials = true;
         }
 
-        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        /*public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
             result = this.ReplaceSubmitted(result, specimenOrder);
             return result;
-        }
+        }*/
     }
 
     public class SkinShavewithCurettingsTemplate : DictationTemplate
@@ -364,24 +385,26 @@ namespace YellowstonePathology.UI.Gross
             this.m_Text = "[identifier]." + Environment.NewLine +
                 "Gross Description:  [description]" + Environment.NewLine +
                 "Measurements:  [measurements]; Curettings: [measurement]" + Environment.NewLine +
-                "Submitted:  [submitted].  ";
+                "Submitted:  [curettingssubmitted].  ";
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinShavewithCurettingsBiopsy skinShavewithCurettingsBiopsy = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinShavewithCurettingsBiopsy();
+            YellowstonePathology.Business.Specimen.Model.Specimen skinShavewithCurettingsBiopsy = YellowstonePathology.Business.Specimen.Model.SpecimenCollection.Instance.GetSpecimen("SKSHCSPCMN"); // Definition.SkinShavewithCurettingsBiopsy();
             this.m_SpecimenCollection.Add(skinShavewithCurettingsBiopsy);
+
+            this.m_UseAppendInitials = true;
         }
 
-        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        /* WHC NEEDS WORK public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             //string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
 
             string result = this.ReplaceIdentifier(this.m_Text, specimenOrder, accessionOrder);
             if (specimenOrder.AliquotOrderCollection.Count == 1)
             {
-                result = result.Replace("[submitted]", "Entirely submitted in cassette \"" + specimenOrder.AliquotOrderCollection[0].Label + "\"");
+                result = result.Replace("[curettingssubmitted]", "Entirely submitted in cassette \"" + specimenOrder.AliquotOrderCollection[0].Label + "\"");
             }
             else if(specimenOrder.AliquotOrderCollection.Count == 2)
             {
-                result = result.Replace("[submitted]", "Shave [procedure] and submitted in cassette \"" + specimenOrder.SpecimenNumber + "A\".  " + "The curettings are filtered through a fine mesh bag and entirely submitted in cassette \"" + specimenOrder.AliquotOrderCollection.GetLastBlock().Label + "\"");                              
+                result = result.Replace("[curettingssubmitted]", "Shave [procedure] and submitted in cassette \"" + specimenOrder.SpecimenNumber + "A\".  " + "The curettings are filtered through a fine mesh bag and entirely submitted in cassette \"" + specimenOrder.AliquotOrderCollection.GetLastBlock().Label + "\"");                              
             }
             else
             {
@@ -391,7 +414,7 @@ namespace YellowstonePathology.UI.Gross
             result = this.AppendInitials(result, specimenOrder, accessionOrder, systemIdentity);
             this.m_Text = result;
             return result;
-        }
+        }*/
     }
 
     public class SkinExcisionUnorientedTemplate : DictationTemplate
@@ -406,16 +429,18 @@ namespace YellowstonePathology.UI.Gross
                 "Sectioning:  [description]" + Environment.NewLine +
                 "Submitted:  [tipssubmitted].  ";
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinExcisionUnorientedBiopsy skinExcisionUnorientedBiopsy = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinExcisionUnorientedBiopsy();
+            YellowstonePathology.Business.Specimen.Model.Specimen skinExcisionUnorientedBiopsy = YellowstonePathology.Business.Specimen.Model.SpecimenCollection.Instance.GetSpecimen("SKEXUOSPCMN"); // Definition.SkinExcisionUnorientedBiopsy();
             this.m_SpecimenCollection.Add(skinExcisionUnorientedBiopsy);
+
+            this.m_UseAppendInitials = true;
         }
 
-        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        /*public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
             result = this.ReplaceTipsSubmitted(result, specimenOrder);
             return result;
-        }
+        }*/
     }
 
     public class SkinExcisionOrientedTemplate : DictationTemplate
@@ -431,16 +456,18 @@ namespace YellowstonePathology.UI.Gross
                 "Sectioning:  [description]" + Environment.NewLine +
                 "Submitted:  [tipssubmitted].  ";
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinExcisionOrientedBiopsy skinExcisionOrientedBiopsy = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinExcisionOrientedBiopsy();
+            YellowstonePathology.Business.Specimen.Model.Specimen skinExcisionOrientedBiopsy = SpecimenCollection.Instance.GetSpecimen("SKEXOSPCMN"); //new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinExcisionOrientedBiopsy();
             this.m_SpecimenCollection.Add(skinExcisionOrientedBiopsy);
+
+            this.m_UseAppendInitials = true;
         }
 
-        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        /*public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
             result = this.ReplaceTipsSubmitted(result, specimenOrder);
             return result;
-        }
+        }*/
     }
     
         public class SkinExcisionUnorientedwithCurettingsTemplate : DictationTemplate
@@ -455,16 +482,18 @@ namespace YellowstonePathology.UI.Gross
                 "Sectioning:  [description]" + Environment.NewLine +
                 "Submitted:  [tipssubmittedwithcurettings].  ";
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinExcisionUnorientedwithCurettingsBiopsy skinExcisionUnorientedwithCurettingsBiopsy = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinExcisionUnorientedwithCurettingsBiopsy();
+            YellowstonePathology.Business.Specimen.Model.Specimen skinExcisionUnorientedwithCurettingsBiopsy = YellowstonePathology.Business.Specimen.Model.SpecimenCollection.Instance.GetSpecimen("SKEXUOCSPCMN"); // Definition.SkinExcisionUnorientedwithCurettingsBiopsy();
             this.m_SpecimenCollection.Add(skinExcisionUnorientedwithCurettingsBiopsy);
+
+            this.m_UseAppendInitials = true;
         }
 
-        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        /*public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
             result = this.ReplaceTipsSubmittedWithCurettings(result, specimenOrder);
             return result;
-        }
+        }*/
     }
 
     public class SkinExcisionOrientedwithCurettingsTemplate : DictationTemplate
@@ -480,16 +509,18 @@ namespace YellowstonePathology.UI.Gross
                 "Sectioning:  [description]" + Environment.NewLine +
                 "Submitted:  [tipssubmittedwithcurettings].  ";
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinExcisionOrientedwithCurettingsBiopsy skinExcisionOrientedwithCurettingsBiopsy = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SkinExcisionOrientedwithCurettingsBiopsy();
+            YellowstonePathology.Business.Specimen.Model.Specimen skinExcisionOrientedwithCurettingsBiopsy = YellowstonePathology.Business.Specimen.Model.SpecimenCollection.Instance.GetSpecimen("SKEXOCSPCMN"); // Definition.SkinExcisionOrientedwithCurettingsBiopsy();
             this.m_SpecimenCollection.Add(skinExcisionOrientedwithCurettingsBiopsy);
+
+            this.m_UseAppendInitials = true;
         }
 
-        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        /*public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
             result = this.ReplaceTipsSubmittedWithCurettings(result, specimenOrder);
             return result;
-        }
+        }*/
     }
 
     public class GallbladderExcisionTemplate : DictationTemplate
@@ -509,16 +540,18 @@ namespace YellowstonePathology.UI.Gross
                 "Wall Thickness:  [thickness]" + Environment.NewLine +
                 "Submitted:  [representativesections].  ";            
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.GallbladderExcision gallbladderExcision = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.GallbladderExcision();
+            YellowstonePathology.Business.Specimen.Model.Specimen gallbladderExcision = YellowstonePathology.Business.Specimen.Model.SpecimenCollection.Instance.GetSpecimen("GBSPCMN"); // Definition.GallbladderExcision();
             this.m_SpecimenCollection.Add(gallbladderExcision);
+
+            this.m_UseAppendInitials = true;
         }
 
-        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        /*public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
             result = this.ReplaceRepresentativeSections(result, specimenOrder);
             return result;
-        }
+        }*/
     }
 
     public class TonsilAdenoidExcisionTemplate : DictationTemplate
@@ -536,16 +569,18 @@ namespace YellowstonePathology.UI.Gross
                 "Cut Surface:  [description]" + Environment.NewLine +
                 "Submitted:  [representativesectionsagerestricted].  ";            
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.TonsilAdenoidExcision tonsilAdenoidExcision = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.TonsilAdenoidExcision();
+            YellowstonePathology.Business.Specimen.Model.Specimen tonsilAdenoidExcision = YellowstonePathology.Business.Specimen.Model.SpecimenCollection.Instance.GetSpecimen("TNSLADSPCM"); // Definition.TonsilAdenoidExcision();
             this.m_SpecimenCollection.Add(tonsilAdenoidExcision);
+
+            this.m_UseAppendInitials = true;
         }
 
-        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        /*public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);            
             result = this.ReplaceRepresentativeSectionsAgeRestricted(result, specimenOrder, accessionOrder);
             return result;
-        }
+        }*/
     }
 
     public class TonsilExcisionTemplate : DictationTemplate
@@ -560,11 +595,13 @@ namespace YellowstonePathology.UI.Gross
                 "Cut Surface:  [description]" + Environment.NewLine +
                 "Submitted:  [representativesectionsagerestricted].  ";
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.TonsilExcision tonsilExcision = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.TonsilExcision();
+            YellowstonePathology.Business.Specimen.Model.Specimen tonsilExcision = YellowstonePathology.Business.Specimen.Model.SpecimenCollection.Instance.GetSpecimen("TNSLSPCM"); // Definition.TonsilExcision();
             this.m_SpecimenCollection.Add(tonsilExcision);
+
+            this.m_UseAppendInitials = true;
         }
 
-        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        /* WHC NEEDS WORK public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
                         
@@ -584,7 +621,7 @@ namespace YellowstonePathology.UI.Gross
             
             result = this.ReplaceRepresentativeSectionsAgeRestricted(result, specimenOrder, accessionOrder);
             return result;
-        }
+        }*/
     }    
 
     public class AdenoidExcisionTemplate : DictationTemplate
@@ -599,16 +636,18 @@ namespace YellowstonePathology.UI.Gross
                 "Cut Surface:  [description]" + Environment.NewLine +
                 "Submitted:  [representativesectionsagerestricted].  ";
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.AdenoidExcision adenoidExcision = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.AdenoidExcision();
+            YellowstonePathology.Business.Specimen.Model.Specimen adenoidExcision = YellowstonePathology.Business.Specimen.Model.SpecimenCollection.Instance.GetSpecimen("ADSPCM");
             this.m_SpecimenCollection.Add(adenoidExcision);
+
+            this.m_UseAppendInitials = true;
         }
 
-        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        /*public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
             result = this.ReplaceRepresentativeSectionsAgeRestricted(result, specimenOrder, accessionOrder);
             return result;
-        }
+        }*/
     }
 
     public class POCTemplate : DictationTemplate
@@ -623,16 +662,18 @@ namespace YellowstonePathology.UI.Gross
                 "Fetal Parts:  [description]" + Environment.NewLine +
                 "Submitted:  [representativesections].  ";            
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.POC poc = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.POC();
+            YellowstonePathology.Business.Specimen.Model.Specimen poc = YellowstonePathology.Business.Specimen.Model.SpecimenCollection.Instance.GetSpecimen("POCSPCMN"); // Definition.POC();
             this.m_SpecimenCollection.Add(poc);
+
+            this.m_UseAppendInitials = true;
         }
 
-        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        /*public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
             result = this.ReplaceRepresentativeSections(result, specimenOrder);
             return result;
-        }
+        }*/
     }
 
     public class BreastReductionTemplate : DictationTemplate
@@ -647,16 +688,18 @@ namespace YellowstonePathology.UI.Gross
                 "Cut Surface:  [description]" + Environment.NewLine +
                 "Submitted:  [representativesections].  ";            
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.BreastReduction breastReduction = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.BreastReduction();
+            YellowstonePathology.Business.Specimen.Model.Specimen breastReduction = YellowstonePathology.Business.Specimen.Model.SpecimenCollection.Instance.GetSpecimen("BRSTRDSPCMN"); // Definition.BreastReduction();
             this.m_SpecimenCollection.Add(breastReduction);
+
+            this.m_UseAppendInitials = true;
         }
 
-        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        /*public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
             result = this.ReplaceRepresentativeSections(result, specimenOrder);
             return result;
-        }
+        }*/
     }
 
     public class ECCTemplate : DictationTemplate
@@ -669,16 +712,18 @@ namespace YellowstonePathology.UI.Gross
                 "Measurement:  [measurement]" + Environment.NewLine +
                 "Submitted:  Filtered through a fine mesh bag and [cassettesummary].  ";            
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ECC ecc = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ECC();
+            YellowstonePathology.Business.Specimen.Model.Specimen ecc = YellowstonePathology.Business.Specimen.Model.SpecimenCollection.Instance.GetSpecimen("ECCSPCMN"); // Definition.ECC();
             this.m_SpecimenCollection.Add(ecc);
+
+            this.m_UseAppendInitials = true;
         }
 
-        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        /*public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
             result = this.ReplaceCassetteSummary(result, specimenOrder);
             return result;
-        }
+        }*/
     }
 
     public class EMBTemplate : DictationTemplate
@@ -691,19 +736,21 @@ namespace YellowstonePathology.UI.Gross
                 "Measurement:  [measurement]" + Environment.NewLine +
                 "Submitted:  Filtered through a fine mesh bag and [cassettesummary].  ";            
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.EMB emb = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.EMB();
+            YellowstonePathology.Business.Specimen.Model.Specimen emb = YellowstonePathology.Business.Specimen.Model.SpecimenCollection.Instance.GetSpecimen("EMBSPCMN"); // Definition.EMB();
             this.m_SpecimenCollection.Add(emb);
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.EMC emc = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.EMC();
+            YellowstonePathology.Business.Specimen.Model.Specimen emc = YellowstonePathology.Business.Specimen.Model.SpecimenCollection.Instance.GetSpecimen("EMCSPCMN"); // Definition.EMC();
             this.m_SpecimenCollection.Add(emc);
+
+            this.m_UseAppendInitials = true;
         }
 
-        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        /*public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
             result = this.ReplaceCassetteSummary(result, specimenOrder);
             return result;
-        }
+        }*/
     }
 
     public class CervicalBiopsyTemplate : DictationTemplate
@@ -716,16 +763,18 @@ namespace YellowstonePathology.UI.Gross
                 "Measurement:  [measurement]" + Environment.NewLine +
                 "Submitted:  Filtered through a fine mesh bag and [cassettesummary].  ";
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.CervicalBiopsy cervicalBiopsy = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.CervicalBiopsy();
+            YellowstonePathology.Business.Specimen.Model.Specimen cervicalBiopsy = YellowstonePathology.Business.Specimen.Model.SpecimenCollection.Instance.GetSpecimen("CVCLBSPYSPCMN"); // Definition.CervicalBiopsy();
             this.m_SpecimenCollection.Add(cervicalBiopsy);
+
+            this.m_UseAppendInitials = true;
         }
 
-        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        /*public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
             result = this.ReplaceCassetteSummary(result, specimenOrder);
             return result;
-        }
+        }*/
     }
 
     public class LEEPTemplate : DictationTemplate
@@ -740,16 +789,18 @@ namespace YellowstonePathology.UI.Gross
                 "Inking:  [description]" + Environment.NewLine +
                 "Submitted:  [submitted].  ";            
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.LEEP leep = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.LEEP();
+            YellowstonePathology.Business.Specimen.Model.Specimen leep = YellowstonePathology.Business.Specimen.Model.SpecimenCollection.Instance.GetSpecimen("LPSPCMN"); // Definition.LEEP();
             this.m_SpecimenCollection.Add(leep);
+
+            this.m_UseAppendInitials = true;
         }
 
-        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        /*public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
             result = this.ReplaceSubmitted(result, specimenOrder);
             return result;
-        }
+        }*/
     }
     
     public class CervicalConeTemplate : DictationTemplate
@@ -764,16 +815,18 @@ namespace YellowstonePathology.UI.Gross
                 "Inking:  [description]" + Environment.NewLine +
                 "Submitted:  [submitted].  ";            
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.CervicalCone cervicalCone = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.CervicalCone();
+            YellowstonePathology.Business.Specimen.Model.Specimen cervicalCone = YellowstonePathology.Business.Specimen.Model.SpecimenCollection.Instance.GetSpecimen("CXCNSPCMN"); // Definition.CervicalCone();
             this.m_SpecimenCollection.Add(cervicalCone);
+
+            this.m_UseAppendInitials = true;
         }
 
-        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        /*public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
             result = this.ReplaceSubmitted(result, specimenOrder);
             return result;
-        }
+        }*/
     }
 
     public class LEEPPiecesTemplate : DictationTemplate
@@ -787,16 +840,18 @@ namespace YellowstonePathology.UI.Gross
                 "Inking:  [description]" + Environment.NewLine +
                 "Submitted:  [submitted].  ";            
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.LEEPPieces leepPieces = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.LEEPPieces();
+            YellowstonePathology.Business.Specimen.Model.Specimen leepPieces = YellowstonePathology.Business.Specimen.Model.SpecimenCollection.Instance.GetSpecimen("LPPCSPCMN"); // Definition.LEEPPieces();
             this.m_SpecimenCollection.Add(leepPieces);
+
+            this.m_UseAppendInitials = true;
         }
 
-        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        /*public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
             result = this.ReplaceSubmitted(result, specimenOrder);
             return result;
-        }
+        }*/
     }
 
     public class SinglePlacentaTemplate : DictationTemplate
@@ -843,14 +898,16 @@ namespace YellowstonePathology.UI.Gross
                 "\"1B\" - Membranes, " + Environment.NewLine +
                 "\"1C\" - \"1D\" - Central placenta/infarcts.  ";            
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SinglePlacenta singlePlacenta = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.SinglePlacenta();
+            YellowstonePathology.Business.Specimen.Model.Specimen singlePlacenta = YellowstonePathology.Business.Specimen.Model.SpecimenCollection.Instance.GetSpecimen("SNGLPLCNTSPCMN"); // Definition.SinglePlacenta();
             this.m_SpecimenCollection.Add(singlePlacenta);
+
+            this.m_UseAppendInitials = true;
         }
 
-        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        /*public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             return base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
-        }
+        }*/
     }
     
         public class TwinPlacentaTemplate : DictationTemplate
@@ -914,14 +971,16 @@ namespace YellowstonePathology.UI.Gross
                 "\"1F\" - \"1I\" - Twin B central placenta" + Environment.NewLine +
                 "[?\"1G\" - Dividing membranes ?]";
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.TwinPlacenta twinPlacenta = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.TwinPlacenta();
+            YellowstonePathology.Business.Specimen.Model.Specimen twinPlacenta = YellowstonePathology.Business.Specimen.Model.SpecimenCollection.Instance.GetSpecimen("TWNPLCNTWMSPCMN"); // Definition.TwinPlacenta();
             this.m_SpecimenCollection.Add(twinPlacenta);
+
+            this.m_UseAppendInitials = true;
         }
 
-        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        /*public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             return base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
-        }
+        }*/
     }
 
     public class UterusTemplate : DictationTemplate
@@ -950,16 +1009,18 @@ namespace YellowstonePathology.UI.Gross
                 Environment.NewLine +
                 "[summarysubmission].  ";            
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Uterus uterus = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.Uterus();
+            YellowstonePathology.Business.Specimen.Model.Specimen uterus = YellowstonePathology.Business.Specimen.Model.SpecimenCollection.Instance.GetSpecimen("UTRSSPCMN"); // Definition.Uterus();
             this.m_SpecimenCollection.Add(uterus);
+
+            this.m_UseAppendInitials = true;
         }
 
-        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        /*public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
             result = this.ReplaceSummarySubmission(result, specimenOrder);
             return result;
-        }
+        }*/
     }
 
     public class UterusAdnexaTemplate : DictationTemplate
@@ -1009,16 +1070,18 @@ namespace YellowstonePathology.UI.Gross
                 "[summarysubmission].  ";
             
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.UterusAdnexa uterusAdnexa = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.UterusAdnexa();
+            YellowstonePathology.Business.Specimen.Model.Specimen uterusAdnexa = YellowstonePathology.Business.Specimen.Model.SpecimenCollection.Instance.GetSpecimen("UTRADNSPCMN"); // Definition.UterusAdnexa();
             this.m_SpecimenCollection.Add(uterusAdnexa);
+
+            this.m_UseAppendInitials = true;
         }
 
-        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        /*public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
             result = this.ReplaceSummarySubmission(result, specimenOrder);
             return result;
-        }
+        }*/
     }
 
     public class NeedleCoreBiopsyTemplate : DictationTemplate
@@ -1029,16 +1092,18 @@ namespace YellowstonePathology.UI.Gross
             this.m_Text = "[identifier] and consists of [number] [color] threadlike tissue fragments measuring [measurement] in aggregate.  " +
                 "They are filtered through a fine mesh bag and [cassettesummary].  ";            
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.NeedleCoreBiopsy needleCoreBiopsy = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.NeedleCoreBiopsy();
+            YellowstonePathology.Business.Specimen.Model.Specimen needleCoreBiopsy = YellowstonePathology.Business.Specimen.Model.SpecimenCollection.Instance.GetSpecimen("NCBSPCMN"); // Definition.NeedleCoreBiopsy();
             this.m_SpecimenCollection.Add(needleCoreBiopsy);
+
+            this.m_UseAppendInitials = true;
         }
 
-        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        /*public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
             result = this.ReplaceCassetteSummary(result, specimenOrder);
             return result;
-        }
+        }*/
     }
 
     public class AorticValveTemplate : DictationTemplate
@@ -1054,16 +1119,18 @@ namespace YellowstonePathology.UI.Gross
                 "Vegetation: [present/not present]" + Environment.NewLine +
                 "Submitted: [representativesections] [?for decalcification prior to processing?].  ";
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.AorticValve aorticValve = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.AorticValve();
+            YellowstonePathology.Business.Specimen.Model.Specimen aorticValve = YellowstonePathology.Business.Specimen.Model.SpecimenCollection.Instance.GetSpecimen("AVSPCMN"); //SpecimenDefinition.AorticValve();
             this.m_SpecimenCollection.Add(aorticValve);
+
+            this.m_UseAppendInitials = true;
         }
 
-        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        /*public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
             result = this.ReplaceRepresentativeSections(result, specimenOrder);
             return result;
-        }
+        }*/
     }
 
     public class MitralValveTemplate : DictationTemplate
@@ -1078,16 +1145,18 @@ namespace YellowstonePathology.UI.Gross
                "Chordae:  [description]" + Environment.NewLine +               
                "Submitted:  [representativesections] [?for decalcification prior to processing?].  ";
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.MitralValve mitralValve = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.MitralValve();
+            YellowstonePathology.Business.Specimen.Model.Specimen mitralValve = YellowstonePathology.Business.Specimen.Model.SpecimenCollection.Instance.GetSpecimen("MVSPCMN"); // Definition.MitralValve();
             this.m_SpecimenCollection.Add(mitralValve);
+
+            this.m_UseAppendInitials = true;
         }
 
-        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        /*public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
             result = this.ReplaceRepresentativeSections(result, specimenOrder);
             return result;
-        }
+        }*/
     }
 
     public class KneeTissueTemplate : DictationTemplate
@@ -1100,14 +1169,16 @@ namespace YellowstonePathology.UI.Gross
                 "and [description] osteophyte formation. Sectioning reveals tan-yellow trabecular bone.  " + 
                 "Sections are not submitted for microscopic evaluation.  ";            
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.KneeTissue kneeTissue = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.KneeTissue();
+            YellowstonePathology.Business.Specimen.Model.Specimen kneeTissue = YellowstonePathology.Business.Specimen.Model.SpecimenCollection.Instance.GetSpecimen("KTSPCMN"); // Definition.KneeTissue();
             this.m_SpecimenCollection.Add(kneeTissue);
+
+            this.m_UseAppendInitials = true;
         }
 
-        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        /*public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             return base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
-        }
+        }*/
     }
 
     public class FemoralHeadTemplate : DictationTemplate
@@ -1119,15 +1190,17 @@ namespace YellowstonePathology.UI.Gross
                 "The femoral neck margin is [description]. The articular surface shows [percent] eburnation and [percent] osteophyte formation.  " +
                 "Sectioning reveals tan-yellow trabecular bone. [representativesections] [?following overnight decalcification?].  ";            
 
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.FemoralHead femoralHead = new YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.FemoralHead();
+            YellowstonePathology.Business.Specimen.Model.Specimen femoralHead = YellowstonePathology.Business.Specimen.Model.SpecimenCollection.Instance.GetSpecimen("FHSPCMN"); // Definition.FemoralHead();
             this.m_SpecimenCollection.Add(femoralHead);
+
+            this.m_UseAppendInitials = true;
         }
 
-        public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        /*public override string BuildResultText(SpecimenOrder specimenOrder, AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             string result = base.BuildResultText(specimenOrder, accessionOrder, systemIdentity);
-            result = this.ReplaceRepresentativeSections(this.m_Text, specimenOrder);
+            result = this.ReplaceRepresentativeSections(result, specimenOrder);
             return result;
-        }
+        }*/
     }
 }

@@ -33,9 +33,25 @@ namespace YellowstonePathology.UI.Test
             this.m_EGFRToALKReflexPage.OrderALK += new EGFRToALKReflexPage.OrderALKEventHandler(EGFRToALKReflexPage_OrderALK);
             this.m_EGFRToALKReflexPage.OrderROS1 += new EGFRToALKReflexPage.OrderROS1EventHandler(EGFRToALKReflexPage_OrderROS1);            
             this.m_EGFRToALKReflexPage.OrderPDL122C3 += new EGFRToALKReflexPage.OrderPDL122C3EventHandler(EGFRToALKReflexPage_OrderPDL122C3);
+            this.m_EGFRToALKReflexPage.OrderBRAF += new EGFRToALKReflexPage.OrderBRAFEventHandler(EGFRToALKReflexPage_OrderBRAF);
             this.m_EGFRToALKReflexPage.Finish +=new EGFRToALKReflexPage.FinishEventHandler(EGFRToALKReflexPage_Finish);
             this.m_EGFRToALKReflexPage.Back += new EGFRToALKReflexPage.BackEventHandler(EGFRToALKReflexPage_Back);
             this.m_PageNavigator.Navigate(this.m_EGFRToALKReflexPage);
+        }
+
+        private void EGFRToALKReflexPage_OrderBRAF(object sender, EventArgs e)
+        {
+            YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTest brafMutationAnalysisTest = new Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTest();
+            YellowstonePathology.Business.Interface.IOrderTarget orderTarget = this.m_AccessionOrder.SpecimenOrderCollection.GetOrderTarget(this.m_EGFRToALKReflexAnalysisTestOrder.OrderedOnId);
+            YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new YellowstonePathology.Business.Test.TestOrderInfo(brafMutationAnalysisTest, orderTarget, false);
+            YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfo);
+            this.m_AccessionOrder.TakeATrip(orderVisitor);
+            orderVisitor.PanelSetOrder.Distribute = false;
+
+            YellowstonePathology.Business.Task.Model.TaskOrder taskOrder = this.m_AccessionOrder.CreateTask(testOrderInfo);
+            this.m_AccessionOrder.TaskOrderCollection.Add(taskOrder);
+
+            this.m_AccessionOrder.PanelSetOrderCollection.UpdateTumorNucleiPercentage(this.m_EGFRToALKReflexAnalysisTestOrder);
         }
 
         private void EGFRToALKReflexPage_OrderPDL122C3(object sender, EventArgs e)

@@ -44,24 +44,27 @@ namespace YellowstonePathology.UI
             {
                 MessageBoxResult result = MessageBox.Show("Clearing a lock may cause data loss.  Are you sure you want to unlock this case?", "Possible data loss", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
                 {
-                    foreach(YellowstonePathology.Business.Test.AccessionLock accessionLock in this.ListViewLockedAccessionOrders.SelectedItems)
+                    if (result == MessageBoxResult.Yes)
                     {
-                        YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(accessionLock.MasterAccessionNo, this);                        
-                        accessionOrder.AccessionLock.ReleaseLock();
-                        YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
+                        foreach (YellowstonePathology.Business.Test.AccessionLock accessionLock in this.ListViewLockedAccessionOrders.SelectedItems)
+                        {
+                            YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(accessionLock.MasterAccessionNo, this);
+                            accessionOrder.AccessionLock.ReleaseLock();
+                            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
 
-                        System.Net.Mail.MailMessage message = new System.Net.Mail.MailMessage("support@ypii.com", "Sid.Harder@ypii.com", System.Windows.Forms.SystemInformation.UserName, "A lock was cleared on case: " + accessionOrder.MasterAccessionNo + " by " + YellowstonePathology.Business.User.SystemIdentity.Instance.User.DisplayName);
-                        System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient("10.1.2.111");
+                            System.Net.Mail.MailMessage message = new System.Net.Mail.MailMessage("support@ypii.com", "Sid.Harder@ypii.com", System.Windows.Forms.SystemInformation.UserName, "A lock was cleared on case: " + accessionOrder.MasterAccessionNo + " by " + YellowstonePathology.Business.User.SystemIdentity.Instance.User.DisplayName);
+                            System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient("10.1.2.111");
 
-                        Uri uri = new Uri("http://tempuri.org/");
-                        System.Net.ICredentials credentials = System.Net.CredentialCache.DefaultCredentials;
-                        System.Net.NetworkCredential credential = credentials.GetCredential(uri, "Basic");
+                            Uri uri = new Uri("http://tempuri.org/");
+                            System.Net.ICredentials credentials = System.Net.CredentialCache.DefaultCredentials;
+                            System.Net.NetworkCredential credential = credentials.GetCredential(uri, "Basic");
 
-                        client.Credentials = credential;
-                        client.Send(message);                        
+                            client.Credentials = credential;
+                            client.Send(message);
+                        }
+                        this.m_AccessionLockCollection.Refresh();
+                        this.NotifyPropertyChanged(string.Empty);
                     }
-                    this.m_AccessionLockCollection.Refresh();
-                    this.NotifyPropertyChanged(string.Empty);
                 }
             }
         }

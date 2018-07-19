@@ -14,6 +14,8 @@ namespace YellowstonePathology.Business.WebService
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        private WebServiceAccountClientCollection m_WebServiceAccountClientCollection;
+
         private int m_WebServiceAccountId;
         private string m_UserName;
         private string m_Password;
@@ -42,7 +44,9 @@ namespace YellowstonePathology.Business.WebService
         private string m_ObjectId;
 
         public WebServiceAccount()
-        { }
+        {
+            this.m_WebServiceAccountClientCollection = new WebService.WebServiceAccountClientCollection();
+        }
 
         public void NotifyPropertyChanged(String info)
         {
@@ -50,6 +54,13 @@ namespace YellowstonePathology.Business.WebService
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
+        }
+
+        [PersistentCollection]
+        public WebServiceAccountClientCollection WebServiceAccountClientCollection
+        {
+            get { return this.m_WebServiceAccountClientCollection; }
+            set { this.m_WebServiceAccountClientCollection = value; }
         }
 
         [PersistentPrimaryKeyProperty(false)]

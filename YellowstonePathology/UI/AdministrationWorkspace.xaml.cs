@@ -85,16 +85,17 @@ namespace YellowstonePathology.UI
 
         private void ButtonBuildJson_Click(object sender, RoutedEventArgs e)
         {
-            string resultString = Business.Specimen.Model.SpecimenCollection.GetAll().ToJSON();
-            using (StreamWriter sw = new StreamWriter(@"C:\ProgramData\ypi\lisdata\YellowstonePathology.Business.Specimen.Model.SpecimenCollection.json", false))
+            /*Gross.DictationTemplateCollection templates = Gross.DictationTemplateCollection.GetAll();
+            using (StreamWriter sw = new StreamWriter(@"C:\ProgramData\ypi\lisdata\DictationTemplateCollection.json", false))
             {
-                sw.Write(resultString);
+                sw.Write(templates.ToJSON());
             }
-            MessageBox.Show("Done");
+            MessageBox.Show("Done");*/
         }
 
-        private void ButtonStains_Click(object sender, RoutedEventArgs e)
+        private void ButtonDictationTemplate_Click(object sender, RoutedEventArgs e)
         {
+            //MessageBox.Show("Done");
         }
 
         private void ButtonBlocksSentNotReturned_Click(object sender, RoutedEventArgs e)

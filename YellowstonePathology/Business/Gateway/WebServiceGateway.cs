@@ -59,38 +59,11 @@ namespace YellowstonePathology.Business.Gateway
             return result;
         }
 
-        public static YellowstonePathology.Business.WebService.WebServiceAccountClient GetWebServiceAccountClient(int webServiceAccountId, int clientId)
-        {
-            YellowstonePathology.Business.WebService.WebServiceAccountClient result = null;
-            MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "Select * from tblWebServiceAccountClient where WebServiceAccountId = @WebServiceAccountId and ClientId = @ClientId;";
-            cmd.CommandType = CommandType.Text;
-            cmd.Parameters.AddWithValue("@WebServiceAccountId", webServiceAccountId);
-            cmd.Parameters.AddWithValue("@ClientId", clientId);
-
-            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-            {
-                cn.Open();
-                cmd.Connection = cn;
-                using (MySqlDataReader dr = cmd.ExecuteReader())
-                {
-                    while (dr.Read())
-                    {
-                        result = new WebService.WebServiceAccountClient();
-                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlServerDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(result, dr);
-                        sqlServerDataReaderPropertyWriter.WriteProperties();
-                    }
-                }
-            }
-
-            return result;
-        }
-
         public static int GetNextWebServiceAccountClientId()
         {
             int result = 0;
             MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "Select max(WebServiceAccountClientId) + 1 id from tblWebServiceAccountCLient;";
+            cmd.CommandText = "Select max(WebServiceAccountClientId) + 1 id from tblWebServiceAccountClient;";
             cmd.CommandType = CommandType.Text;
 
             using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
@@ -105,6 +78,32 @@ namespace YellowstonePathology.Business.Gateway
                     }
                 }
             }
+            return result;
+        }
+
+        public static List<WebService.WebServiceClientView> GetWebServiceClientViews()
+        {
+            List<WebService.WebServiceClientView> result = new List<WebService.WebServiceClientView>();
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "Select ClientId, ClientName from tblClient Order By ClientName;";
+            cmd.CommandType = CommandType.Text;
+
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        WebService.WebServiceClientView webServiceClientView = new WebService.WebServiceClientView();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlServerDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(webServiceClientView, dr);
+                        sqlServerDataReaderPropertyWriter.WriteProperties();
+                        result.Add(webServiceClientView);
+                    }
+                }
+            }
+
             return result;
         }
 

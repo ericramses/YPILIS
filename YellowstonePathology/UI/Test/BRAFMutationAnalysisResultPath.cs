@@ -51,6 +51,7 @@ namespace YellowstonePathology.UI.Test
             YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeEvaluationTest panelSetLse = new YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeEvaluationTest();
             YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile.ComprehensiveColonCancerProfileTest panelSetcccp = new YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile.ComprehensiveColonCancerProfileTest();
             YellowstonePathology.Business.Test.KRASStandardReflex.KRASStandardReflexTest krasStandardReflexTest = new YellowstonePathology.Business.Test.KRASStandardReflex.KRASStandardReflexTest();
+            YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisTest egfrToALKReflexAnalysisTest = new Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisTest();
             if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(krasStandardReflexTest.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true) == true)
             {
                 result = true;
@@ -82,6 +83,17 @@ namespace YellowstonePathology.UI.Test
 
                 resultPath.Finish += new Test.ResultPath.FinishEventHandler(ResultPath_Finish);
                 resultPath.Back += new ComprehensiveColonCancerProfilePath.BackEventHandler(ResultPath_Back);
+                resultPath.Start();
+            }
+            else if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(egfrToALKReflexAnalysisTest.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true) == true)
+            {
+                result = true;
+                string reportNo = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(egfrToALKReflexAnalysisTest.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true).ReportNo;
+                YellowstonePathology.UI.Test.EGFRToALKReflexPath resultPath = new YellowstonePathology.UI.Test.EGFRToALKReflexPath(reportNo,
+                    this.m_AccessionOrder, this.m_PageNavigator, this.m_Window, System.Windows.Visibility.Collapsed);
+
+                resultPath.Finish += new Test.ResultPath.FinishEventHandler(ResultPath_Finish);
+                resultPath.Back += new EGFRToALKReflexPath.BackEventHandler(ResultPath_Back);
                 resultPath.Start();
             }
             return result;

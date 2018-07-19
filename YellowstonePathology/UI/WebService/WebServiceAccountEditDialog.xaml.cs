@@ -11,20 +11,22 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.ComponentModel;
 
 namespace YellowstonePathology.UI.WebService
 {
     /// <summary>
     /// Interaction logic for WebServiceAccountDialog.xaml
     /// </summary>
-    public partial class WebServiceAccountEditDialog : Window
+    public partial class WebServiceAccountEditDialog : Window, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
         private YellowstonePathology.Business.WebService.WebServiceAccount m_WebServiceAccount;
-        private YellowstonePathology.Business.WebService.WebServiceAccountClient m_WebServiceAccountClient;
         private List<string> m_InitialPages;
         private List<string> m_DownloadFileTypes;
 
-        public WebServiceAccountEditDialog(int webServiceAccountId, int webServiceAccountClientId)
+        public WebServiceAccountEditDialog(int webServiceAccountId)
         {
             if (webServiceAccountId == 0)
             {
@@ -33,15 +35,6 @@ namespace YellowstonePathology.UI.WebService
             else
             {
                 this.m_WebServiceAccount = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullWebServiceAccount(webServiceAccountId, this);
-            }
-
-            if(webServiceAccountClientId == 0)
-            {
-                this.m_WebServiceAccountClient = new Business.WebService.WebServiceAccountClient();
-            }
-            else
-            {
-                this.m_WebServiceAccountClient = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullWebServiceAccountClient(webServiceAccountClientId, this);
             }
 
             this.m_InitialPages = new List<string>();
@@ -59,14 +52,17 @@ namespace YellowstonePathology.UI.WebService
             InitializeComponent();
         }
 
+        public void NotifyPropertyChanged(String info)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
+        }
+
         public YellowstonePathology.Business.WebService.WebServiceAccount WebServiceAccount
         {
             get { return this.m_WebServiceAccount; }
-        }
-
-        public YellowstonePathology.Business.WebService.WebServiceAccountClient WebServiceAccountClient
-        {
-            get { return this.m_WebServiceAccountClient; }
         }
 
         public List<string> InitialPages
@@ -88,6 +84,10 @@ namespace YellowstonePathology.UI.WebService
                 {
                     int id = YellowstonePathology.Business.Gateway.WebServiceGateway.GetNextWebServiceAccountId();
                     this.m_WebServiceAccount.WebServiceAccountId = id;
+                    foreach(YellowstonePathology.Business.WebService.WebServiceAccountClient webServiceAccountClient in this.m_WebServiceAccount.WebServiceAccountClientCollection)
+                    {
+                        if (webServiceAccountClient.WebServiceAccountId == 0) webServiceAccountClient.WebServiceAccountId = id;
+                    }
                     YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(this.m_WebServiceAccount, this);
                 }
 
@@ -114,6 +114,25 @@ namespace YellowstonePathology.UI.WebService
                 methodResult.Message = "A Password is required";
             }
             return methodResult;
+        }
+
+        private void ButtonAddClient_Click(object sender, RoutedEventArgs e)
+        {
+            WebServiceAccountClientEditDialog dlg = new WebServiceAccountClientEditDialog(this.m_WebServiceAccount);
+            bool? result = dlg.ShowDialog();
+            if(result.HasValue && result.Value == true)
+            {
+                this.NotifyPropertyChanged("WebServiceAccountClientCollection");
+            }
+        }
+
+        private void ButtonDeleteClient_Click(object sender, RoutedEventArgs e)
+        {
+            foreach(YellowstonePathology.Business.WebService.WebServiceAccountClient webServiceAccountClient in this.ListViewWebServiceAccountClientViews.SelectedItems)
+            {
+                this.m_WebServiceAccount.WebServiceAccountClientCollection.Remove(webServiceAccountClient);
+                this.NotifyPropertyChanged("WebServiceAccountClientCollection");
+            }
         }
     }
 }

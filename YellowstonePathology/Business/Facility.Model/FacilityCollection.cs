@@ -171,6 +171,12 @@ namespace YellowstonePathology.Business.Facility.Model
             }
 
             return result;            
-        }        
+        }
+
+        public Facility GetByClientId(int clientId)
+        {
+            Facility result = this.FirstOrDefault(f => f.ClientId == clientId);
+            return result;
+        }
 	}
 }
