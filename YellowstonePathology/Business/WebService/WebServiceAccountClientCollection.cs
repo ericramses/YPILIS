@@ -17,5 +17,11 @@ namespace YellowstonePathology.Business.WebService
             WebServiceAccountClient result = this.FirstOrDefault(w => w.WebServiceAccountClientId == webServiceAccountClientId);
             return result;
         }
+
+        public bool Exists(int clientId)
+        {
+            WebServiceAccountClient result = this.FirstOrDefault(w => w.ClientId == clientId);
+            return result == null ? false : true;
+        }
     }
 }
