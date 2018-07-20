@@ -56,6 +56,28 @@ namespace YellowstonePathology.Business.WebService
             }
         }
 
+        public void SetDefaults()
+        {
+            this.m_DownloadFileType = "XPS";
+            this.m_InitialPage = "OrderBrowser";
+            this.m_ApplicationTimeoutMinutes = 40;
+            this.m_RemoteFileDownloadDirectory = null;
+            this.m_RemoteFileUploadDirectory = null;
+            this.m_AlertEmailAddress = null;
+            this.m_SaveUserNameLocal = false;
+            this.m_SavePasswordLocal = false;
+            this.m_EnableApplicationTimeout = false;
+            this.m_EnableSaveSettings = false;
+            this.m_EnableFileUpload = false;
+            this.m_EnableFileDownload = false;
+            this.m_EnableOrderEntry = true;
+            this.m_EnableReportBrowser = false;
+            this.m_EnableBillingBrowser = false;
+            this.m_EnableEmailAlert = false;
+            this.m_VersionCurrentlyUsing = "3.0.0.0";
+            this.m_SystemUserId = 0;
+        }
+
         [PersistentCollection]
         public WebServiceAccountClientCollection WebServiceAccountClientCollection
         {
