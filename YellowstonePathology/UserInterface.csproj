@@ -245,7 +245,6 @@
     <Compile Include="Business\Audit.Model\CodyCassetteColorAudit.cs" />
     <Compile Include="Business\Audit.Model\ComprehensiveColonCancerProfileFinalAudit.cs" />
     <Compile Include="Business\Audit.Model\CouldBenefitFromCCCPAudit.cs" />
-    <Compile Include="Business\Audit.Model\GICenterAdenomaAudit.cs" />
     <Compile Include="Business\Audit.Model\DistributionCanBeSetAudit.cs" />
     <Compile Include="Business\Audit.Model\DistributionNotSetAudit.cs" />
     <Compile Include="Business\Audit.Model\FinalizedAudit.cs" />
