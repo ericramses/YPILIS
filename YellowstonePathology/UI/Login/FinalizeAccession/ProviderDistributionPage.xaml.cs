@@ -651,5 +651,15 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
         {
             ExpanderOptions.IsExpanded = false;
         }
+
+        private void MenuItemDeleteDistributionLog_Click(object sender, RoutedEventArgs e)
+        {
+            if(this.ListViewTestOrderReportDistributionLog.SelectedItem != null)
+            {
+                Business.ReportDistribution.Model.TestOrderReportDistributionLog rdl = (Business.ReportDistribution.Model.TestOrderReportDistributionLog)this.ListViewTestOrderReportDistributionLog.SelectedItem;
+                this.m_PanelSetOrder.TestOrderReportDistributionLogCollection.Remove(rdl);
+                this.NotifyPropertyChanged("TestOrderReportDistributionLogCollection");
+            }
+        }
     }
 }

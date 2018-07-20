@@ -31,6 +31,7 @@ namespace YellowstonePathology.UI.WebService
             if (webServiceAccountId == 0)
             {
                 this.m_WebServiceAccount = new Business.WebService.WebServiceAccount();
+                this.m_WebServiceAccount.SetDefaults();
             }
             else
             {
@@ -128,10 +129,14 @@ namespace YellowstonePathology.UI.WebService
 
         private void ButtonDeleteClient_Click(object sender, RoutedEventArgs e)
         {
-            foreach(YellowstonePathology.Business.WebService.WebServiceAccountClient webServiceAccountClient in this.ListViewWebServiceAccountClientViews.SelectedItems)
+            if (this.ListViewWebServiceAccountClientViews.SelectedItems.Count > 0)
             {
-                this.m_WebServiceAccount.WebServiceAccountClientCollection.Remove(webServiceAccountClient);
-                this.NotifyPropertyChanged("WebServiceAccountClientCollection");
+                for (int idx = ListViewWebServiceAccountClientViews.SelectedItems.Count -1; idx > -1; idx--)
+                {
+                    YellowstonePathology.Business.WebService.WebServiceAccountClient webServiceAccountClient = (Business.WebService.WebServiceAccountClient)this.ListViewWebServiceAccountClientViews.SelectedItems[idx];
+                    this.m_WebServiceAccount.WebServiceAccountClientCollection.Remove(webServiceAccountClient);
+                    this.NotifyPropertyChanged("WebServiceAccountClientCollection");
+                }
             }
         }
     }

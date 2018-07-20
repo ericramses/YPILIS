@@ -21,12 +21,10 @@ namespace YellowstonePathology.UI.WebService
     {
         private List<YellowstonePathology.Business.WebService.WebServiceClientView> m_WebServiceClientViews;
         private YellowstonePathology.Business.WebService.WebServiceAccount  m_WebServiceAccount;
-        private YellowstonePathology.Business.WebService.WebServiceAccountClient m_WebServiceAccountClient;
 
         public WebServiceAccountClientEditDialog(YellowstonePathology.Business.WebService.WebServiceAccount webServiceAccount)
         {
             this.m_WebServiceAccount = webServiceAccount;
-            this.m_WebServiceAccountClient = new Business.WebService.WebServiceAccountClient();
             this.m_WebServiceClientViews = YellowstonePathology.Business.Gateway.WebServiceGateway.GetWebServiceClientViews();
 
             InitializeComponent();
@@ -47,15 +45,22 @@ namespace YellowstonePathology.UI.WebService
 
         private void ButtonOK_Click(object sender, RoutedEventArgs e)
         {
-            if(this.ListViewWebServiceClientViews.SelectedItems.Count > 0)
-            foreach(YellowstonePathology.Business.WebService.WebServiceClientView webServiceClientView in this.ListViewWebServiceClientViews.SelectedItems)
+            if (this.ListViewWebServiceClientViews.SelectedItems.Count > 0)
             {
                 int id = YellowstonePathology.Business.Gateway.WebServiceGateway.GetNextWebServiceAccountClientId();
-                this.m_WebServiceAccountClient.WebServiceAccountClientId = id;
-                this.m_WebServiceAccountClient.WebServiceAccountId = this.m_WebServiceAccount.WebServiceAccountId;
-                this.m_WebServiceAccountClient.ClientId = webServiceClientView.ClientId;
-                this.m_WebServiceAccountClient.ClientName = webServiceClientView.ClientName;
-                this.m_WebServiceAccount.WebServiceAccountClientCollection.Add(this.m_WebServiceAccountClient);
+                foreach (YellowstonePathology.Business.WebService.WebServiceClientView webServiceClientView in this.ListViewWebServiceClientViews.SelectedItems)
+                {
+                    if (this.m_WebServiceAccount.WebServiceAccountClientCollection.Exists(webServiceClientView.ClientId) == false)
+                    {
+                        YellowstonePathology.Business.WebService.WebServiceAccountClient webServiceAccountClient = new Business.WebService.WebServiceAccountClient();
+                        webServiceAccountClient.WebServiceAccountClientId = id;
+                        webServiceAccountClient.WebServiceAccountId = this.m_WebServiceAccount.WebServiceAccountId;
+                        webServiceAccountClient.ClientId = webServiceClientView.ClientId;
+                        webServiceAccountClient.ClientName = webServiceClientView.ClientName;
+                        this.m_WebServiceAccount.WebServiceAccountClientCollection.Add(webServiceAccountClient);
+                        id++;
+                    }
+                }
                 this.DialogResult = true;
                 Close();
             }
