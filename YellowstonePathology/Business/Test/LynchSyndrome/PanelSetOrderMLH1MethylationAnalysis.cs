@@ -97,11 +97,11 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 
                 if (this.ResultCode == detected.ResultCode)
                 {
-                    lSEResult.MethResult = LSEResultEnum.Positive;
+                    lSEResult.MethResult = LSEResultEnum.Detected;
                 }
                 else if (this.ResultCode == notDetected.ResultCode)
                 {
-                    lSEResult.MethResult = LSEResultEnum.Negative;
+                    lSEResult.MethResult = LSEResultEnum.NotDetected;
                 }
             }
             else

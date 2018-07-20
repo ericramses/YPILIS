@@ -13,6 +13,50 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 			
 		}
 
+        public LSEResultCollection OrderByMatched()
+        {
+            LSEResultCollection result = new LSEResultCollection();
+            IOrderedEnumerable<LSEResult> orderedResult= this.OrderBy(i => i.IHCMatched);
+            for(int i=orderedResult.Count() - 1; i>=0; i--)
+            {
+                result.Add(orderedResult.ElementAt(i));
+            }
+            return result;
+        }
+
+        public void ClearMatched()
+        {
+            foreach (LSEResult lseResult in this)
+            {
+                lseResult.IHCMatched = false;
+            }
+        }
+
+        public bool HasIHCMatch(LSEResult lseResultToMatch)
+        {
+            bool result = false;
+            foreach(LSEResult lseResult in this)
+            {
+                if(lseResult.IsIHCMatch(lseResultToMatch) == true)
+                {
+                    result = true;
+                    break;
+                }
+            }
+            return result;
+        }
+
+        public void SetIHCMatch(LSEResult lseResultToMatch)
+        {            
+            foreach (LSEResult lseResult in this)
+            {
+                if (lseResult.IsIHCMatch(lseResultToMatch) == true)
+                {
+                    lseResult.IHCMatched = true;                    
+                }
+            }            
+        }
+
         public static LSEResultCollection GetAll()
         {
             LSEResultCollection result = new LSEResultCollection();
@@ -27,8 +71,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             result.Add(new LSEColorectalResult4());
             result.Add(new LSEColorectalResult42());
             result.Add(new LSEColorectalResult5());
-            result.Add(new LSEColorectalResult6());
-            result.Add(new LSEColorectalResult7());
+            result.Add(new LSEColorectalResult6());            
             result.Add(new LSEColorectalResult8());            
             result.Add(new LSEColorectalResult10());
             result.Add(new LSEColorectalResult11());
@@ -58,8 +101,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             result.Add(new LSEColorectalResult4());
             result.Add(new LSEColorectalResult42());
             result.Add(new LSEColorectalResult5());
-            result.Add(new LSEColorectalResult6());
-            result.Add(new LSEColorectalResult7());
+            result.Add(new LSEColorectalResult6());            
             result.Add(new LSEColorectalResult8());            
             result.Add(new LSEColorectalResult10());
             result.Add(new LSEColorectalResult11());
@@ -83,7 +125,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             result.Add(new LSEGeneralResult1());
             result.Add(new LSEGeneralResult2());
             return result;
-        }
+        }        
 
         public static LSEResult GetResult(LSEResult evalResult, string lseType)
 		{
@@ -143,7 +185,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
                         }
 
                         bool methResultIsEqual = false;
-                        if (lSEResult.MethResult == LSEResultEnum.NotApplicable)
+                        if (lSEResult.MethResult == LSEResultEnum.NotPerformed)
                         {
                             methResultIsEqual = true;
                         }

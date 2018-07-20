@@ -164,11 +164,11 @@ namespace YellowstonePathology.Business.Test.BRAFV600EK
 
                 if (this.ResultCode == notDetectedResult.ResultCode)
                 {
-                    lSEResult.BrafResult = YellowstonePathology.Business.Test.LynchSyndrome.LSEResultEnum.Negative;
+                    lSEResult.BrafResult = YellowstonePathology.Business.Test.LynchSyndrome.LSEResultEnum.NotDetected;
                 }
                 else if (this.ResultCode == detectedResult.ResultCode)
                 {
-                    lSEResult.BrafResult = YellowstonePathology.Business.Test.LynchSyndrome.LSEResultEnum.Positive;
+                    lSEResult.BrafResult = YellowstonePathology.Business.Test.LynchSyndrome.LSEResultEnum.Detected;
                 }
 			}
 		}

@@ -43,11 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-<<<<<<< HEAD
-    <ApplicationRevision>96</ApplicationRevision>
-=======
     <ApplicationRevision>106</ApplicationRevision>
->>>>>>> master
     <ApplicationVersion>10.1.12.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -2430,7 +2426,6 @@
     <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult4.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult5.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult6.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult7.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult8.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEGYNResult1.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEGYNResult2.cs" />
@@ -3738,6 +3733,9 @@
     <Compile Include="UI\Test\FLT3ResultPath.cs" />
     <Compile Include="UI\Test\ExtractAndHoldForPreauthorizationResultPage.xaml.cs">
       <DependentUpon>ExtractAndHoldForPreauthorizationResultPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Test\LSEMatrixWindow.xaml.cs">
+      <DependentUpon>LSEMatrixWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Test\LynchSyndromeEvaluationMatrixPage.xaml.cs">
       <DependentUpon>LynchSyndromeEvaluationMatrixPage.xaml</DependentUpon>
@@ -5723,6 +5721,10 @@
     <Page Include="UI\Test\ExtractAndHoldForPreauthorizationResultPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Test\LSEMatrixWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Test\LynchSyndromeEvaluationMatrixPage.xaml">
       <Generator>MSBuild:Compile</Generator>

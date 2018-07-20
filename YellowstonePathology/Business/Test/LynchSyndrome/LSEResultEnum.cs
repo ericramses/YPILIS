@@ -7,12 +7,13 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 {
 	public enum LSEResultEnum
 	{
-		NotApplicable,
-		Positive,
-		Negative,
+		NotPerformed,
+		Detected,
+		NotDetected,
         Pending,
         Loss,
         Intact,
-        AnyLoss
+        AnyLoss,
+        NotSet
 	}
 }

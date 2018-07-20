@@ -11,7 +11,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             : base(lseResult, accessionOrder, orderedOnId)
         {
             LSEResult result1 = new LSEResult();
-            result1.MLH1Result = LSEResultEnum.Negative;            
+            result1.MLH1Result = LSEResultEnum.NotDetected;            
             m_LSEResultList.Add(result1);            
 
             if (this.IsMatch() == true)

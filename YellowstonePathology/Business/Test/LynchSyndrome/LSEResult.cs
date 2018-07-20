@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.ComponentModel;
 
 namespace YellowstonePathology.Business.Test.LynchSyndrome
 {
-	public class LSEResult
+	public class LSEResult: INotifyPropertyChanged
 	{
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public const string LSEColonReferences = "Practice EoGAi, Group PW. Recommendations from the EGAPP Working Group; genetic testing strategies in newly diagnosed " +
             "individuals with colorectal cancer aimed at reducing morbidity and mortality from Lynch Syndrome in relatives. Genet Med. 2009 January; 11(1): 35-41.";
 
@@ -18,7 +21,9 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 		public static string IHCBRAFMLHMethod = "IHC: " + YellowstonePathology.Business.Test.LynchSyndrome.LSEIHCResult.Method + " BRAF: " + YellowstonePathology.Business.Test.BRAFV600EK.BRAFResult.Method + " MLH: " + YellowstonePathology.Business.Test.LynchSyndrome.MLH1MethylationAnalysisResult.Method;
 
         public static string GeneralIndication = "Assess tumor for mismatch repair deficiency to determine eligibility for PD-1 blockade therapy; screening for Lynch Syndrome.";
+        public static string IHCAllIntactResult = "Intact nuclear expression of MLH1, MSH2, MSH6, and PMS2 mismatch repair proteins.";
 
+        protected bool m_IHCMatched;
         protected string m_Indication;
 
         protected LSEResultEnum m_PMS2Result;
@@ -39,6 +44,19 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 		{
             
 		}
+
+        public bool IHCMatched
+        {
+            get { return this.m_IHCMatched; }
+            set
+            {
+                if(this.m_IHCMatched != value)
+                {
+                    this.m_IHCMatched = value;
+                    this.NotifyPropertyChanged("IHCMatched");
+                }                
+            }
+        }
 
         public string Indication
         {
@@ -121,10 +139,10 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
         public bool AreAnyLoss()
         {
             bool result = false;
-            if (this.m_PMS2Result != LSEResultEnum.Loss) result = true;
-            if (this.m_MSH6Result != LSEResultEnum.Loss) result = true;
-            if (this.m_MSH2Result != LSEResultEnum.Loss) result = true;
-            if (this.m_MLH1Result != LSEResultEnum.Loss) result = true;
+            if (this.m_PMS2Result == LSEResultEnum.Loss) result = true;
+            if (this.m_MSH6Result == LSEResultEnum.Loss) result = true;
+            if (this.m_MSH2Result == LSEResultEnum.Loss) result = true;
+            if (this.m_MLH1Result == LSEResultEnum.Loss) result = true;
             return result;
         }
 
@@ -135,6 +153,44 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             panelSetOrderLynchSyndromEvaluation.BRAFIsIndicated = this.m_BRAFIsIndicated;
             panelSetOrderLynchSyndromEvaluation.Method = this.m_Method;
             panelSetOrderLynchSyndromEvaluation.ReportReferences = this.m_References;			
+        }
+
+        public virtual void SetResultsV2()
+        {
+            if(this.AreAnyLoss() == false)
+            {
+                this.m_Interpretation = IHCAllIntactResult;
+            }
+            else
+            {
+                this.m_Interpretation = this.BuildLossInterpretation();
+            }
+
+            if(this.m_BrafResult != LSEResultEnum.NotPerformed)
+            {
+                this.m_Interpretation = this.m_Interpretation + Environment.NewLine + "BRAF mutation V600E ";
+                if (this.m_BrafResult == LSEResultEnum.Detected) this.m_Interpretation += "DETECTED.";
+                if (this.m_BrafResult == LSEResultEnum.NotDetected) this.m_Interpretation += "NOT DETECTED.";
+            }
+
+            if (this.m_MethResult != LSEResultEnum.NotPerformed)
+            {
+                this.m_Interpretation = this.m_Interpretation + Environment.NewLine + "MLH1 promoter methylation ";
+                if (this.m_MethResult == LSEResultEnum.Detected) this.m_Interpretation += "DETECTED.";
+                if (this.m_MethResult == LSEResultEnum.NotDetected) this.m_Interpretation += "NOT DETECTED.";
+            }
+        }
+
+        public bool IsIHCMatch(LSEResult lseResultToMatch)
+        {
+            bool result = false;
+            if (this.m_Indication == lseResultToMatch.m_Indication && 
+                    this.m_MLH1Result == lseResultToMatch.MLH1Result && this.m_MSH2Result == lseResultToMatch.MSH2Result &&
+                    this.m_MSH6Result == lseResultToMatch.MSH6Result && this.m_PMS2Result == lseResultToMatch.PMS2Result)
+            {
+                result = true;                
+            }
+            return result;
         }
 
         public string BuildLossInterpretation()
@@ -154,7 +210,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
                 joinedResults = joinedResults.Insert(posOfLastComma, " and");
             }
             
-            result = result + joinedResults + " mismatch repair proteins";
+            result = result + joinedResults + " mismatch repair proteins. ";
             return result;
         }
 
@@ -198,5 +254,13 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 
 			return result;
 		}
-	}
+
+        public void NotifyPropertyChanged(String info)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
+        }
+    }
 }

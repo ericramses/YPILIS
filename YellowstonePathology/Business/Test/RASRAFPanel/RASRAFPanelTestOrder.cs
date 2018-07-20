@@ -442,11 +442,11 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
             {
                 if (this.m_BRAFResult == "Not Detected")
                 {
-                    lSEResult.BrafResult = YellowstonePathology.Business.Test.LynchSyndrome.LSEResultEnum.Negative;
+                    lSEResult.BrafResult = YellowstonePathology.Business.Test.LynchSyndrome.LSEResultEnum.NotDetected;
                 }
                 else if (this.m_BRAFResult == "Detected")
                 {
-                    lSEResult.BrafResult = YellowstonePathology.Business.Test.LynchSyndrome.LSEResultEnum.Positive;
+                    lSEResult.BrafResult = YellowstonePathology.Business.Test.LynchSyndrome.LSEResultEnum.Detected;
                 }
             }
         }
