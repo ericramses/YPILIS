@@ -337,6 +337,7 @@
     <Compile Include="Business\Flow\CytoplasmicMarkerMapping.cs" />
     <Compile Include="Business\Flow\CytoplasmicMarkerMappingCollection.cs" />
     <Compile Include="Business\Gateway\WebServiceGateway.cs" />
+    <Compile Include="Business\Gateway\XmlGateway.cs" />
     <Compile Include="Business\HL7View\ADTMessage.cs" />
     <Compile Include="Business\HL7View\ADTMessages.cs" />
     <Compile Include="Business\Billing.Model\BillableObject.cs" />
@@ -807,7 +808,6 @@
     <Compile Include="Business\Gateway\SlideAccessionGateway.cs" />
     <Compile Include="Business\Gateway\SlideDisposalReportGateway.cs" />
     <Compile Include="Business\Gateway\TestItemBuilder.cs" />
-    <Compile Include="Business\Gateway\XmlGateway.cs" />
     <Compile Include="Business\Hello4.cs" />
     <Compile Include="Business\Helper\DateTimeExtensions.cs" />
     <Compile Include="Business\Helper\DateTimeJoiner.cs" />
@@ -1143,6 +1143,297 @@
     <Compile Include="Business\WebService\WebServiceAccountView.cs" />
     <Compile Include="Business\WebService\WebServiceAccountCollection.cs" />
     <Compile Include="Business\WebService\WebServiceClientView.cs" />
+    <Compile Include="DomainPersistence\SchemaDocumentFactory.cs" />
+    <Compile Include="DomainPersistence\Schema\AccessionOrderSchema.cs">
+      <DependentUpon>AccessionOrderSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\AccessionOrder\AccessionOrderSchema.cs">
+      <DependentUpon>AccessionOrderSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\AccessionOrder\AliquotOrderItemListSchema.cs">
+      <DependentUpon>AliquotOrderItemListSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\AccessionOrder\AliquotOrderSchema.cs">
+      <DependentUpon>AliquotOrderSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\AccessionOrder\AmendmentSchema.cs">
+      <DependentUpon>AmendmentSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\AccessionOrder\AutopsyResultSchema.cs">
+      <DependentUpon>AutopsyResultSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\AccessionOrder\CaseDocumentSchema.cs">
+      <DependentUpon>CaseDocumentSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\AccessionOrder\CptBillingCodeLogSchema.cs">
+      <DependentUpon>CptBillingCodeLogSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\AccessionOrder\CptBillingCodeSchema.cs">
+      <DependentUpon>CptBillingCodeSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\AccessionOrder\CptBillingCodeV2Schema.cs">
+      <DependentUpon>CptBillingCodeV2Schema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\AccessionOrder\CptIcd9BillingCodeSchema.cs">
+      <DependentUpon>CptIcd9BillingCodeSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\AccessionOrder\FishResultSchema.cs">
+      <DependentUpon>FishResultSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\AccessionOrder\Her2ResultSchema.cs">
+      <DependentUpon>Her2ResultSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\AccessionOrder\Icd9BillingCodeSchema.cs">
+      <DependentUpon>Icd9BillingCodeSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\AccessionOrder\IntraoperativeConsultationResultSchema.cs">
+      <DependentUpon>IntraoperativeConsultationResultSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\AccessionOrder\PanelOrderBatchSchema.cs">
+      <DependentUpon>PanelOrderBatchSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\AccessionOrder\PanelOrderSchema.cs">
+      <DependentUpon>PanelOrderSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\AccessionOrder\PanelSetOrderCommentSchema.cs">
+      <DependentUpon>PanelSetOrderCommentSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\AccessionOrder\PanelSetOrderSchema.cs">
+      <DependentUpon>PanelSetOrderSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\AccessionOrder\PanelSetResultOrderSchema.cs">
+      <DependentUpon>PanelSetResultOrderSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\AccessionOrder\RecentAccessionViewSchema.cs">
+      <DependentUpon>RecentAccessionViewSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\AccessionOrder\ReportDistributionLogSchema.cs">
+      <DependentUpon>ReportDistributionLogSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\AccessionOrder\ReportDistributionSchema.cs">
+      <DependentUpon>ReportDistributionSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\AccessionOrder\ReportNoSchema.cs">
+      <DependentUpon>ReportNoSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\AccessionOrder\SpecimenOrderSchema.cs">
+      <DependentUpon>SpecimenOrderSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\AccessionOrder\StainResultSchema.cs">
+      <DependentUpon>StainResultSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\AccessionOrder\SurgicalBillingSchema.cs">
+      <DependentUpon>SurgicalBillingSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\AccessionOrder\SurgicalResultAuditSchema.cs">
+      <DependentUpon>SurgicalResultAuditSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\AccessionOrder\SurgicalResultSchema.cs">
+      <DependentUpon>SurgicalResultSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\AccessionOrder\SurgicalSpecimenResultAuditSchema.cs">
+      <DependentUpon>SurgicalSpecimenResultAuditSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\AccessionOrder\SurgicalSpecimenResultSchema.cs">
+      <DependentUpon>SurgicalSpecimenResultSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\AccessionOrder\TestAliquotOrderSchema.cs">
+      <DependentUpon>TestAliquotOrderSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\AccessionOrder\TestOrderListSchema.cs">
+      <DependentUpon>TestOrderListSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\AccessionOrder\TestOrderSchema.cs">
+      <DependentUpon>TestOrderSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\AccessionOrder\TestSpecimenOrderSchema.cs">
+      <DependentUpon>TestSpecimenOrderSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\AccessionSlideOrderSchema.cs">
+      <DependentUpon>AccessionSlideOrderSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\AccessionSummarySchema.cs">
+      <DependentUpon>AccessionSummarySchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\BillingRuleSchema.cs">
+      <DependentUpon>BillingRuleSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\BillingRuleSetSchema.cs">
+      <DependentUpon>BillingRuleSetSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\BillingSchema.cs">
+      <DependentUpon>BillingSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\BoneMarrowResultSchema.cs">
+      <DependentUpon>BoneMarrowResultSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\ChannelMessageSchema.cs">
+      <DependentUpon>ChannelMessageSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\ClientOrderCytologyPropertySchema.cs">
+      <DependentUpon>ClientOrderCytologyPropertySchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\ClientOrderDetailFNAPropertySchema.cs">
+      <DependentUpon>ClientOrderDetailFNAPropertySchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\ClientOrderDetailSurgicalPropertySchema.cs">
+      <DependentUpon>ClientOrderDetailSurgicalPropertySchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\ClientOrderFNAPropertySchema.cs">
+      <DependentUpon>ClientOrderFNAPropertySchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\ClientOrderMediaSchema.cs">
+      <DependentUpon>ClientOrderMediaSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\ClientOrderSchema.cs">
+      <DependentUpon>ClientOrderSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\ClientSchema.cs">
+      <DependentUpon>ClientSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\CptCodeGroupCodeSchema.cs">
+      <DependentUpon>CptCodeGroupCodeSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\CptCodeGroupSchema.cs">
+      <DependentUpon>CptCodeGroupSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\ErPrSemiQuantitativeResultSchema.cs">
+      <DependentUpon>ErPrSemiQuantitativeResultSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\FacilitySchema.xsd.cs">
+      <DependentUpon>FacilitySchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\FlowContractSchema.cs">
+      <DependentUpon>FlowContractSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\FlowSchema.cs">
+      <DependentUpon>FlowSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\LabEventLogSchema.cs">
+      <DependentUpon>LabEventLogSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\LocalDataSchema.cs">
+      <DependentUpon>LocalDataSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\LockSchema.cs">
+      <DependentUpon>LockSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\OrderCategorySchema.cs">
+      <DependentUpon>OrderCategorySchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\OrderTypeSchema.cs">
+      <DependentUpon>OrderTypeSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\PhysicianClientSchema.cs">
+      <DependentUpon>PhysicianClientSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\PhysicianSchema.cs">
+      <DependentUpon>PhysicianSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\PlacentalPathologyQuestionnaire.cs">
+      <DependentUpon>PlacentalPathologyQuestionnaire.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\PlaceOfServiceSchema.cs">
+      <DependentUpon>PlaceOfServiceSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\SchemaHelper.cs" />
+    <Compile Include="DomainPersistence\Schema\SearchSchema.cs">
+      <DependentUpon>SearchSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\ShipmentSchema.cs">
+      <DependentUpon>ShipmentSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\SingleItemSchema\AccessionSlideOrderViewSchema.cs">
+      <DependentUpon>AccessionSlideOrderViewSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\SingleItemSchema\BarcodeScan.cs">
+      <DependentUpon>BarcodeScan.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\SingleItemSchema\BlockSession.cs">
+      <DependentUpon>BlockSession.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\SingleItemSchema\ClientLocationSchema.cs">
+      <DependentUpon>ClientLocationSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\SingleItemSchema\ClientOrderDetailSchema.cs">
+      <DependentUpon>ClientOrderDetailSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\SingleItemSchema\ClientOrderSchema.cs">
+      <DependentUpon>ClientOrderSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\SingleItemSchema\ClientSchema.cs">
+      <DependentUpon>ClientSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\SingleItemSchema\ClientServicesLogSchema.cs">
+      <DependentUpon>ClientServicesLogSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\SingleItemSchema\DnaComment.cs">
+      <DependentUpon>DnaComment.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\SingleItemSchema\FlowCommentSchema.cs">
+      <DependentUpon>FlowCommentSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\SingleItemSchema\FlowLeukemiaSchema.cs">
+      <DependentUpon>FlowLeukemiaSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\SingleItemSchema\FlowLogItemSchema.cs">
+      <DependentUpon>FlowLogItemSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\SingleItemSchema\FlowLogListItemSchema.cs">
+      <DependentUpon>FlowLogListItemSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\SingleItemSchema\FlowMarkerItemSchema.cs">
+      <DependentUpon>FlowMarkerItemSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\SingleItemSchema\FlowMarkerSchema.cs">
+      <DependentUpon>FlowMarkerSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\SingleItemSchema\LabEventLogSchema.cs">
+      <DependentUpon>LabEventLogSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\SingleItemSchema\LabEventSchema.cs">
+      <DependentUpon>LabEventSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\SingleItemSchema\LeukemiaLymphomaItemSchema.cs">
+      <DependentUpon>LeukemiaLymphomaItemSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\SingleItemSchema\MarkerSchema.cs">
+      <DependentUpon>MarkerSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\SingleItemSchema\SlideOrderSchema.cs">
+      <DependentUpon>SlideOrderSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\SingleItemSchema\SystemRole.cs">
+      <DependentUpon>SystemRole.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\SingleItemSchema\SystemUser.cs">
+      <DependentUpon>SystemUser.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\SingleItemSchema\SystemUserRole.cs">
+      <DependentUpon>SystemUserRole.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\SingleItemSchema\TempSchema.cs">
+      <DependentUpon>TempSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\SingleItemSchema\UserPreference.cs">
+      <DependentUpon>UserPreference.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\SlideLabelSchema.cs">
+      <DependentUpon>SlideLabelSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\SlideTrackingSchema.cs">
+      <DependentUpon>SlideTrackingSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\SpecimenLogAccessionOrderSchema.cs">
+      <DependentUpon>SpecimenLogAccessionOrderSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\Schema\WebServiceAccountSchema.cs">
+      <DependentUpon>WebServiceAccountSchema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainPersistence\SqlXmlPropertyReader.cs" />
+    <Compile Include="DomainPersistence\SqlXmlPropertyWriter.cs" />
+    <Compile Include="DomainPersistence\XmlPropertyReader.cs" />
+    <Compile Include="DomainPersistence\XmlPropertyWriter.cs" />
     <Compile Include="Store\AppDataStore.cs" />
     <Compile Include="Business\Reports\BlocksSentNotReturnedReport.cs" />
     <Compile Include="Business\Reports\RetrospectiveReviewReport.xaml.cs">
@@ -2992,118 +3283,7 @@
     <Compile Include="DomainPersistence\ObjectPropertyWriter.cs" />
     <Compile Include="DomainPersistence\PropertyReaderFilter.cs" />
     <Compile Include="DomainPersistence\PropertyReaderFilterEnum.cs" />
-    <Compile Include="DomainPersistence\SchemaDocumentFactory.cs" />
-    <Compile Include="DomainPersistence\Schema\AccessionOrder\ReportDistributionLogSchema.cs">
-      <DependentUpon>ReportDistributionLogSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\AccessionOrder\ReportDistributionSchema.cs">
-      <DependentUpon>ReportDistributionSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\AccessionSlideOrderSchema.cs">
-      <DependentUpon>AccessionSlideOrderSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\AccessionSummarySchema.cs">
-      <DependentUpon>AccessionSummarySchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\BillingRuleSchema.cs">
-      <DependentUpon>BillingRuleSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\BillingRuleSetSchema.cs">
-      <DependentUpon>BillingRuleSetSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\BillingSchema.cs">
-      <DependentUpon>BillingSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\ChannelMessageSchema.cs">
-      <DependentUpon>ChannelMessageSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\ClientOrderCytologyPropertySchema.cs">
-      <DependentUpon>ClientOrderCytologyPropertySchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\ClientOrderDetailFNAPropertySchema.cs">
-      <DependentUpon>ClientOrderDetailFNAPropertySchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\ClientOrderDetailSurgicalPropertySchema.cs">
-      <DependentUpon>ClientOrderDetailSurgicalPropertySchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\ClientOrderFNAPropertySchema.cs">
-      <DependentUpon>ClientOrderFNAPropertySchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\ClientOrderMediaSchema.cs">
-      <DependentUpon>ClientOrderMediaSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\ClientOrderSchema.cs">
-      <DependentUpon>ClientOrderSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\ClientSchema.cs">
-      <DependentUpon>ClientSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\CptCodeGroupCodeSchema.cs">
-      <DependentUpon>CptCodeGroupCodeSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\CptCodeGroupSchema.cs">
-      <DependentUpon>CptCodeGroupSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\ErPrSemiQuantitativeResultSchema.cs">
-      <DependentUpon>ErPrSemiQuantitativeResultSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\FacilitySchema.xsd.cs">
-      <DependentUpon>FacilitySchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\FlowContractSchema.cs">
-      <DependentUpon>FlowContractSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\FlowSchema.cs">
-      <DependentUpon>FlowSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\LabEventLogSchema.cs">
-      <DependentUpon>LabEventLogSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\LocalDataSchema.cs">
-      <DependentUpon>LocalDataSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\LockSchema.cs">
-      <DependentUpon>LockSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\OrderCategorySchema.cs">
-      <DependentUpon>OrderCategorySchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\OrderTypeSchema.cs">
-      <DependentUpon>OrderTypeSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\PhysicianClientSchema.cs">
-      <DependentUpon>PhysicianClientSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\PhysicianSchema.cs">
-      <DependentUpon>PhysicianSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\PlacentalPathologyQuestionnaire.cs">
-      <DependentUpon>PlacentalPathologyQuestionnaire.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\SchemaHelper.cs" />
-    <Compile Include="DomainPersistence\Schema\SearchSchema.cs">
-      <DependentUpon>SearchSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\ShipmentSchema.cs">
-      <DependentUpon>ShipmentSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\SlideLabelSchema.cs">
-      <DependentUpon>SlideLabelSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\SlideTrackingSchema.cs">
-      <DependentUpon>SlideTrackingSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\SpecimenLogAccessionOrderSchema.cs">
-      <DependentUpon>SpecimenLogAccessionOrderSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\WebServiceAccountSchema.cs">
-      <DependentUpon>WebServiceAccountSchema.xsd</DependentUpon>
-    </Compile>
     <Compile Include="DomainPersistence\SerializationHelper.cs" />
-    <Compile Include="DomainPersistence\SqlXmlPropertyReader.cs" />
-    <Compile Include="DomainPersistence\SqlXmlPropertyWriter.cs" />
-    <Compile Include="DomainPersistence\XmlPropertyReader.cs" />
-    <Compile Include="DomainPersistence\XmlPropertyWriter.cs" />
     <Compile Include="Store\AppDBNameEnum.cs" />
     <Compile Include="Store\IRedisServer.cs" />
     <Compile Include="Store\RedisDB.cs" />
@@ -4753,39 +4933,6 @@
       <DependentUpon>PatientWorkspace.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <SubType>Designer</SubType>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <BaseApplicationManifest Include="Properties\app.manifest" />
-    <None Include="app.config">
-      <SubType>Designer</SubType>
-    </None>
-    <EmbeddedResource Include="Business\XmlSchema\BarcodeScanSchema.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <None Include="Business\XmlSchema\ComplexTypes.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <EmbeddedResource Include="Business\XmlSchema\LabEventLogSchema.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <None Include="Business\XmlSchema\OrderAcknowledgement.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Business\XmlSchema\OrderInstructions.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Business\XmlSchema\PanelSetOrderExtensionDocument.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Business\XmlSchema\PatientHistory.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Business\XmlSchema\SpecimenLogExtensionDocument.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <EmbeddedResource Include="DomainPersistence\Schema\AccessionOrder\ReportDistributionLogSchema.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -4849,9 +4996,6 @@
     <EmbeddedResource Include="DomainPersistence\Schema\FlowSchema.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <None Include="DomainPersistence\Schema\holdSchema.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <EmbeddedResource Include="DomainPersistence\Schema\LabEventLogSchema.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -4894,6 +5038,222 @@
     <EmbeddedResource Include="DomainPersistence\Schema\WebServiceAccountSchema.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <BaseApplicationManifest Include="Properties\app.manifest" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <EmbeddedResource Include="Business\XmlSchema\BarcodeScanSchema.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="Business\XmlSchema\ComplexTypes.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <EmbeddedResource Include="Business\XmlSchema\LabEventLogSchema.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="Business\XmlSchema\OrderAcknowledgement.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Business\XmlSchema\OrderInstructions.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Business\XmlSchema\PanelSetOrderExtensionDocument.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Business\XmlSchema\PatientHistory.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Business\XmlSchema\SpecimenLogExtensionDocument.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\AccessionOrderSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\AccessionOrder\AccessionOrderSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\AccessionOrder\AliquotOrderItemListSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\AccessionOrder\AliquotOrderSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\AccessionOrder\AmendmentSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\AccessionOrder\AutopsyResultSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\AccessionOrder\CaseDocumentSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\AccessionOrder\CptBillingCodeLogSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\AccessionOrder\CptBillingCodeSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\AccessionOrder\CptBillingCodeV2Schema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\AccessionOrder\CptIcd9BillingCodeSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\AccessionOrder\FishResultSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\AccessionOrder\Her2ResultSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\AccessionOrder\Icd9BillingCodeSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\AccessionOrder\IntraoperativeConsultationResultSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\AccessionOrder\PanelOrderBatchSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\AccessionOrder\PanelOrderSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\AccessionOrder\PanelSetOrderCommentSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\AccessionOrder\PanelSetOrderSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\AccessionOrder\PanelSetResultOrderSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\AccessionOrder\RecentAccessionViewSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\AccessionOrder\ReportNoSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\AccessionOrder\SpecimenOrderSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\AccessionOrder\StainResultSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\AccessionOrder\SurgicalBillingSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\AccessionOrder\SurgicalResultAuditSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\AccessionOrder\SurgicalResultSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\AccessionOrder\SurgicalSpecimenResultAuditSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\AccessionOrder\SurgicalSpecimenResultSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\AccessionOrder\TestAliquotOrderSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\AccessionOrder\TestOrderListSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\AccessionOrder\TestOrderSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\AccessionOrder\TestSpecimenOrderSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\BoneMarrowResultSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\holdSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\PlaceOfServiceSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\SingleItemSchema\AccessionSlideOrderViewSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\SingleItemSchema\BarcodeScan.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\SingleItemSchema\BlockSession.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\SingleItemSchema\ClientLocationSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\SingleItemSchema\ClientOrderDetailSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\SingleItemSchema\ClientOrderSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\SingleItemSchema\ClientSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\SingleItemSchema\ClientServicesLogSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\SingleItemSchema\DnaComment.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\SingleItemSchema\FlowCommentSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\SingleItemSchema\FlowLeukemiaSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\SingleItemSchema\FlowLogItemSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\SingleItemSchema\FlowLogListItemSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\SingleItemSchema\FlowMarkerItemSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\SingleItemSchema\FlowMarkerSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\SingleItemSchema\LabEventLogSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\SingleItemSchema\LabEventSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\SingleItemSchema\LeukemiaLymphomaItemSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\SingleItemSchema\MarkerSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\SingleItemSchema\SlideOrderSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\SingleItemSchema\SystemRole.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\SingleItemSchema\SystemUser.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\SingleItemSchema\SystemUserRole.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\SingleItemSchema\TempSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DomainPersistence\Schema\SingleItemSchema\UserPreference.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="UI\CEFSharp\CefSharp.WinForms.Example.exe.config" />
     <None Include="UI\CEFSharp\CefSharp.WinForms.Example.vshost.exe.config" />
     <None Include="UI\CEFSharp\CefSharp.WinForms.Example.vshost.exe.manifest" />
@@ -5018,7 +5378,6 @@
     <Compile Include="UI\ValidationRules\SSNValidRule.cs" />
     <AppDesigner Include="Properties\" />
     <EmbeddedResource Include="UI\MaterialTracking\FedXTrackingRequest.json" />
-    <None Include="UserInterface_TemporaryKey.pfx" />
     <Resource Include="Business\Document\CaseHeader.xml" />
     <Resource Include="Business\Document\DnaReport.xml" />
     <Resource Include="Business\Document\SharedHeaderFooter.xml">
