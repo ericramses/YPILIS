@@ -59,7 +59,7 @@ namespace YellowstonePathology.Business.WebService
         public void SetDefaults()
         {
             this.m_DownloadFileType = "XPS";
-            this.m_InitialPage = "OrderBrowser";
+            this.m_InitialPage = "ReportBrowser";
             this.m_ApplicationTimeoutMinutes = 40;
             this.m_RemoteFileDownloadDirectory = null;
             this.m_RemoteFileUploadDirectory = null;
