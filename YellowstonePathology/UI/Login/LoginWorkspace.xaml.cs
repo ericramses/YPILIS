@@ -70,12 +70,26 @@ namespace YellowstonePathology.UI.Login
                 this.m_MainWindowCommandButtonHandler.ShowAmendmentDialog += MainWindowCommandButtonHandler_ShowAmendmentDialog;
                 this.m_MainWindowCommandButtonHandler.RemoveTab += MainWindowCommandButtonHandler_RemoveTab;
                 this.m_MainWindowCommandButtonHandler.ShowMessagingDialog += MainWindowCommandButtonHandler_ShowMessagingDialog;
-
+                this.m_MainWindowCommandButtonHandler.ShowCaseDocument += MainWindowCommandButtonHandler_ShowCaseDocument;
+           
                 UI.AppMessaging.MessagingPath.Instance.LockReleasedActionList.Add(this.Save);
                 UI.AppMessaging.MessagingPath.Instance.LockAquiredActionList.Add(this.HandleAccessionOrderListChange);
             }
 
             this.m_LoadedHasRun = true;
+        }
+
+        private void MainWindowCommandButtonHandler_ShowCaseDocument(object sender, EventArgs e)
+        {
+            if (this.m_LoginUI.AccessionOrder != null)
+            {
+                YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_LoginUI.AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_LoginUI.ReportNo);
+                YellowstonePathology.Business.Interface.ICaseDocument caseDocument = YellowstonePathology.Business.Document.DocumentFactory.GetDocument(this.m_LoginUI.AccessionOrder, panelSetOrder, Business.Document.ReportSaveModeEnum.Draft);
+                caseDocument.Render();
+                YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_LoginUI.ReportNo);
+                string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);
+                YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(fileName);
+            }
         }
 
         private void MainWindowCommandButtonHandler_RemoveTab(object sender, EventArgs e)
@@ -174,6 +188,7 @@ namespace YellowstonePathology.UI.Login
             this.m_MainWindowCommandButtonHandler.ShowAmendmentDialog -= MainWindowCommandButtonHandler_ShowAmendmentDialog;
             this.m_MainWindowCommandButtonHandler.RemoveTab -= MainWindowCommandButtonHandler_RemoveTab;
             this.m_MainWindowCommandButtonHandler.ShowMessagingDialog -= MainWindowCommandButtonHandler_ShowMessagingDialog;
+            this.m_MainWindowCommandButtonHandler.ShowCaseDocument -= MainWindowCommandButtonHandler_ShowCaseDocument;
 
             UI.AppMessaging.MessagingPath.Instance.LockReleasedActionList.Remove(this.Save);
             UI.AppMessaging.MessagingPath.Instance.LockAquiredActionList.Remove(this.HandleAccessionOrderListChange);
