@@ -30,14 +30,14 @@ using System.ServiceModel;
 using YellowstonePathology.Business.Helper;
 using System.Collections.ObjectModel;
 using MongoDB.Bson;
-using MongoDB.Driver;
-using MongoDB.Driver.Linq;
-using MongoDB.Driver.Builders;
-using MongoDB.Driver.GridFS;
+//using MongoDB.Driver;
+//using MongoDB.Driver.Linq;
+//using MongoDB.Driver.Builders;
+//using MongoDB.Driver.GridFS;
 using Newtonsoft.Json;
-using MySql.Data.MySqlClient;
+//using MySql.Data.MySqlClient;
 using Grpc.Core;
-using StackExchange.Redis;
+//using StackExchange.Redis;
 
 namespace YellowstonePathology.UI
 {    
