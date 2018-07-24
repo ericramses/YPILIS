@@ -161,7 +161,7 @@ namespace YellowstonePathology.Business.Domain
 			client.Send(mailMessage);
 		}
 
-		[PersistentPrimaryKeyProperty(true)]
+		[PersistentPrimaryKeyProperty(false)]
 		[PersistentDataColumnProperty(false, "50", "null", "varchar")]
 		public string OrderCommentLogId
 		{

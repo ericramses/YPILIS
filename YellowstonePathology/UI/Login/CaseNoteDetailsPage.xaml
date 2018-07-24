@@ -23,7 +23,7 @@
 			
 			<TextBlock Grid.Row="0" Margin="10" Text="Comment:" HorizontalAlignment="Center" />
 
-			<TextBox Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="10" Text="{Binding Path=OrderCommentLog.Comment}"
+			<TextBox Name="TextBoxComment" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="10" Text="{Binding Path=OrderCommentLog.Comment}"
 					 TextWrapping="Wrap" AcceptsReturn="True" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
 		</Grid>
 
