@@ -21,12 +21,14 @@ namespace YellowstonePathology.UI
 
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;                
         private YellowstonePathology.Business.Typing.TypingShortcutCollection m_TypingShortcutCollection;
+        private YellowstonePathology.Business.Typing.TypingShortcutCollection m_FullTypingShortcutCollection;
         private object m_Writer;
 
 		public TypingShortcutUserControl(YellowstonePathology.Business.User.SystemIdentity systemIdentity, object writer)
         {            
-            this.m_SystemIdentity = systemIdentity;            
-			this.m_TypingShortcutCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetTypingShortcutCollectionByUser(this.m_SystemIdentity.User.UserId);
+            this.m_SystemIdentity = systemIdentity;
+            this.m_TypingShortcutCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetTypingShortcutCollectionByUser(this.m_SystemIdentity.User.UserId);
+            this.m_FullTypingShortcutCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetTypingShortcutCollectionByUser(this.m_SystemIdentity.User.UserId);
             this.m_Writer = writer;
             InitializeComponent();
 
@@ -152,6 +154,22 @@ namespace YellowstonePathology.UI
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
-        }               
+        }
+
+        private void TextBoxSearch_KeyUp(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Enter)
+            {
+                if(this.TextBoxSearch.Text.Length > 0)
+                {
+                    this.m_TypingShortcutCollection = this.m_FullTypingShortcutCollection.GetWithMatchingText(this.TextBoxSearch.Text);
+                }
+                else
+                {
+                    this.m_TypingShortcutCollection = this.m_FullTypingShortcutCollection;
+                }
+                this.NotifyPropertyChanged("TypingShortcutCollection");
+            }
+        }
     }
 }
