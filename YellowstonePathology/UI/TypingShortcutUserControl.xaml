@@ -10,10 +10,21 @@
 			<ColumnDefinition Width="*"></ColumnDefinition>
 		</Grid.ColumnDefinitions>
 		<Grid.RowDefinitions>
-			<RowDefinition Height="*"></RowDefinition>			
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>			
         </Grid.RowDefinitions>
 
-        <ListView Name="ListViewTypingShortcut" Grid.Column="0" Grid.Row="0" ItemsSource="{Binding Path=TypingShortcutCollection}" IsSynchronizedWithCurrentItem="True"  LocalUI:ListViewSorter.IsSortable="true">
+        <Grid Grid.Column="0" Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            
+            <TextBlock Grid.Column="0" Margin="2" HorizontalAlignment="Center" Text="Search:" />
+            <TextBox Name="TextBoxSearch" Grid.Column="1" Margin="2" HorizontalAlignment="Stretch" KeyUp="TextBoxSearch_KeyUp" />
+        </Grid>
+
+        <ListView Name="ListViewTypingShortcut" Grid.Column="0" Grid.Row="1" ItemsSource="{Binding Path=TypingShortcutCollection}" IsSynchronizedWithCurrentItem="True"  LocalUI:ListViewSorter.IsSortable="true">
             <ListView.ContextMenu>
                 <ContextMenu>
                     <MenuItem Click="ContextMenuTypingShortcutAdd_Click" Header="Add"></MenuItem>

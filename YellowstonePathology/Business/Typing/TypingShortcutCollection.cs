@@ -88,6 +88,22 @@ namespace YellowstonePathology.Business.Typing
                     item.Update(typingShortcut);
                 }
             }
-        }                      
+        }
+        
+        public TypingShortcutCollection GetWithMatchingText(string searchText)
+        {
+            TypingShortcutCollection result = new Typing.TypingShortcutCollection();
+
+            string upper = searchText.ToUpper();
+            foreach(TypingShortcut typingShortcut in this)
+            {
+                string matchUpper = typingShortcut.Text.ToUpper();
+                if(matchUpper.Contains(upper))
+                {
+                    result.Add(typingShortcut);
+                }
+            }
+            return result;
+        }
     }
 }
