@@ -30,9 +30,17 @@ namespace YellowstonePathology.UI.Login
 			this.m_OrderCommentLog = orderCommentLog;
 			InitializeComponent();
 			DataContext = this;
+
+            this.Loaded += CaseNoteDetailsPage_Loaded;
 		}
 
-		public string PageHeaderText
+        private void CaseNoteDetailsPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            Keyboard.Focus(this.TextBoxComment);
+            this.TextBoxComment.Select(this.TextBoxComment.Text.Length, 0);
+        }
+
+        public string PageHeaderText
 		{
 			get { return this.m_PageHeaderText; }
 		}
