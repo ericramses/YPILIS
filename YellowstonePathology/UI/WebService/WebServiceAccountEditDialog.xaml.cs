@@ -139,5 +139,16 @@ namespace YellowstonePathology.UI.WebService
                 }
             }
         }
+
+        private void PwGenerator_Click(object sender, RoutedEventArgs e)
+        {
+            string pw = YellowstonePathology.Business.WebService.PasswordGenerator.GeneratePassword(true, true, true, false, false, 8);
+            while (!YellowstonePathology.Business.WebService.PasswordGenerator.PasswordIsValid(true, true, true, false, false, pw))
+            {
+                pw = YellowstonePathology.Business.WebService.PasswordGenerator.GeneratePassword(true, true, true, false, false, 8);
+            }
+            this.m_WebServiceAccount.Password = pw;
+            this.NotifyPropertyChanged(string.Empty);
+        }
     }
 }
