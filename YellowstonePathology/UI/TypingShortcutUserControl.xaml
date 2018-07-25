@@ -11,20 +11,24 @@
 		</Grid.ColumnDefinitions>
 		<Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>			
+            <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
 
         <Grid Grid.Column="0" Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
             
-            <TextBlock Grid.Column="0" Margin="2" HorizontalAlignment="Center" Text="Search:" />
+            <TextBlock Grid.Column="0" Margin="2" VerticalAlignment="Center" Text="Search:" />
+            
             <TextBox Name="TextBoxSearch" Grid.Column="1" Margin="2" HorizontalAlignment="Stretch" KeyUp="TextBoxSearch_KeyUp" />
+
+            <Button Name="ButtonRefresh" Grid.Column="2" Margin="2" Height="30" Width="80" Click="ButtonRefresh_Click">Refresh</Button>
         </Grid>
 
-        <ListView Name="ListViewTypingShortcut" Grid.Column="0" Grid.Row="1" ItemsSource="{Binding Path=TypingShortcutCollection}" IsSynchronizedWithCurrentItem="True"  LocalUI:ListViewSorter.IsSortable="true">
+        <ListView Name="ListViewTypingShortcut" Grid.Column="0" Grid.Row="1" ItemsSource="{Binding Path=LimitedTypingShortcutCollection}" IsSynchronizedWithCurrentItem="True"  LocalUI:ListViewSorter.IsSortable="true">
             <ListView.ContextMenu>
                 <ContextMenu>
                     <MenuItem Click="ContextMenuTypingShortcutAdd_Click" Header="Add"></MenuItem>
