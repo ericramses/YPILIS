@@ -107,6 +107,7 @@ namespace YellowstonePathology.UI.Gross
         public string BuildResultText(YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder, YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             string result = this.m_Text;
+            if (result == null) result = string.Empty;
             if(result.Contains("[identifier]") == true)
             {
                 result = this.ReplaceIdentifier(result, specimenOrder, accessionOrder);
