@@ -983,5 +983,11 @@ namespace YellowstonePathology.UI
         {
             
         }
+
+        private void MenuItemDictationTemplates_Click(object sender, RoutedEventArgs e)
+        {
+            Gross.DictationTemplateViewPage dlg = new Gross.DictationTemplateViewPage();
+            dlg.ShowDialog();
+        }
     }
 }

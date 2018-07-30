@@ -3336,6 +3336,9 @@
     </Compile>
     <Compile Include="UI\EmbeddingAutopsyItem.cs" />
     <Compile Include="UI\EmbeddingAutopsyList.cs" />
+    <Compile Include="UI\Gross\DictationTemplateViewPage.xaml.cs">
+      <DependentUpon>DictationTemplateViewPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Monitor\DashboardPage.xaml.cs">
       <DependentUpon>DashboardPage.xaml</DependentUpon>
     </Compile>
@@ -5580,6 +5583,10 @@
     <Page Include="UI\Gross\BlankPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Gross\DictationTemplateViewPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Gross\ProcessorSelectionPage.xaml">
       <Generator>MSBuild:Compile</Generator>
