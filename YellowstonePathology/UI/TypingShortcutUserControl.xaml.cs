@@ -185,9 +185,9 @@ namespace YellowstonePathology.UI
         {
             this.m_LimitedTypingShortcutCollection = this.m_TypingShortcutCollection;
             this.NotifyPropertyChanged("LimitedTypingShortcutCollection");
-        }
+        }        
 
-        private void ButtonRefresh_Click(object sender, RoutedEventArgs e)
+        private void ButtonClearSearch_Click(object sender, RoutedEventArgs e)
         {
             this.TextBoxSearch.Text = string.Empty;
             this.RefreshLimitedTypingShortcutCollection();

@@ -23,9 +23,9 @@
             
             <TextBlock Grid.Column="0" Margin="2" VerticalAlignment="Center" Text="Search:" />
             
-            <TextBox Name="TextBoxSearch" Grid.Column="1" Margin="2,2,0,2" HorizontalAlignment="Stretch" KeyUp="TextBoxSearch_KeyUp" />
+            <TextBox Name="TextBoxSearch" Grid.Column="1" Margin="2,2,2,2" HorizontalAlignment="Stretch" KeyUp="TextBoxSearch_KeyUp" ToolTip="Type keyword then hit enter to search." />
 
-            <Button Name="ButtonRefresh" Grid.Column="2" Margin="0,2,2,2" Height="30" Width="10" Click="ButtonRefresh_Click">X</Button>
+            <Button Name="ButtonClearSearch" Grid.Column="2" Margin="2,2,2,2" Height="20" Width="15" Click="ButtonClearSearch_Click">X</Button>
         </Grid>
 
         <ListView Name="ListViewTypingShortcut" Grid.Column="0" Grid.Row="1" ItemsSource="{Binding Path=LimitedTypingShortcutCollection}" IsSynchronizedWithCurrentItem="True"  LocalUI:ListViewSorter.IsSortable="true">
