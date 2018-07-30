@@ -77,8 +77,7 @@ namespace YellowstonePathology.UI
             if(typingShortcutDialog.DialogResult == true)
             {
                 this.m_TypingShortcutCollection.Add(typingShortcut);
-                this.m_LimitedTypingShortcutCollection = this.m_TypingShortcutCollection;
-                this.NotifyPropertyChanged("LimitedTypingShortcutCollection");
+                this.RefreshLimitedTypingShortcutCollection();
             }
 
             this.NotifyPropertyChanged("");
@@ -103,8 +102,7 @@ namespace YellowstonePathology.UI
         private void TypingShortcutDialog_Finished(object sender, CustomEventArgs.TypingShortcutReturnEventArgs e)
         {
             this.m_TypingShortcutCollection.UpdateItem(e.TypingShortcut);
-            this.m_LimitedTypingShortcutCollection = this.m_TypingShortcutCollection;
-            this.NotifyPropertyChanged("LimitedTypingShortcutCollection");
+            this.RefreshLimitedTypingShortcutCollection();
         }
 
         public void SetShortcut(TextBox textBox)
@@ -178,19 +176,21 @@ namespace YellowstonePathology.UI
                 if (this.TextBoxSearch.Text.Length > 0)
                 {
                     this.m_LimitedTypingShortcutCollection = this.m_TypingShortcutCollection.GetWithMatchingText(this.TextBoxSearch.Text);
+                    this.NotifyPropertyChanged("LimitedTypingShortcutCollection");
                 }
-                else
-                {
-                    this.m_LimitedTypingShortcutCollection = this.m_TypingShortcutCollection;
-                }
-                this.NotifyPropertyChanged("LimitedTypingShortcutCollection");
             }
+        }
+
+        private void RefreshLimitedTypingShortcutCollection()
+        {
+            this.m_LimitedTypingShortcutCollection = this.m_TypingShortcutCollection;
+            this.NotifyPropertyChanged("LimitedTypingShortcutCollection");
         }
 
         private void ButtonRefresh_Click(object sender, RoutedEventArgs e)
         {
-            this.m_LimitedTypingShortcutCollection = this.m_TypingShortcutCollection;
-            this.NotifyPropertyChanged("LimitedTypingShortcutCollection");
+            this.TextBoxSearch.Text = string.Empty;
+            this.RefreshLimitedTypingShortcutCollection();
         }
     }
 }
