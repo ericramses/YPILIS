@@ -3336,8 +3336,15 @@
     </Compile>
     <Compile Include="UI\EmbeddingAutopsyItem.cs" />
     <Compile Include="UI\EmbeddingAutopsyList.cs" />
-    <Compile Include="UI\Gross\DictationTemplateViewPage.xaml.cs">
-      <DependentUpon>DictationTemplateViewPage.xaml</DependentUpon>
+    <Compile Include="UI\Gross\DictationTemplateEditPage.xaml.cs">
+      <DependentUpon>DictationTemplateEditPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Gross\DictationTemplateListPage.xaml.cs">
+      <DependentUpon>DictationTemplateListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Gross\DictationTemplateRedis.cs" />
+    <Compile Include="UI\Gross\SpecimenSelectionPage.xaml.cs">
+      <DependentUpon>SpecimenSelectionPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Monitor\DashboardPage.xaml.cs">
       <DependentUpon>DashboardPage.xaml</DependentUpon>
@@ -5584,7 +5591,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\Gross\DictationTemplateViewPage.xaml">
+    <Page Include="UI\Gross\DictationTemplateEditPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Gross\DictationTemplateListPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -5595,6 +5606,10 @@
     <Page Include="UI\Gross\ScanContainerPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Gross\SpecimenSelectionPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Gross\StainOrderPage.xaml">
       <Generator>MSBuild:Compile</Generator>
