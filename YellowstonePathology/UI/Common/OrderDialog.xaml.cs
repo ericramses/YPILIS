@@ -51,6 +51,7 @@ namespace YellowstonePathology.UI.Common
         private void OrderWorkspace_Loaded(object sender, RoutedEventArgs e)
         {
             this.ButtonOrder.Focus();
+
         }
 
         public string PanelOrderComment

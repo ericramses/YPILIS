@@ -3666,6 +3666,7 @@
     <Compile Include="UI\RetrospectiveReviews.xaml.cs">
       <DependentUpon>RetrospectiveReviews.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\ScreenHandler.cs" />
     <Compile Include="UI\SortDirectionAdorner.cs" />
     <Compile Include="UI\SpellCheckAccessionOrder.cs" />
     <Compile Include="UI\SpellCheckProperty.cs" />
