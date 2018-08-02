@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>110</ApplicationRevision>
+    <ApplicationRevision>112</ApplicationRevision>
     <ApplicationVersion>10.1.12.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -1108,9 +1108,11 @@
     <Compile Include="Business\Test\MDSExtendedByFish\MDSExtendedByFishCMMCNTEView.cs" />
     <Compile Include="Business\Test\MDSExtendedByFish\MDSExtendedByFishWPHOBXView.cs" />
     <Compile Include="Business\Test\MicrobiologyByPCR\MicrobiologyByPCRTest.cs" />
+    <Compile Include="Business\Test\NeoLABMyeloidDisordersProfile\NeoLABMyeloidDisordersProfileTest.cs" />
     <Compile Include="Business\Test\NeoTYPEBreastTumorProfile\NeoTYPEBreastTumorProfileTest.cs" />
     <Compile Include="Business\Test\NeoTYPEGISTProfile\NeoTYPEGISTProfileTest.cs" />
     <Compile Include="Business\Test\NeoTYPELungTumorProfile\NeoTYPELungTumorProfileTestOrder.cs" />
+    <Compile Include="Business\Test\NeoTYPEOvarianTumorProfile\NeoTYPEOvarianTumorProfileTest.cs" />
     <Compile Include="Business\Test\PNH\PNHWPHOBXView.cs" />
     <Compile Include="Business\Test\RASRAFPanel\RASRAFPanelWPHOBXView.cs" />
     <Compile Include="Business\Test\WholeExomeSequencing\WholeExomeSequencingTest.cs" />

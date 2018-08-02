@@ -129,8 +129,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.Test.AMLPrognosticProfile.AMLPrognosticProfileTest());
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.NeoTypeDiscoveryProfileTest());
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.NeoTypeEsophagealTumorProfileTest());
-            panelSetCollection.Add(new YellowstonePathology.Business.Test.AMLFavorableRisk.AMLFavorableRiskTest());
-            //panelSetCollection.Add(new YellowstonePathology.Business.Test.MPNStandardReflexPanel.MPNStandardReflexPanelTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.AMLFavorableRisk.AMLFavorableRiskTest());            
             panelSetCollection.Add(new YellowstonePathology.Business.Test.FISH5p159q2215p22.FISH5p159q2215p22Test());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.LiposarcomaFusionProfile.LiposarcomaFusionProfileTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.SoftTissueTumorProfile.SoftTissueTumorProfileTest());
@@ -167,6 +166,8 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.Test.NeoTYPEBreastTumorProfile.NeoTYPEBreastTumorProfileTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.MPNStandardReflexPanel.MPNStandardReflexPanelTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.MPNExtendedReflexPanel.MPNExtendedReflexPanelTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.NeoLABMyeloidDisordersProfile.NeoLABMyeloidDisordersProfileTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.NeoTypeOvarianTumorProfile.NeoTypeOvarianTumorProfileTest());
 
             //ARUP
             panelSetCollection.Add(new YellowstonePathology.Business.Test.HPV1618.HPV1618Test());
