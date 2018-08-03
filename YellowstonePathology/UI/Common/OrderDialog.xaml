@@ -4,7 +4,7 @@
 	Title="Order" WindowStyle="ToolWindow" 
 	ShowInTaskbar="True" 
     xmlns:TemplateSelectorUI="clr-namespace:YellowstonePathology.UI.TemplateSelector"
-	xmlns:sys="clr-namespace:System;assembly=mscorlib">
+	xmlns:sys="clr-namespace:System;assembly=mscorlib" WindowState="Maximized">
     <Window.Resources>
         <Style TargetType="TreeViewItem">
             <Setter Property="IsExpanded" Value="False"/>
