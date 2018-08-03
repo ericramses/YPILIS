@@ -989,5 +989,11 @@ namespace YellowstonePathology.UI
             Gross.DictationTemplateListPage dlg = new Gross.DictationTemplateListPage();
             dlg.ShowDialog();
         }
+
+        private void NewOrderWindow_Click(object sender, RoutedEventArgs e)
+        {
+            Surgical.StainOrder stainOrder = new Surgical.StainOrder();
+            stainOrder.ShowDialog();
+        }
     }
 }

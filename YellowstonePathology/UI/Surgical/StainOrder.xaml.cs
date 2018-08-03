@@ -30,10 +30,10 @@ namespace YellowstonePathology.UI.Surgical
         private void StainOrder_Loaded(object sender, RoutedEventArgs e)
         {
             this.m_DualStains = new List<CheckBox>();
-            this.InitializeList("DualStainOrder", this.m_DualStains, this.MainGrid);
+            this.InitializeCheckboxList("DualStainOrder", this.m_DualStains, this.MainGrid);
         }
 
-        private void InitializeList(string name, List<CheckBox> list, DependencyObject depObj)
+        private void InitializeCheckboxList(string name, List<CheckBox> list, DependencyObject depObj)
         {
             for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
             {
@@ -46,7 +46,7 @@ namespace YellowstonePathology.UI.Surgical
                         list.Add(checkBox);
                     }
                 }
-                this.InitializeList(name, list, child);
+                this.InitializeCheckboxList(name, list, child);
             }
         }
 
