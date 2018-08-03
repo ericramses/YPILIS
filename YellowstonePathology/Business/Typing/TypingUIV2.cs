@@ -44,8 +44,8 @@ namespace YellowstonePathology.Business.Typing
 
 			this.m_CaseListDate = DateTime.Today;
 
-            Business.Specimen.Model.SpecimenDefinition.Fluid fluid = new Specimen.Model.SpecimenDefinition.Fluid();
-            Business.Specimen.Model.SpecimenDefinition.Urine urine = new Specimen.Model.SpecimenDefinition.Urine();
+            Business.Specimen.Model.Specimen fluid = Specimen.Model.SpecimenCollection.Instance.GetSpecimen("SPCMFLUID"); // Definition.Fluid();
+            Business.Specimen.Model.Specimen urine = Specimen.Model.SpecimenCollection.Instance.GetSpecimen("SPCMNURINE"); // Definition.Urine();
             this.m_FluidSpecimenList = new List<Specimen.Model.Specimen>();
             this.m_FluidSpecimenList.Add(fluid);
             this.m_FluidSpecimenList.Add(urine);

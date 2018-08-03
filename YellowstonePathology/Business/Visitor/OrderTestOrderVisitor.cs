@@ -94,6 +94,7 @@ namespace YellowstonePathology.Business.Visitor
 
                 this.m_PanelSetOrder.OrderedOnId = aliquotOrder.AliquotOrderId;
                 this.m_PanelSetOrder.OrderedOn = YellowstonePathology.Business.Specimen.Model.OrderedOn.Aliquot;
+                this.m_PanelSetOrder.InstrumentOrderDate = DateTime.Now;                
 
                 YellowstonePathology.Business.HL7View.Panther.PantherOrder pantherOrder = new Business.HL7View.Panther.PantherOrder(pantherAssay, specimenOrder, aliquotOrder, this.m_AccessionOrder, this.m_PanelSetOrder, YellowstonePathology.Business.HL7View.Panther.PantherActionCode.NewSample);
                 pantherOrder.Send();                    
@@ -150,6 +151,7 @@ namespace YellowstonePathology.Business.Visitor
         {
             ClientOrder.Model.ExternalOrderIdsCollection externalOrderIdsCollection = ClientOrder.Model.ExternalOrderIdsCollection.FromFormattedValue(this.m_AccessionOrder.ExternalOrderId);
             string externalOrderId = externalOrderIdsCollection.GetExternalOrderId(this.m_PanelSet.PanelSetId);
+            string universalServiceId = externalOrderIdsCollection.GetUniversalServiceId(this.m_PanelSet.PanelSetId);
 
             this.m_ReportNo = this.m_AccessionOrder.GetNextReportNo(this.m_PanelSet);
             string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
@@ -179,7 +181,9 @@ namespace YellowstonePathology.Business.Visitor
             }
 
             this.m_PanelSetOrder.ExternalOrderId = externalOrderId;
+            if (string.IsNullOrEmpty(universalServiceId) == false) this.m_PanelSetOrder.UniversalServiceId = universalServiceId;
             this.m_AccessionOrder.PanelSetOrderCollection.Add(this.m_PanelSetOrder);
+            this.m_AccessionOrder.PanelSetOrderCollection.UpdateWHPExpectedFinalTimeOnOrder(this.m_PanelSetOrder);
             this.m_AccessionOrder.UpdateCaseAssignment(this.m_PanelSetOrder);
 			this.m_TestOrderInfo.PanelSetOrder = this.m_PanelSetOrder;            
         }

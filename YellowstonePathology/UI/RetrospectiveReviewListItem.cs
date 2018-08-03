@@ -10,7 +10,8 @@ namespace YellowstonePathology.UI
 
 		private string m_MasterAccessionNo;
 		private string m_ReportNo;		
-		private int m_PanelSetId;		
+		private int m_PanelSetId;
+        private DateTime m_OrderDate;
 		private Nullable<DateTime> m_FinalDate;
 		private string m_PanelSetName;
         private string m_SurgicalFinaledBy;
@@ -61,8 +62,21 @@ namespace YellowstonePathology.UI
 					this.NotifyPropertyChanged("PanelSetId");
 				}
 			}
-		}         
-                        
+		}
+
+        [PersistentProperty()]
+        public DateTime OrderDate
+        {
+            get { return this.m_OrderDate; }
+            set
+            {
+                if (value != this.m_OrderDate)
+                {
+                    this.m_OrderDate = value;
+                    this.NotifyPropertyChanged("OrderDate");
+                }
+            }
+        }
 
         [PersistentProperty()]
         public Nullable<DateTime> FinalDate

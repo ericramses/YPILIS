@@ -159,7 +159,7 @@
                 </TextBox>
 
                 <TextBlock Grid.Column="0" Grid.Row="10" Margin="2" FontSize="14" HorizontalAlignment="Right">Received:</TextBlock>
-                <TextBox Name="TextBoxDateReceived" Grid.Column="1" Grid.Row="10" Margin="2,2,2,2" Text="{Binding Path=SpecimenOrder.DateReceived, Converter={StaticResource MilitaryDateTimeConverter}}" IsEnabled="False" FontSize="14"></TextBox>
+                <TextBox Name="TextBoxDateReceived" Grid.Column="1" Grid.Row="10" Margin="2,2,2,2" Text="{Binding Path=SpecimenOrder.DateReceived, Converter={StaticResource MilitaryDateTimeConverter}}" IsEnabled="True" FontSize="14"></TextBox>
 
                 <TextBlock Grid.Column="0" Grid.Row="11" Margin="2" FontSize="14" HorizontalAlignment="Right">Time To Fixation:</TextBlock>
                 <TextBox Grid.Column="1" Grid.Row="11" Margin="2,2,2,2" Text="{Binding Path=SpecimenOrder.TimeToFixationString, Mode=OneWay}" IsEnabled="False" FontSize="14"></TextBox>

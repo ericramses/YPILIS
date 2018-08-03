@@ -44,15 +44,15 @@ namespace YellowstonePathology.Business.Test.JAK2V617F
 			this.ReplaceText("report_reference", panelSetOrderJAK2V617F.Reference);
             this.ReplaceText("disclosure_statement", panelSetOrderJAK2V617F.Disclosure);
 
-			this.ReplaceText("report_date", YellowstonePathology.Business.BaseData.GetShortDateString(this.m_PanelSetOrder.FinalDate));
-			this.ReplaceText("pathologist_signature", this.m_PanelSetOrder.Signature);
+			this.ReplaceText("report_date", YellowstonePathology.Business.BaseData.GetShortDateString(this.m_PanelSetOrder.ReferenceLabFinalDate));
+			this.ReplaceText("pathologist_signature", this.m_PanelSetOrder.ReferenceLabSignature);
 
-            this.SaveReport(false);
+            this.SaveReport();
         }
 
-        public override void Publish(bool notify)
+        public override void Publish()
         {
-            base.Publish(notify);
+            base.Publish();
         }
     }
 }

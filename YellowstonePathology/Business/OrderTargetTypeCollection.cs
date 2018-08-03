@@ -18,6 +18,7 @@ namespace YellowstonePathology.Business
             bool result = false;
             foreach (YellowstonePathology.Business.Interface.IOrderTargetType orderTargetType in this)
             {
+                YellowstonePathology.Business.Interface.IOrderTargetType t = orderTarget.GetTargetType();
                 if (orderTargetType.TypeId == orderTarget.GetTargetType().TypeId)
                 {
                     result = true;

@@ -8,7 +8,7 @@ namespace YellowstonePathology.Business.Test.InvasiveBreastPanel
 	public class InvasiveBreastPanelStep3 : YellowstonePathology.Business.Test.ReflexTesting.ReflexTestingPlanStepTest
     {
         public InvasiveBreastPanelStep3()
-            : base("ER", "Step 3: Progesterone Receptor, Semi-quantitative", new YellowstonePathology.Business.Test.Model.ProgesteroneReceptorSemiquant())
+            : base("ER", "Step 3: Progesterone Receptor, Semi-quantitative", YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone("145")) // ProgesteroneReceptorSemiquant())
         {
             
         }

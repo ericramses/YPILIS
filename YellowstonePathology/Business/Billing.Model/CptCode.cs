@@ -182,7 +182,8 @@ namespace YellowstonePathology.Business.Billing.Model
                     }
                     else if (this.m_HasTechnicalComponent == true && this.m_HasProfessionalComponent == false)
                     {
-                        throw new Exception("This code does not have a professional component.");
+                        result = null;
+                        //throw new Exception("This code does not have a professional component.");
                     }
                     break;
                 case BillingComponentEnum.Technical:

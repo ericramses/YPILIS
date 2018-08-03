@@ -21,12 +21,14 @@ namespace YellowstonePathology.UI
 
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;                
         private YellowstonePathology.Business.Typing.TypingShortcutCollection m_TypingShortcutCollection;
+        private YellowstonePathology.Business.Typing.TypingShortcutCollection m_LimitedTypingShortcutCollection;
         private object m_Writer;
 
 		public TypingShortcutUserControl(YellowstonePathology.Business.User.SystemIdentity systemIdentity, object writer)
         {            
-            this.m_SystemIdentity = systemIdentity;            
-			this.m_TypingShortcutCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetTypingShortcutCollectionByUser(this.m_SystemIdentity.User.UserId);
+            this.m_SystemIdentity = systemIdentity;
+            this.m_TypingShortcutCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetTypingShortcutCollectionByUser(this.m_SystemIdentity.User.UserId);
+            this.m_LimitedTypingShortcutCollection = this.m_TypingShortcutCollection;
             this.m_Writer = writer;
             InitializeComponent();
 
@@ -36,7 +38,12 @@ namespace YellowstonePathology.UI
         public YellowstonePathology.Business.Typing.TypingShortcutCollection TypingShortcutCollection
         {
             get { return this.m_TypingShortcutCollection; }
-        }        
+        }
+
+        public YellowstonePathology.Business.Typing.TypingShortcutCollection LimitedTypingShortcutCollection
+        {
+            get { return this.m_LimitedTypingShortcutCollection; }
+        }
 
         public void ContextMenuTypingShortcutDelete_Click(object sender, RoutedEventArgs args)
         {            
@@ -48,6 +55,10 @@ namespace YellowstonePathology.UI
                 {
                     this.m_TypingShortcutCollection.Remove(typingShortcut);
                     YellowstonePathology.Business.Persistence.DocumentGateway.Instance.DeleteDocument(typingShortcut, this.m_Writer);
+                    if(this.m_LimitedTypingShortcutCollection.Exists(typingShortcut.Shortcut) == true)
+                    {
+                        this.m_LimitedTypingShortcutCollection.Remove(typingShortcut);
+                    }
                 }
             }
         }
@@ -66,14 +77,17 @@ namespace YellowstonePathology.UI
             if(typingShortcutDialog.DialogResult == true)
             {
                 this.m_TypingShortcutCollection.Add(typingShortcut);
+                this.RefreshLimitedTypingShortcutCollection();
             }
-            
+
             this.NotifyPropertyChanged("");
         }
 
         private void TypingShortcutDialogAdd_Finished(object sender, CustomEventArgs.TypingShortcutReturnEventArgs e)
         {
             this.m_TypingShortcutCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetTypingShortcutCollectionByUser(this.m_SystemIdentity.User.UserId);
+            this.m_LimitedTypingShortcutCollection = this.m_TypingShortcutCollection;
+            this.NotifyPropertyChanged("LimitedTypingShortcutCollection");
         }
 
         public void ContextMenuTypingShortcutEdit_Click(object sender, RoutedEventArgs args)
@@ -88,6 +102,7 @@ namespace YellowstonePathology.UI
         private void TypingShortcutDialog_Finished(object sender, CustomEventArgs.TypingShortcutReturnEventArgs e)
         {
             this.m_TypingShortcutCollection.UpdateItem(e.TypingShortcut);
+            this.RefreshLimitedTypingShortcutCollection();
         }
 
         public void SetShortcut(TextBox textBox)
@@ -152,6 +167,30 @@ namespace YellowstonePathology.UI
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
-        }               
+        }
+
+        private void TextBoxSearch_KeyUp(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Enter)
+            {
+                if (this.TextBoxSearch.Text.Length > 0)
+                {
+                    this.m_LimitedTypingShortcutCollection = this.m_TypingShortcutCollection.GetWithMatchingText(this.TextBoxSearch.Text);
+                    this.NotifyPropertyChanged("LimitedTypingShortcutCollection");
+                }
+            }
+        }
+
+        private void RefreshLimitedTypingShortcutCollection()
+        {
+            this.m_LimitedTypingShortcutCollection = this.m_TypingShortcutCollection;
+            this.NotifyPropertyChanged("LimitedTypingShortcutCollection");
+        }        
+
+        private void ButtonClearSearch_Click(object sender, RoutedEventArgs e)
+        {
+            this.TextBoxSearch.Text = string.Empty;
+            this.RefreshLimitedTypingShortcutCollection();
+        }
     }
 }

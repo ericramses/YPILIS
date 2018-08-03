@@ -134,7 +134,8 @@ namespace YellowstonePathology.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Server = 10.1.2.26; Uid = sqldude; Pwd = 123Whatsup; Database = lis;")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Server = 10.1.2.26; Uid = sqldude; Pwd = 123Whatsup; Database = lis; Pooling=True" +
+            ";")]
         public string CurrentConnectionString {
             get {
                 return ((string)(this["CurrentConnectionString"]));
@@ -176,7 +177,8 @@ namespace YellowstonePathology.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Server = 10.1.2.26; Uid = sqldude; Pwd = 123Whatsup; Database = lis;")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Server = 10.1.2.26; Uid = sqldude; Pwd = 123Whatsup; Database = lis; Pooling=True" +
+            ";")]
         public string MySqlConnectionString {
             get {
                 return ((string)(this["MySqlConnectionString"]));

@@ -249,11 +249,30 @@ namespace YellowstonePathology.UI.Surgical
 		}
 
 		private void ShowStainOrderForm()
-		{			
-			YellowstonePathology.UI.Common.OrderDialog orderDiaglog = new YellowstonePathology.UI.Common.OrderDialog(this.m_PathologistUI.AccessionOrder, this.m_PathologistUI.PanelSetOrder);
-			orderDiaglog.ShowDialog();
+		{
+            YellowstonePathology.UI.Common.OrderDialog window = new YellowstonePathology.UI.Common.OrderDialog(this.m_PathologistUI.AccessionOrder, this.m_PathologistUI.PanelSetOrder);
+            window.ShowDialog();
             this.m_PathologistUI.AccessionOrder.PanelSetOrderCollection.PathologistTestOrderItemList.Build(this.m_PathologistUI.AccessionOrder);
             this.m_PathologistUI.NotifyPropertyChanged("AccessionOrder.PanelSetOrderCollection.PathologistTestOrderItemList");
+
+            /*
+            var screen = ScreenHandler.GetOtherScreen();                        
+            window.WindowState = WindowState.Normal;
+            window.Left = screen.WorkingArea.Left;
+            window.Top = screen.WorkingArea.Top;
+            window.Width = screen.WorkingArea.Width;
+            window.Height = screen.WorkingArea.Height;            
+            window.Loaded += OrderDiaglog_Loaded;
+            window.ShowDialog();
+            */
+        }
+
+        private void OrderDiaglog_Loaded(object sender, RoutedEventArgs e)
+        {
+            //var senderWindow = sender as Window;
+            //senderWindow.WindowState = WindowState.Maximized;
+            //this.m_PathologistUI.AccessionOrder.PanelSetOrderCollection.PathologistTestOrderItemList.Build(this.m_PathologistUI.AccessionOrder);
+            //this.m_PathologistUI.NotifyPropertyChanged("AccessionOrder.PanelSetOrderCollection.PathologistTestOrderItemList");
         }
 
         private void ItemIsSelected(object sender, CanExecuteRoutedEventArgs e)

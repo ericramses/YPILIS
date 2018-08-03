@@ -14,7 +14,7 @@ namespace YellowstonePathology.Business.Test.Surgical
         public override void Render()
         {
             SurgicalTestOrder panelSetOrderSurgical = (SurgicalTestOrder)this.m_PanelSetOrder;
-            this.m_TemplateName = @"\\Cfileserver\Documents\ReportTemplates\XmlTemplates\Surgical.13.xml";
+            this.m_TemplateName = @"\\Cfileserver\Documents\ReportTemplates\XmlTemplates\Surgical.14.xml";
 
             base.OpenTemplate();
 
@@ -341,6 +341,7 @@ namespace YellowstonePathology.Business.Test.Surgical
             XmlNode rowFixationTypeNode = mainTableNode.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='specimen_fixation_type']", this.m_NameSpaceManager);
             XmlNode rowTimeToFixationNode = mainTableNode.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='time_to_fixation']", this.m_NameSpaceManager);
             XmlNode rowFixationDurationNode = mainTableNode.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='duration_of_fixation']", this.m_NameSpaceManager);
+            XmlNode rowFixationCommentNode = mainTableNode.SelectSingleNode("descendant::w:tr[w:tc/w:p/w:r/w:t='fixation_comment']", this.m_NameSpaceManager);
             XmlNode rowInsertSpecimenDescriptionAfterNode = rowSpecimenDescriptionNode;
 
             foreach (YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder in this.m_AccessionOrder.SpecimenOrderCollection)
@@ -370,12 +371,18 @@ namespace YellowstonePathology.Business.Test.Surgical
                     rowFixationDurationNodeClone.SelectSingleNode("descendant::w:r[w:t='duration_of_fixation']/w:t", this.m_NameSpaceManager).InnerText = specimenOrder.FixationDurationString;
                     mainTableNode.InsertAfter(rowFixationDurationNodeClone, rowInsertSpecimenDescriptionAfterNode);
                     rowInsertSpecimenDescriptionAfterNode = rowFixationDurationNodeClone;
+
+                    XmlNode rowFixationCommentNodeClone = rowFixationCommentNode.Clone();
+                    rowFixationCommentNodeClone.SelectSingleNode("descendant::w:r[w:t='fixation_comment']/w:t", this.m_NameSpaceManager).InnerText = specimenOrder.FixationComment;
+                    mainTableNode.InsertAfter(rowFixationCommentNodeClone, rowInsertSpecimenDescriptionAfterNode);
+                    rowInsertSpecimenDescriptionAfterNode = rowFixationCommentNodeClone;
                 }
             }
             mainTableNode.RemoveChild(rowSpecimenDescriptionNode);
             mainTableNode.RemoveChild(rowFixationTypeNode);
             mainTableNode.RemoveChild(rowTimeToFixationNode);
             mainTableNode.RemoveChild(rowFixationDurationNode);
+            mainTableNode.RemoveChild(rowFixationCommentNode);
 
             this.SetXMLNodeParagraphData("gross_description", panelSetOrderSurgical.GrossX);
             this.SetXMLNodeParagraphData("client_name", this.m_AccessionOrder.ClientName);
@@ -398,7 +405,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 
             this.HandleERPRStatements();
 
-            this.SaveReport(false);
+            this.SaveReport();
 		}
 
 

@@ -70,12 +70,26 @@ namespace YellowstonePathology.UI.Login
                 this.m_MainWindowCommandButtonHandler.ShowAmendmentDialog += MainWindowCommandButtonHandler_ShowAmendmentDialog;
                 this.m_MainWindowCommandButtonHandler.RemoveTab += MainWindowCommandButtonHandler_RemoveTab;
                 this.m_MainWindowCommandButtonHandler.ShowMessagingDialog += MainWindowCommandButtonHandler_ShowMessagingDialog;
-
+                this.m_MainWindowCommandButtonHandler.ShowCaseDocument += MainWindowCommandButtonHandler_ShowCaseDocument;
+           
                 UI.AppMessaging.MessagingPath.Instance.LockReleasedActionList.Add(this.Save);
                 UI.AppMessaging.MessagingPath.Instance.LockAquiredActionList.Add(this.HandleAccessionOrderListChange);
             }
 
             this.m_LoadedHasRun = true;
+        }
+
+        private void MainWindowCommandButtonHandler_ShowCaseDocument(object sender, EventArgs e)
+        {
+            if (this.m_LoginUI.AccessionOrder != null)
+            {
+                YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_LoginUI.AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_LoginUI.ReportNo);
+                YellowstonePathology.Business.Interface.ICaseDocument caseDocument = YellowstonePathology.Business.Document.DocumentFactory.GetDocument(this.m_LoginUI.AccessionOrder, panelSetOrder, Business.Document.ReportSaveModeEnum.Draft);
+                caseDocument.Render();
+                YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_LoginUI.ReportNo);
+                string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);
+                YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(fileName);
+            }
         }
 
         private void MainWindowCommandButtonHandler_RemoveTab(object sender, EventArgs e)
@@ -174,6 +188,7 @@ namespace YellowstonePathology.UI.Login
             this.m_MainWindowCommandButtonHandler.ShowAmendmentDialog -= MainWindowCommandButtonHandler_ShowAmendmentDialog;
             this.m_MainWindowCommandButtonHandler.RemoveTab -= MainWindowCommandButtonHandler_RemoveTab;
             this.m_MainWindowCommandButtonHandler.ShowMessagingDialog -= MainWindowCommandButtonHandler_ShowMessagingDialog;
+            this.m_MainWindowCommandButtonHandler.ShowCaseDocument -= MainWindowCommandButtonHandler_ShowCaseDocument;
 
             UI.AppMessaging.MessagingPath.Instance.LockReleasedActionList.Remove(this.Save);
             UI.AppMessaging.MessagingPath.Instance.LockAquiredActionList.Remove(this.HandleAccessionOrderListChange);
@@ -941,22 +956,7 @@ namespace YellowstonePathology.UI.Login
                 YellowstonePathology.UI.Login.Receiving.AdditionalTestingEmailPathWithSecurity additionalTestingEmailPath = new Receiving.AdditionalTestingEmailPathWithSecurity(this.m_LoginUI.AccessionOrder, panelSetOrder);
                 additionalTestingEmailPath.Start();
             }
-        }
-
-        private void MenuItemSendBillingHL7_Click(object sender, RoutedEventArgs e)
-        {
-            if (this.ListViewAccessionOrders.SelectedItem != null)
-            {
-                YellowstonePathology.Business.Search.ReportSearchItem reportSearchItem = (YellowstonePathology.Business.Search.ReportSearchItem)this.ListViewAccessionOrders.SelectedItem;
-                YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_LoginUI.AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportSearchItem.ReportNo);
-                Business.Test.PanelSetOrderCPTCodeBill bill = panelSetOrder.PanelSetOrderCPTCodeBillCollection[0];
-                Business.HL7View.EPIC.EPICFT1ResultView resultView = new Business.HL7View.EPIC.EPICFT1ResultView(this.m_LoginUI.AccessionOrder, bill, true);
-
-                Business.Rules.MethodResult result = new Business.Rules.MethodResult();
-                resultView.Send(result);
-                MessageBox.Show(result.Message);
-            }
-        }
+        }        
 
         private void HandleVantageSlideScan(string scanData)
         {

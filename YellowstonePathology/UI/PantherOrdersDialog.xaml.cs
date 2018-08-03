@@ -95,7 +95,13 @@ namespace YellowstonePathology.UI
         {
             PantherAliquotReport pantherAliquotReport = new PantherAliquotReport(this.m_PantherAliquotList);
             pantherAliquotReport.Print();
-        }        
+        }
+
+        private void ButtonPrintPreviouslyRun_Click(object sender, RoutedEventArgs e)
+        {
+            PantherPreviouslyRunReport pantherPreviouslyRunReport = new PantherPreviouslyRunReport(this.m_PantherPreviouslyRunList);
+            pantherPreviouslyRunReport.Print();
+        }
 
         public void NotifyPropertyChanged(String info)
         {
@@ -174,7 +180,7 @@ namespace YellowstonePathology.UI
                     YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(pantherOrderListItem.ReportNo);
                     YellowstonePathology.Business.HL7View.Panther.PantherOrder pantherOrder = new Business.HL7View.Panther.PantherOrder(pantherAssay, specimenOrder, aliquotOrder, accessionOrder, panelSetOrder, YellowstonePathology.Business.HL7View.Panther.PantherActionCode.NewSample);
                     pantherOrder.Send();
-                    //MessageBox.Show("An order has been sent to the Panther.");
+                    panelSetOrder.InstrumentOrderDate = DateTime.Now;                    
                 }
                 else
                 {
@@ -458,6 +464,6 @@ namespace YellowstonePathology.UI
                 }
                 this.NotifyPropertyChanged("PantherTrichomonasOrderList");
             }
-        }
+        }        
     }
 }

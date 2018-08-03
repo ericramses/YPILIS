@@ -48,10 +48,6 @@ namespace YellowstonePathology.UI
         {
             Business.Test.AccessionLockCollection accessionLockCollection = new Business.Test.AccessionLockCollection();
             accessionLockCollection.ClearLocks();
-            if (this.SetLoc == true)
-            {
-                System.Windows.Forms.Application.Restart();
-            }
         }
 
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
@@ -75,15 +71,22 @@ namespace YellowstonePathology.UI
                 Store.AppDataStore.Instance.LoadData();
 
                 Business.Test.AccessionLockCollection accessionLockCollection = new Business.Test.AccessionLockCollection();
-                //accessionLockCollection.ClearLocks();
+                accessionLockCollection.ClearLocks();
 
                 string startUpWindow = string.Empty;
 
-                if (System.Environment.MachineName.ToUpper() == "CUTTINGA" || System.Environment.MachineName.ToUpper() == "CUTTINGB")// || System.Environment.MachineName.ToUpper() == "COMPILE")
+                if (System.Environment.MachineName.ToUpper() == "CUTTINGA" || System.Environment.MachineName.ToUpper() == "CUTTINGB" || System.Environment.MachineName.ToUpper() == "CUTTINGC")// || System.Environment.MachineName.ToUpper() == "COMPILE")
                 {
                     YellowstonePathology.UI.Cutting.CuttingStationPath cuttingStationPath = new Cutting.CuttingStationPath();
                     cuttingStationPath.Start();
                 }
+                /*
+                else if (System.Environment.MachineName.ToUpper() == "CUTTINGC")
+                {
+                    Window2 w = new Window2();
+                    w.ShowDialog();
+                }
+                */
                 else if (System.Environment.MachineName.ToUpper() == "CYTOLOG2") // || System.Environment.MachineName.ToUpper() == "COMPILE")
                 {
                     YellowstonePathology.UI.Cytology.ThinPrepPapSlidePrintingPath thinPrepPapSlidePrintingPath = new Cytology.ThinPrepPapSlidePrintingPath();
@@ -125,7 +128,11 @@ namespace YellowstonePathology.UI
 			this.m_Timer.Dispose();
             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Flush();
             base.OnExit(e);
-		}
+            if (this.SetLoc == true)
+            {
+                System.Windows.Forms.Application.Restart();
+            }
+        }
 
         private void SetupApplicationFolders()
         {            

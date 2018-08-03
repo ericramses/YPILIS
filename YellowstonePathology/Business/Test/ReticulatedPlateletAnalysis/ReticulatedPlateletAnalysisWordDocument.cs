@@ -70,7 +70,7 @@ namespace YellowstonePathology.Business.Test.ReticulatedPlateletAnalysis
             }
             this.SetXmlNodeData("test_result", result);
                             
-            this.SaveReport(false);
+            this.SaveReport();
         }        
     }
 }

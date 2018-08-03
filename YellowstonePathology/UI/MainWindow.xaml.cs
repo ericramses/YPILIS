@@ -943,9 +943,9 @@ namespace YellowstonePathology.UI
             retrospectiveReviews.Show();
         }
 
-        private void MenuItemVentanaStainMapping_Click(object sender, RoutedEventArgs e)
+        private void MenuItemStains_Click(object sender, RoutedEventArgs e)
         {
-            VentanaStainMappingDialog dialog = new UI.VentanaStainMappingDialog();
+            Stain.StainListDialog dialog = new Stain.StainListDialog();
             dialog.Show();
         }
 
@@ -970,6 +970,23 @@ namespace YellowstonePathology.UI
         private void MenuItemUserPreferences_Click(object sender, RoutedEventArgs e)
         {
             Common.UserPreferencesList dlg = new Common.UserPreferencesList(false);
+            dlg.ShowDialog();
+        }
+
+        private void MenuItemWebServiceAccounts_Click(object sender, RoutedEventArgs e)
+        {
+            WebService.WebServiceAccountSelectionDialog dlg = new WebService.WebServiceAccountSelectionDialog();
+            dlg.ShowDialog();
+        }
+
+        private void MenuItemTest_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void MenuItemDictationTemplates_Click(object sender, RoutedEventArgs e)
+        {
+            Gross.DictationTemplateListPage dlg = new Gross.DictationTemplateListPage();
             dlg.ShowDialog();
         }
     }

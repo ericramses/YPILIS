@@ -81,9 +81,10 @@ namespace YellowstonePathology.UI.Login
 				string clientOrderId = this.m_CaseNotesKeyCollection.GetId(YellowstonePathology.Business.Domain.CaseNotesKeyNameEnum.ClientOrderId);
 				this.m_OrderCommentLogCollection.Add(Business.Domain.OrderCommentEnum.ClientOrderAccessioned, this.m_SystemIdentity.User, string.Empty, 0, clientOrderId, string.Empty);
 			}
-			
-			this.FillOrderCommentLog();
-			this.NotifyPropertyChanged("OrderCommentLogCollection");
+
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(this.m_OrderCommentLogCollection[this.m_OrderCommentLogCollection.Count - 1], this);
+
+            this.NotifyPropertyChanged("OrderCommentLogCollection");
 			this.ShowCaseNoteDetailsPage(this.m_OrderCommentLogCollection[this.m_OrderCommentLogCollection.Count - 1]);
 		}
 
@@ -107,7 +108,7 @@ namespace YellowstonePathology.UI.Login
 			}
 		}
 
-		public YellowstonePathology.Business.Domain.OrderCommentLog SelectedOrderCommentLog
+		private YellowstonePathology.Business.Domain.OrderCommentLog SelectedOrderCommentLog
 		{
 			get { return (YellowstonePathology.Business.Domain.OrderCommentLog)this.ListViewOrderCommentList.SelectedItem; }
 		}
@@ -116,7 +117,9 @@ namespace YellowstonePathology.UI.Login
 		{
 			if (SelectedOrderCommentLog != null)
 			{
-				this.ShowCaseNoteDetailsPage(this.SelectedOrderCommentLog);
+                YellowstonePathology.Business.Domain.OrderCommentLog orderCommentLog = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullOrderCommentLog(this.SelectedOrderCommentLog.OrderCommentLogId, this);
+                this.m_OrderCommentLogCollection[this.ListViewOrderCommentList.SelectedIndex] = orderCommentLog;
+                this.ShowCaseNoteDetailsPage(orderCommentLog);
 			}
 		}
 
@@ -129,8 +132,10 @@ namespace YellowstonePathology.UI.Login
 		{
 			if (SelectedOrderCommentLog != null)
 			{
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.DeleteDocument(this.SelectedOrderCommentLog, this);
 				this.m_OrderCommentLogCollection.Remove(this.SelectedOrderCommentLog);
-			}
+
+            }
 		}
 
 		private void ButtonBack_Click(object sender, RoutedEventArgs e)

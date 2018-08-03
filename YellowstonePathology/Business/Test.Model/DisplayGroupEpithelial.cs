@@ -11,17 +11,17 @@ namespace YellowstonePathology.Business.Test.Model
         {
             this.m_GroupName = "Epithelial";            
 
-            this.m_List.Add(new Pancytokeratin());
-            this.m_List.Add(new OSCAR());
-            this.m_List.Add(new Cytokeratin56());
-            this.m_List.Add(new Cytokeratin7());
+            this.m_List.Add((ImmunoHistochemistryTest)YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone("136")); // Pancytokeratin());
+            this.m_List.Add((ImmunoHistochemistryTest)YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone("170")); // OSCAR());
+            this.m_List.Add((ImmunoHistochemistryTest)YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone("89")); // Cytokeratin56());
+            this.m_List.Add((ImmunoHistochemistryTest)YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone("90")); // Cytokeratin7());
             this.m_List.Add(new Cytokeratin17());
-            this.m_List.Add(new Cytokeratin20());
-            this.m_List.Add(new Cytokeratin34());
-            this.m_List.Add(new EMA());
-            this.m_List.Add(new Ecadherin());
-            this.m_List.Add(new P40());
-            this.m_List.Add(new MOC31());
+            this.m_List.Add((ImmunoHistochemistryTest)YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone("87")); // Cytokeratin20());
+            this.m_List.Add((ImmunoHistochemistryTest)YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone("88")); // Cytokeratin34());
+            this.m_List.Add((ImmunoHistochemistryTest)YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone("97")); // EMA());
+            this.m_List.Add((ImmunoHistochemistryTest)YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone("94")); // Ecadherin());
+            this.m_List.Add((ImmunoHistochemistryTest)YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone("359")); // P40());
+            this.m_List.Add((ImmunoHistochemistryTest)YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone("215")); // MOC31());
         }
     }
 }

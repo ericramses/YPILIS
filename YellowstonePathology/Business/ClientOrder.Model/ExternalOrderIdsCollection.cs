@@ -70,6 +70,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 
             return result;
         }
+
         public string GetExternalOrderId(int panelSetId)
         {
             string result = null;
@@ -81,8 +82,13 @@ namespace YellowstonePathology.Business.ClientOrder.Model
                     break;
                 }
             }
-
             return result;
+        }
+
+        public string GetUniversalServiceId(int panelSetId)
+        {
+            ExternalOrderIds externalOrderIds = this.FirstOrDefault(o => o.PanelSetId == panelSetId);
+            return externalOrderIds == null ? null : externalOrderIds.UniversalServiceId;
         }
     }
 }

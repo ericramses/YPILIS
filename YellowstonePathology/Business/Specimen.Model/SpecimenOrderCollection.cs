@@ -16,7 +16,22 @@ namespace YellowstonePathology.Business.Specimen.Model
 		public SpecimenOrderCollection()
 		{
 			this.m_IsLoading = false;
-		}        
+		}  
+        
+        public void UpdateSlideInfo(Business.Test.AccessionOrder ao)
+        {
+            foreach(SpecimenOrder specimenOrder in this)
+            {
+                foreach(Business.Test.AliquotOrder aliquotOrder in specimenOrder.AliquotOrderCollection)
+                {
+                    foreach(Business.Slide.Model.SlideOrder slideOrder in aliquotOrder.SlideOrderCollection)
+                    {
+                        slideOrder.PatientFirstName = ao.PFirstName;
+                        slideOrder.PatientLastName = ao.PLastName;                        
+                    }
+                }
+            }
+        }      
 
         public void RemoveDeleted(IEnumerable<XElement> elements)
         {
@@ -438,7 +453,7 @@ namespace YellowstonePathology.Business.Specimen.Model
         public SpecimenOrderCollection GetNonPAPSpecimen()
         {
             SpecimenOrderCollection result = new SpecimenOrderCollection();
-            YellowstonePathology.Business.Specimen.Model.SpecimenDefinition.ThinPrepFluid thinPrepFluid = new SpecimenDefinition.ThinPrepFluid();
+            YellowstonePathology.Business.Specimen.Model.Specimen thinPrepFluid = SpecimenCollection.Instance.GetSpecimen("SPCMNTHNPRPFLD"); // Definition.ThinPrepFluid();
             foreach (SpecimenOrder specimenOrder in this)
             {
                 if (specimenOrder.SpecimenId != thinPrepFluid.SpecimenId)

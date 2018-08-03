@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
 
         public override void Render()
         {            
-            this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\EGFRALKROS1PDL.1.xml";
+            this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\EGFRALKROS1PDLBRAF.xml";
             this.OpenTemplate();
             this.SetDemographicsV2();
             this.SetReportDistribution();
@@ -93,6 +93,16 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
                 this.DeleteRow("pdl122c3_result");
             }
 
+            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(274) == true)
+            {
+                YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTestOrder brafTestOrder = (YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(274);
+                base.ReplaceText("braf_result", brafTestOrder.Result);
+            }
+            else
+            {
+                this.DeleteRow("braf_result");
+            }
+
             base.SetXMLNodeParagraphData("report_interpretation", egfrToALKReflexAnalysisTestOrder.Interpretation);
 
 			this.ReplaceText("report_date", BaseData.GetShortDateString(egfrToALKReflexAnalysisTestOrder.FinalDate));
@@ -112,12 +122,12 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
 
             this.ReplaceText("tumor_nuclei_percentage", egfrToALKReflexAnalysisTestOrder.TumorNucleiPercentage);
 
-            this.SaveReport(false);
+            this.SaveReport();
         }
         
-        public override void Publish(bool notify)
+        public override void Publish()
         {
-            base.Publish(notify);
+            base.Publish();
         }        
 
     }

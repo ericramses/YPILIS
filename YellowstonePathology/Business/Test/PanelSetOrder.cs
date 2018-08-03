@@ -55,6 +55,7 @@ namespace YellowstonePathology.Business.Test
         protected string m_TechnicalComponentFacilityId;
         protected string m_TechnicalComponentBillingFacilityId;
         protected string m_TechnicalComponentInstrumentId;
+        protected Nullable<DateTime> m_InstrumentOrderDate;
         protected bool m_HasTechnicalComponent;
         protected string m_ProfessionalComponentFacilityId;
         protected string m_ProfessionalComponentBillingFacilityId;
@@ -774,6 +775,21 @@ namespace YellowstonePathology.Business.Test
             }
         }
 
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "3", "null", "datetime")]
+        public Nullable<DateTime> InstrumentOrderDate
+        {
+            get { return this.m_InstrumentOrderDate; }
+            set
+            {
+                if (this.m_InstrumentOrderDate != value)
+                {
+                    this.m_InstrumentOrderDate = value;
+                    this.NotifyPropertyChanged("InstrumentOrderDate");
+                }
+            }
+        }
+
         [MonitorProperty(true)]
         [PersistentProperty()]
         [PersistentDataColumnProperty(true, "50", "null", "varchar")]
@@ -1352,7 +1368,7 @@ namespace YellowstonePathology.Business.Test
 				if (this.m_PublishedDocument == null)
 				{
 					YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_ReportNo);
-					string publishedDocumentName = YellowstonePathology.Business.Document.CaseDocument.GetCaseFileNameXPS(orderIdParser, false);
+					string publishedDocumentName = YellowstonePathology.Business.Document.CaseDocument.GetCaseFileNameXPS(orderIdParser);
 					if (System.IO.File.Exists(publishedDocumentName) == true)
 					{
 						XpsDocument xpsDocument = new XpsDocument(publishedDocumentName, System.IO.FileAccess.Read);

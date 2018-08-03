@@ -25,9 +25,10 @@ namespace YellowstonePathology.UI
         private bool m_AddingVentanaBenchMark;
 
         private Business.Surgical.VentanaBenchMark m_VentanaBenchMark;
-        public VentanaStainEditDialog(int barcodeNumber)
+
+        public VentanaStainEditDialog(string ventanaBenchMarkId)
         {
-            this.m_VentanaBenchMark = Business.Persistence.DocumentGateway.Instance.PullVentanaBenchMark(barcodeNumber, this);
+            this.m_VentanaBenchMark = Business.Persistence.DocumentGateway.Instance.PullVentanaBenchMark(ventanaBenchMarkId, this);
             this.m_AddingVentanaBenchMark = false;
             InitializeComponent();
             DataContext = this;
@@ -53,13 +54,12 @@ namespace YellowstonePathology.UI
             {
                 if (this.m_AddingVentanaBenchMark == true)
                 {
+                    string id = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
+                    this.m_VentanaBenchMark.VentanaBenchMarkId = id;
                     YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(this.m_VentanaBenchMark, this);
                 }
-                else
-                {
-                    Business.Persistence.DocumentGateway.Instance.Push(this);
-                }
 
+                Business.Persistence.DocumentGateway.Instance.Push(this);
                 this.Accept(this, new EventArgs());
                 Close();
             }

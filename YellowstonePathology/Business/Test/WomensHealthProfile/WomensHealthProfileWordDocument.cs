@@ -65,7 +65,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
             this.SetReportDistribution();
             this.SetCaseHistory();
 
-            this.SaveReport(false);
+            this.SaveReport();
         }
 
 		private void SetCurrentPapResults()
@@ -368,9 +368,9 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
 			}
 		}
 
-		public override void Publish(bool notify)
+		public override void Publish()
         {
-			base.Publish(notify);
+			base.Publish();
 		}
 	}
 }

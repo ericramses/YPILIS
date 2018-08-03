@@ -266,5 +266,11 @@ namespace YellowstonePathology.UI.Login
             this.m_LoginUI.GetReportSearchListByInvalidFinal();
             Window.GetWindow(this).Close();
         }
+
+        private void ButtonPendingTests_Click(object sender, RoutedEventArgs e)
+        {
+            this.m_LoginUI.GetReportSearchListByPendingTests();
+            Window.GetWindow(this).Close();
+        }
     }
 }

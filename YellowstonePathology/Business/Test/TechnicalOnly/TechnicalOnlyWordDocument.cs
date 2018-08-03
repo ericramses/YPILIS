@@ -19,7 +19,7 @@ namespace YellowstonePathology.Business.Test.TechnicalOnly
             //Do Nothing
         }
 
-        public void Publish(bool notify)
+        public void Publish()
         {
             //Do Nothing
         }

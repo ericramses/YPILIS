@@ -8,16 +8,18 @@ namespace YellowstonePathology.Business.Task.Model
     {
         private string m_FaxNumber;
         private string m_SendToName;
+        private string m_DocumentName;
 
         public TaskOrderDetailFax()
         {
         }
 
-        public TaskOrderDetailFax(string taskOrderDetailId, string taskOrderId, string objectId, Task task, int clientId) 
+        public TaskOrderDetailFax(string taskOrderDetailId, string taskOrderId, string objectId, TaskFax task, int clientId) 
             : base(taskOrderDetailId, taskOrderId, objectId, task, clientId)
         {
             TaskFax taskFax = (Model.TaskFax)task;
             this.TaskId = taskFax.TaskId;
+            this.m_DocumentName = task.DocumentName;
         }
 
         [PersistentProperty()]
@@ -46,6 +48,21 @@ namespace YellowstonePathology.Business.Task.Model
                 {
                     this.m_SendToName = value;
                     this.NotifyPropertyChanged("SendToName");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
+        public string DocumentName
+        {
+            get { return this.m_DocumentName; }
+            set
+            {
+                if (this.m_DocumentName != value)
+                {
+                    this.m_DocumentName = value;
+                    this.NotifyPropertyChanged("DocumentName");
                 }
             }
         }

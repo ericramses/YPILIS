@@ -4,6 +4,6 @@
         Title="Test Page" Height="800" Width="1090" FontSize="12"
 		WindowStyle="ToolWindow" WindowStartupLocation="CenterScreen">
     <Grid>
-        <ContentControl Name="MainContent" ></ContentControl>
+        <Button Click="ButtonGo_Click">GO</Button>
     </Grid>
 </Window>

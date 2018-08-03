@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.Test.SlideTracking
             this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.None;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterT();
             this.m_Active = true;
-            this.m_IsBillable = false;
+            this.m_IsBillable = true;
             this.m_EnforceOrderTarget = false;
             this.m_HasNoOrderTarget = true;
             this.m_IsClientAccessioned = true;

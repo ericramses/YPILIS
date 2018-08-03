@@ -722,14 +722,24 @@ namespace YellowstonePathology.Business.Test.LLP
 		public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
             StringBuilder result = new StringBuilder();
-                        
-            result.AppendLine("Impression:");
-            result.AppendLine(this.m_Impression);
-            result.AppendLine();
 
-            result.AppendLine("Interpretive Comment:");
-            result.AppendLine(this.m_InterpretiveComment);
+            if (this.PanelSetId == 21)
+            {
+                foreach (YellowstonePathology.Business.Flow.FlowMarkerItem markerItem in this.FlowMarkerCollection)
+                {
+                    result.AppendLine(markerItem.Name + ":  " + markerItem.Result);
+                    result.AppendLine();
+                }
+            }
+            else
+            {
+                result.AppendLine("Impression:");
+                result.AppendLine(this.m_Impression);
+                result.AppendLine();
 
+                result.AppendLine("Interpretive Comment:");
+                result.AppendLine(this.m_InterpretiveComment);
+            }
             return result.ToString().Trim();
         }
     }

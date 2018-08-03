@@ -210,7 +210,7 @@ namespace YellowstonePathology.Business.Gateway
         {
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT a.MasterAccessionNo, pso.ReportNo, pso.PanelSetId, pso.FinalDate, pso.PanelSetName, psos.ReportNo as SurgicalReportNo, sus.DisplayName as SurgicalFinaledBy, psos.FinalDate as SurgicalFinalDate " +
+            cmd.CommandText = "SELECT a.MasterAccessionNo, pso.ReportNo, pso.PanelSetId, pso.OrderDate, pso.FinalDate, pso.PanelSetName, psos.ReportNo as SurgicalReportNo, sus.DisplayName as SurgicalFinaledBy, psos.FinalDate as SurgicalFinalDate " +
                 "FROM tblAccessionOrder a " +
                 "JOIN tblPanelSetOrder pso ON a.MasterAccessionNo = pso.MasterAccessionNo " +
                 "join tblPanelSetOrder psos on a.MasterAccessionNo = psos.MasterAccessionNo " +
@@ -220,6 +220,41 @@ namespace YellowstonePathology.Business.Gateway
                 "and exists (select null from tblPanelSetOrder where MasterAccessionNo = a.MasterAccessionNo and PanelSetId = 13 and FinalDate = @FinalDate) " +
 	            "ORDER BY AccessionTime desc; ";
             cmd.Parameters.AddWithValue("@FinalDate", finalDate);
+
+            UI.RetrospectiveReviewList result = new UI.RetrospectiveReviewList();
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        UI.RetrospectiveReviewListItem item = new UI.RetrospectiveReviewListItem();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(item, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(item);
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        public static YellowstonePathology.UI.RetrospectiveReviewList GetRetrospectiveReviewKillList()
+        {
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT a.MasterAccessionNo, pso.ReportNo, pso.PanelSetId, pso.FinalDate, pso.PanelSetName, psos.ReportNo as SurgicalReportNo, " +
+                "sus.DisplayName as SurgicalFinaledBy, psos.FinalDate as SurgicalFinalDate " +
+                "FROM tblAccessionOrder a " +
+                "JOIN tblPanelSetOrder pso ON a.MasterAccessionNo = pso.MasterAccessionNo " +
+                "join tblPanelSetOrder psos on a.MasterAccessionNo = psos.MasterAccessionNo " +
+                "Left Outer Join tblSystemUser su on pso.OrderedById = su.UserId " +
+                "join tblSystemUser sus on psos.FinaledById = sus.UserId " +
+                "WHERE pso.PanelSetId = 262 and psos.PanelSetId = 13 " +
+                "and pso.Final = 0 and pso.ExpectedFinalTime <= curdate() " +
+                "ORDER BY AccessionTime desc; ";            
 
             UI.RetrospectiveReviewList result = new UI.RetrospectiveReviewList();
             using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
@@ -485,6 +520,21 @@ namespace YellowstonePathology.Business.Gateway
                 "FROM tblAccessionOrder a JOIN tblPanelSetOrder pso ON a.MasterAccessionNo = pso.MasterAccessionNo " +
                 "Left Outer Join tblSystemUser su on pso.OrderedById = su.UserId " +
                 "WHERE pso.Final = 1 and pso.FinaledById = 0 and pso.Signature is null order by pso.PanelSetId, pso.ReportNo;";
+            Search.ReportSearchList reportSearchList = BuildReportSearchList(cmd);
+            return reportSearchList;
+        }
+
+        public static YellowstonePathology.Business.Search.ReportSearchList GetReportSearchListByPendingTests()
+        {
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT pso.MasterAccessionNo, pso.ReportNo, a.AccessionTime AccessionDate,  pso.PanelSetId, " +
+                "concat(a.PFirstName, ' ', a.PLastName) AS PatientName, " +
+                "a.PLastName, a.PFirstName, a.ClientName, a.PhysicianName, a.PBirthdate,  pso.FinalDate, pso.PanelSetName, su.UserName as OrderedBy, " +
+                "'' ForeignAccessionNo " +
+                "FROM tblAccessionOrder a JOIN tblPanelSetOrder pso ON a.MasterAccessionNo = pso.MasterAccessionNo " +
+                "Left Outer Join tblSystemUser su on pso.OrderedById = su.UserId " +
+                "WHERE pso.Final = 0 and pso.ExpectedFinalTime < curdate() order by pso.PanelSetId, pso.ReportNo;";
             Search.ReportSearchList reportSearchList = BuildReportSearchList(cmd);
             return reportSearchList;
         }

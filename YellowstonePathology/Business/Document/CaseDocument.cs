@@ -178,9 +178,9 @@ namespace YellowstonePathology.Business.Document
 		public virtual void Show(System.Windows.Controls.ContentControl contentControl, object writer)
 		{
 
-		}
+		}        
 
-		public static void PrintWordDoc(YellowstonePathology.Business.OrderIdParser orderIdParser)
+        public static void PrintWordDoc(YellowstonePathology.Business.OrderIdParser orderIdParser)
         {            
             Microsoft.Office.Interop.Word.Application oWord;
             Object oMissing = System.Reflection.Missing.Value;
@@ -275,8 +275,9 @@ namespace YellowstonePathology.Business.Document
 			string path = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser);
 			path = path + orderIdParser.ReportNo + ".DRAFT.DOCX";
             return path;
-        }
+        }        
 
+        /*
         public static void SaveXMLAsDocFromFileName(string fileName)
         {
             Microsoft.Office.Interop.Word.Application oWord;
@@ -295,8 +296,7 @@ namespace YellowstonePathology.Business.Document
                 File.Delete(docFileName.ToString());
             }
             catch (Exception)
-            {
-                //System.Windows.MessageBox.Show("This file is locked and cannot be published at this time: " + reportNo);
+            {                
                 oWord.Quit(ref oFalse, ref oMissing, ref oMissing);
             }
 
@@ -317,8 +317,45 @@ namespace YellowstonePathology.Business.Document
 			oWord.Quit(ref oFalse, ref oMissing, ref oMissing);
 			CaseDocument.ReleaseComObject(oWord);
 		}
+        */
 
-		public static void SaveXMLAsDoc(YellowstonePathology.Business.OrderIdParser orderIdParser, bool notify)
+        /*
+        public static void ConvertDocumentTo(YellowstonePathology.Business.OrderIdParser orderIdParser, CaseDocumentTypeEnum caseDocumentType,
+            CaseDocumentFileTypeEnnum fromType, CaseDocumentFileTypeEnnum toType)
+        {
+            //CaseDocument.SaveXMLAsDoc(orderIdParser);                   
+            //CaseDocument.SaveDocAsXPS(orderIdParser);     
+
+            string filePath = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + orderIdParser.ReportNo;            
+
+            switch (caseDocumentType)
+            {
+                case CaseDocumentTypeEnum.CaseReport:
+                    //do nothing
+                    break;
+                case CaseDocumentTypeEnum.AdditionalTestingNotification:
+                    filePath = filePath + ".notify";
+                    break;
+                case CaseDocumentTypeEnum.PreauthorizationRequest:
+                    filePath = filePath + ".preauth";
+                    break;
+            }             
+            
+            if(fromType == CaseDocumentFileTypeEnnum.xml && toType == CaseDocumentFileTypeEnnum.doc)
+            {
+                ConvertXMLToDoc(filePath + ".xml", filePath + ".doc");
+            }
+            else if (fromType == CaseDocumentFileTypeEnnum.doc && toType == CaseDocumentFileTypeEnnum.xps)
+            {
+                ConvertDocToXPS(filePath + ".doc", filePath + ".xps");
+            }
+            else if (fromType == CaseDocumentFileTypeEnnum.xps && toType == CaseDocumentFileTypeEnnum.tif)
+            {
+                ConvertDocToXPS(filePath + ".xps", filePath + ".tif");
+            }
+        }
+
+        public static void ConvertXMLToDoc(object xmlFileName, object docFileName)
         {
             Microsoft.Office.Interop.Word.Application oWord;
             Object oMissing = System.Reflection.Missing.Value;
@@ -326,12 +363,7 @@ namespace YellowstonePathology.Business.Document
             Object oFalse = false;
 
             oWord = new Microsoft.Office.Interop.Word.Application();
-            oWord.Visible = false;
-
-			Object xmlFileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + orderIdParser.ReportNo + ".xml";
-            if (notify) xmlFileName = xmlFileName.ToString().Replace(".xml", ".notify.xml");
-			Object docFileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + orderIdParser.ReportNo + ".doc";
-            if (notify) docFileName = docFileName.ToString().Replace(".doc", ".notify.doc");
+            oWord.Visible = false;			
 
             try
             {
@@ -360,7 +392,7 @@ namespace YellowstonePathology.Business.Document
 			CaseDocument.ReleaseComObject(oWord);
 		}
 
-		public static void SaveXMLAsPDF(YellowstonePathology.Business.OrderIdParser orderIdParser, bool notify)
+        public static void ConvertDocToXPS(object docFileName, object xpsFileName)
         {
             Microsoft.Office.Interop.Word.Application oWord;
             Object oMissing = System.Reflection.Missing.Value;
@@ -370,30 +402,84 @@ namespace YellowstonePathology.Business.Document
             oWord = new Microsoft.Office.Interop.Word.Application();
             oWord.Visible = false;
 
-			Object xmlFileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + orderIdParser.ReportNo + ".xml";
-            if (notify) xmlFileName = xmlFileName.ToString().Replace(".xml", ".notify.xml");
-			Object docFileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + orderIdParser.ReportNo + ".pdf";
-            if (notify) docFileName = docFileName.ToString().Replace(".pdf", ".notify.pdf");
+            string currentPrinter = oWord.ActivePrinter;
+            oWord.ActivePrinter = "Microsoft XPS Document Writer";            
+
+            Object fileFormat = "wdFormatDocument";
+
+            if (System.IO.File.Exists(docFileName.ToString()) == true)
+            {
+                Microsoft.Office.Interop.Word.Document doc = oWord.Documents.Open(ref docFileName, ref oMissing, ref oMissing,
+                        ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing,
+                        ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing);
+
+                object oOutputFile = xpsFileName;
+                doc.PrintOut(ref oFalse, ref oFalse, ref oMissing, ref oOutputFile, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing,
+                    ref oTrue, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing);
+
+                CaseDocument.ReleaseComObject(doc);
+            }
+
+            oWord.ActivePrinter = currentPrinter;
+            oWord.Quit(ref oFalse, ref oMissing, ref oMissing);
+            CaseDocument.ReleaseComObject(oWord);
+        }
+
+        public static void ConvertXPSToTIF(string xpsFileName, string tifFileName)
+        {
+            XpsDocument xd = new XpsDocument(xpsFileName, System.IO.FileAccess.Read);
+            FixedDocumentSequence fds = xd.GetFixedDocumentSequence();
+            DocumentPaginator paginator = fds.DocumentPaginator;
+            System.Windows.Media.Visual visual = paginator.GetPage(0).Visual;
+
+            System.Windows.FrameworkElement fe = (System.Windows.FrameworkElement)visual;
+
+            int multiplyFactor = 4;            
+
+            RenderTargetBitmap bmp = new RenderTargetBitmap(
+                (int)fe.ActualWidth * multiplyFactor,
+                (int)fe.ActualHeight * multiplyFactor,
+                96d * multiplyFactor,
+                96d * multiplyFactor,
+                System.Windows.Media.PixelFormats.Default);
+            bmp.Render(fe);
+
+            TiffBitmapEncoder tff = new TiffBitmapEncoder();
+            tff.Frames.Add(BitmapFrame.Create(bmp));
+
+            using (Stream stream = File.Create(tifFileName))
+            {
+                tff.Save(stream);
+            }
+        }
+
+        public static void ConvertXMLToPDF(object xmlFilename, object pdfFileName)
+        {
+            Microsoft.Office.Interop.Word.Application oWord;
+            Object oMissing = System.Reflection.Missing.Value;
+            Object oTrue = true;
+            Object oFalse = false;
+
+            oWord = new Microsoft.Office.Interop.Word.Application();
+            oWord.Visible = false;
 
             try
             {
-                File.Delete(docFileName.ToString());
+                File.Delete(pdfFileName.ToString());
             }
             catch (Exception)
             {
                 //System.Windows.MessageBox.Show("This file is locked and cannot be published at this time: " + reportNo);
                 oWord.Quit(ref oFalse, ref oMissing, ref oMissing);
-            }
+            }            
 
-            //Object fileFormat = "wdFormatPDF";
-
-            Microsoft.Office.Interop.Word.Document doc = oWord.Documents.Open(ref xmlFileName, ref oMissing, ref oMissing,
+            Microsoft.Office.Interop.Word.Document doc = oWord.Documents.Open(ref xmlFilename, ref oMissing, ref oMissing,
                  ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing,
                  ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing);
 
             object oFmt = Microsoft.Office.Interop.Word.WdSaveFormat.wdFormatPDF;
 
-            doc.SaveAs(ref docFileName, ref oFmt, ref oMissing, ref oMissing, ref oMissing,
+            doc.SaveAs(ref pdfFileName, ref oFmt, ref oMissing, ref oMissing, ref oMissing,
                 ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing,
                 ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing);            
 
@@ -402,7 +488,9 @@ namespace YellowstonePathology.Business.Document
 			oWord.Quit(ref oFalse, ref oMissing, ref oMissing);
 			CaseDocument.ReleaseComObject(oWord);
 		}
+        */
 
+        /*
 		public static void SaveDOCXAsDoc(YellowstonePathology.Business.OrderIdParser orderIdParser)
         {
             Microsoft.Office.Interop.Word.Application oWord;
@@ -442,75 +530,10 @@ namespace YellowstonePathology.Business.Document
 			CaseDocument.ReleaseComObject(doc);
 			oWord.Quit(ref oFalse, ref oMissing, ref oMissing);
 			CaseDocument.ReleaseComObject(oWord);
-		}
+		}    
+        */    	
 
-        public static void SaveXPSAsTIF(string fileName)
-        {
-            XpsDocument xd = new XpsDocument(fileName, System.IO.FileAccess.Read);
-            FixedDocumentSequence fds = xd.GetFixedDocumentSequence();
-            DocumentPaginator paginator = fds.DocumentPaginator;
-            System.Windows.Media.Visual visual = paginator.GetPage(0).Visual;
-
-            System.Windows.FrameworkElement fe = (System.Windows.FrameworkElement)visual;
-
-            int multiplyFactor = 4;
-            string outputPath = fileName.Replace(".xps", ".tif");
-
-            RenderTargetBitmap bmp = new RenderTargetBitmap(
-                (int)fe.ActualWidth * multiplyFactor,
-                (int)fe.ActualHeight * multiplyFactor,
-                96d * multiplyFactor,
-                96d * multiplyFactor,
-                System.Windows.Media.PixelFormats.Default);
-            bmp.Render(fe);
-
-            TiffBitmapEncoder tff = new TiffBitmapEncoder();
-            tff.Frames.Add(BitmapFrame.Create(bmp));
-
-            using (Stream stream = File.Create(outputPath))
-            {
-                tff.Save(stream);
-            }
-        }
-
-		public static void SaveDocAsXPS(YellowstonePathology.Business.OrderIdParser orderIdParser, bool notify)
-        {
-            Microsoft.Office.Interop.Word.Application oWord;
-            Object oMissing = System.Reflection.Missing.Value;
-            Object oTrue = true;
-            Object oFalse = false;
-
-            oWord = new Microsoft.Office.Interop.Word.Application();
-            oWord.Visible = false;
-
-            string currentPrinter = oWord.ActivePrinter;
-            oWord.ActivePrinter = "Microsoft XPS Document Writer";
-            
-            Object docFileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + orderIdParser.ReportNo + ".doc";
-            if (notify) docFileName = docFileName.ToString().Replace(".doc", ".notify.doc");
-            Object xpsFileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + orderIdParser.ReportNo + ".xps";
-            if (notify) xpsFileName = xpsFileName.ToString().Replace(".xps", ".notify.xps");
-
-            Object fileFormat = "wdFormatDocument";
-			            
-            if (System.IO.File.Exists(docFileName.ToString()) == true)
-            {
-                Microsoft.Office.Interop.Word.Document doc = oWord.Documents.Open(ref docFileName, ref oMissing, ref oMissing,
-                        ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing,
-                        ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing);
-
-                object oOutputFile = xpsFileName;
-                doc.PrintOut(ref oFalse, ref oFalse, ref oMissing, ref oOutputFile, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing,
-                    ref oTrue, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing);
-
-				CaseDocument.ReleaseComObject(doc);
-			}
-            
-			oWord.ActivePrinter = currentPrinter;
-            oWord.Quit(ref oFalse, ref oMissing, ref oMissing);
-			CaseDocument.ReleaseComObject(oWord);                			
-        }
-
+        /*
         public static void SaveXMLAsXPS(object xmlFileName)
         {
             Microsoft.Office.Interop.Word.Application oWord;
@@ -545,7 +568,9 @@ namespace YellowstonePathology.Business.Document
             oWord.Quit(ref oFalse, ref oMissing, ref oMissing);
             CaseDocument.ReleaseComObject(oWord);
         }
+        */
 
+        /*
         public static void SaveDocAsXPS2(object docFileName, object xpsFileName)
         {
             Microsoft.Office.Interop.Word.Application oWord;
@@ -557,10 +582,7 @@ namespace YellowstonePathology.Business.Document
             oWord.Visible = false;
 
             string currentPrinter = oWord.ActivePrinter;
-            oWord.ActivePrinter = "Microsoft XPS Document Writer";
-
-            //Object docFileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + orderIdParser.ReportNo + ".doc";
-            //Object xpsFileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + orderIdParser.ReportNo + ".xps";
+            oWord.ActivePrinter = "Microsoft XPS Document Writer";            
 
             Object fileFormat = "wdFormatDocument";
 
@@ -582,7 +604,9 @@ namespace YellowstonePathology.Business.Document
             oWord.Quit(ref oFalse, ref oMissing, ref oMissing);
             CaseDocument.ReleaseComObject(oWord);
         }
+        */
 
+        /*
         public static int WriteTiffPages(YellowstonePathology.Business.OrderIdParser orderIdParser, long reportDistributionLogId)
         {
             Microsoft.Office.Interop.Word.Application oWord;
@@ -625,7 +649,9 @@ namespace YellowstonePathology.Business.Document
 
             return pages;
         }
+        */
 
+        /*
         public static string WriteTiffPages(string wordDoc, OrderIdParser orderIdParser)
         {
             Microsoft.Office.Interop.Word.Application oWord;
@@ -668,6 +694,7 @@ namespace YellowstonePathology.Business.Document
 
             return oOutputFile.ToString();
         }
+        */
 
         public static string GetCaseDocumentFullPath(YellowstonePathology.Business.OrderIdParser orderIdParser)
         {
@@ -744,30 +771,45 @@ namespace YellowstonePathology.Business.Document
             return fileName;
         }
 
-		public static string GetCaseFileNameXPS(YellowstonePathology.Business.OrderIdParser orderIdParser, bool notify)
+		public static string GetCaseFileNameXPS(YellowstonePathology.Business.OrderIdParser orderIdParser)
         {
-			string fileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + orderIdParser.ReportNo + ".xps";
-            if (notify) fileName = fileName.Replace(".xps", ".notify.xps");
+			string fileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + orderIdParser.ReportNo + ".xps";            
             return fileName;
         }
 
-		public static string GetCaseFileNamePDF(YellowstonePathology.Business.OrderIdParser orderIdParser, bool notify)
+		public static string GetCaseFileNamePDF(YellowstonePathology.Business.OrderIdParser orderIdParser)
         {
-			string fileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + orderIdParser.ReportNo + ".pdf";
-            if (notify) fileName = fileName.Replace(".pdf", ".notify.pdf");
+			string fileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + orderIdParser.ReportNo + ".pdf";            
             return fileName;
         }
 
-		public static string GetCaseFileNameTif(YellowstonePathology.Business.OrderIdParser orderIdParser, bool notify)
+		public static string GetCaseFileNameTif(YellowstonePathology.Business.OrderIdParser orderIdParser)
         {
-			string fileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + orderIdParser.ReportNo + ".tif";
-            if (notify) fileName = fileName.Replace(".tif", ".notify.tif");
+			string fileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + orderIdParser.ReportNo + ".tif";            
             return fileName;
         }
 
-        public static string GetCaseFileNameAdditionalTestingNotifyTif(YellowstonePathology.Business.OrderIdParser orderIdParser)
+        public static string GetCaseFileNameTifNotify(YellowstonePathology.Business.OrderIdParser orderIdParser)
         {
-            string fileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + orderIdParser.ReportNo + "notify.tif";
+            string fileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + orderIdParser.ReportNo + ".notify.tif";
+            return fileName;
+        }
+
+        public static string GetCaseFileNameXMLNotify(YellowstonePathology.Business.OrderIdParser orderIdParser)
+        {
+            string fileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + orderIdParser.ReportNo + ".notify.xml";
+            return fileName;
+        }
+
+        public static string GetCaseFileNameTifPreAuth(YellowstonePathology.Business.OrderIdParser orderIdParser)
+        {
+            string fileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + orderIdParser.ReportNo + ".preauth.tif";
+            return fileName;
+        }
+
+        public static string GetCaseFileNameXMLPreAuth(YellowstonePathology.Business.OrderIdParser orderIdParser)
+        {
+            string fileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + orderIdParser.ReportNo + ".preauth.xml";
             return fileName;
         }
 
@@ -789,7 +831,7 @@ namespace YellowstonePathology.Business.Document
             return fileName;
         }
 
-		private static void ReleaseComObject(object o)
+		public static void ReleaseComObject(object o)
 		{
 			try
 			{
@@ -809,9 +851,9 @@ namespace YellowstonePathology.Business.Document
 
 			string xmlFile = GetCaseFileNameXml(orderIdParser);
 			string docFile = GetCaseFileNameDoc(orderIdParser);
-			string xpsFile = GetCaseFileNameXPS(orderIdParser, false);
-			string tifFile = GetCaseFileNameTif(orderIdParser, false);
-			string pdfFile = GetCaseFileNamePDF(orderIdParser, false);
+			string xpsFile = GetCaseFileNameXPS(orderIdParser);
+			string tifFile = GetCaseFileNameTif(orderIdParser);
+			string pdfFile = GetCaseFileNamePDF(orderIdParser);
 
             try
             {

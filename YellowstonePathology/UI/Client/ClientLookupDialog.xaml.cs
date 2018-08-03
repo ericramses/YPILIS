@@ -24,11 +24,13 @@ namespace YellowstonePathology.UI.Client
 
         private YellowstonePathology.Business.Client.Model.ClientCollection m_ClientCollection;
         private YellowstonePathology.Business.Client.Model.Client m_Client;
+        
+
         public ClientLookupDialog()
-        {
+        {            
             InitializeComponent();
             this.DataContext = this;
-        }
+        }        
 
         public void NotifyPropertyChanged(String info)
         {

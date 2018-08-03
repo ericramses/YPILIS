@@ -13,7 +13,7 @@ namespace YellowstonePathology.Business.Test.HPV
 		private string m_Result;
 		private string m_Comment;
 		private string m_TestInformation;
-        private string m_ASRComment;
+        private string m_ASRComment;        
 
 		public HPVTestOrder()
 		{
@@ -90,7 +90,7 @@ namespace YellowstonePathology.Business.Test.HPV
                     this.NotifyPropertyChanged("ASRComment");
                 }
             }
-        }
+        }        
 
         public override string GetResultWithTestName()
 		{

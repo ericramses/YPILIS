@@ -22,6 +22,11 @@ namespace YellowstonePathology.Business.Test.Model
             this.m_HasCptCodeLevels = false;
         }
 
+        public CytochemicalForMicroorganisms(Stain.Model.Stain stain)
+            : base(stain)
+        {
+        }
+
         public override YellowstonePathology.Business.Billing.Model.CptCode GetCptCode(bool isTechnicalOnly)
         {
             YellowstonePathology.Business.Billing.Model.CptCode result = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88312", null);

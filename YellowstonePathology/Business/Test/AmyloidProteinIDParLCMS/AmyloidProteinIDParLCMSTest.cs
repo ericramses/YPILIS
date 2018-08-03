@@ -33,10 +33,7 @@ namespace YellowstonePathology.Business.Test.AmyloidProteinIDParLCMS
             this.m_TechnicalComponentBillingFacility = facility;
 
             this.m_ProfessionalComponentFacility = facility;
-            this.m_ProfessionalComponentBillingFacility = facility;
-
-            //this.m_HasSplitCPTCode = false;
-            //this.m_RequiresAssignment = true;
+            this.m_ProfessionalComponentBillingFacility = facility;            
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMiscellaneous());
         }

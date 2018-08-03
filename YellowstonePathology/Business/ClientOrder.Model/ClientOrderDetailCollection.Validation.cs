@@ -6,7 +6,7 @@ using System.Text;
 namespace YellowstonePathology.Business.ClientOrder.Model
 {
 	public partial class ClientOrderDetailCollection
-	{
+	{        
 		public YellowstonePathology.Business.Validation.ValidationResult IsContainerIdNotADuplicate(string clientOrderDetailId, string containerId)
 		{
 			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();

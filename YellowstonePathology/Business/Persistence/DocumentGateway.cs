@@ -328,22 +328,6 @@ namespace YellowstonePathology.Business.Persistence
             }
         }
 
-        public YellowstonePathology.Business.Surgical.VentanaBenchMark PullVentanaBenchMark(int barcodeNumber, object writer)
-        {
-            lock (locker)
-            {
-                MySqlCommand cmd = new MySqlCommand();
-                cmd.CommandText = "Select * from tblVentanaBenchMark m where m.BarcodeNumber = @BarcodeNumber;";
-                cmd.CommandType = CommandType.Text;
-                cmd.Parameters.AddWithValue("@BarcodeNumber", barcodeNumber);
-                GenericDocumentBuilder builder = new GenericDocumentBuilder(cmd, typeof(YellowstonePathology.Business.Surgical.VentanaBenchMark));
-
-                DocumentId documentId = new DocumentId(typeof(YellowstonePathology.Business.Surgical.VentanaBenchMark), writer, barcodeNumber);
-                Document document = this.m_Stack.Pull(documentId, builder);
-                return (YellowstonePathology.Business.Surgical.VentanaBenchMark)document.Value;
-            }
-        }
-
         public YellowstonePathology.Business.Facility.Model.Facility PullFacility(string facilityId, object writer)
         {
             lock (locker)
@@ -357,6 +341,34 @@ namespace YellowstonePathology.Business.Persistence
                 DocumentId documentId = new DocumentId(typeof(YellowstonePathology.Business.Facility.Model.Facility), writer, facilityId);
                 Document document = this.m_Stack.Pull(documentId, builder);
                 return (YellowstonePathology.Business.Facility.Model.Facility)document.Value;
+            }
+        }
+
+        public YellowstonePathology.Business.WebService.WebServiceAccount PullWebServiceAccount(int webServiceAccountId, object writer)
+        {
+            lock (locker)
+            {
+                WebServiceAccountDocumentBuilder builder = new WebServiceAccountDocumentBuilder(webServiceAccountId);
+
+                DocumentId documentId = new DocumentId(typeof(YellowstonePathology.Business.WebService.WebServiceAccount), writer, webServiceAccountId);
+                Document document = this.m_Stack.Pull(documentId, builder);
+                return (YellowstonePathology.Business.WebService.WebServiceAccount)document.Value;
+            }
+        }
+
+        public YellowstonePathology.Business.Domain.OrderCommentLog PullOrderCommentLog(string orderCommentLogId, object writer)
+        {
+            lock (locker)
+            {
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.CommandText = "SELECT * from tblOrderCommentLog where OrderCommentLogId = @OrderCommentLogId;";
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("@OrderCommentLogId", orderCommentLogId);
+                GenericDocumentBuilder builder = new GenericDocumentBuilder(cmd, typeof(YellowstonePathology.Business.Domain.OrderCommentLog));
+
+                DocumentId documentId = new DocumentId(typeof(YellowstonePathology.Business.Domain.OrderCommentLog), writer, orderCommentLogId);
+                Document document = this.m_Stack.Pull(documentId, builder);
+                return (YellowstonePathology.Business.Domain.OrderCommentLog)document.Value;
             }
         }
     }

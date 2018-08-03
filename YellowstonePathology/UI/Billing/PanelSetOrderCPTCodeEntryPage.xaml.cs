@@ -29,9 +29,12 @@ namespace YellowstonePathology.UI.Billing
         private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
         private YellowstonePathology.Business.Test.PanelSetOrderCPTCode m_PanelSetOrderCPTCode;
 		private YellowstonePathology.Business.Billing.Model.CptCodeCollection m_CptCodeCollection;
+        private int m_ClientId;
 
         public PanelSetOrderCPTCodeEntryPage(YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder, int clientId)
         {
+            this.m_ClientId = clientId;
+
             this.m_PanelSetOrder = panelSetOrder;
             this.m_PanelSetOrderCPTCode = this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.GetNextItem(panelSetOrder.ReportNo);
             this.m_PanelSetOrderCPTCode.Quantity = 1;
@@ -83,13 +86,47 @@ namespace YellowstonePathology.UI.Billing
 		}
 
 		private void ButtonNext_Click(object sender, RoutedEventArgs e)
-		{
+		{           
+            
             if (this.OkToAddPanelSetOrderCPTCode() == true)
             {
                 this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.Add(this.m_PanelSetOrderCPTCode);
                 if (this.Next != null) this.Next(this, new EventArgs());
-            }			
-		}
+            }                  
+            
+
+            /*
+            List<string> listA = new List<string>();
+            using (var reader = new System.IO.StreamReader(@"D:\git\cdm.csv"))
+            {                
+                while (!reader.EndOfStream)
+                {
+                    var line = reader.ReadLine();
+                    var values = line.Split(',');
+
+                    listA.Add(values[0]);                    
+                }
+            }
+            
+            foreach(string cpt in listA)
+            {
+                Business.Billing.Model.CptCode cptCode = this.m_CptCodeCollection.GetClone(cpt, null);
+                if (this.m_CptCodeCollection.Exists(cpt) == true)
+                {                    
+                    YellowstonePathology.Business.Test.PanelSetOrderCPTCode panelSetOrderCPTCode = this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.GetNextItem(this.m_PanelSetOrder.ReportNo);
+                    panelSetOrderCPTCode.CPTCode = cptCode.Code;
+                    panelSetOrderCPTCode.Modifier = cptCode.Modifier == null ? null : cptCode.Modifier.Modifier;
+                    panelSetOrderCPTCode.CodeType = cptCode.CodeType.ToString();
+                    panelSetOrderCPTCode.Quantity = 1;
+                    panelSetOrderCPTCode.ClientId = this.m_ClientId;
+                    panelSetOrderCPTCode.EntryType = "Manual Entry";
+                    panelSetOrderCPTCode.CodeableType = "Billable Test";
+                    this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.Add(panelSetOrderCPTCode);
+                }                
+            }
+            if (this.Next != null) this.Next(this, new EventArgs());                        
+            */
+        }
 
         private bool OkToAddPanelSetOrderCPTCode()
         {
@@ -134,6 +171,7 @@ namespace YellowstonePathology.UI.Billing
         private void GetCptCodeCollection()
         {
             this.m_CptCodeCollection = Store.AppDataStore.Instance.CPTCodeCollection.Clone();
+            
             var codes = new[] {
                 new { code = "3126F", modifier="1P" },
                 new { code = "3126F", modifier="8P" },
@@ -162,6 +200,7 @@ namespace YellowstonePathology.UI.Billing
             {
                 this.m_CptCodeCollection.AddCloneWithModifier(item.code, item.modifier);
             }
+            
             this.m_CptCodeCollection = Business.Billing.Model.CptCodeCollection.GetSorted(this.m_CptCodeCollection);
         }
     }

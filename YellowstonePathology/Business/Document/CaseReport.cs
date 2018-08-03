@@ -48,11 +48,11 @@ namespace YellowstonePathology.Business.Document
 			throw new NotImplementedException("Not Implemented Here");
 		}
 
-        public virtual void Publish(bool notify)
+        public virtual void Publish()
         {
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
-			YellowstonePathology.Business.Document.CaseDocument.SaveXMLAsPDF(orderIdParser, notify);
-            YellowstonePathology.Business.Helper.FileConversionHelper.SaveXpsReportToTiff(this.m_PanelSetOrder.ReportNo, notify);
+            YellowstonePathology.Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, CaseDocumentTypeEnum.CaseReport, CaseDocumentFileTypeEnnum.xml, CaseDocumentFileTypeEnnum.pdf);
+            YellowstonePathology.Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, CaseDocumentTypeEnum.CaseReport, CaseDocumentFileTypeEnnum.xps, CaseDocumentFileTypeEnnum.tif);            
         }
 
         public void OpenTemplate(string templateName)
@@ -363,15 +363,15 @@ namespace YellowstonePathology.Business.Document
             parentNode.RemoveChild(childNode);
         }
 
-        public void SaveReport(bool notify)
+        public void SaveReport()
         {
             switch (this.m_ReportSaveMode)
             {
                 case YellowstonePathology.Business.Document.ReportSaveModeEnum.Normal:                
                     this.m_ReportXml.Save(this.m_SaveFileName);
 					YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
-					CaseDocument.SaveXMLAsDoc(orderIdParser, notify);
-					CaseDocument.SaveDocAsXPS(orderIdParser, notify);
+                    Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, Business.Document.CaseDocumentTypeEnum.CaseReport, Business.Document.CaseDocumentFileTypeEnnum.xml, Business.Document.CaseDocumentFileTypeEnnum.doc);
+                    Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, Business.Document.CaseDocumentTypeEnum.CaseReport, Business.Document.CaseDocumentFileTypeEnnum.doc, Business.Document.CaseDocumentFileTypeEnnum.xps);
                     break;                                   
                 case YellowstonePathology.Business.Document.ReportSaveModeEnum.Test:
                 case YellowstonePathology.Business.Document.ReportSaveModeEnum.Draft:

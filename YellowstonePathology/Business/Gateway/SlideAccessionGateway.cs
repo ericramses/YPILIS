@@ -404,14 +404,14 @@ namespace YellowstonePathology.Business.Gateway
             return result;
         }
 
-        public static YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog GetMaterialTrackingLog(int materialId, string locationName, DateTime logDate)
+        public static YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog GetMaterialTrackingLog(int materialId, string location, DateTime logDate)
         {
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = "Select * from tblMaterialTrackingLog where tblMaterialTrackingLog.MaterialId = @ViewMaterialTrackingLogMaterialId and " +
-                "tblMaterialTrackingLog.LocationName = @ViewMaterialTrackingLogLocationName and tblMaterialTrackingLog.LogDate = @ViewMaterialTrackingLogLogDate;";
+                "tblMaterialTrackingLog.Location = @ViewMaterialTrackingLogLocation and tblMaterialTrackingLog.LogDate = @ViewMaterialTrackingLogLogDate;";
             cmd.CommandType = System.Data.CommandType.Text;
             cmd.Parameters.AddWithValue("@ViewMaterialTrackingLogMaterialId", materialId);
-            cmd.Parameters.AddWithValue("@ViewMaterialTrackingLogLocationName", locationName);
+            cmd.Parameters.AddWithValue("@ViewMaterialTrackingLogLocation", location);
             cmd.Parameters.AddWithValue("@ViewMaterialTrackingLogLogDate", logDate);
             return BuildMaterialTrackingLog(cmd);
         }
@@ -581,32 +581,6 @@ namespace YellowstonePathology.Business.Gateway
                         YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter propertyWriter = new Persistence.SqlDataReaderPropertyWriter(blockSentNotReturned, dr);
                         propertyWriter.WriteProperties();
                         result.Add(blockSentNotReturned);
-                    }
-                }
-            }
-            return result;
-        }
-
-        public static Surgical.VentanaBenchMarkCollection GetVentanaBenchMarks()
-        {
-            Surgical.VentanaBenchMarkCollection result = new Surgical.VentanaBenchMarkCollection();
-
-            MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "select * from tblVentanaBenchMark order by StainName;";
-            cmd.CommandType = System.Data.CommandType.Text;
-
-            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-            {
-                cn.Open();
-                cmd.Connection = cn;
-                using (MySqlDataReader dr = cmd.ExecuteReader())
-                {
-                    while (dr.Read())
-                    {
-                        Surgical.VentanaBenchMark ventanaBenchMark = new Surgical.VentanaBenchMark();
-                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter propertyWriter = new Persistence.SqlDataReaderPropertyWriter(ventanaBenchMark, dr);
-                        propertyWriter.WriteProperties();
-                        result.Add(ventanaBenchMark);
                     }
                 }
             }

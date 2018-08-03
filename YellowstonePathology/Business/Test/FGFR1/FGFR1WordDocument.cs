@@ -48,12 +48,12 @@ namespace YellowstonePathology.Business.Test.FGFR1
             this.ReplaceText("pathologist_signature", this.m_PanelSetOrder.Signature);
             this.ReplaceText("report_disclaimer", testOrder.ASR);
 
-            this.SaveReport(false);
+            this.SaveReport();
         }
 
-        public override void Publish(bool notify)
+        public override void Publish()
         {
-            base.Publish(notify);
+            base.Publish();
         }
     }
 }

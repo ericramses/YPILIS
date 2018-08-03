@@ -34,7 +34,7 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
 
             base.ReplaceText("pathologist_signature", comprehensiveColonCancerProfile.Signature);
 
-            this.SaveReport(false);
+            this.SaveReport();
         }
 
         private void SetSpecimen(ComprehensiveColonCancerProfileResult comprehensiveColonCancerProfileResult)
@@ -234,9 +234,9 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
             //insertAfterRow = rowNodeClone;
         }
 
-        public override void Publish(bool notify)
+        public override void Publish()
 		{
-			base.Publish(notify);
+			base.Publish();
 		}
 	}
 }

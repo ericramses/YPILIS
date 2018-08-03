@@ -10,20 +10,15 @@ namespace YellowstonePathology.Business.HL7View.EPIC
     public class EPICFT1ResultView : IResultView
     {
         private Business.Test.AccessionOrder m_AccessionOrder;
-        private Business.Test.PanelSetOrderCPTCodeBill m_PanelSetOrderCPTCodeBill;
-        private Business.Billing.Model.CptCode m_CptCode;
-        private YellowstonePathology.Business.Domain.Physician m_OrderingPhysician;
+        private List<Business.Test.PanelSetOrderCPTCodeBill> m_PanelSetOrderCPTCodeBillList;        
+
         private bool m_Testing;
 
-        public EPICFT1ResultView(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill, bool testing)
+        public EPICFT1ResultView(Business.Test.AccessionOrder accessionOrder, List<Business.Test.PanelSetOrderCPTCodeBill> panelSetOrderCPTCodeBillList, bool testing)
         {            
             this.m_Testing = testing;
             this.m_AccessionOrder = accessionOrder;
-            this.m_PanelSetOrderCPTCodeBill = panelSetOrderCPTCodeBill;
-
-            this.m_CptCode = Store.AppDataStore.Instance.CPTCodeCollection.GetClone(this.m_PanelSetOrderCPTCodeBill.CPTCode, this.m_PanelSetOrderCPTCodeBill.Modifier);
-            this.m_OrderingPhysician = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianByPhysicianId(this.m_AccessionOrder.PhysicianId);           
-
+            this.m_PanelSetOrderCPTCodeBillList = panelSetOrderCPTCodeBillList;            
         }
 
         public XElement GetDocument()
@@ -42,10 +37,12 @@ namespace YellowstonePathology.Business.HL7View.EPIC
 
         private XElement CreateDocument()
         {
-            XElement document = new XElement("HL7Message");
+            XElement document = new XElement("HL7Message");            
 
             EPICHl7Client client = new EPICHl7Client();
             DFTP03 messageType = new DFTP03();
+            
+            YellowstonePathology.Business.Domain.Physician orderingPhysician = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianByPhysicianId(this.m_AccessionOrder.PhysicianId);
 
             string locationCode = "YPIIBILLINGS";
             if (this.m_AccessionOrder.SvhMedicalRecord.StartsWith("A") == true)
@@ -60,17 +57,25 @@ namespace YellowstonePathology.Business.HL7View.EPIC
                 this.m_AccessionOrder.PSex, this.m_AccessionOrder.SvhAccount, this.m_AccessionOrder.PSSN);
             pid.ToXml(document);
 
-            DateTime transactionDate = this.m_PanelSetOrderCPTCodeBill.PostDate.Value;
-            EPICFT1View epicFT1View = new EPICFT1View(this.m_CptCode, transactionDate, transactionDate, this.m_PanelSetOrderCPTCodeBill.Quantity.ToString(), this.m_OrderingPhysician);
-            epicFT1View.ToXml(document);
+            int ft1Number = 1;
+            foreach (Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill in this.m_PanelSetOrderCPTCodeBillList)
+            {
+                Business.Billing.Model.CptCode cptCode = Store.AppDataStore.Instance.CPTCodeCollection.GetClone(panelSetOrderCPTCodeBill.CPTCode, panelSetOrderCPTCodeBill.Modifier);
+
+                DateTime transactionDate = panelSetOrderCPTCodeBill.PostDate.Value;
+                EPICFT1View epicFT1View = new EPICFT1View(cptCode, transactionDate, transactionDate, panelSetOrderCPTCodeBill.Quantity.ToString(), orderingPhysician, this.m_AccessionOrder.MasterAccessionNo);
+                epicFT1View.ToXml(document, ft1Number);
+                ft1Number += 1;
+            }            
 
             return document;
         }
 
         private void WriteDocumentToServer(XElement document)
         {
+            string id = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
             string fileExtension = ".HL7.xml";
-            string interfaceFileName = @"\\YPIIInterface1\ChannelData\Outgoing\1002\Test\ft1\" + this.m_PanelSetOrderCPTCodeBill.PanelSetOrderCPTCodeBillId + fileExtension;            
+            string interfaceFileName = @"\\YPIIInterface1\ChannelData\Outgoing\1002\Test\ft1\" + id + fileExtension;            
             using (System.IO.StreamWriter sw = new System.IO.StreamWriter(interfaceFileName))
             {
                 document.Save(sw);
@@ -79,12 +84,12 @@ namespace YellowstonePathology.Business.HL7View.EPIC
 
         public void CanSend(YellowstonePathology.Business.Rules.MethodResult result)
         {
-            if (string.IsNullOrEmpty(this.m_OrderingPhysician.Npi) == true)
-            {
-                result.Message = "The provider NPI is 0.";
-                result.Success = false;
-            }
-            else if (string.IsNullOrEmpty(this.m_AccessionOrder.SvhAccount) == true)
+            //if (string.IsNullOrEmpty(this.m_OrderingPhysician.Npi) == true)
+            //{
+            //    result.Message = "The provider NPI is 0.";
+            //    result.Success = false;
+            //}
+            if (string.IsNullOrEmpty(this.m_AccessionOrder.SvhAccount) == true)
             {
                 result.Message = "The SVH Account is blank.";
                 result.Success = false;
@@ -104,11 +109,11 @@ namespace YellowstonePathology.Business.HL7View.EPIC
                 result.Message = "The Medical Record Number has a W in it.";
                 result.Success = false;
             }
-            else if(string.IsNullOrEmpty(this.m_CptCode.SVHCDMCode) == true)
-            {
-                result.Message = "The SVH CDM Code is blank.";
-                result.Success = false;
-            }
+            //else if(string.IsNullOrEmpty(this.m_CptCode.SVHCDMCode) == true)
+            //{
+            //    result.Message = "The SVH CDM Code is blank.";
+            //    result.Success = false;
+            //}
         }
     }
 }

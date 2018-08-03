@@ -155,8 +155,7 @@ namespace YellowstonePathology.UI.Login.Receiving
             MessageBoxResult messageBoxResult = MessageBox.Show("Are you sure you want to delete this specimen?", "Delete?", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes);
             if (messageBoxResult == MessageBoxResult.Yes)
             {                
-                this.m_ClientOrderReceivingHandler.ClientOrder.ClientOrderDetailCollection.Remove(clientOrderDetail);                
-                this.m_ClientOrderReceivingHandler.Save(false);
+                this.m_ClientOrderReceivingHandler.ClientOrder.ClientOrderDetailCollection.Remove(clientOrderDetail);                                
                 this.m_ClientOrderMediaCollection = new Business.ClientOrder.Model.ClientOrderMediaCollection();
                 this.m_ClientOrderReceivingHandler.ClientOrder.ClientOrderDetailCollection.LoadMedia(this.m_ClientOrderMediaCollection);
                 this.NotifyPropertyChanged("ClientOrderMediaCollection");

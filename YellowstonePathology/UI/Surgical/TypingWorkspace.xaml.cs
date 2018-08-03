@@ -1021,8 +1021,7 @@ namespace YellowstonePathology.UI.Surgical
             StringBuilder result = new StringBuilder();
             if (this.m_TypingUI.AccessionOrder != null)
             {
-            	YellowstonePathology.UI.Gross.DictationTemplateCollection collection = YellowstonePathology.UI.Gross.DictationTemplateCollection.GetAll();
-            	foreach(YellowstonePathology.UI.Gross.DictationTemplate template in collection)
+            	foreach(YellowstonePathology.UI.Gross.DictationTemplate template in YellowstonePathology.UI.Gross.DictationTemplateCollection.Instance)
             	{
                     result.AppendLine("Name: " + template.TemplateName);
                     result.Append(template.BuildResultText(this.m_TypingUI.AccessionOrder.SpecimenOrderCollection[0], this.m_TypingUI.AccessionOrder, this.m_SystemIdentity));
@@ -1085,12 +1084,11 @@ namespace YellowstonePathology.UI.Surgical
 
         private void SetCPTCodesFromSpecimen()
         {
-            Business.Specimen.Model.SpecimenCollection specimenCollection = Business.Specimen.Model.SpecimenCollection.GetAll();
             foreach (Business.Specimen.Model.SpecimenOrder specimenOrder in this.m_TypingUI.AccessionOrder.SpecimenOrderCollection)
             {
                 if (string.IsNullOrEmpty(specimenOrder.SpecimenId) != true)
                 {
-                    Business.Specimen.Model.Specimen specimen = specimenCollection.GetSpecimen(specimenOrder.SpecimenId);
+                    Business.Specimen.Model.Specimen specimen = Business.Specimen.Model.SpecimenCollection.Instance.GetSpecimen(specimenOrder.SpecimenId);
                     if (specimen.CPTCode != null)
                     {
                         Business.Test.PanelSetOrder panelSetOrder = this.m_TypingUI.AccessionOrder.PanelSetOrderCollection.GetSurgical();
@@ -1107,7 +1105,6 @@ namespace YellowstonePathology.UI.Surgical
 
         private void SetCPTCodesCellBlock()
         {
-            Business.Specimen.Model.SpecimenCollection specimenCollection = Business.Specimen.Model.SpecimenCollection.GetAll();            
             Business.Test.PanelSetOrder panelSetOrder = this.m_TypingUI.AccessionOrder.PanelSetOrderCollection.GetSurgical();
             foreach (Business.Specimen.Model.SpecimenOrder specimenOrder in this.m_TypingUI.AccessionOrder.SpecimenOrderCollection)
             {
@@ -1115,7 +1112,7 @@ namespace YellowstonePathology.UI.Surgical
                 {
                     if (panelSetOrder.PanelSetOrderCPTCodeCollection.Exists("88305", specimenOrder.SpecimenOrderId) == false)
                     {
-                        Business.Specimen.Model.Specimen specimen = specimenCollection.GetSpecimen(specimenOrder.SpecimenId);                        
+                        Business.Specimen.Model.Specimen specimen = Business.Specimen.Model.SpecimenCollection.Instance.GetSpecimen(specimenOrder.SpecimenId);                        
                         string comment = "Specimen " + specimenOrder.SpecimenNumber + ": Cell Block";
                         AddCPTCode(specimenOrder, "88305", null, "Global", panelSetOrder, specimenOrder.AliquotOrderCollection.CellBlockCount(), comment);
                     }                    
@@ -1125,7 +1122,6 @@ namespace YellowstonePathology.UI.Surgical
 
         private void SetCPTCodesDecal()
         {
-            Business.Specimen.Model.SpecimenCollection specimenCollection = Business.Specimen.Model.SpecimenCollection.GetAll();
             Business.Test.PanelSetOrder panelSetOrder = this.m_TypingUI.AccessionOrder.PanelSetOrderCollection.GetSurgical();
             foreach (Business.Specimen.Model.SpecimenOrder specimenOrder in this.m_TypingUI.AccessionOrder.SpecimenOrderCollection)
             {
@@ -1133,7 +1129,7 @@ namespace YellowstonePathology.UI.Surgical
                 {
                     if (panelSetOrder.PanelSetOrderCPTCodeCollection.Exists("88311", specimenOrder.SpecimenOrderId) == false)
                     {
-                        Business.Specimen.Model.Specimen specimen = specimenCollection.GetSpecimen(specimenOrder.SpecimenId);
+                        Business.Specimen.Model.Specimen specimen = Business.Specimen.Model.SpecimenCollection.Instance.GetSpecimen(specimenOrder.SpecimenId);
                         string comment = "Specimen " + specimenOrder.SpecimenNumber + ": Decal";
                         AddCPTCode(specimenOrder, "88311", null, "Global", panelSetOrder, specimenOrder.AliquotOrderCollection.DecalCount(), comment);
                     }
@@ -1143,7 +1139,6 @@ namespace YellowstonePathology.UI.Surgical
 
         private void SetCPTCodesFrozen()
         {
-            Business.Specimen.Model.SpecimenCollection specimenCollection = Business.Specimen.Model.SpecimenCollection.GetAll();
             Business.Test.PanelSetOrder panelSetOrder = this.m_TypingUI.AccessionOrder.PanelSetOrderCollection.GetSurgical();
             foreach (Business.Specimen.Model.SpecimenOrder specimenOrder in this.m_TypingUI.AccessionOrder.SpecimenOrderCollection)
             {
@@ -1152,7 +1147,7 @@ namespace YellowstonePathology.UI.Surgical
                 {
                     if (panelSetOrder.PanelSetOrderCPTCodeCollection.Exists("88331", specimenOrder.SpecimenOrderId) == false)
                     {
-                        Business.Specimen.Model.Specimen specimen = specimenCollection.GetSpecimen(specimenOrder.SpecimenId);
+                        Business.Specimen.Model.Specimen specimen = Business.Specimen.Model.SpecimenCollection.Instance.GetSpecimen(specimenOrder.SpecimenId);
                         string comment = "Specimen " + specimenOrder.SpecimenNumber + ": Frozen Block";
                         AddCPTCode(specimenOrder, "88331", null, "Global", panelSetOrder, 1, comment);
                     }                    
@@ -1162,7 +1157,7 @@ namespace YellowstonePathology.UI.Surgical
                 {
                     if (panelSetOrder.PanelSetOrderCPTCodeCollection.Exists("88332", specimenOrder.SpecimenOrderId) == false)
                     {
-                        Business.Specimen.Model.Specimen specimen = specimenCollection.GetSpecimen(specimenOrder.SpecimenId);
+                        Business.Specimen.Model.Specimen specimen = Business.Specimen.Model.SpecimenCollection.Instance.GetSpecimen(specimenOrder.SpecimenId);
                         string comment = "Specimen " + specimenOrder.SpecimenNumber + ": Frozen Block";
                         AddCPTCode(specimenOrder, "88332", null, "Global", panelSetOrder, frozenBlockCount - 1, comment);
                     }

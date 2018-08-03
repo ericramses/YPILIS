@@ -269,11 +269,10 @@ namespace YellowstonePathology.UI.ReportDistribution
                 caseDocument.Render();
                 if(panelSetOrder.ResultDocumentSource != "Reference Lab")
                 {
-                    caseDocument.Publish(false);
+                    caseDocument.Publish();
                 }
                 
                 this.m_ReportDistributionLogEntryCollection.AddEntry("INFO", "Publish Next", null, panelSetOrder.ReportNo, panelSetOrder.MasterAccessionNo, null, null, "PanelSetOrder Published");
-
             }                                    
             catch (Exception publishException)
             {
@@ -586,7 +585,7 @@ namespace YellowstonePathology.UI.ReportDistribution
         private YellowstonePathology.Business.ReportDistribution.Model.DistributionResult HandleFaxDistribution(YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution testOrderReportDistribution)
         {
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(testOrderReportDistribution.ReportNo);
-            string tifCaseFileName = YellowstonePathology.Business.Document.CaseDocument.GetCaseFileNameTif(orderIdParser, false);
+            string tifCaseFileName = YellowstonePathology.Business.Document.CaseDocument.GetCaseFileNameTif(orderIdParser);
             return YellowstonePathology.Business.ReportDistribution.Model.FaxSubmission.Submit(testOrderReportDistribution.FaxNumber, testOrderReportDistribution.LongDistance, testOrderReportDistribution.ReportNo, tifCaseFileName);
         }
 

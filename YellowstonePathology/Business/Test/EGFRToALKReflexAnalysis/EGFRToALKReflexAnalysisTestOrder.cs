@@ -51,6 +51,11 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
             YellowstonePathology.Business.Test.TestOrderInfo testOrderInfoALK = new TestOrderInfo(alkTest, orderTarget, false);
             YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitorALK = new Visitor.OrderTestOrderVisitor(testOrderInfoALK);
             accessionOrder.TakeATrip(orderTestOrderVisitorALK);
+
+            YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTest brafTest = new BRAFMutationAnalysis.BRAFMutationAnalysisTest();
+            YellowstonePathology.Business.Test.TestOrderInfo testOrderInfoBRAF = new TestOrderInfo(brafTest, orderTarget, false);
+            YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitorBRAF = new Visitor.OrderTestOrderVisitor(testOrderInfoBRAF);
+            accessionOrder.TakeATrip(orderTestOrderVisitorBRAF);
         }		
 
         public void SetResults(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
@@ -110,6 +115,16 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
 
                 method.AppendLine();
                 method.AppendLine(pdl122C3TestOrder.PanelSetName + ": " + pdl122C3TestOrder.Method);
+            }
+
+            if (accessionOrder.PanelSetOrderCollection.Exists(274) == true)
+            {
+                YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTestOrder brafMutationAnalysisTestOrder = (YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(274);
+                interpretation.AppendLine();
+                interpretation.AppendLine(brafMutationAnalysisTestOrder.PanelSetName + ": " + brafMutationAnalysisTestOrder.Interpretation);
+
+                method.AppendLine();
+                method.AppendLine(brafMutationAnalysisTestOrder.PanelSetName + ": " + brafMutationAnalysisTestOrder.Method);
             }
 
             char[] lineFeedCharacters = { '\r', '\n' };            

@@ -31,6 +31,7 @@ namespace YellowstonePathology.UI.Test
 		private string m_PageHeaderText;
 		private string m_OrderedOnDescription;
 		private YellowstonePathology.Business.Test.ErPrSemiQuantitative.ErPrSemiQuantitativeTestOrder m_PanelSetOrder;
+        private Business.Specimen.Model.SpecimenOrder m_SpecimenOrder;
 
 		public ErPrSemiQuantitativeResultPage(YellowstonePathology.Business.Test.ErPrSemiQuantitative.ErPrSemiQuantitativeTestOrder testOrder,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
@@ -43,9 +44,9 @@ namespace YellowstonePathology.UI.Test
 			this.m_PageNavigator = pageNavigator;
 
 			this.m_PageHeaderText = "Er/Pr Semi Quantitative Results For: " + this.m_AccessionOrder.PatientDisplayName + " (" + this.m_PanelSetOrder.ReportNo + ")";
-			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetByAliquotOrderId(this.m_PanelSetOrder.OrderedOnId);
+			this.m_SpecimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetByAliquotOrderId(this.m_PanelSetOrder.OrderedOnId);
 			YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetAliquotOrder(this.m_PanelSetOrder.OrderedOnId);
-			this.m_OrderedOnDescription = specimenOrder.Description + ": " + aliquotOrder.Label;
+			this.m_OrderedOnDescription = this.m_SpecimenOrder.Description + ": " + aliquotOrder.Label;
 
 			InitializeComponent();
 
@@ -54,6 +55,7 @@ namespace YellowstonePathology.UI.Test
             this.m_ControlsNotDisabledOnFinal.Add(this.ButtonNext);
             this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockShowDocument);
             this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalResults);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockSetResults);
         }
 
         public YellowstonePathology.Business.Test.ErPrSemiQuantitative.ErPrSemiQuantitativeTestOrder PanelSetOrder
@@ -65,6 +67,11 @@ namespace YellowstonePathology.UI.Test
 		{
 			get { return this.m_AccessionOrder; }
 		}
+
+        public Business.Specimen.Model.SpecimenOrder SpecimenOrder
+        {
+            get { return this.m_SpecimenOrder; }
+        }
 
 		public void NotifyPropertyChanged(String info)
 		{
@@ -92,16 +99,16 @@ namespace YellowstonePathology.UI.Test
 		private void HyperLinkSetResults_Click(object sender, RoutedEventArgs e)
 		{
 			YellowstonePathology.Business.Rules.MethodResult methodResult = this.m_PanelSetOrder.IsOkToSetResults();
-			if (methodResult.Success == true)
-			{
+			//if (methodResult.Success == true)
+			//{
                 YellowstonePathology.Business.Test.ErPrSemiQuantitative.ErPrSemiQuantitativeResultCollection resultCollection = new YellowstonePathology.Business.Test.ErPrSemiQuantitative.ErPrSemiQuantitativeResultCollection();
 				YellowstonePathology.Business.Test.ErPrSemiQuantitative.ErPrSemiQuantitativeResult result = (YellowstonePathology.Business.Test.ErPrSemiQuantitative.ErPrSemiQuantitativeResult)resultCollection.GetResult(this.m_PanelSetOrder.ErResult, this.m_PanelSetOrder.PrResult);
-				result.SetResults(this.m_PanelSetOrder);
-			}
-			else
-			{
-				MessageBox.Show(methodResult.Message);
-			}
+				result.SetResults(this.m_PanelSetOrder, this.m_SpecimenOrder);
+			//}
+			//else
+			//{
+			//	MessageBox.Show(methodResult.Message);
+			//}
 		}
 
 		private void HyperLinkFinalize_Click(object sender, RoutedEventArgs e)

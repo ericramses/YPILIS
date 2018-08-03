@@ -113,14 +113,37 @@ namespace YellowstonePathology.UI.Client
             this.m_ClientCollection.Insert(0, client);
         }
 
-        private void ButtonDeleteClient_Click(object sender, RoutedEventArgs e)
+        private void ButtonClientFedX_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Facility.Model.Facility facility = null;
+            if (this.ListViewClients.SelectedItem != null)
+            {
+                YellowstonePathology.Business.Client.Model.Client client = (YellowstonePathology.Business.Client.Model.Client)this.ListViewClients.SelectedItem;
+                facility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByClientId(client.ClientId);
+                if (facility != null)
+                {
+                    ClientFedxDialog dlg = new Client.ClientFedxDialog(facility);
+                    dlg.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("The selected client is not associated with a facility.  Select from the facility tab.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("No client is selected.");
+            }
+        }
+
+        private void MenuItemDeleteClient_Click(object sender, RoutedEventArgs e)
         {
             if (this.ListViewClients.SelectedItem != null)
             {
 
                 YellowstonePathology.Business.Client.Model.Client client = (YellowstonePathology.Business.Client.Model.Client)this.ListViewClients.SelectedItem;
                 YellowstonePathology.Business.Rules.MethodResult methodResult = this.CanDeleteClient(client);
-                if(methodResult.Success == true)
+                if (methodResult.Success == true)
                 {
                     this.DeleteClient(client);
                     this.DoClientSearch(this.TextBoxClientName.Text);
@@ -426,6 +449,21 @@ namespace YellowstonePathology.UI.Client
                 YellowstonePathology.Business.Client.Model.ClientGroup clientGroup = (YellowstonePathology.Business.Client.Model.ClientGroup)this.ListViewClientGroups.SelectedItem;
                 ClientGroupEntry clientGroupEntry = new ClientGroupEntry(clientGroup);
                 clientGroupEntry.ShowDialog();
+            }
+        }
+
+        private void ButtonFacilityFedx_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Facility.Model.Facility facility = null;
+            if (this.ListViewFacilities.SelectedItem != null)
+            {
+                facility = (YellowstonePathology.Business.Facility.Model.Facility)this.ListViewFacilities.SelectedItem;
+                ClientFedxDialog dlg = new Client.ClientFedxDialog(facility);
+                dlg.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("No Facility is selected.");
             }
         }
     }

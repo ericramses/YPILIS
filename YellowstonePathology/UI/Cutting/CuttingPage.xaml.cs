@@ -294,10 +294,10 @@ namespace YellowstonePathology.UI.Cutting
         }    
         
         private void HandleKappaLambda(YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder)
-        {            
-            Business.Test.Model.KappaByISH kappa = new Business.Test.Model.KappaByISH();
-            Business.Test.Model.LambdaByISH lambda = new Business.Test.Model.LambdaByISH();
-            Business.Test.Model.U6 u6 = new Business.Test.Model.U6();
+        {
+            Business.Test.Model.Test kappa = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone("360"); // KappaByISH();
+            Business.Test.Model.Test lambda = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone("361"); // LambdaByISH();
+            Business.Test.Model.Test u6 = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone("383"); // U6();
 
             if (slideOrder.TestId == kappa.TestId || slideOrder.TestId == lambda.TestId)
             {                

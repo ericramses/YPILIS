@@ -54,7 +54,7 @@
                     <MenuItem Header="Acid Wash Orders" Click="MenuItemAcidWashOrders_Click" />
                     <MenuItem Header="Embedding" Click="MenuItemEmbedding_Click" />
                     <MenuItem Header="Retrospective Reviews" Click="MenuItemRetrospectiveReviews_Click" />
-                    <MenuItem Header="Ventana Stain Mapping" Click="MenuItemVentanaStainMapping_Click" />
+                    <MenuItem Header="Stains" Click="MenuItemStains_Click" />
                     <MenuItem Header="Stain Status" Click="MenuItemStainStatus_Click" />
                 </MenuItem>
 
@@ -86,6 +86,9 @@
                     <MenuItem Name="MenuItemAdministration" Header="Administration" Click="MenuItemAdministrationWorkspace_Click"></MenuItem>
                     <MenuItem Name="MenuItemUserPreferences" Header="User Preferences" Click="MenuItemUserPreferences_Click"></MenuItem>
                     <MenuItem Name="MenuItemSystemUser" Header="System User" Click="MenuItemSystemUser_Click"></MenuItem>
+                    <MenuItem Name="MenuItemWebServiceAccounts" Header="Web Service Accounts" Click="MenuItemWebServiceAccounts_Click"></MenuItem>
+                    <MenuItem Name="MenuItemTest" Header="Testing" Click="MenuItemTest_Click"></MenuItem>
+                    <MenuItem Name="MenuItemDictationTemplates" Header="Dictation Templates" Click="MenuItemDictationTemplates_Click" />
                 </MenuItem>
 
                 <MenuItem Header="_Monitor" Name="MenuItemMonitor">
@@ -105,7 +108,7 @@
 						<StackPanel Orientation="Horizontal">
 							<Image Source="/Resources/Save.ico"></Image>
 							<TextBlock Margin="2,0,0,0">Save</TextBlock>
-						</StackPanel>
+						</StackPanel> 
 				</Button>
 
                     <Button Click="ToolBarButtonSendMessage_Click" ToolTip="Send Message" Margin="2,0,0,0" Height="22" Name="ToolBarButtonSendMessage" Visibility="Visible">

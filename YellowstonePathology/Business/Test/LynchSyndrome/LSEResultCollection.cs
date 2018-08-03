@@ -38,8 +38,8 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             result.Add(new LSEGYNResult3());
             result.Add(new LSEGYNResult3a());
 
-            result.Add(new LSEProstateResult1());
-            result.Add(new LSEProstateResult2());
+            result.Add(new LSEGeneralResult1());
+            result.Add(new LSEGeneralResult2());
 
             return result;
         }
@@ -80,8 +80,8 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
         public static LSEResultCollection GetProstateResults()
         {
             LSEResultCollection result = new LSEResultCollection();
-            result.Add(new LSEProstateResult1());
-            result.Add(new LSEProstateResult2());
+            result.Add(new LSEGeneralResult1());
+            result.Add(new LSEGeneralResult2());
             return result;
         }
 
@@ -98,7 +98,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             {
                 collection = LSEResultCollection.GetGYNResults();
             }
-            else if (lseType == YellowstonePathology.Business.Test.LynchSyndrome.LSEType.PROSTATE)
+            else if (lseType == YellowstonePathology.Business.Test.LynchSyndrome.LSEType.GENERAL)
             {
                 collection = LSEResultCollection.GetProstateResults();
             }
@@ -107,15 +107,15 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
                 collection = new LSEResultCollection();
             }
 
-            if (lseType == YellowstonePathology.Business.Test.LynchSyndrome.LSEType.PROSTATE)
+            if (lseType == YellowstonePathology.Business.Test.LynchSyndrome.LSEType.GENERAL)
             {
                 if(evalResult.AreAllIntact() == true)
                 {
-                    result = new Business.Test.LynchSyndrome.LSEProstateResult1();
+                    result = new Business.Test.LynchSyndrome.LSEGeneralResult1();
                 }
                 else if(evalResult.AreAnyLoss() == true)
                 {
-                    result = new Business.Test.LynchSyndrome.LSEProstateResult2();
+                    result = new Business.Test.LynchSyndrome.LSEGeneralResult2();
                 }
 
                 result.MLH1Result = evalResult.MLH1Result;

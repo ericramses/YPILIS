@@ -56,12 +56,12 @@ namespace YellowstonePathology.Business.Test.Prothrombin
 			YellowstonePathology.Business.Document.AmendmentSection amendment = new YellowstonePathology.Business.Document.AmendmentSection();
 			amendment.SetAmendment(m_PanelSetOrder.AmendmentCollection, this.m_ReportXml, this.m_NameSpaceManager, true);
 
-			this.SaveReport(false);
+			this.SaveReport();
 		}
 
-        public override void Publish(bool notify)
+        public override void Publish()
         {
-            base.Publish(notify);
+            base.Publish();
         }
 	}
 }

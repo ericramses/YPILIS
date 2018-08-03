@@ -48,7 +48,16 @@ namespace YellowstonePathology.Business.Test.ErPrSemiQuantitative
 			this.ReplaceText("specimen_adequacy", panelSetOrderErPrSemiQuantitative.SpecimenAdequacy);
             this.ReplaceText("date_time_collected", collectionDateTimeString);
 
-			this.ReplaceText("report_interpretation", panelSetOrderErPrSemiQuantitative.Interpretation);
+            if (string.IsNullOrEmpty(specimenOrder.FixationComment) == false)
+            {
+                this.SetXmlNodeData("fixation_comment", specimenOrder.FixationComment);
+            }
+            else
+            {
+                this.SetXmlNodeData("fixation_comment", string.Empty);
+            }
+
+            this.ReplaceText("report_interpretation", panelSetOrderErPrSemiQuantitative.Interpretation);
 
 			if (string.IsNullOrEmpty(panelSetOrderErPrSemiQuantitative.ResultComment) == true)
 			{
@@ -62,12 +71,12 @@ namespace YellowstonePathology.Business.Test.ErPrSemiQuantitative
 			this.ReplaceText("report_date", YellowstonePathology.Business.BaseData.GetShortDateString(this.m_PanelSetOrder.FinalDate));			
 			this.ReplaceText("pathologist_signature", this.m_PanelSetOrder.Signature);
 
-			this.SaveReport(false);
+			this.SaveReport();
 		}
 
-        public override void Publish(bool notify)
+        public override void Publish()
         {
-            base.Publish(notify);
+            base.Publish();
         }
 	}
 }

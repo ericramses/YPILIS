@@ -75,14 +75,17 @@ namespace YellowstonePathology.Business.Test.PNH
 			YellowstonePathology.Business.Document.AmendmentSection amendment = new YellowstonePathology.Business.Document.AmendmentSection();
 			amendment.SetAmendment(m_PanelSetOrder.AmendmentCollection, this.m_ReportXml, this.m_NameSpaceManager, true);
 
-			this.SaveReport(false);
+			this.SaveReport();
 		}
 
-        public override void Publish(bool notify)
+        public override void Publish()
         {
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
-			YellowstonePathology.Business.Document.CaseDocument.SaveXMLAsPDF(orderIdParser, false);
-            YellowstonePathology.Business.Helper.FileConversionHelper.SaveXpsReportToTiff(this.m_PanelSetOrder.ReportNo, false);
+            Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, Document.CaseDocumentTypeEnum.CaseReport, Document.CaseDocumentFileTypeEnnum.xml, Document.CaseDocumentFileTypeEnnum.pdf);
+            Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, Document.CaseDocumentTypeEnum.CaseReport, Document.CaseDocumentFileTypeEnnum.xps, Document.CaseDocumentFileTypeEnnum.tif);
+
+            //YellowstonePathology.Business.Document.CaseDocument.SaveXMLAsPDF(orderIdParser);
+            //YellowstonePathology.Business.Helper.FileConversionHelper.SaveXpsReportToTiff(this.m_PanelSetOrder.ReportNo);
         }
 
 		private void HandleResultMonitor(string resultCode)

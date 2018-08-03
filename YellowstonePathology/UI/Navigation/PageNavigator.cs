@@ -48,7 +48,6 @@ namespace YellowstonePathology.UI.Navigation
 
         public void Navigate(UserControl page)
         {            
-
             if(this.m_CurrentPage is UI.PageControl)
             {
                 ((UI.PageControl)this.m_CurrentPage).BeforeNavigatingAway();                

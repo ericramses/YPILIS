@@ -33,10 +33,10 @@ namespace YellowstonePathology.Business.Test.JAK2V617F
             this.AddNextNteElement("Result: " + panelSetOrder.Result, document);
             this.AddBlankNteElement(document);
 
-            this.AddNextNteElement("Pathologist: " + panelSetOrder.Signature, document);
+            this.AddNextNteElement("Pathologist: " + panelSetOrder.ReferenceLabSignature, document);
             if (panelSetOrder.FinalTime.HasValue == true)
             {
-                this.AddNextNteElement("E-signed " + panelSetOrder.FinalTime.Value.ToString("MM/dd/yyyy HH:mm"), document);
+                this.AddNextNteElement("E-signed " + panelSetOrder.ReferenceLabFinalDate.Value.ToString("MM/dd/yyyy HH:mm"), document);
             }
             this.AddBlankNteElement(document);
             this.AddAmendments(document, panelSetOrder);

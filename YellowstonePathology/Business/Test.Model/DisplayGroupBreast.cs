@@ -11,11 +11,11 @@ namespace YellowstonePathology.Business.Test.Model
         {
             this.m_GroupName = "Breast";
             
-            this.m_List.Add(new EstrogenReceptor());
-            this.m_List.Add(new ProgesteroneReceptor());
-            this.m_List.Add(new HER2DISH());
-            this.m_List.Add(new SmoothMuscleMyosin());
-            this.m_List.Add(new Mammaglobin());
+            this.m_List.Add((ImmunoHistochemistryTest)YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone("98")); // EstrogenReceptor());
+            this.m_List.Add((ImmunoHistochemistryTest)YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone("144")); // ProgesteroneReceptor());
+            this.m_List.Add((ImmunoHistochemistryTest)YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone("267")); // HER2DISH());
+            this.m_List.Add((ImmunoHistochemistryTest)YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone("154")); // SmoothMuscleMyosin());
+            this.m_List.Add((ImmunoHistochemistryTest)YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone("118")); // Mammaglobin());
             this.m_List.Add(new GCDFP15());                        
         }
     }

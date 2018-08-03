@@ -113,12 +113,12 @@ namespace YellowstonePathology.UI.Surgical
             }
         }
 
-        private void HyperLinkBRAFV600E_Click(object sender, RoutedEventArgs e)
+        private void HyperLinkBRAFMutationAnalysis_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTest brafV600EKTest = new Business.Test.BRAFV600EK.BRAFV600EKTest();
-            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(brafV600EKTest.PanelSetId) == false)
+            YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTest brafTest = new YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTest();
+            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(brafTest.PanelSetId) == false)
             {
-                this.OrderTest(this, new CustomEventArgs.PanelSetReturnEventArgs(brafV600EKTest));
+                this.OrderTest(this, new CustomEventArgs.PanelSetReturnEventArgs(brafTest));
             }
         }
 

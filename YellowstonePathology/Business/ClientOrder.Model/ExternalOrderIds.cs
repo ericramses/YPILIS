@@ -10,6 +10,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
     {
         private string m_ExternalOrderId;
         private int m_PanelSetId;
+        private string m_UniversalServiceId;
 
         public ExternalOrderIds() { }
 
@@ -17,6 +18,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
         {
             this.m_PanelSetId = clientOrder.PanelSetId.Value;
             this.m_ExternalOrderId = clientOrder.ExternalOrderId;
+            this.m_UniversalServiceId = clientOrder.UniversalServiceId;
         }
 
         public ExternalOrderIds(string formattedValue)
@@ -24,6 +26,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
             string[] values = formattedValue.Split(new char[] { ',' });
             this.m_ExternalOrderId = values[0];
             this.m_PanelSetId = Convert.ToInt32(values[1]);
+            if(values.Length > 2) this.m_UniversalServiceId = values[2];
         }
 
         public string ExternalOrderId
@@ -37,10 +40,15 @@ namespace YellowstonePathology.Business.ClientOrder.Model
             get { return this.m_PanelSetId; }
             set { this.m_PanelSetId = value; }
         }
+        public string UniversalServiceId
+        {
+            get { return this.m_UniversalServiceId; }
+            set { this.m_UniversalServiceId = value; }
+        }
 
         public string FormattedValue
         {
-            get { return this.m_ExternalOrderId + "," + this.m_PanelSetId.ToString(); }
+            get { return this.m_ExternalOrderId + "," + this.m_PanelSetId.ToString() + "," + this.m_UniversalServiceId; }
         }
     }
 }

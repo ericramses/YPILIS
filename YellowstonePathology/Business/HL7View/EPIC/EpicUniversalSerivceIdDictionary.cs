@@ -8,12 +8,13 @@ namespace YellowstonePathology.Business.HL7View.EPIC
     public class EPICUniversalSerivceIdDictionary : Dictionary<string, string>
     {
         public EPICUniversalSerivceIdDictionary()
-        {
+        {            
             this.Add("SRGCL", "Surgical Pathology");
             this.Add("JAK2MUT", "JAK2 Mutation V617F");
             this.Add("CTGC", "Chlamydia trachomatis/ Neisseria gonorrhoeae Screen by PCR");
             this.Add("HERAMP", "HER2 Gene Amplification");
             this.Add("YPI", "Pathology Procedure/Specimen");
+            this.Add("PSPYPI", "PLACENTA SURGICAL PATHOLOGY - YPI ONLY");
             this.Add("HRHPVTEST", "High Risk HPV Testing");            
             this.Add("BRAFMANAL", "BRAF V600E Mutation Analysis");
             this.Add("PNHHS", "PNH, Highly Sensitive");

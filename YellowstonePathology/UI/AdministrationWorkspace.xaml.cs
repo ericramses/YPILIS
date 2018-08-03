@@ -30,14 +30,14 @@ using System.ServiceModel;
 using YellowstonePathology.Business.Helper;
 using System.Collections.ObjectModel;
 using MongoDB.Bson;
-using MongoDB.Driver;
-using MongoDB.Driver.Linq;
-using MongoDB.Driver.Builders;
-using MongoDB.Driver.GridFS;
+//using MongoDB.Driver;
+//using MongoDB.Driver.Linq;
+//using MongoDB.Driver.Builders;
+//using MongoDB.Driver.GridFS;
 using Newtonsoft.Json;
-using MySql.Data.MySqlClient;
+//using MySql.Data.MySqlClient;
 using Grpc.Core;
-using StackExchange.Redis;
+//using StackExchange.Redis;
 
 namespace YellowstonePathology.UI
 {    
@@ -54,6 +54,11 @@ namespace YellowstonePathology.UI
             InitializeComponent();
 
             this.DataContext = this;            
+        }
+
+        private void Touch_FrameReported(object sender, TouchFrameEventArgs e)
+        {
+            
         }
 
         public Nullable<DateTime> WorkDate
@@ -80,12 +85,17 @@ namespace YellowstonePathology.UI
 
         private void ButtonBuildJson_Click(object sender, RoutedEventArgs e)
         {
-            string resultString = Business.Specimen.Model.SpecimenCollection.GetAll().ToJSON();
-            using (StreamWriter sw = new StreamWriter(@"C:\ProgramData\ypi\lisdata\YellowstonePathology.Business.Specimen.Model.SpecimenCollection.json", false))
+            /*Gross.DictationTemplateCollection templates = Gross.DictationTemplateCollection.GetAll();
+            using (StreamWriter sw = new StreamWriter(@"C:\ProgramData\ypi\lisdata\DictationTemplateCollection.json", false))
             {
-                sw.Write(resultString);
+                sw.Write(templates.ToJSON());
             }
-            MessageBox.Show("Done");
+            MessageBox.Show("Done");*/
+        }
+
+        private void ButtonDictationTemplate_Click(object sender, RoutedEventArgs e)
+        {
+            //MessageBox.Show("Done");
         }
 
         private void ButtonBlocksSentNotReturned_Click(object sender, RoutedEventArgs e)
@@ -110,7 +120,9 @@ namespace YellowstonePathology.UI
 			YellowstonePathology.Business.ReportNoCollection reportNos = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetReportNumbers();
             foreach (YellowstonePathology.Business.ReportNo reportNo in reportNos)
             {
-                bool result = YellowstonePathology.Business.Helper.FileConversionHelper.ConvertXpsDocumentToPdf(reportNo.Value);
+                //bool result = YellowstonePathology.Business.Helper.FileConversionHelper.ConvertXPSToPDF(reportNo.Value);
+                Business.OrderIdParser orderIdParser = new Business.OrderIdParser(reportNo.Value);
+                YellowstonePathology.Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, Business.Document.CaseDocumentTypeEnum.CaseReport, Business.Document.CaseDocumentFileTypeEnnum.xps, Business.Document.CaseDocumentFileTypeEnnum.pdf);
                 YellowstonePathology.Business.DataContext.YpiData dataContext = new Business.DataContext.YpiData();                
             }
         }        
@@ -164,10 +176,10 @@ namespace YellowstonePathology.UI
 			foreach (YellowstonePathology.Business.ReportNo reportNo in reportNumbers)
             {
 				YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(reportNo.Value);
-				string xpsDoc = YellowstonePathology.Business.Document.CaseDocument.GetCaseFileNameXPS(orderIdParser, false);
+				string xpsDoc = YellowstonePathology.Business.Document.CaseDocument.GetCaseFileNameXPS(orderIdParser);
                 if (System.IO.File.Exists(xpsDoc) == false)
                 {
-					YellowstonePathology.Business.Document.CaseDocument.SaveDocAsXPS(orderIdParser, false);
+                    Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, Business.Document.CaseDocumentTypeEnum.CaseReport, Business.Document.CaseDocumentFileTypeEnnum.doc, Business.Document.CaseDocumentFileTypeEnnum.xps);
                 }
             }
         }
@@ -209,11 +221,11 @@ namespace YellowstonePathology.UI
 				YellowstonePathology.Business.Helper.FileConversionHelper.SaveXpsReportToTiff(reportNo.Number, false);
 			}*/
 
-			YellowstonePathology.Business.ReportNoCollection reportNoCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetReportNumbers();
-			foreach (YellowstonePathology.Business.ReportNo reportNo in reportNoCollection)
-			{
-                YellowstonePathology.Business.Helper.FileConversionHelper.SaveXpsReportToTiff(reportNo.Value, false);
-			}
+			//YellowstonePathology.Business.ReportNoCollection reportNoCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetReportNumbers();
+			//foreach (YellowstonePathology.Business.ReportNo reportNo in reportNoCollection)
+			//{
+            //    YellowstonePathology.Business.Helper.FileConversionHelper.SaveXpsReportToTiff(reportNo.Value);
+			//}
        }
 
         private void ComprehensiveCareReports_Click(object sender, RoutedEventArgs e)
@@ -240,7 +252,7 @@ namespace YellowstonePathology.UI
 
         private void XpsToTiff_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Helper.FileConversionHelper.SaveXpsReportToTiff("S11-11826", false);
+            //YellowstonePathology.Business.Helper.FileConversionHelper.SaveXpsReportToTiff("S11-11826");
         }       		
 
         private void TestBillingData_Click(object sender, RoutedEventArgs e)
@@ -787,7 +799,7 @@ namespace YellowstonePathology.UI
                 "join tblTestOrder t on po.panelOrderId = t.panelOrderId " +
                 "where ao.AccessionDate between '1/1/2014' and '12/31/2014' and t.TestId in (");
 
-            YellowstonePathology.Business.Test.Model.TestCollection testCollection = YellowstonePathology.Business.Test.Model.TestCollection.GetIHCTests();
+            YellowstonePathology.Business.Test.Model.TestCollection testCollection = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetIHCTests();
             foreach (YellowstonePathology.Business.Test.Model.Test test in testCollection)
             {
                 sql.Append(test.TestId.ToString() + ", ");
@@ -984,12 +996,38 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            //string path = System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\hello.txt";
-            //System.IO.File.WriteAllText(path, "hello world");
-            //MessageBox.Show(path);
+            UI.Surgical.StainOrder so = new Surgical.StainOrder();
+            so.Show();
 
-            //Business.Label.Model.HistologySlideDirectPrintLabel l = new Business.Label.Model.HistologySlideDirectPrintLabel("18-12043.S", "1A1", "MOUSE", new Business.BarcodeScanning.BarcodeVersion2("^2205HSLD18-12043.1A1"), "YPI Blgs, Mt");
-            //string line = l.GetLine();
+            //Business.Gateway.SearchGateway sg = new Business.Gateway.SearchGateway();
+            //Business.Search.PathologistSearchResultCollection psrc = sg.PathologistSlideOrderIdSearch("18-123.1A1");
+            //MessageBox.Show(psrc[0].PatientName);
+
+            /*
+            Business.Test.AccessionOrder ao = Business.Persistence.DocumentGateway.Instance.GetAccessionOrderByMasterAccessionNo("18-15024");            
+            Business.Test.PanelSetOrder pso = ao.PanelSetOrderCollection.GetSurgical();
+
+            Business.Billing.Model.CptCodeCollection codes = Store.AppDataStore.Instance.CPTCodeCollection;
+            foreach(Business.Billing.Model.CptCode cptCode in codes)
+            {
+                List<Business.Test.PanelSetOrderCPTCodeBill> panelSetOrderCPTCodeBill = new List<Business.Test.PanelSetOrderCPTCodeBill>();
+                if (string.IsNullOrEmpty(cptCode.SVHCDMCode) == false)
+                {                    
+                    Business.Test.PanelSetOrderCPTCodeBill x = pso.PanelSetOrderCPTCodeBillCollection.GetNextItem(pso.ReportNo);                                       
+                    x.ClientId = ao.ClientId;
+                    x.BillTo = "Client";
+                    x.BillBy = "YPIBLGS";
+                    x.CPTCode = cptCode.Code;
+                    x.Quantity = 1;
+                    x.PostDate = DateTime.Now;
+                    panelSetOrderCPTCodeBill.Add(x);
+                }
+
+                Business.Rules.MethodResult result = new Business.Rules.MethodResult();
+                Business.HL7View.EPIC.EPICFT1ResultView hl7 = new Business.HL7View.EPIC.EPICFT1ResultView(ao, panelSetOrderCPTCodeBill, false);
+                hl7.Send(result);
+            } 
+            */           
         }
 
         private void GetSlideNumberTest()

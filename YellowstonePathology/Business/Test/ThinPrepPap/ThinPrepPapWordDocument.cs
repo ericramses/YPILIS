@@ -6,12 +6,12 @@ using System.Xml;
 using System.Data;
 using System.Collections;
 using System.Text.RegularExpressions;
+using YellowstonePathology.Business.Document;
 
 namespace YellowstonePathology.Business.Test.ThinPrepPap
 {
     public class ThinPrepPapWordDocument : YellowstonePathology.Business.Interface.ICaseDocument
     {        
-
         const string m_ThinPrepTemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\CytologyThinPrep.9.xml";
         const string m_RegularTemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\CytologyRegular.7.xml";
 
@@ -180,11 +180,14 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
             this.SaveReport();
         }
 
-        public void Publish(bool notify)
+        public void Publish()
         {
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_PanelSetOrderCytology.ReportNo);
-            YellowstonePathology.Business.Document.CaseDocument.SaveXMLAsPDF(orderIdParser, false);
-            YellowstonePathology.Business.Helper.FileConversionHelper.SaveXpsReportToTiff(this.m_PanelSetOrderCytology.ReportNo, notify);
+            YellowstonePathology.Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, CaseDocumentTypeEnum.CaseReport, CaseDocumentFileTypeEnnum.xml, CaseDocumentFileTypeEnnum.pdf);
+            YellowstonePathology.Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, CaseDocumentTypeEnum.CaseReport, CaseDocumentFileTypeEnnum.xps, CaseDocumentFileTypeEnnum.tif);
+
+            //YellowstonePathology.Business.Document.CaseDocument.SaveXMLAsPDF(orderIdParser);
+            //YellowstonePathology.Business.Helper.FileConversionHelper.SaveXpsReportToTiff(this.m_PanelSetOrderCytology.ReportNo);
         }
 
         public void OpenTemplate()
@@ -476,8 +479,8 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
                 case YellowstonePathology.Business.Document.ReportSaveModeEnum.Normal:
                     this.m_ReportXml.Save(this.m_SaveFileName);
 					YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_PanelSetOrderCytology.ReportNo);
-					YellowstonePathology.Business.Document.CaseDocument.SaveXMLAsDoc(orderIdParser, false);
-					YellowstonePathology.Business.Document.CaseDocument.SaveDocAsXPS(orderIdParser, false);
+                    Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, Business.Document.CaseDocumentTypeEnum.CaseReport, Business.Document.CaseDocumentFileTypeEnnum.xml, Business.Document.CaseDocumentFileTypeEnnum.doc);
+                    Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, Business.Document.CaseDocumentTypeEnum.CaseReport, Business.Document.CaseDocumentFileTypeEnnum.doc, Business.Document.CaseDocumentFileTypeEnnum.xps);
                     break;
                 case YellowstonePathology.Business.Document.ReportSaveModeEnum.Test:
                     this.m_ReportXml.Save(@"c:\Testing\Test.xml");
@@ -495,7 +498,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
                 case YellowstonePathology.Business.Document.ReportSaveModeEnum.Normal:
 					YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_PanelSetOrderCytology.ReportNo);
                     this.m_ReportXml.Save(this.m_SaveFileName);
-					YellowstonePathology.Business.Document.CaseDocument.SaveXMLAsDoc(orderIdParser, false);
+                    Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, Business.Document.CaseDocumentTypeEnum.CaseReport, Business.Document.CaseDocumentFileTypeEnnum.xml, Business.Document.CaseDocumentFileTypeEnnum.doc);
                     break;
                 case YellowstonePathology.Business.Document.ReportSaveModeEnum.Test:
                     this.m_ReportXml.Save(@"c:\Testing\Test.xml");
@@ -522,7 +525,6 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 
             foreach (YellowstonePathology.Business.Amendment.Model.Amendment dr in amendments)
             {
-
                 if (dr.Final == true)
                 {
                     string addendumText = dr.Text;

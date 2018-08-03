@@ -362,7 +362,7 @@ namespace YellowstonePathology.Business.Specimen.Model.SpecimenDefinition
         {
             this.m_SpecimenId = "TNSLSPCM";
             this.m_SpecimenName = "Tonsil Excision";
-            this.m_Description = "Right and left tonsils, excision";
+            this.m_Description = "[Right/Left] tonsils, excision";
             this.m_LabFixation = "Formalin";
             this.m_ClientFixation = null;
             this.m_RequiresGrossExamination = true;

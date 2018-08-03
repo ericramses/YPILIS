@@ -85,12 +85,12 @@ namespace YellowstonePathology.Business.Test.TCellNKProfile
             this.SetXmlNodeData("report_references", testOrder.ReportReferences);
             this.SetXmlNodeData("asr_comment", testOrder.ASRComment);
 
-            this.SaveReport(false);
+            this.SaveReport();
         }
 
-        public override void Publish(bool notify)
+        public override void Publish()
         {
-            base.Publish(notify);
+            base.Publish();
         }
     }
 }
