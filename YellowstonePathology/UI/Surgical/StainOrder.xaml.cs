@@ -94,8 +94,7 @@ namespace YellowstonePathology.UI.Surgical
 
         private void ButtonOrder_Click(object sender, RoutedEventArgs e)
         {
-            Business.Stain.Model.StainCollection stainsToOrder = this.GetStainsToOrder();
-            
+            Business.Stain.Model.StainCollection stainsToOrder = this.GetStainsToOrder();            
 
             ((MainWindow)Application.Current.MainWindow).MoveKeyboardInputToNext();
 
@@ -108,8 +107,8 @@ namespace YellowstonePathology.UI.Surgical
                 {
                     this.HandleOrderingTests(selectedAliquots, selectedTests);
 
-                    this.m_StainAcknowledgementTaskOrderVisitor.TaskOrderDetailComment = this.m_PanelOrderComment;
-                    this.m_AccessionOrder.TakeATrip(this.m_StainAcknowledgementTaskOrderVisitor);
+                    //this.m_StainAcknowledgementTaskOrderVisitor.TaskOrderDetailComment = this.m_PanelOrderComment;
+                    //this.m_AccessionOrder.TakeATrip(this.m_StainAcknowledgementTaskOrderVisitor);
 
                     this.ClearCheckBoxes();                    
 
@@ -176,7 +175,14 @@ namespace YellowstonePathology.UI.Surgical
                 {
                     string stainId = (string)checkBox.Tag;
                     Business.Stain.Model.Stain stain = Business.Stain.Model.StainCollection.Instance.GetStain(stainId);
-                    result.Add(stain);
+                    if (stain != null)
+                    {
+                        result.Add(stain);
+                    }
+                    else
+                    {
+                        throw new Exception("The stain was not found.");
+                    }
                 }                
             }
             return result;
