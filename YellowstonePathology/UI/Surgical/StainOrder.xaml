@@ -226,6 +226,15 @@
 
                     <CheckBox Name="StainOrder08" Grid.Column="0" Grid.Row="9" Margin="2,2,2,2" Tag="stb2"></CheckBox>
                     <TextBlock Grid.Column="1" Grid.Row="9" Margin="2,2,2,2">SATB2</TextBlock>
+
+                    <TextBlock Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="2" Margin="2,2,2,2" FontWeight="Bold" TextDecorations="Underline">Infectious Diseases</TextBlock>
+
+                    <CheckBox Name="StainOrder09" Grid.Column="0" Grid.Row="11" Margin="2,2,2,2" Tag="hlcbctrpylri"></CheckBox>
+                    <TextBlock Grid.Column="1" Grid.Row="11" Margin="2,2,2,2">Helicobacter pylori</TextBlock>
+
+                    <CheckBox Name="StainOrder010" Grid.Column="0" Grid.Row="12" Margin="2,2,2,2" Tag="cytmglvrs"></CheckBox>
+                    <TextBlock Grid.Column="1" Grid.Row="12" Margin="2,2,2,2">Cytomegalovirus</TextBlock>
+
                 </Grid>
 
                 <Grid Grid.Column="1">
@@ -238,14 +247,137 @@
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Margin="2,2,2,2" FontWeight="Bold" TextDecorations="Underline">Cytochemical</TextBlock>
 
-                    <CheckBox Name="StainOrder10" Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" Tag="444"></CheckBox>
+                    <CheckBox Name="StainOrder10" Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" Tag="acdfst"></CheckBox>
                     <TextBlock Grid.Column="1" Grid.Row="1" Margin="2,2,2,2">Acid Fast</TextBlock>
 
-                    <CheckBox Name="StainOrder11" Grid.Column="0" Grid.Row="2" Margin="2,2,2,2"></CheckBox>
-                    <TextBlock Grid.Column="1" Grid.Row="2" Margin="2,2,2,2" Tag="222">Alcian Blue</TextBlock>
+                    <CheckBox Name="StainOrder11" Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" Tag="alcnble"></CheckBox>
+                    <TextBlock Grid.Column="1" Grid.Row="2" Margin="2,2,2,2">Alcian Blue</TextBlock>
+
+                    <CheckBox Name="StainOrder12" Grid.Column="0" Grid.Row="3" Margin="2,2,2,2" Tag="cngrd"></CheckBox>
+                    <TextBlock Grid.Column="1" Grid.Row="3" Margin="2,2,2,2">Congo Red</TextBlock>
+
+                    <!--<CheckBox Name="StainOrder13" Grid.Column="0" Grid.Row="4" Margin="2,2,2,2" Tag=""></CheckBox>
+                    <TextBlock Grid.Column="1" Grid.Row="4" Margin="2,2,2,2"></TextBlock>-->
+
+                    <CheckBox Name="StainOrder14" Grid.Column="0" Grid.Row="5" Margin="2,2,2,2" Tag="elstc"></CheckBox>
+                    <TextBlock Grid.Column="1" Grid.Row="5" Margin="2,2,2,2">Elastic</TextBlock>
+
+                    <!--<CheckBox Name="StainOrder15" Grid.Column="0" Grid.Row="6" Margin="2,2,2,2" Tag=""></CheckBox>
+                    <TextBlock Grid.Column="1" Grid.Row="6" Margin="2,2,2,2"></TextBlock>-->
+
+                    <!--<CheckBox Name="StainOrder16" Grid.Column="0" Grid.Row="7" Margin="2,2,2,2" Tag=""></CheckBox>
+                    <TextBlock Grid.Column="1" Grid.Row="7" Margin="2,2,2,2"></TextBlock>-->
+
+                    <CheckBox Name="StainOrder17" Grid.Column="0" Grid.Row="8" Margin="2,2,2,2" Tag="gms"></CheckBox>
+                    <TextBlock Grid.Column="1" Grid.Row="8" Margin="2,2,2,2">GMS</TextBlock>
+
+                    <!--<CheckBox Name="StainOrder18" Grid.Column="0" Grid.Row="9" Margin="2,2,2,2" Tag=""></CheckBox>
+                    <TextBlock Grid.Column="1" Grid.Row="9" Margin="2,2,2,2"></TextBlock>-->
+
+                    <CheckBox Name="StainOrder19" Grid.Column="0" Grid.Row="10" Margin="2,2,2,2" Tag="irn"></CheckBox>
+                    <TextBlock Grid.Column="1" Grid.Row="10" Margin="2,2,2,2">Iron</TextBlock>
+
+                    <!--<CheckBox Name="StainOrder110" Grid.Column="0" Grid.Row="11" Margin="2,2,2,2" Tag=""></CheckBox>
+                    <TextBlock Grid.Column="1" Grid.Row="11" Margin="2,2,2,2"></TextBlock>-->
+
+                    <!--<CheckBox Name="StainOrder111" Grid.Column="0" Grid.Row="12" Margin="2,2,2,2" Tag=""></CheckBox>
+                    <TextBlock Grid.Column="1" Grid.Row="12" Margin="2,2,2,2" Tag=""></TextBlock>-->
+
+                    <!--<CheckBox Name="StainOrder112" Grid.Column="0" Grid.Row="13" Margin="2,2,2,2" Tag=""></CheckBox>
+                    <TextBlock Grid.Column="1" Grid.Row="13" Margin="2,2,2,2"></TextBlock>-->
+
+                    <CheckBox Name="StainOrder113" Grid.Column="0" Grid.Row="14" Margin="2,2,2,2" Tag="ps"></CheckBox>
+                    <TextBlock Grid.Column="1" Grid.Row="14" Margin="2,2,2,2">PAS</TextBlock>
+
+                    <CheckBox Name="StainOrder114" Grid.Column="0" Grid.Row="15" Margin="2,2,2,2" Tag="pslcnble"></CheckBox>
+                    <TextBlock Grid.Column="1" Grid.Row="15" Margin="2,2,2,2">PAS alcian blue</TextBlock>
+
+                    <CheckBox Name="StainOrder115" Grid.Column="0" Grid.Row="16" Margin="2,2,2,2" Tag="psfrfngs"></CheckBox>
+                    <TextBlock Grid.Column="1" Grid.Row="16" Margin="2,2,2,2">PAS for fungus</TextBlock>
+
+                    <CheckBox Name="StainOrder116" Grid.Column="0" Grid.Row="17" Margin="2,2,2,2" Tag="pswthdstse"></CheckBox>
+                    <TextBlock Grid.Column="1" Grid.Row="17" Margin="2,2,2,2">PAS with diastase</TextBlock>
+
+                    <CheckBox Name="StainOrder117" Grid.Column="0" Grid.Row="18" Margin="2,2,2,2" Tag="rtcln"></CheckBox>
+                    <TextBlock Grid.Column="1" Grid.Row="18" Margin="2,2,2,2">Reticulin</TextBlock>
+
+                    <CheckBox Name="StainOrder118" Grid.Column="0" Grid.Row="19" Margin="2,2,2,2" Tag="stnrndstnr"></CheckBox>
+                    <TextBlock Grid.Column="1" Grid.Row="19" Margin="2,2,2,2">Steiner and Steiner</TextBlock>
+
+                    <CheckBox Name="StainOrder119" Grid.Column="0" Grid.Row="20" Margin="2,2,2,2" Tag="trchrme"></CheckBox>
+                    <TextBlock Grid.Column="1" Grid.Row="20" Margin="2,2,2,2">Trichrome</TextBlock>
+
+                    <CheckBox Name="StainOrder120" Grid.Column="0" Grid.Row="21" Margin="2,2,2,2" Tag="liverpanel"></CheckBox>
+                    <TextBlock Grid.Column="1" Grid.Row="21" Margin="2,2,2,2">Liver Panel</TextBlock>
+
+                    <CheckBox Name="StainOrder121" Grid.Column="0" Grid.Row="22" Margin="2,2,2,2" Tag="trchrme"></CheckBox>
+                    <TextBlock Grid.Column="1" Grid.Row="22" Margin="2,2,2,2">Trichrome</TextBlock>
+
+                    <CheckBox Name="StainOrder122" Grid.Column="0" Grid.Row="23" Margin="2,2,2,2" Tag="irn"></CheckBox>
+                    <TextBlock Grid.Column="1" Grid.Row="23" Margin="2,2,2,2">Iron</TextBlock>
+
+                    <CheckBox Name="StainOrder123" Grid.Column="0" Grid.Row="24" Margin="2,2,2,2" Tag="pswthdstse"></CheckBox>
+                    <TextBlock Grid.Column="1" Grid.Row="24" Margin="2,2,2,2">PAS with diastase</TextBlock>
+
+                    <CheckBox Name="StainOrder124" Grid.Column="0" Grid.Row="25" Margin="2,2,2,2" Tag="">rtcln</CheckBox>
+                    <TextBlock Grid.Column="1" Grid.Row="25" Margin="2,2,2,2">Reticulin</TextBlock>
+
+                    <!--<CheckBox Name="StainOrder125" Grid.Column="0" Grid.Row="26" Margin="2,2,2,2" Tag=""></CheckBox>
+                    <TextBlock Grid.Column="1" Grid.Row="26" Margin="2,2,2,2"></TextBlock>-->
+
+                    <TextBlock Grid.Column="0" Grid.Row="27" Grid.ColumnSpan="2" Margin="2,2,2,2" FontWeight="Bold" TextDecorations="Underline">Melanoma</TextBlock>
+
+                    <CheckBox Name="StainOrder126" Grid.Column="0" Grid.Row="28" Margin="2,2,2,2" Tag=""></CheckBox>
+                    <TextBlock Grid.Column="1" Grid.Row="28" Margin="2,2,2,2"></TextBlock>
+
+                    <CheckBox Name="StainOrder127" Grid.Column="0" Grid.Row="29" Margin="2,2,2,2" Tag=""></CheckBox>
+                    <TextBlock Grid.Column="1" Grid.Row="29" Margin="2,2,2,2"></TextBlock>
+
+                    <CheckBox Name="StainOrder128" Grid.Column="0" Grid.Row="30" Margin="2,2,2,2" Tag=""></CheckBox>
+                    <TextBlock Grid.Column="1" Grid.Row="30" Margin="2,2,2,2"></TextBlock>
+
+                    <CheckBox Name="StainOrder129" Grid.Column="0" Grid.Row="31" Margin="2,2,2,2" Tag=""></CheckBox>
+                    <TextBlock Grid.Column="1" Grid.Row="31" Margin="2,2,2,2"></TextBlock>
+
                 </Grid>
 
                 <Grid Grid.Column="2">
