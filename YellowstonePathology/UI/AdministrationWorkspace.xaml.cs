@@ -996,8 +996,8 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            TestPage tw = new TestPage();
-            tw.Show();
+            UI.Surgical.StainOrder so = new Surgical.StainOrder();
+            so.Show();
 
             //Business.Gateway.SearchGateway sg = new Business.Gateway.SearchGateway();
             //Business.Search.PathologistSearchResultCollection psrc = sg.PathologistSlideOrderIdSearch("18-123.1A1");

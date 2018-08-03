@@ -19,9 +19,50 @@ namespace YellowstonePathology.UI.Surgical
     /// </summary>
     public partial class StainOrder : Window
     {
+        List<CheckBox> m_DualStains;
+
         public StainOrder()
-        {
+        {            
             InitializeComponent();
+            this.Loaded += StainOrder_Loaded;
+        }
+
+        private void StainOrder_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.m_DualStains = new List<CheckBox>();
+            this.InitializeList("DualStainOrder", this.m_DualStains, this.MainGrid);
+        }
+
+        private void InitializeList(string name, List<CheckBox> list, DependencyObject depObj)
+        {
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
+            {
+                DependencyObject child = VisualTreeHelper.GetChild(depObj, i);
+                if(child is CheckBox)
+                {
+                    CheckBox checkBox = (CheckBox)child;
+                    if(checkBox.Name.Contains(name))
+                    {
+                        list.Add(checkBox);
+                    }
+                }
+                this.InitializeList(name, list, child);
+            }
+        }
+
+        private void ButtonOrder_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ButtonClose_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ButtonDelete_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
