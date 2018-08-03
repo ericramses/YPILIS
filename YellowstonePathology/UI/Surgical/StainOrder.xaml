@@ -201,22 +201,22 @@
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Margin="2,2,2,2" FontWeight="Bold" TextDecorations="Underline">Dual Stains</TextBlock>
 
-                    <CheckBox Name="DualStainOrder01" Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" Tag="k67smqntttvmlna"></CheckBox>
+                    <CheckBox Name="StainOrder01" Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" Tag="k67smqntttvmlna"></CheckBox>
                     <TextBlock Grid.Column="1" Grid.Row="1" Margin="2,2,2,2">Ki-67/MelanA</TextBlock>
 
-                    <CheckBox Name="DualStainOrder02" Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" Tag="cytkrtn34p504srcmse"></CheckBox>
+                    <CheckBox Name="StainOrder02" Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" Tag="cytkrtn34p504srcmse"></CheckBox>
                     <TextBlock Grid.Column="1" Grid.Row="2" Margin="2,2,2,2">CK34/P504S</TextBlock>
 
-                    <CheckBox Name="DualStainOrder03" Grid.Column="0" Grid.Row="3" Margin="2,2,2,2" Tag="cd3cd20"></CheckBox>
+                    <CheckBox Name="StainOrder03" Grid.Column="0" Grid.Row="3" Margin="2,2,2,2" Tag="cd3cd20"></CheckBox>
                     <TextBlock Grid.Column="1" Grid.Row="3" Margin="2,2,2,2">CD3/CD20</TextBlock>
 
-                    <CheckBox Name="DualStainOrder04" Grid.Column="0" Grid.Row="4" Margin="2,2,2,2" Tag="oscrsmthmsclmysn"></CheckBox>
+                    <CheckBox Name="StainOrder04" Grid.Column="0" Grid.Row="4" Margin="2,2,2,2" Tag="oscrsmthmsclmysn"></CheckBox>
                     <TextBlock Grid.Column="1" Grid.Row="4" Margin="2,2,2,2">OSCAR/SMM</TextBlock>
 
-                    <CheckBox Name="DualStainOrder05" Grid.Column="0" Grid.Row="5" Margin="2,2,2,2" Tag="ttf1npsna"></CheckBox>
+                    <CheckBox Name="StainOrder05" Grid.Column="0" Grid.Row="5" Margin="2,2,2,2" Tag="ttf1npsna"></CheckBox>
                     <TextBlock Grid.Column="1" Grid.Row="5" Margin="2,2,2,2">TTF-1/Napsin A</TextBlock>
 
-                    <CheckBox Name="DualStainOrder06" Grid.Column="0" Grid.Row="6" Margin="2,2,2,2" Tag="px5cd5"></CheckBox>
+                    <CheckBox Name="StainOrder06" Grid.Column="0" Grid.Row="6" Margin="2,2,2,2" Tag="px5cd5"></CheckBox>
                     <TextBlock Grid.Column="1" Grid.Row="6" Margin="2,2,2,2">PAX5/CD5</TextBlock>
 
                     <TextBlock Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" Margin="2,2,2,2" FontWeight="Bold" TextDecorations="Underline">Colon</TextBlock>
