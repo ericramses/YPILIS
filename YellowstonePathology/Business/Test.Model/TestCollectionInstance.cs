@@ -93,17 +93,17 @@ namespace YellowstonePathology.Business.Test.Model
 
             //Cytochemical For Microorganisms
             result.Add(new Giemsa());
-            result.Add(new Gout());
-            result.Add(new HuckerTwort());
+            //result.Add(new Gout());
+            //result.Add(new HuckerTwort());
 
             //Cytochemical
-            result.Add(new Melanin());
-            result.Add(new Mucin());
-            result.Add(new OilRedO());
+            //result.Add(new Melanin());
+            //result.Add(new Mucin());
+            //result.Add(new OilRedO());
             result.Add(new AlphaNaphthylAcetateEsterase());
             result.Add(new NaphtholASDChloroacetateEsterase());
-            result.Add(new CopperRhodanine());
-            result.Add(new Fites());
+            //result.Add(new CopperRhodanine());
+            //result.Add(new Fites());
             result.Add(new Alk());
 
             //IHC
@@ -119,7 +119,7 @@ namespace YellowstonePathology.Business.Test.Model
             result.Add(new EGFR());
             result.Add(new FactorVIII());
             result.Add(new GCDFP15());
-            result.Add(new HER2Neu());
+            //result.Add(new HER2Neu());
             result.Add(new Lysozyme());
             result.Add(new MuscleSpecificActin());
             result.Add(new NSE());
