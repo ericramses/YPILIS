@@ -30,6 +30,7 @@ namespace YellowstonePathology.UI.Stain
             this.m_Stain = stain;
 
             this.m_StainerTypes = new List<string>();
+            this.m_StainerTypes.Add(null);
             this.m_StainerTypes.Add("BenchMark ULTRA");
             this.m_StainerTypes.Add("BenchMark Special Stains");
 
@@ -49,6 +50,7 @@ namespace YellowstonePathology.UI.Stain
             this.m_Stain = new Business.Stain.Model.Stain();
 
             this.m_StainerTypes = new List<string>();
+            this.m_StainerTypes.Add(null);
             this.m_StainerTypes.Add("BenchMark ULTRA");
             this.m_StainerTypes.Add("BenchMark Special Stains");
 

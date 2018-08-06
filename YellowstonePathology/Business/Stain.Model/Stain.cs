@@ -23,6 +23,7 @@ namespace YellowstonePathology.Business.Stain.Model
         private string m_CPTCode;
         private string m_SubsequentCPTCode;
         private string m_GCode;
+        private string m_SubsequentGCode;
         private string m_VentanaBenchMarkWetProtocolName;
         private int? m_VentanaBenchMarkId;
         private int? m_VentanaBenchMarkWetId;
@@ -167,15 +168,20 @@ namespace YellowstonePathology.Business.Stain.Model
 
         public string HistologyDisplayString
         {
-            get { return this.m_HistologyDisplayString; }
-            set
+            get
+            {
+                string result = this.m_StainAbbreviation;
+                if (this.m_UseWetProtocol == true) result = result + "(W)";
+                return result;
+            }
+            /*set
             {
                 if (this.m_HistologyDisplayString != value)
                 {
                     this.m_HistologyDisplayString = value;
                     this.NotifyPropertyChanged("HistologyDisplayString");
                 }
-            }
+            }*/
         }
 
         public string StainerType
@@ -239,6 +245,19 @@ namespace YellowstonePathology.Business.Stain.Model
                 {
                     this.m_GCode = value;
                     this.NotifyPropertyChanged("GCode");
+                }
+            }
+        }
+
+        public string SubsequentGCode
+        {
+            get { return this.m_SubsequentGCode; }
+            set
+            {
+                if (this.m_SubsequentGCode != value)
+                {
+                    this.m_SubsequentGCode = value;
+                    this.NotifyPropertyChanged("SubsequentGCode");
                 }
             }
         }
