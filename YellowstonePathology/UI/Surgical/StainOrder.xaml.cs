@@ -24,6 +24,7 @@ namespace YellowstonePathology.UI.Surgical
         public event PropertyChangedEventHandler PropertyChanged;
 
         List<CheckBox> m_StainsCheckBoxes;
+        List<CheckBox> m_LiverPanelCheckBoxes;
 
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;        
         private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
@@ -44,7 +45,9 @@ namespace YellowstonePathology.UI.Surgical
 
             this.DataContext = this;
             this.Loaded += StainOrder_Loaded;
-        }
+
+            Business.Stain.Model.StainCollection.Instance.WriteLineStains();
+        }        
 
         private void StainOrder_Loaded(object sender, RoutedEventArgs e)
         {     
@@ -194,6 +197,11 @@ namespace YellowstonePathology.UI.Surgical
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
+        }
+
+        private void CheckBoxLiverPanel_Checked(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
