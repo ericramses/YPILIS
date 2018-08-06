@@ -102,10 +102,13 @@ namespace YellowstonePathology.UI.Stain
         {
             YellowstonePathology.Business.Rules.MethodResult result = new Business.Rules.MethodResult();
             string id = this.DetermineStainId();
-            if (this.m_Stain.VentanaBenchMarkId == 0)
+            if (this.m_Stain.PerformedByHand == false)
             {
-                result.Success = false;
-                result.Message = "The Ventana BenchMark Id must be a number greater than 0.";
+                if (this.m_Stain.VentanaBenchMarkId == null || this.m_Stain.VentanaBenchMarkId.Value == 0)
+                {
+                    result.Success = false;
+                    result.Message = "The Ventana BenchMark Id must be a number greater than 0.";
+                }
             }
             if(string.IsNullOrEmpty(this.m_Stain.StainId) == true)
             {

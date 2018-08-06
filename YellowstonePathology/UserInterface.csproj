@@ -1053,6 +1053,7 @@
     <Compile Include="Business\Stain.Model\JsonStainFactory.cs" />
     <Compile Include="Business\Stain.Model\Stain.cs" />
     <Compile Include="Business\Stain.Model\StainCollection.cs" />
+    <Compile Include="Business\Test.Model\CopperRhodanine.cs" />
     <Compile Include="Business\Test.Model\TestCollectionInstance.cs" />
     <Compile Include="Business\Test.Model\TestFactory.cs" />
     <Compile Include="Business\Test.Model\TestOrderStatusView.cs" />
@@ -2099,7 +2100,6 @@
     <Compile Include="Business\Test.Model\CD79a.cs" />
     <Compile Include="Business\Test.Model\CellBlock.cs" />
     <Compile Include="Business\Test.Model\ChlamydiaTrachomatis.cs" />
-    <Compile Include="Business\Test.Model\CopperRhodanine.cs" />
     <Compile Include="Business\Test.Model\CptCodeLevelEnum.cs" />
     <Compile Include="Business\Test.Model\CytochemicalForMicroorganismsTest.cs" />
     <Compile Include="Business\Test.Model\CytochemicalTest.cs" />
