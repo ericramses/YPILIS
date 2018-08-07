@@ -356,7 +356,8 @@
                     <CheckBox Name="StainOrder120" Tag="trchrme" Grid.Column="0" Grid.Row="20" Margin="2,2,2,2"></CheckBox>
                     <TextBlock Grid.Column="1" Grid.Row="20" Margin="2,2,2,2">Trichrome</TextBlock>
 
-                    <CheckBox Name="StainOrder121" Tag="liverpanel" Grid.Column="0" Grid.Row="21" Margin="2,2,2,2" Checked="CheckBoxLiverPanel_Checked"></CheckBox>
+                    <CheckBox Name="CheckBoxLiverPanel" Grid.Column="0" Grid.Row="21" Margin="2,2,2,2" 
+                              Checked="CheckBoxLiverPanel_Checked" Unchecked="CheckBoxLiverPanel_Unchecked"></CheckBox>
                     <TextBlock Grid.Column="1" Grid.Row="21" Margin="2,2,2,2">Liver Panel</TextBlock>
 
                     <StackPanel Grid.Column="0" Grid.Row="22" Grid.ColumnSpan="2" Orientation="Horizontal">

@@ -53,6 +53,13 @@ namespace YellowstonePathology.UI.Surgical
         {     
             this.m_StainsCheckBoxes = new List<CheckBox>();
             this.InitializeCheckboxList("StainOrder", this.m_StainsCheckBoxes, this.MainGrid);
+
+            this.m_LiverPanelCheckBoxes = new List<CheckBox>();
+            this.m_LiverPanelCheckBoxes.Add(this.StainOrder122);
+            this.m_LiverPanelCheckBoxes.Add(this.StainOrder123);
+            this.m_LiverPanelCheckBoxes.Add(this.StainOrder124);
+            this.m_LiverPanelCheckBoxes.Add(this.StainOrder125);
+            this.m_LiverPanelCheckBoxes.Add(this.StainOrder126);
         }
 
         public YellowstonePathology.Business.Test.AccessionOrder AccessionOrder
@@ -110,8 +117,8 @@ namespace YellowstonePathology.UI.Surgical
                 {
                     this.HandleOrderingTests(selectedAliquots, selectedTests);
 
-                    //this.m_StainAcknowledgementTaskOrderVisitor.TaskOrderDetailComment = this.m_PanelOrderComment;
-                    //this.m_AccessionOrder.TakeATrip(this.m_StainAcknowledgementTaskOrderVisitor);
+                    this.m_StainAcknowledgementTaskOrderVisitor.TaskOrderDetailComment = this.m_PanelOrderComment;
+                    this.m_AccessionOrder.TakeATrip(this.m_StainAcknowledgementTaskOrderVisitor);
 
                     this.ClearCheckBoxes();                    
 
@@ -155,7 +162,32 @@ namespace YellowstonePathology.UI.Surgical
 
         private void ButtonDelete_Click(object sender, RoutedEventArgs e)
         {
+            YellowstonePathology.Business.Test.Model.TestOrderCollection selectedTestOrders = this.m_AliquotAndStainOrderView.GetSelectedTestOrders();
 
+            if (selectedTestOrders.Count != 0)
+            {
+                foreach (YellowstonePathology.Business.Test.Model.TestOrder testOrder in selectedTestOrders)
+                {
+                    if (this.m_AliquotAndStainOrderView.HaveSlidesBeenMadeForTestOrder(testOrder) == false)
+                    {
+                        YellowstonePathology.Business.Visitor.RemoveTestOrderVisitor removeTestOrderVisitor = new Business.Visitor.RemoveTestOrderVisitor(testOrder.TestOrderId);
+                        this.m_AccessionOrder.TakeATrip(removeTestOrderVisitor);
+                        this.m_StainAcknowledgementTaskOrderVisitor.RemoveTestOrder(testOrder);
+                    }
+                    else
+                    {
+                        MessageBox.Show("The test " + testOrder.TestName + " cannot be deleted because slides have been made.");
+                    }
+                }
+
+                this.m_AccessionOrder.TakeATrip(this.m_StainAcknowledgementTaskOrderVisitor);
+                this.m_AliquotAndStainOrderView.Refresh(false, this.m_PanelSetOrder);
+                this.NotifyPropertyChanged("AliquotAndStainOrderView");
+            }
+            else
+            {
+                MessageBox.Show("No tests selected.");
+            }
         }
 
         private void ClearCheckBoxes()
@@ -200,8 +232,19 @@ namespace YellowstonePathology.UI.Surgical
         }
 
         private void CheckBoxLiverPanel_Checked(object sender, RoutedEventArgs e)
-        {
+        {            
+            foreach(CheckBox checkBox in this.m_LiverPanelCheckBoxes)
+            {
+                checkBox.IsChecked = true;
+            }                            
+        }
 
+        private void CheckBoxLiverPanel_Unchecked(object sender, RoutedEventArgs e)
+        {
+            foreach (CheckBox checkBox in this.m_LiverPanelCheckBoxes)
+            {
+                checkBox.IsChecked = false;
+            }
         }
     }
 }
