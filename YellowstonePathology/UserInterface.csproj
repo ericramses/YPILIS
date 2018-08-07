@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>122</ApplicationRevision>
+    <ApplicationRevision>123</ApplicationRevision>
     <ApplicationVersion>10.1.12.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -4675,7 +4675,6 @@
     <Compile Include="UI\TypingTemplateDialog.xaml.cs">
       <DependentUpon>TypingTemplateDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\TemplateSelector\OrderItemTemplateSelector.cs" />
     <Compile Include="UI\TestingControl.xaml.cs">
       <DependentUpon>TestingControl.xaml</DependentUpon>
     </Compile>
@@ -4740,9 +4739,6 @@
     </Compile>
     <Compile Include="UI\Common\OrderCommentDialog.xaml.cs">
       <DependentUpon>OrderCommentDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Common\OrderDialog.xaml.cs">
-      <DependentUpon>OrderDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Common\PathologistSelectionDialog.xaml.cs">
       <DependentUpon>PathologistSelectionDialog.xaml</DependentUpon>
@@ -6468,10 +6464,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\Common\OrderDialog.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="UI\Common\PathologistSelectionDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -7382,9 +7374,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="UI\Common\ComplexOrderItem.xml" />
-    <EmbeddedResource Include="UI\Common\OrderItem.xml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Reassign.ico" />
