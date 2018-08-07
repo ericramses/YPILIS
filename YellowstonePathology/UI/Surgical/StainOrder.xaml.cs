@@ -25,10 +25,12 @@ namespace YellowstonePathology.UI.Surgical
 
         List<CheckBox> m_StainsCheckBoxes;
         List<CheckBox> m_LiverPanelCheckBoxes;
+        List<CheckBox> m_NonStainCheckBoxes;
 
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;        
         private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
         private string m_PanelOrderComment;
+        private string m_RecutComment;
 
         private YellowstonePathology.UI.Login.FinalizeAccession.AliquotAndStainOrderView m_AliquotAndStainOrderView;
         private YellowstonePathology.Business.Visitor.StainAcknowledgementTaskOrderVisitor m_StainAcknowledgementTaskOrderVisitor;
@@ -60,6 +62,12 @@ namespace YellowstonePathology.UI.Surgical
             this.m_LiverPanelCheckBoxes.Add(this.StainOrder124);
             this.m_LiverPanelCheckBoxes.Add(this.StainOrder125);
             this.m_LiverPanelCheckBoxes.Add(this.StainOrder126);
+
+            this.m_NonStainCheckBoxes = new List<CheckBox>();
+            this.m_NonStainCheckBoxes.Add(this.CheckBoxICF);
+            this.m_NonStainCheckBoxes.Add(this.CheckBoxIC);
+            this.m_NonStainCheckBoxes.Add(this.CheckBoxGrossOnly);
+            this.m_NonStainCheckBoxes.Add(this.CheckBoxRecuts);
         }
 
         public YellowstonePathology.Business.Test.AccessionOrder AccessionOrder
@@ -81,6 +89,19 @@ namespace YellowstonePathology.UI.Surgical
                 {
                     this.m_PanelOrderComment = value;
                     this.NotifyPropertyChanged("PanelOrderComment");
+                }
+            }
+        }
+
+        public string RecutComment
+        {
+            get { return this.m_PanelOrderComment; }
+            set
+            {
+                if (this.m_PanelOrderComment != value)
+                {
+                    this.m_PanelOrderComment = value;
+                    this.NotifyPropertyChanged("RecutComment");
                 }
             }
         }
@@ -112,6 +133,7 @@ namespace YellowstonePathology.UI.Surgical
             if (selectedAliquots.Count > 0)
             {
                 YellowstonePathology.Business.Test.Model.TestCollection selectedTests = stainsToOrder.GetTestCollection();
+                this.GetNonStainTestsToOrder(selectedTests);
 
                 if (selectedTests.Count > 0)
                 {
@@ -127,6 +149,9 @@ namespace YellowstonePathology.UI.Surgical
 
                     this.m_PanelOrderComment = null;
                     this.NotifyPropertyChanged("PanelOrderComment");
+
+                    this.m_RecutComment = null;
+                    this.NotifyPropertyChanged("RecutComment");
                 }
                 else
                 {
@@ -199,6 +224,14 @@ namespace YellowstonePathology.UI.Surgical
                     checkBox.IsChecked = false;
                 }
             }
+
+            foreach (CheckBox checkBox in this.m_NonStainCheckBoxes)
+            {
+                if (checkBox.IsChecked == true)
+                {
+                    checkBox.IsChecked = false;
+                }
+            }
         }
 
         private Business.Stain.Model.StainCollection GetStainsToOrder()
@@ -221,6 +254,22 @@ namespace YellowstonePathology.UI.Surgical
                 }                
             }
             return result;
+        }
+
+        private void GetNonStainTestsToOrder(Business.Test.Model.TestCollection selectedTests)
+        {
+            foreach (CheckBox checkBox in this.m_NonStainCheckBoxes)
+            {
+                if (checkBox.IsChecked == true)
+                {
+                    string testId = (string)checkBox.Tag;
+                    Business.Test.Model.Test test = Business.Test.Model.TestCollectionInstance.GetClone(testId);
+
+                    if (test is Business.Test.Model.Recut) test.OrderComment = RecutComment;
+
+                    selectedTests.Add(test);
+                }
+            }
         }
 
         protected void NotifyPropertyChanged(String info)
