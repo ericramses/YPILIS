@@ -136,13 +136,13 @@
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
-                <CheckBox Grid.Column="0" Margin="2,2,2,2"></CheckBox>
+                <CheckBox Name="CheckBoxICF" Tag="45" Grid.Column="0" Margin="2,2,2,2"></CheckBox>
                 <TextBlock Grid.Column="1" Margin="2,2,2,2" HorizontalAlignment="Left">Intraoperative Consultation with Fozen</TextBlock>
 
-                <CheckBox Grid.Column="2" Margin="2,2,2,2"></CheckBox>
+                <CheckBox Name="CheckBoxIC" Tag="194" Grid.Column="2" Margin="2,2,2,2"></CheckBox>
                 <TextBlock Grid.Column="3" Margin="2,2,2,2" HorizontalAlignment="Left">Intraoperative Consultation</TextBlock>
 
-                <CheckBox Grid.Column="4" Margin="2,2,2,2"></CheckBox>
+                <CheckBox Name="CheckBoxGrossOnly" Tag="48" Grid.Column="4" Margin="2,2,2,2"></CheckBox>
                 <TextBlock Grid.Column="5" Margin="2,2,2,2" HorizontalAlignment="Left">Gross Only</TextBlock>
             </Grid>
             
@@ -153,9 +153,9 @@
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
-                <CheckBox Grid.Column="0" Margin="2,2,2,2"></CheckBox>
+                <CheckBox Name="CheckBoxRecuts" Tag="150" Grid.Column="0" Margin="2,2,2,2"></CheckBox>
                 <TextBlock Grid.Column="1" Margin="2,2,2,2">Recuts</TextBlock>
-                <TextBox Grid.Column="2" Margin="2,2,2,2" Text="{Binding Path=xxxx}" HorizontalAlignment="Stretch"></TextBox>
+                <TextBox Name="TextBoxRecuts" Grid.Column="2" Margin="2,2,2,2" Text="{Binding Path=RecutComment}" HorizontalAlignment="Stretch"></TextBox>
             </Grid>
             
             <Grid Grid.Column="0" Grid.Row="4">
@@ -546,7 +546,7 @@
                     <CheckBox Name="StainOrder39" Tag="hptcytspcfcntgn" Grid.Column="0" Grid.Row="9" Margin="2,2,2,2"></CheckBox>
                     <TextBlock Grid.Column="1" Grid.Row="9" Margin="2,2,2,2">HSA</TextBlock>
 
-                    <CheckBox Name="StainOrder310" Tag="px5" Grid.Column="0" Grid.Row="10" Margin="2,2,2,2"></CheckBox>
+                    <CheckBox Name="StainOrder310" Tag="px8" Grid.Column="0" Grid.Row="10" Margin="2,2,2,2"></CheckBox>
                     <TextBlock Grid.Column="1" Grid.Row="10" Margin="2,2,2,2">PAX-8</TextBlock>
 
                     <CheckBox Name="StainOrder311" Tag="glypcn3" Grid.Column="0" Grid.Row="11" Margin="2,2,2,2"></CheckBox>
@@ -643,7 +643,7 @@
                     <CheckBox Name="StainOrder45" Tag="cd8" Grid.Column="0" Grid.Row="5" Margin="2,2,2,2"></CheckBox>
                     <TextBlock Grid.Column="1" Grid.Row="5" Margin="2,2,2,2">CD8</TextBlock>
 
-                    <CheckBox Name="StainOrder46" Tag="cd9" Grid.Column="0" Grid.Row="6" Margin="2,2,2,2"></CheckBox>
+                    <CheckBox Name="StainOrder46" Tag="cd10" Grid.Column="0" Grid.Row="6" Margin="2,2,2,2"></CheckBox>
                     <TextBlock Grid.Column="1" Grid.Row="6" Margin="2,2,2,2">CD10</TextBlock>
 
                     <CheckBox Name="StainOrder47" Tag="cd15" Grid.Column="0" Grid.Row="7" Margin="2,2,2,2"></CheckBox>
@@ -694,7 +694,7 @@
                     <CheckBox Name="StainOrder422" Tag="cyclnd1" Grid.Column="0" Grid.Row="22" Margin="2,2,2,2"></CheckBox>
                     <TextBlock Grid.Column="1" Grid.Row="22" Margin="2,2,2,2">Cyclin D1</TextBlock>
 
-                    <CheckBox Name="StainOrder423" Tag="fsn" Grid.Column="0" Grid.Row="23" Margin="2,2,2,2"></CheckBox>
+                    <CheckBox Name="StainOrder423" Tag="fscn" Grid.Column="0" Grid.Row="23" Margin="2,2,2,2"></CheckBox>
                     <TextBlock Grid.Column="1" Grid.Row="23" Margin="2,2,2,2">Fascin</TextBlock>
 
                     <CheckBox Name="StainOrder424" Tag="kppbysh" Grid.Column="0" Grid.Row="24" Margin="2,2,2,2"></CheckBox>

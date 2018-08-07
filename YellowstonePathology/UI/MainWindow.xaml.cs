@@ -992,7 +992,7 @@ namespace YellowstonePathology.UI
 
         private void NewOrderWindow_Click(object sender, RoutedEventArgs e)
         {
-            Business.Test.AccessionOrder ao = Business.Persistence.DocumentGateway.Instance.GetAccessionOrderByMasterAccessionNo("18-10410");
+            Business.Test.AccessionOrder ao = Business.Persistence.DocumentGateway.Instance.GetAccessionOrderByMasterAccessionNo("18-19410");
             Business.Test.PanelSetOrder pso = ao.PanelSetOrderCollection.GetSurgical();
             Surgical.StainOrder stainOrder = new Surgical.StainOrder(ao, pso);
             stainOrder.ShowDialog();

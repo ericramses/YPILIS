@@ -93,7 +93,7 @@ namespace YellowstonePathology.UI
             MessageBox.Show("Done");*/
         }
 
-        private void ButtonDictationTemplate_Click(object sender, RoutedEventArgs e)
+        private void ButtonStainList_Click(object sender, RoutedEventArgs e)
         {
             //MessageBox.Show("Done");
         }
