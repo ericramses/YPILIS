@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>121</ApplicationRevision>
+    <ApplicationRevision>122</ApplicationRevision>
     <ApplicationVersion>10.1.12.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -2582,7 +2582,7 @@
     <Compile Include="Business\Test\HPV\HPVTest.cs" />
     <Compile Include="Business\Test\HPV\HPVTestOrder.cs" />
     <Compile Include="Business\Test\HPV\HPVWordDocument.cs" />
-    <Compile Include="Business\Test\IDH1IDH2MutationAnalsysis\IDH1IDH2MutationAnalsysisTest.cs" />
+    <Compile Include="Business\Test\IDH1IDH2MutationAnalysis\IDH1IDH2MutationAnalysisTest.cs" />
     <Compile Include="Business\Test\IHCQC\IHCQCTest.cs" />
     <Compile Include="Business\Test\IHCQC\IHCQCTestOrder.cs" />
     <Compile Include="Business\Test\Indication.cs" />
