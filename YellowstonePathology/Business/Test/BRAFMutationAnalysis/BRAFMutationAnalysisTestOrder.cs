@@ -175,8 +175,10 @@ namespace YellowstonePathology.Business.Test.BRAFMutationAnalysis
             return result.ToString();
         }
 
-        public void SetSummaryResult(YellowstonePathology.Business.Test.LynchSyndrome.LSEResult lSEResult)
+        public void SetSummaryResult(YellowstonePathology.Business.Test.LynchSyndrome.LSERule lSEResult)
         {
+            throw new Exception("This needs work");
+            /*
             if (string.IsNullOrEmpty(this.Result) == false)
             {
                 YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisNotDetectedResult notDetectedResult = new BRAFMutationAnalysisNotDetectedResult();
@@ -191,6 +193,7 @@ namespace YellowstonePathology.Business.Test.BRAFMutationAnalysis
                     lSEResult.BrafResult = YellowstonePathology.Business.Test.LynchSyndrome.LSEResultEnum.Detected;
                 }
             }
+            */
         }
     }
 }

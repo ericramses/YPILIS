@@ -5,7 +5,7 @@ using System.Text;
 
 namespace YellowstonePathology.Business.Test.LynchSyndrome
 {
-	public class LSEColonMSH2Loss : LSEResult
+	public class LSEColonMSH2Loss : LSERule
 	{
 		public LSEColonMSH2Loss()
 		{            
@@ -14,11 +14,9 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 			this.m_MSH2Result = LSEResultEnum.Loss;
 			this.m_MSH6Result = LSEResultEnum.Intact;
 			this.m_PMS2Result = LSEResultEnum.Intact;
-			this.m_BrafResult = LSEResultEnum.NotPerformed;
-			this.m_MethResult = LSEResultEnum.NotPerformed;
-            this.m_ReflexToBRAFMeth = false;
-			
-            this.m_Comment = "This staining pattern is extremely rare and may be due to an MSH2 gene mutation.  Recommend genetic counseling and further evaluation to exclude Lynch Syndrome. ";
+
+            this.m_AdditionalTesting = LSERule.AdditionalTestingNone;			
+            this.m_Interpretation = "This staining pattern is extremely rare and may be due to an MSH2 gene mutation.  Recommend genetic counseling and further evaluation to exclude Lynch Syndrome. ";
             this.m_Method = IHCMethod;
             this.m_References = LSEColonReferences;
 		}

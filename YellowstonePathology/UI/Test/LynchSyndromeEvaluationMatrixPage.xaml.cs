@@ -28,7 +28,7 @@ namespace YellowstonePathology.UI.Test
 
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        private YellowstonePathology.Business.Test.LynchSyndrome.LSEResultCollection m_LSEResultCollection;
+        private YellowstonePathology.Business.Test.LynchSyndrome.LSERuleCollection m_LSEResultCollection;
 		private YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation m_PanelSetOrderLynchSyndromeEvaluation;                
 
 		public LynchSyndromeEvaluationMatrixPage(YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation,
@@ -40,7 +40,7 @@ namespace YellowstonePathology.UI.Test
 			this.m_AccessionOrder = accessionOrder;
 			this.m_SystemIdentity = systemIdentity;
 
-            this.m_LSEResultCollection = YellowstonePathology.Business.Test.LynchSyndrome.LSEResultCollection.GetAll();
+            this.m_LSEResultCollection = YellowstonePathology.Business.Test.LynchSyndrome.LSERuleCollection.GetAll();
             InitializeComponent();
 			DataContext = this;
 
@@ -49,7 +49,7 @@ namespace YellowstonePathology.UI.Test
             this.m_ControlsNotDisabledOnFinal.Add(this.ListViewResults);
         }        
         
-        public Business.Test.LynchSyndrome.LSEResultCollection LSEResultCollection
+        public Business.Test.LynchSyndrome.LSERuleCollection LSEResultCollection
         {
             get { return this.m_LSEResultCollection; }
         }

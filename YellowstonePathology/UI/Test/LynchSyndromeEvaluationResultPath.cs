@@ -67,7 +67,7 @@ namespace YellowstonePathology.UI.Test
 		{
             YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTest brafTest = new YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTest();
             this.StartReportOrderPath(brafTest);
-			this.m_PanelSetOrderLynchSyndromeEvaluation.BRAFIsIndicated = true;            
+			//this.m_PanelSetOrderLynchSyndromeEvaluation.ReflexToBRAFMeth = true;            
 		}
 
 		private void LynchSyndromeEvaluationResultPage_OrderMLH1MethylationAnalysis(object sender, EventArgs e)

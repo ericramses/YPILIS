@@ -436,8 +436,10 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
         	return methodResult;
         }
 
-        public void SetBrafSummaryResult(YellowstonePathology.Business.Test.LynchSyndrome.LSEResult lSEResult)
+        public void SetBrafSummaryResult(YellowstonePathology.Business.Test.LynchSyndrome.LSERule lSEResult)
         {
+            throw new Exception("Needs work.");
+            /*
             if (string.IsNullOrEmpty(this.m_BRAFResult) == false)
             {
                 if (this.m_BRAFResult == "Not Detected")
@@ -449,6 +451,7 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
                     lSEResult.BrafResult = YellowstonePathology.Business.Test.LynchSyndrome.LSEResultEnum.Detected;
                 }
             }
+            */
         }
 
     }

@@ -9,77 +9,14 @@
                                         
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Column="0" Grid.Row="0" Margin="2,2,2,2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="91"></ColumnDefinition>
-                <ColumnDefinition Width="91"></ColumnDefinition>
-                <ColumnDefinition Width="91"></ColumnDefinition>
-                <ColumnDefinition Width="91"></ColumnDefinition>
-                <ColumnDefinition Width="91"></ColumnDefinition>
-                <ColumnDefinition Width="91"></ColumnDefinition>
-                <ColumnDefinition Width="91"></ColumnDefinition>
-                <ColumnDefinition Width="91"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"></RowDefinition>
-            </Grid.RowDefinitions>
-
-            <ComboBox Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=LSEResult.Indication}">
-                <ComboBoxItem>NotSet</ComboBoxItem>
-                <ComboBoxItem>LSECOLON</ComboBoxItem>
-                <ComboBoxItem>LSEGYN</ComboBoxItem>
-                <ComboBoxItem>LSEGEN</ComboBoxItem>
-            </ComboBox>
-
-            <ComboBox Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=LSEResult.MLH1Result}">
-                <ComboBoxItem>NotSet</ComboBoxItem>
-                <ComboBoxItem>Intact</ComboBoxItem>
-                <ComboBoxItem>Loss</ComboBoxItem>
-            </ComboBox>
-
-            <ComboBox Grid.Column="2" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=LSEResult.MSH2Result}">
-                <ComboBoxItem>NotSet</ComboBoxItem>
-                <ComboBoxItem>Intact</ComboBoxItem>
-                <ComboBoxItem>Loss</ComboBoxItem>
-            </ComboBox>
-
-            <ComboBox Grid.Column="3" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=LSEResult.MSH6Result}">
-                <ComboBoxItem>NotSet</ComboBoxItem>
-                <ComboBoxItem>Intact</ComboBoxItem>
-                <ComboBoxItem>Loss</ComboBoxItem>
-            </ComboBox>
-
-            <ComboBox Grid.Column="4" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=LSEResult.PMS2Result}">
-                <ComboBoxItem>NotSet</ComboBoxItem>
-                <ComboBoxItem>Intact</ComboBoxItem>
-                <ComboBoxItem>Loss</ComboBoxItem>
-            </ComboBox>
-
-            <ComboBox Grid.Column="5" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=LSEResult.BrafResult}">
-                <ComboBoxItem>NotSet</ComboBoxItem>
-                <ComboBoxItem>Negative</ComboBoxItem>
-                <ComboBoxItem>Detected</ComboBoxItem>
-                <ComboBoxItem>Not Detected</ComboBoxItem>
-            </ComboBox>
-
-            <ComboBox Grid.Column="6" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=LSEResult.MethResult}">
-                <ComboBoxItem>NotSet</ComboBoxItem>
-                <ComboBoxItem>Negative</ComboBoxItem>
-                <ComboBoxItem>Detected</ComboBoxItem>
-                <ComboBoxItem>Not Detected</ComboBoxItem>
-            </ComboBox>
-            <Button Grid.Column="7" Grid.Row="0" Click="ButtonMatch_Click" Width="80" Height="26">Match</Button>
-        </Grid>
-        
-        <ListView Name="ListViewResults" Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" SelectionChanged="ListViewResults_SelectionChanged" ItemsSource="{Binding Path=LSEResultCollection}">
+        <ListView Name="ListViewResults" Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" SelectionChanged="ListViewResults_SelectionChanged" ItemsSource="{Binding Path=LSERuleCollection}">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Style.Triggers>
@@ -99,9 +36,9 @@
                     <GridViewColumn Header="MSH2" Width="90" DisplayMemberBinding="{Binding Path=MSH2Result}" />
                     <GridViewColumn Header="MSH6" Width="90" DisplayMemberBinding="{Binding Path=MSH6Result}" />
                     <GridViewColumn Header="PMS2" Width="90" DisplayMemberBinding="{Binding Path=PMS2Result}" />
+                    <GridViewColumn Header="Additional Testing" Width="180" DisplayMemberBinding="{Binding Path=AdditionalTesting}" />
                     <GridViewColumn Header="BRAF" Width="90" DisplayMemberBinding="{Binding Path=BrafResult}" />
                     <GridViewColumn Header="Meth" Width="90" DisplayMemberBinding="{Binding Path=MethResult}" />
-                    <GridViewColumn Header="IHC Match" Width="100" DisplayMemberBinding="{Binding Path=IHCMatched}" />
                 </GridView>
             </ListView.View>
         </ListView>
@@ -123,16 +60,16 @@
             </Grid.RowDefinitions>
 
             <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,10,2,2" FontWeight="Bold">Interpretation</TextBlock>
-            <TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" Text="{Binding Path=SelectedLSEResult.Interpretation}" TextWrapping="Wrap"></TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" Text="{Binding Path=SelectedLSERule.Interpretation}" TextWrapping="Wrap"></TextBlock>
 
             <TextBlock Grid.Column="0" Grid.Row="2" Margin="2,10,2,2" FontWeight="Bold">Comment</TextBlock>
-            <TextBlock Grid.Column="0" Grid.Row="3" Margin="2,2,2,2" Text="{Binding Path=SelectedLSEResult.Comment}" TextWrapping="Wrap"></TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="3" Margin="2,2,2,2" Text="{Binding Path=SelectedLSERule.Comment}" TextWrapping="Wrap"></TextBlock>
 
             <TextBlock Grid.Column="0" Grid.Row="4" Margin="2,10,2,2" FontWeight="Bold">Method</TextBlock>
-            <TextBlock Grid.Column="0" Grid.Row="5" Margin="2,2,2,2" Text="{Binding Path=SelectedLSEResult.Method}" TextWrapping="Wrap"></TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="5" Margin="2,2,2,2" Text="{Binding Path=SelectedLSERule.Method}" TextWrapping="Wrap"></TextBlock>
 
             <TextBlock Grid.Column="0" Grid.Row="6" Margin="2,10,2,2" FontWeight="Bold">References</TextBlock>
-            <TextBlock Grid.Column="0" Grid.Row="7" Margin="2,2,2,2" Text="{Binding Path=SelectedLSEResult.References}" TextWrapping="Wrap"></TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="7" Margin="2,2,2,2" Text="{Binding Path=SelectedLSERule.References}" TextWrapping="Wrap"></TextBlock>
         </Grid>
 
     </Grid>

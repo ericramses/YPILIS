@@ -10,10 +10,10 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 	public class PanelSetOrderLynchSyndromeEvaluation : YellowstonePathology.Business.Test.ReflexTesting.ReflexTestingPlan
 	{
         private string m_LynchSyndromeEvaluationType;
-		private string m_Interpretation;
-		private string m_Comment;
+        private string m_Result;
+        private string m_Interpretation;		
         private string m_Method;
-        private bool m_BRAFIsIndicated;
+        private bool m_ReflexToBRAFMETH;
 
 		public PanelSetOrderLynchSyndromeEvaluation()
 		{
@@ -69,15 +69,15 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 
 		[PersistentProperty()]
 		[PersistentDataColumnProperty(true, "500", "null", "varchar")]
-		public string Comment
+		public string Result
 		{
-			get { return this.m_Comment; }
+			get { return this.m_Result; }
 			set
 			{
-				if (this.m_Comment != value)
+				if (this.m_Result != value)
 				{
-					this.m_Comment = value;
-					this.NotifyPropertyChanged("Comment");
+					this.m_Result = value;
+					this.NotifyPropertyChanged("Result");
 				}
 			}
 		}
@@ -99,33 +99,35 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 
         [PersistentProperty()]
         [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
-        public bool BRAFIsIndicated
+        public bool ReflexToBRAFMeth
         {
-            get { return this.m_BRAFIsIndicated; }
+            get { return this.m_ReflexToBRAFMETH; }
             set
             {
-                if (this.m_BRAFIsIndicated != value)
+                if (this.m_ReflexToBRAFMETH != value)
                 {
-                    this.m_BRAFIsIndicated = value;
-                    this.NotifyPropertyChanged("BRAFIsIndicated");
+                    this.m_ReflexToBRAFMETH = value;
+                    this.NotifyPropertyChanged("ReflexToBRAFMETH");
                 }
             }
         }
 
 		public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
-			StringBuilder result = new StringBuilder();
+            StringBuilder result = new StringBuilder();
+            result.AppendLine("Result: " + this.m_Result);
+            result.AppendLine();
+            
 			result.AppendLine("Interpretation: " + this.m_Interpretation);
-			result.AppendLine();
-
-			result.AppendLine("Comment: " + this.m_Comment);
-			result.AppendLine();
+			result.AppendLine();			
 
 			return result.ToString();
 		}
 
         protected override void CheckResults(AccessionOrder accessionOrder, object clone)
         {
+            throw new Exception("needs workd");
+            /*
             PanelSetOrderLynchSyndromeEvaluation panelSetToCheck = (PanelSetOrderLynchSyndromeEvaluation)clone;
             YellowstonePathology.Business.Test.LynchSyndrome.LSEResult cloneLSEResult = null;
             YellowstonePathology.Business.Test.LynchSyndrome.LSEResult lseResult = YellowstonePathology.Business.Test.LynchSyndrome.LSEResult.GetResult(accessionOrder, panelSetToCheck);
@@ -141,6 +143,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             }
 
             cloneLSEResult.SetResults(accessionOrder, panelSetToCheck);
+            */
         }
     }
 }

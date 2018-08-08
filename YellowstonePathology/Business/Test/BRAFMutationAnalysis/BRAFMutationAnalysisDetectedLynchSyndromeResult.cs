@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business.Test.BRAFMutationAnalysis
             this.m_Interpretation = "BRAF mutation detected.";
             this.m_Method = YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisResult.Method;
             this.m_Comment = "The results are compatible with a sporadic tumor and further genetic evaluation is not indicated.";
-            this.m_References = YellowstonePathology.Business.Test.LynchSyndrome.LSEResult.LSEColonReferences;
+            this.m_References = YellowstonePathology.Business.Test.LynchSyndrome.LSERule.LSEColonReferences;
         }
     }
 }

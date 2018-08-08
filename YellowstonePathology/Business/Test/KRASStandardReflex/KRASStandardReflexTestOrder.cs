@@ -158,7 +158,7 @@ namespace YellowstonePathology.Business.Test.KRASStandardReflex
             return result.ToString();
         }
 
-		public void SetSummaryResult(YellowstonePathology.Business.Test.LynchSyndrome.LSEResult lSEResult)
+		public void SetSummaryResult(YellowstonePathology.Business.Test.LynchSyndrome.LSERule lSEResult)
         {
 			
         }
