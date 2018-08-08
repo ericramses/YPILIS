@@ -984,12 +984,12 @@ namespace YellowstonePathology.UI
             
         }
 
-<<<<<<< HEAD
         private void LSEMatrix_Click(object sender, RoutedEventArgs e)
         {
             UI.Test.LSEMatrixWindow lse = new Test.LSEMatrixWindow();
             lse.ShowDialog();
-=======
+        }
+
         private void MenuItemDictationTemplates_Click(object sender, RoutedEventArgs e)
         {
             Gross.DictationTemplateListPage dlg = new Gross.DictationTemplateListPage();
@@ -1002,7 +1002,6 @@ namespace YellowstonePathology.UI
             Business.Test.PanelSetOrder pso = ao.PanelSetOrderCollection.GetSurgical();
             Surgical.StainOrder stainOrder = new Surgical.StainOrder(ao, pso);
             stainOrder.ShowDialog();
->>>>>>> master
         }
     }
 }
