@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 			this.m_PMS2Result = LSEResultEnum.Loss;
 			this.m_BrafResult = LSEResultEnum.NotDetected;
 			this.m_MethResult = LSEResultEnum.NotDetected;
-            this.m_BRAFIsIndicated = true;
+            this.m_ReflexToBRAFMeth = true;
 			
 			this.m_Comment = "The results are highly suggestive of Lynch Syndrome and are associated with germline MLH1 mutations.  Recommend genetic counseling and further evaluation.";
             this.m_Method = IHCBRAFMLHMethod;

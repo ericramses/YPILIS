@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 			this.m_PMS2Result = LSEResultEnum.Loss;
             this.m_BrafResult = LSEResultEnum.NotPerformed;
             this.m_MethResult = LSEResultEnum.Detected;
-            this.m_BRAFIsIndicated = false;
+            this.m_ReflexToBRAFMeth = false;
             
             this.m_Comment = this.m_Comment = "The results are compatible with a sporadic tumor and further genetic evaluation is not indicated.";
 

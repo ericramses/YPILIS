@@ -16,9 +16,8 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 			this.m_PMS2Result = LSEResultEnum.Intact;
 			this.m_BrafResult = LSEResultEnum.NotPerformed;
 			this.m_MethResult = LSEResultEnum.NotPerformed;
-            this.m_BRAFIsIndicated = false;
-
-            //this.m_Interpretation = "Intact nuclear expression of MLH1, MSH2, MSH6, and PMS2 mismatch repair proteins.";
+            this.m_ReflexToBRAFMeth = false;
+            
             this.m_Comment = "The results are compatible with a sporadic tumor and indicate a low risk for Lynch Syndrome.  If clinical suspicion for Lynch Syndrome is high, microsatellite instability (MSI) testing by PCR is recommended.";
             this.m_Method = IHCMethod;
             this.m_References = LSEGYNReferences;

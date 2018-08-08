@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 			this.m_PMS2Result = LSEResultEnum.Loss;
 			this.m_BrafResult = LSEResultEnum.Detected;
 			this.m_MethResult = LSEResultEnum.NotPerformed;
-            this.m_BRAFIsIndicated = true;
+            this.m_ReflexToBRAFMeth = true;
 			
 			this.m_Comment = "BRAF mutation is present in the majority of MSI-high sporadic colorectal cancers. These cancers are MSI high due to MLH1 methylation.  MSI-high colorectal tumors have been found to respond to immunotherapy.  As BRAF mutation is rarely found in Lynch-related colorectal cancers, further genetic evaluation is not indicated.";
             this.m_Method = IHCBRAFMethod;

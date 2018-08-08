@@ -16,11 +16,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 			this.m_PMS2Result = LSEResultEnum.Loss;
 			this.m_BrafResult = LSEResultEnum.NotPerformed;
 			this.m_MethResult = LSEResultEnum.NotPerformed;
-<<<<<<< Updated upstream
-            this.m_BRAFIsIndicated = false;
-=======
             this.m_ReflexToBRAFMeth = false;
->>>>>>> Stashed changes
 			
 			this.m_Comment = "This staining pattern is highly suggestive of Lynch Syndrome and is associated with germline MLH1 mutations.  Recommend genetic counseling and further evaluation.";
             this.m_Method = IHCBRAFMLHMethod;

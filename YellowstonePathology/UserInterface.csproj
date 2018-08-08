@@ -1064,6 +1064,8 @@
     <Compile Include="Business\Test\EGFRMutationAnalysisPreliminary\EGFRMutationAnalysisPreliminaryTest.cs" />
     <Compile Include="Business\Test\EGFRToALKReflexAnalysis\EGFRToALKReflexAnalysisBRAFResult.cs" />
     <Compile Include="Business\Test\ExtractAndHoldForPreauthorization\ExtractAndHoldForPreauthorizationWordDocument.cs" />
+    <Compile Include="Business\Test\LynchSyndrome\LSEColonMSH6Loss.cs" />
+    <Compile Include="Business\Test\LynchSyndrome\LSEColonPMS2Loss.cs" />
     <Compile Include="Business\Test\MPNExtendedReflexPanel\MPNExtendedReflexPanelTest.cs" />
     <Compile Include="Business\Test\BCellEnumeration\BCellEnumerationCMMCNTEView.cs" />
     <Compile Include="Business\Test\BCellEnumeration\BCellEnumerationWPHOBXView.cs" />
@@ -2682,7 +2684,6 @@
     <Compile Include="Business\Test\LynchSyndrome\IHCResultLossOfNuclearExpressionPMS2.cs" />
     <Compile Include="Business\Test\LynchSyndrome\IHCResultNoLossOfNuclearExpression.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEColonAllIntact.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult10.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult11.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult12.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult2.cs" />

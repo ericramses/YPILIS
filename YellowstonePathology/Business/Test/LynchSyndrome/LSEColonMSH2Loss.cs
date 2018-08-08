@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 			this.m_PMS2Result = LSEResultEnum.Intact;
 			this.m_BrafResult = LSEResultEnum.NotPerformed;
 			this.m_MethResult = LSEResultEnum.NotPerformed;
-            this.m_BRAFIsIndicated = false;
+            this.m_ReflexToBRAFMeth = false;
 			
             this.m_Comment = "This staining pattern is extremely rare and may be due to an MSH2 gene mutation.  Recommend genetic counseling and further evaluation to exclude Lynch Syndrome. ";
             this.m_Method = IHCMethod;
