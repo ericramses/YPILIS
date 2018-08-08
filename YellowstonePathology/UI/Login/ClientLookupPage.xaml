@@ -66,13 +66,17 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
-            </Grid.RowDefinitions>            
+            </Grid.RowDefinitions>
 
-            <ListBox Name="ListViewFavoriteClients" ItemsSource="{Binding Path=FavoriteClientCollection}" Grid.Column="0" Grid.Row="0" Margin="2" Grid.ColumnSpan="2" 
+            <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" FontWeight="Bold">Use Requisition:</TextBlock>
+            <CheckBox Name="CheckBoxUseRequisition" Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" />
+
+            <ListBox Name="ListViewFavoriteClients" ItemsSource="{Binding Path=FavoriteClientCollection}" Grid.Column="0" Grid.Row="1" Margin="2" Grid.ColumnSpan="2" 
                     BorderThickness="0" HorizontalAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                     ItemTemplate="{StaticResource FavoriteClientsTemplate}" ItemContainerStyle="{StaticResource FavoriteClientsStyle}" SelectionChanged="ListViewFavoriteClients_SelectionChanged">
                 <ListBox.ItemsPanel>
@@ -82,10 +86,10 @@
                 </ListBox.ItemsPanel>
             </ListBox>
 
-            <TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" FontWeight="Bold">Client Search:</TextBlock>
-            <TextBox Grid.Column="2" Grid.Row="1" Margin="2,2,2,2" Name="TextBoxClientName" KeyUp="TextBoxClientName_KeyUp"></TextBox>
+            <TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" FontWeight="Bold">Client Search:</TextBlock>
+            <TextBox Grid.Column="2" Grid.Row="2" Margin="2,2,2,2" Name="TextBoxClientName" KeyUp="TextBoxClientName_KeyUp"></TextBox>
 
-            <ListView Name="ListViewClientSearch" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" ItemsSource="{Binding Path=ClientCollection}" 
+            <ListView Name="ListViewClientSearch" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" ItemsSource="{Binding Path=ClientCollection}" 
                         Margin="2,2,2,2" SelectionChanged="ListViewClientSearch_SelectionChanged" Height="200">
                 <ListView.View>
                     <GridView>

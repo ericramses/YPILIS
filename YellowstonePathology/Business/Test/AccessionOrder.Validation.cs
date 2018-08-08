@@ -7,7 +7,7 @@ namespace YellowstonePathology.Business.Test
 {
     public partial class AccessionOrder
     {
-		public YellowstonePathology.Business.Validation.ValidationResult IsMedicalRecordNoValid()
+		/*public YellowstonePathology.Business.Validation.ValidationResult IsMedicalRecordNoValid()
         {
 			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
             validationResult.IsValid = true;
@@ -35,9 +35,9 @@ namespace YellowstonePathology.Business.Test
                 }
             }
             return validationResult;
-        }
+        }*/
 
-		public YellowstonePathology.Business.Validation.ValidationResult IsAccountNoValid()
+		/*public YellowstonePathology.Business.Validation.ValidationResult IsAccountNoValid()
         {
 			YellowstonePathology.Business.Validation.ValidationResult validationResult = new Business.Validation.ValidationResult();
             validationResult.IsValid = true;
@@ -65,6 +65,6 @@ namespace YellowstonePathology.Business.Test
                 }
             }
             return validationResult;
-        }
+        }*/
     }
 }

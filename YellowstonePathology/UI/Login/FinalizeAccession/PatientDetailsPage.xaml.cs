@@ -104,7 +104,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             bool result = true;
 
             /*** this shoulde be moved to the audit namespace *****/
-            Business.Validation.ValidationResult accountNoValidation = this.m_AccessionOrder.IsAccountNoValid();
+            /*Business.Validation.ValidationResult accountNoValidation = this.m_AccessionOrder.IsAccountNoValid();
             Business.Validation.ValidationResult mrnValidation = this.m_AccessionOrder.IsMedicalRecordNoValid();
 
             if (accountNoValidation.IsValid == false)
@@ -116,7 +116,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             {
                 MessageBox.Show(mrnValidation.Message);
                 result = false;
-            }
+            }*/
             /********/
             string eBirthdate = this.TextBoxBirthdate.Text;
             DateTime checkDate;
