@@ -17,8 +17,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 			this.m_BrafResult = LSEResultEnum.NotDetected;
 			this.m_MethResult = LSEResultEnum.NotDetected;
             this.m_BRAFIsIndicated = true;
-
-			//this.m_Interpretation = "Loss of nuclear expression of MLH1 and PMS2 mismatch repair proteins.\r\nBRAF mutation V600E NOT DETECTED.\r\nMLH1 promoter methylation NOT DETECTED.";
+			
 			this.m_Comment = "The results are highly suggestive of Lynch Syndrome and are associated with germline MLH1 mutations.  Recommend genetic counseling and further evaluation.";
             this.m_Method = IHCBRAFMLHMethod;
             this.m_References = LSEColonReferences;

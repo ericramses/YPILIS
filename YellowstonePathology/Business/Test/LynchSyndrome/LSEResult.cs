@@ -25,6 +25,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 
         protected bool m_IHCMatched;
         protected string m_Indication;
+        protected string m_ResultName;
 
         protected LSEResultEnum m_PMS2Result;
 		protected LSEResultEnum m_MSH6Result;
@@ -33,7 +34,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
         protected LSEResultEnum m_BrafResult;
         protected LSEResultEnum m_MethResult;
 
-        protected bool m_BRAFIsIndicated;
+        protected bool m_ReflexToBRAFMeth;
 
 		protected string m_Interpretation;
 		protected string m_Comment;
@@ -56,6 +57,12 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
                     this.NotifyPropertyChanged("IHCMatched");
                 }                
             }
+        }
+
+        public string ResultName
+        {
+            get { return this.m_ResultName; }
+            set { this.m_ResultName = value; }
         }
 
         public string Indication
@@ -100,10 +107,10 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             set { this.m_MethResult = value; }
         }
 
-        public bool BRAFIsIndicated
+        public bool ReflexToBRAFMeth
         {
-            get { return this.m_BRAFIsIndicated; }
-            set { this.m_BRAFIsIndicated = value; }
+            get { return this.m_ReflexToBRAFMeth; }
+            set { this.m_ReflexToBRAFMeth = value; }
         }
 
 		public string Interpretation
@@ -150,7 +157,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
         {            
             panelSetOrderLynchSyndromEvaluation.Interpretation = this.m_Interpretation;
             panelSetOrderLynchSyndromEvaluation.Comment = this.m_Comment;
-            panelSetOrderLynchSyndromEvaluation.BRAFIsIndicated = this.m_BRAFIsIndicated;
+            panelSetOrderLynchSyndromEvaluation.BRAFIsIndicated = this.ReflexToBRAFMeth;
             panelSetOrderLynchSyndromEvaluation.Method = this.m_Method;
             panelSetOrderLynchSyndromEvaluation.ReportReferences = this.m_References;			
         }
@@ -221,7 +228,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 			YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC panelSetOrderLynchSyndromeIHC = (YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetLynchSyndromeIHCPanel.PanelSetId, panelSetOrderLynchSyndromEvaluation.OrderedOnId, true);
 			if (panelSetOrderLynchSyndromeIHC != null) panelSetOrderLynchSyndromeIHC.SetSummaryResult(result);
 
-            result.BRAFIsIndicated = panelSetOrderLynchSyndromEvaluation.BRAFIsIndicated;
+            result.ReflexToBRAFMeth = panelSetOrderLynchSyndromEvaluation.BRAFIsIndicated;
             if (panelSetOrderLynchSyndromEvaluation.BRAFIsIndicated == true)
 			{
                 YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTest brafV600EKTest = new YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTest();

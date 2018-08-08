@@ -17,8 +17,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 			this.m_BrafResult = LSEResultEnum.NotDetected;
 			this.m_MethResult = LSEResultEnum.NotDetected;
             this.m_BRAFIsIndicated = true;
-
-			//this.m_Interpretation = "Loss of nuclear expression of MLH1 mismatch repair protein.";
+			
 			this.m_Comment = "This staining pattern is highly suggestive of Lynch Syndrome and is associated with germline MLH1 mutations.  Recommend genetic counseling and further evaluation.";
             this.m_Method = IHCBRAFMLHMethod;
             this.m_References = LSEColonReferences;

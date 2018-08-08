@@ -1535,7 +1535,7 @@
     <Compile Include="Business\Test\LymphocyteSubsetPanel5\LymphocyteSubsetPanel5Test.cs" />
     <Compile Include="Business\Test\LymphocyteSubsetPanel7\LymphocyteSubsetPanel7Test.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult12B.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult1A.cs" />
+    <Compile Include="Business\Test\LynchSyndrome\LSEColonMSH2Loss.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LynchSyndromeEvaluationWPHOBXView.cs" />
     <Compile Include="Business\Test\MDSByFish\MDSByFishWPHOBXView.cs" />
     <Compile Include="Business\Test\METMutationAnalysis\METMutationAnalysisTest.cs" />
@@ -2681,14 +2681,14 @@
     <Compile Include="Business\Test\LynchSyndrome\IHCResultLossOfNuclearExpressionMSH6.cs" />
     <Compile Include="Business\Test\LynchSyndrome\IHCResultLossOfNuclearExpressionPMS2.cs" />
     <Compile Include="Business\Test\LynchSyndrome\IHCResultNoLossOfNuclearExpression.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult1.cs" />
+    <Compile Include="Business\Test\LynchSyndrome\LSEColonAllIntact.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult10.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult11.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult12.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult2.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult3.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult4.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult5.cs" />
+    <Compile Include="Business\Test\LynchSyndrome\LSEColonMSH2MSH6Loss.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult6.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult8.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEGYNResult1.cs" />
