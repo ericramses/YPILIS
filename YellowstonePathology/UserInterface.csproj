@@ -2194,7 +2194,6 @@
     <Compile Include="Business\Test\AccessionLock.cs" />
     <Compile Include="Business\Test\AccessionLockCollection.cs" />
     <Compile Include="Business\Test\AccessionOrder.cs" />
-    <Compile Include="Business\Test\AccessionOrder.Validation.cs" />
     <Compile Include="Business\Test\AccessionOrderCollection.cs" />
     <Compile Include="Business\Test\AccessionOrderThinPrepPap.cs" />
     <Compile Include="Business\Test\AccessionOrderTracker.cs" />

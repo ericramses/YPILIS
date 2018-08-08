@@ -45,8 +45,10 @@ namespace YellowstonePathology.UI.Login.Receiving
 
         private void HandleClientFound(UI.Navigation.PageNavigationReturnEventArgs e)
         {
-            YellowstonePathology.Business.Client.Model.Client client = (YellowstonePathology.Business.Client.Model.Client)e.Data;
-            this.m_ClientOrderReceivingHandler.IFoundAClient(client);
+            List<object> returnData = (List<object>)e.Data;
+            YellowstonePathology.Business.Client.Model.Client client = (YellowstonePathology.Business.Client.Model.Client)returnData[0];
+            bool useRequisition = (bool)returnData[1];
+            this.m_ClientOrderReceivingHandler.IFoundAClient(client, useRequisition);
 			Receiving.GetClientOrderPath getClientOrderPath = new Receiving.GetClientOrderPath(this.m_ClientOrderReceivingHandler, this.m_LoginPageWindow.PageNavigator);
 			getClientOrderPath.Return += new Receiving.GetClientOrderPath.ReturnEventHandler(GetClientOrderPath_Return);
 			getClientOrderPath.Start();

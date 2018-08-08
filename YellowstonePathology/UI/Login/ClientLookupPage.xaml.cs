@@ -98,8 +98,13 @@ namespace YellowstonePathology.UI.Login
 
 				if (this.m_Client != null)
                 {
-                    this.m_Client.ClientLocationCollection.SetCurrentLocation(clientLocationView.ClientLocationId);                    
-					UI.Navigation.PageNavigationReturnEventArgs args = new UI.Navigation.PageNavigationReturnEventArgs(UI.Navigation.PageNavigationDirectionEnum.Next, this.m_Client);
+                    this.m_Client.ClientLocationCollection.SetCurrentLocation(clientLocationView.ClientLocationId);
+                    bool useRequisition = false;
+                    if(this.CheckBoxUseRequisition.IsChecked == true) useRequisition = true;
+                    List<object> returnData = new List<object>();
+                    returnData.Add(this.m_Client);
+                    returnData.Add(useRequisition);
+					UI.Navigation.PageNavigationReturnEventArgs args = new UI.Navigation.PageNavigationReturnEventArgs(UI.Navigation.PageNavigationDirectionEnum.Next, returnData);
                     this.Return(this, args);					
 				}
             }

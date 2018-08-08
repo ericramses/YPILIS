@@ -12,7 +12,7 @@ using MySql.Data.MySqlClient;
 namespace YellowstonePathology.Business.Test
 {
 	[PersistentClass("tblAccessionOrder", "YPIDATA")]
-    public partial class AccessionOrder : INotifyPropertyChanged, Interface.IOrder, Interface.IPatientOrder
+    public class AccessionOrder : INotifyPropertyChanged, Interface.IOrder, Interface.IPatientOrder
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
