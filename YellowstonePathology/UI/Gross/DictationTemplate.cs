@@ -9,8 +9,9 @@ namespace YellowstonePathology.UI.Gross
 {
     public class DictationTemplate : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;        
+        public event PropertyChangedEventHandler PropertyChanged;
 
+        private string m_TemplateId;
         protected string m_TemplateName;        
         protected string m_Text;                               
         protected YellowstonePathology.Business.Specimen.Model.SpecimenCollection m_SpecimenCollection;
@@ -63,6 +64,20 @@ namespace YellowstonePathology.UI.Gross
         }
 
         [PersistentPrimaryKeyProperty(false)]
+        public string TemplateId
+        {
+            get { return this.m_TemplateId; }
+            set
+            {
+                if (this.m_TemplateId != value)
+                {
+                    this.m_TemplateId = value;
+                    this.NotifyPropertyChanged("TemplateId");
+                }
+            }
+        }
+
+        [PersistentProperty()]
         public string TemplateName
         {
             get { return this.m_TemplateName; }
@@ -458,6 +473,13 @@ namespace YellowstonePathology.UI.Gross
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
-        }                
+        }
+
+        public string ToJSON()
+        {
+            DictationTemplateRedis dictationTemplateRedis = new Gross.DictationTemplateRedis(this);
+            string result = dictationTemplateRedis.ToJSON();
+            return result;
+        }
     }
 }

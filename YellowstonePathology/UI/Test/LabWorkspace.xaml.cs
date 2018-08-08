@@ -207,8 +207,8 @@ namespace YellowstonePathology.UI.Test
         private void ShowOrderForm()
         {
             if (HaveAvailableItem() == true)
-            {
-                YellowstonePathology.UI.Common.OrderDialog frm = new YellowstonePathology.UI.Common.OrderDialog(this.m_LabUI.AccessionOrder, this.m_LabUI.PanelSetOrder);
+            {                
+                YellowstonePathology.UI.Surgical.StainOrder frm = new Surgical.StainOrder(this.m_LabUI.AccessionOrder, this.m_LabUI.PanelSetOrder);
                 frm.ShowDialog();
                 this.GetAccessionOrder();
             }			
@@ -220,7 +220,7 @@ namespace YellowstonePathology.UI.Test
             {
                 if (this.m_SystemIdentity.IsKnown == true)
                 {
-					YellowstonePathology.UI.Common.OrderDialog dlg = new YellowstonePathology.UI.Common.OrderDialog(this.m_LabUI.AccessionOrder, this.m_LabUI.PanelSetOrder);
+                    YellowstonePathology.UI.Surgical.StainOrder dlg = new Surgical.StainOrder(this.m_LabUI.AccessionOrder, this.m_LabUI.PanelSetOrder);
                     dlg.ShowDialog();
                     this.GetAccessionOrder();                    
                 }

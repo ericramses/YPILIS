@@ -16,13 +16,13 @@ namespace YellowstonePathology.UI.TemplateSelector
 			{
 				if (window.GetType().ToString() == "YellowstonePathology.UI.Common.OrderDialog")
 				{
-					openWindow = (YellowstonePathology.UI.Common.OrderDialog)window;
+					openWindow = window as YellowstonePathology.UI.Common.OrderDialog;
 					break;
 				}
 			}
 			if (item != null)
 			{
-				System.Xml.Linq.XContainer xContainer = (System.Xml.Linq.XContainer)item;
+				System.Xml.Linq.XContainer xContainer = item as System.Xml.Linq.XContainer;
 				XElement templateNameElement = xContainer.Element("TemplateName");
 				if (templateNameElement != null) return ((System.Windows.Controls.Grid)openWindow.Content).FindResource(templateNameElement.Value) as DataTemplate;
 				return ((System.Windows.Controls.Grid)openWindow.Content).FindResource("StandardCheckBoxTemplate") as DataTemplate;

@@ -10,7 +10,7 @@ namespace YellowstonePathology.Business.Test.AMLStandardByFish
 		public AMLStandardByFishTest()
 		{
 			this.m_PanelSetId = 168;
-			this.m_PanelSetName = "AML Standard by Fish";
+			this.m_PanelSetName = "AML Standard by FISH";
 			this.m_CaseType = YellowstonePathology.Business.CaseType.FISH;
 			this.m_HasTechnicalComponent = true;			
             this.m_HasProfessionalComponent = true;

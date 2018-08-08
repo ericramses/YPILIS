@@ -71,7 +71,7 @@ namespace YellowstonePathology.UI
                 Store.AppDataStore.Instance.LoadData();
 
                 Business.Test.AccessionLockCollection accessionLockCollection = new Business.Test.AccessionLockCollection();
-                //accessionLockCollection.ClearLocks();
+                accessionLockCollection.ClearLocks();
 
                 string startUpWindow = string.Empty;
 

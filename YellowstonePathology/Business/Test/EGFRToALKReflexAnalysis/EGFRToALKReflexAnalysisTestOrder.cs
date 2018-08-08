@@ -119,7 +119,7 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
 
             if (accessionOrder.PanelSetOrderCollection.Exists(274) == true)
             {
-                YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTestOrder brafMutationAnalysisTestOrder = (YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(245);
+                YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTestOrder brafMutationAnalysisTestOrder = (YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(274);
                 interpretation.AppendLine();
                 interpretation.AppendLine(brafMutationAnalysisTestOrder.PanelSetName + ": " + brafMutationAnalysisTestOrder.Interpretation);
 

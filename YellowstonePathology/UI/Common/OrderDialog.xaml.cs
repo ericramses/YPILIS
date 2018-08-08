@@ -45,19 +45,13 @@ namespace YellowstonePathology.UI.Common
             InitializeComponent();
 
 			this.DataContext = this;			
-            this.Loaded += new RoutedEventHandler(OrderWorkspace_Loaded);
-            this.Closing += OrderDialog_Closing;
-
-		}
-
-        private void OrderDialog_Closing(object sender, CancelEventArgs e)
-        {
-            //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
-        }
+            this.Loaded += new RoutedEventHandler(OrderWorkspace_Loaded);            
+		}        
 
         private void OrderWorkspace_Loaded(object sender, RoutedEventArgs e)
         {
             this.ButtonOrder.Focus();
+
         }
 
         public string PanelOrderComment

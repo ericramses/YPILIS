@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>107</ApplicationRevision>
+    <ApplicationRevision>124</ApplicationRevision>
     <ApplicationVersion>10.1.12.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -1108,9 +1108,11 @@
     <Compile Include="Business\Test\MDSExtendedByFish\MDSExtendedByFishCMMCNTEView.cs" />
     <Compile Include="Business\Test\MDSExtendedByFish\MDSExtendedByFishWPHOBXView.cs" />
     <Compile Include="Business\Test\MicrobiologyByPCR\MicrobiologyByPCRTest.cs" />
+    <Compile Include="Business\Test\NeoLABMyeloidDisordersProfile\NeoLABMyeloidDisordersProfileTest.cs" />
     <Compile Include="Business\Test\NeoTYPEBreastTumorProfile\NeoTYPEBreastTumorProfileTest.cs" />
     <Compile Include="Business\Test\NeoTYPEGISTProfile\NeoTYPEGISTProfileTest.cs" />
     <Compile Include="Business\Test\NeoTYPELungTumorProfile\NeoTYPELungTumorProfileTestOrder.cs" />
+    <Compile Include="Business\Test\NeoTYPEOvarianTumorProfile\NeoTYPEOvarianTumorProfileTest.cs" />
     <Compile Include="Business\Test\PNH\PNHWPHOBXView.cs" />
     <Compile Include="Business\Test\RASRAFPanel\RASRAFPanelWPHOBXView.cs" />
     <Compile Include="Business\Test\WholeExomeSequencing\WholeExomeSequencingTest.cs" />
@@ -2097,7 +2099,6 @@
     <Compile Include="Business\Test.Model\CD79a.cs" />
     <Compile Include="Business\Test.Model\CellBlock.cs" />
     <Compile Include="Business\Test.Model\ChlamydiaTrachomatis.cs" />
-    <Compile Include="Business\Test.Model\CopperRhodanine.cs" />
     <Compile Include="Business\Test.Model\CptCodeLevelEnum.cs" />
     <Compile Include="Business\Test.Model\CytochemicalForMicroorganismsTest.cs" />
     <Compile Include="Business\Test.Model\CytochemicalTest.cs" />
@@ -2127,26 +2128,20 @@
     <Compile Include="Business\Test.Model\ERV3NG.cs" />
     <Compile Include="Business\Test.Model\FactorVIII.cs" />
     <Compile Include="Business\Test.Model\FineNeedleAspirate.cs" />
-    <Compile Include="Business\Test.Model\Fites.cs" />
     <Compile Include="Business\Test.Model\GCDFP15.cs" />
     <Compile Include="Business\Test.Model\Giemsa.cs" />
-    <Compile Include="Business\Test.Model\Gout.cs" />
     <Compile Include="Business\Test.Model\GradedTest.cs" />
     <Compile Include="Business\Test.Model\GrossOnly.cs" />
     <Compile Include="Business\Test.Model\HandE.cs" />
     <Compile Include="Business\Test.Model\HandEAfterSlide.cs" />
     <Compile Include="Business\Test.Model\HER2Amplification.cs" />
-    <Compile Include="Business\Test.Model\HER2Neu.cs" />
-    <Compile Include="Business\Test.Model\HuckerTwordt.cs" />
     <Compile Include="Business\Test.Model\ImmunoHistochemistryTest.cs" />
     <Compile Include="Business\Test.Model\IntraoperativeConsultation.cs" />
     <Compile Include="Business\Test.Model\IntraoperativeConsultationwithFrozen.cs" />
     <Compile Include="Business\Test.Model\KRASBRAFReflex.cs" />
     <Compile Include="Business\Test.Model\KRASMutationAnalysis.cs" />
     <Compile Include="Business\Test.Model\Lysozyme.cs" />
-    <Compile Include="Business\Test.Model\Melanin.cs" />
     <Compile Include="Business\Test.Model\MITF.cs" />
-    <Compile Include="Business\Test.Model\Mucin.cs" />
     <Compile Include="Business\Test.Model\MuscleSpecificActin.cs" />
     <Compile Include="Business\Test.Model\NaphtholASDChloroacetateEsterase.cs" />
     <Compile Include="Business\Test.Model\Negative.cs" />
@@ -2159,7 +2154,6 @@
     <Compile Include="Business\Test.Model\NotListed2.cs" />
     <Compile Include="Business\Test.Model\NotListed3.cs" />
     <Compile Include="Business\Test.Model\NSE.cs" />
-    <Compile Include="Business\Test.Model\OilRedO.cs" />
     <Compile Include="Business\Test.Model\P63.cs" />
     <Compile Include="Business\Test.Model\PanMelanomaCocktail.cs" />
     <Compile Include="Business\Test.Model\ParaffinCurls.cs" />
@@ -2588,7 +2582,7 @@
     <Compile Include="Business\Test\HPV\HPVTest.cs" />
     <Compile Include="Business\Test\HPV\HPVTestOrder.cs" />
     <Compile Include="Business\Test\HPV\HPVWordDocument.cs" />
-    <Compile Include="Business\Test\IDH1IDH2MutationAnalsysis\IDH1IDH2MutationAnalsysisTest.cs" />
+    <Compile Include="Business\Test\IDH1IDH2MutationAnalysis\IDH1IDH2MutationAnalysisTest.cs" />
     <Compile Include="Business\Test\IHCQC\IHCQCTest.cs" />
     <Compile Include="Business\Test\IHCQC\IHCQCTestOrder.cs" />
     <Compile Include="Business\Test\Indication.cs" />
@@ -3335,6 +3329,16 @@
     </Compile>
     <Compile Include="UI\EmbeddingAutopsyItem.cs" />
     <Compile Include="UI\EmbeddingAutopsyList.cs" />
+    <Compile Include="UI\Gross\DictationTemplateEditPage.xaml.cs">
+      <DependentUpon>DictationTemplateEditPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Gross\DictationTemplateListPage.xaml.cs">
+      <DependentUpon>DictationTemplateListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Gross\DictationTemplateRedis.cs" />
+    <Compile Include="UI\Gross\SpecimenSelectionPage.xaml.cs">
+      <DependentUpon>SpecimenSelectionPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Monitor\DashboardPage.xaml.cs">
       <DependentUpon>DashboardPage.xaml</DependentUpon>
     </Compile>
@@ -3655,6 +3659,7 @@
     <Compile Include="UI\RetrospectiveReviews.xaml.cs">
       <DependentUpon>RetrospectiveReviews.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\ScreenHandler.cs" />
     <Compile Include="UI\SortDirectionAdorner.cs" />
     <Compile Include="UI\SpellCheckAccessionOrder.cs" />
     <Compile Include="UI\SpellCheckProperty.cs" />
@@ -3663,6 +3668,9 @@
     </Compile>
     <Compile Include="UI\Stain\StainListDialog.xaml.cs">
       <DependentUpon>StainListDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Surgical\StainOrder.xaml.cs">
+      <DependentUpon>StainOrder.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Surgical\StainStatusDialog.xaml.cs">
       <DependentUpon>StainStatusDialog.xaml</DependentUpon>
@@ -4672,7 +4680,6 @@
     <Compile Include="UI\TypingTemplateDialog.xaml.cs">
       <DependentUpon>TypingTemplateDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\TemplateSelector\OrderItemTemplateSelector.cs" />
     <Compile Include="UI\TestingControl.xaml.cs">
       <DependentUpon>TestingControl.xaml</DependentUpon>
     </Compile>
@@ -4737,9 +4744,6 @@
     </Compile>
     <Compile Include="UI\Common\OrderCommentDialog.xaml.cs">
       <DependentUpon>OrderCommentDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Common\OrderDialog.xaml.cs">
-      <DependentUpon>OrderDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Common\PathologistSelectionDialog.xaml.cs">
       <DependentUpon>PathologistSelectionDialog.xaml</DependentUpon>
@@ -5586,6 +5590,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="UI\Gross\DictationTemplateEditPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Gross\DictationTemplateListPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\Gross\ProcessorSelectionPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -5593,6 +5605,10 @@
     <Page Include="UI\Gross\ScanContainerPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Gross\SpecimenSelectionPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Gross\StainOrderPage.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -5836,6 +5852,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Stain\StainListDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Surgical\StainOrder.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -6454,10 +6474,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\Common\OrderCommentDialog.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\Common\OrderDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -7371,9 +7387,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="UI\Common\ComplexOrderItem.xml" />
-    <EmbeddedResource Include="UI\Common\OrderItem.xml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Reassign.ico" />

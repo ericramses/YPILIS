@@ -27,6 +27,26 @@ namespace YellowstonePathology.UI.Gross
             }
         }
 
+        public bool Exists(string dictationTemplateId)
+        {
+            DictationTemplate template = this.FirstOrDefault(dt => dt.TemplateId == dictationTemplateId);
+            return template == null ? false : true;
+        }
+
+        public DictationTemplate GetCloneByTemplateId(string dictationTemplateId)
+        {
+            DictationTemplate foundTemplate = this.FirstOrDefault(dt => dt.TemplateId == dictationTemplateId);
+            DictationTemplate result = null;
+
+            if(foundTemplate != null)
+            {
+                YellowstonePathology.Business.Persistence.ObjectCloner objectCloner = new YellowstonePathology.Business.Persistence.ObjectCloner();
+                result = (DictationTemplate)objectCloner.Clone(foundTemplate);
+            }
+
+            return result;
+        }
+
         public DictationTemplate GetClone(string specimenId)
         {
             DictationTemplate notFound = DictationTemplateCollection.Instance.FirstOrDefault(t => t.TemplateName == "Template Not Found.");
@@ -74,6 +94,17 @@ namespace YellowstonePathology.UI.Gross
                 result.Add(dictationTemplate);
             }
             return result;
+        }
+
+        public static void Save(DictationTemplate dictationTemplate)
+        {
+            Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.DictationTemplate).DataBase.Execute("json.set", new string[] { dictationTemplate.TemplateId, ".", dictationTemplate.ToJSON() });
+        }
+
+        public static DictationTemplateCollection Refresh()
+        {
+            instance = null;
+            return Instance;
         }
     }
 }

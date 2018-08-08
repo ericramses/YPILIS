@@ -203,5 +203,10 @@ namespace YellowstonePathology.UI.Surgical
         {
             this.AddPeerReview(5133);
         }
+
+        private void HyperLinkAddDrBibbey_Click(object sender, RoutedEventArgs e)
+        {
+            this.AddPeerReview(5147);
+        }
     }
 }
