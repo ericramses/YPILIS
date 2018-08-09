@@ -31,7 +31,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
 			YellowstonePathology.Business.Client.Model.Client client = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientByClientId(this.m_ClientOrderReceivingHandler.ClientOrder.ClientId);
 			client.ClientLocationCollection.SetCurrentLocation(client.ClientLocationCollection[0].ClientLocationId);
-			this.m_ClientOrderReceivingHandler.IFoundAClient(client);
+			this.m_ClientOrderReceivingHandler.IFoundAClient(client, false);
             
 			this.ShowItemsReceivedPage();
 		}

@@ -217,6 +217,11 @@ namespace YellowstonePathology.UI.Surgical
 
         private void ClearCheckBoxes()
         {
+            if(this.CheckBoxLiverPanel.IsChecked == true)
+            {
+                CheckBoxLiverPanel.IsChecked = false;
+            }
+
             foreach (CheckBox checkBox in this.m_StainsCheckBoxes)
             {
                 if (checkBox.IsChecked == true)
