@@ -450,20 +450,7 @@ namespace YellowstonePathology.UI.Login.Receiving
             {
                 MessageBox.Show("You must select the item that you want to fax.");
             }         
-        }
-
-        private void HyperLinkAddSendPreauthFaxTask_Click(object sender, RoutedEventArgs e)
-        {
-            YellowstonePathology.Business.Task.Model.TaskFax task = new Business.Task.Model.TaskFax(string.Empty, string.Empty, "PreauthorizationNotification");
-            string taskOrderDetailId = YellowstonePathology.Business.OrderIdParser.GetNextTaskOrderDetailId(this.m_TaskOrder.TaskOrderDetailCollection, this.m_TaskOrder.TaskOrderId);
-            string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-
-            Business.Client.Model.Client client = Business.Gateway.PhysicianClientGateway.GetClientByClientId(this.m_AccessionOrder.ClientId);
-            YellowstonePathology.Business.Task.Model.TaskOrderDetailFax taskOrderDetail = new Business.Task.Model.TaskOrderDetailFax(taskOrderDetailId, this.m_TaskOrder.TaskOrderId, objectId, task, this.m_AccessionOrder.ClientId);            
-            taskOrderDetail.FaxNumber = client.Fax;
-            if (client.LongDistance == true) taskOrderDetail.FaxNumber = "1" + taskOrderDetail.FaxNumber;
-            this.m_TaskOrder.TaskOrderDetailCollection.Add(taskOrderDetail);
-        }
+        }        
 
         private void HyperLinkAddSendAdditionalTestingFaxTask_Click(object sender, RoutedEventArgs e)
         {

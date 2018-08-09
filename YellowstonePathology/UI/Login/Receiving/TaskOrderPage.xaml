@@ -339,9 +339,6 @@
                 <TextBlock Grid.Column="0" Grid.Row="3" Margin="5,3,0,5">
                     <Hyperlink Click="HyperLinkAddSendAdditionalTestingFaxTask_Click">Additional Testing Fax</Hyperlink>
                 </TextBlock>
-                <TextBlock Grid.Column="0" Grid.Row="4" Margin="5,3,0,5">
-                    <Hyperlink Click="HyperLinkAddSendPreauthFaxTask_Click">Preauthorization Fax</Hyperlink>
-                </TextBlock>
                 <TextBlock Grid.Column="0" Grid.Row="6" Margin="5,3,0,5" VerticalAlignment="Bottom">
                     <Hyperlink Click="HyperlingPrintTaskOrder_Click">Print (1 copy)</Hyperlink>
                 </TextBlock>
