@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>124</ApplicationRevision>
+    <ApplicationRevision>125</ApplicationRevision>
     <ApplicationVersion>10.1.12.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -2200,7 +2200,6 @@
     <Compile Include="Business\Test\AccessionLock.cs" />
     <Compile Include="Business\Test\AccessionLockCollection.cs" />
     <Compile Include="Business\Test\AccessionOrder.cs" />
-    <Compile Include="Business\Test\AccessionOrder.Validation.cs" />
     <Compile Include="Business\Test\AccessionOrderCollection.cs" />
     <Compile Include="Business\Test\AccessionOrderThinPrepPap.cs" />
     <Compile Include="Business\Test\AccessionOrderTracker.cs" />
