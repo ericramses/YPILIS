@@ -27,12 +27,7 @@ namespace YellowstonePathology.Business.Test.BRAFMutationAnalysis
             BRAFMutationAnalysisResult result = new BRAFMutationAnalysisResult();
             foreach (BRAFMutationAnalysisResult brafResult in this)
             {
-                if (brafResult.ResultCode == "BRAFMTTNANLDTCTD")
-                {
-                    result = new BRAFMutationAnalysisDetectedResult();
-                    break;
-                }
-                else if (brafResult.ResultCode == resultCode && brafResult.Indication == indication)
+                if (brafResult.ResultCode == resultCode && brafResult.Indication == indication)
                 {
                     result = brafResult;
                     break;

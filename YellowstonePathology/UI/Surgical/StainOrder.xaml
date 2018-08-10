@@ -137,7 +137,7 @@
                 </Grid.ColumnDefinitions>
 
                 <CheckBox Name="CheckBoxICF" Tag="45" Grid.Column="0" Margin="2,2,2,2"></CheckBox>
-                <TextBlock Grid.Column="1" Margin="2,2,2,2" HorizontalAlignment="Left">Intraoperative Consultation with Fozen</TextBlock>
+                <TextBlock Grid.Column="1" Margin="2,2,2,2" HorizontalAlignment="Left">Intraoperative Consultation with Frozen</TextBlock>
 
                 <CheckBox Name="CheckBoxIC" Tag="194" Grid.Column="2" Margin="2,2,2,2"></CheckBox>
                 <TextBlock Grid.Column="3" Margin="2,2,2,2" HorizontalAlignment="Left">Intraoperative Consultation</TextBlock>
