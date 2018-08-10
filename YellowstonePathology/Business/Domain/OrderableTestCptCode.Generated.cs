@@ -54,14 +54,5 @@ namespace YellowstonePathology.Business.Domain
 		}
 
 		#endregion
-
-		#region WritePropertiesMethod
-		public void WriteProperties(YellowstonePathology.Business.Domain.Persistence.IPropertyWriter propertyWriter)
-		{
-			this.m_OrderableTestCptCodeId = propertyWriter.WriteInt("OrderableTestCptCodeId");
-			this.m_OrderableTestId = propertyWriter.WriteInt("OrderableTestId");
-			this.m_CptCode = propertyWriter.WriteString("CptCode");
-		}
-		#endregion
 	}
 }

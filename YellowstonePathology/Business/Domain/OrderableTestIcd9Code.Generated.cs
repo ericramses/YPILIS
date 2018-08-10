@@ -54,14 +54,5 @@ namespace YellowstonePathology.Business.Domain
 		}
 
 		#endregion
-
-		#region WritePropertiesMethod
-		public void WriteProperties(YellowstonePathology.Business.Domain.Persistence.IPropertyWriter propertyWriter)
-		{
-			this.m_OrderableTestIcd9CodeId = propertyWriter.WriteInt("OrderableTestIcd9CodeId");
-			this.m_OrderableTestId = propertyWriter.WriteInt("OrderableTestId");
-			this.m_Icd9Code = propertyWriter.WriteString("Icd9Code");
-		}
-		#endregion
 	}
 }

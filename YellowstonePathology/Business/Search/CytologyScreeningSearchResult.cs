@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
+using YellowstonePathology.Business.Persistence;
 
 namespace YellowstonePathology.Business.Search
 {
@@ -25,85 +26,81 @@ namespace YellowstonePathology.Business.Search
             
         }
 
+        [PersistentProperty()]
 		public string MasterAccessionNo
 		{
 			get { return this.m_MasterAccessionNo; }
 			set { this.m_MasterAccessionNo = value; }
 		}
 
+        [PersistentPrimaryKeyProperty(false)]
         public string ReportNo
         {
             get { return this.m_ReportNo; }
             set { this.m_ReportNo = value; }
         }
 
+        [PersistentProperty()]
         public string PatientName
         {
             get { return this.m_PatientName; }
             set { this.m_PatientName = value; }
         }
 
+        [PersistentProperty()]
         public DateTime AccessionTime
         {
             get { return this.m_AccessionTime; }
             set { this.m_AccessionTime = value; }
         }
 
+        [PersistentProperty()]
         public Nullable<DateTime> ScreeningFinalTime
         {
             get { return this.m_ScreeningFinalTime; }
             set { this.m_ScreeningFinalTime = value; }
-        }        
+        }
 
+        [PersistentProperty()]
         public Nullable<DateTime> CaseFinalTime
         {
             get { return this.m_CaseFinalTime; }
             set { this.m_CaseFinalTime = value; }
         }
 
+        [PersistentProperty()]
         public string OrderedByName
         {
             get { return this.m_OrderedByName; }
             set { this.m_OrderedByName = value; }
         }
 
+        [PersistentProperty()]
         public string ScreenedByName
         {
             get { return this.m_ScreenedByName; }
             set { this.m_ScreenedByName = value; }
         }
 
-		public string AssignedToName
+        [PersistentProperty()]
+        public string AssignedToName
 		{
 			get { return this.m_AssignedToName; }
 			set { this.m_AssignedToName = value; }
 		}
 
+        [PersistentProperty()]
         public string ScreeningType
         {
             get { return this.m_ScreeningType; }
             set { this.m_ScreeningType = value; }
         }
 
+        [PersistentProperty()]
         public bool Reconciled
         {
             get { return this.m_Reconciled; }
             set { this.m_Reconciled = value; }
-        }
-
-        public void WriteProperties(YellowstonePathology.Business.Domain.Persistence.IPropertyWriter propertyWriter)
-		{
-			this.m_MasterAccessionNo = propertyWriter.WriteString("MasterAccessionNo");
-			this.m_ReportNo = propertyWriter.WriteString("ReportNo");
-			this.m_PatientName = propertyWriter.WriteString("PatientName");
-			this.m_OrderedByName = propertyWriter.WriteString("OrderedByName");
-			this.m_ScreenedByName = propertyWriter.WriteString("ScreenedByName");
-			this.m_ScreeningType = propertyWriter.WriteString("ScreeningType");
-			this.m_AssignedToName = propertyWriter.WriteString("AssignedToName");
-			this.m_AccessionTime = propertyWriter.WriteDateTime("AccessionTime");
-			this.m_ScreeningFinalTime = propertyWriter.WriteNullableDateTime("ScreeningFinalTime");
-			this.m_CaseFinalTime = propertyWriter.WriteNullableDateTime("CaseFinalTime");
-            this.m_Reconciled = propertyWriter.WriteBoolean("Reconciled");
         }
 
         public void ToXml(XElement listElement)

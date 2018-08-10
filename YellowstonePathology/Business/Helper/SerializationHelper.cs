@@ -47,6 +47,6 @@ namespace YellowstonePathology.Business.Helper
             UTF8Encoding encoding = new UTF8Encoding();
             Byte[] byteArray = encoding.GetBytes(pXmlString);
             return byteArray;
-        } 
+        }
     }
 }

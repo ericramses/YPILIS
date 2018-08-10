@@ -56,19 +56,5 @@ namespace YellowstonePathology.Business.View
 
 			return result.ToString();
 		}
-
-		public XElement ToXml()
-		{
-			XElement result = new XElement("AccessionSlideOrderCollection");
-			foreach(AccessionSlideOrderView accessionSlideOrderView in this)
-			{
-				XElement viewElement = accessionSlideOrderView.ToXml();
-				XElement slideOrderElement = accessionSlideOrderView.SlideOrder.ToXml();
-				viewElement.Add(slideOrderElement);
-				result.Add(viewElement);
-			}
-
-			return result;
-		}
 	}
 }

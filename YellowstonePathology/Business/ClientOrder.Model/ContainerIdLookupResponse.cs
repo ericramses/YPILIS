@@ -21,10 +21,5 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 			get { return this.m_Found; }
 			set { this.m_Found = value; }
 		}
-
-		public void WriteProperties(YellowstonePathology.Business.Domain.Persistence.IPropertyWriter propertyWriter)
-		{
-			this.m_Found = propertyWriter.WriteBoolean("Found");
-		}
 	}
 }

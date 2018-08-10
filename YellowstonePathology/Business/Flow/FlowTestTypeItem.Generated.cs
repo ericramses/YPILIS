@@ -74,13 +74,5 @@ namespace YellowstonePathology.Business.Flow
 				}
 			}
 		}
-		public void WriteProperties(YellowstonePathology.Business.Domain.Persistence.IPropertyWriter propertyWriter)
-		{
-			this.m_IsActive = propertyWriter.WriteBoolean("IsActive");
-			this.m_TestAbbreviation = propertyWriter.WriteString("TestAbbreviation");
-			this.m_TestId = propertyWriter.WriteInt("TestId");
-			this.m_TestName = propertyWriter.WriteString("TestName");
-			this.m_PanelSetId = propertyWriter.WriteInt("PanelSetId");
-		}
 	}
 }

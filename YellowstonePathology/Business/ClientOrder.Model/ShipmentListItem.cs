@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Runtime.Serialization;
+using YellowstonePathology.Business.Persistence;
 
 namespace YellowstonePathology.Business.ClientOrder.Model
 {
@@ -24,6 +25,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 
 		#region Properties
 		[DataMember]
+        [PersistentPrimaryKeyProperty(false)]
 		public string ShipmentId
 		{
 			get { return this.m_ShipmentId; }
@@ -31,6 +33,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
+        [PersistentProperty()]
 		public string ShipmentFrom
 		{
 			get { return this.m_ShipmentFrom; }
@@ -38,67 +41,59 @@ namespace YellowstonePathology.Business.ClientOrder.Model
 		}
 
 		[DataMember]
-		public string ShipmentTo
+        [PersistentProperty()]
+        public string ShipmentTo
 		{
 			get { return this.m_ShipmentTo; }
 			set { this.m_ShipmentTo = value; }
 		}
 
 		[DataMember]
-		public Nullable<DateTime> ShipDate
+        [PersistentProperty()]
+        public Nullable<DateTime> ShipDate
 		{
 			get { return this.m_ShipDate; }
 			set { this.m_ShipDate = value; }
 		}
 
 		[DataMember]
-		public bool Shipped
+        [PersistentProperty()]
+        public bool Shipped
 		{
 			get { return this.m_Shipped; }
 			set { this.m_Shipped = value; }
 		}
 
 		[DataMember]
-		public bool Received
+        [PersistentProperty()]
+        public bool Received
 		{
 			get { return this.m_Received; }
 			set { this.m_Received = value; }
 		}
 
 		[DataMember]
-		public Nullable<DateTime> ReceivedDate
+        [PersistentProperty()]
+        public Nullable<DateTime> ReceivedDate
 		{
 			get { return this.m_ReceivedDate; }
 			set { this.m_ReceivedDate = value; }
 		}
 
 		[DataMember]
-		public int ReceivedById
+        [PersistentProperty()]
+        public int ReceivedById
 		{
 			get { return this.m_ReceivedById; }
 			set { this.m_ReceivedById = value; }
 		}
 
 		[DataMember]
-		public string ShipmentPreparedBy
+        [PersistentProperty()]
+        public string ShipmentPreparedBy
 		{
 			get { return this.m_ShipmentPreparedBy; }
 			set { this.m_ShipmentPreparedBy = value; }
-		}
-		#endregion
-
-		#region WritePropertiesMethod
-		public void WriteProperties(YellowstonePathology.Business.Domain.Persistence.IPropertyWriter propertyWriter)
-		{
-			this.m_ShipmentId = propertyWriter.WriteString("ShipmentId");
-			this.m_ShipmentFrom = propertyWriter.WriteString("ShipmentFrom");
-			this.m_ShipmentTo = propertyWriter.WriteString("ShipmentTo");
-			this.m_ShipDate = propertyWriter.WriteNullableDateTime("ShipDate");
-			this.m_Shipped = propertyWriter.WriteBoolean("Shipped");
-			this.m_Received = propertyWriter.WriteBoolean("Received");
-			this.m_ReceivedDate = propertyWriter.WriteNullableDateTime("ReceivedDate");
-			this.m_ReceivedById = propertyWriter.WriteInt("ReceivedById");
-			this.m_ShipmentPreparedBy = propertyWriter.WriteString("ShipmentPreparedBy");
 		}
 		#endregion
 	}
