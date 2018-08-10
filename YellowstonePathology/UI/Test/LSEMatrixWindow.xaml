@@ -60,16 +60,16 @@
             </Grid.RowDefinitions>
 
             <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,10,2,2" FontWeight="Bold">Interpretation</TextBlock>
-            <TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" Text="{Binding Path=SelectedLSERule.Interpretation}" TextWrapping="Wrap"></TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrderLynchSyndromeEvaluation.Interpretation}" TextWrapping="Wrap"></TextBlock>
 
             <TextBlock Grid.Column="0" Grid.Row="2" Margin="2,10,2,2" FontWeight="Bold">Comment</TextBlock>
-            <TextBlock Grid.Column="0" Grid.Row="3" Margin="2,2,2,2" Text="{Binding Path=SelectedLSERule.Comment}" TextWrapping="Wrap"></TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="3" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrderLynchSyndromeEvaluation.Comment}" TextWrapping="Wrap"></TextBlock>
 
             <TextBlock Grid.Column="0" Grid.Row="4" Margin="2,10,2,2" FontWeight="Bold">Method</TextBlock>
-            <TextBlock Grid.Column="0" Grid.Row="5" Margin="2,2,2,2" Text="{Binding Path=SelectedLSERule.Method}" TextWrapping="Wrap"></TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="5" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrderLynchSyndromeEvaluation.Method}" TextWrapping="Wrap"></TextBlock>
 
             <TextBlock Grid.Column="0" Grid.Row="6" Margin="2,10,2,2" FontWeight="Bold">References</TextBlock>
-            <TextBlock Grid.Column="0" Grid.Row="7" Margin="2,2,2,2" Text="{Binding Path=SelectedLSERule.References}" TextWrapping="Wrap"></TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="7" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrderLynchSyndromeEvaluation.References}" TextWrapping="Wrap"></TextBlock>
         </Grid>
 
     </Grid>

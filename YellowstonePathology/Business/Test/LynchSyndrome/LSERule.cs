@@ -198,7 +198,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             return result;
         }
 
-        public string BuildLossInterpretation()
+        public string BuildLossResult()
         {
             string result = "Loss of nuclear expression of ";            
             List<string> results = new List<string>();

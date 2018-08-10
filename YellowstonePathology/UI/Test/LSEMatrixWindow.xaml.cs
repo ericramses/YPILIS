@@ -25,9 +25,11 @@ namespace YellowstonePathology.UI.Test
         private Business.Test.LynchSyndrome.LSERuleCollection m_LSERuleCollection;
         private Business.Test.LynchSyndrome.LSERule m_LSERule;
         private Business.Test.LynchSyndrome.LSERule m_SelectedLSERule;
+        private Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation m_PanelSetOrderLynchSyndromeEvaluation;
 
         public LSEMatrixWindow()
         {
+            this.m_PanelSetOrderLynchSyndromeEvaluation = new Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation();
             this.m_LSERuleCollection = YellowstonePathology.Business.Test.LynchSyndrome.LSERuleCollection.GetAll();
             this.m_LSERule = new Business.Test.LynchSyndrome.LSERule();
             this.m_LSERule.Indication = "LSECOLON";
@@ -50,9 +52,9 @@ namespace YellowstonePathology.UI.Test
             get { return this.m_LSERule; }
         }
 
-        public Business.Test.LynchSyndrome.LSERule SelectedLSEResult
+        public Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation PanelSetOrderLynchSyndromeEvaluation
         {
-            get { return this.m_SelectedLSERule; }
+            get { return this.m_PanelSetOrderLynchSyndromeEvaluation; }
         }        
 
         public void NotifyPropertyChanged(String info)
@@ -68,7 +70,7 @@ namespace YellowstonePathology.UI.Test
             if(this.ListViewResults.SelectedItem != null)
             {
                 this.m_SelectedLSERule = (Business.Test.LynchSyndrome.LSERule)this.ListViewResults.SelectedItem;
-                this.m_SelectedLSERule.SetResultsV2();
+                this.m_SelectedLSERule.SetResultsV2(this.m_PanelSetOrderLynchSyndromeEvaluation);
                 this.NotifyPropertyChanged("SelectedLSEResult");
             }
         }

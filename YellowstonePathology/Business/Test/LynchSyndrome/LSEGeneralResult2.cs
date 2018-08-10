@@ -20,9 +20,9 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             this.m_References = LSEGENReferences;        
 		}
 
-        public override void SetResultsV2()
+        public override void SetResultsV2(PanelSetOrderLynchSyndromeEvaluation psoLSE)        
         {
-            this.m_Interpretation = this.BuildLossInterpretation();
+            this.m_Result = this.BuildLossResult();
         }
 
         public override void SetResults(AccessionOrder accessionOrder, PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromEvaluation)
