@@ -58,7 +58,11 @@ namespace YellowstonePathology.UI.Login
                 {
                     this.m_Client.ClientLocationCollection.SetCurrentLocationToMedicalRecordsOrFirst();
 
-                    UI.Navigation.PageNavigationReturnEventArgs args = new UI.Navigation.PageNavigationReturnEventArgs(UI.Navigation.PageNavigationDirectionEnum.Next, this.m_Client);
+                    bool useRequisition = false;
+                    List<object> returnData = new List<object>();
+                    returnData.Add(this.m_Client);
+                    returnData.Add(useRequisition);
+                    UI.Navigation.PageNavigationReturnEventArgs args = new UI.Navigation.PageNavigationReturnEventArgs(UI.Navigation.PageNavigationDirectionEnum.Next, returnData);
                     this.Return(this, args);
                 }
                 else
