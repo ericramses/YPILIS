@@ -151,7 +151,7 @@ namespace YellowstonePathology.UI.Surgical
 
         private void HyperLinkPDL1_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Test.PDL1SP142.PDL1SP142Test pdl1Test = new Business.Test.PDL1SP142.PDL1SP142Test();
+            YellowstonePathology.Business.Test.PDL122C3.PDL122C3Test pdl1Test = new Business.Test.PDL122C3.PDL122C3Test();
             if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(pdl1Test.PanelSetId) == false)
             {
                 this.OrderTest(this, new CustomEventArgs.PanelSetReturnEventArgs(pdl1Test));

@@ -93,7 +93,7 @@ namespace YellowstonePathology.UI
             MessageBox.Show("Done");*/
         }
 
-        private void ButtonDictationTemplate_Click(object sender, RoutedEventArgs e)
+        private void ButtonStainList_Click(object sender, RoutedEventArgs e)
         {
             //MessageBox.Show("Done");
         }
@@ -995,10 +995,7 @@ namespace YellowstonePathology.UI
         }
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
-        {
-            UI.Surgical.StainOrder so = new Surgical.StainOrder();
-            so.Show();
-
+        {            
             //Business.Gateway.SearchGateway sg = new Business.Gateway.SearchGateway();
             //Business.Search.PathologistSearchResultCollection psrc = sg.PathologistSlideOrderIdSearch("18-123.1A1");
             //MessageBox.Show(psrc[0].PatientName);

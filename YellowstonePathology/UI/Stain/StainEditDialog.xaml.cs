@@ -30,6 +30,7 @@ namespace YellowstonePathology.UI.Stain
             this.m_Stain = stain;
 
             this.m_StainerTypes = new List<string>();
+            this.m_StainerTypes.Add(null);
             this.m_StainerTypes.Add("BenchMark ULTRA");
             this.m_StainerTypes.Add("BenchMark Special Stains");
 
@@ -49,6 +50,7 @@ namespace YellowstonePathology.UI.Stain
             this.m_Stain = new Business.Stain.Model.Stain();
 
             this.m_StainerTypes = new List<string>();
+            this.m_StainerTypes.Add(null);
             this.m_StainerTypes.Add("BenchMark ULTRA");
             this.m_StainerTypes.Add("BenchMark Special Stains");
 
@@ -102,10 +104,13 @@ namespace YellowstonePathology.UI.Stain
         {
             YellowstonePathology.Business.Rules.MethodResult result = new Business.Rules.MethodResult();
             string id = this.DetermineStainId();
-            if (this.m_Stain.VentanaBenchMarkId == 0)
+            if (this.m_Stain.PerformedByHand == false)
             {
-                result.Success = false;
-                result.Message = "The Ventana BenchMark Id must be a number greater than 0.";
+                if (this.m_Stain.VentanaBenchMarkId == null || this.m_Stain.VentanaBenchMarkId.Value == 0)
+                {
+                    result.Success = false;
+                    result.Message = "The Ventana BenchMark Id must be a number greater than 0.";
+                }
             }
             if(string.IsNullOrEmpty(this.m_Stain.StainId) == true)
             {

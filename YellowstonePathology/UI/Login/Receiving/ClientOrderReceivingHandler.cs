@@ -107,11 +107,18 @@ namespace YellowstonePathology.UI.Login.Receiving
             this.m_ClientOrderCollection.Add(clientOrder);
         }
 
-        public void IFoundAClient(YellowstonePathology.Business.Client.Model.Client client)
+        public void IFoundAClient(YellowstonePathology.Business.Client.Model.Client client, bool useRequsition)
         {
             this.m_Client = client;
             this.m_AClientHasBeenFound = true;
-            this.m_ExpectedOrderType = (OrderTypeEnum)Enum.Parse(typeof(OrderTypeEnum), client.ClientLocationCollection.CurrentLocation.OrderType, true);            
+            if (useRequsition == false)
+            {
+                this.m_ExpectedOrderType = (OrderTypeEnum)Enum.Parse(typeof(OrderTypeEnum), client.ClientLocationCollection.CurrentLocation.OrderType, true);
+            }
+            else
+            {
+                this.m_ExpectedOrderType = OrderTypeEnum.REQUISITION;
+            }
 		}
 
         public void IFoundAClientOrder(YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder)

@@ -19,7 +19,7 @@ namespace YellowstonePathology.Business.Test.Model
             this.m_List.Add(YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone("115")); // Iron());
             this.m_List.Add(YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone("140")); // PASWithDiastase());
             this.m_List.Add(YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone("151")); // Reticulin());
-            this.m_List.Add(new CopperRhodanine());            
+            this.m_List.Add(YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone("213")); // CopperRhodanine());            
         }
 
         public string GroupName

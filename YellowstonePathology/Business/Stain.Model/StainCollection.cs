@@ -92,6 +92,25 @@ namespace YellowstonePathology.Business.Stain.Model
             Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.Stain).DataBase.Execute("json.del", new string[] { stain.StainId, "." });
             Test.Model.TestCollectionInstance.Reload();
         }
+
+        public Business.Test.Model.TestCollection GetTestCollection()
+        {
+            Business.Test.Model.TestCollection result = new Test.Model.TestCollection();
+            foreach(Stain stain in this)
+            {
+                Business.Test.Model.Test test = Business.Test.Model.TestCollectionInstance.GetClone(stain.TestId);
+                result.Add(test);
+            }
+            return result;
+        }
+
+        public void WriteLineStains()
+        {
+            foreach(Stain stain in this)
+            {
+                Console.WriteLine(stain.StainId + ":" + stain.StainName);
+            }
+        }
     }
 }
 

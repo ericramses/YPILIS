@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace YellowstonePathology.Business.Test.IDH1IDH2MutationAnalsysis
+namespace YellowstonePathology.Business.Test.IDH1IDH2MutationAnalysis
 {
-    public class IDH1IDH2MutationAnalsysisTest : YellowstonePathology.Business.PanelSet.Model.PanelSet
+    public class IDH1IDH2MutationAnalysisTest : YellowstonePathology.Business.PanelSet.Model.PanelSet
     {
-        public IDH1IDH2MutationAnalsysisTest()
+        public IDH1IDH2MutationAnalysisTest()
         {
             this.m_PanelSetId = 221;
-            this.m_PanelSetName = "IDH1 And IDH2 Mutation Analsysis";
-            this.m_Abbreviation = "IDH1 And IDH2 Mutation Analsysis";
+            this.m_PanelSetName = "IDH1 And IDH2 Mutation Analysis";
+            this.m_Abbreviation = "IDH1 And IDH2 Mutation Analysis";
             this.m_CaseType = YellowstonePathology.Business.CaseType.Molecular;
             this.m_HasTechnicalComponent = true;
             this.m_HasProfessionalComponent = true;
@@ -21,8 +21,7 @@ namespace YellowstonePathology.Business.Test.IDH1IDH2MutationAnalsysis
 
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.PanelSetOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Document.ReferenceLabReport).AssemblyQualifiedName;
-            this.m_AllowMultiplePerAccession = true;
-            //updated on 12.14.16 by MS;
+            this.m_AllowMultiplePerAccession = true;            
 
             string taskDescription = "Collect paraffin block from Histology and send to Neo.";
 

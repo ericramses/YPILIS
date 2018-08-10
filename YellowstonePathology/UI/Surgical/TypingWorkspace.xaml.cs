@@ -627,8 +627,9 @@ namespace YellowstonePathology.UI.Surgical
             if (this.HaveAvaliableItem() == true)
             {
                 this.Save(false);
-                YellowstonePathology.UI.Common.OrderDialog frm = new YellowstonePathology.UI.Common.OrderDialog(this.m_TypingUI.AccessionOrder, this.m_TypingUI.SurgicalTestOrder);
-                frm.ShowDialog();
+
+                YellowstonePathology.UI.Surgical.StainOrder frm = new StainOrder(this.m_TypingUI.AccessionOrder, this.m_TypingUI.SurgicalTestOrder);
+                frm.ShowDialog();                
 
                 string reportNo = this.m_TypingUI.AccessionOrder.PanelSetOrderCollection.GetItem(13).ReportNo;
                 this.m_TypingUI.GetAccessionOrder(reportNo);

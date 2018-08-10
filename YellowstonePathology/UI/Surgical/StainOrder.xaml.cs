@@ -11,29 +11,102 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.ComponentModel;
 
 namespace YellowstonePathology.UI.Surgical
 {
     /// <summary>
     /// Interaction logic for StainOrder.xaml
     /// </summary>
-    public partial class StainOrder : Window
+    public partial class StainOrder : Window, INotifyPropertyChanged
     {
-        List<CheckBox> m_DualStains;
+        public delegate void PropertyChangedNotificationHandler(String info);
+        public event PropertyChangedEventHandler PropertyChanged;
 
-        public StainOrder()
-        {            
+        List<CheckBox> m_StainsCheckBoxes;
+        List<CheckBox> m_LiverPanelCheckBoxes;
+        List<CheckBox> m_NonStainCheckBoxes;
+
+        private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;        
+        private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
+        private string m_PanelOrderComment;
+        private string m_RecutComment;
+
+        private YellowstonePathology.UI.Login.FinalizeAccession.AliquotAndStainOrderView m_AliquotAndStainOrderView;
+        private YellowstonePathology.Business.Visitor.StainAcknowledgementTaskOrderVisitor m_StainAcknowledgementTaskOrderVisitor;
+
+        public StainOrder(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder)
+        {
+            this.m_AccessionOrder = accessionOrder;
+            this.m_PanelSetOrder = panelSetOrder;
+
+            this.m_StainAcknowledgementTaskOrderVisitor = new Business.Visitor.StainAcknowledgementTaskOrderVisitor(this.m_PanelSetOrder);
+            this.m_AliquotAndStainOrderView = new Login.FinalizeAccession.AliquotAndStainOrderView(this.m_AccessionOrder, this.m_PanelSetOrder);
+
             InitializeComponent();
+
+            this.DataContext = this;
             this.Loaded += StainOrder_Loaded;
-        }
+
+            Business.Stain.Model.StainCollection.Instance.WriteLineStains();
+        }        
 
         private void StainOrder_Loaded(object sender, RoutedEventArgs e)
-        {
-            this.m_DualStains = new List<CheckBox>();
-            this.InitializeList("DualStainOrder", this.m_DualStains, this.MainGrid);
+        {     
+            this.m_StainsCheckBoxes = new List<CheckBox>();
+            this.InitializeCheckboxList("StainOrder", this.m_StainsCheckBoxes, this.MainGrid);
+
+            this.m_LiverPanelCheckBoxes = new List<CheckBox>();
+            this.m_LiverPanelCheckBoxes.Add(this.StainOrder122);
+            this.m_LiverPanelCheckBoxes.Add(this.StainOrder123);
+            this.m_LiverPanelCheckBoxes.Add(this.StainOrder124);
+            this.m_LiverPanelCheckBoxes.Add(this.StainOrder125);
+            this.m_LiverPanelCheckBoxes.Add(this.StainOrder126);
+
+            this.m_NonStainCheckBoxes = new List<CheckBox>();
+            this.m_NonStainCheckBoxes.Add(this.CheckBoxICF);
+            this.m_NonStainCheckBoxes.Add(this.CheckBoxIC);
+            this.m_NonStainCheckBoxes.Add(this.CheckBoxGrossOnly);
+            this.m_NonStainCheckBoxes.Add(this.CheckBoxRecuts);
         }
 
-        private void InitializeList(string name, List<CheckBox> list, DependencyObject depObj)
+        public YellowstonePathology.Business.Test.AccessionOrder AccessionOrder
+        {
+            get { return this.m_AccessionOrder; }
+        }
+
+        public YellowstonePathology.UI.Login.FinalizeAccession.AliquotAndStainOrderView AliquotAndStainOrderView
+        {
+            get { return this.m_AliquotAndStainOrderView; }
+        }
+
+        public string PanelOrderComment
+        {
+            get { return this.m_PanelOrderComment; }
+            set
+            {
+                if (this.m_PanelOrderComment != value)
+                {
+                    this.m_PanelOrderComment = value;
+                    this.NotifyPropertyChanged("PanelOrderComment");
+                }
+            }
+        }
+
+        public string RecutComment
+        {
+            get { return this.m_PanelOrderComment; }
+            set
+            {
+                if (this.m_PanelOrderComment != value)
+                {
+                    this.m_PanelOrderComment = value;
+                    this.NotifyPropertyChanged("RecutComment");
+                }
+            }
+        }
+
+        private void InitializeCheckboxList(string name, List<CheckBox> list, DependencyObject depObj)
         {
             for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
             {
@@ -46,23 +119,186 @@ namespace YellowstonePathology.UI.Surgical
                         list.Add(checkBox);
                     }
                 }
-                this.InitializeList(name, list, child);
+                this.InitializeCheckboxList(name, list, child);
             }
         }
 
         private void ButtonOrder_Click(object sender, RoutedEventArgs e)
         {
+            Business.Stain.Model.StainCollection stainsToOrder = this.GetStainsToOrder();            
 
+            ((MainWindow)Application.Current.MainWindow).MoveKeyboardInputToNext();
+
+            YellowstonePathology.Business.Test.AliquotOrderCollection selectedAliquots = this.m_AliquotAndStainOrderView.GetSelectedAliquots();
+            if (selectedAliquots.Count > 0)
+            {
+                YellowstonePathology.Business.Test.Model.TestCollection selectedTests = stainsToOrder.GetTestCollection();
+                this.GetNonStainTestsToOrder(selectedTests);
+
+                if (selectedTests.Count > 0)
+                {
+                    this.HandleOrderingTests(selectedAliquots, selectedTests);
+
+                    this.m_StainAcknowledgementTaskOrderVisitor.TaskOrderDetailComment = this.m_PanelOrderComment;
+                    this.m_AccessionOrder.TakeATrip(this.m_StainAcknowledgementTaskOrderVisitor);
+
+                    this.ClearCheckBoxes();                    
+
+                    this.m_AliquotAndStainOrderView.Refresh(false, this.m_PanelSetOrder);
+                    this.NotifyPropertyChanged("AliquotAndStainOrderView");
+
+                    this.m_PanelOrderComment = null;
+                    this.NotifyPropertyChanged("PanelOrderComment");
+
+                    this.m_RecutComment = null;
+                    this.NotifyPropertyChanged("RecutComment");
+                }
+                else
+                {
+                    MessageBox.Show("There are no tests selected.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("There are no aliquots selected.");
+            }
+        }
+
+        private void HandleOrderingTests(YellowstonePathology.Business.Test.AliquotOrderCollection selectedAliquots, YellowstonePathology.Business.Test.Model.TestCollection selectedTests)
+        {
+            foreach (YellowstonePathology.Business.Test.AliquotOrder aliquotOrder in selectedAliquots)
+            {
+                foreach (YellowstonePathology.Business.Test.Model.Test test in selectedTests)
+                {
+                    bool orderAsDual = false;
+                    bool acknowledgeOnOrder = false;
+
+                    YellowstonePathology.Business.Visitor.OrderTestVisitor orderTestVisitorTest = new Business.Visitor.OrderTestVisitor(this.m_PanelSetOrder.ReportNo, test, test.OrderComment, this.m_PanelOrderComment, orderAsDual, aliquotOrder, acknowledgeOnOrder, false, this.m_AccessionOrder.TaskOrderCollection);
+                    this.m_AccessionOrder.TakeATrip(orderTestVisitorTest);
+                    this.m_StainAcknowledgementTaskOrderVisitor.AddTestOrder(orderTestVisitorTest.TestOrder);
+                }
+            }
         }
 
         private void ButtonClose_Click(object sender, RoutedEventArgs e)
         {
-
+            this.Close();
         }
 
         private void ButtonDelete_Click(object sender, RoutedEventArgs e)
         {
+            YellowstonePathology.Business.Test.Model.TestOrderCollection selectedTestOrders = this.m_AliquotAndStainOrderView.GetSelectedTestOrders();
 
+            if (selectedTestOrders.Count != 0)
+            {
+                foreach (YellowstonePathology.Business.Test.Model.TestOrder testOrder in selectedTestOrders)
+                {
+                    if (this.m_AliquotAndStainOrderView.HaveSlidesBeenMadeForTestOrder(testOrder) == false)
+                    {
+                        YellowstonePathology.Business.Visitor.RemoveTestOrderVisitor removeTestOrderVisitor = new Business.Visitor.RemoveTestOrderVisitor(testOrder.TestOrderId);
+                        this.m_AccessionOrder.TakeATrip(removeTestOrderVisitor);
+                        this.m_StainAcknowledgementTaskOrderVisitor.RemoveTestOrder(testOrder);
+                    }
+                    else
+                    {
+                        MessageBox.Show("The test " + testOrder.TestName + " cannot be deleted because slides have been made.");
+                    }
+                }
+
+                this.m_AccessionOrder.TakeATrip(this.m_StainAcknowledgementTaskOrderVisitor);
+                this.m_AliquotAndStainOrderView.Refresh(false, this.m_PanelSetOrder);
+                this.NotifyPropertyChanged("AliquotAndStainOrderView");
+            }
+            else
+            {
+                MessageBox.Show("No tests selected.");
+            }
+        }
+
+        private void ClearCheckBoxes()
+        {
+            if(this.CheckBoxLiverPanel.IsChecked == true)
+            {
+                CheckBoxLiverPanel.IsChecked = false;
+            }
+
+            foreach (CheckBox checkBox in this.m_StainsCheckBoxes)
+            {
+                if (checkBox.IsChecked == true)
+                {
+                    checkBox.IsChecked = false;
+                }
+            }
+
+            foreach (CheckBox checkBox in this.m_NonStainCheckBoxes)
+            {
+                if (checkBox.IsChecked == true)
+                {
+                    checkBox.IsChecked = false;
+                }
+            }
+        }
+
+        private Business.Stain.Model.StainCollection GetStainsToOrder()
+        {
+            Business.Stain.Model.StainCollection result = new Business.Stain.Model.StainCollection();
+            foreach(CheckBox checkBox in this.m_StainsCheckBoxes)
+            {
+                if(checkBox.IsChecked == true)
+                {
+                    string stainId = (string)checkBox.Tag;
+                    Business.Stain.Model.Stain stain = Business.Stain.Model.StainCollection.Instance.GetStain(stainId);
+                    if (stain != null)
+                    {
+                        result.Add(stain);
+                    }
+                    else
+                    {
+                        throw new Exception("The stain was not found.");
+                    }
+                }                
+            }
+            return result;
+        }
+
+        private void GetNonStainTestsToOrder(Business.Test.Model.TestCollection selectedTests)
+        {
+            foreach (CheckBox checkBox in this.m_NonStainCheckBoxes)
+            {
+                if (checkBox.IsChecked == true)
+                {
+                    string testId = (string)checkBox.Tag;
+                    Business.Test.Model.Test test = Business.Test.Model.TestCollectionInstance.GetClone(testId);
+
+                    if (test is Business.Test.Model.Recut) test.OrderComment = RecutComment;
+
+                    selectedTests.Add(test);
+                }
+            }
+        }
+
+        protected void NotifyPropertyChanged(String info)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
+        }
+
+        private void CheckBoxLiverPanel_Checked(object sender, RoutedEventArgs e)
+        {            
+            foreach(CheckBox checkBox in this.m_LiverPanelCheckBoxes)
+            {
+                checkBox.IsChecked = true;
+            }                            
+        }
+
+        private void CheckBoxLiverPanel_Unchecked(object sender, RoutedEventArgs e)
+        {
+            foreach (CheckBox checkBox in this.m_LiverPanelCheckBoxes)
+            {
+                checkBox.IsChecked = false;
+            }
         }
     }
 }

@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>113</ApplicationRevision>
+    <ApplicationRevision>125</ApplicationRevision>
     <ApplicationVersion>10.1.12.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -2099,7 +2099,6 @@
     <Compile Include="Business\Test.Model\CD79a.cs" />
     <Compile Include="Business\Test.Model\CellBlock.cs" />
     <Compile Include="Business\Test.Model\ChlamydiaTrachomatis.cs" />
-    <Compile Include="Business\Test.Model\CopperRhodanine.cs" />
     <Compile Include="Business\Test.Model\CptCodeLevelEnum.cs" />
     <Compile Include="Business\Test.Model\CytochemicalForMicroorganismsTest.cs" />
     <Compile Include="Business\Test.Model\CytochemicalTest.cs" />
@@ -2129,26 +2128,20 @@
     <Compile Include="Business\Test.Model\ERV3NG.cs" />
     <Compile Include="Business\Test.Model\FactorVIII.cs" />
     <Compile Include="Business\Test.Model\FineNeedleAspirate.cs" />
-    <Compile Include="Business\Test.Model\Fites.cs" />
     <Compile Include="Business\Test.Model\GCDFP15.cs" />
     <Compile Include="Business\Test.Model\Giemsa.cs" />
-    <Compile Include="Business\Test.Model\Gout.cs" />
     <Compile Include="Business\Test.Model\GradedTest.cs" />
     <Compile Include="Business\Test.Model\GrossOnly.cs" />
     <Compile Include="Business\Test.Model\HandE.cs" />
     <Compile Include="Business\Test.Model\HandEAfterSlide.cs" />
     <Compile Include="Business\Test.Model\HER2Amplification.cs" />
-    <Compile Include="Business\Test.Model\HER2Neu.cs" />
-    <Compile Include="Business\Test.Model\HuckerTwordt.cs" />
     <Compile Include="Business\Test.Model\ImmunoHistochemistryTest.cs" />
     <Compile Include="Business\Test.Model\IntraoperativeConsultation.cs" />
     <Compile Include="Business\Test.Model\IntraoperativeConsultationwithFrozen.cs" />
     <Compile Include="Business\Test.Model\KRASBRAFReflex.cs" />
     <Compile Include="Business\Test.Model\KRASMutationAnalysis.cs" />
     <Compile Include="Business\Test.Model\Lysozyme.cs" />
-    <Compile Include="Business\Test.Model\Melanin.cs" />
     <Compile Include="Business\Test.Model\MITF.cs" />
-    <Compile Include="Business\Test.Model\Mucin.cs" />
     <Compile Include="Business\Test.Model\MuscleSpecificActin.cs" />
     <Compile Include="Business\Test.Model\NaphtholASDChloroacetateEsterase.cs" />
     <Compile Include="Business\Test.Model\Negative.cs" />
@@ -2161,7 +2154,6 @@
     <Compile Include="Business\Test.Model\NotListed2.cs" />
     <Compile Include="Business\Test.Model\NotListed3.cs" />
     <Compile Include="Business\Test.Model\NSE.cs" />
-    <Compile Include="Business\Test.Model\OilRedO.cs" />
     <Compile Include="Business\Test.Model\P63.cs" />
     <Compile Include="Business\Test.Model\PanMelanomaCocktail.cs" />
     <Compile Include="Business\Test.Model\ParaffinCurls.cs" />
@@ -2202,7 +2194,6 @@
     <Compile Include="Business\Test\AccessionLock.cs" />
     <Compile Include="Business\Test\AccessionLockCollection.cs" />
     <Compile Include="Business\Test\AccessionOrder.cs" />
-    <Compile Include="Business\Test\AccessionOrder.Validation.cs" />
     <Compile Include="Business\Test\AccessionOrderCollection.cs" />
     <Compile Include="Business\Test\AccessionOrderThinPrepPap.cs" />
     <Compile Include="Business\Test\AccessionOrderTracker.cs" />
@@ -2590,7 +2581,7 @@
     <Compile Include="Business\Test\HPV\HPVTest.cs" />
     <Compile Include="Business\Test\HPV\HPVTestOrder.cs" />
     <Compile Include="Business\Test\HPV\HPVWordDocument.cs" />
-    <Compile Include="Business\Test\IDH1IDH2MutationAnalsysis\IDH1IDH2MutationAnalsysisTest.cs" />
+    <Compile Include="Business\Test\IDH1IDH2MutationAnalysis\IDH1IDH2MutationAnalysisTest.cs" />
     <Compile Include="Business\Test\IHCQC\IHCQCTest.cs" />
     <Compile Include="Business\Test\IHCQC\IHCQCTestOrder.cs" />
     <Compile Include="Business\Test\Indication.cs" />
@@ -4683,7 +4674,6 @@
     <Compile Include="UI\TypingTemplateDialog.xaml.cs">
       <DependentUpon>TypingTemplateDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\TemplateSelector\OrderItemTemplateSelector.cs" />
     <Compile Include="UI\TestingControl.xaml.cs">
       <DependentUpon>TestingControl.xaml</DependentUpon>
     </Compile>
@@ -4748,9 +4738,6 @@
     </Compile>
     <Compile Include="UI\Common\OrderCommentDialog.xaml.cs">
       <DependentUpon>OrderCommentDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Common\OrderDialog.xaml.cs">
-      <DependentUpon>OrderDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Common\PathologistSelectionDialog.xaml.cs">
       <DependentUpon>PathologistSelectionDialog.xaml</DependentUpon>
@@ -6476,10 +6463,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\Common\OrderDialog.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="UI\Common\PathologistSelectionDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -7390,9 +7373,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="UI\Common\ComplexOrderItem.xml" />
-    <EmbeddedResource Include="UI\Common\OrderItem.xml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Reassign.ico" />
