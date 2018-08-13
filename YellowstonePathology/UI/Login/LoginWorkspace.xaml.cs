@@ -948,16 +948,6 @@ namespace YellowstonePathology.UI.Login
             }
         }
 
-        private void TileAdditionialTestingEmail_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            if (this.ListViewAccessionOrders.SelectedItem != null)
-            {
-                YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_LoginUI.AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_LoginUI.ReportNo);
-                YellowstonePathology.UI.Login.Receiving.AdditionalTestingEmailPathWithSecurity additionalTestingEmailPath = new Receiving.AdditionalTestingEmailPathWithSecurity(this.m_LoginUI.AccessionOrder, panelSetOrder);
-                additionalTestingEmailPath.Start();
-            }
-        }        
-
         private void HandleVantageSlideScan(string scanData)
         {
             this.m_BarcodeScanPort.VantageSlideScanReceived -= BarcodeScanPort_VantageSlideScanReceived;

@@ -23,6 +23,7 @@ namespace YellowstonePathology.Business.Billing.Model
                 });
 
                 pqrsCode.ReportingDefinition = pqrsCode.Description;
+                pqrsCode.Comment = jObject["comment"].ToString();
                 result = pqrsCode;
             }
             else
