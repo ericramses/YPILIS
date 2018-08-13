@@ -18,7 +18,8 @@ namespace YellowstonePathology.Business.HL7View
         {
             if (slideOrder.LabelType == YellowstonePathology.Business.Slide.Model.SlideLabelTypeEnum.PaperLabel.ToString())
             {
-                if (slideOrder.PerformedByHand == false)
+                Business.Stain.Model.Stain stain = Business.Stain.Model.StainCollection.Instance.GetStainByTestId(slideOrder.TestId);
+                if (slideOrder.PerformedByHand == false || stain.PerformedByHand == false)
                 {
                     if (slideOrder.OrderSentToVentana == false)
                     {
