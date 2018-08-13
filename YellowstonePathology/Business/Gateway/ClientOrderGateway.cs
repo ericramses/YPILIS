@@ -481,19 +481,6 @@ namespace YellowstonePathology.Business.Gateway
 			return result;
 		}
 
-		public XElement PackingSlipReport(string shipmentId)
-		{
-			MySqlCommand cmd = new MySqlCommand("ws_PackingSlipReport");
-			cmd.CommandType = CommandType.StoredProcedure;
-			cmd.Parameters.AddWithValue("ShipmentId", shipmentId);
-
-            throw new Exception("This needs to be fixed");
-            /*
-			XElement result = YellowstonePathology.Business.Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteCommand(cmd, Business.Domain.Persistence.DataLocationEnum.ProductionData);
-			return result;
-            */
-		}
-
 		public YellowstonePathology.Business.ClientOrder.Model.OrderTypeCollection GetAllOrderTypes()
 		{
 			MySqlCommand cmd = new MySqlCommand();
