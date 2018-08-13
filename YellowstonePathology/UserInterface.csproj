@@ -3497,10 +3497,6 @@
     </Compile>
     <Compile Include="UI\Login\Receiving\AcknowledgeDailyTaskOrderPath.cs" />
     <Compile Include="UI\Converter\CollectionDateTimeBackgroundConverter.cs" />
-    <Compile Include="UI\Login\Receiving\AdditionalTestingEMailPage.xaml.cs">
-      <DependentUpon>AdditionalTestingEMailPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Login\Receiving\AdditionalTestingEmailPathWithSecurity.cs" />
     <Compile Include="UI\Login\Receiving\BarcodeManualEntryPage.xaml.cs">
       <DependentUpon>BarcodeManualEntryPage.xaml</DependentUpon>
     </Compile>
@@ -5667,10 +5663,6 @@
     <Page Include="UI\Login\FinalizeAccession\SpecimenMappingPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\Login\Receiving\AdditionalTestingEMailPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Login\Receiving\BarcodeManualEntryPage.xaml">
       <Generator>MSBuild:Compile</Generator>

@@ -10,6 +10,7 @@ namespace YellowstonePathology.Business.Billing.Model
     {
         protected string m_ReportingDefinition;
         protected string m_FormattedReportingDefinition;
+        protected string m_Comment;
 
         public PQRSCode()
         {
@@ -22,6 +23,13 @@ namespace YellowstonePathology.Business.Billing.Model
             set { this.m_ReportingDefinition = value; }
         }
 
+        [PersistentProperty()]
+        public string Comment
+        {
+            get { return this.m_Comment; }
+            set { this.m_Comment = value; }
+        }
+
         public string FormattedReportingDefinition
         {
             get
@@ -31,6 +39,7 @@ namespace YellowstonePathology.Business.Billing.Model
                 if (this.m_Modifier != null) result.Append("-" + this.m_Modifier.Modifier);
                 result.Append(":  ");
                 result.Append(this.m_ReportingDefinition);
+                if (string.IsNullOrEmpty(this.m_Comment) == false) result.Append(Environment.NewLine + this.m_Comment);
                 return result.ToString();
             }
             set { this.m_FormattedReportingDefinition = value; }
