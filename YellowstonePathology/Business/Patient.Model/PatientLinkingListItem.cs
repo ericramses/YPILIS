@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Xml.Linq;
 using System.ComponentModel;
+using YellowstonePathology.Business.Persistence;
 
 namespace YellowstonePathology.Business.Patient.Model
 {
@@ -25,6 +26,7 @@ namespace YellowstonePathology.Business.Patient.Model
 
         }
 
+        [PersistentPrimaryKeyProperty(false)]
 		public string MasterAccessionNo
         {
             get { return this.m_MasterAccessionNo; }
@@ -35,6 +37,7 @@ namespace YellowstonePathology.Business.Patient.Model
 			}
         }
 
+        [PersistentProperty()]
         public string ReportNo
         {
             get { return this.m_ReportNo; }
@@ -44,6 +47,7 @@ namespace YellowstonePathology.Business.Patient.Model
 				NotifyPropertyChanged("ReportNo");
 			}
         }
+
         public bool IsSelected
         {
             get { return m_IsSelected; }
@@ -52,8 +56,9 @@ namespace YellowstonePathology.Business.Patient.Model
 				m_IsSelected = value;
 				NotifyPropertyChanged("IsSelected");
 			}
-        }                
-       
+        }
+
+        [PersistentProperty()]
         public string PatientId
         {
             get { return m_PatientId; }
@@ -64,6 +69,7 @@ namespace YellowstonePathology.Business.Patient.Model
 			}
         }
 
+        [PersistentProperty()]
         public string PLastName
         {
 			get { return m_PLastName; }
@@ -74,6 +80,7 @@ namespace YellowstonePathology.Business.Patient.Model
 			}
         }
 
+        [PersistentProperty()]
         public string PFirstName
         {
 			get { return m_PFirstName; }
@@ -82,8 +89,9 @@ namespace YellowstonePathology.Business.Patient.Model
 				m_PFirstName = value;
 				NotifyPropertyChanged("PFirstName");
 			}
-        }        
+        }
 
+        [PersistentProperty()]
         public string PMiddleInitial
         {
 			get { return m_PMiddleInitial; }
@@ -94,6 +102,7 @@ namespace YellowstonePathology.Business.Patient.Model
 			}
         }
 
+        [PersistentProperty()]
         public string PSSN
         {
 			get { return m_PSSN; }
@@ -104,6 +113,7 @@ namespace YellowstonePathology.Business.Patient.Model
 			}
         }
 
+        [PersistentProperty()]
         public Nullable<DateTime> PBirthdate
         {
             get { return m_PBirthdate; }
@@ -113,7 +123,8 @@ namespace YellowstonePathology.Business.Patient.Model
 				NotifyPropertyChanged("PBirthdate");
 			}
         }
-       
+
+        [PersistentProperty()]
         public Nullable<DateTime> AccessionDate
         {
             get
@@ -167,19 +178,6 @@ namespace YellowstonePathology.Business.Patient.Model
 				result.Message += "The patient birthdate is required.\r\n";
 			}
 			return result;
-		}
-
-		public void WriteProperties(YellowstonePathology.Business.Domain.Persistence.IPropertyWriter propertyWriter)
-		{
-			this.m_MasterAccessionNo = propertyWriter.WriteString("MasterAccessionNo");
-			this.m_ReportNo = propertyWriter.WriteString("ReportNo");
-			this.m_PatientId = propertyWriter.WriteString("PatientId");
-			this.m_PLastName = propertyWriter.WriteString("PLastName");
-			this.m_PFirstName = propertyWriter.WriteString("PFirstName");
-			this.m_PMiddleInitial = propertyWriter.WriteString("PMiddleInitial");
-			this.m_PSSN = propertyWriter.WriteString("PSSN");
-			this.m_PBirthdate = propertyWriter.WriteNullableDateTime("PBirthdate");
-			this.m_AccessionDate = propertyWriter.WriteDateTime("AccessionDate");
 		}
 
 		public XElement ToXml()

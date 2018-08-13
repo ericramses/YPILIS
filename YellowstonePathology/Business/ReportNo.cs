@@ -86,10 +86,5 @@ namespace YellowstonePathology.Business
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
         }
-
-        public void WriteProperties(YellowstonePathology.Business.Domain.Persistence.IPropertyWriter propertyWriter)
-        {
-            this.m_Value = propertyWriter.WriteString("Value");
-        }
 	}
 }

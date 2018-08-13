@@ -24,14 +24,14 @@ namespace YellowstonePathology.Business.Gateway
 					while (dr.Read())
 					{
 						YellowstonePathology.Business.Domain.OrderCommentLog orderCommentLog = new Domain.OrderCommentLog();
-						YellowstonePathology.Business.Domain.Persistence.DataReaderPropertyWriter propertyWriter = new Business.Domain.Persistence.DataReaderPropertyWriter(dr);
-						orderCommentLog.WriteProperties(propertyWriter);
+						YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter propertyWriter = new Business.Persistence.SqlDataReaderPropertyWriter(orderCommentLog, dr);
+						propertyWriter.WriteProperties();
+                        XElement comment = new XElement("OrderComment");
+                        YellowstonePathology.Business.Persistence.XmlPropertyReader xmlPropertyReader = new Persistence.XmlPropertyReader(orderCommentLog, comment);
 
-						YellowstonePathology.Business.Domain.Persistence.XmlPropertyReader xmlPropertyReader = new Domain.Persistence.XmlPropertyReader();
-						xmlPropertyReader.Initialize("OrderComment");
-						orderCommentLog.ReadProperties(xmlPropertyReader);
+						xmlPropertyReader.Write();
 
-						result.Add(xmlPropertyReader.Document);
+						result.Add(comment);
 					}
 				}
 			}
