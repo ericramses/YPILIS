@@ -63,8 +63,12 @@ namespace YellowstonePathology.Business.Test.BRAFMutationAnalysis
 
         public virtual void SetResults(YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTestOrder brafTestOrder)
         {
-            brafTestOrder.Result = this.m_Result;
-            brafTestOrder.ResultCode = this.m_ResultCode;
+            if(string.IsNullOrEmpty(this.m_Result) == false)
+            {
+                brafTestOrder.Result = this.m_Result;
+                brafTestOrder.ResultCode = this.m_ResultCode;
+            }
+            
             brafTestOrder.Interpretation = this.m_Interpretation;
             brafTestOrder.IndicationComment = this.m_IndicationComment;
             brafTestOrder.Comment = this.m_Comment;
