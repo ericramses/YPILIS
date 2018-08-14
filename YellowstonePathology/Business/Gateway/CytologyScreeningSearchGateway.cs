@@ -19,8 +19,8 @@ namespace YellowstonePathology.Business.Gateway
 					while (dr.Read())
 					{
 						YellowstonePathology.Business.Search.CytologyScreeningSearchResult cytologyScreeningSearchResult = new Search.CytologyScreeningSearchResult();
-						YellowstonePathology.Business.Domain.Persistence.DataReaderPropertyWriter propertyWriter = new Domain.Persistence.DataReaderPropertyWriter(dr);
-						cytologyScreeningSearchResult.WriteProperties(propertyWriter);
+						YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter propertyWriter = new Persistence.SqlDataReaderPropertyWriter(cytologyScreeningSearchResult, dr);
+                        propertyWriter.WriteProperties();
 						result.Add(cytologyScreeningSearchResult);
 					}
 				}
@@ -64,8 +64,8 @@ namespace YellowstonePathology.Business.Gateway
                     while (dr.Read())
                     {
                         YellowstonePathology.Business.Search.CytologyScreeningSearchResult cytologyScreeningSearchResult = new Search.CytologyScreeningSearchResult();
-                        YellowstonePathology.Business.Domain.Persistence.DataReaderPropertyWriter propertyWriter = new Domain.Persistence.DataReaderPropertyWriter(dr);
-                        cytologyScreeningSearchResult.WriteProperties(propertyWriter);
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter propertyWriter = new Persistence.SqlDataReaderPropertyWriter(cytologyScreeningSearchResult, dr);
+                        propertyWriter.WriteProperties();
                         result.Add(cytologyScreeningSearchResult);
                     }
                 }

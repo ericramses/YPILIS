@@ -5,6 +5,7 @@ using System.Text;
 using System.Xml.Linq;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
+using YellowstonePathology.Business.Persistence;
 
 namespace YellowstonePathology.Business.Domain
 {
@@ -32,7 +33,8 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
-		public string PatientId
+        [PersistentPrimaryKeyProperty(false)]
+        public string PatientId
 		{
 			get { return m_PatientId; }
 			set
@@ -42,6 +44,7 @@ namespace YellowstonePathology.Business.Domain
 			}
 		}
 
+        [PersistentProperty()]
 		public string MasterAccessionNo
 		{
 			get { return m_MasterAccessionNo; }
@@ -53,6 +56,7 @@ namespace YellowstonePathology.Business.Domain
 		}
 
 
+        [PersistentProperty()]
         public string ReportNo
         {
             get { return this.m_ReportNo; }
@@ -63,6 +67,7 @@ namespace YellowstonePathology.Business.Domain
 			}
         }
 
+        [PersistentProperty()]
         public int PanelSetId
         {
             get { return this.m_PanelSetId; }
@@ -73,6 +78,7 @@ namespace YellowstonePathology.Business.Domain
             }
         }
 
+        [PersistentProperty()]
         public DateTime AccessionDate     
         {
             get { return this.m_AccessionDate; }
@@ -83,12 +89,19 @@ namespace YellowstonePathology.Business.Domain
 			}
         }
 
-		public string PanelSetName
+        [PersistentProperty()]
+        public string PanelSetName
 		{
 			get { return this.m_PanelSetName; }
-		}
+            set
+            {
+                this.m_PanelSetName = value;
+                NotifyPropertyChanged("PanelSetName");
+            }
+        }
 
-		public Nullable<DateTime> FinalDate
+        [PersistentProperty()]
+        public Nullable<DateTime> FinalDate
 		{
 			get { return this.m_FinalDate; }
                 
@@ -98,18 +111,5 @@ namespace YellowstonePathology.Business.Domain
 				NotifyPropertyChanged("FinalDate");
 			}
 		}
-
-		#region WritePropertiesMethod
-		public void WriteProperties(YellowstonePathology.Business.Domain.Persistence.IPropertyWriter propertyWriter)
-		{
-			this.m_MasterAccessionNo = propertyWriter.WriteString("MasterAccessionNo");
-			this.m_PatientId = propertyWriter.WriteString("PatientId");
-			this.m_AccessionDate = propertyWriter.WriteDateTime("AccessionDate");
-			this.m_ReportNo = propertyWriter.WriteString("ReportNo");
-            this.m_PanelSetId = propertyWriter.WriteInt("PanelSetId");
-			this.m_PanelSetName = propertyWriter.WriteString("PanelSetName");
-			this.m_FinalDate = propertyWriter.WriteNullableDateTime("FinalDate");
-		}
-		#endregion
     }
 }

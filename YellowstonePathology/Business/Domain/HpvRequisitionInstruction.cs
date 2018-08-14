@@ -46,11 +46,5 @@ namespace YellowstonePathology.Business.Domain
                 }
             }
         }
-
-        public void WriteProperties(YellowstonePathology.Business.Domain.Persistence.IPropertyWriter propertyWriter)
-        {
-            this.m_InstructionId = propertyWriter.WriteInt("InstructionId");
-            this.m_InstructionDescription = propertyWriter.WriteString("InstructionDescription");
-        }
     }
 }
