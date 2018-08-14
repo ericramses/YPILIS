@@ -154,35 +154,5 @@ namespace YellowstonePathology.Business.View
 				PropertyChanged(this, new PropertyChangedEventArgs(info));
 			}
 		}
-
-        public void WriteProperties(YellowstonePathology.Business.Domain.Persistence.IPropertyWriter propertyWriter)
-        {
-            this.m_MasterAccessionNo = propertyWriter.WriteString("MasterAccessionNo");
-            this.m_ReportNo = propertyWriter.WriteString("ReportNo");
-            this.m_PFirstName = propertyWriter.WriteString("PFirstName");
-            this.m_PLastName = propertyWriter.WriteString("PLastName");
-            this.m_ClientId = propertyWriter.WriteInt("ClientId");
-            this.m_ClientName = propertyWriter.WriteString("ClientName");
-			this.m_PhysicianId = propertyWriter.WriteInt("PhysicianId");
-            this.m_PhysicianName = propertyWriter.WriteString("PhysicianName");
-        }
-
-        public void ReadProperties(YellowstonePathology.Business.Domain.Persistence.IPropertyReader propertyReader)
-        {
-        }
-
-        public XElement ToXml()
-        {            
-            XElement result = new XElement("AccessionSlideOrderView");
-            YellowstonePathology.Business.Domain.Persistence.SerializationHelper.Serialize(result, "MasterAccessionNo", MasterAccessionNo);
-            YellowstonePathology.Business.Domain.Persistence.SerializationHelper.Serialize(result, "ReportNo", ReportNo);
-            YellowstonePathology.Business.Domain.Persistence.SerializationHelper.Serialize(result, "PFirstName", PFirstName);
-            YellowstonePathology.Business.Domain.Persistence.SerializationHelper.Serialize(result, "PLastName", PLastName);
-            YellowstonePathology.Business.Domain.Persistence.SerializationHelper.Serialize(result, "ClientId", ClientId.ToString());
-            YellowstonePathology.Business.Domain.Persistence.SerializationHelper.Serialize(result, "ClientName", ClientName);
-            YellowstonePathology.Business.Domain.Persistence.SerializationHelper.Serialize(result, "PhysicianId", PhysicianId);
-            YellowstonePathology.Business.Domain.Persistence.SerializationHelper.Serialize(result, "PhysicianName", PhysicianName);
-            return result;
-        }	
 	}
 }

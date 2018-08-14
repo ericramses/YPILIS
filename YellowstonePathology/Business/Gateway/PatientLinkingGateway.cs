@@ -37,8 +37,8 @@ namespace YellowstonePathology.Business.Gateway
 					while (dr.Read())
 					{
 						YellowstonePathology.Business.Patient.Model.PatientLinkingListItem item = new YellowstonePathology.Business.Patient.Model.PatientLinkingListItem();
-						YellowstonePathology.Business.Domain.Persistence.DataReaderPropertyWriter propertyWriter = new Business.Domain.Persistence.DataReaderPropertyWriter(dr);
-						item.WriteProperties(propertyWriter);
+						YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter propertyWriter = new Business.Persistence.SqlDataReaderPropertyWriter(item, dr);
+                        propertyWriter.WriteProperties();
 						result.Add(item);
 					}
 				}

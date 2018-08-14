@@ -766,31 +766,6 @@ namespace YellowstonePathology.Business.Gateway
 			return result;
 		}
 
-		public static YellowstonePathology.Business.Facility.Model.HostCollection GetHostCollection()
-		{
-			MySqlCommand cmd = new MySqlCommand();
-			cmd.CommandText = "select * from tblHost;";
-			cmd.CommandType = CommandType.Text;
-
-			YellowstonePathology.Business.Facility.Model.HostCollection hostCollection = new YellowstonePathology.Business.Facility.Model.HostCollection();
-			using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-			{
-				cn.Open();
-				cmd.Connection = cn;
-				using (MySqlDataReader dr = cmd.ExecuteReader())
-				{
-					while (dr.Read())
-					{
-						YellowstonePathology.Business.Facility.Model.Host host = new YellowstonePathology.Business.Facility.Model.Host();
-						YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(host, dr);
-						sqlDataReaderPropertyWriter.WriteProperties();
-						hostCollection.Add(host);
-					}
-				}
-			}
-			return hostCollection;
-		}		
-
 		public static string GetNextMasterAccessionNo()
 		{
 			string result = null;
@@ -1405,8 +1380,8 @@ namespace YellowstonePathology.Business.Gateway
 					while (dr.Read())
 					{
 						YellowstonePathology.Business.Domain.PatientHistoryResult patientHistoryResult = new Domain.PatientHistoryResult();
-						YellowstonePathology.Business.Domain.Persistence.DataReaderPropertyWriter propertyWriter = new Business.Domain.Persistence.DataReaderPropertyWriter(dr);
-						patientHistoryResult.WriteProperties(propertyWriter);
+						YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter propertyWriter = new Business.Persistence.SqlDataReaderPropertyWriter(patientHistoryResult, dr);
+                        propertyWriter.WriteProperties();
 						result.Add(patientHistoryResult);
 					}
 				}
@@ -2151,7 +2126,7 @@ namespace YellowstonePathology.Business.Gateway
             return result;
         }
 
-    public static Test.PanelOrder BuildPanelOrder(XElement panelOrderElement)
+        public static Test.PanelOrder BuildPanelOrder(XElement panelOrderElement)
 		{
             YellowstonePathology.Business.Panel.Model.PanelCollection panelCollection = YellowstonePathology.Business.Panel.Model.PanelCollection.GetAll();
 			int panelId = Convert.ToInt32(panelOrderElement.Element("PanelId").Value);
