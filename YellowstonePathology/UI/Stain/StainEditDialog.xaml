@@ -135,6 +135,15 @@
         <TextBlock Grid.Row="13" Grid.Column="2" Margin="2,2,2,2" FontSize="14" FontWeight="Bold" TextAlignment="Right">Order Comment:</TextBlock>
         <TextBox Grid.Row="13" Grid.Column="3" Margin="2,2,2,2" FontSize="14" TextAlignment="Left" Text="{Binding Path=Stain.OrderComment}" />
 
+        <Grid Grid.Column="0" Grid.Row="28" Grid.ColumnSpan="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBox Name="TextBoxFilePath" Grid.Column="0" Margin="2,2,2,2" HorizontalAlignment="Stretch" />
+            <Button Name="ButtonSelectFilePath" Grid.Column="1" Margin="2,2,2,2" Height="40" Width="50" Click="ButtonSelectFilePath_Click">...</Button>
+        </Grid>
         <StackPanel Grid.Column="3" Grid.Row="28" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Name="ButtonOK" Width="100" Height="40" HorizontalAlignment="Right" Margin="2,2,2,2" Click="ButtonOK_Click">OK</Button>
         </StackPanel>
