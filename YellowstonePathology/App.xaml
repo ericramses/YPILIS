@@ -19,6 +19,7 @@
         <converter:MilitaryDateTimeConverterV2 x:Key="MilitaryDateTimeConverterV2"/>
 		<converter:MilitaryTimeConverter x:Key="MilitaryTimeConverter"/>
 		<converter:PhoneNumberConverter x:Key="PhoneNumberConverter"/>
+        <converter:PhoneNumberConverter2 x:Key="PhoneNumberConverter2"/>
         <converter:ShortTimeConverter x:Key="ShortTimeConverter"/>
         <converter:PercentConverter x:Key="PercentConverter"/>
         <converter:PercentConverterV2 x:Key="PercentConverterV2"/>

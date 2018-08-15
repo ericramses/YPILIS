@@ -2997,6 +2997,7 @@
     <Compile Include="UI\Common\UserPreferencesList.xaml.cs">
       <DependentUpon>UserPreferencesList.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Converter\PhoneNumberConverter2.cs" />
     <Compile Include="UI\EmbeddingAutopsyItem.cs" />
     <Compile Include="UI\EmbeddingAutopsyList.cs" />
     <Compile Include="UI\Gross\DictationTemplateEditPage.xaml.cs">
