@@ -37,21 +37,12 @@ namespace YellowstonePathology.UI.Client
 		}
 
         private void PrintDocument_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
-        {
-            int x = 100;
-            int y = 60;
+        {           			
+            int x = 440;
+            int y = 145;
 
-			YellowstonePathology.Business.DataMatrix.DmtxImageEncoder encoder = new YellowstonePathology.Business.DataMatrix.DmtxImageEncoder();
-			YellowstonePathology.Business.DataMatrix.DmtxImageEncoderOptions options = new YellowstonePathology.Business.DataMatrix.DmtxImageEncoderOptions();
-            options.ModuleSize = 3;
-            options.MarginSize = 2;
-            options.BackColor = System.Drawing.Color.White;
-            options.ForeColor = System.Drawing.Color.Black;
-
-			YellowstonePathology.Business.BarcodeScanning.BarcodeVersion1 barcodeVersion1 = new Business.BarcodeScanning.BarcodeVersion1(Business.BarcodeScanning.BarcodePrefixEnum.CLNT, this.m_ClientId.ToString());
-            e.Graphics.DrawImage(encoder.EncodeImage(barcodeVersion1.ToString(), options), new PointF(50, y));
-            e.Graphics.DrawString(this.m_ClientPhysicianView.ClientName, new System.Drawing.Font("Tahoma", 10), System.Drawing.Brushes.Black, new System.Drawing.PointF(x, y - 15));
-            e.Graphics.DrawString(this.m_ClientPhysicianView.Address, new System.Drawing.Font("Tahoma", 10), System.Drawing.Brushes.Black, new System.Drawing.PointF(x, y));
+            e.Graphics.DrawString(this.m_ClientPhysicianView.ClientName, new System.Drawing.Font("Tahoma", 10), System.Drawing.Brushes.Black, new System.Drawing.PointF(x, y));
+            e.Graphics.DrawString(this.m_ClientPhysicianView.Address, new System.Drawing.Font("Tahoma", 10), System.Drawing.Brushes.Black, new System.Drawing.PointF(x, y + 15));
 
             StringBuilder cityStateZip = new StringBuilder();
             if (!string.IsNullOrEmpty(this.m_ClientPhysicianView.City))
@@ -67,15 +58,25 @@ namespace YellowstonePathology.UI.Client
                 cityStateZip.Append(this.m_ClientPhysicianView.ZipCode);
             }
                 
-            e.Graphics.DrawString(cityStateZip.ToString(), new System.Drawing.Font("Tahoma", 10), System.Drawing.Brushes.Black, new System.Drawing.PointF(x, y + 15));
+            e.Graphics.DrawString(cityStateZip.ToString(), new System.Drawing.Font("Tahoma", 10), System.Drawing.Brushes.Black, new System.Drawing.PointF(x, y + 30));
             string formattedTelephone = YellowstonePathology.Business.Helper.PhoneNumberHelper.FormatWithDashes(this.m_ClientPhysicianView.Telephone);
-            e.Graphics.DrawString(formattedTelephone, new System.Drawing.Font("Tahoma", 10), System.Drawing.Brushes.Black, new System.Drawing.PointF(x, y + 30));
+            e.Graphics.DrawString(formattedTelephone, new System.Drawing.Font("Tahoma", 10), System.Drawing.Brushes.Black, new System.Drawing.PointF(x, y + 45));
+
+            YellowstonePathology.Business.DataMatrix.DmtxImageEncoder encoder = new YellowstonePathology.Business.DataMatrix.DmtxImageEncoder();
+            YellowstonePathology.Business.DataMatrix.DmtxImageEncoderOptions options = new YellowstonePathology.Business.DataMatrix.DmtxImageEncoderOptions();
+            options.ModuleSize = 3;
+            options.MarginSize = 2;
+            options.BackColor = System.Drawing.Color.White;
+            options.ForeColor = System.Drawing.Color.Black;
+
+            YellowstonePathology.Business.BarcodeScanning.BarcodeVersion1 barcodeVersion1 = new Business.BarcodeScanning.BarcodeVersion1(Business.BarcodeScanning.BarcodePrefixEnum.CLNT, this.m_ClientId.ToString());
+            e.Graphics.DrawImage(encoder.EncodeImage(barcodeVersion1.ToString(), options), new PointF(x, y + 75));
 
             if (this.m_ClientPhysicianView.ShowPhysiciansOnRequisition == true)
             {
                 foreach (YellowstonePathology.Business.Domain.Physician physician in this.m_ClientPhysicianView.Physicians)
                 {
-                    e.Graphics.DrawString(physician.DisplayName, new System.Drawing.Font("Tahoma", 10), System.Drawing.Brushes.Black, new System.Drawing.PointF(x + 580, y));
+                    e.Graphics.DrawString(physician.DisplayName, new System.Drawing.Font("Tahoma", 10), System.Drawing.Brushes.Black, new System.Drawing.PointF(x + 200, y));
                     y += 15;
                 }
             }
