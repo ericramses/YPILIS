@@ -27,8 +27,16 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
             base.ReplaceText("report_title", egfrToALKReflexAnalysisTestOrder.PanelSetName);
             
             YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisTestOrder egfrMutationAnalysisTestOrder = (YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(60);
-            base.ReplaceText("egfr_result", egfrMutationAnalysisTestOrder.Result);
-            base.SetXMLNodeParagraphData("egfr_comment", egfrMutationAnalysisTestOrder.Comment);
+            if(egfrMutationAnalysisTestOrder != null)
+            {
+                base.ReplaceText("egfr_result", egfrMutationAnalysisTestOrder.Result);
+                base.SetXMLNodeParagraphData("egfr_comment", egfrMutationAnalysisTestOrder.Comment);
+            }
+            else
+            {
+                base.ReplaceText("egfr_result", "Not Performed");
+                base.SetXMLNodeParagraphData("egfr_comment", string.Empty);
+            }  
 
             YellowstonePathology.Business.Document.AmendmentSection amendmentSection = new YellowstonePathology.Business.Document.AmendmentSection();
             amendmentSection.SetAmendment(egfrToALKReflexAnalysisTestOrder.AmendmentCollection, this.m_ReportXml, this.m_NameSpaceManager, true);
@@ -112,7 +120,7 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
 			this.SetXMLNodeParagraphData("report_references", egfrToALKReflexAnalysisTestOrder.ReportReferences);
 
             YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetAliquotOrder(egfrToALKReflexAnalysisTestOrder.OrderedOnId);
-			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(egfrToALKReflexAnalysisTestOrder.OrderedOn, egfrMutationAnalysisTestOrder.OrderedOnId);
+			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(egfrToALKReflexAnalysisTestOrder.OrderedOn, egfrToALKReflexAnalysisTestOrder.OrderedOnId);
 
             string specimenDescription = specimenOrder.Description + ", Block " + aliquotOrder.Label;
             this.ReplaceText("specimen_description", specimenDescription);
