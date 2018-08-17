@@ -62,6 +62,8 @@ namespace YellowstonePathology.UI.Test
             this.m_ControlsNotDisabledOnFinal.Add(this.ButtonNext);
             this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockShowDocument);
             this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalResults);
+
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockPreviousResults);
         }
 
         public YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisResultCollection ResultCollection
@@ -216,6 +218,12 @@ namespace YellowstonePathology.UI.Test
                 YellowstonePathology.Business.Test.TestResult testResult = (YellowstonePathology.Business.Test.TestResult)this.ComboBoxResult.SelectedItem;
                 this.m_PanelSetOrder.ResultCode = testResult.ResultCode;
             }
+        }
+
+        private void HyperLinkPreviousResults_Click(object sender, RoutedEventArgs e)
+        {
+            BRAFMutationPreviousResultsDialog dlg = new Test.BRAFMutationPreviousResultsDialog(this.m_AccessionOrder, this.m_PanelSetOrder);
+            dlg.ShowDialog();
         }
     }
 }
