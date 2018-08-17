@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YellowstonePathology.UI.Test"
         mc:Ignorable="d"
-        Title="BRAF Mutation Previous Results" Height="600" Width="900" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow">
+        Title="BRAF Mutation Previous Results" Height="600" Width="1200" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
@@ -32,10 +32,10 @@
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
 
-                    <GridViewColumn Header="Final Date" Width="120">
+                    <GridViewColumn Header="Final Date" Width="120" >
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Path=FinalDate}" VerticalAlignment="Top"></TextBlock>
+                                <TextBlock Text="{Binding Path=FinalDate, Converter={StaticResource ShortDateConverter}}" VerticalAlignment="Top"></TextBlock>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -46,7 +46,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Interpretation" Width="580">
+                    <GridViewColumn Header="Interpretation" Width="880">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Path=Interpretation}" TextWrapping="Wrap"></TextBlock>
