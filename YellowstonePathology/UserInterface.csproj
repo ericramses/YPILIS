@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>157</ApplicationRevision>
+    <ApplicationRevision>160</ApplicationRevision>
     <ApplicationVersion>10.1.12.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -2931,7 +2931,6 @@
     <Compile Include="Store\IRedisServer.cs" />
     <Compile Include="Store\RedisDB.cs" />
     <Compile Include="Store\RedisServerDev.cs" />
-    <Compile Include="Store\RedisServerDeprecated.cs" />
     <Compile Include="Store\RedisServerProd1.cs" />
     <Compile Include="Store\RedisStoreDev.cs" />
     <Compile Include="Store\RedisStoreProd.cs" />
