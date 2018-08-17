@@ -264,14 +264,14 @@ namespace YellowstonePathology.Business.Visitor
                 Test.Surgical.SurgicalTest surgicalTest = new Test.Surgical.SurgicalTest();
                 foreach (YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder in this.m_AccessionOrder.SpecimenOrderCollection)
                 {
-                    //if (surgicalTest.OrderTargetTypeCollectionExclusions.Exists(specimenOrder) == false)
-                    //{
+                    if (surgicalTest.OrderTargetTypeCollectionExclusions.Exists(specimenOrder) == false)
+                    {
                         if (surgicalTestOrder.SurgicalSpecimenCollection.SpecimenOrderExists(specimenOrder.SpecimenOrderId) == false)
                         {
                             YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen = surgicalTestOrder.SurgicalSpecimenCollection.Add(this.m_ReportNo);
                             surgicalSpecimen.FromSpecimenOrder(specimenOrder);
                         }
-                    //}
+                    }
                 }
             }            
         }

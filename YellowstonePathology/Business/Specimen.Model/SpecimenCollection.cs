@@ -104,7 +104,7 @@ namespace YellowstonePathology.Business.Specimen.Model
                 if (string.IsNullOrEmpty(code) == false)
                 {
                     specimen.CPTCode = Store.AppDataStore.Instance.CPTCodeCollection.GetClone(code, null);
-                }
+                }                
 
                 /*string id = jObject["specimenId"].ToString();
                 if(id == "NLLSPCMN")
