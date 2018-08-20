@@ -102,15 +102,16 @@ namespace YellowstonePathology.UI.Login
 
         private void HyperLinkDeletePanelSetOrder_Click(object sender, RoutedEventArgs e)
         {
+            Business.Test.PanelSetOrder panelSetOrder = ((Hyperlink)sender).Tag as Business.Test.PanelSetOrder;
             if (this.m_AccessionOrder.AccessionLock.IsLockAquiredByMe == true)
             {
                 if (this.m_AccessionOrder.PanelSetOrderCollection.Count == 1)
                 {
                     MessageBox.Show("Unable to remove the only Panel Set for the Accession.");
                 }
-                else
+                else if((this.m_AccessionOrder.PLastName.ToUpper() == "MOUSE" && this.m_AccessionOrder.PFirstName.ToUpper() == "MICKEY") || 
+                    panelSetOrder.Final == false)
                 {
-                    Business.Test.PanelSetOrder panelSetOrder = ((Hyperlink)sender).Tag as Business.Test.PanelSetOrder;
                     MessageBoxResult result = MessageBox.Show("All open tabs will be closed and your work saved.  Are you sure you want to permanently delete report " + panelSetOrder.ReportNo + " for " + this.m_AccessionOrder.PatientDisplayName + "?", "Delete Report", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
                     if (result == MessageBoxResult.Yes)
                     {
@@ -126,6 +127,10 @@ namespace YellowstonePathology.UI.Login
                             this.NotifyPropertyChanged("AccessionOrder");
                         }
                     }
+                }
+                else
+                {
+                    MessageBox.Show("Unable to remove a Panel Set that has been finaled.");
                 }
             }
             else
