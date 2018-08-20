@@ -3334,6 +3334,9 @@
     <Compile Include="UI\Stain\StainListDialog.xaml.cs">
       <DependentUpon>StainListDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Redis\StoreSelection.xaml.cs">
+      <DependentUpon>StoreSelection.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Surgical\StainOrder.xaml.cs">
       <DependentUpon>StainOrder.xaml</DependentUpon>
     </Compile>
@@ -5222,6 +5225,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Stain\StainListDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Redis\StoreSelection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

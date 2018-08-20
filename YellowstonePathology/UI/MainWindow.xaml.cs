@@ -997,5 +997,11 @@ namespace YellowstonePathology.UI
             Surgical.StainOrder stainOrder = new Surgical.StainOrder(ao, pso);
             stainOrder.ShowDialog();
         }
+
+        private void MenuItemRedis_Click(object sender, RoutedEventArgs e)
+        {
+            Redis.StoreSelection dlg = new Redis.StoreSelection();
+            dlg.ShowDialog();
+        }
     }
 }
