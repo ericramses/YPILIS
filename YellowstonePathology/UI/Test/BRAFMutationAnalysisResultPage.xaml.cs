@@ -107,22 +107,7 @@ namespace YellowstonePathology.UI.Test
         private void ButtonNext_Click(object sender, RoutedEventArgs e)
         {
             this.Next(this, new EventArgs());
-        }
-
-        private void HyperLinkSetResults_Click(object sender, RoutedEventArgs e)
-        {
-            YellowstonePathology.Business.Rules.MethodResult methodResult = YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisResult.IsOkToSetResult(this.m_PanelSetOrder);
-            if (methodResult.Success == true)
-            {
-                YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisResultCollection resultCollection = YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisResultCollection.GetAll();
-                YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisResult result = resultCollection.GetResult(this.m_PanelSetOrder.ResultCode, this.m_PanelSetOrder.Indication);
-                result.SetResults(this.m_PanelSetOrder);
-            }
-            else
-            {
-                MessageBox.Show(methodResult.Message);
-            }
-        }
+        }        
 
         private void HyperLinkFinalize_Click(object sender, RoutedEventArgs e)
         {
@@ -131,14 +116,7 @@ namespace YellowstonePathology.UI.Test
             {
                 YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisResultCollection resultCollection = YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisResultCollection.GetAll();
                 YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisResult result = resultCollection.GetResult(this.m_PanelSetOrder.ResultCode, this.m_PanelSetOrder.Indication);
-                result.FinalizeResults(this.m_PanelSetOrder, this.m_AccessionOrder);
-
-                /*YellowstonePathology.Business.Test.KRASStandardReflex.KRASStandardReflexTest krasStandardReflexTest = new YellowstonePathology.Business.Test.KRASStandardReflex.KRASStandardReflexTest();
-                if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(krasStandardReflexTest.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true) == true)
-                {
-                    YellowstonePathology.Business.Test.KRASStandardReflex.KRASStandardReflexTestOrder krasStandardReflexTestOrder = (YellowstonePathology.Business.Test.KRASStandardReflex.KRASStandardReflexTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(krasStandardReflexTest.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true);
-                    krasStandardReflexTestOrder.UpdateFromChildren(this.m_AccessionOrder, this.m_PanelSetOrder);
-                }*/
+                result.FinalizeResults(this.m_PanelSetOrder, this.m_AccessionOrder);                
             }
             else
             {
@@ -165,11 +143,9 @@ namespace YellowstonePathology.UI.Test
         {
             YellowstonePathology.Business.Rules.MethodResult methodResult = YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisResult.IsOkToAccept(this.m_PanelSetOrder);
             if (methodResult.Success == true)
-            {
-                //YellowstonePathology.Business.Test.PanelOrder panelOrder = this.m_PanelSetOrder.PanelOrderCollection.GetUnacceptedPanelOrder();
+            {                
                 YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisResultCollection resultCollection = YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisResultCollection.GetAll();
-                YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisResult result = resultCollection.GetResult(this.m_PanelSetOrder.ResultCode, this.m_PanelSetOrder.Indication);
-                //result.AcceptResults(this.m_PanelSetOrder, panelOrder, this.m_SystemIdentity);
+                YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisResult result = resultCollection.GetResult(this.m_PanelSetOrder.ResultCode, this.m_PanelSetOrder.Indication);             
                 result.AcceptResults(this.m_PanelSetOrder, this.m_SystemIdentity);
             }
             else
@@ -182,8 +158,7 @@ namespace YellowstonePathology.UI.Test
         {
             YellowstonePathology.Business.Rules.MethodResult methodResult = YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisResult.IsOkToUnaccept(this.m_PanelSetOrder);
             if (methodResult.Success == true)
-            {
-                //YellowstonePathology.Business.Test.PanelOrder panelOrder = this.m_PanelSetOrder.PanelOrderCollection.GetLastAcceptedPanelOrder();
+            {                
                 YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisResultCollection resultCollection = YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisResultCollection.GetAll();
                 YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisResult result = resultCollection.GetResult(this.m_PanelSetOrder.ResultCode, this.m_PanelSetOrder.Indication);
                 result.UnacceptResults(this.m_PanelSetOrder);
