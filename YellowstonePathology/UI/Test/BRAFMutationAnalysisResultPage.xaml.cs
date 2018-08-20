@@ -222,7 +222,7 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkPreviousResults_Click(object sender, RoutedEventArgs e)
         {
-            BRAFMutationPreviousResultsDialog dlg = new Test.BRAFMutationPreviousResultsDialog(this.m_AccessionOrder, this.m_PanelSetOrder);
+            BRAFMutationPreviousResultsDialog dlg = new Test.BRAFMutationPreviousResultsDialog(this.m_PanelSetOrder);
             dlg.ShowDialog();
         }
     }

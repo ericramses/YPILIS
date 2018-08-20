@@ -3164,30 +3164,6 @@ namespace YellowstonePathology.Business.Gateway
             }
             return result;
         }
-
-        public static List<string> GetPreviousBRAFMutationMasterAccessionNos(string patientId)
-        {
-            List<string> result = new List<string>();
-            MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "select ao.MasterAccessionNo from tblAccessionOrder ao join tblPanelSetOrder pso on ao.MasterAccessionNo = " +
-                "pso.MasterAccessionNo where ao.PatientId = 353756 and pso.PanelSetId = 274 and pso.FinalDate < curdate(); ";
-            cmd.Parameters.AddWithValue("@PatientId", patientId);
-
-            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-            {
-                cn.Open();
-                cmd.Connection = cn;
-                using (MySqlDataReader dr = cmd.ExecuteReader())
-                {
-                    while (dr.Read())
-                    {
-                        result.Add(dr[0].ToString());
-                    }
-                }
-            }
-
-            return result;
-        }
+        
     }
 }

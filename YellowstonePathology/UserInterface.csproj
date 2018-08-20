@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>162</ApplicationRevision>
+    <ApplicationRevision>166</ApplicationRevision>
     <ApplicationVersion>10.1.12.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -891,6 +891,7 @@
     <Compile Include="Business\Interface\ICaseDocument.cs" />
     <Compile Include="Business\Interface\IClient.cs" />
     <Compile Include="Business\Interface\ICommonBase.cs" />
+    <Compile Include="Business\Interface\ICommonResult.cs" />
     <Compile Include="Business\Interface\IComprehensiveCareDocument.cs" />
     <Compile Include="Business\Interface\ICytologyResult.cs" />
     <Compile Include="Business\Interface\IDataContext.cs" />
@@ -3497,8 +3498,8 @@
       <DependentUpon>BRAFMutationAnalysisResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Test\BRAFMutationAnalysisResultPath.cs" />
-    <Compile Include="UI\Test\BRAFMutationPreviousResultsDialog.xaml.cs">
-      <DependentUpon>BRAFMutationPreviousResultsDialog.xaml</DependentUpon>
+    <Compile Include="UI\Test\PreviousResultDialog.xaml.cs">
+      <DependentUpon>PreviousResultDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Test\BRAFV600EKResultPage.xaml.cs">
       <DependentUpon>BRAFV600EKResultPage.xaml</DependentUpon>
@@ -5382,7 +5383,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Test\BRAFMutationPreviousResultsDialog.xaml">
+    <Page Include="UI\Test\PreviousResultDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
