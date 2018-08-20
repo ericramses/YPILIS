@@ -59,6 +59,27 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
             this.AddNextObxElement("ROS1 Rearrangement Analysis: " + ros1Result, document, "F");
             this.AddNextObxElement("", document, "F");
 
+            string pdlResult = null;
+            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(245) == true)
+            {
+                YellowstonePathology.Business.Test.PDL122C3.PDL122C3TestOrder pdl122C3TestOrder = (YellowstonePathology.Business.Test.PDL122C3.PDL122C3TestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(245);
+                pdlResult = pdl122C3TestOrder.Result;
+            }
+
+            this.AddNextObxElement("PD-L1 (22C3): " + pdlResult, document, "F");
+            this.AddNextObxElement("", document, "F");
+
+            string brafResult = null;
+            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(245) == true)
+            {
+                YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTestOrder brafTestOrder = (YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(274);
+                brafResult = brafTestOrder.Result;
+            }
+
+            this.AddNextObxElement("BRAF Mutation Analysis: " + brafResult, document, "F");
+            this.AddNextObxElement("", document, "F");
+
+
             this.AddNextObxElement("Pathologist: " + egfrToALKReflexAnalysisTestOrder.Signature, document, "F");
             if (egfrToALKReflexAnalysisTestOrder.FinalTime.HasValue == true)
             {
