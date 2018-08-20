@@ -11,6 +11,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.IO;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace YellowstonePathology.UI.Redis
 {
@@ -55,22 +58,21 @@ namespace YellowstonePathology.UI.Redis
                        switch(db)
                         {
                             case YellowstonePathology.Store.AppDBNameEnum.CPTCode:
-                                this.HandleJSON(db);
+                                this.HandleJSON(db, "code");
                                 break;
                             case YellowstonePathology.Store.AppDBNameEnum.Lock:
                                 this.HandleHash(db);
                                 break;
                             case YellowstonePathology.Store.AppDBNameEnum.ICDCode:
-                                this.HandleJSON(db);
+                                this.HandleJSON(db, "code");
                                 break;
-                            case YellowstonePathology.Store.AppDBNameEnum.PQRS:
-                                this.HandleJSON(db);
-                                break;
+                            //case YellowstonePathology.Store.AppDBNameEnum.PQRS:
+                            //    break;
                             case YellowstonePathology.Store.AppDBNameEnum.Stain:
-                                this.HandleJSON(db);
+                                this.HandleJSON(db, "stainId");
                                 break;
                             case YellowstonePathology.Store.AppDBNameEnum.VantageSlide:
-                                this.HandleJSON(db);
+                                this.HandleJSON(db, "VantageSlideId");
                                 break;
                             case YellowstonePathology.Store.AppDBNameEnum.EmbeddingScan:
                                 this.HandleHash(db);
@@ -79,10 +81,10 @@ namespace YellowstonePathology.UI.Redis
                                 this.HandleString(db);
                                 break;
                             case YellowstonePathology.Store.AppDBNameEnum.Specimen:
-                                this.HandleJSON(db);
+                                this.HandleJSON(db, "specimenId");
                                 break;
                             case YellowstonePathology.Store.AppDBNameEnum.DictationTemplate:
-                                this.HandleJSON(db);
+                                this.HandleJSON(db, "dictationTemplateId");
                                 break;
                             default:
                                 MessageBox.Show("This database is not handled at this time.");
@@ -98,8 +100,18 @@ namespace YellowstonePathology.UI.Redis
             Close();
         }
 
-        private void HandleJSON(YellowstonePathology.Store.AppDBNameEnum db)
+        private void HandleJSON(YellowstonePathology.Store.AppDBNameEnum db, string keyField)
         {
+            /*Store.RedisDB redisDb = Store.AppDataStore.Instance.RedisStore.GetDB(db);
+            foreach (string jString in (string[])redisDb.GetAllJSONKeys())
+            {
+                JObject jObject = JsonConvert.DeserializeObject<JObject>(jString);
+                string fileName = jObject[keyField].ToString() +".json";
+                using (StreamWriter sw = new StreamWriter(@"C:\Test\" + fileName, false))
+                {
+                    sw.Write(jString);
+                }
+            }*/
 
         }
 
