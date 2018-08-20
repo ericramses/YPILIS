@@ -8,11 +8,9 @@ namespace YellowstonePathology.Business.Interface
 {
     public interface ICommonResult
     {
-        string Result { get; set; }
-        //string ResultCode { get; set; }
-        string Interpreation { get; set; }
-        string Method { get; set; }
-        string ReportReferences { get; set; }
+        string Result { get; set; }        
+        string Interpretation { get; set; }
+        string Method { get; set; }        
         string ReportDisclaimer { get; set; }
     }
 }

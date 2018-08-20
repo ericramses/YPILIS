@@ -16,13 +16,16 @@ namespace YellowstonePathology.UI.Test
 {    
     public partial class PreviousResultDialog : Window
     {
-        private Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTestOrder m_BRAFMutationAnalysisTestOrder;
+        private Business.Test.PanelSetOrder m_PanelSetOrder;
+        private Business.Interface.ICommonResult m_CommonResult;
         private Business.Search.ReportSearchList m_ReportSearchList;
 
-        public PreviousResultDialog(Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTestOrder brafMutationAnalysisTestOrder)
+        public PreviousResultDialog(Business.Test.PanelSetOrder panelSetOrder, Business.Interface.ICommonResult commonResult)
         {
-            this.m_BRAFMutationAnalysisTestOrder = brafMutationAnalysisTestOrder;
-            this.m_ReportSearchList = YellowstonePathology.Business.Gateway.ReportSearchGateway.GetReportSearchListByTestFinal(brafMutationAnalysisTestOrder.PanelSetId, DateTime.Today.AddDays(-90), DateTime.Today);            
+            this.m_PanelSetOrder = panelSetOrder;
+            this.m_CommonResult = commonResult;
+
+            this.m_ReportSearchList = YellowstonePathology.Business.Gateway.ReportSearchGateway.GetReportSearchListByTestFinal(panelSetOrder.PanelSetId, DateTime.Today.AddDays(-90), DateTime.Today);            
 
             InitializeComponent();
             DataContext = this;
@@ -42,17 +45,19 @@ namespace YellowstonePathology.UI.Test
         {
             if(this.ListViewPreviousResults.SelectedItem != null)
             {
-                if(this.m_BRAFMutationAnalysisTestOrder.Final == false && this.m_BRAFMutationAnalysisTestOrder.Accepted == false)
+                if(this.m_PanelSetOrder.Final == false && this.m_PanelSetOrder.Accepted == false)
                 {
                     Business.Search.ReportSearchItem reportSearchItem = (Business.Search.ReportSearchItem)this.ListViewPreviousResults.SelectedItem;
                     Business.Test.AccessionOrder ao = Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(reportSearchItem.MasterAccessionNo, this);
-                    Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTestOrder pso = (Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTestOrder)ao.PanelSetOrderCollection.GetPanelSetOrder(reportSearchItem.ReportNo);
-                    this.m_BRAFMutationAnalysisTestOrder.Result = pso.Result;
-                    this.m_BRAFMutationAnalysisTestOrder.ResultCode = pso.ResultCode;
-                    this.m_BRAFMutationAnalysisTestOrder.Interpretation = pso.Interpretation;
-                    this.m_BRAFMutationAnalysisTestOrder.Method = pso.Method;
-                    this.m_BRAFMutationAnalysisTestOrder.ReportDisclaimer = pso.ReportDisclaimer;
-                    this.m_BRAFMutationAnalysisTestOrder.ReportReferences = pso.ReportReferences;
+                    Business.Test.PanelSetOrder pso = ao.PanelSetOrderCollection.GetPanelSetOrder(reportSearchItem.ReportNo);
+                    Business.Interface.ICommonResult commonResult = (Business.Interface.ICommonResult)ao.PanelSetOrderCollection.GetPanelSetOrder(reportSearchItem.ReportNo);
+
+                    this.m_CommonResult.Result = commonResult.Result;
+                    this.m_PanelSetOrder.ResultCode = pso.ResultCode;
+                    this.m_CommonResult.Interpretation = commonResult.Interpretation;
+                    this.m_CommonResult.Method = commonResult.Method;
+                    this.m_CommonResult.ReportDisclaimer = commonResult.ReportDisclaimer;
+                    this.m_PanelSetOrder.ReportReferences = pso.ReportReferences;
                 }
             }
         }
