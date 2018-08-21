@@ -467,7 +467,7 @@ namespace YellowstonePathology.Business.Gateway
                 "Left Outer Join tblSystemUser su on pso.OrderedById = su.UserId " +
                 "WHERE pso.PanelSetId  =  @PanelSetId " +
                 "and pso.OrderDate between @StartDate and @EndDate " +
-                "and pso.final = 1";
+                "and pso.final = 1 order by pso.FinalDate desc;";
             cmd.Parameters.AddWithValue("@PanelSetId", panelSetId);
             cmd.Parameters.AddWithValue("@StartDate", startDate);
             cmd.Parameters.AddWithValue("@EndDate", endDate);

@@ -107,8 +107,15 @@
                     <TextBlock Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=OrderedOnDescription}"></TextBlock>
 
                     <TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold">Result:</TextBlock>
-                    <ComboBox  Grid.Column="1" Grid.Row="1" Name="ComboBoxResult" Margin="2,2,2,2" ItemsSource="{Binding Path=ResultCollection}" DisplayMemberPath="Result" 
-							SelectedValue="{Binding Path=PanelSetOrder.Result}" SelectedValuePath="Result" HorizontalAlignment="Stretch" SelectionChanged="ComboBoxResult_SelectionChanged" />
+                    <Grid Grid.Column="1" Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+                        <ComboBox Name="ComboBoxResult" Grid.Column="0" Margin="2,2,2,2" ItemsSource="{Binding Path=ResultCollection}" DisplayMemberPath="Result" 
+							    SelectedValue="{Binding Path=PanelSetOrder.Result}" SelectedValuePath="Result" HorizontalAlignment="Stretch" SelectionChanged="ComboBoxResult_SelectionChanged" />
+                        <TextBlock Grid.Column="1" Width="140" Margin="2" Text="{Binding Path=PanelSetOrder.ResultCode}" />
+                    </Grid>
 
                     <TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold">Indication:</TextBlock>
                     <ComboBox Name="ComboBoxIndication" Grid.Column="1" Grid.Row="2" Margin="2,2,2,2" ItemsSource="{Binding Path=IndicationCollection}" 
