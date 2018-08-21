@@ -30,8 +30,8 @@
             <Grid Grid.Column="0" Margin="10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="20"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
@@ -112,7 +112,8 @@
 
                     <TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold">Indication:</TextBlock>
                     <ComboBox Name="ComboBoxIndication" Grid.Column="1" Grid.Row="2" Margin="2,2,2,2" ItemsSource="{Binding Path=IndicationCollection}" 
-							  DisplayMemberPath="IndicationCode" SelectedValuePath="IndicationCode" SelectedValue="{Binding Path=PanelSetOrder.Indication}" HorizontalAlignment="Stretch"/>
+							  DisplayMemberPath="IndicationCode" SelectedValuePath="IndicationCode" SelectedValue="{Binding Path=PanelSetOrder.Indication}" 
+                              SelectionChanged="ComboBoxIndication_SelectionChanged" HorizontalAlignment="Stretch"/>
 
                     <TextBlock Grid.Column="0" Grid.Row="3" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left">Tumor Nuclei Percent:</TextBlock>
                     <TextBox Grid.Column="1" Grid.Row="3" Margin="2,2,2,2" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding Path=PanelSetOrder.TumorNucleiPercentage}" HorizontalAlignment="Stretch"/>

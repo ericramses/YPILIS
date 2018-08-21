@@ -55,6 +55,9 @@ namespace YellowstonePathology.UI.Test
                     this.m_CommonResult.Result = commonResult.Result;
                     this.m_PanelSetOrder.ResultCode = pso.ResultCode;
                     this.m_CommonResult.Interpretation = commonResult.Interpretation;
+                    this.m_CommonResult.Indication = commonResult.Indication;
+                    this.m_CommonResult.IndicationComment = commonResult.IndicationComment;
+                    this.m_CommonResult.Comment = commonResult.Comment;
                     this.m_CommonResult.Method = commonResult.Method;
                     this.m_CommonResult.ReportDisclaimer = commonResult.ReportDisclaimer;
                     this.m_PanelSetOrder.ReportReferences = pso.ReportReferences;
