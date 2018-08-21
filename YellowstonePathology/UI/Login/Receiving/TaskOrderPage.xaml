@@ -201,12 +201,6 @@
                                 <Hyperlink Click="HyperLinkCancelShipment_Click" Tag="{Binding Path=.}">Cancel Shipment</Hyperlink>
                             </TextBlock>
 
-                            <!--
-                            <TextBlock Margin="2,2,2,2">
-                                <Hyperlink Click="HyperLinkDelete_Click" Tag="{Binding Path=.}">Delete</Hyperlink>
-                            </TextBlock>
-                            -->
-                            
                             <TextBlock Grid.Column="2" Grid.Row="1" Margin="2,2,2,2">
                                             <Hyperlink Click="HyperLinkAcknowledge_Click" Tag="{Binding Path=.}">Acknowledge</Hyperlink>
                             </TextBlock>
@@ -338,6 +332,9 @@
                 </TextBlock>
                 <TextBlock Grid.Column="0" Grid.Row="3" Margin="5,3,0,5">
                     <Hyperlink Click="HyperLinkAddSendAdditionalTestingFaxTask_Click">Additional Testing Fax</Hyperlink>
+                </TextBlock>
+                <TextBlock Grid.Column="0" Grid.Row="4" Margin="5,3,0,5">
+                    <Hyperlink Click="HyperLinkAddSendAuthorizationFaxTask_Click">Authorization Fax</Hyperlink>
                 </TextBlock>
                 <TextBlock Grid.Column="0" Grid.Row="6" Margin="5,3,0,5" VerticalAlignment="Bottom">
                     <Hyperlink Click="HyperlingPrintTaskOrder_Click">Print (1 copy)</Hyperlink>
