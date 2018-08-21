@@ -10,6 +10,9 @@ namespace YellowstonePathology.Business.Interface
     {
         string Result { get; set; }        
         string Interpretation { get; set; }
+        string Indication { get; set; }
+        string IndicationComment { get; set; }
+        string Comment { get; set; }
         string Method { get; set; }        
         string ReportDisclaimer { get; set; }
     }

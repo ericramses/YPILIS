@@ -30,5 +30,10 @@ namespace YellowstonePathology.Business.Test
         {
             get { return this.m_Description; }
         }
+
+        public virtual void SetComment(string resultCode, Interface.ICommonResult commonResult)
+        {
+
+        }
     }
 }

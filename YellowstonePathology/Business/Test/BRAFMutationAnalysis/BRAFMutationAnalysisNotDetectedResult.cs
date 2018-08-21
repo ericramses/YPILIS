@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace YellowstonePathology.Business.Test.BRAFMutationAnalysis
 {
-    public class BRAFMutationAnalysisNotDetectedResult : BRAFMutationAnalysisResult
+    public class BRAFMutationAnalysisNotDetectedResult : TestResult
     {
         public BRAFMutationAnalysisNotDetectedResult()
         {

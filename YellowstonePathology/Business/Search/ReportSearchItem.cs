@@ -22,8 +22,9 @@ namespace YellowstonePathology.Business.Search
 		private string m_PanelSetName;
         private string m_SpecimenDescription;
         private string m_Result;
+        private string m_Indication;
 
-		private bool m_HasDataError;
+        private bool m_HasDataError;
 		private Nullable<DateTime> m_PBirthdate;
 		private string m_AccessioningFacilityId;
 		private string m_OrderedBy;
@@ -237,6 +238,20 @@ namespace YellowstonePathology.Business.Search
                 {
                     this.m_Result = value;
                     this.NotifyPropertyChanged("Result");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string Indication
+        {
+            get { return this.m_Indication; }
+            set
+            {
+                if (value != this.m_Indication)
+                {
+                    this.m_Indication = value;
+                    this.NotifyPropertyChanged("Indication");
                 }
             }
         }
