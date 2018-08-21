@@ -194,5 +194,21 @@ namespace YellowstonePathology.UI.Test
             UI.Test.PreviousResultDialog dlg = new UI.Test.PreviousResultDialog(this.m_PanelSetOrder, this.m_PanelSetOrder);
             dlg.ShowDialog();
         }
+
+        private void ComboBoxIndication_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(string.IsNullOrEmpty(this.m_PanelSetOrder.ResultCode) == false)
+            {
+                if (this.ComboBoxIndication.SelectedItem != null)
+                {
+                    YellowstonePathology.Business.Test.Indication indiction = (YellowstonePathology.Business.Test.Indication)this.ComboBoxIndication.SelectedItem;
+                    indiction.SetComment(this.m_PanelSetOrder.ResultCode, this.m_PanelSetOrder);
+                }
+            }
+            else
+            {
+                MessageBox.Show("The Result must be selected to set Indication Comment.");
+            }
+        }
     }
 }
