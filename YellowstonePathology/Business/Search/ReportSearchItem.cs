@@ -21,8 +21,10 @@ namespace YellowstonePathology.Business.Search
 		private Nullable<DateTime> m_FinalDate;
 		private string m_PanelSetName;
         private string m_SpecimenDescription;
+        private string m_Result;
+        private string m_Indication;
 
-		private bool m_HasDataError;
+        private bool m_HasDataError;
 		private Nullable<DateTime> m_PBirthdate;
 		private string m_AccessioningFacilityId;
 		private string m_OrderedBy;
@@ -226,45 +228,33 @@ namespace YellowstonePathology.Business.Search
 			}
 		}
 
-        /*[PersistentProperty()]
-        public string ColorCode
-		{
-			get { return this.m_ColorCode; }
-			set
-			{
-				if (value != this.m_ColorCode)
-				{
-					this.m_ColorCode = value;
-					this.NotifyPropertyChanged("ColorCode");
-					this.NotifyPropertyChanged("Color");
-					this.NotifyPropertyChanged("BackgroundColor");
-				}
-			}
-		}
+        [PersistentProperty()]
+        public string Result
+        {
+            get { return this.m_Result; }
+            set
+            {
+                if (value != this.m_Result)
+                {
+                    this.m_Result = value;
+                    this.NotifyPropertyChanged("Result");
+                }
+            }
+        }
 
-		public string Color
-		{
-			get
-			{
-				if (string.IsNullOrEmpty(ColorCode))
-				{
-					return "Black";
-				}
-				return ColorCode;
-			}
-		}
-
-		public string BackgroundColor
-		{
-			get
-			{
-				if (m_ColorCode == "White")
-				{
-					return "Gainsboro";
-				}
-				return "Transparent";
-			}
-		}*/
+        [PersistentProperty()]
+        public string Indication
+        {
+            get { return this.m_Indication; }
+            set
+            {
+                if (value != this.m_Indication)
+                {
+                    this.m_Indication = value;
+                    this.NotifyPropertyChanged("Indication");
+                }
+            }
+        }
 
         public bool HasDataError
 		{

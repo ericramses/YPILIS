@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>133</ApplicationRevision>
+    <ApplicationRevision>167</ApplicationRevision>
     <ApplicationVersion>10.1.12.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -891,6 +891,7 @@
     <Compile Include="Business\Interface\ICaseDocument.cs" />
     <Compile Include="Business\Interface\IClient.cs" />
     <Compile Include="Business\Interface\ICommonBase.cs" />
+    <Compile Include="Business\Interface\ICommonResult.cs" />
     <Compile Include="Business\Interface\IComprehensiveCareDocument.cs" />
     <Compile Include="Business\Interface\ICytologyResult.cs" />
     <Compile Include="Business\Interface\IDataContext.cs" />
@@ -1148,22 +1149,10 @@
     <Compile Include="Business\Test\BoneMarrowSummary\OtherReportViewCollection.cs" />
     <Compile Include="Business\Test\BoneMarrowSummary\OtherReportView.cs" />
     <Compile Include="Business\Test\SlideTracking\SlideTrackingTest.cs" />
-    <Compile Include="Business\Test\BRAFMutationAnalysis\BRAFMutationAnalysisDetectedPapillaryThyroidResult.cs" />
     <Compile Include="Business\Test\BRAFMutationAnalysis\BRAFMutationAnalysisCMMCNTEView.cs" />
-    <Compile Include="Business\Test\BRAFMutationAnalysis\BRAFMutationAnalysisDetectedCRCResult.cs" />
-    <Compile Include="Business\Test\BRAFMutationAnalysis\BRAFMutationAnalysisDetectedLynchSyndromeResult.cs" />
-    <Compile Include="Business\Test\BRAFMutationAnalysis\BRAFMutationAnalysisDetectedMetastaticMelanomaResult.cs" />
     <Compile Include="Business\Test\BRAFMutationAnalysis\BRAFMutationAnalysisDetectedResult.cs" />
     <Compile Include="Business\Test\BRAFMutationAnalysis\BRAFMutationAnalysisEPICOBXView.cs" />
-    <Compile Include="Business\Test\BRAFMutationAnalysis\BRAFMutationAnalysisIndeterminateResult.cs" />
-    <Compile Include="Business\Test\BRAFMutationAnalysis\BRAFMutationAnalysisInsufficientResult.cs" />
-    <Compile Include="Business\Test\BRAFMutationAnalysis\BRAFMutationAnalysisNotDetectedCRCResult.cs" />
-    <Compile Include="Business\Test\BRAFMutationAnalysis\BRAFMutationAnalysisNotDetectedLynchSyndromeResult.cs" />
-    <Compile Include="Business\Test\BRAFMutationAnalysis\BRAFMutationAnalysisNotDetectedMetastaticMelanomaResult.cs" />
-    <Compile Include="Business\Test\BRAFMutationAnalysis\BRAFMutationAnalysisNotDetectedPapillaryThyroidResult.cs" />
     <Compile Include="Business\Test\BRAFMutationAnalysis\BRAFMutationAnalysisNotDetectedResult.cs" />
-    <Compile Include="Business\Test\BRAFMutationAnalysis\BRAFMutationAnalysisResult.cs" />
-    <Compile Include="Business\Test\BRAFMutationAnalysis\BRAFMutationAnalysisResultCollection.cs" />
     <Compile Include="Business\Test\BRAFMutationAnalysis\BRAFMutationAnalysisTest.cs" />
     <Compile Include="Business\Test\BRAFMutationAnalysis\BRAFMutationAnalysisTestOrder.cs" />
     <Compile Include="Business\Test\BRAFMutationAnalysis\BRAFMutationAnalysisWordDocument.cs" />
@@ -2931,7 +2920,6 @@
     <Compile Include="Store\IRedisServer.cs" />
     <Compile Include="Store\RedisDB.cs" />
     <Compile Include="Store\RedisServerDev.cs" />
-    <Compile Include="Store\RedisServerDeprecated.cs" />
     <Compile Include="Store\RedisServerProd1.cs" />
     <Compile Include="Store\RedisStoreDev.cs" />
     <Compile Include="Store\RedisStoreProd.cs" />
@@ -3336,6 +3324,9 @@
     <Compile Include="UI\Stain\StainListDialog.xaml.cs">
       <DependentUpon>StainListDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Redis\StoreSelection.xaml.cs">
+      <DependentUpon>StoreSelection.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Surgical\StainOrder.xaml.cs">
       <DependentUpon>StainOrder.xaml</DependentUpon>
     </Compile>
@@ -3499,6 +3490,9 @@
       <DependentUpon>BRAFMutationAnalysisResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Test\BRAFMutationAnalysisResultPath.cs" />
+    <Compile Include="UI\Test\PreviousResultDialog.xaml.cs">
+      <DependentUpon>PreviousResultDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Test\BRAFV600EKResultPage.xaml.cs">
       <DependentUpon>BRAFV600EKResultPage.xaml</DependentUpon>
     </Compile>
@@ -5224,6 +5218,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UI\Redis\StoreSelection.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\Surgical\StainOrder.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -5378,6 +5376,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Test\BRAFMutationAnalysisResultPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Test\PreviousResultDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

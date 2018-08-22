@@ -453,6 +453,28 @@ namespace YellowstonePathology.Business.Gateway
             return reportSearchList;
         }
 
+        public static YellowstonePathology.Business.Search.ReportSearchList GetReportSearchListByTestFinal(int panelSetId, DateTime startDate, DateTime endDate)
+        {
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT b.Result, b.Indication, pso.MasterAccessionNo, pso.ReportNo, a.AccessionTime AccessionDate,  pso.PanelSetId, " +
+                "concat(a.PFirstName, ' ', a.PLastName) AS PatientName, " +
+                "a.PLastName, a.PFirstName, a.ClientName, a.PhysicianName, a.PBirthdate, pso.FinalDate, pso.PanelSetName, su.UserName as OrderedBy, " +
+                "'' ForeignAccessionNo, pso.IsPosted " +
+                "FROM tblAccessionOrder a " +
+                "JOIN tblPanelSetOrder pso ON a.MasterAccessionNo = pso.MasterAccessionNo " +
+                "join tblBRAFMutationAnalysisTestOrder b on pso.ReportNo = b.ReportNo " +
+                "Left Outer Join tblSystemUser su on pso.OrderedById = su.UserId " +
+                "WHERE pso.PanelSetId  =  @PanelSetId " +
+                "and pso.OrderDate between @StartDate and @EndDate " +
+                "and pso.final = 1 order by pso.FinalDate desc;";
+            cmd.Parameters.AddWithValue("@PanelSetId", panelSetId);
+            cmd.Parameters.AddWithValue("@StartDate", startDate);
+            cmd.Parameters.AddWithValue("@EndDate", endDate);
+            Search.ReportSearchList reportSearchList = BuildReportSearchList(cmd);
+            return reportSearchList;
+        }
+
         public static Test.ThinPrepPap.AcidWashList GetAcidWashList(DateTime startDate)
         {
             Test.ThinPrepPap.AcidWashList result = new Test.ThinPrepPap.AcidWashList();

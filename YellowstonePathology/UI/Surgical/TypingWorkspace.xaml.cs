@@ -464,14 +464,7 @@ namespace YellowstonePathology.UI.Surgical
             if (args.Key == Key.Space)
             {                                
                 TextBox textBox = (TextBox)args.Source;
-                if (textBox.Name == "TextBoxMicroscopic")
-                {
-                    this.m_TypingShortcutUserControl.SetShortcut(textBox, this.m_TypingUI.SurgicalTestOrder);
-                }
-                else
-                {
-                    this.m_TypingShortcutUserControl.SetShortcut(textBox);
-                }                
+                this.m_TypingShortcutUserControl.SetShortcut(textBox);               
             }
         }        
 

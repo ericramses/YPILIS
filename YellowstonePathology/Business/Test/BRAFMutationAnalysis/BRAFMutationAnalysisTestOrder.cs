@@ -8,7 +8,7 @@ using YellowstonePathology.Business.Persistence;
 namespace YellowstonePathology.Business.Test.BRAFMutationAnalysis
 {
     [PersistentClass("tblBRAFMutationAnalysisTestOrder", "tblPanelSetOrder", "YPIDATA")]
-    public class BRAFMutationAnalysisTestOrder : YellowstonePathology.Business.Test.PanelSetOrder
+    public class BRAFMutationAnalysisTestOrder : YellowstonePathology.Business.Test.PanelSetOrder, Business.Interface.ICommonResult
     {
         private string m_Result;
         private string m_Interpretation;
@@ -191,6 +191,49 @@ namespace YellowstonePathology.Business.Test.BRAFMutationAnalysis
                     lSEResult.BrafResult = YellowstonePathology.Business.Test.LynchSyndrome.LSEResultEnum.Positive;
                 }
             }
+        }
+
+        public override YellowstonePathology.Business.Audit.Model.AuditResult IsOkToFinalize(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
+        {
+            YellowstonePathology.Business.Rules.MethodResult finalResult = this.IsOkToFinalize();
+            if (finalResult.Success == true)
+            {
+                YellowstonePathology.Business.Test.KRASStandardReflex.KRASStandardReflexTest krasStandardReflexTest = new KRASStandardReflex.KRASStandardReflexTest();
+                if (accessionOrder.PanelSetOrderCollection.Exists(krasStandardReflexTest.PanelSetId, this.OrderedOnId, true) == false)
+                {
+                    if (string.IsNullOrEmpty(this.TumorNucleiPercentage) == true)
+                    {
+                        finalResult.Success = false;
+                        finalResult.Message = "This case cannot be finalized because the Tumor Nuclei Percent is not set.";
+                    }
+                }
+                else if (string.IsNullOrEmpty(this.Result) == true)
+                {
+                    finalResult.Success = false;
+                    finalResult.Message = "We are unable to finalize this case because the result is blank.";
+                }
+            }
+            YellowstonePathology.Business.Audit.Model.AuditResult result = base.IsOkToFinalize(accessionOrder);
+            return result;
+        }
+
+        public override YellowstonePathology.Business.Rules.MethodResult IsOkToAccept()
+        {
+            YellowstonePathology.Business.Rules.MethodResult result = base.IsOkToAccept();
+            if (result.Success == true)
+            {
+                if (string.IsNullOrEmpty(this.ResultCode) == true)
+                {
+                    result.Success = false;
+                    result.Message = "The results cannot be accepted because the Result is not set.";
+                }
+                else if (string.IsNullOrEmpty(this.Indication) == true)
+                {
+                    result.Success = false;
+                    result.Message = "The results cannot be accepted because the BRAF indicator is not set.";
+                }
+            }
+            return result;
         }
     }
 }
