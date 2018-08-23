@@ -524,7 +524,7 @@ namespace YellowstonePathology.Business.Gateway
             YellowstonePathology.Business.Client.Model.PhysicianClientCollection result = new Client.Model.PhysicianClientCollection();
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = "Select pp.PhysicianClientId, c.ClientId, c.ClientName, ph.PhysicianId, ph.ObjectId ProviderId, " +
-                "ph.DisplayName PhysicianName, c.DistributionType, c.Fax FaxNumber, c.Telephone, c.LongDistance, c.FacilityType, ph.NPI " +
+                "ph.DisplayName PhysicianName, c.DistributionType, c.Fax FaxNumber, c.Telephone, c.FacilityType, ph.NPI " +
                  "from tblClient c " +
                  "join tblPhysicianClient pp on c.ClientId = pp.ClientId " +
                  "Join tblPhysician ph on pp.ProviderId = ph.ObjectId " +
@@ -555,7 +555,7 @@ namespace YellowstonePathology.Business.Gateway
             YellowstonePathology.Business.Client.Model.PhysicianClientCollection result = new Client.Model.PhysicianClientCollection();
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = "Select pp.PhysicianClientId, c.ClientId, c.ClientName, ph.PhysicianId, ph.ObjectId ProviderId, " +
-                "ph.DisplayName PhysicianName, c.DistributionType, c.Fax FaxNumber, c.Telephone, c.LongDistance, c.FacilityType, ph.NPI " +
+                "ph.DisplayName PhysicianName, c.DistributionType, c.Fax FaxNumber, c.Telephone, c.FacilityType, ph.NPI " +
                  "from tblClient c " +
                  "join tblPhysicianClient pp on c.ClientId = pp.ClientId " +
                  "Join tblPhysician ph on pp.ProviderId = ph.ObjectId " +
@@ -588,7 +588,7 @@ namespace YellowstonePathology.Business.Gateway
             YellowstonePathology.Business.Client.Model.PhysicianClientCollection result = new Client.Model.PhysicianClientCollection();
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = "Select pp.PhysicianClientId, c.ClientId, c.ClientName, ph.PhysicianId, ph.ObjectId ProviderId, " +
-                "ph.DisplayName PhysicianName, c.FacilityType, c.DistributionType, c.Fax FaxNumber, c.Telephone, c.LongDistance, ph.NPI " +
+                "ph.DisplayName PhysicianName, c.FacilityType, c.DistributionType, c.Fax FaxNumber, c.Telephone, ph.NPI " +
                  "from tblClient c " +
                  "join tblPhysicianClient pp on c.ClientId = pp.ClientId " +
                  "Join tblPhysician ph on pp.ProviderId = ph.ObjectId " +
@@ -619,7 +619,7 @@ namespace YellowstonePathology.Business.Gateway
             Business.Client.Model.PhysicianClientDistributionList result = new Client.Model.PhysicianClientDistributionList();
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = "Select c.ClientId, c.ClientName, ph.PhysicianId, ph.DisplayName PhysicianName, c.DistributionType, " +
-                "c.Fax FaxNumber, c.LongDistance " +
+                "c.Fax FaxNumber " +
                  "from tblClient c " +
                  "join tblPhysicianClient pp on c.ClientId = pp.ClientId " +
                  "Join tblPhysician ph on pp.ProviderId = ph.ObjectId " +
@@ -650,7 +650,7 @@ namespace YellowstonePathology.Business.Gateway
             Business.Client.Model.PhysicianClientDistributionList result = new Client.Model.PhysicianClientDistributionList();
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = "Select c.ClientId, c.ClientName, ph.PhysicianId, ph.DisplayName PhysicianName, c.DistributionType, " +
-                "c.Fax FaxNumber, c.LongDistance " +
+                "c.Fax FaxNumber " +
                  "from tblClient c " +
                  "join tblPhysicianClient pp on c.ClientId = pp.ClientId " +
                  "Join tblPhysician ph on pp.ProviderId = ph.ObjectId " +
@@ -683,7 +683,7 @@ namespace YellowstonePathology.Business.Gateway
             Business.Client.Model.PhysicianClientDistributionList result = new Client.Model.PhysicianClientDistributionList();
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = "Select c.ClientId, c.ClientName, ph.PhysicianId, ph.DisplayName PhysicianName, c.DistributionType, " +
-                "c.Fax FaxNumber, c.LongDistance " +
+                "c.Fax FaxNumber " +
                  "from tblClient c " +
                  "join tblPhysicianClient pp on c.ClientId = pp.ClientId " +
                  "Join tblPhysician ph on pp.ProviderId = ph.ObjectId " +
@@ -716,7 +716,7 @@ namespace YellowstonePathology.Business.Gateway
             Business.Client.Model.PhysicianClientDistributionList result = new Client.Model.PhysicianClientDistributionList();
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = "Select c.ClientId, c.ClientName, ph.PhysicianId, ph.DisplayName PhysicianName, c.DistributionType, " +
-                "c.Fax FaxNumber, c.LongDistance " +
+                "c.Fax FaxNumber " +
                  "from tblClient c " +
                  "join tblPhysicianClient pp on c.ClientId = pp.ClientId " +
                  "Join tblPhysician ph on pp.ProviderId = ph.ObjectId " +
