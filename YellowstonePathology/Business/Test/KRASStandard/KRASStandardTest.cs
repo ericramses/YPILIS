@@ -34,9 +34,7 @@ namespace YellowstonePathology.Business.Test.KRASStandard
             this.m_ProfessionalComponentBillingFacility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
 
             this.m_HasSplitCPTCode = true;
-            //updated on 12.14.16 by MS;
-
-
+            
             string taskDescription = "Collect paraffin block from Histology and send to Neo.";
 
             YellowstonePathology.Business.Facility.Model.Facility neogenomicsIrvine = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("NEOGNMCIRVN");
