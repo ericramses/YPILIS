@@ -33,7 +33,7 @@ namespace YellowstonePathology.Business.Test
 
         public virtual void SetComment(string resultCode, Interface.ICommonResult commonResult)
         {
-
+            commonResult.IndicationComment = this.m_Description;
         }
     }
 }

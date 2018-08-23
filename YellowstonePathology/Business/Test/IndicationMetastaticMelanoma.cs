@@ -21,6 +21,10 @@ namespace YellowstonePathology.Business.Test
                     "If this test was performed on a small/scant sample and subsequent surgical excision confirms the presence of papillary " +
                     "thyroid carcinoma, retesting on the surgical specimen is recommended.";
             }
+            else
+            {
+                base.SetComment(resultCode, commonResult);
+            }
         }
     }
 }
