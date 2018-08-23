@@ -1403,7 +1403,7 @@ namespace YellowstonePathology.UI
 
         private void SendTestFax()
         {
-            YellowstonePathology.Business.ReportDistribution.Model.FaxSubmission.Submit("99999", false, "Hello World", @"c:\Testing\Test.tif");            
+            YellowstonePathology.Business.ReportDistribution.Model.FaxSubmission.Submit("99999", "Hello World", @"c:\Testing\Test.tif");            
         }
 
         private void TestReflectionDelagate()

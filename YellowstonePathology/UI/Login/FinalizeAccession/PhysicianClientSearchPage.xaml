@@ -39,7 +39,6 @@
                         <GridViewColumn DisplayMemberBinding="{Binding Path=ClientName}" Header="Client Name" Width="350"/>						
                         <GridViewColumn DisplayMemberBinding="{Binding Path=DistributionType}" Header="Distribution Type" Width="200"/>
                         <GridViewColumn DisplayMemberBinding="{Binding Path=FormattedFaxNumber}" Header="Fax" Width="120"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=LongDistance}" Header="Long Distance" Width="100"/>
 					</GridView>
 				</ListView.View>
 			</ListView>

@@ -185,10 +185,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>dll\WPFToolkit.Extended.dll</HintPath>
     </Reference>
-    <Reference Include="Xceed.Wpf.Toolkit, Version=2.4.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>dll\Xceed.Wpf.Toolkit.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -889,7 +885,6 @@
     <Compile Include="Business\Interface\IBillingSpecimen.cs" />
     <Compile Include="Business\Interface\IBillingSpecimenCollection.cs" />
     <Compile Include="Business\Interface\ICaseDocument.cs" />
-    <Compile Include="Business\Interface\IClient.cs" />
     <Compile Include="Business\Interface\ICommonBase.cs" />
     <Compile Include="Business\Interface\ICommonResult.cs" />
     <Compile Include="Business\Interface\IComprehensiveCareDocument.cs" />
@@ -1018,8 +1013,10 @@
     <Compile Include="Business\Persistence\SqlServerDataReaderPropertyWriter.cs" />
     <Compile Include="Business\Persistence\SystemUserDocumentBuilder.cs" />
     <Compile Include="Business\Persistence\WebServiceAccountDocumentBuilder.cs" />
+    <Compile Include="Business\ReportDistribution.Model\MeditechDistribution.cs" />
     <Compile Include="Business\ReportDistribution.Model\MultiTestDistributionHandlerNoWHP.cs" />
     <Compile Include="Business\ReportDistribution.Model\MultiTestDistributionHandlerWHPHold.cs" />
+    <Compile Include="Business\ReportDistribution.Model\PrintDistribution.cs" />
     <Compile Include="Business\Slide.Model\VantageSlide.cs" />
     <Compile Include="Business\Slide.Model\VantageSlideScan.cs" />
     <Compile Include="Business\Slide.Model\VantageSlideScanCollection.cs" />
@@ -1525,31 +1522,17 @@
     <Compile Include="Business\ReflexTestingPlan.Model\LynchSyndromeReflexTestingPlan.cs" />
     <Compile Include="Business\ReflexTestingPlan.Model\ReflexTestingPlan.cs" />
     <Compile Include="Business\ReflexTestingPlan.Model\ReflexTestingStep.cs" />
-    <Compile Include="Business\ReportDistribution.Model\AthenaHealthDistribution.cs" />
-    <Compile Include="Business\ReportDistribution.Model\Distribution.cs" />
     <Compile Include="Business\ReportDistribution.Model\DistributionResult.cs" />
     <Compile Include="Business\ReportDistribution.Model\DistributionTypeList.cs" />
     <Compile Include="Business\ReportDistribution.Model\DistributionTypes.cs" />
-    <Compile Include="Business\ReportDistribution.Model\DoNotDistributeDistribution.cs" />
-    <Compile Include="Business\ReportDistribution.Model\EclinicalWorksDistribution.cs" />
-    <Compile Include="Business\ReportDistribution.Model\ECWDistribution.cs" />
-    <Compile Include="Business\ReportDistribution.Model\EpicDistribution.cs" />
-    <Compile Include="Business\ReportDistribution.Model\EpicFaxDistribution.cs" />
-    <Compile Include="Business\ReportDistribution.Model\FaxDistribution.cs" />
     <Compile Include="Business\ReportDistribution.Model\FaxSubmission.cs" />
-    <Compile Include="Business\ReportDistribution.Model\ImmediateFaxDistribution.cs" />
-    <Compile Include="Business\ReportDistribution.Model\MeditechDistribution.cs" />
-    <Compile Include="Business\ReportDistribution.Model\MeditechFileDefinition.cs" />
-    <Compile Include="Business\ReportDistribution.Model\MTDOHDistribution.cs" />
     <Compile Include="Business\ReportDistribution.Model\MultiTestDistributionHandler.cs" />
     <Compile Include="Business\ReportDistribution.Model\MultiTestDistributionHandlerFactory.cs" />
     <Compile Include="Business\ReportDistribution.Model\MultiTestDistributionHandlerWHP.cs" />
     <Compile Include="Business\ReportDistribution.Model\MultiTestDistributionHandlerWHPOnly.cs" />
     <Compile Include="Business\ReportDistribution.Model\MultiTestDistributionHandlerWHPStandard.cs" />
     <Compile Include="Business\ReportDistribution.Model\MultiTestDistributionHandlerWHPSVH.cs" />
-    <Compile Include="Business\ReportDistribution.Model\PHINMSDistribution.cs" />
     <Compile Include="Business\ReportDistribution.Model\PrintCaseReport.cs" />
-    <Compile Include="Business\ReportDistribution.Model\PrintDistribution.cs" />
     <Compile Include="Business\ReportDistribution.Model\ReportDistributionLogEntry.cs" />
     <Compile Include="Business\ReportDistribution.Model\ReportDistributionLogEntryCollection.cs" />
     <Compile Include="Business\ReportDistribution.Model\ScheduledFaxSubmission.cs" />
@@ -1557,9 +1540,6 @@
     <Compile Include="Business\ReportDistribution.Model\TestOrderReportDistributionCollection.cs" />
     <Compile Include="Business\ReportDistribution.Model\TestOrderReportDistributionLog.cs" />
     <Compile Include="Business\ReportDistribution.Model\TestOrderReportDistributionLogCollection.cs" />
-    <Compile Include="Business\ReportDistribution.Model\WebServiceDistribution.cs" />
-    <Compile Include="Business\ReportDistribution.Model\WebServiceFaxDistribution.cs" />
-    <Compile Include="Business\ReportDistribution.Model\WYDOHDistribution.cs" />
     <Compile Include="Business\ReportNo.cs" />
     <Compile Include="Business\ReportNoCollection.cs" />
     <Compile Include="Business\ReportNoLetter.cs" />

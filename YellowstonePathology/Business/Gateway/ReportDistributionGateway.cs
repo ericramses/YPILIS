@@ -41,7 +41,7 @@ namespace YellowstonePathology.Business.Gateway
         {
             YellowstonePathology.Business.Client.Model.PhysicianClientDistributionList result = new Client.Model.PhysicianClientDistributionList();
             string sql = "Select c.ClientId, c.ClientName, ph.PhysicianId, ph.DisplayName PhysicianName, c.DistributionType, " +
-                "c.Fax FaxNumber, c.LongDistance " +
+                "c.Fax FaxNumber " +
                 "from tblPhysicianClient pc " +
 	            "join tblPhysicianClientDistribution pcd on pc.PhysicianClientId = pcd.PhysicianClientId " +
 	            "join tblPhysicianClient pc2 on pcd.DistributionId = pc2.PhysicianClientId " +
@@ -77,7 +77,7 @@ namespace YellowstonePathology.Business.Gateway
         public static YellowstonePathology.Business.Client.Model.PhysicianClientDistributionListItem GetPhysicianClientDistributionCollection(string physicianClientId)
         {
             YellowstonePathology.Business.Client.Model.PhysicianClientDistributionListItem result = null;
-            string sql = "Select c.ClientId, c.ClientName, ph.PhysicianId, ph.DisplayName PhysicianName, c.DistributionType, c.Fax FaxNumber, c.LongDistance " +
+            string sql = "Select c.ClientId, c.ClientName, ph.PhysicianId, ph.DisplayName PhysicianName, c.DistributionType, c.Fax FaxNumber " +
                 "from tblPhysicianClient pc " +
                 "join tblPhysicianClientDistribution pcd on pc.PhysicianClientId = pcd.PhysicianClientId " +
                 "join tblPhysicianClient pc2 on pcd.DistributionId = pc2.PhysicianClientId " +
