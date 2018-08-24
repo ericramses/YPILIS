@@ -3390,7 +3390,6 @@
       <DependentUpon>TaskWorkspace.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\TemplateSelector\TaskOrderDetailTemplateSelector.cs" />
-    <Compile Include="UI\TestOrderRemover.cs" />
     <Compile Include="UI\Test\ABL1KinaseDomainMutationResultPage.xaml.cs">
       <DependentUpon>ABL1KinaseDomainMutationResultPage.xaml</DependentUpon>
     </Compile>
