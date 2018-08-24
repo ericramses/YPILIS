@@ -41,6 +41,9 @@ namespace YellowstonePathology.Business.Test.BCL1t1114
             this.m_PanelSetCptCodeCollection.Add(panelSetCptCode);
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceFLOWYPI());
-		}
-	}
+
+            Business.Panel.Model.HAndEPanel handePanel = new Panel.Model.HAndEPanel();
+            this.m_PanelCollection.Add(handePanel);
+        }
+    }
 }
