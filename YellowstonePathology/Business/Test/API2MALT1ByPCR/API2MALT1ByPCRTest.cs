@@ -44,6 +44,9 @@ namespace YellowstonePathology.Business.Test.API2MALT1ByPCR
             this.m_ProfessionalComponentBillingFacility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMiscellaneous());
+
+            Business.Panel.Model.HAndEPanel handePanel = new Panel.Model.HAndEPanel();
+            this.m_PanelCollection.Add(handePanel);
         }
     }
 }

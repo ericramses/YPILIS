@@ -476,7 +476,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 string testOrderReportDistributionId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
                 YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution testOrderReportDistribution =
                     new YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution(testOrderReportDistributionId, testOrderReportDistributionId, this.m_PanelSetOrder.ReportNo, 0, null, 0, "Special Distribution",
-                        YellowstonePathology.Business.ReportDistribution.Model.DistributionType.FAX, null, false);
+                        YellowstonePathology.Business.ReportDistribution.Model.DistributionType.FAX, null);
 
                 TestOrderReportDistributionPage testOrderReportDistributionPage = new TestOrderReportDistributionPage(testOrderReportDistribution, this.m_PageNavigator);
                 testOrderReportDistributionPage.Next += new TestOrderReportDistributionPage.NextEventHandler(AddDistribution_TestOrderReportDistributionPage_Next);
@@ -493,7 +493,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 string testOrderReportDistributionId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
                 YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution testOrderReportDistribution =
                     new YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution(testOrderReportDistributionId, testOrderReportDistributionId, this.m_PanelSetOrder.ReportNo, 0, null, 0, "Special Distribution",
-                        YellowstonePathology.Business.ReportDistribution.Model.DistributionType.PRINT, null, false);
+                        YellowstonePathology.Business.ReportDistribution.Model.DistributionType.PRINT, null);
 
                 TestOrderReportDistributionPage testOrderReportDistributionPage = new TestOrderReportDistributionPage(testOrderReportDistribution, this.m_PageNavigator);
                 testOrderReportDistributionPage.Next += new TestOrderReportDistributionPage.NextEventHandler(AddDistribution_TestOrderReportDistributionPage_Next);

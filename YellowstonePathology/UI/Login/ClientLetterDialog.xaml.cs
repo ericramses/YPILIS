@@ -116,7 +116,7 @@ namespace YellowstonePathology.UI.Login
 					clientLetter.Create(this.m_PatientNameWithBirthDate, client, letterBody);
 				}
 
-                YellowstonePathology.Business.ReportDistribution.Model.FaxSubmission.Submit(client.Fax, client.LongDistance, "Missing Information", YellowstonePathology.Properties.Settings.Default.ClientMissingInformationLetterFileName);                				
+                YellowstonePathology.Business.ReportDistribution.Model.FaxSubmission.Submit(client.Fax, "Missing Information", YellowstonePathology.Properties.Settings.Default.ClientMissingInformationLetterFileName);                				
 
 				if (string.IsNullOrEmpty(this.m_InfoEventComment.ToString()) == false)
 				{

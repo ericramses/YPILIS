@@ -118,7 +118,7 @@ namespace YellowstonePathology.UI.Login
                     timeToSchedule = timeToSchedule.AddDays(1);
                 }
 
-                YellowstonePathology.Business.ReportDistribution.Model.ScheduledFaxSubmission.Submit(client.Fax, client.LongDistance, "Missing Information", @"C:\\Program Files\\Yellowstone Pathology Institute\\ClientMissingInformationLetter.xml", timeToSchedule);
+                YellowstonePathology.Business.ReportDistribution.Model.ScheduledFaxSubmission.Submit(client.Fax, "Missing Information", @"C:\\Program Files\\Yellowstone Pathology Institute\\ClientMissingInformationLetter.xml", timeToSchedule);
             }
 			else
 			{
