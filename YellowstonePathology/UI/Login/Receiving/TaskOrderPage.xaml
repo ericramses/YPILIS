@@ -51,9 +51,10 @@
                         </ComboBox>
                         
                         <TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right" IsEnabled="False">Fax Number:</TextBlock>
-                        <wpfx:MaskedTextBox Grid.Column="1" Grid.Row="2" Margin="2,2,2,2" RestrictToAscii="False" AllowPromptAsInput="False"
+                        <TextBox Grid.Column="1" Grid.Row="2" Margin="2,2,2,2" Text="{Binding Path=FaxNumberProxy}"/>
+                        <!--<wpfx:MaskedTextBox Grid.Column="1" Grid.Row="2" Margin="2,2,2,2" RestrictToAscii="False" AllowPromptAsInput="False"
                                             IncludeLiteralsInValue="False" IncludePromptInValue="False" ValueDataType="{x:Type sys:String}"
-                                            Mask="(000) 000 0000" Value="{Binding Path=FaxNumber}"/>
+                                            Mask="(000) 000 0000" Value="{Binding Path=FaxNumber}"/>-->
 
                         <TextBlock Grid.Column="0" Grid.Row="3" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right" IsEnabled="False">Atention:</TextBlock>
                         <TextBox Grid.Column="1" Grid.Row="3" Margin="2,2,2,2" Text="{Binding Path=SendToName}"/>
