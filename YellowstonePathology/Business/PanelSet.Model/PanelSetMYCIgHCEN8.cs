@@ -37,9 +37,6 @@ namespace YellowstonePathology.Business.PanelSet.Model
             this.m_ProfessionalComponentBillingFacility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMOLEGEN());
-
-            Business.Panel.Model.HAndEPanel handePanel = new Panel.Model.HAndEPanel();
-            this.m_PanelCollection.Add(handePanel);
         }
     }
 }
