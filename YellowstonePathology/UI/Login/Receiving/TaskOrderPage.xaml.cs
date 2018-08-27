@@ -422,6 +422,12 @@ namespace YellowstonePathology.UI.Login.Receiving
             YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_TaskOrder.ReportNo);
             Business.OrderIdParser orderIdParser = new Business.OrderIdParser(panelSetOrder.ReportNo);
 
+            if(taskOrderDetailFax.FaxNumber.Length != 10)
+            {
+                MessageBox.Show("The Fax Number must be 10 digits - (xxx) xxx xxxx");
+                return;
+            }
+
             if (taskOrderDetailFax.DocumentName == "AdditionalTestingNotification")
             {
                 YellowstonePathology.Business.Test.AdditionalTestingNotification.AdditionalTestingNotificationWordDocument reportNotify =
@@ -430,7 +436,7 @@ namespace YellowstonePathology.UI.Login.Receiving
                 reportNotify.Publish();
 
                 string notifyFileName = Business.Document.CaseDocument.GetCaseFileNameTifNotify(orderIdParser);
-                Business.ReportDistribution.Model.FaxSubmission.Submit(taskOrderDetailFax.FaxNumber, false, "Additional Testing Notification", notifyFileName);
+                Business.ReportDistribution.Model.FaxSubmission.Submit(taskOrderDetailFax.FaxNumber, "Additional Testing Notification", notifyFileName);
                 MessageBox.Show("The fax was successfully submitted.");
             }
             else if(taskOrderDetailFax.DocumentName == "PreauthorizationNotification")
@@ -441,7 +447,7 @@ namespace YellowstonePathology.UI.Login.Receiving
                 reportPreauth.Publish();
 
                 string preauthFileName = Business.Document.CaseDocument.GetCaseFileNameTifPreAuth(orderIdParser);
-                Business.ReportDistribution.Model.FaxSubmission.Submit(taskOrderDetailFax.FaxNumber, false, "Preauthorization Notification", preauthFileName);
+                Business.ReportDistribution.Model.FaxSubmission.Submit(taskOrderDetailFax.FaxNumber, "Preauthorization Notification", preauthFileName);
                 MessageBox.Show("The fax was successfully submitted.");
             }                       
         }        
@@ -455,7 +461,6 @@ namespace YellowstonePathology.UI.Login.Receiving
             Business.Client.Model.Client client = Business.Gateway.PhysicianClientGateway.GetClientByClientId(this.m_AccessionOrder.ClientId);
             YellowstonePathology.Business.Task.Model.TaskOrderDetailFax taskOrderDetail = new Business.Task.Model.TaskOrderDetailFax(taskOrderDetailId, this.m_TaskOrder.TaskOrderId, objectId, task, this.m_AccessionOrder.ClientId);
             taskOrderDetail.FaxNumber = client.Fax;
-            if (client.LongDistance == true) taskOrderDetail.FaxNumber = "1" + taskOrderDetail.FaxNumber;
             this.m_TaskOrder.TaskOrderDetailCollection.Add(taskOrderDetail);
         }
 
@@ -468,7 +473,6 @@ namespace YellowstonePathology.UI.Login.Receiving
             Business.Client.Model.Client client = Business.Gateway.PhysicianClientGateway.GetClientByClientId(this.m_AccessionOrder.ClientId);
             YellowstonePathology.Business.Task.Model.TaskOrderDetailFax taskOrderDetail = new Business.Task.Model.TaskOrderDetailFax(taskOrderDetailId, this.m_TaskOrder.TaskOrderId, objectId, task, this.m_AccessionOrder.ClientId);
             taskOrderDetail.FaxNumber = client.Fax;
-            if (client.LongDistance == true) taskOrderDetail.FaxNumber = "1" + taskOrderDetail.FaxNumber;
             this.m_TaskOrder.TaskOrderDetailCollection.Add(taskOrderDetail);
         }
     }

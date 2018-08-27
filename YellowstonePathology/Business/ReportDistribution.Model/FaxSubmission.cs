@@ -7,7 +7,7 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
 {
     public class FaxSubmission
     {        
-        public static DistributionResult Submit(string faxNumber, bool longDistance, string subject, string fileName)
+        public static DistributionResult Submit(string faxNumber, string subject, string fileName)
         {
             DistributionResult result = new DistributionResult();            
 
@@ -17,10 +17,7 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
             FAXCOMEXLib.FaxDocument faxDoc = new FAXCOMEXLib.FaxDocument();
             faxDoc.Body = fileName;                          
             
-            if (longDistance == true)
-            {
-                faxNumber = "1" + faxNumber;
-            }            
+            faxNumber = "1" + faxNumber;
 
             faxDoc.Recipients.Add(faxNumber, subject);
             faxDoc.DocumentName = subject;

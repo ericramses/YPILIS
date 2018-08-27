@@ -96,7 +96,6 @@ namespace YellowstonePathology.Business.Reports.Cytology
         string m_Address;
         string m_CityStateZip;
         string m_FaxNumber;
-        bool m_LongDistance;
 
         List<CytologyUnsatLetterDetailItem> m_DetailItems;
 
@@ -154,12 +153,6 @@ namespace YellowstonePathology.Business.Reports.Cytology
             set { this.m_FaxNumber = value; }
         }
 
-        public bool LongDistance
-        {
-            get { return this.m_LongDistance; }
-            set { this.m_LongDistance = value; }
-        }
-
         public void Fill(MySqlDataReader dr)
         {
             this.PhysicianClientId = BaseData.GetStringValue("PhysicianClientId", dr);
@@ -169,7 +162,6 @@ namespace YellowstonePathology.Business.Reports.Cytology
             this.Address = BaseData.GetStringValue("Address", dr);
             this.CityStateZip = BaseData.GetStringValue("CityStateZip", dr);
             this.FaxNumber = BaseData.GetStringValue("Fax", dr);
-            this.LongDistance = BaseData.GetBoolValue("LongDistance", dr);
         }
     }
 

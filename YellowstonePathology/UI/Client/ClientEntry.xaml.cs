@@ -138,7 +138,7 @@ namespace YellowstonePathology.UI.Client
 
         private bool CanSave()
         {
-            bool result = true;
+            bool result = this.MaskNumberIsValid(this.MaskedTextBoxFax);
             return result;
         }
 
@@ -319,6 +319,22 @@ namespace YellowstonePathology.UI.Client
             }                
 
             MessageBox.Show("Fedex labels have been sent to the printer.");            
+        }
+
+        private bool MaskNumberIsValid(Xceed.Wpf.Toolkit.MaskedTextBox maskedTextBox)
+        {
+            bool result = false;
+            if (maskedTextBox.IsMaskFull == true && maskedTextBox.HasValidationError == false && maskedTextBox.HasParsingError == false)
+            {
+                result = true;
+            }
+            else if(maskedTextBox.IsMaskCompleted == false && maskedTextBox.HasValidationError == false && maskedTextBox.HasParsingError == false)
+            {
+                result = true;
+            }
+
+            if (result == false) MessageBox.Show("The Fax (or phone) number must be 10 digits or empty.");
+            return result;
         }
     }
 }

@@ -42,6 +42,9 @@ namespace YellowstonePathology.Business.Test.Her2AmplificationByFish
             this.m_PanelCollection.Add(new YellowstonePathology.Business.Panel.Model.InitialPanel());
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMiscellaneous());
-		}
-	}
+
+            Business.Panel.Model.HAndEPanel handePanel = new Panel.Model.HAndEPanel();
+            this.m_PanelCollection.Add(handePanel);
+        }
+    }
 }

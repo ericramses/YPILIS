@@ -15,7 +15,6 @@ namespace YellowstonePathology.Business.Client.Model
         protected string m_ClientName;
         protected string m_DistributionType;
         protected string m_FaxNumber;
-        protected bool m_LongDistance;        
 
         public PhysicianClientDistributionListItem()
         {
@@ -28,7 +27,6 @@ namespace YellowstonePathology.Business.Client.Model
             this.m_ClientName = physicianClientDistribution.m_ClientName;
             this.m_PhysicianId = physicianClientDistribution.m_PhysicianId;
             this.m_PhysicianName = physicianClientDistribution.m_PhysicianName;
-            this.m_LongDistance = physicianClientDistribution.LongDistance;
             this.m_FaxNumber = physicianClientDistribution.FaxNumber;
             this.m_DistributionType = physicianClientDistribution.DistributionType;
         }
@@ -73,13 +71,6 @@ namespace YellowstonePathology.Business.Client.Model
         {
             get { return this.m_FaxNumber; }
             set { this.m_FaxNumber = value; }
-        }
-
-        [PersistentProperty()]
-        public bool LongDistance
-        {
-            get { return this.m_LongDistance; }
-            set { this.m_LongDistance = value; }
         }
 
         public string FormattedFaxNumber
@@ -138,7 +129,7 @@ namespace YellowstonePathology.Business.Client.Model
                     this.HandleAddWebServiceDistribution(panelSetOrder);
                     break;
                 case YellowstonePathology.Business.ReportDistribution.Model.DistributionType.PRINT:
-                    this.AddTestOrderReportDistribution(panelSetOrder, this.m_PhysicianId, this.m_PhysicianName, this.m_ClientId, this.m_ClientName, YellowstonePathology.Business.ReportDistribution.Model.DistributionType.PRINT, this.FaxNumber, this.LongDistance);
+                    this.AddTestOrderReportDistribution(panelSetOrder, this.m_PhysicianId, this.m_PhysicianName, this.m_ClientId, this.m_ClientName, YellowstonePathology.Business.ReportDistribution.Model.DistributionType.PRINT, this.FaxNumber);
                     break;
                 case YellowstonePathology.Business.ReportDistribution.Model.DistributionType.MTDOH:
                     this.HandleAddMTDOHDistribution(panelSetOrder);
@@ -162,13 +153,13 @@ namespace YellowstonePathology.Business.Client.Model
             return result;
         }
 
-        private void AddTestOrderReportDistribution(YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder, int physicianId, string physicianName, int clientId, string clientName, string distributionType, string faxNumber, bool longDistance)
+        private void AddTestOrderReportDistribution(YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder, int physicianId, string physicianName, int clientId, string clientName, string distributionType, string faxNumber)
         {
 
             string testOrderReportDistributionId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
             YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution testOrderReportDistribution =
                 new YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution(testOrderReportDistributionId, testOrderReportDistributionId, panelSetOrder.ReportNo, physicianId, physicianName,
-                    clientId, clientName, distributionType, faxNumber, longDistance);
+                    clientId, clientName, distributionType, faxNumber);
             panelSetOrder.TestOrderReportDistributionCollection.Add(testOrderReportDistribution);
         }        
 
@@ -179,7 +170,7 @@ namespace YellowstonePathology.Business.Client.Model
             {
                 if (panelSetOrder.TestOrderReportDistributionCollection.Exists(this.m_PhysicianId, this.m_ClientId, YellowstonePathology.Business.ReportDistribution.Model.DistributionType.FAX) == false)
                 {
-                    this.AddTestOrderReportDistribution(panelSetOrder, this.m_PhysicianId, this.m_PhysicianName, this.m_ClientId, this.m_ClientName, YellowstonePathology.Business.ReportDistribution.Model.DistributionType.FAX, this.FaxNumber, this.LongDistance);
+                    this.AddTestOrderReportDistribution(panelSetOrder, this.m_PhysicianId, this.m_PhysicianName, this.m_ClientId, this.m_ClientName, YellowstonePathology.Business.ReportDistribution.Model.DistributionType.FAX, this.FaxNumber);
                 }
             }
             else
@@ -212,7 +203,7 @@ namespace YellowstonePathology.Business.Client.Model
                         YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet = panelSetCollection.GetPanelSet(panelSetOrder.PanelSetId);
                         if (panelSet.ResultDocumentSource == YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase)
                         {
-                            this.AddTestOrderReportDistribution(panelSetOrder, accessionOrder.PhysicianId, accessionOrder.PhysicianName, accessionOrder.ClientId, accessionOrder.ClientName, YellowstonePathology.Business.ReportDistribution.Model.DistributionType.EPIC, this.FaxNumber, this.LongDistance);
+                            this.AddTestOrderReportDistribution(panelSetOrder, accessionOrder.PhysicianId, accessionOrder.PhysicianName, accessionOrder.ClientId, accessionOrder.ClientName, YellowstonePathology.Business.ReportDistribution.Model.DistributionType.EPIC, this.FaxNumber);
                         }
                         else
                         {
@@ -233,7 +224,7 @@ namespace YellowstonePathology.Business.Client.Model
             bool result = true;
             if (panelSetOrder.TestOrderReportDistributionCollection.Exists(this.m_PhysicianId, this.m_ClientId, YellowstonePathology.Business.ReportDistribution.Model.DistributionType.WEBSERVICE) == false)
             {
-                this.AddTestOrderReportDistribution(panelSetOrder, this.m_PhysicianId, this.m_PhysicianName, this.m_ClientId, this.m_ClientName, YellowstonePathology.Business.ReportDistribution.Model.DistributionType.WEBSERVICE, this.FaxNumber, this.LongDistance);
+                this.AddTestOrderReportDistribution(panelSetOrder, this.m_PhysicianId, this.m_PhysicianName, this.m_ClientId, this.m_ClientName, YellowstonePathology.Business.ReportDistribution.Model.DistributionType.WEBSERVICE, this.FaxNumber);
             }
             return result;
         }
@@ -245,7 +236,7 @@ namespace YellowstonePathology.Business.Client.Model
             {
                 if (panelSetOrder.TestOrderReportDistributionCollection.Exists(this.m_PhysicianId, this.m_ClientId, this.m_DistributionType) == false)
                 {
-                    this.AddTestOrderReportDistribution(panelSetOrder, this.m_PhysicianId, this.m_PhysicianName, this.m_ClientId, this.m_ClientName, YellowstonePathology.Business.ReportDistribution.Model.DistributionType.MTDOH, this.FaxNumber, this.LongDistance);
+                    this.AddTestOrderReportDistribution(panelSetOrder, this.m_PhysicianId, this.m_PhysicianName, this.m_ClientId, this.m_ClientName, YellowstonePathology.Business.ReportDistribution.Model.DistributionType.MTDOH, this.FaxNumber);
                 }
             }
             return result;
@@ -258,7 +249,7 @@ namespace YellowstonePathology.Business.Client.Model
             {
                 if (panelSetOrder.TestOrderReportDistributionCollection.Exists(this.m_PhysicianId, this.m_ClientId, this.m_DistributionType) == false)
                 {
-                    this.AddTestOrderReportDistribution(panelSetOrder, this.m_PhysicianId, this.m_PhysicianName, this.m_ClientId, this.m_ClientName, YellowstonePathology.Business.ReportDistribution.Model.DistributionType.WYDOH, this.FaxNumber, this.LongDistance);
+                    this.AddTestOrderReportDistribution(panelSetOrder, this.m_PhysicianId, this.m_PhysicianName, this.m_ClientId, this.m_ClientName, YellowstonePathology.Business.ReportDistribution.Model.DistributionType.WYDOH, this.FaxNumber);
                 }
             }
             return result;
@@ -276,7 +267,7 @@ namespace YellowstonePathology.Business.Client.Model
                     YellowstonePathology.Business.Client.Model.ClientGroupClientCollection cmmcGroup = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientGroupClientCollectionByClientGroupId("3");
                     if (cmmcGroup.ClientIdExists(this.ClientId) == true)
                     {
-                        this.AddTestOrderReportDistribution(panelSetOrder, this.m_PhysicianId, this.m_PhysicianName, this.m_ClientId, this.m_ClientName, YellowstonePathology.Business.ReportDistribution.Model.DistributionType.ATHENA, this.FaxNumber, this.LongDistance);
+                        this.AddTestOrderReportDistribution(panelSetOrder, this.m_PhysicianId, this.m_PhysicianName, this.m_ClientId, this.m_ClientName, YellowstonePathology.Business.ReportDistribution.Model.DistributionType.ATHENA, this.FaxNumber);
                     }
                 }
                 else
@@ -294,7 +285,7 @@ namespace YellowstonePathology.Business.Client.Model
             {
                 if (accessionOrder.ClientId == 1203)
                 {
-                    this.AddTestOrderReportDistribution(panelSetOrder, accessionOrder.PhysicianId, accessionOrder.PhysicianName, accessionOrder.ClientId, accessionOrder.ClientName, YellowstonePathology.Business.ReportDistribution.Model.DistributionType.ECW, this.FaxNumber, this.LongDistance);
+                    this.AddTestOrderReportDistribution(panelSetOrder, accessionOrder.PhysicianId, accessionOrder.PhysicianName, accessionOrder.ClientId, accessionOrder.ClientName, YellowstonePathology.Business.ReportDistribution.Model.DistributionType.ECW, this.FaxNumber);
                 }
             }
             return result;
@@ -318,7 +309,7 @@ namespace YellowstonePathology.Business.Client.Model
                         YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet = panelSetCollection.GetPanelSet(panelSetOrder.PanelSetId);
                         if (panelSet.ResultDocumentSource == YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase)
                         {
-                            this.AddTestOrderReportDistribution(panelSetOrder, accessionOrder.PhysicianId, accessionOrder.PhysicianName, accessionOrder.ClientId, accessionOrder.ClientName, YellowstonePathology.Business.ReportDistribution.Model.DistributionType.MEDITECH, this.FaxNumber, this.LongDistance);
+                            this.AddTestOrderReportDistribution(panelSetOrder, accessionOrder.PhysicianId, accessionOrder.PhysicianName, accessionOrder.ClientId, accessionOrder.ClientName, YellowstonePathology.Business.ReportDistribution.Model.DistributionType.MEDITECH, this.FaxNumber);
                         }
                         else
                         {

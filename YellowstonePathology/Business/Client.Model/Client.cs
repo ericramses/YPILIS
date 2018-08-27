@@ -29,7 +29,6 @@ namespace YellowstonePathology.Business.Client.Model
 		private string m_Telephone;
 		private string m_FacilityType;						
 		private string m_Fax;
-		private bool m_LongDistance;		
 		private bool m_ShowPhysiciansOnRequisition;
 		private string m_BillingRuleSetId;
         private string m_BillingRuleSetId2;
@@ -229,21 +228,6 @@ namespace YellowstonePathology.Business.Client.Model
                 }
 			}
 		}
-
-        [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
-		public bool LongDistance
-		{
-			get { return this.m_LongDistance; }
-			set
-			{
-				if (this.m_LongDistance != value)
-				{
-					this.m_LongDistance = value;
-					this.NotifyPropertyChanged("LongDistance");					
-				}
-			}
-		}        
 
         [PersistentProperty()]
         [PersistentDataColumnProperty(true, "1", "1", "tinyint")]

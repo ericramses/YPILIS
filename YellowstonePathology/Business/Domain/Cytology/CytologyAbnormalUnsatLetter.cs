@@ -37,23 +37,12 @@ namespace YellowstonePathology.Reports.Cytology
             get { return this.m_ReportData; }
         }
 
-        /*public void FaxReports()
-        {
-            string path = @"\\CFileServer\documents\Reports\Cytology\CytologyAbnormalUnsatLetter\";
-            foreach (YellowstonePathology.Business.Reports.Cytology.CytologyUnsatLetterItem item in this.m_ReportData)
-            {
-				YellowstonePathology.Business.Client.Model.Client client = Business.Gateway.PhysicianClientGateway.GetClientByClientId(item.ClientId);		
-                string fileName = path + item.PhysicianClientId.ToString() + ".doc";
-                YellowstonePathology.Business.ReportDistribution.Model.FaxSubmission.Submit(client.Fax, client.LongDistance, "Cytology Unsat Letters", fileName);                
-            }            
-        }*/
-
         public void FaxReport(YellowstonePathology.Business.Reports.Cytology.CytologyUnsatLetterItem item)
         {
             string path = @"\\CFileServer\documents\Reports\Cytology\CytologyAbnormalUnsatLetter\";
             YellowstonePathology.Business.Client.Model.Client client = Business.Gateway.PhysicianClientGateway.GetClientByClientId(item.ClientId);
             string fileName = path + item.PhysicianClientId.ToString() + ".doc";
-            YellowstonePathology.Business.ReportDistribution.Model.FaxSubmission.Submit(client.Fax, client.LongDistance, "Cytology Unsat Letters", fileName);
+            YellowstonePathology.Business.ReportDistribution.Model.FaxSubmission.Submit(client.Fax, "Cytology Unsat Letters", fileName);
         }
 
         /*public void CreateReports()
