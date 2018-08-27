@@ -67,6 +67,38 @@ namespace YellowstonePathology.Business.Task.Model
             }
         }
 
+        public string FaxNumberProxy
+        {
+            get { return this.CorrectFaxNumber(this.m_FaxNumber); }
+            set
+            {
+                if (this.m_FaxNumber != value)
+                {
+                    this.m_FaxNumber = this.CorrectFaxNumber(value);
+                    this.NotifyPropertyChanged("FaxNumberProxy");
+                }
+            }
+        }
+
+        private string CorrectFaxNumber(string numberIn)
+        {
+            string result = numberIn;
+
+            if (string.IsNullOrEmpty(result) == true) return numberIn;
+
+            result = result.Replace("(", "");
+            result = result.Replace(")", "");
+            result = result.Replace("-", "");
+            result = result.Replace(" ", "");
+
+            if (result.Length == 10 || result.Length == 7) return result;
+            if (result.Length == 11 && result[0] == '1') return result.Remove(0, 1);
+            if (result.Length == 11 && result[0] == '9') return result.Remove(0, 1);
+            if (result.Length == 12 && result[0] == '1' && result[1] == '9') return result.Remove(0, 2);
+
+            return result;
+        }
+
         public bool PropertiesAreEnabled
         {
             get

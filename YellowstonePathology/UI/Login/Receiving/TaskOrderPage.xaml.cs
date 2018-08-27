@@ -422,9 +422,9 @@ namespace YellowstonePathology.UI.Login.Receiving
             YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_TaskOrder.ReportNo);
             Business.OrderIdParser orderIdParser = new Business.OrderIdParser(panelSetOrder.ReportNo);
 
-            if(taskOrderDetailFax.FaxNumber.Length != 10)
+            if(string.IsNullOrEmpty(taskOrderDetailFax.FaxNumber) == true || taskOrderDetailFax.FaxNumber.Length != 10)
             {
-                MessageBox.Show("The Fax Number must be 10 digits - (xxx) xxx xxxx");
+                MessageBox.Show("The Fax Number must be 10 digits.");
                 return;
             }
 

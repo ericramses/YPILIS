@@ -38,9 +38,6 @@ namespace YellowstonePathology.Business.PanelSet.Model
             this.m_PanelSetCptCodeCollection.Add(panelSetCptCode);
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMiscellaneous());
-
-            Business.Panel.Model.HAndEPanel handePanel = new Panel.Model.HAndEPanel();
-            this.m_PanelCollection.Add(handePanel);
         }
     }
 }
