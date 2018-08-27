@@ -68,8 +68,7 @@ namespace YellowstonePathology.Business.Helper
                 File.Delete(pdfFileName.ToString());
             }
             catch (Exception)
-            {
-                //System.Windows.MessageBox.Show("This file is locked and cannot be published at this time: " + reportNo);
+            {                
                 oWord.Quit(ref oFalse, ref oMissing, ref oMissing);
             }
 
