@@ -95,10 +95,6 @@ namespace YellowstonePathology.UI
 
         private void ButtonStainList_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Search.CytologyScreeningSearch search = new Business.Search.CytologyScreeningSearch();
-            search.ExecuteReportNoSearch("18-20664.P");
-            List<YellowstonePathology.Business.Search.CytologyScreeningSearchResult> results = search.Results;
-            int a = 1;
             //MessageBox.Show("Done");
         }
 
