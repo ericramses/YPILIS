@@ -23,9 +23,11 @@ namespace YellowstonePathology.UI.WebService
         public event PropertyChangedEventHandler PropertyChanged;
 
         private List<YellowstonePathology.Business.WebService.WebServiceAccountView> m_WebServiceAccountViewList;
+        private List<YellowstonePathology.Business.WebService.WebServiceAccountView> m_LimitedWebServiceAccountViewList;
         public WebServiceAccountSelectionDialog()
         {
             this.m_WebServiceAccountViewList = YellowstonePathology.Business.Gateway.WebServiceGateway.GetWebServiceAccountViewList();
+            this.m_LimitedWebServiceAccountViewList = this.m_WebServiceAccountViewList;
             DataContext = this;
 
             InitializeComponent();
@@ -39,9 +41,9 @@ namespace YellowstonePathology.UI.WebService
             }
         }
 
-        public List<YellowstonePathology.Business.WebService.WebServiceAccountView> WebServiceAccountViewList
+        public List<YellowstonePathology.Business.WebService.WebServiceAccountView> LimitedWebServiceAccountViewList
         {
-            get { return this.m_WebServiceAccountViewList; }
+            get { return this.m_LimitedWebServiceAccountViewList; }
         }
 
         private void ListViewWebServiceAccounts_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -52,7 +54,7 @@ namespace YellowstonePathology.UI.WebService
                 WebServiceAccountEditDialog dlg = new WebService.WebServiceAccountEditDialog(webServiceAccountView.WebServiceAccountId);
                 dlg.ShowDialog();
                 this.m_WebServiceAccountViewList = YellowstonePathology.Business.Gateway.WebServiceGateway.GetWebServiceAccountViewList();
-                NotifyPropertyChanged("WebServiceAccountViewList");
+                this.RefreshLimitedWebServiceAccountViewList();
             }
         }
 
@@ -61,7 +63,7 @@ namespace YellowstonePathology.UI.WebService
             WebServiceAccountEditDialog dlg = new WebService.WebServiceAccountEditDialog(0);
             dlg.ShowDialog();
             this.m_WebServiceAccountViewList = YellowstonePathology.Business.Gateway.WebServiceGateway.GetWebServiceAccountViewList();
-            NotifyPropertyChanged("WebServiceAccountViewList");
+            this.RefreshLimitedWebServiceAccountViewList();
         }
 
         private void ButtonOK_Click(object sender, RoutedEventArgs e)
@@ -83,8 +85,55 @@ namespace YellowstonePathology.UI.WebService
                 YellowstonePathology.Business.WebService.WebServiceAccount webServiceAccount = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullWebServiceAccount(webServiceAccountView.WebServiceAccountId, this);
                 YellowstonePathology.Business.Persistence.DocumentGateway.Instance.DeleteDocument(webServiceAccount, this);
                 this.m_WebServiceAccountViewList = YellowstonePathology.Business.Gateway.WebServiceGateway.GetWebServiceAccountViewList();
-                NotifyPropertyChanged("WebServiceAccountViewList");
+                this.RefreshLimitedWebServiceAccountViewList();
             }
+        }
+
+        private void TextBoxSearchName_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                if (this.TextBoxSearchName.Text.Length > 0)
+                {
+                    this.m_LimitedWebServiceAccountViewList = this.GetViewsWithMatchingText(this.TextBoxSearchName.Text);
+                    this.NotifyPropertyChanged("LimitedWebServiceAccountViewList");
+                }
+            }
+        }
+
+        private void ButtonClearSearch_Click(object sender, RoutedEventArgs e)
+        {
+            this.TextBoxSearchName.Text = string.Empty;
+            this.RefreshLimitedWebServiceAccountViewList();
+        }
+
+        private void RefreshLimitedWebServiceAccountViewList()
+        {
+            if (string.IsNullOrEmpty(this.TextBoxSearchName.Text) == true)
+            {
+                this.m_LimitedWebServiceAccountViewList = this.m_WebServiceAccountViewList;
+            }
+            else
+            {
+                this.m_LimitedWebServiceAccountViewList = this.GetViewsWithMatchingText(this.TextBoxSearchName.Text);
+            }
+            this.NotifyPropertyChanged("LimitedWebServiceAccountViewList");
+        }
+
+        public List<YellowstonePathology.Business.WebService.WebServiceAccountView> GetViewsWithMatchingText(string searchText)
+        {
+            List<YellowstonePathology.Business.WebService.WebServiceAccountView> result = new List<YellowstonePathology.Business.WebService.WebServiceAccountView>();
+
+            string upper = searchText.ToUpper();
+            foreach (YellowstonePathology.Business.WebService.WebServiceAccountView view in this.m_WebServiceAccountViewList)
+            {
+                string matchUpper = view.DisplayName.ToUpper();
+                if (matchUpper.StartsWith(upper))
+                {
+                    result.Add(view);
+                }
+            }
+            return result;
         }
     }
 }
