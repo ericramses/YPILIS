@@ -32,6 +32,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
             string serviceType, string trackingNumber, string shipToName, string shipToPhone, string shipToAddress1,
             string shipToAddress2, string shipToCity, string shipToState, string shipToZip, string accountNo)
         {
+            this.m_MasterAccessionNo = masterAccessionNo;
             this.m_FedexAccount = fedexAccount;
             this.m_PaymentType = paymentType;
             this.m_ServiceType = serviceType;

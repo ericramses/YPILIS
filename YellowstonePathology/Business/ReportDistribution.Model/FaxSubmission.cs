@@ -15,9 +15,10 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
             faxServer.Connect("ypiifax");
 
             FAXCOMEXLib.FaxDocument faxDoc = new FAXCOMEXLib.FaxDocument();
-            faxDoc.Body = fileName;                          
-            
-            faxNumber = "1" + faxNumber;
+            faxDoc.Body = fileName;
+
+            Business.LocalPhonePrefix localPhonePrefix = new LocalPhonePrefix();
+            faxNumber = localPhonePrefix.HandleLongDistance(faxNumber);            
 
             faxDoc.Recipients.Add(faxNumber, subject);
             faxDoc.DocumentName = subject;
