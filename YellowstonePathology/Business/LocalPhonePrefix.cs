@@ -23,8 +23,7 @@ namespace YellowstonePathology.Business
             this.Add("259");
             this.Add("281");
             this.Add("294");
-            this.Add("322");
-            this.Add("327");
+            this.Add("322");            
             this.Add("328");
             this.Add("373");
             this.Add("435");

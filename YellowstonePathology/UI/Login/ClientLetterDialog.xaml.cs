@@ -25,30 +25,18 @@ namespace YellowstonePathology.UI.Login
 		StringBuilder m_AbnEventComment;
 		StringBuilder m_InfoEventComment;
 
-        string m_PatientName;
-		string m_PatientNameWithBirthDate;
-        int m_ClientId;
-        string m_ClientName;
-        Nullable<DateTime> m_PBirthdate;
-        int m_SpecimenLogId;
-		string m_MasterAccessionNo;
-
-		bool m_FormatBold;
-		string m_TestName;
-		string m_ProviderName;
+        private Business.Test.AccessionOrder m_AccessionOrder;
+        private Business.Test.PanelSetOrder m_PanelSetOrder;
+        private string m_PatientNameWithBirthDate;                            
+				
+		string m_TestName;		
 
 		YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 
-        public ClientLetterDialog(string patientName, Nullable<DateTime> pBirthDate, int clientId, string clientName, int specimenLogId, string masterAccessionNo,
-			string physicianName, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
+        public ClientLetterDialog(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
-            this.m_PatientName = patientName;
-            this.m_PBirthdate = pBirthDate;
-            this.m_ClientId = clientId;
-            this.m_ClientName = clientName;
-			this.m_SpecimenLogId = specimenLogId;
-			this.m_MasterAccessionNo = masterAccessionNo;
-			this.m_ProviderName = physicianName;
+            this.m_AccessionOrder = accessionOrder;
+            this.m_PanelSetOrder = panelSetOrder;                                              			
             this.m_SystemIdentity = systemIdentity;
 
             InitializeComponent();
@@ -60,12 +48,12 @@ namespace YellowstonePathology.UI.Login
 
         public string PatientName
         {
-            get { return this.m_PatientName; }
+            get { return this.m_AccessionOrder.PatientDisplayName; }
         }
 
         public string ClientName
         {
-            get { return this.m_ClientName; }
+            get { return this.m_AccessionOrder.ClientName; }
         }        
 
         public void NotifyPropertyChanged(String info)
@@ -77,10 +65,9 @@ namespace YellowstonePathology.UI.Login
         }		
 
         private void CreateLetterBody()
-        {
-			this.m_FormatBold = false;
-			this.m_PatientNameWithBirthDate = this.m_PatientName;
-			if (this.m_PBirthdate.HasValue) m_PatientNameWithBirthDate = m_PatientNameWithBirthDate + " (DOB:" + this.m_PBirthdate.Value.ToShortDateString() +")";
+        {			
+			this.m_PatientNameWithBirthDate = this.m_AccessionOrder.PatientDisplayName;
+			if (this.m_AccessionOrder.PBirthdate.HasValue) this.m_PatientNameWithBirthDate = this.m_PatientNameWithBirthDate + " (DOB:" + this.m_AccessionOrder.PBirthdate.Value.ToShortDateString() +")";
 			StringBuilder result = new StringBuilder();
 			bool created = CreateMissingABN(result);
 			if(!created) created = CreateMissingInfo(result);
@@ -97,38 +84,15 @@ namespace YellowstonePathology.UI.Login
         {
             this.DialogResult = false;
 
-            if (this.m_ClientId != 0)
+            if (this.m_AccessionOrder.ClientId != 0)
             {
-				YellowstonePathology.Business.Client.Model.Client client = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientByClientId(this.m_ClientId);
+				YellowstonePathology.Business.Client.Model.Client client = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientByClientId(this.m_AccessionOrder.ClientId);
 				string letterBody = this.TextBoxLetterBody.Text;
+				
+                Business.Test.MissingInformation.MissingInformationWordDocument missingInformationWordDocument = new Business.Test.MissingInformation.MissingInformationWordDocument(this.m_AccessionOrder, this.m_PanelSetOrder, Business.Document.ReportSaveModeEnum.Normal, letterBody);
+                missingInformationWordDocument.Render();									
 
-				if (this.m_FormatBold)
-				{
-					MissingSignatureLetterBody missingSignatureLetterBody = new MissingSignatureLetterBody();
-					StringBuilder body = new StringBuilder();
-					letterBody = missingSignatureLetterBody.GetLetterBodyForFax(this.m_TestName);
-					YellowstonePathology.Business.Document.ClientLetterBold clientLetterBold = new YellowstonePathology.Business.Document.ClientLetterBold();
-					clientLetterBold.Create(this.m_PatientNameWithBirthDate, this.m_ProviderName, client, letterBody);
-				}
-				else
-				{
-					YellowstonePathology.Business.Document.ClientLetter clientLetter = new YellowstonePathology.Business.Document.ClientLetter();
-					clientLetter.Create(this.m_PatientNameWithBirthDate, client, letterBody);
-				}
-
-                YellowstonePathology.Business.ReportDistribution.Model.FaxSubmission.Submit(client.Fax, "Missing Information", YellowstonePathology.Properties.Settings.Default.ClientMissingInformationLetterFileName);                				
-
-				if (string.IsNullOrEmpty(this.m_InfoEventComment.ToString()) == false)
-				{
-					YellowstonePathology.Business.Domain.OrderCommentLog.LogEvent(this.m_SpecimenLogId, m_MasterAccessionNo,
-						this.m_InfoEventComment.ToString(), this.m_SystemIdentity.User, YellowstonePathology.Business.Domain.OrderCommentEnum.CytologyLogFaxSentRequestingInformation);
-				}
-
-				if (string.IsNullOrEmpty(this.m_AbnEventComment.ToString()) == false)
-				{
-					YellowstonePathology.Business.Domain.OrderCommentLog.LogEvent(this.m_SpecimenLogId, m_MasterAccessionNo,
-						this.m_AbnEventComment.ToString(), this.m_SystemIdentity.User, YellowstonePathology.Business.Domain.OrderCommentEnum.CytologyLogFaxSentRequestingABN);
-				}                
+                YellowstonePathology.Business.ReportDistribution.Model.FaxSubmission.Submit(client.Fax, "Missing Information", YellowstonePathology.Properties.Settings.Default.ClientMissingInformationLetterFileName);                								               
             }
             else
             {
@@ -141,22 +105,7 @@ namespace YellowstonePathology.UI.Login
         {
             this.DialogResult = false;
             this.Close();
-        }
-
-        private void ButtonClientSearch_Click(object sender, RoutedEventArgs e)
-        {
-            //YellowstonePathology.Depricated.Client.ClientSearch clientSearch = new YellowstonePathology.Depricated.Client.ClientSearch();            
-            /*
-			Client.ClientSearch clientSearch = new Client.ClientSearch();
-            clientSearch.ShowDialog();
-            if (clientSearch.DialogResult == System.Windows.Forms.DialogResult.OK)
-            {
-                this.m_ClientId = clientSearch.GetSelectedClientId();
-                this.m_ClientName = clientSearch.GetSelectedClientName();
-                this.NotifyPropertyChanged("");
-            }
-            */           
-        }
+        }        
 
 		private void AppendToEventDescription(StringBuilder stringBuilder, string msg)
 		{
@@ -261,8 +210,7 @@ namespace YellowstonePathology.UI.Login
 			if (this.m_TestName.Length > 0)
 			{
 				MissingSignatureLetterBody missingSignatureLetterBody = new MissingSignatureLetterBody();
-				missingSignatureLetterBody.GetLetterBody(result, this.m_TestName, this.m_PatientNameWithBirthDate, this.m_ProviderName);
-				this.m_FormatBold = true;
+				missingSignatureLetterBody.GetLetterBody(result, this.m_TestName, this.m_PatientNameWithBirthDate, this.m_AccessionOrder.PhysicianName);				
 			}
 			return res;
 		}

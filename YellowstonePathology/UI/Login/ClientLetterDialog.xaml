@@ -73,8 +73,7 @@
         <TextBox Name="TextBoxLetterBody"  Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Margin="2,2,2,2" AcceptsReturn="True"
                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="Wrap" FontSize="12"></TextBox>        
         
-        <StackPanel Orientation="Horizontal" Margin="2,2,2,2" Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" HorizontalAlignment="Right">            
-            <Button Name="ButtonClientSearch" Click="ButtonClientSearch_Click" Width="100" Height="40" Margin="2,2,2,2">Client Search</Button>
+        <StackPanel Orientation="Horizontal" Margin="2,2,2,2" Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" HorizontalAlignment="Right">                        
             <Button Name="ButtonCreateLetterBody" Click="ButtonCreateLetterBody_Click" Width="100" Height="40" Margin="2,2,2,2">Create Letter</Button>
             <Button Name="ButtonFaxLetter" Click="ButtonFaxLetter_Click" Width="100" Height="40" Margin="2,2,2,2">Fax Letter</Button>
             <Button Name="ButtonCancel" Click="ButtonCancel_Click" Width="100" Height="40" Margin="2,2,2,2">Cancel</Button>
