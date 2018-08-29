@@ -193,7 +193,6 @@ namespace YellowstonePathology.Business.Client.Model
 				{
 					this.m_Telephone = value;
 					this.NotifyPropertyChanged("Telephone");
-                    this.NotifyPropertyChanged("FormattedTelephone");
                 }
 			}
 		}
@@ -224,7 +223,6 @@ namespace YellowstonePathology.Business.Client.Model
 				{
 					this.m_Fax = value;
 					this.NotifyPropertyChanged("Fax");
-                    this.NotifyPropertyChanged("FormattedFax");
                 }
 			}
 		}
@@ -394,29 +392,45 @@ namespace YellowstonePathology.Business.Client.Model
             }
         }
 
-        public string FormattedTelephone
+        /*public string FormattedTelephone
         {
             get
             {
-                string result = string.Empty;
-                if (string.IsNullOrEmpty(this.m_Telephone) == false && this.m_Telephone.Length == 10)
-                {
-                    result = "(" + m_Telephone.Substring(0, 3) + ") " + m_Telephone.Substring(3, 3) + "-" + m_Telephone.Substring(6, 4);
-                }
-                return result;
-            }            
+                return YellowstonePathology.Business.Helper.PhoneNumberHelper.FormatWithDashes(this.m_Telephone);
+            }
         }
 
         public string FormattedFax
         {
             get
-            {                
-                string result = string.Empty;
-                if (string.IsNullOrEmpty(this.m_Fax) == false && this.m_Fax.Length == 10)
+            {
+                return YellowstonePathology.Business.Helper.PhoneNumberHelper.FormatWithDashes(this.m_Fax);
+            }
+        }*/
+
+        public string TelephoneProxy
+        {
+            get { return YellowstonePathology.Business.Helper.PhoneNumberHelper.CorrectPhoneNumber(this.m_Telephone); }
+            set
+            {
+                if (this.m_Telephone != value)
                 {
-                    result = "(" + m_Fax.Substring(0, 3) + ") " + m_Fax.Substring(3, 3) + "-" + m_Fax.Substring(6, 4);
+                    this.m_Telephone = YellowstonePathology.Business.Helper.PhoneNumberHelper.CorrectPhoneNumber(value);
+                    this.NotifyPropertyChanged("TelephoneProxy");
                 }
-                return result;             
+            }
+        }
+
+        public string FaxProxy
+        {
+            get { return YellowstonePathology.Business.Helper.PhoneNumberHelper.CorrectPhoneNumber(this.m_Fax); }
+            set
+            {
+                if (this.m_Fax != value)
+                {
+                    this.m_Fax = YellowstonePathology.Business.Helper.PhoneNumberHelper.CorrectPhoneNumber(value);
+                    this.NotifyPropertyChanged("FaxProxy");
+                }
             }
         }
 

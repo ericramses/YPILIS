@@ -229,7 +229,7 @@
                             <GridViewColumn DisplayMemberBinding="{Binding Path=PhysicianName}" Header="Physician" Width="200"/>
                             <GridViewColumn DisplayMemberBinding="{Binding Path=ClientName}" Header="Client" Width="200"/>
                             <GridViewColumn DisplayMemberBinding="{Binding Path=DistributionType}" Header="Type" Width="100"/>
-                            <GridViewColumn DisplayMemberBinding="{Binding Path=FaxNumber, StringFormat={}{0:(###)###-####}}" Header="Fax" Width="120"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=FaxNumber, Converter={StaticResource PhoneNumberConverter}}" Header="Fax" Width="120"/>
                             <GridViewColumn DisplayMemberBinding="{Binding Path=Distributed}" Header="Distributed" Width="100"/>
                             <GridViewColumn DisplayMemberBinding="{Binding Path=TimeOfLastDistribution, StringFormat=MM/dd/yyyy HH:mm}" Header="Last" Width="100"/>
                             <GridViewColumn DisplayMemberBinding="{Binding Path=ScheduledDistributionTime, StringFormat=MM/dd/yyyy HH:mm}" Header="Schedule" Width="120"/>

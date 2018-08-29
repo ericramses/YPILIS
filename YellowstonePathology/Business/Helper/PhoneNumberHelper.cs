@@ -16,5 +16,24 @@ namespace YellowstonePathology.Business.Helper
             }
             return result;
         }
+
+        public static string CorrectPhoneNumber(string numberIn)
+        {
+            string result = numberIn;
+
+            if (string.IsNullOrEmpty(result) == true) return numberIn;
+
+            result = result.Replace("(", "");
+            result = result.Replace(")", "");
+            result = result.Replace("-", "");
+            result = result.Replace(" ", "");
+
+            if (result.Length == 10 || result.Length == 7) return result;
+            if (result.Length == 11 && result[0] == '1') return result.Remove(0, 1);
+            if (result.Length == 11 && result[0] == '9') return result.Remove(0, 1);
+            if (result.Length == 12 && result[0] == '9' && result[1] == '1') return result.Remove(0, 2);
+
+            return result;
+        }
     }
 }

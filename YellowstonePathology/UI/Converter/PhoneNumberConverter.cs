@@ -29,6 +29,7 @@ namespace YellowstonePathology.UI.Converter
             phoneNumber = phoneNumber.Replace(")", "");
             phoneNumber = phoneNumber.Replace("(", "");
             phoneNumber = phoneNumber.Replace("-", "");
+            phoneNumber = phoneNumber.Replace(" ", "");
             return phoneNumber;
         }
     }
