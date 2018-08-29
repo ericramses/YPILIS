@@ -23,7 +23,7 @@ namespace YellowstonePathology.Business.Document
             this.m_ReportXml.Load(m_TemplateName);            
 
             this.ReplaceText("client_name", client.ClientName);
-            this.ReplaceText("fax_number", YellowstonePathology.Business.Domain.PhoneNumber.Format(client.Fax));
+            this.ReplaceText("fax_number", YellowstonePathology.Business.Helper.PhoneNumberHelper.FormatWithDashes(client.Fax));
             this.ReplaceText("current_date", DateTime.Today.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
             this.ReplaceText("patient_name", patientName);
 

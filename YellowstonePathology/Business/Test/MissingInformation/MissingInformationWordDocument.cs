@@ -24,7 +24,7 @@ namespace YellowstonePathology.Business.Test.MissingInformation
 
             Business.Client.Model.Client client = Business.Gateway.PhysicianClientGateway.GetClientByClientId(this.m_AccessionOrder.ClientId);
             this.ReplaceText("client_name", this.m_AccessionOrder.ClientName);
-            this.ReplaceText("fax_number", YellowstonePathology.Business.Domain.PhoneNumber.Format(client.Fax));
+            this.ReplaceText("fax_number", YellowstonePathology.Business.Helper.PhoneNumberHelper.FormatWithDashes(client.Fax));
             this.ReplaceText("current_date", DateTime.Today.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
             this.ReplaceText("patient_name", this.m_AccessionOrder.PatientDisplayName);
             this.SetXMLNodeParagraphData("letter_body", this.m_LetterBody);
