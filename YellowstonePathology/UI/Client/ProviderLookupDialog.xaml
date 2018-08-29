@@ -30,8 +30,8 @@
 						<ListView.View>
 							<GridView>								
 								<GridViewColumn Header="Name" Width="350" DisplayMemberBinding="{Binding Path=Physician.DisplayName}" />                                
-                                <GridViewColumn Header="Phone" Width="130" DisplayMemberBinding="{Binding Path=Client.FormattedTelephone}" />
-                                <GridViewColumn Header="Fax" Width="130" DisplayMemberBinding="{Binding Path=Client.FormattedFax}" />
+                                <GridViewColumn Header="Phone" Width="130" DisplayMemberBinding="{Binding Path=Client.Telephone, Converter={StaticResource PhoneNumberConverter}}" />
+                                <GridViewColumn Header="Fax" Width="130" DisplayMemberBinding="{Binding Path=Client.Fax, Converter={StaticResource PhoneNumberConverter}}" />
                             </GridView>
 						</ListView.View>
 					</ListView>
@@ -68,8 +68,8 @@
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Client Name" Width="300" DisplayMemberBinding="{Binding Path=ClientName}" />
-                                <GridViewColumn Header="Phone" Width="130" DisplayMemberBinding="{Binding Path=FormattedTelephone}" />
-                                <GridViewColumn Header="Fax" Width="130" DisplayMemberBinding="{Binding Path=FormattedFax}" />
+                                <GridViewColumn Header="Phone" Width="130" DisplayMemberBinding="{Binding Path=Telephone, Converter={StaticResource PhoneNumberConverter}}" />
+                                <GridViewColumn Header="Fax" Width="130" DisplayMemberBinding="{Binding Path=Fax, Converter={StaticResource PhoneNumberConverter}}" />
                             </GridView>
                         </ListView.View>
                     </ListView>
@@ -127,7 +127,7 @@
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Name" Width="400" DisplayMemberBinding="{Binding Path=FacilityName}" />
-                                <GridViewColumn Header="Phone" Width="130" DisplayMemberBinding="{Binding Path=PhoneNumber}" />
+                                <GridViewColumn Header="Phone" Width="130" DisplayMemberBinding="{Binding Path=PhoneNumber, Converter={StaticResource PhoneNumberConverter}}" />
                                 <GridViewColumn Header="Email" Width="200" DisplayMemberBinding="{Binding Path=EmailAddress}" />
                             </GridView>
                         </ListView.View>

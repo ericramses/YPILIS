@@ -697,7 +697,6 @@
     <Compile Include="Business\Domain\Patient.cs" />
     <Compile Include="Business\Domain\PatientHistory.cs" />
     <Compile Include="Business\Domain\PatientHistoryResult.cs" />
-    <Compile Include="Business\Domain\PhoneNumber.cs" />
     <Compile Include="Business\Domain\Physician.cs" />
     <Compile Include="Business\Domain\PhysicianClient.cs" />
     <Compile Include="Business\Domain\PhysicianClientCollection.cs" />
