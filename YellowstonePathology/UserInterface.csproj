@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>171</ApplicationRevision>
+    <ApplicationRevision>175</ApplicationRevision>
     <ApplicationVersion>10.1.12.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -959,6 +959,7 @@
     <Compile Include="Business\Label.Model\RawPrinterHelper.cs" />
     <Compile Include="Business\LevenshteinDistance.cs" />
     <Compile Include="Business\ListItem.cs" />
+    <Compile Include="Business\LocalPhonePrefix.cs" />
     <Compile Include="Business\Logging\EmailExceptionHandler.cs" />
     <Compile Include="Business\Logging\ScanLogger.cs" />
     <Compile Include="Business\MasterAccessionNo.cs" />
