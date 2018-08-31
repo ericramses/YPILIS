@@ -27,72 +27,49 @@ namespace YellowstonePathology.UI.Redis
         {
             InitializeComponent();
             DataContext = this;
-            Loaded += StoreSelection_Loaded;
-        }
-
-        private void StoreSelection_Loaded(object sender, RoutedEventArgs e)
-        {
-            string name = System.Environment.MachineName;
-            if(name.ToUpper() == "WILLIAMCOPLAND")
-            {
-                this.TextBoxPath.Text = @"C:\Git\William\openlis\ap-app-data\data";
-            }
-            this.CheckBoxCPTCode.IsChecked = true;
-            this.CheckBoxICDCode.IsChecked = true;
-            this.CheckBoxDictationTemplate.IsChecked = true;
-            this.CheckBoxSpecimen.IsChecked = true;
-            this.CheckBoxStain.IsChecked = true;
         }
 
         private void ButtonSave_Click(object sender, RoutedEventArgs e)
         {
-            bool saved = false;
             string basePath = this.TextBoxPath.Text;
             if (this.CanSave(basePath) == true)
             {
                 if (this.CheckBoxCPTCode.IsChecked == true)
                 {
                     string path = basePath + @"\cpt-codes";
+                    if (Directory.Exists(path) == false) Directory.CreateDirectory(path);
                     this.HandleJSON(YellowstonePathology.Store.AppDBNameEnum.CPTCode, "code", path);
-                    saved = true;
                 }
 
                 if (this.CheckBoxICDCode.IsChecked == true)
                 {
                     string path = basePath + @"\icd-codes";
+                    if (Directory.Exists(path) == false) Directory.CreateDirectory(path);
                     this.HandleJSON(YellowstonePathology.Store.AppDBNameEnum.ICDCode, "code", path);
-                    saved = true;
                 }
 
                 if (this.CheckBoxDictationTemplate.IsChecked == true)
                 {
                     string path = basePath + @"\dictation-template";
+                    if (Directory.Exists(path) == false) Directory.CreateDirectory(path);
                     this.HandleJSON(YellowstonePathology.Store.AppDBNameEnum.DictationTemplate, "templateId", path);
-                    saved = true;
                 }
 
                 if (this.CheckBoxSpecimen.IsChecked == true)
                 {
                     string path = basePath + @"\specimen";
+                    if (Directory.Exists(path) == false) Directory.CreateDirectory(path);
                     this.HandleJSON(YellowstonePathology.Store.AppDBNameEnum.Specimen, "specimenId", path);
-                    saved = true;
                 }
 
                 if (this.CheckBoxStain.IsChecked == true)
                 {
                     string path = basePath + @"\stains";
+                    if (Directory.Exists(path) == false) Directory.CreateDirectory(path);
                     this.HandleJSON(YellowstonePathology.Store.AppDBNameEnum.Stain, "stainId", path);
-                    saved = true;
                 }
 
-                if (saved == true)
-                {
-                    MessageBox.Show("All selected data was written to file.");
-                }
-                else
-                {
-                    MessageBox.Show("Nothing selected to save.");
-                }
+                MessageBox.Show("All selected data was written to file.");
             }
         }
 
