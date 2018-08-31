@@ -94,7 +94,6 @@ namespace YellowstonePathology.UI.Stain
                 }
                 Business.Stain.Model.StainCollection.Save(this.m_Stain);
                 string stainText = this.m_Stain.ToJSON();
-                File.WriteAllText(this.TextBoxFilePath.Text + @"\" + this.m_Stain.StainId + ".json", stainText);
                 Close();
             }
             else
@@ -115,17 +114,8 @@ namespace YellowstonePathology.UI.Stain
                     result.Message = "The Ventana BenchMark Id must be a number greater than 0.";
                 }
             }
-            if (string.IsNullOrEmpty(this.TextBoxFilePath.Text) == true)
-            {
-                result.Success = false;
-                result.Message = "Select a folder in which to save the .json file.";
-            }
-            else if (Directory.Exists(this.TextBoxFilePath.Text) == false)
-            {
-                result.Success = false;
-                result.Message = "The selected folder does not exist.";
-            }
-            if(string.IsNullOrEmpty(this.m_Stain.StainId) == true)
+
+            if (string.IsNullOrEmpty(this.m_Stain.StainId) == true)
             {
                 if (YellowstonePathology.Business.Stain.Model.StainCollection.Instance.Exists(id) == true)
                 {
@@ -154,13 +144,6 @@ namespace YellowstonePathology.UI.Stain
             regex = new Regex(pattern);
             result = regex.Replace(result, "");
             return result;
-        }
-
-        private void ButtonSelectFilePath_Click(object sender, RoutedEventArgs e)
-        {
-            System.Windows.Forms.FolderBrowserDialog dlg = new System.Windows.Forms.FolderBrowserDialog();
-            dlg.ShowDialog();
-            this.TextBoxFilePath.Text = dlg.SelectedPath;
         }
     }
 }

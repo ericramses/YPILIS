@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Serialization;
 
 namespace YellowstonePathology.UI.Redis
 {
@@ -22,77 +23,85 @@ namespace YellowstonePathology.UI.Redis
     /// </summary>
     public partial class StoreSelection : Window
     {
-        List<string> m_RedisDatabases;
-
         public StoreSelection()
         {
-            this.m_RedisDatabases = new List<string>();
-            foreach (string name in Enum.GetNames(typeof(YellowstonePathology.Store.AppDBNameEnum)))
-            {
-                this.m_RedisDatabases.Add(name);
-            }
-
             InitializeComponent();
             DataContext = this;
+            Loaded += StoreSelection_Loaded;
         }
 
-        public List<string> RedisDatabases
+        private void StoreSelection_Loaded(object sender, RoutedEventArgs e)
         {
-            get { return this.m_RedisDatabases; }
-        }
-
-        private void ListViewRedisDatabases_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-
+            string name = System.Environment.MachineName;
+            if(name.ToUpper() == "WILLIAMCOPLAND")
+            {
+                this.TextBoxPath.Text = @"C:\Git\William\openlis\ap-app-data\data";
+            }
+            this.CheckBoxCPTCode.IsChecked = true;
+            this.CheckBoxICDCode.IsChecked = true;
+            this.CheckBoxDictationTemplate.IsChecked = true;
+            this.CheckBoxSpecimen.IsChecked = true;
+            this.CheckBoxStain.IsChecked = true;
         }
 
         private void ButtonSave_Click(object sender, RoutedEventArgs e)
         {
-            if(this.ListViewRedisDatabases.SelectedItems.Count > 0)
+            bool saved = false;
+            string basePath = this.TextBoxPath.Text;
+            if (this.CanSave(basePath) == true)
             {
-                foreach(string name in this.ListViewRedisDatabases.SelectedItems)
+                if (this.CheckBoxCPTCode.IsChecked == true)
                 {
-                    YellowstonePathology.Store.AppDBNameEnum db;
-                    if(Enum.TryParse<YellowstonePathology.Store.AppDBNameEnum>(name, out db) == true)
-                    {
-                       switch(db)
-                        {
-                            case YellowstonePathology.Store.AppDBNameEnum.CPTCode:
-                                this.HandleJSON(db, "code");
-                                break;
-                            case YellowstonePathology.Store.AppDBNameEnum.Lock:
-                                this.HandleHash(db);
-                                break;
-                            case YellowstonePathology.Store.AppDBNameEnum.ICDCode:
-                                this.HandleJSON(db, "code");
-                                break;
-                            //case YellowstonePathology.Store.AppDBNameEnum.PQRS:
-                            //    break;
-                            case YellowstonePathology.Store.AppDBNameEnum.Stain:
-                                this.HandleJSON(db, "stainId");
-                                break;
-                            case YellowstonePathology.Store.AppDBNameEnum.VantageSlide:
-                                this.HandleJSON(db, "VantageSlideId");
-                                break;
-                            case YellowstonePathology.Store.AppDBNameEnum.EmbeddingScan:
-                                this.HandleHash(db);
-                                break;
-                            case YellowstonePathology.Store.AppDBNameEnum.BozemanBlockCount:
-                                this.HandleString(db);
-                                break;
-                            case YellowstonePathology.Store.AppDBNameEnum.Specimen:
-                                this.HandleJSON(db, "specimenId");
-                                break;
-                            case YellowstonePathology.Store.AppDBNameEnum.DictationTemplate:
-                                this.HandleJSON(db, "dictationTemplateId");
-                                break;
-                            default:
-                                MessageBox.Show("This database is not handled at this time.");
-                                break;
-                        }
-                    }
+                    string path = basePath + @"\cpt-codes";
+                    this.HandleJSON(YellowstonePathology.Store.AppDBNameEnum.CPTCode, "code", path);
+                    saved = true;
+                }
+
+                if (this.CheckBoxICDCode.IsChecked == true)
+                {
+                    string path = basePath + @"\icd-codes";
+                    this.HandleJSON(YellowstonePathology.Store.AppDBNameEnum.ICDCode, "code", path);
+                    saved = true;
+                }
+
+                if (this.CheckBoxDictationTemplate.IsChecked == true)
+                {
+                    string path = basePath + @"\dictation-template";
+                    this.HandleJSON(YellowstonePathology.Store.AppDBNameEnum.DictationTemplate, "templateId", path);
+                    saved = true;
+                }
+
+                if (this.CheckBoxSpecimen.IsChecked == true)
+                {
+                    string path = basePath + @"\specimen";
+                    this.HandleJSON(YellowstonePathology.Store.AppDBNameEnum.Specimen, "specimenId", path);
+                    saved = true;
+                }
+
+                if (this.CheckBoxStain.IsChecked == true)
+                {
+                    string path = basePath + @"\stains";
+                    this.HandleJSON(YellowstonePathology.Store.AppDBNameEnum.Stain, "stainId", path);
+                    saved = true;
+                }
+
+                if (saved == true)
+                {
+                    MessageBox.Show("All selected data was written to file.");
+                }
+                else
+                {
+                    MessageBox.Show("Nothing selected to save.");
                 }
             }
+        }
+
+        private void ButtonSelectPath_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Forms.FolderBrowserDialog dlg = new System.Windows.Forms.FolderBrowserDialog();
+            dlg.SelectedPath = @"C:\";
+            dlg.ShowDialog();
+            this.TextBoxPath.Text = dlg.SelectedPath;
         }
 
         private void ButtonOK_Click(object sender, RoutedEventArgs e)
@@ -100,29 +109,41 @@ namespace YellowstonePathology.UI.Redis
             Close();
         }
 
-        private void HandleJSON(YellowstonePathology.Store.AppDBNameEnum db, string keyField)
+        private bool CanSave(string path)
         {
-            /*Store.RedisDB redisDb = Store.AppDataStore.Instance.RedisStore.GetDB(db);
+            bool result = true;
+
+            if (string.IsNullOrEmpty(path) == true)
+            {
+                MessageBox.Show("Select a directory to store the files.");
+                result = false;
+            }
+            else if (Directory.Exists(path) == false)
+            {
+                MessageBox.Show("The directory " + path + " does not exist.");
+                result = false;
+            }
+
+            return result;
+        }
+
+        private void HandleJSON(YellowstonePathology.Store.AppDBNameEnum db, string keyField, string path)
+        {
+            JsonSerializerSettings camelCaseFormatter = new JsonSerializerSettings();
+            camelCaseFormatter.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            Store.RedisDB redisDb = Store.AppDataStore.Instance.RedisStore.GetDB(db);
             foreach (string jString in (string[])redisDb.GetAllJSONKeys())
             {
                 JObject jObject = JsonConvert.DeserializeObject<JObject>(jString);
-                string fileName = jObject[keyField].ToString() +".json";
-                using (StreamWriter sw = new StreamWriter(@"C:\Test\" + fileName, false))
+                string name = jObject[keyField].ToString().ToLower();
+                if (string.IsNullOrEmpty(name) == true) name = "nullId";
+                string fileName = name + ".json";
+                using (StreamWriter sw = new StreamWriter(path + @"\" + fileName, false))
                 {
-                    sw.Write(jString);
+                    string formatted = JsonConvert.SerializeObject(jObject, Formatting.Indented, camelCaseFormatter);
+                    sw.Write(formatted);
                 }
-            }*/
-
-        }
-
-        private void HandleHash(YellowstonePathology.Store.AppDBNameEnum db)
-        {
-
-        }
-
-        private void HandleString(YellowstonePathology.Store.AppDBNameEnum db)
-        {
-
+            }
         }
     }
 }
