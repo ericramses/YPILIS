@@ -18,8 +18,8 @@ namespace YellowstonePathology.Business.Gateway
             Business.Monitor.Model.BlockCountCollection result = new Monitor.Model.BlockCountCollection();
 
             MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "prcGetMonitorBlockCount";
-            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "Select * from tblBlockCount where BlockCountDate > date_add(curdate(), interval -10 day) order by BlockCountDate desc;";
+            cmd.CommandType = CommandType.Text;
 
             using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
@@ -30,14 +30,30 @@ namespace YellowstonePathology.Business.Gateway
                     while (dr.Read())
                     {
                         Business.Monitor.Model.BlockCount blockCount = new Monitor.Model.BlockCount();
-                        blockCount.Date = DateTime.Parse(dr["Date"].ToString());
-                        blockCount.YPIBlocks = Convert.ToInt32(dr["Count"]);
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(blockCount, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
                         result.Add(blockCount);
                     }
                 }
             }
 
             return result;
+        }
+
+        public static void SetBlockCounts(DateTime bozemanCountDate, int bozemanBlockCount)
+        {
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "prcSetBlockCount";
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("BozemanCountDate", bozemanCountDate);
+            cmd.Parameters.AddWithValue("BozemanBlockCount", bozemanBlockCount);
+
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                cmd.ExecuteNonQuery();
+            }
         }
 
         public static Business.ReportNoCollection GetSurgicalFinal(DateTime finalDate)

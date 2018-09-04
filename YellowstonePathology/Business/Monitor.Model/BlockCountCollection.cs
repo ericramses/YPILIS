@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.Monitor.Model
             BlockCount result = null;
             foreach(BlockCount bc in this)
             {
-                if (bc.Date == date)
+                if (bc.BlockCountDate == date)
                 {
                     result = bc;
                     break;
@@ -32,7 +32,7 @@ namespace YellowstonePathology.Business.Monitor.Model
             bool result = false;
             foreach (BlockCount bc in this)
             {
-                if (bc.Date == date)
+                if (bc.BlockCountDate == date)
                 {
                     result = true;
                     break;
@@ -40,37 +40,5 @@ namespace YellowstonePathology.Business.Monitor.Model
             }
             return result;
         }
-
-        public void Load()
-        {
-            Business.Monitor.Model.BlockCountCollection ypiBlocks = Business.Gateway.AccessionOrderGateway.GetMonitorBlockCount();
-            Business.Monitor.Model.BlockCountCollection bzBlocks = new BlockCountCollection();
-
-            Store.RedisDB db = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.BozemanBlockCount);            
-            string[] results = db.GetAllStrings();
-            foreach (string result in results)
-            {
-                string[] spaceSplit = result.Split(' ');
-                BlockCount block = new Model.BlockCount();
-                var formatedDate = spaceSplit[0].Substring(4, 2) + "/" + spaceSplit[0].Substring(6, 2) + "/" + spaceSplit[0].Substring(0, 4);
-                block.Date = DateTime.Parse(formatedDate);
-                block.BozemanBlocks = Convert.ToInt32(spaceSplit[1]);
-                bzBlocks.Add(block);
-            }
-
-            foreach(BlockCount ypi in ypiBlocks)
-            {
-                if(bzBlocks.ExistsByDate(ypi.Date) == true)
-                {
-                    BlockCount bz = bzBlocks.GetByDate(ypi.Date);
-                    ypi.BozemanBlocks = bz.BozemanBlocks;
-                }                
-            }
-
-            for(int i=ypiBlocks.Count - 1; i> ypiBlocks.Count - 7; i--)
-            {
-                this.Add(ypiBlocks[i]);
-            }
-        }        
     }
 }

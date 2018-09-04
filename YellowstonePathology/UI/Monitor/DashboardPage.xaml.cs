@@ -40,8 +40,7 @@ namespace YellowstonePathology.UI.Monitor
         public void Refresh()
         {            
             this.HandleBlockCountEmails();
-            this.m_BlockCountColletion = new Business.Monitor.Model.BlockCountCollection();
-            this.m_BlockCountColletion.Load();
+            this.m_BlockCountColletion = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMonitorBlockCount();
             this.NotifyPropertyChanged("");
         }        
 
@@ -70,17 +69,13 @@ namespace YellowstonePathology.UI.Monitor
 
         public void HandleBlockCountEmails()
         {
-            Nullable<int> blockCount = this.GetBozemanBlockCount();
-            if(blockCount.HasValue == true)
-            {
-                Store.RedisDB db = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.BozemanBlockCount);
-                db.DataBase.StringSet(DateTime.Today.ToString("yyyyMMdd"), blockCount.Value);
-            }
+            int blockCount = this.GetBozemanBlockCount();
+            YellowstonePathology.Business.Gateway.AccessionOrderGateway.SetBlockCounts(DateTime.Today, blockCount);
         }
 
-        public Nullable<int> GetBozemanBlockCount()
+        public int GetBozemanBlockCount()
         {
-            Nullable<int> blockCount = null;
+            int blockCount = 0;
             ServicePointManager.ServerCertificateValidationCallback = CertificateValidationCallBack;
             ExchangeService service = new ExchangeService(ExchangeVersion.Exchange2007_SP1);
             service.Credentials = new WebCredentials("ypiilab\\blockcount", "blockorama");
