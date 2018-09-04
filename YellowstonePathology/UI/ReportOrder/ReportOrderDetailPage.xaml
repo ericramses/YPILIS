@@ -111,10 +111,8 @@
 							SelectedValue="{Binding Path=PanelSetOrder.AssignedToId}" />
 
                 <TextBlock Grid.Column="0" Grid.Row="4" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" Text="Result Document Source:" />
-                <ComboBox Grid.Column="1" Grid.Row="4" Margin="2,2,2,2" HorizontalAlignment="Stretch" Text="{Binding Path=PanelSetOrder.ResultDocumentSource}">
-                    <ComboBoxItem>Ypi Database</ComboBoxItem>
-                    <ComboBoxItem>Reference Lab</ComboBoxItem>
-                    <ComboBoxItem>Published Document</ComboBoxItem>
+                <ComboBox Grid.Column="1" Grid.Row="4" Margin="2,2,2,2" HorizontalAlignment="Stretch" SelectedValue="{Binding Path=PanelSetOrder.ResultDocumentSource}"
+                          ItemsSource="{Binding Path=ResultDocumentSources}">
                 </ComboBox>
 
                 <TextBlock Grid.Column="0" Grid.Row="5" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" Text="Document Path:" />
