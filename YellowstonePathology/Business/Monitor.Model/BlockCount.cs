@@ -4,40 +4,44 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
+using YellowstonePathology.Business.Persistence;
 
 namespace YellowstonePathology.Business.Monitor.Model
 {
+    [PersistentClass("tblBlockCount", "YPIDATA")]
     public class BlockCount : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private DateTime m_Date;        
+        private DateTime m_BlockCountDate;        
         private int m_YPIBlocks;        
         private int m_BozemanBlocks;
 
         public BlockCount()
         {
 
-        }                  
+        }
 
-        public DateTime Date
+        [PersistentPrimaryKeyProperty(false)]
+        public DateTime BlockCountDate
         {
-            get { return this.m_Date; }
+            get { return this.m_BlockCountDate; }
             set
             {
-                if (this.m_Date != value)
+                if (this.m_BlockCountDate != value)
                 {
-                    this.m_Date = value;
-                    this.NotifyPropertyChanged("Date");
+                    this.m_BlockCountDate = value;
+                    this.NotifyPropertyChanged("BlockCountDate");
                 }
             }
         }    
         
         public string DateDisplayString
         {
-            get { return Date.DayOfWeek.ToString() + "-" + Date.Month + "/" + Date.Day;  }
-        }         
+            get { return BlockCountDate.DayOfWeek.ToString() + "-" + BlockCountDate.Month + "/" + BlockCountDate.Day;  }
+        }
 
+        [PersistentProperty()]
         public int YPIBlocks
         {
             get { return this.m_YPIBlocks; }
@@ -51,6 +55,7 @@ namespace YellowstonePathology.Business.Monitor.Model
             }
         }
 
+        [PersistentProperty()]
         public int BozemanBlocks
         {
             get { return this.m_BozemanBlocks; }
