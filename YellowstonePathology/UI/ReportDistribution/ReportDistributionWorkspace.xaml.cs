@@ -267,7 +267,10 @@ namespace YellowstonePathology.UI.ReportDistribution
             //try
             //{
                 caseDocument.Render();
-                if(panelSetOrder.ResultDocumentSource != "Reference Lab")
+
+                YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum resultDocumentSource;
+                bool hasEnum = Enum.TryParse<YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum>(panelSetOrder.ResultDocumentSource, out resultDocumentSource);
+                if(hasEnum == true && resultDocumentSource != YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.PublishedDocument)
                 {
                     caseDocument.Publish();
                 }
