@@ -27,6 +27,8 @@ namespace YellowstonePathology.UI.ReportOrder
         private string m_ReportDocumentPath;
         private Login.Receiving.LoginPageWindow m_LoginPageWindow;
 
+        private List<string> m_ResultDocumentSources;
+
         public ReportOrderDetailPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 		{			
             this.m_AccessionOrder = accessionOrder;
@@ -38,7 +40,13 @@ namespace YellowstonePathology.UI.ReportOrder
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
 			this.m_ReportDocumentPath = YellowstonePathology.Business.Document.CaseDocument.GetCaseFileNamePDF(orderIdParser);
 
-			InitializeComponent();
+            this.m_ResultDocumentSources = new List<string>();
+            this.m_ResultDocumentSources.Add(YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase.ToString());
+            this.m_ResultDocumentSources.Add(YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.PublishedDocument.ToString());
+            this.m_ResultDocumentSources.Add(YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.RetiredTestDocument.ToString());
+            this.m_ResultDocumentSources.Add(YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.None.ToString());
+
+            InitializeComponent();
 
 			DataContext = this;         
             this.Closing += new System.ComponentModel.CancelEventHandler(ReportOrderDetailPage_Closing);
@@ -84,6 +92,11 @@ namespace YellowstonePathology.UI.ReportOrder
 		{
 			get { return this.m_FacilityCollection; }
 		}
+
+        public List<string> ResultDocumentSources
+        {
+            get { return this.m_ResultDocumentSources; }
+        }
 
 		private void ButtonOK_Click(object sender, RoutedEventArgs e)
 		{
