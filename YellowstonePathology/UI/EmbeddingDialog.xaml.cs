@@ -154,7 +154,7 @@ namespace YellowstonePathology.UI
                 {
                     YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = (YellowstonePathology.Business.Test.AliquotOrder)this.ListViewHoldList.SelectedItem;                    
                     YellowstonePathology.Business.Test.AliquotOrder dbAliquotOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAliquotOrder(aliquotOrder.AliquotOrderId, this);
-                    dbAliquotOrder.Status = null;                    
+                    dbAliquotOrder.Status = "Created";                    
 
                     YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
                     this.m_AliquotOrderHoldCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAliquotOrderHoldCollection();
