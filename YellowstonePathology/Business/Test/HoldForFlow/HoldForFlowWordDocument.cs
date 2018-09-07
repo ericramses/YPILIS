@@ -19,7 +19,7 @@ namespace YellowstonePathology.Business.Test.HoldForFlow
             HoldForFlowTestOrder holdForFlowTestOrder = (HoldForFlowTestOrder)this.m_PanelSetOrder;
             this.m_PanelSetOrder = holdForFlowTestOrder;
 
-            this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\HoldForFlow.1.xml";
+            this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\HoldForFlow.2.xml";
             base.OpenTemplate();
 
             base.SetDemographicsV2();

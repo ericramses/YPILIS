@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.Test.MissingInformation
 
         public override void Render()
 		{                        
-			base.m_TemplateName = @"\\CFileServer\documents\ReportTemplates\XmlTemplates\ClientMissingInfoFax.xml";
+			base.m_TemplateName = @"\\CFileServer\documents\ReportTemplates\XmlTemplates\ClientMissingInfoFax.1.xml";
             base.OpenTemplate();
 			this.SetDemographicsV2();
 

@@ -7,7 +7,7 @@ namespace YellowstonePathology.Business.Test.StemCellEnumeration
 {
 	public class StemCellEnumerationWordDocument : YellowstonePathology.Business.Document.CaseReport
     {        
-        string m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\StemCellEnumeration.7.xml";        
+        string m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\StemCellEnumeration.1.xml";        
 		YellowstonePathology.Business.Flow.FlowMarkerPanelList m_PanelList;		
 
         public StemCellEnumerationWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
