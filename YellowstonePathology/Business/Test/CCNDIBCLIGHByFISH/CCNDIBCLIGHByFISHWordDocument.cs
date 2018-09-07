@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Test.CCNDIBCLIGHByFISH
 		{			
 			CCNDIBCLIGHByFISHTestOrder panelSetOrderCCNDIBCLIGH = (CCNDIBCLIGHByFISHTestOrder)this.m_PanelSetOrder;
 
-			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\CCNDIBCLIGHByFISH.1.xml";
+			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\CCNDIBCLIGHByFISH.2.xml";
 			base.OpenTemplate();
 
 			this.SetDemographicsV2();

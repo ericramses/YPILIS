@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business.Test.ChromosomeAnalysis
 		{			
 			ChromosomeAnalysisTestOrder panelSetOrderChromosomeAnalysis = (ChromosomeAnalysisTestOrder)this.m_PanelSetOrder;
 
-			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\ChromosomeAnalysis.2.xml";
+			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\ChromosomeAnalysis.3.xml";
 			base.OpenTemplate();
 
 			this.SetDemographicsV2();

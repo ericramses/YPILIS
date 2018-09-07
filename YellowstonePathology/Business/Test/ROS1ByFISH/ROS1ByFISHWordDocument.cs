@@ -15,7 +15,7 @@ namespace YellowstonePathology.Business.Test.ROS1ByFISH
 
         public override void Render()
 		{			
-			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\ROS1ByFISH.1.xml";
+			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\ROS1ByFISH.2.xml";
 			base.OpenTemplate();
 
 			this.SetDemographicsV2();

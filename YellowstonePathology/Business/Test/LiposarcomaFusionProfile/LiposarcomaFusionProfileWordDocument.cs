@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.Test.LiposarcomaFusionProfile
         {
             LiposarcomaFusionProfileTestOrder panelSetOrder = (LiposarcomaFusionProfileTestOrder)this.m_PanelSetOrder;
 
-            this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\LiposarcomaFusionProfile.xml";
+            this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\LiposarcomaFusionProfile.1.xml";
             base.OpenTemplate();
 
             this.SetDemographicsV2();

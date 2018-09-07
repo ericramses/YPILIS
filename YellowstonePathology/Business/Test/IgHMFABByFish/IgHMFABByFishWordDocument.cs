@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.Test.IgHMFABByFish
         {
             IgHMFABByFishTestOrder panelSetOrder = (IgHMFABByFishTestOrder)this.m_PanelSetOrder;
 
-            this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\IgHMFABByFish.xml";
+            this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\IgHMFABByFish.1.xml";
             base.OpenTemplate();
 
             this.SetDemographicsV2();
