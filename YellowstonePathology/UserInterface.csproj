@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>175</ApplicationRevision>
+    <ApplicationRevision>182</ApplicationRevision>
     <ApplicationVersion>10.1.12.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -618,7 +618,6 @@
     </Compile>
     <Compile Include="Business\Document\CaseReportOtherCases.cs" />
     <Compile Include="Business\Document\CaseReportV2.cs" />
-    <Compile Include="Business\Document\ClientLetter.cs" />
     <Compile Include="Business\Document\ClientLetterBold.cs" />
     <Compile Include="Business\Document\ClientOrderCaseDocument.cs" />
     <Compile Include="Business\Document\DnaCycleTable.cs" />
@@ -2979,6 +2978,9 @@
     <Compile Include="UI\Gross\SpecimenSelectionPage.xaml.cs">
       <DependentUpon>SpecimenSelectionPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Login\ClientFaxPage.xaml.cs">
+      <DependentUpon>ClientFaxPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Monitor\DashboardPage.xaml.cs">
       <DependentUpon>DashboardPage.xaml</DependentUpon>
     </Compile>
@@ -3819,9 +3821,6 @@
     </Compile>
     <Compile Include="UI\CustomEventArgs\ClientOrderDetailReturnEventArgs.cs" />
     <Compile Include="UI\CustomEventArgs\ReportNoReturnEventArgs.cs" />
-    <Compile Include="UI\Login\ClientFaxPage.xaml.cs">
-      <DependentUpon>ClientFaxPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UI\Login\SpecialInstructionsWindow.xaml.cs">
       <DependentUpon>SpecialInstructionsWindow.xaml</DependentUpon>
     </Compile>
@@ -4503,9 +4502,6 @@
     <Compile Include="UI\Cytology\SpecimenAdequacyDialog.xaml.cs">
       <DependentUpon>SpecimenAdequacyDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Login\ClientLetterDialog.xaml.cs">
-      <DependentUpon>ClientLetterDialog.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UI\CustomControls\CloseableTabItem.cs" />
     <Compile Include="UI\CustomControls\MainMenuButton.cs" />
     <Compile Include="UI\CustomControls\SpecimenControl.cs" />
@@ -5002,6 +4998,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\AppMessaging\MessagingDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Login\ClientFaxPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -5700,10 +5700,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Login\ClientFaxPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="UI\Login\SpecialInstructionsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -6235,12 +6231,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\Cytology\SpecimenAdequacyDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\Login\ClientLetterDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <Generator>MSBuild:Compile</Generator>

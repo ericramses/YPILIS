@@ -27,7 +27,11 @@ namespace YellowstonePathology.UI.Test
             }
             else if(this.m_TestOrder.Final == true)
             {
-                if(this.m_TestOrder.Distribute == false)
+                if(this.m_TestOrder.AmendmentCollection.HasOpenAmendment() == true)
+                {
+                    this.m_DisableRequired = false;
+                }
+                else if(this.m_TestOrder.Distribute == false)
                 {
                     this.m_DisableRequired = true;
                 }

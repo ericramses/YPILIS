@@ -996,11 +996,16 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
+            int counter = 0;
+            string line;
 
-            Business.LocalPhonePrefix l = new Business.LocalPhonePrefix();
-            string result = l.HandleLongDistance("4067233328");
-
-            
+            System.IO.StreamReader file = new System.IO.StreamReader(@"c:\testing\phoneprefix.txt");
+            while ((line = file.ReadLine()) != null)
+            {
+                string [] lineSplit = line.Split(';');
+                Console.WriteLine("this.Add(\"" + lineSplit[1] + "\");");
+                counter++;
+            }
         }
 
         private void GetSlideNumberTest()

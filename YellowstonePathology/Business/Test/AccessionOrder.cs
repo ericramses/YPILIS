@@ -1545,6 +1545,14 @@ namespace YellowstonePathology.Business.Test
                     panelSetOrder.ProfessionalComponentFacilityId = buttePathology.FacilityId;
                     panelSetOrder.ProfessionalComponentBillingFacilityId = buttePathology.FacilityId;
                 }
+                else if(this.m_ClientId == 579)
+                {
+                    panelSetOrder.AssignedToId = 5088;  //tallman cases to emerick
+                    YellowstonePathology.Business.Facility.Model.Facility yp = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPBLGS");
+                    YellowstonePathology.Business.Facility.Model.Facility ypi = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
+                    panelSetOrder.ProfessionalComponentFacilityId = yp.FacilityId;
+                    panelSetOrder.ProfessionalComponentBillingFacilityId = ypi.FacilityId;
+                }
                 else
                 {
                     panelSetOrder.AssignedToId = 5143; //Assign to Dr. Morrison
