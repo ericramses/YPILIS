@@ -15,7 +15,7 @@ namespace YellowstonePathology.Business.Test.EGFRMutationAnalysis
 
         public override void Render()
 		{                        
-			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\EGFRMutationAnalysis.xml";
+			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\EGFRMutationAnalysis.1.xml";
 			base.OpenTemplate();
 
 			this.SetDemographicsV2();

@@ -15,7 +15,7 @@ namespace YellowstonePathology.Business.Test.NonHodgkinsLymphomaFISHPanel
 
         public override void Render()
 		{
-			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\NonHodgkinsLymphomaFISHPanel.1.xml";
+			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\NonHodgkinsLymphomaFISHPanel.2.xml";
 			base.OpenTemplate();
 
 			this.SetDemographicsV2();

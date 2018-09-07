@@ -20,7 +20,7 @@ namespace YellowstonePathology.Business.Test.TCellNKProfile
         {
             TCellNKProfileTestOrder testOrder = (TCellNKProfileTestOrder)this.m_PanelSetOrder;
 
-            this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\TCellNKProfile.2.xml";
+            this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\TCellNKProfile.3.xml";
 
             base.OpenTemplate();
 

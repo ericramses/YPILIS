@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.Test.MPNExtendedReflex
         public override void Render()
 		{			
 			YellowstonePathology.Business.Test.MPNExtendedReflex.MPNExtendedReflexResult mpnExtendedReflexResult = new Test.MPNExtendedReflex.MPNExtendedReflexResult(this.m_AccessionOrder);
-			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\MPNExtendedReflex.3.xml";
+			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\MPNExtendedReflex.1.xml";
 			base.OpenTemplate();
 
 			this.SetDemographicsV2();

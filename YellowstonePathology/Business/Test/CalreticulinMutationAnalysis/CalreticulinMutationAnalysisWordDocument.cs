@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Test.CalreticulinMutationAnalysis
 		{			
 			CalreticulinMutationAnalysisTestOrder reportOrderCalreticulinMutationAnalysis = (CalreticulinMutationAnalysisTestOrder)this.m_PanelSetOrder;
 
-			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\CalreticulinMutationAnalysis.1.xml";
+			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\CalreticulinMutationAnalysis.2.xml";
 			base.OpenTemplate();
 
 			this.SetDemographicsV2();
