@@ -35,6 +35,7 @@ using MongoDB.Bson;
 //using MongoDB.Driver.Builders;
 //using MongoDB.Driver.GridFS;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 //using MySql.Data.MySqlClient;
 using Grpc.Core;
 //using StackExchange.Redis;
@@ -85,12 +86,16 @@ namespace YellowstonePathology.UI
 
         private void ButtonBuildJson_Click(object sender, RoutedEventArgs e)
         {
-            /*Gross.DictationTemplateCollection templates = Gross.DictationTemplateCollection.GetAll();
-            using (StreamWriter sw = new StreamWriter(@"C:\ProgramData\ypi\lisdata\DictationTemplateCollection.json", false))
+            YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FTest test = new Business.Test.JAK2V617F.JAK2V617FTest();
+            var camelCaseFormatter = new JsonSerializerSettings();
+            camelCaseFormatter.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            string result = JsonConvert.SerializeObject(test, Newtonsoft.Json.Formatting.Indented, camelCaseFormatter);
+
+            using (StreamWriter sw = new StreamWriter(@"C:\ProgramData\ypi\lisdata\JAK2V617FTest.json", false))
             {
-                sw.Write(templates.ToJSON());
+                sw.Write(result);
             }
-            MessageBox.Show("Done");*/
+            MessageBox.Show("Done");
         }
 
         private void ButtonStainList_Click(object sender, RoutedEventArgs e)
