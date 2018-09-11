@@ -270,7 +270,20 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
                     this.NotifyPropertyChanged("RescheduledMessage");
                 }
             }
-        }        
+        }
+
+        public string FaxNumberProxy
+        {
+            get { return YellowstonePathology.Business.Helper.PhoneNumberHelper.CorrectPhoneNumber(this.m_FaxNumber); }
+            set
+            {
+                if (this.m_FaxNumber != value)
+                {
+                    this.m_FaxNumber = YellowstonePathology.Business.Helper.PhoneNumberHelper.CorrectPhoneNumber(value);
+                    this.NotifyPropertyChanged("FaxNumber");
+                }
+            }
+        }
 
         public void ScheduleForDistribution(Nullable<DateTime> timeToSchedule)
         {
