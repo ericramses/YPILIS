@@ -100,5 +100,15 @@ namespace YellowstonePathology.Business.Test.JAK2Exon1214
 
 			return result.ToString();
 		}
-	}
+
+        public override void SetPreviousResults(PanelSetOrder pso)
+        {
+            Business.Test.JAK2Exon1214.JAK2Exon1214TestOrder panelSetOrder = (Business.Test.JAK2Exon1214.JAK2Exon1214TestOrder)pso;
+            panelSetOrder.Result = this.m_Result;
+            panelSetOrder.Interpretation = this.m_Interpretation;            
+            panelSetOrder.Method = this.m_Method;
+            panelSetOrder.ASRComment = this.m_ASRComment;   
+            base.SetPreviousResults(pso);
+        }
+    }
 }

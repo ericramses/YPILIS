@@ -1932,6 +1932,12 @@ namespace YellowstonePathology.Business.Test
 
         protected virtual void CheckResults(AccessionOrder accessionOrder, object clone)
         {
+
+        }
+
+        public virtual void SetPreviousResults(Business.Test.PanelSetOrder panelSetOrder)
+        {            
+            panelSetOrder.ReportReferences = this.m_ReportReferences;
         }
 
         private FinalizeTestResult HandleBoneMarrowSummaryOnFinal(AccessionOrder accessionOrder)

@@ -8,7 +8,7 @@ using YellowstonePathology.Business.Persistence;
 namespace YellowstonePathology.Business.Test.BRAFMutationAnalysis
 {
     [PersistentClass("tblBRAFMutationAnalysisTestOrder", "tblPanelSetOrder", "YPIDATA")]
-    public class BRAFMutationAnalysisTestOrder : YellowstonePathology.Business.Test.PanelSetOrder, Business.Interface.IPreviousResult
+    public class BRAFMutationAnalysisTestOrder : YellowstonePathology.Business.Test.PanelSetOrder
     {
         private string m_Result;
         private string m_Interpretation;
@@ -155,20 +155,18 @@ namespace YellowstonePathology.Business.Test.BRAFMutationAnalysis
             }
         }
 
-        public void SetPreviousResult(Business.Test.PanelSetOrder panelSetOrder)
+        public override void SetPreviousResults(PanelSetOrder pso)
         {
-            /*
-            this.m_CommonResult.Result = commonResult.Result;
-            this.m_PanelSetOrder.ResultCode = pso.ResultCode;
-            this.m_CommonResult.Interpretation = commonResult.Interpretation;
-            this.m_CommonResult.Indication = commonResult.Indication;
-            this.m_CommonResult.IndicationComment = commonResult.IndicationComment;
-            this.m_CommonResult.Comment = commonResult.Comment;
-            this.m_CommonResult.Method = commonResult.Method;
-            this.m_CommonResult.ReportDisclaimer = commonResult.ReportDisclaimer;
-            this.m_PanelSetOrder.ReportReferences = pso.ReportReferences;
-            */
-        }
+            Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTestOrder panelSetOrder = (Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTestOrder)pso;
+            panelSetOrder.Result = this.m_Result;
+            panelSetOrder.Interpretation = this.m_Interpretation;
+            panelSetOrder.Indication = this.m_Indication;
+            panelSetOrder.IndicationComment = this.m_IndicationComment;
+            panelSetOrder.Comment = this.m_Comment;
+            panelSetOrder.Method = this.m_Method;
+            panelSetOrder.ReportDisclaimer = this.m_ReportDisclaimer;
+            base.SetPreviousResults(pso);
+        }        
 
         public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {

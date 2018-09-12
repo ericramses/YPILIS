@@ -16,14 +16,12 @@ namespace YellowstonePathology.UI.Test
 {    
     public partial class PreviousResultDialog : Window
     {
-        private Business.Test.PanelSetOrder m_PanelSetOrder;
-        private Business.Interface.IPreviousResult m_PreviousResult;
+        private Business.Test.PanelSetOrder m_PanelSetOrder;        
         private Business.Search.ReportSearchList m_ReportSearchList;
 
-        public PreviousResultDialog(Business.Interface.IPreviousResult previousResult)
-        {
-            this.m_PanelSetOrder = (Business.Test.PanelSetOrder)previousResult;
-            this.m_PreviousResult = previousResult;
+        public PreviousResultDialog(Business.Test.PanelSetOrder panelSetOrder)
+        {            
+            this.m_PanelSetOrder = panelSetOrder;
 
             this.m_ReportSearchList = YellowstonePathology.Business.Gateway.ReportSearchGateway.GetReportSearchListByTestFinal(this.m_PanelSetOrder.PanelSetId, DateTime.Today.AddDays(-90), DateTime.Today);            
 
@@ -49,9 +47,8 @@ namespace YellowstonePathology.UI.Test
                 {
                     Business.Search.ReportSearchItem reportSearchItem = (Business.Search.ReportSearchItem)this.ListViewPreviousResults.SelectedItem;
                     Business.Test.AccessionOrder ao = Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(reportSearchItem.MasterAccessionNo, this);
-                    Business.Test.PanelSetOrder pso = ao.PanelSetOrderCollection.GetPanelSetOrder(reportSearchItem.ReportNo);
-                    Business.Interface.IPreviousResult previousResult = (Business.Interface.IPreviousResult)ao.PanelSetOrderCollection.GetPanelSetOrder(reportSearchItem.ReportNo);
-                    previousResult.SetPreviousResult(this.m_PanelSetOrder);
+                    Business.Test.PanelSetOrder pso = ao.PanelSetOrderCollection.GetPanelSetOrder(reportSearchItem.ReportNo);                    
+                    pso.SetPreviousResults(this.m_PanelSetOrder);
                 }
             }
         }

@@ -884,7 +884,6 @@
     <Compile Include="Business\Interface\IBillingSpecimenCollection.cs" />
     <Compile Include="Business\Interface\ICaseDocument.cs" />
     <Compile Include="Business\Interface\ICommonBase.cs" />
-    <Compile Include="Business\Interface\IPreviousResult.cs" />
     <Compile Include="Business\Interface\IComprehensiveCareDocument.cs" />
     <Compile Include="Business\Interface\ICytologyResult.cs" />
     <Compile Include="Business\Interface\IDataContext.cs" />
