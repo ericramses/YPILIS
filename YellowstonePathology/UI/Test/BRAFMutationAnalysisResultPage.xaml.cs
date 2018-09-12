@@ -191,7 +191,7 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkPreviousResults_Click(object sender, RoutedEventArgs e)
         {
-            UI.Test.PreviousResultDialog dlg = new UI.Test.PreviousResultDialog(this.m_PanelSetOrder, this.m_PanelSetOrder);
+            UI.Test.PreviousResultDialog dlg = new UI.Test.PreviousResultDialog(this.m_PanelSetOrder);
             dlg.ShowDialog();
         }
 
@@ -201,8 +201,8 @@ namespace YellowstonePathology.UI.Test
             {
                 if (this.ComboBoxIndication.SelectedItem != null)
                 {
-                    YellowstonePathology.Business.Test.Indication indiction = (YellowstonePathology.Business.Test.Indication)this.ComboBoxIndication.SelectedItem;
-                    indiction.SetComment(this.m_PanelSetOrder.ResultCode, this.m_PanelSetOrder);
+                    YellowstonePathology.Business.Test.Indication indication = (YellowstonePathology.Business.Test.Indication)this.ComboBoxIndication.SelectedItem;
+                    this.m_PanelSetOrder.IndicationComment = indication.Description;                    
                 }
             }
             else

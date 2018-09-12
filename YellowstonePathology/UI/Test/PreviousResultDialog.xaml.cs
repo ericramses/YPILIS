@@ -17,15 +17,15 @@ namespace YellowstonePathology.UI.Test
     public partial class PreviousResultDialog : Window
     {
         private Business.Test.PanelSetOrder m_PanelSetOrder;
-        private Business.Interface.ICommonResult m_CommonResult;
+        private Business.Interface.IPreviousResult m_PreviousResult;
         private Business.Search.ReportSearchList m_ReportSearchList;
 
-        public PreviousResultDialog(Business.Test.PanelSetOrder panelSetOrder, Business.Interface.ICommonResult commonResult)
+        public PreviousResultDialog(Business.Interface.IPreviousResult previousResult)
         {
-            this.m_PanelSetOrder = panelSetOrder;
-            this.m_CommonResult = commonResult;
+            this.m_PanelSetOrder = (Business.Test.PanelSetOrder)previousResult;
+            this.m_PreviousResult = previousResult;
 
-            this.m_ReportSearchList = YellowstonePathology.Business.Gateway.ReportSearchGateway.GetReportSearchListByTestFinal(panelSetOrder.PanelSetId, DateTime.Today.AddDays(-90), DateTime.Today);            
+            this.m_ReportSearchList = YellowstonePathology.Business.Gateway.ReportSearchGateway.GetReportSearchListByTestFinal(this.m_PanelSetOrder.PanelSetId, DateTime.Today.AddDays(-90), DateTime.Today);            
 
             InitializeComponent();
             DataContext = this;
@@ -50,17 +50,8 @@ namespace YellowstonePathology.UI.Test
                     Business.Search.ReportSearchItem reportSearchItem = (Business.Search.ReportSearchItem)this.ListViewPreviousResults.SelectedItem;
                     Business.Test.AccessionOrder ao = Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(reportSearchItem.MasterAccessionNo, this);
                     Business.Test.PanelSetOrder pso = ao.PanelSetOrderCollection.GetPanelSetOrder(reportSearchItem.ReportNo);
-                    Business.Interface.ICommonResult commonResult = (Business.Interface.ICommonResult)ao.PanelSetOrderCollection.GetPanelSetOrder(reportSearchItem.ReportNo);
-
-                    this.m_CommonResult.Result = commonResult.Result;
-                    this.m_PanelSetOrder.ResultCode = pso.ResultCode;
-                    this.m_CommonResult.Interpretation = commonResult.Interpretation;
-                    this.m_CommonResult.Indication = commonResult.Indication;
-                    this.m_CommonResult.IndicationComment = commonResult.IndicationComment;
-                    this.m_CommonResult.Comment = commonResult.Comment;
-                    this.m_CommonResult.Method = commonResult.Method;
-                    this.m_CommonResult.ReportDisclaimer = commonResult.ReportDisclaimer;
-                    this.m_PanelSetOrder.ReportReferences = pso.ReportReferences;
+                    Business.Interface.IPreviousResult previousResult = (Business.Interface.IPreviousResult)ao.PanelSetOrderCollection.GetPanelSetOrder(reportSearchItem.ReportNo);
+                    previousResult.SetPreviousResult(this.m_PanelSetOrder);
                 }
             }
         }

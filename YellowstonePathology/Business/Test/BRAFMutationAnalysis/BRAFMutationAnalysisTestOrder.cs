@@ -8,7 +8,7 @@ using YellowstonePathology.Business.Persistence;
 namespace YellowstonePathology.Business.Test.BRAFMutationAnalysis
 {
     [PersistentClass("tblBRAFMutationAnalysisTestOrder", "tblPanelSetOrder", "YPIDATA")]
-    public class BRAFMutationAnalysisTestOrder : YellowstonePathology.Business.Test.PanelSetOrder, Business.Interface.ICommonResult
+    public class BRAFMutationAnalysisTestOrder : YellowstonePathology.Business.Test.PanelSetOrder, Business.Interface.IPreviousResult
     {
         private string m_Result;
         private string m_Interpretation;
@@ -153,6 +153,21 @@ namespace YellowstonePathology.Business.Test.BRAFMutationAnalysis
                     this.NotifyPropertyChanged("ReportDisclaimer");
                 }
             }
+        }
+
+        public void SetPreviousResult(Business.Test.PanelSetOrder panelSetOrder)
+        {
+            /*
+            this.m_CommonResult.Result = commonResult.Result;
+            this.m_PanelSetOrder.ResultCode = pso.ResultCode;
+            this.m_CommonResult.Interpretation = commonResult.Interpretation;
+            this.m_CommonResult.Indication = commonResult.Indication;
+            this.m_CommonResult.IndicationComment = commonResult.IndicationComment;
+            this.m_CommonResult.Comment = commonResult.Comment;
+            this.m_CommonResult.Method = commonResult.Method;
+            this.m_CommonResult.ReportDisclaimer = commonResult.ReportDisclaimer;
+            this.m_PanelSetOrder.ReportReferences = pso.ReportReferences;
+            */
         }
 
         public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)

@@ -167,6 +167,12 @@ namespace YellowstonePathology.UI.Test
                 YellowstonePathology.Business.Test.TestResult testResult = (YellowstonePathology.Business.Test.TestResult)this.ComboBoxResult.SelectedItem;
                 this.m_PanelSetOrder.ResultCode = testResult.ResultCode;
             }
-        }       
-	}
+        }
+
+        private void HyperLinkPreviousResults_Click(object sender, RoutedEventArgs e)
+        {
+            //UI.Test.PreviousResultDialog dlg = new UI.Test.PreviousResultDialog(this.m_PanelSetOrder, this.m_PanelSetOrder);
+            //dlg.ShowDialog();
+        }
+    }
 }
