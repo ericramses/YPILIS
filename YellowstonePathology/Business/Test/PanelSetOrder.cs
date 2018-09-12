@@ -1940,6 +1940,12 @@ namespace YellowstonePathology.Business.Test
             panelSetOrder.ReportReferences = this.m_ReportReferences;
         }
 
+        public virtual void ClearPreviousResults()
+        {
+            this.m_ReportReferences = null;
+            this.NotifyPropertyChanged(string.Empty);
+        }
+
         private FinalizeTestResult HandleBoneMarrowSummaryOnFinal(AccessionOrder accessionOrder)
         {
             FinalizeTestResult result = new FinalizeTestResult();

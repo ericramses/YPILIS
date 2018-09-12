@@ -18,16 +18,23 @@ namespace YellowstonePathology.UI.Test
     {
         private Business.Test.PanelSetOrder m_PanelSetOrder;        
         private Business.Search.ReportSearchList m_ReportSearchList;
+        private string m_TableName;
 
         public PreviousResultDialog(Business.Test.PanelSetOrder panelSetOrder)
         {            
             this.m_PanelSetOrder = panelSetOrder;
 
-            this.m_ReportSearchList = YellowstonePathology.Business.Gateway.ReportSearchGateway.GetReportSearchListByTestFinal(this.m_PanelSetOrder.PanelSetId, DateTime.Today.AddDays(-90), DateTime.Today);            
+            this.m_TableName = Business.Persistence.PersistenceHelper.GetTableName(panelSetOrder.GetType());
+            this.m_ReportSearchList = YellowstonePathology.Business.Gateway.ReportSearchGateway.GetReportSearchListByTestFinal(this.m_PanelSetOrder.PanelSetId, DateTime.Today.AddDays(-90), DateTime.Today, this.m_TableName);            
 
             InitializeComponent();
             DataContext = this;
-        }        
+        }    
+        
+        public Business.Test.PanelSetOrder PanelSetOrder
+        {
+            get { return this.m_PanelSetOrder; }
+        }    
 
         public YellowstonePathology.Business.Search.ReportSearchList ReportSearchList
         {
@@ -50,6 +57,14 @@ namespace YellowstonePathology.UI.Test
                     Business.Test.PanelSetOrder pso = ao.PanelSetOrderCollection.GetPanelSetOrder(reportSearchItem.ReportNo);                    
                     pso.SetPreviousResults(this.m_PanelSetOrder);
                 }
+            }
+        }
+
+        private void ButtonClear_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.m_PanelSetOrder.Final == false && this.m_PanelSetOrder.Accepted == false)
+            {
+                this.m_PanelSetOrder.ClearPreviousResults();
             }
         }
     }

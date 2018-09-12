@@ -166,7 +166,19 @@ namespace YellowstonePathology.Business.Test.BRAFMutationAnalysis
             panelSetOrder.Method = this.m_Method;
             panelSetOrder.ReportDisclaimer = this.m_ReportDisclaimer;
             base.SetPreviousResults(pso);
-        }        
+        }
+
+        public override void ClearPreviousResults()
+        {
+            this.m_Result = null;
+            this.m_Interpretation = null;
+            this.m_Indication = null;
+            this.m_IndicationComment = null;
+            this.m_Comment = null;
+            this.m_Method = null;
+            this.m_ReportDisclaimer = null;
+            base.ClearPreviousResults();
+        }
 
         public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {

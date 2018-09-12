@@ -110,5 +110,14 @@ namespace YellowstonePathology.Business.Test.JAK2Exon1214
             panelSetOrder.ASRComment = this.m_ASRComment;   
             base.SetPreviousResults(pso);
         }
+
+        public override void ClearPreviousResults()
+        {            
+            this.m_Result = null;
+            this.m_Interpretation = null;
+            this.m_Method = null;
+            this.m_ASRComment = null;
+            base.ClearPreviousResults();
+        }
     }
 }
