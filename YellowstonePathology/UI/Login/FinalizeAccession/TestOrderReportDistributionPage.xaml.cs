@@ -65,7 +65,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
         private bool IsOkToGoNext()
         {
-            bool result = true;
+            /*bool result = true;
 
             if (this.m_TestOrderReportDistribution.DistributionType == YellowstonePathology.Business.ReportDistribution.Model.DistributionType.FAX)
             {
@@ -87,10 +87,28 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 }
             }
 
+            return result;*/
+
+            bool result = false;
+            if (this.MaskedTextBoxFaxNumber.IsMaskCompleted == false)
+            {
+                result = false;
+            }
+            else if (this.MaskedTextBoxFaxNumber.IsMaskFull == true && this.MaskedTextBoxFaxNumber.HasValidationError == false && this.MaskedTextBoxFaxNumber.HasParsingError == false)
+            {
+                result = true;
+            }
+            else if (this.MaskedTextBoxFaxNumber.IsMaskCompleted == false && this.MaskedTextBoxFaxNumber.HasValidationError == false && this.MaskedTextBoxFaxNumber.HasParsingError == false)
+            {
+                result = true;
+            }
+
+            if (result == false) MessageBox.Show("The Fax number must be 10 digits.");
             return result;
+
         }
 
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
+        public bool OkToSaveOnNavigation(Type pageNavigatingTo)
 		{
 			return true;
 		}
