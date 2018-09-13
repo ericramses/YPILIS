@@ -279,8 +279,9 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
             {
                 if (this.m_FaxNumber != value)
                 {
-                    this.m_FaxNumber = YellowstonePathology.Business.Helper.PhoneNumberHelper.CorrectPhoneNumber(value);
+                    this.m_FaxNumber = value;
                     this.NotifyPropertyChanged("FaxNumber");
+                    this.NotifyPropertyChanged("FaxNumberProxy");
                 }
             }
         }
