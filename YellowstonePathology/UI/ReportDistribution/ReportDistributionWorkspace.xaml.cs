@@ -404,9 +404,7 @@ namespace YellowstonePathology.UI.ReportDistribution
                                         }
                                     }
                                 }
-                            }
-
-                            this.HandleNotificationEmail(panelSetOrder);
+                            }                            
 
                             panelSetOrder.Published = true;
                             panelSetOrder.TimeLastPublished = DateTime.Now;
@@ -424,6 +422,7 @@ namespace YellowstonePathology.UI.ReportDistribution
             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
         }
 
+        /*
         private void HandleNotificationEmail(YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder)
         {
             YellowstonePathology.Business.Domain.Physician physician = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianByMasterAccessionNo(panelSetOrder.MasterAccessionNo);
@@ -457,6 +456,7 @@ namespace YellowstonePathology.UI.ReportDistribution
                 }
             }
         }
+        */
 
         private YellowstonePathology.Business.ReportDistribution.Model.DistributionResult Distribute(YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution testOrderReportDistribution, Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder)
         {
