@@ -459,6 +459,7 @@ namespace YellowstonePathology.Business.Gateway
             switch(tableName)
             {
                 case "tblJAK2Exon1214TestOrder":
+                case "tblBCRABLByFishTestOrder":
                     fieldList = "b.Result, pso.MasterAccessionNo, pso.ReportNo, a.AccessionTime AccessionDate, pso.FinalDate,  pso.PanelSetId";
                     break;
                 case "tblBRAFMutationAnalysisTestOrder":
