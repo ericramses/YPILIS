@@ -138,5 +138,28 @@ namespace YellowstonePathology.Business.Test.BCRABLByPCR
 
             return result.ToString();
         }
-	}
+
+        public override void SetPreviousResults(PanelSetOrder pso)
+        {
+            Business.Test.BCRABLByPCR.BCRABLByPCRTestOrder panelSetOrder = (Business.Test.BCRABLByPCR.BCRABLByPCRTestOrder)pso;
+            panelSetOrder.Result = this.m_Result;
+            panelSetOrder.Interpretation = this.m_Interpretation;
+            panelSetOrder.DetectedLogReduction = this.DetectedLogReduction;
+            panelSetOrder.FusionTranscriptType = this.FusionTranscriptType;
+            panelSetOrder.PercentBCRABL = this.PercentBCRABL;
+            panelSetOrder.Method = this.Method;
+            base.SetPreviousResults(pso);
+        }
+
+        public override void ClearPreviousResults()
+        {
+            this.m_Result = null;
+            this.m_Interpretation = null;
+            this.m_DetectedLogReduction = null;
+            this.m_FusionTranscriptType = null;
+            this.m_PercentBCRABL = null;
+            this.m_Method = null;
+            base.ClearPreviousResults();
+        }
+    }
 }

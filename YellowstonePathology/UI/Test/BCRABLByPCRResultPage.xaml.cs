@@ -30,7 +30,7 @@ namespace YellowstonePathology.UI.Test
 		private string m_PageHeaderText;
 
 		private YellowstonePathology.Business.Test.BCRABLByPCR.BCRABLByPCRTestOrder m_PanelSetOrder;
-		private YellowstonePathology.Business.Test.BCRABLByPCR.BCRABLByPCRResultCollection m_ResultCollection;
+		//private YellowstonePathology.Business.Test.BCRABLByPCR.BCRABLByPCRResultCollection m_ResultCollection;
 		private string m_OrderedOnDescription;
 
 		public BCRABLByPCRResultPage(YellowstonePathology.Business.Test.BCRABLByPCR.BCRABLByPCRTestOrder testOrder,
@@ -45,7 +45,7 @@ namespace YellowstonePathology.UI.Test
 
 			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);
 			this.m_OrderedOnDescription = specimenOrder.Description;
-            this.m_ResultCollection = new YellowstonePathology.Business.Test.BCRABLByPCR.BCRABLByPCRResultCollection();
+            //this.m_ResultCollection = new YellowstonePathology.Business.Test.BCRABLByPCR.BCRABLByPCRResultCollection();
 
 			InitializeComponent();
 
@@ -66,10 +66,10 @@ namespace YellowstonePathology.UI.Test
 			get { return this.m_PanelSetOrder; }
 		}
 
-		public YellowstonePathology.Business.Test.BCRABLByPCR.BCRABLByPCRResultCollection ResultCollection
+		/*public YellowstonePathology.Business.Test.BCRABLByPCR.BCRABLByPCRResultCollection ResultCollection
 		{
 			get { return this.m_ResultCollection; }
-		}
+		}*/
 
 		public void NotifyPropertyChanged(String info)
 		{
@@ -128,21 +128,14 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkAcceptResults_Click(object sender, RoutedEventArgs e)
 		{
-			if (this.ComboBoxResult.SelectedItem != null)
+			YellowstonePathology.Business.Rules.MethodResult result = this.m_PanelSetOrder.IsOkToAccept();
+			if (result.Success == true)
 			{
-				YellowstonePathology.Business.Rules.MethodResult result = this.m_PanelSetOrder.IsOkToAccept();
-				if (result.Success == true)
-				{
-					this.m_PanelSetOrder.Accept();
-				}
-				else
-				{
-					MessageBox.Show(result.Message);
-				}
+				this.m_PanelSetOrder.Accept();
 			}
 			else
 			{
-				MessageBox.Show("A result must be selected before it can be accepted.");
+				MessageBox.Show(result.Message);
 			}
 		}
 
@@ -164,13 +157,10 @@ namespace YellowstonePathology.UI.Test
 			if (this.Next != null) this.Next(this, new EventArgs());
 		}
 
-		private void ComboBoxResult_SelectionChanged(object sender, SelectionChangedEventArgs e)
-		{
-			if (this.ComboBoxResult.SelectedItem != null)
-			{
-				YellowstonePathology.Business.Test.TestResult testResult = (YellowstonePathology.Business.Test.TestResult)this.ComboBoxResult.SelectedItem;
-				this.m_PanelSetOrder.ResultCode = testResult.ResultCode;
-			}
-		}
-	}
+        private void HyperLinkPreviousResults_Click(object sender, RoutedEventArgs e)
+        {
+            UI.Test.PreviousResultDialog dlg = new UI.Test.PreviousResultDialog(this.m_PanelSetOrder);
+            dlg.ShowDialog();
+        }
+    }
 }
