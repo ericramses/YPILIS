@@ -1520,6 +1520,11 @@ namespace YellowstonePathology.Business.Test
                     YellowstonePathology.Business.Common.PrintMateColumnLilac printMateColumnLilac = new Common.PrintMateColumnLilac();
                     this.m_PrintMateColumnNumber = printMateColumnLilac.ColumnNumber;
                 }
+                else if(this.m_ClientId == 579)
+                {
+                    YellowstonePathology.Business.Common.PrintMateColumnGreen printMateColumnGreen = new Common.PrintMateColumnGreen();
+                    this.m_PrintMateColumnNumber = printMateColumnGreen.ColumnNumber;
+                }
                 else
                 {
                     YellowstonePathology.Business.Common.PrintMateColumnYellow printMateColumnYellow = new Common.PrintMateColumnYellow();
