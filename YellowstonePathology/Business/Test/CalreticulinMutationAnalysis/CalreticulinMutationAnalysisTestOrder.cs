@@ -142,5 +142,28 @@ namespace YellowstonePathology.Business.Test.CalreticulinMutationAnalysis
 
 			return result.ToString();
 		}
-	}
+
+        public override void SetPreviousResults(PanelSetOrder pso)
+        {
+            Business.Test.CalreticulinMutationAnalysis.CalreticulinMutationAnalysisTestOrder panelSetOrder = (Business.Test.CalreticulinMutationAnalysis.CalreticulinMutationAnalysisTestOrder)pso;
+            panelSetOrder.Result = this.m_Result;
+            panelSetOrder.Interpretation = this.m_Interpretation;
+            panelSetOrder.Percentage = this.Percentage;
+            panelSetOrder.Mutations = this.Mutations;
+            panelSetOrder.Method = this.Method;
+            panelSetOrder.ASR = this.ASR;
+            base.SetPreviousResults(pso);
+        }
+
+        public override void ClearPreviousResults()
+        {
+            this.m_Result = null;
+            this.m_Interpretation = null;
+            this.m_Percentage = null;
+            this.m_Mutations = null;
+            this.m_Method = null;
+            this.m_ASR = null;
+            base.ClearPreviousResults();
+        }
+    }
 }
