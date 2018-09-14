@@ -110,5 +110,24 @@ namespace YellowstonePathology.Business.Test.MPL
 
 			return result.ToString();
 		}
-	}
+
+        public override void SetPreviousResults(PanelSetOrder pso)
+        {
+            Business.Test.MPL.PanelSetOrderMPL panelSetOrder = (Business.Test.MPL.PanelSetOrderMPL)pso;
+            panelSetOrder.Result = this.m_Result;
+            panelSetOrder.Interpretation = this.m_Interpretation;
+            panelSetOrder.Method = this.Method;
+            panelSetOrder.ASR = this.ASR;
+            base.SetPreviousResults(pso);
+        }
+
+        public override void ClearPreviousResults()
+        {
+            this.m_Result = null;
+            this.m_Interpretation = null;
+            this.m_Method = null;
+            this.m_ASR = null;
+            base.ClearPreviousResults();
+        }
+    }
 }
