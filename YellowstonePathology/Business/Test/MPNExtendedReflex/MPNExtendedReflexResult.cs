@@ -13,34 +13,6 @@ namespace YellowstonePathology.Business.Test.MPNExtendedReflex
         public static string PleaseOrder = "Please Order";
         public static string UnknownState = "Unknown State";
         public static string NotOrdered = "Not Ordered";
-
-        private static string JAK2DetectedInterpretation = "JAK2 V617F mutation activates a tyrosine kinase that leads to clonal proliferation.  " +
-            "V617F is present in greater than 40% of essential thrombocythemia (ET) and primary myelofibrosis (MF) cases. MPL mutations are detected in up " +
-            "to 5% of patients with JAK2-negative myeloproliferative neoplasms (MPN). CALR mutations are mutually exclusive with JAK2 and MPL mutations, and are " +
-            "detected in 70-85% of ET and MF cases that are JAK2 and MPL negative.  These mutations have not been detected in normal patients.  Thus, the " +
-            "detection of the JAK2 V617F, MPL or CALR mutations provides confirmation for the diagnosis of a MPN.   The molecular analysis detected the V617F mutation. " +
-            "This result supports the diagnosis of an MPN.";
-
-        private static string CALRDetectedInterpretation = "JAK2 V617F mutation activates a tyrosine kinase that leads to clonal proliferation.  V617F is present in " +
-            "greater than 40% of essential thrombocythemia (ET) and primary myelofibrosis (MF) cases. MPL mutations are detected in up to 5% of patients with JAK2-negative " +
-            "myeloproliferative neoplasms (MPN). CALR mutations are mutually exclusive with JAK2 and MPL mutations, and are detected in 70-85% of ET and MF cases that are " +
-            "JAK2 and MPL negative.  These mutations have not been detected in normal patients.  Thus, the detection of the JAK2 V617F, MPL or CALR mutations provides " +
-            "confirmation for the diagnosis of a MPN.   The molecular analysis detected a CALR mutation. V617F was negative. This result supports the diagnosis of an MPN.  " +
-            "The presence of the CALR mutation indicates a better prognosis compared to the JAK2 mutation.";
-
-        private static string MPLDetectedInterpretation = "JAK2 V617F mutation activates a tyrosine kinase that leads to clonal proliferation.  V617F is present in greater than 40% of " +
-            "essential thrombocythemia (ET) and primary myelofibrosis (MF) cases. MPL mutations are detected in up to 5% of patients with JAK2-negative myeloproliferative " +
-            "neoplasms (MPN). CALR mutations are mutually exclusive with JAK2 and MPL mutations, and are detected in 70-85% of ET and MF cases that are JAK2 and MPL negative.  " +
-            "These mutations have not been detected in normal patients.  Thus, the detection of the JAK2 V617F, MPL or CALR mutations provides confirmation for the " +
-            "diagnosis of a MPN.   The molecular analysis detected a MPL mutation.  JAK2 V617F and CALR were normal.  This result supports the diagnosis of an MPN.  ";
-
-        private static string NotDetectedInterpretation = "JAK2 V617F mutation activates a tyrosine kinase that leads to clonal proliferation.  V617F is present in greater " +
-            "than 40% of essential thrombocythemia (ET) and primary myelofibrosis (MF) cases. MPL mutations are detected in up to 5% of patients with JAK2-negative " +
-            "myeloproliferative neoplasms (MPN). CALR mutations are mutually exclusive with JAK2 and MPL mutations, and are detected in 70-85% of ET and MF cases that are " +
-            "JAK2 and MPL negative.  These mutations have not been detected in normal patients.  Thus, the detection of the JAK2 V617F, MPL or CALR mutations provides " +
-            "confirmation for the diagnosis of a MPN.   The molecular analysis did not detect mutations in JAK2 V617F, CALR or MPL.  The results do not support the diagnosis " +
-            "of a MPN, but do not rule it out. Recommend clinical and pathologic correlation.";
-
         private static string References = "1. Tefferi A, Vardiman JW.  Classification and diagnosis of myeloproliferative neoplasms: The 2008 World Health Organization criteria and point-of-care diagnostic algorithms.  Leukemia (2008) 22, 14–22 " + Environment.NewLine +
             "2. Levine RL, Gilliland DG.  Myeloproliferative disorders.  Blood. 2008 112: 2190-2198 " + Environment.NewLine +
             "3. Nangalia J, et al. Somatic CALR mutations in myeloproliferative neoplasms with nonmutated JAK2, N Engl J Med. 2013 Dec 19;369(25):2391-405.";
@@ -122,85 +94,20 @@ namespace YellowstonePathology.Business.Test.MPNExtendedReflex
 
         private void SetInterpretation()
         {
-            if (this.IsJAK2Detected() == true) this.m_Interpretation = JAK2DetectedInterpretation;
+            StringBuilder result = new StringBuilder();
+            result.Append(this.m_PanelSetOrderJAK2V617F.PanelSetName + ": " + this.m_PanelSetOrderJAK2V617F.Interpretation);
             if (this.m_HasCALR == true)
             {
-                if (this.IsCALRDetected() == true)
-                {
-                    this.m_Interpretation = CALRDetectedInterpretation;
-                }
+                result.AppendLine();
+                result.Append(this.m_PanelSetOrderCalreticulinMutationAnalysis.PanelSetName + ": " + this.m_PanelSetOrderCalreticulinMutationAnalysis.Interpretation);
             }
-
             if (this.m_HasMPL == true)
             {
-                if (this.IsMPLDetected() == true)
-                {
-                    this.m_Interpretation = MPLDetectedInterpretation;
-                }
+                result.AppendLine();
+                result.Append(this.m_PanelSetOrderMPL.PanelSetName + ": " + this.m_PanelSetOrderMPL.Interpretation);
             }
 
-            if (this.m_HasCALR == true && this.m_HasMPL == true)
-            {
-                if (this.AreAllNotDetected() == true)
-                {
-                    this.m_Interpretation = NotDetectedInterpretation;
-                }
-            }
-        }
-
-        private bool IsJAK2Detected()
-        {
-            bool result = false;
-            YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FDetectedResult jak2V617FDetectedResult = new YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FDetectedResult();
-            if (this.m_PanelSetOrderJAK2V617F.ResultCode == jak2V617FDetectedResult.ResultCode)
-            {
-                result = true;
-            }
-            return result;
-        }
-
-        private bool IsCALRDetected()
-        {
-            bool result = false;
-            YellowstonePathology.Business.Test.CalreticulinMutationAnalysis.CalreticulinMutationAnalysisResultDetected calreticulinMutationAnalysisResultDetected = new YellowstonePathology.Business.Test.CalreticulinMutationAnalysis.CalreticulinMutationAnalysisResultDetected();
-            if (this.m_PanelSetOrderCalreticulinMutationAnalysis.ResultCode == calreticulinMutationAnalysisResultDetected.ResultCode)
-            {
-                result = true;
-            }
-            return result;
-        }
-
-        private bool IsMPLDetected()
-        {
-            bool result = false;
-            YellowstonePathology.Business.Test.MPL.MPLResultDetected mplResultDetected = new MPL.MPLResultDetected();
-            if (this.m_PanelSetOrderMPL.ResultCode == mplResultDetected.ResultCode)
-            {
-                result = true;
-            }
-            return result;
-        }
-
-        private bool AreAllNotDetected()
-        {
-            bool result = false;
-
-            YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FNotDetectedResult jak2V617FNotDetectedResult = new YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FNotDetectedResult();
-            YellowstonePathology.Business.Test.CalreticulinMutationAnalysis.CalreticulinMutationAnalysisResultNotDetected calreticulinMutationAnalysisResultNotDetected = new YellowstonePathology.Business.Test.CalreticulinMutationAnalysis.CalreticulinMutationAnalysisResultNotDetected();
-            YellowstonePathology.Business.Test.MPL.MPLResultNotDetected mplResultNotDetected = new MPL.MPLResultNotDetected();
-
-            if (this.m_PanelSetOrderJAK2V617F.ResultCode == jak2V617FNotDetectedResult.ResultCode)
-            {
-                if (this.m_PanelSetOrderCalreticulinMutationAnalysis.ResultCode == calreticulinMutationAnalysisResultNotDetected.ResultCode)
-                {
-                    if (this.m_PanelSetOrderMPL.ResultCode == mplResultNotDetected.ResultCode)
-                    {
-                        result = true;
-                    }
-                }
-            }
-
-            return result;
+            this.m_Interpretation = result.ToString();
         }
 
         private void SetMethod()
