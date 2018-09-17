@@ -32,7 +32,6 @@ namespace YellowstonePathology.UI.Test
 
 		private YellowstonePathology.Business.Test.JAK2Exon1214.JAK2Exon1214TestOrder m_PanelSetOrder;
         private string m_OrderedOnDescription;
-		private YellowstonePathology.Business.Test.JAK2Exon1214.JAK2Exon1214ResultCollection m_ResultCollection;
 
 		public JAK2Exon1214ResultPage(YellowstonePathology.Business.Test.JAK2Exon1214.JAK2Exon1214TestOrder testOrder,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
@@ -48,7 +47,6 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetAliquotOrder(this.m_PanelSetOrder.OrderedOnId);
             this.m_OrderedOnDescription = specimenOrder.Description;
             if(aliquotOrder != null) this.m_OrderedOnDescription += ": " + aliquotOrder.Label;
-			this.m_ResultCollection = new YellowstonePathology.Business.Test.JAK2Exon1214.JAK2Exon1214ResultCollection();
 
 			InitializeComponent();
 
@@ -57,11 +55,6 @@ namespace YellowstonePathology.UI.Test
             this.m_ControlsNotDisabledOnFinal.Add(this.ButtonNext);
             this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockShowDocument);
             this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalResults);
-        }
-
-        public YellowstonePathology.Business.Test.JAK2Exon1214.JAK2Exon1214ResultCollection ResultCollection
-        {
-            get { return this.m_ResultCollection; }
         }
 
         public string OrderedOnDescription

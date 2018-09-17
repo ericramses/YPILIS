@@ -36,7 +36,7 @@ namespace YellowstonePathology.Business.Test.JAK2V617F
         public YellowstonePathology.Business.Rules.MethodResult IsOkToSetResults()
 		{
 			YellowstonePathology.Business.Rules.MethodResult result = new YellowstonePathology.Business.Rules.MethodResult();
-            if(string.IsNullOrEmpty(this.m_ResultCode) == true)
+            if(string.IsNullOrEmpty(this.m_Result) == true)
             {
                 result.Success = false;
                 result.Message = "A Result must be selected before the result can be set.";
@@ -54,7 +54,7 @@ namespace YellowstonePathology.Business.Test.JAK2V617F
             YellowstonePathology.Business.Rules.MethodResult result = base.IsOkToAccept();
             if (result.Success == true)
             {
-                if (string.IsNullOrEmpty(this.m_ResultCode) == true)
+                if (string.IsNullOrEmpty(this.m_Result) == true)
                 {
                     result.Success = false;
                     result.Message = "The results cannot be accepted because the Result is not set.";
@@ -68,7 +68,7 @@ namespace YellowstonePathology.Business.Test.JAK2V617F
             Audit.Model.AuditResult auditResult = base.IsOkToFinalize(accessionOrder);
             if (auditResult.Status == Audit.Model.AuditStatusEnum.OK)
             {
-                if (string.IsNullOrEmpty(this.m_ResultCode) == true)
+                if (string.IsNullOrEmpty(this.m_Result) == true)
                 {
                     auditResult.Status = Audit.Model.AuditStatusEnum.Failure;
                     auditResult.Message = "This case cannot be finalized because the results have not been set.";
@@ -184,5 +184,28 @@ namespace YellowstonePathology.Business.Test.JAK2V617F
 
             return result.ToString();
         }
-	}
+
+        public override void SetPreviousResults(PanelSetOrder pso)
+        {
+            Business.Test.JAK2V617F.JAK2V617FTestOrder panelSetOrder = (Business.Test.JAK2V617F.JAK2V617FTestOrder)pso;
+            panelSetOrder.Result = this.m_Result;
+            panelSetOrder.Interpretation = this.m_Interpretation;
+            panelSetOrder.Method = this.Method;
+            panelSetOrder.Disclosure = this.Disclosure;
+            panelSetOrder.Comment = this.Comment;
+            panelSetOrder.Reference = this.Reference;
+            base.SetPreviousResults(pso);
+        }
+
+        public override void ClearPreviousResults()
+        {
+            this.m_Result = null;
+            this.m_Interpretation = null;
+            this.m_Method = null;
+            this.m_Disclosure = null;
+            this.m_Comment = null;
+            this.m_Reference = null;
+            base.ClearPreviousResults();
+        }
+    }
 }

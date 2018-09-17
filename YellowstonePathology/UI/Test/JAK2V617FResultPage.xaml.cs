@@ -29,7 +29,6 @@ namespace YellowstonePathology.UI.Test
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;
 		private YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FTestOrder m_PanelSetOrder;
-		private YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FResultCollection m_ResultCollection;
 		private string m_PageHeaderText;
 
 
@@ -44,7 +43,6 @@ namespace YellowstonePathology.UI.Test
 			this.m_PageNavigator = pageNavigator;
 
 			this.m_PageHeaderText = "JAK2 Mutation V617F Results For: " + this.m_AccessionOrder.PatientDisplayName;
-            this.m_ResultCollection = new YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FResultCollection();
 
 			InitializeComponent();
 
@@ -58,11 +56,6 @@ namespace YellowstonePathology.UI.Test
         public YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FTestOrder PanelSetOrder
 		{
 			get { return this.m_PanelSetOrder; }
-		}
-
-		public YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FResultCollection ResultCollection
-		{
-			get { return this.m_ResultCollection; }
 		}
 
 		public YellowstonePathology.Business.Test.AccessionOrder AccessionOrder
@@ -151,28 +144,6 @@ namespace YellowstonePathology.UI.Test
 			}
 		}
 
-		private void HyperLinkSetResults_Click(object sender, RoutedEventArgs e)
-		{
-			YellowstonePathology.Business.Rules.MethodResult methodResult = this.m_PanelSetOrder.IsOkToSetResults();
-			if (methodResult.Success == true)
-			{
-				if (this.ComboBoxResult.SelectedItem != null)
-				{
-					YellowstonePathology.Business.Test.TestResult testResult = (YellowstonePathology.Business.Test.TestResult)this.ComboBoxResult.SelectedItem;
-					YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FResult result = (YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FResult)testResult;
-					result.SetResults(this.m_PanelSetOrder);
-				}
-				else
-				{
-					MessageBox.Show("A result must be Selected before results can be set.");
-				}
-			}
-			else
-			{
-				MessageBox.Show(methodResult.Message);
-			}
-		}
-
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{						
 			YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FWordDocument report = new YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FWordDocument(this.m_AccessionOrder, this.m_PanelSetOrder, Business.Document.ReportSaveModeEnum.Draft);
@@ -183,13 +154,10 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(fileName);		
 		}
 
-		private void ComboBoxResult_SelectionChanged(object sender, SelectionChangedEventArgs e)
-		{
-			if (this.ComboBoxResult.SelectedItem != null)
-			{
-				YellowstonePathology.Business.Test.TestResult testResult = (YellowstonePathology.Business.Test.TestResult)this.ComboBoxResult.SelectedItem;
-				this.m_PanelSetOrder.ResultCode = testResult.ResultCode;
-			}
-		}
-	}
+        private void HyperLinkPreviousResults_Click(object sender, RoutedEventArgs e)
+        {
+            UI.Test.PreviousResultDialog dlg = new UI.Test.PreviousResultDialog(this.m_PanelSetOrder);
+            dlg.ShowDialog();
+        }
+    }
 }
