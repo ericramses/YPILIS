@@ -995,8 +995,9 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Test.JAK2Exon1214.JAK2Exon1214TestOrder t = new Business.Test.JAK2Exon1214.JAK2Exon1214TestOrder();
-            string tableName = Business.Persistence.PersistenceHelper.GetTableName(t.GetType());
+            System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex(@"(^|\s*)(\d{1,3})");
+            System.Text.RegularExpressions.Match match = regex.Match("80");
+            int x = Convert.ToInt32(match.Value);
         }
 
         private void GetSlideNumberTest()

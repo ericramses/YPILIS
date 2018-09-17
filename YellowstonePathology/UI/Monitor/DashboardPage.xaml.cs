@@ -93,8 +93,7 @@ namespace YellowstonePathology.UI.Monitor
             view.OrderBy.Add(ItemSchema.DateTimeReceived, SortDirection.Descending);
             view.Traversal = ItemTraversal.Shallow;
             FindItemsResults<Item> findResults = service.FindItems(WellKnownFolderName.Inbox, searchFilter, view);
-
-            //System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex("\\d{1,3}(?=\\D*$)");
+                        
             System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex(@"(^|\s*)(\d{1,3})");
             foreach (Item mailItem in findResults.Items)
             {

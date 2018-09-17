@@ -247,7 +247,7 @@ namespace YellowstonePathology.Business.Test.BRAFMutationAnalysis
             YellowstonePathology.Business.Rules.MethodResult result = base.IsOkToAccept();
             if (result.Success == true)
             {
-                if (string.IsNullOrEmpty(this.ResultCode) == true)
+                if (string.IsNullOrEmpty(this.Result) == true)
                 {
                     result.Success = false;
                     result.Message = "The results cannot be accepted because the Result is not set.";
