@@ -463,6 +463,7 @@ namespace YellowstonePathology.Business.Gateway
                 case "tblBCRABLByPCRTestOrder":
                 case "tblCalreticulinMutationAnalysisTestOrder":
                 case "tblPanelSetOrderMPL":
+                case "tblJAK2V617FTestOrder":
                     fieldList = "b.Result, pso.MasterAccessionNo, pso.ReportNo, a.AccessionTime AccessionDate, pso.FinalDate,  pso.PanelSetId";
                     break;
                 case "tblBRAFMutationAnalysisTestOrder":
