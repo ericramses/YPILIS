@@ -16,49 +16,49 @@ namespace YellowstonePathology.Business.Test.MPNStandardReflex
 
 		public override void ToXml(XElement document)
 		{
-			MPNStandardReflexResult mpnStandardReflexResult = new MPNStandardReflexResult(this.m_AccessionOrder);
+            PanelSetOrderMPNStandardReflex panelSetOrder = (PanelSetOrderMPNStandardReflex)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
 
-			this.AddHeader(document, mpnStandardReflexResult.PanelSetOrderMPNStandardReflex, mpnStandardReflexResult.PanelSetOrderMPNStandardReflex.PanelSetName);
+            this.AddHeader(document, panelSetOrder, panelSetOrder.PanelSetName);
 			this.AddNextObxElement("", document, "F");
 
-			this.AddNextObxElement("JAK2 V617F Analysis: " + mpnStandardReflexResult.JAK2V617FResult, document, "F");
+			this.AddNextObxElement("JAK2 V617F Analysis: " + panelSetOrder.JAK2V617FResult, document, "F");
 			this.AddNextObxElement(string.Empty, document, "F");
 
-			this.AddNextObxElement("JAK2 Exon 12-14 Analysis: " + mpnStandardReflexResult.JAK2Exon1214Result, document, "F");
+			this.AddNextObxElement("JAK2 Exon 12-14 Analysis: " + panelSetOrder.JAK2Exon1214Result, document, "F");
 			this.AddNextObxElement(string.Empty, document, "F");
 
-			this.AddNextObxElement("Pathologist: " + mpnStandardReflexResult.PanelSetOrderMPNStandardReflex.Signature, document, "F");
-			if (mpnStandardReflexResult.PanelSetOrderMPNStandardReflex.FinalDate.HasValue == true)
+			this.AddNextObxElement("Pathologist: " + panelSetOrder.Signature, document, "F");
+			if (panelSetOrder.FinalDate.HasValue == true)
 			{
-				this.AddNextObxElement("E-signed " + mpnStandardReflexResult.PanelSetOrderMPNStandardReflex.FinalTime.Value.ToString("MM/dd/yyyy HH:mm"), document, "F");
+				this.AddNextObxElement("E-signed " + panelSetOrder.FinalTime.Value.ToString("MM/dd/yyyy HH:mm"), document, "F");
 			}
 			this.AddNextObxElement("", document, "F");
             this.AddAmendments(document);
 
             this.AddNextObxElement("Specimen Description:", document, "F");
-			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(mpnStandardReflexResult.PanelSetOrderMPNStandardReflex.OrderedOn, mpnStandardReflexResult.PanelSetOrderMPNStandardReflex.OrderedOnId);
+			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(panelSetOrder.OrderedOn, panelSetOrder.OrderedOnId);
 			this.AddNextObxElement(specimenOrder.Description, document, "F");
 			this.AddNextObxElement(string.Empty, document, "F");
 
-			if (string.IsNullOrEmpty(mpnStandardReflexResult.PanelSetOrderMPNStandardReflex.Comment) == false)
+			if (string.IsNullOrEmpty(panelSetOrder.Comment) == false)
 			{
 				this.AddNextObxElement("Comment: ", document, "F");
-				this.HandleLongString(mpnStandardReflexResult.PanelSetOrderMPNStandardReflex.Comment, document, "F");
+				this.HandleLongString(panelSetOrder.Comment, document, "F");
 				this.AddNextObxElement("", document, "F");
 			}
 
 			this.AddNextObxElement("Interpretation: ", document, "F");
-			this.HandleLongString(mpnStandardReflexResult.PanelSetOrderMPNStandardReflex.Interpretation, document, "F");
+			this.HandleLongString(panelSetOrder.Interpretation, document, "F");
 			this.AddNextObxElement("", document, "F");
 			
-			this.HandleLongString("Method: " + mpnStandardReflexResult.PanelSetOrderMPNStandardReflex.Method, document, "F");
+			this.HandleLongString("Method: " + panelSetOrder.Method, document, "F");
 			this.AddNextObxElement("", document, "F");
 
 			this.AddNextObxElement("References: ", document, "F");
-			this.HandleLongString(mpnStandardReflexResult.PanelSetOrderMPNStandardReflex.ReportReferences, document, "F");
+			this.HandleLongString(panelSetOrder.ReportReferences, document, "F");
 			this.AddNextObxElement("", document, "F");
 
-            string locationPerformed = mpnStandardReflexResult.PanelSetOrderMPNStandardReflex.GetLocationPerformedComment();
+            string locationPerformed = panelSetOrder.GetLocationPerformedComment();
 			this.HandleLongString(locationPerformed, document, "F");
 			this.AddNextObxElement(string.Empty, document, "F");
 		}
