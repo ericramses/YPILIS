@@ -311,6 +311,7 @@
     <Compile Include="Business\Document\CaseDocumentTypeEnum.cs" />
     <Compile Include="Business\Flow\CytoplasmicMarkerMapping.cs" />
     <Compile Include="Business\Flow\CytoplasmicMarkerMappingCollection.cs" />
+    <Compile Include="Business\Gateway\PreviousResultGateway.cs" />
     <Compile Include="Business\Gateway\WebServiceGateway.cs" />
     <Compile Include="Business\Gateway\XmlGateway.cs" />
     <Compile Include="Business\HL7View\ADTMessage.cs" />

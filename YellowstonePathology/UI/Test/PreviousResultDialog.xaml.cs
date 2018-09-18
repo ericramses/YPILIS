@@ -25,7 +25,9 @@ namespace YellowstonePathology.UI.Test
             this.m_PanelSetOrder = panelSetOrder;
 
             this.m_TableName = Business.Persistence.PersistenceHelper.GetTableName(panelSetOrder.GetType());
-            this.m_ReportSearchList = YellowstonePathology.Business.Gateway.ReportSearchGateway.GetReportSearchListByTestFinal(this.m_PanelSetOrder.PanelSetId, DateTime.Today.AddDays(-90), DateTime.Today, this.m_TableName);            
+
+            Business.Gateway.PreviousResultGateway previousResultGateway = new Business.Gateway.PreviousResultGateway();
+            this.m_ReportSearchList = previousResultGateway.GetReportSearchListByTestFinal(this.m_PanelSetOrder.PanelSetId, DateTime.Today.AddDays(-90), DateTime.Today, this.m_TableName);            
 
             InitializeComponent();
             DataContext = this;

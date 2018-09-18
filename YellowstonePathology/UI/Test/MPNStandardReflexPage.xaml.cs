@@ -117,13 +117,7 @@ namespace YellowstonePathology.UI.Test
 			{
 				MessageBox.Show("Jak2 Exon 12-14 has already been ordered.", "Order exists");
 			}
-		}
-
-        private void HyperLinkSetResult_Click(object sender, RoutedEventArgs e)
-        {
-			YellowstonePathology.Business.Test.MPNStandardReflex.MPNStandardReflexResult mpnStandardReflexResult = new Business.Test.MPNStandardReflex.MPNStandardReflexResult(this.m_AccessionOrder);
-            mpnStandardReflexResult.SetResults(this.m_PanelSetOrderMPNStandardReflex);
-        }
+		}        
 
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{			
@@ -195,6 +189,12 @@ namespace YellowstonePathology.UI.Test
 			{
 				PropertyChanged(this, new PropertyChangedEventArgs(info));
 			}
-		}        
-	}
+		}
+
+        private void HyperLinkPreviousResults_Click(object sender, RoutedEventArgs e)
+        {
+            UI.Test.PreviousResultDialog dlg = new UI.Test.PreviousResultDialog(this.m_PanelSetOrderMPNStandardReflex);
+            dlg.ShowDialog();
+        }
+    }
 }

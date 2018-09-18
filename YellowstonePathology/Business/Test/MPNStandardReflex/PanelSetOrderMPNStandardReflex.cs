@@ -9,6 +9,8 @@ namespace YellowstonePathology.Business.Test.MPNStandardReflex
     [PersistentClass("tblPanelSetOrderMPNStandardReflex", "tblPanelSetOrder", "YPIDATA")]
 	public class PanelSetOrderMPNStandardReflex : YellowstonePathology.Business.Test.ReflexTesting.ReflexTestingPlan
 	{
+        private string m_JAK2V617FResult;
+        private string m_JAK2Exon1214Result;
         private string m_Comment;
         private string m_Interpretation;
         private string m_Method;
@@ -26,6 +28,36 @@ namespace YellowstonePathology.Business.Test.MPNStandardReflex
 		{
 
 		}
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "500", "null", "varchar")]
+        public string JAK2V617FResult
+        {
+            get { return this.m_JAK2V617FResult; }
+            set
+            {
+                if (this.m_JAK2V617FResult != value)
+                {
+                    this.m_JAK2V617FResult = value;
+                    this.NotifyPropertyChanged("JAK2V617FResult");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "500", "null", "varchar")]
+        public string JAK2Exon1214Result
+        {
+            get { return this.m_JAK2Exon1214Result; }
+            set
+            {
+                if (this.m_JAK2Exon1214Result != value)
+                {
+                    this.m_JAK2Exon1214Result = value;
+                    this.NotifyPropertyChanged("JAK2Exon1214Result");
+                }
+            }
+        }
 
         [PersistentProperty()]
         [PersistentDataColumnProperty(true, "100", "null", "varchar")]
@@ -94,7 +126,16 @@ namespace YellowstonePathology.Business.Test.MPNStandardReflex
 			result.AppendLine(this.m_Comment);
 			result.AppendLine();
 
-			YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FTest jak2V617FTest = new YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FTest();
+            result.AppendLine("JAK2 V617F");
+            result.AppendLine(this.m_JAK2V617FResult);
+            result.AppendLine();
+
+            result.AppendLine("JAK2 Exon 1214");
+            result.AppendLine(this.m_JAK2Exon1214Result);
+            result.AppendLine();
+
+            /*
+            YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FTest jak2V617FTest = new YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FTest();
 			YellowstonePathology.Business.Test.JAK2Exon1214.JAK2Exon1214Test jak2Exon1214Test = new YellowstonePathology.Business.Test.JAK2Exon1214.JAK2Exon1214Test();
 			if (accessionOrder.PanelSetOrderCollection.Exists(jak2V617FTest.PanelSetId) == true)
 			{
@@ -111,8 +152,20 @@ namespace YellowstonePathology.Business.Test.MPNStandardReflex
 				result.AppendLine(jak2Exon1214TestOrder.ToResultString(accessionOrder));
 				result.AppendLine();
 			}
+            */
 
 			return result.ToString();
 		}
-	}
+
+        public override void SetPreviousResults(PanelSetOrder panelSetOrder)
+        {            
+            Business.Test.MPNStandardReflex.PanelSetOrderMPNStandardReflex panelSetOrderMPNStandardReflex = (Business.Test.MPNStandardReflex.PanelSetOrderMPNStandardReflex)panelSetOrder;
+            panelSetOrderMPNStandardReflex.JAK2V617FResult = this.JAK2V617FResult;
+            panelSetOrderMPNStandardReflex.m_JAK2Exon1214Result = this.m_JAK2Exon1214Result;
+            panelSetOrderMPNStandardReflex.Comment = this.m_Comment;
+            panelSetOrderMPNStandardReflex.Interpretation = this.m_Interpretation;
+            panelSetOrderMPNStandardReflex.Method = this.m_Method;
+            base.SetPreviousResults(panelSetOrder);
+        }
+    }
 }

@@ -451,43 +451,7 @@ namespace YellowstonePathology.Business.Gateway
             cmd.Parameters.AddWithValue("@EndDate", endDate);
             Search.ReportSearchList reportSearchList = BuildReportSearchList(cmd);
             return reportSearchList;
-        }
-
-        public static YellowstonePathology.Business.Search.ReportSearchList GetReportSearchListByTestFinal(int panelSetId, DateTime startDate, DateTime endDate, string tableName)
-        {
-            string fieldList = null;            
-            switch(tableName)
-            {
-                case "tblJAK2Exon1214TestOrder":
-                case "tblBCRABLByFishTestOrder":
-                case "tblBCRABLByPCRTestOrder":
-                case "tblCalreticulinMutationAnalysisTestOrder":
-                case "tblPanelSetOrderMPL":
-                case "tblJAK2V617FTestOrder":
-                    fieldList = "b.Result, pso.MasterAccessionNo, pso.ReportNo, a.AccessionTime AccessionDate, pso.FinalDate,  pso.PanelSetId";
-                    break;
-                case "tblBRAFMutationAnalysisTestOrder":
-                    fieldList = "b.Result, pso.MasterAccessionNo, pso.ReportNo, a.AccessionTime AccessionDate, pso.FinalDate,  pso.PanelSetId, b.Indication";
-                    break;
-            }
-
-            MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "Select " + fieldList + " " +
-                "FROM tblAccessionOrder a " +
-                "JOIN tblPanelSetOrder pso ON a.MasterAccessionNo = pso.MasterAccessionNo " +
-                "join table_name b on pso.ReportNo = b.ReportNo " +
-                "Left Outer Join tblSystemUser su on pso.OrderedById = su.UserId " +
-                "WHERE pso.PanelSetId  =  @PanelSetId " +
-                "and pso.OrderDate between @StartDate and @EndDate " +
-                "and pso.final = 1 order by pso.FinalDate desc;";
-            cmd.CommandText = cmd.CommandText.Replace("table_name", tableName);
-            cmd.Parameters.AddWithValue("@PanelSetId", panelSetId);
-            cmd.Parameters.AddWithValue("@StartDate", startDate);
-            cmd.Parameters.AddWithValue("@EndDate", endDate);
-            Search.ReportSearchList reportSearchList = BuildReportSearchList(cmd);
-            return reportSearchList;
-        }
+        }        
 
         public static Test.ThinPrepPap.AcidWashList GetAcidWashList(DateTime startDate)
         {
@@ -523,7 +487,7 @@ namespace YellowstonePathology.Business.Gateway
             return result;
         }
 
-        private static YellowstonePathology.Business.Search.ReportSearchList BuildReportSearchList(MySqlCommand cmd)
+        public static YellowstonePathology.Business.Search.ReportSearchList BuildReportSearchList(MySqlCommand cmd)
         {
             Search.ReportSearchList result = new Search.ReportSearchList();
 

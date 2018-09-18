@@ -67,10 +67,11 @@ namespace YellowstonePathology.Business.Test.MPNStandardReflex
         private void SetMethod()
         {
             StringBuilder method = new StringBuilder();
-            method.Append("JAK2 V617F: " + this.m_PanelSetOrderJAK2V617F.Method);
+            method.AppendLine(this.m_PanelSetOrderJAK2V617F.PanelSetName + ": " + this.m_PanelSetOrderJAK2V617F.Method);
             if (this.m_HasJAK2Exon1214 == true)
             {
-                method.AppendLine("JAK2 Exon 12/14: " + this.m_PanelSetOrderJAK2Exon1214.Method);   
+                method.AppendLine();
+                method.AppendLine(this.m_PanelSetOrderJAK2Exon1214.PanelSetName + ": " + this.m_PanelSetOrderJAK2Exon1214.Method);   
             }
             this.m_Method = method.ToString();
         }
@@ -78,10 +79,10 @@ namespace YellowstonePathology.Business.Test.MPNStandardReflex
         private void SetInterpretation()
         {
             StringBuilder interpretation = new StringBuilder();
-            interpretation.Append("JAK2 V617F: " + this.m_PanelSetOrderJAK2V617F.Interpretation);
+            interpretation.Append(this.m_PanelSetOrderJAK2V617F.PanelSetName + ": " + this.m_PanelSetOrderJAK2V617F.Interpretation);
             if (this.m_HasJAK2Exon1214 == true)
             {
-                interpretation.AppendLine("JAK2 Exon 12/14: " + this.m_PanelSetOrderJAK2Exon1214.Interpretation);
+                interpretation.AppendLine(this.m_PanelSetOrderJAK2V617F.PanelSetName + ": " + this.m_PanelSetOrderJAK2Exon1214.Interpretation);
             }
             this.m_Interpretation = interpretation.ToString();
         }
