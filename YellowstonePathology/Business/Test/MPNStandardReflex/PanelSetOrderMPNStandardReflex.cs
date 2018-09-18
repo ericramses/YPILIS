@@ -132,27 +132,7 @@ namespace YellowstonePathology.Business.Test.MPNStandardReflex
 
             result.AppendLine("JAK2 Exon 1214");
             result.AppendLine(this.m_JAK2Exon1214Result);
-            result.AppendLine();
-
-            /*
-            YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FTest jak2V617FTest = new YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FTest();
-			YellowstonePathology.Business.Test.JAK2Exon1214.JAK2Exon1214Test jak2Exon1214Test = new YellowstonePathology.Business.Test.JAK2Exon1214.JAK2Exon1214Test();
-			if (accessionOrder.PanelSetOrderCollection.Exists(jak2V617FTest.PanelSetId) == true)
-			{
-				result.AppendLine("JAK2 V617F");
-				YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FTestOrder jak2V617FTestOrder = (YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(jak2V617FTest.PanelSetId);
-				result.AppendLine(jak2V617FTestOrder.ToResultString(accessionOrder));
-				result.AppendLine();
-			}
-
-			if (accessionOrder.PanelSetOrderCollection.Exists(jak2Exon1214Test.PanelSetId) == true)
-			{
-				result.AppendLine("JAK2 Exon 1214");
-				YellowstonePathology.Business.Test.JAK2Exon1214.JAK2Exon1214TestOrder jak2Exon1214TestOrder = (YellowstonePathology.Business.Test.JAK2Exon1214.JAK2Exon1214TestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(jak2Exon1214Test.PanelSetId);
-				result.AppendLine(jak2Exon1214TestOrder.ToResultString(accessionOrder));
-				result.AppendLine();
-			}
-            */
+            result.AppendLine();            
 
 			return result.ToString();
 		}

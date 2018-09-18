@@ -84,6 +84,16 @@ namespace YellowstonePathology.Business.Gateway
                 "and pso.OrderDate between @StartDate and @EndDate " +
                 "and pso.final = 1 order by pso.FinalDate desc;";
             this.m_TableDictionary.Add("tblBRAFMutationAnalysisTestOrder", brafMutationAnalysisTestOrder);
+
+            string psoMPNStandardReflex = "Select concat('V617: ', b.JAK2V617FResult, ', Exon 1214: ', b.JAK2Exon1214Result) `Result`, pso.MasterAccessionNo, pso.ReportNo, a.AccessionTime AccessionDate, pso.FinalDate,  pso.PanelSetId " +
+                "FROM tblAccessionOrder a " +
+                "JOIN tblPanelSetOrder pso ON a.MasterAccessionNo = pso.MasterAccessionNo " +
+                "join tblPanelSetOrderMPNStandardReflex b on pso.ReportNo = b.ReportNo " +
+                "Left Outer Join tblSystemUser su on pso.OrderedById = su.UserId " +
+                "WHERE pso.PanelSetId  =  @PanelSetId " +
+                "and pso.OrderDate between @StartDate and @EndDate " +
+                "and pso.final = 1 order by pso.FinalDate desc;";
+            this.m_TableDictionary.Add("tblPanelSetOrderMPNStandardReflex", psoMPNStandardReflex);
         }
 
         public YellowstonePathology.Business.Search.ReportSearchList GetReportSearchListByTestFinal(int panelSetId, DateTime startDate, DateTime endDate, string tableName)
