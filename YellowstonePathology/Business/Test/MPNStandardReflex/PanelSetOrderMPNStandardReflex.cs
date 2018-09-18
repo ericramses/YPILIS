@@ -132,10 +132,10 @@ namespace YellowstonePathology.Business.Test.MPNStandardReflex
 
             result.AppendLine("JAK2 Exon 1214");
             result.AppendLine(this.m_JAK2Exon1214Result);
-            result.AppendLine();
+            result.AppendLine();            
 
-            return result.ToString();
-        }
+			return result.ToString();
+		}
 
         public override void SetPreviousResults(PanelSetOrder panelSetOrder)
         {
