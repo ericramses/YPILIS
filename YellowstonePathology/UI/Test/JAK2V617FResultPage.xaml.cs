@@ -156,7 +156,7 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkPreviousResults_Click(object sender, RoutedEventArgs e)
         {
-            UI.Test.PreviousResultDialog dlg = new UI.Test.PreviousResultDialog(this.m_PanelSetOrder);
+            UI.Test.PreviousResultDialog dlg = new UI.Test.PreviousResultDialog(this.m_PanelSetOrder, this.m_AccessionOrder);
             dlg.ShowDialog();
         }
     }
