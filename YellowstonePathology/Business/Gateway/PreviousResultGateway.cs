@@ -96,9 +96,9 @@ namespace YellowstonePathology.Business.Gateway
             this.m_TableDictionary.Add("tblPanelSetOrderMPNStandardReflex", psoMPNStandardReflex);
         }
 
-        public YellowstonePathology.Business.PreviousResultsCollection GetPreviousResultsByTestFinal(int panelSetId, DateTime startDate, DateTime endDate, string tableName)
+        public YellowstonePathology.Business.PreviousResultCollection GetPreviousResultsByTestFinal(int panelSetId, DateTime startDate, DateTime endDate, string tableName)
         {
-            PreviousResultsCollection result = new PreviousResultsCollection();
+            PreviousResultCollection result = new PreviousResultCollection();
                         
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = System.Data.CommandType.Text;
@@ -116,10 +116,10 @@ namespace YellowstonePathology.Business.Gateway
                 {
                     while (dr.Read())
                     {
-                        PreviousResults previousResults = new PreviousResults();
-                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(previousResults, dr);
+                        PreviousResult previousResult = new PreviousResult();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(previousResult, dr);
                         sqlDataReaderPropertyWriter.WriteProperties();
-                        result.Add(previousResults);
+                        result.Add(previousResult);
                     }
                 }
             }
