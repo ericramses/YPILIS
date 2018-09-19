@@ -1963,5 +1963,11 @@ namespace YellowstonePathology.Business.Test
             }
             return result;
         }
+
+        public virtual YellowstonePathology.Business.Rules.MethodResult IsOkToSetPreviousResults(PanelSetOrder panelSetOrder, AccessionOrder accessionOrder)
+        {
+            YellowstonePathology.Business.Rules.MethodResult result = new Rules.MethodResult();
+            return result;
+        }
     }
 }

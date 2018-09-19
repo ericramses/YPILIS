@@ -16,13 +16,15 @@ namespace YellowstonePathology.UI.Test
 {    
     public partial class PreviousResultDialog : Window
     {
-        private Business.Test.PanelSetOrder m_PanelSetOrder;        
+        private Business.Test.PanelSetOrder m_PanelSetOrder;
+        private Business.Test.AccessionOrder m_AccessionOrder;
         private Business.Search.ReportSearchList m_ReportSearchList;
         private string m_TableName;
 
-        public PreviousResultDialog(Business.Test.PanelSetOrder panelSetOrder)
+        public PreviousResultDialog(Business.Test.PanelSetOrder panelSetOrder, Business.Test.AccessionOrder accessionOrder)
         {            
             this.m_PanelSetOrder = panelSetOrder;
+            this.m_AccessionOrder = accessionOrder;
 
             this.m_TableName = Business.Persistence.PersistenceHelper.GetTableName(panelSetOrder.GetType());
 
@@ -56,8 +58,21 @@ namespace YellowstonePathology.UI.Test
                 {
                     Business.Search.ReportSearchItem reportSearchItem = (Business.Search.ReportSearchItem)this.ListViewPreviousResults.SelectedItem;
                     Business.Test.AccessionOrder ao = Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(reportSearchItem.MasterAccessionNo, this);
-                    Business.Test.PanelSetOrder pso = ao.PanelSetOrderCollection.GetPanelSetOrder(reportSearchItem.ReportNo);                    
-                    pso.SetPreviousResults(this.m_PanelSetOrder);
+                    Business.Test.PanelSetOrder pso = ao.PanelSetOrderCollection.GetPanelSetOrder(reportSearchItem.ReportNo);
+                    Business.Rules.MethodResult methodResult = pso.IsOkToSetPreviousResults(this.m_PanelSetOrder, this.m_AccessionOrder);
+                    if (methodResult.Success == false)
+                    {
+                        string message = methodResult.Message + Environment.NewLine + "  Do you want to set these results?";
+                        MessageBoxResult messageBoxResult = MessageBox.Show(message, "Questionable Results", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+                        if (messageBoxResult == MessageBoxResult.Yes)
+                        {
+                            pso.SetPreviousResults(this.m_PanelSetOrder);
+                        }
+                    }
+                    else
+                    {
+                        pso.SetPreviousResults(this.m_PanelSetOrder);
+                    }
                 }
             }
         }
