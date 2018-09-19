@@ -1012,6 +1012,8 @@
     <Compile Include="Business\Persistence\SqlServerDataReaderPropertyWriter.cs" />
     <Compile Include="Business\Persistence\SystemUserDocumentBuilder.cs" />
     <Compile Include="Business\Persistence\WebServiceAccountDocumentBuilder.cs" />
+    <Compile Include="Business\PreviousResults.cs" />
+    <Compile Include="Business\PreviousResultsCollection.cs" />
     <Compile Include="Business\ReportDistribution.Model\MeditechDistribution.cs" />
     <Compile Include="Business\ReportDistribution.Model\MultiTestDistributionHandlerNoWHP.cs" />
     <Compile Include="Business\ReportDistribution.Model\MultiTestDistributionHandlerWHPHold.cs" />
