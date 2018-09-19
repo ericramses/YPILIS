@@ -96,8 +96,10 @@ namespace YellowstonePathology.Business.Gateway
             this.m_TableDictionary.Add("tblPanelSetOrderMPNStandardReflex", psoMPNStandardReflex);
         }
 
-        public YellowstonePathology.Business.Search.ReportSearchList GetReportSearchListByTestFinal(int panelSetId, DateTime startDate, DateTime endDate, string tableName)
-        {            
+        public YellowstonePathology.Business.PreviousResultsCollection GetPreviousResultsByTestFinal(int panelSetId, DateTime startDate, DateTime endDate, string tableName)
+        {
+            PreviousResultsCollection result = new PreviousResultsCollection();
+                        
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = System.Data.CommandType.Text;
             cmd.CommandText = this.m_TableDictionary[tableName];
@@ -105,8 +107,23 @@ namespace YellowstonePathology.Business.Gateway
             cmd.Parameters.AddWithValue("@PanelSetId", panelSetId);
             cmd.Parameters.AddWithValue("@StartDate", startDate);
             cmd.Parameters.AddWithValue("@EndDate", endDate);
-            Search.ReportSearchList reportSearchList = ReportSearchGateway.BuildReportSearchList(cmd);
-            return reportSearchList;
+
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        PreviousResults previousResults = new PreviousResults();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(previousResults, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(previousResults);
+                    }
+                }
+            }
+            return result;
         }
     }
 }

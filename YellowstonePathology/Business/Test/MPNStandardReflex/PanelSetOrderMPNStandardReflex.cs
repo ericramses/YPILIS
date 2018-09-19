@@ -142,7 +142,7 @@ namespace YellowstonePathology.Business.Test.MPNStandardReflex
         {
             Business.Test.MPNStandardReflex.PanelSetOrderMPNStandardReflex panelSetOrderMPNStandardReflex = (Business.Test.MPNStandardReflex.PanelSetOrderMPNStandardReflex)panelSetOrder;
             panelSetOrderMPNStandardReflex.JAK2V617FResult = this.JAK2V617FResult;
-            panelSetOrderMPNStandardReflex.m_JAK2Exon1214Result = this.m_JAK2Exon1214Result;
+            panelSetOrderMPNStandardReflex.JAK2Exon1214Result = this.m_JAK2Exon1214Result;
             panelSetOrderMPNStandardReflex.Comment = this.m_Comment;
             panelSetOrderMPNStandardReflex.Interpretation = this.m_Interpretation;
             panelSetOrderMPNStandardReflex.Method = this.m_Method;
@@ -173,13 +173,13 @@ namespace YellowstonePathology.Business.Test.MPNStandardReflex
                     result.Message += "The " + jak2V617FTest.PanelSetName + " result does not match the selected result." + Environment.NewLine;
                 }
             }
-            if (accessionOrder.PanelSetOrderCollection.Exists(jak2V617FTest.PanelSetId) == true)
+            if (accessionOrder.PanelSetOrderCollection.Exists(jak2Exon1214Test.PanelSetId) == true)
             {
                 Test.JAK2Exon1214.JAK2Exon1214TestOrder jakExon1214TestOrder = (JAK2Exon1214.JAK2Exon1214TestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(jak2Exon1214Test.PanelSetId);
                 if (jakExon1214TestOrder.Result != this.JAK2Exon1214Result)
                 {
                     result.Success = false;
-                    result.Message += "The " + jak2V617FTest.PanelSetName + " result does not match the selected result." + Environment.NewLine;
+                    result.Message += "The " + jak2Exon1214Test.PanelSetName + " result does not match the selected result." + Environment.NewLine;
                 }
             }
 
