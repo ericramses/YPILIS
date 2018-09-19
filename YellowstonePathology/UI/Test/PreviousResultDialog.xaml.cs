@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Test
     {
         private Business.Test.PanelSetOrder m_PanelSetOrder;
         private Business.Test.AccessionOrder m_AccessionOrder;
-        private Business.Search.ReportSearchList m_ReportSearchList;
+        private Business.PreviousResultsCollection m_PreviousResultsCollection;
         private string m_TableName;
 
         public PreviousResultDialog(Business.Test.PanelSetOrder panelSetOrder, Business.Test.AccessionOrder accessionOrder)
@@ -29,7 +29,7 @@ namespace YellowstonePathology.UI.Test
             this.m_TableName = Business.Persistence.PersistenceHelper.GetTableName(panelSetOrder.GetType());
 
             Business.Gateway.PreviousResultGateway previousResultGateway = new Business.Gateway.PreviousResultGateway();
-            this.m_ReportSearchList = previousResultGateway.GetReportSearchListByTestFinal(this.m_PanelSetOrder.PanelSetId, DateTime.Today.AddDays(-90), DateTime.Today, this.m_TableName);            
+            this.m_PreviousResultsCollection = previousResultGateway.GetPreviousResultsByTestFinal(this.m_PanelSetOrder.PanelSetId, DateTime.Today.AddDays(-90), DateTime.Today, this.m_TableName);            
 
             InitializeComponent();
             DataContext = this;
@@ -44,9 +44,9 @@ namespace YellowstonePathology.UI.Test
             get { return this.m_PanelSetOrder; }
         }    
 
-        public YellowstonePathology.Business.Search.ReportSearchList ReportSearchList
+        public YellowstonePathology.Business.PreviousResultsCollection PreviousResultsCollection
         {
-            get { return this.m_ReportSearchList; }
+            get { return this.m_PreviousResultsCollection; }
         }
 
         private void ButtonOK_Click(object sender, RoutedEventArgs e)

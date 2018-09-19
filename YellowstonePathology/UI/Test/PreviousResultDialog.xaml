@@ -16,7 +16,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <ListView Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Margin="2" Name="ListViewPreviousResults" ItemsSource="{Binding Path=ReportSearchList}" HorizontalAlignment="Stretch">
+        <ListView Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Margin="2" Name="ListViewPreviousResults" ItemsSource="{Binding Path=PreviousResultsCollection}" HorizontalAlignment="Stretch">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Report No" Width="80">
