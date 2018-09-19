@@ -142,7 +142,7 @@ namespace YellowstonePathology.Business.Test.MPNStandardReflex
         {
             Business.Test.MPNStandardReflex.PanelSetOrderMPNStandardReflex panelSetOrderMPNStandardReflex = (Business.Test.MPNStandardReflex.PanelSetOrderMPNStandardReflex)panelSetOrder;
             panelSetOrderMPNStandardReflex.JAK2V617FResult = this.JAK2V617FResult;
-            panelSetOrderMPNStandardReflex.m_JAK2Exon1214Result = this.m_JAK2Exon1214Result;
+            panelSetOrderMPNStandardReflex.JAK2Exon1214Result = this.m_JAK2Exon1214Result;
             panelSetOrderMPNStandardReflex.Comment = this.m_Comment;
             panelSetOrderMPNStandardReflex.Interpretation = this.m_Interpretation;
             panelSetOrderMPNStandardReflex.Method = this.m_Method;
