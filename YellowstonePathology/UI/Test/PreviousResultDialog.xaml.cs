@@ -33,8 +33,12 @@ namespace YellowstonePathology.UI.Test
 
             InitializeComponent();
             DataContext = this;
-        }    
-        
+
+            this.Left = (SystemParameters.PrimaryScreenWidth / 2);
+            this.Top = (SystemParameters.PrimaryScreenHeight / 2) - (this.Height / 2);
+
+        }
+
         public Business.Test.PanelSetOrder PanelSetOrder
         {
             get { return this.m_PanelSetOrder; }
