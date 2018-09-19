@@ -109,7 +109,7 @@
                 <TextBlock Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" Text="{Binding Path=JAK2V617FResult}" />			
 
 		        <TextBlock Grid.Column="0" Grid.Row="2" FontWeight="Bold" Margin="2,2,2,2">JAK2 Exon 12-14 Result:</TextBlock>
-				<TextBlock Grid.Column="1" Grid.Row="2" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrderJAK2Exon1214.Result}" />
+				<TextBlock Grid.Column="1" Grid.Row="2" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrderJAK2Exon1214Result}" />
 
                 <TextBlock Grid.Column="0" Grid.Row="3" FontWeight="Bold" Margin="2,2,2,2">JAK2 Comment:</TextBlock>
                 <TextBox Grid.Column="1" Grid.Row="3" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrderMPNStandardReflex.Comment}" />
