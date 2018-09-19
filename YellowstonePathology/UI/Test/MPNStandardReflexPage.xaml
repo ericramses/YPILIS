@@ -48,7 +48,7 @@
 			<TextBlock Grid.Column="0" Grid.Row="2" Margin="0,20,0,0" FontWeight="Bold" FontSize="16">Options</TextBlock>
 
             <TextBlock Name="TextBlockPreviousResults" Grid.Column="0" Grid.Row="3" Margin="5,3,0,5">
-					<Hyperlink Click="HyperLinkPreviousResults_Click">Previous Results</Hyperlink>
+					<Hyperlink Click="HyperLinkPreviousResults_Click" FontSize="14">Previous Results</Hyperlink>
             </TextBlock>
                        
 

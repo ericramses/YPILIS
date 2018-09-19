@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YellowstonePathology.UI.Test"
         mc:Ignorable="d"
-        Title="{Binding Path=PanelSetOrder.PanelSetName}" Height="600" Width="740" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow">
+        Title="{Binding Path=PanelSetOrder.PanelSetName}" Height="600" Width="740" WindowStartupLocation="Manual" WindowStyle="ToolWindow">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
