@@ -995,9 +995,23 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex(@"(^|\s*)(\d{1,3})");
-            System.Text.RegularExpressions.Match match = regex.Match("80");
-            int x = Convert.ToInt32(match.Value);
+            int counter = 0;
+            string line;
+
+            System.IO.StreamReader file = new System.IO.StreamReader(@"c:\temp\audit.csv");
+            while ((line = file.ReadLine()) != null)
+            {                
+                string[] split = line.Split(',');
+                Business.OrderIdParser orderIdParser = new Business.OrderIdParser(split[1]);
+                string path = Business.Document.CaseDocument.GetCaseFileNameDoc(orderIdParser);
+                Business.Document.CaseDocument.PrintWordDoc(orderIdParser);
+                Console.WriteLine(path);
+                counter++;
+            }
+
+            file.Close();
+            System.Console.WriteLine("There were {0} lines.", counter);            
+            System.Console.ReadLine();
         }
 
         private void GetSlideNumberTest()

@@ -82,17 +82,7 @@ namespace YellowstonePathology.UI.Test
 		public YellowstonePathology.Business.Test.MPNStandardReflex.PanelSetOrderMPNStandardReflex PanelSetOrderMPNStandardReflex
         {
             get { return this.m_PanelSetOrderMPNStandardReflex; }
-        }
-
-        public string JAK2V617FResult
-        {
-            get { return this.m_JAK2V617FResult; }
-        }
-
-		public YellowstonePathology.Business.Test.JAK2Exon1214.JAK2Exon1214TestOrder PanelSetOrderJAK2Exon1214
-        {
-			get { return this.m_PanelSetOrderJAK2Exon1214; }
-        }
+        }        		
 
 		public YellowstonePathology.Business.Test.AccessionOrder AccessionOrder
 		{
