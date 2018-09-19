@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using YellowstonePathology.Business.Persistence;
+using YellowstonePathology.Business.Rules;
 
 namespace YellowstonePathology.Business.Test.MPNStandardReflex
 {
@@ -156,6 +157,33 @@ namespace YellowstonePathology.Business.Test.MPNStandardReflex
             this.m_Interpretation = null;
             this.m_Method = null;
             base.ClearPreviousResults();
+        }
+
+        public override MethodResult IsOkToSetPreviousResults(PanelSetOrder panelSetOrder, AccessionOrder accessionOrder)
+        {
+            MethodResult result = base.IsOkToSetPreviousResults(panelSetOrder, accessionOrder);
+            Test.JAK2V617F.JAK2V617FTest jak2V617FTest = new JAK2V617F.JAK2V617FTest();
+            Test.JAK2Exon1214.JAK2Exon1214Test jak2Exon1214Test = new JAK2Exon1214.JAK2Exon1214Test();
+            if (accessionOrder.PanelSetOrderCollection.Exists(jak2V617FTest.PanelSetId) == true)
+            {
+                Test.JAK2V617F.JAK2V617FTestOrder jak2V617FTestOrder = (JAK2V617F.JAK2V617FTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(jak2V617FTest.PanelSetId);
+                if(jak2V617FTestOrder.Result != this.JAK2V617FResult)
+                {
+                    result.Success = false;
+                    result.Message += "The " + jak2V617FTest.PanelSetName + " result does not match the selected result." + Environment.NewLine;
+                }
+            }
+            if (accessionOrder.PanelSetOrderCollection.Exists(jak2V617FTest.PanelSetId) == true)
+            {
+                Test.JAK2Exon1214.JAK2Exon1214TestOrder jakExon1214TestOrder = (JAK2Exon1214.JAK2Exon1214TestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(jak2Exon1214Test.PanelSetId);
+                if (jakExon1214TestOrder.Result != this.JAK2Exon1214Result)
+                {
+                    result.Success = false;
+                    result.Message += "The " + jak2V617FTest.PanelSetName + " result does not match the selected result." + Environment.NewLine;
+                }
+            }
+
+            return result;
         }
     }
 }
