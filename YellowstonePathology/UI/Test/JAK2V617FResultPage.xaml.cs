@@ -90,19 +90,34 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkFinalize_Click(object sender, RoutedEventArgs e)
 		{
+            bool okToFinal = false;
 			YellowstonePathology.Business.Audit.Model.AuditResult auditResult = this.m_PanelSetOrder.IsOkToFinalize(this.m_AccessionOrder);
 			if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.OK)
 			{
+                okToFinal = true;
+			}
+            else if(auditResult.Status == Business.Audit.Model.AuditStatusEnum.Warning)
+            {
+                MessageBoxResult messageBoxResult = MessageBox.Show(auditResult.Message + Environment.NewLine + "Do you wish to final this case?",
+                    "Results do not match the final summary results", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+                if(messageBoxResult == MessageBoxResult.Yes)
+                {
+                    okToFinal = true;
+                }
+            }
+			else
+			{
+				MessageBox.Show(auditResult.Message);
+			}
+
+            if(okToFinal == true)
+            {
                 this.m_PanelSetOrder.Finish(this.m_AccessionOrder);
                 if(this.m_PanelSetOrder.Accepted == false)
                 {
                     this.m_PanelSetOrder.Accept();
                 }
-			}
-			else
-			{
-				MessageBox.Show(auditResult.Message);
-			}
+            }
 		}
 
 		private void HyperLinkUnfinalResults_Click(object sender, RoutedEventArgs e)
