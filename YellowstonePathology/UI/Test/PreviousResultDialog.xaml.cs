@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Test
     {
         private Business.Test.PanelSetOrder m_PanelSetOrder;
         private Business.Test.AccessionOrder m_AccessionOrder;
-        private Business.PreviousResultsCollection m_PreviousResultsCollection;
+        private Business.PreviousResultCollection m_PreviousResultCollection;
         private string m_TableName;
 
         public PreviousResultDialog(Business.Test.PanelSetOrder panelSetOrder, Business.Test.AccessionOrder accessionOrder)
@@ -29,7 +29,7 @@ namespace YellowstonePathology.UI.Test
             this.m_TableName = Business.Persistence.PersistenceHelper.GetTableName(panelSetOrder.GetType());
 
             Business.Gateway.PreviousResultGateway previousResultGateway = new Business.Gateway.PreviousResultGateway();
-            this.m_PreviousResultsCollection = previousResultGateway.GetPreviousResultsByTestFinal(this.m_PanelSetOrder.PanelSetId, DateTime.Today.AddDays(-90), DateTime.Today, this.m_TableName);            
+            this.m_PreviousResultCollection = previousResultGateway.GetPreviousResultsByTestFinal(this.m_PanelSetOrder.PanelSetId, DateTime.Today.AddDays(-90), DateTime.Today, this.m_TableName);            
 
             InitializeComponent();
             DataContext = this;
@@ -44,9 +44,9 @@ namespace YellowstonePathology.UI.Test
             get { return this.m_PanelSetOrder; }
         }    
 
-        public YellowstonePathology.Business.PreviousResultsCollection PreviousResultsCollection
+        public YellowstonePathology.Business.PreviousResultCollection PreviousResultCollection
         {
-            get { return this.m_PreviousResultsCollection; }
+            get { return this.m_PreviousResultCollection; }
         }
 
         private void ButtonOK_Click(object sender, RoutedEventArgs e)
@@ -56,17 +56,17 @@ namespace YellowstonePathology.UI.Test
 
         private void ButtonSetResults_Click(object sender, RoutedEventArgs e)
         {
-            if(this.ListViewPreviousResults.SelectedItem != null)
+            if(this.ListViewPreviousResult.SelectedItem != null)
             {
                 if(this.m_PanelSetOrder.Final == false && this.m_PanelSetOrder.Accepted == false)
                 {
-                    Business.Search.ReportSearchItem reportSearchItem = (Business.Search.ReportSearchItem)this.ListViewPreviousResults.SelectedItem;
-                    Business.Test.AccessionOrder ao = Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(reportSearchItem.MasterAccessionNo, this);
-                    Business.Test.PanelSetOrder pso = ao.PanelSetOrderCollection.GetPanelSetOrder(reportSearchItem.ReportNo);
+                    Business.PreviousResult previousResult = (Business.PreviousResult)this.ListViewPreviousResult.SelectedItem;
+                    Business.Test.AccessionOrder ao = Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(previousResult.MasterAccessionNo, this);
+                    Business.Test.PanelSetOrder pso = ao.PanelSetOrderCollection.GetPanelSetOrder(previousResult.ReportNo);
                     Business.Rules.MethodResult methodResult = pso.IsOkToSetPreviousResults(this.m_PanelSetOrder, this.m_AccessionOrder);
                     if (methodResult.Success == false)
                     {
-                        string message = methodResult.Message + Environment.NewLine + "  Do you want to set these results?";
+                        string message = methodResult.Message + Environment.NewLine + "  are you sure you want to use the selected results?";
                         MessageBoxResult messageBoxResult = MessageBox.Show(message, "Questionable Results", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
                         if (messageBoxResult == MessageBoxResult.Yes)
                         {

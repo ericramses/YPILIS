@@ -995,23 +995,54 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            int counter = 0;
-            string line;
+            List<int> webServiceAccountIds = this.GetWebServiceAccountIds();
+            List<int> clientIds = this.GetClientIds();
 
-            System.IO.StreamReader file = new System.IO.StreamReader(@"c:\temp\audit.csv");
+            int id = YellowstonePathology.Business.Gateway.WebServiceGateway.GetNextWebServiceAccountClientId();
+            foreach (int i in webServiceAccountIds)
+            {
+                Business.WebService.WebServiceAccount webServiceAccount = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullWebServiceAccount(i, this);
+                foreach(int j in clientIds)
+                {
+                    if(webServiceAccount.WebServiceAccountClientCollection.Exists(j) == false)
+                    {
+                        YellowstonePathology.Business.WebService.WebServiceAccountClient webServiceAccountClient = new Business.WebService.WebServiceAccountClient();
+                        webServiceAccountClient.WebServiceAccountClientId = id;
+                        webServiceAccountClient.WebServiceAccountId = webServiceAccount.WebServiceAccountId;
+                        webServiceAccountClient.ClientId = j;                        
+                        webServiceAccount.WebServiceAccountClientCollection.Add(webServiceAccountClient);
+                        id += 1;
+                    }
+                }
+            }
+        }
+
+        private List<int> GetClientIds()
+        {
+            List<int> result = new List<int>();
+            string line;
+            System.IO.StreamReader file = new System.IO.StreamReader(@"c:\temp\clientid.txt");
             while ((line = file.ReadLine()) != null)
-            {                
-                string[] split = line.Split(',');
-                Business.OrderIdParser orderIdParser = new Business.OrderIdParser(split[1]);
-                string path = Business.Document.CaseDocument.GetCaseFileNameDoc(orderIdParser);
-                Business.Document.CaseDocument.PrintWordDoc(orderIdParser);
-                Console.WriteLine(path);
-                counter++;
+            {
+                result.Add(Convert.ToInt32(line));
             }
 
             file.Close();
-            System.Console.WriteLine("There were {0} lines.", counter);            
-            System.Console.ReadLine();
+            return result;    
+        }
+
+        private List<int> GetWebServiceAccountIds()
+        {
+            List<int> result = new List<int>();
+            string line;
+            System.IO.StreamReader file = new System.IO.StreamReader(@"c:\temp\webserviceaccountid.txt");
+            while ((line = file.ReadLine()) != null)
+            {
+                result.Add(Convert.ToInt32(line));
+            }
+
+            file.Close();
+            return result;
         }
 
         private void GetSlideNumberTest()

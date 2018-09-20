@@ -83,16 +83,12 @@ namespace YellowstonePathology.UI.Monitor
             service.TraceEnabled = true;
             service.TraceFlags = TraceFlags.All;
 
-            service.AutodiscoverUrl("blockcount@ypii.com", RedirectionUrlValidationCallback);
-            SearchFilter searchFilter = new SearchFilter.IsEqualTo(EmailMessageSchema.IsRead, false);
-
-            List<SearchFilter> searchFilterCollection = new List<SearchFilter>();
-            searchFilterCollection.Add(searchFilter);
+            service.AutodiscoverUrl("blockcount@ypii.com", RedirectionUrlValidationCallback);            
             ItemView view = new ItemView(50);
             view.PropertySet = new PropertySet(BasePropertySet.IdOnly, ItemSchema.Subject, ItemSchema.DateTimeReceived);
             view.OrderBy.Add(ItemSchema.DateTimeReceived, SortDirection.Descending);
             view.Traversal = ItemTraversal.Shallow;
-            FindItemsResults<Item> findResults = service.FindItems(WellKnownFolderName.Inbox, searchFilter, view);
+            FindItemsResults<Item> findResults = service.FindItems(WellKnownFolderName.Inbox, view);
                         
             System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex(@"(^|\s*)(\d{1,3})");
             foreach (Item mailItem in findResults.Items)

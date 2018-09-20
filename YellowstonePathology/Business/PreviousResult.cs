@@ -8,7 +8,7 @@ using YellowstonePathology.Business.Persistence;
 
 namespace YellowstonePathology.Business
 {
-    public class PreviousResults : INotifyPropertyChanged
+    public class PreviousResult : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -20,7 +20,7 @@ namespace YellowstonePathology.Business
         private DateTime m_FinalDate;
         private int m_PanelSetId;
 
-        public PreviousResults() { }
+        public PreviousResult() { }
 
         public void NotifyPropertyChanged(String info)
         {

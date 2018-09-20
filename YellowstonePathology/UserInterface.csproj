@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>196</ApplicationRevision>
+    <ApplicationRevision>200</ApplicationRevision>
     <ApplicationVersion>10.1.12.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -1012,8 +1012,8 @@
     <Compile Include="Business\Persistence\SqlServerDataReaderPropertyWriter.cs" />
     <Compile Include="Business\Persistence\SystemUserDocumentBuilder.cs" />
     <Compile Include="Business\Persistence\WebServiceAccountDocumentBuilder.cs" />
-    <Compile Include="Business\PreviousResults.cs" />
-    <Compile Include="Business\PreviousResultsCollection.cs" />
+    <Compile Include="Business\PreviousResult.cs" />
+    <Compile Include="Business\PreviousResultCollection.cs" />
     <Compile Include="Business\ReportDistribution.Model\MeditechDistribution.cs" />
     <Compile Include="Business\ReportDistribution.Model\MultiTestDistributionHandlerNoWHP.cs" />
     <Compile Include="Business\ReportDistribution.Model\MultiTestDistributionHandlerWHPHold.cs" />
@@ -6754,12 +6754,12 @@
   <ItemGroup>
     <PublishFile Include="Microsoft.Exchange.WebServices">
       <Visible>False</Visible>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
   </ItemGroup>
