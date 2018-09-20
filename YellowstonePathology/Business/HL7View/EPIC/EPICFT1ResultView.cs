@@ -61,9 +61,11 @@ namespace YellowstonePathology.Business.HL7View.EPIC
             foreach (Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill in this.m_PanelSetOrderCPTCodeBillList)
             {
                 Business.Billing.Model.CptCode cptCode = Store.AppDataStore.Instance.CPTCodeCollection.GetClone(panelSetOrderCPTCodeBill.CPTCode, panelSetOrderCPTCodeBill.Modifier);
+                
+                DateTime transactionDate = m_AccessionOrder.CollectionDate.Value;
+                DateTime transactionPostingDate = panelSetOrderCPTCodeBill.PostDate.Value;
 
-                DateTime transactionDate = panelSetOrderCPTCodeBill.PostDate.Value;
-                EPICFT1View epicFT1View = new EPICFT1View(cptCode, transactionDate, transactionDate, panelSetOrderCPTCodeBill.Quantity.ToString(), orderingPhysician, this.m_AccessionOrder.MasterAccessionNo);
+                EPICFT1View epicFT1View = new EPICFT1View(cptCode, transactionDate, transactionPostingDate, panelSetOrderCPTCodeBill.Quantity.ToString(), orderingPhysician, this.m_AccessionOrder.MasterAccessionNo);
                 epicFT1View.ToXml(document, ft1Number);
                 ft1Number += 1;
             }            
