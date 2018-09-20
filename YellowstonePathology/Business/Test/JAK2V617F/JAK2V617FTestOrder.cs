@@ -72,6 +72,19 @@ namespace YellowstonePathology.Business.Test.JAK2V617F
                 {
                     auditResult.Status = Audit.Model.AuditStatusEnum.Failure;
                     auditResult.Message = "This case cannot be finalized because the results have not been set.";
+                    return auditResult;
+                }
+
+                Business.Test.MPNStandardReflex.MPNStandardReflexTest mpnStandardReflexTest = new MPNStandardReflex.MPNStandardReflexTest();
+                if (accessionOrder.PanelSetOrderCollection.Exists(mpnStandardReflexTest.PanelSetId) == true)
+                {
+                    Business.Test.MPNStandardReflex.PanelSetOrderMPNStandardReflex panelSetOrderMPNStandardReflex = (Business.Test.MPNStandardReflex.PanelSetOrderMPNStandardReflex)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(mpnStandardReflexTest.PanelSetId);
+                    if (panelSetOrderMPNStandardReflex.Final == true && panelSetOrderMPNStandardReflex.JAK2V617FResult != this.Result)                        
+                    {
+                        auditResult.Status = Audit.Model.AuditStatusEnum.Warning;
+                        auditResult.Message = "The finaled summary result (" + panelSetOrderMPNStandardReflex.JAK2V617FResult + 
+                            ") does not match this result (" + this.Result + ").";
+                    }
                 }
             }
             return auditResult;
