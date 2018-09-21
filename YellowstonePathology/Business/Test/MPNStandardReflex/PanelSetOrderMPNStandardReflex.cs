@@ -183,6 +183,8 @@ namespace YellowstonePathology.Business.Test.MPNStandardReflex
                 }
             }
 
+            if(result.Success == false) result.Message += "Are you sure you want to use the selected results?";
+
             return result;
         }
     }

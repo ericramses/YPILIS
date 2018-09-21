@@ -92,18 +92,38 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkFinalizeResults_Click(object sender, RoutedEventArgs e)
 		{
-			if (this.m_PanelSetOrder.Final == false)
-			{
-                YellowstonePathology.Business.Test.FinalizeTestResult finalizeTestResult = this.m_PanelSetOrder.Finish(this.m_AccessionOrder);
-                this.HandleFinalizeTestResult(finalizeTestResult);
+            bool okToFinal = false;
+            YellowstonePathology.Business.Audit.Model.AuditResult auditResult = this.m_PanelSetOrder.IsOkToFinalize(this.m_AccessionOrder);
+            if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.OK)
+            {
+                okToFinal = true;
+            }
+            else if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.Warning)
+            {
+                MessageBoxResult messageBoxResult = MessageBox.Show(auditResult.Message, "Results do not match the finaled summary report results",
+                    MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+                if (messageBoxResult == MessageBoxResult.Yes)
+                {
+                    okToFinal = true;
+                }
             }
             else
-			{
-				MessageBox.Show("This case cannot be finalized because it is already final.");
-			}
-		}
+            {
+                MessageBox.Show(auditResult.Message);
+            }
 
-		private void HyperLinkUnfinalResults_Click(object sender, RoutedEventArgs e)
+            if (okToFinal == true)
+            {
+                YellowstonePathology.Business.Test.FinalizeTestResult finalizeTestResult = this.m_PanelSetOrder.Finish(this.m_AccessionOrder);
+                this.HandleFinalizeTestResult(finalizeTestResult);
+                if (this.m_PanelSetOrder.Accepted == false)
+                {
+                    this.m_PanelSetOrder.Accept();
+                }
+            }
+        }
+
+        private void HyperLinkUnfinalResults_Click(object sender, RoutedEventArgs e)
 		{
 			if (this.m_PanelSetOrder.Final == true)
 			{

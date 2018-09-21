@@ -82,8 +82,8 @@ namespace YellowstonePathology.Business.Test.JAK2V617F
                     if (panelSetOrderMPNStandardReflex.Final == true && panelSetOrderMPNStandardReflex.JAK2V617FResult != this.Result)                        
                     {
                         auditResult.Status = Audit.Model.AuditStatusEnum.Warning;
-                        auditResult.Message = "The finaled summary result (" + panelSetOrderMPNStandardReflex.JAK2V617FResult + 
-                            ") does not match this result (" + this.Result + ").";
+                        auditResult.Message = "The finaled " + panelSetOrderMPNStandardReflex.PanelSetName + " result (" + panelSetOrderMPNStandardReflex.JAK2V617FResult + 
+                            ") does not match this result (" + this.Result + ")." + Environment.NewLine + "Are you sure you want to use the selected results?";
                     }
                 }
             }
