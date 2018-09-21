@@ -121,15 +121,38 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkFinalizeResults_Click(object sender, RoutedEventArgs e)
 		{
-			if (this.m_PanelSetOrderMPNStandardReflex.Final == false)
-			{
-				this.m_PanelSetOrderMPNStandardReflex.Finish(this.m_AccessionOrder);
+            bool okToFinal = false;
+            YellowstonePathology.Business.Audit.Model.AuditResult auditResult = this.m_PanelSetOrderMPNStandardReflex.IsOkToFinalize(this.m_AccessionOrder);
+            if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.OK)
+            {
+                okToFinal = true;
+            }
+            else if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.Warning)
+            {
+                MessageBoxResult messageBoxResult = MessageBox.Show(auditResult.Message, "Results do not match the component report results",
+                    MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+                if (messageBoxResult == MessageBoxResult.Yes)
+                {
+                    okToFinal = true;
+                }
+            }
+            else
+            {
+                MessageBox.Show(auditResult.Message);
+            }
+
+            if (okToFinal == true)
+            {
                 YellowstonePathology.Business.Test.FinalizeTestResult finalizeTestResult = this.m_PanelSetOrderMPNStandardReflex.Finish(this.m_AccessionOrder);
                 this.HandleFinalizeTestResult(finalizeTestResult);
+                if (this.m_PanelSetOrderMPNStandardReflex.Accepted == false)
+                {
+                    this.m_PanelSetOrderMPNStandardReflex.Accept();
+                }
             }
         }
 
-		private void HyperLinkUnfinalResults_Click(object sender, RoutedEventArgs e)
+        private void HyperLinkUnfinalResults_Click(object sender, RoutedEventArgs e)
 		{
 			if (this.m_PanelSetOrderMPNStandardReflex.Final == true)
 			{
