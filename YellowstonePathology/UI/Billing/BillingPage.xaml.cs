@@ -375,8 +375,9 @@ namespace YellowstonePathology.UI.Billing
                     Business.HL7View.EPIC.EPICFT1ResultView epicFT1ResultView = new Business.HL7View.EPIC.EPICFT1ResultView(this.m_AccessionOrder, panelSetOrderCPTCodeBillList, true);
                     Business.Rules.MethodResult sendResult = new Business.Rules.MethodResult();
                     epicFT1ResultView.Send(sendResult);
+                    Console.WriteLine(panelSetOrderCPTCodeBill.CPTCode);
                 }
-            }            
+            }          
         }
 
         private void ButtonADT_Click(object sender, RoutedEventArgs e)

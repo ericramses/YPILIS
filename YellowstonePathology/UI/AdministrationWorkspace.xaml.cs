@@ -995,6 +995,20 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
+            Business.Billing.Model.CptCodeCollection codes = new Business.Billing.Model.CptCodeCollection();
+            codes.Load();
+            List<Business.Billing.Model.CptCode> list = new List<Business.Billing.Model.CptCode>();
+            foreach(Business.Billing.Model.CptCode cptCode in codes)
+            {
+                if(string.IsNullOrEmpty(cptCode.SVHCDMCode) == false)
+                {
+                    list.Add(cptCode);
+                }
+            }
+        }
+
+        private void AddWebService()
+        {
             List<int> webServiceAccountIds = this.GetWebServiceAccountIds();
             List<int> clientIds = this.GetClientIds();
 
@@ -1002,14 +1016,14 @@ namespace YellowstonePathology.UI
             foreach (int i in webServiceAccountIds)
             {
                 Business.WebService.WebServiceAccount webServiceAccount = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullWebServiceAccount(i, this);
-                foreach(int j in clientIds)
+                foreach (int j in clientIds)
                 {
-                    if(webServiceAccount.WebServiceAccountClientCollection.Exists(j) == false)
+                    if (webServiceAccount.WebServiceAccountClientCollection.Exists(j) == false)
                     {
                         YellowstonePathology.Business.WebService.WebServiceAccountClient webServiceAccountClient = new Business.WebService.WebServiceAccountClient();
                         webServiceAccountClient.WebServiceAccountClientId = id;
                         webServiceAccountClient.WebServiceAccountId = webServiceAccount.WebServiceAccountId;
-                        webServiceAccountClient.ClientId = j;                        
+                        webServiceAccountClient.ClientId = j;
                         webServiceAccount.WebServiceAccountClientCollection.Add(webServiceAccountClient);
                         id += 1;
                     }
