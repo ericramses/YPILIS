@@ -66,7 +66,7 @@ namespace YellowstonePathology.UI.Test
                     Business.Rules.MethodResult methodResult = pso.IsOkToSetPreviousResults(this.m_PanelSetOrder, this.m_AccessionOrder);
                     if (methodResult.Success == false)
                     {
-                        string message = methodResult.Message + Environment.NewLine + "  are you sure you want to use the selected results?";
+                        string message = methodResult.Message;
                         MessageBoxResult messageBoxResult = MessageBox.Show(message, "Questionable Results", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
                         if (messageBoxResult == MessageBoxResult.Yes)
                         {
