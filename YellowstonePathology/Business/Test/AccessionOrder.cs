@@ -1558,9 +1558,9 @@ namespace YellowstonePathology.Business.Test
                     panelSetOrder.ProfessionalComponentFacilityId = yp.FacilityId;
                     panelSetOrder.ProfessionalComponentBillingFacilityId = ypi.FacilityId;
                 }
-                else
+                else if (this.m_ClientId == 14) // YD
                 {
-                    panelSetOrder.AssignedToId = 5143; //Assign to Dr. Morrison
+                    panelSetOrder.AssignedToId = 5102; //Assign to Dr. durden
                     YellowstonePathology.Business.Facility.Model.Facility yp = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPBLGS");
                     YellowstonePathology.Business.Facility.Model.Facility ypi = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
                     panelSetOrder.ProfessionalComponentFacilityId = yp.FacilityId;

@@ -354,8 +354,7 @@ namespace YellowstonePathology.UI.Cutting
                 slideOrder.ReportNo, slideOrder.Label, slideOrder.PatientLastName, slideOrder.TestAbbreviation, slideOrder.AccessioningFacility);
             YellowstonePathology.Business.Label.Model.HistologySlidePaperLabelPrinter histologySlidePaperLabelPrinter = new Business.Label.Model.HistologySlidePaperLabelPrinter();
             histologySlidePaperLabelPrinter.Queue.Enqueue(histologySlidePaperLabel);
-            histologySlidePaperLabelPrinter.Print();
-            
+            histologySlidePaperLabelPrinter.Print();            
         }
 
         public override void BeforeNavigatingAway()

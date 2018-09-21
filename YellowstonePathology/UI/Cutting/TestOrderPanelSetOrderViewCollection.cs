@@ -33,7 +33,7 @@ namespace YellowstonePathology.UI.Cutting
             {
                 Business.Test.Model.TestOrder testOrder = accessionOrder.PanelSetOrderCollection.GetTestOrderByTestOrderId(item.TestOrderId);
                 if(testOrder.SlideOrderCollection.Count == 0)
-                {                    
+                {                                        
                     YellowstonePathology.Business.Visitor.AddSlideOrderVisitor addSlideOrderVisitor = new Business.Visitor.AddSlideOrderVisitor(aliquotOrder, testOrder);
                     accessionOrder.TakeATrip(addSlideOrderVisitor);
                     
