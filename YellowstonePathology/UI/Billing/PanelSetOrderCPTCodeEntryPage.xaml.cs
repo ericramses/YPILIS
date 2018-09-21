@@ -86,46 +86,44 @@ namespace YellowstonePathology.UI.Billing
 		}
 
 		private void ButtonNext_Click(object sender, RoutedEventArgs e)
-		{           
-            
+		{                       
             if (this.OkToAddPanelSetOrderCPTCode() == true)
             {
                 this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.Add(this.m_PanelSetOrderCPTCode);
                 if (this.Next != null) this.Next(this, new EventArgs());
-            }                  
-            
+            }
 
             /*
-            List<string> listA = new List<string>();
-            using (var reader = new System.IO.StreamReader(@"D:\git\cdm.csv"))
-            {                
-                while (!reader.EndOfStream)
-                {
-                    var line = reader.ReadLine();
-                    var values = line.Split(',');
+            Business.Billing.Model.CptCodeCollection codes = new Business.Billing.Model.CptCodeCollection();
+            codes.Load();
 
-                    listA.Add(values[0]);                    
+            List<Business.Billing.Model.CptCode> list = new List<Business.Billing.Model.CptCode>();
+            foreach (Business.Billing.Model.CptCode cptCode in codes)
+            {
+                if (string.IsNullOrEmpty(cptCode.SVHCDMCode) == false)
+                {
+                    list.Add(cptCode);
                 }
             }
-            
-            foreach(string cpt in listA)
-            {
-                Business.Billing.Model.CptCode cptCode = this.m_CptCodeCollection.GetClone(cpt, null);
-                if (this.m_CptCodeCollection.Exists(cpt) == true)
-                {                    
+
+            for (int i=0; i<list.Count; i++)
+            {          
+                if(i >= 50)
+                {
                     YellowstonePathology.Business.Test.PanelSetOrderCPTCode panelSetOrderCPTCode = this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.GetNextItem(this.m_PanelSetOrder.ReportNo);
-                    panelSetOrderCPTCode.CPTCode = cptCode.Code;
-                    panelSetOrderCPTCode.Modifier = cptCode.Modifier == null ? null : cptCode.Modifier.Modifier;
-                    panelSetOrderCPTCode.CodeType = cptCode.CodeType.ToString();
+                    panelSetOrderCPTCode.CPTCode = list[i].Code;
+                    panelSetOrderCPTCode.Modifier = list[i].Modifier == null ? null : list[i].Modifier.Modifier;
+                    panelSetOrderCPTCode.CodeType = list[i].CodeType.ToString();
                     panelSetOrderCPTCode.Quantity = 1;
                     panelSetOrderCPTCode.ClientId = this.m_ClientId;
                     panelSetOrderCPTCode.EntryType = "Manual Entry";
                     panelSetOrderCPTCode.CodeableType = "Billable Test";
                     this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.Add(panelSetOrderCPTCode);
-                }                
+                }                  
             }
-            if (this.Next != null) this.Next(this, new EventArgs());                        
             */
+
+            if (this.Next != null) this.Next(this, new EventArgs());                                    
         }
 
         private bool OkToAddPanelSetOrderCPTCode()
