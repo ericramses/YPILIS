@@ -23,7 +23,8 @@ namespace YellowstonePathology.Business.Label.Model
             {
                 YellowstonePathology.Business.BarcodeScanning.ContainerBarcode containerBarcode = Business.BarcodeScanning.ContainerBarcode.Parse();
                 GetOne(containerBarcode.ToString(), result, xOffset);
-                xOffset += 325;
+                //xOffset += 325;
+                xOffset += 200;
             }
             
             result.Append("^XZ");
