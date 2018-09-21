@@ -98,8 +98,8 @@ namespace YellowstonePathology.UI.Test
 			}
             else if(auditResult.Status == Business.Audit.Model.AuditStatusEnum.Warning)
             {
-                MessageBoxResult messageBoxResult = MessageBox.Show(auditResult.Message + Environment.NewLine + "Do you wish to final this case?",
-                    "Results do not match the final summary results", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+                MessageBoxResult messageBoxResult = MessageBox.Show(auditResult.Message, "Results do not match the finaled summary report results",
+                    MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
                 if(messageBoxResult == MessageBoxResult.Yes)
                 {
                     okToFinal = true;
@@ -112,8 +112,9 @@ namespace YellowstonePathology.UI.Test
 
             if(okToFinal == true)
             {
-                this.m_PanelSetOrder.Finish(this.m_AccessionOrder);
-                if(this.m_PanelSetOrder.Accepted == false)
+                YellowstonePathology.Business.Test.FinalizeTestResult finalizeTestResult = this.m_PanelSetOrder.Finish(this.m_AccessionOrder);
+                this.HandleFinalizeTestResult(finalizeTestResult);
+                if (this.m_PanelSetOrder.Accepted == false)
                 {
                     this.m_PanelSetOrder.Accept();
                 }

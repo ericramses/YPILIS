@@ -119,5 +119,32 @@ namespace YellowstonePathology.Business.Test.JAK2Exon1214
             this.m_ASRComment = null;
             base.ClearPreviousResults();
         }
+
+        public override YellowstonePathology.Business.Audit.Model.AuditResult IsOkToFinalize(Test.AccessionOrder accessionOrder)
+        {
+            Audit.Model.AuditResult auditResult = base.IsOkToFinalize(accessionOrder);
+            if (auditResult.Status == Audit.Model.AuditStatusEnum.OK)
+            {
+                if (string.IsNullOrEmpty(this.m_Result) == true)
+                {
+                    auditResult.Status = Audit.Model.AuditStatusEnum.Failure;
+                    auditResult.Message = "This case cannot be finalized because the results have not been set.";
+                    return auditResult;
+                }
+
+                Business.Test.MPNStandardReflex.MPNStandardReflexTest mpnStandardReflexTest = new MPNStandardReflex.MPNStandardReflexTest();
+                if (accessionOrder.PanelSetOrderCollection.Exists(mpnStandardReflexTest.PanelSetId) == true)
+                {
+                    Business.Test.MPNStandardReflex.PanelSetOrderMPNStandardReflex panelSetOrderMPNStandardReflex = (Business.Test.MPNStandardReflex.PanelSetOrderMPNStandardReflex)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(mpnStandardReflexTest.PanelSetId);
+                    if (panelSetOrderMPNStandardReflex.Final == true && panelSetOrderMPNStandardReflex.JAK2Exon1214Result != this.Result)
+                    {
+                        auditResult.Status = Audit.Model.AuditStatusEnum.Warning;
+                        auditResult.Message = "The finaled " + panelSetOrderMPNStandardReflex.PanelSetName + " result (" + panelSetOrderMPNStandardReflex.JAK2Exon1214Result +
+                            ") does not match this result (" + this.Result + ")." + Environment.NewLine + "Are you sure you want to use the selected results?";
+                    }
+                }
+            }
+            return auditResult;
+        }
     }
 }
