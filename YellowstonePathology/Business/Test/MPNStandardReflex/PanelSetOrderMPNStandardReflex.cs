@@ -161,7 +161,7 @@ namespace YellowstonePathology.Business.Test.MPNStandardReflex
 
         public override MethodResult IsOkToSetPreviousResults(PanelSetOrder panelSetOrder, AccessionOrder accessionOrder)
         {
-            MethodResult result = base.IsOkToSetPreviousResults(panelSetOrder, accessionOrder);
+            MethodResult result = new Rules.MethodResult();
             Test.JAK2V617F.JAK2V617FTest jak2V617FTest = new JAK2V617F.JAK2V617FTest();
             Test.JAK2Exon1214.JAK2Exon1214Test jak2Exon1214Test = new JAK2Exon1214.JAK2Exon1214Test();
             if (accessionOrder.PanelSetOrderCollection.Exists(jak2V617FTest.PanelSetId) == true)
@@ -186,6 +186,56 @@ namespace YellowstonePathology.Business.Test.MPNStandardReflex
             if(result.Success == false) result.Message += "Are you sure you want to use the selected results?";
 
             return result;
+        }
+
+        public override YellowstonePathology.Business.Audit.Model.AuditResult IsOkToFinalize(Test.AccessionOrder accessionOrder)
+        {
+            Audit.Model.AuditResult auditResult = base.IsOkToFinalize(accessionOrder);
+            if (auditResult.Status == Audit.Model.AuditStatusEnum.OK)
+            {
+                /*if (string.IsNullOrEmpty(this.m_JAK2Exon1214Result) == true || string.IsNullOrEmpty(this.m_JAK2Exon1214Result) == true)
+                {
+                    auditResult.Status = Audit.Model.AuditStatusEnum.Failure;
+                    auditResult.Message = "This case cannot be finalized because the results have not been set.";
+                    return auditResult;
+                }
+
+                Business.Test.MPNStandardReflex.MPNStandardReflexTest mpnStandardReflexTest = new MPNStandardReflex.MPNStandardReflexTest();
+                if (accessionOrder.PanelSetOrderCollection.Exists(mpnStandardReflexTest.PanelSetId) == true)
+                {
+                    Business.Test.MPNStandardReflex.PanelSetOrderMPNStandardReflex panelSetOrderMPNStandardReflex = (Business.Test.MPNStandardReflex.PanelSetOrderMPNStandardReflex)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(mpnStandardReflexTest.PanelSetId);
+                    if (panelSetOrderMPNStandardReflex.Final == true && panelSetOrderMPNStandardReflex.JAK2V617FResult != this.Result)
+                    {
+                        auditResult.Status = Audit.Model.AuditStatusEnum.Warning;
+                        auditResult.Message = "The finaled " + panelSetOrderMPNStandardReflex.PanelSetName + " result (" + panelSetOrderMPNStandardReflex.JAK2V617FResult +
+                            ") does not match this result (" + this.Result + ")." + Environment.NewLine + "Are you sure you want to use the selected results?";
+                    }
+                }*/
+                Test.JAK2V617F.JAK2V617FTest jak2V617FTest = new JAK2V617F.JAK2V617FTest();
+                Test.JAK2Exon1214.JAK2Exon1214Test jak2Exon1214Test = new JAK2Exon1214.JAK2Exon1214Test();
+                if (accessionOrder.PanelSetOrderCollection.Exists(jak2V617FTest.PanelSetId) == true)
+                {
+                    Test.JAK2V617F.JAK2V617FTestOrder jak2V617FTestOrder = (JAK2V617F.JAK2V617FTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(jak2V617FTest.PanelSetId);
+                    if (jak2V617FTestOrder.Result != this.JAK2V617FResult)
+                    {
+                        auditResult.Status = Audit.Model.AuditStatusEnum.Warning;
+                        auditResult.Message += "The " + jak2V617FTest.PanelSetName + " result does not match this result." + Environment.NewLine;
+                    }
+                }
+                if (accessionOrder.PanelSetOrderCollection.Exists(jak2Exon1214Test.PanelSetId) == true)
+                {
+                    Test.JAK2Exon1214.JAK2Exon1214TestOrder jakExon1214TestOrder = (JAK2Exon1214.JAK2Exon1214TestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(jak2Exon1214Test.PanelSetId);
+                    if (jakExon1214TestOrder.Result != this.JAK2Exon1214Result)
+                    {
+                        auditResult.Status = Audit.Model.AuditStatusEnum.Warning;
+                        auditResult.Message += "The " + jak2Exon1214Test.PanelSetName + " result does not match this result." + Environment.NewLine;
+                    }
+                }
+            }
+
+            if (auditResult.Status == Audit.Model.AuditStatusEnum.Warning) auditResult.Message += "Are you sure you want to finalize this report?";
+
+            return auditResult;
         }
     }
 }
