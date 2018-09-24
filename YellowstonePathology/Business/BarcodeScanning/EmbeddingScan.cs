@@ -101,12 +101,7 @@ namespace YellowstonePathology.Business.BarcodeScanning
                     this.NotifyPropertyChanged("Updated");
                 }
             }
-        }
-
-        /*public string HashKey
-        {
-            get { return "EmbeddingScan:" + this.m_AliquotOrderId; }
-        }*/
+        }       
 
         public HashEntry[] GetHasEntries()
         {

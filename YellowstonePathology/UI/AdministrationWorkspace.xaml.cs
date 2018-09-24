@@ -994,17 +994,18 @@ namespace YellowstonePathology.UI
         }
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
-        {
-            Business.Billing.Model.CptCodeCollection codes = new Business.Billing.Model.CptCodeCollection();
-            codes.Load();
-            List<Business.Billing.Model.CptCode> list = new List<Business.Billing.Model.CptCode>();
-            foreach(Business.Billing.Model.CptCode cptCode in codes)
-            {
-                if(string.IsNullOrEmpty(cptCode.SVHCDMCode) == false)
+        {            
+            for (int i=500000; i<899000; i++)
+            {                
+                Business.HTTPPost post = new Business.HTTPPost();
+                int tranCount = post.GetBlockTransactionCountByNumber(i);
+
+                if(tranCount > 0)
                 {
-                    list.Add(cptCode);
+                    MessageBox.Show(tranCount.ToString());
                 }
             }
+
         }
 
         private void AddWebService()

@@ -880,6 +880,7 @@
     <Compile Include="Business\HL7View\WYDOH\WYDOHORCView.cs" />
     <Compile Include="Business\HL7View\WYDOH\WYDOHPIDView.cs" />
     <Compile Include="Business\HL7View\WYDOH\WYDOHResultView.cs" />
+    <Compile Include="Business\HTTPPost.cs" />
     <Compile Include="Business\Interface\IBillingCptCode.cs" />
     <Compile Include="Business\Interface\IBillingSpecimen.cs" />
     <Compile Include="Business\Interface\IBillingSpecimenCollection.cs" />
