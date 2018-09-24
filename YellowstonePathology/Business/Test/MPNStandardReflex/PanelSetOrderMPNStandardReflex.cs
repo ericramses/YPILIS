@@ -161,81 +161,92 @@ namespace YellowstonePathology.Business.Test.MPNStandardReflex
 
         public override MethodResult IsOkToSetPreviousResults(PanelSetOrder panelSetOrder, AccessionOrder accessionOrder)
         {
-            MethodResult result = new Rules.MethodResult();
-            Test.JAK2V617F.JAK2V617FTest jak2V617FTest = new JAK2V617F.JAK2V617FTest();
-            Test.JAK2Exon1214.JAK2Exon1214Test jak2Exon1214Test = new JAK2Exon1214.JAK2Exon1214Test();
-            if (accessionOrder.PanelSetOrderCollection.Exists(jak2V617FTest.PanelSetId) == true)
+            MethodResult result = this.CheckResults(accessionOrder);
+
+            if (result.Success == false)
             {
-                Test.JAK2V617F.JAK2V617FTestOrder jak2V617FTestOrder = (JAK2V617F.JAK2V617FTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(jak2V617FTest.PanelSetId);
-                if(jak2V617FTestOrder.Result != this.JAK2V617FResult)
-                {
-                    result.Success = false;
-                    result.Message += "The " + jak2V617FTest.PanelSetName + " result does not match the selected result." + Environment.NewLine;
-                }
-            }
-            if (accessionOrder.PanelSetOrderCollection.Exists(jak2Exon1214Test.PanelSetId) == true)
-            {
-                Test.JAK2Exon1214.JAK2Exon1214TestOrder jakExon1214TestOrder = (JAK2Exon1214.JAK2Exon1214TestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(jak2Exon1214Test.PanelSetId);
-                if (jakExon1214TestOrder.Result != this.JAK2Exon1214Result)
-                {
-                    result.Success = false;
-                    result.Message += "The " + jak2Exon1214Test.PanelSetName + " result does not match the selected result." + Environment.NewLine;
-                }
+                result.Message += "Are you sure you want to use the selected results?";
             }
 
-            if(result.Success == false) result.Message += "Are you sure you want to use the selected results?";
+            return result;
+        }
+
+        public override Audit.Model.AuditResult IsOkToAccept(AccessionOrder accessionOrder)
+        {
+            Audit.Model.AuditResult result = base.IsOkToAccept(accessionOrder);
+            if (result.Status == Audit.Model.AuditStatusEnum.OK)
+            {
+                Rules.MethodResult methodResult = this.CheckResults(accessionOrder);
+                if (methodResult.Success == false)
+                {
+                    result.Status = Audit.Model.AuditStatusEnum.Warning;
+                    result.Message = methodResult.Message + "Are you sure you want to accept the results?";
+                }
+            }
 
             return result;
         }
 
         public override YellowstonePathology.Business.Audit.Model.AuditResult IsOkToFinalize(Test.AccessionOrder accessionOrder)
         {
-            Audit.Model.AuditResult auditResult = base.IsOkToFinalize(accessionOrder);
-            if (auditResult.Status == Audit.Model.AuditStatusEnum.OK)
+            Audit.Model.AuditResult result = base.IsOkToFinalize(accessionOrder);
+            if (result.Status == Audit.Model.AuditStatusEnum.OK)
             {
-                /*if (string.IsNullOrEmpty(this.m_JAK2Exon1214Result) == true || string.IsNullOrEmpty(this.m_JAK2Exon1214Result) == true)
+                Rules.MethodResult methodResult = this.CheckResults(accessionOrder);
+                if (methodResult.Success == false)
                 {
-                    auditResult.Status = Audit.Model.AuditStatusEnum.Failure;
-                    auditResult.Message = "This case cannot be finalized because the results have not been set.";
-                    return auditResult;
-                }
-
-                Business.Test.MPNStandardReflex.MPNStandardReflexTest mpnStandardReflexTest = new MPNStandardReflex.MPNStandardReflexTest();
-                if (accessionOrder.PanelSetOrderCollection.Exists(mpnStandardReflexTest.PanelSetId) == true)
-                {
-                    Business.Test.MPNStandardReflex.PanelSetOrderMPNStandardReflex panelSetOrderMPNStandardReflex = (Business.Test.MPNStandardReflex.PanelSetOrderMPNStandardReflex)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(mpnStandardReflexTest.PanelSetId);
-                    if (panelSetOrderMPNStandardReflex.Final == true && panelSetOrderMPNStandardReflex.JAK2V617FResult != this.Result)
-                    {
-                        auditResult.Status = Audit.Model.AuditStatusEnum.Warning;
-                        auditResult.Message = "The finaled " + panelSetOrderMPNStandardReflex.PanelSetName + " result (" + panelSetOrderMPNStandardReflex.JAK2V617FResult +
-                            ") does not match this result (" + this.Result + ")." + Environment.NewLine + "Are you sure you want to use the selected results?";
-                    }
-                }*/
-                Test.JAK2V617F.JAK2V617FTest jak2V617FTest = new JAK2V617F.JAK2V617FTest();
-                Test.JAK2Exon1214.JAK2Exon1214Test jak2Exon1214Test = new JAK2Exon1214.JAK2Exon1214Test();
-                if (accessionOrder.PanelSetOrderCollection.Exists(jak2V617FTest.PanelSetId) == true)
-                {
-                    Test.JAK2V617F.JAK2V617FTestOrder jak2V617FTestOrder = (JAK2V617F.JAK2V617FTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(jak2V617FTest.PanelSetId);
-                    if (jak2V617FTestOrder.Result != this.JAK2V617FResult)
-                    {
-                        auditResult.Status = Audit.Model.AuditStatusEnum.Warning;
-                        auditResult.Message += "The " + jak2V617FTest.PanelSetName + " result does not match this result." + Environment.NewLine;
-                    }
-                }
-                if (accessionOrder.PanelSetOrderCollection.Exists(jak2Exon1214Test.PanelSetId) == true)
-                {
-                    Test.JAK2Exon1214.JAK2Exon1214TestOrder jakExon1214TestOrder = (JAK2Exon1214.JAK2Exon1214TestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(jak2Exon1214Test.PanelSetId);
-                    if (jakExon1214TestOrder.Result != this.JAK2Exon1214Result)
-                    {
-                        auditResult.Status = Audit.Model.AuditStatusEnum.Warning;
-                        auditResult.Message += "The " + jak2Exon1214Test.PanelSetName + " result does not match this result." + Environment.NewLine;
-                    }
+                    result.Status = Audit.Model.AuditStatusEnum.Warning;
+                    result.Message = methodResult.Message + "Are you sure you want to finalize this report?";
                 }
             }
 
-            if (auditResult.Status == Audit.Model.AuditStatusEnum.Warning) auditResult.Message += "Are you sure you want to finalize this report?";
+            return result;
+        }
 
-            return auditResult;
+        private MethodResult CheckResults(AccessionOrder accessionOrder)
+        {
+            MethodResult result = this.MatchJAK2V617FResult(accessionOrder);
+
+            MethodResult tmpResult = this.MatchJAK2Exon1214Result(accessionOrder);
+            if (tmpResult.Success == false)
+            {
+                result.Success = false;
+                result.Message += tmpResult.Message;
+            }
+
+            return result;
+        }
+
+        private MethodResult MatchJAK2V617FResult(AccessionOrder accessionOrder)
+        {
+            MethodResult result = new Rules.MethodResult();
+            Test.JAK2V617F.JAK2V617FTest jak2V617FTest = new JAK2V617F.JAK2V617FTest();
+            if (accessionOrder.PanelSetOrderCollection.Exists(jak2V617FTest.PanelSetId) == true)
+            {
+                Test.JAK2V617F.JAK2V617FTestOrder jak2V617FTestOrder = (JAK2V617F.JAK2V617FTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(jak2V617FTest.PanelSetId);
+                if (jak2V617FTestOrder.Result != this.JAK2V617FResult)
+                {
+                    result.Success = false;
+                    result.Message += "The " + jak2V617FTest.PanelSetName + " result(" + jak2V617FTestOrder.Result + ") does not match." + Environment.NewLine;
+                }
+            }
+            return result;
+        }
+
+        private MethodResult MatchJAK2Exon1214Result(AccessionOrder accessionOrder)
+        {
+            MethodResult result = new Rules.MethodResult();
+            Test.JAK2Exon1214.JAK2Exon1214Test jak2Exon1214Test = new JAK2Exon1214.JAK2Exon1214Test();
+            if (accessionOrder.PanelSetOrderCollection.Exists(jak2Exon1214Test.PanelSetId) == true)
+            {
+                Test.JAK2Exon1214.JAK2Exon1214TestOrder jakExon1214TestOrder = (JAK2Exon1214.JAK2Exon1214TestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(jak2Exon1214Test.PanelSetId);
+                if (jakExon1214TestOrder.Result != this.JAK2Exon1214Result)
+                {
+                    result.Success = false;
+                    result.Message += "The " + jak2Exon1214Test.PanelSetName + " result(" + jakExon1214TestOrder.Result + ") does not match." + Environment.NewLine;
+                }
+            }
+            return result;
         }
     }
 }

@@ -1882,7 +1882,22 @@ namespace YellowstonePathology.Business.Test
 			return result;
 		}
 
-		public virtual YellowstonePathology.Business.Rules.MethodResult IsOkToUnaccept()
+        public virtual YellowstonePathology.Business.Audit.Model.AuditResult IsOkToAccept(AccessionOrder accessionOrder)
+        {
+            Audit.Model.AuditResult result = new Audit.Model.AuditResult();
+            Rules.MethodResult methodResult = this.IsOkToAccept();
+
+            result.Status = Audit.Model.AuditStatusEnum.OK;
+            if(methodResult.Success == false)
+            {
+                result.Status = Audit.Model.AuditStatusEnum.Failure;
+                result.Message = methodResult.Message;
+            }
+
+            return result;
+        }
+
+        public virtual YellowstonePathology.Business.Rules.MethodResult IsOkToUnaccept()
 		{
 			YellowstonePathology.Business.Rules.MethodResult result = new Rules.MethodResult();
 			if (this.Final == true)
