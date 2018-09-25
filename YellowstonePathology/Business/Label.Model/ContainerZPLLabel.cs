@@ -18,13 +18,12 @@ namespace YellowstonePathology.Business.Label.Model
             StringBuilder result = new StringBuilder();
             int xOffset = 0;
 
-            result.Append("^XA");
+            result.Append("^XA^PW1248");
             for (int i = 0; i < 4; i++)
             {
                 YellowstonePathology.Business.BarcodeScanning.ContainerBarcode containerBarcode = Business.BarcodeScanning.ContainerBarcode.Parse();
-                GetOne(containerBarcode.ToString(), result, xOffset);
-                //xOffset += 325;
-                xOffset += 200;
+                GetOne(containerBarcode.ToString(), result, xOffset);                
+                xOffset += 320;
             }
             
             result.Append("^XZ");
