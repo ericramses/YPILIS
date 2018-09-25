@@ -65,17 +65,10 @@ namespace YellowstonePathology.UI.Monitor
         private void ResultPathFactory_Finished(object sender, EventArgs e)
         {
             this.m_LoginPageWindow.Close();
-        }
+        }        
 
         public void HandleBlockCountEmails()
-        {
-            int blockCount = this.GetBozemanBlockCount();
-            YellowstonePathology.Business.Gateway.AccessionOrderGateway.SetBlockCounts(DateTime.Today, blockCount);
-        }
-
-        public int GetBozemanBlockCount()
-        {
-            int blockCount = 0;
+        {            
             ServicePointManager.ServerCertificateValidationCallback = CertificateValidationCallBack;
             ExchangeService service = new ExchangeService(ExchangeVersion.Exchange2007_SP1);
             service.Credentials = new WebCredentials("ypiilab\\blockcount", "blockorama");
@@ -98,12 +91,12 @@ namespace YellowstonePathology.UI.Monitor
                     System.Text.RegularExpressions.Match match = regex.Match(mailItem.Subject);
                     if (match.Captures.Count != 0)
                     {
-                        blockCount = Convert.ToInt32(match.Value);
+                        int blockCount = Convert.ToInt32(match.Value);                        
+                        YellowstonePathology.Business.Gateway.AccessionOrderGateway.SetBlockCounts(DateTime.Today, blockCount);
                         mailItem.Delete(DeleteMode.MoveToDeletedItems);
                     }
                 }
-            }
-            return blockCount;
+            }            
         }
 
         private static bool RedirectionUrlValidationCallback(string redirectionUrl)

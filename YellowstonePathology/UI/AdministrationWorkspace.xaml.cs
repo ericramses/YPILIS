@@ -994,18 +994,25 @@ namespace YellowstonePathology.UI
         }
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
-        {            
+        {
+            //System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex(@"(^|\s*)(\d{1,3})");
+            //System.Text.RegularExpressions.Match match = regex.Match("60    ");
+            //int blockCount = Convert.ToInt32(match.Value);
+
+            //Business.GethAPI gethAPI = new Business.GethAPI();
+            //string result = gethAPI.GetBlockByNumber(512384);
+
+            /*
             for (int i=500000; i<899000; i++)
-            {                
-                Business.HTTPPost post = new Business.HTTPPost();
-                int tranCount = post.GetBlockTransactionCountByNumber(i);
+            {                                
+                int tranCount = gethAPI.GetBlockTransactionCountByNumber(i);
 
                 if(tranCount > 0)
                 {
-                    MessageBox.Show(tranCount.ToString());
+                    string result = gethAPI.GetBlockByNumber(i);
                 }
             }
-
+            */
         }
 
         private void AddWebService()

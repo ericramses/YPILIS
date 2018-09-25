@@ -11,34 +11,51 @@ using Newtonsoft.Json.Linq;
 
 namespace YellowstonePathology.Business
 {
-    public class HTTPPost
+    public class GethAPI
     {
+        string m_BaseJSON = "{\"jsonrpc\":\"2.0\",\"method\":\"method_name\",\"params\":[],\"id\":1}";
+
         //'{"jsonrpc":"2.0","method":"eth_getBlockTransactionCountByHash","params":["0xc94770007dda54cF92009BFF0dE90c06F603a09f"],"id":1}'
         //'{"jsonrpc":"2.0","method":"eth_getBlockTransactionCountByNumber","params":["0xe8"],"id":1}'
         //'{"jsonrpc":"2.0","method":"eth_getBlockByNumber","params":["0x1b4", true],"id":1}'
-        //string result = Business.HTTPPost.Post("{\"jsonrpc\":\"2.0\",\"method\":\"eth_accounts\",\"params\":[],\"id\":1}");            
+        //string result = Business.HTTPPost.Post("{\"jsonrpc\":\"2.0\",\"method\":\"eth_accounts\",\"params\":[],\"id\":1}");                    
 
-        private string m_BaseJSON = "{\"jsonrpc\":\"2.0\",\"method\":\"method_name\",\"params\":[],\"id\":1}";
-        private JObject m_JOjbect;
-
-        public HTTPPost()
+        public GethAPI()
         {
-            this.m_JOjbect = JObject.Parse(this.m_BaseJSON);
+            
+        }
+
+        public string GetBlockByNumber(int blockNumber)
+        {
+            string result = null;
+            JObject postObject = JObject.Parse(this.m_BaseJSON);
+            postObject["method"] = "eth_getBlockByNumber";
+            string hexValue = String.Format("0x{0:X}", blockNumber);
+            JArray paramList = (JArray)postObject["params"];
+            paramList.Add(hexValue);
+            paramList.Add(true);
+
+            string postResult = this.Post(postObject);
+            return result;
         }
 
         public int GetBlockTransactionCountByNumber(int blockNumber)
-        {            
+        {
+            
+            JObject postObject = JObject.Parse(this.m_BaseJSON);
             string hexValue = String.Format("0x{0:X}", blockNumber);
-            this.m_JOjbect["method"] = "eth_getBlockTransactionCountByNumber";
-            JArray paramList = (JArray)this.m_JOjbect["params"];
+            postObject["method"] = "eth_getBlockTransactionCountByNumber";
+            JArray paramList = (JArray)postObject["params"];
             paramList.Add(hexValue);
-            string postResult = this.Post();
+            string postResult = this.Post(postObject);
 
             JObject resultObject = JObject.Parse(postResult);
-            return Convert.ToInt32(resultObject["Result"]);
+            string hexTranCnt = resultObject["result"].ToString().Remove(0,2);
+            int tranCnt = Int32.Parse(hexTranCnt, System.Globalization.NumberStyles.HexNumber);
+            return tranCnt;
         }
 
-        public string Post()
+        public string Post(JObject postObject)
         {
             var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://10.1.1.52:8545");
             httpWebRequest.ContentType = "application/json";
@@ -46,7 +63,7 @@ namespace YellowstonePathology.Business
 
             using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
             {
-                string json = this.m_JOjbect.ToString(Formatting.None);
+                string json = postObject.ToString(Formatting.None);
                 streamWriter.Write(json);
                 streamWriter.Flush();
                 streamWriter.Close();

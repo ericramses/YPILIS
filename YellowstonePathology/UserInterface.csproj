@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>203</ApplicationRevision>
+    <ApplicationRevision>204</ApplicationRevision>
     <ApplicationVersion>10.1.12.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -880,7 +880,7 @@
     <Compile Include="Business\HL7View\WYDOH\WYDOHORCView.cs" />
     <Compile Include="Business\HL7View\WYDOH\WYDOHPIDView.cs" />
     <Compile Include="Business\HL7View\WYDOH\WYDOHResultView.cs" />
-    <Compile Include="Business\HTTPPost.cs" />
+    <Compile Include="Business\GethAPI.cs" />
     <Compile Include="Business\Interface\IBillingCptCode.cs" />
     <Compile Include="Business\Interface\IBillingSpecimen.cs" />
     <Compile Include="Business\Interface\IBillingSpecimenCollection.cs" />
@@ -6755,12 +6755,12 @@
   <ItemGroup>
     <PublishFile Include="Microsoft.Exchange.WebServices">
       <Visible>False</Visible>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
   </ItemGroup>
