@@ -13,6 +13,23 @@ namespace YellowstonePathology.Business.Gateway
 {
 	public class AccessionOrderGateway
 	{
+        public static void SetTodaysBlockCountRow()
+        {
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "INSERT INTO tblBlockCount(BlockCountDate) " +
+                "SELECT * FROM (SELECT curdate()) AS tmp " +
+                "WHERE NOT EXISTS(SELECT BlockCountDate FROM tblBlockCount WHERE BlockCountDate = curdate()) LIMIT 1;";
+
+            cmd.CommandType = CommandType.Text;
+
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                cmd.ExecuteNonQuery();
+            }
+        }
+
         public static Business.Monitor.Model.BlockCountCollection GetMonitorBlockCount()
         {
             Business.Monitor.Model.BlockCountCollection result = new Monitor.Model.BlockCountCollection();
@@ -40,13 +57,32 @@ namespace YellowstonePathology.Business.Gateway
             return result;
         }
 
-        public static void SetBlockCounts(DateTime bozemanCountDate, int bozemanBlockCount)
+        public static void SetBillingsBlockCount()
         {
             MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "prcSetBlockCount";
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("BozemanCountDate", bozemanCountDate);
-            cmd.Parameters.AddWithValue("BozemanBlockCount", bozemanBlockCount);
+            cmd.CommandText = "update tblBlockCount set YPIBlocks = (Select count(*) " +
+                "from tblAliquotOrder ao join tblSpecimenOrder so on ao.specimenOrderId = so.SpecimenOrderId " +
+                "join tblAccessionOrder a on so.MasterAccessionNo = a.MasterAccessionNo " +
+                "where ao.GrossVerified = 1 and Date_Format(ao.GrossVerifiedDate, '%Y-%m-%d') = curdate() " +
+                "and not exists(select null from tblPanelSetOrder where MasterAccessionNo = a.MasterAccessionNo and assignedToId in (5132, 5133))) " +
+                "where BlockCountDate = curdate();";
+            cmd.CommandType = CommandType.Text;
+
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public static void SetBozemanBlockCount(int bozemanBlockCount, DateTime countDate)
+        {
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "UPDATE tblBlockCount SET BozemanBlocks = @BozemanBlockCount where BlockCountDate = @CountDate;";
+            cmd.Parameters.AddWithValue("@BozemanBlockCount", bozemanBlockCount);
+            cmd.Parameters.AddWithValue("@CountDate", countDate);
+            cmd.CommandType = CommandType.Text;
 
             using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
