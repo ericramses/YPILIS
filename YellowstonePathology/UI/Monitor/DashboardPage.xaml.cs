@@ -38,7 +38,9 @@ namespace YellowstonePathology.UI.Monitor
         }                
 
         public void Refresh()
-        {            
+        {
+            YellowstonePathology.Business.Gateway.AccessionOrderGateway.SetTodaysBlockCountRow();
+            YellowstonePathology.Business.Gateway.AccessionOrderGateway.SetBillingsBlockCount();
             this.HandleBlockCountEmails();
             this.m_BlockCountColletion = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMonitorBlockCount();
             this.NotifyPropertyChanged("");
@@ -92,7 +94,7 @@ namespace YellowstonePathology.UI.Monitor
                     if (match.Captures.Count != 0)
                     {
                         int blockCount = Convert.ToInt32(match.Value);                        
-                        YellowstonePathology.Business.Gateway.AccessionOrderGateway.SetBlockCounts(DateTime.Today, blockCount);
+                        YellowstonePathology.Business.Gateway.AccessionOrderGateway.SetBozemanBlockCount(blockCount, DateTime.Today);
                         mailItem.Delete(DeleteMode.MoveToDeletedItems);
                     }
                 }
