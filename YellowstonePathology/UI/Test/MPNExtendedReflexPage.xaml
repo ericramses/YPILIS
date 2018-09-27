@@ -41,9 +41,10 @@
 
 			<TextBlock Grid.Column="0" Grid.Row="3" Margin="0,20,0,0" FontWeight="Bold" FontSize="16">Options</TextBlock>
 
-			<TextBlock Grid.Column="0" Grid.Row="4" Margin="5,3,0,0">                    
-                <Hyperlink Click="HyperLinkSetResult_Click" FontSize="14">Set Result</Hyperlink>
-			</TextBlock>
+
+            <TextBlock Name="TextBlockPreviousResults" Grid.Column="0" Grid.Row="4" Margin="5,3,0,5">
+					<Hyperlink Click="HyperLinkPreviousResults_Click">Previous Results</Hyperlink>
+            </TextBlock>
 
 			<TextBlock Grid.Column="0" Grid.Row="5" Margin="5,3,0,0">                    
                     <Hyperlink Click="HyperLinkAcceptResults_Click" FontSize="14">Accept Results</Hyperlink>
@@ -101,13 +102,13 @@
 				<TextBlock Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=OrderedOnDescription}"></TextBlock>
 
                 <TextBlock Grid.Column="0" Grid.Row="1" FontWeight="Bold" Margin="2,2,2,2">JAK2 V617F Result:</TextBlock>
-                <TextBlock Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Margin="2,2,2,2" Text="{Binding Path=MPNExtendedReflexResult.JAK2V617FResult.Result}" TextWrapping="Wrap" />				
+                <TextBlock Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.JAK2V617FResult}" TextWrapping="Wrap" />				
 
                 <TextBlock Grid.Column="0" Grid.Row="2" FontWeight="Bold" Margin="2,2,2,2">CALR Result:</TextBlock>
-                <TextBlock Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" Margin="2,2,2,2" Text="{Binding Path=MPNExtendedReflexResult.CALRResult.Result}" TextWrapping="Wrap" />
+                <TextBlock Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.CalreticulinMutationAnalysisResult}" TextWrapping="Wrap" />
 
                 <TextBlock Grid.Column="0" Grid.Row="3" FontWeight="Bold" Margin="2,2,2,2">MPL Result:</TextBlock>
-                <TextBlock Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2" Margin="2,2,2,2" Text="{Binding Path=MPNExtendedReflexResult.MPLResult.Result}" TextWrapping="Wrap" />
+                <TextBlock Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.MPLResult}" TextWrapping="Wrap" />
 
                 <TextBlock Grid.Column="0" Grid.Row="4" FontWeight="Bold" Margin="2,2,2,2">Comment:</TextBlock>
                 <TextBox Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.Comment}" />

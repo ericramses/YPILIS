@@ -161,7 +161,7 @@ namespace YellowstonePathology.Business.Test.MPNStandardReflex
 
         public override MethodResult IsOkToSetPreviousResults(PanelSetOrder panelSetOrder, AccessionOrder accessionOrder)
         {
-            MethodResult result = this.CheckResults(accessionOrder);
+            MethodResult result = this.CheckResults(accessionOrder, "Match");
 
             if (result.Success == false)
             {
@@ -176,11 +176,20 @@ namespace YellowstonePathology.Business.Test.MPNStandardReflex
             Audit.Model.AuditResult result = base.IsOkToAccept(accessionOrder);
             if (result.Status == Audit.Model.AuditStatusEnum.OK)
             {
-                Rules.MethodResult methodResult = this.CheckResults(accessionOrder);
+                Rules.MethodResult methodResult = this.CheckResults(accessionOrder, "Filled");
                 if (methodResult.Success == false)
                 {
-                    result.Status = Audit.Model.AuditStatusEnum.Warning;
-                    result.Message = methodResult.Message + "Are you sure you want to accept the results?";
+                    result.Status = Audit.Model.AuditStatusEnum.Failure;
+                    result.Message = methodResult.Message;
+                }
+                else
+                {
+                    methodResult = this.CheckResults(accessionOrder, "Match");
+                    if (methodResult.Success == false)
+                    {
+                        result.Status = Audit.Model.AuditStatusEnum.Warning;
+                        result.Message = methodResult.Message + "Are you sure you want to accept the results?";
+                    }
                 }
             }
 
@@ -192,22 +201,41 @@ namespace YellowstonePathology.Business.Test.MPNStandardReflex
             Audit.Model.AuditResult result = base.IsOkToFinalize(accessionOrder);
             if (result.Status == Audit.Model.AuditStatusEnum.OK)
             {
-                Rules.MethodResult methodResult = this.CheckResults(accessionOrder);
+                Rules.MethodResult methodResult = this.CheckResults(accessionOrder, "Filled");
+                if (methodResult.Success == false)
+                {
+                    result.Status = Audit.Model.AuditStatusEnum.Failure;
+                    result.Message = methodResult.Message;
+                }
+            }
+
+            if (result.Status == Audit.Model.AuditStatusEnum.OK)
+            {
+                Rules.MethodResult methodResult = this.CheckResults(accessionOrder, "Final");
+                if (methodResult.Success == false)
+                {
+                    result.Status = Audit.Model.AuditStatusEnum.Failure;
+                    result.Message = methodResult.Message;
+                }
+            }
+
+            if (result.Status == Audit.Model.AuditStatusEnum.OK)
+            {
+                Rules.MethodResult methodResult = this.CheckResults(accessionOrder, "Match");
                 if (methodResult.Success == false)
                 {
                     result.Status = Audit.Model.AuditStatusEnum.Warning;
                     result.Message = methodResult.Message + "Are you sure you want to finalize this report?";
                 }
             }
-
             return result;
         }
 
-        private MethodResult CheckResults(AccessionOrder accessionOrder)
+        private MethodResult CheckResults(AccessionOrder accessionOrder, string action)
         {
-            MethodResult result = this.MatchJAK2V617FResult(accessionOrder);
+            MethodResult result = this.MatchJAK2V617FResult(accessionOrder, action);
 
-            MethodResult tmpResult = this.MatchJAK2Exon1214Result(accessionOrder);
+            MethodResult tmpResult = this.MatchJAK2Exon1214Result(accessionOrder, action);
             if (tmpResult.Success == false)
             {
                 result.Success = false;
@@ -217,36 +245,71 @@ namespace YellowstonePathology.Business.Test.MPNStandardReflex
             return result;
         }
 
-        private MethodResult MatchJAK2V617FResult(AccessionOrder accessionOrder)
+        private MethodResult MatchJAK2V617FResult(AccessionOrder accessionOrder, string action)
         {
-            MethodResult result = new Rules.MethodResult();
+            Rules.MethodResult result = new Rules.MethodResult();
             Test.JAK2V617F.JAK2V617FTest jak2V617FTest = new JAK2V617F.JAK2V617FTest();
             if (accessionOrder.PanelSetOrderCollection.Exists(jak2V617FTest.PanelSetId) == true)
             {
                 Test.JAK2V617F.JAK2V617FTestOrder jak2V617FTestOrder = (JAK2V617F.JAK2V617FTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(jak2V617FTest.PanelSetId);
-                if (jak2V617FTestOrder.Result != this.JAK2V617FResult)
+                if(action == "Filled" && string.IsNullOrEmpty(this.JAK2V617FResult) == true)
                 {
                     result.Success = false;
-                    result.Message += "The " + jak2V617FTest.PanelSetName + " result(" + jak2V617FTestOrder.Result + ") does not match." + Environment.NewLine;
+                    result.Message = this.NotFilledMessage(jak2V617FTest.PanelSetName);
+                }
+                if (action =="Match" && jak2V617FTestOrder.Result != this.JAK2V617FResult)
+                {
+                    result.Success = false;
+                    result.Message += this.MismatchMessage(jak2V617FTest.PanelSetName, jak2V617FTestOrder.Result);
+                }
+                if (action == "Final" && jak2V617FTestOrder.Final == false)
+                {
+                    result.Success = false;
+                    result.Message += this.NotFinaledMessage(jak2V617FTest.PanelSetName);
                 }
             }
             return result;
         }
 
-        private MethodResult MatchJAK2Exon1214Result(AccessionOrder accessionOrder)
+        private MethodResult MatchJAK2Exon1214Result(AccessionOrder accessionOrder, string action)
         {
             MethodResult result = new Rules.MethodResult();
             Test.JAK2Exon1214.JAK2Exon1214Test jak2Exon1214Test = new JAK2Exon1214.JAK2Exon1214Test();
             if (accessionOrder.PanelSetOrderCollection.Exists(jak2Exon1214Test.PanelSetId) == true)
             {
                 Test.JAK2Exon1214.JAK2Exon1214TestOrder jakExon1214TestOrder = (JAK2Exon1214.JAK2Exon1214TestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(jak2Exon1214Test.PanelSetId);
-                if (jakExon1214TestOrder.Result != this.JAK2Exon1214Result)
+                if (action == "Filled" && string.IsNullOrEmpty(this.JAK2Exon1214Result) == true)
                 {
                     result.Success = false;
-                    result.Message += "The " + jak2Exon1214Test.PanelSetName + " result(" + jakExon1214TestOrder.Result + ") does not match." + Environment.NewLine;
+                    result.Message += this.NotFilledMessage(jak2Exon1214Test.PanelSetName);
+                }
+                if (action == "Match" && jakExon1214TestOrder.Result != this.JAK2Exon1214Result)
+                {
+                    result.Success = false;
+                    result.Message += this.MismatchMessage(jak2Exon1214Test.PanelSetName, jakExon1214TestOrder.Result);
+                }
+                if (action == "Final" && jakExon1214TestOrder.Final == false)
+                {
+                    result.Success = false;
+                    result.Message += this.NotFinaledMessage(jak2Exon1214Test.PanelSetName);
                 }
             }
             return result;
+        }
+
+        private string NotFilledMessage(string panelSetName)
+        {
+            return "The " + panelSetName + " result is not set." + Environment.NewLine;
+        }
+
+        private string MismatchMessage(string panelSetName, string panelSetResult)
+        {
+            return "The " + panelSetName + " result(" + panelSetResult + ") does not match." + Environment.NewLine;
+        }
+
+        private string NotFinaledMessage(string panelSetName)
+        {
+            return "The " + panelSetName + " is not finaled." + Environment.NewLine;
         }
     }
 }
