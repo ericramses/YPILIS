@@ -14,20 +14,28 @@ namespace YellowstonePathology.Business
     public class GethAPI
     {
         string m_BaseJSON = "{\"jsonrpc\":\"2.0\",\"method\":\"method_name\",\"params\":[],\"id\":1}";
-
-        //'{"jsonrpc":"2.0","method":"eth_getBlockTransactionCountByHash","params":["0xc94770007dda54cF92009BFF0dE90c06F603a09f"],"id":1}'
-        //'{"jsonrpc":"2.0","method":"eth_getBlockTransactionCountByNumber","params":["0xe8"],"id":1}'
-        //'{"jsonrpc":"2.0","method":"eth_getBlockByNumber","params":["0x1b4", true],"id":1}'
-        //string result = Business.HTTPPost.Post("{\"jsonrpc\":\"2.0\",\"method\":\"eth_accounts\",\"params\":[],\"id\":1}");                    
+        //CMMC Shipping: 0xeaeea7452996740c862dee98fe929e1acd756d1c
+        //Receiving: 0xd24801e7e96eb3cd238de31c2c337f2620148a7c        
 
         public GethAPI()
         {
             
         }
 
-        public string GetBlockByNumber(int blockNumber)
+        public void GetTransactionReceipt(string transactionHash)
         {
-            string result = null;
+            JObject postObject = JObject.Parse(this.m_BaseJSON);
+            postObject["method"] = "eth_getTransactionReceipt";            
+            JArray paramList = (JArray)postObject["params"];
+            paramList.Add(transactionHash);            
+
+            JObject tranReceipt = JObject.Parse(this.Post(postObject));
+            JObject tranReceiptResult = (JObject)tranReceipt["result"];
+            string contractAddress = tranReceiptResult["contractAddress"].ToString();
+        }
+
+        public Business.EthBlock GetBlockByNumber(int blockNumber)
+        {            
             JObject postObject = JObject.Parse(this.m_BaseJSON);
             postObject["method"] = "eth_getBlockByNumber";
             string hexValue = String.Format("0x{0:X}", blockNumber);
@@ -36,7 +44,8 @@ namespace YellowstonePathology.Business
             paramList.Add(true);
 
             string postResult = this.Post(postObject);
-            return result;
+            Business.EthBlock block = new EthBlock(postResult);
+            return block;
         }
 
         public int GetBlockTransactionCountByNumber(int blockNumber)
