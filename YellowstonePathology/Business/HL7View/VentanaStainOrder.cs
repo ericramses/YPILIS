@@ -43,11 +43,18 @@ namespace YellowstonePathology.Business.HL7View
                     testOrder.TestStatus = "PERFORMEDBYHAND";
                     testOrder.TestStatusUpdateTime = DateTime.Now;
                 }
-
+                
                 Business.Label.Model.ZPLPrinterUSB zplPrinterUSB = new Business.Label.Model.ZPLPrinterUSB();
                 Business.Label.Model.HistologySlidePaperZPLLabelV1 zplCommand = new Label.Model.HistologySlidePaperZPLLabelV1(slideOrder.SlideOrderId, slideOrder.ReportNo, slideOrder.PatientFirstName, slideOrder.PatientLastName, slideOrder.TestAbbreviation, slideOrder.Label, slideOrder.AccessioningFacility, slideOrder.UseWetProtocol, slideOrder.PerformedByHand);
                 zplPrinterUSB.Print(zplCommand);
-                slideOrder.Printed = true;                
+
+                slideOrder.Printed = true;
+                slideOrder.PrintedBy = Business.User.SystemIdentity.Instance.User.UserName;
+                slideOrder.PrintedById = Business.User.SystemIdentity.Instance.User.UserId;
+                slideOrder.Status = "Validated";
+                slideOrder.Validated = true;
+                slideOrder.ValidatedBy = Business.User.SystemIdentity.Instance.User.UserName;
+                slideOrder.ValidatedById = Business.User.SystemIdentity.Instance.User.UserId;
             }
         }
 
