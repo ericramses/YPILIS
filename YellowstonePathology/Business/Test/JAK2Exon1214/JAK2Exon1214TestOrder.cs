@@ -137,11 +137,19 @@ namespace YellowstonePathology.Business.Test.JAK2Exon1214
             Audit.Model.AuditResult result = base.IsOkToAccept(accessionOrder);
             if (result.Status == Audit.Model.AuditStatusEnum.OK)
             {
-                Rules.MethodResult methodResult = this.CheckResults(accessionOrder);
-                if (methodResult.Success == false)
+                if (string.IsNullOrEmpty(this.Result) == true)
                 {
-                    result.Status = Audit.Model.AuditStatusEnum.Warning;
-                    result.Message = methodResult.Message + "Are you sure you want to accept the results?";
+                    result.Status = Audit.Model.AuditStatusEnum.Failure;
+                    result.Message = "This case cannot be accepted because the results have not been set.";
+                }
+                else
+                {
+                    Rules.MethodResult methodResult = this.CheckResults(accessionOrder);
+                    if (methodResult.Success == false)
+                    {
+                        result.Status = Audit.Model.AuditStatusEnum.Warning;
+                        result.Message = methodResult.Message + "Are you sure you want to accept the results?";
+                    }
                 }
             }
 
@@ -157,14 +165,15 @@ namespace YellowstonePathology.Business.Test.JAK2Exon1214
                 {
                     auditResult.Status = Audit.Model.AuditStatusEnum.Failure;
                     auditResult.Message = "This case cannot be finalized because the results have not been set.";
-                    return auditResult;
                 }
-
-                Rules.MethodResult methodResult = this.CheckResults(accessionOrder);
-                if (methodResult.Success == false)
+                else
                 {
-                    auditResult.Status = Audit.Model.AuditStatusEnum.Warning;
-                    auditResult.Message = methodResult.Message + "Are you sure you want to finalize this report?";
+                    Rules.MethodResult methodResult = this.CheckResults(accessionOrder);
+                    if (methodResult.Success == false)
+                    {
+                        auditResult.Status = Audit.Model.AuditStatusEnum.Warning;
+                        auditResult.Message = methodResult.Message + "Are you sure you want to finalize this report?";
+                    }
                 }
             }
             return auditResult;
