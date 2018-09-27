@@ -995,7 +995,7 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            this.AddWebService();
+            //bool result = Business.Gateway.AccessionOrderGateway.DoesMasterAccessionNoExists("123123123123");
 
             //System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex(@"(^|\s*)(\d{1,3})");
             //System.Text.RegularExpressions.Match match = regex.Match("60    ");
