@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>210</ApplicationRevision>
+    <ApplicationRevision>218</ApplicationRevision>
     <ApplicationVersion>10.1.12.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -309,6 +309,7 @@
     <Compile Include="Business\ClientOrder.Model\ExternalOrderIdsCollection.cs" />
     <Compile Include="Business\Document\CaseDocumentFileTypeEnnum.cs" />
     <Compile Include="Business\Document\CaseDocumentTypeEnum.cs" />
+    <Compile Include="Business\EthBlock.cs" />
     <Compile Include="Business\Flow\CytoplasmicMarkerMapping.cs" />
     <Compile Include="Business\Flow\CytoplasmicMarkerMappingCollection.cs" />
     <Compile Include="Business\Gateway\PreviousResultGateway.cs" />
@@ -2961,6 +2962,9 @@
     <Compile Include="UI\BrowserWindow.xaml.cs">
       <DependentUpon>BrowserWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\ChainBrowser.xaml.cs">
+      <DependentUpon>ChainBrowser.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Client\ClientFedxDialog.xaml.cs">
       <DependentUpon>ClientFedxDialog.xaml</DependentUpon>
     </Compile>
@@ -4865,6 +4869,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\CellCounter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\ChainBrowser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1003,5 +1003,11 @@ namespace YellowstonePathology.UI
             Redis.StoreSelection dlg = new Redis.StoreSelection();
             dlg.ShowDialog();
         }
+
+        private void MenuItemChainExplorer_Click(object sender, RoutedEventArgs e)
+        {
+            ChainBrowser chainBrowser = new ChainBrowser();
+            chainBrowser.Show();
+        }
     }
 }

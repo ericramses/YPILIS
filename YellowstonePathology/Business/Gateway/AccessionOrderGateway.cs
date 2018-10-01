@@ -121,6 +121,30 @@ namespace YellowstonePathology.Business.Gateway
             }
 
             return result;
+        }        
+
+        public static bool DoesMasterAccessionNoExists(string masterAccessionNo)
+        {
+            bool result = false;
+            
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "select exists(select 1 from tblAccessionOrder where MasterAccessionNO = @MasterAccessionNo) `Exists`";
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.AddWithValue("@MasterAccessionNo", masterAccessionNo);
+
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        result = Convert.ToBoolean(dr["Exists"]);
+                    }
+                }
+            }
+            return result;
         }
 
         public static YellowstonePathology.Business.HL7View.ADTMessages GetADTMessages(string mrn)

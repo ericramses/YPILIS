@@ -86,17 +86,23 @@ namespace YellowstonePathology.UI.Monitor
             FindItemsResults<Item> findResults = service.FindItems(WellKnownFolderName.Inbox, view);
                         
             System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex(@"(^|\s*)(\d{1,3})");
+
+            bool blockCountFound = false;
             foreach (Item mailItem in findResults.Items)
             {
                 if (mailItem is EmailMessage)
                 {
-                    System.Text.RegularExpressions.Match match = regex.Match(mailItem.Subject);
-                    if (match.Captures.Count != 0)
+                    if(blockCountFound == false)
                     {
-                        int blockCount = Convert.ToInt32(match.Value);                        
-                        YellowstonePathology.Business.Gateway.AccessionOrderGateway.SetBozemanBlockCount(blockCount, DateTime.Today);
-                        mailItem.Delete(DeleteMode.MoveToDeletedItems);
+                        System.Text.RegularExpressions.Match match = regex.Match(mailItem.Subject);
+                        if (match.Captures.Count != 0)
+                        {
+                            int blockCount = Convert.ToInt32(match.Value);
+                            YellowstonePathology.Business.Gateway.AccessionOrderGateway.SetBozemanBlockCount(blockCount, DateTime.Today);
+                            blockCountFound = true;
+                        }
                     }
+                    mailItem.Delete(DeleteMode.MoveToDeletedItems);
                 }
             }            
         }

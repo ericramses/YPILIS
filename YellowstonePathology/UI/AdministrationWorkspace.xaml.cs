@@ -995,6 +995,8 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
+            //bool result = Business.Gateway.AccessionOrderGateway.DoesMasterAccessionNoExists("123123123123");
+
             //System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex(@"(^|\s*)(\d{1,3})");
             //System.Text.RegularExpressions.Match match = regex.Match("60    ");
             //int blockCount = Convert.ToInt32(match.Value);
@@ -1017,7 +1019,8 @@ namespace YellowstonePathology.UI
 
         private void AddWebService()
         {
-            List<int> webServiceAccountIds = this.GetWebServiceAccountIds();
+            List<int> webServiceAccountIds = new List<int>();
+            webServiceAccountIds.Add(909);
             List<int> clientIds = this.GetClientIds();
 
             int id = YellowstonePathology.Business.Gateway.WebServiceGateway.GetNextWebServiceAccountClientId();
@@ -1036,6 +1039,7 @@ namespace YellowstonePathology.UI
                         id += 1;
                     }
                 }
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
             }
         }
 
