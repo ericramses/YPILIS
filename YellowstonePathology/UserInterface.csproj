@@ -128,6 +128,10 @@
       <HintPath>dll\NHunspell.dll</HintPath>
     </Reference>
     <Reference Include="PresentationFramework.Luna" />
+    <Reference Include="Renci.SshNet, Version=2016.1.0.0, Culture=neutral, PublicKeyToken=1cee9f8bde3db106, processorArchitecture=MSIL">
+      <HintPath>..\packages\SSH.NET.2016.1.0\lib\net40\Renci.SshNet.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="StackExchange.Redis, Version=1.2.6.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\StackExchange.Redis.1.2.6\lib\net46\StackExchange.Redis.dll</HintPath>
       <Private>True</Private>
@@ -738,7 +742,6 @@
     <Compile Include="Business\Flow\MarkerCollection.cs" />
     <Compile Include="Business\Flow\MarkerItem.cs" />
     <Compile Include="Business\Flow\MarkerItem.Generated.cs" />
-    <Compile Include="Business\FtpTransfer.cs" />
     <Compile Include="Business\Gateway\AccessionOrderBuilderV2.cs" />
     <Compile Include="Business\Gateway\AccessionOrderGateway.cs" />
     <Compile Include="Business\Gateway\BillingGateway.cs" />
@@ -1025,9 +1028,11 @@
     <Compile Include="Business\Slide.Model\VantageSlideScanCollection.cs" />
     <Compile Include="Business\Slide.Model\VantageSlideView.cs" />
     <Compile Include="Business\Slide.Model\VantageSlideViewCollection.cs" />
+    <Compile Include="Business\SSHFileTransfer.cs" />
     <Compile Include="Business\Stain.Model\JsonStainFactory.cs" />
     <Compile Include="Business\Stain.Model\Stain.cs" />
     <Compile Include="Business\Stain.Model\StainCollection.cs" />
+    <Compile Include="Business\Billing.Model\SVHClinicMailMessage.cs" />
     <Compile Include="Business\Test.Model\TestCollectionInstance.cs" />
     <Compile Include="Business\Test.Model\TestFactory.cs" />
     <Compile Include="Business\Test.Model\TestOrderStatusView.cs" />
@@ -6763,12 +6768,12 @@
   <ItemGroup>
     <PublishFile Include="Microsoft.Exchange.WebServices">
       <Visible>False</Visible>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
   </ItemGroup>

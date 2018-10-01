@@ -147,6 +147,47 @@ namespace YellowstonePathology.Business.Gateway
             return result;
         }
 
+        public static string GetSVHClinicMessageBody(DateTime accessionDate)
+        {
+            StringBuilder result = new StringBuilder();
+            result.AppendLine("SVH Clinic Cases for: " + accessionDate.ToString());
+            StringBuilder header = new StringBuilder();
+            header.Append("Accessioned".PadRight(40));
+            header.Append("Master Accession".PadRight(20));
+            header.Append("MRN".PadRight(20));
+            header.Append("Account".PadRight(20));
+            result.AppendLine(header.ToString());
+
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "Select AccessionTime, MasterAccessionNo, SvhMedicalRecord, svhAccount " +
+                "from tblAccessionOrder " +
+                "where AccessionDate = @AccessionDate " +
+                "and svhmedicalrecord like 'A%' " +
+                "order by AccessionTime";
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.AddWithValue("@AccessionDate", accessionDate);
+
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        StringBuilder line = new StringBuilder();
+                        line.Append(dr["AccessionTime"].ToString().PadRight(40));
+                        line.Append(dr["MasterAccessionNo"].ToString().PadRight(20));
+                        line.Append(dr["SvhMedicalRecord"].ToString().PadRight(20));
+                        line.Append(dr["SvhAccount"].ToString().PadRight(20));
+                        result.AppendLine(line.ToString());
+                    }
+                }
+            }
+
+            return result.ToString();
+        }
+
         public static YellowstonePathology.Business.HL7View.ADTMessages GetADTMessages(string mrn)
         {
             YellowstonePathology.Business.HL7View.ADTMessages result = new HL7View.ADTMessages();
