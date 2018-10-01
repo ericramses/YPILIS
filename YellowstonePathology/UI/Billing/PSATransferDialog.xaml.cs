@@ -13,6 +13,8 @@ using System.Windows.Shapes;
 using System.IO;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace YellowstonePathology.UI.Billing
 {    
@@ -66,10 +68,10 @@ namespace YellowstonePathology.UI.Billing
         {
             get { return this.m_PostDate; }
             set { this.m_PostDate = value; }
-        }          
+        }
 
-        private void ButtonStartTransfer_Click(object sender, RoutedEventArgs e)
-        {            
+        private void ButtonTransferToFolder_Click(object sender, RoutedEventArgs e)
+        {
             if (this.m_PostDate.HasValue == true)
             {
                 this.m_BackgroundWorker = new System.ComponentModel.BackgroundWorker();
@@ -77,10 +79,10 @@ namespace YellowstonePathology.UI.Billing
                 this.m_BackgroundWorker.WorkerReportsProgress = true;
                 this.m_BackgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(BackgroundWorker_ProgressChanged);
                 this.m_BackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(RunPSATransfer);
-                this.m_BackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(BackgroundWorker_RunWorkerCompleted);                
+                this.m_BackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(BackgroundWorker_RunWorkerCompleted);
                 this.m_BackgroundWorker.RunWorkerAsync();
             }
-        }
+        }        
 
         private void BackgroundWorker_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
         {
@@ -286,6 +288,23 @@ namespace YellowstonePathology.UI.Billing
             System.Diagnostics.ProcessStartInfo info = new System.Diagnostics.ProcessStartInfo("Explorer.exe", workingFolder);
             p.StartInfo = info;
             p.Start();          
+        }
+
+        private void ButtonTransferToPSA_Click(object sender, RoutedEventArgs e)
+        {
+            JObject psaSSHConfig = null;
+            using (StreamReader file = File.OpenText(@"C:\Program Files\Yellowstone Pathology Institute\psa-ssh-config.json"))
+            using (JsonTextReader reader = new JsonTextReader(file))
+            {
+                psaSSHConfig = (JObject)JToken.ReadFrom(reader);
+            }
+
+            string workingFolder = System.IO.Path.Combine(this.m_BaseWorkingFolderPath, this.m_PostDate.Value.ToString("MMddyyyy"));
+            string [] files = System.IO.Directory.GetFiles(workingFolder);
+            foreach(string file in files)
+            {
+
+            }
         }
     }
 }

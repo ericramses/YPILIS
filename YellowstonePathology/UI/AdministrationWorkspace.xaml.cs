@@ -995,8 +995,7 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            Business.SSHFileTransfer ssh = new Business.SSHFileTransfer();
-            ssh.GetFileList();
+            
         }
 
         private void AddWebService()

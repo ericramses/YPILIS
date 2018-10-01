@@ -9,29 +9,44 @@ using System.IO;
 namespace YellowstonePathology.Business
 {
     public class SSHFileTransfer
-    {        
-        public void GetFileList()
+    {
+        private const string SSH_KEY_PATH = @"C:\Program Files\Yellowstone Pathology Institute\ssh.key";
+
+        private string m_Host;
+        private int m_Port;
+        private string m_UserName;
+        private string m_Password;
+             
+        public SSHFileTransfer(string host, int port, string userName, string password)
         {
-            var localPath = @"D:\Testing\test.xps";
-            var keyFile = new PrivateKeyFile(@"C:\GIT\Sid\YPILIS\YellowstonePathology\ssh.key");
-            var keyFiles = new[] { keyFile };
-            var username = "Yellowstone";
+            this.m_Host = host;
+            this.m_Port = port;
+            this.m_UserName = userName;
+            this.m_Password = password;
+        }
+
+        public void UploadFilesToPSA(string[] files)
+        {            
+            var keyFile = new PrivateKeyFile(SSH_KEY_PATH);
+            var keyFiles = new [] { keyFile };
+            var username = this.m_UserName;
 
             var methods = new List<AuthenticationMethod>();
-            methods.Add(new PasswordAuthenticationMethod(username, "Y0g1B34r"));
+            methods.Add(new PasswordAuthenticationMethod(username, this.m_Password));
             methods.Add(new PrivateKeyAuthenticationMethod(username, keyFiles));
 
-            var con = new ConnectionInfo("ftp05.med3000.com", 22, username, methods.ToArray());
+            var con = new ConnectionInfo(this.m_Host, this.m_Port, username, methods.ToArray());
             using (var client = new SftpClient(con))
             {
-                client.Connect();
-                                                
-                using (var fs = new FileStream(@"d:\testing\whatisup.tif", FileMode.Open))
-                {                    
-                    client.UploadFile(fs, "whatisup.tif");                    
-                    fs.Close();
+                client.Connect();                                                
+                foreach(string file in files)
+                {
+                    using (var fs = new FileStream(file, FileMode.Open))
+                    {
+                        client.UploadFile(fs, file);
+                        fs.Close();
+                    }
                 }                
-
                 client.Disconnect();
             }
         }

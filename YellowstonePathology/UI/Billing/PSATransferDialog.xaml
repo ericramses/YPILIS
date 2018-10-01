@@ -26,8 +26,9 @@
             </ListView.View>
         </ListView>
 
-        <Button Grid.Column="0" Grid.Row="2" Height="30" Width="100" Margin="2,2,2,2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="ButtonStartTransfer_Click">Start Transfer</Button>
-        
+        <Button Grid.Column="0" Grid.Row="2" Height="30" Width="110" Margin="2,2,2,2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="ButtonTransferToFolder_Click">Transfer To Folder</Button>
+        <Button Grid.Column="1" Grid.Row="2" Height="30" Width="110" Margin="2,2,2,2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="ButtonTransferToPSA_Click">Transfer To PSA</Button>
+
         <TextBlock Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2" Margin="2,2,2,2" HorizontalAlignment="Center" VerticalAlignment="Center">                    
             <Hyperlink Click="HyperLinkOpenFolder_Click">Open PSA Folder</Hyperlink>            
         </TextBlock>
