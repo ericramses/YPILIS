@@ -43,7 +43,7 @@
 
 
             <TextBlock Name="TextBlockPreviousResults" Grid.Column="0" Grid.Row="4" Margin="5,3,0,5">
-					<Hyperlink Click="HyperLinkPreviousResults_Click">Previous Results</Hyperlink>
+					<Hyperlink Click="HyperLinkPreviousResults_Click" FontSize="14">Previous Results</Hyperlink>
             </TextBlock>
 
 			<TextBlock Grid.Column="0" Grid.Row="5" Margin="5,3,0,0">                    

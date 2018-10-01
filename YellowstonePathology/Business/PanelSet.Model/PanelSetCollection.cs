@@ -169,6 +169,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.Test.NeoLABMyeloidDisordersProfile.NeoLABMyeloidDisordersProfileTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.NeoTypeOvarianTumorProfile.NeoTypeOvarianTumorProfileTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.SomatostatinReceptorType2.SomatostatinReceptorType2Test());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.NeoTypeLungTumorFISHPanel.NeoTypeLungTumorFISHPanelTest());
 
             //ARUP
             panelSetCollection.Add(new YellowstonePathology.Business.Test.HPV1618.HPV1618Test());
