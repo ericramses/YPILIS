@@ -213,7 +213,7 @@ namespace YellowstonePathology.Business.Test.MPNExtendedReflex
             Audit.Model.AuditResult result = base.IsOkToSetPreviousResults(panelSetOrder, accessionOrder);
             if (result.Status == Audit.Model.AuditStatusEnum.OK)
             {
-                result = this.CheckResults(accessionOrder, panelSetOrder, CheckResultsActionEnum.Match);
+                this.DoComponentTestResultsMatchPreviousResults(accessionOrder, (PanelSetOrderMPNExtendedReflex)panelSetOrder, result);
                 if (result.Status == Audit.Model.AuditStatusEnum.Warning)
                 {
                     result.Message += AskSetPreviousResults;
@@ -228,10 +228,10 @@ namespace YellowstonePathology.Business.Test.MPNExtendedReflex
             Audit.Model.AuditResult result = base.IsOkToAccept(accessionOrder);
             if (result.Status == Audit.Model.AuditStatusEnum.OK)
             {
-                result = this.CheckResults(accessionOrder, this, CheckResultsActionEnum.Filled);
+                this.AreTestResultsPresent(accessionOrder, result);
                 if (result.Status == Audit.Model.AuditStatusEnum.OK)
                 {
-                    result = this.CheckResults(accessionOrder, this, CheckResultsActionEnum.Match);
+                    this.DoComponentTestResultsMatchPreviousResults(accessionOrder, this, result);
                     if (result.Status == Audit.Model.AuditStatusEnum.Warning)
                     {
                         result.Message += AskAccept;
@@ -247,17 +247,17 @@ namespace YellowstonePathology.Business.Test.MPNExtendedReflex
             Audit.Model.AuditResult result = base.IsOkToFinalize(accessionOrder);
             if (result.Status == Audit.Model.AuditStatusEnum.OK)
             {
-                result = this.CheckResults(accessionOrder, this, CheckResultsActionEnum.Filled);
+                this.AreTestResultsPresent(accessionOrder, result);
             }
 
             if (result.Status == Audit.Model.AuditStatusEnum.OK)
             {
-                Audit.Model.AuditResult methodResult = this.CheckResults(accessionOrder, this, CheckResultsActionEnum.Final);
+                this.AreComponentTestOrdersFinal(accessionOrder, result);
             }
 
             if (result.Status == Audit.Model.AuditStatusEnum.OK)
             {
-                result = this.CheckResults(accessionOrder, this, CheckResultsActionEnum.Match);
+                this.DoComponentTestResultsMatchPreviousResults(accessionOrder, this, result);
                 if (result.Status == Audit.Model.AuditStatusEnum.Warning)
                 {
                     result.Message += AskFinal;
@@ -266,66 +266,139 @@ namespace YellowstonePathology.Business.Test.MPNExtendedReflex
             return result;
         }
 
-        protected override Audit.Model.AuditResult CheckResults(AccessionOrder accessionOrder,PanelSetOrder panelSetOrder, CheckResultsActionEnum action)
+        private void DoComponentTestResultsMatchPreviousResults(AccessionOrder accessionOrder, PanelSetOrderMPNExtendedReflex panelSetOrder, Audit.Model.AuditResult result)
         {
-            Audit.Model.AuditResult result = new Audit.Model.AuditResult();
-            result.Status = Audit.Model.AuditStatusEnum.OK;
-            Audit.Model.AuditResult tmpResult = new Audit.Model.AuditResult();
-
             Test.JAK2V617F.JAK2V617FTest jak2V617FTest = new JAK2V617F.JAK2V617FTest();
             Test.MPL.MPLTest mplTest = new MPL.MPLTest();
             Test.CalreticulinMutationAnalysis.CalreticulinMutationAnalysisTest calRTest = new CalreticulinMutationAnalysis.CalreticulinMutationAnalysisTest();
 
-            if (action == CheckResultsActionEnum.Filled)
+            if (accessionOrder.PanelSetOrderCollection.Exists(jak2V617FTest.PanelSetId) == true)
             {
-                result = this.CheckResultIsFilled(accessionOrder, jak2V617FTest);
-                tmpResult = this.CheckResultIsFilled(accessionOrder, mplTest);
-                if (tmpResult.Status == Audit.Model.AuditStatusEnum.Failure)
-                {
-                    result.Status = Audit.Model.AuditStatusEnum.Failure;
-                    result.Message += tmpResult.Message;
-                }
-                tmpResult = this.CheckResultIsFilled(accessionOrder, calRTest);
-                if (tmpResult.Status == Audit.Model.AuditStatusEnum.Failure)
-                {
-                    result.Status = Audit.Model.AuditStatusEnum.Failure;
-                    result.Message += tmpResult.Message;
-                }
-            }
-            if (action == CheckResultsActionEnum.Match)
-            {
-                result = panelSetOrder.CheckResultsMatch(accessionOrder, panelSetOrder, jak2V617FTest, "JAK2V617FResult");
-                tmpResult = panelSetOrder.CheckResultsMatch(accessionOrder, panelSetOrder, mplTest, "MPLResult");
-                if (tmpResult.Status == Audit.Model.AuditStatusEnum.Warning)
+                Test.JAK2V617F.JAK2V617FTestOrder jak2V617FTestOrder = (JAK2V617F.JAK2V617FTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(jak2V617FTest.PanelSetId);
+                if (jak2V617FTestOrder.Result != panelSetOrder.JAK2V617FResult)
                 {
                     result.Status = Audit.Model.AuditStatusEnum.Warning;
-                    result.Message += tmpResult.Message;
-                }
-                tmpResult = panelSetOrder.CheckResultsMatch(accessionOrder, panelSetOrder, calRTest, "CalreticulinMutationAnalysisResult");
-                if (tmpResult.Status == Audit.Model.AuditStatusEnum.Warning)
-                {
-                    result.Status = Audit.Model.AuditStatusEnum.Warning;
-                    result.Message += tmpResult.Message;
-                }
-            }
-            if (action == CheckResultsActionEnum.Final)
-            {
-                result = this.CheckCaseIsFinal(accessionOrder, jak2V617FTest);
-                tmpResult = this.CheckCaseIsFinal(accessionOrder, mplTest);
-                if (tmpResult.Status == Audit.Model.AuditStatusEnum.Failure)
-                {
-                    result.Status = Audit.Model.AuditStatusEnum.Failure;
-                    result.Message += tmpResult.Message;
-                }
-                tmpResult = this.CheckCaseIsFinal(accessionOrder, calRTest);
-                if (tmpResult.Status == Audit.Model.AuditStatusEnum.Failure)
-                {
-                    result.Status = Audit.Model.AuditStatusEnum.Failure;
-                    result.Message += tmpResult.Message;
+                    result.Message += MismatchMessage(jak2V617FTestOrder.PanelSetName, jak2V617FTestOrder.Result);
                 }
             }
 
-            return result;
+            if (accessionOrder.PanelSetOrderCollection.Exists(mplTest.PanelSetId) == true)
+            {
+                Test.MPL.PanelSetOrderMPL panelSetOrderMPL = (MPL.PanelSetOrderMPL)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(mplTest.PanelSetId);
+                if (panelSetOrderMPL.Result != panelSetOrder.MPLResult)
+                {
+                    result.Status = Audit.Model.AuditStatusEnum.Warning;
+                    result.Message += MismatchMessage(panelSetOrderMPL.PanelSetName, panelSetOrderMPL.Result);
+                }
+            }
+
+            if (accessionOrder.PanelSetOrderCollection.Exists(calRTest.PanelSetId) == true)
+            {
+                Test.CalreticulinMutationAnalysis.CalreticulinMutationAnalysisTestOrder calreticulinMutationAnalysisTestOrder = (CalreticulinMutationAnalysis.CalreticulinMutationAnalysisTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(calRTest.PanelSetId);
+                if (calreticulinMutationAnalysisTestOrder.Result != panelSetOrder.CalreticulinMutationAnalysisResult)
+                {
+                    result.Status = Audit.Model.AuditStatusEnum.Warning;
+                    result.Message += MismatchMessage(calreticulinMutationAnalysisTestOrder.PanelSetName, calreticulinMutationAnalysisTestOrder.Result);
+                }
+            }
+        }
+
+        private void AreComponentTestOrdersFinal(AccessionOrder accessionOrder, Audit.Model.AuditResult result)
+        {
+            Test.JAK2V617F.JAK2V617FTest jak2V617FTest = new JAK2V617F.JAK2V617FTest();
+            Test.MPL.MPLTest mplTest = new MPL.MPLTest();
+            Test.CalreticulinMutationAnalysis.CalreticulinMutationAnalysisTest calRTest = new CalreticulinMutationAnalysis.CalreticulinMutationAnalysisTest();
+
+            if (accessionOrder.PanelSetOrderCollection.Exists(jak2V617FTest.PanelSetId) == true)
+            {
+                Test.JAK2V617F.JAK2V617FTestOrder jak2V617FTestOrder = (JAK2V617F.JAK2V617FTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(jak2V617FTest.PanelSetId);
+                if (jak2V617FTestOrder.Final == false)
+                {
+                    result.Status = Audit.Model.AuditStatusEnum.Failure;
+                    result.Message += NotFinaledMessage(jak2V617FTestOrder.PanelSetName);
+                }
+            }
+
+            if (accessionOrder.PanelSetOrderCollection.Exists(mplTest.PanelSetId) == true)
+            {
+                Test.MPL.PanelSetOrderMPL panelSetOrderMPL = (MPL.PanelSetOrderMPL)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(mplTest.PanelSetId);
+                if (panelSetOrderMPL.Final == false)
+                {
+                    result.Status = Audit.Model.AuditStatusEnum.Failure;
+                    result.Message += NotFinaledMessage(panelSetOrderMPL.PanelSetName);
+                }
+            }
+
+            if (accessionOrder.PanelSetOrderCollection.Exists(calRTest.PanelSetId) == true)
+            {
+                Test.CalreticulinMutationAnalysis.CalreticulinMutationAnalysisTestOrder calreticulinMutationAnalysisTestOrder = (CalreticulinMutationAnalysis.CalreticulinMutationAnalysisTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(calRTest.PanelSetId);
+                if (calreticulinMutationAnalysisTestOrder.Final == false)
+                {
+                    result.Status = Audit.Model.AuditStatusEnum.Failure;
+                    result.Message += NotFinaledMessage(calreticulinMutationAnalysisTestOrder.PanelSetName);
+                }
+            }
+        }
+
+        private void AreTestResultsPresent(AccessionOrder accessionOrder, Audit.Model.AuditResult result)
+        {
+            Test.JAK2V617F.JAK2V617FTest jak2V617FTest = new JAK2V617F.JAK2V617FTest();
+            Test.MPL.MPLTest mplTest = new MPL.MPLTest();
+            Test.CalreticulinMutationAnalysis.CalreticulinMutationAnalysisTest calRTest = new CalreticulinMutationAnalysis.CalreticulinMutationAnalysisTest();
+
+            if (accessionOrder.PanelSetOrderCollection.Exists(jak2V617FTest.PanelSetId) == true)
+            {
+                if (string.IsNullOrEmpty(this.m_JAK2V617FResult) == true)
+                {
+                    result.Status = Audit.Model.AuditStatusEnum.Failure;
+                    result.Message += NotFilledMessage("JAK2V617FResult");
+                }
+            }
+
+            if (accessionOrder.PanelSetOrderCollection.Exists(mplTest.PanelSetId) == true)
+            {
+                if (string.IsNullOrEmpty(this.m_MPLResult) == true)
+                {
+                    result.Status = Audit.Model.AuditStatusEnum.Failure;
+                    result.Message += NotFilledMessage("MPLResult");
+                }
+            }
+
+            if (accessionOrder.PanelSetOrderCollection.Exists(calRTest.PanelSetId) == true)
+            {
+                if (string.IsNullOrEmpty(this.m_CalreticulinMutationAnalysisResult) == true)
+                {
+                    result.Status = Audit.Model.AuditStatusEnum.Failure;
+                    result.Message += NotFilledMessage("CalreticulinMutationAnalysisResult");
+                }
+            }
+        }
+
+        public void DoesJAK2V617FResultMatch(string jak2V617FResult, Audit.Model.AuditResult result)
+        {
+            if(this.Final == true && this.JAK2V617FResult != jak2V617FResult)
+            {
+                result.Status = Audit.Model.AuditStatusEnum.Warning;
+                result.Message += MismatchMessage(this.PanelSetName, this.JAK2V617FResult);
+            }
+        }
+
+        public void DoesMPLResultMatch(string mplResult, Audit.Model.AuditResult result)
+        {
+            if(this.Final == true && this.MPLResult != mplResult)
+            {
+                result.Status = Audit.Model.AuditStatusEnum.Warning;
+                result.Message += MismatchMessage(this.PanelSetName, this.MPLResult);
+            }
+        }
+
+        public void DoesCalreticulinMutationAnalysisResultMatch(string calreticulinMutationAnalysisResult, Audit.Model.AuditResult result)
+        {
+            if (this.Final == true && this.CalreticulinMutationAnalysisResult != calreticulinMutationAnalysisResult)
+            {
+                result.Status = Audit.Model.AuditStatusEnum.Warning;
+                result.Message += MismatchMessage(this.PanelSetName, this.CalreticulinMutationAnalysisResult);
+            }
         }
     }
 }

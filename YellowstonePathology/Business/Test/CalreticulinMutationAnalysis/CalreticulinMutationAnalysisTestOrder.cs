@@ -171,7 +171,8 @@ namespace YellowstonePathology.Business.Test.CalreticulinMutationAnalysis
             Audit.Model.AuditResult result = base.IsOkToSetPreviousResults(panelSetOrder, accessionOrder);
             if (result.Status == Audit.Model.AuditStatusEnum.OK)
             {
-                result = this.CheckResults(accessionOrder, panelSetOrder);
+                CalreticulinMutationAnalysisTestOrder calreticulinMutationAnalysisTestOrder = (CalreticulinMutationAnalysisTestOrder)panelSetOrder;
+                this.DoesFinalSummaryResultMatch(accessionOrder, calreticulinMutationAnalysisTestOrder.Result, result);
                 if (result.Status == Audit.Model.AuditStatusEnum.Warning)
                 {
                     result.Message += AskSetPreviousResults;
@@ -193,7 +194,7 @@ namespace YellowstonePathology.Business.Test.CalreticulinMutationAnalysis
                 }
                 else
                 {
-                    result = this.CheckResults(accessionOrder, this);
+                    this.DoesFinalSummaryResultMatch(accessionOrder, this.m_Result, result);
                     if (result.Status == Audit.Model.AuditStatusEnum.Warning)
                     {
                         result.Message += AskAccept;
@@ -216,7 +217,7 @@ namespace YellowstonePathology.Business.Test.CalreticulinMutationAnalysis
                 }
                 else
                 {
-                    result = this.CheckResults(accessionOrder, this);
+                    this.DoesFinalSummaryResultMatch(accessionOrder, this.m_Result, result);
                     if (result.Status == Audit.Model.AuditStatusEnum.Warning)
                     {
                         result.Message += AskFinal;
@@ -226,11 +227,15 @@ namespace YellowstonePathology.Business.Test.CalreticulinMutationAnalysis
             return result;
         }
 
-        protected override Audit.Model.AuditResult CheckResults(AccessionOrder accessionOrder, PanelSetOrder panelSetOrder)
+        private void DoesFinalSummaryResultMatch(AccessionOrder accessionOrder, string result, Audit.Model.AuditResult auditResult)
         {
-            Business.Test.MPNExtendedReflex.MPNExtendedReflexTest mpnExtendedReflexTest = new MPNExtendedReflex.MPNExtendedReflexTest();
-            Audit.Model.AuditResult result = this.CheckSummaryResultsMatch(accessionOrder, panelSetOrder, mpnExtendedReflexTest, "CalreticulinMutationAnalysisResult");
-            return result;
+            YellowstonePathology.Business.Test.MPNExtendedReflex.MPNExtendedReflexTest mpnExtendedReflexTest = new YellowstonePathology.Business.Test.MPNExtendedReflex.MPNExtendedReflexTest();
+
+            if (accessionOrder.PanelSetOrderCollection.Exists(mpnExtendedReflexTest.PanelSetId) == true)
+            {
+                MPNExtendedReflex.PanelSetOrderMPNExtendedReflex panelSetOrderMPNExtendedReflex = (MPNExtendedReflex.PanelSetOrderMPNExtendedReflex)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(mpnExtendedReflexTest.PanelSetId);
+                panelSetOrderMPNExtendedReflex.DoesCalreticulinMutationAnalysisResultMatch(result, auditResult);
+            }
         }
     }
 }
