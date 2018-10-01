@@ -58,25 +58,27 @@ namespace YellowstonePathology.UI.Test
         {
             if(this.ListViewPreviousResult.SelectedItem != null)
             {
-                if(this.m_PanelSetOrder.Final == false && this.m_PanelSetOrder.Accepted == false)
+                Business.PreviousResult previousResult = (Business.PreviousResult)this.ListViewPreviousResult.SelectedItem;
+                Business.Test.AccessionOrder ao = Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(previousResult.MasterAccessionNo, this);
+                Business.Test.PanelSetOrder pso = ao.PanelSetOrderCollection.GetPanelSetOrder(previousResult.ReportNo);
+                Business.Audit.Model.AuditResult auditResult = this.m_PanelSetOrder.IsOkToSetPreviousResults(pso, this.m_AccessionOrder);
+
+                if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.Failure)
                 {
-                    Business.PreviousResult previousResult = (Business.PreviousResult)this.ListViewPreviousResult.SelectedItem;
-                    Business.Test.AccessionOrder ao = Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(previousResult.MasterAccessionNo, this);
-                    Business.Test.PanelSetOrder pso = ao.PanelSetOrderCollection.GetPanelSetOrder(previousResult.ReportNo);
-                    Business.Rules.MethodResult methodResult = pso.IsOkToSetPreviousResults(this.m_PanelSetOrder, this.m_AccessionOrder);
-                    if (methodResult.Success == false)
-                    {
-                        string message = methodResult.Message;
-                        MessageBoxResult messageBoxResult = MessageBox.Show(message, "Questionable Results", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
-                        if (messageBoxResult == MessageBoxResult.Yes)
-                        {
-                            pso.SetPreviousResults(this.m_PanelSetOrder);
-                        }
-                    }
-                    else
+                    MessageBox.Show(auditResult.Message);
+                }
+                else if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.Warning)
+                {
+                    string message = auditResult.Message;
+                    MessageBoxResult messageBoxResult = MessageBox.Show(message, "Questionable Results", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+                    if (messageBoxResult == MessageBoxResult.Yes)
                     {
                         pso.SetPreviousResults(this.m_PanelSetOrder);
                     }
+                }
+                else
+                {
+                    pso.SetPreviousResults(this.m_PanelSetOrder);
                 }
             }
         }
@@ -86,6 +88,10 @@ namespace YellowstonePathology.UI.Test
             if (this.m_PanelSetOrder.Final == false && this.m_PanelSetOrder.Accepted == false)
             {
                 this.m_PanelSetOrder.ClearPreviousResults();
+            }
+            else
+            {
+                MessageBox.Show("The previous results may not be cleared because results have already been accepted.");
             }
         }
     }
