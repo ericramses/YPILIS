@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows.Xps.Packaging;
 using YellowstonePathology.Business.Persistence;
+using System.Collections.Generic;
 
 namespace YellowstonePathology.Business.Test
 {
@@ -12,7 +13,14 @@ namespace YellowstonePathology.Business.Test
 	{
         public event PropertyChangedEventHandler PropertyChanged;
 
-		protected PanelOrderCollection m_PanelOrderCollection;
+        protected static string AskSetPreviousResults = "Are you sure you want to use the selected results?";
+        protected static string AskAccept = "Are you sure you want to accept the results?";
+        protected static string AskFinal = "Are you sure you want to finalize this case?";
+        protected static string UnableToAccept = "This case cannot be accepted because the results have not been set.";
+        protected static string UnableToFinal = "This case cannot be finalized because the results have not been set.";
+        protected static string UnableToSetPreviousResults = "The previous results may not be set because results have already been accepted.";
+
+        protected PanelOrderCollection m_PanelOrderCollection;
         protected YellowstonePathology.Business.Amendment.Model.AmendmentCollection m_AmendmentCollection;
 		protected YellowstonePathology.Business.Test.PanelSetOrderCPTCodeCollection m_PanelSetOrderCPTCodeCollection;
 		protected YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBillCollection m_PanelSetOrderCPTCodeBillCollection;
@@ -1885,9 +1893,9 @@ namespace YellowstonePathology.Business.Test
         public virtual YellowstonePathology.Business.Audit.Model.AuditResult IsOkToAccept(AccessionOrder accessionOrder)
         {
             Audit.Model.AuditResult result = new Audit.Model.AuditResult();
-            Rules.MethodResult methodResult = this.IsOkToAccept();
-
             result.Status = Audit.Model.AuditStatusEnum.OK;
+
+            Rules.MethodResult methodResult = this.IsOkToAccept();
             if(methodResult.Success == false)
             {
                 result.Status = Audit.Model.AuditStatusEnum.Failure;
@@ -1979,10 +1987,176 @@ namespace YellowstonePathology.Business.Test
             return result;
         }
 
-        public virtual YellowstonePathology.Business.Rules.MethodResult IsOkToSetPreviousResults(PanelSetOrder panelSetOrder, AccessionOrder accessionOrder)
+        public virtual YellowstonePathology.Business.Audit.Model.AuditResult IsOkToSetPreviousResults(PanelSetOrder panelSetOrder, AccessionOrder accessionOrder)
         {
-            YellowstonePathology.Business.Rules.MethodResult result = new Rules.MethodResult();
+            Audit.Model.AuditResult result = new Audit.Model.AuditResult();
+            result.Status = Audit.Model.AuditStatusEnum.OK;
+
+            if (this.Accepted == true)
+            {
+                result.Status = Audit.Model.AuditStatusEnum.Failure;
+                result.Message += UnableToSetPreviousResults;
+            }
             return result;
+        }
+
+        protected virtual Audit.Model.AuditResult CheckResults(AccessionOrder accessionOrder, PanelSetOrder panelSetOrder)
+        {
+            Audit.Model.AuditResult result = new Audit.Model.AuditResult();
+            result.Status = Audit.Model.AuditStatusEnum.OK;
+
+            return result;
+        }
+
+        protected virtual Audit.Model.AuditResult CheckResults(AccessionOrder accessionOrder, PanelSetOrder panelSetOrder, CheckResultsActionEnum action)
+        {
+            Audit.Model.AuditResult result = new Audit.Model.AuditResult();
+            result.Status = Audit.Model.AuditStatusEnum.OK;
+            return result;
+        }
+
+        protected virtual Audit.Model.AuditResult CheckSummaryResultsMatch(AccessionOrder accessionOrder, PanelSetOrder panelSetOrder, PanelSet.Model.PanelSet test, string matchResultName)
+        {
+            Audit.Model.AuditResult result = new Audit.Model.AuditResult();
+            result.Status = Audit.Model.AuditStatusEnum.OK;
+
+            if (accessionOrder.PanelSetOrderCollection.Exists(test.PanelSetId) == true)
+            {
+                Type summaryType = Type.GetType(test.PanelSetOrderClassName);
+                PanelSetOrder pso = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(test.PanelSetId);
+                Object summaryPso = Convert.ChangeType(pso, summaryType);
+                System.Reflection.PropertyInfo finalInfo = summaryType.GetProperty("Final");
+                bool summaryFinal = (bool)finalInfo.GetValue(summaryPso);
+                if (summaryFinal == true)
+                {
+                    Type thisType = this.GetType();
+                    System.Reflection.PropertyInfo thisResultInfo = thisType.GetProperty("Result");
+                    Object convertedThis = Convert.ChangeType(panelSetOrder, thisType);
+                    string thisResult = (string)thisResultInfo.GetValue(convertedThis);
+
+                    System.Reflection.PropertyInfo resultInfo = summaryType.GetProperty(matchResultName);
+                    string summaryResult = (string)resultInfo.GetValue(summaryPso);
+                    if (summaryResult != thisResult)
+                    {
+                        result.Status = Audit.Model.AuditStatusEnum.Warning;
+                        result.Message = "The finaled " + test.PanelSetName + " result (" + summaryResult +
+                            ") does not match this result (" + thisResult + ")." + Environment.NewLine;
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        public virtual Audit.Model.AuditResult CheckResultsMatch(AccessionOrder accessionOrder, PanelSetOrder panelSetOrder, PanelSet.Model.PanelSet test, string matchResultName)
+        {
+            Audit.Model.AuditResult result = new Audit.Model.AuditResult();
+            result.Status = Audit.Model.AuditStatusEnum.OK;
+
+            if (accessionOrder.PanelSetOrderCollection.Exists(test.PanelSetId) == true)
+            {
+                Type type = Type.GetType(test.PanelSetOrderClassName);
+                PanelSetOrder pso = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(test.PanelSetId);
+                Object converted = Convert.ChangeType(pso, type);
+
+                Type thisType = this.GetType();
+                System.Reflection.PropertyInfo thisResultInfo = thisType.GetProperty(matchResultName);
+                Object convertedThis = Convert.ChangeType(this, thisType);
+                string thisResult = (string)thisResultInfo.GetValue(convertedThis);
+
+                System.Reflection.PropertyInfo resultInfo = type.GetProperty("Result");
+                string testResult = (string)resultInfo.GetValue(converted);
+                result = DoResultsMatch(testResult, thisResult, test.PanelSetName);
+            }
+            return result;
+        }
+        protected virtual Audit.Model.AuditResult CheckResultIsFilled(AccessionOrder accessionOrder, PanelSet.Model.PanelSet test)
+        {
+            Audit.Model.AuditResult result = new Audit.Model.AuditResult();
+            result.Status = Audit.Model.AuditStatusEnum.OK;
+
+            if (accessionOrder.PanelSetOrderCollection.Exists(test.PanelSetId) == true)
+            {
+                Type type = Type.GetType(test.PanelSetOrderClassName);
+                PanelSetOrder pso = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(test.PanelSetId);
+                Object converted = Convert.ChangeType(pso, type);
+
+                System.Reflection.PropertyInfo resultInfo = type.GetProperty("Result");
+                string testResult = (string)resultInfo.GetValue(converted);
+                result = DoesResultExist(testResult, test.PanelSetName);
+            }
+            return result;
+        }
+
+        protected virtual Audit.Model.AuditResult CheckCaseIsFinal(AccessionOrder accessionOrder, PanelSet.Model.PanelSet test)
+        {
+            Audit.Model.AuditResult result = new Audit.Model.AuditResult();
+            result.Status = Audit.Model.AuditStatusEnum.OK;
+
+            if (accessionOrder.PanelSetOrderCollection.Exists(test.PanelSetId) == true)
+            {
+                Type type = Type.GetType(test.PanelSetOrderClassName);
+                PanelSetOrder pso = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(test.PanelSetId);
+                Object converted = Convert.ChangeType(pso, type);
+
+                System.Reflection.PropertyInfo resultInfo = type.GetProperty("Final");
+                bool finalResult = (bool)resultInfo.GetValue(converted);
+                result = IsCaseFinal(finalResult, test.PanelSetName);
+            }
+            return result;
+        }
+
+        protected virtual Audit.Model.AuditResult DoResultsMatch(string testResult, string matchResult, string testName)
+        {
+            Audit.Model.AuditResult result = new Audit.Model.AuditResult();
+            result.Status = Audit.Model.AuditStatusEnum.OK;
+
+            if (testResult != matchResult)
+            {
+                result.Status = Audit.Model.AuditStatusEnum.Warning;
+                result.Message += this.MismatchMessage(testName, testResult);
+            }
+            return result;
+        }
+
+        protected virtual Audit.Model.AuditResult DoesResultExist(string testResult, string testName)
+        {
+            Audit.Model.AuditResult result = new Audit.Model.AuditResult();
+            result.Status = Audit.Model.AuditStatusEnum.OK;
+
+            if (string.IsNullOrEmpty(testResult) == true)
+            {
+                result.Status = Audit.Model.AuditStatusEnum.Failure;
+                result.Message = this.NotFilledMessage(testName);
+            }
+            return result;
+        }
+
+        protected virtual Audit.Model.AuditResult IsCaseFinal(bool final, string testName)
+        {
+            Audit.Model.AuditResult result = new Audit.Model.AuditResult();
+            result.Status = Audit.Model.AuditStatusEnum.OK;
+
+            if (final == false)
+            {
+                result.Status = Audit.Model.AuditStatusEnum.Failure;
+                result.Message += this.NotFinaledMessage(testName);
+            }
+            return result;
+        }
+        protected virtual string NotFilledMessage(string panelSetName)
+        {
+            return "The " + panelSetName + " result is not set." + Environment.NewLine;
+        }
+
+        protected virtual string MismatchMessage(string panelSetName, string panelSetResult)
+        {
+            return "The " + panelSetName + " result(" + panelSetResult + ") does not match." + Environment.NewLine;
+        }
+
+        protected virtual string NotFinaledMessage(string panelSetName)
+        {
+            return "The " + panelSetName + " is not finaled." + Environment.NewLine;
         }
     }
 }
