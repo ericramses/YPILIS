@@ -24,12 +24,7 @@ namespace YellowstonePathology.Business.Test.InvasiveBreastPanel
 		}
 
         public override void OrderInitialTests(AccessionOrder accessionOrder, YellowstonePathology.Business.Interface.IOrderTarget orderTarget)
-        {
-            YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHTest her2AmplificationByISHTest = new YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHTest();
-            YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new TestOrderInfo(her2AmplificationByISHTest, orderTarget, true);            
-            YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Visitor.OrderTestOrderVisitor(testOrderInfo);
-            accessionOrder.TakeATrip(orderTestOrderVisitor);            
-
+        {            
             bool hasSurgical = accessionOrder.PanelSetOrderCollection.Exists(13);
             if (hasSurgical == true)
             {
@@ -63,6 +58,11 @@ namespace YellowstonePathology.Business.Test.InvasiveBreastPanel
                 YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitorERPR = new Visitor.OrderTestOrderVisitor(testOrderInfoERPR);
                 accessionOrder.TakeATrip(orderTestOrderVisitorERPR);     
             }
+
+            YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHTest her2AmplificationByISHTest = new YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHTest();
+            YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new TestOrderInfo(her2AmplificationByISHTest, orderTarget, true);
+            YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Visitor.OrderTestOrderVisitor(testOrderInfo);
+            accessionOrder.TakeATrip(orderTestOrderVisitor);
         }
 
         public override void SetStatus(PanelSetOrderCollection panelSetOrderCollection)

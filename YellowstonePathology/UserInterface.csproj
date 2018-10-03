@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>218</ApplicationRevision>
+    <ApplicationRevision>221</ApplicationRevision>
     <ApplicationVersion>10.1.12.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -2967,8 +2967,8 @@
     <Compile Include="UI\BrowserWindow.xaml.cs">
       <DependentUpon>BrowserWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\ChainBrowser.xaml.cs">
-      <DependentUpon>ChainBrowser.xaml</DependentUpon>
+    <Compile Include="UI\ChainExplorer.xaml.cs">
+      <DependentUpon>ChainExplorer.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Client\ClientFedxDialog.xaml.cs">
       <DependentUpon>ClientFedxDialog.xaml</DependentUpon>
@@ -3363,8 +3363,8 @@
     <Compile Include="UI\Surgical\PQRSMeasurePage.xaml.cs">
       <DependentUpon>PQRSMeasurePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Billing\PSATransferDialog.xaml.cs">
-      <DependentUpon>PSATransferDialog.xaml</DependentUpon>
+    <Compile Include="UI\Billing\EODProcessingDialog.xaml.cs">
+      <DependentUpon>EODProcessingDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Billing\PanelSetOrderCPTCodeEntryPage.xaml.cs">
       <DependentUpon>PanelSetOrderCPTCodeEntryPage.xaml</DependentUpon>
@@ -4861,7 +4861,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\Billing\PSATransferDialog.xaml">
+    <Page Include="UI\Billing\EODProcessingDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -4877,7 +4877,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\ChainBrowser.xaml">
+    <Page Include="UI\ChainExplorer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -6770,12 +6770,12 @@
   <ItemGroup>
     <PublishFile Include="Microsoft.Exchange.WebServices">
       <Visible>False</Visible>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
   </ItemGroup>

@@ -797,11 +797,11 @@ namespace YellowstonePathology.UI
             clientBillingReportDialog.ShowDialog();
         }
 
-        private void MenuItemPSATransder_Click(object sender, RoutedEventArgs e)
+        private void MenuItemEODProcessing_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.UI.Billing.PSATransferDialog psaTransferDialog = new Billing.PSATransferDialog();
-            psaTransferDialog.ShowDialog();
-        }
+            YellowstonePathology.UI.Billing.EODProcessingDialog eodProcessingDialog = new Billing.EODProcessingDialog();
+            eodProcessingDialog.ShowDialog();
+        }        
 
         private void MenuItemValidationTesting_Click(object sender, RoutedEventArgs e)
         {
@@ -1006,8 +1006,8 @@ namespace YellowstonePathology.UI
 
         private void MenuItemChainExplorer_Click(object sender, RoutedEventArgs e)
         {
-            ChainBrowser chainBrowser = new ChainBrowser();
-            chainBrowser.Show();
-        }
+            ChainExplorer chainExplorer = new ChainExplorer();
+            chainExplorer.Show();
+        }        
     }
 }

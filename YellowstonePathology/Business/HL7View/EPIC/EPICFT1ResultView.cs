@@ -35,6 +35,18 @@ namespace YellowstonePathology.Business.HL7View.EPIC
             result.Message = "An HL7 message was created and sent to the interface.";
         }
 
+        public void Save(string path)
+        {
+            XElement detailDocument = CreateDocument();
+            string id = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
+            string fileExtension = ".HL7.xml";
+            string interfaceFileName = path + id + fileExtension;
+            using (System.IO.StreamWriter sw = new System.IO.StreamWriter(interfaceFileName))
+            {
+                detailDocument.Save(sw);
+            }
+        }
+
         private XElement CreateDocument()
         {
             XElement document = new XElement("HL7Message");            

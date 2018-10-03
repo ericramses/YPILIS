@@ -265,15 +265,20 @@ namespace YellowstonePathology.UI.ReportDistribution
             bool result = true;
 
             //try
-            //{
-                caseDocument.Render();
+            //{                
 
-                YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum resultDocumentSource;
-                bool hasEnum = Enum.TryParse<YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum>(panelSetOrder.ResultDocumentSource, out resultDocumentSource);
-                if(hasEnum == true && resultDocumentSource != YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.PublishedDocument)
+                //YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum resultDocumentSource;
+                //bool hasEnum = Enum.TryParse<YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum>(panelSetOrder.ResultDocumentSource, out resultDocumentSource);
+                //if(hasEnum == true && resultDocumentSource != YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.PublishedDocument)
+                //{
+                //   caseDocument.Publish();
+                //}
+
+                if(panelSetOrder.ResultDocumentSource == YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase.ToString())
                 {
+                    caseDocument.Render();
                     caseDocument.Publish();
-                }
+                }            
                 
                 this.m_ReportDistributionLogEntryCollection.AddEntry("INFO", "Publish Next", null, panelSetOrder.ReportNo, panelSetOrder.MasterAccessionNo, null, null, "PanelSetOrder Published");
             //}                                    
