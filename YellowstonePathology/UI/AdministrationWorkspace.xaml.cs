@@ -94,7 +94,20 @@ namespace YellowstonePathology.UI
 
         private void ButtonStainList_Click(object sender, RoutedEventArgs e)
         {
-            //MessageBox.Show("Done");
+            YellowstonePathology.Business.Facility.Model.Facility neogenomicsIrvine = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("NEOGNMCIRVN");
+            YellowstonePathology.Business.PanelSet.Model.PanelSetCollection panelSetCollection = Business.PanelSet.Model.PanelSetCollection.GetAll();
+            using (StreamWriter sw = new StreamWriter(@"C:\ProgramData\ypi\lisdata\results.txt", false))
+            {
+                foreach (Business.PanelSet.Model.PanelSet panelSet in panelSetCollection)
+                {
+                    if(panelSet.ResultDocumentSource == YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase && panelSet.IsReflexPanel == true)
+                        //(panelSet.TechnicalComponentFacility == neogenomicsIrvine || panelSet.ProfessionalComponentFacility == neogenomicsIrvine || panelSet.IsReflexPanel == true))
+                    {
+                        sw.Write(panelSet.PanelSetId + ", ");
+                    }
+                }
+            }
+            MessageBox.Show("Done");
         }
 
         private void ButtonBlocksSentNotReturned_Click(object sender, RoutedEventArgs e)

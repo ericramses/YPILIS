@@ -1042,6 +1042,7 @@
     <Compile Include="Business\Test\API2MALT1ByFISH\API2MALT1ByFISHWPHOBXView.cs" />
     <Compile Include="Business\Test\CheckResultsActionEnum.cs" />
     <Compile Include="Business\Test\ChimerismStudyByDNAMarkers\ChimerismStudyByDNAMarkersTest.cs" />
+    <Compile Include="Business\Test\DNMT3AMutationAnalysis\DNMT3AMutationAnalysisTest.cs" />
     <Compile Include="Business\Test\EGFRMutationAnalysisPreliminary\EGFRMutationAnalysisPreliminaryTest.cs" />
     <Compile Include="Business\Test\EGFRToALKReflexAnalysis\EGFRToALKReflexAnalysisBRAFResult.cs" />
     <Compile Include="Business\Test\ExtractAndHoldForPreauthorization\ExtractAndHoldForPreauthorizationWordDocument.cs" />
@@ -1100,6 +1101,7 @@
     <Compile Include="Business\Test\RASRAFPanel\RASRAFPanelWPHOBXView.cs" />
     <Compile Include="Business\Test\RibosomalRNA16S\RibosomalRNA16STest.cs" />
     <Compile Include="Business\Test\SomatostatinReceptorType2\SomatostatinReceptorType2Test.cs" />
+    <Compile Include="Business\Test\TP53MutationAnalysis\TP53MutationAnalysisTest.cs" />
     <Compile Include="Business\Test\WholeExomeSequencing\WholeExomeSequencingTest.cs" />
     <Compile Include="Business\User\SystemRoleView.cs" />
     <Compile Include="Business\User\SystemRoleViewCollection.cs" />
@@ -6770,12 +6772,12 @@
   <ItemGroup>
     <PublishFile Include="Microsoft.Exchange.WebServices">
       <Visible>False</Visible>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
   </ItemGroup>
