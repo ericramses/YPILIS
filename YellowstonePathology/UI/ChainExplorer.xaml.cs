@@ -26,7 +26,25 @@ namespace YellowstonePathology.UI
 
         private void Button_Go(object sender, RoutedEventArgs e)
         {
-            this.GetAverageBlockTime();
+            Business.EthBlock latestBlock = this.m_GethAPI.GetLatestBlock();
+            int startingBlockNumber = this.GetFirstBlockNumberForDate(DateTime.Today.AddDays(-1));
+            for(int i=startingBlockNumber; i< latestBlock.Number; i++)
+            {                
+                int transactionCount = this.m_GethAPI.GetBlockTransactionCountByNumber(i);
+                if(transactionCount > 0)
+                {
+                    Business.EthBlock block = this.m_GethAPI.GetBlockByNumber(i);
+                    foreach(string transactionHash in block.TransactionHashes)
+                    {
+                        string contractAddress = this.m_GethAPI.GetContractAddress(transactionHash);
+                        if(string.IsNullOrEmpty(contractAddress) == false)
+                        {
+                            int containerCount = this.m_GethAPI.GetContainerCount(contractAddress);
+                        }                        
+                    }
+                }
+            }
+
             //Business.GethAPI gethAPI = new Business.GethAPI();
             //Business.EthBlock latestBlock = gethAPI.GetLatestBlockNumber();
             //gethAPI.CallMethod();
@@ -34,11 +52,13 @@ namespace YellowstonePathology.UI
             //gethAPI.GetTransactionReceipt("0x5cb44be5bc15fcb45210f4bb5b0e41adb607548c0b755d6f5cb22ebba985c2fc");
         }
 
-        private void GetFirstBlockForDate(DateTime workDate)
+        private int GetFirstBlockNumberForDate(DateTime workDate)
         {
-            double blockTime = this.GetAverageBlockTime();
+            double averageBlockTime = this.GetAverageBlockTime();
             Business.EthBlock latestBlock = this.m_GethAPI.GetLatestBlock();
-                        
+            double secondsInADay = 86400;
+            double numberOfBlocksInADay = secondsInADay / averageBlockTime;
+            return Convert.ToInt32(latestBlock.Number - numberOfBlocksInADay);
         }
 
         private double GetAverageBlockTime()

@@ -34,23 +34,22 @@ namespace YellowstonePathology.Business
             return new EthBlock(postResult);
         }
 
-        public void CallMethod()
-        {
-            //0xac297f0446f560400b257c6eb7d9d385d12ed550
-            //curl localhost:8545 -X POST --data '{"jsonrpc":"2.0", "method":"eth_call", "params":[{"from": "eth.accounts[0]", "to": "0x65da172d668fbaeb1f60e206204c2327400665fd", "data": "0x6ffa1caa0000000000000000000000000000000000000000000000000000000000000005"}], "id":1}'
-            //0xd0459f43bad44b79b388ac25ada28371f65799ec217031571c3314b443873557  sha3 of signature of getContainerCount
+        public int GetContainerCount(string contractAddress)
+        {            
             JObject postObject = JObject.Parse(this.m_BaseJSON);
             postObject["method"] = "eth_call";
             JArray paramList = (JArray)postObject["params"];
 
-            JObject callParam = JObject.Parse("{'from':'0x0376bc1436529fba9531fe00200c551cb204b05a','to':'0xac297f0446f560400b257c6eb7d9d385d12ed550','data':'0xd0459f4300000000000000000000000000000000000000000000000000000000'}");            
+            JObject callParam = JObject.Parse("{'from':'0x0376bc1436529fba9531fe00200c551cb204b05a','to':'" + contractAddress +
+                "','data':'0x5a5c9b1300000000000000000000000000000000000000000000000000000000'}");            
             paramList.Add(callParam);
             paramList.Add("latest");
 
             JObject callResult = JObject.Parse(this.Post(postObject));
+            return Convert.ToInt32(callResult["result"].ToString(), 16);
         }
 
-        public void GetTransactionReceipt(string transactionHash)
+        public string GetContractAddress(string transactionHash)
         {
             JObject postObject = JObject.Parse(this.m_BaseJSON);
             postObject["method"] = "eth_getTransactionReceipt";            
@@ -59,7 +58,7 @@ namespace YellowstonePathology.Business
 
             JObject tranReceipt = JObject.Parse(this.Post(postObject));
             JObject tranReceiptResult = (JObject)tranReceipt["result"];
-            string contractAddress = tranReceiptResult["contractAddress"].ToString();
+            return tranReceiptResult["contractAddress"].ToString();
         }
 
         public Business.EthBlock GetBlockByNumber(int blockNumber)
