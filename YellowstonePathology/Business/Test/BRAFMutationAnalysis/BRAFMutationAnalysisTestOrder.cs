@@ -207,13 +207,13 @@ namespace YellowstonePathology.Business.Test.BRAFMutationAnalysis
                 YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisNotDetectedResult notDetectedResult = new BRAFMutationAnalysisNotDetectedResult();
                 YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisDetectedResult detectedResult = new BRAFMutationAnalysisDetectedResult();
 
-                if (this.ResultCode == notDetectedResult.ResultCode)
+                if (this.Result.ToUpper().Contains("NOT DETECTED"))
                 {
-                    lSEResult.BrafResult = YellowstonePathology.Business.Test.LynchSyndrome.LSEResultEnum.Negative;
+                    lSEResult.BrafResult = YellowstonePathology.Business.Test.LynchSyndrome.LSEResultEnum.NotDetected;
                 }
-                else if (this.ResultCode == detectedResult.ResultCode)
+                else if (this.Result.ToUpper().Contains("DETECTED"))
                 {
-                    lSEResult.BrafResult = YellowstonePathology.Business.Test.LynchSyndrome.LSEResultEnum.Positive;
+                    lSEResult.BrafResult = YellowstonePathology.Business.Test.LynchSyndrome.LSEResultEnum.Detected;
                 }
             }
         }
