@@ -19,6 +19,7 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
         private string m_ROS1ByFISHResult;
         private string m_ALKForNSCLCByFISHResult;
         private string m_BRAFMutationAnalysisResult;
+        public string m_PDL1SP142Result;
 
         public EGFRToALKReflexAnalysisTestOrder() 
         {
@@ -245,7 +246,6 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
             }
         }
         
-
         [PersistentProperty()]
         public string BRAFMutationAnalysisResult
         {
@@ -254,6 +254,17 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
             {
                 this.m_BRAFMutationAnalysisResult = value;
                 NotifyPropertyChanged("BRAFMutationAnalysisResult");
+            }
+        }
+
+        [PersistentProperty()]
+        public string PDL1SP142Result
+        {
+            get { return this.m_PDL1SP142Result; }
+            set
+            {
+                this.m_PDL1SP142Result = value;
+                NotifyPropertyChanged("PDL1SP142Result");
             }
         }
 
@@ -333,6 +344,15 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
             {
                 auditResult.Status = Audit.Model.AuditStatusEnum.Warning;
                 auditResult.Message += MismatchMessage(this.PanelSetName, this.m_BRAFMutationAnalysisResult);
+            }
+        }
+
+        public void DoesPDL1SP142ResultMatch(string result, Audit.Model.AuditResult auditResult)
+        {
+            if (this.Final == true && this.m_PDL1SP142Result != result)
+            {
+                auditResult.Status = Audit.Model.AuditStatusEnum.Warning;
+                auditResult.Message += MismatchMessage(this.PanelSetName, this.m_PDL1SP142Result);
             }
         }
     }
