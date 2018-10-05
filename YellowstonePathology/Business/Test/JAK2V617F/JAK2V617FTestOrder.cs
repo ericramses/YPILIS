@@ -235,13 +235,13 @@ namespace YellowstonePathology.Business.Test.JAK2V617F
             if (accessionOrder.PanelSetOrderCollection.Exists(mpnStandardReflexTest.PanelSetId) == true)
             {
                 MPNStandardReflex.PanelSetOrderMPNStandardReflex panelSetOrderMPNStandardReflex = (MPNStandardReflex.PanelSetOrderMPNStandardReflex)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(mpnStandardReflexTest.PanelSetId);
-                panelSetOrderMPNStandardReflex.DoesJAK2V617FResultMatch(this.m_Result, auditResult);
+                panelSetOrderMPNStandardReflex.DoesJAK2V617FResultMatch(result, auditResult);
             }
 
             if (accessionOrder.PanelSetOrderCollection.Exists(mpnExtendedReflexTest.PanelSetId) == true)
             {
                 MPNExtendedReflex.PanelSetOrderMPNExtendedReflex panelSetOrderMPNExtendedReflex = (MPNExtendedReflex.PanelSetOrderMPNExtendedReflex)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(mpnExtendedReflexTest.PanelSetId);
-                panelSetOrderMPNExtendedReflex.DoesJAK2V617FResultMatch(this.m_Result, auditResult);
+                panelSetOrderMPNExtendedReflex.DoesJAK2V617FResultMatch(result, auditResult);
             }
         }
     }

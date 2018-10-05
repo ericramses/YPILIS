@@ -187,7 +187,7 @@ namespace YellowstonePathology.Business.Test.JAK2Exon1214
             if (accessionOrder.PanelSetOrderCollection.Exists(mpnStandardReflexTest.PanelSetId) == true)
             {
                 MPNStandardReflex.PanelSetOrderMPNStandardReflex panelSetOrderMPNStandardReflex = (MPNStandardReflex.PanelSetOrderMPNStandardReflex)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(mpnStandardReflexTest.PanelSetId);
-                panelSetOrderMPNStandardReflex.DoesJAK2Exon1214ResultMatch(this.m_Result, auditResult);
+                panelSetOrderMPNStandardReflex.DoesJAK2Exon1214ResultMatch(result, auditResult);
             }
         }
     }

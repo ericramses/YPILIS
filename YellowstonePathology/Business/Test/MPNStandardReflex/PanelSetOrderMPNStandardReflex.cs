@@ -256,7 +256,7 @@ namespace YellowstonePathology.Business.Test.MPNStandardReflex
             }
             if (accessionOrder.PanelSetOrderCollection.Exists(jak2Exon1214Test.PanelSetId) == true)
             {
-                Test.JAK2Exon1214.JAK2Exon1214TestOrder jak2Exon1214TestOrder = (JAK2Exon1214.JAK2Exon1214TestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(jak2V617FTest.PanelSetId);
+                Test.JAK2Exon1214.JAK2Exon1214TestOrder jak2Exon1214TestOrder = (JAK2Exon1214.JAK2Exon1214TestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(jak2Exon1214Test.PanelSetId);
                 if (jak2Exon1214TestOrder.Final == false)
                 {
                     result.Status = Audit.Model.AuditStatusEnum.Failure;
