@@ -217,5 +217,67 @@ namespace YellowstonePathology.Business.Test.ChromosomeAnalysis
             
             return result.ToString().Trim();
         }
-	}
+
+        public override void SetPreviousResults(PanelSetOrder pso)
+        {
+            ChromosomeAnalysisTestOrder panelSetOrder = (ChromosomeAnalysisTestOrder)pso;
+            panelSetOrder.Result = this.m_Result;
+            panelSetOrder.Interpretation = this.m_Interpretation;
+            panelSetOrder.Karyotype = this.Karyotype;
+            panelSetOrder.MetaphasesCounted = this.m_MetaphasesCounted;
+            panelSetOrder.Comment = this.m_Comment;
+            panelSetOrder.MetaphasesAnalyzed = this.m_MetaphasesAnalyzed;
+            panelSetOrder.MetaphasesKaryotyped = this.m_MetaphasesKaryotyped;
+            panelSetOrder.CultureType = this.m_CultureType;
+            panelSetOrder.BandingTechnique = this.m_BandingTechnique;
+            panelSetOrder.BandingResolution = this.m_BandingResolution;
+            panelSetOrder.ASR = this.m_ASR;
+            base.SetPreviousResults(pso);
+        }
+
+        public override void ClearPreviousResults()
+        {
+            this.m_Result = null;
+            this.m_Interpretation = null;
+            this.Karyotype = null;
+            this.m_MetaphasesCounted = null;
+            this.m_Comment = null;
+            this.m_MetaphasesAnalyzed = null;
+            this.m_MetaphasesKaryotyped = null;
+            this.m_CultureType = null;
+            this.m_BandingTechnique = null;
+            this.m_BandingResolution = null;
+            this.m_ASR = null;
+            base.ClearPreviousResults();
+        }
+
+        public override Audit.Model.AuditResult IsOkToAccept(AccessionOrder accessionOrder)
+        {
+            Audit.Model.AuditResult result = base.IsOkToAccept(accessionOrder);
+            if (result.Status == Audit.Model.AuditStatusEnum.OK)
+            {
+                if (string.IsNullOrEmpty(this.Result) == true)
+                {
+                    result.Status = Audit.Model.AuditStatusEnum.Failure;
+                    result.Message = UnableToAccept;
+                }
+            }
+
+            return result;
+        }
+
+        public override YellowstonePathology.Business.Audit.Model.AuditResult IsOkToFinalize(Test.AccessionOrder accessionOrder)
+        {
+            Audit.Model.AuditResult result = base.IsOkToFinalize(accessionOrder);
+            if (result.Status == Audit.Model.AuditStatusEnum.OK)
+            {
+                if (string.IsNullOrEmpty(this.m_Result) == true)
+                {
+                    result.Status = Audit.Model.AuditStatusEnum.Failure;
+                    result.Message = UnableToFinal;
+                }
+            }
+            return result;
+        }
+    }
 }

@@ -14,8 +14,13 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
         private string m_TumorNucleiPercentage;
         private bool m_QNSForALK;
         private bool m_QNSForROS1;
+        private string m_PDL122C3Result;
+        private string m_EGFRMutationAnalysisResult;
+        private string m_ROS1ByFISHResult;
+        private string m_ALKForNSCLCByFISHResult;
+        private string m_BRAFMutationAnalysisResult;
 
-		public EGFRToALKReflexAnalysisTestOrder() 
+        public EGFRToALKReflexAnalysisTestOrder() 
         {
             
         }
@@ -196,6 +201,62 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
             }
         }
 
+        [PersistentProperty()]
+        public string PDL122C3Result
+        {
+            get { return this.m_PDL122C3Result; }
+            set
+            {
+                this.m_PDL122C3Result = value;
+                NotifyPropertyChanged("PDL122C3Result");
+            }
+        }
+
+        [PersistentProperty()]
+        public string EGFRMutationAnalysisResult
+        {
+            get { return this.m_EGFRMutationAnalysisResult; }
+            set
+            {
+                this.m_EGFRMutationAnalysisResult = value;
+                NotifyPropertyChanged("EGFRMutationAnalysisResult");
+            }
+        }
+
+        [PersistentProperty()]
+        public string ROS1ByFISHResult
+        {
+            get { return this.m_ROS1ByFISHResult; }
+            set
+            {
+                this.m_ROS1ByFISHResult = value;
+                NotifyPropertyChanged("ROS1ByFISHResult");
+            }
+        }
+
+        [PersistentProperty()]
+        public string ALKForNSCLCByFISHResult
+        {
+            get { return this.m_ALKForNSCLCByFISHResult; }
+            set
+            {
+                this.m_ALKForNSCLCByFISHResult = value;
+                NotifyPropertyChanged("ALKForNSCLCByFISHResult");
+            }
+        }
+        
+
+        [PersistentProperty()]
+        public string BRAFMutationAnalysisResult
+        {
+            get { return this.m_BRAFMutationAnalysisResult; }
+            set
+            {
+                this.m_BRAFMutationAnalysisResult = value;
+                NotifyPropertyChanged("BRAFMutationAnalysisResult");
+            }
+        }
+
         public override string ToResultString(Business.Test.AccessionOrder accessionOrder)
 		{
 			StringBuilder result = new StringBuilder();
@@ -228,6 +289,51 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
         {
             EGFRToALKReflexAnalysisTestOrder testOrderToCheck = (EGFRToALKReflexAnalysisTestOrder)clone;
             testOrderToCheck.SetResults(accessionOrder);
+        }
+
+        public void DoesPDL122C3ResultMatch(string result, Audit.Model.AuditResult auditResult)
+        {
+            if (this.Final == true && this.m_PDL122C3Result != result)
+            {
+                auditResult.Status = Audit.Model.AuditStatusEnum.Warning;
+                auditResult.Message += MismatchMessage(this.PanelSetName, this.m_PDL122C3Result);
+            }
+        }
+
+        public void DoesEGFRMutationAnalysisResultMatch(string result, Audit.Model.AuditResult auditResult)
+        {
+            if (this.Final == true && this.m_EGFRMutationAnalysisResult != result)
+            {
+                auditResult.Status = Audit.Model.AuditStatusEnum.Warning;
+                auditResult.Message += MismatchMessage(this.PanelSetName, this.m_EGFRMutationAnalysisResult);
+            }
+        }
+
+        public void DoesROS1ByFISHResultMatch(string result, Audit.Model.AuditResult auditResult)
+        {
+            if (this.Final == true && this.m_ROS1ByFISHResult != result)
+            {
+                auditResult.Status = Audit.Model.AuditStatusEnum.Warning;
+                auditResult.Message += MismatchMessage(this.PanelSetName, this.m_ROS1ByFISHResult);
+            }
+        }
+
+        public void DoesALKForNSCLCByFISHResultMatch(string result, Audit.Model.AuditResult auditResult)
+        {
+            if (this.Final == true && this.m_ALKForNSCLCByFISHResult != result)
+            {
+                auditResult.Status = Audit.Model.AuditStatusEnum.Warning;
+                auditResult.Message += MismatchMessage(this.PanelSetName, this.m_ALKForNSCLCByFISHResult);
+            }
+        }
+
+        public void DoesBRAFMutationAnalysisResultMatch(string result, Audit.Model.AuditResult auditResult)
+        {
+            if (this.Final == true && this.m_BRAFMutationAnalysisResult != result)
+            {
+                auditResult.Status = Audit.Model.AuditStatusEnum.Warning;
+                auditResult.Message += MismatchMessage(this.PanelSetName, this.m_BRAFMutationAnalysisResult);
+            }
         }
     }
 }

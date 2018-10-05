@@ -153,5 +153,100 @@ namespace YellowstonePathology.Business.Test.PDL122C3
 			}
 			return result;
 		}
+
+        public override void SetPreviousResults(PanelSetOrder pso)
+        {
+            PDL122C3TestOrder panelSetOrder = (PDL122C3TestOrder)pso;
+            panelSetOrder.Result = this.m_Result;
+            panelSetOrder.StainPercent = this.m_StainPercent;
+            panelSetOrder.Method = this.Method;
+            panelSetOrder.Comment = this.Comment;
+            panelSetOrder.Interpretation = this.m_Interpretation;
+            base.SetPreviousResults(pso);
+        }
+
+        public override void ClearPreviousResults()
+        {
+            this.m_Result = null;
+            this.m_StainPercent = null;
+            this.m_Method = null;
+            this.m_Comment = null;
+            this.m_Interpretation = null;
+            base.ClearPreviousResults();
+        }
+
+        public override Audit.Model.AuditResult IsOkToSetPreviousResults(PanelSetOrder panelSetOrder, AccessionOrder accessionOrder)
+        {
+            Audit.Model.AuditResult result = base.IsOkToSetPreviousResults(panelSetOrder, accessionOrder);
+            if (result.Status == Audit.Model.AuditStatusEnum.OK)
+            {
+                PDL122C3TestOrder pdl122C3TestOrder = (PDL122C3TestOrder)panelSetOrder;
+                this.DoesFinalSummaryResultMatch(accessionOrder, pdl122C3TestOrder.Result, result);
+                if (result.Status == Audit.Model.AuditStatusEnum.Warning)
+                {
+                    result.Message += AskSetPreviousResults;
+                }
+            }
+
+            return result;
+        }
+
+        public override Audit.Model.AuditResult IsOkToAccept(AccessionOrder accessionOrder)
+        {
+            Audit.Model.AuditResult result = base.IsOkToAccept(accessionOrder);
+            if (result.Status == Audit.Model.AuditStatusEnum.OK)
+            {
+                if (string.IsNullOrEmpty(this.Result) == true)
+                {
+                    result.Status = Audit.Model.AuditStatusEnum.Failure;
+                    result.Message = UnableToAccept;
+                }
+
+                if (result.Status == Audit.Model.AuditStatusEnum.OK)
+                {
+                    this.DoesFinalSummaryResultMatch(accessionOrder, this.m_Result, result);
+                    if (result.Status == Audit.Model.AuditStatusEnum.Warning)
+                    {
+                        result.Message += AskAccept;
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        public override YellowstonePathology.Business.Audit.Model.AuditResult IsOkToFinalize(Test.AccessionOrder accessionOrder)
+        {
+            Audit.Model.AuditResult result = base.IsOkToFinalize(accessionOrder);
+            if (result.Status == Audit.Model.AuditStatusEnum.OK)
+            {
+                if (string.IsNullOrEmpty(this.m_Result) == true)
+                {
+                    result.Status = Audit.Model.AuditStatusEnum.Failure;
+                    result.Message = UnableToFinal;
+                }
+
+                if (result.Status == Audit.Model.AuditStatusEnum.OK)
+                {
+                    this.DoesFinalSummaryResultMatch(accessionOrder, this.m_Result, result);
+                    if (result.Status == Audit.Model.AuditStatusEnum.Warning)
+                    {
+                        result.Message += AskFinal;
+                    }
+                }
+            }
+            return result;
+        }
+
+        private void DoesFinalSummaryResultMatch(AccessionOrder accessionOrder, string result, Audit.Model.AuditResult auditResult)
+        {
+            Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisTest egfrToALKReflexAnalysisTest = new EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisTest();
+
+            if (accessionOrder.PanelSetOrderCollection.Exists(egfrToALKReflexAnalysisTest.PanelSetId) == true)
+            {
+                Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisTestOrder egfrToALKReflexAnalysisTestOrder = (EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(egfrToALKReflexAnalysisTest.PanelSetId);
+                egfrToALKReflexAnalysisTestOrder.DoesPDL122C3ResultMatch(result, auditResult);
+            }
+        }
     }
 }
