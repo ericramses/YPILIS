@@ -27,17 +27,6 @@ namespace YellowstonePathology.Business.Test.CalreticulinMutationAnalysis
 			bool distribute)
 			: base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute)
         {
-            this.m_ASR = "The performance characteristics of this test have been determined by NeoGenomics Laboratories. This test has not been approved by the FDA. The FDA has " +
-                "determined such clearance or approval is not necessary.This laboratory is CLIA certified to perform high complexity clinical testing.";
-            this.m_Method = "Total nucleic acid was extracted from patient’s plasma or PB/BM cells. Primer pairs were designed to encompass the JAK2 exons 12, 13, 14 and the V617F point mutation as well " +
-                "as CALR exon 9 and MPL exon 10, which includes W515 and S505 point mutations.The PCR products were then purified and sequenced in both forward and reverse directions. " +
-                "The JAK2 V617F utilizes a high sensitivity sequencing assay which can detect mutations at a 1 % level.The remaining sequencing tests have a sensitivity of 10 - 15 % for detecting " +
-                "mutations in the wild - type background.Fragment analysis is also performed for CALR.Fragment length analysis is performed to further determine very low levels of heterozygous " +
-                "insertions / deletions, which may be missed by sequencing.Fragment analysis has a sensitivity of 5 % for detecting heterozygous insertion / deletions in the wild - type background. " +
-                "Various factors including quantity and quality of nucleic acid, sample preparation and sample age can affect assay performance.";     
-            this.m_ReportReferences = "Nangalia J, et al. Somatic CALR mutations in myeloproliferative neoplasms with nonmutated JAK2, " + Environment.NewLine +
-                "N Engl J Med. 2013 Dec 19; 369(25):2391 - 405. " + Environment.NewLine +
-                "Klampfl T, et al. Somatic mutations of calreticulin in myeloproliferative neoplasms. N Engl J Med. 2013 Dec 19; 369(25):2379 - 90.";
         }
 
         [PersistentProperty()]

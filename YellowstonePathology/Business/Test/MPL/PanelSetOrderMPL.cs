@@ -16,17 +16,6 @@ namespace YellowstonePathology.Business.Test.MPL
 
 		public PanelSetOrderMPL()
         {
-            this.m_Method = "The total nucleic acid was extracted from patient’s plasma or PB/BM cells. Primer pairs were designed to encompass the MPL exon " +
-                "10, which includes W515 and S505 point mutations.The PCR product was then purified and sequenced in both forward and reverse " +
-                "directions.The resulting sequence is compared to Genebank Acce# NM_005373 reference sequence. This is a sequencing-based assay " +
-                "which has a typical sensitivity of 10 - 15 % for detecting mutated MPL in the wild - type background.Various factors including quantity and " +
-                "quality of nucleic acid, sample preparation and sample age can affect assay performance.";
-
-            this.m_ASR = "The performance characteristics of this test have been determined by NeoGenomics Laboratories. This test has not been approved by the FDA. " +
-                "The FDA has determined such clearance or approval is not necessary.This laboratory is CLIA certified to perform high complexity clinical testing.";
-
-            this.m_ReportReferences = "1. Pikman Y, et al. MPL W515L is a novel somatic activating mutation in myelofibrosis with myeloid metaplasia. PLoS Med. " +
-                "2006; 3:1140 - 1151.";
         }
 
 		public PanelSetOrderMPL(string masterAccessionNo, string reportNo, string objectId,
