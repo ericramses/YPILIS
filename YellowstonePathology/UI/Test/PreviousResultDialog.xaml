@@ -37,7 +37,7 @@
                     <GridViewColumn Header="Result" Width="500">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Path=Result}" VerticalAlignment="Top"></TextBlock>
+                                <TextBlock Text="{Binding Path=Result}" VerticalAlignment="Top" TextWrapping="Wrap"></TextBlock>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
