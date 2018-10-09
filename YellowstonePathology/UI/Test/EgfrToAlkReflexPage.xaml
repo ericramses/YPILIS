@@ -61,11 +61,11 @@
 
             <TextBlock Grid.Column="0" Grid.Row="5" Margin="0,20,0,0" FontWeight="Bold" FontSize="16">Options</TextBlock>
 
-			<TextBlock Grid.Column="0" Grid.Row="6" Margin="5,3,0,0">                    
-                <Hyperlink Click="HyperLinkSetResults_Click" FontSize="14">Set Results</Hyperlink>
-			</TextBlock>
+            <TextBlock Name="TextBlockPreviousResults" Grid.Column="0" Grid.Row="6" Margin="5,3,0,5">
+					<Hyperlink Click="HyperLinkPreviousResults_Click" FontSize="14">Previous Results</Hyperlink>
+            </TextBlock>
 
-			<TextBlock Grid.Column="0" Grid.Row="7" Margin="5,3,0,0">
+            <TextBlock Grid.Column="0" Grid.Row="7" Margin="5,3,0,0">
                     <Hyperlink Click="HyperLinkAcceptResults_Click" FontSize="14">Accept Results</Hyperlink>
 			</TextBlock>
 
@@ -77,11 +77,11 @@
                 <Hyperlink Click="HyperLinkFinalizeResults_Click" FontSize="14">Finalize</Hyperlink>
             </TextBlock>
 
-			<TextBlock Grid.Column="0" Grid.Row="10" Margin="5,3,0,0">                    
+			<TextBlock Grid.Column="0" Grid.Row="11" Margin="5,3,0,0">                    
                     <Hyperlink Click="HyperLinkUnacceptResults_Click" FontSize="14">Unaccept Results</Hyperlink>
 			</TextBlock>
 
-            <TextBlock Name="TextBlockUnfinalResults" Grid.Column="0" Grid.Row="11" Margin="5,3,0,0">                    
+            <TextBlock Name="TextBlockUnfinalResults" Grid.Column="0" Grid.Row="12" Margin="5,3,0,0">                    
 				<Hyperlink Click="HyperLinkUnfinalResults_Click" FontSize="14">Unfinalize Results</Hyperlink>
 			</TextBlock>
 
@@ -134,7 +134,7 @@
                     <Border Grid.Column="0" Grid.Row="1">
                         <Border.Style>
                             <Style>
-                                <Setter Property="Border.Background" Value="{Binding Path=EGFRToALKReflexAnalysisResult.EGFRToALKReflexAnalysisEGFRResult.Status, Converter={StaticResource EGFRToALKReflexAnalysisStatusColorConverter}}"/>
+                                <Setter Property="Border.Background" Value="{Binding Path=EGFRToALKReflexAnalysisTestOrder.EGFRMutationAnalysisStatus, Converter={StaticResource EGFRToALKReflexAnalysisStatusColorConverter}}"/>
                                 <Setter Property="Border.BorderBrush" Value="Gray"/>
                                 <Setter Property="Border.BorderThickness" Value="1"/>
                                 <Setter Property="Border.Padding" Value="1"/>
@@ -153,13 +153,13 @@
                             </Grid.RowDefinitions>
 
                             <TextBlock Grid.Column="0" Grid.Row="0" FontWeight="Bold" Margin="2,2,2,2" HorizontalAlignment="Right">Test:</TextBlock>
-                            <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Path=EGFRToALKReflexAnalysisResult.EGFRToALKReflexAnalysisEGFRResult.TestAbbreviation}" Margin="2,2,2,2"/>
+                            <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Path=EGFRToALKReflexAnalysisTestOrder.EGFRMutationAnalysisTestAbbreviation}" Margin="2,2,2,2"/>
 
                             <TextBlock Grid.Column="0" Grid.Row="1" FontWeight="Bold" Margin="2,2,2,2" HorizontalAlignment="Right">Status:</TextBlock>
-                            <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Path=EGFRToALKReflexAnalysisResult.EGFRToALKReflexAnalysisEGFRResult.Status}" Margin="2,2,2,2"/>                            
+                            <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Path=EGFRToALKReflexAnalysisTestOrder.EGFRMutationAnalysisStatus}" Margin="2,2,2,2"/>                            
 
                             <TextBlock Grid.Column="0" Grid.Row="2" FontWeight="Bold" Margin="2,2,2,2" HorizontalAlignment="Right">Result:</TextBlock>
-                            <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding Path=EGFRToALKReflexAnalysisResult.EGFRToALKReflexAnalysisEGFRResult.ResultAbbreviation}" Margin="2,2,2,2"/>
+                            <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding Path=EGFRToALKReflexAnalysisTestOrder.EGFRMutationAnalysisResult}" Margin="2,2,2,2"/>
 
                         </Grid>
                     </Border>
@@ -167,7 +167,7 @@
                     <Border Grid.Column="1" Grid.Row="1">
                         <Border.Style>
                             <Style>
-                                <Setter Property="Border.Background" Value="{Binding Path=EGFRToALKReflexAnalysisResult.EGFRToALKReflexAnalysisALKResult.Status, Converter={StaticResource EGFRToALKReflexAnalysisStatusColorConverter}}"/>
+                                <Setter Property="Border.Background" Value="{Binding Path=EGFRToALKReflexAnalysisTestOrder.ALKForNSCLCByFISHStatus, Converter={StaticResource EGFRToALKReflexAnalysisStatusColorConverter}}"/>
                                 <Setter Property="Border.BorderBrush" Value="Gray"/>
                                 <Setter Property="Border.BorderThickness" Value="1"/>
                                 <Setter Property="Border.Padding" Value="1"/>
@@ -186,13 +186,13 @@
                             </Grid.RowDefinitions>
 
                             <TextBlock Grid.Column="0" Grid.Row="0" FontWeight="Bold" Margin="2,2,2,2" HorizontalAlignment="Right">Test:</TextBlock>
-                            <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Path=EGFRToALKReflexAnalysisResult.EGFRToALKReflexAnalysisALKResult.TestAbbreviation}" Margin="2,2,2,2"/>
+                            <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Path=EGFRToALKReflexAnalysisTestOrder.ALKForNSCLCByFISHTestAbbreviation}" Margin="2,2,2,2"/>
 
                             <TextBlock Grid.Column="0" Grid.Row="1" FontWeight="Bold" Margin="2,2,2,2" HorizontalAlignment="Right">Status:</TextBlock>
-                            <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Path=EGFRToALKReflexAnalysisResult.EGFRToALKReflexAnalysisALKResult.Status}" Margin="2,2,2,2"/>
+                            <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Path=EGFRToALKReflexAnalysisTestOrder.ALKForNSCLCByFISHStatus}" Margin="2,2,2,2"/>
 
                             <TextBlock Grid.Column="0" Grid.Row="2" FontWeight="Bold" Margin="2,2,2,2" HorizontalAlignment="Right">Result:</TextBlock>
-                            <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding Path=EGFRToALKReflexAnalysisResult.EGFRToALKReflexAnalysisALKResult.ResultAbbreviation}" Margin="2,2,2,2"/>
+                            <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding Path=EGFRToALKReflexAnalysisTestOrder.ALKForNSCLCByFISHResult}" Margin="2,2,2,2"/>
 
                         </Grid>
                     </Border>
@@ -200,7 +200,7 @@
                     <Border Grid.Column="2" Grid.Row="1">
                         <Border.Style>
                             <Style>
-                                <Setter Property="Border.Background" Value="{Binding Path=EGFRToALKReflexAnalysisResult.EGFRToALKReflexAnalysisROS1Result.Status, Converter={StaticResource EGFRToALKReflexAnalysisStatusColorConverter}}"/>
+                                <Setter Property="Border.Background" Value="{Binding Path=EGFRToALKReflexAnalysisTestOrder.ROS1ByFISHStatus, Converter={StaticResource EGFRToALKReflexAnalysisStatusColorConverter}}"/>
                                 <Setter Property="Border.BorderBrush" Value="Gray"/>
                                 <Setter Property="Border.BorderThickness" Value="1"/>
                                 <Setter Property="Border.Padding" Value="1"/>
@@ -219,13 +219,13 @@
                             </Grid.RowDefinitions>
 
                             <TextBlock Grid.Column="0" Grid.Row="0" FontWeight="Bold" Margin="2,2,2,2" HorizontalAlignment="Right">Test:</TextBlock>
-                            <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Path=EGFRToALKReflexAnalysisResult.EGFRToALKReflexAnalysisROS1Result.TestAbbreviation}" Margin="2,2,2,2"/>
+                            <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Path=EGFRToALKReflexAnalysisTestOrder.ROS1ByFISHTestAbbreviation}" Margin="2,2,2,2"/>
 
                             <TextBlock Grid.Column="0" Grid.Row="1" FontWeight="Bold" Margin="2,2,2,2" HorizontalAlignment="Right">Status:</TextBlock>
-                            <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Path=EGFRToALKReflexAnalysisResult.EGFRToALKReflexAnalysisROS1Result.Status}" Margin="2,2,2,2"/>                            
+                            <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Path=EGFRToALKReflexAnalysisTestOrder.ROS1ByFISHStatus}" Margin="2,2,2,2"/>                            
 
                             <TextBlock Grid.Column="0" Grid.Row="2" FontWeight="Bold" Margin="2,2,2,2" HorizontalAlignment="Right">Result:</TextBlock>
-                            <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding Path=EGFRToALKReflexAnalysisResult.EGFRToALKReflexAnalysisROS1Result.ResultAbbreviation}" Margin="2,2,2,2"/>
+                            <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding Path=EGFRToALKReflexAnalysisTestOrder.ROS1ByFISHResult}" Margin="2,2,2,2"/>
 
                         </Grid>
                     </Border>
@@ -233,7 +233,7 @@
                     <Border Grid.Column="3" Grid.Row="1">
                         <Border.Style>
                             <Style>
-                                <Setter Property="Border.Background" Value="{Binding Path=EGFRToALKReflexAnalysisResult.EGFRToALKReflexAnalysisPDL1SP142Result.Status, Converter={StaticResource EGFRToALKReflexAnalysisStatusColorConverter}}"/>
+                                <Setter Property="Border.Background" Value="{Binding Path=EGFRToALKReflexAnalysisTestOrder.PDL1SP142Status, Converter={StaticResource EGFRToALKReflexAnalysisStatusColorConverter}}"/>
                                 <Setter Property="Border.BorderBrush" Value="Gray"/>
                                 <Setter Property="Border.BorderThickness" Value="1"/>
                                 <Setter Property="Border.Padding" Value="1"/>
@@ -252,13 +252,13 @@
                             </Grid.RowDefinitions>
 
                             <TextBlock Grid.Column="0" Grid.Row="0" FontWeight="Bold" Margin="2,2,2,2" HorizontalAlignment="Right">Test:</TextBlock>
-                            <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Path=EGFRToALKReflexAnalysisResult.EGFRToALKReflexAnalysisPDL1SP142Result.TestAbbreviation}" Margin="2,2,2,2"/>
+                            <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Path=EGFRToALKReflexAnalysisTestOrder.PDL1SP142TestAbbreviation}" Margin="2,2,2,2"/>
 
                             <TextBlock Grid.Column="0" Grid.Row="1" FontWeight="Bold" Margin="2,2,2,2" HorizontalAlignment="Right">Status:</TextBlock>
-                            <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Path=EGFRToALKReflexAnalysisResult.EGFRToALKReflexAnalysisPDL1SP142Result.Status}" Margin="2,2,2,2"/>
+                            <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Path=EGFRToALKReflexAnalysisTestOrder.PDL1SP142Status}" Margin="2,2,2,2"/>
 
                             <TextBlock Grid.Column="0" Grid.Row="2" FontWeight="Bold" Margin="2,2,2,2" HorizontalAlignment="Right">Result:</TextBlock>
-                            <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding Path=EGFRToALKReflexAnalysisResult.EGFRToALKReflexAnalysisPDL1SP142Result.ResultAbbreviation}" Margin="2,2,2,2"/>
+                            <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding Path=EGFRToALKReflexAnalysisTestOrder.PDL1SP142Result}" Margin="2,2,2,2"/>
 
                         </Grid>
                     </Border>
@@ -266,7 +266,7 @@
                     <Border Grid.Column="4" Grid.Row="1">
                         <Border.Style>
                             <Style>
-                                <Setter Property="Border.Background" Value="{Binding Path=EGFRToALKReflexAnalysisResult.EGFRToALKReflexAnalysisPDL122C3Result.Status, Converter={StaticResource EGFRToALKReflexAnalysisStatusColorConverter}}"/>
+                                <Setter Property="Border.Background" Value="{Binding Path=EGFRToALKReflexAnalysisTestOrder.PDL122C3Status, Converter={StaticResource EGFRToALKReflexAnalysisStatusColorConverter}}"/>
                                 <Setter Property="Border.BorderBrush" Value="Gray"/>
                                 <Setter Property="Border.BorderThickness" Value="1"/>
                                 <Setter Property="Border.Padding" Value="1"/>
@@ -285,13 +285,13 @@
                             </Grid.RowDefinitions>
 
                             <TextBlock Grid.Column="0" Grid.Row="0" FontWeight="Bold" Margin="2,2,2,2" HorizontalAlignment="Right">Test:</TextBlock>
-                            <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Path=EGFRToALKReflexAnalysisResult.EGFRToALKReflexAnalysisPDL122C3Result.TestAbbreviation}" Margin="2,2,2,2"/>
+                            <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Path=EGFRToALKReflexAnalysisTestOrder.PDL122C3TestAbbreviation}" Margin="2,2,2,2"/>
 
                             <TextBlock Grid.Column="0" Grid.Row="1" FontWeight="Bold" Margin="2,2,2,2" HorizontalAlignment="Right">Status:</TextBlock>
-                            <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Path=EGFRToALKReflexAnalysisResult.EGFRToALKReflexAnalysisPDL122C3Result.Status}" Margin="2,2,2,2"/>
+                            <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Path=EGFRToALKReflexAnalysisTestOrder.PDL122C3Status}" Margin="2,2,2,2"/>
 
                             <TextBlock Grid.Column="0" Grid.Row="2" FontWeight="Bold" Margin="2,2,2,2" HorizontalAlignment="Right">Result:</TextBlock>
-                            <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding Path=EGFRToALKReflexAnalysisResult.EGFRToALKReflexAnalysisPDL122C3Result.ResultAbbreviation}" Margin="2,2,2,2"/>
+                            <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding Path=EGFRToALKReflexAnalysisTestOrder.PDL122C3Result}" Margin="2,2,2,2"/>
 
                         </Grid>
                     </Border>
@@ -299,7 +299,7 @@
                     <Border Grid.Column="5" Grid.Row="1">
                         <Border.Style>
                             <Style>
-                                <Setter Property="Border.Background" Value="{Binding Path=EGFRToALKReflexAnalysisResult.EGFRToALKReflexAnalysisBRAFResult.Status, Converter={StaticResource EGFRToALKReflexAnalysisStatusColorConverter}}"/>
+                                <Setter Property="Border.Background" Value="{Binding Path=EGFRToALKReflexAnalysisTestOrder.BRAFMutationAnalysisStatus, Converter={StaticResource EGFRToALKReflexAnalysisStatusColorConverter}}"/>
                                 <Setter Property="Border.BorderBrush" Value="Gray"/>
                                 <Setter Property="Border.BorderThickness" Value="1"/>
                                 <Setter Property="Border.Padding" Value="1"/>
@@ -318,13 +318,13 @@
                             </Grid.RowDefinitions>
 
                             <TextBlock Grid.Column="0" Grid.Row="0" FontWeight="Bold" Margin="2,2,2,2" HorizontalAlignment="Right">Test:</TextBlock>
-                            <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Path=EGFRToALKReflexAnalysisResult.EGFRToALKReflexAnalysisBRAFResult.TestAbbreviation}" Margin="2,2,2,2"/>
+                            <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Path=EGFRToALKReflexAnalysisTestOrder.BRAFMutationAnalysisTestAbbreviation}" Margin="2,2,2,2"/>
 
                             <TextBlock Grid.Column="0" Grid.Row="1" FontWeight="Bold" Margin="2,2,2,2" HorizontalAlignment="Right">Status:</TextBlock>
-                            <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Path=EGFRToALKReflexAnalysisResult.EGFRToALKReflexAnalysisBRAFResult.Status}" Margin="2,2,2,2"/>
+                            <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Path=EGFRToALKReflexAnalysisTestOrder.BRAFMutationAnalysisStatus}" Margin="2,2,2,2"/>
 
                             <TextBlock Grid.Column="0" Grid.Row="2" FontWeight="Bold" Margin="2,2,2,2" HorizontalAlignment="Right">Result:</TextBlock>
-                            <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding Path=EGFRToALKReflexAnalysisResult.EGFRToALKReflexAnalysisBRAFResult.ResultAbbreviation}" Margin="2,2,2,2"/>
+                            <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding Path=EGFRToALKReflexAnalysisTestOrder.BRAFMutationAnalysisResult}" Margin="2,2,2,2"/>
 
                         </Grid>
                     </Border>

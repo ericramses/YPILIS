@@ -44,7 +44,7 @@ namespace YellowstonePathology.UI.Test
         private YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisTestOrder m_EGFRToALKReflexAnalysisTestOrder;
         private YellowstonePathology.Business.Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHTestOrder m_ALKForNSCLCByFISHTestOrder;
         private YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisTestOrder m_EGFRMutationAnalysisTestOrder;
-        private YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisResult m_EGFRToALKReflexAnalysisResult;
+        //private YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisResult m_EGFRToALKReflexAnalysisResult;
 
         private string m_PageHeaderText;
         private string m_OrderedOnDescription;
@@ -80,7 +80,7 @@ namespace YellowstonePathology.UI.Test
             this.m_OrderedOnDescription = specimenOrder.Description;
             if (aliquotOrder != null) this.m_OrderedOnDescription += ": " + aliquotOrder.Label;
 
-            this.m_EGFRToALKReflexAnalysisResult = new Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisResult(this.m_AccessionOrder, this.m_EGFRToALKReflexAnalysisTestOrder);
+            //this.m_EGFRToALKReflexAnalysisResult = new Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisResult(this.m_AccessionOrder, this.m_EGFRToALKReflexAnalysisTestOrder);
 
 			InitializeComponent();
 
@@ -92,10 +92,10 @@ namespace YellowstonePathology.UI.Test
             this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalResults);
         }
 
-        public YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisResult EGFRToALKReflexAnalysisResult
+        /*public YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisResult EGFRToALKReflexAnalysisResult
         {
             get { return this.m_EGFRToALKReflexAnalysisResult; }
-        }
+        }*/
 
         public System.Windows.Visibility BackButtonVisibility
         {
@@ -151,11 +151,6 @@ namespace YellowstonePathology.UI.Test
         {
             this.OrderBRAF(this, new EventArgs());
         }
-
-        private void HyperLinkSetResults_Click(object sender, RoutedEventArgs e)
-		{
-            this.m_EGFRToALKReflexAnalysisTestOrder.SetResults(this.m_AccessionOrder);
-		}
 
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{            
@@ -249,26 +244,32 @@ namespace YellowstonePathology.UI.Test
 
         private void CheckBoxQNSForALK_Checked(object sender, RoutedEventArgs e)
         {
-            this.m_EGFRToALKReflexAnalysisResult = new Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisResult(this.m_AccessionOrder, this.m_EGFRToALKReflexAnalysisTestOrder);
+            //this.m_EGFRToALKReflexAnalysisResult = new Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisResult(this.m_AccessionOrder, this.m_EGFRToALKReflexAnalysisTestOrder);
             this.NotifyPropertyChanged(string.Empty);
         }
 
         private void CheckBoxQNSForALK_Unchecked(object sender, RoutedEventArgs e)
         {
-            this.m_EGFRToALKReflexAnalysisResult = new Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisResult(this.m_AccessionOrder, this.m_EGFRToALKReflexAnalysisTestOrder);
+            //this.m_EGFRToALKReflexAnalysisResult = new Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisResult(this.m_AccessionOrder, this.m_EGFRToALKReflexAnalysisTestOrder);
             this.NotifyPropertyChanged(string.Empty);
         }
 
         private void CheckBoxQNSForROS1_Checked(object sender, RoutedEventArgs e)
         {
-            this.m_EGFRToALKReflexAnalysisResult = new Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisResult(this.m_AccessionOrder, this.m_EGFRToALKReflexAnalysisTestOrder);
+            //this.m_EGFRToALKReflexAnalysisResult = new Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisResult(this.m_AccessionOrder, this.m_EGFRToALKReflexAnalysisTestOrder);
             this.NotifyPropertyChanged(string.Empty);
         }
 
         private void CheckBoxQNSForROS1_Unchecked(object sender, RoutedEventArgs e)
         {
-            this.m_EGFRToALKReflexAnalysisResult = new Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisResult(this.m_AccessionOrder, this.m_EGFRToALKReflexAnalysisTestOrder);
+            //this.m_EGFRToALKReflexAnalysisResult = new Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisResult(this.m_AccessionOrder, this.m_EGFRToALKReflexAnalysisTestOrder);
             this.NotifyPropertyChanged(string.Empty);
-        }        
+        }
+
+        private void HyperLinkPreviousResults_Click(object sender, RoutedEventArgs e)
+        {
+            UI.Test.PreviousResultDialog dlg = new UI.Test.PreviousResultDialog(this.m_EGFRToALKReflexAnalysisTestOrder, this.m_AccessionOrder);
+            dlg.ShowDialog();
+        }
     }
 }
