@@ -21,13 +21,6 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
         private string m_BRAFMutationAnalysisResult;
         private string m_PDL1SP142Result;
 
-        private EGFRToALKReflexAnalysisElementStatusEnum m_PDL122C3Status;
-        private EGFRToALKReflexAnalysisElementStatusEnum m_EGFRMutationAnalysisStatus;
-        private EGFRToALKReflexAnalysisElementStatusEnum m_ROS1ByFISHStatus;
-        private EGFRToALKReflexAnalysisElementStatusEnum m_ALKForNSCLCByFISHStatus;
-        private EGFRToALKReflexAnalysisElementStatusEnum m_BRAFMutationAnalysisStatus;
-        private EGFRToALKReflexAnalysisElementStatusEnum m_PDL1SP142Status;
-
         public EGFRToALKReflexAnalysisTestOrder() 
         {
             
@@ -84,81 +77,6 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
                 accessionOrder.TakeATrip(orderTestOrderVisitorBRAF);
             }
         }
-
-        /*public void SetResults(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
-        {            
-            StringBuilder interpretation = new StringBuilder();
-            StringBuilder method = new StringBuilder();
-            StringBuilder references = new StringBuilder();
-
-            if (accessionOrder.PanelSetOrderCollection.Exists(60) == true)
-            {
-                YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisTestOrder egfrMutationAnalysisTestOrder = (YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(60);
-                interpretation.AppendLine("EGFR: " + egfrMutationAnalysisTestOrder.Interpretation);                
-                references.AppendLine("EGFR: " + egfrMutationAnalysisTestOrder.ReportReferences);                
-                method.AppendLine("EGFR: " + egfrMutationAnalysisTestOrder.Method);
-            }
-
-            if (accessionOrder.PanelSetOrderCollection.Exists(131) == true)
-            {                
-                YellowstonePathology.Business.Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHTestOrder alkForNSCLCByFISHTestOrder = (YellowstonePathology.Business.Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(131);
-
-                references.AppendLine();
-                references.AppendLine("ALK: " + alkForNSCLCByFISHTestOrder.ReportReferences);
-
-                interpretation.AppendLine();
-                interpretation.AppendLine("ALK: " + alkForNSCLCByFISHTestOrder.Interpretation);
-
-                method.AppendLine();
-                method.AppendLine("ALK: " + alkForNSCLCByFISHTestOrder.Method);
-            }
-
-            if (accessionOrder.PanelSetOrderCollection.Exists(204) == true)
-            {                
-                YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHTestOrder ros1ByFISHTestOrder = (YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(204);                
-
-                interpretation.AppendLine();
-                interpretation.AppendLine("ROS1: " + ros1ByFISHTestOrder.Interpretation);
-
-                method.AppendLine();
-                method.AppendLine("ROS1: " + ros1ByFISHTestOrder.Method);
-            }
-
-            if (accessionOrder.PanelSetOrderCollection.Exists(215) == true)
-            {
-                YellowstonePathology.Business.Test.PDL1SP142.PDL1SP142TestOrder pdl1sp142TestOrder = (YellowstonePathology.Business.Test.PDL1SP142.PDL1SP142TestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(215);
-                interpretation.AppendLine();
-                interpretation.AppendLine(pdl1sp142TestOrder.PanelSetName + ": " + pdl1sp142TestOrder.Interpretation);
-
-                method.AppendLine();
-                method.AppendLine(pdl1sp142TestOrder.PanelSetName + ": " + pdl1sp142TestOrder.Method);
-            }
-
-            if (accessionOrder.PanelSetOrderCollection.Exists(245) == true)
-            {
-                YellowstonePathology.Business.Test.PDL122C3.PDL122C3TestOrder pdl122C3TestOrder = (YellowstonePathology.Business.Test.PDL122C3.PDL122C3TestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(245);
-                interpretation.AppendLine();
-                interpretation.AppendLine(pdl122C3TestOrder.PanelSetName + ": " + pdl122C3TestOrder.Interpretation);
-
-                method.AppendLine();
-                method.AppendLine(pdl122C3TestOrder.PanelSetName + ": " + pdl122C3TestOrder.Method);
-            }
-
-            if (accessionOrder.PanelSetOrderCollection.Exists(274) == true)
-            {
-                YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTestOrder brafMutationAnalysisTestOrder = (YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(274);
-                interpretation.AppendLine();
-                interpretation.AppendLine(brafMutationAnalysisTestOrder.PanelSetName + ": " + brafMutationAnalysisTestOrder.Interpretation);
-
-                method.AppendLine();
-                method.AppendLine(brafMutationAnalysisTestOrder.PanelSetName + ": " + brafMutationAnalysisTestOrder.Method);
-            }
-
-            char[] lineFeedCharacters = { '\r', '\n' };            
-            this.Interpretation = interpretation.ToString().TrimEnd(lineFeedCharacters);
-            this.Method = method.ToString().TrimEnd(lineFeedCharacters);
-            this.ReportReferences = references.ToString().TrimEnd(lineFeedCharacters);
-        }*/
 
         [PersistentProperty()]
 		[PersistentDataColumnProperty(true, "5000", "null", "varchar")]
@@ -289,93 +207,9 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
             }
         }
 
-        public EGFRToALKReflexAnalysisElementStatusEnum PDL122C3Status
-        {
-            get { return this.m_PDL122C3Status; }
-            set
-            {
-                this.m_PDL122C3Status = value;
-                NotifyPropertyChanged("PDL122C3Status");
-            }
-        }
-
-        public EGFRToALKReflexAnalysisElementStatusEnum EGFRMutationAnalysisStatus
-        {
-            get { return this.m_EGFRMutationAnalysisStatus; }
-            set
-            {
-                this.m_EGFRMutationAnalysisStatus = value;
-                NotifyPropertyChanged("EGFRMutationAnalysisStatus");
-            }
-        }
-
-        public EGFRToALKReflexAnalysisElementStatusEnum ROS1ByFISHStatus
-        {
-            get { return this.m_ROS1ByFISHStatus; }
-            set
-            {
-                this.m_ROS1ByFISHStatus = value;
-                NotifyPropertyChanged("ROS1ByFISHStatus");
-            }
-        }
-
-        public EGFRToALKReflexAnalysisElementStatusEnum ALKForNSCLCByFISHStatus
-        {
-            get { return this.m_ALKForNSCLCByFISHStatus; }
-            set
-            {
-                this.m_ALKForNSCLCByFISHStatus = value;
-                NotifyPropertyChanged("ALKForNSCLCByFISHStatus");
-            }
-        }
-
-        public EGFRToALKReflexAnalysisElementStatusEnum BRAFMutationAnalysisStatus
-        {
-            get { return this.m_BRAFMutationAnalysisStatus; }
-            set
-            {
-                this.m_BRAFMutationAnalysisStatus = value;
-                NotifyPropertyChanged("BRAFMutationAnalysisStatus");
-            }
-        }
-
-        public EGFRToALKReflexAnalysisElementStatusEnum PDL1SP142Status
-        {
-            get { return this.m_PDL1SP142Status; }
-            set
-            {
-                this.m_PDL1SP142Status = value;
-                NotifyPropertyChanged("PDL1SP142Status");
-            }
-        }
-
-        public string PDL122C3TestAbbreviation
-        {
-            get { return new Test.PDL122C3.PDL122C3Test().Abbreviation; }
-        }
-
-        public string EGFRMutationAnalysisTestAbbreviation
-        {
-            get { return new Test.EGFRMutationAnalysis.EGFRMutationAnalysisTest().Abbreviation; }
-        }
-
-        public string ROS1ByFISHTestAbbreviation
-        {
-            get { return new Test.ROS1ByFISH.ROS1ByFISHTest().Abbreviation; }
-        }
-
-        public string ALKForNSCLCByFISHTestAbbreviation
-        {
-            get { return new Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHTest().Abbreviation; }
-        }
-
         public string BRAFMutationAnalysisTestAbbreviation
         {
             get { return new Test.BRAFMutationAnalysis.BRAFMutationAnalysisTest().Abbreviation; }
-        }
-        public string PDL1SP142TestAbbreviation
-        {
-            get { return new Test.PDL1SP142.PDL1SP142Test().Abbreviation; }
         }
 
         public override string ToResultString(Business.Test.AccessionOrder accessionOrder)
@@ -405,12 +239,6 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
 
 			return result.ToString();
 		}
-
-        /*protected override void CheckResults(AccessionOrder accessionOrder, object clone)
-        {
-            EGFRToALKReflexAnalysisTestOrder testOrderToCheck = (EGFRToALKReflexAnalysisTestOrder)clone;
-            testOrderToCheck.SetResults(accessionOrder);
-        }*/
 
         public override void SetPreviousResults(PanelSetOrder panelSetOrder)
         {
@@ -758,94 +586,6 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
             {
                 auditResult.Status = Audit.Model.AuditStatusEnum.Warning;
                 auditResult.Message += MismatchMessage(this.PanelSetName, this.m_PDL1SP142Result);
-            }
-        }
-
-        public override void SetStatus(PanelSetOrderCollection panelSetOrderCollection)
-        {
-            YellowstonePathology.Business.Test.PDL122C3.PDL122C3Test pdl122C3Test = new PDL122C3.PDL122C3Test();
-            YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisTest egfrMutationAnalysisTest = new YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisTest();
-            YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHTest ros1ByfishTest = new ROS1ByFISH.ROS1ByFISHTest();
-            YellowstonePathology.Business.Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHTest alkTest = new ALKForNSCLCByFISH.ALKForNSCLCByFISHTest();
-            YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTest brafTest = new BRAFMutationAnalysis.BRAFMutationAnalysisTest();
-            YellowstonePathology.Business.Test.PDL1SP142.PDL1SP142Test pdl1SP142Test = new PDL1SP142.PDL1SP142Test();
-
-            if (panelSetOrderCollection.Exists(pdl122C3Test.PanelSetId) == true)
-            {
-                Test.PDL122C3.PDL122C3TestOrder pdl122C3TestOrder = (PDL122C3.PDL122C3TestOrder)panelSetOrderCollection.GetPanelSetOrder(pdl122C3Test.PanelSetId);
-                this.m_PDL122C3Status = EGFRToALKReflexAnalysisElementStatusEnum.Ordered;
-
-                if (pdl122C3TestOrder.Accepted == true) this.m_PDL122C3Status = EGFRToALKReflexAnalysisElementStatusEnum.Accepted;
-                if (pdl122C3TestOrder.Final == true) this.m_PDL122C3Status = EGFRToALKReflexAnalysisElementStatusEnum.Final;
-            }
-            else
-            {
-                this.m_PDL122C3Status = EGFRToALKReflexAnalysisElementStatusEnum.NotOrdered;
-            }
-
-            if (panelSetOrderCollection.Exists(egfrMutationAnalysisTest.PanelSetId) == true)
-            {
-                Test.EGFRMutationAnalysis.EGFRMutationAnalysisTestOrder egfrMutationAnalysisTestOrder = (EGFRMutationAnalysis.EGFRMutationAnalysisTestOrder)panelSetOrderCollection.GetPanelSetOrder(egfrMutationAnalysisTest.PanelSetId);
-                this.m_EGFRMutationAnalysisStatus = EGFRToALKReflexAnalysisElementStatusEnum.Ordered;
-
-                if (egfrMutationAnalysisTestOrder.Accepted == true) this.m_EGFRMutationAnalysisStatus = EGFRToALKReflexAnalysisElementStatusEnum.Accepted;
-                if (egfrMutationAnalysisTestOrder.Final == true) this.m_EGFRMutationAnalysisStatus = EGFRToALKReflexAnalysisElementStatusEnum.Final;
-            }
-            else
-            {
-                this.m_EGFRMutationAnalysisStatus = EGFRToALKReflexAnalysisElementStatusEnum.NotOrdered;
-            }
-
-            if (panelSetOrderCollection.Exists(ros1ByfishTest.PanelSetId) == true)
-            {
-                Test.ROS1ByFISH.ROS1ByFISHTestOrder ros1ByFISHTestOrder = (ROS1ByFISH.ROS1ByFISHTestOrder)panelSetOrderCollection.GetPanelSetOrder(ros1ByfishTest.PanelSetId);
-                this.m_ROS1ByFISHStatus = EGFRToALKReflexAnalysisElementStatusEnum.Ordered;
-
-                if (ros1ByFISHTestOrder.Accepted == true) this.m_ROS1ByFISHStatus = EGFRToALKReflexAnalysisElementStatusEnum.Accepted;
-                if (ros1ByFISHTestOrder.Final == true) this.m_ROS1ByFISHStatus = EGFRToALKReflexAnalysisElementStatusEnum.Final;
-            }
-            else
-            {
-                this.m_ROS1ByFISHStatus = EGFRToALKReflexAnalysisElementStatusEnum.NotOrdered;
-            }
-
-            if (panelSetOrderCollection.Exists(alkTest.PanelSetId) == true)
-            {
-                Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHTestOrder alkTestOrder = (ALKForNSCLCByFISH.ALKForNSCLCByFISHTestOrder)panelSetOrderCollection.GetPanelSetOrder(alkTest.PanelSetId);
-                this.m_ALKForNSCLCByFISHStatus = EGFRToALKReflexAnalysisElementStatusEnum.Ordered;
-
-                if (alkTestOrder.Accepted == true) this.m_ALKForNSCLCByFISHStatus = EGFRToALKReflexAnalysisElementStatusEnum.Accepted;
-                if (alkTestOrder.Final == true) this.m_ALKForNSCLCByFISHStatus = EGFRToALKReflexAnalysisElementStatusEnum.Final;
-            }
-            else
-            {
-                this.m_ALKForNSCLCByFISHStatus = EGFRToALKReflexAnalysisElementStatusEnum.NotOrdered;
-            }
-
-            if (panelSetOrderCollection.Exists(brafTest.PanelSetId) == true)
-            {
-                Test.BRAFMutationAnalysis.BRAFMutationAnalysisTestOrder brafTestOrder = (BRAFMutationAnalysis.BRAFMutationAnalysisTestOrder)panelSetOrderCollection.GetPanelSetOrder(brafTest.PanelSetId);
-                this.m_BRAFMutationAnalysisStatus = EGFRToALKReflexAnalysisElementStatusEnum.Ordered;
-
-                if (brafTestOrder.Accepted == true) this.m_BRAFMutationAnalysisStatus = EGFRToALKReflexAnalysisElementStatusEnum.Accepted;
-                if (brafTestOrder.Final == true) this.m_BRAFMutationAnalysisStatus = EGFRToALKReflexAnalysisElementStatusEnum.Final;
-            }
-            else
-            {
-                this.m_BRAFMutationAnalysisStatus = EGFRToALKReflexAnalysisElementStatusEnum.NotOrdered;
-            }
-
-            if (panelSetOrderCollection.Exists(pdl1SP142Test.PanelSetId) == true)
-            {
-                Test.PDL1SP142.PDL1SP142TestOrder pdl1SP142TestOrder = (PDL1SP142.PDL1SP142TestOrder)panelSetOrderCollection.GetPanelSetOrder(pdl1SP142Test.PanelSetId);
-                this.m_PDL1SP142Status = EGFRToALKReflexAnalysisElementStatusEnum.Ordered;
-
-                if (pdl1SP142TestOrder.Accepted == true) this.m_PDL1SP142Status = EGFRToALKReflexAnalysisElementStatusEnum.Accepted;
-                if (pdl1SP142TestOrder.Final == true) this.m_PDL1SP142Status = EGFRToALKReflexAnalysisElementStatusEnum.Final;
-            }
-            else
-            {
-                this.m_PDL1SP142Status = EGFRToALKReflexAnalysisElementStatusEnum.NotOrdered;
             }
         }
     }
