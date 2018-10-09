@@ -97,8 +97,8 @@ namespace YellowstonePathology.UI.Monitor
                         System.Text.RegularExpressions.Match match = regex.Match(mailItem.Subject);
                         if (match.Captures.Count != 0)
                         {
-                            int blockCount = Convert.ToInt32(match.Value);
-                            YellowstonePathology.Business.Gateway.AccessionOrderGateway.SetBozemanBlockCount(blockCount, DateTime.Today);
+                            int blockCount = Convert.ToInt32(match.Value);                            
+                            YellowstonePathology.Business.Gateway.AccessionOrderGateway.SetBozemanBlockCount(blockCount, DateTime.Parse(mailItem.DateTimeSent.ToShortDateString()));
                             blockCountFound = true;
                         }
                     }

@@ -183,6 +183,20 @@ namespace YellowstonePathology.Business.Test
             return result;
         }
 
+        public bool HasClientBillItems()
+        {
+            bool result = false;
+            foreach (PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill in this)
+            {                
+                if (panelSetOrderCPTCodeBill.BillTo == "Client")
+                {
+                    result = true;
+                    break;
+                }
+            }
+            return result;
+        }
+
         public bool HasBillToPatientByYPIItems()
         {
             bool result = false;

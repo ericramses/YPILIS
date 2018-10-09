@@ -313,8 +313,12 @@ namespace YellowstonePathology.Business.Billing.Model
                 BillingComponent billingComponent = BillingComponent.GetBillingComponent(this.m_PanelSetOrder);
                 billingComponent.Post(this);
 
-                this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.SetPostDate(DateTime.Today);
                 this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.SetPostDate(DateTime.Today);
+                if (this.IsOkToSetPostDate() == true)
+                {
+                    this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.SetPostDate(DateTime.Today);
+                }
+                                                
                 this.m_PanelSetOrder.IsPosted = true;                
                 methodResult.Success = true;
             }
@@ -324,7 +328,23 @@ namespace YellowstonePathology.Business.Billing.Model
                 methodResult.Message = "This case cannot be posted because it is on hold.";
             }
             return methodResult;
-        }        
+        }      
+        
+        private bool IsOkToSetPostDate()
+        {
+            bool result = true;
+            if(string.IsNullOrEmpty(this.m_AccessionOrder.SvhMedicalRecord) == false)
+            {
+                if (this.m_AccessionOrder.SvhMedicalRecord.StartsWith("A") == true)
+                {
+                    if (this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.HasClientBillItems() == true)
+                    {
+                        result = false;
+                    }
+                }
+            }            
+            return result;
+        }  
         
         public void PostPQRICodes()
         {

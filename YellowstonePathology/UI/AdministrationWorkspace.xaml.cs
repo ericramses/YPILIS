@@ -1008,13 +1008,13 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            
+            this.AddWebService();
         }
 
         private void AddWebService()
         {
             List<int> webServiceAccountIds = new List<int>();
-            webServiceAccountIds.Add(909);
+            webServiceAccountIds.Add(913);
             List<int> clientIds = this.GetClientIds();
 
             int id = YellowstonePathology.Business.Gateway.WebServiceGateway.GetNextWebServiceAccountClientId();
