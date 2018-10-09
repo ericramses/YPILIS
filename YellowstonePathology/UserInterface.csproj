@@ -1097,6 +1097,7 @@
     <Compile Include="Business\Test\NeoTypeLungTumorFISHPanel\NeoTypeLungTumorFISHPanelTest.cs" />
     <Compile Include="Business\Test\NeoTYPELungTumorProfile\NeoTYPELungTumorProfileTestOrder.cs" />
     <Compile Include="Business\Test\NeoTYPEOvarianTumorProfile\NeoTYPEOvarianTumorProfileTest.cs" />
+    <Compile Include="Business\Test\p57\p57Test.cs" />
     <Compile Include="Business\Test\PNH\PNHWPHOBXView.cs" />
     <Compile Include="Business\Test\RASRAFPanel\RASRAFPanelWPHOBXView.cs" />
     <Compile Include="Business\Test\RibosomalRNA16S\RibosomalRNA16STest.cs" />
