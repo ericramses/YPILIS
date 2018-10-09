@@ -1008,14 +1008,7 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            Business.Test.AccessionOrder ao = Business.Persistence.DocumentGateway.Instance.PullAccessionOrder("18-123", this);
-            Business.Test.PanelSetOrder pso = ao.PanelSetOrderCollection[0];
-
-            MessageBoxResult messageBoxResult = MessageBox.Show("An amendment will be created as a result of reasigning this case.  Are you sure you want to proceed with reasignment?", "Proceed", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (messageBoxResult == MessageBoxResult.Yes)
-            {
-
-            }
+            
         }
 
         private void AddWebService()
