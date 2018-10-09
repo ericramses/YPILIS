@@ -30,9 +30,7 @@ namespace YellowstonePathology.Business.Test.ChromosomeAnalysis
 			YellowstonePathology.Business.Interface.IOrderTarget orderTarget,
 			bool distribute)
 			: base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute)
-		{
-            this.m_ASR = "The performance characteristics of this test have been determined by NeoGenomics Laboratories. This test has not been approved by the FDA. The FDA has determined such clearance or approval is not necessary. This laboratory is CLIA certified to perform high complexity clinical testing.";
-		}
+        { }
 
 		[PersistentProperty()]
 		[PersistentDataColumnProperty(true, "100", "null", "varchar")]
@@ -259,7 +257,12 @@ namespace YellowstonePathology.Business.Test.ChromosomeAnalysis
                 if (string.IsNullOrEmpty(this.Result) == true)
                 {
                     result.Status = Audit.Model.AuditStatusEnum.Failure;
-                    result.Message = UnableToAccept;
+                    result.Message = UnableToAccept + Environment.NewLine;
+                }
+                if(string.IsNullOrEmpty(this.m_Karyotype) == true)
+                {
+                    result.Status = Audit.Model.AuditStatusEnum.Failure;
+                    result.Message += "This case cannot be accepted because the Karyotype has not been set.";
                 }
             }
 
@@ -274,7 +277,12 @@ namespace YellowstonePathology.Business.Test.ChromosomeAnalysis
                 if (string.IsNullOrEmpty(this.m_Result) == true)
                 {
                     result.Status = Audit.Model.AuditStatusEnum.Failure;
-                    result.Message = UnableToFinal;
+                    result.Message = UnableToFinal + Environment.NewLine;
+                }
+                if (string.IsNullOrEmpty(this.m_Karyotype) == true)
+                {
+                    result.Status = Audit.Model.AuditStatusEnum.Failure;
+                    result.Message += "This case cannot be finalized because the Karyotype has not been set.";
                 }
             }
             return result;
