@@ -13,7 +13,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 			this.m_MSH2Result = LSEResultEnum.Intact;
 			this.m_MSH6Result = LSEResultEnum.Intact;
 			this.m_PMS2Result = LSEResultEnum.Loss;
-			this.m_BrafResult = LSEResultEnum.Positive;
+			this.m_BrafResult = LSEResultEnum.Detected;
 			this.m_MethResult = LSEResultEnum.NotApplicable;
             this.m_BRAFIsIndicated = true;
 

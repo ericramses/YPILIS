@@ -372,13 +372,21 @@ namespace YellowstonePathology.UI.Billing
                 }
 
                 string workingFolder = System.IO.Path.Combine(this.m_BaseWorkingFolderPathPSA, this.m_PostDate.Value.ToString("MMddyyyy"));
-                string[] files = System.IO.Directory.GetFiles(workingFolder);                
+                if(System.IO.Directory.Exists(workingFolder) == true)
+                {
+                    string[] files = System.IO.Directory.GetFiles(workingFolder);
 
-                Business.SSHFileTransfer sshFileTransfer = new Business.SSHFileTransfer(psaSSHConfig["host"].ToString(), Convert.ToInt32(psaSSHConfig["port"]),
-                    psaSSHConfig["username"].ToString(), psaSSHConfig["password"].ToString());
+                    Business.SSHFileTransfer sshFileTransfer = new Business.SSHFileTransfer(psaSSHConfig["host"].ToString(), Convert.ToInt32(psaSSHConfig["port"]),
+                        psaSSHConfig["username"].ToString(), psaSSHConfig["password"].ToString());
 
-                sshFileTransfer.StatusMessage += SSHFileTransfer_StatusMessage;
-                sshFileTransfer.UploadFilesToPSA(files);
+                    sshFileTransfer.StatusMessage += SSHFileTransfer_StatusMessage;
+                    sshFileTransfer.UploadFilesToPSA(files);
+                }
+                else
+                {
+                    MessageBox.Show("The folder for this date does not exist.");
+                }
+                
             }
             else
             {

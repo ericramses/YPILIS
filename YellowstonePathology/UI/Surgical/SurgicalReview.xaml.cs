@@ -321,8 +321,13 @@ namespace YellowstonePathology.UI.Surgical
         {
             if (this.PanelSetOrderSurgical != null)
             {
-                Common.ReassignCaseDialog reassignCaseDialog = new Common.ReassignCaseDialog(this.PanelSetOrderSurgical, Business.User.SystemIdentity.Instance);
-                reassignCaseDialog.ShowDialog();
+                MessageBoxResult messageBoxResult = MessageBox.Show("An amendment will be created as a result of reasigning this case.  Are you sure you want to proceed with reasignment?", "Proceed?", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if(messageBoxResult == MessageBoxResult.Yes)
+                {
+                    YellowstonePathology.Business.Rules.PanelSetOrder.ReassignCase reassignCase = new YellowstonePathology.Business.Rules.PanelSetOrder.ReassignCase();
+                    YellowstonePathology.Business.Rules.ExecutionStatus executionStatus = new YellowstonePathology.Business.Rules.ExecutionStatus();
+                    reassignCase.Execute(executionStatus, this.PanelSetOrderSurgical, true, Business.User.SystemIdentity.Instance);
+                }                
             }
         }
 

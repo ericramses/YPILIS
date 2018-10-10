@@ -19,28 +19,34 @@ namespace YellowstonePathology.UI
         Business.GethAPI m_GethAPI;
 
         public ChainExplorer()
-        {
+        {            
             this.m_GethAPI = new Business.GethAPI();
             InitializeComponent();
         }
+        
 
         private void Button_Go(object sender, RoutedEventArgs e)
         {
+            int containerCount = this.m_GethAPI.GetContainerCount("0x15653b5eb4fb52686f30f5140193ad027f346671");
+        }
+
+        private void LoopTheChain()
+        {
             Business.EthBlock latestBlock = this.m_GethAPI.GetLatestBlock();
-            int startingBlockNumber = this.GetFirstBlockNumberForDate(DateTime.Today.AddDays(-1));
-            for(int i=startingBlockNumber; i< latestBlock.Number; i++)
-            {                
+            int startingBlockNumber = this.GetFirstBlockNumberForDate(DateTime.Today);
+            for (int i = startingBlockNumber; i < latestBlock.Number; i++)
+            {
                 int transactionCount = this.m_GethAPI.GetBlockTransactionCountByNumber(i);
-                if(transactionCount > 0)
+                if (transactionCount > 0)
                 {
                     Business.EthBlock block = this.m_GethAPI.GetBlockByNumber(i);
-                    foreach(string transactionHash in block.TransactionHashes)
+                    foreach (string transactionHash in block.TransactionHashes)
                     {
                         string contractAddress = this.m_GethAPI.GetContractAddress(transactionHash);
-                        if(string.IsNullOrEmpty(contractAddress) == false)
+                        if (string.IsNullOrEmpty(contractAddress) == false)
                         {
                             int containerCount = this.m_GethAPI.GetContainerCount(contractAddress);
-                        }                        
+                        }
                     }
                 }
             }

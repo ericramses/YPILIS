@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>222</ApplicationRevision>
+    <ApplicationRevision>225</ApplicationRevision>
     <ApplicationVersion>10.1.12.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -4409,9 +4409,6 @@
     <Compile Include="UI\Common\PhysicianClientSearchDialog.xaml.cs">
       <DependentUpon>PhysicianClientSearchDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Common\ReassignCaseDialog.xaml.cs">
-      <DependentUpon>ReassignCaseDialog.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UI\Common\ScanTest.xaml.cs">
       <DependentUpon>ScanTest.xaml</DependentUpon>
     </Compile>
@@ -5855,10 +5852,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\Common\PhysicianClientSearchDialog.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\Common\ReassignCaseDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

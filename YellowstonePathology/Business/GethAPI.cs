@@ -40,8 +40,7 @@ namespace YellowstonePathology.Business
             postObject["method"] = "eth_call";
             JArray paramList = (JArray)postObject["params"];
 
-            JObject callParam = JObject.Parse("{'from':'0x0376bc1436529fba9531fe00200c551cb204b05a','to':'" + contractAddress +
-                "','data':'0x5a5c9b1300000000000000000000000000000000000000000000000000000000'}");            
+            JObject callParam = JObject.Parse("{'to':'0x15653b5eb4fb52686f30f5140193ad027f346671','data':'0x2b3e895700000000000000000000000000000000000000000000000000000001'}");            
             paramList.Add(callParam);
             paramList.Add("latest");
 

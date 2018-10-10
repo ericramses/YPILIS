@@ -144,7 +144,7 @@ namespace YellowstonePathology.UI.Test
 			}
 		}
 
-		private void HyperLinkUnacceptResults_Click(object sender, RoutedEventArgs e)
+        private void HyperLinkUnacceptResults_Click(object sender, RoutedEventArgs e)
 		{
 			YellowstonePathology.Business.Rules.MethodResult result = this.m_PanelSetOrder.IsOkToUnaccept();
 			if (result.Success == true)

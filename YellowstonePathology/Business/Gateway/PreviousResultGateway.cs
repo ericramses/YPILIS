@@ -105,7 +105,7 @@ namespace YellowstonePathology.Business.Gateway
                 "and pso.final = 1 order by pso.FinalDate desc;";
             this.m_TableDictionary.Add("tblPanelSetOrderMPNExtendedReflex", psoMPNExtendedReflex);
 
-            string chromosomeAnalysisTestOrder = "Select b.Result, pso.MasterAccessionNo, pso.ReportNo, a.AccessionTime AccessionDate, pso.FinalDate,  pso.PanelSetId " +
+            string chromosomeAnalysisTestOrder = "Select concat('Result: ', b.Result, ' Karyotype: ', b.Karyotype, ' Culture Type: ', b.CultureType) Result, pso.MasterAccessionNo, pso.ReportNo, a.AccessionTime AccessionDate, pso.FinalDate,  pso.PanelSetId " +
                 "FROM tblAccessionOrder a " +
                 "JOIN tblPanelSetOrder pso ON a.MasterAccessionNo = pso.MasterAccessionNo " +
                 "join tblChromosomeAnalysisTestOrder b on pso.ReportNo = b.ReportNo " +

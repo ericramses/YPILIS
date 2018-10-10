@@ -30,9 +30,7 @@ namespace YellowstonePathology.Business.Test.ChromosomeAnalysis
 			YellowstonePathology.Business.Interface.IOrderTarget orderTarget,
 			bool distribute)
 			: base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute)
-		{
-            this.m_ASR = "The performance characteristics of this test have been determined by NeoGenomics Laboratories. This test has not been approved by the FDA. The FDA has determined such clearance or approval is not necessary. This laboratory is CLIA certified to perform high complexity clinical testing.";
-		}
+        { }
 
 		[PersistentProperty()]
 		[PersistentDataColumnProperty(true, "100", "null", "varchar")]
@@ -224,13 +222,8 @@ namespace YellowstonePathology.Business.Test.ChromosomeAnalysis
             panelSetOrder.Result = this.m_Result;
             panelSetOrder.Interpretation = this.m_Interpretation;
             panelSetOrder.Karyotype = this.Karyotype;
-            panelSetOrder.MetaphasesCounted = this.m_MetaphasesCounted;
             panelSetOrder.Comment = this.m_Comment;
-            panelSetOrder.MetaphasesAnalyzed = this.m_MetaphasesAnalyzed;
-            panelSetOrder.MetaphasesKaryotyped = this.m_MetaphasesKaryotyped;
             panelSetOrder.CultureType = this.m_CultureType;
-            panelSetOrder.BandingTechnique = this.m_BandingTechnique;
-            panelSetOrder.BandingResolution = this.m_BandingResolution;
             panelSetOrder.ASR = this.m_ASR;
             base.SetPreviousResults(pso);
         }
@@ -240,13 +233,8 @@ namespace YellowstonePathology.Business.Test.ChromosomeAnalysis
             this.m_Result = null;
             this.m_Interpretation = null;
             this.Karyotype = null;
-            this.m_MetaphasesCounted = null;
             this.m_Comment = null;
-            this.m_MetaphasesAnalyzed = null;
-            this.m_MetaphasesKaryotyped = null;
             this.m_CultureType = null;
-            this.m_BandingTechnique = null;
-            this.m_BandingResolution = null;
             this.m_ASR = null;
             base.ClearPreviousResults();
         }
@@ -259,7 +247,12 @@ namespace YellowstonePathology.Business.Test.ChromosomeAnalysis
                 if (string.IsNullOrEmpty(this.Result) == true)
                 {
                     result.Status = Audit.Model.AuditStatusEnum.Failure;
-                    result.Message = UnableToAccept;
+                    result.Message = UnableToAccept + Environment.NewLine;
+                }
+                if(string.IsNullOrEmpty(this.m_Karyotype) == true)
+                {
+                    result.Status = Audit.Model.AuditStatusEnum.Failure;
+                    result.Message += "This case cannot be accepted because the Karyotype has not been set.";
                 }
             }
 
@@ -274,7 +267,12 @@ namespace YellowstonePathology.Business.Test.ChromosomeAnalysis
                 if (string.IsNullOrEmpty(this.m_Result) == true)
                 {
                     result.Status = Audit.Model.AuditStatusEnum.Failure;
-                    result.Message = UnableToFinal;
+                    result.Message = UnableToFinal + Environment.NewLine;
+                }
+                if (string.IsNullOrEmpty(this.m_Karyotype) == true)
+                {
+                    result.Status = Audit.Model.AuditStatusEnum.Failure;
+                    result.Message += "This case cannot be finalized because the Karyotype has not been set.";
                 }
             }
             return result;
