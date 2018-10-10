@@ -135,6 +135,26 @@ namespace YellowstonePathology.Business.Gateway
                 "and pso.final = 1 order by pso.FinalDate desc;";
             this.m_TableDictionary.Add("tblPDL1SP142TestOrder", pdl1SP142TestOrder);
 
+            string alkForNSCLCByFISHTestOrder = "Select b.Result, pso.MasterAccessionNo, pso.ReportNo, a.AccessionTime AccessionDate, pso.FinalDate,  pso.PanelSetId " +
+                "FROM tblAccessionOrder a " +
+                "JOIN tblPanelSetOrder pso ON a.MasterAccessionNo = pso.MasterAccessionNo " +
+                "join tblALKForNSCLCByFISHTestOrder b on pso.ReportNo = b.ReportNo " +
+                "Left Outer Join tblSystemUser su on pso.OrderedById = su.UserId " +
+                "WHERE pso.PanelSetId  =  @PanelSetId " +
+                "and pso.OrderDate between @StartDate and @EndDate " +
+                "and pso.final = 1 order by pso.FinalDate desc;";
+            this.m_TableDictionary.Add("tblALKForNSCLCByFISHTestOrder", alkForNSCLCByFISHTestOrder);
+
+            string ros1ByFISHTestOrder = "Select b.Result, pso.MasterAccessionNo, pso.ReportNo, a.AccessionTime AccessionDate, pso.FinalDate,  pso.PanelSetId " +
+                "FROM tblAccessionOrder a " +
+                "JOIN tblPanelSetOrder pso ON a.MasterAccessionNo = pso.MasterAccessionNo " +
+                "join tblROS1ByFISHTestOrder b on pso.ReportNo = b.ReportNo " +
+                "Left Outer Join tblSystemUser su on pso.OrderedById = su.UserId " +
+                "WHERE pso.PanelSetId  =  @PanelSetId " +
+                "and pso.OrderDate between @StartDate and @EndDate " +
+                "and pso.final = 1 order by pso.FinalDate desc;";
+            this.m_TableDictionary.Add("tblROS1ByFISHTestOrder", ros1ByFISHTestOrder);
+
             string egfrMutationAnalysisTestOrder = "Select concat(b.Result, ' - ', b.indication) `Result`, pso.MasterAccessionNo, pso.ReportNo, a.AccessionTime AccessionDate, pso.FinalDate,  pso.PanelSetId " +
                 "FROM tblAccessionOrder a " +
                 "JOIN tblPanelSetOrder pso ON a.MasterAccessionNo = pso.MasterAccessionNo " +

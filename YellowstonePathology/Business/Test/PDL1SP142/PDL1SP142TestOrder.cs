@@ -134,7 +134,6 @@ namespace YellowstonePathology.Business.Test.PDL1SP142
         {
             PDL1SP142TestOrder panelSetOrder = (PDL1SP142TestOrder)pso;
             panelSetOrder.Result = this.m_Result;
-            panelSetOrder.StainPercent = this.m_StainPercent;
             panelSetOrder.Method = this.Method;
             panelSetOrder.Comment = this.Comment;
             panelSetOrder.Interpretation = this.m_Interpretation;
@@ -144,7 +143,6 @@ namespace YellowstonePathology.Business.Test.PDL1SP142
         public override void ClearPreviousResults()
         {
             this.m_Result = null;
-            this.m_StainPercent = null;
             this.m_Method = null;
             this.m_Comment = null;
             this.m_Interpretation = null;

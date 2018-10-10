@@ -133,16 +133,25 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkAcceptResults_Click(object sender, RoutedEventArgs e)
 		{
-			YellowstonePathology.Business.Audit.Model.AuditResult result = this.m_PanelSetOrder.IsOkToAccept(this.m_AccessionOrder);
-			if (result.Status == Business.Audit.Model.AuditStatusEnum.OK)
-			{
-				this.m_PanelSetOrder.Accept();
-			}
-			else
-			{
-				MessageBox.Show(result.Message);
-			}
-		}
+            YellowstonePathology.Business.Audit.Model.AuditResult result = this.m_PanelSetOrder.IsOkToAccept(this.m_AccessionOrder);
+            if (result.Status == Business.Audit.Model.AuditStatusEnum.OK)
+            {
+                this.m_PanelSetOrder.Accept();
+            }
+            else if (result.Status == Business.Audit.Model.AuditStatusEnum.Warning)
+            {
+                MessageBoxResult messageBoxResult = MessageBox.Show(result.Message, "Results do not match the finaled summary results",
+                    MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+                if (messageBoxResult == MessageBoxResult.Yes)
+                {
+                    this.m_PanelSetOrder.Accept();
+                }
+            }
+            else
+            {
+                MessageBox.Show(result.Message);
+            }
+        }
 
         private void HyperLinkUnacceptResults_Click(object sender, RoutedEventArgs e)
 		{
