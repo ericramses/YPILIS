@@ -21,6 +21,7 @@
                     <MenuItem Header="Open Folder" Click="MenuItemOpenPSAFolder_Click"></MenuItem>
                 </MenuItem>
                 <MenuItem Header="SVH" Name="MenuItemSVH">
+                    <MenuItem Header="Match Unposted Cases" Click="MenuItemMatchUnpostedCases_Click"></MenuItem>
                     <MenuItem Header="Process SVH Files" Click="MenuItemProcessSVHFiles_Click"></MenuItem>
                     <MenuItem Header="Transfer SVH Files" Click="MenuItemTransferSVHFiles_Click"></MenuItem>
                     <MenuItem Header="Send Clinic Case Email" Click="MenuItemSendClinicCaseEmail_Click"></MenuItem>

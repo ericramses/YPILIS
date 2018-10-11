@@ -147,10 +147,10 @@ namespace YellowstonePathology.Business.Gateway
             return result;
         }
 
-        public static string GetSVHClinicMessageBody(DateTime accessionDate)
+        public static string GetSVHClinicMessageBody()
         {
             StringBuilder result = new StringBuilder();
-            result.AppendLine("SVH Clinic Cases for: " + accessionDate.ToString());
+            result.AppendLine("SVH clinic cases for not posted. ");
             StringBuilder header = new StringBuilder();
             header.Append("Accessioned".PadRight(40));
             header.Append("Master Accession".PadRight(20));
@@ -159,13 +159,13 @@ namespace YellowstonePathology.Business.Gateway
             result.AppendLine(header.ToString());
 
             MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "Select AccessionTime, MasterAccessionNo, SvhMedicalRecord, svhAccount " +
-                "from tblAccessionOrder " +
-                "where AccessionDate = @AccessionDate " +
-                "and svhmedicalrecord like 'A%' " +
-                "order by AccessionTime";
-            cmd.CommandType = CommandType.Text;
-            cmd.Parameters.AddWithValue("@AccessionDate", accessionDate);
+            cmd.CommandText = "Select distinct ao.AccessionTime, ao.MasterAccessionNo, ao.SvhMedicalRecord, ao.svhAccount " +
+                "from tblPanelSetOrderCPTCodeBill bll " +
+                "join tblClient c on bll.ClientId = c.ClientId " +
+                "join tblPanelSetOrder pso on bll.ReportNo = pso.ReportNo " +
+                "join tblAccessionOrder ao on pso.MasterAccessionNo = ao.MasterAccessionNo " +
+                "where postdate is null  and ao.SvhMedicalRecord like 'A%' and bll.BillTo = 'Client'";
+            cmd.CommandType = CommandType.Text;            
 
             using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
@@ -1392,6 +1392,68 @@ namespace YellowstonePathology.Business.Gateway
 
 			return reportNoCollection;
 		}
+
+        public static ReportNoCollection GetReportNumbersBySVHProcess(DateTime postDate)
+        {
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "Select distinct bll.ReportNo " +
+                "from tblPanelSetOrderCPTCodeBill bll " +
+                "join tblClient c on bll.ClientId = c.ClientId " +
+                "join tblPanelSetOrder pso on bll.ReportNo = pso.ReportNo " +
+                "join tblAccessionOrder ao on pso.MasterAccessionNo = ao.MasterAccessionNo " +
+                "where postdate = @PostDate and bll.BillTo = 'Client' " +
+                "and ao.ClientId in (select clientId from tblClientGroupClient where ClientGroupId = 1)";
+            cmd.Parameters.AddWithValue("@PostDate", postDate);
+
+            YellowstonePathology.Business.ReportNoCollection reportNoCollection = new ReportNoCollection();
+
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.Business.ReportNo reportNo = new ReportNo(dr.GetString(0));
+                        reportNoCollection.Add(reportNo);
+                    }
+                }
+            }
+
+            return reportNoCollection;
+        }
+
+        public static ReportNoCollection GetReportNumbersBySVHNotPosted()
+        {
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "select distinct bll.ReportNo " +
+                "from tblPanelSetOrderCPTCodeBill bll " +
+                "join tblClient c on bll.ClientId = c.ClientId " +
+                "join tblPanelSetOrder pso on bll.ReportNo = pso.ReportNo " +
+                "join tblAccessionOrder ao on pso.MasterAccessionNo = ao.MasterAccessionNo " +
+                "where bll.BillTo = 'Client' and ao.SvhMedicalRecord like 'A%' and bll.PostDate is null";
+
+            YellowstonePathology.Business.ReportNoCollection reportNoCollection = new ReportNoCollection();
+
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.Business.ReportNo reportNo = new ReportNo(dr.GetString(0));
+                        reportNoCollection.Add(reportNo);
+                    }
+                }
+            }
+
+            return reportNoCollection;
+        }
 
 
         public static List<YellowstonePathology.Business.Patient.Model.SVHBillingData> GetPatientImportDataList(string reportNo)

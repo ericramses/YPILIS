@@ -192,6 +192,7 @@ namespace YellowstonePathology.UI.Gross
             UI.Login.CaseLockedPage caseLockedPage = new Login.CaseLockedPage(this.m_AccessionOrder);
             caseLockedPage.Next += CaseLockedPage_Next;            
             caseLockedPage.AskForLock += CaseLockedPage_AskForLock;
+            UI.AppMessaging.MessagingPath.Instance.LockWasReleased += MessageQueuePath_LockWasReleased;
             this.m_HistologyGrossDialog.PageNavigator.Navigate(caseLockedPage);
         }
 
@@ -199,7 +200,7 @@ namespace YellowstonePathology.UI.Gross
         {
             UI.AppMessaging.MessagingPath.Instance.StartSendRequest(e.AccessionOrder, this.m_HistologyGrossDialog.PageNavigator);
             UI.AppMessaging.MessagingPath.Instance.LockWasReleased += MessageQueuePath_LockWasReleased;
-            UI.AppMessaging.MessagingPath.Instance.HoldYourHorses += MessageQueuePath_HoldYourHorses;
+            UI.AppMessaging.MessagingPath.Instance.HoldYourHorses += MessageQueuePath_HoldYourHorses;            
         }
 
         private void MessageQueuePath_HoldYourHorses(object sender, EventArgs e)

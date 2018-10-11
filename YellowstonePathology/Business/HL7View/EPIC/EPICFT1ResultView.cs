@@ -10,12 +10,14 @@ namespace YellowstonePathology.Business.HL7View.EPIC
     public class EPICFT1ResultView : IResultView
     {
         private Business.Test.AccessionOrder m_AccessionOrder;
-        private List<Business.Test.PanelSetOrderCPTCodeBill> m_PanelSetOrderCPTCodeBillList;        
+        private List<Business.Test.PanelSetOrderCPTCodeBill> m_PanelSetOrderCPTCodeBillList;
+        private string m_MedicalRecord;      
 
         private bool m_Testing;
 
-        public EPICFT1ResultView(Business.Test.AccessionOrder accessionOrder, List<Business.Test.PanelSetOrderCPTCodeBill> panelSetOrderCPTCodeBillList, bool testing)
-        {            
+        public EPICFT1ResultView(string medicalRecord, Business.Test.AccessionOrder accessionOrder, List<Business.Test.PanelSetOrderCPTCodeBill> panelSetOrderCPTCodeBillList, bool testing)
+        {
+            this.m_MedicalRecord = medicalRecord;
             this.m_Testing = testing;
             this.m_AccessionOrder = accessionOrder;
             this.m_PanelSetOrderCPTCodeBillList = panelSetOrderCPTCodeBillList;            
@@ -40,7 +42,7 @@ namespace YellowstonePathology.Business.HL7View.EPIC
             XElement detailDocument = CreateDocument();
             string id = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
             string fileExtension = ".HL7.xml";
-            string interfaceFileName = path + id + fileExtension;
+            string interfaceFileName = System.IO.Path.Combine(path,id + fileExtension);
             using (System.IO.StreamWriter sw = new System.IO.StreamWriter(interfaceFileName))
             {
                 detailDocument.Save(sw);
@@ -57,7 +59,7 @@ namespace YellowstonePathology.Business.HL7View.EPIC
             YellowstonePathology.Business.Domain.Physician orderingPhysician = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianByPhysicianId(this.m_AccessionOrder.PhysicianId);
 
             string locationCode = "YPIIBILLINGS";
-            if (this.m_AccessionOrder.SvhMedicalRecord.StartsWith("A") == true)
+            if (this.m_MedicalRecord.StartsWith("A") == true)
             {
                 locationCode = "SVHNPATH";
             }
@@ -65,7 +67,7 @@ namespace YellowstonePathology.Business.HL7View.EPIC
             EPICMshView msh = new EPICMshView(client, messageType, locationCode);
             msh.ToXml(document);
 
-            EpicPidView pid = new EpicPidView(this.m_AccessionOrder.SvhMedicalRecord, this.m_AccessionOrder.PLastName, this.m_AccessionOrder.PFirstName, this.m_AccessionOrder.PBirthdate,
+            EpicPidView pid = new EpicPidView(this.m_MedicalRecord, this.m_AccessionOrder.PLastName, this.m_AccessionOrder.PFirstName, this.m_AccessionOrder.PBirthdate,
                 this.m_AccessionOrder.PSex, this.m_AccessionOrder.SvhAccount, this.m_AccessionOrder.PSSN);
             pid.ToXml(document);
 

@@ -167,9 +167,15 @@ namespace YellowstonePathology.UI.AppMessaging
             else
             {
                 accessionOrder.AccessionLock.RefreshLock();
-                this.RunLockAquiredActionList();
-                this.m_MessagingDialog.Close();
-                this.m_MessagingDialog = null;
+                this.RunLockAquiredActionList();                
+
+                if(this.m_MessagingDialog != null)
+                {
+                    this.m_MessagingDialog.Close();
+                    this.m_MessagingDialog = null;
+                }
+
+                this.LockWasReleased(this, new EventArgs());
             }            
         }
 
@@ -206,9 +212,15 @@ namespace YellowstonePathology.UI.AppMessaging
             else
             {
                 e.AccessionOrder.AccessionLock.RefreshLock();
-                this.RunLockAquiredActionList();
-                this.m_MessagingDialog.Close();
-                this.m_MessagingDialog = null;
+                this.RunLockAquiredActionList();                
+
+                if(this.m_MessagingDialog != null)
+                {
+                    this.m_MessagingDialog.Close();
+                    this.m_MessagingDialog = null;
+                }
+
+                this.LockWasReleased(this, new EventArgs());
             }            
         }
 

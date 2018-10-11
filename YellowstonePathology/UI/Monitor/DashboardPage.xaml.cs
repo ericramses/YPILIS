@@ -80,7 +80,7 @@ namespace YellowstonePathology.UI.Monitor
 
             service.AutodiscoverUrl("blockcount@ypii.com", RedirectionUrlValidationCallback);            
             ItemView view = new ItemView(50);
-            view.PropertySet = new PropertySet(BasePropertySet.IdOnly, ItemSchema.Subject, ItemSchema.DateTimeReceived);
+            view.PropertySet = new PropertySet(BasePropertySet.FirstClassProperties, ItemSchema.Subject, ItemSchema.DateTimeReceived);
             view.OrderBy.Add(ItemSchema.DateTimeReceived, SortDirection.Descending);
             view.Traversal = ItemTraversal.Shallow;
             FindItemsResults<Item> findResults = service.FindItems(WellKnownFolderName.Inbox, view);

@@ -358,6 +358,28 @@ namespace YellowstonePathology.Business.Gateway
 			return clientOrderCollection;
 		}
 
+        public static YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection GetClientOrdersByANumber(string aNumber)
+        {
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "gwGetClientOrdersByANumber";
+            cmd.Parameters.AddWithValue("ANumber", aNumber);
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+            YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection clientOrderCollection = new YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection();
+
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    BuildClientOrderCollection(dr, clientOrderCollection);
+                }
+            }
+
+            return clientOrderCollection;
+        }
+
         public static YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection GetClientOrdersByOrderDate(DateTime orderDate)
         {
             MySqlCommand cmd = new MySqlCommand();

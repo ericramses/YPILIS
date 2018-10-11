@@ -13,12 +13,12 @@ namespace YellowstonePathology.Business.Billing.Model
 
         }
 
-        public static void SendMessage(DateTime accessionDate)
+        public static void SendMessage()
         {
-            string messageBody = Business.Gateway.AccessionOrderGateway.GetSVHClinicMessageBody(accessionDate);
-            System.Net.Mail.MailMessage message = new System.Net.Mail.MailMessage("support@ypii.com", "cheryl.stoltz@sclhealth.org", System.Windows.Forms.SystemInformation.UserName, messageBody);
+            string messageBody = Business.Gateway.AccessionOrderGateway.GetSVHClinicMessageBody();
+            System.Net.Mail.MailMessage message = new System.Net.Mail.MailMessage("support@ypii.com", "sid.harder@ypii.com", System.Windows.Forms.SystemInformation.UserName, messageBody);
             message.To.Add("rebecca.ricci@sclhealth.org");
-            message.To.Add("sid.harder@ypii.com");
+            message.To.Add("cheryl.stoltz@sclhealth.org");
             System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient("10.1.2.111");
 
             Uri uri = new Uri("http://tempuri.org/");
