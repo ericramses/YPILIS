@@ -157,19 +157,10 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkUnacceptResults_Click(object sender, RoutedEventArgs e)
 		{
-            YellowstonePathology.Business.Audit.Model.AuditResult result = this.m_PanelSetOrder.IsOkToAccept(this.m_AccessionOrder);
-            if (result.Status == Business.Audit.Model.AuditStatusEnum.OK)
+            YellowstonePathology.Business.Rules.MethodResult result = this.m_PanelSetOrder.IsOkToUnaccept();
+            if (result.Success == true)
             {
-                this.m_PanelSetOrder.Accept();
-            }
-            else if (result.Status == Business.Audit.Model.AuditStatusEnum.Warning)
-            {
-                MessageBoxResult messageBoxResult = MessageBox.Show(result.Message, "Results do not match the finaled summary results",
-                    MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
-                if (messageBoxResult == MessageBoxResult.Yes)
-                {
-                    this.m_PanelSetOrder.Accept();
-                }
+                this.m_PanelSetOrder.Unaccept();
             }
             else
             {

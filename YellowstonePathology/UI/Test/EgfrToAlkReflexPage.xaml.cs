@@ -156,21 +156,38 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkFinalizeResults_Click(object sender, RoutedEventArgs e)
 		{
-            if (string.IsNullOrEmpty(this.m_EGFRToALKReflexAnalysisTestOrder.TumorNucleiPercentage) == true)
+            bool okToFinal = false;
+            Business.Audit.Model.AuditResult auditResult = this.m_EGFRToALKReflexAnalysisTestOrder.IsOkToFinalize(this.m_AccessionOrder);
+            if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.OK)
             {
-                MessageBox.Show("The results cannot be finalized because the Tumor Nuclei Percentage has no value.");
+                okToFinal = true;
+            }
+            else if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.Warning)
+            {
+                MessageBoxResult messageBoxResult = MessageBox.Show(auditResult.Message, "Results do not match the component report results",
+                    MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+                if (messageBoxResult == MessageBoxResult.Yes)
+                {
+                    okToFinal = true;
+                }
             }
             else
             {
-                if (this.m_EGFRToALKReflexAnalysisTestOrder.Final == false)
-                {
-                    YellowstonePathology.Business.Test.FinalizeTestResult finalizeTestResult = this.m_EGFRToALKReflexAnalysisTestOrder.Finish(this.m_AccessionOrder);
-                    this.HandleFinalizeTestResult(finalizeTestResult);
-                }
-            }			
-		}
+                MessageBox.Show(auditResult.Message, "Unable to final");
+            }
 
-		private void HyperLinkUnfinalResults_Click(object sender, RoutedEventArgs e)
+            if (okToFinal == true)
+            {
+                YellowstonePathology.Business.Test.FinalizeTestResult finalizeTestResult = this.m_EGFRToALKReflexAnalysisTestOrder.Finish(this.m_AccessionOrder);
+                this.HandleFinalizeTestResult(finalizeTestResult);
+                if (this.m_EGFRToALKReflexAnalysisTestOrder.Accepted == false)
+                {
+                    this.m_EGFRToALKReflexAnalysisTestOrder.Accept();
+                }
+            }
+        }
+
+        private void HyperLinkUnfinalResults_Click(object sender, RoutedEventArgs e)
 		{
 			if (this.m_EGFRToALKReflexAnalysisTestOrder.Final == true)
 			{
@@ -179,29 +196,26 @@ namespace YellowstonePathology.UI.Test
 		}
 
 		private void HyperLinkAcceptResults_Click(object sender, RoutedEventArgs e)
-		{			
-			YellowstonePathology.Business.Rules.MethodResult result = this.m_EGFRToALKReflexAnalysisTestOrder.IsOkToAccept();
-			if (result.Success == true)
-			{
-                YellowstonePathology.Business.Rules.MethodResult methodResult = this.m_EGFRToALKReflexAnalysisTestOrder.HaveResultsBeenSet(this.m_AccessionOrder);
-                if (methodResult.Success == true)
+		{
+            YellowstonePathology.Business.Audit.Model.AuditResult result = this.m_EGFRToALKReflexAnalysisTestOrder.IsOkToAccept(this.m_AccessionOrder);
+            if (result.Status == Business.Audit.Model.AuditStatusEnum.OK)
+            {
+                this.m_EGFRToALKReflexAnalysisTestOrder.Accept();
+            }
+            else if (result.Status == Business.Audit.Model.AuditStatusEnum.Warning)
+            {
+                MessageBoxResult messageBoxResult = MessageBox.Show(result.Message, "Results do not match the component report results",
+                    MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+                if (messageBoxResult == MessageBoxResult.Yes)
                 {
                     this.m_EGFRToALKReflexAnalysisTestOrder.Accept();
                 }
-                else
-                {
-                    MessageBoxResult messageBoxResult = MessageBox.Show("Have the results been set?", "Set Results", MessageBoxButton.YesNo, MessageBoxImage.Exclamation, MessageBoxResult.Yes);
-                    if (messageBoxResult == MessageBoxResult.Yes)
-                    {
-                        this.m_EGFRToALKReflexAnalysisTestOrder.Accept();
-                    }
-                }
-			}
-			else
-			{
-				MessageBox.Show(result.Message);
-			}		
-		}
+            }
+            else
+            {
+                MessageBox.Show(result.Message);
+            }
+        }
 
 		private void HyperLinkUnacceptResults_Click(object sender, RoutedEventArgs e)
 		{

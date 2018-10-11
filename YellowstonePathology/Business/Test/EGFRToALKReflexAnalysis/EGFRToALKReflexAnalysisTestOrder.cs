@@ -293,6 +293,14 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
             Audit.Model.AuditResult result = base.IsOkToAccept(accessionOrder);
             if (result.Status == Audit.Model.AuditStatusEnum.OK)
             {
+                if (string.IsNullOrEmpty(this.TumorNucleiPercentage) == true)
+                {
+                    result.Status = Audit.Model.AuditStatusEnum.Failure;
+                    result.Message = "The results cannot be accepted because the Tumor Nuclei Percentage has no value.";
+                }
+            }
+            if (result.Status == Audit.Model.AuditStatusEnum.OK)
+            {
                 this.AreTestResultsPresent(accessionOrder, result);
                 if (result.Status == Audit.Model.AuditStatusEnum.OK)
                 {
@@ -310,6 +318,15 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
         public override YellowstonePathology.Business.Audit.Model.AuditResult IsOkToFinalize(Test.AccessionOrder accessionOrder)
         {
             Audit.Model.AuditResult result = base.IsOkToFinalize(accessionOrder);
+            if (result.Status == Audit.Model.AuditStatusEnum.OK)
+            {
+                if (string.IsNullOrEmpty(this.TumorNucleiPercentage) == true)
+                {
+                    result.Status = Audit.Model.AuditStatusEnum.Failure;
+                    result.Message = "The results cannot be finalized because the Tumor Nuclei Percentage has no value.";
+                }
+            }
+
             if (result.Status == Audit.Model.AuditStatusEnum.OK)
             {
                 this.AreTestResultsPresent(accessionOrder, result);
