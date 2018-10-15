@@ -1028,6 +1028,7 @@
     <Compile Include="Business\Slide.Model\VantageSlideScanCollection.cs" />
     <Compile Include="Business\Slide.Model\VantageSlideView.cs" />
     <Compile Include="Business\Slide.Model\VantageSlideViewCollection.cs" />
+    <Compile Include="Business\Specimen.Model\Container.cs" />
     <Compile Include="Business\SSHFileTransfer.cs" />
     <Compile Include="Business\Stain.Model\JsonStainFactory.cs" />
     <Compile Include="Business\Stain.Model\Stain.cs" />
@@ -2949,7 +2950,7 @@
     <Compile Include="UI\Billing\ADTPage.xaml.cs">
       <DependentUpon>ADTPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Billing\SVHMRNHandler.cs" />
+    <Compile Include="UI\Billing\SVHMRNMatcher.cs" />
     <Compile Include="UI\Billing\SVHCDMResultDialog.xaml.cs">
       <DependentUpon>SVHCDMResultDialog.xaml</DependentUpon>
     </Compile>

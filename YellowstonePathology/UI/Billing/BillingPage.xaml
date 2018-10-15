@@ -226,6 +226,7 @@
                 <Button Width="100" Height="40" Margin="2,2,2,2" Click="ButtonPatientDetails_Click">Patient Details ...</Button>
                 <Button Width="100" Height="40" Margin="2,2,2,2" Click="ButtonCPTCodes_Click">CPT Codes</Button>
 				<Button Width="100" Height="40" Margin="2,2,2,2" Click="ButtonICDCodes_Click">ICD Codes</Button>
+                <Button Width="100" Height="40" Margin="2,2,2,2" Click="ButtonSVHCDM_Click">SVH CDM</Button>
                 <Button Width="100" Height="40" Margin="2,2,2,2" Click="ButtonUnset_Click">Unset</Button>
                 <Button Width="100" Height="40" Margin="2,2,2,2" Click="ButtonUnpost_Click">Unpost</Button>
             </StackPanel>

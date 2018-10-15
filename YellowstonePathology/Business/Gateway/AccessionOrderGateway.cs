@@ -1425,18 +1425,18 @@ namespace YellowstonePathology.Business.Gateway
             return reportNoCollection;
         }
 
-        public static ReportNoCollection GetReportNumbersBySVHNotPosted()
+        public static List<string> GetMasterAccessionNumbersBySVHNotPosted()
         {
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "select distinct bll.ReportNo " +
+            cmd.CommandText = "select distinct ao.MasterAccessionNo " +
                 "from tblPanelSetOrderCPTCodeBill bll " +
                 "join tblClient c on bll.ClientId = c.ClientId " +
                 "join tblPanelSetOrder pso on bll.ReportNo = pso.ReportNo " +
                 "join tblAccessionOrder ao on pso.MasterAccessionNo = ao.MasterAccessionNo " +
                 "where bll.BillTo = 'Client' and ao.SvhMedicalRecord like 'A%' and bll.PostDate is null";
 
-            YellowstonePathology.Business.ReportNoCollection reportNoCollection = new ReportNoCollection();
+            List<string> result = new List<string>();
 
             using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
@@ -1446,13 +1446,12 @@ namespace YellowstonePathology.Business.Gateway
                 {
                     while (dr.Read())
                     {
-                        YellowstonePathology.Business.ReportNo reportNo = new ReportNo(dr.GetString(0));
-                        reportNoCollection.Add(reportNo);
+                        result.Add(dr.GetString(0));                        
                     }
                 }
             }
 
-            return reportNoCollection;
+            return result;
         }
 
 

@@ -27,7 +27,25 @@ namespace YellowstonePathology.UI
 
         private void Button_Go(object sender, RoutedEventArgs e)
         {
-            int containerCount = this.m_GethAPI.GetContainerCount("0x15653b5eb4fb52686f30f5140193ad027f346671");
+            //int containerCount = this.m_GethAPI.GetContainerCount("0xab6312b07456462c3620d67ce973fb453923e35b");
+            string result = this.m_GethAPI.GetContainer("0xab6312b07456462c3620d67ce973fb453923e35b", 0);
+            Business.Specimen.Model.Container container = new Business.Specimen.Model.Container(result);
+
+            //string hexString = "0000000000000000000000000000000000000000000000000000000000000060000000000000000000000000000000000000000000000000000000005bc009750000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002843544e5238383134464239342d334137452d343131412d393844452d333435453932443137463243000000000000000000000000000000000000000000000000";
+
+        }
+
+        public static byte[] StringToByteArray(String hex)
+        {
+            int NumberChars = hex.Length / 2;
+            byte[] bytes = new byte[NumberChars];
+            using (var sr = new System.IO.StringReader(hex))
+            {
+                for (int i = 0; i < NumberChars; i++)
+                    bytes[i] =
+                      Convert.ToByte(new string(new char[2] { (char)sr.Read(), (char)sr.Read() }), 16);
+            }
+            return bytes;
         }
 
         private void LoopTheChain()

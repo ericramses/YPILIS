@@ -238,31 +238,22 @@ namespace YellowstonePathology.UI.Billing
             this.SetupWorkingFolders(workingFolder);
 
             foreach (YellowstonePathology.Business.ReportNo reportNo in reportNoCollection)
-            {                
+            {
+                this.m_BackgroundWorker.ReportProgress(1, "Processing: " + reportNo.Value);
+
                 string masterAccessionNo = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMasterAccessionNoFromReportNo(reportNo.Value);
                 YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.GetAccessionOrderByMasterAccessionNo(masterAccessionNo);               
 
-                YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo.Value);
-                SVHMRNHandler svhMrnHandler = new SVHMRNHandler(accessionOrder);
-                svhMrnHandler.HandleMRN();
-
-                if(svhMrnHandler.MRNPresent == true)
+                YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo.Value);                
+                foreach (Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill in panelSetOrder.PanelSetOrderCPTCodeBillCollection)
                 {
-                    foreach (Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill in panelSetOrder.PanelSetOrderCPTCodeBillCollection)
+                    if (panelSetOrderCPTCodeBill.BillTo == "Client")
                     {
-                        if (panelSetOrderCPTCodeBill.BillTo == "Client")
-                        {
-                            List<Business.Test.PanelSetOrderCPTCodeBill> panelSetOrderCPTCodeBillList = new List<Business.Test.PanelSetOrderCPTCodeBill>();
-                            panelSetOrderCPTCodeBillList.Add(panelSetOrderCPTCodeBill);
-                            Business.HL7View.EPIC.EPICFT1ResultView epicFT1ResultView = new Business.HL7View.EPIC.EPICFT1ResultView(svhMrnHandler.MRN, accessionOrder, panelSetOrderCPTCodeBillList, true);
-                            epicFT1ResultView.Save(workingFolder);
-                        }
+                        this.m_BackgroundWorker.ReportProgress(1, "Writing File: " + reportNo.Value + " - " + panelSetOrderCPTCodeBill.CPTCode);                        
+                        Business.HL7View.EPIC.EPICFT1ResultView epicFT1ResultView = new Business.HL7View.EPIC.EPICFT1ResultView(accessionOrder, panelSetOrderCPTCodeBill, true);
+                        epicFT1ResultView.Save(workingFolder);
                     }
-                }
-                else
-                {
-                    MessageBox.Show("There is no MRN found for this case: " + panelSetOrder.ReportNo);
-                }
+                }                
             }
         }        
 
@@ -414,20 +405,41 @@ namespace YellowstonePathology.UI.Billing
 
         private void MenuItemMatchUnpostedCases_Click(object sender, RoutedEventArgs e)
         {
-            Business.ReportNoCollection reportNoCollection = Business.Gateway.AccessionOrderGateway.GetReportNumbersBySVHNotPosted();
-            foreach(Business.ReportNo reportNo in reportNoCollection)
-            {
-                string masterAccessionNo = Business.Gateway.AccessionOrderGateway.GetMasterAccessionNoFromReportNo(reportNo.Value);
-                Business.Test.AccessionOrder ao = Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this);
-                SVHMRNHandler svhMRNHandler = new SVHMRNHandler(ao);
-                svhMRNHandler.HandleMRN();
+            this.m_StatusMessageList.Clear();
+            this.m_BackgroundWorker = new System.ComponentModel.BackgroundWorker();
+            this.m_BackgroundWorker.WorkerSupportsCancellation = false;
+            this.m_BackgroundWorker.WorkerReportsProgress = true;
+            this.m_BackgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(BackgroundWorker_ProgressChanged);
+            this.m_BackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(MatchUnpostedCases);
+            this.m_BackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(BackgroundWorker_RunWorkerCompleted);
+            this.m_BackgroundWorker.RunWorkerAsync();
+        }
 
-                if(svhMRNHandler.MRNPresent == true)
+        private void MatchUnpostedCases(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            List<string> masterAccessionNumbers = Business.Gateway.AccessionOrderGateway.GetMasterAccessionNumbersBySVHNotPosted();
+            foreach (string masterAccessionNo in masterAccessionNumbers)
+            {
+                this.m_BackgroundWorker.ReportProgress(1, "Matching: " + masterAccessionNo);                
+                Business.Test.AccessionOrder ao = Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this);
+                SVHMRNMatcher svhMRNMatcher = new SVHMRNMatcher(ao);
+                svhMRNMatcher.Match();
+
+                if (svhMRNMatcher.MatchFound == true)
                 {
-                    Business.Test.PanelSetOrder panelSetOrder = ao.PanelSetOrderCollection.GetPanelSetOrder(reportNo.Value);
-                    panelSetOrder.PanelSetOrderCPTCodeBillCollection.SetPostDate(DateTime.Today);
+                    this.m_BackgroundWorker.ReportProgress(1, "Matched: " + masterAccessionNo + " - " + svhMRNMatcher.ANumber + ":" + svhMRNMatcher.VNumber);
+                    ao.SvhMedicalRecord = svhMRNMatcher.VNumber;
+                    ao.SvhAccount = svhMRNMatcher.VNumberAccount;
+                    foreach (Business.Test.PanelSetOrder panelSetOrder in ao.PanelSetOrderCollection)
+                    {
+                        panelSetOrder.PanelSetOrderCPTCodeBillCollection.SetPostDate(this.m_PostDate);
+                    }                                                            
                 }
-            }            
+                else
+                {
+                    this.m_BackgroundWorker.ReportProgress(1, "********** Not Matched: " + masterAccessionNo + " **********");
+                }
+            }
             Business.Persistence.DocumentGateway.Instance.Save();
         }
     }

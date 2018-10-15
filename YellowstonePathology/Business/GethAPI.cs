@@ -40,12 +40,34 @@ namespace YellowstonePathology.Business
             postObject["method"] = "eth_call";
             JArray paramList = (JArray)postObject["params"];
 
-            JObject callParam = JObject.Parse("{'to':'0x15653b5eb4fb52686f30f5140193ad027f346671','data':'0x2b3e895700000000000000000000000000000000000000000000000000000001'}");            
+            string functionHash = "0x5a5c9b13";
+            string dataParameter = "00000000000000000000000000000000000000000000000000000000"; //56 digits
+            string data = functionHash + dataParameter;
+
+            JObject callParam = JObject.Parse("{'to':'" + contractAddress + "','data':" + data + "'}");
             paramList.Add(callParam);
             paramList.Add("latest");
 
             JObject callResult = JObject.Parse(this.Post(postObject));
             return Convert.ToInt32(callResult["result"].ToString(), 16);
+        }
+
+        public string GetContainer(string contractAddress, int containerIndex)
+        {
+            JObject postObject = JObject.Parse(this.m_BaseJSON);
+            postObject["method"] = "eth_call";
+            JArray paramList = (JArray)postObject["params"];
+
+            string functionHash = "0x2b3e8957";
+            string dataParameter = containerIndex.ToString().PadRight(56, '0');
+            string data = functionHash + dataParameter;
+
+            JObject callParam = JObject.Parse("{'to':'" + contractAddress + "','data':'" + data + "'}");
+            paramList.Add(callParam);
+            paramList.Add("latest");
+
+            JObject callResult = JObject.Parse(this.Post(postObject));
+            return callResult["result"].ToString();
         }
 
         public string GetContractAddress(string transactionHash)
@@ -112,15 +134,3 @@ namespace YellowstonePathology.Business
         }
     }
 }
-
-/*
-using (JsonTextWriter writer = new JsonTextWriter(file))
-            {
-                writer.Formatting = Newtonsoft.Json.Formatting.Indented;
-                writer.WriteStartObject();
-                writer.WritePropertyName("objectName");
-                writer.WriteValue(types[i].Name);
-                writer.WritePropertyName("tableName");
-                writer.WriteValue("tbl" + types[i].Name);
-            }
-            */
