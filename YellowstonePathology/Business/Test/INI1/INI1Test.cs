@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace YellowstonePathology.Business.Test.p57
+namespace YellowstonePathology.Business.Test.INI1
 {
-    public class p57Test : YellowstonePathology.Business.PanelSet.Model.PanelSet
+    public class INI1Test : YellowstonePathology.Business.PanelSet.Model.PanelSet
     {
-        public p57Test()
+        public INI1Test()
         {
-            this.m_PanelSetId = 311;
-            this.m_PanelSetName = "p57";
-            this.m_Abbreviation = "p57";
+            this.m_PanelSetId = 312;
+            this.m_PanelSetName = "INI1";
+            this.m_Abbreviation = "INI1";
             this.m_CaseType = YellowstonePathology.Business.CaseType.IHC;
             this.m_HasTechnicalComponent = true;
             this.m_HasProfessionalComponent = true;
