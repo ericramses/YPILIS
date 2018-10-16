@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>233</ApplicationRevision>
+    <ApplicationRevision>234</ApplicationRevision>
     <ApplicationVersion>10.1.12.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -314,6 +314,8 @@
     <Compile Include="Business\Document\CaseDocumentFileTypeEnnum.cs" />
     <Compile Include="Business\Document\CaseDocumentTypeEnum.cs" />
     <Compile Include="Business\EthBlock.cs" />
+    <Compile Include="Business\EthContract.cs" />
+    <Compile Include="Business\EthContractCollection.cs" />
     <Compile Include="Business\Flow\CytoplasmicMarkerMapping.cs" />
     <Compile Include="Business\Flow\CytoplasmicMarkerMappingCollection.cs" />
     <Compile Include="Business\Gateway\PreviousResultGateway.cs" />
@@ -1029,6 +1031,7 @@
     <Compile Include="Business\Slide.Model\VantageSlideView.cs" />
     <Compile Include="Business\Slide.Model\VantageSlideViewCollection.cs" />
     <Compile Include="Business\Specimen.Model\Container.cs" />
+    <Compile Include="Business\Specimen.Model\ContainerCollection.cs" />
     <Compile Include="Business\SSHFileTransfer.cs" />
     <Compile Include="Business\Stain.Model\JsonStainFactory.cs" />
     <Compile Include="Business\Stain.Model\Stain.cs" />

@@ -11,28 +11,44 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.ComponentModel;
 
 namespace YellowstonePathology.UI
 {  
-    public partial class ChainExplorer : Window
+    public partial class ChainExplorer : Window, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
         Business.GethAPI m_GethAPI;
+        Business.EthContractCollection m_ContractCollection;
+        Business.Specimen.Model.ContainerCollection m_ContainerCollection;
 
         public ChainExplorer()
         {            
             this.m_GethAPI = new Business.GethAPI();
+            this.m_ContractCollection = new Business.EthContractCollection();
+            this.m_ContainerCollection = new Business.Specimen.Model.ContainerCollection();
+                 
             InitializeComponent();
+            this.DataContext = this;
         }
         
+        public Business.EthContractCollection ContractCollection
+        {
+            get { return this.m_ContractCollection; }
+        }
+
+        public Business.Specimen.Model.ContainerCollection ContainerCollection
+        {
+            get { return this.m_ContainerCollection; }
+        }
 
         private void Button_Go(object sender, RoutedEventArgs e)
         {
             //int containerCount = this.m_GethAPI.GetContainerCount("0xab6312b07456462c3620d67ce973fb453923e35b");
-            string result = this.m_GethAPI.GetContainer("0xab6312b07456462c3620d67ce973fb453923e35b", 0);
-            Business.Specimen.Model.Container container = new Business.Specimen.Model.Container(result);
-
-            //string hexString = "0000000000000000000000000000000000000000000000000000000000000060000000000000000000000000000000000000000000000000000000005bc009750000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002843544e5238383134464239342d334137452d343131412d393844452d333435453932443137463243000000000000000000000000000000000000000000000000";
-
+            //string result = this.m_GethAPI.GetContainer("0xab6312b07456462c3620d67ce973fb453923e35b", 0);
+            //Business.Specimen.Model.Container container = new Business.Specimen.Model.Container(result);            
+            this.LoopTheChain();            
         }
 
         public static byte[] StringToByteArray(String hex)
@@ -49,7 +65,7 @@ namespace YellowstonePathology.UI
         }
 
         private void LoopTheChain()
-        {
+        {            
             Business.EthBlock latestBlock = this.m_GethAPI.GetLatestBlock();
             int startingBlockNumber = this.GetFirstBlockNumberForDate(DateTime.Today);
             for (int i = startingBlockNumber; i < latestBlock.Number; i++)
@@ -63,17 +79,13 @@ namespace YellowstonePathology.UI
                         string contractAddress = this.m_GethAPI.GetContractAddress(transactionHash);
                         if (string.IsNullOrEmpty(contractAddress) == false)
                         {
-                            int containerCount = this.m_GethAPI.GetContainerCount(contractAddress);
+                            int containerCount = this.m_GethAPI.GetContainerCount(contractAddress);                            
+                            Business.EthContract contract = new Business.EthContract(contractAddress, containerCount, block.TimeStamp);
+                            this.m_ContractCollection.Add(contract);
                         }
                     }
                 }
-            }
-
-            //Business.GethAPI gethAPI = new Business.GethAPI();
-            //Business.EthBlock latestBlock = gethAPI.GetLatestBlockNumber();
-            //gethAPI.CallMethod();
-            //Business.EthBlock ethBlock = gethAPI.GetBlockByNumber(512384);
-            //gethAPI.GetTransactionReceipt("0x5cb44be5bc15fcb45210f4bb5b0e41adb607548c0b755d6f5cb22ebba985c2fc");
+            }            
         }
 
         private int GetFirstBlockNumberForDate(DateTime workDate)
@@ -99,6 +111,29 @@ namespace YellowstonePathology.UI
             }
 
             return blockTimes.Average();            
+        }
+
+        public void NotifyPropertyChanged(String info)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
+        }
+
+        private void ListViewContracts_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(this.ListViewContracts.SelectedItem != null)
+            {
+                Business.EthContract ethContract = (Business.EthContract)this.ListViewContracts.SelectedItem;
+                int containerCount = this.m_GethAPI.GetContainerCount(ethContract.ContractAddress);
+                for(int i=0; i<containerCount; i++)
+                {
+                    string result = this.m_GethAPI.GetContainer(ethContract.ContractAddress, i);
+                    Business.Specimen.Model.Container container = new Business.Specimen.Model.Container(result);
+                    this.m_ContainerCollection.Add(container);
+                }
+            }
         }
     }
 }

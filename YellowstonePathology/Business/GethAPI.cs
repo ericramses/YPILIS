@@ -44,7 +44,7 @@ namespace YellowstonePathology.Business
             string dataParameter = "00000000000000000000000000000000000000000000000000000000"; //56 digits
             string data = functionHash + dataParameter;
 
-            JObject callParam = JObject.Parse("{'to':'" + contractAddress + "','data':" + data + "'}");
+            JObject callParam = JObject.Parse("{'to':'" + contractAddress + "','data':'" + data + "'}");
             paramList.Add(callParam);
             paramList.Add("latest");
 
@@ -59,7 +59,7 @@ namespace YellowstonePathology.Business
             JArray paramList = (JArray)postObject["params"];
 
             string functionHash = "0x2b3e8957";
-            string dataParameter = containerIndex.ToString().PadRight(56, '0');
+            string dataParameter = containerIndex.ToString().PadLeft(64, '0');
             string data = functionHash + dataParameter;
 
             JObject callParam = JObject.Parse("{'to':'" + contractAddress + "','data':'" + data + "'}");

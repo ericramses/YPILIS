@@ -5,24 +5,37 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YellowstonePathology.UI"
         mc:Ignorable="d"
-        Title="Chain Browser" Height="600" Width="600">
+        Title="Block Chain Browser" Height="600" Width="1000">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
         
-        <ListView Name="ListViewContracts" Margin="3" Grid.Row="1" ItemsSource="{Binding Path=ReportSearchList}">
+        <ListView Name="ListViewContracts" Margin="2,2,2,2" Grid.Column="0" Grid.Row="0" SelectionChanged="ListViewContracts_SelectionChanged"
+                  ItemsSource="{Binding Path=ContractCollection}">
             <ListView.View>
-                <GridView AllowsColumnReorder="True" ColumnHeaderToolTip="Case List">
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=ReportNo}" Header="Report No" Width="85"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=AccessionDate, Converter={StaticResource MilitaryDateTimeConverter}}" Header="Accession Date" Width="110"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=PatientName}" Header="Patient Name" Width="150"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=PBirthdate, Converter={StaticResource ShortDateConverter}}" Header="Birthdate" Width="90"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=OrderedBy}" Header="Ordered By" Width="100"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=PanelSetName}" Header="Report" Width="170"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=FinalDate, Converter={StaticResource ShortDateConverter}}" Header="Final" Width="150"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=IsPosted}" Header="Billed" Width="100"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=ClientName}" Header="Client" Width="200"/>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=ContractAddress}" Header="Contract" Width="280"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=TransactionCount}" Header="Count" Width="80"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=DateSubmitted, Converter={StaticResource MilitaryDateTimeConverter}}" Header="Date" Width="110"/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Click="Button_Go" Height="30" Width="100">Go</Button>
+
+        <ListView Name="ListViewContainers" Margin="2,2,2,2" Grid.Column="1" Grid.Row="0" ItemsSource="{Binding Path=ContainerCollection}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=ContainerId}" Header="Container" Width="280"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Shipped, Converter={StaticResource MilitaryDateTimeConverter}}" Header="Date" Width="110"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <Button Click="Button_Go" Grid.Column="0" Grid.Row="1" Height="30" Width="100" Margin="2,2,2,2" HorizontalAlignment="Left">Go</Button>
     </Grid>
 </Window>
