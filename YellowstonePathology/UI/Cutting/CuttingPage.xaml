@@ -158,7 +158,6 @@
                                 <TextBlock Grid.Column="0" Grid.Row="3" Text="{Binding Path=PatientLastName}" FontSize="9" HorizontalAlignment="Center" Margin="2,2,2,2"></TextBlock>
                                 <TextBlock Grid.Column="0" Grid.Row="4" Text="{Binding Path=PrintedBy}" FontSize="9" HorizontalAlignment="Center" Margin="2,2,2,2"></TextBlock>
                                 <TextBlock Grid.Column="0" Grid.Row="5" Text="{Binding Path=PrintStation}" FontSize="9" HorizontalAlignment="Center" Margin="2,2,2,2"></TextBlock>
-                                <TextBlock Grid.Column="0" Grid.Row="6" Text="{Binding Path=Location}" FontSize="9" HorizontalAlignment="Center" Margin="2,2,2,5"></TextBlock>
 
                             </Grid>
                         </Grid>

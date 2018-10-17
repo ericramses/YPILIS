@@ -222,8 +222,7 @@ namespace YellowstonePathology.UI.Cutting
 
                             if (slideOrder.Validated == false)
                             {
-                                slideOrder.Validate(this.m_SystemIdentity);
-                                
+                                slideOrder.Validate(this.m_SystemIdentity);                                                                
                                 if (this.m_AliquotOrder.SlideOrderCollection.IsLastSlide(barcode.ID) == true)
                                 {
                                     this.Finished(this, new YellowstonePathology.UI.CustomEventArgs.MasterAccessionNoReturnEventArgs(this.m_AccessionOrder.MasterAccessionNo));
