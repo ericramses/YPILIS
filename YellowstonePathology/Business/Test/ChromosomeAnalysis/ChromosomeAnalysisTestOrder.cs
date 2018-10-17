@@ -223,7 +223,7 @@ namespace YellowstonePathology.Business.Test.ChromosomeAnalysis
             panelSetOrder.Interpretation = this.m_Interpretation;
             panelSetOrder.Karyotype = this.Karyotype;
             panelSetOrder.Comment = this.m_Comment;
-            panelSetOrder.CultureType = this.CultureType;
+            panelSetOrder.CultureType = this.m_CultureType;
             panelSetOrder.ASR = this.m_ASR;
             base.SetPreviousResults(pso);
         }
@@ -234,7 +234,7 @@ namespace YellowstonePathology.Business.Test.ChromosomeAnalysis
             this.m_Interpretation = null;
             this.Karyotype = null;
             this.m_Comment = null;
-            this.CultureType = null;
+            this.m_CultureType = null;
             this.m_ASR = null;
             base.ClearPreviousResults();
         }
