@@ -67,7 +67,7 @@ namespace YellowstonePathology.UI
         private void LoopTheChain()
         {            
             Business.EthBlock latestBlock = this.m_GethAPI.GetLatestBlock();
-            int startingBlockNumber = this.GetFirstBlockNumberForDate(DateTime.Today);
+            int startingBlockNumber = this.GetFirstBlockNumberForDate(DateTime.Today.AddDays(-2));
             for (int i = startingBlockNumber; i < latestBlock.Number; i++)
             {
                 int transactionCount = this.m_GethAPI.GetBlockTransactionCountByNumber(i);
@@ -93,8 +93,9 @@ namespace YellowstonePathology.UI
             double averageBlockTime = this.GetAverageBlockTime();
             Business.EthBlock latestBlock = this.m_GethAPI.GetLatestBlock();
             double secondsInADay = 86400;
+            double days = (DateTime.Today - workDate).TotalDays;
             double numberOfBlocksInADay = secondsInADay / averageBlockTime;
-            return Convert.ToInt32(latestBlock.Number - numberOfBlocksInADay);
+            return Convert.ToInt32(latestBlock.Number - (numberOfBlocksInADay * days));
         }
 
         private double GetAverageBlockTime()

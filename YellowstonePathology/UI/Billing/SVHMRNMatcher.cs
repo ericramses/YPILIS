@@ -29,9 +29,16 @@ namespace YellowstonePathology.UI.Billing
                     Business.ClientOrder.Model.ClientOrderCollection clientOrders = Business.Gateway.ClientOrderGateway.GetClientOrdersByANumber(this.m_AccessionOrder.SvhMedicalRecord);
                     if(clientOrders.Count > 0)
                     {
-                        this.m_VNumber = clientOrders[0].SvhMedicalRecord;
-                        this.m_VNumberAccount = clientOrders[0].SvhAccountNo;
-                        this.m_MatchFound = true;
+                        if(this.DoesPatientNameMatch(this.m_AccessionOrder, clientOrders[0]) == true)
+                        {
+                            this.m_VNumber = clientOrders[0].SvhMedicalRecord;
+                            this.m_VNumberAccount = clientOrders[0].SvhAccountNo;
+                            this.m_MatchFound = true;
+                        }
+                        else
+                        {
+                            throw new Exception("Patient name in client order and accession order don't match.");
+                        }                       
                     }
                     else
                     {
@@ -51,7 +58,15 @@ namespace YellowstonePathology.UI.Billing
                 this.m_ANumber = null;
                 this.m_MatchFound = false;
             }            
-        }        
+        }    
+        
+        public bool DoesPatientNameMatch(Business.Test.AccessionOrder ao, Business.ClientOrder.Model.ClientOrder co)
+        {
+            bool result = true;
+            if (ao.PLastName.ToUpper() != co.PLastName.ToUpper()) result = false;
+            if (ao.PFirstName.ToUpper() != co.PFirstName.ToUpper()) result = false;
+            return result;
+        }    
 
         public string ANumber
         {
