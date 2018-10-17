@@ -2928,6 +2928,9 @@
     <Compile Include="Store\RedisStoreProd.cs" />
     <Compile Include="Store\RedisStore.cs" />
     <Compile Include="Store\RedisStoreDefinition.cs" />
+    <Compile Include="UI\AddbyCodeWindow.xaml.cs">
+      <DependentUpon>AddbyCodeWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\AmendmentPage.xaml.cs">
       <DependentUpon>AmendmentPage.xaml</DependentUpon>
     </Compile>
@@ -4799,6 +4802,10 @@
     <Page Include="Business\Rules\ExecutionStatusDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\AddbyCodeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\AdministrationWorkspace.xaml">
       <SubType>Designer</SubType>

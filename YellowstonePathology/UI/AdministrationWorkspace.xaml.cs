@@ -80,7 +80,7 @@ namespace YellowstonePathology.UI
 
         private void ButtonBuildJson_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FTest test = new Business.Test.JAK2V617F.JAK2V617FTest();
+            /*YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FTest test = new Business.Test.JAK2V617F.JAK2V617FTest();
             var camelCaseFormatter = new JsonSerializerSettings();
             camelCaseFormatter.ContractResolver = new CamelCasePropertyNamesContractResolver();
             string result = JsonConvert.SerializeObject(test, Newtonsoft.Json.Formatting.Indented, camelCaseFormatter);
@@ -89,7 +89,9 @@ namespace YellowstonePathology.UI
             {
                 sw.Write(result);
             }
-            MessageBox.Show("Done");
+            MessageBox.Show("Done");*/
+            AddbyCodeWindow w = new UI.AddbyCodeWindow();
+            w.ShowDialog();
         }
 
         private void ButtonStainList_Click(object sender, RoutedEventArgs e)
