@@ -11,21 +11,75 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.ComponentModel;
 
 namespace YellowstonePathology.UI
 {
     /// <summary>
     /// Interaction logic for AddbyCodeWindow.xaml
     /// </summary>
-    public partial class AddbyCodeWindow : Window
+    public partial class AddbyCodeWindow : Window, INotifyPropertyChanged
     {
-        public AddbyCodeWindow()
+        public event PropertyChangedEventHandler PropertyChanged;
+
+
+        private string m_FieldDefinitons;
+        private string m_MasterAccessionNo;
+        private string m_PanelSetName;
+        private bool m_Final;
+        private DateTime m_FinalDate;
+        public AddbyCodeWindow(string jsonString)
         {
+            this.m_MasterAccessionNo = "18-12345";
+            this.m_PanelSetName = "Surgical Pathology";
+            this.FinalDate = DateTime.Now;
+            this.Final = true;
+
+            this.m_FieldDefinitons = jsonString;
             InitializeComponent();
+            DataContext = this;
+
             Loaded += AddbyCodeWindow_Loaded;
         }
 
         private void AddbyCodeWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            SetupGrid();
+            JArray fields = JArray.Parse(m_FieldDefinitons);
+
+            for(int idx = 0; idx < fields.Count; idx ++)
+            {
+                RowDefinition row = new RowDefinition();
+                row.Height = new GridLength(0, GridUnitType.Auto);
+                this.MainGrid.RowDefinitions.Add(row);
+
+                string caption = (string)fields[idx]["label"];
+                string value = (string)fields[idx]["property"];
+                string fieldType = (string)fields[idx]["dataType"];
+
+                this.AddData(idx, caption, value, fieldType);
+            }
+
+            RowDefinition row1 = new RowDefinition();
+            row1.Height = new GridLength(150, GridUnitType.Star);
+            this.MainGrid.RowDefinitions.Add(row1);
+
+            Button c = new Button();
+            c.Width = 80;
+            c.Height = 30;
+            c.Margin = new Thickness(5);
+            c.VerticalAlignment = VerticalAlignment.Bottom;
+            c.Click += Button1_Click;
+            c.HorizontalAlignment = HorizontalAlignment.Right;
+            c.Content = "Close";
+            Grid.SetRow(c, fields.Count);
+            Grid.SetColumn(c, 1);
+            this.MainGrid.Children.Add(c);
+        }
+
+        private void SetupGrid()
         {
             ColumnDefinition coldef1 = new ColumnDefinition();
             GridLength gl1 = new GridLength(0, GridUnitType.Auto);
@@ -35,59 +89,114 @@ namespace YellowstonePathology.UI
             GridLength gl2 = new GridLength(100, GridUnitType.Star);
             colDef2.Width = gl2;
 
-            RowDefinition rd1 = new RowDefinition();
-            rd1.Height = new GridLength(100, GridUnitType.Pixel);
-
-            RowDefinition rd2 = new RowDefinition();
-            rd2.Height = new GridLength(0, GridUnitType.Auto);
-
-            RowDefinition rd3 = new RowDefinition();
-            rd3.Height = new GridLength(30, GridUnitType.Pixel);
-
             this.MainGrid.ColumnDefinitions.Add(coldef1);
             this.MainGrid.ColumnDefinitions.Add(colDef2);
-            this.MainGrid.RowDefinitions.Add(rd1);
-            this.MainGrid.RowDefinitions.Add(rd2);
-            this.MainGrid.RowDefinitions.Add(rd3);
-
-            Button b = new Button();
-            b.Width = 80;
-            b.Height = 25;
-            b.Click += Button_Click;
-            b.Content = "Add";
-            Grid.SetRow(b, 2);
-            Grid.SetColumn(b, 0);
-            this.MainGrid.Children.Add(b);
-
-            Button c = new Button();
-            c.Width = 80;
-            c.Height = 25;
-            c.Click += Button1_Click;
-            c.Content = "Close";
-            Grid.SetRow(c, 2);
-            Grid.SetColumn(c, 1);
-            this.MainGrid.Children.Add(c);
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void AddData(int row, string caption, string value, string fieldType)
         {
             TextBlock textBlock = new TextBlock();
-            textBlock.Text = "Added";
-            Grid.SetRow(textBlock, 1);
+            textBlock.FontWeight = FontWeights.Bold;
+            textBlock.HorizontalAlignment = HorizontalAlignment.Right;
+            textBlock.Margin = new Thickness(2);
+            textBlock.Text = caption + ": ";
+            Grid.SetRow(textBlock, row);
             Grid.SetColumn(textBlock, 0);
             this.MainGrid.Children.Add(textBlock);
 
+            switch (fieldType)
+            {
+                case "string":
+                    this.CreateTextBox(row, value, null);
+                    break;
+                case "DateTime":
+                    this.CreateTextBox(row, value, new Converter.MilitaryDateTimeConverterV2());
+                    break;
+                case "bool":
+                    this.CreateCheckBox(row, value);
+                    break;
+            }
+        }
+
+        private void CreateTextBox(int row, string value, IValueConverter converter)
+        {
             TextBox textBox = new TextBox();
             textBox.HorizontalAlignment = HorizontalAlignment.Stretch;
-            textBox.Text = "This is added too and can be changed.";
-            Grid.SetRow(textBox, 1);
+            textBox.Margin = new Thickness(2);
+            Binding binding = new Binding(value);
+            if(converter != null)
+            {
+                binding.Converter = converter;
+            }
+            textBox.SetBinding(TextBox.TextProperty, binding);
+            Grid.SetRow(textBox, row);
             Grid.SetColumn(textBox, 1);
             this.MainGrid.Children.Add(textBox);
+        }
+
+        private void CreateCheckBox(int row, string value)
+        {
+            CheckBox checkBox = new CheckBox();
+            checkBox.HorizontalAlignment = HorizontalAlignment.Left;
+            checkBox.Margin = new Thickness(2);
+            Binding binding = new Binding(value);
+            checkBox.SetBinding(CheckBox.IsCheckedProperty,binding);
+            Grid.SetRow(checkBox, row);
+            Grid.SetColumn(checkBox, 1);
+            this.MainGrid.Children.Add(checkBox);
+        }
+
+        public void NotifyPropertyChanged(String info)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
         }
 
         private void Button1_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        public string MasterAccessionNo
+        {
+            get { return this.m_MasterAccessionNo; }
+            set
+            {
+                this.m_MasterAccessionNo = value;
+                NotifyPropertyChanged("MasterAccessionNo");
+            }
+        }
+
+        public bool Final
+        {
+            get { return this.m_Final; }
+            set
+            {
+                this.m_Final = value;
+                NotifyPropertyChanged("Final");
+            }
+        }
+
+        public string PanelSetName
+        {
+            get { return this.m_PanelSetName; }
+            set
+            {
+                this.m_PanelSetName = value;
+                NotifyPropertyChanged("PanelSetName");
+            }
+        }
+
+        public DateTime FinalDate
+        {
+            get { return this.m_FinalDate; }
+            set
+            {
+                this.m_FinalDate = value;
+                NotifyPropertyChanged("FinalDate");
+            }
         }
     }
 }
