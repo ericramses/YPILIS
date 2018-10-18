@@ -32,8 +32,7 @@ namespace YellowstonePathology.UI.Billing
         private ObservableCollection<string> m_StatusMessageList;
         private string m_StatusCountMessage;        
         private int m_StatusCount;
-        private List<string> m_ReportNumbersToProcess;
-        private System.IO.StreamWriter m_StreamWriter;
+        private List<string> m_ReportNumbersToProcess;        
 
         public EODProcessingDialog()
         {
@@ -434,13 +433,7 @@ namespace YellowstonePathology.UI.Billing
         }
 
         private void ButtonStart_Click(object sender, RoutedEventArgs e)
-        {
-            var date = new DateTime(1970, 1, 1, 0, 0, 0, DateTime.Today.Kind);
-            var unixTimestamp = System.Convert.ToInt64((DateTime.Today - date).TotalSeconds);
-
-            string logFileName = this.m_LogFilePath + "BillingProcess" + unixTimestamp.ToString() + ".log";
-            this.m_StreamWriter = new StreamWriter(logFileName);
-
+        {            
             this.m_StatusMessageList.Clear();            
             this.m_BackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.m_BackgroundWorker.WorkerSupportsCancellation = false;
@@ -448,7 +441,7 @@ namespace YellowstonePathology.UI.Billing
             this.m_BackgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(AllProcessBackgroundWorker_ProgressChanged);
             this.m_BackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(RunAllProcesses);
             this.m_BackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(AllProcessBackgroundWorker_RunWorkerCompleted);
-            //this.m_BackgroundWorker.RunWorkerAsync();
+            this.m_BackgroundWorker.RunWorkerAsync();
         }
 
         private void RunAllProcesses(object sender, System.ComponentModel.DoWorkEventArgs e)
@@ -464,16 +457,26 @@ namespace YellowstonePathology.UI.Billing
                 this.m_StatusCount += 1;
                 string message = (string)e.UserState;
                 this.m_StatusMessageList.Insert(0, message);
-                this.m_StatusCountMessage = this.m_StatusCount.ToString();
-                this.m_StreamWriter.WriteLine(message);
+                this.m_StatusCountMessage = this.m_StatusCount.ToString();                
                 this.NotifyPropertyChanged("StatusCountMessage");
             }));
         }
 
         private void AllProcessBackgroundWorker_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
         {
-            this.m_StreamWriter.Close();
-            MessageBox.Show("Processing has completed.");
+            var date = new DateTime(1970, 1, 1, 0, 0, 0, DateTime.Today.Kind);
+            var unixTimestamp = System.Convert.ToInt64((DateTime.Today - date).TotalSeconds);
+
+            string logFileName = this.m_LogFilePath + @"\BillingProcess" + unixTimestamp.ToString() + ".log";
+            System.IO.StreamWriter streamWriter = new StreamWriter(logFileName);
+            foreach(string line in this.ListViewStatus.Items)
+            {
+                streamWriter.WriteLine(line);
+            }
+            streamWriter.Flush();
+            streamWriter.Close();
+
+            MessageBox.Show("All done.");
         }
     }
 }
