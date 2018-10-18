@@ -23,6 +23,7 @@ namespace YellowstonePathology.Business.Test.ChromosomeAnalysis
             
 			this.m_AllowMultiplePerAccession = true;           
             this.m_EpicDistributionIsImplemented = true;
+            this.m_EnforceOrderTarget = true;
 
             this.m_SurgicalAmendmentRequired = true;
 
@@ -40,5 +41,19 @@ namespace YellowstonePathology.Business.Test.ChromosomeAnalysis
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMiscellaneous());
 		}
-	}
+
+        public override YellowstonePathology.Business.Rules.MethodResult OrderTargetIsOk(YellowstonePathology.Business.Interface.IOrderTarget orderTarget)
+        {
+            YellowstonePathology.Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
+            methodResult.Success = true;
+
+            if (orderTarget.GetType().Name != "SpecimenOrder")
+            {
+                methodResult.Success = false;
+                methodResult.Message = "Chromosome Analysis must be ordered on a specimen.";
+            }
+
+            return methodResult;
+        }
+    }
 }
