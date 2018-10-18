@@ -435,7 +435,10 @@ namespace YellowstonePathology.UI.Billing
 
         private void ButtonStart_Click(object sender, RoutedEventArgs e)
         {
-            string logFileName = this.m_LogFilePath + "BillingProcess-" + DateTime.Today.ToString() + ".log";
+            var date = new DateTime(1970, 1, 1, 0, 0, 0, DateTime.Today.Kind);
+            var unixTimestamp = System.Convert.ToInt64((DateTime.Today - date).TotalSeconds);
+
+            string logFileName = this.m_LogFilePath + "BillingProcess" + unixTimestamp.ToString() + ".log";
             this.m_StreamWriter = new StreamWriter(logFileName);
 
             this.m_StatusMessageList.Clear();            
@@ -445,13 +448,13 @@ namespace YellowstonePathology.UI.Billing
             this.m_BackgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(AllProcessBackgroundWorker_ProgressChanged);
             this.m_BackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(RunAllProcesses);
             this.m_BackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(AllProcessBackgroundWorker_RunWorkerCompleted);
-            this.m_BackgroundWorker.RunWorkerAsync();
+            //this.m_BackgroundWorker.RunWorkerAsync();
         }
 
         private void RunAllProcesses(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
             this.ProcessPSAFiles(sender, e);
-            this.TransferPSAFiles(sender, e);
+            //this.TransferPSAFiles(sender, e);
         }
 
         private void AllProcessBackgroundWorker_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
@@ -462,6 +465,7 @@ namespace YellowstonePathology.UI.Billing
                 string message = (string)e.UserState;
                 this.m_StatusMessageList.Insert(0, message);
                 this.m_StatusCountMessage = this.m_StatusCount.ToString();
+                this.m_StreamWriter.WriteLine(message);
                 this.NotifyPropertyChanged("StatusCountMessage");
             }));
         }
