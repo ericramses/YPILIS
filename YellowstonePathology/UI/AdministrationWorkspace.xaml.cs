@@ -90,6 +90,7 @@ namespace YellowstonePathology.UI
                 sw.Write(result);
             }
             MessageBox.Show("Done");*/
+
             AddbyCodeWindow w = new UI.AddbyCodeWindow();
             w.ShowDialog();
         }
