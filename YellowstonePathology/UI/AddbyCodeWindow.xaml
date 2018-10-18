@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YellowstonePathology.UI"
         mc:Ignorable="d"
-        Title="AddbyCodeWindow" Height="300" Width="300">
+        Title="AddbyCodeWindow" Height="400" Width="700">
     <Grid Name="MainGrid" Margin="2">
         
     </Grid>

@@ -91,7 +91,16 @@ namespace YellowstonePathology.UI
             }
             MessageBox.Show("Done");*/
 
+<<<<<<< HEAD
             AddbyCodeWindow w = new UI.AddbyCodeWindow();
+=======
+            string jsonFields = null;
+            using (StreamReader sr = new StreamReader(@"C:\ProgramData\ypi\lisdata\fields.json"))
+            {
+                jsonFields = sr.ReadToEnd();
+            }
+            AddbyCodeWindow w = new UI.AddbyCodeWindow(jsonFields);
+>>>>>>> c0cedb75d25bd45165a162e808fc31ffb7c9a203
             w.ShowDialog();
         }
 
