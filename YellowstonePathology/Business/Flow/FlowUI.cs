@@ -279,6 +279,14 @@ namespace YellowstonePathology.Business.Flow
                 methodResult.Success = false;
                 methodResult.Message = "The specimen for this case has not been selected.";
             }
+            else
+            {
+                if(string.IsNullOrEmpty(specimenOrder.SpecimenAdequacy) == true)
+                {
+                    methodResult.Success = false;
+                    methodResult.Message = "The specimen adequacy for the specimen is not set.";
+                }
+            }            
 
             return methodResult;
         }
