@@ -24,22 +24,15 @@ namespace YellowstonePathology.UI
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        private string m_FieldDefinitions;
+        private Business.Test.PanelSetOrder m_PanelSetOrder;
 
-        private string m_FieldDefinitons;
-        private string m_MasterAccessionNo;
-        private string m_PanelSetName;
-        private bool m_Final;
-        private DateTime m_FinalDate;
-        public AddbyCodeWindow(string jsonString)
+        public AddbyCodeWindow(string fieldDefinitions, Business.Test.PanelSetOrder panelSetOrder)
         {
-            this.m_MasterAccessionNo = "18-12345";
-            this.m_PanelSetName = "Surgical Pathology";
-            this.FinalDate = DateTime.Now;
-            this.Final = true;
-
-            this.m_FieldDefinitons = jsonString;
+            this.m_FieldDefinitions = fieldDefinitions;
+            this.m_PanelSetOrder = panelSetOrder;
             InitializeComponent();
-            DataContext = this;
+            DataContext = this.PanelSetOrder;
 
             Loaded += AddbyCodeWindow_Loaded;
         }
@@ -47,7 +40,7 @@ namespace YellowstonePathology.UI
         private void AddbyCodeWindow_Loaded(object sender, RoutedEventArgs e)
         {
             SetupGrid();
-            JArray fields = JArray.Parse(m_FieldDefinitons);
+            JArray fields = JArray.Parse(m_FieldDefinitions);
 
             for(int idx = 0; idx < fields.Count; idx ++)
             {
@@ -159,44 +152,9 @@ namespace YellowstonePathology.UI
             Close();
         }
 
-        public string MasterAccessionNo
+        public Business.Test.PanelSetOrder PanelSetOrder
         {
-            get { return this.m_MasterAccessionNo; }
-            set
-            {
-                this.m_MasterAccessionNo = value;
-                NotifyPropertyChanged("MasterAccessionNo");
-            }
-        }
-
-        public bool Final
-        {
-            get { return this.m_Final; }
-            set
-            {
-                this.m_Final = value;
-                NotifyPropertyChanged("Final");
-            }
-        }
-
-        public string PanelSetName
-        {
-            get { return this.m_PanelSetName; }
-            set
-            {
-                this.m_PanelSetName = value;
-                NotifyPropertyChanged("PanelSetName");
-            }
-        }
-
-        public DateTime FinalDate
-        {
-            get { return this.m_FinalDate; }
-            set
-            {
-                this.m_FinalDate = value;
-                NotifyPropertyChanged("FinalDate");
-            }
+            get { return this.m_PanelSetOrder; }
         }
     }
 }

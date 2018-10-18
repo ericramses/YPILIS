@@ -90,13 +90,24 @@ namespace YellowstonePathology.UI
                 sw.Write(result);
             }
             MessageBox.Show("Done");*/
+<<<<<<< HEAD
             
+=======
+
+            Business.Test.AccessionOrder ao = Business.Persistence.DocumentGateway.Instance.PullAccessionOrder("18-1222", this);
+            Business.Test.ChromosomeAnalysis.ChromosomeAnalysisTestOrder panelSetOrder = (Business.Test.ChromosomeAnalysis.ChromosomeAnalysisTestOrder)ao.PanelSetOrderCollection.GetPanelSetOrder("18-1222.R1");
+
+>>>>>>> 33e10ad324abb333f7cf3b685a94b6355f261b3b
             string jsonFields = null;
             using (StreamReader sr = new StreamReader(@"C:\ProgramData\ypi\lisdata\fields.json"))
             {
                 jsonFields = sr.ReadToEnd();
             }
+<<<<<<< HEAD
             AddbyCodeWindow w = new AddbyCodeWindow(jsonFields);
+=======
+            AddbyCodeWindow w = new UI.AddbyCodeWindow(jsonFields, panelSetOrder);
+>>>>>>> 33e10ad324abb333f7cf3b685a94b6355f261b3b
             w.ShowDialog();
         }
 
