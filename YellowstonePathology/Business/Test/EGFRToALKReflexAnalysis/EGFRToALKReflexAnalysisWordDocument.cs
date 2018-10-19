@@ -89,9 +89,9 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
                 this.DeleteRow("braf_result");
             }
 
-            if(egfrToALKReflexAnalysisTestOrder.QNS == true)
+            if(string.IsNullOrEmpty(egfrToALKReflexAnalysisTestOrder.Comment) == false)
             {
-                base.ReplaceText("qns_statement", EGFRToALKReflexAnalysisTestOrder.QNSStatement);
+                base.ReplaceText("qns_statement", egfrToALKReflexAnalysisTestOrder.Comment);
             }
             else
             {

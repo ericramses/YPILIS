@@ -24,7 +24,7 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
         private string m_PDL1SP142Result;
         private string m_EGFRMutationAnalysisComment;
         private string m_PDL1SP142StainPercent;
-        private bool m_QNS;
+        private string m_Comment;
 
         public EGFRToALKReflexAnalysisTestOrder() 
         {
@@ -235,13 +235,13 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
         }
 
         [PersistentProperty()]
-        public bool QNS
+        public string Comment
         {
-            get { return this.m_QNS; }
+            get { return this.m_Comment; }
             set
             {
-                this.m_QNS = value;
-                NotifyPropertyChanged("QNS");
+                this.m_Comment = value;
+                NotifyPropertyChanged("Comment");
             }
         }
 
