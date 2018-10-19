@@ -44,9 +44,15 @@ namespace YellowstonePathology.Business.User
         {
             SystemUserCollection users = new SystemUserCollection();
             var query = from su in this where su.Active == true && su.IsUserInRole(SystemUserRoleDescriptionEnum.Pathologist) == true select su;
+
             foreach (SystemUser user in query)
             {
                 users.Add(user);
+            }
+
+            if (YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.Administrator == true)
+            {
+                users.Add(User.SystemIdentity.Instance.User);
             }
             return users;
         }

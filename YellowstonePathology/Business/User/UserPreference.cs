@@ -49,6 +49,7 @@ namespace YellowstonePathology.Business.User
         private Nullable<int> m_GPathologistId;
         private string m_FedExLabelPrinter;
         private string m_Location;
+        private bool m_Administrator;
 
         public UserPreference()
         {
@@ -553,6 +554,21 @@ namespace YellowstonePathology.Business.User
                 {
                     this.m_Location = value;
                     this.NotifyPropertyChanged("Location");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
+        public bool Administrator
+        {
+            get { return this.m_Administrator; }
+            set
+            {
+                if (this.m_Administrator != value)
+                {
+                    this.m_Administrator = value;
+                    this.NotifyPropertyChanged("Administrator");
                 }
             }
         }

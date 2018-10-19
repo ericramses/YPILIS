@@ -34,6 +34,7 @@
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
                     </Grid.RowDefinitions>
 
                     <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" VerticalAlignment="Center" TextAlignment="Right">Barcode Scanner Enabled:</TextBlock>
@@ -102,6 +103,9 @@
                     <TextBlock Grid.Column="0" Grid.Row="11" Margin="2,2,2,2" VerticalAlignment="Center" TextAlignment="Right">Available Application Version:</TextBlock>
                     <TextBox Grid.Column="1" Grid.Row="11" Margin="2,2,2,2" Text="{Binding Path=ApplicationVersion.Version}" HorizontalAlignment="Stretch"></TextBox>
                     <CheckBox Grid.Column="2" Grid.Row="11" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Center" IsChecked="{Binding Path=ApplicationVersion.EnforceChange}" />
+
+                    <TextBlock Grid.Column="0" Grid.Row="12" Margin="2,2,2,2" VerticalAlignment="Center" TextAlignment="Right">Administrator:</TextBlock>
+                    <CheckBox Grid.Column="1" Grid.Row="12" Margin="2,2,2,2" IsChecked="{Binding Path=UserPreference.Administrator}" HorizontalAlignment="Stretch"></CheckBox>
                 </Grid>
             </TabItem>
 
