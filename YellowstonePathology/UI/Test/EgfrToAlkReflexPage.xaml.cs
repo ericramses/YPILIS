@@ -250,7 +250,7 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkSetResults_Click(object sender, RoutedEventArgs e)
         {
-            Business.Audit.Model.AuditResult result = this.m_EGFRToALKReflexAnalysisTestOrder.IsOkToSetResults();
+            Business.Audit.Model.AuditResult result = this.m_EGFRToALKReflexAnalysisTestOrder.IsOkToSetPreviousResults(this.m_EGFRToALKReflexAnalysisTestOrder, this.m_AccessionOrder);
             if (result.Status == Business.Audit.Model.AuditStatusEnum.OK)
             {
                 this.m_EGFRToALKReflexAnalysisTestOrder.SetResults(this.m_AccessionOrder.PanelSetOrderCollection);
