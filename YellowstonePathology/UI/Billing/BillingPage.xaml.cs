@@ -166,7 +166,7 @@ namespace YellowstonePathology.UI.Billing
         }
 
         private void MenuItemDeletePanelSetOrderCPTCodeBill_Click(object sender, RoutedEventArgs e)
-        {
+        {            
             if (this.ListViewPanelSetOrderCPTCodeBill.SelectedItems.Count != 0)
             {
                 for (int i = this.ListViewPanelSetOrderCPTCodeBill.SelectedItems.Count - 1; i >= 0; i--)
@@ -174,7 +174,7 @@ namespace YellowstonePathology.UI.Billing
                     YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill = (YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill)this.ListViewPanelSetOrderCPTCodeBill.SelectedItems[i];
                     this.m_PanelSetOrderCPTCodeBillCollection.Remove(panelSetOrderCPTCodeBill);                 
                 }
-            }
+            }         
         }        
 
         private void ButtonSet_Click(object sender, RoutedEventArgs e)

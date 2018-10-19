@@ -24,8 +24,7 @@ namespace YellowstonePathology.UI.Billing
 
         private System.ComponentModel.BackgroundWorker m_BackgroundWorker;
         private Nullable<DateTime> m_PostDate;
-
-        private string m_LogFilePath = @"C:\Program Files\Yellowstone Pathology Institute\logs";
+        
         private string m_BaseWorkingFolderPathPSA = @"\\CFileServer\Documents\Billing\PSA\";
         private string m_BaseWorkingFolderPathSVH = @"\\CFileServer\Documents\Billing\SVH\";
 
@@ -191,8 +190,10 @@ namespace YellowstonePathology.UI.Billing
         }
 
         private void ProcessPSAFiles(object sender, System.ComponentModel.DoWorkEventArgs e)
-        {                                    
-			YellowstonePathology.Business.ReportNoCollection reportNoCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetReportNumbersByPostDate(this.m_PostDate.Value);
+        {
+            this.m_BackgroundWorker.ReportProgress(1, "Starting processing PSA Files: " + DateTime.Now.ToLongTimeString());
+
+            YellowstonePathology.Business.ReportNoCollection reportNoCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetReportNumbersByPostDate(this.m_PostDate.Value);
             string workingFolder = System.IO.Path.Combine(m_BaseWorkingFolderPathPSA, this.m_PostDate.Value.ToString("MMddyyyy"));
             this.SetupWorkingFolders(workingFolder);
 
@@ -217,7 +218,9 @@ namespace YellowstonePathology.UI.Billing
                         }
                     }
                 }
-            }                        
+            }
+
+            this.m_BackgroundWorker.ReportProgress(1, "Finished processing PSA Files: " + DateTime.Now.ToLongTimeString());
         }
 
         private void ProcessSVHCDMFiles(object sender, System.ComponentModel.DoWorkEventArgs e)
@@ -236,7 +239,7 @@ namespace YellowstonePathology.UI.Billing
                 YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo.Value);                
                 foreach (Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill in panelSetOrder.PanelSetOrderCPTCodeBillCollection)
                 {
-                    if (panelSetOrderCPTCodeBill.BillTo == "Client")
+                    if (panelSetOrderCPTCodeBill.BillTo == "Client" && panelSetOrderCPTCodeBill.PostDate == this.m_PostDate)
                     {
                         this.m_BackgroundWorker.ReportProgress(1, "Writing File: " + reportNo.Value + " - " + panelSetOrderCPTCodeBill.CPTCode);                        
                         Business.HL7View.EPIC.EPICFT1ResultView epicFT1ResultView = new Business.HL7View.EPIC.EPICFT1ResultView(accessionOrder, panelSetOrderCPTCodeBill, true);
@@ -352,6 +355,7 @@ namespace YellowstonePathology.UI.Billing
 
         private void TransferPSAFiles(object sender, System.ComponentModel.DoWorkEventArgs e)        
         {
+            this.m_BackgroundWorker.ReportProgress(1, "Starting transfer of PSA Files: " + DateTime.Now.ToLongTimeString());
             string configFilePath = @"C:\Program Files\Yellowstone Pathology Institute\psa-ssh-config.json";
 
             if (System.IO.File.Exists(configFilePath) == true)
@@ -375,15 +379,16 @@ namespace YellowstonePathology.UI.Billing
                     sshFileTransfer.UploadFilesToPSA(files);
                 }
                 else
-                {
-                    MessageBox.Show("The folder for this date does not exist.");
-                }
-                
+                {                    
+                    this.m_BackgroundWorker.ReportProgress(1, "The folder for this date does not exist.");
+                }                
             }
             else
             {
-                MessageBox.Show("The PSA Config file could not be found.");
+                this.m_BackgroundWorker.ReportProgress(1, "The PSA Config file could not be found.");                
             }
+
+            this.m_BackgroundWorker.ReportProgress(1, "Finished with transfer of PSA Files: " + DateTime.Now.ToLongTimeString());
         }
 
         private void SSHFileTransfer_StatusMessage(object sender, string message, int count)
@@ -447,7 +452,7 @@ namespace YellowstonePathology.UI.Billing
         private void RunAllProcesses(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
             this.ProcessPSAFiles(sender, e);
-            //this.TransferPSAFiles(sender, e);
+            this.TransferPSAFiles(sender, e);
         }
 
         private void AllProcessBackgroundWorker_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
@@ -466,8 +471,8 @@ namespace YellowstonePathology.UI.Billing
         {
             var date = new DateTime(1970, 1, 1, 0, 0, 0, DateTime.Today.Kind);
             var unixTimestamp = System.Convert.ToInt64((DateTime.Today - date).TotalSeconds);
-
-            string logFileName = this.m_LogFilePath + @"\BillingProcess" + unixTimestamp.ToString() + ".log";
+            
+            string logFileName = @"C:\ProgramData\ypi\BillingProcess" + unixTimestamp.ToString() + ".log";
             System.IO.StreamWriter streamWriter = new StreamWriter(logFileName);
             foreach(string line in this.ListViewStatus.Items)
             {
