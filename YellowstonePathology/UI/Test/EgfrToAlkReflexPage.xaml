@@ -39,6 +39,7 @@
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
@@ -65,23 +66,27 @@
 					<Hyperlink Click="HyperLinkSetResults_Click" FontSize="14">Set Results</Hyperlink>
             </TextBlock>
 
-            <TextBlock Grid.Column="0" Grid.Row="7" Margin="5,3,0,0">
+            <TextBlock Name="TextBlockQNS" Grid.Column="0" Grid.Row="7" Margin="5,3,0,5">
+					<Hyperlink Click="HyperLinkSetQNS_Click" FontSize="14">QNS</Hyperlink>
+            </TextBlock>
+
+            <TextBlock Grid.Column="0" Grid.Row="8" Margin="5,3,0,0">
                     <Hyperlink Click="HyperLinkAcceptResults_Click" FontSize="14">Accept Results</Hyperlink>
             </TextBlock>
 
-            <TextBlock Name="TextBlockShowDocument" Grid.Column="0" Grid.Row="8" Margin="5,3,0,0">                    
+            <TextBlock Name="TextBlockShowDocument" Grid.Column="0" Grid.Row="9" Margin="5,3,0,0">                    
                 <Hyperlink Click="HyperLinkShowDocument_Click" FontSize="14">Show Document</Hyperlink>
             </TextBlock>
 
-            <TextBlock Grid.Column="0" Grid.Row="9" Margin="5,3,0,0">
+            <TextBlock Grid.Column="0" Grid.Row="10" Margin="5,3,0,0">
                 <Hyperlink Click="HyperLinkFinalizeResults_Click" FontSize="14">Finalize</Hyperlink>
             </TextBlock>
 
-            <TextBlock Grid.Column="0" Grid.Row="11" Margin="5,3,0,0">                    
+            <TextBlock Grid.Column="0" Grid.Row="12" Margin="5,3,0,0">                    
                     <Hyperlink Click="HyperLinkUnacceptResults_Click" FontSize="14">Unaccept Results</Hyperlink>
             </TextBlock>
 
-            <TextBlock Name="TextBlockUnfinalResults" Grid.Column="0" Grid.Row="12" Margin="5,3,0,0">                    
+            <TextBlock Name="TextBlockUnfinalResults" Grid.Column="0" Grid.Row="13" Margin="5,3,0,0">                    
 				<Hyperlink Click="HyperLinkUnfinalResults_Click" FontSize="14">Unfinalize Results</Hyperlink>
             </TextBlock>
 
@@ -142,8 +147,8 @@
                 <TextBlock Grid.Column="0" Grid.Row="8" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left">Tumor Nuclei Percentage:</TextBlock>
                 <TextBox Grid.Column="1" Grid.Row="8" Margin="2,2,2,2" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding Path=EGFRToALKReflexAnalysisTestOrder.TumorNucleiPercentage}" HorizontalAlignment="Stretch" />
 
-                <TextBlock Grid.Column="0" Grid.Row="9" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left">QNS:</TextBlock>
-                <CheckBox Grid.Column="1" Grid.Row="9" Margin="2,2,2,2" IsChecked="{Binding Path=EGFRToALKReflexAnalysisTestOrder.QNS}">"Quantity not sufficient to complete all testing."</CheckBox>
+                <TextBlock Grid.Column="0" Grid.Row="9" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left">Comment:</TextBlock>
+                <TextBox Grid.Column="1" Grid.Row="9" Margin="2,2,2,2" Text="{Binding Path=EGFRToALKReflexAnalysisTestOrder.Comment}" HorizontalAlignment="Stretch" />
 
                 <TextBlock Grid.Column="0" Grid.Row="11" FontWeight="Bold" Margin="2,2,2,2">Interpretation:</TextBlock>
                 <TextBox Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="2" Margin="2,2,2,2" Text="{Binding Path=EGFRToALKReflexAnalysisTestOrder.Interpretation}" TextWrapping="Wrap" AcceptsReturn="True" />

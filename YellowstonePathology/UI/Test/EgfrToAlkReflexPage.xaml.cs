@@ -248,33 +248,9 @@ namespace YellowstonePathology.UI.Test
 			}
 		}
 
-        private void CheckBoxQNSForALK_Checked(object sender, RoutedEventArgs e)
-        {
-            //this.m_EGFRToALKReflexAnalysisResult = new Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisResult(this.m_AccessionOrder, this.m_EGFRToALKReflexAnalysisTestOrder);
-            this.NotifyPropertyChanged(string.Empty);
-        }
-
-        private void CheckBoxQNSForALK_Unchecked(object sender, RoutedEventArgs e)
-        {
-            //this.m_EGFRToALKReflexAnalysisResult = new Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisResult(this.m_AccessionOrder, this.m_EGFRToALKReflexAnalysisTestOrder);
-            this.NotifyPropertyChanged(string.Empty);
-        }
-
-        private void CheckBoxQNSForROS1_Checked(object sender, RoutedEventArgs e)
-        {
-            //this.m_EGFRToALKReflexAnalysisResult = new Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisResult(this.m_AccessionOrder, this.m_EGFRToALKReflexAnalysisTestOrder);
-            this.NotifyPropertyChanged(string.Empty);
-        }
-
-        private void CheckBoxQNSForROS1_Unchecked(object sender, RoutedEventArgs e)
-        {
-            //this.m_EGFRToALKReflexAnalysisResult = new Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisResult(this.m_AccessionOrder, this.m_EGFRToALKReflexAnalysisTestOrder);
-            this.NotifyPropertyChanged(string.Empty);
-        }
-
         private void HyperLinkSetResults_Click(object sender, RoutedEventArgs e)
         {
-            Business.Audit.Model.AuditResult result = this.m_EGFRToALKReflexAnalysisTestOrder.IsOkToSetResults();
+            Business.Audit.Model.AuditResult result = this.m_EGFRToALKReflexAnalysisTestOrder.IsOkToSetPreviousResults(this.m_EGFRToALKReflexAnalysisTestOrder, this.m_AccessionOrder);
             if (result.Status == Business.Audit.Model.AuditStatusEnum.OK)
             {
                 this.m_EGFRToALKReflexAnalysisTestOrder.SetResults(this.m_AccessionOrder.PanelSetOrderCollection);
@@ -283,6 +259,11 @@ namespace YellowstonePathology.UI.Test
             {
                 MessageBox.Show(result.Message, "Unable to set Results");
             }
+        }
+
+        private void HyperLinkSetQNS_Click(object sender, RoutedEventArgs e)
+        {
+            this.m_EGFRToALKReflexAnalysisTestOrder.Comment = Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisTestOrder.QNSStatement;
         }
     }
 }

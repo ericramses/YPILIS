@@ -164,6 +164,11 @@ namespace YellowstonePathology.Business.Test.MPNStandardReflex
             Audit.Model.AuditResult result = base.IsOkToSetPreviousResults(panelSetOrder, accessionOrder);
             if (result.Status == Audit.Model.AuditStatusEnum.OK)
             {
+                this.AreComponentTestOrdersFinal(accessionOrder, result);
+            }
+
+            if (result.Status == Audit.Model.AuditStatusEnum.OK)
+            {
                 this.DoComponentTestResultsMatchPreviousResults(accessionOrder, (PanelSetOrderMPNStandardReflex)panelSetOrder, result);
                 if (result.Status == Audit.Model.AuditStatusEnum.Warning)
                 {
@@ -227,7 +232,7 @@ namespace YellowstonePathology.Business.Test.MPNStandardReflex
                 if (jak2V617FTestOrder.Result != panelSetOrder.JAK2V617FResult)
                 {
                     result.Status = Audit.Model.AuditStatusEnum.Warning;
-                    result.Message += MismatchMessage(jak2V617FTestOrder.PanelSetName, jak2V617FTestOrder.Result);
+                    result.Message += MismatchMessage(jak2V617FTestOrder.PanelSetName);
                 }
             }
             if (accessionOrder.PanelSetOrderCollection.Exists(jak2Exon1214Test.PanelSetId) == true)
@@ -236,7 +241,7 @@ namespace YellowstonePathology.Business.Test.MPNStandardReflex
                 if (jak2Exon1214TestOrder.Result != ((PanelSetOrderMPNStandardReflex)panelSetOrder).JAK2Exon1214Result)
                 {
                     result.Status = Audit.Model.AuditStatusEnum.Warning;
-                    result.Message += MismatchMessage(jak2Exon1214TestOrder.PanelSetName, jak2Exon1214TestOrder.Result);
+                    result.Message += MismatchMessage(jak2Exon1214TestOrder.PanelSetName);
                 }
             }
         }
@@ -293,7 +298,7 @@ namespace YellowstonePathology.Business.Test.MPNStandardReflex
             if(this.Final == true && this.JAK2V617FResult != jak2V617FResult)
             {
                 result.Status = Audit.Model.AuditStatusEnum.Warning;
-                result.Message += MismatchMessage(this.PanelSetName, this.JAK2V617FResult);
+                result.Message += MismatchMessage(this.PanelSetName);
             }
         }
 
@@ -302,7 +307,7 @@ namespace YellowstonePathology.Business.Test.MPNStandardReflex
             if (this.Final == true && this.JAK2Exon1214Result != jak2Exon1214Result)
             {
                 result.Status = Audit.Model.AuditStatusEnum.Warning;
-                result.Message += MismatchMessage(this.PanelSetName, this.JAK2Exon1214Result);
+                result.Message += MismatchMessage(this.PanelSetName);
             }
         }
     }
