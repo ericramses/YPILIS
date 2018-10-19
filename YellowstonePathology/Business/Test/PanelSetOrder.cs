@@ -2005,9 +2005,9 @@ namespace YellowstonePathology.Business.Test
             return "The " + name + " result is not set." + Environment.NewLine;
         }
 
-        protected virtual string MismatchMessage(string panelSetName, string panelSetResult)
+        protected virtual string MismatchMessage(string panelSetName)
         {
-            return "The " + panelSetName + " result(" + panelSetResult + ") does not match." + Environment.NewLine;
+            return "The " + panelSetName + " result does not match." + Environment.NewLine;
         }
 
         protected virtual string NotFinaledMessage(string panelSetName)

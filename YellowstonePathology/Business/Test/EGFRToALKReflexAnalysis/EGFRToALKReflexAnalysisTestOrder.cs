@@ -24,7 +24,7 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
         private string m_PDL1SP142Result;
         private string m_EGFRMutationAnalysisComment;
         private string m_PDL1SP142StainPercent;
-        private bool m_QNS;
+        private string m_Comment;
 
         public EGFRToALKReflexAnalysisTestOrder() 
         {
@@ -235,26 +235,33 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
         }
 
         [PersistentProperty()]
-        public bool QNS
+        public string Comment
         {
-            get { return this.m_QNS; }
+            get { return this.m_Comment; }
             set
             {
-                this.m_QNS = value;
-                NotifyPropertyChanged("QNS");
+                this.m_Comment = value;
+                NotifyPropertyChanged("Comment");
             }
         }
 
-        public YellowstonePathology.Business.Audit.Model.AuditResult IsOkToSetResults()
+        public override Audit.Model.AuditResult IsOkToSetPreviousResults(PanelSetOrder panelSetOrder, AccessionOrder accessionOrder)
         {
-            Audit.Model.AuditResult result = new Audit.Model.AuditResult();
-            result.Status = Audit.Model.AuditStatusEnum.OK;
-
-            if (this.Accepted == true)
+            Audit.Model.AuditResult result = base.IsOkToSetPreviousResults(panelSetOrder, accessionOrder);
+            if (result.Status == Audit.Model.AuditStatusEnum.OK)
             {
-                result.Status = Audit.Model.AuditStatusEnum.Failure;
-                result.Message += UnableToSetPreviousResults;
+                this.AreComponentTestOrdersFinal(accessionOrder, result);
             }
+
+            if (result.Status == Audit.Model.AuditStatusEnum.OK)
+            {
+                this.DoComponentTestResultsMatchPreviousResults(accessionOrder, (EGFRToALKReflexAnalysisTestOrder)panelSetOrder, result);
+                if (result.Status == Audit.Model.AuditStatusEnum.Warning)
+                {
+                    result.Message += AskSetPreviousResults;
+                }
+            }
+
             return result;
         }
 
@@ -464,7 +471,7 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
                 if (pdl122C3TestOrder.Result != panelSetOrder.PDL122C3Result)
                 {
                     result.Status = Audit.Model.AuditStatusEnum.Warning;
-                    result.Message += MismatchMessage(pdl122C3TestOrder.PanelSetName, pdl122C3TestOrder.Result);
+                    result.Message += MismatchMessage(pdl122C3TestOrder.PanelSetName);
                 }
             }
 
@@ -474,7 +481,7 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
                 if (egfrMutationAnalysisTestOrder.Result != panelSetOrder.EGFRMutationAnalysisResult)
                 {
                     result.Status = Audit.Model.AuditStatusEnum.Warning;
-                    result.Message += MismatchMessage(egfrMutationAnalysisTestOrder.PanelSetName, egfrMutationAnalysisTestOrder.Result);
+                    result.Message += MismatchMessage(egfrMutationAnalysisTestOrder.PanelSetName);
                 }
             }
 
@@ -484,7 +491,7 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
                 if (ros1ByFISHTestOrder.Result != panelSetOrder.ROS1ByFISHResult)
                 {
                     result.Status = Audit.Model.AuditStatusEnum.Warning;
-                    result.Message += MismatchMessage(ros1ByFISHTestOrder.PanelSetName, ros1ByFISHTestOrder.Result);
+                    result.Message += MismatchMessage(ros1ByFISHTestOrder.PanelSetName);
                 }
             }
 
@@ -494,7 +501,7 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
                 if (alkTestOrder.Result != panelSetOrder.ALKForNSCLCByFISHResult)
                 {
                     result.Status = Audit.Model.AuditStatusEnum.Warning;
-                    result.Message += MismatchMessage(alkTestOrder.PanelSetName, alkTestOrder.Result);
+                    result.Message += MismatchMessage(alkTestOrder.PanelSetName);
                 }
             }
 
@@ -504,7 +511,7 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
                 if (brafTestOrder.Result != panelSetOrder.BRAFMutationAnalysisResult)
                 {
                     result.Status = Audit.Model.AuditStatusEnum.Warning;
-                    result.Message += MismatchMessage(brafTestOrder.PanelSetName, brafTestOrder.Result);
+                    result.Message += MismatchMessage(brafTestOrder.PanelSetName);
                 }
             }
 
@@ -514,7 +521,7 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
                 if (pdl1SP142TestOrder.Result != panelSetOrder.PDL1SP142Result)
                 {
                     result.Status = Audit.Model.AuditStatusEnum.Warning;
-                    result.Message += MismatchMessage(pdl1SP142TestOrder.PanelSetName, pdl1SP142TestOrder.Result);
+                    result.Message += MismatchMessage(pdl1SP142TestOrder.PanelSetName);
                 }
             }
         }
@@ -658,7 +665,7 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
             if (this.Final == true && this.m_PDL122C3Result != result)
             {
                 auditResult.Status = Audit.Model.AuditStatusEnum.Warning;
-                auditResult.Message += MismatchMessage(this.PanelSetName, this.m_PDL122C3Result);
+                auditResult.Message += MismatchMessage(this.PanelSetName);
             }
         }
 
@@ -667,7 +674,7 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
             if (this.Final == true && this.m_EGFRMutationAnalysisResult != result)
             {
                 auditResult.Status = Audit.Model.AuditStatusEnum.Warning;
-                auditResult.Message += MismatchMessage(this.PanelSetName, this.m_EGFRMutationAnalysisResult);
+                auditResult.Message += MismatchMessage(this.PanelSetName);
             }
         }
 
@@ -676,7 +683,7 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
             if (this.Final == true && this.m_ROS1ByFISHResult != result)
             {
                 auditResult.Status = Audit.Model.AuditStatusEnum.Warning;
-                auditResult.Message += MismatchMessage(this.PanelSetName, this.m_ROS1ByFISHResult);
+                auditResult.Message += MismatchMessage(this.PanelSetName);
             }
         }
 
@@ -685,7 +692,7 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
             if (this.Final == true && this.m_ALKForNSCLCByFISHResult != result)
             {
                 auditResult.Status = Audit.Model.AuditStatusEnum.Warning;
-                auditResult.Message += MismatchMessage(this.PanelSetName, this.m_ALKForNSCLCByFISHResult);
+                auditResult.Message += MismatchMessage(this.PanelSetName);
             }
         }
 
@@ -694,7 +701,7 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
             if (this.Final == true && this.m_BRAFMutationAnalysisResult != result)
             {
                 auditResult.Status = Audit.Model.AuditStatusEnum.Warning;
-                auditResult.Message += MismatchMessage(this.PanelSetName, this.m_BRAFMutationAnalysisResult);
+                auditResult.Message += MismatchMessage(this.PanelSetName);
             }
         }
 
@@ -703,56 +710,8 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
             if (this.Final == true && this.m_PDL1SP142Result != result)
             {
                 auditResult.Status = Audit.Model.AuditStatusEnum.Warning;
-                auditResult.Message += MismatchMessage(this.PanelSetName, this.m_PDL1SP142Result);
+                auditResult.Message += MismatchMessage(this.PanelSetName);
             }
         }
-
-        /*public override void SetPreviousResults(PanelSetOrder panelSetOrder)
-        {
-            EGFRToALKReflexAnalysisTestOrder egfrToALKReflexAnalysisTestOrder = (EGFRToALKReflexAnalysisTestOrder)panelSetOrder;
-            egfrToALKReflexAnalysisTestOrder.Method = this.m_Method;
-            egfrToALKReflexAnalysisTestOrder.Interpretation = this.m_Interpretation;
-            egfrToALKReflexAnalysisTestOrder.TumorNucleiPercentage = this.m_TumorNucleiPercentage;
-            egfrToALKReflexAnalysisTestOrder.QNSForALK = this.m_QNSForALK;
-            egfrToALKReflexAnalysisTestOrder.QNSForROS1 = this.m_QNSForROS1;
-            egfrToALKReflexAnalysisTestOrder.PDL122C3Result = this.m_PDL122C3Result;
-            egfrToALKReflexAnalysisTestOrder.EGFRMutationAnalysisResult = this.m_EGFRMutationAnalysisResult;
-            egfrToALKReflexAnalysisTestOrder.ROS1ByFISHResult = this.m_ROS1ByFISHResult;
-            egfrToALKReflexAnalysisTestOrder.ALKForNSCLCByFISHResult = this.m_ALKForNSCLCByFISHResult;
-            egfrToALKReflexAnalysisTestOrder.BRAFMutationAnalysisResult = this.m_BRAFMutationAnalysisResult;
-            egfrToALKReflexAnalysisTestOrder.PDL1SP142Result = this.m_PDL1SP142Result;
-            base.SetPreviousResults(panelSetOrder);
-    }
-
-    public override void ClearPreviousResults()
-        {
-            this.m_Method = null;
-            this.m_Interpretation = null;
-            this.m_TumorNucleiPercentage = null;
-            this.m_QNSForALK = false;
-            this.m_QNSForROS1 = false;
-            this.m_PDL122C3Result = null;
-            this.m_EGFRMutationAnalysisResult = null;
-            this.m_ROS1ByFISHResult = null;
-            this.m_ALKForNSCLCByFISHResult = null;
-            this.m_BRAFMutationAnalysisResult = null;
-            this.m_PDL1SP142Result = null;
-            base.ClearPreviousResults();
-        }
-
-        public override Audit.Model.AuditResult IsOkToSetPreviousResults(PanelSetOrder panelSetOrder, AccessionOrder accessionOrder)
-        {
-            Audit.Model.AuditResult result = base.IsOkToSetPreviousResults(panelSetOrder, accessionOrder);
-            if (result.Status == Audit.Model.AuditStatusEnum.OK)
-            {
-                this.DoComponentTestResultsMatchPreviousResults(accessionOrder, (EGFRToALKReflexAnalysisTestOrder)panelSetOrder, result);
-                if (result.Status == Audit.Model.AuditStatusEnum.Warning)
-                {
-                    result.Message += AskSetPreviousResults;
-                }
-            }
-
-            return result;
-        }*/
     }
 }

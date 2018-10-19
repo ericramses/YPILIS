@@ -83,13 +83,21 @@ namespace YellowstonePathology.UI.WebService
             {
                 if (this.m_WebServiceAccount.WebServiceAccountId == 0)
                 {
-                    int id = YellowstonePathology.Business.Gateway.WebServiceGateway.GetNextWebServiceAccountId();
-                    this.m_WebServiceAccount.WebServiceAccountId = id;
-                    foreach(YellowstonePathology.Business.WebService.WebServiceAccountClient webServiceAccountClient in this.m_WebServiceAccount.WebServiceAccountClientCollection)
+                    if (this.IsNameInUse() == false)
                     {
-                        if (webServiceAccountClient.WebServiceAccountId == 0) webServiceAccountClient.WebServiceAccountId = id;
+                        int id = YellowstonePathology.Business.Gateway.WebServiceGateway.GetNextWebServiceAccountId();
+                        this.m_WebServiceAccount.WebServiceAccountId = id;
+                        foreach (YellowstonePathology.Business.WebService.WebServiceAccountClient webServiceAccountClient in this.m_WebServiceAccount.WebServiceAccountClientCollection)
+                        {
+                            if (webServiceAccountClient.WebServiceAccountId == 0) webServiceAccountClient.WebServiceAccountId = id;
+                        }
+                        YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(this.m_WebServiceAccount, this);
                     }
-                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(this.m_WebServiceAccount, this);
+                    else
+                    {
+                        MessageBox.Show("The User Name already exists.");
+                        return;
+                    }
                 }
 
                 YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
@@ -109,12 +117,20 @@ namespace YellowstonePathology.UI.WebService
                 methodResult.Success = false;
                 methodResult.Message = "A UserName is required" + Environment.NewLine;
             }
+
             if(string.IsNullOrEmpty(this.m_WebServiceAccount.Password) == true)
             {
                 methodResult.Success = false;
-                methodResult.Message = "A Password is required";
+                methodResult.Message += "A Password is required";
             }
             return methodResult;
+        }
+
+        private bool IsNameInUse()
+        {
+            Business.WebService.WebServiceAccountCollection webServiceAccountCollection = Business.Gateway.WebServiceGateway.GetWebServiceAccounts();
+            bool result = webServiceAccountCollection.ExistsByUserName(this.m_WebServiceAccount.UserName);
+            return result;
         }
 
         private void ButtonAddClient_Click(object sender, RoutedEventArgs e)
