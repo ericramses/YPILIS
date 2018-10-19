@@ -25,14 +25,14 @@ namespace YellowstonePathology.UI.Billing
         private System.ComponentModel.BackgroundWorker m_BackgroundWorker;
         private Nullable<DateTime> m_PostDate;
 
+        private string m_LogFilePath = @"C:\Program Files\Yellowstone Pathology Institute\logs";
         private string m_BaseWorkingFolderPathPSA = @"\\CFileServer\Documents\Billing\PSA\";
         private string m_BaseWorkingFolderPathSVH = @"\\CFileServer\Documents\Billing\SVH\";
 
         private ObservableCollection<string> m_StatusMessageList;
-        private string m_StatusCountMessage;
-        private string m_CurrentProcess;
+        private string m_StatusCountMessage;        
         private int m_StatusCount;
-        private List<string> m_ReportNumbersToProcess;
+        private List<string> m_ReportNumbersToProcess;        
 
         public EODProcessingDialog()
         {
@@ -56,12 +56,7 @@ namespace YellowstonePathology.UI.Billing
         public string StatusCountMessage
         {
             get { return this.m_StatusCountMessage; }
-        }
-
-        public string CurrentProcess
-        {
-            get { return this.m_CurrentProcess; }
-        }
+        }        
 
         public ObservableCollection<string> StatusMessageList
         {
@@ -102,17 +97,14 @@ namespace YellowstonePathology.UI.Billing
 
         private void MenuItemProcessPSAFiles_Click(object sender, RoutedEventArgs e)
         {
-            this.m_StatusMessageList.Clear();
-            this.m_CurrentProcess = "Processing PSA Files.";
-            this.NotifyPropertyChanged("CurrentProcess");
-
+            this.m_StatusMessageList.Clear();                        
             if (this.m_PostDate.HasValue == true)
             {
                 this.m_BackgroundWorker = new System.ComponentModel.BackgroundWorker();
                 this.m_BackgroundWorker.WorkerSupportsCancellation = false;
                 this.m_BackgroundWorker.WorkerReportsProgress = true;
                 this.m_BackgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(BackgroundWorker_ProgressChanged);
-                this.m_BackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(TransferFilesToFolder);
+                this.m_BackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(ProcessPSAFiles);
                 this.m_BackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(BackgroundWorker_RunWorkerCompleted);
                 this.m_BackgroundWorker.RunWorkerAsync();
             }
@@ -120,10 +112,7 @@ namespace YellowstonePathology.UI.Billing
 
         private void MenuItemProcessSVHFiles_Click(object sender, RoutedEventArgs e)
         {
-            this.m_StatusMessageList.Clear();
-            this.m_CurrentProcess = "Processing SVH Files.";
-            this.NotifyPropertyChanged("CurrentProcess");
-
+            this.m_StatusMessageList.Clear();            
             this.m_BackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.m_BackgroundWorker.WorkerSupportsCancellation = false;
             this.m_BackgroundWorker.WorkerReportsProgress = true;
@@ -201,7 +190,7 @@ namespace YellowstonePathology.UI.Billing
             }
         }
 
-        private void TransferFilesToFolder(object sender, System.ComponentModel.DoWorkEventArgs e)
+        private void ProcessPSAFiles(object sender, System.ComponentModel.DoWorkEventArgs e)
         {                                    
 			YellowstonePathology.Business.ReportNoCollection reportNoCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetReportNumbersByPostDate(this.m_PostDate.Value);
             string workingFolder = System.IO.Path.Combine(m_BaseWorkingFolderPathPSA, this.m_PostDate.Value.ToString("MMddyyyy"));
@@ -441,6 +430,53 @@ namespace YellowstonePathology.UI.Billing
                 }
             }
             Business.Persistence.DocumentGateway.Instance.Save();
+        }
+
+        private void ButtonStart_Click(object sender, RoutedEventArgs e)
+        {            
+            this.m_StatusMessageList.Clear();            
+            this.m_BackgroundWorker = new System.ComponentModel.BackgroundWorker();
+            this.m_BackgroundWorker.WorkerSupportsCancellation = false;
+            this.m_BackgroundWorker.WorkerReportsProgress = true;
+            this.m_BackgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(AllProcessBackgroundWorker_ProgressChanged);
+            this.m_BackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(RunAllProcesses);
+            this.m_BackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(AllProcessBackgroundWorker_RunWorkerCompleted);
+            this.m_BackgroundWorker.RunWorkerAsync();
+        }
+
+        private void RunAllProcesses(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            this.ProcessPSAFiles(sender, e);
+            //this.TransferPSAFiles(sender, e);
+        }
+
+        private void AllProcessBackgroundWorker_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
+        {
+            this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
+            {
+                this.m_StatusCount += 1;
+                string message = (string)e.UserState;
+                this.m_StatusMessageList.Insert(0, message);
+                this.m_StatusCountMessage = this.m_StatusCount.ToString();                
+                this.NotifyPropertyChanged("StatusCountMessage");
+            }));
+        }
+
+        private void AllProcessBackgroundWorker_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
+        {
+            var date = new DateTime(1970, 1, 1, 0, 0, 0, DateTime.Today.Kind);
+            var unixTimestamp = System.Convert.ToInt64((DateTime.Today - date).TotalSeconds);
+
+            string logFileName = this.m_LogFilePath + @"\BillingProcess" + unixTimestamp.ToString() + ".log";
+            System.IO.StreamWriter streamWriter = new StreamWriter(logFileName);
+            foreach(string line in this.ListViewStatus.Items)
+            {
+                streamWriter.WriteLine(line);
+            }
+            streamWriter.Flush();
+            streamWriter.Close();
+
+            MessageBox.Show("All done.");
         }
     }
 }

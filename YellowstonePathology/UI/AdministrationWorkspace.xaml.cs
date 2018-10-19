@@ -99,6 +99,7 @@ namespace YellowstonePathology.UI
             {
                 jsonFields = sr.ReadToEnd();
             }
+
             AddbyCodeWindow w = new UI.AddbyCodeWindow(jsonFields, panelSetOrder);
             w.ShowDialog();
         }
