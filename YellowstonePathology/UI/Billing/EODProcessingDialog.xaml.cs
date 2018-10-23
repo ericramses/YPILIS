@@ -136,7 +136,30 @@ namespace YellowstonePathology.UI.Billing
         private void MenuItemTransferSVHFiles_Click(object sender, RoutedEventArgs e)
         {
             this.m_StatusMessageList.Clear();
-            MessageBox.Show("not implemented yet");
+            this.m_BackgroundWorker = new System.ComponentModel.BackgroundWorker();
+            this.m_BackgroundWorker.WorkerSupportsCancellation = false;
+            this.m_BackgroundWorker.WorkerReportsProgress = true;
+            this.m_BackgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(BackgroundWorker_ProgressChanged);
+            this.m_BackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(TransferSVHCDMFiles);
+            this.m_BackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(BackgroundWorker_RunWorkerCompleted);
+            this.m_BackgroundWorker.RunWorkerAsync();
+        }
+
+        private void TransferSVHCDMFiles(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            this.m_BackgroundWorker.ReportProgress(1, "Starting Transfer of SVH CDM Files: " + DateTime.Now.ToLongTimeString());
+            string destinationFolder = @"\\ypiiinterface1\ChannelData\Outgoing\1002";
+            string workingFolder = System.IO.Path.Combine(this.m_BaseWorkingFolderPathSVH, this.m_PostDate.Value.ToString("MMddyyyy"));
+            string[] files = System.IO.Directory.GetFiles(workingFolder);
+
+            foreach(string file in files)
+            {
+                this.m_BackgroundWorker.ReportProgress(1, "Copying File: " + file);
+                string destinationFile = System.IO.Path.Combine(destinationFolder, System.IO.Path.GetFileName(file));
+                System.IO.File.Copy(file, destinationFile);
+            }
+
+            this.m_BackgroundWorker.ReportProgress(1, "Finished Transfer of SVH CDM Files: " + DateTime.Now.ToLongTimeString());
         }
 
         private void BackgroundWorker_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
@@ -451,8 +474,11 @@ namespace YellowstonePathology.UI.Billing
 
         private void RunAllProcesses(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
+            this.MatchUnpostedCases(sender, e);
             this.ProcessPSAFiles(sender, e);
             this.TransferPSAFiles(sender, e);
+            this.ProcessSVHCDMFiles(sender, e);
+            this.TransferSVHCDMFiles(sender, e);
         }
 
         private void AllProcessBackgroundWorker_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)

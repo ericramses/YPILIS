@@ -2014,5 +2014,10 @@ namespace YellowstonePathology.Business.Test
         {
             return "The " + panelSetName + " is not finaled." + Environment.NewLine;
         }
+
+        protected virtual string NotAcceptedMessage(string panelSetName)
+        {
+            return "The " + panelSetName + " is not accepted." + Environment.NewLine;
+        }
     }
 }
