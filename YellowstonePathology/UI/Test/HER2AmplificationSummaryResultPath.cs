@@ -34,7 +34,10 @@ namespace YellowstonePathology.UI.Test
 
         private void ResultPage_Next(object sender, EventArgs e)
         {
-            this.Finished();
+            if (this.ShowReflexTestPage() == false)
+            {
+                this.Finished();
+            }
         }
 
         private void ResultPage_OrderIHC(object sender, EventArgs e)
@@ -63,9 +66,24 @@ namespace YellowstonePathology.UI.Test
             this.m_AccessionOrder.TaskOrderCollection.Add(taskOrder);
         }
 
-        private void SpecimenOrderDetailsPath_Finish(object sender, EventArgs e)
+        private bool ShowReflexTestPage()
         {
-            this.ShowResultPage();
+            bool result = false;
+            YellowstonePathology.Business.Test.InvasiveBreastPanel.InvasiveBreastPanelTest panelSetInvasiveBreastPanel = new YellowstonePathology.Business.Test.InvasiveBreastPanel.InvasiveBreastPanelTest();
+            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(panelSetInvasiveBreastPanel.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true) == true)
+            {
+                YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetInvasiveBreastPanel.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true);
+                result = true;
+                YellowstonePathology.UI.Test.InvasiveBreastPanelPath resultPath = new Test.InvasiveBreastPanelPath(panelSetOrder.ReportNo, this.m_AccessionOrder, this.m_PageNavigator, this.m_Window);
+                resultPath.Finish += new Test.InvasiveBreastPanelPath.FinishEventHandler(ResultPath_Finish);
+                resultPath.Start();
+            }
+            return result;
+        }
+
+        private void ResultPath_Finish(object sender, EventArgs e)
+        {
+            base.Finished();
         }
     }
 }
