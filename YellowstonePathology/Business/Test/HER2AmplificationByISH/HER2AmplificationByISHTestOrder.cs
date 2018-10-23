@@ -677,5 +677,20 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 			}
 			return result;
 		}
-	}
+
+        public bool ShouldOrderHer2Summary(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
+        {
+            bool result = false;
+            YellowstonePathology.Business.Test.HER2AmplificationSummary.HER2AmplificationSummaryTest test = new HER2AmplificationSummary.HER2AmplificationSummaryTest();
+            if (accessionOrder.PanelSetOrderCollection.Exists(test.PanelSetId, this.OrderedOnId, true) == false)
+            {
+                if (this.AverageHer2Chr17SignalAsDouble.HasValue && this.AverageHer2Chr17SignalAsDouble >= 2.0 &&
+                    this.AverageHer2NeuSignal.HasValue && this.AverageHer2NeuSignal < 4.0)
+                {
+                    result = true;
+                }
+            }
+            return result;
+        }
+    }
 }

@@ -27,6 +27,9 @@ namespace YellowstonePathology.UI.Test
 		public delegate void SpecimenDetailEventHandler(object sender, EventArgs e);
 		public event SpecimenDetailEventHandler SpecimenDetail;
 
+        public delegate void OrderHER2IHCAndSummaryEventHandler(object sender, EventArgs e);
+        public event OrderHER2IHCAndSummaryEventHandler OrderHER2IHCAndSummary;
+
         public delegate void NextEventHandler(object sender, EventArgs e);
         public event NextEventHandler Next;
 
@@ -197,6 +200,10 @@ namespace YellowstonePathology.UI.Test
                 else
                 {
                     YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHResult.AcceptResults(this.m_PanelSetOrder, this.m_SystemIdentity);
+                    if(this.m_PanelSetOrder.ShouldOrderHer2Summary(this.m_AccessionOrder) == true)
+                    {
+                        MessageBox.Show("The ratio indicates an equivical result.  A HER2 Amplification by IHC must be Ordered.", "Order Test", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
                 }
             }
             else
@@ -271,5 +278,10 @@ namespace YellowstonePathology.UI.Test
 				this.SpecimenDetail(this, new EventArgs());
 			}
 		}
+
+        private void HyperLinkOrderSummary_Click(object sender, RoutedEventArgs e)
+        {
+                this.OrderHER2IHCAndSummary(this, new EventArgs());
+        }
     }
 }
