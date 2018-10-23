@@ -250,17 +250,17 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
             Audit.Model.AuditResult result = base.IsOkToSetPreviousResults(panelSetOrder, accessionOrder);
             if (result.Status == Audit.Model.AuditStatusEnum.OK)
             {
-                this.AreComponentTestOrdersFinal(accessionOrder, result);
+                this.AreComponentTestOrdersAccepted(accessionOrder, result);
             }
 
-            if (result.Status == Audit.Model.AuditStatusEnum.OK)
+            /*if (result.Status == Audit.Model.AuditStatusEnum.OK)
             {
                 this.DoComponentTestResultsMatchPreviousResults(accessionOrder, (EGFRToALKReflexAnalysisTestOrder)panelSetOrder, result);
                 if (result.Status == Audit.Model.AuditStatusEnum.Warning)
                 {
                     result.Message += AskSetPreviousResults;
                 }
-            }
+            }*/
 
             return result;
         }
@@ -403,7 +403,7 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
 
             if (result.Status == Audit.Model.AuditStatusEnum.OK)
             {
-                this.AreComponentTestOrdersFinal(accessionOrder, result);
+                this.AreComponentTestOrdersAccepted(accessionOrder, result);
             }
 
             if (result.Status == Audit.Model.AuditStatusEnum.OK)
@@ -522,6 +522,76 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
                 {
                     result.Status = Audit.Model.AuditStatusEnum.Warning;
                     result.Message += MismatchMessage(pdl1SP142TestOrder.PanelSetName);
+                }
+            }
+        }
+
+        private void AreComponentTestOrdersAccepted(AccessionOrder accessionOrder, Audit.Model.AuditResult result)
+        {
+            YellowstonePathology.Business.Test.PDL122C3.PDL122C3Test pdl122C3Test = new PDL122C3.PDL122C3Test();
+            YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisTest egfrMutationAnalysisTest = new YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisTest();
+            YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHTest ros1ByfishTest = new ROS1ByFISH.ROS1ByFISHTest();
+            YellowstonePathology.Business.Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHTest alkTest = new ALKForNSCLCByFISH.ALKForNSCLCByFISHTest();
+            YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTest brafTest = new BRAFMutationAnalysis.BRAFMutationAnalysisTest();
+            YellowstonePathology.Business.Test.PDL1SP142.PDL1SP142Test pdl1SP142Test = new PDL1SP142.PDL1SP142Test();
+
+            if (accessionOrder.PanelSetOrderCollection.Exists(pdl122C3Test.PanelSetId) == true)
+            {
+                Test.PDL122C3.PDL122C3TestOrder pdl122C3TestOrder = (PDL122C3.PDL122C3TestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(pdl122C3Test.PanelSetId);
+                if (pdl122C3TestOrder.Accepted == false)
+                {
+                    result.Status = Audit.Model.AuditStatusEnum.Failure;
+                    result.Message += NotAcceptedMessage(pdl122C3TestOrder.PanelSetName);
+                }
+            }
+
+            if (accessionOrder.PanelSetOrderCollection.Exists(egfrMutationAnalysisTest.PanelSetId) == true)
+            {
+                Test.EGFRMutationAnalysis.EGFRMutationAnalysisTestOrder egfrMutationAnalysisTestOrder = (EGFRMutationAnalysis.EGFRMutationAnalysisTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(egfrMutationAnalysisTest.PanelSetId);
+                if (egfrMutationAnalysisTestOrder.Accepted == false)
+                {
+                    result.Status = Audit.Model.AuditStatusEnum.Failure;
+                    result.Message += NotAcceptedMessage(egfrMutationAnalysisTestOrder.PanelSetName);
+                }
+            }
+
+            if (accessionOrder.PanelSetOrderCollection.Exists(ros1ByfishTest.PanelSetId) == true)
+            {
+                Test.ROS1ByFISH.ROS1ByFISHTestOrder ros1ByFISHTestOrder = (ROS1ByFISH.ROS1ByFISHTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(ros1ByfishTest.PanelSetId);
+                if (ros1ByFISHTestOrder.Accepted == false)
+                {
+                    result.Status = Audit.Model.AuditStatusEnum.Failure;
+                    result.Message += NotAcceptedMessage(ros1ByFISHTestOrder.PanelSetName);
+                }
+            }
+
+            if (accessionOrder.PanelSetOrderCollection.Exists(alkTest.PanelSetId) == true)
+            {
+                Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHTestOrder alkTestOrder = (ALKForNSCLCByFISH.ALKForNSCLCByFISHTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(alkTest.PanelSetId);
+                if (alkTestOrder.Accepted == false)
+                {
+                    result.Status = Audit.Model.AuditStatusEnum.Failure;
+                    result.Message += NotAcceptedMessage(alkTestOrder.PanelSetName);
+                }
+            }
+
+            if (accessionOrder.PanelSetOrderCollection.Exists(brafTest.PanelSetId) == true)
+            {
+                Test.BRAFMutationAnalysis.BRAFMutationAnalysisTestOrder brafTestOrder = (BRAFMutationAnalysis.BRAFMutationAnalysisTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(brafTest.PanelSetId);
+                if (brafTestOrder.Accepted == false)
+                {
+                    result.Status = Audit.Model.AuditStatusEnum.Failure;
+                    result.Message += NotAcceptedMessage(brafTestOrder.PanelSetName);
+                }
+            }
+
+            if (accessionOrder.PanelSetOrderCollection.Exists(pdl1SP142Test.PanelSetId) == true)
+            {
+                Test.PDL1SP142.PDL1SP142TestOrder pdl1SP142TestOrder = (PDL1SP142.PDL1SP142TestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(pdl1SP142Test.PanelSetId);
+                if (pdl1SP142TestOrder.Accepted == false)
+                {
+                    result.Status = Audit.Model.AuditStatusEnum.Failure;
+                    result.Message += NotAcceptedMessage(pdl1SP142TestOrder.PanelSetName);
                 }
             }
         }
