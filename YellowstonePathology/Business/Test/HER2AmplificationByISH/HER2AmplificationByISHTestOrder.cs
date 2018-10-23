@@ -677,5 +677,12 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 			}
 			return result;
 		}
-	}
+
+        public bool ShouldOrderHer2Summary()
+        {
+            bool result = false;
+            if (this.AverageHer2Chr17SignalAsDouble.HasValue && this.AverageHer2Chr17SignalAsDouble >= 2.0 && this.AverageHer2Chr17SignalAsDouble < 4.0) result = true;
+            return result;
+        }
+    }
 }

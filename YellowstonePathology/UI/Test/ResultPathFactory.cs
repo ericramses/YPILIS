@@ -339,6 +339,9 @@ namespace YellowstonePathology.UI.Test
                 case 303:
                     result = new TechnicalOnlyResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
+                case 313:
+                    result = new HER2AmplificationSummaryResultPath(reportNo, accessionOrder, pageNavigator, window);
+                    break;
             }
             return result;
         }
