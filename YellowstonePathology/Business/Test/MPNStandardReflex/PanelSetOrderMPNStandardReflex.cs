@@ -164,7 +164,7 @@ namespace YellowstonePathology.Business.Test.MPNStandardReflex
             Audit.Model.AuditResult result = base.IsOkToSetPreviousResults(panelSetOrder, accessionOrder);
             if (result.Status == Audit.Model.AuditStatusEnum.OK)
             {
-                this.AreComponentTestOrdersFinal(accessionOrder, result);
+                this.AreComponentTestOrdersAccepted(accessionOrder, result);
             }
 
             if (result.Status == Audit.Model.AuditStatusEnum.OK)
@@ -242,6 +242,30 @@ namespace YellowstonePathology.Business.Test.MPNStandardReflex
                 {
                     result.Status = Audit.Model.AuditStatusEnum.Warning;
                     result.Message += MismatchMessage(jak2Exon1214TestOrder.PanelSetName);
+                }
+            }
+        }
+
+        private void AreComponentTestOrdersAccepted(AccessionOrder accessionOrder, Audit.Model.AuditResult result)
+        {
+            Test.JAK2V617F.JAK2V617FTest jak2V617FTest = new JAK2V617F.JAK2V617FTest();
+            Test.JAK2Exon1214.JAK2Exon1214Test jak2Exon1214Test = new JAK2Exon1214.JAK2Exon1214Test();
+            if (accessionOrder.PanelSetOrderCollection.Exists(jak2V617FTest.PanelSetId) == true)
+            {
+                Test.JAK2V617F.JAK2V617FTestOrder jak2V617FTestOrder = (JAK2V617F.JAK2V617FTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(jak2V617FTest.PanelSetId);
+                if (jak2V617FTestOrder.Accepted == false)
+                {
+                    result.Status = Audit.Model.AuditStatusEnum.Failure;
+                    result.Message += NotAcceptedMessage(jak2V617FTestOrder.PanelSetName);
+                }
+            }
+            if (accessionOrder.PanelSetOrderCollection.Exists(jak2Exon1214Test.PanelSetId) == true)
+            {
+                Test.JAK2Exon1214.JAK2Exon1214TestOrder jak2Exon1214TestOrder = (JAK2Exon1214.JAK2Exon1214TestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(jak2Exon1214Test.PanelSetId);
+                if (jak2Exon1214TestOrder.Accepted == false)
+                {
+                    result.Status = Audit.Model.AuditStatusEnum.Failure;
+                    result.Message += NotAcceptedMessage(jak2Exon1214TestOrder.PanelSetName);
                 }
             }
         }
