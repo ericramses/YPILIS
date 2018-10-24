@@ -11,14 +11,15 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
 
         public HER2AmplificationResultGroup1(PanelSetOrderCollection panelSetOrderCollection) : base(panelSetOrderCollection)
         {
-            this.m_HER2Result = "Positive";
         }
 
-        public override bool IsAMatch()
+        public override void IsAMatch( HER2AmplificationResultMatch her2AmplificationResultMatch)
         {
-            bool result = false;
-            if (base.AverageHER2CopyNo > 4.0) result = true;
-            return result;
+            if (this.AverageHER2CopyNo >= 4.0 && this.HER2CEP17Ratio >= 2)
+            {
+                her2AmplificationResultMatch.IsAMatch = true;
+                her2AmplificationResultMatch.Result = "Positive";
+            }
         }
     }
 }

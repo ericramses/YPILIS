@@ -21,10 +21,9 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
 
             foreach (HER2AmplificationResult her2AmplificationResult in this)
             {
-                if (her2AmplificationResult.IsAMatch() == true)
+                her2AmplificationResult.IsAMatch(result);
+                if (result.IsAMatch == true)
                 {
-                    result.Result = her2AmplificationResult.HER2Result;
-                    result.IsAMatch = true;
                     break;
                 }
             }
