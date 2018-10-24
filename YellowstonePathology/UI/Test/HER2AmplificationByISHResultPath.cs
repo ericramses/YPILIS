@@ -26,13 +26,14 @@ namespace YellowstonePathology.UI.Test
             this.m_ResultPage = new HER2AmplificationByISHResultPage(this.m_PanelSetOrder, this.m_AccessionOrder, this.m_SystemIdentity, this.m_PageNavigator);
             this.m_ResultPage.Next += new HER2AmplificationByISHResultPage.NextEventHandler(ResultPage_Next);
             this.m_ResultPage.SpecimenDetail += new HER2AmplificationByISHResultPage.SpecimenDetailEventHandler(ResultPage_SpecimenDetail);
-            this.m_ResultPage.OrderHER2IHCAndSummary += ResultPage_OrderHER2IHCAndSummary;
+            this.m_ResultPage.OrderHER2IHC += ResultPage_OrderHER2IHC;
+            this.m_ResultPage.OrderHER2Summary += ResultPage_OrderHER2Summary;
 
             this.RegisterCancelATest(this.m_ResultPage);
             this.m_PageNavigator.Navigate(this.m_ResultPage);
         }
 
-        private void ResultPage_OrderHER2IHCAndSummary(object sender, EventArgs e)
+        private void ResultPage_OrderHER2IHC(object sender, EventArgs e)
         {
             YellowstonePathology.Business.Test.Her2AmplificationByIHC.Her2AmplificationByIHCTest her2AmplificationByIHCTest = new Business.Test.Her2AmplificationByIHC.Her2AmplificationByIHCTest();
             YellowstonePathology.Business.Interface.IOrderTarget orderTargetIHC = this.m_AccessionOrder.SpecimenOrderCollection.GetOrderTarget(this.m_PanelSetOrder.OrderedOnId);
@@ -43,7 +44,10 @@ namespace YellowstonePathology.UI.Test
 
             YellowstonePathology.Business.Task.Model.TaskOrder taskOrderIHC = this.m_AccessionOrder.CreateTask(testOrderInfoIHC);
             this.m_AccessionOrder.TaskOrderCollection.Add(taskOrderIHC);
+        }
 
+        private void ResultPage_OrderHER2Summary(object sender, EventArgs e)
+        {
             YellowstonePathology.Business.Test.HER2AmplificationSummary.HER2AmplificationSummaryTest her2AmplificationSummaryTest = new Business.Test.HER2AmplificationSummary.HER2AmplificationSummaryTest();
             YellowstonePathology.Business.Interface.IOrderTarget orderTargetSum = this.m_AccessionOrder.SpecimenOrderCollection.GetOrderTarget(this.m_PanelSetOrder.OrderedOnId);
             YellowstonePathology.Business.Test.TestOrderInfo testOrderInfoSum = new YellowstonePathology.Business.Test.TestOrderInfo(her2AmplificationSummaryTest, orderTargetSum, false);
