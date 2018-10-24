@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
             if (this.AverageHER2CopyNo >= 4.0 && this.HER2CEP17Ratio >= 2)
             {
                 her2AmplificationResultMatch.IsAMatch = true;
-                her2AmplificationResultMatch.Result = "Positive";
+                her2AmplificationResultMatch.Result = HER2AmplificationResultEnum.Positive;
             }
         }
     }
