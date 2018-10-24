@@ -1051,9 +1051,13 @@
     <Compile Include="Business\Test\EGFRToALKReflexAnalysis\EGFRToALKReflexAnalysisBRAFResult.cs" />
     <Compile Include="Business\Test\ExtractAndHoldForPreauthorization\ExtractAndHoldForPreauthorizationWordDocument.cs" />
     <Compile Include="Business\Test\HER2AmplificationSummary\HER2AmplificationResult.cs" />
+    <Compile Include="Business\Test\HER2AmplificationSummary\HER2AmplificationResultCollection.cs" />
+    <Compile Include="Business\Test\HER2AmplificationSummary\HER2AmplificationResultGroup2.cs" />
+    <Compile Include="Business\Test\HER2AmplificationSummary\HER2AmplificationResultMatch.cs" />
     <Compile Include="Business\Test\HER2AmplificationSummary\HER2AmplificationSummaryTest.cs" />
     <Compile Include="Business\Test\HER2AmplificationSummary\HER2AmplificationSummaryTestOrder.cs" />
     <Compile Include="Business\Test\HER2AmplificationSummary\HER2AmplificationSummaryWordDocument.cs" />
+    <Compile Include="Business\Test\HER2AmplificationSummary\HER2AmplificationResultGroup1.cs" />
     <Compile Include="Business\Test\HPV1618\HPV1618WPHOBXView.cs" />
     <Compile Include="Business\Test\INI1\INI1Test.cs" />
     <Compile Include="Business\Test\MissingInformation\MissingInformationWordDocument.cs" />
