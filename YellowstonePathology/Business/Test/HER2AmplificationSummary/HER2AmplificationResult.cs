@@ -8,11 +8,11 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
 {
     public class HER2AmplificationResult
     {
-        private string m_HER2Result;
-        private Double? m_HER2CEP17Ratio;
-        private Double? m_AverageHER2CopyNo;
-        private bool m_HER2ByIHCRequired;
-        private string m_HER2ByIHCScore;
+        protected string m_HER2Result;
+        protected Double? m_HER2CEP17Ratio;
+        protected Double? m_AverageHER2CopyNo;
+        protected bool m_HER2ByIHCRequired;
+        protected string m_HER2ByIHCScore;
 
         public HER2AmplificationResult(PanelSetOrderCollection panelSetOrderCollection)
         {
@@ -28,7 +28,6 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
             if(panelSetOrderCollection.Exists(her2AmplificationByISHTest.PanelSetId) == true)
             {
                 HER2AmplificationByISH.HER2AmplificationByISHTestOrder her2AmplificationByISHTestOrder = (HER2AmplificationByISH.HER2AmplificationByISHTestOrder)panelSetOrderCollection.GetPanelSetOrder(her2AmplificationByISHTest.PanelSetId);
-                this.m_HER2Result = her2AmplificationByISHTestOrder.Result;
                 this.m_HER2CEP17Ratio = her2AmplificationByISHTestOrder.AverageHer2Chr17SignalAsDouble;
                 this.m_AverageHER2CopyNo = her2AmplificationByISHTestOrder.AverageHer2NeuSignal;
                 this.m_HER2ByIHCRequired = her2AmplificationByISHTestOrder.HER2ByIHCRequired;
@@ -38,31 +37,32 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
         public string HER2Result
         {
             get { return m_HER2Result; }
-            set { this.m_HER2Result = value; }
         }
 
         public Double? HER2CEP17Ratio
         {
             get { return m_HER2CEP17Ratio; }
-            set { this.m_HER2CEP17Ratio = value; }
         }
 
         public Double? AverageHER2CopyNo
         {
             get { return m_AverageHER2CopyNo; }
-            set { this.m_AverageHER2CopyNo = value; }
         }
 
         public bool HER2ByIHCRequired
         {
             get { return m_HER2ByIHCRequired; }
-            set { this.m_HER2ByIHCRequired = value; }
         }
 
         public string HER2ByIHCScore
         {
             get { return m_HER2ByIHCScore; }
-            set { this.m_HER2ByIHCScore = value; }
+        }
+
+        public virtual bool IsAMatch()
+        {
+            bool result = false;
+            return result;
         }
     }
 }
