@@ -8,13 +8,13 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
 {
     public class HER2AmplificationResultMatch
     {
-        private string m_Result;
+        private HER2AmplificationResultEnum m_Result;
         private bool m_IsAMatch;
 
         public HER2AmplificationResultMatch()
         { }
 
-        public string Result
+        public HER2AmplificationResultEnum Result
         {
             get { return this.m_Result; }
             set { this.m_Result = value; }

@@ -1058,6 +1058,7 @@
     <Compile Include="Business\Test\HER2AmplificationSummary\HER2AmplificationSummaryTestOrder.cs" />
     <Compile Include="Business\Test\HER2AmplificationSummary\HER2AmplificationSummaryWordDocument.cs" />
     <Compile Include="Business\Test\HER2AmplificationSummary\HER2AmplificationResultGroup1.cs" />
+    <Compile Include="Business\Test\HER2AmplificationSummary\HER2AmplificationResultEnum.cs" />
     <Compile Include="Business\Test\HPV1618\HPV1618WPHOBXView.cs" />
     <Compile Include="Business\Test\INI1\INI1Test.cs" />
     <Compile Include="Business\Test\MissingInformation\MissingInformationWordDocument.cs" />
