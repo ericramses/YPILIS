@@ -44,8 +44,9 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 		private bool m_NotInterpretable;
 		private string m_ASRComment;
         private string m_FixationComment;
+        private bool m_HER2ByIHCRequired;
 
-		public HER2AmplificationByISHTestOrder()
+        public HER2AmplificationByISHTestOrder()
 		{
 
 		}
@@ -630,6 +631,20 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
             }
         }
 
+        [PersistentProperty()]
+        public bool HER2ByIHCRequired
+        {
+            get { return this.m_HER2ByIHCRequired; }
+            set
+            {
+                if (this.m_HER2ByIHCRequired != value)
+                {
+                    this.m_HER2ByIHCRequired = value;
+                    this.NotifyPropertyChanged("HER2ByIHCRequired");
+                }
+            }
+        }
+
         public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
 			string result = "HER2 Amplification by D-ISH: " + this.Result;
@@ -681,14 +696,10 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
         public bool ShouldOrderHer2Summary(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
             bool result = false;
-            YellowstonePathology.Business.Test.HER2AmplificationSummary.HER2AmplificationSummaryTest test = new HER2AmplificationSummary.HER2AmplificationSummaryTest();
-            if (accessionOrder.PanelSetOrderCollection.Exists(test.PanelSetId, this.OrderedOnId, true) == false)
+            if (this.AverageHer2Chr17SignalAsDouble.HasValue && this.AverageHer2Chr17SignalAsDouble >= 2.0 &&
+                this.AverageHer2NeuSignal.HasValue && this.AverageHer2NeuSignal < 4.0)
             {
-                if (this.AverageHer2Chr17SignalAsDouble.HasValue && this.AverageHer2Chr17SignalAsDouble >= 2.0 &&
-                    this.AverageHer2NeuSignal.HasValue && this.AverageHer2NeuSignal < 4.0)
-                {
-                    result = true;
-                }
+                result = true;
             }
             return result;
         }

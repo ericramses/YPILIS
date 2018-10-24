@@ -1050,6 +1050,7 @@
     <Compile Include="Business\Test\EGFRMutationAnalysisPreliminary\EGFRMutationAnalysisPreliminaryTest.cs" />
     <Compile Include="Business\Test\EGFRToALKReflexAnalysis\EGFRToALKReflexAnalysisBRAFResult.cs" />
     <Compile Include="Business\Test\ExtractAndHoldForPreauthorization\ExtractAndHoldForPreauthorizationWordDocument.cs" />
+    <Compile Include="Business\Test\HER2AmplificationSummary\HER2AmplificationResult.cs" />
     <Compile Include="Business\Test\HER2AmplificationSummary\HER2AmplificationSummaryTest.cs" />
     <Compile Include="Business\Test\HER2AmplificationSummary\HER2AmplificationSummaryTestOrder.cs" />
     <Compile Include="Business\Test\HER2AmplificationSummary\HER2AmplificationSummaryWordDocument.cs" />

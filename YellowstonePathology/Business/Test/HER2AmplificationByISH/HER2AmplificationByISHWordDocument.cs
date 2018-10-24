@@ -22,7 +22,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 			{
 				if (this.m_AccessionOrder.AccessionDate >= DateTime.Parse("1/1/2014") == true)
 				{
-					this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\HER2AmplificationByISH.Breast.1.xml";
+					this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\HER2AmplificationByISH.Breast.2.xml";
 				}
 				else
 				{
@@ -33,7 +33,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 			{
 				if (this.m_AccessionOrder.AccessionDate >= DateTime.Parse("1/1/2014") == true)
 				{
-					this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\HER2AmplificationByISH.Gastric.1.xml";
+					this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\HER2AmplificationByISH.Gastric.2.xml";
 				}
 				else
 				{
@@ -58,7 +58,26 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 				this.SetXmlNodeData("date_time_collected", collectionDateTimeString);
 				this.SetXmlNodeData("test_result", panelSetOrderHer2ByIsh.Result);
 
-				if (panelSetOrderHer2ByIsh.Her2Chr17Ratio.HasValue == true)
+                string score = null;
+                if(panelSetOrderHer2ByIsh.HER2ByIHCRequired == true)
+                {
+                    Her2AmplificationByIHC.Her2AmplificationByIHCTest her2AmplificationByIHCTest = new Her2AmplificationByIHC.Her2AmplificationByIHCTest();
+                    if(this.m_AccessionOrder.PanelSetOrderCollection.Exists(her2AmplificationByIHCTest.PanelSetId, panelSetOrderHer2ByIsh.OrderedOnId, true) == true)
+                    {
+                        Her2AmplificationByIHC.PanelSetOrderHer2AmplificationByIHC panelSetOrderHer2AmplificationByIHC = (Her2AmplificationByIHC.PanelSetOrderHer2AmplificationByIHC)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(her2AmplificationByIHCTest.PanelSetId);
+                        score = panelSetOrderHer2AmplificationByIHC.Score;
+                    }
+                }
+                if(string.IsNullOrEmpty(score) == false)
+                {
+                    this.SetXmlNodeData("ihc_score", score);
+                }
+                else
+                {
+                    this.DeleteRow("ihc_score");
+                }
+
+                if (panelSetOrderHer2ByIsh.Her2Chr17Ratio.HasValue == true)
 				{
 					this.SetXmlNodeData("test_ratio", "Ratio = " + panelSetOrderHer2ByIsh.Her2Chr17Ratio);
 				}
