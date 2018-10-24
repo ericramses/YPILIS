@@ -125,7 +125,12 @@ namespace YellowstonePathology.Business
         {
             string result = phoneNumber;
             string prefix = phoneNumber.Substring(3, 3);
-            if(this.Exists(element => element == prefix) == false)
+            string area = phoneNumber.Substring(0, 3);
+            if(area != "406")
+            {
+                result = "1" + phoneNumber;
+            }
+            else if(this.Exists(element => element == prefix) == false)
             {
                 result = "1" + phoneNumber;
             }

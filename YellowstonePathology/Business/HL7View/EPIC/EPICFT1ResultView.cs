@@ -37,14 +37,13 @@ namespace YellowstonePathology.Business.HL7View.EPIC
 
         public void Save(string path)
         {
-            XElement detailDocument = CreateDocument();
-            string id = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
+            XElement detailDocument = CreateDocument();            
             string fileExtension = "." + this.m_AccessionOrder.MasterAccessionNo + ".HL7.xml";
-            string interfaceFileName = System.IO.Path.Combine(path, id + fileExtension);
+            string interfaceFileName = System.IO.Path.Combine(path, this.m_PanelSetOrderCPTCodeBill.PanelSetOrderCPTCodeBillId + fileExtension);            
             using (System.IO.StreamWriter sw = new System.IO.StreamWriter(interfaceFileName))
             {
                 detailDocument.Save(sw);
-            }
+            }            
         }
 
         private XElement CreateDocument()

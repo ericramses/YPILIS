@@ -147,9 +147,9 @@ namespace YellowstonePathology.Business.Gateway
             return result;
         }
 
-        public static string GetSVHClinicMessageBody()
+        public static int GetSVHClinicMessageBody(StringBuilder result)
         {
-            StringBuilder result = new StringBuilder();
+            int rowCount = 0;
             result.AppendLine("SVH clinic cases for not posted. ");
             StringBuilder header = new StringBuilder();
             header.Append("Accessioned".PadRight(40));
@@ -181,11 +181,13 @@ namespace YellowstonePathology.Business.Gateway
                         line.Append(dr["SvhMedicalRecord"].ToString().PadRight(20));
                         line.Append(dr["SvhAccount"].ToString().PadRight(20));
                         result.AppendLine(line.ToString());
+                        rowCount += 1;
                     }
+                    
                 }
             }
 
-            return result.ToString();
+            return rowCount;
         }
 
         public static YellowstonePathology.Business.HL7View.ADTMessages GetADTMessages(string mrn)
