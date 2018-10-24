@@ -8,7 +8,6 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
 {
     public class HER2AmplificationResult
     {
-        protected string m_HER2Result;
         protected Double? m_HER2CEP17Ratio;
         protected Double? m_AverageHER2CopyNo;
         protected bool m_HER2ByIHCRequired;
@@ -34,11 +33,6 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
             }
         }
 
-        public string HER2Result
-        {
-            get { return m_HER2Result; }
-        }
-
         public Double? HER2CEP17Ratio
         {
             get { return m_HER2CEP17Ratio; }
@@ -59,10 +53,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
             get { return m_HER2ByIHCScore; }
         }
 
-        public virtual bool IsAMatch()
-        {
-            bool result = false;
-            return result;
-        }
+        public virtual void IsAMatch(HER2AmplificationResultMatch her2AmplificationResultMatch)
+        { }
     }
 }
