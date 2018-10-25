@@ -1054,6 +1054,8 @@
     <Compile Include="Business\Test\HER2AmplificationSummary\HER2AmplificationResultCollection.cs" />
     <Compile Include="Business\Test\HER2AmplificationSummary\HER2AmplificationResultGroup2.cs" />
     <Compile Include="Business\Test\HER2AmplificationSummary\HER2AmplificationResultGroup3.cs" />
+    <Compile Include="Business\Test\HER2AmplificationSummary\HER2AmplificationResultGroup4.cs" />
+    <Compile Include="Business\Test\HER2AmplificationSummary\HER2AmplificationResultGroup5.cs" />
     <Compile Include="Business\Test\HER2AmplificationSummary\HER2AmplificationResultMatch.cs" />
     <Compile Include="Business\Test\HER2AmplificationSummary\HER2AmplificationSummaryTest.cs" />
     <Compile Include="Business\Test\HER2AmplificationSummary\HER2AmplificationSummaryTestOrder.cs" />

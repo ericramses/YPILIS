@@ -12,16 +12,16 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
         {
             this.m_Interpretation = "Evidence is limited on the efficacy of human epidermal growth factor 2 (HER2)-targeted therapy in the " +
             "small subset of cases with a HER2/chromosome enumeration probe 17 (CEP17) ratio ≥ 2.0 and an average HER2 copy number " +
-            "of <4.0 per cell. In the first generation of adjuvant trastuzumab trials, patients in this subgroup who were randomly " +
+            "of < 4.0 per cell.  In the first generation of adjuvant trastuzumab trials, patients in this subgroup who were randomly " +
             "assigned to the trastuzumab arm did not seem to derive an improvement in disease-free or overall survival, but there were " +
-            "too few such cases to draw definitive conclusions. Immunohistochemistry (IHC) expression for HER2 should be used to " +
-            "complement in situ hybridization (ISH) and define HER2 status. If the IHC result is not 3+ positive, it is recommended " +
+            "too few such cases to draw definitive conclusions.  Immunohistochemistry (IHC) expression for HER2 should be used to " +
+            "complement in situ hybridization (ISH) and define HER2 status.  If the IHC result is not 3+ positive, it is recommended " +
             "that the specimen be considered HER2 negative because of the low HER2 copy number by ISH and the lack of protein expression.";
         }
 
         public override void IsAMatch(HER2AmplificationResultMatch her2AmplificationResultMatch)
         {
-            if (this.HER2CEP17Ratio >= 2 && this.AverageHER2CopyNo < 4.0)
+            if (this.HER2CEP17Ratio >= 2.0 && this.AverageHER2CopyNo < 4.0)
             {
                 her2AmplificationResultMatch.IsAMatch = true;
 
