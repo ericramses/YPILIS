@@ -15,7 +15,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
 
         public override void IsAMatch( HER2AmplificationResultMatch her2AmplificationResultMatch)
         {
-            if (this.HER2CEP17Ratio >= 2 && this.AverageHER2CopyNo >= 4.0)
+            if (this.HER2CEP17Ratio >= 2.0 && this.AverageHER2CopyNo >= 4.0)
             {
                 her2AmplificationResultMatch.IsAMatch = true;
                 her2AmplificationResultMatch.Result = HER2AmplificationResultEnum.Positive;
