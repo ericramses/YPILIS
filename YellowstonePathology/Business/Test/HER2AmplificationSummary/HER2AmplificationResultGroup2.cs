@@ -8,27 +8,26 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
 {
     public class HER2AmplificationResultGroup2 : HER2AmplificationResult
     {
-        private bool m_IHCIsOrdered;
 
         public HER2AmplificationResultGroup2(PanelSetOrderCollection panelSetOrderCollection) : base(panelSetOrderCollection)
         { }
 
         public override void IsAMatch(HER2AmplificationResultMatch her2AmplificationResultMatch)
         {
-            if (this.AverageHER2CopyNo < 4.0 && this.HER2CEP17Ratio >= 2)
+            if (this.HER2CEP17Ratio >= 2 && this.AverageHER2CopyNo < 4.0)
             {
-                Her2AmplificationByIHC.Her2AmplificationByIHCTest her2AmplificationByIHCTest = new Her2AmplificationByIHC.Her2AmplificationByIHCTest();
-                if(this.m_PanelSetOrderCollection.Exists(her2AmplificationByIHCTest.PanelSetId) == true)
+                her2AmplificationResultMatch.IsAMatch = true;
+                if(this.m_HER2ByIHCIsOrdered == true)
                 {
-                    this.m_IHCIsOrdered = true;
-                    Her2AmplificationByIHC.PanelSetOrderHer2AmplificationByIHC panelSetOrderHer2AmplificationByIHC = (Her2AmplificationByIHC.PanelSetOrderHer2AmplificationByIHC)this.m_PanelSetOrderCollection.GetPanelSetOrder(her2AmplificationByIHCTest.PanelSetId);
-                    if(panelSetOrderHer2AmplificationByIHC.Accepted == true)
+                    if(this.m_HER2ByIHCIsAccepted == true && (this.m_HER2ByIHCScore == "0" || this.m_HER2ByIHCScore == "1+"))
                     {
-                        this.m_HER2ByIHCScore = panelSetOrderHer2AmplificationByIHC.Score;
+                        her2AmplificationResultMatch.Result = HER2AmplificationResultEnum.Negative;
                     }
                 }
-                her2AmplificationResultMatch.IsAMatch = true;
-                her2AmplificationResultMatch.Result = HER2AmplificationResultEnum.Positive;
+                else
+                {
+                    this.m_HER2ByIHCRequired = true;
+                }
             }
         }
     }
