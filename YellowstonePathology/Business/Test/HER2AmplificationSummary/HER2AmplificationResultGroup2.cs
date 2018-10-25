@@ -8,8 +8,6 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
 {
     public class HER2AmplificationResultGroup2 : HER2AmplificationResult
     {
-        private bool m_RequiresBlindedObserver; 
-
         public HER2AmplificationResultGroup2(PanelSetOrderCollection panelSetOrderCollection) : base(panelSetOrderCollection)
         {
             this.m_Interpretation = "Evidence is limited on the efficacy of human epidermal growth factor 2 (HER2)-targeted therapy in the " +
@@ -27,21 +25,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
             {
                 her2AmplificationResultMatch.IsAMatch = true;
 
-                if (this.m_HER2ByIHCIsOrdered == true && this.m_HER2ByIHCIsAccepted == true)
-                {
-                    if(this.m_HER2ByIHCScore.Contains("0") || this.m_HER2ByIHCScore.Contains("1+"))
-                    {
-                        her2AmplificationResultMatch.Result = HER2AmplificationResultEnum.Negative;
-                    }
-                }
-                else if (this.m_HER2ByIHCScore.Contains("2+"))
-                {
-                    this.m_RequiresBlindedObserver = true;
-                }
-                else if(this.m_HER2ByIHCScore.Contains("3+"))
-                {
-                    her2AmplificationResultMatch.Result = HER2AmplificationResultEnum.Positive;
-                }
+                this.HandleIHC(her2AmplificationResultMatch);
             }
         }
     }
