@@ -13,6 +13,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
         {
             this.Add(new HER2AmplificationResultGroup1(panelSetOrderCollection));
             this.Add(new HER2AmplificationResultGroup2(panelSetOrderCollection));
+            this.Add(new HER2AmplificationResultGroup3(panelSetOrderCollection));
         }
 
         public HER2AmplificationResultMatch FindMatch()

@@ -17,6 +17,8 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
         protected string m_HER2ByIHCScore;
         protected string m_Interpretation;
 
+        private bool m_RequiresBlindedObserver;
+
         public HER2AmplificationResult(PanelSetOrderCollection panelSetOrderCollection)
         {
             this.m_PanelSetOrderCollection = panelSetOrderCollection;
@@ -83,5 +85,24 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
 
         public virtual void IsAMatch(HER2AmplificationResultMatch her2AmplificationResultMatch)
         { }
+
+        public void HandleIHC(HER2AmplificationResultMatch her2AmplificationResultMatch)
+        {
+            if (this.m_HER2ByIHCIsOrdered == true && this.m_HER2ByIHCIsAccepted == true)
+            {
+                if (this.m_HER2ByIHCScore.Contains("0") || this.m_HER2ByIHCScore.Contains("1+"))
+                {
+                    her2AmplificationResultMatch.Result = HER2AmplificationResultEnum.Negative;
+                }
+                else if (this.m_HER2ByIHCScore.Contains("2+"))
+                {
+                    this.m_RequiresBlindedObserver = true;
+                }
+                else if (this.m_HER2ByIHCScore.Contains("3+"))
+                {
+                    her2AmplificationResultMatch.Result = HER2AmplificationResultEnum.Positive;
+                }
+            }
+        }
     }
 }
