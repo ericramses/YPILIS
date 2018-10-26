@@ -13,13 +13,15 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
         {
         }
 
-        public override void IsAMatch(HER2AmplificationResultMatch her2AmplificationResultMatch)
+        public override bool IsAMatch()
         {
+            bool result = false;
             if (this.HER2CEP17Ratio < 2.0)
             {
-                her2AmplificationResultMatch.IsAMatch = true;
-                her2AmplificationResultMatch.Result = HER2AmplificationResultEnum.Negative;
+                result = true;
+                this.m_Result = HER2AmplificationResultEnum.Negative;
             }
+            return result;
         }
     }
 }

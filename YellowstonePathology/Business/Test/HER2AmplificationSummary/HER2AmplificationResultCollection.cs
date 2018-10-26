@@ -18,15 +18,15 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
             this.Add(new HER2AmplificationResultGroup5(panelSetOrderCollection));
         }
 
-        public HER2AmplificationResultMatch FindMatch()
+        public HER2AmplificationResult FindMatch()
         {
-            HER2AmplificationResultMatch result = new HER2AmplificationResultMatch();
+            HER2AmplificationResult result = null;
 
             foreach (HER2AmplificationResult her2AmplificationResult in this)
             {
-                her2AmplificationResult.IsAMatch(result);
-                if (result.IsAMatch == true)
+                if (her2AmplificationResult.IsAMatch() == true)
                 {
+                    result = her2AmplificationResult;
                     break;
                 }
             }

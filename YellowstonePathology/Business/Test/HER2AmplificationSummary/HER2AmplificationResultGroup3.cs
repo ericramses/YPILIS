@@ -16,14 +16,16 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
                 "negative (0 or 1+), it is recommended that the specimen be considered HER2 negative.";
         }
 
-        public override void IsAMatch(HER2AmplificationResultMatch her2AmplificationResultMatch)
+        public override bool IsAMatch()
         {
+            bool result = false;
             if (this.HER2CEP17Ratio < 2.0 && this.AverageHER2CopyNo >= 6.0)
             {
-                her2AmplificationResultMatch.IsAMatch = true;
+                result = true;
 
-                this.HandleIHC(her2AmplificationResultMatch);
+                this.HandleIHC();
             }
+            return result;
         }
     }
 }

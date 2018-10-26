@@ -19,14 +19,16 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
             "that the specimen be considered HER2 negative because of the low HER2 copy number by ISH and the lack of protein expression.";
         }
 
-        public override void IsAMatch(HER2AmplificationResultMatch her2AmplificationResultMatch)
+        public override bool IsAMatch()
         {
+            bool result = false;
             if (this.HER2CEP17Ratio >= 2.0 && this.AverageHER2CopyNo < 4.0)
             {
-                her2AmplificationResultMatch.IsAMatch = true;
+                result = true;
 
-                this.HandleIHC(her2AmplificationResultMatch);
+                this.HandleIHC();
             }
+            return result;
         }
     }
 }
