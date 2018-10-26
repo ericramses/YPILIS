@@ -16,6 +16,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
         protected bool m_HER2ByIHCIsAccepted;
         protected string m_HER2ByIHCScore;
         protected string m_Interpretation;
+        protected HER2AmplificationResultEnum m_Result;
 
         private bool m_RequiresBlindedObserver;
 
@@ -83,16 +84,28 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
             get { return m_Interpretation; }
         }
 
-        public virtual void IsAMatch(HER2AmplificationResultMatch her2AmplificationResultMatch)
-        { }
+        public HER2AmplificationResultEnum Result
+        {
+            get { return m_Result; }
+        }
 
-        public void HandleIHC(HER2AmplificationResultMatch her2AmplificationResultMatch)
+        public bool RequiresBlindedObserver
+        {
+            get { return m_RequiresBlindedObserver; }
+        }
+
+        public virtual bool IsAMatch()
+        {
+            return false;
+        }
+
+        public void HandleIHC()
         {
             if (this.m_HER2ByIHCIsOrdered == true && this.m_HER2ByIHCIsAccepted == true)
             {
                 if (this.m_HER2ByIHCScore.Contains("0") || this.m_HER2ByIHCScore.Contains("1+"))
                 {
-                    her2AmplificationResultMatch.Result = HER2AmplificationResultEnum.Negative;
+                    this.m_Result = HER2AmplificationResultEnum.Negative;
                 }
                 else if (this.m_HER2ByIHCScore.Contains("2+"))
                 {
@@ -100,7 +113,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
                 }
                 else if (this.m_HER2ByIHCScore.Contains("3+"))
                 {
-                    her2AmplificationResultMatch.Result = HER2AmplificationResultEnum.Positive;
+                    this.m_Result = HER2AmplificationResultEnum.Positive;
                 }
             }
         }

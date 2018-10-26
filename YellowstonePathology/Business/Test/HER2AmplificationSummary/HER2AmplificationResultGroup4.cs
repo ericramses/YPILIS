@@ -18,14 +18,16 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
                 "sample be considered HER2 negative without additional testing on the same specimen.";
         }
 
-        public override void IsAMatch(HER2AmplificationResultMatch her2AmplificationResultMatch)
+        public override bool IsAMatch()
         {
+            bool result = false;
             if (this.HER2CEP17Ratio >= 4.0 && this.AverageHER2CopyNo < 6.0)
             {
-                her2AmplificationResultMatch.IsAMatch = true;
+                result = true;
 
-                this.HandleIHC(her2AmplificationResultMatch);
+                this.HandleIHC();
             }
+            return result;
         }
     }
 }

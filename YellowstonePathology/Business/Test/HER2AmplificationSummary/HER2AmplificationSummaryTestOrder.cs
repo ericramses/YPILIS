@@ -10,6 +10,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
     [PersistentClass("tblHER2AmplificationSummaryTestOrder", "tblPanelSetOrder", "YPIDATA")]
     public class HER2AmplificationSummaryTestOrder : YellowstonePathology.Business.Test.PanelSetOrder
     {
+        private string m_Result;
         private string m_Interpretation;
         private string m_HER2CEP17Ratio;
         private string m_AverageHER2CopyNo;
@@ -28,6 +29,20 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
             bool distribute)
 			: base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute)
         { }
+
+        [PersistentProperty()]
+        public string Result
+        {
+            get { return this.m_Result; }
+            set
+            {
+                if (this.m_Result != value)
+                {
+                    this.m_Result = value;
+                    this.NotifyPropertyChanged("Result");
+                }
+            }
+        }
 
         [PersistentProperty()]
         public string Interpretation
@@ -158,9 +173,24 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
             return result;
         }
 
-        public void SetResults()
+        public void SetResults(HER2AmplificationResult her2AmplificationResult)
         {
-
+            if (her2AmplificationResult.AverageHER2CopyNo.HasValue)
+            {
+                this.AverageHER2CopyNo = Convert.ToDouble(Math.Round((her2AmplificationResult.AverageHER2CopyNo.Value), 2)).ToString();
+            }
+            if(her2AmplificationResult.HER2CEP17Ratio.HasValue)
+            {
+                this.HER2CEP17Ratio = Convert.ToDouble(Math.Round((her2AmplificationResult.HER2CEP17Ratio.Value), 2)).ToString();
+            }
+            
+            this.Result = her2AmplificationResult.Result.ToString();
+            this.Interpretation = her2AmplificationResult.Interpretation;
+            this.HER2ByIHCScore = her2AmplificationResult.HER2ByIHCScore;
+            this.HER2ByIHCRequired= her2AmplificationResult.HER2ByIHCRequired;
+            this.HER2ByIHCIsOrdered = her2AmplificationResult.HER2ByIHCIsOrdered;
+            this.HER2ByIHCIsAccepted = her2AmplificationResult.HER2ByIHCIsAccepted;
+            this.RequiresBlindedObserver = her2AmplificationResult.RequiresBlindedObserver;
         }
     }
 }

@@ -35,7 +35,6 @@ namespace YellowstonePathology.UI.Test
         private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private YellowstonePathology.Business.Test.HER2AmplificationSummary.HER2AmplificationSummaryTestOrder m_PanelSetOrder;
-        private YellowstonePathology.Business.Test.HER2AmplificationSummary.HER2AmplificationResultCollection m_HER2AmplificationResultCollection;
 
         private string m_PageHeaderText;
         private string m_OrderedOnDescription;
@@ -153,7 +152,12 @@ namespace YellowstonePathology.UI.Test
             YellowstonePathology.Business.Rules.MethodResult methodResult = this.m_PanelSetOrder.IsOkToSetResults();
             if (methodResult.Success == true)
             {
-
+                YellowstonePathology.Business.Test.HER2AmplificationSummary.HER2AmplificationResultCollection her2AmplificationResultCollection = new Business.Test.HER2AmplificationSummary.HER2AmplificationResultCollection(this.m_AccessionOrder.PanelSetOrderCollection);
+                YellowstonePathology.Business.Test.HER2AmplificationSummary.HER2AmplificationResult her2AmplificationResult = her2AmplificationResultCollection.FindMatch();
+                if(her2AmplificationResult != null)
+                {
+                    this.m_PanelSetOrder.SetResults(her2AmplificationResult);
+                }
             }
             else
             {
