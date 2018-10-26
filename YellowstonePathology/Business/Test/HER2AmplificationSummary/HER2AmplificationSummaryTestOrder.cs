@@ -158,8 +158,12 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
 
         public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
-            string result = "HER2 Amplification Summary: " + "Under construction";
-            return result;
+            StringBuilder result = new StringBuilder();
+            result.AppendLine("HER2 Amplification Summary: ");
+            result.AppendLine("Result: " + this.m_Result);
+            result.AppendLine("Interpretation:");
+            result.AppendLine(this.m_Interpretation);
+            return result.ToString();
         }
 
         public YellowstonePathology.Business.Rules.MethodResult IsOkToSetResults()
