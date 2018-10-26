@@ -212,6 +212,7 @@ namespace YellowstonePathology.UI.Test
                             this.OrderHER2IHC(this, new EventArgs());
                             this.OrderHER2Summary(this, new EventArgs());
                             this.m_PanelSetOrder.HER2ByIHCRequired = true;
+                            MessageBox.Show("The tests have been ordered.");
                         }
                     }
                 }
@@ -296,11 +297,13 @@ namespace YellowstonePathology.UI.Test
         private void HyperLinkOrderHER2IHC_Click(object sender, RoutedEventArgs e)
         {
             this.OrderHER2IHC(this, new EventArgs());
+            MessageBox.Show("Her2 Amplification By IHC has been ordered.");
         }
 
         private void HyperLinkOrderHER2Summary_Click(object sender, RoutedEventArgs e)
         {
                 this.OrderHER2Summary(this, new EventArgs());
+            MessageBox.Show("Her2 Amplification Summary has been ordered.");
         }
     }
 }
