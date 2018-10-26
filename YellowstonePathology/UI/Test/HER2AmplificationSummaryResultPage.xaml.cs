@@ -26,8 +26,8 @@ namespace YellowstonePathology.UI.Test
         public delegate void OrderIHCEventHandler(object sender, EventArgs e);
         public event OrderIHCEventHandler OrderIHC;
 
-        public delegate void OrderDISHEventHandler(object sender, EventArgs e);
-        public event OrderDISHEventHandler OrderDISH;
+        public delegate void OrderRecountEventHandler(object sender, EventArgs e);
+        public event OrderRecountEventHandler OrderRecount;
 
         public delegate void NextEventHandler(object sender, EventArgs e);
         public event NextEventHandler Next;
@@ -35,6 +35,7 @@ namespace YellowstonePathology.UI.Test
         private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private YellowstonePathology.Business.Test.HER2AmplificationSummary.HER2AmplificationSummaryTestOrder m_PanelSetOrder;
+        private YellowstonePathology.Business.Test.HER2AmplificationSummary.HER2AmplificationResult m_HER2AmplificationResult;
 
         private string m_PageHeaderText;
         private string m_OrderedOnDescription;
@@ -47,6 +48,9 @@ namespace YellowstonePathology.UI.Test
             this.m_PanelSetOrder = testOrder;
             this.m_AccessionOrder = accessionOrder;
             this.m_SystemIdentity = systemIdentity;
+
+            YellowstonePathology.Business.Test.HER2AmplificationSummary.HER2AmplificationResultCollection her2AmplificationResultCollection = new Business.Test.HER2AmplificationSummary.HER2AmplificationResultCollection(this.m_AccessionOrder.PanelSetOrderCollection);
+            this.m_HER2AmplificationResult = her2AmplificationResultCollection.FindMatch();
 
             this.m_PageHeaderText = "HER2 Amplification Summary Result For: " + this.m_AccessionOrder.PatientDisplayName;
             YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByOrderTarget(this.m_PanelSetOrder.OrderedOnId);
@@ -88,6 +92,11 @@ namespace YellowstonePathology.UI.Test
         public YellowstonePathology.Business.Test.AccessionOrder AccessionOrder
         {
             get { return this.m_AccessionOrder; }
+        }
+
+        public YellowstonePathology.Business.Test.HER2AmplificationSummary.HER2AmplificationResult HER2AmplificationResult
+        {
+            get { return this.m_HER2AmplificationResult; }
         }
 
         private void ButtonNext_Click(object sender, RoutedEventArgs e)
@@ -180,9 +189,9 @@ namespace YellowstonePathology.UI.Test
             this.OrderIHC(this, new EventArgs());
         }
 
-        private void HyperLinkOrderDISH_Click(object sender, RoutedEventArgs e)
+        private void HyperLinkOrderRecount_Click(object sender, RoutedEventArgs e)
         {
-            this.OrderDISH(this, new EventArgs());
+            this.OrderRecount(this, new EventArgs());
         }
     }
 }
