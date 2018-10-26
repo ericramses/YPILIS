@@ -27,7 +27,7 @@ namespace YellowstonePathology.UI.Test
             this.m_ResultPage = new HER2AmplificationSummaryResultPage(this.m_PanelSetOrder, this.m_AccessionOrder, this.m_SystemIdentity, this.m_PageNavigator);
             this.m_ResultPage.Next += new HER2AmplificationSummaryResultPage.NextEventHandler(ResultPage_Next);
             this.m_ResultPage.OrderIHC += ResultPage_OrderIHC;
-            this.m_ResultPage.OrderDISH += ResultPage_OrderDISH;
+            this.m_ResultPage.OrderRecount += ResultPage_OrderRecount;
 
             this.m_PageNavigator.Navigate(this.m_ResultPage);
         }
@@ -53,9 +53,9 @@ namespace YellowstonePathology.UI.Test
             this.m_AccessionOrder.TaskOrderCollection.Add(taskOrder);
         }
 
-        private void ResultPage_OrderDISH(object sender, EventArgs e)
+        private void ResultPage_OrderRecount(object sender, EventArgs e)
         {
-            YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHTest test = new Business.Test.HER2AmplificationByISH.HER2AmplificationByISHTest();
+            YellowstonePathology.Business.Test.HER2AmplificationRecount.HER2AmplificationRecountTest test = new Business.Test.HER2AmplificationRecount.HER2AmplificationRecountTest();
             YellowstonePathology.Business.Interface.IOrderTarget orderTarget = this.m_AccessionOrder.SpecimenOrderCollection.GetOrderTarget(this.m_PanelSetOrder.OrderedOnId);
             YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new YellowstonePathology.Business.Test.TestOrderInfo(test, orderTarget, false);
             YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfo);

@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
 {
-    public class HER2AmplificationResult
+    public class HER2AmplificationResult : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
         protected PanelSetOrderCollection m_PanelSetOrderCollection;
         protected Double? m_HER2CEP17Ratio;
         protected Double? m_AverageHER2CopyNo;
@@ -52,51 +55,131 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
         public Double? HER2CEP17Ratio
         {
             get { return m_HER2CEP17Ratio; }
+            set
+            {
+                if(this.m_HER2CEP17Ratio != value)
+                {
+                    this.m_HER2CEP17Ratio = value;
+                    NotifyPropertyChanged("HER2CEP17Ratio");
+                }
+            }
         }
 
         public Double? AverageHER2CopyNo
         {
             get { return m_AverageHER2CopyNo; }
+            set
+            {
+                if (this.m_AverageHER2CopyNo != value)
+                {
+                    this.m_AverageHER2CopyNo = value;
+                    NotifyPropertyChanged("AverageHER2CopyNo");
+                }
+            }
         }
 
         public bool HER2ByIHCRequired
         {
             get { return m_HER2ByIHCRequired; }
+            set
+            {
+                if (this.m_HER2ByIHCRequired != value)
+                {
+                    this.m_HER2ByIHCRequired = value;
+                    NotifyPropertyChanged("HER2ByIHCRequired");
+                }
+            }
         }
 
         public bool HER2ByIHCIsOrdered
         {
             get { return m_HER2ByIHCIsOrdered; }
+            set
+            {
+                if (this.m_HER2ByIHCIsOrdered != value)
+                {
+                    this.m_HER2ByIHCIsOrdered = value;
+                    NotifyPropertyChanged("HER2ByIHCIsOrdered");
+                }
+            }
         }
 
         public bool HER2ByIHCIsAccepted
         {
             get { return m_HER2ByIHCIsAccepted; }
+            set
+            {
+                if (this.m_HER2ByIHCIsAccepted != value)
+                {
+                    this.m_HER2ByIHCIsAccepted = value;
+                    NotifyPropertyChanged("HER2ByIHCIsAccepted");
+                }
+            }
         }
 
         public string HER2ByIHCScore
         {
             get { return m_HER2ByIHCScore; }
+            set
+            {
+                if (this.m_HER2ByIHCScore != value)
+                {
+                    this.m_HER2ByIHCScore = value;
+                    NotifyPropertyChanged("HER2ByIHCScore");
+                }
+            }
         }
 
         public string Interpretation
         {
             get { return m_Interpretation; }
+            set
+            {
+                if (this.m_Interpretation != value)
+                {
+                    this.m_Interpretation = value;
+                    NotifyPropertyChanged("Interpretation");
+                }
+            }
         }
 
         public HER2AmplificationResultEnum Result
         {
             get { return m_Result; }
+            set
+            {
+                if (this.m_Result != value)
+                {
+                    this.m_Result = value;
+                    NotifyPropertyChanged("Result");
+                }
+            }
         }
 
         public bool RequiresBlindedObserver
         {
             get { return m_RequiresBlindedObserver; }
+            set
+            {
+                if (this.m_RequiresBlindedObserver != value)
+                {
+                    this.m_RequiresBlindedObserver = value;
+                    NotifyPropertyChanged("RequiresBlindedObserver");
+                }
+            }
         }
 
         public virtual bool IsAMatch()
         {
             return false;
+        }
+
+        public void NotifyPropertyChanged(String info)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
         }
 
         public void HandleIHC()
