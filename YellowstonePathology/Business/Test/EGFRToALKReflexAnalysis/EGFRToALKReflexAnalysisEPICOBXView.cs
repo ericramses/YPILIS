@@ -17,18 +17,20 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
         public override void ToXml(XElement document)
         {
             YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisTestOrder egfrToALKReflexAnalysisTestOrder = (YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
-
             YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisTestOrder egfrMutationAnalysisTestOrder = (YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(60);
 
-			this.AddHeader(document, egfrToALKReflexAnalysisTestOrder, egfrToALKReflexAnalysisTestOrder.PanelSetName);
-            this.AddNextObxElement("", document, "F");
+            if(egfrMutationAnalysisTestOrder != null)
+            {
+                this.AddHeader(document, egfrToALKReflexAnalysisTestOrder, egfrToALKReflexAnalysisTestOrder.PanelSetName);
+                this.AddNextObxElement("", document, "F");
 
-            this.AddNextObxElement("EGFR Mutation Analysis: " + egfrMutationAnalysisTestOrder.Result, document, "F");
-            this.AddNextObxElement("", document, "F");
+                this.AddNextObxElement("EGFR Mutation Analysis: " + egfrMutationAnalysisTestOrder.Result, document, "F");
+                this.AddNextObxElement("", document, "F");
 
-            this.AddNextObxElement("Comment: ", document, "F");
-            this.HandleLongString(egfrMutationAnalysisTestOrder.Comment, document, "F");
-            this.AddNextObxElement("", document, "F");
+                this.AddNextObxElement("Comment: ", document, "F");
+                this.HandleLongString(egfrMutationAnalysisTestOrder.Comment, document, "F");
+                this.AddNextObxElement("", document, "F");
+            }			
 
             if(String.IsNullOrEmpty(egfrToALKReflexAnalysisTestOrder.ALKForNSCLCByFISHResult) == false)
             {

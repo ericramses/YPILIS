@@ -502,6 +502,7 @@ namespace YellowstonePathology.UI.Billing
             this.TransferPSAFiles(sender, e);
             this.ProcessSVHCDMFiles(sender, e);
             this.TransferSVHCDMFiles(sender, e);
+            this.SendSVHClinicEmail(sender, e);
         }
 
         private void AllProcessBackgroundWorker_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
