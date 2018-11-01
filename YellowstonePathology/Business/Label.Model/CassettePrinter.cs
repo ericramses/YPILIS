@@ -59,10 +59,10 @@ namespace YellowstonePathology.Business.Label.Model
                 using (System.IO.StreamWriter file = new System.IO.StreamWriter(path))
                 {
                     foreach (Cassette cassette in this.m_Cassettes)
-                    {
+                    {                        
                         string line = null;
                         if (YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.UseLaserCassettePrinter == true)
-                        {
+                        {                            
                             line = cassette.ToLaserString();
                         }
                         else

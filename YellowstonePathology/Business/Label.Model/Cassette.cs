@@ -215,7 +215,7 @@ namespace YellowstonePathology.Business.Label.Model
             
             result.Append(this.ScanningId + this.m_LaserDelimeter);
             result.Append(orderIdParser.MasterAccessionNoYear.Value.ToString() + this.m_LaserDelimeter);
-            result.Append(orderIdParser.MasterAccessionNoNumber.Value.ToString());
+            result.Append(orderIdParser.MasterAccessionNoNumber.Value.ToString());            
             return result.ToString();
         }
 
@@ -231,8 +231,9 @@ namespace YellowstonePathology.Business.Label.Model
             result.Append(this.CompanyId + this.m_Delimeter);
             result.Append(this.ScanningId + this.m_Delimeter);
             result.Append(orderIdParser.MasterAccessionNoYear.Value.ToString() + this.m_Delimeter);
-            result.Append(orderIdParser.MasterAccessionNoNumber.Value.ToString());
+            result.Append(orderIdParser.MasterAccessionNoNumber.Value.ToString());            
             return result.ToString();
-        }        
+        } 
+
 	}
 }
