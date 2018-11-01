@@ -7,78 +7,51 @@ namespace YellowstonePathology.Business.Label.Model
 {
     public class CassettePrinter
     {
-        private YellowstonePathology.Business.Test.AliquotOrderCollection m_AliquotOrderCollection;
-        private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        private List<Cassette> m_Cassettes;
+        private string m_Name;
+        private string m_Path;
+        private Carousel m_Carousel;
 
-        public CassettePrinter(YellowstonePathology.Business.Test.AliquotOrderCollection aliquotOrderCollection, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
+        public CassettePrinter(string name, string path)
         {
-            this.m_AliquotOrderCollection = aliquotOrderCollection;
-            this.m_AccessionOrder = accessionOrder;
-            this.Initialize();
+            this.m_Name = name;
+            this.m_Path = path;
+            this.m_Carousel = new Carousel();
+        }            
+
+        public string Name
+        {
+            get { return this.m_Name; }
+        }
+        public string Path
+        {
+            get { return this.m_Path; }
         }
 
-        private void Initialize()
+        public Carousel Carousel
         {
-            this.m_Cassettes = new List<Cassette>();
-            foreach (YellowstonePathology.Business.Test.AliquotOrder aliquotOrder in this.m_AliquotOrderCollection)
+            get { return this.m_Carousel; }
+        }
+
+        public void Print(YellowstonePathology.Business.Test.AliquotOrderCollection aliquotOrderCollection, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
+        {
+            List<Cassette> cassettes = new List<Cassette>();
+            foreach (YellowstonePathology.Business.Test.AliquotOrder aliquotOrder in aliquotOrderCollection)
             {
                 if (aliquotOrder.IsBlock() == true)
                 {
                     if (aliquotOrder.LabelType == YellowstonePathology.Business.Specimen.Model.AliquotLabelType.DirectPrint == true)
                     {
                         Cassette cassette = new Cassette();
-                        cassette.FromAliquotOrder(aliquotOrder, this.m_AccessionOrder);
-                        this.m_Cassettes.Add(cassette);
+                        cassette.FromAliquotOrder(aliquotOrder, accessionOrder);
+                        cassettes.Add(cassette);
                     }
                 }
             }
-        }
 
-        public bool HasItemsToPrint()
-        {
-            bool result = false;
-            if (this.m_Cassettes.Count > 0) result = true;
-            return result;
-        }
-
-        public void Print()
-        {
-            string path = null;
-            if(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.UseLaserCassettePrinter == true)
+            foreach (Cassette cassette in cassettes)
             {
-                path = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.LaserCassettePrinter + System.Guid.NewGuid().ToString() + ".gdc";
-            }
-            else
-            {
-                path = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.CassettePrinter + System.Guid.NewGuid().ToString() + ".txt";
-            }
-
-            try
-            {
-                using (System.IO.StreamWriter file = new System.IO.StreamWriter(path))
-                {
-                    foreach (Cassette cassette in this.m_Cassettes)
-                    {                        
-                        string line = null;
-                        if (YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.UseLaserCassettePrinter == true)
-                        {                            
-                            line = cassette.ToLaserString();
-                        }
-                        else
-                        {
-                            line = cassette.ToString();
-                        }
-                         
-                        file.Write(line + "\r\n");
-                        cassette.AliquotOrder.Printed = true;
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                System.Windows.MessageBox.Show(path + ": " + e.Message, "Cassette Printer Location.", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Exclamation);
-            }
+                cassette.Print();
+            }            
         }
     }
 }

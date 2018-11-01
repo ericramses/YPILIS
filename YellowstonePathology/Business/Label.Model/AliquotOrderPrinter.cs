@@ -22,7 +22,10 @@ namespace YellowstonePathology.Business.Label.Model
             this.m_AccessionOrder = accessionOrder;
             
             this.m_BlockLabelPrinter = new BlockLabelPrinter(this.m_AliquotOrderCollection, this.m_AccessionOrder);
-            this.m_CassettePrinter = new CassettePrinter(this.m_AliquotOrderCollection, this.m_AccessionOrder);
+
+            Business.Label.Model.CassettePrinterCollection cassettePrinterCollection = new CassettePrinterCollection();
+            this.m_CassettePrinter = cassettePrinterCollection.GetPrinter(Business.User.UserPreferenceInstance.Instance.UserPreference.CassettePrinter);
+
             this.m_SlideLabelPrinter = new SlideLabelPrinter(this.m_AliquotOrderCollection, this.m_AccessionOrder);
             this.m_SpecimenLabelPrinter = new SpecimenLabelPrinter(this.m_AliquotOrderCollection, this.m_AccessionOrder);
             this.m_AliquotLabelPrinter = new AliquotLabelPrinter(this.m_AliquotOrderCollection, this.m_AccessionOrder);
@@ -31,17 +34,10 @@ namespace YellowstonePathology.Business.Label.Model
         public void Print()
         {
             if (this.m_BlockLabelPrinter.HasItemsToPrint() == true) this.m_BlockLabelPrinter.Print();
-            if (this.m_CassettePrinter.HasItemsToPrint() == true) this.m_CassettePrinter.Print();
+            this.m_CassettePrinter.Print(this.m_AliquotOrderCollection, this.m_AccessionOrder);
             if (this.m_SlideLabelPrinter.HasItemsToPrint() == true) this.m_SlideLabelPrinter.Print();
             if (this.m_SpecimenLabelPrinter.HasItemsToPrint() == true) this.m_SpecimenLabelPrinter.Print();
             if (this.m_AliquotLabelPrinter.HasItemsToPrint() == true) this.m_AliquotLabelPrinter.Print();
-        }
-
-        public bool HasCassettesToPrint()
-        {
-            bool result = false;
-            if (this.m_CassettePrinter.HasItemsToPrint() == true) result = true;
-            return result;
-        }
+        }        
     }
 }

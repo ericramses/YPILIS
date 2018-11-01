@@ -168,14 +168,8 @@
                   HorizontalAlignment="Stretch" Text="{Binding Path=UserPreference.MolecularLabelFormat}" />
 
                     <TextBlock Grid.Column="0" Grid.Row="7" Margin="2" VerticalAlignment="Center" TextAlignment="Right">Cassette Printer:</TextBlock>
-                    <ComboBox Grid.Column="1" Grid.Row="7" Name="ComboBoxCassettePrinter" Margin="2"
-                  IsEditable="True" Text="{Binding Path=UserPreference.CassettePrinter}" HorizontalAlignment="Stretch">
-                        <ComboBoxItem>\\Blgscassette\CassettePrinter\</ComboBoxItem>
-                        <ComboBoxItem>\\Gross3\CassettePrinter\</ComboBoxItem>
-                        <ComboBoxItem>\\10.33.33.50\CassettePrinter\</ComboBoxItem>
-                        <ComboBoxItem>\\10.33.33.51\CassettePrinter\</ComboBoxItem>
-                        <ComboBoxItem>\\10.33.33.52\CassettePrinter\</ComboBoxItem>
-                        <ComboBoxItem>\\10.33.33.53\CassettePrinter\</ComboBoxItem>
+                    <ComboBox Grid.Column="1" Grid.Row="7" ItemsSource="{Binding Path=CassettePrinterCollection}" DisplayMemberPath="Name"  Margin="2,2,2,2"
+                        HorizontalAlignment="Stretch" Text="{Binding Path=UserPreference.CassettePrinter}">
                     </ComboBox>
 
                     <TextBlock Grid.Column="0" Grid.Row="8" Margin="2,2,2,2" VerticalAlignment="Center" TextAlignment="Right">SlideMate Printer Path:</TextBlock>
@@ -184,7 +178,7 @@
 
                     <TextBlock Grid.Column="0" Grid.Row="9" Margin="2,2,2,2" VerticalAlignment="Center" TextAlignment="Right">Cytology Slide Printer:</TextBlock>
                     <ComboBox Grid.Column="1" Grid.Row="9" ItemsSource="{Binding Path=PrintQueueCollection}" DisplayMemberPath="Name"  Margin="2,2,2,2"
-                  HorizontalAlignment="Stretch" Text="{Binding Path=UserPreference.CytologySlidePrinter}">
+                        HorizontalAlignment="Stretch" Text="{Binding Path=UserPreference.CytologySlidePrinter}">
                     </ComboBox>
 
                     <TextBlock Grid.Column="0" Grid.Row="10" Margin="2,2,2,2" VerticalAlignment="Center" TextAlignment="Right">Thermo Fisher Slide Printer:</TextBlock>

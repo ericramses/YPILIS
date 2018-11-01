@@ -310,12 +310,13 @@ namespace YellowstonePathology.UI.Gross
 		private void PrintBlocks()
 		{            
             YellowstonePathology.Business.Test.AliquotOrderCollection blocksToPrintCollection = this.m_SpecimenOrder.AliquotOrderCollection.GetUnPrintedBlocks();
-            YellowstonePathology.Business.Label.Model.CassettePrinter cassettePrinter = new Business.Label.Model.CassettePrinter(blocksToPrintCollection, this.m_AccessionOrder);
+            /*
+            YellowstonePathology.Business.Label.Model.CassettePrinter cassettePrinter = new Business.Label.Model.CassettePrinter();
             if (cassettePrinter.HasItemsToPrint() == true)
             {
                 cassettePrinter.Print();
             }
-            
+            */
 			this.GrossBlockManagementView = new Business.View.GrossBlockManagementView(this.m_AccessionOrder, this.m_CaseNotesDocument, this.m_SpecimenOrder);
 		}
 
