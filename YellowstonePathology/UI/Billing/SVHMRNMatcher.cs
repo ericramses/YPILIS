@@ -63,8 +63,7 @@ namespace YellowstonePathology.UI.Billing
         public bool DoesPatientNameMatch(Business.Test.AccessionOrder ao, Business.ClientOrder.Model.ClientOrder co)
         {
             bool result = true;
-            if (ao.PLastName.ToUpper() != co.PLastName.ToUpper()) result = false;
-            if (ao.PFirstName.ToUpper() != co.PFirstName.ToUpper()) result = false;
+            if (ao.PLastName.ToUpper() != co.PLastName.ToUpper()) result = false;            
             return result;
         }    
 

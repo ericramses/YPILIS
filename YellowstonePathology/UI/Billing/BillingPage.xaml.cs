@@ -201,42 +201,16 @@ namespace YellowstonePathology.UI.Billing
         private bool IsTechnicalBillingFacilityValid()
         {
             bool result = true;
-
             YellowstonePathology.Business.Facility.Model.Facility technicalComponentFacility = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId(this.m_PanelSetOrder.TechnicalComponentFacilityId);
-
-            YellowstonePathology.Business.Facility.Model.ClientBillingFacilityCollection clientBillingFacilityCollection = new YellowstonePathology.Business.Facility.Model.ClientBillingFacilityCollection();
-            //YellowstonePathology.Business.Rules.MethodResult technicalResult = clientBillingFacilityCollection.FindMatch(this.m_PanelSetOrder.TechnicalComponentFacilityId, this.m_PanelSetOrder.TechnicalComponentBillingFacilityId, this.m_AccessionOrder.ClientId, "Technical");
-
-            //if (technicalResult.Success == false)
-            //{
-            //    MessageBoxResult messageBoxResult = MessageBox.Show(technicalResult.Message, "Are you sure you want to continue?", MessageBoxButton.YesNo);
-            //    if (messageBoxResult == MessageBoxResult.No)
-            //    {
-            //        result = false;
-            //    }
-            //}
-
+            YellowstonePathology.Business.Facility.Model.ClientBillingFacilityCollection clientBillingFacilityCollection = new YellowstonePathology.Business.Facility.Model.ClientBillingFacilityCollection();            
             return result;
         }
 
         private bool IsProfessionalBillingFacilityValid()
         {
             bool result = true;
-
             YellowstonePathology.Business.Facility.Model.Facility professionalComponentFacility = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId(this.m_PanelSetOrder.ProfessionalComponentFacilityId);
-
-            YellowstonePathology.Business.Facility.Model.ClientBillingFacilityCollection clientBillingFacilityCollection = new YellowstonePathology.Business.Facility.Model.ClientBillingFacilityCollection();
-            //YellowstonePathology.Business.Rules.MethodResult professionalResult = clientBillingFacilityCollection.FindMatch(this.m_PanelSetOrder.ProfessionalComponentFacilityId, this.m_PanelSetOrder.ProfessionalComponentBillingFacilityId, this.m_AccessionOrder.ClientId, "Professional");
-
-            //if (professionalResult.Success == false)
-            //{
-            //    MessageBoxResult messageBoxResult = MessageBox.Show(professionalResult.Message, "Are you sure you want to continue?", MessageBoxButton.YesNo);
-            //    if (messageBoxResult == MessageBoxResult.No)
-            //    {
-            //        result = false;
-            //    }
-            //}
-
+            YellowstonePathology.Business.Facility.Model.ClientBillingFacilityCollection clientBillingFacilityCollection = new YellowstonePathology.Business.Facility.Model.ClientBillingFacilityCollection();            
             return result;
         }
 

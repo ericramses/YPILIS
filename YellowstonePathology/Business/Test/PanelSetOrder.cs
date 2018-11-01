@@ -1418,7 +1418,7 @@ namespace YellowstonePathology.Business.Test
             return result;
         }
 
-        public virtual FinalizeTestResult Finish(Business.Test.AccessionOrder accessionOrder)
+        public virtual FinalizeTestResult Finish(Business.Test.AccessionOrder accessionOrder)        
         {
             YellowstonePathology.Business.PanelSet.Model.PanelSetCollection panelSetCollection = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetAll();
 			YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet = panelSetCollection.GetPanelSet(this.PanelSetId);

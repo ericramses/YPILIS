@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>244</ApplicationRevision>
+    <ApplicationRevision>257</ApplicationRevision>
     <ApplicationVersion>10.1.12.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -567,7 +567,7 @@
     <Compile Include="Business\Common\PrintMateColumnOrange1.cs" />
     <Compile Include="Business\Common\PrintMateColumnOrange2.cs" />
     <Compile Include="Business\Common\PrintMateColumnPink.cs" />
-    <Compile Include="Business\Common\PrintMateColumnTeal.cs" />
+    <Compile Include="Business\Common\PrintMateColumnWhite.cs" />
     <Compile Include="Business\Common\PrintMateColumnTeal2.cs" />
     <Compile Include="Business\Common\PrintMateColumnYellow.cs" />
     <Compile Include="Business\Common\PrintMateNullColumn.cs" />
