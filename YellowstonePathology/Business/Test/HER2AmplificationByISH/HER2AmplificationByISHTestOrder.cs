@@ -693,10 +693,10 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 			return result;
 		}
 
-        public bool ShouldOrderHer2Summary(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
+        public bool ShouldOrderHER2ByIHC(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
             bool result = false;
-            YellowstonePathology.Business.Test.HER2AmplificationSummary.HER2AmplificationSummaryTest test = new HER2AmplificationSummary.HER2AmplificationSummaryTest();
+            YellowstonePathology.Business.Test.Her2AmplificationByIHC.Her2AmplificationByIHCTest test = new Her2AmplificationByIHC.Her2AmplificationByIHCTest();
             if (accessionOrder.PanelSetOrderCollection.Exists(test.PanelSetId, this.OrderedOnId, true) == false)
             {
                 if (this.AverageHer2Chr17SignalAsDouble.HasValue && this.AverageHer2Chr17SignalAsDouble >= 2.0 &&
