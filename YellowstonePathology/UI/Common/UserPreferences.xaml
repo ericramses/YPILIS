@@ -202,8 +202,6 @@
                     <TextBlock Grid.Column="0" Grid.Row="13" Margin="2,2,2,2" VerticalAlignment="Center" TextAlignment="Right">Use Laser Cassette Printer:</TextBlock>
                     <CheckBox Grid.Column="1" Grid.Row="13" Margin="2,2,2,2" IsChecked="{Binding Path=UserPreference.UseLaserCassettePrinter}" HorizontalAlignment="Stretch"></CheckBox>
 
-                    <Button Name="ButtonTestBlockPrinter" Grid.Column="0" Grid.Row="14" Margin="2, 20, 2, 2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="ButtonTestBlockPrinter_Click"  Width="130" Height="30">Test Cassette Printer</Button>
-
                 </Grid>
 
             </TabItem>

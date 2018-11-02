@@ -369,12 +369,14 @@
                     <TextBox Grid.Column="1" Grid.Row="4" HorizontalAlignment="Stretch" Margin="2,2,2,2" Text="{Binding Path=Aliquot.LabelType, Mode=OneWay}" IsEnabled="False"></TextBox>
 
                     <TextBlock Grid.Column="0" Grid.Row="5" Text="Cassette Color:" HorizontalAlignment="Right" Margin="2,2,2,2"></TextBlock>
-                    <ComboBox Grid.Column="1" Grid.Row="5" Name="ComboBoxPrintMateColumnNumber" Margin="2,2,2,2" HorizontalAlignment="Stretch"
-							BorderBrush="LightGray" BorderThickness="1" 
-							ItemsSource="{Binding Path=PrintMate.Carousel.Columns}"
-							DisplayMemberPath="Description"
-							SelectedValuePath="ColumnNumber"
-							SelectedValue="{Binding Path=AccessionOrder.PrintMateColumnNumber}">
+                    <ComboBox Grid.Column="1" Grid.Row="5" Name="ComboBoxPrintMateColumnNumber" Margin="2,2,2,2" Text="{Binding Path=AccessionOrder.CassetteColor}" HorizontalAlignment="Stretch">
+                        <ComboBoxItem>White</ComboBoxItem>
+                        <ComboBoxItem>Orange</ComboBoxItem>
+                        <ComboBoxItem>Yellow</ComboBoxItem>
+                        <ComboBoxItem>Lilac</ComboBoxItem>
+                        <ComboBoxItem>Blue</ComboBoxItem>
+                        <ComboBoxItem>Pink</ComboBoxItem>
+                        <ComboBoxItem>Green</ComboBoxItem>
                     </ComboBox>
 
                     <TextBlock Grid.Column="0" Grid.Row="6" Margin="2,2,2,2" HorizontalAlignment="Right">Accessioning Facility:</TextBlock>

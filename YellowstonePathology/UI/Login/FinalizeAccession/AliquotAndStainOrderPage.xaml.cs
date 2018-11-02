@@ -43,8 +43,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
 		private YellowstonePathology.Business.Visitor.StainAcknowledgementTaskOrderVisitor m_StainAcknowledgementTaskOrderVisitor;
 
-        private AliquotAndStainOrderView m_AliquotAndStainOrderView;
-        private YellowstonePathology.Business.Common.PrintMate m_PrintMate;
+        private AliquotAndStainOrderView m_AliquotAndStainOrderView;        
 		private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
 
         private YellowstonePathology.Business.Specimen.Model.EmbeddingInstructionList m_EmbeddingInstructionList;
@@ -58,8 +57,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             this.m_EmbeddingInstructionList = new Business.Specimen.Model.EmbeddingInstructionList();
 
 			this.m_AliquotAndStainOrderView = new AliquotAndStainOrderView(accessionOrder, panelSetOrder);			
-
-			this.m_PrintMate = new Business.Common.PrintMate();
+			
 			this.m_PageHeaderText = this.m_AccessionOrder.MasterAccessionNo + ": " + this.m_AccessionOrder.PFirstName + " " + this.m_AccessionOrder.PLastName;
 
 			this.m_StainAcknowledgementTaskOrderVisitor = new Business.Visitor.StainAcknowledgementTaskOrderVisitor(this.m_PanelSetOrder);
@@ -94,12 +92,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
         public YellowstonePathology.Business.Specimen.Model.EmbeddingInstructionList EmbeddingInstructionList
         {
             get { return this.m_EmbeddingInstructionList;  }
-        }            
-
-        public YellowstonePathology.Business.Common.PrintMate PrintMate
-        {
-            get { return this.m_PrintMate; }
-        }
+        }                    
 
         public YellowstonePathology.Business.Test.AccessionOrder AccessionOrder
         {
@@ -739,8 +732,8 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             this.m_AliquotAndStainOrderView.SetEmbeddingComments();
             YellowstonePathology.Business.Test.AliquotOrderCollection selectedAliquots = this.m_AliquotAndStainOrderView.GetSelectedAliquots();
             YellowstonePathology.Business.Label.Model.AliquotOrderPrinter aliquotOrderPrinter = new Business.Label.Model.AliquotOrderPrinter(selectedAliquots, this.m_AccessionOrder);
-            
-            if (this.m_AccessionOrder.PrintMateColumnNumber == 0)
+                        
+            if (this.m_AccessionOrder.SpecimenOrderCollection.HasBlocks() == true && string.IsNullOrEmpty(this.m_AccessionOrder.CassetteColor))
             {
                 MessageBox.Show("You must select the Cassette Color before printing.");
                 return;

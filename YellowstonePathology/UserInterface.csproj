@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>257</ApplicationRevision>
+    <ApplicationRevision>273</ApplicationRevision>
     <ApplicationVersion>10.1.12.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -311,6 +311,7 @@
     <Compile Include="Business\Client.Model\IdahoClientIdList.cs" />
     <Compile Include="Business\ClientOrder.Model\ExternalOrderIds.cs" />
     <Compile Include="Business\ClientOrder.Model\ExternalOrderIdsCollection.cs" />
+    <Compile Include="Business\Common\Block.cs" />
     <Compile Include="Business\Document\CaseDocumentFileTypeEnnum.cs" />
     <Compile Include="Business\Document\CaseDocumentTypeEnum.cs" />
     <Compile Include="Business\EthBlock.cs" />
@@ -546,10 +547,6 @@
     <Compile Include="Business\ClientOrder.Model\UniversalServiceDefinitions.cs" />
     <Compile Include="Business\ClientOrder.Model\WestGrandFamilyOrderTest.cs" />
     <Compile Include="Business\Common\AmendmentSpellCheckList.cs" />
-    <Compile Include="Business\Common\Block.cs" />
-    <Compile Include="Business\Common\BlockCollection.cs" />
-    <Compile Include="Business\Common\BlockV1.cs" />
-    <Compile Include="Business\Common\BlockV2.cs" />
     <Compile Include="Business\Common\DatabaseSelectionModel.cs" />
     <Compile Include="Business\Common\FieldEnabler.cs" />
     <Compile Include="Business\Common\PageScanner.cs" />
@@ -559,18 +556,6 @@
     <Compile Include="Business\Common\PageScannerIS200e.cs" />
     <Compile Include="Business\Common\PageScannerXeroxDocuMate3640.cs" />
     <Compile Include="Business\Common\PathologistSpellCheckList.cs" />
-    <Compile Include="Business\Common\PrintMate.cs" />
-    <Compile Include="Business\Common\PrintMateCarousel.cs" />
-    <Compile Include="Business\Common\PrintMateColumn.cs" />
-    <Compile Include="Business\Common\PrintMateColumnGreen.cs" />
-    <Compile Include="Business\Common\PrintMateColumnLilac.cs" />
-    <Compile Include="Business\Common\PrintMateColumnOrange1.cs" />
-    <Compile Include="Business\Common\PrintMateColumnOrange2.cs" />
-    <Compile Include="Business\Common\PrintMateColumnPink.cs" />
-    <Compile Include="Business\Common\PrintMateColumnWhite.cs" />
-    <Compile Include="Business\Common\PrintMateColumnTeal2.cs" />
-    <Compile Include="Business\Common\PrintMateColumnYellow.cs" />
-    <Compile Include="Business\Common\PrintMateNullColumn.cs" />
     <Compile Include="Business\Common\SpellChecker.cs" />
     <Compile Include="Business\Common\SpellCheckListItem.cs" />
     <Compile Include="Business\Common\TypingSpellCheckList.cs" />
@@ -917,7 +902,6 @@
     <Compile Include="Business\Label.Model\AccessionLabel.cs" />
     <Compile Include="Business\Label.Model\AccessionLabelQuantity.cs" />
     <Compile Include="Business\Label.Model\AliquotOrderPrinter.cs" />
-    <Compile Include="Business\Label.Model\BlockColorEnum.cs" />
     <Compile Include="Business\Label.Model\BlockLabel.cs" />
     <Compile Include="Business\Label.Model\BlockLabelLegacy.cs" />
     <Compile Include="Business\Label.Model\AliquotLabelPrinter.cs" />

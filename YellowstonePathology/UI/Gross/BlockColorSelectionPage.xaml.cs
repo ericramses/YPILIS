@@ -24,30 +24,32 @@ namespace YellowstonePathology.UI.Gross
 
 		private YellowstonePathology.Business.Specimen.Model.SpecimenOrder m_SpecimenOrder;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;        
-        private YellowstonePathology.Business.Common.PrintMate m_PrintMate;
+        private Business.Label.Model.Carousel m_Carousel;
 
 		public BlockColorSelectionPage(YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
             this.m_SpecimenOrder = specimenOrder;
-			this.m_AccessionOrder = accessionOrder;            
+			this.m_AccessionOrder = accessionOrder;
 
-            this.m_PrintMate = new Business.Common.PrintMate();
+            Business.Label.Model.CassettePrinterCollection printers = new Business.Label.Model.CassettePrinterCollection();
+            Business.Label.Model.CassettePrinter printer = printers.GetPrinter(Business.User.UserPreferenceInstance.Instance.UserPreference.CassettePrinter);
+            this.m_Carousel = printer.Carousel;
 
 			InitializeComponent();
 			DataContext = this;
 		}
 
-		public YellowstonePathology.Business.Common.PrintMate PrintMate
+		public Business.Label.Model.Carousel Carousel
 		{
-			get { return this.m_PrintMate; }
+			get { return this.m_Carousel; }
 		}		
 
 		private void ListBoxColor_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			if (this.ListBoxColor.SelectedItem != null)
 			{
-				YellowstonePathology.Business.Common.PrintMateColumn printMateColumn = (YellowstonePathology.Business.Common.PrintMateColumn)this.ListBoxColor.SelectedItem;
-                this.m_AccessionOrder.PrintMateColumnNumber = printMateColumn.ColumnNumber;
+				Business.Label.Model.CarouselColumn column = (Business.Label.Model.CarouselColumn)this.ListBoxColor.SelectedItem;
+                this.m_AccessionOrder.CassetteColor = column.CassetteColor;
 
                 YellowstonePathology.UI.CustomEventArgs.SpecimenOrderReturnEventArgs specimenOrderReturnEventArgs = new CustomEventArgs.SpecimenOrderReturnEventArgs(this.m_SpecimenOrder);
                 this.Next(this, specimenOrderReturnEventArgs);

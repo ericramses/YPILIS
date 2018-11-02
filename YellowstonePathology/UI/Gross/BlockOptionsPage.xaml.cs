@@ -100,11 +100,15 @@ namespace YellowstonePathology.UI.Gross
 			YellowstonePathology.Business.Visitor.OrderTestVisitor orderTestVisitor = new Business.Visitor.OrderTestVisitor(this.m_AccessionOrder.PanelSetOrderCollection[0].ReportNo, iCTest, iCTest.OrderComment, null, false, this.m_AliquotOrder, false, false, this.m_AccessionOrder.TaskOrderCollection);
             this.m_AccessionOrder.TakeATrip(orderTestVisitor);
 
-			YellowstonePathology.Business.Common.BlockCollection blockCollection = new Business.Common.BlockCollection();
-			YellowstonePathology.Business.Test.AliquotOrderCollection blocksToPrintCollection = this.m_SpecimenOrder.AliquotOrderCollection.GetUnPrintedBlocks();
-			blockCollection.FromAliquotOrderItemCollection(blocksToPrintCollection, this.m_AccessionOrder.PanelSetOrderCollection[0].ReportNo, patientInitials, this.m_AccessionOrder.PrintMateColumnNumber, true);
-			YellowstonePathology.Business.Common.PrintMate.Print(blockCollection);
-			blocksToPrintCollection.SetPrinted();
+            //YellowstonePathology.Business.Common.BlockCollection blockCollection = new Business.Common.BlockCollection();
+            //YellowstonePathology.Business.Test.AliquotOrderCollection blocksToPrintCollection = this.m_SpecimenOrder.AliquotOrderCollection.GetUnPrintedBlocks();
+            //blockCollection.FromAliquotOrderItemCollection(blocksToPrintCollection, this.m_AccessionOrder.PanelSetOrderCollection[0].ReportNo, patientInitials, this.m_AccessionOrder.CassetteColor, true);
+            //YellowstonePathology.Business.Common.PrintMate.Print(blockCollection);
+            //blocksToPrintCollection.SetPrinted();
+
+            Business.Label.Model.CassettePrinterCollection printers = new Business.Label.Model.CassettePrinterCollection();
+            Business.Label.Model.CassettePrinter printer = printers.GetPrinter(Business.User.UserPreferenceInstance.Instance.UserPreference.CassettePrinter);
+            printer.Print(this.m_SpecimenOrder.AliquotOrderCollection, this.m_AccessionOrder);
 		}		
 
         private void ButtonChangeBlockColor_Click(object sender, RoutedEventArgs e)

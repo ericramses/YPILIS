@@ -15,7 +15,7 @@ namespace YellowstonePathology.Business.Label.Model
                 		
 		protected string m_CompanyId = "YPII";
 		protected string m_ScanningPrefix = "ALQ";
-		protected string m_CassetteColumn;
+		protected string m_CassetteColor;
 		protected string m_BlockTitle;
 		protected string m_PatientInitials;		
 		protected bool m_PrintRequested;
@@ -90,14 +90,14 @@ namespace YellowstonePathology.Business.Label.Model
 			}
         }
 
-        public string CassetteColumn
+        public string CassetteColor
         {
-            get { return this.m_CassetteColumn; }
+            get { return this.m_CassetteColor; }
 			set
 			{
-				if (value != this.m_CassetteColumn)
+				if (value != this.m_CassetteColor)
 				{
-					this.m_CassetteColumn = value;					
+					this.m_CassetteColor = value;					
 				}
 			}
         }
@@ -141,9 +141,14 @@ namespace YellowstonePathology.Business.Label.Model
             get { return this.m_ScanningPrefix + this.m_AliquotOrder.AliquotOrderId; }            
         }
 
-        public virtual void Print()
+        public virtual string GetLine()
         {
             throw new Exception("The Get Print String is not implemented in the base.");
+        }
+
+        public virtual string GetFileExtension()
+        {
+            throw new Exception("Not implemented here.");
         }
 
         public void FromAliquotOrder(YellowstonePathology.Business.Test.AliquotOrder aliquotOrder, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
@@ -167,18 +172,8 @@ namespace YellowstonePathology.Business.Label.Model
             {
                 this.m_ClientAccessionNo = null;
                 this.m_ClientAccessioned = false;
-            }
-
-            if(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.UseLaserCassettePrinter == false)
-            {
-                this.m_CassetteColumn = accessionOrder.PrintMateColumnNumber.ToString();
-            }
-            else
-            {
-                YellowstonePathology.Business.Common.PrintMateCarousel printMateCarousel = new Common.PrintMateCarousel();
-                YellowstonePathology.Business.Common.PrintMateColumn printMateColumn = printMateCarousel.GetColumn(accessionOrder.PrintMateColumnNumber);
-                this.m_CassetteColumn = printMateColumn.GeneralDataColor.ToString();
-            }
+            }            
+            this.m_CassetteColor = accessionOrder.CassetteColor;
         }        
 	}
 }

@@ -174,22 +174,7 @@ namespace YellowstonePathology.UI.Common
 		{
             this.DialogResult = false;
 			this.Close();
-		}
-
-		private void ButtonTestBlockPrinter_Click(object sender, RoutedEventArgs e)
-		{            
-			YellowstonePathology.Business.Common.Block block = new Business.Common.BlockV1();
-			block.CassetteColumn = 3;
-			block.ReportNo = "XXX-9999";
-			block.BlockTitle = "XX";
-			block.PatientInitials = "XX";
-			block.BlockId = "999999";
-			block.PrintRequested = true;
-
-			YellowstonePathology.Business.Common.BlockCollection blockCollection = new Business.Common.BlockCollection();
-			blockCollection.Add(block);
-			YellowstonePathology.Business.Common.PrintMate.Print(blockCollection);            
-		}
+		}		
 
         public void NotifyPropertyChanged(String info)
         {

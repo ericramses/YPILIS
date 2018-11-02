@@ -10,36 +10,32 @@ namespace YellowstonePathology.Business.Label.Model
     {
         private string m_Delimeter = "#";
         private string m_Prefix = "$";
-        private string m_CassetteColumnDelimiter = "H";        
+        private string m_CassetteColumnDelimiter = "H";
 
-        public override void Print()
+        public override string GetFileExtension()
+        {
+            return ".txt";
+        }
+
+        public override string GetLine()
         {
             YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_MasterAccessionNo);
 
             StringBuilder line = new StringBuilder(this.m_Prefix + this.m_Delimeter);
-            line.Append(this.m_CassetteColumnDelimiter + this.m_CassetteColumn.ToString() + this.m_Delimeter);
+
+            CassettePrinterCollection printers = new CassettePrinterCollection();
+            CassettePrinter printer = printers.GetPrinter(Business.User.UserPreferenceInstance.Instance.UserPreference.CassettePrinter);
+            CarouselColumn carouselColumn = printer.Carousel.GetColumn(this.m_CassetteColor);
+
+            line.Append(this.m_CassetteColumnDelimiter + carouselColumn.PrinterCode + this.m_Delimeter);
             line.Append(orderIdParser.MasterAccessionNo + this.m_Delimeter);
             line.Append(this.BlockTitle + this.m_Delimeter);
             line.Append(this.PatientInitials + this.m_Delimeter);
             line.Append(this.CompanyId + this.m_Delimeter);
             line.Append(this.ScanningId + this.m_Delimeter);
             line.Append(orderIdParser.MasterAccessionNoYear.Value.ToString() + this.m_Delimeter);
-            line.Append(orderIdParser.MasterAccessionNoNumber.Value.ToString());            
-
-            string path = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.CassettePrinter + System.Guid.NewGuid().ToString() + ".txt";
-            
-            try
-            {
-                using (System.IO.StreamWriter file = new System.IO.StreamWriter(path))
-                {                                                            
-                    file.Write(line + "\r\n");
-                    this.m_AliquotOrder.Printed = true;                    
-                }
-            }
-            catch (Exception e)
-            {
-                System.Windows.MessageBox.Show(path + ": " + e.Message, "Cassette Printer Location.", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Exclamation);
-            }
+            line.Append(orderIdParser.MasterAccessionNoNumber.Value.ToString());
+            return line.ToString();            
         }
     }
 }

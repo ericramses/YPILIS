@@ -8,20 +8,22 @@ namespace YellowstonePathology.Business.Label.Model
 {
     public class CarouselColumn
     {
-        private BlockColorEnum m_BlockColor;
+        private string m_CassetteColor;
         private int m_ColumnNumber;
         private int m_PrinterCode;
+        private string m_ColorCode;
                 
-        public CarouselColumn(BlockColorEnum blockColor, int columnNumber, int printerCode)
+        public CarouselColumn(string cassetteColor, int columnNumber, int printerCode, string colorCode)
         {
-            this.m_BlockColor = blockColor;
+            this.m_CassetteColor = cassetteColor;
             this.m_ColumnNumber = columnNumber;
             this.m_PrinterCode = printerCode;
+            this.m_ColorCode = colorCode;
         }
 
-        public BlockColorEnum BlockColor
+        public string CassetteColor
         {
-            get { return this.m_BlockColor; }
+            get { return this.m_CassetteColor; }
         }
 
         public int ColumnNumber
@@ -32,6 +34,11 @@ namespace YellowstonePathology.Business.Label.Model
         public int PrinterCode
         {
             get { return this.m_PrinterCode; }
+        }
+
+        public string ColorCode
+        {
+            get { return this.m_ColorCode; }
         }
     }
 }

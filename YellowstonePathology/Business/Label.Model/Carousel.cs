@@ -20,12 +20,12 @@ namespace YellowstonePathology.Business.Label.Model
             get { return this.m_Columns; }
         }
 
-        public bool Exists(BlockColorEnum blockColor)
+        public bool Exists(string cassetteColor)
         {
             bool result = false;
             foreach(CarouselColumn column in this.m_Columns)
             {
-                if(column.BlockColor == blockColor)
+                if(column.CassetteColor == cassetteColor)
                 {
                     result = true;
                     break;
@@ -34,12 +34,12 @@ namespace YellowstonePathology.Business.Label.Model
             return result;
         }
 
-        public CarouselColumn GetColumn(BlockColorEnum blockColor)
+        public CarouselColumn GetColumn(string cassetteColor)
         {
             CarouselColumn result = null;
             foreach (CarouselColumn column in this.m_Columns)
             {
-                if (column.BlockColor == blockColor)
+                if (column.CassetteColor == cassetteColor)
                 {
                     result = column;
                     break;
