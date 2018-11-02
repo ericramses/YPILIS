@@ -314,7 +314,6 @@ namespace YellowstonePathology.Business.Test.ErPrSemiQuantitative
             return auditResult;
         }
 
-        //public override void Finish(Business.Test.AccessionOrder accessionOrder)
         public override FinalizeTestResult Finish(Business.Test.AccessionOrder accessionOrder)
         {
             YellowstonePathology.Business.Test.PanelOrder panelOrder = this.PanelOrderCollection.GetPanelByPanelId(62);
