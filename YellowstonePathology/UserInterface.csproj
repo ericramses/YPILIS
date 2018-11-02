@@ -1050,18 +1050,12 @@
     <Compile Include="Business\Test\EGFRMutationAnalysisPreliminary\EGFRMutationAnalysisPreliminaryTest.cs" />
     <Compile Include="Business\Test\EGFRToALKReflexAnalysis\EGFRToALKReflexAnalysisBRAFResult.cs" />
     <Compile Include="Business\Test\ExtractAndHoldForPreauthorization\ExtractAndHoldForPreauthorizationWordDocument.cs" />
-    <Compile Include="Business\Test\HER2AmplificationRecount\HER2AmplificationRecountTest.cs" />
-    <Compile Include="Business\Test\HER2AmplificationRecount\HER2AmplificationRecountTestOrder.cs" />
-    <Compile Include="Business\Test\HER2AmplificationRecount\HER2AmplificationRecountWordDocument.cs" />
     <Compile Include="Business\Test\HER2AmplificationSummary\HER2AmplificationResult.cs" />
     <Compile Include="Business\Test\HER2AmplificationSummary\HER2AmplificationResultCollection.cs" />
     <Compile Include="Business\Test\HER2AmplificationSummary\HER2AmplificationResultGroup2.cs" />
     <Compile Include="Business\Test\HER2AmplificationSummary\HER2AmplificationResultGroup3.cs" />
     <Compile Include="Business\Test\HER2AmplificationSummary\HER2AmplificationResultGroup4.cs" />
     <Compile Include="Business\Test\HER2AmplificationSummary\HER2AmplificationResultGroup5.cs" />
-    <Compile Include="Business\Test\HER2AmplificationSummary\HER2AmplificationSummaryTest.cs" />
-    <Compile Include="Business\Test\HER2AmplificationSummary\HER2AmplificationSummaryTestOrder.cs" />
-    <Compile Include="Business\Test\HER2AmplificationSummary\HER2AmplificationSummaryWordDocument.cs" />
     <Compile Include="Business\Test\HER2AmplificationSummary\HER2AmplificationResultGroup1.cs" />
     <Compile Include="Business\Test\HER2AmplificationSummary\HER2AmplificationResultEnum.cs" />
     <Compile Include="Business\Test\HPV1618\HPV1618WPHOBXView.cs" />
@@ -3515,14 +3509,6 @@
       <DependentUpon>BRAFMutationAnalysisResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Test\BRAFMutationAnalysisResultPath.cs" />
-    <Compile Include="UI\Test\HER2AmplificationRecountResultPage.xaml.cs">
-      <DependentUpon>HER2AmplificationRecountResultPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Test\HER2AmplificationRecountResultPath.cs" />
-    <Compile Include="UI\Test\HER2AmplificationSummaryResultPage.xaml.cs">
-      <DependentUpon>HER2AmplificationSummaryResultPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Test\HER2AmplificationSummaryResultPath.cs" />
     <Compile Include="UI\Test\PreviousResultDialog.xaml.cs">
       <DependentUpon>PreviousResultDialog.xaml</DependentUpon>
     </Compile>
@@ -5412,14 +5398,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Test\BRAFMutationAnalysisResultPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\Test\HER2AmplificationRecountResultPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\Test\HER2AmplificationSummaryResultPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
