@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using YellowstonePathology.Business.Audit.Model;
 using YellowstonePathology.Business.Persistence;
 
 namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
@@ -45,6 +46,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 		private string m_ASRComment;
         private string m_FixationComment;
         private bool m_HER2ByIHCRequired;
+        private bool m_RecountRequired;
 
         public HER2AmplificationByISHTestOrder()
 		{
@@ -645,6 +647,20 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
             }
         }
 
+        [PersistentProperty()]
+        public bool RecountRequired
+        {
+            get { return this.m_RecountRequired; }
+            set
+            {
+                if (this.m_RecountRequired != value)
+                {
+                    this.m_RecountRequired = value;
+                    this.NotifyPropertyChanged("RecountRequired");
+                }
+            }
+        }
+
         public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
 			string result = "HER2 Amplification by D-ISH: " + this.Result;
@@ -692,6 +708,26 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 			}
 			return result;
 		}
+
+        public override AuditResult IsOkToAccept(AccessionOrder accessionOrder)
+        {
+            AuditResult result =  base.IsOkToAccept(accessionOrder);
+            HER2AmplificationSummary.HER2AmplificationResultCollection her2AmplificationResultCollection = new HER2AmplificationSummary.HER2AmplificationResultCollection(accessionOrder.PanelSetOrderCollection);
+            HER2AmplificationSummary.HER2AmplificationResult her2AmplificationResult = her2AmplificationResultCollection.FindMatch();
+            if(her2AmplificationResult.HER2ByIHCRequired && her2AmplificationResult.HER2ByIHCIsAccepted == false)
+            {
+                result.Status = AuditStatusEnum.Failure;
+            }
+            else if (her2AmplificationResult.IsRecountNeeded() == true)
+            {
+                result.Status = AuditStatusEnum.Failure;
+            }
+            else if(her2AmplificationResult.HER2ByIHCScore == null || her2AmplificationResult.HER2CEP17Ratio == null)
+            {
+                result.Status = AuditStatusEnum.Failure;
+            }
+            return result;
+        }
 
         public bool ShouldOrderHER2ByIHC(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {

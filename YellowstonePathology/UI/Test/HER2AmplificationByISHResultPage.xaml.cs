@@ -184,14 +184,14 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkAcceptResults_Click(object sender, RoutedEventArgs e)
         {            
-            YellowstonePathology.Business.Rules.MethodResult methodResult = this.m_PanelSetOrder.IsOkToAccept();
-            if (methodResult.Success == true)
+            YellowstonePathology.Business.Audit.Model.AuditResult auditResult = this.m_PanelSetOrder.IsOkToAccept(this.m_AccessionOrder);
+            if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.OK)
             {
                 YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);
 
                 YellowstonePathology.Business.Audit.Model.AuditCollection auditCollection = new Business.Audit.Model.AuditCollection();                    
                 auditCollection.Add(new Business.Audit.Model.HER2OKToAcceptAudit(this.m_PanelSetOrder));
-                YellowstonePathology.Business.Audit.Model.AuditResult auditResult = auditCollection.Run2();
+                auditResult = auditCollection.Run2();
 
                 if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.Failure)
                 {
@@ -200,7 +200,7 @@ namespace YellowstonePathology.UI.Test
                 else
                 {
                     YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHResult.AcceptResults(this.m_PanelSetOrder, this.m_SystemIdentity);
-                    if(this.m_PanelSetOrder.HER2ByIHCRequired == true)
+                    if(this.m_PanelSetOrder.ShouldOrderHER2ByIHC(this.m_AccessionOrder) == true)
                     {
                         MessageBoxResult result = MessageBox.Show("The results require a HER2 Amplification by IHC be Ordered." +
                             Environment.NewLine + "Order the test now?", "Order Test", MessageBoxButton.OKCancel, MessageBoxImage.Information, MessageBoxResult.OK);
@@ -213,7 +213,7 @@ namespace YellowstonePathology.UI.Test
             }
             else
             {
-                MessageBox.Show(methodResult.Message);
+                MessageBox.Show(auditResult.Message);
             }            
         }
 
