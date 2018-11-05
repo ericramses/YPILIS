@@ -200,15 +200,13 @@ namespace YellowstonePathology.UI.Test
                 else
                 {
                     YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHResult.AcceptResults(this.m_PanelSetOrder, this.m_SystemIdentity);
-                    if(this.m_PanelSetOrder.ShouldOrderHER2ByIHC(this.m_AccessionOrder) == true)
+                    if(this.m_PanelSetOrder.HER2ByIHCRequired == true)
                     {
                         MessageBoxResult result = MessageBox.Show("The results require a HER2 Amplification by IHC be Ordered." +
                             Environment.NewLine + "Order the test now?", "Order Test", MessageBoxButton.OKCancel, MessageBoxImage.Information, MessageBoxResult.OK);
                         if(result == MessageBoxResult.OK)
                         {
                             this.OrderHER2IHC(this, new EventArgs());
-                            this.m_PanelSetOrder.HER2ByIHCRequired = true;
-                            MessageBox.Show("The tests have been ordered.");
                         }
                     }
                 }

@@ -699,10 +699,10 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
             YellowstonePathology.Business.Test.Her2AmplificationByIHC.Her2AmplificationByIHCTest test = new Her2AmplificationByIHC.Her2AmplificationByIHCTest();
             if (accessionOrder.PanelSetOrderCollection.Exists(test.PanelSetId, this.OrderedOnId, true) == false)
             {
-                if (this.AverageHer2Chr17SignalAsDouble.HasValue && this.AverageHer2Chr17SignalAsDouble >= 2.0 &&
-                    this.AverageHer2NeuSignal.HasValue && this.AverageHer2NeuSignal < 4.0)
+                if (this.AverageHer2Chr17SignalAsDouble.HasValue && this.AverageHer2NeuSignal.HasValue)
                 {
-                    result = true;
+                    if(this.AverageHer2Chr17SignalAsDouble >= 2.0 && this.AverageHer2NeuSignal < 4.0) result = true;
+                    else if (this.AverageHer2Chr17SignalAsDouble < 2.0 && this.AverageHer2NeuSignal >= 4.0) result = true;
                 }
             }
             return result;

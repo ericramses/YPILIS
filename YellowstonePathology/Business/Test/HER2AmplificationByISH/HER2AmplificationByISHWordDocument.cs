@@ -33,7 +33,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 			{
 				if (this.m_AccessionOrder.AccessionDate >= DateTime.Parse("1/1/2014") == true)
 				{
-					this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\HER2AmplificationByISH.Gastric.2.xml";
+					this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\HER2AmplificationByISH.2018ASCOCAP.1.xml";
 				}
 				else
 				{
@@ -57,7 +57,8 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 
 				this.SetXmlNodeData("date_time_collected", collectionDateTimeString);
 
-                string result = panelSetOrderHer2ByIsh.Result.ToUpper();
+                string result = panelSetOrderHer2ByIsh.Result;
+                if (result == null) result = string.Empty;
                 if ( result == "NEGATIVE")
                 {
                     result += " (SEE COMMENT)";
@@ -86,11 +87,11 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 
                 if (panelSetOrderHer2ByIsh.Her2Chr17Ratio.HasValue == true)
 				{
-					this.SetXmlNodeData("her2_chr17_ratio", "HER2/Chr17 Ratio = " + panelSetOrderHer2ByIsh.AverageHer2Chr17Signal);
+					this.SetXmlNodeData("test_ratio", "HER2/Chr17 Ratio = " + panelSetOrderHer2ByIsh.AverageHer2Chr17Signal);
 				}
 				else
 				{
-					this.DeleteRow("her2_chr17_ratio");
+					this.DeleteRow("test_ratio");
 				}
 
 				if (panelSetOrderHer2ByIsh.AverageHer2NeuSignal.HasValue == true)
