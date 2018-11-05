@@ -15,17 +15,13 @@ namespace YellowstonePathology.Business.Label.Model
             return ".gdc";
         }
 
-        public override string GetLine()
+        public override string GetLine(string printerColorCode)
         {
             //C:\Program Files\General Data Company\Cassette Printing\Normal.itl|102|15-28044|1A|JA|YPII|ALQ15-28044.1A|15|28044
             YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_MasterAccessionNo);
-            StringBuilder line = new StringBuilder(TemplateFileName + this.m_Delimeter);
+            StringBuilder line = new StringBuilder(TemplateFileName + this.m_Delimeter);                        
 
-            CassettePrinterCollection printers = new CassettePrinterCollection();
-            CassettePrinter printer = printers.GetPrinter(Business.User.UserPreferenceInstance.Instance.UserPreference.CassettePrinter);
-            CarouselColumn carouselColumn = printer.Carousel.GetColumn(this.m_CassetteColor);
-
-            line.Append(carouselColumn.PrinterCode + this.m_Delimeter);
+            line.Append(printerColorCode + this.m_Delimeter);
             line.Append(orderIdParser.MasterAccessionNo + this.m_Delimeter);
             line.Append(this.BlockTitle + this.m_Delimeter);
             line.Append(this.PatientInitials + this.m_Delimeter);

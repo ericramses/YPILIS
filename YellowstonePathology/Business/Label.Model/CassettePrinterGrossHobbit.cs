@@ -15,11 +15,7 @@ namespace YellowstonePathology.Business.Label.Model
             this.Carousel.Columns.Add(new CarouselColumn("Yellow", 3, 103, "Yellow"));                       
             this.Carousel.Columns.Add(new CarouselColumn("Lilac", 4, 104, "#b666d2"));
             this.Carousel.Columns.Add(new CarouselColumn("Blue", 5, 105, "#bfefff"));
-            this.Carousel.Columns.Add(new CarouselColumn("Pink", 6, 106, "#e5a3ad"));
-
-            //this.Carousel.Columns.Add(new CarouselColumn("Green", 5, 105, "Green"));
-            //this.Carousel.Columns.Add(new CarouselColumn("Orange", 6, 106, "#FFFFC175"));                                   
-            //this.Carousel.Columns.Add(new CarouselColumn("White", 8, 108, "White"));
+            this.Carousel.Columns.Add(new CarouselColumn("Pink", 6, 106, "#e5a3ad"));            
         }
 
         public override Cassette GetCassette()

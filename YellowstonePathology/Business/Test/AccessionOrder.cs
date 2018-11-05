@@ -1526,7 +1526,7 @@ namespace YellowstonePathology.Business.Test
             }
             else if(this.m_ClientId == 1520)
             {                
-                this.m_CassetteColor = "Lilac";
+                this.m_CassetteColor = "Blue";
             }
         }
 

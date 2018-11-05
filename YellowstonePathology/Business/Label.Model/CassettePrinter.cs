@@ -39,10 +39,7 @@ namespace YellowstonePathology.Business.Label.Model
         }
 
         public void Print(YellowstonePathology.Business.Test.AliquotOrderCollection aliquotOrderCollection, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
-        {            
-            CassettePrinterCollection printers = new CassettePrinterCollection();
-            CassettePrinter printer = printers.GetPrinter(Business.User.UserPreferenceInstance.Instance.UserPreference.CassettePrinter);            
-
+        {                        
             List<Cassette> cassettes = new List<Cassette>();
             foreach (YellowstonePathology.Business.Test.AliquotOrder aliquotOrder in aliquotOrderCollection)
             {
@@ -50,30 +47,24 @@ namespace YellowstonePathology.Business.Label.Model
                 {
                     if (aliquotOrder.LabelType == YellowstonePathology.Business.Specimen.Model.AliquotLabelType.DirectPrint == true)
                     {
-                        if(printer != null)
-                        {
-                            Cassette cassette = printer.GetCassette();
-                            cassette.FromAliquotOrder(aliquotOrder, accessionOrder);
-                            string line = cassette.GetLine();
-                            string fileName = System.IO.Path.Combine(this.m_Path, System.Guid.NewGuid().ToString() + cassette.GetFileExtension());
+                        Cassette cassette = this.GetCassette();
+                        cassette.FromAliquotOrder(aliquotOrder, accessionOrder);                            
 
-                            try
+                        string line = cassette.GetLine(this);
+                        string fileName = System.IO.Path.Combine(this.m_Path, System.Guid.NewGuid().ToString() + cassette.GetFileExtension());
+
+                        try
+                        {
+                            using (System.IO.StreamWriter file = new System.IO.StreamWriter(fileName))
                             {
-                                using (System.IO.StreamWriter file = new System.IO.StreamWriter(fileName))
-                                {
-                                    file.Write(line + "\r\n");
-                                    aliquotOrder.Printed = true;
-                                }
-                            }
-                            catch (Exception e)
-                            {
-                                System.Windows.MessageBox.Show(fileName + ": " + e.Message, "Cassette Printer Location.", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Exclamation);
+                                file.Write(line + "\r\n");
+                                aliquotOrder.Printed = true;
                             }
                         }
-                        else
+                        catch (Exception e)
                         {
-                            System.Windows.MessageBox.Show("The cassette printer is not selected.");
-                        }                    
+                            System.Windows.MessageBox.Show(fileName + ": " + e.Message, "Cassette Printer Location.", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Exclamation);
+                        }                                          
                     }
                 }
             }                       
