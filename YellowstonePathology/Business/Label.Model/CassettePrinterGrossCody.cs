@@ -8,10 +8,10 @@ namespace YellowstonePathology.Business.Label.Model
 {
     public class CassettePrinterGrossCody : CassettePrinter
     {
-        public CassettePrinterGrossCody() : base("Gross Cody", @"\\10.33.33.57\CassettePrinter\")
+        public CassettePrinterGrossCody() : base("Gross Cody")
         {
-            this.Carousel.Columns.Add(new CarouselColumn("Pink", 1, 1, "Pink"));
-            this.Carousel.Columns.Add(new CarouselColumn("Green", 2, 1, "Green"));            
+            this.Carousel.Columns.Add(new CarouselColumn("Pink", 1, 1, "Pink", CODYPRINTERPATH));
+            this.Carousel.Columns.Add(new CarouselColumn("Green", 2, 1, "Green", CODYPRINTERPATH));            
         }
 
         public override Cassette GetCassette()

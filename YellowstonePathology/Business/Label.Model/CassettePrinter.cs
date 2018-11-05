@@ -7,26 +7,24 @@ namespace YellowstonePathology.Business.Label.Model
 {
     public class CassettePrinter
     {
-        private string m_Name;
-        private string m_Path;
+        public static string TECHPRINTERPATH = @"\\10.1.1.84\Jobs";
+        public static string PATHPRINTERPATH = @"\\10.1.1.75\Jobs\";
+        public static string HOBBITPRINTERPATH = @"\\gross-hobbit\Jobs";
+        public static string CODYPRINTERPATH = @"\\10.33.33.57\CassettePrinter\";
+
+        private string m_Name;        
         private Carousel m_Carousel;
 
-        public CassettePrinter(string name, string path)
+        public CassettePrinter(string name)
         {
-            this.m_Name = name;
-            this.m_Path = path;
+            this.m_Name = name;            
             this.m_Carousel = new Carousel();
         }            
 
         public string Name
         {
             get { return this.m_Name; }
-        }
-
-        public string Path
-        {
-            get { return this.m_Path; }
-        }
+        }        
 
         public Carousel Carousel
         {
@@ -35,7 +33,7 @@ namespace YellowstonePathology.Business.Label.Model
 
         public virtual Cassette GetCassette()
         {
-            throw new Exception("Not Implemented Hers.");
+            throw new Exception("Not Implemented Here.");
         }
 
         public void Print(YellowstonePathology.Business.Test.AliquotOrderCollection aliquotOrderCollection, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
@@ -48,10 +46,12 @@ namespace YellowstonePathology.Business.Label.Model
                     if (aliquotOrder.LabelType == YellowstonePathology.Business.Specimen.Model.AliquotLabelType.DirectPrint == true)
                     {
                         Cassette cassette = this.GetCassette();
-                        cassette.FromAliquotOrder(aliquotOrder, accessionOrder);                            
+                        cassette.FromAliquotOrder(aliquotOrder, accessionOrder);
 
-                        string line = cassette.GetLine(this);
-                        string fileName = System.IO.Path.Combine(this.m_Path, System.Guid.NewGuid().ToString() + cassette.GetFileExtension());
+                        CarouselColumn column = this.m_Carousel.GetColumn(accessionOrder.CassetteColor);
+                        string line = cassette.GetLine(column.PrinterCode);
+
+                        string fileName = System.IO.Path.Combine(column.PrinterPath, System.Guid.NewGuid().ToString() + cassette.GetFileExtension());
 
                         try
                         {

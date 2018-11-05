@@ -141,7 +141,7 @@ namespace YellowstonePathology.Business.Label.Model
             get { return this.m_ScanningPrefix + this.m_AliquotOrder.AliquotOrderId; }            
         }
 
-        public virtual string GetLine(string printerColorCode)
+        public virtual string GetLine(int printerColorCode)
         {
             throw new Exception("The Get Print String is not implemented in the base.");
         }

@@ -17,12 +17,12 @@ namespace YellowstonePathology.Business.Label.Model
             return ".txt";
         }
 
-        public override string GetLine(string printerColorCode)
+        public override string GetLine(int printerColorCode)
         {
             YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_MasterAccessionNo);
             StringBuilder line = new StringBuilder(this.m_Prefix + this.m_Delimeter);
                         
-            line.Append(this.m_CassetteColumnDelimiter + printerColorCode + this.m_Delimeter);
+            line.Append(this.m_CassetteColumnDelimiter + printerColorCode.ToString() + this.m_Delimeter);
             line.Append(orderIdParser.MasterAccessionNo + this.m_Delimeter);
             line.Append(this.BlockTitle + this.m_Delimeter);
             line.Append(this.PatientInitials + this.m_Delimeter);

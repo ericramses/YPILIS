@@ -12,14 +12,16 @@ namespace YellowstonePathology.Business.Label.Model
         private int m_ColumnNumber;
         private int m_PrinterCode;
         private string m_ColorCode;
-                
-        public CarouselColumn(string cassetteColor, int columnNumber, int printerCode, string colorCode)
+        private string m_PrinterPath;        
+
+        public CarouselColumn(string cassetteColor, int columnNumber, int printerCode, string colorCode, string printerPath)
         {
             this.m_CassetteColor = cassetteColor;
             this.m_ColumnNumber = columnNumber;
             this.m_PrinterCode = printerCode;
             this.m_ColorCode = colorCode;
-        }
+            this.m_PrinterPath = printerPath;
+        }        
 
         public string CassetteColor
         {
@@ -34,6 +36,11 @@ namespace YellowstonePathology.Business.Label.Model
         public int PrinterCode
         {
             get { return this.m_PrinterCode; }
+        }
+
+        public string PrinterPath
+        {
+            get { return this.m_PrinterPath; }
         }
 
         public string ColorCode
