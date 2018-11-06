@@ -709,75 +709,27 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 			return result;
 		}
 
-        public void SetResults(AccessionOrder accessionOrder)
-        {
-            HER2AmplificationSummary.HER2AmplificationResultCollection her2AmplificationResultCollection = new HER2AmplificationSummary.HER2AmplificationResultCollection(accessionOrder.PanelSetOrderCollection);
-            HER2AmplificationSummary.HER2AmplificationResult her2AmplificationResult = her2AmplificationResultCollection.FindMatch();
-            this.Result = her2AmplificationResult.Result.ToString();
-            this.InterpretiveComment = her2AmplificationResult.Interpretation;
-            this.RecountRequired = her2AmplificationResult.IsRecountNeeded();
-
-        }
-
-        public override AuditResult IsOkToAccept(AccessionOrder accessionOrder)
-        {
-            AuditResult result =  base.IsOkToAccept(accessionOrder);
-            if (string.IsNullOrEmpty(this.Result) == true)
-            {
-                result.Status = AuditStatusEnum.Failure;
-                result.Message = "The result may not be accepted because the result is not set.";
-            }
-            else
-            {
-                HER2AmplificationSummary.HER2AmplificationResultCollection her2AmplificationResultCollection = new HER2AmplificationSummary.HER2AmplificationResultCollection(accessionOrder.PanelSetOrderCollection);
-                HER2AmplificationSummary.HER2AmplificationResult her2AmplificationResult = her2AmplificationResultCollection.FindMatch();
-                if (her2AmplificationResult.HER2ByIHCRequired && her2AmplificationResult.HER2ByIHCIsAccepted == false)
-                {
-                    result.Status = AuditStatusEnum.Failure;
-                    result.Message = "The result may not be accepted because the HER2 By IHC score is not set.";
-                }
-                else if (her2AmplificationResult.IsRecountNeeded() == true)
-                {
-                    result.Status = AuditStatusEnum.Failure;
-                    result.Message = "The result may not be accepted because a recount is required.";
-                }
-            }
-            return result;
-        }
-
-        public void AcceptResults()
-        {
-            this.Accept();
-            if (this.PanelOrderCollection.GetUnacceptedPanelCount() > 0)
-            {
-                YellowstonePathology.Business.Test.PanelOrder panelOrder = this.PanelOrderCollection.GetUnacceptedPanelOrder();
-                panelOrder.AcceptResults();
-            }
-        }
-
-        public void UnacceptResults()
-        {
-            this.Unaccept();
-            if (this.PanelOrderCollection.GetAcceptedPanelCount() > 0)
-            {
-                YellowstonePathology.Business.Test.PanelOrder panelOrder = this.PanelOrderCollection.GetLastAcceptedPanelOrder();
-                panelOrder.UnacceptResults();
-            }
-        }
-
         public bool ShouldOrderHER2ByIHC(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
             bool result = false;
             YellowstonePathology.Business.Test.Her2AmplificationByIHC.Her2AmplificationByIHCTest test = new Her2AmplificationByIHC.Her2AmplificationByIHCTest();
             if (accessionOrder.PanelSetOrderCollection.Exists(test.PanelSetId, this.OrderedOnId, true) == false)
             {
-                if (this.AverageHer2Chr17SignalAsDouble.HasValue && this.AverageHer2NeuSignal.HasValue)
-                {
-                    if(this.AverageHer2Chr17SignalAsDouble >= 2.0 && this.AverageHer2NeuSignal < 4.0) result = true;
-                    else if (this.AverageHer2Chr17SignalAsDouble < 2.0 && this.AverageHer2NeuSignal >= 4.0) result = true;
-                }
+                this.SetHER2ByIHCRequired();
+                result = this.m_HER2ByIHCRequired;
             }
             return result;
+        }
+
+        public void SetHER2ByIHCRequired()
+        {
+            bool result = false;
+            if (this.AverageHer2Chr17SignalAsDouble.HasValue && this.AverageHer2NeuSignal.HasValue)
+            {
+                if (this.AverageHer2Chr17SignalAsDouble >= 2.0 && this.AverageHer2NeuSignal < 4.0) result = true;
+                else if (this.AverageHer2Chr17SignalAsDouble < 2.0 && this.AverageHer2NeuSignal >= 4.0) result = true;
+            }
+            this.HER2ByIHCRequired = result;
         }
     }
 }

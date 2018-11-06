@@ -33,13 +33,13 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
             if(this.m_PanelSetOrderCollection.Exists(her2AmplificationByISHTest.PanelSetId) == true)
             {
                 HER2AmplificationByISH.HER2AmplificationByISHTestOrder her2AmplificationByISHTestOrder = (HER2AmplificationByISH.HER2AmplificationByISHTestOrder)this.m_PanelSetOrderCollection.GetPanelSetOrder(her2AmplificationByISHTest.PanelSetId);
-                //if (her2AmplificationByISHTestOrder.Accepted == true)
-                //{
+                if (her2AmplificationByISHTestOrder.Accepted == true)
+                {
                     this.m_HER2CEP17Ratio = her2AmplificationByISHTestOrder.AverageHer2Chr17SignalAsDouble;
                     this.m_AverageHER2CopyNo = her2AmplificationByISHTestOrder.AverageHer2NeuSignal;
                     this.m_HER2ByIHCRequired = her2AmplificationByISHTestOrder.HER2ByIHCRequired;
                     this.m_NumberOfObservers = her2AmplificationByISHTestOrder.NumberOfObservers;
-                //}
+                }
             }
 
             if (this.m_PanelSetOrderCollection.Exists(her2AmplificationByIHCTest.PanelSetId) == true)
