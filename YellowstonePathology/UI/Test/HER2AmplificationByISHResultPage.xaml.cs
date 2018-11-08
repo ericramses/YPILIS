@@ -183,13 +183,13 @@ namespace YellowstonePathology.UI.Test
         }
 
         private void HyperLinkAcceptResults_Click(object sender, RoutedEventArgs e)
-        {            
+        {
             YellowstonePathology.Business.Rules.MethodResult methodResult = this.m_PanelSetOrder.IsOkToAccept();
             if (methodResult.Success == true)
             {
                 YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);
 
-                YellowstonePathology.Business.Audit.Model.AuditCollection auditCollection = new Business.Audit.Model.AuditCollection();                    
+                YellowstonePathology.Business.Audit.Model.AuditCollection auditCollection = new Business.Audit.Model.AuditCollection();
                 auditCollection.Add(new Business.Audit.Model.HER2OKToAcceptAudit(this.m_PanelSetOrder));
                 YellowstonePathology.Business.Audit.Model.AuditResult auditResult = auditCollection.Run2();
 
@@ -200,13 +200,31 @@ namespace YellowstonePathology.UI.Test
                 else
                 {
                     YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHResult.AcceptResults(this.m_PanelSetOrder, this.m_SystemIdentity);
-                    if(this.m_PanelSetOrder.HER2ByIHCRequired == true)
+
+                    YellowstonePathology.Business.Test.HER2AmplificationSummary.HER2AmplificationResultCollection her2AmplificationResultCollection = new Business.Test.HER2AmplificationSummary.HER2AmplificationResultCollection(this.m_AccessionOrder.PanelSetOrderCollection);
+                    YellowstonePathology.Business.Test.HER2AmplificationSummary.HER2AmplificationResult her2AmplificationResult = her2AmplificationResultCollection.FindMatch();
+
+                    if (her2AmplificationResult.HER2ByIHCRequired == true)
                     {
-                        MessageBoxResult result = MessageBox.Show("The results require a HER2 Amplification by IHC be Ordered." +
-                            Environment.NewLine + "Order the test now?", "Order Test", MessageBoxButton.OKCancel, MessageBoxImage.Information, MessageBoxResult.OK);
-                        if(result == MessageBoxResult.OK)
+                        if (her2AmplificationResult.HER2ByIHCIsOrdered == false)
                         {
-                            this.OrderHER2IHC(this, new EventArgs());
+                            MessageBoxResult result = MessageBox.Show("The results require a HER2 Amplification by IHC be Ordered." +
+                                Environment.NewLine + "Order the test now?", "Order Test", MessageBoxButton.YesNo, MessageBoxImage.Information, MessageBoxResult.Yes);
+                            if (result == MessageBoxResult.Yes)
+                            {
+                                this.OrderHER2IHC(this, new EventArgs());
+                            }
+                        }
+
+                        if(her2AmplificationResult.HER2ByIHCIsAccepted == false)
+                        {
+                            YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHResult.UnacceptResults(this.m_PanelSetOrder);
+                            MessageBox.Show("The results may not be accepted until the HER2 By IHC is ordered and accepted.");
+                        }
+                        else if(her2AmplificationResult.IsRecountNeeded() == true)
+                        {
+                            YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHResult.UnacceptResults(this.m_PanelSetOrder);
+                            MessageBox.Show("The results may not be accepted until a recount is performed and the number of observers is greater than 2.");
                         }
                     }
                 }
@@ -214,7 +232,7 @@ namespace YellowstonePathology.UI.Test
             else
             {
                 MessageBox.Show(methodResult.Message);
-            }            
+            }
         }
 
         private void HyperLinkUnacceptResults_Click(object sender, RoutedEventArgs e)
@@ -238,7 +256,7 @@ namespace YellowstonePathology.UI.Test
                 YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHResult result = this.m_ResultCollection.GetResultFromIndication(this.m_PanelSetOrder);
                 YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);
                 result.SetResults(this.m_PanelSetOrder, specimenOrder);
-                if(this.m_PanelSetOrder.ShouldOrderHER2ByIHC(this.m_AccessionOrder) == true)
+                if (this.m_PanelSetOrder.ShouldOrderHER2ByIHC(this.m_AccessionOrder) == true)
                 {
                     this.m_PanelSetOrder.HER2ByIHCRequired = true;
                 }
@@ -291,7 +309,6 @@ namespace YellowstonePathology.UI.Test
         private void HyperLinkOrderHER2IHC_Click(object sender, RoutedEventArgs e)
         {
             this.OrderHER2IHC(this, new EventArgs());
-            MessageBox.Show("Her2 Amplification By IHC has been ordered.");
         }
     }
 }

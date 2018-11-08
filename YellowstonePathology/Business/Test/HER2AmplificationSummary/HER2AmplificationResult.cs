@@ -20,6 +20,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
         protected string m_HER2ByIHCScore;
         protected string m_Interpretation;
         protected HER2AmplificationResultEnum m_Result;
+        protected int m_NumberOfObservers;
 
         private bool m_RequiresBlindedObserver;
 
@@ -37,6 +38,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
                     this.m_HER2CEP17Ratio = her2AmplificationByISHTestOrder.AverageHer2Chr17SignalAsDouble;
                     this.m_AverageHER2CopyNo = her2AmplificationByISHTestOrder.AverageHer2NeuSignal;
                     this.m_HER2ByIHCRequired = her2AmplificationByISHTestOrder.HER2ByIHCRequired;
+                    this.m_NumberOfObservers = her2AmplificationByISHTestOrder.NumberOfObservers;
                 }
             }
 
@@ -169,6 +171,19 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
             }
         }
 
+        public int NumberOfObservers
+        {
+            get { return m_NumberOfObservers; }
+            set
+            {
+                if (this.m_NumberOfObservers != value)
+                {
+                    this.m_NumberOfObservers = value;
+                    NotifyPropertyChanged("NumberOfObservers");
+                }
+            }
+        }
+
         public virtual bool IsAMatch()
         {
             return false;
@@ -199,6 +214,12 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
                     this.m_Result = HER2AmplificationResultEnum.Positive;
                 }
             }
+        }
+        public bool IsRecountNeeded()
+        {
+            bool result = false;
+            if (this.m_RequiresBlindedObserver == true && this.m_NumberOfObservers < 3) result = true;
+            return result;
         }
     }
 }
