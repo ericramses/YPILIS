@@ -10,7 +10,7 @@ namespace YellowstonePathology.Business.Test.PDL1288
     {
         public PDL1288Test()
         {
-            this.m_PanelSetId = 314;
+            this.m_PanelSetId = 315;
             this.m_PanelSetName = "PD-L1 28-8";
             this.m_Abbreviation = "PD-L1 28-8";
             this.m_CaseType = YellowstonePathology.Business.CaseType.Molecular;
