@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Test.OrderAssociation
             this.m_HasTechnicalComponent = false;
             this.m_HasProfessionalComponent = false;
             this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase;
-            this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterY();
+            this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterB();
             this.m_Active = true;
             this.m_AttemptOrderTargetLookup = false;
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.OrderAssociation.OrderAssociationTestOrder).AssemblyQualifiedName;

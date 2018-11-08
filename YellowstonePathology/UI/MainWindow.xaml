@@ -57,6 +57,7 @@
                     <MenuItem Header="Retrospective Reviews" Click="MenuItemRetrospectiveReviews_Click" />
                     <MenuItem Header="Stains" Click="MenuItemStains_Click" />
                     <MenuItem Header="Stain Status" Click="MenuItemStainStatus_Click" />
+                    <MenuItem Header="PDF Transfer" Click="MenuItemPDFTransfer_Click" />
                 </MenuItem>
 
                 <MenuItem Header="_Client" Name="MenuItemClient">

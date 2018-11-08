@@ -358,7 +358,7 @@ namespace YellowstonePathology.UI.Surgical
 
         private void ButtonCAPLink_Click(object sender, RoutedEventArgs args)
         {
-            System.Diagnostics.Process.Start(@"http://www.cap.org/web/oracle/webcenter/portalapp/pagehierarchy/cancer_protocol_templates.jspx?_afrLoop=36229252016954#!%40%40%3F_afrLoop%3D36229252016954%26_adf.ctrl-state%3Dgfs5he3rf_4");
+            System.Diagnostics.Process.Start(@"https://www.cap.org/protocols-and-guidelines/cancer-reporting-tools/cancer-protocol-templates");
         }
 
         private void CheckPendingStudies(bool isFinal)

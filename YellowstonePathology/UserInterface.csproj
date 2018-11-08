@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>279</ApplicationRevision>
+    <ApplicationRevision>284</ApplicationRevision>
     <ApplicationVersion>10.1.12.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -98,6 +98,10 @@
       <SpecificVersion>False</SpecificVersion>
       <EmbedInteropTypes>True</EmbedInteropTypes>
       <HintPath>dll\Interop.FAXCOMEXLib.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13\lib\itextsharp.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Exchange.WebServices, Version=15.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -746,7 +750,6 @@
     <Compile Include="Business\Gateway\SearchGateway.cs" />
     <Compile Include="Business\Gateway\SlideAccessionGateway.cs" />
     <Compile Include="Business\Gateway\SlideDisposalReportGateway.cs" />
-    <Compile Include="Business\Hello4.cs" />
     <Compile Include="Business\Helper\DateTimeExtensions.cs" />
     <Compile Include="Business\Helper\DateTimeJoiner.cs" />
     <Compile Include="Business\Helper\DateTimeSplitter.cs" />
@@ -806,7 +809,6 @@
     <Compile Include="Business\HL7View\EPIC\EpicStatusObxView.cs" />
     <Compile Include="Business\HL7View\EPIC\EpicStatusOrcView.cs" />
     <Compile Include="Business\HL7View\EPIC\EpicUniversalSerivceIdDictionary.cs" />
-    <Compile Include="Business\HL7View\EPIC\TestEpicStatusMessage.cs" />
     <Compile Include="Business\HL7View\Hl7Client.cs" />
     <Compile Include="Business\HL7View\Hl7MessageType.cs" />
     <Compile Include="Business\HL7View\HolyRosaryHealthCare.cs" />
@@ -1097,6 +1099,7 @@
     <Compile Include="Business\Test\NeoTypeLungTumorFISHPanel\NeoTypeLungTumorFISHPanelTest.cs" />
     <Compile Include="Business\Test\NeoTYPELungTumorProfile\NeoTYPELungTumorProfileTestOrder.cs" />
     <Compile Include="Business\Test\NeoTYPEOvarianTumorProfile\NeoTYPEOvarianTumorProfileTest.cs" />
+    <Compile Include="Business\Test\OrderAssociation\OrderAssociationEpicObxView.cs" />
     <Compile Include="Business\Test\OrderAssociation\OrderAssociationTest.cs" />
     <Compile Include="Business\Test\OrderAssociation\OrderAssociationTestOrder.cs" />
     <Compile Include="Business\Test\p57\p57Test.cs" />
@@ -3011,6 +3014,9 @@
       <DependentUpon>DashboardPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\PantherPreviouslyRunReport.cs" />
+    <Compile Include="UI\PDFTransferDialog.xaml.cs">
+      <DependentUpon>PDFTransferDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\RetrospectiveReviewListItem.cs" />
     <Compile Include="UI\RetrospectiveReviewList.cs" />
     <Compile Include="UI\RetrospectiveReviewReport.cs" />
@@ -3846,6 +3852,7 @@
     <Compile Include="UI\TifDocumentViewer.xaml.cs">
       <DependentUpon>TifDocumentViewer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\TimedAction.cs" />
     <Compile Include="UI\ValidationTestingDialog.xaml.cs">
       <DependentUpon>ValidationTestingDialog.xaml</DependentUpon>
     </Compile>
@@ -5194,6 +5201,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\PantherStorageDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\PDFTransferDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -375,8 +375,8 @@ namespace YellowstonePathology.UI.Billing
         }
 
         private void ButtonSVHCDM_Click(object sender, RoutedEventArgs e)
-        {
-            foreach (Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill in this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection)
+        {            
+            foreach (Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill in this.ListViewPanelSetOrderCPTCodeBill.SelectedItems)
             {
                 if (panelSetOrderCPTCodeBill.BillTo == "Client")
                 {                    

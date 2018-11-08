@@ -14,26 +14,21 @@ namespace YellowstonePathology.Business.HL7View.EPIC
         private YellowstonePathology.Business.Domain.Physician m_OrderingPhysician;
         private YellowstonePathology.Business.ClientOrder.Model.ClientOrder m_ClientOrder;        
         private OrderStatus m_OrderStatus;
-        private YellowstonePathology.Business.ClientOrder.Model.UniversalService m_UniversalService;
+        private YellowstonePathology.Business.ClientOrder.Model.UniversalService m_UniversalService;        
+        private string m_ResultMessage;
+        private string m_ResultStatus;
 
         protected string m_ServerFileName;
-        protected string m_InterfaceFilename;
-       
-        public EPICStatusMessage(string clientOrderId, OrderStatus orderStatus, YellowstonePathology.Business.ClientOrder.Model.UniversalService universalService, object writer)
-        {
-            this.m_ClientOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullClientOrder(clientOrderId, writer);            
-			this.m_OrderingPhysician = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianByNpi(this.m_ClientOrder.ProviderId);
-            this.m_OrderStatus = orderStatus;
-            this.m_UniversalService = universalService;
-            this.SetupFileNames();
-        }
+        protected string m_InterfaceFilename;              
 
-        public EPICStatusMessage(YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder, OrderStatus orderStatus, YellowstonePathology.Business.ClientOrder.Model.UniversalService universalService)
+        public EPICStatusMessage(YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder, OrderStatus orderStatus, YellowstonePathology.Business.ClientOrder.Model.UniversalService universalService, string resultMessage, string resultStatus)
 		{
 			this.m_ClientOrder = clientOrder;
 			this.m_OrderingPhysician = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianByNpi(this.m_ClientOrder.ProviderId);
 			this.m_OrderStatus = orderStatus;
-            this.m_UniversalService = universalService;
+            this.m_UniversalService = universalService;            
+            this.m_ResultMessage = resultMessage;
+            this.m_ResultStatus = resultStatus;
             this.SetupFileNames();
 		}
 
@@ -71,19 +66,17 @@ namespace YellowstonePathology.Business.HL7View.EPIC
                 EPICStatusOrcView orc = new EPICStatusOrcView(this.m_ClientOrder.ExternalOrderId, this.m_OrderingPhysician, this.m_OrderStatus);
                 orc.ToXml(this.m_Document);
 
-                EPICStatusObrView obr = new EPICStatusObrView(this.m_ClientOrder.ExternalOrderId, string.Empty, this.m_ClientOrder.OrderTime, null, this.m_OrderingPhysician, ResultStatusEnum.InProcess.Value, this.m_UniversalService);
+                EPICStatusObrView obr = new EPICStatusObrView(this.m_ClientOrder.ExternalOrderId, string.Empty, this.m_ClientOrder.OrderTime, null, this.m_OrderingPhysician, this.m_ResultStatus, this.m_UniversalService);
                 obr.ToXml(this.m_Document);
 
-                EPICStatusObxView obx = new EPICStatusObxView(m_ObxCount);
+                EPICStatusObxView obx = new EPICStatusObxView(m_ObxCount, this.m_ResultStatus, this.m_ResultMessage);
                 obx.ToXml(this.m_Document);
                 this.m_ObxCount = obx.ObxCount;                
 
                 using (System.IO.StreamWriter sw = new System.IO.StreamWriter(this.m_ServerFileName))
                 {
                     this.m_Document.Save(sw);
-                }
-
-                System.IO.File.Copy(this.m_ServerFileName, this.m_InterfaceFilename);
+                }                
             }
             return result;
         }

@@ -467,9 +467,17 @@ namespace YellowstonePathology.UI.Billing
 
                 if (svhMRNMatcher.MatchFound == true)
                 {
-                    this.m_BackgroundWorker.ReportProgress(1, "Matched: " + masterAccessionNo + " - " + svhMRNMatcher.ANumber + ":" + svhMRNMatcher.VNumber);
+                    this.m_BackgroundWorker.ReportProgress(1, "Matched: " + masterAccessionNo + " - " + svhMRNMatcher.ANumber + "->" + svhMRNMatcher.VNumber);
                     ao.SvhMedicalRecord = svhMRNMatcher.VNumber;
                     ao.SvhAccount = svhMRNMatcher.VNumberAccount;
+
+                    YellowstonePathology.Business.ClientOrder.Model.UniversalServiceCollection universalServiceIdCollection = YellowstonePathology.Business.ClientOrder.Model.UniversalServiceCollection.GetAll();
+                    YellowstonePathology.Business.ClientOrder.Model.UniversalService universalService = universalServiceIdCollection.GetByUniversalServiceId(svhMRNMatcher.ClientOrder.UniversalServiceId);
+
+                    string resultMessage = "This order has been associated with a prior order: " + svhMRNMatcher.ANumber + "->" + svhMRNMatcher.VNumber;
+                    YellowstonePathology.Business.HL7View.EPIC.EPICStatusMessage statusMessage = new Business.HL7View.EPIC.EPICStatusMessage(svhMRNMatcher.ClientOrder, YellowstonePathology.Business.HL7View.OrderStatusEnum.Complete, universalService, resultMessage, "F");
+                    YellowstonePathology.Business.Rules.MethodResult result = statusMessage.Send();
+
                     foreach (Business.Test.PanelSetOrder panelSetOrder in ao.PanelSetOrderCollection)
                     {
                         panelSetOrder.PanelSetOrderCPTCodeBillCollection.SetPostDate(this.m_PostDate);
@@ -532,6 +540,15 @@ namespace YellowstonePathology.UI.Billing
             streamWriter.Close();
 
             MessageBox.Show("All done.");
+        }
+
+        private void MenuItemFaxReport_Click(object sender, RoutedEventArgs e)
+        {
+            Business.XPSDocument.Result.ClientBillingDetailReportResult.ClientBillingDetailReportData clientBillingDetailReportData = YellowstonePathology.Business.Gateway.XmlGateway.GetClientBillingDetailReport(this.m_PostDate.Value, this.m_PostDate.Value, "1");
+            YellowstonePathology.Document.ClientBillingDetailReportV2 clientBillingDetailReport = new Document.ClientBillingDetailReportV2(clientBillingDetailReportData, this.m_PostDate.Value, this.m_PostDate.Value);
+            string tifPath = @"C:\ProgramData\ypi\SVH_BILLING_" + this.m_PostDate.Value.Year + "_" + this.m_PostDate.Value.Month + "_" + this.m_PostDate.Value.Day + ".tif";
+            Business.Helper.FileConversionHelper.SaveFixedDocumentAsTiff(clientBillingDetailReport.FixedDocument, tifPath);
+            Business.ReportDistribution.Model.FaxSubmission.Submit("4062378090", "SVH Billing Report", tifPath);            
         }
     }
 }

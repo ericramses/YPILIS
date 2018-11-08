@@ -955,7 +955,7 @@ namespace YellowstonePathology.UI.Test
                 YellowstonePathology.Business.ClientOrder.Model.UniversalServiceCollection universalServiceIdCollection = YellowstonePathology.Business.ClientOrder.Model.UniversalServiceCollection.GetAll();
                 YellowstonePathology.Business.ClientOrder.Model.UniversalService universalService = universalServiceIdCollection.GetByUniversalServiceId(clientOrderCollection[0].UniversalServiceId);
 
-                YellowstonePathology.Business.HL7View.EPIC.EPICStatusMessage statusMessage = new Business.HL7View.EPIC.EPICStatusMessage(clientOrderCollection[0], YellowstonePathology.Business.HL7View.OrderStatusEnum.InProcess, universalService);
+                YellowstonePathology.Business.HL7View.EPIC.EPICStatusMessage statusMessage = new Business.HL7View.EPIC.EPICStatusMessage(clientOrderCollection[0], YellowstonePathology.Business.HL7View.OrderStatusEnum.InProcess, universalService, "Yellowstone Pathology Institute: Order Is In Process.", "I");
                 YellowstonePathology.Business.Rules.MethodResult result = statusMessage.Send();
 
                 if (result.Success == false)

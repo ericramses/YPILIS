@@ -25,6 +25,7 @@
                     <MenuItem Header="Process SVH Files" Click="MenuItemProcessSVHFiles_Click"></MenuItem>
                     <MenuItem Header="Transfer SVH Files" Click="MenuItemTransferSVHFiles_Click"></MenuItem>
                     <MenuItem Header="Send Clinic Case Email" Click="MenuItemSendClinicCaseEmail_Click"></MenuItem>
+                    <MenuItem Header="Fax Report" Click="MenuItemFaxReport_Click"></MenuItem>
                     <MenuItem Header="Open Folder" Click="MenuItemOpenSVHFolder_Click"></MenuItem>
                 </MenuItem>
             </Menu>

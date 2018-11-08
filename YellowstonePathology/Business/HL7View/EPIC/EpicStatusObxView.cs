@@ -9,10 +9,14 @@ namespace YellowstonePathology.Business.HL7View.EPIC
 	public class EPICStatusObxView
 	{		
 		int m_ObxCount;
+        string m_ResultStatus;
+        string m_Message;
 
-        public EPICStatusObxView(int obxCount)
+        public EPICStatusObxView(int obxCount, string resultStatus, string message)
 		{			
 			this.m_ObxCount = obxCount;
+            this.m_ResultStatus = resultStatus;
+            this.m_Message = message;
 		}
 
 		public int ObxCount
@@ -21,8 +25,8 @@ namespace YellowstonePathology.Business.HL7View.EPIC
 		}
 
 		public void ToXml(XElement document)
-		{			
-            this.AddNextObxElement("Yellowstone Pathology Institute: Order Is In Process.", document, "F");         
+		{          
+            this.AddNextObxElement(this.m_Message, document, this.m_ResultStatus);
 		}                
 
         public void AddNextObxElement(string value, XElement document, string observationResultStatus)

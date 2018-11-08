@@ -1008,6 +1008,12 @@ namespace YellowstonePathology.UI
         {
             ChainExplorer chainExplorer = new ChainExplorer();
             chainExplorer.Show();
-        }        
+        }
+
+        private void MenuItemPDFTransfer_Click(object sender, RoutedEventArgs e)
+        {
+            PDFTransferDialog pdfTransferDialog = new PDFTransferDialog();
+            pdfTransferDialog.ShowDialog();
+        }
     }
 }
