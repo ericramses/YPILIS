@@ -31,6 +31,8 @@ namespace YellowstonePathology.UI
         private List<string> m_Files;
         private List<string> m_CaseDocuments;
 
+        private Login.Receiving.LoginPageWindow m_LoginPageWindow;
+
         public PDFTransferDialog()
         {            
             this.m_Files = System.IO.Directory.GetFiles(NEO_FILE_PATH, "*.pdf").ToList<string>();
@@ -173,6 +175,47 @@ namespace YellowstonePathology.UI
         {
             
         }
+
+        private void MenuItemViewResultPage(object sender, RoutedEventArgs e)
+        {
+            if (this.ListViewPanelSetOrders.SelectedItem != null)
+            {
+                Business.Test.PanelSetOrder panelSetOrder = (Business.Test.PanelSetOrder)this.ListViewPanelSetOrders.SelectedItem;
+                Business.PanelSet.Model.PanelSet panelSet = Business.PanelSet.Model.PanelSetCollection.GetAll().GetPanelSet(panelSetOrder.PanelSetId);
+                if (panelSet.ResultDocumentSource == Business.PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase)
+                {
+                    YellowstonePathology.Business.User.SystemIdentity systemIdentity = Business.User.SystemIdentity.Instance;
+
+                    YellowstonePathology.UI.Test.ResultPathFactory resultPathFactory = new Test.ResultPathFactory();
+                    resultPathFactory.Finished += new Test.ResultPathFactory.FinishedEventHandler(ResultPathFactory_Finished);
+
+                    this.m_LoginPageWindow = new Login.Receiving.LoginPageWindow();
+                    bool started = resultPathFactory.Start(panelSetOrder, this.m_AccessionOrder, this.m_LoginPageWindow.PageNavigator, this.m_LoginPageWindow, System.Windows.Visibility.Collapsed);
+                    if (started == true)
+                    {
+                        this.m_LoginPageWindow.ShowDialog();
+                    }
+                    else
+                    {
+                        MessageBox.Show("The result for this case is not available in this view.");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("The result for this case is not available in this view.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Select a case.");
+            }
+        }
+
+        private void ResultPathFactory_Finished(object sender, EventArgs e)
+        {
+            this.m_LoginPageWindow.Close();
+        }
+
 
         public void GhostPDFToPNG(string pdfResultFilePath, string xpsCaseFilePath)
         {
