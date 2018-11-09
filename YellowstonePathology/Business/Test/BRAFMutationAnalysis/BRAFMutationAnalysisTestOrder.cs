@@ -8,7 +8,7 @@ using YellowstonePathology.Business.Persistence;
 namespace YellowstonePathology.Business.Test.BRAFMutationAnalysis
 {
     [PersistentClass("tblBRAFMutationAnalysisTestOrder", "tblPanelSetOrder", "YPIDATA")]
-    public class BRAFMutationAnalysisTestOrder : YellowstonePathology.Business.Test.PanelSetOrder
+    public class BRAFMutationAnalysisTestOrder : YellowstonePathology.Business.Test.PanelSetOrder, YellowstonePathology.Business.Interface.ISolidTumorTesting
     {
         private string m_Result;
         private string m_Interpretation;
