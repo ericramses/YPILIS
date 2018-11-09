@@ -19,9 +19,10 @@ namespace YellowstonePathology.Business.HL7View.EPIC
         private string m_ResultStatus;
 
         protected string m_ServerFileName;
-        protected string m_InterfaceFilename;              
+        protected string m_InterfaceFilename;
+        protected DateTime m_DateOfService;
 
-        public EPICStatusMessage(YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder, OrderStatus orderStatus, YellowstonePathology.Business.ClientOrder.Model.UniversalService universalService, string resultMessage, string resultStatus)
+        public EPICStatusMessage(YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder, OrderStatus orderStatus, YellowstonePathology.Business.ClientOrder.Model.UniversalService universalService, string resultMessage, string resultStatus, DateTime dateOfService)
 		{
 			this.m_ClientOrder = clientOrder;
 			this.m_OrderingPhysician = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianByNpi(this.m_ClientOrder.ProviderId);
@@ -29,6 +30,7 @@ namespace YellowstonePathology.Business.HL7View.EPIC
             this.m_UniversalService = universalService;            
             this.m_ResultMessage = resultMessage;
             this.m_ResultStatus = resultStatus;
+            this.m_DateOfService = dateOfService;
             this.SetupFileNames();
 		}
 
@@ -66,7 +68,7 @@ namespace YellowstonePathology.Business.HL7View.EPIC
                 EPICStatusOrcView orc = new EPICStatusOrcView(this.m_ClientOrder.ExternalOrderId, this.m_OrderingPhysician, this.m_OrderStatus);
                 orc.ToXml(this.m_Document);
 
-                EPICStatusObrView obr = new EPICStatusObrView(this.m_ClientOrder.ExternalOrderId, string.Empty, this.m_ClientOrder.OrderTime, null, this.m_OrderingPhysician, this.m_ResultStatus, this.m_UniversalService);
+                EPICStatusObrView obr = new EPICStatusObrView(this.m_ClientOrder.ExternalOrderId, string.Empty, this.m_DateOfService, null, this.m_OrderingPhysician, this.m_ResultStatus, this.m_UniversalService);
                 obr.ToXml(this.m_Document);
 
                 EPICStatusObxView obx = new EPICStatusObxView(m_ObxCount, this.m_ResultStatus, this.m_ResultMessage);

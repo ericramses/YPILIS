@@ -135,24 +135,28 @@ namespace YellowstonePathology.UI
                     Business.PanelSet.Model.PanelSetCollection panelSetCollection = Business.PanelSet.Model.PanelSetCollection.GetAll();
                     Business.PanelSet.Model.PanelSet panelSet = panelSetCollection.GetPanelSet(panelSetOrder.PanelSetId);
 
-                    if(panelSet.ResultDocumentSource == Business.PanelSet.Model.ResultDocumentSourceEnum.PublishedDocument)
-                    {
-                        Business.OrderIdParser orderIdParser = new Business.OrderIdParser(panelSetOrder.ReportNo);
-                        string pdfCaseFilePath = Business.Document.CaseDocument.GetCaseFileNamePDF(orderIdParser);
-                        string neoFileName = (string)this.ListViewFiles.SelectedItem;
+                    string sourcePDFFileName = (string)this.ListViewFiles.SelectedItem;
+                    Business.OrderIdParser orderIdParser = new Business.OrderIdParser(panelSetOrder.ReportNo);
+                    string casePath = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser);
 
-                        System.IO.File.Copy(neoFileName, pdfCaseFilePath, true);
+                    if (panelSet.ResultDocumentSource == Business.PanelSet.Model.ResultDocumentSourceEnum.PublishedDocument)
+                    {                        
+                        string pdfCaseFilePath = Business.Document.CaseDocument.GetCaseFileNamePDF(orderIdParser);                        
+                        System.IO.File.Copy(sourcePDFFileName, pdfCaseFilePath, true);
 
                         string xpsCaseFilePath = Business.Document.CaseDocument.GetCaseFileNameXPS(orderIdParser);
-                        this.GhostPDFToPNG(neoFileName, xpsCaseFilePath);
+                        this.GhostPDFToPNG(sourcePDFFileName, xpsCaseFilePath);
 
                         string tifCaseFilePath = Business.Document.CaseDocument.GetCaseFileNameTif(orderIdParser);
                         Business.Helper.FileConversionHelper.ConvertXPSToTIF(xpsCaseFilePath, tifCaseFilePath);
                     }
                     else
                     {
-                        MessageBox.Show("This test cannot be linked because the result needs to be entered.");
+                        string neoCaseFileName = Business.Document.CaseDocument.GetCaseFileNamePDF(orderIdParser).Replace(".pdf", ".neoreport.pdf");
+                        System.IO.File.Copy(sourcePDFFileName, neoCaseFileName, true);
                     }
+
+                    this.m_CaseDocuments = System.IO.Directory.GetFiles(casePath).ToList<string>();
                 }
                 else
                 {
