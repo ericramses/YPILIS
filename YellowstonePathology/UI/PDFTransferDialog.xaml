@@ -34,6 +34,7 @@
             <ListView.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Link PDF To This Order" Click="MenuItemLinkPDF_Click"></MenuItem>
+                    <MenuItem Header="View Result Page" Click="MenuItemViewResultPage"></MenuItem>
                 </ContextMenu>
             </ListView.ContextMenu>
             <ListView.View>
