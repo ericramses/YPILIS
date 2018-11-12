@@ -21,7 +21,10 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
         public override bool IsAMatch()
         {
             bool result = false;
-            if (this.HER2CEP17Ratio >= 4.0 && this.AverageHER2CopyNo < 6.0)
+            if (this.m_HER2AmplificationByISHTestOrder.AverageHer2Chr17SignalAsDouble.HasValue &&
+                this.m_HER2AmplificationByISHTestOrder.AverageHer2Chr17SignalAsDouble >= 4.0 &&
+                this.m_HER2AmplificationByISHTestOrder.AverageHer2NeuSignal.HasValue &&
+                this.m_HER2AmplificationByISHTestOrder.AverageHer2NeuSignal < 6.0)
             {
                 result = true;
 
