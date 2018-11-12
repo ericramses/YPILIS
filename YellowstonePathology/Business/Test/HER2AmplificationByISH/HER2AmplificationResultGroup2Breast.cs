@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
+namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 {
-    public class HER2AmplificationResultGroup2 : HER2AmplificationResult
+    public class HER2AmplificationResultGroup2Breast : HER2AmplificationResult
     {
-        public HER2AmplificationResultGroup2(PanelSetOrderCollection panelSetOrderCollection) : base(panelSetOrderCollection)
+        public HER2AmplificationResultGroup2Breast(PanelSetOrderCollection panelSetOrderCollection) : base(panelSetOrderCollection)
         {
             this.m_Interpretation = "Evidence is limited on the efficacy of human epidermal growth factor 2 (HER2)-targeted therapy in the " +
             "small subset of cases with a HER2/chromosome enumeration probe 17 (CEP17) ratio ≥ 2.0 and an average HER2 copy number " +

@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
+namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 {
-    public class HER2AmplificationResultGroup5 : HER2AmplificationResult
+    public class HER2AmplificationResultGroup5Breast : HER2AmplificationResult
     {
 
-        public HER2AmplificationResultGroup5(PanelSetOrderCollection panelSetOrderCollection) : base(panelSetOrderCollection)
+        public HER2AmplificationResultGroup5Breast(PanelSetOrderCollection panelSetOrderCollection) : base(panelSetOrderCollection)
         {
         }
 
