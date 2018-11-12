@@ -510,8 +510,7 @@ namespace YellowstonePathology.UI.Billing
             this.TransferPSAFiles(sender, e);
             this.ProcessSVHCDMFiles(sender, e);
             this.TransferSVHCDMFiles(sender, e);
-            this.SendSVHClinicEmail(sender, e);
-            this.FaxSVHClinicReport(sender, e);
+            this.SendSVHClinicEmail(sender, e);            
         }
 
         private void AllProcessBackgroundWorker_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
@@ -544,35 +543,13 @@ namespace YellowstonePathology.UI.Billing
         }
 
         private void MenuItemFaxReport_Click(object sender, RoutedEventArgs e)
-        {
-            //this.m_BackgroundWorker.ReportProgress(1, "Faxing SVH Report: " + DateTime.Now.ToLongTimeString());
+        {            
             Business.XPSDocument.Result.ClientBillingDetailReportResult.ClientBillingDetailReportData clientBillingDetailReportData = YellowstonePathology.Business.Gateway.XmlGateway.GetClientBillingDetailReport(this.m_PostDate.Value, this.m_PostDate.Value, "1");
             YellowstonePathology.Document.ClientBillingDetailReportV2 clientBillingDetailReport = new Document.ClientBillingDetailReportV2(clientBillingDetailReportData, this.m_PostDate.Value, this.m_PostDate.Value);
             string tifPath = @"C:\ProgramData\ypi\SVH_BILLING_" + this.m_PostDate.Value.Year + "_" + this.m_PostDate.Value.Month + "_" + this.m_PostDate.Value.Day + ".tif";
             Business.Helper.FileConversionHelper.SaveFixedDocumentAsTiff(clientBillingDetailReport.FixedDocument, tifPath);
             Business.ReportDistribution.Model.FaxSubmission.Submit("4062378090", "SVH Billing Report", tifPath);
-            //this.m_BackgroundWorker.ReportProgress(1, "SVH report has been submitted to the fax.");
-            /*
-            this.m_StatusMessageList.Clear();
-            this.m_BackgroundWorker = new System.ComponentModel.BackgroundWorker();
-            this.m_BackgroundWorker.WorkerSupportsCancellation = false;
-            this.m_BackgroundWorker.WorkerReportsProgress = true;
-            this.m_BackgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(BackgroundWorker_ProgressChanged);
-            this.m_BackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(FaxSVHClinicReport);
-            this.m_BackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(BackgroundWorker_RunWorkerCompleted);
-            this.m_BackgroundWorker.RunWorkerAsync();
-            */
-        }
-
-        private void FaxSVHClinicReport(object sender, System.ComponentModel.DoWorkEventArgs e)
-        {
-            this.m_BackgroundWorker.ReportProgress(1, "Faxing SVH Report: " + DateTime.Now.ToLongTimeString());
-            Business.XPSDocument.Result.ClientBillingDetailReportResult.ClientBillingDetailReportData clientBillingDetailReportData = YellowstonePathology.Business.Gateway.XmlGateway.GetClientBillingDetailReport(this.m_PostDate.Value, this.m_PostDate.Value, "1");
-            YellowstonePathology.Document.ClientBillingDetailReportV2 clientBillingDetailReport = new Document.ClientBillingDetailReportV2(clientBillingDetailReportData, this.m_PostDate.Value, this.m_PostDate.Value);
-            string tifPath = @"C:\ProgramData\ypi\SVH_BILLING_" + this.m_PostDate.Value.Year + "_" + this.m_PostDate.Value.Month + "_" + this.m_PostDate.Value.Day + ".tif";
-            Business.Helper.FileConversionHelper.SaveFixedDocumentAsTiff(clientBillingDetailReport.FixedDocument, tifPath);
-            Business.ReportDistribution.Model.FaxSubmission.Submit("4062378090", "SVH Billing Report", tifPath);
-            this.m_BackgroundWorker.ReportProgress(1, "SVH report has been submitted to the fax.");
-        }
+            MessageBox.Show("The SVH report was successfully submitted to fax.");
+        }        
     }
 }
