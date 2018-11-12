@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 {
-    public class HER2AmplificationResultGroup5Breast : HER2AmplificationResult
+    public class HER2AmplificationResultGroup5Breast : HER2AmplificationResultBreast
     {
 
         public HER2AmplificationResultGroup5Breast(PanelSetOrderCollection panelSetOrderCollection) : base(panelSetOrderCollection)

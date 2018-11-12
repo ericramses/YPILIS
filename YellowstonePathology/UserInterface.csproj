@@ -1051,6 +1051,7 @@
     <Compile Include="Business\Test\EGFRToALKReflexAnalysis\EGFRToALKReflexAnalysisBRAFResult.cs" />
     <Compile Include="Business\Test\ExtractAndHoldForPreauthorization\ExtractAndHoldForPreauthorizationWordDocument.cs" />
     <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationResult.cs" />
+    <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationResultBreast.cs" />
     <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationResultCollection.cs" />
     <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationResultGroup2Breast.cs" />
     <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationResultGroup3Breast.cs" />

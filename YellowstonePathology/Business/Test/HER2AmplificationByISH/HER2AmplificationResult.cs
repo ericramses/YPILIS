@@ -11,7 +11,6 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        //protected PanelSetOrderCollection m_PanelSetOrderCollection;
         protected HER2AmplificationByISHTestOrder m_HER2AmplificationByISHTestOrder;
         protected Her2AmplificationByIHC.PanelSetOrderHer2AmplificationByIHC m_PanelSetOrderHer2AmplificationByIHC;
         protected string m_Interpretation;
