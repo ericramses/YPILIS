@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
+namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 {
     public enum HER2AmplificationResultEnum
     {

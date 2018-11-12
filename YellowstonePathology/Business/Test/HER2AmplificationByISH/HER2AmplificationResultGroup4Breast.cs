@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
+namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 {
-    public class HER2AmplificationResultGroup4 : HER2AmplificationResult
+    public class HER2AmplificationResultGroup4Breast : HER2AmplificationResult
     {
-        public HER2AmplificationResultGroup4(PanelSetOrderCollection panelSetOrderCollection) : base(panelSetOrderCollection)
+        public HER2AmplificationResultGroup4Breast(PanelSetOrderCollection panelSetOrderCollection) : base(panelSetOrderCollection)
         {
             this.m_Interpretation = "It is uncertain whether patients with an average of ≥ 4.0 and < 6.0 human epidermal growth factor 2 " +
                 "receptor(HER2) signals per cell and HER2 / chromosome enumeration probe 17(CEP17) ratio of < 2.0 benefit from HER2 - " +

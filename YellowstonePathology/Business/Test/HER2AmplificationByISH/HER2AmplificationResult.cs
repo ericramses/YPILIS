@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 
-namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
+namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 {
     public class HER2AmplificationResult : INotifyPropertyChanged
     {

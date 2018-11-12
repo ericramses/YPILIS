@@ -201,8 +201,8 @@ namespace YellowstonePathology.UI.Test
                 {
                     YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHResult.AcceptResults(this.m_PanelSetOrder, this.m_SystemIdentity);
 
-                    YellowstonePathology.Business.Test.HER2AmplificationSummary.HER2AmplificationResultCollection her2AmplificationResultCollection = new Business.Test.HER2AmplificationSummary.HER2AmplificationResultCollection(this.m_AccessionOrder.PanelSetOrderCollection);
-                    YellowstonePathology.Business.Test.HER2AmplificationSummary.HER2AmplificationResult her2AmplificationResult = her2AmplificationResultCollection.FindMatch();
+                    YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationResultCollection her2AmplificationResultCollection = new Business.Test.HER2AmplificationByISH.HER2AmplificationResultCollection(this.m_AccessionOrder.PanelSetOrderCollection);
+                    YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationResult her2AmplificationResult = her2AmplificationResultCollection.FindMatch();
 
                     if (her2AmplificationResult.HER2ByIHCRequired == true)
                     {

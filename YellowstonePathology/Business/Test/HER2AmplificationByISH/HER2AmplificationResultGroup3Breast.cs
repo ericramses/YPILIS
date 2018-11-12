@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
+namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 {
-    class HER2AmplificationResultGroup3 : HER2AmplificationResult
+    class HER2AmplificationResultGroup3Breast : HER2AmplificationResult
     {
-        public HER2AmplificationResultGroup3(PanelSetOrderCollection panelSetOrderCollection) : base(panelSetOrderCollection)
+        public HER2AmplificationResultGroup3Breast(PanelSetOrderCollection panelSetOrderCollection) : base(panelSetOrderCollection)
         {
             this.m_Interpretation = "There are insufficient data on the efficacy of human epidermal growth factor receptor 2 (HER2)-targeted " +
                 "therapy in cases with a HER2 ratio of < 2.0 in the absence of protein overexpression because such patients were not eligible " +
