@@ -199,14 +199,10 @@ namespace YellowstonePathology.UI.Test
                 }
                 else
                 {
-                    YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHResult.AcceptResults(this.m_PanelSetOrder, this.m_SystemIdentity);
-
-                    YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationResultCollection her2AmplificationResultCollection = new Business.Test.HER2AmplificationByISH.HER2AmplificationResultCollection(this.m_AccessionOrder.PanelSetOrderCollection);
-                    YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationResult her2AmplificationResult = her2AmplificationResultCollection.FindMatch();
-
-                    if (her2AmplificationResult.HER2ByIHCRequired == true)
+                    if (this.m_PanelSetOrder.HER2ByIHCRequired == true)
                     {
-                        if (her2AmplificationResult.HER2ByIHCIsOrdered == false)
+                        YellowstonePathology.Business.Test.Her2AmplificationByIHC.Her2AmplificationByIHCTest her2AmplificationByIHCTest = new Business.Test.Her2AmplificationByIHC.Her2AmplificationByIHCTest();
+                        if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(her2AmplificationByIHCTest.PanelSetId) == false)
                         {
                             MessageBoxResult result = MessageBox.Show("The results require a HER2 Amplification by IHC be Ordered." +
                                 Environment.NewLine + "Order the test now?", "Order Test", MessageBoxButton.YesNo, MessageBoxImage.Information, MessageBoxResult.Yes);
@@ -215,17 +211,33 @@ namespace YellowstonePathology.UI.Test
                                 this.OrderHER2IHC(this, new EventArgs());
                             }
                         }
-
-                        if(her2AmplificationResult.HER2ByIHCIsAccepted == false)
+                        else
                         {
-                            YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHResult.UnacceptResults(this.m_PanelSetOrder);
-                            MessageBox.Show("The results may not be accepted until the HER2 By IHC is ordered and accepted.");
+                            YellowstonePathology.Business.Test.Her2AmplificationByIHC.PanelSetOrderHer2AmplificationByIHC panelSetOrderHer2AmplificationByIHC = (Business.Test.Her2AmplificationByIHC.PanelSetOrderHer2AmplificationByIHC)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(her2AmplificationByIHCTest.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true);
+                            if (panelSetOrderHer2AmplificationByIHC.Accepted == false)
+                            {
+                                YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHResult.UnacceptResults(this.m_PanelSetOrder);
+                                MessageBox.Show("The results may not be accepted until the HER2 By IHC is ordered and accepted.");
+                            }
+                            else
+                            {
+                                YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationResultCollection her2AmplificationResultCollection = new Business.Test.HER2AmplificationByISH.HER2AmplificationResultCollection(this.m_AccessionOrder.PanelSetOrderCollection);
+                                YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationResult her2AmplificationResult = her2AmplificationResultCollection.FindMatch();
+                                if (her2AmplificationResult.IsRecountNeeded() == true)
+                                {
+                                    YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHResult.UnacceptResults(this.m_PanelSetOrder);
+                                    MessageBox.Show("The results may not be accepted until a recount is performed and the number of observers is greater than 2.");
+                                }
+                                else
+                                {
+                                    YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHResult.AcceptResults(this.m_PanelSetOrder, this.m_SystemIdentity);
+                                }
+                            }
                         }
-                        else if(her2AmplificationResult.IsRecountNeeded() == true)
-                        {
-                            YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHResult.UnacceptResults(this.m_PanelSetOrder);
-                            MessageBox.Show("The results may not be accepted until a recount is performed and the number of observers is greater than 2.");
-                        }
+                    }
+                    else
+                    {
+                        YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHResult.AcceptResults(this.m_PanelSetOrder, this.m_SystemIdentity);
                     }
                 }
             }
