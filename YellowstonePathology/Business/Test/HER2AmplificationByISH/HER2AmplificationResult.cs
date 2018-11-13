@@ -107,43 +107,43 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
             return result;
         }
 
-        public virtual void SetResults(HER2AmplificationByISHTestOrder testOrder, Business.Specimen.Model.SpecimenOrder specimenOrder)
+        public virtual void SetResults(Business.Specimen.Model.SpecimenOrder specimenOrder)
         {
-            if (testOrder.GeneticHeterogeneity == HER2AmplificationByISHGeneticHeterogeneityCollection.GeneticHeterogeneityPresentInCells)
+            if (this.m_HER2AmplificationByISHTestOrder.GeneticHeterogeneity == HER2AmplificationByISHGeneticHeterogeneityCollection.GeneticHeterogeneityPresentInCells)
             {
                 this.m_InterpretiveComment += Environment.NewLine + Environment.NewLine +
                     "However, this tumor exhibits genetic heterogeneity in HER2 gene amplification in scattered individual cells.  The " +
                     "clinical significance and potential clinical benefit of trastuzumab is uncertain when " +
-                    testOrder.Indicator.ToLower() +
-                    "carcinoma demonstrates genetic heterogeneity." + Environment.NewLine + Environment.NewLine;
+                    this.m_HER2AmplificationByISHTestOrder.Indicator.ToLower() +
+                    " carcinoma demonstrates genetic heterogeneity." + Environment.NewLine + Environment.NewLine;
                 this.m_ResultComment = "This tumor exhibits genetic heterogeneity in HER2 gene amplification in scattered individual cells.  The clinical " +
                     "significance and potential clinical benefit of trastuzumab is uncertain when " +
-                    testOrder.Indicator.ToLower() +
+                    this.m_HER2AmplificationByISHTestOrder.Indicator.ToLower() +
                     " carcinoma demonstrates genetic heterogeneity";
             }
-            else if (testOrder.GeneticHeterogeneity == HER2AmplificationByISHGeneticHeterogeneityCollection.GeneticHeterogeneityPresentInClusters)
+            else if (this.m_HER2AmplificationByISHTestOrder.GeneticHeterogeneity == HER2AmplificationByISHGeneticHeterogeneityCollection.GeneticHeterogeneityPresentInClusters)
             {
                 this.m_InterpretiveComment += Environment.NewLine + Environment.NewLine +
                     "However, this tumor exhibits genetic heterogeneity in HER2 gene amplification in small cell clusters. The HER2/Chr17 " +
                     "ratio in the clusters is " +
-                    testOrder.Her2Chr17ClusterRatio +
+                    this.m_HER2AmplificationByISHTestOrder.Her2Chr17ClusterRatio +
                     ".  The clinical significance and potential clinical benefit of trastuzumab is uncertain when " +
-                    testOrder.Indicator.ToLower() +
+                    this.m_HER2AmplificationByISHTestOrder.Indicator.ToLower() +
                     " carcinoma demonstrates genetic heterogeneity." + Environment.NewLine + Environment.NewLine;
                 this.m_ResultComment = "This tumor exhibits genetic heterogeneity in HER2 gene amplification in small cell clusters.  The clinical significance " +
                     "and potential clinical benefit of trastuzumab is uncertain when " +
-                    testOrder.Indicator.ToLower() +
+                    this.m_HER2AmplificationByISHTestOrder.Indicator.ToLower() +
                     " carcinoma demonstrates genetic heterogeneity.";
             }
 
-            testOrder.Result = this.m_Result.ToString();
+            this.m_HER2AmplificationByISHTestOrder.Result = this.m_Result.ToString();
             //testOrder.ResultCode = this.m_ResultCode;
-            testOrder.ResultComment = this.m_ResultComment;
-            testOrder.InterpretiveComment = this.m_InterpretiveComment.TrimEnd();
-            testOrder.ResultDescription = this.m_ResultDescription;
-            testOrder.CommentLabel = null;
-            testOrder.ReportReference = this.m_ReportReference;
-            testOrder.NoCharge = false;
+            this.m_HER2AmplificationByISHTestOrder.ResultComment = this.m_ResultComment;
+            this.m_HER2AmplificationByISHTestOrder.InterpretiveComment = this.m_InterpretiveComment.TrimEnd();
+            this.m_HER2AmplificationByISHTestOrder.ResultDescription = this.m_ResultDescription;
+            this.m_HER2AmplificationByISHTestOrder.CommentLabel = null;
+            this.m_HER2AmplificationByISHTestOrder.ReportReference = this.m_ReportReference;
+            this.m_HER2AmplificationByISHTestOrder.NoCharge = false;
 
             if (specimenOrder.FixationDuration > 72 || specimenOrder.FixationDuration < 6)
             {

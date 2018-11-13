@@ -37,7 +37,7 @@ namespace YellowstonePathology.UI.Test
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;
         private YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHTestOrder m_PanelSetOrder;
-        private YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHResultCollection m_ResultCollection;
+        //private YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHResultCollection m_ResultCollection;
         private YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHIndicatorCollection m_IndicatorCollection;
         private YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHSampleAdequacyCollection m_SampleAdequacyCollection;
         private YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHProbeSignalIntensityCollection m_ProbeSignalIntensityCollection;
@@ -58,7 +58,7 @@ namespace YellowstonePathology.UI.Test
             this.m_PageNavigator = pageNavigator;
 
             this.m_PageHeaderText = "HER2 Amplification By ISH Results For: " + this.m_AccessionOrder.PatientDisplayName;
-            this.m_ResultCollection = new YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHResultCollection();
+            //this.m_ResultCollection = new YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHResultCollection();
             this.m_IndicatorCollection = new YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHIndicatorCollection();
             this.m_SampleAdequacyCollection = new YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHSampleAdequacyCollection();
             this.m_ProbeSignalIntensityCollection = new YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHProbeSignalIntensityCollection();
@@ -87,10 +87,10 @@ namespace YellowstonePathology.UI.Test
             get { return this.m_PanelSetOrder; }
         }
 
-        public YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHResultCollection ResultCollection
+        /*public YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHResultCollection ResultCollection
         {
             get { return this.m_ResultCollection; }
-        }
+        }*/
 
         public YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHIndicatorCollection IndicatorCollection
         {
@@ -265,9 +265,11 @@ namespace YellowstonePathology.UI.Test
             YellowstonePathology.Business.Rules.MethodResult methodResult = this.m_PanelSetOrder.IsOkToSetResults();
             if (methodResult.Success == true)
             {
-                YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHResult result = this.m_ResultCollection.GetResultFromIndication(this.m_PanelSetOrder);
+                //YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHResult result = this.m_ResultCollection.GetResultFromIndication(this.m_PanelSetOrder);
+                YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationResultCollection her2AmplificationResultCollection = new Business.Test.HER2AmplificationByISH.HER2AmplificationResultCollection(this.m_AccessionOrder.PanelSetOrderCollection);
+                YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationResult her2AmplificationResult = her2AmplificationResultCollection.FindMatch();
                 YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);
-                result.SetResults(this.m_PanelSetOrder, specimenOrder);
+                her2AmplificationResult.SetResults(specimenOrder);
                 if (this.m_PanelSetOrder.ShouldOrderHER2ByIHC(this.m_AccessionOrder) == true)
                 {
                     this.m_PanelSetOrder.HER2ByIHCRequired = true;
