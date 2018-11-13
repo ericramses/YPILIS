@@ -16,7 +16,16 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
         protected string m_Interpretation;
         protected HER2AmplificationResultEnum m_Result;
 
-        private bool m_RequiresBlindedObserver;
+        protected string m_InterpretiveComment;
+        protected string m_ResultComment;
+        protected string m_ResultDescription;
+        protected string m_ReportReference;
+        protected string m_FixationOutOfBoundsComment = "The specimen fixation time does not meet ASCO CAP guidelines (6 to 72 hours), which " +
+            "may cause false negative results.  Repeat testing on an alternate specimen that meets fixation time guidelines is recommended, " +
+            "if available.";
+        protected string m_FixationColdSchemaComment = "The time from specimen procurement to fixation in formalin (cold ischemia time) exceeds " +
+            "one hour, which may cause false negative results.  Repeat testing on an alternate specimen that meets ASCO CAP guidelines for cold " +
+            "ischemia time is recommended, if available.";
 
         public HER2AmplificationResult(PanelSetOrderCollection panelSetOrderCollection)
         {
@@ -60,19 +69,6 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
             }
         }
 
-        public bool RequiresBlindedObserver
-        {
-            get { return m_RequiresBlindedObserver; }
-            set
-            {
-                if (this.m_RequiresBlindedObserver != value)
-                {
-                    this.m_RequiresBlindedObserver = value;
-                    NotifyPropertyChanged("RequiresBlindedObserver");
-                }
-            }
-        }
-
         public virtual bool IsAMatch()
         {
             return false;
@@ -96,7 +92,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
                 }
                 else if (this.m_PanelSetOrderHer2AmplificationByIHC.Score.Contains("2+"))
                 {
-                    this.m_RequiresBlindedObserver = true;
+                    this.m_HER2AmplificationByISHTestOrder.RecountRequired = true;
                 }
                 else if (this.m_PanelSetOrderHer2AmplificationByIHC.Score.Contains("3+"))
                 {
@@ -107,8 +103,52 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
         public bool IsRecountNeeded()
         {
             bool result = false;
-            if (this.m_RequiresBlindedObserver == true && this.m_HER2AmplificationByISHTestOrder.NumberOfObservers < 3) result = true;
+            if (this.m_HER2AmplificationByISHTestOrder.RecountRequired == true && this.m_HER2AmplificationByISHTestOrder.NumberOfObservers < 3) result = true;
             return result;
+        }
+
+        public virtual void SetResults(HER2AmplificationByISHTestOrder testOrder, Business.Specimen.Model.SpecimenOrder specimenOrder)
+        {
+            if (testOrder.GeneticHeterogeneity == HER2AmplificationByISHGeneticHeterogeneityCollection.GeneticHeterogeneityPresentInCells)
+            {
+                this.m_InterpretiveComment += Environment.NewLine + Environment.NewLine +
+                    "However, this tumor exhibits genetic heterogeneity in HER2 gene amplification in scattered individual cells.  The " +
+                    "clinical significance and potential clinical benefit of trastuzumab is uncertain when " +
+                    testOrder.Indicator.ToLower() +
+                    "carcinoma demonstrates genetic heterogeneity." + Environment.NewLine + Environment.NewLine;
+                this.m_ResultComment = "This tumor exhibits genetic heterogeneity in HER2 gene amplification in scattered individual cells.  The clinical " +
+                    "significance and potential clinical benefit of trastuzumab is uncertain when " +
+                    testOrder.Indicator.ToLower() +
+                    " carcinoma demonstrates genetic heterogeneity";
+            }
+            else if (testOrder.GeneticHeterogeneity == HER2AmplificationByISHGeneticHeterogeneityCollection.GeneticHeterogeneityPresentInClusters)
+            {
+                this.m_InterpretiveComment += Environment.NewLine + Environment.NewLine +
+                    "However, this tumor exhibits genetic heterogeneity in HER2 gene amplification in small cell clusters. The HER2/Chr17 " +
+                    "ratio in the clusters is " +
+                    testOrder.Her2Chr17ClusterRatio +
+                    ".  The clinical significance and potential clinical benefit of trastuzumab is uncertain when " +
+                    testOrder.Indicator.ToLower() +
+                    " carcinoma demonstrates genetic heterogeneity." + Environment.NewLine + Environment.NewLine;
+                this.m_ResultComment = "This tumor exhibits genetic heterogeneity in HER2 gene amplification in small cell clusters.  The clinical significance " +
+                    "and potential clinical benefit of trastuzumab is uncertain when " +
+                    testOrder.Indicator.ToLower() +
+                    " carcinoma demonstrates genetic heterogeneity.";
+            }
+
+            testOrder.Result = this.m_Result.ToString();
+            //testOrder.ResultCode = this.m_ResultCode;
+            testOrder.ResultComment = this.m_ResultComment;
+            testOrder.InterpretiveComment = this.m_InterpretiveComment.TrimEnd();
+            testOrder.ResultDescription = this.m_ResultDescription;
+            testOrder.CommentLabel = null;
+            testOrder.ReportReference = this.m_ReportReference;
+            testOrder.NoCharge = false;
+
+            if (specimenOrder.FixationDuration > 72 || specimenOrder.FixationDuration < 6)
+            {
+                specimenOrder.FixationComment = m_FixationOutOfBoundsComment;
+            }
         }
     }
 }

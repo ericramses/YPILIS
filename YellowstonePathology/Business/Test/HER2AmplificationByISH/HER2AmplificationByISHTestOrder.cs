@@ -50,10 +50,16 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 
         public HER2AmplificationByISHTestOrder()
 		{
+            this.m_Method = "This test was performed using a molecular method, In Situ Hybridization (ISH) with the US FDA approved " +
+                "Inform HER2 DNA probe kit, modified to report results according to ASCO/CAP guidelines. The test was performed on " +
+                "paraffin embedded tissue in compliance with ASCO/CAP guidelines.  Probes used include a locus specific probe for HER2 " +
+                "and an internal hybridization control probe for the centromeric region of chromosome 17 (Chr17).";
+            this.m_ASRComment = "This test was performed using a US FDA approved DNA probe kit, modified to report results according to " +
+                "ASCO/CAP guidelines, and the modified procedure was validated by Yellowstone Pathology Institute (YPI).  YPI assumes the " +
+                "responsibility for test performance";
+    }
 
-		}
-
-		public HER2AmplificationByISHTestOrder(string masterAccessionNo, string reportNo, string objectId,
+    public HER2AmplificationByISHTestOrder(string masterAccessionNo, string reportNo, string objectId,
 			YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
 			YellowstonePathology.Business.Interface.IOrderTarget orderTarget,
 			bool distribute)
