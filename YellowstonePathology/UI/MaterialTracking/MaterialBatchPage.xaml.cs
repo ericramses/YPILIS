@@ -300,7 +300,8 @@ namespace YellowstonePathology.UI.MaterialTracking
             if (this.IsOkToMoveNext() == true)
             {
                 if (this.IsOKToSave() == true)
-                {                    
+                {
+                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(Window.GetWindow(this));
                     this.Next(this, new EventArgs());
                 }
             }
@@ -519,6 +520,16 @@ namespace YellowstonePathology.UI.MaterialTracking
             barcode.ID = "18-9675.1A1";
             this.HistologySlideScanReceived(barcode);
             //this.BarcodeScanPort_HistologyBlockScanReceived(barcode);*/
+        }
+
+        private void ComboboxFromFacility_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(this.ComboboxFromFacility.SelectedItem != null)
+            {
+                Business.Facility.Model.Facility facility = (Business.Facility.Model.Facility)this.ComboboxFromFacility.SelectedItem;
+                if(this.m_MaterialTrackingBatch.FromFacilityName != facility.FacilityName)
+                    this.m_MaterialTrackingBatch.FromFacilityName = facility.FacilityName;
+            }
         }
     }
 }

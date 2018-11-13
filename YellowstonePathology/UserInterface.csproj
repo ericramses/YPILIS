@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>286</ApplicationRevision>
+    <ApplicationRevision>287</ApplicationRevision>
     <ApplicationVersion>10.1.12.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -2952,6 +2952,9 @@
     <Compile Include="UI\AppMessaging\LockRequestResponseRecievedPage.xaml.cs">
       <DependentUpon>LockRequestResponseRecievedPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\AutoCompleteTest.xaml.cs">
+      <DependentUpon>AutoCompleteTest.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Billing\BillingPage.xaml.cs">
       <DependentUpon>BillingPage.xaml</DependentUpon>
     </Compile>
@@ -4851,6 +4854,10 @@
     <Page Include="UI\AppMessaging\LockRequestResponseRecievedPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\AutoCompleteTest.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Billing\ADTPage.xaml">
       <Generator>MSBuild:Compile</Generator>

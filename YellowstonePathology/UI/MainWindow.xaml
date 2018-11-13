@@ -93,6 +93,7 @@
                     <MenuItem Name="MenuItemDictationTemplates" Header="Dictation Templates" Click="MenuItemDictationTemplates_Click" />
                     <MenuItem Name="MenuItemRedis" Header="Save Redis to file" Click="MenuItemRedis_Click"></MenuItem>
                     <MenuItem Name="MenuItemChainExplorer" Header="Chain Explorer" Click="MenuItemChainExplorer_Click"></MenuItem>
+                    <MenuItem Name="MenuItemAutoComplete" Header="Auto Complete" Click="MenuItemAutoComplete_Click"></MenuItem>
                 </MenuItem>
 
                 <MenuItem Header="_Monitor" Name="MenuItemMonitor">

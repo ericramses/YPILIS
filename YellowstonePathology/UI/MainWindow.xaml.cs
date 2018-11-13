@@ -1015,5 +1015,11 @@ namespace YellowstonePathology.UI
             PDFTransferDialog pdfTransferDialog = new PDFTransferDialog();
             pdfTransferDialog.ShowDialog();
         }
+
+        private void MenuItemAutoComplete_Click(object sender, RoutedEventArgs e)
+        {
+            AutoCompleteTest act = new AutoCompleteTest();
+            act.Show();
+        }
     }
 }

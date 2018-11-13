@@ -1020,26 +1020,20 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            var bitmaps = new List<System.Drawing.Bitmap>();
-            foreach (var file in Directory.EnumerateFiles("", "*.png"))
-            {
-                bitmaps.Add(new System.Drawing.Bitmap(file));
-            }
+            Business.MaterialTracking.Model.MaterialTrackingBatchCollection c = YellowstonePathology.Business.Gateway.SlideAccessionGateway.GetMaterialTrackingBatchCollection();
+            Business.Facility.Model.FacilityCollection facilities = Business.Facility.Model.FacilityCollection.Instance;
 
-            FixedDocument doc = new FixedDocument();
-            foreach (var bitmap in bitmaps)
+            foreach(Business.MaterialTracking.Model.MaterialTrackingBatch b in c)
             {
-                ImageSource imageSource;
-                using (var stream = new MemoryStream())
+                Business.Facility.Model.Facility facility = facilities.GetByFacilityId(b.FromFacilityId);
+                if (string.IsNullOrEmpty(b.FromFacilityId) == false)
                 {
-                    bitmap.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
-                    stream.Position = 0;
-                    imageSource = BitmapFrame.Create(stream,
-                        BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.OnLoad);
-                }
-                var page = new FixedPage();
-                page.Children.Add(new Image { Source = imageSource });
-                doc.Pages.Add(new PageContent { Child = page });
+                    if (b.FromFacilityName != facility.FacilityName)
+                    {
+                        Business.MaterialTracking.Model.MaterialTrackingBatch mtb = Business.Persistence.DocumentGateway.Instance.PullMaterialTrackingBatch(b.MaterialTrackingBatchId, this);
+                        mtb.FromFacilityName = facility.FacilityName;
+                    }
+                }                
             }
         }
 
@@ -1555,5 +1549,7 @@ namespace YellowstonePathology.UI
 
             MessageBox.Show(message.ToString());
         }
+
+        
     }
 }
