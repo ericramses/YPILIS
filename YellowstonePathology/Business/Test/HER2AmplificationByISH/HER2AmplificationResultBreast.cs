@@ -8,8 +8,6 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 {
     public class HER2AmplificationResultBreast : HER2AmplificationResult
     {
-        protected string m_Interpretation;
-
         protected string InterpretiveComment = "Human epidermal growth factor receptor 2 gene (HER2) is amplified in approximately 20% of breast cancers.  " +
                 "Amplification of the HER2 gene in breast tumors is associated with a worse prognosis.  HER2 status is also predictive of response to " +
                 "chemotherapeutic agents.  Dual in situ hybridization (ISH) studies for HER2 amplification were performed on the submitted sample, in " +
@@ -26,7 +24,6 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
         {
             this.m_ResultComment = null;
             this.m_ResultDescription = "Ratio = " + this.m_HER2AmplificationByISHTestOrder.Her2Chr17Ratio;
-            this.m_InterpretiveComment = this.m_Interpretation;
 
             base.SetResults(specimenOrder);
         }

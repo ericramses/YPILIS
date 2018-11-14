@@ -10,7 +10,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
     {
         public HER2AmplificationResultGroup4Breast(PanelSetOrderCollection panelSetOrderCollection) : base(panelSetOrderCollection)
         {
-            this.m_Interpretation = "It is uncertain whether patients with an average of ≥ 4.0 and < 6.0 human epidermal growth factor 2 " +
+            this.m_InterpretiveComment = "It is uncertain whether patients with an average of ≥ 4.0 and < 6.0 human epidermal growth factor 2 " +
                 "receptor(HER2) signals per cell and HER2 / chromosome enumeration probe 17(CEP17) ratio of < 2.0 benefit from HER2 - " +
                 "targeted therapy in the absence of protein overexpression(immunohistochemistry[IHC] 3 +).  If the specimen test result is " +
                 "close to the in situ hybridization (ISH)ratio threshold for positive, there is a higher likelihood that repeat testing will " +

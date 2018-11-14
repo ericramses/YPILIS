@@ -82,6 +82,12 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 
         public virtual void SetResults(Business.Specimen.Model.SpecimenOrder specimenOrder)
         {
+            if (this.m_HER2AmplificationByISHTestOrder.HER2ByIHCRequired == true)
+            {
+                this.m_InterpretiveComment += Environment.NewLine + Environment.NewLine + "HER2 immunohistochemistry will be performed and " +
+                    "results will be issued in an addendum to the original surgical pathology report.";
+            }
+
             if (this.m_HER2AmplificationByISHTestOrder.GeneticHeterogeneity == HER2AmplificationByISHGeneticHeterogeneityCollection.GeneticHeterogeneityPresentInCells)
             {
                 this.m_InterpretiveComment += Environment.NewLine + Environment.NewLine +

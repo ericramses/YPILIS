@@ -10,7 +10,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
     {
         public HER2AmplificationResultGroup2Breast(PanelSetOrderCollection panelSetOrderCollection) : base(panelSetOrderCollection)
         {
-            this.m_Interpretation = "Evidence is limited on the efficacy of human epidermal growth factor 2 (HER2)-targeted therapy in the " +
+            this.m_InterpretiveComment = "Evidence is limited on the efficacy of human epidermal growth factor 2 (HER2)-targeted therapy in the " +
             "small subset of cases with a HER2/chromosome enumeration probe 17 (CEP17) ratio ≥ 2.0 and an average HER2 copy number " +
             "of < 4.0 per cell.  In the first generation of adjuvant trastuzumab trials, patients in this subgroup who were randomly " +
             "assigned to the trastuzumab arm did not seem to derive an improvement in disease-free or overall survival, but there were " +

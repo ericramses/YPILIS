@@ -31,13 +31,13 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 
         public override void SetResults(Business.Specimen.Model.SpecimenOrder specimenOrder)
         {
-            this.m_Interpretation = InterpretiveComment;
-            this.m_Interpretation = this.m_Interpretation.Replace("*RATIO*", this.m_HER2AmplificationByISHTestOrder.Her2Chr17Ratio.Value.ToString());
-            this.m_Interpretation = this.m_Interpretation.Replace("*CELLSCOUNTED*", this.m_HER2AmplificationByISHTestOrder.CellsCounted.ToString());
-            this.m_Interpretation = this.m_Interpretation.Replace("*HER2STATUS*", this.m_Result.ToString());
+            this.m_InterpretiveComment = InterpretiveComment;
+            this.m_InterpretiveComment = this.m_InterpretiveComment.Replace("*RATIO*", this.m_HER2AmplificationByISHTestOrder.Her2Chr17Ratio.Value.ToString());
+            this.m_InterpretiveComment = this.m_InterpretiveComment.Replace("*CELLSCOUNTED*", this.m_HER2AmplificationByISHTestOrder.CellsCounted.ToString());
+            this.m_InterpretiveComment = this.m_InterpretiveComment.Replace("*HER2STATUS*", this.m_Result.ToString());
             if (this.m_HER2AmplificationByISHTestOrder.AverageHer2NeuSignal.HasValue == true)
             {
-                this.m_Interpretation = this.m_InterpretiveComment.Replace("*HER2COPY*", this.m_HER2AmplificationByISHTestOrder.AverageHer2NeuSignal.Value.ToString());
+                this.m_InterpretiveComment = this.m_InterpretiveComment.Replace("*HER2COPY*", this.m_HER2AmplificationByISHTestOrder.AverageHer2NeuSignal.Value.ToString());
             }
 
             base.SetResults(specimenOrder);
