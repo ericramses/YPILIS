@@ -13,7 +13,6 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 
         protected HER2AmplificationByISHTestOrder m_HER2AmplificationByISHTestOrder;
         protected Her2AmplificationByIHC.PanelSetOrderHer2AmplificationByIHC m_PanelSetOrderHer2AmplificationByIHC;
-        protected string m_Interpretation;
         protected HER2AmplificationResultEnum m_Result;
 
         protected string m_InterpretiveComment;
@@ -40,32 +39,6 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
             if (panelSetOrderCollection.Exists(her2AmplificationByIHCTest.PanelSetId) == true)
             {
                 this.m_PanelSetOrderHer2AmplificationByIHC = (Her2AmplificationByIHC.PanelSetOrderHer2AmplificationByIHC)panelSetOrderCollection.GetPanelSetOrder(her2AmplificationByIHCTest.PanelSetId);
-            }
-        }
-
-        public string Interpretation
-        {
-            get { return m_Interpretation; }
-            set
-            {
-                if (this.m_Interpretation != value)
-                {
-                    this.m_Interpretation = value;
-                    NotifyPropertyChanged("Interpretation");
-                }
-            }
-        }
-
-        public HER2AmplificationResultEnum Result
-        {
-            get { return m_Result; }
-            set
-            {
-                if (this.m_Result != value)
-                {
-                    this.m_Result = value;
-                    NotifyPropertyChanged("Result");
-                }
             }
         }
 
@@ -137,7 +110,6 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
             }
 
             this.m_HER2AmplificationByISHTestOrder.Result = this.m_Result.ToString();
-            //testOrder.ResultCode = this.m_ResultCode;
             this.m_HER2AmplificationByISHTestOrder.ResultComment = this.m_ResultComment;
             this.m_HER2AmplificationByISHTestOrder.InterpretiveComment = this.m_InterpretiveComment.TrimEnd();
             this.m_HER2AmplificationByISHTestOrder.ResultDescription = this.m_ResultDescription;

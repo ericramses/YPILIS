@@ -33,7 +33,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 			{
 				if (this.m_AccessionOrder.AccessionDate >= DateTime.Parse("1/1/2014") == true)
 				{
-					this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\HER2AmplificationByISH.2018ASCOCAP.1.xml";
+					this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\Her2AmplificationByISH.Gastric.2.xml";
 				}
 				else
 				{
