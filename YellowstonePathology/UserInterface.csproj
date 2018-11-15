@@ -1060,6 +1060,8 @@
     <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationResultGroup5Breast.cs" />
     <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationResultGroup1Breast.cs" />
     <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationResultEnum.cs" />
+    <Compile Include="Business\Test\HER2AmplificationRecount\HER2AmplificationRecountTest.cs" />
+    <Compile Include="Business\Test\HER2AmplificationSummary\HER2AmplificationSummaryTest.cs" />
     <Compile Include="Business\Test\HPV1618\HPV1618WPHOBXView.cs" />
     <Compile Include="Business\Test\INI1\INI1Test.cs" />
     <Compile Include="Business\Test\MissingInformation\MissingInformationWordDocument.cs" />
