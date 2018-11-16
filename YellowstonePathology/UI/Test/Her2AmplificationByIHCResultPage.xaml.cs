@@ -25,7 +25,10 @@ namespace YellowstonePathology.UI.Test
 		public delegate void NextEventHandler(object sender, EventArgs e);
 		public event NextEventHandler Next;
 
-		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
+        public delegate void OrderHER2SummaryEventHandler(object sender, EventArgs e);
+        public event OrderHER2SummaryEventHandler OrderHER2Summary;
+
+        private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private string m_PageHeaderText;
 
@@ -125,6 +128,7 @@ namespace YellowstonePathology.UI.Test
 			if (result.Success == true)
 			{
 				this.m_PanelSetOrder.Accept();
+                this.OrderHER2SummaryIfNeeded();
 			}
 			else
 			{
@@ -132,7 +136,19 @@ namespace YellowstonePathology.UI.Test
 			}
 		}
 
-		private void HyperLinkUnacceptResults_Click(object sender, RoutedEventArgs e)
+        private void OrderHER2SummaryIfNeeded()
+        {
+            YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHTest ishTest = new Business.Test.HER2AmplificationByISH.HER2AmplificationByISHTest();
+            YellowstonePathology.Business.Test.HER2AmplificationSummary.HER2AmplificationSummaryTest summaryTest = new Business.Test.HER2AmplificationSummary.HER2AmplificationSummaryTest();
+            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(ishTest.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true) == true &&
+                this.m_AccessionOrder.PanelSetOrderCollection.Exists(summaryTest.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true) == false)
+            {
+                this.OrderHER2Summary(this, new EventArgs());
+            }
+        }
+
+
+        private void HyperLinkUnacceptResults_Click(object sender, RoutedEventArgs e)
 		{
 			YellowstonePathology.Business.Rules.MethodResult result = this.m_PanelSetOrder.IsOkToUnaccept();
 			if (result.Success == true)

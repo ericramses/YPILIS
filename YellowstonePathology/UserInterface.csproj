@@ -3513,6 +3513,10 @@
       <DependentUpon>BRAFMutationAnalysisResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Test\BRAFMutationAnalysisResultPath.cs" />
+    <Compile Include="UI\Test\HER2AmplificationSummaryResultPage.xaml.cs">
+      <DependentUpon>HER2AmplificationSummaryResultPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Test\HER2AmplificationSummaryResultPath.cs" />
     <Compile Include="UI\Test\PreviousResultDialog.xaml.cs">
       <DependentUpon>PreviousResultDialog.xaml</DependentUpon>
     </Compile>
@@ -5402,6 +5406,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Test\BRAFMutationAnalysisResultPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Test\HER2AmplificationSummaryResultPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
