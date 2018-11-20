@@ -30,10 +30,10 @@ namespace YellowstonePathology.UI.Test
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private string m_PageHeaderText;
 
-        private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
+        private YellowstonePathology.Business.Test.HER2AmplificationRecount.HER2AmplificationRecountTestOrder m_PanelSetOrder;
         private string m_OrderedOnDescription;
 
-        public HER2AmplificationRecountResultPage(YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder,
+        public HER2AmplificationRecountResultPage(YellowstonePathology.Business.Test.HER2AmplificationRecount.HER2AmplificationRecountTestOrder panelSetOrder,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
             YellowstonePathology.Business.User.SystemIdentity systemIdentity) : base(panelSetOrder, accessionOrder)
         {
@@ -59,7 +59,7 @@ namespace YellowstonePathology.UI.Test
             get { return this.m_OrderedOnDescription; }
         }
 
-        public YellowstonePathology.Business.Test.PanelSetOrder PanelSetOrder
+        public YellowstonePathology.Business.Test.HER2AmplificationRecount.HER2AmplificationRecountTestOrder PanelSetOrder
         {
             get { return this.m_PanelSetOrder; }
         }
@@ -77,32 +77,30 @@ namespace YellowstonePathology.UI.Test
             get { return this.m_PageHeaderText; }
         }
 
-        private void HyperLinkSetResults_Click(object sender, RoutedEventArgs e)
-        {
-        }
-
         private void HyperLinkFinalizeResults_Click(object sender, RoutedEventArgs e)
         {
-            if (this.m_PanelSetOrder.Final == false)
+            Business.Rules.MethodResult result = this.m_PanelSetOrder.IsOkToFinalize();
+            if (result.Success == false)
             {
                 YellowstonePathology.Business.Test.FinalizeTestResult finalizeTestResult = this.m_PanelSetOrder.Finish(this.m_AccessionOrder);
                 this.HandleFinalizeTestResult(finalizeTestResult);
             }
             else
             {
-                MessageBox.Show("This case cannot be finalized because it is already final.");
+                MessageBox.Show(result.Message);
             }
         }
 
         private void HyperLinkUnfinalResults_Click(object sender, RoutedEventArgs e)
         {
-            if (this.m_PanelSetOrder.Final == true)
+            Business.Rules.MethodResult result = this.m_PanelSetOrder.IsOkToUnfinalize();
+            if (result.Success == true)
             {
                 this.m_PanelSetOrder.Unfinalize();
             }
             else
             {
-                MessageBox.Show("This case cannot be unfinalized because it is not final.");
+                MessageBox.Show(result.Message);
             }
         }
 
