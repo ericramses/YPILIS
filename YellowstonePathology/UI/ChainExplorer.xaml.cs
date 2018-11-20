@@ -45,9 +45,7 @@ namespace YellowstonePathology.UI
 
         private void Button_Go(object sender, RoutedEventArgs e)
         {
-            //int containerCount = this.m_GethAPI.GetContainerCount("0xab6312b07456462c3620d67ce973fb453923e35b");
-            //string result = this.m_GethAPI.GetContainer("0xab6312b07456462c3620d67ce973fb453923e35b", 0);
-            //Business.Specimen.Model.Container container = new Business.Specimen.Model.Container(result);            
+            this.m_ContractCollection.Clear();
             this.LoopTheChain();            
         }
 
@@ -126,6 +124,7 @@ namespace YellowstonePathology.UI
         {
             if(this.ListViewContracts.SelectedItem != null)
             {
+                this.m_ContainerCollection.Clear();
                 Business.EthContract ethContract = (Business.EthContract)this.ListViewContracts.SelectedItem;
                 int containerCount = this.m_GethAPI.GetContainerCount(ethContract.ContractAddress);
                 for(int i=0; i<containerCount; i++)

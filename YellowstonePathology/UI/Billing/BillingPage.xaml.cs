@@ -375,16 +375,17 @@ namespace YellowstonePathology.UI.Billing
         }
 
         private void ButtonSVHCDM_Click(object sender, RoutedEventArgs e)
-        {            
-            foreach (Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill in this.ListViewPanelSetOrderCPTCodeBill.SelectedItems)
-            {
-                if (panelSetOrderCPTCodeBill.BillTo == "Client")
-                {                    
-                    Business.HL7View.EPIC.EPICFT1ResultView epicFT1ResultView = new Business.HL7View.EPIC.EPICFT1ResultView(this.m_AccessionOrder, panelSetOrderCPTCodeBill, true);
-                    Business.Rules.MethodResult result = new Business.Rules.MethodResult();
-                    epicFT1ResultView.Send(result);
-                }
-            }
+        {
+            throw new Exception("Not implemented.");
+            //foreach (Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill in this.ListViewPanelSetOrderCPTCodeBill.SelectedItems)
+            //{
+            //    if (panelSetOrderCPTCodeBill.BillTo == "Client")
+            //    {                    
+                    //Business.HL7View.EPIC.EPICFT1ResultView epicFT1ResultView = new Business.HL7View.EPIC.EPICFT1ResultView(this.m_AccessionOrder, panelSetOrderCPTCodeBill);
+                    //Business.Rules.MethodResult result = new Business.Rules.MethodResult();
+                    //epicFT1ResultView.Send(result);
+            //    }
+            //}
         }
     }
 }

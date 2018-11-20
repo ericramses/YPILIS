@@ -31,7 +31,7 @@ namespace YellowstonePathology.UI.Billing
 		private YellowstonePathology.Business.Billing.Model.CptCodeCollection m_CptCodeCollection;
         private int m_ClientId;
 
-        public PanelSetOrderCPTCodeEntryPage(YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder, int clientId)
+        public PanelSetOrderCPTCodeEntryPage(YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder, int clientId, string medicalRecord)
         {
             this.m_ClientId = clientId;
 
@@ -41,6 +41,7 @@ namespace YellowstonePathology.UI.Billing
             this.m_PanelSetOrderCPTCode.ClientId = clientId;
             this.m_PanelSetOrderCPTCode.EntryType = "Manual Entry";
             this.m_PanelSetOrderCPTCode.CodeableType = "Billable Test";
+            this.m_PanelSetOrderCPTCode.MedicalRecord = medicalRecord;
 
             this.GetCptCodeCollection();
 
@@ -91,37 +92,7 @@ namespace YellowstonePathology.UI.Billing
             {
                 this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.Add(this.m_PanelSetOrderCPTCode);
                 if (this.Next != null) this.Next(this, new EventArgs());
-            }
-
-            /*
-            Business.Billing.Model.CptCodeCollection codes = new Business.Billing.Model.CptCodeCollection();
-            codes.Load();
-
-            List<Business.Billing.Model.CptCode> list = new List<Business.Billing.Model.CptCode>();
-            foreach (Business.Billing.Model.CptCode cptCode in codes)
-            {
-                if (string.IsNullOrEmpty(cptCode.SVHCDMCode) == false)
-                {
-                    list.Add(cptCode);
-                }
-            }
-
-            for (int i=0; i<list.Count; i++)
-            {          
-                if(i >= 50)
-                {
-                    YellowstonePathology.Business.Test.PanelSetOrderCPTCode panelSetOrderCPTCode = this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.GetNextItem(this.m_PanelSetOrder.ReportNo);
-                    panelSetOrderCPTCode.CPTCode = list[i].Code;
-                    panelSetOrderCPTCode.Modifier = list[i].Modifier == null ? null : list[i].Modifier.Modifier;
-                    panelSetOrderCPTCode.CodeType = list[i].CodeType.ToString();
-                    panelSetOrderCPTCode.Quantity = 1;
-                    panelSetOrderCPTCode.ClientId = this.m_ClientId;
-                    panelSetOrderCPTCode.EntryType = "Manual Entry";
-                    panelSetOrderCPTCode.CodeableType = "Billable Test";
-                    this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.Add(panelSetOrderCPTCode);
-                }                  
-            }
-            */
+            }            
 
             if (this.Next != null) this.Next(this, new EventArgs());                                    
         }

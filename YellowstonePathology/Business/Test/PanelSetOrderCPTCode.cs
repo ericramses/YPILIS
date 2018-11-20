@@ -23,6 +23,8 @@ namespace YellowstonePathology.Business.Test
 		private string m_SpecimenOrderId;
         private Nullable<DateTime> m_PostDate;
         private string m_CodeType;
+        private string m_MedicalRecord;
+        private string m_Account;
 
         public PanelSetOrderCPTCode()
         {
@@ -270,6 +272,36 @@ namespace YellowstonePathology.Business.Test
                 {
                     this.m_CodeType = value;
                     this.NotifyPropertyChanged("CodeType");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
+        public string MedicalRecord
+        {
+            get { return this.m_MedicalRecord; }
+            set
+            {
+                if (this.m_MedicalRecord != value)
+                {
+                    this.m_MedicalRecord = value;
+                    this.NotifyPropertyChanged("MedicalRecord");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
+        public string Account
+        {
+            get { return this.m_Account; }
+            set
+            {
+                if (this.m_Account != value)
+                {
+                    this.m_Account = value;
+                    this.NotifyPropertyChanged("Account");
                 }
             }
         }

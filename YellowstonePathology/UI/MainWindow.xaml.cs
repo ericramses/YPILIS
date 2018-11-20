@@ -1021,5 +1021,11 @@ namespace YellowstonePathology.UI
             AutoCompleteTest act = new AutoCompleteTest();
             act.Show();
         }
+
+        private void MenuItemSVHADTMatcher_Click(object sender, RoutedEventArgs e)
+        {
+            UI.Billing.SVHADTMatcher svhadtMatcher = new Billing.SVHADTMatcher();
+            svhadtMatcher.Show();
+        }
     }
 }

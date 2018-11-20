@@ -214,6 +214,21 @@ namespace YellowstonePathology.Business.Test
             return result;
         }
 
+        public bool HasMRNStartingWithA()
+        {
+            bool result = false;
+            foreach (PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill in this)
+            {
+                if (string.IsNullOrEmpty(panelSetOrderCPTCodeBill.MedicalRecord) == false && 
+                    panelSetOrderCPTCodeBill.MedicalRecord.StartsWith("A") == true)
+                {
+                    result = true;
+                    break;
+                }
+            }
+            return result;
+        }
+
         public void SetPostDate(Nullable<DateTime> postDate)
         {
             foreach (PanelSetOrderCPTCodeBill item in this)

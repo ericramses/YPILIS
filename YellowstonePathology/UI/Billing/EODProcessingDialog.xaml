@@ -35,7 +35,9 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>
@@ -43,7 +45,9 @@
 
             <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2">Start Date:</TextBlock>
             <TextBox Grid.Column="1" Grid.Row="0" Name="TextBoxStartDate" HorizontalAlignment="Stretch" Margin="2,2,2,2" Text="{Binding Path=PostDate, Converter={StaticResource ShortDateConverter}}"></TextBox>
-            <TextBlock Grid.Column="2" Grid.Row="0" Name="TextBlockStatusCount" Margin="2,2,2,2" Text="{Binding Path=StatusCountMessage}" HorizontalAlignment="Right"></TextBlock>
+            <Button Grid.Column="2" Grid.Row="0" Width="25" Height="20" Margin="1,1,1,1" Click="ButtonBack_Click">&lt;</Button>
+            <Button Grid.Column="3" Grid.Row="0" Width="25" Height="20" Margin="1,1,1,1" Click="ButtonForward_Click">&gt;</Button>
+            <TextBlock Grid.Column="4" Grid.Row="0" Name="TextBlockStatusCount" Margin="2,2,2,2" Text="{Binding Path=StatusCountMessage}" HorizontalAlignment="Right"></TextBlock>
             
         </Grid>
 

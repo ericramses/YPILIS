@@ -20,6 +20,8 @@ namespace YellowstonePathology.Business.Test
         private string m_BillTo;
         private string m_BillBy;
         private string m_CodeType;
+        private string m_MedicalRecord;
+        private string m_Account;
 
         public PanelSetOrderCPTCodeBill()
         {
@@ -40,7 +42,9 @@ namespace YellowstonePathology.Business.Test
             this.m_Quantity = panelSetOrderCPTCode.Quantity;
             this.m_CPTCode = panelSetOrderCPTCode.CPTCode;
             this.m_CodeType = panelSetOrderCPTCode.CodeType;
-            this.m_Modifier = panelSetOrderCPTCode.Modifier;                  
+            this.m_Modifier = panelSetOrderCPTCode.Modifier;
+            this.m_MedicalRecord = panelSetOrderCPTCode.MedicalRecord;
+            this.m_Account = panelSetOrderCPTCode.Account;
         }
 
 		[PersistentDocumentIdProperty()]
@@ -208,6 +212,36 @@ namespace YellowstonePathology.Business.Test
             }
         }
 
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
+        public string MedicalRecord
+        {
+            get { return this.m_MedicalRecord; }
+            set
+            {
+                if (this.m_MedicalRecord != value)
+                {
+                    this.m_MedicalRecord = value;
+                    this.NotifyPropertyChanged("MedicalRecord");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
+        public string Account
+        {
+            get { return this.m_Account; }
+            set
+            {
+                if (this.m_Account != value)
+                {
+                    this.m_Account = value;
+                    this.NotifyPropertyChanged("Account");
+                }
+            }
+        }
+
         public string GetBillToReverse()
         {
             string result = null;
@@ -235,6 +269,8 @@ namespace YellowstonePathology.Business.Test
             this.m_PostDate = panelSetOrderCPTCodeBill.PostDate;
             this.m_BillTo = panelSetOrderCPTCodeBill.BillTo;
             this.m_BillBy = panelSetOrderCPTCodeBill.BillBy;
+            this.m_MedicalRecord = panelSetOrderCPTCodeBill.MedicalRecord;
+            this.m_Account = panelSetOrderCPTCodeBill.Account;
         }
 	}
 }

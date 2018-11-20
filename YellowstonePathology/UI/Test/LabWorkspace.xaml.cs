@@ -943,27 +943,7 @@ namespace YellowstonePathology.UI.Test
 				billingcodeDialog.ShowDialog();
                 */
             }
-        }
-
-        private void MenuItemSendHL7StatusMessage_Click(object sender, RoutedEventArgs e)
-        {
-            if (this.ListViewCaseList.SelectedItem != null)
-            {
-				YellowstonePathology.Business.Search.ReportSearchItem item = (YellowstonePathology.Business.Search.ReportSearchItem)this.ListViewCaseList.SelectedItem;                
-                YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection clientOrderCollection = YellowstonePathology.Business.Gateway.ClientOrderGateway.GetClientOrdersByMasterAccessionNo(item.MasterAccessionNo);
-
-                YellowstonePathology.Business.ClientOrder.Model.UniversalServiceCollection universalServiceIdCollection = YellowstonePathology.Business.ClientOrder.Model.UniversalServiceCollection.GetAll();
-                YellowstonePathology.Business.ClientOrder.Model.UniversalService universalService = universalServiceIdCollection.GetByUniversalServiceId(clientOrderCollection[0].UniversalServiceId);
-
-                YellowstonePathology.Business.HL7View.EPIC.EPICStatusMessage statusMessage = new Business.HL7View.EPIC.EPICStatusMessage(clientOrderCollection[0], YellowstonePathology.Business.HL7View.OrderStatusEnum.InProcess, universalService, "Yellowstone Pathology Institute: Order Is In Process.", "I", clientOrderCollection[0].OrderDate.Value);
-                YellowstonePathology.Business.Rules.MethodResult result = statusMessage.Send();
-
-                if (result.Success == false)
-                {
-                    MessageBox.Show(result.Message);
-                }
-            }
-        }
+        }        
 
 		private void ButtonReportDetails_Click(object sender, RoutedEventArgs e)
 		{

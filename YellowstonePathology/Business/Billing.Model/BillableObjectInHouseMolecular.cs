@@ -37,7 +37,9 @@ namespace YellowstonePathology.Business.Billing.Model
 							panelSetOrderCPTCode.EntryType = YellowstonePathology.Business.Billing.Model.PanelSetOrderCPTCodeEntryType.SystemGenerated;
 							panelSetOrderCPTCode.SpecimenOrderId = specimenOrder.SpecimenOrderId;
 							panelSetOrderCPTCode.ClientId = this.m_AccessionOrder.ClientId;
-							this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.Add(panelSetOrderCPTCode);
+                            panelSetOrderCPTCode.MedicalRecord = this.m_AccessionOrder.SvhMedicalRecord;
+                            panelSetOrderCPTCode.Account = this.m_AccessionOrder.SvhAccount;
+                            this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.Add(panelSetOrderCPTCode);
 						}
 					}
 				}

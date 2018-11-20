@@ -253,7 +253,6 @@
                                         <MenuItem Header="Open Document Folder" Click="MenuItemOpenDocumentFolder_Click"></MenuItem>                                        
                                         <MenuItem Header="Send HL7 Result" Click="MenuItemSendHL7Result_Click"></MenuItem>
                                         <MenuItem Header="Send HL7 Result Test" Click="MenuItemSendHL7ResultTest_Click"></MenuItem>
-                                        <MenuItem Header="Send HL7 Status Message" Click="MenuItemSendHL7StatusMessage_Click"></MenuItem>
                                         <MenuItem Header="Publish" Click="MenuItemPublish_Click"></MenuItem>
                                         <MenuItem Header="Show HL7 Result" Click="MenuItemShowHl7Result_Click"></MenuItem>
                                         <MenuItem Header="Send Meditech Result" Click="MenuItemSendMeditechResult_Click"></MenuItem>

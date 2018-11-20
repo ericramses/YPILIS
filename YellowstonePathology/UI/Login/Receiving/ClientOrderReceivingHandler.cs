@@ -320,18 +320,11 @@ namespace YellowstonePathology.UI.Login.Receiving
                     YellowstonePathology.Business.ClientOrder.Model.UniversalService universalService = universalServiceIdCollection.GetByUniversalServiceId(clientOrder.UniversalServiceId);
 
 					YellowstonePathology.Business.HL7View.EPIC.EPICStatusMessage statusMessage = new Business.HL7View.EPIC.EPICStatusMessage(clientOrder, YellowstonePathology.Business.HL7View.OrderStatusEnum.InProcess, universalService, "Yellowstone Pathology Institute: Order Is In Process.", "I", clientOrder.OrderDate.Value);
-					YellowstonePathology.Business.Rules.MethodResult result = statusMessage.Send();
-
-					if (result.Success == false)
-					{
-                        YellowstonePathology.Business.Logging.EmailExceptionHandler.HandleException(result.Message);
-					}
-					else
-					{
-						clientOrder.Acknowledged = true;
-						clientOrder.AcknowledgedById = this.m_SystemIdentity.User.UserId;
-						clientOrder.AcknowledgedDate = DateTime.Now;
-					}
+					statusMessage.Publish();
+					
+					clientOrder.Acknowledged = true;
+					clientOrder.AcknowledgedById = this.m_SystemIdentity.User.UserId;
+					clientOrder.AcknowledgedDate = DateTime.Now;					
 				}
 			}
 		}

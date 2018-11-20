@@ -178,6 +178,7 @@ namespace YellowstonePathology.UI.Surgical
             panelSetOrderCPTCode.EntryType = YellowstonePathology.Business.Billing.Model.PanelSetOrderCPTCodeEntryType.ManualEntry;
             panelSetOrderCPTCode.SpecimenOrderId = specimenOrder.SpecimenOrderId;
             panelSetOrderCPTCode.ClientId = this.AccessionOrder.ClientId;
+            panelSetOrderCPTCode.MedicalRecord = this.AccessionOrder.SvhMedicalRecord;
             this.PanelSetOrderSurgical.PanelSetOrderCPTCodeCollection.Add(panelSetOrderCPTCode);
             this.RefreshBillingSpecimenViewCollection();
         }
@@ -569,7 +570,7 @@ namespace YellowstonePathology.UI.Surgical
 
         private void ButtonSetCPTCodes_Click(object sender, RoutedEventArgs e)
         {
-            this.m_PathologistUI.PanelSetOrder.PanelSetOrderCPTCodeCollection.SetCPTCodes(this.m_PathologistUI.AccessionOrder.SpecimenOrderCollection, this.m_PathologistUI.PanelSetOrder.ReportNo, this.m_PathologistUI.AccessionOrder.ClientId);
+            this.m_PathologistUI.PanelSetOrder.PanelSetOrderCPTCodeCollection.SetCPTCodes(this.m_PathologistUI.AccessionOrder.SpecimenOrderCollection, this.m_PathologistUI.PanelSetOrder.ReportNo, this.m_PathologistUI.AccessionOrder.ClientId, this.m_PathologistUI.AccessionOrder.SvhMedicalRecord);
             this.RefreshBillingSpecimenViewCollection();            
         }
     }

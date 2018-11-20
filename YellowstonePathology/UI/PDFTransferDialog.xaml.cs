@@ -102,7 +102,7 @@ namespace YellowstonePathology.UI
                     if (match.Captures.Count !=0)
                     {
                         string masterAccessionNo = match.Groups[2].Value;
-                        this.m_AccessionOrder = Business.Persistence.DocumentGateway.Instance.GetAccessionOrderByMasterAccessionNo(masterAccessionNo);
+                        this.m_AccessionOrder = Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this);
                         
                         Business.OrderIdParser orderIdParser = new Business.OrderIdParser(masterAccessionNo);
                         string casePath = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser);
@@ -169,14 +169,9 @@ namespace YellowstonePathology.UI
             {
                 MessageBox.Show("You must have a file selected to perform this operation.");
             }            
-        }
+        }        
 
-        private void MenuItemTesting_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
-        private void MenuItemViewResultPage(object sender, RoutedEventArgs e)
+        private void MenuItemViewResultPage_Click(object sender, RoutedEventArgs e)
         {
             if (this.ListViewPanelSetOrders.SelectedItem != null)
             {
@@ -236,6 +231,53 @@ namespace YellowstonePathology.UI
             p.WaitForExit();
             
             Business.Helper.FileConversionHelper.CreateXPSFromPNGFiles(tmpFolderPath, xpsCaseFilePath);            
-        }       
+        }
+
+        private void MenuItemMoveToDone_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.ListViewFiles.SelectedItem != null)
+            {
+                string pdfFilePath = (string)this.ListViewFiles.SelectedItem;
+                string fileName = System.IO.Path.GetFileName(pdfFilePath);
+                string path = System.IO.Path.GetDirectoryName(pdfFilePath);
+                string pdfFilePathDone = System.IO.Path.Combine(path, "Done", fileName);
+
+                try
+                {
+                    System.IO.File.Move(pdfFilePath, pdfFilePathDone);
+                }
+                catch(Exception exception)
+                {
+                    MessageBox.Show(exception.Message);
+                }
+                
+                this.m_Files = System.IO.Directory.GetFiles(NEO_FILE_PATH, "*.pdf").ToList<string>();
+                this.NotifyPropertyChanged("Files");
+            }
+        }
+
+        private void HyperLinkOpenFolder_Click(object sender, RoutedEventArgs e)
+        {                        
+            System.Diagnostics.Process process = new System.Diagnostics.Process();
+            System.Diagnostics.Process p = new System.Diagnostics.Process();
+            System.Diagnostics.ProcessStartInfo info = new System.Diagnostics.ProcessStartInfo("Explorer.exe", NEO_FILE_PATH);
+            p.StartInfo = info;
+            p.Start();
+        }
+
+        private void MenuItemRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            this.m_Files = System.IO.Directory.GetFiles(NEO_FILE_PATH, "*.pdf").ToList<string>();
+            this.NotifyPropertyChanged("Files");
+        }
+
+        private void MenuItemViewAssignmentPage_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.ListViewPanelSetOrders.SelectedItem != null)
+            {
+                UI.Login.FinalizeAccession.AssignmentPath assignmentPath = new UI.Login.FinalizeAccession.AssignmentPath(this.m_AccessionOrder);
+                assignmentPath.Start();
+            }
+        }
     }
 }

@@ -164,7 +164,7 @@ namespace YellowstonePathology.Business.Gateway
                 "join tblClient c on bll.ClientId = c.ClientId " +
                 "join tblPanelSetOrder pso on bll.ReportNo = pso.ReportNo " +
                 "join tblAccessionOrder ao on pso.MasterAccessionNo = ao.MasterAccessionNo " +
-                "where postdate is null  and ao.SvhMedicalRecord like 'A%' and bll.BillTo = 'Client'";
+                "where postdate is null and bll.MedicalRecord like 'A%' and bll.BillTo = 'Client'";
             cmd.CommandType = CommandType.Text;            
 
             using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
@@ -1456,6 +1456,70 @@ namespace YellowstonePathology.Business.Gateway
             return result;
         }
 
+        public static List<Business.Billing.Model.AccessionListItem> GetSVHNotPosted()
+        {
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "select distinct ao.MasterAccessionNo, pso.ReportNo, ao.PLastName, ao.PFirstName, ao.PBirthdate, ao.SvhMedicalRecord `MedicalRecord`, ao.SvhAccount `Account`, ao.AccessionDate " +
+                "from tblPanelSetOrderCPTCodeBill bll " +
+                "join tblClient c on bll.ClientId = c.ClientId " +
+                "join tblPanelSetOrder pso on bll.ReportNo = pso.ReportNo " +
+                "join tblAccessionOrder ao on pso.MasterAccessionNo = ao.MasterAccessionNo " +
+                "where bll.MedicalRecord like 'A%' and bll.PostDate is null";
+
+            List<Business.Billing.Model.AccessionListItem> result = new List<Billing.Model.AccessionListItem>();
+
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        Business.Billing.Model.AccessionListItem item = new Billing.Model.AccessionListItem();
+                        Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(item, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(item);
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        public static List<Business.Billing.Model.ADTListItem> GetADTList(string firstName, string lastName, DateTime birthdate)
+        {
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "select PFirstName, PLastName, PBirthdate, MedicalRecordNo `MedicalRecord`, AccountNo `Account`, DateReceived " +
+                "from tblADT where plastname = @LastName and pfirstname = @FirstName and pbirthdate = @Birthdate " +
+                "order by DateReceived desc";
+
+            cmd.Parameters.AddWithValue("@LastName", lastName);
+            cmd.Parameters.AddWithValue("@FirstName", firstName);
+            cmd.Parameters.AddWithValue("@BirthDate", birthdate);
+
+            List<Business.Billing.Model.ADTListItem> result = new List<Billing.Model.ADTListItem>();
+
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        Business.Billing.Model.ADTListItem item = new Billing.Model.ADTListItem();
+                        Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(item, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(item);
+                    }
+                }
+            }
+
+            return result;
+        }
 
         public static List<YellowstonePathology.Business.Patient.Model.SVHBillingData> GetPatientImportDataList(string reportNo)
 		{

@@ -87,8 +87,21 @@ namespace YellowstonePathology.Business.Billing.Model
                 YellowstonePathology.Business.Facility.Model.Facility neogenomicsIrvine = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("NEOGNMCIRVN");
                 if (panelSetOrder.TechnicalComponentFacilityId == neogenomicsIrvine.FacilityId)
                 {
-                    //exclude flow performed by NEO
-                    if(panelSetOrder.PanelSetId != 248)
+                    //exclude flow performed by NEO                    
+                    if(panelSetOrder.PanelSetId == 248)
+                    {
+                        result = false;
+                    }
+                    //Exclude Outpatient Medicaid
+                    else if (accessionOrder.PatientType == "OP" && accessionOrder.PrimaryInsurance == "Medicaid")
+                    {
+                        result = false;
+                    }
+                    else if (accessionOrder.PatientType == "OP" && accessionOrder.SecondaryInsurance == "Medicaid")
+                    {
+                        result = false;
+                    }
+                    else
                     {
                         result = true;
                     }

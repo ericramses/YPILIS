@@ -72,6 +72,8 @@ namespace YellowstonePathology.Business.Billing.Model
                         panelSetOrderCPTCode.EntryType = YellowstonePathology.Business.Billing.Model.PanelSetOrderCPTCodeEntryType.SystemGenerated;
 						panelSetOrderCPTCode.SpecimenOrderId = specimenOrder.SpecimenOrderId;
 						panelSetOrderCPTCode.ClientId = this.m_AccessionOrder.ClientId;
+                        panelSetOrderCPTCode.MedicalRecord = this.m_AccessionOrder.SvhMedicalRecord;
+                        panelSetOrderCPTCode.Account = this.m_AccessionOrder.SvhAccount;
                         this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.Add(panelSetOrderCPTCode);
                     }
                 }
@@ -334,14 +336,14 @@ namespace YellowstonePathology.Business.Billing.Model
         {
             bool result = true;
             if(string.IsNullOrEmpty(this.m_AccessionOrder.SvhMedicalRecord) == false)
-            {
-                if (this.m_AccessionOrder.SvhMedicalRecord.StartsWith("A") == true)
+            {                
+                if (this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.HasClientBillItems() == true)
                 {
-                    if (this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.HasClientBillItems() == true)
+                    if (this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.HasMRNStartingWithA() == true)
                     {
                         result = false;
                     }
-                }
+                }                
             }            
             return result;
         }  

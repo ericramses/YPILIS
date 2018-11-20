@@ -713,16 +713,14 @@ namespace YellowstonePathology.UI.Login
                     this.m_BillingPath = new Billing.BillingPath(this.m_LoginUI.ReportSearchList);
                     this.m_BillingPath.Finish += BillingPath_Finish;
                     this.BringPageToFore += this.m_BillingPath.BringPageToFore;
-                    this.m_BillingPath.Start(this.m_LoginUI.AccessionOrder);
-                    //this.m_BillingPathStarted = true;
+                    this.m_BillingPath.Start(this.m_LoginUI.AccessionOrder);                    
                 }
             }
         }
 
         private void BillingPath_Finish(object sender, EventArgs e)
         {
-            this.BringPageToFore -= this.m_BillingPath.BringPageToFore;
-            //this.m_BillingPathStarted = false;
+            this.BringPageToFore -= this.m_BillingPath.BringPageToFore;            
         }
 
         private void TileICDCodes_MouseUp(object sender, MouseButtonEventArgs e)

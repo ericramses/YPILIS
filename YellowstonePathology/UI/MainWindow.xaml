@@ -70,6 +70,7 @@
                     <MenuItem Header="SVH CDM/Results" Click="MenuItemSVHCDMResults_Click"></MenuItem>
                     <MenuItem Header="Billing Reports" Click="MenuItemBillingReports_Click"></MenuItem>
                     <MenuItem Header="EOD Processing" Click="MenuItemEODProcessing_Click"></MenuItem>
+                    <MenuItem Header="SVH ADT Matcher" Click="MenuItemSVHADTMatcher_Click"></MenuItem>
                     <MenuItem Header="SVH Billing Data Import" Click="MenuItemSVHBillingDataImport_Click"></MenuItem>
                     <MenuItem Header="Parse PSA Data" Click="MenuItemParsePSAData_Click"></MenuItem>
                 </MenuItem>
