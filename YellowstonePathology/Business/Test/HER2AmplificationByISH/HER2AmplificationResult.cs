@@ -55,13 +55,14 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
             }
         }
 
-        public void HandleIHC()
+        protected void HandleIHC()
         {
             if (this.m_PanelSetOrderHer2AmplificationByIHC != null && this.m_PanelSetOrderHer2AmplificationByIHC.Accepted == true)
             {
                 if (this.m_PanelSetOrderHer2AmplificationByIHC.Score.Contains("0") || this.m_PanelSetOrderHer2AmplificationByIHC.Score.Contains("1+"))
                 {
                     this.m_Result = HER2AmplificationResultEnum.Negative;
+                    this.m_HER2AmplificationByISHTestOrder.RecountRequired = false;
                 }
                 else if (this.m_PanelSetOrderHer2AmplificationByIHC.Score.Contains("2+"))
                 {
@@ -70,6 +71,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
                 else if (this.m_PanelSetOrderHer2AmplificationByIHC.Score.Contains("3+"))
                 {
                     this.m_Result = HER2AmplificationResultEnum.Positive;
+                    this.m_HER2AmplificationByISHTestOrder.RecountRequired = false;
                 }
             }
         }
@@ -126,6 +128,26 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
             if (specimenOrder.FixationDuration > 72 || specimenOrder.FixationDuration < 6)
             {
                 specimenOrder.FixationComment = m_FixationOutOfBoundsComment;
+            }
+        }
+
+        public static void AcceptResults(HER2AmplificationByISHTestOrder testOrder)
+        {
+            testOrder.Accept();
+            if (testOrder.PanelOrderCollection.GetUnacceptedPanelCount() > 0)
+            {
+                YellowstonePathology.Business.Test.PanelOrder panelOrder = testOrder.PanelOrderCollection.GetUnacceptedPanelOrder();
+                panelOrder.AcceptResults();
+            }
+        }
+
+        public static void UnacceptResults(HER2AmplificationByISHTestOrder testOrder)
+        {
+            testOrder.Unaccept();
+            if (testOrder.PanelOrderCollection.GetAcceptedPanelCount() > 0)
+            {
+                YellowstonePathology.Business.Test.PanelOrder panelOrder = testOrder.PanelOrderCollection.GetLastAcceptedPanelOrder();
+                panelOrder.UnacceptResults();
             }
         }
     }

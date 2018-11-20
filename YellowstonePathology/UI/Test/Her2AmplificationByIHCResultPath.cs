@@ -25,15 +25,15 @@ namespace YellowstonePathology.UI.Test
 		{
 			this.m_ResultPage = new Her2AmplificationByIHCResultPage(this.m_PanelSetOrder, this.m_AccessionOrder, this.m_SystemIdentity);
 			this.m_ResultPage.Next += new Her2AmplificationByIHCResultPage.NextEventHandler(ResultPage_Next);
-            this.m_ResultPage.OrderHER2Summary += ResultPage_OrderHER2Summary;
+            this.m_ResultPage.OrderHER2Recount += ResultPage_OrderHER2Recount;
 			this.m_PageNavigator.Navigate(this.m_ResultPage);
 		}
 
-        private void ResultPage_OrderHER2Summary(object sender, EventArgs e)
+        private void ResultPage_OrderHER2Recount(object sender, EventArgs e)
         {
-            YellowstonePathology.Business.Test.HER2AmplificationSummary.HER2AmplificationSummaryTest her2AmplificationSummaryTest = new Business.Test.HER2AmplificationSummary.HER2AmplificationSummaryTest();
+            YellowstonePathology.Business.Test.HER2AmplificationRecount.HER2AmplificationRecountTest her2AmplificationRecountTest = new Business.Test.HER2AmplificationRecount.HER2AmplificationRecountTest();
             YellowstonePathology.Business.Interface.IOrderTarget orderTarget = this.m_AccessionOrder.SpecimenOrderCollection.GetOrderTarget(this.m_PanelSetOrder.OrderedOnId);
-            YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new YellowstonePathology.Business.Test.TestOrderInfo(her2AmplificationSummaryTest, orderTarget, false);
+            YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new YellowstonePathology.Business.Test.TestOrderInfo(her2AmplificationRecountTest, orderTarget, false);
 
             YellowstonePathology.UI.Login.Receiving.ReportOrderPath reportOrderPath = new Login.Receiving.ReportOrderPath(this.m_AccessionOrder, this.m_PageNavigator, PageNavigationModeEnum.Inline, this.m_Window);
             reportOrderPath.Finish += new Login.Receiving.ReportOrderPath.FinishEventHandler(ReportOrderPath_Finish);
@@ -47,29 +47,33 @@ namespace YellowstonePathology.UI.Test
 
         private void ResultPage_Next(object sender, EventArgs e)
 		{
-            if (this.ShowHER2SummaryPage() == false)
+            if (this.ShowISHResultPage() == false)
             {
                 this.Finished();
             }
 		}
 
-        private bool ShowHER2SummaryPage()
+        private bool ShowISHResultPage()
         {
             bool result = false;
 
-            YellowstonePathology.Business.Test.HER2AmplificationSummary.HER2AmplificationSummaryTest summaryTest = new Business.Test.HER2AmplificationSummary.HER2AmplificationSummaryTest();
-            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(summaryTest.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true) == true)
+            YellowstonePathology.Business.Test.HER2AmplificationRecount.HER2AmplificationRecountTest her2AmplificationRecountTest = new Business.Test.HER2AmplificationRecount.HER2AmplificationRecountTest();
+            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(her2AmplificationRecountTest.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true) == false)
             {
-                Business.Test.PanelSetOrder ishTestOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(summaryTest.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true);
-                result = true;
-                HER2AmplificationSummaryResultPath summaryPath = new Test.HER2AmplificationSummaryResultPath(ishTestOrder.ReportNo, this.m_AccessionOrder, this.m_PageNavigator, this.m_Window);
-                summaryPath.Finish += HER2AmplificationSummaryResultPath_Finish;
-                summaryPath.Start();
+                YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHTest ishTest = new Business.Test.HER2AmplificationByISH.HER2AmplificationByISHTest();
+                if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(ishTest.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true) == true)
+                {
+                    Business.Test.HER2AmplificationByISH.HER2AmplificationByISHTestOrder ishTestOrder = (Business.Test.HER2AmplificationByISH.HER2AmplificationByISHTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(ishTest.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true);
+                    result = true;
+                    HER2AmplificationByISHResultPath ishPath = new Test.HER2AmplificationByISHResultPath(ishTestOrder.ReportNo, this.m_AccessionOrder, this.m_PageNavigator, this.m_Window);
+                    ishPath.Finish += HER2AmplificationByISHResultPath_Finish;
+                    ishPath.Start();
+                }
             }
             return result;
         }
 
-        private void HER2AmplificationSummaryResultPath_Finish(object sender, EventArgs e)
+        private void HER2AmplificationByISHResultPath_Finish(object sender, EventArgs e)
         {
             this.Finished();
         }
