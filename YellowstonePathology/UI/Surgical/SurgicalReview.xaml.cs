@@ -322,13 +322,24 @@ namespace YellowstonePathology.UI.Surgical
         {
             if (this.PanelSetOrderSurgical != null)
             {
-                MessageBoxResult messageBoxResult = MessageBox.Show("An amendment will be created as a result of reasigning this case.  Are you sure you want to proceed with reasignment?", "Proceed?", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                if(messageBoxResult == MessageBoxResult.Yes)
+                YellowstonePathology.Business.Rules.PanelSetOrder.ReassignCase reassignCase = new YellowstonePathology.Business.Rules.PanelSetOrder.ReassignCase();
+                YellowstonePathology.Business.Rules.ExecutionStatus executionStatus = new YellowstonePathology.Business.Rules.ExecutionStatus();
+                if (this.PanelSetOrderSurgical.Final == false)
                 {
-                    YellowstonePathology.Business.Rules.PanelSetOrder.ReassignCase reassignCase = new YellowstonePathology.Business.Rules.PanelSetOrder.ReassignCase();
-                    YellowstonePathology.Business.Rules.ExecutionStatus executionStatus = new YellowstonePathology.Business.Rules.ExecutionStatus();
-                    reassignCase.Execute(executionStatus, this.PanelSetOrderSurgical, true, Business.User.SystemIdentity.Instance);
-                }                
+                    MessageBoxResult messageBoxResult = MessageBox.Show("An amendment will be created as a result of reasigning this case.  Are you sure you want to proceed with reasignment?", "Proceed?", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    if (messageBoxResult == MessageBoxResult.Yes)
+                    {
+                        reassignCase.Execute(executionStatus, this.PanelSetOrderSurgical, true, Business.User.SystemIdentity.Instance);
+                    }
+                }
+                else
+                {
+                    reassignCase.Execute(executionStatus, this.PanelSetOrderSurgical, false, Business.User.SystemIdentity.Instance);
+                    if (executionStatus.Halted == false)
+                    {
+                        MessageBox.Show("The case has been reassigned");
+                    }
+                }
             }
         }
 

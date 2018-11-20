@@ -39,7 +39,7 @@ namespace YellowstonePathology.Business.Test.HPV1618ByPCR
             if (panelSetOrder.Indication == YellowstonePathology.Business.Test.HPV1618ByPCR.HPV1618ByPCRIndication.SquamousCellCarcinoma)
             {
                 this.AddNextObxElement(panelSetOrder.Signature, document, "F");
-                this.AddNextObxElement("*** E-signed " + panelSetOrder.FinalTime.Value.ToString("MM/dd/yyyy HH:mm") + "***", document, "F");                               
+                this.AddNextObxElement("E-signed " + panelSetOrder.FinalTime.Value.ToString("MM/dd/yyyy HH:mm"), document, "F");                               
             }
 
             this.AddNextObxElement("", document, "F");
