@@ -16,7 +16,6 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationRecount
 
         public HER2AmplificationRecountTestOrder()
         {
-            this.m_Distribute = false;
         }
 
         public HER2AmplificationRecountTestOrder(string masterAccessionNo, string reportNo, string objectId,
@@ -26,6 +25,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationRecount
 			: base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute)
 		{
             this.m_Distribute = false;
+            this.NoCharge = true;
         }
 
         [PersistentProperty()]
