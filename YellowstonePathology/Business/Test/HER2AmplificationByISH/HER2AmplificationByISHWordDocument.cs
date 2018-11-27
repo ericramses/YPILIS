@@ -22,7 +22,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 			{
 				if (this.m_AccessionOrder.AccessionDate >= DateTime.Parse("1/1/2014") == true)
 				{
-					this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\Her2AmplificationByISH.2018ASCOCAP.1.xml";
+					this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\Her2AmplificationByISH.Breast.3.xml";
 				}
 				else
 				{
@@ -77,11 +77,11 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 
                 if(panelSetOrderHer2AmplificationByIHC == null)
                 {
-                    this.DeleteRow("her2_by_ihc_score");
+                    this.DeleteRow("ihc_score");
                 }
                 else
                 {
-                    this.SetXmlNodeData("her2_by_ihc_score", panelSetOrderHer2AmplificationByIHC.Score + " (per report provided from " + 
+                    this.SetXmlNodeData("ihc_score", panelSetOrderHer2AmplificationByIHC.Score + " (per report provided from " + 
                         panelSetOrderHer2AmplificationByIHC.ReportNo + ")");
                 }
 
