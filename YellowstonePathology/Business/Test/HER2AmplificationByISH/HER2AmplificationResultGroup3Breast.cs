@@ -26,8 +26,16 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
                 this.m_HER2AmplificationByISHTestOrder.AverageHer2NeuSignal >= 6.0)
             {
                 result = true;
-
                 this.HandleIHC();
+
+                if (this.m_HER2AmplificationRecountTestOrder != null && this.m_HER2AmplificationRecountTestOrder.Accepted == true &&
+                    this.m_PanelSetOrderHer2AmplificationByIHC != null && this.m_PanelSetOrderHer2AmplificationByIHC.Accepted == true)
+                {
+                    if (this.m_PanelSetOrderHer2AmplificationByIHC.Score.Contains("2+"))
+                    {
+                        this.m_Result = HER2AmplificationResultEnum.Positive;
+                    }
+                }
             }
             return result;
         }

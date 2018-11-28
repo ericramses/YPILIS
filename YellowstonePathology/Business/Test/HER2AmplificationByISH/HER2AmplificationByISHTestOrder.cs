@@ -672,18 +672,19 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 			return result;
 		}
 
-		public YellowstonePathology.Business.Rules.MethodResult IsOkToSetResults(AccessionOrder accessionOrder)
+		public AuditResult IsOkToSetResults(AccessionOrder accessionOrder)
 		{
-			YellowstonePathology.Business.Rules.MethodResult result = new Business.Rules.MethodResult();
+            AuditResult result = new AuditResult();
+            result.Status = AuditStatusEnum.OK;
             if (this.m_Accepted == true)
             {
-                result.Success = false;
+                result.Status = AuditStatusEnum.Failure;
                 result.Message = "The results may not be set because they have already been accepted." + Environment.NewLine;
             }
 
             if (string.IsNullOrEmpty(this.m_Indicator) == true)
             {
-                result.Success = false;
+                result.Status = AuditStatusEnum.Failure;
                 result.Message += "The indication must be set before results can be set." + Environment.NewLine;
             }
 
@@ -691,65 +692,65 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
             {
                 if (this.m_TotalHer2SignalsCounted == 0)
                 {
-                    result.Success = false;
+                    result.Status = AuditStatusEnum.Failure;
                     result.Message += "The Total Her2 Signals Counted must be set before results can be set." + Environment.NewLine;
                 }
                 if (this.m_TotalChr17SignalsCounted == 0)
                 {
-                    result.Success = false;
+                    result.Status = AuditStatusEnum.Failure;
                     result.Message += "The Total Chr17 Signals Counted must be set before results can be set." + Environment.NewLine;
                 }
                 if (this.m_CellsCounted == 0)
                 {
-                    result.Success = false;
+                    result.Status = AuditStatusEnum.Failure;
                     result.Message += "The Cells Counted must be set before results can be set." + Environment.NewLine;
                 }
                 if (this.m_GeneticHeterogeneity == HER2AmplificationByISHGeneticHeterogeneityCollection.GeneticHeterogeneityPresentInClusters)
                 {
                     if (string.IsNullOrEmpty(this.m_Her2Chr17ClusterRatio) == true)
                     {
-                        result.Success = false;
+                        result.Status = AuditStatusEnum.Failure;
                         result.Message += "The Her2Chr/17 Cluster Ratio must be set before results can be set." + Environment.NewLine;
                     }
                 }
             }
             
-            if(result.Success == true)
+            if(result.Status == AuditStatusEnum.OK)
             {
                 this.SetHER2ByIHCRequired();
                 HER2AmplificationResultCollection her2AmplificationResultCollection = new HER2AmplificationResultCollection(accessionOrder.PanelSetOrderCollection);
                 HER2AmplificationResult her2AmplificationResult = her2AmplificationResultCollection.FindMatch();
-                Test.Her2AmplificationByIHC.Her2AmplificationByIHCTest her2AmplificationByIHCTest = new Her2AmplificationByIHC.Her2AmplificationByIHCTest();
-                if (this.m_HER2ByIHCRequired == true)
+                if (this.HER2ByIHCRequired == true)
                 {
-                    result.Success = this.CheckTestExists(accessionOrder, her2AmplificationByIHCTest.PanelSetId);
-                    if (result.Success == false)
+                    YellowstonePathology.Business.Test.Her2AmplificationByIHC.Her2AmplificationByIHCTest her2AmplificationByIHCTest = new Business.Test.Her2AmplificationByIHC.Her2AmplificationByIHCTest();
+                    if (this.CheckTestExists(accessionOrder, her2AmplificationByIHCTest.PanelSetId) == false)
                     {
-                        result.Message = "A " + her2AmplificationByIHCTest.PanelSetName + " must be ordered before results can be set.";
+                        result.Status = AuditStatusEnum.Warning;
+                        result.Message = "The results require a " + her2AmplificationByIHCTest.PanelSetName + " be ordered." + Environment.NewLine + "Order the test now?";
                     }
                     else
                     {
-                        result.Success = this.CheckTestIsAccepted(accessionOrder, her2AmplificationByIHCTest.PanelSetId);
-                        if (result.Success == false)
+                        if (this.CheckTestIsAccepted(accessionOrder, her2AmplificationByIHCTest.PanelSetId) == false)
                         {
-                            result.Message = "The results may not be set until the " + her2AmplificationByIHCTest.PanelSetName + " is accepted.";
+                            result.Status = AuditStatusEnum.Failure;
+                            result.Message = "The results may not be accepted until the " + her2AmplificationByIHCTest.PanelSetName + " is accepted.";
                         }
                         else
                         {
                             if (her2AmplificationResult.IsRecountNeeded() == true)
                             {
                                 HER2AmplificationRecount.HER2AmplificationRecountTest her2AmplificationRecountTest = new HER2AmplificationRecount.HER2AmplificationRecountTest();
-                                result.Success = this.CheckTestExists(accessionOrder, her2AmplificationRecountTest.PanelSetId);
-                                if (result.Success == false)
+                                if (this.CheckTestExists(accessionOrder, her2AmplificationRecountTest.PanelSetId) == false)
                                 {
-                                    result.Message = "The results may not be set until a " + her2AmplificationRecountTest.PanelSetName + " is ordered.";
+                                    result.Status = AuditStatusEnum.Failure;
+                                    result.Message = "The results may not be accepted until a " + her2AmplificationRecountTest.PanelSetName + " is ordered.";
                                 }
                                 else
                                 {
-                                    result.Success = this.CheckTestIsAccepted(accessionOrder, her2AmplificationRecountTest.PanelSetId);
-                                    if (result.Success == false)
+                                    if (this.CheckTestIsAccepted(accessionOrder, her2AmplificationRecountTest.PanelSetId) == false)
                                     {
-                                        result.Message = "The results may not be set until the " + her2AmplificationRecountTest.PanelSetName + " is accepted.";
+                                        result.Status = AuditStatusEnum.Failure;
+                                        result.Message = "The results may not be accepted until the " + her2AmplificationRecountTest.PanelSetName + " is accepted.";
                                     }
                                 }
                             }
@@ -828,7 +829,15 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 
         public override AuditResult IsOkToFinalize(AccessionOrder accessionOrder)
         {
-            AuditResult result =  base.IsOkToFinalize(accessionOrder);
+            AuditResult result = new AuditResult();
+            result.Status = AuditStatusEnum.OK;
+            Rules.MethodResult methodResult = base.IsOkToFinalize();
+            if (methodResult.Success == false)
+            {
+                result.Status = AuditStatusEnum.Failure;
+                result.Message = methodResult.Message;
+            }
+
             if(result.Status == AuditStatusEnum.OK)
             {
                 HER2AmplificationResultCollection her2AmplificationResultCollection = new HER2AmplificationByISH.HER2AmplificationResultCollection(accessionOrder.PanelSetOrderCollection);

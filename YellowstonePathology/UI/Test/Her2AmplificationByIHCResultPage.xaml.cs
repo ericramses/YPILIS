@@ -138,10 +138,14 @@ namespace YellowstonePathology.UI.Test
                         Business.Test.HER2AmplificationRecount.HER2AmplificationRecountTest her2AmplificationRecountTest = new Business.Test.HER2AmplificationRecount.HER2AmplificationRecountTest();
                         if(this.m_AccessionOrder.PanelSetOrderCollection.Exists(her2AmplificationRecountTest.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true) == false)
                         {
-                            MessageBoxResult messageBoxResult = MessageBox.Show("A HER2 Recount is required.  Do you want to order it now?", "Recount required", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes);
+                            MessageBoxResult messageBoxResult = MessageBox.Show("A HER2 Recount is required.  If one is not ordered this test will not be accepted.  Do you want to order it now?", "Recount required", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes);
                             if(messageBoxResult == MessageBoxResult.Yes)
                             {
                                 this.OrderHER2Recount(this, new EventArgs());
+                            }
+                            else
+                            {
+                                this.m_PanelSetOrder.Unaccept();
                             }
                         }
                     }

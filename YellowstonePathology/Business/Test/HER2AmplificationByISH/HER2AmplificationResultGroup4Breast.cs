@@ -23,13 +23,22 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
             bool result = false;
             if (this.m_HER2AmplificationByISHTestOrder.Indicator == HER2AmplificationByISHIndicatorCollection.BreastIndication &&
                 this.m_HER2AmplificationByISHTestOrder.AverageHer2Chr17SignalAsDouble.HasValue &&
-                this.m_HER2AmplificationByISHTestOrder.AverageHer2Chr17SignalAsDouble >= 4.0 &&
+                this.m_HER2AmplificationByISHTestOrder.AverageHer2Chr17SignalAsDouble < 2.0 &&
                 this.m_HER2AmplificationByISHTestOrder.AverageHer2NeuSignal.HasValue &&
+                this.m_HER2AmplificationByISHTestOrder.AverageHer2NeuSignal >= 4.0 &&
                 this.m_HER2AmplificationByISHTestOrder.AverageHer2NeuSignal < 6.0)
             {
                 result = true;
-
                 this.HandleIHC();
+
+                if (this.m_HER2AmplificationRecountTestOrder != null && this.m_HER2AmplificationRecountTestOrder.Accepted == true &&
+                    this.m_PanelSetOrderHer2AmplificationByIHC != null && this.m_PanelSetOrderHer2AmplificationByIHC.Accepted == true)
+                {
+                    if (this.m_PanelSetOrderHer2AmplificationByIHC.Score.Contains("2+"))
+                    {
+                        this.m_Result = HER2AmplificationResultEnum.Negative;
+                    }
+                }
             }
             return result;
         }
