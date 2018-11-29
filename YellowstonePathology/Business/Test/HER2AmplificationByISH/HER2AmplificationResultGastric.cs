@@ -50,11 +50,6 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
                     this.m_InterpretiveComment = this.m_InterpretiveComment.Replace("*HER2STATUS*", this.m_Result.ToString());
                 }
             }
-            else
-            {
-                this.m_Result = HER2AmplificationResultEnum.Indeterminate;
-                this.m_InterpretiveComment = this.m_InterpretiveComment.Replace("*HER2STATUS*", this.m_Result.ToString());
-            }
 
             base.SetResults(specimenOrder);
         }

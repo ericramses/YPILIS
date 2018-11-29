@@ -894,25 +894,16 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
             return result;
         }
 
-        public bool ShouldOrderHER2ByIHC(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
-        {
-            bool result = false;
-            YellowstonePathology.Business.Test.Her2AmplificationByIHC.Her2AmplificationByIHCTest test = new Her2AmplificationByIHC.Her2AmplificationByIHCTest();
-            if (accessionOrder.PanelSetOrderCollection.Exists(test.PanelSetId, this.OrderedOnId, true) == false)
-            {
-                this.SetHER2ByIHCRequired();
-                result = this.m_HER2ByIHCRequired;
-            }
-            return result;
-        }
-
         public void SetHER2ByIHCRequired()
         {
             bool result = false;
-            if (this.AverageHer2Chr17SignalAsDouble.HasValue && this.AverageHer2NeuSignal.HasValue)
+            if (this.m_Indicator == HER2AmplificationByISHIndicatorCollection.BreastIndication)
             {
-                if (this.AverageHer2Chr17SignalAsDouble >= 2.0 && this.AverageHer2NeuSignal < 4.0) result = true;
-                else if (this.AverageHer2Chr17SignalAsDouble < 2.0 && this.AverageHer2NeuSignal >= 4.0) result = true;
+                if (this.AverageHer2Chr17SignalAsDouble.HasValue && this.AverageHer2NeuSignal.HasValue)
+                {
+                    if (this.AverageHer2Chr17SignalAsDouble >= 2.0 && this.AverageHer2NeuSignal < 4.0) result = true;
+                    else if (this.AverageHer2Chr17SignalAsDouble < 2.0 && this.AverageHer2NeuSignal >= 4.0) result = true;
+                }
             }
             this.HER2ByIHCRequired = result;
             if (result == false) this.m_RecountRequired = false;
