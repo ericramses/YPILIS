@@ -23,16 +23,15 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
             }
             else if(this.m_AccessionOrder.AccessionDate >= DateTime.Parse("1/1/2014") == true)
             {
-                this.ASCOCAP2018(document, panelSetOrder);
+                if (panelSetOrder.Indicator == "Breast")
+                {
+                    this.ASCOCAP2018(document, panelSetOrder);
+                }
+                else if (panelSetOrder.Indicator == "Gastric")
+                {
+                    this.GastricToXml(document, panelSetOrder);
+                }            
             }
-            else if (panelSetOrder.Indicator == "Breast")
-            {
-                this.BreastToXml(document, panelSetOrder);
-            }
-            else if (panelSetOrder.Indicator == "Gastric")
-            {
-                this.GastricToXml(document, panelSetOrder);
-            }            
         }
 
 		public void BreastToXml(XElement document, HER2AmplificationByISHTestOrder panelSetOrder)
