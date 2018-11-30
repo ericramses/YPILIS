@@ -1975,18 +1975,9 @@ namespace YellowstonePathology.Business.Test
         private FinalizeTestResult HandleBoneMarrowSummaryOnFinal(AccessionOrder accessionOrder)
         {
             FinalizeTestResult result = new FinalizeTestResult();
-            YellowstonePathology.Business.Audit.Model.HandleBoneMarrowOnFinalAudit audit = new Audit.Model.HandleBoneMarrowOnFinalAudit(accessionOrder, this);
-            audit.Run();
-            if (audit.Status == Audit.Model.AuditStatusEnum.Failure)
-            {
-                result.BoneMarrowSummaryIsSuggested = true;
-            }
-            else
-            {
-                Rules.RuleAcceptBoneMarrowSummaryOnLastFinal rule = new Rules.RuleAcceptBoneMarrowSummaryOnLastFinal();
-                rule.Execute(accessionOrder, this);
-                result.BoneMarrowSummaryIsSuggested = false;
-            }
+            result.BoneMarrowSummaryIsSuggested = false;
+            Rules.RuleAcceptBoneMarrowSummaryOnLastFinal rule = new Rules.RuleAcceptBoneMarrowSummaryOnLastFinal();
+            rule.Execute(accessionOrder, this);
             return result;
         }
 
