@@ -90,7 +90,8 @@ namespace YellowstonePathology.UI.Billing
                     patientDetailPage.Next += new Billing.PatientDetailPage.NextEventHandler(PatientDetailPage_Next);
 
                     if (this.m_BillingWindowPrimary.PageNavigator.HasDualMonitors() == false)
-                    {                        
+                    {
+                        this.m_BillingWindowSecondary = new BillingWindowSecondary();
                         this.m_BillingWindowSecondary.Show();
                     }
                     this.m_BillingWindowSecondary.PageNavigator.Navigate(patientDetailPage);

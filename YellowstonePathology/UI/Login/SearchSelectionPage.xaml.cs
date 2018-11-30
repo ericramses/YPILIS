@@ -209,11 +209,18 @@ namespace YellowstonePathology.UI.Login
             Window.GetWindow(this).Close();    
         }
 
+        private void ButtonSVHFinalNotPostedSearch_Click(object sender, RoutedEventArgs e)
+        {
+            this.m_LoginUI.AccessionOrderDate = this.m_AccessionDate;
+            this.m_LoginUI.GetReportSearchListBySVHFinalNotPosted();
+            Window.GetWindow(this).Close();
+        }
+
         private void ButtonNotPostedSearch_Click(object sender, RoutedEventArgs e)
         {
             this.m_LoginUI.AccessionOrderDate = this.m_AccessionDate;
             this.m_LoginUI.GetReportSearchListByNotPosted();
-            Window.GetWindow(this).Close();    
+            Window.GetWindow(this).Close();
         }
 
         private void ButtonPosted_Click(object sender, RoutedEventArgs e)
@@ -271,6 +278,6 @@ namespace YellowstonePathology.UI.Login
         {
             this.m_LoginUI.GetReportSearchListByPendingTests();
             Window.GetWindow(this).Close();
-        }
+        }        
     }
 }

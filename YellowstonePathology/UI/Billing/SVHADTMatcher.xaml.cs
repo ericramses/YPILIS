@@ -91,19 +91,31 @@ namespace YellowstonePathology.UI.Billing
                     Business.Test.PanelSetOrder pso = ao.PanelSetOrderCollection.GetPanelSetOrder(aoItem.ReportNo);
 
                     Business.Billing.Model.ADTListItem adtItem = (Business.Billing.Model.ADTListItem)this.ListViewADT.SelectedItem;
-                    foreach(Business.Test.PanelSetOrderCPTCodeBill psocb in pso.PanelSetOrderCPTCodeBillCollection)
+                    if (adtItem.MedicalRecord.StartsWith("V") == true)
                     {
-                        if(psocb.BillTo == "Client")
+                        foreach (Business.Test.PanelSetOrderCPTCodeBill psocb in pso.PanelSetOrderCPTCodeBillCollection)
                         {
-                            psocb.MedicalRecord = adtItem.MedicalRecord;
-                            psocb.Account = adtItem.Account;
+                            if (psocb.BillTo == "Client")
+                            {
+                                psocb.MedicalRecord = adtItem.MedicalRecord;
+                                psocb.Account = adtItem.Account;
+
+                            }
+
+                            if (psocb.PostDate.HasValue == false)
+                                psocb.PostDate = this.m_PostDate;
                         }
-                            
-                        if (psocb.PostDate.HasValue == false)
-                            psocb.PostDate = this.m_PostDate;
+
+                        Business.Persistence.DocumentGateway.Instance.Push(ao, this);
+                        this.m_AccessionList = Business.Gateway.AccessionOrderGateway.GetSVHNotPosted();
+                        this.m_ADTList = new List<Business.Billing.Model.ADTListItem>();
+                        this.NotifyPropertyChanged(string.Empty);
+                    }                
+                    else
+                    {
+                        MessageBox.Show("The MRN does not start with a V.");
                     }
-                    Business.Persistence.DocumentGateway.Instance.Push(ao, this);
-                    MessageBox.Show("Matching all done.");
+                    
                 }
                 else
                 {

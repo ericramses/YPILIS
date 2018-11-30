@@ -40,6 +40,7 @@ namespace YellowstonePathology.Business.Client.Model
         private string m_ReferringProviderClientName;
         private string m_AdditionalTestingNotificationEmail;
         private string m_PathologyGroupId;
+        private string m_PlaceOfServiceCode;
 
         public Client()
         {
@@ -388,6 +389,21 @@ namespace YellowstonePathology.Business.Client.Model
                 {
                     this.m_PathologyGroupId = value;
                     this.NotifyPropertyChanged("PathologyGroupId");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
+        public string PlaceOfServiceCode
+        {
+            get { return this.m_PlaceOfServiceCode; }
+            set
+            {
+                if (this.m_PlaceOfServiceCode != value)
+                {
+                    this.m_PlaceOfServiceCode = value;
+                    this.NotifyPropertyChanged("PlaceOfServiceCode");
                 }
             }
         }

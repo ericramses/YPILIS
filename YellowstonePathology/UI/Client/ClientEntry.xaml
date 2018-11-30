@@ -39,6 +39,7 @@
 						<RowDefinition Height="Auto"></RowDefinition>
 						<RowDefinition Height="Auto"></RowDefinition>
 						<RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
 						<RowDefinition Height="Auto"></RowDefinition>
 					</Grid.RowDefinitions>
 					
@@ -112,6 +113,9 @@
                     <TextBlock Grid.Column="0" Grid.Row="16" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Right" >Path Group:</TextBlock>
                     <ComboBox Grid.Column="1" Grid.Row="16" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Stretch" ItemsSource="{Binding Path=PathGroupFacilities}"
 							  SelectedValue="{Binding Path=Client.PathologyGroupId}" SelectedValuePath="FacilityId" DisplayMemberPath="FacilityName" />
+
+                    <TextBlock Grid.Column="0" Grid.Row="17" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Right" >Place Of Service:</TextBlock>
+                    <TextBox Grid.Column="1" Grid.Row="17" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Stretch" Text="{Binding Path=Client.PlaceOfServiceCode}" />
 
                 </Grid>
 			</TabItem>

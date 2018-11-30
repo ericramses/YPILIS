@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>293</ApplicationRevision>
+    <ApplicationRevision>294</ApplicationRevision>
     <ApplicationVersion>10.1.12.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -308,6 +308,8 @@
     <Compile Include="Business\Billing.Model\ICDCodeFactory.cs" />
     <Compile Include="Business\Billing.Model\MonitoredObject.cs" />
     <Compile Include="Business\Billing.Model\MonitoredObjectCollection.cs" />
+    <Compile Include="Business\Billing.Model\PlaceOfService.cs" />
+    <Compile Include="Business\Billing.Model\PlaceOfServiceCollection.cs" />
     <Compile Include="Business\Billing.Model\PropertyChanges.cs" />
     <Compile Include="Business\Billing.Model\SVHNoCDMMailMessage.cs" />
     <Compile Include="Business\Client.Model\HPV1618CompoundStandingOrderRule1.cs" />

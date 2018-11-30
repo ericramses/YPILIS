@@ -316,9 +316,11 @@ namespace YellowstonePathology.Business.Billing.Model
                 billingComponent.Post(this);
 
                 this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.SetPostDate(DateTime.Today);
+                //this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.SetPostDate(DateTime.Parse("11/27/2018"));
                 if (this.IsOkToSetPostDate() == true)
                 {
-                    this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.SetPostDate(DateTime.Today);
+                    this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.SetPostDate(DateTime.Today);                    
+                    //this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.SetPostDate(DateTime.Parse("11/27/2018"));
                 }
                                                 
                 this.m_PanelSetOrder.IsPosted = true;                

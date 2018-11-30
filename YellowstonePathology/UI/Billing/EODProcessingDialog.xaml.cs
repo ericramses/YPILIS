@@ -163,14 +163,22 @@ namespace YellowstonePathology.UI.Billing
 
             string workingFolder = System.IO.Path.Combine(this.m_BaseWorkingFolderPathSVH, this.m_PostDate.ToString("MMddyyyy"), "ft1");
             string[] files = System.IO.Directory.GetFiles(workingFolder);
-
+            
             foreach(string file in files)
             {
                 this.m_BackgroundWorker.ReportProgress(1, "Copying File: " + file);
                 string destinationFile = System.IO.Path.Combine(destinationFolder, System.IO.Path.GetFileName(file));
-                System.IO.File.Copy(file, destinationFile);
+                System.IO.File.Copy(file, destinationFile);                
                 rowCount += 1;
-            }            
+            }
+
+            foreach (string file in files)
+            {
+                this.m_BackgroundWorker.ReportProgress(1, "Moving File: " + file);
+                string destinationFile = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(file), "done", System.IO.Path.GetFileName(file));
+                System.IO.File.Move(file, destinationFile);
+                rowCount += 1;
+            }
 
             this.m_BackgroundWorker.ReportProgress(1, "Finished Transfer of " + rowCount + " SVH Files");
         }
@@ -271,7 +279,9 @@ namespace YellowstonePathology.UI.Billing
             {
                 Directory.CreateDirectory(workingFolder);
                 Directory.CreateDirectory(System.IO.Path.Combine(workingFolder, "ft1"));
+                Directory.CreateDirectory(System.IO.Path.Combine(workingFolder, "ft1", "done"));
                 Directory.CreateDirectory(System.IO.Path.Combine(workingFolder, "result"));
+                Directory.CreateDirectory(System.IO.Path.Combine(workingFolder, "result", "done"));
             }                
 
             Business.Billing.Model.CptCodeCollection cptCodeCollection = new Business.Billing.Model.CptCodeCollection();
@@ -279,32 +289,46 @@ namespace YellowstonePathology.UI.Billing
 
             int rowCount = 0;
             foreach (YellowstonePathology.Business.ReportNo reportNo in reportNoCollection)
-            {
+            {                
                 this.m_BackgroundWorker.ReportProgress(1, "Processing: " + reportNo.Value);
 
                 string masterAccessionNo = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMasterAccessionNoFromReportNo(reportNo.Value);
-                YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.GetAccessionOrderByMasterAccessionNo(masterAccessionNo);               
-
+                YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this);               
+                
                 YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo.Value);                
                 foreach (Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill in panelSetOrder.PanelSetOrderCPTCodeBillCollection)
                 {
                     if (panelSetOrderCPTCodeBill.BillTo == "Client" && panelSetOrderCPTCodeBill.PostDate == this.m_PostDate)
-                    {
-                        this.m_BackgroundWorker.ReportProgress(1, "Writing File: " + reportNo.Value + " - " + panelSetOrderCPTCodeBill.CPTCode);                        
+                    {                                                
                         if(cptCodeCollection.HasSVHCDM(panelSetOrderCPTCodeBill.CPTCode) == true)
                         {                            
-                            Business.HL7View.EPIC.EPICFT1ResultView epicFT1ResultView = new Business.HL7View.EPIC.EPICFT1ResultView(accessionOrder, panelSetOrderCPTCodeBill);
-                            epicFT1ResultView.Publish(System.IO.Path.Combine(workingFolder, "ft1"));
-                            rowCount += 1;
+                            if(panelSetOrderCPTCodeBill.PostedToClient == false)
+                            {
+                                if(panelSetOrderCPTCodeBill.MedicalRecord.StartsWith("V") == true)
+                                {
+                                    this.m_BackgroundWorker.ReportProgress(1, "Writing File: " + reportNo.Value + " - " + panelSetOrderCPTCodeBill.CPTCode);
+                                    Business.HL7View.EPIC.EPICFT1ResultView epicFT1ResultView = new Business.HL7View.EPIC.EPICFT1ResultView(accessionOrder, panelSetOrderCPTCodeBill);
+                                    epicFT1ResultView.Publish(System.IO.Path.Combine(workingFolder, "ft1"));
+                                    panelSetOrderCPTCodeBill.PostedToClient = true;
+                                    panelSetOrderCPTCodeBill.PostedToClientDate = DateTime.Now;
+                                    rowCount += 1;
+                                }
+                                else
+                                {
+                                    throw new Exception("This MRN for this charge starts with an A");
+                                }                                
+                            }                            
                         }
                         else
                         {
-                            //Business.Billing.Model.SVHNoCDMMailMessage.SendMessage(panelSetOrderCPTCodeBill.CPTCode);
+                            this.m_BackgroundWorker.ReportProgress(1, "There is no CDM for ReportNo/Code: " + reportNo.Value + " - " + panelSetOrderCPTCodeBill.CPTCode);
+                            Business.Billing.Model.SVHNoCDMMailMessage.SendMessage(panelSetOrderCPTCodeBill.CPTCode);
                         }
                     }
                 }                
             }
-            this.m_BackgroundWorker.ReportProgress(1, "Processed " + rowCount + " SVH CDM files.");
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
+            this.m_BackgroundWorker.ReportProgress(1, "Wrote " + rowCount + " SVH CDM files.");
         }                         
 
         private void CreateXmlBillingDocument(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo)
@@ -449,6 +473,7 @@ namespace YellowstonePathology.UI.Billing
             this.m_BackgroundWorker.ReportProgress(1, message);
         }
 
+        /*
         private void MenuItemMatchUnpostedCases_Click(object sender, RoutedEventArgs e)
         {
             this.m_StatusMessageList.Clear();
@@ -460,7 +485,9 @@ namespace YellowstonePathology.UI.Billing
             this.m_BackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(BackgroundWorker_RunWorkerCompleted);
             this.m_BackgroundWorker.RunWorkerAsync();
         }
+        */
 
+        /*
         private void MatchUnpostedCases(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
             string workingFolder = System.IO.Path.Combine(this.m_BaseWorkingFolderPathSVH, this.m_PostDate.ToString("MMddyyyy"), "result");            
@@ -498,6 +525,7 @@ namespace YellowstonePathology.UI.Billing
             }
             Business.Persistence.DocumentGateway.Instance.Save();
         }
+        */
 
         private void ButtonStart_Click(object sender, RoutedEventArgs e)
         {            
