@@ -84,5 +84,10 @@ namespace YellowstonePathology.UI.Billing
             YellowstonePathology.Business.Document.ADTInsuranceDocument adtInsuranceDocument = new Business.Document.ADTInsuranceDocument(this.m_ADTMessages);
             adtInsuranceDocument.SaveAsTIF(orderIdParser);
         }
+
+        private void ButtonSet_Click(object sender, RoutedEventArgs e)
+        {
+            this.m_AccessionOrder.PrimaryInsurance = this.m_ADTMessages.GetPrimaryInsurance();
+        }
     }
 }

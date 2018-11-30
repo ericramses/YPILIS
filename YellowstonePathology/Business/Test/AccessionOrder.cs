@@ -103,7 +103,8 @@ namespace YellowstonePathology.Business.Test
         private bool m_ITAuditRequired;
         private bool m_ITAudited;
         private int m_ITAuditPriority;
-        private string m_CaseDialog;                
+        private string m_CaseDialog;
+        private string m_PlaceOfService;              
 
 		public AccessionOrder()
         {
@@ -1262,6 +1263,21 @@ namespace YellowstonePathology.Business.Test
             }
         }
 
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
+        public string PlaceOfService
+        {
+            get { return this.m_PlaceOfService; }
+            set
+            {
+                if (this.m_PlaceOfService != value)
+                {
+                    this.m_PlaceOfService = value;
+                    this.NotifyPropertyChanged("PlaceOfService");
+                }
+            }
+        }
+
         public void FromClientOrder(YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder, int orderingUserId, string accessionOrderIds)
         {            
 			this.ClientId = clientOrder.ClientId;
@@ -1277,6 +1293,7 @@ namespace YellowstonePathology.Business.Test
 			this.PSSN = clientOrder.PSSN;
 			this.SvhAccount = clientOrder.SvhAccountNo;
 			this.SvhMedicalRecord = clientOrder.SvhMedicalRecord;
+            this.PlaceOfService = clientOrder.PlaceOfService;
 
             switch(clientOrder.PatientType)
             {

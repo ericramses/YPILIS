@@ -22,6 +22,8 @@ namespace YellowstonePathology.Business.Test
         private string m_CodeType;
         private string m_MedicalRecord;
         private string m_Account;
+        private bool m_PostedToClient;
+        private Nullable<DateTime> m_PostedToClientDate;
 
         public PanelSetOrderCPTCodeBill()
         {
@@ -242,6 +244,36 @@ namespace YellowstonePathology.Business.Test
             }
         }
 
+        [PersistentProperty()]        
+        [PersistentDataColumnProperty(false, "1", "0", "tinyint")]
+        public bool PostedToClient
+        {
+            get { return this.m_PostedToClient; }
+            set
+            {
+                if (this.m_PostedToClient != value)
+                {
+                    this.m_PostedToClient = value;
+                    this.NotifyPropertyChanged("PostedToClient");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "3", "null", "datetime")]
+        public Nullable<DateTime> PostedToClientDate
+        {
+            get { return this.m_PostedToClientDate; }
+            set
+            {
+                if (this.m_PostedToClientDate != value)
+                {
+                    this.m_PostedToClientDate = value;
+                    this.NotifyPropertyChanged("PostedToClientDate");
+                }
+            }
+        }
+
         public string GetBillToReverse()
         {
             string result = null;
@@ -271,6 +303,8 @@ namespace YellowstonePathology.Business.Test
             this.m_BillBy = panelSetOrderCPTCodeBill.BillBy;
             this.m_MedicalRecord = panelSetOrderCPTCodeBill.MedicalRecord;
             this.m_Account = panelSetOrderCPTCodeBill.Account;
+            this.m_PostedToClient = panelSetOrderCPTCodeBill.m_PostedToClient;
+            this.m_PostedToClientDate = panelSetOrderCPTCodeBill.m_PostedToClientDate;
         }
 	}
 }

@@ -76,6 +76,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
         private string m_OrderStatus;
         private string m_PatientType;
         private string m_ElectronicOrderType;
+        private string m_PlaceOfService;
 
         public ClientOrder()
         {
@@ -936,6 +937,21 @@ namespace YellowstonePathology.Business.ClientOrder.Model
                 {
                     this.m_ElectronicOrderType = value;
                     this.NotifyPropertyChanged("ElectronicOrderType");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
+        public string PlaceOfService
+        {
+            get { return this.m_PlaceOfService; }
+            set
+            {
+                if (this.m_PlaceOfService != value)
+                {
+                    this.m_PlaceOfService = value;
+                    this.NotifyPropertyChanged("PlaceOfService");
                 }
             }
         }

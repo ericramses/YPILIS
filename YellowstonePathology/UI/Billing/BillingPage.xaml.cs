@@ -347,8 +347,13 @@ namespace YellowstonePathology.UI.Billing
 
         private void ButtonInsuranceCard_Click(object sender, RoutedEventArgs e)
         {
+            this.CreateInsuranceCard();            
+        }
+
+        private void CreateInsuranceCard()
+        {
             Business.HL7View.ADTMessages adtMessages = Business.Gateway.AccessionOrderGateway.GetADTMessages(this.m_AccessionOrder.SvhMedicalRecord);
-            if(adtMessages.Messages.Count > 0)
+            if (adtMessages.Messages.Count > 0)
             {
                 Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_AccessionOrder.MasterAccessionNo);
                 YellowstonePathology.Business.Document.ADTInsuranceDocument adtInsuranceDocument = new Business.Document.ADTInsuranceDocument(adtMessages);
@@ -360,7 +365,7 @@ namespace YellowstonePathology.UI.Billing
             else
             {
                 MessageBox.Show("No ADT information was found.");
-            }            
+            }
         }
 
         private void MenuItemUpdateClient_Click(object sender, RoutedEventArgs e)
@@ -376,16 +381,20 @@ namespace YellowstonePathology.UI.Billing
 
         private void ButtonSVHCDM_Click(object sender, RoutedEventArgs e)
         {
-            throw new Exception("Not implemented.");
-            //foreach (Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill in this.ListViewPanelSetOrderCPTCodeBill.SelectedItems)
-            //{
-            //    if (panelSetOrderCPTCodeBill.BillTo == "Client")
-            //    {                    
-                    //Business.HL7View.EPIC.EPICFT1ResultView epicFT1ResultView = new Business.HL7View.EPIC.EPICFT1ResultView(this.m_AccessionOrder, panelSetOrderCPTCodeBill);
-                    //Business.Rules.MethodResult result = new Business.Rules.MethodResult();
-                    //epicFT1ResultView.Send(result);
-            //    }
-            //}
+            /*
+            YellowstonePathology.Business.Billing.Model.BillableObject billableObject = Business.Billing.Model.BillableObjectFactory.GetBillableObject(this.m_AccessionOrder, this.m_ReportNo);
+            billableObject.Set();            
+            billableObject.Post();
+            this.CreateInsuranceCard();         
+            */
+
+            if(string.IsNullOrEmpty(this.m_AccessionOrder.PlaceOfService) == false)
+            {
+                Business.Billing.Model.PlaceOfServiceCollection placeOfServiceCollection = new Business.Billing.Model.PlaceOfServiceCollection();
+                Business.Billing.Model.PlaceOfService placeOfService = placeOfServiceCollection.Get(this.m_AccessionOrder.PlaceOfService);
+                if (placeOfService != null)
+                    this.m_AccessionOrder.PatientType = placeOfService.PatientType;
+            }            
         }
     }
 }

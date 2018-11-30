@@ -64,16 +64,18 @@ namespace YellowstonePathology.UI.Navigation
             if (System.Windows.Forms.Screen.AllScreens.Length > 1)
             {
                 if (this.m_SecondMonitorWindow != null) this.m_SecondMonitorWindow.Close();
-
-                System.Windows.Forms.Screen screen2 = System.Windows.Forms.Screen.AllScreens[1];
+                
+                System.Windows.Forms.Screen screen2 = System.Windows.Forms.Screen.AllScreens[1];                
                 System.Drawing.Rectangle screen2Rectangle = screen2.WorkingArea;
 
                 this.m_SecondMonitorWindow = window;
                 this.m_SecondMonitorWindow.WindowStartupLocation = System.Windows.WindowStartupLocation.Manual;
+
                 this.m_SecondMonitorWindow.Width = 1500;
                 this.m_SecondMonitorWindow.Height = 800;
                 this.m_SecondMonitorWindow.Left = screen2Rectangle.Left + (screen2Rectangle.Width - this.m_SecondMonitorWindow.Width) / 2;
-                this.m_SecondMonitorWindow.Top = screen2Rectangle.Top + (screen2Rectangle.Height - this.m_SecondMonitorWindow.Height) / 2;
+                this.m_SecondMonitorWindow.Top = screen2Rectangle.Top + (screen2Rectangle.Height - this.m_SecondMonitorWindow.Height) / 2;                               
+                
                 this.m_SecondMonitorWindow.Show();
             }
         }
