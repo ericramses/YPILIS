@@ -233,7 +233,6 @@
     <Compile Include="Business\Audit.Model\FinalizedAudit.cs" />
     <Compile Include="Business\Audit.Model\FNAHasIntraOpAudit.cs" />
     <Compile Include="Business\Audit.Model\GradedStainsAreHandledAudit.cs" />
-    <Compile Include="Business\Audit.Model\HandleBoneMarrowOnFinalAudit.cs" />
     <Compile Include="Business\Audit.Model\HasColorForDirectPrintBlocksAudit.cs" />
     <Compile Include="Business\Audit.Model\HER2OKToAcceptAudit.cs" />
     <Compile Include="Business\Audit.Model\HPV1618ForSiteAudit.cs" />
