@@ -49,11 +49,6 @@ namespace YellowstonePathology.Business.User
             {
                 users.Add(user);
             }
-
-            if (YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.Administrator == true)
-            {
-                users.Add(User.SystemIdentity.Instance.User);
-            }
             return users;
         }
 
@@ -65,7 +60,7 @@ namespace YellowstonePathology.Business.User
 			{
 				users.Add(user);
 			}
-			return users;
+            return users;
 		}
 
 		public void AddAllToUserList(SystemUserCollection users, bool asFirstItem)
