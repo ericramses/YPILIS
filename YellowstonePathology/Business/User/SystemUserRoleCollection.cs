@@ -16,11 +16,6 @@ namespace YellowstonePathology.Business.User
 			int count = (from sur in this
 						 where sur.RoleID == roleId
 						 select sur).Count<SystemUserRole>();
-            /* this adds Admin to role
-            if (YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.Administrator == true)
-            {
-                count++;
-            }*/
             return count > 0;
 		}
 
@@ -30,11 +25,6 @@ namespace YellowstonePathology.Business.User
 						 from r in systemUserRoleDescriptionList
 						 where sur.RoleID == (int)r
 						 select sur).Count<SystemUserRole>();
-            /* this adds Admin to role
-            if (YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.Administrator == true)
-            {
-                count++;
-            }*/
             return count > 0;
 		}     
 	}
