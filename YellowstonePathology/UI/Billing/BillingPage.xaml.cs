@@ -388,13 +388,23 @@ namespace YellowstonePathology.UI.Billing
             this.CreateInsuranceCard();         
             */
 
+            /*
             if(string.IsNullOrEmpty(this.m_AccessionOrder.PlaceOfService) == false)
             {
                 Business.Billing.Model.PlaceOfServiceCollection placeOfServiceCollection = new Business.Billing.Model.PlaceOfServiceCollection();
                 Business.Billing.Model.PlaceOfService placeOfService = placeOfServiceCollection.Get(this.m_AccessionOrder.PlaceOfService);
                 if (placeOfService != null)
                     this.m_AccessionOrder.PatientType = placeOfService.PatientType;
-            }            
+            } 
+            */
+
+            if(this.ListViewPanelSetOrderCPTCodeBill.SelectedItem != null)
+            {
+                Business.Test.PanelSetOrderCPTCodeBill psob = (Business.Test.PanelSetOrderCPTCodeBill)this.ListViewPanelSetOrderCPTCodeBill.SelectedItem;
+                Business.HL7View.EPIC.EPICFT1ResultView epicFT1ResultView = new Business.HL7View.EPIC.EPICFT1ResultView(this.m_AccessionOrder, psob);
+                epicFT1ResultView.Publish(System.IO.Path.Combine(@"c:\testing", "ft1"));
+            }
+            
         }
     }
 }
