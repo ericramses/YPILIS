@@ -290,28 +290,7 @@ namespace YellowstonePathology.UI.Cutting
                 ventanaStainOrder.HandleOrder(this.m_AccessionOrder, slideOrder);
                 this.NotifyPropertyChanged(string.Empty);
             }
-        }    
-        
-        private void HandleKappaLambda(YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder)
-        {
-            Business.Test.Model.Test kappa = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone("360"); // KappaByISH();
-            Business.Test.Model.Test lambda = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone("361"); // LambdaByISH();
-            Business.Test.Model.Test u6 = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone("383"); // U6();
-
-            if (slideOrder.TestId == kappa.TestId || slideOrder.TestId == lambda.TestId)
-            {                
-                bool u6Exists = this.m_AliquotOrder.SlideOrderCollection.TestExists(u6.TestId);
-                if (u6Exists == false)
-                {
-                    //add a testorder and a slide order
-                    YellowstonePathology.Business.Visitor.OrderTestVisitor orderTestVisitor = new Business.Visitor.OrderTestVisitor(this.m_PanelOrder.ReportNo, u6, null, null, false, this.m_AliquotOrder, false, false, this.m_AccessionOrder.TaskOrderCollection);
-                    this.m_AccessionOrder.TakeATrip(orderTestVisitor);
-
-                    YellowstonePathology.Business.Visitor.AddSlideOrderVisitor addSlideOrderVisitor = new Business.Visitor.AddSlideOrderVisitor(this.m_AliquotOrder, orderTestVisitor.TestOrder);
-                    this.m_AccessionOrder.TakeATrip(addSlideOrderVisitor);
-                }             
-            }            
-        }    
+        }                    
 
         private void PrintSlide(YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder)
         {			                        
@@ -325,8 +304,7 @@ namespace YellowstonePathology.UI.Cutting
         private void ButtonAddSlide_Click(object sender, RoutedEventArgs e)
         {
             YellowstonePathology.Business.Visitor.AddSlideOrderVisitor addSlideOrderVisitor = new Business.Visitor.AddSlideOrderVisitor(this.m_AliquotOrder, this.m_TestOrder);            
-            this.m_AccessionOrder.TakeATrip(addSlideOrderVisitor);
-            this.HandleKappaLambda(addSlideOrderVisitor.NewSlideOrder);
+            this.m_AccessionOrder.TakeATrip(addSlideOrderVisitor);            
         }
 
         private void ButtonAddHandSlide_Click(object sender, RoutedEventArgs e)

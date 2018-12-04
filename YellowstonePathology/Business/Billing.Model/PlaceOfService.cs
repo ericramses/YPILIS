@@ -11,12 +11,14 @@ namespace YellowstonePathology.Business.Billing.Model
         private string m_Name;
         private string m_Code;
         private string m_PatientType;
+        private string m_SVHPatientClass;
 
-        public PlaceOfService(string name, string code, string patientType)
+        public PlaceOfService(string name, string code, string patientType, string svhPatientClass)
         {
             this.m_Name = name;
             this.m_Code = code;
             this.m_PatientType = patientType;
+            this.m_SVHPatientClass = svhPatientClass;
         }
 
         public string Name
@@ -35,6 +37,12 @@ namespace YellowstonePathology.Business.Billing.Model
         {
             get { return this.m_PatientType; }
             set { this.m_PatientType = value; }
+        }
+
+        public string SVHPatientClass
+        {
+            get { return this.m_SVHPatientClass; }
+            set { this.m_SVHPatientClass = value; }
         }
     }
 }
