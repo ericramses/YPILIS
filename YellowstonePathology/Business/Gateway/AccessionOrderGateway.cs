@@ -3308,11 +3308,11 @@ namespace YellowstonePathology.Business.Gateway
             string pathologistClause = pathologistId == -1 ? string.Empty : "and pso.AssignedToId = " + pathologistId + " ";
             string statusClause = status == "ALL" ? string.Empty : "and ot.TestStatus = '" + status + "' ";
             MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "select distinct pso.ReportNo, so.SlideOrderId, ot.TestName, ot.TestStatus, " +
+            cmd.CommandText = "select distinct pso.ReportNo, ifnull(so.SlideOrderId, '') SlideOrderId, ot.TestName, ot.TestStatus, " +
                 "ot.TestStatusUpdateTime, po.OrderTime, su.UserName `Pathologist` " +
                 "from tblPanelSetOrder pso join tblPanelOrder po on pso.ReportNo = po.ReportNo " +
                 "join tblTestOrder ot on po.PanelOrderId = ot.PanelOrderId " +
-                "join tblSlideOrder so on ot.TestOrderId = so.TestOrderId " +
+                "left outer join tblSlideOrder so on ot.TestOrderId = so.TestOrderId " +
                 "join tblSystemUser su on pso.AssignedToId = su.UserId " +
                 "where po.OrderDate = @OrderDate " + pathologistClause + statusClause + testIdsClause +
                 "order by ot.TestStatusUpdateTime, pso.ReportNo, ot.TestName;";
