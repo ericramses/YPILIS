@@ -55,6 +55,31 @@ namespace YellowstonePathology.Business.Visitor
             this.m_NewSlideOrder = slideOrder;
             this.m_TestOrder.SlideOrderCollection.Add(slideOrder);
             this.m_AliquotOrder.SlideOrderCollection.Add(slideOrder);
+            
+            this.HandleKappaLambda(slideOrder, accessionOrder);
+        }
+
+        private void HandleKappaLambda(YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder, Business.Test.AccessionOrder accessionOrder)
+        {
+            Business.Test.PanelOrder panelOrder = accessionOrder.PanelSetOrderCollection.GetPanelOrderByTestOrderId(this.m_TestOrder.TestOrderId);
+
+            Business.Test.Model.Test kappa = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone("360"); // KappaByISH();
+            Business.Test.Model.Test lambda = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone("361"); // LambdaByISH();
+            Business.Test.Model.Test u6 = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone("383"); // U6();
+
+            if (slideOrder.TestId == kappa.TestId || slideOrder.TestId == lambda.TestId)
+            {
+                bool u6Exists = this.m_AliquotOrder.SlideOrderCollection.TestExists(u6.TestId);
+                if (u6Exists == false)
+                {
+                    //add a testorder and a slide order
+                    YellowstonePathology.Business.Visitor.OrderTestVisitor orderTestVisitor = new Business.Visitor.OrderTestVisitor(panelOrder.ReportNo, u6, null, null, false, this.m_AliquotOrder, false, false, accessionOrder.TaskOrderCollection);
+                    accessionOrder.TakeATrip(orderTestVisitor);
+
+                    YellowstonePathology.Business.Visitor.AddSlideOrderVisitor addSlideOrderVisitor = new Business.Visitor.AddSlideOrderVisitor(this.m_AliquotOrder, orderTestVisitor.TestOrder);
+                    accessionOrder.TakeATrip(addSlideOrderVisitor);
+                }
+            }
         }
     }
 }
