@@ -34,13 +34,13 @@ namespace YellowstonePathology.Business.Billing.Model
             this.Add(new PlaceOfService("V6TO", "21", "IP", "101"));
             this.Add(new PlaceOfService("V3FO", "21", "IP", "101"));
 
-            this.Add(new PlaceOfService("OR", "23", "IP", "101"));
-            this.Add(new PlaceOfService("OR", "23", "IP", "104"));
-            this.Add(new PlaceOfService("OR", "23", "IP", "113"));  //this most of the time.
+            this.Add(new PlaceOfService("OR", "21", "IP", "101"));
+            this.Add(new PlaceOfService("OR", "21", "IP", "104"));
+            this.Add(new PlaceOfService("OR", "21", "IP", "113"));  //this most of the time.
             
 
             this.Add(new PlaceOfService("PERI", "21", "IP", "113"));
-            this.Add(new PlaceOfService("VGI", "11", "OP", "113"));
+            this.Add(new PlaceOfService("VGI", "21", "IP", "113"));
             this.Add(new PlaceOfService("VPERI", "21", "IP", "113"));
             this.Add(new PlaceOfService("VPRE", "21", "IP", "113"));
 

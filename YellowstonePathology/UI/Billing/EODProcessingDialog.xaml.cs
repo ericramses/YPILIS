@@ -304,19 +304,27 @@ namespace YellowstonePathology.UI.Billing
                         {                            
                             if(panelSetOrderCPTCodeBill.PostedToClient == false)
                             {
-                                if(panelSetOrderCPTCodeBill.MedicalRecord.StartsWith("V") == true)
+                                if(string.IsNullOrEmpty(panelSetOrderCPTCodeBill.MedicalRecord) == false && string.IsNullOrEmpty(panelSetOrderCPTCodeBill.Account) == false)
                                 {
-                                    this.m_BackgroundWorker.ReportProgress(1, "Writing File: " + reportNo.Value + " - " + panelSetOrderCPTCodeBill.CPTCode);
-                                    Business.HL7View.EPIC.EPICFT1ResultView epicFT1ResultView = new Business.HL7View.EPIC.EPICFT1ResultView(accessionOrder, panelSetOrderCPTCodeBill);
-                                    epicFT1ResultView.Publish(System.IO.Path.Combine(workingFolder, "ft1"));
-                                    panelSetOrderCPTCodeBill.PostedToClient = true;
-                                    panelSetOrderCPTCodeBill.PostedToClientDate = DateTime.Now;
-                                    rowCount += 1;
+                                    if (panelSetOrderCPTCodeBill.MedicalRecord.StartsWith("V") == true)
+                                    {
+                                        this.m_BackgroundWorker.ReportProgress(1, "Writing File: " + reportNo.Value + " - " + panelSetOrderCPTCodeBill.CPTCode);
+                                        Business.HL7View.EPIC.EPICFT1ResultView epicFT1ResultView = new Business.HL7View.EPIC.EPICFT1ResultView(accessionOrder, panelSetOrderCPTCodeBill);
+                                        epicFT1ResultView.Publish(System.IO.Path.Combine(workingFolder, "ft1"));
+                                        panelSetOrderCPTCodeBill.PostedToClient = true;
+                                        panelSetOrderCPTCodeBill.PostedToClientDate = DateTime.Now;
+                                        rowCount += 1;
+                                    }
+                                    else
+                                    {
+                                        throw new Exception("This MRN for this charge doesn't start with a V");
+                                    }
                                 }
                                 else
                                 {
-                                    throw new Exception("This MRN for this charge starts with an A");
-                                }                                
+                                    throw new Exception("This MRN or ACCT is null.");
+                                }
+                                
                             }                            
                         }
                         else
