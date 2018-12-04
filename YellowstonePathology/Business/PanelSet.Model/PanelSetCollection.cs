@@ -174,6 +174,9 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.Test.DNMT3AMutationAnalysis.DNMT3AMutationAnalysisTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.p57.p57Test());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.INI1.INI1Test());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.PDL1288.PDL1288Test());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.NeoTYPEBrainTumorProfile.NeoTYPEBrainTumorProfileTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.CarbonicAnhydraseIXCAIX.CarbonicAnhydraseIXCAIXTest());
 
             //ARUP
             panelSetCollection.Add(new YellowstonePathology.Business.Test.HPV1618.HPV1618Test());
@@ -269,6 +272,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.Test.EGFRMutationAnalysisPreliminary.EGFRMutationAnalysisPreliminaryTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.HER2AmplificationSummary.HER2AmplificationSummaryTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.HER2AmplificationRecount.HER2AmplificationRecountTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.OrderAssociation.OrderAssociationTest());
 
             //UniversityofWashington
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetUniversalOrganismByPCR());

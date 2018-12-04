@@ -31,8 +31,7 @@ namespace YellowstonePathology.UI.Test
         private string m_PageHeaderText;
 
 		private YellowstonePathology.Business.Test.CalreticulinMutationAnalysis.CalreticulinMutationAnalysisTestOrder m_PanelSetOrder;
-        private string m_OrderedOnDescription;
-		//private YellowstonePathology.Business.Test.CalreticulinMutationAnalysis.CalreticulinMutationAnalysisResultCollection m_CalreticulinMutationAnalysisResultCollection;
+        private string m_OrderedOnDescription;		
 
 		public CalreticulinMutationAnalysisResultPage(YellowstonePathology.Business.Test.CalreticulinMutationAnalysis.CalreticulinMutationAnalysisTestOrder testOrder,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
@@ -49,21 +48,14 @@ namespace YellowstonePathology.UI.Test
             this.m_OrderedOnDescription = specimenOrder.Description;
             if(aliquotOrder != null) this.m_OrderedOnDescription += ": " + aliquotOrder.Label;
 
-			//this.m_CalreticulinMutationAnalysisResultCollection = new YellowstonePathology.Business.Test.CalreticulinMutationAnalysis.CalreticulinMutationAnalysisResultCollection();
-
 			InitializeComponent();
 
 			DataContext = this;
 
             this.m_ControlsNotDisabledOnFinal.Add(this.ButtonNext);
             this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockShowDocument);
-            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalResults);
-        }
-
-        //public YellowstonePathology.Business.Test.CalreticulinMutationAnalysis.CalreticulinMutationAnalysisResultCollection CalreticulinMutationAnalysisResultCollection
-        //{
-        //    get { return this.m_CalreticulinMutationAnalysisResultCollection; }
-        //}
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalResults);            
+        }       
 
         public string OrderedOnDescription
         {

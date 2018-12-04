@@ -9,6 +9,8 @@ namespace YellowstonePathology.UI.Billing
     public class SVHMRNMatcher
     {
         private Business.Test.AccessionOrder m_AccessionOrder;
+        private Business.ClientOrder.Model.ClientOrder m_ClientOrder;
+
         private string m_ANumber;
         private string m_VNumber;
         private string m_VNumberAccount;
@@ -17,6 +19,11 @@ namespace YellowstonePathology.UI.Billing
         public SVHMRNMatcher(Business.Test.AccessionOrder accessionOrder)
         {
             this.m_AccessionOrder = accessionOrder;
+        }
+
+        public Business.ClientOrder.Model.ClientOrder ClientOrder
+        {
+            get { return this.m_ClientOrder; }
         }
 
         public void Match()
@@ -31,6 +38,7 @@ namespace YellowstonePathology.UI.Billing
                     {
                         if(this.DoesPatientNameMatch(this.m_AccessionOrder, clientOrders[0]) == true)
                         {
+                            this.m_ClientOrder = clientOrders[0];
                             this.m_VNumber = clientOrders[0].SvhMedicalRecord;
                             this.m_VNumberAccount = clientOrders[0].SvhAccountNo;
                             this.m_MatchFound = true;
@@ -63,8 +71,7 @@ namespace YellowstonePathology.UI.Billing
         public bool DoesPatientNameMatch(Business.Test.AccessionOrder ao, Business.ClientOrder.Model.ClientOrder co)
         {
             bool result = true;
-            if (ao.PLastName.ToUpper() != co.PLastName.ToUpper()) result = false;
-            if (ao.PFirstName.ToUpper() != co.PFirstName.ToUpper()) result = false;
+            if (ao.PLastName.ToUpper() != co.PLastName.ToUpper()) result = false;            
             return result;
         }    
 

@@ -13,10 +13,11 @@ namespace YellowstonePathology.Business.Billing.Model
 
         }
 
-        public static void SendMessage()
+        public static int SendMessage()
         {
-            string messageBody = Business.Gateway.AccessionOrderGateway.GetSVHClinicMessageBody();
-            System.Net.Mail.MailMessage message = new System.Net.Mail.MailMessage("support@ypii.com", "sid.harder@ypii.com", System.Windows.Forms.SystemInformation.UserName, messageBody);
+            StringBuilder messageBody = new StringBuilder();
+            int rowCount = Business.Gateway.AccessionOrderGateway.GetSVHClinicMessageBody(messageBody);
+            System.Net.Mail.MailMessage message = new System.Net.Mail.MailMessage("support@ypii.com", "sid.harder@ypii.com", System.Windows.Forms.SystemInformation.UserName, messageBody.ToString());
             message.To.Add("rebecca.ricci@sclhealth.org");
             message.To.Add("cheryl.stoltz@sclhealth.org");
             System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient("10.1.2.111");
@@ -27,6 +28,7 @@ namespace YellowstonePathology.Business.Billing.Model
 
             client.Credentials = credential;
             client.Send(message);
+            return rowCount;
         }
     }
 }

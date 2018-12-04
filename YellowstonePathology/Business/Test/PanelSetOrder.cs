@@ -1418,8 +1418,7 @@ namespace YellowstonePathology.Business.Test
             return result;
         }
 
-        public virtual FinalizeTestResult Finish(Business.Test.AccessionOrder accessionOrder)
-        //public virtual void Finish(Business.Test.AccessionOrder accessionOrder)
+        public virtual FinalizeTestResult Finish(Business.Test.AccessionOrder accessionOrder)        
         {
             YellowstonePathology.Business.PanelSet.Model.PanelSetCollection panelSetCollection = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetAll();
 			YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet = panelSetCollection.GetPanelSet(this.PanelSetId);
@@ -1429,8 +1428,12 @@ namespace YellowstonePathology.Business.Test
             this.m_FinalTime = DateTime.Now;
             this.m_FinaledById = Business.User.SystemIdentity.Instance.User.UserId;
             this.m_Signature = Business.User.SystemIdentity.Instance.User.Signature;
+            if (panelSet.HasProfessionalComponent)
+            {
+                this.m_ProfessionalComponentFacilityId = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId;
+            }
 
-			if (panelSet.AcceptOnFinal == true)
+            if (panelSet.AcceptOnFinal == true)
 			{
 				this.m_Accepted = true;
 				this.m_AcceptedDate = DateTime.Today;
@@ -1972,18 +1975,9 @@ namespace YellowstonePathology.Business.Test
         private FinalizeTestResult HandleBoneMarrowSummaryOnFinal(AccessionOrder accessionOrder)
         {
             FinalizeTestResult result = new FinalizeTestResult();
-            YellowstonePathology.Business.Audit.Model.HandleBoneMarrowOnFinalAudit audit = new Audit.Model.HandleBoneMarrowOnFinalAudit(accessionOrder, this);
-            audit.Run();
-            if (audit.Status == Audit.Model.AuditStatusEnum.Failure)
-            {
-                result.BoneMarrowSummaryIsSuggested = true;
-            }
-            else
-            {
-                Rules.RuleAcceptBoneMarrowSummaryOnLastFinal rule = new Rules.RuleAcceptBoneMarrowSummaryOnLastFinal();
-                rule.Execute(accessionOrder, this);
-                result.BoneMarrowSummaryIsSuggested = false;
-            }
+            result.BoneMarrowSummaryIsSuggested = false;
+            Rules.RuleAcceptBoneMarrowSummaryOnLastFinal rule = new Rules.RuleAcceptBoneMarrowSummaryOnLastFinal();
+            rule.Execute(accessionOrder, this);
             return result;
         }
 

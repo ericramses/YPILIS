@@ -62,7 +62,7 @@ namespace YellowstonePathology.Business.Test
 		private string m_PatientType;
 		private string m_PrimaryInsurance;
 		private string m_SecondaryInsurance;
-		private int m_PrintMateColumnNumber;
+		private string m_CassetteColor;
 		private string m_PSuffix;
 		private string m_ClientOrderId;
 		private bool m_Accessioned;
@@ -103,7 +103,8 @@ namespace YellowstonePathology.Business.Test
         private bool m_ITAuditRequired;
         private bool m_ITAudited;
         private int m_ITAuditPriority;
-        private string m_CaseDialog;                
+        private string m_CaseDialog;
+        private string m_PlaceOfService;              
 
 		public AccessionOrder()
         {
@@ -633,16 +634,16 @@ namespace YellowstonePathology.Business.Test
 		}
 
 		[PersistentProperty()]
-		[PersistentDataColumnProperty(false, "11", "0", "int")]
-		public int PrintMateColumnNumber
+		[PersistentDataColumnProperty(false, "50", "0", "varchar")]
+		public string CassetteColor
 		{
-			get { return this.m_PrintMateColumnNumber; }
+			get { return this.m_CassetteColor; }
 			set
 			{
-				if (this.m_PrintMateColumnNumber != value)
+				if (this.m_CassetteColor != value)
 				{
-					this.m_PrintMateColumnNumber = value;
-					this.NotifyPropertyChanged("PrintMateColumnNumber");
+					this.m_CassetteColor = value;
+					this.NotifyPropertyChanged("CassetteColor");
 				}
 			}
 		}
@@ -1262,6 +1263,21 @@ namespace YellowstonePathology.Business.Test
             }
         }
 
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
+        public string PlaceOfService
+        {
+            get { return this.m_PlaceOfService; }
+            set
+            {
+                if (this.m_PlaceOfService != value)
+                {
+                    this.m_PlaceOfService = value;
+                    this.NotifyPropertyChanged("PlaceOfService");
+                }
+            }
+        }
+
         public void FromClientOrder(YellowstonePathology.Business.ClientOrder.Model.ClientOrder clientOrder, int orderingUserId, string accessionOrderIds)
         {            
 			this.ClientId = clientOrder.ClientId;
@@ -1277,6 +1293,7 @@ namespace YellowstonePathology.Business.Test
 			this.PSSN = clientOrder.PSSN;
 			this.SvhAccount = clientOrder.SvhAccountNo;
 			this.SvhMedicalRecord = clientOrder.SvhMedicalRecord;
+            this.PlaceOfService = clientOrder.PlaceOfService;
 
             switch(clientOrder.PatientType)
             {
@@ -1516,20 +1533,17 @@ namespace YellowstonePathology.Business.Test
             if (this.IsDermatologyClient() == true)
             {
                 if(this.m_ClientId == 1260 || this.m_ClientId == 1511) //Advanced Dermatology, diagnositics
-                {
-                    YellowstonePathology.Business.Common.PrintMateColumnLilac printMateColumnLilac = new Common.PrintMateColumnLilac();
-                    this.m_PrintMateColumnNumber = printMateColumnLilac.ColumnNumber;
+                {                    
+                    this.m_CassetteColor = "Lilac";
                 }                
                 else
-                {
-                    YellowstonePathology.Business.Common.PrintMateColumnYellow printMateColumnYellow = new Common.PrintMateColumnYellow();
-                    this.m_PrintMateColumnNumber = printMateColumnYellow.ColumnNumber;
+                {                 
+                    this.m_CassetteColor = "Yellow";
                 }                
             }
             else if(this.m_ClientId == 1520)
-            {
-                YellowstonePathology.Business.Common.PrintMateColumnGreen printMateColumnLilac = new Common.PrintMateColumnGreen();
-                this.m_PrintMateColumnNumber = printMateColumnLilac.ColumnNumber;
+            {                
+                this.m_CassetteColor = "Blue";
             }
         }
 

@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business.User
 			int count = (from sur in this
 						 where sur.RoleID == roleId
 						 select sur).Count<SystemUserRole>();
-			return count > 0;
+            return count > 0;
 		}
 
 		public bool IsUserInRole(SystemUserRoleDescriptionList systemUserRoleDescriptionList)
@@ -25,7 +25,7 @@ namespace YellowstonePathology.Business.User
 						 from r in systemUserRoleDescriptionList
 						 where sur.RoleID == (int)r
 						 select sur).Count<SystemUserRole>();
-			return count > 0;
+            return count > 0;
 		}     
 	}
 }

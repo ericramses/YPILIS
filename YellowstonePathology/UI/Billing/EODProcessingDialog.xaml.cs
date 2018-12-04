@@ -23,7 +23,7 @@ namespace YellowstonePathology.UI.Billing
         public event PropertyChangedEventHandler PropertyChanged;        
 
         private System.ComponentModel.BackgroundWorker m_BackgroundWorker;
-        private Nullable<DateTime> m_PostDate;
+        private DateTime m_PostDate;
         
         private string m_BaseWorkingFolderPathPSA = @"\\CFileServer\Documents\Billing\PSA\";
         private string m_BaseWorkingFolderPathSVH = @"\\CFileServer\Documents\Billing\SVH\";
@@ -62,7 +62,7 @@ namespace YellowstonePathology.UI.Billing
             get { return this.m_StatusMessageList; }
         }
 
-        public Nullable<DateTime> PostDate
+        public DateTime PostDate
         {
             get { return this.m_PostDate; }
             set { this.m_PostDate = value; }
@@ -70,7 +70,7 @@ namespace YellowstonePathology.UI.Billing
 
         private void MenuItemOpenPSAFolder_Click(object sender, RoutedEventArgs e)
         {
-            string workingFolder = System.IO.Path.Combine(this.m_BaseWorkingFolderPathPSA, this.m_PostDate.Value.ToString("MMddyyyy"));
+            string workingFolder = System.IO.Path.Combine(this.m_BaseWorkingFolderPathPSA, this.m_PostDate.ToString("MMddyyyy"));
             System.Diagnostics.Process process = new System.Diagnostics.Process();
             System.Diagnostics.Process p = new System.Diagnostics.Process();
             System.Diagnostics.ProcessStartInfo info = new System.Diagnostics.ProcessStartInfo("Explorer.exe", workingFolder);
@@ -80,7 +80,7 @@ namespace YellowstonePathology.UI.Billing
 
         private void MenuItemOpenSVHFolder_Click(object sender, RoutedEventArgs e)
         {
-            string workingFolder = System.IO.Path.Combine(this.m_BaseWorkingFolderPathSVH, this.m_PostDate.Value.ToString("MMddyyyy"));
+            string workingFolder = System.IO.Path.Combine(this.m_BaseWorkingFolderPathSVH, this.m_PostDate.ToString("MMddyyyy"));
             System.Diagnostics.Process process = new System.Diagnostics.Process();
             System.Diagnostics.Process p = new System.Diagnostics.Process();
             System.Diagnostics.ProcessStartInfo info = new System.Diagnostics.ProcessStartInfo("Explorer.exe", workingFolder);
@@ -90,23 +90,33 @@ namespace YellowstonePathology.UI.Billing
 
         private void MenuItemSendClinicCaseEmail_Click(object sender, RoutedEventArgs e)
         {
-            Business.Billing.Model.SVHClinicMailMessage.SendMessage();
-            MessageBox.Show("An email was sent for unposted SVH clinic cases with A numbers.");
+            this.m_StatusMessageList.Clear();
+            this.m_BackgroundWorker = new System.ComponentModel.BackgroundWorker();
+            this.m_BackgroundWorker.WorkerSupportsCancellation = false;
+            this.m_BackgroundWorker.WorkerReportsProgress = true;
+            this.m_BackgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(BackgroundWorker_ProgressChanged);
+            this.m_BackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(SendSVHClinicEmail);
+            this.m_BackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(BackgroundWorker_RunWorkerCompleted);
+            this.m_BackgroundWorker.RunWorkerAsync();            
+        }
+
+        private void SendSVHClinicEmail(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            this.m_BackgroundWorker.ReportProgress(1, "Sending SVH Clinic Email: " + DateTime.Now.ToLongTimeString());
+            int rowCount = Business.Billing.Model.SVHClinicMailMessage.SendMessage();
+            this.m_BackgroundWorker.ReportProgress(1, "SVH Clinic Email Sent with " + rowCount.ToString() + " rows");
         }
 
         private void MenuItemProcessPSAFiles_Click(object sender, RoutedEventArgs e)
         {
-            this.m_StatusMessageList.Clear();                        
-            if (this.m_PostDate.HasValue == true)
-            {
-                this.m_BackgroundWorker = new System.ComponentModel.BackgroundWorker();
-                this.m_BackgroundWorker.WorkerSupportsCancellation = false;
-                this.m_BackgroundWorker.WorkerReportsProgress = true;
-                this.m_BackgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(BackgroundWorker_ProgressChanged);
-                this.m_BackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(ProcessPSAFiles);
-                this.m_BackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(BackgroundWorker_RunWorkerCompleted);
-                this.m_BackgroundWorker.RunWorkerAsync();
-            }
+            this.m_StatusMessageList.Clear();                                    
+            this.m_BackgroundWorker = new System.ComponentModel.BackgroundWorker();
+            this.m_BackgroundWorker.WorkerSupportsCancellation = false;
+            this.m_BackgroundWorker.WorkerReportsProgress = true;
+            this.m_BackgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(BackgroundWorker_ProgressChanged);
+            this.m_BackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(ProcessPSAFiles);
+            this.m_BackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(BackgroundWorker_RunWorkerCompleted);
+            this.m_BackgroundWorker.RunWorkerAsync();        
         }
 
         private void MenuItemProcessSVHFiles_Click(object sender, RoutedEventArgs e)
@@ -140,26 +150,37 @@ namespace YellowstonePathology.UI.Billing
             this.m_BackgroundWorker.WorkerSupportsCancellation = false;
             this.m_BackgroundWorker.WorkerReportsProgress = true;
             this.m_BackgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(BackgroundWorker_ProgressChanged);
-            this.m_BackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(TransferSVHCDMFiles);
+            this.m_BackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(TransferSVHFiles);
             this.m_BackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(BackgroundWorker_RunWorkerCompleted);
             this.m_BackgroundWorker.RunWorkerAsync();
         }
 
-        private void TransferSVHCDMFiles(object sender, System.ComponentModel.DoWorkEventArgs e)
+        private void TransferSVHFiles(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
-            this.m_BackgroundWorker.ReportProgress(1, "Starting Transfer of SVH CDM Files: " + DateTime.Now.ToLongTimeString());
+            int rowCount = 0;
+            this.m_BackgroundWorker.ReportProgress(1, "Starting Transfer of SVH Files: " + DateTime.Now.ToLongTimeString());
             string destinationFolder = @"\\ypiiinterface1\ChannelData\Outgoing\1002";
-            string workingFolder = System.IO.Path.Combine(this.m_BaseWorkingFolderPathSVH, this.m_PostDate.Value.ToString("MMddyyyy"));
-            string[] files = System.IO.Directory.GetFiles(workingFolder);
 
+            string workingFolder = System.IO.Path.Combine(this.m_BaseWorkingFolderPathSVH, this.m_PostDate.ToString("MMddyyyy"), "ft1");
+            string[] files = System.IO.Directory.GetFiles(workingFolder);
+            
             foreach(string file in files)
             {
                 this.m_BackgroundWorker.ReportProgress(1, "Copying File: " + file);
                 string destinationFile = System.IO.Path.Combine(destinationFolder, System.IO.Path.GetFileName(file));
-                System.IO.File.Copy(file, destinationFile);
+                System.IO.File.Copy(file, destinationFile);                
+                rowCount += 1;
             }
 
-            this.m_BackgroundWorker.ReportProgress(1, "Finished Transfer of SVH CDM Files: " + DateTime.Now.ToLongTimeString());
+            foreach (string file in files)
+            {
+                this.m_BackgroundWorker.ReportProgress(1, "Moving File: " + file);
+                string destinationFile = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(file), "done", System.IO.Path.GetFileName(file));
+                System.IO.File.Move(file, destinationFile);
+                rowCount += 1;
+            }
+
+            this.m_BackgroundWorker.ReportProgress(1, "Finished Transfer of " + rowCount + " SVH Files");
         }
 
         private void BackgroundWorker_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
@@ -194,13 +215,13 @@ namespace YellowstonePathology.UI.Billing
 
         private void CheckPatientTifFiles()
         {
-			YellowstonePathology.Business.ReportNoCollection reportNoCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetReportNumbersByPostDate(this.m_PostDate.Value);
+			YellowstonePathology.Business.ReportNoCollection reportNoCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetReportNumbersByPostDate(this.m_PostDate);
             foreach (YellowstonePathology.Business.ReportNo reportNo in reportNoCollection)
             {
 				YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(reportNo.Value);
                 string patientTifFilePath = YellowstonePathology.Business.Document.CaseDocument.GetCaseFileNamePatientTif(orderIdParser);
                 string patientTifFileName = System.IO.Path.GetFileName(patientTifFilePath);
-                string workingFolderPath = System.IO.Path.Combine(this.m_BaseWorkingFolderPathPSA, this.m_PostDate.Value.ToString("MMddyyyy"));
+                string workingFolderPath = System.IO.Path.Combine(this.m_BaseWorkingFolderPathPSA, this.m_PostDate.ToString("MMddyyyy"));
                 if (System.IO.File.Exists(patientTifFilePath) == true)
                 {
                     string psaFileName = workingFolderPath + @"\" + orderIdParser.MasterAccessionNo + ".Patient.tif";
@@ -214,11 +235,13 @@ namespace YellowstonePathology.UI.Billing
 
         private void ProcessPSAFiles(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
+            int rowCount = 0;
             this.m_BackgroundWorker.ReportProgress(1, "Starting processing PSA Files: " + DateTime.Now.ToLongTimeString());
 
-            YellowstonePathology.Business.ReportNoCollection reportNoCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetReportNumbersByPostDate(this.m_PostDate.Value);
-            string workingFolder = System.IO.Path.Combine(m_BaseWorkingFolderPathPSA, this.m_PostDate.Value.ToString("MMddyyyy"));
-            this.SetupWorkingFolders(workingFolder);
+            YellowstonePathology.Business.ReportNoCollection reportNoCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetReportNumbersByPostDate(this.m_PostDate);
+            string workingFolder = System.IO.Path.Combine(m_BaseWorkingFolderPathPSA, this.m_PostDate.ToString("MMddyyyy"));            
+            if (Directory.Exists(workingFolder) == false)
+                Directory.CreateDirectory(workingFolder);
 
             foreach (YellowstonePathology.Business.ReportNo reportNo in reportNoCollection)
             {
@@ -238,47 +261,75 @@ namespace YellowstonePathology.UI.Billing
                             this.CopyFiles(reportNo.Value, accessionOrder.MasterAccessionNo, workingFolder);
 
                             this.m_BackgroundWorker.ReportProgress(1, reportNo.Value + " Complete.");
+                            rowCount += 1;
                         }
                     }
                 }
             }
 
-            this.m_BackgroundWorker.ReportProgress(1, "Finished processing PSA Files: " + DateTime.Now.ToLongTimeString());
+            this.m_BackgroundWorker.ReportProgress(1, "Finished processing " + rowCount + " PSA Files");
         }
 
         private void ProcessSVHCDMFiles(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
-            YellowstonePathology.Business.ReportNoCollection reportNoCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetReportNumbersBySVHProcess(this.m_PostDate.Value);
-            string workingFolder = System.IO.Path.Combine(this.m_BaseWorkingFolderPathSVH, this.m_PostDate.Value.ToString("MMddyyyy"));
-            this.SetupWorkingFolders(workingFolder);
-
-            foreach (YellowstonePathology.Business.ReportNo reportNo in reportNoCollection)
+            this.m_BackgroundWorker.ReportProgress(1, "Starting processing SVH CDM files.");
+            YellowstonePathology.Business.ReportNoCollection reportNoCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetReportNumbersBySVHProcess(this.m_PostDate);
+            string workingFolder = System.IO.Path.Combine(this.m_BaseWorkingFolderPathSVH, this.m_PostDate.ToString("MMddyyyy"));
+            if (Directory.Exists(workingFolder) == false)
             {
+                Directory.CreateDirectory(workingFolder);
+                Directory.CreateDirectory(System.IO.Path.Combine(workingFolder, "ft1"));
+                Directory.CreateDirectory(System.IO.Path.Combine(workingFolder, "ft1", "done"));
+                Directory.CreateDirectory(System.IO.Path.Combine(workingFolder, "result"));
+                Directory.CreateDirectory(System.IO.Path.Combine(workingFolder, "result", "done"));
+            }                
+
+            Business.Billing.Model.CptCodeCollection cptCodeCollection = new Business.Billing.Model.CptCodeCollection();
+            cptCodeCollection.Load();
+
+            int rowCount = 0;
+            foreach (YellowstonePathology.Business.ReportNo reportNo in reportNoCollection)
+            {                
                 this.m_BackgroundWorker.ReportProgress(1, "Processing: " + reportNo.Value);
 
                 string masterAccessionNo = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMasterAccessionNoFromReportNo(reportNo.Value);
-                YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.GetAccessionOrderByMasterAccessionNo(masterAccessionNo);               
-
+                YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this);               
+                
                 YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo.Value);                
                 foreach (Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill in panelSetOrder.PanelSetOrderCPTCodeBillCollection)
                 {
                     if (panelSetOrderCPTCodeBill.BillTo == "Client" && panelSetOrderCPTCodeBill.PostDate == this.m_PostDate)
-                    {
-                        this.m_BackgroundWorker.ReportProgress(1, "Writing File: " + reportNo.Value + " - " + panelSetOrderCPTCodeBill.CPTCode);                        
-                        Business.HL7View.EPIC.EPICFT1ResultView epicFT1ResultView = new Business.HL7View.EPIC.EPICFT1ResultView(accessionOrder, panelSetOrderCPTCodeBill, true);
-                        epicFT1ResultView.Save(workingFolder);
+                    {                                                
+                        if(cptCodeCollection.HasSVHCDM(panelSetOrderCPTCodeBill.CPTCode) == true)
+                        {                            
+                            if(panelSetOrderCPTCodeBill.PostedToClient == false)
+                            {
+                                if(panelSetOrderCPTCodeBill.MedicalRecord.StartsWith("V") == true)
+                                {
+                                    this.m_BackgroundWorker.ReportProgress(1, "Writing File: " + reportNo.Value + " - " + panelSetOrderCPTCodeBill.CPTCode);
+                                    Business.HL7View.EPIC.EPICFT1ResultView epicFT1ResultView = new Business.HL7View.EPIC.EPICFT1ResultView(accessionOrder, panelSetOrderCPTCodeBill);
+                                    epicFT1ResultView.Publish(System.IO.Path.Combine(workingFolder, "ft1"));
+                                    panelSetOrderCPTCodeBill.PostedToClient = true;
+                                    panelSetOrderCPTCodeBill.PostedToClientDate = DateTime.Now;
+                                    rowCount += 1;
+                                }
+                                else
+                                {
+                                    throw new Exception("This MRN for this charge starts with an A");
+                                }                                
+                            }                            
+                        }
+                        else
+                        {
+                            this.m_BackgroundWorker.ReportProgress(1, "There is no CDM for ReportNo/Code: " + reportNo.Value + " - " + panelSetOrderCPTCodeBill.CPTCode);
+                            Business.Billing.Model.SVHNoCDMMailMessage.SendMessage(panelSetOrderCPTCodeBill.CPTCode);
+                        }
                     }
                 }                
             }
-        }        
-
-        private void SetupWorkingFolders(string workingFolder)
-        {            
-            if (Directory.Exists(workingFolder) == false)
-            {
-                Directory.CreateDirectory(workingFolder);
-            }
-        }
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
+            this.m_BackgroundWorker.ReportProgress(1, "Wrote " + rowCount + " SVH CDM files.");
+        }                         
 
         private void CreateXmlBillingDocument(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo)
         {
@@ -343,7 +394,7 @@ namespace YellowstonePathology.UI.Billing
 
         public List<string> GetReportNoListFromFolder()
         {
-            string workingFolder = System.IO.Path.Combine(this.m_BaseWorkingFolderPathPSA, this.m_PostDate.Value.ToString("MMddyyyy"));
+            string workingFolder = System.IO.Path.Combine(this.m_BaseWorkingFolderPathPSA, this.m_PostDate.ToString("MMddyyyy"));
             List<string> result = new List<string>();
             string[] files = System.IO.Directory.GetFiles(workingFolder);
             foreach (string file in files)
@@ -378,6 +429,7 @@ namespace YellowstonePathology.UI.Billing
 
         private void TransferPSAFiles(object sender, System.ComponentModel.DoWorkEventArgs e)        
         {
+            int rowCount = 0;
             this.m_BackgroundWorker.ReportProgress(1, "Starting transfer of PSA Files: " + DateTime.Now.ToLongTimeString());
             string configFilePath = @"C:\Program Files\Yellowstone Pathology Institute\psa-ssh-config.json";
 
@@ -390,7 +442,7 @@ namespace YellowstonePathology.UI.Billing
                     psaSSHConfig = (JObject)JToken.ReadFrom(reader);
                 }
 
-                string workingFolder = System.IO.Path.Combine(this.m_BaseWorkingFolderPathPSA, this.m_PostDate.Value.ToString("MMddyyyy"));
+                string workingFolder = System.IO.Path.Combine(this.m_BaseWorkingFolderPathPSA, this.m_PostDate.ToString("MMddyyyy"));
                 if(System.IO.Directory.Exists(workingFolder) == true)
                 {
                     string[] files = System.IO.Directory.GetFiles(workingFolder);
@@ -400,18 +452,19 @@ namespace YellowstonePathology.UI.Billing
 
                     sshFileTransfer.StatusMessage += SSHFileTransfer_StatusMessage;
                     sshFileTransfer.UploadFilesToPSA(files);
+                    rowCount += 1;
                 }
                 else
                 {                    
-                    this.m_BackgroundWorker.ReportProgress(1, "The folder for this date does not exist.");
+                    this.m_BackgroundWorker.ReportProgress(1, "ERROR: The folder for this date does not exist.");
                 }                
             }
             else
             {
-                this.m_BackgroundWorker.ReportProgress(1, "The PSA Config file could not be found.");                
+                this.m_BackgroundWorker.ReportProgress(1, "ERROR: The PSA Config file could not be found.");                
             }
 
-            this.m_BackgroundWorker.ReportProgress(1, "Finished with transfer of PSA Files: " + DateTime.Now.ToLongTimeString());
+            this.m_BackgroundWorker.ReportProgress(1, "Finished with transfer of " + rowCount + " PSA Files: " + DateTime.Now.ToLongTimeString());
         }
 
         private void SSHFileTransfer_StatusMessage(object sender, string message, int count)
@@ -420,6 +473,7 @@ namespace YellowstonePathology.UI.Billing
             this.m_BackgroundWorker.ReportProgress(1, message);
         }
 
+        /*
         private void MenuItemMatchUnpostedCases_Click(object sender, RoutedEventArgs e)
         {
             this.m_StatusMessageList.Clear();
@@ -431,9 +485,13 @@ namespace YellowstonePathology.UI.Billing
             this.m_BackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(BackgroundWorker_RunWorkerCompleted);
             this.m_BackgroundWorker.RunWorkerAsync();
         }
+        */
 
+        /*
         private void MatchUnpostedCases(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
+            string workingFolder = System.IO.Path.Combine(this.m_BaseWorkingFolderPathSVH, this.m_PostDate.ToString("MMddyyyy"), "result");            
+
             List<string> masterAccessionNumbers = Business.Gateway.AccessionOrderGateway.GetMasterAccessionNumbersBySVHNotPosted();
             foreach (string masterAccessionNo in masterAccessionNumbers)
             {
@@ -444,9 +502,17 @@ namespace YellowstonePathology.UI.Billing
 
                 if (svhMRNMatcher.MatchFound == true)
                 {
-                    this.m_BackgroundWorker.ReportProgress(1, "Matched: " + masterAccessionNo + " - " + svhMRNMatcher.ANumber + ":" + svhMRNMatcher.VNumber);
+                    this.m_BackgroundWorker.ReportProgress(1, "Matched: " + masterAccessionNo + " - " + svhMRNMatcher.ANumber + "->" + svhMRNMatcher.VNumber);
                     ao.SvhMedicalRecord = svhMRNMatcher.VNumber;
                     ao.SvhAccount = svhMRNMatcher.VNumberAccount;
+
+                    YellowstonePathology.Business.ClientOrder.Model.UniversalServiceCollection universalServiceIdCollection = YellowstonePathology.Business.ClientOrder.Model.UniversalServiceCollection.GetAll();
+                    YellowstonePathology.Business.ClientOrder.Model.UniversalService universalService = universalServiceIdCollection.GetByUniversalServiceId(svhMRNMatcher.ClientOrder.UniversalServiceId);
+
+                    string resultMessage = "This order has been associated with a prior order: " + svhMRNMatcher.ANumber + "->" + svhMRNMatcher.VNumber;
+                    YellowstonePathology.Business.HL7View.EPIC.EPICStatusMessage statusMessage = new Business.HL7View.EPIC.EPICStatusMessage(svhMRNMatcher.ClientOrder, YellowstonePathology.Business.HL7View.OrderStatusEnum.Complete, universalService, resultMessage, "F", ao.AccessionDateTime.Value);
+                    statusMessage.Publish(workingFolder);
+
                     foreach (Business.Test.PanelSetOrder panelSetOrder in ao.PanelSetOrderCollection)
                     {
                         panelSetOrder.PanelSetOrderCPTCodeBillCollection.SetPostDate(this.m_PostDate);
@@ -459,6 +525,7 @@ namespace YellowstonePathology.UI.Billing
             }
             Business.Persistence.DocumentGateway.Instance.Save();
         }
+        */
 
         private void ButtonStart_Click(object sender, RoutedEventArgs e)
         {            
@@ -474,11 +541,12 @@ namespace YellowstonePathology.UI.Billing
 
         private void RunAllProcesses(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
-            this.MatchUnpostedCases(sender, e);
+            //this.MatchUnpostedCases(sender, e);
             this.ProcessPSAFiles(sender, e);
             this.TransferPSAFiles(sender, e);
             this.ProcessSVHCDMFiles(sender, e);
-            this.TransferSVHCDMFiles(sender, e);
+            this.TransferSVHFiles(sender, e);
+            this.SendSVHClinicEmail(sender, e);            
         }
 
         private void AllProcessBackgroundWorker_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
@@ -508,6 +576,28 @@ namespace YellowstonePathology.UI.Billing
             streamWriter.Close();
 
             MessageBox.Show("All done.");
+        }
+
+        private void MenuItemFaxReport_Click(object sender, RoutedEventArgs e)
+        {            
+            Business.XPSDocument.Result.ClientBillingDetailReportResult.ClientBillingDetailReportData clientBillingDetailReportData = YellowstonePathology.Business.Gateway.XmlGateway.GetClientBillingDetailReport(this.m_PostDate, this.m_PostDate, "1");
+            YellowstonePathology.Document.ClientBillingDetailReportV2 clientBillingDetailReport = new Document.ClientBillingDetailReportV2(clientBillingDetailReportData, this.m_PostDate, this.m_PostDate);
+            string tifPath = @"C:\ProgramData\ypi\SVH_BILLING_" + this.m_PostDate.Year + "_" + this.m_PostDate.Month + "_" + this.m_PostDate.Day + ".tif";
+            Business.Helper.FileConversionHelper.SaveFixedDocumentAsTiff(clientBillingDetailReport.FixedDocument, tifPath);
+            Business.ReportDistribution.Model.FaxSubmission.Submit("4062378090", "SVH Billing Report", tifPath);
+            MessageBox.Show("The SVH report was successfully submitted to fax.");
+        }
+
+        private void ButtonBack_Click(object sender, RoutedEventArgs e)
+        {
+            this.PostDate = this.m_PostDate.AddDays(-1);
+            this.NotifyPropertyChanged("PostDate");
+        }
+
+        private void ButtonForward_Click(object sender, RoutedEventArgs e)
+        {
+            this.PostDate = this.m_PostDate.AddDays(1);
+            this.NotifyPropertyChanged("PostDate");
         }
     }
 }

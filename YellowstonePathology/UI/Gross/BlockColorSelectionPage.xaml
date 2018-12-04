@@ -16,8 +16,8 @@
 
 		<TextBlock Grid.Row="1" Margin="10" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Text="Block Color Selection" />
 
-		<ListBox Name="ListBoxColor" Grid.Column="0" Grid.Row="2" Margin="10" ItemsSource="{Binding Path=PrintMate.Carousel.Columns}" SelectionChanged="ListBoxColor_SelectionChanged"
-				 HorizontalAlignment="Center" SelectedValue="AccessionColorCode" BorderThickness="0">
+		<ListBox Name="ListBoxColor" Grid.Column="0" Grid.Row="2" Margin="10" ItemsSource="{Binding Path=Carousel.Columns}" SelectionChanged="ListBoxColor_SelectionChanged"
+				 HorizontalAlignment="Center" BorderThickness="0">
 			<ListBox.ItemsPanel>
 				<ItemsPanelTemplate>
 					<WrapPanel Orientation="Horizontal" Width="500" />

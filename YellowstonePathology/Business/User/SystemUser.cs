@@ -209,13 +209,17 @@ namespace YellowstonePathology.Business.User
 
 		public bool IsUserInRole(YellowstonePathology.Business.User.SystemUserRoleDescriptionEnum systemRole)
 		{
-			return SystemUserRoleCollection.IsUserInRole(systemRole);
-		}
+            bool result = SystemUserRoleCollection.IsUserInRole(systemRole);
+            if (m_UserId == SystemIdentity.Instance.User.UserId && UserPreferenceInstance.Instance.UserPreference.Administrator == true) result = true;
+            return result;
+        }
 
 		public bool IsUserInRole(YellowstonePathology.Business.User.SystemUserRoleDescriptionList systemUserRoleDescriptionList)
 		{
-			return SystemUserRoleCollection.IsUserInRole(systemUserRoleDescriptionList);
-		}
+            bool result = SystemUserRoleCollection.IsUserInRole(systemUserRoleDescriptionList);
+            if (m_UserId == SystemIdentity.Instance.User.UserId && UserPreferenceInstance.Instance.UserPreference.Administrator == true) result = true;
+            return result;
+        }
 
         public string GetWPHMneumonic()
         {

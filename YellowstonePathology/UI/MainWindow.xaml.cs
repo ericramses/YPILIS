@@ -1008,6 +1008,24 @@ namespace YellowstonePathology.UI
         {
             ChainExplorer chainExplorer = new ChainExplorer();
             chainExplorer.Show();
-        }        
+        }
+
+        private void MenuItemPDFTransfer_Click(object sender, RoutedEventArgs e)
+        {
+            PDFTransferDialog pdfTransferDialog = new PDFTransferDialog();
+            pdfTransferDialog.ShowDialog();
+        }
+
+        private void MenuItemAutoComplete_Click(object sender, RoutedEventArgs e)
+        {
+            AutoCompleteTest act = new AutoCompleteTest();
+            act.Show();
+        }
+
+        private void MenuItemSVHADTMatcher_Click(object sender, RoutedEventArgs e)
+        {
+            UI.Billing.SVHADTMatcher svhadtMatcher = new Billing.SVHADTMatcher();
+            svhadtMatcher.Show();
+        }
     }
 }

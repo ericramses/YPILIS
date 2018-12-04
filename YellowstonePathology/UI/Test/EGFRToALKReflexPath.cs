@@ -42,61 +42,25 @@ namespace YellowstonePathology.UI.Test
         private void EGFRToALKReflexPage_OrderBRAF(object sender, EventArgs e)
         {
             YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTest brafMutationAnalysisTest = new Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTest();
-            YellowstonePathology.Business.Interface.IOrderTarget orderTarget = this.m_AccessionOrder.SpecimenOrderCollection.GetOrderTarget(this.m_EGFRToALKReflexAnalysisTestOrder.OrderedOnId);
-            YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new YellowstonePathology.Business.Test.TestOrderInfo(brafMutationAnalysisTest, orderTarget, false);
-            YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfo);
-            this.m_AccessionOrder.TakeATrip(orderVisitor);
-            orderVisitor.PanelSetOrder.Distribute = false;
-
-            YellowstonePathology.Business.Task.Model.TaskOrder taskOrder = this.m_AccessionOrder.CreateTask(testOrderInfo);
-            this.m_AccessionOrder.TaskOrderCollection.Add(taskOrder);
-
-            this.m_AccessionOrder.PanelSetOrderCollection.UpdateTumorNucleiPercentage(this.m_EGFRToALKReflexAnalysisTestOrder);
+            this.StartReportOrderPath(brafMutationAnalysisTest);
         }
 
         private void EGFRToALKReflexPage_OrderPDL122C3(object sender, EventArgs e)
         {
             YellowstonePathology.Business.Test.PDL122C3.PDL122C3Test pdl122C3Test = new Business.Test.PDL122C3.PDL122C3Test();
-            YellowstonePathology.Business.Interface.IOrderTarget orderTarget = this.m_AccessionOrder.SpecimenOrderCollection.GetOrderTarget(this.m_EGFRToALKReflexAnalysisTestOrder.OrderedOnId);
-            YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new YellowstonePathology.Business.Test.TestOrderInfo(pdl122C3Test, orderTarget, false);
-            YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfo);
-            this.m_AccessionOrder.TakeATrip(orderVisitor);
-            orderVisitor.PanelSetOrder.Distribute = false;
-
-            YellowstonePathology.Business.Task.Model.TaskOrder taskOrder = this.m_AccessionOrder.CreateTask(testOrderInfo);
-            this.m_AccessionOrder.TaskOrderCollection.Add(taskOrder);
-
-            this.m_AccessionOrder.PanelSetOrderCollection.UpdateTumorNucleiPercentage(this.m_EGFRToALKReflexAnalysisTestOrder);
+            this.StartReportOrderPath(pdl122C3Test);
         }        
 
         private void EGFRToALKReflexPage_OrderALK(object sender, EventArgs e)
         {
             YellowstonePathology.Business.Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHTest alkForNSCLCByFISHTest = new YellowstonePathology.Business.Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHTest();
-            YellowstonePathology.Business.Interface.IOrderTarget orderTarget = this.m_AccessionOrder.SpecimenOrderCollection.GetOrderTarget(this.m_EGFRToALKReflexAnalysisTestOrder.OrderedOnId);
-            YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new YellowstonePathology.Business.Test.TestOrderInfo(alkForNSCLCByFISHTest, orderTarget, false);
-            YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfo);
-            this.m_AccessionOrder.TakeATrip(orderVisitor);
-            orderVisitor.PanelSetOrder.Distribute = false;
-
-            YellowstonePathology.Business.Task.Model.TaskOrder taskOrder = this.m_AccessionOrder.CreateTask(testOrderInfo);
-            this.m_AccessionOrder.TaskOrderCollection.Add(taskOrder);            
-
-            this.m_AccessionOrder.PanelSetOrderCollection.UpdateTumorNucleiPercentage(this.m_EGFRToALKReflexAnalysisTestOrder);
+            this.StartReportOrderPath(alkForNSCLCByFISHTest);
         }
 
         private void EGFRToALKReflexPage_OrderROS1(object sender, EventArgs e)
         {
-            YellowstonePathology.Business.Interface.IOrderTarget orderTarget = this.m_AccessionOrder.SpecimenOrderCollection.GetOrderTarget(this.m_EGFRToALKReflexAnalysisTestOrder.OrderedOnId);
             YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHTest ros1ByFISHTest = new Business.Test.ROS1ByFISH.ROS1ByFISHTest();
-            YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new YellowstonePathology.Business.Test.TestOrderInfo(ros1ByFISHTest, orderTarget, false);
-            YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfo);
-            this.m_AccessionOrder.TakeATrip(orderVisitor);
-            orderVisitor.PanelSetOrder.Distribute = false;
-
-            YellowstonePathology.Business.Task.Model.TaskOrder taskOrder = this.m_AccessionOrder.CreateTask(testOrderInfo);
-            this.m_AccessionOrder.TaskOrderCollection.Add(taskOrder);
-
-            this.m_AccessionOrder.PanelSetOrderCollection.UpdateTumorNucleiPercentage(this.m_EGFRToALKReflexAnalysisTestOrder);
+            this.StartReportOrderPath(ros1ByFISHTest);
         }
 
         private void EGFRToALKReflexPage_Back(object sender, EventArgs e)
@@ -107,7 +71,17 @@ namespace YellowstonePathology.UI.Test
 		private void EGFRToALKReflexPage_Finish(object sender, EventArgs e)
 		{            
             this.Finished();
-		}       
+		}
+
+        private void StartReportOrderPath(YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet)
+        {
+            YellowstonePathology.Business.Interface.IOrderTarget orderTarget = this.m_AccessionOrder.SpecimenOrderCollection.GetOrderTarget(this.m_EGFRToALKReflexAnalysisTestOrder.OrderedOnId);
+            YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new YellowstonePathology.Business.Test.TestOrderInfo(panelSet, orderTarget, false);
+
+            YellowstonePathology.UI.Login.Receiving.ReportOrderPath reportOrderPath = new Login.Receiving.ReportOrderPath(this.m_AccessionOrder, this.m_PageNavigator, PageNavigationModeEnum.Inline, this.m_Window);
+            reportOrderPath.Finish += new Login.Receiving.ReportOrderPath.FinishEventHandler(ReportOrderPath_Finish);
+            reportOrderPath.Start(testOrderInfo);
+        }
 
         private void ReportOrderPath_Finish(object sender, EventArgs e)
         {

@@ -29,7 +29,7 @@ namespace YellowstonePathology.Business.Audit.Model
             this.m_Status = AuditStatusEnum.OK;
             if(this.m_AliquotCollection.HasDirectPrintBlocks() == true)
             {
-            	if(this.m_AccessionOrder.PrintMateColumnNumber == 0)
+            	if(string.IsNullOrEmpty(this.m_AccessionOrder.CassetteColor))
             	{
             		this.m_Status = AuditStatusEnum.Failure;
                     this.m_Message.Append("Please select a Cassette Color before continuing.");

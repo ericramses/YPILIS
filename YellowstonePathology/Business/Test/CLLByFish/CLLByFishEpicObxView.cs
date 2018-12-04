@@ -21,7 +21,7 @@ namespace YellowstonePathology.Business.Test.CLLByFish
 			this.AddNextObxElement("", document, "F");
 			string result = "Result: " + panelSetOrder.Result;
 			if (string.IsNullOrEmpty(panelSetOrder.ResultDescription) == false) result = "Result: " + panelSetOrder.ResultDescription;
-			this.AddNextObxElement(result, document, "F");
+			this.HandleLongString(result, document, "F");
 
 			this.AddNextObxElement("", document, "F");
 			this.AddNextObxElement("Pathologist: " + panelSetOrder.Signature, document, "F");

@@ -175,7 +175,7 @@ namespace YellowstonePathology.UI.AppMessaging
                     this.m_MessagingDialog = null;
                 }
 
-                this.LockWasReleased(this, new EventArgs());
+                if(this.LockWasReleased != null) this.LockWasReleased(this, new EventArgs());
             }            
         }
 
@@ -184,6 +184,7 @@ namespace YellowstonePathology.UI.AppMessaging
             if(accessionOrder.AccessionLock.IsLockAquiredByMe == false)
             {
                 if(this.m_MessagingDialog == null) this.m_MessagingDialog = new MessagingDialog();
+                this.m_MessagingDialog.Topmost = true;
                 this.m_PageNavigator = this.m_MessagingDialog.PageNavigator;
                 this.m_MessagingDialog.Closed += MessagingDialog_Closed;
 
@@ -220,7 +221,7 @@ namespace YellowstonePathology.UI.AppMessaging
                     this.m_MessagingDialog = null;
                 }
 
-                this.LockWasReleased(this, new EventArgs());
+                if(this.LockWasReleased != null) this.LockWasReleased(this, new EventArgs());
             }            
         }
 

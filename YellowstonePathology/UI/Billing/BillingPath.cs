@@ -90,7 +90,8 @@ namespace YellowstonePathology.UI.Billing
                     patientDetailPage.Next += new Billing.PatientDetailPage.NextEventHandler(PatientDetailPage_Next);
 
                     if (this.m_BillingWindowPrimary.PageNavigator.HasDualMonitors() == false)
-                    {                        
+                    {
+                        this.m_BillingWindowSecondary = new BillingWindowSecondary();
                         this.m_BillingWindowSecondary.Show();
                     }
                     this.m_BillingWindowSecondary.PageNavigator.Navigate(patientDetailPage);
@@ -138,7 +139,7 @@ namespace YellowstonePathology.UI.Billing
 
         private void BillingPage_ShowCPTCodeEntry(object sender, CustomEventArgs.PanelSetOrderReturnEventArgs e)
         {
-            YellowstonePathology.UI.Billing.PanelSetOrderCPTCodeEntryPage panelSetOrderCPTCodeEntryPage = new PanelSetOrderCPTCodeEntryPage(e.PanelSetOrder, this.m_AccessionOrder.ClientId);
+            YellowstonePathology.UI.Billing.PanelSetOrderCPTCodeEntryPage panelSetOrderCPTCodeEntryPage = new PanelSetOrderCPTCodeEntryPage(e.PanelSetOrder, this.m_AccessionOrder.ClientId, this.m_AccessionOrder.SvhMedicalRecord);
             panelSetOrderCPTCodeEntryPage.Next += new PanelSetOrderCPTCodeEntryPage.NextEventHandler(PanelSetOrderCPTCodeEntryPage_Next);
 			panelSetOrderCPTCodeEntryPage.Back += new PanelSetOrderCPTCodeEntryPage.BackEventHandler(PanelSetOrderCPTCodeEntryPage_Back);
             this.m_BillingWindowPrimary.PageNavigator.Navigate(panelSetOrderCPTCodeEntryPage);            

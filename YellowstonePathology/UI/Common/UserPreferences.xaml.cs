@@ -29,12 +29,13 @@ namespace YellowstonePathology.UI.Common
         private YellowstonePathology.Business.Label.Model.LabelFormatCollection m_MolecularLabelFormatCollection;
         private System.Printing.PrintQueueCollection m_PrintQueueCollection;
 		private YellowstonePathology.Business.ApplicationVersion m_ApplicationVersion;
+        private Business.Label.Model.CassettePrinterCollection m_CassettePrinterCollection;
 
         public UserPreferences(YellowstonePathology.Business.User.UserPreference userPreference)
 		{
             this.m_UserPreferenceList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAllUserPreferences();
             this.m_MolecularLabelFormatCollection = YellowstonePathology.Business.Label.Model.LabelFormatCollection.GetMolecularLabelCollection();
-
+            this.m_CassettePrinterCollection = new Business.Label.Model.CassettePrinterCollection();
             this.m_FacilityCollection = Business.Facility.Model.FacilityCollection.Instance;
 
             System.Printing.LocalPrintServer printServer = new System.Printing.LocalPrintServer();            
@@ -76,19 +77,13 @@ namespace YellowstonePathology.UI.Common
         private void UserPreferences_Loaded(object sender, RoutedEventArgs e)
 		{
             this.m_Twain = new Business.Twain.Twain(new WpfWindowMessageHook(Window.GetWindow(this)));
-            this.m_PageScannerCollection = new Business.Common.PageScannerCollection();
-
-            /*
-            if(Environment.OSVersion.VersionString != "Microsoft Windows NT 6.2.9200.0")
-            {
-                this.PageScannerCollection = new Business.Common.PageScannerCollection(this.m_Twain);
-            }
-            else
-            {
-                this.m_PageScannerCollection = new Business.Common.PageScannerCollection();                
-            }
-            */
-        }        
+            this.m_PageScannerCollection = new Business.Common.PageScannerCollection();            
+        }    
+        
+        public Business.Label.Model.CassettePrinterCollection CassettePrinterCollection
+        {
+            get { return this.m_CassettePrinterCollection; }
+        }    
 
         public YellowstonePathology.Business.Label.Model.LabelFormatCollection MolecularLabelFormatCollection
         {
@@ -179,22 +174,7 @@ namespace YellowstonePathology.UI.Common
 		{
             this.DialogResult = false;
 			this.Close();
-		}
-
-		private void ButtonTestBlockPrinter_Click(object sender, RoutedEventArgs e)
-		{            
-			YellowstonePathology.Business.Common.Block block = new Business.Common.BlockV1();
-			block.CassetteColumn = 3;
-			block.ReportNo = "XXX-9999";
-			block.BlockTitle = "XX";
-			block.PatientInitials = "XX";
-			block.BlockId = "999999";
-			block.PrintRequested = true;
-
-			YellowstonePathology.Business.Common.BlockCollection blockCollection = new Business.Common.BlockCollection();
-			blockCollection.Add(block);
-			YellowstonePathology.Business.Common.PrintMate.Print(blockCollection);            
-		}
+		}		
 
         public void NotifyPropertyChanged(String info)
         {

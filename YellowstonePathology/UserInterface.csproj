@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>241</ApplicationRevision>
+    <ApplicationRevision>296</ApplicationRevision>
     <ApplicationVersion>10.1.12.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -98,6 +98,10 @@
       <SpecificVersion>False</SpecificVersion>
       <EmbedInteropTypes>True</EmbedInteropTypes>
       <HintPath>dll\Interop.FAXCOMEXLib.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13\lib\itextsharp.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Exchange.WebServices, Version=15.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -229,7 +233,6 @@
     <Compile Include="Business\Audit.Model\FinalizedAudit.cs" />
     <Compile Include="Business\Audit.Model\FNAHasIntraOpAudit.cs" />
     <Compile Include="Business\Audit.Model\GradedStainsAreHandledAudit.cs" />
-    <Compile Include="Business\Audit.Model\HandleBoneMarrowOnFinalAudit.cs" />
     <Compile Include="Business\Audit.Model\HasColorForDirectPrintBlocksAudit.cs" />
     <Compile Include="Business\Audit.Model\HER2OKToAcceptAudit.cs" />
     <Compile Include="Business\Audit.Model\HPV1618ForSiteAudit.cs" />
@@ -295,6 +298,7 @@
     <Compile Include="Business\BaseData.cs" />
     <Compile Include="Business\BaseItem.cs" />
     <Compile Include="Business\BaseListItem.cs" />
+    <Compile Include="Business\Billing.Model\ADTListItem.cs" />
     <Compile Include="Business\Billing.Model\BillableObjectNeoFlowCytometry.cs" />
     <Compile Include="Business\Billing.Model\CptCodeFactory.cs" />
     <Compile Include="Business\Billing.Model\CPTCodeWithModifier.cs" />
@@ -303,7 +307,10 @@
     <Compile Include="Business\Billing.Model\ICDCodeFactory.cs" />
     <Compile Include="Business\Billing.Model\MonitoredObject.cs" />
     <Compile Include="Business\Billing.Model\MonitoredObjectCollection.cs" />
+    <Compile Include="Business\Billing.Model\PlaceOfService.cs" />
+    <Compile Include="Business\Billing.Model\PlaceOfServiceCollection.cs" />
     <Compile Include="Business\Billing.Model\PropertyChanges.cs" />
+    <Compile Include="Business\Billing.Model\SVHNoCDMMailMessage.cs" />
     <Compile Include="Business\Client.Model\HPV1618CompoundStandingOrderRule1.cs" />
     <Compile Include="Business\Client.Model\HPV1618ReflexOrderPAPNormalHPVPositive.cs" />
     <Compile Include="Business\Client.Model\HPVCompoundStandingOrderRule7.cs" />
@@ -311,6 +318,7 @@
     <Compile Include="Business\Client.Model\IdahoClientIdList.cs" />
     <Compile Include="Business\ClientOrder.Model\ExternalOrderIds.cs" />
     <Compile Include="Business\ClientOrder.Model\ExternalOrderIdsCollection.cs" />
+    <Compile Include="Business\Common\Block.cs" />
     <Compile Include="Business\Document\CaseDocumentFileTypeEnnum.cs" />
     <Compile Include="Business\Document\CaseDocumentTypeEnum.cs" />
     <Compile Include="Business\EthBlock.cs" />
@@ -546,10 +554,6 @@
     <Compile Include="Business\ClientOrder.Model\UniversalServiceDefinitions.cs" />
     <Compile Include="Business\ClientOrder.Model\WestGrandFamilyOrderTest.cs" />
     <Compile Include="Business\Common\AmendmentSpellCheckList.cs" />
-    <Compile Include="Business\Common\Block.cs" />
-    <Compile Include="Business\Common\BlockCollection.cs" />
-    <Compile Include="Business\Common\BlockV1.cs" />
-    <Compile Include="Business\Common\BlockV2.cs" />
     <Compile Include="Business\Common\DatabaseSelectionModel.cs" />
     <Compile Include="Business\Common\FieldEnabler.cs" />
     <Compile Include="Business\Common\PageScanner.cs" />
@@ -559,18 +563,6 @@
     <Compile Include="Business\Common\PageScannerIS200e.cs" />
     <Compile Include="Business\Common\PageScannerXeroxDocuMate3640.cs" />
     <Compile Include="Business\Common\PathologistSpellCheckList.cs" />
-    <Compile Include="Business\Common\PrintMate.cs" />
-    <Compile Include="Business\Common\PrintMateCarousel.cs" />
-    <Compile Include="Business\Common\PrintMateColumn.cs" />
-    <Compile Include="Business\Common\PrintMateColumnGreen.cs" />
-    <Compile Include="Business\Common\PrintMateColumnLilac.cs" />
-    <Compile Include="Business\Common\PrintMateColumnOrange1.cs" />
-    <Compile Include="Business\Common\PrintMateColumnOrange2.cs" />
-    <Compile Include="Business\Common\PrintMateColumnPink.cs" />
-    <Compile Include="Business\Common\PrintMateColumnTeal.cs" />
-    <Compile Include="Business\Common\PrintMateColumnTeal2.cs" />
-    <Compile Include="Business\Common\PrintMateColumnYellow.cs" />
-    <Compile Include="Business\Common\PrintMateNullColumn.cs" />
     <Compile Include="Business\Common\SpellChecker.cs" />
     <Compile Include="Business\Common\SpellCheckListItem.cs" />
     <Compile Include="Business\Common\TypingSpellCheckList.cs" />
@@ -761,7 +753,6 @@
     <Compile Include="Business\Gateway\SearchGateway.cs" />
     <Compile Include="Business\Gateway\SlideAccessionGateway.cs" />
     <Compile Include="Business\Gateway\SlideDisposalReportGateway.cs" />
-    <Compile Include="Business\Hello4.cs" />
     <Compile Include="Business\Helper\DateTimeExtensions.cs" />
     <Compile Include="Business\Helper\DateTimeJoiner.cs" />
     <Compile Include="Business\Helper\DateTimeSplitter.cs" />
@@ -821,7 +812,6 @@
     <Compile Include="Business\HL7View\EPIC\EpicStatusObxView.cs" />
     <Compile Include="Business\HL7View\EPIC\EpicStatusOrcView.cs" />
     <Compile Include="Business\HL7View\EPIC\EpicUniversalSerivceIdDictionary.cs" />
-    <Compile Include="Business\HL7View\EPIC\TestEpicStatusMessage.cs" />
     <Compile Include="Business\HL7View\Hl7Client.cs" />
     <Compile Include="Business\HL7View\Hl7MessageType.cs" />
     <Compile Include="Business\HL7View\HolyRosaryHealthCare.cs" />
@@ -921,12 +911,21 @@
     <Compile Include="Business\Label.Model\BlockLabelLegacy.cs" />
     <Compile Include="Business\Label.Model\AliquotLabelPrinter.cs" />
     <Compile Include="Business\Label.Model\BlockLabelPrinter.cs" />
+    <Compile Include="Business\Label.Model\Carousel.cs" />
+    <Compile Include="Business\Label.Model\CarouselColumn.cs" />
     <Compile Include="Business\Label.Model\Cassette.cs" />
     <Compile Include="Business\Label.Model\CassettePrinter.cs" />
+    <Compile Include="Business\Label.Model\CassettePrinterCollection.cs" />
+    <Compile Include="Business\Label.Model\CassettePrinterGrossCody.cs" />
+    <Compile Include="Business\Label.Model\CassettePrinterGrossHobbit.cs" />
+    <Compile Include="Business\Label.Model\CassettePrinterGrossPath.cs" />
+    <Compile Include="Business\Label.Model\CassettePrinterGrossTech.cs" />
     <Compile Include="Business\Label.Model\ContainerPaperLabel.cs" />
     <Compile Include="Business\Label.Model\ContainerPaperLabelPrinter.cs" />
     <Compile Include="Business\Label.Model\AliquotPaperZPLLabel.cs" />
+    <Compile Include="Business\Label.Model\GeneralDataCassette.cs" />
     <Compile Include="Business\Label.Model\HistologySlidePaperZPLLabelV2.cs" />
+    <Compile Include="Business\Label.Model\ThermoFisherCassette.cs" />
     <Compile Include="Business\Label.Model\UrineZPLLabel.cs" />
     <Compile Include="Business\Label.Model\IFEZPLLabel.cs" />
     <Compile Include="Business\Label.Model\FormalinAddedZPLLabel.cs" />
@@ -1044,6 +1043,7 @@
     <Compile Include="Business\Test\ALLPediatricFISHPanel\ALLPediatricFISHPanelTest.cs" />
     <Compile Include="Business\Test\AMLPrognosticProfile\AMLPrognosticProfileTestOrder.cs" />
     <Compile Include="Business\Test\API2MALT1ByFISH\API2MALT1ByFISHWPHOBXView.cs" />
+    <Compile Include="Business\Test\CarbonicAnhydraseIXCAIX\CarbonicAnhydraseIXCAIXTest.cs" />
     <Compile Include="Business\Test\CheckResultsActionEnum.cs" />
     <Compile Include="Business\Test\ChimerismStudyByDNAMarkers\ChimerismStudyByDNAMarkersTest.cs" />
     <Compile Include="Business\Test\DNMT3AMutationAnalysis\DNMT3AMutationAnalysisTest.cs" />
@@ -1111,16 +1111,22 @@
     <Compile Include="Business\Test\MDSExtendedByFish\MDSExtendedByFishWPHOBXView.cs" />
     <Compile Include="Business\Test\MicrobiologyByPCR\MicrobiologyByPCRTest.cs" />
     <Compile Include="Business\Test\NeoLABMyeloidDisordersProfile\NeoLABMyeloidDisordersProfileTest.cs" />
+    <Compile Include="Business\Test\NeoTYPEBrainTumorProfile\NeoTYPEBrainTumorProfileTest.cs" />
     <Compile Include="Business\Test\NeoTYPEBreastTumorProfile\NeoTYPEBreastTumorProfileTest.cs" />
     <Compile Include="Business\Test\NeoTYPEGISTProfile\NeoTYPEGISTProfileTest.cs" />
     <Compile Include="Business\Test\NeoTypeLungTumorFISHPanel\NeoTypeLungTumorFISHPanelTest.cs" />
     <Compile Include="Business\Test\NeoTYPELungTumorProfile\NeoTYPELungTumorProfileTestOrder.cs" />
     <Compile Include="Business\Test\NeoTYPEOvarianTumorProfile\NeoTYPEOvarianTumorProfileTest.cs" />
+    <Compile Include="Business\Test\OrderAssociation\OrderAssociationEpicObxView.cs" />
+    <Compile Include="Business\Test\OrderAssociation\OrderAssociationTest.cs" />
+    <Compile Include="Business\Test\OrderAssociation\OrderAssociationTestOrder.cs" />
     <Compile Include="Business\Test\p57\p57Test.cs" />
+    <Compile Include="Business\Test\PDL1288\PDL1288Test.cs" />
     <Compile Include="Business\Test\PNH\PNHWPHOBXView.cs" />
     <Compile Include="Business\Test\RASRAFPanel\RASRAFPanelWPHOBXView.cs" />
     <Compile Include="Business\Test\RibosomalRNA16S\RibosomalRNA16STest.cs" />
     <Compile Include="Business\Test\SomatostatinReceptorType2\SomatostatinReceptorType2Test.cs" />
+    <Compile Include="Business\Test\ThrombocytopeniaProfile\ThrombocytopeniaProfileCMMCNTEView.cs" />
     <Compile Include="Business\Test\TP53MutationAnalysis\TP53MutationAnalysisTest.cs" />
     <Compile Include="Business\Test\WholeExomeSequencing\WholeExomeSequencingTest.cs" />
     <Compile Include="Business\User\SystemRoleView.cs" />
@@ -2964,6 +2970,10 @@
     <Compile Include="UI\AppMessaging\LockRequestResponseRecievedPage.xaml.cs">
       <DependentUpon>LockRequestResponseRecievedPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\AutoCompleteTest.xaml.cs">
+      <DependentUpon>AutoCompleteTest.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Business\Billing.Model\AccessionListItem.cs" />
     <Compile Include="UI\Billing\BillingPage.xaml.cs">
       <DependentUpon>BillingPage.xaml</DependentUpon>
     </Compile>
@@ -3027,6 +3037,9 @@
       <DependentUpon>DashboardPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\PantherPreviouslyRunReport.cs" />
+    <Compile Include="UI\PDFTransferDialog.xaml.cs">
+      <DependentUpon>PDFTransferDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\RetrospectiveReviewListItem.cs" />
     <Compile Include="UI\RetrospectiveReviewList.cs" />
     <Compile Include="UI\RetrospectiveReviewReport.cs" />
@@ -3420,6 +3433,9 @@
       <DependentUpon>SurgicalHistory.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Surgical\TextSearchHandler.cs" />
+    <Compile Include="UI\Billing\SVHADTMatcher.xaml.cs">
+      <DependentUpon>SVHADTMatcher.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\SystemUserDialog.xaml.cs">
       <DependentUpon>SystemUserDialog.xaml</DependentUpon>
     </Compile>
@@ -3522,6 +3538,10 @@
       <DependentUpon>HER2AmplificationSummaryResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Test\HER2AmplificationSummaryResultPath.cs" />
+    <Compile Include="UI\Test\OrderAssociationResultPage.xaml.cs">
+      <DependentUpon>OrderAssociationResultPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Test\OrderAssociationResultPath.cs" />
     <Compile Include="UI\Test\PreviousResultDialog.xaml.cs">
       <DependentUpon>PreviousResultDialog.xaml</DependentUpon>
     </Compile>
@@ -3866,6 +3886,7 @@
     <Compile Include="UI\TifDocumentViewer.xaml.cs">
       <DependentUpon>TifDocumentViewer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\TimedAction.cs" />
     <Compile Include="UI\ValidationTestingDialog.xaml.cs">
       <DependentUpon>ValidationTestingDialog.xaml</DependentUpon>
     </Compile>
@@ -4864,6 +4885,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="UI\AutoCompleteTest.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\Billing\ADTPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -5217,6 +5242,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UI\PDFTransferDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\ReportDistribution\ReportDistributionWorkspace.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -5325,6 +5354,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="UI\Billing\SVHADTMatcher.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\SystemUserDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -5419,6 +5452,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Test\HER2AmplificationSummaryResultPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Test\OrderAssociationResultPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

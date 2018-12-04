@@ -17,7 +17,6 @@ namespace YellowstonePathology.UI.Converter
 			if (value != null)
 			{
 				YellowstonePathology.Business.Common.Block block = (YellowstonePathology.Business.Common.Block)value;
-
 				if (block.Verified)
 				{
 					result = "#77933C";
