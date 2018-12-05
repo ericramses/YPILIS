@@ -742,6 +742,23 @@ namespace YellowstonePathology.Business.Specimen.Model
             return result;
         }
 
+        public YellowstonePathology.Business.Test.AliquotOrder GetAliquotOrderByTestId(string testId)
+        {
+            YellowstonePathology.Business.Test.AliquotOrder result = null;
+            foreach (YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder in this)
+            {
+                foreach (YellowstonePathology.Business.Test.AliquotOrder aliquotOrder in specimenOrder.AliquotOrderCollection)
+                {
+                    if (aliquotOrder.TestOrderCollection.ExistsByTestId(testId) == true)
+                    {
+                        result = aliquotOrder;
+                        break;
+                    }
+                }
+            }
+            return result;
+        }
+
         public YellowstonePathology.Business.Test.AliquotOrderCollection GetAliquotOrdersThatHaveTestOrders()
         {
 			YellowstonePathology.Business.Test.AliquotOrderCollection result = new YellowstonePathology.Business.Test.AliquotOrderCollection();

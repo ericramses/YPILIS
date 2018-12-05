@@ -56,9 +56,10 @@ namespace YellowstonePathology.Business.Visitor
             this.m_TestOrder.SlideOrderCollection.Add(slideOrder);
             this.m_AliquotOrder.SlideOrderCollection.Add(slideOrder);
             
-            this.HandleKappaLambda(slideOrder, accessionOrder);
+            //this.HandleKappaLambda(slideOrder, accessionOrder);
         }
 
+        /*
         private void HandleKappaLambda(YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder, Business.Test.AccessionOrder accessionOrder)
         {
             Business.Test.PanelOrder panelOrder = accessionOrder.PanelSetOrderCollection.GetPanelOrderByTestOrderId(this.m_TestOrder.TestOrderId);
@@ -81,5 +82,6 @@ namespace YellowstonePathology.Business.Visitor
                 }
             }
         }
+        */
     }
 }
