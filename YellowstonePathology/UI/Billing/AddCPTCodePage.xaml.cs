@@ -19,24 +19,28 @@ namespace YellowstonePathology.UI.Billing
     /// <summary>
     /// Interaction logic for AddCPTCodePage.xaml
     /// </summary>
-    public partial class AddCPTCodeDialog : Window, INotifyPropertyChanged
+    public partial class AddCPTCodePage : UserControl, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public delegate void NextEventHandler(object sender, EventArgs e);
+        public event NextEventHandler Next;
 
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
         YellowstonePathology.Business.Billing.Model.FISHCPTCodeList m_FISHCPTCodeList;
+        private string m_PageHeaderText;
 
-        public AddCPTCodeDialog(string reportNo, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
+        public AddCPTCodePage(string reportNo, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
             this.m_AccessionOrder = accessionOrder;
             this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
             this.m_FISHCPTCodeList = new Business.Billing.Model.FISHCPTCodeList();
+            this.m_PageHeaderText = "CPT Codes For " + this.m_PanelSetOrder.ReportNo + ": " + this.m_AccessionOrder.PatientDisplayName + " - " + this.m_AccessionOrder.PBirthdate.Value.ToShortDateString();
 
             DataContext = this;
 
             InitializeComponent();
-            this.Title = "CPT Codes For: " + this.m_AccessionOrder.PatientDisplayName + " - " + this.m_AccessionOrder.PBirthdate.Value.ToShortDateString();
         }
 
         public void NotifyPropertyChanged(String info)
@@ -45,6 +49,11 @@ namespace YellowstonePathology.UI.Billing
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
+        }
+
+        public string PageHeaderText
+        {
+            get { return this.m_PageHeaderText; }
         }
 
         public YellowstonePathology.Business.Billing.Model.FISHCPTCodeList FISHCPTCodeList
@@ -109,9 +118,9 @@ namespace YellowstonePathology.UI.Billing
             }
         }
 
-        private void ButtonOK_Click(object sender, RoutedEventArgs e)
+        private void ButtonNext_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            this.Next(this, new EventArgs());
         }
     }
 }

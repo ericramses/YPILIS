@@ -25,6 +25,9 @@ namespace YellowstonePathology.UI.Test
 		public delegate void NextEventHandler(object sender, EventArgs e);
 		public event NextEventHandler Next;
 
+        public delegate void CPTCodeEventHandler(object sender, EventArgs e);
+        public event CPTCodeEventHandler CPTCode;
+
         private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private string m_PageHeaderText;
@@ -152,8 +155,7 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkCPTCodes_Click(object sender, RoutedEventArgs e)
         {
-            Billing.AddCPTCodeDialog dlg = new Billing.AddCPTCodeDialog(this.m_PanelSetOrder.ReportNo, this.m_AccessionOrder);
-            dlg.ShowDialog();
+            this.CPTCode(this, new EventArgs());
         }
 
         private void ButtonNext_Click(object sender, RoutedEventArgs e)
