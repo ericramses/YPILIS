@@ -160,26 +160,35 @@ namespace YellowstonePathology.UI.Billing
             {
                 List<Business.Billing.Model.ADTListItem> adtList = Business.Gateway.AccessionOrderGateway.GetADTList(accessionListItem.PFirstName, accessionListItem.PLastName, accessionListItem.PBirthdate.Value);
 
-                if (adtList.Count > 0 && adtList[0].MedicalRecord.StartsWith("V") == true)
+                foreach (Business.Billing.Model.ADTListItem adtItem in adtList)
                 {
-                    Business.Billing.Model.ADTListItem adtItem = adtList[0];
-                    Business.Test.AccessionOrder ao = Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(accessionListItem.MasterAccessionNo, this);
-                    Business.Test.PanelSetOrder pso = ao.PanelSetOrderCollection.GetPanelSetOrder(accessionListItem.ReportNo);
-
-                    foreach (Business.Test.PanelSetOrderCPTCodeBill psocb in pso.PanelSetOrderCPTCodeBillCollection)
+                    DateTime received = DateTime.Parse(adtItem.DateReceived.ToShortDateString());
+                    if (postDate >= received)
                     {
-                        if (psocb.BillTo == "Client")
+                        int daysDiff = (int)(postDate - received).TotalDays;
+                        if (daysDiff > 3) break;
+                        if (adtItem.MedicalRecord.StartsWith("V") == true)
                         {
-                            psocb.MedicalRecord = adtItem.MedicalRecord;
-                            psocb.Account = adtItem.Account;
+                            Business.Test.AccessionOrder ao = Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(accessionListItem.MasterAccessionNo, this);
+                            Business.Test.PanelSetOrder pso = ao.PanelSetOrderCollection.GetPanelSetOrder(accessionListItem.ReportNo);
 
+                            foreach (Business.Test.PanelSetOrderCPTCodeBill psocb in pso.PanelSetOrderCPTCodeBillCollection)
+                            {
+                                if (psocb.BillTo == "Client")
+                                {
+                                    psocb.MedicalRecord = adtItem.MedicalRecord;
+                                    psocb.Account = adtItem.Account;
+
+                                }
+
+                                if (psocb.PostDate.HasValue == false)
+                                    psocb.PostDate = this.m_PostDate;
+                            }
+
+                            Business.Persistence.DocumentGateway.Instance.Push(ao, this);
+                            break;
                         }
-
-                        if (psocb.PostDate.HasValue == false)
-                            psocb.PostDate = this.m_PostDate;
                     }
-
-                    Business.Persistence.DocumentGateway.Instance.Push(ao, this);
                 }
             }
         }
