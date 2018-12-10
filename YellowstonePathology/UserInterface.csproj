@@ -302,6 +302,7 @@
     <Compile Include="Business\Billing.Model\BillableObjectNeoFlowCytometry.cs" />
     <Compile Include="Business\Billing.Model\CptCodeFactory.cs" />
     <Compile Include="Business\Billing.Model\CPTCodeWithModifier.cs" />
+    <Compile Include="Business\Billing.Model\FISHCPTCodeList.cs" />
     <Compile Include="Business\Billing.Model\HospitalSplitSurgicalAndReferenceLabBillingRuleSet.cs" />
     <Compile Include="Business\Billing.Model\ICDCode.cs" />
     <Compile Include="Business\Billing.Model\ICDCodeFactory.cs" />
@@ -2961,6 +2962,9 @@
       <DependentUpon>AutoCompleteTest.xaml</DependentUpon>
     </Compile>
     <Compile Include="Business\Billing.Model\AccessionListItem.cs" />
+    <Compile Include="UI\Billing\AddCPTCodePage.xaml.cs">
+      <DependentUpon>AddCPTCodePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Billing\BillingPage.xaml.cs">
       <DependentUpon>BillingPage.xaml</DependentUpon>
     </Compile>
@@ -4865,6 +4869,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\AutoCompleteTest.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Billing\AddCPTCodePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

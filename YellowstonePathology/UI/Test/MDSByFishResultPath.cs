@@ -28,7 +28,7 @@ namespace YellowstonePathology.UI.Test
 			this.m_PageNavigator.Navigate(this.m_ResultPage);
         }
 
-		private void ResultPage_Next(object sender, EventArgs e)
+        private void ResultPage_Next(object sender, EventArgs e)
         {
             this.Finished();
         }
