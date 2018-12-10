@@ -147,5 +147,50 @@ namespace YellowstonePathology.UI.Billing
             this.NotifyPropertyChanged("AccessionList");
             this.NotifyPropertyChanged("ADTList");
         }
+
+        private void ButtonMatchList_Click(object sender, RoutedEventArgs e)
+        {
+            this.MatchAccessionOrdersToADT(this.m_PostDate);
+        }
+
+        private void MatchAccessionOrdersToADT(DateTime postDate)
+        {
+            List<Business.Billing.Model.AccessionListItem> accessionList = Business.Gateway.AccessionOrderGateway.GetSVHNotPosted();
+            foreach (Business.Billing.Model.AccessionListItem accessionListItem in accessionList)
+            {
+                List<Business.Billing.Model.ADTListItem> adtList = Business.Gateway.AccessionOrderGateway.GetADTList(accessionListItem.PFirstName, accessionListItem.PLastName, accessionListItem.PBirthdate.Value);
+
+                foreach (Business.Billing.Model.ADTListItem adtItem in adtList)
+                {
+                    DateTime received = DateTime.Parse(adtItem.DateReceived.ToShortDateString());
+                    if (postDate >= received)
+                    {
+                        int daysDiff = (int)(postDate - received).TotalDays;
+                        if (daysDiff > 3) break;
+                        if (adtItem.MedicalRecord.StartsWith("V") == true)
+                        {
+                            Business.Test.AccessionOrder ao = Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(accessionListItem.MasterAccessionNo, this);
+                            Business.Test.PanelSetOrder pso = ao.PanelSetOrderCollection.GetPanelSetOrder(accessionListItem.ReportNo);
+
+                            foreach (Business.Test.PanelSetOrderCPTCodeBill psocb in pso.PanelSetOrderCPTCodeBillCollection)
+                            {
+                                if (psocb.BillTo == "Client")
+                                {
+                                    psocb.MedicalRecord = adtItem.MedicalRecord;
+                                    psocb.Account = adtItem.Account;
+
+                                }
+
+                                if (psocb.PostDate.HasValue == false)
+                                    psocb.PostDate = this.m_PostDate;
+                            }
+
+                            Business.Persistence.DocumentGateway.Instance.Push(ao, this);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
