@@ -8,6 +8,7 @@ using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json.Linq;
+using System.Security.Cryptography;
 
 namespace YellowstonePathology.Business
 {
@@ -20,6 +21,15 @@ namespace YellowstonePathology.Business
         public GethAPI()
         {
             
+        }
+
+        public void GetNewPubPrivKeyPair()
+        {
+            RandomNumberGenerator generator = RNGCryptoServiceProvider.Create();
+            Byte[] bytes = new Byte[32];
+            generator.GetBytes(bytes);
+            string privateKey = BitConverter.ToString(bytes).Replace("-", "");
+
         }
 
         public EthBlock GetLatestBlock()

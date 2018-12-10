@@ -398,13 +398,14 @@ namespace YellowstonePathology.UI.Billing
             } 
             */
 
+            /*
             if(this.ListViewPanelSetOrderCPTCodeBill.SelectedItem != null)
             {
                 Business.Test.PanelSetOrderCPTCodeBill psob = (Business.Test.PanelSetOrderCPTCodeBill)this.ListViewPanelSetOrderCPTCodeBill.SelectedItem;
                 Business.HL7View.EPIC.EPICFT1ResultView epicFT1ResultView = new Business.HL7View.EPIC.EPICFT1ResultView(this.m_AccessionOrder, psob);
                 epicFT1ResultView.Publish(System.IO.Path.Combine(@"c:\testing", "ft1"));
             }
-            
+            */
         }
     }
 }

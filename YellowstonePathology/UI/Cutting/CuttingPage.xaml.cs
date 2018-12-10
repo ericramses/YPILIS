@@ -303,8 +303,23 @@ namespace YellowstonePathology.UI.Cutting
 
         private void ButtonAddSlide_Click(object sender, RoutedEventArgs e)
         {
+            Business.Test.Model.Test kappa = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone("360"); // KappaByISH();
+            Business.Test.Model.Test lambda = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone("361"); // LambdaByISH();
+            Business.Test.Model.Test u6 = YellowstonePathology.Business.Test.Model.TestCollectionInstance.GetClone("383"); // U6();
+
+            //add test order that need to be ordered automatically
+            if (this.m_AccessionOrder.PanelSetOrderCollection.DoesStainOrderExist(kappa.TestId) == true && this.m_AccessionOrder.PanelSetOrderCollection.DoesStainOrderExist(lambda.TestId) == true)
+            {
+                if (this.m_AccessionOrder.PanelSetOrderCollection.DoesStainOrderExist(u6.TestId) == false)
+                {
+                    Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrderByTestId(kappa.TestId);
+                    YellowstonePathology.Business.Visitor.OrderTestVisitor orderTestVisitor = new Business.Visitor.OrderTestVisitor(panelSetOrder.ReportNo, u6, null, null, false, this.m_AliquotOrder, false, false, this.m_AccessionOrder.TaskOrderCollection);
+                    this.m_AccessionOrder.TakeATrip(orderTestVisitor);             
+                }
+            }
+
             YellowstonePathology.Business.Visitor.AddSlideOrderVisitor addSlideOrderVisitor = new Business.Visitor.AddSlideOrderVisitor(this.m_AliquotOrder, this.m_TestOrder);            
-            this.m_AccessionOrder.TakeATrip(addSlideOrderVisitor);            
+            this.m_AccessionOrder.TakeATrip(addSlideOrderVisitor);                                    
         }
 
         private void ButtonAddHandSlide_Click(object sender, RoutedEventArgs e)

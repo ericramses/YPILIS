@@ -45,8 +45,10 @@ namespace YellowstonePathology.UI
 
         private void Button_Go(object sender, RoutedEventArgs e)
         {
-            this.m_ContractCollection.Clear();
-            this.LoopTheChain();            
+            this.m_GethAPI.GetNewPubPrivKeyPair();
+
+            //this.m_ContractCollection.Clear();
+            //this.LoopTheChain();            
         }
 
         public static byte[] StringToByteArray(String hex)
