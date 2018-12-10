@@ -147,5 +147,41 @@ namespace YellowstonePathology.UI.Billing
             this.NotifyPropertyChanged("AccessionList");
             this.NotifyPropertyChanged("ADTList");
         }
+
+        private void ButtonMatchList_Click(object sender, RoutedEventArgs e)
+        {
+            this.MatchAccessionOrdersToADT(this.m_PostDate);
+        }
+
+        private void MatchAccessionOrdersToADT(DateTime postDate)
+        {
+            List<Business.Billing.Model.AccessionListItem> accessionList = Business.Gateway.AccessionOrderGateway.GetSVHNotPosted();
+            foreach (Business.Billing.Model.AccessionListItem accessionListItem in accessionList)
+            {
+                List<Business.Billing.Model.ADTListItem> adtList = Business.Gateway.AccessionOrderGateway.GetADTList(accessionListItem.PFirstName, accessionListItem.PLastName, accessionListItem.PBirthdate.Value);
+
+                if (adtList.Count > 0 && adtList[0].MedicalRecord.StartsWith("V") == true)
+                {
+                    Business.Billing.Model.ADTListItem adtItem = adtList[0];
+                    Business.Test.AccessionOrder ao = Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(accessionListItem.MasterAccessionNo, this);
+                    Business.Test.PanelSetOrder pso = ao.PanelSetOrderCollection.GetPanelSetOrder(accessionListItem.ReportNo);
+
+                    foreach (Business.Test.PanelSetOrderCPTCodeBill psocb in pso.PanelSetOrderCPTCodeBillCollection)
+                    {
+                        if (psocb.BillTo == "Client")
+                        {
+                            psocb.MedicalRecord = adtItem.MedicalRecord;
+                            psocb.Account = adtItem.Account;
+
+                        }
+
+                        if (psocb.PostDate.HasValue == false)
+                            psocb.PostDate = this.m_PostDate;
+                    }
+
+                    Business.Persistence.DocumentGateway.Instance.Push(ao, this);
+                }
+            }
+        }
     }
 }

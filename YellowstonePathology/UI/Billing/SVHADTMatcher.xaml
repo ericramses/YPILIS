@@ -62,7 +62,10 @@
             </ListView.View>
         </ListView>
 
-        <Button Grid.Column="0" Grid.Row="3" Height="30" Width="100" Margin="2,2,2,2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="ButtonMatch_Click">Match</Button>
+        <StackPanel Grid.Column="0" Grid.Row="3" Orientation="Horizontal">
+            <Button Grid.Column="0" Grid.Row="3" Height="30" Width="100" Margin="2,2,2,2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="ButtonMatch_Click">Match</Button>
+            <Button Grid.Column="0" Grid.Row="3" Height="30" Width="100" Margin="2,2,2,2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="ButtonMatchList_Click">Match List</Button>
+        </StackPanel>
         <Button Grid.Column="0" Grid.Row="3" Height="30" Width="100" Margin="2,2,2,2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Click="ButtonRefresh_Click">Refresh</Button>
         <Button Grid.Column="0" Grid.Row="3" Height="30" Width="100" Margin="2,2,2,2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ButtonClose_Click">Close</Button>
     </Grid>
