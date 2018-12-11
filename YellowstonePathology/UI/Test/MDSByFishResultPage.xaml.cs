@@ -158,6 +158,27 @@ namespace YellowstonePathology.UI.Test
             this.CPTCode(this, new EventArgs());
         }
 
+        private void HyperLinkProbeComment_Click(object sender, RoutedEventArgs e)
+        {
+            int count = 0;
+            foreach (YellowstonePathology.Business.Test.PanelSetOrderCPTCode panelSetOrderCPTCode in this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection)
+            {
+                if (panelSetOrderCPTCode.CPTCode == "88374" || panelSetOrderCPTCode.CPTCode == "88377")
+                {
+                    count += panelSetOrderCPTCode.Quantity;
+                }
+            }
+
+            if(count > 0)
+            {
+                this.m_PanelSetOrder.ProbeComment = "This analysis was performed using (" + count.ToString() + ") sets of (manual / Computer assisted), (single / multiplex) stains or probe sets.";
+            }
+            else
+            {
+                MessageBox.Show("Set CPT Codes first.");
+            }
+        }
+
         private void ButtonNext_Click(object sender, RoutedEventArgs e)
 		{
 			if (this.Next != null) this.Next(this, new EventArgs());
