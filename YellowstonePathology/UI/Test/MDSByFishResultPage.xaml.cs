@@ -160,18 +160,11 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkProbeComment_Click(object sender, RoutedEventArgs e)
         {
-            int count = 0;
-            foreach (YellowstonePathology.Business.Test.PanelSetOrderCPTCode panelSetOrderCPTCode in this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection)
-            {
-                if (panelSetOrderCPTCode.CPTCode == "88374" || panelSetOrderCPTCode.CPTCode == "88377")
-                {
-                    count += panelSetOrderCPTCode.Quantity;
-                }
-            }
+            string comment = YellowstonePathology.Business.Test.MDSByFish.ProbeCommentResolver.ResolveComment(this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection);
 
-            if(count > 0)
+            if (string.IsNullOrEmpty(comment) == false)
             {
-                this.m_PanelSetOrder.ProbeComment = "This analysis was performed using (" + count.ToString() + ") sets of (manual / Computer assisted), (single / multiplex) stains or probe sets.";
+                this.m_PanelSetOrder.ProbeComment = comment;
             }
             else
             {
