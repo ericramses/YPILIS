@@ -160,7 +160,7 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkProbeComment_Click(object sender, RoutedEventArgs e)
         {
-            string comment = YellowstonePathology.Business.Test.MDSByFish.ProbeCommentResolver.ResolveComment(this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection);
+            string comment = YellowstonePathology.Business.Helper.ProbeCommentResolver.ResolveComment(this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection);
 
             if (string.IsNullOrEmpty(comment) == false)
             {

@@ -9,6 +9,10 @@ namespace YellowstonePathology.Business.Billing.Model
         {
             this.Add(new TypingCptCodeListItem(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88374", null)));
             this.Add(new TypingCptCodeListItem(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88377", null)));
+            this.Add(new TypingCptCodeListItem(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88367", null)));
+            this.Add(new TypingCptCodeListItem(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88373", null)));
+            this.Add(new TypingCptCodeListItem(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88368", null)));
+            this.Add(new TypingCptCodeListItem(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88369", null)));
 
             foreach (TypingCptCodeListItem item in this) item.Quantity = 0;
         }
