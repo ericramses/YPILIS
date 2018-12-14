@@ -18,7 +18,7 @@ namespace YellowstonePathology.UI.Client
 	/// <summary>
 	/// Interaction logic for ClientEntry.xaml
 	/// </summary>
-	public partial class ClientEntry : Window, INotifyPropertyChanged
+	public partial class ClientEntry: Window, INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 		private Business.Client.Model.Client m_Client;
@@ -352,10 +352,7 @@ namespace YellowstonePathology.UI.Client
 
             if (result == false) MessageBox.Show("The Fax (or phone) number must be 10 digits or empty.");
             return result;
-<<<<<<< HEAD
         }        
-=======
-        }
 
         private void ButtonCopyStVPhysicians_Click(object sender, RoutedEventArgs e)
         {
@@ -398,6 +395,5 @@ namespace YellowstonePathology.UI.Client
                 YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(physicianClientDistribution, this);
             }
         }
->>>>>>> 5e03808f167f0a04c0699a54a83f9e2d6c444f33
     }
 }
