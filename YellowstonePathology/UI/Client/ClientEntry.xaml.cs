@@ -337,5 +337,47 @@ namespace YellowstonePathology.UI.Client
             if (result == false) MessageBox.Show("The Fax (or phone) number must be 10 digits or empty.");
             return result;
         }
+
+        private void ButtonCopyStVPhysicians_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.m_SystemIdentity.User.UserId == 5001 || this.m_SystemIdentity.User.UserId == 5091)
+            {
+                Business.Domain.PhysicianCollection physicianCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysiciansByClientIdV2(558);
+                NotifyPropertyChanged("PhysicianCollection");
+                foreach (YellowstonePathology.Business.Domain.Physician physician in physicianCollection)
+                {
+                    if (this.m_ClientPhysicianView.PhysicianExists(physician.PhysicianId) == false)
+                    {
+                        string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
+                        YellowstonePathology.Business.Domain.PhysicianClient physicianClient = new Business.Domain.PhysicianClient(objectId, objectId, physician.PhysicianId, physician.ObjectId, this.m_Client.ClientId);
+                        YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(physicianClient, this);
+                        this.m_ClientPhysicianView.Physicians.Add(physician);
+                        this.AddDistribution(physicianClient);
+                        this.NotifyPropertyChanged("Physicians");
+                    }
+                }
+            }
+        }
+
+        private void AddDistribution(YellowstonePathology.Business.Domain.PhysicianClient newPhysicianClient)
+        {
+            bool oktoAdd = true;
+            List<YellowstonePathology.Business.Client.Model.PhysicianClientDistributionView> physicianClientDistributionViewList = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClientDistributionsV2(newPhysicianClient.PhysicianClientId);
+            foreach (YellowstonePathology.Business.Client.Model.PhysicianClientDistributionView physicianClientDistributionView in physicianClientDistributionViewList)
+            {
+                if (physicianClientDistributionView.PhysicianClientDistribution.DistributionID == newPhysicianClient.PhysicianClientId)
+                {
+                    oktoAdd = false;
+                    break;
+                }
+            }
+
+            if(oktoAdd == true)
+            {
+                string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
+                YellowstonePathology.Business.Client.Model.PhysicianClientDistribution physicianClientDistribution = new Business.Client.Model.PhysicianClientDistribution(objectId, newPhysicianClient.PhysicianClientId, newPhysicianClient.PhysicianClientId);
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(physicianClientDistribution, this);
+            }
+        }
     }
 }
