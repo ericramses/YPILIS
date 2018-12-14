@@ -34,6 +34,7 @@
 						<RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
 						<RowDefinition Height="Auto"></RowDefinition>
 						<RowDefinition Height="Auto"></RowDefinition>
 						<RowDefinition Height="Auto"></RowDefinition>
@@ -115,7 +116,11 @@
 							  SelectedValue="{Binding Path=Client.PathologyGroupId}" SelectedValuePath="FacilityId" DisplayMemberPath="FacilityName" />
 
                     <TextBlock Grid.Column="0" Grid.Row="17" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Right" >Place Of Service:</TextBlock>
-                    <TextBox Grid.Column="1" Grid.Row="17" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Stretch" Text="{Binding Path=Client.PlaceOfServiceCode}" />
+                    <ComboBox Grid.Column="1" Grid.Row="17" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Stretch" ItemsSource="{Binding Path=PlaceOfServiceCodes}"
+							  SelectedValue="{Binding Path=Client.PlaceOfServiceCode}" SelectedValuePath="Code" DisplayMemberPath="Description" />
+
+                    <TextBlock Grid.Column="0" Grid.Row="18" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Right" >Location Code:</TextBlock>
+                    <TextBox Grid.Column="1" Grid.Row="18" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Stretch" Text="{Binding Path=Client.LocationCode}" />
 
                 </Grid>
 			</TabItem>
@@ -271,7 +276,10 @@
                         </ListView.View>
                     </ListView>
 
-                    <Button Grid.Row="0" Grid.Column="1" Margin="15,15,15,5" Height="30" Width="140" VerticalAlignment="Top" Content="Add Medical Records" Click="ButtonAddClientLocation_Click" />
+                    <StackPanel Grid.Row="0" Grid.Column="1">
+                        <Button Margin="15,15,15,5" Height="30" Width="140" VerticalAlignment="Top" Content="Add Requisition" Click="ButtonAddClientLocationReq_Click" />
+                        <Button Margin="15,15,15,5" Height="30" Width="140" VerticalAlignment="Top" Content="Add EPIC" Click="ButtonAddClientLocationEPIC_Click" />
+                    </StackPanel>
 
                 </Grid>
 

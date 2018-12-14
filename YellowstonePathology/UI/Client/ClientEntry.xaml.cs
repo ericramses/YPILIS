@@ -18,29 +18,32 @@ namespace YellowstonePathology.UI.Client
 	/// <summary>
 	/// Interaction logic for ClientEntry.xaml
 	/// </summary>
-	public partial class ClientEntry : Window, INotifyPropertyChanged
+	public partial class ClientEntry: Window, INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
-		private YellowstonePathology.Business.Client.Model.Client m_Client;
-		private YellowstonePathology.Business.Billing.Model.InsuranceTypeCollection m_InsuranceTypeCollection;
+		private Business.Client.Model.Client m_Client;
+		private Business.Billing.Model.InsuranceTypeCollection m_InsuranceTypeCollection;
 		private List<string> m_FacilityTypes;
-		private YellowstonePathology.Business.ReportDistribution.Model.DistributionTypeList m_DistributionTypeList;
-		private YellowstonePathology.Business.View.ClientPhysicianView m_ClientPhysicianView;
-		private YellowstonePathology.Business.Domain.PhysicianCollection m_PhysicianCollection;
-		private YellowstonePathology.Business.Billing.Model.BillingRuleSetCollection m_BillingRuleSetCollection;
-		private YellowstonePathology.Business.Client.Model.ClientSupplyOrderCollection m_ClientSupplyOrderCollection;
-        private YellowstonePathology.Business.Client.Model.PhysicianClientNameCollection m_ReferringProviderClientCollection;
-        private YellowstonePathology.Business.Facility.Model.FacilityCollection m_PathGroupFacilities;
+		private Business.ReportDistribution.Model.DistributionTypeList m_DistributionTypeList;
+		private Business.View.ClientPhysicianView m_ClientPhysicianView;
+		private Business.Domain.PhysicianCollection m_PhysicianCollection;
+		private Business.Billing.Model.BillingRuleSetCollection m_BillingRuleSetCollection;
+		private Business.Client.Model.ClientSupplyOrderCollection m_ClientSupplyOrderCollection;
+        private Business.Client.Model.PhysicianClientNameCollection m_ReferringProviderClientCollection;
+        private Business.Facility.Model.FacilityCollection m_PathGroupFacilities;
+        private Business.Client.Model.PlaceOfServiceCollection m_PlaceOfServiceCodes;
 
-        private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
+        private Business.User.SystemIdentity m_SystemIdentity;
 
-        public ClientEntry(YellowstonePathology.Business.Client.Model.Client client)
+        public ClientEntry(Business.Client.Model.Client client)
         {
             this.m_Client = client;                        
             this.m_SystemIdentity = Business.User.SystemIdentity.Instance;
 
-            this.m_PathGroupFacilities = YellowstonePathology.Business.Facility.Model.FacilityCollection.GetPathGroupFacilities();
-            this.m_ClientPhysicianView = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientPhysicianViewByClientIdV2(this.m_Client.ClientId);
+            this.m_PathGroupFacilities = Business.Facility.Model.FacilityCollection.GetPathGroupFacilities();
+            this.m_ClientPhysicianView = Business.Gateway.PhysicianClientGateway.GetClientPhysicianViewByClientIdV2(this.m_Client.ClientId);
+
+            this.m_PlaceOfServiceCodes = new Business.Client.Model.PlaceOfServiceCollection();
 
             if (this.m_ClientPhysicianView == null)
             {
@@ -77,6 +80,11 @@ namespace YellowstonePathology.UI.Client
 				PropertyChanged(this, new PropertyChangedEventArgs(info));
 			}
 		}
+
+        public Business.Client.Model.PlaceOfServiceCollection PlaceOfServiceCodes
+        {
+            get { return this.m_PlaceOfServiceCodes; }
+        }
 
         public YellowstonePathology.Business.Facility.Model.FacilityCollection PathGroupFacilities
         {
@@ -249,12 +257,10 @@ namespace YellowstonePathology.UI.Client
 			}
 		}
 
-        private void ButtonAddClientLocation_Click(object sender, RoutedEventArgs e)
-        {
-            string location = "Medical Records";
-            if (this.m_Client.ClientLocationCollection.Exists(location) == false)
+        private void AddClientLocation(string orderType)
+        {            
+            if (this.m_Client.ClientLocationCollection.Exists("Medical Records") == false)
             {
-
                 string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
                 int locationId = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetLargestClientLocationId();
                 locationId++;
@@ -263,15 +269,25 @@ namespace YellowstonePathology.UI.Client
                 clientLocation.ObjectId = objectId;
                 clientLocation.ClientLocationId = locationId;
                 clientLocation.ClientId = this.m_Client.ClientId;
-                clientLocation.Location = location;
-                clientLocation.OrderType = "REQUISITION";
+                clientLocation.Location = "Medical Records";
+                clientLocation.OrderType = orderType;
                 clientLocation.SpecimenTrackingInitiated = "Ypii Lab";
                 clientLocation.AllowMultipleOrderTypes = true;
                 clientLocation.DefaultOrderPanelSetId = 13;
                 clientLocation.AllowMultipleOrderDetailTypes = false;
                 clientLocation.DefaultOrderDetailTypeCode = "SRGCL";
-                this.m_Client.ClientLocationCollection.Add(clientLocation);                
+                this.m_Client.ClientLocationCollection.Add(clientLocation);
             }
+        }
+
+        private void ButtonAddClientLocationReq_Click(object sender, RoutedEventArgs e)
+        {
+            AddClientLocation("REQUISITION");
+        }
+
+        private void ButtonAddClientLocationEPIC_Click(object sender, RoutedEventArgs e)
+        {
+            AddClientLocation("EPIC");
         }
 
         private void ButtonAddReferringProviderClient_Click(object sender, RoutedEventArgs e)
@@ -336,7 +352,7 @@ namespace YellowstonePathology.UI.Client
 
             if (result == false) MessageBox.Show("The Fax (or phone) number must be 10 digits or empty.");
             return result;
-        }
+        }        
 
         private void ButtonCopyStVPhysicians_Click(object sender, RoutedEventArgs e)
         {

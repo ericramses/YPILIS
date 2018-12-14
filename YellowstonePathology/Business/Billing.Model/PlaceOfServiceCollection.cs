@@ -9,6 +9,11 @@ namespace YellowstonePathology.Business.Billing.Model
 {
     public class PlaceOfServiceCollection : ObservableCollection<PlaceOfService>
     {
+        //101 IP
+        //102 OP
+        //113 OP (seems like hospital normally IP but is OP)
+        //104 OP (seems like hospital normally IP but is OP)
+
         public PlaceOfServiceCollection()
         {
             this.Add(new PlaceOfService("ABSRK", "11", "OP", "102"));

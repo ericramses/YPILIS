@@ -47,22 +47,29 @@ namespace YellowstonePathology.Business
 
             var con = new ConnectionInfo(this.m_Host, this.m_Port, username, methods.ToArray());
             using (var client = new SftpClient(con))
-            {
-                this.SendStatusMessage("Connecting to PSA SSH.", count);
-                client.Connect();                                                
-                foreach(string file in files)
+            {                
+                try
                 {
-                    using (var fs = new FileStream(file, FileMode.Open))
+                    this.SendStatusMessage("Connecting to PSA SSH.", count);
+                    client.Connect();
+                    foreach (string file in files)
                     {
-                        count = count + 1;
-                        this.SendStatusMessage("Uploading File: " + file, count);
-                        string fileNameOnly = Path.GetFileName(file);
-                        client.UploadFile(fs, fileNameOnly);                        
-                        fs.Close();
+                        using (var fs = new FileStream(file, FileMode.Open))
+                        {
+                            count = count + 1;
+                            this.SendStatusMessage("Uploading File: " + file, count);
+                            string fileNameOnly = Path.GetFileName(file);
+                            client.UploadFile(fs, fileNameOnly);
+                            fs.Close();
+                        }
                     }
-                }                
-                client.Disconnect();
-                this.SendStatusMessage("Disconnecting from PSA SSH.", count);
+                    client.Disconnect();
+                    this.SendStatusMessage("Disconnecting from PSA SSH.", count);
+                }   
+                catch(Exception connectException)
+                {
+                    System.Windows.MessageBox.Show(connectException.Message);
+                }                                             
             }
         }
 

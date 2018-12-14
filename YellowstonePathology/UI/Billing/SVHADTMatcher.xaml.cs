@@ -99,7 +99,6 @@ namespace YellowstonePathology.UI.Billing
                             {
                                 psocb.MedicalRecord = adtItem.MedicalRecord;
                                 psocb.Account = adtItem.Account;
-
                             }
 
                             if (psocb.PostDate.HasValue == false)
@@ -162,11 +161,10 @@ namespace YellowstonePathology.UI.Billing
 
                 foreach (Business.Billing.Model.ADTListItem adtItem in adtList)
                 {
-                    DateTime received = DateTime.Parse(adtItem.DateReceived.ToShortDateString());
-                    if (postDate >= received)
+                    DateTime received = DateTime.Parse(adtItem.DateReceived.ToShortDateString());                    
+                    int daysDiff = (int)(postDate - received).TotalDays;
+                    if (daysDiff <= 3)
                     {
-                        int daysDiff = (int)(postDate - received).TotalDays;
-                        if (daysDiff > 3) break;
                         if (adtItem.MedicalRecord.StartsWith("V") == true)
                         {
                             Business.Test.AccessionOrder ao = Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(accessionListItem.MasterAccessionNo, this);
@@ -178,7 +176,6 @@ namespace YellowstonePathology.UI.Billing
                                 {
                                     psocb.MedicalRecord = adtItem.MedicalRecord;
                                     psocb.Account = adtItem.Account;
-
                                 }
 
                                 if (psocb.PostDate.HasValue == false)
@@ -188,7 +185,7 @@ namespace YellowstonePathology.UI.Billing
                             Business.Persistence.DocumentGateway.Instance.Push(ao, this);
                             break;
                         }
-                    }
+                    }                                            
                 }
             }
         }
