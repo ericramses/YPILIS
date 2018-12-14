@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>302</ApplicationRevision>
+    <ApplicationRevision>304</ApplicationRevision>
     <ApplicationVersion>10.1.12.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -317,6 +317,8 @@
     <Compile Include="Business\Client.Model\HPVCompoundStandingOrderRule7.cs" />
     <Compile Include="Business\Client.Model\HPVCompoundStandingOrderRule6.cs" />
     <Compile Include="Business\Client.Model\IdahoClientIdList.cs" />
+    <Compile Include="Business\Client.Model\PlaceOfService.cs" />
+    <Compile Include="Business\Client.Model\PlaceOfServiceCollection.cs" />
     <Compile Include="Business\ClientOrder.Model\ExternalOrderIds.cs" />
     <Compile Include="Business\ClientOrder.Model\ExternalOrderIdsCollection.cs" />
     <Compile Include="Business\Common\Block.cs" />
@@ -2974,7 +2976,6 @@
     <Compile Include="UI\Billing\ADTPage.xaml.cs">
       <DependentUpon>ADTPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Billing\SVHMRNMatcher.cs" />
     <Compile Include="UI\Billing\SVHCDMResultDialog.xaml.cs">
       <DependentUpon>SVHCDMResultDialog.xaml</DependentUpon>
     </Compile>

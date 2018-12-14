@@ -661,7 +661,11 @@ namespace YellowstonePathology.Business.Test
                 this.GrossVerifiedById = systemUser.UserId;
                 this.GrossVerifiedDate = DateTime.Now;
                 this.GrossVerifiedBy = systemUser.UserName;
-                this.Status = "Grossed";
+
+                if(this.Status != "Hold")
+                {
+                    this.Status = "Grossed";
+                }                
             }
         }
 

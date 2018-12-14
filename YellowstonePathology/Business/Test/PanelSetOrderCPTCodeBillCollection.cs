@@ -292,6 +292,8 @@ namespace YellowstonePathology.Business.Test
             reverseOriginal.Modifier = panelSetOrderCPTCodeBill.Modifier;
             reverseOriginal.Quantity = panelSetOrderCPTCodeBill.Quantity * (-1);
             reverseOriginal.PostDate = DateTime.Today;
+            reverseOriginal.MedicalRecord = panelSetOrderCPTCodeBill.MedicalRecord;
+            reverseOriginal.Account = panelSetOrderCPTCodeBill.Account;
             this.Add(reverseOriginal);
 
             YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill reverseNew = this.GetNextItem(panelSetOrderCPTCodeBill.ReportNo);
@@ -302,6 +304,8 @@ namespace YellowstonePathology.Business.Test
             reverseNew.Modifier = panelSetOrderCPTCodeBill.Modifier;
             reverseNew.Quantity = panelSetOrderCPTCodeBill.Quantity;
             reverseNew.PostDate = DateTime.Today;
+            reverseNew.MedicalRecord = panelSetOrderCPTCodeBill.MedicalRecord;
+            reverseNew.Account = panelSetOrderCPTCodeBill.Account;
             this.Add(reverseNew);
         }
 
@@ -314,7 +318,9 @@ namespace YellowstonePathology.Business.Test
             reverseOriginal.CPTCode = panelSetOrderCPTCodeBill.CPTCode;
             reverseOriginal.Modifier = panelSetOrderCPTCodeBill.Modifier;
             reverseOriginal.Quantity = panelSetOrderCPTCodeBill.Quantity * (-1);
-            reverseOriginal.PostDate = DateTime.Today;                
+            reverseOriginal.PostDate = DateTime.Today;
+            reverseOriginal.MedicalRecord = panelSetOrderCPTCodeBill.MedicalRecord;
+            reverseOriginal.Account = panelSetOrderCPTCodeBill.Account;
             this.Add(reverseOriginal);
 
             YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill reverseNew = this.GetNextItem(panelSetOrderCPTCodeBill.ReportNo);
@@ -325,6 +331,8 @@ namespace YellowstonePathology.Business.Test
             reverseNew.Modifier = panelSetOrderCPTCodeBill.Modifier;
             reverseNew.Quantity = panelSetOrderCPTCodeBill.Quantity;
             reverseNew.PostDate = DateTime.Today;
+            reverseNew.MedicalRecord = panelSetOrderCPTCodeBill.MedicalRecord;
+            reverseNew.Account = panelSetOrderCPTCodeBill.Account;
             this.Add(reverseNew);            
         }
 
@@ -337,7 +345,9 @@ namespace YellowstonePathology.Business.Test
             reverseOriginal.CPTCode = item.CPTCode;
             reverseOriginal.Modifier = item.Modifier;
             reverseOriginal.Quantity = item.Quantity * (-1);
-            reverseOriginal.PostDate = DateTime.Today;            
+            reverseOriginal.PostDate = DateTime.Today;
+            reverseOriginal.MedicalRecord = item.MedicalRecord;
+            reverseOriginal.Account = item.Account;
             this.Add(reverseOriginal);                
         }
 
@@ -352,6 +362,8 @@ namespace YellowstonePathology.Business.Test
             panelSetOrderCPTCodeBill.Quantity = item.Quantity;
             panelSetOrderCPTCodeBill.PostDate = DateTime.Today;
             panelSetOrderCPTCodeBill.ClientId = clientId;
+            panelSetOrderCPTCodeBill.MedicalRecord = item.MedicalRecord;
+            panelSetOrderCPTCodeBill.Account = item.Account;
             this.Add(panelSetOrderCPTCodeBill);
         }
 
@@ -384,7 +396,10 @@ namespace YellowstonePathology.Business.Test
                 reverseOriginal.CPTCode = item.CPTCode;
                 reverseOriginal.Modifier = item.Modifier;
                 reverseOriginal.Quantity = item.Quantity * (-1);
-                reverseOriginal.PostDate = postDate;				
+                reverseOriginal.PostDate = postDate;
+                reverseOriginal.MedicalRecord = item.MedicalRecord;
+                reverseOriginal.Account = item.Account;
+
                 this.Add(reverseOriginal);
 
                 YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill reverseNew = this.GetNextItem(item.ReportNo);
@@ -394,7 +409,9 @@ namespace YellowstonePathology.Business.Test
                 reverseNew.CPTCode = item.CPTCode;
                 reverseNew.Modifier = item.Modifier;
                 reverseNew.Quantity = item.Quantity;
-                reverseNew.PostDate = postDate;				
+                reverseNew.PostDate = postDate;
+                reverseNew.MedicalRecord = item.MedicalRecord;
+                reverseNew.Account = item.Account;
                 this.Add(reverseNew);
             }
         }        
