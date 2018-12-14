@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using YellowstonePathology.Business.Persistence;
+using YellowstonePathology.Business.Rules;
 
 namespace YellowstonePathology.Business.Test.Her2AmplificationByIHC
 {
@@ -169,5 +170,25 @@ namespace YellowstonePathology.Business.Test.Her2AmplificationByIHC
 
 			return result.ToString();
 		}
-	}
+
+        public override MethodResult IsOkToAccept()
+        {
+            MethodResult result = base.IsOkToAccept();
+            if(result.Success == true)
+            {
+                if(string.IsNullOrEmpty(this.m_Result) == true)
+                {
+                    result.Success = false;
+                    result.Message = "Unable to accept results as the result is not present." + Environment.NewLine;
+                }
+
+                if (string.IsNullOrEmpty(this.m_Score) == true)
+                {
+                    result.Success = false;
+                    result.Message += "Unable to accept results as the score is not present." + Environment.NewLine;
+                }
+            }
+            return result;
+        }
+    }
 }
