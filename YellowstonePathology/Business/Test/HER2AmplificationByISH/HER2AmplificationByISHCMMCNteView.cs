@@ -33,13 +33,16 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
             {
                 this.ASCOPre2014ToXml(document, panelSetOrder);
             }
-            else if (panelSetOrder.Indicator == "Breast")
+            else if (this.m_AccessionOrder.AccessionDate >= DateTime.Parse("1/1/2014") == true)
             {
-                this.BreastToXml(document, panelSetOrder);
-            }
-            else if (panelSetOrder.Indicator == "Gastric")
-            {
-                this.GastricToXml(document, panelSetOrder);
+                if (panelSetOrder.Indicator == "Breast")
+                {
+                    this.ASCOCAP2018(document, panelSetOrder);
+                }
+                else if (panelSetOrder.Indicator == "Gastric")
+                {
+                    this.GastricToXml(document, panelSetOrder);
+                }
             }
         }
 
@@ -276,6 +279,101 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
             this.AddBlankNteElement(document);
 
             this.AddNextNteElement(panelSetOrder.ASRComment, document);
+            this.AddBlankNteElement(document);
+
+            string locationPerformed = panelSetOrder.GetLocationPerformedComment();
+            this.AddNextNteElement(locationPerformed, document);
+            this.AddBlankNteElement(document);
+        }
+
+        private void ASCOCAP2018(XElement document, HER2AmplificationByISHTestOrder panelSetOrder)
+        {
+            string referenceRange = "Based on 2018 CAP/ASCO guidelines, a case is considered POSITIVE when the HER2 to Chr17 ratio is >= 2.0 and the average " +
+                "HER2 copy number >= 4.0; when the HER2 to Chr17 ratio is >= 2.0 and the average HER2 copy number < 4.0 and a HER2 By IHC score = +3; when the HER2 " +
+                "to Chr17 ratio is < 2.0 and the average copy number >= 4.0 but < 6.0 and a HER2 By IHC score = +3; when the HER2 to Chr17 ratio is < 2.0 and " +
+                "the average HER2 copy number >= 6.0 and a HER2 By IHC score = +2 or +3." +
+                "NEGATIVE when the HER2 to Chr17 ratio is < 2.0 with an average HER2 copy number < 4.0.";
+
+            this.AddNextNteElement("HER2: " + panelSetOrder.Result, document);
+            this.AddNextNteElement("HER2 to Chr17 Ratio: " + panelSetOrder.AverageHer2Chr17Signal, document);
+            this.AddNextNteElement("Average HER2 Copy Number: " + panelSetOrder.AverageHer2NeuSignal.Value.ToString(), document);
+
+            if (panelSetOrder.HER2ByIHCRequired == true)
+            {
+                Her2AmplificationByIHC.Her2AmplificationByIHCTest her2AmplificationByIHCTest = new Her2AmplificationByIHC.Her2AmplificationByIHCTest();
+                if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(her2AmplificationByIHCTest.PanelSetId, panelSetOrder.OrderedOnId, true) == true)
+                {
+                    Her2AmplificationByIHC.PanelSetOrderHer2AmplificationByIHC panelSetOrderHer2AmplificationByIHC = (Her2AmplificationByIHC.PanelSetOrderHer2AmplificationByIHC)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(her2AmplificationByIHCTest.PanelSetId);
+                    string ihc = "HER2 By IHC: " + panelSetOrderHer2AmplificationByIHC.Score + " (per report provided from " + panelSetOrderHer2AmplificationByIHC.ReportNo + ")";
+                    this.AddNextNteElement(ihc, document);
+                }
+            }
+            this.AddBlankNteElement(document);
+
+            if (string.IsNullOrEmpty(panelSetOrder.ResultComment) != true)
+            {
+                this.HandleLongString("Comment: " + panelSetOrder.ResultComment, document);
+                this.AddBlankNteElement(document);
+            }
+
+            this.AddNextNteElement("Pathologist: " + panelSetOrder.Signature, document);
+            if (panelSetOrder.FinalTime.HasValue == true)
+            {
+                this.AddNextNteElement("E-signed " + panelSetOrder.FinalTime.Value.ToString("MM/dd/yyyy HH:mm"), document);
+            }
+            this.AddBlankNteElement(document);
+            this.AddAmendments(document, panelSetOrder);
+
+            this.AddNextNteElement("Number of invasive tumor cells counted: " + panelSetOrder.CellsCounted.ToString(), document);
+            this.AddNextNteElement("Number of observers: " + panelSetOrder.NumberOfObservers.ToString(), document);
+            if (panelSetOrder.AverageHer2NeuSignal.HasValue == true)
+            {
+                this.AddNextNteElement("HER2 average copy number: " + panelSetOrder.AverageHer2NeuSignal.Value.ToString(), document);
+            }
+            this.AddNextNteElement("Chr17 average copy number: " + panelSetOrder.AverageChr17Signal, document);
+            this.AddNextNteElement("Ratio of average HER2/Chr17 signals: " + panelSetOrder.AverageHer2Chr17Signal, document);
+            this.AddBlankNteElement(document);
+
+            YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(panelSetOrder.OrderedOn, panelSetOrder.OrderedOnId);
+            YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = (YellowstonePathology.Business.Test.AliquotOrder)this.m_AccessionOrder.SpecimenOrderCollection.GetOrderTarget(panelSetOrder.OrderedOnId);
+            string blockDescription = string.Empty;
+            if (aliquotOrder != null)
+            {
+                blockDescription = " - Block " + aliquotOrder.Label;
+            }
+
+            this.AddNextNteElement("Specimen site and type: " + specimenOrder.Description + blockDescription, document);
+            this.AddNextNteElement("Specimen fixation type: " + specimenOrder.LabFixation, document);
+            this.AddNextNteElement("Time to fixation: " + specimenOrder.TimeToFixationHourString, document);
+            this.AddNextNteElement("Duration of fixation: " + specimenOrder.FixationDurationString, document);
+            this.AddNextNteElement("Sample adequacy: " + panelSetOrder.SampleAdequacy, document);
+
+            string collectionDateTimeString = YellowstonePathology.Business.Helper.DateTimeExtensions.CombineDateAndTime(specimenOrder.CollectionDate, specimenOrder.CollectionTime);
+            this.AddNextNteElement("Collection Date/Time: " + collectionDateTimeString, document);
+            this.AddBlankNteElement(document);
+
+            this.AddNextNteElement("Interpretation: ", document);
+            this.HandleLongString(panelSetOrder.InterpretiveComment, document);
+            this.AddBlankNteElement(document);
+
+            this.AddNextNteElement("Reference Range: " + referenceRange, document);
+            this.AddBlankNteElement(document);
+
+            if (string.IsNullOrEmpty(specimenOrder.FixationComment) == false)
+            {
+                this.HandleLongString("Fixation Comment:" + specimenOrder.FixationComment, document);
+                this.AddBlankNteElement(document);
+            }
+
+            this.AddNextNteElement("Method: ", document);
+            this.HandleLongString(panelSetOrder.Method, document);
+            this.AddBlankNteElement(document);
+
+            this.AddNextNteElement("References: ", document);
+            this.HandleLongString(panelSetOrder.ReportReference, document);
+            this.AddBlankNteElement(document);
+
+            this.HandleLongString(panelSetOrder.ASRComment, document);
             this.AddBlankNteElement(document);
 
             string locationPerformed = panelSetOrder.GetLocationPerformedComment();

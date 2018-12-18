@@ -27,6 +27,9 @@ namespace YellowstonePathology.UI.Test
 		public delegate void SpecimenDetailEventHandler(object sender, EventArgs e);
 		public event SpecimenDetailEventHandler SpecimenDetail;
 
+        public delegate void OrderHER2IHCEventHandler(object sender, EventArgs e);
+        public event OrderHER2IHCEventHandler OrderHER2IHC;
+
         public delegate void NextEventHandler(object sender, EventArgs e);
         public event NextEventHandler Next;
 
@@ -34,7 +37,6 @@ namespace YellowstonePathology.UI.Test
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;
         private YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHTestOrder m_PanelSetOrder;
-        private YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHResultCollection m_ResultCollection;
         private YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHIndicatorCollection m_IndicatorCollection;
         private YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHSampleAdequacyCollection m_SampleAdequacyCollection;
         private YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHProbeSignalIntensityCollection m_ProbeSignalIntensityCollection;
@@ -55,7 +57,6 @@ namespace YellowstonePathology.UI.Test
             this.m_PageNavigator = pageNavigator;
 
             this.m_PageHeaderText = "HER2 Amplification By ISH Results For: " + this.m_AccessionOrder.PatientDisplayName;
-            this.m_ResultCollection = new YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHResultCollection();
             this.m_IndicatorCollection = new YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHIndicatorCollection();
             this.m_SampleAdequacyCollection = new YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHSampleAdequacyCollection();
             this.m_ProbeSignalIntensityCollection = new YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHProbeSignalIntensityCollection();
@@ -82,11 +83,6 @@ namespace YellowstonePathology.UI.Test
         public YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHTestOrder PanelSetOrder
         {
             get { return this.m_PanelSetOrder; }
-        }
-
-        public YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHResultCollection ResultCollection
-        {
-            get { return this.m_ResultCollection; }
         }
 
         public YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHIndicatorCollection IndicatorCollection
@@ -139,8 +135,8 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkFinalize_Click(object sender, RoutedEventArgs e)
         {            
-            YellowstonePathology.Business.Rules.MethodResult methodResult = this.m_PanelSetOrder.IsOkToFinalize();
-            if (methodResult.Success == true)
+            YellowstonePathology.Business.Audit.Model.AuditResult auditResult = this.m_PanelSetOrder.IsOkToFinalize(this.m_AccessionOrder);
+            if (auditResult.Status ==  Business.Audit.Model.AuditStatusEnum.OK)
             {
                 YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);                    
                 this.m_PanelSetOrder.Finish(this.m_AccessionOrder);
@@ -162,7 +158,7 @@ namespace YellowstonePathology.UI.Test
             }
             else
             {
-                MessageBox.Show(methodResult.Message);
+                MessageBox.Show(auditResult.Message);
             }
         }
 
@@ -180,29 +176,24 @@ namespace YellowstonePathology.UI.Test
         }
 
         private void HyperLinkAcceptResults_Click(object sender, RoutedEventArgs e)
-        {            
-            YellowstonePathology.Business.Rules.MethodResult methodResult = this.m_PanelSetOrder.IsOkToAccept();
-            if (methodResult.Success == true)
+        {
+            YellowstonePathology.Business.Audit.Model.AuditResult auditResult = this.m_PanelSetOrder.IsOkToAccept(this.m_AccessionOrder);
+            if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.Warning)
             {
-                YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);
-
-                YellowstonePathology.Business.Audit.Model.AuditCollection auditCollection = new Business.Audit.Model.AuditCollection();                    
-                auditCollection.Add(new Business.Audit.Model.HER2OKToAcceptAudit(this.m_PanelSetOrder));
-                YellowstonePathology.Business.Audit.Model.AuditResult auditResult = auditCollection.Run2();
-
-                if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.Failure)
+                MessageBoxResult result = MessageBox.Show(auditResult.Message, "Order Test", MessageBoxButton.YesNo, MessageBoxImage.Information, MessageBoxResult.Yes);
+                if (result == MessageBoxResult.Yes)
                 {
-                    MessageBox.Show(auditResult.Message);
+                    this.OrderHER2IHC(this, new EventArgs());
                 }
-                else
-                {
-                    YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHResult.AcceptResults(this.m_PanelSetOrder, this.m_SystemIdentity);
-                }
+            }
+            else if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.Failure)
+            {
+                MessageBox.Show(auditResult.Message);
             }
             else
             {
-                MessageBox.Show(methodResult.Message);
-            }            
+                Business.Test.HER2AmplificationByISH.HER2AmplificationResult.AcceptResults(this.m_PanelSetOrder);
+            }
         }
 
         private void HyperLinkUnacceptResults_Click(object sender, RoutedEventArgs e)
@@ -210,7 +201,7 @@ namespace YellowstonePathology.UI.Test
             YellowstonePathology.Business.Rules.MethodResult methodResult = this.m_PanelSetOrder.IsOkToUnaccept();
             if (methodResult.Success == true)
             {
-                YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHResult.UnacceptResults(this.m_PanelSetOrder);
+                YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationResult.UnacceptResults(this.m_PanelSetOrder);
             }
             else
             {
@@ -220,16 +211,26 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkSetResults_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Rules.MethodResult methodResult = this.m_PanelSetOrder.IsOkToSetResults();
-            if (methodResult.Success == true)
+            YellowstonePathology.Business.Audit.Model.AuditResult auditResult = this.m_PanelSetOrder.IsOkToSetResults(this.m_AccessionOrder);
+            if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.Warning)
             {
-                YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHResult result = this.m_ResultCollection.GetResultFromIndication(this.m_PanelSetOrder);
-                YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);
-                result.SetResults(this.m_PanelSetOrder, specimenOrder);
+                MessageBoxResult result = MessageBox.Show(auditResult.Message, "Order Test", MessageBoxButton.YesNo, MessageBoxImage.Information, MessageBoxResult.Yes);
+                if (result == MessageBoxResult.Yes)
+                {
+                    this.OrderHER2IHC(this, new EventArgs());
+                }
+            }
+            else if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.Failure)
+            {
+                MessageBox.Show(auditResult.Message);
             }
             else
             {
-                MessageBox.Show(methodResult.Message);
+                YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationResultCollection her2AmplificationResultCollection = new Business.Test.HER2AmplificationByISH.HER2AmplificationResultCollection(this.m_AccessionOrder.PanelSetOrderCollection);
+                YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationResult her2AmplificationResult = her2AmplificationResultCollection.FindMatch();
+                YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);
+                her2AmplificationResult.SetResults(specimenOrder);
+                this.m_PanelSetOrder.SetHER2ByIHCRequired();
             }
         }
 
@@ -271,5 +272,10 @@ namespace YellowstonePathology.UI.Test
 				this.SpecimenDetail(this, new EventArgs());
 			}
 		}
+
+        private void HyperLinkOrderHER2IHC_Click(object sender, RoutedEventArgs e)
+        {
+            this.OrderHER2IHC(this, new EventArgs());
+        }
     }
 }
