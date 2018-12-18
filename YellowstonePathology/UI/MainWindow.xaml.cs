@@ -1026,6 +1026,12 @@ namespace YellowstonePathology.UI
         {
             UI.Billing.SVHADTMatcher svhadtMatcher = new Billing.SVHADTMatcher();
             svhadtMatcher.Show();
+        }        
+
+        private void MenuItemPolicyExplorer_Click(object sender, RoutedEventArgs e)
+        {
+            Policy.PolicyExplorer policyExplorer = new Policy.PolicyExplorer();
+            policyExplorer.Show();
         }
     }
 }
