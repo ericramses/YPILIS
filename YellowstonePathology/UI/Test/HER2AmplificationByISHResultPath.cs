@@ -26,8 +26,25 @@ namespace YellowstonePathology.UI.Test
             this.m_ResultPage = new HER2AmplificationByISHResultPage(this.m_PanelSetOrder, this.m_AccessionOrder, this.m_SystemIdentity, this.m_PageNavigator);
             this.m_ResultPage.Next += new HER2AmplificationByISHResultPage.NextEventHandler(ResultPage_Next);
             this.m_ResultPage.SpecimenDetail += new HER2AmplificationByISHResultPage.SpecimenDetailEventHandler(ResultPage_SpecimenDetail);
+            this.m_ResultPage.OrderHER2IHC += ResultPage_OrderHER2IHC;
 
             this.RegisterCancelATest(this.m_ResultPage);
+            this.m_PageNavigator.Navigate(this.m_ResultPage);
+        }
+
+        private void ResultPage_OrderHER2IHC(object sender, EventArgs e)
+        {
+            YellowstonePathology.Business.Test.Her2AmplificationByIHC.Her2AmplificationByIHCTest her2AmplificationByIHCTest = new Business.Test.Her2AmplificationByIHC.Her2AmplificationByIHCTest();
+            YellowstonePathology.Business.Interface.IOrderTarget orderTargetIHC = this.m_AccessionOrder.SpecimenOrderCollection.GetOrderTarget(this.m_PanelSetOrder.OrderedOnId);
+            YellowstonePathology.Business.Test.TestOrderInfo testOrderInfoIHC = new YellowstonePathology.Business.Test.TestOrderInfo(her2AmplificationByIHCTest, orderTargetIHC, false);
+
+            YellowstonePathology.UI.Login.Receiving.ReportOrderPath reportOrderPath = new Login.Receiving.ReportOrderPath(this.m_AccessionOrder, this.m_PageNavigator, PageNavigationModeEnum.Inline, this.m_Window);
+            reportOrderPath.Finish += new Login.Receiving.ReportOrderPath.FinishEventHandler(ReportOrderPath_Finish);
+            reportOrderPath.Start(testOrderInfoIHC);
+        }
+
+        private void ReportOrderPath_Finish(object sender, EventArgs e)
+        {
             this.m_PageNavigator.Navigate(this.m_ResultPage);
         }
 
