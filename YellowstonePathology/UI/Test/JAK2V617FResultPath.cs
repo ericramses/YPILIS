@@ -46,8 +46,8 @@ namespace YellowstonePathology.UI.Test
 				result = true;
 				YellowstonePathology.Business.Test.MPNStandardReflex.PanelSetOrderMPNStandardReflex panelSetOrderMPNStandardReflex = (YellowstonePathology.Business.Test.MPNStandardReflex.PanelSetOrderMPNStandardReflex)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetMPNStandardReflex.PanelSetId);
 				Test.MPNStandardReflexPath MPNStandardReflexPath = new Test.MPNStandardReflexPath(panelSetOrderMPNStandardReflex.ReportNo, this.m_AccessionOrder, this.m_PageNavigator, this.m_Window);
-				MPNStandardReflexPath.Finish += new Test.MPNStandardReflexPath.FinishEventHandler(MPNStandardReflexPath_Finish);
-				MPNStandardReflexPath.Back += new MPNStandardReflexPath.BackEventHandler(MPNStandardReflexPath_Back);
+				MPNStandardReflexPath.Finish += new Test.MPNStandardReflexPath.FinishEventHandler(ReflexPath_Finish);
+				MPNStandardReflexPath.Back += new MPNStandardReflexPath.BackEventHandler(ReflexPath_Back);
 				MPNStandardReflexPath.Start();
 			}
 			else if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(panelSetMPNExtendedReflex.PanelSetId) == true)
@@ -55,36 +55,21 @@ namespace YellowstonePathology.UI.Test
 				result = true;
 				YellowstonePathology.Business.Test.MPNExtendedReflex.PanelSetOrderMPNExtendedReflex panelSetOrderMPNExtendedReflex = (YellowstonePathology.Business.Test.MPNExtendedReflex.PanelSetOrderMPNExtendedReflex)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetMPNExtendedReflex.PanelSetId);
 				Test.MPNExtendedReflexPath MPNExtendedReflexPath = new Test.MPNExtendedReflexPath(panelSetOrderMPNExtendedReflex.ReportNo, this.m_AccessionOrder, this.m_PageNavigator, this.m_Window);
-				MPNExtendedReflexPath.Finish += new Test.MPNExtendedReflexPath.FinishEventHandler(MPNExtendedReflexPath_Finish);
-				MPNExtendedReflexPath.Back += new MPNExtendedReflexPath.BackEventHandler(MPNExtendedReflexPath_Back);
+				MPNExtendedReflexPath.Finish += new Test.MPNExtendedReflexPath.FinishEventHandler(ReflexPath_Finish);
+				MPNExtendedReflexPath.Back += new MPNExtendedReflexPath.BackEventHandler(ReflexPath_Back);
 				MPNExtendedReflexPath.Start();
 			}
 			return result;
 		}
 
-		private void MPNStandardReflexPath_Back(object sender, EventArgs e)
+		private void ReflexPath_Back(object sender, EventArgs e)
 		{
 			this.ShowResultPage();
 		}
 
-		private void MPNStandardReflexPath_Finish(object sender, EventArgs e)
+		private void ReflexPath_Finish(object sender, EventArgs e)
 		{
 			base.Finished();
-		}
-
-		private void MPNExtendedReflexPath_Back(object sender, EventArgs e)
-		{
-			this.ShowResultPage();
-		}
-
-		private void MPNExtendedReflexPath_Finish(object sender, EventArgs e)
-		{
-			base.Finished();
-		}
-
-		private void ReportOrderPath_Finish(object sender, EventArgs e)
-		{
-			this.ShowReflexTestPage();
 		}
 	}
 }
