@@ -24,16 +24,20 @@ namespace YellowstonePathology.Business.Test.MPNStandardReflex
             if (string.IsNullOrEmpty(panelSetOrder.JAK2V617FResult) == false)
             {
                 this.AddNextObxElement("JAK2 V617F Analysis: " + panelSetOrder.JAK2V617FResult, document, "F");
-                this.AddNextObxElement(string.Empty, document, "F");
             }
 
             if (string.IsNullOrEmpty(panelSetOrder.JAK2Exon1214Result) == false)
             {
                 this.AddNextObxElement("JAK2 Exon 12-14 Analysis: " + panelSetOrder.JAK2Exon1214Result, document, "F");
-                this.AddNextObxElement(string.Empty, document, "F");
             }
 
-			this.AddNextObxElement("Pathologist: " + panelSetOrder.Signature, document, "F");
+            if (string.IsNullOrEmpty(panelSetOrder.MPLResult) == false)
+            {
+                this.AddNextObxElement("MPL Mutation Analysis: " + panelSetOrder.MPLResult, document, "F");
+            }
+
+            this.AddNextObxElement(string.Empty, document, "F");
+            this.AddNextObxElement("Pathologist: " + panelSetOrder.Signature, document, "F");
 			if (panelSetOrder.FinalDate.HasValue == true)
 			{
 				this.AddNextObxElement("E-signed " + panelSetOrder.FinalTime.Value.ToString("MM/dd/yyyy HH:mm"), document, "F");

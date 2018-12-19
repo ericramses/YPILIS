@@ -85,7 +85,7 @@ namespace YellowstonePathology.Business.Gateway
                 "and pso.final = 1 order by pso.FinalDate desc;";
             this.m_TableDictionary.Add("tblBRAFMutationAnalysisTestOrder", brafMutationAnalysisTestOrder);
 
-            string psoMPNStandardReflex = "Select concat('V617: ', b.JAK2V617FResult, ', Exon 1214: ', case when b.JAK2Exon1214Result is null then '' else b.JAK2Exon1214Result end) `Result`, pso.MasterAccessionNo, pso.ReportNo, a.AccessionTime AccessionDate, pso.FinalDate,  pso.PanelSetId " +
+            string psoMPNStandardReflex = "Select concat('V617: ', b.JAK2V617FResult, ', Exon 1214: ', case when b.JAK2Exon1214Result is null then '' else b.JAK2Exon1214Result end, ', MPL: ', case when b.MPLResult is null then '' else b.MPLResult end) `Result`, pso.MasterAccessionNo, pso.ReportNo, a.AccessionTime AccessionDate, pso.FinalDate,  pso.PanelSetId " +
                 "FROM tblAccessionOrder a " +
                 "JOIN tblPanelSetOrder pso ON a.MasterAccessionNo = pso.MasterAccessionNo " +
                 "join tblPanelSetOrderMPNStandardReflex b on pso.ReportNo = b.ReportNo " +
@@ -95,7 +95,7 @@ namespace YellowstonePathology.Business.Gateway
                 "and pso.final = 1 order by pso.FinalDate desc;";
             this.m_TableDictionary.Add("tblPanelSetOrderMPNStandardReflex", psoMPNStandardReflex);
 
-            string psoMPNExtendedReflex = "Select concat('V617: ', b.JAK2V617FResult, ', CalR: ', b.CalreticulinMutationAnalysisResult, ', MPL: ', b.MPLResult) `Result`, pso.MasterAccessionNo, pso.ReportNo, a.AccessionTime AccessionDate, pso.FinalDate,  pso.PanelSetId " +
+            string psoMPNExtendedReflex = "Select concat('V617: ', b.JAK2V617FResult, ', Exon 1214: ', case when b.JAK2Exon1214Result is null then '' else b.JAK2Exon1214Result end, ', CalR: ', case when b.CalreticulinMutationAnalysisResult is null then '' else b.CalreticulinMutationAnalysisResult end, ', MPL: ', case when b.MPLResult is null then '' else b.MPLResult end) `Result`, pso.MasterAccessionNo, pso.ReportNo, a.AccessionTime AccessionDate, pso.FinalDate,  pso.PanelSetId " +
                 "FROM tblAccessionOrder a " +
                 "JOIN tblPanelSetOrder pso ON a.MasterAccessionNo = pso.MasterAccessionNo " +
                 "join tblPanelSetOrderMPNExtendedReflex b on pso.ReportNo = b.ReportNo " +

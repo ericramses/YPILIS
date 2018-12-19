@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.Test.MPNExtendedReflex
         public override void Render()
 		{
             PanelSetOrderMPNExtendedReflex panelSetOrderMPNExtendedReflex = (PanelSetOrderMPNExtendedReflex)this.m_PanelSetOrder;
-            this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\MPNExtendedReflex.1.xml";
+            this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\MPNExtendedReflex.2.xml";
 			base.OpenTemplate();
 
 			this.SetDemographicsV2();
@@ -37,6 +37,15 @@ namespace YellowstonePathology.Business.Test.MPNExtendedReflex
             else
             {
                 this.DeleteRow("jak2v617_result");
+            }
+
+            if (string.IsNullOrEmpty(panelSetOrderMPNExtendedReflex.JAK2Exon1214Result) == false)
+            {
+                this.ReplaceText("jak2exon1214_result", panelSetOrderMPNExtendedReflex.JAK2Exon1214Result);
+            }
+            else
+            {
+                this.DeleteRow("jak2exon1214_result");
             }
 
             if (string.IsNullOrEmpty(panelSetOrderMPNExtendedReflex.CalreticulinMutationAnalysisResult) == false)
