@@ -726,14 +726,14 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
                     if (this.CheckTestExists(accessionOrder, her2AmplificationByIHCTest.PanelSetId) == false)
                     {
                         result.Status = AuditStatusEnum.Warning;
-                        result.Message = "The results require a " + her2AmplificationByIHCTest.PanelSetName + " be ordered." + Environment.NewLine + "Order the test now?";
+                        result.Message = "The results may not be set as a " + her2AmplificationByIHCTest.PanelSetName + " must be ordered." + Environment.NewLine + "Order the test now?";
                     }
                     else
                     {
                         if (this.CheckTestIsAccepted(accessionOrder, her2AmplificationByIHCTest.PanelSetId) == false)
                         {
                             result.Status = AuditStatusEnum.Failure;
-                            result.Message = "The results may not be accepted until the " + her2AmplificationByIHCTest.PanelSetName + " is accepted.";
+                            result.Message = "The results may not be set until the " + her2AmplificationByIHCTest.PanelSetName + " is accepted.";
                         }
                         else
                         {
@@ -743,14 +743,14 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
                                 if (this.CheckTestExists(accessionOrder, her2AmplificationRecountTest.PanelSetId) == false)
                                 {
                                     result.Status = AuditStatusEnum.Failure;
-                                    result.Message = "The results may not be accepted until a " + her2AmplificationRecountTest.PanelSetName + " is ordered.";
+                                    result.Message = "The results may not be set until a " + her2AmplificationRecountTest.PanelSetName + " is ordered.";
                                 }
                                 else
                                 {
                                     if (this.CheckTestIsAccepted(accessionOrder, her2AmplificationRecountTest.PanelSetId) == false)
                                     {
                                         result.Status = AuditStatusEnum.Failure;
-                                        result.Message = "The results may not be accepted until the " + her2AmplificationRecountTest.PanelSetName + " is accepted.";
+                                        result.Message = "The results may not be set until the " + her2AmplificationRecountTest.PanelSetName + " is accepted.";
                                     }
                                 }
                             }
@@ -792,7 +792,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
                     if (this.CheckTestExists(accessionOrder, her2AmplificationByIHCTest.PanelSetId) == false)
                     {
                         result.Status = AuditStatusEnum.Warning;
-                        result.Message = "The results require a " + her2AmplificationByIHCTest.PanelSetName + " be ordered." + Environment.NewLine + "Order the test now?";
+                        result.Message = "The results may not be accepted as a " + her2AmplificationByIHCTest.PanelSetName + " must be ordered." + Environment.NewLine + "Order the test now?";
                     }
                     else
                     {
@@ -809,7 +809,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
                                 if (this.CheckTestExists(accessionOrder, her2AmplificationRecountTest.PanelSetId) == false)
                                 {
                                     result.Status = AuditStatusEnum.Failure;
-                                    result.Message = "The results may not be accepted until a " + her2AmplificationRecountTest.PanelSetName + " is ordered.";
+                                    result.Message = "The results may not be accepted as a " + her2AmplificationRecountTest.PanelSetName + " must be ordered.";
                                 }
                                 else
                                 {
