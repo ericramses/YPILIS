@@ -50,6 +50,15 @@ namespace YellowstonePathology.Business.Test.MPNStandardReflex
                 this.DeleteRow("jak2exon1214_result");
             }
 
+            if (string.IsNullOrEmpty(panelSetOrderMPNStandardReflex.MPLResult) == false)
+            {
+                this.ReplaceText("mpl_result", panelSetOrderMPNStandardReflex.MPLResult);
+            }
+            else
+            {
+                this.DeleteRow("mpl_result");
+            }
+
             base.ReplaceText("specimen_description", specimenOrder.Description);
             this.ReplaceText("result_comment", panelSetOrderMPNStandardReflex.Comment);            
 

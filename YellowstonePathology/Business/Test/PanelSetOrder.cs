@@ -1996,7 +1996,7 @@ namespace YellowstonePathology.Business.Test
 
         protected virtual string NotFilledMessage(string name)
         {
-            return "The " + name + " result is not set." + Environment.NewLine;
+            return "The " + name + " is not set." + Environment.NewLine;
         }
 
         protected virtual string MismatchMessage(string panelSetName)

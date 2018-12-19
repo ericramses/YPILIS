@@ -61,10 +61,5 @@ namespace YellowstonePathology.UI.Test
         {
             base.Finished();
 		}
-
-		private void ReportOrderPath_Finish(object sender, EventArgs e)
-		{
-			this.ShowReflexTestPage();
-		}
 	}
 }
