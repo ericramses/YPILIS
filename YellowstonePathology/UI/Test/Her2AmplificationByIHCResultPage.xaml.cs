@@ -80,13 +80,6 @@ namespace YellowstonePathology.UI.Test
 			get { return this.m_PageHeaderText; }
 		}
 
-		private void HyperLinkSetResults_Click(object sender, RoutedEventArgs e)
-		{
-			YellowstonePathology.Business.Test.Her2AmplificationByIHC.Her2AmplificationByIHCResult result = new Business.Test.Her2AmplificationByIHC.Her2AmplificationByIHCResult();
-            result.SetResults(this.m_PanelSetOrder);
-			this.NotifyPropertyChanged("PanelSetOrder");
-		}
-
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{
 			YellowstonePathology.Business.Test.Her2AmplificationByIHC.Her2AmplificationByIHCWordDocument report = new Business.Test.Her2AmplificationByIHC.Her2AmplificationByIHCWordDocument(this.m_AccessionOrder, this.m_PanelSetOrder, Business.Document.ReportSaveModeEnum.Draft);

@@ -2211,7 +2211,6 @@
     <Compile Include="Business\Test\Her2AmplificationByFish\Her2AmplificationByFishWordDocument.cs" />
     <Compile Include="Business\Test\Her2AmplificationByFish\PanelSetOrderHer2AmplificationByFish.cs" />
     <Compile Include="Business\Test\Her2AmplificationByIHC\Her2AmplificationByIHCEpicObxView.cs" />
-    <Compile Include="Business\Test\Her2AmplificationByIHC\Her2AmplificationByIHCResult.cs" />
     <Compile Include="Business\Test\Her2AmplificationByIHC\Her2AmplificationByIHCTest.cs" />
     <Compile Include="Business\Test\Her2AmplificationByIHC\Her2AmplificationByIHCWordDocument.cs" />
     <Compile Include="Business\Test\Her2AmplificationByIHC\PanelSetOrderHer2AmplificationByIHC.cs" />
