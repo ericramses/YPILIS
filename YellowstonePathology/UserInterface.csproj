@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>304</ApplicationRevision>
+    <ApplicationRevision>306</ApplicationRevision>
     <ApplicationVersion>10.1.12.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -1145,6 +1145,8 @@
     <Compile Include="Business\WebService\WebServiceAccountView.cs" />
     <Compile Include="Business\WebService\WebServiceAccountCollection.cs" />
     <Compile Include="Business\WebService\WebServiceClientView.cs" />
+    <Compile Include="Policy\Directory.cs" />
+    <Compile Include="Policy\DirectoryCollection.cs" />
     <Compile Include="Store\AppDataStore.cs" />
     <Compile Include="Business\Reports\BlocksSentNotReturnedReport.cs" />
     <Compile Include="Business\Reports\RetrospectiveReviewReport.xaml.cs">
@@ -3047,6 +3049,9 @@
     <Compile Include="UI\PantherPreviouslyRunReport.cs" />
     <Compile Include="UI\PDFTransferDialog.xaml.cs">
       <DependentUpon>PDFTransferDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Policy\PolicyExplorer.xaml.cs">
+      <DependentUpon>PolicyExplorer.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\RetrospectiveReviewListItem.cs" />
     <Compile Include="UI\RetrospectiveReviewList.cs" />
@@ -5255,6 +5260,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\PDFTransferDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Policy\PolicyExplorer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -54,6 +54,7 @@ namespace YellowstonePathology.UI.Common
                 this.m_UserPreference = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullUserPreference(userPreference.Location, this);
             }
 
+            this.m_PageScannerCollection = new Business.Common.PageScannerCollection();
             this.DataContext = this;
 			this.Loaded += new RoutedEventHandler(UserPreferences_Loaded);
             this.Closing += UserPreferences_Closing;
@@ -76,8 +77,7 @@ namespace YellowstonePathology.UI.Common
 
         private void UserPreferences_Loaded(object sender, RoutedEventArgs e)
 		{
-            this.m_Twain = new Business.Twain.Twain(new WpfWindowMessageHook(Window.GetWindow(this)));
-            this.m_PageScannerCollection = new Business.Common.PageScannerCollection();            
+            this.m_Twain = new Business.Twain.Twain(new WpfWindowMessageHook(Window.GetWindow(this)));            
         }    
         
         public Business.Label.Model.CassettePrinterCollection CassettePrinterCollection

@@ -12,6 +12,7 @@ namespace YellowstonePathology.Business.Client.Model
         public PlaceOfServiceCollection()
         {
             this.Add(new PlaceOfService("11", "Office"));
+            this.Add(new PlaceOfService("10", "Unassigned"));
             this.Add(new PlaceOfService("19", "Off Campus - Outpatient Hospital"));
             this.Add(new PlaceOfService("21", "Inpatient Hospital"));
             this.Add(new PlaceOfService("22", "On Campus - Outpatient Hospital"));
