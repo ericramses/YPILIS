@@ -11,7 +11,10 @@ namespace YellowstonePathology.Business
     public class SSHFileTransfer
     {
         public delegate void StatusMessageEventHandler(object sender, string message, int count);
-        public event StatusMessageEventHandler StatusMessage;
+        public event StatusMessageEventHandler StatusMessage;        
+
+        public delegate void FailedEventHandler(object sender, string message);
+        public event FailedEventHandler Failed;
 
         private const string SSH_KEY_PATH = @"C:\Program Files\Yellowstone Pathology Institute\ssh.key";
 
@@ -63,12 +66,15 @@ namespace YellowstonePathology.Business
                             fs.Close();
                         }
                     }
+
                     client.Disconnect();
                     this.SendStatusMessage("Disconnecting from PSA SSH.", count);
+                    this.SendStatusMessage("Finished transferring files.", count);
                 }   
                 catch(Exception connectException)
                 {
-                    System.Windows.MessageBox.Show(connectException.Message);
+                    this.SendStatusMessage("Failed transferring files.", count);
+                    this.Failed(this, connectException.Message);                    
                 }                                             
             }
         }

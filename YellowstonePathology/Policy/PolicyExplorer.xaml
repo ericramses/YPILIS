@@ -5,8 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YellowstonePathology.UI"
         mc:Ignorable="d"
-        Title="PolicyExplorer" Height="800" Width="1000">
+        Title="Policy Explorer" Height="600" Width="900" WindowStartupLocation="CenterScreen">
     <Grid>
+        <Grid.Resources>
+            <DataTemplate x:Key="DataTemplateDirectory">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="2,2,2,2">
+                        <TextBlock Margin="2,2,2,2" VerticalAlignment="Center" Text="{Binding Path=DirectoryName}" Width="300"></TextBlock>
+                    </StackPanel>
+                </StackPanel>
+            </DataTemplate>
+        </Grid.Resources>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
@@ -14,15 +23,8 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        
-        <ListView Grid.Column="0" Grid.Row="0" Name="ListViewDirectories" Margin="2,2,2,2" ItemsSource="{Binding Path=DirectoryCollection}">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Path=DirectoryId}" Width="100" />
-                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Path=DirectoryName}" Width="100" />
-                    <GridViewColumn Header="ParentId" DisplayMemberBinding="{Binding Path=ParentId}" Width="100" />
-                </GridView>
-            </ListView.View>
-        </ListView>
+
+        <TreeView Grid.Column="0" Grid.Row="0" Margin="2" ItemsSource="{Binding Path=DirectoryCollection}" BorderThickness="0"
+					  ItemTemplate="{StaticResource DataTemplateDirectory}" HorizontalAlignment="Stretch"/>
     </Grid>
 </Window>

@@ -31,7 +31,9 @@ namespace YellowstonePathology.UI.Billing
         private ObservableCollection<string> m_StatusMessageList;
         private string m_StatusCountMessage;        
         private int m_StatusCount;
-        private List<string> m_ReportNumbersToProcess;        
+        private List<string> m_ReportNumbersToProcess;
+
+        private System.Timers.Timer m_Timer;
 
         public EODProcessingDialog()
         {
@@ -132,6 +134,11 @@ namespace YellowstonePathology.UI.Billing
         }
 
         private void MenuItemTransferPSAFiles_Click(object sender, RoutedEventArgs e)
+        {
+            this.TransferPSAFiles();
+        }
+
+        private void TransferPSAFiles()
         {
             this.m_StatusMessageList.Clear();
             this.m_BackgroundWorker = new System.ComponentModel.BackgroundWorker();
@@ -317,7 +324,7 @@ namespace YellowstonePathology.UI.Billing
                                     }
                                     else
                                     {
-                                        throw new Exception("This MRN for this charge doesn't start with a V");
+                                        throw new Exception("The MRN for this charge doesn't start with a V");
                                     }
                                 }
                                 else
@@ -459,6 +466,7 @@ namespace YellowstonePathology.UI.Billing
                         psaSSHConfig["username"].ToString(), psaSSHConfig["password"].ToString());
 
                     sshFileTransfer.StatusMessage += SSHFileTransfer_StatusMessage;
+                    sshFileTransfer.Failed += SSHFileTransfer_Failed;                    
                     sshFileTransfer.UploadFilesToPSA(files);
                     rowCount += 1;
                 }
@@ -473,67 +481,27 @@ namespace YellowstonePathology.UI.Billing
             }
 
             this.m_BackgroundWorker.ReportProgress(1, "Finished with transfer of " + rowCount + " PSA Files: " + DateTime.Now.ToLongTimeString());
+        }        
+
+        private void SSHFileTransfer_Failed(object sender, string message)
+        {            
+            this.m_Timer = new System.Timers.Timer(60000);
+            this.m_Timer.Elapsed += Timer_Elapsed;
+            this.m_Timer.Enabled = true;            
+        }
+
+        private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            this.m_Timer.Stop();
+            this.m_Timer.Dispose();
+            this.TransferPSAFiles();            
         }
 
         private void SSHFileTransfer_StatusMessage(object sender, string message, int count)
         {
             this.m_StatusCount = count;
             this.m_BackgroundWorker.ReportProgress(1, message);
-        }
-
-        /*
-        private void MenuItemMatchUnpostedCases_Click(object sender, RoutedEventArgs e)
-        {
-            this.m_StatusMessageList.Clear();
-            this.m_BackgroundWorker = new System.ComponentModel.BackgroundWorker();
-            this.m_BackgroundWorker.WorkerSupportsCancellation = false;
-            this.m_BackgroundWorker.WorkerReportsProgress = true;
-            this.m_BackgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(BackgroundWorker_ProgressChanged);
-            this.m_BackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(MatchUnpostedCases);
-            this.m_BackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(BackgroundWorker_RunWorkerCompleted);
-            this.m_BackgroundWorker.RunWorkerAsync();
-        }
-        */
-
-        /*
-        private void MatchUnpostedCases(object sender, System.ComponentModel.DoWorkEventArgs e)
-        {
-            string workingFolder = System.IO.Path.Combine(this.m_BaseWorkingFolderPathSVH, this.m_PostDate.ToString("MMddyyyy"), "result");            
-
-            List<string> masterAccessionNumbers = Business.Gateway.AccessionOrderGateway.GetMasterAccessionNumbersBySVHNotPosted();
-            foreach (string masterAccessionNo in masterAccessionNumbers)
-            {
-                this.m_BackgroundWorker.ReportProgress(1, "Matching: " + masterAccessionNo);                
-                Business.Test.AccessionOrder ao = Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this);
-                SVHMRNMatcher svhMRNMatcher = new SVHMRNMatcher(ao);
-                svhMRNMatcher.Match();
-
-                if (svhMRNMatcher.MatchFound == true)
-                {
-                    this.m_BackgroundWorker.ReportProgress(1, "Matched: " + masterAccessionNo + " - " + svhMRNMatcher.ANumber + "->" + svhMRNMatcher.VNumber);
-                    ao.SvhMedicalRecord = svhMRNMatcher.VNumber;
-                    ao.SvhAccount = svhMRNMatcher.VNumberAccount;
-
-                    YellowstonePathology.Business.ClientOrder.Model.UniversalServiceCollection universalServiceIdCollection = YellowstonePathology.Business.ClientOrder.Model.UniversalServiceCollection.GetAll();
-                    YellowstonePathology.Business.ClientOrder.Model.UniversalService universalService = universalServiceIdCollection.GetByUniversalServiceId(svhMRNMatcher.ClientOrder.UniversalServiceId);
-
-                    string resultMessage = "This order has been associated with a prior order: " + svhMRNMatcher.ANumber + "->" + svhMRNMatcher.VNumber;
-                    YellowstonePathology.Business.HL7View.EPIC.EPICStatusMessage statusMessage = new Business.HL7View.EPIC.EPICStatusMessage(svhMRNMatcher.ClientOrder, YellowstonePathology.Business.HL7View.OrderStatusEnum.Complete, universalService, resultMessage, "F", ao.AccessionDateTime.Value);
-                    statusMessage.Publish(workingFolder);
-
-                    foreach (Business.Test.PanelSetOrder panelSetOrder in ao.PanelSetOrderCollection)
-                    {
-                        panelSetOrder.PanelSetOrderCPTCodeBillCollection.SetPostDate(this.m_PostDate);
-                    }                                                            
-                }
-                else
-                {
-                    this.m_BackgroundWorker.ReportProgress(1, "********** Not Matched: " + masterAccessionNo + " **********");
-                }
-            }
-            Business.Persistence.DocumentGateway.Instance.Save();
-        }
-        */
+        }        
 
         private void ButtonStart_Click(object sender, RoutedEventArgs e)
         {            
@@ -548,8 +516,7 @@ namespace YellowstonePathology.UI.Billing
         }
 
         private void RunAllProcesses(object sender, System.ComponentModel.DoWorkEventArgs e)
-        {
-            //this.MatchUnpostedCases(sender, e);
+        {            
             this.ProcessPSAFiles(sender, e);
             this.TransferPSAFiles(sender, e);
             this.ProcessSVHCDMFiles(sender, e);

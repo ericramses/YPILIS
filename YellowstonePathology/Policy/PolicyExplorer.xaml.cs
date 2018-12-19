@@ -23,7 +23,7 @@ namespace YellowstonePathology.Policy
 
         public PolicyExplorer()
         {
-            this.m_DirectoryCollection = new DirectoryCollection();
+            this.m_DirectoryCollection = DirectoryCollection.GetRoot();
             InitializeComponent();
             this.DataContext = this;
         }
