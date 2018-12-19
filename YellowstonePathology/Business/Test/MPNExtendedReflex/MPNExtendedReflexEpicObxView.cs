@@ -25,6 +25,10 @@ namespace YellowstonePathology.Business.Test.MPNExtendedReflex
             {
                 this.AddNextObxElement("JAK2 V617F Mutation Analysis: " + panelSetOrderMPNExtendedReflex.JAK2V617FResult, document, "F");
             }
+            if (string.IsNullOrEmpty(panelSetOrderMPNExtendedReflex.JAK2Exon1214Result) == false)
+            {
+                this.AddNextObxElement("JAK2 Exon 12-14 Mutation Analysis: " + panelSetOrderMPNExtendedReflex.JAK2Exon1214Result, document, "F");
+            }
             if (string.IsNullOrEmpty(panelSetOrderMPNExtendedReflex.CalreticulinMutationAnalysisResult) == false)
             {
                 this.AddNextObxElement("Calreticulin Mutation Analysis: " + panelSetOrderMPNExtendedReflex.CalreticulinMutationAnalysisResult, document, "F");

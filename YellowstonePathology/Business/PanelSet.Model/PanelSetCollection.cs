@@ -210,6 +210,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.Test.ChromosomeAnalysisBreakage.ChromosomeAnalysisBreakageTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.CalcitoninByImmunohistochemistry.CalcitoninByImmunohistochemistryTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.LymphocyteSubsetPanel4.LymphocyteSubsetPanel4Test());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.NeoTYPELiposarcomaFusionProfile.NeoTYPELiposarcomaFusionProfileTest());
 
             //YPII
             panelSetCollection.Add(new YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisTest());
@@ -309,7 +310,9 @@ namespace YellowstonePathology.Business.PanelSet.Model
 			panelSetCollection.Add(new YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile.ComprehensiveColonCancerProfileTest());
             panelSetCollection.Add(new PanelSetJAK2PolycythemiaVeraReflex());
             panelSetCollection.Add(new JAK2PrimaryMyelofibrosisTest());
-            panelSetCollection.Add(new JAK2EssentialThrombocythemiaTest());			            			
+            panelSetCollection.Add(new JAK2EssentialThrombocythemiaTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.MPNExtendedReflex.MPNExtendedReflexTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.MPNStandardReflex.MPNStandardReflexTest());
 
             panelSetCollection.Add(new PanelSetFishAnalysisForSYTGeneRearrangement());
             panelSetCollection.Add(new PanelSetHPVLowRiskByInSituHybridization());
@@ -493,10 +496,12 @@ namespace YellowstonePathology.Business.PanelSet.Model
 			panelSetCollection.Add(new YellowstonePathology.Business.Test.HPV1618SolidTumor.HPV1618SolidTumorTest());
 			panelSetCollection.Add(new YellowstonePathology.Business.Test.InvasiveBreastPanel.InvasiveBreastPanelTest());
 			panelSetCollection.Add(new YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FTest());
-            panelSetCollection.Add(new PanelSetJAK2PolycythemiaVeraReflex());
-            panelSetCollection.Add(new JAK2PrimaryMyelofibrosisTest());
-            panelSetCollection.Add(new JAK2EssentialThrombocythemiaTest());                                        
-			panelSetCollection.Add(new YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeEvaluationTest());
+            //panelSetCollection.Add(new PanelSetJAK2PolycythemiaVeraReflex());
+            //panelSetCollection.Add(new JAK2PrimaryMyelofibrosisTest());
+            //panelSetCollection.Add(new JAK2EssentialThrombocythemiaTest());                                        
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.MPNExtendedReflex.MPNExtendedReflexTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.MPNStandardReflex.MPNStandardReflexTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeEvaluationTest());
 			panelSetCollection.Add(new YellowstonePathology.Business.Test.ReviewForAdditionalTesting.ReviewForAdditionalTestingTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.RetrospectiveReview.RetrospectiveReviewTest());
             return panelSetCollection;
@@ -531,9 +536,11 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisTest());
 			panelSetCollection.Add(new YellowstonePathology.Business.Test.InvasiveBreastPanel.InvasiveBreastPanelTest());
 			panelSetCollection.Add(new YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTest());
-            panelSetCollection.Add(new PanelSetJAK2PolycythemiaVeraReflex());
-            panelSetCollection.Add(new JAK2PrimaryMyelofibrosisTest());
-            panelSetCollection.Add(new JAK2EssentialThrombocythemiaTest());
+            //panelSetCollection.Add(new PanelSetJAK2PolycythemiaVeraReflex());
+            //panelSetCollection.Add(new JAK2PrimaryMyelofibrosisTest());
+            //panelSetCollection.Add(new JAK2EssentialThrombocythemiaTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.MPNExtendedReflex.MPNExtendedReflexTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.MPNStandardReflex.MPNStandardReflexTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.KRASStandardReflex.KRASStandardReflexTest());
 			panelSetCollection.Add(new YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeEvaluationTest());
 			return panelSetCollection;

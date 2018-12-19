@@ -1120,6 +1120,7 @@
     <Compile Include="Business\Test\NeoTYPEBreastTumorProfile\NeoTYPEBreastTumorProfileTest.cs" />
     <Compile Include="Business\Test\NeoTYPEGastricTumorProfile\NeoTYPEGastricTumorProfileTest.cs" />
     <Compile Include="Business\Test\NeoTYPEGISTProfile\NeoTYPEGISTProfileTest.cs" />
+    <Compile Include="Business\Test\NeoTYPELiposarcomaFusionProfile\NeoTYPELiposarcomaFusionProfileTest.cs" />
     <Compile Include="Business\Test\NeoTypeLungTumorFISHPanel\NeoTypeLungTumorFISHPanelTest.cs" />
     <Compile Include="Business\Test\NeoTYPELungTumorProfile\NeoTYPELungTumorProfileTestOrder.cs" />
     <Compile Include="Business\Test\NeoTYPEOvarianTumorProfile\NeoTYPEOvarianTumorProfileTest.cs" />

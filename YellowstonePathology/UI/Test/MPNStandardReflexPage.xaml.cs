@@ -107,9 +107,24 @@ namespace YellowstonePathology.UI.Test
 			{
 				MessageBox.Show("Jak2 Exon 12-14 has already been ordered.", "Order exists");
 			}
-		}        
+		}
 
-		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
+        private void HyperLinkOrderMPL_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Test.MPL.MPLTest panelSet = new YellowstonePathology.Business.Test.MPL.MPLTest();
+            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(panelSet.PanelSetId) == false)
+            {
+                YellowstonePathology.Business.Interface.IOrderTarget orderTarget = this.m_AccessionOrder.SpecimenOrderCollection.GetOrderTarget(this.m_PanelSetOrderMPNStandardReflex.OrderedOnId);
+                YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new YellowstonePathology.Business.Test.TestOrderInfo(panelSet, orderTarget, false);
+                this.OrderTest(this, new CustomEventArgs.TestOrderInfoEventArgs(testOrderInfo));
+            }
+            else
+            {
+                MessageBox.Show("MPL has already been ordered.", "Order exists");
+            }
+        }
+
+        private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{			
 			YellowstonePathology.Business.Test.MPNStandardReflex.MPNStandardReflexWordDocument report = new Business.Test.MPNStandardReflex.MPNStandardReflexWordDocument(this.m_AccessionOrder, this.m_PanelSetOrderMPNStandardReflex, Business.Document.ReportSaveModeEnum.Draft);
 			report.Render();
