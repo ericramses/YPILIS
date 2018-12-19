@@ -30,7 +30,11 @@ namespace YellowstonePathology.Business.Test.Her2AmplificationByIHC
 			bool distribute)
 			: base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute)
 		{
-		}
+            this.ReportDisclaimer = this.GetLocationPerformedComment() + Environment.NewLine + "The performance characteristics of this test " +
+                "have been determined by NeoGenomics Laboratories.  This test has not been approved by the FDA.  The FDA has determined such " +
+                "clearance or approval is not necessary.  This laboratory is CLIA certified to perform high complexity clinical testing.";
+
+        }
 
 		[PersistentProperty()]
 		[PersistentDataColumnProperty(true, "500", "null", "varchar")]
