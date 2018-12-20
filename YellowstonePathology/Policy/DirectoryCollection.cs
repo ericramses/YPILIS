@@ -16,6 +16,15 @@ namespace YellowstonePathology.Policy
             return MakeTree(flatList);
         }
 
+        public void AddNewDirectory(Directory parentDirectory)
+        {
+            Directory newDirectory = new Directory();
+            newDirectory.IsNew = true;
+            newDirectory.ParentId = parentDirectory.DirectoryId;
+            newDirectory.DirectoryName = "New Directory";
+            parentDirectory.Subdirectories.Add(newDirectory);
+        }
+
         private static DirectoryCollection MakeTree(List<Directory> flatList)
         {
             DirectoryCollection result = new DirectoryCollection();
@@ -32,7 +41,7 @@ namespace YellowstonePathology.Policy
                 }
             }
             return result;
-        }       
+        }                  
         
         private static Directory FindParent(List<Directory> flatList, Directory child)
         {

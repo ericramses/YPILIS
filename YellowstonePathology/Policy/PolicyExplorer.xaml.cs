@@ -11,14 +11,16 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.ComponentModel;
 
 namespace YellowstonePathology.Policy
 {
     /// <summary>
     /// Interaction logic for PolicyExplorer.xaml
     /// </summary>
-    public partial class PolicyExplorer : Window
+    public partial class PolicyExplorer : Window, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
         private DirectoryCollection m_DirectoryCollection;
 
         public PolicyExplorer()
@@ -31,6 +33,30 @@ namespace YellowstonePathology.Policy
         public DirectoryCollection DirectoryCollection
         {
             get { return this.m_DirectoryCollection; }
+        }
+
+        private void ContextMenuAddFolder_Click(object sender, RoutedEventArgs e)
+        {
+            if(this.TreeViewDirectories.SelectedItem != null)
+            {
+                Directory newDirectory = new Directory();
+                newDirectory.IsNew = true;
+                newDirectory.ParentId = 0;
+                newDirectory.DirectoryName = "New Directory";
+                this.m_DirectoryCollection.AddNewDirectory(newDirectory);
+
+                //Directory directory = (Directory)this.TreeViewDirectories.SelectedItem;
+                //this.m_DirectoryCollection.AddNewDirectory(directory);
+                //this.NotifyPropertyChanged("DirectoryCollection");
+            }
+        }
+
+        public void NotifyPropertyChanged(String info)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
         }
     }
 }

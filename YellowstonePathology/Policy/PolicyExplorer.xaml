@@ -24,7 +24,19 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <TreeView Grid.Column="0" Grid.Row="0" Margin="2" ItemsSource="{Binding Path=DirectoryCollection}" BorderThickness="0"
-					  ItemTemplate="{StaticResource DataTemplateDirectory}" HorizontalAlignment="Stretch"/>
+        <TreeView Name="TreeViewDirectories"  Grid.Column="0" Grid.Row="0" Margin="2" ItemsSource="{Binding Path=DirectoryCollection}" BorderThickness="1" HorizontalAlignment="Stretch">
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate ItemsSource = "{Binding Path=Subdirectories}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Path=DirectoryName}"/>
+                    </StackPanel>
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+            <TreeView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Add Folder" Click="ContextMenuAddFolder_Click"></MenuItem>
+                </ContextMenu>
+            </TreeView.ContextMenu>
+        </TreeView>
     </Grid>
 </Window>
