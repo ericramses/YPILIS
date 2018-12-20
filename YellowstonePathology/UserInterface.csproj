@@ -1051,6 +1051,7 @@
     <Compile Include="Business\Test\CheckResultsActionEnum.cs" />
     <Compile Include="Business\Test\ChimerismStudyByDNAMarkers\ChimerismStudyByDNAMarkersTest.cs" />
     <Compile Include="Business\Test\DNMT3AMutationAnalysis\DNMT3AMutationAnalysisTest.cs" />
+    <Compile Include="Business\Test\EGFRAmplification\EGFRAmplificationTest.cs" />
     <Compile Include="Business\Test\EGFRMutationAnalysisPreliminary\EGFRMutationAnalysisPreliminaryTest.cs" />
     <Compile Include="Business\Test\EGFRToALKReflexAnalysis\EGFRToALKReflexAnalysisBRAFResult.cs" />
     <Compile Include="Business\Test\ExtractAndHoldForPreauthorization\ExtractAndHoldForPreauthorizationWordDocument.cs" />
