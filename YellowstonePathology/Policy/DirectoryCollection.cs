@@ -16,13 +16,22 @@ namespace YellowstonePathology.Policy
             return MakeTree(flatList);
         }
 
-        public void AddNewDirectory(Directory parentDirectory)
+        public void AddNewDirectory(Directory newDirectory)
         {
-            Directory newDirectory = new Directory();
-            newDirectory.IsNew = true;
-            newDirectory.ParentId = parentDirectory.DirectoryId;
-            newDirectory.DirectoryName = "New Directory";
-            parentDirectory.Subdirectories.Add(newDirectory);
+            if(newDirectory.ParentId == 0)
+            {
+                this.Add(newDirectory);
+            }
+            else
+            {
+                foreach (Directory directory in this)
+                {
+                    if (directory.DirectoryId == newDirectory.ParentId)
+                    {
+                        directory.Subdirectories.Add(newDirectory);
+                    }
+                }
+            }            
         }
 
         private static DirectoryCollection MakeTree(List<Directory> flatList)

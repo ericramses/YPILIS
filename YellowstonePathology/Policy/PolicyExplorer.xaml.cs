@@ -39,15 +39,12 @@ namespace YellowstonePathology.Policy
         {
             if(this.TreeViewDirectories.SelectedItem != null)
             {
+                Directory parentDirectory = (Directory)this.TreeViewDirectories.SelectedItem;
                 Directory newDirectory = new Directory();
                 newDirectory.IsNew = true;
-                newDirectory.ParentId = 0;
+                newDirectory.ParentId = parentDirectory.DirectoryId;
                 newDirectory.DirectoryName = "New Directory";
                 this.m_DirectoryCollection.AddNewDirectory(newDirectory);
-
-                //Directory directory = (Directory)this.TreeViewDirectories.SelectedItem;
-                //this.m_DirectoryCollection.AddNewDirectory(directory);
-                //this.NotifyPropertyChanged("DirectoryCollection");
             }
         }
 
