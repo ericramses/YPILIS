@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.ComponentModel;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Net.Http;
 
 namespace YellowstonePathology.Policy
 {
@@ -20,33 +23,30 @@ namespace YellowstonePathology.Policy
     /// </summary>
     public partial class PolicyExplorer : Window, INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-        private DirectoryCollection m_DirectoryCollection;
+        public event PropertyChangedEventHandler PropertyChanged;        
 
         public PolicyExplorer()
-        {
-            this.m_DirectoryCollection = DirectoryCollection.GetRoot();
+        {            
             InitializeComponent();
             this.DataContext = this;
-        }
-
-        public DirectoryCollection DirectoryCollection
-        {
-            get { return this.m_DirectoryCollection; }
-        }
+        }        
 
         private void ContextMenuAddFolder_Click(object sender, RoutedEventArgs e)
         {
-            if(this.TreeViewDirectories.SelectedItem != null)
-            {
-                Directory parentDirectory = (Directory)this.TreeViewDirectories.SelectedItem;
-                Directory newDirectory = new Directory();
-                newDirectory.IsNew = true;
-                newDirectory.ParentId = parentDirectory.DirectoryId;
-                newDirectory.DirectoryName = "New Directory";
-                this.m_DirectoryCollection.AddNewDirectory(newDirectory);
-            }
+            this.DoIt();            
         }
+        
+        private async void DoIt()
+        {
+            //string fileName = @"c:\testing\phoneprefix.txt";
+            //JObject result = await IPFS.AddAsync(fileName);
+            //Console.WriteLine(result["Hash"]);            
+
+            //JObject result = await IPFS.FilesLs("/policy_chain");
+            //await IPFS.FilesMkdir("/policy_chain/boat");   
+
+            Directory directory = await Directory.Build("/policy_chain");
+        }        
 
         public void NotifyPropertyChanged(String info)
         {

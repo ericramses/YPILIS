@@ -14,57 +14,8 @@ namespace YellowstonePathology.Policy
         {
             List<Directory> flatList = GetFlat("Select * from directory");
             return MakeTree(flatList);
-        }
-
-        public void AddNewDirectory(Directory newDirectory)
-        {
-            if(newDirectory.ParentId == 0)
-            {
-                this.Add(newDirectory);
-            }
-            else
-            {
-                foreach (Directory directory in this)
-                {
-                    if (directory.DirectoryId == newDirectory.ParentId)
-                    {
-                        directory.Subdirectories.Add(newDirectory);
-                    }
-                }
-            }            
-        }
-
-        private static DirectoryCollection MakeTree(List<Directory> flatList)
-        {
-            DirectoryCollection result = new DirectoryCollection();
-            foreach(Directory directory in flatList)
-            {
-                if(directory.ParentId == 0)
-                {
-                    result.Add(directory);
-                }
-                else
-                {
-                    Directory parent = FindParent(flatList, directory);
-                    parent.Subdirectories.Add(directory);
-                }
-            }
-            return result;
-        }                  
-        
-        private static Directory FindParent(List<Directory> flatList, Directory child)
-        {
-            Directory result = null;
-            foreach(Directory directory in flatList)
-            {
-                if(directory.DirectoryId == child.ParentId)
-                {
-                    result = directory;
-                    break;
-                }
-            }
-            return result;
-        }    
+        }                         
+               
 
         private static List<Directory> GetFlat(string sql)
         {

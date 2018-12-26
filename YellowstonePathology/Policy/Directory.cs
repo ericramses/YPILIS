@@ -3,63 +3,42 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MySql.Data.MySqlClient;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace YellowstonePathology.Policy
 {
     public class Directory
-    {
-        private int m_DirectoryId;
-        private string m_DirectoryName;
-        private int m_ParentId;
+    {        
+        private string m_DirectoryName;        
         private List<Directory> m_Subdirectories;
 
         private bool m_IsNew;
         private bool m_IsModified;
 
-        public Directory()
+        public Directory(string dirName)
         {
+            this.m_DirectoryName = dirName;
             this.m_Subdirectories = new List<Directory>();
+        }
+
+        public static async Task<Directory> Build(string rootDirName)
+        {
+            Directory root = new Directory(rootDirName);
+            JObject result = await IPFS.FilesLs(rootDirName);
+            return root;
         }
 
         public List<Directory> Subdirectories
         {
             get { return this.m_Subdirectories; }
-        }
-
-        public Directory(MySqlDataReader dr)
-        {
-            this.m_Subdirectories = new List<Directory>();
-            this.m_DirectoryId = dr.GetInt32("DirectoryId");
-            this.m_DirectoryName = dr.GetString("DirectoryName");
-            this.m_ParentId = dr.GetInt32("ParentId");
-        }
-
-        public Directory(int directoryId, string directoryName, int parentId)
-        {
-            this.m_Subdirectories = new List<Directory>();
-            this.m_DirectoryId = directoryId;
-            this.m_DirectoryName = directoryName;
-            this.m_ParentId = parentId;            
-       }
-
-        public int DirectoryId
-        {
-            get { return this.m_DirectoryId; }
-            set { this.m_DirectoryId = value; }
         }        
 
         public string DirectoryName
         {
             get { return this.m_DirectoryName; }
             set { this.m_DirectoryName = value; }
-        }        
-
-        public int ParentId
-        {
-            get { return this.m_ParentId; }
-            set { this.m_ParentId = value; }
-        }     
+        }                    
         
         public bool IsNew
         {
