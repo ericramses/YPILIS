@@ -14,6 +14,9 @@ namespace YellowstonePathology.Policy
         private int m_ParentId;
         private List<Directory> m_Subdirectories;
 
+        private bool m_IsNew;
+        private bool m_IsModified;
+
         public Directory()
         {
             this.m_Subdirectories = new List<Directory>();
@@ -56,6 +59,18 @@ namespace YellowstonePathology.Policy
         {
             get { return this.m_ParentId; }
             set { this.m_ParentId = value; }
-        }        
+        }     
+        
+        public bool IsNew
+        {
+            get { return this.m_IsNew; }
+            set { this.m_IsNew = value; }
+        }
+
+        public bool IsModified
+        {
+            get { return this.m_IsModified; }
+            set { this.m_IsModified = value; }
+        }
     }
 }
