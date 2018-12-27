@@ -19,6 +19,7 @@ namespace YellowstonePathology.Business.Test
         protected static string UnableToAccept = "This case cannot be accepted because the results have not been set.";
         protected static string UnableToFinal = "This case cannot be finalized because the results have not been set.";
         protected static string UnableToSetPreviousResults = "The previous results may not be set because results have already been accepted.";
+        protected static string NotPerformedResult = "Not Performed";
 
         protected PanelOrderCollection m_PanelOrderCollection;
         protected YellowstonePathology.Business.Amendment.Model.AmendmentCollection m_AmendmentCollection;

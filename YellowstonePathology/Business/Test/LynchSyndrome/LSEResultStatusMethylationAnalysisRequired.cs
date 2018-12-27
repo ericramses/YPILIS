@@ -15,7 +15,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             result1.MSH2Result = LSEResultEnum.Intact;
             result1.MSH6Result = LSEResultEnum.Intact;
             result1.PMS2Result = LSEResultEnum.Loss;
-            result1.BrafResult = LSEResultEnum.Negative;
+            result1.BrafResult = LSEResultEnum.NotDetected;
             this.m_LSEResultList.Add(result1);
 
             LSEResult result2 = new LSEResult();
@@ -23,7 +23,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             result2.MSH2Result = LSEResultEnum.Intact;
             result2.MSH6Result = LSEResultEnum.Intact;
             result2.MSH6Result = LSEResultEnum.Intact;
-            result2.BrafResult = LSEResultEnum.Negative;
+            result2.BrafResult = LSEResultEnum.NotDetected;
             this.m_LSEResultList.Add(result2);            
 
             if (this.IsMatch() == true)
