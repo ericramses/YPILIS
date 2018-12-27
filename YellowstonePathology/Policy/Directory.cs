@@ -3,42 +3,42 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+
 
 namespace YellowstonePathology.Policy
 {
     public class Directory
     {        
-        private string m_DirectoryName;        
+        private string m_Name;
+        private string m_Path;        
         private List<Directory> m_Subdirectories;
 
         private bool m_IsNew;
         private bool m_IsModified;
 
-        public Directory(string dirName)
+        public Directory(string dirName, string path)
         {
-            this.m_DirectoryName = dirName;
+            this.m_Name = dirName;
+            this.m_Path = path;
             this.m_Subdirectories = new List<Directory>();
-        }
-
-        public static async Task<Directory> Build(string rootDirName)
-        {
-            Directory root = new Directory(rootDirName);
-            JObject result = await IPFS.FilesLs(rootDirName);
-            return root;
-        }
+        }        
 
         public List<Directory> Subdirectories
         {
             get { return this.m_Subdirectories; }
         }        
 
-        public string DirectoryName
+        public string Name
         {
-            get { return this.m_DirectoryName; }
-            set { this.m_DirectoryName = value; }
-        }                    
+            get { return this.m_Name; }
+            set { this.m_Name = value; }
+        }    
+        
+        public string Path
+        {
+            get { return this.m_Path; }
+            set { this.m_Path = value; }
+        }                
         
         public bool IsNew
         {

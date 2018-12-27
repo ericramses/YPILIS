@@ -5,38 +5,43 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using MySql.Data.MySqlClient;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace YellowstonePathology.Policy
 {
     public class DirectoryCollection : ObservableCollection<Directory>
     {
-        public static DirectoryCollection GetRoot()
-        {
-            List<Directory> flatList = GetFlat("Select * from directory");
-            return MakeTree(flatList);
-        }                         
-               
-
-        private static List<Directory> GetFlat(string sql)
-        {
-            List<Directory> result = new List<Directory>();
-            MySqlCommand cmd = new MySqlCommand(sql);
-            cmd.CommandType = System.Data.CommandType.Text;
-
-            using (MySqlConnection cn = new MySqlConnection("Server = 10.1.2.26; Uid = sqldude; Pwd = 123Whatsup; Database = policy; Pooling = True;"))
+        public static async Task<DirectoryCollection> Build()
+        {            
+            DirectoryCollection directoryCollection = new DirectoryCollection();
+            JObject result = await IPFS.FilesLs("/");
+            JArray entries = (JArray)result["Entries"];
+            foreach (JObject jObject in entries)
             {
-                cn.Open();
-                cmd.Connection = cn;
-                using (MySqlDataReader dr = cmd.ExecuteReader())
-                {
-                    while (dr.Read())
-                    {
-                        result.Add(new Directory(dr));
-                    }
-                }
+                string subDirectoryName = jObject["Name"].ToString();
+                Directory subDirectory = new Directory(subDirectoryName, "/" + subDirectoryName);
+                directoryCollection.Add(subDirectory);
+                await AddChildrenRecursive(subDirectory);
             }
+            return directoryCollection;
+        }
 
-            return result;
+        private static async Task AddChildrenRecursive(Directory parentDirectory)
+        {
+            JObject result = await IPFS.FilesLs(parentDirectory.Path);
+            JToken value = result["Entries"];
+            if(value.Type != JTokenType.Null)
+            {
+                JArray entries = (JArray)result["Entries"];                
+                foreach (JObject jObject in entries)
+                {
+                    string subDirectoryName = jObject["Name"].ToString();
+                    Directory subDirectory = new Directory(subDirectoryName, parentDirectory.Path + "/" + subDirectoryName);
+                    parentDirectory.Subdirectories.Add(subDirectory);
+                    await AddChildrenRecursive(subDirectory);
+                }                
+            }            
         }
     }
 }
