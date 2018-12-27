@@ -98,10 +98,11 @@ namespace YellowstonePathology.UI.Test
             }
             else if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.Warning)
             {
-                MessageBoxResult messageBoxResult = MessageBox.Show(auditResult.Message, "Results do not match the component report results",
+                MessageBoxResult messageBoxResult = MessageBox.Show(auditResult.Message, "Missing Results set to Not Performed",
                     MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
                 if (messageBoxResult == MessageBoxResult.Yes)
                 {
+                    this.m_PanelSetOrder.SetMissingTestResults();
                     okToFinal = true;
                 }
             }
@@ -143,10 +144,11 @@ namespace YellowstonePathology.UI.Test
             }
             else if (result.Status == Business.Audit.Model.AuditStatusEnum.Warning)
             {
-                MessageBoxResult messageBoxResult = MessageBox.Show(result.Message, "Results do not match the component report results",
+                MessageBoxResult messageBoxResult = MessageBox.Show(result.Message, "Missing Results set to Not Performed",
                     MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
                 if (messageBoxResult == MessageBoxResult.Yes)
                 {
+                    this.m_PanelSetOrder.SetMissingTestResults();
                     this.m_PanelSetOrder.Accept();
                 }
             }

@@ -155,22 +155,6 @@ namespace YellowstonePathology.Business.Test.CalreticulinMutationAnalysis
             base.ClearPreviousResults();
         }
 
-        public override Audit.Model.AuditResult IsOkToSetPreviousResults(PanelSetOrder panelSetOrder, AccessionOrder accessionOrder)
-        {
-            Audit.Model.AuditResult result = base.IsOkToSetPreviousResults(panelSetOrder, accessionOrder);
-            if (result.Status == Audit.Model.AuditStatusEnum.OK)
-            {
-                CalreticulinMutationAnalysisTestOrder calreticulinMutationAnalysisTestOrder = (CalreticulinMutationAnalysisTestOrder)panelSetOrder;
-                this.DoesFinalSummaryResultMatch(accessionOrder, calreticulinMutationAnalysisTestOrder.Result, result);
-                if (result.Status == Audit.Model.AuditStatusEnum.Warning)
-                {
-                    result.Message += AskSetPreviousResults;
-                }
-            }
-
-            return result;
-        }
-
         public override Audit.Model.AuditResult IsOkToAccept(AccessionOrder accessionOrder)
         {
             Audit.Model.AuditResult result = base.IsOkToAccept(accessionOrder);
@@ -180,14 +164,6 @@ namespace YellowstonePathology.Business.Test.CalreticulinMutationAnalysis
                 {
                     result.Status = Audit.Model.AuditStatusEnum.Failure;
                     result.Message = UnableToAccept;
-                }
-                else
-                {
-                    this.DoesFinalSummaryResultMatch(accessionOrder, this.m_Result, result);
-                    if (result.Status == Audit.Model.AuditStatusEnum.Warning)
-                    {
-                        result.Message += AskAccept;
-                    }
                 }
             }
 
@@ -204,27 +180,8 @@ namespace YellowstonePathology.Business.Test.CalreticulinMutationAnalysis
                     result.Status = Audit.Model.AuditStatusEnum.Failure;
                     result.Message = UnableToFinal;
                 }
-                else
-                {
-                    this.DoesFinalSummaryResultMatch(accessionOrder, this.m_Result, result);
-                    if (result.Status == Audit.Model.AuditStatusEnum.Warning)
-                    {
-                        result.Message += AskFinal;
-                    }
-                }
             }
             return result;
-        }
-
-        private void DoesFinalSummaryResultMatch(AccessionOrder accessionOrder, string result, Audit.Model.AuditResult auditResult)
-        {
-            YellowstonePathology.Business.Test.MPNExtendedReflex.MPNExtendedReflexTest mpnExtendedReflexTest = new YellowstonePathology.Business.Test.MPNExtendedReflex.MPNExtendedReflexTest();
-
-            if (accessionOrder.PanelSetOrderCollection.Exists(mpnExtendedReflexTest.PanelSetId) == true)
-            {
-                MPNExtendedReflex.PanelSetOrderMPNExtendedReflex panelSetOrderMPNExtendedReflex = (MPNExtendedReflex.PanelSetOrderMPNExtendedReflex)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(mpnExtendedReflexTest.PanelSetId);
-                panelSetOrderMPNExtendedReflex.DoesCalreticulinMutationAnalysisResultMatch(result, auditResult);
-            }
         }
     }
 }

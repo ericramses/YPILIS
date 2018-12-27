@@ -137,10 +137,6 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
                         {
                             brafResultIsEqual = (lSEResult.BrafResult == evalResult.BrafResult);
                         }
-                        else
-                        {
-                            brafResultIsEqual = true;
-                        }
 
                         bool methResultIsEqual = false;
                         if (lSEResult.MethResult == LSEResultEnum.NotApplicable)
