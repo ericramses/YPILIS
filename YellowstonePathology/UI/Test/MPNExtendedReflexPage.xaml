@@ -40,21 +40,7 @@
 				<RowDefinition Height="Auto"></RowDefinition>
 			</Grid.RowDefinitions>
 
-            <TextBlock Grid.Column="0" Grid.Row="0" Margin="0,5,0,0" FontWeight="Bold" FontSize="16">Order</TextBlock>
-
-            <TextBlock Grid.Column="0" Grid.Row="1" Margin="5,3,0,0">
-                <Hyperlink Click="HyperLinkOrderJak2Exon1214_Click" FontSize="14">JAK2 Exon 12-14</Hyperlink>
-            </TextBlock>
-
-            <TextBlock Grid.Column="0" Grid.Row="2" Margin="5,3,0,0">
-                <Hyperlink Click="HyperLinkOrderCalreticulinMutationAnalysis_Click" FontSize="14">Calreticulin Mutation Analysis</Hyperlink>
-            </TextBlock>
-
-            <TextBlock Grid.Column="0" Grid.Row="3" Margin="5,3,0,0">
-                <Hyperlink Click="HyperLinkOrderMPL_Click" FontSize="14">MPL</Hyperlink>
-            </TextBlock>
-
-            <TextBlock Grid.Column="0" Grid.Row="4" Margin="0,20,0,0" FontWeight="Bold" FontSize="16">Options</TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="4" Margin="0,5,0,0" FontWeight="Bold" FontSize="16">Options</TextBlock>
 
             <TextBlock Name="TextBlockPreviousResults" Grid.Column="0" Grid.Row="5" Margin="5,3,0,5">
 					<Hyperlink Click="HyperLinkPreviousResults_Click" FontSize="14">Previous Results</Hyperlink>
