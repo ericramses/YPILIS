@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.Test.MPNExtendedReflex
         public override void Render()
 		{
             PanelSetOrderMPNExtendedReflex panelSetOrderMPNExtendedReflex = (PanelSetOrderMPNExtendedReflex)this.m_PanelSetOrder;
-            this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\MPNExtendedReflex.2.xml";
+            this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\MPNExtendedReflex.3.xml";
 			base.OpenTemplate();
 
 			this.SetDemographicsV2();
@@ -66,7 +66,23 @@ namespace YellowstonePathology.Business.Test.MPNExtendedReflex
                 this.DeleteRow("mpl_result");
             }
 
-            this.ReplaceText("report_comment", panelSetOrderMPNExtendedReflex.Comment);
+            if (string.IsNullOrEmpty(panelSetOrderMPNExtendedReflex.JAK2Mutation) == false)
+            {
+                this.ReplaceText("jak2_mutation", panelSetOrderMPNExtendedReflex.JAK2Mutation);
+            }
+            else
+            {
+                this.DeleteRow("jak2_mutation");
+            }
+
+            if (string.IsNullOrEmpty(panelSetOrderMPNExtendedReflex.Comment) == false)
+            {
+                this.ReplaceText("report_comment", panelSetOrderMPNExtendedReflex.Comment);
+            }
+            else
+            {
+                this.DeleteRow("report_comment");
+            }
 
             YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);
             base.ReplaceText("specimen_description", specimenOrder.Description);
