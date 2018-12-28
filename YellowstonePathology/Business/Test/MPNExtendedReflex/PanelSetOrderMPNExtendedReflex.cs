@@ -16,6 +16,7 @@ namespace YellowstonePathology.Business.Test.MPNExtendedReflex
         private string m_CalreticulinMutationAnalysisResult;
         private string m_JAK2Exon1214Result;
         private string m_MPLResult;
+        private string m_JAK2Mutation;
 
         public PanelSetOrderMPNExtendedReflex()
 		{
@@ -128,6 +129,20 @@ namespace YellowstonePathology.Business.Test.MPNExtendedReflex
                 {
                     this.m_MPLResult = value;
                     this.NotifyPropertyChanged("MPLResult");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string JAK2Mutation
+        {
+            get { return this.m_JAK2Mutation; }
+            set
+            {
+                if (this.m_JAK2Mutation != value)
+                {
+                    this.m_JAK2Mutation = value;
+                    this.NotifyPropertyChanged("JAK2Mutation");
                 }
             }
         }
