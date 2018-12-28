@@ -50,6 +50,16 @@ namespace YellowstonePathology.Policy
             }
         }
 
+        private void ButtonDoIt_Click(object sender, RoutedEventArgs e)
+        {
+            this.PubSubPub();
+        }
+
+        private async void PubSubPub()
+        {
+            await IPFS.PubSubPub("cow", "jumped");
+        }
+
         private void AddDirectoryDialog_Finished(object sender, EventArgs e)
         {
             this.NotifyPropertyChanged("Directories");
@@ -84,6 +94,6 @@ namespace YellowstonePathology.Policy
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
-        }
+        }        
     }
 }

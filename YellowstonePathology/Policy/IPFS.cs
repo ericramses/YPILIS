@@ -14,7 +14,19 @@ namespace YellowstonePathology.Policy
 {
     public class IPFS
     {
-        private static string IPFSRootURL = "http://10.1.2.27:5001/api/v0";              
+        private static string IPFSRootURL = "http://10.1.2.27:5001/api/v0";   
+        
+        public static async Task PubSubPub(string topic, string payload)
+        {
+            string url = IPFSRootURL + "/pubsub/pub?arg=" + topic + "&arg=" + payload;
+            using (var httpClient = new HttpClient())
+            {
+                using (var request = new HttpRequestMessage(new HttpMethod("GET"), url))
+                {
+                    var response = await httpClient.SendAsync(request);                    
+                }
+            }
+        }           
 
         public static async Task<JObject> AddAsync(string fileName)
         {            
