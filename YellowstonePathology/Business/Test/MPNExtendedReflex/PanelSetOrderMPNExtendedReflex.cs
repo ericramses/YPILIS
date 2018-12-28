@@ -31,17 +31,6 @@ namespace YellowstonePathology.Business.Test.MPNExtendedReflex
 
 		}
 
-		public override void OrderInitialTests(AccessionOrder accessionOrder, YellowstonePathology.Business.Interface.IOrderTarget orderTarget)
-		{
-			YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FTest panelSetJAK2V617F = new YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FTest();
-            if (accessionOrder.PanelSetOrderCollection.Exists(panelSetJAK2V617F.PanelSetId) == false)
-			{
-                YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new TestOrderInfo(panelSetJAK2V617F, orderTarget, false);                
-                YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Visitor.OrderTestOrderVisitor(testOrderInfo);
-                accessionOrder.TakeATrip(orderTestOrderVisitor);
-			}
-        }
-
 		[PersistentProperty()]
 		[PersistentDataColumnProperty(true, "500", "null", "varchar")]
 		public string Comment
@@ -199,22 +188,12 @@ namespace YellowstonePathology.Business.Test.MPNExtendedReflex
             base.ClearPreviousResults();
         }
 
-        public override Audit.Model.AuditResult IsOkToSetPreviousResults(PanelSetOrder panelSetOrder, AccessionOrder accessionOrder)
-        {
-            Audit.Model.AuditResult result = base.IsOkToSetPreviousResults(panelSetOrder, accessionOrder);
-            return result;
-        }
-
         public override Audit.Model.AuditResult IsOkToAccept(AccessionOrder accessionOrder)
         {
             Audit.Model.AuditResult result = base.IsOkToAccept(accessionOrder);
             if (result.Status == Audit.Model.AuditStatusEnum.OK)
             {
                 this.AreTestResultsPresent(accessionOrder, result);
-                if (result.Status == Audit.Model.AuditStatusEnum.Warning)
-                {
-                    result.Message += Environment.NewLine + "Missing result/s will be set to 'Not Performed'on Yes.";
-                }
             }
 
             return result;
@@ -226,10 +205,6 @@ namespace YellowstonePathology.Business.Test.MPNExtendedReflex
             if (result.Status == Audit.Model.AuditStatusEnum.OK)
             {
                 this.AreTestResultsPresent(accessionOrder, result);
-                if (result.Status == Audit.Model.AuditStatusEnum.Warning)
-                {
-                    result.Message += Environment.NewLine + "Missing result/s will be set to 'Not Performed'on Yes.";
-                }
             }
             return result;
         }
@@ -238,49 +213,26 @@ namespace YellowstonePathology.Business.Test.MPNExtendedReflex
         {
             if(string.IsNullOrEmpty(this.m_JAK2V617FResult) == true)
             {
-                result.Status = Audit.Model.AuditStatusEnum.Warning;
+                result.Status = Audit.Model.AuditStatusEnum.Failure;
                 result.Message += NotFilledMessage("JAK2V617FResult");
             }
 
             if (string.IsNullOrEmpty(this.m_JAK2Exon1214Result) == true)
             {
-                result.Status = Audit.Model.AuditStatusEnum.Warning;
+                result.Status = Audit.Model.AuditStatusEnum.Failure;
                 result.Message += NotFilledMessage("JAK2Exon1214Result");
             }
 
             if (string.IsNullOrEmpty(this.m_MPLResult) == true)
             {
-                result.Status = Audit.Model.AuditStatusEnum.Warning;
+                result.Status = Audit.Model.AuditStatusEnum.Failure;
                 result.Message += NotFilledMessage("MPLResult");
             }
 
             if (string.IsNullOrEmpty(this.m_CalreticulinMutationAnalysisResult) == true)
             {
-                result.Status = Audit.Model.AuditStatusEnum.Warning;
+                result.Status = Audit.Model.AuditStatusEnum.Failure;
                 result.Message += NotFilledMessage("CalreticulinMutationAnalysisResult");
-            }
-        }
-
-        public void SetMissingTestResults()
-        {
-            if (string.IsNullOrEmpty(this.m_JAK2V617FResult) == true)
-            {
-                this.m_JAK2V617FResult = NotPerformedResult;
-            }
-
-            if (string.IsNullOrEmpty(this.m_JAK2Exon1214Result) == true)
-            {
-                this.m_JAK2Exon1214Result = NotPerformedResult;
-            }
-
-            if (string.IsNullOrEmpty(this.m_MPLResult) == true)
-            {
-                this.m_MPLResult = NotPerformedResult;
-            }
-
-            if (string.IsNullOrEmpty(this.m_CalreticulinMutationAnalysisResult) == true)
-            {
-                this.m_CalreticulinMutationAnalysisResult = NotPerformedResult;
             }
         }
     }

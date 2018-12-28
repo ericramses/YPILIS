@@ -29,7 +29,6 @@ namespace YellowstonePathology.UI.Test
 			this.m_MPNExtendedReflexPage = new MPNExtendedReflexPage(this.m_PanelSetOrderMPNExtendedReflex, this.m_AccessionOrder, this.m_SystemIdentity);
 			this.m_MPNExtendedReflexPage.Back += new MPNExtendedReflexPage.BackEventHandler(MPNExtendedReflexPage_Back);
 			this.m_MPNExtendedReflexPage.Finish += new MPNExtendedReflexPage.FinishEventHandler(MPNExtendedReflexPage_Finish);
-            this.m_MPNExtendedReflexPage.OrderTest += MPNExtendedReflexPage_OrderTest;
 			this.m_PageNavigator.Navigate(this.m_MPNExtendedReflexPage);
         }
 
@@ -43,17 +42,5 @@ namespace YellowstonePathology.UI.Test
         {
             this.Finished();
         }
-
-        private void MPNExtendedReflexPage_OrderTest(object sender, CustomEventArgs.TestOrderInfoEventArgs eventArgs)
-        {
-            YellowstonePathology.UI.Login.Receiving.ReportOrderPath reportOrderPath = new Login.Receiving.ReportOrderPath(this.m_AccessionOrder, this.m_PageNavigator, PageNavigationModeEnum.Inline, this.m_Window);
-            reportOrderPath.Finish += new Login.Receiving.ReportOrderPath.FinishEventHandler(ReportOrderPath_Finish);
-            reportOrderPath.Start(eventArgs.TestOrderInfo);
-        }
-
-        private void ReportOrderPath_Finish(object sender, EventArgs e)
-		{
-			this.m_PageNavigator.Navigate(this.m_MPNExtendedReflexPage);
-		}
 	}
 }

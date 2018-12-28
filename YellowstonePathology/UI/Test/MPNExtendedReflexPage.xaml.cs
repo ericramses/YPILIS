@@ -29,9 +29,6 @@ namespace YellowstonePathology.UI.Test
 		public delegate void BackEventHandler(object sender, EventArgs e);
 		public event BackEventHandler Back;
 
-        public delegate void OrderTestEventHandler(object sender, YellowstonePathology.UI.CustomEventArgs.TestOrderInfoEventArgs eventArgs);
-        public event OrderTestEventHandler OrderTest;
-
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private YellowstonePathology.Business.Test.MPNExtendedReflex.PanelSetOrderMPNExtendedReflex m_PanelSetOrder;
@@ -90,28 +87,8 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkFinalizeResults_Click(object sender, RoutedEventArgs e)
 		{
-            bool okToFinal = false;
             Business.Audit.Model.AuditResult auditResult = this.m_PanelSetOrder.IsOkToFinalize(this.m_AccessionOrder);
             if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.OK)
-            {
-                okToFinal = true;
-            }
-            else if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.Warning)
-            {
-                MessageBoxResult messageBoxResult = MessageBox.Show(auditResult.Message, "Missing Results set to Not Performed",
-                    MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
-                if (messageBoxResult == MessageBoxResult.Yes)
-                {
-                    this.m_PanelSetOrder.SetMissingTestResults();
-                    okToFinal = true;
-                }
-            }
-            else
-            {
-                MessageBox.Show(auditResult.Message, "Unable to final");
-            }
-
-            if (okToFinal == true)
             {
                 YellowstonePathology.Business.Test.FinalizeTestResult finalizeTestResult = this.m_PanelSetOrder.Finish(this.m_AccessionOrder);
                 this.HandleFinalizeTestResult(finalizeTestResult);
@@ -119,6 +96,10 @@ namespace YellowstonePathology.UI.Test
                 {
                     this.m_PanelSetOrder.Accept();
                 }
+            }
+            else
+            {
+                MessageBox.Show(auditResult.Message, "Unable to final");
             }
 		}
 
@@ -141,16 +122,6 @@ namespace YellowstonePathology.UI.Test
             if (result.Status == Business.Audit.Model.AuditStatusEnum.OK)
             {
                 this.m_PanelSetOrder.Accept();
-            }
-            else if (result.Status == Business.Audit.Model.AuditStatusEnum.Warning)
-            {
-                MessageBoxResult messageBoxResult = MessageBox.Show(result.Message, "Missing Results set to Not Performed",
-                    MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
-                if (messageBoxResult == MessageBoxResult.Yes)
-                {
-                    this.m_PanelSetOrder.SetMissingTestResults();
-                    this.m_PanelSetOrder.Accept();
-                }
             }
             else
             {
@@ -193,51 +164,6 @@ namespace YellowstonePathology.UI.Test
         {
             UI.Test.PreviousResultDialog dlg = new UI.Test.PreviousResultDialog(this.m_PanelSetOrder, this.m_AccessionOrder);
             dlg.ShowDialog();
-        }
-
-        private void HyperLinkOrderJak2Exon1214_Click(object sender, RoutedEventArgs e)
-        {
-            YellowstonePathology.Business.Test.JAK2Exon1214.JAK2Exon1214Test panelSet = new YellowstonePathology.Business.Test.JAK2Exon1214.JAK2Exon1214Test();
-            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(panelSet.PanelSetId) == false)
-            {
-                YellowstonePathology.Business.Interface.IOrderTarget orderTarget = this.m_AccessionOrder.SpecimenOrderCollection.GetOrderTarget(this.m_PanelSetOrder.OrderedOnId);
-                YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new YellowstonePathology.Business.Test.TestOrderInfo(panelSet, orderTarget, false);
-                this.OrderTest(this, new CustomEventArgs.TestOrderInfoEventArgs(testOrderInfo));
-            }
-            else
-            {
-                MessageBox.Show("Jak2 Exon 12-14 has already been ordered.", "Order exists");
-            }
-        }
-
-        private void HyperLinkOrderCalreticulinMutationAnalysis_Click(object sender, RoutedEventArgs e)
-        {
-            YellowstonePathology.Business.Test.CalreticulinMutationAnalysis.CalreticulinMutationAnalysisTest panelSet = new YellowstonePathology.Business.Test.CalreticulinMutationAnalysis.CalreticulinMutationAnalysisTest();
-            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(panelSet.PanelSetId) == false)
-            {
-                YellowstonePathology.Business.Interface.IOrderTarget orderTarget = this.m_AccessionOrder.SpecimenOrderCollection.GetOrderTarget(this.m_PanelSetOrder.OrderedOnId);
-                YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new YellowstonePathology.Business.Test.TestOrderInfo(panelSet, orderTarget, false);
-                this.OrderTest(this, new CustomEventArgs.TestOrderInfoEventArgs(testOrderInfo));
-            }
-            else
-            {
-                MessageBox.Show("Calreticulin MutationAnalysis has already been ordered.", "Order exists");
-            }
-        }
-
-        private void HyperLinkOrderMPL_Click(object sender, RoutedEventArgs e)
-        {
-            YellowstonePathology.Business.Test.MPL.MPLTest panelSet = new YellowstonePathology.Business.Test.MPL.MPLTest();
-            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(panelSet.PanelSetId) == false)
-            {
-                YellowstonePathology.Business.Interface.IOrderTarget orderTarget = this.m_AccessionOrder.SpecimenOrderCollection.GetOrderTarget(this.m_PanelSetOrder.OrderedOnId);
-                YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new YellowstonePathology.Business.Test.TestOrderInfo(panelSet, orderTarget, false);
-                this.OrderTest(this, new CustomEventArgs.TestOrderInfoEventArgs(testOrderInfo));
-            }
-            else
-            {
-                MessageBox.Show("MPL has already been ordered.", "Order exists");
-            }
         }
     }
 }
