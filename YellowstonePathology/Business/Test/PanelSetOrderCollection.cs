@@ -195,8 +195,9 @@ namespace YellowstonePathology.Business.Test
                     }
                 }
 
-                string reflexInstruction2 = "Test->Pap Test with High Risk HPV DNA reflex testing if diagnosis is ASCUS";
-                if (accessionOrder.SpecialInstructions.Contains(reflexInstruction2) == true)
+                string reflexInstruction21 = "Test->Pap Test with High Risk HPV DNA reflex testing if diagnosis is ASCUS";
+                string reflexInstruction22 = "Test->Pap Test with High Risk HPV reflex testing if diagnosis is ASCUS";
+                if (accessionOrder.SpecialInstructions.Contains(reflexInstruction21) == true || accessionOrder.SpecialInstructions.Contains(reflexInstruction22) == true)
                 {
                     YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder womensHealthProfileTestOrder = null;
                     if (this.HasWomensHealthProfileOrder() == false)
