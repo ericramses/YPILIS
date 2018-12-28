@@ -30,36 +30,7 @@ namespace YellowstonePathology.UI.Test
 
 		private void CalreticulinMutationAnalysisResultPage_Next(object sender, EventArgs e)
         {
-            if (this.ShowReflexTestPage() == false)
-            {
-				this.Finished();
-			}
+			this.Finished();
         }        
-
-        private bool ShowReflexTestPage()
-        {
-            bool result = false;
-            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(137) == true)
-            {
-                result = true;
-				YellowstonePathology.Business.Test.MPNExtendedReflex.MPNExtendedReflexTest panelSetMPNExtendedReflex = new YellowstonePathology.Business.Test.MPNExtendedReflex.MPNExtendedReflexTest();
-				YellowstonePathology.Business.Test.MPNExtendedReflex.PanelSetOrderMPNExtendedReflex panelSetOrderMPNExtendedReflex = (YellowstonePathology.Business.Test.MPNExtendedReflex.PanelSetOrderMPNExtendedReflex)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetMPNExtendedReflex.PanelSetId);
-				Test.MPNExtendedReflexPath MPNExtendedReflexPath = new Test.MPNExtendedReflexPath(panelSetOrderMPNExtendedReflex.ReportNo, this.m_AccessionOrder, this.m_PageNavigator, this.m_Window);
-				MPNExtendedReflexPath.Finish += new Test.MPNExtendedReflexPath.FinishEventHandler(MPNExtendedReflexPath_Finish);
-				MPNExtendedReflexPath.Back += new MPNExtendedReflexPath.BackEventHandler(MPNExtendedReflexPath_Back);
-				MPNExtendedReflexPath.Start();
-			}
-            return result;
-        }
-
-		private void MPNExtendedReflexPath_Back(object sender, EventArgs e)
-        {
-            this.ShowResultPage();
-        }
-
-		private void MPNExtendedReflexPath_Finish(object sender, EventArgs e)
-        {
-            base.Finished();
-		}
 	}
 }
