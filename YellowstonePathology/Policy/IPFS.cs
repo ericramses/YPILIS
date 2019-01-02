@@ -26,7 +26,20 @@ namespace YellowstonePathology.Policy
                     var response = await httpClient.SendAsync(request);                    
                 }
             }
-        }           
+        }
+
+        public static async Task PubSubSub(string topic)
+        {
+            string url = IPFSRootURL + "/pubsub/sub?arg=" + topic;
+            using (var httpClient = new HttpClient())
+            {
+                using (var request = new HttpRequestMessage(new HttpMethod("GET"), url))
+                {
+                    var response = await httpClient.SendAsync(request);
+                    Console.WriteLine("done");                    
+                }
+            }
+        }
 
         public static async Task<JObject> AddAsync(string fileName)
         {            

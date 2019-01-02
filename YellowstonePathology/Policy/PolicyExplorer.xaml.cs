@@ -57,7 +57,8 @@ namespace YellowstonePathology.Policy
 
         private async void PubSubPub()
         {
-            await IPFS.PubSubPub("cow", "jumped");
+            //await IPFS.PubSubPub("cow", "jumped");
+            await IPFS.PubSubSub("cow");
         }
 
         private void AddDirectoryDialog_Finished(object sender, EventArgs e)
