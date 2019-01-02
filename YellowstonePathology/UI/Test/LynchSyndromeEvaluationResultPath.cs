@@ -36,7 +36,20 @@ namespace YellowstonePathology.UI.Test
 			this.m_LynchSyndromeEvaluationResultPage.OrderBraf += new LynchSyndromeEvaluationResultPage.OrderBrafEventHandler(LynchSyndromeEvaluationResultPage_OrderBraf);
 			this.m_LynchSyndromeEvaluationResultPage.OrderMLH1MethylationAnalysis += new LynchSyndromeEvaluationResultPage.OrderMLH1MethylationAnalysisEventHandler(LynchSyndromeEvaluationResultPage_OrderMLH1MethylationAnalysis);
             this.m_LynchSyndromeEvaluationResultPage.OrderColonCancerProfile += new LynchSyndromeEvaluationResultPage.OrderColonCancerProfileEventHandler(LynchSyndromeEvaluationResultPage_OrderColonCancerProfile);
+            this.m_LynchSyndromeEvaluationResultPage.Matrix += LynchSyndromeEvaluationResultPage_Matrix;
 			this.m_PageNavigator.Navigate(this.m_LynchSyndromeEvaluationResultPage);
+        }
+
+        private void LynchSyndromeEvaluationResultPage_Matrix(object sender, EventArgs e)
+        {
+            LynchSyndromeEvaluationMatrixPage lynchSyndromeEvaluationMatrixPage = new LynchSyndromeEvaluationMatrixPage(this.m_PanelSetOrderLynchSyndromeEvaluation, this.m_AccessionOrder, this.m_SystemIdentity);
+            lynchSyndromeEvaluationMatrixPage.Next += LynchSyndromeEvaluationMatrixPage_Next;
+            this.m_PageNavigator.Navigate(lynchSyndromeEvaluationMatrixPage);
+        }
+
+        private void LynchSyndromeEvaluationMatrixPage_Next(object sender, EventArgs e)
+        {
+            this.ShowResultPage();
         }
 
         private void LynchSyndromeEvaluationResultPage_OrderColonCancerProfile(object sender, EventArgs e)
@@ -54,7 +67,7 @@ namespace YellowstonePathology.UI.Test
 		{
             YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTest brafTest = new YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTest();
             this.StartReportOrderPath(brafTest);
-			this.m_PanelSetOrderLynchSyndromeEvaluation.BRAFIsIndicated = true;            
+			//this.m_PanelSetOrderLynchSyndromeEvaluation.ReflexToBRAFMeth = true;            
 		}
 
 		private void LynchSyndromeEvaluationResultPage_OrderMLH1MethylationAnalysis(object sender, EventArgs e)

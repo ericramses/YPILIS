@@ -27,8 +27,8 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             this.SetAmendments(this.m_PanelSetOrder.AmendmentCollection);
             
             YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation = (YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation)this.m_PanelSetOrder;
-            base.ReplaceText("report_interpretation", panelSetOrderLynchSyndromeEvaluation.Interpretation);
-            base.ReplaceText("report_comment", panelSetOrderLynchSyndromeEvaluation.Comment);
+            base.ReplaceText("report_result", panelSetOrderLynchSyndromeEvaluation.Result);
+            base.ReplaceText("report_interpretation", panelSetOrderLynchSyndromeEvaluation.Interpretation);            
             
             YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(panelSetOrderLynchSyndromeEvaluation.OrderedOn, panelSetOrderLynchSyndromeEvaluation.OrderedOnId);
             this.ReplaceText("specimen_description", specimenOrder.Description);
@@ -45,7 +45,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
                 base.ReplaceText("pms2_result", panelSetOrderLynchSyndromeIHC.PMS2Result);
             }
 
-            if (panelSetOrderLynchSyndromeEvaluation.BRAFIsIndicated == true)
+            if (panelSetOrderLynchSyndromeEvaluation.ReflexToBRAFMeth == true)
             {
                 molecularTestCount += 1;
                 YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTest brafMutationAnlaysis = new BRAFMutationAnalysis.BRAFMutationAnalysisTest();

@@ -21,12 +21,12 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             this.AddHeader(document, panelSetOrderLynchSyndromeEvaluation, "Mismatch Repair (MMR)/Lynch Syndrome Evaluation");
             this.AddNextObxElement("", document, "F");
 
-            this.AddNextObxElement("Interpretation:", document, "F");
-            this.HandleLongString(panelSetOrderLynchSyndromeEvaluation.Interpretation, document, "F");
+            this.AddNextObxElement("Result:", document, "F");
+            this.HandleLongString(panelSetOrderLynchSyndromeEvaluation.Result, document, "F");
             this.AddNextObxElement("", document, "F");
 
-            this.HandleLongString("Comment:", document, "F");
-            this.AddNextObxElement(panelSetOrderLynchSyndromeEvaluation.Comment, document, "F");
+            this.HandleLongString("Interpretation:", document, "F");
+            this.AddNextObxElement(panelSetOrderLynchSyndromeEvaluation.Interpretation, document, "F");
             this.AddNextObxElement("", document, "F");
 
             this.AddNextObxElement("Pathologist: " + panelSetOrderLynchSyndromeEvaluation.Signature, document, "F");
@@ -56,14 +56,14 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 
             if (((this.m_AccessionOrder.PanelSetOrderCollection.Exists(brafV600EKTest.PanelSetId, panelSetOrderLynchSyndromeEvaluation.OrderedOnId, false) == true ||
                 this.m_AccessionOrder.PanelSetOrderCollection.Exists(rasRAFPanelTest.PanelSetId, panelSetOrderLynchSyndromeEvaluation.OrderedOnId, false) == true) &&
-                panelSetOrderLynchSyndromeEvaluation.BRAFIsIndicated == true) ||
+                panelSetOrderLynchSyndromeEvaluation.ReflexToBRAFMeth == true) ||
                 this.m_AccessionOrder.PanelSetOrderCollection.Exists(panelSetMLH1.PanelSetId, panelSetOrderLynchSyndromeEvaluation.OrderedOnId, true) == true)
             {
                 this.AddNextObxElement("Molecular Analysis", document, "F");
                 this.AddNextObxElement("", document, "F");
             }
 
-            if (panelSetOrderLynchSyndromeEvaluation.BRAFIsIndicated == true)
+            if (panelSetOrderLynchSyndromeEvaluation.ReflexToBRAFMeth == true)
             {
 
                 if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(brafV600EKTest.PanelSetId, panelSetOrderLynchSyndromeEvaluation.OrderedOnId, false) == true)

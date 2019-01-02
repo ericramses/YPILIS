@@ -1072,6 +1072,12 @@
     <Compile Include="Business\Test\HPVRNAISH\HPVRNAISHTest.cs" />
     <Compile Include="Business\Test\INI1\INI1Test.cs" />
     <Compile Include="Business\Test\MissingInformation\MissingInformationWordDocument.cs" />
+    <Compile Include="Business\Test\LynchSyndrome\LSEColonMSH6Loss.cs" />
+    <Compile Include="Business\Test\LynchSyndrome\LSEColonPMS2Loss.cs" />
+    <Compile Include="Business\Test\LynchSyndrome\LSEColonMLH1Loss.cs" />
+    <Compile Include="Business\Test\LynchSyndrome\LSEIHCResult.cs" />
+    <Compile Include="Business\Test\LynchSyndrome\LSEIHCResultIntactExpression.cs" />
+    <Compile Include="Business\Test\LynchSyndrome\LSEIHCResultLossOfExpression.cs" />
     <Compile Include="Business\Test\MPNExtendedReflexPanel\MPNExtendedReflexPanelTest.cs" />
     <Compile Include="Business\Test\BCellEnumeration\BCellEnumerationCMMCNTEView.cs" />
     <Compile Include="Business\Test\BCellEnumeration\BCellEnumerationWPHOBXView.cs" />
@@ -1255,7 +1261,7 @@
     <Compile Include="Business\Test\LymphocyteSubsetPanel5\LymphocyteSubsetPanel5Test.cs" />
     <Compile Include="Business\Test\LymphocyteSubsetPanel7\LymphocyteSubsetPanel7Test.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult12B.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult1A.cs" />
+    <Compile Include="Business\Test\LynchSyndrome\LSEColonMSH2Loss.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LynchSyndromeEvaluationWPHOBXView.cs" />
     <Compile Include="Business\Test\MDSByFish\MDSByFishWPHOBXView.cs" />
     <Compile Include="Business\Test\METMutationAnalysis\METMutationAnalysisTest.cs" />
@@ -2382,33 +2388,21 @@
     <Compile Include="Business\Test\LynchSyndrome\IHCResultLossOfNuclearExpressionMSH6.cs" />
     <Compile Include="Business\Test\LynchSyndrome\IHCResultLossOfNuclearExpressionPMS2.cs" />
     <Compile Include="Business\Test\LynchSyndrome\IHCResultNoLossOfNuclearExpression.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult1.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult10.cs" />
+    <Compile Include="Business\Test\LynchSyndrome\LSEColonAllIntact.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult11.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult12.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult2.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult3.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult4.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult5.cs" />
+    <Compile Include="Business\Test\LynchSyndrome\LSEColonMSH2MSH6Loss.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult6.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult7.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult8.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEGYNResult1.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEGYNResult2.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEGYNResult3.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEIHCResult.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEIHCResultIntactExpression.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEIHCResultLossOfExpression.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEResult.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEResultCollection.cs" />
+    <Compile Include="Business\Test\LynchSyndrome\LSERule.cs" />
+    <Compile Include="Business\Test\LynchSyndrome\LSERuleCollection.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEResultEnum.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEResultStatus.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEResultStatusBRAFRequired.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEResultStatusCollection.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEResultStatusCompleteAfterMSI.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEResultStatusMethylationAnalysisRequired.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEResultStatusMethylationAnalysisRequiredGYN.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEResultStatusNotSet.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEType.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSETypeCollection.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LynchSyndromeEvaluationCMMCNteView.cs" />
@@ -3627,6 +3621,12 @@
     <Compile Include="UI\Test\FLT3ResultPath.cs" />
     <Compile Include="UI\Test\ExtractAndHoldForPreauthorizationResultPage.xaml.cs">
       <DependentUpon>ExtractAndHoldForPreauthorizationResultPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Test\LSEMatrixWindow.xaml.cs">
+      <DependentUpon>LSEMatrixWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Test\LynchSyndromeEvaluationMatrixPage.xaml.cs">
+      <DependentUpon>LynchSyndromeEvaluationMatrixPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Test\SlideTrackingResultPage.xaml.cs">
       <DependentUpon>SlideTrackingResultPage.xaml</DependentUpon>
@@ -5550,6 +5550,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Test\ExtractAndHoldForPreauthorizationResultPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Test\LSEMatrixWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Test\LynchSyndromeEvaluationMatrixPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -19,7 +19,7 @@ namespace YellowstonePathology.Business.Test.BRAFV600EK
 			"methylation to rule out Lynch syndrome.";
 			this.m_Method = YellowstonePathology.Business.Test.BRAFV600EK.BRAFResult.Method;
 			this.m_Comment = "Recommend testing for MLH1 methylation.";
-			this.m_References = YellowstonePathology.Business.Test.LynchSyndrome.LSEResult.LSEColonReferences;
+			this.m_References = YellowstonePathology.Business.Test.LynchSyndrome.LSERule.LSEColonReferences;
 		}
 	}
 }

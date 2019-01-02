@@ -104,7 +104,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             }
         }
 
-        public void SetSummaryResult(LSEResult lSEResult)
+        public void SetSummaryResult(LSERule lSEResult)
 		{
 			IHCResult result = IHCResult.CreateResultFromResultCode(this.m_ResultCode);
 			if (result != null)

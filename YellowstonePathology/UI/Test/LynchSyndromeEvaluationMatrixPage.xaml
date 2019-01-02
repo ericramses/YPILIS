@@ -1,0 +1,82 @@
+﻿<Test:ResultControl x:Class="YellowstonePathology.UI.Test.LynchSyndromeEvaluationMatrixPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:Test="clr-namespace:YellowstonePathology.UI.Test">
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition></ColumnDefinition>
+		</Grid.ColumnDefinitions>
+
+		<Grid.RowDefinitions>
+			<RowDefinition Height="50"></RowDefinition>
+			<RowDefinition Height="*"></RowDefinition>
+			<RowDefinition Height="50"></RowDefinition>
+		</Grid.RowDefinitions>
+
+		<Border Grid.Row="0" BorderBrush="Transparent" BorderThickness="0" Background="{DynamicResource {x:Static SystemColors.InactiveCaptionBrushKey}}"></Border>
+		<TextBlock Grid.Column="0" Grid.Row="0" Margin="20,2,2,2" Text="{Binding Path=PageHeaderText}" VerticalAlignment="Center" Foreground="White" FontSize="16" FontWeight="Bold"></TextBlock>
+
+		<Grid Grid.Row="1" Margin="5">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto"></ColumnDefinition>
+				<ColumnDefinition Width="*"></ColumnDefinition>
+			</Grid.ColumnDefinitions>
+
+			<Border Grid.Row="0" Grid.Column="0" BorderBrush="Transparent" BorderThickness="0" Background="{DynamicResource {x:Static SystemColors.InactiveCaptionBrushKey}}"></Border>
+
+			<Grid Grid.Column="0" Margin="10" Width="180">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="20"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+            </Grid>
+
+			<ScrollViewer Grid.Column="1" Margin="10">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <ListView Name="ListViewResults" Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" ItemsSource="{Binding Path=LSEResultCollection}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Indication" Width="90" DisplayMemberBinding="{Binding Path=Indication}" />
+                                <GridViewColumn Header="MLH1" Width="90" DisplayMemberBinding="{Binding Path=MLH1Result}" />
+                                <GridViewColumn Header="MSH2" Width="90" DisplayMemberBinding="{Binding Path=MSH2Result}" />
+                                <GridViewColumn Header="MSH6" Width="90" DisplayMemberBinding="{Binding Path=MSH6Result}" />
+                                <GridViewColumn Header="PMS2" Width="90" DisplayMemberBinding="{Binding Path=PMS2Result}" />
+                                <GridViewColumn Header="BRAF" Width="90" DisplayMemberBinding="{Binding Path=BrafResult}" />
+                                <GridViewColumn Header="Meth" Width="90" DisplayMemberBinding="{Binding Path=MethResult}" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    
+                </Grid>
+            </ScrollViewer>
+
+		</Grid>
+
+		<Border Grid.Column="0" Grid.Row="2" BorderBrush="Transparent" BorderThickness="0" Background="{DynamicResource {x:Static SystemColors.InactiveCaptionBrushKey}}"></Border>
+        <Button Name="ButtonBack" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Margin="5,5,5,5" Click="ButtonBack_Click" Width="100" Height="40" HorizontalAlignment="Left">&lt; Back</Button>
+		<Button Name="ButtonNext" Grid.Column="0" Grid.Row="2" Width="100" Height="40" HorizontalAlignment="Right" Margin="5,5,5,5" Click="ButtonNext_Click">Next ></Button>
+
+	</Grid>
+</Test:ResultControl>

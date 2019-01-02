@@ -200,8 +200,10 @@ namespace YellowstonePathology.Business.Test.BRAFMutationAnalysis
             return result.ToString();
         }
 
-        public void SetSummaryResult(YellowstonePathology.Business.Test.LynchSyndrome.LSEResult lSEResult)
+        public void SetSummaryResult(YellowstonePathology.Business.Test.LynchSyndrome.LSERule lSEResult)
         {
+            throw new Exception("This needs work");
+            /*
             if (string.IsNullOrEmpty(this.Result) == false)
             {
                 YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisNotDetectedResult notDetectedResult = new BRAFMutationAnalysisNotDetectedResult();
@@ -351,16 +353,27 @@ namespace YellowstonePathology.Business.Test.BRAFMutationAnalysis
             {
                 if (string.IsNullOrEmpty(this.Result) == true)
                 {
+<<<<<<< HEAD
                     result.Success = false;
                     result.Message = "The results cannot be accepted because the Result is not set.";
+=======
+                    lSEResult.BrafResult = YellowstonePathology.Business.Test.LynchSyndrome.LSEResultEnum.NotDetected;
+>>>>>>> e2a98fb14cce60db68f6cb6af972c4e759ee9c74
                 }
                 else if (string.IsNullOrEmpty(this.Indication) == true)
                 {
+<<<<<<< HEAD
                     result.Success = false;
                     result.Message = "The results cannot be accepted because the BRAF indicator is not set.";
                 }
             }
             return result;
+=======
+                    lSEResult.BrafResult = YellowstonePathology.Business.Test.LynchSyndrome.LSEResultEnum.Detected;
+                }
+            }
+            */
+//>>>>>>> e2a98fb14cce60db68f6cb6af972c4e759ee9c74
         }
     }
 }
