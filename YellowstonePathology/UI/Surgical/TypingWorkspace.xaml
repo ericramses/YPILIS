@@ -531,15 +531,16 @@
                                                         <StackPanel.ContextMenu>
                                                             <ContextMenu Opened="ContextMenu_Opened">
                                                                 <MenuItem Tag="{Binding Path=PanelSetOrderCPTCodeId}" Header="Delete CPT Code" Click="ContextMenuDeleteCptCode_Click"></MenuItem>
+                                                                <MenuItem Tag="{Binding Path=PanelSetOrderCPTCodeId}" Header="Reverse CPT Code" Click="ContextMenuReverseCptCode_Click"></MenuItem>
                                                             </ContextMenu>
                                                         </StackPanel.ContextMenu>
                                                         <TextBox Width="20" Text="{Binding Path=Quantity, UpdateSourceTrigger=PropertyChanged}" Margin="2"
 																	HorizontalAlignment="Left" KeyboardNavigation.IsTabStop="False" FontWeight="Bold" ToolTip="Quantity">
                                                         </TextBox>
                                                         <TextBox Text="{Binding Path=CPTCode, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" FontWeight="Bold" Margin="2" Width="70"
-																	ToolTip="CPT Code" IsEnabled="False"></TextBox>
+																	ToolTip="CPT Code"></TextBox>
                                                         <TextBox Text="{Binding Path=Modifier, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" FontWeight="Bold" Margin="2" Width="70"
-																	ToolTip="Modifier" IsEnabled="False"></TextBox>
+																	ToolTip="Modifier"></TextBox>
                                                         <TextBlock Text="{Binding Path=PostDateProxy}" VerticalAlignment="Center" Margin="2" Width="80" ToolTip="Post Date"/>
                                                         <TextBlock Text="{Binding Path=CodeableDescription}" VerticalAlignment="Center" Margin="2"></TextBlock>
 
