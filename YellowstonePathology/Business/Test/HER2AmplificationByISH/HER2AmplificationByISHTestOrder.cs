@@ -725,8 +725,17 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
                     YellowstonePathology.Business.Test.Her2AmplificationByIHC.Her2AmplificationByIHCTest her2AmplificationByIHCTest = new Business.Test.Her2AmplificationByIHC.Her2AmplificationByIHCTest();
                     if (this.CheckTestExists(accessionOrder, her2AmplificationByIHCTest.PanelSetId) == false)
                     {
-                        result.Status = AuditStatusEnum.Warning;
-                        result.Message = "The results may not be set as a " + her2AmplificationByIHCTest.PanelSetName + " must be ordered." + Environment.NewLine + "Order the test now?";
+                        YellowstonePathology.Business.Audit.Model.AuditResult auditResult = this.IsOkToOrderIHC(accessionOrder);
+                        if (auditResult.Status == AuditStatusEnum.Failure)
+                        {
+                            result.Status = auditResult.Status;
+                            result.Message = auditResult.Message;
+                        }
+                        else
+                        {
+                            result.Status = AuditStatusEnum.Warning;
+                            result.Message = "The results may not be set as a " + her2AmplificationByIHCTest.PanelSetName + " must be ordered." + Environment.NewLine + "Order the test now?";
+                        }
                     }
                     else
                     {
@@ -791,8 +800,17 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
                     YellowstonePathology.Business.Test.Her2AmplificationByIHC.Her2AmplificationByIHCTest her2AmplificationByIHCTest = new Business.Test.Her2AmplificationByIHC.Her2AmplificationByIHCTest();
                     if (this.CheckTestExists(accessionOrder, her2AmplificationByIHCTest.PanelSetId) == false)
                     {
-                        result.Status = AuditStatusEnum.Warning;
-                        result.Message = "The results may not be accepted as a " + her2AmplificationByIHCTest.PanelSetName + " must be ordered." + Environment.NewLine + "Order the test now?";
+                        YellowstonePathology.Business.Audit.Model.AuditResult auditResult = this.IsOkToOrderIHC(accessionOrder);
+                        if (auditResult.Status == AuditStatusEnum.Failure)
+                        {
+                            result.Status = auditResult.Status;
+                            result.Message = auditResult.Message;
+                        }
+                        else
+                        {
+                            result.Status = AuditStatusEnum.Warning;
+                            result.Message = "The results may not be accepted as a " + her2AmplificationByIHCTest.PanelSetName + " must be ordered." + Environment.NewLine + "Order the test now?";
+                        }
                     }
                     else
                     {
@@ -847,8 +865,17 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
                     Test.Her2AmplificationByIHC.Her2AmplificationByIHCTest her2AmplificationByIHCTest = new Her2AmplificationByIHC.Her2AmplificationByIHCTest();
                     if (this.CheckTestExists(accessionOrder, her2AmplificationByIHCTest.PanelSetId) == false)
                     {
-                        result.Status = AuditStatusEnum.Failure;
-                        result.Message = "Unable to finalize as a " + her2AmplificationByIHCTest.PanelSetName + "is required";
+                        YellowstonePathology.Business.Audit.Model.AuditResult auditResult = this.IsOkToOrderIHC(accessionOrder);
+                        if (auditResult.Status == AuditStatusEnum.Failure)
+                        {
+                            result.Status = auditResult.Status;
+                            result.Message = auditResult.Message;
+                        }
+                        else
+                        {
+                            result.Status = AuditStatusEnum.Failure;
+                            result.Message = "Unable to finalize as a " + her2AmplificationByIHCTest.PanelSetName + "is required";
+                        }
                     }
                     else
                     {
@@ -879,6 +906,25 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
                 }
             }
 
+            return result;
+        }
+
+        public AuditResult IsOkToOrderIHC(AccessionOrder accessionOrder)
+        {
+            AuditResult result = new AuditResult();
+            result.Status = AuditStatusEnum.OK;
+
+            Test.Her2AmplificationByIHC.Her2AmplificationByIHCTest her2AmplificationByIHCTest = new Her2AmplificationByIHC.Her2AmplificationByIHCTest();
+            if (this.CheckTestExists(accessionOrder, her2AmplificationByIHCTest.PanelSetId) == true)
+            {
+                result.Status = AuditStatusEnum.Failure;
+                result.Message = "A Her2 Amplification By IHC has already been ordered.";
+            }
+            else if(accessionOrder.ClientId == 1201 || accessionOrder.ClientId == 1469 || accessionOrder.ClientId == 1476) // Pathology Associates of Idaho Falls, Teton Radiology Idaho Falls, Steele Memorial Medical Center Lab
+            {
+                result.Status = AuditStatusEnum.Failure;
+                result.Message = "Normally a Her2 Amplification By IHC would need to be ordered.  However, this order is from a client that may have already performed the IHC.  A course of action must be determined.";
+            }
             return result;
         }
 

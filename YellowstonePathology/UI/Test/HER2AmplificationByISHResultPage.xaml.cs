@@ -275,7 +275,20 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkOrderHER2IHC_Click(object sender, RoutedEventArgs e)
         {
-            this.OrderHER2IHC(this, new EventArgs());
+            this.OrderIHCOnOk();
+        }
+
+        private void OrderIHCOnOk()
+        {
+            YellowstonePathology.Business.Audit.Model.AuditResult auditResult = this.m_PanelSetOrder.IsOkToOrderIHC(this.m_AccessionOrder);
+            if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.OK)
+            {
+                this.OrderHER2IHC(this, new EventArgs());
+            }
+            else
+            {
+                MessageBox.Show(auditResult.Message);
+            }
         }
     }
 }
