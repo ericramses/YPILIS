@@ -222,13 +222,14 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 		public static LSERule GetResult(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromEvaluation)
 		{
             LSERule result = new LSERule();
+            result.Indication = panelSetOrderLynchSyndromEvaluation.LynchSyndromeEvaluationType;
 
-            /*
-			YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeIHCPanelTest panelSetLynchSyndromeIHCPanel = new YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeIHCPanelTest();
+
+            YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeIHCPanelTest panelSetLynchSyndromeIHCPanel = new YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeIHCPanelTest();
 			YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC panelSetOrderLynchSyndromeIHC = (YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetLynchSyndromeIHCPanel.PanelSetId, panelSetOrderLynchSyndromEvaluation.OrderedOnId, true);
 			if (panelSetOrderLynchSyndromeIHC != null) panelSetOrderLynchSyndromeIHC.SetSummaryResult(result);
 
-            result.ReflexToBRAFMeth = panelSetOrderLynchSyndromEvaluation.ReflexToBRAFMeth;
+            /*result.ReflexToBRAFMeth = panelSetOrderLynchSyndromEvaluation.ReflexToBRAFMeth;
             if (panelSetOrderLynchSyndromEvaluation.ReflexToBRAFMeth == true)
 			{
                 YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTest brafV600EKTest = new YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTest();
@@ -257,8 +258,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             {
 				YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderMLH1MethylationAnalysis panelSetOrderMLH1MethylationAnalysis = (YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderMLH1MethylationAnalysis)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetMLH1.PanelSetId, panelSetOrderLynchSyndromEvaluation.OrderedOnId, true);
                 panelSetOrderMLH1MethylationAnalysis.SetSummaryResult(result);
-            }
-            */
+            }*/
 
 			return result;
 		}
