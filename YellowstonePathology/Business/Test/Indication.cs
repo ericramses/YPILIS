@@ -29,6 +29,6 @@ namespace YellowstonePathology.Business.Test
         public string Description
         {
             get { return this.m_Description; }
-        }
+        }        
     }
 }

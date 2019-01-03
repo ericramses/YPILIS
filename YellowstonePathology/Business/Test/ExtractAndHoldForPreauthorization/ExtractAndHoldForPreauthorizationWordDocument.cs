@@ -15,12 +15,11 @@ namespace YellowstonePathology.Business.Test.ExtractAndHoldForPreauthorization
         }
 
         public override void Render()
-		{            
-            Business.Test.ExtractAndHoldForPreauthorization.ExtractAndHoldForPreauthorizationTestOrder testOrder = (Business.Test.ExtractAndHoldForPreauthorization.ExtractAndHoldForPreauthorizationTestOrder)this.m_PanelSetOrder;
-			base.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\PreauthorizationNotification.1.xml";
+		{                        
+			base.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\PreauthorizationNotification.2.xml";
 			base.OpenTemplate();
 			this.SetDemographicsV2();
-			this.SetXmlNodeData("additional_testing", testOrder.Comment);
+			this.SetXmlNodeData("additional_testing", this.m_PanelSetOrder.PanelSetName);
 
             YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
             this.m_SaveFileName = Business.Document.CaseDocument.GetCaseFileNameXMLPreAuth(orderIdParser);

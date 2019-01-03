@@ -174,6 +174,8 @@ namespace YellowstonePathology.Business.Billing.Model
             panelSetOrderCPTCodeBill.CodeType = cptG0145.CodeType.ToString();
 			panelSetOrderCPTCodeBill.Quantity = 1;
             panelSetOrderCPTCodeBill.Modifier = modifier;
+            panelSetOrderCPTCodeBill.MedicalRecord = this.m_AccessionOrder.SvhMedicalRecord;
+            panelSetOrderCPTCodeBill.Account = this.m_AccessionOrder.SvhAccount;
 
             if (panelSetOrderCPTCodeBill.Modifier == null)
             {
@@ -197,7 +199,10 @@ namespace YellowstonePathology.Business.Billing.Model
             panelSetOrderCPTCodeBill.CodeType = cptG0123.CodeType.ToString();
 			panelSetOrderCPTCodeBill.Quantity = 1;
             panelSetOrderCPTCodeBill.Modifier = modifier;
-			if (panelSetOrderCPTCodeBill.Modifier == null) panelSetOrderCPTCodeBill.Modifier = cptG0123.GetModifier(billingComponent);
+            panelSetOrderCPTCodeBill.MedicalRecord = this.m_AccessionOrder.SvhMedicalRecord;
+            panelSetOrderCPTCodeBill.Account = this.m_AccessionOrder.SvhAccount;
+
+            if (panelSetOrderCPTCodeBill.Modifier == null) panelSetOrderCPTCodeBill.Modifier = cptG0123.GetModifier(billingComponent);
 			if (this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.Exists(panelSetOrderCPTCodeBill.CPTCode, panelSetOrderCPTCodeBill.Modifier) == false)
 			{
 				this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.Add(panelSetOrderCPTCodeBill);
@@ -215,7 +220,10 @@ namespace YellowstonePathology.Business.Billing.Model
             panelSetOrderCPTCodeBill.CodeType = cptG0124.CodeType.ToString();
 			panelSetOrderCPTCodeBill.Quantity = 1;
             panelSetOrderCPTCodeBill.Modifier = modifier;
-			if (panelSetOrderCPTCodeBill.Modifier == null) panelSetOrderCPTCodeBill.Modifier = cptG0124.GetModifier(billingComponent);
+            panelSetOrderCPTCodeBill.MedicalRecord = this.m_AccessionOrder.SvhMedicalRecord;
+            panelSetOrderCPTCodeBill.Account = this.m_AccessionOrder.SvhAccount;
+
+            if (panelSetOrderCPTCodeBill.Modifier == null) panelSetOrderCPTCodeBill.Modifier = cptG0124.GetModifier(billingComponent);
 			if (this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.Exists(panelSetOrderCPTCodeBill.CPTCode, panelSetOrderCPTCodeBill.Modifier) == false)
 			{
 				this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.Add(panelSetOrderCPTCodeBill);

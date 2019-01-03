@@ -72,6 +72,8 @@ namespace YellowstonePathology.Business.Billing.Model
                         panelSetOrderCPTCode.EntryType = YellowstonePathology.Business.Billing.Model.PanelSetOrderCPTCodeEntryType.SystemGenerated;
 						panelSetOrderCPTCode.SpecimenOrderId = specimenOrder.SpecimenOrderId;
 						panelSetOrderCPTCode.ClientId = this.m_AccessionOrder.ClientId;
+                        panelSetOrderCPTCode.MedicalRecord = this.m_AccessionOrder.SvhMedicalRecord;
+                        panelSetOrderCPTCode.Account = this.m_AccessionOrder.SvhAccount;
                         this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.Add(panelSetOrderCPTCode);
                     }
                 }
@@ -313,8 +315,14 @@ namespace YellowstonePathology.Business.Billing.Model
                 BillingComponent billingComponent = BillingComponent.GetBillingComponent(this.m_PanelSetOrder);
                 billingComponent.Post(this);
 
-                this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.SetPostDate(DateTime.Today);
                 this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.SetPostDate(DateTime.Today);
+                //this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.SetPostDate(DateTime.Parse("11/27/2018"));
+                if (this.IsOkToSetPostDate() == true)
+                {
+                    this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.SetPostDate(DateTime.Today);                    
+                    //this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.SetPostDate(DateTime.Parse("11/27/2018"));
+                }
+                                                
                 this.m_PanelSetOrder.IsPosted = true;                
                 methodResult.Success = true;
             }
@@ -324,7 +332,23 @@ namespace YellowstonePathology.Business.Billing.Model
                 methodResult.Message = "This case cannot be posted because it is on hold.";
             }
             return methodResult;
-        }        
+        }      
+        
+        private bool IsOkToSetPostDate()
+        {
+            bool result = true;
+            if(string.IsNullOrEmpty(this.m_AccessionOrder.SvhMedicalRecord) == false)
+            {                
+                if (this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.HasClientBillItems() == true)
+                {
+                    if (this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.HasMRNStartingWithA() == true)
+                    {
+                        result = false;
+                    }
+                }                
+            }            
+            return result;
+        }  
         
         public void PostPQRICodes()
         {

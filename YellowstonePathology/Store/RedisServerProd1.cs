@@ -23,7 +23,7 @@ namespace YellowstonePathology.Store
         RedisServerProd1()
         {
             this.m_IPAddress = "10.1.2.70";
-            this.m_Port = "31578";
+            this.m_Port = "32299";
             this.m_ConnectionArgs = "ConnectTimeout=5000, SyncTimeout=5000";
 
             this.m_Connection = ConnectionMultiplexer.Connect(this.ConnectionString);

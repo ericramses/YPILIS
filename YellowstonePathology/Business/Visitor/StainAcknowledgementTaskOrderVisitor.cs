@@ -167,7 +167,7 @@ namespace YellowstonePathology.Business.Visitor
         public void SetTestOrdersCancelledComment()
         {
             StringBuilder taskOrderDetailDescription = new StringBuilder();            
-            taskOrderDetailDescription.AppendLine("The following stains have been cancelled:");
+            taskOrderDetailDescription.AppendLine("********** CANCELLED STAINS **********");
 
             foreach (YellowstonePathology.Business.Test.Model.TestOrder testOrder in this.m_CancelledTestOrderCollection)
             {

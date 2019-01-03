@@ -25,18 +25,18 @@
 				<ColumnDefinition Width="*"></ColumnDefinition>
 			</Grid.ColumnDefinitions>
 
-			<TextBlock Grid.Row="0" Grid.Column="0" FontSize="26" HorizontalAlignment="Center" VerticalAlignment="Center">Please scan your security badge</TextBlock>
-
-			<Button Grid.Row="0" Grid.Column="0" Content="●" Background="Transparent" Foreground="Black" Click="ButtonAutoScan_Click" HorizontalAlignment="Right" VerticalAlignment="Bottom"
+            <StackPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" Orientation="Horizontal">
+                <Button Content="●" Background="Transparent" Foreground="Black" Click="ButtonAutoScan_Click"
                             FontFamily="Tw Cen MT Condensed" Margin="2,2,2,2" Width="20" Height="20" BorderBrush="Transparent" BorderThickness="0">
-				<Button.Template>
-					<ControlTemplate TargetType="Button">
-						<ContentPresenter Content="{TemplateBinding Content}"/>
-					</ControlTemplate>
-				</Button.Template>
-			</Button>
-
-		</Grid>
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <ContentPresenter Content="{TemplateBinding Content}"/>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <TextBlock FontSize="26" VerticalAlignment="Center">Please scan your security badge</TextBlock>
+            </StackPanel>
+        </Grid>
 
 		<Border Grid.Row="2" BorderBrush="Transparent" BorderThickness="0" Background="{DynamicResource {x:Static SystemColors.InactiveCaptionBrushKey}}"></Border>
 	</Grid>

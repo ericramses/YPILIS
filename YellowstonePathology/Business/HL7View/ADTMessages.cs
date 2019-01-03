@@ -21,6 +21,26 @@ namespace YellowstonePathology.Business.HL7View
             get { return this.m_Messages; }
         }
 
+        public string GetPrimaryInsurance()
+        {
+            string result = "Not Selected";
+            foreach(ADTMessage message in this.m_Messages)
+            {
+                foreach(IN1 in1 in message.IN1Segments)
+                {
+                    if(in1.InsuranceName.ToUpper().Contains("MEDICARE"))
+                    {
+                        result = "Medicare";
+                    }
+                    else if (in1.InsuranceName.ToUpper().Contains("MEDICAID"))
+                    {
+                        result = "Medicaid";
+                    }
+                }
+            }
+            return result;
+        }
+
         public ObservableCollection<ADTMessage> TakeTop(int count)
         {
             ObservableCollection<ADTMessage> result = new ObservableCollection<ADTMessage>();
@@ -45,7 +65,7 @@ namespace YellowstonePathology.Business.HL7View
             accessionOrder.PAddress2 = result.PatientAddress.PAddress2;
             accessionOrder.PCity = result.PatientAddress.PCity;
             accessionOrder.PState = result.PatientAddress.PState;
-            accessionOrder.PZipCode = result.PatientAddress.PZipCode;            
+            accessionOrder.PZipCode = result.PatientAddress.PZipCode;               
         }        
 
         public Business.Patient.Model.Address GetPatientAddress()

@@ -10,22 +10,6 @@ namespace YellowstonePathology.Business.Test.MPNStandardReflex
         public static string PendingResult = "Pending";
         public static string NotPerformedResult = "Not Performed";
 
-        private static string BothNotDetectedInterpretation = "JAK2 V617F and exon 12 mutations activate a tyrosine kinase that leads to clonal proliferation.  " +
-            "V617F is present in greater than 95% polycythemia vera (PV).  JAK2 exon 12 mutation is present in 2% of patients with PV.   These mutations have not been " +
-            "detected in normal patients.  Thus, the detection of the JAK2 V617F or exon 12 mutations provides confirmation for the diagnosis of PV.   The molecular analysis " +
-            "did not detect the V617F or exon 12 mutations within the JAK2 gene.  The results do not support the diagnosis of PV, but do not rule it out. Recommend clinical " +
-            "and pathologic correlation.";
-
-        private static string JAK2NotDetectedExon1214DetectedInterpretation = "JAK2 V617F and exon 12 mutations activate a tyrosine kinase that leads to clonal proliferation.  " +
-            "V617F is present in greater than 95% polycythemia vera (PV).  JAK2 exon 12 mutation is present in 2% of patients with PV.   These mutations have not been " +
-            "detected in normal patients.  Thus, the detection of the JAK2 V617F or exon 12 mutations provides confirmation for the diagnosis of PV.  The molecular analysis " +
-            "detected the JAK2 exon12 mutation while the JAK2 V617F was negative.  This result supports the diagnosis of PV.";
-
-        private static string JAK2DetectedInterpretation = "JAK2 V617F and exon 12 mutations activate a tyrosine kinase that leads to clonal proliferation.  " +
-            "V617F is present in greater than 95% polycythemia vera (PV).  JAK2 exon 12 mutation is present in 2% of patients with PV.   These mutations have not been " +
-            "detected in normal patients.  Thus, the detection of the JAK2 V617F or exon 12 mutations provides confirmation for the diagnosis of PV. The molecular analysis " +
-            "detected the JAK2 V617F mutation.  This result supports the diagnosis of PV.";
-
         private static string References = "1.  Tefferi A, Vardiman JW.  Classification and diagnosis of myeloproliferative neoplasms: The 2008 World Health Organization criteria and point-of-care diagnostic algorithms.  Leukemia (2008) 22, 14–22 " + Environment.NewLine +
             "2.  Levine RL, Gilliland DG.  Myeloproliferative disorders.  Blood. 2008 112: 2190-2198 " + Environment.NewLine +
             "3.  Kralovics R, et al.  A Gain-of-Function Mutation of JAK2 in Myeloproliferative Disorders.  N Engl J Med 2005;352:1779-90JAK2 Exon 12/14: 1. James C, et al. A unique clonal JAK2 mutation leading to constitutive signalling causes polycythaemia vera. Nature. 2005; 434:1144-8.";
@@ -83,45 +67,27 @@ namespace YellowstonePathology.Business.Test.MPNStandardReflex
         private void SetMethod()
         {
             StringBuilder method = new StringBuilder();
-            method.Append("JAK2 V617F: " + this.m_PanelSetOrderJAK2V617F.Method);
+            method.AppendLine(this.m_PanelSetOrderJAK2V617F.PanelSetName + ": " + this.m_PanelSetOrderJAK2V617F.Method);
             if (this.m_HasJAK2Exon1214 == true)
             {
-                method.AppendLine("JAK2 Exon 12/14: " + this.m_PanelSetOrderJAK2Exon1214.Method);   
+                method.AppendLine();
+                method.AppendLine(this.m_PanelSetOrderJAK2Exon1214.PanelSetName + ": " + this.m_PanelSetOrderJAK2Exon1214.Method);   
             }
             this.m_Method = method.ToString();
         }
 
         private void SetInterpretation()
         {
+            StringBuilder interpretation = new StringBuilder();
+            interpretation.Append(this.m_PanelSetOrderJAK2V617F.PanelSetName + ": " + this.m_PanelSetOrderJAK2V617F.Interpretation);
             if (this.m_HasJAK2Exon1214 == true)
             {
-				YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FNotDetectedResult jak2V617FNotDetectedResult = new YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FNotDetectedResult();
-                if (this.m_PanelSetOrderJAK2V617F.Result == jak2V617FNotDetectedResult.Result)
-                {
-					YellowstonePathology.Business.Test.JAK2Exon1214.JAK2Exon1214NotDetectedResult jak2Exon1214NotDetectedResult = new YellowstonePathology.Business.Test.JAK2Exon1214.JAK2Exon1214NotDetectedResult();
-					YellowstonePathology.Business.Test.JAK2Exon1214.JAK2Exon1214DetectedResult jak2Exon1214DetectedResult = new YellowstonePathology.Business.Test.JAK2Exon1214.JAK2Exon1214DetectedResult();                    
-
-                    if (this.m_PanelSetOrderJAK2Exon1214.ResultCode == jak2Exon1214NotDetectedResult.ResultCode)
-                    {
-                        this.m_Interpretation = BothNotDetectedInterpretation;
-                    }
-                    else if (this.m_PanelSetOrderJAK2Exon1214.ResultCode == jak2Exon1214DetectedResult.ResultCode)
-                    {
-                        this.m_Interpretation = JAK2NotDetectedExon1214DetectedInterpretation;
-                    }
-                }
+                interpretation.AppendLine(this.m_PanelSetOrderJAK2V617F.PanelSetName + ": " + this.m_PanelSetOrderJAK2Exon1214.Interpretation);
             }
-            else
-            {
-				YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FDetectedResult jak2V617FDetectedResult = new YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FDetectedResult();
-                if (this.m_PanelSetOrderJAK2V617F.Result == jak2V617FDetectedResult.Result)
-                {
-                    this.m_Interpretation = JAK2DetectedInterpretation;
-                }
-            }
+            this.m_Interpretation = interpretation.ToString();
         }
 
-		public void SetResults(PanelSetOrderMPNStandardReflex panelSetOrder)
+        public void SetResults(PanelSetOrderMPNStandardReflex panelSetOrder)
         {
             panelSetOrder.Comment = this.m_Comment;
             panelSetOrder.Interpretation = this.m_Interpretation;

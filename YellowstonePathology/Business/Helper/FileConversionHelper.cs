@@ -17,6 +17,44 @@ namespace YellowstonePathology.Business.Helper
 {
     public class FileConversionHelper
     {
+        public static void CreateXPSFromPNGFiles(string sourceImagesPath, string xpsFIlePath)
+        {           
+            var bitmaps = new List<System.Drawing.Bitmap>();
+            foreach (var file in Directory.EnumerateFiles(sourceImagesPath, "*.png"))
+            {
+                bitmaps.Add(new System.Drawing.Bitmap(file));
+            }
+
+            FixedDocument doc = new FixedDocument();
+            foreach (var bitmap in bitmaps)
+            {
+                ImageSource imageSource;
+                using (var stream = new MemoryStream())
+                {
+                    bitmap.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
+                    stream.Position = 0;
+                    imageSource = BitmapFrame.Create(stream,
+                        BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.OnLoad);
+                }
+                var page = new FixedPage();
+                page.Children.Add(new System.Windows.Controls.Image { Source = imageSource });
+                doc.Pages.Add(new PageContent { Child = page });
+            }
+
+            var xps = new XpsDocument(xpsFIlePath, FileAccess.Write, System.IO.Packaging.CompressionOption.Fast);
+            var writer = XpsDocument.CreateXpsDocumentWriter(xps);
+            writer.Write(doc);
+            xps.Close();            
+        }
+
+        public static void SaveFixedDocumentToXPS(FixedDocument document, string filePath)
+        {
+            var xps = new XpsDocument(filePath, FileAccess.Write, CompressionOption.Maximum);
+            var writer = XpsDocument.CreateXpsDocumentWriter(xps);
+            writer.Write(document);
+            xps.Close();
+        }
+
         public static void ConvertDocumentTo(YellowstonePathology.Business.OrderIdParser orderIdParser, CaseDocumentTypeEnum caseDocumentType,
             CaseDocumentFileTypeEnnum fromType, CaseDocumentFileTypeEnnum toType)
         {            
@@ -68,8 +106,7 @@ namespace YellowstonePathology.Business.Helper
                 File.Delete(pdfFileName.ToString());
             }
             catch (Exception)
-            {
-                //System.Windows.MessageBox.Show("This file is locked and cannot be published at this time: " + reportNo);
+            {                
                 oWord.Quit(ref oFalse, ref oMissing, ref oMissing);
             }
 

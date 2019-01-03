@@ -29,7 +29,6 @@ namespace YellowstonePathology.Business.Client.Model
 		private string m_Telephone;
 		private string m_FacilityType;						
 		private string m_Fax;
-		private bool m_LongDistance;		
 		private bool m_ShowPhysiciansOnRequisition;
 		private string m_BillingRuleSetId;
         private string m_BillingRuleSetId2;
@@ -41,6 +40,8 @@ namespace YellowstonePathology.Business.Client.Model
         private string m_ReferringProviderClientName;
         private string m_AdditionalTestingNotificationEmail;
         private string m_PathologyGroupId;
+        private string m_PlaceOfServiceCode;
+        private string m_LocationCode;
 
         public Client()
         {
@@ -194,7 +195,6 @@ namespace YellowstonePathology.Business.Client.Model
 				{
 					this.m_Telephone = value;
 					this.NotifyPropertyChanged("Telephone");
-                    this.NotifyPropertyChanged("FormattedTelephone");
                 }
 			}
 		}
@@ -225,25 +225,9 @@ namespace YellowstonePathology.Business.Client.Model
 				{
 					this.m_Fax = value;
 					this.NotifyPropertyChanged("Fax");
-                    this.NotifyPropertyChanged("FormattedFax");
                 }
 			}
 		}
-
-        [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
-		public bool LongDistance
-		{
-			get { return this.m_LongDistance; }
-			set
-			{
-				if (this.m_LongDistance != value)
-				{
-					this.m_LongDistance = value;
-					this.NotifyPropertyChanged("LongDistance");					
-				}
-			}
-		}        
 
         [PersistentProperty()]
         [PersistentDataColumnProperty(true, "1", "1", "tinyint")]
@@ -410,29 +394,61 @@ namespace YellowstonePathology.Business.Client.Model
             }
         }
 
-        public string FormattedTelephone
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
+        public string PlaceOfServiceCode
         {
-            get
+            get { return this.m_PlaceOfServiceCode; }
+            set
             {
-                string result = string.Empty;
-                if (string.IsNullOrEmpty(this.m_Telephone) == false && this.m_Telephone.Length == 10)
+                if (this.m_PlaceOfServiceCode != value)
                 {
-                    result = "(" + m_Telephone.Substring(0, 3) + ") " + m_Telephone.Substring(3, 3) + "-" + m_Telephone.Substring(6, 4);
+                    this.m_PlaceOfServiceCode = value;
+                    this.NotifyPropertyChanged("PlaceOfServiceCode");
                 }
-                return result;
-            }            
+            }
         }
 
-        public string FormattedFax
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
+        public string LocationCode
         {
-            get
-            {                
-                string result = string.Empty;
-                if (string.IsNullOrEmpty(this.m_Fax) == false && this.m_Fax.Length == 10)
+            get { return this.m_LocationCode; }
+            set
+            {
+                if (this.m_LocationCode != value)
                 {
-                    result = "(" + m_Fax.Substring(0, 3) + ") " + m_Fax.Substring(3, 3) + "-" + m_Fax.Substring(6, 4);
+                    this.m_LocationCode = value;
+                    this.NotifyPropertyChanged("LocationCode");
                 }
-                return result;             
+            }
+        }
+
+        public string TelephoneProxy
+        {
+            get { return YellowstonePathology.Business.Helper.PhoneNumberHelper.CorrectPhoneNumber(this.m_Telephone); }
+            set
+            {
+                if (this.m_Telephone != value)
+                {
+                    this.m_Telephone = value;
+                    this.NotifyPropertyChanged("Telephone");
+                    this.NotifyPropertyChanged("TelephoneProxy");
+                }
+            }
+        }
+
+        public string FaxProxy
+        {
+            get { return YellowstonePathology.Business.Helper.PhoneNumberHelper.CorrectPhoneNumber(this.m_Fax); }
+            set
+            {
+                if (this.m_Fax != value)
+                {
+                    this.m_Fax = value;
+                    this.NotifyPropertyChanged("Fax");
+                    this.NotifyPropertyChanged("FaxProxy");
+                }
             }
         }
 

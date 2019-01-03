@@ -43,8 +43,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
 		private YellowstonePathology.Business.Visitor.StainAcknowledgementTaskOrderVisitor m_StainAcknowledgementTaskOrderVisitor;
 
-        private AliquotAndStainOrderView m_AliquotAndStainOrderView;
-        private YellowstonePathology.Business.Common.PrintMate m_PrintMate;
+        private AliquotAndStainOrderView m_AliquotAndStainOrderView;        
 		private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
 
         private YellowstonePathology.Business.Specimen.Model.EmbeddingInstructionList m_EmbeddingInstructionList;
@@ -58,8 +57,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             this.m_EmbeddingInstructionList = new Business.Specimen.Model.EmbeddingInstructionList();
 
 			this.m_AliquotAndStainOrderView = new AliquotAndStainOrderView(accessionOrder, panelSetOrder);			
-
-			this.m_PrintMate = new Business.Common.PrintMate();
+			
 			this.m_PageHeaderText = this.m_AccessionOrder.MasterAccessionNo + ": " + this.m_AccessionOrder.PFirstName + " " + this.m_AccessionOrder.PLastName;
 
 			this.m_StainAcknowledgementTaskOrderVisitor = new Business.Visitor.StainAcknowledgementTaskOrderVisitor(this.m_PanelSetOrder);
@@ -94,12 +92,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
         public YellowstonePathology.Business.Specimen.Model.EmbeddingInstructionList EmbeddingInstructionList
         {
             get { return this.m_EmbeddingInstructionList;  }
-        }            
-
-        public YellowstonePathology.Business.Common.PrintMate PrintMate
-        {
-            get { return this.m_PrintMate; }
-        }
+        }                    
 
         public YellowstonePathology.Business.Test.AccessionOrder AccessionOrder
         {
@@ -534,7 +527,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             {
                 if (aliquotOrder.Status == "Hold")
                 {
-                    aliquotOrder.Status = null;
+                    aliquotOrder.Status = "Created";
                 }
                 else
                 {
@@ -739,15 +732,12 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             this.m_AliquotAndStainOrderView.SetEmbeddingComments();
             YellowstonePathology.Business.Test.AliquotOrderCollection selectedAliquots = this.m_AliquotAndStainOrderView.GetSelectedAliquots();
             YellowstonePathology.Business.Label.Model.AliquotOrderPrinter aliquotOrderPrinter = new Business.Label.Model.AliquotOrderPrinter(selectedAliquots, this.m_AccessionOrder);
-
-            if (aliquotOrderPrinter.HasCassettesToPrint() == true)
+                        
+            if (this.m_AccessionOrder.SpecimenOrderCollection.HasBlocks() == true && string.IsNullOrEmpty(this.m_AccessionOrder.CassetteColor))
             {
-                if (this.m_AccessionOrder.PrintMateColumnNumber == 0)
-                {
-                    MessageBox.Show("You must select the Cassette Color before printing.");
-                    return;
-                }
-            }
+                MessageBox.Show("You must select the Cassette Color before printing.");
+                return;
+            }            
 
             aliquotOrderPrinter.Print();            
             this.m_AliquotAndStainOrderView.SetAliquotChecks(false);
@@ -758,20 +748,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
         }
 
         private void PrintSelectedSlides()
-        {
-            /*
-            Queue<Business.Label.Model.HistologySlidePaperZPLLabelV2> queue = new Queue<Business.Label.Model.HistologySlidePaperZPLLabelV2>();
-            YellowstonePathology.Business.Slide.Model.SlideOrderCollection slideOrderCollection = this.m_AliquotAndStainOrderView.GetSelectedSlideOrders();            
-            foreach(YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder in slideOrderCollection)
-            {                
-                Business.Label.Model.HistologySlidePaperZPLLabelV2 label = new Business.Label.Model.HistologySlidePaperZPLLabelV2(slideOrder.SlideOrderId, slideOrder.ReportNo, slideOrder.PatientFirstName, slideOrder.PatientLastName, 
-                    slideOrder.TestAbbreviation, slideOrder.Label, slideOrder.AccessioningFacility, slideOrder.UseWetProtocol, slideOrder.PerformedByHand);
-                queue.Enqueue(label);
-            }
-
-            while (queue.Count != 0) PrintRowOfSlides(queue);            
-            */
-
+        {            
             YellowstonePathology.Business.Slide.Model.SlideOrderCollection slideOrderCollection = this.m_AliquotAndStainOrderView.GetSelectedSlideOrders();
             foreach (YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder in slideOrderCollection)
             {
@@ -794,8 +771,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             {
                 if (queue.Count != 0)
                 {
-                    Business.Label.Model.HistologySlidePaperZPLLabelV2 label = queue.Dequeue();
-                    //result.AppendCommands(result, xOffset);
+                    Business.Label.Model.HistologySlidePaperZPLLabelV2 label = queue.Dequeue();                    
                     result.Append(label.GetCommandWithOffset(xOffset));
                     xOffset += 325;
                 }
@@ -896,10 +872,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             Business.HL7View.VentanaStainOrder ventanaStainOrder = new Business.HL7View.VentanaStainOrder();
             string testOrderId = xElement.Element("TestOrderId").Value;
             string slideOrderId = xElement.Element("SlideOrder").Element("SlideOrderId").Value;
-            string result = ventanaStainOrder.Build(this.m_AccessionOrder, testOrderId, slideOrderId);
-
-            //string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-            //System.IO.File.WriteAllText(@"\\10.1.2.31\ChannelData\Outgoing\Ventana\" + objectId + ".hl7", result);
+            string result = ventanaStainOrder.Build(this.m_AccessionOrder, testOrderId, slideOrderId);            
 
             MessageBox.Show(result);
         }

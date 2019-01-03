@@ -15,7 +15,7 @@ namespace YellowstonePathology.Business.Test.EosinophiliaByFISH
 
         public override void Render()
 		{			
-			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\EosinophiliaByFISH.1.xml";
+			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\EosinophiliaByFISH.2.xml";
 			base.OpenTemplate();
 
 			this.SetDemographicsV2();

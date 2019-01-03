@@ -24,8 +24,8 @@ namespace YellowstonePathology.UI.Billing
         {
             InitializeComponent();
             this.m_PageNavigator = new UI.Navigation.PageNavigator(this.MainContent);
-            this.Closing += new System.ComponentModel.CancelEventHandler(BillingWindowPrimary_Closing);
-        }
+            this.Closing += new System.ComponentModel.CancelEventHandler(BillingWindowPrimary_Closing);            
+        }                
 
         private void BillingWindowPrimary_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {

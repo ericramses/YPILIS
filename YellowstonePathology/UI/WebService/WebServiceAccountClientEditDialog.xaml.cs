@@ -48,6 +48,11 @@ namespace YellowstonePathology.UI.WebService
             if (this.ListViewWebServiceClientViews.SelectedItems.Count > 0)
             {
                 int id = YellowstonePathology.Business.Gateway.WebServiceGateway.GetNextWebServiceAccountClientId();
+                if(this.m_WebServiceAccount.WebServiceAccountClientCollection.Count > 0)
+                {
+                    int existingId = this.m_WebServiceAccount.WebServiceAccountClientCollection[this.m_WebServiceAccount.WebServiceAccountClientCollection.Count - 1].WebServiceAccountClientId;
+                    if (existingId >= id) id = existingId + 1;
+                }
                 foreach (YellowstonePathology.Business.WebService.WebServiceClientView webServiceClientView in this.ListViewWebServiceClientViews.SelectedItems)
                 {
                     if (this.m_WebServiceAccount.WebServiceAccountClientCollection.Exists(webServiceClientView.ClientId) == false)

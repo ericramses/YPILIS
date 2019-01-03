@@ -82,17 +82,7 @@ namespace YellowstonePathology.UI.Test
 		public YellowstonePathology.Business.Test.MPNStandardReflex.PanelSetOrderMPNStandardReflex PanelSetOrderMPNStandardReflex
         {
             get { return this.m_PanelSetOrderMPNStandardReflex; }
-        }
-
-        public string JAK2V617FResult
-        {
-            get { return this.m_JAK2V617FResult; }
-        }
-
-		public YellowstonePathology.Business.Test.JAK2Exon1214.JAK2Exon1214TestOrder PanelSetOrderJAK2Exon1214
-        {
-			get { return this.m_PanelSetOrderJAK2Exon1214; }
-        }
+        }        		
 
 		public YellowstonePathology.Business.Test.AccessionOrder AccessionOrder
 		{
@@ -119,13 +109,22 @@ namespace YellowstonePathology.UI.Test
 			}
 		}
 
-        private void HyperLinkSetResult_Click(object sender, RoutedEventArgs e)
+        private void HyperLinkOrderMPL_Click(object sender, RoutedEventArgs e)
         {
-			YellowstonePathology.Business.Test.MPNStandardReflex.MPNStandardReflexResult mpnStandardReflexResult = new Business.Test.MPNStandardReflex.MPNStandardReflexResult(this.m_AccessionOrder);
-            mpnStandardReflexResult.SetResults(this.m_PanelSetOrderMPNStandardReflex);
+            YellowstonePathology.Business.Test.MPL.MPLTest panelSet = new YellowstonePathology.Business.Test.MPL.MPLTest();
+            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(panelSet.PanelSetId) == false)
+            {
+                YellowstonePathology.Business.Interface.IOrderTarget orderTarget = this.m_AccessionOrder.SpecimenOrderCollection.GetOrderTarget(this.m_PanelSetOrderMPNStandardReflex.OrderedOnId);
+                YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new YellowstonePathology.Business.Test.TestOrderInfo(panelSet, orderTarget, false);
+                this.OrderTest(this, new CustomEventArgs.TestOrderInfoEventArgs(testOrderInfo));
+            }
+            else
+            {
+                MessageBox.Show("MPL has already been ordered.", "Order exists");
+            }
         }
 
-		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
+        private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{			
 			YellowstonePathology.Business.Test.MPNStandardReflex.MPNStandardReflexWordDocument report = new Business.Test.MPNStandardReflex.MPNStandardReflexWordDocument(this.m_AccessionOrder, this.m_PanelSetOrderMPNStandardReflex, Business.Document.ReportSaveModeEnum.Draft);
 			report.Render();
@@ -137,15 +136,38 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkFinalizeResults_Click(object sender, RoutedEventArgs e)
 		{
-			if (this.m_PanelSetOrderMPNStandardReflex.Final == false)
-			{
-				this.m_PanelSetOrderMPNStandardReflex.Finish(this.m_AccessionOrder);
+            bool okToFinal = false;
+            YellowstonePathology.Business.Audit.Model.AuditResult auditResult = this.m_PanelSetOrderMPNStandardReflex.IsOkToFinalize(this.m_AccessionOrder);
+            if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.OK)
+            {
+                okToFinal = true;
+            }
+            else if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.Warning)
+            {
+                MessageBoxResult messageBoxResult = MessageBox.Show(auditResult.Message, "Results do not match the component report results",
+                    MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+                if (messageBoxResult == MessageBoxResult.Yes)
+                {
+                    okToFinal = true;
+                }
+            }
+            else
+            {
+                MessageBox.Show(auditResult.Message);
+            }
+
+            if (okToFinal == true)
+            {
                 YellowstonePathology.Business.Test.FinalizeTestResult finalizeTestResult = this.m_PanelSetOrderMPNStandardReflex.Finish(this.m_AccessionOrder);
                 this.HandleFinalizeTestResult(finalizeTestResult);
+                if (this.m_PanelSetOrderMPNStandardReflex.Accepted == false)
+                {
+                    this.m_PanelSetOrderMPNStandardReflex.Accept();
+                }
             }
         }
 
-		private void HyperLinkUnfinalResults_Click(object sender, RoutedEventArgs e)
+        private void HyperLinkUnfinalResults_Click(object sender, RoutedEventArgs e)
 		{
 			if (this.m_PanelSetOrderMPNStandardReflex.Final == true)
 			{
@@ -155,15 +177,24 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkAcceptResults_Click(object sender, RoutedEventArgs e)
 		{			
-			YellowstonePathology.Business.Rules.MethodResult result = this.m_PanelSetOrderMPNStandardReflex.IsOkToAccept();
-			if (result.Success == true)
-			{
-				this.m_PanelSetOrderMPNStandardReflex.Accept();
-			}
-			else
-			{
-				MessageBox.Show(result.Message);
-			}		
+			YellowstonePathology.Business.Audit.Model.AuditResult result = this.m_PanelSetOrderMPNStandardReflex.IsOkToAccept(this.m_AccessionOrder);
+            if (result.Status == Business.Audit.Model.AuditStatusEnum.OK)
+            {
+                this.m_PanelSetOrderMPNStandardReflex.Accept();
+            }
+            else if (result.Status == Business.Audit.Model.AuditStatusEnum.Warning)
+            {
+                MessageBoxResult messageBoxResult = MessageBox.Show(result.Message, "Results do not match the component report results",
+                    MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+                if (messageBoxResult == MessageBoxResult.Yes)
+                {
+                    this.m_PanelSetOrderMPNStandardReflex.Accept();
+                }
+            }
+            else
+            {
+                MessageBox.Show(result.Message);
+            }		
 		}
 
 		private void HyperLinkUnacceptResults_Click(object sender, RoutedEventArgs e)
@@ -195,6 +226,12 @@ namespace YellowstonePathology.UI.Test
 			{
 				PropertyChanged(this, new PropertyChangedEventArgs(info));
 			}
-		}        
-	}
+		}
+
+        private void HyperLinkPreviousResults_Click(object sender, RoutedEventArgs e)
+        {
+            UI.Test.PreviousResultDialog dlg = new UI.Test.PreviousResultDialog(this.m_PanelSetOrderMPNStandardReflex, this.m_AccessionOrder);
+            dlg.ShowDialog();
+        }
+    }
 }

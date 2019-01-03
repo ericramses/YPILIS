@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using YellowstonePathology.Business.Persistence;
+using YellowstonePathology.Business.Rules;
 
 namespace YellowstonePathology.Business.Test.Her2AmplificationByIHC
 {
@@ -29,7 +30,11 @@ namespace YellowstonePathology.Business.Test.Her2AmplificationByIHC
 			bool distribute)
 			: base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute)
 		{
-		}
+            this.ReportDisclaimer = this.GetLocationPerformedComment() + Environment.NewLine + "The performance characteristics of this test " +
+                "have been determined by NeoGenomics Laboratories.  This test has not been approved by the FDA.  The FDA has determined such " +
+                "clearance or approval is not necessary.  This laboratory is CLIA certified to perform high complexity clinical testing.";
+
+        }
 
 		[PersistentProperty()]
 		[PersistentDataColumnProperty(true, "500", "null", "varchar")]
@@ -169,5 +174,25 @@ namespace YellowstonePathology.Business.Test.Her2AmplificationByIHC
 
 			return result.ToString();
 		}
-	}
+
+        public override MethodResult IsOkToAccept()
+        {
+            MethodResult result = base.IsOkToAccept();
+            if(result.Success == true)
+            {
+                if(string.IsNullOrEmpty(this.m_Result) == true)
+                {
+                    result.Success = false;
+                    result.Message = "Unable to accept results as the result is not present." + Environment.NewLine;
+                }
+
+                if (string.IsNullOrEmpty(this.m_Score) == true)
+                {
+                    result.Success = false;
+                    result.Message += "Unable to accept results as the score is not present." + Environment.NewLine;
+                }
+            }
+            return result;
+        }
+    }
 }

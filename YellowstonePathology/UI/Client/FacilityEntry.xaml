@@ -4,6 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YellowstonePathology.UI.Client"
+        xmlns:wpfx="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="Facility Entry" Height="515" Width="620" FontSize="14" WindowStyle="ToolWindow" WindowStartupLocation="CenterScreen">
     <Grid Margin="5">
@@ -55,7 +57,10 @@
         <TextBox Grid.Column="1" Grid.Row="7" Text="{Binding Path=Facility.ZipCode}" Margin="2,2,2,2" VerticalAlignment="Center"></TextBox>
 
         <TextBlock Grid.Column="0" Grid.Row="8" Margin="2,2,2,2" HorizontalAlignment="Right" VerticalAlignment="Center">Phone Number:</TextBlock>
-        <TextBox Grid.Column="1" Grid.Row="8" Text="{Binding Path=Facility.PhoneNumber}" Margin="2,2,2,2" VerticalAlignment="Center"></TextBox>
+        <wpfx:MaskedTextBox Name="MaskedTextBoxPhoneNumber" Grid.Column="1" Grid.Row="8" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Stretch" 
+                                        RestrictToAscii="False" AllowPromptAsInput="False" IncludeLiteralsInValue="False" IncludePromptInValue="False" 
+                                        ValueDataType="{x:Type sys:String}" Mask="(000) 000\-0000" Value="{Binding Path=Facility.PhoneNumberProxy}">
+        </wpfx:MaskedTextBox>
 
         <TextBlock Grid.Column="0" Grid.Row="9" Margin="2,2,2,2" HorizontalAlignment="Right" VerticalAlignment="Center">Toll Free Phone Number:</TextBlock>
         <TextBox Grid.Column="1" Grid.Row="9" Text="{Binding Path=Facility.TollFreePhoneNumber}" Margin="2,2,2,2" VerticalAlignment="Center"></TextBox>

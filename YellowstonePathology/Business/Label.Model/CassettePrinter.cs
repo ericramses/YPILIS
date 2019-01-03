@@ -7,78 +7,67 @@ namespace YellowstonePathology.Business.Label.Model
 {
     public class CassettePrinter
     {
-        private YellowstonePathology.Business.Test.AliquotOrderCollection m_AliquotOrderCollection;
-        private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        private List<Cassette> m_Cassettes;
+        public static string TECHPRINTERPATH = @"\\10.1.1.84\Jobs";
+        public static string PATHPRINTERPATH = @"\\10.1.1.75\Jobs\";
+        public static string HOBBITPRINTERPATH = @"\\gross-hobbit\Jobs";
+        public static string CODYPRINTERPATH = @"\\10.33.33.57\CassettePrinter\";
 
-        public CassettePrinter(YellowstonePathology.Business.Test.AliquotOrderCollection aliquotOrderCollection, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
+        private string m_Name;        
+        private Carousel m_Carousel;
+
+        public CassettePrinter(string name)
         {
-            this.m_AliquotOrderCollection = aliquotOrderCollection;
-            this.m_AccessionOrder = accessionOrder;
-            this.Initialize();
+            this.m_Name = name;            
+            this.m_Carousel = new Carousel();
+        }            
+
+        public string Name
+        {
+            get { return this.m_Name; }
+        }        
+
+        public Carousel Carousel
+        {
+            get { return this.m_Carousel; }
         }
 
-        private void Initialize()
+        public virtual Cassette GetCassette()
         {
-            this.m_Cassettes = new List<Cassette>();
-            foreach (YellowstonePathology.Business.Test.AliquotOrder aliquotOrder in this.m_AliquotOrderCollection)
+            throw new Exception("Not Implemented Here.");
+        }
+
+        public void Print(YellowstonePathology.Business.Test.AliquotOrderCollection aliquotOrderCollection, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
+        {                        
+            List<Cassette> cassettes = new List<Cassette>();
+            foreach (YellowstonePathology.Business.Test.AliquotOrder aliquotOrder in aliquotOrderCollection)
             {
                 if (aliquotOrder.IsBlock() == true)
                 {
                     if (aliquotOrder.LabelType == YellowstonePathology.Business.Specimen.Model.AliquotLabelType.DirectPrint == true)
                     {
-                        Cassette cassette = new Cassette();
-                        cassette.FromAliquotOrder(aliquotOrder, this.m_AccessionOrder);
-                        this.m_Cassettes.Add(cassette);
+                        Cassette cassette = this.GetCassette();
+                        cassette.FromAliquotOrder(aliquotOrder, accessionOrder);
+
+                        CarouselColumn column = this.m_Carousel.GetColumn(accessionOrder.CassetteColor);
+                        string line = cassette.GetLine(column.PrinterCode);
+
+                        string fileName = System.IO.Path.Combine(column.PrinterPath, System.Guid.NewGuid().ToString() + cassette.GetFileExtension());
+
+                        try
+                        {
+                            using (System.IO.StreamWriter file = new System.IO.StreamWriter(fileName))
+                            {
+                                file.Write(line + "\r\n");
+                                aliquotOrder.Printed = true;
+                            }
+                        }
+                        catch (Exception e)
+                        {
+                            System.Windows.MessageBox.Show(fileName + ": " + e.Message, "Cassette Printer Location.", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Exclamation);
+                        }                                          
                     }
                 }
-            }
-        }
-
-        public bool HasItemsToPrint()
-        {
-            bool result = false;
-            if (this.m_Cassettes.Count > 0) result = true;
-            return result;
-        }
-
-        public void Print()
-        {
-            string path = null;
-            if(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.UseLaserCassettePrinter == true)
-            {
-                path = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.LaserCassettePrinter + System.Guid.NewGuid().ToString() + ".gdc";
-            }
-            else
-            {
-                path = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.CassettePrinter + System.Guid.NewGuid().ToString() + ".txt";
-            }
-
-            try
-            {
-                using (System.IO.StreamWriter file = new System.IO.StreamWriter(path))
-                {
-                    foreach (Cassette cassette in this.m_Cassettes)
-                    {
-                        string line = null;
-                        if (YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.UseLaserCassettePrinter == true)
-                        {
-                            line = cassette.ToLaserString();
-                        }
-                        else
-                        {
-                            line = cassette.ToString();
-                        }
-                         
-                        file.Write(line + "\r\n");
-                        cassette.AliquotOrder.Printed = true;
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                System.Windows.MessageBox.Show(path + ": " + e.Message, "Cassette Printer Location.", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Exclamation);
-            }
-        }
+            }                       
+        }        
     }
 }

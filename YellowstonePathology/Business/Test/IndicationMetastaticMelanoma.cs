@@ -11,6 +11,6 @@ namespace YellowstonePathology.Business.Test
             : base("Metastatic Melanoma", "Metastatic Melanoma")
         {
 
-        }     
+        }        
     }
 }

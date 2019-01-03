@@ -64,33 +64,34 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 		}
 
         private bool IsOkToGoNext()
-        {
-            bool result = true;
-
-            if (this.m_TestOrderReportDistribution.DistributionType == YellowstonePathology.Business.ReportDistribution.Model.DistributionType.FAX)
+        {            
+            bool result = false;
+            if(this.m_TestOrderReportDistribution.DistributionType == "Fax")
             {
-                if (string.IsNullOrEmpty(this.m_TestOrderReportDistribution.FaxNumber) == false)
+                if (this.MaskedTextBoxFaxNumber.IsMaskCompleted == false)
                 {
-                    YellowstonePathology.Business.Audit.Model.TelephoneNumberAudit telephoneNumberAudit = new Business.Audit.Model.TelephoneNumberAudit(this.m_TestOrderReportDistribution.FaxNumber);
-                    telephoneNumberAudit.Run();
-
-                    if (telephoneNumberAudit.ActionRequired == true)
-                    {
-                        MessageBox.Show(telephoneNumberAudit.Message.ToString(), "Invalid Fax Number", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-                        result = false;
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Enter a fax number.", "No Fax Number", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                     result = false;
                 }
-            }
+                else if (this.MaskedTextBoxFaxNumber.IsMaskFull == true && this.MaskedTextBoxFaxNumber.HasValidationError == false && this.MaskedTextBoxFaxNumber.HasParsingError == false)
+                {
+                    result = true;
+                }
+                else if (this.MaskedTextBoxFaxNumber.IsMaskCompleted == false && this.MaskedTextBoxFaxNumber.HasValidationError == false && this.MaskedTextBoxFaxNumber.HasParsingError == false)
+                {
+                    result = true;
+                }
 
+                if (result == false) MessageBox.Show("The Fax number must be 10 digits.");
+            }   
+            else
+            {
+                result = true;
+            }
             return result;
+
         }
 
-		public bool OkToSaveOnNavigation(Type pageNavigatingTo)
+        public bool OkToSaveOnNavigation(Type pageNavigatingTo)
 		{
 			return true;
 		}

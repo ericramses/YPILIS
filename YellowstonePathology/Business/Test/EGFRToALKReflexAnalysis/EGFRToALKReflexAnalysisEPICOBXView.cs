@@ -17,47 +17,56 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
         public override void ToXml(XElement document)
         {
             YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisTestOrder egfrToALKReflexAnalysisTestOrder = (YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
-
             YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisTestOrder egfrMutationAnalysisTestOrder = (YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(60);
 
-			this.AddHeader(document, egfrToALKReflexAnalysisTestOrder, egfrToALKReflexAnalysisTestOrder.PanelSetName);
-            this.AddNextObxElement("", document, "F");
-
-            this.AddNextObxElement("EGFR Mutation Analysis: " + egfrMutationAnalysisTestOrder.Result, document, "F");
-            this.AddNextObxElement("", document, "F");
-
-            this.AddNextObxElement("Comment: ", document, "F");
-            this.HandleLongString(egfrMutationAnalysisTestOrder.Comment, document, "F");
-            this.AddNextObxElement("", document, "F");
-
-			string alkResult = "ALK not performed";
-			if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(131) == true)
-			{
-                YellowstonePathology.Business.Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHTestOrder alkFoNSCLCByFISHTestOrder = (YellowstonePathology.Business.Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(131);
-				alkResult = alkFoNSCLCByFISHTestOrder.Result;
-			}
-			else if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(68) == true)
-			{
-                YellowstonePathology.Business.Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHTestOrder alkForNSCLCByFISHTestOrderReportedSeparately = new YellowstonePathology.Business.Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHTestOrderReportedSeparately();
-				alkResult = alkForNSCLCByFISHTestOrderReportedSeparately.Result;
-			}
-            else if(egfrToALKReflexAnalysisTestOrder.QNSForALK == true)
+            if(egfrMutationAnalysisTestOrder != null)
             {
-                alkResult = "Quantity not sufficient to perform ALK";
-            }            
+                this.AddHeader(document, egfrToALKReflexAnalysisTestOrder, egfrToALKReflexAnalysisTestOrder.PanelSetName);
+                this.AddNextObxElement("", document, "F");
 
-			this.AddNextObxElement("ALK Rearrangement Analysis: " + alkResult, document, "F");
-            this.AddNextObxElement("", document, "F");
+                this.AddNextObxElement("EGFR Mutation Analysis: " + egfrMutationAnalysisTestOrder.Result, document, "F");
+                this.AddNextObxElement("", document, "F");
 
-            string ros1Result = null;
-            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(204) == true)
+                this.AddNextObxElement("Comment: ", document, "F");
+                this.HandleLongString(egfrMutationAnalysisTestOrder.Comment, document, "F");
+                this.AddNextObxElement("", document, "F");
+            }			
+
+            if(String.IsNullOrEmpty(egfrToALKReflexAnalysisTestOrder.ALKForNSCLCByFISHResult) == false)
             {
-                YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHTestOrder ros1ByFISHTestOrder = (YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(204);
-                ros1Result = ros1ByFISHTestOrder.Result;
+			    this.AddNextObxElement("ALK Rearrangement Analysis: " + egfrToALKReflexAnalysisTestOrder.ALKForNSCLCByFISHResult, document, "F");
+                this.AddNextObxElement("", document, "F");
             }
 
-            this.AddNextObxElement("ROS1 Rearrangement Analysis: " + ros1Result, document, "F");
-            this.AddNextObxElement("", document, "F");
+            if (String.IsNullOrEmpty(egfrToALKReflexAnalysisTestOrder.ROS1ByFISHResult) == false)
+            {
+                this.AddNextObxElement("ROS1 Rearrangement Analysis: " + egfrToALKReflexAnalysisTestOrder.ROS1ByFISHResult, document, "F");
+                this.AddNextObxElement("", document, "F");
+            }
+
+            if (string.IsNullOrEmpty(egfrToALKReflexAnalysisTestOrder.PDL1SP142StainPercent) == false)
+            {
+                this.AddNextObxElement("PD-L1 (SP142): " + egfrToALKReflexAnalysisTestOrder.PDL1SP142StainPercent, document, "F");
+                this.AddNextObxElement("", document, "F");
+            }
+
+            if (String.IsNullOrEmpty(egfrToALKReflexAnalysisTestOrder.PDL122C3Result) == false)
+            {
+                this.AddNextObxElement("PD-L1 (22C3): " + egfrToALKReflexAnalysisTestOrder.PDL122C3Result, document, "F");
+                this.AddNextObxElement("", document, "F");
+            }
+
+            if (String.IsNullOrEmpty(egfrToALKReflexAnalysisTestOrder.BRAFMutationAnalysisResult) == false)
+            {
+                this.AddNextObxElement("BRAF Mutation Analysis: " + egfrToALKReflexAnalysisTestOrder.BRAFMutationAnalysisResult, document, "F");
+                this.AddNextObxElement("", document, "F");
+            }
+
+            if(string.IsNullOrEmpty(egfrToALKReflexAnalysisTestOrder.Comment) == false)
+            {
+                this.AddNextObxElement("QNS: " + EGFRToALKReflexAnalysisTestOrder.QNSStatement, document, "F");
+                this.AddNextObxElement("", document, "F");
+            }
 
             this.AddNextObxElement("Pathologist: " + egfrToALKReflexAnalysisTestOrder.Signature, document, "F");
             if (egfrToALKReflexAnalysisTestOrder.FinalTime.HasValue == true)

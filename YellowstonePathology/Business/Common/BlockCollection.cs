@@ -13,13 +13,13 @@ namespace YellowstonePathology.Business.Common
 
         }
 
-		public void FromAliquotOrderItemCollection(YellowstonePathology.Business.Test.AliquotOrderCollection aliquotOrderCollection, string reportNo, string PatientInitials, int printMateColumnNumber, bool printRequested)
+		public void FromAliquotOrderItemCollection(YellowstonePathology.Business.Test.AliquotOrderCollection aliquotOrderCollection, string reportNo, string PatientInitials, string cassetteColor, bool printRequested)
 		{
 			foreach (YellowstonePathology.Business.Test.AliquotOrder aliquotOrder in aliquotOrderCollection)
 			{
 				if (aliquotOrder.IsBlock())
 				{
-					this.Add(aliquotOrder, reportNo, PatientInitials, printMateColumnNumber);
+					this.Add(aliquotOrder, reportNo, PatientInitials, cassetteColor);
 				}
 			}
 
@@ -37,7 +37,7 @@ namespace YellowstonePathology.Business.Common
 			}
 		}
 
-		private void Add(YellowstonePathology.Business.Test.AliquotOrder aliquotOrder, string reportNo, string patientInitials, int printMateColumnNumber)
+		private void Add(YellowstonePathology.Business.Test.AliquotOrder aliquotOrder, string reportNo, string patientInitials, string cassetColor)
 		{
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(reportNo);
 			Block block = null;
@@ -55,15 +55,15 @@ namespace YellowstonePathology.Business.Common
 			block.BlockTitle = aliquotOrder.PrintLabel;
 			block.Verified = aliquotOrder.GrossVerified;
 			block.PatientInitials = patientInitials;
-            block.CassetteColumn = printMateColumnNumber;
+            block.CassetteColor = cassetColor;
 			this.Add(block);
 		}
 
-        public void SetPrintMateColumnNumber(int printMateColumnNumber)
+        public void SetCassetteColor(string cassetteColor)
         {            
             foreach (YellowstonePathology.Business.Common.Block block in this)
             {
-                block.CassetteColumn = printMateColumnNumber;
+                block.CassetteColor = cassetteColor;
             }
         }
 

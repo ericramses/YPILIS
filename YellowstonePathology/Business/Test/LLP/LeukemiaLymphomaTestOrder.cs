@@ -715,11 +715,24 @@ namespace YellowstonePathology.Business.Test.LLP
                     result.Status = AuditStatusEnum.Failure;
                     result.Message = ("Question marks ??? were found in the markers.");
                 }
+                else if (this.HasICD10Codes(accessionOrder) == false)
+                {
+                    result.Status = AuditStatusEnum.Failure;
+                    result.Message = ("ICD10 codes are not assigned.");
+                }
             }
             return result;
         }
 
-		public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
+        private bool HasICD10Codes(AccessionOrder accessionOrder)
+        {
+            bool result = false;
+            YellowstonePathology.Business.Billing.Model.ICD9BillingCodeCollection icd9BillingCodeCollection = accessionOrder.ICD9BillingCodeCollection.GetReportCollection(this.ReportNo);
+            if (icd9BillingCodeCollection.Count > 0) result = true;
+            return result;
+        }
+
+        public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
             StringBuilder result = new StringBuilder();
 

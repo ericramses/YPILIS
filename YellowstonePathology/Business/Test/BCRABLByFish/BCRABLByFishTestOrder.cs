@@ -104,5 +104,53 @@ namespace YellowstonePathology.Business.Test.BCRABLByFish
 
             return result.ToString();
         }
-	}
+
+        public override void SetPreviousResults(PanelSetOrder pso)
+        {
+            Business.Test.BCRABLByFish.BCRABLByFishTestOrder panelSetOrder = (Business.Test.BCRABLByFish.BCRABLByFishTestOrder)pso;
+            panelSetOrder.Result = this.m_Result;
+            panelSetOrder.Interpretation = this.m_Interpretation;
+            panelSetOrder.ProbeSetDetail = this.ProbeSetDetail;
+            panelSetOrder.NucleiScored = this.NucleiScored;
+            base.SetPreviousResults(pso);
+        }
+
+        public override void ClearPreviousResults()
+        {
+            this.m_Result = null;
+            this.m_Interpretation = null;
+            this.m_ProbeSetDetail = null;
+            this.m_NucleiScored = null;
+            base.ClearPreviousResults();
+        }
+
+        public override Audit.Model.AuditResult IsOkToAccept(AccessionOrder accessionOrder)
+        {
+            Audit.Model.AuditResult result = base.IsOkToAccept(accessionOrder);
+            if (result.Status == Audit.Model.AuditStatusEnum.OK)
+            {
+                if (string.IsNullOrEmpty(this.Result) == true)
+                {
+                    result.Status = Audit.Model.AuditStatusEnum.Failure;
+                    result.Message = UnableToAccept + Environment.NewLine;
+                }
+            }
+
+            return result;
+        }
+
+        public override YellowstonePathology.Business.Audit.Model.AuditResult IsOkToFinalize(Test.AccessionOrder accessionOrder)
+        {
+            Audit.Model.AuditResult result = base.IsOkToFinalize(accessionOrder);
+            if (result.Status == Audit.Model.AuditStatusEnum.OK)
+            {
+                if (string.IsNullOrEmpty(this.m_Result) == true)
+                {
+                    result.Status = Audit.Model.AuditStatusEnum.Failure;
+                    result.Message = UnableToFinal + Environment.NewLine;
+                }
+            }
+            return result;
+        }
+    }
 }

@@ -28,53 +28,6 @@ namespace YellowstonePathology.Business.Test.JAK2V617F
 			bool distribute)
 			: base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute)
 		{
-            this.m_Disclosure = "The performance characteristics of this test have been determined by NeoGenomics Laboratories.  This test has not " +
-                "been approved by the FDA.  The FDA has determined such clearance or approval is not necessary.  This laboratory is CLIA certified " +
-                "to perform high complexity clinical testing.";
-        }
-
-        public YellowstonePathology.Business.Rules.MethodResult IsOkToSetResults()
-		{
-			YellowstonePathology.Business.Rules.MethodResult result = new YellowstonePathology.Business.Rules.MethodResult();
-            if(string.IsNullOrEmpty(this.m_ResultCode) == true)
-            {
-                result.Success = false;
-                result.Message = "A Result must be selected before the result can be set.";
-            }
-            else if(this.m_Accepted == true)
-			{
-				result.Success = false;
-				result.Message = "Results may not be set because the results already have been accepted.";
-			}
-			return result;
-		}
-
-        public override YellowstonePathology.Business.Rules.MethodResult IsOkToAccept()
-        {
-            YellowstonePathology.Business.Rules.MethodResult result = base.IsOkToAccept();
-            if (result.Success == true)
-            {
-                if (string.IsNullOrEmpty(this.m_ResultCode) == true)
-                {
-                    result.Success = false;
-                    result.Message = "The results cannot be accepted because the Result is not set.";
-                }
-            }
-            return result;
-        }
-
-        public override YellowstonePathology.Business.Audit.Model.AuditResult IsOkToFinalize(Test.AccessionOrder accessionOrder)
-        {
-            Audit.Model.AuditResult auditResult = base.IsOkToFinalize(accessionOrder);
-            if (auditResult.Status == Audit.Model.AuditStatusEnum.OK)
-            {
-                if (string.IsNullOrEmpty(this.m_ResultCode) == true)
-                {
-                    auditResult.Status = Audit.Model.AuditStatusEnum.Failure;
-                    auditResult.Message = "This case cannot be finalized because the results have not been set.";
-                }
-            }
-            return auditResult;
         }
 
         [PersistentProperty()]
@@ -184,5 +137,102 @@ namespace YellowstonePathology.Business.Test.JAK2V617F
 
             return result.ToString();
         }
-	}
+
+        public override void SetPreviousResults(PanelSetOrder pso)
+        {
+            Business.Test.JAK2V617F.JAK2V617FTestOrder panelSetOrder = (Business.Test.JAK2V617F.JAK2V617FTestOrder)pso;
+            panelSetOrder.Result = this.m_Result;
+            panelSetOrder.Interpretation = this.m_Interpretation;
+            panelSetOrder.Method = this.Method;
+            panelSetOrder.Disclosure = this.Disclosure;
+            panelSetOrder.Comment = this.Comment;
+            panelSetOrder.Reference = this.Reference;
+            base.SetPreviousResults(pso);
+        }
+
+        public override void ClearPreviousResults()
+        {
+            this.m_Result = null;
+            this.m_Interpretation = null;
+            this.m_Method = null;
+            this.m_Disclosure = null;
+            this.m_Comment = null;
+            this.m_Reference = null;
+            base.ClearPreviousResults();
+        }
+
+        public override Audit.Model.AuditResult IsOkToSetPreviousResults(PanelSetOrder panelSetOrder, AccessionOrder accessionOrder)
+        {
+            Audit.Model.AuditResult result = base.IsOkToSetPreviousResults(panelSetOrder, accessionOrder);
+            if (result.Status == Audit.Model.AuditStatusEnum.OK)
+            {
+                JAK2V617FTestOrder jak2V617FTestOrder = (JAK2V617FTestOrder)panelSetOrder;
+                this.DoesFinalSummaryResultMatch(accessionOrder, jak2V617FTestOrder.Result, result);
+                if (result.Status == Audit.Model.AuditStatusEnum.Warning)
+                {
+                    result.Message += AskSetPreviousResults;
+                }
+            }
+
+            return result;
+        }
+
+        public override Audit.Model.AuditResult IsOkToAccept(AccessionOrder accessionOrder)
+        {
+            Audit.Model.AuditResult result = base.IsOkToAccept(accessionOrder);
+            if (result.Status == Audit.Model.AuditStatusEnum.OK)
+            {
+                if (string.IsNullOrEmpty(this.Result) == true)
+                {
+                    result.Status = Audit.Model.AuditStatusEnum.Failure;
+                    result.Message = UnableToAccept;
+                }
+
+                if (result.Status == Audit.Model.AuditStatusEnum.OK)
+                {
+                    this.DoesFinalSummaryResultMatch(accessionOrder, this.m_Result, result);
+                    if (result.Status == Audit.Model.AuditStatusEnum.Warning)
+                    {
+                        result.Message += AskAccept;
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        public override YellowstonePathology.Business.Audit.Model.AuditResult IsOkToFinalize(Test.AccessionOrder accessionOrder)
+        {
+            Audit.Model.AuditResult result = base.IsOkToFinalize(accessionOrder);
+            if (result.Status == Audit.Model.AuditStatusEnum.OK)
+            {
+                if (string.IsNullOrEmpty(this.m_Result) == true)
+                {
+                    result.Status = Audit.Model.AuditStatusEnum.Failure;
+                    result.Message = UnableToFinal;
+                }
+
+                if (result.Status == Audit.Model.AuditStatusEnum.OK)
+                {
+                    this.DoesFinalSummaryResultMatch(accessionOrder, this.m_Result, result);
+                    if (result.Status == Audit.Model.AuditStatusEnum.Warning)
+                    {
+                        result.Message += AskFinal;
+                    }
+                }
+            }
+            return result;
+        }
+
+        private void DoesFinalSummaryResultMatch(AccessionOrder accessionOrder, string result, Audit.Model.AuditResult auditResult)
+        {
+            Business.Test.MPNStandardReflex.MPNStandardReflexTest mpnStandardReflexTest = new MPNStandardReflex.MPNStandardReflexTest();
+
+            if (accessionOrder.PanelSetOrderCollection.Exists(mpnStandardReflexTest.PanelSetId) == true)
+            {
+                MPNStandardReflex.PanelSetOrderMPNStandardReflex panelSetOrderMPNStandardReflex = (MPNStandardReflex.PanelSetOrderMPNStandardReflex)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(mpnStandardReflexTest.PanelSetId);
+                panelSetOrderMPNStandardReflex.DoesJAK2V617FResultMatch(result, auditResult);
+            }
+        }
+    }
 }

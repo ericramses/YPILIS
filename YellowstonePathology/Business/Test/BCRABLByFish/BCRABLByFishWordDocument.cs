@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Test.BCRABLByFish
 		{			
 			BCRABLByFishTestOrder testOrder = (BCRABLByFishTestOrder)this.m_PanelSetOrder;
 
-			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\BCRABLFish.1.xml";
+			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\BCRABLFish.2.xml";
 			base.OpenTemplate();
 
 			this.SetDemographicsV2();

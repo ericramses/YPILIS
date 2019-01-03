@@ -10,6 +10,7 @@
         <DataTemplate x:Key="DataTemplateCaseTreeTestOrder">
             <StackPanel Orientation="Horizontal" Margin="2,2,2,2">				
 				<TextBlock Margin="2,2,2,2" VerticalAlignment="Center" Text="{Binding Path=DisplayString}" Width="400"></TextBlock>
+                <TextBlock Margin="2,2,2,2" VerticalAlignment="Center" Text="{Binding Path=OrderedBy}" Width="100"></TextBlock>
             </StackPanel>
         </DataTemplate>
 

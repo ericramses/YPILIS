@@ -45,8 +45,6 @@ namespace YellowstonePathology.UI.MaterialTracking
 
             InitializeComponent();
             this.DataContext = this;
-
-
             this.Loaded += MaterialTrackingStartPage_Loaded;
         }
 
@@ -270,7 +268,6 @@ namespace YellowstonePathology.UI.MaterialTracking
             if (this.ListBoxMaterialTrackingBatch.SelectedItem != null)
             {
                 string materialTrackingBatchId = ((YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch)this.ListBoxMaterialTrackingBatch.SelectedItem).MaterialTrackingBatchId;
-
                 YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch materialTrackingBatch = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullMaterialTrackingBatch(materialTrackingBatchId, Window.GetWindow(this));
 
                 if (this.m_UseMasterAccessionNo == true)

@@ -41,6 +41,6 @@ namespace YellowstonePathology.Business.PanelSet.Model
             this.m_TaskCollection.Add(taskSendBlockToNeogenomics);            
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMOLEGEN());
-		}
-	}
+        }
+    }
 }

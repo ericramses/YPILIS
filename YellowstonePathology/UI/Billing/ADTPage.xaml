@@ -57,11 +57,9 @@
 				
 			</Grid>
 		</ScrollViewer>
-
-        <!--
+        
 		<Border Grid.Row="2" BorderBrush="Transparent" BorderThickness="0" Background="{DynamicResource {x:Static SystemColors.InactiveCaptionBrushKey}}"></Border>
-		<Button Name="ButtonBack" Grid.Row="2" Margin="5,5,5,5" Click="ButtonBack_Click" Width="100" Height="40" HorizontalAlignment="Left">&lt; Back</Button>
-        <Button Name="ButtonNext" Grid.Row="2" Margin="5,5,5,5" Click="ButtonNext_Click" Width="100" Height="40" HorizontalAlignment="Right">Next ></Button>		
-        -->
-	</Grid>
+        <Button Name="ButtonBack" Grid.Row="2" Margin="5,5,5,5" Click="ButtonSet_Click" Width="100" Height="40" HorizontalAlignment="Left">Set</Button>
+
+    </Grid>
 </UserControl>

@@ -11,6 +11,33 @@ namespace YellowstonePathology.Business.Gateway
 {
     public class WebServiceGateway
     {
+
+        public static WebService.WebServiceAccountCollection GetWebServiceAccounts()
+        {
+            WebService.WebServiceAccountCollection result = new WebService.WebServiceAccountCollection();
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "Select * from tblWebServiceAccount;";
+            cmd.CommandType = CommandType.Text;
+
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        WebService.WebServiceAccount webServiceAccount = new WebService.WebServiceAccount();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlServerDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(webServiceAccount, dr);
+                        sqlServerDataReaderPropertyWriter.WriteProperties();
+                        result.Add(webServiceAccount);
+                    }
+                }
+            }
+
+            return result;
+        }
+
         public static List<WebService.WebServiceAccountView> GetWebServiceAccountViewList()
         {
             List<WebService.WebServiceAccountView> result = new List<WebService.WebServiceAccountView>();

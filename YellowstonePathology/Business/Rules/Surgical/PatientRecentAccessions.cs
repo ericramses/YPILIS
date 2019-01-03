@@ -39,7 +39,7 @@ namespace YellowstonePathology.Business.Rules.Surgical
             bool result = false;
             foreach(View.RecentAccessionView recentAccession in this.m_RecentAccessionViewCollection)
             {
-                if(recentAccession.AccessionTime > DateTime.Now.AddHours(-24))
+                if(recentAccession.AccessionTime > DateTime.Now.AddHours(-28))
                 {
                     result = true;
                     break;

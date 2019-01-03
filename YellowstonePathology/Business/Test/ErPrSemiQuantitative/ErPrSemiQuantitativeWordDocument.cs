@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Test.ErPrSemiQuantitative
 		{            
 			ErPrSemiQuantitativeTestOrder panelSetOrderErPrSemiQuantitative = (ErPrSemiQuantitativeTestOrder)this.m_PanelSetOrder;
 
-			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\ERPRSemiQuantitative.7.xml";
+			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\ERPRSemiQuantitative.1.xml";
 			base.OpenTemplate();
 
 			this.SetDemographicsV2();

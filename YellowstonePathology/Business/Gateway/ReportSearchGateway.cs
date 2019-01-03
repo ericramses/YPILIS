@@ -39,7 +39,7 @@ namespace YellowstonePathology.Business.Gateway
             return reportSearchList;
         }
 
-		public static YellowstonePathology.Business.Search.ReportSearchList GetReportSearchListByNotPosted()
+        public static YellowstonePathology.Business.Search.ReportSearchList GetReportSearchListByNotPosted()
         {
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.Text;
@@ -51,6 +51,27 @@ namespace YellowstonePathology.Business.Gateway
                 "Left Outer Join tblSystemUser su on pso.OrderedById = su.UserId " +
                 "WHERE pso.Final = 1 and pso.IsPosted = 0 and pso.OrderDate >= '2014-1-1' and pso.IsBillable = 1 " +
                 "Order By pso.FinalDate, pso.PanelSetId, a.AccessionTime;";
+            Search.ReportSearchList reportSearchList = BuildReportSearchList(cmd);
+            return reportSearchList;
+        }
+
+        public static YellowstonePathology.Business.Search.ReportSearchList GetReportSearchListBySVHFinalNotPosted()
+        {
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT pso.MasterAccessionNo, pso.ReportNo, ao.AccessionTime AccessionDate,  pso.PanelSetId, " +
+                "concat(ao.PFirstName, ' ', ao.PLastName) AS PatientName, " +
+                "ao.PLastName, ao.PFirstName, ao.ClientName, ao.PhysicianName, ao.PBirthdate, pso.FinalDate, pso.PanelSetName, su.UserName as OrderedBy, " +
+                "'' ForeignAccessionNo, pso.IsPosted " +
+                "from tblAccessionOrder ao " +
+                "join tblPanelSetOrder pso on ao.MasterAccessionNo = pso.MasterAccessionNo " +
+                "Left Outer Join tblSystemUser su on pso.OrderedById = su.UserId " +
+                "where pso.Final = 1 " +
+                "and ao.SvhMedicalRecord like 'V%' " +
+                "and exists (Select null from tblPanelSetOrderCPTCode where ReportNo = pso.ReportNo and postDate is null) " +
+                "and pso.panelSetId = 13 " +
+                "and pso.OrderDate >= '2014-1-1' " +
+                "Order By pso.FinalDate, pso.PanelSetId, ao.AccessionTime;";
             Search.ReportSearchList reportSearchList = BuildReportSearchList(cmd);
             return reportSearchList;
         }
@@ -451,7 +472,7 @@ namespace YellowstonePathology.Business.Gateway
             cmd.Parameters.AddWithValue("@EndDate", endDate);
             Search.ReportSearchList reportSearchList = BuildReportSearchList(cmd);
             return reportSearchList;
-        }
+        }        
 
         public static Test.ThinPrepPap.AcidWashList GetAcidWashList(DateTime startDate)
         {
@@ -487,7 +508,7 @@ namespace YellowstonePathology.Business.Gateway
             return result;
         }
 
-        private static YellowstonePathology.Business.Search.ReportSearchList BuildReportSearchList(MySqlCommand cmd)
+        public static YellowstonePathology.Business.Search.ReportSearchList BuildReportSearchList(MySqlCommand cmd)
         {
             Search.ReportSearchList result = new Search.ReportSearchList();
 

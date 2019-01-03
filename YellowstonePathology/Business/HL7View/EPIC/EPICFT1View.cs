@@ -49,6 +49,9 @@ namespace YellowstonePathology.Business.HL7View.EPIC
             XElement ft16Element = new XElement("FT1.6", "CG");
             ft1Element.Add(ft16Element);
 
+            if (string.IsNullOrEmpty(this.m_CptCode.SVHCDMCode) == true)
+                throw new Exception("No CDM was found for: "  + this.m_CptCode.Code);
+
             XElement ft17Element = new XElement("FT1.7", this.m_CptCode.SVHCDMCode);
             ft1Element.Add(ft17Element);
 

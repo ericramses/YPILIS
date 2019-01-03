@@ -30,23 +30,23 @@ namespace YellowstonePathology.UI
             {
                 Business.Test.PanelSetOrder panelSetOrder = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 
-                if(panelSetOrder.PanelSetId == 15)
-                {
-                    //delete the thinprep slide;
-                    if(accessionOrder.SpecimenOrderCollection.HasThinPrepFluidSpecimen() == true)
-                    {
-                        Business.Specimen.Model.SpecimenOrder specimenOrder = accessionOrder.SpecimenOrderCollection.GetThinPrep();
-                        if(specimenOrder.AliquotOrderCollection.HasThinPrepSlide() == true)
-                        {
-                            Business.Test.AliquotOrder aliquotOrder = specimenOrder.AliquotOrderCollection.GetThinPrepSlide();
-                            specimenOrder.AliquotOrderCollection.Remove(aliquotOrder);
-                        }
-                    }
-                }
-
                 if ((accessionOrder.PLastName.ToUpper() == "MOUSE" && accessionOrder.PFirstName.ToUpper() == "MICKEY") ||
                     panelSetOrder.Final == false)
                 {
+                    if(panelSetOrder.PanelSetId == 15)
+                    {
+                        //delete the thinprep slide;
+                        if(accessionOrder.SpecimenOrderCollection.HasThinPrepFluidSpecimen() == true)
+                        {
+                            Business.Specimen.Model.SpecimenOrder specimenOrder = accessionOrder.SpecimenOrderCollection.GetThinPrep();
+                            if(specimenOrder.AliquotOrderCollection.HasThinPrepSlide() == true)
+                            {
+                                Business.Test.AliquotOrder aliquotOrder = specimenOrder.AliquotOrderCollection.GetThinPrepSlide();
+                                specimenOrder.AliquotOrderCollection.Remove(aliquotOrder);
+                            }
+                        }
+                    }
+
                     accessionOrder.PanelSetOrderCollection.Remove(panelSetOrder);
                     YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(accessionOrder, writer);
                 }

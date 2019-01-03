@@ -32,7 +32,7 @@ namespace YellowstonePathology.UI.Test
 
         private void ResultPage_ShowFaxPage(object sender, EventArgs e)
         {
-            YellowstonePathology.UI.Login.ClientFaxPage clientFaxPage = new Login.ClientFaxPage(this.m_AccessionOrder, this.m_SystemIdentity);
+            YellowstonePathology.UI.Login.ClientFaxPage clientFaxPage = new Login.ClientFaxPage(this.m_AccessionOrder, this.m_MissingInformationTestOrder, this.m_SystemIdentity);
             clientFaxPage.Next += ClientFaxPage_Next;
             clientFaxPage.Back += ClientFaxPage_Back;
             this.m_PageNavigator.Navigate(clientFaxPage);

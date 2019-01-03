@@ -33,6 +33,23 @@ namespace YellowstonePathology.Business.Billing.Model
             return result;
         }
 
+        public bool HasSVHCDM(string code)
+        {
+            bool result = false;
+            foreach (CptCode cptCode in this)
+            {
+                if (cptCode.Code == code)
+                {
+                    if(string.IsNullOrEmpty(cptCode.SVHCDMCode) == false)
+                    {
+                        result = true;
+                        break;
+                    }                    
+                }
+            }
+            return result;
+        }
+
         public bool IsMedicareCode(string cptCode)
         {
             bool result = false;

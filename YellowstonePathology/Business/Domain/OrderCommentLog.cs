@@ -460,53 +460,5 @@ namespace YellowstonePathology.Business.Domain
 				}
 			}
 		}
-
-		public void WriteProperties(YellowstonePathology.Business.Domain.Persistence.IPropertyWriter propertyWriter)
-		{
-			this.m_OrderCommentLogId = propertyWriter.WriteString("OrderCommentLogId");
-			this.m_OrderCommentId = propertyWriter.WriteInt("OrderCommentId");
-			this.m_SpecimenLogId = propertyWriter.WriteInt("SpecimenLogId");
-			this.m_MasterAccessionNo = propertyWriter.WriteString("MasterAccessionNo");
-			this.m_AliquotOrderId = propertyWriter.WriteString("AliquotOrderId");
-			this.m_Category = propertyWriter.WriteString("Category");
-			this.m_Action = propertyWriter.WriteString("Action");
-			this.m_LogDate = propertyWriter.WriteDateTime("LogDate");
-			this.m_ClientId = propertyWriter.WriteInt("ClientId");
-			this.m_Description = propertyWriter.WriteString("Description");
-			this.m_Comment = propertyWriter.WriteString("Comment");
-			this.m_LoggedById = propertyWriter.WriteInt("LoggedById");
-			this.m_LoggedBy = propertyWriter.WriteString("LoggedBy");
-			this.m_ClientOrderId = propertyWriter.WriteString("ClientOrderId");
-			this.m_RequiresResponse = propertyWriter.WriteBoolean("RequiresResponse");
-			this.m_RequiresNotification = propertyWriter.WriteBoolean("RequiresNotification");
-			this.m_Response = propertyWriter.WriteString("Response");
-			this.m_NotificationAddress = propertyWriter.WriteString("NotificationAddress");
-			this.m_StationName = propertyWriter.WriteString("StationName");
-			this.m_ContainerId = propertyWriter.WriteString("ContainerId");
-		}
-
-		public void ReadProperties(YellowstonePathology.Business.Domain.Persistence.IPropertyReader propertyReader)
-		{
-			propertyReader.ReadString("OrderCommentLogId", OrderCommentLogId);
-			propertyReader.ReadInt("OrderCommentId", OrderCommentId);
-			propertyReader.ReadInt("SpecimenLogId", SpecimenLogId);
-			propertyReader.ReadString("MasterAccessionNo", MasterAccessionNo);
-			propertyReader.ReadString("AliquotOrderId", AliquotOrderId);
-			propertyReader.ReadString("Category", Category);
-			propertyReader.ReadString("Action", Action);
-			propertyReader.ReadDateTime("LogDate", LogDate);
-			propertyReader.ReadInt("ClientId", ClientId);
-			propertyReader.ReadString("Description", Description);
-			propertyReader.ReadString("Comment", Comment);
-			propertyReader.ReadInt("LoggedById", LoggedById);
-			propertyReader.ReadString("LoggedBy", LoggedBy);
-			propertyReader.ReadString("ClientOrderId", ClientOrderId);
-			propertyReader.ReadBoolean("RequiresResponse", RequiresResponse);
-			propertyReader.ReadBoolean("RequiresNotification", RequiresNotification);
-			propertyReader.ReadString("Response", Response);
-			propertyReader.ReadString("NotificationAddress", NotificationAddress);
-			propertyReader.ReadString("StationName", StationName);
-			propertyReader.ReadString("ContainerId", ContainerId);
-		}
 	}
 }

@@ -8,7 +8,7 @@ namespace YellowstonePathology.Business.Common
     public class PrintMateColumnLilac : PrintMateColumn
     {
         public PrintMateColumnLilac()
-            : base(7, "7 - Lilac", "#b666d2", "Lilac", 109)
+            : base(9, "4 - Lilac", "#b666d2", "Lilac", 104)
         {
 
         }

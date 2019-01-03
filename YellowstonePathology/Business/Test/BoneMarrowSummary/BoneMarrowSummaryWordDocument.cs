@@ -18,12 +18,15 @@ namespace YellowstonePathology.Business.Test.BoneMarrowSummary
 
         public override void Render()
         {
-            this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\BoneMarrowSummary.1.xml";
+            this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\BoneMarrowSummary.2.xml";
             base.OpenTemplate();
 
             this.SetDemographicsV2();
-            this.SetReportDistribution();            
-                        
+            this.SetReportDistribution();
+
+            YellowstonePathology.Business.Document.AmendmentSection amendmentSection = new YellowstonePathology.Business.Document.AmendmentSection();
+            amendmentSection.SetAmendment(m_PanelSetOrder.AmendmentCollection, this.m_ReportXml, this.m_NameSpaceManager, true);
+
             this.ReplaceText("report_date", YellowstonePathology.Business.BaseData.GetShortDateString(this.m_PanelSetOrder.FinalDate));
             this.ReplaceText("pathologist_signature", this.m_PanelSetOrder.Signature);
 

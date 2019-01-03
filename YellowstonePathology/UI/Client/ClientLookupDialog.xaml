@@ -27,8 +27,8 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Client Name" Width="300" DisplayMemberBinding="{Binding Path=ClientName}" />
-                    <GridViewColumn Header="Phone" Width="130" DisplayMemberBinding="{Binding Path=FormattedTelephone}" />
-                    <GridViewColumn Header="Fax" Width="130" DisplayMemberBinding="{Binding Path=FormattedFax}" />
+                    <GridViewColumn Header="Phone" Width="130" DisplayMemberBinding="{Binding Path=Telephone, Converter={StaticResource PhoneNumberConverter}}" />
+                    <GridViewColumn Header="Fax" Width="130" DisplayMemberBinding="{Binding Path=Fax, Converter={StaticResource PhoneNumberConverter}}" />
                 </GridView>
             </ListView.View>
         </ListView>

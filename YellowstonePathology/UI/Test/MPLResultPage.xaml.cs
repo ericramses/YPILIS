@@ -32,7 +32,7 @@ namespace YellowstonePathology.UI.Test
 		private YellowstonePathology.Business.Test.MPL.PanelSetOrderMPL m_PanelSetOrder;
 		private string m_OrderedOnDescription;
 
-        private YellowstonePathology.Business.Test.MPL.MPLResultCollection m_MPLResultCollection;
+        //private YellowstonePathology.Business.Test.MPL.MPLResultCollection m_MPLResultCollection;
 
 		public MPLResultPage(YellowstonePathology.Business.Test.MPL.PanelSetOrderMPL panelSetOrderMPL,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
@@ -47,7 +47,7 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);
 			this.m_OrderedOnDescription = specimenOrder.Description;
 
-            this.m_MPLResultCollection = new Business.Test.MPL.MPLResultCollection();
+            //this.m_MPLResultCollection = new Business.Test.MPL.MPLResultCollection();
 
 			InitializeComponent();
 
@@ -58,10 +58,10 @@ namespace YellowstonePathology.UI.Test
             this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalResults);
         }
 
-        public YellowstonePathology.Business.Test.MPL.MPLResultCollection MPLResultCollection
+        /*public YellowstonePathology.Business.Test.MPL.MPLResultCollection MPLResultCollection
         {
             get { return this.m_MPLResultCollection; }
-        }
+        }*/
 
 		public string OrderedOnDescription
 		{
@@ -98,18 +98,38 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkFinalizeResults_Click(object sender, RoutedEventArgs e)
 		{
-			if (this.m_PanelSetOrder.Final == false)
-			{
-                YellowstonePathology.Business.Test.FinalizeTestResult finalizeTestResult = this.m_PanelSetOrder.Finish(this.m_AccessionOrder);
-                this.HandleFinalizeTestResult(finalizeTestResult);
+            bool okToFinal = false;
+            YellowstonePathology.Business.Audit.Model.AuditResult auditResult = this.m_PanelSetOrder.IsOkToFinalize(this.m_AccessionOrder);
+            if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.OK)
+            {
+                okToFinal = true;
+            }
+            else if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.Warning)
+            {
+                MessageBoxResult messageBoxResult = MessageBox.Show(auditResult.Message, "Results do not match the finaled summary results",
+                    MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+                if (messageBoxResult == MessageBoxResult.Yes)
+                {
+                    okToFinal = true;
+                }
             }
             else
-			{
-				MessageBox.Show("This case cannot be finalized because it is already final.");
-			}
-		}
+            {
+                MessageBox.Show(auditResult.Message);
+            }
 
-		private void HyperLinkUnfinalResults_Click(object sender, RoutedEventArgs e)
+            if (okToFinal == true)
+            {
+                YellowstonePathology.Business.Test.FinalizeTestResult finalizeTestResult = this.m_PanelSetOrder.Finish(this.m_AccessionOrder);
+                this.HandleFinalizeTestResult(finalizeTestResult);
+                if (this.m_PanelSetOrder.Accepted == false)
+                {
+                    this.m_PanelSetOrder.Accept();
+                }
+            }
+        }
+
+        private void HyperLinkUnfinalResults_Click(object sender, RoutedEventArgs e)
 		{
 			if (this.m_PanelSetOrder.Final == true)
 			{
@@ -123,25 +143,27 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkAcceptResults_Click(object sender, RoutedEventArgs e)
 		{
-			if (this.ComboBoxResult.SelectedItem != null)
-			{
-			YellowstonePathology.Business.Rules.MethodResult result = this.m_PanelSetOrder.IsOkToAccept();
-			if (result.Success == true)
-			{
-				this.m_PanelSetOrder.Accept();
-			}
-			else
-			{
-				MessageBox.Show(result.Message);
-			}
-			}
-			else
-			{
-				MessageBox.Show("A result must be selected before it can be accepted.");
-			}
-		}
+			YellowstonePathology.Business.Audit.Model.AuditResult result = this.m_PanelSetOrder.IsOkToAccept(this.m_AccessionOrder);
+            if (result.Status == Business.Audit.Model.AuditStatusEnum.OK)
+            {
+                this.m_PanelSetOrder.Accept();
+            }
+            else if (result.Status == Business.Audit.Model.AuditStatusEnum.Warning)
+            {
+                MessageBoxResult messageBoxResult = MessageBox.Show(result.Message, "Results do not match the finaled summary results",
+                    MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+                if (messageBoxResult == MessageBoxResult.Yes)
+                {
+                    this.m_PanelSetOrder.Accept();
+                }
+            }
+            else
+            {
+                MessageBox.Show(result.Message);
+            }
+        }
 
-		private void HyperLinkUnacceptResults_Click(object sender, RoutedEventArgs e)
+        private void HyperLinkUnacceptResults_Click(object sender, RoutedEventArgs e)
 		{
 			YellowstonePathology.Business.Rules.MethodResult result = this.m_PanelSetOrder.IsOkToUnaccept();
 			if (result.Success == true)
@@ -159,13 +181,10 @@ namespace YellowstonePathology.UI.Test
 			if (this.Next != null) this.Next(this, new EventArgs());
 		}
 
-        private void ComboBoxResult_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void HyperLinkPreviousResults_Click(object sender, RoutedEventArgs e)
         {
-            if (this.ComboBoxResult.SelectedItem != null)
-            {
-                YellowstonePathology.Business.Test.TestResult testResult = (YellowstonePathology.Business.Test.TestResult)this.ComboBoxResult.SelectedItem;
-                this.m_PanelSetOrder.ResultCode = testResult.ResultCode;
-            }
+            UI.Test.PreviousResultDialog dlg = new UI.Test.PreviousResultDialog(this.m_PanelSetOrder, this.m_AccessionOrder);
+            dlg.ShowDialog();
         }
-	}
+    }
 }

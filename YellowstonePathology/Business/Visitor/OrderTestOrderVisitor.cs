@@ -227,8 +227,7 @@ namespace YellowstonePathology.Business.Visitor
                 foreach (YellowstonePathology.Business.Test.Model.Test test in panel.TestCollection)
                 {
                     string testOrderObjectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-                    YellowstonePathology.Business.Test.Model.TestOrder testOrder = panelOrder.TestOrderCollection.Add(panelOrder.PanelOrderId, testOrderObjectId, null, test, test.OrderComment);
-                    //panelOrder.TestOrderCollection.Add(testOrder); //Removed by SH - 11/07/2016 not sure why it was here.
+                    YellowstonePathology.Business.Test.Model.TestOrder testOrder = panelOrder.TestOrderCollection.Add(panelOrder.PanelOrderId, testOrderObjectId, null, test, test.OrderComment);                    
                 }
             }
         }
@@ -259,18 +258,21 @@ namespace YellowstonePathology.Business.Visitor
 
         public override void Visit(YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder)
         {
-            Test.Surgical.SurgicalTest surgicalTest = new Test.Surgical.SurgicalTest();
-			foreach (YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder in this.m_AccessionOrder.SpecimenOrderCollection)
+            if(this.m_TestOrderInfo.PanelSet.PanelSetId == 13)
             {
-                if (surgicalTest.OrderTargetTypeCollectionExclusions.Exists(specimenOrder) == false)
+                Test.Surgical.SurgicalTest surgicalTest = new Test.Surgical.SurgicalTest();
+                foreach (YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder in this.m_AccessionOrder.SpecimenOrderCollection)
                 {
-                    if (surgicalTestOrder.SurgicalSpecimenCollection.SpecimenOrderExists(specimenOrder.SpecimenOrderId) == false)
+                    if (surgicalTest.OrderTargetTypeCollectionExclusions.Exists(specimenOrder) == false)
                     {
-                        YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen = surgicalTestOrder.SurgicalSpecimenCollection.Add(this.m_ReportNo);
-                        surgicalSpecimen.FromSpecimenOrder(specimenOrder);
+                        if (surgicalTestOrder.SurgicalSpecimenCollection.SpecimenOrderExists(specimenOrder.SpecimenOrderId) == false)
+                        {
+                            YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen = surgicalTestOrder.SurgicalSpecimenCollection.Add(this.m_ReportNo);
+                            surgicalSpecimen.FromSpecimenOrder(specimenOrder);
+                        }
                     }
                 }
-            }
+            }            
         }
     }
 }

@@ -15,7 +15,7 @@ namespace YellowstonePathology.Business.Document
 
         public void Create(string patientName, string providerName, YellowstonePathology.Business.Client.Model.Client client, string letterBody)
 		{
-			string templateName = @"\\CFileServer\documents\ReportTemplates\XmlTemplates\ClientMissingInfoBoldFax.xml";
+			string templateName = @"\\CFileServer\documents\ReportTemplates\XmlTemplates\ClientMissingInfoBoldFax.1.xml";
 
 			XmlDocument xmlDocument = new XmlDocument();
 			XmlNamespaceManager nameSpaceManager = new XmlNamespaceManager(m_ReportXml.NameTable);
@@ -25,7 +25,7 @@ namespace YellowstonePathology.Business.Document
 			this.m_ReportXml = xmlDocument;
 
 			this.ReplaceText("client_name", client.ClientName + " - " + providerName);
-			this.ReplaceText("fax_number", YellowstonePathology.Business.Domain.PhoneNumber.Format(client.Fax));
+			this.ReplaceText("fax_number", YellowstonePathology.Business.Helper.PhoneNumberHelper.FormatWithDashes(client.Fax));
 			this.ReplaceText("current_date", DateTime.Today.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
 			this.ReplaceText("patient_name", patientName);
 

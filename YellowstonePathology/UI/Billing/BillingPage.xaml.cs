@@ -166,7 +166,7 @@ namespace YellowstonePathology.UI.Billing
         }
 
         private void MenuItemDeletePanelSetOrderCPTCodeBill_Click(object sender, RoutedEventArgs e)
-        {
+        {            
             if (this.ListViewPanelSetOrderCPTCodeBill.SelectedItems.Count != 0)
             {
                 for (int i = this.ListViewPanelSetOrderCPTCodeBill.SelectedItems.Count - 1; i >= 0; i--)
@@ -174,7 +174,7 @@ namespace YellowstonePathology.UI.Billing
                     YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill = (YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill)this.ListViewPanelSetOrderCPTCodeBill.SelectedItems[i];
                     this.m_PanelSetOrderCPTCodeBillCollection.Remove(panelSetOrderCPTCodeBill);                 
                 }
-            }
+            }         
         }        
 
         private void ButtonSet_Click(object sender, RoutedEventArgs e)
@@ -201,42 +201,16 @@ namespace YellowstonePathology.UI.Billing
         private bool IsTechnicalBillingFacilityValid()
         {
             bool result = true;
-
             YellowstonePathology.Business.Facility.Model.Facility technicalComponentFacility = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId(this.m_PanelSetOrder.TechnicalComponentFacilityId);
-
-            YellowstonePathology.Business.Facility.Model.ClientBillingFacilityCollection clientBillingFacilityCollection = new YellowstonePathology.Business.Facility.Model.ClientBillingFacilityCollection();
-            //YellowstonePathology.Business.Rules.MethodResult technicalResult = clientBillingFacilityCollection.FindMatch(this.m_PanelSetOrder.TechnicalComponentFacilityId, this.m_PanelSetOrder.TechnicalComponentBillingFacilityId, this.m_AccessionOrder.ClientId, "Technical");
-
-            //if (technicalResult.Success == false)
-            //{
-            //    MessageBoxResult messageBoxResult = MessageBox.Show(technicalResult.Message, "Are you sure you want to continue?", MessageBoxButton.YesNo);
-            //    if (messageBoxResult == MessageBoxResult.No)
-            //    {
-            //        result = false;
-            //    }
-            //}
-
+            YellowstonePathology.Business.Facility.Model.ClientBillingFacilityCollection clientBillingFacilityCollection = new YellowstonePathology.Business.Facility.Model.ClientBillingFacilityCollection();            
             return result;
         }
 
         private bool IsProfessionalBillingFacilityValid()
         {
             bool result = true;
-
             YellowstonePathology.Business.Facility.Model.Facility professionalComponentFacility = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId(this.m_PanelSetOrder.ProfessionalComponentFacilityId);
-
-            YellowstonePathology.Business.Facility.Model.ClientBillingFacilityCollection clientBillingFacilityCollection = new YellowstonePathology.Business.Facility.Model.ClientBillingFacilityCollection();
-            //YellowstonePathology.Business.Rules.MethodResult professionalResult = clientBillingFacilityCollection.FindMatch(this.m_PanelSetOrder.ProfessionalComponentFacilityId, this.m_PanelSetOrder.ProfessionalComponentBillingFacilityId, this.m_AccessionOrder.ClientId, "Professional");
-
-            //if (professionalResult.Success == false)
-            //{
-            //    MessageBoxResult messageBoxResult = MessageBox.Show(professionalResult.Message, "Are you sure you want to continue?", MessageBoxButton.YesNo);
-            //    if (messageBoxResult == MessageBoxResult.No)
-            //    {
-            //        result = false;
-            //    }
-            //}
-
+            YellowstonePathology.Business.Facility.Model.ClientBillingFacilityCollection clientBillingFacilityCollection = new YellowstonePathology.Business.Facility.Model.ClientBillingFacilityCollection();            
             return result;
         }
 
@@ -357,27 +331,7 @@ namespace YellowstonePathology.UI.Billing
                     panelSetOrderCPTCode.ClientId = AccessionOrder.ClientId;
                 }
             }
-        }
-        
-        private void ButtonSendFT1_Click(object sender, RoutedEventArgs e)
-        {
-            this.SendFT1ForPanelSet();
-        }
-
-        private void SendFT1ForPanelSet()
-        {            
-            foreach ( Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill in this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection)
-            {
-                if (panelSetOrderCPTCodeBill.BillTo == "Client")
-                {
-                    List<Business.Test.PanelSetOrderCPTCodeBill> panelSetOrderCPTCodeBillList = new List<Business.Test.PanelSetOrderCPTCodeBill>();
-                    panelSetOrderCPTCodeBillList.Add(panelSetOrderCPTCodeBill);
-                    Business.HL7View.EPIC.EPICFT1ResultView epicFT1ResultView = new Business.HL7View.EPIC.EPICFT1ResultView(this.m_AccessionOrder, panelSetOrderCPTCodeBillList, true);
-                    Business.Rules.MethodResult sendResult = new Business.Rules.MethodResult();
-                    epicFT1ResultView.Send(sendResult);
-                }
-            }            
-        }
+        }                       
 
         private void ButtonADT_Click(object sender, RoutedEventArgs e)
         {
@@ -393,8 +347,13 @@ namespace YellowstonePathology.UI.Billing
 
         private void ButtonInsuranceCard_Click(object sender, RoutedEventArgs e)
         {
+            this.CreateInsuranceCard();            
+        }
+
+        private void CreateInsuranceCard()
+        {
             Business.HL7View.ADTMessages adtMessages = Business.Gateway.AccessionOrderGateway.GetADTMessages(this.m_AccessionOrder.SvhMedicalRecord);
-            if(adtMessages.Messages.Count > 0)
+            if (adtMessages.Messages.Count > 0)
             {
                 Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_AccessionOrder.MasterAccessionNo);
                 YellowstonePathology.Business.Document.ADTInsuranceDocument adtInsuranceDocument = new Business.Document.ADTInsuranceDocument(adtMessages);
@@ -406,7 +365,7 @@ namespace YellowstonePathology.UI.Billing
             else
             {
                 MessageBox.Show("No ADT information was found.");
-            }            
+            }
         }
 
         private void MenuItemUpdateClient_Click(object sender, RoutedEventArgs e)
@@ -418,6 +377,35 @@ namespace YellowstonePathology.UI.Billing
                     panelSetOrderCPTCodeBill.ClientId = AccessionOrder.ClientId;
                 }
             }
+        }
+
+        private void ButtonSVHCDM_Click(object sender, RoutedEventArgs e)
+        {
+            /*
+            YellowstonePathology.Business.Billing.Model.BillableObject billableObject = Business.Billing.Model.BillableObjectFactory.GetBillableObject(this.m_AccessionOrder, this.m_ReportNo);
+            billableObject.Set();            
+            billableObject.Post();
+            this.CreateInsuranceCard();         
+            */
+
+            /*
+            if(string.IsNullOrEmpty(this.m_AccessionOrder.PlaceOfService) == false)
+            {
+                Business.Billing.Model.PlaceOfServiceCollection placeOfServiceCollection = new Business.Billing.Model.PlaceOfServiceCollection();
+                Business.Billing.Model.PlaceOfService placeOfService = placeOfServiceCollection.Get(this.m_AccessionOrder.PlaceOfService);
+                if (placeOfService != null)
+                    this.m_AccessionOrder.PatientType = placeOfService.PatientType;
+            } 
+            */
+
+            /*
+            if(this.ListViewPanelSetOrderCPTCodeBill.SelectedItem != null)
+            {
+                Business.Test.PanelSetOrderCPTCodeBill psob = (Business.Test.PanelSetOrderCPTCodeBill)this.ListViewPanelSetOrderCPTCodeBill.SelectedItem;
+                Business.HL7View.EPIC.EPICFT1ResultView epicFT1ResultView = new Business.HL7View.EPIC.EPICFT1ResultView(this.m_AccessionOrder, psob);
+                epicFT1ResultView.Publish(System.IO.Path.Combine(@"c:\testing", "ft1"));
+            }
+            */
         }
     }
 }

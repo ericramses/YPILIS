@@ -129,19 +129,12 @@ namespace YellowstonePathology.UI.Login.Receiving
                     YellowstonePathology.Business.ClientOrder.Model.UniversalServiceCollection universalServiceIdCollection = YellowstonePathology.Business.ClientOrder.Model.UniversalServiceCollection.GetAll();
                     YellowstonePathology.Business.ClientOrder.Model.UniversalService universalServiceId = universalServiceIdCollection.GetByUniversalServiceId(this.m_ClientOrderReceivingHandler.ClientOrder.UniversalServiceId);
 
-                    YellowstonePathology.Business.HL7View.EPIC.EPICStatusMessage statusMessage = new Business.HL7View.EPIC.EPICStatusMessage(this.m_ClientOrderReceivingHandler.ClientOrder, YellowstonePathology.Business.HL7View.OrderStatusEnum.InProcess, universalServiceId);
-					YellowstonePathology.Business.Rules.MethodResult result = statusMessage.Send();
-
-					if (result.Success == false)
-					{
-                        YellowstonePathology.Business.Logging.EmailExceptionHandler.HandleException(result.Message);                        
-					}
-					else
-					{
-                        this.m_ClientOrderReceivingHandler.ClientOrder.Acknowledged = true;
-                        this.m_ClientOrderReceivingHandler.ClientOrder.AcknowledgedById = YellowstonePathology.Business.User.SystemIdentity.Instance.User.UserId;
-                        this.m_ClientOrderReceivingHandler.ClientOrder.AcknowledgedDate = DateTime.Now;
-					}
+                    YellowstonePathology.Business.HL7View.EPIC.EPICStatusMessage statusMessage = new Business.HL7View.EPIC.EPICStatusMessage(this.m_ClientOrderReceivingHandler.ClientOrder, YellowstonePathology.Business.HL7View.OrderStatusEnum.InProcess, universalServiceId, "Yellowstone Pathology Institute: Order Is In Process.", "I", this.m_ClientOrderReceivingHandler.ClientOrder.OrderDate.Value);
+					statusMessage.Publish();
+					
+                    this.m_ClientOrderReceivingHandler.ClientOrder.Acknowledged = true;
+                    this.m_ClientOrderReceivingHandler.ClientOrder.AcknowledgedById = YellowstonePathology.Business.User.SystemIdentity.Instance.User.UserId;
+                    this.m_ClientOrderReceivingHandler.ClientOrder.AcknowledgedDate = DateTime.Now;					
                 }
             }
 

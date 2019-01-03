@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business.Test.AdditionalTestingNotification
 
         public override void Render()
 		{            
-            base.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\AdditionalTestingNotification.1.xml";
+            base.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\AdditionalTestingNotification.2.xml";
 			base.OpenTemplate();
 			this.SetDemographicsV2();
 			this.SetXmlNodeData("additional_testing", this.m_PanelSetOrder.PanelSetName);            

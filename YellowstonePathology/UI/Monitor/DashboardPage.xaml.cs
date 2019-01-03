@@ -38,10 +38,11 @@ namespace YellowstonePathology.UI.Monitor
         }                
 
         public void Refresh()
-        {            
+        {
+            YellowstonePathology.Business.Gateway.AccessionOrderGateway.SetTodaysBlockCountRow();
+            YellowstonePathology.Business.Gateway.AccessionOrderGateway.SetBillingsBlockCount();
             this.HandleBlockCountEmails();
-            this.m_BlockCountColletion = new Business.Monitor.Model.BlockCountCollection();
-            this.m_BlockCountColletion.Load();
+            this.m_BlockCountColletion = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetMonitorBlockCount();
             this.NotifyPropertyChanged("");
         }        
 
@@ -66,21 +67,10 @@ namespace YellowstonePathology.UI.Monitor
         private void ResultPathFactory_Finished(object sender, EventArgs e)
         {
             this.m_LoginPageWindow.Close();
-        }
+        }        
 
         public void HandleBlockCountEmails()
-        {
-            Nullable<int> blockCount = this.GetBozemanBlockCount();
-            if(blockCount.HasValue == true)
-            {
-                Store.RedisDB db = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.BozemanBlockCount);
-                db.DataBase.StringSet(DateTime.Today.ToString("yyyyMMdd"), blockCount.Value);
-            }
-        }
-
-        public Nullable<int> GetBozemanBlockCount()
-        {
-            Nullable<int> blockCount = null;
+        {            
             ServicePointManager.ServerCertificateValidationCallback = CertificateValidationCallBack;
             ExchangeService service = new ExchangeService(ExchangeVersion.Exchange2007_SP1);
             service.Credentials = new WebCredentials("ypiilab\\blockcount", "blockorama");
@@ -88,31 +78,33 @@ namespace YellowstonePathology.UI.Monitor
             service.TraceEnabled = true;
             service.TraceFlags = TraceFlags.All;
 
-            service.AutodiscoverUrl("blockcount@ypii.com", RedirectionUrlValidationCallback);
-            SearchFilter searchFilter = new SearchFilter.IsEqualTo(EmailMessageSchema.IsRead, false);
-
-            List<SearchFilter> searchFilterCollection = new List<SearchFilter>();
-            searchFilterCollection.Add(searchFilter);
+            service.AutodiscoverUrl("blockcount@ypii.com", RedirectionUrlValidationCallback);            
             ItemView view = new ItemView(50);
-            view.PropertySet = new PropertySet(BasePropertySet.IdOnly, ItemSchema.Subject, ItemSchema.DateTimeReceived);
+            view.PropertySet = new PropertySet(BasePropertySet.FirstClassProperties, ItemSchema.Subject, ItemSchema.DateTimeReceived);
             view.OrderBy.Add(ItemSchema.DateTimeReceived, SortDirection.Descending);
             view.Traversal = ItemTraversal.Shallow;
-            FindItemsResults<Item> findResults = service.FindItems(WellKnownFolderName.Inbox, searchFilter, view);
+            FindItemsResults<Item> findResults = service.FindItems(WellKnownFolderName.Inbox, view);
+                        
+            System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex(@"(^|\s*)(\d{1,3})");
 
-            System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex("\\d{1,3}(?=\\D*$)");
+            bool blockCountFound = false;
             foreach (Item mailItem in findResults.Items)
             {
                 if (mailItem is EmailMessage)
                 {
-                    System.Text.RegularExpressions.Match match = regex.Match(mailItem.Subject);
-                    if (match.Captures.Count != 0)
+                    if(blockCountFound == false)
                     {
-                        blockCount = Convert.ToInt32(match.Value);
-                        mailItem.Delete(DeleteMode.MoveToDeletedItems);
+                        System.Text.RegularExpressions.Match match = regex.Match(mailItem.Subject);
+                        if (match.Captures.Count != 0)
+                        {
+                            int blockCount = Convert.ToInt32(match.Value);                            
+                            YellowstonePathology.Business.Gateway.AccessionOrderGateway.SetBozemanBlockCount(blockCount, DateTime.Parse(mailItem.DateTimeSent.ToShortDateString()));
+                            blockCountFound = true;
+                        }
                     }
+                    mailItem.Delete(DeleteMode.MoveToDeletedItems);
                 }
-            }
-            return blockCount;
+            }            
         }
 
         private static bool RedirectionUrlValidationCallback(string redirectionUrl)

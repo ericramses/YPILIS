@@ -17,12 +17,11 @@ namespace YellowstonePathology.Business.Test.MPNStandardReflex
 
         public override void Render()
 		{			
-			YellowstonePathology.Business.Test.MPNStandardReflex.MPNStandardReflexResult mpnStandardReflexResult = new Test.MPNStandardReflex.MPNStandardReflexResult(this.m_AccessionOrder);
-
 			YellowstonePathology.Business.Test.MPNStandardReflex.MPNStandardReflexTest mpnStandardReflex = new YellowstonePathology.Business.Test.MPNStandardReflex.MPNStandardReflexTest();
 			YellowstonePathology.Business.Test.MPNStandardReflex.PanelSetOrderMPNStandardReflex panelSetOrderMPNStandardReflex = (YellowstonePathology.Business.Test.MPNStandardReflex.PanelSetOrderMPNStandardReflex)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(mpnStandardReflex.PanelSetId);
+            YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);
 
-			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\MPNStandardReflex.3.xml";
+            this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\MPNStandardReflex.2.xml";
 			base.OpenTemplate();            
 
 			this.SetDemographicsV2();
@@ -32,14 +31,40 @@ namespace YellowstonePathology.Business.Test.MPNStandardReflex
 			YellowstonePathology.Business.Document.AmendmentSection amendmentSection = new YellowstonePathology.Business.Document.AmendmentSection();
 			amendmentSection.SetAmendment(m_PanelSetOrder.AmendmentCollection, this.m_ReportXml, this.m_NameSpaceManager, true);
 
-            this.ReplaceText("panelset_name", mpnStandardReflexResult.PanelSetOrderMPNStandardReflex.PanelSetName);
-            this.ReplaceText("jak2v617f_result", mpnStandardReflexResult.JAK2V617FResult);
-            this.ReplaceText("jak2exon1214_result", mpnStandardReflexResult.JAK2Exon1214Result);
-            base.ReplaceText("specimen_description", mpnStandardReflexResult.SpecimenOrder.Description);
+            this.ReplaceText("panelset_name", panelSetOrderMPNStandardReflex.PanelSetName);
+            if (string.IsNullOrEmpty(panelSetOrderMPNStandardReflex.JAK2V617FResult) == false)
+            {
+                this.ReplaceText("jak2v617f_result", panelSetOrderMPNStandardReflex.JAK2V617FResult);
+            }
+            else
+            {
+                this.DeleteRow("jak2v617f_result");
+            }
+
+            if (string.IsNullOrEmpty(panelSetOrderMPNStandardReflex.JAK2Exon1214Result) == false)
+            {
+                this.ReplaceText("jak2exon1214_result", panelSetOrderMPNStandardReflex.JAK2Exon1214Result);
+            }
+            else
+            {
+                this.DeleteRow("jak2exon1214_result");
+            }
+
+            if (string.IsNullOrEmpty(panelSetOrderMPNStandardReflex.MPLResult) == false)
+            {
+                this.ReplaceText("mpl_result", panelSetOrderMPNStandardReflex.MPLResult);
+            }
+            else
+            {
+                this.DeleteRow("mpl_result");
+            }
+
+            base.ReplaceText("specimen_description", specimenOrder.Description);
             this.ReplaceText("result_comment", panelSetOrderMPNStandardReflex.Comment);            
 
-            string collectionDateTimeString = YellowstonePathology.Business.Helper.DateTimeExtensions.CombineDateAndTime(mpnStandardReflexResult.SpecimenOrder.CollectionDate, mpnStandardReflexResult.SpecimenOrder.CollectionTime);
-			this.SetXmlNodeData("date_time_collected", collectionDateTimeString);
+            string collectionDateTimeString = YellowstonePathology.Business.Helper.DateTimeExtensions.CombineDateAndTime(specimenOrder.CollectionDate, specimenOrder.CollectionTime);
+            this.SetXmlNodeData("date_time_collected", collectionDateTimeString);
+            this.SetXmlNodeData("date_time_collected", collectionDateTimeString);
 
             this.ReplaceText("report_interpretation", panelSetOrderMPNStandardReflex.Interpretation);
             this.ReplaceText("report_reference", panelSetOrderMPNStandardReflex.ReportReferences);

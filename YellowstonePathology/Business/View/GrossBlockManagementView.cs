@@ -82,9 +82,10 @@ namespace YellowstonePathology.Business.View
 		}		
 
 		private XElement BuildAliquotOrderElement(YellowstonePathology.Business.Test.AliquotOrder aliquotOrder)
-		{
-            YellowstonePathology.Business.Common.PrintMate printMate = new Common.PrintMate();
-            YellowstonePathology.Business.Common.PrintMateColumn printMateColumn = printMate.Carousel.GetColumn(this.m_AccessionOrder.PrintMateColumnNumber);
+		{            
+            Business.Label.Model.CassettePrinterCollection printers = new Label.Model.CassettePrinterCollection();
+            Business.Label.Model.CassettePrinter printer = printers.GetPrinter(Business.User.UserPreferenceInstance.Instance.UserPreference.CassettePrinter);            
+            Business.Label.Model.CarouselColumn column = printer.Carousel.GetColumn(this.m_AccessionOrder.CassetteColor);
 
             string blockColor = null;
             if (aliquotOrder.Status == "Hold")
@@ -93,7 +94,7 @@ namespace YellowstonePathology.Business.View
             }
             else
             {
-                blockColor = printMateColumn.ColorCode;
+                blockColor = column.ColorCode;
             }
             
 			string status = "Created";

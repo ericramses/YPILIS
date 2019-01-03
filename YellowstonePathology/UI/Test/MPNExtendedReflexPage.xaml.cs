@@ -27,11 +27,11 @@ namespace YellowstonePathology.UI.Test
 		public event FinishEventHandler Finish;
 
 		public delegate void BackEventHandler(object sender, EventArgs e);
-		public event BackEventHandler Back;		
+		public event BackEventHandler Back;
 
-		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
+        private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
-		private YellowstonePathology.Business.Test.MPNExtendedReflex.MPNExtendedReflexResult m_MPNExtendedReflexResult;
+		private YellowstonePathology.Business.Test.MPNExtendedReflex.PanelSetOrderMPNExtendedReflex m_PanelSetOrder;
 		private string m_PageHeaderText;
 		private string m_OrderedOnDescription;
 
@@ -41,10 +41,10 @@ namespace YellowstonePathology.UI.Test
 		{
 			this.m_AccessionOrder = accessionOrder;
 			this.m_SystemIdentity = systemIdentity;
-			this.m_MPNExtendedReflexResult = new Business.Test.MPNExtendedReflex.MPNExtendedReflexResult(this.m_AccessionOrder);
-			this.m_OrderedOnDescription = this.m_MPNExtendedReflexResult.SpecimenOrder.Description;
-
-            this.m_PageHeaderText = this.m_MPNExtendedReflexResult.PanelSetOrderMPNExtendedReflex.PanelSetName + " for: " + this.m_AccessionOrder.PatientDisplayName;
+			this.m_PanelSetOrder = testOrder;
+            Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByOrderTarget(this.m_PanelSetOrder.OrderedOnId);
+			this.m_OrderedOnDescription = specimenOrder.Description;
+            this.m_PageHeaderText = this.m_PanelSetOrder.PanelSetName + " for: " + this.m_AccessionOrder.PatientDisplayName;
 
 			InitializeComponent();
 
@@ -58,14 +58,8 @@ namespace YellowstonePathology.UI.Test
 
         public YellowstonePathology.Business.Test.MPNExtendedReflex.PanelSetOrderMPNExtendedReflex PanelSetOrder
 		{
-			get { return this.m_MPNExtendedReflexResult.PanelSetOrderMPNExtendedReflex; }
+			get { return this.m_PanelSetOrder; }
 		}
-
-		public YellowstonePathology.Business.Test.MPNExtendedReflex.MPNExtendedReflexResult MPNExtendedReflexResult
-		{
-			get { return this.m_MPNExtendedReflexResult; }
-		}
-
 		public YellowstonePathology.Business.Test.AccessionOrder AccessionOrder
 		{
 			get { return this.m_AccessionOrder; }
@@ -81,66 +75,66 @@ namespace YellowstonePathology.UI.Test
 			get { return this.m_OrderedOnDescription; }
 		}
 
-		private void HyperLinkSetResult_Click(object sender, RoutedEventArgs e)
-		{
-			this.m_MPNExtendedReflexResult.SetResults();
-		}
-
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{
-			YellowstonePathology.Business.Test.MPNExtendedReflex.MPNExtendedReflexWordDocument report = new Business.Test.MPNExtendedReflex.MPNExtendedReflexWordDocument(this.m_AccessionOrder, this.m_MPNExtendedReflexResult.PanelSetOrderMPNExtendedReflex, Business.Document.ReportSaveModeEnum.Draft);
+			YellowstonePathology.Business.Test.MPNExtendedReflex.MPNExtendedReflexWordDocument report = new Business.Test.MPNExtendedReflex.MPNExtendedReflexWordDocument(this.m_AccessionOrder, this.m_PanelSetOrder, Business.Document.ReportSaveModeEnum.Draft);
 			report.Render();
 
-			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_MPNExtendedReflexResult.PanelSetOrderMPNExtendedReflex.ReportNo);
+			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
 			string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);
 			YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(fileName);
 		}
 
 		private void HyperLinkFinalizeResults_Click(object sender, RoutedEventArgs e)
 		{
-            Business.Audit.Model.AuditResult auditResult = this.m_MPNExtendedReflexResult.IsOkToFinalize();
-            if(auditResult.Status == Business.Audit.Model.AuditStatusEnum.OK)
-			{
-                YellowstonePathology.Business.Test.FinalizeTestResult finalizeTestResult = this.m_MPNExtendedReflexResult.PanelSetOrderMPNExtendedReflex.Finish(this.m_AccessionOrder);
+            Business.Audit.Model.AuditResult auditResult = this.m_PanelSetOrder.IsOkToFinalize(this.m_AccessionOrder);
+            if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.OK)
+            {
+                YellowstonePathology.Business.Test.FinalizeTestResult finalizeTestResult = this.m_PanelSetOrder.Finish(this.m_AccessionOrder);
                 this.HandleFinalizeTestResult(finalizeTestResult);
+                if (this.m_PanelSetOrder.Accepted == false)
+                {
+                    this.m_PanelSetOrder.Accept();
+                }
             }
             else
-			{
-                MessageBox.Show(auditResult.Message);
+            {
+                MessageBox.Show(auditResult.Message, "Unable to final");
             }
 		}
 
 		private void HyperLinkUnfinalResults_Click(object sender, RoutedEventArgs e)
 		{
-			if (this.m_MPNExtendedReflexResult.PanelSetOrderMPNExtendedReflex.Final == true)
+            Business.Rules.MethodResult methodResult = this.m_PanelSetOrder.IsOkToUnfinalize();
+			if (methodResult.Success == true)
 			{
-				this.m_MPNExtendedReflexResult.PanelSetOrderMPNExtendedReflex.Unfinalize();
+				this.m_PanelSetOrder.Unfinalize();
 			}
 			else
 			{
-				MessageBox.Show("This case cannot be unfinalized because it is not final.");
+				MessageBox.Show(methodResult.Message);
 			}
 		}
 
 		private void HyperLinkAcceptResults_Click(object sender, RoutedEventArgs e)
 		{			
-			YellowstonePathology.Business.Rules.MethodResult result = this.m_MPNExtendedReflexResult.PanelSetOrderMPNExtendedReflex.IsOkToAccept();
-			if (result.Success == true)
-			{
-				this.m_MPNExtendedReflexResult.PanelSetOrderMPNExtendedReflex.Accept();
-			}
-			else
-			{
+			YellowstonePathology.Business.Audit.Model.AuditResult result = this.m_PanelSetOrder.IsOkToAccept(this.m_AccessionOrder);
+            if (result.Status == Business.Audit.Model.AuditStatusEnum.OK)
+            {
+                this.m_PanelSetOrder.Accept();
+            }
+            else
+            {
 				MessageBox.Show(result.Message);
 			}		
 		}
 
 		private void HyperLinkUnacceptResults_Click(object sender, RoutedEventArgs e)
 		{
-			YellowstonePathology.Business.Rules.MethodResult result = this.m_MPNExtendedReflexResult.PanelSetOrderMPNExtendedReflex.IsOkToUnaccept();
+			YellowstonePathology.Business.Rules.MethodResult result = this.m_PanelSetOrder.IsOkToUnaccept();
 			if (result.Success == true)
 			{
-				this.m_MPNExtendedReflexResult.PanelSetOrderMPNExtendedReflex.Unaccept();
+				this.m_PanelSetOrder.Unaccept();
 			}
 			else
 			{
@@ -150,18 +144,7 @@ namespace YellowstonePathology.UI.Test
 
 		private void ButtonFinish_Click(object sender, RoutedEventArgs e)
 		{
-            if (this.m_MPNExtendedReflexResult.AuditCollection.ActionRequired == true)
-            {
-                MessageBoxResult messageBoxResult = MessageBox.Show(this.m_MPNExtendedReflexResult.AuditCollection.Message + " Are you sure you want to continue.", "Continue?", MessageBoxButton.YesNo);
-                if (messageBoxResult == MessageBoxResult.Yes)
-                {
-                    if (this.Finish != null) this.Finish(this, new EventArgs());
-                }
-            }
-            else
-            {
-                if (this.Finish != null) this.Finish(this, new EventArgs());
-            }
+            if (this.Finish != null) this.Finish(this, new EventArgs());
 		}
 
 		private void ButtonBack_Click(object sender, RoutedEventArgs e)
@@ -175,6 +158,12 @@ namespace YellowstonePathology.UI.Test
 			{
 				PropertyChanged(this, new PropertyChangedEventArgs(info));
 			}
-		}        
-	}
+		}
+
+        private void HyperLinkPreviousResults_Click(object sender, RoutedEventArgs e)
+        {
+            UI.Test.PreviousResultDialog dlg = new UI.Test.PreviousResultDialog(this.m_PanelSetOrder, this.m_AccessionOrder);
+            dlg.ShowDialog();
+        }
+    }
 }

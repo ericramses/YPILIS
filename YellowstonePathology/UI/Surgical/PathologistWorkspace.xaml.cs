@@ -256,16 +256,19 @@ namespace YellowstonePathology.UI.Surgical
             //this.m_PathologistUI.AccessionOrder.PanelSetOrderCollection.PathologistTestOrderItemList.Build(this.m_PathologistUI.AccessionOrder);
             //this.m_PathologistUI.NotifyPropertyChanged("AccessionOrder.PanelSetOrderCollection.PathologistTestOrderItemList");
 
+            
             YellowstonePathology.UI.Surgical.StainOrder window = new StainOrder(this.m_PathologistUI.AccessionOrder, this.m_PathologistUI.AccessionOrder.PanelSetOrderCollection.GetSurgical());
-
-            var screen = ScreenHandler.GetOtherScreen();            
-            window.WindowState = WindowState.Normal;
-            window.Left = screen.WorkingArea.Left;
-            window.Top = screen.WorkingArea.Top;
-            window.Width = screen.WorkingArea.Width;
-            window.Height = screen.WorkingArea.Height;            
-            window.Loaded += OrderDiaglog_Loaded;            
             window.ShowDialog();
+
+            //var screen = ScreenHandler.GetOtherScreen();            
+            //window.WindowState = WindowState.Normal;
+            //window.Left = screen.WorkingArea.Left;
+            //window.Top = screen.WorkingArea.Top;
+            //window.Width = screen.WorkingArea.Width;
+            //window.Height = screen.WorkingArea.Height;            
+            //window.Loaded += OrderDiaglog_Loaded;            
+            //window.ShowDialog();
+            
         }
 
         private void OrderDiaglog_Loaded(object sender, RoutedEventArgs e)

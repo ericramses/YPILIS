@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Test.MDSExtendedByFish
 		{			
 			PanelSetOrderMDSExtendedByFish panelSetOrderMDSExtendedPanelByFish = (PanelSetOrderMDSExtendedByFish)this.m_PanelSetOrder;
 
-			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\MDSExtendedByFish.1.xml";
+			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\MDSExtendedByFish.2.xml";
 			base.OpenTemplate();
 
 			this.SetDemographicsV2();

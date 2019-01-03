@@ -646,6 +646,26 @@ namespace YellowstonePathology.Business.Test
             return result;
         }
 
+        public YellowstonePathology.Business.Test.PanelOrder GetPanelOrderFromTestId(string testId)
+        {
+            YellowstonePathology.Business.Test.PanelOrder result = null;
+            foreach (YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder in this)
+            {
+                foreach (YellowstonePathology.Business.Test.PanelOrder panelOrder in panelSetOrder.PanelOrderCollection)
+                {
+                    foreach(Business.Test.Model.TestOrder testOrder in panelOrder.TestOrderCollection)
+                    {
+                        if(testOrder.TestId == testId)
+                        {
+                            result = panelOrder;
+                            break;
+                        }
+                    }
+                }
+            }
+            return result;
+        }
+
         public YellowstonePathology.Business.Test.PanelSetOrder GetPanelSetOrder(string reportNo)
         {
             foreach (YellowstonePathology.Business.Test.PanelSetOrder item in this)
@@ -724,6 +744,26 @@ namespace YellowstonePathology.Business.Test
                 if (item.PanelSetId == panelSetId)
                 {
                     result = true;
+                }
+            }
+            return result;
+        }
+
+        public bool DoesStainOrderExist(string testId)
+        {
+            bool result = false;
+            foreach (YellowstonePathology.Business.Test.PanelSetOrder pso in this)
+            {
+                foreach(Business.Test.PanelOrder panelOrder in pso.PanelOrderCollection)
+                {
+                    foreach(Business.Test.Model.TestOrder testOrder in panelOrder.TestOrderCollection)
+                    {
+                        if(testOrder.TestId == testId)
+                        {
+                            result = true;
+                            break;
+                        }
+                    }
                 }
             }
             return result;

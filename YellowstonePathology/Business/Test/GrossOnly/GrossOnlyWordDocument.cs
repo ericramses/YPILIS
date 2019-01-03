@@ -20,7 +20,7 @@ namespace YellowstonePathology.Business.Test.GrossOnly
             YellowstonePathology.Business.Test.GrossOnly.GrossOnlyTestOrder grossOnlyTestOrder = (YellowstonePathology.Business.Test.GrossOnly.GrossOnlyTestOrder)this.m_PanelSetOrder;
             this.m_PanelSetOrder = grossOnlyTestOrder;
 
-            this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\GrossOnly.1.xml";
+            this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\GrossOnly.2.xml";
             base.OpenTemplate();
 
             base.SetDemographicsV2();

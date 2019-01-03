@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Test.MicrosatelliteInstabilityAnalysis
 		{			
 			MicrosatelliteInstabilityAnalysisTestOrder testOrder = (MicrosatelliteInstabilityAnalysisTestOrder)this.m_PanelSetOrder;
 
-			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\MicrosatelliteInstabilityAnalysis.1.xml";
+			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\MicrosatelliteInstabilityAnalysis.2.xml";
 			base.OpenTemplate();
 
 			this.SetDemographicsV2();

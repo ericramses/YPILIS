@@ -133,7 +133,8 @@ namespace YellowstonePathology.UI
 			panelSetOrderCPTCode.SpecimenOrderId = specimenOrder.SpecimenOrderId;
             panelSetOrderCPTCode.CodeType = cptItem.CptCode.CodeType.ToString();
 			panelSetOrderCPTCode.ClientId = this.m_AccessionOrder.ClientId;
-			this.m_SurgicalTestOrder.PanelSetOrderCPTCodeCollection.Add(panelSetOrderCPTCode);
+            panelSetOrderCPTCode.MedicalRecord = this.m_AccessionOrder.SvhMedicalRecord;
+            this.m_SurgicalTestOrder.PanelSetOrderCPTCodeCollection.Add(panelSetOrderCPTCode);
 		}
 
 		public void AddICDCode(string icd10Code, YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen surgicalSpecimen)

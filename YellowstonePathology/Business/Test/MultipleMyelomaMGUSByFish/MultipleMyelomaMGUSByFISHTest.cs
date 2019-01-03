@@ -9,8 +9,7 @@ namespace YellowstonePathology.Business.Test.MultipleMyelomaMGUSByFish
 	{
         public MultipleMyelomaMGUSByFishTest()
 		{
-			this.m_PanelSetId = 147;
-            //is.m_PanelSetName = "Multiple Myeloma MGUS By FISH";
+			this.m_PanelSetId = 147;            
             this.m_PanelSetName = "Plasma Cell Myeloma FISH Panel";
             this.m_CaseType = YellowstonePathology.Business.CaseType.FISH;
 			this.m_HasTechnicalComponent = true;			
