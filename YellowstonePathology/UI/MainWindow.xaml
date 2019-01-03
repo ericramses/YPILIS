@@ -97,6 +97,7 @@
                     <MenuItem Name="MenuItemChainExplorer" Header="Chain Explorer" Click="MenuItemChainExplorer_Click"></MenuItem>
                     <MenuItem Name="MenuItemAutoComplete" Header="Auto Complete" Click="MenuItemAutoComplete_Click"></MenuItem>
                     <MenuItem Name="MenuItemPolicies" Header="Policies" Click="MenuItemPolicyExplorer_Click"></MenuItem>
+                    <MenuItem Name="MenuItemLSEMatrix" Header="LSE Matrix" Click="MenuItemLSEMatrix_Click"></MenuItem>
                 </MenuItem>
 
                 <MenuItem Header="_Monitor" Name="MenuItemMonitor">
