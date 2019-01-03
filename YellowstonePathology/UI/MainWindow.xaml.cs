@@ -1039,5 +1039,11 @@ namespace YellowstonePathology.UI
             Policy.PolicyExplorer policyExplorer = new Policy.PolicyExplorer();
             policyExplorer.Show();
         }
+
+        private void MenuItemLSEMatrix_Click(object sender, RoutedEventArgs e)
+        {
+            Test.LSEMatrixWindow window = new Test.LSEMatrixWindow();
+            window.ShowDialog();
+        }
     }
 }
