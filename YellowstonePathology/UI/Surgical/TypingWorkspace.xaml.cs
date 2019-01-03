@@ -1178,7 +1178,18 @@ namespace YellowstonePathology.UI.Surgical
 
         private void ContextMenuReverseCptCode_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("This is not quite ready.");
+            MenuItem menuItem = (MenuItem)sender;
+            string panelSetOrderCPTCodeId = menuItem.Tag.ToString();
+            YellowstonePathology.Business.Test.PanelSetOrderCPTCode panelSetOrderCPTCode = this.m_TypingUI.SurgicalTestOrder.PanelSetOrderCPTCodeCollection.GetPanelSetOrderCPTCode(panelSetOrderCPTCodeId);
+            if(panelSetOrderCPTCode.PostDate.HasValue == false)
+            {
+                this.m_TypingUI.SurgicalTestOrder.PanelSetOrderCPTCodeCollection.Reverse(panelSetOrderCPTCode);
+                this.m_TypingUI.RefreshBillingSpecimenViewCollection();
+            }
+            else
+            {
+                MessageBox.Show("This code has not been posted and therefore does not need to be reversed.");
+            }            
         }
     }    
 }

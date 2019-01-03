@@ -17,6 +17,23 @@ namespace YellowstonePathology.Business.Test
 
         }
 
+        public void Reverse(YellowstonePathology.Business.Test.PanelSetOrderCPTCode item)
+        {
+            YellowstonePathology.Business.Test.PanelSetOrderCPTCode reverseOriginal = this.GetNextItem(item.ReportNo);
+            reverseOriginal.ClientId = item.ClientId;
+            reverseOriginal.SpecimenOrderId = item.SpecimenOrderId;            
+            reverseOriginal.CPTCode = item.CPTCode;
+            reverseOriginal.EntryType = item.EntryType;
+            reverseOriginal.CodeType = item.CodeType;
+            reverseOriginal.CodeableType = item.CodeableType;
+            reverseOriginal.CodeableDescription = item.CodeableDescription;            
+            reverseOriginal.Modifier = item.Modifier;
+            reverseOriginal.Quantity = item.Quantity * (-1);            
+            reverseOriginal.MedicalRecord = item.MedicalRecord;
+            reverseOriginal.Account = item.Account;
+            this.Add(reverseOriginal);
+        }
+
         public void UpdateCodeType()
         {
             foreach (Business.Test.PanelSetOrderCPTCode panelSetCptCode in this)
