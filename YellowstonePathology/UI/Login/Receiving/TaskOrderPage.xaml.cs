@@ -431,7 +431,7 @@ namespace YellowstonePathology.UI.Login.Receiving
             if (taskOrderDetailFax.DocumentName == "AdditionalTestingNotification")
             {
                 YellowstonePathology.Business.Test.AdditionalTestingNotification.AdditionalTestingNotificationWordDocument reportNotify =
-                new YellowstonePathology.Business.Test.AdditionalTestingNotification.AdditionalTestingNotificationWordDocument(this.m_AccessionOrder, panelSetOrder, Business.Document.ReportSaveModeEnum.Normal);
+                new YellowstonePathology.Business.Test.AdditionalTestingNotification.AdditionalTestingNotificationWordDocument(this.m_AccessionOrder, panelSetOrder, Business.Document.ReportSaveModeEnum.Normal, taskOrderDetailFax.SendToName);
                 reportNotify.Render();
                 reportNotify.Publish();
 
