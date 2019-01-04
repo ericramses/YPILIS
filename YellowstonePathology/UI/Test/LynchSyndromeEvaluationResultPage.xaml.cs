@@ -382,7 +382,9 @@ namespace YellowstonePathology.UI.Test
 
         private void ButtonMatrix_Click(object sender, RoutedEventArgs e)
         {
-            if (this.Matrix != null) this.Matrix(this, new EventArgs());
+            //if (this.Matrix != null) this.Matrix(this, new EventArgs());
+            LSEMatrixWindow dlg = new Test.LSEMatrixWindow(this.m_PanelSetOrderLynchSyndromeEvaluation, this.m_AccessionOrder);
+            dlg.ShowDialog();
         }
     }
 }

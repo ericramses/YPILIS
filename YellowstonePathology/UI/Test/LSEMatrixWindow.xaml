@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YellowstonePathology.UI.Test"
         mc:Ignorable="d"
-        Title="LSE Matrix" WindowState="Maximized">
+        Title="LSE Matrix" WindowStyle="ToolWindow" Width="1000" Height="600">
                                         
     <Grid>
         <Grid.ColumnDefinitions>
@@ -36,8 +36,8 @@
                     <GridViewColumn Header="MSH2" Width="90" DisplayMemberBinding="{Binding Path=MSH2Result}" />
                     <GridViewColumn Header="MSH6" Width="90" DisplayMemberBinding="{Binding Path=MSH6Result}" />
                     <GridViewColumn Header="PMS2" Width="90" DisplayMemberBinding="{Binding Path=PMS2Result}" />
-                    <GridViewColumn Header="Additional Testing" Width="180" DisplayMemberBinding="{Binding Path=AdditionalTesting}" />
-                    <GridViewColumn Header="BRAF" Width="90" DisplayMemberBinding="{Binding Path=BrafResult}" />
+                    <!--<GridViewColumn Header="Additional Testing" Width="180" DisplayMemberBinding="{Binding Path=AdditionalTesting}" /> -->
+                    <GridViewColumn Header="BRAF" Width="90" DisplayMemberBinding="{Binding Path=BRAFResult}" />
                     <GridViewColumn Header="Meth" Width="90" DisplayMemberBinding="{Binding Path=MethResult}" />
                 </GridView>
             </ListView.View>
