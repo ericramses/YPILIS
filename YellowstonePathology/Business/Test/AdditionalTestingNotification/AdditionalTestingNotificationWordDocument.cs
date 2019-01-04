@@ -8,18 +8,29 @@ namespace YellowstonePathology.Business.Test.AdditionalTestingNotification
 {
 	public class AdditionalTestingNotificationWordDocument : YellowstonePathology.Business.Document.CaseReportV2
 	{
-        public AdditionalTestingNotificationWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 
+        private string m_SendToName;
+
+        public AdditionalTestingNotificationWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode, string sendToName) 
             : base(accessionOrder, panelSetOrder, reportSaveMode)
         {
-
+            this.m_SendToName = sendToName;
         }
 
         public override void Render()
 		{            
-            base.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\AdditionalTestingNotification.2.xml";
+            base.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\AdditionalTestingNotification.3.xml";
 			base.OpenTemplate();
 			this.SetDemographicsV2();
-			this.SetXmlNodeData("additional_testing", this.m_PanelSetOrder.PanelSetName);            
+			this.SetXmlNodeData("additional_testing", this.m_PanelSetOrder.PanelSetName);
+
+            if (string.IsNullOrEmpty(this.m_SendToName) == false)
+            {
+                this.ReplaceText("send_to", this.m_SendToName);
+            }
+            else
+            {
+                this.DeleteRow("send_to");
+            }
 
             YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
             this.m_SaveFileName = Business.Document.CaseDocument.GetCaseFileNameXMLNotify(orderIdParser);

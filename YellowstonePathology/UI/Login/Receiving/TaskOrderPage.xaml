@@ -55,7 +55,7 @@
                                             IncludeLiteralsInValue="False" IncludePromptInValue="False" ValueDataType="{x:Type sys:String}"
                                             Mask="(000) 000\-0000" Value="{Binding Path=FaxNumberProxy}"/>
 
-                        <TextBlock Grid.Column="0" Grid.Row="3" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right" IsEnabled="False">Atention:</TextBlock>
+                        <TextBlock Grid.Column="0" Grid.Row="3" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right" IsEnabled="False">Attention:</TextBlock>
                         <TextBox Grid.Column="1" Grid.Row="3" Margin="2,2,2,2" Text="{Binding Path=SendToName}"/>
                         
                         <TextBlock Grid.Column="0" Grid.Row="4" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right">DocumentName:</TextBlock>
