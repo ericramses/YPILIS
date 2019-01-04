@@ -26,17 +26,16 @@ namespace YellowstonePathology.UI.Test
         private Business.Test.LynchSyndrome.LSERule m_LSERule;
         private Business.Test.LynchSyndrome.LSERule m_SelectedLSERule;
         private Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation m_PanelSetOrderLynchSyndromeEvaluation;
+        private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 
-        public LSEMatrixWindow()
+        public LSEMatrixWindow(YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation,
+            YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
-            this.m_PanelSetOrderLynchSyndromeEvaluation = new Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation();
+            this.m_PanelSetOrderLynchSyndromeEvaluation = panelSetOrderLynchSyndromeEvaluation;
+            this.m_AccessionOrder = accessionOrder;
             this.m_LSERuleCollection = YellowstonePathology.Business.Test.LynchSyndrome.LSERuleCollection.GetAll();
-            this.m_LSERule = new Business.Test.LynchSyndrome.LSERule();
-            this.m_LSERule.Indication = "LSECOLON";
-            this.m_LSERule.MLH1Result = Business.Test.LynchSyndrome.LSEResultEnum.Intact;
-            this.m_LSERule.MSH2Result = Business.Test.LynchSyndrome.LSEResultEnum.Intact;
-            this.m_LSERule.MSH6Result = Business.Test.LynchSyndrome.LSEResultEnum.Intact;
-            this.m_LSERule.PMS2Result = Business.Test.LynchSyndrome.LSEResultEnum.Intact;            
+            this.m_LSERule = YellowstonePathology.Business.Test.LynchSyndrome.LSERule.GetResult(this.m_AccessionOrder, this.m_PanelSetOrderLynchSyndromeEvaluation);
+            this.m_LSERuleCollection.SetIHCMatch(this.m_LSERule);
 
             InitializeComponent();
             this.DataContext = this;

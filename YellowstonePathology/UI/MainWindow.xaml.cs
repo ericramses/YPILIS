@@ -986,8 +986,7 @@ namespace YellowstonePathology.UI
 
         private void LSEMatrix_Click(object sender, RoutedEventArgs e)
         {
-            UI.Test.LSEMatrixWindow lse = new Test.LSEMatrixWindow();
-            lse.ShowDialog();
+            this.m_MainWindowCommandButtonHandler.OnShowLSEMatrixDialog();
         }
 
         private void MenuItemDictationTemplates_Click(object sender, RoutedEventArgs e)
@@ -1038,12 +1037,6 @@ namespace YellowstonePathology.UI
         {
             Policy.PolicyExplorer policyExplorer = new Policy.PolicyExplorer();
             policyExplorer.Show();
-        }
-
-        private void MenuItemLSEMatrix_Click(object sender, RoutedEventArgs e)
-        {
-            Test.LSEMatrixWindow window = new Test.LSEMatrixWindow();
-            window.ShowDialog();
         }
     }
 }
