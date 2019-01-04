@@ -295,7 +295,7 @@ namespace YellowstonePathology.UI.Billing
             if (this.ListViewPanelSetOrderCPTCodeBill.SelectedItems.Count != 0)
             {
                 YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill = (YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill)this.ListViewPanelSetOrderCPTCodeBill.SelectedItem;
-                this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.Reverse(panelSetOrderCPTCodeBill);
+                this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.Reverse(panelSetOrderCPTCodeBill);                
             }
         }
 

@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>308</ApplicationRevision>
+    <ApplicationRevision>317</ApplicationRevision>
     <ApplicationVersion>10.1.12.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -154,6 +154,7 @@
       <HintPath>..\packages\System.Interactive.Async.3.1.1\lib\net46\System.Interactive.Async.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Speech">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
@@ -1146,8 +1147,12 @@
     <Compile Include="Business\WebService\WebServiceAccountView.cs" />
     <Compile Include="Business\WebService\WebServiceAccountCollection.cs" />
     <Compile Include="Business\WebService\WebServiceClientView.cs" />
+    <Compile Include="Policy\EditDirectoryDialog.xaml.cs">
+      <DependentUpon>EditDirectoryDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Policy\Directory.cs" />
     <Compile Include="Policy\DirectoryCollection.cs" />
+    <Compile Include="Policy\IPFS.cs" />
     <Compile Include="Store\AppDataStore.cs" />
     <Compile Include="Business\Reports\BlocksSentNotReturnedReport.cs" />
     <Compile Include="Business\Reports\RetrospectiveReviewReport.xaml.cs">
@@ -1741,8 +1746,6 @@
     <Compile Include="Business\Surgical\PQRIKeyWordCollection.cs" />
     <Compile Include="Business\Surgical\PQRSAgeDefinitionEnum.cs" />
     <Compile Include="Business\Surgical\PQRSBarrettsEsophagusMeasure.cs" />
-    <Compile Include="Business\Surgical\PQRSBreastMeasure.cs" />
-    <Compile Include="Business\Surgical\PQRSColorectalMeasure.cs" />
     <Compile Include="Business\Surgical\PQRSMeasure.cs" />
     <Compile Include="Business\Surgical\PQRSMeasure395.cs" />
     <Compile Include="Business\Surgical\PQRSMeasure396.cs" />
@@ -4858,6 +4861,10 @@
     <Page Include="Business\Rules\ExecutionStatusDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Policy\EditDirectoryDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\AddbyCodeWindow.xaml">
       <SubType>Designer</SubType>

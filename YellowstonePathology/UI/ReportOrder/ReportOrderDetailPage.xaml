@@ -104,7 +104,7 @@
 
                 <TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" Text="Ordered By:" />
                 <ComboBox Grid.Column="1" Grid.Row="2" Margin="2,2,2,2" HorizontalAlignment="Stretch" ItemsSource="{Binding Path=UserCollection}" SelectedValuePath="UserId" DisplayMemberPath="DisplayName"
-							SelectedValue="{Binding Path=PanelSetOrder.OrderedById}" />
+							SelectedValue="{Binding Path=PanelSetOrder.OrderedById}" IsEnabled="false"/>
 
                 <TextBlock Grid.Column="0" Grid.Row="3" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold" Text="Assigned To:" />
                 <ComboBox Grid.Column="1" Grid.Row="3" Margin="2,2,2,2" HorizontalAlignment="Stretch" ItemsSource="{Binding Path=UserCollection}" SelectedValuePath="UserId" DisplayMemberPath="DisplayName"

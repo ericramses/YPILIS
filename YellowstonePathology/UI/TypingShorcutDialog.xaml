@@ -50,6 +50,7 @@
             <ComboBoxItem>GYN</ComboBoxItem>
             <ComboBoxItem>Heme</ComboBoxItem>
             <ComboBoxItem>Placenta</ComboBoxItem>
+            <ComboBoxItem>Thyroid</ComboBoxItem>
         </ComboBox>
 
         <TextBlock Grid.Column="0" Grid.Row="4" Margin="2,2,2,2" HorizontalAlignment="Left" FontWeight="Bold">Micro/DX:</TextBlock>

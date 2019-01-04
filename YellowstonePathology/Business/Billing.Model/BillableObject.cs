@@ -82,7 +82,7 @@ namespace YellowstonePathology.Business.Billing.Model
             }
         }                  
 
-        public virtual void PostGlobal(string billTo, string billby)
+        public virtual void PostGlobal(string billTo, string billBy)
         {
 			if (this.IsOkToPost() == true)
 			{
@@ -94,7 +94,7 @@ namespace YellowstonePathology.Business.Billing.Model
 					YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill item = this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.GetNextItem(this.m_PanelSetOrder.ReportNo);
 					item.FromPanelSetOrderCPTCode(panelSetOrderCPTCode);
 					item.BillTo = billTo;
-					item.BillBy = billby;
+					item.BillBy = billBy;
 
                     if (this.m_AccessionOrder.PrimaryInsurance == "Medicare")
                     {
