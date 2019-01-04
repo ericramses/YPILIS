@@ -250,7 +250,8 @@ namespace YellowstonePathology.Business.Test
                               ClientId = i.ClientId,
                               CodeType = i.CodeType,
                               Quantity = i.Quantity,
-                              MedicalRecord = i.MedicalRecord                              
+                              MedicalRecord = i.MedicalRecord,
+                              Account = i.Account                          
                           }
                           group i by j into l
                           select new
@@ -261,7 +262,8 @@ namespace YellowstonePathology.Business.Test
                               Clientid = l.Key.ClientId,
                               CodeType = l.Key.CodeType,
                               Quantity = l.Sum(q => q.Quantity),
-                              MedicalRecord = l.Key.MedicalRecord
+                              MedicalRecord = l.Key.MedicalRecord,
+                              Account = l.Key.Account
                           };
 
             foreach (var item in summary)
@@ -274,6 +276,7 @@ namespace YellowstonePathology.Business.Test
                 panelSetOrderCPTCode.CodeType = item.CodeType;
                 panelSetOrderCPTCode.Quantity = item.Quantity;
                 panelSetOrderCPTCode.MedicalRecord = item.MedicalRecord;
+                panelSetOrderCPTCode.Account = item.Account;
                 result.Add(panelSetOrderCPTCode);
             }                
 
@@ -284,15 +287,16 @@ namespace YellowstonePathology.Business.Test
         {
             PanelSetOrderCPTCodeCollection result = new PanelSetOrderCPTCodeCollection();
 
-            var summary = from i in this where i.EntryType == "Manual Entry"
+            var summary = from i in this where ((i.EntryType == "Manual Entry") && (i.PostDate.HasValue == false) )
                           let j = new
                           {
                               ReportNo = i.ReportNo,
                               CPTCode = i.CPTCode,
-                              Modifier = i.Modifier,                              
+                              Modifier = i.Modifier,
                               ClientId = i.ClientId,
                               Quantity = i.Quantity,
-                              MedicalRecord = i.MedicalRecord
+                              MedicalRecord = i.MedicalRecord,
+                              Account = i.Account
                           }
                           group i by j into l
                           select new
@@ -302,7 +306,8 @@ namespace YellowstonePathology.Business.Test
                               Modifier = l.Key.Modifier,                              
                               ClientId = l.Key.ClientId,
                               Quantity = l.Sum(q => q.Quantity),
-                              MedicalRecord = l.Key.MedicalRecord
+                              MedicalRecord = l.Key.MedicalRecord,
+                              Account = l.Key.Account
                           };
 
             foreach (var item in summary)
@@ -314,6 +319,7 @@ namespace YellowstonePathology.Business.Test
                 panelSetOrderCPTCode.ClientId = item.ClientId;
                 panelSetOrderCPTCode.Quantity = item.Quantity;
                 panelSetOrderCPTCode.MedicalRecord = item.MedicalRecord;
+                panelSetOrderCPTCode.Account = item.Account;
                 result.Add(panelSetOrderCPTCode);
             }
 
@@ -449,7 +455,7 @@ namespace YellowstonePathology.Business.Test
             }
         }
 
-        public void SetCPTCodes(Business.Specimen.Model.SpecimenOrderCollection specimenOrderCollection, string reportNo, int clientId, string medicalRecordNo)
+        public void SetCPTCodes(Business.Specimen.Model.SpecimenOrderCollection specimenOrderCollection, string reportNo, int clientId, string medicalRecordNo, string account)
         {            
             foreach(Business.Specimen.Model.SpecimenOrder specimenOrder in specimenOrderCollection)
             {                
@@ -465,6 +471,7 @@ namespace YellowstonePathology.Business.Test
                     panelSetOrderCPTCode.SpecimenOrderId = specimenOrder.SpecimenOrderId;
                     panelSetOrderCPTCode.ClientId = clientId;
                     panelSetOrderCPTCode.MedicalRecord = medicalRecordNo;
+                    panelSetOrderCPTCode.Account = account;
                     this.Add(panelSetOrderCPTCode);                
                 }                
             }

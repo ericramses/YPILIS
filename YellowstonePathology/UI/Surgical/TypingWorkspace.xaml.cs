@@ -1181,7 +1181,7 @@ namespace YellowstonePathology.UI.Surgical
             MenuItem menuItem = (MenuItem)sender;
             string panelSetOrderCPTCodeId = menuItem.Tag.ToString();
             YellowstonePathology.Business.Test.PanelSetOrderCPTCode panelSetOrderCPTCode = this.m_TypingUI.SurgicalTestOrder.PanelSetOrderCPTCodeCollection.GetPanelSetOrderCPTCode(panelSetOrderCPTCodeId);
-            if(panelSetOrderCPTCode.PostDate.HasValue == false)
+            if(panelSetOrderCPTCode.PostDate.HasValue == true)
             {
                 this.m_TypingUI.SurgicalTestOrder.PanelSetOrderCPTCodeCollection.Reverse(panelSetOrderCPTCode);
                 this.m_TypingUI.RefreshBillingSpecimenViewCollection();
