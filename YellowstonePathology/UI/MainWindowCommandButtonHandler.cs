@@ -33,6 +33,9 @@ namespace YellowstonePathology.UI
         public delegate void ShowMessagingDialogEventHandler(object sender, EventArgs e);
         public event ShowMessagingDialogEventHandler ShowMessagingDialog;
 
+        public delegate void ShowLSEMatrixEventHandler(object sender, EventArgs e);
+        public event ShowLSEMatrixEventHandler ShowLSEMatrixDialog;
+
         public MainWindowCommandButtonHandler()
         {
             
@@ -76,6 +79,11 @@ namespace YellowstonePathology.UI
         public void OnShowAmendmentDialog()
         {
             if (this.ShowAmendmentDialog != null) this.ShowAmendmentDialog(this, EventArgs.Empty);
+        }
+
+        public void OnShowLSEMatrixDialog()
+        {
+            if (this.ShowLSEMatrixDialog != null) this.ShowLSEMatrixDialog(this, EventArgs.Empty);
         }
     }
 }
