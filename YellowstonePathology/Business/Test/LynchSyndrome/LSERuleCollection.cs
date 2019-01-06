@@ -63,6 +63,8 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 
             result.Add(new LSEColonAllIntact());
             result.Add(new LSEColonMSH2MSH6Loss());
+            result.Add(new LSEColonMLH1Loss());
+            result.Add(new LSEColonMLH1LossBRAFD());
             result.Add(new LSEColonMSH2Loss());
             result.Add(new LSEColonMSH6Loss());
             result.Add(new LSEColonPMS2Loss());            
@@ -83,6 +85,8 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             LSERuleCollection result = new LSERuleCollection();
 
             result.Add(new LSEColonAllIntact());
+            result.Add(new LSEColonMLH1Loss());
+            result.Add(new LSEColonMLH1LossBRAFD());
             result.Add(new LSEColonMSH2MSH6Loss());
             result.Add(new LSEColonMSH2Loss());
             result.Add(new LSEColonMSH6Loss());

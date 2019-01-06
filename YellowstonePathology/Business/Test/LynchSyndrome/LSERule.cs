@@ -36,7 +36,8 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 		protected LSEResultEnum m_MSH2Result;
 		protected LSEResultEnum m_MLH1Result;
 
-        protected string m_AdditionalTesting;            
+        protected LSEResultEnum m_BRAFResult;
+        protected string m_AdditionalTesting;
 
 		protected string m_Interpretation;
 		protected string m_Result;
@@ -91,7 +92,13 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 			set { this.m_MSH2Result = value; }
 		}
 
-		public LSEResultEnum MLH1Result
+        public LSEResultEnum BRAFResult
+        {
+            get { return this.m_BRAFResult; }
+            set { this.m_BRAFResult = value; }
+        }
+
+        public LSEResultEnum MLH1Result
 		{
 			get { return this.m_MLH1Result; }
 			set { this.m_MLH1Result = value; }
