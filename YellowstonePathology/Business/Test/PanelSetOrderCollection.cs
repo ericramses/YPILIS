@@ -160,7 +160,7 @@ namespace YellowstonePathology.Business.Test
             if (string.IsNullOrEmpty(accessionOrder.SpecialInstructions) == false)
             {                
                 string reflexInstruction11 = "Test->Pap Test with High Risk HPV with reflex to HPV 16/18 Genotyping (only if PAP neg/HPV Pos)";
-                string reflexInstruction12 = "Test->Pap Test with High Risk HPV with reflex to HPV Genotyping (only if PAP neg / HPV Pos)";
+                string reflexInstruction12 = "Test->Pap Test with High Risk HPV with reflex to HPV Genotyping (only if PAP neg/HPV Pos)";
                 if (accessionOrder.SpecialInstructions.Contains(reflexInstruction11) == true || 
                     accessionOrder.SpecialInstructions.Contains(reflexInstruction12) == true)
                 {
