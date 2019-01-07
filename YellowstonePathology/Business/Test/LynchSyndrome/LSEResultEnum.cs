@@ -7,6 +7,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 {
 	public enum LSEResultEnum
 	{
+        NotApplicable,
 		NotPerformed,
 		Detected,
 		NotDetected,
