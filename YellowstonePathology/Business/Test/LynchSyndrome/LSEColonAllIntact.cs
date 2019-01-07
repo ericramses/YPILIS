@@ -16,7 +16,6 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 			this.m_MSH2Result = LSEResultEnum.Intact;
 			this.m_MSH6Result = LSEResultEnum.Intact;
 			this.m_PMS2Result = LSEResultEnum.Intact;
-            this.m_BRAFResult = LSEResultEnum.NotPerformed;
 
             this.m_AdditionalTesting = LSERule.AdditionalTestingNone;			
             this.m_Interpretation = "The results are compatible with a sporadic tumor and indicate a low risk for Lynch Syndrome.  " +
