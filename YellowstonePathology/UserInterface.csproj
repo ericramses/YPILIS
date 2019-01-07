@@ -2996,6 +2996,7 @@
     <Compile Include="UI\Billing\ADTPage.xaml.cs">
       <DependentUpon>ADTPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Billing\SVHAccountHandler.cs" />
     <Compile Include="UI\Billing\SVHCDMResultDialog.xaml.cs">
       <DependentUpon>SVHCDMResultDialog.xaml</DependentUpon>
     </Compile>

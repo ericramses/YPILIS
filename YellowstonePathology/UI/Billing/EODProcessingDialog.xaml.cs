@@ -33,7 +33,7 @@ namespace YellowstonePathology.UI.Billing
         private int m_StatusCount;
         private List<string> m_ReportNumbersToProcess;
 
-        private System.Timers.Timer m_Timer;
+        private System.Timers.Timer m_Timer;        
 
         public EODProcessingDialog()
         {
