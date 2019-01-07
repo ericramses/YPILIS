@@ -57,6 +57,26 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             }            
         }
 
+        public void SetBRAFMatch(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation, LSERule lseRuleToMatch)
+        {
+            if (lseRuleToMatch.BRAFResult == LSEResultEnum.Detected || lseRuleToMatch.BRAFResult == LSEResultEnum.NotDetected)
+            {
+                if (lseRuleToMatch.IsBRAFResultUseable(accessionOrder, panelSetOrderLynchSyndromeEvaluation) == true)
+                {
+                    foreach (LSERule lseRule in this)
+                    {
+                        if (lseRule.IHCMatched == true)
+                        {
+                            if (lseRuleToMatch.BRAFResult != lseRule.BRAFResult)
+                            {
+                                lseRule.IHCMatched = false;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         public static LSERuleCollection GetAll()
         {
             LSERuleCollection result = new LSERuleCollection();

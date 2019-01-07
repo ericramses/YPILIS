@@ -36,6 +36,7 @@ namespace YellowstonePathology.UI.Test
             this.m_LSERuleCollection = YellowstonePathology.Business.Test.LynchSyndrome.LSERuleCollection.GetAll();
             this.m_LSERule = YellowstonePathology.Business.Test.LynchSyndrome.LSERule.GetResult(this.m_AccessionOrder, this.m_PanelSetOrderLynchSyndromeEvaluation);
             this.m_LSERuleCollection.SetIHCMatch(this.m_LSERule);
+            this.m_LSERuleCollection.SetBRAFMatch(this.m_AccessionOrder, this.m_PanelSetOrderLynchSyndromeEvaluation, this.m_LSERule);
 
             InitializeComponent();
             this.DataContext = this;
