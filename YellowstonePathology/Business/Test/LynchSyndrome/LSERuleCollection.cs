@@ -46,6 +46,13 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             return result;
         }
 
+        public void SetMatch(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation, LSERule lseRuleToMatch)
+        {
+            this.SetIHCMatch(lseRuleToMatch);
+            this.SetBRAFMatch(accessionOrder, panelSetOrderLynchSyndromeEvaluation, lseRuleToMatch);
+            this.SetMethMatch(accessionOrder, panelSetOrderLynchSyndromeEvaluation, lseRuleToMatch);
+        }
+
         public void SetIHCMatch(LSERule lseResultToMatch)
         {            
             foreach (LSERule lseResult in this)
@@ -57,7 +64,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             }            
         }
 
-        public void SetBRAFMatch(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation, LSERule lseRuleToMatch)
+        private void SetBRAFMatch(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation, LSERule lseRuleToMatch)
         {
             if (lseRuleToMatch.BRAFResult == LSEResultEnum.Detected || lseRuleToMatch.BRAFResult == LSEResultEnum.NotDetected)
             {
@@ -71,6 +78,32 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
                             {
                                 lseRule.IHCMatched = false;
                             }
+                            else
+                            {
+                                lseRule.BRAFMatched = true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void SetMethMatch(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation, LSERule lseRuleToMatch)
+        {
+            if (lseRuleToMatch.IsMethResultUseable(accessionOrder, panelSetOrderLynchSyndromeEvaluation) == true)
+            {
+                foreach (LSERule lseRule in this)
+                {
+                    if (lseRule.BRAFMatched == true)
+                    {
+                        if (lseRuleToMatch.MethResult != lseRule.MethResult)
+                        {
+                            lseRule.IHCMatched = false;
+                            lseRule.BRAFMatched = false;
+                        }
+                        else
+                        {
+                            lseRule.MethMatched = true;
                         }
                     }
                 }
@@ -84,7 +117,8 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             result.Add(new LSEColonAllIntact());
             result.Add(new LSEColonMSH2MSH6Loss());
             result.Add(new LSEColonMLH1Loss());
-            result.Add(new LSEColonMLH1LossBRAFD());
+            result.Add(new LSEColonMLH1Loss1());
+            result.Add(new LSEColonMLH1Loss2());
             result.Add(new LSEColonMSH2Loss());
             result.Add(new LSEColonMSH6Loss());
             result.Add(new LSEColonPMS2Loss());            
@@ -106,7 +140,8 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 
             result.Add(new LSEColonAllIntact());
             result.Add(new LSEColonMLH1Loss());
-            result.Add(new LSEColonMLH1LossBRAFD());
+            result.Add(new LSEColonMLH1Loss1());
+            result.Add(new LSEColonMLH1Loss2());
             result.Add(new LSEColonMSH2MSH6Loss());
             result.Add(new LSEColonMSH2Loss());
             result.Add(new LSEColonMSH6Loss());

@@ -120,7 +120,7 @@ namespace YellowstonePathology.UI.Test
                 this.m_LSEResultCollection = YellowstonePathology.Business.Test.LynchSyndrome.LSERuleCollection.GetGYNResults();
             }*/
 
-            this.m_LSEResultCollection.SetIHCMatch(this.m_LSERule);
+            this.m_LSEResultCollection.SetMatch(this.m_AccessionOrder, this.m_PanelSetOrderLynchSyndromeEvaluation, this.m_LSERule);
         }
     }
 }

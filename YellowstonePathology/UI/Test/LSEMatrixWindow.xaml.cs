@@ -35,8 +35,7 @@ namespace YellowstonePathology.UI.Test
             this.m_AccessionOrder = accessionOrder;
             this.m_LSERuleCollection = YellowstonePathology.Business.Test.LynchSyndrome.LSERuleCollection.GetAll();
             this.m_LSERule = YellowstonePathology.Business.Test.LynchSyndrome.LSERule.GetResult(this.m_AccessionOrder, this.m_PanelSetOrderLynchSyndromeEvaluation);
-            this.m_LSERuleCollection.SetIHCMatch(this.m_LSERule);
-            this.m_LSERuleCollection.SetBRAFMatch(this.m_AccessionOrder, this.m_PanelSetOrderLynchSyndromeEvaluation, this.m_LSERule);
+            this.m_LSERuleCollection.SetMatch(this.m_AccessionOrder, this.m_PanelSetOrderLynchSyndromeEvaluation, this.m_LSERule);
 
             InitializeComponent();
             this.DataContext = this;
@@ -75,7 +74,7 @@ namespace YellowstonePathology.UI.Test
             }
         }
 
-        private void ButtonMatch_Click(object sender, RoutedEventArgs e)
+        /*private void ButtonMatch_Click(object sender, RoutedEventArgs e)
         {
             this.m_LSERuleCollection.ClearMatched();
             if (this.m_LSERuleCollection.HasIHCMatch(this.m_LSERule))
@@ -84,6 +83,6 @@ namespace YellowstonePathology.UI.Test
             }
             this.m_LSERuleCollection = this.m_LSERuleCollection.OrderByMatched();
             this.NotifyPropertyChanged("LSEResultCollection");
-        }
+        }*/
     }
 }
