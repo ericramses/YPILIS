@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>319</ApplicationRevision>
+    <ApplicationRevision>322</ApplicationRevision>
     <ApplicationVersion>10.1.12.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -1745,13 +1745,11 @@
     <Compile Include="Business\Surgical\PathologistHistoryList.cs" />
     <Compile Include="Business\Surgical\PQRIKeyWordCollection.cs" />
     <Compile Include="Business\Surgical\PQRSAgeDefinitionEnum.cs" />
-    <Compile Include="Business\Surgical\PQRSBarrettsEsophagusMeasure.cs" />
     <Compile Include="Business\Surgical\PQRSMeasure.cs" />
     <Compile Include="Business\Surgical\PQRSMeasure395.cs" />
     <Compile Include="Business\Surgical\PQRSMeasure396.cs" />
     <Compile Include="Business\Surgical\PQRSMeasureCollection.cs" />
     <Compile Include="Business\Surgical\PQRSMelanomaMeasure.cs" />
-    <Compile Include="Business\Surgical\PQRSRadicalProstatectomyMeasure.cs" />
     <Compile Include="Business\Surgical\ProcessorRun.cs" />
     <Compile Include="Business\Surgical\ProcessorRunCollection.cs" />
     <Compile Include="Business\Surgical\ReportableCases.cs" />
@@ -2996,7 +2994,6 @@
     <Compile Include="UI\Billing\ADTPage.xaml.cs">
       <DependentUpon>ADTPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Billing\SVHAccountHandler.cs" />
     <Compile Include="UI\Billing\SVHCDMResultDialog.xaml.cs">
       <DependentUpon>SVHCDMResultDialog.xaml</DependentUpon>
     </Compile>
