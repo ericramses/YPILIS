@@ -46,18 +46,90 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             return result;
         }
 
-        public void SetMatch(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation, LSERule lseRuleToMatch)
+        public static LSERuleCollection GetMatchCollection(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation, LSERule lseRuleToMatch)
+        {
+            LSERuleCollection result = new LynchSyndrome.LSERuleCollection();
+            LSERuleCollection typeCollection = LSERuleCollection.GetTypeResultCollection(panelSetOrderLynchSyndromeEvaluation.LynchSyndromeEvaluationType);
+            if (typeCollection.Count > 0)
+            {
+                LSERuleCollection ihcCollection = typeCollection.GetIHCMatchCollection(lseRuleToMatch);
+                if (ihcCollection.Count > 0)
+                {
+                    LSERuleCollection brafCollection = ihcCollection.GetBRAFMatchCollection(accessionOrder, panelSetOrderLynchSyndromeEvaluation, lseRuleToMatch);
+                    if (brafCollection.Count > 0)
+                    {
+                        LSERuleCollection methCollection = brafCollection.GetMethMatchCollection(accessionOrder, panelSetOrderLynchSyndromeEvaluation, lseRuleToMatch);
+                        if (methCollection.Count > 0) result = methCollection;
+                        else result = brafCollection;
+                    }
+                    else result = ihcCollection;
+                }
+                //else result = typeCollection;
+            }
+            return result;
+        }
+
+        public LSERuleCollection GetIHCMatchCollection( LSERule lseRuleToMatch)
+        {
+            LSERuleCollection result = new LynchSyndrome.LSERuleCollection();
+            foreach (LSERule lseRule in this)
+            {
+                if (lseRule.IsIHCMatch(lseRuleToMatch) == true)
+                {
+                    result.Add(lseRule);
+                }
+            }
+            return result;
+        }
+
+        public LSERuleCollection GetBRAFMatchCollection(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation, LSERule lseRuleToMatch)
+        {
+            LSERuleCollection result = new LynchSyndrome.LSERuleCollection();
+
+            if (lseRuleToMatch.BRAFResult == LSEResultEnum.Detected || lseRuleToMatch.BRAFResult == LSEResultEnum.NotDetected)
+            {
+                if (lseRuleToMatch.IsBRAFResultUseable(accessionOrder, panelSetOrderLynchSyndromeEvaluation) == true)
+                {
+                    foreach (LSERule lseRule in this)
+                    {
+                        if (lseRuleToMatch.BRAFResult == lseRule.BRAFResult)
+                        {
+                            result.Add(lseRule);
+                        }
+                    }
+                }
+            }
+            return result;
+        }
+
+        private LSERuleCollection GetMethMatchCollection(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation, LSERule lseRuleToMatch)
+        {
+            LSERuleCollection result = new LynchSyndrome.LSERuleCollection();
+            if (lseRuleToMatch.IsMethResultUseable(accessionOrder, panelSetOrderLynchSyndromeEvaluation) == true)
+            {
+                foreach (LSERule lseRule in this)
+                {
+                    if (lseRuleToMatch.MethResult == lseRule.MethResult)
+                    {
+                        result.Add(lseRule);
+                    }
+                }
+            }
+            return result;
+        }
+
+        /*public void SetMatch(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation, LSERule lseRuleToMatch)
         {
             this.SetIHCMatch(lseRuleToMatch);
             this.SetBRAFMatch(accessionOrder, panelSetOrderLynchSyndromeEvaluation, lseRuleToMatch);
             this.SetMethMatch(accessionOrder, panelSetOrderLynchSyndromeEvaluation, lseRuleToMatch);
         }
 
-        public void SetIHCMatch(LSERule lseResultToMatch)
+        public void SetIHCMatch(LSERule lseRuleToMatch)
         {            
             foreach (LSERule lseResult in this)
             {
-                if (lseResult.IsIHCMatch(lseResultToMatch) == true)
+                if (lseResult.IsIHCMatch(lseRuleToMatch) == true)
                 {
                     lseResult.IHCMatched = true;                    
                 }
@@ -108,7 +180,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
                     }
                 }
             }
-        }
+        }*/
 
         public static LSERuleCollection GetAll()
         {
@@ -166,7 +238,26 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             result.Add(new LSEGeneralResult1());
             result.Add(new LSEGeneralResult2());
             return result;
-        }        
+        }
+        
+        public static LSERuleCollection GetTypeResultCollection(string lseType)
+        {
+            LSERuleCollection result = new LSERuleCollection();
+            if(lseType == LSEType.COLON)
+            {
+                result = LSERuleCollection.GetColonResults();
+            }
+            else if (lseType == LSEType.GENERAL)
+            {
+                result = LSERuleCollection.GetProstateResults();
+            }
+            else if (lseType == LSEType.GYN)
+            {
+                result = LSERuleCollection.GetGYNResults();
+            }
+
+            return result;
+        }
 
         /*
         public static LSEResult GetResult(LSEResult evalResult, string lseType)
@@ -248,5 +339,5 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 			return result;
 		}
         */
-	}
+    }
 }

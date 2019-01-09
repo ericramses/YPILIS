@@ -29,9 +29,6 @@ namespace YellowstonePathology.UI.Test
         public delegate void BackEventHandler(object sender, EventArgs e);
         public event BackEventHandler Back;
 
-        public delegate void MatrixEventHandler(object sender, EventArgs e);
-        public event MatrixEventHandler Matrix;
-
         public delegate void OrderBrafEventHandler(object sender, EventArgs e);
 		public event OrderBrafEventHandler OrderBraf;
 
@@ -46,8 +43,10 @@ namespace YellowstonePathology.UI.Test
 		private string m_PageHeaderText;
 		private string m_OrderedOnDescription;
 
-		private YellowstonePathology.Business.Test.LynchSyndrome.LSERule m_LSEResult;
-		private YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation m_PanelSetOrderLynchSyndromeEvaluation;        
+        private Business.Test.LynchSyndrome.LSERuleCollection m_LSERuleCollection;
+        private Business.Test.LynchSyndrome.LSERule m_LSERule;
+        private Business.Test.LynchSyndrome.LSERule m_SelectedLSERule;
+        private YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation m_PanelSetOrderLynchSyndromeEvaluation;        
         private YellowstonePathology.Business.Test.LynchSyndrome.LSETypeCollection m_LSETypeCollection;
 
         private System.Windows.Visibility m_BackButtonVisibility;
@@ -68,16 +67,18 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByOrderTarget(this.m_PanelSetOrderLynchSyndromeEvaluation.OrderedOnId);
 			YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetAliquotOrder(this.m_PanelSetOrderLynchSyndromeEvaluation.OrderedOnId);
 			this.m_OrderedOnDescription = specimenOrder.Description;
-			if (aliquotOrder != null) this.m_OrderedOnDescription += ": " + aliquotOrder.Label;            
+			if (aliquotOrder != null) this.m_OrderedOnDescription += ": " + aliquotOrder.Label;
 
-			InitializeComponent();
+            this.m_LSERule = YellowstonePathology.Business.Test.LynchSyndrome.LSERule.GetResult(this.m_AccessionOrder, this.m_PanelSetOrderLynchSyndromeEvaluation);
+            this.m_LSERuleCollection = YellowstonePathology.Business.Test.LynchSyndrome.LSERuleCollection.GetMatchCollection(this.m_AccessionOrder, this.m_PanelSetOrderLynchSyndromeEvaluation, this.m_LSERule);
+
+            InitializeComponent();
 			DataContext = this;
             			
             this.Loaded += new RoutedEventHandler(LynchSyndromeEvaluationResultPage_Loaded);
 
             this.m_ControlsNotDisabledOnFinal.Add(this.ButtonBack);
             this.m_ControlsNotDisabledOnFinal.Add(this.ButtonNext);
-            this.m_ControlsNotDisabledOnFinal.Add(this.ButtonMatrix);
             this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockShowDocument);
             this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalResults);
         }
@@ -112,7 +113,17 @@ namespace YellowstonePathology.UI.Test
 			get { return this.m_AccessionOrder; }
 		}
 
-		public void NotifyPropertyChanged(String info)
+        public Business.Test.LynchSyndrome.LSERuleCollection LSERuleCollection
+        {
+            get { return this.m_LSERuleCollection; }
+        }
+
+        public Business.Test.LynchSyndrome.LSERule LSERule
+        {
+            get { return this.m_LSERule; }
+        }
+
+        public void NotifyPropertyChanged(String info)
 		{
 			if (PropertyChanged != null)
 			{
@@ -124,46 +135,6 @@ namespace YellowstonePathology.UI.Test
 		{
 			get { return this.m_PageHeaderText; }
 		}
-
-		public string MLH1Result
-		{
-			get
-			{
-				string result = string.Empty;
-				if (this.m_LSEResult != null) result = YellowstonePathology.Business.Helper.StringExtensionMethods.SplitCapitalizedWords(this.m_LSEResult.MLH1Result.ToString("g"));
-				return result;
-			}
-		}
-
-		public string MSH2Result
-		{
-			get
-			{
-				string result = string.Empty;
-				if (this.m_LSEResult != null) result = YellowstonePathology.Business.Helper.StringExtensionMethods.SplitCapitalizedWords(this.m_LSEResult.MSH2Result.ToString("g"));
-				return result;
-			}
-		}
-
-		public string MSH6Result
-		{
-			get
-			{
-				string result = string.Empty;
-				if (this.m_LSEResult != null) result = YellowstonePathology.Business.Helper.StringExtensionMethods.SplitCapitalizedWords(this.m_LSEResult.MSH6Result.ToString("g"));
-				return result;
-			}
-		}
-
-		public string PMS2Result
-		{
-			get
-			{
-				string result = string.Empty;
-				if (this.m_LSEResult != null) result = YellowstonePathology.Business.Helper.StringExtensionMethods.SplitCapitalizedWords(this.m_LSEResult.PMS2Result.ToString("g"));
-				return result;
-			}
-		}			
 
 		private void ButtonNext_Click(object sender, RoutedEventArgs e)
 		{
@@ -180,7 +151,7 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkSetResults_Click(object sender, RoutedEventArgs e)
 		{            
-			if (this.m_PanelSetOrderLynchSyndromeEvaluation.Final == false)
+			/*if (this.m_PanelSetOrderLynchSyndromeEvaluation.Final == false)
 			{
 				if (this.SetLSEResults() == true)
 				{
@@ -194,7 +165,7 @@ namespace YellowstonePathology.UI.Test
 			else
 			{
 				MessageBox.Show("Results cannot be set because the case is final.");
-			}
+			}*/
 		}
 
 		private bool SetLSEResults()
@@ -344,7 +315,7 @@ namespace YellowstonePathology.UI.Test
 		}
 
 
-        private YellowstonePathology.Business.Rules.MethodResult SetCloneResults(YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation clone)
+        /*private YellowstonePathology.Business.Rules.MethodResult SetCloneResults(YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation clone)
         {
             YellowstonePathology.Business.Rules.MethodResult result = new Business.Rules.MethodResult();
 
@@ -364,27 +335,28 @@ namespace YellowstonePathology.UI.Test
         private YellowstonePathology.Business.Test.LynchSyndrome.LSERule SetCloneLSEResults(YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation clone)
         {            
             YellowstonePathology.Business.Test.LynchSyndrome.LSERule cloneLSEResult = null;
-            /*
-            YellowstonePathology.Business.Test.LynchSyndrome.LSEResult lseResult = YellowstonePathology.Business.Test.LynchSyndrome.LSEResult.GetResult(this.m_AccessionOrder, clone);
-            YellowstonePathology.Business.Test.LynchSyndrome.LSEResult accessionLSEResult = YellowstonePathology.Business.Test.LynchSyndrome.LSEResultCollection.GetResult(lseResult, clone.LynchSyndromeEvaluationType);
+            //YellowstonePathology.Business.Test.LynchSyndrome.LSEResult lseResult = YellowstonePathology.Business.Test.LynchSyndrome.LSEResult.GetResult(this.m_AccessionOrder, clone);
+            //YellowstonePathology.Business.Test.LynchSyndrome.LSEResult accessionLSEResult = YellowstonePathology.Business.Test.LynchSyndrome.LSEResultCollection.GetResult(lseResult, clone.LynchSyndromeEvaluationType);
 
-            if (accessionLSEResult == null)
-            {
-                cloneLSEResult = lseResult;
-            }
-            else
-            {
-                cloneLSEResult = accessionLSEResult;
-            }
-            */
-            return cloneLSEResult;
-        }
+            //if (accessionLSEResult == null)
+            //{
+            //    cloneLSEResult = lseResult;
+            //}
+            //else
+            //{
+            //    cloneLSEResult = accessionLSEResult;
+            //}
+            //return cloneLSEResult;
+        }*/
 
-        private void ButtonMatrix_Click(object sender, RoutedEventArgs e)
+        private void ListViewResults_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //if (this.Matrix != null) this.Matrix(this, new EventArgs());
-            LSEMatrixWindow dlg = new Test.LSEMatrixWindow(this.m_PanelSetOrderLynchSyndromeEvaluation, this.m_AccessionOrder);
-            dlg.ShowDialog();
+            if (this.ListViewResults.SelectedItem != null)
+            {
+                this.m_SelectedLSERule = (Business.Test.LynchSyndrome.LSERule)this.ListViewResults.SelectedItem;
+                this.m_SelectedLSERule.SetResultsV2(this.m_PanelSetOrderLynchSyndromeEvaluation);
+                this.NotifyPropertyChanged("SelectedLSEResult");
+            }
         }
     }
 }

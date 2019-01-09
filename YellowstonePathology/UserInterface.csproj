@@ -3624,12 +3624,6 @@
     <Compile Include="UI\Test\ExtractAndHoldForPreauthorizationResultPage.xaml.cs">
       <DependentUpon>ExtractAndHoldForPreauthorizationResultPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Test\LSEMatrixWindow.xaml.cs">
-      <DependentUpon>LSEMatrixWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Test\LynchSyndromeEvaluationMatrixPage.xaml.cs">
-      <DependentUpon>LynchSyndromeEvaluationMatrixPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UI\Test\SlideTrackingResultPage.xaml.cs">
       <DependentUpon>SlideTrackingResultPage.xaml</DependentUpon>
     </Compile>
@@ -5555,14 +5549,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\Test\LSEMatrixWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\Test\LynchSyndromeEvaluationMatrixPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="UI\Test\SlideTrackingResultPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -6878,12 +6864,12 @@
   <ItemGroup>
     <PublishFile Include="Microsoft.Exchange.WebServices">
       <Visible>False</Visible>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
   </ItemGroup>
