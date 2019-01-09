@@ -123,54 +123,36 @@
 					<TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" FontWeight="Bold">Order Status:</TextBlock>
 					<TextBlock Grid.Column="1" Grid.Row="2" Margin="2,2,2,2" Text="{Binding Path=LSEResultStatus.Status}"></TextBlock>
 
-					<TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" FontWeight="Bold" Margin="2,5,2,2">Results</TextBlock>
+					<TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" FontWeight="Bold" Margin="2,5,2,2">Results:</TextBlock>
 
-					<Grid Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Margin="0,2,0,5">
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition></ColumnDefinition>
-							<ColumnDefinition></ColumnDefinition>
-							<ColumnDefinition></ColumnDefinition>
-							<ColumnDefinition></ColumnDefinition>
-							<ColumnDefinition></ColumnDefinition>
-							<ColumnDefinition></ColumnDefinition>
-						</Grid.ColumnDefinitions>
-						<Grid.RowDefinitions>
-							<RowDefinition></RowDefinition>
-							<RowDefinition></RowDefinition>
-						</Grid.RowDefinitions>
+                    <ListView Name="ListViewResults" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="3" Margin="2,2,2,2" SelectionChanged="ListViewResults_SelectionChanged" ItemsSource="{Binding Path=LSERuleCollection}">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Style.Triggers>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding Path=IHCMatched}" Value="True"/>
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="Background" Value="#cbf4c8"/>
+                                    </MultiDataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Indication" Width="90" DisplayMemberBinding="{Binding Path=Indication}" />
+                                <GridViewColumn Header="MLH1" Width="90" DisplayMemberBinding="{Binding Path=MLH1Result}" />
+                                <GridViewColumn Header="MSH2" Width="90" DisplayMemberBinding="{Binding Path=MSH2Result}" />
+                                <GridViewColumn Header="MSH6" Width="90" DisplayMemberBinding="{Binding Path=MSH6Result}" />
+                                <GridViewColumn Header="PMS2" Width="90" DisplayMemberBinding="{Binding Path=PMS2Result}" />
+                                <!--<GridViewColumn Header="Additional Testing" Width="180" DisplayMemberBinding="{Binding Path=AdditionalTesting}" /> -->
+                                <GridViewColumn Header="BRAF" Width="90" DisplayMemberBinding="{Binding Path=BRAFResult}" />
+                                <GridViewColumn Header="Meth" Width="90" DisplayMemberBinding="{Binding Path=MethResult}" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
 
-						<Border Grid.Column="0" Grid.Row="0" BorderThickness="1,1,1,1" BorderBrush="Gray" />
-						<Border Grid.Column="0" Grid.Row="1" BorderThickness="1,0,1,1" BorderBrush="Gray" />
-						<TextBlock Grid.Column="0" Grid.Row="0" Margin="2" Text="MLH1" HorizontalAlignment="Center" />
-						<TextBlock Grid.Column="0" Grid.Row="1" Margin="2" Text="{Binding Path=MLH1Result}"  HorizontalAlignment="Center" />
-
-						<Border Grid.Column="1" Grid.Row="0" BorderThickness="0,1,1,1" BorderBrush="Gray" />
-						<Border Grid.Column="1" Grid.Row="1" BorderThickness="0,0,1,1" BorderBrush="Gray" />
-						<TextBlock Grid.Column="1" Grid.Row="0" Margin="2" Text="MSH2" HorizontalAlignment="Center" />
-						<TextBlock Grid.Column="1" Grid.Row="1" Margin="2" Text="{Binding Path=MSH2Result}"  HorizontalAlignment="Center" />
-
-						<Border Grid.Column="2" Grid.Row="0" BorderThickness="0,1,1,1" BorderBrush="Gray" />
-						<Border Grid.Column="2" Grid.Row="1" BorderThickness="0,0,1,1" BorderBrush="Gray" />
-						<TextBlock Grid.Column="2" Grid.Row="0" Margin="2" Text="MSH6" HorizontalAlignment="Center" />
-						<TextBlock Grid.Column="2" Grid.Row="1" Margin="2" Text="{Binding Path=MSH6Result}"  HorizontalAlignment="Center" />
-
-						<Border Grid.Column="3" Grid.Row="0" BorderThickness="0,1,1,1" BorderBrush="Gray" />
-						<Border Grid.Column="3" Grid.Row="1" BorderThickness="0,0,1,1" BorderBrush="Gray" />
-						<TextBlock Grid.Column="3" Grid.Row="0" Margin="2" Text="PMS2" HorizontalAlignment="Center" />
-						<TextBlock Grid.Column="3" Grid.Row="1" Margin="2" Text="{Binding Path=PMS2Result}"  HorizontalAlignment="Center" />
-
-						<Border Grid.Column="4" Grid.Row="0" BorderThickness="0,1,1,1" BorderBrush="Gray" />
-						<Border Grid.Column="4" Grid.Row="1" BorderThickness="0,0,1,1" BorderBrush="Gray" />
-						<TextBlock Grid.Column="4" Grid.Row="0" Margin="2" Text="BRAF" HorizontalAlignment="Center" />
-						<TextBlock Grid.Column="4" Grid.Row="1" Margin="2" Text="{Binding Path=BrafResult}"  HorizontalAlignment="Center" />
-
-						<Border Grid.Column="5" Grid.Row="0" BorderThickness="0,1,1,1" BorderBrush="Gray" />
-						<Border Grid.Column="5" Grid.Row="1" BorderThickness="0,0,1,1" BorderBrush="Gray" />
-						<TextBlock Grid.Column="5" Grid.Row="0" Margin="2" Text="Meth" HorizontalAlignment="Center" />
-						<TextBlock Grid.Column="5" Grid.Row="1" Margin="2" Text="{Binding Path=MethResult}"  HorizontalAlignment="Center" />
-					</Grid>
-
-					<TextBlock Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="5" FontWeight="Bold" Margin="2,5,2,2">Current Orders:</TextBlock>
+                    <TextBlock Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="5" FontWeight="Bold" Margin="2,5,2,2">Current Orders:</TextBlock>
 					<ListView Name="ListBoxPanelSetOrders" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="6" Margin="2,2,2,2" HorizontalAlignment="Stretch"
                       ItemsSource="{Binding Path=AccessionOrder.PanelSetOrderCollection}">
 						<ListView.View>
@@ -249,7 +231,6 @@
 		<Border Grid.Column="0" Grid.Row="2" BorderBrush="Transparent" BorderThickness="0" Background="{DynamicResource {x:Static SystemColors.InactiveCaptionBrushKey}}"></Border>
         <StackPanel Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Orientation="Horizontal">
             <Button Name="ButtonBack" Margin="5,5,5,5" Click="ButtonBack_Click" Width="100" Height="40">&lt; Back</Button>
-            <Button Name="ButtonMatrix" Margin="5,5,5,5" Click="ButtonMatrix_Click" Width="100" Height="40">Matrix</Button>
         </StackPanel>
         <Button Name="ButtonNext" Grid.Column="0" Grid.Row="2" Width="100" Height="40" HorizontalAlignment="Right" Margin="5,5,5,5" Click="ButtonNext_Click">Next ></Button>
 

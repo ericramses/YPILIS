@@ -71,7 +71,6 @@ namespace YellowstonePathology.UI.Login
                 this.m_MainWindowCommandButtonHandler.RemoveTab += MainWindowCommandButtonHandler_RemoveTab;
                 this.m_MainWindowCommandButtonHandler.ShowMessagingDialog += MainWindowCommandButtonHandler_ShowMessagingDialog;
                 this.m_MainWindowCommandButtonHandler.ShowCaseDocument += MainWindowCommandButtonHandler_ShowCaseDocument;
-                this.m_MainWindowCommandButtonHandler.ShowLSEMatrixDialog += MainWindowCommandButtonHandler_ShowLSEMatrixDialog;
 
                 UI.AppMessaging.MessagingPath.Instance.LockReleasedActionList.Add(this.Save);
                 UI.AppMessaging.MessagingPath.Instance.LockAquiredActionList.Add(this.HandleAccessionOrderListChange);
@@ -175,28 +174,6 @@ namespace YellowstonePathology.UI.Login
             }
         }
 
-        private void MainWindowCommandButtonHandler_ShowLSEMatrixDialog(object sender, EventArgs e)
-        {
-            if (this.m_LoginUI.AccessionOrder != null)
-            {
-                YellowstonePathology.Business.Test.PanelSetOrder pso = this.m_LoginUI.AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_LoginUI.ReportNo);
-                if(pso.PanelSetId == 106)
-                {
-                    YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation = (YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation)pso;
-                    Test.LSEMatrixWindow lseMatrixWindow = new Test.LSEMatrixWindow(panelSetOrderLynchSyndromeEvaluation, this.m_LoginUI.AccessionOrder);
-                    lseMatrixWindow.ShowDialog();
-                }
-                else
-                {
-                    MessageBox.Show("You need to select a Mismatch Repair(MMR) Lynch Syndrome Evaluation.");
-                }
-            }
-            else
-            {
-                MessageBox.Show("You need to select a Mismatch Repair(MMR) Lynch Syndrome Evaluation.");
-            }
-        }
-
         private void LoginWorkspace_Unloaded(object sender, RoutedEventArgs e)
         {
             this.m_LoadedHasRun = false;
@@ -212,7 +189,6 @@ namespace YellowstonePathology.UI.Login
             this.m_MainWindowCommandButtonHandler.RemoveTab -= MainWindowCommandButtonHandler_RemoveTab;
             this.m_MainWindowCommandButtonHandler.ShowMessagingDialog -= MainWindowCommandButtonHandler_ShowMessagingDialog;
             this.m_MainWindowCommandButtonHandler.ShowCaseDocument -= MainWindowCommandButtonHandler_ShowCaseDocument;
-            this.m_MainWindowCommandButtonHandler.ShowLSEMatrixDialog -= MainWindowCommandButtonHandler_ShowLSEMatrixDialog;
 
             UI.AppMessaging.MessagingPath.Instance.LockReleasedActionList.Remove(this.Save);
             UI.AppMessaging.MessagingPath.Instance.LockAquiredActionList.Remove(this.HandleAccessionOrderListChange);

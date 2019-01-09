@@ -34,7 +34,6 @@
 			    <MenuItem Header="_Surgical" Name="MenuItemSurgical">
 				    <MenuItem Header="_Typing" Click="ToolBarButtonTypingWorkspace_Click"></MenuItem>
                     <MenuItem Header="Surgical Rescreen" Click="SurgicalRescreen_Click"></MenuItem>
-                    <MenuItem Header="LSE Matrix" Click="LSEMatrix_Click"></MenuItem>
                     <MenuItem Header="New Order Window" Click="NewOrderWindow_Click"></MenuItem>
                 </MenuItem>
         

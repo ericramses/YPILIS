@@ -984,11 +984,6 @@ namespace YellowstonePathology.UI
             
         }
 
-        private void LSEMatrix_Click(object sender, RoutedEventArgs e)
-        {
-            this.m_MainWindowCommandButtonHandler.OnShowLSEMatrixDialog();
-        }
-
         private void MenuItemDictationTemplates_Click(object sender, RoutedEventArgs e)
         {
             Gross.DictationTemplateListPage dlg = new Gross.DictationTemplateListPage();
