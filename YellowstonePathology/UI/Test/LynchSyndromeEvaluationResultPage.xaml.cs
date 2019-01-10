@@ -44,7 +44,6 @@ namespace YellowstonePathology.UI.Test
 		private string m_OrderedOnDescription;
 
         private Business.Test.LynchSyndrome.LSERuleCollection m_LSERuleCollection;
-        private Business.Test.LynchSyndrome.LSERule m_LSERule;
         private Business.Test.LynchSyndrome.LSERule m_SelectedLSERule;
         private YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation m_PanelSetOrderLynchSyndromeEvaluation;        
         private YellowstonePathology.Business.Test.LynchSyndrome.LSETypeCollection m_LSETypeCollection;
@@ -69,8 +68,7 @@ namespace YellowstonePathology.UI.Test
 			this.m_OrderedOnDescription = specimenOrder.Description;
 			if (aliquotOrder != null) this.m_OrderedOnDescription += ": " + aliquotOrder.Label;
 
-            this.m_LSERule = YellowstonePathology.Business.Test.LynchSyndrome.LSERule.GetResult(this.m_AccessionOrder, this.m_PanelSetOrderLynchSyndromeEvaluation);
-            this.m_LSERuleCollection = YellowstonePathology.Business.Test.LynchSyndrome.LSERuleCollection.GetMatchCollection(this.m_AccessionOrder, this.m_PanelSetOrderLynchSyndromeEvaluation, this.m_LSERule);
+            this.m_LSERuleCollection = YellowstonePathology.Business.Test.LynchSyndrome.LSERuleCollection.GetMatchCollection(this.m_AccessionOrder, this.m_PanelSetOrderLynchSyndromeEvaluation);
 
             InitializeComponent();
 			DataContext = this;
@@ -116,11 +114,6 @@ namespace YellowstonePathology.UI.Test
         public Business.Test.LynchSyndrome.LSERuleCollection LSERuleCollection
         {
             get { return this.m_LSERuleCollection; }
-        }
-
-        public Business.Test.LynchSyndrome.LSERule LSERule
-        {
-            get { return this.m_LSERule; }
         }
 
         public void NotifyPropertyChanged(String info)
@@ -273,10 +266,11 @@ namespace YellowstonePathology.UI.Test
 
         private void ComboBoxLSEType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            this.SetLSEResults();
-		}
+            this.m_LSERuleCollection = YellowstonePathology.Business.Test.LynchSyndrome.LSERuleCollection.GetMatchCollection(this.m_AccessionOrder, this.m_PanelSetOrderLynchSyndromeEvaluation);
+            this.NotifyPropertyChanged("LSERuleCollection");
+        }
 
-		private void HyperLinkAcceptResults_Click(object sender, RoutedEventArgs e)
+        private void HyperLinkAcceptResults_Click(object sender, RoutedEventArgs e)
 		{
             YellowstonePathology.Business.Rules.MethodResult result = this.m_PanelSetOrderLynchSyndromeEvaluation.IsOkToAccept();
             if (result.Success == true)
