@@ -68,7 +68,7 @@ namespace YellowstonePathology.UI.Test
 			this.m_OrderedOnDescription = specimenOrder.Description;
 			if (aliquotOrder != null) this.m_OrderedOnDescription += ": " + aliquotOrder.Label;
 
-            this.m_LSERuleCollection = YellowstonePathology.Business.Test.LynchSyndrome.LSERuleCollection.GetMatchCollection(this.m_AccessionOrder, this.m_PanelSetOrderLynchSyndromeEvaluation);
+            this.FillLSERuleCollection();
 
             InitializeComponent();
 			DataContext = this;
@@ -266,7 +266,7 @@ namespace YellowstonePathology.UI.Test
 
         private void ComboBoxLSEType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            this.m_LSERuleCollection = YellowstonePathology.Business.Test.LynchSyndrome.LSERuleCollection.GetMatchCollection(this.m_AccessionOrder, this.m_PanelSetOrderLynchSyndromeEvaluation);
+            this.FillLSERuleCollection();
             this.NotifyPropertyChanged("LSERuleCollection");
         }
 
@@ -308,6 +308,11 @@ namespace YellowstonePathology.UI.Test
 			}
 		}
 
+        private void FillLSERuleCollection()
+        {
+            this.m_LSERuleCollection = YellowstonePathology.Business.Test.LynchSyndrome.LSERuleCollection.GetAll();
+            this.m_LSERuleCollection.GetMatchCollection(this.m_AccessionOrder, this.m_PanelSetOrderLynchSyndromeEvaluation, this.m_LSERuleCollection);
+        }
 
         /*private YellowstonePathology.Business.Rules.MethodResult SetCloneResults(YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation clone)
         {

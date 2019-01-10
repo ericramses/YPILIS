@@ -87,9 +87,10 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 				}
 			}
 		}
-        
-		public void SetSummaryResult(LSERule lSERule)
-		{
+
+        public LSEResultEnum GetSummaryResult()
+        {
+            LSEResultEnum methResult = LSEResultEnum.NotApplicable;
             if (this.Final == true)
             {
                 MLH1MethylationAnalysisDetectedResult detected = new MLH1MethylationAnalysisDetectedResult();
@@ -97,16 +98,17 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 
                 if (this.ResultCode == detected.ResultCode)
                 {
-                    lSERule.MethResult = LSEResultEnum.Detected;
+                    methResult = LSEResultEnum.Detected;
                 }
                 else if (this.ResultCode == notDetected.ResultCode)
                 {
-                    lSERule.MethResult = LSEResultEnum.NotDetected;
+                    methResult = LSEResultEnum.NotDetected;
                 }
             }
-		}        
+            return methResult;
+        }
 
-		public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
+        public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
 			StringBuilder result = new StringBuilder();
 

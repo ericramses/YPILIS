@@ -200,6 +200,26 @@ namespace YellowstonePathology.Business.Test.BRAFMutationAnalysis
             return result.ToString();
         }
 
+        public LynchSyndrome.LSEResultEnum GetSummaryResult()
+        {
+            LynchSyndrome.LSEResultEnum brafResult = LynchSyndrome.LSEResultEnum.NotApplicable;
+            if (string.IsNullOrEmpty(this.Result) == false)
+            {
+                YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisNotDetectedResult notDetectedResult = new BRAFMutationAnalysisNotDetectedResult();
+                YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisDetectedResult detectedResult = new BRAFMutationAnalysisDetectedResult();
+
+                if (this.Result.ToUpper().Contains("NOT DETECTED"))
+                {
+                    brafResult = YellowstonePathology.Business.Test.LynchSyndrome.LSEResultEnum.NotDetected;
+                }
+                else if (this.Result.ToUpper().Contains("DETECTED"))
+                {
+                    brafResult = YellowstonePathology.Business.Test.LynchSyndrome.LSEResultEnum.Detected;
+                }
+            }
+            return brafResult;
+        }
+
         public void SetSummaryResult(YellowstonePathology.Business.Test.LynchSyndrome.LSERule lSERule)
         {
             if (string.IsNullOrEmpty(this.Result) == false)
