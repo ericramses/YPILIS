@@ -46,148 +46,102 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             return result;
         }
 
-        public static LSERuleCollection GetMatchCollection(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation)
+        public void GetMatchCollection(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation, LSERuleCollection lseRuleCollection)
         {
-            LSERuleCollection result = LSERuleCollection.GetAll();
-            LSERuleCollection typeCollection = LSERuleCollection.GetTypeResultCollection(panelSetOrderLynchSyndromeEvaluation.LynchSyndromeEvaluationType);
-            if (typeCollection.Count == 0) return result;
-
-            result = typeCollection;
-            LSERuleCollection ihcCollection = result.GetIHCMatchCollection(accessionOrder, panelSetOrderLynchSyndromeEvaluation);
-            if (ihcCollection.Count == 0) return result;
-
-            result = ihcCollection;
-            LSERuleCollection brafCollection = result.GetBRAFMatchCollection(accessionOrder, panelSetOrderLynchSyndromeEvaluation);
-            if (brafCollection.Count == 0) return result;
-
-            result = brafCollection;
-            LSERuleCollection methCollection = brafCollection.GetMethMatchCollection(accessionOrder, panelSetOrderLynchSyndromeEvaluation);
-            if (methCollection.Count == 0) return result;
-            result = methCollection;
-            return result;
+            bool canContinue = lseRuleCollection.GetIndicationCollection(panelSetOrderLynchSyndromeEvaluation.LynchSyndromeEvaluationType, lseRuleCollection);
+            if(canContinue == true) canContinue = lseRuleCollection.GetIHCMatchCollection(accessionOrder, panelSetOrderLynchSyndromeEvaluation, lseRuleCollection);
+            if (canContinue == true) canContinue = lseRuleCollection.GetBRAFMatchCollection(accessionOrder, panelSetOrderLynchSyndromeEvaluation, lseRuleCollection);
+            lseRuleCollection.GetMethMatchCollection(accessionOrder, panelSetOrderLynchSyndromeEvaluation, lseRuleCollection);
         }
 
-        public LSERuleCollection GetIHCMatchCollection(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation)
+        public bool GetIHCMatchCollection(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation, LSERuleCollection lseRuleCollection)
         {
-            LSERuleCollection result = new LynchSyndrome.LSERuleCollection();
-            LSERule lseRuleToMatch = new LynchSyndrome.LSERule();
-            lseRuleToMatch.Indication = panelSetOrderLynchSyndromeEvaluation.LynchSyndromeEvaluationType;
-
-            lseRuleToMatch.GetIHCResult(accessionOrder, panelSetOrderLynchSyndromeEvaluation);
-            foreach (LSERule lseRule in this)
+            bool result = false;
+            YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeIHCPanelTest panelSetLynchSyndromeIHCPanel = new YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeIHCPanelTest();
+            if (accessionOrder.PanelSetOrderCollection.Exists(panelSetLynchSyndromeIHCPanel.PanelSetId, panelSetOrderLynchSyndromeEvaluation.OrderedOnId, false) == true)
             {
-                if (lseRule.IsIHCMatch(lseRuleToMatch) == true)
+                YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC panelSetOrderLynchSyndromeIHC = (YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetLynchSyndromeIHCPanel.PanelSetId, panelSetOrderLynchSyndromeEvaluation.OrderedOnId, true);
+                if (panelSetOrderLynchSyndromeIHC.Final == true)
                 {
-                    result.Add(lseRule);
+                    result = true;
+                    IHCResult ihcResult = panelSetOrderLynchSyndromeIHC.GetSummaryResult();
+                    for (int idx = lseRuleCollection.Count - 1; idx > -1; idx--)
+                    {
+                        if (lseRuleCollection[idx].MLH1Result != ihcResult.MLH1Result.LSEResult || 
+                            lseRuleCollection[idx].MSH2Result != ihcResult.MSH2Result.LSEResult ||
+                            lseRuleCollection[idx].MSH6Result != ihcResult.MSH6Result.LSEResult || 
+                            lseRuleCollection[idx].PMS2Result != ihcResult.PMS2Result.LSEResult)
+                        {
+                            lseRuleCollection.RemoveAt(idx);
+                        }
+                    }
                 }
             }
+
             return result;
         }
 
-        public LSERuleCollection GetBRAFMatchCollection(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation)
+        public bool GetBRAFMatchCollection(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation, LSERuleCollection lseRuleCollection)
         {
-            LSERuleCollection result = new LynchSyndrome.LSERuleCollection();
-            LSERule lseRuleToMatch = new LynchSyndrome.LSERule();
-            lseRuleToMatch.Indication = panelSetOrderLynchSyndromeEvaluation.LynchSyndromeEvaluationType;
-            lseRuleToMatch.GetBRAFResult(accessionOrder, panelSetOrderLynchSyndromeEvaluation);
-            if (lseRuleToMatch.BRAFResult == LSEResultEnum.Detected || lseRuleToMatch.BRAFResult == LSEResultEnum.NotDetected)
+            bool result = false;
+            YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTest brafV600EKTest = new YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTest();
+            YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTest brafMutationAnalysisTest = new BRAFMutationAnalysis.BRAFMutationAnalysisTest();
+            YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelTest rasRAFPanelTest = new YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelTest();
+            LSEResultEnum brafResult = LSEResultEnum.NotApplicable;
+            if (accessionOrder.PanelSetOrderCollection.Exists(brafV600EKTest.PanelSetId, panelSetOrderLynchSyndromeEvaluation.OrderedOnId, false) == true)
             {
-                if (lseRuleToMatch.IsBRAFResultUseable(accessionOrder, panelSetOrderLynchSyndromeEvaluation) == true)
+                YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTestOrder panelSetOrderBraf = (YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(brafV600EKTest.PanelSetId, panelSetOrderLynchSyndromeEvaluation.OrderedOnId, false);
+                if (panelSetOrderBraf.Final == true) brafResult = panelSetOrderBraf.GetSummaryResult();
+            }
+            else if (accessionOrder.PanelSetOrderCollection.Exists(brafMutationAnalysisTest.PanelSetId, panelSetOrderLynchSyndromeEvaluation.OrderedOnId, false) == true)
+            {
+                YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTestOrder brafMutationAnalysisTestOrder = (YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(brafMutationAnalysisTest.PanelSetId, panelSetOrderLynchSyndromeEvaluation.OrderedOnId, false);
+                if (brafMutationAnalysisTestOrder.Final == true) brafResult = brafMutationAnalysisTestOrder.GetSummaryResult();
+            }
+            else if (accessionOrder.PanelSetOrderCollection.Exists(rasRAFPanelTest.PanelSetId, panelSetOrderLynchSyndromeEvaluation.OrderedOnId, false) == true)
+            {
+                YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelTestOrder panelSetOrderRASRAF = (YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(rasRAFPanelTest.PanelSetId, panelSetOrderLynchSyndromeEvaluation.OrderedOnId, false);
+                if (panelSetOrderRASRAF.Final == true) brafResult = panelSetOrderRASRAF.GetBrafSummaryResult();
+            }
+
+            if (brafResult == LSEResultEnum.Detected || brafResult == LSEResultEnum.NotDetected)
+            {
+                result = true;
+                for (int idx = lseRuleCollection.Count - 1; idx > -1; idx--)
                 {
-                    foreach (LSERule lseRule in this)
+                    if (lseRuleCollection[idx].BRAFResult != brafResult)
                     {
-                        if (lseRuleToMatch.BRAFResult == lseRule.BRAFResult)
-                        {
-                            result.Add(lseRule);
-                        }
+                        lseRuleCollection.RemoveAt(idx);
                     }
                 }
             }
             return result;
         }
 
-        private LSERuleCollection GetMethMatchCollection(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation)
+        private bool GetMethMatchCollection(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation, LSERuleCollection lseRuleCollection)
         {
-            LSERuleCollection result = new LynchSyndrome.LSERuleCollection();
-            LSERule lseRuleToMatch = new LynchSyndrome.LSERule();
-            lseRuleToMatch.GetMethResult(accessionOrder, panelSetOrderLynchSyndromeEvaluation);
-
-            if (lseRuleToMatch.IsMethResultUseable(accessionOrder, panelSetOrderLynchSyndromeEvaluation) == true)
+            bool result = false;
+            LSEResultEnum methResult = LSEResultEnum.NotApplicable;
+            YellowstonePathology.Business.Test.LynchSyndrome.MLH1MethylationAnalysisTest panelSetMLH1 = new YellowstonePathology.Business.Test.LynchSyndrome.MLH1MethylationAnalysisTest();
+            if (accessionOrder.PanelSetOrderCollection.Exists(panelSetMLH1.PanelSetId, panelSetOrderLynchSyndromeEvaluation.OrderedOnId, true) == true)
             {
-                foreach (LSERule lseRule in this)
+                YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderMLH1MethylationAnalysis panelSetOrderMLH1MethylationAnalysis = (YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderMLH1MethylationAnalysis)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetMLH1.PanelSetId, panelSetOrderLynchSyndromeEvaluation.OrderedOnId, true);
+                if (panelSetOrderMLH1MethylationAnalysis.Final == true)
                 {
-                    if (lseRuleToMatch.MethResult == lseRule.MethResult)
+                    result = true;
+                    methResult = panelSetOrderMLH1MethylationAnalysis.GetSummaryResult();
+                    for (int idx = lseRuleCollection.Count - 1; idx > -1; idx--)
                     {
-                        result.Add(lseRule);
+                        if (lseRuleCollection[idx].MethResult != methResult)
+                        {
+                            lseRuleCollection.RemoveAt(idx);
+                        }
                     }
                 }
             }
+
             return result;
         }
-
-        /*public void SetMatch(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation, LSERule lseRuleToMatch)
-        {
-            this.SetIHCMatch(lseRuleToMatch);
-            this.SetBRAFMatch(accessionOrder, panelSetOrderLynchSyndromeEvaluation, lseRuleToMatch);
-            this.SetMethMatch(accessionOrder, panelSetOrderLynchSyndromeEvaluation, lseRuleToMatch);
-        }
-
-        public void SetIHCMatch(LSERule lseRuleToMatch)
-        {            
-            foreach (LSERule lseResult in this)
-            {
-                if (lseResult.IsIHCMatch(lseRuleToMatch) == true)
-                {
-                    lseResult.IHCMatched = true;                    
-                }
-            }            
-        }
-
-        private void SetBRAFMatch(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation, LSERule lseRuleToMatch)
-        {
-            if (lseRuleToMatch.BRAFResult == LSEResultEnum.Detected || lseRuleToMatch.BRAFResult == LSEResultEnum.NotDetected)
-            {
-                if (lseRuleToMatch.IsBRAFResultUseable(accessionOrder, panelSetOrderLynchSyndromeEvaluation) == true)
-                {
-                    foreach (LSERule lseRule in this)
-                    {
-                        if (lseRule.IHCMatched == true)
-                        {
-                            if (lseRuleToMatch.BRAFResult != lseRule.BRAFResult)
-                            {
-                                lseRule.IHCMatched = false;
-                            }
-                            else
-                            {
-                                lseRule.BRAFMatched = true;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        private void SetMethMatch(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation, LSERule lseRuleToMatch)
-        {
-            if (lseRuleToMatch.IsMethResultUseable(accessionOrder, panelSetOrderLynchSyndromeEvaluation) == true)
-            {
-                foreach (LSERule lseRule in this)
-                {
-                    if (lseRule.BRAFMatched == true)
-                    {
-                        if (lseRuleToMatch.MethResult != lseRule.MethResult)
-                        {
-                            lseRule.IHCMatched = false;
-                            lseRule.BRAFMatched = false;
-                        }
-                        else
-                        {
-                            lseRule.MethMatched = true;
-                        }
-                    }
-                }
-            }
-        }*/
 
         public static LSERuleCollection GetAll()
         {
@@ -247,22 +201,19 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             return result;
         }
         
-        public static LSERuleCollection GetTypeResultCollection(string lseType)
+        public bool GetIndicationCollection(string lseIndication, LSERuleCollection lseRuleCollection)
         {
-            LSERuleCollection result = new LSERuleCollection();
-            if(lseType == LSEType.COLON)
-            {
-                result = LSERuleCollection.GetColonResults();
-            }
-            else if (lseType == LSEType.GENERAL)
-            {
-                result = LSERuleCollection.GetProstateResults();
-            }
-            else if (lseType == LSEType.GYN)
-            {
-                result = LSERuleCollection.GetGYNResults();
-            }
+            bool result = false;
+            if (lseIndication == LSEType.NOTSET) return result;
 
+            for (int idx = lseRuleCollection.Count - 1; idx > -1; idx--)
+            {
+                if (lseRuleCollection[idx].Indication != lseIndication)
+                {
+                    lseRuleCollection.RemoveAt(idx);
+                    result = true;
+                }
+            }
             return result;
         }
 

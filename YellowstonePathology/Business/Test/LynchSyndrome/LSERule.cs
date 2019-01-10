@@ -28,8 +28,6 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
         public static string AdditionalTestingMeth = "Perform Methylation Analysis";
 
         protected bool m_IHCMatched;
-        protected bool m_BRAFMatched;
-        protected bool m_MethMatched;
         protected string m_Indication;
         protected string m_ResultName;
 
@@ -61,32 +59,6 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
                     this.m_IHCMatched = value;
                     this.NotifyPropertyChanged("IHCMatched");
                 }                
-            }
-        }
-
-        public bool BRAFMatched
-        {
-            get { return this.m_BRAFMatched; }
-            set
-            {
-                if (this.m_BRAFMatched != value)
-                {
-                    this.m_BRAFMatched = value;
-                    this.NotifyPropertyChanged("BRAFMatched");
-                }
-            }
-        }
-
-        public bool MethMatched
-        {
-            get { return this.m_MethMatched; }
-            set
-            {
-                if (this.m_MethMatched != value)
-                {
-                    this.m_MethMatched = value;
-                    this.NotifyPropertyChanged("MethMatched");
-                }
             }
         }
 
@@ -257,106 +229,6 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             }
             
             result = result + joinedResults + " mismatch repair proteins. ";
-            return result;
-        }
-
-        /*public static LSERule GetResult(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromEvaluation)
-        {
-            LSERule result = new LSERule();
-            result.Indication = panelSetOrderLynchSyndromEvaluation.LynchSyndromeEvaluationType;
-            LSERuleCollection typeCollection = LSERuleCollection.GetTypeResultCollection(result.Indication);
-            if (typeCollection.Count == 0) return result;
-
-            LSERule.GetIHCResult(accessionOrder, panelSetOrderLynchSyndromEvaluation, result);
-            LSERuleCollection ihcCollection = typeCollection.GetIHCMatchCollection(result);
-            if (ihcCollection.Count == 0) return result;
-
-            LSERule.GetBRAFResult(accessionOrder, panelSetOrderLynchSyndromEvaluation, result);
-            LSERuleCollection brafCollection = ihcCollection.GetBRAFMatchCollection(accessionOrder, panelSetOrderLynchSyndromEvaluation, result);
-            if (brafCollection.Count == 0) return result;
-
-            LSERule.GetMethResult(accessionOrder, panelSetOrderLynchSyndromEvaluation, result);
-            return result;
-        }*/
-
-        public void GetIHCResult(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromEvaluation)
-        {
-            YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeIHCPanelTest panelSetLynchSyndromeIHCPanel = new YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeIHCPanelTest();
-            if (accessionOrder.PanelSetOrderCollection.Exists(panelSetLynchSyndromeIHCPanel.PanelSetId, panelSetOrderLynchSyndromEvaluation.OrderedOnId, false) == true)
-            {
-                YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC panelSetOrderLynchSyndromeIHC = (YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetLynchSyndromeIHCPanel.PanelSetId, panelSetOrderLynchSyndromEvaluation.OrderedOnId, true);
-                if (panelSetOrderLynchSyndromeIHC.Final == true) panelSetOrderLynchSyndromeIHC.SetSummaryResult(this);
-            }
-        }
-
-        public void GetBRAFResult(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromEvaluation)
-        {
-            YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTest brafV600EKTest = new YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTest();
-            YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTest brafMutationAnalysisTest = new BRAFMutationAnalysis.BRAFMutationAnalysisTest();
-            YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelTest rasRAFPanelTest = new YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelTest();
-
-            if (accessionOrder.PanelSetOrderCollection.Exists(brafV600EKTest.PanelSetId, panelSetOrderLynchSyndromEvaluation.OrderedOnId, false) == true)
-            {
-                YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTestOrder panelSetOrderBraf = (YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(brafV600EKTest.PanelSetId, panelSetOrderLynchSyndromEvaluation.OrderedOnId, false);
-                if (panelSetOrderBraf.Final == true) panelSetOrderBraf.SetSummaryResult(this);
-            }
-            else if (accessionOrder.PanelSetOrderCollection.Exists(brafMutationAnalysisTest.PanelSetId, panelSetOrderLynchSyndromEvaluation.OrderedOnId, false) == true)
-            {
-                YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTestOrder brafMutationAnalysisTestOrder = (YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(brafMutationAnalysisTest.PanelSetId, panelSetOrderLynchSyndromEvaluation.OrderedOnId, false);
-                if (brafMutationAnalysisTestOrder.Final == true)  brafMutationAnalysisTestOrder.SetSummaryResult(this);
-            }
-            else if (accessionOrder.PanelSetOrderCollection.Exists(rasRAFPanelTest.PanelSetId, panelSetOrderLynchSyndromEvaluation.OrderedOnId, false) == true)
-            {
-                YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelTestOrder panelSetOrderRASRAF = (YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(rasRAFPanelTest.PanelSetId, panelSetOrderLynchSyndromEvaluation.OrderedOnId, false);
-                if (panelSetOrderRASRAF.Final == true) panelSetOrderRASRAF.SetBrafSummaryResult(this);
-            }
-        }
-
-        public void GetMethResult(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromEvaluation)
-        {
-            YellowstonePathology.Business.Test.LynchSyndrome.MLH1MethylationAnalysisTest panelSetMLH1 = new YellowstonePathology.Business.Test.LynchSyndrome.MLH1MethylationAnalysisTest();			
-            if (accessionOrder.PanelSetOrderCollection.Exists(panelSetMLH1.PanelSetId, panelSetOrderLynchSyndromEvaluation.OrderedOnId, true) == true)
-            {
-				YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderMLH1MethylationAnalysis panelSetOrderMLH1MethylationAnalysis = (YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderMLH1MethylationAnalysis)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetMLH1.PanelSetId, panelSetOrderLynchSyndromEvaluation.OrderedOnId, true);
-                if (panelSetOrderMLH1MethylationAnalysis.Final == true) panelSetOrderMLH1MethylationAnalysis.SetSummaryResult(this);
-            }
-        }
-
-        public bool IsBRAFResultUseable(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromEvaluation)
-        {
-            bool result = false;
-            YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTest brafV600EKTest = new YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTest();
-            YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTest brafMutationAnalysisTest = new BRAFMutationAnalysis.BRAFMutationAnalysisTest();
-            YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelTest rasRAFPanelTest = new YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelTest();
-
-            if (accessionOrder.PanelSetOrderCollection.Exists(brafV600EKTest.PanelSetId, panelSetOrderLynchSyndromEvaluation.OrderedOnId, false) == true)
-            {
-                YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTestOrder panelSetOrderBraf = (YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(brafV600EKTest.PanelSetId, panelSetOrderLynchSyndromEvaluation.OrderedOnId, false);
-                result = panelSetOrderBraf.Final;
-            }
-            else if (accessionOrder.PanelSetOrderCollection.Exists(brafMutationAnalysisTest.PanelSetId, panelSetOrderLynchSyndromEvaluation.OrderedOnId, false) == true)
-            {
-                YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTestOrder brafMutationAnalysisTestOrder = (YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(brafMutationAnalysisTest.PanelSetId, panelSetOrderLynchSyndromEvaluation.OrderedOnId, false);
-                result = brafMutationAnalysisTestOrder.Final;
-            }
-            else if (accessionOrder.PanelSetOrderCollection.Exists(rasRAFPanelTest.PanelSetId, panelSetOrderLynchSyndromEvaluation.OrderedOnId, false) == true)
-            {
-                YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelTestOrder panelSetOrderRASRAF = (YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(rasRAFPanelTest.PanelSetId, panelSetOrderLynchSyndromEvaluation.OrderedOnId, false);
-                result = panelSetOrderRASRAF.Final;
-            }
-            return result;
-        }
-
-        public bool IsMethResultUseable(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromEvaluation)
-        {
-            bool result = false;
-            YellowstonePathology.Business.Test.LynchSyndrome.MLH1MethylationAnalysisTest panelSetMLH1 = new YellowstonePathology.Business.Test.LynchSyndrome.MLH1MethylationAnalysisTest();
-            if (accessionOrder.PanelSetOrderCollection.Exists(panelSetMLH1.PanelSetId, panelSetOrderLynchSyndromEvaluation.OrderedOnId, true) == true)
-            {
-                YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderMLH1MethylationAnalysis panelSetOrderMLH1MethylationAnalysis = (YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderMLH1MethylationAnalysis)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetMLH1.PanelSetId, panelSetOrderLynchSyndromEvaluation.OrderedOnId, true);
-                result = panelSetOrderMLH1MethylationAnalysis.Final;
-            }
-
             return result;
         }
 
