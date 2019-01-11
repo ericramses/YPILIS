@@ -107,7 +107,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTest brafV600EKTest = new YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTest();
             YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTest brafMutationAnalysisTest = new BRAFMutationAnalysis.BRAFMutationAnalysisTest();
             YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelTest rasRAFPanelTest = new YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelTest();
-            LSEResultEnum brafResult = LSEResultEnum.NotApplicable;
+            string brafResult = null;
             if (accessionOrder.PanelSetOrderCollection.Exists(brafV600EKTest.PanelSetId, panelSetOrderLynchSyndromeEvaluation.OrderedOnId, false) == true)
             {
                 YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTestOrder panelSetOrderBraf = (YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(brafV600EKTest.PanelSetId, panelSetOrderLynchSyndromeEvaluation.OrderedOnId, false);
@@ -124,7 +124,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
                 if (panelSetOrderRASRAF.Final == true) brafResult = panelSetOrderRASRAF.GetBrafSummaryResult();
             }
 
-            if (brafResult == LSEResultEnum.Detected || brafResult == LSEResultEnum.NotDetected)
+            if (brafResult == TestResult.Detected || brafResult == TestResult.NotDetected)
             {
                 foreach (LSERule lseRule in this)
                 {
@@ -142,7 +142,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
         private LSERuleResults GetMethMatchCollection(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation)
         {
             LSERuleCollection lseRuleCollection = new LSERuleCollection();
-            LSEResultEnum methResult = LSEResultEnum.NotApplicable;
+            string methResult = null;
             YellowstonePathology.Business.Test.LynchSyndrome.MLH1MethylationAnalysisTest panelSetMLH1 = new YellowstonePathology.Business.Test.LynchSyndrome.MLH1MethylationAnalysisTest();
             if (accessionOrder.PanelSetOrderCollection.Exists(panelSetMLH1.PanelSetId, panelSetOrderLynchSyndromeEvaluation.OrderedOnId, true) == true)
             {

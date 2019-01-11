@@ -155,9 +155,9 @@ namespace YellowstonePathology.Business.Test.BRAFV600EK
 			}
 		}
 
-        public LynchSyndrome.LSEResultEnum GetSummaryResult()
+        public string GetSummaryResult()
         {
-            LynchSyndrome.LSEResultEnum brafResult = LynchSyndrome.LSEResultEnum.NotApplicable;
+            string brafResult = null;
             if (string.IsNullOrEmpty(this.Result) == false)
             {
                 YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKNotDetectedResult notDetectedResult = new BRAFV600EKNotDetectedResult();
@@ -165,11 +165,11 @@ namespace YellowstonePathology.Business.Test.BRAFV600EK
 
                 if (this.ResultCode == notDetectedResult.ResultCode)
                 {
-                    brafResult = YellowstonePathology.Business.Test.LynchSyndrome.LSEResultEnum.NotDetected;
+                    brafResult = YellowstonePathology.Business.Test.TestResult.NotDetected;
                 }
                 else if (this.ResultCode == detectedResult.ResultCode)
                 {
-                    brafResult = YellowstonePathology.Business.Test.LynchSyndrome.LSEResultEnum.Detected;
+                    brafResult = YellowstonePathology.Business.Test.TestResult.Detected;
                 }
             }
             return brafResult;

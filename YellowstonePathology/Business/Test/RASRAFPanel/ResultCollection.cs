@@ -12,16 +12,16 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
 
         public ResultCollection(RASRAFPanelTestOrder testOrder)
         {
-            if (testOrder.BRAFResult == RASRAFPanelResult.DetectedResult) m_DetectedMutations.Add(RASRAFPanelResult.BRAFAbbreviation);
+            if (testOrder.BRAFResult == TestResult.Detected) m_DetectedMutations.Add(RASRAFPanelResult.BRAFAbbreviation);
             else m_NotDetectedMutations.Add(RASRAFPanelResult.BRAFAbbreviation);
 
-            if (testOrder.KRASResult == RASRAFPanelResult.DetectedResult) m_DetectedMutations.Add(RASRAFPanelResult.KRASAbbreviation);
+            if (testOrder.KRASResult == TestResult.Detected) m_DetectedMutations.Add(RASRAFPanelResult.KRASAbbreviation);
             else m_NotDetectedMutations.Add(RASRAFPanelResult.KRASAbbreviation);
 
-            if (testOrder.NRASResult == RASRAFPanelResult.DetectedResult) m_DetectedMutations.Add(RASRAFPanelResult.NRASAbbreviation);
+            if (testOrder.NRASResult == TestResult.Detected) m_DetectedMutations.Add(RASRAFPanelResult.NRASAbbreviation);
             else m_NotDetectedMutations.Add(RASRAFPanelResult.NRASAbbreviation);
 
-            if (testOrder.HRASResult == RASRAFPanelResult.DetectedResult) m_DetectedMutations.Add(RASRAFPanelResult.HRASAbbreviation);
+            if (testOrder.HRASResult == TestResult.Detected) m_DetectedMutations.Add(RASRAFPanelResult.HRASAbbreviation);
             else m_NotDetectedMutations.Add(RASRAFPanelResult.HRASAbbreviation);
         }
 
