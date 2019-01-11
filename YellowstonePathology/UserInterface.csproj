@@ -1073,6 +1073,7 @@
     <Compile Include="Business\Test\INI1\INI1Test.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEColonMLH1Loss.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEColonMLH1Loss1.cs" />
+    <Compile Include="Business\Test\LynchSyndrome\LSERuleResults.cs" />
     <Compile Include="Business\Test\MissingInformation\MissingInformationWordDocument.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEColonMSH6Loss.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEColonPMS2Loss.cs" />
@@ -6864,12 +6865,12 @@
   <ItemGroup>
     <PublishFile Include="Microsoft.Exchange.WebServices">
       <Visible>False</Visible>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
   </ItemGroup>
