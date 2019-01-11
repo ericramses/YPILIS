@@ -9,14 +9,14 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 {
     public class HER2AmplificationResultCollection : ObservableCollection<HER2AmplificationResult>
     {
-        public HER2AmplificationResultCollection(PanelSetOrderCollection panelSetOrderCollection)
+        public HER2AmplificationResultCollection(PanelSetOrderCollection panelSetOrderCollection, string reportNo)
         {
-            this.Add(new HER2AmplificationResultGroup1Breast(panelSetOrderCollection));
-            this.Add(new HER2AmplificationResultGroup2Breast(panelSetOrderCollection));
-            this.Add(new HER2AmplificationResultGroup3Breast(panelSetOrderCollection));
-            this.Add(new HER2AmplificationResultGroup4Breast(panelSetOrderCollection));
-            this.Add(new HER2AmplificationResultGroup5Breast(panelSetOrderCollection));
-            this.Add(new HER2AmplificationResultGastric(panelSetOrderCollection));
+            this.Add(new HER2AmplificationResultGroup1Breast(panelSetOrderCollection, reportNo));
+            this.Add(new HER2AmplificationResultGroup2Breast(panelSetOrderCollection, reportNo));
+            this.Add(new HER2AmplificationResultGroup3Breast(panelSetOrderCollection, reportNo));
+            this.Add(new HER2AmplificationResultGroup4Breast(panelSetOrderCollection, reportNo));
+            this.Add(new HER2AmplificationResultGroup5Breast(panelSetOrderCollection, reportNo));
+            this.Add(new HER2AmplificationResultGastric(panelSetOrderCollection, reportNo));
         }
 
         public HER2AmplificationResult FindMatch()

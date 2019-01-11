@@ -8,7 +8,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 {
     public class HER2AmplificationResultGroup2Breast : HER2AmplificationResultBreast
     {
-        public HER2AmplificationResultGroup2Breast(PanelSetOrderCollection panelSetOrderCollection) : base(panelSetOrderCollection)
+        public HER2AmplificationResultGroup2Breast(PanelSetOrderCollection panelSetOrderCollection, string reportNo) : base(panelSetOrderCollection, reportNo)
         {
             this.m_InterpretiveComment = "Evidence is limited on the efficacy of human epidermal growth factor 2 (HER2)-targeted therapy in the " +
             "small subset of cases with a HER2/chromosome enumeration probe 17 (CEP17) ratio ≥ 2.0 and an average HER2 copy number " +
