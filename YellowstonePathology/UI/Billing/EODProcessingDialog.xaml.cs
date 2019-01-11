@@ -31,9 +31,7 @@ namespace YellowstonePathology.UI.Billing
         private ObservableCollection<string> m_StatusMessageList;
         private string m_StatusCountMessage;        
         private int m_StatusCount;
-        private List<string> m_ReportNumbersToProcess;
-
-        private System.Timers.Timer m_Timer;        
+        private List<string> m_ReportNumbersToProcess;        
 
         public EODProcessingDialog()
         {
@@ -465,8 +463,7 @@ namespace YellowstonePathology.UI.Billing
                     Business.SSHFileTransfer sshFileTransfer = new Business.SSHFileTransfer(psaSSHConfig["host"].ToString(), Convert.ToInt32(psaSSHConfig["port"]),
                         psaSSHConfig["username"].ToString(), psaSSHConfig["password"].ToString());
 
-                    sshFileTransfer.StatusMessage += SSHFileTransfer_StatusMessage;
-                    sshFileTransfer.Failed += SSHFileTransfer_Failed;                    
+                    sshFileTransfer.StatusMessage += SSHFileTransfer_StatusMessage;                    
                     sshFileTransfer.UploadFilesToPSA(files);
                     rowCount += 1;
                 }
@@ -481,21 +478,7 @@ namespace YellowstonePathology.UI.Billing
             }
 
             this.m_BackgroundWorker.ReportProgress(1, "Finished with transfer of " + rowCount + " PSA Files: " + DateTime.Now.ToLongTimeString());
-        }        
-
-        private void SSHFileTransfer_Failed(object sender, string message)
-        {            
-            this.m_Timer = new System.Timers.Timer(60000);
-            this.m_Timer.Elapsed += Timer_Elapsed;
-            this.m_Timer.Enabled = true;            
-        }
-
-        private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
-        {
-            this.m_Timer.Stop();
-            this.m_Timer.Dispose();
-            this.TransferPSAFiles();            
-        }
+        }                       
 
         private void SSHFileTransfer_StatusMessage(object sender, string message, int count)
         {
@@ -516,12 +499,13 @@ namespace YellowstonePathology.UI.Billing
         }
 
         private void RunAllProcesses(object sender, System.ComponentModel.DoWorkEventArgs e)
-        {            
-            this.ProcessPSAFiles(sender, e);
-            this.TransferPSAFiles(sender, e);
+        {
+            this.MatchAccessionOrdersToADT(sender, e);            
             this.ProcessSVHCDMFiles(sender, e);
             this.TransferSVHFiles(sender, e);
             this.SendSVHClinicEmail(sender, e);            
+            this.ProcessPSAFiles(sender, e);
+            this.TransferPSAFiles(sender, e);
         }
 
         private void AllProcessBackgroundWorker_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
