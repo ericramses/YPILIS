@@ -30,6 +30,22 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 			panelSetOrder.PMS2Result = this.m_PMS2Result.Description;
         }
 
+        public IHCResult SetGeneralResult()
+        {
+            
+            if (this.m_MLH1Result.LSEResult == LSEResultEnum.Loss ||
+                this.m_MSH2Result.LSEResult == LSEResultEnum.Loss ||
+                this.m_MSH6Result.LSEResult == LSEResultEnum.Loss ||
+                this.m_PMS2Result.LSEResult == LSEResultEnum.Loss)
+            {
+                return new IHCResultAnyLossOfNuclearExpression();
+            }
+            else
+            {
+                return new IHCResultNoLossOfNuclearExpression();
+            }
+        }
+
         public string ResultCode
         {
             get { return this.m_ResultCode; }
