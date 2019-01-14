@@ -14,8 +14,10 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             this.m_MLH1Result = LSEResultEnum.Intact;
             this.m_MSH2Result = LSEResultEnum.Intact;
             this.m_MSH6Result = LSEResultEnum.Intact;
-            this.m_PMS2Result = LSEResultEnum.Intact;            
-			
+            this.m_PMS2Result = LSEResultEnum.Intact;
+
+            this.m_BRAFResult = TestResult.NotApplicable;
+            this.m_MethResult = TestResult.NotApplicable;
             this.m_Result = "Mismatch repair protein expression is intact, indicating that the tumor is unlikely to respond to PD-1 blockade therapy.";
             this.m_Method = IHCMethod;
             this.m_References = LSEGENReferences;

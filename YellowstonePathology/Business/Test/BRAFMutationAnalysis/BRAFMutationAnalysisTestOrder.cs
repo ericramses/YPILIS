@@ -200,9 +200,9 @@ namespace YellowstonePathology.Business.Test.BRAFMutationAnalysis
             return result.ToString();
         }
 
-        public LynchSyndrome.LSEResultEnum GetSummaryResult()
+        public string GetSummaryResult()
         {
-            LynchSyndrome.LSEResultEnum brafResult = LynchSyndrome.LSEResultEnum.NotApplicable;
+            string brafResult = null;
             if (string.IsNullOrEmpty(this.Result) == false)
             {
                 YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisNotDetectedResult notDetectedResult = new BRAFMutationAnalysisNotDetectedResult();
@@ -210,17 +210,17 @@ namespace YellowstonePathology.Business.Test.BRAFMutationAnalysis
 
                 if (this.Result.ToUpper().Contains("NOT DETECTED"))
                 {
-                    brafResult = YellowstonePathology.Business.Test.LynchSyndrome.LSEResultEnum.NotDetected;
+                    brafResult = YellowstonePathology.Business.Test.TestResult.NotDetected;
                 }
                 else if (this.Result.ToUpper().Contains("DETECTED"))
                 {
-                    brafResult = YellowstonePathology.Business.Test.LynchSyndrome.LSEResultEnum.Detected;
+                    brafResult = YellowstonePathology.Business.Test.TestResult.Detected;
                 }
             }
             return brafResult;
         }
 
-        public void SetSummaryResult(YellowstonePathology.Business.Test.LynchSyndrome.LSERule lSERule)
+        /*public void SetSummaryResult(YellowstonePathology.Business.Test.LynchSyndrome.LSERule lSERule)
         {
             if (string.IsNullOrEmpty(this.Result) == false)
             {
@@ -236,7 +236,7 @@ namespace YellowstonePathology.Business.Test.BRAFMutationAnalysis
                     lSERule.BRAFResult = YellowstonePathology.Business.Test.LynchSyndrome.LSEResultEnum.Detected;
                 }
             }
-        }
+        }*/
 
         public override Audit.Model.AuditResult IsOkToSetPreviousResults(PanelSetOrder panelSetOrder, AccessionOrder accessionOrder)
         {

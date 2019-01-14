@@ -31,8 +31,8 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
         	"Lambrechts D, Delorenzi M, Tejpar S Effects of KRAS, BRAF, NRAS, and PIK3CA mutations on the efficacy of cetuximab plus chemotherapy in " +
         	"chemotherapy-refractory metastatic colorectal cancer: a retrospective consortium analysis.";
 
-        public static string DetectedResult = "Detected";
-        public static string NotDetectedResult = "Not Detected";
+        //public static string DetectedResult = "Detected";
+        //public static string NotDetectedResult = "Not Detected";
         public static string NAResult = "N/A";               
                         
         protected const string m_TestDevelopment = "The performance characteristics of this test have been determined by NeoGenomics Laboratories. This test has " +

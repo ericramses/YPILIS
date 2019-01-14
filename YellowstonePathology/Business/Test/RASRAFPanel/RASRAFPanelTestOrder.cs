@@ -436,18 +436,18 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
         	return methodResult;
         }
 
-        public LynchSyndrome.LSEResultEnum GetBrafSummaryResult()
+        public string GetBrafSummaryResult()
         {
-            LynchSyndrome.LSEResultEnum brafResult = LynchSyndrome.LSEResultEnum.NotApplicable;
+            string brafResult = null;
             if (string.IsNullOrEmpty(this.m_BRAFResult) == false)
             {
                 if (this.m_BRAFResult == "Not Detected")
                 {
-                    brafResult = YellowstonePathology.Business.Test.LynchSyndrome.LSEResultEnum.NotDetected;
+                    brafResult = YellowstonePathology.Business.Test.TestResult.NotDetected;
                 }
                 else if (this.m_BRAFResult == "Detected")
                 {
-                    brafResult = YellowstonePathology.Business.Test.LynchSyndrome.LSEResultEnum.Detected;
+                    brafResult = YellowstonePathology.Business.Test.TestResult.Detected;
                 }
             }
             return brafResult;
