@@ -462,6 +462,7 @@ namespace YellowstonePathology.UI.Billing
 
                     Business.SSHFileTransfer sshFileTransfer = new Business.SSHFileTransfer(psaSSHConfig["host"].ToString(), Convert.ToInt32(psaSSHConfig["port"]),
                         psaSSHConfig["username"].ToString(), psaSSHConfig["password"].ToString());
+                    sshFileTransfer.Failed += SshFileTransfer_Failed;
 
                     sshFileTransfer.StatusMessage += SSHFileTransfer_StatusMessage;                    
                     sshFileTransfer.UploadFilesToPSA(files);
@@ -478,7 +479,12 @@ namespace YellowstonePathology.UI.Billing
             }
 
             this.m_BackgroundWorker.ReportProgress(1, "Finished with transfer of " + rowCount + " PSA Files: " + DateTime.Now.ToLongTimeString());
-        }                       
+        }
+
+        private void SshFileTransfer_Failed(object sender, string message)
+        {
+            this.m_BackgroundWorker.ReportProgress(1, "Transfer of files to PSA has failed: " + DateTime.Now.ToLongTimeString());
+        }
 
         private void SSHFileTransfer_StatusMessage(object sender, string message, int count)
         {
