@@ -13,39 +13,6 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 			
 		}
 
-        public LSERuleCollection OrderByMatched()
-        {
-            LSERuleCollection result = new LSERuleCollection();
-            IOrderedEnumerable<LSERule> orderedResult= this.OrderBy(i => i.IHCMatched);
-            for(int i=orderedResult.Count() - 1; i>=0; i--)
-            {
-                result.Add(orderedResult.ElementAt(i));
-            }
-            return result;
-        }
-
-        public void ClearMatched()
-        {
-            foreach (LSERule lseResult in this)
-            {
-                lseResult.IHCMatched = false;
-            }
-        }
-
-        public bool HasIHCMatch(LSERule lseResultToMatch)
-        {
-            bool result = false;
-            foreach(LSERule lseResult in this)
-            {
-                if(lseResult.IsIHCMatch(lseResultToMatch) == true)
-                {
-                    result = true;
-                    break;
-                }
-            }
-            return result;
-        }
-
         public static LSERuleCollection GetMatchCollection(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation)
         {
             LSERuleResults result = new LynchSyndrome.LSERuleResults(LSERuleCollection.GetAll(), true);
@@ -86,15 +53,9 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
                     IHCResult ihcResult = panelSetOrderLynchSyndromeIHC.GetSummaryResult();
                     foreach (LSERule lseRule in this)
                     {
-                        IHCResult matchResult = lseRule.Indication == LSEType.GENERAL ? ihcResult.SetGeneralResult() : ihcResult;
+                        if (lseRule.IsIHCMatch(ihcResult) == true)
                         {
-                            if (lseRule.MLH1Result == matchResult.MLH1Result.LSEResult &&
-                                lseRule.MSH2Result == matchResult.MSH2Result.LSEResult &&
-                                lseRule.MSH6Result == matchResult.MSH6Result.LSEResult &&
-                                lseRule.PMS2Result == matchResult.PMS2Result.LSEResult)
-                            {
-                                lseRuleCollection.Add(lseRule);
-                            }
+                            lseRuleCollection.Add(lseRule);
                         }
                     }
                 }

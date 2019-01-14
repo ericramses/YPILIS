@@ -38,5 +38,19 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             panelSetOrderLynchSyndromEvaluation.ReportReferences = this.m_References;
             */
         }
+
+        public override bool IsIHCMatch(IHCResult ihcResult)
+        {
+            bool result = false;
+            if (ihcResult.MLH1Result.LSEResult == LSEResultEnum.Loss ||
+                ihcResult.MSH2Result.LSEResult == LSEResultEnum.Loss ||
+                ihcResult.MSH6Result.LSEResult == LSEResultEnum.Loss ||
+                ihcResult.PMS2Result.LSEResult == LSEResultEnum.Loss)
+            {
+                result = true;
+            }
+
+            return result;
+        }
     }
 }
