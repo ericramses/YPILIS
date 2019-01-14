@@ -86,12 +86,15 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
                     IHCResult ihcResult = panelSetOrderLynchSyndromeIHC.GetSummaryResult();
                     foreach (LSERule lseRule in this)
                     {
-                        if (lseRule.MLH1Result == ihcResult.MLH1Result.LSEResult &&
-                            lseRule.MSH2Result == ihcResult.MSH2Result.LSEResult &&
-                            lseRule.MSH6Result == ihcResult.MSH6Result.LSEResult &&
-                            lseRule.PMS2Result == ihcResult.PMS2Result.LSEResult)
+                        IHCResult matchResult = lseRule.Indication == LSEType.GENERAL ? ihcResult.SetGeneralResult() : ihcResult;
                         {
-                            lseRuleCollection.Add(lseRule);
+                            if (lseRule.MLH1Result == matchResult.MLH1Result.LSEResult &&
+                                lseRule.MSH2Result == matchResult.MSH2Result.LSEResult &&
+                                lseRule.MSH6Result == matchResult.MSH6Result.LSEResult &&
+                                lseRule.PMS2Result == matchResult.PMS2Result.LSEResult)
+                            {
+                                lseRuleCollection.Add(lseRule);
+                            }
                         }
                     }
                 }
