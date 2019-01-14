@@ -27,7 +27,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
         public static string AdditionalTestingReflexBRAFMeth = "Reflex to BRAf and METH";
         public static string AdditionalTestingMeth = "Perform Methylation Analysis";
 
-        protected bool m_IHCMatched;
+        //protected bool m_IHCMatched;
         protected string m_Indication;
         protected string m_ResultName;
 
@@ -38,7 +38,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 
         protected string m_BRAFResult;
         protected string m_MethResult;
-        protected string m_AdditionalTesting;
+        //protected string m_AdditionalTesting;
 
 		protected string m_Interpretation;
 		protected string m_Result;
@@ -49,7 +49,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 		{
 		}
 
-        public bool IHCMatched
+        /*public bool IHCMatched
         {
             get { return this.m_IHCMatched; }
             set
@@ -60,7 +60,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
                     this.NotifyPropertyChanged("IHCMatched");
                 }                
             }
-        }
+        }*/
 
         public string ResultName
         {
@@ -110,11 +110,11 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             set { this.m_MethResult = value; }
         }
 
-        public string AdditionalTesting
+        /*public string AdditionalTesting
         {
             get { return this.m_AdditionalTesting; }
             set { this.m_AdditionalTesting = value; }
-        }
+        }*/
 
 		public string Interpretation
 		{
@@ -134,26 +134,6 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
         public string References
         {
             get { return this.m_References; }
-        }
-
-        public bool AreAllIntact()
-        {
-            bool result = true;
-            if (this.m_PMS2Result != LSEResultEnum.Intact) result = false;
-            if (this.m_MSH6Result != LSEResultEnum.Intact) result = false;
-            if (this.m_MSH2Result != LSEResultEnum.Intact) result = false;
-            if (this.m_MLH1Result != LSEResultEnum.Intact) result = false;
-            return result;
-        }
-
-        public bool AreAnyLoss()
-        {
-            bool result = false;
-            if (this.m_PMS2Result == LSEResultEnum.Loss) result = true;
-            if (this.m_MSH6Result == LSEResultEnum.Loss) result = true;
-            if (this.m_MSH2Result == LSEResultEnum.Loss) result = true;
-            if (this.m_MLH1Result == LSEResultEnum.Loss) result = true;
-            return result;
         }
 
         public virtual void SetResults(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromEvaluation)
@@ -199,14 +179,15 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             */
         }
 
-        public bool IsIHCMatch(LSERule lseResultToMatch)
+        public virtual bool IsIHCMatch(IHCResult ihcResult)
         {
             bool result = false;
-            if (this.m_Indication == lseResultToMatch.m_Indication && 
-                this.m_MLH1Result == lseResultToMatch.MLH1Result && this.m_MSH2Result == lseResultToMatch.MSH2Result &&
-                this.m_MSH6Result == lseResultToMatch.MSH6Result && this.m_PMS2Result == lseResultToMatch.PMS2Result)
+            if (this.MLH1Result == ihcResult.MLH1Result.LSEResult &&
+                this.MSH2Result == ihcResult.MSH2Result.LSEResult &&
+                this.MSH6Result == ihcResult.MSH6Result.LSEResult &&
+                this.PMS2Result == ihcResult.PMS2Result.LSEResult)
             {
-                result = true;                
+                result = true;
             }
             return result;
         }
