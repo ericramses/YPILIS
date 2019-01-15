@@ -145,5 +145,22 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             cloneLSEResult.SetResults(accessionOrder, panelSetToCheck);
             */
         }
+
+        public Audit.Model.AuditResult IsOkToSetResults()
+        {
+            Audit.Model.AuditResult result = new Audit.Model.AuditResult();
+            result.Status = Audit.Model.AuditStatusEnum.OK;
+            if(this.LynchSyndromeEvaluationType == LSEType.NOTSET)
+            {
+                result.Status = Audit.Model.AuditStatusEnum.Failure;
+                result.Message = "Results may not be set as the Indication is not selected.";
+            }
+            else if (this.Accepted == true)
+            {
+                result.Status = Audit.Model.AuditStatusEnum.Failure;
+                result.Message = "Results may not be set as the results have been accepted.";
+            }
+            return result;
+        }
     }
 }

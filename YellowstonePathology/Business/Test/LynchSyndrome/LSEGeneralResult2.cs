@@ -17,15 +17,17 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 
             this.m_BRAFResult = TestResult.NotApplicable;
             this.m_MethResult = TestResult.NotApplicable;
+            this.m_BRAFRequired = false;
+            this.m_MethRequired = false;
             this.m_Result = "Results indicate mismatch repair deficiency, which may render the tumor responsive to PD-1 blockade therapy.  As a subset of patients with MMR deficient prostate cancers have Lynch Syndrome, genetic counseling is recommended.";
             this.m_Method = IHCMethod;
             this.m_References = LSEGENReferences;        
 		}
 
-        public override void SetResultsV2(PanelSetOrderLynchSyndromeEvaluation psoLSE)        
+        /*public override void SetResultsV2(PanelSetOrderLynchSyndromeEvaluation psoLSE)        
         {
             this.m_Result = this.BuildLossResult();
-        }
+        }*/
 
         public override void SetResults(AccessionOrder accessionOrder, PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromEvaluation)
         {
