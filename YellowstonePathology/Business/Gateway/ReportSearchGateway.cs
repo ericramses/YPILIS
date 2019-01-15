@@ -55,6 +55,23 @@ namespace YellowstonePathology.Business.Gateway
             return reportSearchList;
         }
 
+        public static YellowstonePathology.Business.Search.ReportSearchList GetReportSearchListByChangesNotPosted()
+        {
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT pso.MasterAccessionNo, pso.ReportNo, a.AccessionTime AccessionDate, pso.PanelSetId, " +
+	            "concat(a.PFirstName, ' ', a.PLastName) AS PatientName, " +
+                "a.PLastName, a.PFirstName, a.ClientName, a.PhysicianName, a.PBirthdate, pso.FinalDate, pso.PanelSetName, su.UserName as OrderedBy,  " +            
+	            "'' ForeignAccessionNo, pso.IsPosted " +
+                "FROM tblAccessionOrder a JOIN tblPanelSetOrder pso ON a.MasterAccessionNo = pso.MasterAccessionNo " +
+                "Left Outer Join tblSystemUser su on pso.OrderedById = su.UserId " +
+                "WHERE pso.Final = 1 and pso.IsPosted = 1 and pso.OrderDate >= '2018-06-01' and pso.IsBillable = 1 " +
+                "and exists (select null from tblPanelSetOrderCPTCode where postdate is null and ReportNo = pso.ReportNo) " +
+                "Order By pso.FinalDate, pso.PanelSetId, a.AccessionTime;";
+            Search.ReportSearchList reportSearchList = BuildReportSearchList(cmd);
+            return reportSearchList;
+        }
+
         public static YellowstonePathology.Business.Search.ReportSearchList GetReportSearchListBySVHFinalNotPosted()
         {
             MySqlCommand cmd = new MySqlCommand();

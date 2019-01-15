@@ -8,7 +8,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 {
     class HER2AmplificationResultGroup3Breast : HER2AmplificationResultBreast
     {
-        public HER2AmplificationResultGroup3Breast(PanelSetOrderCollection panelSetOrderCollection) : base(panelSetOrderCollection)
+        public HER2AmplificationResultGroup3Breast(PanelSetOrderCollection panelSetOrderCollection, string reportNo) : base(panelSetOrderCollection, reportNo)
         {
             this.m_InterpretiveComment = "There are insufficient data on the efficacy of human epidermal growth factor receptor 2 (HER2)-targeted " +
                 "therapy in cases with a HER2 ratio of < 2.0 in the absence of protein overexpression because such patients were not eligible " +

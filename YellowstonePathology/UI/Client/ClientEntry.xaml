@@ -269,9 +269,12 @@
                     <ListView Name="ListViewClientLocations" Grid.Column="0" Grid.Row="0" Margin="5,5,5,5" ItemsSource="{Binding Path=Client.ClientLocationCollection}">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="Location" Width="300" DisplayMemberBinding="{Binding Path=Location}" />
-                                <GridViewColumn Header="Order Type" Width="200" DisplayMemberBinding="{Binding Path=OrderType}" />
-                                <GridViewColumn Header="Tracking Initiated" Width="150" DisplayMemberBinding="{Binding Path=SpecimenTrackingInitiated}" />
+                                <GridViewColumn Header="Class" Width="100" DisplayMemberBinding="{Binding Path=PatientClass}" />
+                                <GridViewColumn Header="Location" Width="100" DisplayMemberBinding="{Binding Path=PatientLocationCode}" />
+                                <GridViewColumn Header="POS" Width="100" DisplayMemberBinding="{Binding Path=PlaceOfServiceCode}" />
+                                <GridViewColumn Header="Location" Width="100" DisplayMemberBinding="{Binding Path=Location}" />
+                                <GridViewColumn Header="Order Type" Width="100" DisplayMemberBinding="{Binding Path=OrderType}" />
+                                <GridViewColumn Header="Tracking Initiated" Width="100" DisplayMemberBinding="{Binding Path=SpecimenTrackingInitiated}" />
                             </GridView>
                         </ListView.View>
                     </ListView>

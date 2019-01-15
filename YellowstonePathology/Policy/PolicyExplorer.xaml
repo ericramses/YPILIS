@@ -22,21 +22,24 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <TreeView Name="TreeViewDirectories"  Grid.Column="0" Grid.Row="0" Margin="2" ItemsSource="{Binding Path=DirectoryCollection}" BorderThickness="1" HorizontalAlignment="Stretch">
+        <TreeView Name="TreeViewDirectories"  Grid.Column="0" Grid.Row="0" Margin="2" ItemsSource="{Binding Path=Directories}" BorderThickness="1" HorizontalAlignment="Stretch">
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource = "{Binding Path=Subdirectories}">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Path=DirectoryName}"/>
+                        <TextBlock Text="{Binding Path=Name}" Margin="2,2,2,2"/>
                     </StackPanel>
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
             <TreeView.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="Add Folder" Click="ContextMenuAddFolder_Click"></MenuItem>
+                    <MenuItem Header="Add Directory" Click="ContextMenuAddDirectory_Click"></MenuItem>
                 </ContextMenu>
             </TreeView.ContextMenu>
         </TreeView>
+
+        <Button Grid.Column="0" Grid.Row="1" Click="ButtonDoIt_Click" Margin="2,2,2,2" Height="30" Width="50" HorizontalAlignment="Left">DO IT</Button>
     </Grid>
 </Window>

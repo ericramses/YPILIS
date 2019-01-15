@@ -216,6 +216,13 @@ namespace YellowstonePathology.UI.Login
             Window.GetWindow(this).Close();
         }
 
+        private void ButtonChangesNotPostedSearch_Click(object sender, RoutedEventArgs e)
+        {
+            this.m_LoginUI.AccessionOrderDate = this.m_AccessionDate;
+            this.m_LoginUI.GetReportSearchListByChangesNotPosted();
+            Window.GetWindow(this).Close();
+        }
+
         private void ButtonNotPostedSearch_Click(object sender, RoutedEventArgs e)
         {
             this.m_LoginUI.AccessionOrderDate = this.m_AccessionDate;

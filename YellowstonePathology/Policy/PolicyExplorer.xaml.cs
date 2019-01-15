@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.ComponentModel;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Net.Http;
 
 namespace YellowstonePathology.Policy
 {
@@ -21,32 +24,70 @@ namespace YellowstonePathology.Policy
     public partial class PolicyExplorer : Window, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        private DirectoryCollection m_DirectoryCollection;
+        private DirectoryCollection m_Directories;      
 
         public PolicyExplorer()
         {
-            this.m_DirectoryCollection = DirectoryCollection.GetRoot();
+            this.DoIt();
             InitializeComponent();
             this.DataContext = this;
-        }
-
-        public DirectoryCollection DirectoryCollection
+        }      
+        
+        public DirectoryCollection Directories
         {
-            get { return this.m_DirectoryCollection; }
-        }
+            get { return this.m_Directories; }
+        }  
 
-        private void ContextMenuAddFolder_Click(object sender, RoutedEventArgs e)
+        private void ContextMenuAddDirectory_Click(object sender, RoutedEventArgs e)
         {
             if(this.TreeViewDirectories.SelectedItem != null)
             {
-                Directory parentDirectory = (Directory)this.TreeViewDirectories.SelectedItem;
-                Directory newDirectory = new Directory();
-                newDirectory.IsNew = true;
-                newDirectory.ParentId = parentDirectory.DirectoryId;
-                newDirectory.DirectoryName = "New Directory";
-                this.m_DirectoryCollection.AddNewDirectory(newDirectory);
+                Directory selectedDirectory = (Directory)this.TreeViewDirectories.SelectedItem;
+                Directory newDirectory = new Directory("New Directory", selectedDirectory.Path);
+                EditDirectoryDialog addDirectoryDialog = new EditDirectoryDialog(newDirectory, selectedDirectory, true);
+                addDirectoryDialog.Finished += AddDirectoryDialog_Finished;
+                addDirectoryDialog.Show();
             }
         }
+
+        private void ButtonDoIt_Click(object sender, RoutedEventArgs e)
+        {
+            this.PubSubPub();
+        }
+
+        private async void PubSubPub()
+        {
+            //await IPFS.PubSubPub("cow", "jumped");
+            await IPFS.PubSubSub("cow");
+        }
+
+        private void AddDirectoryDialog_Finished(object sender, EventArgs e)
+        {
+            this.NotifyPropertyChanged("Directories");
+        }
+
+        private async void AddDirectory(string path)
+        {
+            await IPFS.FilesMkdir(path);
+            this.m_Directories = await DirectoryCollection.Build();
+            this.NotifyPropertyChanged("Directories");
+        }
+
+        private async void RemoveDirectory(string path)
+        {
+            await IPFS.FilesMkdir(path);
+        }
+
+        private async void DoIt()
+        {
+            //string fileName = @"c:\testing\phoneprefix.txt";
+            //JObject result = await IPFS.AddAsync(fileName);
+            //Console.WriteLine(result["Hash"]);            
+            //JObject result = await IPFS.FilesLs("/policy_chain/one");
+            
+            this.m_Directories = await DirectoryCollection.Build();
+            this.NotifyPropertyChanged("Directories");
+        }        
 
         public void NotifyPropertyChanged(String info)
         {
@@ -54,6 +95,6 @@ namespace YellowstonePathology.Policy
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
-        }
+        }        
     }
 }

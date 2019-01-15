@@ -141,6 +141,7 @@
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
 
@@ -157,6 +158,9 @@
 
                     <TextBlock Grid.Column="0" Grid.Row="3" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold" Text="SVH Final Not Posted:" />
                     <Button Grid.Column="2" Grid.Row="3" Width="75" Height="25" Margin="2,2,2,2"  Click="ButtonSVHFinalNotPostedSearch_Click">Search</Button>
+
+                    <TextBlock Grid.Column="0" Grid.Row="4" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold" Text="Changes Not Posted:" />
+                    <Button Grid.Column="2" Grid.Row="4" Width="75" Height="25" Margin="2,2,2,2"  Click="ButtonChangesNotPostedSearch_Click">Search</Button>
 
                 </Grid>
             </TabItem>                 

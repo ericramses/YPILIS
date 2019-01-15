@@ -23,11 +23,8 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
         public static string GeneralIndication = "Assess tumor for mismatch repair deficiency to determine eligibility for PD-1 blockade therapy; screening for Lynch Syndrome.";
         public static string IHCAllIntactResult = "Intact nuclear expression of MLH1, MSH2, MSH6, and PMS2 mismatch repair proteins.";
 
-        public static string AdditionalTestingNone = "No Additional Testing Required";
-        public static string AdditionalTestingReflexBRAFMeth = "Reflex to BRAf and METH";
-        public static string AdditionalTestingMeth = "Perform Methylation Analysis";
-
-        //protected bool m_IHCMatched;
+        protected bool m_BRAFRequired;
+        protected bool m_MethRequired;
         protected string m_Indication;
         protected string m_ResultName;
 
@@ -48,19 +45,6 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 		public LSERule()
 		{
 		}
-
-        /*public bool IHCMatched
-        {
-            get { return this.m_IHCMatched; }
-            set
-            {
-                if(this.m_IHCMatched != value)
-                {
-                    this.m_IHCMatched = value;
-                    this.NotifyPropertyChanged("IHCMatched");
-                }                
-            }
-        }*/
 
         public string ResultName
         {
@@ -110,13 +94,19 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             set { this.m_MethResult = value; }
         }
 
-        /*public string AdditionalTesting
+        public bool BRAFRequired
         {
-            get { return this.m_AdditionalTesting; }
-            set { this.m_AdditionalTesting = value; }
-        }*/
+            get { return this.m_BRAFRequired; }
+            set { this.m_BRAFRequired = value; }
+        }
 
-		public string Interpretation
+        public bool MethRequired
+        {
+            get { return this.m_MethRequired; }
+            set { this.m_MethRequired = value; }
+        }
+
+        public string Interpretation
 		{
 			get { return this.m_Interpretation; }
 		}
@@ -136,22 +126,19 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             get { return this.m_References; }
         }
 
-        public virtual void SetResults(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromEvaluation)
+        public virtual void SetResults(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation)
         {
-            throw new Exception("needs work");
-            /*
-            panelSetOrderLynchSyndromEvaluation.Interpretation = this.m_Interpretation;
-            panelSetOrderLynchSyndromEvaluation.Result = this.m_Result;
-            panelSetOrderLynchSyndromEvaluation.ReflexToBRAFMeth = this.ReflexToBRAFMeth;
-            panelSetOrderLynchSyndromEvaluation.Method = this.m_Method;
-            panelSetOrderLynchSyndromEvaluation.ReportReferences = this.m_References;			
-            */
+            panelSetOrderLynchSyndromeEvaluation.Interpretation = this.m_Interpretation;
+            panelSetOrderLynchSyndromeEvaluation.Result = this.m_Result;
+            panelSetOrderLynchSyndromeEvaluation.ReflexToBRAFMeth = this.BRAFRequired;
+            panelSetOrderLynchSyndromeEvaluation.Method = this.m_Method;
+            panelSetOrderLynchSyndromeEvaluation.ReportReferences = this.m_References;			
         }
 
-        public virtual void SetResultsV2(PanelSetOrderLynchSyndromeEvaluation psoLSE)
+        /*public virtual void SetResultsV2(PanelSetOrderLynchSyndromeEvaluation psoLSE)
         {
 
-            /*
+            
             if(this.AreAnyLoss() == false)
             {
                 this.m_Interpretation = IHCAllIntactResult;
@@ -160,9 +147,9 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             {
                 this.m_Interpretation = this.BuildLossInterpretation();
             }
-            */
+            
 
-            /*
+            
             if(this.m_BrafResult != LSEResultEnum.NotPerformed)
             {
                 this.m_Interpretation = this.m_Interpretation + Environment.NewLine + "BRAF mutation V600E ";
@@ -176,8 +163,8 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
                 if (this.m_MethResult == LSEResultEnum.Detected) this.m_Interpretation += "DETECTED.";
                 if (this.m_MethResult == LSEResultEnum.NotDetected) this.m_Interpretation += "NOT DETECTED.";
             }
-            */
-        }
+            
+        }*/
 
         public virtual bool IsIHCMatch(IHCResult ihcResult)
         {

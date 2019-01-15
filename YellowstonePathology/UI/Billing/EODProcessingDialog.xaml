@@ -15,17 +15,16 @@
 
         <StackPanel Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" HorizontalAlignment="Stretch">
             <Menu Name="MainMenu" DockPanel.Dock="Top" Margin="0,0,0,0" HorizontalAlignment="Stretch">
-                <MenuItem Header="PSA" Name="MenuItemPSA">
+                <MenuItem Header="Actions" Name="MenuItemActions">
+                    <MenuItem Header="Match SVH ADT" Click="MenuItemMatchSVHADT_Click"></MenuItem>
                     <MenuItem Header="Process PSA Files" Click="MenuItemProcessPSAFiles_Click"></MenuItem>
                     <MenuItem Header="Transfer PSA Files" Click="MenuItemTransferPSAFiles_Click"></MenuItem>
-                    <MenuItem Header="Open Folder" Click="MenuItemOpenPSAFolder_Click"></MenuItem>
-                </MenuItem>
-                <MenuItem Header="SVH" Name="MenuItemSVH">
                     <MenuItem Header="Process SVH Files" Click="MenuItemProcessSVHFiles_Click"></MenuItem>
                     <MenuItem Header="Transfer SVH Files" Click="MenuItemTransferSVHFiles_Click"></MenuItem>
                     <MenuItem Header="Send Clinic Case Email" Click="MenuItemSendClinicCaseEmail_Click"></MenuItem>
                     <MenuItem Header="Fax Report" Click="MenuItemFaxReport_Click"></MenuItem>
-                    <MenuItem Header="Open Folder" Click="MenuItemOpenSVHFolder_Click"></MenuItem>
+                    <MenuItem Header="Open PSA Folder" Click="MenuItemOpenPSAFolder_Click"></MenuItem>
+                    <MenuItem Header="Open SVH Folder" Click="MenuItemOpenSVHFolder_Click"></MenuItem>
                 </MenuItem>
             </Menu>
         </StackPanel>

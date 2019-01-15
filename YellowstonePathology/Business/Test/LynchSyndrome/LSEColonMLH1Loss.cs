@@ -18,7 +18,8 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 
             this.m_BRAFResult = TestResult.Detected;
             this.m_MethResult = TestResult.NotApplicable;
-            //this.m_AdditionalTesting = LSERule.AdditionalTestingReflexBRAFMeth;
+            this.m_BRAFRequired = true;
+            this.m_MethRequired = false;
             this.m_Interpretation = "The results are compatible with a sporadic tumor and further genetic evaluation is not indicated.";
             this.m_Method = IHCMethod;
             this.m_References = LSEColonReferences;
