@@ -9,11 +9,7 @@ namespace YellowstonePathology.Business.Surgical
     {
         public static PQRSMeasureCollection GetAll()
         {
-            PQRSMeasureCollection result = new PQRSMeasureCollection();
-            result.Add(new PQRSBreastMeasure());
-			result.Add(new PQRSBarrettsEsophagusMeasure());
-			result.Add(new PQRSColorectalMeasure());
-			result.Add(new PQRSRadicalProstatectomyMeasure());
+            PQRSMeasureCollection result = new PQRSMeasureCollection();            			            
             result.Add(new PQRSMelanomaMeasure());
             result.Add(new PQRSMeasure395());
             result.Add(new PQRSMeasure396());

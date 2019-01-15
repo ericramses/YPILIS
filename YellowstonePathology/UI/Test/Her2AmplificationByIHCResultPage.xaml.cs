@@ -124,7 +124,8 @@ namespace YellowstonePathology.UI.Test
                 YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHTest ishTest = new Business.Test.HER2AmplificationByISH.HER2AmplificationByISHTest();
                 if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(ishTest.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true) == true)
                 {
-                    Business.Test.HER2AmplificationByISH.HER2AmplificationResultCollection her2ResultCollection = new Business.Test.HER2AmplificationByISH.HER2AmplificationResultCollection(this.m_AccessionOrder.PanelSetOrderCollection);
+                    YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHTestOrder ishTestOrder = (YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(ishTest.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true);
+                    Business.Test.HER2AmplificationByISH.HER2AmplificationResultCollection her2ResultCollection = new Business.Test.HER2AmplificationByISH.HER2AmplificationResultCollection(this.m_AccessionOrder.PanelSetOrderCollection, ishTestOrder.ReportNo);
                     Business.Test.HER2AmplificationByISH.HER2AmplificationResult her2Result = her2ResultCollection.FindMatch();
                     if (her2Result.IsRecountNeeded() == true)
                     {

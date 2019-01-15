@@ -718,7 +718,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
             if(result.Status == AuditStatusEnum.OK)
             {
                 this.SetHER2ByIHCRequired();
-                HER2AmplificationResultCollection her2AmplificationResultCollection = new HER2AmplificationResultCollection(accessionOrder.PanelSetOrderCollection);
+                HER2AmplificationResultCollection her2AmplificationResultCollection = new HER2AmplificationResultCollection(accessionOrder.PanelSetOrderCollection, this.m_ReportNo);
                 HER2AmplificationResult her2AmplificationResult = her2AmplificationResultCollection.FindMatch();
                 if (this.HER2ByIHCRequired == true)
                 {
@@ -793,7 +793,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 
             if (result.Status == AuditStatusEnum.OK)
             {
-                HER2AmplificationResultCollection her2AmplificationResultCollection = new HER2AmplificationResultCollection(accessionOrder.PanelSetOrderCollection);
+                HER2AmplificationResultCollection her2AmplificationResultCollection = new HER2AmplificationResultCollection(accessionOrder.PanelSetOrderCollection, this.m_ReportNo);
                 HER2AmplificationResult her2AmplificationResult = her2AmplificationResultCollection.FindMatch();
                 if (this.HER2ByIHCRequired == true)
                 {
@@ -858,7 +858,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 
             if(result.Status == AuditStatusEnum.OK)
             {
-                HER2AmplificationResultCollection her2AmplificationResultCollection = new HER2AmplificationByISH.HER2AmplificationResultCollection(accessionOrder.PanelSetOrderCollection);
+                HER2AmplificationResultCollection her2AmplificationResultCollection = new HER2AmplificationByISH.HER2AmplificationResultCollection(accessionOrder.PanelSetOrderCollection, this.m_ReportNo);
                 HER2AmplificationResult her2AmplificationResult = her2AmplificationResultCollection.FindMatch();
                 if (this.m_HER2ByIHCRequired == true)
                 {

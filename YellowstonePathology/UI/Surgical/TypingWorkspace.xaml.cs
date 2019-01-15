@@ -1171,7 +1171,25 @@ namespace YellowstonePathology.UI.Surgical
             panelSetOrderCPTCode.SpecimenOrderId = specimenOrder.SpecimenOrderId;
             panelSetOrderCPTCode.CodeType = cptCodeType;
             panelSetOrderCPTCode.ClientId = this.m_TypingUI.AccessionOrder.ClientId;
+            panelSetOrderCPTCode.MedicalRecord = this.m_TypingUI.AccessionOrder.SvhMedicalRecord;
+            panelSetOrderCPTCode.Account = this.m_TypingUI.AccessionOrder.SvhAccount;            
             panelSetOrder.PanelSetOrderCPTCodeCollection.Add(panelSetOrderCPTCode);
-        }        
+        }
+
+        private void ContextMenuReverseCptCode_Click(object sender, RoutedEventArgs e)
+        {
+            MenuItem menuItem = (MenuItem)sender;
+            string panelSetOrderCPTCodeId = menuItem.Tag.ToString();
+            YellowstonePathology.Business.Test.PanelSetOrderCPTCode panelSetOrderCPTCode = this.m_TypingUI.SurgicalTestOrder.PanelSetOrderCPTCodeCollection.GetPanelSetOrderCPTCode(panelSetOrderCPTCodeId);
+            if(panelSetOrderCPTCode.PostDate.HasValue == true)
+            {
+                this.m_TypingUI.SurgicalTestOrder.PanelSetOrderCPTCodeCollection.Reverse(panelSetOrderCPTCode);
+                this.m_TypingUI.RefreshBillingSpecimenViewCollection();
+            }
+            else
+            {
+                MessageBox.Show("This code has not been posted and therefore does not need to be reversed.");
+            }            
+        }
     }    
 }

@@ -85,7 +85,7 @@ namespace YellowstonePathology.Business.Test.Surgical
                         foreach (IntraoperativeConsultationResult icItem in surgicalSpecimen.IntraoperativeConsultationResultCollection)
                         {
                             this.AddNextObxElement(surgicalSpecimen.DiagnosisId + ". " + surgicalSpecimen.SpecimenOrder.Description, document, "F");
-                            this.AddNextObxElement(icItem.Result, document, "F");
+                            this.HandleLongString(icItem.Result, document, "F");
                         }
                     }
                 }

@@ -44,6 +44,7 @@ namespace YellowstonePathology.Business.Client.Model
             result.Add(new HPVReflexOrderRule10());
             result.Add(new HPVReflexOrderRule11());
             result.Add(new HPVReflexOrderRule14());
+            result.Add(new HPVReflexOrderRule141());
             result.Add(new HPV1618ReflexOrderHPVPositive());
             result.Add(new HPV1618ReflexOrderPAPNormalHPVPositive());            
             return result;
@@ -73,6 +74,8 @@ namespace YellowstonePathology.Business.Client.Model
             result.Add(new HPVReflexOrderRule9());
             result.Add(new HPVReflexOrderRule10());
             result.Add(new HPVReflexOrderRule11());
+            result.Add(new HPVReflexOrderRule14());
+            result.Add(new HPVReflexOrderRule141());
             return result;
         }
 

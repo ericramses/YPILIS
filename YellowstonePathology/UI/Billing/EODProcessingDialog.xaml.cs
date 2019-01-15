@@ -31,9 +31,7 @@ namespace YellowstonePathology.UI.Billing
         private ObservableCollection<string> m_StatusMessageList;
         private string m_StatusCountMessage;        
         private int m_StatusCount;
-        private List<string> m_ReportNumbersToProcess;
-
-        private System.Timers.Timer m_Timer;
+        private List<string> m_ReportNumbersToProcess;        
 
         public EODProcessingDialog()
         {
@@ -464,9 +462,9 @@ namespace YellowstonePathology.UI.Billing
 
                     Business.SSHFileTransfer sshFileTransfer = new Business.SSHFileTransfer(psaSSHConfig["host"].ToString(), Convert.ToInt32(psaSSHConfig["port"]),
                         psaSSHConfig["username"].ToString(), psaSSHConfig["password"].ToString());
+                    sshFileTransfer.Failed += SshFileTransfer_Failed;
 
-                    sshFileTransfer.StatusMessage += SSHFileTransfer_StatusMessage;
-                    sshFileTransfer.Failed += SSHFileTransfer_Failed;                    
+                    sshFileTransfer.StatusMessage += SSHFileTransfer_StatusMessage;                    
                     sshFileTransfer.UploadFilesToPSA(files);
                     rowCount += 1;
                 }
@@ -481,20 +479,11 @@ namespace YellowstonePathology.UI.Billing
             }
 
             this.m_BackgroundWorker.ReportProgress(1, "Finished with transfer of " + rowCount + " PSA Files: " + DateTime.Now.ToLongTimeString());
-        }        
-
-        private void SSHFileTransfer_Failed(object sender, string message)
-        {            
-            this.m_Timer = new System.Timers.Timer(60000);
-            this.m_Timer.Elapsed += Timer_Elapsed;
-            this.m_Timer.Enabled = true;            
         }
 
-        private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        private void SshFileTransfer_Failed(object sender, string message)
         {
-            this.m_Timer.Stop();
-            this.m_Timer.Dispose();
-            this.TransferPSAFiles();            
+            this.m_BackgroundWorker.ReportProgress(1, "Transfer of files to PSA has failed: " + DateTime.Now.ToLongTimeString());
         }
 
         private void SSHFileTransfer_StatusMessage(object sender, string message, int count)
@@ -516,12 +505,13 @@ namespace YellowstonePathology.UI.Billing
         }
 
         private void RunAllProcesses(object sender, System.ComponentModel.DoWorkEventArgs e)
-        {            
-            this.ProcessPSAFiles(sender, e);
-            this.TransferPSAFiles(sender, e);
+        {
+            this.MatchAccessionOrdersToADT(sender, e);            
             this.ProcessSVHCDMFiles(sender, e);
             this.TransferSVHFiles(sender, e);
             this.SendSVHClinicEmail(sender, e);            
+            this.ProcessPSAFiles(sender, e);
+            this.TransferPSAFiles(sender, e);
         }
 
         private void AllProcessBackgroundWorker_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
@@ -573,6 +563,60 @@ namespace YellowstonePathology.UI.Billing
         {
             this.PostDate = this.m_PostDate.AddDays(1);
             this.NotifyPropertyChanged("PostDate");
+        }
+
+        public void MatchAccessionOrdersToADT(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            this.m_BackgroundWorker.ReportProgress(1, "Starting matching SVH ADT: " + DateTime.Now.ToLongTimeString());
+            List<Business.Billing.Model.AccessionListItem> accessionList = Business.Gateway.AccessionOrderGateway.GetSVHNotPosted();
+            foreach (Business.Billing.Model.AccessionListItem accessionListItem in accessionList)
+            {
+                this.m_BackgroundWorker.ReportProgress(1, "Looking for a match for: " + accessionListItem.MasterAccessionNo);
+                List<Business.Billing.Model.ADTListItem> adtList = Business.Gateway.AccessionOrderGateway.GetADTList(accessionListItem.PFirstName, accessionListItem.PLastName, accessionListItem.PBirthdate.Value);
+
+                foreach (Business.Billing.Model.ADTListItem adtItem in adtList)
+                {
+                    DateTime received = DateTime.Parse(adtItem.DateReceived.ToShortDateString());
+                    int daysDiff = (int)(this.m_PostDate - received).TotalDays;
+                    if (daysDiff <= 3)
+                    {
+                        if (adtItem.MedicalRecord.StartsWith("V") == true)
+                        {
+                            Business.Test.AccessionOrder ao = Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(accessionListItem.MasterAccessionNo, this);
+                            Business.Test.PanelSetOrder pso = ao.PanelSetOrderCollection.GetPanelSetOrder(accessionListItem.ReportNo);
+
+                            foreach (Business.Test.PanelSetOrderCPTCodeBill psocb in pso.PanelSetOrderCPTCodeBillCollection)
+                            {
+                                this.m_BackgroundWorker.ReportProgress(1, "Found a match for: " + accessionListItem.MasterAccessionNo);
+                                if (psocb.BillTo == "Client")
+                                {
+                                    psocb.MedicalRecord = adtItem.MedicalRecord;
+                                    psocb.Account = adtItem.Account;
+                                }
+
+                                if (psocb.PostDate.HasValue == false)
+                                    psocb.PostDate = this.m_PostDate;
+                            }
+
+                            Business.Persistence.DocumentGateway.Instance.Push(ao, this);
+                            break;
+                        }
+                    }
+                }
+            }
+            this.m_BackgroundWorker.ReportProgress(1, "Completed SVH ADT Matching: " + DateTime.Now.ToLongTimeString());
+        }
+
+        private void MenuItemMatchSVHADT_Click(object sender, RoutedEventArgs e)
+        {
+            this.m_StatusMessageList.Clear();
+            this.m_BackgroundWorker = new System.ComponentModel.BackgroundWorker();
+            this.m_BackgroundWorker.WorkerSupportsCancellation = false;
+            this.m_BackgroundWorker.WorkerReportsProgress = true;
+            this.m_BackgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(BackgroundWorker_ProgressChanged);
+            this.m_BackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(MatchAccessionOrdersToADT);
+            this.m_BackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(BackgroundWorker_RunWorkerCompleted);
+            this.m_BackgroundWorker.RunWorkerAsync();
         }
     }
 }

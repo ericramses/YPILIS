@@ -14,7 +14,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
                 "accordance with current ASCO/CAP guidelines. For this patient, the HER2:Chr17 ratio was *RATIO* and average HER2 copy number per cell " +
                 "was *HER2COPY* (*CELLSCOUNTED* nuclei examined).  Therefore, HER2 status is *HER2STATUS*.";
 
-        public HER2AmplificationResultBreast(PanelSetOrderCollection panelSetOrderCollection) : base(panelSetOrderCollection)
+        public HER2AmplificationResultBreast(PanelSetOrderCollection panelSetOrderCollection, string reportNo) : base(panelSetOrderCollection, reportNo)
         {
             this.m_ReportReference = "Wolff AC, Hammond MEH, Hicks DG, et al. Recommendations for Human Epidermal Growth Factor Receptor 2 Testing in " +
                 "Breast Cancer. Arch Pathol Lab Med. doi: 10.5858/arpa.2013-0953-SA.";

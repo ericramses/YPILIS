@@ -516,8 +516,7 @@
                                             </ItemsControl.ItemTemplate>
                                         </ItemsControl>
 
-                                        <ItemsControl ItemsSource="{Binding Path=PanelSetOrderCPTCodeCollection}" Grid.Row="4" Grid.Column="1" KeyboardNavigation.IsTabStop="False"
-														IsEnabled="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.FieldEnabler.IsBillingAuditEnabled}">
+                                        <ItemsControl ItemsSource="{Binding Path=PanelSetOrderCPTCodeCollection}" Grid.Row="4" Grid.Column="1" KeyboardNavigation.IsTabStop="False" IsEnabled="True">
                                             <ItemsControl.Template>
                                                 <ControlTemplate TargetType="ItemsControl">
                                                     <StackPanel Margin="0,0,0,10">
@@ -531,15 +530,12 @@
                                                         <StackPanel.ContextMenu>
                                                             <ContextMenu Opened="ContextMenu_Opened">
                                                                 <MenuItem Tag="{Binding Path=PanelSetOrderCPTCodeId}" Header="Delete CPT Code" Click="ContextMenuDeleteCptCode_Click"></MenuItem>
+                                                                <MenuItem Tag="{Binding Path=PanelSetOrderCPTCodeId}" Header="Reverse CPT Code" Click="ContextMenuReverseCptCode_Click"></MenuItem>
                                                             </ContextMenu>
                                                         </StackPanel.ContextMenu>
-                                                        <TextBox Width="20" Text="{Binding Path=Quantity, UpdateSourceTrigger=PropertyChanged}" Margin="2"
-																	HorizontalAlignment="Left" KeyboardNavigation.IsTabStop="False" FontWeight="Bold" ToolTip="Quantity">
-                                                        </TextBox>
-                                                        <TextBox Text="{Binding Path=CPTCode, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" FontWeight="Bold" Margin="2" Width="70"
-																	ToolTip="CPT Code" IsEnabled="False"></TextBox>
-                                                        <TextBox Text="{Binding Path=Modifier, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" FontWeight="Bold" Margin="2" Width="70"
-																	ToolTip="Modifier" IsEnabled="False"></TextBox>
+                                                        <TextBlock Width="20" Text="{Binding Path=Quantity}" Margin="2" HorizontalAlignment="Left" FontWeight="Bold" ToolTip="Quantity"></TextBlock>
+                                                        <TextBlock Text="{Binding Path=CPTCode, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" FontWeight="Bold" Margin="2" Width="70" ToolTip="CPT Code"></TextBlock>
+                                                        <TextBlock Text="{Binding Path=Modifier, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" FontWeight="Bold" Margin="2" Width="70" ToolTip="Modifier"></TextBlock>
                                                         <TextBlock Text="{Binding Path=PostDateProxy}" VerticalAlignment="Center" Margin="2" Width="80" ToolTip="Post Date"/>
                                                         <TextBlock Text="{Binding Path=CodeableDescription}" VerticalAlignment="Center" Margin="2"></TextBlock>
 
