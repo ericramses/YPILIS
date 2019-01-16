@@ -24,8 +24,8 @@ namespace YellowstonePathology.Business.Test.CalcitoninByImmunohistochemistry
 
             this.m_AllowMultiplePerAccession = true;
 
-            YellowstonePathology.Business.Facility.Model.Facility facility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("ARUPSPD");
-            string taskDescription = "Collect material and send to ARUP.";
+            YellowstonePathology.Business.Facility.Model.Facility facility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("NEOGNMCIRVN");
+            string taskDescription = "Collect material and send to Neo.";
             this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskFedexShipment(YellowstonePathology.Business.Task.Model.TaskAssignment.Histology, taskDescription, facility));
 
             this.m_TechnicalComponentFacility = facility;
