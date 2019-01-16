@@ -336,19 +336,34 @@ namespace YellowstonePathology.Business.Test
             this.Add(reverseNew);            
         }
 
-        public void Reverse(YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill item)
+        public void PostAsGlobal(YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill item)
         {                        
-            YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill reverseOriginal = this.GetNextItem(item.ReportNo);
-            reverseOriginal.ClientId = item.ClientId;
-            reverseOriginal.BillTo = item.BillTo;
-            reverseOriginal.BillBy = item.BillBy;
-            reverseOriginal.CPTCode = item.CPTCode;
-            reverseOriginal.Modifier = item.Modifier;
-            reverseOriginal.Quantity = item.Quantity * (-1);
-            reverseOriginal.PostDate = DateTime.Today;
-            reverseOriginal.MedicalRecord = item.MedicalRecord;
-            reverseOriginal.Account = item.Account;
-            this.Add(reverseOriginal);                
+            YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill globalItem = this.GetNextItem(item.ReportNo);
+            globalItem.ClientId = item.ClientId;
+            globalItem.BillTo = "Patient";
+            globalItem.BillBy = item.BillBy;
+            globalItem.CPTCode = item.CPTCode;
+            globalItem.Modifier = null;
+            globalItem.Quantity = item.Quantity;
+            globalItem.PostDate = DateTime.Today;
+            globalItem.MedicalRecord = item.MedicalRecord;
+            globalItem.Account = item.Account;
+            this.Add(globalItem);                
+        }
+
+        public void Reverse(YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill item)
+        {
+            YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill globalItem = this.GetNextItem(item.ReportNo);
+            globalItem.ClientId = item.ClientId;
+            globalItem.BillTo = item.BillTo;
+            globalItem.BillBy = item.BillBy;
+            globalItem.CPTCode = item.CPTCode;
+            globalItem.Modifier = item.Modifier;
+            globalItem.Quantity = item.Quantity * (-1);
+            globalItem.PostDate = DateTime.Today;
+            globalItem.MedicalRecord = item.MedicalRecord;
+            globalItem.Account = item.Account;
+            this.Add(globalItem);
         }
 
         public void AddWithClientId(YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill item, int clientId)

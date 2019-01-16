@@ -328,8 +328,7 @@ namespace YellowstonePathology.UI.Billing
                                 else
                                 {
                                     throw new Exception("This MRN or ACCT is null.");
-                                }
-                                
+                                }                                
                             }                            
                         }
                         else

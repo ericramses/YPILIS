@@ -377,35 +377,17 @@ namespace YellowstonePathology.UI.Billing
                     panelSetOrderCPTCodeBill.ClientId = AccessionOrder.ClientId;
                 }
             }
-        }
+        }        
 
-        private void ButtonSVHCDM_Click(object sender, RoutedEventArgs e)
-        {
-            /*
-            YellowstonePathology.Business.Billing.Model.BillableObject billableObject = Business.Billing.Model.BillableObjectFactory.GetBillableObject(this.m_AccessionOrder, this.m_ReportNo);
-            billableObject.Set();            
-            billableObject.Post();
-            this.CreateInsuranceCard();         
-            */
-
-            /*
-            if(string.IsNullOrEmpty(this.m_AccessionOrder.PlaceOfService) == false)
+        private void MenuItemPostAsGlobal_Click(object sender, RoutedEventArgs e)
+        {            
+            if (this.ListViewPanelSetOrderCPTCodeBill.SelectedItem != null)
             {
-                Business.Billing.Model.PlaceOfServiceCollection placeOfServiceCollection = new Business.Billing.Model.PlaceOfServiceCollection();
-                Business.Billing.Model.PlaceOfService placeOfService = placeOfServiceCollection.Get(this.m_AccessionOrder.PlaceOfService);
-                if (placeOfService != null)
-                    this.m_AccessionOrder.PatientType = placeOfService.PatientType;
-            } 
-            */
-
-            /*
-            if(this.ListViewPanelSetOrderCPTCodeBill.SelectedItem != null)
-            {
-                Business.Test.PanelSetOrderCPTCodeBill psob = (Business.Test.PanelSetOrderCPTCodeBill)this.ListViewPanelSetOrderCPTCodeBill.SelectedItem;
-                Business.HL7View.EPIC.EPICFT1ResultView epicFT1ResultView = new Business.HL7View.EPIC.EPICFT1ResultView(this.m_AccessionOrder, psob);
-                epicFT1ResultView.Publish(System.IO.Path.Combine(@"c:\testing", "ft1"));
+                foreach (YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill in this.ListViewPanelSetOrderCPTCodeBill.SelectedItems)
+                {
+                    this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.PostAsGlobal(panelSetOrderCPTCodeBill);
+                }
             }
-            */
         }
     }
 }
