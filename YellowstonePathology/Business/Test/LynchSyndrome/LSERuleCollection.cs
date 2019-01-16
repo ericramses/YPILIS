@@ -71,7 +71,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTest brafV600EKTest = new YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTest();
             YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTest brafMutationAnalysisTest = new BRAFMutationAnalysis.BRAFMutationAnalysisTest();
             YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelTest rasRAFPanelTest = new YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelTest();
-            string brafResult = null;
+            string brafResult = TestResult.NotApplicable;
             if (accessionOrder.PanelSetOrderCollection.Exists(brafV600EKTest.PanelSetId, panelSetOrderLynchSyndromeEvaluation.OrderedOnId, false) == true)
             {
                 YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTestOrder panelSetOrderBraf = (YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(brafV600EKTest.PanelSetId, panelSetOrderLynchSyndromeEvaluation.OrderedOnId, false);
@@ -88,14 +88,11 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
                 if (panelSetOrderRASRAF.Final == true) brafResult = panelSetOrderRASRAF.GetBrafSummaryResult();
             }
 
-            if (brafResult == TestResult.Detected || brafResult == TestResult.NotDetected)
+            foreach (LSERule lseRule in this)
             {
-                foreach (LSERule lseRule in this)
+                if ((lseRule.BRAFRequired == true || lseRule.MethRequired == true) && lseRule.BRAFResult == brafResult)
                 {
-                    if (lseRule.BRAFResult == brafResult)
-                    {
-                        lseRuleCollection.Add(lseRule);
-                    }
+                    lseRuleCollection.Add(lseRule);
                 }
             }
 
@@ -116,7 +113,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
                     methResult = panelSetOrderMLH1MethylationAnalysis.GetSummaryResult();
                     foreach (LSERule lseRule in this)
                     {
-                        if (lseRule.MethResult == methResult)
+                        if (lseRule.MethRequired == true && lseRule.MethResult == methResult)
                         {
                             lseRuleCollection.Add(lseRule);
                         }

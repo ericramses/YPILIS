@@ -20,6 +20,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             this.m_MethResult = TestResult.NotApplicable;
             this.m_BRAFRequired = true;
             this.m_MethRequired = false;
+            this.m_Result = "Loss of nuclear expression of MLH1 mismatch repair protein.";
             this.m_Interpretation = "The results are compatible with a sporadic tumor and further genetic evaluation is not indicated.";
             this.m_Method = IHCMethod;
             this.m_References = LSEColonReferences;

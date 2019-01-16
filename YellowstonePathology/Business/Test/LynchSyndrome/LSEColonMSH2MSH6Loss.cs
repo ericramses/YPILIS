@@ -19,7 +19,9 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             this.m_MethResult = TestResult.NotApplicable;
             this.m_BRAFRequired = false;
             this.m_MethRequired = false;
-            this.m_Interpretation = "This staining pattern is highly suggestive of Lynch Syndrome and is associated with germline MSH2, EPCAM, or MSH6 mutations.  Recommend genetic counseling and further evaluation.";
+            this.m_Result = "Loss of nuclear expression of MSH2 and MSH6 mismatch repair proteins.";
+            this.m_Interpretation = "This staining pattern is highly suggestive of Lynch Syndrome and is associated with germline " +
+                "MSH2, EPCAM, or MSH6 mutations.  Recommend genetic counseling and further evaluation.";
             this.m_Method = IHCMethod;
             this.m_References = LSEColonReferences;
 		}

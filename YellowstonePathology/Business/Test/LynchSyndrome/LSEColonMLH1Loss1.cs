@@ -20,8 +20,10 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             this.m_MethResult = TestResult.Detected;
             this.m_BRAFRequired = true;
             this.m_MethRequired = true;
-            this.m_Interpretation = "This staining pattern is highly suggestive of Lynch Syndrome and is associated with germline PMS2 or MLH1 mutations.  " +
-                "Recommend genetic counseling and further evaluation.";
+            this.m_Result = "Loss of nuclear expression of MLH1 mismatch repair proteins." + Environment.NewLine +
+                "BRAF mutation V600E NOT DETECTED." + Environment.NewLine + "MLH1 promoter methylation DETECTED.";
+            this.m_Interpretation = "The results are compatible with a sporadic tumor and further genetic evaluation is not indicated unless " +
+                "there is high clinical suspicion for Lynch Syndrome.";
             this.m_Method = IHCMethod;
             this.m_References = LSEColonReferences;
         }
