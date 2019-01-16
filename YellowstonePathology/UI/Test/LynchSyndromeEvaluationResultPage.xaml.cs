@@ -44,7 +44,6 @@ namespace YellowstonePathology.UI.Test
 		private string m_OrderedOnDescription;
 
         private Business.Test.LynchSyndrome.LSERuleCollection m_LSERuleCollection;
-        private Business.Test.LynchSyndrome.LSERule m_SelectedLSERule;
         private YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation m_PanelSetOrderLynchSyndromeEvaluation;        
         private YellowstonePathology.Business.Test.LynchSyndrome.LSETypeCollection m_LSETypeCollection;
 
@@ -139,10 +138,10 @@ namespace YellowstonePathology.UI.Test
         {
             if (this.ListViewResults.Items.Count == 1)
             {
-                YellowstonePathology.Business.Audit.Model.AuditResult result = this.m_PanelSetOrderLynchSyndromeEvaluation.IsOkToSetResults();
+                YellowstonePathology.Business.Test.LynchSyndrome.LSERule lseRule = (YellowstonePathology.Business.Test.LynchSyndrome.LSERule)this.ListViewResults.Items[0];
+                YellowstonePathology.Business.Audit.Model.AuditResult result = lseRule.IsOkToSetResults(this.m_AccessionOrder, this.m_PanelSetOrderLynchSyndromeEvaluation);
                 if (result.Status == Business.Audit.Model.AuditStatusEnum.OK)
                 {
-                    YellowstonePathology.Business.Test.LynchSyndrome.LSERule lseRule = (YellowstonePathology.Business.Test.LynchSyndrome.LSERule)this.ListViewResults.Items[0];
                     lseRule.SetResults(this.m_AccessionOrder, this.m_PanelSetOrderLynchSyndromeEvaluation);
                 }
                 else

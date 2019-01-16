@@ -5,9 +5,9 @@ using System.Text;
 
 namespace YellowstonePathology.Business.Test.LynchSyndrome
 {
-	public class LSEGeneralResult2 : LSERule
+	public class LSEGeneralAnyLoss : LSERule
     {
-		public LSEGeneralResult2()
+		public LSEGeneralAnyLoss()
 		{
             this.m_Indication = LSEType.GENERAL;
             this.m_MLH1Result = LSEResultEnum.AnyLoss;
@@ -19,26 +19,20 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             this.m_MethResult = TestResult.NotApplicable;
             this.m_BRAFRequired = false;
             this.m_MethRequired = false;
-            this.m_Result = "Results indicate mismatch repair deficiency, which may render the tumor responsive to PD-1 blockade therapy.  As a subset of patients with MMR deficient prostate cancers have Lynch Syndrome, genetic counseling is recommended.";
+            this.m_Result = "Loss of nuclear expression of MLH1, MSH2, MSH6, and/or PMS2 mismatch repair proteins.";
+            this.m_Interpretation = "Results indicate mismatch repair deficiency, which may render the tumor responsive to PD-1 blockade therapy.  " +
+                "As a subset of patients with MMR deficient prostate cancers have Lynch Syndrome, genetic counseling is recommended.";
             this.m_Method = IHCMethod;
             this.m_References = LSEGENReferences;        
 		}
 
-        /*public override void SetResultsV2(PanelSetOrderLynchSyndromeEvaluation psoLSE)        
-        {
-            this.m_Result = this.BuildLossResult();
-        }*/
-
         public override void SetResults(AccessionOrder accessionOrder, PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromEvaluation)
         {
-            throw new Exception("needs workd");
-            /*
-            panelSetOrderLynchSyndromEvaluation.Interpretation = this.BuildLossInterpretation();
-            panelSetOrderLynchSyndromEvaluation.Result = this.m_Result;
-            panelSetOrderLynchSyndromEvaluation.ReflexToBRAFMeth = this.m_ReflexToBRAFMeth;
+            panelSetOrderLynchSyndromEvaluation.Interpretation = this.m_Interpretation;
+            panelSetOrderLynchSyndromEvaluation.Result = this.BuildLossResult();
+            panelSetOrderLynchSyndromEvaluation.ReflexToBRAFMeth = this.m_BRAFRequired;
             panelSetOrderLynchSyndromEvaluation.Method = this.m_Method;
             panelSetOrderLynchSyndromEvaluation.ReportReferences = this.m_References;
-            */
         }
 
         public override bool IsIHCMatch(IHCResult ihcResult)

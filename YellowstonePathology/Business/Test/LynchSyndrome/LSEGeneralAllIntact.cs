@@ -5,10 +5,10 @@ using System.Text;
 
 namespace YellowstonePathology.Business.Test.LynchSyndrome
 {
-	public class LSEGeneralResult1 : LSERule
+	public class LSEGeneralAllIntact : LSERule
     {
 
-		public LSEGeneralResult1()
+		public LSEGeneralAllIntact()
 		{
             this.m_Indication = LSEType.GENERAL;
             this.m_MLH1Result = LSEResultEnum.Intact;
@@ -20,22 +20,11 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             this.m_MethResult = TestResult.NotApplicable;
             this.m_BRAFRequired = false;
             this.m_MethRequired = false;
-            this.m_Result = "Mismatch repair protein expression is intact, indicating that the tumor is unlikely to respond to PD-1 blockade therapy.";
+            this.m_Result = "Intact nuclear expression of MLH1, MSH2, MSH6, and PMS2 mismatch repair proteins.";
+            this.m_Interpretation = "Mismatch repair protein expression is intact, indicating that the tumor is unlikely to respond to PD-1 blockade therapy.";
             this.m_Method = IHCMethod;
             this.m_References = LSEGENReferences;
 		}
-
-        public override void SetResults(AccessionOrder accessionOrder, PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromEvaluation)
-        {
-            throw new Exception("needs work");
-            /*
-            panelSetOrderLynchSyndromEvaluation.Interpretation = this.m_Interpretation;
-            panelSetOrderLynchSyndromEvaluation.Result = this.m_Result;
-            panelSetOrderLynchSyndromEvaluation.ReflexToBRAFMeth = this.m_ReflexToBRAFMeth;
-            panelSetOrderLynchSyndromEvaluation.Method = this.m_Method;
-            panelSetOrderLynchSyndromEvaluation.ReportReferences = this.m_References;
-            */
-        }
 
         public override bool IsIHCMatch(IHCResult ihcResult)
         {
