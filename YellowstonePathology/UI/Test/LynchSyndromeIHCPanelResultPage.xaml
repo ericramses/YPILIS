@@ -68,22 +68,22 @@
                     <Hyperlink Click="HyperLinkLossOfNuclearExpressionMSH2_Click">Loss of Nuclear Expression of MSH2 only</Hyperlink>
                 </TextBlock>
 
-                <TextBlock Grid.Column="0" Grid.Row="8" Margin="5,3,0,0">                    
+                <TextBlock Grid.Column="0" Grid.Row="9" Margin="5,3,0,0">                    
                     <Hyperlink Click="HyperLinkAcceptResults_Click">Accept Results</Hyperlink>
 				</TextBlock>
 
-                <TextBlock Name="TextBlockShowDocument" Grid.Column="0" Grid.Row="9" Margin="5,3,0,0">                    
+                <TextBlock Name="TextBlockShowDocument" Grid.Column="0" Grid.Row="10" Margin="5,3,0,0">                    
                     <Hyperlink Click="HyperLinkShowDocument_Click">Show Document</Hyperlink>
 				</TextBlock>
-				<TextBlock Grid.Column="0" Grid.Row="10" Margin="5,3,0,0">
+				<TextBlock Grid.Column="0" Grid.Row="11" Margin="5,3,0,0">
                     <Hyperlink Click="HyperLinkFinalizeResults_Click">Finalize Results</Hyperlink>
 				</TextBlock>
 
-				<TextBlock Grid.Column="0" Grid.Row="12" Margin="5,3,0,0">                    
+				<TextBlock Grid.Column="0" Grid.Row="13" Margin="5,3,0,0">                    
                     <Hyperlink Click="HyperLinkUnacceptResults_Click">Unaccept Results</Hyperlink>
 				</TextBlock>
 
-                <TextBlock Name="TextBlockUnfinalResults" Grid.Column="0" Grid.Row="13" Margin="5,3,0,0">                    
+                <TextBlock Name="TextBlockUnfinalResults" Grid.Column="0" Grid.Row="14" Margin="5,3,0,0">                    
                     <Hyperlink Click="HyperLinkUnfinalResults_Click">Unfinalize Results</Hyperlink>
 				</TextBlock>
 			

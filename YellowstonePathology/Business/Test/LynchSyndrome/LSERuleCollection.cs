@@ -146,21 +146,26 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             LSERuleCollection result = new LSERuleCollection();
 
             result.Add(new LSEColonAllIntact());
-            result.Add(new LSEColonMSH2MSH6Loss());
             result.Add(new LSEColonMLH1Loss());
             result.Add(new LSEColonMLH1Loss1());
             result.Add(new LSEColonMLH1Loss2());
+            result.Add(new LSEColonMLH1PMS2Loss());
+            result.Add(new LSEColonMLH1PMS2Loss1());
+            result.Add(new LSEColonMLH1PMS2Loss2());
+            result.Add(new LSEColonMLH1PMS2Loss3());
+            result.Add(new LSEColonMLH1PMS2Loss4());
             result.Add(new LSEColonMSH2Loss());
+            result.Add(new LSEColonMSH2MSH6Loss());
             result.Add(new LSEColonMSH6Loss());
-            result.Add(new LSEColonPMS2Loss());            
+            result.Add(new LSEColonPMS2Loss());
 
-            result.Add(new LSEGYNResult1());
-            result.Add(new LSEGYNResult2());
-            result.Add(new LSEGYNResult3());
-            result.Add(new LSEGYNResult3a());
+            result.Add(new LSEGYNAllIntact());
+            result.Add(new LSEGYNMLH1PMS2Loss());
+            result.Add(new LSEGYNMSH2MSH6Loss());
+            result.Add(new LSEGYNPMS2Loss());
 
-            result.Add(new LSEGeneralResult1());
-            result.Add(new LSEGeneralResult2());
+            result.Add(new LSEGeneralAllIntact());
+            result.Add(new LSEGeneralAnyLoss());
 
             return result;
         }
@@ -173,10 +178,15 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             result.Add(new LSEColonMLH1Loss());
             result.Add(new LSEColonMLH1Loss1());
             result.Add(new LSEColonMLH1Loss2());
-            result.Add(new LSEColonMSH2MSH6Loss());
+            result.Add(new LSEColonMLH1PMS2Loss());
+            result.Add(new LSEColonMLH1PMS2Loss1());
+            result.Add(new LSEColonMLH1PMS2Loss2());
+            result.Add(new LSEColonMLH1PMS2Loss3());
+            result.Add(new LSEColonMLH1PMS2Loss4());
             result.Add(new LSEColonMSH2Loss());
+            result.Add(new LSEColonMSH2MSH6Loss());
             result.Add(new LSEColonMSH6Loss());
-            result.Add(new LSEColonPMS2Loss());            
+            result.Add(new LSEColonPMS2Loss());
 
             return result;
         }
@@ -184,18 +194,18 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
         public static LSERuleCollection GetGYNResults()
         {
             LSERuleCollection result = new LSERuleCollection();
-            result.Add(new LSEGYNResult1());
-            result.Add(new LSEGYNResult2());
-            result.Add(new LSEGYNResult3());
-            result.Add(new LSEGYNResult3a());
+            result.Add(new LSEGYNAllIntact());
+            result.Add(new LSEGYNMLH1PMS2Loss());
+            result.Add(new LSEGYNMSH2MSH6Loss());
+            result.Add(new LSEGYNPMS2Loss());
             return result;
         }
 
         public static LSERuleCollection GetProstateResults()
         {
             LSERuleCollection result = new LSERuleCollection();
-            result.Add(new LSEGeneralResult1());
-            result.Add(new LSEGeneralResult2());
+            result.Add(new LSEGeneralAllIntact());
+            result.Add(new LSEGeneralAnyLoss());
             return result;
         }
 

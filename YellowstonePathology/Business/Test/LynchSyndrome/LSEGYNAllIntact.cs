@@ -5,11 +5,11 @@ using System.Text;
 
 namespace YellowstonePathology.Business.Test.LynchSyndrome
 {
-	public class LSEGYNResult2 : LSERule
+	public class LSEGYNAllIntact : LSERule
     {
-        public LSEGYNResult2()
+        public LSEGYNAllIntact()
 		{
-            this.m_Indication = "LSEGYN";
+            this.m_Indication = LSEType.GYN;
             this.m_MLH1Result = LSEResultEnum.Intact;
 			this.m_MSH2Result = LSEResultEnum.Intact;
 			this.m_MSH6Result = LSEResultEnum.Intact;

@@ -5,9 +5,9 @@ using System.Text;
 
 namespace YellowstonePathology.Business.Test.LynchSyndrome
 {
-	public class LSEGeneralResult2 : LSERule
+	public class LSEGeneralAnyLoss : LSERule
     {
-		public LSEGeneralResult2()
+		public LSEGeneralAnyLoss()
 		{
             this.m_Indication = LSEType.GENERAL;
             this.m_MLH1Result = LSEResultEnum.AnyLoss;
