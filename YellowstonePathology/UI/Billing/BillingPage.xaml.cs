@@ -377,35 +377,24 @@ namespace YellowstonePathology.UI.Billing
                     panelSetOrderCPTCodeBill.ClientId = AccessionOrder.ClientId;
                 }
             }
+        }        
+
+        private void MenuItemAddOne_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.ListViewPanelSetOrderCPTCodeBill.SelectedItems.Count != 0)
+            {
+                YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill = (YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill)this.ListViewPanelSetOrderCPTCodeBill.SelectedItem;
+                panelSetOrderCPTCodeBill.Quantity += 1;
+            }
         }
 
-        private void ButtonSVHCDM_Click(object sender, RoutedEventArgs e)
+        private void MenuItemChangeTo88342_Click(object sender, RoutedEventArgs e)
         {
-            /*
-            YellowstonePathology.Business.Billing.Model.BillableObject billableObject = Business.Billing.Model.BillableObjectFactory.GetBillableObject(this.m_AccessionOrder, this.m_ReportNo);
-            billableObject.Set();            
-            billableObject.Post();
-            this.CreateInsuranceCard();         
-            */
-
-            /*
-            if(string.IsNullOrEmpty(this.m_AccessionOrder.PlaceOfService) == false)
+            if (this.ListViewPanelSetOrderCPTCode.SelectedItems.Count != 0)
             {
-                Business.Billing.Model.PlaceOfServiceCollection placeOfServiceCollection = new Business.Billing.Model.PlaceOfServiceCollection();
-                Business.Billing.Model.PlaceOfService placeOfService = placeOfServiceCollection.Get(this.m_AccessionOrder.PlaceOfService);
-                if (placeOfService != null)
-                    this.m_AccessionOrder.PatientType = placeOfService.PatientType;
-            } 
-            */
-
-            /*
-            if(this.ListViewPanelSetOrderCPTCodeBill.SelectedItem != null)
-            {
-                Business.Test.PanelSetOrderCPTCodeBill psob = (Business.Test.PanelSetOrderCPTCodeBill)this.ListViewPanelSetOrderCPTCodeBill.SelectedItem;
-                Business.HL7View.EPIC.EPICFT1ResultView epicFT1ResultView = new Business.HL7View.EPIC.EPICFT1ResultView(this.m_AccessionOrder, psob);
-                epicFT1ResultView.Publish(System.IO.Path.Combine(@"c:\testing", "ft1"));
+                YellowstonePathology.Business.Test.PanelSetOrderCPTCode panelSetOrderCPTCode = (YellowstonePathology.Business.Test.PanelSetOrderCPTCode)this.ListViewPanelSetOrderCPTCode.SelectedItem;
+                panelSetOrderCPTCode.CPTCode = "88342";
             }
-            */
         }
     }
 }

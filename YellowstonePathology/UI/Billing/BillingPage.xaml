@@ -192,7 +192,8 @@
                 <ListView.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="Delete" Click="MenuItemDeletePanelSetOrderCPTCodes_Click"></MenuItem>
-                        <MenuItem Header="Update Client Id" Click="MenuItemUpdateClientId_Click"></MenuItem>                        
+                        <MenuItem Header="Update Client Id" Click="MenuItemUpdateClientId_Click"></MenuItem>
+                        <MenuItem Header="Change To 88342" Click="MenuItemChangeTo88342_Click"></MenuItem>
                     </ContextMenu>
                 </ListView.ContextMenu>
                 <ListView.View>                    
@@ -219,6 +220,7 @@
                         <MenuItem Header="Reverse" Click="MenuItemReverse_Click"></MenuItem>                                                
                         <MenuItem Header="Add With Current Client" Click="MenuItemAddWithCurrentClient_Click"></MenuItem>
                         <MenuItem Header="Update Client" Click="MenuItemUpdateClient_Click"></MenuItem>
+                        <MenuItem Header="Add 1" Click="MenuItemAddOne_Click"></MenuItem>
                     </ContextMenu>
                 </ListView.ContextMenu>
                 <ListView.View>
@@ -245,8 +247,7 @@
                 <Button Width="100" Height="40" Margin="2,2,2,2" Click="ButtonADT_Click">ADT</Button>
                 <Button Width="100" Height="40" Margin="2,2,2,2" Click="ButtonPatientDetails_Click">Patient Details ...</Button>
                 <Button Width="100" Height="40" Margin="2,2,2,2" Click="ButtonCPTCodes_Click">CPT Codes</Button>
-				<Button Width="100" Height="40" Margin="2,2,2,2" Click="ButtonICDCodes_Click">ICD Codes</Button>
-                <Button Width="100" Height="40" Margin="2,2,2,2" Click="ButtonSVHCDM_Click">SVH CDM</Button>
+                <Button Width="100" Height="40" Margin="2,2,2,2" Click="ButtonICDCodes_Click">ICD Codes</Button>
                 <Button Width="100" Height="40" Margin="2,2,2,2" Click="ButtonUnset_Click">Unset</Button>
                 <Button Width="100" Height="40" Margin="2,2,2,2" Click="ButtonUnpost_Click">Unpost</Button>
             </StackPanel>
