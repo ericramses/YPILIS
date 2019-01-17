@@ -26,16 +26,9 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
         protected bool m_BRAFRequired;
         protected bool m_MethRequired;
         protected string m_Indication;
-        protected string m_ResultName;
-
-        protected LSEResultEnum m_PMS2Result;
-		protected LSEResultEnum m_MSH6Result;
-		protected LSEResultEnum m_MSH2Result;
-		protected LSEResultEnum m_MLH1Result;
 
         protected string m_BRAFResult;
         protected string m_MethResult;
-        //protected string m_AdditionalTesting;
 
 		protected string m_Interpretation;
 		protected string m_Result;
@@ -46,41 +39,11 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 		{
 		}
 
-        public string ResultName
-        {
-            get { return this.m_ResultName; }
-            set { this.m_ResultName = value; }
-        }
-
         public string Indication
         {
             get { return this.m_Indication; }
             set { this.m_Indication = value; }
         }
-
-        public LSEResultEnum PMS2Result
-		{
-			get { return this.m_PMS2Result; }
-			set { this.m_PMS2Result = value; }
-		}
-
-		public LSEResultEnum MSH6Result
-		{
-			get { return this.m_MSH6Result; }
-			set { this.m_MSH6Result = value; }
-		}
-
-		public LSEResultEnum MSH2Result
-		{
-			get { return this.m_MSH2Result; }
-			set { this.m_MSH2Result = value; }
-		}
-
-        public LSEResultEnum MLH1Result
-		{
-			get { return this.m_MLH1Result; }
-			set { this.m_MLH1Result = value; }
-		}        
 
         public string BRAFResult
         {
@@ -135,54 +98,15 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             panelSetOrderLynchSyndromeEvaluation.ReportReferences = this.m_References;			
         }
 
-        /*public virtual void SetResultsV2(PanelSetOrderLynchSyndromeEvaluation psoLSE)
+        public virtual bool IsAMatch(IHCResult ihcResult)
         {
-
-            
-            if(this.AreAnyLoss() == false)
-            {
-                this.m_Interpretation = IHCAllIntactResult;
-            }
-            else
-            {
-                this.m_Interpretation = this.BuildLossInterpretation();
-            }
-            
-
-            
-            if(this.m_BrafResult != LSEResultEnum.NotPerformed)
-            {
-                this.m_Interpretation = this.m_Interpretation + Environment.NewLine + "BRAF mutation V600E ";
-                if (this.m_BrafResult == LSEResultEnum.Detected) this.m_Interpretation += "DETECTED.";
-                if (this.m_BrafResult == LSEResultEnum.NotDetected) this.m_Interpretation += "NOT DETECTED.";
-            }
-
-            if (this.m_MethResult != LSEResultEnum.NotPerformed)
-            {
-                this.m_Interpretation = this.m_Interpretation + Environment.NewLine + "MLH1 promoter methylation ";
-                if (this.m_MethResult == LSEResultEnum.Detected) this.m_Interpretation += "DETECTED.";
-                if (this.m_MethResult == LSEResultEnum.NotDetected) this.m_Interpretation += "NOT DETECTED.";
-            }
-            
-        }*/
-
-        public virtual bool IsIHCMatch(IHCResult ihcResult)
-        {
-            bool result = false;
-            if (this.MLH1Result == ihcResult.MLH1Result.LSEResult &&
-                this.MSH2Result == ihcResult.MSH2Result.LSEResult &&
-                this.MSH6Result == ihcResult.MSH6Result.LSEResult &&
-                this.PMS2Result == ihcResult.PMS2Result.LSEResult)
-            {
-                result = true;
-            }
-            return result;
+            throw new Exception("The virtual base method LSERule.IsAMatch should never be called.");
         }
 
         public string BuildLossResult()
         {
             string result = "Loss of nuclear expression of ";            
-            List<string> results = new List<string>();
+            /*List<string> results = new List<string>();
             if (this.m_MLH1Result == LSEResultEnum.Loss) results.Add("MLH1");
             if (this.m_MSH2Result == LSEResultEnum.Loss) results.Add("MSH2");
             if (this.m_MSH6Result == LSEResultEnum.Loss) results.Add("MSH6");
@@ -196,7 +120,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
                 joinedResults = joinedResults.Insert(posOfLastComma, " and");
             }
             
-            result = result + joinedResults + " mismatch repair proteins. ";
+            result = result + joinedResults + " mismatch repair proteins. ";*/
             return result;
         }
 
