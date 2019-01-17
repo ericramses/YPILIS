@@ -53,7 +53,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
                     IHCResult ihcResult = panelSetOrderLynchSyndromeIHC.GetSummaryResult();
                     foreach (LSERule lseRule in this)
                     {
-                        if (lseRule.IsIHCMatch(ihcResult) == true)
+                        if (lseRule.IsAMatch(ihcResult) == true)
                         {
                             lseRuleCollection.Add(lseRule);
                         }
@@ -90,7 +90,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 
             foreach (LSERule lseRule in this)
             {
-                if ((lseRule.BRAFRequired == true || lseRule.MethRequired == true) && lseRule.BRAFResult == brafResult)
+                if ((lseRule.BRAFRequired == true || lseRule.MethRequired == true)) // && lseRule.BRAFResult == brafResult)
                 {
                     lseRuleCollection.Add(lseRule);
                 }
@@ -113,7 +113,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
                     methResult = panelSetOrderMLH1MethylationAnalysis.GetSummaryResult();
                     foreach (LSERule lseRule in this)
                     {
-                        if (lseRule.MethRequired == true && lseRule.MethResult == methResult)
+                        if (lseRule.MethRequired == true) // && lseRule.MethResult == methResult)
                         {
                             lseRuleCollection.Add(lseRule);
                         }
@@ -146,7 +146,9 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             LSERuleCollection result = new LSERuleCollection();
 
             result.Add(new LSEColonAllIntact());
-            result.Add(new LSEColonMLH1Loss());
+            result.Add(new LSEColonBRAFMeth());
+            result.Add(new LSEColonSendOut());
+            /*result.Add(new LSEColonMLH1Loss());
             result.Add(new LSEColonMLH1Loss1());
             result.Add(new LSEColonMLH1Loss2());
             result.Add(new LSEColonMLH1PMS2Loss());
@@ -157,15 +159,15 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             result.Add(new LSEColonMSH2Loss());
             result.Add(new LSEColonMSH2MSH6Loss());
             result.Add(new LSEColonMSH6Loss());
-            result.Add(new LSEColonPMS2Loss());
+            result.Add(new LSEColonPMS2Loss());*/
 
             result.Add(new LSEGYNAllIntact());
-            result.Add(new LSEGYNMLH1PMS2Loss());
-            result.Add(new LSEGYNMSH2MSH6Loss());
-            result.Add(new LSEGYNPMS2Loss());
+            //result.Add(new LSEGYNMLH1PMS2Loss());
+            //result.Add(new LSEGYNMSH2MSH6Loss());
+            //result.Add(new LSEGYNPMS2Loss());
 
             result.Add(new LSEGeneralAllIntact());
-            result.Add(new LSEGeneralAnyLoss());
+            //result.Add(new LSEGeneralAnyLoss());
 
             return result;
         }
@@ -175,7 +177,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             LSERuleCollection result = new LSERuleCollection();
 
             result.Add(new LSEColonAllIntact());
-            result.Add(new LSEColonMLH1Loss());
+            /*result.Add(new LSEColonMLH1Loss());
             result.Add(new LSEColonMLH1Loss1());
             result.Add(new LSEColonMLH1Loss2());
             result.Add(new LSEColonMLH1PMS2Loss());
@@ -186,7 +188,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             result.Add(new LSEColonMSH2Loss());
             result.Add(new LSEColonMSH2MSH6Loss());
             result.Add(new LSEColonMSH6Loss());
-            result.Add(new LSEColonPMS2Loss());
+            result.Add(new LSEColonPMS2Loss());*/
 
             return result;
         }
@@ -195,9 +197,9 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
         {
             LSERuleCollection result = new LSERuleCollection();
             result.Add(new LSEGYNAllIntact());
-            result.Add(new LSEGYNMLH1PMS2Loss());
+            /*result.Add(new LSEGYNMLH1PMS2Loss());
             result.Add(new LSEGYNMSH2MSH6Loss());
-            result.Add(new LSEGYNPMS2Loss());
+            result.Add(new LSEGYNPMS2Loss());*/
             return result;
         }
 
@@ -205,89 +207,8 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
         {
             LSERuleCollection result = new LSERuleCollection();
             result.Add(new LSEGeneralAllIntact());
-            result.Add(new LSEGeneralAnyLoss());
+            //result.Add(new LSEGeneralAnyLoss());
             return result;
         }
-
-        /*
-        public static LSEResult GetResult(LSEResult evalResult, string lseType)
-		{
-			LSEResult result = null;
-            LSEResultCollection collection = null;
-
-            if (lseType == YellowstonePathology.Business.Test.LynchSyndrome.LSEType.COLON)
-            {
-                collection = LSEResultCollection.GetColonResults();
-            }
-            else if (lseType == YellowstonePathology.Business.Test.LynchSyndrome.LSEType.GYN)
-            {
-                collection = LSEResultCollection.GetGYNResults();
-            }
-            else if (lseType == YellowstonePathology.Business.Test.LynchSyndrome.LSEType.GENERAL)
-            {
-                collection = LSEResultCollection.GetProstateResults();
-            }
-            else if (lseType == YellowstonePathology.Business.Test.LynchSyndrome.LSEType.NOTSET)
-            {
-                collection = new LSEResultCollection();
-            }
-
-            if (lseType == YellowstonePathology.Business.Test.LynchSyndrome.LSEType.GENERAL)
-            {
-                if(evalResult.AreAllIntact() == true)
-                {
-                    result = new Business.Test.LynchSyndrome.LSEGeneralResult1();
-                }
-                else if(evalResult.AreAnyLoss() == true)
-                {
-                    result = new Business.Test.LynchSyndrome.LSEGeneralResult2();
-                }
-
-                result.MLH1Result = evalResult.MLH1Result;
-                result.MSH2Result = evalResult.MSH2Result;
-                result.MSH6Result = evalResult.MSH6Result;
-                result.PMS2Result = evalResult.PMS2Result;
-            }
-            else
-            {
-                foreach (LSEResult lSEResult in collection)
-                {
-                    if (lSEResult.MLH1Result == evalResult.MLH1Result &&
-                        lSEResult.MSH2Result == evalResult.MSH2Result &&
-                        lSEResult.MSH6Result == evalResult.MSH6Result &&
-                        lSEResult.PMS2Result == evalResult.PMS2Result)
-                    {
-                        bool brafResultIsEqual = false;
-                        if (evalResult.ReflexToBRAFMeth == true)
-                        {
-                            brafResultIsEqual = (lSEResult.BrafResult == evalResult.BrafResult);
-                        }
-                        else
-                        {
-                            brafResultIsEqual = true;
-                        }
-
-                        bool methResultIsEqual = false;
-                        if (lSEResult.MethResult == LSEResultEnum.NotPerformed)
-                        {
-                            methResultIsEqual = true;
-                        }
-                        else
-                        {
-                            methResultIsEqual = (lSEResult.MethResult == evalResult.MethResult);
-                        }
-
-                        if (brafResultIsEqual == true && methResultIsEqual == true)
-                        {
-                            result = lSEResult;
-                            break;
-                        }
-                    }
-                }
-            }                          			            
-
-			return result;
-		}
-        */
     }
 }

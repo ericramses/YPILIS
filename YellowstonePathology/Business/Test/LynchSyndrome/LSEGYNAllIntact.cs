@@ -10,10 +10,6 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
         public LSEGYNAllIntact()
 		{
             this.m_Indication = LSEType.GYN;
-            this.m_MLH1Result = LSEResultEnum.Intact;
-			this.m_MSH2Result = LSEResultEnum.Intact;
-			this.m_MSH6Result = LSEResultEnum.Intact;
-			this.m_PMS2Result = LSEResultEnum.Intact;
 
             this.m_BRAFResult = TestResult.NotApplicable;
             this.m_MethResult = TestResult.NotApplicable;
@@ -25,5 +21,18 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             this.m_Method = IHCMethod;
             this.m_References = LSEGYNReferences;
 		}
-	}
+
+        public override bool IsAMatch(IHCResult ihcResult)
+        {
+            bool result = false;
+            if (ihcResult.MLH1Result.LSEResult == LSEResultEnum.Intact &&
+                ihcResult.MSH2Result.LSEResult == LSEResultEnum.Intact &&
+                ihcResult.MSH6Result.LSEResult == LSEResultEnum.Intact &&
+                ihcResult.PMS2Result.LSEResult == LSEResultEnum.Intact)
+            {
+                result = true;
+            }
+            return result;
+        }
+    }
 }
