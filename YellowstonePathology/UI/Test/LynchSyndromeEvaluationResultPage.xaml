@@ -126,29 +126,17 @@
 					<TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" FontWeight="Bold" Margin="2,5,2,2">Results:</TextBlock>
 
                     <ListView Name="ListViewResults" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="3" Margin="2,2,2,2" ItemsSource="{Binding Path=LSERuleCollection}">
-                        <!--<ListView.ItemContainerStyle>
-                            <Style TargetType="ListViewItem">
-                                <Style.Triggers>
-                                    <MultiDataTrigger>
-                                        <MultiDataTrigger.Conditions>
-                                            <Condition Binding="{Binding Path=IHCMatched}" Value="True"/>
-                                        </MultiDataTrigger.Conditions>
-                                        <Setter Property="Background" Value="#cbf4c8"/>
-                                    </MultiDataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </ListView.ItemContainerStyle>-->
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Indication" Width="90" DisplayMemberBinding="{Binding Path=Indication}" />
-                                <GridViewColumn Header="MLH1" Width="90" DisplayMemberBinding="{Binding Path=MLH1Result}" />
-                                <GridViewColumn Header="MSH2" Width="90" DisplayMemberBinding="{Binding Path=MSH2Result}" />
+                                <GridViewColumn Header="Action" Width="200" DisplayMemberBinding="{Binding Path=ResultName}" />
+                                <!--<GridViewColumn Header="MSH2" Width="90" DisplayMemberBinding="{Binding Path=MSH2Result}" />
                                 <GridViewColumn Header="MSH6" Width="90" DisplayMemberBinding="{Binding Path=MSH6Result}" />
                                 <GridViewColumn Header="PMS2" Width="90" DisplayMemberBinding="{Binding Path=PMS2Result}" />
                                 <GridViewColumn Header="BRAF" Width="90" DisplayMemberBinding="{Binding Path=BRAFResult}" />
                                 <GridViewColumn Header="BRAF Required" Width="90" DisplayMemberBinding="{Binding Path=BRAFRequired}" />
                                 <GridViewColumn Header="Meth" Width="90" DisplayMemberBinding="{Binding Path=MethResult}" />
-                                <GridViewColumn Header="Meth REquired" Width="90" DisplayMemberBinding="{Binding Path=MethRequired}" />
+                                <GridViewColumn Header="Meth REquired" Width="90" DisplayMemberBinding="{Binding Path=MethRequired}" />-->
                             </GridView>
                         </ListView.View>
                     </ListView>

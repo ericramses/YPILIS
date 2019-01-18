@@ -9,6 +9,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
     {
         public LSEGYNAllIntact()
 		{
+            this.m_ResultName = "All Intact";
             this.m_Indication = LSEType.GYN;
 
             this.m_BRAFResult = TestResult.NotApplicable;
@@ -22,7 +23,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             this.m_References = LSEGYNReferences;
 		}
 
-        public override bool IsAMatch(IHCResult ihcResult)
+        protected override bool CanMatchIHC(IHCResult ihcResult)
         {
             bool result = false;
             if (ihcResult.MLH1Result.LSEResult == LSEResultEnum.Intact &&
@@ -33,6 +34,16 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
                 result = true;
             }
             return result;
+        }
+
+        protected override bool CanMatchBRAF(string brafResult)
+        {
+            return brafResult == TestResult.NotApplicable;
+        }
+
+        protected override bool CanMatchMeth(string methResult)
+        {
+            return methResult == TestResult.NotApplicable;
         }
     }
 }

@@ -26,6 +26,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
         protected bool m_BRAFRequired;
         protected bool m_MethRequired;
         protected string m_Indication;
+        protected string m_ResultName;
 
         protected string m_BRAFResult;
         protected string m_MethResult;
@@ -38,6 +39,12 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 		public LSERule()
 		{
 		}
+
+        public string ResultName
+        {
+            get { return this.m_ResultName; }
+            set { this.m_ResultName = value; }
+        }
 
         public string Indication
         {
@@ -98,9 +105,92 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             panelSetOrderLynchSyndromeEvaluation.ReportReferences = this.m_References;			
         }
 
-        public virtual bool IsAMatch(IHCResult ihcResult)
+        public bool IsIndicationMatch(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation)
         {
-            throw new Exception("The virtual base method LSERule.IsAMatch should never be called.");
+            bool result = false;
+            if (panelSetOrderLynchSyndromeEvaluation.LynchSyndromeEvaluationType == LSEType.NOTSET ||
+                 this.m_Indication == panelSetOrderLynchSyndromeEvaluation.LynchSyndromeEvaluationType) result = true;
+            //if (result == true) result = IsIHCMatch(accessionOrder, panelSetOrderLynchSyndromeEvaluation);
+            //if (result == true) result = IsBRAFMatch(accessionOrder, panelSetOrderLynchSyndromeEvaluation);
+            //if (result == true) result = IsMethMatch(accessionOrder, panelSetOrderLynchSyndromeEvaluation);
+            return result;
+        }
+
+        public bool IsIHCMatch(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation)
+        {
+            bool result = false;
+            YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeIHCPanelTest panelSetLynchSyndromeIHCPanel = new YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeIHCPanelTest();
+            if (accessionOrder.PanelSetOrderCollection.Exists(panelSetLynchSyndromeIHCPanel.PanelSetId, panelSetOrderLynchSyndromeEvaluation.OrderedOnId, false) == true)
+            {
+                YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC panelSetOrderLynchSyndromeIHC = (YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetLynchSyndromeIHCPanel.PanelSetId, panelSetOrderLynchSyndromeEvaluation.OrderedOnId, true);
+                if (panelSetOrderLynchSyndromeIHC.Final == true)
+                {
+                    IHCResult ihcResult = panelSetOrderLynchSyndromeIHC.GetSummaryResult();
+                    result = this.CanMatchIHC(ihcResult);
+                }
+            }
+
+            return result;
+        }
+
+        public bool IsBRAFMatch(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation)
+        {
+            YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTest brafV600EKTest = new YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTest();
+            YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTest brafMutationAnalysisTest = new BRAFMutationAnalysis.BRAFMutationAnalysisTest();
+            YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelTest rasRAFPanelTest = new YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelTest();
+            string brafResult = TestResult.NotApplicable;
+            if (accessionOrder.PanelSetOrderCollection.Exists(brafV600EKTest.PanelSetId, panelSetOrderLynchSyndromeEvaluation.OrderedOnId, false) == true)
+            {
+                YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTestOrder panelSetOrderBraf = (YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(brafV600EKTest.PanelSetId, panelSetOrderLynchSyndromeEvaluation.OrderedOnId, false);
+                if (panelSetOrderBraf.Final == true) brafResult = panelSetOrderBraf.GetSummaryResult();
+            }
+            else if (accessionOrder.PanelSetOrderCollection.Exists(brafMutationAnalysisTest.PanelSetId, panelSetOrderLynchSyndromeEvaluation.OrderedOnId, false) == true)
+            {
+                YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTestOrder brafMutationAnalysisTestOrder = (YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(brafMutationAnalysisTest.PanelSetId, panelSetOrderLynchSyndromeEvaluation.OrderedOnId, false);
+                if (brafMutationAnalysisTestOrder.Final == true) brafResult = brafMutationAnalysisTestOrder.GetSummaryResult();
+            }
+            else if (accessionOrder.PanelSetOrderCollection.Exists(rasRAFPanelTest.PanelSetId, panelSetOrderLynchSyndromeEvaluation.OrderedOnId, false) == true)
+            {
+                YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelTestOrder panelSetOrderRASRAF = (YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(rasRAFPanelTest.PanelSetId, panelSetOrderLynchSyndromeEvaluation.OrderedOnId, false);
+                if (panelSetOrderRASRAF.Final == true) brafResult = panelSetOrderRASRAF.GetBrafSummaryResult();
+            }
+
+            bool result = CanMatchBRAF(brafResult);
+
+            return result;
+        }
+
+        public bool IsMethMatch(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation)
+        {
+            string methResult = TestResult.NotApplicable;
+            YellowstonePathology.Business.Test.LynchSyndrome.MLH1MethylationAnalysisTest panelSetMLH1 = new YellowstonePathology.Business.Test.LynchSyndrome.MLH1MethylationAnalysisTest();
+            if (accessionOrder.PanelSetOrderCollection.Exists(panelSetMLH1.PanelSetId, panelSetOrderLynchSyndromeEvaluation.OrderedOnId, true) == true)
+            {
+                YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderMLH1MethylationAnalysis panelSetOrderMLH1MethylationAnalysis = (YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderMLH1MethylationAnalysis)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetMLH1.PanelSetId, panelSetOrderLynchSyndromeEvaluation.OrderedOnId, true);
+                if (panelSetOrderMLH1MethylationAnalysis.Final == true)
+                {
+                    methResult = panelSetOrderMLH1MethylationAnalysis.GetSummaryResult();
+                }
+            }
+
+            bool result = CanMatchMeth(methResult);
+
+            return result;
+        }
+
+        protected virtual bool CanMatchIHC(IHCResult ihcResult)
+        {
+            throw new Exception("CanMatchIHC not called in base LSERule");
+        }
+
+        protected virtual bool CanMatchBRAF(string brafResult)
+        {
+            throw new Exception("CanMatchBRAF not called in base LSERule");
+        }
+
+        protected virtual bool CanMatchMeth(string methResult)
+        {
+            throw new Exception("CanMatchMeth not called in base LSERule");
         }
 
         public string BuildLossResult()

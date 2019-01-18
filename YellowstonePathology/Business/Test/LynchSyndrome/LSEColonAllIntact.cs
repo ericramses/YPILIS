@@ -10,10 +10,10 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 
 		public LSEColonAllIntact()
 		{
+            this.m_ResultName = "All Intact";
             this.m_Indication = LSEType.COLON;
-
-            this.m_BRAFResult = TestResult.NotApplicable;
-            this.m_MethResult = TestResult.NotApplicable;
+            //this.m_BRAFResult = TestResult.NotApplicable;
+            //this.m_MethResult = TestResult.NotApplicable;
             this.m_BRAFRequired = false;
             this.m_MethRequired = false;
             this.m_Result = "Intact nuclear expression of MLH1, MSH2, MSH6, and PMS2 mismatch repair proteins.";
@@ -24,7 +24,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             this.m_References = LSEColonReferences;
 		}
 
-        public override bool IsAMatch(IHCResult ihcResult)
+        protected override bool CanMatchIHC(IHCResult ihcResult)
         {
             bool result = false;
             if (ihcResult.MLH1Result.LSEResult == LSEResultEnum.Intact &&
@@ -35,6 +35,16 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
                 result = true;
             }
             return result;
+        }
+
+        protected override bool CanMatchBRAF(string brafResult)
+        {
+            return brafResult == TestResult.NotApplicable;
+        }
+
+        protected override bool CanMatchMeth(string methResult)
+        {
+            return methResult == TestResult.NotApplicable;
         }
     }
 }
