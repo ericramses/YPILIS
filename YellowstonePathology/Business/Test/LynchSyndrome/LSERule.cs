@@ -105,14 +105,23 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             panelSetOrderLynchSyndromeEvaluation.ReportReferences = this.m_References;			
         }
 
-        public bool IsIndicationMatch(YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation)
+        public bool IncludeInIndicationCollection(YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation)
         {
-            return this.m_Indication == panelSetOrderLynchSyndromeEvaluation.LynchSyndromeEvaluationType;            
+            bool result = false;
+            if(String.IsNullOrEmpty(panelSetOrderLynchSyndromeEvaluation.LynchSyndromeEvaluationType) == true)
+            {
+                result = true;
+            }
+            else if(this.m_Indication == panelSetOrderLynchSyndromeEvaluation.LynchSyndromeEvaluationType)
+            {
+                result = true;
+            }
+            return result;
         }
 
-        public virtual bool IsIHCMatch(IHCResult ihcResult)
+        public virtual bool IncludeInIHCCollection(YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC panelSetOrderLynchSyndromeIHC)
         {
-            throw new Exception("IsIHCMatch cannot be called in base LSERule");
+            throw new Exception("Not implemented here.");
         }
 
         public string BuildLossResult()

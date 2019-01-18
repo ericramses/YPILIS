@@ -21,9 +21,10 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             this.m_References = LSEColonReferences;
         }
 
-        public override bool IsIHCMatch(IHCResult ihcResult)
+        public override bool IncludeInIHCCollection(YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC panelSetOrderLynchSyndromeIHC)
         {
             bool result = false;
+            /*
             if (ihcResult.MSH2Result.LSEResult == LSEResultEnum.Loss ||
                 (ihcResult.MSH2Result.LSEResult == LSEResultEnum.Loss && ihcResult.MSH6Result.LSEResult == LSEResultEnum.Loss) ||
                 ihcResult.MSH6Result.LSEResult == LSEResultEnum.Loss ||
@@ -31,6 +32,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             {
                 result = true;
             }
+            */
             return result;
         }
     }
