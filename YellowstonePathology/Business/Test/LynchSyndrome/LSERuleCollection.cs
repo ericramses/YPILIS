@@ -18,8 +18,6 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             LSERuleResults result = new LynchSyndrome.LSERuleResults(LSERuleCollection.GetAll(), true);
             result = result.LSERuleCollection.GetIndicationMatches(accessionOrder, panelSetOrderLynchSyndromeEvaluation);
             if (result.AbleToContinue == true) result = result.LSERuleCollection.GetIHCMatches(accessionOrder, panelSetOrderLynchSyndromeEvaluation);
-            if (result.AbleToContinue == true) result = result.LSERuleCollection.GetBRAFMatches(accessionOrder, panelSetOrderLynchSyndromeEvaluation);
-            if (result.AbleToContinue == true) result = result.LSERuleCollection.GetMETHMatches(accessionOrder, panelSetOrderLynchSyndromeEvaluation);
             return result.LSERuleCollection;
         }
 
@@ -28,7 +26,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             LSERuleCollection lseCollection = new LynchSyndrome.LSERuleCollection();
             foreach (LSERule lseRule in this)
             {
-                if (lseRule.IsIndicationMatch(accessionOrder, panelSetOrderLynchSyndromeEvaluation) == true) lseCollection.Add(lseRule);
+                if (lseRule.IsIndicationMatch(panelSetOrderLynchSyndromeEvaluation) == true) lseCollection.Add(lseRule);
             }
             LSERuleResults result = this.SetResult(lseCollection);
             return result;
@@ -37,31 +35,18 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
         private LSERuleResults GetIHCMatches(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation)
         {
             LSERuleCollection lseCollection = new LynchSyndrome.LSERuleCollection();
-            foreach (LSERule lseRule in this)
+            YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeIHCPanelTest panelSetLynchSyndromeIHCPanel = new YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeIHCPanelTest();
+            if (accessionOrder.PanelSetOrderCollection.Exists(panelSetLynchSyndromeIHCPanel.PanelSetId, panelSetOrderLynchSyndromeEvaluation.OrderedOnId, false) == true)
             {
-                if (lseRule.IsIHCMatch(accessionOrder, panelSetOrderLynchSyndromeEvaluation) == true) lseCollection.Add(lseRule);
-            }
-            LSERuleResults result = this.SetResult(lseCollection);
-            return result;
-        }
-
-        private LSERuleResults GetBRAFMatches(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation)
-        {
-            LSERuleCollection lseCollection = new LynchSyndrome.LSERuleCollection();
-            foreach (LSERule lseRule in this)
-            {
-                if (lseRule.IsBRAFMatch(accessionOrder, panelSetOrderLynchSyndromeEvaluation) == true) lseCollection.Add(lseRule);
-            }
-            LSERuleResults result = this.SetResult(lseCollection);
-            return result;
-        }
-
-        private LSERuleResults GetMETHMatches(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation)
-        {
-            LSERuleCollection lseCollection = new LynchSyndrome.LSERuleCollection();
-            foreach (LSERule lseRule in this)
-            {
-                if (lseRule.IsMethMatch(accessionOrder, panelSetOrderLynchSyndromeEvaluation) == true) lseCollection.Add(lseRule);
+                YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC panelSetOrderLynchSyndromeIHC = (YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetLynchSyndromeIHCPanel.PanelSetId, panelSetOrderLynchSyndromeEvaluation.OrderedOnId, true);
+                if (panelSetOrderLynchSyndromeIHC.Final == true)
+                {
+                    IHCResult ihcResult = panelSetOrderLynchSyndromeIHC.GetSummaryResult();
+                    foreach (LSERule lseRule in this)
+                    {
+                        if (lseRule.IsIHCMatch(ihcResult) == true) lseCollection.Add(lseRule);
+                    }
+                }
             }
             LSERuleResults result = this.SetResult(lseCollection);
             return result;

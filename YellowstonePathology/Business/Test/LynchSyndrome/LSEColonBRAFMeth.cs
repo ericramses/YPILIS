@@ -12,10 +12,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
         {
             this.m_ResultName = "Reflex to BRAF/Meth";
             this.m_Indication = LSEType.COLON;
-            this.m_BRAFResult = TestResult.NotApplicable;
-            this.m_MethResult = TestResult.NotApplicable;
-            this.m_BRAFRequired = true;
-            this.m_MethRequired = true;
+
             this.m_Result = "Not sure"; // "Intact nuclear expression of MLH1, MSH2, MSH6, and PMS2 mismatch repair proteins.";
             this.m_Interpretation = "Not sure"; //"The results are compatible with a sporadic tumor and indicate a low risk for Lynch Syndrome.  " +
                 //"If clinical suspicion for Lynch Syndrome is high, microsatellite instability (MSI) testing by PCR is recommended. " +
@@ -24,7 +21,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             this.m_References = LSEColonReferences;
         }
 
-        protected override bool CanMatchIHC(IHCResult ihcResult)
+        public override bool IsIHCMatch(IHCResult ihcResult)
         {
             bool result = false;
             if (ihcResult.MLH1Result.LSEResult == LSEResultEnum.Loss ||
@@ -32,20 +29,6 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             {
                 result = true;
             }
-            return result;
-        }
-
-        protected override bool CanMatchBRAF(string brafResult)
-        {
-            bool result = false;
-            if (brafResult == TestResult.Detected || brafResult == TestResult.NotDetected ||brafResult == TestResult.NotApplicable) result = true;
-            return result;
-        }
-
-        protected override bool CanMatchMeth(string methResult)
-        {
-            bool result = false;
-            if (methResult == TestResult.Detected) result = true;
             return result;
         }
     }
