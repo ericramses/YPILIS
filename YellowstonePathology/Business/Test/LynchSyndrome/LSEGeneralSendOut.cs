@@ -2,34 +2,34 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace YellowstonePathology.Business.Test.LynchSyndrome
 {
-	public class LSEGeneralAllIntact : LSERule
+    public class LSEGeneralSendOut : LSERule
     {
-
-		public LSEGeneralAllIntact()
-		{
-            this.m_ResultName = "All Intact";
+        public LSEGeneralSendOut()
+        {
+            this.m_ResultName = "Further testing";
             this.m_Indication = LSEType.GENERAL;
-
             this.m_BRAFResult = TestResult.NotApplicable;
             this.m_MethResult = TestResult.NotApplicable;
             this.m_BRAFRequired = false;
             this.m_MethRequired = false;
-            this.m_Result = "Intact nuclear expression of MLH1, MSH2, MSH6, and PMS2 mismatch repair proteins.";
-            this.m_Interpretation = "Mismatch repair protein expression is intact, indicating that the tumor is unlikely to respond to PD-1 blockade therapy.";
+            this.m_Result = "Loss of nuclear expression of MLH1, MSH2, MSH6, and/or PMS2 mismatch repair proteins.";
+            this.m_Interpretation = "Results indicate mismatch repair deficiency, which may render the tumor responsive to PD-1 blockade therapy.  " +
+                "As a subset of patients with MMR deficient prostate cancers have Lynch Syndrome, genetic counseling is recommended.";
             this.m_Method = IHCMethod;
             this.m_References = LSEGENReferences;
-		}
+        }
 
         protected override bool CanMatchIHC(IHCResult ihcResult)
         {
             bool result = false;
-            if (ihcResult.MLH1Result.LSEResult == LSEResultEnum.Intact &&
-                ihcResult.MSH2Result.LSEResult == LSEResultEnum.Intact &&
-                ihcResult.MSH6Result.LSEResult == LSEResultEnum.Intact &&
-                ihcResult.PMS2Result.LSEResult == LSEResultEnum.Intact)
+            if (ihcResult.MLH1Result.LSEResult == LSEResultEnum.Loss ||
+                ihcResult.MSH2Result.LSEResult == LSEResultEnum.Loss ||
+                ihcResult.MSH6Result.LSEResult == LSEResultEnum.Loss ||
+                ihcResult.PMS2Result.LSEResult == LSEResultEnum.Loss)
             {
                 result = true;
             }

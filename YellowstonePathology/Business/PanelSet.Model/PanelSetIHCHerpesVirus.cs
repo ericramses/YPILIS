@@ -23,8 +23,8 @@ namespace YellowstonePathology.Business.PanelSet.Model
             this.m_AllowMultiplePerAccession = true;
             this.m_NeverDistribute = true;
 
-            string taskDescription = "Gather materials and send to PhenoPath";
-            YellowstonePathology.Business.Facility.Model.Facility phenoPath = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("PHNPTH");
+            string taskDescription = "Gather materials and send to NEO";
+            YellowstonePathology.Business.Facility.Model.Facility phenoPath = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("NEOGNMCIRVN");
             this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskFedexShipment(YellowstonePathology.Business.Task.Model.TaskAssignment.Transcription, taskDescription, phenoPath));
 
             this.m_TechnicalComponentFacility = phenoPath;

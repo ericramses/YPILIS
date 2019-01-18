@@ -10,6 +10,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
     {
         public LSEColonSendOut()
         {
+            this.m_ResultName = "Further testing";
             this.m_Indication = LSEType.COLON;
             this.m_BRAFResult = TestResult.NotApplicable;
             this.m_MethResult = TestResult.NotApplicable;
@@ -23,7 +24,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             this.m_References = LSEColonReferences;
         }
 
-        public override bool IsAMatch(IHCResult ihcResult)
+        protected override bool CanMatchIHC(IHCResult ihcResult)
         {
             bool result = false;
             if (ihcResult.MSH2Result.LSEResult == LSEResultEnum.Loss ||
@@ -34,6 +35,16 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
                 result = true;
             }
             return result;
+        }
+
+        protected override bool CanMatchBRAF(string brafResult)
+        {
+            return brafResult == TestResult.NotApplicable;
+        }
+
+        protected override bool CanMatchMeth(string methResult)
+        {
+            return methResult == TestResult.NotApplicable;
         }
     }
 }
