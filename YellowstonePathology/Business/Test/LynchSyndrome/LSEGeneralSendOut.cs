@@ -23,15 +23,13 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
         public override bool IncludeInIHCCollection(YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC panelSetOrderLynchSyndromeIHC)
         {
             bool result = false;
-            /*
-            if (ihcResult.MLH1Result.LSEResult == LSEResultEnum.Loss ||
-                ihcResult.MSH2Result.LSEResult == LSEResultEnum.Loss ||
-                ihcResult.MSH6Result.LSEResult == LSEResultEnum.Loss ||
-                ihcResult.PMS2Result.LSEResult == LSEResultEnum.Loss)
+            if (panelSetOrderLynchSyndromeIHC.MLH1Result == LSEResultEnum.Loss.ToString() ||
+                panelSetOrderLynchSyndromeIHC.MSH2Result == LSEResultEnum.Loss.ToString() ||
+                panelSetOrderLynchSyndromeIHC.MSH6Result == LSEResultEnum.Loss.ToString() ||
+                panelSetOrderLynchSyndromeIHC.PMS2Result == LSEResultEnum.Loss.ToString())
             {
                 result = true;
             }
-            */
             return result;
         }
     }

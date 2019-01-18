@@ -24,15 +24,34 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
         public override bool IncludeInIHCCollection(YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC panelSetOrderLynchSyndromeIHC)
         {
             bool result = false;
-            /*
-            if (ihcResult.MSH2Result.LSEResult == LSEResultEnum.Loss ||
-                (ihcResult.MSH2Result.LSEResult == LSEResultEnum.Loss && ihcResult.MSH6Result.LSEResult == LSEResultEnum.Loss) ||
-                ihcResult.MSH6Result.LSEResult == LSEResultEnum.Loss ||
-                (ihcResult.MLH1Result.LSEResult == LSEResultEnum.Intact && ihcResult.PMS2Result.LSEResult == LSEResultEnum.Loss))
+            if (panelSetOrderLynchSyndromeIHC.MLH1Result == LSEResultEnum.Intact.ToString() &&
+                panelSetOrderLynchSyndromeIHC.MSH2Result == LSEResultEnum.Loss.ToString() &&
+                panelSetOrderLynchSyndromeIHC.MSH6Result == LSEResultEnum.Intact.ToString() &&
+                panelSetOrderLynchSyndromeIHC.PMS2Result == LSEResultEnum.Intact.ToString())
             {
                 result = true;
             }
-            */
+            else if (panelSetOrderLynchSyndromeIHC.MLH1Result == LSEResultEnum.Intact.ToString() &&
+                panelSetOrderLynchSyndromeIHC.MSH2Result == LSEResultEnum.Loss.ToString() &&
+                panelSetOrderLynchSyndromeIHC.MSH6Result == LSEResultEnum.Loss.ToString() &&
+                panelSetOrderLynchSyndromeIHC.PMS2Result == LSEResultEnum.Intact.ToString())
+            {
+                result = true;
+            }
+            else if (panelSetOrderLynchSyndromeIHC.MLH1Result == LSEResultEnum.Intact.ToString() &&
+                panelSetOrderLynchSyndromeIHC.MSH2Result == LSEResultEnum.Intact.ToString() &&
+                panelSetOrderLynchSyndromeIHC.MSH6Result == LSEResultEnum.Loss.ToString() &&
+                panelSetOrderLynchSyndromeIHC.PMS2Result == LSEResultEnum.Intact.ToString())
+            {
+                result = true;
+            }
+            else if (panelSetOrderLynchSyndromeIHC.MLH1Result == LSEResultEnum.Intact.ToString() &&
+                panelSetOrderLynchSyndromeIHC.MSH2Result == LSEResultEnum.Intact.ToString() &&
+                panelSetOrderLynchSyndromeIHC.MSH6Result == LSEResultEnum.Intact.ToString() &&
+                panelSetOrderLynchSyndromeIHC.PMS2Result == LSEResultEnum.Loss.ToString())
+            {
+                result = true;
+            }
             return result;
         }
     }

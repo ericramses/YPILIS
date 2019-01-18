@@ -45,7 +45,6 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
                     YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC panelSetOrderLynchSyndromeIHC = (YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetLynchSyndromeIHCPanel.PanelSetId, panelSetOrderLynchSyndromeEvaluation.OrderedOnId, true);
                     if (panelSetOrderLynchSyndromeIHC.Final == true)
                     {
-                        IHCResult ihcResult = panelSetOrderLynchSyndromeIHC.GetSummaryResult();                    
                         if (lseRule.IncludeInIHCCollection(panelSetOrderLynchSyndromeIHC) == true)
                         {
                             result.Add(lseRule);
