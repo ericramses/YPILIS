@@ -112,7 +112,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             {
                 result = true;
             }
-            else if(this.m_Indication == panelSetOrderLynchSyndromeEvaluation.LynchSyndromeEvaluationType)
+            else if (this.m_Indication == panelSetOrderLynchSyndromeEvaluation.LynchSyndromeEvaluationType)
             {
                 result = true;
             }
