@@ -19,20 +19,21 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
         public static string IHCMethod = YellowstonePathology.Business.Test.LynchSyndrome.LSEIHCResult.Method;
 		public static string IHCBRAFMethod = "IHC: " + YellowstonePathology.Business.Test.LynchSyndrome.LSEIHCResult.Method + " BRAF: " + YellowstonePathology.Business.Test.BRAFV600EK.BRAFResult.Method;
 		public static string IHCBRAFMLHMethod = "IHC: " + YellowstonePathology.Business.Test.LynchSyndrome.LSEIHCResult.Method + " BRAF: " + YellowstonePathology.Business.Test.BRAFV600EK.BRAFResult.Method + " MLH: " + YellowstonePathology.Business.Test.LynchSyndrome.MLH1MethylationAnalysisResult.Method;
+        public static string IHCMLHMethod = "IHC: " + YellowstonePathology.Business.Test.LynchSyndrome.LSEIHCResult.Method + " MLH: " + YellowstonePathology.Business.Test.LynchSyndrome.MLH1MethylationAnalysisResult.Method;
 
         public static string GeneralIndication = "Assess tumor for mismatch repair deficiency to determine eligibility for PD-1 blockade therapy; screening for Lynch Syndrome.";
         public static string IHCAllIntactResult = "Intact nuclear expression of MLH1, MSH2, MSH6, and PMS2 mismatch repair proteins.";
 
-        protected bool m_BRAFRequired;
-        protected bool m_MethRequired;
+        //protected bool m_BRAFRequired;
+        //protected bool m_MethRequired;
         protected string m_Indication;
         protected string m_ResultName;
 
-        protected string m_BRAFResult;
-        protected string m_MethResult;
+        //protected string m_BRAFResult;
+        //protected string m_MethResult;
 
 		protected string m_Interpretation;
-		protected string m_Result;
+		//protected string m_Result;
         protected string m_Method;
         protected string m_References;
 
@@ -52,7 +53,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             set { this.m_Indication = value; }
         }
 
-        public string BRAFResult
+        /*public string BRAFResult
         {
             get { return this.m_BRAFResult; }
             set { this.m_BRAFResult = value; }
@@ -74,22 +75,22 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
         {
             get { return this.m_MethRequired; }
             set { this.m_MethRequired = value; }
-        }
+        }*/
 
         public string Interpretation
 		{
 			get { return this.m_Interpretation; }
 		}
 
-		public string Result
+		/*public string Result
 		{
 			get { return this.m_Result; }
-		}
+		}*/
 
-        public string Method
+        /*public string Method
         {
             get { return this.m_Method; }
-        }
+        }*/
 
         public string References
         {
@@ -99,8 +100,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
         public virtual void SetResults(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation)
         {
             panelSetOrderLynchSyndromeEvaluation.Interpretation = this.m_Interpretation;
-            panelSetOrderLynchSyndromeEvaluation.Result = this.m_Result;
-            panelSetOrderLynchSyndromeEvaluation.ReflexToBRAFMeth = this.BRAFRequired;
+            //panelSetOrderLynchSyndromeEvaluation.ReflexToBRAFMeth = this.BRAFRequired;
             panelSetOrderLynchSyndromeEvaluation.Method = this.m_Method;
             panelSetOrderLynchSyndromeEvaluation.ReportReferences = this.m_References;			
         }
@@ -108,7 +108,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
         public bool IncludeInIndicationCollection(YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation)
         {
             bool result = false;
-            if(String.IsNullOrEmpty(panelSetOrderLynchSyndromeEvaluation.LynchSyndromeEvaluationType) == true)
+            if(panelSetOrderLynchSyndromeEvaluation.LynchSyndromeEvaluationType == LSEType.NOTSET)
             {
                 result = true;
             }
@@ -124,25 +124,68 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             throw new Exception("Not implemented here.");
         }
 
-        public string BuildLossResult()
+        public string BuildLossResult(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation)
         {
-            string result = "Loss of nuclear expression of ";            
-            /*List<string> results = new List<string>();
-            if (this.m_MLH1Result == LSEResultEnum.Loss) results.Add("MLH1");
-            if (this.m_MSH2Result == LSEResultEnum.Loss) results.Add("MSH2");
-            if (this.m_MSH6Result == LSEResultEnum.Loss) results.Add("MSH6");
-            if (this.m_PMS2Result == LSEResultEnum.Loss) results.Add("PMS2");
-
-            var joinedResults = string.Join(", ", results);
-            if(results.Count > 1)
+            string result = null;
+            YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeIHCPanelTest panelSetLynchSyndromeIHCPanel = new YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeIHCPanelTest();
+            if (accessionOrder.PanelSetOrderCollection.Exists(panelSetLynchSyndromeIHCPanel.PanelSetId, panelSetOrderLynchSyndromeEvaluation.OrderedOnId, false) == true)
             {
-                int posOfLastComma = joinedResults.LastIndexOf(",");
-                joinedResults = joinedResults.Remove(posOfLastComma, 1);
-                joinedResults = joinedResults.Insert(posOfLastComma, " and");
+                YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC panelSetOrderLynchSyndromeIHC = (YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetLynchSyndromeIHCPanel.PanelSetId, panelSetOrderLynchSyndromeEvaluation.OrderedOnId, true);
+                result = "Loss of nuclear expression of ";
+                List<string> results = new List<string>();
+                if (panelSetOrderLynchSyndromeIHC.MLH1Result == IHCResult.Loss) results.Add("MLH1");
+                if (panelSetOrderLynchSyndromeIHC.MSH2Result == IHCResult.Loss) results.Add("MSH2");
+                if (panelSetOrderLynchSyndromeIHC.MSH6Result == IHCResult.Loss) results.Add("MSH6");
+                if (panelSetOrderLynchSyndromeIHC.PMS2Result == IHCResult.Loss) results.Add("PMS2");
+
+                var joinedResults = string.Join(", ", results);
+                if (results.Count > 1)
+                {
+                    int posOfLastComma = joinedResults.LastIndexOf(",");
+                    joinedResults = joinedResults.Remove(posOfLastComma, 1);
+                    joinedResults = joinedResults.Insert(posOfLastComma, " and");
+                }
+
+                string multiLoss = "proteins. ";
+                if (results.Count > 1) multiLoss = "protein. ";
+                result = result + joinedResults + " mismatch repair " + multiLoss;
             }
-            
-            result = result + joinedResults + " mismatch repair proteins. ";*/
             return result;
+        }
+
+        protected string BuildBRAFResult(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation)
+        {
+            string result = string.Empty;
+            Rules.MethodResult brafResult = this.HasFinalBRAFResult(accessionOrder, panelSetOrderLynchSyndromeEvaluation);
+
+            if (brafResult.Success == true)
+            {
+                result = Environment.NewLine + "BRAF mutation " + brafResult.Message.ToUpper();
+            }
+            return result;
+        }
+
+        protected string BuildMethResult(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation)
+        {
+            string result = string.Empty;
+            Rules.MethodResult methResult = this.HasFinalMethResult(accessionOrder, panelSetOrderLynchSyndromeEvaluation);
+
+            if (methResult.Success == true)
+            {
+                result = Environment.NewLine + "MLH1 promoter methylation " + methResult.Message.ToUpper();
+            }
+            return result;
+        }
+
+        protected void BuildMethod(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation)
+        {
+            Rules.MethodResult brafResult = this.HasFinalBRAFResult(accessionOrder, panelSetOrderLynchSyndromeEvaluation);
+            Rules.MethodResult methResult = this.HasFinalMethResult(accessionOrder, panelSetOrderLynchSyndromeEvaluation);
+
+            if (brafResult.Success == true && methResult.Success == true) this.m_Method = IHCBRAFMLHMethod;
+            else if (brafResult.Success == true && methResult.Success == false) this.m_Method = IHCBRAFMethod;
+            else if (brafResult.Success == false && methResult.Success == true) this.m_Method = IHCMLHMethod;
+            else this.m_Method = IHCMethod;
         }
 
         public void NotifyPropertyChanged(String info)
@@ -156,31 +199,31 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
         public Audit.Model.AuditResult IsOkToSetResults(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation)
         {
             Audit.Model.AuditResult result = panelSetOrderLynchSyndromeEvaluation.IsOkToSetResults();
-            if(result.Status == Audit.Model.AuditStatusEnum.OK)
+            /*if(result.Status == Audit.Model.AuditStatusEnum.OK)
             {
-                if(this.BRAFRequired == true)
-                {
+                //if(this.BRAFRequired == true)
+                //{
                     Rules.MethodResult methodResult = this.HasFinalBRAFResult(accessionOrder, panelSetOrderLynchSyndromeEvaluation);
                     if(methodResult.Success == false)
                     {
                         result.Status = Audit.Model.AuditStatusEnum.Failure;
                         result.Message = methodResult.Message;
                     }
-                }
+                //}
             }
 
             if (result.Status == Audit.Model.AuditStatusEnum.OK)
             {
-                if (this.MethRequired == true)
-                {
+                //if (this.MethRequired == true)
+                //{
                     Rules.MethodResult methodResult = this.HasFinalMethResult(accessionOrder, panelSetOrderLynchSyndromeEvaluation);
                     if (methodResult.Success == false)
                     {
                         result.Status = Audit.Model.AuditStatusEnum.Failure;
                         result.Message = methodResult.Message;
                     }
-                }
-            }
+                //}
+            }*/
 
             return result;
         }
@@ -194,28 +237,43 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             if (accessionOrder.PanelSetOrderCollection.Exists(brafV600EKTest.PanelSetId, panelSetOrderLynchSyndromeEvaluation.OrderedOnId, false) == true)
             {
                 YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTestOrder panelSetOrderBraf = (YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(brafV600EKTest.PanelSetId, panelSetOrderLynchSyndromeEvaluation.OrderedOnId, false);
-                if (panelSetOrderBraf.Final == false)
+                if (panelSetOrderBraf.Final == true)
+                {
+                    result.Success = true;
+                    result.Message = panelSetOrderBraf.GetSummaryResult();
+                }
+                else
                 {
                     result.Success = false;
-                    result.Message = "Unable to set results as the BRAF V600E/K Mutation Analysis is not final.";
+                    result.Message = "Unable to set results as the " + brafV600EKTest + " is not final.";
                 }
             }
             else if (accessionOrder.PanelSetOrderCollection.Exists(brafMutationAnalysisTest.PanelSetId, panelSetOrderLynchSyndromeEvaluation.OrderedOnId, false) == true)
             {
                 YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTestOrder brafMutationAnalysisTestOrder = (YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(brafMutationAnalysisTest.PanelSetId, panelSetOrderLynchSyndromeEvaluation.OrderedOnId, false);
-                if (brafMutationAnalysisTestOrder.Final == false)
+                if (brafMutationAnalysisTestOrder.Final == true)
+                {
+                    result.Success = true;
+                    result.Message = brafMutationAnalysisTestOrder.GetSummaryResult();
+                }
+                else
                 {
                     result.Success = false;
-                    result.Message = "Unable to set results as the BRAF Mutation Analysis is not final.";
+                    result.Message = "Unable to set results as the " + brafMutationAnalysisTest + " is not final.";
                 }
             }
             else if (accessionOrder.PanelSetOrderCollection.Exists(rasRAFPanelTest.PanelSetId, panelSetOrderLynchSyndromeEvaluation.OrderedOnId, false) == true)
             {
                 YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelTestOrder panelSetOrderRASRAF = (YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(rasRAFPanelTest.PanelSetId, panelSetOrderLynchSyndromeEvaluation.OrderedOnId, false);
-                if (panelSetOrderRASRAF.Final == false)
+                if (panelSetOrderRASRAF.Final == true)
+                {
+                    result.Success = true;
+                    result.Message = panelSetOrderRASRAF.GetBrafSummaryResult();
+                }
+                else
                 {
                     result.Success = false;
-                    result.Message = "Unable to set results as the RAS/RAF Panel is not final.";
+                    result.Message = "Unable to set results as the " + rasRAFPanelTest + " is not final.";
                 }
             }
 
@@ -232,16 +290,22 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             if (accessionOrder.PanelSetOrderCollection.Exists(panelSetMLH1.PanelSetId, panelSetOrderLynchSyndromeEvaluation.OrderedOnId, true) == true)
             {
                 YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderMLH1MethylationAnalysis panelSetOrderMLH1MethylationAnalysis = (YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderMLH1MethylationAnalysis)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetMLH1.PanelSetId, panelSetOrderLynchSyndromeEvaluation.OrderedOnId, true);
-                if (panelSetOrderMLH1MethylationAnalysis.Final == false)
+                if (panelSetOrderMLH1MethylationAnalysis.Final == true)
+                {
+                    result.Success = true;
+                    result.Message = panelSetOrderMLH1MethylationAnalysis.GetSummaryResult();
+                }
+                else
                 {
                     result.Success = false;
-                    result.Message = "Unable to set results as the MLH1 Methylation Analysis is not final.";
+                    result.Message = "Unable to set results as the " + panelSetMLH1 + " is not final.";
+                         
                 }
             }
             else
             {
                 result.Success = false;
-                result.Message = "Unable to set results as a MLH1 Methylation Analysis has not been ordered.";
+                result.Message = "Unable to set results as a " + panelSetMLH1 + " has not been ordered.";
             }
 
             return result;
