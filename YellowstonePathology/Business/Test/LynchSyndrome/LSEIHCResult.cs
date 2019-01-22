@@ -11,7 +11,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             "PMS2 (MRQ-28), MSH2 (G219-1129), and MSH6 (44). These tests were run on the Ventana Ultra automated immunohistochemical platform.";        
 
 		protected string m_Description;
-		protected LSEResultEnum m_LSEResult;
+		protected string m_IHCResultType;
 
 		public LSEIHCResult()
 		{
@@ -22,9 +22,9 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 			get { return this.m_Description; }
 		}
 
-		public LSEResultEnum LSEResult
-		{
-			get { return this.m_LSEResult; }
+		public string IHCResultType
+        {
+			get { return this.m_IHCResultType; }
 		}
 	}
 }

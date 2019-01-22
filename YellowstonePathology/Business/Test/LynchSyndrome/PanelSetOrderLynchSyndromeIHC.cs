@@ -110,18 +110,6 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             return result;
         }
 
-        /*public void SetSummaryResult(LSERule lSEResult)
-		{
-			IHCResult result = IHCResult.CreateResultFromResultCode(this.m_ResultCode);
-			if (result != null)
-			{
-				lSEResult.MLH1Result = result.MLH1Result.LSEResult;
-				lSEResult.MSH2Result = result.MSH2Result.LSEResult;
-				lSEResult.MSH6Result = result.MSH6Result.LSEResult;
-				lSEResult.PMS2Result = result.PMS2Result.LSEResult;
-			}
-		}*/
-
 		public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
 			StringBuilder result = new StringBuilder();

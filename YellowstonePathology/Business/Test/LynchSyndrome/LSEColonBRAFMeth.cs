@@ -13,37 +13,40 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             this.m_ResultName = "Reflex to BRAF/Meth";
             this.m_Indication = LSEType.COLON;
 
-            this.m_Result = "Not sure"; // "Intact nuclear expression of MLH1, MSH2, MSH6, and PMS2 mismatch repair proteins.";
-            this.m_Interpretation = "Not sure"; //"The results are compatible with a sporadic tumor and indicate a low risk for Lynch Syndrome.  " +
-                //"If clinical suspicion for Lynch Syndrome is high, microsatellite instability (MSI) testing by PCR is recommended. " +
-                //"If MSI testing is desired, please contact Yellowstone Pathology with the request.";
-            this.m_Method = IHCMethod;
+            this.m_Interpretation = "The results are compatible with a sporadic tumor and further genetic evaluation is not indicated.";
             this.m_References = LSEColonReferences;
         }
 
         public override bool IncludeInIHCCollection(YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC panelSetOrderLynchSyndromeIHC)
         {
             bool result = false;
-            /*if (ihcResult.MLH1Result.LSEResult == LSEResultEnum.Loss ||
-                (ihcResult.MLH1Result.LSEResult == LSEResultEnum.Loss && ihcResult.PMS2Result.LSEResult == LSEResultEnum.Loss))
-            {
-                result = true;
-            }*/
-            if (panelSetOrderLynchSyndromeIHC.MLH1Result == LSEResultEnum.Loss.ToString() &&
-                panelSetOrderLynchSyndromeIHC.MSH2Result == LSEResultEnum.Intact.ToString() &&
-                panelSetOrderLynchSyndromeIHC.MSH6Result == LSEResultEnum.Intact.ToString() &&
-                panelSetOrderLynchSyndromeIHC.PMS2Result == LSEResultEnum.Intact.ToString())
+            LSEIHCResultIntactExpression intactExpression = new LSEIHCResultIntactExpression();
+            LSEIHCResultLossOfExpression lossExpression = new LSEIHCResultLossOfExpression();
+            if (panelSetOrderLynchSyndromeIHC.MLH1Result == lossExpression.Description &&
+                panelSetOrderLynchSyndromeIHC.MSH2Result == intactExpression.Description &&
+                panelSetOrderLynchSyndromeIHC.MSH6Result == intactExpression.Description &&
+                panelSetOrderLynchSyndromeIHC.PMS2Result == intactExpression.Description)
             {
                 result = true;
             }
-            else if (panelSetOrderLynchSyndromeIHC.MLH1Result == LSEResultEnum.Loss.ToString() &&
-                panelSetOrderLynchSyndromeIHC.MSH2Result == LSEResultEnum.Intact.ToString() &&
-                panelSetOrderLynchSyndromeIHC.MSH6Result == LSEResultEnum.Intact.ToString() &&
-                panelSetOrderLynchSyndromeIHC.PMS2Result == LSEResultEnum.Loss.ToString())
+            else if (panelSetOrderLynchSyndromeIHC.MLH1Result == lossExpression.Description &&
+                panelSetOrderLynchSyndromeIHC.MSH2Result == intactExpression.Description &&
+                panelSetOrderLynchSyndromeIHC.MSH6Result == intactExpression.Description &&
+                panelSetOrderLynchSyndromeIHC.PMS2Result == lossExpression.Description)
             {
                 result = true;
             }
             return result;
+        }
+
+        public override void SetResults(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation)
+        {
+            this.BuildMethod(accessionOrder, panelSetOrderLynchSyndromeEvaluation);
+            base.SetResults(accessionOrder, panelSetOrderLynchSyndromeEvaluation);
+            string result = this.BuildLossResult(accessionOrder, panelSetOrderLynchSyndromeEvaluation);
+            result += this.BuildBRAFResult(accessionOrder, panelSetOrderLynchSyndromeEvaluation);
+            result += this.BuildMethResult(accessionOrder, panelSetOrderLynchSyndromeEvaluation);
+            panelSetOrderLynchSyndromeEvaluation.Result = result;
         }
     }
 }

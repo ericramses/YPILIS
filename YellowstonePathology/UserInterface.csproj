@@ -1079,7 +1079,6 @@
     <Compile Include="Business\Test\LynchSyndrome\LSEGeneralSendOut.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEGYNBRAFMeth.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEGYNSendOut.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSERuleResults.cs" />
     <Compile Include="Business\Test\MissingInformation\MissingInformationWordDocument.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEIHCResult.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEIHCResultIntactExpression.cs" />
@@ -2392,7 +2391,6 @@
     <Compile Include="Business\Test\LynchSyndrome\LSEGYNAllIntact.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSERule.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSERuleCollection.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEResultEnum.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEType.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSETypeCollection.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LynchSyndromeEvaluationCMMCNteView.cs" />

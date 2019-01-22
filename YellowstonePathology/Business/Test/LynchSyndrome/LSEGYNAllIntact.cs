@@ -12,7 +12,6 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             this.m_ResultName = "All Intact";
             this.m_Indication = LSEType.GYN;
 
-            this.m_Result = "Intact nuclear expression of MLH1, MSH2, MSH6, and PMS2 mismatch repair proteins.";
             this.m_Interpretation = "The results are compatible with a sporadic tumor and indicate a low risk for Lynch Syndrome.  " +
                 "If clinical suspicion for Lynch Syndrome is high, microsatellite instability (MSI) testing by PCR is recommended.";
             this.m_Method = IHCMethod;
@@ -22,14 +21,21 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
         public override bool IncludeInIHCCollection(YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC panelSetOrderLynchSyndromeIHC)
         {
             bool result = false;
-            if (panelSetOrderLynchSyndromeIHC.MLH1Result == LSEResultEnum.Intact.ToString() &&
-                panelSetOrderLynchSyndromeIHC.MSH2Result == LSEResultEnum.Intact.ToString() &&
-                panelSetOrderLynchSyndromeIHC.MSH6Result == LSEResultEnum.Intact.ToString() &&
-                panelSetOrderLynchSyndromeIHC.PMS2Result == LSEResultEnum.Intact.ToString())
+            LSEIHCResultIntactExpression intactExpression = new LSEIHCResultIntactExpression();
+            if (panelSetOrderLynchSyndromeIHC.MLH1Result == intactExpression.Description &&
+                panelSetOrderLynchSyndromeIHC.MSH2Result == intactExpression.Description &&
+                panelSetOrderLynchSyndromeIHC.MSH6Result == intactExpression.Description &&
+                panelSetOrderLynchSyndromeIHC.PMS2Result == intactExpression.Description)
             {
                 result = true;
             }
             return result;
+        }
+
+        public override void SetResults(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation)
+        {
+            base.SetResults(accessionOrder, panelSetOrderLynchSyndromeEvaluation);
+            panelSetOrderLynchSyndromeEvaluation.Result = LSERule.IHCAllIntactResult;
         }
     }
 }
