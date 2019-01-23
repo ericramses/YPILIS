@@ -1077,7 +1077,7 @@
     <Compile Include="Business\Test\LynchSyndrome\LSEColonBRAFMeth.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEColonSendOut.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEGeneralSendOut.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEGYNBRAFMeth.cs" />
+    <Compile Include="Business\Test\LynchSyndrome\LSEGYNMeth.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEGYNSendOut.cs" />
     <Compile Include="Business\Test\MissingInformation\MissingInformationWordDocument.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEIHCResult.cs" />
