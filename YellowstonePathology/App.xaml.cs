@@ -97,6 +97,7 @@ namespace YellowstonePathology.UI
 
                 this.StartTimer();
                 this.SetupApplicationFolders();
+                this.EmptyDraftsFolder();
             }
         }        
 
@@ -132,6 +133,8 @@ namespace YellowstonePathology.UI
             List<string> appDirectories = new List<string>();            
             appDirectories.Add(@"%USERPROFILE%\AppData\Local\ypi\");
             appDirectories.Add(YellowstonePathology.Properties.Settings.Default.MonitoredPropertyFolder);
+            appDirectories.Add(@"C:\ProgramData\ypi\");
+            appDirectories.Add(@"C:\ProgramData\ypi\drafts\");
 
             foreach (string appDir in appDirectories)
             {
@@ -200,6 +203,22 @@ namespace YellowstonePathology.UI
             string location = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetUserPreferenceLocation(Environment.MachineName);
             string path = System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\ypilis.json";
             File.WriteAllText(path, "{'location': '" + location + "'}");
+        }
+
+        private void EmptyDraftsFolder()
+        {
+            string[] drafts = Directory.GetFiles(@"C:\ProgramData\ypi\drafts\");
+            foreach(string filename in drafts)
+            {
+                try
+                {
+                    File.Delete(filename);
+                }
+                catch (Exception e)
+                {
+                    Business.Logging.EmailExceptionHandler.HandleException(e.Message);
+                }
+            }
         }
     }
 }
