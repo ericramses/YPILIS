@@ -219,7 +219,7 @@
                         <MenuItem Header="Reverse" Click="MenuItemReverse_Click"></MenuItem>                                                
                         <MenuItem Header="Add With Current Client" Click="MenuItemAddWithCurrentClient_Click"></MenuItem>
                         <MenuItem Header="Update Client" Click="MenuItemUpdateClient_Click"></MenuItem>
-                        <MenuItem Header="Post As Global" Click="MenuItemPostAsGlobal_Click"></MenuItem>
+                        <MenuItem Header="Add 1" Click="MenuItemAddOne_Click"></MenuItem>
                     </ContextMenu>
                 </ListView.ContextMenu>
                 <ListView.View>
