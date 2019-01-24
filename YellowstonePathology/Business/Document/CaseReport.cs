@@ -64,7 +64,8 @@ namespace YellowstonePathology.Business.Document
 					this.m_SaveFileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + this.m_PanelSetOrder.ReportNo + ".xml";                
                     break;
                 case YellowstonePathology.Business.Document.ReportSaveModeEnum.Draft:
-					this.m_SaveFileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + this.m_PanelSetOrder.ReportNo + ".draft.xml";
+                    string id = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
+                    this.m_SaveFileName = CaseDocument.GetDraftDocumentFilePath(orderIdParser, id);
                     break;
                 case YellowstonePathology.Business.Document.ReportSaveModeEnum.Test:
                     this.m_ReportXml.Save(@"c:\test.xml");

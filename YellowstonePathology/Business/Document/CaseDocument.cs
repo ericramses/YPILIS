@@ -256,11 +256,36 @@ namespace YellowstonePathology.Business.Document
             }
         }
 
-		public static string GetDraftDocumentFilePath(YellowstonePathology.Business.OrderIdParser orderIdParser)
+        public static string GetDraftDocumentFilePath(YellowstonePathology.Business.OrderIdParser orderIdParser, string id)
         {
-			string path = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser);
-			path = path + orderIdParser.ReportNo + ".DRAFT.XML";
+            string path = @"C:\ProgramData\ypi\drafts\";
+            path = path + orderIdParser.ReportNo + "." + id + ".DRAFT.XML";
             return path;
+        }
+
+        public static string GetDraftDocumentFilePath(YellowstonePathology.Business.OrderIdParser orderIdParser)
+        {
+            string result = string.Empty;
+            DateTime oldDate = DateTime.Today.AddDays(-1);
+            string path = @"C:\ProgramData\ypi\drafts\";
+            string [] fileNames = Directory.GetFiles(path);
+            foreach(string fileName in fileNames)
+            {
+                string name = Path.GetFileNameWithoutExtension(fileName);
+                if (name.Contains(orderIdParser.ReportNo) == true)
+                {
+                    name = name.Replace(".DRAFT", string.Empty);
+                    string id = name.Substring(name.LastIndexOf('.') + 1);
+                    MongoDB.Bson.ObjectId cid = MongoDB.Bson.ObjectId.Parse(id);
+                    DateTime curDate = cid.CreationTime;
+                    if (curDate > oldDate)
+                    {
+                        oldDate = curDate;
+                        result = fileName;
+                    }
+                }
+            }
+            return result;
         }
 
         public static string GetNotificationDocumentFilePath(YellowstonePathology.Business.OrderIdParser orderIdParser)
@@ -269,13 +294,6 @@ namespace YellowstonePathology.Business.Document
             path = path + orderIdParser.ReportNo + ".notify.xps";
             return path;
         }
-
-        public static string GetDraftDocumentFilePathDOCX(YellowstonePathology.Business.OrderIdParser orderIdParser)
-        {
-			string path = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser);
-			path = path + orderIdParser.ReportNo + ".DRAFT.DOCX";
-            return path;
-        }                
 
         public static string GetCaseDocumentFullPath(YellowstonePathology.Business.OrderIdParser orderIdParser)
         {
