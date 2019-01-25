@@ -94,10 +94,7 @@ namespace YellowstonePathology.UI.Test
         {
             YellowstonePathology.Business.Test.BCL2t1418ByPCR.BCL2t1418ByPCRWordDocument report = new YellowstonePathology.Business.Test.BCL2t1418ByPCR.BCL2t1418ByPCRWordDocument(this.m_AccessionOrder, this.m_PanelSetOrder, Business.Document.ReportSaveModeEnum.Draft);
             report.Render();
-
-            YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
-            string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);
-            YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(fileName);
+            YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(report.SaveFileName);
         }
 
         private void HyperLinkFinalizeResults_Click(object sender, RoutedEventArgs e)

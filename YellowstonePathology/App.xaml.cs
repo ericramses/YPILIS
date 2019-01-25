@@ -208,17 +208,14 @@ namespace YellowstonePathology.UI
         private void EmptyDraftsFolder()
         {
             string[] drafts = Directory.GetFiles(@"C:\ProgramData\ypi\drafts\");
-            string errorMsg = string.Empty;
             foreach(string fileName in drafts)
             {
-                errorMsg = System.Environment.MachineName.ToUpper() + " has an open draft file: " + System.IO.Path.GetFileName(fileName);
                 try
                 {
                     File.Delete(fileName);
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
-                    Business.Logging.EmailExceptionHandler.HandleException(errorMsg);
                     continue;
                 }
             }

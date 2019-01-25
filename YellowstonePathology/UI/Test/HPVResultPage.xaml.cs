@@ -167,10 +167,7 @@ namespace YellowstonePathology.UI.Test
         {
 			YellowstonePathology.Business.Test.HPV.HPVWordDocument report = new Business.Test.HPV.HPVWordDocument(this.m_AccessionOrder, this.m_HPVTestOrder, Business.Document.ReportSaveModeEnum.Draft);
 			report.Render();
-
-			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_HPVTestOrder.ReportNo);
-            string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);
-            YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(fileName);
+            YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(report.SaveFileName);
         }        
 
         private void ComboBoxResult_SelectionChanged(object sender, SelectionChangedEventArgs e)
