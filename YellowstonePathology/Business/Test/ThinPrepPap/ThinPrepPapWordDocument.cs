@@ -38,6 +38,11 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
             this.m_NameSpaceManager.AddNamespace("w", "http://schemas.microsoft.com/office/word/2003/wordml");            
         }
 
+        public string SaveFileName
+        {
+            get { return this.m_SaveFileName; }
+        }
+
         public YellowstonePathology.Business.Document.NativeDocumentFormatEnum NativeDocumentFormat
         {
             get { return this.m_NativeDocumentFormat; }
@@ -197,7 +202,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
             switch (this.m_ReportSaveEnum)
             {
                 case YellowstonePathology.Business.Document.ReportSaveModeEnum.Draft:
-					this.m_SaveFileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + this.m_PanelSetOrderCytology.ReportNo + ".draft.xml";
+                    this.m_SaveFileName = CaseDocument.GetSaveDraftDocumentFilePath(orderIdParser);
                     break;
                 case YellowstonePathology.Business.Document.ReportSaveModeEnum.Normal:
 					this.m_SaveFileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + this.m_PanelSetOrderCytology.ReportNo + ".xml";

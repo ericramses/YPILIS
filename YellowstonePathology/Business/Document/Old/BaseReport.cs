@@ -36,6 +36,11 @@ namespace YellowstonePathology.Business.Document.Old
             this.m_NameSpaceManager.AddNamespace("w", "http://schemas.microsoft.com/office/word/2003/wordml");
         }
 
+        public string SaveFileName
+        {
+            get { return this.m_SaveFileName; }
+        }
+
         public void OpenTemplate(string templateName)
         {            
             this.m_SaveFileName = Common.getCasePath(this.m_PanelSetOrder.ReportNo) + this.m_PanelSetOrder.ReportNo + ".xml";            
@@ -354,7 +359,7 @@ namespace YellowstonePathology.Business.Document.Old
                     this.m_ReportXml.Save(@"c:\testing\test.xml");                
                     break;
                 case YellowstonePathology.Business.Document.ReportSaveModeEnum.Draft:
-					this.m_SaveFileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + this.m_PanelSetOrder.ReportNo + ".draft.xml";
+                    this.m_SaveFileName = CaseDocument.GetSaveDraftDocumentFilePath(orderIdParser);
                     this.m_ReportXml.Save(this.m_SaveFileName);
                     break;
                 case YellowstonePathology.Business.Document.ReportSaveModeEnum.Normal:

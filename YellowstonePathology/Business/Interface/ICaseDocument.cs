@@ -11,5 +11,6 @@ namespace YellowstonePathology.Business.Interface
 		void Render();
         void Publish();
         YellowstonePathology.Business.Document.NativeDocumentFormatEnum NativeDocumentFormat { get; set; }
+        string SaveFileName { get; }
 	}
 }

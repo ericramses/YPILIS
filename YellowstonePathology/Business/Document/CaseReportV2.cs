@@ -45,6 +45,11 @@ namespace YellowstonePathology.Business.Document
             this.m_NameSpaceManager.AddNamespace("w", "http://schemas.microsoft.com/office/word/2003/wordml");            			
 		}
 
+        public string SaveFileName
+        {
+            get { return this.m_SaveFileName; }
+        }
+
 		public virtual YellowstonePathology.Business.Rules.MethodResult DeleteCaseFiles(YellowstonePathology.Business.OrderIdParser orderIdParser)
 		{
 			return YellowstonePathology.Business.Document.CaseDocument.DeleteCaseFiles(orderIdParser);            
@@ -75,9 +80,7 @@ namespace YellowstonePathology.Business.Document
             switch (this.m_ReportSaveMode)
             {
                 case ReportSaveModeEnum.Draft:
-                    //this.m_SaveFileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + this.m_PanelSetOrder.ReportNo + ".draft.xml";
-                    string id = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-                    this.m_SaveFileName = CaseDocument.GetDraftDocumentFilePath(orderIdParser, id);
+                    this.m_SaveFileName = CaseDocument.GetSaveDraftDocumentFilePath(orderIdParser);
                     break;
                 case ReportSaveModeEnum.Normal:
 					this.m_SaveFileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + this.m_PanelSetOrder.ReportNo + ".xml";                
