@@ -108,6 +108,32 @@ namespace YellowstonePathology.Business.Billing.Model
             return result;
         }
 
+        public CptCode GetCPTCode(string cptCode)
+        {
+            CptCode result = null;
+            foreach(CptCode cpt in this)
+            {
+                if(cpt.Code == cptCode)
+                {
+                    result = cpt;
+                    break;
+                }
+            }
+            return result;
+        }
+
+        public CptCodeCollection GetFISHCPTCodeCollection()
+        {
+            CptCodeCollection result = new CptCodeCollection();
+            result.Add(this.GetCPTCode("88374"));
+            result.Add(this.GetCPTCode("88377"));
+            result.Add(this.GetCPTCode("88368"));
+            result.Add(this.GetCPTCode("88369"));
+            result.Add(this.GetCPTCode("88367"));
+            result.Add(this.GetCPTCode("88373"));            
+            return result;
+        }
+
         public static CptCodeCollection GetSorted(CptCodeCollection cptCodeCollection)
         {
             CptCodeCollection result = new CptCodeCollection();

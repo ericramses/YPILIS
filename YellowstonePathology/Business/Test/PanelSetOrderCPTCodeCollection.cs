@@ -143,6 +143,23 @@ namespace YellowstonePathology.Business.Test
             return result;
         }
 
+        public bool Exists(List<Business.Billing.Model.CptCode> cptCodeList)
+        {
+            bool result = false;
+            foreach (Business.Billing.Model.CptCode cptCode in cptCodeList)
+            {
+                foreach (PanelSetOrderCPTCode panelSetOrderCPTCode in this)
+                {
+                    if (panelSetOrderCPTCode.CPTCode == cptCode.Code)
+                    {
+                        result = true;
+                        break;
+                    }
+                }
+            }
+            return result;
+        }
+
         public PanelSetOrderCPTCode Get(string panelSetOrderCptCodeId)
         {
             PanelSetOrderCPTCode result = null;

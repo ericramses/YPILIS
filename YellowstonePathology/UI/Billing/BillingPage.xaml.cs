@@ -178,12 +178,7 @@ namespace YellowstonePathology.UI.Billing
         }        
 
         private void ButtonSet_Click(object sender, RoutedEventArgs e)
-        {
-            if(this.m_PanelSetOrder.ResearchTesting == true)
-            {
-                MessageBox.Show("This test has been marked as research testing.  Please contact Sid.");
-                return;
-            }            
+        {                        
             if (this.IsTechnicalBillingFacilityValid() == true)
             {
                 if (this.IsProfessionalBillingFacilityValid() == true)

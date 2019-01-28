@@ -616,6 +616,18 @@ namespace YellowstonePathology.Business.PanelSet.Model
             return result;
         }
 
+        public static PanelSetCollection GetFISHPanelSets()
+        {
+            PanelSetCollection allPanelSets = PanelSetCollection.GetAll();
+            PanelSetCollection result = new PanelSetCollection();
+            foreach(PanelSet panelSet in allPanelSets)
+            {
+                if (panelSet.CaseType == YellowstonePathology.Business.CaseType.FISH)
+                    result.Add(panelSet);
+            }
+            return result;
+        }
+
         public static PanelSetCollection GetMolecularLabPanelSets()
         {
             PanelSetCollection panelSetCollection = new PanelSetCollection();            
