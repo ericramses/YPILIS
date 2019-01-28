@@ -143,10 +143,7 @@ namespace YellowstonePathology.UI.Test
 		{
 			YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeIHCPanelWordDocument report = new Business.Test.LynchSyndrome.LynchSyndromeIHCPanelWordDocument(this.m_AccessionOrder, this.m_PanelSetOrderLynchSyndromeIHC, Business.Document.ReportSaveModeEnum.Draft);
 			report.Render();
-
-			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrderLynchSyndromeIHC.ReportNo);
-			string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);
-			YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(fileName);
+			YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(report.SaveFileName);
 		}
 
 		private void HyperLinkUnfinalResults_Click(object sender, RoutedEventArgs e)

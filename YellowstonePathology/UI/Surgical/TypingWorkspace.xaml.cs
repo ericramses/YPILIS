@@ -179,9 +179,7 @@ namespace YellowstonePathology.UI.Surgical
 			this.Save(false);
 			YellowstonePathology.Business.Test.Surgical.SurgicalWordDocument report = new YellowstonePathology.Business.Test.Surgical.SurgicalWordDocument(this.m_TypingUI.AccessionOrder, this.m_TypingUI.SurgicalTestOrder, Business.Document.ReportSaveModeEnum.Draft);
             report.Render();
-			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_TypingUI.SurgicalTestOrder.ReportNo);
-			string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);
-			YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(fileName);
+			YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(report.SaveFileName);
 		}
 
         public void SaveData(object target, ExecutedRoutedEventArgs args)
@@ -355,9 +353,7 @@ namespace YellowstonePathology.UI.Surgical
 				this.Save(false);
 				YellowstonePathology.Business.Test.Surgical.SurgicalWordDocument report = new YellowstonePathology.Business.Test.Surgical.SurgicalWordDocument(this.m_TypingUI.AccessionOrder, this.m_TypingUI.SurgicalTestOrder, Business.Document.ReportSaveModeEnum.Draft);
 				report.Render();
-				YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_TypingUI.SurgicalTestOrder.ReportNo);
-				string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);
-				YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(fileName);
+				YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(report.SaveFileName);
 			}
         }
 

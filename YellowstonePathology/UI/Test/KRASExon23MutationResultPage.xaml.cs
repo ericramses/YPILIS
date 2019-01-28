@@ -95,10 +95,7 @@ namespace YellowstonePathology.UI.Test
         {
             YellowstonePathology.Business.Test.KRASExon23Mutation.KRASExon23MutationWordDocument report = new Business.Test.KRASExon23Mutation.KRASExon23MutationWordDocument(this.m_AccessionOrder, this.m_KRASExon23MutationTestOrder, Business.Document.ReportSaveModeEnum.Draft);
             report.Render();
-
-            YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_KRASExon23MutationTestOrder.ReportNo);
-            string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);
-            YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(fileName);
+            YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(report.SaveFileName);
         }
 
         private void HyperLinkFinalizeResults_Click(object sender, RoutedEventArgs e)

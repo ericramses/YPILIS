@@ -30,7 +30,12 @@ namespace YellowstonePathology.Business.Document
             this.m_ReportXml = new XmlDocument();
             this.m_NameSpaceManager = new XmlNamespaceManager(m_ReportXml.NameTable);
             this.m_NameSpaceManager.AddNamespace("w", "http://schemas.microsoft.com/office/word/2003/wordml");
-		}		
+		}
+
+        public string SaveFileName
+        {
+            get { return this.m_SaveFileName; }
+        }
 
         public YellowstonePathology.Business.Document.NativeDocumentFormatEnum NativeDocumentFormat
         {
@@ -64,8 +69,7 @@ namespace YellowstonePathology.Business.Document
 					this.m_SaveFileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + this.m_PanelSetOrder.ReportNo + ".xml";                
                     break;
                 case YellowstonePathology.Business.Document.ReportSaveModeEnum.Draft:
-                    string id = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-                    this.m_SaveFileName = CaseDocument.GetDraftDocumentFilePath(orderIdParser, id);
+                    this.m_SaveFileName = CaseDocument.GetSaveDraftDocumentFilePath(orderIdParser);
                     break;
                 case YellowstonePathology.Business.Document.ReportSaveModeEnum.Test:
                     this.m_ReportXml.Save(@"c:\test.xml");

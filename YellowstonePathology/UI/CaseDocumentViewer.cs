@@ -22,13 +22,12 @@ namespace YellowstonePathology.UI
 			}
 			else
 			{
-				fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);
+                fileName = doc.SaveFileName;
 			}
 
 			switch (doc.NativeDocumentFormat)
 			{
 				case Business.Document.NativeDocumentFormatEnum.Word:
-					//YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(fileName);
                     YellowstonePathology.Business.Document.CaseDocument.OpenWordDoc(fileName);
                     break;
 				case Business.Document.NativeDocumentFormatEnum.XPS:
