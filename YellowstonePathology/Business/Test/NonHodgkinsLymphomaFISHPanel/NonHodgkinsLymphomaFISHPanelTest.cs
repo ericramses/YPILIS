@@ -45,6 +45,6 @@ namespace YellowstonePathology.Business.Test.NonHodgkinsLymphomaFISHPanel
 
             Business.Panel.Model.HAndEPanel handePanel = new Panel.Model.HAndEPanel();
             this.m_PanelCollection.Add(handePanel);
-        }
+        }        
     }
 }

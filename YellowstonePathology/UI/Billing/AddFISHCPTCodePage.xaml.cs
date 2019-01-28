@@ -35,10 +35,19 @@ namespace YellowstonePathology.UI.Billing
             this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 
             Business.PanelSet.Model.PanelSetCollection allTests = Business.PanelSet.Model.PanelSetCollection.GetAll();
-            Business.Interface.IFISHTest fishTest = (Business.Interface.IFISHTest)allTests.GetPanelSet(this.m_PanelSetOrder.PanelSetId);
-            this.m_ProbeSetCount = fishTest.ProbeSetCount;
-
-            this.m_FISHCPTCodeList = new Business.Billing.Model.FISHCPTCodeList(this.m_ProbeSetCount);
+            Business.PanelSet.Model.PanelSet panelSet = allTests.GetPanelSet(this.m_PanelSetOrder.PanelSetId);
+            if(panelSet is Business.Interface.IFISHTest)
+            {
+                Business.Interface.IFISHTest fishTest = (Business.Interface.IFISHTest)panelSet;
+                this.m_ProbeSetCount = fishTest.ProbeSetCount;
+                this.m_FISHCPTCodeList = new Business.Billing.Model.FISHCPTCodeList(this.m_ProbeSetCount);
+            }
+            else
+            {
+                this.m_ProbeSetCount = 0;
+                MessageBox.Show("This FISH test does not have the Probe Set Count defined.");
+            }
+            
             this.m_PageHeaderText = "CPT Codes For " + this.m_PanelSetOrder.ReportNo + ": " + this.m_AccessionOrder.PatientDisplayName + " - " + this.m_AccessionOrder.PBirthdate.Value.ToShortDateString();
 
             DataContext = this;
