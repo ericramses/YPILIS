@@ -32,9 +32,12 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 		public override void OrderInitialTests(AccessionOrder accessionOrder, YellowstonePathology.Business.Interface.IOrderTarget orderTarget)
 		{						
             YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeIHCPanelTest lynchSyndromeIHCPanelTest = new YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeIHCPanelTest();
-            YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new TestOrderInfo(lynchSyndromeIHCPanelTest, orderTarget, false);            
-            YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Visitor.OrderTestOrderVisitor(testOrderInfo);            
-            accessionOrder.TakeATrip(orderTestOrderVisitor);            
+            if (accessionOrder.PanelSetOrderCollection.Exists(lynchSyndromeIHCPanelTest.PanelSetId, this.m_OrderedOnId, true) == false)
+            {
+                YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new TestOrderInfo(lynchSyndromeIHCPanelTest, orderTarget, false);
+                YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Visitor.OrderTestOrderVisitor(testOrderInfo);
+                accessionOrder.TakeATrip(orderTestOrderVisitor);
+            }
 		}		
 
         [PersistentProperty()]
