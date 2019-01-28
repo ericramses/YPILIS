@@ -161,15 +161,13 @@ namespace YellowstonePathology.UI.Test
         private void HyperLinkProbeComment_Click(object sender, RoutedEventArgs e)
         {
             YellowstonePathology.Business.Helper.FISHProbeComment fishProbeComment = new Business.Helper.FISHProbeComment(this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection);
-            string comment = fishProbeComment.Comment;
-
-            if (string.IsNullOrEmpty(comment) == false)
+            if(fishProbeComment.Success == true)
             {
-                this.m_PanelSetOrder.ProbeComment = comment;
-            }
+                this.m_PanelSetOrder.ProbeComment = fishProbeComment.Comment;
+            }            
             else
             {
-                MessageBox.Show("Set CPT Codes first.");
+                MessageBox.Show(fishProbeComment.Message);
             }
         }
 

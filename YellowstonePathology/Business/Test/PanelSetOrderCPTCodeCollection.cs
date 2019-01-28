@@ -143,10 +143,10 @@ namespace YellowstonePathology.Business.Test
             return result;
         }
 
-        public bool Exists(List<Business.Billing.Model.CptCode> cptCodeList)
+        public bool Exists(Business.Billing.Model.CptCodeCollection cptCodeCollection)
         {
             bool result = false;
-            foreach (Business.Billing.Model.CptCode cptCode in cptCodeList)
+            foreach (Business.Billing.Model.CptCode cptCode in cptCodeCollection)
             {
                 foreach (PanelSetOrderCPTCode panelSetOrderCPTCode in this)
                 {
@@ -155,6 +155,20 @@ namespace YellowstonePathology.Business.Test
                         result = true;
                         break;
                     }
+                }
+            }
+            return result;
+        }
+
+        private int GetCodeCount(string code)
+        {
+            int result = 0;
+
+            foreach (YellowstonePathology.Business.Test.PanelSetOrderCPTCode panelSetOrderCPTCode in this)
+            {
+                if (panelSetOrderCPTCode.CPTCode == code)
+                {
+                    result += panelSetOrderCPTCode.Quantity;
                 }
             }
             return result;

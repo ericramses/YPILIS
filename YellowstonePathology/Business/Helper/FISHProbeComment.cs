@@ -12,27 +12,25 @@ namespace YellowstonePathology.Business.Helper
         private string m_Comment;
         private bool m_Success;
         private string m_Message;
-        private List<Business.Billing.Model.CptCode> m_FISHCPTCodes;
+        private Business.Billing.Model.CptCodeCollection m_FISHCPTCodes;
 
         public FISHProbeComment(YellowstonePathology.Business.Test.PanelSetOrderCPTCodeCollection panelSetOrderCPTCodeCollection)
         {
-            this.m_PanelSetOrderCPTCodeCollection = panelSetOrderCPTCodeCollection;
-
-            this.m_FISHCPTCodes = new List<Billing.Model.CptCode>();
+            this.m_PanelSetOrderCPTCodeCollection = panelSetOrderCPTCodeCollection;            
             Business.Billing.Model.CptCodeCollection allCPTCodes = Store.AppDataStore.Instance.CPTCodeCollection.Clone();
-            this.m_FISHCPTCodes.Add(Billing.Model.CptCode.)
+            this.m_FISHCPTCodes = allCPTCodes.GetFISHCPTCodeCollection();
 
-            if (this.OKToCreateComment() == true)
+            if (this.IsOKToCreateComment() == true)
             {
                 StringBuilder result = new StringBuilder();
                 StringBuilder temp = new StringBuilder();
 
-                int quantity88374 = GetCodeCount(panelSetOrderCPTCodeCollection, "88374");
-                int quantity88377 = GetCodeCount(panelSetOrderCPTCodeCollection, "88377");
-                int quantity88368 = GetCodeCount(panelSetOrderCPTCodeCollection, "88368");
-                int quantity88369 = GetCodeCount(panelSetOrderCPTCodeCollection, "88369");
-                int quantity88367 = GetCodeCount(panelSetOrderCPTCodeCollection, "88367");
-                int quantity88373 = GetCodeCount(panelSetOrderCPTCodeCollection, "88373");
+                int quantity88374 = panelSetOrderCPTCodeCollection.GetCodeQuantity("88374");
+                int quantity88377 = panelSetOrderCPTCodeCollection.GetCodeQuantity("88377");
+                int quantity88368 = panelSetOrderCPTCodeCollection.GetCodeQuantity("88368");
+                int quantity88369 = panelSetOrderCPTCodeCollection.GetCodeQuantity("88369");
+                int quantity88367 = panelSetOrderCPTCodeCollection.GetCodeQuantity("88367");
+                int quantity88373 = panelSetOrderCPTCodeCollection.GetCodeQuantity("88373");
 
                 GetCodeResult(temp, quantity88374, " of computer assisted, multiplex stains or probe sets");
                 GetCodeResult(temp, quantity88377, " of manual, multiplex stains or probe sets");
@@ -65,26 +63,19 @@ namespace YellowstonePathology.Business.Helper
             get { return this.m_Message; }
         }
 
-        private bool OKToCreateComment()
+        private bool IsOKToCreateComment()
         {
-            bool result = true;
-            if(this.m_PanelSetOrderCPTCodeCollection.Exists("asdf")
-            return result;
-        }
-
-        private int GetCodeCount(YellowstonePathology.Business.Test.PanelSetOrderCPTCodeCollection panelSetOrderCPTCodeCollection, string code)
-        {
-            int result = 0;
-
-            foreach (YellowstonePathology.Business.Test.PanelSetOrderCPTCode panelSetOrderCPTCode in panelSetOrderCPTCodeCollection)
+            bool result = false;
+            if (this.m_PanelSetOrderCPTCodeCollection.Exists(this.m_FISHCPTCodes) == true)
             {
-                if (panelSetOrderCPTCode.CPTCode == code)
-                {
-                    result += panelSetOrderCPTCode.Quantity;
-                }
+                result = true;        
+            }
+            else
+            {
+                this.m_Message = "FISH CPT Codes need to be added prior to generating the probe set comment.";
             }
             return result;
-        }
+        }        
 
         private void GetCodeResult(StringBuilder temp, int quantity, string comment)
         {
