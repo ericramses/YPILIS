@@ -68,11 +68,13 @@ namespace YellowstonePathology.Business.Helper
             bool result = false;
             if (this.m_PanelSetOrderCPTCodeCollection.Exists(this.m_FISHCPTCodes) == true)
             {
-                result = true;        
+                result = true;
+                this.m_Success = true;    
             }
             else
             {
                 this.m_Message = "FISH CPT Codes need to be added prior to generating the probe set comment.";
+                this.m_Success = false;
             }
             return result;
         }        

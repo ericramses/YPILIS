@@ -36,7 +36,7 @@ namespace YellowstonePathology.UI.Test
 
         private void ResultPage_CPTCode(object sender, EventArgs e)
         {
-            Billing.AddCPTCodePage addCPTCodePage = new Billing.AddCPTCodePage(this.m_PanelSetOrder.ReportNo, this.m_AccessionOrder);
+            Billing.AddFISHCPTCodePage addCPTCodePage = new Billing.AddFISHCPTCodePage(this.m_PanelSetOrder.ReportNo, this.m_AccessionOrder);
             addCPTCodePage.Next += CPTCodePage_Next;
             this.m_PageNavigator.Navigate(addCPTCodePage);
         }

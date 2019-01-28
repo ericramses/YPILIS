@@ -15,11 +15,8 @@ using System.Windows.Shapes;
 using System.ComponentModel;
 
 namespace YellowstonePathology.UI.Billing
-{
-    /// <summary>
-    /// Interaction logic for AddCPTCodePage.xaml
-    /// </summary>
-    public partial class AddCPTCodePage : UserControl, INotifyPropertyChanged
+{    
+    public partial class AddFISHCPTCodePage : UserControl, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -28,14 +25,20 @@ namespace YellowstonePathology.UI.Billing
 
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
-        YellowstonePathology.Business.Billing.Model.FISHCPTCodeList m_FISHCPTCodeList;
+        private YellowstonePathology.Business.Billing.Model.FISHCPTCodeList m_FISHCPTCodeList;
         private string m_PageHeaderText;
+        private int m_ProbeSetCount;
 
-        public AddCPTCodePage(string reportNo, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
+        public AddFISHCPTCodePage(string reportNo, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
-            this.m_AccessionOrder = accessionOrder;
+            this.m_AccessionOrder = accessionOrder;        
             this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
-            this.m_FISHCPTCodeList = new Business.Billing.Model.FISHCPTCodeList();
+
+            Business.PanelSet.Model.PanelSetCollection allTests = Business.PanelSet.Model.PanelSetCollection.GetAll();
+            Business.Interface.IFISHTest fishTest = (Business.Interface.IFISHTest)allTests.GetPanelSet(this.m_PanelSetOrder.PanelSetId);
+            this.m_ProbeSetCount = fishTest.ProbeSetCount;
+
+            this.m_FISHCPTCodeList = new Business.Billing.Model.FISHCPTCodeList(this.m_ProbeSetCount);
             this.m_PageHeaderText = "CPT Codes For " + this.m_PanelSetOrder.ReportNo + ": " + this.m_AccessionOrder.PatientDisplayName + " - " + this.m_AccessionOrder.PBirthdate.Value.ToShortDateString();
 
             DataContext = this;
@@ -54,7 +57,7 @@ namespace YellowstonePathology.UI.Billing
         public string PageHeaderText
         {
             get { return this.m_PageHeaderText; }
-        }
+        }       
 
         public YellowstonePathology.Business.Billing.Model.FISHCPTCodeList FISHCPTCodeList
         {

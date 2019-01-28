@@ -5,8 +5,10 @@ using System.Text;
 
 namespace YellowstonePathology.Business.Test.MDSByFish
 {
-	public class MDSByFishTest : YellowstonePathology.Business.PanelSet.Model.PanelSet
+	public class MDSByFishTest : YellowstonePathology.Business.PanelSet.Model.PanelSet, Business.Interface.IFISHTest
 	{
+        private int m_ProbeSetCount;
+
 		public MDSByFishTest()
 		{
 			this.m_PanelSetId = 158;
@@ -39,6 +41,14 @@ namespace YellowstonePathology.Business.Test.MDSByFish
             this.m_ProfessionalComponentBillingFacility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMiscellaneous());
+
+            this.m_ProbeSetCount = 4;
 		}
+
+        public int ProbeSetCount
+        {
+            get { return this.m_ProbeSetCount; }
+            set { this.m_ProbeSetCount = value; }
+        }
 	}
 }

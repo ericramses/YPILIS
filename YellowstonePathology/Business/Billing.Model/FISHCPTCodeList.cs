@@ -5,7 +5,7 @@ namespace YellowstonePathology.Business.Billing.Model
 {
     public class FISHCPTCodeList : ObservableCollection<TypingCptCodeListItem>
     {
-        public FISHCPTCodeList()
+        public FISHCPTCodeList(int probeSetCount)
         {
             this.Add(new TypingCptCodeListItem(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88374", null)));
             this.Add(new TypingCptCodeListItem(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88377", null)));
@@ -14,7 +14,7 @@ namespace YellowstonePathology.Business.Billing.Model
             this.Add(new TypingCptCodeListItem(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88368", null)));
             this.Add(new TypingCptCodeListItem(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88369", null)));
 
-            foreach (TypingCptCodeListItem item in this) item.Quantity = 0;
+            foreach (TypingCptCodeListItem item in this) item.Quantity = probeSetCount;
         }
     }
 }
