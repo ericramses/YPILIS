@@ -86,6 +86,7 @@ namespace YellowstonePathology.UI.Login
                 YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_LoginUI.AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_LoginUI.ReportNo);
                 YellowstonePathology.Business.Interface.ICaseDocument caseDocument = YellowstonePathology.Business.Document.DocumentFactory.GetDocument(this.m_LoginUI.AccessionOrder, panelSetOrder, Business.Document.ReportSaveModeEnum.Draft);
                 caseDocument.Render();
+
                 YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_LoginUI.ReportNo);
                 string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);
                 YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(fileName);

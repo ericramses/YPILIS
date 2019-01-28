@@ -335,7 +335,7 @@
     <Compile Include="Business\Gateway\PreviousResultGateway.cs" />
     <Compile Include="Business\Gateway\WebServiceGateway.cs" />
     <Compile Include="Business\Gateway\XmlGateway.cs" />
-    <Compile Include="Business\Helper\ProbeCommentResolver.cs" />
+    <Compile Include="Business\Helper\FISHProbeComment.cs" />
     <Compile Include="Business\HL7View\ADTMessage.cs" />
     <Compile Include="Business\HL7View\ADTMessages.cs" />
     <Compile Include="Business\Billing.Model\BillableObject.cs" />

@@ -1020,20 +1020,10 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            Business.MaterialTracking.Model.MaterialTrackingBatchCollection c = YellowstonePathology.Business.Gateway.SlideAccessionGateway.GetMaterialTrackingBatchCollection();
-            Business.Facility.Model.FacilityCollection facilities = Business.Facility.Model.FacilityCollection.Instance;
-
-            foreach(Business.MaterialTracking.Model.MaterialTrackingBatch b in c)
+            Business.PanelSet.Model.PanelSetCollection fishPanelSets = Business.PanelSet.Model.PanelSetCollection.GetFISHPanelSets();
+            foreach(Business.PanelSet.Model.PanelSet panelSet in fishPanelSets)
             {
-                Business.Facility.Model.Facility facility = facilities.GetByFacilityId(b.FromFacilityId);
-                if (string.IsNullOrEmpty(b.FromFacilityId) == false)
-                {
-                    if (b.FromFacilityName != facility.FacilityName)
-                    {
-                        Business.MaterialTracking.Model.MaterialTrackingBatch mtb = Business.Persistence.DocumentGateway.Instance.PullMaterialTrackingBatch(b.MaterialTrackingBatchId, this);
-                        mtb.FromFacilityName = facility.FacilityName;
-                    }
-                }                
+                Console.Write(panelSet.PanelSetId + ",");
             }
         }
 
