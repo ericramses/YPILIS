@@ -15,6 +15,7 @@ namespace YellowstonePathology.Business.Test.CLLByFish
 		private string m_ProbeSetDetail;
 		private string m_NucleiScored;
         private string m_ASR;
+        private string m_ProbeComment;
 
         public CLLByFishTestOrder()
 		{
@@ -119,6 +120,20 @@ namespace YellowstonePathology.Business.Test.CLLByFish
                 {
                     this.m_ASR = value;
                     this.NotifyPropertyChanged("ASR");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string ProbeComment
+        {
+            get { return this.m_ProbeComment; }
+            set
+            {
+                if (this.m_ProbeComment != value)
+                {
+                    this.m_ProbeComment = value;
+                    this.NotifyPropertyChanged("ProbeComment");
                 }
             }
         }
