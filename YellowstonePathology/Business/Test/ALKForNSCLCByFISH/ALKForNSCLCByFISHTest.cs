@@ -5,7 +5,7 @@ using System.Text;
 
 namespace YellowstonePathology.Business.Test.ALKForNSCLCByFISH
 {
-	public class ALKForNSCLCByFISHTest : YellowstonePathology.Business.PanelSet.Model.PanelSet
+	public class ALKForNSCLCByFISHTest : YellowstonePathology.Business.PanelSet.Model.FISHTest
 	{
         public ALKForNSCLCByFISHTest()
 		{
@@ -46,6 +46,8 @@ namespace YellowstonePathology.Business.Test.ALKForNSCLCByFISH
 
             Business.Panel.Model.HAndEPanel handePanel = new Panel.Model.HAndEPanel();
             this.m_PanelCollection.Add(handePanel);
+
+            this.m_ProbeSetCount = 1;
         }
     }
 }

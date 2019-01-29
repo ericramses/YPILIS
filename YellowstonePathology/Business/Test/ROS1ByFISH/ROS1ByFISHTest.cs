@@ -5,7 +5,7 @@ using System.Text;
 
 namespace YellowstonePathology.Business.Test.ROS1ByFISH
 {
-	public class ROS1ByFISHTest : YellowstonePathology.Business.PanelSet.Model.PanelSet
+	public class ROS1ByFISHTest : YellowstonePathology.Business.PanelSet.Model.FISHTest
 	{
         public ROS1ByFISHTest()
 		{
@@ -45,6 +45,8 @@ namespace YellowstonePathology.Business.Test.ROS1ByFISH
 
             Business.Panel.Model.HAndEPanel handePanel = new Panel.Model.HAndEPanel();
             this.m_PanelCollection.Add(handePanel);
+
+            this.m_ProbeSetCount = 1;
         }
     }
 }

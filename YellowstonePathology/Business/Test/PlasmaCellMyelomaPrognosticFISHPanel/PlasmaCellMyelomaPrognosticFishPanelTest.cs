@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace YellowstonePathology.Business.Test.PlasmaCellMyelomaPrognosticFISHPanel
 {
-    public class PlasmaCellMyelomaPrognosticFISHPanelTest : YellowstonePathology.Business.PanelSet.Model.PanelSet
+    public class PlasmaCellMyelomaPrognosticFISHPanelTest : YellowstonePathology.Business.PanelSet.Model.FISHTest
     {
         public PlasmaCellMyelomaPrognosticFISHPanelTest()
         {
@@ -32,6 +32,8 @@ namespace YellowstonePathology.Business.Test.PlasmaCellMyelomaPrognosticFISHPane
 
             string taskDescription = "Collect material and send to Neo.";
             this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskFedexShipment(YellowstonePathology.Business.Task.Model.TaskAssignment.Transcription, taskDescription, neogenomicsIrvine));
+
+            this.m_ProbeSetCount = 6;
         }
     }
 }

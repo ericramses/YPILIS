@@ -17,6 +17,7 @@ namespace YellowstonePathology.Business.Test.ROS1ByFISH
         private string m_Method;
         private string m_ReportDisclaimer;        
         private string m_TumorNucleiPercentage;
+        private string m_ProbeComment;
 
         public ROS1ByFISHTestOrder()
         {
@@ -158,7 +159,21 @@ namespace YellowstonePathology.Business.Test.ROS1ByFISH
             }
         }
 
-		public override string ToResultString(Business.Test.AccessionOrder accessionOrder)
+        [PersistentProperty()]
+        public string ProbeComment
+        {
+            get { return this.m_ProbeComment; }
+            set
+            {
+                if (this.m_ProbeComment != value)
+                {
+                    this.m_ProbeComment = value;
+                    this.NotifyPropertyChanged("ProbeComment");
+                }
+            }
+        }
+
+        public override string ToResultString(Business.Test.AccessionOrder accessionOrder)
 		{
             return null;
 		}
