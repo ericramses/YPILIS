@@ -36,9 +36,9 @@ namespace YellowstonePathology.UI.Billing
 
             Business.PanelSet.Model.PanelSetCollection allTests = Business.PanelSet.Model.PanelSetCollection.GetAll();
             Business.PanelSet.Model.PanelSet panelSet = allTests.GetPanelSet(this.m_PanelSetOrder.PanelSetId);
-            if(panelSet is Business.Interface.IFISHTest)
+            if(panelSet is Business.PanelSet.Model.FISHTest)
             {
-                Business.Interface.IFISHTest fishTest = (Business.Interface.IFISHTest)panelSet;
+                Business.PanelSet.Model.FISHTest fishTest = (Business.PanelSet.Model.FISHTest)panelSet;
                 this.m_ProbeSetCount = fishTest.ProbeSetCount;
                 this.m_FISHCPTCodeList = new Business.Billing.Model.FISHCPTCodeList(this.m_ProbeSetCount);
             }
