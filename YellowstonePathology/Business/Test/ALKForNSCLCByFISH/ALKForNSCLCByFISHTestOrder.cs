@@ -20,7 +20,8 @@ namespace YellowstonePathology.Business.Test.ALKForNSCLCByFISH
 		private string m_ReportDisclaimer;
         private string m_ThreeFPercentage;
         private bool m_ALKGeneAmplification;
-        private string m_TumorNucleiPercentage;        
+        private string m_TumorNucleiPercentage;
+        private string m_ProbeComment;
 
         public ALKForNSCLCByFISHTestOrder()
         {
@@ -216,7 +217,21 @@ namespace YellowstonePathology.Business.Test.ALKForNSCLCByFISH
             }
         }
 
-		public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
+        [PersistentProperty()]
+        public string ProbeComment
+        {
+            get { return this.m_ProbeComment; }
+            set
+            {
+                if (this.m_ProbeComment != value)
+                {
+                    this.m_ProbeComment = value;
+                    this.NotifyPropertyChanged("ProbeComment");
+                }
+            }
+        }
+
+        public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
 			StringBuilder result = new StringBuilder();
 

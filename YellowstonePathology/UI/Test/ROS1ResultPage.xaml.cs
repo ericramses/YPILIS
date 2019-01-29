@@ -23,7 +23,10 @@ namespace YellowstonePathology.UI.Test
 		public delegate void NextEventHandler(object sender, EventArgs e);
 		public event NextEventHandler Next;
 
-		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
+        public delegate void CPTCodeEventHandler(object sender, EventArgs e);
+        public event CPTCodeEventHandler CPTCode;
+
+        private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private string m_PageHeaderText;
 
@@ -166,6 +169,24 @@ namespace YellowstonePathology.UI.Test
         private void HyperLinkCloseWindow_Click(object sender, RoutedEventArgs e)
         {
             Window.GetWindow(this).Close();
+        }
+
+        private void HyperLinkCPTCodes_Click(object sender, RoutedEventArgs e)
+        {
+            this.CPTCode(this, new EventArgs());
+        }
+
+        private void HyperLinkProbeComment_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Helper.FISHProbeComment fishProbeComment = new Business.Helper.FISHProbeComment(this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection);
+            if (fishProbeComment.Success == true)
+            {
+                this.m_PanelSetOrder.ProbeComment = fishProbeComment.Comment;
+            }
+            else
+            {
+                MessageBox.Show(fishProbeComment.Message);
+            }
         }
 
         private void ButtonNext_Click(object sender, RoutedEventArgs e)
