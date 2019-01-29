@@ -88,29 +88,27 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 			}
 		}
 
-		public void SetSummaryResult(LSEResult lSEResult)
-		{
-            if (string.IsNullOrEmpty(m_Result) == false)
+        public string GetSummaryResult()
+        {
+            string methResult = null;
+            if (this.Final == true)
             {
                 MLH1MethylationAnalysisDetectedResult detected = new MLH1MethylationAnalysisDetectedResult();
                 MLH1MethylationAnalysisNotDetectedResult notDetected = new MLH1MethylationAnalysisNotDetectedResult();
 
                 if (this.ResultCode == detected.ResultCode)
                 {
-                    lSEResult.MethResult = LSEResultEnum.Positive;
+                    methResult = TestResult.Detected;
                 }
                 else if (this.ResultCode == notDetected.ResultCode)
                 {
-                    lSEResult.MethResult = LSEResultEnum.Negative;
+                    methResult = TestResult.NotDetected;
                 }
             }
-            else
-            {
-                lSEResult.MethResult = LSEResultEnum.Pending;
-            }
-		}
+            return methResult;
+        }
 
-		public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
+        public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
 			StringBuilder result = new StringBuilder();
 

@@ -71,7 +71,7 @@ namespace YellowstonePathology.UI.Login
                 this.m_MainWindowCommandButtonHandler.RemoveTab += MainWindowCommandButtonHandler_RemoveTab;
                 this.m_MainWindowCommandButtonHandler.ShowMessagingDialog += MainWindowCommandButtonHandler_ShowMessagingDialog;
                 this.m_MainWindowCommandButtonHandler.ShowCaseDocument += MainWindowCommandButtonHandler_ShowCaseDocument;
-           
+
                 UI.AppMessaging.MessagingPath.Instance.LockReleasedActionList.Add(this.Save);
                 UI.AppMessaging.MessagingPath.Instance.LockAquiredActionList.Add(this.HandleAccessionOrderListChange);
             }

@@ -11,7 +11,7 @@ namespace YellowstonePathology.Business.Test.BRAFMutationAnalysis
         public BRAFMutationAnalysisNotDetectedResult()
         {
             this.m_ResultCode = "BRAFMTTNANLNTDTCTD";
-            this.m_Result = "Not Detected";
+            this.m_Result = TestResult.NotDetected;
         }
     }
 }

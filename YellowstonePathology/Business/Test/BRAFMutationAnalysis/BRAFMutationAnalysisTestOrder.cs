@@ -200,7 +200,27 @@ namespace YellowstonePathology.Business.Test.BRAFMutationAnalysis
             return result.ToString();
         }
 
-        public void SetSummaryResult(YellowstonePathology.Business.Test.LynchSyndrome.LSEResult lSEResult)
+        public string GetSummaryResult()
+        {
+            string brafResult = null;
+            if (string.IsNullOrEmpty(this.Result) == false)
+            {
+                YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisNotDetectedResult notDetectedResult = new BRAFMutationAnalysisNotDetectedResult();
+                YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisDetectedResult detectedResult = new BRAFMutationAnalysisDetectedResult();
+
+                if (this.Result.ToUpper().Contains("NOT DETECTED"))
+                {
+                    brafResult = YellowstonePathology.Business.Test.TestResult.NotDetected;
+                }
+                else if (this.Result.ToUpper().Contains("DETECTED"))
+                {
+                    brafResult = YellowstonePathology.Business.Test.TestResult.Detected;
+                }
+            }
+            return brafResult;
+        }
+
+        /*public void SetSummaryResult(YellowstonePathology.Business.Test.LynchSyndrome.LSERule lSERule)
         {
             if (string.IsNullOrEmpty(this.Result) == false)
             {
@@ -209,14 +229,14 @@ namespace YellowstonePathology.Business.Test.BRAFMutationAnalysis
 
                 if (this.Result.ToUpper().Contains("NOT DETECTED"))
                 {
-                    lSEResult.BrafResult = YellowstonePathology.Business.Test.LynchSyndrome.LSEResultEnum.NotDetected;
+                    lSERule.BRAFResult = YellowstonePathology.Business.Test.LynchSyndrome.LSEResultEnum.NotDetected;
                 }
                 else if (this.Result.ToUpper().Contains("DETECTED"))
                 {
-                    lSEResult.BrafResult = YellowstonePathology.Business.Test.LynchSyndrome.LSEResultEnum.Detected;
+                    lSERule.BRAFResult = YellowstonePathology.Business.Test.LynchSyndrome.LSEResultEnum.Detected;
                 }
             }
-        }
+        }*/
 
         public override Audit.Model.AuditResult IsOkToSetPreviousResults(PanelSetOrder panelSetOrder, AccessionOrder accessionOrder)
         {
@@ -335,32 +355,6 @@ namespace YellowstonePathology.Business.Test.BRAFMutationAnalysis
                 Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisTestOrder egfrToALKReflexAnalysisTestOrder = (EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(egfrToALKReflexAnalysisTest.PanelSetId);
                 egfrToALKReflexAnalysisTestOrder.DoesBRAFMutationAnalysisResultMatch(result, auditResult);
             }
-        }
-
-
-
-
-
-
-
-
-        public override YellowstonePathology.Business.Rules.MethodResult IsOkToAccept()
-        {
-            YellowstonePathology.Business.Rules.MethodResult result = base.IsOkToAccept();
-            if (result.Success == true)
-            {
-                if (string.IsNullOrEmpty(this.Result) == true)
-                {
-                    result.Success = false;
-                    result.Message = "The results cannot be accepted because the Result is not set.";
-                }
-                else if (string.IsNullOrEmpty(this.Indication) == true)
-                {
-                    result.Success = false;
-                    result.Message = "The results cannot be accepted because the BRAF indicator is not set.";
-                }
-            }
-            return result;
         }
     }
 }

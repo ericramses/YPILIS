@@ -10,7 +10,7 @@ namespace YellowstonePathology.Business.Test.BRAFV600EK
 		public BRAFV600EKDetectedResult()
 		{
             this.m_ResultCode = "BRAFV600EKDTCTD";
-            this.m_Result = "Detected";        		    	        
+            this.m_Result = TestResult.Detected;
 		}
 	}
 }
