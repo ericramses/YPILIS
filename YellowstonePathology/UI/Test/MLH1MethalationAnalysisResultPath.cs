@@ -68,7 +68,7 @@ namespace YellowstonePathology.UI.Test
 
 		private void ResultPath_Back(object sender, EventArgs e)
 		{
-			this.ShowReflexTestPage();
+			this.ShowResultPage();
 		}
 
 		private void ResultPath_Finish(object sender, EventArgs e)
