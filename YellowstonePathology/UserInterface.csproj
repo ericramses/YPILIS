@@ -885,7 +885,6 @@
     <Compile Include="Business\HL7View\WYDOH\WYDOHPIDView.cs" />
     <Compile Include="Business\HL7View\WYDOH\WYDOHResultView.cs" />
     <Compile Include="Business\GethAPI.cs" />
-    <Compile Include="Business\Interface\IFISHTest.cs" />
     <Compile Include="Business\Interface\IBillingCptCode.cs" />
     <Compile Include="Business\Interface\IBillingSpecimen.cs" />
     <Compile Include="Business\Interface\IBillingSpecimenCollection.cs" />
