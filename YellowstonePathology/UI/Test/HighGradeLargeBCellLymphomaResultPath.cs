@@ -25,12 +25,25 @@ namespace YellowstonePathology.UI.Test
         {
 			this.m_HighGradeLargeBCellLymphomaResultPage = new HighGradeLargeBCellLymphomaResultPage(this.m_PanelSetOrderHighGradeLargeBCellLymphoma, this.m_AccessionOrder, this.m_SystemIdentity);
 			this.m_HighGradeLargeBCellLymphomaResultPage.Next += new HighGradeLargeBCellLymphomaResultPage.NextEventHandler(HighGradeLargeBCellLymphomaResultPage_Next);
-			this.m_PageNavigator.Navigate(this.m_HighGradeLargeBCellLymphomaResultPage);
+            this.m_HighGradeLargeBCellLymphomaResultPage.CPTCode += ResultPage_CPTCode;
+            this.m_PageNavigator.Navigate(this.m_HighGradeLargeBCellLymphomaResultPage);
         }
 
 		private void HighGradeLargeBCellLymphomaResultPage_Next(object sender, EventArgs e)
         {
             this.Finished();
         }
-	}
+
+        private void ResultPage_CPTCode(object sender, EventArgs e)
+        {
+            Billing.AddFISHCPTCodePage addCPTCodePage = new Billing.AddFISHCPTCodePage(this.m_PanelSetOrderHighGradeLargeBCellLymphoma.ReportNo, this.m_AccessionOrder);
+            addCPTCodePage.Next += CPTCodePage_Next;
+            this.m_PageNavigator.Navigate(addCPTCodePage);
+        }
+
+        private void CPTCodePage_Next(object sender, EventArgs e)
+        {
+            this.ShowResultPage();
+        }
+    }
 }

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace YellowstonePathology.Business.Test.HighGradeLargeBCellLymphoma
 {
-	public class HighGradeLargeBCellLymphomaTest : YellowstonePathology.Business.PanelSet.Model.PanelSet
+	public class HighGradeLargeBCellLymphomaTest : YellowstonePathology.Business.PanelSet.Model.FISHTest
 	{
 		public HighGradeLargeBCellLymphomaTest()
 		{
@@ -44,6 +44,8 @@ namespace YellowstonePathology.Business.Test.HighGradeLargeBCellLymphoma
 
             Business.Panel.Model.HAndEPanel handePanel = new Panel.Model.HAndEPanel();
             this.m_PanelCollection.Add(handePanel);
+
+            this.m_ProbeSetCount = 3;
         }
     }
 }
