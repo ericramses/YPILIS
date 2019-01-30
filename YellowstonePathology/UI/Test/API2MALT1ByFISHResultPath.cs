@@ -25,12 +25,25 @@ namespace YellowstonePathology.UI.Test
 		{
 			this.m_ResultPage = new API2MALT1ByFISHResultPage((YellowstonePathology.Business.Test.API2MALT1ByFISH.API2MALT1ByFISHTestOrder)this.m_PanelSetOrder, this.m_AccessionOrder, this.m_SystemIdentity);
 			this.m_ResultPage.Next += new API2MALT1ByFISHResultPage.NextEventHandler(ResultsPage_Next);
-			this.m_PageNavigator.Navigate(this.m_ResultPage);
+            this.m_ResultPage.CPTCode += ResultPage_CPTCode;
+            this.m_PageNavigator.Navigate(this.m_ResultPage);
 		}
 
         private void ResultsPage_Next(object sender, EventArgs e)
 		{
 			this.Finished();
 		}
-	}
+
+        private void ResultPage_CPTCode(object sender, EventArgs e)
+        {
+            Billing.AddFISHCPTCodePage addCPTCodePage = new Billing.AddFISHCPTCodePage(this.m_PanelSetOrder.ReportNo, this.m_AccessionOrder);
+            addCPTCodePage.Next += CPTCodePage_Next;
+            this.m_PageNavigator.Navigate(addCPTCodePage);
+        }
+
+        private void CPTCodePage_Next(object sender, EventArgs e)
+        {
+            this.ShowResultPage();
+        }
+    }
 }
