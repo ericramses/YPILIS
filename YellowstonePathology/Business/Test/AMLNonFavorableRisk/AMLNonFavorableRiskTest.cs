@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace YellowstonePathology.Business.Test.AMLNonFavorableRisk
 {
-    public class AMLNonFavorableRiskTest : YellowstonePathology.Business.PanelSet.Model.PanelSetMolecularTest
+    public class AMLNonFavorableRiskTest : YellowstonePathology.Business.PanelSet.Model.FISHTest
     {
         public AMLNonFavorableRiskTest()
         {
@@ -37,6 +37,8 @@ namespace YellowstonePathology.Business.Test.AMLNonFavorableRisk
             this.m_ProfessionalComponentBillingFacility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMOLEGEN());
+
+            this.m_ProbeSetCount = 0;
         }
     }
 }

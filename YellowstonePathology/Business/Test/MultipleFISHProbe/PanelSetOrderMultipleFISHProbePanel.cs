@@ -13,8 +13,9 @@ namespace YellowstonePathology.Business.Test.MultipleFISHProbe
 		private string m_Interpretation;
 		private string m_ProbeSetDetail;
 		private string m_NucleiScored;
-		
-		public PanelSetOrderMultipleFISHProbePanel()
+        private string m_ProbeComment;
+
+        public PanelSetOrderMultipleFISHProbePanel()
         {
         }
 
@@ -86,7 +87,21 @@ namespace YellowstonePathology.Business.Test.MultipleFISHProbe
 			}
 		}
 
-		public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
+        [PersistentProperty()]
+        public string ProbeComment
+        {
+            get { return this.m_ProbeComment; }
+            set
+            {
+                if (this.m_ProbeComment != value)
+                {
+                    this.m_ProbeComment = value;
+                    this.NotifyPropertyChanged("ProbeComment");
+                }
+            }
+        }
+
+        public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
 			StringBuilder result = new StringBuilder();
 
