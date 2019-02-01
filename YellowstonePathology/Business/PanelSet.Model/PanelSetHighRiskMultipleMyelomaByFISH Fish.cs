@@ -5,7 +5,7 @@ using System.Text;
 
 namespace YellowstonePathology.Business.PanelSet.Model
 {
-	public class PanelSetHighRiskMultipleMyelomaMGUSByFish : PanelSet
+	public class PanelSetHighRiskMultipleMyelomaMGUSByFish : FISHTest
 	{
         public PanelSetHighRiskMultipleMyelomaMGUSByFish()
 		{
@@ -39,6 +39,8 @@ namespace YellowstonePathology.Business.PanelSet.Model
             this.m_PanelSetCptCodeCollection.Add(panelSetCptCode);
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMiscellaneous());
+
+            this.m_ProbeSetCount = 0;
 		}
 	}
 }

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace YellowstonePathology.Business.Test.MPNFish
 {
-	public class MPNFishTest : YellowstonePathology.Business.PanelSet.Model.PanelSet
+	public class MPNFishTest : YellowstonePathology.Business.PanelSet.Model.FISHTest
 	{
 		public MPNFishTest()
 		{
@@ -40,6 +40,7 @@ namespace YellowstonePathology.Business.Test.MPNFish
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMiscellaneous());
 
+            this.m_ProbeSetCount = 4;
 		}
 	}
 }

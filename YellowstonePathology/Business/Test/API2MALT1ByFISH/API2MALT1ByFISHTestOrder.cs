@@ -14,8 +14,9 @@ namespace YellowstonePathology.Business.Test.API2MALT1ByFISH
 		private string m_Interpretation;
 		private string m_ProbeSetDetail;
 		private string m_NucleiScored;
+        private string m_ProbeComment;
 
-		public API2MALT1ByFISHTestOrder()
+        public API2MALT1ByFISHTestOrder()
 		{
 		}
 
@@ -103,7 +104,21 @@ namespace YellowstonePathology.Business.Test.API2MALT1ByFISH
 			}
 		}
 
-		public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
+        [PersistentProperty()]
+        public string ProbeComment
+        {
+            get { return this.m_ProbeComment; }
+            set
+            {
+                if (this.m_ProbeComment != value)
+                {
+                    this.m_ProbeComment = value;
+                    this.NotifyPropertyChanged("ProbeComment");
+                }
+            }
+        }
+
+        public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
             StringBuilder result = new StringBuilder();
 

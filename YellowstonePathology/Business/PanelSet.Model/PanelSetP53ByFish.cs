@@ -5,7 +5,7 @@ using System.Text;
 
 namespace YellowstonePathology.Business.PanelSet.Model
 {
-	public class PanelSetP53ByFish : PanelSet
+	public class PanelSetP53ByFish : FISHTest
 	{
         public PanelSetP53ByFish()
 		{
@@ -36,6 +36,8 @@ namespace YellowstonePathology.Business.PanelSet.Model
             this.m_ProfessionalComponentBillingFacility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMiscellaneous());
+
+            this.m_ProbeSetCount = 1;
 		}
 	}
 }

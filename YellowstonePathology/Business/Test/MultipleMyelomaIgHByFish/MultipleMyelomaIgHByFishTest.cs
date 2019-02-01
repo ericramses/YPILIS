@@ -5,7 +5,7 @@ using System.Text;
 
 namespace YellowstonePathology.Business.Test.MultipleMyelomaIgHByFish
 {
-	public class MultipleMyelomaIgHByFishTest : YellowstonePathology.Business.PanelSet.Model.PanelSet
+	public class MultipleMyelomaIgHByFishTest : YellowstonePathology.Business.PanelSet.Model.FISHTest
 	{
 		public MultipleMyelomaIgHByFishTest()
 		{
@@ -39,6 +39,8 @@ namespace YellowstonePathology.Business.Test.MultipleMyelomaIgHByFish
             this.m_ProfessionalComponentBillingFacility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMiscellaneous());
+
+            this.m_ProbeSetCount = 5;
 		}
 	}
 }

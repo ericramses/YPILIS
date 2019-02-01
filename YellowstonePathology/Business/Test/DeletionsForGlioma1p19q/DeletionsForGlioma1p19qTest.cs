@@ -5,7 +5,7 @@ using System.Text;
 
 namespace YellowstonePathology.Business.Test.DeletionsForGlioma1p19q
 {
-	public class DeletionsForGlioma1p19qTest : YellowstonePathology.Business.PanelSet.Model.PanelSet
+	public class DeletionsForGlioma1p19qTest : YellowstonePathology.Business.PanelSet.Model.FISHTest
 	{
         public DeletionsForGlioma1p19qTest()
 		{
@@ -40,6 +40,8 @@ namespace YellowstonePathology.Business.Test.DeletionsForGlioma1p19q
             this.m_PanelSetCptCodeCollection.Add(panelSetCptCode);
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMiscellaneous());
+
+            this.m_ProbeSetCount = 2;
 		}
 	}
 }
