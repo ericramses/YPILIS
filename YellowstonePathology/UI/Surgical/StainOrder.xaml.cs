@@ -30,7 +30,8 @@ namespace YellowstonePathology.UI.Surgical
 
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;        
         private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
-        private string m_PanelOrderComment;        
+        private string m_PanelOrderComment;
+        private string m_RecutComment;
 
         private YellowstonePathology.UI.Login.FinalizeAccession.AliquotAndStainOrderView m_AliquotAndStainOrderView;
         private YellowstonePathology.Business.Visitor.StainAcknowledgementTaskOrderVisitor m_StainAcknowledgementTaskOrderVisitor;
@@ -46,9 +47,7 @@ namespace YellowstonePathology.UI.Surgical
             InitializeComponent();
 
             this.DataContext = this;
-            this.Loaded += StainOrder_Loaded;
-
-            Business.Stain.Model.StainCollection.Instance.WriteLineStains();
+            this.Loaded += StainOrder_Loaded;            
         }        
 
         private void StainOrder_Loaded(object sender, RoutedEventArgs e)
@@ -100,12 +99,12 @@ namespace YellowstonePathology.UI.Surgical
 
         public string RecutComment
         {
-            get { return this.m_PanelOrderComment; }
+            get { return this.m_RecutComment; }
             set
             {
-                if (this.m_PanelOrderComment != value)
+                if (this.m_RecutComment != value)
                 {
-                    this.m_PanelOrderComment = value;
+                    this.m_RecutComment = value;
                     this.NotifyPropertyChanged("RecutComment");
                 }
             }
@@ -142,18 +141,24 @@ namespace YellowstonePathology.UI.Surgical
 
                 if (selectedTests.Count > 0)
                 {
-                    this.HandleOrderingTests(selectedAliquots, selectedTests);
+                    if(this.HandleRecutComment(selectedTests) == true)
+                    {
+                        this.HandleOrderingTests(selectedAliquots, selectedTests);
 
-                    this.m_StainAcknowledgementTaskOrderVisitor.TaskOrderDetailComment = this.m_PanelOrderComment;
-                    this.m_AccessionOrder.TakeATrip(this.m_StainAcknowledgementTaskOrderVisitor);
+                        this.m_StainAcknowledgementTaskOrderVisitor.TaskOrderDetailComment = this.m_PanelOrderComment;
+                        this.m_AccessionOrder.TakeATrip(this.m_StainAcknowledgementTaskOrderVisitor);
 
-                    this.ClearCheckBoxes();                    
+                        this.ClearCheckBoxes();
 
-                    this.m_AliquotAndStainOrderView.Refresh(false, this.m_PanelSetOrder);
-                    this.NotifyPropertyChanged("AliquotAndStainOrderView");
+                        this.m_AliquotAndStainOrderView.Refresh(false, this.m_PanelSetOrder);
+                        this.NotifyPropertyChanged("AliquotAndStainOrderView");
 
-                    this.m_PanelOrderComment = null;
-                    this.NotifyPropertyChanged("PanelOrderComment");                    
+                        this.m_PanelOrderComment = null;
+                        this.NotifyPropertyChanged("PanelOrderComment");
+
+                        this.m_RecutComment = null;
+                        this.NotifyPropertyChanged("RecutComment");
+                    }                    
                 }
                 else
                 {
@@ -164,6 +169,20 @@ namespace YellowstonePathology.UI.Surgical
             {
                 MessageBox.Show("There are no aliquots selected.");
             }
+        }
+
+        private bool HandleRecutComment(YellowstonePathology.Business.Test.Model.TestCollection selectedTests)
+        {
+            bool result = true;            
+            if(selectedTests.Exists("150") == true)
+            {
+                if(string.IsNullOrEmpty(this.m_PanelOrderComment) == true)
+                {                    
+                    result = false;
+                    MessageBox.Show("To better track the reason for recuts a comment is required indicating the reason for the recut you are ordering.");
+                }
+            }
+            return result;
         }
 
         private void HandleOrderingTests(YellowstonePathology.Business.Test.AliquotOrderCollection selectedAliquots, YellowstonePathology.Business.Test.Model.TestCollection selectedTests)

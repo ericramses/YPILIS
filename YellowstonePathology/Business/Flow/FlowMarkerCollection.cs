@@ -272,8 +272,7 @@ namespace YellowstonePathology.Business.Flow
             foreach (FlowMarkerItem flowMarker in this)
             {
                 if (flowMarker.MarkerUsed == true)
-                {
-                    Console.WriteLine(flowMarker.Name);
+                {                    
                     if(!markerNames.Contains(flowMarker.Name))
                     {
                         markerNames.Add(flowMarker.Name);
