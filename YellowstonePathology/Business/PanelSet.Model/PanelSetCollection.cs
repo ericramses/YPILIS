@@ -188,6 +188,8 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.Test.HPVRNAISH.HPVRNAISHTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.NeoTYPELiposarcomaFusionProfile.NeoTYPELiposarcomaFusionProfileTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.EGFRAmplification.EGFRAmplificationTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.VaricellaZosterVirus.VaricellaZosterVirusTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.DUPSP22IRF4Rearrangement.DUPSP22IRF4RearrangementTest());
 
             //ARUP
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetArupBraf());

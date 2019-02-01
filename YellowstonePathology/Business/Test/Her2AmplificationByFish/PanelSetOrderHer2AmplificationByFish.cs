@@ -19,9 +19,10 @@ namespace YellowstonePathology.Business.Test.Her2AmplificationByFish
 		private string m_Comment;
 		private string m_NucleiScored;
 		private string m_Reference;
-        private bool m_NonBreast;        
+        private bool m_NonBreast;
+        private string m_ProbeComment;
 
-		public PanelSetOrderHer2AmplificationByFish()
+        public PanelSetOrderHer2AmplificationByFish()
         {
 
         }
@@ -197,7 +198,21 @@ namespace YellowstonePathology.Business.Test.Her2AmplificationByFish
                     this.NotifyPropertyChanged("NonBreast");
                 }
             }
-        }        
+        }
+
+        [PersistentProperty()]
+        public string ProbeComment
+        {
+            get { return this.m_ProbeComment; }
+            set
+            {
+                if (this.m_ProbeComment != value)
+                {
+                    this.m_ProbeComment = value;
+                    this.NotifyPropertyChanged("ProbeComment");
+                }
+            }
+        }
 
         public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{

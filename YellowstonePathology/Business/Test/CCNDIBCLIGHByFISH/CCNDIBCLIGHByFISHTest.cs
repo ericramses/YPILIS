@@ -5,7 +5,7 @@ using System.Text;
 
 namespace YellowstonePathology.Business.Test.CCNDIBCLIGHByFISH
 {
-	public class CCNDIBCLIGHByFISHTest : YellowstonePathology.Business.PanelSet.Model.PanelSet
+	public class CCNDIBCLIGHByFISHTest : YellowstonePathology.Business.PanelSet.Model.FISHTest
 	{
 		public CCNDIBCLIGHByFISHTest()
 		{
@@ -38,6 +38,8 @@ namespace YellowstonePathology.Business.Test.CCNDIBCLIGHByFISH
             this.m_ProfessionalComponentBillingFacility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMOLEGEN());
+
+            this.m_ProbeSetCount = 1;
 		}
 	}
 }

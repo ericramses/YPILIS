@@ -1055,6 +1055,7 @@
     <Compile Include="Business\Test\CheckResultsActionEnum.cs" />
     <Compile Include="Business\Test\ChimerismStudyByDNAMarkers\ChimerismStudyByDNAMarkersTest.cs" />
     <Compile Include="Business\Test\DNMT3AMutationAnalysis\DNMT3AMutationAnalysisTest.cs" />
+    <Compile Include="Business\Test\DUPSP22IRF4Rearrangement\DUPSP22IRF4RearrangementTest.cs" />
     <Compile Include="Business\Test\EGFRAmplification\EGFRAmplificationTest.cs" />
     <Compile Include="Business\Test\EGFRMutationAnalysisPreliminary\EGFRMutationAnalysisPreliminaryTest.cs" />
     <Compile Include="Business\Test\EGFRToALKReflexAnalysis\EGFRToALKReflexAnalysisBRAFResult.cs" />
@@ -1146,6 +1147,7 @@
     <Compile Include="Business\Test\SomatostatinReceptorType2\SomatostatinReceptorType2Test.cs" />
     <Compile Include="Business\Test\ThrombocytopeniaProfile\ThrombocytopeniaProfileCMMCNTEView.cs" />
     <Compile Include="Business\Test\TP53MutationAnalysis\TP53MutationAnalysisTest.cs" />
+    <Compile Include="Business\Test\VaricellaZosterVirus\VaricellaZosterVirusTest.cs" />
     <Compile Include="Business\Test\WholeExomeSequencing\WholeExomeSequencingTest.cs" />
     <Compile Include="Business\User\SystemRoleView.cs" />
     <Compile Include="Business\User\SystemRoleViewCollection.cs" />

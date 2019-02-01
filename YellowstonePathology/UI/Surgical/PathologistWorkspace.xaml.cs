@@ -366,7 +366,7 @@ namespace YellowstonePathology.UI.Surgical
 
                             if (this.m_PathologistsReview.ReviewContent is SurgicalReview)
                             {
-                                this.m_PathologistUI.UpdateSlideLocation(barcode.ID);
+                                //this.m_PathologistUI.UpdateSlideLocation(barcode.ID);
                                 SurgicalReview surgicalReview = (SurgicalReview)this.m_PathologistsReview.ReviewContent;
                                 surgicalReview.BillingSpecimenViewCollection.SetSelectedBySlideOrderid(barcode.ID);
                                 surgicalReview.SetFocusOnDiagnosis();
@@ -925,13 +925,10 @@ namespace YellowstonePathology.UI.Surgical
 
         private void ButtonNewScan_Click(object sender, RoutedEventArgs e)
         {
-            /*//string data = "9336,2018211";
             YellowstonePathology.Business.BarcodeScanning.Barcode barcode = new Business.BarcodeScanning.Barcode();
-            barcode.ID = "18-9672.1.1";
-            //this.BarcodeScanPort_HistologyBlockScanReceived(barcode);
+            barcode.ID = "19-3021.1A1";
             barcode.IsValidated = true;
-            //this.HistologySlideScanReceived(barcode);
-            this.BarcodeScanPort_ThinPrepSlideScanReceived(barcode);*/
+            this.HistologySlideScanReceived(barcode);
         }
     }
 }

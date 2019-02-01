@@ -16,6 +16,7 @@ namespace YellowstonePathology.Business.Test.IgHMFABByFish
         private string m_Method;
         private string m_ASRComment;
         private string m_NucleiScored;
+        private string m_ProbeComment;
 
         public IgHMFABByFishTestOrder()
         {
@@ -124,6 +125,20 @@ namespace YellowstonePathology.Business.Test.IgHMFABByFish
                 {
                     this.m_NucleiScored = value;
                     this.NotifyPropertyChanged("NucleiScored");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string ProbeComment
+        {
+            get { return this.m_ProbeComment; }
+            set
+            {
+                if (this.m_ProbeComment != value)
+                {
+                    this.m_ProbeComment = value;
+                    this.NotifyPropertyChanged("ProbeComment");
                 }
             }
         }
