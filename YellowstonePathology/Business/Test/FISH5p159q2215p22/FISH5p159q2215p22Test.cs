@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace YellowstonePathology.Business.Test.FISH5p159q2215p22
 {
-    public class FISH5p159q2215p22Test : YellowstonePathology.Business.PanelSet.Model.PanelSet
+    public class FISH5p159q2215p22Test : YellowstonePathology.Business.PanelSet.Model.FISHTest
     {
         public FISH5p159q2215p22Test()
         {
@@ -38,6 +38,8 @@ namespace YellowstonePathology.Business.Test.FISH5p159q2215p22
             this.m_PanelSetCptCodeCollection.Add(panelSetCptCode);
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceFLOWYPI());
+
+            this.m_ProbeSetCount = 1;
         }
     }
 }
