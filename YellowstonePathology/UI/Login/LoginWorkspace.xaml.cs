@@ -965,5 +965,27 @@ namespace YellowstonePathology.UI.Login
             this.ShowResultsPage();
             this.m_BarcodeScanPort.VantageSlideScanReceived += BarcodeScanPort_VantageSlideScanReceived;
         }
+
+        private void CytologyLabels_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            FinalizeAccession.PrintCytologyLabelsPage printCytologyLabelsPage = new FinalizeAccession.PrintCytologyLabelsPage(this.m_LoginUI.ReportNo, this.m_LoginUI.AccessionOrder);
+            printCytologyLabelsPage.Back += new FinalizeAccession.PrintCytologyLabelsPage.BackEventHandler(PrintCytologyLabelsPage_Back);
+            printCytologyLabelsPage.Finish += new FinalizeAccession.PrintCytologyLabelsPage.FinishEventHandler(PrintCytologyLabelsPage_Finish);
+            this.m_LoginPageWindow = new Receiving.LoginPageWindow();
+            this.m_LoginPageWindow.PageNavigator.Navigate(printCytologyLabelsPage);
+            this.m_LoginPageWindow.Show();
+        }
+
+        private void PrintCytologyLabelsPage_Back(object sender, EventArgs e)
+        {
+            this.m_LoginPageWindow.Close();
+            this.m_LoginPageWindow = null;
+        }
+
+        private void PrintCytologyLabelsPage_Finish(object sender, EventArgs e)
+        {
+            this.m_LoginPageWindow.Close();
+            this.m_LoginPageWindow = null;
+        }
     }
 }
