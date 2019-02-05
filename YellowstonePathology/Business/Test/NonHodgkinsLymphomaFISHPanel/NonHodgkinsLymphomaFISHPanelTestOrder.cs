@@ -14,6 +14,7 @@ namespace YellowstonePathology.Business.Test.NonHodgkinsLymphomaFISHPanel
 		private string m_ProbeSetDetail;
 		private string m_NucleiScored;
 		private string m_ReportDisclaimer;
+        private string m_ProbeComment;
 
         public NonHodgkinsLymphomaFISHPanelTestOrder()
         {
@@ -104,7 +105,21 @@ namespace YellowstonePathology.Business.Test.NonHodgkinsLymphomaFISHPanel
             }
         }
 
-		public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
+        [PersistentProperty()]
+        public string ProbeComment
+        {
+            get { return this.m_ProbeComment; }
+            set
+            {
+                if (this.m_ProbeComment != value)
+                {
+                    this.m_ProbeComment = value;
+                    this.NotifyPropertyChanged("ProbeComment");
+                }
+            }
+        }
+
+        public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
 			StringBuilder result = new StringBuilder();
 

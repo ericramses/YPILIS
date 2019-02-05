@@ -20,6 +20,7 @@ namespace YellowstonePathology.Business.Test.FISH5p159q2215p22
         private string m_Interpretation;
         private string m_Method;
         private string m_ReportDisclaimer;
+        private string m_ProbeComment;
 
         public FISH5p159q2215p22TestOrder()
         {
@@ -96,6 +97,20 @@ namespace YellowstonePathology.Business.Test.FISH5p159q2215p22
                 {
                     this.m_ReportDisclaimer = value;
                     this.NotifyPropertyChanged("ReportDisclaimer");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string ProbeComment
+        {
+            get { return this.m_ProbeComment; }
+            set
+            {
+                if (this.m_ProbeComment != value)
+                {
+                    this.m_ProbeComment = value;
+                    this.NotifyPropertyChanged("ProbeComment");
                 }
             }
         }
