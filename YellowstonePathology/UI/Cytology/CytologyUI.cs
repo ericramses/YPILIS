@@ -361,7 +361,7 @@ namespace YellowstonePathology.UI.Cytology
         {                     			
             string panelOrderId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
             YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapAcidWashPanel thinPrepPapAcidWashPanel = new YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapAcidWashPanel();
-            YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderAcidWash panelOrderCytologyAcidWash = new YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderAcidWash(this.m_PanelSetOrderCytology.ReportNo, panelOrderId, panelOrderId, thinPrepPapAcidWashPanel, this.m_SystemIdentity.User.UserId);
+            YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderAcidWash panelOrderCytologyAcidWash = new YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderAcidWash(this.m_PanelSetOrderCytology.ReportNo, panelOrderId, panelOrderId, thinPrepPapAcidWashPanel, this.m_SystemIdentity.User.UserId, this.m_SystemIdentity.User.Initials);
             this.m_PanelSetOrderCytology.PanelOrderCollection.Add(panelOrderCytologyAcidWash);
             orderingPanelOrder.AppendReportComment(thinPrepPapAcidWashPanel.ReportComment);
 		}
@@ -370,7 +370,7 @@ namespace YellowstonePathology.UI.Cytology
         {                        			
             string panelOrderId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
             YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapDotReviewPanel thinPrepPapDotReviewPanel = new YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapDotReviewPanel();
-            YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology panelOrderCytologyDotReview = new YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology(this.m_PanelSetOrderCytology.ReportNo, panelOrderId, panelOrderId, thinPrepPapDotReviewPanel, this.m_SystemIdentity.User.UserId);            
+            YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology panelOrderCytologyDotReview = new YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology(this.m_PanelSetOrderCytology.ReportNo, panelOrderId, panelOrderId, thinPrepPapDotReviewPanel, this.m_SystemIdentity.User.UserId, this.m_SystemIdentity.User.Initials);            
 			panelOrderCytologyDotReview.OrderComment = comment;            
             panelOrderCytologyDotReview.OrderedById = orderingPanelOrder.OrderedById;
             this.m_PanelSetOrderCytology.PanelOrderCollection.Add(panelOrderCytologyDotReview);                            
