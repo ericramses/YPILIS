@@ -34,8 +34,8 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 
 		}
 
-        public PanelOrderCytology(string reportNo, string objectId, string panelOrderId, YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapScreeningPanel thinPrepPapScreeningPanel, int orderedById)
-            : base(reportNo, objectId, panelOrderId, thinPrepPapScreeningPanel, orderedById)
+        public PanelOrderCytology(string reportNo, string objectId, string panelOrderId, YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapScreeningPanel thinPrepPapScreeningPanel, int orderedById, string orderedByInitials)
+            : base(reportNo, objectId, panelOrderId, thinPrepPapScreeningPanel, orderedById, orderedByInitials)
 		{
             this.m_ScreeningType = thinPrepPapScreeningPanel.ScreeningType;
             this.m_Accepted = false;

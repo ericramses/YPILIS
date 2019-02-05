@@ -17,8 +17,8 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 
 		}
 
-		public PanelOrderAcidWash(string reportNo, string objectId, string panelOrderId, YellowstonePathology.Business.Panel.Model.Panel panel, int orderedById)
-			: base(reportNo, objectId, panelOrderId, panel, orderedById)
+		public PanelOrderAcidWash(string reportNo, string objectId, string panelOrderId, YellowstonePathology.Business.Panel.Model.Panel panel, int orderedById, string orderedByInitials)
+			: base(reportNo, objectId, panelOrderId, panel, orderedById, orderedByInitials)
 		{
 
 		}
