@@ -206,6 +206,27 @@ namespace YellowstonePathology.UI
             }
         }
 
+        private void MenuItemCPTCodes_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.ListViewPanelSetOrders.SelectedItem != null)
+            {
+                Business.Test.PanelSetOrder panelSetOrder = (Business.Test.PanelSetOrder)this.ListViewPanelSetOrders.SelectedItem;
+                Business.PanelSet.Model.PanelSet panelSet = Business.PanelSet.Model.PanelSetCollection.GetAll().GetPanelSet(panelSetOrder.PanelSetId);
+                if(panelSet is YellowstonePathology.Business.PanelSet.Model.FISHTest)
+                {
+                    this.m_LoginPageWindow = new Login.Receiving.LoginPageWindow();
+                    Billing.AddFISHCPTCodePage addCPTCodePage = new Billing.AddFISHCPTCodePage(panelSetOrder.ReportNo, this.m_AccessionOrder);
+                    addCPTCodePage.Next += ResultPathFactory_Finished;
+                    this.m_LoginPageWindow.PageNavigator.Navigate(addCPTCodePage);
+                    this.m_LoginPageWindow.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("The selected Test is not a FISH test.");
+                }
+            }
+        }
+
         private void ResultPathFactory_Finished(object sender, EventArgs e)
         {
             this.m_LoginPageWindow.Close();

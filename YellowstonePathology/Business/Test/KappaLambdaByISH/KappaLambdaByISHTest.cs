@@ -5,7 +5,7 @@ using System.Text;
 
 namespace YellowstonePathology.Business.Test.KappaLambdaByISH
 {
-	public class KappaLambdaByISHTest : YellowstonePathology.Business.PanelSet.Model.PanelSet
+	public class KappaLambdaByISHTest : YellowstonePathology.Business.PanelSet.Model.FISHTest
 	{
         public KappaLambdaByISHTest()
 		{
@@ -38,6 +38,8 @@ namespace YellowstonePathology.Business.Test.KappaLambdaByISH
             this.m_ProfessionalComponentBillingFacility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMiscellaneous());
+
+            this.m_ProbeSetCount = 0;
 		}
 	}
 }

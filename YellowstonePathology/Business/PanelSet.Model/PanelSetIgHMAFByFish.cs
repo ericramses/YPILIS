@@ -5,7 +5,7 @@ using System.Text;
 
 namespace YellowstonePathology.Business.PanelSet.Model
 {
-    public class PanelSetIgHMAFByFish : PanelSet
+    public class PanelSetIgHMAFByFish : FISHTest
 	{
         public PanelSetIgHMAFByFish()
 		{
@@ -17,10 +17,11 @@ namespace YellowstonePathology.Business.PanelSet.Model
 			this.m_ResultDocumentSource = ResultDocumentSourceEnum.YPIDatabase;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterR();
             this.m_Active = true;
-            
-			
-            
-			this.m_AllowMultiplePerAccession = true;
+
+            this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.BladderCancerFISHUrovysion.BladderCancerFISHUrovysionTestOrder).AssemblyQualifiedName;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.BladderCancerFISHUrovysion.BladderCancerFISHUrovysionWordDocument).AssemblyQualifiedName;
+
+            this.m_AllowMultiplePerAccession = true;
 
             string taskDescription = "Gather Materials and send to Neogenomics";
 
@@ -34,6 +35,8 @@ namespace YellowstonePathology.Business.PanelSet.Model
             this.m_ProfessionalComponentBillingFacility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMiscellaneous());
+
+            this.m_ProbeSetCount = 0;
 		}
 	}
 }

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace YellowstonePathology.Business.PanelSet.Model
 {
-	public class PanelSetFishAnalysisForSYTGeneRearrangement : PanelSet
+	public class PanelSetFishAnalysisForSYTGeneRearrangement : FISHTest
 	{
         public PanelSetFishAnalysisForSYTGeneRearrangement()
 		{
@@ -33,6 +33,8 @@ namespace YellowstonePathology.Business.PanelSet.Model
             this.m_ProfessionalComponentBillingFacility = facility;
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMiscellaneous());
+
+            this.m_ProbeSetCount = 0;
 		}
 	}
 }

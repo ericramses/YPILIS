@@ -38,6 +38,7 @@
                     <MenuItem Header="Link PDF To This Order" Click="MenuItemLinkPDF_Click"></MenuItem>
                     <MenuItem Header="View Result Page" Click="MenuItemViewResultPage_Click"></MenuItem>
                     <MenuItem Header="View Assignment Page" Click="MenuItemViewAssignmentPage_Click"></MenuItem>
+                    <MenuItem Header="CPT Codes" Click="MenuItemCPTCodes_Click"></MenuItem>
                 </ContextMenu>
             </ListView.ContextMenu>
             <ListView.View>
