@@ -5,7 +5,7 @@ using System.Text;
 
 namespace YellowstonePathology.Business.Test.AMLExtendedByFish
 {
-	public class AMLExtendedByFishTest : YellowstonePathology.Business.PanelSet.Model.PanelSet
+	public class AMLExtendedByFishTest : YellowstonePathology.Business.PanelSet.Model.FISHTest
 	{
         public AMLExtendedByFishTest()
 		{
@@ -37,6 +37,8 @@ namespace YellowstonePathology.Business.Test.AMLExtendedByFish
             this.m_ProfessionalComponentBillingFacility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMiscellaneous());
+
+            this.m_ProbeSetCount = 0;
 		}
 	}
 }

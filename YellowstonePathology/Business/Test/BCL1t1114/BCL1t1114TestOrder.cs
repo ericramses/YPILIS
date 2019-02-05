@@ -13,8 +13,9 @@ namespace YellowstonePathology.Business.Test.BCL1t1114
 		private string m_Interpretation;
 		private string m_Method;
 		private string m_ReportDisclaimer;
+        private string m_ProbeComment;
 
-		public BCL1t1114TestOrder()
+        public BCL1t1114TestOrder()
 		{
 		}
 
@@ -86,7 +87,21 @@ namespace YellowstonePathology.Business.Test.BCL1t1114
 			}
 		}
 
-		public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
+        [PersistentProperty()]
+        public string ProbeComment
+        {
+            get { return this.m_ProbeComment; }
+            set
+            {
+                if (this.m_ProbeComment != value)
+                {
+                    this.m_ProbeComment = value;
+                    this.NotifyPropertyChanged("ProbeComment");
+                }
+            }
+        }
+
+        public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
             StringBuilder result = new StringBuilder();
 

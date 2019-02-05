@@ -5,7 +5,7 @@ using System.Text;
 
 namespace YellowstonePathology.Business.Test.BCL1t1114
 {
-	public class BCL1t1114Test : YellowstonePathology.Business.PanelSet.Model.PanelSet
+	public class BCL1t1114Test : YellowstonePathology.Business.PanelSet.Model.FISHTest
 	{
         public BCL1t1114Test()
 		{
@@ -44,6 +44,8 @@ namespace YellowstonePathology.Business.Test.BCL1t1114
 
             Business.Panel.Model.HAndEPanel handePanel = new Panel.Model.HAndEPanel();
             this.m_PanelCollection.Add(handePanel);
+
+            this.m_ProbeSetCount = 1;
         }
     }
 }

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace YellowstonePathology.Business.Test.NonHodgkinsLymphomaFISHPanel
 {
-    public class NonHodgkinsLymphomaFISHPanelTest : YellowstonePathology.Business.PanelSet.Model.PanelSet
+    public class NonHodgkinsLymphomaFISHPanelTest : YellowstonePathology.Business.PanelSet.Model.FISHTest
     {
 		public NonHodgkinsLymphomaFISHPanelTest()
         {
@@ -45,6 +45,8 @@ namespace YellowstonePathology.Business.Test.NonHodgkinsLymphomaFISHPanel
 
             Business.Panel.Model.HAndEPanel handePanel = new Panel.Model.HAndEPanel();
             this.m_PanelCollection.Add(handePanel);
+
+            this.m_ProbeSetCount = 7;
         }        
     }
 }

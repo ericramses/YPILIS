@@ -5,7 +5,7 @@ using System.Text;
 
 namespace YellowstonePathology.Business.PanelSet.Model
 {
-	public class PanelSetMYC : PanelSet
+	public class PanelSetMYC : FISHTest
 	{
         public PanelSetMYC()
 		{
@@ -40,6 +40,8 @@ namespace YellowstonePathology.Business.PanelSet.Model
 
             Business.Panel.Model.HAndEPanel handePanel = new Panel.Model.HAndEPanel();
             this.m_PanelCollection.Add(handePanel);
+
+            this.m_ProbeSetCount = 2;
         }
     }
 }
