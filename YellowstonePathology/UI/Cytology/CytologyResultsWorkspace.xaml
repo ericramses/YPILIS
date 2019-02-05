@@ -200,11 +200,17 @@
 									<RowDefinition></RowDefinition>
 								</Grid.RowDefinitions>
 
-								<StackPanel Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center" Orientation="Horizontal">
-									<TextBlock Text="{Binding Path=PanelName}" Margin="2" FontWeight="Bold"/>
-									<TextBlock Margin="2" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold">Ordered:</TextBlock>
-									<TextBlock HorizontalAlignment="Stretch" Margin="2,2,2,2" Text="{Binding Path=OrderTime, Converter={StaticResource ShortDateTimeConverter}}"></TextBlock>
-								</StackPanel>
+								<StackPanel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Orientation="Horizontal">
+                                    <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+									    <TextBlock Text="{Binding Path=PanelName}" Margin="2" FontWeight="Bold"/>
+									    <TextBlock Margin="2" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold">Ordered:</TextBlock>
+                                        <TextBlock HorizontalAlignment="Stretch" Margin="2,2,2,2" Text="{Binding Path=OrderTime, Converter={StaticResource ShortDateTimeConverter}}"></TextBlock>
+                                    </StackPanel>
+                                    <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                                        <TextBlock Margin="2" VerticalAlignment="Center" HorizontalAlignment="Left" FontWeight="Bold">by:</TextBlock>
+                                        <TextBlock Text="{Binding Path=OrderedByInitials}" Margin="2" FontWeight="Bold"/>
+                                    </StackPanel>
+                                </StackPanel>
 							</Grid>
 						</Border>
 					</Expander.Header>
