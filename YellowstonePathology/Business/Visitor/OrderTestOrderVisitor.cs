@@ -193,7 +193,7 @@ namespace YellowstonePathology.Business.Visitor
             foreach (YellowstonePathology.Business.Panel.Model.Panel panel in this.m_PanelSet.PanelCollection)
             {
                 string panelOrderId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-                YellowstonePathology.Business.Test.PanelOrder panelOrder = YellowstonePathology.Business.Test.PanelOrderFactory.GetPanelOrder(this.m_ReportNo, panelOrderId, panelOrderId, panel, YellowstonePathology.Business.User.SystemIdentity.Instance.User.UserId);
+                YellowstonePathology.Business.Test.PanelOrder panelOrder = YellowstonePathology.Business.Test.PanelOrderFactory.GetPanelOrder(this.m_ReportNo, panelOrderId, panelOrderId, panel, YellowstonePathology.Business.User.SystemIdentity.Instance.User.UserId, YellowstonePathology.Business.User.SystemIdentity.Instance.User.Initials);
                 this.m_PanelSetOrder.PanelOrderCollection.Add(panelOrder);
 
                 if (panel.AcknowledgeOnOrder == true)
