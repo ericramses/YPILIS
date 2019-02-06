@@ -34,8 +34,8 @@ namespace YellowstonePathology.Business.Rules.Cytology
             thinPrepPapScreeningPanel.ScreeningType = this.m_ScreeningType;
 
             string panelOrderId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-            YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology panelOrderCytology = new YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology(this.m_PanelSetOrderCytology.ReportNo, panelOrderId, panelOrderId, thinPrepPapScreeningPanel, systemIdentity.User.UserId);
-            panelOrderCytology.FromExistingPanelOrder(this.m_InitiatingPanelOrder, this.m_ScreeningType, false, systemIdentity.User.UserId);
+            YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology panelOrderCytology = new YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology(this.m_PanelSetOrderCytology.ReportNo, panelOrderId, panelOrderId, thinPrepPapScreeningPanel, systemIdentity.User.UserId, systemIdentity.User.Initials);
+            panelOrderCytology.FromExistingPanelOrder(this.m_InitiatingPanelOrder, this.m_ScreeningType, false, systemIdentity.User.UserId, systemIdentity.User.Initials);
             this.m_PanelSetOrderCytology.PanelOrderCollection.Add(panelOrderCytology);
         }
 
