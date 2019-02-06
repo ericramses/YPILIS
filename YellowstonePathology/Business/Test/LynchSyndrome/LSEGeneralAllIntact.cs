@@ -32,7 +32,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
         public override void SetResults(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation)
         {
             panelSetOrderLynchSyndromeEvaluation.Result = LSERule.IHCAllIntactResult;
-            panelSetOrderLynchSyndromeEvaluation.Interpretation = LSEColonAllIntact.Interpretation;
+            panelSetOrderLynchSyndromeEvaluation.Interpretation = LSEGeneralAllIntact.Interpretation;
             panelSetOrderLynchSyndromeEvaluation.Method = IHCMethod;
             panelSetOrderLynchSyndromeEvaluation.ReportReferences = LSEGENReferences;
             panelSetOrderLynchSyndromeEvaluation.ReflexToBRAFMeth = false;
