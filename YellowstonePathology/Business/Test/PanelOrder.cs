@@ -39,7 +39,7 @@ namespace YellowstonePathology.Business.Test
 			this.m_TestOrderCollection = new YellowstonePathology.Business.Test.Model.TestOrderCollection();
 		}
 
-		public PanelOrder(string reportNo, string objectId, string panelOrderId, YellowstonePathology.Business.Panel.Model.Panel panel, int orderedById, string orderedByInitials)
+		public PanelOrder(string reportNo, string objectId, string panelOrderId, YellowstonePathology.Business.Panel.Model.Panel panel, int orderedById)
 		{
             this.m_ReportNo = reportNo;
 			this.m_ObjectId = objectId;
@@ -47,7 +47,7 @@ namespace YellowstonePathology.Business.Test
             this.m_PanelId = panel.PanelId;
             this.m_PanelName = panel.PanelName;
             this.m_OrderedById = orderedById;
-            this.m_OrderedByInitials = orderedByInitials;
+            //this.m_OrderedByInitials = orderedByInitials;
             this.m_OrderDate = DateTime.Today;
 			this.m_OrderTime = DateTime.Now;
             this.m_ResultCode = panel.ResultCode;
