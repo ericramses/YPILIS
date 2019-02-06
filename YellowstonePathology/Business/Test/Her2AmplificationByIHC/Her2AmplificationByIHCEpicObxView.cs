@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business.Test.Her2AmplificationByIHC
 		public override void ToXml(XElement document)
 		{
 			PanelSetOrderHer2AmplificationByIHC panelSetOrder = (PanelSetOrderHer2AmplificationByIHC)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
-			this.AddHeader(document, panelSetOrder, "FLT3 Mutation Analysis");
+			this.AddHeader(document, panelSetOrder, "HER2 Amplification by IHC");
 
 			this.AddNextObxElement("", document, "F");
 			string result = "Result: " + panelSetOrder.Result;
