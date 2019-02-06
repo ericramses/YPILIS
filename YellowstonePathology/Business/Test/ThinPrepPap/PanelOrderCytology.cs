@@ -34,8 +34,8 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 
 		}
 
-        public PanelOrderCytology(string reportNo, string objectId, string panelOrderId, YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapScreeningPanel thinPrepPapScreeningPanel, int orderedById)
-            : base(reportNo, objectId, panelOrderId, thinPrepPapScreeningPanel, orderedById)
+        public PanelOrderCytology(string reportNo, string objectId, string panelOrderId, YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapScreeningPanel thinPrepPapScreeningPanel, int orderedById, string orderedByInitials)
+            : base(reportNo, objectId, panelOrderId, thinPrepPapScreeningPanel, orderedById, orderedByInitials)
 		{
             this.m_ScreeningType = thinPrepPapScreeningPanel.ScreeningType;
             this.m_Accepted = false;
@@ -54,7 +54,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
             this.NotifyPropertyChanged(string.Empty);
 		}
 
-        public void FromExistingPanelOrder(YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology panelOrder, string screeningType, bool isQC, int orderingUserId) 
+        public void FromExistingPanelOrder(YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology panelOrder, string screeningType, bool isQC, int orderingUserId, string orderingUserInitials) 
         {
 			this.m_PanelOrderId = base.PanelOrderId;
             this.m_PanelId = 38;
@@ -66,6 +66,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
             this.m_AssignedToId = 0;
 
             this.m_OrderedById = orderingUserId;
+            this.m_OrderedByInitials = orderingUserInitials;
             this.m_OrderDate = DateTime.Today;
             this.m_OrderTime = DateTime.Now;
 
