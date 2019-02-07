@@ -143,6 +143,36 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationRecount
             }
         }
 
+        public Nullable<double> AverageHer2NeuSignal
+        {
+            get
+            {
+                Nullable<double> result = null;
+                if (Her2SignalsCounted > 0 && CellsCounted > 0)
+                {
+                    double dratio = (double)Her2SignalsCounted / (double)CellsCounted;
+                    result = Convert.ToDouble(Math.Round((dratio), 2));
+                }
+                return result;
+            }
+            set { }
+        }
+
+        public string AverageChr17Signal
+        {
+            get
+            {
+                string ratio = "Unable to calculate";
+                if (Chr17SignalsCounted > 0 && CellsCounted > 0)
+                {
+                    double dratio = (double)Chr17SignalsCounted / (double)CellsCounted;
+                    ratio = Convert.ToString(Math.Round((dratio), 2));
+                }
+                return ratio;
+            }
+            set { }
+        }
+
         public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
             StringBuilder result = new StringBuilder();

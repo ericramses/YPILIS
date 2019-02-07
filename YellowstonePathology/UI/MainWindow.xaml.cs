@@ -789,7 +789,13 @@ namespace YellowstonePathology.UI
         {
             TumerRegistryDistributionDialog tumorRegistryDistributionDialog = new TumerRegistryDistributionDialog();
             tumorRegistryDistributionDialog.ShowDialog();
-        }        
+        }
+
+        private void MenuItemDOHDailyDistribution_Click(object sender, RoutedEventArgs e)
+        {
+            DailyDOHDistributionDialog dlg = new DailyDOHDistributionDialog();
+            dlg.ShowDialog();
+        }
 
         private void MenuItemBillingReports_Click(object sender, RoutedEventArgs e)
         {

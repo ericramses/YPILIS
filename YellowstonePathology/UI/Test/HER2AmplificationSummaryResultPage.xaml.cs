@@ -1,17 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.ComponentModel;
 
 namespace YellowstonePathology.UI.Test
@@ -151,6 +139,13 @@ namespace YellowstonePathology.UI.Test
             {
                 MessageBox.Show(methodResult.Message);
             }
+        }
+
+        private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
+        {
+                YellowstonePathology.Business.Test.HER2AmplificationSummary.HER2AmplificationSummaryWordDocument report = new YellowstonePathology.Business.Test.HER2AmplificationSummary.HER2AmplificationSummaryWordDocument(this.m_AccessionOrder, this.m_PanelSetOrder, Business.Document.ReportSaveModeEnum.Draft);
+                report.Render();
+                YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(report.SaveFileName);
         }
 
         private void HyperLinkAcceptResults_Click(object sender, RoutedEventArgs e)
