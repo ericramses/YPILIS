@@ -80,7 +80,8 @@
         			
 			    <MenuItem Header="_Distribution" Name="MenuItemDistribution">
 				    <MenuItem Name="MenuItemReportDistributionMonitor" Header="Distribution Monitor" Click="MenuItemReportDistributionMonitor_Click"></MenuItem>                    
-                    <MenuItem Name="MenuItemTumorRegistryDistribution" Header="Tumor Registry Distribution" Click="MenuItemTumorRegistryDistribution_Click"></MenuItem>                
+                    <MenuItem Name="MenuItemTumorRegistryDistribution" Header="Tumor Registry Distribution" Click="MenuItemTumorRegistryDistribution_Click"></MenuItem>
+                    <MenuItem Name="MenuItemDOHDailyDistribution" Header="DOH Daily Distribution" Click="MenuItemDOHDailyDistribution_Click"></MenuItem>
                 </MenuItem>
         
 			    <MenuItem Header="_Admin" Name="MenuItemAdmin">				
