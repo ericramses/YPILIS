@@ -77,7 +77,7 @@ namespace YellowstonePathology.Business.Rules
 				{
 					this.m_FieldEnabler.IsProtectedEnabled = true;
 					this.m_FieldEnabler.IsUnprotectedEnabled = true;
-					this.m_FieldEnabler.IsSignatureButtonEnabled = false;
+					this.m_FieldEnabler.IsSignatureButtonEnabled = true;
 					break;
 				}
 			}
