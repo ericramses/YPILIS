@@ -17,16 +17,6 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
 
         public override void Render()
         {
-            bool hasRecount = false;
-            HER2AmplificationRecount.HER2AmplificationRecountTestOrder recountTestOrder = null;
-            HER2AmplificationRecount.HER2AmplificationRecountTest recountTest = new HER2AmplificationRecount.HER2AmplificationRecountTest();
-            if(this.m_AccessionOrder.PanelSetOrderCollection.Exists(recountTest.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true) == true)
-            {
-                hasRecount = true;
-                recountTestOrder = (HER2AmplificationRecount.HER2AmplificationRecountTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(recountTest.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true);
-            }
-
-
             HER2AmplificationByISH.HER2AmplificationByISHTest ishTest = new HER2AmplificationByISH.HER2AmplificationByISHTest();
             HER2AmplificationByISH.HER2AmplificationByISHTestOrder panelSetOrderHer2ByIsh = (HER2AmplificationByISH.HER2AmplificationByISHTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(ishTest.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true);
 
@@ -34,7 +24,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
             {
                 if (this.m_AccessionOrder.AccessionDate >= DateTime.Parse("1/1/2014") == true)
                 {
-                    this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\Her2AmplificationByISH.Breast.3.xml";
+                    this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\Her2AmplificationSummary.Breast.xml";
                 }
                 else
                 {
@@ -72,9 +62,9 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
 
                 string result = panelSetOrderHer2ByIsh.Result;
                 if (result == null) result = string.Empty;
-                if (result == "NEGATIVE")
+                if (result.ToUpper() == "NEGATIVE")
                 {
-                    result += " (SEE COMMENT)";
+                    result += " (see comment)";
                 }
                 this.SetXmlNodeData("test_result", result);
 
@@ -98,52 +88,68 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
                         panelSetOrderHer2AmplificationByIHC.ReportNo + ")");
                 }
 
-                if (hasRecount == true)
+                this.SetXmlNodeData("ish_cells_counted", panelSetOrderHer2ByIsh.CellsCounted.ToString());
+                this.SetXmlNodeData("ish_her2_counted", panelSetOrderHer2ByIsh.TotalHer2SignalsCounted.ToString());
+                this.SetXmlNodeData("ish_chr17_counted", panelSetOrderHer2ByIsh.TotalChr17SignalsCounted.ToString());
+
+                HER2AmplificationRecount.HER2AmplificationRecountTestOrder recountTestOrder = null;
+                HER2AmplificationRecount.HER2AmplificationRecountTest recountTest = new HER2AmplificationRecount.HER2AmplificationRecountTest();
+                if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(recountTest.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true) == true)
                 {
-                    this.SetRecountValues(recountTestOrder);
+                    recountTestOrder = (HER2AmplificationRecount.HER2AmplificationRecountTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(recountTest.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true);
+                    this.SetXmlNodeData("re_cells_counted", recountTestOrder.CellsCounted.ToString());
+                    this.SetXmlNodeData("re_her2_counted", recountTestOrder.Her2SignalsCounted.ToString());
+                    this.SetXmlNodeData("re_chr17_counted", recountTestOrder.Chr17SignalsCounted.ToString());
+
                 }
                 else
                 {
-                    if (panelSetOrderHer2ByIsh.Her2Chr17Ratio.HasValue == true)
-                    {
-                        this.SetXmlNodeData("test_ratio", "HER2/Chr17 Ratio = " + panelSetOrderHer2ByIsh.AverageHer2Chr17Signal);
-                    }
-                    else
-                    {
-                        this.DeleteRow("test_ratio");
-                    }
-
-                    if (panelSetOrderHer2ByIsh.AverageHer2NeuSignal.HasValue == true)
-                    {
-                        this.SetXmlNodeData("copy_number", "Average HER2 Copy Number = " + panelSetOrderHer2ByIsh.AverageHer2NeuSignal.Value.ToString());
-                    }
-                    else
-                    {
-                        this.DeleteRow("copy_number");
-                    }
-
-                    this.SetXmlNodeData("cell_cnt", panelSetOrderHer2ByIsh.CellsCounted.ToString());
-
-                    if (panelSetOrderHer2ByIsh.AverageHer2NeuSignal.HasValue == true)
-                    {
-                        this.SetXmlNodeData("avg_her", panelSetOrderHer2ByIsh.AverageHer2NeuSignal.Value.ToString());
-                    }
-                    else
-                    {
-                        this.SetXmlNodeData("avg_her", "Unable to calculate");
-                    }
-
-                    this.SetXmlNodeData("avg_chr", panelSetOrderHer2ByIsh.AverageChr17Signal);
-
-                    if (panelSetOrderHer2ByIsh.Her2Chr17Ratio.HasValue == true)
-                    {
-                        this.SetXmlNodeData("tst_ratio", panelSetOrderHer2ByIsh.Her2Chr17Ratio.Value.ToString());
-                    }
-                    else
-                    {
-                        this.SetXmlNodeData("tst_ratio", "Unable to calculate");
-                    }
+                    this.DeleteRow("Recount");
+                    this.DeleteRow("re_cells_counted");
+                    this.DeleteRow("re_her2_counted");
+                    this.DeleteRow("re_chr17_counted");
                 }
+
+                if (panelSetOrderHer2ByIsh.Her2Chr17Ratio.HasValue == true)
+                {
+                    this.SetXmlNodeData("test_ratio", "HER2/Chr17 Ratio = " + panelSetOrderHer2ByIsh.AverageHer2Chr17Signal);
+                }
+                else
+                {
+                    this.DeleteRow("test_ratio");
+                }
+
+                if (panelSetOrderHer2ByIsh.AverageHer2NeuSignal.HasValue == true)
+                {
+                    this.SetXmlNodeData("copy_number", "Average HER2 Copy Number = " + panelSetOrderHer2ByIsh.AverageHer2NeuSignal.Value.ToString());
+                }
+                else
+                {
+                    this.DeleteRow("copy_number");
+                }
+
+                this.SetXmlNodeData("cell_cnt", panelSetOrderHer2ByIsh.CellsCounted.ToString());
+
+                if (panelSetOrderHer2ByIsh.AverageHer2NeuSignal.HasValue == true)
+                {
+                    this.SetXmlNodeData("avg_her", panelSetOrderHer2ByIsh.AverageHer2NeuSignal.Value.ToString());
+                }
+                else
+                {
+                    this.SetXmlNodeData("avg_her", "Unable to calculate");
+                }
+
+                this.SetXmlNodeData("avg_chr", panelSetOrderHer2ByIsh.AverageChr17Signal);
+
+                if (panelSetOrderHer2ByIsh.Her2Chr17Ratio.HasValue == true)
+                {
+                    this.SetXmlNodeData("tst_ratio", panelSetOrderHer2ByIsh.Her2Chr17Ratio.Value.ToString());
+                }
+                else
+                {
+                    this.SetXmlNodeData("tst_ratio", "Unable to calculate");
+                }
+
                 this.SetXmlNodeData("obs_cnt", panelSetOrderHer2ByIsh.NumberOfObservers.ToString());
 
                 this.SetXmlNodeData("final_date", YellowstonePathology.Business.BaseData.GetShortDateString(this.m_PanelSetOrder.FinalDate));
@@ -151,10 +157,12 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
                 if (string.IsNullOrEmpty(panelSetOrderHer2ByIsh.ResultComment) == false)
                 {
                     this.SetXmlNodeData("result_comment", panelSetOrderHer2ByIsh.ResultComment);
+                    this.SetXmlNodeData("comment_up", string.Empty);
                 }
                 else
                 {
                     this.DeleteRow("result_comment");
+                    this.DeleteRow("comment_up");
                 }
 
                 XmlNode tableNode = this.m_ReportXml.SelectSingleNode("descendant::w:tbl[w:tr/w:tc/w:p/w:r/w:t='report_interpretation']", this.m_NameSpaceManager);
@@ -207,48 +215,6 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
             }
 
             this.SaveReport();
-        }
-
-        private void SetRecountValues(HER2AmplificationRecount.HER2AmplificationRecountTestOrder recountTestOrder)
-        {
-            if (recountTestOrder.AverageHer2Chr17SignalAsDouble.HasValue == true)
-            {
-                this.SetXmlNodeData("test_ratio", "HER2/Chr17 Ratio = " + recountTestOrder.AverageHer2Chr17Signal);
-            }
-            else
-            {
-                this.DeleteRow("test_ratio");
-            }
-
-            if (recountTestOrder.AverageHer2NeuSignal.HasValue == true)
-            {
-                this.SetXmlNodeData("copy_number", "Average HER2 Copy Number = " + recountTestOrder.AverageHer2NeuSignal.Value.ToString());
-            }
-            else
-            {
-                this.DeleteRow("copy_number");
-            }
-            this.SetXmlNodeData("cell_cnt", recountTestOrder.CellsCounted.ToString());
-
-            if (recountTestOrder.AverageHer2NeuSignal.HasValue == true)
-            {
-                this.SetXmlNodeData("avg_her", recountTestOrder.AverageHer2NeuSignal.Value.ToString());
-            }
-            else
-            {
-                this.SetXmlNodeData("avg_her", "Unable to calculate");
-            }
-
-            this.SetXmlNodeData("avg_chr", recountTestOrder.AverageChr17Signal);
-
-            if (recountTestOrder.AverageHer2Chr17SignalAsDouble.HasValue == true)
-            {
-                this.SetXmlNodeData("tst_ratio", recountTestOrder.AverageHer2Chr17Signal);
-            }
-            else
-            {
-                this.SetXmlNodeData("tst_ratio", "Unable to calculate");
-            }
         }
 
         public override void Publish()
