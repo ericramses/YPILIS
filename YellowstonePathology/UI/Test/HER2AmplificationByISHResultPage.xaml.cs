@@ -217,7 +217,7 @@ namespace YellowstonePathology.UI.Test
                 MessageBoxResult result = MessageBox.Show(auditResult.Message, "Order Test", MessageBoxButton.YesNo, MessageBoxImage.Information, MessageBoxResult.Yes);
                 if (result == MessageBoxResult.Yes)
                 {
-                    this.OrderHER2IHC(this, new EventArgs());
+                    this.OrderIHCOnOk();
                 }
             }
             else if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.Failure)

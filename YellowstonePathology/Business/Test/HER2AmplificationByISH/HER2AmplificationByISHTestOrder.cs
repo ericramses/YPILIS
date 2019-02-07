@@ -52,7 +52,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 		{
         }
 
-    public HER2AmplificationByISHTestOrder(string masterAccessionNo, string reportNo, string objectId,
+        public HER2AmplificationByISHTestOrder(string masterAccessionNo, string reportNo, string objectId,
 			YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
 			YellowstonePathology.Business.Interface.IOrderTarget orderTarget,
 			bool distribute)
