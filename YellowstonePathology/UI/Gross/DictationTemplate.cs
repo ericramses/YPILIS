@@ -122,96 +122,98 @@ namespace YellowstonePathology.UI.Gross
         public string BuildResultText(YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder, YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             string result = this.m_Text;
-            if(result.Contains("[identifier]") == true)
-            {
-                result = this.ReplaceIdentifier(result, specimenOrder, accessionOrder);
-            }
-            if(result.Contains("[identifiernodescription]") == true)
-            {
-                result = this.ReplaceIdentifierNoDescription(this.m_Text, specimenOrder, accessionOrder);
-            }
-            if (result.Contains("[cassettelabel]") == true)
-            {
-                result = this.ReplaceCassetteLabel(result, specimenOrder);
-            }
-            if (result.Contains("[cassettesummary]") == true)
-            {
-                result = this.ReplaceCassetteSummary(result, specimenOrder);
-            }
-            if (result.Contains("[representativesectionsagerestricted]") == true)
-            {
-                result = this.ReplaceRepresentativeSectionsAgeRestricted(result, specimenOrder, accessionOrder);
-            }
-            if (result.Contains("[representativesections]") == true)
-            {
-                result = this.ReplaceRepresentativeSections(result, specimenOrder);
-            }
-            if (result.Contains("[submitted]") == true)
-            {
-                result = this.ReplaceSubmitted(result, specimenOrder);
-            }
-            if (result.Contains("[tipssubmitted]") == true)
-            {
-                result = this.ReplaceTipsSubmitted(result, specimenOrder);
-            }
-            if (result.Contains("[tipssubmittedwithcurettings]") == true)
-            {
-                result = this.ReplaceTipsSubmittedWithCurettings(result, specimenOrder);
-            }
-            if (result.Contains("[curettingssubmitted]") == true)
-            {
-                result = this.ReplaceCurettingsSubmitted(result, specimenOrder);
-            }
-            if (result.Contains("[summarysubmission]") == true)
-            {
-                result = this.ReplaceSummarySubmission(result, specimenOrder);
-            }
-            if (result.Contains("[Specimen]") == true)
-            {
-                result = this.ReplaceSpecimen(result, specimenOrder);
-            }
-            if (result.Contains("[patientname]") == true)
-            {
-                result = this.ReplacePatientName(result, accessionOrder);
-            }
-            if (result.Contains("[cellblock]") == true)
-            {
-                result = this.ReplaceCellBlock(result, specimenOrder);
-            }
-            if (result.Contains("[physicianname]") == true)
-            {
-                result = this.ReplacePhysicianName(result, accessionOrder);
-            }
-            if(result.Contains("[clientaccession]") == true)
-            {
-                result = this.ReplaceClientAccession(result, accessionOrder);
-            }
-            if (result.Contains("[blockcount]") == true)
-            {
-                result = this.ReplaceBlockCount(result, specimenOrder);
-            }
-            if (result.Contains("[slidecount]") == true)
-            {
-                result = this.ReplaceSlideCount(result, specimenOrder);
-            }
-            if (result.Contains("[clientaccessionedslidecount]") == true)
-            {
-                result = this.ReplaceClientAccessionedSlideCount(result, specimenOrder);
-            }
-            if (result.Contains("[clientname]") || result.Contains("[clientcitystate]") == true)
-            {
-                result = this.ReplaceClientNameAddress(result, accessionOrder);
-            }
-            if(result.Contains("tonsils") == true)
-            {
-                result = this.ReplaceTonsils(result, accessionOrder, specimenOrder);
-            }
+            if (string.IsNullOrEmpty(result) == false)
+            {                
+                if (result.Contains("[identifier]") == true)
+                {
+                    result = this.ReplaceIdentifier(result, specimenOrder, accessionOrder);
+                }
+                if (result.Contains("[identifiernodescription]") == true)
+                {
+                    result = this.ReplaceIdentifierNoDescription(this.m_Text, specimenOrder, accessionOrder);
+                }
+                if (result.Contains("[cassettelabel]") == true)
+                {
+                    result = this.ReplaceCassetteLabel(result, specimenOrder);
+                }
+                if (result.Contains("[cassettesummary]") == true)
+                {
+                    result = this.ReplaceCassetteSummary(result, specimenOrder);
+                }
+                if (result.Contains("[representativesectionsagerestricted]") == true)
+                {
+                    result = this.ReplaceRepresentativeSectionsAgeRestricted(result, specimenOrder, accessionOrder);
+                }
+                if (result.Contains("[representativesections]") == true)
+                {
+                    result = this.ReplaceRepresentativeSections(result, specimenOrder);
+                }
+                if (result.Contains("[submitted]") == true)
+                {
+                    result = this.ReplaceSubmitted(result, specimenOrder);
+                }
+                if (result.Contains("[tipssubmitted]") == true)
+                {
+                    result = this.ReplaceTipsSubmitted(result, specimenOrder);
+                }
+                if (result.Contains("[tipssubmittedwithcurettings]") == true)
+                {
+                    result = this.ReplaceTipsSubmittedWithCurettings(result, specimenOrder);
+                }
+                if (result.Contains("[curettingssubmitted]") == true)
+                {
+                    result = this.ReplaceCurettingsSubmitted(result, specimenOrder);
+                }
+                if (result.Contains("[summarysubmission]") == true)
+                {
+                    result = this.ReplaceSummarySubmission(result, specimenOrder);
+                }
+                if (result.Contains("[Specimen]") == true)
+                {
+                    result = this.ReplaceSpecimen(result, specimenOrder);
+                }
+                if (result.Contains("[patientname]") == true)
+                {
+                    result = this.ReplacePatientName(result, accessionOrder);
+                }
+                if (result.Contains("[cellblock]") == true)
+                {
+                    result = this.ReplaceCellBlock(result, specimenOrder);
+                }
+                if (result.Contains("[physicianname]") == true)
+                {
+                    result = this.ReplacePhysicianName(result, accessionOrder);
+                }
+                if (result.Contains("[clientaccession]") == true)
+                {
+                    result = this.ReplaceClientAccession(result, accessionOrder);
+                }
+                if (result.Contains("[blockcount]") == true)
+                {
+                    result = this.ReplaceBlockCount(result, specimenOrder);
+                }
+                if (result.Contains("[slidecount]") == true)
+                {
+                    result = this.ReplaceSlideCount(result, specimenOrder);
+                }
+                if (result.Contains("[clientaccessionedslidecount]") == true)
+                {
+                    result = this.ReplaceClientAccessionedSlideCount(result, specimenOrder);
+                }
+                if (result.Contains("[clientname]") || result.Contains("[clientcitystate]") == true)
+                {
+                    result = this.ReplaceClientNameAddress(result, accessionOrder);
+                }
+                if (result.Contains("tonsils") == true)
+                {
+                    result = this.ReplaceTonsils(result, accessionOrder, specimenOrder);
+                }
 
-            if (this.m_UseAppendInitials == true)
-            {
-                result = this.AppendInitials(result, specimenOrder, accessionOrder, systemIdentity);
-            }
-
+                if (this.m_UseAppendInitials == true)
+                {
+                    result = this.AppendInitials(result, specimenOrder, accessionOrder, systemIdentity);
+                }
+            }            
             return result;            
         }
 

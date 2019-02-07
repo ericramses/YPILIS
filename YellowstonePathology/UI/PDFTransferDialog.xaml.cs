@@ -26,6 +26,7 @@ namespace YellowstonePathology.UI
         public event PropertyChangedEventHandler PropertyChanged;
 
         private static string NEO_FILE_PATH = @"\\ypiiinterface1\ChannelData\Incoming\Neogenomics";
+        private static string COPIER_MISC_FILE_PATH = @"\\cfileserver\documents\scanning\misc";
 
         private Business.Test.AccessionOrder m_AccessionOrder;
         private List<string> m_Files;
@@ -34,8 +35,7 @@ namespace YellowstonePathology.UI
         private Login.Receiving.LoginPageWindow m_LoginPageWindow;
 
         public PDFTransferDialog()
-        {            
-            this.m_Files = System.IO.Directory.GetFiles(NEO_FILE_PATH, "*.pdf").ToList<string>();
+        {                        
             InitializeComponent();
             this.DataContext = this;
         }
@@ -88,6 +88,9 @@ namespace YellowstonePathology.UI
 
         private void ListViewFiles_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            this.m_AccessionOrder = null;
+            this.m_CaseDocuments = null;
+
             if (this.ListViewFiles.SelectedItem != null)
             {
                 string pdfFilePath = (string)this.ListViewFiles.SelectedItem;
@@ -106,13 +109,12 @@ namespace YellowstonePathology.UI
                         
                         Business.OrderIdParser orderIdParser = new Business.OrderIdParser(masterAccessionNo);
                         string casePath = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser);
-                        this.m_CaseDocuments = System.IO.Directory.GetFiles(casePath).ToList<string>();
-
-                        this.NotifyPropertyChanged("AccessionOrder");
-                        this.NotifyPropertyChanged("CaseDocuments");
+                        this.m_CaseDocuments = System.IO.Directory.GetFiles(casePath).ToList<string>();                        
                     }                    
                 }                               
             }
+            this.NotifyPropertyChanged("AccessionOrder");
+            this.NotifyPropertyChanged("CaseDocuments");
         }
 
         private void MenuItemOpenPDF_Click(object sender, RoutedEventArgs e)
@@ -159,6 +161,7 @@ namespace YellowstonePathology.UI
                     }
 
                     this.m_CaseDocuments = System.IO.Directory.GetFiles(casePath).ToList<string>();
+                    MessageBox.Show("The pdf has been linked to this case.");
                 }
                 else
                 {
@@ -299,6 +302,36 @@ namespace YellowstonePathology.UI
                 UI.Login.FinalizeAccession.AssignmentPath assignmentPath = new UI.Login.FinalizeAccession.AssignmentPath(this.m_AccessionOrder);
                 assignmentPath.Start();
             }
+        }
+
+        private void HyperLinkFindAccessionOrder_Click(object sender, RoutedEventArgs e)
+        {
+            string masterAccessionNo = this.TextBoxMasterAccession.Text;
+            if(string.IsNullOrEmpty(masterAccessionNo) == false)
+            {
+                this.m_AccessionOrder = null;
+                this.m_CaseDocuments = null;
+
+                this.m_AccessionOrder = Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this);
+                Business.OrderIdParser orderIdParser = new Business.OrderIdParser(masterAccessionNo);
+                string casePath = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser);
+                this.m_CaseDocuments = System.IO.Directory.GetFiles(casePath).ToList<string>();
+
+                this.NotifyPropertyChanged("AccessionOrder");
+                this.NotifyPropertyChanged("CaseDocuments");
+            }            
+        }
+
+        private void HyperLinkNeoResultFolder_Click(object sender, RoutedEventArgs e)
+        {
+            this.m_Files = System.IO.Directory.GetFiles(NEO_FILE_PATH, "*.pdf").ToList<string>();
+            this.NotifyPropertyChanged("Files");
+        }
+
+        private void HyperLinkMiscFolder_Click(object sender, RoutedEventArgs e)
+        {
+            this.m_Files = System.IO.Directory.GetFiles(COPIER_MISC_FILE_PATH, "*.pdf").ToList<string>();
+            this.NotifyPropertyChanged("Files");
         }
     }
 }

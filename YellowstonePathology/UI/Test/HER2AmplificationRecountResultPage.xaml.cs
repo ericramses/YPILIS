@@ -80,7 +80,7 @@ namespace YellowstonePathology.UI.Test
         private void HyperLinkFinalizeResults_Click(object sender, RoutedEventArgs e)
         {
             Business.Rules.MethodResult result = this.m_PanelSetOrder.IsOkToFinalize();
-            if (result.Success == false)
+            if (result.Success == true)
             {
                 YellowstonePathology.Business.Test.FinalizeTestResult finalizeTestResult = this.m_PanelSetOrder.Finish(this.m_AccessionOrder);
                 this.HandleFinalizeTestResult(finalizeTestResult);

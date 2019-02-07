@@ -16,6 +16,7 @@ namespace YellowstonePathology.Business.Domain
 		private string m_Description;
 		private Nullable<DateTime> m_OrderTime;
 		private string m_ProcedureComment;
+        private string m_Comment;
 
 		public OrderLogItem()
 		{
@@ -62,5 +63,12 @@ namespace YellowstonePathology.Business.Domain
 			get { return this.m_ProcedureComment; }
 			set { this.m_ProcedureComment = value; }
 		}
-	}
+
+        [PersistentProperty()]
+        public string Comment
+        {
+            get { return this.m_Comment; }
+            set { this.m_Comment = value; }
+        }
+    }
 }

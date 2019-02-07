@@ -64,6 +64,14 @@ namespace YellowstonePathology.Business.Reports
 				string procedure = orderLogItem.TestName;
 				string block = orderLogItem.Description;
 				string comment = orderLogItem.ProcedureComment;
+                if(string.IsNullOrEmpty(orderLogItem.Comment) == false)
+                {
+                    if (string.IsNullOrEmpty(comment) == false)
+                    {
+                        comment = comment + ", ";
+                    }                    
+                    comment += orderLogItem.Comment;                    
+                }
 
 				XmlNode nodeNewR1 = nodeTemplateR1.Clone();
 				this.ReplaceTextInRowNode(nodeNewR1, "accession_no", reportNo);

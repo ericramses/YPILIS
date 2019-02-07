@@ -12,12 +12,22 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
-        
-        <ListView Name="ListViewFiles" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" ItemsSource="{Binding Path=Files}" SelectionChanged="ListViewFiles_SelectionChanged" Margin="2,2,2,2">
+
+        <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
+            <TextBlock Margin="5,5,5,5">                    
+                <Hyperlink Click="HyperLinkNeoResultFolder_Click">NEO Genomics Result Folder</Hyperlink>
+            </TextBlock>
+            <TextBlock Margin="5,5,5,5">                    
+                <Hyperlink Click="HyperLinkMiscFolder_Click">Copier Misc Folder</Hyperlink>
+            </TextBlock>
+        </StackPanel>
+
+        <ListView Name="ListViewFiles" Grid.Column="0" Grid.Row="1" Grid.RowSpan="3" ItemsSource="{Binding Path=Files}" SelectionChanged="ListViewFiles_SelectionChanged" Margin="2,2,2,2">
             <ListView.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Open PDF" Click="MenuItemOpenPDF_Click"></MenuItem>
@@ -32,7 +42,15 @@
             </ListView.View>
         </ListView>
 
-        <ListView Name="ListViewPanelSetOrders" Grid.Column="1" Grid.Row="0" ItemsSource="{Binding Path=AccessionOrder.PanelSetOrderCollection}" Margin="2,2,2,2">
+        <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal">
+            <TextBlock>Master AccessionNo:</TextBlock>
+            <TextBox Width="100" Name="TextBoxMasterAccession" Margin="2,2,2,2"></TextBox>
+            <TextBlock Grid.Column="0" Grid.Row="3" Margin="2,2,2,2">                    
+                <Hyperlink Click="HyperLinkFindAccessionOrder_Click">Find Accession Order</Hyperlink>
+            </TextBlock>
+        </StackPanel>
+        
+        <ListView Name="ListViewPanelSetOrders" Grid.Column="1" Grid.Row="1" ItemsSource="{Binding Path=AccessionOrder.PanelSetOrderCollection}" Margin="2,2,2,2">
             <ListView.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Link PDF To This Order" Click="MenuItemLinkPDF_Click"></MenuItem>
@@ -49,7 +67,7 @@
             </ListView.View>
         </ListView>
 
-        <ListView Name="ListViewCaseDocuments" Grid.Column="1" Grid.Row="1" ItemsSource="{Binding Path=CaseDocuments}" Margin="2,2,2,2">
+        <ListView Name="ListViewCaseDocuments" Grid.Column="1" Grid.Row="2" ItemsSource="{Binding Path=CaseDocuments}" Margin="2,2,2,2">
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=.}" Header="File Name" Width="600"/>
@@ -57,8 +75,8 @@
             </ListView.View>
         </ListView>
 
-        <TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2">                    
-                    <Hyperlink Click="HyperLinkOpenFolder_Click">Open Folder</Hyperlink>
+        <TextBlock Grid.Column="0" Grid.Row="3" Margin="2,2,2,2">                    
+            <Hyperlink Click="HyperLinkOpenFolder_Click">Open Folder</Hyperlink>
         </TextBlock>
     </Grid>
 </Window>
