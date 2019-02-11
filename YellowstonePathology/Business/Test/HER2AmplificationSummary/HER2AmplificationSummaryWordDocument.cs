@@ -64,7 +64,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
                 if (result == null) result = string.Empty;
                 if (result.ToUpper() == "NEGATIVE")
                 {
-                    result += " (see comment)";
+                    result += " (see interpretation)";
                 }
                 this.SetXmlNodeData("test_result", result);
 

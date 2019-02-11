@@ -35,9 +35,12 @@ namespace YellowstonePathology.Business.Audit.Model
 
                 foreach (YellowstonePathology.Business.SpecialStain.StainResultItem stainResultItem in specimen.StainResultItemCollection)
                 {
-                    if (string.IsNullOrEmpty(stainResultItem.ControlComment) == false && stainResultItem.ControlComment.Contains("???") == true) this.m_Message.Append(stainResultItem.ProcedureName + " control comment, ");
-                    if (string.IsNullOrEmpty(stainResultItem.ReportComment) == false && stainResultItem.ReportComment.Contains("???") == true) this.m_Message.Append(stainResultItem.ProcedureName + " report comment, ");
-                    if (string.IsNullOrEmpty(stainResultItem.Result) == true || stainResultItem.Result.Contains("???") == true) this.m_Message.Append(stainResultItem.ProcedureName + " result, ");
+                    if(stainResultItem.ClientAccessioned == false)
+                    {
+                        if (string.IsNullOrEmpty(stainResultItem.ControlComment) == false && stainResultItem.ControlComment.Contains("???") == true) this.m_Message.Append(stainResultItem.ProcedureName + " control comment, ");
+                        if (string.IsNullOrEmpty(stainResultItem.ReportComment) == false && stainResultItem.ReportComment.Contains("???") == true) this.m_Message.Append(stainResultItem.ProcedureName + " report comment, ");
+                        if (string.IsNullOrEmpty(stainResultItem.Result) == true || stainResultItem.Result.Contains("???") == true) this.m_Message.Append(stainResultItem.ProcedureName + " result, ");
+                    }
                 }
                 foreach (YellowstonePathology.Business.Test.Surgical.IntraoperativeConsultationResult intraoperativeConsultation in specimen.IntraoperativeConsultationResultCollection)
                 {

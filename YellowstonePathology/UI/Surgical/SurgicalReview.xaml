@@ -415,7 +415,7 @@
 				<RowDefinition Height="*"></RowDefinition>
 			</Grid.RowDefinitions>
 			<ToolBarTray Grid.Column="0" Grid.Row="0" Background="Gainsboro">
-                <ToolBar Grid.Column="0" Grid.Row="0" IsEnabled="{Binding Path=FieldEnabler.IsProtectedEnabled}">
+                <ToolBar Grid.Column="0" Grid.Row="0">
 					<Button Click="ButtonAddAmendment_Click" ToolTip="Add Admendment" IsEnabled="True">
 						<StackPanel Orientation="Horizontal">
 							<Image Source="/Resources/Amendments.ico" Margin="2" Height="16"></Image>
@@ -423,14 +423,14 @@
 						</StackPanel>
 					</Button>
 
-					<Button Click="ButtonSetAncillaryStudiesCommentsToGood_Click" ToolTip="Set Stain Comments to Good">
+                    <Button Click="ButtonSetAncillaryStudiesCommentsToGood_Click" ToolTip="Set Stain Comments to Good">
 						<StackPanel Orientation="Horizontal">
 							<Image Source="/Resources/CommittedToGood.ico" Margin="2" Height="16"></Image>
 							<TextBlock VerticalAlignment="Center" Margin="2" Text="Good"></TextBlock>
 						</StackPanel>
 					</Button>
 
-					<Button Click="ButtonCancerCaseSummary_Click" ToolTip="Cancer Summary">
+                    <Button Click="ButtonCancerCaseSummary_Click" ToolTip="Cancer Summary">
 						<StackPanel Orientation="Horizontal">
 							<Image Source="/Resources/CancerCase.ico" Margin="2" Height="16"></Image>
 							<TextBlock VerticalAlignment="Center" Margin="2" Text="Cancer"></TextBlock>
@@ -534,7 +534,7 @@
 						
 						<TextBox Name="TextBoxCancerSummary" TextWrapping="Wrap" AcceptsReturn="True" FontSize="12" MinWidth="500" RequestBringIntoView="Any_RequestBringIntoView"
 							Text="{Binding Path=PanelSetOrderSurgical.CancerSummary, UpdateSourceTrigger=PropertyChanged}"							
-							IsEnabled="{Binding Path=FieldEnabler.IsUnprotectedEnabled}" KeyUp="TextBox_KeyUp">
+							IsEnabled="{Binding Path=FieldEnabler.IsProtectedEnabled}" KeyUp="TextBox_KeyUp">
 						</TextBox>
 					</StackPanel>
 

@@ -78,7 +78,7 @@ namespace YellowstonePathology.Business.Gateway
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "SELECT pso.MasterAccessionNo, pso.ReportNo, ao.AccessionTime AccessionDate,  pso.PanelSetId, " +
                 "concat(ao.PFirstName, ' ', ao.PLastName) AS PatientName, " +
-                "ao.PLastName, ao.PFirstName, ao.ClientName, ao.PhysicianName, ao.PBirthdate, pso.FinalDate, pso.PanelSetName, su.UserName as OrderedBy, " +
+                "ao.PLastName, ao.PFirstName, ao.ClientName, ao.PhysicianName, ao.PBirthdate, pso.FinalTime FinalDate, pso.PanelSetName, su.UserName as OrderedBy, " +
                 "'' ForeignAccessionNo, pso.IsPosted " +
                 "from tblAccessionOrder ao " +
                 "join tblPanelSetOrder pso on ao.MasterAccessionNo = pso.MasterAccessionNo " +
