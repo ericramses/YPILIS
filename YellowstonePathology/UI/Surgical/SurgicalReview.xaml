@@ -163,9 +163,11 @@
                 <TextBox  Grid.Column="4" Margin="2,2,2,2" Width="100" VerticalAlignment="Center" Text="{Binding Path=ProcedureComment, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch"
 						 IsEnabled="{Binding ElementName=SurgicalReviewControl, Path=DataContext.FieldEnabler.IsProtectedEnabled}"></TextBox>
                                 
-                <CheckBox Grid.Column="5" Margin="2,2,2,2" VerticalAlignment="Center" IsChecked="{Binding Path=NoCharge}" ToolTip="No Charge"></CheckBox>
+                <CheckBox Grid.Column="5" Margin="2,2,2,2" VerticalAlignment="Center" IsChecked="{Binding Path=NoCharge}" ToolTip="No Charge"
+                          IsEnabled="{Binding ElementName=SurgicalReviewControl, Path=DataContext.FieldEnabler.IsProtectedEnabled}"></CheckBox>
 
-                <CheckBox Grid.Column="6" Margin="2,2,2,2" VerticalAlignment="Center" IsChecked="{Binding Path=IsGraded}" ToolTip="Graded"></CheckBox>
+                <CheckBox Grid.Column="6" Margin="2,2,2,2" VerticalAlignment="Center" IsChecked="{Binding Path=IsGraded}" ToolTip="Graded"
+                          IsEnabled="{Binding ElementName=SurgicalReviewControl, Path=DataContext.FieldEnabler.IsProtectedEnabled}"></CheckBox>
 
             </Grid>			                			
 		</DataTemplate>
@@ -526,7 +528,7 @@
                         <StackPanel Orientation="Horizontal">
                             <TextBlock VerticalAlignment="Center" Margin="5, 2, 2, 2" FontWeight="Bold">Cancer Case Summary:</TextBlock>
                             <TextBlock Margin="2,2,2,2">
-					            <Hyperlink Click="HyperLinkReplaceSpecialCharacters_Click">
+					            <Hyperlink Click="HyperLinkReplaceSpecialCharacters_Click" IsEnabled="{Binding Path=FieldEnabler.IsProtectedEnabled}">
 						            <TextBlock Text="Replace Special Characters" />
 					            </Hyperlink>
 				            </TextBlock>
@@ -534,7 +536,7 @@
 						
 						<TextBox Name="TextBoxCancerSummary" TextWrapping="Wrap" AcceptsReturn="True" FontSize="12" MinWidth="500" RequestBringIntoView="Any_RequestBringIntoView"
 							Text="{Binding Path=PanelSetOrderSurgical.CancerSummary, UpdateSourceTrigger=PropertyChanged}"							
-							IsEnabled="{Binding Path=FieldEnabler.IsUnprotectedEnabled}" KeyUp="TextBox_KeyUp">
+							IsEnabled="{Binding Path=FieldEnabler.IsProtectedEnabled}" KeyUp="TextBox_KeyUp">
 						</TextBox>
 					</StackPanel>
 
@@ -542,7 +544,7 @@
 						<TextBlock VerticalAlignment="Center" Margin="5, 2, 2, 2">Pathologic TNM Stage:</TextBlock>
                         <TextBox Width="300" Margin="2,2,2,2" RequestBringIntoView="Any_RequestBringIntoView"
 							Text="{Binding Path=PanelSetOrderSurgical.AJCCStage, UpdateSourceTrigger=PropertyChanged}"
-							IsEnabled="{Binding Path=FieldEnabler.IsUnprotectedEnabled}" TextWrapping="Wrap" AcceptsReturn="True">
+							IsEnabled="{Binding Path=FieldEnabler.IsProtectedEnabled}" TextWrapping="Wrap" AcceptsReturn="True">
 						</TextBox>
 					</StackPanel>
 

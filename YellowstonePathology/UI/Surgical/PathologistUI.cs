@@ -400,7 +400,8 @@ namespace YellowstonePathology.UI.Surgical
         public void DeleteAmendment(YellowstonePathology.Business.Amendment.Model.Amendment amendment)
 		{
 			this.m_PanelSetOrder.DeleteAmendment(amendment.AmendmentId);
-			this.RunPathologistEnableRules();
+            this.RunWorkspaceEnableRules();
+            this.RunPathologistEnableRules();
 		}
 
 		public void AddAmentment()
