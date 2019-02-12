@@ -415,8 +415,8 @@
 				<RowDefinition Height="*"></RowDefinition>
 			</Grid.RowDefinitions>
 			<ToolBarTray Grid.Column="0" Grid.Row="0" Background="Gainsboro">
-                <ToolBar Grid.Column="0" Grid.Row="0">
-					<Button Click="ButtonAddAmendment_Click" ToolTip="Add Admendment" IsEnabled="True">
+                <ToolBar Grid.Column="0" Grid.Row="0" IsEnabled="{Binding Path=FieldEnabler.IsUnprotectedEnabled}">
+                    <Button Click="ButtonAddAmendment_Click" ToolTip="Add Admendment">
 						<StackPanel Orientation="Horizontal">
 							<Image Source="/Resources/Amendments.ico" Margin="2" Height="16"></Image>
 							<TextBlock VerticalAlignment="Center" Margin="2" Text="Add Amendment"></TextBlock>
@@ -534,7 +534,7 @@
 						
 						<TextBox Name="TextBoxCancerSummary" TextWrapping="Wrap" AcceptsReturn="True" FontSize="12" MinWidth="500" RequestBringIntoView="Any_RequestBringIntoView"
 							Text="{Binding Path=PanelSetOrderSurgical.CancerSummary, UpdateSourceTrigger=PropertyChanged}"							
-							IsEnabled="{Binding Path=FieldEnabler.IsProtectedEnabled}" KeyUp="TextBox_KeyUp">
+							IsEnabled="{Binding Path=FieldEnabler.IsUnprotectedEnabled}" KeyUp="TextBox_KeyUp">
 						</TextBox>
 					</StackPanel>
 
