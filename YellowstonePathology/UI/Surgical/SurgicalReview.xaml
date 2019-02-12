@@ -162,12 +162,10 @@
 						 IsEnabled="{Binding ElementName=SurgicalReviewControl, Path=DataContext.FieldEnabler.IsProtectedEnabled}" KeyUp="TextBox_KeyUp"></TextBox>
                 <TextBox  Grid.Column="4" Margin="2,2,2,2" Width="100" VerticalAlignment="Center" Text="{Binding Path=ProcedureComment, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch"
 						 IsEnabled="{Binding ElementName=SurgicalReviewControl, Path=DataContext.FieldEnabler.IsProtectedEnabled}"></TextBox>
-                                
-                <CheckBox Grid.Column="5" Margin="2,2,2,2" VerticalAlignment="Center" IsChecked="{Binding Path=NoCharge}" ToolTip="No Charge"
-                          IsEnabled="{Binding ElementName=SurgicalReviewControl, Path=DataContext.FieldEnabler.IsProtectedEnabled}"></CheckBox>
 
-                <CheckBox Grid.Column="6" Margin="2,2,2,2" VerticalAlignment="Center" IsChecked="{Binding Path=IsGraded}" ToolTip="Graded"
-                          IsEnabled="{Binding ElementName=SurgicalReviewControl, Path=DataContext.FieldEnabler.IsProtectedEnabled}"></CheckBox>
+                <CheckBox Grid.Column="5" Margin="2,2,2,2" VerticalAlignment="Center" IsChecked="{Binding Path=NoCharge}" ToolTip="No Charge"></CheckBox>
+
+                <CheckBox Grid.Column="6" Margin="2,2,2,2" VerticalAlignment="Center" IsChecked="{Binding Path=IsGraded}" ToolTip="Graded"></CheckBox>
 
             </Grid>			                			
 		</DataTemplate>
@@ -504,7 +502,7 @@
 						</TextBlock>
 
 						<Button Name="ButtonSignature" Margin="2,2,2,2" Height="24" Width="200" HorizontalAlignment="Right" ToolTip="Electronic Signature" Grid.Column="0" Grid.Row="4"
-								Click="ButtonSignature_Click" VerticalAlignment="Top" BorderBrush="Beige" IsEnabled="{Binding Path=DataContext.PathologistUI.SignatureButtonIsEnabled}">
+								Click="ButtonSignature_Click" VerticalAlignment="Top" BorderBrush="Beige" IsEnabled="{Binding Path=DataContext.PathologistUI.FieldEnabler.IsSignatureButtonEnabled}">
 							<StackPanel Orientation="Horizontal">
                                 <TextBlock Foreground="Blue" Text="{Binding Path=DataContext.PathologistUI.SignatureButtonText}"></TextBlock>
 							</StackPanel>

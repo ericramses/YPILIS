@@ -44,6 +44,8 @@ namespace YellowstonePathology.UI.Surgical
 
         private void SurgicalReview_Loaded(object sender, RoutedEventArgs e)
         {
+            this.m_PathologistUI.RunWorkspaceEnableRules();
+            this.m_PathologistUI.RunPathologistEnableRules();
             this.SetFocusOnDiagnosis();
         }
 

@@ -30,7 +30,6 @@ namespace YellowstonePathology.UI.Surgical
         private string m_Location;
 
         private string m_SignatureButtonText;
-        private bool m_SignatureButtonIsEnabled;
 
 		private int m_SelectedTabIndex;
         private System.Windows.Controls.TabItem m_Writer;
@@ -86,19 +85,6 @@ namespace YellowstonePathology.UI.Surgical
                 {
                     this.m_SignatureButtonText = value;
                     this.NotifyPropertyChanged("SignatureButtonText");
-                }
-            }
-        }
-
-        public bool SignatureButtonIsEnabled
-        {
-            get { return this.m_SignatureButtonIsEnabled; }
-            set
-            {
-                if (this.m_SignatureButtonIsEnabled != value)
-                {
-                    this.m_SignatureButtonIsEnabled = value;
-                    this.NotifyPropertyChanged("SignatureButtonIsEnabled");
                 }
             }
         }
@@ -201,7 +187,8 @@ namespace YellowstonePathology.UI.Surgical
 
             this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
 			this.m_AccessionOrder.PanelSetOrderCollection.PathologistTestOrderItemList.Build(this.m_AccessionOrder);
-			this.RunWorkspaceEnableRules();            
+			this.RunWorkspaceEnableRules();
+            this.RunPathologistEnableRules();
 			this.NotifyPropertyChanged("");
 		}
 
@@ -285,30 +272,23 @@ namespace YellowstonePathology.UI.Surgical
                 if (this.m_PanelSetOrder.Final == false)
                 {
                     this.m_SignatureButtonText = "Sign Case";
-                    this.m_SignatureButtonIsEnabled = true;
                 }
                 else
                 {
                     if (this.m_PanelSetOrder.TestOrderReportDistributionCollection.HasDistributedItems() == false)
                     {
                         this.m_SignatureButtonText = "Unsign Case";
-                        this.m_SignatureButtonIsEnabled = true;
                     }
                     else
                     {
                         this.SignatureButtonText = "Electronic Signature";
-                        this.SignatureButtonIsEnabled = false;
                     }
                 }
             }
             else
             {
                 this.SignatureButtonText = "Not Assigned";
-                this.SignatureButtonIsEnabled = false;
             }
-
-            this.NotifyPropertyChanged("SignatureButtonText");
-            this.NotifyPropertyChanged("SignatureButtonIsEnabled");
         }
 
 		public void DoGenericSearch()

@@ -165,6 +165,7 @@ namespace YellowstonePathology.UI.Surgical
             }
             if (this.m_PathologistsReview != null)
             {
+                this.m_PathologistUI.RunPathologistEnableRules();
                 this.m_PathologistsReview.NotifyPropertyChanged(string.Empty);
             }
             if (this.m_CytologyResultsWorkspace != null)
