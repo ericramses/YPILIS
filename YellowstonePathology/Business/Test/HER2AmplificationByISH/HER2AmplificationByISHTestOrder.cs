@@ -776,7 +776,8 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
             YellowstonePathology.Business.Test.Her2AmplificationByIHC.Her2AmplificationByIHCTest her2AmplificationByIHCTest = new Business.Test.Her2AmplificationByIHC.Her2AmplificationByIHCTest();
             if(this.m_HER2ByIHCRequired == true && this.CheckTestExists(accessionOrder, her2AmplificationByIHCTest.PanelSetId) == false)
             {
-                this.m_Result = HER2AmplificationResultEnum.Equivocal.ToString();
+                this.Result = HER2AmplificationResultEnum.Equivocal.ToString();
+                this.Distribute = false;
             }
             else
             {
@@ -784,6 +785,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
                 HER2AmplificationResult her2AmplificationResult = her2AmplificationResultCollection.FindMatch();
                 YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = accessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.OrderedOn, this.OrderedOnId);
                 her2AmplificationResult.SetResults(specimenOrder);
+                this.Distribute = true;
             }
         }
 

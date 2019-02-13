@@ -46,7 +46,8 @@ namespace YellowstonePathology.UI.Test
         private void OrderIHCPath_Finish(object sender, EventArgs e)
         {
             YellowstonePathology.Business.Test.HER2AmplificationSummary.HER2AmplificationSummaryTest her2AmplificationSummaryTest = new Business.Test.HER2AmplificationSummary.HER2AmplificationSummaryTest();
-            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(her2AmplificationSummaryTest.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true) == false)
+            YellowstonePathology.Business.Test.PanelSetOrder summaryTestOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetHER2Summary();
+            if (summaryTestOrder == null)
             {
                 YellowstonePathology.Business.Interface.IOrderTarget orderTarget = this.m_AccessionOrder.SpecimenOrderCollection.GetOrderTarget(this.m_PanelSetOrder.OrderedOnId);
                 YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new YellowstonePathology.Business.Test.TestOrderInfo(her2AmplificationSummaryTest, orderTarget, false);
@@ -68,14 +69,11 @@ namespace YellowstonePathology.UI.Test
 
         private void ResultPage_Next(object sender, EventArgs e)
         {
-            if (this.ShowSummaryPage() == false)
+            if (this.ShowReflexTestPage() == false)
             {
-                if (this.ShowReflexTestPage() == false)
+                if (this.ShowAmendmentPage() == false)
                 {
-                    if (this.ShowAmendmentPage() == false)
-                    {
-                        this.Finished();
-                    }
+                    this.Finished();
                 }
             }
         }
@@ -96,12 +94,11 @@ namespace YellowstonePathology.UI.Test
         private bool ShowSummaryPage()
         {
             bool result = false;
-            YellowstonePathology.Business.Test.HER2AmplificationSummary.HER2AmplificationSummaryTest her2AmplificationSummaryTest = new Business.Test.HER2AmplificationSummary.HER2AmplificationSummaryTest();
-            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(her2AmplificationSummaryTest.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true) == true)
+            YellowstonePathology.Business.Test.PanelSetOrder summaryTestOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetHER2Summary();
+            if (summaryTestOrder != null)
             {
                 result = true;
-                YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(her2AmplificationSummaryTest.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true);
-                HER2AmplificationSummaryResultPath resultPath = new HER2AmplificationSummaryResultPath(panelSetOrder.ReportNo, this.m_AccessionOrder, this.m_PageNavigator, this.m_Window);
+                HER2AmplificationSummaryResultPath resultPath = new HER2AmplificationSummaryResultPath(summaryTestOrder.ReportNo, this.m_AccessionOrder, this.m_PageNavigator, this.m_Window);
                 resultPath.Finish += SummaryResultPath_Finish;
                 resultPath.Start();
             }
