@@ -11,8 +11,8 @@ namespace YellowstonePathology.Business.Test.NeoTYPELumphomaProfile
         public NeoTYPELumphomaProfileTest()
         {
             this.m_PanelSetId = 325;
-            this.m_PanelSetName = "Neo TYPE Lumphoma Profile";
-            this.m_Abbreviation = "Neo TYPE Lumphoma Profile";
+            this.m_PanelSetName = "Neo TYPE Lymphoma Profile";
+            this.m_Abbreviation = "Neo TYPE Lymphoma Profile";
             this.m_CaseType = YellowstonePathology.Business.CaseType.Molecular;
             this.m_HasTechnicalComponent = true;
             this.m_HasProfessionalComponent = true;
