@@ -34,7 +34,7 @@ namespace YellowstonePathology.Business.Test.Adenovirus
             this.m_TechnicalComponentBillingFacility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
 
             this.m_ProfessionalComponentFacility = neogenomicsIrvine;
-            this.m_ProfessionalComponentBillingFacility = neogenomicsIrvine;
+            this.m_ProfessionalComponentBillingFacility = neogenomicsIrvine;            
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMiscellaneous());
         }

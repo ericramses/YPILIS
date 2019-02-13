@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>33</ApplicationRevision>
+    <ApplicationRevision>34</ApplicationRevision>
     <ApplicationVersion>10.1.13.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -2977,6 +2977,9 @@
     <Compile Include="UI\Billing\AddFISHCPTCodePage.xaml.cs">
       <DependentUpon>AddFISHCPTCodePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Billing\AutomatedBillingDialog.xaml.cs">
+      <DependentUpon>AutomatedBillingDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Billing\BillingPage.xaml.cs">
       <DependentUpon>BillingPage.xaml</DependentUpon>
     </Compile>
@@ -2984,6 +2987,8 @@
     <Compile Include="UI\Billing\ADTPage.xaml.cs">
       <DependentUpon>ADTPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Billing\AutomationListItem.cs" />
+    <Compile Include="UI\Billing\AutomationList.cs" />
     <Compile Include="UI\Billing\SVHCDMResultDialog.xaml.cs">
       <DependentUpon>SVHCDMResultDialog.xaml</DependentUpon>
     </Compile>
@@ -4908,6 +4913,10 @@
     <Page Include="UI\Billing\ADTPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Billing\AutomatedBillingDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Billing\SVHCDMResultDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
