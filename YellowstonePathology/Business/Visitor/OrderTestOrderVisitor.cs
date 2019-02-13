@@ -41,9 +41,9 @@ namespace YellowstonePathology.Business.Visitor
             this.HandlDistribution();
             this.HandlReflexTestingPlan();
             this.HandlePantherOrder();
-            this.HandleRetrospectiveReviews();   
-        }    
-        
+            this.HandleRetrospectiveReviews();            
+        }                   
+
         private void HandleRetrospectiveReviews()
         {
             if(this.m_PanelSetOrder is Business.Test.RetrospectiveReview.RetrospectiveReviewTestOrder)

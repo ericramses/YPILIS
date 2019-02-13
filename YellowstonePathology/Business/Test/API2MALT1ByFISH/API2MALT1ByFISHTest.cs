@@ -9,7 +9,8 @@ namespace YellowstonePathology.Business.Test.API2MALT1ByFISH
 	{
         public API2MALT1ByFISHTest()
 		{
-			this.m_PanelSetId = 186;
+            Console.WriteLine("this is the derived");
+            this.m_PanelSetId = 186;
 			this.m_PanelSetName = "API2/MALT1 t(11;18) By FISH";
 			this.m_CaseType = YellowstonePathology.Business.CaseType.FISH;
 			this.m_HasTechnicalComponent = true;			

@@ -1020,11 +1020,7 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            Business.PanelSet.Model.PanelSetCollection fishPanelSets = Business.PanelSet.Model.PanelSetCollection.GetFISHPanelSets();
-            foreach(Business.PanelSet.Model.PanelSet panelSet in fishPanelSets)
-            {
-                Console.Write(panelSet.PanelSetId + ",");
-            }
+            Business.Test.API2MALT1ByFISH.API2MALT1ByFISHTest t = new Business.Test.API2MALT1ByFISH.API2MALT1ByFISHTest();
         }
 
         private void AddWebService()

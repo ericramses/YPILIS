@@ -83,5 +83,10 @@ namespace YellowstonePathology.UI.Cutting
         {
             this.Uncombine(this, new CustomEventArgs.SlideOrderReturnEventArgs(this.m_SlideOrder));
         }
+
+        private void ButtonPrintAllPaperLabel_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

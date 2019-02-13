@@ -65,7 +65,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
         protected bool m_CMMCDistributionIsImplemented;
 
         public PanelSet()
-        {
+        {            
             this.m_IsBillable = true;
             this.m_NeverDistribute = false;            
             this.m_Active = true;
