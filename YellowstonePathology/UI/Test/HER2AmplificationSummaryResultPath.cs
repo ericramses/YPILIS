@@ -26,12 +26,26 @@ namespace YellowstonePathology.UI.Test
         {
             this.m_ResultPage = new HER2AmplificationByISHResultPage(this.m_PanelSetOrder, this.m_AccessionOrder, this.m_SystemIdentity, this.m_PageNavigator);
             this.m_ResultPage.Next += ResultPage_Next;
+            this.m_ResultPage.SpecimenDetail += ResultPage_SpecimenDetail;
             this.m_PageNavigator.Navigate(this.m_ResultPage);
         }
 
         private void ResultPage_Next(object sender, EventArgs e)
         {
             this.Finished();
+        }
+
+        private void ResultPage_SpecimenDetail(object sender, EventArgs e)
+        {
+            YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByOrderTarget(this.m_PanelSetOrder.OrderedOnId);
+            Login.SpecimenOrderDetailsPath specimenOrderDetailsPath = new Login.SpecimenOrderDetailsPath(specimenOrder, this.m_AccessionOrder, this.m_PageNavigator);
+            specimenOrderDetailsPath.Finish += new Login.SpecimenOrderDetailsPath.FinishEventHandler(SpecimenOrderDetailsPath_Finish);
+            specimenOrderDetailsPath.Start();
+        }
+
+        private void SpecimenOrderDetailsPath_Finish(object sender, EventArgs e)
+        {
+            this.ShowResultPage();
         }
     }
 }
