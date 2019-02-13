@@ -44,6 +44,8 @@ namespace YellowstonePathology.UI.Surgical
 
         private void SurgicalReview_Loaded(object sender, RoutedEventArgs e)
         {
+            this.m_PathologistUI.RunWorkspaceEnableRules();
+            this.m_PathologistUI.RunPathologistEnableRules();
             this.SetFocusOnDiagnosis();
         }
 
@@ -228,13 +230,11 @@ namespace YellowstonePathology.UI.Surgical
                     this.PanelSetOrderSurgical.Unfinalize();
                 }
                 this.PanelSetOrderSurgical.TestOrderReportDistributionCollection.UnscheduleDistributions();
-
-                this.m_PathologistUI.SetSignatureButtonProperties();
-                this.NotifyPropertyChanged(string.Empty);
-
-                this.m_PathologistUI.RunWorkspaceEnableRules();
-                this.m_PathologistUI.RunPathologistEnableRules();
             }
+
+            this.m_PathologistUI.RunWorkspaceEnableRules();
+            this.m_PathologistUI.RunPathologistEnableRules();
+            this.NotifyPropertyChanged(string.Empty);
         }
 
         private void ButtonSignAmendment_Click(object sender, RoutedEventArgs args)
@@ -565,9 +565,6 @@ namespace YellowstonePathology.UI.Surgical
                         this.PanelSetOrderSurgical.Accept();
                     }
                 }
-
-                this.m_PathologistUI.SetSignatureButtonProperties();
-                this.NotifyPropertyChanged(string.Empty);
             }
         }
 

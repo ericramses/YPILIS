@@ -1747,8 +1747,25 @@ namespace YellowstonePathology.Business.Test
                 taskOrder.TaskOrderDetailCollection.Add(taskOrderDetail);
             }
 
+            this.HandleTaskForSendoutTests(testOrderInfo, taskOrder);
             return taskOrder;
         }	      
+
+        private void HandleTaskForSendoutTests(YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo, YellowstonePathology.Business.Task.Model.TaskOrder taskOrder)
+        {
+            Business.Facility.Model.FacilityCollection ypiFacilities = Business.Facility.Model.FacilityCollection.GetAllYPFacilities();            
+            if(ypiFacilities.Exists(testOrderInfo.PanelSetOrder.TechnicalComponentFacilityId) == false)
+            {            
+                YellowstonePathology.Business.Task.Model.TaskFax task = new Business.Task.Model.TaskFax(string.Empty, string.Empty, "AdditionalTesetingNotification");
+                string taskOrderDetailId = YellowstonePathology.Business.OrderIdParser.GetNextTaskOrderDetailId(taskOrder.TaskOrderDetailCollection, taskOrder.TaskOrderId);
+                string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
+
+                Business.Client.Model.Client client = Business.Gateway.PhysicianClientGateway.GetClientByClientId(this.m_ClientId);
+                YellowstonePathology.Business.Task.Model.TaskOrderDetailFax taskOrderDetail = new Business.Task.Model.TaskOrderDetailFax(taskOrderDetailId, taskOrder.TaskOrderId, objectId, task, this.m_ClientId);
+                taskOrderDetail.FaxNumber = client.Fax;
+                taskOrder.TaskOrderDetailCollection.Add(taskOrderDetail);
+            }
+        }
 
         public virtual void PullOver(YellowstonePathology.Business.Visitor.AccessionTreeVisitor accessionTreeVisitor)
         {

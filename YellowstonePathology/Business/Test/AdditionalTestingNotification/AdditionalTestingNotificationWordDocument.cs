@@ -18,10 +18,12 @@ namespace YellowstonePathology.Business.Test.AdditionalTestingNotification
 
         public override void Render()
 		{            
-            base.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\AdditionalTestingNotification.3.xml";
+            base.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\AdditionalTestingNotification.4.xml";
 			base.OpenTemplate();
 			this.SetDemographicsV2();
-			this.SetXmlNodeData("additional_testing", this.m_PanelSetOrder.PanelSetName);
+			this.SetXmlNodeData("test_name", this.m_PanelSetOrder.PanelSetName);
+            Business.Facility.Model.Facility facility = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId(this.m_PanelSetOrder.TechnicalComponentFacilityId);
+            this.SetXmlNodeData("facility_name", facility.FacilityName);
 
             if (string.IsNullOrEmpty(this.m_SendToName) == false)
             {

@@ -884,5 +884,29 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             this.NotifyPropertyChanged("AliquotAndStainOrderView");
             MessageBox.Show("The patient information has been updated for all existing slides.");
         }
+
+        private void HyperLinkPrintAllPaperSlides_Click(object sender, RoutedEventArgs e)
+        {
+            foreach(Business.Specimen.Model.SpecimenOrder specimenOrder in this.m_AccessionOrder.SpecimenOrderCollection)
+            {
+                foreach(Business.Test.AliquotOrder aliquotOrder in specimenOrder.AliquotOrderCollection)
+                {
+                    foreach(Business.Slide.Model.SlideOrder slideOrder in aliquotOrder.SlideOrderCollection)
+                    {
+                        System.Windows.Controls.PrintDialog printDialog = new System.Windows.Controls.PrintDialog();
+                        System.Printing.PrintServer printServer = new System.Printing.LocalPrintServer();
+
+                        System.Printing.PrintQueue printQueue = printServer.GetPrintQueue(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.HistologySlideLabelPrinter);
+                        printDialog.PrintQueue = printQueue;
+
+                        YellowstonePathology.Business.Label.Model.HistologySlidePaperLabel histologySlidePaperLabel = new Business.Label.Model.HistologySlidePaperLabel(slideOrder.SlideOrderId,
+                            slideOrder.ReportNo, slideOrder.Label, slideOrder.PatientLastName, slideOrder.TestAbbreviation, slideOrder.AccessioningFacility);
+                        YellowstonePathology.Business.Label.Model.HistologySlidePaperLabelPrinter histologySlidePaperLabelPrinter = new Business.Label.Model.HistologySlidePaperLabelPrinter();
+                        histologySlidePaperLabelPrinter.Queue.Enqueue(histologySlidePaperLabel);
+                        histologySlidePaperLabelPrinter.Print();
+                    }
+                }
+            }            
+        }
     }
 }

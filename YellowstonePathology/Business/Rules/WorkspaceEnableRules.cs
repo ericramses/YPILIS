@@ -51,7 +51,14 @@ namespace YellowstonePathology.Business.Rules
 			{
 				this.m_FieldEnabler.IsProtectedEnabled = false;
 				this.m_FieldEnabler.IsUnprotectedEnabled = true;
-				this.m_FieldEnabler.IsSignatureButtonEnabled = false;
+                if (this.m_PanelSetOrder.TestOrderReportDistributionCollection.HasDistributedItems() == false)
+                {
+                    this.m_FieldEnabler.IsSignatureButtonEnabled = true;
+                }
+                else
+                {
+                    this.m_FieldEnabler.IsSignatureButtonEnabled = false;
+                }
 			}
 			else
 			{
