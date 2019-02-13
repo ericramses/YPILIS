@@ -159,6 +159,12 @@ namespace YellowstonePathology.UI.Login
             this.NotifyPropertyChanged("ReportSearchList");
         }
 
+        public void GetReportSearchListBySVHPosted(DateTime postDate)
+        {
+            this.m_ReportSearchList = YellowstonePathology.Business.Gateway.ReportSearchGateway.GetReportSearchListBySVHPosted(postDate);
+            this.NotifyPropertyChanged("ReportSearchList");
+        }
+
         public void GetReportSearchListByChangesNotPosted()
         {
             this.m_ReportSearchList = YellowstonePathology.Business.Gateway.ReportSearchGateway.GetReportSearchListByChangesNotPosted();
