@@ -241,6 +241,8 @@ namespace YellowstonePathology.UI.Test
                     result = new ROS1ResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
                 case 211:
+                case 327: // DirectHarvestForFISH
+                case 328: // CultureandHoldforCytogenetics
                     result = new HoldForFlowResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
                 case 212:

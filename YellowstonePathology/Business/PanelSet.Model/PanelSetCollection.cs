@@ -98,8 +98,10 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.Test.BladderCancerFISHUrovysion.BladderCancerFISHUrovysionTest());
 			panelSetCollection.Add(new YellowstonePathology.Business.Test.API2MALT1ByFISH.API2MALT1ByFISHTest());
 			panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.ALK1Test());
-            panelSetCollection.Add(new YellowstonePathology.Business.Test.CultureAndHoldForCytogeneticsTest());
-            panelSetCollection.Add(new YellowstonePathology.Business.Test.DirectHarvestForFISHTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.CultureAndHoldForCytogeneticsTestRetired());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.HoldForFlow.CultureAndHoldForCytogeneticsTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.DirectHarvestForFISHTestRetired());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.HoldForFlow.DirectHarvestForFISHTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.CTNNB1Test());
 			panelSetCollection.Add(new YellowstonePathology.Business.Test.ALLAdultByFISH.ALLAdultByFISHTest());
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.NeoTYPEMelanomaProfile());
