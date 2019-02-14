@@ -42,7 +42,7 @@ namespace YellowstonePathology.UI.Test
             bool result = false;
 
             {
-                YellowstonePathology.Business.Test.PanelSetOrder summaryTestOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetHER2Summary();
+                YellowstonePathology.Business.Test.PanelSetOrder summaryTestOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetHER2Summary(this.m_PanelSetOrder.OrderedOnId);
                 if (summaryTestOrder != null)
                 {
                     result = true;

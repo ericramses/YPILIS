@@ -1225,13 +1225,13 @@ namespace YellowstonePathology.Business.Test
             }
         }
 
-        public YellowstonePathology.Business.Test.PanelSetOrder GetHER2Summary()
+        public YellowstonePathology.Business.Test.PanelSetOrder GetHER2Summary(string orderedOnId)
         {
             YellowstonePathology.Business.Test.PanelSetOrder result = null;
             HER2AmplificationSummary.HER2AmplificationSummaryTest summaryTest = new HER2AmplificationSummary.HER2AmplificationSummaryTest();
             foreach (YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder in this)
             {
-                if (panelSetOrder.PanelSetId == summaryTest.PanelSetId && panelSetOrder.PanelSetName == summaryTest.PanelSetName)
+                if (panelSetOrder.PanelSetId == summaryTest.PanelSetId && panelSetOrder.PanelSetName == summaryTest.PanelSetName && panelSetOrder.OrderedOnId == orderedOnId)
                 {
                     result = panelSetOrder;
                     break;
