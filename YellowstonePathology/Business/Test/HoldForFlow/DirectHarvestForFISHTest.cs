@@ -10,7 +10,6 @@ namespace YellowstonePathology.Business.Test.HoldForFlow
     {
         public DirectHarvestForFISHTest()
         {
-            this.m_PanelSetId = 327;
             this.m_PanelSetName = "Direct Harvest For FISH";
             this.m_Abbreviation = "Direct Harvest For FISH";
             this.m_CaseType = YellowstonePathology.Business.CaseType.Cytogenetics;
