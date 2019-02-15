@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace YellowstonePathology.Business.Test.ExtractAndHoldForMolecular
+namespace YellowstonePathology.Business.Test.HoldForFlow
 {
-    public class ExtractAndHoldForMolecularTest : YellowstonePathology.Business.Test.HoldForFlow.HoldForFlowTest
+    public class ExtractAndHoldForMolecularTest : HoldForFlowTest
     {
         public ExtractAndHoldForMolecularTest()
         {
