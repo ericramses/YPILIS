@@ -5,12 +5,12 @@ using System.Text;
 
 namespace YellowstonePathology.Business.Test
 {
-	public class CultureAndHoldForCytogeneticsTest : YellowstonePathology.Business.PanelSet.Model.PanelSet
+	public class CultureAndHoldForCytogeneticsTestRetired : YellowstonePathology.Business.PanelSet.Model.PanelSet
 	{
-        public CultureAndHoldForCytogeneticsTest()
+        public CultureAndHoldForCytogeneticsTestRetired()
 		{
 			this.m_PanelSetId = 189;
-            this.m_PanelSetName = "Culture And Hold For Cytogenetics";
+            this.m_PanelSetName = "Culture And Hold For Cytogenetics - Retired";
             this.m_CaseType = YellowstonePathology.Business.CaseType.Cytogenetics;
 			this.m_HasTechnicalComponent = true;			
             this.m_HasProfessionalComponent = false;
