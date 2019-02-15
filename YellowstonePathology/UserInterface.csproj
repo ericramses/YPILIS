@@ -1063,6 +1063,8 @@
     <Compile Include="Business\Test\EGFRAmplification\EGFRAmplificationTest.cs" />
     <Compile Include="Business\Test\EGFRMutationAnalysisPreliminary\EGFRMutationAnalysisPreliminaryTest.cs" />
     <Compile Include="Business\Test\EGFRToALKReflexAnalysis\EGFRToALKReflexAnalysisBRAFResult.cs" />
+    <Compile Include="Business\Test\ExtractAndHoldForMolecular\ExtractAndHoldForMolecularTestRetired.cs" />
+    <Compile Include="Business\Test\ExtractAndHoldForPreauthorization\ExtractAndHoldForPreauthorizationTestRetired.cs" />
     <Compile Include="Business\Test\ExtractAndHoldForPreauthorization\ExtractAndHoldForPreauthorizationWordDocument.cs" />
     <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationResult.cs" />
     <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationResultBreast.cs" />
@@ -1140,6 +1142,7 @@
     <Compile Include="Business\Test\NeoTYPEGastricTumorProfile\NeoTYPEGastricTumorProfileTest.cs" />
     <Compile Include="Business\Test\NeoTYPEGISTProfile\NeoTYPEGISTProfileTest.cs" />
     <Compile Include="Business\Test\NeoTYPELiposarcomaFusionProfile\NeoTYPELiposarcomaFusionProfileTest.cs" />
+    <Compile Include="Business\Test\NeoTYPELiverBiliaryTumorProfile\NeoTYPELiverBiliaryTumorProfileTest.cs" />
     <Compile Include="Business\Test\NeoTYPELymphomaProfile\NeoTYPELymphomaProfileTest.cs" />
     <Compile Include="Business\Test\NeoTypeLungTumorFISHPanel\NeoTypeLungTumorFISHPanelTest.cs" />
     <Compile Include="Business\Test\NeoTYPELungTumorProfile\NeoTYPELungTumorProfileTestOrder.cs" />
@@ -6881,12 +6884,12 @@
   <ItemGroup>
     <PublishFile Include="Microsoft.Exchange.WebServices">
       <Visible>False</Visible>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
   </ItemGroup>

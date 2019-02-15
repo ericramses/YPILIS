@@ -16,7 +16,15 @@ namespace YellowstonePathology.Business.Test.HoldForFlow
         {
             HoldForFlowTestOrder holdForFlowTestOrder = (HoldForFlowTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
 
-            this.AddHeader(document, holdForFlowTestOrder, "Hold For Flow");
+            CultureAndHoldForCytogeneticsTest cultureAndHoldForCytogeneticsTest = new HoldForFlow.CultureAndHoldForCytogeneticsTest();
+            DirectHarvestForFISHTest directHarvestForFISHTest = new HoldForFlow.DirectHarvestForFISHTest();
+            ExtractAndHoldForMolecular.ExtractAndHoldForMolecularTest extractAndHoldForMolecularTest = new ExtractAndHoldForMolecular.ExtractAndHoldForMolecularTest();
+            string title = "Hold for Flow";
+            if (holdForFlowTestOrder.PanelSetName == cultureAndHoldForCytogeneticsTest.PanelSetName) title = "Hold For Cytogenetics";
+            else if (holdForFlowTestOrder.PanelSetName == directHarvestForFISHTest.PanelSetName) title = "Hold For FISH";
+            else if (holdForFlowTestOrder.PanelSetName == extractAndHoldForMolecularTest.PanelSetName) title = "Hold For Molecular";
+
+            this.AddHeader(document, holdForFlowTestOrder, title);
             this.AddNextObxElement("", document, "F");
             this.AddNextObxElement("Comment: " + holdForFlowTestOrder.Comment, document, "F");
             this.AddNextObxElement("", document, "F");

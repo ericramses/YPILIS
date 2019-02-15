@@ -194,6 +194,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.Test.DUPSP22IRF4Rearrangement.DUPSP22IRF4RearrangementTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.NeoTYPELumphomaProfile.NeoTYPELumphomaProfileTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.Adenovirus.AdenovirusTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.NeoTYPELiverBiliaryTumorProfile.NeoTYPELiverBiliaryTumorProfileTest());
 
             //ARUP
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetArupBraf());
@@ -254,7 +255,9 @@ namespace YellowstonePathology.Business.PanelSet.Model
 			panelSetCollection.Add(new YellowstonePathology.Business.Test.ReviewForAdditionalTesting.ReviewForAdditionalTestingTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.HoldForFlow.HoldForFlowTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.TechInitiatedPeripheralSmear.TechInitiatedPeripheralSmearTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.ExtractAndHoldForMolecular.ExtractAndHoldForMolecularTestRetired());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.ExtractAndHoldForMolecular.ExtractAndHoldForMolecularTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.ExtractAndHoldForPreauthorization.ExtractAndHoldForPreauthorizationTestRetired());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.ExtractAndHoldForPreauthorization.ExtractAndHoldForPreauthorizationTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeIHCPanelTest());
 
