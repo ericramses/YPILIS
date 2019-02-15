@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.Test.ExtractAndHoldForPreauthorization
             this.m_HasProfessionalComponent = false;
             this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.None;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterT();
-            this.m_Active = false;
+            this.m_Active = true;
             this.m_NeverDistribute = true;
             this.m_ExpectedDuration = new TimeSpan(7, 0, 0, 0);
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.ExtractAndHoldForPreauthorization.ExtractAndHoldForPreauthorizationTestOrder).AssemblyQualifiedName;
