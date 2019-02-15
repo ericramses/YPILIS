@@ -4,22 +4,26 @@ using YellowstonePathology.Business.Persistence;
 
 namespace YellowstonePathology.UI.Billing
 {
-	public class AutomationListItem : INotifyPropertyChanged
+	public class SimulationListItem : INotifyPropertyChanged
     {
 		public event PropertyChangedEventHandler PropertyChanged;
-		
-		private string m_ReportNo;
+
+        private string m_MasterAccessionNo;
+        private string m_ReportNo;
 		private Nullable<DateTime> m_PostDate;
 		private int m_ClientId;
 		private string m_ClientName;        
 		private string m_PanelSetName;
         private string m_PatientType;
+        private string m_PatientTypeSim;
+        private string m_PatientClass;
+        private string m_AssignedPatientLocation;
         private string m_PrimaryInsuranceManual;
         private string m_PrimaryInsuranceADT;
-        private string m_PrimaryInsuranceMapped;
+        private string m_PrimaryInsuranceSim;
         private string m_MedicalRecord;
 
-        public AutomationListItem()
+        public SimulationListItem()
 		{
 
 		}
@@ -33,18 +37,32 @@ namespace YellowstonePathology.UI.Billing
 		}        
 
         [PersistentProperty()]
-        public string ReportNo
+        public string MasterAccessionNo
 		{
-			get { return this.m_ReportNo; }
+			get { return this.m_MasterAccessionNo; }
 			set
 			{
-				if (value != this.m_ReportNo)
+				if (value != this.m_MasterAccessionNo)
 				{
-					this.m_ReportNo = value;
-					this.NotifyPropertyChanged("ReportNo");
+					this.m_MasterAccessionNo = value;
+					this.NotifyPropertyChanged("MasterAccessionNo");
 				}
 			}
 		}
+
+        [PersistentProperty()]
+        public string ReportNo
+        {
+            get { return this.m_ReportNo; }
+            set
+            {
+                if (value != this.m_ReportNo)
+                {
+                    this.m_ReportNo = value;
+                    this.NotifyPropertyChanged("ReportNo");
+                }
+            }
+        }
 
         [PersistentProperty()]
         public Nullable<DateTime> PostDate
@@ -117,6 +135,48 @@ namespace YellowstonePathology.UI.Billing
         }
 
         [PersistentProperty()]
+        public string PatientClass
+        {
+            get { return this.m_PatientClass; }
+            set
+            {
+                if (value != this.m_PatientClass)
+                {
+                    this.m_PatientClass = value;
+                    this.NotifyPropertyChanged("PatientClass");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string AssignedPatientLocation
+        {
+            get { return this.m_AssignedPatientLocation; }
+            set
+            {
+                if (value != this.m_AssignedPatientLocation)
+                {
+                    this.m_AssignedPatientLocation = value;
+                    this.NotifyPropertyChanged("AssignedPatientLocation");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string PatientTypeSim
+        {
+            get { return this.m_PatientTypeSim; }
+            set
+            {
+                if (value != this.m_PatientTypeSim)
+                {
+                    this.m_PatientTypeSim = value;
+                    this.NotifyPropertyChanged("PatientTypeSim");
+                }
+            }
+        }
+
+        [PersistentProperty()]
         public string PrimaryInsuranceManual
         {
             get { return this.m_PrimaryInsuranceManual; }
@@ -145,15 +205,15 @@ namespace YellowstonePathology.UI.Billing
         }
 
         [PersistentProperty()]
-        public string PrimaryInsuranceMapped
+        public string PrimaryInsuranceSim
         {
-            get { return this.m_PrimaryInsuranceMapped; }
+            get { return this.m_PrimaryInsuranceSim; }
             set
             {
-                if (value != this.m_PrimaryInsuranceMapped)
+                if (value != this.m_PrimaryInsuranceSim)
                 {
-                    this.m_PrimaryInsuranceMapped = value;
-                    this.NotifyPropertyChanged("PrimaryInsuranceMapped");
+                    this.m_PrimaryInsuranceSim = value;
+                    this.NotifyPropertyChanged("PrimaryInsuranceSim");
                 }
             }
         }

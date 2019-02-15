@@ -2981,8 +2981,8 @@
     <Compile Include="UI\Billing\AddFISHCPTCodePage.xaml.cs">
       <DependentUpon>AddFISHCPTCodePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Billing\BillingSimulationDialog.xaml.cs">
-      <DependentUpon>BillingSimulationDialog.xaml</DependentUpon>
+    <Compile Include="UI\Billing\SimulationDialog.xaml.cs">
+      <DependentUpon>SimulationDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Billing\BillingPage.xaml.cs">
       <DependentUpon>BillingPage.xaml</DependentUpon>
@@ -2991,8 +2991,8 @@
     <Compile Include="UI\Billing\ADTPage.xaml.cs">
       <DependentUpon>ADTPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Billing\AutomationListItem.cs" />
-    <Compile Include="UI\Billing\AutomationList.cs" />
+    <Compile Include="UI\Billing\SimulationListItem.cs" />
+    <Compile Include="UI\Billing\SimulationList.cs" />
     <Compile Include="UI\Billing\SVHCDMResultDialog.xaml.cs">
       <DependentUpon>SVHCDMResultDialog.xaml</DependentUpon>
     </Compile>
@@ -4918,7 +4918,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\Billing\BillingSimulationDialog.xaml">
+    <Page Include="UI\Billing\SimulationDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

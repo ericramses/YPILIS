@@ -15,23 +15,30 @@ using System.ComponentModel;
 
 namespace YellowstonePathology.UI.Billing
 {    
-    public partial class BillingSimulationDialog : Window, INotifyPropertyChanged
+    public partial class SimulationDialog : Window, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private AutomationList m_AutomationList;
+        private SimulationList m_SimulationList;
         private DateTime m_PostDate;
         private Business.Billing.Model.InsuranceMapCollection m_InsuranceMapCollection;
 
-        public BillingSimulationDialog()
+        public SimulationDialog()
         {
             this.m_InsuranceMapCollection = Business.Billing.Model.InsuranceMapCollection.GetCollection();
-            this.m_PostDate = DateTime.Parse("2019-02-11");
-            this.m_AutomationList = AutomationList.GetList(this.m_PostDate);
-            this.HandlePrimaryInsuranceAuto();
+            this.m_PostDate = DateTime.Today;
+            this.GetList();
 
             InitializeComponent();
             this.DataContext = this;
+        }
+
+        public void GetList()
+        {
+            this.m_SimulationList = SimulationList.GetList(this.m_PostDate);
+            this.HandlePrimaryInsuranceSimulation();
+            this.m_SimulationList.HandlePatientTypeSimulation();
+            this.NotifyPropertyChanged("SimulationList");
         }
 
         public DateTime PostDate
@@ -47,16 +54,10 @@ namespace YellowstonePathology.UI.Billing
             }
         }
 
-        public AutomationList AutomationList
+        public SimulationList SimulationList
         {
-            get { return this.m_AutomationList; }
-        }
-
-        private void ButtonGetList_Click(object sender, RoutedEventArgs e)
-        {
-            this.m_AutomationList = AutomationList.GetList(this.m_PostDate);
-            this.NotifyPropertyChanged("AutomationList");
-        }
+            get { return this.m_SimulationList; }
+        }        
 
         private void ButtonClose_Click(object sender, RoutedEventArgs e)
         {
@@ -69,16 +70,11 @@ namespace YellowstonePathology.UI.Billing
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
-        }
-
-        private void ButtonRun_Click(object sender, RoutedEventArgs e)
+        }        
+                
+        private void HandlePrimaryInsuranceSimulation()
         {
-            this.HandlePrimaryInsuranceAuto();
-        }
-
-        private void HandlePrimaryInsuranceAuto()
-        {
-            foreach (AutomationListItem item in this.m_AutomationList)
+            foreach (SimulationListItem item in this.m_SimulationList)
             {
                 Business.HL7View.ADTMessages adtMessages = new Business.HL7View.ADTMessages();
                 adtMessages = Business.Gateway.AccessionOrderGateway.GetADTMessages(item.MedicalRecord);
@@ -86,66 +82,80 @@ namespace YellowstonePathology.UI.Billing
 
                 if(this.m_InsuranceMapCollection.Exists(item.PrimaryInsuranceADT) == false)
                 {
-                    item.PrimaryInsuranceMapped = "Not Mapped";
+                    item.PrimaryInsuranceSim = "Not Mapped";
                 }
                 else
                 {
                     Business.Billing.Model.InsuranceMap insuranceMap = this.m_InsuranceMapCollection.GetMap(item.PrimaryInsuranceADT);
-                    item.PrimaryInsuranceMapped = insuranceMap.MapsTo;
+                    item.PrimaryInsuranceSim = insuranceMap.MapsTo;
                 }
             }
         }
 
         private void UpdateMapping()
         {
-            foreach (AutomationListItem item in this.m_AutomationList)
+            foreach (SimulationListItem item in this.m_SimulationList)
             {
                 if (this.m_InsuranceMapCollection.Exists(item.PrimaryInsuranceADT) == false)
                 {
-                    item.PrimaryInsuranceMapped = "Not Mapped";
+                    item.PrimaryInsuranceSim = "Not Mapped";
                 }
                 else
                 {
                     Business.Billing.Model.InsuranceMap insuranceMap = this.m_InsuranceMapCollection.GetMap(item.PrimaryInsuranceADT);
-                    item.PrimaryInsuranceMapped = insuranceMap.MapsTo;
+                    item.PrimaryInsuranceSim = insuranceMap.MapsTo;
                 }
             }
         }
 
         private void MenuItemMapToMedicare_Click(object sender, RoutedEventArgs e)
         {
-            AutomationListItem item = (AutomationListItem)this.ListViewAutomationList.SelectedItem;
+            SimulationListItem item = (SimulationListItem)this.ListViewSimulationList.SelectedItem;
             this.m_InsuranceMapCollection.TryMap(item.PrimaryInsuranceADT, "Medicare");
             this.UpdateMapping();           
         }
 
         private void MenuItemMapToMedicaid_Click(object sender, RoutedEventArgs e)
         {
-            AutomationListItem item = (AutomationListItem)this.ListViewAutomationList.SelectedItem;
+            SimulationListItem item = (SimulationListItem)this.ListViewSimulationList.SelectedItem;
             this.m_InsuranceMapCollection.TryMap(item.PrimaryInsuranceADT, "Medicaid");
             this.UpdateMapping();
         }
 
         private void MenuItemMapToGovernmental_Click(object sender, RoutedEventArgs e)
         {
-            AutomationListItem item = (AutomationListItem)this.ListViewAutomationList.SelectedItem;
+            SimulationListItem item = (SimulationListItem)this.ListViewSimulationList.SelectedItem;
             this.m_InsuranceMapCollection.TryMap(item.PrimaryInsuranceADT, "Governmental");
             this.UpdateMapping();
         }
 
         private void MenuItemMapToCommercial_Click(object sender, RoutedEventArgs e)
         {
-            AutomationListItem item = (AutomationListItem)this.ListViewAutomationList.SelectedItem;
+            SimulationListItem item = (SimulationListItem)this.ListViewSimulationList.SelectedItem;
             this.m_InsuranceMapCollection.TryMap(item.PrimaryInsuranceADT, "Commercial");
             this.UpdateMapping();
         }
 
         private void MenuItemUnmap_Click(object sender, RoutedEventArgs e)
         {
-            AutomationListItem item = (AutomationListItem)this.ListViewAutomationList.SelectedItem;
+            SimulationListItem item = (SimulationListItem)this.ListViewSimulationList.SelectedItem;
             Business.Billing.Model.InsuranceMap insuranceMap = this.m_InsuranceMapCollection.GetMap(item.PrimaryInsuranceADT);
             this.m_InsuranceMapCollection.UnMap(insuranceMap);
             this.UpdateMapping();
+        }
+
+        private void ButtonBack_Click(object sender, RoutedEventArgs e)
+        {
+            this.m_PostDate = this.m_PostDate.AddDays(-1);
+            this.GetList();
+            this.NotifyPropertyChanged("PostDate");
+        }
+
+        private void ButtonForward_Click(object sender, RoutedEventArgs e)
+        {
+            this.m_PostDate = this.m_PostDate.AddDays(1);
+            this.GetList();
+            this.NotifyPropertyChanged("PostDate");
         }
     }
 }
