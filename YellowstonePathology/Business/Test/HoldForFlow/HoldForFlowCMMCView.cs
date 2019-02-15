@@ -26,7 +26,15 @@ namespace YellowstonePathology.Business.Test.HoldForFlow
             this.AddCompanyHeader(document);
             this.AddBlankNteElement(document);
 
-            this.AddNextNteElement("Hold For Flow", document);
+            CultureAndHoldForCytogeneticsTest cultureAndHoldForCytogeneticsTest = new HoldForFlow.CultureAndHoldForCytogeneticsTest();
+            DirectHarvestForFISHTest directHarvestForFISHTest = new HoldForFlow.DirectHarvestForFISHTest();
+            ExtractAndHoldForMolecular.ExtractAndHoldForMolecularTest extractAndHoldForMolecularTest = new ExtractAndHoldForMolecular.ExtractAndHoldForMolecularTest();
+            string title = "Hold for Flow";
+            if (panelSetOrder.PanelSetName == cultureAndHoldForCytogeneticsTest.PanelSetName) title = "Hold For Cytogenetics";
+            else if (panelSetOrder.PanelSetName == directHarvestForFISHTest.PanelSetName) title = "Hold For FISH";
+            else if (panelSetOrder.PanelSetName == extractAndHoldForMolecularTest.PanelSetName) title = "Hold For Molecular";
+
+            this.AddNextNteElement(title, document);
             this.AddNextNteElement("Master Accession #: " + panelSetOrder.MasterAccessionNo, document);
             this.AddNextNteElement("Report #: " + panelSetOrder.ReportNo, document);
             this.AddBlankNteElement(document);

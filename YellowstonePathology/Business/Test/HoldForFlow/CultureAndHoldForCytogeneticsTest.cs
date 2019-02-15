@@ -13,10 +13,10 @@ namespace YellowstonePathology.Business.Test.HoldForFlow
             {
                 this.m_PanelSetName = "Culture And Hold For Cytogenetics";
                 this.m_Abbreviation = "Culture And Hold For Cytogenetics";
-                this.m_CaseType = YellowstonePathology.Business.CaseType.Cytogenetics;
                 this.m_HasTechnicalComponent = true;
                 this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterR();
                 this.m_AllowMultiplePerAccession = true;
+                this.m_IsBillable = true;
                 this.m_ExpectedDuration = new TimeSpan(5, 0, 0, 0);
 
                 string taskDescription = "Gather materials (Peripheral blood: 2-5 mL in sodium heparin tube and 2x5 mL in EDTA tube or " +

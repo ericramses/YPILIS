@@ -27,7 +27,7 @@ namespace YellowstonePathology.Business.Test.HoldForFlow
 			this.m_AllowMultiplePerAccession = false;                                   
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMiscellaneous());
             this.m_ReportAsAdditionalTesting = false;
-
+            this.m_IsBillable = false;
         }
 	}
 }
