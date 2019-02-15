@@ -10,13 +10,18 @@ namespace YellowstonePathology.UI.Billing
 		
 		private string m_ReportNo;
 		private Nullable<DateTime> m_PostDate;
-		private int m_PanelSetId;
-		private string m_ClientName;
-        private int m_ClientId;        
-		private string m_PanelSetName;        
+		private int m_ClientId;
+		private string m_ClientName;        
+		private string m_PanelSetName;
+        private string m_PatientType;
+        private string m_PrimaryInsuranceManual;
+        private string m_PrimaryInsuranceADT;
+        private string m_PrimaryInsuranceMapped;
+        private string m_MedicalRecord;
 
         public AutomationListItem()
 		{
+
 		}
 
 		public void NotifyPropertyChanged(String info)
@@ -56,15 +61,15 @@ namespace YellowstonePathology.UI.Billing
 		}
 
         [PersistentProperty()]
-        public int PanelSetId
+        public int ClientId
 		{
-			get { return this.m_PanelSetId; }
+			get { return this.m_ClientId; }
 			set
 			{
-				if (value != this.m_PanelSetId)
+				if (value != this.m_ClientId)
 				{
-					this.m_PanelSetId = value;
-					this.NotifyPropertyChanged("PanelSetId");
+					this.m_ClientId = value;
+					this.NotifyPropertyChanged("ClientId");
 				}
 			}
 		}        
@@ -96,5 +101,75 @@ namespace YellowstonePathology.UI.Billing
 				}
 			}
 		}
+
+        [PersistentProperty()]
+        public string PatientType
+        {
+            get { return this.m_PatientType; }
+            set
+            {
+                if (value != this.m_PatientType)
+                {
+                    this.m_PatientType = value;
+                    this.NotifyPropertyChanged("PatientType");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string PrimaryInsuranceManual
+        {
+            get { return this.m_PrimaryInsuranceManual; }
+            set
+            {
+                if (value != this.m_PrimaryInsuranceManual)
+                {
+                    this.m_PrimaryInsuranceManual = value;
+                    this.NotifyPropertyChanged("PrimaryInsuranceManual");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string PrimaryInsuranceADT
+        {
+            get { return this.m_PrimaryInsuranceADT; }
+            set
+            {
+                if (value != this.m_PrimaryInsuranceADT)
+                {
+                    this.m_PrimaryInsuranceADT = value;
+                    this.NotifyPropertyChanged("PrimaryInsuranceADT");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string PrimaryInsuranceMapped
+        {
+            get { return this.m_PrimaryInsuranceMapped; }
+            set
+            {
+                if (value != this.m_PrimaryInsuranceMapped)
+                {
+                    this.m_PrimaryInsuranceMapped = value;
+                    this.NotifyPropertyChanged("PrimaryInsuranceMapped");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string MedicalRecord
+        {
+            get { return this.m_MedicalRecord; }
+            set
+            {
+                if (value != this.m_MedicalRecord)
+                {
+                    this.m_MedicalRecord = value;
+                    this.NotifyPropertyChanged("MedicalRecord");
+                }
+            }
+        }
     }
 }

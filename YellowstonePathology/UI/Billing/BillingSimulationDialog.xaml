@@ -1,11 +1,11 @@
-﻿<Window x:Class="YellowstonePathology.UI.Billing.AutomatedBillingDialog"
+﻿<Window x:Class="YellowstonePathology.UI.Billing.BillingSimulationDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YellowstonePathology.UI.Billing"
         mc:Ignorable="d"
-        Title="AutomatedBillingDialog" Height="500" Width="1200">
+        Title="Automated Billing Dialog" Height="500" Width="1500" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid Grid.Column="0" Grid.Row="1" Margin="10">
             <Grid.ColumnDefinitions>
@@ -23,15 +23,27 @@
             <TextBox Name="TextBoxPostDate" Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" HorizontalAlignment="Stretch" Text="{Binding Path=PostDate, Converter={StaticResource ShortDateConverter}}"/>
             <Button Grid.Column="2" Grid.Row="0" Width="75" Height="25" Margin="2,2,2,2" Click="ButtonGetList_Click">Get List</Button>
 
-            <ListView Name="ListViewAccessionOrders" Margin="2,2,2,2" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" ItemsSource="{Binding Path=ReportSearchList}">
+            <ListView Name="ListViewAutomationList" Margin="2,2,2,2" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" ItemsSource="{Binding Path=AutomationList}">
+                <ListView.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Map To Medicare" Click="MenuItemMapToMedicare_Click" Tag="{Binding}"></MenuItem>
+                        <MenuItem Header="Map To Medicaid" Click="MenuItemMapToMedicaid_Click" Tag="{Binding}"></MenuItem>
+                        <MenuItem Header="Map To Governmental" Click="MenuItemMapToGovernmental_Click" Tag="{Binding}"></MenuItem>
+                        <MenuItem Header="Map To Commercial" Click="MenuItemMapToCommercial_Click" Tag="{Binding}"></MenuItem>
+                        <MenuItem Header="Unmap" Click="MenuItemUnmap_Click" Tag="{Binding}"></MenuItem>
+                    </ContextMenu>
+                </ListView.ContextMenu>
                 <ListView.View>
                     <GridView>
                         <GridViewColumn DisplayMemberBinding="{Binding Path=ReportNo}" Header="Report No" Width="85"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=PostDate, Converter={StaticResource MilitaryDateTimeConverter}}" Header="Posted" Width="110"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=PostDate, Converter={StaticResource ShortDateTimeConverter}}" Header="Posted" Width="110"/>
                         <GridViewColumn DisplayMemberBinding="{Binding Path=ClientId}" Header="Id" Width="75"/>
                         <GridViewColumn DisplayMemberBinding="{Binding Path=ClientName}" Header="Name" Width="200"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=MedicalRecord}" Header="MRN" Width="100"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=PrimaryInsuranceManual}" Header="Manual" Width="100"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=PrimaryInsuranceADT}" Header="ADT" Width="200"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=PrimaryInsuranceMapped}" Header="Mapped" Width="100"/>
                         <GridViewColumn DisplayMemberBinding="{Binding Path=PatientType}" Header="IP/OP" Width="100"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=PrimaryInsurance}" Header="Insurance" Width="100"/>
                     </GridView>
                 </ListView.View>
             </ListView>

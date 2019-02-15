@@ -18,15 +18,12 @@ namespace YellowstonePathology.UI.Billing
         {
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = System.Data.CommandType.Text;
-            cmd.CommandText = "SELECT distinct pso.MasterAccessionNo, pso.ReportNo, a.AccessionTime AccessionDate,  pso.PanelSetId, " +
-                "concat(a.PFirstName, ' ', a.PLastName) AS PatientName, " +
-                "a.PLastName, a.PFirstName, a.ClientName, a.PhysicianName, a.PBirthdate, pso.FinalDate, pso.PanelSetName, su.UserName as OrderedBy, " +
-                "'' ForeignAccessionNo, pso.IsPosted " +
+            cmd.CommandText = "SELECT distinct pso.ReportNo, a.ClientId, a.ClientName, pso.PanelSetName, a.PatientType, a.PrimaryInsurance PrimaryInsuranceManual, psocpt.PostDate, a.SVHMedicalRecord MedicalRecord " +
                 "FROM tblAccessionOrder a  " +
                 "JOIN tblPanelSetOrder pso ON a.MasterAccessionNo = pso.MasterAccessionNo " +
                 "join tblPanelSetOrderCPTCodeBill psocpt on pso.ReportNo = psocpt.ReportNo " +
                 "Left Outer Join tblSystemUser su on pso.OrderedById = su.UserId " +
-                "WHERE pso.IsPosted = 1 and a.SvhMedicalRecord like 'V%' and pso.PanelSetId = 13 and psocpt.PostDate = @PostDate Order By pso.FinalDate, pso.PanelSetId, a.AccessionTime;";
+                "WHERE pso.IsPosted = 1 and a.SvhMedicalRecord like 'V%' and pso.PanelSetId = 13 and psocpt.PostDate = @PostDate;";
 
             cmd.Parameters.AddWithValue("@PostDate", postDate);
             return BuildList(cmd);            

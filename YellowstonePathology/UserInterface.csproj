@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>34</ApplicationRevision>
+    <ApplicationRevision>36</ApplicationRevision>
     <ApplicationVersion>10.1.13.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -307,6 +307,8 @@
     <Compile Include="Business\Billing.Model\HospitalSplitSurgicalAndReferenceLabBillingRuleSet.cs" />
     <Compile Include="Business\Billing.Model\ICDCode.cs" />
     <Compile Include="Business\Billing.Model\ICDCodeFactory.cs" />
+    <Compile Include="Business\Billing.Model\InsuranceMap.cs" />
+    <Compile Include="Business\Billing.Model\InsuranceMapCollection.cs" />
     <Compile Include="Business\Billing.Model\MonitoredObject.cs" />
     <Compile Include="Business\Billing.Model\MonitoredObjectCollection.cs" />
     <Compile Include="Business\Billing.Model\PlaceOfService.cs" />
@@ -2977,8 +2979,8 @@
     <Compile Include="UI\Billing\AddFISHCPTCodePage.xaml.cs">
       <DependentUpon>AddFISHCPTCodePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Billing\AutomatedBillingDialog.xaml.cs">
-      <DependentUpon>AutomatedBillingDialog.xaml</DependentUpon>
+    <Compile Include="UI\Billing\BillingSimulationDialog.xaml.cs">
+      <DependentUpon>BillingSimulationDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Billing\BillingPage.xaml.cs">
       <DependentUpon>BillingPage.xaml</DependentUpon>
@@ -4914,7 +4916,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\Billing\AutomatedBillingDialog.xaml">
+    <Page Include="UI\Billing\BillingSimulationDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

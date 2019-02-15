@@ -1036,8 +1036,8 @@ namespace YellowstonePathology.UI
 
         private void MenuItemAdmin_Click(object sender, RoutedEventArgs e)
         {
-            UI.Billing.AutomatedBillingDialog automatedBillingDialog = new Billing.AutomatedBillingDialog();
-            automatedBillingDialog.Show();
+            UI.Billing.BillingSimulationDialog billingSimulationDialog = new Billing.BillingSimulationDialog();
+            billingSimulationDialog.Show();
         }
     }
 }
