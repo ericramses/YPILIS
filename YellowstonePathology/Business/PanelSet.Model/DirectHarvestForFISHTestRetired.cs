@@ -5,12 +5,12 @@ using System.Text;
 
 namespace YellowstonePathology.Business.Test
 {
-	public class DirectHarvestForFISHTest : YellowstonePathology.Business.PanelSet.Model.PanelSet
+	public class DirectHarvestForFISHTestRetired : YellowstonePathology.Business.PanelSet.Model.PanelSet
 	{
-        public DirectHarvestForFISHTest()
+        public DirectHarvestForFISHTestRetired()
 		{
 			this.m_PanelSetId = 190;
-            this.m_PanelSetName = "Direct Harvest For FISH";
+            this.m_PanelSetName = "Direct Harvest For FISH - Retired";
             this.m_CaseType = YellowstonePathology.Business.CaseType.Cytogenetics;
 			this.m_HasTechnicalComponent = true;			
             this.m_HasProfessionalComponent = false;
