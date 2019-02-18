@@ -1067,7 +1067,6 @@
     <Compile Include="Business\Test\EGFRMutationAnalysisPreliminary\EGFRMutationAnalysisPreliminaryTest.cs" />
     <Compile Include="Business\Test\EGFRToALKReflexAnalysis\EGFRToALKReflexAnalysisBRAFResult.cs" />
     <Compile Include="Business\Test\ExtractAndHoldForMolecular\ExtractAndHoldForMolecularTestRetired.cs" />
-    <Compile Include="Business\Test\ExtractAndHoldForPreauthorization\ExtractAndHoldForPreauthorizationTestRetired.cs" />
     <Compile Include="Business\Test\ExtractAndHoldForPreauthorization\ExtractAndHoldForPreauthorizationWordDocument.cs" />
     <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationResult.cs" />
     <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationResultBreast.cs" />
@@ -2199,7 +2198,7 @@
     <Compile Include="Business\Test\ErPrSemiQuantitative\ErPrSemiQuantitativeTest.cs" />
     <Compile Include="Business\Test\ErPrSemiQuantitative\ErPrSemiQuantitativeTestOrder.cs" />
     <Compile Include="Business\Test\ErPrSemiQuantitative\ErPrSemiQuantitativeWordDocument.cs" />
-    <Compile Include="Business\Test\ExtractAndHoldForMolecular\ExtractAndHoldForMolecularTest.cs" />
+    <Compile Include="Business\Test\HoldForFlow\ExtractAndHoldForMolecularTest.cs" />
     <Compile Include="Business\Test\ExtractAndHoldForMolecular\ExtractAndHoldForMolecularTestOrder.cs" />
     <Compile Include="Business\Test\FactorVLeiden\FactorVLeidenEpicObxView.cs" />
     <Compile Include="Business\Test\FactorVLeiden\FactorVLeidenHeterozygousMutationDetectedResult.cs" />

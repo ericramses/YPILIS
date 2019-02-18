@@ -19,19 +19,12 @@ namespace YellowstonePathology.Business.Test.HoldForFlow
             HoldForFlowTestOrder holdForFlowTestOrder = (HoldForFlowTestOrder)this.m_PanelSetOrder;
             this.m_PanelSetOrder = holdForFlowTestOrder;
 
-            CultureAndHoldForCytogeneticsTest cultureAndHoldForCytogeneticsTest = new HoldForFlow.CultureAndHoldForCytogeneticsTest();
-            DirectHarvestForFISHTest directHarvestForFISHTest = new HoldForFlow.DirectHarvestForFISHTest();
-            ExtractAndHoldForMolecular.ExtractAndHoldForMolecularTest extractAndHoldForMolecularTest = new ExtractAndHoldForMolecular.ExtractAndHoldForMolecularTest();
-
             this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\HoldForFlow.3.xml";
             base.OpenTemplate();
 
             base.SetDemographicsV2();
 
-            string title = "Hold for Flow";
-            if(this.m_PanelSetOrder.PanelSetName == cultureAndHoldForCytogeneticsTest.PanelSetName) title = "Hold For Cytogenetics";
-            else if (this.m_PanelSetOrder.PanelSetName == directHarvestForFISHTest.PanelSetName) title = "Hold For FISH";
-            else if (this.m_PanelSetOrder.PanelSetName == extractAndHoldForMolecularTest.PanelSetName) title = "Hold For Molecular";
+            string title = this.m_PanelSetOrder.PanelSetName;
             this.ReplaceText("report_title", title);
 
             this.ReplaceText("report_comment", holdForFlowTestOrder.Comment);

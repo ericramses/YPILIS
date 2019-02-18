@@ -6,15 +6,27 @@ using System.Threading.Tasks;
 
 namespace YellowstonePathology.Business.Test.ExtractAndHoldForPreauthorization
 {
-    public class ExtractAndHoldForPreauthorizationTest : YellowstonePathology.Business.Test.HoldForFlow.HoldForFlowTest
+    public class ExtractAndHoldForPreauthorizationTest : YellowstonePathology.Business.PanelSet.Model.PanelSet
     {
         public ExtractAndHoldForPreauthorizationTest()
         {
+            this.m_PanelSetId = 300;
             this.m_PanelSetName = "Extract And Hold For Preauthorization";
             this.m_Abbreviation = "Extract And Hold For Preauthorization";
+            this.m_CaseType = YellowstonePathology.Business.CaseType.FlowCytometry;
+            this.m_HasTechnicalComponent = false;
+            this.m_HasProfessionalComponent = false;
+            this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.None;
+            this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterT();
+            this.m_Active = true;
+            this.m_NeverDistribute = true;
             this.m_ExpectedDuration = new TimeSpan(7, 0, 0, 0);
+            this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.ExtractAndHoldForPreauthorization.ExtractAndHoldForPreauthorizationTestOrder).AssemblyQualifiedName;
+            this.m_RequiresPathologistSignature = false;
+            this.m_AcceptOnFinal = false;
             this.m_AllowMultiplePerAccession = true;
-            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.ExtractAndHoldForPreauthorization.ExtractAndHoldForPreauthorizationWordDocument).AssemblyQualifiedName;
+            this.m_ShowResultPageOnOrder = true;
+            this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMiscellaneous());
 
             YellowstonePathology.Business.Task.Model.TaskFax taskFax = new YellowstonePathology.Business.Task.Model.TaskFax(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, "Preauthorization Fax", "PreauthorizationNotification");
             this.m_TaskCollection.Add(taskFax);
