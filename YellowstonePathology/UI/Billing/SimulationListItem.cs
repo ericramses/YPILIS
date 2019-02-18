@@ -11,6 +11,7 @@ namespace YellowstonePathology.UI.Billing
         private string m_MasterAccessionNo;
         private string m_ReportNo;
 		private Nullable<DateTime> m_PostDate;
+        private Nullable<DateTime> m_FinalDate;
 		private int m_ClientId;
 		private string m_ClientName;        
 		private string m_PanelSetName;
@@ -77,6 +78,20 @@ namespace YellowstonePathology.UI.Billing
 				}
 			}
 		}
+
+        [PersistentProperty()]
+        public Nullable<DateTime> FinalDate
+        {
+            get { return this.m_FinalDate; }
+            set
+            {
+                if (value != this.m_FinalDate)
+                {
+                    this.m_FinalDate = value;
+                    this.NotifyPropertyChanged("FinaltDate");
+                }
+            }
+        }
 
         [PersistentProperty()]
         public int ClientId

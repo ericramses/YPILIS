@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.ComponentModel;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace YellowstonePathology.UI.Billing
 {    
@@ -19,14 +21,16 @@ namespace YellowstonePathology.UI.Billing
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        private const string BaseSerializeFolder = @"D:\BillingSimulation\";
+
         private SimulationList m_SimulationList;
-        private DateTime m_PostDate;
+        private DateTime m_FinalDate;
         private Business.Billing.Model.InsuranceMapCollection m_InsuranceMapCollection;
 
         public SimulationDialog()
         {
             this.m_InsuranceMapCollection = Business.Billing.Model.InsuranceMapCollection.GetCollection();
-            this.m_PostDate = DateTime.Today;
+            this.m_FinalDate = DateTime.Today;
             this.GetList();
 
             InitializeComponent();
@@ -35,21 +39,21 @@ namespace YellowstonePathology.UI.Billing
 
         public void GetList()
         {
-            this.m_SimulationList = SimulationList.GetList(this.m_PostDate);
+            this.m_SimulationList = SimulationList.GetList(this.m_FinalDate);
             this.HandlePrimaryInsuranceSimulation();
             this.m_SimulationList.HandlePatientTypeSimulation();
             this.NotifyPropertyChanged("SimulationList");
         }
 
-        public DateTime PostDate
+        public DateTime FinalDate
         {
-            get { return this.m_PostDate; }
+            get { return this.m_FinalDate; }
             set
             {
-                if(this.m_PostDate != value)
+                if(this.m_FinalDate != value)
                 {
-                    this.m_PostDate = value;
-                    this.NotifyPropertyChanged("PostDate");
+                    this.m_FinalDate = value;
+                    this.NotifyPropertyChanged("FinalDate");
                 }                
             }
         }
@@ -146,16 +150,71 @@ namespace YellowstonePathology.UI.Billing
 
         private void ButtonBack_Click(object sender, RoutedEventArgs e)
         {
-            this.m_PostDate = this.m_PostDate.AddDays(-1);
+            this.m_FinalDate = this.m_FinalDate.AddDays(-1);
             this.GetList();
-            this.NotifyPropertyChanged("PostDate");
+            this.NotifyPropertyChanged("FinalDate");
         }
 
         private void ButtonForward_Click(object sender, RoutedEventArgs e)
         {
-            this.m_PostDate = this.m_PostDate.AddDays(1);
+            this.m_FinalDate = this.m_FinalDate.AddDays(1);
             this.GetList();
-            this.NotifyPropertyChanged("PostDate");
+            this.NotifyPropertyChanged("FinalDate");
+        }
+
+        private void MenuItemSimulateSetPost_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        public string HandleSerializeFolderFileName(DateTime finalDate, string reportNo)
+        {
+            string folderName = BaseSerializeFolder + finalDate.ToString("MMddyyy");
+            if(System.IO.Directory.Exists(folderName) == false)
+            {
+                System.IO.Directory.CreateDirectory(folderName);
+            }
+            return folderName + "\\" + reportNo + ".json";
+        }
+
+        public void Serialize(Business.Test.AccessionOrder ao, string reportNo, string fileName)
+        {
+            JsonSerializer serializer = new JsonSerializer();
+            serializer.Converters.Add(new Newtonsoft.Json.Converters.JavaScriptDateTimeConverter());
+            serializer.NullValueHandling = NullValueHandling.Ignore;
+
+            using (System.IO.StreamWriter sw = new System.IO.StreamWriter(fileName))
+            using (JsonWriter writer = new JsonTextWriter(sw))
+            {
+                Business.Test.PanelSetOrder pso = ao.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
+                serializer.Serialize(writer, pso.PanelSetOrderCPTCodeBillCollection);
+            }
+        }
+
+        private void ButtonWriteCodesToFile_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (SimulationListItem item in this.ListViewSimulationList.Items)
+            {
+                Business.Test.AccessionOrder ao = Business.Persistence.DocumentGateway.Instance.GetAccessionOrderByMasterAccessionNo(item.MasterAccessionNo);
+
+                YellowstonePathology.Business.Billing.Model.BillableObject billableObject = Business.Billing.Model.BillableObjectFactory.GetBillableObject(ao, item.ReportNo);
+                YellowstonePathology.Business.Rules.MethodResult setResult = billableObject.Set();
+                if (setResult.Success == false)
+                {
+                    MessageBox.Show(setResult.Message);
+                }
+                else
+                {
+                    YellowstonePathology.Business.Rules.MethodResult postResult = billableObject.Post();
+                    if (postResult.Success == false)
+                    {
+                        MessageBox.Show(postResult.Message);
+                    }
+                    string fileName = HandleSerializeFolderFileName(this.m_FinalDate, item.ReportNo);
+                    Business.Billing.Model.SimulationSerializer.Serialize(ao, item.ReportNo, fileName);
+                }
+            }
+            MessageBox.Show("Completed writing CPT Billing Codes");
         }
     }
 }

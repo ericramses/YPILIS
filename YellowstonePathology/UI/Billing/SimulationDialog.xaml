@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YellowstonePathology.UI.Billing"
         mc:Ignorable="d"
-        Title="Automated Billing Dialog" Height="500" Width="1500" WindowStartupLocation="CenterScreen">
+        Title="Billing Simulation Dialog" Height="500" Width="1500" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid Grid.Column="0" Grid.Row="1" Margin="10">
             <Grid.ColumnDefinitions>
@@ -19,8 +19,8 @@
                 <RowDefinition Height="Auto"></RowDefinition>
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold" Text="Post Date:" />
-            <TextBox Name="TextBoxPostDate" Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" HorizontalAlignment="Stretch" Text="{Binding Path=PostDate, Converter={StaticResource ShortDateConverter}}"/>
+            <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold" Text="Final Date:" />
+            <TextBox Name="TextBoxFinalDate" Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" HorizontalAlignment="Stretch" Text="{Binding Path=FinalDate, Converter={StaticResource ShortDateConverter}}"/>
 
             <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="0">
                 <Button Width="25" Height="20" Margin="1,1,1,1" Click="ButtonBack_Click">&lt;</Button>
@@ -35,6 +35,7 @@
                         <MenuItem Header="Map To Governmental" Click="MenuItemMapToGovernmental_Click" Tag="{Binding}"></MenuItem>
                         <MenuItem Header="Map To Commercial" Click="MenuItemMapToCommercial_Click" Tag="{Binding}"></MenuItem>
                         <MenuItem Header="Unmap" Click="MenuItemUnmap_Click" Tag="{Binding}"></MenuItem>
+                        <MenuItem Header="Simulate Set/Post" Click="MenuItemSimulateSetPost_Click" Tag="{Binding}"></MenuItem>
                     </ContextMenu>
                 </ListView.ContextMenu>
                 <ListView.View>
@@ -54,7 +55,8 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-                        
+
+            <Button Grid.Column="0" Grid.Row="2" Width="150" Height="25" Margin="2,2,2,2" Click="ButtonWriteCodesToFile_Click">Write Codes To File</Button>
             <Button Grid.Column="2" Grid.Row="2" Width="75" Height="25" Margin="2,2,2,2" Click="ButtonClose_Click">Close</Button>
 
         </Grid>

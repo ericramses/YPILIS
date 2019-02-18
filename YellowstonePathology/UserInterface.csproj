@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>36</ApplicationRevision>
+    <ApplicationRevision>39</ApplicationRevision>
     <ApplicationVersion>10.1.13.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -314,6 +314,7 @@
     <Compile Include="Business\Billing.Model\PlaceOfService.cs" />
     <Compile Include="Business\Billing.Model\PlaceOfServiceCollection.cs" />
     <Compile Include="Business\Billing.Model\PropertyChanges.cs" />
+    <Compile Include="Business\Billing.Model\SimulationSerializer.cs" />
     <Compile Include="Business\Billing.Model\SVHNoCDMMailMessage.cs" />
     <Compile Include="Business\Client.Model\HPV1618CompoundStandingOrderRule1.cs" />
     <Compile Include="Business\Client.Model\HPV1618ReflexOrderPAPNormalHPVPositive.cs" />
@@ -6886,12 +6887,12 @@
   <ItemGroup>
     <PublishFile Include="Microsoft.Exchange.WebServices">
       <Visible>False</Visible>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
   </ItemGroup>

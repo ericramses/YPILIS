@@ -46,7 +46,7 @@ namespace YellowstonePathology.UI.Billing
         {
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = System.Data.CommandType.Text;
-            cmd.CommandText = "SELECT distinct a.MasterAccessionNo, pso.ReportNo, a.ClientId, a.ClientName, pso.PanelSetName, a.PatientType, a.PrimaryInsurance PrimaryInsuranceManual, psocpt.PostDate, a.SVHMedicalRecord MedicalRecord " +
+            cmd.CommandText = "SELECT distinct a.MasterAccessionNo, pso.ReportNo, a.ClientId, a.ClientName, pso.PanelSetName, a.PatientType, a.PrimaryInsurance PrimaryInsuranceManual, psocpt.PostDate, a.SVHMedicalRecord MedicalRecord, pso.FinalDate " +
                 "FROM tblAccessionOrder a  " +
                 "JOIN tblPanelSetOrder pso ON a.MasterAccessionNo = pso.MasterAccessionNo " +
                 "join tblPanelSetOrderCPTCodeBill psocpt on pso.ReportNo = psocpt.ReportNo " +
