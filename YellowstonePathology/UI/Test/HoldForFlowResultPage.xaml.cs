@@ -124,16 +124,7 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Document.CaseReportV2 report = null;
-            YellowstonePathology.Business.Test.ExtractAndHoldForPreauthorization.ExtractAndHoldForPreauthorizationTest extractAndHoldForPreauthorizationTest = new Business.Test.ExtractAndHoldForPreauthorization.ExtractAndHoldForPreauthorizationTest();
-            if (this.m_PanelSetOrder.PanelSetName == extractAndHoldForPreauthorizationTest.PanelSetName)
-            {
-                report = new Business.Test.ExtractAndHoldForPreauthorization.ExtractAndHoldForPreauthorizationWordDocument(this.m_AccessionOrder, this.m_PanelSetOrder, Business.Document.ReportSaveModeEnum.Draft);
-            }
-            else
-            {
-                report = new Business.Test.HoldForFlow.HoldForFlowWordDocument(this.m_AccessionOrder, this.m_PanelSetOrder, Business.Document.ReportSaveModeEnum.Draft);
-            }
+            YellowstonePathology.Business.Test.HoldForFlow.HoldForFlowWordDocument report = new Business.Test.HoldForFlow.HoldForFlowWordDocument(this.m_AccessionOrder, this.m_PanelSetOrder, Business.Document.ReportSaveModeEnum.Draft);
             report.Render();
             YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(report.SaveFileName);
         }
