@@ -40,49 +40,10 @@ namespace YellowstonePathology.Business.HL7View.CMMC
                     view = new YellowstonePathology.Business.Test.LLP.LLPCMMCNteView(accessionOrder, reportNo);
                     break;
                 case 21:
-                    //view = new CMMCThrombocytopeniaProfileNteView(accessionOrder, reportNo);
-                    break;
-                case 22:
-                    //view = new CMMCPAANteView(accessionOrder, reportNo);
-                    break;
-                case 23:
-                    //view = new CMMCReticulatedPlateletNteView(accessionOrder, reportNo);
-                    break;
-                case 24:
-                    //view = new CMMCStemCellEnumerationNteView(accessionOrder, reportNo);
-                    break;
-                case 25:
-                    //view = new CMMCHpv16NteView(accessionOrder, reportNo);
-                    break;
-                case 27:
-                    //view = new CMMCKrasNteView(accessionOrder, reportNo);
-                    break;
-                case 30:
-                    //view = new CMMCKrasWithBrafReflexNteView(accessionOrder, reportNo);
-                    break;
-                case 32:
-                    //view = new CMMCFactorVNteView(accessionOrder, reportNo);
-                    break;
-                case 33:
-                    //view = new CMMCProthrombinNteView(accessionOrder, reportNo);
-                    break;
-                case 34:
-                    //view = new CMMCMthfrNteView(accessionOrder, reportNo);
-                    break;
-                case 35:
-                    //view = new CMMCAutopsyNteView(accessionOrder, reportNo);
-                    break;
-                case 36:
-                    //view = new CMMCBCellClonalityNteView(accessionOrder, reportNo);
+                    view = new YellowstonePathology.Business.Test.ThrombocytopeniaProfile.ThrombocytopeniaProfileCMMCNTEView(accessionOrder, reportNo);
                     break;
                 case 46:
                     view = new YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHCMMCNteView(accessionOrder, reportNo);
-                    break;
-                case 54:
-                    //view = new CMMCCytogeneticsNteView(accessionOrder, reportNo);
-                    break;                
-                case 60:
-                    //view = new CMMCEgfrNteView(accessionOrder, reportNo);
                     break;
                 case 61:
 					view = new YellowstonePathology.Business.Test.Trichomonas.TrichomonasCMMCNteView(accessionOrder, reportNo);

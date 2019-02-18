@@ -5,7 +5,7 @@ using System.Text;
 
 namespace YellowstonePathology.Business.Test.MALT1
 {
-    public class MALT1Test : YellowstonePathology.Business.PanelSet.Model.PanelSet
+    public class MALT1Test : YellowstonePathology.Business.PanelSet.Model.FISHTest
 	{
 		public MALT1Test()
 		{
@@ -33,6 +33,8 @@ namespace YellowstonePathology.Business.Test.MALT1
             this.m_ProfessionalComponentBillingFacility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");            
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMiscellaneous());
+
+            this.m_ProbeSetCount = 1;
 		}
 	}
 }

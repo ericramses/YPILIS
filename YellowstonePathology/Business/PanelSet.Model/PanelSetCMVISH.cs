@@ -38,6 +38,6 @@ namespace YellowstonePathology.Business.PanelSet.Model
             this.m_PanelSetCptCodeCollection.Add(panelSetCptCode);
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMiscellaneous());
-		}
-	}
+        }
+    }
 }

@@ -159,7 +159,7 @@
                 <TextBox Grid.Column="1" Grid.Row="3" Margin="2,2,2,2" Text="{Binding Path=AccessionOrder.CollectionDate, Converter={StaticResource ShortDateConverter}}" FontSize="12" />
                 
                 <TextBlock Grid.Column="0" Grid.Row="4" FontSize="12" Margin="2,2,2,2" HorizontalAlignment="Right" FontWeight="Bold">Accession Date:</TextBlock>
-				<TextBlock Grid.Column="1" Grid.Row="4" Margin="2,2,2,2" Text="{Binding Path=AccessionOrder.AccessionDate, Converter={StaticResource ShortDateConverter}}" FontSize="12" />
+				<TextBlock Grid.Column="1" Grid.Row="4" Margin="2,2,2,2" Text="{Binding Path=AccessionOrder.AccessionTime, Converter={StaticResource MilitaryDateTimeConverter}}" FontSize="12" />
 				
 				<ListView Name="ListViewPanelSetOrder" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5" Margin="2,2,2,2" MinWidth="250" ItemsSource="{Binding Path=AccessionOrder.PanelSetOrderCollection}"
 						  ItemTemplate="{StaticResource PanelSetOrderTemplate}" MouseDoubleClick="ListViewPanelSetOrder_MouseDoubleClick"/>

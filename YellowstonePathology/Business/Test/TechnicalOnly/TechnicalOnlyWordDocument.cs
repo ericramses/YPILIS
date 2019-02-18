@@ -14,6 +14,11 @@ namespace YellowstonePathology.Business.Test.TechnicalOnly
 
         }
 
+        public string SaveFileName
+        {
+            get { return null; }
+        }
+
         public void Render()
         {
             //Do Nothing

@@ -5,11 +5,11 @@ using System.Text;
 
 namespace YellowstonePathology.Business.Test.API2MALT1ByFISH
 {
-	public class API2MALT1ByFISHTest : YellowstonePathology.Business.PanelSet.Model.PanelSet
+	public class API2MALT1ByFISHTest : YellowstonePathology.Business.PanelSet.Model.FISHTest
 	{
         public API2MALT1ByFISHTest()
-		{
-			this.m_PanelSetId = 186;
+		{            
+            this.m_PanelSetId = 186;
 			this.m_PanelSetName = "API2/MALT1 t(11;18) By FISH";
 			this.m_CaseType = YellowstonePathology.Business.CaseType.FISH;
 			this.m_HasTechnicalComponent = true;			
@@ -42,6 +42,11 @@ namespace YellowstonePathology.Business.Test.API2MALT1ByFISH
             this.m_ProfessionalComponentBillingFacility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMiscellaneous());
-		}
-	}
+
+            Business.Panel.Model.HAndEPanel handePanel = new Panel.Model.HAndEPanel();
+            this.m_PanelCollection.Add(handePanel);
+
+            this.m_ProbeSetCount = 1;
+        }
+    }
 }

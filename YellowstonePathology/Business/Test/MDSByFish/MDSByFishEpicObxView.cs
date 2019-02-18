@@ -46,7 +46,13 @@ namespace YellowstonePathology.Business.Test.MDSByFish
 			this.AddNextObxElement("Probe Set Details:", document, "F");
 			this.HandleLongString(panelSetOrder.ProbeSetDetail, document, "F");
 
-			this.AddNextObxElement("", document, "F");
+            if (string.IsNullOrEmpty(panelSetOrder.ProbeComment) == false)
+            {
+                this.AddNextObxElement("", document, "F");
+                this.AddNextObxElement("Probe Comments: " + panelSetOrder.ProbeComment, document, "F");
+            }
+
+            this.AddNextObxElement("", document, "F");
 			this.AddNextObxElement("Nuclei Scored:", document, "F");
 			this.HandleLongString(panelSetOrder.NucleiScored, document, "F");			
 

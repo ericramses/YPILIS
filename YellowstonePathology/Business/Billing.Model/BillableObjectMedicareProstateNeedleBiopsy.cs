@@ -84,6 +84,8 @@ namespace YellowstonePathology.Business.Billing.Model
                     panelSetOrderCPTCodeBill.CodeType = cpt88305.CodeType.ToString();
                     panelSetOrderCPTCodeBill.Modifier = modifier;
                     panelSetOrderCPTCodeBill.Quantity = cpt88305Count;
+                    panelSetOrderCPTCodeBill.MedicalRecord = this.m_AccessionOrder.SvhMedicalRecord;
+                    panelSetOrderCPTCodeBill.Account = this.m_AccessionOrder.SvhAccount;
                     this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.Add(panelSetOrderCPTCodeBill);
                 }
             }            
@@ -104,6 +106,8 @@ namespace YellowstonePathology.Business.Billing.Model
                 panelSetOrderCPTCodeBill.CodeType = cptG0416.CodeType.ToString();
                 panelSetOrderCPTCodeBill.Modifier = modifier;
                 panelSetOrderCPTCodeBill.Quantity = 1;
+                panelSetOrderCPTCodeBill.MedicalRecord = this.m_AccessionOrder.SvhMedicalRecord;
+                panelSetOrderCPTCodeBill.Account = this.m_AccessionOrder.SvhAccount;
                 this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.Add(panelSetOrderCPTCodeBill);
             }            
         }

@@ -6,14 +6,10 @@ using System.Text;
 namespace YellowstonePathology.Business.Common
 {
 	public class Block : YellowstonePathology.Business.Domain.DomainBase
-	{        
-		protected string m_Prefix = "$";
-        protected string m_LaserDelimeter = "|";
-        protected string m_Delimeter = "#";
-		protected string m_CassetteColumnDelimiter = "H";
+	{        		
 		protected string m_CompanyId = "YPII";
 		protected string m_ScanningPrefix = "ALQ";
-		protected int m_CassetteColumn;
+		protected string m_CassetteColor;
 		protected string m_BlockTitle;
 		protected string m_PatientInitials;
 		protected string m_BlockId;
@@ -98,15 +94,15 @@ namespace YellowstonePathology.Business.Common
 			}
         }
 
-        public int CassetteColumn
+        public string CassetteColor
         {
-            get { return this.m_CassetteColumn; }
+            get { return this.m_CassetteColor; }
 			set
 			{
-				if (value != this.m_CassetteColumn)
+				if (value != this.m_CassetteColor)
 				{
-					this.m_CassetteColumn = value;
-					this.NotifyPropertyChanged("CassetteColumn");
+					this.m_CassetteColor = value;
+					this.NotifyPropertyChanged("CassetteColor");
 				}
 			}
         }
@@ -135,12 +131,7 @@ namespace YellowstonePathology.Business.Common
 					this.NotifyPropertyChanged("Verified");
 				}
 			}
-		}
-
-		public string FormattedCassetteColumn
-		{
-			get { return this.m_CassetteColumnDelimiter + this.m_CassetteColumn.ToString(); }
-		}
+		}		
 
         public string CompanyId
         {
@@ -150,11 +141,6 @@ namespace YellowstonePathology.Business.Common
         public string ScanningId
         {
             get { return this.m_ScanningPrefix + this.BlockId.ToString(); }            
-        }
-        
-        public virtual string ToLaserString()
-        {
-            throw new Exception();
-        }        
+        }                    
 	}
 }

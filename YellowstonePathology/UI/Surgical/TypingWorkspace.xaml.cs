@@ -179,9 +179,7 @@ namespace YellowstonePathology.UI.Surgical
 			this.Save(false);
 			YellowstonePathology.Business.Test.Surgical.SurgicalWordDocument report = new YellowstonePathology.Business.Test.Surgical.SurgicalWordDocument(this.m_TypingUI.AccessionOrder, this.m_TypingUI.SurgicalTestOrder, Business.Document.ReportSaveModeEnum.Draft);
             report.Render();
-			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_TypingUI.SurgicalTestOrder.ReportNo);
-			string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);
-			YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(fileName);
+			YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(report.SaveFileName);
 		}
 
         public void SaveData(object target, ExecutedRoutedEventArgs args)
@@ -355,9 +353,7 @@ namespace YellowstonePathology.UI.Surgical
 				this.Save(false);
 				YellowstonePathology.Business.Test.Surgical.SurgicalWordDocument report = new YellowstonePathology.Business.Test.Surgical.SurgicalWordDocument(this.m_TypingUI.AccessionOrder, this.m_TypingUI.SurgicalTestOrder, Business.Document.ReportSaveModeEnum.Draft);
 				report.Render();
-				YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_TypingUI.SurgicalTestOrder.ReportNo);
-				string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);
-				YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(fileName);
+				YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(report.SaveFileName);
 			}
         }
 
@@ -464,14 +460,7 @@ namespace YellowstonePathology.UI.Surgical
             if (args.Key == Key.Space)
             {                                
                 TextBox textBox = (TextBox)args.Source;
-                if (textBox.Name == "TextBoxMicroscopic")
-                {
-                    this.m_TypingShortcutUserControl.SetShortcut(textBox, this.m_TypingUI.SurgicalTestOrder);
-                }
-                else
-                {
-                    this.m_TypingShortcutUserControl.SetShortcut(textBox);
-                }                
+                this.m_TypingShortcutUserControl.SetShortcut(textBox);               
             }
         }        
 
@@ -677,7 +666,7 @@ namespace YellowstonePathology.UI.Surgical
 
         private void ButtonCAPLink_Click(object sender, RoutedEventArgs e)
         {
-            System.Diagnostics.Process.Start(@"http://www.cap.org/web/oracle/webcenter/portalapp/pagehierarchy/cancer_protocol_templates.jspx?_afrLoop=36229252016954#!%40%40%3F_afrLoop%3D36229252016954%26_adf.ctrl-state%3Dgfs5he3rf_4");
+            System.Diagnostics.Process.Start(@"https://www.cap.org/protocols-and-guidelines/cancer-reporting-tools/cancer-protocol-templates");
         }
 
         private void MenuItemShowRequisition_Click(object sender, RoutedEventArgs e)
@@ -1178,7 +1167,25 @@ namespace YellowstonePathology.UI.Surgical
             panelSetOrderCPTCode.SpecimenOrderId = specimenOrder.SpecimenOrderId;
             panelSetOrderCPTCode.CodeType = cptCodeType;
             panelSetOrderCPTCode.ClientId = this.m_TypingUI.AccessionOrder.ClientId;
+            panelSetOrderCPTCode.MedicalRecord = this.m_TypingUI.AccessionOrder.SvhMedicalRecord;
+            panelSetOrderCPTCode.Account = this.m_TypingUI.AccessionOrder.SvhAccount;            
             panelSetOrder.PanelSetOrderCPTCodeCollection.Add(panelSetOrderCPTCode);
-        }        
+        }
+
+        private void ContextMenuReverseCptCode_Click(object sender, RoutedEventArgs e)
+        {
+            MenuItem menuItem = (MenuItem)sender;
+            string panelSetOrderCPTCodeId = menuItem.Tag.ToString();
+            YellowstonePathology.Business.Test.PanelSetOrderCPTCode panelSetOrderCPTCode = this.m_TypingUI.SurgicalTestOrder.PanelSetOrderCPTCodeCollection.GetPanelSetOrderCPTCode(panelSetOrderCPTCodeId);
+            if(panelSetOrderCPTCode.PostDate.HasValue == true)
+            {
+                this.m_TypingUI.SurgicalTestOrder.PanelSetOrderCPTCodeCollection.Reverse(panelSetOrderCPTCode);
+                this.m_TypingUI.RefreshBillingSpecimenViewCollection();
+            }
+            else
+            {
+                MessageBox.Show("This code has not been posted and therefore does not need to be reversed.");
+            }            
+        }
     }    
 }

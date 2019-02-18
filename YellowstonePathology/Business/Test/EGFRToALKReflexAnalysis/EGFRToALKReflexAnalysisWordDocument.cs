@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
 
         public override void Render()
         {            
-            this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\EGFRALKROS1PDLBRAF.xml";
+            this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\EGFRALKROS1PDLBRAF.2.xml";
             this.OpenTemplate();
             this.SetDemographicsV2();
             this.SetReportDistribution();
@@ -26,82 +26,80 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
 
             base.ReplaceText("report_title", egfrToALKReflexAnalysisTestOrder.PanelSetName);
             
-            YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisTestOrder egfrMutationAnalysisTestOrder = (YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(60);
-            base.ReplaceText("egfr_result", egfrMutationAnalysisTestOrder.Result);
-            base.SetXMLNodeParagraphData("egfr_comment", egfrMutationAnalysisTestOrder.Comment);
-
-            YellowstonePathology.Business.Document.AmendmentSection amendmentSection = new YellowstonePathology.Business.Document.AmendmentSection();
-            amendmentSection.SetAmendment(egfrToALKReflexAnalysisTestOrder.AmendmentCollection, this.m_ReportXml, this.m_NameSpaceManager, true);
-
-            YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisDetectedResult egfrMutationAnalysisDetectedResult = new EGFRMutationAnalysis.EGFRMutationAnalysisDetectedResult();
-
-            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(131) == true)
+            if(string.IsNullOrEmpty(egfrToALKReflexAnalysisTestOrder.EGFRMutationAnalysisResult) == false)
             {
-                YellowstonePathology.Business.Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHTestOrder alkForNSCLCByFISHTestOrder = (YellowstonePathology.Business.Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(131);
-                base.ReplaceText("alk_result", alkForNSCLCByFISHTestOrder.Result);
-            }            
-            else if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(68) == true)
-            {
-                YellowstonePathology.Business.Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHTestOrderReportedSeparately alkForNSCLCByFISHTestOrderReportedSeparately = new YellowstonePathology.Business.Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHTestOrderReportedSeparately();
-				base.ReplaceText("alk_result", alkForNSCLCByFISHTestOrderReportedSeparately.Result);
-            }
-            else if (egfrToALKReflexAnalysisTestOrder.QNSForALK == true)
-            {
-                base.ReplaceText("alk_result", "Quantity not sufficient to perform ALK");
-                base.ReplaceText("ros1_result", "Quantity not sufficient to perform ROS1");
-            }
-            else if (egfrMutationAnalysisTestOrder.ResultCode == egfrMutationAnalysisDetectedResult.ResultCode)
-            {
-                base.ReplaceText("alk_result", "Not Indicated");
+                base.ReplaceText("egfr_result", egfrToALKReflexAnalysisTestOrder.EGFRMutationAnalysisResult);
             }
             else
             {
-                base.ReplaceText("alk_result", "ALK not performed");
+                this.DeleteRow("egfr_result");
             }
 
-            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(204) == true)
-            {                
-                YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHTestOrder ros1ByFISHTestOrder = (YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(204);
-                base.ReplaceText("ros1_result", ros1ByFISHTestOrder.Result);
-            }
-            else if (egfrMutationAnalysisTestOrder.ResultCode == egfrMutationAnalysisDetectedResult.ResultCode)
+            if (string.IsNullOrEmpty(egfrToALKReflexAnalysisTestOrder.EGFRMutationAnalysisComment) == false)
             {
-                base.ReplaceText("ros1_result", "Not Indicated");
+                base.SetXMLNodeParagraphData("egfr_comment", egfrToALKReflexAnalysisTestOrder.EGFRMutationAnalysisComment);
             }
             else
             {
-                base.ReplaceText("ros1_result", "ROS1 not performed");
+                this.DeleteRow("egfr_comment");
             }
 
-            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(215) == true)
+            if (string.IsNullOrEmpty(egfrToALKReflexAnalysisTestOrder.ALKForNSCLCByFISHResult) == false)
             {
-                YellowstonePathology.Business.Test.PDL1SP142.PDL1SP142TestOrder pdl1sp142TestOrder = (YellowstonePathology.Business.Test.PDL1SP142.PDL1SP142TestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(215);
-                base.ReplaceText("pdl1sp142_result", pdl1sp142TestOrder.StainPercent);
+                base.ReplaceText("alk_result", egfrToALKReflexAnalysisTestOrder.ALKForNSCLCByFISHResult);
+            }
+            else
+            {
+                this.DeleteRow("alk_result");
+            }
+
+            if (string.IsNullOrEmpty(egfrToALKReflexAnalysisTestOrder.ROS1ByFISHResult) == false)
+            {
+                base.ReplaceText("ros1_result", egfrToALKReflexAnalysisTestOrder.ROS1ByFISHResult);
+            }
+            else
+            {
+                this.DeleteRow("ros1_result");
+            }
+
+            if (string.IsNullOrEmpty(egfrToALKReflexAnalysisTestOrder.PDL1SP142StainPercent) == false)
+            {
+                base.ReplaceText("pdl1sp142_result", egfrToALKReflexAnalysisTestOrder.PDL1SP142StainPercent);
             }
             else
             {
                 this.DeleteRow("pdl1sp142_result");
             }
 
-            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(245) == true)
+            if (string.IsNullOrEmpty(egfrToALKReflexAnalysisTestOrder.PDL122C3Result) == false)
             {
-                YellowstonePathology.Business.Test.PDL122C3.PDL122C3TestOrder pdl122C3TestOrder = (YellowstonePathology.Business.Test.PDL122C3.PDL122C3TestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(245);
-                base.ReplaceText("pdl122c3_result", pdl122C3TestOrder.Result);
+                base.ReplaceText("pdl122c3_result", egfrToALKReflexAnalysisTestOrder.PDL122C3Result);
             }
             else
             {
                 this.DeleteRow("pdl122c3_result");
             }
 
-            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(274) == true)
+            if (string.IsNullOrEmpty(egfrToALKReflexAnalysisTestOrder.BRAFMutationAnalysisResult) == false)
             {
-                YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTestOrder brafTestOrder = (YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(274);
-                base.ReplaceText("braf_result", brafTestOrder.Result);
+                base.ReplaceText("braf_result", egfrToALKReflexAnalysisTestOrder.BRAFMutationAnalysisResult);
             }
             else
             {
                 this.DeleteRow("braf_result");
             }
+
+            if(string.IsNullOrEmpty(egfrToALKReflexAnalysisTestOrder.Comment) == false)
+            {
+                base.ReplaceText("qns_statement", egfrToALKReflexAnalysisTestOrder.Comment);
+            }
+            else
+            {
+                this.DeleteRow("qns_statement");
+            }
+
+            YellowstonePathology.Business.Document.AmendmentSection amendmentSection = new YellowstonePathology.Business.Document.AmendmentSection();
+            amendmentSection.SetAmendment(egfrToALKReflexAnalysisTestOrder.AmendmentCollection, this.m_ReportXml, this.m_NameSpaceManager, true);
 
             base.SetXMLNodeParagraphData("report_interpretation", egfrToALKReflexAnalysisTestOrder.Interpretation);
 
@@ -112,7 +110,7 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
 			this.SetXMLNodeParagraphData("report_references", egfrToALKReflexAnalysisTestOrder.ReportReferences);
 
             YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetAliquotOrder(egfrToALKReflexAnalysisTestOrder.OrderedOnId);
-			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(egfrToALKReflexAnalysisTestOrder.OrderedOn, egfrMutationAnalysisTestOrder.OrderedOnId);
+			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(egfrToALKReflexAnalysisTestOrder.OrderedOn, egfrToALKReflexAnalysisTestOrder.OrderedOnId);
 
             string specimenDescription = specimenOrder.Description + ", Block " + aliquotOrder.Label;
             this.ReplaceText("specimen_description", specimenDescription);
@@ -128,7 +126,6 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
         public override void Publish()
         {
             base.Publish();
-        }        
-
+        }
     }
 }

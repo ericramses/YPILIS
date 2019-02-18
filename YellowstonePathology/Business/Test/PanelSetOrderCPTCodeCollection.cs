@@ -17,6 +17,23 @@ namespace YellowstonePathology.Business.Test
 
         }
 
+        public void Reverse(YellowstonePathology.Business.Test.PanelSetOrderCPTCode item)
+        {
+            YellowstonePathology.Business.Test.PanelSetOrderCPTCode reverseOriginal = this.GetNextItem(item.ReportNo);
+            reverseOriginal.ClientId = item.ClientId;
+            reverseOriginal.SpecimenOrderId = item.SpecimenOrderId;            
+            reverseOriginal.CPTCode = item.CPTCode;
+            reverseOriginal.EntryType = item.EntryType;
+            reverseOriginal.CodeType = item.CodeType;
+            reverseOriginal.CodeableType = item.CodeableType;
+            reverseOriginal.CodeableDescription = item.CodeableDescription;            
+            reverseOriginal.Modifier = item.Modifier;
+            reverseOriginal.Quantity = item.Quantity * (-1);            
+            reverseOriginal.MedicalRecord = item.MedicalRecord;
+            reverseOriginal.Account = item.Account;
+            this.Add(reverseOriginal);
+        }
+
         public void UpdateCodeType()
         {
             foreach (Business.Test.PanelSetOrderCPTCode panelSetCptCode in this)
@@ -27,21 +44,7 @@ namespace YellowstonePathology.Business.Test
                     panelSetCptCode.CodeType = cptCode.CodeType.ToString();
                 }
             }
-        }
-
-        /*public List<PanelSetOrderCPTCode> FindUnrecognizedCodes()
-        {
-            List<PanelSetOrderCPTCode> result = new List<PanelSetOrderCPTCode>();
-            foreach (Business.Test.PanelSetOrderCPTCode panelSetCptCode in this)
-            {
-                Business.Billing.Model.CptCode cptCode = Store.AppDataStore.Instance.CPTCodeCollection.GetClone(panelSetCptCode.CPTCode, panelSetCptCode.Modifier);
-                if (cptCode == null)
-                {
-                    result.Add(panelSetCptCode);
-                }
-            }
-            return result;
-        }*/
+        }        
 
         public void RemoveDeleted(IEnumerable<XElement> elements)
         {
@@ -135,6 +138,37 @@ namespace YellowstonePathology.Business.Test
                 if (panelSetOrderCPTCode.PanelSetOrderCPTCodeId == panelSetOrderCptCodeId)
                 {
                     result = true;
+                }
+            }
+            return result;
+        }
+
+        public bool Exists(Business.Billing.Model.CptCodeCollection cptCodeCollection)
+        {
+            bool result = false;
+            foreach (Business.Billing.Model.CptCode cptCode in cptCodeCollection)
+            {
+                foreach (PanelSetOrderCPTCode panelSetOrderCPTCode in this)
+                {
+                    if (panelSetOrderCPTCode.CPTCode == cptCode.Code)
+                    {
+                        result = true;
+                        break;
+                    }
+                }
+            }
+            return result;
+        }
+
+        private int GetCodeCount(string code)
+        {
+            int result = 0;
+
+            foreach (YellowstonePathology.Business.Test.PanelSetOrderCPTCode panelSetOrderCPTCode in this)
+            {
+                if (panelSetOrderCPTCode.CPTCode == code)
+                {
+                    result += panelSetOrderCPTCode.Quantity;
                 }
             }
             return result;
@@ -246,7 +280,9 @@ namespace YellowstonePathology.Business.Test
                               Modifier = i.Modifier,                              
                               ClientId = i.ClientId,
                               CodeType = i.CodeType,
-                              Quantity = i.Quantity                              
+                              Quantity = i.Quantity,
+                              MedicalRecord = i.MedicalRecord,
+                              Account = i.Account                          
                           }
                           group i by j into l
                           select new
@@ -256,7 +292,9 @@ namespace YellowstonePathology.Business.Test
                               Modifier = l.Key.Modifier,                                                                                          
                               Clientid = l.Key.ClientId,
                               CodeType = l.Key.CodeType,
-                              Quantity = l.Sum(q => q.Quantity)
+                              Quantity = l.Sum(q => q.Quantity),
+                              MedicalRecord = l.Key.MedicalRecord,
+                              Account = l.Key.Account
                           };
 
             foreach (var item in summary)
@@ -268,6 +306,8 @@ namespace YellowstonePathology.Business.Test
                 panelSetOrderCPTCode.ClientId = item.Clientid;
                 panelSetOrderCPTCode.CodeType = item.CodeType;
                 panelSetOrderCPTCode.Quantity = item.Quantity;
+                panelSetOrderCPTCode.MedicalRecord = item.MedicalRecord;
+                panelSetOrderCPTCode.Account = item.Account;
                 result.Add(panelSetOrderCPTCode);
             }                
 
@@ -278,14 +318,16 @@ namespace YellowstonePathology.Business.Test
         {
             PanelSetOrderCPTCodeCollection result = new PanelSetOrderCPTCodeCollection();
 
-            var summary = from i in this where i.EntryType == "Manual Entry"
+            var summary = from i in this where ((i.EntryType == "Manual Entry") && (i.PostDate.HasValue == false) )
                           let j = new
                           {
                               ReportNo = i.ReportNo,
                               CPTCode = i.CPTCode,
-                              Modifier = i.Modifier,                              
+                              Modifier = i.Modifier,
                               ClientId = i.ClientId,
-                              Quantity = i.Quantity
+                              Quantity = i.Quantity,
+                              MedicalRecord = i.MedicalRecord,
+                              Account = i.Account
                           }
                           group i by j into l
                           select new
@@ -294,7 +336,9 @@ namespace YellowstonePathology.Business.Test
                               CPTCode = l.Key.CPTCode,
                               Modifier = l.Key.Modifier,                              
                               ClientId = l.Key.ClientId,
-                              Quantity = l.Sum(q => q.Quantity)
+                              Quantity = l.Sum(q => q.Quantity),
+                              MedicalRecord = l.Key.MedicalRecord,
+                              Account = l.Key.Account
                           };
 
             foreach (var item in summary)
@@ -305,6 +349,8 @@ namespace YellowstonePathology.Business.Test
                 panelSetOrderCPTCode.Modifier = item.Modifier;                
                 panelSetOrderCPTCode.ClientId = item.ClientId;
                 panelSetOrderCPTCode.Quantity = item.Quantity;
+                panelSetOrderCPTCode.MedicalRecord = item.MedicalRecord;
+                panelSetOrderCPTCode.Account = item.Account;
                 result.Add(panelSetOrderCPTCode);
             }
 
@@ -440,7 +486,7 @@ namespace YellowstonePathology.Business.Test
             }
         }
 
-        public void SetCPTCodes(Business.Specimen.Model.SpecimenOrderCollection specimenOrderCollection, string reportNo, int clientId)
+        public void SetCPTCodes(Business.Specimen.Model.SpecimenOrderCollection specimenOrderCollection, string reportNo, int clientId, string medicalRecordNo, string account)
         {            
             foreach(Business.Specimen.Model.SpecimenOrder specimenOrder in specimenOrderCollection)
             {                
@@ -455,6 +501,8 @@ namespace YellowstonePathology.Business.Test
                     panelSetOrderCPTCode.CodeableDescription = "Specimen " + specimenOrder.SpecimenNumber + ": " + specimenOrder.Description;
                     panelSetOrderCPTCode.SpecimenOrderId = specimenOrder.SpecimenOrderId;
                     panelSetOrderCPTCode.ClientId = clientId;
+                    panelSetOrderCPTCode.MedicalRecord = medicalRecordNo;
+                    panelSetOrderCPTCode.Account = account;
                     this.Add(panelSetOrderCPTCode);                
                 }                
             }

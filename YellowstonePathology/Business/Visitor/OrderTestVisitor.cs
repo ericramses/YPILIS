@@ -132,7 +132,7 @@ namespace YellowstonePathology.Business.Visitor
             {                
                 YellowstonePathology.Business.Panel.Model.SpecialStainPanel specialStainPanel = new YellowstonePathology.Business.Panel.Model.SpecialStainPanel();                    
                 string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-                this.m_PanelOrder = new Test.PanelOrder(this.m_ReportNo, objectId, objectId, specialStainPanel, this.m_SystemIdentity.User.UserId);
+                this.m_PanelOrder = new Test.PanelOrder(this.m_ReportNo, objectId, objectId, specialStainPanel, this.m_SystemIdentity.User.UserId, this.m_SystemIdentity.User.Initials);
                 this.m_PanelOrder.Comment = this.m_PanelOrderComment;
                 this.m_PanelSetOrder.PanelOrderCollection.Add(this.m_PanelOrder);                         
             }
@@ -146,7 +146,7 @@ namespace YellowstonePathology.Business.Visitor
                 {
                     YellowstonePathology.Business.Panel.Model.InitialPanel initialPanel = new YellowstonePathology.Business.Panel.Model.InitialPanel();
                     string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-                    this.m_PanelOrder = new Test.PanelOrder(this.m_ReportNo, objectId, objectId, initialPanel, this.m_SystemIdentity.User.UserId);                    
+                    this.m_PanelOrder = new Test.PanelOrder(this.m_ReportNo, objectId, objectId, initialPanel, this.m_SystemIdentity.User.UserId, this.m_SystemIdentity.User.Initials);                    
                     this.m_PanelSetOrder.PanelOrderCollection.Add(this.m_PanelOrder);         
                 }                
             }            

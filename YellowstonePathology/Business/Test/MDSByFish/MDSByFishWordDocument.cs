@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Test.MDSByFish
 		{			
 			PanelSetOrderMDSByFish panelSetOrderMDSByFish = (PanelSetOrderMDSByFish)this.m_PanelSetOrder;
 
-			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\MDSByFish.1.xml";
+			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\MDSByFish.3.xml";
 			base.OpenTemplate();
 
 			this.SetDemographicsV2();
@@ -31,8 +31,9 @@ namespace YellowstonePathology.Business.Test.MDSByFish
 			this.ReplaceText("report_interpretation", panelSetOrderMDSByFish.Interpretation);
 			this.ReplaceText("probe_set_detail", panelSetOrderMDSByFish.ProbeSetDetail);
 			this.ReplaceText("nuclei_scored", panelSetOrderMDSByFish.NucleiScored);
+            this.ReplaceText("probe_comment", panelSetOrderMDSByFish.ProbeComment);
 
-			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);
+            YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);
 			base.ReplaceText("specimen_description", specimenOrder.Description);
 
 			string collectionDateTimeString = YellowstonePathology.Business.Helper.DateTimeExtensions.CombineDateAndTime(specimenOrder.CollectionDate, specimenOrder.CollectionTime);

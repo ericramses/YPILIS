@@ -15,6 +15,7 @@ namespace YellowstonePathology.Business.Test.AMLNonFavorableRisk
         private string m_ProbeSetDetail;
         private string m_NucleiScored;
         private string m_ReportDisclaimer;
+        private string m_ProbeComment;
 
         public AMLNonFavorableRiskTestOrder()
         {
@@ -99,6 +100,20 @@ namespace YellowstonePathology.Business.Test.AMLNonFavorableRisk
                 {
                     this.m_ReportDisclaimer = value;
                     this.NotifyPropertyChanged("ReportDisclaimer");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string ProbeComment
+        {
+            get { return this.m_ProbeComment; }
+            set
+            {
+                if (this.m_ProbeComment != value)
+                {
+                    this.m_ProbeComment = value;
+                    this.NotifyPropertyChanged("ProbeComment");
                 }
             }
         }

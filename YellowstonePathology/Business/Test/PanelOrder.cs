@@ -28,6 +28,7 @@ namespace YellowstonePathology.Business.Test
         protected Nullable<DateTime> m_AcceptedTime;
         protected int m_AcknowledgedById;
         protected int m_OrderedById;
+        protected string m_OrderedByInitials;
         protected Nullable<DateTime> m_OrderDate;
         protected Nullable<DateTime> m_OrderTime;
         protected string m_Comment;
@@ -38,7 +39,7 @@ namespace YellowstonePathology.Business.Test
 			this.m_TestOrderCollection = new YellowstonePathology.Business.Test.Model.TestOrderCollection();
 		}
 
-		public PanelOrder(string reportNo, string objectId, string panelOrderId, YellowstonePathology.Business.Panel.Model.Panel panel, int orderedById)
+		public PanelOrder(string reportNo, string objectId, string panelOrderId, YellowstonePathology.Business.Panel.Model.Panel panel, int orderedById, string orderedByInitials)
 		{
             this.m_ReportNo = reportNo;
 			this.m_ObjectId = objectId;
@@ -46,6 +47,7 @@ namespace YellowstonePathology.Business.Test
             this.m_PanelId = panel.PanelId;
             this.m_PanelName = panel.PanelName;
             this.m_OrderedById = orderedById;
+            this.m_OrderedByInitials = orderedByInitials;
             this.m_OrderDate = DateTime.Today;
 			this.m_OrderTime = DateTime.Now;
             this.m_ResultCode = panel.ResultCode;
@@ -438,7 +440,21 @@ namespace YellowstonePathology.Business.Test
 			}
 		}
 
-		[PersistentProperty()]
+        [PersistentProperty()]
+        public string OrderedByInitials
+        {
+            get { return this.m_OrderedByInitials; }
+            set
+            {
+                if (this.m_OrderedByInitials != value)
+                {
+                    this.m_OrderedByInitials = value;
+                    this.NotifyPropertyChanged("OrderedByInitials");
+                }
+            }
+        }
+
+        [PersistentProperty()]
 		[PersistentDataColumnProperty(true, "3", "null", "datetime")]
 		public Nullable<DateTime> OrderDate
 		{

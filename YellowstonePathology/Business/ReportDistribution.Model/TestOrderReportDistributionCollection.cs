@@ -54,13 +54,13 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
 
 		public void AddNext(string testOrderReportDistributionId, string objectId, string reportNo, int physicianId, string physicianName, int clientId, string clientName, string distributionType)
         {
-            this.AddNext(testOrderReportDistributionId, objectId, reportNo, physicianId, physicianName, clientId, clientName, distributionType, null, false);
+            this.AddNext(testOrderReportDistributionId, objectId, reportNo, physicianId, physicianName, clientId, clientName, distributionType, null);
         }
 
-		public void AddNext(string testOrderReportDistributionId, string objectId, string reportNo, int physicianId, string physicianName, int clientId, string clientName, string distributionType, string faxNumber, bool longDistance)
+		public void AddNext(string testOrderReportDistributionId, string objectId, string reportNo, int physicianId, string physicianName, int clientId, string clientName, string distributionType, string faxNumber)
         {            
             YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution testOrderReportDistribution = new TestOrderReportDistribution(testOrderReportDistributionId, objectId, reportNo,
-                physicianId, physicianName, clientId, clientName, distributionType, faxNumber, longDistance);
+                physicianId, physicianName, clientId, clientName, distributionType, faxNumber);
             this.Add(testOrderReportDistribution);
         }
 

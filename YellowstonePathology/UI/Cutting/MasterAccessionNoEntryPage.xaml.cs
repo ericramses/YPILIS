@@ -57,7 +57,15 @@ namespace YellowstonePathology.UI.Cutting
             }
             else
             {
-                this.UseThisMasterAccessionNo(this, new CustomEventArgs.MasterAccessionNoReturnEventArgs(orderIdParser.MasterAccessionNo));
+                bool masterAccessionExists = Business.Gateway.AccessionOrderGateway.DoesMasterAccessionNoExists(orderIdParser.MasterAccessionNo);
+                if(masterAccessionExists == true)
+                {
+                    this.UseThisMasterAccessionNo(this, new CustomEventArgs.MasterAccessionNoReturnEventArgs(orderIdParser.MasterAccessionNo));
+                }
+                else
+                {
+                    MessageBox.Show("The Master Accession No entered does not exists.");
+                }                
             }
         }
 

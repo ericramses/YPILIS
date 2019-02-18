@@ -33,6 +33,9 @@ namespace YellowstonePathology.Business.Test.BoneMarrowSummary
             }
 
             this.AddNextObxElement("", document, "F");
+            this.AddAmendments(document);
+
+            this.AddNextObxElement("", document, "F");
             this.AddNextObxElement("TESTING SUMMARY:", document, "F");
 
             List<Business.Test.PanelSetOrder> testingSummaryList = this.m_AccessionOrder.PanelSetOrderCollection.GetBoneMarrowAccessionSummaryList(panelSetOrder.ReportNo, true);

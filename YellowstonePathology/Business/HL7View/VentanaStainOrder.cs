@@ -18,7 +18,8 @@ namespace YellowstonePathology.Business.HL7View
         {
             if (slideOrder.LabelType == YellowstonePathology.Business.Slide.Model.SlideLabelTypeEnum.PaperLabel.ToString())
             {
-                if (slideOrder.PerformedByHand == false)
+                Business.Stain.Model.Stain stain = Business.Stain.Model.StainCollection.Instance.GetStainByTestId(slideOrder.TestId);
+                if (slideOrder.PerformedByHand == false || stain.PerformedByHand == false)
                 {
                     if (slideOrder.OrderSentToVentana == false)
                     {
@@ -42,11 +43,18 @@ namespace YellowstonePathology.Business.HL7View
                     testOrder.TestStatus = "PERFORMEDBYHAND";
                     testOrder.TestStatusUpdateTime = DateTime.Now;
                 }
-
+                
                 Business.Label.Model.ZPLPrinterUSB zplPrinterUSB = new Business.Label.Model.ZPLPrinterUSB();
                 Business.Label.Model.HistologySlidePaperZPLLabelV1 zplCommand = new Label.Model.HistologySlidePaperZPLLabelV1(slideOrder.SlideOrderId, slideOrder.ReportNo, slideOrder.PatientFirstName, slideOrder.PatientLastName, slideOrder.TestAbbreviation, slideOrder.Label, slideOrder.AccessioningFacility, slideOrder.UseWetProtocol, slideOrder.PerformedByHand);
                 zplPrinterUSB.Print(zplCommand);
-                slideOrder.Printed = true;                
+
+                slideOrder.Printed = true;
+                slideOrder.PrintedBy = Business.User.SystemIdentity.Instance.User.UserName;
+                slideOrder.PrintedById = Business.User.SystemIdentity.Instance.User.UserId;
+                slideOrder.Status = "Validated";
+                slideOrder.Validated = true;
+                slideOrder.ValidatedBy = Business.User.SystemIdentity.Instance.User.UserName;
+                slideOrder.ValidatedById = Business.User.SystemIdentity.Instance.User.UserId;
             }
         }
 
@@ -83,7 +91,9 @@ namespace YellowstonePathology.Business.HL7View
         {
             //protoc -I d:/protogen --csharp_out d:/protogen/result d:/protogen/ventana.proto --grpc_out d:/protogen/result --plugin=protoc-gen-grpc=grpc_csharp_plugin.exe            
 
-            Channel channel = new Channel("10.1.2.70:30051", ChannelCredentials.Insecure);            
+            Channel channel = new Channel("10.1.2.70:30051", ChannelCredentials.Insecure);
+            //Channel channel = new Channel("10.1.1.54:50051", ChannelCredentials.Insecure); 
+
             Ventana.VentanaService.VentanaServiceClient ventanaServiceClient = new Ventana.VentanaService.VentanaServiceClient(channel);
             Ventana.OrderRequest orderRequest = new Ventana.OrderRequest();
 

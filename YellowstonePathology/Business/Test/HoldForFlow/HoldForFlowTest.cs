@@ -15,7 +15,7 @@ namespace YellowstonePathology.Business.Test.HoldForFlow
 			this.m_CaseType = YellowstonePathology.Business.CaseType.FlowCytometry;
 			this.m_HasTechnicalComponent = false;			
 			this.m_HasProfessionalComponent = false;
-			this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.None;
+			this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterT();
             this.m_Active = true;
             this.m_NeverDistribute = true;
@@ -24,10 +24,10 @@ namespace YellowstonePathology.Business.Test.HoldForFlow
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.HoldForFlow.HoldForFlowWordDocument).AssemblyQualifiedName;
             this.m_RequiresPathologistSignature = false;
             this.m_AcceptOnFinal = false;
-			this.m_AllowMultiplePerAccession = false;                                   
+			this.m_AllowMultiplePerAccession = true;                                   
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMiscellaneous());
             this.m_ReportAsAdditionalTesting = false;
-
+            this.m_IsBillable = false;
         }
 	}
 }

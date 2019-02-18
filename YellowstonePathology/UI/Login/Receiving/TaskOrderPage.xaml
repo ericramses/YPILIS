@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:TemplateSelectorUI="clr-namespace:YellowstonePathology.UI.TemplateSelector"
+             xmlns:wpfx="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="800">
     <UserControl.Resources>
@@ -47,13 +49,15 @@
                             <ComboBoxItem Content="Governmental"></ComboBoxItem>
                             <ComboBoxItem Content="Commercial"></ComboBoxItem>
                         </ComboBox>
-                        
+
                         <TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right" IsEnabled="False">Fax Number:</TextBlock>
-                        <TextBox Grid.Column="1" Grid.Row="2" Margin="2,2,2,2" Text="{Binding Path=FaxNumber}"/>
+                        <wpfx:MaskedTextBox Grid.Column="1" Grid.Row="2" Margin="2,2,2,2" RestrictToAscii="False" AllowPromptAsInput="False"
+                                            IncludeLiteralsInValue="False" IncludePromptInValue="False" ValueDataType="{x:Type sys:String}"
+                                            Mask="(000) 000\-0000" Value="{Binding Path=FaxNumberProxy}"/>
 
-                        <TextBlock Grid.Column="0" Grid.Row="3" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right" IsEnabled="False">Atention:</TextBlock>
+                        <TextBlock Grid.Column="0" Grid.Row="3" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right" IsEnabled="False">Attention:</TextBlock>
                         <TextBox Grid.Column="1" Grid.Row="3" Margin="2,2,2,2" Text="{Binding Path=SendToName}"/>
-
+                        
                         <TextBlock Grid.Column="0" Grid.Row="4" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right">DocumentName:</TextBlock>
                         <ComboBox Name="ComboBoxFaxDocumentName" Grid.Column="1" Grid.Row="4" Margin="2,2,2,2" SelectedValue="{Binding Path=DocumentName}"
                                 ItemsSource="{Binding DataContext.FaxDocumentNameList, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}">
@@ -154,7 +158,7 @@
                         </Grid>
 
                         <TextBlock Grid.Column="0" Grid.Row="6" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right" IsEnabled="False">Phone Number:</TextBlock>
-                        <TextBox Grid.Column="1" Grid.Row="6" Margin="2,2,2,2" Text="{Binding Path=ShipToPhoneBinding}" IsEnabled="{Binding Path=PropertiesAreEnabled}"/>
+                        <TextBox Grid.Column="1" Grid.Row="6" Margin="2,2,2,2" Text="{Binding Path=ShipToPhoneBinding, Converter={StaticResource PhoneNumberConverter}}" IsEnabled="{Binding Path=PropertiesAreEnabled}"/>
 
                         <TextBlock Grid.Column="0" Grid.Row="7" Margin="2,2,2,2" FontWeight="Bold" HorizontalAlignment="Right" IsEnabled="False">Payment Type:</TextBlock>
                         <ComboBox Name="ComboBoxPaymentType" Grid.Column="1" Grid.Row="7" Margin="2,2,2,2" SelectedValue="{Binding Path=PaymentType}"
@@ -201,12 +205,6 @@
                                 <Hyperlink Click="HyperLinkCancelShipment_Click" Tag="{Binding Path=.}">Cancel Shipment</Hyperlink>
                             </TextBlock>
 
-                            <!--
-                            <TextBlock Margin="2,2,2,2">
-                                <Hyperlink Click="HyperLinkDelete_Click" Tag="{Binding Path=.}">Delete</Hyperlink>
-                            </TextBlock>
-                            -->
-                            
                             <TextBlock Grid.Column="2" Grid.Row="1" Margin="2,2,2,2">
                                             <Hyperlink Click="HyperLinkAcknowledge_Click" Tag="{Binding Path=.}">Acknowledge</Hyperlink>
                             </TextBlock>
@@ -338,6 +336,9 @@
                 </TextBlock>
                 <TextBlock Grid.Column="0" Grid.Row="3" Margin="5,3,0,5">
                     <Hyperlink Click="HyperLinkAddSendAdditionalTestingFaxTask_Click">Additional Testing Fax</Hyperlink>
+                </TextBlock>
+                <TextBlock Grid.Column="0" Grid.Row="4" Margin="5,3,0,5">
+                    <Hyperlink Click="HyperLinkAddSendAuthorizationFaxTask_Click">Authorization Fax</Hyperlink>
                 </TextBlock>
                 <TextBlock Grid.Column="0" Grid.Row="6" Margin="5,3,0,5" VerticalAlignment="Bottom">
                     <Hyperlink Click="HyperlingPrintTaskOrder_Click">Print (1 copy)</Hyperlink>

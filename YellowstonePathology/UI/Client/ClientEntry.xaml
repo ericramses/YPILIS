@@ -1,6 +1,9 @@
 ﻿<Window x:Class="YellowstonePathology.UI.Client.ClientEntry"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:wpfx="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:validationRules="clr-namespace:YellowstonePathology.UI.ValidationRules"
         Title="Client Entry" Height="600"  Width="900" FontSize="14"
 		WindowStyle="ToolWindow" WindowStartupLocation="CenterScreen">
 
@@ -31,11 +34,13 @@
 						<RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
 						<RowDefinition Height="Auto"></RowDefinition>
 						<RowDefinition Height="Auto"></RowDefinition>
 						<RowDefinition Height="Auto"></RowDefinition>
 						<RowDefinition Height="Auto"></RowDefinition>
 						<RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
 						<RowDefinition Height="Auto"></RowDefinition>
 					</Grid.RowDefinitions>
 					
@@ -67,16 +72,19 @@
 						<TextBox Grid.Column="4" Grid.Row="0" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Stretch" Text="{Binding Path=Client.ZipCode}" />
 					</Grid>
 
-					<TextBlock Grid.Column="0" Grid.Row="4" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Right" >Long Distance:</TextBlock>
-					<CheckBox Grid.Column="1" Grid.Row="4" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Left" IsChecked="{Binding Path=Client.LongDistance}" />
+                    <TextBlock Grid.Column="0" Grid.Row="5" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Right" >Telephone:</TextBlock>
+                    <wpfx:MaskedTextBox Name="MaskedTextBoxTelephone" Grid.Column="1" Grid.Row="5" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Stretch" 
+                                        RestrictToAscii="False" AllowPromptAsInput="False" IncludeLiteralsInValue="False" IncludePromptInValue="False" 
+                                        ValueDataType="{x:Type sys:String}" Mask="(000) 000\-0000" Value="{Binding Path=Client.TelephoneProxy}">
+                    </wpfx:MaskedTextBox>
 
-					<TextBlock Grid.Column="0" Grid.Row="5" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Right" >Telephone:</TextBlock>
-					<TextBox Grid.Column="1" Grid.Row="5" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Stretch" Text="{Binding Path=Client.Telephone, Converter={StaticResource PhoneNumberConverter}}" />
+                    <TextBlock Grid.Column="0" Grid.Row="6" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Right" >Fax:</TextBlock>
+                    <wpfx:MaskedTextBox Name="MaskedTextBoxFax" Grid.Column="1" Grid.Row="6" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Stretch" 
+                                        RestrictToAscii="False" AllowPromptAsInput="False" IncludeLiteralsInValue="False" IncludePromptInValue="False" 
+                                        ValueDataType="{x:Type sys:String}" Mask="(000) 000\-0000" Value="{Binding Path=Client.FaxProxy}">
+                    </wpfx:MaskedTextBox>
 
-					<TextBlock Grid.Column="0" Grid.Row="6" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Right" >Fax:</TextBlock>
-					<TextBox Grid.Column="1" Grid.Row="6" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Stretch" Text="{Binding Path=Client.Fax, Converter={StaticResource PhoneNumberConverter}}" />
-
-					<TextBlock Grid.Column="0" Grid.Row="7" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Right" >Contact Name:</TextBlock>
+                    <TextBlock Grid.Column="0" Grid.Row="7" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Right" >Contact Name:</TextBlock>
 					<TextBox Grid.Column="1" Grid.Row="7" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Stretch" Text="{Binding Path=Client.ContactName}" />
 
 					<TextBlock Grid.Column="0" Grid.Row="8" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Right" >Abbreviation:</TextBlock>
@@ -106,6 +114,13 @@
                     <TextBlock Grid.Column="0" Grid.Row="16" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Right" >Path Group:</TextBlock>
                     <ComboBox Grid.Column="1" Grid.Row="16" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Stretch" ItemsSource="{Binding Path=PathGroupFacilities}"
 							  SelectedValue="{Binding Path=Client.PathologyGroupId}" SelectedValuePath="FacilityId" DisplayMemberPath="FacilityName" />
+
+                    <TextBlock Grid.Column="0" Grid.Row="17" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Right" >Place Of Service:</TextBlock>
+                    <ComboBox Grid.Column="1" Grid.Row="17" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Stretch" ItemsSource="{Binding Path=PlaceOfServiceCodes}"
+							  SelectedValue="{Binding Path=Client.PlaceOfServiceCode}" SelectedValuePath="Code" DisplayMemberPath="Description" />
+
+                    <TextBlock Grid.Column="0" Grid.Row="18" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Right" >Location Code:</TextBlock>
+                    <TextBox Grid.Column="1" Grid.Row="18" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Stretch" Text="{Binding Path=Client.LocationCode}" />
 
                 </Grid>
 			</TabItem>
@@ -140,6 +155,7 @@
                     <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical" Margin="2,2,2,2" VerticalAlignment="Center">
                         <Button Name="ButtonAddToClient" Width="70" Height="30" Margin="5,5,5,5" Click="ButtonAddToClient_Click">&lt; Add</Button>
                         <Button Name="ButtonRemoveFromClient" Width="70" Height="30" Margin="5,5,5,5" Click="ButtonRemoveFromClient_Click">Remove ></Button>
+                        <Button Name="ButtonStVCopy" Width="70" Height="30" Margin="5,5,5,5" Click="ButtonCopyStVPhysicians_Click">Copy St V</Button>
                     </StackPanel>
 
                     <Grid Grid.Column="2" Grid.Row="0">
@@ -253,14 +269,20 @@
                     <ListView Name="ListViewClientLocations" Grid.Column="0" Grid.Row="0" Margin="5,5,5,5" ItemsSource="{Binding Path=Client.ClientLocationCollection}">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="Location" Width="300" DisplayMemberBinding="{Binding Path=Location}" />
-                                <GridViewColumn Header="Order Type" Width="200" DisplayMemberBinding="{Binding Path=OrderType}" />
-                                <GridViewColumn Header="Tracking Initiated" Width="150" DisplayMemberBinding="{Binding Path=SpecimenTrackingInitiated}" />
+                                <GridViewColumn Header="Class" Width="100" DisplayMemberBinding="{Binding Path=PatientClass}" />
+                                <GridViewColumn Header="Location" Width="100" DisplayMemberBinding="{Binding Path=PatientLocationCode}" />
+                                <GridViewColumn Header="POS" Width="100" DisplayMemberBinding="{Binding Path=PlaceOfServiceCode}" />
+                                <GridViewColumn Header="Location" Width="100" DisplayMemberBinding="{Binding Path=Location}" />
+                                <GridViewColumn Header="Order Type" Width="100" DisplayMemberBinding="{Binding Path=OrderType}" />
+                                <GridViewColumn Header="Tracking Initiated" Width="100" DisplayMemberBinding="{Binding Path=SpecimenTrackingInitiated}" />
                             </GridView>
                         </ListView.View>
                     </ListView>
 
-                    <Button Grid.Row="0" Grid.Column="1" Margin="15,15,15,5" Height="30" Width="140" VerticalAlignment="Top" Content="Add Medical Records" Click="ButtonAddClientLocation_Click" />
+                    <StackPanel Grid.Row="0" Grid.Column="1">
+                        <Button Margin="15,15,15,5" Height="30" Width="140" VerticalAlignment="Top" Content="Add Requisition" Click="ButtonAddClientLocationReq_Click" />
+                        <Button Margin="15,15,15,5" Height="30" Width="140" VerticalAlignment="Top" Content="Add EPIC" Click="ButtonAddClientLocationEPIC_Click" />
+                    </StackPanel>
 
                 </Grid>
 

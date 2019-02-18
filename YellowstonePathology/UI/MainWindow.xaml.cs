@@ -789,7 +789,13 @@ namespace YellowstonePathology.UI
         {
             TumerRegistryDistributionDialog tumorRegistryDistributionDialog = new TumerRegistryDistributionDialog();
             tumorRegistryDistributionDialog.ShowDialog();
-        }        
+        }
+
+        private void MenuItemDOHDailyDistribution_Click(object sender, RoutedEventArgs e)
+        {
+            DailyDOHDistributionDialog dlg = new DailyDOHDistributionDialog();
+            dlg.ShowDialog();
+        }
 
         private void MenuItemBillingReports_Click(object sender, RoutedEventArgs e)
         {
@@ -797,11 +803,11 @@ namespace YellowstonePathology.UI
             clientBillingReportDialog.ShowDialog();
         }
 
-        private void MenuItemPSATransder_Click(object sender, RoutedEventArgs e)
+        private void MenuItemEODProcessing_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.UI.Billing.PSATransferDialog psaTransferDialog = new Billing.PSATransferDialog();
-            psaTransferDialog.ShowDialog();
-        }
+            YellowstonePathology.UI.Billing.EODProcessingDialog eodProcessingDialog = new Billing.EODProcessingDialog();
+            eodProcessingDialog.ShowDialog();
+        }        
 
         private void MenuItemValidationTesting_Click(object sender, RoutedEventArgs e)
         {
@@ -996,6 +1002,42 @@ namespace YellowstonePathology.UI
             Business.Test.PanelSetOrder pso = ao.PanelSetOrderCollection.GetSurgical();
             Surgical.StainOrder stainOrder = new Surgical.StainOrder(ao, pso);
             stainOrder.ShowDialog();
+        }
+
+        private void MenuItemRedis_Click(object sender, RoutedEventArgs e)
+        {
+            Redis.StoreSelection dlg = new Redis.StoreSelection();
+            dlg.ShowDialog();
+        }
+
+        private void MenuItemChainExplorer_Click(object sender, RoutedEventArgs e)
+        {
+            ChainExplorer chainExplorer = new ChainExplorer();
+            chainExplorer.Show();
+        }
+
+        private void MenuItemPDFTransfer_Click(object sender, RoutedEventArgs e)
+        {
+            PDFTransferDialog pdfTransferDialog = new PDFTransferDialog();
+            pdfTransferDialog.ShowDialog();
+        }
+
+        private void MenuItemAutoComplete_Click(object sender, RoutedEventArgs e)
+        {
+            AutoCompleteTest act = new AutoCompleteTest();
+            act.Show();
+        }        
+
+        private void MenuItemPolicyExplorer_Click(object sender, RoutedEventArgs e)
+        {
+            Policy.PolicyExplorer policyExplorer = new Policy.PolicyExplorer();
+            policyExplorer.Show();
+        }        
+
+        private void MenuItemBillingSimulation_Click(object sender, RoutedEventArgs e)
+        {
+            UI.Billing.SimulationDialog simulationDialog = new Billing.SimulationDialog();
+            simulationDialog.Show();
         }
     }
 }

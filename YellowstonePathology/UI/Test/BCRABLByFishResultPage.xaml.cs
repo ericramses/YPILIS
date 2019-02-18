@@ -25,7 +25,10 @@ namespace YellowstonePathology.UI.Test
 		public delegate void NextEventHandler(object sender, EventArgs e);
 		public event NextEventHandler Next;
 
-		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
+        public delegate void CPTCodeEventHandler(object sender, EventArgs e);
+        public event CPTCodeEventHandler CPTCode;
+
+        private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private YellowstonePathology.Business.Test.BCRABLByFish.BCRABLByFishTestOrder m_PanelSetOrder;
 		private YellowstonePathology.Business.Test.BCRABLByFish.BCRABLByFishResultCollection m_ResultCollection;
@@ -88,23 +91,24 @@ namespace YellowstonePathology.UI.Test
 		{			
 			YellowstonePathology.Business.Test.BCRABLByFish.BCRABLByFishWordDocument report = new YellowstonePathology.Business.Test.BCRABLByFish.BCRABLByFishWordDocument(this.m_AccessionOrder, this.m_PanelSetOrder, Business.Document.ReportSaveModeEnum.Draft);
             report.Render();
-
-			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
-			string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);
-			YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(fileName);
+			YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(report.SaveFileName);
 		}
 
         private void HyperLinkFinalizeResults_Click(object sender, RoutedEventArgs e)
         {
-			YellowstonePathology.Business.Rules.MethodResult result = this.m_PanelSetOrder.IsOkToFinalize();
-			if (result.Success == true)
-			{
+            YellowstonePathology.Business.Audit.Model.AuditResult auditResult = this.m_PanelSetOrder.IsOkToFinalize(this.m_AccessionOrder);
+            if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.OK)
+            {
                 YellowstonePathology.Business.Test.FinalizeTestResult finalizeTestResult = this.m_PanelSetOrder.Finish(this.m_AccessionOrder);
                 this.HandleFinalizeTestResult(finalizeTestResult);
+                if (this.m_PanelSetOrder.Accepted == false)
+                {
+                    this.m_PanelSetOrder.Accept();
+                }
             }
             else
             {
-				MessageBox.Show(result.Message);
+                MessageBox.Show(auditResult.Message);
             }
         }
 
@@ -123,25 +127,18 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkAcceptResults_Click(object sender, RoutedEventArgs e)
 		{
-			if (this.ComboBoxResult.SelectedItem != null)
-			{
-				YellowstonePathology.Business.Rules.MethodResult result = this.m_PanelSetOrder.IsOkToAccept();
-				if (result.Success == true)
-				{
-					this.m_PanelSetOrder.Accept();
-				}
-				else
-				{
-					MessageBox.Show(result.Message);
-				}
-			}
-			else
-			{
-				MessageBox.Show("A result must be selected before it can be accepted.");
-			}
-		}
+            YellowstonePathology.Business.Audit.Model.AuditResult result = this.m_PanelSetOrder.IsOkToAccept(this.m_AccessionOrder);
+            if (result.Status == Business.Audit.Model.AuditStatusEnum.OK)
+            {
+                this.m_PanelSetOrder.Accept();
+            }
+            else
+            {
+                MessageBox.Show(result.Message);
+            }
+        }
 
-		private void HyperLinkUnacceptResults_Click(object sender, RoutedEventArgs e)
+        private void HyperLinkUnacceptResults_Click(object sender, RoutedEventArgs e)
 		{
 			YellowstonePathology.Business.Rules.MethodResult result = this.m_PanelSetOrder.IsOkToUnaccept();
 			if (result.Success == true)
@@ -154,18 +151,33 @@ namespace YellowstonePathology.UI.Test
 			}
 		}
 
-		private void ButtonNext_Click(object sender, RoutedEventArgs e)
+        private void HyperLinkCPTCodes_Click(object sender, RoutedEventArgs e)
+        {
+            this.CPTCode(this, new EventArgs());
+        }
+
+        private void HyperLinkProbeComment_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Helper.FISHProbeComment fishProbeComment = new Business.Helper.FISHProbeComment(this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection);
+            if (fishProbeComment.Success == true)
+            {
+                this.m_PanelSetOrder.ProbeComment = fishProbeComment.Comment;
+            }
+            else
+            {
+                MessageBox.Show(fishProbeComment.Message);
+            }
+        }
+
+        private void ButtonNext_Click(object sender, RoutedEventArgs e)
 		{
 			if (this.Next != null) this.Next(this, new EventArgs());
 		}
 
-		private void ComboBoxResult_SelectionChanged(object sender, SelectionChangedEventArgs e)
-		{
-			if (this.ComboBoxResult.SelectedItem != null)
-			{
-				YellowstonePathology.Business.Test.TestResult testResult = (YellowstonePathology.Business.Test.TestResult)this.ComboBoxResult.SelectedItem;
-				this.m_PanelSetOrder.ResultCode = testResult.ResultCode;
-			}
-		}
-	}
+        private void HyperLinkPreviousResults_Click(object sender, RoutedEventArgs e)
+        {
+            UI.Test.PreviousResultDialog dlg = new UI.Test.PreviousResultDialog(this.m_PanelSetOrder, this.m_AccessionOrder);
+            dlg.ShowDialog();
+        }
+    }
 }

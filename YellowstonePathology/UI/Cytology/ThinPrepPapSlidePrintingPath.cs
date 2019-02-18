@@ -73,8 +73,7 @@ namespace YellowstonePathology.UI.Cytology
             }
             else
             {                
-                YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByAliquotOrderId(aliquotOrderId);
-                this.AddMaterialTrackingLog(specimenOrder);
+                YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByAliquotOrderId(aliquotOrderId);                
                 this.ShowThinPrepPapSlidePrintingPage(specimenOrder);
             }
         }

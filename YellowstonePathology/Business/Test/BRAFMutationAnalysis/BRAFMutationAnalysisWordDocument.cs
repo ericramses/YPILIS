@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Test.BRAFMutationAnalysis
         public override void Render()
         {
             YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTestOrder panelSetOrder = (YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTestOrder)this.m_PanelSetOrder;
-            base.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\BRAFMutationAnalysis.xml";
+            base.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\BRAFMutationAnalysis.1.xml";
             base.OpenTemplate();
 
             this.SetDemographicsV2();

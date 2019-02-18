@@ -5,9 +5,9 @@ using System.Text;
 
 namespace YellowstonePathology.Business.Test.MDSExtendedByFish
 {
-	public class MDSExtendedByFishTest : YellowstonePathology.Business.PanelSet.Model.PanelSet
-	{
-		public MDSExtendedByFishTest()
+	public class MDSExtendedByFishTest : Business.PanelSet.Model.FISHTest
+	{     
+        public MDSExtendedByFishTest()
 		{
 			this.m_PanelSetId = 164;
             this.m_PanelSetName = "MDS Extended By FISH";
@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business.Test.MDSExtendedByFish
             this.m_HasProfessionalComponent = true;
 			this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterR();
-            this.m_Active = true;
+            this.m_Active = true;            
 
             this.m_ExpectedDuration = TimeSpan.FromDays(4);
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.MDSExtendedByFish.PanelSetOrderMDSExtendedByFish).AssemblyQualifiedName;
@@ -39,6 +39,8 @@ namespace YellowstonePathology.Business.Test.MDSExtendedByFish
             this.m_ProfessionalComponentBillingFacility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMiscellaneous());
-		}
-	}
+
+            this.m_ProbeSetCount = 8;
+		}        
+    }
 }

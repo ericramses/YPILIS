@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows.Xps.Packaging;
 using YellowstonePathology.Business.Persistence;
+using System.Collections.Generic;
 
 namespace YellowstonePathology.Business.Test
 {
@@ -12,7 +13,15 @@ namespace YellowstonePathology.Business.Test
 	{
         public event PropertyChangedEventHandler PropertyChanged;
 
-		protected PanelOrderCollection m_PanelOrderCollection;
+        protected static string AskSetPreviousResults = "Are you sure you want to use the selected results?";
+        protected static string AskAccept = "Are you sure you want to accept the results?";
+        protected static string AskFinal = "Are you sure you want to finalize this case?";
+        protected static string UnableToAccept = "This case cannot be accepted because the results have not been set.";
+        protected static string UnableToFinal = "This case cannot be finalized because the results have not been set.";
+        protected static string UnableToSetPreviousResults = "The previous results may not be set because results have already been accepted.";
+        protected static string NotPerformedResult = "Not Performed";
+
+        protected PanelOrderCollection m_PanelOrderCollection;
         protected YellowstonePathology.Business.Amendment.Model.AmendmentCollection m_AmendmentCollection;
 		protected YellowstonePathology.Business.Test.PanelSetOrderCPTCodeCollection m_PanelSetOrderCPTCodeCollection;
 		protected YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBillCollection m_PanelSetOrderCPTCodeBillCollection;
@@ -1410,8 +1419,7 @@ namespace YellowstonePathology.Business.Test
             return result;
         }
 
-        public virtual FinalizeTestResult Finish(Business.Test.AccessionOrder accessionOrder)
-        //public virtual void Finish(Business.Test.AccessionOrder accessionOrder)
+        public virtual FinalizeTestResult Finish(Business.Test.AccessionOrder accessionOrder)        
         {
             YellowstonePathology.Business.PanelSet.Model.PanelSetCollection panelSetCollection = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetAll();
 			YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet = panelSetCollection.GetPanelSet(this.PanelSetId);
@@ -1421,8 +1429,12 @@ namespace YellowstonePathology.Business.Test
             this.m_FinalTime = DateTime.Now;
             this.m_FinaledById = Business.User.SystemIdentity.Instance.User.UserId;
             this.m_Signature = Business.User.SystemIdentity.Instance.User.Signature;
+            if (panelSet.HasProfessionalComponent)
+            {
+                this.m_ProfessionalComponentFacilityId = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId;
+            }
 
-			if (panelSet.AcceptOnFinal == true)
+            if (panelSet.AcceptOnFinal == true)
 			{
 				this.m_Accepted = true;
 				this.m_AcceptedDate = DateTime.Today;
@@ -1882,7 +1894,22 @@ namespace YellowstonePathology.Business.Test
 			return result;
 		}
 
-		public virtual YellowstonePathology.Business.Rules.MethodResult IsOkToUnaccept()
+        public virtual YellowstonePathology.Business.Audit.Model.AuditResult IsOkToAccept(AccessionOrder accessionOrder)
+        {
+            Audit.Model.AuditResult result = new Audit.Model.AuditResult();
+            result.Status = Audit.Model.AuditStatusEnum.OK;
+
+            Rules.MethodResult methodResult = this.IsOkToAccept();
+            if(methodResult.Success == false)
+            {
+                result.Status = Audit.Model.AuditStatusEnum.Failure;
+                result.Message = methodResult.Message;
+            }
+
+            return result;
+        }
+
+        public virtual YellowstonePathology.Business.Rules.MethodResult IsOkToUnaccept()
 		{
 			YellowstonePathology.Business.Rules.MethodResult result = new Rules.MethodResult();
 			if (this.Final == true)
@@ -1932,24 +1959,60 @@ namespace YellowstonePathology.Business.Test
 
         protected virtual void CheckResults(AccessionOrder accessionOrder, object clone)
         {
+
+        }
+
+        public virtual void SetPreviousResults(Business.Test.PanelSetOrder panelSetOrder)
+        {            
+            panelSetOrder.ReportReferences = this.m_ReportReferences;
+        }
+
+        public virtual void ClearPreviousResults()
+        {
+            this.m_ReportReferences = null;
+            this.NotifyPropertyChanged(string.Empty);
         }
 
         private FinalizeTestResult HandleBoneMarrowSummaryOnFinal(AccessionOrder accessionOrder)
         {
             FinalizeTestResult result = new FinalizeTestResult();
-            YellowstonePathology.Business.Audit.Model.HandleBoneMarrowOnFinalAudit audit = new Audit.Model.HandleBoneMarrowOnFinalAudit(accessionOrder, this);
-            audit.Run();
-            if (audit.Status == Audit.Model.AuditStatusEnum.Failure)
+            result.BoneMarrowSummaryIsSuggested = false;
+            Rules.RuleAcceptBoneMarrowSummaryOnLastFinal rule = new Rules.RuleAcceptBoneMarrowSummaryOnLastFinal();
+            rule.Execute(accessionOrder, this);
+            return result;
+        }
+
+        public virtual YellowstonePathology.Business.Audit.Model.AuditResult IsOkToSetPreviousResults(PanelSetOrder panelSetOrder, AccessionOrder accessionOrder)
+        {
+            Audit.Model.AuditResult result = new Audit.Model.AuditResult();
+            result.Status = Audit.Model.AuditStatusEnum.OK;
+
+            if (this.Accepted == true)
             {
-                result.BoneMarrowSummaryIsSuggested = true;
-            }
-            else
-            {
-                Rules.RuleAcceptBoneMarrowSummaryOnLastFinal rule = new Rules.RuleAcceptBoneMarrowSummaryOnLastFinal();
-                rule.Execute(accessionOrder, this);
-                result.BoneMarrowSummaryIsSuggested = false;
+                result.Status = Audit.Model.AuditStatusEnum.Failure;
+                result.Message += UnableToSetPreviousResults;
             }
             return result;
+        }
+
+        protected virtual string NotFilledMessage(string name)
+        {
+            return "The " + name + " is not set." + Environment.NewLine;
+        }
+
+        protected virtual string MismatchMessage(string panelSetName)
+        {
+            return "The " + panelSetName + " result does not match." + Environment.NewLine;
+        }
+
+        protected virtual string NotFinaledMessage(string panelSetName)
+        {
+            return "The " + panelSetName + " is not finaled." + Environment.NewLine;
+        }
+
+        protected virtual string NotAcceptedMessage(string panelSetName)
+        {
+            return "The " + panelSetName + " is not accepted." + Environment.NewLine;
         }
     }
 }

@@ -29,8 +29,8 @@ namespace YellowstonePathology.Business.Gateway
                     while (dr.Read())
                     {
                         YellowstonePathology.Business.ClientOrder.Model.OrderBrowserListItem orderBrowserListItem = new YellowstonePathology.Business.ClientOrder.Model.OrderBrowserListItem();
-                        YellowstonePathology.Business.Domain.Persistence.DataReaderPropertyWriter propertyWriter = new Business.Domain.Persistence.DataReaderPropertyWriter(dr);
-                        orderBrowserListItem.WriteProperties(propertyWriter);
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter propertyWriter = new Business.Persistence.SqlDataReaderPropertyWriter(orderBrowserListItem, dr);
+                        propertyWriter.WriteProperties();
                         resultCollection.Add(orderBrowserListItem);
                     }
                 }
@@ -60,8 +60,8 @@ namespace YellowstonePathology.Business.Gateway
                     while (dr.Read())
                     {
                         YellowstonePathology.Business.ClientOrder.Model.OrderBrowserListItem orderBrowserListItem = new YellowstonePathology.Business.ClientOrder.Model.OrderBrowserListItem();
-                        YellowstonePathology.Business.Domain.Persistence.DataReaderPropertyWriter propertyWriter = new Business.Domain.Persistence.DataReaderPropertyWriter(dr);
-                        orderBrowserListItem.WriteProperties(propertyWriter);
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter propertyWriter = new Business.Persistence.SqlDataReaderPropertyWriter(orderBrowserListItem, dr);
+                        propertyWriter.WriteProperties();
                         resultCollection.Add(orderBrowserListItem);
                     }
                 }
@@ -104,8 +104,8 @@ namespace YellowstonePathology.Business.Gateway
                     while (dr.Read())
                     {
                         YellowstonePathology.Business.ClientOrder.Model.OrderBrowserListItem orderBrowserListItem = new YellowstonePathology.Business.ClientOrder.Model.OrderBrowserListItem();
-                        YellowstonePathology.Business.Domain.Persistence.DataReaderPropertyWriter propertyWriter = new Business.Domain.Persistence.DataReaderPropertyWriter(dr);
-                        orderBrowserListItem.WriteProperties(propertyWriter);
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter propertyWriter = new Business.Persistence.SqlDataReaderPropertyWriter(orderBrowserListItem, dr);
+                        propertyWriter.WriteProperties();
                         resultCollection.Add(orderBrowserListItem);
                     }
                 }
@@ -136,8 +136,8 @@ namespace YellowstonePathology.Business.Gateway
 					while (dr.Read())
 					{
 						YellowstonePathology.Business.ClientOrder.Model.OrderBrowserListItem orderBrowserListItem = new YellowstonePathology.Business.ClientOrder.Model.OrderBrowserListItem();
-						YellowstonePathology.Business.Domain.Persistence.DataReaderPropertyWriter propertyWriter = new Business.Domain.Persistence.DataReaderPropertyWriter(dr);
-						orderBrowserListItem.WriteProperties(propertyWriter);
+						YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter propertyWriter = new Business.Persistence.SqlDataReaderPropertyWriter(orderBrowserListItem, dr);
+                        propertyWriter.WriteProperties();
 						resultCollection.Add(orderBrowserListItem);
 					}
 				}
@@ -177,8 +177,8 @@ namespace YellowstonePathology.Business.Gateway
 					while (dr.Read())
 					{
 						YellowstonePathology.Business.ClientOrder.Model.OrderBrowserListItem orderBrowserListItem = new YellowstonePathology.Business.ClientOrder.Model.OrderBrowserListItem();
-						YellowstonePathology.Business.Domain.Persistence.DataReaderPropertyWriter propertyWriter = new Business.Domain.Persistence.DataReaderPropertyWriter(dr);
-						orderBrowserListItem.WriteProperties(propertyWriter);
+						YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter propertyWriter = new Business.Persistence.SqlDataReaderPropertyWriter(orderBrowserListItem, dr);
+                        propertyWriter.WriteProperties();
 						resultCollection.Add(orderBrowserListItem);
 					}
 				}
@@ -358,6 +358,28 @@ namespace YellowstonePathology.Business.Gateway
 			return clientOrderCollection;
 		}
 
+        public static YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection GetClientOrdersByANumber(string aNumber)
+        {
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "gwGetClientOrdersByANumber";
+            cmd.Parameters.AddWithValue("ANumber", aNumber);
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+            YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection clientOrderCollection = new YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection();
+
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    BuildClientOrderCollection(dr, clientOrderCollection);
+                }
+            }
+
+            return clientOrderCollection;
+        }
+
         public static YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection GetClientOrdersByOrderDate(DateTime orderDate)
         {
             MySqlCommand cmd = new MySqlCommand();
@@ -481,84 +503,6 @@ namespace YellowstonePathology.Business.Gateway
 			return result;
 		}
 
-		public static YellowstonePathology.Business.ClientOrder.Model.ShipmentListItemCollection GetShipmentListItemCollection(int clientId)
-		{
-			YellowstonePathology.Business.ClientOrder.Model.ShipmentListItemCollection resultCollection = new YellowstonePathology.Business.ClientOrder.Model.ShipmentListItemCollection();
-			MySqlCommand cmd = new MySqlCommand();
-			cmd.CommandText = " Select * from tblShipment where tblShipment.ClientId = @ClientId and (ShipDate is null or " +
-                "datediff(now(), ShipDate) < 8) order by ShipDate Desc;";
-			cmd.CommandType = CommandType.Text;
-			cmd.Parameters.AddWithValue("@ClientId", clientId);
-
-			using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-			{
-				cn.Open();
-				cmd.Connection = cn;
-				using (MySqlDataReader dr = cmd.ExecuteReader())
-				{
-					while (dr.Read())
-					{
-						YellowstonePathology.Business.ClientOrder.Model.ShipmentListItem shipmentListItem = new YellowstonePathology.Business.ClientOrder.Model.ShipmentListItem();
-						YellowstonePathology.Business.Domain.Persistence.DataReaderPropertyWriter propertyWriter = new Business.Domain.Persistence.DataReaderPropertyWriter(dr);
-						shipmentListItem.WriteProperties(propertyWriter);
-						resultCollection.Add(shipmentListItem);
-					}
-				}
-			}
-
-			return resultCollection;
-		}
-
-
-		public static YellowstonePathology.Business.ClientOrder.Model.ShipmentReturnResult GetShipment(string shipmentId)
-		{
-			MySqlCommand cmd = new MySqlCommand();
-			cmd.CommandText = "ws_GetShipment";
-			cmd.CommandType = CommandType.StoredProcedure;
-			cmd.Parameters.AddWithValue("ShipmentId", shipmentId);
-
-            YellowstonePathology.Business.ClientOrder.Model.ShipmentReturnResult shipmentReturnResult = new YellowstonePathology.Business.ClientOrder.Model.ShipmentReturnResult();
-
-			YellowstonePathology.Business.ClientOrder.Model.Shipment shipment = new YellowstonePathology.Business.ClientOrder.Model.Shipment();
-            YellowstonePathology.Business.ClientOrder.Model.ClientOrderDetailCollection clientOrderDetailCollection = new YellowstonePathology.Business.ClientOrder.Model.ClientOrderDetailCollection();
-
-            shipmentReturnResult.Shipment = shipment;
-            shipmentReturnResult.ClientOrderDetailCollection = clientOrderDetailCollection;
-
-			using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-			{
-				cn.Open();
-				cmd.Connection = cn;
-				using (MySqlDataReader dr = cmd.ExecuteReader())
-				{
-					while (dr.Read())
-					{
-						YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter propertyWriter = new Persistence.SqlDataReaderPropertyWriter(shipment, dr);
-						propertyWriter.WriteProperties();
-					}
-
-					dr.NextResult();
-
-					BuildClientOrderDetailCollection(clientOrderDetailCollection, dr);
-				}
-			}			
-
-            return shipmentReturnResult;
-		}
-
-		public XElement PackingSlipReport(string shipmentId)
-		{
-			MySqlCommand cmd = new MySqlCommand("ws_PackingSlipReport");
-			cmd.CommandType = CommandType.StoredProcedure;
-			cmd.Parameters.AddWithValue("ShipmentId", shipmentId);
-
-            throw new Exception("This needs to be fixed");
-            /*
-			XElement result = YellowstonePathology.Business.Domain.Persistence.SqlXmlPersistence.CrudOperations.ExecuteCommand(cmd, Business.Domain.Persistence.DataLocationEnum.ProductionData);
-			return result;
-            */
-		}
-
 		public YellowstonePathology.Business.ClientOrder.Model.OrderTypeCollection GetAllOrderTypes()
 		{
 			MySqlCommand cmd = new MySqlCommand();
@@ -591,34 +535,6 @@ namespace YellowstonePathology.Business.Gateway
 			YellowstonePathology.Business.ClientOrder.Model.OrderCategoryCollection result = BuildOrderCategoryCollection(cmd);
 			return result;
 		}				
-
-		public static YellowstonePathology.Business.ClientOrder.Model.ContainerIdLookupResponse DoesContainerIdExist(string containerId, string clientOrderDetailId)
-		{
-            YellowstonePathology.Business.ClientOrder.Model.ContainerIdLookupResponse result = new YellowstonePathology.Business.ClientOrder.Model.ContainerIdLookupResponse();
-			MySqlCommand cmd = new MySqlCommand();
-			cmd.CommandText = "Select count(*) from tblClientOrderDetail where tblClientOrderDetail.ContainerId = @ContainerId and " +
-                "tblClientOrderDetail.ClientOrderDetailId <> @ClientOrderDetailId;";
-			cmd.CommandType = System.Data.CommandType.Text;
-			cmd.Parameters.AddWithValue("@ContainerId", containerId);
-			cmd.Parameters.AddWithValue("@ClientOrderDetailId", clientOrderDetailId);
-			using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-			{
-				cn.Open();
-				cmd.Connection = cn;
-				using (MySqlDataReader dr = cmd.ExecuteReader())
-				{
-					while (dr.Read())
-					{
-						int count = Convert.ToInt32(dr[0]);
-						if (count > 0)
-						{
-							result.Found = true;
-						}
-					}
-				}
-			}
-			return result;
-		}        		
 
 		public static void BuildClientOrderDetailCollection(YellowstonePathology.Business.ClientOrder.Model.ClientOrderDetailCollection clientOrderDetailCollection, MySqlDataReader dr)
 		{        

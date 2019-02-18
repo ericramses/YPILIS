@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
         {            
             RASRAFPanelTestOrder testOrder = (RASRAFPanelTestOrder)this.m_PanelSetOrder;
 
-            this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\RASRAFPanel.1.xml";
+            this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\RASRAFPanel.2.xml";
             base.OpenTemplate();
 
             this.SetDemographicsV2();

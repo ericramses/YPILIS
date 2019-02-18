@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace YellowstonePathology.Business.Test.BRAFMutationAnalysis
 {
-    public class BRAFMutationAnalysisNotDetectedResult : BRAFMutationAnalysisResult
+    public class BRAFMutationAnalysisNotDetectedResult : TestResult
     {
         public BRAFMutationAnalysisNotDetectedResult()
         {
             this.m_ResultCode = "BRAFMTTNANLNTDTCTD";
-            this.m_Result = "Not Detected";
+            this.m_Result = TestResult.NotDetected;
         }
     }
 }

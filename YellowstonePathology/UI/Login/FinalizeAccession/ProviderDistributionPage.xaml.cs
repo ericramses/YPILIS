@@ -476,7 +476,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 string testOrderReportDistributionId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
                 YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution testOrderReportDistribution =
                     new YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution(testOrderReportDistributionId, testOrderReportDistributionId, this.m_PanelSetOrder.ReportNo, 0, null, 0, "Special Distribution",
-                        YellowstonePathology.Business.ReportDistribution.Model.DistributionType.FAX, null, false);
+                        YellowstonePathology.Business.ReportDistribution.Model.DistributionType.FAX, null);
 
                 TestOrderReportDistributionPage testOrderReportDistributionPage = new TestOrderReportDistributionPage(testOrderReportDistribution, this.m_PageNavigator);
                 testOrderReportDistributionPage.Next += new TestOrderReportDistributionPage.NextEventHandler(AddDistribution_TestOrderReportDistributionPage_Next);
@@ -493,7 +493,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 string testOrderReportDistributionId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
                 YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution testOrderReportDistribution =
                     new YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution(testOrderReportDistributionId, testOrderReportDistributionId, this.m_PanelSetOrder.ReportNo, 0, null, 0, "Special Distribution",
-                        YellowstonePathology.Business.ReportDistribution.Model.DistributionType.PRINT, null, false);
+                        YellowstonePathology.Business.ReportDistribution.Model.DistributionType.PRINT, null);
 
                 TestOrderReportDistributionPage testOrderReportDistributionPage = new TestOrderReportDistributionPage(testOrderReportDistribution, this.m_PageNavigator);
                 testOrderReportDistributionPage.Next += new TestOrderReportDistributionPage.NextEventHandler(AddDistribution_TestOrderReportDistributionPage_Next);
@@ -624,23 +624,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             YellowstonePathology.Business.HL7View.Orders.ORMO01 ormo01 = new Business.HL7View.Orders.ORMO01(this.m_AccessionOrder);
             System.Xml.Linq.XElement document = new System.Xml.Linq.XElement("HL7Message");
             ormo01.ToXml(document);
-        }
-
-        private void HyperLinkSendHL7StatusMessage_Click(object sender, RoutedEventArgs e)
-        {
-                YellowstonePathology.Business.ClientOrder.Model.ClientOrderCollection clientOrderCollection = YellowstonePathology.Business.Gateway.ClientOrderGateway.GetClientOrdersByMasterAccessionNo(this.m_AccessionOrder.MasterAccessionNo);
-
-                YellowstonePathology.Business.ClientOrder.Model.UniversalServiceCollection universalServiceIdCollection = YellowstonePathology.Business.ClientOrder.Model.UniversalServiceCollection.GetAll();
-                YellowstonePathology.Business.ClientOrder.Model.UniversalService universalService = universalServiceIdCollection.GetByUniversalServiceId(clientOrderCollection[0].UniversalServiceId);
-
-                YellowstonePathology.Business.HL7View.EPIC.EPICStatusMessage statusMessage = new Business.HL7View.EPIC.EPICStatusMessage(clientOrderCollection[0], YellowstonePathology.Business.HL7View.OrderStatusEnum.InProcess, universalService);
-                YellowstonePathology.Business.Rules.MethodResult result = statusMessage.Send();
-
-                if (result.Success == false)
-                {
-                    MessageBox.Show(result.Message);
-                }
-        }
+        }        
 
         private void ExpanderOptions_Expanded(object sender, RoutedEventArgs e)
         {

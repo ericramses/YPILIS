@@ -52,6 +52,11 @@
                     <RowDefinition Height="20"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="20"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="20"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="20"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
@@ -101,27 +106,40 @@
                 <TextBlock Grid.Column="0" Grid.Row="15" Margin="2,2,2,2">
 				    <Hyperlink Click="HyperlinkReceiveMaterialFromDrMatthews_Click">Receive Material From Dr. Matthews</Hyperlink>
                 </TextBlock>
-
-                <TextBlock Grid.Column="0" Grid.Row="17" Margin="2,2,2,2">Location Cody</TextBlock>
+                <TextBlock Grid.Column="0" Grid.Row="17" Margin="2,2,2,2">
+				    <Hyperlink Click="HyperlinkSendMaterialToOnsiteStorage_Click">Send material to onsite storage</Hyperlink>
+                </TextBlock>
                 <TextBlock Grid.Column="0" Grid.Row="18" Margin="2,2,2,2">
+				    <Hyperlink Click="HyperlinkReceiveMaterialFromOnsiteStorage_Click">Receive material from onsite storage</Hyperlink>
+                </TextBlock>
+
+                <TextBlock Grid.Column="0" Grid.Row="20" Margin="2,2,2,2">
+				    <Hyperlink Click="HyperlinkSendMaterialToOffsiteStorage_Click">Send material to offsite storage</Hyperlink>
+                </TextBlock>
+                <TextBlock Grid.Column="0" Grid.Row="21" Margin="2,2,2,2">
+				    <Hyperlink Click="HyperlinkReceiveMaterialFromOffsiteStorage_Click">Receive material from offsite storage</Hyperlink>
+                </TextBlock>
+
+                <TextBlock Grid.Column="0" Grid.Row="22" Margin="2,2,2,2">Location Cody</TextBlock>
+                <TextBlock Grid.Column="0" Grid.Row="23" Margin="2,2,2,2">
 				    <Hyperlink Click="HyperlinkSendMaterialFromCodyToBillings_Click">Send Material to Billings</Hyperlink>
                 </TextBlock>
-                <TextBlock Grid.Column="0" Grid.Row="19" Margin="2,2,2,2">
+                <TextBlock Grid.Column="0" Grid.Row="24" Margin="2,2,2,2">
 				    <Hyperlink Click="HyperlinkReceiveMaterialFromBillings_Click">Receive Material From Billings</Hyperlink>
                 </TextBlock>
 
-                <TextBlock Grid.Column="0" Grid.Row="21" Margin="2,2,2,2">Location Bozeman</TextBlock>
-                <TextBlock Grid.Column="0" Grid.Row="22" Margin="2,2,2,2">
+                <TextBlock Grid.Column="0" Grid.Row="25" Margin="2,2,2,2">Location Bozeman</TextBlock>
+                <TextBlock Grid.Column="0" Grid.Row="26" Margin="2,2,2,2">
 				    <Hyperlink Click="HyperlinkSendMaterialFromBillingsToBozeman_Click">Send Material to Bozeman</Hyperlink>
                 </TextBlock>
-                <TextBlock Grid.Column="0" Grid.Row="24" Margin="2,2,2,2">
+                <TextBlock Grid.Column="0" Grid.Row="28" Margin="2,2,2,2">
 				    <Hyperlink Click="HyperlinkReceiveMaterialFromBozeman_Click">Receive Material From Bozeman</Hyperlink>
                 </TextBlock>
 
-                <TextBlock Grid.Column="0" Grid.Row="25" Margin="2,2,2,2">
+                <TextBlock Grid.Column="0" Grid.Row="29" Margin="2,2,2,2">
 				    <Hyperlink Click="HyperlinkViewSelectedBatch_Click">View Selected Batch</Hyperlink>
                 </TextBlock>
-                <TextBlock Grid.Column="0" Grid.Row="26" Margin="2,2,2,2">
+                <TextBlock Grid.Column="0" Grid.Row="30" Margin="2,2,2,2">
 				    <Hyperlink Click="HyperlinkDeleteSelectedBatch_Click">Delete Selected Batch</Hyperlink>
                 </TextBlock>
 

@@ -29,6 +29,7 @@ namespace YellowstonePathology.UI.Login
         private DateTime m_KeyWordEndDate;
         private DateTime m_PanelSetFinalDate;
         private DateTime m_PostDate;
+        private DateTime m_SVHPostDate;
         private DateTime m_HPyloriStartDate;
         private DateTime m_HPyloriEndDate;
         private LoginUIV2 m_LoginUI;
@@ -43,7 +44,8 @@ namespace YellowstonePathology.UI.Login
             this.m_LoginUI = loginUI;
             this.m_AccessionDate = DateTime.Today;
             this.m_PanelSetFinalDate = DateTime.Today;
-            this.m_PostDate = DateTime.Today;            
+            this.m_PostDate = DateTime.Today;
+            this.m_SVHPostDate = DateTime.Today;
 
             TimeSpan oneMonth = new TimeSpan(30,0,0,0,0);
             this.m_HPyloriStartDate = DateTime.Today.Subtract(oneMonth);
@@ -106,6 +108,12 @@ namespace YellowstonePathology.UI.Login
         {
             get { return this.m_PostDate; }
             set { this.m_PostDate = value; }
+        }
+
+        public DateTime SVHPostDate
+        {
+            get { return this.m_SVHPostDate; }
+            set { this.m_SVHPostDate = value; }
         }
 
         public DateTime HPyloriStartDate
@@ -209,11 +217,32 @@ namespace YellowstonePathology.UI.Login
             Window.GetWindow(this).Close();    
         }
 
+        private void ButtonSVHFinalNotPostedSearch_Click(object sender, RoutedEventArgs e)
+        {
+            this.m_LoginUI.AccessionOrderDate = this.m_AccessionDate;
+            this.m_LoginUI.GetReportSearchListBySVHFinalNotPosted();
+            Window.GetWindow(this).Close();
+        }
+
+        private void ButtonSVHPosted_Click(object sender, RoutedEventArgs e)
+        {
+            this.m_LoginUI.AccessionOrderDate = this.m_AccessionDate;
+            this.m_LoginUI.GetReportSearchListBySVHPosted(this.m_SVHPostDate);
+            Window.GetWindow(this).Close();
+        }
+
+        private void ButtonChangesNotPostedSearch_Click(object sender, RoutedEventArgs e)
+        {
+            this.m_LoginUI.AccessionOrderDate = this.m_AccessionDate;
+            this.m_LoginUI.GetReportSearchListByChangesNotPosted();
+            Window.GetWindow(this).Close();
+        }
+
         private void ButtonNotPostedSearch_Click(object sender, RoutedEventArgs e)
         {
             this.m_LoginUI.AccessionOrderDate = this.m_AccessionDate;
             this.m_LoginUI.GetReportSearchListByNotPosted();
-            Window.GetWindow(this).Close();    
+            Window.GetWindow(this).Close();
         }
 
         private void ButtonPosted_Click(object sender, RoutedEventArgs e)
@@ -271,6 +300,6 @@ namespace YellowstonePathology.UI.Login
         {
             this.m_LoginUI.GetReportSearchListByPendingTests();
             Window.GetWindow(this).Close();
-        }
+        }        
     }
 }

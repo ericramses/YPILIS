@@ -23,6 +23,11 @@ namespace YellowstonePathology.Business.Document
             //this.m_PanelSetOrderItem = new YellowstonePathology.Business.Test.PanelSetOrder();                 
         }
 
+        public string SaveFileName
+        {
+            get { return null; }
+        }
+
         public YellowstonePathology.Business.Document.NativeDocumentFormatEnum NativeDocumentFormat
         {
             get { return this.m_NativeDocumentFormat; }

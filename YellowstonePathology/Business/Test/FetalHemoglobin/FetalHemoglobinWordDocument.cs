@@ -7,7 +7,7 @@ namespace YellowstonePathology.Business.Test.FetalHemoglobin
 {
 	public class FetalHemoglobinWordDocument : YellowstonePathology.Business.Document.CaseReport
     {
-        string m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\FetalHemoglobin.6.xml";        
+        string m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\FetalHemoglobin.1.xml";        
 		YellowstonePathology.Business.Flow.FlowMarkerPanelList m_PanelList;
 
         public FetalHemoglobinWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode) 

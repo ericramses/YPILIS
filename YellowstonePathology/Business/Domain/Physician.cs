@@ -45,6 +45,7 @@ namespace YellowstonePathology.Business.Domain
         private string m_PublishNotificationEmailAddress;
         private bool m_DistributeWHPOnly;
         private bool m_HoldForWHP;
+        private bool m_DontSendWHP;
 
         public Physician()
 		{
@@ -536,6 +537,20 @@ namespace YellowstonePathology.Business.Domain
                 {
                     this.m_HoldForWHP = value;
                     this.NotifyPropertyChanged("HoldForWHP");
+                }
+            }
+        }
+
+        [PersistentDataColumnProperty(false, "1", "0", "tinyint")]
+        public bool DontSendWHP
+        {
+            get { return this.m_DontSendWHP; }
+            set
+            {
+                if (this.m_DontSendWHP != value)
+                {
+                    this.m_DontSendWHP = value;
+                    this.NotifyPropertyChanged("DontSendWHP");
                 }
             }
         }

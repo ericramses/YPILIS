@@ -25,7 +25,10 @@ namespace YellowstonePathology.UI.Test
 		public delegate void NextEventHandler(object sender, EventArgs e);
 		public event NextEventHandler Next;
 
-		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
+        public delegate void OrderHER2RecountEventHandler(object sender, EventArgs e);
+        public event OrderHER2RecountEventHandler OrderHER2Recount;
+
+        private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private string m_PageHeaderText;
 
@@ -77,21 +80,11 @@ namespace YellowstonePathology.UI.Test
 			get { return this.m_PageHeaderText; }
 		}
 
-		private void HyperLinkSetResults_Click(object sender, RoutedEventArgs e)
-		{
-			YellowstonePathology.Business.Test.Her2AmplificationByIHC.Her2AmplificationByIHCResult result = new Business.Test.Her2AmplificationByIHC.Her2AmplificationByIHCResult();
-            result.SetResults(this.m_PanelSetOrder);
-			this.NotifyPropertyChanged("PanelSetOrder");
-		}
-
 		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{
 			YellowstonePathology.Business.Test.Her2AmplificationByIHC.Her2AmplificationByIHCWordDocument report = new Business.Test.Her2AmplificationByIHC.Her2AmplificationByIHCWordDocument(this.m_AccessionOrder, this.m_PanelSetOrder, Business.Document.ReportSaveModeEnum.Draft);
 			report.Render();
-
-			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
-			string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);
-			YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(fileName);
+			YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(report.SaveFileName);
 		}
 
 		private void HyperLinkFinalizeResults_Click(object sender, RoutedEventArgs e)
@@ -122,17 +115,41 @@ namespace YellowstonePathology.UI.Test
 		private void HyperLinkAcceptResults_Click(object sender, RoutedEventArgs e)
 		{
 			YellowstonePathology.Business.Rules.MethodResult result = this.m_PanelSetOrder.IsOkToAccept();
-			if (result.Success == true)
-			{
-				this.m_PanelSetOrder.Accept();
-			}
-			else
-			{
-				MessageBox.Show(result.Message);
-			}
+            if (result.Success == true)
+            {
+                this.m_PanelSetOrder.Accept();
+                YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHTest ishTest = new Business.Test.HER2AmplificationByISH.HER2AmplificationByISHTest();
+                if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(ishTest.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true) == true)
+                {
+                    YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHTestOrder ishTestOrder = (YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(ishTest.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true);
+                    Business.Test.HER2AmplificationByISH.HER2AmplificationResultCollection her2ResultCollection = new Business.Test.HER2AmplificationByISH.HER2AmplificationResultCollection(this.m_AccessionOrder.PanelSetOrderCollection, ishTestOrder.ReportNo);
+                    Business.Test.HER2AmplificationByISH.HER2AmplificationResult her2Result = her2ResultCollection.FindMatch();
+                    if (her2Result.IsRecountNeeded() == true)
+                    {
+                        Business.Test.HER2AmplificationRecount.HER2AmplificationRecountTest her2AmplificationRecountTest = new Business.Test.HER2AmplificationRecount.HER2AmplificationRecountTest();
+                        if(this.m_AccessionOrder.PanelSetOrderCollection.Exists(her2AmplificationRecountTest.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true) == false)
+                        {
+                            MessageBoxResult messageBoxResult = MessageBox.Show("A HER2 Recount is required.  If one is not ordered this test will not be accepted.  Do you want to order it now?", "Recount required", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes);
+                            if(messageBoxResult == MessageBoxResult.Yes)
+                            {
+                                this.OrderHER2Recount(this, new EventArgs());
+                            }
+                            else
+                            {
+                                this.m_PanelSetOrder.Unaccept();
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show(result.Message);
+            }
 		}
 
-		private void HyperLinkUnacceptResults_Click(object sender, RoutedEventArgs e)
+
+        private void HyperLinkUnacceptResults_Click(object sender, RoutedEventArgs e)
 		{
 			YellowstonePathology.Business.Rules.MethodResult result = this.m_PanelSetOrder.IsOkToUnaccept();
 			if (result.Success == true)

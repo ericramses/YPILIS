@@ -92,10 +92,7 @@ namespace YellowstonePathology.UI.Test
 		{			
 			YellowstonePathology.Business.Test.Trichomonas.TrichomonasWordDocument report = new YellowstonePathology.Business.Test.Trichomonas.TrichomonasWordDocument(this.m_AccessionOrder, this.m_ReportOrderTrichomonas, Business.Document.ReportSaveModeEnum.Draft);
 			report.Render();
-
-			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_ReportOrderTrichomonas.ReportNo);
-			string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);
-			YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(fileName);
+			YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(report.SaveFileName);
 		}
 
         private void HyperLinkFinalize_Click(object sender, RoutedEventArgs e)

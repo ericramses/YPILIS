@@ -43,8 +43,8 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>125</ApplicationRevision>
-    <ApplicationVersion>10.1.12.%2a</ApplicationVersion>
+    <ApplicationRevision>41</ApplicationRevision>
+    <ApplicationVersion>10.1.13.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -99,6 +99,10 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
       <HintPath>dll\Interop.FAXCOMEXLib.dll</HintPath>
     </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13\lib\itextsharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Exchange.WebServices, Version=15.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -128,6 +132,10 @@
       <HintPath>dll\NHunspell.dll</HintPath>
     </Reference>
     <Reference Include="PresentationFramework.Luna" />
+    <Reference Include="Renci.SshNet, Version=2016.1.0.0, Culture=neutral, PublicKeyToken=1cee9f8bde3db106, processorArchitecture=MSIL">
+      <HintPath>..\packages\SSH.NET.2016.1.0\lib\net40\Renci.SshNet.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="StackExchange.Redis, Version=1.2.6.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\StackExchange.Redis.1.2.6\lib\net46\StackExchange.Redis.dll</HintPath>
       <Private>True</Private>
@@ -146,6 +154,7 @@
       <HintPath>..\packages\System.Interactive.Async.3.1.1\lib\net46\System.Interactive.Async.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Speech">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
@@ -184,10 +193,6 @@
     <Reference Include="WPFToolkit.Extended, Version=1.8.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>dll\WPFToolkit.Extended.dll</HintPath>
-    </Reference>
-    <Reference Include="Xceed.Wpf.Toolkit, Version=2.4.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>dll\Xceed.Wpf.Toolkit.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -229,7 +234,6 @@
     <Compile Include="Business\Audit.Model\FinalizedAudit.cs" />
     <Compile Include="Business\Audit.Model\FNAHasIntraOpAudit.cs" />
     <Compile Include="Business\Audit.Model\GradedStainsAreHandledAudit.cs" />
-    <Compile Include="Business\Audit.Model\HandleBoneMarrowOnFinalAudit.cs" />
     <Compile Include="Business\Audit.Model\HasColorForDirectPrintBlocksAudit.cs" />
     <Compile Include="Business\Audit.Model\HER2OKToAcceptAudit.cs" />
     <Compile Include="Business\Audit.Model\HPV1618ForSiteAudit.cs" />
@@ -295,28 +299,50 @@
     <Compile Include="Business\BaseData.cs" />
     <Compile Include="Business\BaseItem.cs" />
     <Compile Include="Business\BaseListItem.cs" />
+    <Compile Include="Business\Billing.Model\ADTListItem.cs" />
     <Compile Include="Business\Billing.Model\BillableObjectNeoFlowCytometry.cs" />
     <Compile Include="Business\Billing.Model\CptCodeFactory.cs" />
     <Compile Include="Business\Billing.Model\CPTCodeWithModifier.cs" />
+    <Compile Include="Business\Billing.Model\FISHCPTCodeList.cs" />
     <Compile Include="Business\Billing.Model\HospitalSplitSurgicalAndReferenceLabBillingRuleSet.cs" />
     <Compile Include="Business\Billing.Model\ICDCode.cs" />
     <Compile Include="Business\Billing.Model\ICDCodeFactory.cs" />
+    <Compile Include="Business\Billing.Model\InsuranceMap.cs" />
+    <Compile Include="Business\Billing.Model\InsuranceMapCollection.cs" />
     <Compile Include="Business\Billing.Model\MonitoredObject.cs" />
     <Compile Include="Business\Billing.Model\MonitoredObjectCollection.cs" />
+    <Compile Include="Business\Billing.Model\PlaceOfService.cs" />
+    <Compile Include="Business\Billing.Model\PlaceOfServiceCollection.cs" />
     <Compile Include="Business\Billing.Model\PropertyChanges.cs" />
+    <Compile Include="Business\Billing.Model\SimulationSerializer.cs" />
+    <Compile Include="Business\Billing.Model\SVHNoCDMMailMessage.cs" />
     <Compile Include="Business\Client.Model\HPV1618CompoundStandingOrderRule1.cs" />
     <Compile Include="Business\Client.Model\HPV1618ReflexOrderPAPNormalHPVPositive.cs" />
+    <Compile Include="Business\Client.Model\HPVCompoundStandingOrderRule8.cs" />
     <Compile Include="Business\Client.Model\HPVCompoundStandingOrderRule7.cs" />
     <Compile Include="Business\Client.Model\HPVCompoundStandingOrderRule6.cs" />
+    <Compile Include="Business\Client.Model\HPVReflexOrderRule141.cs" />
+    <Compile Include="Business\Client.Model\HPVReflexOrderRule51.cs" />
+    <Compile Include="Business\Client.Model\HPVStandingOrderRule141.cs" />
+    <Compile Include="Business\Client.Model\HPVStandingOrderRule51.cs" />
     <Compile Include="Business\Client.Model\IdahoClientIdList.cs" />
+    <Compile Include="Business\Client.Model\PlaceOfService.cs" />
+    <Compile Include="Business\Client.Model\PlaceOfServiceCollection.cs" />
     <Compile Include="Business\ClientOrder.Model\ExternalOrderIds.cs" />
     <Compile Include="Business\ClientOrder.Model\ExternalOrderIdsCollection.cs" />
+    <Compile Include="Business\Common\Block.cs" />
     <Compile Include="Business\Document\CaseDocumentFileTypeEnnum.cs" />
     <Compile Include="Business\Document\CaseDocumentTypeEnum.cs" />
+    <Compile Include="Business\EthBlock.cs" />
+    <Compile Include="Business\EthContract.cs" />
+    <Compile Include="Business\EthContractCollection.cs" />
+    <Compile Include="Business\PanelSet.Model\FISHTest.cs" />
     <Compile Include="Business\Flow\CytoplasmicMarkerMapping.cs" />
     <Compile Include="Business\Flow\CytoplasmicMarkerMappingCollection.cs" />
+    <Compile Include="Business\Gateway\PreviousResultGateway.cs" />
     <Compile Include="Business\Gateway\WebServiceGateway.cs" />
     <Compile Include="Business\Gateway\XmlGateway.cs" />
+    <Compile Include="Business\Helper\FISHProbeComment.cs" />
     <Compile Include="Business\HL7View\ADTMessage.cs" />
     <Compile Include="Business\HL7View\ADTMessages.cs" />
     <Compile Include="Business\Billing.Model\BillableObject.cs" />
@@ -412,11 +438,6 @@
     <Compile Include="Business\Billing.Model\TypingCptCodeList.cs" />
     <Compile Include="Business\Billing.Model\TypingCptCodeListItem.cs" />
     <Compile Include="Business\Billing.Model\YellowstoneParkBillingRuleSet.cs" />
-    <Compile Include="Business\Builder\PanelSetOrderBuilder.cs" />
-    <Compile Include="Business\Builder\PanelSetOrderBuilderEgfr.cs" />
-    <Compile Include="Business\Builder\PanelSetOrderBuilderFactory.cs" />
-    <Compile Include="Business\Builder\PanelSetOrderBuilderLeukemiaLymphoma.cs" />
-    <Compile Include="Business\Builder\PanelSetOrderBuilderSummaryReport.cs" />
     <Compile Include="Business\CaseType.cs" />
     <Compile Include="Business\Client.Model\AthenaPhysicianClientDistribution.cs" />
     <Compile Include="Business\Client.Model\Client.cs" />
@@ -524,7 +545,6 @@
     <Compile Include="Business\ClientOrder.Model\ClientOrderMedia.cs" />
     <Compile Include="Business\ClientOrder.Model\ClientOrderMediaCollection.cs" />
     <Compile Include="Business\ClientOrder.Model\ClientOrderMediaEnum.cs" />
-    <Compile Include="Business\ClientOrder.Model\ContainerIdLookupResponse.cs" />
     <Compile Include="Business\ClientOrder.Model\CytologyClientOrder.cs" />
     <Compile Include="Business\ClientOrder.Model\CytologyClientOrder.Validation.cs" />
     <Compile Include="Business\ClientOrder.Model\EPICClinicalHistoryExtractor.cs" />
@@ -537,11 +557,6 @@
     <Compile Include="Business\ClientOrder.Model\OrderTypeCollection.cs" />
     <Compile Include="Business\ClientOrder.Model\PlacentaClientOrderDetail.cs" />
     <Compile Include="Business\ClientOrder.Model\PlacentaClientOrderDetail.Validation.cs" />
-    <Compile Include="Business\ClientOrder.Model\Shipment.cs" />
-    <Compile Include="Business\ClientOrder.Model\ShipmentCollection.cs" />
-    <Compile Include="Business\ClientOrder.Model\ShipmentListItem.cs" />
-    <Compile Include="Business\ClientOrder.Model\ShipmentListItemCollection.cs" />
-    <Compile Include="Business\ClientOrder.Model\ShipmentReturnResult.cs" />
     <Compile Include="Business\ClientOrder.Model\SpecimenTypeEnum.cs" />
     <Compile Include="Business\ClientOrder.Model\SurgicalClientOrder.cs" />
     <Compile Include="Business\ClientOrder.Model\SurgicalClientOrder.Validation.cs" />
@@ -553,10 +568,6 @@
     <Compile Include="Business\ClientOrder.Model\UniversalServiceDefinitions.cs" />
     <Compile Include="Business\ClientOrder.Model\WestGrandFamilyOrderTest.cs" />
     <Compile Include="Business\Common\AmendmentSpellCheckList.cs" />
-    <Compile Include="Business\Common\Block.cs" />
-    <Compile Include="Business\Common\BlockCollection.cs" />
-    <Compile Include="Business\Common\BlockV1.cs" />
-    <Compile Include="Business\Common\BlockV2.cs" />
     <Compile Include="Business\Common\DatabaseSelectionModel.cs" />
     <Compile Include="Business\Common\FieldEnabler.cs" />
     <Compile Include="Business\Common\PageScanner.cs" />
@@ -566,18 +577,6 @@
     <Compile Include="Business\Common\PageScannerIS200e.cs" />
     <Compile Include="Business\Common\PageScannerXeroxDocuMate3640.cs" />
     <Compile Include="Business\Common\PathologistSpellCheckList.cs" />
-    <Compile Include="Business\Common\PrintMate.cs" />
-    <Compile Include="Business\Common\PrintMateCarousel.cs" />
-    <Compile Include="Business\Common\PrintMateColumn.cs" />
-    <Compile Include="Business\Common\PrintMateColumnGreen.cs" />
-    <Compile Include="Business\Common\PrintMateColumnLilac.cs" />
-    <Compile Include="Business\Common\PrintMateColumnOrange1.cs" />
-    <Compile Include="Business\Common\PrintMateColumnOrange2.cs" />
-    <Compile Include="Business\Common\PrintMateColumnPink.cs" />
-    <Compile Include="Business\Common\PrintMateColumnTeal.cs" />
-    <Compile Include="Business\Common\PrintMateColumnTeal2.cs" />
-    <Compile Include="Business\Common\PrintMateColumnYellow.cs" />
-    <Compile Include="Business\Common\PrintMateNullColumn.cs" />
     <Compile Include="Business\Common\SpellChecker.cs" />
     <Compile Include="Business\Common\SpellCheckListItem.cs" />
     <Compile Include="Business\Common\TypingSpellCheckList.cs" />
@@ -633,7 +632,6 @@
     </Compile>
     <Compile Include="Business\Document\CaseReportOtherCases.cs" />
     <Compile Include="Business\Document\CaseReportV2.cs" />
-    <Compile Include="Business\Document\ClientLetter.cs" />
     <Compile Include="Business\Document\ClientLetterBold.cs" />
     <Compile Include="Business\Document\ClientOrderCaseDocument.cs" />
     <Compile Include="Business\Document\DnaCycleTable.cs" />
@@ -702,12 +700,6 @@
     <Compile Include="Business\Domain\LockModeEnum.cs" />
     <Compile Include="Business\Domain\MaterialLocation.cs" />
     <Compile Include="Business\Domain\MaterialLocationCollection.cs" />
-    <Compile Include="Business\Domain\OrderableTestCptCode.cs" />
-    <Compile Include="Business\Domain\OrderableTestCptCode.Generated.cs" />
-    <Compile Include="Business\Domain\OrderableTestCptCodeCollection.cs" />
-    <Compile Include="Business\Domain\OrderableTestIcd9Code.cs" />
-    <Compile Include="Business\Domain\OrderableTestIcd9Code.Generated.cs" />
-    <Compile Include="Business\Domain\OrderableTestIcd9CodeCollection.cs" />
     <Compile Include="Business\Domain\OrderComment.cs" />
     <Compile Include="Business\Domain\OrderCommentCollection.cs" />
     <Compile Include="Business\Domain\OrderCommentEnum.cs" />
@@ -719,7 +711,6 @@
     <Compile Include="Business\Domain\Patient.cs" />
     <Compile Include="Business\Domain\PatientHistory.cs" />
     <Compile Include="Business\Domain\PatientHistoryResult.cs" />
-    <Compile Include="Business\Domain\PhoneNumber.cs" />
     <Compile Include="Business\Domain\Physician.cs" />
     <Compile Include="Business\Domain\PhysicianClient.cs" />
     <Compile Include="Business\Domain\PhysicianClientCollection.cs" />
@@ -727,7 +718,6 @@
     <Compile Include="Business\Domain\PhysicianCollection.cs" />
     <Compile Include="Business\Domain\SearchResult.cs" />
     <Compile Include="Business\Domain\SystemUserRoleDescriptionListFactory.cs" />
-    <Compile Include="Business\Domain\Temp.cs" />
     <Compile Include="Business\Domain\XElementFromSql.cs" />
     <Compile Include="Business\Domain\XmlConversions.cs" />
     <Compile Include="Business\Domain\XmlViewer.cs" />
@@ -735,8 +725,6 @@
     <Compile Include="Business\Facility.Model\ClientBillingFacilityCollection.cs" />
     <Compile Include="Business\Facility.Model\Facility.cs" />
     <Compile Include="Business\Facility.Model\FacilityCollection.cs" />
-    <Compile Include="Business\Facility.Model\Host.cs" />
-    <Compile Include="Business\Facility.Model\HostCollection.cs" />
     <Compile Include="Business\FileList.cs" />
     <Compile Include="Business\FileListItem.cs" />
     <Compile Include="Business\Flow\CellPopulationOfInterest.cs" />
@@ -757,21 +745,14 @@
     <Compile Include="Business\Flow\FlowMarkerPanelItem.Generated.cs" />
     <Compile Include="Business\Flow\FlowMarkerPanelList.cs" />
     <Compile Include="Business\Flow\FlowPanelList.cs" />
-    <Compile Include="Business\Flow\FlowTestTypeCollection.cs" />
-    <Compile Include="Business\Flow\FlowTestTypeItem.cs" />
-    <Compile Include="Business\Flow\FlowTestTypeItem.Generated.cs" />
     <Compile Include="Business\Flow\FlowUI.cs" />
     <Compile Include="Business\Flow\Marker.cs" />
     <Compile Include="Business\Flow\MarkerCollection.cs" />
     <Compile Include="Business\Flow\MarkerItem.cs" />
     <Compile Include="Business\Flow\MarkerItem.Generated.cs" />
-    <Compile Include="Business\FtpTransfer.cs" />
     <Compile Include="Business\Gateway\AccessionOrderBuilderV2.cs" />
     <Compile Include="Business\Gateway\AccessionOrderGateway.cs" />
-    <Compile Include="Business\Gateway\AccessionSlideOrderViewBuilder.cs" />
-    <Compile Include="Business\Gateway\AOSaveResult.cs" />
     <Compile Include="Business\Gateway\BillingGateway.cs" />
-    <Compile Include="Business\Gateway\ClientBuilder.cs" />
     <Compile Include="Business\Gateway\ClientBuilderV2.cs" />
     <Compile Include="Business\Gateway\ClientOrderBuilder.cs" />
     <Compile Include="Business\Gateway\ClientOrderGateway.cs" />
@@ -786,8 +767,6 @@
     <Compile Include="Business\Gateway\SearchGateway.cs" />
     <Compile Include="Business\Gateway\SlideAccessionGateway.cs" />
     <Compile Include="Business\Gateway\SlideDisposalReportGateway.cs" />
-    <Compile Include="Business\Gateway\TestItemBuilder.cs" />
-    <Compile Include="Business\Hello4.cs" />
     <Compile Include="Business\Helper\DateTimeExtensions.cs" />
     <Compile Include="Business\Helper\DateTimeJoiner.cs" />
     <Compile Include="Business\Helper\DateTimeSplitter.cs" />
@@ -847,7 +826,6 @@
     <Compile Include="Business\HL7View\EPIC\EpicStatusObxView.cs" />
     <Compile Include="Business\HL7View\EPIC\EpicStatusOrcView.cs" />
     <Compile Include="Business\HL7View\EPIC\EpicUniversalSerivceIdDictionary.cs" />
-    <Compile Include="Business\HL7View\EPIC\TestEpicStatusMessage.cs" />
     <Compile Include="Business\HL7View\Hl7Client.cs" />
     <Compile Include="Business\HL7View\Hl7MessageType.cs" />
     <Compile Include="Business\HL7View\HolyRosaryHealthCare.cs" />
@@ -912,11 +890,11 @@
     <Compile Include="Business\HL7View\WYDOH\WYDOHORCView.cs" />
     <Compile Include="Business\HL7View\WYDOH\WYDOHPIDView.cs" />
     <Compile Include="Business\HL7View\WYDOH\WYDOHResultView.cs" />
+    <Compile Include="Business\GethAPI.cs" />
     <Compile Include="Business\Interface\IBillingCptCode.cs" />
     <Compile Include="Business\Interface\IBillingSpecimen.cs" />
     <Compile Include="Business\Interface\IBillingSpecimenCollection.cs" />
     <Compile Include="Business\Interface\ICaseDocument.cs" />
-    <Compile Include="Business\Interface\IClient.cs" />
     <Compile Include="Business\Interface\ICommonBase.cs" />
     <Compile Include="Business\Interface\IComprehensiveCareDocument.cs" />
     <Compile Include="Business\Interface\ICytologyResult.cs" />
@@ -947,12 +925,21 @@
     <Compile Include="Business\Label.Model\BlockLabelLegacy.cs" />
     <Compile Include="Business\Label.Model\AliquotLabelPrinter.cs" />
     <Compile Include="Business\Label.Model\BlockLabelPrinter.cs" />
+    <Compile Include="Business\Label.Model\Carousel.cs" />
+    <Compile Include="Business\Label.Model\CarouselColumn.cs" />
     <Compile Include="Business\Label.Model\Cassette.cs" />
     <Compile Include="Business\Label.Model\CassettePrinter.cs" />
+    <Compile Include="Business\Label.Model\CassettePrinterCollection.cs" />
+    <Compile Include="Business\Label.Model\CassettePrinterGrossCody.cs" />
+    <Compile Include="Business\Label.Model\CassettePrinterGrossHobbit.cs" />
+    <Compile Include="Business\Label.Model\CassettePrinterGrossPath.cs" />
+    <Compile Include="Business\Label.Model\CassettePrinterGrossTech.cs" />
     <Compile Include="Business\Label.Model\ContainerPaperLabel.cs" />
     <Compile Include="Business\Label.Model\ContainerPaperLabelPrinter.cs" />
     <Compile Include="Business\Label.Model\AliquotPaperZPLLabel.cs" />
+    <Compile Include="Business\Label.Model\GeneralDataCassette.cs" />
     <Compile Include="Business\Label.Model\HistologySlidePaperZPLLabelV2.cs" />
+    <Compile Include="Business\Label.Model\ThermoFisherCassette.cs" />
     <Compile Include="Business\Label.Model\UrineZPLLabel.cs" />
     <Compile Include="Business\Label.Model\IFEZPLLabel.cs" />
     <Compile Include="Business\Label.Model\FormalinAddedZPLLabel.cs" />
@@ -991,6 +978,7 @@
     <Compile Include="Business\Label.Model\RawPrinterHelper.cs" />
     <Compile Include="Business\LevenshteinDistance.cs" />
     <Compile Include="Business\ListItem.cs" />
+    <Compile Include="Business\LocalPhonePrefix.cs" />
     <Compile Include="Business\Logging\EmailExceptionHandler.cs" />
     <Compile Include="Business\Logging\ScanLogger.cs" />
     <Compile Include="Business\MasterAccessionNo.cs" />
@@ -1027,6 +1015,7 @@
     <Compile Include="Business\Monitor.Model\MonitorStateEnum.cs" />
     <Compile Include="Business\Monitor.Model\PendingTest.cs" />
     <Compile Include="Business\Monitor.Model\PendingTestCollection.cs" />
+    <Compile Include="Business\Panel.Model\HAndEPanel.cs" />
     <Compile Include="Business\PanelSet.Model\NeoTypeEsophagealTumorProfileTest.cs" />
     <Compile Include="Business\PanelSet.Model\NeoTypeDiscoveryProfileTest.cs" />
     <Compile Include="Business\PanelSet.Model\PanelSetPMLRARAByFish.cs" />
@@ -1043,27 +1032,70 @@
     <Compile Include="Business\Persistence\SqlServerDataReaderPropertyWriter.cs" />
     <Compile Include="Business\Persistence\SystemUserDocumentBuilder.cs" />
     <Compile Include="Business\Persistence\WebServiceAccountDocumentBuilder.cs" />
+    <Compile Include="Business\PreviousResult.cs" />
+    <Compile Include="Business\PreviousResultCollection.cs" />
+    <Compile Include="Business\ReportDistribution.Model\MeditechDistribution.cs" />
     <Compile Include="Business\ReportDistribution.Model\MultiTestDistributionHandlerNoWHP.cs" />
     <Compile Include="Business\ReportDistribution.Model\MultiTestDistributionHandlerWHPHold.cs" />
+    <Compile Include="Business\ReportDistribution.Model\PrintDistribution.cs" />
     <Compile Include="Business\Slide.Model\VantageSlide.cs" />
     <Compile Include="Business\Slide.Model\VantageSlideScan.cs" />
     <Compile Include="Business\Slide.Model\VantageSlideScanCollection.cs" />
     <Compile Include="Business\Slide.Model\VantageSlideView.cs" />
     <Compile Include="Business\Slide.Model\VantageSlideViewCollection.cs" />
+    <Compile Include="Business\Specimen.Model\Container.cs" />
+    <Compile Include="Business\Specimen.Model\ContainerCollection.cs" />
+    <Compile Include="Business\SSHFileTransfer.cs" />
     <Compile Include="Business\Stain.Model\JsonStainFactory.cs" />
     <Compile Include="Business\Stain.Model\Stain.cs" />
     <Compile Include="Business\Stain.Model\StainCollection.cs" />
+    <Compile Include="Business\Billing.Model\SVHClinicMailMessage.cs" />
     <Compile Include="Business\Test.Model\TestCollectionInstance.cs" />
     <Compile Include="Business\Test.Model\TestFactory.cs" />
     <Compile Include="Business\Test.Model\TestOrderStatusView.cs" />
     <Compile Include="Business\Test.Model\TestOrderStatusViewCollection.cs" />
+    <Compile Include="Business\Test\Adenovirus\AdenovirusTest.cs" />
     <Compile Include="Business\Test\ALLPediatricFISHPanel\ALLPediatricFISHPanelTest.cs" />
     <Compile Include="Business\Test\AMLPrognosticProfile\AMLPrognosticProfileTestOrder.cs" />
     <Compile Include="Business\Test\API2MALT1ByFISH\API2MALT1ByFISHWPHOBXView.cs" />
+    <Compile Include="Business\Test\CarbonicAnhydraseIXCAIX\CarbonicAnhydraseIXCAIXTest.cs" />
+    <Compile Include="Business\Test\CheckResultsActionEnum.cs" />
     <Compile Include="Business\Test\ChimerismStudyByDNAMarkers\ChimerismStudyByDNAMarkersTest.cs" />
+    <Compile Include="Business\Test\DNMT3AMutationAnalysis\DNMT3AMutationAnalysisTest.cs" />
+    <Compile Include="Business\Test\DUPSP22IRF4Rearrangement\DUPSP22IRF4RearrangementTest.cs" />
+    <Compile Include="Business\Test\EGFRAmplification\EGFRAmplificationTest.cs" />
     <Compile Include="Business\Test\EGFRMutationAnalysisPreliminary\EGFRMutationAnalysisPreliminaryTest.cs" />
     <Compile Include="Business\Test\EGFRToALKReflexAnalysis\EGFRToALKReflexAnalysisBRAFResult.cs" />
+    <Compile Include="Business\Test\ExtractAndHoldForMolecular\ExtractAndHoldForMolecularTestRetired.cs" />
     <Compile Include="Business\Test\ExtractAndHoldForPreauthorization\ExtractAndHoldForPreauthorizationWordDocument.cs" />
+    <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationResult.cs" />
+    <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationResultBreast.cs" />
+    <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationResultCollection.cs" />
+    <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationResultGastric.cs" />
+    <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationResultGroup2Breast.cs" />
+    <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationResultGroup3Breast.cs" />
+    <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationResultGroup4Breast.cs" />
+    <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationResultGroup5Breast.cs" />
+    <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationResultGroup1Breast.cs" />
+    <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationResultEnum.cs" />
+    <Compile Include="Business\Test\HER2AmplificationRecount\HER2AmplificationRecountTest.cs" />
+    <Compile Include="Business\Test\HER2AmplificationRecount\HER2AmplificationRecountTestOrder.cs" />
+    <Compile Include="Business\Test\HER2AmplificationSummary\HER2AmplificationSummaryTest.cs" />
+    <Compile Include="Business\Test\HER2AmplificationSummary\HER2AmplificationSummaryWordDocument.cs" />
+    <Compile Include="Business\Test\HoldForFlow\CultureAndHoldForCytogeneticsTest.cs" />
+    <Compile Include="Business\Test\HoldForFlow\DirectHarvestForFISHTest.cs" />
+    <Compile Include="Business\Test\HPV1618\HPV1618WPHOBXView.cs" />
+    <Compile Include="Business\Test\HPVRNAISH\HPVRNAISHTest.cs" />
+    <Compile Include="Business\Test\INI1\INI1Test.cs" />
+    <Compile Include="Business\Test\LynchSyndrome\LSEColonBRAFMeth.cs" />
+    <Compile Include="Business\Test\LynchSyndrome\LSEColonSendOut.cs" />
+    <Compile Include="Business\Test\LynchSyndrome\LSEGeneralSendOut.cs" />
+    <Compile Include="Business\Test\LynchSyndrome\LSEGYNMeth.cs" />
+    <Compile Include="Business\Test\LynchSyndrome\LSEGYNSendOut.cs" />
+    <Compile Include="Business\Test\MissingInformation\MissingInformationWordDocument.cs" />
+    <Compile Include="Business\Test\LynchSyndrome\LSEIHCResult.cs" />
+    <Compile Include="Business\Test\LynchSyndrome\LSEIHCResultIntactExpression.cs" />
+    <Compile Include="Business\Test\LynchSyndrome\LSEIHCResultLossOfExpression.cs" />
     <Compile Include="Business\Test\MPNExtendedReflexPanel\MPNExtendedReflexPanelTest.cs" />
     <Compile Include="Business\Test\BCellEnumeration\BCellEnumerationCMMCNTEView.cs" />
     <Compile Include="Business\Test\BCellEnumeration\BCellEnumerationWPHOBXView.cs" />
@@ -1100,21 +1132,35 @@
     <Compile Include="Business\Test\JAK2V617F\JAK2V617FCMMCNteView.cs" />
     <Compile Include="Business\Test\LowGradeSmallBCellLymphomaFishPanel\LowGradeSmallBCellLymphomaFishPanelTest.cs" />
     <Compile Include="Business\Test\LymphocyteSubsetPanel4\LymphocyteSubsetPanel4Test.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEGeneralResult2.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEGeneralResult1.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEGYNResult3a.cs" />
+    <Compile Include="Business\Test\LynchSyndrome\LSEGeneralAllIntact.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LynchSyndromeIHCPanelCMMCNTEView.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LynchSyndromeIHCPanelWPHOBXView.cs" />
     <Compile Include="Business\Test\MDSExtendedByFish\MDSExtendedByFishCMMCNTEView.cs" />
     <Compile Include="Business\Test\MDSExtendedByFish\MDSExtendedByFishWPHOBXView.cs" />
     <Compile Include="Business\Test\MicrobiologyByPCR\MicrobiologyByPCRTest.cs" />
     <Compile Include="Business\Test\NeoLABMyeloidDisordersProfile\NeoLABMyeloidDisordersProfileTest.cs" />
+    <Compile Include="Business\Test\NeoTYPEBrainTumorProfile\NeoTYPEBrainTumorProfileTest.cs" />
     <Compile Include="Business\Test\NeoTYPEBreastTumorProfile\NeoTYPEBreastTumorProfileTest.cs" />
+    <Compile Include="Business\Test\NeoTYPEGastricTumorProfile\NeoTYPEGastricTumorProfileTest.cs" />
     <Compile Include="Business\Test\NeoTYPEGISTProfile\NeoTYPEGISTProfileTest.cs" />
+    <Compile Include="Business\Test\NeoTYPELiposarcomaFusionProfile\NeoTYPELiposarcomaFusionProfileTest.cs" />
+    <Compile Include="Business\Test\NeoTYPELiverBiliaryTumorProfile\NeoTYPELiverBiliaryTumorProfileTest.cs" />
+    <Compile Include="Business\Test\NeoTYPELymphomaProfile\NeoTYPELymphomaProfileTest.cs" />
+    <Compile Include="Business\Test\NeoTypeLungTumorFISHPanel\NeoTypeLungTumorFISHPanelTest.cs" />
     <Compile Include="Business\Test\NeoTYPELungTumorProfile\NeoTYPELungTumorProfileTestOrder.cs" />
     <Compile Include="Business\Test\NeoTYPEOvarianTumorProfile\NeoTYPEOvarianTumorProfileTest.cs" />
+    <Compile Include="Business\Test\OrderAssociation\OrderAssociationEpicObxView.cs" />
+    <Compile Include="Business\Test\OrderAssociation\OrderAssociationTest.cs" />
+    <Compile Include="Business\Test\OrderAssociation\OrderAssociationTestOrder.cs" />
+    <Compile Include="Business\Test\p57\p57Test.cs" />
+    <Compile Include="Business\Test\PDL1288\PDL1288Test.cs" />
     <Compile Include="Business\Test\PNH\PNHWPHOBXView.cs" />
     <Compile Include="Business\Test\RASRAFPanel\RASRAFPanelWPHOBXView.cs" />
+    <Compile Include="Business\Test\RibosomalRNA16S\RibosomalRNA16STest.cs" />
+    <Compile Include="Business\Test\SomatostatinReceptorType2\SomatostatinReceptorType2Test.cs" />
+    <Compile Include="Business\Test\ThrombocytopeniaProfile\ThrombocytopeniaProfileCMMCNTEView.cs" />
+    <Compile Include="Business\Test\TP53MutationAnalysis\TP53MutationAnalysisTest.cs" />
+    <Compile Include="Business\Test\VaricellaZosterVirus\VaricellaZosterVirusTest.cs" />
     <Compile Include="Business\Test\WholeExomeSequencing\WholeExomeSequencingTest.cs" />
     <Compile Include="Business\User\SystemRoleView.cs" />
     <Compile Include="Business\User\SystemRoleViewCollection.cs" />
@@ -1125,297 +1171,12 @@
     <Compile Include="Business\WebService\WebServiceAccountView.cs" />
     <Compile Include="Business\WebService\WebServiceAccountCollection.cs" />
     <Compile Include="Business\WebService\WebServiceClientView.cs" />
-    <Compile Include="DomainPersistence\SchemaDocumentFactory.cs" />
-    <Compile Include="DomainPersistence\Schema\AccessionOrderSchema.cs">
-      <DependentUpon>AccessionOrderSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\AccessionOrder\AccessionOrderSchema.cs">
-      <DependentUpon>AccessionOrderSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\AccessionOrder\AliquotOrderItemListSchema.cs">
-      <DependentUpon>AliquotOrderItemListSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\AccessionOrder\AliquotOrderSchema.cs">
-      <DependentUpon>AliquotOrderSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\AccessionOrder\AmendmentSchema.cs">
-      <DependentUpon>AmendmentSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\AccessionOrder\AutopsyResultSchema.cs">
-      <DependentUpon>AutopsyResultSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\AccessionOrder\CaseDocumentSchema.cs">
-      <DependentUpon>CaseDocumentSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\AccessionOrder\CptBillingCodeLogSchema.cs">
-      <DependentUpon>CptBillingCodeLogSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\AccessionOrder\CptBillingCodeSchema.cs">
-      <DependentUpon>CptBillingCodeSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\AccessionOrder\CptBillingCodeV2Schema.cs">
-      <DependentUpon>CptBillingCodeV2Schema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\AccessionOrder\CptIcd9BillingCodeSchema.cs">
-      <DependentUpon>CptIcd9BillingCodeSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\AccessionOrder\FishResultSchema.cs">
-      <DependentUpon>FishResultSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\AccessionOrder\Her2ResultSchema.cs">
-      <DependentUpon>Her2ResultSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\AccessionOrder\Icd9BillingCodeSchema.cs">
-      <DependentUpon>Icd9BillingCodeSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\AccessionOrder\IntraoperativeConsultationResultSchema.cs">
-      <DependentUpon>IntraoperativeConsultationResultSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\AccessionOrder\PanelOrderBatchSchema.cs">
-      <DependentUpon>PanelOrderBatchSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\AccessionOrder\PanelOrderSchema.cs">
-      <DependentUpon>PanelOrderSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\AccessionOrder\PanelSetOrderCommentSchema.cs">
-      <DependentUpon>PanelSetOrderCommentSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\AccessionOrder\PanelSetOrderSchema.cs">
-      <DependentUpon>PanelSetOrderSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\AccessionOrder\PanelSetResultOrderSchema.cs">
-      <DependentUpon>PanelSetResultOrderSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\AccessionOrder\RecentAccessionViewSchema.cs">
-      <DependentUpon>RecentAccessionViewSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\AccessionOrder\ReportDistributionLogSchema.cs">
-      <DependentUpon>ReportDistributionLogSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\AccessionOrder\ReportDistributionSchema.cs">
-      <DependentUpon>ReportDistributionSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\AccessionOrder\ReportNoSchema.cs">
-      <DependentUpon>ReportNoSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\AccessionOrder\SpecimenOrderSchema.cs">
-      <DependentUpon>SpecimenOrderSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\AccessionOrder\StainResultSchema.cs">
-      <DependentUpon>StainResultSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\AccessionOrder\SurgicalBillingSchema.cs">
-      <DependentUpon>SurgicalBillingSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\AccessionOrder\SurgicalResultAuditSchema.cs">
-      <DependentUpon>SurgicalResultAuditSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\AccessionOrder\SurgicalResultSchema.cs">
-      <DependentUpon>SurgicalResultSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\AccessionOrder\SurgicalSpecimenResultAuditSchema.cs">
-      <DependentUpon>SurgicalSpecimenResultAuditSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\AccessionOrder\SurgicalSpecimenResultSchema.cs">
-      <DependentUpon>SurgicalSpecimenResultSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\AccessionOrder\TestAliquotOrderSchema.cs">
-      <DependentUpon>TestAliquotOrderSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\AccessionOrder\TestOrderListSchema.cs">
-      <DependentUpon>TestOrderListSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\AccessionOrder\TestOrderSchema.cs">
-      <DependentUpon>TestOrderSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\AccessionOrder\TestSpecimenOrderSchema.cs">
-      <DependentUpon>TestSpecimenOrderSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\AccessionSlideOrderSchema.cs">
-      <DependentUpon>AccessionSlideOrderSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\AccessionSummarySchema.cs">
-      <DependentUpon>AccessionSummarySchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\BillingRuleSchema.cs">
-      <DependentUpon>BillingRuleSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\BillingRuleSetSchema.cs">
-      <DependentUpon>BillingRuleSetSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\BillingSchema.cs">
-      <DependentUpon>BillingSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\BoneMarrowResultSchema.cs">
-      <DependentUpon>BoneMarrowResultSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\ChannelMessageSchema.cs">
-      <DependentUpon>ChannelMessageSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\ClientOrderCytologyPropertySchema.cs">
-      <DependentUpon>ClientOrderCytologyPropertySchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\ClientOrderDetailFNAPropertySchema.cs">
-      <DependentUpon>ClientOrderDetailFNAPropertySchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\ClientOrderDetailSurgicalPropertySchema.cs">
-      <DependentUpon>ClientOrderDetailSurgicalPropertySchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\ClientOrderFNAPropertySchema.cs">
-      <DependentUpon>ClientOrderFNAPropertySchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\ClientOrderMediaSchema.cs">
-      <DependentUpon>ClientOrderMediaSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\ClientOrderSchema.cs">
-      <DependentUpon>ClientOrderSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\ClientSchema.cs">
-      <DependentUpon>ClientSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\CptCodeGroupCodeSchema.cs">
-      <DependentUpon>CptCodeGroupCodeSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\CptCodeGroupSchema.cs">
-      <DependentUpon>CptCodeGroupSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\ErPrSemiQuantitativeResultSchema.cs">
-      <DependentUpon>ErPrSemiQuantitativeResultSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\FacilitySchema.xsd.cs">
-      <DependentUpon>FacilitySchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\FlowContractSchema.cs">
-      <DependentUpon>FlowContractSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\FlowSchema.cs">
-      <DependentUpon>FlowSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\LabEventLogSchema.cs">
-      <DependentUpon>LabEventLogSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\LocalDataSchema.cs">
-      <DependentUpon>LocalDataSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\LockSchema.cs">
-      <DependentUpon>LockSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\OrderCategorySchema.cs">
-      <DependentUpon>OrderCategorySchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\OrderTypeSchema.cs">
-      <DependentUpon>OrderTypeSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\PhysicianClientSchema.cs">
-      <DependentUpon>PhysicianClientSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\PhysicianSchema.cs">
-      <DependentUpon>PhysicianSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\PlacentalPathologyQuestionnaire.cs">
-      <DependentUpon>PlacentalPathologyQuestionnaire.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\PlaceOfServiceSchema.cs">
-      <DependentUpon>PlaceOfServiceSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\SchemaHelper.cs" />
-    <Compile Include="DomainPersistence\Schema\SearchSchema.cs">
-      <DependentUpon>SearchSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\ShipmentSchema.cs">
-      <DependentUpon>ShipmentSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\SingleItemSchema\AccessionSlideOrderViewSchema.cs">
-      <DependentUpon>AccessionSlideOrderViewSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\SingleItemSchema\BarcodeScan.cs">
-      <DependentUpon>BarcodeScan.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\SingleItemSchema\BlockSession.cs">
-      <DependentUpon>BlockSession.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\SingleItemSchema\ClientLocationSchema.cs">
-      <DependentUpon>ClientLocationSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\SingleItemSchema\ClientOrderDetailSchema.cs">
-      <DependentUpon>ClientOrderDetailSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\SingleItemSchema\ClientOrderSchema.cs">
-      <DependentUpon>ClientOrderSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\SingleItemSchema\ClientSchema.cs">
-      <DependentUpon>ClientSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\SingleItemSchema\ClientServicesLogSchema.cs">
-      <DependentUpon>ClientServicesLogSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\SingleItemSchema\DnaComment.cs">
-      <DependentUpon>DnaComment.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\SingleItemSchema\FlowCommentSchema.cs">
-      <DependentUpon>FlowCommentSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\SingleItemSchema\FlowLeukemiaSchema.cs">
-      <DependentUpon>FlowLeukemiaSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\SingleItemSchema\FlowLogItemSchema.cs">
-      <DependentUpon>FlowLogItemSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\SingleItemSchema\FlowLogListItemSchema.cs">
-      <DependentUpon>FlowLogListItemSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\SingleItemSchema\FlowMarkerItemSchema.cs">
-      <DependentUpon>FlowMarkerItemSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\SingleItemSchema\FlowMarkerSchema.cs">
-      <DependentUpon>FlowMarkerSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\SingleItemSchema\LabEventLogSchema.cs">
-      <DependentUpon>LabEventLogSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\SingleItemSchema\LabEventSchema.cs">
-      <DependentUpon>LabEventSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\SingleItemSchema\LeukemiaLymphomaItemSchema.cs">
-      <DependentUpon>LeukemiaLymphomaItemSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\SingleItemSchema\MarkerSchema.cs">
-      <DependentUpon>MarkerSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\SingleItemSchema\SlideOrderSchema.cs">
-      <DependentUpon>SlideOrderSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\SingleItemSchema\SystemRole.cs">
-      <DependentUpon>SystemRole.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\SingleItemSchema\SystemUser.cs">
-      <DependentUpon>SystemUser.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\SingleItemSchema\SystemUserRole.cs">
-      <DependentUpon>SystemUserRole.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\SingleItemSchema\TempSchema.cs">
-      <DependentUpon>TempSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\SingleItemSchema\UserPreference.cs">
-      <DependentUpon>UserPreference.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\SlideLabelSchema.cs">
-      <DependentUpon>SlideLabelSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\SlideTrackingSchema.cs">
-      <DependentUpon>SlideTrackingSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\SpecimenLogAccessionOrderSchema.cs">
-      <DependentUpon>SpecimenLogAccessionOrderSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\Schema\WebServiceAccountSchema.cs">
-      <DependentUpon>WebServiceAccountSchema.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DomainPersistence\SqlXmlPropertyReader.cs" />
-    <Compile Include="DomainPersistence\SqlXmlPropertyWriter.cs" />
-    <Compile Include="DomainPersistence\XmlPropertyReader.cs" />
-    <Compile Include="DomainPersistence\XmlPropertyWriter.cs" />
+    <Compile Include="Policy\EditDirectoryDialog.xaml.cs">
+      <DependentUpon>EditDirectoryDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Policy\Directory.cs" />
+    <Compile Include="Policy\DirectoryCollection.cs" />
+    <Compile Include="Policy\IPFS.cs" />
     <Compile Include="Store\AppDataStore.cs" />
     <Compile Include="Business\Reports\BlocksSentNotReturnedReport.cs" />
     <Compile Include="Business\Reports\RetrospectiveReviewReport.xaml.cs">
@@ -1466,22 +1227,10 @@
     <Compile Include="Business\Test\BoneMarrowSummary\OtherReportViewCollection.cs" />
     <Compile Include="Business\Test\BoneMarrowSummary\OtherReportView.cs" />
     <Compile Include="Business\Test\SlideTracking\SlideTrackingTest.cs" />
-    <Compile Include="Business\Test\BRAFMutationAnalysis\BRAFMutationAnalysisDetectedPapillaryThyroidResult.cs" />
     <Compile Include="Business\Test\BRAFMutationAnalysis\BRAFMutationAnalysisCMMCNTEView.cs" />
-    <Compile Include="Business\Test\BRAFMutationAnalysis\BRAFMutationAnalysisDetectedCRCResult.cs" />
-    <Compile Include="Business\Test\BRAFMutationAnalysis\BRAFMutationAnalysisDetectedLynchSyndromeResult.cs" />
-    <Compile Include="Business\Test\BRAFMutationAnalysis\BRAFMutationAnalysisDetectedMetastaticMelanomaResult.cs" />
     <Compile Include="Business\Test\BRAFMutationAnalysis\BRAFMutationAnalysisDetectedResult.cs" />
     <Compile Include="Business\Test\BRAFMutationAnalysis\BRAFMutationAnalysisEPICOBXView.cs" />
-    <Compile Include="Business\Test\BRAFMutationAnalysis\BRAFMutationAnalysisIndeterminateResult.cs" />
-    <Compile Include="Business\Test\BRAFMutationAnalysis\BRAFMutationAnalysisInsufficientResult.cs" />
-    <Compile Include="Business\Test\BRAFMutationAnalysis\BRAFMutationAnalysisNotDetectedCRCResult.cs" />
-    <Compile Include="Business\Test\BRAFMutationAnalysis\BRAFMutationAnalysisNotDetectedLynchSyndromeResult.cs" />
-    <Compile Include="Business\Test\BRAFMutationAnalysis\BRAFMutationAnalysisNotDetectedMetastaticMelanomaResult.cs" />
-    <Compile Include="Business\Test\BRAFMutationAnalysis\BRAFMutationAnalysisNotDetectedPapillaryThyroidResult.cs" />
     <Compile Include="Business\Test\BRAFMutationAnalysis\BRAFMutationAnalysisNotDetectedResult.cs" />
-    <Compile Include="Business\Test\BRAFMutationAnalysis\BRAFMutationAnalysisResult.cs" />
-    <Compile Include="Business\Test\BRAFMutationAnalysis\BRAFMutationAnalysisResultCollection.cs" />
     <Compile Include="Business\Test\BRAFMutationAnalysis\BRAFMutationAnalysisTest.cs" />
     <Compile Include="Business\Test\BRAFMutationAnalysis\BRAFMutationAnalysisTestOrder.cs" />
     <Compile Include="Business\Test\BRAFMutationAnalysis\BRAFMutationAnalysisWordDocument.cs" />
@@ -1534,8 +1283,6 @@
     <Compile Include="Business\Test\LiposarcomaFusionProfile\LiposarcomaFusionProfileWordDocument.cs" />
     <Compile Include="Business\Test\LymphocyteSubsetPanel5\LymphocyteSubsetPanel5Test.cs" />
     <Compile Include="Business\Test\LymphocyteSubsetPanel7\LymphocyteSubsetPanel7Test.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult12B.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult1A.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LynchSyndromeEvaluationWPHOBXView.cs" />
     <Compile Include="Business\Test\MDSByFish\MDSByFishWPHOBXView.cs" />
     <Compile Include="Business\Test\METMutationAnalysis\METMutationAnalysisTest.cs" />
@@ -1555,8 +1302,6 @@
     <Compile Include="Business\Test\HPV\HPVWPHOBXView.cs" />
     <Compile Include="Business\Test\JAK2V617F\JAK2V617FWPHObxView.cs" />
     <Compile Include="Business\Test\LLP\LLPWPHOBXView.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult32.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult42.cs" />
     <Compile Include="Business\Test\MultipleMyelomaMGUSByFish\MultipleMyelomaMGUSByFishWPHOBXView.cs" />
     <Compile Include="Business\Test\MUM1ByIHC\MUM1ByIHCTest.cs" />
     <Compile Include="Business\Test\NeoTYPEColorectalTumorProfile\NeoTYPEColorectalTumorProfileTest.cs" />
@@ -1630,9 +1375,9 @@
     <Compile Include="Business\PanelSet.Model\ALK1Test.cs" />
     <Compile Include="Business\PanelSet.Model\AutopsyResult.cs" />
     <Compile Include="Business\PanelSet.Model\CTNNB1Test.cs" />
-    <Compile Include="Business\PanelSet.Model\CultureAndHoldForCytogeneticsTest.cs" />
+    <Compile Include="Business\PanelSet.Model\CultureAndHoldForCytogeneticsTestRetired.cs" />
     <Compile Include="Business\PanelSet.Model\CysticFibrosisTestRetired.cs" />
-    <Compile Include="Business\PanelSet.Model\DirectHarvestForFISHTest.cs" />
+    <Compile Include="Business\PanelSet.Model\DirectHarvestForFISHTestRetired.cs" />
     <Compile Include="Business\PanelSet.Model\ETV6RUNX1Test.cs" />
     <Compile Include="Business\PanelSet.Model\FISH820Q20Test.cs" />
     <Compile Include="Business\PanelSet.Model\FishAnalysisTest.cs" />
@@ -1853,31 +1598,17 @@
     <Compile Include="Business\ReflexTestingPlan.Model\LynchSyndromeReflexTestingPlan.cs" />
     <Compile Include="Business\ReflexTestingPlan.Model\ReflexTestingPlan.cs" />
     <Compile Include="Business\ReflexTestingPlan.Model\ReflexTestingStep.cs" />
-    <Compile Include="Business\ReportDistribution.Model\AthenaHealthDistribution.cs" />
-    <Compile Include="Business\ReportDistribution.Model\Distribution.cs" />
     <Compile Include="Business\ReportDistribution.Model\DistributionResult.cs" />
     <Compile Include="Business\ReportDistribution.Model\DistributionTypeList.cs" />
     <Compile Include="Business\ReportDistribution.Model\DistributionTypes.cs" />
-    <Compile Include="Business\ReportDistribution.Model\DoNotDistributeDistribution.cs" />
-    <Compile Include="Business\ReportDistribution.Model\EclinicalWorksDistribution.cs" />
-    <Compile Include="Business\ReportDistribution.Model\ECWDistribution.cs" />
-    <Compile Include="Business\ReportDistribution.Model\EpicDistribution.cs" />
-    <Compile Include="Business\ReportDistribution.Model\EpicFaxDistribution.cs" />
-    <Compile Include="Business\ReportDistribution.Model\FaxDistribution.cs" />
     <Compile Include="Business\ReportDistribution.Model\FaxSubmission.cs" />
-    <Compile Include="Business\ReportDistribution.Model\ImmediateFaxDistribution.cs" />
-    <Compile Include="Business\ReportDistribution.Model\MeditechDistribution.cs" />
-    <Compile Include="Business\ReportDistribution.Model\MeditechFileDefinition.cs" />
-    <Compile Include="Business\ReportDistribution.Model\MTDOHDistribution.cs" />
     <Compile Include="Business\ReportDistribution.Model\MultiTestDistributionHandler.cs" />
     <Compile Include="Business\ReportDistribution.Model\MultiTestDistributionHandlerFactory.cs" />
     <Compile Include="Business\ReportDistribution.Model\MultiTestDistributionHandlerWHP.cs" />
     <Compile Include="Business\ReportDistribution.Model\MultiTestDistributionHandlerWHPOnly.cs" />
     <Compile Include="Business\ReportDistribution.Model\MultiTestDistributionHandlerWHPStandard.cs" />
     <Compile Include="Business\ReportDistribution.Model\MultiTestDistributionHandlerWHPSVH.cs" />
-    <Compile Include="Business\ReportDistribution.Model\PHINMSDistribution.cs" />
     <Compile Include="Business\ReportDistribution.Model\PrintCaseReport.cs" />
-    <Compile Include="Business\ReportDistribution.Model\PrintDistribution.cs" />
     <Compile Include="Business\ReportDistribution.Model\ReportDistributionLogEntry.cs" />
     <Compile Include="Business\ReportDistribution.Model\ReportDistributionLogEntryCollection.cs" />
     <Compile Include="Business\ReportDistribution.Model\ScheduledFaxSubmission.cs" />
@@ -1885,9 +1616,6 @@
     <Compile Include="Business\ReportDistribution.Model\TestOrderReportDistributionCollection.cs" />
     <Compile Include="Business\ReportDistribution.Model\TestOrderReportDistributionLog.cs" />
     <Compile Include="Business\ReportDistribution.Model\TestOrderReportDistributionLogCollection.cs" />
-    <Compile Include="Business\ReportDistribution.Model\WebServiceDistribution.cs" />
-    <Compile Include="Business\ReportDistribution.Model\WebServiceFaxDistribution.cs" />
-    <Compile Include="Business\ReportDistribution.Model\WYDOHDistribution.cs" />
     <Compile Include="Business\ReportNo.cs" />
     <Compile Include="Business\ReportNoCollection.cs" />
     <Compile Include="Business\ReportNoLetter.cs" />
@@ -2037,15 +1765,11 @@
     <Compile Include="Business\Surgical\PathologistHistoryList.cs" />
     <Compile Include="Business\Surgical\PQRIKeyWordCollection.cs" />
     <Compile Include="Business\Surgical\PQRSAgeDefinitionEnum.cs" />
-    <Compile Include="Business\Surgical\PQRSBarrettsEsophagusMeasure.cs" />
-    <Compile Include="Business\Surgical\PQRSBreastMeasure.cs" />
-    <Compile Include="Business\Surgical\PQRSColorectalMeasure.cs" />
     <Compile Include="Business\Surgical\PQRSMeasure.cs" />
     <Compile Include="Business\Surgical\PQRSMeasure395.cs" />
     <Compile Include="Business\Surgical\PQRSMeasure396.cs" />
     <Compile Include="Business\Surgical\PQRSMeasureCollection.cs" />
     <Compile Include="Business\Surgical\PQRSMelanomaMeasure.cs" />
-    <Compile Include="Business\Surgical\PQRSRadicalProstatectomyMeasure.cs" />
     <Compile Include="Business\Surgical\ProcessorRun.cs" />
     <Compile Include="Business\Surgical\ProcessorRunCollection.cs" />
     <Compile Include="Business\Surgical\ReportableCases.cs" />
@@ -2474,7 +2198,7 @@
     <Compile Include="Business\Test\ErPrSemiQuantitative\ErPrSemiQuantitativeTest.cs" />
     <Compile Include="Business\Test\ErPrSemiQuantitative\ErPrSemiQuantitativeTestOrder.cs" />
     <Compile Include="Business\Test\ErPrSemiQuantitative\ErPrSemiQuantitativeWordDocument.cs" />
-    <Compile Include="Business\Test\ExtractAndHoldForMolecular\ExtractAndHoldForMolecularTest.cs" />
+    <Compile Include="Business\Test\HoldForFlow\ExtractAndHoldForMolecularTest.cs" />
     <Compile Include="Business\Test\ExtractAndHoldForMolecular\ExtractAndHoldForMolecularTestOrder.cs" />
     <Compile Include="Business\Test\FactorVLeiden\FactorVLeidenEpicObxView.cs" />
     <Compile Include="Business\Test\FactorVLeiden\FactorVLeidenHeterozygousMutationDetectedResult.cs" />
@@ -2509,7 +2233,6 @@
     <Compile Include="Business\Test\Her2AmplificationByFish\Her2AmplificationByFishWordDocument.cs" />
     <Compile Include="Business\Test\Her2AmplificationByFish\PanelSetOrderHer2AmplificationByFish.cs" />
     <Compile Include="Business\Test\Her2AmplificationByIHC\Her2AmplificationByIHCEpicObxView.cs" />
-    <Compile Include="Business\Test\Her2AmplificationByIHC\Her2AmplificationByIHCResult.cs" />
     <Compile Include="Business\Test\Her2AmplificationByIHC\Her2AmplificationByIHCTest.cs" />
     <Compile Include="Business\Test\Her2AmplificationByIHC\Her2AmplificationByIHCWordDocument.cs" />
     <Compile Include="Business\Test\Her2AmplificationByIHC\PanelSetOrderHer2AmplificationByIHC.cs" />
@@ -2680,33 +2403,10 @@
     <Compile Include="Business\Test\LynchSyndrome\IHCResultLossOfNuclearExpressionMSH6.cs" />
     <Compile Include="Business\Test\LynchSyndrome\IHCResultLossOfNuclearExpressionPMS2.cs" />
     <Compile Include="Business\Test\LynchSyndrome\IHCResultNoLossOfNuclearExpression.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult1.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult10.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult11.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult12.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult2.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult3.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult4.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult5.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult6.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult7.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEColorectalResult8.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEGYNResult1.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEGYNResult2.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEGYNResult3.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEIHCResult.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEIHCResultIntactExpression.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEIHCResultLossOfExpression.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEResult.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEResultCollection.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEResultEnum.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEResultStatus.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEResultStatusBRAFRequired.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEResultStatusCollection.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEResultStatusCompleteAfterMSI.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEResultStatusMethylationAnalysisRequired.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEResultStatusMethylationAnalysisRequiredGYN.cs" />
-    <Compile Include="Business\Test\LynchSyndrome\LSEResultStatusNotSet.cs" />
+    <Compile Include="Business\Test\LynchSyndrome\LSEColonAllIntact.cs" />
+    <Compile Include="Business\Test\LynchSyndrome\LSEGYNAllIntact.cs" />
+    <Compile Include="Business\Test\LynchSyndrome\LSERule.cs" />
+    <Compile Include="Business\Test\LynchSyndrome\LSERuleCollection.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEType.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSETypeCollection.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LynchSyndromeEvaluationCMMCNteView.cs" />
@@ -3245,28 +2945,18 @@
     <Compile Include="Business\XPSDocument\Xps\ReportDocument.cs" />
     <Compile Include="Business\XPSDocument\Xps\ReportPage.cs" />
     <Compile Include="Business\XPSDocument\Xps\XPSHelper.cs" />
-    <Compile Include="DomainPersistence\DataLocationEnum.cs" />
-    <Compile Include="DomainPersistence\DataReaderPropertyWriter.cs" />
-    <Compile Include="DomainPersistence\IBuilder.cs" />
-    <Compile Include="DomainPersistence\IPropertyReadable.cs" />
-    <Compile Include="DomainPersistence\IPropertyReader.cs" />
-    <Compile Include="DomainPersistence\IPropertyWritable.cs" />
-    <Compile Include="DomainPersistence\IPropertyWriter.cs" />
-    <Compile Include="DomainPersistence\ObjectPropertyReader.cs" />
-    <Compile Include="DomainPersistence\ObjectPropertyWriter.cs" />
-    <Compile Include="DomainPersistence\PropertyReaderFilter.cs" />
-    <Compile Include="DomainPersistence\PropertyReaderFilterEnum.cs" />
-    <Compile Include="DomainPersistence\SerializationHelper.cs" />
     <Compile Include="Store\AppDBNameEnum.cs" />
     <Compile Include="Store\IRedisServer.cs" />
     <Compile Include="Store\RedisDB.cs" />
     <Compile Include="Store\RedisServerDev.cs" />
-    <Compile Include="Store\RedisServerDeprecated.cs" />
     <Compile Include="Store\RedisServerProd1.cs" />
     <Compile Include="Store\RedisStoreDev.cs" />
     <Compile Include="Store\RedisStoreProd.cs" />
     <Compile Include="Store\RedisStore.cs" />
     <Compile Include="Store\RedisStoreDefinition.cs" />
+    <Compile Include="UI\AddbyCodeWindow.xaml.cs">
+      <DependentUpon>AddbyCodeWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\AmendmentPage.xaml.cs">
       <DependentUpon>AmendmentPage.xaml</DependentUpon>
     </Compile>
@@ -3287,6 +2977,16 @@
     <Compile Include="UI\AppMessaging\LockRequestResponseRecievedPage.xaml.cs">
       <DependentUpon>LockRequestResponseRecievedPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\AutoCompleteTest.xaml.cs">
+      <DependentUpon>AutoCompleteTest.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Business\Billing.Model\AccessionListItem.cs" />
+    <Compile Include="UI\Billing\AddFISHCPTCodePage.xaml.cs">
+      <DependentUpon>AddFISHCPTCodePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Billing\SimulationDialog.xaml.cs">
+      <DependentUpon>SimulationDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Billing\BillingPage.xaml.cs">
       <DependentUpon>BillingPage.xaml</DependentUpon>
     </Compile>
@@ -3294,6 +2994,8 @@
     <Compile Include="UI\Billing\ADTPage.xaml.cs">
       <DependentUpon>ADTPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Billing\SimulationListItem.cs" />
+    <Compile Include="UI\Billing\SimulationList.cs" />
     <Compile Include="UI\Billing\SVHCDMResultDialog.xaml.cs">
       <DependentUpon>SVHCDMResultDialog.xaml</DependentUpon>
     </Compile>
@@ -3315,6 +3017,9 @@
     <Compile Include="UI\BrowserWindow.xaml.cs">
       <DependentUpon>BrowserWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\ChainExplorer.xaml.cs">
+      <DependentUpon>ChainExplorer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Client\ClientFedxDialog.xaml.cs">
       <DependentUpon>ClientFedxDialog.xaml</DependentUpon>
     </Compile>
@@ -3326,6 +3031,9 @@
     </Compile>
     <Compile Include="UI\Common\UserPreferencesList.xaml.cs">
       <DependentUpon>UserPreferencesList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\DailyDOHDistributionDialog.xaml.cs">
+      <DependentUpon>DailyDOHDistributionDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\EmbeddingAutopsyItem.cs" />
     <Compile Include="UI\EmbeddingAutopsyList.cs" />
@@ -3339,10 +3047,19 @@
     <Compile Include="UI\Gross\SpecimenSelectionPage.xaml.cs">
       <DependentUpon>SpecimenSelectionPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Login\ClientFaxPage.xaml.cs">
+      <DependentUpon>ClientFaxPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Monitor\DashboardPage.xaml.cs">
       <DependentUpon>DashboardPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\PantherPreviouslyRunReport.cs" />
+    <Compile Include="UI\PDFTransferDialog.xaml.cs">
+      <DependentUpon>PDFTransferDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Policy\PolicyExplorer.xaml.cs">
+      <DependentUpon>PolicyExplorer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\RetrospectiveReviewListItem.cs" />
     <Compile Include="UI\RetrospectiveReviewList.cs" />
     <Compile Include="UI\RetrospectiveReviewReport.cs" />
@@ -3497,10 +3214,6 @@
     </Compile>
     <Compile Include="UI\Login\Receiving\AcknowledgeDailyTaskOrderPath.cs" />
     <Compile Include="UI\Converter\CollectionDateTimeBackgroundConverter.cs" />
-    <Compile Include="UI\Login\Receiving\AdditionalTestingEMailPage.xaml.cs">
-      <DependentUpon>AdditionalTestingEMailPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Login\Receiving\AdditionalTestingEmailPathWithSecurity.cs" />
     <Compile Include="UI\Login\Receiving\BarcodeManualEntryPage.xaml.cs">
       <DependentUpon>BarcodeManualEntryPage.xaml</DependentUpon>
     </Compile>
@@ -3669,6 +3382,9 @@
     <Compile Include="UI\Stain\StainListDialog.xaml.cs">
       <DependentUpon>StainListDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Redis\StoreSelection.xaml.cs">
+      <DependentUpon>StoreSelection.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Surgical\StainOrder.xaml.cs">
       <DependentUpon>StainOrder.xaml</DependentUpon>
     </Compile>
@@ -3706,8 +3422,8 @@
     <Compile Include="UI\Surgical\PQRSMeasurePage.xaml.cs">
       <DependentUpon>PQRSMeasurePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Billing\PSATransferDialog.xaml.cs">
-      <DependentUpon>PSATransferDialog.xaml</DependentUpon>
+    <Compile Include="UI\Billing\EODProcessingDialog.xaml.cs">
+      <DependentUpon>EODProcessingDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Billing\PanelSetOrderCPTCodeEntryPage.xaml.cs">
       <DependentUpon>PanelSetOrderCPTCodeEntryPage.xaml</DependentUpon>
@@ -3737,6 +3453,9 @@
       <DependentUpon>SurgicalHistory.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Surgical\TextSearchHandler.cs" />
+    <Compile Include="UI\Billing\SVHADTMatcher.xaml.cs">
+      <DependentUpon>SVHADTMatcher.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\SystemUserDialog.xaml.cs">
       <DependentUpon>SystemUserDialog.xaml</DependentUpon>
     </Compile>
@@ -3752,7 +3471,6 @@
       <DependentUpon>TaskWorkspace.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\TemplateSelector\TaskOrderDetailTemplateSelector.cs" />
-    <Compile Include="UI\TestOrderRemover.cs" />
     <Compile Include="UI\Test\ABL1KinaseDomainMutationResultPage.xaml.cs">
       <DependentUpon>ABL1KinaseDomainMutationResultPage.xaml</DependentUpon>
     </Compile>
@@ -3832,6 +3550,21 @@
       <DependentUpon>BRAFMutationAnalysisResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Test\BRAFMutationAnalysisResultPath.cs" />
+    <Compile Include="UI\Test\HER2AmplificationRecountResultPage.xaml.cs">
+      <DependentUpon>HER2AmplificationRecountResultPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Test\HER2AmplificationRecountResultPath.cs" />
+    <Compile Include="UI\Test\HER2AmplificationSummaryResultPage.xaml.cs">
+      <DependentUpon>HER2AmplificationSummaryResultPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Test\HER2AmplificationSummaryResultPath.cs" />
+    <Compile Include="UI\Test\OrderAssociationResultPage.xaml.cs">
+      <DependentUpon>OrderAssociationResultPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Test\OrderAssociationResultPath.cs" />
+    <Compile Include="UI\Test\PreviousResultDialog.xaml.cs">
+      <DependentUpon>PreviousResultDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Test\BRAFV600EKResultPage.xaml.cs">
       <DependentUpon>BRAFV600EKResultPage.xaml</DependentUpon>
     </Compile>
@@ -4173,14 +3906,12 @@
     <Compile Include="UI\TifDocumentViewer.xaml.cs">
       <DependentUpon>TifDocumentViewer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\TimedAction.cs" />
     <Compile Include="UI\ValidationTestingDialog.xaml.cs">
       <DependentUpon>ValidationTestingDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\CustomEventArgs\ClientOrderDetailReturnEventArgs.cs" />
     <Compile Include="UI\CustomEventArgs\ReportNoReturnEventArgs.cs" />
-    <Compile Include="UI\Login\ClientFaxPage.xaml.cs">
-      <DependentUpon>ClientFaxPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UI\Login\SpecialInstructionsWindow.xaml.cs">
       <DependentUpon>SpecialInstructionsWindow.xaml</DependentUpon>
     </Compile>
@@ -4751,9 +4482,6 @@
     <Compile Include="UI\Common\PhysicianClientSearchDialog.xaml.cs">
       <DependentUpon>PhysicianClientSearchDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Common\ReassignCaseDialog.xaml.cs">
-      <DependentUpon>ReassignCaseDialog.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UI\Common\ScanTest.xaml.cs">
       <DependentUpon>ScanTest.xaml</DependentUpon>
     </Compile>
@@ -4862,9 +4590,6 @@
     <Compile Include="UI\Cytology\SpecimenAdequacyDialog.xaml.cs">
       <DependentUpon>SpecimenAdequacyDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Login\ClientLetterDialog.xaml.cs">
-      <DependentUpon>ClientLetterDialog.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UI\CustomControls\CloseableTabItem.cs" />
     <Compile Include="UI\CustomControls\MainMenuButton.cs" />
     <Compile Include="UI\CustomControls\SpecimenControl.cs" />
@@ -4916,111 +4641,6 @@
       <DependentUpon>PatientWorkspace.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="DomainPersistence\Schema\AccessionOrder\ReportDistributionLogSchema.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DomainPersistence\Schema\AccessionOrder\ReportDistributionSchema.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DomainPersistence\Schema\AccessionSlideOrderSchema.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DomainPersistence\Schema\AccessionSummarySchema.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DomainPersistence\Schema\BillingRuleSchema.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DomainPersistence\Schema\BillingRuleSetSchema.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DomainPersistence\Schema\BillingSchema.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DomainPersistence\Schema\ChannelMessageSchema.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DomainPersistence\Schema\ClientOrderCytologyPropertySchema.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DomainPersistence\Schema\ClientOrderDetailFNAPropertySchema.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DomainPersistence\Schema\ClientOrderDetailSurgicalPropertySchema.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DomainPersistence\Schema\ClientOrderFNAPropertySchema.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DomainPersistence\Schema\ClientOrderMediaSchema.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DomainPersistence\Schema\ClientOrderSchema.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DomainPersistence\Schema\ClientSchema.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DomainPersistence\Schema\CptCodeGroupCodeSchema.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DomainPersistence\Schema\CptCodeGroupSchema.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DomainPersistence\Schema\ErPrSemiQuantitativeResultSchema.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DomainPersistence\Schema\FacilitySchema.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DomainPersistence\Schema\FlowContractSchema.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DomainPersistence\Schema\FlowSchema.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DomainPersistence\Schema\LabEventLogSchema.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DomainPersistence\Schema\LocalDataSchema.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DomainPersistence\Schema\LockSchema.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DomainPersistence\Schema\OrderCategorySchema.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DomainPersistence\Schema\OrderTypeSchema.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DomainPersistence\Schema\PhysicianClientSchema.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DomainPersistence\Schema\PhysicianSchema.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DomainPersistence\Schema\PlacentalPathologyQuestionnaire.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DomainPersistence\Schema\SearchSchema.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DomainPersistence\Schema\ShipmentSchema.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DomainPersistence\Schema\SlideLabelSchema.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DomainPersistence\Schema\SlideTrackingSchema.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DomainPersistence\Schema\SpecimenLogAccessionOrderSchema.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DomainPersistence\Schema\WebServiceAccountSchema.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
@@ -5052,189 +4672,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Business\XmlSchema\SpecimenLogExtensionDocument.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\AccessionOrderSchema.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\AccessionOrder\AccessionOrderSchema.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\AccessionOrder\AliquotOrderItemListSchema.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\AccessionOrder\AliquotOrderSchema.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\AccessionOrder\AmendmentSchema.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\AccessionOrder\AutopsyResultSchema.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\AccessionOrder\CaseDocumentSchema.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\AccessionOrder\CptBillingCodeLogSchema.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\AccessionOrder\CptBillingCodeSchema.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\AccessionOrder\CptBillingCodeV2Schema.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\AccessionOrder\CptIcd9BillingCodeSchema.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\AccessionOrder\FishResultSchema.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\AccessionOrder\Her2ResultSchema.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\AccessionOrder\Icd9BillingCodeSchema.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\AccessionOrder\IntraoperativeConsultationResultSchema.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\AccessionOrder\PanelOrderBatchSchema.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\AccessionOrder\PanelOrderSchema.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\AccessionOrder\PanelSetOrderCommentSchema.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\AccessionOrder\PanelSetOrderSchema.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\AccessionOrder\PanelSetResultOrderSchema.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\AccessionOrder\RecentAccessionViewSchema.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\AccessionOrder\ReportNoSchema.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\AccessionOrder\SpecimenOrderSchema.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\AccessionOrder\StainResultSchema.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\AccessionOrder\SurgicalBillingSchema.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\AccessionOrder\SurgicalResultAuditSchema.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\AccessionOrder\SurgicalResultSchema.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\AccessionOrder\SurgicalSpecimenResultAuditSchema.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\AccessionOrder\SurgicalSpecimenResultSchema.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\AccessionOrder\TestAliquotOrderSchema.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\AccessionOrder\TestOrderListSchema.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\AccessionOrder\TestOrderSchema.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\AccessionOrder\TestSpecimenOrderSchema.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\BoneMarrowResultSchema.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\holdSchema.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\PlaceOfServiceSchema.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\SingleItemSchema\AccessionSlideOrderViewSchema.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\SingleItemSchema\BarcodeScan.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\SingleItemSchema\BlockSession.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\SingleItemSchema\ClientLocationSchema.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\SingleItemSchema\ClientOrderDetailSchema.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\SingleItemSchema\ClientOrderSchema.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\SingleItemSchema\ClientSchema.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\SingleItemSchema\ClientServicesLogSchema.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\SingleItemSchema\DnaComment.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\SingleItemSchema\FlowCommentSchema.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\SingleItemSchema\FlowLeukemiaSchema.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\SingleItemSchema\FlowLogItemSchema.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\SingleItemSchema\FlowLogListItemSchema.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\SingleItemSchema\FlowMarkerItemSchema.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\SingleItemSchema\FlowMarkerSchema.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\SingleItemSchema\LabEventLogSchema.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\SingleItemSchema\LabEventSchema.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\SingleItemSchema\LeukemiaLymphomaItemSchema.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\SingleItemSchema\MarkerSchema.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\SingleItemSchema\SlideOrderSchema.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\SingleItemSchema\SystemRole.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\SingleItemSchema\SystemUser.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\SingleItemSchema\SystemUserRole.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\SingleItemSchema\TempSchema.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DomainPersistence\Schema\SingleItemSchema\UserPreference.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="UI\CEFSharp\CefSharp.WinForms.Example.exe.config" />
@@ -5428,6 +4865,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Policy\EditDirectoryDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\AddbyCodeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\AdministrationWorkspace.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -5464,9 +4909,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="UI\AutoCompleteTest.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Billing\AddFISHCPTCodePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\Billing\ADTPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Billing\SimulationDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Billing\SVHCDMResultDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -5496,7 +4953,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\Billing\PSATransferDialog.xaml">
+    <Page Include="UI\Billing\EODProcessingDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -5509,6 +4966,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\CellCounter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\ChainExplorer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -5573,6 +5034,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\Cytology\ThinPrepPapSlidePrintingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\DailyDOHDistributionDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -5652,6 +5117,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UI\Login\ClientFaxPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\Login\DeleteAccessionLookupPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -5667,10 +5136,6 @@
     <Page Include="UI\Login\FinalizeAccession\SpecimenMappingPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\Login\Receiving\AdditionalTestingEMailPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Login\Receiving\BarcodeManualEntryPage.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -5813,6 +5278,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UI\PDFTransferDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Policy\PolicyExplorer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\ReportDistribution\ReportDistributionWorkspace.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -5846,6 +5319,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Stain\StainListDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Redis\StoreSelection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -5916,6 +5393,10 @@
     <Page Include="UI\Surgical\SurgicalReview.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Billing\SVHADTMatcher.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\SystemUserDialog.xaml">
       <SubType>Designer</SubType>
@@ -6003,6 +5484,22 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Test\BRAFMutationAnalysisResultPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Test\HER2AmplificationRecountResultPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Test\HER2AmplificationSummaryResultPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Test\OrderAssociationResultPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Test\PreviousResultDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -6343,10 +5840,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Login\ClientFaxPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="UI\Login\SpecialInstructionsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -6480,10 +5973,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\Common\PhysicianClientSearchDialog.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\Common\ReassignCaseDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -6878,12 +6367,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\Cytology\SpecimenAdequacyDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\Login\ClientLetterDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <Generator>MSBuild:Compile</Generator>

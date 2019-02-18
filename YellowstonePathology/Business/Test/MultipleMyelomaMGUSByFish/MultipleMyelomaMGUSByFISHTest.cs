@@ -5,12 +5,11 @@ using System.Text;
 
 namespace YellowstonePathology.Business.Test.MultipleMyelomaMGUSByFish
 {
-	public class MultipleMyelomaMGUSByFishTest : YellowstonePathology.Business.PanelSet.Model.PanelSet
+	public class MultipleMyelomaMGUSByFishTest : YellowstonePathology.Business.PanelSet.Model.FISHTest
 	{
         public MultipleMyelomaMGUSByFishTest()
 		{
-			this.m_PanelSetId = 147;
-            //is.m_PanelSetName = "Multiple Myeloma MGUS By FISH";
+			this.m_PanelSetId = 147;            
             this.m_PanelSetName = "Plasma Cell Myeloma FISH Panel";
             this.m_CaseType = YellowstonePathology.Business.CaseType.FISH;
 			this.m_HasTechnicalComponent = true;			
@@ -39,6 +38,8 @@ namespace YellowstonePathology.Business.Test.MultipleMyelomaMGUSByFish
             this.m_ProfessionalComponentBillingFacility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMiscellaneous());
+
+            this.m_ProbeSetCount = 5;
 		}
 	}
 }

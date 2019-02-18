@@ -161,8 +161,7 @@ namespace YellowstonePathology.UI.Login.Receiving
                     MessageBox.Show("This order cannot be accessioned because the provider has no report distributions for the client.", "Unable to create report distributions.", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 }
                 else if(this.m_PatientRecentAccessions.RecentAccessions.Count > 0)
-                {
-                    //Business.Logging.EmailExceptionHandler.HandleException("Recent Accessions Exist for: " + this.m_ClientOrder.PLastName + ", " + this.m_ClientOrder.PFirstName);
+                {                    
                     if (this.m_PatientRecentAccessions.ItemsExistFromPast24Hours() == true)
                     {
                         this.HyperLinkCreateNewAccessionRecentAccessionsExist.Visibility = Visibility.Visible;

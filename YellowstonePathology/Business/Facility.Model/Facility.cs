@@ -319,6 +319,20 @@ namespace YellowstonePathology.Business.Facility.Model
             return result.ToString();
         }
 
+        public string PhoneNumberProxy
+        {
+            get { return YellowstonePathology.Business.Helper.PhoneNumberHelper.CorrectPhoneNumber(this.m_PhoneNumber); }
+            set
+            {
+                if (this.m_PhoneNumber != value)
+                {
+                    this.m_PhoneNumber = value;
+                    this.NotifyPropertyChanged("PhoneNumber");
+                    this.NotifyPropertyChanged("PhoneNumberProxy");
+                }
+            }
+        }
+
         public void NotifyPropertyChanged(String info)
         {
             if (PropertyChanged != null)

@@ -158,9 +158,11 @@ namespace YellowstonePathology.Business.Test
             YellowstonePathology.Business.User.SystemIdentity systemIdentity)
         {
             if (string.IsNullOrEmpty(accessionOrder.SpecialInstructions) == false)
-            {
-                string reflexInstruction1 = "Test->Pap Test with High Risk HPV with reflex to HPV 16/18 Genotyping (only if PAP neg/HPV Pos)";                
-                if (accessionOrder.SpecialInstructions.Contains(reflexInstruction1) == true)
+            {                
+                string reflexInstruction11 = "Test->Pap Test with High Risk HPV with reflex to HPV 16/18 Genotyping (only if PAP neg/HPV Pos)";
+                string reflexInstruction12 = "Test->Pap Test with High Risk HPV with reflex to HPV Genotyping (only if PAP neg/HPV Pos)";
+                if (accessionOrder.SpecialInstructions.Contains(reflexInstruction11) == true || 
+                    accessionOrder.SpecialInstructions.Contains(reflexInstruction12) == true)
                 {
                     YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder womensHealthProfileTestOrder = null;
                     if (this.HasWomensHealthProfileOrder() == false)
@@ -193,8 +195,9 @@ namespace YellowstonePathology.Business.Test
                     }
                 }
 
-                string reflexInstruction2 = "Test->Pap Test with High Risk HPV DNA reflex testing if diagnosis is ASCUS";
-                if (accessionOrder.SpecialInstructions.Contains(reflexInstruction2) == true)
+                string reflexInstruction21 = "Test->Pap Test with High Risk HPV DNA reflex testing if diagnosis is ASCUS";
+                string reflexInstruction22 = "Test->Pap Test with High Risk HPV  reflex testing if diagnosis is ASCUS";
+                if (accessionOrder.SpecialInstructions.Contains(reflexInstruction21) == true || accessionOrder.SpecialInstructions.Contains(reflexInstruction22) == true)
                 {
                     YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder womensHealthProfileTestOrder = null;
                     if (this.HasWomensHealthProfileOrder() == false)
@@ -215,8 +218,10 @@ namespace YellowstonePathology.Business.Test
                     womensHealthProfileTestOrder.HPVReflexOrderCode = hpvReflexOrderRule2.ReflexOrderCode;                    
                 }
 
-                string reflexInstruction3 = "Test->Pap Test with High Risk HPV DNA testing regardless of diagnosis";
-                if (accessionOrder.SpecialInstructions.Contains(reflexInstruction3) == true)
+                string reflexInstruction31 = "Test->Pap Test with High Risk HPV DNA testing regardless of diagnosis";
+                string reflexInstruction32 = "Test->Pap Test with High Risk HPV testing regardless of diagnosis";
+                if (accessionOrder.SpecialInstructions.Contains(reflexInstruction31) == true || 
+                    accessionOrder.SpecialInstructions.Contains(reflexInstruction32) == true)
                 {
                     YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder womensHealthProfileTestOrder = null;
                     if (this.HasWomensHealthProfileOrder() == false)
@@ -646,6 +651,26 @@ namespace YellowstonePathology.Business.Test
             return result;
         }
 
+        public YellowstonePathology.Business.Test.PanelOrder GetPanelOrderFromTestId(string testId)
+        {
+            YellowstonePathology.Business.Test.PanelOrder result = null;
+            foreach (YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder in this)
+            {
+                foreach (YellowstonePathology.Business.Test.PanelOrder panelOrder in panelSetOrder.PanelOrderCollection)
+                {
+                    foreach(Business.Test.Model.TestOrder testOrder in panelOrder.TestOrderCollection)
+                    {
+                        if(testOrder.TestId == testId)
+                        {
+                            result = panelOrder;
+                            break;
+                        }
+                    }
+                }
+            }
+            return result;
+        }
+
         public YellowstonePathology.Business.Test.PanelSetOrder GetPanelSetOrder(string reportNo)
         {
             foreach (YellowstonePathology.Business.Test.PanelSetOrder item in this)
@@ -724,6 +749,26 @@ namespace YellowstonePathology.Business.Test
                 if (item.PanelSetId == panelSetId)
                 {
                     result = true;
+                }
+            }
+            return result;
+        }
+
+        public bool DoesStainOrderExist(string testId)
+        {
+            bool result = false;
+            foreach (YellowstonePathology.Business.Test.PanelSetOrder pso in this)
+            {
+                foreach(Business.Test.PanelOrder panelOrder in pso.PanelOrderCollection)
+                {
+                    foreach(Business.Test.Model.TestOrder testOrder in panelOrder.TestOrderCollection)
+                    {
+                        if(testOrder.TestId == testId)
+                        {
+                            result = true;
+                            break;
+                        }
+                    }
                 }
             }
             return result;

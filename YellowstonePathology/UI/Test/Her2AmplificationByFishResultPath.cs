@@ -25,7 +25,8 @@ namespace YellowstonePathology.UI.Test
         {
 			this.m_ResultPage = new Her2AmplificationByFishResultPage(this.m_PanelSetOrder, this.m_AccessionOrder, this.m_SystemIdentity);
 			this.m_ResultPage.Next += new Her2AmplificationByFishResultPage.NextEventHandler(ResultPage_Next);
-			this.m_PageNavigator.Navigate(this.m_ResultPage);
+            this.m_ResultPage.CPTCode += ResultPage_CPTCode;
+            this.m_PageNavigator.Navigate(this.m_ResultPage);
         }		
 
 		private void ResultPage_Next(object sender, EventArgs e)
@@ -53,5 +54,17 @@ namespace YellowstonePathology.UI.Test
 		{
 			this.Finished();
 		}
-	}
+
+        private void ResultPage_CPTCode(object sender, EventArgs e)
+        {
+            Billing.AddFISHCPTCodePage addCPTCodePage = new Billing.AddFISHCPTCodePage(this.m_PanelSetOrder.ReportNo, this.m_AccessionOrder);
+            addCPTCodePage.Next += CPTCodePage_Next;
+            this.m_PageNavigator.Navigate(addCPTCodePage);
+        }
+
+        private void CPTCodePage_Next(object sender, EventArgs e)
+        {
+            this.ShowResultPage();
+        }
+    }
 }

@@ -34,7 +34,10 @@ namespace YellowstonePathology.Business.Billing.Model
 					panelSetOrderCPTCode88184.EntryType = YellowstonePathology.Business.Billing.Model.PanelSetOrderCPTCodeEntryType.SystemGenerated;
 					panelSetOrderCPTCode88184.SpecimenOrderId = specimenOrder.SpecimenOrderId;
 					panelSetOrderCPTCode88184.ClientId = this.m_AccessionOrder.ClientId;
-					this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.Add(panelSetOrderCPTCode88184);
+                    panelSetOrderCPTCode88184.MedicalRecord = this.m_AccessionOrder.SvhMedicalRecord;
+                    panelSetOrderCPTCode88184.Account = this.m_AccessionOrder.SvhAccount;
+
+                    this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.Add(panelSetOrderCPTCode88184);
 
 					int markerCount = panelSetOrder.FlowMarkerCollection.CountOfBillableMarkers();
 
@@ -48,7 +51,10 @@ namespace YellowstonePathology.Business.Billing.Model
 					panelSetOrderCPTCode88185.EntryType = YellowstonePathology.Business.Billing.Model.PanelSetOrderCPTCodeEntryType.SystemGenerated;
 					panelSetOrderCPTCode88185.SpecimenOrderId = specimenOrder.SpecimenOrderId;
 					panelSetOrderCPTCode88185.ClientId = this.m_AccessionOrder.ClientId;
-					this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.Add(panelSetOrderCPTCode88185);
+                    panelSetOrderCPTCode88185.MedicalRecord = this.m_AccessionOrder.SvhMedicalRecord;
+                    panelSetOrderCPTCode88185.Account = this.m_AccessionOrder.SvhAccount;
+
+                    this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.Add(panelSetOrderCPTCode88185);
 
 					if (markerCount >= 2 && markerCount <= 8)
 					{
@@ -62,7 +68,9 @@ namespace YellowstonePathology.Business.Billing.Model
 						panelSetOrderCPTCode88187.EntryType = YellowstonePathology.Business.Billing.Model.PanelSetOrderCPTCodeEntryType.SystemGenerated;
 						panelSetOrderCPTCode88187.SpecimenOrderId = specimenOrder.SpecimenOrderId;
 						panelSetOrderCPTCode88187.ClientId = this.m_AccessionOrder.ClientId;
-						this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.Add(panelSetOrderCPTCode88187);
+                        panelSetOrderCPTCode88187.MedicalRecord = this.m_AccessionOrder.SvhMedicalRecord;
+                        panelSetOrderCPTCode88187.Account = this.m_AccessionOrder.SvhAccount;
+                        this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.Add(panelSetOrderCPTCode88187);
 					}
 					else if (markerCount >= 9 && markerCount <= 15)
 					{
@@ -76,7 +84,9 @@ namespace YellowstonePathology.Business.Billing.Model
 						panelSetOrderCPTCode88188.EntryType = YellowstonePathology.Business.Billing.Model.PanelSetOrderCPTCodeEntryType.SystemGenerated;
 						panelSetOrderCPTCode88188.SpecimenOrderId = specimenOrder.SpecimenOrderId;
 						panelSetOrderCPTCode88188.ClientId = this.m_AccessionOrder.ClientId;
-						this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.Add(panelSetOrderCPTCode88188);
+                        panelSetOrderCPTCode88188.MedicalRecord = this.m_AccessionOrder.SvhMedicalRecord;
+                        panelSetOrderCPTCode88188.Account = this.m_AccessionOrder.SvhAccount;
+                        this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.Add(panelSetOrderCPTCode88188);
 					}
 					else if (markerCount >= 16)
 					{
@@ -90,7 +100,9 @@ namespace YellowstonePathology.Business.Billing.Model
 						panelSetOrderCPTCode88189.EntryType = YellowstonePathology.Business.Billing.Model.PanelSetOrderCPTCodeEntryType.SystemGenerated;
 						panelSetOrderCPTCode88189.SpecimenOrderId = specimenOrder.SpecimenOrderId;
 						panelSetOrderCPTCode88189.ClientId = this.m_AccessionOrder.ClientId;
-						this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.Add(panelSetOrderCPTCode88189);
+                        panelSetOrderCPTCode88189.MedicalRecord = this.m_AccessionOrder.SvhMedicalRecord;
+                        panelSetOrderCPTCode88189.Account = this.m_AccessionOrder.SvhAccount;
+                        this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.Add(panelSetOrderCPTCode88189);
 					}
 				}
                 this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.UpdateCodeType();

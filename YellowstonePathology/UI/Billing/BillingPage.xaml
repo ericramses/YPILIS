@@ -58,9 +58,6 @@
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="Auto"></RowDefinition>                    
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
 
@@ -141,25 +138,46 @@
                     <ComboBoxItem Content="Cosmetic"></ComboBoxItem>
                 </ComboBox>
 
-                <TextBlock Grid.Column="0" Grid.Row="16" Margin="2,2,2,2" TextAlignment="Right" VerticalAlignment="Center" FontWeight="Bold">Posted:</TextBlock>
-                <CheckBox Grid.Column="1" Grid.Row="16" Margin="2,2,2,2" HorizontalAlignment="Left" VerticalAlignment="Center" IsChecked="{Binding Path=PanelSetOrder.IsPosted}" />
+                <TextBlock Grid.Column="0" Grid.Row="16" Margin="2,2,2,2" TextAlignment="Right" FontWeight="Bold">MRN:</TextBlock>
+                <TextBlock Grid.Column="1" Grid.Row="16" Margin="2,2,2,2" Text="{Binding Path=AccessionOrder.SvhMedicalRecord}" HorizontalAlignment="Stretch"></TextBlock>
 
-                <TextBlock Grid.Column="0" Grid.Row="17" Margin="2,2,2,2" TextAlignment="Right" VerticalAlignment="Center" FontWeight="Bold">No Charge:</TextBlock>
-                <CheckBox Grid.Column="1" Grid.Row="17" Margin="2,2,2,2" HorizontalAlignment="Left" VerticalAlignment="Center" IsChecked="{Binding Path=PanelSetOrder.NoCharge}" />
+                <TextBlock Grid.Column="0" Grid.Row="17" Margin="2,2,2,2" TextAlignment="Right" FontWeight="Bold">Place Of Service:</TextBlock>
+                <TextBlock Grid.Column="1" Grid.Row="17" Margin="2,2,2,2" Text="{Binding Path=AccessionOrder.PlaceOfService}" HorizontalAlignment="Stretch"></TextBlock>
 
-                <TextBlock Grid.Column="0" Grid.Row="18" Margin="2,2,2,2" TextAlignment="Right" VerticalAlignment="Center" FontWeight="Bold">Hold Billing:</TextBlock>
-                <CheckBox Grid.Column="1" Grid.Row="18" Margin="2,2,2,2" HorizontalAlignment="Left" VerticalAlignment="Center" IsChecked="{Binding Path=PanelSetOrder.HoldBilling}" />
+                <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="18">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
 
-                <TextBlock Grid.Column="0" Grid.Row="19" Margin="2,2,2,2" TextAlignment="Right" VerticalAlignment="Center" FontWeight="Bold">14 Days Post:</TextBlock>
-                <CheckBox Grid.Column="1" Grid.Row="19" Margin="2,2,2,2" HorizontalAlignment="Left" VerticalAlignment="Center" IsChecked="{Binding Path=PanelSetOrder.Ordered14DaysPostDischarge}" />
+                    <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" TextAlignment="Right" VerticalAlignment="Center" FontWeight="Bold">Posted:</TextBlock>
+                    <CheckBox Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" HorizontalAlignment="Left" VerticalAlignment="Center" IsChecked="{Binding Path=PanelSetOrder.IsPosted}" />
 
-                <TextBlock Grid.Column="0" Grid.Row="20" Margin="2,2,2,2" TextAlignment="Right" VerticalAlignment="Center" FontWeight="Bold">Use Billing Agent:</TextBlock>
-                <CheckBox Grid.Column="1" Grid.Row="20" Margin="2,2,2,2" HorizontalAlignment="Left" VerticalAlignment="Center" IsChecked="{Binding Path=AccessionOrder.UseBillingAgent}" />
+                    <TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" TextAlignment="Right" VerticalAlignment="Center" FontWeight="Bold">No Charge:</TextBlock>
+                    <CheckBox Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" HorizontalAlignment="Left" VerticalAlignment="Center" IsChecked="{Binding Path=PanelSetOrder.NoCharge}" />
 
-                <TextBlock Grid.Column="0" Grid.Row="21" Margin="2,2,2,2" TextAlignment="Right" VerticalAlignment="Center" FontWeight="Bold">Research Testing:</TextBlock>
-                <CheckBox Grid.Column="1" Grid.Row="21" Margin="2,2,2,2" HorizontalAlignment="Left" VerticalAlignment="Center" IsChecked="{Binding Path=PanelSetOrder.ResearchTesting}" />
+                    <TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" TextAlignment="Right" VerticalAlignment="Center" FontWeight="Bold">Hold Billing:</TextBlock>
+                    <CheckBox Grid.Column="1" Grid.Row="2" Margin="2,2,2,2" HorizontalAlignment="Left" VerticalAlignment="Center" IsChecked="{Binding Path=PanelSetOrder.HoldBilling}" />
 
-                <ListView Name="ListViewDocuments" Grid.Column="0" Grid.Row="22" Grid.ColumnSpan="2" ItemsSource="{Binding Path=CaseDocumentCollection}" 
+                    <TextBlock Grid.Column="2" Grid.Row="0" Margin="2,2,2,2" TextAlignment="Right" VerticalAlignment="Center" FontWeight="Bold">14 Days Post:</TextBlock>
+                    <CheckBox Grid.Column="3" Grid.Row="0" Margin="2,2,2,2" HorizontalAlignment="Left" VerticalAlignment="Center" IsChecked="{Binding Path=PanelSetOrder.Ordered14DaysPostDischarge}" />
+
+                    <TextBlock Grid.Column="2" Grid.Row="1" Margin="2,2,2,2" TextAlignment="Right" VerticalAlignment="Center" FontWeight="Bold">Use Billing Agent:</TextBlock>
+                    <CheckBox Grid.Column="3" Grid.Row="1" Margin="2,2,2,2" HorizontalAlignment="Left" VerticalAlignment="Center" IsChecked="{Binding Path=AccessionOrder.UseBillingAgent}" />
+
+                    <TextBlock Grid.Column="2" Grid.Row="2" Margin="2,2,2,2" TextAlignment="Right" VerticalAlignment="Center" FontWeight="Bold">Research Testing:</TextBlock>
+                    <CheckBox Grid.Column="3" Grid.Row="2" Margin="2,2,2,2" HorizontalAlignment="Left" VerticalAlignment="Center" IsChecked="{Binding Path=PanelSetOrder.ResearchTesting}" />
+                    
+                </Grid>
+                
+                <ListView Name="ListViewDocuments" Grid.Column="0" Grid.Row="19" Grid.ColumnSpan="2" ItemsSource="{Binding Path=CaseDocumentCollection}" 
                           MouseDoubleClick="ListViewDocuments_MouseDoubleClick">
                     <ListView.View>
                         <GridView>
@@ -174,7 +192,8 @@
                 <ListView.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="Delete" Click="MenuItemDeletePanelSetOrderCPTCodes_Click"></MenuItem>
-                        <MenuItem Header="Update Client Id" Click="MenuItemUpdateClientId_Click"></MenuItem>                        
+                        <MenuItem Header="Update Client Id" Click="MenuItemUpdateClientId_Click"></MenuItem>
+                        <MenuItem Header="Change To 88342" Click="MenuItemChangeTo88342_Click"></MenuItem>
                     </ContextMenu>
                 </ListView.ContextMenu>
                 <ListView.View>                    
@@ -187,6 +206,7 @@
                         <GridViewColumn DisplayMemberBinding="{Binding Path=PostDate, Converter={StaticResource ShortDateConverter}}" Header="Post Date" Width="120"/>
                         <GridViewColumn DisplayMemberBinding="{Binding Path=EntryType}" Header="Entry Type" Width="100"/>
                         <GridViewColumn DisplayMemberBinding="{Binding Path=ClientId}" Header="Client" Width="100"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=MedicalRecord}" Header="MRN" Width="100"/>
                     </GridView>
                 </ListView.View>
             </ListView>
@@ -200,6 +220,7 @@
                         <MenuItem Header="Reverse" Click="MenuItemReverse_Click"></MenuItem>                                                
                         <MenuItem Header="Add With Current Client" Click="MenuItemAddWithCurrentClient_Click"></MenuItem>
                         <MenuItem Header="Update Client" Click="MenuItemUpdateClient_Click"></MenuItem>
+                        <MenuItem Header="Add 1" Click="MenuItemAddOne_Click"></MenuItem>
                     </ContextMenu>
                 </ListView.ContextMenu>
                 <ListView.View>
@@ -211,6 +232,7 @@
                         <GridViewColumn DisplayMemberBinding="{Binding Path=BillBy}" Header="Bill By" Width="100"/>
                         <GridViewColumn DisplayMemberBinding="{Binding Path=PostDate, Converter={StaticResource ShortDateConverter}}" Header="Post Date" Width="120"/>
                         <GridViewColumn DisplayMemberBinding="{Binding Path=ClientId}" Header="Client" Width="100"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=MedicalRecord}" Header="MRN" Width="100"/>
                     </GridView>
                 </ListView.View>
             </ListView>
@@ -224,9 +246,8 @@
                 <Button Width="100" Height="40" Margin="2,2,2,2" Click="ButtonInsuranceCard_Click">Insurance Card</Button>
                 <Button Width="100" Height="40" Margin="2,2,2,2" Click="ButtonADT_Click">ADT</Button>
                 <Button Width="100" Height="40" Margin="2,2,2,2" Click="ButtonPatientDetails_Click">Patient Details ...</Button>
-                <Button Width="100" Height="40" Margin="2,2,2,2" Click="ButtonSendFT1_Click">SVH Financial</Button>
-				<Button Width="100" Height="40" Margin="2,2,2,2" Click="ButtonCPTCodes_Click">CPT Codes</Button>
-				<Button Width="100" Height="40" Margin="2,2,2,2" Click="ButtonICDCodes_Click">ICD Codes</Button>
+                <Button Width="100" Height="40" Margin="2,2,2,2" Click="ButtonCPTCodes_Click">CPT Codes</Button>
+                <Button Width="100" Height="40" Margin="2,2,2,2" Click="ButtonICDCodes_Click">ICD Codes</Button>
                 <Button Width="100" Height="40" Margin="2,2,2,2" Click="ButtonUnset_Click">Unset</Button>
                 <Button Width="100" Height="40" Margin="2,2,2,2" Click="ButtonUnpost_Click">Unpost</Button>
             </StackPanel>

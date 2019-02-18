@@ -102,15 +102,7 @@ namespace YellowstonePathology.Business.Stain.Model
                 result.Add(test);
             }
             return result;
-        }
-
-        public void WriteLineStains()
-        {
-            foreach(Stain stain in this)
-            {
-                Console.WriteLine(stain.StainId + ":" + stain.StainName);
-            }
-        }
+        }       
     }
 }
 

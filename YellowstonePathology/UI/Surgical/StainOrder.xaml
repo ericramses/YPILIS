@@ -137,7 +137,7 @@
                 </Grid.ColumnDefinitions>
 
                 <CheckBox Name="CheckBoxICF" Tag="45" Grid.Column="0" Margin="2,2,2,2"></CheckBox>
-                <TextBlock Grid.Column="1" Margin="2,2,2,2" HorizontalAlignment="Left">Intraoperative Consultation with Fozen</TextBlock>
+                <TextBlock Grid.Column="1" Margin="2,2,2,2" HorizontalAlignment="Left">Intraoperative Consultation with Frozen</TextBlock>
 
                 <CheckBox Name="CheckBoxIC" Tag="194" Grid.Column="2" Margin="2,2,2,2"></CheckBox>
                 <TextBlock Grid.Column="3" Margin="2,2,2,2" HorizontalAlignment="Left">Intraoperative Consultation</TextBlock>
@@ -244,6 +244,18 @@
 
                     <CheckBox Name="StainOrder014" Tag="hmb45" Grid.Column="0" Grid.Row="14" Margin="2,2,2,2"></CheckBox>
                     <TextBlock Grid.Column="1" Grid.Row="14" Margin="2,2,2,2">HMB-45</TextBlock>
+
+                    <TextBlock Grid.Column="0" Grid.Row="15" Grid.ColumnSpan="2" Margin="2,2,2,2" FontWeight="Bold" 
+                               TextDecorations="Underline">Panels</TextBlock>
+
+                    <CheckBox Name="CheckBoxLowGradeLymphoma" Grid.Column="0" Grid.Row="16" Margin="2,2,2,2"></CheckBox>
+                    <TextBlock Grid.Column="1" Grid.Row="16" Margin="2,2,2,2">Low Grade Lymphoma</TextBlock>
+
+                    <CheckBox Name="CheckBoxLargeCellLymphoma" Grid.Column="0" Grid.Row="17" Margin="2,2,2,2"></CheckBox>
+                    <TextBlock Grid.Column="1" Grid.Row="17" Margin="2,2,2,2">Large Cell Lymphoma</TextBlock>
+
+                    <CheckBox Name="CheckBoxHodgkinLymphoma" Grid.Column="0" Grid.Row="18" Margin="2,2,2,2"></CheckBox>
+                    <TextBlock Grid.Column="1" Grid.Row="18" Margin="2,2,2,2">Hodgkin Lymphoma</TextBlock>
 
                 </Grid>
 

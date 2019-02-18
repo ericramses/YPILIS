@@ -25,7 +25,8 @@ namespace YellowstonePathology.UI.Test
         {
             this.m_MultipleMyelomaMGUSByFishResultPage = new MultipleMyelomaMGUSByFishResultPage(this.m_PanelSetOrder, this.m_AccessionOrder, this.m_SystemIdentity);
 			this.m_MultipleMyelomaMGUSByFishResultPage.Next += new MultipleMyelomaMGUSByFishResultPage.NextEventHandler(MultipleMyelomaMGUSByFishResultPage_Next);
-			this.m_PageNavigator.Navigate(this.m_MultipleMyelomaMGUSByFishResultPage);
+            this.m_MultipleMyelomaMGUSByFishResultPage.CPTCode += ResultPage_CPTCode;
+            this.m_PageNavigator.Navigate(this.m_MultipleMyelomaMGUSByFishResultPage);
         }
 
 		private void MultipleMyelomaMGUSByFishResultPage_Next(object sender, EventArgs e)
@@ -33,5 +34,16 @@ namespace YellowstonePathology.UI.Test
             this.Finished();
         }
 
-	}
+        private void ResultPage_CPTCode(object sender, EventArgs e)
+        {
+            Billing.AddFISHCPTCodePage addCPTCodePage = new Billing.AddFISHCPTCodePage(this.m_PanelSetOrder.ReportNo, this.m_AccessionOrder);
+            addCPTCodePage.Next += CPTCodePage_Next;
+            this.m_PageNavigator.Navigate(addCPTCodePage);
+        }
+
+        private void CPTCodePage_Next(object sender, EventArgs e)
+        {
+            this.ShowResultPage();
+        }
+    }
 }

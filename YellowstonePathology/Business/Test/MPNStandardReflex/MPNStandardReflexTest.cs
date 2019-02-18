@@ -11,7 +11,7 @@ namespace YellowstonePathology.Business.Test.MPNStandardReflex
 		{
 			this.m_PanelSetId = 136;
 			this.m_PanelSetName = "MPN Standard Reflex";
-			this.m_CaseType = YellowstonePathology.Business.CaseType.ALLCaseTypes;
+			this.m_CaseType = YellowstonePathology.Business.CaseType.Molecular;
 			this.m_HasTechnicalComponent = true;
 			this.m_HasProfessionalComponent = true;
 			this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase;
@@ -27,18 +27,18 @@ namespace YellowstonePathology.Business.Test.MPNStandardReflex
 			this.m_AcceptOnFinal = true;
 			this.m_IsReflexPanel = true;
 			this.m_AllowMultiplePerAccession = true;
-			this.m_IsBillable = false;
+			this.m_IsBillable = true;
             this.m_ExpectedDuration = new TimeSpan(14, 0, 0, 0);
             this.m_EpicDistributionIsImplemented = true;
 
-            string taskDescription = "Gather materials and Perform JAK2 V617F testing.";
+            string taskDescription = "Gather materials and send to NEO.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.Task(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, taskDescription));
 
-			this.m_TechnicalComponentFacility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
+			this.m_TechnicalComponentFacility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("NEOGNMCIRVN");
 			this.m_TechnicalComponentBillingFacility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
 
-			this.m_ProfessionalComponentFacility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPBLGS");
-			this.m_ProfessionalComponentBillingFacility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
+			this.m_ProfessionalComponentFacility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("NEOGNMCIRVN");
+			this.m_ProfessionalComponentBillingFacility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("NEOGNMCIRVN");
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServicePathSummary());
 		}

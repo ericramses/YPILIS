@@ -27,6 +27,9 @@ namespace YellowstonePathology.Business.Client.Model
 		private int m_DefaultOrderPanelSetId;
 		private bool m_AllowMultipleOrderDetailTypes;
 		private string m_DefaultOrderDetailTypeCode;
+        private string m_PatientClass;
+        private string m_PatientLocationCode;
+        private string m_PlaceOfServiceCode;
 
 		public ClientLocation()
 		{
@@ -189,5 +192,50 @@ namespace YellowstonePathology.Business.Client.Model
 				}
 			}
 		}
-	}
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "45", "null", "varchar")]
+        public string PatientClass
+        {
+            get { return this.m_PatientClass; }
+            set
+            {
+                if (this.m_PatientClass != value)
+                {
+                    this.m_PatientClass = value;
+                    this.NotifyPropertyChanged("PatientClass");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "45", "null", "varchar")]
+        public string PatientLocationCode
+        {
+            get { return this.m_PatientLocationCode; }
+            set
+            {
+                if (this.m_PatientLocationCode != value)
+                {
+                    this.m_PatientLocationCode = value;
+                    this.NotifyPropertyChanged("PatientLocationCode");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "45", "null", "varchar")]
+        public string PlaceOfServiceCode
+        {
+            get { return this.m_PlaceOfServiceCode; }
+            set
+            {
+                if (this.m_PlaceOfServiceCode != value)
+                {
+                    this.m_PlaceOfServiceCode = value;
+                    this.NotifyPropertyChanged("PlaceOfServiceCode");
+                }
+            }
+        }
+    }
 }

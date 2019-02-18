@@ -45,8 +45,6 @@ namespace YellowstonePathology.UI.MaterialTracking
 
             InitializeComponent();
             this.DataContext = this;
-
-
             this.Loaded += MaterialTrackingStartPage_Loaded;
         }
 
@@ -270,7 +268,6 @@ namespace YellowstonePathology.UI.MaterialTracking
             if (this.ListBoxMaterialTrackingBatch.SelectedItem != null)
             {
                 string materialTrackingBatchId = ((YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch)this.ListBoxMaterialTrackingBatch.SelectedItem).MaterialTrackingBatchId;
-
                 YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch materialTrackingBatch = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullMaterialTrackingBatch(materialTrackingBatchId, Window.GetWindow(this));
 
                 if (this.m_UseMasterAccessionNo == true)
@@ -316,6 +313,62 @@ namespace YellowstonePathology.UI.MaterialTracking
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
-        }        
+        }
+
+        private void HyperlinkSendMaterialToOnsiteStorage_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Facility.Model.Facility fromFacility = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId);
+            string fromLocation = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.Location;
+
+            YellowstonePathology.Business.Facility.Model.Facility toFacility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("PNSTSTRG");
+
+            string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
+            YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch materialTrackingBatch = new YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch(objectId, "Send material to onsite storage.", fromFacility, fromLocation, toFacility, null, this.m_MasterAccessionNo);
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(materialTrackingBatch, Window.GetWindow(this));
+
+            this.ViewBatch(this, new YellowstonePathology.UI.CustomEventArgs.MaterialTrackingBatchEventArgs(materialTrackingBatch));
+        }
+
+        private void HyperlinkReceiveMaterialFromOnsiteStorage_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Facility.Model.Facility fromFacility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("PNSTSTRG");
+
+            YellowstonePathology.Business.Facility.Model.Facility toFacility = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId);
+            string toLocation = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.Location;
+
+            string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
+            YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch materialTrackingBatch = new YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch(objectId, "Receive material from onsite storage.", fromFacility, null, toFacility, toLocation, this.m_MasterAccessionNo);
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(materialTrackingBatch, Window.GetWindow(this));
+
+            this.ViewBatch(this, new YellowstonePathology.UI.CustomEventArgs.MaterialTrackingBatchEventArgs(materialTrackingBatch));
+        }
+
+        private void HyperlinkSendMaterialToOffsiteStorage_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Facility.Model.Facility fromFacility = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId);
+            string fromLocation = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.Location;
+
+            YellowstonePathology.Business.Facility.Model.Facility toFacility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("PFFSTSTRG");
+
+            string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
+            YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch materialTrackingBatch = new YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch(objectId, "Send material to offsite storage.", fromFacility, fromLocation, toFacility, null, this.m_MasterAccessionNo);
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(materialTrackingBatch, Window.GetWindow(this));
+
+            this.ViewBatch(this, new YellowstonePathology.UI.CustomEventArgs.MaterialTrackingBatchEventArgs(materialTrackingBatch));
+        }
+
+        private void HyperlinkReceiveMaterialFromOffsiteStorage_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Facility.Model.Facility fromFacility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("PFFSTSTRG");
+
+            YellowstonePathology.Business.Facility.Model.Facility toFacility = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId);
+            string toLocation = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.Location;
+
+            string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
+            YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch materialTrackingBatch = new YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatch(objectId, "Receive material from offsite storage.", fromFacility, null, toFacility, toLocation, this.m_MasterAccessionNo);
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(materialTrackingBatch, Window.GetWindow(this));
+
+            this.ViewBatch(this, new YellowstonePathology.UI.CustomEventArgs.MaterialTrackingBatchEventArgs(materialTrackingBatch));
+        }
     }
 }

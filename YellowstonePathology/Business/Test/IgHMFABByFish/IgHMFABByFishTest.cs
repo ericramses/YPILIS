@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace YellowstonePathology.Business.Test.IgHMFABByFish
 {
-    public class IgHMFABByFishTest : YellowstonePathology.Business.PanelSet.Model.PanelSet
+    public class IgHMFABByFishTest : YellowstonePathology.Business.PanelSet.Model.FISHTest
     {
         public IgHMFABByFishTest()
         {
@@ -36,6 +36,8 @@ namespace YellowstonePathology.Business.Test.IgHMFABByFish
             this.m_ProfessionalComponentBillingFacility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMiscellaneous());
+
+            this.m_ProbeSetCount = 1;
         }
     }
 }

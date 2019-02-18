@@ -11,5 +11,11 @@ namespace YellowstonePathology.Business.WebService
     {
         public WebServiceAccountCollection()
         { }
+
+        public bool ExistsByUserName(string userName)
+        {
+            WebServiceAccount webServiceAccount = this.FirstOrDefault(w => w.UserName == userName);
+            return webServiceAccount != null ? true : false;
+        }
     }
 }

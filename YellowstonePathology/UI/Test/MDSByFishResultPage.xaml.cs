@@ -25,7 +25,10 @@ namespace YellowstonePathology.UI.Test
 		public delegate void NextEventHandler(object sender, EventArgs e);
 		public event NextEventHandler Next;
 
-		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
+        public delegate void CPTCodeEventHandler(object sender, EventArgs e);
+        public event CPTCodeEventHandler CPTCode;
+
+        private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private string m_PageHeaderText;
 
@@ -93,10 +96,7 @@ namespace YellowstonePathology.UI.Test
 		{
 			YellowstonePathology.Business.Test.MDSByFish.MDSByFishWordDocument report = new Business.Test.MDSByFish.MDSByFishWordDocument(this.m_AccessionOrder, this.m_PanelSetOrder, Business.Document.ReportSaveModeEnum.Draft);
 			report.Render();
-
-			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
-			string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);
-			YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(fileName);
+			YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(report.SaveFileName);
 		}
 
 		private void HyperLinkFinalizeResults_Click(object sender, RoutedEventArgs e)
@@ -150,7 +150,25 @@ namespace YellowstonePathology.UI.Test
 			}
 		}
 
-		private void ButtonNext_Click(object sender, RoutedEventArgs e)
+        private void HyperLinkCPTCodes_Click(object sender, RoutedEventArgs e)
+        {
+            this.CPTCode(this, new EventArgs());
+        }
+
+        private void HyperLinkProbeComment_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Helper.FISHProbeComment fishProbeComment = new Business.Helper.FISHProbeComment(this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection);
+            if(fishProbeComment.Success == true)
+            {
+                this.m_PanelSetOrder.ProbeComment = fishProbeComment.Comment;
+            }            
+            else
+            {
+                MessageBox.Show(fishProbeComment.Message);
+            }
+        }
+
+        private void ButtonNext_Click(object sender, RoutedEventArgs e)
 		{
 			if (this.Next != null) this.Next(this, new EventArgs());
 		}

@@ -78,20 +78,5 @@ namespace YellowstonePathology.Test.Model
 		}
 
 		#endregion
-
-		#region WritePropertiesMethod
-		public void WriteProperties(YellowstonePathology.Business.Domain.Persistence.IPropertyWriter propertyWriter)
-		{
-			this.m_ResultId = propertyWriter.WriteInt("ResultId");
-			this.m_Result = propertyWriter.WriteString("Result");
-		}
-		#endregion
-
-		#region ReadPropertiesMethod
-		public void ReadProperties(YellowstonePathology.Business.Domain.Persistence.IPropertyReader propertyReader)
-		{
-			throw new NotImplementedException("ReadProperties not implemented");
-		}
-		#endregion
 	}
 }

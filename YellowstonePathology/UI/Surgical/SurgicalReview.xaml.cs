@@ -44,6 +44,8 @@ namespace YellowstonePathology.UI.Surgical
 
         private void SurgicalReview_Loaded(object sender, RoutedEventArgs e)
         {
+            this.m_PathologistUI.RunWorkspaceEnableRules();
+            this.m_PathologistUI.RunPathologistEnableRules();
             this.SetFocusOnDiagnosis();
         }
 
@@ -178,6 +180,7 @@ namespace YellowstonePathology.UI.Surgical
             panelSetOrderCPTCode.EntryType = YellowstonePathology.Business.Billing.Model.PanelSetOrderCPTCodeEntryType.ManualEntry;
             panelSetOrderCPTCode.SpecimenOrderId = specimenOrder.SpecimenOrderId;
             panelSetOrderCPTCode.ClientId = this.AccessionOrder.ClientId;
+            panelSetOrderCPTCode.MedicalRecord = this.AccessionOrder.SvhMedicalRecord;
             this.PanelSetOrderSurgical.PanelSetOrderCPTCodeCollection.Add(panelSetOrderCPTCode);
             this.RefreshBillingSpecimenViewCollection();
         }
@@ -227,13 +230,11 @@ namespace YellowstonePathology.UI.Surgical
                     this.PanelSetOrderSurgical.Unfinalize();
                 }
                 this.PanelSetOrderSurgical.TestOrderReportDistributionCollection.UnscheduleDistributions();
-
-                this.m_PathologistUI.SetSignatureButtonProperties();
-                this.NotifyPropertyChanged(string.Empty);
-
-                this.m_PathologistUI.RunWorkspaceEnableRules();
-                this.m_PathologistUI.RunPathologistEnableRules();
             }
+
+            this.m_PathologistUI.RunWorkspaceEnableRules();
+            this.m_PathologistUI.RunPathologistEnableRules();
+            this.NotifyPropertyChanged(string.Empty);
         }
 
         private void ButtonSignAmendment_Click(object sender, RoutedEventArgs args)
@@ -321,8 +322,24 @@ namespace YellowstonePathology.UI.Surgical
         {
             if (this.PanelSetOrderSurgical != null)
             {
-                Common.ReassignCaseDialog reassignCaseDialog = new Common.ReassignCaseDialog(this.PanelSetOrderSurgical, Business.User.SystemIdentity.Instance);
-                reassignCaseDialog.ShowDialog();
+                YellowstonePathology.Business.Rules.PanelSetOrder.ReassignCase reassignCase = new YellowstonePathology.Business.Rules.PanelSetOrder.ReassignCase();
+                YellowstonePathology.Business.Rules.ExecutionStatus executionStatus = new YellowstonePathology.Business.Rules.ExecutionStatus();
+                if (this.PanelSetOrderSurgical.Final == false)
+                {
+                    MessageBoxResult messageBoxResult = MessageBox.Show("An amendment will be created as a result of reasigning this case.  Are you sure you want to proceed with reasignment?", "Proceed?", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    if (messageBoxResult == MessageBoxResult.Yes)
+                    {
+                        reassignCase.Execute(executionStatus, this.PanelSetOrderSurgical, true, Business.User.SystemIdentity.Instance);
+                    }
+                }
+                else
+                {
+                    reassignCase.Execute(executionStatus, this.PanelSetOrderSurgical, false, Business.User.SystemIdentity.Instance);
+                    if (executionStatus.Halted == false)
+                    {
+                        MessageBox.Show("The case has been reassigned");
+                    }
+                }
             }
         }
 
@@ -353,7 +370,7 @@ namespace YellowstonePathology.UI.Surgical
 
         private void ButtonCAPLink_Click(object sender, RoutedEventArgs args)
         {
-            System.Diagnostics.Process.Start(@"http://www.cap.org/web/oracle/webcenter/portalapp/pagehierarchy/cancer_protocol_templates.jspx?_afrLoop=36229252016954#!%40%40%3F_afrLoop%3D36229252016954%26_adf.ctrl-state%3Dgfs5he3rf_4");
+            System.Diagnostics.Process.Start(@"https://www.cap.org/protocols-and-guidelines/cancer-reporting-tools/cancer-protocol-templates");
         }
 
         private void CheckPendingStudies(bool isFinal)
@@ -548,9 +565,6 @@ namespace YellowstonePathology.UI.Surgical
                         this.PanelSetOrderSurgical.Accept();
                     }
                 }
-
-                this.m_PathologistUI.SetSignatureButtonProperties();
-                this.NotifyPropertyChanged(string.Empty);
             }
         }
 
@@ -564,7 +578,7 @@ namespace YellowstonePathology.UI.Surgical
 
         private void ButtonSetCPTCodes_Click(object sender, RoutedEventArgs e)
         {
-            this.m_PathologistUI.PanelSetOrder.PanelSetOrderCPTCodeCollection.SetCPTCodes(this.m_PathologistUI.AccessionOrder.SpecimenOrderCollection, this.m_PathologistUI.PanelSetOrder.ReportNo, this.m_PathologistUI.AccessionOrder.ClientId);
+            this.m_PathologistUI.PanelSetOrder.PanelSetOrderCPTCodeCollection.SetCPTCodes(this.m_PathologistUI.AccessionOrder.SpecimenOrderCollection, this.m_PathologistUI.PanelSetOrder.ReportNo, this.m_PathologistUI.AccessionOrder.ClientId, this.m_PathologistUI.AccessionOrder.SvhMedicalRecord, this.m_PathologistUI.AccessionOrder.SvhAccount);
             this.RefreshBillingSpecimenViewCollection();            
         }
     }

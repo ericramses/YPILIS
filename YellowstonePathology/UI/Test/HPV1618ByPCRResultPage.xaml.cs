@@ -162,10 +162,7 @@ namespace YellowstonePathology.UI.Test
 		{
 			YellowstonePathology.Business.Test.HPV1618ByPCR.HPV1618ByPCRWordDocument report = new Business.Test.HPV1618ByPCR.HPV1618ByPCRWordDocument(this.m_AccessionOrder, this.m_HPV1618ByPCRTestOrder, Business.Document.ReportSaveModeEnum.Draft);
 			report.Render();
-
-			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_HPV1618ByPCRTestOrder.ReportNo);
-			string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);
-			YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(fileName);
+			YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(report.SaveFileName);
 		}
 
         private void HyperLinkBothNegative_Click(object sender, RoutedEventArgs e)

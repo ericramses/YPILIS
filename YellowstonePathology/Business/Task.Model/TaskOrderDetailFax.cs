@@ -67,6 +67,20 @@ namespace YellowstonePathology.Business.Task.Model
             }
         }
 
+        public string FaxNumberProxy
+        {
+            get { return YellowstonePathology.Business.Helper.PhoneNumberHelper.CorrectPhoneNumber(this.m_FaxNumber); }
+            set
+            {
+                if (this.m_FaxNumber != value)
+                {
+                    this.m_FaxNumber = value;
+                    this.NotifyPropertyChanged("FaxNumber");
+                    this.NotifyPropertyChanged("FaxNumberProxy");
+                }
+            }
+        }
+
         public bool PropertiesAreEnabled
         {
             get

@@ -33,6 +33,23 @@ namespace YellowstonePathology.Business.Billing.Model
             return result;
         }
 
+        public bool HasSVHCDM(string code)
+        {
+            bool result = false;
+            foreach (CptCode cptCode in this)
+            {
+                if (cptCode.Code == code)
+                {
+                    if(string.IsNullOrEmpty(cptCode.SVHCDMCode) == false)
+                    {
+                        result = true;
+                        break;
+                    }                    
+                }
+            }
+            return result;
+        }
+
         public bool IsMedicareCode(string cptCode)
         {
             bool result = false;
@@ -88,6 +105,32 @@ namespace YellowstonePathology.Business.Billing.Model
                     result.Add(cptCode);                    
                 }
             }
+            return result;
+        }
+
+        public CptCode GetCPTCode(string cptCode)
+        {
+            CptCode result = null;
+            foreach(CptCode cpt in this)
+            {
+                if(cpt.Code == cptCode)
+                {
+                    result = cpt;
+                    break;
+                }
+            }
+            return result;
+        }
+
+        public CptCodeCollection GetFISHCPTCodeCollection()
+        {
+            CptCodeCollection result = new CptCodeCollection();
+            result.Add(this.GetCPTCode("88374"));
+            result.Add(this.GetCPTCode("88377"));
+            result.Add(this.GetCPTCode("88368"));
+            result.Add(this.GetCPTCode("88369"));
+            result.Add(this.GetCPTCode("88367"));
+            result.Add(this.GetCPTCode("88373"));            
             return result;
         }
 

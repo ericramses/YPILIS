@@ -37,11 +37,42 @@ namespace YellowstonePathology.Business.Gateway
             return result;
         }
 
+        public static YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistributionCollection GetReportDistributionCollectionByDateTumorRegistry(DateTime startDate, DateTime endDate, string distributionType)
+        {
+            YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistributionCollection result = new YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistributionCollection();
+            string sql = "Select * from tblTestOrderReportDistribution where DateAdded between @StartDate and @EndDate and " +
+                "DistributionType = @DistributionType;";
+
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = sql;
+            cmd.Parameters.AddWithValue("@StartDate", startDate);
+            cmd.Parameters.AddWithValue("@EndDate", endDate);
+            cmd.Parameters.AddWithValue("@DistributionType", distributionType);
+            cmd.CommandType = CommandType.Text;
+
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution testOrderReportDistribution = new YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(testOrderReportDistribution, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(testOrderReportDistribution);
+                    }
+                }
+            }
+            return result;
+        }
+
         public static YellowstonePathology.Business.Client.Model.PhysicianClientDistributionList GetPhysicianClientDistributionCollection(int physicianId, int clientId)
         {
             YellowstonePathology.Business.Client.Model.PhysicianClientDistributionList result = new Client.Model.PhysicianClientDistributionList();
             string sql = "Select c.ClientId, c.ClientName, ph.PhysicianId, ph.DisplayName PhysicianName, c.DistributionType, " +
-                "c.Fax FaxNumber, c.LongDistance " +
+                "c.Fax FaxNumber " +
                 "from tblPhysicianClient pc " +
 	            "join tblPhysicianClientDistribution pcd on pc.PhysicianClientId = pcd.PhysicianClientId " +
 	            "join tblPhysicianClient pc2 on pcd.DistributionId = pc2.PhysicianClientId " +
@@ -77,7 +108,7 @@ namespace YellowstonePathology.Business.Gateway
         public static YellowstonePathology.Business.Client.Model.PhysicianClientDistributionListItem GetPhysicianClientDistributionCollection(string physicianClientId)
         {
             YellowstonePathology.Business.Client.Model.PhysicianClientDistributionListItem result = null;
-            string sql = "Select c.ClientId, c.ClientName, ph.PhysicianId, ph.DisplayName PhysicianName, c.DistributionType, c.Fax FaxNumber, c.LongDistance " +
+            string sql = "Select c.ClientId, c.ClientName, ph.PhysicianId, ph.DisplayName PhysicianName, c.DistributionType, c.Fax FaxNumber " +
                 "from tblPhysicianClient pc " +
                 "join tblPhysicianClientDistribution pcd on pc.PhysicianClientId = pcd.PhysicianClientId " +
                 "join tblPhysicianClient pc2 on pcd.DistributionId = pc2.PhysicianClientId " +

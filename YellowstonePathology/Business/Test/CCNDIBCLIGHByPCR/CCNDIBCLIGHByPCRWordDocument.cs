@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.Test.CCNDIBCLIGHByPCR
         {
             CCNDIBCLIGHByPCRTestOrder panelSetOrderCCNDIBCLIGH = (CCNDIBCLIGHByPCRTestOrder)this.m_PanelSetOrder;
 
-            this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\CCNDIBCLIGHByPCR.1.xml";
+            this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\CCNDIBCLIGHByPCR.2.xml";
             base.OpenTemplate();
 
             this.SetDemographicsV2();

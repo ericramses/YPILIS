@@ -31,13 +31,12 @@ namespace YellowstonePathology.Business.Test.MissingInformation
         private bool m_Fax;
         private string m_FaxSentBy;
         private Nullable<DateTime> m_TimeFaxSent;
+        private string m_LetterBody;
 
         private bool m_ClientSystemLookup;
         private string m_ClientSystemLookupBy;
         private Nullable<DateTime> m_TimeOfClientSystemLookup;
-
-        
-
+       
         public MissingInformationTestOrder()
 		{
 
@@ -336,6 +335,21 @@ namespace YellowstonePathology.Business.Test.MissingInformation
                 {
                     this.m_ClientSystemLookupBy = value;
                     this.NotifyPropertyChanged("ClientSystemLookupBy");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "5000", "null", "varchar")]
+        public string LetterBody
+        {
+            get { return this.m_LetterBody; }
+            set
+            {
+                if (this.m_LetterBody != value)
+                {
+                    this.m_LetterBody = value;
+                    this.NotifyPropertyChanged("LetterBody");
                 }
             }
         }

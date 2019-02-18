@@ -44,6 +44,7 @@ namespace YellowstonePathology.Business.User
         {
             SystemUserCollection users = new SystemUserCollection();
             var query = from su in this where su.Active == true && su.IsUserInRole(SystemUserRoleDescriptionEnum.Pathologist) == true select su;
+
             foreach (SystemUser user in query)
             {
                 users.Add(user);
@@ -59,7 +60,7 @@ namespace YellowstonePathology.Business.User
 			{
 				users.Add(user);
 			}
-			return users;
+            return users;
 		}
 
 		public void AddAllToUserList(SystemUserCollection users, bool asFirstItem)

@@ -119,7 +119,7 @@ namespace YellowstonePathology.UI.Gross
 			{
 				this.m_DocumentViewer.ShowDocument(this.m_CaseDocumentCollection.GetFirstRequisition());
 			}
-			if (this.m_AccessionOrder.PrintMateColumnNumber != 0)
+			if (string.IsNullOrEmpty(this.m_AccessionOrder.CassetteColor) == false)
 			{
 				this.PrintBlocks();
 			}
@@ -310,18 +310,15 @@ namespace YellowstonePathology.UI.Gross
 		private void PrintBlocks()
 		{            
             YellowstonePathology.Business.Test.AliquotOrderCollection blocksToPrintCollection = this.m_SpecimenOrder.AliquotOrderCollection.GetUnPrintedBlocks();
-            YellowstonePathology.Business.Label.Model.CassettePrinter cassettePrinter = new Business.Label.Model.CassettePrinter(blocksToPrintCollection, this.m_AccessionOrder);
-            if (cassettePrinter.HasItemsToPrint() == true)
-            {
-                cassettePrinter.Print();
-            }
-            
+            Business.Label.Model.CassettePrinterCollection printers = new Business.Label.Model.CassettePrinterCollection();
+            Business.Label.Model.CassettePrinter printer = printers.GetPrinter(Business.User.UserPreferenceInstance.Instance.UserPreference.CassettePrinter);
+            printer.Print(blocksToPrintCollection, this.m_AccessionOrder);
 			this.GrossBlockManagementView = new Business.View.GrossBlockManagementView(this.m_AccessionOrder, this.m_CaseNotesDocument, this.m_SpecimenOrder);
 		}
 
 		private void OnCommandAddBlock(int quantity)
 		{
-			if (this.m_AccessionOrder.PrintMateColumnNumber != 0)
+			if (String.IsNullOrEmpty(this.m_AccessionOrder.CassetteColor) == false)
 			{
 				this.AddBlocksToSpecimen(this.m_HandETest, quantity, "Block", string.Empty);
 				this.GrossBlockManagementView = new Business.View.GrossBlockManagementView(this.m_AccessionOrder, this.m_CaseNotesDocument, this.m_SpecimenOrder);
@@ -332,20 +329,19 @@ namespace YellowstonePathology.UI.Gross
 
 		private void OnCommandAddFrozenBlock(int quantity)
 		{
-			if (this.m_AccessionOrder.PrintMateColumnNumber != 0)
-			{
+            if (String.IsNullOrEmpty(this.m_AccessionOrder.CassetteColor) == false)
+            {
 				this.AddBlocksToSpecimen(this.m_FrozenTest, quantity, "FrozenBlock", "FS");
 				this.GrossBlockManagementView = new Business.View.GrossBlockManagementView(this.m_AccessionOrder, this.m_CaseNotesDocument, this.m_SpecimenOrder);
 				this.SetupSpecimenView();
-				this.PrintBlocks();
-				//this.Save(false);
+				this.PrintBlocks();				
 			}			
 		}
 
 		private void OnCommandAddCellBlock(int quantity)
 		{
-			if (this.m_AccessionOrder.PrintMateColumnNumber != 0)
-			{
+            if (String.IsNullOrEmpty(this.m_AccessionOrder.CassetteColor) == false)
+            {
 				this.AddBlocksToSpecimen(this.m_HandETest, quantity, "CellBlock", "CB");
 				this.GrossBlockManagementView = new Business.View.GrossBlockManagementView(this.m_AccessionOrder, this.m_CaseNotesDocument, this.m_SpecimenOrder);
 				this.SetupSpecimenView();

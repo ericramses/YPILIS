@@ -5,7 +5,7 @@ using System.Text;
 
 namespace YellowstonePathology.Business.PanelSet.Model
 {
-	public class PanelSetMYCIgHEN8 : PanelSet
+	public class PanelSetMYCIgHEN8 : FISHTest
 	{
         public PanelSetMYCIgHEN8()
 		{
@@ -37,6 +37,8 @@ namespace YellowstonePathology.Business.PanelSet.Model
             this.m_ProfessionalComponentBillingFacility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMOLEGEN());
-		}
-	}
+
+            this.m_ProbeSetCount = 1;
+        }
+    }
 }

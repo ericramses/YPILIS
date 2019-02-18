@@ -12,8 +12,8 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
 {
     public class ThinPrepPapWordDocument : YellowstonePathology.Business.Interface.ICaseDocument
     {        
-        const string m_ThinPrepTemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\CytologyThinPrep.9.xml";
-        const string m_RegularTemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\CytologyRegular.7.xml";
+        const string m_ThinPrepTemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\CytologyThinPrep.2.xml";
+        const string m_RegularTemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\CytologyRegular.2.xml";
 
         protected string m_TemplateName;
         protected XmlDocument m_ReportXml;
@@ -36,6 +36,11 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
             this.m_ReportXml = new XmlDocument();
             this.m_NameSpaceManager = new XmlNamespaceManager(m_ReportXml.NameTable);
             this.m_NameSpaceManager.AddNamespace("w", "http://schemas.microsoft.com/office/word/2003/wordml");            
+        }
+
+        public string SaveFileName
+        {
+            get { return this.m_SaveFileName; }
         }
 
         public YellowstonePathology.Business.Document.NativeDocumentFormatEnum NativeDocumentFormat
@@ -197,7 +202,7 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
             switch (this.m_ReportSaveEnum)
             {
                 case YellowstonePathology.Business.Document.ReportSaveModeEnum.Draft:
-					this.m_SaveFileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + this.m_PanelSetOrderCytology.ReportNo + ".draft.xml";
+                    this.m_SaveFileName = CaseDocument.GetSaveDraftDocumentFilePath(orderIdParser);
                     break;
                 case YellowstonePathology.Business.Document.ReportSaveModeEnum.Normal:
 					this.m_SaveFileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + this.m_PanelSetOrderCytology.ReportNo + ".xml";

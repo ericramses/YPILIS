@@ -5,7 +5,7 @@ using System.Text;
 
 namespace YellowstonePathology.Business.Test.EosinophiliaByFISH
 {
-	public class EosinophiliaByFISHTest : YellowstonePathology.Business.PanelSet.Model.PanelSetMolecularTest
+	public class EosinophiliaByFISHTest : YellowstonePathology.Business.PanelSet.Model.FISHTest
 	{
         public EosinophiliaByFISHTest()
 		{
@@ -38,6 +38,8 @@ namespace YellowstonePathology.Business.Test.EosinophiliaByFISH
             this.m_ProfessionalComponentBillingFacility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMOLEGEN());
+
+            this.m_ProbeSetCount = 4;
 		}
 	}
 }

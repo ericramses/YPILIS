@@ -144,13 +144,9 @@
                         <TextBlock Grid.Row="0" Margin="5,3,0,0" VerticalAlignment="Bottom">
                            <Hyperlink Click="HyperLinkShowHl7Result_Click">Show HL7 Result</Hyperlink>
                         </TextBlock>
-                        
+
                         <TextBlock Grid.Row="1" Margin="5,3,0,0" VerticalAlignment="Bottom">
                            <Hyperlink Click="HyperLinkSendHL7ResultTest_Click">Send HL7 Result Test</Hyperlink>
-                        </TextBlock>
-
-                        <TextBlock Grid.Row="2" Margin="5,3,0,0" VerticalAlignment="Bottom">
-                           <Hyperlink Click="HyperLinkSendHL7StatusMessage_Click">Send HL7 Status Message</Hyperlink>
                         </TextBlock>
 
                         <TextBlock Grid.Row="3" Margin="5,3,0,0" VerticalAlignment="Bottom">
@@ -229,7 +225,7 @@
                             <GridViewColumn DisplayMemberBinding="{Binding Path=PhysicianName}" Header="Physician" Width="200"/>
                             <GridViewColumn DisplayMemberBinding="{Binding Path=ClientName}" Header="Client" Width="200"/>
                             <GridViewColumn DisplayMemberBinding="{Binding Path=DistributionType}" Header="Type" Width="100"/>
-                            <GridViewColumn DisplayMemberBinding="{Binding Path=FaxNumber, StringFormat={}{0:(###)###-####}}" Header="Fax" Width="120"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=FaxNumber, Converter={StaticResource PhoneNumberConverter}}" Header="Fax" Width="120"/>
                             <GridViewColumn DisplayMemberBinding="{Binding Path=Distributed}" Header="Distributed" Width="100"/>
                             <GridViewColumn DisplayMemberBinding="{Binding Path=TimeOfLastDistribution, StringFormat=MM/dd/yyyy HH:mm}" Header="Last" Width="100"/>
                             <GridViewColumn DisplayMemberBinding="{Binding Path=ScheduledDistributionTime, StringFormat=MM/dd/yyyy HH:mm}" Header="Schedule" Width="120"/>

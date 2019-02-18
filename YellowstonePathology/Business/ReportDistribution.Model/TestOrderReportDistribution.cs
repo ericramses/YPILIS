@@ -22,7 +22,6 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
         private Nullable<DateTime> m_TimeOfLastDistribution;
         private Nullable<DateTime> m_ScheduledDistributionTime;
         private string m_FaxNumber;
-        private bool m_LongDistance;
         private bool m_Rescheduled;
         private string m_RescheduledMessage;        
 
@@ -32,7 +31,7 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
         }
 
         public TestOrderReportDistribution(string testOrderReportDistributionId, string objectId, string reportNo, int physicianId, string physicianName, int clientId, 
-            string clientName, string distributionType, string faxNumber, bool longDistance)
+            string clientName, string distributionType, string faxNumber)
 		{
             this.m_TestOrderReportDistributionId = testOrderReportDistributionId;
 			this.m_ObjectId = objectId;
@@ -46,7 +45,6 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
             this.m_Distributed = false;
             this.m_ScheduledDistributionTime = null;
             this.m_FaxNumber = faxNumber;
-            this.m_LongDistance = longDistance;
 		}
 
         [PersistentDocumentIdProperty()]
@@ -246,21 +244,6 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
 
         [PersistentProperty()]
         [PersistentDataColumnProperty(true, "1", "null", "tinyint")]
-        public bool LongDistance
-        {
-            get { return this.m_LongDistance; }
-            set
-            {
-                if (this.m_LongDistance != value)
-                {
-                    this.m_LongDistance = value;
-                    this.NotifyPropertyChanged("LongDistance");
-                }
-            }
-        }
-
-        [PersistentProperty()]
-        [PersistentDataColumnProperty(true, "1", "null", "tinyint")]
         public bool Rescheduled
         {
             get { return this.m_Rescheduled; }
@@ -287,7 +270,21 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
                     this.NotifyPropertyChanged("RescheduledMessage");
                 }
             }
-        }        
+        }
+
+        public string FaxNumberProxy
+        {
+            get { return YellowstonePathology.Business.Helper.PhoneNumberHelper.CorrectPhoneNumber(this.m_FaxNumber); }
+            set
+            {
+                if (this.m_FaxNumber != value)
+                {
+                    this.m_FaxNumber = value;
+                    this.NotifyPropertyChanged("FaxNumber");
+                    this.NotifyPropertyChanged("FaxNumberProxy");
+                }
+            }
+        }
 
         public void ScheduleForDistribution(Nullable<DateTime> timeToSchedule)
         {

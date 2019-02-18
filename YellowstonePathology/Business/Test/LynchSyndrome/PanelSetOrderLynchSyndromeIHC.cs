@@ -104,17 +104,11 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             }
         }
 
-        public void SetSummaryResult(LSEResult lSEResult)
-		{
-			IHCResult result = IHCResult.CreateResultFromResultCode(this.m_ResultCode);
-			if (result != null)
-			{
-				lSEResult.MLH1Result = result.MLH1Result.LSEResult;
-				lSEResult.MSH2Result = result.MSH2Result.LSEResult;
-				lSEResult.MSH6Result = result.MSH6Result.LSEResult;
-				lSEResult.PMS2Result = result.PMS2Result.LSEResult;
-			}
-		}
+        public IHCResult GetSummaryResult()
+        {
+            IHCResult result = IHCResult.CreateResultFromResultCode(this.m_ResultCode);
+            return result;
+        }
 
 		public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{

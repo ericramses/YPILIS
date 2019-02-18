@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace YellowstonePathology.Business.Test.ALLPediatricFISHPanel
 {
-    public class ALLPediatricFISHPanelTest : YellowstonePathology.Business.PanelSet.Model.PanelSet
+    public class ALLPediatricFISHPanelTest : YellowstonePathology.Business.PanelSet.Model.FISHTest
     {
         public ALLPediatricFISHPanelTest()
         {
@@ -37,6 +37,8 @@ namespace YellowstonePathology.Business.Test.ALLPediatricFISHPanel
             this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskFedexShipment(YellowstonePathology.Business.Task.Model.TaskAssignment.Transcription, taskDescription, neogenomicsIrvine));
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMOLEGEN());
+
+            this.m_ProbeSetCount = 8;
         }
     }
 }

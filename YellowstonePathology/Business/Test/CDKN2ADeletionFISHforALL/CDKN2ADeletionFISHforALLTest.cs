@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace YellowstonePathology.Business.Test.CDKN2ADeletionFISHforALL
 {
-    public class CDKN2ADeletionFISHforALLTest : YellowstonePathology.Business.PanelSet.Model.PanelSet
+    public class CDKN2ADeletionFISHforALLTest : YellowstonePathology.Business.PanelSet.Model.FISHTest
     {
         public CDKN2ADeletionFISHforALLTest()
         {
@@ -36,6 +36,8 @@ namespace YellowstonePathology.Business.Test.CDKN2ADeletionFISHforALL
             this.m_ProfessionalComponentBillingFacility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMOLEGEN());
+
+            this.m_ProbeSetCount = 1;
         }
     }
 }

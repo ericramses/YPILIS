@@ -71,7 +71,7 @@ namespace YellowstonePathology.UI.Login
                 this.m_MainWindowCommandButtonHandler.RemoveTab += MainWindowCommandButtonHandler_RemoveTab;
                 this.m_MainWindowCommandButtonHandler.ShowMessagingDialog += MainWindowCommandButtonHandler_ShowMessagingDialog;
                 this.m_MainWindowCommandButtonHandler.ShowCaseDocument += MainWindowCommandButtonHandler_ShowCaseDocument;
-           
+
                 UI.AppMessaging.MessagingPath.Instance.LockReleasedActionList.Add(this.Save);
                 UI.AppMessaging.MessagingPath.Instance.LockAquiredActionList.Add(this.HandleAccessionOrderListChange);
             }
@@ -86,9 +86,7 @@ namespace YellowstonePathology.UI.Login
                 YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_LoginUI.AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_LoginUI.ReportNo);
                 YellowstonePathology.Business.Interface.ICaseDocument caseDocument = YellowstonePathology.Business.Document.DocumentFactory.GetDocument(this.m_LoginUI.AccessionOrder, panelSetOrder, Business.Document.ReportSaveModeEnum.Draft);
                 caseDocument.Render();
-                YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_LoginUI.ReportNo);
-                string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);
-                YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(fileName);
+                YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(caseDocument.SaveFileName);
             }
         }
 
@@ -713,16 +711,14 @@ namespace YellowstonePathology.UI.Login
                     this.m_BillingPath = new Billing.BillingPath(this.m_LoginUI.ReportSearchList);
                     this.m_BillingPath.Finish += BillingPath_Finish;
                     this.BringPageToFore += this.m_BillingPath.BringPageToFore;
-                    this.m_BillingPath.Start(this.m_LoginUI.AccessionOrder);
-                    //this.m_BillingPathStarted = true;
+                    this.m_BillingPath.Start(this.m_LoginUI.AccessionOrder);                    
                 }
             }
         }
 
         private void BillingPath_Finish(object sender, EventArgs e)
         {
-            this.BringPageToFore -= this.m_BillingPath.BringPageToFore;
-            //this.m_BillingPathStarted = false;
+            this.BringPageToFore -= this.m_BillingPath.BringPageToFore;            
         }
 
         private void TileICDCodes_MouseUp(object sender, MouseButtonEventArgs e)
@@ -948,16 +944,6 @@ namespace YellowstonePathology.UI.Login
             }
         }
 
-        private void TileAdditionialTestingEmail_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            if (this.ListViewAccessionOrders.SelectedItem != null)
-            {
-                YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_LoginUI.AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_LoginUI.ReportNo);
-                YellowstonePathology.UI.Login.Receiving.AdditionalTestingEmailPathWithSecurity additionalTestingEmailPath = new Receiving.AdditionalTestingEmailPathWithSecurity(this.m_LoginUI.AccessionOrder, panelSetOrder);
-                additionalTestingEmailPath.Start();
-            }
-        }        
-
         private void HandleVantageSlideScan(string scanData)
         {
             this.m_BarcodeScanPort.VantageSlideScanReceived -= BarcodeScanPort_VantageSlideScanReceived;
@@ -978,6 +964,28 @@ namespace YellowstonePathology.UI.Login
             this.ListViewAccessionOrders.SelectedIndex = 0;
             this.ShowResultsPage();
             this.m_BarcodeScanPort.VantageSlideScanReceived += BarcodeScanPort_VantageSlideScanReceived;
+        }
+
+        private void CytologyLabels_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            FinalizeAccession.PrintCytologyLabelsPage printCytologyLabelsPage = new FinalizeAccession.PrintCytologyLabelsPage(this.m_LoginUI.ReportNo, this.m_LoginUI.AccessionOrder);
+            printCytologyLabelsPage.Back += new FinalizeAccession.PrintCytologyLabelsPage.BackEventHandler(PrintCytologyLabelsPage_Back);
+            printCytologyLabelsPage.Finish += new FinalizeAccession.PrintCytologyLabelsPage.FinishEventHandler(PrintCytologyLabelsPage_Finish);
+            this.m_LoginPageWindow = new Receiving.LoginPageWindow();
+            this.m_LoginPageWindow.PageNavigator.Navigate(printCytologyLabelsPage);
+            this.m_LoginPageWindow.Show();
+        }
+
+        private void PrintCytologyLabelsPage_Back(object sender, EventArgs e)
+        {
+            this.m_LoginPageWindow.Close();
+            this.m_LoginPageWindow = null;
+        }
+
+        private void PrintCytologyLabelsPage_Finish(object sender, EventArgs e)
+        {
+            this.m_LoginPageWindow.Close();
+            this.m_LoginPageWindow = null;
         }
     }
 }

@@ -32,7 +32,7 @@ namespace YellowstonePathology.UI.Test
 			this.m_PageNavigator.Navigate(this.m_MPNExtendedReflexPage);
         }
 
-		private void MPNExtendedReflexPage_Back(object sender, EventArgs e)
+        private void MPNExtendedReflexPage_Back(object sender, EventArgs e)
 		{
 			if (this.Back != null) this.Back(this, new EventArgs());
 			else this.Finished();
@@ -41,11 +41,6 @@ namespace YellowstonePathology.UI.Test
 		private void MPNExtendedReflexPage_Finish(object sender, EventArgs e)
         {
             this.Finished();
-        }				
-
-		private void ReportOrderPath_Finish(object sender, EventArgs e)
-		{
-			this.m_PageNavigator.Navigate(this.m_MPNExtendedReflexPage);
-		}
+        }
 	}
 }

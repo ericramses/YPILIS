@@ -264,22 +264,30 @@ namespace YellowstonePathology.UI.ReportDistribution
         {
             bool result = true;
 
-            try
-            {
-                caseDocument.Render();
-                if(panelSetOrder.ResultDocumentSource != "Reference Lab")
+            //try
+            //{                
+
+                //YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum resultDocumentSource;
+                //bool hasEnum = Enum.TryParse<YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum>(panelSetOrder.ResultDocumentSource, out resultDocumentSource);
+                //if(hasEnum == true && resultDocumentSource != YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.PublishedDocument)
+                //{
+                //   caseDocument.Publish();
+                //}
+
+                if(panelSetOrder.ResultDocumentSource == YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase.ToString())
                 {
+                    caseDocument.Render();
                     caseDocument.Publish();
-                }
+                }            
                 
                 this.m_ReportDistributionLogEntryCollection.AddEntry("INFO", "Publish Next", null, panelSetOrder.ReportNo, panelSetOrder.MasterAccessionNo, null, null, "PanelSetOrder Published");
-            }                                    
-            catch (Exception publishException)
-            {
-                this.m_ReportDistributionLogEntryCollection.AddEntry("ERROR", "Publish Next", null, panelSetOrder.ReportNo, panelSetOrder.MasterAccessionNo, null, null, publishException.Message);                
-                this.DelayPublishAndDistribution(15, publishException.Message, panelSetOrder);
-                result = false;
-            }                                    
+            //}                                    
+            //catch (Exception publishException)
+            //{
+            //    this.m_ReportDistributionLogEntryCollection.AddEntry("ERROR", "Publish Next", null, panelSetOrder.ReportNo, panelSetOrder.MasterAccessionNo, null, null, publishException.Message);                
+            //    this.DelayPublishAndDistribution(15, publishException.Message, panelSetOrder);
+            //    result = false;
+            //}                                    
 
             return result;
         }
@@ -401,9 +409,7 @@ namespace YellowstonePathology.UI.ReportDistribution
                                         }
                                     }
                                 }
-                            }
-
-                            this.HandleNotificationEmail(panelSetOrder);
+                            }                            
 
                             panelSetOrder.Published = true;
                             panelSetOrder.TimeLastPublished = DateTime.Now;
@@ -421,6 +427,7 @@ namespace YellowstonePathology.UI.ReportDistribution
             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
         }
 
+        /*
         private void HandleNotificationEmail(YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder)
         {
             YellowstonePathology.Business.Domain.Physician physician = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianByMasterAccessionNo(panelSetOrder.MasterAccessionNo);
@@ -454,13 +461,14 @@ namespace YellowstonePathology.UI.ReportDistribution
                 }
             }
         }
+        */
 
         private YellowstonePathology.Business.ReportDistribution.Model.DistributionResult Distribute(YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution testOrderReportDistribution, Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder)
         {
             YellowstonePathology.Business.ReportDistribution.Model.DistributionResult result = null;                        
 
-            try
-            {
+            //try
+            //{
                 switch (testOrderReportDistribution.DistributionType)
                 {
                     case YellowstonePathology.Business.ReportDistribution.Model.DistributionType.FAX:
@@ -494,12 +502,12 @@ namespace YellowstonePathology.UI.ReportDistribution
                         result = this.HandleNoImplemented(testOrderReportDistribution);
                         break;
                 }
-            }
-            catch(Exception e)
-            {
-                Business.Logging.EmailExceptionHandler.HandleException(panelSetOrder, e.Message);
-                App.Current.Shutdown();
-            }
+            //}
+            //catch(Exception e)
+            //{
+            //    Business.Logging.EmailExceptionHandler.HandleException(panelSetOrder, e.Message);
+            //    App.Current.Shutdown();
+            //}
             
             return result;
         }
@@ -586,7 +594,7 @@ namespace YellowstonePathology.UI.ReportDistribution
         {
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(testOrderReportDistribution.ReportNo);
             string tifCaseFileName = YellowstonePathology.Business.Document.CaseDocument.GetCaseFileNameTif(orderIdParser);
-            return YellowstonePathology.Business.ReportDistribution.Model.FaxSubmission.Submit(testOrderReportDistribution.FaxNumber, testOrderReportDistribution.LongDistance, testOrderReportDistribution.ReportNo, tifCaseFileName);
+            return YellowstonePathology.Business.ReportDistribution.Model.FaxSubmission.Submit(testOrderReportDistribution.FaxNumber, testOrderReportDistribution.ReportNo, tifCaseFileName);
         }
 
         private YellowstonePathology.Business.ReportDistribution.Model.DistributionResult HandleEPICDistribution(YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution testOrderReportDistribution, Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder)

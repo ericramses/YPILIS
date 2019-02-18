@@ -11,7 +11,7 @@ namespace YellowstonePathology.Business.Test.CBFBinv16
 		{
 			this.m_PanelSetId = 208;
             this.m_PanelSetName = "CBFB inv 16";
-			this.m_CaseType = YellowstonePathology.Business.CaseType.FISH;
+			this.m_CaseType = YellowstonePathology.Business.CaseType.Molecular;
 			this.m_HasTechnicalComponent = true;			
             this.m_HasProfessionalComponent = true;
 			this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.PublishedDocument;

@@ -39,11 +39,11 @@ namespace YellowstonePathology.UI.Login
                 Grid grid = new Grid();
 
                 ColumnDefinition colReportNo = new ColumnDefinition();
-                colReportNo.Width = new GridLength(96 * .75);
+                colReportNo.Width = new GridLength(96 * .5);
                 grid.ColumnDefinitions.Add(colReportNo);
 
                 ColumnDefinition colAccessionDate = new ColumnDefinition();
-                colAccessionDate.Width = new GridLength(96 * 1.2);
+                colAccessionDate.Width = new GridLength(96 * 1);
                 grid.ColumnDefinitions.Add(colAccessionDate);
 
                 ColumnDefinition colPatientName = new ColumnDefinition();
@@ -51,7 +51,7 @@ namespace YellowstonePathology.UI.Login
                 grid.ColumnDefinitions.Add(colPatientName);
 
                 ColumnDefinition colBirthdate = new ColumnDefinition();
-                colBirthdate.Width = new GridLength(96 * .75);
+                colBirthdate.Width = new GridLength(96 * .5);
                 grid.ColumnDefinitions.Add(colBirthdate);
 
                 ColumnDefinition colLocation = new ColumnDefinition();
@@ -59,16 +59,16 @@ namespace YellowstonePathology.UI.Login
                 grid.ColumnDefinitions.Add(colLocation);
 
                 ColumnDefinition colOrderedBy = new ColumnDefinition();
-                colOrderedBy.Width = new GridLength(96 * 1.2);
-                grid.ColumnDefinitions.Add(colOrderedBy);
-
-                ColumnDefinition colCaseTpe = new ColumnDefinition();
-                colCaseTpe.Width = new GridLength(96 * .75);
-                grid.ColumnDefinitions.Add(colCaseTpe);
+                colOrderedBy.Width = new GridLength(96 * 1);
+                grid.ColumnDefinitions.Add(colOrderedBy);                
 
                 ColumnDefinition colPanelSetName = new ColumnDefinition();
                 colPanelSetName.Width = new GridLength(96 * 1.5);
                 grid.ColumnDefinitions.Add(colPanelSetName);
+
+                ColumnDefinition colFinalDate = new ColumnDefinition();
+                colPanelSetName.Width = new GridLength(96 * 1);
+                grid.ColumnDefinitions.Add(colFinalDate);
 
                 RowDefinition rowHeaderRow = new RowDefinition();
                 grid.RowDefinitions.Add(rowHeaderRow);
@@ -85,6 +85,7 @@ namespace YellowstonePathology.UI.Login
 		private void WriteRow(Grid grid, RowDefinition row, int rowIndex, YellowstonePathology.Business.Search.ReportSearchItem reportSearchItem)
         {
             TextBlock textBlockReportNo = new TextBlock();
+            textBlockReportNo.FontSize = 8;
             textBlockReportNo.Text = reportSearchItem.ReportNo;
             textBlockReportNo.Margin = new Thickness(2, 0, 2, 0);
             textBlockReportNo.HorizontalAlignment = HorizontalAlignment.Left;
@@ -97,6 +98,7 @@ namespace YellowstonePathology.UI.Login
             if (reportSearchItem.AccessionDate.HasValue == true) accessionDateString = reportSearchItem.AccessionDate.Value.ToString("MM/dd/yyyy HH:mm");            
 
             TextBlock textBlockAccessionDate = new TextBlock();
+            textBlockAccessionDate.FontSize = 8;
             textBlockAccessionDate.Text = accessionDateString;
             textBlockAccessionDate.Margin = new Thickness(2, 0, 2, 0);
             textBlockAccessionDate.HorizontalAlignment = HorizontalAlignment.Left;
@@ -107,6 +109,7 @@ namespace YellowstonePathology.UI.Login
 
 
             TextBlock textBlockPatientName = new TextBlock();
+            textBlockPatientName.FontSize = 8;
             textBlockPatientName.Text = reportSearchItem.PatientName;
             textBlockPatientName.Margin = new Thickness(2, 0, 2, 0);
             textBlockPatientName.HorizontalAlignment = HorizontalAlignment.Left;
@@ -120,6 +123,7 @@ namespace YellowstonePathology.UI.Login
             if (reportSearchItem.PBirthdate.HasValue == true) birthdateString = reportSearchItem.PBirthdate.Value.ToString("MM/dd/yyyy");
 
             TextBlock textBlockBirthdate = new TextBlock();
+            textBlockBirthdate.FontSize = 8;
             textBlockBirthdate.Text = birthdateString;
             textBlockBirthdate.Margin = new Thickness(2, 0, 2, 0);
             textBlockBirthdate.HorizontalAlignment = HorizontalAlignment.Left;
@@ -129,6 +133,7 @@ namespace YellowstonePathology.UI.Login
             grid.Children.Add(textBlockBirthdate);
 
             TextBlock textBlockLocation = new TextBlock();
+            textBlockLocation.FontSize = 8;
             textBlockLocation.Text = reportSearchItem.AccessioningFacilityId;
             textBlockLocation.Margin = new Thickness(2, 0, 2, 0);
             textBlockLocation.HorizontalAlignment = HorizontalAlignment.Left;
@@ -138,6 +143,7 @@ namespace YellowstonePathology.UI.Login
             grid.Children.Add(textBlockLocation);
 
             TextBlock textBlockOrderedBy = new TextBlock();
+            textBlockOrderedBy.FontSize = 8;
             textBlockOrderedBy.Text = reportSearchItem.OrderedBy;
             textBlockOrderedBy.Margin = new Thickness(2, 0, 2, 0);
             textBlockOrderedBy.HorizontalAlignment = HorizontalAlignment.Left;
@@ -147,6 +153,7 @@ namespace YellowstonePathology.UI.Login
             grid.Children.Add(textBlockOrderedBy);
 
             TextBlock textBlockPanelSetName = new TextBlock();
+            textBlockPanelSetName.FontSize = 8;
             textBlockPanelSetName.Text = reportSearchItem.PanelSetName;
             textBlockPanelSetName.Margin = new Thickness(2, 0, 2, 0);
             textBlockPanelSetName.HorizontalAlignment = HorizontalAlignment.Left;
@@ -154,6 +161,18 @@ namespace YellowstonePathology.UI.Login
             Grid.SetColumn(textBlockPanelSetName, 6);
             Grid.SetRow(textBlockPanelSetName, rowIndex);
             grid.Children.Add(textBlockPanelSetName);
+
+            string finalDateString = string.Empty;
+            if (reportSearchItem.FinalDate.HasValue == true) finalDateString = reportSearchItem.FinalDate.Value.ToString("MM/dd/yyyy hh:mm");
+            TextBlock textBlockFinalDate = new TextBlock();
+            textBlockFinalDate.FontSize = 8;
+            textBlockFinalDate.Text = finalDateString;
+            textBlockFinalDate.Margin = new Thickness(2, 0, 2, 0);
+            textBlockFinalDate.HorizontalAlignment = HorizontalAlignment.Left;
+            textBlockFinalDate.VerticalAlignment = VerticalAlignment.Center;
+            Grid.SetColumn(textBlockFinalDate, 7);
+            Grid.SetRow(textBlockFinalDate, rowIndex);
+            grid.Children.Add(textBlockFinalDate);
         }                
     }
 }
