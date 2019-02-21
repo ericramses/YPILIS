@@ -188,39 +188,48 @@ namespace YellowstonePathology.UI.Billing
             return this.GetDateFolderName() + "cpt-code-bill\\";
         }
 
-        public void SerializeCPTCodeBill()
+        public bool SetAndPost(Business.Test.AccessionOrder ao, string reportNo)
+        {
+            bool result = true;
+            YellowstonePathology.Business.Billing.Model.BillableObject billableObject = Business.Billing.Model.BillableObjectFactory.GetBillableObject(ao, reportNo);
+            YellowstonePathology.Business.Rules.MethodResult setResult = billableObject.Set();
+            if (setResult.Success == false)
+            {
+                Console.WriteLine(setResult.Message);
+                result = false;
+            }
+            else
+            {
+                YellowstonePathology.Business.Rules.MethodResult postResult = billableObject.Post();
+                if (postResult.Success == false)
+                {
+                    Console.WriteLine(postResult.Message);
+                    result = false;
+                }                
+            }
+            return result;
+        }
+
+        public void SerializeCPTCodeBillSimulation()
         {
             foreach (SimulationListItem item in this.ListViewSimulationList.Items)
             {
                 Business.Test.AccessionOrder ao = Business.Persistence.DocumentGateway.Instance.GetAccessionOrderByMasterAccessionNo(item.MasterAccessionNo);
-
                 ao.PrimaryInsurance = item.GetAdjustedPrimaryInsurance();
                 ao.PatientType = item.PatientTypeSim;
-                YellowstonePathology.Business.Billing.Model.BillableObject billableObject = Business.Billing.Model.BillableObjectFactory.GetBillableObject(ao, item.ReportNo);
-                YellowstonePathology.Business.Rules.MethodResult setResult = billableObject.Set();
-                if (setResult.Success == false)
-                {
-                    MessageBox.Show(setResult.Message);
-                }
-                else
-                {
-                    YellowstonePathology.Business.Rules.MethodResult postResult = billableObject.Post();
-                    if (postResult.Success == false)
-                    {
-                        MessageBox.Show(postResult.Message);
-                    }
 
-                    string fileName = this.GetCPTCodeBillFolderName() + item.ReportNo + ".json";
-                    Business.Billing.Model.SimulationSerializer.SerializePanelSetOrderCPTCodeBill(ao, item.ReportNo, fileName);
-                }
+                this.SetAndPost(ao, item.ReportNo);
+                string fileName = this.GetCPTCodeBillFolderName() + item.ReportNo + ".json";
+                Business.Billing.Model.SimulationSerializer.SerializePanelSetOrderCPTCodeBill(ao, item.ReportNo, fileName);                
             }            
         }       
         
-        private void SerializeCPTCode()
+        private void SerializeCPTCodeManual()
         {
             foreach (SimulationListItem item in this.ListViewSimulationList.Items)
             {
                 Business.Test.AccessionOrder ao = Business.Persistence.DocumentGateway.Instance.GetAccessionOrderByMasterAccessionNo(item.MasterAccessionNo);
+                this.SetAndPost(ao, item.ReportNo);
                 string fileName = this.GetCPTCodeFolderName() + item.ReportNo + ".json";
                 Business.Billing.Model.SimulationSerializer.SerializePanelSetOrderCPTCode(ao, item.ReportNo, fileName);
             }
@@ -229,8 +238,8 @@ namespace YellowstonePathology.UI.Billing
         private void ButtonSerialize_Click(object sender, RoutedEventArgs e)
         {
             this.HandleMakeFolders();
-            this.SerializeCPTCodeBill();
-            this.SerializeCPTCode();
+            this.SerializeCPTCodeBillSimulation();
+            this.SerializeCPTCodeManual();
             MessageBox.Show("Serialization is complete.");
         }
 

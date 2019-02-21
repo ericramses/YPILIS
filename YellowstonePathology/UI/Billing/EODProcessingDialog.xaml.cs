@@ -505,6 +505,7 @@ namespace YellowstonePathology.UI.Billing
 
         private void RunAllProcesses(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
+            this.RunUpdateMRNAcct(sender, e);
             this.MatchAccessionOrdersToADT(sender, e);            
             this.ProcessSVHCDMFiles(sender, e);
             this.TransferSVHFiles(sender, e);
@@ -553,6 +554,13 @@ namespace YellowstonePathology.UI.Billing
             this.m_BackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(FaxTheReport);
             this.m_BackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(AllProcessBackgroundWorker_RunWorkerCompleted);
             this.m_BackgroundWorker.RunWorkerAsync();            
+        }
+
+        private void RunUpdateMRNAcct(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            this.m_BackgroundWorker.ReportProgress(1, "Starting Updating MRN/ACCT: " + DateTime.Now.ToLongTimeString());
+            Business.Gateway.BillingGateway.UpdateMRNACCT();
+            this.m_BackgroundWorker.ReportProgress(1, "Finished Updating MRN/ACCT: " + DateTime.Now.ToLongTimeString());
         }
 
         private void FaxTheReport(object sender, System.ComponentModel.DoWorkEventArgs e)
