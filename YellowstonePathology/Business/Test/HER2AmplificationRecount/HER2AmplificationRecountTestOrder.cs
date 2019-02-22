@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using YellowstonePathology.Business.Persistence;
 using YellowstonePathology.Business.Rules;
+using YellowstonePathology.Business.Audit.Model;
 
 namespace YellowstonePathology.Business.Test.HER2AmplificationRecount
 {
@@ -210,6 +211,42 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationRecount
                     result.Message += "Chr17 Signals Counted must be entered.";
                 }
             }
+            return result;
+        }
+
+        public override AuditResult IsOkToFinalize(AccessionOrder accessionOrder)
+        {
+            AuditResult result = new AuditResult();
+            result.Status = AuditStatusEnum.OK;
+            Rules.MethodResult methodResult = base.IsOkToFinalize();
+            if (methodResult.Success == false)
+            {
+                result.Status = AuditStatusEnum.Failure;
+                result.Message = methodResult.Message;
+            }
+
+            if (result.Status == AuditStatusEnum.OK)
+            {
+                if (this.m_Chr17SignalsCounted == 0)
+                {
+                    result.Status = AuditStatusEnum.Failure;
+                    result.Message = "Unable to final as Chr17 Signals Counted is not set.";
+                }
+            }
+
+            /*if (result.Status == AuditStatusEnum.OK)
+            {
+                if (this.m_HER2ByIHCRequired == true)
+                {
+                    Test.Her2AmplificationByIHC.Her2AmplificationByIHCTest her2AmplificationByIHCTest = new Her2AmplificationByIHC.Her2AmplificationByIHCTest();
+                    if (accessionOrder.PanelSetOrderCollection.Exists(her2AmplificationByIHCTest.PanelSetId, this.OrderedOnId, true) == false)
+                    {
+                        result.Status = AuditStatusEnum.Failure;
+                        result.Message = "Unable to finalize as a " + her2AmplificationByIHCTest.PanelSetName + " is required";
+                    }
+                }
+            }*/
+
             return result;
         }
     }
