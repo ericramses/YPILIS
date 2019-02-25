@@ -208,7 +208,16 @@ namespace YellowstonePathology.Business.Test.Her2AmplificationByIHC
                     if (accessionOrder.PanelSetOrderCollection.Exists(test.PanelSetId, this.m_OrderedOnId, true) == false)
                     {
                         result.Status = AuditStatusEnum.Failure;
-                        result.Message = "Unable to finalize as a " + test.PanelSetName + " is required";
+                        result.Message = "Unable to finalize as a " + test.PanelSetName + " is required.";
+                    }
+                }
+                else
+                {
+                    HER2AmplificationSummary.HER2AmplificationSummaryTest summaryTest = new HER2AmplificationSummary.HER2AmplificationSummaryTest();
+                    if (accessionOrder.PanelSetOrderCollection.Exists(summaryTest.PanelSetId, this.m_OrderedOnId, true) == false)
+                    {
+                        result.Status = AuditStatusEnum.Failure;
+                        result.Message = "Unable to finalize as a " + summaryTest.PanelSetName + " is required.";
                     }
                 }
             }

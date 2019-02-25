@@ -227,6 +227,24 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationRecount
 
             if (result.Status == AuditStatusEnum.OK)
             {
+                if (this.m_CellsCounted == 0)
+                {
+                    result.Status = AuditStatusEnum.Failure;
+                    result.Message = "Unable to final as Total Cells Counted is not set.";
+                }
+            }
+
+            if (result.Status == AuditStatusEnum.OK)
+            {
+                if (this.m_Her2SignalsCounted == 0)
+                {
+                    result.Status = AuditStatusEnum.Failure;
+                    result.Message = "Unable to final as HER2 Signals Counted is not set.";
+                }
+            }
+
+            if (result.Status == AuditStatusEnum.OK)
+            {
                 if (this.m_Chr17SignalsCounted == 0)
                 {
                     result.Status = AuditStatusEnum.Failure;
@@ -234,18 +252,15 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationRecount
                 }
             }
 
-            /*if (result.Status == AuditStatusEnum.OK)
+            if (result.Status == AuditStatusEnum.OK)
             {
-                if (this.m_HER2ByIHCRequired == true)
+                HER2AmplificationSummary.HER2AmplificationSummaryTest test = new HER2AmplificationSummary.HER2AmplificationSummaryTest();
+                if (accessionOrder.PanelSetOrderCollection.Exists(test.PanelSetId, this.m_OrderedOnId, true) == false)
                 {
-                    Test.Her2AmplificationByIHC.Her2AmplificationByIHCTest her2AmplificationByIHCTest = new Her2AmplificationByIHC.Her2AmplificationByIHCTest();
-                    if (accessionOrder.PanelSetOrderCollection.Exists(her2AmplificationByIHCTest.PanelSetId, this.OrderedOnId, true) == false)
-                    {
-                        result.Status = AuditStatusEnum.Failure;
-                        result.Message = "Unable to finalize as a " + her2AmplificationByIHCTest.PanelSetName + " is required";
-                    }
+                    result.Status = AuditStatusEnum.Failure;
+                    result.Message = "Unable to finalize as a " + test.PanelSetName + " is required.";
                 }
-            }*/
+            }
 
             return result;
         }

@@ -82,8 +82,8 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkFinalizeResults_Click(object sender, RoutedEventArgs e)
         {
-            Business.Rules.MethodResult result = this.m_PanelSetOrder.IsOkToFinalize();
-            if (result.Success == true)
+            Business.Audit.Model.AuditResult result = this.m_PanelSetOrder.IsOkToFinalize(this.m_AccessionOrder);
+            if (result.Status == Business.Audit.Model.AuditStatusEnum.OK)
             {
                 YellowstonePathology.Business.Test.FinalizeTestResult finalizeTestResult = this.m_PanelSetOrder.Finish(this.m_AccessionOrder);
                 this.HandleFinalizeTestResult(finalizeTestResult);
