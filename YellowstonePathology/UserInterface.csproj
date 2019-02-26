@@ -1077,6 +1077,7 @@
     <Compile Include="Business\Test\HER2AmplificationRecount\HER2AmplificationRecountTest.cs" />
     <Compile Include="Business\Test\HER2AmplificationRecount\HER2AmplificationRecountTestOrder.cs" />
     <Compile Include="Business\Test\HER2AmplificationSummary\HER2AmplificationSummaryTest.cs" />
+    <Compile Include="Business\Test\HER2AmplificationSummary\HER2AmplificationSummaryTestOrder.cs" />
     <Compile Include="Business\Test\HER2AmplificationSummary\HER2AmplificationSummaryWordDocument.cs" />
     <Compile Include="Business\Test\HPV1618\HPV1618WPHOBXView.cs" />
     <Compile Include="Business\Test\HPVRNAISH\HPVRNAISHTest.cs" />

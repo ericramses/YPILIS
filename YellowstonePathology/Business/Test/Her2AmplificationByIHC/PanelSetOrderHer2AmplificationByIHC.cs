@@ -224,5 +224,19 @@ namespace YellowstonePathology.Business.Test.Her2AmplificationByIHC
 
             return result;
         }
+
+        public override FinalizeTestResult Finish(AccessionOrder accessionOrder)
+        {
+            if (this.m_Score.Contains("2+") == false)
+            {
+                HER2AmplificationSummary.HER2AmplificationSummaryTest test = new HER2AmplificationSummary.HER2AmplificationSummaryTest();
+                if (accessionOrder.PanelSetOrderCollection.Exists(test.PanelSetId, this.m_OrderedOnId, true) == true)
+                {
+                    HER2AmplificationSummary.HER2AmplificationSummaryTestOrder testOrder = (HER2AmplificationSummary.HER2AmplificationSummaryTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(test.PanelSetId, this.m_OrderedOnId, true);
+                    testOrder.SetValues(accessionOrder);
+                }
+            }
+            return base.Finish(accessionOrder);
+        }
     }
 }
