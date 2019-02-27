@@ -106,14 +106,14 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkFinalize_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Rules.MethodResult methodResult = this.m_PanelSetOrder.IsOkToFinalize();
-            if (methodResult.Success == true)
+            YellowstonePathology.Business.Audit.Model.AuditResult result = this.m_PanelSetOrder.IsOkToFinalize(this.m_AccessionOrder);
+            if (result.Status == Business.Audit.Model.AuditStatusEnum.OK)
             {
                 this.m_PanelSetOrder.Finish(this.m_AccessionOrder);
             }
             else
             {
-                MessageBox.Show(methodResult.Message);
+                MessageBox.Show(result.Message);
             }
         }
 
@@ -139,14 +139,14 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkAcceptResults_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Rules.MethodResult methodResult = this.m_PanelSetOrder.IsOkToAccept();
-            if (methodResult.Success == true)
+            YellowstonePathology.Business.Audit.Model.AuditResult result = this.m_PanelSetOrder.IsOkToAccept(this.m_AccessionOrder);
+            if (result.Status == Business.Audit.Model.AuditStatusEnum.OK)
             {
                 this.m_PanelSetOrder.Accept();
             }
             else
             {
-                MessageBox.Show(methodResult.Message);
+                MessageBox.Show(result.Message);
             }
         }
 
@@ -165,6 +165,15 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkSetResults_Click(object sender, RoutedEventArgs e)
         {
+            YellowstonePathology.Business.Audit.Model.AuditResult result = this.m_PanelSetOrder.IsOkToSetResults(this.m_AccessionOrder);
+            if(result.Status == Business.Audit.Model.AuditStatusEnum.OK)
+            {
+                this.m_PanelSetOrder.SetResults(this.m_AccessionOrder);
+            }
+            else
+            {
+                MessageBox.Show(result.Message);
+            }
         }
     }
 }

@@ -336,6 +336,7 @@
     <Compile Include="Business\EthBlock.cs" />
     <Compile Include="Business\EthContract.cs" />
     <Compile Include="Business\EthContractCollection.cs" />
+    <Compile Include="Business\Interface\IHER2ISH.cs" />
     <Compile Include="Business\PanelSet.Model\FISHTest.cs" />
     <Compile Include="Business\Flow\CytoplasmicMarkerMapping.cs" />
     <Compile Include="Business\Flow\CytoplasmicMarkerMappingCollection.cs" />

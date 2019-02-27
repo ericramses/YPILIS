@@ -33,18 +33,5 @@ namespace YellowstonePathology.UI.Test
         {
             this.Finished();
         }
-
-        private void ResultPage_SpecimenDetail(object sender, EventArgs e)
-        {
-            YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByOrderTarget(this.m_PanelSetOrder.OrderedOnId);
-            Login.SpecimenOrderDetailsPath specimenOrderDetailsPath = new Login.SpecimenOrderDetailsPath(specimenOrder, this.m_AccessionOrder, this.m_PageNavigator);
-            specimenOrderDetailsPath.Finish += new Login.SpecimenOrderDetailsPath.FinishEventHandler(SpecimenOrderDetailsPath_Finish);
-            specimenOrderDetailsPath.Start();
-        }
-
-        private void SpecimenOrderDetailsPath_Finish(object sender, EventArgs e)
-        {
-            this.ShowResultPage();
-        }
     }
 }

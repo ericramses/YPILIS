@@ -8,8 +8,8 @@ using YellowstonePathology.Business.Persistence;
 namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 {
 	[PersistentClass("tblHER2AmplificationByISHTestOrder", "tblPanelSetOrder", "YPIDATA")]
-	public class HER2AmplificationByISHTestOrder : YellowstonePathology.Business.Test.PanelSetOrder
-	{
+	public class HER2AmplificationByISHTestOrder : YellowstonePathology.Business.Test.PanelSetOrder, Interface.IHER2ISH
+    {
 		public static string PositiveResult = "POSITIVE (amplified)";
 		public static string NegativeResult = "NEGATIVE (not amplified)";
 		public static string IndeterminateResult = "INDETERMINATE";
@@ -187,6 +187,11 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 				}
 			}
 		}
+
+        public int CellCountToUse
+        {
+            get { return this.m_CellsCounted; }
+        }
 
 		[PersistentProperty()]
 		[PersistentDataColumnProperty(false, "1", "0", "tinyint")]
