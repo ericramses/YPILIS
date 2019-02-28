@@ -15,12 +15,7 @@ namespace YellowstonePathology.Business.User
 
 		private UserPreferenceInstance()
 		{
-            string path = System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\ypilis.json";
-            string jString = System.IO.File.ReadAllText(path);
-            JObject jObject = JsonConvert.DeserializeObject<JObject>(jString);
-            string location = jObject["location"].ToString();
-
-            this.m_UserPreference = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullUserPreference(location, this);
+            this.m_UserPreference = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullUserPreference(System.Environment.MachineName, this);
         }
 
 		public static UserPreferenceInstance Instance

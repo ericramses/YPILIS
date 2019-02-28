@@ -49,8 +49,8 @@
                               SelectedValue="{Binding Path=UserPreference.FacilityId}" SelectedValuePath="FacilityId" DisplayMemberPath="FacilityName" >
                     </ComboBox>
 
-                    <TextBlock Grid.Column="0" Grid.Row="3" Margin="2,2,2,2" VerticalAlignment="Center" TextAlignment="Right">Location:</TextBlock>
-                    <TextBox Grid.Column="1" Grid.Row="3" Name="TextBoxLocation" Text="{Binding Path=UserPreference.Location}" />
+                    <TextBlock Grid.Column="0" Grid.Row="3" Margin="2,2,2,2" VerticalAlignment="Center" TextAlignment="Right">Host Name:</TextBlock>
+                    <TextBox Grid.Column="1" Grid.Row="3" Name="TextBoxLocation" Text="{Binding Path=UserPreference.HostName}" />
 
                     <TextBlock Grid.Column="0" Grid.Row="4" Margin="2,2,2,2" VerticalAlignment="Center" TextAlignment="Right">Lock Mode:</TextBlock>
                     <ComboBox Grid.Column="1" Grid.Row="4" Margin="2,2,2,2" Text="{Binding Path=UserPreference.LockMode}" IsEditable="True">

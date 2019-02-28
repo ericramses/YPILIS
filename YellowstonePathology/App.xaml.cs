@@ -27,7 +27,6 @@ namespace YellowstonePathology.UI
     public partial class App : Application
     {
 		System.Timers.Timer m_Timer;
-        bool SetLoc;
 
 		public App()
 		{            
@@ -57,17 +56,14 @@ namespace YellowstonePathology.UI
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            string path = System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\ypilis.json";
-            if (File.Exists(path) == false)
+            if(string.IsNullOrEmpty(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.HostName) == true)
             {
-                this.SetLoc = true;
-                this.StartupUri = new System.Uri(@"UI\Common\UserPreferencesList.xaml", System.UriKind.Relative);
-                this.StartTimer();
-                base.OnStartup(e);
+                MessageBox.Show("There is no User Preference for this machine.  Contact IT to have this corrected.");
+                this.m_Timer = new System.Timers.Timer();
+                App.Current.Shutdown(-1);
             }
             else
             {
-                this.SetLoc = false;
                 Store.AppDataStore.Instance.LoadData();
 
                 Business.Test.AccessionLockCollection accessionLockCollection = new Business.Test.AccessionLockCollection();
@@ -79,7 +75,7 @@ namespace YellowstonePathology.UI
                 {
                     YellowstonePathology.UI.Cutting.CuttingStationPath cuttingStationPath = new Cutting.CuttingStationPath();
                     cuttingStationPath.Start();
-                }                
+                }
                 else if (System.Environment.MachineName.ToUpper() == "CYTOLOG2") // || System.Environment.MachineName.ToUpper() == "COMPILE")
                 {
                     YellowstonePathology.UI.Cytology.ThinPrepPapSlidePrintingPath thinPrepPapSlidePrintingPath = new Cytology.ThinPrepPapSlidePrintingPath();
@@ -122,10 +118,6 @@ namespace YellowstonePathology.UI
 			this.m_Timer.Dispose();
             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Flush();
             base.OnExit(e);
-            if (this.SetLoc == true)
-            {
-                System.Windows.Forms.Application.Restart();
-            }
         }
 
         private void SetupApplicationFolders()
@@ -196,13 +188,6 @@ namespace YellowstonePathology.UI
                 p.StartInfo = info;
                 p.Start();
             }
-        }
-
-        private void SetupJsonFile()
-        {
-            string location = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetUserPreferenceLocation(Environment.MachineName);
-            string path = System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\ypilis.json";
-            File.WriteAllText(path, "{'location': '" + location + "'}");
         }
 
         private void EmptyDraftsFolder()
