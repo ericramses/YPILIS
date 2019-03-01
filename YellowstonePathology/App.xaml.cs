@@ -58,43 +58,48 @@ namespace YellowstonePathology.UI
         {
             if(string.IsNullOrEmpty(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.HostName) == true)
             {
-                MessageBox.Show("There is no User Preference for this machine.  Contact IT to have this corrected.");
-                this.m_Timer = new System.Timers.Timer();
-                App.Current.Shutdown(-1);
+                string path = System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\ypilis.json";
+                if (File.Exists(path) == false)
+                {
+                    MessageBox.Show("There is no User Preference for this machine.  Contact IT to have this corrected.");
+                    this.m_Timer = new System.Timers.Timer();
+                    App.Current.Shutdown(-1);
+                    return;
+                }
+
+                YellowstonePathology.Business.User.UserPreferenceInstance.SetUserPreferenceHostNameByLocation();
+            }
+
+            Store.AppDataStore.Instance.LoadData();
+
+            Business.Test.AccessionLockCollection accessionLockCollection = new Business.Test.AccessionLockCollection();
+            accessionLockCollection.ClearLocks();
+
+            string startUpWindow = string.Empty;
+
+            if (System.Environment.MachineName.ToUpper() == "CUTTINGA" || System.Environment.MachineName.ToUpper() == "CUTTINGB" || System.Environment.MachineName.ToUpper() == "CUTTINGC")// || System.Environment.MachineName.ToUpper() == "COMPILE")
+            {
+                YellowstonePathology.UI.Cutting.CuttingStationPath cuttingStationPath = new Cutting.CuttingStationPath();
+                cuttingStationPath.Start();
+            }
+            else if (System.Environment.MachineName.ToUpper() == "CYTOLOG2") // || System.Environment.MachineName.ToUpper() == "COMPILE")
+            {
+                YellowstonePathology.UI.Cytology.ThinPrepPapSlidePrintingPath thinPrepPapSlidePrintingPath = new Cytology.ThinPrepPapSlidePrintingPath();
+                thinPrepPapSlidePrintingPath.Start();
             }
             else
             {
-                Store.AppDataStore.Instance.LoadData();
-
-                Business.Test.AccessionLockCollection accessionLockCollection = new Business.Test.AccessionLockCollection();
-                accessionLockCollection.ClearLocks();
-
-                string startUpWindow = string.Empty;
-
-                if (System.Environment.MachineName.ToUpper() == "CUTTINGA" || System.Environment.MachineName.ToUpper() == "CUTTINGB" || System.Environment.MachineName.ToUpper() == "CUTTINGC")// || System.Environment.MachineName.ToUpper() == "COMPILE")
-                {
-                    YellowstonePathology.UI.Cutting.CuttingStationPath cuttingStationPath = new Cutting.CuttingStationPath();
-                    cuttingStationPath.Start();
-                }
-                else if (System.Environment.MachineName.ToUpper() == "CYTOLOG2") // || System.Environment.MachineName.ToUpper() == "COMPILE")
-                {
-                    YellowstonePathology.UI.Cytology.ThinPrepPapSlidePrintingPath thinPrepPapSlidePrintingPath = new Cytology.ThinPrepPapSlidePrintingPath();
-                    thinPrepPapSlidePrintingPath.Start();
-                }
-                else
-                {
-                    startUpWindow = @"UI\MainWindow.xaml";
-                    this.StartupUri = new System.Uri(startUpWindow, System.UriKind.Relative);
-                }
-
-                EventManager.RegisterClassHandler(typeof(TextBox), TextBox.GotFocusEvent, new RoutedEventHandler(TextBox_GotFocus));
-                base.OnStartup(e);
-
-
-                this.StartTimer();
-                this.SetupApplicationFolders();
-                this.EmptyDraftsFolder();
+                startUpWindow = @"UI\MainWindow.xaml";
+                this.StartupUri = new System.Uri(startUpWindow, System.UriKind.Relative);
             }
+
+            EventManager.RegisterClassHandler(typeof(TextBox), TextBox.GotFocusEvent, new RoutedEventHandler(TextBox_GotFocus));
+            base.OnStartup(e);
+
+
+            this.StartTimer();
+            this.SetupApplicationFolders();
+            this.EmptyDraftsFolder();
         }        
 
         public static bool HandledictionarySetup()

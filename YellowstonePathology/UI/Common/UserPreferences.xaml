@@ -37,20 +37,20 @@
                         <RowDefinition Height="Auto"></RowDefinition>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" VerticalAlignment="Center" TextAlignment="Right">Barcode Scanner Enabled:</TextBlock>
-                    <CheckBox Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" IsChecked="{Binding Path=UserPreference.BarcodeScanEnabled}" HorizontalAlignment="Stretch"></CheckBox>
+                    <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" VerticalAlignment="Center" TextAlignment="Right">Host Name:</TextBlock>
+                    <TextBox Grid.Column="1" Grid.Row="0" Name="TextBoxLocation" Text="{Binding Path=UserPreference.HostName}" IsEnabled="{Binding Path=HostNameEnabled}" />
 
-                    <TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" VerticalAlignment="Center" TextAlignment="Right">Barcode Scanner Port:</TextBlock>
-                    <TextBox Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" Text="{Binding Path=UserPreference.BarcodeScanPort}" HorizontalAlignment="Stretch"></TextBox>
+                    <TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" VerticalAlignment="Center" TextAlignment="Right">Barcode Scanner Enabled:</TextBlock>
+                    <CheckBox Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" IsChecked="{Binding Path=UserPreference.BarcodeScanEnabled}" HorizontalAlignment="Stretch"></CheckBox>
 
-                    <TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" VerticalAlignment="Center" TextAlignment="Right">Facility:</TextBlock>
-                    <ComboBox Grid.Column="1" Grid.Row="2" Name="ComboBoxFacility"  ItemsSource="{Binding Path=FacilityCollection}" Margin="2,2,2,2"
+                    <TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" VerticalAlignment="Center" TextAlignment="Right">Barcode Scanner Port:</TextBlock>
+                    <TextBox Grid.Column="1" Grid.Row="2" Margin="2,2,2,2" Text="{Binding Path=UserPreference.BarcodeScanPort}" HorizontalAlignment="Stretch"></TextBox>
+
+                    <TextBlock Grid.Column="0" Grid.Row="3" Margin="2,2,2,2" VerticalAlignment="Center" TextAlignment="Right">Facility:</TextBlock>
+                    <ComboBox Grid.Column="1" Grid.Row="3" Name="ComboBoxFacility"  ItemsSource="{Binding Path=FacilityCollection}" Margin="2,2,2,2"
                               HorizontalAlignment="Stretch" SelectionChanged="ComboBoxFacility_SelectionChanged"
                               SelectedValue="{Binding Path=UserPreference.FacilityId}" SelectedValuePath="FacilityId" DisplayMemberPath="FacilityName" >
                     </ComboBox>
-
-                    <TextBlock Grid.Column="0" Grid.Row="3" Margin="2,2,2,2" VerticalAlignment="Center" TextAlignment="Right">Host Name:</TextBlock>
-                    <TextBox Grid.Column="1" Grid.Row="3" Name="TextBoxLocation" Text="{Binding Path=UserPreference.HostName}" />
 
                     <TextBlock Grid.Column="0" Grid.Row="4" Margin="2,2,2,2" VerticalAlignment="Center" TextAlignment="Right">Lock Mode:</TextBlock>
                     <ComboBox Grid.Column="1" Grid.Row="4" Margin="2,2,2,2" Text="{Binding Path=UserPreference.LockMode}" IsEditable="True">

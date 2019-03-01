@@ -30,6 +30,7 @@ namespace YellowstonePathology.UI.Common
         private System.Printing.PrintQueueCollection m_PrintQueueCollection;
 		private YellowstonePathology.Business.ApplicationVersion m_ApplicationVersion;
         private Business.Label.Model.CassettePrinterCollection m_CassettePrinterCollection;
+        private bool m_HostNameEnabled;
 
         public UserPreferences(YellowstonePathology.Business.User.UserPreference userPreference)
 		{
@@ -48,10 +49,12 @@ namespace YellowstonePathology.UI.Common
             if (userPreference == null)
             {
                 this.m_UserPreference = new Business.User.UserPreference();
+                this.m_HostNameEnabled = true;
             }
             else
             {
                 this.m_UserPreference = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullUserPreference(userPreference.HostName, this);
+                this.m_HostNameEnabled = false;
             }
 
             this.m_PageScannerCollection = new Business.Common.PageScannerCollection();
@@ -118,6 +121,11 @@ namespace YellowstonePathology.UI.Common
 		{
 			get { return this.m_ApplicationVersion; }
 		}
+
+        public bool HostNameEnabled
+        {
+            get { return this.m_HostNameEnabled; }
+        }
 
         private bool CanSave()
         {

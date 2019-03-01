@@ -3409,5 +3409,22 @@ namespace YellowstonePathology.Business.Gateway
             return result;
         }
         
+        public static void SetUserPreferenceHostNameByLocation(string location)
+        {
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "Update tblUserPreference set tblUserPreference.HostName = @HostName where Location = @Location;";
+            cmd.Parameters.AddWithValue("@HostName", System.Environment.MachineName);
+            cmd.Parameters.AddWithValue("@Location", location);
+
+            cmd.CommandType = CommandType.Text;
+
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                cmd.ExecuteNonQuery();
+            }
+        }
     }
 }
