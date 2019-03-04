@@ -55,5 +55,13 @@ namespace YellowstonePathology.Business.User
             UserPreferenceInstance.Instance.Refresh();
             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Flush();
         }
+
+
+        public static void SetDefaultUserPreference()
+        {
+            YellowstonePathology.Business.Gateway.AccessionOrderGateway.SetDefaultUserPreference();
+            UserPreferenceInstance.Instance.Refresh();
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Flush();
+        }
     }
 }

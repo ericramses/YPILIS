@@ -61,13 +61,12 @@ namespace YellowstonePathology.UI
                 string path = System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\ypilis.json";
                 if (File.Exists(path) == false)
                 {
-                    MessageBox.Show("There is no User Preference for this machine.  Contact IT to have this corrected.");
-                    this.m_Timer = new System.Timers.Timer();
-                    App.Current.Shutdown(-1);
-                    return;
+                    YellowstonePathology.Business.User.UserPreferenceInstance.SetDefaultUserPreference();
                 }
-
-                YellowstonePathology.Business.User.UserPreferenceInstance.SetUserPreferenceHostNameByLocation();
+                else
+                {
+                    YellowstonePathology.Business.User.UserPreferenceInstance.SetUserPreferenceHostNameByLocation();
+                }
             }
 
             Store.AppDataStore.Instance.LoadData();
