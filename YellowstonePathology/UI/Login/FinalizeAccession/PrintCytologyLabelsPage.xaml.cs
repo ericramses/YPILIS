@@ -67,8 +67,9 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 else
                 {
                     aliquotOrder = specimenOrder.AliquotOrderCollection.GetThinPrepSlide();
-                }
+                }                
 
+                /*
                 YellowstonePathology.Business.BarcodeScanning.BarcodeVersion2 barcode = new YellowstonePathology.Business.BarcodeScanning.BarcodeVersion2(Business.BarcodeScanning.BarcodePrefixEnum.PSLD, aliquotOrder.AliquotOrderId);
                 YellowstonePathology.Business.BarcodeScanning.CytycBarcode cytycBarcode = YellowstonePathology.Business.BarcodeScanning.CytycBarcode.Parse(this.m_AccessionOrder.MasterAccessionNo);
                 YellowstonePathology.Business.Label.Model.PAPSlideLabel papSlideLabel = new Business.Label.Model.PAPSlideLabel(this.m_AccessionOrder.PFirstName, this.m_AccessionOrder.PLastName, barcode, cytycBarcode);
@@ -78,6 +79,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                     papSlideLabelPrinter.Queue.Enqueue(papSlideLabel);
                 }
                 papSlideLabelPrinter.Print();
+                */                
             }
             else
             {
