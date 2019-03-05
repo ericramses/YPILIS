@@ -96,6 +96,17 @@ namespace YellowstonePathology.UI
             this.DateAdded = this.m_DateAdded.AddDays(1);
         }
 
+        private void ButtonDistribute_Click(object sender, RoutedEventArgs args)
+        {
+            foreach (YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution testOrderReportDistribution in this.ListViewDistributions.SelectedItems)
+            {
+                if (testOrderReportDistribution.Distributed == false)
+                {
+                    testOrderReportDistribution.ScheduleForDistribution(DateTime.Now);
+                }
+            }
+        }
+
         private void ButtonClose_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
