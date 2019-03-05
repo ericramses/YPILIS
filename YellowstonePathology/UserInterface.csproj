@@ -1164,6 +1164,8 @@
     <Compile Include="Business\Test\WholeExomeSequencing\WholeExomeSequencingTest.cs" />
     <Compile Include="Business\User\SystemRoleView.cs" />
     <Compile Include="Business\User\SystemRoleViewCollection.cs" />
+    <Compile Include="Business\View\StVClientDOHReportView.cs" />
+    <Compile Include="Business\View\StVClientDOHReportViewCollection.cs" />
     <Compile Include="Business\WebService\PasswordGenerator.cs" />
     <Compile Include="Business\WebService\WebServiceAccount.cs" />
     <Compile Include="Business\WebService\WebServiceAccountClient.cs" />
