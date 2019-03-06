@@ -1034,6 +1034,7 @@
     <Compile Include="Business\Persistence\WebServiceAccountDocumentBuilder.cs" />
     <Compile Include="Business\PreviousResult.cs" />
     <Compile Include="Business\PreviousResultCollection.cs" />
+    <Compile Include="Business\ReportDistribution.Model\FaxSubmissionWithCoverSheet.cs" />
     <Compile Include="Business\ReportDistribution.Model\MeditechDistribution.cs" />
     <Compile Include="Business\ReportDistribution.Model\MultiTestDistributionHandlerNoWHP.cs" />
     <Compile Include="Business\ReportDistribution.Model\MultiTestDistributionHandlerWHPHold.cs" />
