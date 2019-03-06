@@ -138,7 +138,9 @@ namespace YellowstonePathology.UI.Common
             {
                 foreach (Business.User.UserPreference userPreference in this.m_UserPreferenceList)
                 {
-                    if (this.m_UserPreference.HostName == userPreference.HostName)
+                    if (this.m_UserPreference.HostName == userPreference.HostName
+                        && this.m_UserPreference.UserPreferenceId != userPreference.UserPreferenceId
+                        )
                     {
                         result = false;
                         break;

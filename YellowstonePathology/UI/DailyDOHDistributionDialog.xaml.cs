@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.ComponentModel;
+using System.IO;
 
 namespace YellowstonePathology.UI
 {
@@ -72,6 +73,36 @@ namespace YellowstonePathology.UI
 
         private void ButtonSendFax_Click(object sender, RoutedEventArgs args)
         {
+            if (this.StVClientDOHReportViewCollection.Count > 0)
+            {
+                TiffBitmapEncoder tiffEncoder = new TiffBitmapEncoder();
+                foreach (YellowstonePathology.Business.View.StVClientDOHReportView view in this.StVClientDOHReportViewCollection)
+                {
+                    YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(view.ReportNo);
+                    string tifCaseFileName = YellowstonePathology.Business.Document.CaseDocument.GetCaseFileNameTif(orderIdParser);
+
+                    //YellowstonePathology.Business.ReportDistribution.Model.FaxSubmission.Submit("4062373672", view.ReportNo, tifCaseFileName);
+                    YellowstonePathology.Business.ReportDistribution.Model.FaxSubmission.Submit("4062386361", "Testing DOH Reports", tifCaseFileName);
+
+                    /*using (FileStream sourceFile = new FileStream(tifCaseFileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                    {
+
+                        TiffBitmapDecoder tiffDecoder = new TiffBitmapDecoder(sourceFile, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
+                        try
+                        {
+                            for (int i = 0; i < tiffDecoder.Frames.Count; i++)
+                            {
+                                tiffEncoder.Frames.Add(tiffDecoder.Frames[i]);
+                            }
+                        }
+                        catch
+                        {
+
+                        }
+                    }*/
+
+                }
+            }
         }
 
         private void ButtonClose_Click(object sender, RoutedEventArgs e)
