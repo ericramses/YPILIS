@@ -68,8 +68,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 {
                     aliquotOrder = specimenOrder.AliquotOrderCollection.GetThinPrepSlide();
                 }                
-
-                /*
+                
                 YellowstonePathology.Business.BarcodeScanning.BarcodeVersion2 barcode = new YellowstonePathology.Business.BarcodeScanning.BarcodeVersion2(Business.BarcodeScanning.BarcodePrefixEnum.PSLD, aliquotOrder.AliquotOrderId);
                 YellowstonePathology.Business.BarcodeScanning.CytycBarcode cytycBarcode = YellowstonePathology.Business.BarcodeScanning.CytycBarcode.Parse(this.m_AccessionOrder.MasterAccessionNo);
                 YellowstonePathology.Business.Label.Model.PAPSlideLabel papSlideLabel = new Business.Label.Model.PAPSlideLabel(this.m_AccessionOrder.PFirstName, this.m_AccessionOrder.PLastName, barcode, cytycBarcode);
@@ -79,7 +78,6 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                     papSlideLabelPrinter.Queue.Enqueue(papSlideLabel);
                 }
                 papSlideLabelPrinter.Print();
-                */                
             }
             else
             {
@@ -129,6 +127,32 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             {
                 MessageBox.Show("The label format must first be selected in User Preferences.");
             }
-        }        
-	}
+        }
+
+        private void ButtonPrintCytologyNewLabel_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.m_AccessionOrder.SpecimenOrderCollection.HasThinPrepFluidSpecimen() == true)
+            {
+                YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetThinPrep();
+                YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = null;
+                if (specimenOrder.AliquotOrderCollection.HasThinPrepSlide() == false)
+                {
+                    aliquotOrder = specimenOrder.AliquotOrderCollection.AddThinPrepSlide(specimenOrder, this.m_AccessionOrder.AccessionDate.Value);
+                }
+                else
+                {
+                    aliquotOrder = specimenOrder.AliquotOrderCollection.GetThinPrepSlide();
+                }
+
+                YellowstonePathology.Business.BarcodeScanning.BarcodeVersion2 barcode = new YellowstonePathology.Business.BarcodeScanning.BarcodeVersion2(Business.BarcodeScanning.BarcodePrefixEnum.PSLD, aliquotOrder.AliquotOrderId);
+                YellowstonePathology.Business.BarcodeScanning.CytycBarcode cytycBarcode = YellowstonePathology.Business.BarcodeScanning.CytycBarcode.Parse(this.m_AccessionOrder.MasterAccessionNo);
+                Business.Label.Model.HologicSlideLabel hologicSlideLabel = new Business.Label.Model.HologicSlideLabel(this.m_AccessionOrder.PFirstName, this.m_AccessionOrder.PLastName, barcode, cytycBarcode);
+                Business.Label.Model.HologicSlideLabelPrinter.Print(hologicSlideLabel, Business.User.UserPreferenceInstance.Instance.UserPreference.CytologySlideLabelPrinter, 2);
+            }
+            else
+            {
+                MessageBox.Show("Unable to find a Thin Prep Specimen");
+            }
+        }
+    }
 }
