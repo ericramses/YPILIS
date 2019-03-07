@@ -23,15 +23,15 @@ namespace YellowstonePathology.Business.Label.Model
         }
 
 
-        public void AppendCommands(StringBuilder zplString, int xOffset)
+        public void AppendCommands(StringBuilder zplString, int xOffset, int yOffset)
         {
             string patientNameText = this.TruncateString(this.m_PatientLastName, 8) + ", " + this.TruncateString(this.m_PatientFirstName, 1);
-            zplString.Append("^FO" + (10 + xOffset) + ",8^A@N,38,38,E:OCR000.TTF^FD" + this.m_CytycBarcode.LineOne + "^FS");
-            zplString.Append("^FO" + (10 + xOffset) + ",48^A@N,38,38,E:OCR000.TTF^FD" + this.m_CytycBarcode.LineTwo + "^FS");
-            zplString.Append("^FO" + (10 + xOffset) + ",90^A@N,15,15,E:VERDANA.TTF^FD" + patientNameText + "^FS");
-            zplString.Append("^FO" + (10 + xOffset) + ",150^A@N,15,15,E:VERDANA.TTF^FDYPI Blgs^FS");
+            zplString.Append("^FO" + (10 + xOffset) + "," + (8 + yOffset) + "^A@N,38,38,E:OCR000.TTF^FD" + this.m_CytycBarcode.LineOne + "^FS");
+            zplString.Append("^FO" + (10 + xOffset) + "," + (48 + yOffset) + "^A@N,38,38,E:OCR000.TTF^FD" + this.m_CytycBarcode.LineTwo + "^FS");
+            zplString.Append("^FO" + (10 + xOffset) + "," + (90 + yOffset) + "^A@N,15,15,E:VERDANA.TTF^FD" + patientNameText + "^FS");
+            zplString.Append("^FO" + (10 + xOffset) + "," + (150 + yOffset) + "^A@N,15,15,E:VERDANA.TTF^FDYPI Blgs^FS");
             string slideId = this.m_Barcode.ToString().Replace("^", "_5e");
-            zplString.Append("^FO" + (110 + xOffset) + ",118^BXN,3,200^AD^FH^FD" + slideId + "^FS");            
+            zplString.Append("^FO" + (110 + xOffset) + "," + (118 + yOffset) + "^BXN,3,200^AD^FH^FD" + slideId + "^FS");            
         }
 
         public string TruncateString(string text, int width)
