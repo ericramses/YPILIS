@@ -1766,8 +1766,8 @@ namespace YellowstonePathology.Business.Test
                         string taskOrderDetailId = YellowstonePathology.Business.OrderIdParser.GetNextTaskOrderDetailId(taskOrder.TaskOrderDetailCollection, taskOrder.TaskOrderId);
                         string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
                         YellowstonePathology.Business.Task.Model.TaskOrderDetailFax taskOrderDetail = new Business.Task.Model.TaskOrderDetailFax(taskOrderDetailId, taskOrder.TaskOrderId, objectId, task, this.m_ClientId);
-                        taskOrderDetail.FaxNumber = client.Fax;
-                        taskOrderDetail.SendToName = client.ContactName;
+                        taskOrderDetail.FaxNumber = client.AdditionalTestingNotificationFax;
+                        taskOrderDetail.SendToName = client.AdditionalTestingNotificationContact;
                         taskOrder.TaskOrderDetailCollection.Add(taskOrderDetail);
                     }
                 }
