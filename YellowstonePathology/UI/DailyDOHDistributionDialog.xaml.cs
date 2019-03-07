@@ -30,8 +30,8 @@ namespace YellowstonePathology.UI
 
         public DailyDOHDistributionDialog()
         {
-            this.m_DateAdded = DateTime.Today;
             this.m_StVClientDOHReportViewCollection = new YellowstonePathology.Business.View.StVClientDOHReportViewCollection();
+            this.DateAdded = DateTime.Today;
 
             InitializeComponent();
 
