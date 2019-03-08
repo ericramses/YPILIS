@@ -26,49 +26,32 @@ namespace YellowstonePathology.UI.Test
             this.m_ResultPage = new HER2AmplificationByISHResultPage(this.m_PanelSetOrder, this.m_AccessionOrder, this.m_SystemIdentity, this.m_PageNavigator);
             this.m_ResultPage.Next += new HER2AmplificationByISHResultPage.NextEventHandler(ResultPage_Next);
             this.m_ResultPage.SpecimenDetail += new HER2AmplificationByISHResultPage.SpecimenDetailEventHandler(ResultPage_SpecimenDetail);
-            this.m_ResultPage.OrderHER2IHC += ResultPage_OrderHER2IHC;
+            this.m_ResultPage.OrderTest += ResultPage_OrderTest;
 
             this.RegisterCancelATest(this.m_ResultPage);
             this.m_PageNavigator.Navigate(this.m_ResultPage);
         }
 
-        private void ResultPage_OrderHER2IHC(object sender, EventArgs e)
+        private void ResultPage_OrderTest(object sender, CustomEventArgs.PanelSetReturnEventArgs e)
         {
-            YellowstonePathology.Business.Test.Her2AmplificationByIHC.Her2AmplificationByIHCTest her2AmplificationByIHCTest = new Business.Test.Her2AmplificationByIHC.Her2AmplificationByIHCTest();
-            YellowstonePathology.Business.Interface.IOrderTarget orderTargetIHC = this.m_AccessionOrder.SpecimenOrderCollection.GetOrderTarget(this.m_PanelSetOrder.OrderedOnId);
-            YellowstonePathology.Business.Test.TestOrderInfo testOrderInfoIHC = new YellowstonePathology.Business.Test.TestOrderInfo(her2AmplificationByIHCTest, orderTargetIHC, false);
+            YellowstonePathology.Business.Interface.IOrderTarget orderTarget = this.m_AccessionOrder.SpecimenOrderCollection.GetOrderTarget(this.m_PanelSetOrder.OrderedOnId);
+            YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new YellowstonePathology.Business.Test.TestOrderInfo(e.PanelSet, orderTarget, false);
 
-            YellowstonePathology.UI.Login.Receiving.ReportOrderPath reportOrderPath = new Login.Receiving.ReportOrderPath(this.m_AccessionOrder, this.m_PageNavigator, PageNavigationModeEnum.Inline, this.m_Window);
-            reportOrderPath.Finish += new Login.Receiving.ReportOrderPath.FinishEventHandler(OrderIHCPath_Finish);
-            reportOrderPath.Start(testOrderInfoIHC);
-        }
+            YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfo);
+            this.m_AccessionOrder.TakeATrip(orderTestOrderVisitor);
 
-        private void OrderIHCPath_Finish(object sender, EventArgs e)
-        {
-            YellowstonePathology.Business.Test.HER2AmplificationSummary.HER2AmplificationSummaryTest her2AmplificationSummaryTest = new Business.Test.HER2AmplificationSummary.HER2AmplificationSummaryTest();
-            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(her2AmplificationSummaryTest.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true) == false)
+            if (testOrderInfo.PanelSet.TaskCollection.Count != 0)
             {
-                YellowstonePathology.Business.Interface.IOrderTarget orderTarget = this.m_AccessionOrder.SpecimenOrderCollection.GetOrderTarget(this.m_PanelSetOrder.OrderedOnId);
-                YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new YellowstonePathology.Business.Test.TestOrderInfo(her2AmplificationSummaryTest, orderTarget, false);
-
-                YellowstonePathology.UI.Login.Receiving.ReportOrderPath reportOrderPath = new Login.Receiving.ReportOrderPath(this.m_AccessionOrder, this.m_PageNavigator, PageNavigationModeEnum.Inline, this.m_Window);
-                reportOrderPath.Finish += new Login.Receiving.ReportOrderPath.FinishEventHandler(ReportOrderPath_Finish);
-                reportOrderPath.Start(testOrderInfo);
+                YellowstonePathology.Business.Task.Model.TaskOrder taskOrder = this.m_AccessionOrder.CreateTask(testOrderInfo);
+                this.m_AccessionOrder.TaskOrderCollection.Add(taskOrder);
             }
-            else
-            {
-                this.m_PageNavigator.Navigate(this.m_ResultPage);
-            }
-        }
 
-        private void ReportOrderPath_Finish(object sender, EventArgs e)
-        {
             this.m_PageNavigator.Navigate(this.m_ResultPage);
         }
 
         private void ResultPage_Next(object sender, EventArgs e)
         {
-            if (this.ShowSummaryPage() == false)
+            if (this.ShowHER2IHCPage() == false)
             {
                 if (this.ShowReflexTestPage() == false)
                 {
@@ -93,23 +76,23 @@ namespace YellowstonePathology.UI.Test
             this.ShowResultPage();
         }
 
-        private bool ShowSummaryPage()
+        private bool ShowHER2IHCPage()
         {
             bool result = false;
-            YellowstonePathology.Business.Test.HER2AmplificationSummary.HER2AmplificationSummaryTest her2AmplificationSummaryTest = new Business.Test.HER2AmplificationSummary.HER2AmplificationSummaryTest();
-            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(her2AmplificationSummaryTest.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true) == true)
+            YellowstonePathology.Business.Test.Her2AmplificationByIHC.Her2AmplificationByIHCTest test = new Business.Test.Her2AmplificationByIHC.Her2AmplificationByIHCTest();
+            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(test.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true) == true)
             {
+                YellowstonePathology.Business.Test.Her2AmplificationByIHC.PanelSetOrderHer2AmplificationByIHC panelSetOrderHer2AmplificationByIHC = (Business.Test.Her2AmplificationByIHC.PanelSetOrderHer2AmplificationByIHC)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(test.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true);
                 result = true;
-                YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(her2AmplificationSummaryTest.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true);
-                HER2AmplificationSummaryResultPath resultPath = new HER2AmplificationSummaryResultPath(panelSetOrder.ReportNo, this.m_AccessionOrder, this.m_PageNavigator, this.m_Window);
-                resultPath.Finish += SummaryResultPath_Finish;
+                Her2AmplificationByIHCResultPath resultPath = new Her2AmplificationByIHCResultPath(panelSetOrderHer2AmplificationByIHC.ReportNo, this.m_AccessionOrder, this.m_PageNavigator, this.m_Window);
+                resultPath.Finish += HER2IHCPath_Finish;
                 resultPath.Start();
             }
 
             return result;
         }
 
-        private void SummaryResultPath_Finish(object sender, EventArgs e)
+        private void HER2IHCPath_Finish(object sender, EventArgs e)
         {
             if (this.ShowReflexTestPage() == false)
             {
@@ -148,15 +131,18 @@ namespace YellowstonePathology.UI.Test
             bool result = false;
             if (this.m_AccessionOrder.PanelSetOrderCollection.HasSurgical() == true)
             {
-                YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetSurgical();
-                if (surgicalTestOrder.AmendmentCollection.HasAmendmentForReferenceReportNo(this.m_PanelSetOrder.ReportNo) == true)
+                if (this.m_PanelSetOrder.Result != YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationResultEnum.Equivocal.ToString())
                 {
-                    result = true;                                        
-                    YellowstonePathology.Business.Amendment.Model.Amendment amendment = surgicalTestOrder.AmendmentCollection.GetAmendmentForReferenceReportNo(this.m_PanelSetOrder.ReportNo);
-                    AmendmentPage amendmentPage = new AmendmentPage(this.m_AccessionOrder, amendment, this.m_SystemIdentity);
-                    amendmentPage.Back += AmendmentPage_Back;
-                    amendmentPage.Finish += AmendmentPage_Finish;
-                    this.m_PageNavigator.Navigate(amendmentPage);
+                    YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetSurgical();
+                    if (surgicalTestOrder.AmendmentCollection.HasAmendmentForReferenceReportNo(this.m_PanelSetOrder.ReportNo) == true)
+                    {
+                        result = true;
+                        YellowstonePathology.Business.Amendment.Model.Amendment amendment = surgicalTestOrder.AmendmentCollection.GetAmendmentForReferenceReportNo(this.m_PanelSetOrder.ReportNo);
+                        AmendmentPage amendmentPage = new AmendmentPage(this.m_AccessionOrder, amendment, this.m_SystemIdentity);
+                        amendmentPage.Back += AmendmentPage_Back;
+                        amendmentPage.Finish += AmendmentPage_Finish;
+                        this.m_PageNavigator.Navigate(amendmentPage);
+                    }
                 }
             }
             return result;

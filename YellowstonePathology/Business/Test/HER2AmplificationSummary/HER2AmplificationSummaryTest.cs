@@ -16,12 +16,12 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
             this.m_HasTechnicalComponent = false;
             this.m_HasProfessionalComponent = false;
             this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase;
-            this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterM();
+            this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterY();
             this.m_Active = true;
             this.IsBillable = false;
-            this.NeverDistribute = true;
+            this.NeverDistribute = false;
             this.m_SurgicalAmendmentRequired = false;
-            this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.PanelSetOrder).AssemblyQualifiedName;
+            this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.HER2AmplificationSummary.HER2AmplificationSummaryTestOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.HER2AmplificationSummary.HER2AmplificationSummaryWordDocument).AssemblyQualifiedName;
 
             this.m_AllowMultiplePerAccession = true;

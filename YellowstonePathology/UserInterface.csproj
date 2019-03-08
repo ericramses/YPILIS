@@ -336,6 +336,7 @@
     <Compile Include="Business\EthBlock.cs" />
     <Compile Include="Business\EthContract.cs" />
     <Compile Include="Business\EthContractCollection.cs" />
+    <Compile Include="Business\Interface\IHER2ISH.cs" />
     <Compile Include="Business\Label.Model\HologicSlideLabelPrinter.cs" />
     <Compile Include="Business\Label.Model\HologicSlideLabel.cs" />
     <Compile Include="Business\PanelSet.Model\FISHTest.cs" />
@@ -1036,7 +1037,6 @@
     <Compile Include="Business\Persistence\WebServiceAccountDocumentBuilder.cs" />
     <Compile Include="Business\PreviousResult.cs" />
     <Compile Include="Business\PreviousResultCollection.cs" />
-    <Compile Include="Business\ReportDistribution.Model\FaxSubmissionWithCoverSheet.cs" />
     <Compile Include="Business\ReportDistribution.Model\MeditechDistribution.cs" />
     <Compile Include="Business\ReportDistribution.Model\MultiTestDistributionHandlerNoWHP.cs" />
     <Compile Include="Business\ReportDistribution.Model\MultiTestDistributionHandlerWHPHold.cs" />
@@ -1084,6 +1084,7 @@
     <Compile Include="Business\Test\HER2AmplificationRecount\HER2AmplificationRecountTest.cs" />
     <Compile Include="Business\Test\HER2AmplificationRecount\HER2AmplificationRecountTestOrder.cs" />
     <Compile Include="Business\Test\HER2AmplificationSummary\HER2AmplificationSummaryTest.cs" />
+    <Compile Include="Business\Test\HER2AmplificationSummary\HER2AmplificationSummaryTestOrder.cs" />
     <Compile Include="Business\Test\HER2AmplificationSummary\HER2AmplificationSummaryWordDocument.cs" />
     <Compile Include="Business\Test\HoldForFlow\CultureAndHoldForCytogeneticsTest.cs" />
     <Compile Include="Business\Test\HoldForFlow\DirectHarvestForFISHTest.cs" />
@@ -5497,8 +5498,8 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Test\HER2AmplificationSummaryResultPage.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\Test\OrderAssociationResultPage.xaml">
       <SubType>Designer</SubType>
