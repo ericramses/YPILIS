@@ -45,7 +45,7 @@ namespace YellowstonePathology.UI.Test
             this.m_OrderedOnDescription = orderTarget.GetDescription();
 
             YellowstonePathology.Business.Test.HER2AmplificationRecount.HER2AmplificationRecountTest test = new Business.Test.HER2AmplificationRecount.HER2AmplificationRecountTest();
-            this.m_RecountVisibility = this.m_AccessionOrder.PanelSetOrderCollection.Exists(test.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true) ? Visibility.Visible : Visibility.Hidden;
+            this.m_RecountVisibility = this.m_AccessionOrder.PanelSetOrderCollection.Exists(test.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true) ? Visibility.Visible : Visibility.Collapsed;
 
             InitializeComponent();
 
@@ -91,7 +91,7 @@ namespace YellowstonePathology.UI.Test
             get { return this.m_OrderedOnDescription; }
         }
 
-        public Visibility RecountVisability
+        public Visibility RecountVisibility
         {
             get { return this.m_RecountVisibility; }
         }
