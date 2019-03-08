@@ -54,7 +54,7 @@ namespace YellowstonePathology.UI.Test
 					result = new BCellClonalityByPCRResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
 				case 46:
-					result = new HER2AmplificationByISHResultPath(reportNo, accessionOrder, pageNavigator, window);
+                    result = new HER2AmplificationByISHResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
 				case 50:
 					result = new ErPrSemiQuantitativeResultPath(reportNo, accessionOrder, pageNavigator, window);

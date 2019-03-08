@@ -25,55 +25,77 @@ namespace YellowstonePathology.UI.Test
 		{
 			this.m_ResultPage = new Her2AmplificationByIHCResultPage(this.m_PanelSetOrder, this.m_AccessionOrder, this.m_SystemIdentity);
 			this.m_ResultPage.Next += new Her2AmplificationByIHCResultPage.NextEventHandler(ResultPage_Next);
-            this.m_ResultPage.OrderHER2Recount += ResultPage_OrderHER2Recount;
+            this.m_ResultPage.OrderTest += ResultPage_OrderTest;
 			this.m_PageNavigator.Navigate(this.m_ResultPage);
 		}
 
-        private void ResultPage_OrderHER2Recount(object sender, EventArgs e)
+        private void ResultPage_OrderTest(object sender, CustomEventArgs.PanelSetReturnEventArgs e)
         {
-            YellowstonePathology.Business.Test.HER2AmplificationRecount.HER2AmplificationRecountTest her2AmplificationRecountTest = new Business.Test.HER2AmplificationRecount.HER2AmplificationRecountTest();
             YellowstonePathology.Business.Interface.IOrderTarget orderTarget = this.m_AccessionOrder.SpecimenOrderCollection.GetOrderTarget(this.m_PanelSetOrder.OrderedOnId);
-            YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new YellowstonePathology.Business.Test.TestOrderInfo(her2AmplificationRecountTest, orderTarget, false);
+            YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new YellowstonePathology.Business.Test.TestOrderInfo(e.PanelSet, orderTarget, false);
 
-            YellowstonePathology.UI.Login.Receiving.ReportOrderPath reportOrderPath = new Login.Receiving.ReportOrderPath(this.m_AccessionOrder, this.m_PageNavigator, PageNavigationModeEnum.Inline, this.m_Window);
-            reportOrderPath.Finish += new Login.Receiving.ReportOrderPath.FinishEventHandler(ReportOrderPath_Finish);
-            reportOrderPath.Start(testOrderInfo);
-        }
+            YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfo);
+            this.m_AccessionOrder.TakeATrip(orderTestOrderVisitor);
 
-        private void ReportOrderPath_Finish(object sender, EventArgs e)
-        {
+            if (testOrderInfo.PanelSet.TaskCollection.Count != 0)
+            {
+                YellowstonePathology.Business.Task.Model.TaskOrder taskOrder = this.m_AccessionOrder.CreateTask(testOrderInfo);
+                this.m_AccessionOrder.TaskOrderCollection.Add(taskOrder);
+            }
+
             this.m_PageNavigator.Navigate(this.m_ResultPage);
         }
 
         private void ResultPage_Next(object sender, EventArgs e)
 		{
-            if (this.ShowISHResultPage() == false)
+            if (this.ShowRecountPage() == false)
             {
-                this.Finished();
+                if (this.ShowHER2AmplificationSummaryResultPage() == false)
+                {
+                    this.Finished();
+                }
             }
-		}
+        }
 
-        private bool ShowISHResultPage()
+        private bool ShowRecountPage()
         {
             bool result = false;
 
             YellowstonePathology.Business.Test.HER2AmplificationRecount.HER2AmplificationRecountTest her2AmplificationRecountTest = new Business.Test.HER2AmplificationRecount.HER2AmplificationRecountTest();
-            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(her2AmplificationRecountTest.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true) == false)
+            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(her2AmplificationRecountTest.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true) == true)
             {
-                YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHTest ishTest = new Business.Test.HER2AmplificationByISH.HER2AmplificationByISHTest();
-                if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(ishTest.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true) == true)
-                {
-                    Business.Test.HER2AmplificationByISH.HER2AmplificationByISHTestOrder ishTestOrder = (Business.Test.HER2AmplificationByISH.HER2AmplificationByISHTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(ishTest.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true);
-                    result = true;
-                    HER2AmplificationByISHResultPath ishPath = new Test.HER2AmplificationByISHResultPath(ishTestOrder.ReportNo, this.m_AccessionOrder, this.m_PageNavigator, this.m_Window);
-                    ishPath.Finish += HER2AmplificationByISHResultPath_Finish;
-                    ishPath.Start();
-                }
+                result = true;
+                YellowstonePathology.Business.Test.HER2AmplificationRecount.HER2AmplificationRecountTestOrder her2AmplificationRecountTestOrder = (Business.Test.HER2AmplificationRecount.HER2AmplificationRecountTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(her2AmplificationRecountTest.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true);
+                HER2AmplificationRecountResultPath recountPath = new HER2AmplificationRecountResultPath(her2AmplificationRecountTestOrder.ReportNo, this.m_AccessionOrder, this.m_PageNavigator, this.m_Window);
+                recountPath.Finish += HER2AmplificationRecountResultPath_Finish;
+                recountPath.Start();
+            }
+
+            return result;
+        }
+
+        private void HER2AmplificationRecountResultPath_Finish(object sender, EventArgs e)
+        {
+            this.Finished();
+        }
+
+        private bool ShowHER2AmplificationSummaryResultPage()
+        {
+            bool result = false;
+
+            YellowstonePathology.Business.Test.HER2AmplificationSummary.HER2AmplificationSummaryTest test = new Business.Test.HER2AmplificationSummary.HER2AmplificationSummaryTest();
+            YellowstonePathology.Business.Test.HER2AmplificationSummary.HER2AmplificationSummaryTestOrder summaryTestOrder = (Business.Test.HER2AmplificationSummary.HER2AmplificationSummaryTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(test.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true);
+            if (summaryTestOrder != null)
+            {
+                result = true;
+                HER2AmplificationSummaryResultPage her2AmplificationSummaryResultPage = new HER2AmplificationSummaryResultPage(summaryTestOrder, this.m_AccessionOrder, Business.User.SystemIdentity.Instance);
+                her2AmplificationSummaryResultPage.Next += HER2AmplificationSummaryResultPage_Next;
+                this.m_PageNavigator.Navigate(her2AmplificationSummaryResultPage);
             }
             return result;
         }
 
-        private void HER2AmplificationByISHResultPath_Finish(object sender, EventArgs e)
+        private void HER2AmplificationSummaryResultPage_Next(object sender, EventArgs e)
         {
             this.Finished();
         }

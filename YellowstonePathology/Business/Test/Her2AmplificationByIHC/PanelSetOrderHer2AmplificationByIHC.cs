@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using YellowstonePathology.Business.Audit.Model;
 using YellowstonePathology.Business.Persistence;
 using YellowstonePathology.Business.Rules;
 
@@ -193,6 +194,49 @@ namespace YellowstonePathology.Business.Test.Her2AmplificationByIHC
                 }
             }
             return result;
+        }
+
+        public override AuditResult IsOkToFinalize(AccessionOrder accessionOrder)
+        {
+            AuditResult result = base.IsOkToFinalize(accessionOrder);
+
+            if (result.Status == AuditStatusEnum.OK)
+            {
+                HER2AmplificationByISH.HER2AmplificationByISHTest ishTest = new HER2AmplificationByISH.HER2AmplificationByISHTest();
+                if(accessionOrder.PanelSetOrderCollection.Exists(ishTest.PanelSetId, this.m_OrderedOnId, true) == true)
+                {
+                    HER2AmplificationByISH.HER2AmplificationByISHTestOrder ishTestOrder = (HER2AmplificationByISH.HER2AmplificationByISHTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(ishTest.PanelSetId, this.m_OrderedOnId, true);
+                    if(ishTestOrder.Final == true)
+                    {
+                        if (this.m_Score.Contains("2+") == true)
+                        {
+                            HER2AmplificationRecount.HER2AmplificationRecountTest test = new HER2AmplificationRecount.HER2AmplificationRecountTest();
+                            if (accessionOrder.PanelSetOrderCollection.Exists(test.PanelSetId, this.m_OrderedOnId, true) == false)
+                            {
+                                result.Status = AuditStatusEnum.Warning;
+                                result.Message = "This test will be finalized but not distributed as a " + test.PanelSetName + " is needed to determine the actual result and will be ordered.";
+                            }
+                        }
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        public override FinalizeTestResult Finish(AccessionOrder accessionOrder)
+        {
+            if (this.m_Score.Contains("2+") == false)
+            {
+                HER2AmplificationSummary.HER2AmplificationSummaryTest test = new HER2AmplificationSummary.HER2AmplificationSummaryTest();
+                if (accessionOrder.PanelSetOrderCollection.Exists(test.PanelSetId, this.m_OrderedOnId, true) == true)
+                {
+                    this.Distribute = false;
+                    HER2AmplificationSummary.HER2AmplificationSummaryTestOrder testOrder = (HER2AmplificationSummary.HER2AmplificationSummaryTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(test.PanelSetId, this.m_OrderedOnId, true);
+                    testOrder.SetValues(accessionOrder);
+                }
+            }
+            return base.Finish(accessionOrder);
         }
     }
 }

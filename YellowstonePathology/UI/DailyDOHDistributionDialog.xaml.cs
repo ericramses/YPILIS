@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+//using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.ComponentModel;
 using System.IO;
+using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace YellowstonePathology.UI
 {
@@ -28,8 +30,8 @@ namespace YellowstonePathology.UI
 
         public DailyDOHDistributionDialog()
         {
-            this.m_DateAdded = DateTime.Today;
             this.m_StVClientDOHReportViewCollection = new YellowstonePathology.Business.View.StVClientDOHReportViewCollection();
+            this.DateAdded = DateTime.Today;
 
             InitializeComponent();
 
@@ -73,35 +75,36 @@ namespace YellowstonePathology.UI
 
         private void ButtonSendFax_Click(object sender, RoutedEventArgs args)
         {
+            string message = string.Empty;
             if (this.StVClientDOHReportViewCollection.Count > 0)
             {
-                TiffBitmapEncoder tiffEncoder = new TiffBitmapEncoder();
                 foreach (YellowstonePathology.Business.View.StVClientDOHReportView view in this.StVClientDOHReportViewCollection)
                 {
                     YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(view.ReportNo);
                     string tifCaseFileName = YellowstonePathology.Business.Document.CaseDocument.GetCaseFileNameTif(orderIdParser);
-
-                    //YellowstonePathology.Business.ReportDistribution.Model.FaxSubmission.Submit("4062373672", view.ReportNo, tifCaseFileName);
-                    YellowstonePathology.Business.ReportDistribution.Model.FaxSubmission.Submit("4062386361", "Testing DOH Reports", tifCaseFileName);
-
-                    /*using (FileStream sourceFile = new FileStream(tifCaseFileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                    if (File.Exists(tifCaseFileName) == true)
                     {
-
-                        TiffBitmapDecoder tiffDecoder = new TiffBitmapDecoder(sourceFile, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
-                        try
-                        {
-                            for (int i = 0; i < tiffDecoder.Frames.Count; i++)
-                            {
-                                tiffEncoder.Frames.Add(tiffDecoder.Frames[i]);
-                            }
-                        }
-                        catch
-                        {
-
-                        }
-                    }*/
-
+                        YellowstonePathology.Business.ReportDistribution.Model.FaxSubmission.Submit("4062373672", view.ReportNo, tifCaseFileName);
+                    }
+                    else
+                    {
+                        message = message + view.ReportNo + ", ";
+                    }
                 }
+
+                if (message.Length > 0)
+                {
+                    message = message.Substring(0, message.Length - 2);
+                    MessageBox.Show("The report/s listed were not faxed as the corresponding file was not found." + Environment.NewLine + message);
+                }
+                else
+                {
+                    MessageBox.Show("Faxes sent.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("No Faxes to send.");
             }
         }
 

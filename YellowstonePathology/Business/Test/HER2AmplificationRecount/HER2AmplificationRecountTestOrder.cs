@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using YellowstonePathology.Business.Persistence;
 using YellowstonePathology.Business.Rules;
+using YellowstonePathology.Business.Audit.Model;
 
 namespace YellowstonePathology.Business.Test.HER2AmplificationRecount
 {
@@ -211,6 +212,65 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationRecount
                 }
             }
             return result;
+        }
+
+        public override AuditResult IsOkToFinalize(AccessionOrder accessionOrder)
+        {
+            AuditResult result = new AuditResult();
+            result.Status = AuditStatusEnum.OK;
+            Rules.MethodResult methodResult = base.IsOkToFinalize();
+            if (methodResult.Success == false)
+            {
+                result.Status = AuditStatusEnum.Failure;
+                result.Message = methodResult.Message;
+            }
+
+            if (result.Status == AuditStatusEnum.OK)
+            {
+                if (this.m_CellsCounted == 0)
+                {
+                    result.Status = AuditStatusEnum.Failure;
+                    result.Message = "Unable to final as Total Cells Counted is not set.";
+                }
+            }
+
+            if (result.Status == AuditStatusEnum.OK)
+            {
+                if (this.m_Her2SignalsCounted == 0)
+                {
+                    result.Status = AuditStatusEnum.Failure;
+                    result.Message = "Unable to final as HER2 Signals Counted is not set.";
+                }
+            }
+
+            if (result.Status == AuditStatusEnum.OK)
+            {
+                if (this.m_Chr17SignalsCounted == 0)
+                {
+                    result.Status = AuditStatusEnum.Failure;
+                    result.Message = "Unable to final as Chr17 Signals Counted is not set.";
+                }
+            }
+
+            if (result.Status == AuditStatusEnum.OK)
+            {
+                HER2AmplificationSummary.HER2AmplificationSummaryTest test = new HER2AmplificationSummary.HER2AmplificationSummaryTest();
+                if (accessionOrder.PanelSetOrderCollection.Exists(test.PanelSetId, this.m_OrderedOnId, true) == false)
+                {
+                    result.Status = AuditStatusEnum.Failure;
+                    result.Message = "Unable to finalize as a " + test.PanelSetName + " is required.";
+                }
+            }
+
+            return result;
+        }
+
+        public override FinalizeTestResult Finish(AccessionOrder accessionOrder)
+        {
+            HER2AmplificationSummary.HER2AmplificationSummaryTest test = new HER2AmplificationSummary.HER2AmplificationSummaryTest();
+            HER2AmplificationSummary.HER2AmplificationSummaryTestOrder testOrder = (HER2AmplificationSummary.HER2AmplificationSummaryTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(test.PanelSetId, this.m_OrderedOnId, true);
+            testOrder.SetValues(accessionOrder);
+            return base.Finish(accessionOrder);
         }
     }
 }
