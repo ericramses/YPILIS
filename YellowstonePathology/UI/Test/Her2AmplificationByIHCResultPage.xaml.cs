@@ -95,6 +95,8 @@ namespace YellowstonePathology.UI.Test
 			{
                 YellowstonePathology.Business.Test.FinalizeTestResult finalizeTestResult = this.m_PanelSetOrder.Finish(this.m_AccessionOrder);
                 this.HandleFinalizeTestResult(finalizeTestResult);
+                Business.Logging.EmailExceptionHandler.HandleException(this.m_PanelSetOrder, "This report has just been finalized, score = " + 
+                    this.m_PanelSetOrder.Score + ".  No recount ordered on final.");
             }
             else if(result.Status == Business.Audit.Model.AuditStatusEnum.Warning)
             {
@@ -103,6 +105,8 @@ namespace YellowstonePathology.UI.Test
                 {
                     YellowstonePathology.Business.Test.FinalizeTestResult finalizeTestResult = this.m_PanelSetOrder.Finish(this.m_AccessionOrder);
                     this.HandleFinalizeTestResult(finalizeTestResult);
+                    Business.Logging.EmailExceptionHandler.HandleException(this.m_PanelSetOrder, "This report has just been finalized, score = " + 
+                        this.m_PanelSetOrder.Score + ".  A recount has been ordered on final.");
 
                     YellowstonePathology.Business.Test.HER2AmplificationRecount.HER2AmplificationRecountTest test = new Business.Test.HER2AmplificationRecount.HER2AmplificationRecountTest();
                     this.OrderATest(test);
