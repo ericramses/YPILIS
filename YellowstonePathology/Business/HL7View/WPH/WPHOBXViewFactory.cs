@@ -94,8 +94,11 @@ namespace YellowstonePathology.Business.HL7View.WPH
 				case 124:
 					//view = new YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisWPHOBXView(accessionOrder, reportNo, obxCount);
 					break;
+                case 125:
+                    //view = new YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisWPHOBXView(accessionOrder, reportNo, obxCount);
+                    break;
                 case 131:
-                    //view = new YellowstonePathology.Business.Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHWPHOBXView(accessionOrder, reportNo, obxCount);
+                    view = new YellowstonePathology.Business.Test.InvasiveBreastPanel.InvasiveBreastPanelWPHOBXView(accessionOrder, reportNo, obxCount);
                     break;
 				case 132:
 					//view = new YellowstonePathology.Business.Test.MicrosatelliteInstabilityAnalysis.MicrosatelliteInstabilityAnalysisWPHOBXView(accessionOrder, reportNo, obxCount);
