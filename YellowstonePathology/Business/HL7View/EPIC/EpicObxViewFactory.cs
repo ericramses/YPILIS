@@ -103,6 +103,9 @@ namespace YellowstonePathology.Business.HL7View.EPIC
 				case 124:
 					view = new YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisEPICOBXView(accessionOrder, reportNo, obxCount);
 					break;
+                case 125:
+                    view = new YellowstonePathology.Business.Test.InvasiveBreastPanel.InvasiveBreastPanelEPICOBXView(accessionOrder, reportNo, obxCount);
+                    break;
                 case 131:
                     view = new YellowstonePathology.Business.Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHEPICOBXView(accessionOrder, reportNo, obxCount);
                     break;

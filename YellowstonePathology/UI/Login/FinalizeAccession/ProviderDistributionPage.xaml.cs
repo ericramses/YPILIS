@@ -391,6 +391,16 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             }
         }
 
+        private void HyperLinkHoldDistribution_Click(object sender, RoutedEventArgs e)
+        {
+            this.m_PanelSetOrder.HoldDistribution = true;
+        }
+
+        private void HyperLinkReleaseDistributionHold_Click(object sender, RoutedEventArgs e)
+        {
+            this.m_PanelSetOrder.HoldDistribution = false;
+        }
+
         private void HyperLinkPublish_Click(object sender, RoutedEventArgs e)
         {
             if (this.m_PanelSetOrder.Final == true)
