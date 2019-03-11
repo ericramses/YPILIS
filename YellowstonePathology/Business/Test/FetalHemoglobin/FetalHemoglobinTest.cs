@@ -10,8 +10,7 @@ namespace YellowstonePathology.Business.Test.FetalHemoglobin
 		public FetalHemoglobinTest()
         {
             this.m_PanelSetId = 28;
-            this.m_PanelSetName = "Fetal Hemoglobin";
-            //this.m_TestId = 7;
+            this.m_PanelSetName = "Fetal Hemoglobin";            
 			this.m_AllowMultiplePerAccession = true;
 
             this.m_HasProfessionalComponent = false;

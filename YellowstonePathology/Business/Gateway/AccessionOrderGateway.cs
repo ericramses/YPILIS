@@ -164,7 +164,7 @@ namespace YellowstonePathology.Business.Gateway
                 "join tblClient c on bll.ClientId = c.ClientId " +
                 "join tblPanelSetOrder pso on bll.ReportNo = pso.ReportNo " +
                 "join tblAccessionOrder ao on pso.MasterAccessionNo = ao.MasterAccessionNo " +
-                "where postdate is null and bll.MedicalRecord like 'A%' and bll.BillTo = 'Client'";
+                "where postdate is null and bll.MedicalRecord like 'A%' and length(bll.MedicalRecord) = 8 and bll.BillTo = 'Client'";
             cmd.CommandType = CommandType.Text;
 
             using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))

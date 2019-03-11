@@ -10,8 +10,7 @@ namespace YellowstonePathology.Business.Test.StemCellEnumeration
 		public StemCellEnumerationTest()
         {
             this.m_PanelSetId = 24;
-            this.m_PanelSetName = "Stem Cell Enumeration";
-            //this.m_TestId = 12;
+            this.m_PanelSetName = "Stem Cell Enumeration";            
 			this.m_AllowMultiplePerAccession = true;
             this.m_ExpectedDuration = new TimeSpan(24, 0, 0);
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.StemCellEnumeration.StemCellEnumerationWordDocument).AssemblyQualifiedName;
