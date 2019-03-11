@@ -32,7 +32,7 @@ namespace YellowstonePathology.UI.Test
         private void ResultPage_OrderTest(object sender, CustomEventArgs.PanelSetReturnEventArgs e)
         {
             YellowstonePathology.Business.Interface.IOrderTarget orderTarget = this.m_AccessionOrder.SpecimenOrderCollection.GetOrderTarget(this.m_PanelSetOrder.OrderedOnId);
-            YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new YellowstonePathology.Business.Test.TestOrderInfo(e.PanelSet, orderTarget, false);
+            YellowstonePathology.Business.Test.TestOrderInfo testOrderInfo = new YellowstonePathology.Business.Test.TestOrderInfo(e.PanelSet, orderTarget, !e.PanelSet.NeverDistribute);
 
             YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Business.Visitor.OrderTestOrderVisitor(testOrderInfo);
             this.m_AccessionOrder.TakeATrip(orderTestOrderVisitor);
