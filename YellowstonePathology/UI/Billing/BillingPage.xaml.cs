@@ -185,6 +185,10 @@ namespace YellowstonePathology.UI.Billing
                     {
                         MessageBox.Show(methodResult.Message);
                     }
+                    else
+                    {
+                        this.m_PanelSetOrderCPTCodeCollection.SetCodeTypes();
+                    }
                 }
             }            
         }
