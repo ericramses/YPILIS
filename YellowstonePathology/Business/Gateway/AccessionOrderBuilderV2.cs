@@ -460,6 +460,13 @@ namespace YellowstonePathology.Business.Gateway
                     llpPanelSetOrder.FlowMarkerCollection.SetCellPopulationsOfInterest();
                     llpPanelSetOrder.FlowMarkerCollection.SetFirstMarkerPanelIfExists();
                 }
+                else if(panelSetOrder is Test.StemCellEnumeration.StemCellEnumerationTestOrder)
+                {
+                    Test.StemCellEnumeration.StemCellEnumerationTestOrder stemCellEnumerationTestOrder = (Test.StemCellEnumeration.StemCellEnumerationTestOrder)panelSetOrder;
+                    stemCellEnumerationTestOrder.FlowMarkerCollection.Sync(dataTable, stemCellEnumerationTestOrder.ReportNo);
+                    stemCellEnumerationTestOrder.FlowMarkerCollection.SetCellPopulationsOfInterest();
+                    stemCellEnumerationTestOrder.FlowMarkerCollection.SetFirstMarkerPanelIfExists();
+                }
             }
         }
 
