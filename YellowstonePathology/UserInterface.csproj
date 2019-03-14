@@ -1165,6 +1165,7 @@
     <Compile Include="Business\Test\RibosomalRNA16S\RibosomalRNA16STest.cs" />
     <Compile Include="Business\Test\SomatostatinReceptorType2\SomatostatinReceptorType2Test.cs" />
     <Compile Include="Business\Test\StemCellEnumeration\StemCellEnumerationTestOrder.cs" />
+    <Compile Include="Business\Test\StemCellEnumeration\StemCellEnumerationTestRetired.cs" />
     <Compile Include="Business\Test\ThrombocytopeniaProfile\ThrombocytopeniaProfileCMMCNTEView.cs" />
     <Compile Include="Business\Test\TP53MutationAnalysis\TP53MutationAnalysisTest.cs" />
     <Compile Include="Business\Test\VaricellaZosterVirus\VaricellaZosterVirusTest.cs" />
