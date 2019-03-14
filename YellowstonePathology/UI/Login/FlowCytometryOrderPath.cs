@@ -134,9 +134,9 @@ namespace YellowstonePathology.UI.Login
                 case 23: //RTIC
 					panelSetFlowCytometry = (YellowstonePathology.Business.Test.ReticulatedPlateletAnalysis.ReticulatedPlateletAnalysisTest)this.m_PanelSet;
                     break;
-                case 24: //Stem Cell
+                /*case 24: //Stem Cell
 					panelSetFlowCytometry = (YellowstonePathology.Business.Test.StemCellEnumeration.StemCellEnumerationTest)this.m_PanelSet;
-                    break;
+                    break;*/
                 case 28: //Fetal Hemoglobin
 					panelSetFlowCytometry = (YellowstonePathology.Business.Test.FetalHemoglobin.FetalHemoglobinTest)this.m_PanelSet;
                     break;

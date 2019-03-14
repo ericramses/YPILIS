@@ -35,6 +35,9 @@ namespace YellowstonePathology.UI.Test
 				case 19:
 					result = new PNHResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
+                case 328: //24
+                    result = new StemCellEnumerationResultPath(reportNo, accessionOrder, pageNavigator, window);
+                    break;
 				case 27:
 					result = new KRASStandardResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;

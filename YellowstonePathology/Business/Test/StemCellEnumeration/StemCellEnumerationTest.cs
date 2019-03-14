@@ -5,14 +5,24 @@ using System.Text;
 
 namespace YellowstonePathology.Business.Test.StemCellEnumeration
 {
-	public class StemCellEnumerationTest : YellowstonePathology.Business.PanelSet.Model.FlowCytometry.PanelSetFlowCytometry
+	public class StemCellEnumerationTest : YellowstonePathology.Business.PanelSet.Model.PanelSet
     {
 		public StemCellEnumerationTest()
         {
+<<<<<<< HEAD
             this.m_PanelSetId = 24;
             this.m_PanelSetName = "Stem Cell Enumeration";            
+=======
+            this.m_PanelSetId = 328;
+            this.m_PanelSetName = "Stem Cell Enumeration";
+>>>>>>> a833e35b388cc48a72cd27cd968d37da920ca70c
 			this.m_AllowMultiplePerAccession = true;
+            this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase;
+            this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterF();
+            this.m_CaseType = this.m_CaseType = YellowstonePathology.Business.CaseType.FlowCytometry;
+            this.m_Active = true;
             this.m_ExpectedDuration = new TimeSpan(24, 0, 0);
+            this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.StemCellEnumeration.StemCellEnumerationTestOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.StemCellEnumeration.StemCellEnumerationWordDocument).AssemblyQualifiedName;
 
             string taskDescription = "Perform stem cell enum. testing.";
@@ -22,7 +32,9 @@ namespace YellowstonePathology.Business.Test.StemCellEnumeration
             this.m_ProfessionalComponentFacility = null;
 
             YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode1 = new Business.Billing.Model.PanelSetCptCode(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("86367", null), 1);            
-            this.m_PanelSetCptCodeCollection.Add(panelSetCptCode1);                        
-		}
+            this.m_PanelSetCptCodeCollection.Add(panelSetCptCode1);
+
+            this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceFLOWYPI());
+        }
     }
 }
