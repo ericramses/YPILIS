@@ -1165,6 +1165,7 @@
     <Compile Include="Business\Test\RASRAFPanel\RASRAFPanelWPHOBXView.cs" />
     <Compile Include="Business\Test\RibosomalRNA16S\RibosomalRNA16STest.cs" />
     <Compile Include="Business\Test\SomatostatinReceptorType2\SomatostatinReceptorType2Test.cs" />
+    <Compile Include="Business\Test\TCellNKProfile\TCellNKProfileWPHOBXView.cs" />
     <Compile Include="Business\Test\ThrombocytopeniaProfile\ThrombocytopeniaProfileCMMCNTEView.cs" />
     <Compile Include="Business\Test\TP53MutationAnalysis\TP53MutationAnalysisTest.cs" />
     <Compile Include="Business\Test\VaricellaZosterVirus\VaricellaZosterVirusTest.cs" />
