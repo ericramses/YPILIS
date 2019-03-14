@@ -12,7 +12,7 @@ namespace YellowstonePathology.Business.Persistence
             YellowstonePathology.Business.User.SystemIdentity systemIdentity = YellowstonePathology.Business.User.SystemIdentity.Instance;
 
             this.m_SQLCommand = new MySqlCommand();
-            this.m_SQLCommand.CommandText = "prcGetAccessionOrder_4";
+            this.m_SQLCommand.CommandText = "prcGetAccessionOrder_3";
             m_SQLCommand.CommandType = CommandType.StoredProcedure;
             m_SQLCommand.Parameters.AddWithValue("MasterAccessionNo", masterAccessionNo);
         }

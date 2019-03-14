@@ -33,21 +33,11 @@ namespace YellowstonePathology.Business.Test.StemCellEnumeration
             string collectionDateTimeString = YellowstonePathology.Business.Helper.DateTimeExtensions.CombineDateAndTime(specimenOrder.CollectionDate, specimenOrder.CollectionTime);
             this.SetXmlNodeData("date_time_collected", collectionDateTimeString);
 
-			foreach (YellowstonePathology.Business.Flow.FlowMarkerItem markerItem in stemCellEnumerationTestOrder.FlowMarkerCollection)
-			{
-                switch(markerItem.Name)
-                {
-                    case "Stem Cell Enumeration":                        
-                        this.SetXmlNodeData("stemcell_result", markerItem.Result);
-                        break;
-                    case "Viability":
-                        this.SetXmlNodeData("viability_result", markerItem.Result);
-                        break;
-                    case "WBC Count":
-                        this.SetXmlNodeData("wbccount_result", markerItem.Result);
-                        break;                
-                }
-            }            
+            this.SetXmlNodeData("stemcell_result", stemCellEnumerationTestOrder.StemCellEnumeration);
+            this.SetXmlNodeData("viability_result", stemCellEnumerationTestOrder.Viability);
+            this.SetXmlNodeData("wbccount_result", stemCellEnumerationTestOrder.WBCCount);
+            this.SetXmlNodeData("report_method", stemCellEnumerationTestOrder.Method);
+
             this.SaveReport();
         }        
     }

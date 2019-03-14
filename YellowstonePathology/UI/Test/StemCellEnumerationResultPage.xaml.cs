@@ -32,8 +32,6 @@ namespace YellowstonePathology.UI.Test
         private string m_PageHeaderText;
         private string m_OrderedOnDescription;
 
-        private YellowstonePathology.Business.Flow.FlowPanelList m_FlowPanelList;
-
         public StemCellEnumerationResultPage(YellowstonePathology.Business.Test.StemCellEnumeration.StemCellEnumerationTestOrder panelSetOrder,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
             YellowstonePathology.Business.User.SystemIdentity systemIdentity) : base(panelSetOrder, accessionOrder)
@@ -48,10 +46,6 @@ namespace YellowstonePathology.UI.Test
             YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetAliquotOrder(this.m_PanelSetOrder.OrderedOnId);
             this.m_OrderedOnDescription = specimenOrder.Description;
             if (aliquotOrder != null) this.m_OrderedOnDescription += ": " + aliquotOrder.Label;
-
-            this.m_FlowPanelList = new YellowstonePathology.Business.Flow.FlowPanelList();
-            this.m_FlowPanelList.SetFillCommandByAll();
-            this.m_FlowPanelList.Fill();
 
             InitializeComponent();
             this.DataContext = this;
@@ -87,11 +81,6 @@ namespace YellowstonePathology.UI.Test
         public YellowstonePathology.Business.Test.StemCellEnumeration.StemCellEnumerationTestOrder PanelSetOrder
         {
             get { return this.m_PanelSetOrder; }
-        }
-
-        public YellowstonePathology.Business.Flow.FlowPanelList FlowPanelList
-        {
-            get { return this.m_FlowPanelList; }
         }
 
         private void ButtonNext_Click(object sender, RoutedEventArgs e)
@@ -159,17 +148,6 @@ namespace YellowstonePathology.UI.Test
             else
             {
                 MessageBox.Show(result.Message);
-            }
-        }
-
-        private void ButtonAddCommonMarkerPanel_Click(object sender, RoutedEventArgs e)
-        {
-            if (this.comboBoxCommonMarkerPanel.SelectedItem != null)
-            {
-                YellowstonePathology.Business.Flow.FlowPanelListItem panelItem = (YellowstonePathology.Business.Flow.FlowPanelListItem)this.comboBoxCommonMarkerPanel.SelectedItem;
-                int nextCellPopulationId = this.PanelSetOrder.FlowMarkerCollection.GetNextCellPopulationId();
-                YellowstonePathology.Business.Flow.FlowMarkerCollection panelCollection = YellowstonePathology.Business.Gateway.FlowGateway.GetFlowMarkerCollectionByPanelId(this.PanelSetOrder.ReportNo, panelItem.PanelId);
-                this.PanelSetOrder.FlowMarkerCollection.Insert(panelCollection, this.PanelSetOrder.ReportNo, nextCellPopulationId, null, panelItem.PanelName);
             }
         }
     }

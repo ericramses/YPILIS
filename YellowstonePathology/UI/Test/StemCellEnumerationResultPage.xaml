@@ -88,26 +88,17 @@
                     <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,5" FontWeight="Bold">Ordered On:</TextBlock>
                     <TextBlock Grid.Column="1" Grid.Row="0" Margin="2,2,2,5" Text="{Binding Path=OrderedOnDescription}"></TextBlock>
 
-                    <StackPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Margin="5,5,5,5" Orientation="Horizontal">
-                        <TextBlock VerticalAlignment="Center" Width="200" Style="{StaticResource GatingTextBlock}" TextAlignment="Right" Margin="2,2,2,2">Marker Panel:</TextBlock>
-                        <ComboBox Name="comboBoxCommonMarkerPanel" Width="150" ItemsSource="{Binding Path=FlowPanelList}" DisplayMemberPath="PanelName" SelectedValuePath="PanelId" Height="22" Margin="2,2,2,2"/>
-                        <Button Name="ButtonAddCommonMarkerPanel" Height="20" Width="100" Click="ButtonAddCommonMarkerPanel_Click" Margin="2,2,2,2">Add Panel</Button>
-                    </StackPanel>
+                    <TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,5" FontWeight="Bold">Stem Cell Enumeration:</TextBlock>
+                    <TextBox Grid.Column="1" Grid.Row="1" Margin="2,2,2,5" Text="{Binding Path=PanelSetOrder.StemCellEnumeration}" />
 
-                    <ListView Name="listViewCommonMarkers" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Margin="5,5,5,5" ItemsSource="{Binding Path=PanelSetOrder.FlowMarkerCollection}">
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn Width="150" DisplayMemberBinding="{Binding Path=Name}" Header="Marker"/>
-                                <GridViewColumn Header="Result" Width="150">
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <TextBox Width="130"  Margin="3" Text="{Binding Path=Result}" />
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
+                    <TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,5" FontWeight="Bold">Viability:</TextBlock>
+                    <TextBox Grid.Column="1" Grid.Row="2" Margin="2,2,2,5" Text="{Binding Path=PanelSetOrder.Viability}" />
+
+                    <TextBlock Grid.Column="0" Grid.Row="3" Margin="2,2,2,5" FontWeight="Bold">WBC Count:</TextBlock>
+                    <TextBox Grid.Column="1" Grid.Row="3" Margin="2,2,2,5" Text="{Binding Path=PanelSetOrder.WBCCount}" />
+
+                    <TextBlock Grid.Column="0" Grid.Row="4" Margin="2,2,2,5" FontWeight="Bold">Method:</TextBlock>
+                    <TextBox Grid.Column="0" Grid.Row="5" Margin="2,2,2,5" Grid.ColumnSpan="2" Text="{Binding Path=PanelSetOrder.Method}" />
 
                     <TextBlock Grid.Column="0" Grid.Row="10" Margin="2,2,2,2" FontWeight="Bold" VerticalAlignment="Center">Distribute:</TextBlock>
                     <CheckBox Grid.Column="1" Grid.Row="10" Margin="2,2,2,2" IsChecked="{Binding Path=PanelSetOrder.Distribute}" VerticalAlignment="Center" />
