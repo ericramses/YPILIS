@@ -212,8 +212,9 @@
 			</TabItem>
 		</TabControl>
 
-		<StackPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">			
-			<Button Margin="5" Width="100" Height="30" Content="OK" Click="ButtonOK_Click"></Button>			
+		<StackPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+            <Button Margin="5,5,100,5" Width="100" Height="30" Content="HPVRules" Click="ButtonShowHPVRules_Click" />
+            <Button Margin="5" Width="100" Height="30" Content="OK" Click="ButtonOK_Click"></Button>			
 		</StackPanel>
 	</Grid>
 </Window>
