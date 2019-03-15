@@ -9,13 +9,8 @@ namespace YellowstonePathology.Business.Test.StemCellEnumeration
     {
 		public StemCellEnumerationTest()
         {
-<<<<<<< HEAD
-            this.m_PanelSetId = 24;
-            this.m_PanelSetName = "Stem Cell Enumeration";            
-=======
             this.m_PanelSetId = 328;
             this.m_PanelSetName = "Stem Cell Enumeration";
->>>>>>> a833e35b388cc48a72cd27cd968d37da920ca70c
 			this.m_AllowMultiplePerAccession = true;
             this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterF();
@@ -25,7 +20,7 @@ namespace YellowstonePathology.Business.Test.StemCellEnumeration
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.StemCellEnumeration.StemCellEnumerationTestOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.StemCellEnumeration.StemCellEnumerationWordDocument).AssemblyQualifiedName;
 
-            string taskDescription = "Perform stem cell enum. testing.";
+            string taskDescription = "Perform stem cell enumeration testing.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.Task(YellowstonePathology.Business.Task.Model.TaskAssignment.Flow, taskDescription));
 
             this.m_HasProfessionalComponent = false;
