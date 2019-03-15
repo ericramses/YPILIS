@@ -328,6 +328,8 @@
     <Compile Include="Business\Client.Model\IdahoClientIdList.cs" />
     <Compile Include="Business\Client.Model\PlaceOfService.cs" />
     <Compile Include="Business\Client.Model\PlaceOfServiceCollection.cs" />
+    <Compile Include="Business\Client.Model\StandingOrderView.cs" />
+    <Compile Include="Business\Client.Model\StandingOrderViewCollection.cs" />
     <Compile Include="Business\ClientOrder.Model\ExternalOrderIds.cs" />
     <Compile Include="Business\ClientOrder.Model\ExternalOrderIdsCollection.cs" />
     <Compile Include="Business\Common\Block.cs" />
@@ -3040,6 +3042,9 @@
     <Compile Include="UI\Client\FacilityEntry.xaml.cs">
       <DependentUpon>FacilityEntry.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Client\HPVRuleDialog.xaml.cs">
+      <DependentUpon>HPVRuleDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Common\UserPreferencesList.xaml.cs">
       <DependentUpon>UserPreferencesList.xaml</DependentUpon>
     </Compile>
@@ -5017,6 +5022,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\Client\FacilityEntry.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Client\HPVRuleDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
