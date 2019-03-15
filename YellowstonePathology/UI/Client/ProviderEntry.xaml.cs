@@ -297,5 +297,11 @@ namespace YellowstonePathology.UI.Client
                 this.m_Physician.HomeBaseClientId = selectedHomeBaseClient.ClientId;
             }
         }
+
+        private void ButtonShowHPVRules_Click(object sender, RoutedEventArgs e)
+        {
+            HPVRuleDialog dlg = new Client.HPVRuleDialog();
+            dlg.ShowDialog();
+        }
     }
 }
