@@ -1,11 +1,9 @@
 ﻿using System;
-using System.ComponentModel;
 
 namespace YellowstonePathology.Business.Client.Model
 {
-    public class StandingOrderView : INotifyPropertyChanged
+    public class StandingOrderView
     {
-        public event PropertyChangedEventHandler PropertyChanged;
 
         private StandingOrder m_StandingOrder;
         private string m_StandingOrderName;
@@ -29,6 +27,11 @@ namespace YellowstonePathology.Business.Client.Model
         public string ReflexDescription
         {
             get { return this.m_StandingOrder.ToString(); }
+        }
+
+        public string PatientAge
+        {
+            get { return this.m_StandingOrder.PatientAge; }
         }
     }
 }

@@ -11,10 +11,11 @@ namespace YellowstonePathology.Business.Client.Model
         protected string m_ReflexOrderCode;
         protected string m_Description;
         protected YellowstonePathology.Business.PanelSet.Model.PanelSet m_PanelSet;
+        protected string m_PatientAge;
         
         public ReflexOrder()
         {
-
+            this.m_PatientAge = "Not Set";
         }
 
         public int RuleNumber
@@ -44,6 +45,12 @@ namespace YellowstonePathology.Business.Client.Model
         public virtual bool IsRequired(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
             throw new Exception("Not implemented here.");
+        }
+
+        public string PatientAge
+        {
+            get { return this.m_PatientAge; }
+            set { this.m_PatientAge = value; }
         }
     }
 }

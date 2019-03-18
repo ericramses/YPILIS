@@ -21,9 +21,9 @@ namespace YellowstonePathology.UI.Client
     {
         private YellowstonePathology.Business.Client.Model.StandingOrderViewCollection m_StandingOrderViewCollection;
 
-        public HPVRuleDialog()
+        public HPVRuleDialog(YellowstonePathology.Business.Client.Model.StandingOrderViewTypeEnum viewType)
         {
-            this.m_StandingOrderViewCollection = new Business.Client.Model.StandingOrderViewCollection();
+            this.m_StandingOrderViewCollection = new Business.Client.Model.StandingOrderViewCollection(viewType);
             InitializeComponent();
             DataContext = this;
         }

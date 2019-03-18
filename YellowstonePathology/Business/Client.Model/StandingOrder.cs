@@ -44,5 +44,10 @@ namespace YellowstonePathology.Business.Client.Model
         {
             return this.m_ReflexOrder.RuleNumber.ToString() + ".) " +  this.m_Description;
         }
+
+        public virtual string PatientAge
+        {
+            get { return this.m_ReflexOrder.PatientAge; }
+        }
     }
 }

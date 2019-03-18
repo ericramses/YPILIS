@@ -300,7 +300,7 @@ namespace YellowstonePathology.UI.Client
 
         private void ButtonShowHPVRules_Click(object sender, RoutedEventArgs e)
         {
-            HPVRuleDialog dlg = new Client.HPVRuleDialog();
+            HPVRuleDialog dlg = new Client.HPVRuleDialog(YellowstonePathology.Business.Client.Model.StandingOrderViewTypeEnum.HPVOnly);
             dlg.ShowDialog();
         }
     }
