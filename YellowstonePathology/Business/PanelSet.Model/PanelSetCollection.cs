@@ -195,6 +195,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.Test.NeoTYPELumphomaProfile.NeoTYPELumphomaProfileTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.Adenovirus.AdenovirusTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.NeoTYPELiverBiliaryTumorProfile.NeoTYPELiverBiliaryTumorProfileTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.DNACellCycleAnalysis.DNACellCycleAnalysisTest());
 
             //ARUP
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetArupBraf());
