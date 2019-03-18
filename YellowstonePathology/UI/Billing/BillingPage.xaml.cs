@@ -187,7 +187,7 @@ namespace YellowstonePathology.UI.Billing
                     }
                     else
                     {
-                        this.m_PanelSetOrderCPTCodeCollection.SetCodeTypes();
+                        this.m_PanelSetOrderCPTCodeCollection.UpdateCodeType();
                     }
                 }
             }            
