@@ -340,6 +340,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.Test.ChromosomeAnalysisForFetalAnomaly.ChromosomeAnalysisForFetalAnomalyTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.MissingInformation.MissingInformationTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.Trisomy21ByFISH.Trisomy21ByFISHTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.HER2AmplificationByISHSendOut.HER2AmplificationByISHSendOutTest());
 
             panelSetCollection.Add(new YellowstonePathology.Business.Test.BrainDonation.BrainDonationTest());
 
