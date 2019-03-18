@@ -528,17 +528,5 @@ namespace YellowstonePathology.Business.Test
                 }
             }
         }
-
-        public void SetCodeTypes()
-        {
-            foreach (YellowstonePathology.Business.Test.PanelSetOrderCPTCode panelSetOrderCPTCode in this)
-            {
-                if (string.IsNullOrEmpty(panelSetOrderCPTCode.CodeType) == true)
-                {
-                    Billing.Model.CptCode cptCode = Store.AppDataStore.Instance.CPTCodeCollection.GetCPTCode(panelSetOrderCPTCode.CPTCode);
-                    panelSetOrderCPTCode.CodeType = cptCode.CodeType.ToString();
-                }
-            }
-        }
     }
 }
