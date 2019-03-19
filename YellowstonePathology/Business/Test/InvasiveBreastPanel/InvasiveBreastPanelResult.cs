@@ -41,6 +41,15 @@ namespace YellowstonePathology.Business.Test.InvasiveBreastPanel
                 this.m_PanelSetOrderHer2ByIsh = (YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(46);
                 this.m_HER2ResultString = this.m_PanelSetOrderHer2ByIsh.Result;
             }
+            else
+            {
+                Test.HER2AmplificationByISHSendOut.HER2AmplificationByISHSendOutTest test = new HER2AmplificationByISHSendOut.HER2AmplificationByISHSendOutTest();
+                if(this.m_AccessionOrder.PanelSetOrderCollection.Exists(test.PanelSetId, this.m_InvasiveBreastPanel.OrderedOnId, true) == true)
+                {
+                    PanelSetOrder sendoutHer2 = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(test.PanelSetId, this.m_InvasiveBreastPanel.OrderedOnId, true);
+                    this.m_HER2ResultString = "Reported separately (" + sendoutHer2.ReportNo + ")";
+                }
+            }
 
 			YellowstonePathology.Business.Test.ErPrSemiQuantitative.ErPrSemiQuantitativeTest erPrSemiQuantitativeTest = new YellowstonePathology.Business.Test.ErPrSemiQuantitative.ErPrSemiQuantitativeTest();            
             if (this.m_AccessionOrder.PanelSetOrderCollection.HasSurgical() == true && this.m_AccessionOrder.PanelSetOrderCollection.Exists(erPrSemiQuantitativeTest.PanelSetId) == false)
