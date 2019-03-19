@@ -47,5 +47,10 @@ namespace YellowstonePathology.Business.Client.Model
 
             return result.ToString().TrimEnd();
         }
+
+        public override string PatientAge
+        {
+            get { return HPVRuleValues.Any; }
+        }
     }
 }

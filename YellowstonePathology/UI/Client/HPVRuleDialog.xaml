@@ -34,7 +34,7 @@
                 </Grid.RowDefinitions>
 
                 <ListView Name="ListViewStandingOrders" Grid.Row="0" Margin="2,2,2,2" Background="Transparent" MouseDoubleClick="ListBoxStandingOrders_MouseDoubleClick"
-							 ItemsSource="{Binding Path=StandingOrderViewCollection}">
+							 ItemsSource="{Binding Path=StandingOrderViewCollection}" SelectionChanged="ListViewStandingOrders_SelectionChanged">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Rule" Width="290" DisplayMemberBinding="{Binding Path=StandingOrderName}" />
@@ -47,6 +47,8 @@
             <ScrollViewer Grid.Column="1" Margin="10">
                 <Grid>
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
                         <ColumnDefinition Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
@@ -73,6 +75,20 @@
 
                     <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" FontWeight="Bold">Patient Age:</TextBlock>
                     <TextBlock Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" Text="{Binding SelectedItem.PatientAge, ElementName=ListViewStandingOrders}"></TextBlock>
+
+                    <TextBlock Grid.Column="2" Grid.Row="0" Margin="5,2,5,2" FontWeight="Bold" Visibility="{Binding Path=CompoundRuleVisibility}">or</TextBlock>
+
+                    <TextBlock Grid.Column="3" Grid.Row="0" Margin="2,2,2,2" Text="{Binding SelectedItem.PatientAgeCompound, ElementName=ListViewStandingOrders}" Visibility="{Binding Path=CompoundRuleVisibility}"></TextBlock>
+
+                    <TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" FontWeight="Bold">PAP Result:</TextBlock>
+                    <TextBlock Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" Text="{Binding SelectedItem.PAPResult, ElementName=ListViewStandingOrders}"></TextBlock>
+
+                    <TextBlock Grid.Column="3" Grid.Row="1" Margin="2,2,2,2" Text="{Binding SelectedItem.PAPResultCompound, ElementName=ListViewStandingOrders}" Visibility="{Binding Path=CompoundRuleVisibility}"></TextBlock>
+
+                    <TextBlock Grid.Column="0" Grid.Row="16" Margin="2,2,2,2" FontWeight="Bold" Visibility="{Binding Path=HPV1618RuleVisibility}">HPV Result:</TextBlock>
+                    <TextBlock Grid.Column="1" Grid.Row="16" Margin="2,2,2,2" Text="{Binding SelectedItem.HPVResult, ElementName=ListViewStandingOrders}" Visibility="{Binding Path=HPV1618RuleVisibility}"></TextBlock>
+
+                    <TextBlock Grid.Column="3" Grid.Row="16" Margin="2,2,2,2" Text="{Binding SelectedItem.HPVResultCompound, ElementName=ListViewStandingOrders}" Visibility="{Binding Path=CompoundRuleHPV1618Visibility}"></TextBlock>
 
                 </Grid>
             </ScrollViewer>

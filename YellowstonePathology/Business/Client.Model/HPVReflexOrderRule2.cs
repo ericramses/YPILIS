@@ -13,6 +13,9 @@ namespace YellowstonePathology.Business.Client.Model
             this.m_ReflexOrderCode = "RFLXHPVRL2";
             this.m_Description = "Perform reflex HPV testing on patients who are reported with ASCUS results";
 			this.m_PanelSet = new YellowstonePathology.Business.Test.HPV.HPVTest();
+            this.m_PatientAge = HPVRuleValues.Any;
+            this.m_PAPResult = HPVRuleValues.PAPResultASCUS;
+            this.m_HPVResult = HPVRuleValues.NotUsed;
         }
 
         public override bool IsRequired(Business.Test.AccessionOrder accessionOrder)

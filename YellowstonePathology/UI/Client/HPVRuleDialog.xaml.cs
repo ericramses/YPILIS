@@ -11,19 +11,28 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.ComponentModel;
 
 namespace YellowstonePathology.UI.Client
 {
     /// <summary>
     /// Interaction logic for HPVRuleDialog.xaml
     /// </summary>
-    public partial class HPVRuleDialog : Window
+    public partial class HPVRuleDialog : Window, INotifyPropertyChanged
     {
-        private YellowstonePathology.Business.Client.Model.StandingOrderViewCollection m_StandingOrderViewCollection;
+        public event PropertyChangedEventHandler PropertyChanged;
 
-        public HPVRuleDialog(YellowstonePathology.Business.Client.Model.StandingOrderViewTypeEnum viewType)
+        private YellowstonePathology.Business.Client.Model.StandingOrderViewCollection m_StandingOrderViewCollection;
+        private Visibility m_CompoundRuleVisibility;
+        private Visibility m_HPV1618RuleVisibility;
+        private Visibility m_CompoundRuleHPV1618Visibility;
+
+        public HPVRuleDialog(YellowstonePathology.Business.Client.Model.StandingOrderViewTypeEnum viewType, string standingOrderCode)
         {
             this.m_StandingOrderViewCollection = new Business.Client.Model.StandingOrderViewCollection(viewType);
+            this.m_HPV1618RuleVisibility = viewType == Business.Client.Model.StandingOrderViewTypeEnum.HPV1618Only ? Visibility.Visible : Visibility.Collapsed;
+            this.m_CompoundRuleVisibility = Visibility.Collapsed;
+            this.m_CompoundRuleHPV1618Visibility = Visibility.Collapsed;
             InitializeComponent();
             DataContext = this;
         }
@@ -31,6 +40,29 @@ namespace YellowstonePathology.UI.Client
         public YellowstonePathology.Business.Client.Model.StandingOrderViewCollection StandingOrderViewCollection
         {
             get { return this.m_StandingOrderViewCollection; }
+        }
+
+        public Visibility CompoundRuleVisibility
+        {
+            get { return this.m_CompoundRuleVisibility; }
+        }
+
+        public Visibility HPV1618RuleVisibility
+        {
+            get { return this.m_HPV1618RuleVisibility; }
+        }
+
+        public Visibility CompoundRuleHPV1618Visibility
+        {
+            get { return this.m_CompoundRuleVisibility == Visibility.Visible && m_HPV1618RuleVisibility == Visibility.Visible ? Visibility.Visible : Visibility.Collapsed; }
+        }
+
+        public void NotifyPropertyChanged(String info)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
         }
 
         private void ListBoxStandingOrders_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -42,9 +74,25 @@ namespace YellowstonePathology.UI.Client
             }
         }
 
+        private void ListViewStandingOrders_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (this.ListViewStandingOrders.SelectedItem != null)
+            {
+                YellowstonePathology.Business.Client.Model.StandingOrderView view = (Business.Client.Model.StandingOrderView)this.ListViewStandingOrders.SelectedItem;
+                this.SetCompoundRuleVisibility(view);
+            }
+        }
+
         private void ButtonOK_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void SetCompoundRuleVisibility(YellowstonePathology.Business.Client.Model.StandingOrderView view)
+        {
+            this.m_CompoundRuleVisibility = view.IsCompoundRule == true ? Visibility.Visible : Visibility.Collapsed;
+            this.NotifyPropertyChanged("CompoundRuleVisibility");
+            this.NotifyPropertyChanged("CompoundRuleHPV1618Visibility");
         }
     }
 }
