@@ -13,6 +13,9 @@ namespace YellowstonePathology.Business.Client.Model
             this.m_ReflexOrderCode = "RFLXHPVRL51";
             this.m_Description = "Perform reflex HPV testing on patients who are between 21 and 29 years old and have an abnormal PAP result.";
 			this.m_PanelSet = new YellowstonePathology.Business.Test.HPV.HPVTest();
+            this.m_PatientAge = HPVRuleValues.AgeBetween21and29;
+            this.m_PAPResult = HPVRuleValues.PAPResultAbnormal;
+            this.m_HPVResult = HPVRuleValues.NotUsed;
         }
 
         public override bool IsRequired(Business.Test.AccessionOrder accessionOrder)
