@@ -324,6 +324,7 @@
     <Compile Include="Business\Client.Model\HPVCompoundStandingOrderRule6.cs" />
     <Compile Include="Business\Client.Model\HPVReflexOrderRule141.cs" />
     <Compile Include="Business\Client.Model\HPVReflexOrderRule51.cs" />
+    <Compile Include="Business\Client.Model\HPVRuleValues.cs" />
     <Compile Include="Business\Client.Model\HPVStandingOrderRule141.cs" />
     <Compile Include="Business\Client.Model\HPVStandingOrderRule51.cs" />
     <Compile Include="Business\Client.Model\IdahoClientIdList.cs" />
@@ -331,6 +332,7 @@
     <Compile Include="Business\Client.Model\PlaceOfServiceCollection.cs" />
     <Compile Include="Business\Client.Model\StandingOrderView.cs" />
     <Compile Include="Business\Client.Model\StandingOrderViewCollection.cs" />
+    <Compile Include="Business\Client.Model\StandingOrderViewTypeEnum.cs" />
     <Compile Include="Business\ClientOrder.Model\ExternalOrderIds.cs" />
     <Compile Include="Business\ClientOrder.Model\ExternalOrderIdsCollection.cs" />
     <Compile Include="Business\Common\Block.cs" />

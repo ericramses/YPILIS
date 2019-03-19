@@ -13,6 +13,7 @@ namespace YellowstonePathology.Business.Client.Model
             this.m_Description = "Combines Rule 5 and Rule 13";
             this.m_ReflexOrder = new ReflexOrder();
 			this.m_ReflexOrder.PanelSet = new YellowstonePathology.Business.Test.HPV.HPVTest();
+            this.m_IsCompoundRule = true;
         }
 
         public override bool IsRequired(Business.Test.AccessionOrder accessionOrder)
@@ -45,6 +46,60 @@ namespace YellowstonePathology.Business.Client.Model
             result.AppendLine("13.) " + hpvReflexOrderRule13.Description);
 
             return result.ToString().TrimEnd();
+        }
+
+        public override string PatientAge
+        {
+            get
+            {
+                HPVReflexOrderRule5 hpvReflexOrderRule5 = new HPVReflexOrderRule5();
+                return hpvReflexOrderRule5.PatientAge;
+            }
+        }
+
+        public override string PAPResult
+        {
+            get
+            {
+                HPVReflexOrderRule5 hpvReflexOrderRule5 = new HPVReflexOrderRule5();
+                return hpvReflexOrderRule5.PAPResult;
+            }
+        }
+
+        public override string HPVResult
+        {
+            get
+            {
+                HPVReflexOrderRule5 hpvReflexOrderRule5 = new HPVReflexOrderRule5();
+                return hpvReflexOrderRule5.HPVResult;
+            }
+        }
+
+        public override string PatientAgeCompound
+        {
+            get
+            {
+                HPVReflexOrderRule13 hpvReflexOrderRule13 = new HPVReflexOrderRule13();
+                return hpvReflexOrderRule13.PatientAge;
+            }
+        }
+
+        public override string PAPResultCompound
+        {
+            get
+            {
+                HPVReflexOrderRule13 hpvReflexOrderRule13 = new HPVReflexOrderRule13();
+                return hpvReflexOrderRule13.PAPResult;
+            }
+        }
+
+        public override string HPVResultCompound
+        {
+            get
+            {
+                HPVReflexOrderRule13 hpvReflexOrderRule13 = new HPVReflexOrderRule13();
+                return hpvReflexOrderRule13.HPVResult;
+            }
         }
     }
 }
