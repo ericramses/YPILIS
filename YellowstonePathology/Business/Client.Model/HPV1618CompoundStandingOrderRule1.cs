@@ -14,6 +14,7 @@ namespace YellowstonePathology.Business.Client.Model
             this.m_Description = "Combines HPV1618 Rule 1 and Rule 2";
             this.m_ReflexOrder = new ReflexOrder();
 			this.m_ReflexOrder.PanelSet = new YellowstonePathology.Business.Test.HPV1618.HPV1618Test();
+            this.m_IsCompoundRule = true;
         }
 
         public override bool IsRequired(Business.Test.AccessionOrder accessionOrder)
@@ -50,7 +51,56 @@ namespace YellowstonePathology.Business.Client.Model
 
         public override string PatientAge
         {
-            get { return HPVRuleValues.Any; }
+            get
+            {
+                HPV1618ReflexOrderHPVPositive hpv1618ReflexOrderHPVPositive = new HPV1618ReflexOrderHPVPositive();
+                return hpv1618ReflexOrderHPVPositive.PatientAge;
+            }
+        }
+
+        public override string PAPResult
+        {
+            get
+            {
+                HPV1618ReflexOrderHPVPositive hpv1618ReflexOrderHPVPositive = new HPV1618ReflexOrderHPVPositive();
+                return hpv1618ReflexOrderHPVPositive.PAPResult;
+            }
+        }
+
+        public override string HPVResult
+        {
+            get
+            {
+                HPV1618ReflexOrderHPVPositive hpv1618ReflexOrderHPVPositive = new HPV1618ReflexOrderHPVPositive();
+                return hpv1618ReflexOrderHPVPositive.HPVResult;
+            }
+        }
+
+        public override string PatientAgeCompound
+        {
+            get
+            {
+                HPV1618ReflexOrderPAPNormalHPVPositive hpv1618ReflexOrderPAPNormalHPVPositive = new HPV1618ReflexOrderPAPNormalHPVPositive();
+                return hpv1618ReflexOrderPAPNormalHPVPositive.PatientAge;
+            }
+        }
+
+        public override string PAPResultCompound
+        {
+            get
+            {
+                HPV1618ReflexOrderPAPNormalHPVPositive hpv1618ReflexOrderPAPNormalHPVPositive = new HPV1618ReflexOrderPAPNormalHPVPositive();
+                return hpv1618ReflexOrderPAPNormalHPVPositive.PAPResult;
+            }
+        }
+
+        public override string HPVResultCompound
+        {
+            get
+            {
+                HPV1618ReflexOrderPAPNormalHPVPositive hpv1618ReflexOrderPAPNormalHPVPositive = new HPV1618ReflexOrderPAPNormalHPVPositive();
+                return hpv1618ReflexOrderPAPNormalHPVPositive.HPVResult;
+            }
         }
     }
 }

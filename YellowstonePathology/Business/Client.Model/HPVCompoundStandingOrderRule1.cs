@@ -11,9 +11,9 @@ namespace YellowstonePathology.Business.Client.Model
         {
             this.m_StandingOrderCode = "STNDHPVCMPRL1";
             this.m_Description = "Combines Rule 1 and Rule 10";
-            this.m_IsCompoundRule = true;
             this.m_ReflexOrder = new ReflexOrder();
 			this.m_ReflexOrder.PanelSet = new YellowstonePathology.Business.Test.HPV.HPVTest();
+            this.m_IsCompoundRule = true;
         }
 
         public override bool IsRequired(Business.Test.AccessionOrder accessionOrder)

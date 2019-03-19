@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YellowstonePathology.UI.Client"
         mc:Ignorable="d"
-        Height="690" Width="700" WindowStyle="ToolWindow" WindowStartupLocation="CenterScreen">
+        Height="770" Width="800" WindowStyle="ToolWindow" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -28,13 +28,13 @@
 
             <Border Grid.Row="0" Grid.Column="0" BorderBrush="Transparent" BorderThickness="0" Background="{DynamicResource {x:Static SystemColors.InactiveCaptionBrushKey}}"></Border>
 
-            <Grid Grid.Column="0" Margin="10" Width="300">
+            <Grid Grid.Column="0" Margin="5" Width="300">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
 
                 <ListView Name="ListViewStandingOrders" Grid.Row="0" Margin="2,2,2,2" Background="Transparent" MouseDoubleClick="ListBoxStandingOrders_MouseDoubleClick"
-							 ItemsSource="{Binding Path=StandingOrderViewCollection}" SelectionChanged="ListViewStandingOrders_SelectionChanged">
+							 ItemsSource="{Binding Path=StandingOrderViewCollection}" SelectionChanged="ListViewStandingOrders_SelectionChanged" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Rule" Width="290" DisplayMemberBinding="{Binding Path=StandingOrderName}" />
@@ -76,7 +76,7 @@
                     <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" FontWeight="Bold">Patient Age:</TextBlock>
                     <TextBlock Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" Text="{Binding SelectedItem.PatientAge, ElementName=ListViewStandingOrders}"></TextBlock>
 
-                    <TextBlock Grid.Column="2" Grid.Row="0" Margin="5,2,5,2" FontWeight="Bold" Visibility="{Binding Path=CompoundRuleVisibility}">or</TextBlock>
+                    <TextBlock Grid.Column="2" Grid.Row="0" Margin="2,2,15,2" FontWeight="Bold" Visibility="{Binding Path=CompoundRuleVisibility}">or</TextBlock>
 
                     <TextBlock Grid.Column="3" Grid.Row="0" Margin="2,2,2,2" Text="{Binding SelectedItem.PatientAgeCompound, ElementName=ListViewStandingOrders}" Visibility="{Binding Path=CompoundRuleVisibility}"></TextBlock>
 
