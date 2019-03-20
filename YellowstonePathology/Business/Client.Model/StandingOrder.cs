@@ -80,5 +80,15 @@ namespace YellowstonePathology.Business.Client.Model
         {
             get { return this.m_ReflexOrder.HPVResultCompound; }
         }
+
+        public virtual string HPVTesting
+        {
+            get { return this.m_ReflexOrder.HPVTesting; }
+        }
+
+        public virtual string HPVTestingCompound
+        {
+            get { return this.m_ReflexOrder.HPVTestingCompound; }
+        }
     }
 }
