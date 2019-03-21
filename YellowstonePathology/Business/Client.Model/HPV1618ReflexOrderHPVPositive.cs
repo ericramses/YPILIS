@@ -12,10 +12,6 @@ namespace YellowstonePathology.Business.Client.Model
             this.m_ReflexOrderCode = "RFLXHPV1618HPVPOS";
             this.m_Description = "Order HPV 16/18 when the HPV result is positive";
 			this.m_PanelSet = new YellowstonePathology.Business.Test.HPV1618.HPV1618Test();
-            this.m_PatientAge = HPVRuleValues.Any;
-            this.m_PAPResult = HPVRuleValues.Any;
-            this.m_HPVResult = HPVRuleValues.HPVResultPositive;
-            this.m_HPVTesting = HPVRuleValues.Any;
         }
 
         public override bool IsRequired(Business.Test.AccessionOrder accessionOrder)
