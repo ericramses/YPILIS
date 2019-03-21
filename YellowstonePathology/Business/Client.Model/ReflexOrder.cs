@@ -11,18 +11,9 @@ namespace YellowstonePathology.Business.Client.Model
         protected string m_ReflexOrderCode;
         protected string m_Description;
         protected YellowstonePathology.Business.PanelSet.Model.PanelSet m_PanelSet;
-        protected string m_PatientAge;
-        protected string m_PAPResult;
-        protected string m_HPVResult;
-        protected string m_PatientAgeCompound;
-        protected string m_PAPResultCompound;
-        protected string m_HPVResultCompound;
 
         public ReflexOrder()
         {
-            this.m_PatientAge = HPVRuleValues.NotSet;
-            this.m_PAPResult = HPVRuleValues.NotSet;
-            this.m_HPVResult = HPVRuleValues.NotSet;
         }
 
         public int RuleNumber
@@ -52,36 +43,6 @@ namespace YellowstonePathology.Business.Client.Model
         public virtual bool IsRequired(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
             throw new Exception("Not implemented here.");
-        }
-
-        public string PatientAge
-        {
-            get { return this.m_PatientAge; }
-        }
-
-        public string PAPResult
-        {
-            get { return this.m_PAPResult; }
-        }
-
-        public string HPVResult
-        {
-            get { return this.m_HPVResult; }
-        }
-
-        public string PatientAgeCompound
-        {
-            get { return this.m_PatientAgeCompound; }
-        }
-
-        public string PAPResultCompound
-        {
-            get { return this.m_PAPResultCompound; }
-        }
-
-        public string HPVResultCompound
-        {
-            get { return this.m_HPVResultCompound; }
         }
     }
 }

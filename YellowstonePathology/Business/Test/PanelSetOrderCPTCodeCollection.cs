@@ -309,8 +309,9 @@ namespace YellowstonePathology.Business.Test
                 panelSetOrderCPTCode.MedicalRecord = item.MedicalRecord;
                 panelSetOrderCPTCode.Account = item.Account;
                 result.Add(panelSetOrderCPTCode);
-            }                
+            }
 
+            result.UpdateCodeType();
             return result;
         }
 
@@ -354,6 +355,7 @@ namespace YellowstonePathology.Business.Test
                 result.Add(panelSetOrderCPTCode);
             }
 
+            result.UpdateCodeType();
             return result;
         }
 

@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -93,6 +93,27 @@ namespace YellowstonePathology.UI.Client
             this.m_CompoundRuleVisibility = view.IsCompoundRule == true ? Visibility.Visible : Visibility.Collapsed;
             this.NotifyPropertyChanged("CompoundRuleVisibility");
             this.NotifyPropertyChanged("CompoundRuleHPV1618Visibility");
+        }
+
+        private void ButtonRule_Click(object sender, RoutedEventArgs e)
+        {
+            int cnt = 0;
+            using (StreamWriter sw = new StreamWriter(@"C:\ProgramData\ypi\lisdata\HPVStandingOrder.txt", false))
+            {
+                foreach(YellowstonePathology.Business.Client.Model.StandingOrderView view in this.m_StandingOrderViewCollection)
+                {
+                    if (view.IsCompoundRule == false)
+                    {
+                        cnt++;
+                        string id = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
+                        string insertString = "Insert into `tblHPVStandingOrder` (`HPVStandingOrderId`, `Age`, `PAPResult`, `HPVResult`, `HPVTesting`, " +
+                            "`Endocervical`, `HPVStandingOrderName`) values('" + id + "', '" + view.PatientAge + "', '" + view.PAPResult +
+                            "', '" + view.HPVResult + "', '" + view.HPVTesting + "', '" + view.Endocervical + "', 'HPVStandingOrderRule" + cnt.ToString() + "')";
+                        sw.WriteLine(insertString + ";");
+                    }
+                }
+            }
+            MessageBox.Show("Done");
         }
     }
 }
