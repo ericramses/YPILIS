@@ -150,7 +150,7 @@ namespace YellowstonePathology.Business.Gateway
         public static int GetSVHClinicMessageBody(StringBuilder result)
         {
             int rowCount = 0;
-            result.AppendLine("SVH clinic cases for not posted. ");
+            result.AppendLine("SVH clinic cases that have not het been posted. ");
             StringBuilder header = new StringBuilder();
             header.Append("Accessioned".PadRight(40));
             header.Append("Master Accession".PadRight(20));

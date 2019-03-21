@@ -431,7 +431,7 @@ namespace YellowstonePathology.UI.Login.Receiving
                 reportNotify.Render();
                 reportNotify.Publish();
 
-                System.Threading.Thread.Sleep(2000);
+                System.Threading.Thread.Sleep(4000);
 
                 string notifyFileName = Business.Document.CaseDocument.GetCaseFileNameTifNotify(orderIdParser);
                 Business.ReportDistribution.Model.FaxSubmission.Submit(taskOrderDetailFax.FaxNumber, panelSetOrder.ReportNo + " - Additional Testing Notification", notifyFileName);
