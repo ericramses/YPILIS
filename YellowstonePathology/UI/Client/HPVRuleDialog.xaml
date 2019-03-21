@@ -90,11 +90,14 @@
 
                     <TextBlock Grid.Column="3" Grid.Row="3" Margin="2,2,2,2" Text="{Binding SelectedItem.HPVTestingCompound, ElementName=ListViewStandingOrders}" Visibility="{Binding Path=CompoundRuleVisibility}"></TextBlock>
 
+                    <TextBlock Grid.Column="0" Grid.Row="4" Margin="2,2,2,2" FontWeight="Bold">Endocervical:</TextBlock>
+                    <TextBlock Grid.Column="1" Grid.Row="4" Margin="2,2,2,2" Text="{Binding SelectedItem.Endocervical, ElementName=ListViewStandingOrders}"></TextBlock>
+
                     <TextBlock Grid.Column="0" Grid.Row="15" Margin="2,2,2,2" FontWeight="Bold" Visibility="{Binding Path=HPV1618RuleVisibility}">HPV Result:</TextBlock>
                     <TextBlock Grid.Column="1" Grid.Row="15" Margin="2,2,2,2" Text="{Binding SelectedItem.HPVResult, ElementName=ListViewStandingOrders}" Visibility="{Binding Path=HPV1618RuleVisibility}"></TextBlock>
 
                     <TextBlock Grid.Column="3" Grid.Row="15" Margin="2,2,2,2" Text="{Binding SelectedItem.HPVResultCompound, ElementName=ListViewStandingOrders}" Visibility="{Binding Path=CompoundRuleHPV1618Visibility}"></TextBlock>
-
+                    <Button Name="ButtonRule" Grid.Column="3" Grid.Row="16" Margin="2,2,2,2" Height="30" Width="100" Click="ButtonRule_Click">Rule</Button>
                 </Grid>
             </ScrollViewer>
 

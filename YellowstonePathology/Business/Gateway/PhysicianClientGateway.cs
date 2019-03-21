@@ -1264,5 +1264,29 @@ namespace YellowstonePathology.Business.Gateway
             }
             return result;
         }
+
+        public static Client.Model.HPVStandingOrderCollection GetHPVStandingOrderCollection()
+        {
+            YellowstonePathology.Business.Client.Model.HPVStandingOrderCollection result = new Client.Model.HPVStandingOrderCollection();
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "Select * from tblHPVStandingOrder;";
+            cmd.CommandType = CommandType.Text;
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.Business.Client.Model.HPVStandingOrder hpvStandingOrder = new Client.Model.HPVStandingOrder();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(hpvStandingOrder, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(hpvStandingOrder);
+                    }
+                }
+            }
+            return result;
+        }
     }
 }

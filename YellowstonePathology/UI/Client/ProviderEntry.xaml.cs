@@ -25,9 +25,10 @@ namespace YellowstonePathology.UI.Client
 		private YellowstonePathology.Business.View.PhysicianClientView m_PhysicianClientView;
 		private YellowstonePathology.Business.Client.Model.ClientCollection m_ClientCollection;
 		private List<YellowstonePathology.Business.Client.Model.PhysicianClientDistributionView> m_PhysicianClientDistributionViewList;
+        private YellowstonePathology.Business.Client.Model.HPVStandingOrderCollection m_HPVStandingOrderCollection;
+        private YellowstonePathology.Business.Client.Model.HPVStandingOrder m_HPVStandingOrder;
 
-		private string m_PhysicianClientId;
-        private bool m_IsNewProvider;
+        private string m_PhysicianClientId;
         private Window m_ParentWindow;
         private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 
@@ -40,7 +41,7 @@ namespace YellowstonePathology.UI.Client
 			this.m_HpvStandingOrders = YellowstonePathology.Business.Client.Model.StandingOrderCollection.GetHPVStandingOrders();
 			this.m_HPV1618StandingOrderCollection = YellowstonePathology.Business.Client.Model.StandingOrderCollection.GetHPV1618StandingOrders();
 			this.m_ClientCollection = new YellowstonePathology.Business.Client.Model.ClientCollection();
-            
+            this.m_HPVStandingOrderCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetHPVStandingOrderCollection();
             InitializeComponent();
 
             this.m_ParentWindow = Window.GetWindow(this);
@@ -101,7 +102,17 @@ namespace YellowstonePathology.UI.Client
 			get { return this.m_PhysicianClientDistributionViewList; }
 		}
 
-		private void ButtonOK_Click(object sender, RoutedEventArgs e)
+        public YellowstonePathology.Business.Client.Model.HPVStandingOrderCollection HPVStandingOrderCollection
+        {
+            get { return this.m_HPVStandingOrderCollection; }
+        }
+
+        public YellowstonePathology.Business.Client.Model.HPVStandingOrder HPVStandingOrder
+        {
+            get { return this.m_HPVStandingOrder; }
+        }
+
+        private void ButtonOK_Click(object sender, RoutedEventArgs e)
 		{
             if (this.CanSave() == true)
             {
@@ -298,16 +309,17 @@ namespace YellowstonePathology.UI.Client
             }
         }
 
-        private void ButtonShowHPVRules_Click(object sender, RoutedEventArgs e)
+        private void ListViewStandingOrders_SelectionChanged(object sender, RoutedEventArgs e)
         {
-            HPVRuleDialog dlg = new Client.HPVRuleDialog(YellowstonePathology.Business.Client.Model.StandingOrderViewTypeEnum.HPVOnly, this.m_Physician.HPVStandingOrderCode);
-            dlg.ShowDialog();
+            if(this.ListViewStandingOrders.SelectedItem != null)
+            {
+                this.m_HPVStandingOrder = (YellowstonePathology.Business.Client.Model.HPVStandingOrder)this.ListViewStandingOrders.SelectedItem;
+                this.NotifyPropertyChanged("HPVStandingOrder");
+            }
         }
 
-        private void ButtonShowHPV1618Rules_Click(object sender, RoutedEventArgs e)
+        private void ButtonAddHPVStandingOrder_Click(object sender, RoutedEventArgs e)
         {
-            HPVRuleDialog dlg = new Client.HPVRuleDialog(YellowstonePathology.Business.Client.Model.StandingOrderViewTypeEnum.HPV1618Only, this.m_Physician.HPVStandingOrderCode);
-            dlg.ShowDialog();
         }
     }
 }
