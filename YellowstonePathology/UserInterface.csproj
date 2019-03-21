@@ -1163,6 +1163,7 @@
     <Compile Include="Business\Test\OrderAssociation\OrderAssociationTest.cs" />
     <Compile Include="Business\Test\OrderAssociation\OrderAssociationTestOrder.cs" />
     <Compile Include="Business\Test\p57\p57Test.cs" />
+    <Compile Include="Business\Test\ParvovirusB19ByPCR\ParvovirusB19ByPCRTest.cs" />
     <Compile Include="Business\Test\PDL1288\PDL1288Test.cs" />
     <Compile Include="Business\Test\PNH\PNHWPHOBXView.cs" />
     <Compile Include="Business\Test\RASRAFPanel\RASRAFPanelWPHOBXView.cs" />
