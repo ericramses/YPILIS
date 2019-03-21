@@ -30,5 +30,8 @@ namespace YellowstonePathology.Business.Client.Model
 
         //HPV result
         public static string HPVResultPositive = "Positive";
+
+        // HPV testing
+        public static string HPVLastTestNotInPastYear = " None within the past year";
     }
 }

@@ -75,6 +75,15 @@ namespace YellowstonePathology.Business.Client.Model
             }
         }
 
+        public override string HPVTesting
+        {
+            get
+            {
+                HPVReflexOrderRule15 hpvReflexOrderRule15 = new HPVReflexOrderRule15();
+                return hpvReflexOrderRule15.HPVTesting;
+            }
+        }
+
         public override string PatientAgeCompound
         {
             get
@@ -99,6 +108,15 @@ namespace YellowstonePathology.Business.Client.Model
             {
                 HPVReflexOrderRule16 hpvReflexOrderRule16 = new HPVReflexOrderRule16();
                 return hpvReflexOrderRule16.HPVResult;
+            }
+        }
+
+        public override string HPVTestingCompound
+        {
+            get
+            {
+                HPVReflexOrderRule16 hpvReflexOrderRule16 = new HPVReflexOrderRule16();
+                return hpvReflexOrderRule16.HPVTesting;
             }
         }
     }

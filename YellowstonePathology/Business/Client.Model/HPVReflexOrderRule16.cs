@@ -16,6 +16,7 @@ namespace YellowstonePathology.Business.Client.Model
             this.m_PatientAge = HPVRuleValues.AgeOlderThan30;
             this.m_PAPResult = HPVRuleValues.Any;
             this.m_HPVResult = HPVRuleValues.NotUsed;
+            this.m_HPVTesting = HPVRuleValues.HPVLastTestNotInPastYear;
         }
 
         public override bool IsRequired(Business.Test.AccessionOrder accessionOrder)

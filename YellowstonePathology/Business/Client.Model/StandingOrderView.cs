@@ -49,6 +49,11 @@ namespace YellowstonePathology.Business.Client.Model
             get { return this.m_StandingOrder.HPVResult; }
         }
 
+        public virtual string HPVTesting
+        {
+            get { return this.m_StandingOrder.HPVTesting; }
+        }
+
         public string PatientAgeCompound
         {
             get { return this.m_StandingOrder.PatientAgeCompound; }
@@ -62,6 +67,11 @@ namespace YellowstonePathology.Business.Client.Model
         public virtual string HPVResultCompound
         {
             get { return this.m_StandingOrder.HPVResultCompound; }
+        }
+
+        public virtual string HPVTestingCompound
+        {
+            get { return this.m_StandingOrder.HPVTestingCompound; }
         }
     }
 }
