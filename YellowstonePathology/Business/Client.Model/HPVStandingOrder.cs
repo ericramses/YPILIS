@@ -10,12 +10,11 @@ namespace YellowstonePathology.Business.Client.Model
         public event PropertyChangedEventHandler PropertyChanged;
 
         private string m_HPVStandingOrderId;
+        private int m_PhysicianId;
         private string m_Age;
         private string m_PAPResult;
-        private string m_HPVResult;
         private string m_HPVTesting;
         private string m_Endocervical;
-        private string m_HPVStandingOrderName;
 
         public HPVStandingOrder()
         { }
@@ -38,6 +37,20 @@ namespace YellowstonePathology.Business.Client.Model
                 {
                     this.m_HPVStandingOrderId = value;
                     NotifyPropertyChanged("HPVStandingOrderId");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public int PhysicianId
+        {
+            get { return this.m_PhysicianId; }
+            set
+            {
+                if (this.m_PhysicianId != value)
+                {
+                    this.m_PhysicianId = value;
+                    NotifyPropertyChanged("PhysicianId");
                 }
             }
         }
@@ -71,20 +84,6 @@ namespace YellowstonePathology.Business.Client.Model
         }
 
         [PersistentProperty()]
-        public string HPVResult
-        {
-            get { return this.m_HPVResult; }
-            set
-            {
-                if (this.m_HPVResult != value)
-                {
-                    this.m_HPVResult = value;
-                    NotifyPropertyChanged("HPVResult");
-                }
-            }
-        }
-
-        [PersistentProperty()]
         public string HPVTesting
         {
             get { return this.m_HPVTesting; }
@@ -112,18 +111,14 @@ namespace YellowstonePathology.Business.Client.Model
             }
         }
 
-        [PersistentProperty()]
         public string HPVStandingOrderName
         {
-            get { return this.m_HPVStandingOrderName; }
-            set
+            get
             {
-                if (this.m_HPVStandingOrderName != value)
-                {
-                    this.m_HPVStandingOrderName = value;
-                    NotifyPropertyChanged("HPVStandingOrderName");
-                }
+                string result = this.m_Age +", " + this.PAPResult + ", " + this.m_HPVTesting + ", " + this.m_Endocervical;
+                return result;
             }
+            
         }
     }
 }
