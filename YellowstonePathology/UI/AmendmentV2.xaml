@@ -5,7 +5,7 @@
     >
     <Grid Margin="5,5,5,5" KeyUp="GridAmendment_KeyUp">
       <Grid.Resources>
-        <ResourceDictionary Source="\UI\Styles.xaml"/>
+            <ResourceDictionary Source="/UI/Styles.xaml"/>
       </Grid.Resources>
       <Grid.ColumnDefinitions>
         <ColumnDefinition></ColumnDefinition>
@@ -46,8 +46,8 @@
         <StackPanel Orientation="Horizontal">
           <CheckBox IsChecked="{Binding Path=Final}" IsEnabled="False" Margin="2,2,2,2"/>
           <TextBlock Margin="2,2,20,2" IsEnabled="False">Finaled</TextBlock>
-        </StackPanel>        
-      </StackPanel>
+        </StackPanel>
+        </StackPanel>
 
       <StackPanel Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right">
         <StackPanel Orientation="Horizontal">

@@ -21,21 +21,29 @@ namespace YellowstonePathology.UI
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private string m_ReportNo;
+        private Visibility m_PanelSetOrderVisibility;
+        private Visibility m_GlobalVisibility;
 
-		public AmendmentControlV2(YellowstonePathology.Business.User.SystemIdentity systemIdentity,
+        public AmendmentControlV2(YellowstonePathology.Business.User.SystemIdentity systemIdentity,
 			string reportNo,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
 			this.m_SystemIdentity = systemIdentity;
 			this.m_AccessionOrder = accessionOrder;
 			this.m_ReportNo = reportNo;
+            this.m_PanelSetOrderVisibility = Visibility.Visible;
+            this.m_GlobalVisibility = Visibility.Collapsed;
 
 			InitializeComponent();
 			this.DataContext = this;
+            Row2.Height = new GridLength(0);
 
-            if(this.m_AccessionOrder != null && this.m_AccessionOrder.AccessionLock.IsLockAquiredByMe == false)
+            if (this.m_AccessionOrder != null)
             {
-                this.TreeViewAmendment.ContextMenu.IsEnabled = false;
+                if (this.m_AccessionOrder.AccessionLock.IsLockAquiredByMe == false)
+                {
+                    this.TreeViewAmendment.ContextMenu.IsEnabled = false;
+                }
             }
 		}        
 
@@ -54,12 +62,40 @@ namespace YellowstonePathology.UI
 			}
 		}
 
+        public Visibility PanelSetOrderVisibility
+        {
+            get { return this.m_PanelSetOrderVisibility; }
+            set
+            {
+                this.m_PanelSetOrderVisibility = value;
+                NotifyPropertyChanged("PanelSetOrderVisibility");
+            }
+        }
+
+        public Visibility GlobalVisibility
+        {
+            get { return this.m_GlobalVisibility; }
+            set
+            {
+                this.m_GlobalVisibility = value;
+                NotifyPropertyChanged("GlobalVisibility");
+            }
+        }
+
         public void ContextMenuAddAmendment_Click(object sender, RoutedEventArgs args)
         {
 			if (this.m_AccessionOrder != null)
 			{                
 				this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo).AddAmendment();                
 			}
+        }
+
+        public void ContextMenuAddGlobalAmendment_Click(object sender, RoutedEventArgs args)
+        {
+            if (this.m_AccessionOrder != null)
+            {
+                this.m_AccessionOrder.AddAmendment();
+            }
         }
 
         public void ContextMenuEditAmendment_Click(object sender, RoutedEventArgs args)
@@ -75,6 +111,19 @@ namespace YellowstonePathology.UI
 			}
         }
 
+        public void ContextMenuEditGlobalAmendment_Click(object sender, RoutedEventArgs args)
+        {
+            if (this.ListBoxGlobal.SelectedItem != null)
+            {
+                if (this.ListBoxGlobal.SelectedItem.GetType().Name == "Amendment")
+                {
+                    YellowstonePathology.Business.Amendment.Model.Amendment amendment = (YellowstonePathology.Business.Amendment.Model.Amendment)this.ListBoxGlobal.SelectedItem;
+                    YellowstonePathology.UI.AmendmentV2 amendmentV2 = new AmendmentV2(amendment, this.m_AccessionOrder);
+                    amendmentV2.ShowDialog();
+                }
+            }
+        }
+
         public void ContextMenuDeleteAmendment_Click(object sedner, RoutedEventArgs args)
         {
 			if (this.TreeViewAmendment.SelectedItem != null)
@@ -86,18 +135,50 @@ namespace YellowstonePathology.UI
 					{
                         YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(((YellowstonePathology.Business.Amendment.Model.Amendment)this.TreeViewAmendment.SelectedItem).ReportNo);
                         panelSetOrder.DeleteAmendment(((YellowstonePathology.Business.Amendment.Model.Amendment)this.TreeViewAmendment.SelectedItem).AmendmentId);
-                        //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, false);
 					}
 				}
 			}
-        }		
+        }
 
-		public void NotifyPropertyChanged(String info)
+        public void ContextMenuDeleteGlobalAmendment_Click(object sedner, RoutedEventArgs args)
+        {
+            if (this.ListBoxGlobal.SelectedItem != null)
+            {
+                if (this.ListBoxGlobal.SelectedItem.GetType().Name == "Amendment")
+                {
+                    MessageBoxResult result = MessageBox.Show("Delete the selected item?", "Delete.", MessageBoxButton.OKCancel);
+                    if (result == MessageBoxResult.OK)
+                    {
+                        this.m_AccessionOrder.DeleteAmendment(((YellowstonePathology.Business.Amendment.Model.Amendment)this.ListBoxGlobal.SelectedItem).AmendmentId);
+                    }
+                }
+            }
+        }
+
+        public void NotifyPropertyChanged(String info)
 		{
 			if (PropertyChanged != null)
 			{
 				PropertyChanged(this, new PropertyChangedEventArgs(info));
 			}
 		}
-	}
+
+        private void ButtonGlobal_Click(object sender, RoutedEventArgs e)
+        {
+            if(this.m_PanelSetOrderVisibility == Visibility.Visible)
+            {
+                this.PanelSetOrderVisibility = Visibility.Collapsed;
+                Row1.Height = new GridLength(0);
+                Row2.Height = new GridLength(1, GridUnitType.Star);
+                this.GlobalVisibility = Visibility.Visible;
+            }
+            else
+            {
+                Row2.Height = new GridLength(0);
+                Row1.Height = new GridLength(1, GridUnitType.Star);
+                this.GlobalVisibility = Visibility.Collapsed;
+                this.PanelSetOrderVisibility = Visibility.Visible;
+            }
+        }
+    }
 }

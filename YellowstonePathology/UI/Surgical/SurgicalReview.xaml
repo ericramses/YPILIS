@@ -107,7 +107,7 @@
 						Margin="2,2,2,2" IsEnabled="{Binding ElementName=SurgicalReviewControl, Path=DataContext.FieldEnabler.IsProtectedEnabled}" VerticalAlignment="Center"
 						SelectionChanged="ComboBoxAmendmentUsers_SelectionChanged">
 					</ComboBox>
-				</StackPanel>
+                </StackPanel>
 
 				<StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" Visibility="{Binding Path=Final, Converter={StaticResource BooleanVisibilityConverter}}">
 					<TextBlock Text="{Binding Path=AmendmentType}" FontWeight="Bold" Margin="2"></TextBlock>

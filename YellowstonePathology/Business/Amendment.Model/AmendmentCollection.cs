@@ -219,5 +219,50 @@ namespace YellowstonePathology.Business.Amendment.Model
                 }
             }
         }
+
+        public void SyncGlobal(DataTable dataTable)
+        {
+            this.RemoveDeleted(dataTable);
+            DataTableReader dataTableReader = new DataTableReader(dataTable);
+            while (dataTableReader.Read())
+            {
+                string amendmentId = dataTableReader["AmendmentId"].ToString();
+
+                Amendment amendment = null;
+
+                if (this.Exists(amendmentId) == true)
+                {
+                    amendment = this.GetAmendment(amendmentId);
+                }
+                else
+                {
+                    amendment = new Amendment();
+                    this.Add(amendment);
+                }
+
+                if (amendment != null)
+                {
+                    YellowstonePathology.Business.Persistence.SqlDataTableReaderPropertyWriter sqlDataTableReaderPropertyWriter = new Persistence.SqlDataTableReaderPropertyWriter(amendment, dataTableReader);
+                    sqlDataTableReaderPropertyWriter.WriteProperties();
+                }
+            }
+        }
+
+        public AmendmentCollection GetCaseAmendmentCollection(AmendmentCollection globalAmendmentCollection)
+        {
+            AmendmentCollection result = new AmendmentCollection();
+
+            foreach (Amendment amendment in this)
+            {
+                result.Add(amendment);
+            }
+
+            foreach(Amendment item in globalAmendmentCollection)
+            {
+                result.Add(item);
+            }
+
+            return result;
+        }
     }
 }

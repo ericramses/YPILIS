@@ -152,5 +152,5 @@ namespace YellowstonePathology.UI
 			Window window = Window.GetWindow(this);
 			window.Close();
 		}
-	}
+    }
 }
