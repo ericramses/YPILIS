@@ -38,6 +38,8 @@ namespace YellowstonePathology.Business.Amendment.Model
         private string m_AcceptedBy;
         private bool m_SystemGenerated;
         private string m_CorrectionType;
+        private string m_MasterAccessionNo;
+        private bool m_Global;
 
         public Amendment()
         {
@@ -516,6 +518,34 @@ namespace YellowstonePathology.Business.Amendment.Model
                 {
                     this.m_CorrectionType = value;
                     this.NotifyPropertyChanged("CorrectionType");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string MasterAccessionNo
+        {
+            get { return this.m_MasterAccessionNo; }
+            set
+            {
+                if (this.m_MasterAccessionNo != value)
+                {
+                    this.m_MasterAccessionNo = value;
+                    this.NotifyPropertyChanged("MasterAccessionNo");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public bool Global
+        {
+            get { return this.m_Global; }
+            set
+            {
+                if (this.m_Global != value)
+                {
+                    this.m_Global = value;
+                    this.NotifyPropertyChanged("Global");
                 }
             }
         }

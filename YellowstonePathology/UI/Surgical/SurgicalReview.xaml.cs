@@ -581,5 +581,19 @@ namespace YellowstonePathology.UI.Surgical
             this.m_PathologistUI.PanelSetOrder.PanelSetOrderCPTCodeCollection.SetCPTCodes(this.m_PathologistUI.AccessionOrder.SpecimenOrderCollection, this.m_PathologistUI.PanelSetOrder.ReportNo, this.m_PathologistUI.AccessionOrder.ClientId, this.m_PathologistUI.AccessionOrder.SvhMedicalRecord, this.m_PathologistUI.AccessionOrder.SvhAccount);
             this.RefreshBillingSpecimenViewCollection();            
         }
+
+        private void CheckBoxGlobal_Checked(object sender, RoutedEventArgs e)
+        {
+            CheckBox checkBox = (CheckBox)sender;
+            YellowstonePathology.Business.Amendment.Model.Amendment amendment = (YellowstonePathology.Business.Amendment.Model.Amendment)checkBox.Tag;
+            amendment.MasterAccessionNo = this.m_PathologistUI.AccessionOrder.MasterAccessionNo;
+        }
+
+        private void CheckBoxGlobal_Unchecked(object sender, RoutedEventArgs e)
+        {
+            CheckBox checkBox = (CheckBox)sender;
+            YellowstonePathology.Business.Amendment.Model.Amendment amendment = (YellowstonePathology.Business.Amendment.Model.Amendment)checkBox.Tag;
+            amendment.MasterAccessionNo = null;
+        }
     }
 }
