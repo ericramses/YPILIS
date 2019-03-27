@@ -1726,5 +1726,18 @@ namespace YellowstonePathology.UI
             }
             MessageBox.Show("Done");*/
         }
+
+        private void ButtonSetCPTCodeType_Click(object sender, RoutedEventArgs e)
+        {
+            /*YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBillCollection codes = YellowstonePathology.Business.Gateway.BillingGateway.GetNoCodeTypeItems();
+            foreach(YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill code in codes)
+            {
+                Business.Billing.Model.CptCode cptCode = Store.AppDataStore.Instance.CPTCodeCollection.GetClone(code.CPTCode, code.Modifier);
+                code.CodeType = cptCode.CodeType.ToString();
+                YellowstonePathology.Business.Gateway.BillingGateway.SetNoCodeTypeItems(code);
+            }
+
+            MessageBox.Show("Done");*/
+        }
     }
 }
