@@ -37,25 +37,25 @@ using System.Data;
 using MySql.Data.MySqlClient;
 
 namespace YellowstonePathology.UI
-{    
+{
     public partial class AdministrationWorkspace : System.Windows.Controls.UserControl
-    {                
+    {
         static AdministrationWorkspace m_Instance;
 
         private Nullable<DateTime> m_WorkDate;
 
         private AdministrationWorkspace()
         {
-            this.m_WorkDate = DateTime.Now;			
+            this.m_WorkDate = DateTime.Now;
 
             InitializeComponent();
 
-            this.DataContext = this;            
+            this.DataContext = this;
         }
 
         private void Touch_FrameReported(object sender, TouchFrameEventArgs e)
         {
-            
+
         }
 
         public Nullable<DateTime> WorkDate
@@ -63,11 +63,11 @@ namespace YellowstonePathology.UI
             get { return this.m_WorkDate; }
         }
 
-		private void m_BarcodeScanPort_HistologySlideScanReceived(Business.BarcodeScanning.HistologySlide histologySlide)
+        private void m_BarcodeScanPort_HistologySlideScanReceived(Business.BarcodeScanning.HistologySlide histologySlide)
         {
-            
-        }                
-        
+
+        }
+
         public static AdministrationWorkspace Instance
         {
             get
@@ -114,8 +114,8 @@ namespace YellowstonePathology.UI
             {
                 foreach (Business.PanelSet.Model.PanelSet panelSet in panelSetCollection)
                 {
-                    if(panelSet.ResultDocumentSource == YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase && panelSet.IsReflexPanel == true)
-                        //(panelSet.TechnicalComponentFacility == neogenomicsIrvine || panelSet.ProfessionalComponentFacility == neogenomicsIrvine || panelSet.IsReflexPanel == true))
+                    if (panelSet.ResultDocumentSource == YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase && panelSet.IsReflexPanel == true)
+                    //(panelSet.TechnicalComponentFacility == neogenomicsIrvine || panelSet.ProfessionalComponentFacility == neogenomicsIrvine || panelSet.IsReflexPanel == true))
                     {
                         sw.Write(panelSet.PanelSetId + ", ");
                     }
@@ -143,26 +143,26 @@ namespace YellowstonePathology.UI
             //YellowstonePathology.Business.DataContext.YpiData ypiData = new Business.DataContext.YpiData();
             //List<YellowstonePathology.Business.ReportNo> reportNos = ypiData.GetReportNumbers().ToList<YellowstonePathology.Business.ReportNo>();
 
-			YellowstonePathology.Business.ReportNoCollection reportNos = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetReportNumbers();
+            YellowstonePathology.Business.ReportNoCollection reportNos = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetReportNumbers();
             foreach (YellowstonePathology.Business.ReportNo reportNo in reportNos)
             {
                 //bool result = YellowstonePathology.Business.Helper.FileConversionHelper.ConvertXPSToPDF(reportNo.Value);
                 Business.OrderIdParser orderIdParser = new Business.OrderIdParser(reportNo.Value);
                 YellowstonePathology.Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, Business.Document.CaseDocumentTypeEnum.CaseReport, Business.Document.CaseDocumentFileTypeEnnum.xps, Business.Document.CaseDocumentFileTypeEnnum.pdf);
-                YellowstonePathology.Business.DataContext.YpiData dataContext = new Business.DataContext.YpiData();                
+                YellowstonePathology.Business.DataContext.YpiData dataContext = new Business.DataContext.YpiData();
             }
-        }        
+        }
 
         private void ButtonSqlXmlTest_Click(object sender, RoutedEventArgs e)
         {
             //YellowstonePathology.Business.Gateway.SerializeToSql.BillingAccessionSerialization gw = new Business.Gateway.SerializeToSql.BillingAccessionSerialization();
             //gw.Testing123();
-		}        
+        }
 
         private void ButtonShowCuttingStationWindow_Click(object sender, RoutedEventArgs e)
         {
-			//YellowstonePathology.Business.User.SystemIdentity identity = Business.User.SystemIdentity.Instance;
-		}        
+            //YellowstonePathology.Business.User.SystemIdentity identity = Business.User.SystemIdentity.Instance;
+        }
 
         private void ButtonPublishCase_Click(object sender, RoutedEventArgs e)
         {
@@ -182,27 +182,27 @@ namespace YellowstonePathology.UI
 
             //YellowstonePathology.Business.Document.SurgicalReport surgical = new Business.Document.SurgicalReport();
             //surgical.Publish(2011009851, "S11-5008", Business.Document.ReportSaveModeEnum.Normal);
-        }        
+        }
 
         private void ButtonDataMatrixBarcodeTest_Click(object sender, RoutedEventArgs e)
         {
-            
-        }        
+
+        }
 
         private void ButtonMolecularLabel_Click(object sender, RoutedEventArgs e)
         {
-        }                
+        }
 
         private void ButtonCreateXPSDocs_Click(object sender, RoutedEventArgs e)
         {
             //YellowstonePathology.Business.DataContext.YpiData dataContext = new Business.DataContext.YpiData();
             //List<YellowstonePathology.Business.ReportNo> reportNumbers = dataContext.GetReportNumbers().ToList<YellowstonePathology.Business.ReportNo>();
 
-			YellowstonePathology.Business.ReportNoCollection reportNumbers = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetReportNumbers();
-			foreach (YellowstonePathology.Business.ReportNo reportNo in reportNumbers)
+            YellowstonePathology.Business.ReportNoCollection reportNumbers = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetReportNumbers();
+            foreach (YellowstonePathology.Business.ReportNo reportNo in reportNumbers)
             {
-				YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(reportNo.Value);
-				string xpsDoc = YellowstonePathology.Business.Document.CaseDocument.GetCaseFileNameXPS(orderIdParser);
+                YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(reportNo.Value);
+                string xpsDoc = YellowstonePathology.Business.Document.CaseDocument.GetCaseFileNameXPS(orderIdParser);
                 if (System.IO.File.Exists(xpsDoc) == false)
                 {
                     Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, Business.Document.CaseDocumentTypeEnum.CaseReport, Business.Document.CaseDocumentFileTypeEnnum.doc, Business.Document.CaseDocumentFileTypeEnnum.xps);
@@ -247,12 +247,12 @@ namespace YellowstonePathology.UI
 				YellowstonePathology.Business.Helper.FileConversionHelper.SaveXpsReportToTiff(reportNo.Number, false);
 			}*/
 
-			//YellowstonePathology.Business.ReportNoCollection reportNoCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetReportNumbers();
-			//foreach (YellowstonePathology.Business.ReportNo reportNo in reportNoCollection)
-			//{
+            //YellowstonePathology.Business.ReportNoCollection reportNoCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetReportNumbers();
+            //foreach (YellowstonePathology.Business.ReportNo reportNo in reportNoCollection)
+            //{
             //    YellowstonePathology.Business.Helper.FileConversionHelper.SaveXpsReportToTiff(reportNo.Value);
-			//}
-       }
+            //}
+        }
 
         private void ComprehensiveCareReports_Click(object sender, RoutedEventArgs e)
         {
@@ -260,17 +260,17 @@ namespace YellowstonePathology.UI
 
         private void Stuff_Click(object sender, RoutedEventArgs e)
         {
-            
-		}
 
-		private void GrossWorkspace_Click(object sender, RoutedEventArgs e)
-		{
-		}
+        }
+
+        private void GrossWorkspace_Click(object sender, RoutedEventArgs e)
+        {
+        }
 
         private void PrintRequisition_Click(object sender, RoutedEventArgs e)
         {
             System.Printing.PrintServer printServer = new System.Printing.LocalPrintServer();
-            System.Printing.PrintQueue printQueue = printServer.GetPrintQueue(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.RequisitionPrinter);            
+            System.Printing.PrintQueue printQueue = printServer.GetPrintQueue(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.RequisitionPrinter);
 
             Client.StandardRequisition requisitionHeader = new Client.StandardRequisition(983);
             requisitionHeader.Print(2, printQueue);
@@ -279,10 +279,10 @@ namespace YellowstonePathology.UI
         private void XpsToTiff_Click(object sender, RoutedEventArgs e)
         {
             //YellowstonePathology.Business.Helper.FileConversionHelper.SaveXpsReportToTiff("S11-11826");
-        }       		
+        }
 
         private void TestBillingData_Click(object sender, RoutedEventArgs e)
-        {         
+        {
             /*
             YellowstonePathology.UI.Login.Icd9CodeDialog dialog = new Login.Icd9CodeDialog();
             dialog.SetSearchToMasterAccessionNo(2011023315);
@@ -293,21 +293,21 @@ namespace YellowstonePathology.UI
 
         private void SerializeAccessionOrder_Click(object sender, RoutedEventArgs e)
         {
-            
+
         }
 
         private void ButtonShowTestWindow_Click(object sender, RoutedEventArgs e)
-        {            
+        {
             TestWindow window = new TestWindow();
-            window.ShowDialog();            
+            window.ShowDialog();
         }
 
-		private void ButtonDeleteTest_Click(object sender, RoutedEventArgs e)
-		{
+        private void ButtonDeleteTest_Click(object sender, RoutedEventArgs e)
+        {
             //YellowstonePathology.Business.SpecialStain.StainResultItemCollection item = new Business.SpecialStain.StainResultItemCollection();
             //item.Remove(
 
-			/*YellowstonePathology.Business.Test.PanelOrderCollection panelOrderItemCollection = new Business.Test.PanelOrderCollection();
+            /*YellowstonePathology.Business.Test.PanelOrderCollection panelOrderItemCollection = new Business.Test.PanelOrderCollection();
 			YellowstonePathology.Business.Test.PanelOrder panelOrder = new Business.Test.PanelOrder(19, "ReportNo", 5091);
 			panelOrder.PanelOrderId = 1;
 			YellowstonePathology.Business.Test.Model.TestOrder testOrder = new YellowstonePathology.Business.Test.Model.TestOrder();
@@ -329,20 +329,20 @@ namespace YellowstonePathology.UI
 			{
 				item.TestOrderCollection.Remove(testOrder);
 			}*/
-		}
+        }
 
-		private void ButtonOpenCytologyCase_Click(object sender, RoutedEventArgs e)
-		{
-			
-		}
+        private void ButtonOpenCytologyCase_Click(object sender, RoutedEventArgs e)
+        {
 
-		private void ButtonHL7Response_Click(object sender, RoutedEventArgs e)
-		{
-		}
+        }
+
+        private void ButtonHL7Response_Click(object sender, RoutedEventArgs e)
+        {
+        }
 
         private void ButtonTestYpiConnect_Click(object sender, RoutedEventArgs e)
         {
-            
+
         }
 
         private void ButtonOpenVerificationWindow_Click(object sender, RoutedEventArgs e)
@@ -353,10 +353,10 @@ namespace YellowstonePathology.UI
         {
         }
 
-		private void ButtonIncomingBillingData_Click(object sender, RoutedEventArgs e)
-		{
-			
-		}
+        private void ButtonIncomingBillingData_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
 
         private void ButtonSerumLabels_Click(object sender, RoutedEventArgs e)
         {
@@ -402,11 +402,11 @@ namespace YellowstonePathology.UI
             }
         }
 
-		private void ButtonAccessionSlideOrderTracking_Click(object sender, RoutedEventArgs e)
-		{
-			MaterialTrackingDialog dialog = new MaterialTrackingDialog();
-			dialog.ShowDialog();
-		}
+        private void ButtonAccessionSlideOrderTracking_Click(object sender, RoutedEventArgs e)
+        {
+            MaterialTrackingDialog dialog = new MaterialTrackingDialog();
+            dialog.ShowDialog();
+        }
 
         private void ButtonSpellCheckTesting_Click(object sender, RoutedEventArgs e)
         {
@@ -416,30 +416,30 @@ namespace YellowstonePathology.UI
 
         private void ButtonPhysicianEntry_Click(object sender, RoutedEventArgs e)
         {
-			Client.ProviderLookupDialog providerLookupDialog = new Client.ProviderLookupDialog();
-			providerLookupDialog.ShowDialog();
+            Client.ProviderLookupDialog providerLookupDialog = new Client.ProviderLookupDialog();
+            providerLookupDialog.ShowDialog();
         }
 
-		private void ButtonListInvalidShortcut_Click(object sender, RoutedEventArgs e)
-		{
-			
-		}
+        private void ButtonListInvalidShortcut_Click(object sender, RoutedEventArgs e)
+        {
 
-		private void ButtonProcessSvhBillingFile_Click(object sender, RoutedEventArgs e)
-		{
-			//YellowstonePathology.Business.Billing.IncomingBillingDataProcessor incomingBillingDataProcessor = new Business.Billing.IncomingBillingDataProcessor();
-			//incomingBillingDataProcessor.Process();
-			//MessageBox.Show("Finished");
-		}        
+        }
+
+        private void ButtonProcessSvhBillingFile_Click(object sender, RoutedEventArgs e)
+        {
+            //YellowstonePathology.Business.Billing.IncomingBillingDataProcessor incomingBillingDataProcessor = new Business.Billing.IncomingBillingDataProcessor();
+            //incomingBillingDataProcessor.Process();
+            //MessageBox.Show("Finished");
+        }
 
         private void ButtonBarcodeTesting_Click(object sender, RoutedEventArgs e)
         {
             System.Printing.PrintServer printServer = new System.Printing.LocalPrintServer();
-            System.Printing.PrintQueue printQueue = printServer.GetPrintQueue(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.HistologySlideLabelPrinter);            
+            System.Printing.PrintQueue printQueue = printServer.GetPrintQueue(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.HistologySlideLabelPrinter);
 
             YellowstonePathology.Business.BarcodeScanning.HistologySlide slide = new YellowstonePathology.Business.BarcodeScanning.HistologySlide("12345678", "S11-17715", "1A4", "Pickles", "Mashed Potatoes", "Billings");
             HistologySlideLabelDocument histologySlideLabelDocument = new HistologySlideLabelDocument(slide, 4);
-            histologySlideLabelDocument.Print(printQueue);            
+            histologySlideLabelDocument.Print(printQueue);
         }
 
         private void ButtonPageScanningTest_Click(object sender, RoutedEventArgs e)
@@ -450,32 +450,32 @@ namespace YellowstonePathology.UI
 
         private void ButtonGetPatientHistoryTest_Click(object sender, RoutedEventArgs e)
         {
-			//YellowstonePathology.Business.MessageQueues.GetPatientHistoryCommand cmd = new Business.MessageQueues.GetPatientHistoryCommand();
-			//cmd.SetCommandData(2012025485);
-			//cmd.Execute();
-		}
+            //YellowstonePathology.Business.MessageQueues.GetPatientHistoryCommand cmd = new Business.MessageQueues.GetPatientHistoryCommand();
+            //cmd.SetCommandData(2012025485);
+            //cmd.Execute();
+        }
 
-		private void ButtonSetTestOrderCptCodes_Click(object sender, RoutedEventArgs e)
-		{
-			//YellowstonePathology.Business.MessageQueues.SetTestOrderCptCodesCommand cmd = new Business.MessageQueues.SetTestOrderCptCodesCommand();
-			//cmd.SetCommandData("2013014815", "1001286386", "1001286386.TO1", "Helicobacter pylori");
-			//cmd.Execute();
+        private void ButtonSetTestOrderCptCodes_Click(object sender, RoutedEventArgs e)
+        {
+            //YellowstonePathology.Business.MessageQueues.SetTestOrderCptCodesCommand cmd = new Business.MessageQueues.SetTestOrderCptCodesCommand();
+            //cmd.SetCommandData("2013014815", "1001286386", "1001286386.TO1", "Helicobacter pylori");
+            //cmd.Execute();
 
-			//YellowstonePathology.Business.MessageQueues.AcknowledgePanelOrderCommand cmd = new Business.MessageQueues.AcknowledgePanelOrderCommand();
-			//cmd.SetCommandData(2013004097, 1000987473, "S13-1905", 5091, DateTime.Today, DateTime.Now);
+            //YellowstonePathology.Business.MessageQueues.AcknowledgePanelOrderCommand cmd = new Business.MessageQueues.AcknowledgePanelOrderCommand();
+            //cmd.SetCommandData(2013004097, 1000987473, "S13-1905", 5091, DateTime.Today, DateTime.Now);
 
-			//YellowstonePathology.Business.MessageQueues.AmmendmentFromResultMessageCommand cmd = new Business.MessageQueues.AmmendmentFromResultMessageCommand();
-			//cmd.SetCommandData(2013003584, "M13-407", 25, "S13-1671");
-			//cmd.Execute();
+            //YellowstonePathology.Business.MessageQueues.AmmendmentFromResultMessageCommand cmd = new Business.MessageQueues.AmmendmentFromResultMessageCommand();
+            //cmd.SetCommandData(2013003584, "M13-407", 25, "S13-1671");
+            //cmd.Execute();
 
-			//cmd.SetCommandData(2013003746, "M13-416", 46, "S13-1738");
-			//cmd.Execute();
+            //cmd.SetCommandData(2013003746, "M13-416", 46, "S13-1738");
+            //cmd.Execute();
 
-			//cmd.SetCommandData(2013003324, "M13-374", 46, "S13-1533");
-			//cmd.Execute();
+            //cmd.SetCommandData(2013003324, "M13-374", 46, "S13-1533");
+            //cmd.Execute();
 
-			//MessageBox.Show("OK");
-		}
+            //MessageBox.Show("OK");
+        }
 
         private void ButtonHL7StatusTest_Click(object sender, RoutedEventArgs e)
         {
@@ -486,12 +486,12 @@ namespace YellowstonePathology.UI
             //statusMessage.Send();
         }
 
-		private void ButtonTestInMemoryXml_Click(object sender, RoutedEventArgs e)
-		{
-			//ReportViewer reportViewer = new ReportViewer();
-			//reportViewer.ShowDocument("S11-19011");
-			//reportViewer.ShowDialog();
-		}        
+        private void ButtonTestInMemoryXml_Click(object sender, RoutedEventArgs e)
+        {
+            //ReportViewer reportViewer = new ReportViewer();
+            //reportViewer.ShowDocument("S11-19011");
+            //reportViewer.ShowDialog();
+        }
 
         private void ButtonPatientInfo_Click(object sender, RoutedEventArgs e)
         {
@@ -500,16 +500,16 @@ namespace YellowstonePathology.UI
         }
 
         private void ButtonPDFToXPSConversion_Click(object sender, RoutedEventArgs e)
-        {            
+        {
             Process process = new Process();
             process.StartInfo.FileName = @"C:\Program Files\gs\gs9.02\bin\GSWIN32C.exe";
             process.StartInfo.Arguments = "-dNOPAUSE -q -g300x300 -sDEVICE=tiffg4 -dBATCH -sOutputFile=test.tif test.pdf";
-            process.StartInfo.RedirectStandardOutput = true; 
-            process.StartInfo.CreateNoWindow = true; 
-            process.StartInfo.UseShellExecute = false; 
-            process.Start(); 
-            process.StandardOutput.ReadToEnd(); 
-            process.WaitForExit();            
+            process.StartInfo.RedirectStandardOutput = true;
+            process.StartInfo.CreateNoWindow = true;
+            process.StartInfo.UseShellExecute = false;
+            process.Start();
+            process.StandardOutput.ReadToEnd();
+            process.WaitForExit();
         }
 
         private void ButtonParsePsa_Click(object sender, RoutedEventArgs e)
@@ -518,21 +518,21 @@ namespace YellowstonePathology.UI
             window.ShowDialog();
         }
 
-		private void ButtonReportSlides_Click(object sender, RoutedEventArgs e)
+        private void ButtonReportSlides_Click(object sender, RoutedEventArgs e)
         {
-			MaterialTrackingReportNoDialog dialog = new MaterialTrackingReportNoDialog();
-			dialog.ShowDialog();
-        }        
+            MaterialTrackingReportNoDialog dialog = new MaterialTrackingReportNoDialog();
+            dialog.ShowDialog();
+        }
 
         private void ButtonXPSTest_Click(object sender, RoutedEventArgs e)
-        {            
+        {
             //Type workingType = typeof(YellowstonePathology.Business.Test.PanelSetOrderArupBraf);
             //while (workingType.Name != "Object")
             //{                
             //    Type baseType = workingType.BaseType;
             //    if (baseType.Name == "PanelSetOrder")
             //    {
-                    
+
             //    }
             //}          
         }
@@ -543,47 +543,47 @@ namespace YellowstonePathology.UI
             //Client.WebBrowser browser = new Client.WebBrowser();
             //browser.ShowDialog();
 
-			//YellowstonePathology.Business.Test.AccessionOrderExplorer accessionOrderExplorer = new Business.Test.AccessionOrderExplorer(true);
-			//accessionOrderExplorer.SetSearchByReportNo("S12-9461"); 
-			//accessionOrderExplorer.Execute();
+            //YellowstonePathology.Business.Test.AccessionOrderExplorer accessionOrderExplorer = new Business.Test.AccessionOrderExplorer(true);
+            //accessionOrderExplorer.SetSearchByReportNo("S12-9461"); 
+            //accessionOrderExplorer.Execute();
 
-			//YellowstonePathology.UI.Surgical.PQRSMeasureDialog dlg = new Surgical.PQRSMeasureDialog();
-			//dlg.HandlePqrs(accessionOrderExplorer.AccessionOrder);
+            //YellowstonePathology.UI.Surgical.PQRSMeasureDialog dlg = new Surgical.PQRSMeasureDialog();
+            //dlg.HandlePqrs(accessionOrderExplorer.AccessionOrder);
 
-			//YellowstonePathology.Business.Test.AccessionOrderExplorer accessionOrderExplorer = new Business.Test.AccessionOrderExplorer(true);
+            //YellowstonePathology.Business.Test.AccessionOrderExplorer accessionOrderExplorer = new Business.Test.AccessionOrderExplorer(true);
 
-			//accessionOrderExplorer.SetSearchByReportNo("14-7028.S"); //eso
-			//accessionOrderExplorer.Execute();
+            //accessionOrderExplorer.SetSearchByReportNo("14-7028.S"); //eso
+            //accessionOrderExplorer.Execute();
 
-			//YellowstonePathology.UI.Surgical.PQRSMeasureDialog dlg = new Surgical.PQRSMeasureDialog();
-			//dlg.HandlePqrs(accessionOrderExplorer.AccessionOrder, "14-7028.S");
-/*
-			accessionOrderExplorer.SetSearchByReportNo("S12-9337"); //pros
-			accessionOrderExplorer.Execute();
+            //YellowstonePathology.UI.Surgical.PQRSMeasureDialog dlg = new Surgical.PQRSMeasureDialog();
+            //dlg.HandlePqrs(accessionOrderExplorer.AccessionOrder, "14-7028.S");
+            /*
+                        accessionOrderExplorer.SetSearchByReportNo("S12-9337"); //pros
+                        accessionOrderExplorer.Execute();
 
-			dlg = new Surgical.PQRSMeasureDialog();
-			dlg.HandlePqrs(accessionOrderExplorer.AccessionOrder);
+                        dlg = new Surgical.PQRSMeasureDialog();
+                        dlg.HandlePqrs(accessionOrderExplorer.AccessionOrder);
 
-			accessionOrderExplorer.SetSearchByReportNo("S12-9319"); //colo
-			accessionOrderExplorer.Execute();
+                        accessionOrderExplorer.SetSearchByReportNo("S12-9319"); //colo
+                        accessionOrderExplorer.Execute();
 
-			dlg = new Surgical.PQRSMeasureDialog();
-			dlg.HandlePqrs(accessionOrderExplorer.AccessionOrder);
+                        dlg = new Surgical.PQRSMeasureDialog();
+                        dlg.HandlePqrs(accessionOrderExplorer.AccessionOrder);
 
-			accessionOrderExplorer.SetSearchByReportNo("S12-9303"); //breast
-			accessionOrderExplorer.Execute();
+                        accessionOrderExplorer.SetSearchByReportNo("S12-9303"); //breast
+                        accessionOrderExplorer.Execute();
 
-			dlg = new Surgical.PQRSMeasureDialog();
-			dlg.HandlePqrs(accessionOrderExplorer.AccessionOrder);*/
-		}        
+                        dlg = new Surgical.PQRSMeasureDialog();
+                        dlg.HandlePqrs(accessionOrderExplorer.AccessionOrder);*/
+        }
 
         private void ButtonFlowResultTest_Click(object sender, RoutedEventArgs e)
         {
-			//XElement accessionOrderDocument = YellowstonePathology.Business.Gateway.XmlGateway.GetAccessionOrder(2012015454); // (2012012026);
-			//XElement specimenOrderDocument = YellowstonePathology.Business.Gateway.XmlGateway.GetSpecimenOrder(2012015454); // (2012012026);
-			//XElement clientOrderDocument = YellowstonePathology.Business.Gateway.XmlGateway.GetClientOrders(2012015454); // (2012012026); S12-6205
-			//XElement caseNotesDocument = YellowstonePathology.Business.Gateway.XmlGateway.GetOrderComments(2012015454);
-			//YellowstonePathology.UI.Login.AccessionOrderDataSheetData data = new UI.Login.AccessionOrderDataSheetData("S12-7998", accessionOrderDocument, specimenOrderDocument, clientOrderDocument, caseNotesDocument);
+            //XElement accessionOrderDocument = YellowstonePathology.Business.Gateway.XmlGateway.GetAccessionOrder(2012015454); // (2012012026);
+            //XElement specimenOrderDocument = YellowstonePathology.Business.Gateway.XmlGateway.GetSpecimenOrder(2012015454); // (2012012026);
+            //XElement clientOrderDocument = YellowstonePathology.Business.Gateway.XmlGateway.GetClientOrders(2012015454); // (2012012026); S12-6205
+            //XElement caseNotesDocument = YellowstonePathology.Business.Gateway.XmlGateway.GetOrderComments(2012015454);
+            //YellowstonePathology.UI.Login.AccessionOrderDataSheetData data = new UI.Login.AccessionOrderDataSheetData("S12-7998", accessionOrderDocument, specimenOrderDocument, clientOrderDocument, caseNotesDocument);
         }
 
         private void ButtonMtDohTest_Click(object sender, RoutedEventArgs e)
@@ -591,7 +591,7 @@ namespace YellowstonePathology.UI
         }
 
         private void ButtonClientOrderSubmitTest_Click(object sender, RoutedEventArgs e)
-        {                        
+        {
             //YellowstonePathology.YpiConnect.Service.FlowAccessionGateway gateway = new YpiConnect.Service.FlowAccessionGateway(); 
             //XElement accessionDocument = gateway.GetAccessionDocument(2012015317);
             //accessionDocument.Save(@"c:\testing\FlowLeukemiaReportData.xml");
@@ -626,45 +626,45 @@ namespace YellowstonePathology.UI
 
             YellowstonePathology.Business.Document.SurgicalReport report5 = new Business.Document.SurgicalReport();
             report5.Publish(2012014007, "S12-7213", Business.Document.ReportSaveModeEnum.Normal);
-             */            
+             */
         }
 
         private void ButtonShowGrossWorkspace_Click(object sender, RoutedEventArgs e)
         {
-           // YellowstonePathology.UI.Gross.HistologyGrossPath histologyGrossPath = new Gross.HistologyGrossPath();
-           // histologyGrossPath.Start();
-        }        
+            // YellowstonePathology.UI.Gross.HistologyGrossPath histologyGrossPath = new Gross.HistologyGrossPath();
+            // histologyGrossPath.Start();
+        }
 
-		private void ButtonBillingTypeProcessorTests_Click(object sender, RoutedEventArgs e)
-		{
-			
-		}		
+        private void ButtonBillingTypeProcessorTests_Click(object sender, RoutedEventArgs e)
+        {
 
-		private void ButtonVoiceSpecimenDescription_Click(object sender, RoutedEventArgs e)
-		{			
-			using (System.Speech.Synthesis.SpeechSynthesizer synth = new System.Speech.Synthesis.SpeechSynthesizer())
-			{
-				synth.SetOutputToDefaultAudioDevice();
+        }
 
-				System.Speech.Synthesis.PromptBuilder builder = new System.Speech.Synthesis.PromptBuilder();
-				builder.AppendTextWithHint("S12", System.Speech.Synthesis.SayAs.NumberCardinal);
+        private void ButtonVoiceSpecimenDescription_Click(object sender, RoutedEventArgs e)
+        {
+            using (System.Speech.Synthesis.SpeechSynthesizer synth = new System.Speech.Synthesis.SpeechSynthesizer())
+            {
+                synth.SetOutputToDefaultAudioDevice();
+
+                System.Speech.Synthesis.PromptBuilder builder = new System.Speech.Synthesis.PromptBuilder();
+                builder.AppendTextWithHint("S12", System.Speech.Synthesis.SayAs.NumberCardinal);
                 builder.AppendTextWithHint("10456", System.Speech.Synthesis.SayAs.SpellOut);
 
-				synth.Speak(builder);
-			}			
-		}
-		
+                synth.Speak(builder);
+            }
+        }
+
         private void ButtonDoStuff_Click(object sender, RoutedEventArgs e)
-        {            
-            string folderRoot = @"\\cfileserver\Documents\TechnicalOnly\2013\00001-00999\";                        
-            string [] directories = System.IO.Directory.GetDirectories(folderRoot);
+        {
+            string folderRoot = @"\\cfileserver\Documents\TechnicalOnly\2013\00001-00999\";
+            string[] directories = System.IO.Directory.GetDirectories(folderRoot);
             foreach (string directory in directories)
             {
                 string[] files = System.IO.Directory.GetFiles(directory);
                 foreach (string file in files)
                 {
                     if (System.IO.Path.GetExtension(file) == ".jpg")
-                    {                        
+                    {
                         /*
                         bool result = false;
                         using (BinaryReader br = new BinaryReader(File.Open(file, FileMode.Open)))
@@ -695,11 +695,11 @@ namespace YellowstonePathology.UI
                             bitmap.Save(newFile, myImageCodecInfo, myEncoderParameters);                                                   
                         } 
                          */
-                        
+
                         System.IO.File.Delete(file);
                     }
-                }               
-            }           
+                }
+            }
         }
 
         private static System.Drawing.Imaging.ImageCodecInfo GetEncoderInfo(String mimeType)
@@ -715,9 +715,9 @@ namespace YellowstonePathology.UI
             return null;
         }
 
-		private void ButtonFLowSpecimenOrder_Click(object sender, RoutedEventArgs e)
-		{
-		}
+        private void ButtonFLowSpecimenOrder_Click(object sender, RoutedEventArgs e)
+        {
+        }
 
         private void ButtonAccessionMickyMouseCreate_Click(object sender, RoutedEventArgs e)
         {
@@ -730,11 +730,11 @@ namespace YellowstonePathology.UI
         {
         }
 
-		private void ButtonTestEGFRAccession_Click(object sender, RoutedEventArgs e)
-		{
-			
+        private void ButtonTestEGFRAccession_Click(object sender, RoutedEventArgs e)
+        {
 
-		}
+
+        }
 
         private void ButtonEmbeddingScanstoMysql_Click(object sender, RoutedEventArgs e)
         {
@@ -760,8 +760,8 @@ namespace YellowstonePathology.UI
             XpsDocumentViewer viewer = new XpsDocumentViewer();
             viewer.LoadDocument(labels);
             viewer.ShowDialog();
-            */            
-            
+            */
+
 
             /*
             string [] files = System.IO.Directory.GetFiles(@"C:\Testing");
@@ -779,7 +779,7 @@ namespace YellowstonePathology.UI
                 Console.WriteLine();
                 Console.WriteLine();
             }
-            */            
+            */
         }
 
         private void ButtonMoveRedisPQRS_Click(object sender, RoutedEventArgs e)
@@ -812,8 +812,8 @@ namespace YellowstonePathology.UI
 
         private void ButtonSendMessageToEric_Click(object sender, RoutedEventArgs e)
         {
-            
-		}
+
+        }
 
         private void CreateIHCTestSelectStatement()
         {
@@ -834,16 +834,16 @@ namespace YellowstonePathology.UI
             sql.Remove(sql.Length - 2, 2);
             sql.Append(")");
             Console.WriteLine(sql.ToString());
-        }       
+        }
 
         private void CreateCaseTypeListForSQL()
         {
-            YellowstonePathology.Business.PanelSet.Model.PanelSetCollection panelSetCollection = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetAll();            
+            YellowstonePathology.Business.PanelSet.Model.PanelSetCollection panelSetCollection = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetAll();
             foreach (YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet in panelSetCollection)
             {
                 string updatePanelSetOrder = "Update tblPanelSetOrder set CaseType = '" + panelSet.CaseType + "' Where panelSetId = " + panelSet.PanelSetId;
-                Console.WriteLine(updatePanelSetOrder);            
-            }            
+                Console.WriteLine(updatePanelSetOrder);
+            }
         }
 
         private void ButtonSendMessageToSid_Click(object sender, RoutedEventArgs e)
@@ -851,7 +851,7 @@ namespace YellowstonePathology.UI
             this.SendTestFax();
 
             //this.DoMongoMove();
-            
+
             //this.CRC();
             //this.WriteAssemblyQualifiedTypeSQL();
             //this.BuildObjectsTesting();
@@ -883,70 +883,70 @@ namespace YellowstonePathology.UI
                 }
             }
             */
-        }           
+        }
 
         private void FindMissingReportNumbers()
         {
-            
-        }        
+
+        }
 
         private void WriteAssemblyQualifiedTypeSQL()
         {
 
-			YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder psos = new YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder();
+            YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder psos = new YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder();
             Console.WriteLine(psos.GetType().AssemblyQualifiedName);
-            
-			YellowstonePathology.Business.Test.PanelSetOrderCPTCodeCollection psocptc = new Business.Test.PanelSetOrderCPTCodeCollection();
-			Console.WriteLine(psocptc.GetType().AssemblyQualifiedName);
 
-			YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill psocptb = new Business.Test.PanelSetOrderCPTCodeBill();
-			Console.WriteLine(psocptb.GetType().AssemblyQualifiedName);
+            YellowstonePathology.Business.Test.PanelSetOrderCPTCodeCollection psocptc = new Business.Test.PanelSetOrderCPTCodeCollection();
+            Console.WriteLine(psocptc.GetType().AssemblyQualifiedName);
 
-			YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBillCollection psocptbc = new Business.Test.PanelSetOrderCPTCodeBillCollection();
-			Console.WriteLine(psocptbc.GetType().AssemblyQualifiedName);
+            YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill psocptb = new Business.Test.PanelSetOrderCPTCodeBill();
+            Console.WriteLine(psocptb.GetType().AssemblyQualifiedName);
+
+            YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBillCollection psocptbc = new Business.Test.PanelSetOrderCPTCodeBillCollection();
+            Console.WriteLine(psocptbc.GetType().AssemblyQualifiedName);
 
 
             YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen ssr = new YellowstonePathology.Business.Test.Surgical.SurgicalSpecimen();
-			Console.WriteLine(ssr.GetType().AssemblyQualifiedName);
+            Console.WriteLine(ssr.GetType().AssemblyQualifiedName);
 
             YellowstonePathology.Business.Test.Surgical.SurgicalSpecimenCollection ssrc = new YellowstonePathology.Business.Test.Surgical.SurgicalSpecimenCollection();
-			Console.WriteLine(ssrc.GetType().AssemblyQualifiedName);
+            Console.WriteLine(ssrc.GetType().AssemblyQualifiedName);
 
-			YellowstonePathology.Business.Test.Surgical.IntraoperativeConsultationResult ic = new YellowstonePathology.Business.Test.Surgical.IntraoperativeConsultationResult();
-			Console.WriteLine(ic.GetType().AssemblyQualifiedName);
+            YellowstonePathology.Business.Test.Surgical.IntraoperativeConsultationResult ic = new YellowstonePathology.Business.Test.Surgical.IntraoperativeConsultationResult();
+            Console.WriteLine(ic.GetType().AssemblyQualifiedName);
 
-			YellowstonePathology.Business.Test.Surgical.IntraoperativeConsultationResultCollection icc = new YellowstonePathology.Business.Test.Surgical.IntraoperativeConsultationResultCollection();
-			Console.WriteLine(icc.GetType().AssemblyQualifiedName);
+            YellowstonePathology.Business.Test.Surgical.IntraoperativeConsultationResultCollection icc = new YellowstonePathology.Business.Test.Surgical.IntraoperativeConsultationResultCollection();
+            Console.WriteLine(icc.GetType().AssemblyQualifiedName);
 
             YellowstonePathology.Business.Test.Surgical.SurgicalAudit sra = new YellowstonePathology.Business.Test.Surgical.SurgicalAudit();
-			Console.WriteLine(sra.GetType().AssemblyQualifiedName);
+            Console.WriteLine(sra.GetType().AssemblyQualifiedName);
 
             YellowstonePathology.Business.Test.Surgical.SurgicalAuditCollection srac = new YellowstonePathology.Business.Test.Surgical.SurgicalAuditCollection();
-			Console.WriteLine(srac.GetType().AssemblyQualifiedName);
+            Console.WriteLine(srac.GetType().AssemblyQualifiedName);
 
-			YellowstonePathology.Business.Test.Surgical.SurgicalSpecimenAudit ssra = new YellowstonePathology.Business.Test.Surgical.SurgicalSpecimenAudit();
-			Console.WriteLine(ssra.GetType().AssemblyQualifiedName);
+            YellowstonePathology.Business.Test.Surgical.SurgicalSpecimenAudit ssra = new YellowstonePathology.Business.Test.Surgical.SurgicalSpecimenAudit();
+            Console.WriteLine(ssra.GetType().AssemblyQualifiedName);
 
-			YellowstonePathology.Business.Test.Surgical.SurgicalSpecimenAuditCollection ssrac = new YellowstonePathology.Business.Test.Surgical.SurgicalSpecimenAuditCollection();
-			Console.WriteLine(ssrac.GetType().AssemblyQualifiedName);
+            YellowstonePathology.Business.Test.Surgical.SurgicalSpecimenAuditCollection ssrac = new YellowstonePathology.Business.Test.Surgical.SurgicalSpecimenAuditCollection();
+            Console.WriteLine(ssrac.GetType().AssemblyQualifiedName);
 
-			YellowstonePathology.Business.SpecialStain.StainResultItem sri = new Business.SpecialStain.StainResultItem();
-			Console.WriteLine(sri.GetType().AssemblyQualifiedName);
+            YellowstonePathology.Business.SpecialStain.StainResultItem sri = new Business.SpecialStain.StainResultItem();
+            Console.WriteLine(sri.GetType().AssemblyQualifiedName);
 
-			YellowstonePathology.Business.SpecialStain.StainResultItemCollection sric = new Business.SpecialStain.StainResultItemCollection();
-			Console.WriteLine(sric.GetType().AssemblyQualifiedName);
+            YellowstonePathology.Business.SpecialStain.StainResultItemCollection sric = new Business.SpecialStain.StainResultItemCollection();
+            Console.WriteLine(sric.GetType().AssemblyQualifiedName);
 
-			YellowstonePathology.Business.Billing.Model.ICD9BillingCode icd = new Business.Billing.Model.ICD9BillingCode();
-			Console.WriteLine(icd.GetType().AssemblyQualifiedName);
+            YellowstonePathology.Business.Billing.Model.ICD9BillingCode icd = new Business.Billing.Model.ICD9BillingCode();
+            Console.WriteLine(icd.GetType().AssemblyQualifiedName);
 
-			YellowstonePathology.Business.Billing.Model.ICD9BillingCodeCollection icdc = new Business.Billing.Model.ICD9BillingCodeCollection();
-			Console.WriteLine(icdc.GetType().AssemblyQualifiedName);
+            YellowstonePathology.Business.Billing.Model.ICD9BillingCodeCollection icdc = new Business.Billing.Model.ICD9BillingCodeCollection();
+            Console.WriteLine(icdc.GetType().AssemblyQualifiedName);
 
-			YellowstonePathology.Business.Billing.Model.CptBillingCodeItem cpt = new Business.Billing.Model.CptBillingCodeItem();
-			Console.WriteLine(cpt.GetType().AssemblyQualifiedName);
+            YellowstonePathology.Business.Billing.Model.CptBillingCodeItem cpt = new Business.Billing.Model.CptBillingCodeItem();
+            Console.WriteLine(cpt.GetType().AssemblyQualifiedName);
 
-			YellowstonePathology.Business.Billing.Model.CptBillingCodeItemCollection cptc = new Business.Billing.Model.CptBillingCodeItemCollection();
-			Console.WriteLine(cptc.GetType().AssemblyQualifiedName);
+            YellowstonePathology.Business.Billing.Model.CptBillingCodeItemCollection cptc = new Business.Billing.Model.CptBillingCodeItemCollection();
+            Console.WriteLine(cptc.GetType().AssemblyQualifiedName);
 
             //foreach (YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet in panelSetCollection)
             //{
@@ -960,13 +960,13 @@ namespace YellowstonePathology.UI
 
         private void WriteStVincentAllInSql()
         {
-            
+
         }
 
         private void FindTextInFiles()
         {
             // Read the file and display it line by line.
-            string [] files = System.IO.Directory.GetFiles(@"\\dc1\FTPData\SVBBilling\Processed\");
+            string[] files = System.IO.Directory.GetFiles(@"\\dc1\FTPData\SVBBilling\Processed\");
 
             foreach (string filePath in files)
             {
@@ -979,13 +979,13 @@ namespace YellowstonePathology.UI
                 while ((line = file.ReadLine()) != null)
                 {
                     if (line.Contains("149450262"))
-                    {                        
+                    {
                         System.Windows.MessageBox.Show("Found on line: " + counter.ToString());
                     }
                     counter++;
                 }
                 file.Close();
-            }		
+            }
 
         }
 
@@ -1023,9 +1023,9 @@ namespace YellowstonePathology.UI
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
             Business.ClientOrder.Model.UniversalServiceCollection col = Business.ClientOrder.Model.UniversalServiceCollection.GetAll();
-            foreach(Business.ClientOrder.Model.UniversalService us in col)
+            foreach (Business.ClientOrder.Model.UniversalService us in col)
             {
-                Console.WriteLine(us.ApplicationName + ", " + us.ServiceName + ", " + us.UniversalServiceId);                    
+                Console.WriteLine(us.ApplicationName + ", " + us.ServiceName + ", " + us.UniversalServiceId);
             }
         }
 
@@ -1047,7 +1047,7 @@ namespace YellowstonePathology.UI
                         DateTime birthdate = DateTime.Parse(dr["PBirthdate"].ToString());
                         string sql = "Insert tblADT (MessageId, DateReceived, Message, PFirstName, PLastName, PBirthdate, AccountNo, MedicalRecordNo, MessageType) values " +
                         "('" + dr["MessageId"].ToString() + "', @DateReceived, @Message, @PFirstName, PLastName, @Birthdate, '" + dr["AccountNo"].ToString() + "', '" + dr["MedicalRecordNo"].ToString() + "', '" + dr["MessageType"].ToString() + "');";
-                        
+
                         MySqlCommand cmd = new MySqlCommand();
                         cmd.CommandText = sql;
                         cmd.CommandType = CommandType.Text;
@@ -1122,7 +1122,7 @@ namespace YellowstonePathology.UI
             }
 
             file.Close();
-            return result;    
+            return result;
         }
 
         private List<int> GetWebServiceAccountIds()
@@ -1178,14 +1178,14 @@ namespace YellowstonePathology.UI
 
         private void WriteSchema()
         {
-            Type [] types = Assembly.GetExecutingAssembly().GetTypes();
+            Type[] types = Assembly.GetExecutingAssembly().GetTypes();
 
-            for (int i=0; i<types.Length; i++)
+            for (int i = 0; i < types.Length; i++)
             {
-                if(Attribute.IsDefined(types[i], typeof(Business.Persistence.PersistentClass), false) == true)
-                {                    
+                if (Attribute.IsDefined(types[i], typeof(Business.Persistence.PersistentClass), false) == true)
+                {
                     Business.Persistence.PersistentClass persistentClassAttribute = (Business.Persistence.PersistentClass)types[i].GetCustomAttributes(typeof(Business.Persistence.PersistentClass), false).Single();
-                    PropertyInfo primaryKeyPropertyInfo = types[i].GetProperties().Where(prop => Attribute.IsDefined(prop, typeof(Business.Persistence.PersistentPrimaryKeyProperty))).Single();                    
+                    PropertyInfo primaryKeyPropertyInfo = types[i].GetProperties().Where(prop => Attribute.IsDefined(prop, typeof(Business.Persistence.PersistentPrimaryKeyProperty))).Single();
 
                     List<PropertyInfo> propertyList = types[i].GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.DeclaredOnly).Where(prop => Attribute.IsDefined(prop, typeof(Business.Persistence.PersistentDataColumnProperty))).ToList();
                     if (propertyList.Count != 0)
@@ -1198,13 +1198,13 @@ namespace YellowstonePathology.UI
                             writer.Formatting = Newtonsoft.Json.Formatting.Indented;
                             writer.WriteStartObject();
                             writer.WritePropertyName("objectName");
-                            writer.WriteValue(types[i].Name);                            
+                            writer.WriteValue(types[i].Name);
                             writer.WritePropertyName("tableName");
                             writer.WriteValue("tbl" + types[i].Name);
 
                             writer.WritePropertyName("fields");
                             writer.WriteStartArray();
-                                                        
+
                             foreach (PropertyInfo propertyInfo in propertyList)
                             {
                                 Business.Persistence.PersistentDataColumnProperty persistentProperty = (Business.Persistence.PersistentDataColumnProperty)propertyInfo.GetCustomAttribute(typeof(Business.Persistence.PersistentDataColumnProperty));
@@ -1228,7 +1228,7 @@ namespace YellowstonePathology.UI
 
                                 writer.WritePropertyName("dataType");
                                 switch (persistentProperty.DataType)
-                                {                                    
+                                {
                                     case "int":
                                         writer.WriteValue("number");
                                         break;
@@ -1238,7 +1238,7 @@ namespace YellowstonePathology.UI
                                     default:
                                         writer.WriteValue("string");
                                         break;
-                                }                                                               
+                                }
 
                                 writer.WritePropertyName("defaultValue");
                                 writer.WriteValue(persistentProperty.DefaultValue);
@@ -1253,15 +1253,15 @@ namespace YellowstonePathology.UI
                         }
                         file.Close();
                     }
-                }                 
+                }
             }
         }
-        
+
         private void DoGRPC()
         {
             //protoc -I d:/protogen --csharp_out d:/protogen/result d:/protogen/ventana.proto --grpc_out d:/protogen/result --plugin=protoc-gen-grpc=grpc_csharp_plugin.exe
 
-            Channel channel = new Channel("127.0.0.1:50051", ChannelCredentials.Insecure);            
+            Channel channel = new Channel("127.0.0.1:50051", ChannelCredentials.Insecure);
             Ventana.VentanaService.VentanaServiceClient ventanaServiceClient = new Ventana.VentanaService.VentanaServiceClient(channel);
             Ventana.OrderRequest orderRequest = new Ventana.OrderRequest();
 
@@ -1280,7 +1280,7 @@ namespace YellowstonePathology.UI
             orderRequest.Pid.MiddleInitial = "E";
             orderRequest.Pid.Birthdate = "08/10/1966";
             orderRequest.Pid.Sex = "M";
-            
+
             orderRequest.Pv1 = new Ventana.pv1();
             orderRequest.Pv1.RequestingPhysicianFirstname = "DUCK";
             orderRequest.Pv1.RequestingPhysicianLastname = "DONALD";
@@ -1318,7 +1318,7 @@ namespace YellowstonePathology.UI
             obr1.BlockSequence = "A";
             obr1.SpecimenId = "17-123.1";
             obr1.SpecimenSequence = "1";
-            stainOrder1.Obr = obr1;            
+            stainOrder1.Obr = obr1;
             orderRequest.StainOrders.Add(stainOrder1);
 
             Ventana.stain_order stainOrder2 = new Ventana.stain_order();
@@ -1354,7 +1354,7 @@ namespace YellowstonePathology.UI
             stainOrder2.Obr = obr2;
 
             orderRequest.StainOrders.Add(stainOrder2);
-           
+
             Ventana.OrderReply orderReply = ventanaServiceClient.buildOrder(orderRequest);
             Console.WriteLine(orderReply.Message);
 
@@ -1416,7 +1416,7 @@ namespace YellowstonePathology.UI
             image.Save(@"d:\node\fedex\label.png");
             */
 
-            System.Drawing.Image i = System.Drawing.Image.FromFile(@"d:\node\fedex\label.png");            
+            System.Drawing.Image i = System.Drawing.Image.FromFile(@"d:\node\fedex\label.png");
             System.Drawing.Rectangle rectangle = new System.Drawing.Rectangle(0, 0, i.Width, i.Height);
             e.Graphics.DrawImage(i, rectangle);
 
@@ -1445,19 +1445,19 @@ namespace YellowstonePathology.UI
 
             foreach (YellowstonePathology.Business.ReportNo reportNo in reportNoCollection)
             {
-				YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(reportNo.Value);
-				string path = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser);
+                YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(reportNo.Value);
+                string path = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser);
                 string[] files = System.IO.Directory.GetFiles(path);
                 foreach (string file in files)
                 {
-                    if(file.Contains(".Y.") == true)
+                    if (file.Contains(".Y.") == true)
                     {
                         //System.IO.File.Delete(file);
 
                         if (fix.Exists(reportNo.Value) == false)
                         {
                             fix.Add(reportNo);
-                        }                    
+                        }
                     }
                 }
             }
@@ -1484,12 +1484,12 @@ namespace YellowstonePathology.UI
 
         private void FixHPV()
         {
-            
+
         }
 
         private void FindNonASCICharacters()
         {
-			List<YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder> list = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetSurgicalTestOrder();
+            List<YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder> list = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetSurgicalTestOrder();
             foreach (YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder sto in list)
             {
                 for (int i = 0; i < sto.CancerSummary.Length; ++i)
@@ -1499,7 +1499,7 @@ namespace YellowstonePathology.UI
                     {
                         Console.WriteLine(sto.ReportNo + "'" + c + "' at index " + i + " is not ASCII");
                     }
-                }  
+                }
             }
         }
 
@@ -1507,11 +1507,11 @@ namespace YellowstonePathology.UI
         {
             DateTime xx = DateTime.Now;
             BsonDateTime dd = BsonDateTime.Create(xx.ToUniversalTime());
-        }        
+        }
 
         private void SendTestFax()
         {
-            YellowstonePathology.Business.ReportDistribution.Model.FaxSubmission.Submit("99999", "Hello World", @"c:\Testing\Test.tif");            
+            YellowstonePathology.Business.ReportDistribution.Model.FaxSubmission.Submit("99999", "Hello World", @"c:\Testing\Test.tif");
         }
 
         private void TestReflectionDelagate()
@@ -1519,7 +1519,7 @@ namespace YellowstonePathology.UI
         }
 
         private void DoMongoMove()
-        {            
+        {
             //YellowstonePathology.UI.Mongo.ProcessRunner runner = new Mongo.ProcessRunner();
             //runner.Run();            
 
@@ -1535,9 +1535,9 @@ namespace YellowstonePathology.UI
             System.ComponentModel.BackgroundWorker backgroundWorker = new System.ComponentModel.BackgroundWorker();
             backgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(BackgroundWorker_DoWork);
             backgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(BackgroundWorker_RunWorkerCompleted);
-            backgroundWorker.RunWorkerAsync();                      
-            
-        }        
+            backgroundWorker.RunWorkerAsync();
+
+        }
 
         private void BackgroundWorker_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
         {
@@ -1546,7 +1546,7 @@ namespace YellowstonePathology.UI
 
         private void BackgroundWorker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
-			
+
         }
 
         private void WriteNonDatabaseTests()
@@ -1578,12 +1578,12 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunShowTemplatePage_Click(object sender, RoutedEventArgs e)
         {
-            
+
         }
 
         private void GetTableNames()
         {
-            
+
         }
 
         private void ButtonAddYearDailyTasks_Click(object sender, RoutedEventArgs e)
@@ -1598,6 +1598,133 @@ namespace YellowstonePathology.UI
             MessageBox.Show(message.ToString());
         }
 
-        
+        private void ButtonSetHPVStandingOrders_Click(object sender, RoutedEventArgs e)
+        {
+            /*YellowstonePathology.Business.Domain.PhysicianCollection physicians = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetAllPhysicians();
+            foreach(YellowstonePathology.Business.Domain.Physician physician in physicians)
+            {
+                YellowstonePathology.Business.Client.Model.HPVStandingOrder standingOrder = new Business.Client.Model.HPVStandingOrder();
+                switch (physician.HPVStandingOrderCode)
+                {
+                    case "STNDHPVRL1":
+                        standingOrder.Age = "Any";
+                        standingOrder.PAPResult = "ASCUS";
+                        standingOrder.HPVTesting = "No HPV testing within the past year";
+                        standingOrder.Endocervical = "Any";
+                        break;
+                    case "STNDHPVRL10":
+                        standingOrder.Age = "older than 30";
+                        standingOrder.PAPResult = "Normal or Reactive";
+                        standingOrder.HPVTesting = "No HPV testing within the past year";
+                        standingOrder.Endocervical = "Absent";
+                        break;
+                    case "STNDHPVRL11":
+                        standingOrder.Age = "25 and older";
+                        standingOrder.PAPResult = "ASCUS or LSIL";
+                        standingOrder.HPVTesting = "No HPV testing within the past year";
+                        standingOrder.Endocervical = "Any";
+                        break;
+                    case "STNDHPVRL12":
+                        standingOrder.Age = "25 and older";
+                        standingOrder.PAPResult = "ASCUS or LSIL";
+                        standingOrder.HPVTesting = "Any";
+                        standingOrder.Endocervical = "Any";
+                        break;
+                    case "STNDHPVRL13":
+                        standingOrder.Age = "older than 30";
+                        standingOrder.PAPResult = "Normal or Reactive";
+                        standingOrder.HPVTesting = "Any";
+                        standingOrder.Endocervical = "Absent";
+                        break;
+                    case "STNDHPVRL14":
+                        standingOrder.Age = "Any";
+                        standingOrder.PAPResult = "ASCUS or higher";
+                        standingOrder.HPVTesting = "No HPV testing within the past year";
+                        standingOrder.Endocervical = "Any";
+                        break;
+                    case "STNDHPVRL141":
+                        standingOrder.Age = "Any";
+                        standingOrder.PAPResult = "ASCUS or higher";
+                        standingOrder.HPVTesting = "Any";
+                        standingOrder.Endocervical = "Any";
+                        break;
+                    case "STNDHPVRL2":
+                        standingOrder.Age = "Any";
+                        standingOrder.PAPResult = "ASCUS";
+                        standingOrder.HPVTesting = "Any";
+                        standingOrder.Endocervical = "Any";
+                        break;
+                    case "STNDHPVRL3":
+                        standingOrder.Age = "older than 20";
+                        standingOrder.PAPResult = "ASCUS, AGUS, LSIL or HSIL";
+                        standingOrder.HPVTesting = "No HPV testing within the past year";
+                        standingOrder.Endocervical = "Any";
+                        break;
+                    case "STNDHPVRL4":
+                        standingOrder.Age = "Any";
+                        standingOrder.PAPResult = "ASCUS, AGUS, LSIL or HSIL";
+                        standingOrder.HPVTesting = "Any";
+                        standingOrder.Endocervical = "Any";
+                        break;
+                    case "STNDHPVRL5":
+                        standingOrder.Age = "older than 20";
+                        standingOrder.PAPResult = "ASCUS, AGUS, LSIL or HSIL";
+                        standingOrder.HPVTesting = "No HPV testing within the past year";
+                        standingOrder.Endocervical = "Any";
+                        break;
+                    case "STNDHPVRL51":
+                        standingOrder.Age = "between 21 and 29 years old";
+                        standingOrder.PAPResult = "Abnormal";
+                        standingOrder.HPVTesting = "Any";
+                        standingOrder.Endocervical = "Any";
+                        break;
+                    case "STNDHPVRL6":
+                        standingOrder.Age = "Any";
+                        standingOrder.PAPResult = "ASCUS, LSIL or HSIL";
+                        standingOrder.HPVTesting = "Any";
+                        standingOrder.Endocervical = "Any";
+                        break;
+                    case "STNDHPVRL7":
+                        standingOrder.Age = "older than 20";
+                        standingOrder.PAPResult = "ASCUS or AGUS";
+                        standingOrder.HPVTesting = "No HPV testing within the past year";
+                        standingOrder.Endocervical = "Any";
+                        break;
+                    case "STNDHPVRL8":
+                        standingOrder.Age = "Any";
+                        standingOrder.PAPResult = "ASCUS or LSIL";
+                        standingOrder.HPVTesting = "Any";
+                        standingOrder.Endocervical = "Any";
+                        break;
+                    case "STNDHPVRL9":
+                        standingOrder.Age = "Any";
+                        standingOrder.PAPResult = "ASCUS or LSIL";
+                        standingOrder.HPVTesting = "No HPV testing within the past year";
+                        standingOrder.Endocervical = "Any";
+                        break;
+                    case "STNDNONE":
+                        standingOrder.Age = "No Standing Order";
+                        standingOrder.PAPResult = "No Standing Order";
+                        standingOrder.HPVTesting = "No Standing Order";
+                        standingOrder.Endocervical = "No Standing Order";
+                        break;
+                    case "STNDNOTSET":
+                        standingOrder.Age = "Not Set";
+                        standingOrder.PAPResult = "Not Set";
+                        standingOrder.HPVTesting = "Not Set";
+                        standingOrder.Endocervical = "Not Set";
+                        break;
+                }
+
+                if(string.IsNullOrEmpty(standingOrder.Age) == false)
+                {
+                    standingOrder.HPVStandingOrderId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
+                    standingOrder.PhysicianId = physician.PhysicianId;
+                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(standingOrder, this);
+                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
+                }
+            }
+            MessageBox.Show("Done");*/
+        }
     }
 }

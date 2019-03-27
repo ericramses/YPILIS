@@ -1265,12 +1265,14 @@ namespace YellowstonePathology.Business.Gateway
             return result;
         }
 
-        public static Client.Model.HPVStandingOrderCollection GetHPVStandingOrderCollection()
+        public static Client.Model.HPVStandingOrderCollection GetHPVStandingOrderCollectionByPhysicianId(int physicianId)
         {
             YellowstonePathology.Business.Client.Model.HPVStandingOrderCollection result = new Client.Model.HPVStandingOrderCollection();
             MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "Select * from tblHPVStandingOrder;";
+            cmd.CommandText = "Select * from tblHPVStandingOrder h where h.PhysicianId = @PhysicianId;";
             cmd.CommandType = CommandType.Text;
+            cmd.Parameters.AddWithValue("@PhysicianId", physicianId);
+
             using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();
@@ -1286,6 +1288,18 @@ namespace YellowstonePathology.Business.Gateway
                     }
                 }
             }
+            return result;
+        }
+
+        public static Domain.PhysicianCollection GetAllPhysicians()
+        {
+            Domain.PhysicianCollection result = new Domain.PhysicianCollection();
+
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "select ph.* " +
+               "from tblPhysician ph;";
+            cmd.CommandType = CommandType.Text;
+            result = PhysicianClientGateway.GetPhysicianCollectionFromCommand(cmd);
             return result;
         }
     }
