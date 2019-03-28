@@ -1056,6 +1056,8 @@
     <Compile Include="Business\Stain.Model\Stain.cs" />
     <Compile Include="Business\Stain.Model\StainCollection.cs" />
     <Compile Include="Business\Billing.Model\SVHClinicMailMessage.cs" />
+    <Compile Include="Business\Surgical\AssignmentScan.cs" />
+    <Compile Include="Business\Surgical\AssignmentScanCollection.cs" />
     <Compile Include="Business\Test.Model\TestCollectionInstance.cs" />
     <Compile Include="Business\Test.Model\TestFactory.cs" />
     <Compile Include="Business\Test.Model\TestOrderStatusView.cs" />
@@ -3392,6 +3394,9 @@
     <Compile Include="UI\SortDirectionAdorner.cs" />
     <Compile Include="UI\SpellCheckAccessionOrder.cs" />
     <Compile Include="UI\SpellCheckProperty.cs" />
+    <Compile Include="UI\Stain\PathologistsScanDialog.xaml.cs">
+      <DependentUpon>PathologistsScanDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Stain\StainEditDialog.xaml.cs">
       <DependentUpon>StainEditDialog.xaml</DependentUpon>
     </Compile>
@@ -5331,6 +5336,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\RetrospectiveReviews.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Stain\PathologistsScanDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

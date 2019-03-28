@@ -931,5 +931,11 @@ namespace YellowstonePathology.UI.Surgical
             barcode.IsValidated = true;
             this.HistologySlideScanReceived(barcode);
         }
+
+        private void ButtonStainAssignment_Click(object sender, RoutedEventArgs e)
+        {
+            Stain.PathologistsScanDialog dlg = new Stain.PathologistsScanDialog();
+            dlg.ShowDialog();
+        }
     }
 }
