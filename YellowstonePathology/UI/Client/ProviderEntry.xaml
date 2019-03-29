@@ -251,7 +251,8 @@
 
 
                         <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" FontWeight="Bold">Patient Age:</TextBlock>
-                        <ComboBox Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" ItemsSource="{Binding Path=AgeList}" SelectedValue="{Binding Path=HPVStandingOrder.Age}" />
+                        <ComboBox Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" ItemsSource="{Binding Path=HPVRuleAgeCollection}"
+                                  SelectedValue="{Binding Path=HPVStandingOrder.Age}" SelectedValuePath="AgeDescription" DisplayMemberPath="AgeDescription"/>
 
                         <TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" FontWeight="Bold">PAP Result:</TextBlock>
                         <ComboBox Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" ItemsSource="{Binding Path=PAPResultList}" SelectedValue="{Binding Path=HPVStandingOrder.PAPResult}" />
