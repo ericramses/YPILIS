@@ -324,6 +324,13 @@
     <Compile Include="Business\Client.Model\HPVCompoundStandingOrderRule6.cs" />
     <Compile Include="Business\Client.Model\HPVReflexOrderRule141.cs" />
     <Compile Include="Business\Client.Model\HPVReflexOrderRule51.cs" />
+    <Compile Include="Business\Client.Model\HPVRuleAge.cs" />
+    <Compile Include="Business\Client.Model\HPVRuleAge1.cs" />
+    <Compile Include="Business\Client.Model\HPVRuleAge2.cs" />
+    <Compile Include="Business\Client.Model\HPVRuleAge3.cs" />
+    <Compile Include="Business\Client.Model\HPVRuleAge4.cs" />
+    <Compile Include="Business\Client.Model\HPVRuleAge5.cs" />
+    <Compile Include="Business\Client.Model\HPVRuleAgeCollection.cs" />
     <Compile Include="Business\Client.Model\HPVStandingOrder.cs" />
     <Compile Include="Business\Client.Model\HPVStandingOrderCollection.cs" />
     <Compile Include="Business\Client.Model\HPVStandingOrderRule141.cs" />

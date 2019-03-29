@@ -15,6 +15,7 @@ namespace YellowstonePathology.Business.Client.Model
         private string m_PAPResult;
         private string m_HPVTesting;
         private string m_Endocervical;
+        private string m_HPVStandingOrderName;
 
         public HPVStandingOrder()
         { }
@@ -111,14 +112,18 @@ namespace YellowstonePathology.Business.Client.Model
             }
         }
 
+        [PersistentProperty()]
         public string HPVStandingOrderName
         {
-            get
+            get{ return this.m_HPVStandingOrderName; }
+            set
             {
-                string result = this.m_Age +", " + this.PAPResult + ", " + this.m_HPVTesting + ", " + this.m_Endocervical;
-                return result;
+                if (this.m_HPVStandingOrderName != value)
+                {
+                    this.m_HPVStandingOrderName = value;
+                    NotifyPropertyChanged("HPVStandingOrderName");
+                }
             }
-            
         }
     }
 }
