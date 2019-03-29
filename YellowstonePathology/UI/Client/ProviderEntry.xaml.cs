@@ -28,7 +28,7 @@ namespace YellowstonePathology.UI.Client
         private YellowstonePathology.Business.Client.Model.HPVStandingOrderCollection m_HPVStandingOrderCollection;
         private YellowstonePathology.Business.Client.Model.HPVStandingOrder m_HPVStandingOrder;
 
-        private List<string> m_AgeList;
+        private YellowstonePathology.Business.Client.Model.HPVRuleAgeCollection m_HPVRuleAgeCollection;
         private List<string> m_PAPResultList;
         private List<string> m_HPVTestingList;
         private List<string> m_EndocervicalList;
@@ -48,18 +48,10 @@ namespace YellowstonePathology.UI.Client
 			this.m_ClientCollection = new YellowstonePathology.Business.Client.Model.ClientCollection();
             this.m_HPVStandingOrderCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetHPVStandingOrderCollectionByPhysicianId(this.m_Physician.PhysicianId);
 
-            this.m_AgeList = new List<string>();
-            this.m_AgeList.Add("No Standing Order");
-            this.m_AgeList.Add("Not Set");
-            this.m_AgeList.Add("Any");
-            this.m_AgeList.Add("older than 30");
-            this.m_AgeList.Add("25 and older");
-            this.m_AgeList.Add("older than 20");
-            this.m_AgeList.Add("between 21 and 29 years old");
+            this.m_HPVRuleAgeCollection = Business.Client.Model.HPVRuleAgeCollection.GetAll();
 
             this.m_PAPResultList = new List<string>();
-            this.m_PAPResultList.Add("No Standing Order");
-            this.m_PAPResultList.Add("Not Set");
+            this.m_PAPResultList.Add(null);
             this.m_PAPResultList.Add("Any");
             this.m_PAPResultList.Add("ASCUS");
             this.m_PAPResultList.Add("Normal or Reactive");
@@ -71,14 +63,12 @@ namespace YellowstonePathology.UI.Client
             this.m_PAPResultList.Add("ASCUS or AGUS");
 
             this.m_HPVTestingList = new List<string>();
-            this.m_HPVTestingList.Add("No Standing Order");
-            this.m_HPVTestingList.Add("Not Set");
+            this.m_HPVTestingList.Add(null);
             this.m_HPVTestingList.Add("Any");
             this.m_HPVTestingList.Add("No HPV testing within the past year");
 
             this.m_EndocervicalList = new List<string>();
-            this.m_EndocervicalList.Add("No Standing Order");
-            this.m_EndocervicalList.Add("Not Set");
+            this.m_EndocervicalList.Add(null);
             this.m_EndocervicalList.Add("Any");
             this.m_EndocervicalList.Add("Absent");
 
@@ -152,9 +142,9 @@ namespace YellowstonePathology.UI.Client
             get { return this.m_HPVStandingOrder; }
         }
 
-        public List<string> AgeList
+        public YellowstonePathology.Business.Client.Model.HPVRuleAgeCollection HPVRuleAgeCollection
         {
-            get { return this.m_AgeList; }
+            get { return this.m_HPVRuleAgeCollection; }
         }
 
         public List<string> PAPResultList
