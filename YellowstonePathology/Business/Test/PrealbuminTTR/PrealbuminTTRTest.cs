@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace YellowstonePathology.Business.Test.PrealbuminTTRAmyloidA
+namespace YellowstonePathology.Business.Test.PrealbuminTTR
 {
-    public class PrealbuminTTRAmyloidATest : YellowstonePathology.Business.PanelSet.Model.PanelSet
+    public class PrealbuminTTRTest : YellowstonePathology.Business.PanelSet.Model.PanelSet
     {
-        public PrealbuminTTRAmyloidATest()
+        public PrealbuminTTRTest()
         {
             this.m_PanelSetId = 331;
-            this.m_PanelSetName = "Prealbumin (TTR) Amyloid A";
-            this.m_Abbreviation = "Prealbumin (TTR) Amyloid A";
+            this.m_PanelSetName = "Prealbumin (TTR)";
+            this.m_Abbreviation = "Prealbumin (TTR)";
             this.m_CaseType = YellowstonePathology.Business.CaseType.Molecular;
             this.m_HasTechnicalComponent = true;
             this.m_HasProfessionalComponent = true;
