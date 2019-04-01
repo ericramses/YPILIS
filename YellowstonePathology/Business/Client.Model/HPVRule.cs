@@ -4,29 +4,29 @@ using System.Linq;
 
 namespace YellowstonePathology.Business.Client.Model
 {
-    public class HPVRuleAge : INotifyPropertyChanged
+    public class HPVRule : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected string m_AgeDescription;
+        protected string m_Description;
 
-        public HPVRuleAge()
+        public HPVRule()
         { }
 
-        public HPVRuleAge(string ageDescription)
+        public HPVRule(string description)
         {
-            this.m_AgeDescription = ageDescription;
+            this.m_Description = description;
         }
 
-        public string AgeDescription
+        public string Description
         {
-            get { return this.m_AgeDescription; }
+            get { return this.m_Description; }
             set
             {
-                if (this.m_AgeDescription != value)
+                if (this.m_Description != value)
                 {
-                    this.m_AgeDescription = value;
-                    this.NotifyPropertyChanged("AgeDescription");
+                    this.m_Description = value;
+                    this.NotifyPropertyChanged("Description");
                 }
             }
         }
@@ -41,7 +41,7 @@ namespace YellowstonePathology.Business.Client.Model
 
         public virtual bool SatisfiesCondition(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
-            throw new Exception("Not implemented in the HPVRuleAge base class");
+            throw new Exception("Not implemented in the HPVRule base class");
         }
     }
 }
