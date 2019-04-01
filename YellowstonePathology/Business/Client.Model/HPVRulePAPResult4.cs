@@ -6,16 +6,17 @@ using System.Threading.Tasks;
 
 namespace YellowstonePathology.Business.Client.Model
 {
-    public class HPVRuleAge4 : HPVRule
+    class HPVRulePAPResult4 : HPVRule
     {
-        public HPVRuleAge4()
+        public HPVRulePAPResult4()
         {
-            this.m_Description = "older than 20";
+            this.m_Description = "ASCUS or AGUS";
         }
 
         public override bool SatisfiesCondition(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
-            bool result = accessionOrder.PBirthdate < DateTime.Today.AddYears(-20) ? true : false;
+            bool result = false;
+
             return result;
         }
     }

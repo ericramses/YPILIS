@@ -1,34 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 
 namespace YellowstonePathology.Business.Client.Model
 {
-    public class HPVRuleAgeCollection : ObservableCollection<HPVRule>
+    public class HPVRulePAPResultCollection : ObservableCollection<HPVRule>
     {
-        public HPVRuleAgeCollection()
+        public HPVRulePAPResultCollection()
         { }
 
-        public static HPVRuleAgeCollection GetAll()
+        public static HPVRulePAPResultCollection GetAll()
         {
-            HPVRuleAgeCollection result = new Model.HPVRuleAgeCollection();
-            result.Add(new Model.HPVRuleAge1());
-            result.Add(new Model.HPVRuleAge2());
-            result.Add(new Model.HPVRuleAge3());
-            result.Add(new Model.HPVRuleAge4());
-            result.Add(new Model.HPVRuleAge5());
+            HPVRulePAPResultCollection result = new Model.HPVRulePAPResultCollection();
+            result.Add(new HPVRulePAPResult1());
+            result.Add(new HPVRulePAPResult2());
+            result.Add(new HPVRulePAPResult3());
+            result.Add(new HPVRulePAPResult4());
+            result.Add(new HPVRulePAPResult5());
+            result.Add(new HPVRulePAPResult6());
+            result.Add(new HPVRulePAPResult7());
+            result.Add(new HPVRulePAPResult8());
+            result.Add(new HPVRulePAPResult9());
             return result;
         }
 
-        public bool ExixtsByDescription(string description)
+        public bool ExistByResultDescription(string description)
         {
             HPVRule result = this.FirstOrDefault(x => x.Description == description);
             return result == null ? false : true;
         }
 
-        public HPVRule GetByDescription(string description)
+        public HPVRule GetByResultDescription(string description)
         {
             HPVRule result = this.FirstOrDefault(x => x.Description == description);
             return result;

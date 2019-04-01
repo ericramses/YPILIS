@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace YellowstonePathology.Business.Client.Model
 {
-    public class HPVRuleAge1 : HPVRuleAge
+    public class HPVRuleAge1 : HPVRule
     {
         public HPVRuleAge1()
         {
-            this.m_AgeDescription = "Any";
+            this.m_Description = "Any";
         }
 
         public override bool SatisfiesCondition(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
