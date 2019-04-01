@@ -249,7 +249,7 @@
 							HorizontalAlignment="Center" Click="ButtonCaseAssignment_Click"  Background="Gainsboro">
                             <StackPanel Orientation="Horizontal">
                                 <Image Margin="2" Height="16" Source="/UserInterface;component/Resources/Order.ico"></Image>
-                                <TextBlock Margin="2" VerticalAlignment="Center">Scan to Assign ...</TextBlock>
+                                <TextBlock Margin="2" VerticalAlignment="Center">Assign ...</TextBlock>
                             </StackPanel>
                         </Button>
                     </ToolBar>

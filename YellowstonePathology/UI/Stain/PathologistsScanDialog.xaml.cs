@@ -23,16 +23,13 @@ namespace YellowstonePathology.UI.Stain
 
         public PathologistsScanDialog()
         {
-            this.m_AssignmentScanCollection = new Business.Surgical.AssignmentScanCollection();
-
-            //this.AddTestIds();
+            this.m_AssignmentScanCollection = new Business.Surgical.AssignmentScanCollection();            
 
             InitializeComponent();
             DataContext = this;
 
             this.m_BarcodeScanPort = YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort.Instance;
             this.m_BarcodeScanPort.HistologySlideScanReceived += new Business.BarcodeScanning.BarcodeScanPort.HistologySlideScanReceivedHandler(HistologySlideScanReceived);
-
         }
 
         public void NotifyPropertyChanged(String info)
