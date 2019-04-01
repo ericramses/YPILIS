@@ -245,8 +245,8 @@
                             </StackPanel>
                         </Button>
 
-                        <Button Name="ButtonStainAssignment" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" Margin="2"
-							HorizontalAlignment="Center" Click="ButtonStainAssignment_Click"  Background="Gainsboro">
+                        <Button Name="ButtonCaseAssignment" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" Margin="2"
+							HorizontalAlignment="Center" Click="ButtonCaseAssignment_Click"  Background="Gainsboro">
                             <StackPanel Orientation="Horizontal">
                                 <Image Margin="2" Height="16" Source="/UserInterface;component/Resources/Order.ico"></Image>
                                 <TextBlock Margin="2" VerticalAlignment="Center">Scan to Assign ...</TextBlock>

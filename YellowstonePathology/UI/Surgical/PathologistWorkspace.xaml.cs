@@ -930,9 +930,9 @@ namespace YellowstonePathology.UI.Surgical
             barcode.ID = "19-3021.1A1";
             barcode.IsValidated = true;
             this.HistologySlideScanReceived(barcode);
-        }
+        }        
 
-        private void ButtonStainAssignment_Click(object sender, RoutedEventArgs e)
+        private void ButtonCaseAssignment_Click(object sender, RoutedEventArgs e)
         {
             Stain.PathologistsScanDialog dlg = new Stain.PathologistsScanDialog();
             dlg.ShowDialog();
