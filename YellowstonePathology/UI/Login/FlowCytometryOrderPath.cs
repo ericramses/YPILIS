@@ -136,10 +136,10 @@ namespace YellowstonePathology.UI.Login
                     break;
                 /*case 24: //Stem Cell
 					panelSetFlowCytometry = (YellowstonePathology.Business.Test.StemCellEnumeration.StemCellEnumerationTest)this.m_PanelSet;
-                    break;*/
+                    break;
                 case 28: //Fetal Hemoglobin
 					panelSetFlowCytometry = (YellowstonePathology.Business.Test.FetalHemoglobin.FetalHemoglobinTest)this.m_PanelSet;
-                    break;
+                    break;*/
             }
 
 			string reportNo = null;
