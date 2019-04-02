@@ -51,7 +51,7 @@ namespace YellowstonePathology.Business.Flow
 			this.m_PathologistUsers = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetUsersByRole(YellowstonePathology.Business.User.SystemUserRoleDescriptionEnum.Pathologist, true);
 			this.m_MedTechUsers = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetUsersByRole(YellowstonePathology.Business.User.SystemUserRoleDescriptionEnum.MedTech, true);
 
-            this.m_FlowPanelSetCollection = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetFlowPanelSets(false);            
+            this.m_FlowPanelSetCollection = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetFlowPanelSets();            
 
             this.m_FlowComment = new FlowComment();
             this.m_FlowComment.FlowCommentCollection.SetFillCommandAll();
