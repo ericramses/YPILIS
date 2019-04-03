@@ -1098,6 +1098,9 @@
     <Compile Include="Business\Test\EGFRToALKReflexAnalysis\EGFRToALKReflexAnalysisBRAFResult.cs" />
     <Compile Include="Business\Test\ExtractAndHoldForMolecular\ExtractAndHoldForMolecularTestRetired.cs" />
     <Compile Include="Business\Test\ExtractAndHoldForPreauthorization\ExtractAndHoldForPreauthorizationWordDocument.cs" />
+    <Compile Include="Business\Test\FetalHemoglobinV2\FetalHemoglobinV2Test.cs" />
+    <Compile Include="Business\Test\FetalHemoglobinV2\FetalHemoglobinV2TestOrder.cs" />
+    <Compile Include="Business\Test\FetalHemoglobinV2\FetalHemoglobinV2WordDocument.cs" />
     <Compile Include="Business\Test\FetalHemoglobin\FetalHemoglobinTestOrder.cs" />
     <Compile Include="Business\Test\HER2AmplificationByISHSendOut\HER2AmplificationByISHSendOutTest.cs" />
     <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationResult.cs" />
@@ -3600,6 +3603,10 @@
       <DependentUpon>FetalHemoglobinResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Test\FetalHemoglobinResultPath.cs" />
+    <Compile Include="UI\Test\FetalHemoglobinV2ResultPage.xaml.cs">
+      <DependentUpon>FetalHemoglobinV2ResultPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Test\FetalHemoglobinV2ResultPath.cs" />
     <Compile Include="UI\Test\HER2AmplificationRecountResultPage.xaml.cs">
       <DependentUpon>HER2AmplificationRecountResultPage.xaml</DependentUpon>
     </Compile>
@@ -5546,6 +5553,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Test\FetalHemoglobinResultPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Test\FetalHemoglobinV2ResultPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
