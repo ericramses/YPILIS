@@ -34,9 +34,12 @@ namespace YellowstonePathology.Business.Test.FetalHemoglobinV2
             string collectionDateTimeString = YellowstonePathology.Business.Helper.DateTimeExtensions.CombineDateAndTime(specimenOrder.CollectionDate, specimenOrder.CollectionTime);
             this.SetXmlNodeData("date_time_collected", collectionDateTimeString);
 
-            this.SetXmlNodeData("test_result", testOrder.HbFResult);
+            this.SetXmlNodeData("hbf_percent", testOrder.HbFPercent);
+            this.SetXmlNodeData("hbfreference_range", testOrder.HbFReferenceRange);
+            this.SetXmlNodeData("fetal_maternal_bleed", testOrder.FetalMaternalBleed);
             this.SetXmlNodeData("reference_range", testOrder.ReferenceRange);
-            this.SetXmlNodeData("test_sensitivity", "Sensitivity for Hb-F is " + testOrder.HbFResult);
+            this.SetXmlNodeData("rh_immune_globulin", testOrder.RhImmuneGlobulin);
+            this.SetXmlNodeData("test_sensitivity", "Sensitivity for Hb-F is " + testOrder.HbFPercent);
             this.SetXmlNodeData("report_comment", testOrder.ReportComment);
             this.SetXmlNodeData("asr_comment", testOrder.ASRComment);
 

@@ -10,9 +10,9 @@ namespace YellowstonePathology.Business.Test.FetalHemoglobin
 		public FetalHemoglobinTest()
         {
             this.m_PanelSetId = 28;
-            this.m_PanelSetName = "Fetal Hemoglobin";            
+            this.m_PanelSetName = "Fetal Hemoglobin - Retired";            
 			this.m_AllowMultiplePerAccession = true;
-            this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase;
+            this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.PublishedDocument;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterF();
             this.m_CaseType = this.m_CaseType = YellowstonePathology.Business.CaseType.Molecular;
             this.m_Active = true;
