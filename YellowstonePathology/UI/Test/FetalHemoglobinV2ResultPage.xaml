@@ -83,30 +83,40 @@
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
                     </Grid.RowDefinitions>
 
                     <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,5" FontWeight="Bold">Ordered On:</TextBlock>
                     <TextBlock Grid.Column="1" Grid.Row="0" Margin="2,2,2,5" Text="{Binding Path=OrderedOnDescription}"></TextBlock>
 
-                    <TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,5" FontWeight="Bold">Hb-F:</TextBlock>
-                    <TextBox Grid.Column="1" Grid.Row="2" Margin="2,2,2,5" Text="{Binding Path=PanelSetOrder.HbFResult}" />
+                    <TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,5" FontWeight="Bold">Hb-F percent:</TextBlock>
+                    <TextBox Grid.Column="1" Grid.Row="2" Margin="2,2,2,5" Text="{Binding Path=PanelSetOrder.HbFPercent}" />
 
-                    <TextBlock Grid.Column="0" Grid.Row="4" Margin="2,2,2,5" FontWeight="Bold">Reference Range:</TextBlock>
-                    <TextBox Grid.Column="1" Grid.Row="4" Margin="2,2,2,5" Grid.ColumnSpan="2" Text="{Binding Path=PanelSetOrder.ReferenceRange}" />
+                    <TextBlock Grid.Column="0" Grid.Row="3" Margin="2,2,2,5" FontWeight="Bold">Hb-F Reference Range:</TextBlock>
+                    <TextBox Grid.Column="1" Grid.Row="3" Margin="2,2,2,5" Grid.ColumnSpan="2" Text="{Binding Path=PanelSetOrder.HbFReferenceRange}" />
 
-                    <TextBlock Grid.Column="0" Grid.Row="5" Margin="2,2,2,5" FontWeight="Bold">Comment:</TextBlock>
-                    <TextBox Grid.Column="0" Grid.Row="6" Margin="2,2,2,5" Grid.ColumnSpan="2" Text="{Binding Path=PanelSetOrder.ReportComment}" TextWrapping="Wrap" AcceptsReturn="True" />
+                    <TextBlock Grid.Column="0" Grid.Row="4" Margin="2,2,2,5" FontWeight="Bold">Fetal-Maternal Bleed:</TextBlock>
+                    <TextBox Grid.Column="1" Grid.Row="4" Margin="2,2,2,5" Grid.ColumnSpan="2" Text="{Binding Path=PanelSetOrder.FetalMaternalBleed}" />
 
-                    <TextBlock Grid.Column="0" Grid.Row="7" Margin="2,2,2,5" FontWeight="Bold">ASR Comment:</TextBlock>
-                    <TextBox Grid.Column="0" Grid.Row="8" Margin="2,2,2,5" Grid.ColumnSpan="2" Text="{Binding Path=PanelSetOrder.ASRComment}" TextWrapping="Wrap" AcceptsReturn="True" />
+                    <TextBlock Grid.Column="0" Grid.Row="5" Margin="2,2,2,5" FontWeight="Bold">Reference Range:</TextBlock>
+                    <TextBox Grid.Column="1" Grid.Row="5" Margin="2,2,2,5" Grid.ColumnSpan="2" Text="{Binding Path=PanelSetOrder.ReferenceRange}" />
 
-                    <TextBlock Grid.Column="0" Grid.Row="10" Margin="2,2,2,2" FontWeight="Bold" VerticalAlignment="Center">Distribute:</TextBlock>
-                    <CheckBox Grid.Column="1" Grid.Row="10" Margin="2,2,2,2" IsChecked="{Binding Path=PanelSetOrder.Distribute}" VerticalAlignment="Center" />
+                    <TextBlock Grid.Column="0" Grid.Row="6" Margin="2,2,2,5" FontWeight="Bold">Rh Immune Globulin:</TextBlock>
+                    <TextBox Grid.Column="1" Grid.Row="6" Margin="2,2,2,5" Grid.ColumnSpan="2" Text="{Binding Path=PanelSetOrder.RhImmuneGlobulin}" />
 
-                    <TextBlock Grid.Column="0" Grid.Row="11" Margin="2,2,2,2" FontWeight="Bold">No Charge:</TextBlock>
-                    <CheckBox Grid.Column="1" Grid.Row="11" Margin="2,2,2,2" IsChecked="{Binding Path=PanelSetOrder.NoCharge}"></CheckBox>
+                    <TextBlock Grid.Column="0" Grid.Row="7" Margin="2,2,2,5" FontWeight="Bold">Comment:</TextBlock>
+                    <TextBox Grid.Column="0" Grid.Row="8" Margin="2,2,2,5" Grid.ColumnSpan="2" Text="{Binding Path=PanelSetOrder.ReportComment}" TextWrapping="Wrap" AcceptsReturn="True" />
 
-                    <Grid Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="2">
+                    <TextBlock Grid.Column="0" Grid.Row="9" Margin="2,2,2,5" FontWeight="Bold">ASR Comment:</TextBlock>
+                    <TextBox Grid.Column="0" Grid.Row="10" Margin="2,2,2,5" Grid.ColumnSpan="2" Text="{Binding Path=PanelSetOrder.ASRComment}" TextWrapping="Wrap" AcceptsReturn="True" />
+
+                    <TextBlock Grid.Column="0" Grid.Row="11" Margin="2,2,2,2" FontWeight="Bold" VerticalAlignment="Center">Distribute:</TextBlock>
+                    <CheckBox Grid.Column="1" Grid.Row="11" Margin="2,2,2,2" IsChecked="{Binding Path=PanelSetOrder.Distribute}" VerticalAlignment="Center" />
+
+                    <TextBlock Grid.Column="0" Grid.Row="12" Margin="2,2,2,2" FontWeight="Bold">No Charge:</TextBlock>
+                    <CheckBox Grid.Column="1" Grid.Row="12" Margin="2,2,2,2" IsChecked="{Binding Path=PanelSetOrder.NoCharge}"></CheckBox>
+
+                    <Grid Grid.Column="0" Grid.Row="13" Grid.ColumnSpan="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"></ColumnDefinition>
                             <ColumnDefinition Width="*"></ColumnDefinition>

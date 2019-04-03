@@ -10,16 +10,16 @@ namespace YellowstonePathology.Business.Test.FetalHemoglobinV2
         public FetalHemoglobinV2Test()
         {
             this.m_PanelSetId = 333;
-            this.m_PanelSetName = "Fetal Hemoglobin(v2)";
+            this.m_PanelSetName = "Fetal Hemoglobin";
             this.m_AllowMultiplePerAccession = true;
             this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterF();
-            this.m_CaseType = this.m_CaseType = YellowstonePathology.Business.CaseType.Molecular;
+            this.m_CaseType = this.m_CaseType = YellowstonePathology.Business.CaseType.FlowCytometry;
             this.m_Active = true;
             this.m_ExpectedDuration = new TimeSpan(24, 0, 0);
 
-            this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.FetalHemoglobin.FetalHemoglobinTestOrder).AssemblyQualifiedName;
-            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.FetalHemoglobin.FetalHemoglobinWordDocument).AssemblyQualifiedName;
+            this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.FetalHemoglobinV2.FetalHemoglobinV2TestOrder).AssemblyQualifiedName;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.FetalHemoglobinV2.FetalHemoglobinV2WordDocument).AssemblyQualifiedName;
 
             string taskDescription = "Perform fetal hemoglobin testing.";
             this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.Task(YellowstonePathology.Business.Task.Model.TaskAssignment.Flow, taskDescription));
