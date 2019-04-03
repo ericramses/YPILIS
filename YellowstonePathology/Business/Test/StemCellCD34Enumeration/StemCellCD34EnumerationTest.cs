@@ -20,7 +20,7 @@ namespace YellowstonePathology.Business.Test.StemCellCD34Enumeration
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.StemCellEnumeration.StemCellEnumerationTestOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.StemCellEnumeration.StemCellEnumerationWordDocument).AssemblyQualifiedName;
 
-            string taskDescription = "Perform stem cell enumeration testing.";
+            string taskDescription = "Perform stem cell CD34 enumeration testing.";
             this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.Task(YellowstonePathology.Business.Task.Model.TaskAssignment.Flow, taskDescription));
 
             this.m_HasProfessionalComponent = false;
