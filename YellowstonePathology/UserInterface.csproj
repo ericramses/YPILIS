@@ -362,6 +362,7 @@
     <Compile Include="Business\EthContract.cs" />
     <Compile Include="Business\EthContractCollection.cs" />
     <Compile Include="Business\Interface\IHER2ISH.cs" />
+    <Compile Include="Business\Label.Model\HistologySlidePaperZPLLabelV3.cs" />
     <Compile Include="Business\Label.Model\HologicSlideLabelPrinter.cs" />
     <Compile Include="Business\Label.Model\HologicSlideLabel.cs" />
     <Compile Include="Business\PanelSet.Model\FISHTest.cs" />
