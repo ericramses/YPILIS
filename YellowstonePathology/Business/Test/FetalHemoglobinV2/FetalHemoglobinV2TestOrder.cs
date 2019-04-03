@@ -11,14 +11,24 @@ namespace YellowstonePathology.Business.Test.FetalHemoglobinV2
     [PersistentClass("tblFetalHemoglobinV2TestOrder", "tblPanelSetOrder", "YPIDATA")]
     public class FetalHemoglobinV2TestOrder : YellowstonePathology.Business.Test.PanelSetOrder
     {
-        private string m_HbFResult;
+        private string m_HbFPercent;
+        private string m_HbFReferenceRange;
+        private string m_FetalMaternalBleed;
+        private string m_RhImmuneGlobulin;
         private string m_ReferenceRange;
         private string m_ReportComment;
         private string m_ASRComment;
 
         public FetalHemoglobinV2TestOrder()
+        { }
+
+        public FetalHemoglobinV2TestOrder(string masterAccessionNo, string reportNo, string objectId,
+            YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
+            YellowstonePathology.Business.Interface.IOrderTarget orderTarget,
+            bool distribute)
+            : base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute)
         {
-            this.m_ReferenceRange = "≤ 0.04%";
+            this.m_HbFReferenceRange = "Less than or equal to 0.04%";
             this.m_ASRComment = "Tests utilizing Analytic Specific Reagents (ASR’s) were developed and performance characteristics determined " +
                 "by Yellowstone Pathology Institute, Inc.  They have not been cleared or approved by the U.S. Food and Drug Administration.  The " +
                 "FDA has determined that such clearance or approval is not necessary.  ASR’s may be used for clinical purposes and should not " +
@@ -26,23 +36,44 @@ namespace YellowstonePathology.Business.Test.FetalHemoglobinV2
                 "Amendments of 1988 (CLIA-88) as qualified to perform high complexity clinical laboratory testing.";
         }
 
-        public FetalHemoglobinV2TestOrder(string masterAccessionNo, string reportNo, string objectId,
-            YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
-            YellowstonePathology.Business.Interface.IOrderTarget orderTarget,
-            bool distribute)
-            : base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute)
-        { }
-
         [PersistentProperty()]
-        public string HbFResult
+        public string HbFPercent
         {
-            get { return this.m_HbFResult; }
+            get { return this.m_HbFPercent; }
             set
             {
-                if (this.m_HbFResult != value)
+                if (this.m_HbFPercent != value)
                 {
-                    this.m_HbFResult = value;
-                    NotifyPropertyChanged("HbFResult");
+                    this.m_HbFPercent = value;
+                    NotifyPropertyChanged("HbFPercent");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string FetalMaternalBleed
+        {
+            get { return this.m_FetalMaternalBleed; }
+            set
+            {
+                if (this.m_FetalMaternalBleed != value)
+                {
+                    this.m_FetalMaternalBleed = value;
+                    NotifyPropertyChanged("FetalMaternalBleed");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string RhImmuneGlobulin
+        {
+            get { return this.m_RhImmuneGlobulin; }
+            set
+            {
+                if (this.m_RhImmuneGlobulin != value)
+                {
+                    this.m_RhImmuneGlobulin = value;
+                    NotifyPropertyChanged("RhImmuneGlobulin");
                 }
             }
         }
@@ -57,6 +88,20 @@ namespace YellowstonePathology.Business.Test.FetalHemoglobinV2
                 {
                     this.m_ReportComment = value;
                     NotifyPropertyChanged("ReportComment");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string HbFReferenceRange
+        {
+            get { return this.m_HbFReferenceRange; }
+            set
+            {
+                if (this.m_HbFReferenceRange != value)
+                {
+                    this.m_HbFReferenceRange = value;
+                    NotifyPropertyChanged("HbFReferenceRange");
                 }
             }
         }
@@ -93,7 +138,13 @@ namespace YellowstonePathology.Business.Test.FetalHemoglobinV2
         {
             StringBuilder result = new StringBuilder();
 
-            result.AppendLine("Hb-F: " + this.m_HbFResult);
+            result.AppendLine("Hb-F percent: " + this.m_HbFPercent);
+            result.AppendLine();
+
+            result.AppendLine("Fetal-Maternal Bleed: " + this.m_FetalMaternalBleed);
+            result.AppendLine();
+
+            result.AppendLine("Rh Immune Globulin: " + this.m_RhImmuneGlobulin);
             result.AppendLine();
 
             return result.ToString();
@@ -105,12 +156,28 @@ namespace YellowstonePathology.Business.Test.FetalHemoglobinV2
 
             if (result.Status == AuditStatusEnum.OK)
             {
-                if (string.IsNullOrEmpty(this.m_HbFResult) == true)
+                if (string.IsNullOrEmpty(this.m_HbFPercent) == true)
                 {
                     result.Status = AuditStatusEnum.Failure;
-                    result.Message += "Unable to accept as the Hb-F result is not set: ";
+                    result.Message += "Hb-F percent" + Environment.NewLine;
+                }
+                if (string.IsNullOrEmpty(this.m_FetalMaternalBleed) == true)
+                {
+                    result.Status = AuditStatusEnum.Failure;
+                    result.Message += "Fetal-Maternal Bleed" + Environment.NewLine;
+                }
+                if (string.IsNullOrEmpty(this.m_RhImmuneGlobulin) == true)
+                {
+                    result.Status = AuditStatusEnum.Failure;
+                    result.Message += "Rh Immune Globulin";
                 }
             }
+
+            if (result.Status == AuditStatusEnum.Failure)
+            {
+                result.Message = "Unable to accept as the following result/s are not set: " + Environment.NewLine + result.Message;
+            }
+
             return result;
         }
     }
