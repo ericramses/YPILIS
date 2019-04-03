@@ -17,8 +17,8 @@ namespace YellowstonePathology.Business.Test.StemCellCD34Enumeration
             this.m_CaseType = this.m_CaseType = YellowstonePathology.Business.CaseType.FlowCytometry;
             this.m_Active = true;
             this.m_ExpectedDuration = new TimeSpan(24, 0, 0);
-            this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.StemCellEnumeration.StemCellEnumerationTestOrder).AssemblyQualifiedName;
-            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.StemCellEnumeration.StemCellEnumerationWordDocument).AssemblyQualifiedName;
+            this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.StemCellCD34Enumeration.StemCellCD34EnumerationTestOrder).AssemblyQualifiedName;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.StemCellCD34Enumeration.StemCellCD34EnumerationWordDocument).AssemblyQualifiedName;
 
             string taskDescription = "Perform stem cell CD34 enumeration testing.";
             this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.Task(YellowstonePathology.Business.Task.Model.TaskAssignment.Flow, taskDescription));
