@@ -1023,7 +1023,7 @@ namespace YellowstonePathology.UI
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
             string printerName = "ZDesigner GX430t";            
-            Business.Label.Model.HistologySlidePaperZPLLabelV3 zplCommand = new Business.Label.Model.HistologySlidePaperZPLLabelV3("19-12311.1A1", "19-12311.S", "Mickey", "Mouse", "PAS", "11A23", "YPI-BLGS", false, false);
+            Business.Label.Model.HistologySlidePaperZPLLabelV3 zplCommand = new Business.Label.Model.HistologySlidePaperZPLLabelV3("19-8656.1C5", "19-8656.S", "LAWRENCE", "ROMA", "D2-40", "1C5", "YPI-BLGS", false, false);
             Business.Label.Model.RawPrinterHelper.SendStringToPrinter(printerName, "^XA" + zplCommand.GetCommandWithOffset(0) + "^XZ");            
         }
 
