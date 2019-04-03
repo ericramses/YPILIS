@@ -1022,11 +1022,9 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            Business.ClientOrder.Model.UniversalServiceCollection col = Business.ClientOrder.Model.UniversalServiceCollection.GetAll();
-            foreach (Business.ClientOrder.Model.UniversalService us in col)
-            {
-                Console.WriteLine(us.ApplicationName + ", " + us.ServiceName + ", " + us.UniversalServiceId);
-            }
+            string printerName = "ZDesigner GX430t";            
+            Business.Label.Model.HistologySlidePaperZPLLabelV3 zplCommand = new Business.Label.Model.HistologySlidePaperZPLLabelV3("19-12311.1A1", "19-12311.S", "Mickey", "Mouse", "PAS", "11A23", "YPI-BLGS", false, false);
+            Business.Label.Model.RawPrinterHelper.SendStringToPrinter(printerName, "^XA" + zplCommand.GetCommandWithOffset(0) + "^XZ");            
         }
 
         private void InsertADT()
