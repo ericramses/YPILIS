@@ -53,10 +53,6 @@ namespace YellowstonePathology.UI.Test
             this.m_ControlsNotDisabledOnFinal.Add(this.ButtonNext);
             this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockShowDocument);
             this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalResults);
-
-            this.m_ControlsNotDisabledOnFinal.Add(this.textBoxStemCellEnumeration);
-            this.m_ControlsNotDisabledOnFinal.Add(this.textBoxViability);
-            this.m_ControlsNotDisabledOnFinal.Add(this.textBoxWBCCount);
         }
 
         public void NotifyPropertyChanged(String info)
