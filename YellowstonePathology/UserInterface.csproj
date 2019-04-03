@@ -1199,6 +1199,9 @@
     <Compile Include="Business\Test\RASRAFPanel\RASRAFPanelWPHOBXView.cs" />
     <Compile Include="Business\Test\RibosomalRNA16S\RibosomalRNA16STest.cs" />
     <Compile Include="Business\Test\SomatostatinReceptorType2\SomatostatinReceptorType2Test.cs" />
+    <Compile Include="Business\Test\StemCellCD34Enumeration\StemCellCD34EnumerationTest.cs" />
+    <Compile Include="Business\Test\StemCellCD34Enumeration\StemCellCD34EnumerationTestOrder.cs" />
+    <Compile Include="Business\Test\StemCellCD34Enumeration\StemCellCD34EnumerationWordDocument.cs" />
     <Compile Include="Business\Test\StemCellEnumeration\StemCellEnumerationTestOrder.cs" />
     <Compile Include="Business\Test\TCellNKProfile\TCellNKProfileWPHOBXView.cs" />
     <Compile Include="Business\Test\ThrombocytopeniaProfile\ThrombocytopeniaProfileCMMCNTEView.cs" />
@@ -3922,6 +3925,10 @@
       <DependentUpon>RUNX1RUNX1T1AML1ETOTranslocationResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Test\RUNX1RUNX1T1AML1ETOTranslocationResultPath.cs" />
+    <Compile Include="UI\Test\StemCellCD34EnumerationResultPage.xaml.cs">
+      <DependentUpon>StemCellCD34EnumerationResultPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Test\StemCellCD34EnumerationResultPath.cs" />
     <Compile Include="UI\Test\StemCellEnumerationResultPage.xaml.cs">
       <DependentUpon>StemCellEnumerationResultPage.xaml</DependentUpon>
     </Compile>
@@ -5869,6 +5876,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\Test\RUNX1RUNX1T1AML1ETOTranslocationResultPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Test\StemCellCD34EnumerationResultPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
