@@ -354,6 +354,9 @@ namespace YellowstonePathology.UI.Test
                 case 328:
                     result = new StemCellEnumerationResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
+                case 333:
+                    result = new FetalHemoglobinV2ResultPath(reportNo, accessionOrder, pageNavigator, window);
+                    break;
             }
             return result;
         }
