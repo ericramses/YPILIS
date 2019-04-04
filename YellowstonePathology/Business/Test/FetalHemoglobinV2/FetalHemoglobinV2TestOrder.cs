@@ -18,6 +18,13 @@ namespace YellowstonePathology.Business.Test.FetalHemoglobinV2
         private string m_ReferenceRange;
         private string m_ReportComment;
         private string m_ASRComment;
+        private string m_MothersHeightFeet;
+        private string m_MothersHeightInches;
+        private string m_MothersWeight;
+        private string m_MothersBloodVolume;
+        private string m_PercentFetalBlood;
+        private string m_RecommendedNumberOfVials;
+
 
         public FetalHemoglobinV2TestOrder()
         { }
@@ -132,6 +139,105 @@ namespace YellowstonePathology.Business.Test.FetalHemoglobinV2
                     NotifyPropertyChanged("ASRComment");
                 }
             }
+        }
+
+        [PersistentProperty()]
+        public string MothersHeightFeet
+        {
+            get { return this.m_MothersHeightFeet; }
+            set
+            {
+                if (this.m_MothersHeightFeet != value)
+                {
+                    this.m_MothersHeightFeet = value;
+                    this.CalculateMothersBloodVolume();
+                    NotifyPropertyChanged("MothersHeightFeet");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string MothersHeightInches
+        {
+            get { return this.m_MothersHeightInches; }
+            set
+            {
+                if (this.m_MothersHeightInches != value)
+                {
+                    this.m_MothersHeightInches = value;
+                    this.CalculateMothersBloodVolume();
+                    NotifyPropertyChanged("MothersHeightInches");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string MothersWeight
+        {
+            get { return this.m_MothersWeight; }
+            set
+            {
+                if (this.m_MothersWeight != value)
+                {
+                    this.m_MothersWeight = value;
+                    this.CalculateMothersBloodVolume();
+                    NotifyPropertyChanged("MothersWeight");
+                }
+            }
+        }
+
+        public string MothersBloodVolume
+        {
+            get { return this.m_MothersBloodVolume; }
+            set
+            {
+                if (this.m_MothersBloodVolume != value)
+                {
+                    this.m_MothersBloodVolume = value;
+                    NotifyPropertyChanged("MothersBloodVolume");
+                }
+            }
+        }
+
+        public string PercentFetalBlood
+        {
+            get { return this.m_PercentFetalBlood; }
+            set
+            {
+                if (this.m_PercentFetalBlood != value)
+                {
+                    this.m_PercentFetalBlood = value;
+                    NotifyPropertyChanged("PercentFetalBlood");
+                }
+            }
+        }
+
+        public string RecommendedNumberOfVials
+        {
+            get { return this.m_RecommendedNumberOfVials; }
+            set
+            {
+                if (this.m_RecommendedNumberOfVials != value)
+                {
+                    this.m_RecommendedNumberOfVials = value;
+                    NotifyPropertyChanged("RecommendedNumberOfVials");
+                }
+            }
+        }
+
+        private void CalculateMothersBloodVolume()
+        {
+
+        }
+
+        private void CalculatePercentFetalBlood()
+        {
+
+        }
+
+        private void CalculateRecommendedNumberOfVials()
+        {
+
         }
 
         public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)

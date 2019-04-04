@@ -84,6 +84,12 @@
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
                     </Grid.RowDefinitions>
 
                     <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,5" FontWeight="Bold">Ordered On:</TextBlock>
@@ -104,19 +110,37 @@
                     <TextBlock Grid.Column="0" Grid.Row="6" Margin="2,2,2,5" FontWeight="Bold">Rh Immune Globulin:</TextBlock>
                     <TextBox Grid.Column="1" Grid.Row="6" Margin="2,2,2,5" Grid.ColumnSpan="2" Text="{Binding Path=PanelSetOrder.RhImmuneGlobulin}" />
 
-                    <TextBlock Grid.Column="0" Grid.Row="7" Margin="2,2,2,5" FontWeight="Bold">Comment:</TextBlock>
-                    <TextBox Grid.Column="0" Grid.Row="8" Margin="2,2,2,5" Grid.ColumnSpan="2" Text="{Binding Path=PanelSetOrder.ReportComment}" TextWrapping="Wrap" AcceptsReturn="True" />
+                    <TextBlock Grid.Column="0" Grid.Row="7" Margin="2,2,2,5" FontWeight="Bold">Mother's Height - Feet:</TextBlock>
+                    <TextBox Grid.Column="1" Grid.Row="7" Margin="2,2,2,5" Grid.ColumnSpan="2" Text="{Binding Path=PanelSetOrder.MothersHeightFeet}" />
 
-                    <TextBlock Grid.Column="0" Grid.Row="9" Margin="2,2,2,5" FontWeight="Bold">ASR Comment:</TextBlock>
-                    <TextBox Grid.Column="0" Grid.Row="10" Margin="2,2,2,5" Grid.ColumnSpan="2" Text="{Binding Path=PanelSetOrder.ASRComment}" TextWrapping="Wrap" AcceptsReturn="True" />
+                    <TextBlock Grid.Column="0" Grid.Row="8" Margin="2,2,2,5" FontWeight="Bold">Mother's Height - Inches:</TextBlock>
+                    <TextBox Grid.Column="1" Grid.Row="8" Margin="2,2,2,5" Grid.ColumnSpan="2" Text="{Binding Path=PanelSetOrder.MothersHeightInches}" />
 
-                    <TextBlock Grid.Column="0" Grid.Row="11" Margin="2,2,2,2" FontWeight="Bold" VerticalAlignment="Center">Distribute:</TextBlock>
-                    <CheckBox Grid.Column="1" Grid.Row="11" Margin="2,2,2,2" IsChecked="{Binding Path=PanelSetOrder.Distribute}" VerticalAlignment="Center" />
+                    <TextBlock Grid.Column="0" Grid.Row="9" Margin="2,2,2,5" FontWeight="Bold">Mother's Weight:</TextBlock>
+                    <TextBox Grid.Column="1" Grid.Row="9" Margin="2,2,2,5" Grid.ColumnSpan="2" Text="{Binding Path=PanelSetOrder.MothersWeight}" />
 
-                    <TextBlock Grid.Column="0" Grid.Row="12" Margin="2,2,2,2" FontWeight="Bold">No Charge:</TextBlock>
-                    <CheckBox Grid.Column="1" Grid.Row="12" Margin="2,2,2,2" IsChecked="{Binding Path=PanelSetOrder.NoCharge}"></CheckBox>
+                    <TextBlock Grid.Column="0" Grid.Row="10" Margin="2,2,2,5" FontWeight="Bold">Mother's Blood Volume - Ml:</TextBlock>
+                    <TextBox Grid.Column="1" Grid.Row="10" Margin="2,2,2,5" Grid.ColumnSpan="2" Text="{Binding Path=PanelSetOrder.MothersBloodVolume}" />
 
-                    <Grid Grid.Column="0" Grid.Row="13" Grid.ColumnSpan="2">
+                    <TextBlock Grid.Column="0" Grid.Row="11" Margin="2,2,2,5" FontWeight="Bold">Percent Fetal Blood:</TextBlock>
+                    <TextBox Grid.Column="1" Grid.Row="11" Margin="2,2,2,5" Grid.ColumnSpan="2" Text="{Binding Path=PanelSetOrder.PercentFetalBlood}" />
+
+                    <TextBlock Grid.Column="0" Grid.Row="12" Margin="2,2,2,5" FontWeight="Bold">Recommended Number Of Vials:</TextBlock>
+                    <TextBox Grid.Column="1" Grid.Row="12" Margin="2,2,2,5" Grid.ColumnSpan="2" Text="{Binding Path=PanelSetOrder.RecommendedNumberOfVials}" />
+
+                    <TextBlock Grid.Column="0" Grid.Row="13" Margin="2,2,2,5" FontWeight="Bold">Comment:</TextBlock>
+                    <TextBox Grid.Column="0" Grid.Row="14" Margin="2,2,2,5" Grid.ColumnSpan="2" Text="{Binding Path=PanelSetOrder.ReportComment}" TextWrapping="Wrap" AcceptsReturn="True" />
+
+                    <TextBlock Grid.Column="0" Grid.Row="15" Margin="2,2,2,5" FontWeight="Bold">ASR Comment:</TextBlock>
+                    <TextBox Grid.Column="0" Grid.Row="16" Margin="2,2,2,5" Grid.ColumnSpan="2" Text="{Binding Path=PanelSetOrder.ASRComment}" TextWrapping="Wrap" AcceptsReturn="True" />
+
+                    <TextBlock Grid.Column="0" Grid.Row="17" Margin="2,2,2,2" FontWeight="Bold" VerticalAlignment="Center">Distribute:</TextBlock>
+                    <CheckBox Grid.Column="1" Grid.Row="17" Margin="2,2,2,2" IsChecked="{Binding Path=PanelSetOrder.Distribute}" VerticalAlignment="Center" />
+
+                    <TextBlock Grid.Column="0" Grid.Row="18" Margin="2,2,2,2" FontWeight="Bold">No Charge:</TextBlock>
+                    <CheckBox Grid.Column="1" Grid.Row="18" Margin="2,2,2,2" IsChecked="{Binding Path=PanelSetOrder.NoCharge}"></CheckBox>
+
+                    <Grid Grid.Column="0" Grid.Row="19" Grid.ColumnSpan="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"></ColumnDefinition>
                             <ColumnDefinition Width="*"></ColumnDefinition>
