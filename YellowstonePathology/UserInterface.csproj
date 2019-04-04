@@ -1189,6 +1189,7 @@
     <Compile Include="Business\Test\NeoTypeLungTumorFISHPanel\NeoTypeLungTumorFISHPanelTest.cs" />
     <Compile Include="Business\Test\NeoTYPELungTumorProfile\NeoTYPELungTumorProfileTestOrder.cs" />
     <Compile Include="Business\Test\NeoTYPEOvarianTumorProfile\NeoTYPEOvarianTumorProfileTest.cs" />
+    <Compile Include="Business\Test\NUT\NUTTest.cs" />
     <Compile Include="Business\Test\OrderAssociation\OrderAssociationEpicObxView.cs" />
     <Compile Include="Business\Test\OrderAssociation\OrderAssociationTest.cs" />
     <Compile Include="Business\Test\OrderAssociation\OrderAssociationTestOrder.cs" />
