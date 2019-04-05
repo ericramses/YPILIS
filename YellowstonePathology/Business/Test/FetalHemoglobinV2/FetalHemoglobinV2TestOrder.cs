@@ -13,7 +13,7 @@ namespace YellowstonePathology.Business.Test.FetalHemoglobinV2
     {
         private string m_HbFPercent;
         private string m_HbFReferenceRange;
-        private string m_FetalMaternalBleed;
+        private string m_FetalBleed;
         private string m_RhImmuneGlobulin;
         private string m_ReferenceRange;
         private string m_ReportComment;
@@ -22,7 +22,6 @@ namespace YellowstonePathology.Business.Test.FetalHemoglobinV2
         private string m_MothersHeightInches;
         private string m_MothersWeight;
         private string m_MothersBloodVolume;
-        private string m_PercentFetalBlood;
         private string m_RecommendedNumberOfVials;
 
 
@@ -52,21 +51,8 @@ namespace YellowstonePathology.Business.Test.FetalHemoglobinV2
                 if (this.m_HbFPercent != value)
                 {
                     this.m_HbFPercent = value;
+                    CalculateFetalBleed();
                     NotifyPropertyChanged("HbFPercent");
-                }
-            }
-        }
-
-        [PersistentProperty()]
-        public string FetalMaternalBleed
-        {
-            get { return this.m_FetalMaternalBleed; }
-            set
-            {
-                if (this.m_FetalMaternalBleed != value)
-                {
-                    this.m_FetalMaternalBleed = value;
-                    NotifyPropertyChanged("FetalMaternalBleed");
                 }
             }
         }
@@ -194,20 +180,22 @@ namespace YellowstonePathology.Business.Test.FetalHemoglobinV2
                 if (this.m_MothersBloodVolume != value)
                 {
                     this.m_MothersBloodVolume = value;
+                    this.CalculateFetalBleed();
                     NotifyPropertyChanged("MothersBloodVolume");
                 }
             }
         }
 
-        public string PercentFetalBlood
+        public string FetalBleed
         {
-            get { return this.m_PercentFetalBlood; }
+            get { return this.m_FetalBleed; }
             set
             {
-                if (this.m_PercentFetalBlood != value)
+                if (this.m_FetalBleed != value)
                 {
-                    this.m_PercentFetalBlood = value;
-                    NotifyPropertyChanged("PercentFetalBlood");
+                    this.m_FetalBleed = value;
+                    CalculateRecommendedNumberOfVials();
+                    NotifyPropertyChanged("FetalBleed");
                 }
             }
         }
@@ -227,17 +215,52 @@ namespace YellowstonePathology.Business.Test.FetalHemoglobinV2
 
         private void CalculateMothersBloodVolume()
         {
-
+            if (string.IsNullOrEmpty(this.m_MothersWeight) == true) this.MothersBloodVolume = "5000";
+            else
+            {
+                double weightInLbs = double.Parse(this.m_MothersWeight);
+                double weightInKg = weightInLbs / 2.20462;
+                double bloodVolume = 70 * weightInKg;
+                this.MothersBloodVolume = Math.Round(bloodVolume, 2).ToString();
+            }
         }
 
-        private void CalculatePercentFetalBlood()
+        private void CalculateFetalBleed()
         {
+            if (string.IsNullOrEmpty(this.m_MothersWeight) == true)
+            {
+                this.m_MothersBloodVolume = "5000";
+                this.NotifyPropertyChanged("MothersBloodVolume");
+            }
 
+            if (string.IsNullOrEmpty(this.m_HbFPercent) == false)
+            {
+                double percentFetalCells = double.Parse(this.m_HbFPercent);
+                double mothersBloodVolume = double.Parse(this.m_MothersBloodVolume);
+                double fetalBleed = percentFetalCells * mothersBloodVolume * 0.01;
+                this.FetalBleed = Math.Round(fetalBleed, 2).ToString();
+            }
+            else
+            {
+                this.FetalBleed = null;
+            }
         }
 
         private void CalculateRecommendedNumberOfVials()
         {
-
+            if (string.IsNullOrEmpty(this.m_FetalBleed) == false)
+            {
+                double fetalbleed = double.Parse(this.m_FetalBleed);
+                double vials = fetalbleed / 30;
+                double partialValue = vials - Math.Truncate(vials);
+                int additionalVials = partialValue >= 0.5 ? 2 : 1;
+                int recommendedNumberOfVials = (int)Math.Truncate(vials) + additionalVials;
+                this.RecommendedNumberOfVials = recommendedNumberOfVials.ToString();
+            }
+            else
+            {
+                this.RecommendedNumberOfVials = null;
+            }
         }
 
         public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
@@ -247,7 +270,7 @@ namespace YellowstonePathology.Business.Test.FetalHemoglobinV2
             result.AppendLine("Hb-F percent: " + this.m_HbFPercent);
             result.AppendLine();
 
-            result.AppendLine("Fetal-Maternal Bleed: " + this.m_FetalMaternalBleed);
+            result.AppendLine("Fetal Bleed: " + this.m_FetalBleed);
             result.AppendLine();
 
             result.AppendLine("Rh Immune Globulin: " + this.m_RhImmuneGlobulin);
@@ -267,10 +290,10 @@ namespace YellowstonePathology.Business.Test.FetalHemoglobinV2
                     result.Status = AuditStatusEnum.Failure;
                     result.Message += "Hb-F percent" + Environment.NewLine;
                 }
-                if (string.IsNullOrEmpty(this.m_FetalMaternalBleed) == true)
+                if (string.IsNullOrEmpty(this.m_FetalBleed) == true)
                 {
                     result.Status = AuditStatusEnum.Failure;
-                    result.Message += "Fetal-Maternal Bleed" + Environment.NewLine;
+                    result.Message += "Fetal Bleed" + Environment.NewLine;
                 }
                 if (string.IsNullOrEmpty(this.m_RhImmuneGlobulin) == true)
                 {
