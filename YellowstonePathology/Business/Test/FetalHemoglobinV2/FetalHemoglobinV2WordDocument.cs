@@ -36,7 +36,7 @@ namespace YellowstonePathology.Business.Test.FetalHemoglobinV2
 
             this.SetXmlNodeData("hbf_percent", testOrder.HbFPercent);
             this.SetXmlNodeData("hbfreference_range", testOrder.HbFReferenceRange);
-            this.SetXmlNodeData("fetal_maternal_bleed", testOrder.FetalMaternalBleed);
+            this.SetXmlNodeData("fetal_maternal_bleed", testOrder.FetalBleed);
             this.SetXmlNodeData("reference_range", testOrder.ReferenceRange);
             this.SetXmlNodeData("rh_immune_globulin", testOrder.RhImmuneGlobulin);
             this.SetXmlNodeData("test_sensitivity", "Sensitivity for Hb-F is " + testOrder.HbFPercent);

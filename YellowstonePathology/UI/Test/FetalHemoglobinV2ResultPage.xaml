@@ -101,9 +101,6 @@
                     <TextBlock Grid.Column="0" Grid.Row="3" Margin="2,2,2,5" FontWeight="Bold">Hb-F Reference Range:</TextBlock>
                     <TextBox Grid.Column="1" Grid.Row="3" Margin="2,2,2,5" Grid.ColumnSpan="2" Text="{Binding Path=PanelSetOrder.HbFReferenceRange}" />
 
-                    <TextBlock Grid.Column="0" Grid.Row="4" Margin="2,2,2,5" FontWeight="Bold">Fetal-Maternal Bleed:</TextBlock>
-                    <TextBox Grid.Column="1" Grid.Row="4" Margin="2,2,2,5" Grid.ColumnSpan="2" Text="{Binding Path=PanelSetOrder.FetalMaternalBleed}" />
-
                     <TextBlock Grid.Column="0" Grid.Row="5" Margin="2,2,2,5" FontWeight="Bold">Reference Range:</TextBlock>
                     <TextBox Grid.Column="1" Grid.Row="5" Margin="2,2,2,5" Grid.ColumnSpan="2" Text="{Binding Path=PanelSetOrder.ReferenceRange}" />
 
@@ -122,8 +119,8 @@
                     <TextBlock Grid.Column="0" Grid.Row="10" Margin="2,2,2,5" FontWeight="Bold">Mother's Blood Volume - Ml:</TextBlock>
                     <TextBox Grid.Column="1" Grid.Row="10" Margin="2,2,2,5" Grid.ColumnSpan="2" Text="{Binding Path=PanelSetOrder.MothersBloodVolume}" />
 
-                    <TextBlock Grid.Column="0" Grid.Row="11" Margin="2,2,2,5" FontWeight="Bold">Percent Fetal Blood:</TextBlock>
-                    <TextBox Grid.Column="1" Grid.Row="11" Margin="2,2,2,5" Grid.ColumnSpan="2" Text="{Binding Path=PanelSetOrder.PercentFetalBlood}" />
+                    <TextBlock Grid.Column="0" Grid.Row="11" Margin="2,2,2,5" FontWeight="Bold">Fetal-Maternal Bleed:</TextBlock>
+                    <TextBox Grid.Column="1" Grid.Row="11" Margin="2,2,2,5" Grid.ColumnSpan="2" Text="{Binding Path=PanelSetOrder.FetalBleed}" />
 
                     <TextBlock Grid.Column="0" Grid.Row="12" Margin="2,2,2,5" FontWeight="Bold">Recommended Number Of Vials:</TextBlock>
                     <TextBox Grid.Column="1" Grid.Row="12" Margin="2,2,2,5" Grid.ColumnSpan="2" Text="{Binding Path=PanelSetOrder.RecommendedNumberOfVials}" />
