@@ -273,5 +273,15 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 
             return result;
         }
+
+        public virtual bool BRAFIsRequired(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation)
+        {
+            return false;
+        }
+
+        public virtual bool MethIsRequired(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation)
+        {
+            return false;
+        }
     }
 }
