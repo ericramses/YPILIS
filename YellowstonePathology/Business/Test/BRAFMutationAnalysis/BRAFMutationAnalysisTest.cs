@@ -28,7 +28,7 @@ namespace YellowstonePathology.Business.Test.BRAFMutationAnalysis
             this.m_ExpectedDuration = new TimeSpan(120, 0, 0);
             this.m_EpicDistributionIsImplemented = true;
             this.m_CMMCDistributionIsImplemented = true;
-            this.m_EnforceOrderTarget = true;
+            this.m_EnforceOrderTarget = false;
 
             YellowstonePathology.Business.Facility.Model.Facility neogenomicsIrvine = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("NEOGNMCIRVN");
             this.m_TechnicalComponentFacility = neogenomicsIrvine;
