@@ -13,16 +13,15 @@ namespace YellowstonePathology.Business.Test.FetalHemoglobinV2
     {
         private string m_HbFPercent;
         private string m_HbFReferenceRange;
-        private string m_FetalBleed;
-        private string m_RhImmuneGlobulin;
-        private string m_ReferenceRange;
-        private string m_ReportComment;
-        private string m_ASRComment;
         private string m_MothersHeightFeet;
         private string m_MothersHeightInches;
         private string m_MothersWeight;
         private string m_MothersBloodVolume;
-        private string m_RecommendedNumberOfVials;
+        private string m_FetalBleed;
+        private string m_FetalBleedReferenceRange;
+        private string m_RhImmuneGlobulin;
+        private string m_ReportComment;
+        private string m_ASRComment;
 
 
         public FetalHemoglobinV2TestOrder()
@@ -58,20 +57,6 @@ namespace YellowstonePathology.Business.Test.FetalHemoglobinV2
         }
 
         [PersistentProperty()]
-        public string RhImmuneGlobulin
-        {
-            get { return this.m_RhImmuneGlobulin; }
-            set
-            {
-                if (this.m_RhImmuneGlobulin != value)
-                {
-                    this.m_RhImmuneGlobulin = value;
-                    NotifyPropertyChanged("RhImmuneGlobulin");
-                }
-            }
-        }
-
-        [PersistentProperty()]
         public string ReportComment
         {
             get { return this.m_ReportComment; }
@@ -100,15 +85,15 @@ namespace YellowstonePathology.Business.Test.FetalHemoglobinV2
         }
 
         [PersistentProperty()]
-        public string ReferenceRange
+        public string FetalBleedReferenceRange
         {
-            get { return this.m_ReferenceRange; }
+            get { return this.m_FetalBleedReferenceRange; }
             set
             {
-                if (this.m_ReferenceRange != value)
+                if (this.m_FetalBleedReferenceRange != value)
                 {
-                    this.m_ReferenceRange = value;
-                    NotifyPropertyChanged("ReferenceRange");
+                    this.m_FetalBleedReferenceRange = value;
+                    NotifyPropertyChanged("FetalBleedReferenceRange");
                 }
             }
         }
@@ -200,34 +185,48 @@ namespace YellowstonePathology.Business.Test.FetalHemoglobinV2
             }
         }
 
-        public string RecommendedNumberOfVials
+        public string RhImmuneGlobulin
         {
-            get { return this.m_RecommendedNumberOfVials; }
+            get { return this.m_RhImmuneGlobulin; }
             set
             {
-                if (this.m_RecommendedNumberOfVials != value)
+                if (this.m_RhImmuneGlobulin != value)
                 {
-                    this.m_RecommendedNumberOfVials = value;
-                    NotifyPropertyChanged("RecommendedNumberOfVials");
+                    this.m_RhImmuneGlobulin = value;
+                    NotifyPropertyChanged("RhImmuneGlobulin");
                 }
             }
         }
 
         private void CalculateMothersBloodVolume()
         {
-            if (string.IsNullOrEmpty(this.m_MothersWeight) == true) this.MothersBloodVolume = "5000";
+            if (string.IsNullOrEmpty(this.m_MothersWeight) == true ||
+                string.IsNullOrEmpty(this.m_MothersHeightFeet) == true) this.MothersBloodVolume = "5000";
             else
             {
-                double weightInLbs = double.Parse(this.m_MothersWeight);
-                double weightInKg = weightInLbs / 2.20462;
-                double bloodVolume = 70 * weightInKg;
-                this.MothersBloodVolume = Math.Round(bloodVolume, 2).ToString();
+                string inches = string.IsNullOrEmpty(this.m_MothersHeightInches) ? "0" : this.m_MothersHeightInches;
+                string mothersWeightCleaned = this.CleanInputForParse(this.m_MothersWeight);
+                string mothersHeightFeetCleaned = this.CleanInputForParse(this.m_MothersHeightFeet);
+                string mothersHeightInchesCleaned = this.CleanInputForParse(inches);
+                if (string.IsNullOrEmpty(mothersWeightCleaned) == false &&
+                    string.IsNullOrEmpty(mothersHeightFeetCleaned) == false &&
+                    string.IsNullOrEmpty(mothersHeightInchesCleaned) == false)
+                {
+                    double heightFeet = double.Parse(mothersHeightFeetCleaned);
+                    double heightInches = double.Parse(mothersHeightInchesCleaned);
+                    double totalInches = heightFeet * 12 + heightInches;
+                    double weightInLbs = double.Parse(mothersWeightCleaned);
+
+                    double bloodVolume = ((0.005835 * totalInches * totalInches * totalInches) + (15 * weightInLbs)) + 183;
+                    this.MothersBloodVolume = Math.Round(bloodVolume).ToString();
+                }
             }
         }
 
         private void CalculateFetalBleed()
         {
-            if (string.IsNullOrEmpty(this.m_MothersWeight) == true)
+            if (string.IsNullOrEmpty(this.m_MothersWeight) == true ||
+                string.IsNullOrEmpty(this.m_MothersHeightFeet) == true)
             {
                 this.m_MothersBloodVolume = "5000";
                 this.NotifyPropertyChanged("MothersBloodVolume");
@@ -235,10 +234,16 @@ namespace YellowstonePathology.Business.Test.FetalHemoglobinV2
 
             if (string.IsNullOrEmpty(this.m_HbFPercent) == false)
             {
-                double percentFetalCells = double.Parse(this.m_HbFPercent);
-                double mothersBloodVolume = double.Parse(this.m_MothersBloodVolume);
-                double fetalBleed = percentFetalCells * mothersBloodVolume * 0.01;
-                this.FetalBleed = Math.Round(fetalBleed, 2).ToString();
+                string hbFPercentCleaned = this.CleanInputForParse(this.m_HbFPercent);
+                string mothersBloodVolumeCleaned = this.CleanInputForParse(this.m_MothersBloodVolume);
+
+                if (string.IsNullOrEmpty(hbFPercentCleaned) == false && string.IsNullOrEmpty(mothersBloodVolumeCleaned) == false)
+                {
+                    double percentFetalCells = double.Parse(hbFPercentCleaned);
+                    double mothersBloodVolume = double.Parse(mothersBloodVolumeCleaned);
+                    double fetalBleed = percentFetalCells * mothersBloodVolume * 0.01;
+                    this.FetalBleed = Math.Round(fetalBleed, 2).ToString();
+                }
             }
             else
             {
@@ -250,17 +255,44 @@ namespace YellowstonePathology.Business.Test.FetalHemoglobinV2
         {
             if (string.IsNullOrEmpty(this.m_FetalBleed) == false)
             {
-                double fetalbleed = double.Parse(this.m_FetalBleed);
-                double vials = fetalbleed / 30;
-                double partialValue = vials - Math.Truncate(vials);
-                int additionalVials = partialValue >= 0.5 ? 2 : 1;
-                int recommendedNumberOfVials = (int)Math.Truncate(vials) + additionalVials;
-                this.RecommendedNumberOfVials = recommendedNumberOfVials.ToString();
+                string fetalBleedCleaned = this.CleanInputForParse(this.m_FetalBleed);
+                if (string.IsNullOrEmpty(fetalBleedCleaned) == false)
+                {
+                    double fetalbleed = double.Parse(fetalBleedCleaned);
+                    double vials = fetalbleed / 30;
+                    double partialValue = vials - Math.Truncate(vials);
+                    int additionalVials = partialValue >= 0.5 ? 2 : 1;
+                    int recommendedNumberOfVials = (int)Math.Truncate(vials) + additionalVials;
+                    this.RhImmuneGlobulin = recommendedNumberOfVials.ToString();
+                }
             }
             else
             {
-                this.RecommendedNumberOfVials = null;
+                this.RhImmuneGlobulin = null;
             }
+        }
+
+        private string CleanInputForParse(string input)
+        {
+            string result = string.Empty;
+            bool haveDecimal = false;
+            foreach(char c in input)
+            {
+                if (char.IsNumber(c) == true)
+                {
+                    result = result + c;
+                }
+                else if(c == '.' && haveDecimal == false)
+                {
+                    haveDecimal = true;
+                    result = result + c;
+                }
+            }
+
+            double testValue = 0;
+            bool canParse = double.TryParse(result, out testValue);
+
+            return canParse == true ? result : string.Empty;
         }
 
         public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
