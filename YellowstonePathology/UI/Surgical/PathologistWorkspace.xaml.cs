@@ -935,9 +935,15 @@ namespace YellowstonePathology.UI.Surgical
         private void ButtonCaseAssignment_Click(object sender, RoutedEventArgs e)
         {
             this.m_BarcodeScanPort.HistologySlideScanReceived -= HistologySlideScanReceived;
+            this.m_BarcodeScanPort.ThinPrepSlideScanReceived -= BarcodeScanPort_ThinPrepSlideScanReceived;
+            this.m_BarcodeScanPort.CytologySlideScanReceived -= CytologySlideScanReceived;            
+
             Stain.PathologistsScanDialog dlg = new Stain.PathologistsScanDialog();
             dlg.ShowDialog();
+
             this.m_BarcodeScanPort.HistologySlideScanReceived += HistologySlideScanReceived;
+            this.m_BarcodeScanPort.ThinPrepSlideScanReceived += BarcodeScanPort_ThinPrepSlideScanReceived;
+            this.m_BarcodeScanPort.CytologySlideScanReceived += CytologySlideScanReceived;
         }
     }
 }

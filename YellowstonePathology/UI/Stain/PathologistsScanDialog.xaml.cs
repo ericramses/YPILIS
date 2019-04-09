@@ -30,6 +30,8 @@ namespace YellowstonePathology.UI.Stain
 
             this.m_BarcodeScanPort = YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort.Instance;
             this.m_BarcodeScanPort.HistologySlideScanReceived += new Business.BarcodeScanning.BarcodeScanPort.HistologySlideScanReceivedHandler(HistologySlideScanReceived);
+            this.m_BarcodeScanPort.ThinPrepSlideScanReceived += new Business.BarcodeScanning.BarcodeScanPort.ThinPrepSlideScanReceivedHandler(BarcodeScanPort_ThinPrepSlideScanReceived);
+            this.m_BarcodeScanPort.CytologySlideScanReceived += new YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort.CytologySlideScanReceivedHandler(CytologySlideScanReceived);
         }
 
         public void NotifyPropertyChanged(String info)
@@ -54,11 +56,45 @@ namespace YellowstonePathology.UI.Stain
 
                         if (barcode.IsValidated == true)
                         {
+                            this.ChangeListing(barcode.ID);                            
+                        }
+                        else
+                        {
+                            MessageBox.Show("The scanner did not read the barcode correctly.  Please try again.", "Invalid Scan", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                        }
+                    }));
+        }
+
+        private void BarcodeScanPort_ThinPrepSlideScanReceived(Business.BarcodeScanning.Barcode barcode)
+        {
+            this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal,
+                new Action(
+                    delegate ()
+                    {
+                        if (barcode.IsValidated == true)
+                        {
                             this.ChangeListing(barcode.ID);
                         }
                         else
                         {
                             MessageBox.Show("The scanner did not read the barcode correctly.  Please try again.", "Invalid Scan", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                        }
+                    }));
+        }
+
+        private void CytologySlideScanReceived(YellowstonePathology.Business.BarcodeScanning.CytycBarcode barcode)
+        {
+            this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal,
+                new Action(
+                    delegate ()
+                    {
+                        if (barcode.IsValidated == true)
+                        {
+                            this.ChangeListing(barcode.ReportNo);
+                        }
+                        else
+                        {
+                            System.Windows.MessageBox.Show("The scan did not result in a valid case, please try again.", "Invalid Scan", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                         }
                     }));
         }
