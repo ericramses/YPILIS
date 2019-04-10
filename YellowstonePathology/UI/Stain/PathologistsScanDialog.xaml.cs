@@ -23,7 +23,7 @@ namespace YellowstonePathology.UI.Stain
 
         public PathologistsScanDialog()
         {
-            this.m_AssignmentScanCollection = new Business.Surgical.AssignmentScanCollection();            
+            this.m_AssignmentScanCollection = new Business.Surgical.AssignmentScanCollection();
 
             InitializeComponent();
             DataContext = this;
@@ -104,7 +104,7 @@ namespace YellowstonePathology.UI.Stain
             if (this.m_AssignmentScanCollection.Exists(slideOrderId) == false)
             {
                 YellowstonePathology.Business.Surgical.AssignmentScan assignmentScan = new Business.Surgical.AssignmentScan();
-                assignmentScan.SlideOrderId = slideOrderId;
+                assignmentScan.ScanId = slideOrderId;
                 this.m_AssignmentScanCollection.Add(assignmentScan);
             }
         }
@@ -118,19 +118,22 @@ namespace YellowstonePathology.UI.Stain
         {
             foreach(YellowstonePathology.Business.Surgical.AssignmentScan assignmentScan in this.m_AssignmentScanCollection)
             {
-                YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(assignmentScan.SlideOrderId);
+                YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(assignmentScan.ScanId);
                 string masterAccessionNo = orderIdParser.MasterAccessionNo;
                 YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this);
-                YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder = accessionOrder.PanelSetOrderCollection.GetSurgical();
-                assignmentScan.ReportNo = surgicalTestOrder.ReportNo;
-                if(surgicalTestOrder.AssignedToId == 0)
+                accessionOrder.SetCaseOwnerId();
+                assignmentScan.MasterAccessionNo = masterAccessionNo;
+                foreach (YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder in accessionOrder.PanelSetOrderCollection)
                 {
-                    assignmentScan.AssignedTo = YellowstonePathology.Business.User.SystemIdentity.Instance.User.UserName;
-                    surgicalTestOrder.AssignedToId = YellowstonePathology.Business.User.SystemIdentity.Instance.User.UserId;
-                }
-                else
-                {
-                    assignmentScan.AssignedTo = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetSystemUserById(surgicalTestOrder.AssignedToId).UserName;
+                    if (panelSetOrder.AssignedToId == 0)
+                    {
+                        assignmentScan.AssignedTo = YellowstonePathology.Business.User.SystemIdentity.Instance.User.UserName;
+                        panelSetOrder.AssignedToId = YellowstonePathology.Business.User.SystemIdentity.Instance.User.UserId;
+                    }
+                    else
+                    {
+                        assignmentScan.AssignedTo = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetSystemUserById(panelSetOrder.AssignedToId).UserName;
+                    }
                 }
                 YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
             }
@@ -154,6 +157,8 @@ namespace YellowstonePathology.UI.Stain
             this.idx = 0;
             this.m_SlideOrderIds = new List<string>();
             this.m_SlideOrderIds.Add("19-7917.1A1");
+            this.m_SlideOrderIds.Add("19-9342.P");
+            this.m_SlideOrderIds.Add("19-9329.P");
             this.m_SlideOrderIds.Add("19-412.1A1");
             this.m_SlideOrderIds.Add("19-412.2A1");
             this.m_SlideOrderIds.Add("19-412.3A1");

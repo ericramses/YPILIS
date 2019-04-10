@@ -15,8 +15,8 @@
         <ListView Name="ListViewScans" Grid.Row="0" ItemsSource="{Binding Path=AssignmentScanCollection}" Margin="5">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=SlideOrderId}" Header="Slide Id" Width="120"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=ReportNo}" Header="ReportNo" Width="90"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=ScanId}" Header="Scan Id" Width="120"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=MasterAccessionNo}" Header="Accession No" Width="90"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=AssignedTo}" Header="Assigned To" Width="140"/>
                 </GridView>
             </ListView.View>
