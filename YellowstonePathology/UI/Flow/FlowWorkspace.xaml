@@ -871,6 +871,7 @@
                                     <ComboBoxItem>2016</ComboBoxItem>
                                     <ComboBoxItem>2017</ComboBoxItem>
                                     <ComboBoxItem>2018</ComboBoxItem>
+                                    <ComboBoxItem>2019</ComboBoxItem>
                                 </ComboBox>
                             </StackPanel>
                         </StackPanel>

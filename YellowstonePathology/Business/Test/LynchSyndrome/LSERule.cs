@@ -192,6 +192,8 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
         protected Rules.MethodResult HasFinalBRAFResult(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation)
         {
             Rules.MethodResult result = new Rules.MethodResult();
+            result.Success = false;
+
             YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTest brafV600EKTest = new YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTest();
             YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisTest brafMutationAnalysisTest = new BRAFMutationAnalysis.BRAFMutationAnalysisTest();
             YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelTest rasRAFPanelTest = new YellowstonePathology.Business.Test.RASRAFPanel.RASRAFPanelTest();
@@ -270,6 +272,16 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             }
 
             return result;
+        }
+
+        public virtual bool BRAFIsRequired(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation)
+        {
+            return false;
+        }
+
+        public virtual bool MethIsRequired(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation)
+        {
+            return false;
         }
     }
 }

@@ -93,5 +93,25 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 
             return result;
         }
+
+        public override bool BRAFIsRequired(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation)
+        {
+            bool result = false;
+            Rules.MethodResult methodResult = this.HasFinalBRAFResult(accessionOrder, panelSetOrderLynchSyndromeEvaluation);
+            if (methodResult.Success == false && methodResult.Message.Contains("has not been ordered") == true) result = true;
+            return result;
+        }
+
+        public override bool MethIsRequired(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation)
+        {
+            bool result = false;
+            Rules.MethodResult brafResult = this.HasFinalBRAFResult(accessionOrder, panelSetOrderLynchSyndromeEvaluation);
+            if (brafResult.Success == true && brafResult.Message == TestResult.NotDetected)
+            {
+                Rules.MethodResult methodResult = this.HasFinalMethResult(accessionOrder, panelSetOrderLynchSyndromeEvaluation);
+                if (methodResult.Success == false && methodResult.Message.Contains("has not been ordered") == true) result = true;
+            }
+            return result;
+        }
     }
 }

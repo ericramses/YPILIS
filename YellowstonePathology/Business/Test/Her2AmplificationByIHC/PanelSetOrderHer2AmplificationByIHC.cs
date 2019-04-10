@@ -35,6 +35,14 @@ namespace YellowstonePathology.Business.Test.Her2AmplificationByIHC
                 "have been determined by NeoGenomics Laboratories.  This test has not been approved by the FDA.  The FDA has determined such " +
                 "clearance or approval is not necessary.  This laboratory is CLIA certified to perform high complexity clinical testing.";
 
+            this.Method = "Ventana PATHWAY anti-HER-2/neu antibody (clone 4B5) is used and staining is performed per the package " +
+                "insert. Scoring is based on ASCO/CAP guidelines for immunohistochemical testing of HER2 in breast cancer, a " +
+                "positive result (score 3+) is based on uniform, intense membrane staining in greater than 10% of invasive tumor cells; " +
+                "an equivocal result (score 2+) is based on weak to moderate complete membrane staining in greater than 10% of the tumor " +
+                "cells (see reference 2 for exceptions); a negative result (score 1+) is defined as incomplete membrane staining that is " +
+                "faint/barely perceptible and within <10% of the invasive tumor cells; and a negative result (score 0) is based on no " +
+                "staining or faint, partial membrane staining in </=10% of the tumor cells. The technical staining of this tumor was performed " +
+                "at Neogenomics Laboratory, and interpretation performed at Yellowstone Pathology Institute.";
         }
 
 		[PersistentProperty()]

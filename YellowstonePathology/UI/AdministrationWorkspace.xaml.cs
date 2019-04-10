@@ -1022,11 +1022,9 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            Business.ClientOrder.Model.UniversalServiceCollection col = Business.ClientOrder.Model.UniversalServiceCollection.GetAll();
-            foreach (Business.ClientOrder.Model.UniversalService us in col)
-            {
-                Console.WriteLine(us.ApplicationName + ", " + us.ServiceName + ", " + us.UniversalServiceId);
-            }
+            string printerName = "ZDesigner GX430t";            
+            Business.Label.Model.HistologySlidePaperZPLLabelV3 zplCommand = new Business.Label.Model.HistologySlidePaperZPLLabelV3("19-8656.1C5", "19-8656.S", "LAWRENCE", "ROMA", "D2-40", "1C5", "YPI-BLGS", false, false);
+            Business.Label.Model.RawPrinterHelper.SendStringToPrinter(printerName, "^XA" + zplCommand.GetCommandWithOffset(0) + "^XZ");            
         }
 
         private void InsertADT()
@@ -1611,112 +1609,120 @@ namespace YellowstonePathology.UI
                         standingOrder.PAPResult = "ASCUS";
                         standingOrder.HPVTesting = "No HPV testing within the past year";
                         standingOrder.Endocervical = "Any";
+                        standingOrder.HPVStandingOrderName = "Standing Order Rule 02";
                         break;
                     case "STNDHPVRL10":
                         standingOrder.Age = "older than 30";
                         standingOrder.PAPResult = "Normal or Reactive";
                         standingOrder.HPVTesting = "No HPV testing within the past year";
                         standingOrder.Endocervical = "Absent";
+                        standingOrder.HPVStandingOrderName = "Standing Order Rule 03";
                         break;
                     case "STNDHPVRL11":
                         standingOrder.Age = "25 and older";
                         standingOrder.PAPResult = "ASCUS or LSIL";
                         standingOrder.HPVTesting = "No HPV testing within the past year";
                         standingOrder.Endocervical = "Any";
+                        standingOrder.HPVStandingOrderName = "Standing Order Rule 04";
                         break;
                     case "STNDHPVRL12":
                         standingOrder.Age = "25 and older";
                         standingOrder.PAPResult = "ASCUS or LSIL";
                         standingOrder.HPVTesting = "Any";
                         standingOrder.Endocervical = "Any";
+                        standingOrder.HPVStandingOrderName = "Standing Order Rule 05";
                         break;
                     case "STNDHPVRL13":
                         standingOrder.Age = "older than 30";
                         standingOrder.PAPResult = "Normal or Reactive";
                         standingOrder.HPVTesting = "Any";
                         standingOrder.Endocervical = "Absent";
+                        standingOrder.HPVStandingOrderName = "Standing Order Rule 06";
                         break;
                     case "STNDHPVRL14":
                         standingOrder.Age = "Any";
                         standingOrder.PAPResult = "ASCUS or higher";
                         standingOrder.HPVTesting = "No HPV testing within the past year";
                         standingOrder.Endocervical = "Any";
+                        standingOrder.HPVStandingOrderName = "Standing Order Rule 07";
                         break;
                     case "STNDHPVRL141":
                         standingOrder.Age = "Any";
                         standingOrder.PAPResult = "ASCUS or higher";
                         standingOrder.HPVTesting = "Any";
                         standingOrder.Endocervical = "Any";
+                        standingOrder.HPVStandingOrderName = "Standing Order Rule 08";
                         break;
                     case "STNDHPVRL2":
                         standingOrder.Age = "Any";
                         standingOrder.PAPResult = "ASCUS";
                         standingOrder.HPVTesting = "Any";
                         standingOrder.Endocervical = "Any";
+                        standingOrder.HPVStandingOrderName = "Standing Order Rule 09";
                         break;
                     case "STNDHPVRL3":
                         standingOrder.Age = "older than 20";
                         standingOrder.PAPResult = "ASCUS, AGUS, LSIL or HSIL";
                         standingOrder.HPVTesting = "No HPV testing within the past year";
                         standingOrder.Endocervical = "Any";
+                        standingOrder.HPVStandingOrderName = "Standing Order Rule 10";
                         break;
                     case "STNDHPVRL4":
                         standingOrder.Age = "Any";
                         standingOrder.PAPResult = "ASCUS, AGUS, LSIL or HSIL";
                         standingOrder.HPVTesting = "Any";
                         standingOrder.Endocervical = "Any";
+                        standingOrder.HPVStandingOrderName = "Standing Order Rule 11";
                         break;
                     case "STNDHPVRL5":
                         standingOrder.Age = "older than 20";
                         standingOrder.PAPResult = "ASCUS, AGUS, LSIL or HSIL";
                         standingOrder.HPVTesting = "No HPV testing within the past year";
                         standingOrder.Endocervical = "Any";
+                        standingOrder.HPVStandingOrderName = "Standing Order Rule 12";
                         break;
                     case "STNDHPVRL51":
                         standingOrder.Age = "between 21 and 29 years old";
                         standingOrder.PAPResult = "Abnormal";
                         standingOrder.HPVTesting = "Any";
                         standingOrder.Endocervical = "Any";
+                        standingOrder.HPVStandingOrderName = "Standing Order Rule 13";
                         break;
                     case "STNDHPVRL6":
                         standingOrder.Age = "Any";
                         standingOrder.PAPResult = "ASCUS, LSIL or HSIL";
                         standingOrder.HPVTesting = "Any";
                         standingOrder.Endocervical = "Any";
+                        standingOrder.HPVStandingOrderName = "Standing Order Rule 14";
                         break;
                     case "STNDHPVRL7":
                         standingOrder.Age = "older than 20";
                         standingOrder.PAPResult = "ASCUS or AGUS";
                         standingOrder.HPVTesting = "No HPV testing within the past year";
                         standingOrder.Endocervical = "Any";
+                        standingOrder.HPVStandingOrderName = "Standing Order Rule 15";
                         break;
                     case "STNDHPVRL8":
                         standingOrder.Age = "Any";
                         standingOrder.PAPResult = "ASCUS or LSIL";
                         standingOrder.HPVTesting = "Any";
                         standingOrder.Endocervical = "Any";
+                        standingOrder.HPVStandingOrderName = "Standing Order Rule 16";
                         break;
                     case "STNDHPVRL9":
                         standingOrder.Age = "Any";
                         standingOrder.PAPResult = "ASCUS or LSIL";
                         standingOrder.HPVTesting = "No HPV testing within the past year";
                         standingOrder.Endocervical = "Any";
+                        standingOrder.HPVStandingOrderName = "Standing Order Rule 17";
                         break;
                     case "STNDNONE":
-                        standingOrder.Age = "No Standing Order";
-                        standingOrder.PAPResult = "No Standing Order";
-                        standingOrder.HPVTesting = "No Standing Order";
-                        standingOrder.Endocervical = "No Standing Order";
-                        break;
                     case "STNDNOTSET":
-                        standingOrder.Age = "Not Set";
-                        standingOrder.PAPResult = "Not Set";
-                        standingOrder.HPVTesting = "Not Set";
-                        standingOrder.Endocervical = "Not Set";
+                        standingOrder.HPVStandingOrderName = "Standing Order Rule 01";
                         break;
                 }
 
-                if(string.IsNullOrEmpty(standingOrder.Age) == false)
+                if(string.IsNullOrEmpty(standingOrder.HPVStandingOrderName) == false)
                 {
                     standingOrder.HPVStandingOrderId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
                     standingOrder.PhysicianId = physician.PhysicianId;

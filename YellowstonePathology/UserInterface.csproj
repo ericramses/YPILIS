@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>16</ApplicationRevision>
+    <ApplicationRevision>28</ApplicationRevision>
     <ApplicationVersion>10.1.14.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -324,6 +324,28 @@
     <Compile Include="Business\Client.Model\HPVCompoundStandingOrderRule6.cs" />
     <Compile Include="Business\Client.Model\HPVReflexOrderRule141.cs" />
     <Compile Include="Business\Client.Model\HPVReflexOrderRule51.cs" />
+    <Compile Include="Business\Client.Model\HPVRule.cs" />
+    <Compile Include="Business\Client.Model\HPVRuleAge1.cs" />
+    <Compile Include="Business\Client.Model\HPVRuleAge2.cs" />
+    <Compile Include="Business\Client.Model\HPVRuleAge3.cs" />
+    <Compile Include="Business\Client.Model\HPVRuleAge4.cs" />
+    <Compile Include="Business\Client.Model\HPVRuleAge5.cs" />
+    <Compile Include="Business\Client.Model\HPVRuleAgeCollection.cs" />
+    <Compile Include="Business\Client.Model\HPVRuleCollection.cs" />
+    <Compile Include="Business\Client.Model\HPVRuleEndoCervical1.cs" />
+    <Compile Include="Business\Client.Model\HPVRuleEndoCervical2.cs" />
+    <Compile Include="Business\Client.Model\HPVRulePAPResult1.cs" />
+    <Compile Include="Business\Client.Model\HPVRulePAPResult2.cs" />
+    <Compile Include="Business\Client.Model\HPVRulePAPResult3.cs" />
+    <Compile Include="Business\Client.Model\HPVRulePAPResult4.cs" />
+    <Compile Include="Business\Client.Model\HPVRulePAPResult5.cs" />
+    <Compile Include="Business\Client.Model\HPVRulePAPResult6.cs" />
+    <Compile Include="Business\Client.Model\HPVRulePAPResult7.cs" />
+    <Compile Include="Business\Client.Model\HPVRulePAPResult8.cs" />
+    <Compile Include="Business\Client.Model\HPVRulePAPResult9.cs" />
+    <Compile Include="Business\Client.Model\HPVRulePAPResultCollection.cs" />
+    <Compile Include="Business\Client.Model\HPVRulePreviousTesting1.cs" />
+    <Compile Include="Business\Client.Model\HPVRulePreviousTesting2.cs" />
     <Compile Include="Business\Client.Model\HPVStandingOrder.cs" />
     <Compile Include="Business\Client.Model\HPVStandingOrderCollection.cs" />
     <Compile Include="Business\Client.Model\HPVStandingOrderRule141.cs" />
@@ -340,6 +362,7 @@
     <Compile Include="Business\EthContract.cs" />
     <Compile Include="Business\EthContractCollection.cs" />
     <Compile Include="Business\Interface\IHER2ISH.cs" />
+    <Compile Include="Business\Label.Model\HistologySlidePaperZPLLabelV3.cs" />
     <Compile Include="Business\Label.Model\HologicSlideLabelPrinter.cs" />
     <Compile Include="Business\Label.Model\HologicSlideLabel.cs" />
     <Compile Include="Business\PanelSet.Model\FISHTest.cs" />
@@ -1056,6 +1079,8 @@
     <Compile Include="Business\Stain.Model\Stain.cs" />
     <Compile Include="Business\Stain.Model\StainCollection.cs" />
     <Compile Include="Business\Billing.Model\SVHClinicMailMessage.cs" />
+    <Compile Include="Business\Surgical\AssignmentScan.cs" />
+    <Compile Include="Business\Surgical\AssignmentScanCollection.cs" />
     <Compile Include="Business\Test.Model\TestCollectionInstance.cs" />
     <Compile Include="Business\Test.Model\TestFactory.cs" />
     <Compile Include="Business\Test.Model\TestOrderStatusView.cs" />
@@ -1074,6 +1099,10 @@
     <Compile Include="Business\Test\EGFRToALKReflexAnalysis\EGFRToALKReflexAnalysisBRAFResult.cs" />
     <Compile Include="Business\Test\ExtractAndHoldForMolecular\ExtractAndHoldForMolecularTestRetired.cs" />
     <Compile Include="Business\Test\ExtractAndHoldForPreauthorization\ExtractAndHoldForPreauthorizationWordDocument.cs" />
+    <Compile Include="Business\Test\FetalHemoglobinV2\FetalHemoglobinV2Test.cs" />
+    <Compile Include="Business\Test\FetalHemoglobinV2\FetalHemoglobinV2TestOrder.cs" />
+    <Compile Include="Business\Test\FetalHemoglobinV2\FetalHemoglobinV2WordDocument.cs" />
+    <Compile Include="Business\Test\FetalHemoglobin\FetalHemoglobinTestOrder.cs" />
     <Compile Include="Business\Test\HER2AmplificationByISHSendOut\HER2AmplificationByISHSendOutTest.cs" />
     <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationResult.cs" />
     <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationResultBreast.cs" />
@@ -1087,6 +1116,7 @@
     <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationResultEnum.cs" />
     <Compile Include="Business\Test\HER2AmplificationRecount\HER2AmplificationRecountTest.cs" />
     <Compile Include="Business\Test\HER2AmplificationRecount\HER2AmplificationRecountTestOrder.cs" />
+    <Compile Include="Business\Test\HER2AmplificationSummary\HER2AmplificationSummaryEPICOBXView.cs" />
     <Compile Include="Business\Test\HER2AmplificationSummary\HER2AmplificationSummaryTest.cs" />
     <Compile Include="Business\Test\HER2AmplificationSummary\HER2AmplificationSummaryTestOrder.cs" />
     <Compile Include="Business\Test\HER2AmplificationSummary\HER2AmplificationSummaryWordDocument.cs" />
@@ -1159,6 +1189,7 @@
     <Compile Include="Business\Test\NeoTypeLungTumorFISHPanel\NeoTypeLungTumorFISHPanelTest.cs" />
     <Compile Include="Business\Test\NeoTYPELungTumorProfile\NeoTYPELungTumorProfileTestOrder.cs" />
     <Compile Include="Business\Test\NeoTYPEOvarianTumorProfile\NeoTYPEOvarianTumorProfileTest.cs" />
+    <Compile Include="Business\Test\NUT\NUTTest.cs" />
     <Compile Include="Business\Test\OrderAssociation\OrderAssociationEpicObxView.cs" />
     <Compile Include="Business\Test\OrderAssociation\OrderAssociationTest.cs" />
     <Compile Include="Business\Test\OrderAssociation\OrderAssociationTestOrder.cs" />
@@ -1166,9 +1197,14 @@
     <Compile Include="Business\Test\ParvovirusB19ByPCR\ParvovirusB19ByPCRTest.cs" />
     <Compile Include="Business\Test\PDL1288\PDL1288Test.cs" />
     <Compile Include="Business\Test\PNH\PNHWPHOBXView.cs" />
+    <Compile Include="Business\Test\PrealbuminTTR\PrealbuminTTRTest.cs" />
+    <Compile Include="Business\Test\AmyloidAandAmyloidP\AmyloidAandAmyloidPTest.cs" />
     <Compile Include="Business\Test\RASRAFPanel\RASRAFPanelWPHOBXView.cs" />
     <Compile Include="Business\Test\RibosomalRNA16S\RibosomalRNA16STest.cs" />
     <Compile Include="Business\Test\SomatostatinReceptorType2\SomatostatinReceptorType2Test.cs" />
+    <Compile Include="Business\Test\StemCellCD34Enumeration\StemCellCD34EnumerationTest.cs" />
+    <Compile Include="Business\Test\StemCellCD34Enumeration\StemCellCD34EnumerationTestOrder.cs" />
+    <Compile Include="Business\Test\StemCellCD34Enumeration\StemCellCD34EnumerationWordDocument.cs" />
     <Compile Include="Business\Test\StemCellEnumeration\StemCellEnumerationTestOrder.cs" />
     <Compile Include="Business\Test\TCellNKProfile\TCellNKProfileWPHOBXView.cs" />
     <Compile Include="Business\Test\ThrombocytopeniaProfile\ThrombocytopeniaProfileCMMCNTEView.cs" />
@@ -3392,6 +3428,9 @@
     <Compile Include="UI\SortDirectionAdorner.cs" />
     <Compile Include="UI\SpellCheckAccessionOrder.cs" />
     <Compile Include="UI\SpellCheckProperty.cs" />
+    <Compile Include="UI\Stain\PathologistsScanDialog.xaml.cs">
+      <DependentUpon>PathologistsScanDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Stain\StainEditDialog.xaml.cs">
       <DependentUpon>StainEditDialog.xaml</DependentUpon>
     </Compile>
@@ -3566,6 +3605,14 @@
       <DependentUpon>BRAFMutationAnalysisResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Test\BRAFMutationAnalysisResultPath.cs" />
+    <Compile Include="UI\Test\FetalHemoglobinResultPage.xaml.cs">
+      <DependentUpon>FetalHemoglobinResultPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Test\FetalHemoglobinResultPath.cs" />
+    <Compile Include="UI\Test\FetalHemoglobinV2ResultPage.xaml.cs">
+      <DependentUpon>FetalHemoglobinV2ResultPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Test\FetalHemoglobinV2ResultPath.cs" />
     <Compile Include="UI\Test\HER2AmplificationRecountResultPage.xaml.cs">
       <DependentUpon>HER2AmplificationRecountResultPage.xaml</DependentUpon>
     </Compile>
@@ -3881,6 +3928,10 @@
       <DependentUpon>RUNX1RUNX1T1AML1ETOTranslocationResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Test\RUNX1RUNX1T1AML1ETOTranslocationResultPath.cs" />
+    <Compile Include="UI\Test\StemCellCD34EnumerationResultPage.xaml.cs">
+      <DependentUpon>StemCellCD34EnumerationResultPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Test\StemCellCD34EnumerationResultPath.cs" />
     <Compile Include="UI\Test\StemCellEnumerationResultPage.xaml.cs">
       <DependentUpon>StemCellEnumerationResultPage.xaml</DependentUpon>
     </Compile>
@@ -5334,6 +5385,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UI\Stain\PathologistsScanDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\Stain\StainEditDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -5504,6 +5559,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Test\BRAFMutationAnalysisResultPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Test\FetalHemoglobinResultPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Test\FetalHemoglobinV2ResultPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -5816,6 +5879,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\Test\RUNX1RUNX1T1AML1ETOTranslocationResultPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Test\StemCellCD34EnumerationResultPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -6910,12 +6977,12 @@
   <ItemGroup>
     <PublishFile Include="Microsoft.Exchange.WebServices">
       <Visible>False</Visible>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
   </ItemGroup>

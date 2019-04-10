@@ -35,13 +35,13 @@ namespace YellowstonePathology.UI.Test
 				case 19:
 					result = new PNHResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
-                case 328: //24
-                    result = new StemCellEnumerationResultPath(reportNo, accessionOrder, pageNavigator, window);
-                    break;
 				case 27:
 					result = new KRASStandardResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
-				case 30:
+                case 28:
+                    result = new FetalHemoglobinResultPath(reportNo, accessionOrder, pageNavigator, window);
+                    break;
+                case 30:
                     result = new KRASStandardReflexResultPath(reportNo, accessionOrder, pageNavigator, window, backButtonVisibility);
                     break;
                 case 31:
@@ -350,6 +350,15 @@ namespace YellowstonePathology.UI.Test
                     break;
                 case 316:
                     result = new OrderAssociationResultPath(reportNo, accessionOrder, pageNavigator, window);
+                    break;
+                case 328:
+                    result = new StemCellEnumerationResultPath(reportNo, accessionOrder, pageNavigator, window);
+                    break;
+                case 333:
+                    result = new FetalHemoglobinV2ResultPath(reportNo, accessionOrder, pageNavigator, window);
+                    break;
+                case 334:
+                    result = new StemCellCD34EnumerationResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
             }
             return result;

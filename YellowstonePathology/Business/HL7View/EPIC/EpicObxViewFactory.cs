@@ -316,6 +316,9 @@ namespace YellowstonePathology.Business.HL7View.EPIC
                 case 274:
                     view = new YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisEPICOBXView(accessionOrder, reportNo, obxCount);
                     break;
+                case 313:
+                    view = new YellowstonePathology.Business.Test.HER2AmplificationSummary.HER2AmplificationSummaryEPICOBXView(accessionOrder, reportNo, obxCount);
+                    break;
             }
             return view;
         }

@@ -76,8 +76,8 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
                 if (her2AmplificationSummaryTestOrder.RecountRequired == true)
                 {
                     this.SetXmlNodeData("re_cells_counted", her2AmplificationSummaryTestOrder.CellsRecount.ToString());
-                    this.SetXmlNodeData("re_her2_counted", her2AmplificationSummaryTestOrder.TotalChr17SignalsRecount.ToString());
-                    this.SetXmlNodeData("re_chr17_counted", her2AmplificationSummaryTestOrder.TotalHer2SignalsRecount.ToString());
+                    this.SetXmlNodeData("re_her2_counted", her2AmplificationSummaryTestOrder.TotalHer2SignalsRecount.ToString());
+                    this.SetXmlNodeData("re_chr17_counted", her2AmplificationSummaryTestOrder.TotalChr17SignalsRecount.ToString());
                 }
                 else
                 {

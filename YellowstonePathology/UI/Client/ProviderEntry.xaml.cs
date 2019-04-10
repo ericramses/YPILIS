@@ -28,10 +28,10 @@ namespace YellowstonePathology.UI.Client
         private YellowstonePathology.Business.Client.Model.HPVStandingOrderCollection m_HPVStandingOrderCollection;
         private YellowstonePathology.Business.Client.Model.HPVStandingOrder m_HPVStandingOrder;
 
-        private List<string> m_AgeList;
-        private List<string> m_PAPResultList;
-        private List<string> m_HPVTestingList;
-        private List<string> m_EndocervicalList;
+        private YellowstonePathology.Business.Client.Model.HPVRuleCollection m_HPVRuleAgeCollection;
+        private YellowstonePathology.Business.Client.Model.HPVRuleCollection m_HPVRulePAPResultCollection;
+        private YellowstonePathology.Business.Client.Model.HPVRuleCollection m_HPVRulePreviousTestingCollection;
+        private YellowstonePathology.Business.Client.Model.HPVRuleCollection m_HPVRuleEndocervicalCollection;
 
         private string m_PhysicianClientId;
         private Window m_ParentWindow;
@@ -48,39 +48,10 @@ namespace YellowstonePathology.UI.Client
 			this.m_ClientCollection = new YellowstonePathology.Business.Client.Model.ClientCollection();
             this.m_HPVStandingOrderCollection = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetHPVStandingOrderCollectionByPhysicianId(this.m_Physician.PhysicianId);
 
-            this.m_AgeList = new List<string>();
-            this.m_AgeList.Add("No Standing Order");
-            this.m_AgeList.Add("Not Set");
-            this.m_AgeList.Add("Any");
-            this.m_AgeList.Add("older than 30");
-            this.m_AgeList.Add("25 and older");
-            this.m_AgeList.Add("older than 20");
-            this.m_AgeList.Add("between 21 and 29 years old");
-
-            this.m_PAPResultList = new List<string>();
-            this.m_PAPResultList.Add("No Standing Order");
-            this.m_PAPResultList.Add("Not Set");
-            this.m_PAPResultList.Add("Any");
-            this.m_PAPResultList.Add("ASCUS");
-            this.m_PAPResultList.Add("Normal or Reactive");
-            this.m_PAPResultList.Add("ASCUS or LSIL");
-            this.m_PAPResultList.Add("ASCUS, LSIL or HSIL");
-            this.m_PAPResultList.Add("ASCUS or higher");
-            this.m_PAPResultList.Add("ASCUS, AGUS, LSIL or HSIL");
-            this.m_PAPResultList.Add("Abnormal");
-            this.m_PAPResultList.Add("ASCUS or AGUS");
-
-            this.m_HPVTestingList = new List<string>();
-            this.m_HPVTestingList.Add("No Standing Order");
-            this.m_HPVTestingList.Add("Not Set");
-            this.m_HPVTestingList.Add("Any");
-            this.m_HPVTestingList.Add("No HPV testing within the past year");
-
-            this.m_EndocervicalList = new List<string>();
-            this.m_EndocervicalList.Add("No Standing Order");
-            this.m_EndocervicalList.Add("Not Set");
-            this.m_EndocervicalList.Add("Any");
-            this.m_EndocervicalList.Add("Absent");
+            this.m_HPVRuleAgeCollection = Business.Client.Model.HPVRuleCollection.GetHPVRuleAgeCollection();
+            this.m_HPVRulePAPResultCollection = Business.Client.Model.HPVRuleCollection.GetHPVRulePAPResultCollection();
+            this.m_HPVRulePreviousTestingCollection = Business.Client.Model.HPVRuleCollection.GetHPVRulePreviousTestingCollection();
+            this.m_HPVRuleEndocervicalCollection = Business.Client.Model.HPVRuleCollection.GetHPVRuleEndocervicalCollection();
 
             InitializeComponent();
 
@@ -152,24 +123,24 @@ namespace YellowstonePathology.UI.Client
             get { return this.m_HPVStandingOrder; }
         }
 
-        public List<string> AgeList
+        public YellowstonePathology.Business.Client.Model.HPVRuleCollection HPVRuleAgeCollection
         {
-            get { return this.m_AgeList; }
+            get { return this.m_HPVRuleAgeCollection; }
         }
 
-        public List<string> PAPResultList
+        public YellowstonePathology.Business.Client.Model.HPVRuleCollection HPVRulePAPResultCollection
         {
-            get { return this.m_PAPResultList; }
+            get { return this.m_HPVRulePAPResultCollection; }
         }
 
-        public List<string> HPVTestingList
+        public YellowstonePathology.Business.Client.Model.HPVRuleCollection HPVRulePreviousTestingCollection
         {
-            get { return this.m_HPVTestingList; }
+            get { return this.m_HPVRulePreviousTestingCollection; }
         }
 
-        public List<string> EndocervicalList
+        public YellowstonePathology.Business.Client.Model.HPVRuleCollection HPVRuleEndocervicalCollection
         {
-            get { return this.m_EndocervicalList; }
+            get { return this.m_HPVRuleEndocervicalCollection; }
         }
 
         private void ButtonOK_Click(object sender, RoutedEventArgs e)

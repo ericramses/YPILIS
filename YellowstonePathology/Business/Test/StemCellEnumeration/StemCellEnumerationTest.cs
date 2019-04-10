@@ -14,8 +14,8 @@ namespace YellowstonePathology.Business.Test.StemCellEnumeration
 			this.m_AllowMultiplePerAccession = true;
             this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterF();
-            this.m_CaseType = this.m_CaseType = YellowstonePathology.Business.CaseType.Molecular;
-            this.m_Active = true;
+            this.m_CaseType = this.m_CaseType = YellowstonePathology.Business.CaseType.FlowCytometry;
+            this.m_Active = false;
             this.m_ExpectedDuration = new TimeSpan(24, 0, 0);
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.StemCellEnumeration.StemCellEnumerationTestOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.StemCellEnumeration.StemCellEnumerationWordDocument).AssemblyQualifiedName;
