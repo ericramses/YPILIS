@@ -27,6 +27,8 @@ namespace YellowstonePathology.Business.Test.Surgical
 		private DateTime? m_FinalTime;
 		private int? m_FinaledById;
 		private string m_FinaledBy;
+        private bool m_ComplexCase;
+        private string m_Comment;
 
 		public IntraoperativeConsultationResult()
         {
@@ -295,6 +297,36 @@ namespace YellowstonePathology.Business.Test.Surgical
 				}
 			}
 		}
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "100", "0", "tinyint")]
+        public bool ComplexCase
+        {
+            get { return this.m_ComplexCase; }
+            set
+            {
+                if (this.m_ComplexCase != value)
+                {
+                    this.m_ComplexCase = value;
+                    this.NotifyPropertyChanged("ComplexCase");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "5000", "null", "varchar")]
+        public string Comment
+        {
+            get { return this.m_Comment; }
+            set
+            {
+                if (this.m_Comment != value)
+                {
+                    this.m_Comment = value;
+                    this.NotifyPropertyChanged("Comment");
+                }
+            }
+        }
 
         public void PullOver(Business.Visitor.AccessionTreeVisitor accessionTreeVisitor)
         {            

@@ -15,6 +15,7 @@ namespace YellowstonePathology.Business.Test.StemCellCD34Enumeration
         private string m_CD34Percentage;
         private string m_CD34Absolute;
         private string m_WBCCount;
+        private string m_WBCAbsolute;
         private string m_Method;
 
         public StemCellCD34EnumerationTestOrder()
@@ -27,7 +28,7 @@ namespace YellowstonePathology.Business.Test.StemCellCD34Enumeration
             bool distribute)
             : base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute)
         {
-            this.m_Method = "Quantitative Flow Cytometry - Sensitivity for CD34 is 0.02 %";
+            this.m_Method = "Quantitative Flow Cytometry - Sensitivity for CD34 Absolute is 1 cell/uL";
         }
 
         [PersistentProperty()]
@@ -68,6 +69,20 @@ namespace YellowstonePathology.Business.Test.StemCellCD34Enumeration
                 {
                     this.m_WBCCount = value;
                     NotifyPropertyChanged("WBCCount");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string WBCAbsolute
+        {
+            get { return this.m_WBCAbsolute; }
+            set
+            {
+                if (this.m_WBCAbsolute != value)
+                {
+                    this.m_WBCAbsolute = value;
+                    NotifyPropertyChanged("WBCAbsolute");
                 }
             }
         }

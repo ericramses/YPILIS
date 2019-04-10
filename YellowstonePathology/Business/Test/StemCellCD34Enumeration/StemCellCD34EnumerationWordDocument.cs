@@ -36,6 +36,7 @@ namespace YellowstonePathology.Business.Test.StemCellCD34Enumeration
             this.SetXmlNodeData("cd34_percentage", stemCellCD34EnumerationTestOrder.CD34Percentage);
             this.SetXmlNodeData("cd34_absolute", stemCellCD34EnumerationTestOrder.CD34Absolute);
             this.SetXmlNodeData("wbccount_result", stemCellCD34EnumerationTestOrder.WBCCount);
+            this.SetXmlNodeData("wbc_absolute", stemCellCD34EnumerationTestOrder.WBCAbsolute);
             this.SetXmlNodeData("report_method", stemCellCD34EnumerationTestOrder.Method);
 
             this.SaveReport();
