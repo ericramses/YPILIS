@@ -11,15 +11,15 @@ namespace YellowstonePathology.Business.Surgical
         public AssignmentScanCollection()
         { }
 
-        public AssignmentScan GetAssignmentScan(string slideOrderId)
+        public AssignmentScan GetAssignmentScan(string scanId)
         {
-            AssignmentScan result = this.FirstOrDefault(t => t.SlideOrderId == slideOrderId);
+            AssignmentScan result = this.FirstOrDefault(t => t.ScanId == scanId);
             return result;
         }
 
-        public bool Exists(string slideOrderId)
+        public bool Exists(string scanId)
         {
-            AssignmentScan test = this.FirstOrDefault(t => t.SlideOrderId == slideOrderId);
+            AssignmentScan test = this.FirstOrDefault(t => t.ScanId == scanId);
             return test == null ? false : true;
         }
     }

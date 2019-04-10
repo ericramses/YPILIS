@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using YellowstonePathology.Business.Persistence;
 
 namespace YellowstonePathology.Business.Surgical
 {
@@ -8,8 +7,8 @@ namespace YellowstonePathology.Business.Surgical
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private string m_ReportNo;
-        private string m_SlideOrderId;
+        private string m_MasterAccessionNo;
+        private string m_ScanId;
         private string m_AssignedTo;
 
         public AssignmentScan()
@@ -24,30 +23,28 @@ namespace YellowstonePathology.Business.Surgical
             }
         }
 
-        [PersistentProperty()]
-        public string ReportNo
+        public string MasterAccessionNo
         {
-            get { return this.m_ReportNo; }
+            get { return this.m_MasterAccessionNo; }
             set
             {
-                if(this.m_ReportNo != value)
+                if(this.m_MasterAccessionNo != value)
                 {
-                    this.m_ReportNo = value;
-                    this.NotifyPropertyChanged("ReportNo");
+                    this.m_MasterAccessionNo = value;
+                    this.NotifyPropertyChanged("MasterAccessionNo");
                 }
             }
         }
 
-        [PersistentProperty()]
-        public string SlideOrderId
+        public string ScanId
         {
-            get { return this.m_SlideOrderId; }
+            get { return this.m_ScanId; }
             set
             {
-                if (this.m_SlideOrderId != value)
+                if (this.m_ScanId != value)
                 {
-                    this.m_SlideOrderId = value;
-                    this.NotifyPropertyChanged("SlideOrderId");
+                    this.m_ScanId = value;
+                    this.NotifyPropertyChanged("ScanId");
                 }
             }
         }
