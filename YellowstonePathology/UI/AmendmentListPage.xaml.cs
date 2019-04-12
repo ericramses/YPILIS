@@ -63,7 +63,16 @@ namespace YellowstonePathology.UI
 			this.ListViewAmendments.SelectedIndex = 0;
 		}
 
-		private void ButtonEdit_Click(object sender, RoutedEventArgs e)
+        private void ButtonAddGlobal_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Amendment.Model.Amendment amendment = this.m_AmendmentUI.AccessionOrder.AddAmendment(null, true);
+            amendment.TestResultAmendmentFill(null, this.m_AmendmentUI.AssignedToId, "???");
+
+            NotifyPropertyChanged("Amendments");
+            this.ListViewAmendments.SelectedIndex = 0;
+        }
+
+        private void ButtonEdit_Click(object sender, RoutedEventArgs e)
 		{
 			if (this.m_AmendmentUI.SelectedAmendment != null)
 			{
