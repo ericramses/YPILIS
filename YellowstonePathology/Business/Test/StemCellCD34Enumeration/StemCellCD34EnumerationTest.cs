@@ -23,6 +23,10 @@ namespace YellowstonePathology.Business.Test.StemCellCD34Enumeration
             string taskDescription = "Perform stem cell CD34 enumeration testing.";
             this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.Task(YellowstonePathology.Business.Task.Model.TaskAssignment.Flow, taskDescription));
 
+            this.m_HasTechnicalComponent = true;
+            this.m_TechnicalComponentFacility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
+            this.m_TechnicalComponentBillingFacility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
+
             this.m_HasProfessionalComponent = false;
             this.m_ProfessionalComponentFacility = null;
 

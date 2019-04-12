@@ -1022,9 +1022,23 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            string printerName = "ZDesigner GX430t";            
-            Business.Label.Model.HistologySlidePaperZPLLabelV3 zplCommand = new Business.Label.Model.HistologySlidePaperZPLLabelV3("19-8656.1C5", "19-8656.S", "LAWRENCE", "ROMA", "D2-40", "1C5", "YPI-BLGS", false, false);
-            Business.Label.Model.RawPrinterHelper.SendStringToPrinter(printerName, "^XA" + zplCommand.GetCommandWithOffset(0) + "^XZ");            
+            /*
+            Business.ReportNoCollection rnc = Business.Gateway.AccessionOrderGateway.GetReportNumbers();
+            foreach(Business.ReportNo reportNo in rnc)
+            {
+                Business.OrderIdParser oid = new Business.OrderIdParser(reportNo.Value);
+                string fileName = Business.Document.CaseDocument.GetCaseFileNameDoc(oid);
+                if(System.IO.File.Exists(fileName) == true)
+                {
+                    Business.Document.CaseDocument.PrintWordDoc(oid);
+                }                
+            }
+            */
+
+            Business.Test.AccessionOrder ao = Business.Persistence.DocumentGateway.Instance.GetAccessionOrderByMasterAccessionNo("19-9618");
+            Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill = ao.PanelSetOrderCollection[0].PanelSetOrderCPTCodeBillCollection[0];
+            Business.HL7View.EPIC.EPICFT1ResultView epicFT1ResultView = new Business.HL7View.EPIC.EPICFT1ResultView(ao, panelSetOrderCPTCodeBill);
+            epicFT1ResultView.Publish("c:\\temp");
         }
 
         private void InsertADT()
