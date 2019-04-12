@@ -154,9 +154,6 @@ namespace YellowstonePathology.Business.Gateway
                     case "tblRetrospectiveReviewTestOrderDetail":
                         this.HandleRetrospectiveReview(dataTable);
                         break;
-                    case "tblGlobalAmendment":
-                        this.HandleGlobalAmendment(dataTable);
-                        break;
                 }
             }
             
@@ -169,11 +166,6 @@ namespace YellowstonePathology.Business.Gateway
         private void HandleAccessionOrder(DataTable dataTable)
         {
             this.m_AccessionOrder.Sync(dataTable);
-        }
-
-        private void HandleGlobalAmendment(DataTable dataTable)
-        {
-            this.m_AccessionOrder.AmendmentCollection.SyncGlobal(dataTable);
         }
 
         private void HandleSpecimenOrder(DataTable dataTable)

@@ -111,14 +111,6 @@ namespace YellowstonePathology.UI
             }
         }
 
-        public void ContextMenuAddGlobalAmendment_Click(object sender, RoutedEventArgs args)
-        {
-            if (this.m_AccessionOrder != null)
-            {
-                this.m_AccessionOrder.AddAmendment();
-            }
-        }
-
         public void ContextMenuEditAmendment_Click(object sender, RoutedEventArgs args)
         {
 			if (this.TreeViewAmendment.SelectedItem != null)
@@ -127,19 +119,6 @@ namespace YellowstonePathology.UI
 				YellowstonePathology.UI.AmendmentV2 amendmentV2 = new AmendmentV2(amendment, this.m_AccessionOrder);
 				amendmentV2.ShowDialog();                    
 			}
-        }
-
-        public void ContextMenuEditGlobalAmendment_Click(object sender, RoutedEventArgs args)
-        {
-            if (this.ListBoxGlobal.SelectedItem != null)
-            {
-                if (this.ListBoxGlobal.SelectedItem.GetType().Name == "Amendment")
-                {
-                    YellowstonePathology.Business.Amendment.Model.Amendment amendment = (YellowstonePathology.Business.Amendment.Model.Amendment)this.ListBoxGlobal.SelectedItem;
-                    YellowstonePathology.UI.AmendmentV2 amendmentV2 = new AmendmentV2(amendment, this.m_AccessionOrder);
-                    amendmentV2.ShowDialog();
-                }
-            }
         }
 
         public void ContextMenuDeleteAmendment_Click(object sedner, RoutedEventArgs args)
