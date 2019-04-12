@@ -223,7 +223,8 @@ namespace YellowstonePathology.Business.Flow
 			{
 				if (this.PanelSetOrderLeukemiaLymphoma.Final == true)
 				{
-					if (this.PanelSetOrderLeukemiaLymphoma.AmendmentCollection.HasOpenAmendment() == true)
+                    YellowstonePathology.Business.Amendment.Model.AmendmentCollection amendmentCollection = this.m_AccessionOrder.AmendmentCollection.GetAmendmentsForReport(this.PanelSetOrderLeukemiaLymphoma.ReportNo);
+                    if (amendmentCollection.HasOpenAmendment() == true)
 					{
 						this.IsWorkspaceEnabled = true;
 					}

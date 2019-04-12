@@ -39,7 +39,7 @@ namespace YellowstonePathology.Business.Test.JAK2V617F
                 this.AddNextNteElement("E-signed " + panelSetOrder.ReferenceLabFinalDate.Value.ToString("MM/dd/yyyy HH:mm"), document);
             }
             this.AddBlankNteElement(document);
-            this.AddAmendments(document, panelSetOrder);
+            this.AddAmendments(document, panelSetOrder, this.m_AccessionOrder);
 
             this.AddNextNteElement("Interpretation: ", document);
             this.HandleLongString(panelSetOrder.Interpretation, document);

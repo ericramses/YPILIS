@@ -509,7 +509,7 @@
 						</Button>
 
 						<ItemsControl Name="ItemsControlAmendment" Grid.Column="0" Grid.Row="5"
-										ItemsSource="{Binding Path=PanelSetOrderSurgical.AmendmentCollection}"
+										ItemsSource="{Binding Path=AmendmentCollection}"
 										KeyboardNavigation.IsTabStop="False"
 										ItemTemplate="{StaticResource AmendmentControlItemTemplate}">
 						</ItemsControl>

@@ -164,8 +164,9 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
                 this.SetXmlNodeData("case_final", "");
             }
             this.SetXmlNodeData("final_date", finalDate);
-            
-            SetAmendments(this.m_PanelSetOrderCytology.AmendmentCollection);
+
+            YellowstonePathology.Business.Amendment.Model.AmendmentCollection amendmentCollection = this.m_AccessionOrder.AmendmentCollection.GetAmendmentsForReport(this.m_PanelSetOrderCytology.ReportNo);
+            SetAmendments(amendmentCollection);
 
 			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrderCytology.OrderedOn, this.m_PanelSetOrderCytology.OrderedOnId);
             this.SetXmlNodeData("specimen_description", specimenOrder.GetSpecimenDescriptionString());

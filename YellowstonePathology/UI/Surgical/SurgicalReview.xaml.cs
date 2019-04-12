@@ -119,6 +119,14 @@ namespace YellowstonePathology.UI.Surgical
             get { return (YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder)this.m_PathologistUI.PanelSetOrder; }
         }
 
+        public YellowstonePathology.Business.Amendment.Model.AmendmentCollection AmendmentCollection
+        {
+            get
+            {
+                return this.m_PathologistUI.AccessionOrder.AmendmentCollection.GetAmendmentsForReport(this.PanelSetOrderSurgical.ReportNo);
+            }
+        }
+
         public YellowstonePathology.Business.Common.FieldEnabler FieldEnabler
         {
             get { return this.m_PathologistUI.FieldEnabler; }
@@ -329,12 +337,12 @@ namespace YellowstonePathology.UI.Surgical
                     MessageBoxResult messageBoxResult = MessageBox.Show("An amendment will be created as a result of reasigning this case.  Are you sure you want to proceed with reasignment?", "Proceed?", MessageBoxButton.YesNo, MessageBoxImage.Question);
                     if (messageBoxResult == MessageBoxResult.Yes)
                     {
-                        reassignCase.Execute(executionStatus, this.PanelSetOrderSurgical, true, Business.User.SystemIdentity.Instance);
+                        reassignCase.Execute(executionStatus, this.m_PathologistUI.AccessionOrder, this.PanelSetOrderSurgical, true, Business.User.SystemIdentity.Instance);
                     }
                 }
                 else
                 {
-                    reassignCase.Execute(executionStatus, this.PanelSetOrderSurgical, false, Business.User.SystemIdentity.Instance);
+                    reassignCase.Execute(executionStatus, this.m_PathologistUI.AccessionOrder, this.PanelSetOrderSurgical, false, Business.User.SystemIdentity.Instance);
                     if (executionStatus.Halted == false)
                     {
                         MessageBox.Show("The case has been reassigned");

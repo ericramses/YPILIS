@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 
             base.OpenTemplate();
 
-            YellowstonePathology.Business.Amendment.Model.AmendmentCollection amendmentCollection = panelSetOrderSurgical.AmendmentCollection.GetCaseAmendmentCollection(this.m_AccessionOrder.AmendmentCollection);
+            YellowstonePathology.Business.Amendment.Model.AmendmentCollection amendmentCollection = this.m_AccessionOrder.AmendmentCollection.GetAmendmentsForReport(this.m_PanelSetOrder.ReportNo);
 
             panelSetOrderSurgical.GrossX = YellowstonePathology.Business.Common.SpellChecker.FixString(panelSetOrderSurgical.GrossX);
             panelSetOrderSurgical.MicroscopicX = YellowstonePathology.Business.Common.SpellChecker.FixString(panelSetOrderSurgical.MicroscopicX);

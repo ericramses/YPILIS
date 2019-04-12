@@ -99,7 +99,8 @@ namespace YellowstonePathology.Business.HL7View.WPH
             string resultStatus = WPHResultStatsusEnum.S.ToString();
             if(this.m_PanelSetOrder.PanelSetId == 13 || this.m_PanelSetOrder.PanelSetId == 15)
             {
-                if (this.m_PanelSetOrder.AmendmentCollection.Count != 0) resultStatus = WPHResultStatsusEnum.A.ToString();
+                YellowstonePathology.Business.Amendment.Model.AmendmentCollection amendmentCollection = this.m_AccessionOrder.AmendmentCollection.GetAmendmentsForReport(m_PanelSetOrder.ReportNo);
+                if (amendmentCollection.Count != 0) resultStatus = WPHResultStatsusEnum.A.ToString();
             }
             else
             {

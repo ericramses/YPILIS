@@ -12,9 +12,9 @@ namespace YellowstonePathology.Business.Amendment.Model
         {
         }
 
-		public Amendment GetNextItem(string reportNo, string amendmentId)
+		public Amendment GetNextItem(string masterAccessionNo, string reportNo, bool global, string amendmentId)
 		{
-			Amendment amendment = new Amendment(reportNo, amendmentId);
+			Amendment amendment = new Amendment(masterAccessionNo, reportNo, global, amendmentId);
 			amendment.AmendmentId = amendmentId;
 			return amendment;
 		}
@@ -170,14 +170,13 @@ namespace YellowstonePathology.Business.Amendment.Model
             return result;
         }
 
-        public void Sync(DataTable dataTable, string reportNo)
+        public void Sync(DataTable dataTable)
         {
             this.RemoveDeleted(dataTable);
             DataTableReader dataTableReader = new DataTableReader(dataTable);
             while (dataTableReader.Read())
             {
                 string amendmentId = dataTableReader["AmendmentId"].ToString();
-                string amendmentReportNo = dataTableReader["ReportNo"].ToString();
 
                 Amendment amendment = null;
 
@@ -185,7 +184,7 @@ namespace YellowstonePathology.Business.Amendment.Model
                 {
                     amendment = this.GetAmendment(amendmentId);
                 }
-                else if (reportNo == amendmentReportNo)
+                else
                 {
                     amendment = new Amendment();
                     this.Add(amendment);
@@ -220,48 +219,20 @@ namespace YellowstonePathology.Business.Amendment.Model
             }
         }
 
-        public void SyncGlobal(DataTable dataTable)
-        {
-            this.RemoveDeleted(dataTable);
-            DataTableReader dataTableReader = new DataTableReader(dataTable);
-            while (dataTableReader.Read())
-            {
-                string amendmentId = dataTableReader["AmendmentId"].ToString();
-
-                Amendment amendment = null;
-
-                if (this.Exists(amendmentId) == true)
-                {
-                    amendment = this.GetAmendment(amendmentId);
-                }
-                else
-                {
-                    amendment = new Amendment();
-                    this.Add(amendment);
-                }
-
-                if (amendment != null)
-                {
-                    YellowstonePathology.Business.Persistence.SqlDataTableReaderPropertyWriter sqlDataTableReaderPropertyWriter = new Persistence.SqlDataTableReaderPropertyWriter(amendment, dataTableReader);
-                    sqlDataTableReaderPropertyWriter.WriteProperties();
-                }
-            }
-        }
-
-        public AmendmentCollection GetCaseAmendmentCollection(AmendmentCollection globalAmendmentCollection)
+        public AmendmentCollection GetAmendmentsForReport(string reportNo)
         {
             AmendmentCollection result = new AmendmentCollection();
-
             foreach (Amendment amendment in this)
             {
-                result.Add(amendment);
+                if (amendment.ReportNo == reportNo)
+                {
+                    result.Add(amendment);
+                }
+                else if(amendment.Global == true)
+                {
+                    result.Add(amendment);
+                }
             }
-
-            foreach(Amendment item in globalAmendmentCollection)
-            {
-                result.Add(item);
-            }
-
             return result;
         }
     }

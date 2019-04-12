@@ -45,9 +45,10 @@ namespace YellowstonePathology.Business.Amendment.Model
         {
         }
 
-        public Amendment(string reportNo, string amendmentId)
+        public Amendment(string masterAccessionNo, string reportNo, bool global, string amendmentId)
         {
-            this.m_ReportNo = reportNo;
+            this.m_MasterAccessionNo = masterAccessionNo;
+            this.m_Global = global;
             this.AmendmentId = amendmentId;
             this.SetDefaultValues(reportNo);
             this.m_Accepted = false;
