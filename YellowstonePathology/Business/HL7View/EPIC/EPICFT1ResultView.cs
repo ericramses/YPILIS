@@ -20,9 +20,19 @@ namespace YellowstonePathology.Business.HL7View.EPIC
 
         public void Publish(string basePath)
         {            
-            XElement document = new XElement("HL7Message");            
+            XElement document = new XElement("HL7Message");
 
-            EPICHl7Client client = new EPICHl7Client();
+            Hl7Client client = null;
+            YellowstonePathology.Business.Client.Model.ClientGroupClientCollection hrhGroup = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientGroupClientCollectionByClientGroupId("2");
+            if(hrhGroup.ClientIdExists(this.m_AccessionOrder.ClientId) == true)
+            {
+                client = new EPICHRHClient();                
+            }
+            else
+            {
+                client = new EPICHl7Client();
+            }
+
             DFTP03 messageType = new DFTP03();
             
             YellowstonePathology.Business.Domain.Physician orderingPhysician = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianByPhysicianId(this.m_AccessionOrder.PhysicianId);

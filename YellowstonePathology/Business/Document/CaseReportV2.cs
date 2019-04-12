@@ -159,7 +159,8 @@ namespace YellowstonePathology.Business.Document
             this.ReplaceText("client_name", this.m_AccessionOrder.ClientName);
             this.ReplaceText("page2_header", this.m_AccessionOrder.PatientName + ", " + reportNumber);
 
-            this.SetXMLNodeParagraphData("location_performed", this.m_PanelSetOrder.GetLocationPerformedComment());
+            string locationPerformed = this.m_PanelSetOrder.GetLocationPerformedComment();
+            this.SetXMLNodeParagraphData("location_performed", locationPerformed);
             this.SetClientReportNo();
         }
 
