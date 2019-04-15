@@ -28,6 +28,10 @@ namespace YellowstonePathology.Business.Test.ExtractAndHoldForPreauthorization
             this.m_ShowResultPageOnOrder = true;
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMiscellaneous());
 
+            YellowstonePathology.Business.Facility.Model.Facility ypi = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
+            this.m_TechnicalComponentFacility = ypi;
+            this.m_TechnicalComponentBillingFacility = ypi;
+
             YellowstonePathology.Business.Task.Model.TaskFax taskFax = new YellowstonePathology.Business.Task.Model.TaskFax(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, "Preauthorization Fax", "PreauthorizationNotification");
             this.m_TaskCollection.Add(taskFax);
         }

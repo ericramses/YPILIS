@@ -1747,17 +1747,20 @@ namespace YellowstonePathology.UI
             MessageBox.Show("Done");*/
         }
 
-        private void ButtonSetCPTCodeType_Click(object sender, RoutedEventArgs e)
+        /*private void ButtonNoTechFac_Click(object sender, RoutedEventArgs e)
         {
-            /*YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBillCollection codes = YellowstonePathology.Business.Gateway.BillingGateway.GetNoCodeTypeItems();
-            foreach(YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill code in codes)
+            YellowstonePathology.Business.PanelSet.Model.PanelSetCollection panelSets = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetAll();
+            using (StreamWriter sw = new StreamWriter(@"C:\wcTemp\MissinTech.txt", false))
             {
-                Business.Billing.Model.CptCode cptCode = Store.AppDataStore.Instance.CPTCodeCollection.GetClone(code.CPTCode, code.Modifier);
-                code.CodeType = cptCode.CodeType.ToString();
-                YellowstonePathology.Business.Gateway.BillingGateway.SetNoCodeTypeItems(code);
+                foreach (YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet in panelSets)
+                {
+                    if(panelSet.TechnicalComponentFacility == null)
+                    {
+                        sw.WriteLine(panelSet.PanelSetName + " - " + panelSet.PanelSetId.ToString());
+                    }
+                }
             }
-
-            MessageBox.Show("Done");*/
-        }
+            MessageBox.Show("Done");
+        }*/
     }
 }

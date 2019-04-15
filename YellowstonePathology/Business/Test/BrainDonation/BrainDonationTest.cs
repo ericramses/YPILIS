@@ -22,7 +22,11 @@ namespace YellowstonePathology.Business.Test.BrainDonation
 
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.PanelSetOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Document.ReferenceLabReport).AssemblyQualifiedName;
-            this.m_AllowMultiplePerAccession = false;                        
+            this.m_AllowMultiplePerAccession = false;
+
+            YellowstonePathology.Business.Facility.Model.Facility ypi = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
+            this.m_TechnicalComponentFacility = ypi;
+            this.m_TechnicalComponentBillingFacility = ypi;
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMOLEGEN());
         }
