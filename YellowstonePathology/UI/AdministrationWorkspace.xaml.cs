@@ -1746,5 +1746,21 @@ namespace YellowstonePathology.UI
             }
             MessageBox.Show("Done");*/
         }
+
+        /*private void ButtonNoTechFac_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.PanelSet.Model.PanelSetCollection panelSets = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetAll();
+            using (StreamWriter sw = new StreamWriter(@"C:\wcTemp\MissinTech.txt", false))
+            {
+                foreach (YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet in panelSets)
+                {
+                    if(panelSet.TechnicalComponentFacility == null)
+                    {
+                        sw.WriteLine(panelSet.PanelSetName + " - " + panelSet.PanelSetId.ToString());
+                    }
+                }
+            }
+            MessageBox.Show("Done");
+        }*/
     }
 }

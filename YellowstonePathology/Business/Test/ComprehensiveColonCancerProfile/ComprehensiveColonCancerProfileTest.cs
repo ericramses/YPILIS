@@ -31,6 +31,10 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
             this.m_NeverDistribute = true;
             this.m_EpicDistributionIsImplemented = true;
 
+            YellowstonePathology.Business.Facility.Model.Facility ypi = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
+            this.m_TechnicalComponentFacility = ypi;
+            this.m_TechnicalComponentBillingFacility = ypi;
+
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServicePathSummary());
 		}
 	}

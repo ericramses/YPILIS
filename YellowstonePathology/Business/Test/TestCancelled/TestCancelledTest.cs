@@ -23,6 +23,10 @@ namespace YellowstonePathology.Business.Test.TestCancelled
             this.m_EpicDistributionIsImplemented = true;
             this.m_ReportAsAdditionalTesting = false;
 
+            YellowstonePathology.Business.Facility.Model.Facility ypi = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
+            this.m_TechnicalComponentFacility = ypi;
+            this.m_TechnicalComponentBillingFacility = ypi;
+
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMiscellaneous());
 		}
 	}
