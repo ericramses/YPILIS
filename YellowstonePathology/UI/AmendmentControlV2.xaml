@@ -15,7 +15,7 @@
 		<HierarchicalDataTemplate x:Key="DataTemplateAmendmentPanelSetOrder" ItemsSource="{Binding Path=AmendmentCollection}" ItemTemplate="{StaticResource DataTemplateAmendment}">
 			<StackPanel Orientation="Horizontal" Margin="5,5,5,5">
 				<TextBlock Margin="2,2,2,2" VerticalAlignment="Center">Amendments for:</TextBlock>
-				<TextBlock Margin="2,2,2,2" VerticalAlignment="Center" Text="{Binding Path=PanelSetName}"></TextBlock>
+				<TextBlock Margin="2,2,2,2" VerticalAlignment="Center" Text="{Binding Path=PanelSetOrder.PanelSetName}"></TextBlock>
 			</StackPanel>
 		</HierarchicalDataTemplate>
 
@@ -28,43 +28,17 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         
-	    <TreeView Name="TreeViewAmendment" Grid.Row="0" ItemsSource="{Binding Path=AccessionOrder.PanelSetOrderCollection}" ItemTemplate="{StaticResource DataTemplateAmendmentPanelSetOrder}"
-                  Visibility="{Binding Path=PanelSetOrderVisibility}">
-		    <TreeView.ContextMenu>
-			    <ContextMenu>                
-				    <MenuItem Header="Edit" Click="ContextMenuEditAmendment_Click"></MenuItem>				
-				    <MenuItem Header="Add" Click="ContextMenuAddAmendment_Click"></MenuItem>
-				    <MenuItem Header="Delete" Click="ContextMenuDeleteAmendment_Click"></MenuItem>
+	    <TreeView Name="TreeViewAmendment" Grid.Row="0" ItemsSource="{Binding Path=PanelSetOrderAmendmentViewCollection}" 
+                  ItemTemplate="{StaticResource DataTemplateAmendmentPanelSetOrder}" SelectedItemChanged="TreeViewAmendment_SelectedItemChanged">
+            <TreeView.ContextMenu>
+			    <ContextMenu>
+                    <MenuItem Header="Edit" Click="ContextMenuEditAmendment_Click" Visibility="{Binding Path=ContextMenuAmendmentVisibility}"></MenuItem>
+                    <MenuItem Header="Add" Click="ContextMenuAddAmendment_Click" Visibility="{Binding Path=ContextMenuPSOVisibility}"></MenuItem>
+                    <MenuItem Header="Add Global" Click="ContextMenuAddGlobalAmendment_Click" Visibility="{Binding Path=ContextMenuPSOVisibility}"></MenuItem>
+                    <MenuItem Header="Delete" Click="ContextMenuDeleteAmendment_Click" Visibility="{Binding Path=ContextMenuAmendmentVisibility}"></MenuItem>
 			    </ContextMenu>
 		    </TreeView.ContextMenu>
 	    </TreeView>
 
-        <Border Grid.Row="1" BorderThickness="1" BorderBrush="Gray" Visibility="{Binding Path=GlobalVisibility}">
-
-            <Grid Grid.Row="1" Visibility="{Binding Path=GlobalVisibility}">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-
-                <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="5,5,5,5">
-                    <TextBlock Margin="2,2,2,2" VerticalAlignment="Center">Amendments for:</TextBlock>
-                    <TextBlock Margin="2,2,2,2" VerticalAlignment="Center" Text="{Binding Path=AccessionOrder.MasterAccessionNo}"></TextBlock>
-                </StackPanel>
-            
-                <ListBox Name="ListBoxGlobal" Grid.Row="1" ItemsSource="{Binding Path=AccessionOrder.AmendmentCollection}" ItemTemplate="{StaticResource DataTemplateAmendment}" BorderThickness="0">
-                    <ListBox.ContextMenu>
-                        <ContextMenu>
-                            <MenuItem Header="Edit" Click="ContextMenuEditGlobalAmendment_Click"></MenuItem>
-                            <MenuItem Header="Add" Click="ContextMenuAddGlobalAmendment_Click"></MenuItem>
-                            <MenuItem Header="Delete" Click="ContextMenuDeleteGlobalAmendment_Click"></MenuItem>
-                        </ContextMenu>
-                    </ListBox.ContextMenu>
-
-                </ListBox>
-            </Grid>
-        </Border>
-        
-        <Button Name="ButtonGlobal" Grid.Row="2" Margin="2" VerticalAlignment="Center" HorizontalAlignment="Right" Height="30" Click="ButtonGlobal_Click">Global Amendments</Button>
     </Grid>
 </UserControl>

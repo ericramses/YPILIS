@@ -51,8 +51,9 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
             if (this.m_AccessionOrder.OrderCancelled == false)
             {
 
+                YellowstonePathology.Business.Amendment.Model.AmendmentCollection amendmentCollection = this.m_AccessionOrder.AmendmentCollection.GetAmendmentsForReport(m_PanelSetOrder.ReportNo);
                 YellowstonePathology.Business.Document.AmendmentSection amendmentSection = new YellowstonePathology.Business.Document.AmendmentSection();
-                amendmentSection.SetAmendment(m_PanelSetOrder.AmendmentCollection, this.m_ReportXml, this.m_NameSpaceManager, true);
+                amendmentSection.SetAmendment(amendmentCollection, this.m_ReportXml, this.m_NameSpaceManager, true);
 
                 YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);
                 string collectionDateTimeString = YellowstonePathology.Business.Helper.DateTimeExtensions.CombineDateAndTime(specimenOrder.CollectionDate, specimenOrder.CollectionTime);
@@ -76,8 +77,8 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
                 if (her2AmplificationSummaryTestOrder.RecountRequired == true)
                 {
                     this.SetXmlNodeData("re_cells_counted", her2AmplificationSummaryTestOrder.CellsRecount.ToString());
-                    this.SetXmlNodeData("re_her2_counted", her2AmplificationSummaryTestOrder.TotalChr17SignalsRecount.ToString());
-                    this.SetXmlNodeData("re_chr17_counted", her2AmplificationSummaryTestOrder.TotalHer2SignalsRecount.ToString());
+                    this.SetXmlNodeData("re_her2_counted", her2AmplificationSummaryTestOrder.TotalHer2SignalsRecount.ToString());
+                    this.SetXmlNodeData("re_chr17_counted", her2AmplificationSummaryTestOrder.TotalChr17SignalsRecount.ToString());
                 }
                 else
                 {

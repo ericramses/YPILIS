@@ -189,7 +189,7 @@ namespace YellowstonePathology.UI.Client
                     }
                     else
                     {
-                        MessageBox.Show("There was a problem with this shipping request.");
+                        MessageBox.Show(result.Message);
                     }
                 }
                 else

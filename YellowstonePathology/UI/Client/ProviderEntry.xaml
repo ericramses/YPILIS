@@ -251,16 +251,20 @@
 
 
                         <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" FontWeight="Bold">Patient Age:</TextBlock>
-                        <ComboBox Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" ItemsSource="{Binding Path=AgeList}" SelectedValue="{Binding Path=HPVStandingOrder.Age}" />
+                        <ComboBox Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" ItemsSource="{Binding Path=HPVRuleAgeCollection}"
+                                  SelectedValue="{Binding Path=HPVStandingOrder.Age}" SelectedValuePath="Description" DisplayMemberPath="Description"/>
 
                         <TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" FontWeight="Bold">PAP Result:</TextBlock>
-                        <ComboBox Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" ItemsSource="{Binding Path=PAPResultList}" SelectedValue="{Binding Path=HPVStandingOrder.PAPResult}" />
+                        <ComboBox Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" ItemsSource="{Binding Path=HPVRulePAPResultCollection}"
+                                  SelectedValue="{Binding Path=HPVStandingOrder.PAPResult}" SelectedValuePath="Description" DisplayMemberPath="Description" />
 
                         <TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" FontWeight="Bold">HPV Testing:</TextBlock>
-                        <ComboBox Grid.Column="1" Grid.Row="2" Margin="2,2,2,2" ItemsSource="{Binding Path=HPVTestingList}" SelectedValue="{Binding Path=HPVStandingOrder.HPVTesting}" />
+                        <ComboBox Grid.Column="1" Grid.Row="2" Margin="2,2,2,2" ItemsSource="{Binding Path=HPVRulePreviousTestingCollection}" 
+                                  SelectedValue="{Binding Path=HPVStandingOrder.HPVTesting}" SelectedValuePath="Description" DisplayMemberPath="Description" />
 
                         <TextBlock Grid.Column="0" Grid.Row="3" Margin="2,2,2,2" FontWeight="Bold">Endocervical Transformation Zone:</TextBlock>
-                        <ComboBox Grid.Column="1" Grid.Row="3" Margin="2,2,2,2" ItemsSource="{Binding Path=EndocervicalList}" SelectedValue="{Binding Path=HPVStandingOrder.Endocervical}" />
+                        <ComboBox Grid.Column="1" Grid.Row="3" Margin="2,2,2,2" ItemsSource="{Binding Path=HPVRuleEndocervicalCollection}" 
+                                  SelectedValue="{Binding Path=HPVStandingOrder.Endocervical}" SelectedValuePath="Description" DisplayMemberPath="Description" />
 
                         <Button Grid.Column="1" Grid.Row="7" Margin="5,40,5,5" Width="100" Height="30" HorizontalAlignment="Right" Content="Add" Click="ButtonAddHPVStandingOrder_Click"></Button>
 

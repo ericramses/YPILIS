@@ -1347,8 +1347,8 @@ namespace YellowstonePathology.Business.Gateway
 
         public static ReportNoCollection GetReportNumbers()
         {
-            MySqlCommand cmd = new MySqlCommand("gwGetReportNumbers");
-            cmd.CommandType = CommandType.StoredProcedure;
+            MySqlCommand cmd = new MySqlCommand("SELECT MIN(ReportNo) `ReportNo` FROM tblPanelSetOrder where orderdate > '2018-06-01' GROUP BY PanelSetId;");
+            cmd.CommandType = CommandType.Text;
 
             YellowstonePathology.Business.ReportNoCollection reportNoCollection = new ReportNoCollection();
 

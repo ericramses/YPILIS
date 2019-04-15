@@ -307,7 +307,7 @@ namespace YellowstonePathology.Business.Test
             reverseNew.PostDate = DateTime.Today;
             reverseNew.MedicalRecord = panelSetOrderCPTCodeBill.MedicalRecord;
             reverseNew.Account = panelSetOrderCPTCodeBill.Account;
-            reverseOriginal.CodeType = panelSetOrderCPTCodeBill.CodeType;
+            reverseNew.CodeType = panelSetOrderCPTCodeBill.CodeType;
             this.Add(reverseNew);
         }
 
@@ -336,7 +336,7 @@ namespace YellowstonePathology.Business.Test
             reverseNew.PostDate = DateTime.Today;
             reverseNew.MedicalRecord = panelSetOrderCPTCodeBill.MedicalRecord;
             reverseNew.Account = panelSetOrderCPTCodeBill.Account;
-            reverseOriginal.CodeType = panelSetOrderCPTCodeBill.CodeType;
+            reverseNew.CodeType = panelSetOrderCPTCodeBill.CodeType;
             this.Add(reverseNew);            
         }
 

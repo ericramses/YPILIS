@@ -56,15 +56,23 @@ namespace YellowstonePathology.UI
 
 		private void ButtonAdd_Click(object sender, RoutedEventArgs e)
 		{
-            YellowstonePathology.Business.Amendment.Model.Amendment amendment = this.m_AmendmentUI.PanelSetOrder.AddAmendment();
+            YellowstonePathology.Business.Amendment.Model.Amendment amendment = this.m_AmendmentUI.AccessionOrder.AddAmendment(this.m_AmendmentUI.PanelSetOrder.ReportNo, false);
 			amendment.TestResultAmendmentFill(this.m_AmendmentUI.ReportNo, this.m_AmendmentUI.AssignedToId, "???");
-			//this.m_AmendmentUI.Save(false);
 
 			NotifyPropertyChanged("Amendments");
 			this.ListViewAmendments.SelectedIndex = 0;
 		}
 
-		private void ButtonEdit_Click(object sender, RoutedEventArgs e)
+        private void ButtonAddGlobal_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Amendment.Model.Amendment amendment = this.m_AmendmentUI.AccessionOrder.AddAmendment(null, true);
+            amendment.TestResultAmendmentFill(null, this.m_AmendmentUI.AssignedToId, "???");
+
+            NotifyPropertyChanged("Amendments");
+            this.ListViewAmendments.SelectedIndex = 0;
+        }
+
+        private void ButtonEdit_Click(object sender, RoutedEventArgs e)
 		{
 			if (this.m_AmendmentUI.SelectedAmendment != null)
 			{
@@ -81,7 +89,7 @@ namespace YellowstonePathology.UI
 				if (result == MessageBoxResult.Yes)
 				{
                     YellowstonePathology.Business.Amendment.Model.Amendment selectedAmendment = (YellowstonePathology.Business.Amendment.Model.Amendment)this.ListViewAmendments.SelectedItem;					
-					this.m_AmendmentUI.PanelSetOrder.DeleteAmendment(selectedAmendment.AmendmentId);
+					this.m_AmendmentUI.AccessionOrder.DeleteAmendment(selectedAmendment.AmendmentId);
 					this.ListViewAmendments.SelectedIndex = -1;
 				}
 			}

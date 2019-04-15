@@ -29,10 +29,11 @@ namespace YellowstonePathology.Business.Test.BRAFMutationAnalysis
             this.SetXmlNodeData("report_result", brafResult);
             this.SetXmlNodeData("final_date", YellowstonePathology.Business.BaseData.GetShortDateString(this.m_PanelSetOrder.FinalDate));
 
+            YellowstonePathology.Business.Amendment.Model.AmendmentCollection amendmentCollection = this.m_AccessionOrder.AmendmentCollection.GetAmendmentsForReport(m_PanelSetOrder.ReportNo);
             YellowstonePathology.Business.Document.AmendmentSection amendmentSection = new YellowstonePathology.Business.Document.AmendmentSection();
-            amendmentSection.SetAmendment(m_PanelSetOrder.AmendmentCollection, this.m_ReportXml, this.m_NameSpaceManager, true);
+            amendmentSection.SetAmendment(amendmentCollection, this.m_ReportXml, this.m_NameSpaceManager, true);
 
-            if (m_PanelSetOrder.AmendmentCollection.Count == 0)
+            if (amendmentCollection.Count == 0)
             {
                 this.SetXmlNodeData("test_result_header", "Test Result");
             }

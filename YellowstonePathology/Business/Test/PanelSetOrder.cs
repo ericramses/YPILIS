@@ -22,7 +22,6 @@ namespace YellowstonePathology.Business.Test
         protected static string NotPerformedResult = "Not Performed";
 
         protected PanelOrderCollection m_PanelOrderCollection;
-        protected YellowstonePathology.Business.Amendment.Model.AmendmentCollection m_AmendmentCollection;
 		protected YellowstonePathology.Business.Test.PanelSetOrderCPTCodeCollection m_PanelSetOrderCPTCodeCollection;
 		protected YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBillCollection m_PanelSetOrderCPTCodeBillCollection;
         protected YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistributionCollection m_TestOrderReportDistributionCollection;
@@ -116,8 +115,6 @@ namespace YellowstonePathology.Business.Test
 			this.m_PanelSetOrderCPTCodeBillCollection = new PanelSetOrderCPTCodeBillCollection();
             this.m_TestOrderReportDistributionCollection = new YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistributionCollection();
             this.m_TestOrderReportDistributionLogCollection = new YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistributionLogCollection();
-
-            this.m_AmendmentCollection = new YellowstonePathology.Business.Amendment.Model.AmendmentCollection();					
 		}
 
 		public PanelSetOrder(string masterAccessionNo, string reportNo, string objectId, YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet, bool distribute)
@@ -165,8 +162,6 @@ namespace YellowstonePathology.Business.Test
 			this.m_PanelSetOrderCPTCodeBillCollection = new PanelSetOrderCPTCodeBillCollection();
             this.m_TestOrderReportDistributionCollection = new YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistributionCollection();
             this.m_TestOrderReportDistributionLogCollection = new YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistributionLogCollection();
-
-            this.m_AmendmentCollection = new YellowstonePathology.Business.Amendment.Model.AmendmentCollection();			
 
             YellowstonePathology.Business.ClientOrder.Model.UniversalService universalService = panelSet.UniversalServiceIdCollection.GetByApplicationName(YellowstonePathology.Business.ClientOrder.Model.UniversalServiceApplicationNameEnum.EPIC);
             this.m_UniversalServiceId = universalService.UniversalServiceId;
@@ -237,8 +232,6 @@ namespace YellowstonePathology.Business.Test
 			this.m_PanelSetOrderCPTCodeBillCollection = new PanelSetOrderCPTCodeBillCollection();
             this.m_TestOrderReportDistributionCollection = new YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistributionCollection();
             this.m_TestOrderReportDistributionLogCollection = new YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistributionLogCollection();
-
-            this.m_AmendmentCollection = new YellowstonePathology.Business.Amendment.Model.AmendmentCollection();
 
             YellowstonePathology.Business.ClientOrder.Model.UniversalService universalService = panelSet.UniversalServiceIdCollection.GetByApplicationName(YellowstonePathology.Business.ClientOrder.Model.UniversalServiceApplicationNameEnum.EPIC);
             this.m_UniversalServiceId = universalService.UniversalServiceId;
@@ -1569,13 +1562,6 @@ namespace YellowstonePathology.Business.Test
 			set { throw new Exception("Not Implemented Here."); }
 		}
 
-		[PersistentCollection()]
-        public YellowstonePathology.Business.Amendment.Model.AmendmentCollection AmendmentCollection
-		{
-			get { return this.m_AmendmentCollection; }
-			set { this.m_AmendmentCollection = value; }
-		}
-
 		public bool ColorCodeVisible
 		{
 			get
@@ -1725,20 +1711,6 @@ namespace YellowstonePathology.Business.Test
             this.m_ScheduledPublishTime = null;
             this.NotifyPropertyChanged(string.Empty);
         }
-
-        public virtual YellowstonePathology.Business.Amendment.Model.Amendment AddAmendment()
-		{
-			string amendmentId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-            YellowstonePathology.Business.Amendment.Model.Amendment amendment = this.m_AmendmentCollection.GetNextItem(this.m_ReportNo, amendmentId);
-			this.m_AmendmentCollection.Add(amendment);
-			return amendment;
-		}
-
-		public virtual void DeleteAmendment(string amendmentId)
-		{
-            YellowstonePathology.Business.Amendment.Model.Amendment amendment = this.m_AmendmentCollection.GetAmendment(amendmentId);
-			this.m_AmendmentCollection.Remove(amendment);
-		}
 
 		public virtual string GetLocationPerformedComment()
 		{

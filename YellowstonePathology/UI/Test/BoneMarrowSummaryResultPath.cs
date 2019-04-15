@@ -43,7 +43,8 @@ namespace YellowstonePathology.UI.Test
             if (this.m_AccessionOrder.PanelSetOrderCollection.HasSurgical() == true)
             {
                 YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetSurgical();
-                if (surgicalTestOrder.AmendmentCollection.HasAmendmentForReferenceReportNo(this.m_TestOrder.ReportNo) == true)
+                YellowstonePathology.Business.Amendment.Model.AmendmentCollection amendmentCollection = this.m_AccessionOrder.AmendmentCollection.GetAmendmentsForReport(surgicalTestOrder.ReportNo);
+                if (amendmentCollection.HasAmendmentForReferenceReportNo(this.m_TestOrder.ReportNo) == true)
                 {
                     result = true;
                 }
@@ -80,7 +81,8 @@ namespace YellowstonePathology.UI.Test
             {
                 result = true;
                 YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetSurgical();
-                YellowstonePathology.Business.Amendment.Model.Amendment amendment = surgicalTestOrder.AmendmentCollection.GetAmendmentForReferenceReportNo(this.m_TestOrder.ReportNo);
+                YellowstonePathology.Business.Amendment.Model.AmendmentCollection amendments = this.m_AccessionOrder.AmendmentCollection.GetAmendmentsForReport(surgicalTestOrder.ReportNo);
+                YellowstonePathology.Business.Amendment.Model.Amendment amendment = amendments.GetAmendmentForReferenceReportNo(this.m_TestOrder.ReportNo);
                 AmendmentPage amendmentPage = new AmendmentPage(this.m_AccessionOrder, amendment, this.m_SystemIdentity);
                 amendmentPage.Back += AmendmentPage_Back;
                 amendmentPage.Finish += AmendmentPage_Finish;

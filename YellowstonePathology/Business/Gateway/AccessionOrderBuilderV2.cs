@@ -54,7 +54,9 @@ namespace YellowstonePathology.Business.Gateway
             if (this.m_AccessionOrder.PanelSetOrderCollection.HasSurgical() == true)
             {
                 Test.Surgical.SurgicalTestOrder surgicalTestOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetSurgical();
-                this.SetSurgicalAuditAmendment(surgicalTestOrder);
+                YellowstonePathology.Business.Amendment.Model.AmendmentCollection amendmentCollection = this.m_AccessionOrder.AmendmentCollection.GetAmendmentsForReport(surgicalTestOrder.ReportNo);
+
+                this.SetSurgicalAuditAmendment(surgicalTestOrder, amendmentCollection);
                 this.SetSurgicalSpecimenSpecimenOrder(surgicalTestOrder);
                 this.SetSurgicalSpecimenAuditSpecimenOrder(surgicalTestOrder);
                 this.SetSurgicalSpecimenOrderItemCollection(surgicalTestOrder);
@@ -152,9 +154,6 @@ namespace YellowstonePathology.Business.Gateway
                     case "tblRetrospectiveReviewTestOrderDetail":
                         this.HandleRetrospectiveReview(dataTable);
                         break;
-                    case "tblGlobalAmendment":
-                        this.HandleGlobalAmendment(dataTable);
-                        break;
                 }
             }
             
@@ -167,11 +166,6 @@ namespace YellowstonePathology.Business.Gateway
         private void HandleAccessionOrder(DataTable dataTable)
         {
             this.m_AccessionOrder.Sync(dataTable);
-        }
-
-        private void HandleGlobalAmendment(DataTable dataTable)
-        {
-            this.m_AccessionOrder.AmendmentCollection.SyncGlobal(dataTable);
         }
 
         private void HandleSpecimenOrder(DataTable dataTable)
@@ -375,10 +369,7 @@ namespace YellowstonePathology.Business.Gateway
 
         private void HandleAmendment(DataTable dataTable)
         {
-            foreach (Test.PanelSetOrder panelSetOrder in this.m_AccessionOrder.PanelSetOrderCollection)
-            {
-                panelSetOrder.AmendmentCollection.Sync(dataTable, panelSetOrder.ReportNo);
-            }
+            this.m_AccessionOrder.AmendmentCollection.Sync(dataTable);
         }
 
         private void HandlePanelSetOrderCPTCode(DataTable dataTable)
@@ -483,9 +474,9 @@ namespace YellowstonePathology.Business.Gateway
             }
         }
 
-        private void SetSurgicalAuditAmendment(YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder)
+        private void SetSurgicalAuditAmendment(YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder surgicalTestOrder, YellowstonePathology.Business.Amendment.Model.AmendmentCollection amendmentCollection)
         {
-            foreach (YellowstonePathology.Business.Amendment.Model.Amendment amendment in surgicalTestOrder.AmendmentCollection)
+            foreach (YellowstonePathology.Business.Amendment.Model.Amendment amendment in amendmentCollection)
             {
                 surgicalTestOrder.SurgicalAuditCollection.SetAmendmentReference(amendment);
             }

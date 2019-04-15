@@ -1,7 +1,6 @@
 using System;
 using System.ComponentModel;
 using System.Data;
-
 using System.Linq;
 using System.Xml.Linq;
 using System.Text;
@@ -1854,18 +1853,32 @@ namespace YellowstonePathology.Business.Test
             set { this.m_AmendmentCollection = value; }
         }
 
-        public virtual YellowstonePathology.Business.Amendment.Model.Amendment AddAmendment()
+        public YellowstonePathology.Business.Amendment.Model.Amendment AddAmendment(string reportNo, bool global)
         {
             string amendmentId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-            YellowstonePathology.Business.Amendment.Model.Amendment amendment = this.m_AmendmentCollection.GetNextItem(null, amendmentId);
-            amendment.Global = true;
+            YellowstonePathology.Business.Amendment.Model.Amendment amendment = this.m_AmendmentCollection.GetNextItem(this.m_MasterAccessionNo, reportNo, global, amendmentId);
+
+            if (string.IsNullOrEmpty(reportNo) == false)
+            {
+                if(this.m_PanelSetOrderCollection.GetPanelSetOrder(reportNo) is YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder)
+                {
+                    Test.Surgical.SurgicalTestOrder surgicalTestOrder = this.m_PanelSetOrderCollection.GetSurgical();
+                    surgicalTestOrder.HandleNewAmendment(amendment);
+                }
+            }
+
             this.m_AmendmentCollection.Add(amendment);
             return amendment;
         }
 
-        public virtual void DeleteAmendment(string amendmentId)
+        public void DeleteAmendment(string amendmentId)
         {
             YellowstonePathology.Business.Amendment.Model.Amendment amendment = this.m_AmendmentCollection.GetAmendment(amendmentId);
+            if (this.m_PanelSetOrderCollection.HasSurgical() == true)
+            {
+                Test.Surgical.SurgicalTestOrder surgicalTestOrder = this.m_PanelSetOrderCollection.GetSurgical();
+                surgicalTestOrder.DeleteAmendment(amendment.AmendmentId);
+            }
             this.m_AmendmentCollection.Remove(amendment);
         }
     }

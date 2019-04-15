@@ -24,8 +24,9 @@ namespace YellowstonePathology.Business.Test.StemCellEnumeration
 
 			YellowstonePathology.Business.Test.StemCellEnumeration.StemCellEnumerationTestOrder stemCellEnumerationTestOrder = (StemCellEnumerationTestOrder)this.m_PanelSetOrder;
 
-			YellowstonePathology.Business.Document.AmendmentSection amendment = new YellowstonePathology.Business.Document.AmendmentSection();
-			amendment.SetAmendment(stemCellEnumerationTestOrder.AmendmentCollection, this.m_ReportXml, this.m_NameSpaceManager, true);
+            YellowstonePathology.Business.Amendment.Model.AmendmentCollection amendmentCollection = this.m_AccessionOrder.AmendmentCollection.GetAmendmentsForReport(stemCellEnumerationTestOrder.ReportNo);
+            YellowstonePathology.Business.Document.AmendmentSection amendment = new YellowstonePathology.Business.Document.AmendmentSection();
+			amendment.SetAmendment(amendmentCollection, this.m_ReportXml, this.m_NameSpaceManager, true);
 
 			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(stemCellEnumerationTestOrder.OrderedOn, stemCellEnumerationTestOrder.OrderedOnId);
             this.SetXmlNodeData("specimen_description", specimenOrder.Description);

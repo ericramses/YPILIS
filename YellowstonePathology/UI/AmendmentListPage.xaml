@@ -36,7 +36,8 @@
 			<Border Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" BorderBrush="Transparent" BorderThickness="0" Background="{DynamicResource {x:Static SystemColors.InactiveCaptionBrushKey}}"></Border>
 			<StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Right">
 				<Button Name="ButtonAdd" Margin="5,5,5,5" Click="ButtonAdd_Click"  Width="100" Height="40">Add</Button>
-				<Button Name="ButtonEdit" Margin="5,5,5,5" Click="ButtonEdit_Click" Width="100" Height="40">Edit</Button>
+                <Button Name="ButtonAddGlobal" Margin="5,5,5,5" Click="ButtonAddGlobal_Click"  Width="100" Height="40">Add Global</Button>
+                <Button Name="ButtonEdit" Margin="5,5,5,5" Click="ButtonEdit_Click" Width="100" Height="40">Edit</Button>
 				<Button Name="ButtonDelete" Margin="5,5,5,5" Click="ButtonDelete_Click" Width="100" Height="40">Delete</Button>
 			</StackPanel>
 

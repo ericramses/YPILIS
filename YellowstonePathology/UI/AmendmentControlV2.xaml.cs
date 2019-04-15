@@ -19,22 +19,21 @@ namespace YellowstonePathology.UI
 		public event PropertyChangedEventHandler PropertyChanged;        
 		
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
-		private string m_ReportNo;
-        private Visibility m_PanelSetOrderVisibility;
-        private Visibility m_GlobalVisibility;
 
-        public AmendmentControlV2(YellowstonePathology.Business.User.SystemIdentity systemIdentity,
-			string reportNo,
-			YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
+    private YellowstonePathology.Business.View.PanelSetOrderAmendmentViewCollection m_PanelSetOrderAmendmentViewCollection;
+    private Visibility m_ContextMenuPSOVisibility;
+    private Visibility m_ContextMenuAmendmentVisibility;
+
+    public AmendmentControlV2(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
-			this.m_SystemIdentity = systemIdentity;
 			this.m_AccessionOrder = accessionOrder;
-			this.m_ReportNo = reportNo;
-            this.m_PanelSetOrderVisibility = Visibility.Visible;
-            this.m_GlobalVisibility = Visibility.Collapsed;
+            this.m_PanelSetOrderAmendmentViewCollection = new Business.View.PanelSetOrderAmendmentViewCollection();
+            if (this.m_AccessionOrder != null) this.m_PanelSetOrderAmendmentViewCollection = new Business.View.PanelSetOrderAmendmentViewCollection(this.m_AccessionOrder);
 
-			InitializeComponent();
+            this.m_ContextMenuPSOVisibility = Visibility.Visible;
+            this.m_ContextMenuAmendmentVisibility = Visibility.Visible;
+
+            InitializeComponent();
 			this.DataContext = this;
             Row2.Height = new GridLength(0);
 
@@ -49,7 +48,7 @@ namespace YellowstonePathology.UI
 
         public YellowstonePathology.Business.User.SystemUser CurrentUser
 		{
-			get { return this.m_SystemIdentity.User; }
+			get { return YellowstonePathology.Business.User.SystemIdentity.Instance.User; }
 		}
 
 		public YellowstonePathology.Business.Test.AccessionOrder AccessionOrder
@@ -62,39 +61,53 @@ namespace YellowstonePathology.UI
 			}
 		}
 
-        public Visibility PanelSetOrderVisibility
+        public YellowstonePathology.Business.View.PanelSetOrderAmendmentViewCollection PanelSetOrderAmendmentViewCollection
         {
-            get { return this.m_PanelSetOrderVisibility; }
+            get { return this.m_PanelSetOrderAmendmentViewCollection; }
+        }
+
+        public Visibility ContextMenuPSOVisibility
+        {
+            get { return this.m_ContextMenuPSOVisibility; }
             set
             {
-                this.m_PanelSetOrderVisibility = value;
-                NotifyPropertyChanged("PanelSetOrderVisibility");
+                if(this.m_ContextMenuPSOVisibility != value)
+                {
+                    this.m_ContextMenuPSOVisibility = value;
+                    NotifyPropertyChanged("ContextMenuPSOVisibility");
+                }
             }
         }
 
-        public Visibility GlobalVisibility
+        public Visibility ContextMenuAmendmentVisibility
         {
-            get { return this.m_GlobalVisibility; }
+            get { return this.m_ContextMenuAmendmentVisibility; }
             set
             {
-                this.m_GlobalVisibility = value;
-                NotifyPropertyChanged("GlobalVisibility");
+                if (this.m_ContextMenuAmendmentVisibility != value)
+                {
+                    this.m_ContextMenuAmendmentVisibility = value;
+                    NotifyPropertyChanged("ContextMenuAmendmentVisibility");
+                }
             }
         }
 
         public void ContextMenuAddAmendment_Click(object sender, RoutedEventArgs args)
         {
 			if (this.m_AccessionOrder != null)
-			{                
-				this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo).AddAmendment();                
-			}
+			{
+                string reportNo = ((Business.View.PanelSetOrderAmendmentView)this.TreeViewAmendment.SelectedItem).PanelSetOrder.ReportNo;
+                this.m_AccessionOrder.AddAmendment(reportNo, false);
+                this.m_PanelSetOrderAmendmentViewCollection.Refresh(this.m_AccessionOrder);
+            }
         }
 
         public void ContextMenuAddGlobalAmendment_Click(object sender, RoutedEventArgs args)
         {
             if (this.m_AccessionOrder != null)
             {
-                this.m_AccessionOrder.AddAmendment();
+                YellowstonePathology.Business.Amendment.Model.Amendment amendment = this.m_AccessionOrder.AddAmendment(null, true);
+                this.m_PanelSetOrderAmendmentViewCollection.Refresh(this.m_AccessionOrder);
             }
         }
 
@@ -102,57 +115,23 @@ namespace YellowstonePathology.UI
         {
 			if (this.TreeViewAmendment.SelectedItem != null)
 			{
-				if (this.TreeViewAmendment.SelectedItem.GetType().Name == "Amendment")
-				{
-                    YellowstonePathology.Business.Amendment.Model.Amendment amendment = (YellowstonePathology.Business.Amendment.Model.Amendment)this.TreeViewAmendment.SelectedItem;                    
-					YellowstonePathology.UI.AmendmentV2 amendmentV2 = new AmendmentV2(amendment, this.m_AccessionOrder);
-					amendmentV2.ShowDialog();                    
-				}
+                YellowstonePathology.Business.Amendment.Model.Amendment amendment = (YellowstonePathology.Business.Amendment.Model.Amendment)this.TreeViewAmendment.SelectedItem;                    
+				YellowstonePathology.UI.AmendmentV2 amendmentV2 = new AmendmentV2(amendment, this.m_AccessionOrder);
+				amendmentV2.ShowDialog();                    
 			}
-        }
-
-        public void ContextMenuEditGlobalAmendment_Click(object sender, RoutedEventArgs args)
-        {
-            if (this.ListBoxGlobal.SelectedItem != null)
-            {
-                if (this.ListBoxGlobal.SelectedItem.GetType().Name == "Amendment")
-                {
-                    YellowstonePathology.Business.Amendment.Model.Amendment amendment = (YellowstonePathology.Business.Amendment.Model.Amendment)this.ListBoxGlobal.SelectedItem;
-                    YellowstonePathology.UI.AmendmentV2 amendmentV2 = new AmendmentV2(amendment, this.m_AccessionOrder);
-                    amendmentV2.ShowDialog();
-                }
-            }
         }
 
         public void ContextMenuDeleteAmendment_Click(object sedner, RoutedEventArgs args)
         {
 			if (this.TreeViewAmendment.SelectedItem != null)
 			{
-				if (this.TreeViewAmendment.SelectedItem.GetType().Name == "Amendment")
+				MessageBoxResult result = MessageBox.Show("Delete the selected item?", "Delete.", MessageBoxButton.OKCancel);
+				if (result == MessageBoxResult.OK)
 				{
-					MessageBoxResult result = MessageBox.Show("Delete the selected item?", "Delete.", MessageBoxButton.OKCancel);
-					if (result == MessageBoxResult.OK)
-					{
-                        YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(((YellowstonePathology.Business.Amendment.Model.Amendment)this.TreeViewAmendment.SelectedItem).ReportNo);
-                        panelSetOrder.DeleteAmendment(((YellowstonePathology.Business.Amendment.Model.Amendment)this.TreeViewAmendment.SelectedItem).AmendmentId);
-					}
-				}
-			}
-        }
-
-        public void ContextMenuDeleteGlobalAmendment_Click(object sedner, RoutedEventArgs args)
-        {
-            if (this.ListBoxGlobal.SelectedItem != null)
-            {
-                if (this.ListBoxGlobal.SelectedItem.GetType().Name == "Amendment")
-                {
-                    MessageBoxResult result = MessageBox.Show("Delete the selected item?", "Delete.", MessageBoxButton.OKCancel);
-                    if (result == MessageBoxResult.OK)
-                    {
-                        this.m_AccessionOrder.DeleteAmendment(((YellowstonePathology.Business.Amendment.Model.Amendment)this.ListBoxGlobal.SelectedItem).AmendmentId);
-                    }
+                    this.m_AccessionOrder.DeleteAmendment(((YellowstonePathology.Business.Amendment.Model.Amendment)this.TreeViewAmendment.SelectedItem).AmendmentId);
+                    this.m_PanelSetOrderAmendmentViewCollection.Refresh(this.m_AccessionOrder);
                 }
-            }
+			}
         }
 
         public void NotifyPropertyChanged(String info)
@@ -163,21 +142,21 @@ namespace YellowstonePathology.UI
 			}
 		}
 
-        private void ButtonGlobal_Click(object sender, RoutedEventArgs e)
+        private void TreeViewAmendment_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            if(this.m_PanelSetOrderVisibility == Visibility.Visible)
+            if (this.TreeViewAmendment.SelectedItem != null)
             {
-                this.PanelSetOrderVisibility = Visibility.Collapsed;
-                Row1.Height = new GridLength(0);
-                Row2.Height = new GridLength(1, GridUnitType.Star);
-                this.GlobalVisibility = Visibility.Visible;
-            }
-            else
-            {
-                Row2.Height = new GridLength(0);
-                Row1.Height = new GridLength(1, GridUnitType.Star);
-                this.GlobalVisibility = Visibility.Collapsed;
-                this.PanelSetOrderVisibility = Visibility.Visible;
+                if (this.TreeViewAmendment.SelectedItem is YellowstonePathology.Business.Amendment.Model.Amendment)
+                {
+                    this.ContextMenuAmendmentVisibility = Visibility.Visible;
+                    this.ContextMenuPSOVisibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    this.ContextMenuAmendmentVisibility = Visibility.Collapsed;
+                    this.ContextMenuPSOVisibility = Visibility.Visible;
+                }
+                e.Handled = true;
             }
         }
     }

@@ -196,6 +196,9 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.Test.Adenovirus.AdenovirusTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.NeoTYPELiverBiliaryTumorProfile.NeoTYPELiverBiliaryTumorProfileTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.DNACellCycleAnalysis.DNACellCycleAnalysisTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.PrealbuminTTR.PrealbuminTTRTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.AmyloidAandAmyloidP.AmyloidAandAmyloidPTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.NUT.NUTTest());
 
             //ARUP
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetArupBraf());
@@ -287,6 +290,8 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.Test.HER2AmplificationSummary.HER2AmplificationSummaryTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.HER2AmplificationRecount.HER2AmplificationRecountTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.OrderAssociation.OrderAssociationTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.FetalHemoglobinV2.FetalHemoglobinV2Test());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.StemCellCD34Enumeration.StemCellCD34EnumerationTest());
 
             //UniversityofWashington
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetUniversalOrganismByPCR());
@@ -405,28 +410,14 @@ namespace YellowstonePathology.Business.PanelSet.Model
             return result;
         }
 
-        public static PanelSetCollection GetFlowPanelSets(bool includePNH)
+        public static PanelSetCollection GetFlowPanelSets()
         {
             PanelSetCollection result = new PanelSetCollection();
-            PanelSetCollection allPanelSets = PanelSetCollection.GetAll();
 
-            foreach (PanelSet panelSet in allPanelSets)
-            {
-                if (panelSet.CaseType == YellowstonePathology.Business.CaseType.FlowCytometry)
-                {
-                    if (includePNH == true)
-                    {
-                        result.Add(panelSet);
-                    }
-                    else
-                    {
-                        if (panelSet.PanelSetId != 19)
-                        {
-                            result.Add(panelSet);
-                        }
-                    }
-                }
-            }
+            result.Add(new Test.LLP.LeukemiaLymphomaTest());
+            result.Add(new Test.PlateletAssociatedAntibodies.PlateletAssociatedAntibodiesTest());
+            result.Add(new Test.ReticulatedPlateletAnalysis.ReticulatedPlateletAnalysisTest());
+            result.Add(new Test.ThrombocytopeniaProfile.ThrombocytopeniaProfileTest());
 
             return result;
         }
