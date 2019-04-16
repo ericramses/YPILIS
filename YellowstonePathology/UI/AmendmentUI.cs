@@ -32,8 +32,7 @@ namespace YellowstonePathology.UI
         {
             get
             {
-                YellowstonePathology.Business.Amendment.Model.AmendmentCollection amendmentCollection = this.m_AccessionOrder.AmendmentCollection.GetAmendmentsForReport(this.PanelSetOrder.ReportNo);
-                return amendmentCollection;
+                return this.m_AccessionOrder.AmendmentCollection;
             }
         }
 

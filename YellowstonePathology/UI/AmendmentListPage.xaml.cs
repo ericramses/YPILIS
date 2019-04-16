@@ -22,7 +22,10 @@ namespace YellowstonePathology.UI
 	{		
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		private AmendmentUI m_AmendmentUI;
+        public delegate void ContentChangedEventHandler(object sender, EventArgs e);
+        public event ContentChangedEventHandler ContentChanged;
+
+        private AmendmentUI m_AmendmentUI;
 
 		public AmendmentListPage(AmendmentUI amendmentUI)
 		{
@@ -67,8 +70,7 @@ namespace YellowstonePathology.UI
 		{
 			if (this.m_AmendmentUI.SelectedAmendment != null)
 			{
-				AmendmentEditPage amendmentEditPage = new AmendmentEditPage(this.m_AmendmentUI);
-				this.NavigationService.Navigate(amendmentEditPage);
+				this.ShowEditPage();
 			}
 		}
 
@@ -96,9 +98,21 @@ namespace YellowstonePathology.UI
 		{
 			if (this.ListViewAmendments.SelectedItem != null)
 			{
-				AmendmentEditPage amendmentEditPage = new AmendmentEditPage(this.m_AmendmentUI);
-				this.NavigationService.Navigate(amendmentEditPage);
-			}
-		}
-	}
+				this.ShowEditPage();
+            }
+        }
+
+        private void ShowEditPage()
+        {
+            AmendmentEditPage amendmentEditPage = new AmendmentEditPage(this.m_AmendmentUI);
+            amendmentEditPage.ContentChanged += AmendmentEditPage_ContentChanged;
+            this.NavigationService.Navigate(amendmentEditPage);
+            this.ContentChanged(this, new EventArgs());
+        }
+
+        private void AmendmentEditPage_ContentChanged(object sender, EventArgs e)
+        {
+            this.ContentChanged(this, new EventArgs());
+        }
+    }
 }
