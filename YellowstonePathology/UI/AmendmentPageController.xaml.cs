@@ -38,7 +38,7 @@ namespace YellowstonePathology.UI
 
         private void amendmentListPage_ContentChanged(object sender, EventArgs e)
         {
-            if(this.Title.Contains("Amendments")) this.Title = "Amendment for   " + this.m_AmendmentUI.AccessionOrder.PatientName;
+            if(this.Title.Contains("Amendments")) this.Title = "Amendment for " + this.m_AmendmentUI.AccessionOrder.PatientName;
             else this.Title = "Amendments for " + this.m_AmendmentUI.AccessionOrder.MasterAccessionNo + "   " + this.m_AmendmentUI.AccessionOrder.PatientName;
 
         }
@@ -50,9 +50,6 @@ namespace YellowstonePathology.UI
                 AmendmentEditPage amendmentEditPage = (AmendmentEditPage)this.NavigationFrame.Content;
                 amendmentEditPage.TextBoxAmendment.GetBindingExpression(TextBox.TextProperty).UpdateSource();
             }
-            //this.m_AmendmentUI.Save(true);            
         }
-
-
     }
 }

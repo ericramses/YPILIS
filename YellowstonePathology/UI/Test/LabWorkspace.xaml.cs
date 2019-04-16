@@ -50,7 +50,7 @@ namespace YellowstonePathology.UI.Test
 						
 			this.m_LabUI = new LabUI(this.m_SystemIdentity, writer);
 
-			this.m_AmendmentControl = new AmendmentControlV2(this.m_LabUI.AccessionOrder);
+			this.m_AmendmentControl = new AmendmentControlV2(this.m_LabUI.AccessionOrder, this.m_LabUI.PanelSetOrder);
             this.m_DocumentViewer = new DocumentWorkspace();
 			this.m_TreeViewWorkspace = new YellowstonePathology.UI.Common.TreeViewWorkspace(this.m_LabUI.AccessionOrder, this.m_SystemIdentity);
             
@@ -337,7 +337,7 @@ namespace YellowstonePathology.UI.Test
             this.m_TreeViewWorkspace.IsEnabled = this.m_LabUI.AccessionOrder.AccessionLock.IsLockAquiredByMe;
 			this.TabItemTreeView.Content = this.m_TreeViewWorkspace;
 
-			this.m_AmendmentControl = new AmendmentControlV2(this.m_LabUI.AccessionOrder);
+			this.m_AmendmentControl = new AmendmentControlV2(this.m_LabUI.AccessionOrder, this.m_LabUI.PanelSetOrder);
             this.m_AmendmentControl.IsEnabled = this.m_LabUI.AccessionOrder.AccessionLock.IsLockAquiredByMe;
             this.TabItemAmendment.Content = this.m_AmendmentControl;			
 		}

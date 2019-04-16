@@ -11,17 +11,17 @@ namespace YellowstonePathology.Business.View
         public PanelSetOrderAmendmentViewCollection()
         { }
 
-        public PanelSetOrderAmendmentViewCollection(Test.AccessionOrder accessionOrder)
+        public PanelSetOrderAmendmentViewCollection(Test.AccessionOrder accessionOrder, string reportNo)
         {
-            this.Refresh(accessionOrder);
+            this.Refresh(accessionOrder, reportNo);
         }
 
-        public void Refresh(Test.AccessionOrder accessionOrder)
+        public void Refresh(Test.AccessionOrder accessionOrder, string reportNo)
         {
             this.Clear();
             foreach (Test.PanelSetOrder panelSetOrder in accessionOrder.PanelSetOrderCollection)
             {
-                this.Add(new View.PanelSetOrderAmendmentView(accessionOrder, panelSetOrder));
+                if(panelSetOrder.ReportNo == reportNo) this.Add(new View.PanelSetOrderAmendmentView(accessionOrder, panelSetOrder));
             }
         }
     }
