@@ -46,7 +46,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             }
 
             this.AddBlankNteElement(document);
-            this.AddAmendments(document, panelSetOrder);
+            this.AddAmendments(document, panelSetOrder, this.m_AccessionOrder);
 
             this.AddBlankNteElement(document);
             this.AddNextNteElement("Specimen Description:", document);

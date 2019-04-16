@@ -22,11 +22,13 @@ namespace YellowstonePathology.UI
 		YellowstonePathology.Business.User.SystemUserCollection m_Users;
 
 		YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
+        YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
 
-        public AmendmentV2(YellowstonePathology.Business.Amendment.Model.Amendment amendment, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
+        public AmendmentV2(YellowstonePathology.Business.Amendment.Model.Amendment amendment, YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder)
 		{
 			this.m_Amendment = amendment;
 			this.m_AccessionOrder = accessionOrder;
+            this.m_PanelSetOrder = panelSetOrder;
 
 			this.m_Users = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetUsersByRole(YellowstonePathology.Business.User.SystemUserRoleDescriptionEnum.AmendmentSigner, true);
 			InitializeComponent();
@@ -83,7 +85,6 @@ namespace YellowstonePathology.UI
             }
 
             this.DialogResult = true;
-            this.Save(false);            
             this.Close();
         }
 
@@ -91,11 +92,6 @@ namespace YellowstonePathology.UI
         {
             this.DialogResult = false;
             this.Close();
-        }
-
-        private void Save(bool releaseLock)
-        {
-            //YellowstonePathology.Business.Persistence.DocumentGateway.Instance.SubmitChanges(this.m_AccessionOrder, true);
         }
 
         public void ButtonFinalize_Click(object sender, RoutedEventArgs args)
@@ -119,7 +115,6 @@ namespace YellowstonePathology.UI
                     if (canFinal == true)
                     {
                         this.m_Amendment.Finish();
-                        this.Save(false);
                     }
                 }
                 else
@@ -131,6 +126,16 @@ namespace YellowstonePathology.UI
             {
                 MessageBox.Show("Select a signer from the Amended By choices.", "Amendment signer not selected", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
+        }
+
+        private void HyperlinkMakeGlobal_Click(object sender, RoutedEventArgs e)
+        {
+            this.m_Amendment.ReportNo = null;
+        }
+
+        private void HyperlinkMakeLocal_Click(object sender, RoutedEventArgs e)
+        {
+            this.m_Amendment.ReportNo = this.m_PanelSetOrder.ReportNo;
         }
     }
 }

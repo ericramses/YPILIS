@@ -47,7 +47,7 @@ namespace YellowstonePathology.UI.Surgical
             this.m_SystemIdentity = YellowstonePathology.Business.User.SystemIdentity.Instance;
             
 			this.m_TypingUI = new YellowstonePathology.Business.Typing.TypingUIV2(this.m_Writer);									
-			this.m_AmendmentControl = new AmendmentControlV2(this.m_SystemIdentity, string.Empty, this.m_TypingUI.AccessionOrder);			
+			this.m_AmendmentControl = new AmendmentControlV2(this.m_TypingUI.AccessionOrder, this.m_TypingUI.SurgicalTestOrder);			
             this.m_DocumentViewer = new DocumentWorkspace();            
 
             this.m_LocalDictationList = new YellowstonePathology.Business.DictationList(Business.DictationLocationEnum.Local);            
@@ -278,7 +278,7 @@ namespace YellowstonePathology.UI.Surgical
             this.m_TreeviewWorkspace.IsEnabled = this.m_TypingUI.AccessionOrder.AccessionLock.IsLockAquiredByMe;
             this.tabItemTreeView.Content = this.m_TreeviewWorkspace;
 
-			this.m_AmendmentControl = new AmendmentControlV2(this.m_SystemIdentity, this.m_TypingUI.SurgicalTestOrder.ReportNo, this.m_TypingUI.AccessionOrder);
+			this.m_AmendmentControl = new AmendmentControlV2(this.m_TypingUI.AccessionOrder, this.m_TypingUI.SurgicalTestOrder);
             this.m_AmendmentControl.IsEnabled = this.m_TypingUI.AccessionOrder.AccessionLock.IsLockAquiredByMe;
             this.TabItemAmendments.Content = this.m_AmendmentControl;
         }

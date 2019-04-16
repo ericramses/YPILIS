@@ -55,7 +55,7 @@ namespace YellowstonePathology.Business.Test.PNH
             }
 
             this.AddBlankNteElement(document);
-            this.AddAmendments(document, testOrder);
+            this.AddAmendments(document, testOrder, this.m_AccessionOrder);
 
             YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(testOrder.OrderedOn, testOrder.OrderedOnId);
             this.AddNextNteElement("Specimen Description: " + specimenOrder.Description, document);
@@ -106,7 +106,7 @@ namespace YellowstonePathology.Business.Test.PNH
             }
 
             this.AddBlankNteElement(document);
-            this.AddAmendments(document, testOrder);
+            this.AddAmendments(document, testOrder, this.m_AccessionOrder);
 
             YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(testOrder.OrderedOn, testOrder.OrderedOnId);
             this.AddNextNteElement("Specimen Description: " + specimenOrder.Description, document);

@@ -4,7 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="600"
+      d:DesignHeight="300" d:DesignWidth="680"
 	Title="AmendmentListPage">
 
     <Grid>
@@ -22,7 +22,8 @@
 				<GridView>
 					<GridViewColumn DisplayMemberBinding="{Binding Path=AmendmentDate, Converter={StaticResource ShortDateTimeConverter}}" Width="90" Header="Date"></GridViewColumn>
 					<GridViewColumn DisplayMemberBinding="{Binding Path=ShortAmendment}" Width="470" Header="Amendment"></GridViewColumn>
-				</GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=ReportNo}" Width="80" Header="Report No"></GridViewColumn>
+                </GridView>
 			</ListView.View>
 		</ListView>
 
@@ -36,7 +37,7 @@
 			<Border Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" BorderBrush="Transparent" BorderThickness="0" Background="{DynamicResource {x:Static SystemColors.InactiveCaptionBrushKey}}"></Border>
 			<StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Right">
 				<Button Name="ButtonAdd" Margin="5,5,5,5" Click="ButtonAdd_Click"  Width="100" Height="40">Add</Button>
-				<Button Name="ButtonEdit" Margin="5,5,5,5" Click="ButtonEdit_Click" Width="100" Height="40">Edit</Button>
+                <Button Name="ButtonEdit" Margin="5,5,5,5" Click="ButtonEdit_Click" Width="100" Height="40">Edit</Button>
 				<Button Name="ButtonDelete" Margin="5,5,5,5" Click="ButtonDelete_Click" Width="100" Height="40">Delete</Button>
 			</StackPanel>
 

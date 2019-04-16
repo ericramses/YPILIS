@@ -70,7 +70,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
                 this.AddNextNteElement("E-signed " + panelSetOrder.FinalTime.Value.ToString("MM/dd/yyyy HH:mm"), document);
             }
             this.AddBlankNteElement(document);
-            this.AddAmendments(document, panelSetOrder);
+            this.AddAmendments(document, panelSetOrder, this.m_AccessionOrder);
 
             this.AddNextNteElement("Number of invasive tumor cells counted: " + panelSetOrder.CellsCounted.ToString(), document);
             this.AddNextNteElement("Number of observers: " + panelSetOrder.NumberOfObservers.ToString(), document);
@@ -152,7 +152,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
                 this.AddNextNteElement("E-signed " + panelSetOrder.FinalTime.Value.ToString("MM/dd/yyyy HH:mm"), document);
             }
             this.AddBlankNteElement(document);
-            this.AddAmendments(document, panelSetOrder);
+            this.AddAmendments(document, panelSetOrder, this.m_AccessionOrder);
 
             this.AddNextNteElement("Number of invasive tumor cells counted: " + panelSetOrder.CellsCounted.ToString(), document);
             this.AddNextNteElement("Number of observers: " + panelSetOrder.NumberOfObservers.ToString(), document);
@@ -228,7 +228,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
                 this.AddNextNteElement("E-signed " + panelSetOrder.FinalTime.Value.ToString("MM/dd/yyyy HH:mm"), document);
             }
             this.AddBlankNteElement(document);
-            this.AddAmendments(document, panelSetOrder);
+            this.AddAmendments(document, panelSetOrder, this.m_AccessionOrder);
 
             this.AddNextNteElement("Number of invasive tumor cells counted: " + panelSetOrder.CellsCounted.ToString(), document);
             this.AddNextNteElement("Number of observers: " + panelSetOrder.NumberOfObservers.ToString(), document);
@@ -322,7 +322,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
                 this.AddNextNteElement("E-signed " + panelSetOrder.FinalTime.Value.ToString("MM/dd/yyyy HH:mm"), document);
             }
             this.AddBlankNteElement(document);
-            this.AddAmendments(document, panelSetOrder);
+            this.AddAmendments(document, panelSetOrder, this.m_AccessionOrder);
 
             this.AddNextNteElement("Number of invasive tumor cells counted: " + panelSetOrder.CellsCounted.ToString(), document);
             this.AddNextNteElement("Number of observers: " + panelSetOrder.NumberOfObservers.ToString(), document);

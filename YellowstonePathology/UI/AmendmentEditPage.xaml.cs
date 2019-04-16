@@ -22,7 +22,10 @@ namespace YellowstonePathology.UI
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		YellowstonePathology.Business.User.SystemUserCollection m_AmendmentSigners;
+        public delegate void ContentChangedEventHandler(object sender, EventArgs e);
+        public event ContentChangedEventHandler ContentChanged;
+
+        YellowstonePathology.Business.User.SystemUserCollection m_AmendmentSigners;
 		private AmendmentUI m_AmendmentUI;
 
 		public AmendmentEditPage(AmendmentUI amendmentUI)
@@ -109,6 +112,7 @@ namespace YellowstonePathology.UI
 		private void ButtonBack_Click(object sender, RoutedEventArgs e)
 		{
 			this.NavigationService.GoBack();
+            this.ContentChanged(this, new EventArgs());
 		}
 
 		private void ButtonFinalize_Click(object sender, RoutedEventArgs e)
@@ -152,5 +156,15 @@ namespace YellowstonePathology.UI
 			Window window = Window.GetWindow(this);
 			window.Close();
 		}
-	}
+
+        private void HyperlinkMakeGlobal_Click(object sender, RoutedEventArgs e)
+        {
+            this.m_AmendmentUI.SelectedAmendment.ReportNo = null;
+        }
+
+        private void HyperlinkMakeLocal_Click(object sender, RoutedEventArgs e)
+        {
+            this.m_AmendmentUI.SelectedAmendment.ReportNo = this.m_AmendmentUI.PanelSetOrder.ReportNo;
+        }
+    }
 }
