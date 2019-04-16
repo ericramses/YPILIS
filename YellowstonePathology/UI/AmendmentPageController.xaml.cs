@@ -32,7 +32,15 @@ namespace YellowstonePathology.UI
             this.Title = "Amendments for " + panelSetOrder.MasterAccessionNo + "   " + accessionOrder.PatientName;
 
             AmendmentListPage amendmentListPage = new AmendmentListPage(this.m_AmendmentUI);
+            amendmentListPage.ContentChanged += amendmentListPage_ContentChanged;
             this.NavigationFrame.NavigationService.Navigate(amendmentListPage);
+        }
+
+        private void amendmentListPage_ContentChanged(object sender, EventArgs e)
+        {
+            if(this.Title.Contains("Amendments")) this.Title = "Amendment for   " + this.m_AmendmentUI.AccessionOrder.PatientName;
+            else this.Title = "Amendments for " + this.m_AmendmentUI.AccessionOrder.MasterAccessionNo + "   " + this.m_AmendmentUI.AccessionOrder.PatientName;
+
         }
 
         private void AmendmentPageController_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -44,5 +52,7 @@ namespace YellowstonePathology.UI
             }
             //this.m_AmendmentUI.Save(true);            
         }
+
+
     }
 }

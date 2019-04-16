@@ -6,7 +6,7 @@
 		xmlns:customControls="clr-namespace:YellowstonePathology.UI.CustomControls"
 		xmlns:LocalUI="clr-namespace:YellowstonePathology.UI"
 	    xmlns:TemplateSelectorUI="clr-namespace:YellowstonePathology.UI.TemplateSelector"
-        Title="Amendments" Height="550" Width="640" WindowStyle="ToolWindow" WindowStartupLocation="CenterScreen">
+        Title="Amendments" Height="550" Width="690" WindowStyle="ToolWindow" WindowStartupLocation="CenterScreen">
     <Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="*"></RowDefinition>
