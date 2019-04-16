@@ -1853,10 +1853,10 @@ namespace YellowstonePathology.Business.Test
             set { this.m_AmendmentCollection = value; }
         }
 
-        public YellowstonePathology.Business.Amendment.Model.Amendment AddAmendment(string reportNo, bool global)
+        public YellowstonePathology.Business.Amendment.Model.Amendment AddAmendment(string reportNo)
         {
             string amendmentId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-            YellowstonePathology.Business.Amendment.Model.Amendment amendment = this.m_AmendmentCollection.GetNextItem(this.m_MasterAccessionNo, reportNo, global, amendmentId);
+            YellowstonePathology.Business.Amendment.Model.Amendment amendment = this.m_AmendmentCollection.GetNextItem(this.m_MasterAccessionNo, reportNo, amendmentId);
 
             if (string.IsNullOrEmpty(reportNo) == false)
             {

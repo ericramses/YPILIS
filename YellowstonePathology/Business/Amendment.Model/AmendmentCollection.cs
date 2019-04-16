@@ -12,9 +12,9 @@ namespace YellowstonePathology.Business.Amendment.Model
         {
         }
 
-		public Amendment GetNextItem(string masterAccessionNo, string reportNo, bool global, string amendmentId)
+		public Amendment GetNextItem(string masterAccessionNo, string reportNo, string amendmentId)
 		{
-			Amendment amendment = new Amendment(masterAccessionNo, reportNo, global, amendmentId);
+			Amendment amendment = new Amendment(masterAccessionNo, reportNo, amendmentId);
 			amendment.AmendmentId = amendmentId;
 			return amendment;
 		}
@@ -228,7 +228,7 @@ namespace YellowstonePathology.Business.Amendment.Model
                 {
                     result.Add(amendment);
                 }
-                else if(amendment.Global == true)
+                else if(string.IsNullOrEmpty(amendment.ReportNo) == true)
                 {
                     result.Add(amendment);
                 }

@@ -29,12 +29,11 @@
         </Grid.RowDefinitions>
         
 	    <TreeView Name="TreeViewAmendment" Grid.Row="0" ItemsSource="{Binding Path=PanelSetOrderAmendmentViewCollection}" 
-                  ItemTemplate="{StaticResource DataTemplateAmendmentPanelSetOrder}" SelectedItemChanged="TreeViewAmendment_SelectedItemChanged">
+                  ItemTemplate="{StaticResource DataTemplateAmendmentPanelSetOrder}" SelectedItemChanged="TreeViewAmendment_SelectedItemChanged" TreeViewItem.Selected="TreeViewAmendment_Selected">
             <TreeView.ContextMenu>
 			    <ContextMenu>
                     <MenuItem Header="Edit" Click="ContextMenuEditAmendment_Click" Visibility="{Binding Path=ContextMenuAmendmentVisibility}"></MenuItem>
                     <MenuItem Header="Add" Click="ContextMenuAddAmendment_Click" Visibility="{Binding Path=ContextMenuPSOVisibility}"></MenuItem>
-                    <MenuItem Header="Add Global" Click="ContextMenuAddGlobalAmendment_Click" Visibility="{Binding Path=ContextMenuPSOVisibility}"></MenuItem>
                     <MenuItem Header="Delete" Click="ContextMenuDeleteAmendment_Click" Visibility="{Binding Path=ContextMenuAmendmentVisibility}"></MenuItem>
 			    </ContextMenu>
 		    </TreeView.ContextMenu>

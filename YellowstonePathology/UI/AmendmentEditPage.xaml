@@ -79,6 +79,10 @@
 					<CheckBox IsChecked="{Binding Path=SelectedAmendment.Final}" IsEnabled="False" Margin="2,2,2,2"/>
 					<TextBlock Margin="2,2,20,2" IsEnabled="False">Finaled</TextBlock>
 				</StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox IsChecked="{Binding Path=SelectedAmendment.Global}" IsEnabled="False" Margin="2,2,2,2"/>
+                    <TextBlock Margin="2,2,20,2" IsEnabled="False">Global</TextBlock>
+                </StackPanel>
             </StackPanel>
 			<Grid Name="GridDates"  Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="2">
 				<Grid.ColumnDefinitions>
@@ -90,7 +94,9 @@
 					<RowDefinition Height="Auto"></RowDefinition>
 					<RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
-				</Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
 				<TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" VerticalAlignment="Center" TextAlignment="Right">Amendment Date:</TextBlock>
 				<TextBox Name="TextBoxAmendmentDate" Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=SelectedAmendment.AmendmentDate, Converter={StaticResource ShortDateConverter}}"></TextBox>
 				<TextBox Name="TextBoxAmendmentTime" Grid.Column="2" Grid.Row="0" Margin="2,2,2,2" Text="{Binding Path=SelectedAmendment.AmendmentTime, Converter={StaticResource ShortTimeConverter}}"></TextBox>
@@ -116,6 +122,18 @@
                     <ComboBoxItem>ICD-10 entered incorrectly from requisition</ComboBoxItem>
                     <ComboBoxItem>Client supplied wrong Date Of Service</ComboBoxItem>
                 </ComboBox>
+
+                <TextBlock Grid.Column="0" Grid.Row="3" Margin="2,2,2,2" VerticalAlignment="Center" TextAlignment="Right">Report No:</TextBlock>
+                <TextBlock Name="TextBoxReportNo" Grid.Column="1" Grid.Row="3" Margin="2,2,2,2" Text="{Binding Path=SelectedAmendment.ReportNo}"></TextBlock>
+
+                <TextBlock Grid.Column="1" Grid.Row="4" Margin="2">
+                    <Hyperlink Click="HyperlinkMakeGlobal_Click">Make Global</Hyperlink>
+                </TextBlock>
+
+                <TextBlock Grid.Column="2" Grid.Row="4" Margin="2">
+                    <Hyperlink Click="HyperlinkMakeLocal_Click">Make Local</Hyperlink>
+                </TextBlock>
+
             </Grid>
 
 			<TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,0">Amendment</TextBlock>

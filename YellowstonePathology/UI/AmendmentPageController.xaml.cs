@@ -29,7 +29,7 @@ namespace YellowstonePathology.UI
 
             this.DataContext = this;
             Closing += new System.ComponentModel.CancelEventHandler(AmendmentPageController_Closing);
-            this.Title = "Amendments for " + panelSetOrder.ReportNo + "   " + accessionOrder.PatientName;
+            this.Title = "Amendments for " + panelSetOrder.MasterAccessionNo + "   " + accessionOrder.PatientName;
 
             AmendmentListPage amendmentListPage = new AmendmentListPage(this.m_AmendmentUI);
             this.NavigationFrame.NavigationService.Navigate(amendmentListPage);

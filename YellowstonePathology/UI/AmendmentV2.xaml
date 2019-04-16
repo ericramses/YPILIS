@@ -47,6 +47,10 @@
           <CheckBox IsChecked="{Binding Path=Final}" IsEnabled="False" Margin="2,2,2,2"/>
           <TextBlock Margin="2,2,20,2" IsEnabled="False">Finaled</TextBlock>
         </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <CheckBox IsChecked="{Binding Path=Global}" IsEnabled="False" Margin="2,2,2,2"/>
+                <TextBlock Margin="2,2,20,2" IsEnabled="False">Global</TextBlock>
+            </StackPanel>
         </StackPanel>
 
       <StackPanel Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right">
@@ -88,6 +92,25 @@
                     <ComboBoxItem>ICD-10 entered incorrectly from requisition</ComboBoxItem>
                 </ComboBox>
             </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Margin="2,2,2,2" Width="100" VerticalAlignment="Center" TextAlignment="Right">Report No:</TextBlock>
+                <TextBlock Name="TextBoxReportNo" Margin="2,2,2,2" Width="90" Text="{Binding Path=ReportNo}"></TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="100,0,0,0">
+
+                <TextBlock Margin="2" Width="90" TextAlignment="Center">
+                    <Hyperlink Click="HyperlinkMakeGlobal_Click">Make Global</Hyperlink>
+                </TextBlock>
+
+                <TextBlock Margin="2" Width="90" TextAlignment="Center">
+                    <Hyperlink Click="HyperlinkMakeLocal_Click">Make Local</Hyperlink>
+                </TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+
+            </StackPanel>
+
         </StackPanel>
       
       <TextBlock Margin="2,2,2,0" Grid.Column="0" Grid.Row="1">Amendment</TextBlock>
