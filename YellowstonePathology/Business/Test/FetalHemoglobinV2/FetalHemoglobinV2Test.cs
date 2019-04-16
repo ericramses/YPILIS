@@ -24,6 +24,10 @@ namespace YellowstonePathology.Business.Test.FetalHemoglobinV2
             string taskDescription = "Perform fetal hemoglobin testing.";
             this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.Task(YellowstonePathology.Business.Task.Model.TaskAssignment.Flow, taskDescription));
 
+            YellowstonePathology.Business.Facility.Model.Facility ypi = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
+            this.m_TechnicalComponentFacility = ypi;
+            this.m_TechnicalComponentBillingFacility = ypi;
+
             this.m_HasProfessionalComponent = false;
             this.m_ProfessionalComponentFacility = null;
 

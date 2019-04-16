@@ -28,6 +28,10 @@ namespace YellowstonePathology.Business.Test.HoldForFlow
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMiscellaneous());
             this.m_ReportAsAdditionalTesting = false;
             this.m_IsBillable = false;
+
+            YellowstonePathology.Business.Facility.Model.Facility ypi = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
+            this.m_TechnicalComponentFacility = ypi;
+            this.m_TechnicalComponentBillingFacility = ypi;
         }
-	}
+    }
 }

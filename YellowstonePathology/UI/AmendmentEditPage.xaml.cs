@@ -152,5 +152,15 @@ namespace YellowstonePathology.UI
 			Window window = Window.GetWindow(this);
 			window.Close();
 		}
+
+        private void HyperlinkMakeGlobal_Click(object sender, RoutedEventArgs e)
+        {
+            this.m_AmendmentUI.SelectedAmendment.ReportNo = null;
+        }
+
+        private void HyperlinkMakeLocal_Click(object sender, RoutedEventArgs e)
+        {
+            this.m_AmendmentUI.SelectedAmendment.ReportNo = this.m_AmendmentUI.PanelSetOrder.ReportNo;
+        }
     }
 }

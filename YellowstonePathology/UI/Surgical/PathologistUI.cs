@@ -387,7 +387,7 @@ namespace YellowstonePathology.UI.Surgical
 
 		public void AddAmentment()
 		{
-            YellowstonePathology.Business.Amendment.Model.Amendment amendment = this.m_AccessionOrder.AddAmendment(this.m_PanelSetOrder.ReportNo, false);
+            YellowstonePathology.Business.Amendment.Model.Amendment amendment = this.m_AccessionOrder.AddAmendment(this.m_PanelSetOrder.ReportNo);
 			amendment.UserId = this.m_PanelSetOrder.AssignedToId;
 
             this.RunWorkspaceEnableRules();

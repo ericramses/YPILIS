@@ -19,12 +19,13 @@ namespace YellowstonePathology.UI
 		public event PropertyChangedEventHandler PropertyChanged;        
 		
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
+        private YellowstonePathology.Business.Test.PanelSetOrder m_Parent;
 
-    private YellowstonePathology.Business.View.PanelSetOrderAmendmentViewCollection m_PanelSetOrderAmendmentViewCollection;
-    private Visibility m_ContextMenuPSOVisibility;
-    private Visibility m_ContextMenuAmendmentVisibility;
+        private YellowstonePathology.Business.View.PanelSetOrderAmendmentViewCollection m_PanelSetOrderAmendmentViewCollection;
+        private Visibility m_ContextMenuPSOVisibility;
+        private Visibility m_ContextMenuAmendmentVisibility;
 
-    public AmendmentControlV2(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
+        public AmendmentControlV2(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
 			this.m_AccessionOrder = accessionOrder;
             this.m_PanelSetOrderAmendmentViewCollection = new Business.View.PanelSetOrderAmendmentViewCollection();
@@ -94,20 +95,14 @@ namespace YellowstonePathology.UI
 
         public void ContextMenuAddAmendment_Click(object sender, RoutedEventArgs args)
         {
-			if (this.m_AccessionOrder != null)
-			{
-                string reportNo = ((Business.View.PanelSetOrderAmendmentView)this.TreeViewAmendment.SelectedItem).PanelSetOrder.ReportNo;
-                this.m_AccessionOrder.AddAmendment(reportNo, false);
-                this.m_PanelSetOrderAmendmentViewCollection.Refresh(this.m_AccessionOrder);
-            }
-        }
-
-        public void ContextMenuAddGlobalAmendment_Click(object sender, RoutedEventArgs args)
-        {
-            if (this.m_AccessionOrder != null)
+            if (this.TreeViewAmendment.SelectedItem != null)
             {
-                YellowstonePathology.Business.Amendment.Model.Amendment amendment = this.m_AccessionOrder.AddAmendment(null, true);
-                this.m_PanelSetOrderAmendmentViewCollection.Refresh(this.m_AccessionOrder);
+                if (this.m_AccessionOrder != null)
+                {
+                    string reportNo = ((Business.View.PanelSetOrderAmendmentView)this.TreeViewAmendment.SelectedItem).PanelSetOrder.ReportNo;
+                    this.m_AccessionOrder.AddAmendment(reportNo);
+                    this.m_PanelSetOrderAmendmentViewCollection.Refresh(this.m_AccessionOrder);
+                }
             }
         }
 
@@ -116,9 +111,10 @@ namespace YellowstonePathology.UI
 			if (this.TreeViewAmendment.SelectedItem != null)
 			{
                 YellowstonePathology.Business.Amendment.Model.Amendment amendment = (YellowstonePathology.Business.Amendment.Model.Amendment)this.TreeViewAmendment.SelectedItem;                    
-				YellowstonePathology.UI.AmendmentV2 amendmentV2 = new AmendmentV2(amendment, this.m_AccessionOrder);
-				amendmentV2.ShowDialog();                    
-			}
+				YellowstonePathology.UI.AmendmentV2 amendmentV2 = new AmendmentV2(amendment, this.m_AccessionOrder, this.m_Parent);
+				amendmentV2.ShowDialog();
+                this.m_PanelSetOrderAmendmentViewCollection.Refresh(this.m_AccessionOrder);
+            }
         }
 
         public void ContextMenuDeleteAmendment_Click(object sedner, RoutedEventArgs args)
@@ -156,7 +152,39 @@ namespace YellowstonePathology.UI
                     this.ContextMenuAmendmentVisibility = Visibility.Collapsed;
                     this.ContextMenuPSOVisibility = Visibility.Visible;
                 }
-                e.Handled = true;
+            }
+            else
+            {
+                this.ContextMenuAmendmentVisibility = Visibility.Collapsed;
+                this.ContextMenuPSOVisibility = Visibility.Collapsed;
+            }
+            e.Handled = true;
+        }
+
+        private T FindParent<T>(DependencyObject dependencyObject) where T : DependencyObject
+        {
+            var parent = VisualTreeHelper.GetParent(dependencyObject);
+
+            if (parent == null) return null;
+
+            var parentT = parent as T;
+            if(parent is TreeViewItem)
+            {
+                TreeViewItem item = parent as TreeViewItem;
+                YellowstonePathology.Business.View.PanelSetOrderAmendmentView view = item.DataContext as YellowstonePathology.Business.View.PanelSetOrderAmendmentView;
+                this.m_Parent = view.PanelSetOrder;
+                return null;
+            }
+            return parentT ?? FindParent<T>(parent);
+        }
+
+        private void TreeViewAmendment_Selected(object sender, RoutedEventArgs e)
+        {
+            TreeViewItem item = e.OriginalSource as TreeViewItem;
+            YellowstonePathology.Business.Amendment.Model.Amendment amendment = item.DataContext as YellowstonePathology.Business.Amendment.Model.Amendment;
+            if (amendment != null)
+            {
+                TreeViewItem parent = FindParent<TreeViewItem>(item);
             }
         }
     }

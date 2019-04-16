@@ -27,6 +27,10 @@ namespace YellowstonePathology.Business.Test.MissingInformation
             this.m_NeverDistribute = true;
             this.m_HasNoOrderTarget = true;
             this.m_ReportAsAdditionalTesting = false;
+
+            YellowstonePathology.Business.Facility.Model.Facility ypi = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
+            this.m_TechnicalComponentFacility = ypi;
+            this.m_TechnicalComponentBillingFacility = ypi;
         }
-	}
+    }
 }

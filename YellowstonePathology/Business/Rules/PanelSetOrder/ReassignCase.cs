@@ -48,7 +48,7 @@ namespace YellowstonePathology.Business.Rules.PanelSetOrder
 		{
 			if (this.m_CreateAmendment)
 			{
-                YellowstonePathology.Business.Amendment.Model.Amendment amendment = this.m_AccessionOrder.AddAmendment(this.m_PanelSetOrderItem.ReportNo, false);
+                YellowstonePathology.Business.Amendment.Model.Amendment amendment = this.m_AccessionOrder.AddAmendment(this.m_PanelSetOrderItem.ReportNo);
 				amendment.UserId = this.m_SystemIdentity.User.UserId;				
 			}
 		}
