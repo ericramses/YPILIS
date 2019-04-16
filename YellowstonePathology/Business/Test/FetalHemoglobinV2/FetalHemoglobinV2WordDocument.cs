@@ -25,8 +25,9 @@ namespace YellowstonePathology.Business.Test.FetalHemoglobinV2
 
             YellowstonePathology.Business.Test.FetalHemoglobinV2.FetalHemoglobinV2TestOrder testOrder = (FetalHemoglobinV2TestOrder)this.m_PanelSetOrder;
 
+            YellowstonePathology.Business.Amendment.Model.AmendmentCollection amendmentCollection = this.m_AccessionOrder.AmendmentCollection.GetAmendmentsForReport(testOrder.ReportNo);
             YellowstonePathology.Business.Document.AmendmentSection amendment = new YellowstonePathology.Business.Document.AmendmentSection();
-            amendment.SetAmendment(testOrder.AmendmentCollection, this.m_ReportXml, this.m_NameSpaceManager, true);
+            amendment.SetAmendment(amendmentCollection, this.m_ReportXml, this.m_NameSpaceManager, true);
 
             YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(testOrder.OrderedOn, testOrder.OrderedOnId);
             this.SetXmlNodeData("specimen_description", specimenOrder.Description);

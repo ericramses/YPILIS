@@ -63,7 +63,8 @@ namespace YellowstonePathology.Business.HL7View.WYDOH
 			this.AddNextObxElement(document, commentObx03Element, observationSubId, comment, "F");
 
 			observationSubId += 1;
-            foreach (YellowstonePathology.Business.Amendment.Model.Amendment amendment in panelSetOrderSurgical.AmendmentCollection)
+            YellowstonePathology.Business.Amendment.Model.AmendmentCollection amendmentCollection = this.m_AccessionOrder.AmendmentCollection.GetAmendmentsForReport(panelSetOrderSurgical.ReportNo);
+            foreach (YellowstonePathology.Business.Amendment.Model.Amendment amendment in amendmentCollection)
 			{
 				XElement supplemental03Element = this.CreateObx3Segement("22639-9", "SupplementalReports/Addendum", "LN");
 				string supplemental = this.StripWhiteSpace(amendment.Text);

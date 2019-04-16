@@ -12,9 +12,9 @@ namespace YellowstonePathology.Business.Amendment.Model
         {
         }
 
-		public Amendment GetNextItem(string reportNo, string amendmentId)
+		public Amendment GetNextItem(string masterAccessionNo, string reportNo, string amendmentId)
 		{
-			Amendment amendment = new Amendment(reportNo, amendmentId);
+			Amendment amendment = new Amendment(masterAccessionNo, reportNo, amendmentId);
 			amendment.AmendmentId = amendmentId;
 			return amendment;
 		}
@@ -170,14 +170,13 @@ namespace YellowstonePathology.Business.Amendment.Model
             return result;
         }
 
-        public void Sync(DataTable dataTable, string reportNo)
+        public void Sync(DataTable dataTable)
         {
             this.RemoveDeleted(dataTable);
             DataTableReader dataTableReader = new DataTableReader(dataTable);
             while (dataTableReader.Read())
             {
                 string amendmentId = dataTableReader["AmendmentId"].ToString();
-                string amendmentReportNo = dataTableReader["ReportNo"].ToString();
 
                 Amendment amendment = null;
 
@@ -185,7 +184,7 @@ namespace YellowstonePathology.Business.Amendment.Model
                 {
                     amendment = this.GetAmendment(amendmentId);
                 }
-                else if (reportNo == amendmentReportNo)
+                else
                 {
                     amendment = new Amendment();
                     this.Add(amendment);
@@ -218,6 +217,23 @@ namespace YellowstonePathology.Business.Amendment.Model
                     this.RemoveItem(i);
                 }
             }
+        }
+
+        public AmendmentCollection GetAmendmentsForReport(string reportNo)
+        {
+            AmendmentCollection result = new AmendmentCollection();
+            foreach (Amendment amendment in this)
+            {
+                if (amendment.ReportNo == reportNo)
+                {
+                    result.Add(amendment);
+                }
+                else if(string.IsNullOrEmpty(amendment.ReportNo) == true)
+                {
+                    result.Add(amendment);
+                }
+            }
+            return result;
         }
     }
 }

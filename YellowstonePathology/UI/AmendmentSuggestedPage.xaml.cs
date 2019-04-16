@@ -63,9 +63,10 @@ namespace YellowstonePathology.UI
             if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(panelSetSurgical.PanelSetId) == true)
             {
                 YellowstonePathology.Business.Test.PanelSetOrder surgicalPanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetSurgical.PanelSetId);
-                if (surgicalPanelSetOrder.AmendmentCollection.HasAmendmentForReport(this.m_PanelSetOrder.ReportNo) == false)
+                YellowstonePathology.Business.Amendment.Model.AmendmentCollection amendmentCollection = this.m_AccessionOrder.AmendmentCollection.GetAmendmentsForReport(surgicalPanelSetOrder.ReportNo);
+                if (amendmentCollection.HasAmendmentForReport(this.m_PanelSetOrder.ReportNo) == false)
                 {
-                    YellowstonePathology.Business.Amendment.Model.Amendment amendment = surgicalPanelSetOrder.AddAmendment();
+                    YellowstonePathology.Business.Amendment.Model.Amendment amendment = this.m_AccessionOrder.AddAmendment(surgicalPanelSetOrder.ReportNo);
                     amendment.TestResultAmendmentFill(surgicalPanelSetOrder.ReportNo, surgicalPanelSetOrder.AssignedToId, "Bone Marrow Summary:" + Environment.NewLine);
                     amendment.ReferenceReportNo = this.m_PanelSetOrder.ReportNo;
                     amendment.SystemGenerated = true;

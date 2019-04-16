@@ -24,8 +24,9 @@ namespace YellowstonePathology.Business.Test.StemCellCD34Enumeration
 
             YellowstonePathology.Business.Test.StemCellCD34Enumeration.StemCellCD34EnumerationTestOrder stemCellCD34EnumerationTestOrder = (StemCellCD34EnumerationTestOrder)this.m_PanelSetOrder;
 
+            YellowstonePathology.Business.Amendment.Model.AmendmentCollection amendmentCollection = this.m_AccessionOrder.AmendmentCollection.GetAmendmentsForReport(stemCellCD34EnumerationTestOrder.ReportNo);
             YellowstonePathology.Business.Document.AmendmentSection amendment = new YellowstonePathology.Business.Document.AmendmentSection();
-            amendment.SetAmendment(stemCellCD34EnumerationTestOrder.AmendmentCollection, this.m_ReportXml, this.m_NameSpaceManager, true);
+            amendment.SetAmendment(amendmentCollection, this.m_ReportXml, this.m_NameSpaceManager, true);
 
             YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(stemCellCD34EnumerationTestOrder.OrderedOn, stemCellCD34EnumerationTestOrder.OrderedOnId);
             this.SetXmlNodeData("specimen_description", specimenOrder.Description);

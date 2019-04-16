@@ -125,7 +125,7 @@ namespace YellowstonePathology.UI.Surgical
             get { return this.m_Writer; }
         }
 
-		public void DoPatientIdSearch(YellowstonePathology.Business.Search.PathologistSearchResult selectedResult)
+        public void DoPatientIdSearch(YellowstonePathology.Business.Search.PathologistSearchResult selectedResult)
 		{
 			this.m_PathologistSearch.ExecutePatientIdSearch(selectedResult.PatientId);
 		}
@@ -189,7 +189,7 @@ namespace YellowstonePathology.UI.Surgical
 			this.m_AccessionOrder.PanelSetOrderCollection.PathologistTestOrderItemList.Build(this.m_AccessionOrder);
 			this.RunWorkspaceEnableRules();
             this.RunPathologistEnableRules();
-			this.NotifyPropertyChanged("");
+            this.NotifyPropertyChanged("");
 		}
 
 		public YellowstonePathology.Business.Rules.RuleExecutionStatus AssignCurrentUser()
@@ -255,15 +255,16 @@ namespace YellowstonePathology.UI.Surgical
 		public virtual void RunPathologistEnableRules()
 		{
             this.SetSignatureButtonProperties();
-			foreach (YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder in this.m_AccessionOrder.PanelSetOrderCollection)
-			{
-                foreach (YellowstonePathology.Business.Amendment.Model.Amendment amendment in panelSetOrder.AmendmentCollection)
-				{
-					YellowstonePathology.Business.Rules.Surgical.SetAmendmentSignatureText setAmendmentSignatureText = new Business.Rules.Surgical.SetAmendmentSignatureText();
-					setAmendmentSignatureText.Execute(this.m_AccessionOrder, this.m_PanelSetOrder, amendment);
-				}
-			}
-		}
+            foreach (YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder in this.m_AccessionOrder.PanelSetOrderCollection)
+            {
+                YellowstonePathology.Business.Amendment.Model.AmendmentCollection amendmentCollection = this.m_AccessionOrder.AmendmentCollection.GetAmendmentsForReport(panelSetOrder.ReportNo);
+                foreach (YellowstonePathology.Business.Amendment.Model.Amendment amendment in amendmentCollection)
+                {
+                    YellowstonePathology.Business.Rules.Surgical.SetAmendmentSignatureText setAmendmentSignatureText = new Business.Rules.Surgical.SetAmendmentSignatureText();
+				    setAmendmentSignatureText.Execute(this.m_AccessionOrder, this.m_PanelSetOrder, amendment);
+			    }
+            }
+        }
 
         public void SetSignatureButtonProperties()
         {
@@ -379,17 +380,17 @@ namespace YellowstonePathology.UI.Surgical
 
         public void DeleteAmendment(YellowstonePathology.Business.Amendment.Model.Amendment amendment)
 		{
-			this.m_PanelSetOrder.DeleteAmendment(amendment.AmendmentId);
+			this.m_AccessionOrder.DeleteAmendment(amendment.AmendmentId);
             this.RunWorkspaceEnableRules();
             this.RunPathologistEnableRules();
 		}
 
 		public void AddAmentment()
 		{
-            YellowstonePathology.Business.Amendment.Model.Amendment amendment = this.PanelSetOrder.AddAmendment();
+            YellowstonePathology.Business.Amendment.Model.Amendment amendment = this.m_AccessionOrder.AddAmendment(this.m_PanelSetOrder.ReportNo);
 			amendment.UserId = this.m_PanelSetOrder.AssignedToId;
 
-			this.RunWorkspaceEnableRules();
+            this.RunWorkspaceEnableRules();
 			this.RunPathologistEnableRules();
 		}
         

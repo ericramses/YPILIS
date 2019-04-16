@@ -82,36 +82,32 @@ namespace YellowstonePathology.Business.Test.Surgical
             this.m_PQRSIsIndicated = false;
         }
 
-        public override YellowstonePathology.Business.Amendment.Model.Amendment AddAmendment()
-		{
-            YellowstonePathology.Business.Amendment.Model.Amendment amendment = base.AddAmendment();
-			SurgicalAudit surgicalAudit = this.m_SurgicalAuditCollection.GetNextItem(amendment.AmendmentId, this, this.m_AssignedToId, this.AssignedToId);
+        public void HandleNewAmendment(YellowstonePathology.Business.Amendment.Model.Amendment amendment)
+        {
+            SurgicalAudit surgicalAudit = this.m_SurgicalAuditCollection.GetNextItem(amendment.AmendmentId, this, this.m_AssignedToId, this.AssignedToId);
 
-			foreach (SurgicalSpecimen surgicalSpecimen in this.m_SurgicalSpecimenCollection)
-			{
-				YellowstonePathology.Business.Test.Surgical.SurgicalSpecimenAudit surgicalSpecimenAudit = surgicalAudit.SurgicalSpecimenAuditCollection.GetNextItem(surgicalAudit.SurgicalAuditId, surgicalSpecimen, amendment.AmendmentId);
-				surgicalAudit.SurgicalSpecimenAuditCollection.Add(surgicalSpecimenAudit);
-			}
+            foreach (SurgicalSpecimen surgicalSpecimen in this.m_SurgicalSpecimenCollection)
+            {
+                YellowstonePathology.Business.Test.Surgical.SurgicalSpecimenAudit surgicalSpecimenAudit = surgicalAudit.SurgicalSpecimenAuditCollection.GetNextItem(surgicalAudit.SurgicalAuditId, surgicalSpecimen, amendment.AmendmentId);
+                surgicalAudit.SurgicalSpecimenAuditCollection.Add(surgicalSpecimenAudit);
+            }
 
-			this.m_SurgicalAuditCollection.Add(surgicalAudit);
-			return amendment;
-		}
+            this.m_SurgicalAuditCollection.Add(surgicalAudit);
+        }
 
-		public override void DeleteAmendment(string amendmentId)
-		{
-			base.DeleteAmendment(amendmentId);
+        public void DeleteAmendment(string amendmentId)
+        {
+            foreach (SurgicalAudit surgicalAudit in this.m_SurgicalAuditCollection)
+            {
+                if (surgicalAudit.AmendmentId == amendmentId)
+                {
+                    this.m_SurgicalAuditCollection.Remove(surgicalAudit);
+                    break;
+                }
+            }
+        }
 
-			foreach (SurgicalAudit surgicalAudit in this.m_SurgicalAuditCollection)
-			{
-				if (surgicalAudit.AmendmentId == amendmentId)
-				{
-					this.m_SurgicalAuditCollection.Remove(surgicalAudit);
-					break;
-				}
-			}
-		}
-
-		public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
+        public override string ToResultString(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{
 			StringBuilder result = new StringBuilder();
 			foreach (SurgicalSpecimen surgicalSpecimenResult in this.SurgicalSpecimenCollection)

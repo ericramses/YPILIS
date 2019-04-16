@@ -24,7 +24,8 @@ namespace YellowstonePathology.Business.Test
 		private YellowstonePathology.Business.Specimen.Model.SpecimenOrderCollection m_SpecimenOrderCollection;
 		private YellowstonePathology.Business.Test.PanelSetOrderCollection m_PanelSetOrderCollection;
 		private YellowstonePathology.Business.Task.Model.TaskOrderCollection m_TaskOrderCollection;
-		private YellowstonePathology.Business.Billing.Model.ICD9BillingCodeCollection m_ICD9BillingCodeCollection;        
+		private YellowstonePathology.Business.Billing.Model.ICD9BillingCodeCollection m_ICD9BillingCodeCollection;
+        private YellowstonePathology.Business.Amendment.Model.AmendmentCollection m_AmendmentCollection;
 
 		private XElement m_OrderInstructionsUpdate;
 
@@ -113,6 +114,7 @@ namespace YellowstonePathology.Business.Test
 			this.m_SpecimenOrderDataTemplate = YellowstonePathology.Business.DataTemplateSpecimenOrderEnum.DataTemplateAccessionTreeView;			
 			this.m_ICD9BillingCodeCollection = new Billing.Model.ICD9BillingCodeCollection();
 			this.m_TaskOrderCollection = new YellowstonePathology.Business.Task.Model.TaskOrderCollection();
+            this.m_AmendmentCollection = new Amendment.Model.AmendmentCollection();
 		}
 
         public AccessionOrder(string masterAccessionNo, string objectId)
@@ -130,7 +132,8 @@ namespace YellowstonePathology.Business.Test
 			this.m_SpecimenOrderDataTemplate = YellowstonePathology.Business.DataTemplateSpecimenOrderEnum.DataTemplateAccessionTreeView;            
 			this.m_ICD9BillingCodeCollection = new Billing.Model.ICD9BillingCodeCollection();
 			this.m_TaskOrderCollection = new YellowstonePathology.Business.Task.Model.TaskOrderCollection();
-        }        
+            this.m_AmendmentCollection = new Amendment.Model.AmendmentCollection();
+        }
 
         public AccessionLock AccessionLock
         {
@@ -1841,6 +1844,42 @@ namespace YellowstonePathology.Business.Test
 
                 this.m_CaseOwnerId = id;
             }
+        }
+
+        [PersistentCollection()]
+        public YellowstonePathology.Business.Amendment.Model.AmendmentCollection AmendmentCollection
+        {
+            get { return this.m_AmendmentCollection; }
+            set { this.m_AmendmentCollection = value; }
+        }
+
+        public YellowstonePathology.Business.Amendment.Model.Amendment AddAmendment(string reportNo)
+        {
+            string amendmentId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
+            YellowstonePathology.Business.Amendment.Model.Amendment amendment = this.m_AmendmentCollection.GetNextItem(this.m_MasterAccessionNo, reportNo, amendmentId);
+
+            if (string.IsNullOrEmpty(reportNo) == false)
+            {
+                if(this.m_PanelSetOrderCollection.GetPanelSetOrder(reportNo) is YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder)
+                {
+                    Test.Surgical.SurgicalTestOrder surgicalTestOrder = this.m_PanelSetOrderCollection.GetSurgical();
+                    surgicalTestOrder.HandleNewAmendment(amendment);
+                }
+            }
+
+            this.m_AmendmentCollection.Add(amendment);
+            return amendment;
+        }
+
+        public void DeleteAmendment(string amendmentId)
+        {
+            YellowstonePathology.Business.Amendment.Model.Amendment amendment = this.m_AmendmentCollection.GetAmendment(amendmentId);
+            if (this.m_PanelSetOrderCollection.HasSurgical() == true)
+            {
+                Test.Surgical.SurgicalTestOrder surgicalTestOrder = this.m_PanelSetOrderCollection.GetSurgical();
+                surgicalTestOrder.DeleteAmendment(amendment.AmendmentId);
+            }
+            this.m_AmendmentCollection.Remove(amendment);
         }
     }
 }

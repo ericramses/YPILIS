@@ -72,8 +72,9 @@ namespace YellowstonePathology.Business.Test.PNH
 			this.ReplaceText("asr_comment", testOrder.ASRComment);
 
 
-			YellowstonePathology.Business.Document.AmendmentSection amendment = new YellowstonePathology.Business.Document.AmendmentSection();
-			amendment.SetAmendment(m_PanelSetOrder.AmendmentCollection, this.m_ReportXml, this.m_NameSpaceManager, true);
+            YellowstonePathology.Business.Amendment.Model.AmendmentCollection amendmentCollection = this.m_AccessionOrder.AmendmentCollection.GetAmendmentsForReport(m_PanelSetOrder.ReportNo);
+            YellowstonePathology.Business.Document.AmendmentSection amendment = new YellowstonePathology.Business.Document.AmendmentSection();
+			amendment.SetAmendment(amendmentCollection, this.m_ReportXml, this.m_NameSpaceManager, true);
 
 			this.SaveReport();
 		}
