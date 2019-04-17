@@ -425,30 +425,30 @@ namespace YellowstonePathology.UI.Login.Receiving
             }
 
             if (taskOrderDetailFax.DocumentName == "AdditionalTestingNotification")
-            {
-                YellowstonePathology.Business.Test.AdditionalTestingNotification.AdditionalTestingNotificationWordDocument reportNotify =
-                new YellowstonePathology.Business.Test.AdditionalTestingNotification.AdditionalTestingNotificationWordDocument(this.m_AccessionOrder, panelSetOrder, Business.Document.ReportSaveModeEnum.Normal, taskOrderDetailFax.SendToName);
-                reportNotify.Render();
-                reportNotify.Publish();
-
-                System.Threading.Thread.Sleep(4000);
-
+            {                
                 string notifyFileName = Business.Document.CaseDocument.GetCaseFileNameTifNotify(orderIdParser);
-                Business.ReportDistribution.Model.FaxSubmission.Submit(taskOrderDetailFax.FaxNumber, panelSetOrder.ReportNo + " - Additional Testing Notification", notifyFileName);
-                MessageBox.Show("The fax was successfully submitted.");
+                if(System.IO.File.Exists(notifyFileName) == true)
+                {
+                    Business.ReportDistribution.Model.FaxSubmission.Submit(taskOrderDetailFax.FaxNumber, panelSetOrder.ReportNo + " - Additional Testing Notification", notifyFileName);
+                    MessageBox.Show("The fax was successfully submitted.");
+                }
+                else
+                {
+                    MessageBox.Show("The fax must be published first.");
+                }                
             }
             else if(taskOrderDetailFax.DocumentName == "PreauthorizationNotification")
-            {
-                YellowstonePathology.Business.Test.ExtractAndHoldForPreauthorization.ExtractAndHoldForPreauthorizationWordDocument reportPreauth =
-                new YellowstonePathology.Business.Test.ExtractAndHoldForPreauthorization.ExtractAndHoldForPreauthorizationWordDocument(this.m_AccessionOrder, panelSetOrder, Business.Document.ReportSaveModeEnum.Normal);
-                reportPreauth.Render();
-                reportPreauth.Publish();
-
-                System.Threading.Thread.Sleep(2000);
-
+            {                
                 string preauthFileName = Business.Document.CaseDocument.GetCaseFileNameTifPreAuth(orderIdParser);
-                Business.ReportDistribution.Model.FaxSubmission.Submit(taskOrderDetailFax.FaxNumber, panelSetOrder.ReportNo + "Preauthorization Notification", preauthFileName);
-                MessageBox.Show("The fax was successfully submitted.");
+                if(System.IO.File.Exists(preauthFileName) == true)
+                {
+                    Business.ReportDistribution.Model.FaxSubmission.Submit(taskOrderDetailFax.FaxNumber, panelSetOrder.ReportNo + "Preauthorization Notification", preauthFileName);
+                    MessageBox.Show("The fax was successfully submitted.");
+                }
+                else
+                {
+                    MessageBox.Show("The fax must be published first.");
+                }
             }                       
         }        
 
@@ -474,6 +474,30 @@ namespace YellowstonePathology.UI.Login.Receiving
             YellowstonePathology.Business.Task.Model.TaskOrderDetailFax taskOrderDetail = new Business.Task.Model.TaskOrderDetailFax(taskOrderDetailId, this.m_TaskOrder.TaskOrderId, objectId, task, this.m_AccessionOrder.ClientId);
             taskOrderDetail.FaxNumber = client.Fax;
             this.m_TaskOrder.TaskOrderDetailCollection.Add(taskOrderDetail);
+        }
+
+        private void HyperLinkPublishFax_Click(object sender, RoutedEventArgs e)
+        {
+            Hyperlink hyperlink = (Hyperlink)sender;
+            YellowstonePathology.Business.Task.Model.TaskOrderDetailFax taskOrderDetailFax = (YellowstonePathology.Business.Task.Model.TaskOrderDetailFax)hyperlink.Tag;
+            YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_TaskOrder.ReportNo);            
+
+            if (taskOrderDetailFax.DocumentName == "AdditionalTestingNotification")
+            {
+                YellowstonePathology.Business.Test.AdditionalTestingNotification.AdditionalTestingNotificationWordDocument reportNotify =
+                new YellowstonePathology.Business.Test.AdditionalTestingNotification.AdditionalTestingNotificationWordDocument(this.m_AccessionOrder, panelSetOrder, Business.Document.ReportSaveModeEnum.Normal, taskOrderDetailFax.SendToName);
+                reportNotify.Render();
+                reportNotify.Publish();                                
+                MessageBox.Show("The fax was successfully published.");
+            }
+            else if (taskOrderDetailFax.DocumentName == "PreauthorizationNotification")
+            {
+                YellowstonePathology.Business.Test.ExtractAndHoldForPreauthorization.ExtractAndHoldForPreauthorizationWordDocument reportPreauth =
+                new YellowstonePathology.Business.Test.ExtractAndHoldForPreauthorization.ExtractAndHoldForPreauthorizationWordDocument(this.m_AccessionOrder, panelSetOrder, Business.Document.ReportSaveModeEnum.Normal);
+                reportPreauth.Render();
+                reportPreauth.Publish();                                
+                MessageBox.Show("The fax was successfully published.");
+            }
         }
     }
 }

@@ -43,8 +43,13 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
+<<<<<<< HEAD
     <ApplicationRevision>37</ApplicationRevision>
     <ApplicationVersion>10.1.14.%2a</ApplicationVersion>
+=======
+    <ApplicationRevision>2</ApplicationRevision>
+    <ApplicationVersion>10.1.15.%2a</ApplicationVersion>
+>>>>>>> amendment
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
