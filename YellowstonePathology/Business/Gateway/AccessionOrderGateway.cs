@@ -3030,6 +3030,35 @@ namespace YellowstonePathology.Business.Gateway
             return result;
         }
 
+        public static List<Business.MasterAccessionNo> GetCasesWithUnscheduledGlobalAmendments()
+        {
+            List<Business.MasterAccessionNo> result = new List<Business.MasterAccessionNo>();
+
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "select distinct pso.MasterAccessionNo " +
+                "from tblAmendment a " +
+                "join tblPanelSetOrder pso on a.MasterAccessionNo = pso.MasterAccessionNo " +
+                "join tblTestOrderReportDistribution trd on pso.ReportNo = trd.ReportNo " +
+                "where trd.TimeOfLastDistribution < a.FinalTime and trd.ScheduledDistributionTime is null and " +
+                "a.FinalTime < date_Add(now(), Interval -15 Minute) and a.DistributeOnFinal = 1 and a.ReportNo is null;";
+
+            cmd.CommandType = CommandType.Text;
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        Business.MasterAccessionNo man = Business.MasterAccessionNo.Parse(dr[0].ToString(), true);
+                        result.Add(man);
+                    }
+                }
+            }
+            return result;
+        }
+
         public static List<Business.MasterAccessionNo> GetCasesWithUnsetDistributions()
         {
             List<Business.MasterAccessionNo> result = new List<Business.MasterAccessionNo>();

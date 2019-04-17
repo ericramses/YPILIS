@@ -86,6 +86,7 @@ namespace YellowstonePathology.UI.ReportDistribution
                 this.m_Timer.Stop();
 
                 this.HandleUnscheduledAmendments();
+                this.HandleUnscheduledGlobalAmendments();
                 this.HandleUnsetDistribution(); 
                 this.HandleUnscheduledPublish();
                 this.HandleUnscheduledDistribution();
@@ -106,7 +107,7 @@ namespace YellowstonePathology.UI.ReportDistribution
 
         private void HandleUnscheduledAmendments()
         {            
-            List<YellowstonePathology.Business.MasterAccessionNo> caseList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetCasesWithUnscheduledAmendments();
+            List<YellowstonePathology.Business.MasterAccessionNo> caseList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetCasesWithUnscheduledGlobalAmendments();
             foreach (YellowstonePathology.Business.MasterAccessionNo masterAccessionNo in caseList)
             {
                 YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo.Value, this);
@@ -127,6 +128,31 @@ namespace YellowstonePathology.UI.ReportDistribution
             }
 
             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);  
+        }
+
+        private void HandleUnscheduledGlobalAmendments()
+        {
+            List<YellowstonePathology.Business.MasterAccessionNo> caseList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetCasesWithUnscheduledAmendments();
+            foreach (YellowstonePathology.Business.MasterAccessionNo masterAccessionNo in caseList)
+            {
+                YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo.Value, this);
+                foreach (YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder in accessionOrder.PanelSetOrderCollection)
+                {
+                    YellowstonePathology.Business.Amendment.Model.AmendmentCollection amendmentCollection = accessionOrder.AmendmentCollection.GetAmendmentsForReport(panelSetOrder.ReportNo);
+                    foreach (YellowstonePathology.Business.Amendment.Model.Amendment amendment in amendmentCollection)
+                    {
+                        foreach (YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution testOrderReportDistribution in panelSetOrder.TestOrderReportDistributionCollection)
+                        {
+                            if (testOrderReportDistribution.TimeOfLastDistribution < amendment.FinalTime && testOrderReportDistribution.ScheduledDistributionTime == null)
+                            {
+                                this.ScheduleDistribution(testOrderReportDistribution, panelSetOrder);
+                            }
+                        }
+                    }
+                }
+            }
+
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
         }
 
         private void HandleUnsetDistribution()
