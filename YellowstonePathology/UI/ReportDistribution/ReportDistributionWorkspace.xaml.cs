@@ -107,7 +107,7 @@ namespace YellowstonePathology.UI.ReportDistribution
 
         private void HandleUnscheduledAmendments()
         {            
-            List<YellowstonePathology.Business.MasterAccessionNo> caseList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetCasesWithUnscheduledGlobalAmendments();
+            List<YellowstonePathology.Business.MasterAccessionNo> caseList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetCasesWithUnscheduledAmendments();
             foreach (YellowstonePathology.Business.MasterAccessionNo masterAccessionNo in caseList)
             {
                 YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo.Value, this);
@@ -132,7 +132,7 @@ namespace YellowstonePathology.UI.ReportDistribution
 
         private void HandleUnscheduledGlobalAmendments()
         {
-            List<YellowstonePathology.Business.MasterAccessionNo> caseList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetCasesWithUnscheduledAmendments();
+            List<YellowstonePathology.Business.MasterAccessionNo> caseList = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetCasesWithUnscheduledGlobalAmendments();
             foreach (YellowstonePathology.Business.MasterAccessionNo masterAccessionNo in caseList)
             {
                 YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo.Value, this);
