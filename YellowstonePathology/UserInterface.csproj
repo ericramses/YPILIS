@@ -1098,6 +1098,7 @@
     <Compile Include="Business\Test\EGFRAmplification\EGFRAmplificationTest.cs" />
     <Compile Include="Business\Test\EGFRMutationAnalysisPreliminary\EGFRMutationAnalysisPreliminaryTest.cs" />
     <Compile Include="Business\Test\EGFRToALKReflexAnalysis\EGFRToALKReflexAnalysisBRAFResult.cs" />
+    <Compile Include="Business\Test\ETV6F\ETV6FTest.cs" />
     <Compile Include="Business\Test\ExtractAndHoldForMolecular\ExtractAndHoldForMolecularTestRetired.cs" />
     <Compile Include="Business\Test\ExtractAndHoldForPreauthorization\ExtractAndHoldForPreauthorizationWordDocument.cs" />
     <Compile Include="Business\Test\FetalHemoglobinV2\FetalHemoglobinV2Test.cs" />
@@ -1189,6 +1190,7 @@
     <Compile Include="Business\Test\NeoTYPELymphomaProfile\NeoTYPELymphomaProfileTest.cs" />
     <Compile Include="Business\Test\NeoTypeLungTumorFISHPanel\NeoTypeLungTumorFISHPanelTest.cs" />
     <Compile Include="Business\Test\NeoTYPELungTumorProfile\NeoTYPELungTumorProfileTestOrder.cs" />
+    <Compile Include="Business\Test\NeoTYPEMyeloidDisordersProfile\NeoTYPEMyeloidDisordersProfileTest.cs" />
     <Compile Include="Business\Test\NeoTYPEOvarianTumorProfile\NeoTYPEOvarianTumorProfileTest.cs" />
     <Compile Include="Business\Test\NUT\NUTTest.cs" />
     <Compile Include="Business\Test\OrderAssociation\OrderAssociationEpicObxView.cs" />
