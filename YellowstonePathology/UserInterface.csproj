@@ -1210,6 +1210,9 @@
     <Compile Include="Business\Test\StemCellCD34Enumeration\StemCellCD34EnumerationWordDocument.cs" />
     <Compile Include="Business\Test\StemCellEnumeration\StemCellEnumerationTestOrder.cs" />
     <Compile Include="Business\Test\TCellNKProfile\TCellNKProfileWPHOBXView.cs" />
+    <Compile Include="Business\Test\ThrombocytopeniaProfileV2\ThombocytopeniaProfileV2WordDocument.cs" />
+    <Compile Include="Business\Test\ThrombocytopeniaProfileV2\ThrombocytopeniaProfileV2Test.cs" />
+    <Compile Include="Business\Test\ThrombocytopeniaProfileV2\ThrombocytopeniaProfileV2TestOrder.cs" />
     <Compile Include="Business\Test\ThrombocytopeniaProfile\ThrombocytopeniaProfileCMMCNTEView.cs" />
     <Compile Include="Business\Test\DNACellCycleAnalysis\DNACellCycleAnalysisTest.cs" />
     <Compile Include="Business\Test\TP53MutationAnalysis\TP53MutationAnalysisTest.cs" />
