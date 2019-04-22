@@ -164,7 +164,7 @@ namespace YellowstonePathology.Business.Billing.Model
 				}
 				else
 				{
-                    cptCode = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88142", "52");
+                    cptCode = Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88142", null);
                 }
 
                 YellowstonePathology.Business.Test.PanelSetOrderCPTCode panelSetOrderCPTCode = this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.GetNextItem(this.m_PanelSetOrder.ReportNo);
