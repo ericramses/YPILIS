@@ -631,7 +631,25 @@
                 </ScrollViewer>
             </TabItem>
 
-            <TabItem Name="TabItemAmendments" Header="Amendments"></TabItem>
+            <TabItem Name="TabItemAmendments" Header="Amendments">
+                <ListView Name="ListViewAmendment" Grid.Row="0" ItemsSource="{Binding Path=AmendmentCollection}" SizeChanged="ListViewAmendment_SizeChanged">
+                    <ListView.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Edit" Click="ContextMenuEditAmendment_Click"></MenuItem>
+                            <MenuItem Header="Add" Click="ContextMenuAddAmendment_Click"></MenuItem>
+                            <MenuItem Header="Delete" Click="ContextMenuDeleteAmendment_Click"></MenuItem>
+                        </ContextMenu>
+                    </ListView.ContextMenu>
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=AmendmentDate, Converter={StaticResource ShortDateConverter}}" Header="Date" Width="Auto"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=Text}" Header="Amendment Text" Width="Auto"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=ReportNo}" Header="Report No" Width="Auto"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
+            </TabItem>
 
             <TabItem Name="TabItemDocuments" Header="Documents">
                 <ListView Name="ListViewDocumentList" ItemsSource="{Binding Path=CaseDocumentCollection}" IsSynchronizedWithCurrentItem="True" MouseLeftButtonUp="ListViewDocumentList_MouseLeftButtonUp">
