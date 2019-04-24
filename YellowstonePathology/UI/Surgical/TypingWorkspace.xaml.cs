@@ -20,7 +20,6 @@ namespace YellowstonePathology.UI.Surgical
 	public partial class TypingWorkspace : UserControl
     {        
         private YellowstonePathology.Business.Typing.TypingUIV2 m_TypingUI;        
-        private YellowstonePathology.UI.AmendmentControlV2 m_AmendmentControl;
         private YellowstonePathology.UI.TypingShortcutUserControl m_TypingShortcutUserControl;
         private UI.DocumentWorkspace m_DocumentViewer;        
 
@@ -47,7 +46,6 @@ namespace YellowstonePathology.UI.Surgical
             this.m_SystemIdentity = YellowstonePathology.Business.User.SystemIdentity.Instance;
             
 			this.m_TypingUI = new YellowstonePathology.Business.Typing.TypingUIV2(this.m_Writer);									
-			this.m_AmendmentControl = new AmendmentControlV2(this.m_TypingUI.AccessionOrder, this.m_TypingUI.SurgicalTestOrder);			
             this.m_DocumentViewer = new DocumentWorkspace();            
 
             this.m_LocalDictationList = new YellowstonePathology.Business.DictationList(Business.DictationLocationEnum.Local);            
@@ -277,10 +275,7 @@ namespace YellowstonePathology.UI.Surgical
             this.m_TreeviewWorkspace = new Common.TreeViewWorkspace(this.m_TypingUI.AccessionOrder, this.m_SystemIdentity);
             this.m_TreeviewWorkspace.IsEnabled = this.m_TypingUI.AccessionOrder.AccessionLock.IsLockAquiredByMe;
             this.tabItemTreeView.Content = this.m_TreeviewWorkspace;
-
-			this.m_AmendmentControl = new AmendmentControlV2(this.m_TypingUI.AccessionOrder, this.m_TypingUI.SurgicalTestOrder);
-            this.m_AmendmentControl.IsEnabled = this.m_TypingUI.AccessionOrder.AccessionLock.IsLockAquiredByMe;
-            this.TabItemAmendments.Content = this.m_AmendmentControl;
+            this.m_TypingUI.NotifyPropertyChanged("AmendmentCollection");
         }
 
         public void GridTyping_KeyUp(object sender, KeyEventArgs args)
@@ -1188,5 +1183,53 @@ namespace YellowstonePathology.UI.Surgical
                 MessageBox.Show("This code has not been posted and therefore does not need to be reversed.");
             }            
         }
-    }    
+
+        public void ContextMenuAddAmendment_Click(object sender, RoutedEventArgs args)
+        {
+            if (this.m_TypingUI.AccessionOrder != null)
+            {
+                this.m_TypingUI.AccessionOrder.AddAmendment(this.m_TypingUI.SurgicalTestOrder.ReportNo);
+                this.m_TypingUI.NotifyPropertyChanged("AmendmentCollection");
+            }
+        }
+
+        public void ContextMenuEditAmendment_Click(object sender, RoutedEventArgs args)
+        {
+            if (this.ListViewAmendment.SelectedItem != null)
+            {
+                YellowstonePathology.Business.Amendment.Model.Amendment amendment = (YellowstonePathology.Business.Amendment.Model.Amendment)this.ListViewAmendment.SelectedItem;
+                YellowstonePathology.UI.AmendmentV2 amendmentV2 = new AmendmentV2(amendment, this.m_TypingUI.AccessionOrder, this.m_TypingUI.SurgicalTestOrder);
+                amendmentV2.ShowDialog();
+                this.m_TypingUI.NotifyPropertyChanged("AmendmentCollection");
+            }
+        }
+
+        public void ContextMenuDeleteAmendment_Click(object sedner, RoutedEventArgs args)
+        {
+            if (this.ListViewAmendment.SelectedItem != null)
+            {
+                MessageBoxResult result = MessageBox.Show("Delete the selected item?", "Delete.", MessageBoxButton.OKCancel);
+                if (result == MessageBoxResult.OK)
+                {
+                    this.m_TypingUI.AccessionOrder.DeleteAmendment(((YellowstonePathology.Business.Amendment.Model.Amendment)this.ListViewAmendment.SelectedItem).AmendmentId);
+                    this.m_TypingUI.NotifyPropertyChanged("AmendmentCollection");
+                }
+            }
+        }
+
+        private void ListViewAmendment_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            ListView listView = sender as ListView;
+            GridView gView = listView.View as GridView;
+
+            var workingWidth = listView.ActualWidth - SystemParameters.VerticalScrollBarWidth; // take into account vertical scrollbar
+            var col1 = 0.12;
+            var col2 = 0.76;
+            var col3 = 0.12;
+
+            gView.Columns[0].Width = workingWidth * col1;
+            gView.Columns[1].Width = workingWidth * col2;
+            gView.Columns[2].Width = workingWidth * col3;
+        }
+    }
 }
