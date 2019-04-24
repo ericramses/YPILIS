@@ -13,6 +13,9 @@ namespace YellowstonePathology.Business.Test.ThrombocytopeniaProfileV2
         private string m_AntiPlateletAntibodyIgG;
         private string m_AntiPlateletAntibodyIgM;
         private string m_ReticulatedPlateletAnalysis;
+        private string m_AntiPlateletAntibodyIgGReference;
+        private string m_AntiPlateletAntibodyIgMReference;
+        private string m_ReticulatedPlateletAnalysisReference;
         private string m_Interpretation;
         private string m_Method;
         private string m_ASRComment;
@@ -26,6 +29,9 @@ namespace YellowstonePathology.Business.Test.ThrombocytopeniaProfileV2
             bool distribute)
             : base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute)
         {
+            this.m_AntiPlateletAntibodyIgGReference = "Negative";
+            this.m_AntiPlateletAntibodyIgMReference = "Negative";
+            this.m_ReticulatedPlateletAnalysisReference = "0-0.37%";
             this.m_Interpretation = "* Negative:  IgG and/or IgM values are not elevated.  There is no indication that immune mechanisms " +
                 "are involved in the thrombocytopenia.  Other etiologies should be considered." + Environment.NewLine + Environment.NewLine +
                 "* Weakly Positive: The moderately elevated IgG and / or IgM value suggests that immune mechanisms could be involved in the " +
@@ -81,6 +87,48 @@ namespace YellowstonePathology.Business.Test.ThrombocytopeniaProfileV2
                 {
                     this.m_ReticulatedPlateletAnalysis = value;
                     NotifyPropertyChanged("ReticulatedPlateletAnalysis");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string AntiPlateletAntibodyIgGReference
+        {
+            get { return this.m_AntiPlateletAntibodyIgGReference; }
+            set
+            {
+                if (this.m_AntiPlateletAntibodyIgGReference != value)
+                {
+                    this.m_AntiPlateletAntibodyIgGReference = value;
+                    NotifyPropertyChanged("AntiPlateletAntibodyIgGReference");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string AntiPlateletAntibodyIgMReference
+        {
+            get { return this.m_AntiPlateletAntibodyIgMReference; }
+            set
+            {
+                if (this.m_AntiPlateletAntibodyIgMReference != value)
+                {
+                    this.m_AntiPlateletAntibodyIgMReference = value;
+                    NotifyPropertyChanged("AntiPlateletAntibodyIgMReference");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string ReticulatedPlateletAnalysisReference
+        {
+            get { return this.m_ReticulatedPlateletAnalysisReference; }
+            set
+            {
+                if (this.m_ReticulatedPlateletAnalysisReference != value)
+                {
+                    this.m_ReticulatedPlateletAnalysisReference = value;
+                    NotifyPropertyChanged("ReticulatedPlateletAnalysisReference");
                 }
             }
         }
@@ -158,11 +206,6 @@ namespace YellowstonePathology.Business.Test.ThrombocytopeniaProfileV2
                 {
                     result.Status = AuditStatusEnum.Failure;
                     result.Message += "Anti-Platelet Antibody - IgM" + Environment.NewLine;
-                }
-                if (string.IsNullOrEmpty(this.m_ReticulatedPlateletAnalysis) == true)
-                {
-                    result.Status = AuditStatusEnum.Failure;
-                    result.Message += "Reticulated Platelet Analysis";
                 }
             }
 

@@ -10,7 +10,7 @@ namespace YellowstonePathology.Business.Test.ThrombocytopeniaProfileV2
     {
         public ThrombocytopeniaProfileV2Test()
         {
-            this.m_PanelSetId = 33;
+            this.m_PanelSetId = 338;
             this.m_PanelSetName = "Thrombocytopenia Profile";
             this.m_AllowMultiplePerAccession = true;
             this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase;

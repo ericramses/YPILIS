@@ -29,7 +29,6 @@ namespace YellowstonePathology.Business.Flow
         private YellowstonePathology.Business.Facility.Model.FacilityCollection m_FacilityCollection;
 		private YellowstonePathology.Business.Document.CaseDocumentCollection m_CaseDocumentCollection;
 		private YellowstonePathology.Business.Patient.Model.PatientHistoryList m_PatientHistoryList;
-		private YellowstonePathology.Business.PanelSet.Model.PanelSetCollection m_PanelSets;
         private YellowstonePathology.Business.Billing.Model.ICD9BillingCodeCollection m_ICD9BillingCodeCollection;
         private object m_Writer;
 
@@ -73,7 +72,6 @@ namespace YellowstonePathology.Business.Flow
 
 			this.m_CaseDocumentCollection = new Document.CaseDocumentCollection();
 			this.m_PatientHistoryList = new YellowstonePathology.Business.Patient.Model.PatientHistoryList();
-			this.m_PanelSets = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetAll();
 
 			this.Search();
         }
