@@ -86,7 +86,7 @@ namespace YellowstonePathology.UI.Login
                     }
 					break;
 				case "DOC":
-					YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(caseDocument.FullFileName);
+					YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWord(caseDocument.FullFileName);
 					break;
 				case "PDF":
 					YellowstonePathology.Business.Document.CaseDocument.OpenPDF(caseDocument.FullFileName);

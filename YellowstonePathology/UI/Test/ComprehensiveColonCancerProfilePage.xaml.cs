@@ -125,7 +125,7 @@ namespace YellowstonePathology.UI.Test
 		{
 			YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile.ComprehensiveColonCancerProfileWordDocument report = new Business.Test.ComprehensiveColonCancerProfile.ComprehensiveColonCancerProfileWordDocument(this.m_AccessionOrder, this.m_ComprehensiveColonCancerProfile, Business.Document.ReportSaveModeEnum.Draft);
             report.Render();
-			YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(report.SaveFileName);
+			YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWord(report.SaveFileName);
 		}
 
 		private void HyperLinkUnfinalResults_Click(object sender, RoutedEventArgs e)

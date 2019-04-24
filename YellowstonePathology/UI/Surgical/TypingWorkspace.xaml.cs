@@ -178,7 +178,7 @@ namespace YellowstonePathology.UI.Surgical
 			this.Save(false);
 			YellowstonePathology.Business.Test.Surgical.SurgicalWordDocument report = new YellowstonePathology.Business.Test.Surgical.SurgicalWordDocument(this.m_TypingUI.AccessionOrder, this.m_TypingUI.SurgicalTestOrder, Business.Document.ReportSaveModeEnum.Draft);
             report.Render();
-			YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(report.SaveFileName);
+			YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWord(report.SaveFileName);
 		}
 
         public void SaveData(object target, ExecutedRoutedEventArgs args)
@@ -349,7 +349,7 @@ namespace YellowstonePathology.UI.Surgical
 				this.Save(false);
 				YellowstonePathology.Business.Test.Surgical.SurgicalWordDocument report = new YellowstonePathology.Business.Test.Surgical.SurgicalWordDocument(this.m_TypingUI.AccessionOrder, this.m_TypingUI.SurgicalTestOrder, Business.Document.ReportSaveModeEnum.Draft);
 				report.Render();
-				YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(report.SaveFileName);
+				YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWord(report.SaveFileName);
 			}
         }
 

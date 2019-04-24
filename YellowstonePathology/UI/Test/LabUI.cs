@@ -198,7 +198,7 @@ namespace YellowstonePathology.UI.Test
 				rptName = rptName.Replace(".v" + originalVersion.ToString(), ".v" + newVersion.ToString());
 			} while (File.Exists(rptName));
 
-			YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(holdRptName);
+			YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWord(holdRptName);
 		}
 
 		public bool HasDataError
