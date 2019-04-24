@@ -643,7 +643,7 @@
                     <ListView.View>
                         <GridView>
                             <GridViewColumn DisplayMemberBinding="{Binding Path=AmendmentDate, Converter={StaticResource ShortDateConverter}}" Header="Date" Width="Auto"/>
-                            <GridViewColumn DisplayMemberBinding="{Binding Path=Text}" Header="Amendment Text" Width="Auto"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=ShortAmendment}" Header="Amendment Text" Width="Auto"/>
                             <GridViewColumn DisplayMemberBinding="{Binding Path=ReportNo}" Header="Report No" Width="Auto"/>
                         </GridView>
                     </ListView.View>

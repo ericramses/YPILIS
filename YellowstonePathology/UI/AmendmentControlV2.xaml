@@ -8,7 +8,7 @@
             <StackPanel Margin="2,2,2,2" Orientation="Horizontal">
                 <TextBlock Margin="2,2,2,2">Amendment:</TextBlock>
                 <TextBlock Margin="2,2,2,2" Text="{Binding Path=AmendmentDate, Converter={StaticResource ShortDateConverter}}"></TextBlock>
-                <TextBlock Margin="2,2,2,2" Text="{Binding Path=Text}" Height="30" Width="300"></TextBlock>
+                <TextBlock Margin="2,2,2,2" Text="{Binding Path=ShortAmendment}" Height="30" Width="300"></TextBlock>
             </StackPanel>
         </HierarchicalDataTemplate>
 
