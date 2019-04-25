@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YellowstonePathology.UI.Redis"
         mc:Ignorable="d"
-        Title="Redis Databases" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow" SizeToContent="Height" Width="500">
-    <Grid>
+        Title="Redis Databases" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow" SizeToContent="Height"  Width="600">
+    <Grid Margin="5,5,5,5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
@@ -14,6 +14,7 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <Grid Grid.Column="0" Grid.Row="0">
@@ -39,16 +40,17 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <CheckBox Name="CheckBoxCPTCode" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" FlowDirection="RightToLeft" IsChecked="True">Save CPT Codes</CheckBox>
-            <CheckBox Name="CheckBoxICDCode" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" FlowDirection="RightToLeft" IsChecked="True">Save ICD Codes</CheckBox>
-            <CheckBox Name="CheckBoxDictationTemplate" Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" FlowDirection="RightToLeft" IsChecked="True">Save Dictation Templates</CheckBox>
-            <CheckBox Name="CheckBoxSpecimen" Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" FlowDirection="RightToLeft" IsChecked="True">Save Specimen</CheckBox>
-            <CheckBox Name="CheckBoxStain" Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" FlowDirection="RightToLeft" IsChecked="True">Save Stains</CheckBox>
+            <CheckBox Name="CheckBoxCPTCode" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" IsChecked="True">Save CPT Codes</CheckBox>
+            <CheckBox Name="CheckBoxICDCode" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" IsChecked="True">Save ICD Codes</CheckBox>
+            <CheckBox Name="CheckBoxDictationTemplate" Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" IsChecked="True">Save Dictation Templates</CheckBox>
+            <CheckBox Name="CheckBoxSpecimen" Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" IsChecked="True">Save Specimen</CheckBox>
+            <CheckBox Name="CheckBoxStain" Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" IsChecked="True">Save Stains</CheckBox>
         </Grid>
 
-        <Grid Grid.Column="0" Grid.Row="2">
+        <Grid Grid.Column="0" Grid.Row="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
