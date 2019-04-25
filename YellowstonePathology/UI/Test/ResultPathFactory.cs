@@ -360,6 +360,9 @@ namespace YellowstonePathology.UI.Test
                 case 334:
                     result = new StemCellCD34EnumerationResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
+                case 338:
+                    result = new ThrombocytopeniaProfileV2ResultPath(reportNo, accessionOrder, pageNavigator, window);
+                    break;
             }
             return result;
         }
