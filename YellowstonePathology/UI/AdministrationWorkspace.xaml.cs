@@ -1776,5 +1776,58 @@ namespace YellowstonePathology.UI
             }
             MessageBox.Show("Done");
         }*/
+
+        private void ButtonPublishThrombo_Click(object sender, RoutedEventArgs e)
+        {
+            string message = string.Empty;
+            List<string> reportNos = new List<string>();
+            MySqlCommand cmdl = new MySqlCommand();
+            cmdl.CommandText = "select ReportNo from tblPanelSetOrder where PanelSetId = 21 and OrderDate <= '2009-08-28' order by OrderDate;";
+            cmdl.CommandType = CommandType.Text;
+
+            using (MySqlConnection cnl = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cnl.Open();
+                cmdl.Connection = cnl;
+                using (MySqlDataReader dr = cmdl.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        reportNos.Add(dr[0].ToString());
+                    }
+                }
+            }
+
+            foreach(string reportNo in reportNos)
+            {
+                YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(reportNo);
+                string filePath = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + orderIdParser.ReportNo;
+                if(File.Exists(filePath + ".doc"))
+                {
+                    if(File.Exists(filePath + ".xml") == false)
+                    {
+                        Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, Business.Document.CaseDocumentTypeEnum.CaseReport, Business.Document.CaseDocumentFileTypeEnnum.doc, Business.Document.CaseDocumentFileTypeEnnum.xml);
+                    }
+                    if(File.Exists(filePath + ".xps") == false)
+                    {
+                        Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, Business.Document.CaseDocumentTypeEnum.CaseReport, Business.Document.CaseDocumentFileTypeEnnum.doc, Business.Document.CaseDocumentFileTypeEnnum.xps);
+                    }
+                    if (File.Exists(filePath + ".tif") == false)
+                    {
+                        Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, Business.Document.CaseDocumentTypeEnum.CaseReport, Business.Document.CaseDocumentFileTypeEnnum.xps, Business.Document.CaseDocumentFileTypeEnnum.tif);
+                    }
+                    if (File.Exists(filePath + ".pdf") == false)
+                    {
+                        Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, Business.Document.CaseDocumentTypeEnum.CaseReport, Business.Document.CaseDocumentFileTypeEnnum.xml, Business.Document.CaseDocumentFileTypeEnnum.pdf);
+                    }
+                }
+                else
+                {
+                    message += reportNo + ", ";
+                }
+            }
+
+            MessageBox.Show("Done" +Environment.NewLine + message);
+        }
     }
 }

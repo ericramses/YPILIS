@@ -1210,6 +1210,11 @@
     <Compile Include="Business\Test\StemCellCD34Enumeration\StemCellCD34EnumerationWordDocument.cs" />
     <Compile Include="Business\Test\StemCellEnumeration\StemCellEnumerationTestOrder.cs" />
     <Compile Include="Business\Test\TCellNKProfile\TCellNKProfileWPHOBXView.cs" />
+    <Compile Include="Business\Test\ThrombocytopeniaProfileV2\ThrombocytopeniaProfileV2CMMCNTEView.cs" />
+    <Compile Include="Business\Test\ThrombocytopeniaProfileV2\ThrombocytopeniaProfileV2EPICObxView.cs" />
+    <Compile Include="Business\Test\ThrombocytopeniaProfileV2\ThrombocytopeniaProfileV2WordDocument.cs" />
+    <Compile Include="Business\Test\ThrombocytopeniaProfileV2\ThrombocytopeniaProfileV2Test.cs" />
+    <Compile Include="Business\Test\ThrombocytopeniaProfileV2\ThrombocytopeniaProfileV2TestOrder.cs" />
     <Compile Include="Business\Test\ThrombocytopeniaProfile\ThrombocytopeniaProfileCMMCNTEView.cs" />
     <Compile Include="Business\Test\DNACellCycleAnalysis\DNACellCycleAnalysisTest.cs" />
     <Compile Include="Business\Test\TP53MutationAnalysis\TP53MutationAnalysisTest.cs" />
@@ -3967,6 +3972,10 @@
     <Compile Include="UI\Test\TechInitiatedPeripheralSmearResultPath.cs" />
     <Compile Include="UI\Test\GrossOnlyResultPath.cs" />
     <Compile Include="UI\Test\TechnicalOnlyResultPath.cs" />
+    <Compile Include="UI\Test\ThrombocytopeniaProfileV2ResultPage.xaml.cs">
+      <DependentUpon>ThrombocytopeniaProfileV2ResultPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Test\ThrombocytopeniaProfileV2ResultPath.cs" />
     <Compile Include="UI\Test\WomensHealthProfilePage.xaml.cs">
       <DependentUpon>WomensHealthProfilePage.xaml</DependentUpon>
     </Compile>
@@ -5913,6 +5922,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Test\TechInitiatedPeripheralSmearResultPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Test\ThrombocytopeniaProfileV2ResultPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

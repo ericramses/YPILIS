@@ -125,9 +125,9 @@ namespace YellowstonePathology.UI.Login
                 case 20: //LLP
                     panelSetFlowCytometry = (YellowstonePathology.Business.Test.LLP.LeukemiaLymphomaTest)this.m_PanelSet;                    
                     break;
-                case 21: //TPP
+                /*case 21: //TPP
 					panelSetFlowCytometry = (YellowstonePathology.Business.Test.ThrombocytopeniaProfile.ThrombocytopeniaProfileTest)this.m_PanelSet;                    
-                    break;
+                    break;*/
                 case 22: //PAA
 					panelSetFlowCytometry = (YellowstonePathology.Business.Test.PlateletAssociatedAntibodies.PlateletAssociatedAntibodiesTest)this.m_PanelSet;
                     break;

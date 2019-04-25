@@ -89,6 +89,10 @@ namespace YellowstonePathology.Business.Helper
             {
                 ConvertXMLToPDF(filePath + ".xml", filePath + ".pdf");
             }
+            else if(fromType == CaseDocumentFileTypeEnnum.doc && toType == CaseDocumentFileTypeEnnum.xml)
+            {
+                ConvertDocToXML(filePath + ".doc", filePath + ".xml");
+            }
         }
 
         public static void ConvertXMLToPDF(object xmlFilename, object pdfFileName)
@@ -292,5 +296,42 @@ namespace YellowstonePathology.Business.Helper
 			encoder.Save(outputFileStream);
 			outputFileStream.Close();
 		}
-	}
+
+        public static void ConvertDocToXML(object docFileName, object xmlFileName)
+        {
+            Microsoft.Office.Interop.Word.Application oWord;
+            Object oMissing = System.Reflection.Missing.Value;
+            Object oTrue = true;
+            Object oFalse = false;
+
+            oWord = new Microsoft.Office.Interop.Word.Application();
+            oWord.Visible = false;
+
+            try
+            {
+                File.Delete(xmlFileName.ToString());
+            }
+            catch (Exception)
+            {
+                oWord.Quit(ref oFalse, ref oMissing, ref oMissing);
+            }
+
+            Object fileFormat = "wdFormatXMLDocument";
+
+            Microsoft.Office.Interop.Word.Document doc = oWord.Documents.Open(ref docFileName, ref oMissing, ref oMissing,
+                 ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing,
+                 ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing);
+
+            object oFmt = Microsoft.Office.Interop.Word.WdSaveFormat.wdFormatDocument;
+
+            doc.SaveAs(ref xmlFileName, ref oFmt, ref oMissing, ref oMissing, ref oMissing,
+                ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing,
+                ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing);
+
+            CaseDocument.ReleaseComObject(oFmt);
+            CaseDocument.ReleaseComObject(doc);
+            oWord.Quit(ref oFalse, ref oMissing, ref oMissing);
+            CaseDocument.ReleaseComObject(oWord);
+        }
+    }
 }
