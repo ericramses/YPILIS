@@ -80,7 +80,7 @@ namespace YellowstonePathology.UI.Test
 
             YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_ReportOrderTestCancelled.ReportNo);
             string fileName = YellowstonePathology.Business.Document.CaseDocument.GetDraftDocumentFilePath(orderIdParser);
-            YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(fileName);
+            YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWord(fileName);
         }*/
 
         private void HyperLinkAcceptResults_Click(object sender, RoutedEventArgs e)

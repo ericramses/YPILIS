@@ -96,7 +96,7 @@ namespace YellowstonePathology.UI.Test
 		{
 			YellowstonePathology.Business.Test.KRASExon4Mutation.KRASExon4MutationWordDocument report = new Business.Test.KRASExon4Mutation.KRASExon4MutationWordDocument(this.m_AccessionOrder, this.m_KRASExon4MutationTestOrder, Business.Document.ReportSaveModeEnum.Draft);
 			report.Render();
-			YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(report.SaveFileName);
+			YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWord(report.SaveFileName);
 		}
 
 		private void HyperLinkFinalizeResults_Click(object sender, RoutedEventArgs e)

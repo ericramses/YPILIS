@@ -1035,10 +1035,24 @@ namespace YellowstonePathology.UI
             }
             */
 
-            Business.Test.AccessionOrder ao = Business.Persistence.DocumentGateway.Instance.GetAccessionOrderByMasterAccessionNo("19-9618");
-            Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill = ao.PanelSetOrderCollection[0].PanelSetOrderCPTCodeBillCollection[0];
-            Business.HL7View.EPIC.EPICFT1ResultView epicFT1ResultView = new Business.HL7View.EPIC.EPICFT1ResultView(ao, panelSetOrderCPTCodeBill);
-            epicFT1ResultView.Publish("c:\\temp");
+            /*
+            Business.Test.AccessionOrder ao = Business.Persistence.DocumentGateway.Instance.GetAccessionOrderByMasterAccessionNo("19-10046");
+            // Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill = ao.PanelSetOrderCollection[0].PanelSetOrderCPTCodeBillCollection[0];
+            foreach(Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill in ao.PanelSetOrderCollection[0].PanelSetOrderCPTCodeBillCollection)
+            {
+                Business.HL7View.EPIC.EPICFT1ResultView epicFT1ResultView = new Business.HL7View.EPIC.EPICFT1ResultView(ao, panelSetOrderCPTCodeBill);
+                epicFT1ResultView.Publish("c:\\temp");
+            }
+            */
+
+            Business.Billing.Model.CptCodeCollection cptCodeCollection = Store.AppDataStore.Instance.CPTCodeCollection.Clone();
+            foreach(Business.Billing.Model.CptCode cptCode in cptCodeCollection)
+            {
+                if(string.IsNullOrEmpty(cptCode.SVHCDMCode) == false)
+                {
+                    Console.WriteLine(cptCode.Code + ", " + cptCode.SVHCDMCode + ", " + cptCode.SVHCDMDescription);
+                }
+            }
         }
 
         private void InsertADT()

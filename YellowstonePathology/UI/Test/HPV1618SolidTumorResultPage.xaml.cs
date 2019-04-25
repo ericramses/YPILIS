@@ -162,7 +162,7 @@ namespace YellowstonePathology.UI.Test
 		{
 			YellowstonePathology.Business.Test.HPV1618SolidTumor.HPV1618SolidTumorWordDocument report = new Business.Test.HPV1618SolidTumor.HPV1618SolidTumorWordDocument(this.m_AccessionOrder, this.m_HPV1618SolidTumorTestOrder, Business.Document.ReportSaveModeEnum.Draft);
 			report.Render();
-			YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(report.SaveFileName);
+			YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWord(report.SaveFileName);
 		}
 
         private void HyperLinkBothNegative_Click(object sender, RoutedEventArgs e)

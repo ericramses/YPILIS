@@ -11,8 +11,8 @@ namespace YellowstonePathology.Business.Test.ETV6F
         public ETV6FTest()
         {
             this.m_PanelSetId = 337;
-            this.m_PanelSetName = "ETV6F";
-            this.m_Abbreviation = "ETV6F";
+            this.m_PanelSetName = "ETV6 (12p13.2)";
+            this.m_Abbreviation = "ETV6 (12p13.2)";
             this.m_CaseType = YellowstonePathology.Business.CaseType.Molecular;
             this.m_HasTechnicalComponent = true;
             this.m_HasProfessionalComponent = true;

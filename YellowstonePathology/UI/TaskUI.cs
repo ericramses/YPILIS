@@ -133,7 +133,7 @@ namespace YellowstonePathology.UI
                 rptName = rptName.Replace(".v" + originalVersion.ToString(), ".v" + newVersion.ToString());
             } while (System.IO.File.Exists(rptName));
 
-            YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(holdRptName);
+            YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWord(holdRptName);
         }
 
         public void NotifyPropertyChanged(String info)

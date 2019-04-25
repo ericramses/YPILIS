@@ -89,7 +89,7 @@ namespace YellowstonePathology.UI.Test
         {
 			YellowstonePathology.Business.Test.TestCancelled.TestCancelledWordDocument report = new Business.Test.TestCancelled.TestCancelledWordDocument(this.m_AccessionOrder, this.m_ReportOrderTestCancelled, Business.Document.ReportSaveModeEnum.Draft);
             report.Render();
-            YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(report.SaveFileName);
+            YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWord(report.SaveFileName);
         }
 
         private void HyperLinkAcceptResults_Click(object sender, RoutedEventArgs e)
