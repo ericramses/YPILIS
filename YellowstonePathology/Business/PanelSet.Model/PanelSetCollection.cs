@@ -420,7 +420,6 @@ namespace YellowstonePathology.Business.PanelSet.Model
             result.Add(new Test.LLP.LeukemiaLymphomaTest());
             result.Add(new Test.PlateletAssociatedAntibodies.PlateletAssociatedAntibodiesTest());
             result.Add(new Test.ReticulatedPlateletAnalysis.ReticulatedPlateletAnalysisTest());
-            result.Add(new Test.ThrombocytopeniaProfile.ThrombocytopeniaProfileTest());
 
             return result;
         }
