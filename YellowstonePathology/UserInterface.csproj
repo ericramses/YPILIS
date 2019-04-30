@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>7</ApplicationRevision>
+    <ApplicationRevision>10</ApplicationRevision>
     <ApplicationVersion>10.1.15.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -293,6 +293,7 @@
     <Compile Include="Business\BarcodeScanning\EmbeddingScan.cs" />
     <Compile Include="Business\BarcodeScanning\EmbeddingScanCollection.cs" />
     <Compile Include="Business\BarcodeScanning\HistologyBlock.cs" />
+    <Compile Include="Business\BarcodeScanning\SlideStorage.cs" />
     <Compile Include="Business\BarcodeScanning\HistologySlide.cs" />
     <Compile Include="Business\BarcodeScanning\ThinPrepSlide.cs" />
     <Compile Include="Business\BarcodeScanning\VantageBarcode.cs" />
@@ -364,6 +365,7 @@
     <Compile Include="Business\HL7View\EPIC\EpicHRHClient.cs" />
     <Compile Include="Business\Interface\IHER2ISH.cs" />
     <Compile Include="Business\Label.Model\HistologySlidePaperZPLLabelV3.cs" />
+    <Compile Include="Business\Label.Model\StorageSlideLabel.cs" />
     <Compile Include="Business\Label.Model\HologicSlideLabelPrinter.cs" />
     <Compile Include="Business\Label.Model\HologicSlideLabel.cs" />
     <Compile Include="Business\PanelSet.Model\FISHTest.cs" />

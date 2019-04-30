@@ -1022,19 +1022,18 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            /*
-            Business.ReportNoCollection rnc = Business.Gateway.AccessionOrderGateway.GetReportNumbers();
-            foreach(Business.ReportNo reportNo in rnc)
+            for(int i=1; i<7; i++)
             {
-                Business.OrderIdParser oid = new Business.OrderIdParser(reportNo.Value);
-                string fileName = Business.Document.CaseDocument.GetCaseFileNameDoc(oid);
-                if(System.IO.File.Exists(fileName) == true)
-                {
-                    Business.Document.CaseDocument.PrintWordDoc(oid);
-                }                
-            }
-            */
+                Business.BarcodeScanning.SlideStorage slideStorageBarcode = new Business.BarcodeScanning.SlideStorage("Main Slide Storage", "mnsldstrg", "1", i.ToString(), "YPIBLGS", "2015", "3500", "4500");
+                Business.Label.Model.StorageSlideLabel slideStorageLabel = new Business.Label.Model.StorageSlideLabel(slideStorageBarcode);
+                StringBuilder zplCmds = new StringBuilder();
+                zplCmds.Append("^XA");
+                slideStorageLabel.AppendCommands(zplCmds, 0, 0);
+                zplCmds.Append("^XZ");
+                Business.Label.Model.RawPrinterHelper.SendStringToPrinter("ZDesigner GX430t", zplCmds.ToString());
+            }            
 
+            //Business.Label.Model.StorageSlideLabel storageSlideLabel = new Business.Label.Model.StorageSlideLabel()
             /*
             Business.Test.AccessionOrder ao = Business.Persistence.DocumentGateway.Instance.GetAccessionOrderByMasterAccessionNo("19-10046");
             // Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill = ao.PanelSetOrderCollection[0].PanelSetOrderCPTCodeBillCollection[0];
@@ -1044,15 +1043,6 @@ namespace YellowstonePathology.UI
                 epicFT1ResultView.Publish("c:\\temp");
             }
             */
-
-            Business.Billing.Model.CptCodeCollection cptCodeCollection = Store.AppDataStore.Instance.CPTCodeCollection.Clone();
-            foreach(Business.Billing.Model.CptCode cptCode in cptCodeCollection)
-            {
-                if(string.IsNullOrEmpty(cptCode.SVHCDMCode) == false)
-                {
-                    Console.WriteLine(cptCode.Code + ", " + cptCode.SVHCDMCode + ", " + cptCode.SVHCDMDescription);
-                }
-            }
         }
 
         private void InsertADT()
