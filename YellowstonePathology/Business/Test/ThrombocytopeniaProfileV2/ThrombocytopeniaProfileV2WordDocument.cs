@@ -48,8 +48,8 @@ namespace YellowstonePathology.Business.Test.ThrombocytopeniaProfileV2
                 this.DeleteRow("r_p_a");
             }
             this.SetXmlNodeData("apa_igm_reference", testOrder.AntiPlateletAntibodyIgMReference);
-            this.SetXMLNodeParagraphDataNewLineOnly("report_interpretation", testOrder.Interpretation);
-            this.SetXMLNodeParagraphDataNewLineOnly("report_method", testOrder.Method);
+            this.SetXMLNodeParagraphData("report_interpretation", testOrder.Interpretation);
+            this.SetXMLNodeParagraphData("report_method", testOrder.Method);
             this.SetXmlNodeData("asr_comment", testOrder.ASRComment);
             
             this.SaveReport();
