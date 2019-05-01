@@ -851,6 +851,15 @@ namespace YellowstonePathology.Business.Test.HER2AnalysisSummary
                     result.Message = "The result may not be accepted because the result is not set.";
                 }
             }
+
+            if (result.Status == AuditStatusEnum.OK)
+            {
+                if (this.m_NumberOfObservers == 0)
+                {
+                    result.Status = AuditStatusEnum.Failure;
+                    result.Message = "The result may not be accepted because the Number of Observers must be greater than 0.";
+                }
+            }
             return result;
         }
 
