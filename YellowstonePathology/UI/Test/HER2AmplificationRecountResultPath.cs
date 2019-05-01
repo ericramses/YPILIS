@@ -59,8 +59,8 @@ namespace YellowstonePathology.UI.Test
         {
             bool result = false;
 
-            YellowstonePathology.Business.Test.HER2AmplificationSummary.HER2AmplificationSummaryTest test = new Business.Test.HER2AmplificationSummary.HER2AmplificationSummaryTest();
-            YellowstonePathology.Business.Test.HER2AmplificationSummary.HER2AmplificationSummaryTestOrder summaryTestOrder = (Business.Test.HER2AmplificationSummary.HER2AmplificationSummaryTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(test.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true);
+            YellowstonePathology.Business.Test.HER2AnalysisSummary.HER2AnalysisSummaryTest test = new Business.Test.HER2AnalysisSummary.HER2AnalysisSummaryTest();
+            YellowstonePathology.Business.Test.HER2AnalysisSummary.HER2AnalysisSummaryTestOrder summaryTestOrder = (Business.Test.HER2AnalysisSummary.HER2AnalysisSummaryTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(test.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true);
             if (summaryTestOrder != null)
             {
                 result = true;

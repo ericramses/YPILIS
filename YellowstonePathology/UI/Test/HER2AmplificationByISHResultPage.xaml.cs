@@ -149,7 +149,7 @@ namespace YellowstonePathology.UI.Test
                     canFinal = true;
                     YellowstonePathology.Business.Test.Her2AmplificationByIHC.Her2AmplificationByIHCTest her2AmplificationByIHCTest = new Business.Test.Her2AmplificationByIHC.Her2AmplificationByIHCTest();
                     this.OrderATest(her2AmplificationByIHCTest);
-                    YellowstonePathology.Business.Test.HER2AmplificationSummary.HER2AmplificationSummaryTest her2AmplificationSummaryTest = new Business.Test.HER2AmplificationSummary.HER2AmplificationSummaryTest();
+                    YellowstonePathology.Business.Test.HER2AnalysisSummary.HER2AnalysisSummaryTest her2AmplificationSummaryTest = new Business.Test.HER2AnalysisSummary.HER2AnalysisSummaryTest();
                     this.OrderATest(her2AmplificationSummaryTest);
                 }
             }
@@ -265,7 +265,7 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkOrderHER2Summary_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Test.HER2AmplificationSummary.HER2AmplificationSummaryTest test = new Business.Test.HER2AmplificationSummary.HER2AmplificationSummaryTest();
+            YellowstonePathology.Business.Test.HER2AnalysisSummary.HER2AnalysisSummaryTest test = new Business.Test.HER2AnalysisSummary.HER2AnalysisSummaryTest();
             this.OrderATest(test);
         }
 

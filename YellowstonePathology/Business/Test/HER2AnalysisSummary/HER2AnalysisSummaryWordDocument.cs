@@ -5,11 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 
-namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
+namespace YellowstonePathology.Business.Test.HER2AnalysisSummary
 {
-    public class HER2AmplificationSummaryWordDocument : YellowstonePathology.Business.Document.CaseReportV2
+    public class HER2AnalysisSummaryWordDocument : YellowstonePathology.Business.Document.CaseReportV2
     {
-        public HER2AmplificationSummaryWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode)
+        public HER2AnalysisSummaryWordDocument(Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Document.ReportSaveModeEnum reportSaveMode)
             : base(accessionOrder, panelSetOrder, reportSaveMode)
         {
 
@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
 
         public override void Render()
         {
-            HER2AmplificationSummaryTestOrder her2AmplificationSummaryTestOrder = (HER2AmplificationSummaryTestOrder)this.m_PanelSetOrder;
+            HER2AnalysisSummaryTestOrder her2AmplificationSummaryTestOrder = (HER2AnalysisSummaryTestOrder)this.m_PanelSetOrder;
 
             if (her2AmplificationSummaryTestOrder.Indicator.ToUpper() == "BREAST")
             {
@@ -70,9 +70,10 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
 
                 this.SetXmlNodeData("ihc_score", her2AmplificationSummaryTestOrder.IHCScore);
 
-                this.SetXmlNodeData("ish_cells_counted", her2AmplificationSummaryTestOrder.CellsCounted.ToString());
-                this.SetXmlNodeData("ish_her2_counted", her2AmplificationSummaryTestOrder.TotalHer2SignalsCounted.ToString());
-                this.SetXmlNodeData("ish_chr17_counted", her2AmplificationSummaryTestOrder.TotalChr17SignalsCounted.ToString());
+                //removed per MSB by SEH
+                //this.SetXmlNodeData("ish_cells_counted", her2AmplificationSummaryTestOrder.CellsCounted.ToString());
+                //this.SetXmlNodeData("ish_her2_counted", her2AmplificationSummaryTestOrder.TotalHer2SignalsCounted.ToString());
+                //this.SetXmlNodeData("ish_chr17_counted", her2AmplificationSummaryTestOrder.TotalChr17SignalsCounted.ToString());
 
                 if (her2AmplificationSummaryTestOrder.RecountRequired == true)
                 {

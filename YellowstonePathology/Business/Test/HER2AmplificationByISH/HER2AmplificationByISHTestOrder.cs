@@ -787,7 +787,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
                 if (this.m_HER2ByIHCRequired == true)
                 {
                     Test.Her2AmplificationByIHC.Her2AmplificationByIHCTest her2AmplificationByIHCTest = new Her2AmplificationByIHC.Her2AmplificationByIHCTest();
-                    HER2AmplificationSummary.HER2AmplificationSummaryTest her2AmplificationSummaryTest = new HER2AmplificationSummary.HER2AmplificationSummaryTest();
+                    HER2AnalysisSummary.HER2AnalysisSummaryTest her2AmplificationSummaryTest = new HER2AnalysisSummary.HER2AnalysisSummaryTest();
                     if (accessionOrder.PanelSetOrderCollection.Exists(her2AmplificationByIHCTest.PanelSetId, this.OrderedOnId, true) == false)
                     {
                         result.Status = AuditStatusEnum.Warning;

@@ -16,7 +16,7 @@ namespace YellowstonePathology.UI.Test
 
         private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        private YellowstonePathology.Business.Test.HER2AmplificationSummary.HER2AmplificationSummaryTestOrder m_PanelSetOrder;
+        private YellowstonePathology.Business.Test.HER2AnalysisSummary.HER2AnalysisSummaryTestOrder m_PanelSetOrder;
         private YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHIndicatorCollection m_IndicatorCollection;
         private YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHSampleAdequacyCollection m_SampleAdequacyCollection;
         private YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHProbeSignalIntensityCollection m_ProbeSignalIntensityCollection;
@@ -27,7 +27,7 @@ namespace YellowstonePathology.UI.Test
         private Visibility m_RecountVisibility;
 
 
-        public HER2AmplificationSummaryResultPage(YellowstonePathology.Business.Test.HER2AmplificationSummary.HER2AmplificationSummaryTestOrder testOrder,
+        public HER2AmplificationSummaryResultPage(YellowstonePathology.Business.Test.HER2AnalysisSummary.HER2AnalysisSummaryTestOrder testOrder,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
             YellowstonePathology.Business.User.SystemIdentity systemIdentity) : base(testOrder, accessionOrder)
         {
@@ -56,7 +56,7 @@ namespace YellowstonePathology.UI.Test
             this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalResults);
         }
 
-        public YellowstonePathology.Business.Test.HER2AmplificationSummary.HER2AmplificationSummaryTestOrder PanelSetOrder
+        public YellowstonePathology.Business.Test.HER2AnalysisSummary.HER2AnalysisSummaryTestOrder PanelSetOrder
         {
             get { return this.m_PanelSetOrder; }
         }
@@ -142,7 +142,7 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
         {
-                YellowstonePathology.Business.Test.HER2AmplificationSummary.HER2AmplificationSummaryWordDocument report = new YellowstonePathology.Business.Test.HER2AmplificationSummary.HER2AmplificationSummaryWordDocument(this.m_AccessionOrder, this.m_PanelSetOrder, Business.Document.ReportSaveModeEnum.Draft);
+                YellowstonePathology.Business.Test.HER2AnalysisSummary.HER2AnalysisSummaryWordDocument report = new YellowstonePathology.Business.Test.HER2AnalysisSummary.HER2AnalysisSummaryWordDocument(this.m_AccessionOrder, this.m_PanelSetOrder, Business.Document.ReportSaveModeEnum.Draft);
                 report.Render();
                 YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWord(report.SaveFileName);
         }

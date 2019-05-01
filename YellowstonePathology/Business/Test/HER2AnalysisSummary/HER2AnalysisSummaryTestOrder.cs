@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 using YellowstonePathology.Business.Persistence;
 using YellowstonePathology.Business.Audit.Model;
 
-namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
+namespace YellowstonePathology.Business.Test.HER2AnalysisSummary
 {
     [PersistentClass("tblHER2AmplificationSummaryTestOrder", "tblPanelSetOrder", "YPIDATA")]
-    public class HER2AmplificationSummaryTestOrder : PanelSetOrder, Interface.IHER2ISH
+    public class HER2AnalysisSummaryTestOrder : PanelSetOrder, Interface.IHER2ISH
     {
         protected string m_Result;
         protected int m_CellsCounted;
@@ -48,10 +48,10 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
         private int m_TotalHer2SignalsRecount;
         private string m_IHCScore;
 
-        public HER2AmplificationSummaryTestOrder()
+        public HER2AnalysisSummaryTestOrder()
         { }
 
-        public HER2AmplificationSummaryTestOrder(string masterAccessionNo, string reportNo, string objectId,
+        public HER2AnalysisSummaryTestOrder(string masterAccessionNo, string reportNo, string objectId,
             YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet,
             YellowstonePathology.Business.Interface.IOrderTarget orderTarget,
             bool distribute)
