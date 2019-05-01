@@ -10,7 +10,7 @@ namespace YellowstonePathology.Business.Test.ReticulatedPlateletAnalysis
 		public ReticulatedPlateletAnalysisTest()
         {
             this.m_PanelSetId = 23;
-            this.m_PanelSetName = "Reticulated Platelet Analysis";            
+            this.m_PanelSetName = "Reticulated Platelet Analysis - Retired";            
 			this.m_AllowMultiplePerAccession = true;
             this.m_ExpectedDuration = new TimeSpan(24, 0, 0);
             this.m_EpicDistributionIsImplemented = true;

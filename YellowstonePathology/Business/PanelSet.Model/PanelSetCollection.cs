@@ -294,6 +294,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.Test.FetalHemoglobinV2.FetalHemoglobinV2Test());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.StemCellCD34Enumeration.StemCellCD34EnumerationTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.ThrombocytopeniaProfileV2.ThrombocytopeniaProfileV2Test());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.ReticulatedPlateletAnalysisV2.ReticulatedPlateletAnalysisV2Test());
 
             //UniversityofWashington
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetUniversalOrganismByPCR());
