@@ -254,7 +254,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationRecount
 
             if (result.Status == AuditStatusEnum.OK)
             {
-                HER2AmplificationSummary.HER2AmplificationSummaryTest test = new HER2AmplificationSummary.HER2AmplificationSummaryTest();
+                HER2AnalysisSummary.HER2AnalysisSummaryTest test = new HER2AnalysisSummary.HER2AnalysisSummaryTest();
                 if (accessionOrder.PanelSetOrderCollection.Exists(test.PanelSetId, this.m_OrderedOnId, true) == false)
                 {
                     result.Status = AuditStatusEnum.Failure;
@@ -267,8 +267,8 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationRecount
 
         public override FinalizeTestResult Finish(AccessionOrder accessionOrder)
         {
-            HER2AmplificationSummary.HER2AmplificationSummaryTest test = new HER2AmplificationSummary.HER2AmplificationSummaryTest();
-            HER2AmplificationSummary.HER2AmplificationSummaryTestOrder testOrder = (HER2AmplificationSummary.HER2AmplificationSummaryTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(test.PanelSetId, this.m_OrderedOnId, true);
+            HER2AnalysisSummary.HER2AnalysisSummaryTest test = new HER2AnalysisSummary.HER2AnalysisSummaryTest();
+            HER2AnalysisSummary.HER2AnalysisSummaryTestOrder testOrder = (HER2AnalysisSummary.HER2AnalysisSummaryTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(test.PanelSetId, this.m_OrderedOnId, true);
             testOrder.SetValues(accessionOrder);
             return base.Finish(accessionOrder);
         }

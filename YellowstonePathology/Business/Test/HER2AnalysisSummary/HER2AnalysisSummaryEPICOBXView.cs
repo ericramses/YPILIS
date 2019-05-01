@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Xml.Linq;
 
-namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
+namespace YellowstonePathology.Business.Test.HER2AnalysisSummary
 {
-    public class HER2AmplificationSummaryEPICOBXView : YellowstonePathology.Business.HL7View.EPIC.EPICObxView
+    public class HER2AnalysisSummaryEPICOBXView : YellowstonePathology.Business.HL7View.EPIC.EPICObxView
     {
-        public HER2AmplificationSummaryEPICOBXView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount) 
+        public HER2AnalysisSummaryEPICOBXView(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount) 
             : base(accessionOrder, reportNo, obxCount)
 		{ }
 
         public override void ToXml(XElement document)
         {
-            HER2AmplificationSummaryTestOrder panelSetOrder = (HER2AmplificationSummaryTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
-            this.AddHeader(document, panelSetOrder, "HER2 Amplification Summary");
+            HER2AnalysisSummaryTestOrder panelSetOrder = (HER2AnalysisSummaryTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
+            this.AddHeader(document, panelSetOrder, "HER2 Analysis Summary");
 
             this.AddNextObxElement("", document, "F");
             this.AddNextObxElement("Result", document, "F");

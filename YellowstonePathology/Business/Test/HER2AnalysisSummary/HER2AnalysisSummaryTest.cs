@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
+namespace YellowstonePathology.Business.Test.HER2AnalysisSummary
 {
-    public class HER2AmplificationSummaryTest : YellowstonePathology.Business.PanelSet.Model.PanelSet
+    public class HER2AnalysisSummaryTest : YellowstonePathology.Business.PanelSet.Model.PanelSet
 	{
-		public HER2AmplificationSummaryTest()
+		public HER2AnalysisSummaryTest()
         {
             this.m_PanelSetId = 313;
-            this.m_PanelSetName = "HER2 Amplification Summary";
+            this.m_PanelSetName = "HER2 Analyisis Summary";
             this.m_CaseType = YellowstonePathology.Business.CaseType.Molecular;
             this.m_HasTechnicalComponent = false;
             this.m_HasProfessionalComponent = false;
@@ -21,8 +21,8 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationSummary
             this.IsBillable = false;
             this.NeverDistribute = false;
             this.m_SurgicalAmendmentRequired = false;
-            this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.HER2AmplificationSummary.HER2AmplificationSummaryTestOrder).AssemblyQualifiedName;
-            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.HER2AmplificationSummary.HER2AmplificationSummaryWordDocument).AssemblyQualifiedName;
+            this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.HER2AnalysisSummary.HER2AnalysisSummaryTestOrder).AssemblyQualifiedName;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.HER2AnalysisSummary.HER2AnalysisSummaryWordDocument).AssemblyQualifiedName;
 
             this.m_AllowMultiplePerAccession = true;
             this.m_ExpectedDuration = new TimeSpan(4, 0, 0, 0);

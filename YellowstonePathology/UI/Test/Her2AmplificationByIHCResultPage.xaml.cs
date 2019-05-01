@@ -171,7 +171,7 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkOrderHER2Summary_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Test.HER2AmplificationSummary.HER2AmplificationSummaryTest test = new Business.Test.HER2AmplificationSummary.HER2AmplificationSummaryTest();
+            YellowstonePathology.Business.Test.HER2AnalysisSummary.HER2AnalysisSummaryTest test = new Business.Test.HER2AnalysisSummary.HER2AnalysisSummaryTest();
             this.OrderATest(test);
         }
 

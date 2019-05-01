@@ -10,7 +10,7 @@ namespace YellowstonePathology.UI.Test
     {
         HER2AmplificationSummaryResultPage m_ResultPage;
         YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
-        YellowstonePathology.Business.Test.HER2AmplificationSummary.HER2AmplificationSummaryTestOrder m_PanelSetOrder;
+        YellowstonePathology.Business.Test.HER2AnalysisSummary.HER2AnalysisSummaryTestOrder m_PanelSetOrder;
 
         public HER2AmplificationSummaryResultPath(string reportNo,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
@@ -19,7 +19,7 @@ namespace YellowstonePathology.UI.Test
             : base(pageNavigator, window)
         {
             this.m_AccessionOrder = accessionOrder;
-            this.m_PanelSetOrder = (Business.Test.HER2AmplificationSummary.HER2AmplificationSummaryTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
+            this.m_PanelSetOrder = (Business.Test.HER2AnalysisSummary.HER2AnalysisSummaryTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);
         }
 
         protected override void ShowResultPage()

@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>5</ApplicationRevision>
+    <ApplicationRevision>11</ApplicationRevision>
     <ApplicationVersion>10.1.15.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -293,6 +293,7 @@
     <Compile Include="Business\BarcodeScanning\EmbeddingScan.cs" />
     <Compile Include="Business\BarcodeScanning\EmbeddingScanCollection.cs" />
     <Compile Include="Business\BarcodeScanning\HistologyBlock.cs" />
+    <Compile Include="Business\BarcodeScanning\SlideStorage.cs" />
     <Compile Include="Business\BarcodeScanning\HistologySlide.cs" />
     <Compile Include="Business\BarcodeScanning\ThinPrepSlide.cs" />
     <Compile Include="Business\BarcodeScanning\VantageBarcode.cs" />
@@ -364,6 +365,7 @@
     <Compile Include="Business\HL7View\EPIC\EpicHRHClient.cs" />
     <Compile Include="Business\Interface\IHER2ISH.cs" />
     <Compile Include="Business\Label.Model\HistologySlidePaperZPLLabelV3.cs" />
+    <Compile Include="Business\Label.Model\StorageSlideLabel.cs" />
     <Compile Include="Business\Label.Model\HologicSlideLabelPrinter.cs" />
     <Compile Include="Business\Label.Model\HologicSlideLabel.cs" />
     <Compile Include="Business\PanelSet.Model\FISHTest.cs" />
@@ -1118,10 +1120,10 @@
     <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationResultEnum.cs" />
     <Compile Include="Business\Test\HER2AmplificationRecount\HER2AmplificationRecountTest.cs" />
     <Compile Include="Business\Test\HER2AmplificationRecount\HER2AmplificationRecountTestOrder.cs" />
-    <Compile Include="Business\Test\HER2AmplificationSummary\HER2AmplificationSummaryEPICOBXView.cs" />
-    <Compile Include="Business\Test\HER2AmplificationSummary\HER2AmplificationSummaryTest.cs" />
-    <Compile Include="Business\Test\HER2AmplificationSummary\HER2AmplificationSummaryTestOrder.cs" />
-    <Compile Include="Business\Test\HER2AmplificationSummary\HER2AmplificationSummaryWordDocument.cs" />
+    <Compile Include="Business\Test\HER2AnalysisSummary\HER2AnalysisSummaryEPICOBXView.cs" />
+    <Compile Include="Business\Test\HER2AnalysisSummary\HER2AnalysisSummaryTest.cs" />
+    <Compile Include="Business\Test\HER2AnalysisSummary\HER2AnalysisSummaryTestOrder.cs" />
+    <Compile Include="Business\Test\HER2AnalysisSummary\HER2AnalysisSummaryWordDocument.cs" />
     <Compile Include="Business\Test\HoldForFlow\CultureAndHoldForCytogeneticsTest.cs" />
     <Compile Include="Business\Test\HoldForFlow\DirectHarvestForFISHTest.cs" />
     <Compile Include="Business\Test\HPV1618\HPV1618WPHOBXView.cs" />
