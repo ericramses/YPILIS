@@ -1205,6 +1205,7 @@
     <Compile Include="Business\Test\PrealbuminTTR\PrealbuminTTRTest.cs" />
     <Compile Include="Business\Test\AmyloidAandAmyloidP\AmyloidAandAmyloidPTest.cs" />
     <Compile Include="Business\Test\RASRAFPanel\RASRAFPanelWPHOBXView.cs" />
+    <Compile Include="Business\Test\ReticulatedPlateletAnalysisV2\ReticulatedPlateletAnalysisV2EPICOBXView.cs" />
     <Compile Include="Business\Test\ReticulatedPlateletAnalysisV2\ReticulatedPlateletAnalysisV2Test.cs" />
     <Compile Include="Business\Test\ReticulatedPlateletAnalysisV2\ReticulatedPlateletAnalysisV2TestOrder.cs" />
     <Compile Include="Business\Test\ReticulatedPlateletAnalysisV2\ReticulatedPlateletAnalysisV2WordDocument.cs" />
