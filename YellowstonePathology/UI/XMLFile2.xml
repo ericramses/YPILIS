@@ -21,7 +21,7 @@
   <Code ICD9="V24.1" ICD10="Z39.1" Description="Encounter for care and examination of lactating mother" Test="Cytology" Quantity="1"/>
   <Code ICD9="V24.2" ICD10="Z39.2" Description="Encounter for routine postpartum follow-up" Test="Cytology" Quantity="1"/>
   <Code ICD9="V73.81" ICD10="Z11.51" Description="Encounter for screening for human papillomavirus (HPV)" Test="Routine HPV" Quantity="1"/>
-  <Code ICD9="V74.5" ICD10="Z11.3" Description="Encounter for screening for infections with a predominantly sexual mode of transmission" Test="NGCT" Quantity="1"/>
+  <Code ICD9="V74.5" ICD10="Z11.3" Description="Encounter for screening for infections with a predominantly sexual mode of transmission" Test="General" Quantity="1"/>
   <Code ICD9="V01.6" ICD10="Z20.2" Description="Contact with and (suspected) exposure to infections with a predominantly sexual mode of transmission" Test="NGCT" Quantity="1"/>
   <Code ICD9="V73.98" ICD10="Z11.8" Description="Encounter for screening for other infectious and parasitic diseases" Test="NGCT" Quantity="1"/>
   <Code ICD9="V73.88" ICD10="Z11.8" Description="Encounter for screening for other infectious and parasitic diseases" Test="NGCT" Quantity="1"/>
