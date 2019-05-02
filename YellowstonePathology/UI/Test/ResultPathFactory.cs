@@ -363,6 +363,9 @@ namespace YellowstonePathology.UI.Test
                 case 338:
                     result = new ThrombocytopeniaProfileV2ResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
+                case 339:
+                    result = new ReticulatedPlateletAnalysisV2ResultPath(reportNo, accessionOrder, pageNavigator, window);
+                    break;
             }
             return result;
         }

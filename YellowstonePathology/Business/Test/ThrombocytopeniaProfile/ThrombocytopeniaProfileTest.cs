@@ -17,7 +17,6 @@ namespace YellowstonePathology.Business.Test.ThrombocytopeniaProfile
             this.m_ExpectedDuration = new TimeSpan(24, 0, 0);
             this.m_EpicDistributionIsImplemented = true;
             this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.PublishedDocument;
-            //this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.ThombocytopeniaProfile.ThombocytopeniaProfileWordDocument).AssemblyQualifiedName;
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.PanelSetOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Document.ReferenceLabReport).AssemblyQualifiedName;
 
@@ -27,10 +26,16 @@ namespace YellowstonePathology.Business.Test.ThrombocytopeniaProfile
             this.m_HasProfessionalComponent = false;
             this.m_ProfessionalComponentFacility = null;
 
+            YellowstonePathology.Business.Facility.Model.Facility ypi = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
+            this.m_TechnicalComponentFacility = ypi;
+            this.m_TechnicalComponentBillingFacility = ypi;
+
             YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode1 = new Business.Billing.Model.PanelSetCptCode(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("86023", null), 2);
             YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode2 = new Business.Billing.Model.PanelSetCptCode(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("85055", null), 1);
             this.m_PanelSetCptCodeCollection.Add(panelSetCptCode1);
-            this.m_PanelSetCptCodeCollection.Add(panelSetCptCode2);            
-		}
+            this.m_PanelSetCptCodeCollection.Add(panelSetCptCode2);
+
+            this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceFLOWYPI());
+        }
     }
 }
