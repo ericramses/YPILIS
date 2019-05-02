@@ -294,6 +294,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.Test.FetalHemoglobinV2.FetalHemoglobinV2Test());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.StemCellCD34Enumeration.StemCellCD34EnumerationTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.ThrombocytopeniaProfileV2.ThrombocytopeniaProfileV2Test());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.ReticulatedPlateletAnalysisV2.ReticulatedPlateletAnalysisV2Test());
 
             //UniversityofWashington
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetUniversalOrganismByPCR());
@@ -419,7 +420,6 @@ namespace YellowstonePathology.Business.PanelSet.Model
 
             result.Add(new Test.LLP.LeukemiaLymphomaTest());
             result.Add(new Test.PlateletAssociatedAntibodies.PlateletAssociatedAntibodiesTest());
-            result.Add(new Test.ReticulatedPlateletAnalysis.ReticulatedPlateletAnalysisTest());
 
             return result;
         }

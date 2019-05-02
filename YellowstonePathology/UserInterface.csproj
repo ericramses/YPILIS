@@ -1205,6 +1205,9 @@
     <Compile Include="Business\Test\PrealbuminTTR\PrealbuminTTRTest.cs" />
     <Compile Include="Business\Test\AmyloidAandAmyloidP\AmyloidAandAmyloidPTest.cs" />
     <Compile Include="Business\Test\RASRAFPanel\RASRAFPanelWPHOBXView.cs" />
+    <Compile Include="Business\Test\ReticulatedPlateletAnalysisV2\ReticulatedPlateletAnalysisV2Test.cs" />
+    <Compile Include="Business\Test\ReticulatedPlateletAnalysisV2\ReticulatedPlateletAnalysisV2TestOrder.cs" />
+    <Compile Include="Business\Test\ReticulatedPlateletAnalysisV2\ReticulatedPlateletAnalysisV2WordDocument.cs" />
     <Compile Include="Business\Test\RibosomalRNA16S\RibosomalRNA16STest.cs" />
     <Compile Include="Business\Test\SomatostatinReceptorType2\SomatostatinReceptorType2Test.cs" />
     <Compile Include="Business\Test\StemCellCD34Enumeration\StemCellCD34EnumerationTest.cs" />
@@ -3709,6 +3712,10 @@
     <Compile Include="UI\Test\ExtractAndHoldForPreauthorizationResultPage.xaml.cs">
       <DependentUpon>ExtractAndHoldForPreauthorizationResultPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Test\ReticulatedPlateletAnalysisV2ResultPage.xaml.cs">
+      <DependentUpon>ReticulatedPlateletAnalysisV2ResultPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Test\ReticulatedPlateletAnalysisV2ResultPath.cs" />
     <Compile Include="UI\Test\SlideTrackingResultPage.xaml.cs">
       <DependentUpon>SlideTrackingResultPage.xaml</DependentUpon>
     </Compile>
@@ -5669,6 +5676,10 @@
     <Page Include="UI\Test\ExtractAndHoldForPreauthorizationResultPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Test\ReticulatedPlateletAnalysisV2ResultPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Test\SlideTrackingResultPage.xaml">
       <Generator>MSBuild:Compile</Generator>
