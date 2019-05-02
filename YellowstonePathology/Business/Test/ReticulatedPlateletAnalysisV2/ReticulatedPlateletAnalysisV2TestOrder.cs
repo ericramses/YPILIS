@@ -24,6 +24,7 @@ namespace YellowstonePathology.Business.Test.ReticulatedPlateletAnalysisV2
             bool distribute)
             : base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute)
         {
+            this.m_ResultReference = "0-0.37%";
             this.m_Method = "Quantitative Flow Cytometry";
             this.m_ASRComment = "Tests utilizing Analytic Specific Reagents (ASR’s) were developed and performance characteristics " +
                 "determined by Yellowstone Pathology Institute, Inc.  They have not been cleared or approved by the U.S. Food and Drug " +
@@ -109,6 +110,35 @@ namespace YellowstonePathology.Business.Test.ReticulatedPlateletAnalysisV2
                     result.Status = AuditStatusEnum.Failure;
                     result.Message = "Unable to accept as the Reticulated Platelet Analysis is not set.";
                 }
+            }
+
+            if (result.Status == AuditStatusEnum.OK)
+            {
+                if (string.IsNullOrEmpty(this.m_ResultReference) == true)
+                {
+                    result.Status = AuditStatusEnum.Failure;
+                    result.Message = "Unable to accept as the Reference is not set.";
+                }
+            }
+
+            return result;
+        }
+
+        public override AuditResult IsOkToFinalize(AccessionOrder accessionOrder)
+        {
+            AuditResult result = new Audit.Model.AuditResult();
+            result.Status = AuditStatusEnum.OK;
+
+            YellowstonePathology.Business.Rules.MethodResult methodResult = IsOkToFinalize();
+            if(methodResult.Success == false)
+            {
+                result.Status = AuditStatusEnum.Failure;
+                result.Message = methodResult.Message;
+            }
+
+            if (result.Status == AuditStatusEnum.OK)
+            {
+                result = base.IsOkToFinalize(accessionOrder);
             }
 
             return result;

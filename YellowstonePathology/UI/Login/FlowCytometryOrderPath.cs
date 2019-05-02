@@ -131,9 +131,9 @@ namespace YellowstonePathology.UI.Login
                 case 22: //PAA
 					panelSetFlowCytometry = (YellowstonePathology.Business.Test.PlateletAssociatedAntibodies.PlateletAssociatedAntibodiesTest)this.m_PanelSet;
                     break;
-                case 23: //RTIC
+                /*case 23: //RTIC
 					panelSetFlowCytometry = (YellowstonePathology.Business.Test.ReticulatedPlateletAnalysis.ReticulatedPlateletAnalysisTest)this.m_PanelSet;
-                    break;
+                    break;*/
                 /*case 24: //Stem Cell
 					panelSetFlowCytometry = (YellowstonePathology.Business.Test.StemCellEnumeration.StemCellEnumerationTest)this.m_PanelSet;
                     break;
