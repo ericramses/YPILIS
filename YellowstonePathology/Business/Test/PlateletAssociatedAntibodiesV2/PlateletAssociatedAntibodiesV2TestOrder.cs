@@ -174,18 +174,18 @@ namespace YellowstonePathology.Business.Test.PlateletAssociatedAntibodiesV2
                 if (string.IsNullOrEmpty(this.m_IgGReference) == true)
                 {
                     result.Status = AuditStatusEnum.Failure;
-                    result.Message = "IgG Reference" + Environment.NewLine;
+                    message += "IgG Reference" + Environment.NewLine;
                 }
-                if (string.IsNullOrEmpty(this.m_IgGResult) == true)
+                if (string.IsNullOrEmpty(this.m_IgMResult) == true)
                 {
                     result.Status = AuditStatusEnum.Failure;
-                    result.Message = "Anti Platelet Antibody - IgM" + Environment.NewLine;
+                    message += "Anti Platelet Antibody - IgM" + Environment.NewLine;
                 }
 
-                if (string.IsNullOrEmpty(this.m_IgGReference) == true)
+                if (string.IsNullOrEmpty(this.m_IgMReference) == true)
                 {
                     result.Status = AuditStatusEnum.Failure;
-                    result.Message = "IgM Reference";
+                    message += "IgM Reference";
                 }
 
                 if(result.Status == AuditStatusEnum.Failure)
