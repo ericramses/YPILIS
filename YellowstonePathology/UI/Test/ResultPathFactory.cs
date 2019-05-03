@@ -366,6 +366,9 @@ namespace YellowstonePathology.UI.Test
                 case 339:
                     result = new ReticulatedPlateletAnalysisV2ResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
+                case 340:
+                    result = new PlateletAssociatedAntibodiesV2ResultPath(reportNo, accessionOrder, pageNavigator, window);
+                    break;
             }
             return result;
         }

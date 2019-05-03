@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace YellowstonePathology.UI.Test
 {
-    class ReticulatedPlateletAnalysisV2ResultPath : ResultPath
+    public class ReticulatedPlateletAnalysisV2ResultPath : ResultPath
     {
         ReticulatedPlateletAnalysisV2ResultPage m_ResultPage;
         YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
