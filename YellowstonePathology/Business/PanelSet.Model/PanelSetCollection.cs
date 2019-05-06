@@ -268,7 +268,9 @@ namespace YellowstonePathology.Business.PanelSet.Model
 
             panelSetCollection.Add(new YellowstonePathology.Business.Test.PNH.PNHTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.LLP.LeukemiaLymphomaTest());
-			panelSetCollection.Add(new YellowstonePathology.Business.Test.StemCellEnumeration.StemCellEnumerationTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.PlateletAssociatedAntibodies.PlateletAssociatedAntibodiesTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.ReticulatedPlateletAnalysis.ReticulatedPlateletAnalysisTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.StemCellEnumeration.StemCellEnumerationTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.ThrombocytopeniaProfile.ThrombocytopeniaProfileTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.FetalHemoglobin.FetalHemoglobinTest());
 			panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.HighRiskHPVTestRetired());
