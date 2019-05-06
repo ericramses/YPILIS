@@ -10,7 +10,7 @@ namespace YellowstonePathology.Business.Test.PlateletAssociatedAntibodies
 		public PlateletAssociatedAntibodiesTest()
         {
             this.m_PanelSetId = 22;
-            this.m_PanelSetName = "Platelet Associated Antibodies";            
+            this.m_PanelSetName = "Platelet Associated Antibodies - Retired";            
 			this.m_AllowMultiplePerAccession = true;
             this.m_ExpectedDuration = new TimeSpan(24, 0, 0);
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.PlateletAssociatedAntibodies.PlateletAssociatedAntibodiesWordDocument).AssemblyQualifiedName;

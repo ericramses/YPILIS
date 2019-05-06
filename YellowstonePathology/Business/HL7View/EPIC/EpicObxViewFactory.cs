@@ -325,6 +325,9 @@ namespace YellowstonePathology.Business.HL7View.EPIC
                 case 339:
                     view = new YellowstonePathology.Business.Test.ReticulatedPlateletAnalysisV2.ReticulatedPlateletAnalysisV2EPICOBXView(accessionOrder, reportNo, obxCount);
                     break;
+                case 340:
+                    view = new YellowstonePathology.Business.Test.PlateletAssociatedAntibodiesV2.PlateletAssociatedAntibodiesV2EPICOBXView(accessionOrder, reportNo, obxCount);
+                    break;
             }
             return view;
         }
