@@ -22,22 +22,11 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="40"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="300"></RowDefinition>
             </Grid.RowDefinitions>
-            <StackPanel Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Orientation="Horizontal">
-                <Button Click="ButtonViewDocument_Click" KeyboardNavigation.IsTabStop="False" Width="25" Height="25">
-                    <Image Source="/Resources/Document.jpg"></Image>
-                </Button>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.ReportNo}" VerticalAlignment="Center" Margin="2,2,2,2" FontWeight="Bold"></TextBlock>
-                    <TextBlock Text=":" VerticalAlignment="Center" Margin="2,2,2,2" FontWeight="Bold"></TextBlock>
-                    <TextBlock Text="{Binding Path=AccessionOrder.PatientDisplayName}" VerticalAlignment="Center" Margin="2,2,2,2" FontWeight="Bold"></TextBlock>
-                </StackPanel>
-            </StackPanel>
-            <TabControl Grid.Column="0" Grid.Row="1" Name="tabControlFlow">
+            <TabControl Grid.Column="0" Grid.Row="0" Name="tabControlFlow">
                 <TabItem Header="General" Name="TabItemGeneral">
                     <StackPanel Margin="20">
                         <StackPanel Orientation="Horizontal">
@@ -527,7 +516,7 @@
                         </StackPanel>
                     </StackPanel>
                 </TabItem>
-                <TabItem Header="ICD10 Codes" Height="22" Margin="-1.8,-2,-2.2,0" VerticalAlignment="Top">
+                <TabItem Header="ICD10 Codes">
                     <Grid Background="White">
                         <Grid.ContextMenu>
                             <ContextMenu>
@@ -684,56 +673,11 @@
                     </Grid>
                 </TabItem>
 
-                <TabItem Name="TabItemCommonMarkers" Header="Markers(Common)">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="59*"></ColumnDefinition>
-                            <ColumnDefinition Width="16*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"></RowDefinition>
-                            <RowDefinition Height="*"></RowDefinition>
-                            <RowDefinition Height="Auto"></RowDefinition>
-                            <RowDefinition Height="Auto"></RowDefinition>
-                        </Grid.RowDefinitions>
-
-                        <StackPanel Orientation="Horizontal" Margin="5,5,5.4,5.2" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
-                            <TextBlock VerticalAlignment="Center" Width="200" Style="{StaticResource GatingTextBlock}" TextAlignment="Right" Margin="2,2,2,2">Marker Panel:</TextBlock>
-                            <ComboBox Name="comboBoxCommonMarkerPanel" Width="150" ItemsSource="{Binding Path=FlowPanelList}" DisplayMemberPath="PanelName" SelectedValuePath="PanelId" Height="22" Margin="2,2,2,2"/>
-                            <Button Name="ButtonAddCommonMarkerPanel" Height="20" Width="100" Click="ButtonAddCommonMarkerPanel_Click" Margin="2,2,2,2">Add Panel</Button>
-                        </StackPanel>
-
-                        <ListView Name="listViewCommonMarkers" Grid.Column="0" 
-				        ItemsSource="{Binding Path=PanelSetOrderLeukemiaLymphoma.FlowMarkerCollection}" IsEnabled="{Binding Path=IsWorkspaceEnabled}" Grid.ColumnSpan="2" Margin="0,35,0.4,0.2" Grid.RowSpan="2">
-                            <ListView.View>
-                                <GridView>
-                                    <GridViewColumn Width="150" DisplayMemberBinding="{Binding Path=Name}" Header="Marker"/>
-                                    <GridViewColumn Header="Intensity" Width="150">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <ComboBox Width="130"  Margin="3" IsEditable="True" Text="{Binding Path=Result}">
-                                                    <ComboBoxItem>Negative</ComboBoxItem>
-                                                    <ComboBoxItem>Weakly Positive</ComboBoxItem>
-                                                    <ComboBoxItem>Positive</ComboBoxItem>
-                                                    <ComboBoxItem>Strongly Positive</ComboBoxItem>
-                                                </ComboBox>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
-
-                        <TextBlock Grid.Column="0" Grid.Row="2" FontWeight="Bold" Margin="2,1.8,1.4,2.2" Grid.ColumnSpan="2">Report Comment:</TextBlock>
-                        <TextBox Name="TextBoxReportComment" Grid.Column="0" Grid.Row="3" Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.ReportComment, UpdateSourceTrigger=PropertyChanged}" 
-                                 HorizontalAlignment="Stretch" Height="100" AcceptsReturn="True" Margin="2,1.8,1.4,2.2" Grid.ColumnSpan="2"></TextBox>
-                    </Grid>
-                </TabItem>
             </TabControl>
 
-            <GridSplitter Height="5" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Center"></GridSplitter>
+            <GridSplitter Height="5" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"></GridSplitter>
 
-            <TabControl Name="tabControlBottomLeftPane" Grid.Column="0" Grid.Row="3">
+            <TabControl Name="tabControlBottomLeftPane" Grid.Column="0" Grid.Row="2">
 
                 <TabItem Header="List">
                     <Grid>

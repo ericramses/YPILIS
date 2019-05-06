@@ -512,15 +512,6 @@ namespace YellowstonePathology.UI.Flow
             }            
         }
 
-        public void ButtonAddCommonMarkerPanel_Click(object sender, RoutedEventArgs args)
-        {            
-            if (this.comboBoxCommonMarkerPanel.SelectedItem != null)
-            {                
-                Business.Flow.FlowPanelListItem panelItem = (Business.Flow.FlowPanelListItem)this.comboBoxCommonMarkerPanel.SelectedItem;
-                this.m_FlowUI.AddMarkerPanel(panelItem.PanelId, null, panelItem.PanelName);
-            }          
-        }
-
         public void ButtonAddMarker_Click(object sender, RoutedEventArgs args)
         {
             if (this.listViewFlowMarkers.SelectedItems.Count != 0)
