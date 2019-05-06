@@ -1201,6 +1201,10 @@
     <Compile Include="Business\Test\p57\p57Test.cs" />
     <Compile Include="Business\Test\ParvovirusB19ByPCR\ParvovirusB19ByPCRTest.cs" />
     <Compile Include="Business\Test\PDL1288\PDL1288Test.cs" />
+    <Compile Include="Business\Test\PlateletAssociatedAntibodiesV2\PlateletAssociatedAntibodiesV2EPICOBXView.cs" />
+    <Compile Include="Business\Test\PlateletAssociatedAntibodiesV2\PlateletAssociatedAntibodiesV2Test.cs" />
+    <Compile Include="Business\Test\PlateletAssociatedAntibodiesV2\PlateletAssociatedAntibodiesV2TestOrder.cs" />
+    <Compile Include="Business\Test\PlateletAssociatedAntibodiesV2\PlateletAssociatedAntibodiesV2WordDocument.cs" />
     <Compile Include="Business\Test\PNH\PNHWPHOBXView.cs" />
     <Compile Include="Business\Test\PrealbuminTTR\PrealbuminTTRTest.cs" />
     <Compile Include="Business\Test\AmyloidAandAmyloidP\AmyloidAandAmyloidPTest.cs" />
@@ -3641,6 +3645,10 @@
       <DependentUpon>OrderAssociationResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Test\OrderAssociationResultPath.cs" />
+    <Compile Include="UI\Test\PlateletAssociatedAntibodiesV2ResultPage.xaml.cs">
+      <DependentUpon>PlateletAssociatedAntibodiesV2ResultPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Test\PlateletAssociatedAntibodiesV2ResultPath.cs" />
     <Compile Include="UI\Test\PreviousResultDialog.xaml.cs">
       <DependentUpon>PreviousResultDialog.xaml</DependentUpon>
     </Compile>
@@ -5603,6 +5611,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\Test\OrderAssociationResultPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Test\PlateletAssociatedAntibodiesV2ResultPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
