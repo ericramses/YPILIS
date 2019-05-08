@@ -15,7 +15,6 @@ namespace YellowstonePathology.Business.Flow
 
         private YellowstonePathology.Business.User.SystemUserCollection m_PathologistUsers;
         private YellowstonePathology.Business.User.SystemUserCollection m_MedTechUsers;
-        private YellowstonePathology.Business.PanelSet.Model.PanelSetCollection m_FlowPanelSetCollection;
         private Flow.FlowComment m_FlowComment;
         private Flow.Marker m_Marker;
         
@@ -49,8 +48,6 @@ namespace YellowstonePathology.Business.Flow
 
 			this.m_PathologistUsers = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetUsersByRole(YellowstonePathology.Business.User.SystemUserRoleDescriptionEnum.Pathologist, true);
 			this.m_MedTechUsers = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetUsersByRole(YellowstonePathology.Business.User.SystemUserRoleDescriptionEnum.MedTech, true);
-
-            this.m_FlowPanelSetCollection = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetFlowPanelSets();            
 
             this.m_FlowComment = new FlowComment();
             this.m_FlowComment.FlowCommentCollection.SetFillCommandAll();
@@ -333,11 +330,6 @@ namespace YellowstonePathology.Business.Flow
         public YellowstonePathology.Business.User.SystemUserCollection MedTechUsers
         {
             get { return this.m_MedTechUsers; }
-        }
-
-        public YellowstonePathology.Business.PanelSet.Model.PanelSetCollection FlowPanelSetCollection
-        {
-            get { return this.m_FlowPanelSetCollection; }
         }
 
 		public YellowstonePathology.Business.User.SystemUser CurrentUser

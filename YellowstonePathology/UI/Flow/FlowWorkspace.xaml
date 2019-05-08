@@ -66,17 +66,6 @@
                             <TextBox Style="{StaticResource BoundTextBox}" Height="30" IsEnabled="{Binding Path=IsWorkspaceEnabled}"
                                      Text="{Binding Path=AccessionOrder.ClinicalHistory, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Style="{StaticResource HeadingTextBlock}">Test Performed:</TextBlock>
-                            <ComboBox Name="ComboBoxTestPerformed" Style="{StaticResource BoundTextBox}"
-									  ItemsSource="{Binding Path=FlowPanelSetCollection}"
-									  DisplayMemberPath="PanelSetName"
-									  SelectedValuePath="PanelSetId"
-									  SelectedValue="{Binding Path=PanelSetOrderLeukemiaLymphoma.PanelSetId}"
-									  IsEnabled="{Binding Path=IsWorkspaceEnabled}"
-									  SelectionChanged="ComboBoxTestPerformed_SelectionChanged">
-                            </ComboBox>
-                        </StackPanel>
 
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Style="{StaticResource HeadingTextBlock}">Professional Facility:</TextBlock>
@@ -818,16 +807,6 @@
                                     <ComboBoxItem>2019</ComboBoxItem>
                                 </ComboBox>
                             </StackPanel>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <RadioButton Name="radioButtonSearchTestId"
-								Checked="RadioButtonFlowSearch_Checked"
-							  Style="{StaticResource RadioButtonStyle}"
-							  GroupName="radioButtonGroupSearch">Test Performed</RadioButton>
-                            <ComboBox Name="comboBoxFlowSearchTestType" Style="{StaticResource BoundTextBox}"
-								 ItemsSource="{Binding Path=FlowPanelSetCollection}" 								 								 
-								 DisplayMemberPath="PanelSetName" Visibility="Hidden">
-                            </ComboBox>
                         </StackPanel>
                         <Button Name="buttonSearch" Click="ButtonSearch_Click" Style="{StaticResource NormalButton}" Width="150">Search</Button>
                     </StackPanel>

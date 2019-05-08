@@ -8,7 +8,7 @@ using YellowstonePathology.Business.Persistence;
 namespace YellowstonePathology.Business.Test.LLP
 {
 	[PersistentClass("tblFlowLeukemia", "tblPanelSetOrder", "YPIDATA")]
-	public class PanelSetOrderLeukemiaLymphoma : PanelSetOrder, YellowstonePathology.Business.Interface.ILeukemiaLymphomaResult
+	public class PanelSetOrderLeukemiaLymphoma : PanelSetOrder
 	{		
         private int m_SpecimenNumber;
 		private int m_GatingPopulation;
@@ -58,7 +58,6 @@ namespace YellowstonePathology.Business.Test.LLP
 			bool distribute)
 			: base(masterAccessionNo, reportNo, objectId, panelSet, orderTarget, distribute)
 		{
-            YellowstonePathology.Business.PanelSet.Model.FlowCytometry.PanelSetFlowCytometry panelSetFlowCytometry = (YellowstonePathology.Business.PanelSet.Model.FlowCytometry.PanelSetFlowCytometry)panelSet;
 			this.m_FlowMarkerCollection = new Flow.FlowMarkerCollection();            
 		}
 
