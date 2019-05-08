@@ -2511,13 +2511,7 @@
     <Compile Include="Business\Test\MDSExtendedByFish\MDSExtendedByFishWordDocument.cs" />
     <Compile Include="Business\Test\MDSExtendedByFish\PanelSetOrderMDSExtendedByFish.cs" />
     <Compile Include="Business\Test\MGMTPromoterMethylationAnalysis\MGMTPromoterMethylationAnalysisTest.cs" />
-    <Compile Include="Business\Test\MicrosatelliteInstabilityAnalysis\MicrosatelliteInstabilityAnalysisDetectedResult.cs" />
-    <Compile Include="Business\Test\MicrosatelliteInstabilityAnalysis\MicrosatelliteInstabilityAnalysisEpicObxView.cs" />
-    <Compile Include="Business\Test\MicrosatelliteInstabilityAnalysis\MicrosatelliteInstabilityAnalysisNotDetectedResult.cs" />
-    <Compile Include="Business\Test\MicrosatelliteInstabilityAnalysis\MicrosatelliteInstabilityAnalysisResultCollection.cs" />
     <Compile Include="Business\Test\MicrosatelliteInstabilityAnalysis\MicrosatelliteInstabilityAnalysisTest.cs" />
-    <Compile Include="Business\Test\MicrosatelliteInstabilityAnalysis\MicrosatelliteInstabilityAnalysisTestOrder.cs" />
-    <Compile Include="Business\Test\MicrosatelliteInstabilityAnalysis\MicrosatelliteInstabilityAnalysisWordDocument.cs" />
     <Compile Include="Business\Test\MissingInformation\MissingInformationTest.cs" />
     <Compile Include="Business\Test\MissingInformation\MissingInformationTestOrder.cs" />
     <Compile Include="Business\Test\MolecularAnalysisTestOrder.cs" />
@@ -3849,10 +3843,6 @@
       <DependentUpon>MDSExtendedPanelByFishResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Test\MDSExtendedPanelByFishResultPath.cs" />
-    <Compile Include="UI\Test\MicrosatelliteInstabilityAnalysisResultPath.cs" />
-    <Compile Include="UI\Test\MicrosatelliteInstabilityAnalysisResultPage.xaml.cs">
-      <DependentUpon>MicrosatelliteInstabilityAnalysisResultPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UI\Test\MPLResultPage.xaml.cs">
       <DependentUpon>MPLResultPage.xaml</DependentUpon>
     </Compile>
@@ -5803,10 +5793,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Test\MDSExtendedPanelByFishResultPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\Test\MicrosatelliteInstabilityAnalysisResultPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
