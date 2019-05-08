@@ -195,7 +195,6 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.Test.NeoTYPELumphomaProfile.NeoTYPELumphomaProfileTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.Adenovirus.AdenovirusTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.NeoTYPELiverBiliaryTumorProfile.NeoTYPELiverBiliaryTumorProfileTest());
-            panelSetCollection.Add(new YellowstonePathology.Business.Test.DNACellCycleAnalysis.DNACellCycleAnalysisTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.PrealbuminTTR.PrealbuminTTRTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.AmyloidAandAmyloidP.AmyloidAandAmyloidPTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.NUT.NUTTest());
@@ -268,7 +267,8 @@ namespace YellowstonePathology.Business.PanelSet.Model
 
             panelSetCollection.Add(new YellowstonePathology.Business.Test.PNH.PNHTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.LLP.LeukemiaLymphomaTest());
-            panelSetCollection.Add(new YellowstonePathology.Business.Test.PlateletAssociatedAntibodies.PlateletAssociatedAntibodiesTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.LLP.LeukemiaLymphomaTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.DNACellCycleAnalysis.DNACellCycleAnalysisTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.ReticulatedPlateletAnalysis.ReticulatedPlateletAnalysisTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.StemCellEnumeration.StemCellEnumerationTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.ThrombocytopeniaProfile.ThrombocytopeniaProfileTest());
@@ -411,15 +411,6 @@ namespace YellowstonePathology.Business.PanelSet.Model
                     result.Add(panelSet);
                 }
             }
-
-            return result;
-        }
-
-        public static PanelSetCollection GetFlowPanelSets()
-        {
-            PanelSetCollection result = new PanelSetCollection();
-
-            result.Add(new Test.LLP.LeukemiaLymphomaTest());
 
             return result;
         }

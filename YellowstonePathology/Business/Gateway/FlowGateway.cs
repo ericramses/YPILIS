@@ -17,17 +17,6 @@ namespace YellowstonePathology.Business.Gateway
 			return BuildFlowLogList(cmd);
 		}        
 
-		public static Flow.FlowLogList GetByTestType(int panelSetId)
-		{
-			MySqlCommand cmd = new MySqlCommand("select pso.ReportNo, ao.PLastName, ao.PFirstName, ao.AccessionDate, pso.FinalDate, " +
-                "pso.PanelSetName TestName, pso.ObjectId, pso.MasterAccessionNo " +
-                "from tblPanelSetOrder pso join tblAccessionOrder ao on pso.MasterAccessionNo = ao.MasterAccessionNo " +
-				"Where pso.PanelSetId = @PanelSetId order by ao.AccessionDate desc, pso.ReportNo desc;");
-			cmd.CommandType = CommandType.Text;
-            cmd.Parameters.AddWithValue("@PanelSetId", panelSetId);
-			return BuildFlowLogList(cmd);
-		}
-
 		public static Flow.FlowLogList GetFlowLogListByReportNo(string reportNo)
 		{
 			MySqlCommand cmd = new MySqlCommand("select pso.ReportNo, ao.PLastName, ao.PFirstName, ao.AccessionDate, pso.FinalDate, " +
@@ -80,18 +69,6 @@ namespace YellowstonePathology.Business.Gateway
 
 			cmd.CommandText = sql + whereClause + " order by ao.AccessionDate desc, pso.ReportNo desc;";
 			cmd.CommandType = CommandType.Text;
-			return BuildFlowLogList(cmd);
-		}
-
-		public static Flow.FlowLogList GetByPathologistId(int pathologistId)
-		{
-			MySqlCommand cmd = new MySqlCommand("select pso.ReportNo, ao.PLastName, ao.PFirstName, ao.AccessionDate, pso.FinalDate, " +
-                "pso.PanelSetName TestName, pso.ObjectId, pso.MasterAccessionNo " +
-                "from tblPanelSetOrder pso join tblAccessionOrder ao on pso.MasterAccessionNo = ao.MasterAccessionNo " +
-                "where date_add(ao.AccessionDate, Interval 1 Year) > curDate() and pso.AssignedToId = @PathologistId " +
-				"order by ao.AccessionDate desc, pso.ReportNo desc;");
-			cmd.CommandType = CommandType.Text;
-			cmd.Parameters.AddWithValue("@PathologistId", pathologistId);
 			return BuildFlowLogList(cmd);
 		}
 
