@@ -109,9 +109,6 @@ namespace YellowstonePathology.Business.HL7View.EPIC
                 case 131:
                     view = new YellowstonePathology.Business.Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHEPICOBXView(accessionOrder, reportNo, obxCount);
                     break;
-				case 132:
-					view = new YellowstonePathology.Business.Test.MicrosatelliteInstabilityAnalysis.MicrosatelliteInstabilityAnalysisEPICObxView(accessionOrder, reportNo, obxCount);
-					break;
 				case 135:
 					view = new YellowstonePathology.Business.Test.ABL1KinaseDomainMutation.ABL1KinaseDomainMutationEPICObxView(accessionOrder, reportNo, obxCount);
 					break;

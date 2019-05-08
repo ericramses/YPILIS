@@ -102,9 +102,6 @@ namespace YellowstonePathology.UI.Test
 				case 131:
                     result = new ALKForNSCLCByFISHResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
-				case 132:
-					result = new MicrosatelliteInstabilityAnalysisResultPath(reportNo, accessionOrder, pageNavigator, window);
-                    break;
 				case 135:
 					result = new ABL1KinaseDomainMutationResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
