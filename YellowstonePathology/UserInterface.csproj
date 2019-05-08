@@ -933,7 +933,6 @@
     <Compile Include="Business\Interface\IDataContext.cs" />
     <Compile Include="Business\Interface\IDomainGateway.cs" />
     <Compile Include="Business\Interface\IFlowMarker.cs" />
-    <Compile Include="Business\Interface\ILeukemiaLymphomaResult.cs" />
     <Compile Include="Business\Interface\IOrder.cs" />
     <Compile Include="Business\Interface\IOrderComment.cs" />
     <Compile Include="Business\Interface\IOrderInstruction.cs" />
@@ -1453,8 +1452,6 @@
     <Compile Include="Business\PanelSet.Model\ETV6RUNX1Test.cs" />
     <Compile Include="Business\PanelSet.Model\FISH820Q20Test.cs" />
     <Compile Include="Business\PanelSet.Model\FishAnalysisTest.cs" />
-    <Compile Include="Business\PanelSet.Model\FlowCytometry\FlowCytometryPanelSetCollection.cs" />
-    <Compile Include="Business\PanelSet.Model\FlowCytometry\PanelSetFlowCytometry.cs" />
     <Compile Include="Business\PanelSet.Model\HighRiskHPByISHTest.cs" />
     <Compile Include="Business\PanelSet.Model\HighRiskHPVTestRetired.cs" />
     <Compile Include="Business\PanelSet.Model\IgVHMutationAnalysisTest.cs" />
@@ -4196,7 +4193,6 @@
       <DependentUpon>GrossEntryPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Login\FinalizeAccession\SpecimenAdequacyTypes.cs" />
-    <Compile Include="UI\Login\FlowCytometryOrderPath.cs" />
     <Compile Include="UI\Login\Receiving\SpecimenSelectionPage.xaml.cs">
       <DependentUpon>SpecimenSelectionPage.xaml</DependentUpon>
     </Compile>
@@ -4696,17 +4692,9 @@
     <Compile Include="UI\CustomControls\CloseableTabItem.cs" />
     <Compile Include="UI\CustomControls\MainMenuButton.cs" />
     <Compile Include="UI\CustomControls\SpecimenControl.cs" />
-    <Compile Include="UI\Flow\FlowDiagnosis.xaml.cs">
-      <SubType>Code</SubType>
-      <DependentUpon>FlowDiagnosis.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UI\Flow\FlowWorkspace.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>FlowWorkspace.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Flow\MarkerPanelWorkspace.xaml.cs">
-      <SubType>Code</SubType>
-      <DependentUpon>MarkerPanelWorkspace.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -6511,19 +6499,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Flow\FlowDiagnosis.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="UI\Flow\FlowWorkspace.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\Flow\MarkerPanelWorkspace.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

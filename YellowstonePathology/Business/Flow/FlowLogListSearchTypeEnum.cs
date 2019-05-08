@@ -8,11 +8,9 @@ namespace YellowstonePathology.Business.Flow
 	public enum FlowLogListSearchTypeEnum
 	{
 		GetByLeukemiaNotFinal,
-		GetByTestType,
 		GetByCommonTestAccessionMonth,
 		GetByReportNo,
 		GetByAccessionMonth,
-		GetByPatientName,
-		GetByPathologistId
+		GetByPatientName
 	}
 }
