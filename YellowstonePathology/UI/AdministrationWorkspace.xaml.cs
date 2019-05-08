@@ -1020,8 +1020,24 @@ namespace YellowstonePathology.UI
             */
         }
 
+        private void WriteCDM()
+        {
+            Business.Test.AccessionOrder ao = Business.Persistence.DocumentGateway.Instance.GetAccessionOrderByMasterAccessionNo("19-12484");
+            Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill = ao.PanelSetOrderCollection[0].PanelSetOrderCPTCodeBillCollection.GetNextItem("19-12484.S");
+            panelSetOrderCPTCodeBill.Quantity = 1;
+            panelSetOrderCPTCodeBill.PostDate = DateTime.Parse("05/08/2019");
+            panelSetOrderCPTCodeBill.CPTCode = "88305";
+            panelSetOrderCPTCodeBill.MedicalRecord = ao.SvhMedicalRecord;
+            panelSetOrderCPTCodeBill.Account = ao.SvhAccount;
+            Business.HL7View.EPIC.EPICFT1ResultView cdm = new Business.HL7View.EPIC.EPICFT1ResultView(ao, panelSetOrderCPTCodeBill);
+            cdm.Publish("d:\\testing");            
+        }
+
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
+            this.WriteCDM();
+            return;
+
             Business.Stain.Model.StainCollection stainCollection = Business.Stain.Model.StainCollection.Instance;
             StringBuilder result = new StringBuilder();
             foreach (Business.Stain.Model.Stain stain in stainCollection)
