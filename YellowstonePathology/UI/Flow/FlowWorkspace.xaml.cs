@@ -321,15 +321,6 @@ namespace YellowstonePathology.UI.Flow
             }
         }
 
-        private void ComboBoxTestPerformed_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (this.ComboBoxTestPerformed.SelectedItem != null)
-            {
-                YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet = (YellowstonePathology.Business.PanelSet.Model.PanelSet)this.ComboBoxTestPerformed.SelectedItem;
-                this.m_FlowUI.ChangePanelSetIdentification(panelSet);
-            }
-        }
-
         public void SaveData(object target, ExecutedRoutedEventArgs args)
         {
             MessageBox.Show("The Flow Workspace has been saved.");
@@ -384,7 +375,6 @@ namespace YellowstonePathology.UI.Flow
             this.textBoxSearchReportNo.Visibility = Visibility.Hidden;
             this.textBoxSearchPatientName.Visibility = Visibility.Hidden;
             this.stackPanelAccessionMonthSearch.Visibility = Visibility.Hidden;
-            this.comboBoxFlowSearchTestType.Visibility = Visibility.Hidden;
 
             RadioButton radioButton = (RadioButton)args.OriginalSource;
             switch (radioButton.Name)
@@ -400,9 +390,6 @@ namespace YellowstonePathology.UI.Flow
                 case "radioButtonSearchSelectMonth":
                     this.stackPanelAccessionMonthSearch.Visibility = Visibility.Visible;
                     break;
-                case "radioButtonSearchTestId":
-                    this.comboBoxFlowSearchTestType.Visibility = Visibility.Visible;
-                    break;
             }
         }
 
@@ -413,15 +400,6 @@ namespace YellowstonePathology.UI.Flow
 
         private void Search()
         {
-            if (this.radioButtonSearchTestId.IsChecked == true)
-            {
-                if (this.comboBoxFlowSearchTestType.SelectedItem != null)
-                {
-                    YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet = (YellowstonePathology.Business.PanelSet.Model.PanelSet)this.comboBoxFlowSearchTestType.SelectedItem;
-                    this.m_FlowUI.FlowLogSearch.SetByTestType(panelSet.PanelSetId);
-                    this.m_FlowUI.Search();
-                }
-            }
             if (this.radioButtonSearchCurrentMonth.IsChecked == true)
             {
                 this.m_FlowUI.FlowLogSearch.SetByAccessionMonth(DateTime.Today);
@@ -510,15 +488,6 @@ namespace YellowstonePathology.UI.Flow
                 string cellPopulationOfInterest = (string)this.comboBoxCellPopulationOfInterest.Text;
                 this.m_FlowUI.AddMarkerPanel(panelItem.PanelId, cellPopulationOfInterest, panelItem.PanelName);
             }            
-        }
-
-        public void ButtonAddCommonMarkerPanel_Click(object sender, RoutedEventArgs args)
-        {            
-            if (this.comboBoxCommonMarkerPanel.SelectedItem != null)
-            {                
-                Business.Flow.FlowPanelListItem panelItem = (Business.Flow.FlowPanelListItem)this.comboBoxCommonMarkerPanel.SelectedItem;
-                this.m_FlowUI.AddMarkerPanel(panelItem.PanelId, null, panelItem.PanelName);
-            }          
         }
 
         public void ButtonAddMarker_Click(object sender, RoutedEventArgs args)
