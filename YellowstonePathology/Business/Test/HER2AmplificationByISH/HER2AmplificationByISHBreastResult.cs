@@ -15,9 +15,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 				"chemotherapeutic agents.  Dual in situ hybridization (ISH) studies for HER2 amplification were performed on the submitted sample, in " +
 				"accordance with current ASCO/CAP guidelines. For this patient, the HER2:Chr17 ratio was *RATIO* and average HER2 copy number per cell " +
 				"was *HER2COPY* (*CELLSCOUNTED* nuclei examined).  Therefore, HER2 status is *HER2STATUS*.";
-			this.m_ReportReference = "Wolff AC, Hammond MEH, Hicks DG, et al. Recommendations for Human Epidermal Growth Factor Receptor 2 Testing in Breast " +
-				"Cancer. Arch Pathol Lab Med. doi: 10.5858/arpa.2013-0953-SA.";
-
+			this.m_ReportReference = "Wolff AC, Hammond EH, Allison KH, et al. Human Epidermal Growth Factor Receptor 2 Testing in Breast Cancer: American Society of Clinical Oncology/College of American Pathologists Clinical Practice Guideline Focused Update. Arch Pathol Lab Med. doi: 10.5858/arpa.2018-0902-SA.";
 		}
 
 		public override void SetResults(HER2AmplificationByISHTestOrder testOrder, Business.Specimen.Model.SpecimenOrder specimenOrder)
