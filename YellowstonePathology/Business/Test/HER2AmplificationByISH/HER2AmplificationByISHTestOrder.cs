@@ -45,7 +45,6 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
         protected bool m_NotInterpretable;
         protected string m_ASRComment;
         protected string m_FixationComment;
-        protected bool m_HER2ByIHCRequired;
         protected bool m_RecountRequired;
 
         public HER2AmplificationByISHTestOrder()
@@ -643,21 +642,6 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
             }
         }
 
-        [PersistentProperty()]
-        public bool HER2ByIHCRequired
-        {
-            get { return this.m_HER2ByIHCRequired; }
-            set
-            {
-                if (this.m_HER2ByIHCRequired != value)
-                {
-                    this.m_HER2ByIHCRequired = value;
-                    this.NotifyPropertyChanged("HER2ByIHCRequired");
-                }
-            }
-        }
-
-        [PersistentProperty()]
         public bool RecountRequired
         {
             get { return this.m_RecountRequired; }
@@ -724,11 +708,13 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 
         public void SetResults(AccessionOrder accessionOrder)
         {
-            this.SetHER2ByIHCRequired();
-            YellowstonePathology.Business.Test.Her2AmplificationByIHC.Her2AmplificationByIHCTest her2AmplificationByIHCTest = new Business.Test.Her2AmplificationByIHC.Her2AmplificationByIHCTest();
-            if (this.m_HER2ByIHCRequired == true && accessionOrder.PanelSetOrderCollection.Exists(her2AmplificationByIHCTest.PanelSetId, this.OrderedOnId, true) == false)
+            if (this.m_Indicator == HER2AmplificationByISHIndicatorCollection.BreastIndication)
             {
-                this.Result = HER2AmplificationResultEnum.Equivocal.ToString();
+                if (this.AverageHer2Chr17SignalAsDouble.HasValue && this.AverageHer2NeuSignal.HasValue)
+                {
+                    if ((this.AverageHer2Chr17SignalAsDouble >= 2.0 && this.AverageHer2NeuSignal < 4.0) ||
+                        (this.AverageHer2Chr17SignalAsDouble < 2.0 && this.AverageHer2NeuSignal >= 4.0)) this.Result = HER2AmplificationResultEnum.Equivocal.ToString();
+                }
             }
             else
             {
@@ -793,7 +779,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 
             if (result.Status == AuditStatusEnum.OK)
             {
-                if (this.m_HER2ByIHCRequired == true)
+                if (this.IsHER2ByIHCRequired() == true)
                 {
                     Test.Her2AmplificationByIHC.Her2AmplificationByIHCTest her2AmplificationByIHCTest = new Her2AmplificationByIHC.Her2AmplificationByIHCTest();
                     HER2AnalysisSummary.HER2AnalysisSummaryTest her2AmplificationSummaryTest = new HER2AnalysisSummary.HER2AnalysisSummaryTest();
@@ -826,7 +812,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
             return result;
         }
 
-        public void SetHER2ByIHCRequired()
+        public bool IsHER2ByIHCRequired()
         {
             bool result = false;
             if (this.m_Indicator == HER2AmplificationByISHIndicatorCollection.BreastIndication)
@@ -837,8 +823,8 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
                     else if (this.AverageHer2Chr17SignalAsDouble < 2.0 && this.AverageHer2NeuSignal >= 4.0) result = true;
                 }
             }
-            this.HER2ByIHCRequired = result;
             if (result == false) this.m_RecountRequired = false;
+            return result;
         }
     }
 }

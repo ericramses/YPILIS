@@ -164,7 +164,7 @@ namespace YellowstonePathology.UI.Test
                 YellowstonePathology.Business.Test.FinalizeTestResult finalizeTestResult = this.m_PanelSetOrder.Finish(this.m_AccessionOrder);
                 this.HandleFinalizeTestResult(finalizeTestResult);
 
-                if (this.m_PanelSetOrder.HER2ByIHCRequired == false)
+                if (this.m_PanelSetOrder.Result == YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationResultEnum.Equivocal.ToString())
                 {
                     YellowstonePathology.Business.Test.Surgical.SurgicalTest panelSetSurgical = new YellowstonePathology.Business.Test.Surgical.SurgicalTest();
 

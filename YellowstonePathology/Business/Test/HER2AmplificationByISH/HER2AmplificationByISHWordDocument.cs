@@ -22,7 +22,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 			{
 				if (this.m_AccessionOrder.AccessionDate >= DateTime.Parse("1/1/2014") == true)
 				{
-					this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\Her2AmplificationByISH.Breast.3.xml";
+					this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\Her2AmplificationByISH.Breast.4.xml";
 				}
 				else
 				{
@@ -33,7 +33,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 			{
 				if (this.m_AccessionOrder.AccessionDate >= DateTime.Parse("1/1/2014") == true)
 				{
-					this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\Her2AmplificationByISH.Gastric.2.xml";
+					this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\Her2AmplificationByISH.Gastric.3.xml";
 				}
 				else
 				{
@@ -65,26 +65,6 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
                     result += " (SEE COMMENT)";
                 }
 				this.SetXmlNodeData("test_result", result);
-
-                Her2AmplificationByIHC.PanelSetOrderHer2AmplificationByIHC panelSetOrderHer2AmplificationByIHC = null;
-                if (panelSetOrderHer2ByIsh.HER2ByIHCRequired == true)
-                {
-                    Her2AmplificationByIHC.Her2AmplificationByIHCTest her2AmplificationByIHCTest = new Her2AmplificationByIHC.Her2AmplificationByIHCTest();
-                    if(this.m_AccessionOrder.PanelSetOrderCollection.Exists(her2AmplificationByIHCTest.PanelSetId, panelSetOrderHer2ByIsh.OrderedOnId, true) == true)
-                    {
-                        panelSetOrderHer2AmplificationByIHC = (Her2AmplificationByIHC.PanelSetOrderHer2AmplificationByIHC)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(her2AmplificationByIHCTest.PanelSetId);
-                    }
-                }
-
-                if(panelSetOrderHer2AmplificationByIHC == null)
-                {
-                    this.DeleteRow("ihc_score");
-                }
-                else
-                {
-                    this.SetXmlNodeData("ihc_score", panelSetOrderHer2AmplificationByIHC.Score + " (per report provided from " + 
-                        panelSetOrderHer2AmplificationByIHC.ReportNo + ")");
-                }
 
                 if (panelSetOrderHer2ByIsh.Her2Chr17Ratio.HasValue == true)
 				{

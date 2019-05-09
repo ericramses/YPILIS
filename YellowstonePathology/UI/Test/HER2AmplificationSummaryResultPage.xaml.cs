@@ -53,6 +53,7 @@ namespace YellowstonePathology.UI.Test
 
 
             this.m_ControlsNotDisabledOnFinal.Add(this.ButtonNext);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockShowDocument);
             this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalResults);
         }
 
