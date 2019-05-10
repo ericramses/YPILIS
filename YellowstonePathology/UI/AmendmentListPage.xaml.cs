@@ -36,6 +36,8 @@ namespace YellowstonePathology.UI
             {
                 this.ButtonAdd.IsEnabled = false;
                 this.ButtonDelete.IsEnabled = false;
+                this.ButtonEdit.IsEnabled = false;
+                this.ListViewAmendments.MouseDoubleClick -= this.ListViewAmendments_MouseDoubleClick;
             }
 		}
 
@@ -96,9 +98,9 @@ namespace YellowstonePathology.UI
 
 		private void ListViewAmendments_MouseDoubleClick(object sender, MouseButtonEventArgs e)
 		{
-			if (this.ListViewAmendments.SelectedItem != null)
-			{
-				this.ShowEditPage();
+            if (this.ListViewAmendments.SelectedItem != null)
+            {
+                this.ShowEditPage();
             }
         }
 
