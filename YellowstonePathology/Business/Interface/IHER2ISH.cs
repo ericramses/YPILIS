@@ -11,7 +11,7 @@ namespace YellowstonePathology.Business.Interface
         string ReportNo { get; set; }
         string Result { get; set; }
         bool RecountRequired { get; set; }
-        bool HER2ByIHCRequired { get; set; }
+        bool IsHER2ByIHCRequired();
         string GeneticHeterogeneity { get; set; }
         string Indicator { get; set; }
         string Her2Chr17ClusterRatio { get; set; }

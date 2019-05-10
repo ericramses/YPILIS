@@ -80,7 +80,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 
         public virtual void SetResults(Business.Specimen.Model.SpecimenOrder specimenOrder)
         {
-            if (this.m_HER2ISH.HER2ByIHCRequired == true)
+            if (this.m_HER2ISH.IsHER2ByIHCRequired() == true)
             {
                 this.m_InterpretiveComment += Environment.NewLine + Environment.NewLine + "HER2 immunohistochemistry will be performed and " +
                     "results will be issued in an addendum to the original surgical pathology report.";
