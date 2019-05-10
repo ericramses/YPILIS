@@ -210,7 +210,7 @@ namespace YellowstonePathology.UI.Surgical
 
 		private void MainWindowCommandButtonHandler_ShowAmendmentDialog(object sender, EventArgs e)
 		{
-			if (this.m_PathologistUI.AccessionOrder != null && this.m_PathologistUI.AccessionOrder.AccessionLock.IsLockAquiredByMe == true)
+			if (this.m_PathologistUI.AccessionOrder != null)
 			{
 				this.m_PathologistUI.ShowAmendmentDialog();
             }
