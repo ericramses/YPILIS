@@ -41,7 +41,6 @@ namespace YellowstonePathology.Business.Test.HER2AnalysisSummary
         protected bool m_NotInterpretable;
         protected string m_ASRComment;
         protected string m_FixationComment;
-        protected bool m_HER2ByIHCRequired;
         protected bool m_RecountRequired;
         private int m_CellsRecount;
         private int m_TotalChr17SignalsRecount;
@@ -486,21 +485,6 @@ namespace YellowstonePathology.Business.Test.HER2AnalysisSummary
             }
         }
 
-        [PersistentProperty()]
-        public bool HER2ByIHCRequired
-        {
-            get { return this.m_HER2ByIHCRequired; }
-            set
-            {
-                if (this.m_HER2ByIHCRequired != value)
-                {
-                    this.m_HER2ByIHCRequired = value;
-                    this.NotifyPropertyChanged("HER2ByIHCRequired");
-                }
-            }
-        }
-
-        [PersistentProperty()]
         public bool RecountRequired
         {
             get { return this.m_RecountRequired; }
@@ -897,7 +881,6 @@ namespace YellowstonePathology.Business.Test.HER2AnalysisSummary
             this.m_TotalChr17SignalsCounted = ishTestOrder.TotalChr17SignalsCounted;
             this.m_TotalHer2SignalsCounted = ishTestOrder.TotalHer2SignalsCounted;
             this.m_Her2byIHCOrder = ishTestOrder.Her2byIHCOrder;
-            //this.m_NumberOfObservers = ishTestOrder.NumberOfObservers;
             this.m_IncludeImmunoRecommendedComment = ishTestOrder.IncludeImmunoRecommendedComment;
             this.m_IncludeResultComment = ishTestOrder.IncludeResultComment;
             this.m_IncludePolysomyComment = ishTestOrder.IncludePolysomyComment;
@@ -906,23 +889,14 @@ namespace YellowstonePathology.Business.Test.HER2AnalysisSummary
             this.m_Chr17SignalRangeHigh = ishTestOrder.Chr17SignalRangeHigh;
             this.m_Her2SignalRangeLow = ishTestOrder.Her2SignalRangeLow;
             this.m_Her2SignalRangeHigh = ishTestOrder.Her2SignalRangeHigh;
-            //this.m_CommentLabel = ishTestOrder.CommentLabel;
             this.m_SampleAdequacy = ishTestOrder.SampleAdequacy;
             this.m_ProbeSignalIntensity = ishTestOrder.ProbeSignalIntensity;
             this.m_TechComment = ishTestOrder.TechComment;
-            //this.m_ResultComment = ishTestOrder.ResultComment;
-            //this.m_InterpretiveComment = ishTestOrder.InterpretiveComment;
-            //this.m_ResultDescription = ishTestOrder.ResultDescription;
             this.m_SourceBlock = ishTestOrder.SourceBlock;
             this.m_GeneticHeterogeneity = ishTestOrder.GeneticHeterogeneity;
             this.m_Her2Chr17ClusterRatio = ishTestOrder.Her2Chr17ClusterRatio;
-            //this.m_ReportReference = ishTestOrder.ReportReference;
             this.m_Indicator = ishTestOrder.Indicator;
-            //this.m_Method = ishTestOrder.Method;
             this.m_NotInterpretable = ishTestOrder.NotInterpretable;
-            //this.m_ASRComment = ishTestOrder.ASRComment;
-            //this.m_FixationComment = ishTestOrder.FixationComment;
-            this.m_HER2ByIHCRequired = ishTestOrder.HER2ByIHCRequired;
             this.m_RecountRequired = false;
 
             Her2AmplificationByIHC.PanelSetOrderHer2AmplificationByIHC ihcTestOrder = (Her2AmplificationByIHC.PanelSetOrderHer2AmplificationByIHC)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(ihcTest.PanelSetId, this.m_OrderedOnId, true);
@@ -938,6 +912,21 @@ namespace YellowstonePathology.Business.Test.HER2AnalysisSummary
             }
 
             this.m_Distribute = true;
+        }
+
+        public bool IsHER2ByIHCRequired()
+        {
+            bool result = false;
+            if (this.m_Indicator == HER2AmplificationByISH.HER2AmplificationByISHIndicatorCollection.BreastIndication)
+            {
+                if (this.AverageHer2Chr17SignalAsDouble.HasValue && this.AverageHer2NeuSignal.HasValue)
+                {
+                    if (this.AverageHer2Chr17SignalAsDouble >= 2.0 && this.AverageHer2NeuSignal < 4.0) result = true;
+                    else if (this.AverageHer2Chr17SignalAsDouble < 2.0 && this.AverageHer2NeuSignal >= 4.0) result = true;
+                }
+            }
+            if (result == false) this.m_RecountRequired = false;
+            return result;
         }
     }
 }

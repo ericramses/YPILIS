@@ -290,17 +290,6 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
             this.AddNextObxElement("Average HER2 Copy Number: " + panelSetOrder.AverageHer2NeuSignal.Value.ToString(), document, "F");
             this.AddNextObxElement(string.Empty, document, "F");
 
-            if (panelSetOrder.HER2ByIHCRequired == true)
-            {
-                Her2AmplificationByIHC.Her2AmplificationByIHCTest her2AmplificationByIHCTest = new Her2AmplificationByIHC.Her2AmplificationByIHCTest();
-                if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(her2AmplificationByIHCTest.PanelSetId, panelSetOrder.OrderedOnId, true) == true)
-                {
-                    Her2AmplificationByIHC.PanelSetOrderHer2AmplificationByIHC panelSetOrderHer2AmplificationByIHC = (Her2AmplificationByIHC.PanelSetOrderHer2AmplificationByIHC)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(her2AmplificationByIHCTest.PanelSetId);
-                    string ihc = "HER2 By IHC: " + panelSetOrderHer2AmplificationByIHC.Score + " (per report provided from " + panelSetOrderHer2AmplificationByIHC.ReportNo + ")";
-                    this.AddNextObxElement(ihc, document, "F");
-                }
-            }
-
             if (string.IsNullOrEmpty(panelSetOrder.ResultComment) != true)
             {
                 this.HandleLongString("Comment: " + panelSetOrder.ResultComment, document, "F");
