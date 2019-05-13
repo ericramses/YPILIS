@@ -1199,6 +1199,7 @@
     <Compile Include="Business\Test\OrderAssociation\OrderAssociationTestOrder.cs" />
     <Compile Include="Business\Test\p57\p57Test.cs" />
     <Compile Include="Business\Test\ParvovirusB19ByPCR\ParvovirusB19ByPCRTest.cs" />
+    <Compile Include="Business\Test\PDL122C3\PDL22C3CMMCNTEView.cs" />
     <Compile Include="Business\Test\PDL1288\PDL1288Test.cs" />
     <Compile Include="Business\Test\PlateletAssociatedAntibodiesV2\PlateletAssociatedAntibodiesV2EPICOBXView.cs" />
     <Compile Include="Business\Test\PlateletAssociatedAntibodiesV2\PlateletAssociatedAntibodiesV2Test.cs" />
@@ -3632,6 +3633,10 @@
       <DependentUpon>HER2AmplificationSummaryResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Test\HER2AmplificationSummaryResultPath.cs" />
+    <Compile Include="UI\Test\UnreachableResultPage.xaml.cs">
+      <DependentUpon>UnreachableResultPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Test\UnreachableResultPath.cs" />
     <Compile Include="UI\Test\OrderAssociationResultPage.xaml.cs">
       <DependentUpon>OrderAssociationResultPage.xaml</DependentUpon>
     </Compile>
@@ -5587,6 +5592,10 @@
     <Page Include="UI\Test\HER2AmplificationSummaryResultPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Test\UnreachableResultPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Test\OrderAssociationResultPage.xaml">
       <SubType>Designer</SubType>
