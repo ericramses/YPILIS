@@ -32,7 +32,23 @@ namespace YellowstonePathology.Business.Gateway
                 cmd.ExecuteNonQuery();
             }
         }
-        
+
+        public static void UpdateBillingEODProcess(DateTime processDate, string processName)
+        {
+            MySqlCommand cmd = new MySqlCommand("INSERT INTO tblBillingEODProcess(`ProcessDate`, `" + processName +
+                "`) VALUES(@ProcessDate, @CurrTime) ON DUPLICATE KEY UPDATE `" + processName + "` =  @CurrTime;");
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.AddWithValue("@CurrTime", DateTime.Now);
+            cmd.Parameters.AddWithValue("@ProcessDate", processDate);
+
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                cmd.ExecuteNonQuery();
+            }
+        }
+
         /*public static YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBillCollection GetNoCodeTypeItems()
         {
             YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBillCollection result = new Test.PanelSetOrderCPTCodeBillCollection();
