@@ -3048,6 +3048,7 @@
     <Compile Include="UI\Billing\AddFISHCPTCodePage.xaml.cs">
       <DependentUpon>AddFISHCPTCodePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Billing\HRHCDMList.cs" />
     <Compile Include="UI\Billing\SimulationDialog.xaml.cs">
       <DependentUpon>SimulationDialog.xaml</DependentUpon>
     </Compile>

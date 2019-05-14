@@ -1023,21 +1023,19 @@ namespace YellowstonePathology.UI
         private void WriteCDM()
         {
             Business.Test.AccessionOrder ao = Business.Persistence.DocumentGateway.Instance.GetAccessionOrderByMasterAccessionNo("19-12484");
-
-            foreach(Business.Billing.Model.CptCode cptCode in Store.AppDataStore.Instance.CPTCodeCollection)
+            UI.Billing.HRHCDMList hrhCDMList = new Billing.HRHCDMList();
+            foreach(string cdm in hrhCDMList)
             {
-                if(string.IsNullOrEmpty(cptCode.SVHCDMCode) == false)
-                {
-                    Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill = ao.PanelSetOrderCollection[0].PanelSetOrderCPTCodeBillCollection.GetNextItem("19-12484.S");
-                    panelSetOrderCPTCodeBill.Quantity = 1;
-                    panelSetOrderCPTCodeBill.PostDate = DateTime.Parse("05/08/2019");
-                    panelSetOrderCPTCodeBill.CPTCode = cptCode.Code;
-                    panelSetOrderCPTCodeBill.MedicalRecord = ao.SvhMedicalRecord;
-                    panelSetOrderCPTCodeBill.Account = ao.SvhAccount;
-                    Business.HL7View.EPIC.EPICFT1ResultView cdm = new Business.HL7View.EPIC.EPICFT1ResultView(ao, panelSetOrderCPTCodeBill);
-                    cdm.Publish("d:\\testing");
-                    ao.PanelSetOrderCollection[0].PanelSetOrderCPTCodeBillCollection.Add(panelSetOrderCPTCodeBill);
-                }                
+                Business.Billing.Model.CptCode cptCode = Store.AppDataStore.Instance.CPTCodeCollection.GetCPTCodeByCDM(cdm);
+                Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill = ao.PanelSetOrderCollection[0].PanelSetOrderCPTCodeBillCollection.GetNextItem("19-12484.S");
+                panelSetOrderCPTCodeBill.Quantity = 1;
+                panelSetOrderCPTCodeBill.PostDate = DateTime.Parse("05/14/2019");
+                panelSetOrderCPTCodeBill.CPTCode = cptCode.Code;
+                panelSetOrderCPTCodeBill.MedicalRecord = ao.SvhMedicalRecord;
+                panelSetOrderCPTCodeBill.Account = ao.SvhAccount;
+                Business.HL7View.EPIC.EPICFT1ResultView result = new Business.HL7View.EPIC.EPICFT1ResultView(ao, panelSetOrderCPTCodeBill);
+                result.Publish("d:\\testing");
+                ao.PanelSetOrderCollection[0].PanelSetOrderCPTCodeBillCollection.Add(panelSetOrderCPTCodeBill);
             }            
         }
 

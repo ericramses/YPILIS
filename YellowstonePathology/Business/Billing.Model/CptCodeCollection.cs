@@ -122,6 +122,20 @@ namespace YellowstonePathology.Business.Billing.Model
             return result;
         }
 
+        public CptCode GetCPTCodeByCDM(string cdm)
+        {
+            CptCode result = null;
+            foreach (CptCode cpt in this)
+            {
+                if (cpt.SVHCDMCode == cdm)
+                {
+                    result = cpt;
+                    break;
+                }
+            }
+            return result;
+        }
+
         public CptCodeCollection GetFISHCPTCodeCollection()
         {
             CptCodeCollection result = new CptCodeCollection();
