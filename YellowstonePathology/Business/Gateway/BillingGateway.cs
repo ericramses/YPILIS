@@ -33,10 +33,23 @@ namespace YellowstonePathology.Business.Gateway
             }
         }
 
+        public static void CreateBillingEODProcess(DateTime processDate)
+        {
+            MySqlCommand cmd = new MySqlCommand("Insert Ignore tblBillingEODProcess (ProcessDate) Values(@ProcessDate);");
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.AddWithValue("@ProcessDate", processDate);
+
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                cmd.ExecuteNonQuery();
+            }
+        }
+
         public static void UpdateBillingEODProcess(DateTime processDate, string processName)
         {
-            MySqlCommand cmd = new MySqlCommand("INSERT INTO tblBillingEODProcess(`ProcessDate`, `" + processName +
-                "`) VALUES(@ProcessDate, @CurrTime) ON DUPLICATE KEY UPDATE `" + processName + "` =  @CurrTime;");
+            MySqlCommand cmd = new MySqlCommand("UPDATE tblBillingEODProcess set `" + processName + "` = @CurrTime where ProcessDate = @ProcessDate");
             cmd.CommandType = CommandType.Text;
             cmd.Parameters.AddWithValue("@CurrTime", DateTime.Now);
             cmd.Parameters.AddWithValue("@ProcessDate", processDate);
@@ -47,6 +60,30 @@ namespace YellowstonePathology.Business.Gateway
                 cmd.Connection = cn;
                 cmd.ExecuteNonQuery();
             }
+        }
+
+        public static YellowstonePathology.Business.Billing.Model.EODProcessStatus GetBillingEODProcessStatus(DateTime processDate)
+        {
+            YellowstonePathology.Business.Billing.Model.EODProcessStatus result = new Billing.Model.EODProcessStatus();
+            MySqlCommand cmd = new MySqlCommand("Select * from tblBillingEODProcess where ProcessDate = @ProcessDate;");
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.AddWithValue("@ProcessDate", processDate);
+
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(result, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                    }
+                }
+            }
+            return result;
         }
 
         /*public static YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBillCollection GetNoCodeTypeItems()
