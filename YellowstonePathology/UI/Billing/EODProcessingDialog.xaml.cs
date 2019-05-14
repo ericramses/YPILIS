@@ -31,7 +31,9 @@ namespace YellowstonePathology.UI.Billing
         private ObservableCollection<string> m_StatusMessageList;
         private string m_StatusCountMessage;        
         private int m_StatusCount;
-        private List<string> m_ReportNumbersToProcess;        
+        private List<string> m_ReportNumbersToProcess;
+
+        private YellowstonePathology.Business.Billing.Model.EODProcessStatus m_EODProcessStatus;
 
         public EODProcessingDialog()
         {
@@ -498,7 +500,8 @@ namespace YellowstonePathology.UI.Billing
 
         private void ButtonStart_Click(object sender, RoutedEventArgs e)
         {            
-            this.m_StatusMessageList.Clear();            
+            this.m_StatusMessageList.Clear();
+            this.HandleProcessStatus();
             this.m_BackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.m_BackgroundWorker.WorkerSupportsCancellation = false;
             this.m_BackgroundWorker.WorkerReportsProgress = true;
@@ -510,14 +513,29 @@ namespace YellowstonePathology.UI.Billing
 
         private void RunAllProcesses(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
-            this.RunUpdateMRNAcct(sender, e);
-            this.MatchAccessionOrdersToADT(sender, e);            
-            this.ProcessSVHCDMFiles(sender, e);
-            this.TransferSVHFiles(sender, e);
-            this.SendSVHClinicEmail(sender, e);            
-            this.ProcessPSAFiles(sender, e);
-            this.TransferPSAFiles(sender, e);
-            this.FaxTheReport(sender, e);
+            if (this.m_EODProcessStatus.MRNAcctUpdate.HasValue == false) this.RunUpdateMRNAcct(sender, e);
+            else this.m_BackgroundWorker.ReportProgress(1, "Updating MRN/ACCT Already Performed: " + this.m_EODProcessStatus.MRNAcctUpdate.Value.ToLongTimeString());
+
+            if (this.m_EODProcessStatus.ADTMatch.HasValue == false) this.MatchAccessionOrdersToADT(sender, e);
+            else this.m_BackgroundWorker.ReportProgress(1, "Matching SVH ADT Already Performed: " + this.m_EODProcessStatus.ADTMatch.Value.ToLongTimeString());
+
+            if (this.m_EODProcessStatus.ProcessSVHCDMFiles.HasValue == false) this.ProcessSVHCDMFiles(sender, e);
+            else this.m_BackgroundWorker.ReportProgress(1, "SVH CDM files Already Performed: " + this.m_EODProcessStatus.ProcessSVHCDMFiles.Value.ToLongTimeString());
+
+            if (this.m_EODProcessStatus.TransferSVHFiles.HasValue == false) this.TransferSVHFiles(sender, e);
+            else this.m_BackgroundWorker.ReportProgress(1, "Transfer SVH Files Already Performed: " + this.m_EODProcessStatus.TransferSVHFiles.Value.ToLongTimeString());
+
+            if (this.m_EODProcessStatus.SendSVHClinicEmail.HasValue == false) this.SendSVHClinicEmail(sender, e);
+            else this.m_BackgroundWorker.ReportProgress(1, "Send SVH Clinic Email Already Performed: " + this.m_EODProcessStatus.SendSVHClinicEmail.Value.ToLongTimeString());
+
+            if (this.m_EODProcessStatus.ProcessPSAFiles.HasValue == false) this.ProcessPSAFiles(sender, e);
+            else this.m_BackgroundWorker.ReportProgress(1, "Process PSA Files Already Performed: " + this.m_EODProcessStatus.ProcessPSAFiles.Value.ToLongTimeString());
+
+            if (this.m_EODProcessStatus.TransferPSAFiles.HasValue == false) this.TransferPSAFiles(sender, e);
+            else this.m_BackgroundWorker.ReportProgress(1, "Transfer PSA Files Already Performed: " + this.m_EODProcessStatus.TransferPSAFiles.Value.ToLongTimeString());
+
+            if (this.m_EODProcessStatus.FaxTheReport.HasValue == false) this.FaxTheReport(sender, e);
+            else this.m_BackgroundWorker.ReportProgress(1, "Fax The Report Already Performed: " + this.m_EODProcessStatus.FaxTheReport.Value.ToLongTimeString());
         }
 
         private void AllProcessBackgroundWorker_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
@@ -661,6 +679,12 @@ namespace YellowstonePathology.UI.Billing
             this.m_BackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(RunUpdateMRNAcct);
             this.m_BackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(BackgroundWorker_RunWorkerCompleted);
             this.m_BackgroundWorker.RunWorkerAsync();
+        }
+
+        private void HandleProcessStatus()
+        {
+            YellowstonePathology.Business.Gateway.BillingGateway.CreateBillingEODProcess(DateTime.Today);
+            this.m_EODProcessStatus = YellowstonePathology.Business.Gateway.BillingGateway.GetBillingEODProcessStatus(DateTime.Today);
         }
     }
 }
